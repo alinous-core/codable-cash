@@ -4,6 +4,7 @@ compiler:
     env: BUILD=cmake CPP11=ON
 os:
     - linux
+sudo: enabled
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y libgmp-dev
