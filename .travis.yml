@@ -14,9 +14,9 @@ addons:
     - cmake
     - yasm
     - lcov
-script: "./cmakeDebug.sh"
+script: "./travisbuild.sh"
 after_success:
-  - ./maketest.sh
+  - echo "finished"
 notifications:
   email:
     recipients:
