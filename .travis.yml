@@ -1,14 +1,12 @@
 language: cpp
 compiler:
     - gcc
-    env: BUILD=cmake CPP11=ON
+env: BUILD=cmake CPP11=ON
 os:
     - linux
-sudo: enabled
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y libgmp-dev
-  - sudo apt-get install -y cpputest
 addons:
   apt:
     packages:
