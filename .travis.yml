@@ -3,10 +3,11 @@ compiler:
     - gcc
 env: BUILD=cmake CPP11=ON
 os:
-    - linux
+  - linux
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y libgmp-dev
+  - sudo apt-get install -y cpputest
 addons:
   apt:
     packages:
