@@ -1,0 +1,23 @@
+language: cpp
+compiler:
+    - g++
+    env: BUILD=cmake CPP11=ON
+os:
+    - linux
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libgmp-dev
+  - sudo apt-get install -y cpputest
+addons:
+  apt:
+    packages:
+    - cmake
+    - yasm
+    - lcov
+script: "./cmakeDebug.sh"
+after_success:
+  - ./maketest.sh
+notifications:
+  email:
+    recipients:
+      - info@alinous.org
