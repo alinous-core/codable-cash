@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <string.h>
 #include "CppUTest/CommandLineTestRunner.h"
 #include <gmp.h>
 
@@ -37,4 +38,16 @@ TEST(SchnorrTestGroup, generateKey){
 	mpz_clear(ans);
 	delete key;
 }
+
+TEST(SchnorrTestGroup, sign){
+	SchnorrKeyPair* key = Schnorr::generateKey();
+	const char* testData = "asdfghjjklqwertyuiopzxcvbnm,./poiiuuuytrtrree";
+	int size = strlen(testData);
+
+	SchnorrSignature* sig = Schnorr::sign(key->secretKey, key->publicKey, (const uint8_t*)testData, (size_t)size);
+
+	delete key;
+	delete sig;
+}
+
 

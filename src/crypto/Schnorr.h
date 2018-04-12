@@ -9,6 +9,10 @@
 #define CRYPTO_SCHNORR_H_
 
 #include "SchnorrKeyPair.h"
+#include "SchnorrSignature.h"
+
+#include <stdint.h>
+#include <stdlib.h>
 
 namespace codablecash {
 
@@ -28,10 +32,11 @@ public:
 	static constexpr int keyLength = 256;
 	static SchnorrConsts cnsts;
 	static SchnorrKeyPair* generateKey();
-
+	static SchnorrSignature* sign(const mpz_t s, const mpz_t p, const uint8_t* data, size_t size);
 
 	Schnorr();
 	virtual ~Schnorr();
+
 };
 
 }

@@ -3,6 +3,7 @@
 set(__cryptosrc
 	crypto/Schnorr.cpp
 	crypto/SchnorrKeyPair.cpp
+	crypto/SchnorrSignature.cpp
 )
 	
 set(cryptosrc ${__cryptosrc} PARENT_SCOPE)
