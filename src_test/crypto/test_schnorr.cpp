@@ -25,3 +25,16 @@ TEST(SchnorrTestGroup, test01){
 	delete psc;
 }
 
+TEST(SchnorrTestGroup, generateKey){
+	SchnorrKeyPair* key = Schnorr::generateKey();
+
+	mpz_t ans; mpz_init(ans);
+
+	mpz_powm(ans, Schnorr::cnsts.G, key->secretKey, Schnorr::cnsts.Q);
+
+	CHECK_TRUE(mpz_cmp(ans, key->publicKey) == 0);
+
+	mpz_clear(ans);
+	delete key;
+}
+
