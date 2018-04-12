@@ -30,7 +30,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 	    set(CPPUTEST_LDFLAGS CppUTest CppUTestExt)
 	else()
 	    find_package(PkgConfig REQUIRED)
-	    pkg_search_module(CPPUTEST REQUIRED cpputest>=3.8)
+	    pkg_search_module(CPPUTEST REQUIRED cpputest>=3.4)
 	    message(STATUS "Found CppUTest version ${CPPUTEST_VERSION}")
 	endif()
 	
