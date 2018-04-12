@@ -8,6 +8,7 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y libgmp-dev
   - sudo apt-get install -y cpputest
+  - pip install --user cpp-coveralls
 addons:
   apt:
     packages:
@@ -16,7 +17,7 @@ addons:
     - lcov
 script: "./travisbuild.sh"
 after_success:
-  - echo "finished"
+    - coveralls --root . -E ".*src_ext*"
 notifications:
   email:
     recipients:

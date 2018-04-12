@@ -10,12 +10,9 @@
 namespace codablecash {
 
 Schnorr::Schnorr() {
-	// TODO Auto-generated constructor stub
-
 }
 
 Schnorr::~Schnorr() {
-	// TODO Auto-generated destructor stub
 }
 
 }
