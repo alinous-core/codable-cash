@@ -17,7 +17,7 @@ addons:
     - lcov
 script: "./travisbuild.sh"
 after_success:
-    - coveralls --root . -E ".*src_ext*"
+    - coveralls --root . -E ".*src_ext*" -E "src_test" -E "target"
 notifications:
   email:
     recipients:
