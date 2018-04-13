@@ -8,7 +8,6 @@
 
 #include <iostream>
 #include "CppUTest/CommandLineTestRunner.h"
-#include "base/SysMutex.h"
 
 #include "base/ArrayList.h"
 

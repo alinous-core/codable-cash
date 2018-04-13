@@ -47,7 +47,6 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
-					<fileInfo id="cdt.managedbuild.toolchain.gnu.base.1231765111.2079436326" name="cryptotest.info" rcbsApplicability="disable" resourcePath="target/coverage/crypto/cryptotest.info" toolsToInvoke=""/>
 					<sourceEntries>
 						<entry excluding="dbbase|src_db|src|src_test|src_ext" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
