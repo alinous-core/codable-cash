@@ -14,11 +14,15 @@ namespace alinous {
 
 class UnicodeString {
 public:
-	UnicodeString(const wchar_t* str);
-	UnicodeString(const wchar_t* str, int cap);
+	UnicodeString(const wchar_t* str) throw();
+	UnicodeString(const wchar_t* str, int cap) throw();
+	UnicodeString(const UnicodeString* ptr) throw();
+
 	virtual ~UnicodeString();
 
 	UnicodeString* append(wchar_t ch);
+
+	char* toCString();
 
 	int length() const throw();
 	wchar_t get(int i) const throw();

@@ -10,10 +10,16 @@
 
 namespace alinous {
 
+class UnicodeString;
+
 class File {
 public:
-	File();
-	virtual ~File();
+	File(const UnicodeString* pathname) throw();
+	virtual ~File() throw();
+
+private:
+	UnicodeString *pathSeparator;
+	UnicodeString *path;
 };
 
 } /* namespace alinous */

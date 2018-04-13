@@ -10,7 +10,7 @@
 namespace alinous {
 
 
-UnicodeString::UnicodeString(const wchar_t* str){
+UnicodeString::UnicodeString(const wchar_t* str) throw() {
 	this->buff =  new RawArrayPrimitive<wchar_t>(32);
 	this->__hashCode = 0;
 	const wchar_t* ptr = str;
@@ -21,7 +21,7 @@ UnicodeString::UnicodeString(const wchar_t* str){
 	}
 }
 
-UnicodeString::UnicodeString(const wchar_t* str, int cap){
+UnicodeString::UnicodeString(const wchar_t* str, int cap) throw() {
 	this->buff =  new RawArrayPrimitive<wchar_t>(cap);
 	this->__hashCode = 0;
 
@@ -30,6 +30,17 @@ UnicodeString::UnicodeString(const wchar_t* str, int cap){
 		wchar_t ch = *ptr;
 		append(ch);
 		ptr++;
+	}
+}
+
+UnicodeString::UnicodeString(const UnicodeString* ptr) throw(){
+	this->buff =  new RawArrayPrimitive<wchar_t>(32);
+	this->__hashCode = 0;
+
+	int length = ptr->length();
+	for(int i = 0; i != length; ++i){
+		wchar_t ch = ptr->charAt(i);
+		append(ch);
 	}
 }
 
@@ -44,6 +55,11 @@ UnicodeString* UnicodeString::append(wchar_t ch)
 	this->__hashCode = 0;
 
 	return this;
+}
+
+char* UnicodeString::toCString(){
+	// TODO: debug
+	return nullptr;
 }
 
 wchar_t UnicodeString::get(int i) const throw() { return this->buff->get(i); };

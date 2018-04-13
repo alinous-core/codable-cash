@@ -7,15 +7,18 @@
 
 #include <base_io/File.h>
 
+#include "base/UnicodeString.h"
+
 namespace alinous {
 
-File::File() {
-	// TODO Auto-generated constructor stub
-
+File::File(const UnicodeString* pathname) throw() {
+	this->path = new UnicodeString(pathname);
+	this->pathSeparator = new UnicodeString(L"/");
 }
 
-File::~File() {
-	// TODO Auto-generated destructor stub
+File::~File() throw() {
+	delete this->path;
+	delete this->pathSeparator;
 }
 
 } /* namespace alinous */

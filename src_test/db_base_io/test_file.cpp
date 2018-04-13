@@ -8,6 +8,7 @@
 #include "CppUTest/CommandLineTestRunner.h"
 
 #include "base_io/File.h"
+#include "base/UnicodeString.h"
 
 using namespace alinous;
 
@@ -20,7 +21,8 @@ TEST_GROUP(FileTestGroup) {
 
 
 TEST(FileTestGroup, test01){
-	File* file = new File();
+	UnicodeString path(L"testdir");
+	File* file = new File(&path);
 
 	delete file;
 }

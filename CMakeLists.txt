@@ -41,6 +41,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 		coverage/crypto/cryptotest.info
 		coverage/report_db_base/report_db_base.info
 		coverage/report_db_base_io/report_db_base_io.info
+		coverage/report_db_charsets/report_db_charsets.info
 	)
 	add_custom_target(report)
 	add_custom_command(TARGET report
