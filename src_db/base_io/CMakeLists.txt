@@ -1,12 +1,11 @@
 set(__src
-	base/SysMutex.cpp
-	base/UnicodeString.cpp
+	base_io/File.cpp
 )
 	
-set(dbbasesrc ${__src} PARENT_SCOPE)
+set(dbiosrc ${__src} PARENT_SCOPE)
 
-set(target_name report_db_base)
-set(gnodir ${CMAKE_BINARY_DIR}/src_db/CMakeFiles/alinousdb.dir/base/)
+set(target_name report_db_base_io)
+set(gnodir ${CMAKE_BINARY_DIR}/src_db/CMakeFiles/alinousdb.dir/base_io/)
 
 
 

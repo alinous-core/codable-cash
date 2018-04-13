@@ -1,27 +1,28 @@
 /*
- * test_thread.cpp
+ * test_file.cpp
  *
  *  Created on: 2018/04/13
  *      Author: iizuka
  */
 
-
 #include "CppUTest/CommandLineTestRunner.h"
-#include "base/SysMutex.h"
+
+#include "base_io/File.h"
 
 using namespace alinous;
 
 
-TEST_GROUP(SysMutexTestGroup) {
+TEST_GROUP(FileTestGroup) {
 	TEST_SETUP() {}
 	TEST_TEARDOWN() {}
 
 };
 
-TEST(SysMutexTestGroup, test01){
-	SysMutex mutex;
 
-	mutex.lock();
+TEST(FileTestGroup, test01){
+	File* file = new File();
 
-	mutex.unlock();
+	delete file;
 }
+
+
