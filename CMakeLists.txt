@@ -44,14 +44,15 @@ set(src
 	"AlinousStore.cpp"
 )
 
-#message("INCLUDE : ${PROJECT_SOURCE_DIR}/src/")
-include_directories(${PROJECT_SOURCE_DIR}/src/)
 include_directories(${PROJECT_SOURCE_DIR}/src_ext/)
+include_directories(${PROJECT_SOURCE_DIR}/src_db/)
+include_directories(${PROJECT_SOURCE_DIR}/src/)
 
+add_subdirectory(src_db)
 add_subdirectory(src)
 
 add_executable(codablecash ${src})
-target_link_libraries(codablecash codablelib extlib gmp)
+target_link_libraries(codablecash codablelib extlib alinousdb gmp)
 
 #
 # Test Codes
