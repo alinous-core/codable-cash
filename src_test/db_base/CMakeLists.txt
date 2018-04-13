@@ -1,10 +1,11 @@
 
 set(src
-	"testmain.cpp"
+	testmain.cpp
 )
 
 set(db_base_test_src
 	test_thread.cpp
+	test_arraylist.cpp
 )
 
 add_executable(db_base_test ${src} ${db_base_test_src})

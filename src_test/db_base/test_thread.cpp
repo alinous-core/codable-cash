@@ -14,13 +14,13 @@
 using namespace alinous;
 
 
-TEST_GROUP(MpzTestGroup) {
+TEST_GROUP(SysMutexTestGroup) {
 	TEST_SETUP() {}
 	TEST_TEARDOWN() {}
 
 };
 
-TEST(MpzTestGroup, test01){
+TEST(SysMutexTestGroup, test01){
 	SysMutex mutex;
 
 	mutex.lock();
