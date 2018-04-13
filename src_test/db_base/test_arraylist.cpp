@@ -70,10 +70,54 @@ TEST(ArrayListTestGroup, test03){
 	}
 }
 
-TEST(ArrayListTestGroup, test04){
+TEST(ArrayListTestGroup, test05){
+	ArrayList<dummyInt> ar(1);
 
+	CHECK(ar.size() == 0);
 }
 
+TEST(ArrayListTestGroup, test06){
+	ArrayList<dummyInt> ar(8);
 
+	CHECK(ar.size() == 0);
+}
+
+TEST(ArrayListTestGroup, test07){
+	ArrayList<dummyInt> ar(8);
+
+	int maxLoop = 100;
+	for(int i = 0; i != maxLoop; ++i){
+		ar.addElement(new dummyInt(i));
+	}
+
+	int size = ar.size();
+	CHECK(ar.size() == maxLoop);
+
+	for(int i = 0; i != size; ++i){
+		dummyInt* ptr = ar.get(i);
+		CHECK(ptr->value == i);
+
+		delete ptr;
+	}
+}
+
+TEST(ArrayListTestGroup, test08){
+	ArrayList<dummyInt> ar(8);
+
+	int maxLoop = 100;
+	for(int i = 0; i != maxLoop; ++i){
+		ar.addElement(new dummyInt(i));
+	}
+
+	int size = ar.size();
+	CHECK(ar.size() == maxLoop);
+
+	for(int i = 0; i != size; ++i){
+		dummyInt* ptr = ar.remove(0);
+		CHECK(ptr->value == i);
+
+		delete ptr;
+	}
+}
 
 

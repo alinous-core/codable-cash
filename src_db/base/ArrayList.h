@@ -25,7 +25,11 @@ public:
 			compareFunctor() {
 	}
 
-
+	ArrayList(int defaultSize) throw() : numArray(0), currentSize(defaultSize > 4 ? defaultSize : 4),
+			root(new ElementType[this->currentSize * sizeof(ElementType)]), cursor(root),
+			sorted(false),
+			compareFunctor(){
+	}
 
 	~ArrayList(){
 		if(this->root != nullptr){
@@ -78,6 +82,30 @@ public:
 
 	inline T* get(int i) const throw() {
 		return *(this->root + i);
+	}
+
+	inline T* remove(int index) throw()
+	{
+		T* ptr = get(index);
+		remove(index, 1);
+		return ptr;
+	}
+
+	inline void remove(const int index, const int length) throw()
+	{
+#ifdef __DEBUG__
+		assert(index + length <= this->numArray);
+#endif
+		const int copySize = (this->numArray - index - length);
+		if(copySize > 0){
+			for(int i = 0; i < copySize; i++){
+				this->root[index + i] = this->root[index + i + length];
+			}
+			//__move(this->root, index, this->root, index + length, copySize);
+		}
+
+		this->numArray = this->numArray - length;
+		this->cursor -= length;
 	}
 
 private:
