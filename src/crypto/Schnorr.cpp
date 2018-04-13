@@ -105,14 +105,55 @@ SchnorrSignature* Schnorr::sign(const mpz_t s, const mpz_t p, const uint8_t* dat
 
 
 	return sig;
-	/*
-	byte[] bytes = powG.toByteArray();
-	ByteBuffer buff = ByteBuffer.allocate(bytes.length + data.length);
-	buff.put(data).put(bytes);
+}
 
-	BigInteger e = hash(buff.array()).mod(Q);
-	BigInteger y = r.subtract(s.multiply(e)).mod(Q_1);
-	*/
+bool Schnorr::verify(const SchnorrSignature* sig, const mpz_t p, const uint8_t* data, size_t size){
+	return verify(sig->e, sig->y, p, data, size);
+}
+
+bool Schnorr::verify(const mpz_t e, const mpz_t y, const mpz_t p, const uint8_t* data, size_t size){
+	mpz_t eP, yG, powG, e2;
+	mpz_init(eP);
+	mpz_init(yG);
+	mpz_init(powG);
+	mpz_init(e2);
+
+	mpz_powm(eP, p, e, cnsts.Q);
+	mpz_powm(yG, cnsts.G, y, cnsts.Q);
+
+	mpz_mul(powG, eP, yG);
+	mpz_mod(powG, powG, cnsts.Q);
+
+	{
+		size_t count;
+		uint8_t* buff =  (uint8_t*)mpz_export(NULL, &count, 1, 1, 1, 0, powG);
+
+		size_t hashinLen = count + size;
+		uint8_t* hashin = new uint8_t[hashinLen];
+		memcpy(hashin, data, size);
+		memcpy(hashin + size, buff, count);
+
+		SHA256_CTX ctx;
+		SHA256_Init(&ctx);
+		SHA256_Update(&ctx, hashin, hashinLen);
+
+		uint8_t sha256[32];
+		SHA256_Final((uint8_t *)sha256, &ctx);
+
+		mpz_import(e2, 32, 1, 1, 1, 0, sha256);
+
+		delete [] hashin;
+		free(buff);
+	}
+
+	int cmp = mpz_cmp(e, e2);
+
+	mpz_clear(eP);
+	mpz_clear(yG);
+	mpz_clear(powG);
+	mpz_clear(e2);
+
+	return cmp == 0;
 }
 
 }

@@ -46,6 +46,11 @@ TEST(SchnorrTestGroup, sign){
 
 	SchnorrSignature* sig = Schnorr::sign(key->secretKey, key->publicKey, (const uint8_t*)testData, (size_t)size);
 
+
+	bool result = Schnorr::verify(sig, key->publicKey, (const uint8_t*)testData, (size_t)size);
+
+	CHECK_TRUE(result);
+
 	delete key;
 	delete sig;
 }

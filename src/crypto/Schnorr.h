@@ -33,6 +33,8 @@ public:
 	static SchnorrConsts cnsts;
 	static SchnorrKeyPair* generateKey();
 	static SchnorrSignature* sign(const mpz_t s, const mpz_t p, const uint8_t* data, size_t size);
+	static bool verify(const mpz_t e, const mpz_t y, const mpz_t p, const uint8_t* data, size_t size);
+	static bool verify(const SchnorrSignature* sig, const mpz_t p, const uint8_t* data, size_t size);
 
 	Schnorr();
 	virtual ~Schnorr();
