@@ -25,7 +25,7 @@
 							</builder>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.base.1487368184" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.base.1466808468" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
-								<option id="gnu.cpp.compiler.option.include.paths.1181001750" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+								<option id="gnu.cpp.compiler.option.include.paths.1181001750" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codable-cash/src_db}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codable-cash/src_ext}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codable-cash/src}&quot;"/>
@@ -47,6 +47,7 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="cdt.managedbuild.toolchain.gnu.base.1231765111.2079436326" name="cryptotest.info" rcbsApplicability="disable" resourcePath="target/coverage/crypto/cryptotest.info" toolsToInvoke=""/>
 					<sourceEntries>
 						<entry excluding="dbbase|src_db|src|src_test|src_ext" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>

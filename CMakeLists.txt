@@ -36,7 +36,16 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 	
 	enable_testing()
 	
+	# Report
+	set(infofiles
+		coverage/crypto/cryptotest.info
+		coverage/dbbase/testdbbase.info
+	)
 	add_custom_target(report)
+	add_custom_command(TARGET report
+		COMMAND genhtml -o html_report ${infofiles}
+		WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+		)
 endif()
 
 
