@@ -4,6 +4,7 @@ set(src
 )
 
 set(db_base_io_test_src
+	test_byte_buffer.cpp
 	test_file.cpp
 )
 

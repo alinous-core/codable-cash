@@ -10,6 +10,9 @@
 
 #include <string.h>
 
+
+namespace alinous {
+
 template <typename T>
 class RawArrayPrimitive {
 public:
@@ -63,5 +66,6 @@ private:
 	bool sorted;
 };
 
+}
 
 #endif /* BASE_RAWARRAYPRIMITIVE_H_ */

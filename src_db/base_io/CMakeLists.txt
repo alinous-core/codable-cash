@@ -1,4 +1,5 @@
 set(__src
+	base_io/ByteBuffer.cpp
 	base_io/File.cpp
 )
 	
