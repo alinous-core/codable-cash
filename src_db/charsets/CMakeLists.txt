@@ -1,5 +1,8 @@
 set(__src
 	charsets/CharsetManager.cpp
+	charsets/CharsetConverter.cpp
+	charsets/CharsetDecoder.cpp
+	charsets/CharsetEncoder.cpp
 )
 	
 set(dbcharsetssrc ${__src} PARENT_SCOPE)

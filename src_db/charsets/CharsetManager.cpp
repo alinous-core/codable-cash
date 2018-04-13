@@ -6,16 +6,20 @@
  */
 
 #include <charsets/CharsetManager.h>
+#include "base/UnicodeString.h"
+
+#include "CharsetConverter.h"
 
 namespace alinous {
 
 CharsetManager::CharsetManager() {
-	// TODO Auto-generated constructor stub
-
 }
 
 CharsetManager::~CharsetManager() {
-	// TODO Auto-generated destructor stub
+}
+
+CharsetConverter* CharsetManager::getConverter(UnicodeString* charset) throw() {
+
 }
 
 } /* namespace alinous */

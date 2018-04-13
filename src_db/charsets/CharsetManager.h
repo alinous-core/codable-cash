@@ -10,10 +10,15 @@
 
 namespace alinous {
 
+class UnicodeString;
+class CharsetConverter;
+
 class CharsetManager {
 public:
 	CharsetManager();
 	virtual ~CharsetManager();
+
+	CharsetConverter* getConverter(UnicodeString* charset) throw();
 };
 
 } /* namespace alinous */
