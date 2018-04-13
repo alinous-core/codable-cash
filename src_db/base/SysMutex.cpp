@@ -7,7 +7,7 @@
 
 #include "SysMutex.h"
 
-namespace codablecash {
+namespace alinous {
 
 SysMutex::SysMutex() {
 	pthread_mutex_init(&mutex, nullptr);

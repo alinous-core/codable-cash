@@ -10,7 +10,7 @@
 
 #include <pthread.h>
 
-namespace codablecash {
+namespace alinous {
 
 class SysMutex {
 public:
