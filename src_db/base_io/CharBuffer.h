@@ -38,8 +38,8 @@ public:
 	CharBuffer* put(wchar_t ch) noexcept;
 	CharBuffer* put(int index, wchar_t ch) noexcept;
 	CharBuffer* put(UnicodeString* str) noexcept;
-	CharBuffer* put(wchar_t* src) noexcept;
-	CharBuffer* put(wchar_t* src, int off, int len) noexcept;
+	CharBuffer* put(wchar_t* src, int length) noexcept(false);
+	CharBuffer* put(wchar_t* src, int off, int len) noexcept(false);
 private:
     int pos;
     int lim;

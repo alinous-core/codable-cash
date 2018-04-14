@@ -18,9 +18,17 @@ public:
 	BufferUnderflowException(Exception* cause) noexcept;
 	BufferUnderflowException(UnicodeString* message) noexcept;
 	BufferUnderflowException(UnicodeString* message, Exception* cause) noexcept;
-
 	virtual ~BufferUnderflowException();
+	static const wchar_t* defaultMessage;
+};
 
+class BufferOverflowException : public Exception{
+public:
+	BufferOverflowException() noexcept;
+	BufferOverflowException(Exception* cause) noexcept;
+	BufferOverflowException(UnicodeString* message) noexcept;
+	BufferOverflowException(UnicodeString* message, Exception* cause) noexcept;
+	virtual ~BufferOverflowException();
 	static const wchar_t* defaultMessage;
 };
 

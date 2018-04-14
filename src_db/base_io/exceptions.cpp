@@ -31,4 +31,23 @@ BufferUnderflowException::~BufferUnderflowException() {
 }
 
 
+const wchar_t* BufferOverflowException::defaultMessage = L"Buffer is under flown";
+
+BufferOverflowException::BufferOverflowException() noexcept : Exception() {
+	this->message = new UnicodeString(defaultMessage);
+}
+BufferOverflowException::BufferOverflowException(Exception* cause) noexcept : Exception(cause) {
+	this->message = new UnicodeString(defaultMessage);
+}
+BufferOverflowException::BufferOverflowException(UnicodeString* message) noexcept : Exception(message) {
+	this->message = new UnicodeString(defaultMessage);
+	this->message->append(message);
+}
+BufferOverflowException::BufferOverflowException(UnicodeString* message, Exception* cause) noexcept : Exception(message, cause) {
+	this->message = new UnicodeString(defaultMessage);
+	this->message->append(message);
+}
+BufferOverflowException::~BufferOverflowException() {
+}
+
 } /* namespace alinous */

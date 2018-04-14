@@ -67,6 +67,7 @@ CharBuffer* CharBuffer::get(wchar_t* dest, int length) noexcept(false) {
 	return get(dest, 0, length);
 }
 CharBuffer* CharBuffer::get(wchar_t* dest, int off, int length) noexcept(false) {
+
     /*if ((off < 0) || (length < 0) || ((off + length) > length) ) {
         throw new IndexOutOfBoundsException();
     }
@@ -82,19 +83,31 @@ CharBuffer* CharBuffer::get(wchar_t* dest, int off, int length) noexcept(false) 
     return this;
 }
 CharBuffer* CharBuffer::put(wchar_t ch) noexcept{
-
+	data->set(this->pos++, ch);
+	return this;
 }
 CharBuffer* CharBuffer::put(int index, wchar_t ch) noexcept {
-
+	data->set(index, ch);
+	return this;
 }
 CharBuffer* CharBuffer::put(UnicodeString* str) noexcept {
-
+	int maxLoop = str->length();
+	for(int i = 0; i != maxLoop; ++i){
+		data->set(this->pos++, str->charAt(i));
+	}
+	return this;
 }
-CharBuffer* CharBuffer::put(wchar_t* src) noexcept {
-
+CharBuffer* CharBuffer::put(wchar_t* src, int length) noexcept(false) {
+	put(src, 0, length);
 }
-CharBuffer* CharBuffer::put(wchar_t* src, int off, int len) noexcept {
-
+CharBuffer* CharBuffer::put(wchar_t* src, int off, int len) noexcept(false) {
+    if (len > remaining()) {
+        throw new BufferOverflowException();
+    }
+    for (int i = off; i < off + len; i++) {
+        put(src[i]);
+    }
+    return this;
 }
 
 } /* namespace alinous */
