@@ -16,8 +16,8 @@ template <typename T> class RawArrayPrimitive;
 
 class ByteBuffer {
 public:
-	ByteBuffer() throw();
-	ByteBuffer(int length) throw();
+	ByteBuffer() noexcept;
+	ByteBuffer(int length) noexcept;
 	virtual ~ByteBuffer();
 
 private:

@@ -14,8 +14,8 @@ class UnicodeString;
 
 class File {
 public:
-	File(const UnicodeString* pathname) throw();
-	virtual ~File() throw();
+	File(const UnicodeString* pathname) noexcept;
+	virtual ~File() noexcept;
 
 private:
 	UnicodeString *pathSeparator;

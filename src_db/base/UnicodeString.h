@@ -14,26 +14,26 @@ namespace alinous {
 
 class UnicodeString {
 public:
-	UnicodeString(const wchar_t* str) throw();
-	UnicodeString(const wchar_t* str, int cap) throw();
-	UnicodeString(const UnicodeString* ptr) throw();
+	UnicodeString(const wchar_t* str) noexcept;
+	UnicodeString(const wchar_t* str, int cap) noexcept;
+	UnicodeString(const UnicodeString* ptr) noexcept;
 
 	virtual ~UnicodeString();
 
-	UnicodeString* append(wchar_t ch) throw();
-	UnicodeString* append(UnicodeString* str) throw();
+	UnicodeString* append(wchar_t ch) noexcept;
+	UnicodeString* append(UnicodeString* str) noexcept;
 
 	char* toCString();
 
-	int length() const throw();
-	wchar_t get(int i) const throw();
-	wchar_t charAt(int index) const throw();
-	int isEmpty() const throw();
-	bool equals(UnicodeString* str) throw();
+	int length() const noexcept;
+	wchar_t get(int i) const noexcept;
+	wchar_t charAt(int index) const noexcept;
+	int isEmpty() const noexcept;
+	bool equals(UnicodeString* str) noexcept;
 
-	bool __equals(UnicodeString* str) const throw();
+	bool __equals(UnicodeString* str) const noexcept;
 
-	int hashCode() throw();
+	int hashCode() noexcept;
 protected:
 	RawArrayPrimitive<wchar_t>* buff;
 	int __hashCode;

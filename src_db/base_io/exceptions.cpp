@@ -13,17 +13,17 @@ namespace alinous {
 
 const wchar_t* BufferUnderflowException::defaultMessage = L"Buffer is under flown";
 
-BufferUnderflowException::BufferUnderflowException() throw() : Exception() {
+BufferUnderflowException::BufferUnderflowException() noexcept : Exception() {
 	this->message = new UnicodeString(defaultMessage);
 }
-BufferUnderflowException::BufferUnderflowException(Exception* cause) throw() : Exception(cause) {
+BufferUnderflowException::BufferUnderflowException(Exception* cause) noexcept : Exception(cause) {
 	this->message = new UnicodeString(defaultMessage);
 }
-BufferUnderflowException::BufferUnderflowException(UnicodeString* message) throw() : Exception(message) {
+BufferUnderflowException::BufferUnderflowException(UnicodeString* message) noexcept : Exception(message) {
 	this->message = new UnicodeString(defaultMessage);
 	this->message->append(message);
 }
-BufferUnderflowException::BufferUnderflowException(UnicodeString* message, Exception* cause) throw() : Exception(message, cause) {
+BufferUnderflowException::BufferUnderflowException(UnicodeString* message, Exception* cause) noexcept : Exception(message, cause) {
 	this->message = new UnicodeString(defaultMessage);
 	this->message->append(message);
 }

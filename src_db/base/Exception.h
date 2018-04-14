@@ -14,10 +14,10 @@ class UnicodeString;
 
 class Exception {
 public:
-	Exception() throw();
-	Exception(Exception* cause) throw();
-	Exception(UnicodeString* message) throw();
-	Exception(UnicodeString* message, Exception* cause) throw();
+	Exception() noexcept;
+	Exception(Exception* cause) noexcept;
+	Exception(UnicodeString* message) noexcept;
+	Exception(UnicodeString* message, Exception* cause) noexcept;
 
 	virtual ~Exception();
 

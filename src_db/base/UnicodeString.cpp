@@ -10,7 +10,7 @@
 namespace alinous {
 
 
-UnicodeString::UnicodeString(const wchar_t* str) throw() {
+UnicodeString::UnicodeString(const wchar_t* str) noexcept {
 	this->buff =  new RawArrayPrimitive<wchar_t>(32);
 	this->__hashCode = 0;
 	const wchar_t* ptr = str;
@@ -21,7 +21,7 @@ UnicodeString::UnicodeString(const wchar_t* str) throw() {
 	}
 }
 
-UnicodeString::UnicodeString(const wchar_t* str, int cap) throw() {
+UnicodeString::UnicodeString(const wchar_t* str, int cap) noexcept {
 	this->buff =  new RawArrayPrimitive<wchar_t>(cap);
 	this->__hashCode = 0;
 
@@ -33,7 +33,7 @@ UnicodeString::UnicodeString(const wchar_t* str, int cap) throw() {
 	}
 }
 
-UnicodeString::UnicodeString(const UnicodeString* ptr) throw(){
+UnicodeString::UnicodeString(const UnicodeString* ptr) noexcept{
 	this->buff =  new RawArrayPrimitive<wchar_t>(32);
 	this->__hashCode = 0;
 
@@ -49,7 +49,7 @@ UnicodeString::~UnicodeString() {
 }
 
 
-UnicodeString* UnicodeString::append(wchar_t ch) throw()
+UnicodeString* UnicodeString::append(wchar_t ch) noexcept
 {
 	this->buff->addElement(ch);
 	this->__hashCode = 0;
@@ -57,7 +57,7 @@ UnicodeString* UnicodeString::append(wchar_t ch) throw()
 	return this;
 }
 
-UnicodeString* UnicodeString::append(UnicodeString* str) throw() {
+UnicodeString* UnicodeString::append(UnicodeString* str) noexcept {
 	int len = str->length();
 
 	for(int i = 0; i != len; ++i){
@@ -73,21 +73,21 @@ char* UnicodeString::toCString(){
 	return nullptr;
 }
 
-wchar_t UnicodeString::get(int i) const throw() { return this->buff->get(i); };
-wchar_t UnicodeString::charAt(int index) const throw()
+wchar_t UnicodeString::get(int i) const noexcept { return this->buff->get(i); };
+wchar_t UnicodeString::charAt(int index) const noexcept
 {
 	return this->buff->get(index);
 };
 
-int UnicodeString::length() const throw() {
+int UnicodeString::length() const noexcept {
 	return this->buff->size();
 }
 
-int UnicodeString::isEmpty() const throw() {
+int UnicodeString::isEmpty() const noexcept {
 	return this->buff->size() == 0;
 }
 
-bool UnicodeString::equals(UnicodeString* str) throw()
+bool UnicodeString::equals(UnicodeString* str) noexcept
 {
 	int hash = str->hashCode();
 	if(hash != this->hashCode()){
@@ -97,7 +97,7 @@ bool UnicodeString::equals(UnicodeString* str) throw()
 	return __equals(str);
 }
 
-bool UnicodeString::__equals(UnicodeString* str) const throw(){
+bool UnicodeString::__equals(UnicodeString* str) const noexcept{
 	const int size = str->length();
 	if(size != this->length()){
 		return false;
@@ -114,7 +114,7 @@ bool UnicodeString::__equals(UnicodeString* str) const throw(){
 	return true;
 }
 
-int UnicodeString::hashCode()  throw() {
+int UnicodeString::hashCode()  noexcept {
     if (this->__hashCode == 0) {
     	const int count = length();
         if (count == 0) {

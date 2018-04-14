@@ -13,7 +13,7 @@
 
 namespace alinous {
 
-CharBuffer::CharBuffer(int size) throw() {
+CharBuffer::CharBuffer(int size) noexcept {
 	this->data = new RawArrayPrimitive<wchar_t>(size);
 	this->data->setNumArray(size);
 
@@ -22,51 +22,51 @@ CharBuffer::CharBuffer(int size) throw() {
 	this->cap = size;
 }
 
-CharBuffer::~CharBuffer() throw() {
+CharBuffer::~CharBuffer() noexcept {
 	delete this->data;
 }
 
 
-CharBuffer* CharBuffer::allocate(int capacity) throw() {
+CharBuffer* CharBuffer::allocate(int capacity) noexcept {
 	return new CharBuffer(capacity);
 }
 
-CharBuffer* CharBuffer::clear() throw() {
+CharBuffer* CharBuffer::clear() noexcept {
 	this->lim = this->cap;
 	this->pos = 0;
 	return this;
 }
 
-bool CharBuffer::hasRemaining() const throw() {
+bool CharBuffer::hasRemaining() const noexcept {
     return (pos < lim);
 }
 
-int CharBuffer::remaining() const throw()
+int CharBuffer::remaining() const noexcept
 {
 	 return this->lim - this->pos;
 }
 
-CharBuffer* CharBuffer::position(int newPosition) throw() {
+CharBuffer* CharBuffer::position(int newPosition) noexcept {
 	this->pos = newPosition;
 	return this;
 }
-int CharBuffer::limit() const throw() {
+int CharBuffer::limit() const noexcept {
 	return this->lim;
 }
-CharBuffer* CharBuffer::limit(int limit) throw() {
+CharBuffer* CharBuffer::limit(int limit) noexcept {
 	this->lim = limit;
 	return this;
 }
-wchar_t CharBuffer::get() throw() {
+wchar_t CharBuffer::get() noexcept {
 	return data->get(this->pos++);
 }
-wchar_t CharBuffer::get(int index) const throw() {
+wchar_t CharBuffer::get(int index) const noexcept {
 	return data->get(index);
 }
-CharBuffer* CharBuffer::get(wchar_t* dest, int length) throw(BufferUnderflowException) {
+CharBuffer* CharBuffer::get(wchar_t* dest, int length) noexcept(false) {
 	return get(dest, 0, length);
 }
-CharBuffer* CharBuffer::get(wchar_t* dest, int off, int length) throw(BufferUnderflowException) {
+CharBuffer* CharBuffer::get(wchar_t* dest, int off, int length) noexcept(false) {
     /*if ((off < 0) || (length < 0) || ((off + length) > length) ) {
         throw new IndexOutOfBoundsException();
     }
@@ -81,19 +81,19 @@ CharBuffer* CharBuffer::get(wchar_t* dest, int off, int length) throw(BufferUnde
     }
     return this;
 }
-CharBuffer* CharBuffer::put(wchar_t ch) throw(){
+CharBuffer* CharBuffer::put(wchar_t ch) noexcept{
 
 }
-CharBuffer* CharBuffer::put(int index, wchar_t ch) throw() {
+CharBuffer* CharBuffer::put(int index, wchar_t ch) noexcept {
 
 }
-CharBuffer* CharBuffer::put(UnicodeString* str) throw() {
+CharBuffer* CharBuffer::put(UnicodeString* str) noexcept {
 
 }
-CharBuffer* CharBuffer::put(wchar_t* src) throw() {
+CharBuffer* CharBuffer::put(wchar_t* src) noexcept {
 
 }
-CharBuffer* CharBuffer::put(wchar_t* src, int off, int len) throw() {
+CharBuffer* CharBuffer::put(wchar_t* src, int off, int len) noexcept {
 
 }
 

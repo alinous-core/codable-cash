@@ -11,14 +11,14 @@
 
 namespace alinous {
 
-Exception::Exception() throw() : cause(nullptr), message(nullptr) {
+Exception::Exception() noexcept : cause(nullptr), message(nullptr) {
 }
 
-Exception::Exception(Exception* cause) throw() : cause(cause), message(nullptr) {
+Exception::Exception(Exception* cause) noexcept : cause(cause), message(nullptr) {
 }
-Exception::Exception(UnicodeString* message) throw(): cause(nullptr), message(nullptr) {
+Exception::Exception(UnicodeString* message) noexcept: cause(nullptr), message(nullptr) {
 }
-Exception::Exception(UnicodeString* message, Exception* cause) throw() : cause(cause), message(nullptr){
+Exception::Exception(UnicodeString* message, Exception* cause) noexcept : cause(cause), message(nullptr){
 
 }
 

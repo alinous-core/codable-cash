@@ -18,7 +18,7 @@ public:
 	CharsetManager();
 	virtual ~CharsetManager();
 
-	CharsetConverter* getConverter(UnicodeString* charset) throw();
+	CharsetConverter* getConverter(UnicodeString* charset) noexcept;
 };
 
 } /* namespace alinous */

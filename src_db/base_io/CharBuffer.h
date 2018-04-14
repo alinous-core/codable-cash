@@ -19,27 +19,27 @@ class BufferUnderflowException;
 
 class CharBuffer {
 protected:
-	CharBuffer(int size) throw();
+	CharBuffer(int size) noexcept;
 public:
-	virtual ~CharBuffer() throw();
+	virtual ~CharBuffer() noexcept;
 
-	static CharBuffer* allocate(int capacity) throw();
+	static CharBuffer* allocate(int capacity) noexcept;
 
-	CharBuffer* clear() throw();
-	bool hasRemaining() const throw();
-	int remaining() const throw();
-	CharBuffer* position(int newPosition) throw();
-	int limit() const throw();
-	CharBuffer* limit(int limit) throw();
-	wchar_t get() throw();
-	wchar_t get(int index) const throw();
-	CharBuffer* get(wchar_t* dest, int length) throw(BufferUnderflowException);
-	CharBuffer* get(wchar_t* dest, int off, int len) throw(BufferUnderflowException);
-	CharBuffer* put(wchar_t ch) throw();
-	CharBuffer* put(int index, wchar_t ch) throw();
-	CharBuffer* put(UnicodeString* str) throw();
-	CharBuffer* put(wchar_t* src) throw();
-	CharBuffer* put(wchar_t* src, int off, int len) throw();
+	CharBuffer* clear() noexcept;
+	bool hasRemaining() const noexcept;
+	int remaining() const noexcept;
+	CharBuffer* position(int newPosition) noexcept;
+	int limit() const noexcept;
+	CharBuffer* limit(int limit) noexcept;
+	wchar_t get() noexcept;
+	wchar_t get(int index) const noexcept;
+	CharBuffer* get(wchar_t* dest, int length) noexcept(false);
+	CharBuffer* get(wchar_t* dest, int off, int len) noexcept(false);
+	CharBuffer* put(wchar_t ch) noexcept;
+	CharBuffer* put(int index, wchar_t ch) noexcept;
+	CharBuffer* put(UnicodeString* str) noexcept;
+	CharBuffer* put(wchar_t* src) noexcept;
+	CharBuffer* put(wchar_t* src, int off, int len) noexcept;
 private:
     int pos;
     int lim;

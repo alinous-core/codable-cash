@@ -18,7 +18,7 @@ CharsetManager::CharsetManager() {
 CharsetManager::~CharsetManager() {
 }
 
-CharsetConverter* CharsetManager::getConverter(UnicodeString* charset) throw() {
+CharsetConverter* CharsetManager::getConverter(UnicodeString* charset) noexcept {
 
 }
 

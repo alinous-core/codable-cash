@@ -9,20 +9,20 @@
 
 namespace alinous {
 
-SysMutex::SysMutex() throw() {
+SysMutex::SysMutex() noexcept {
 	pthread_mutex_init(&mutex, nullptr);
 }
 
-SysMutex::~SysMutex() throw() {
+SysMutex::~SysMutex() noexcept {
 	pthread_mutex_destroy(&mutex);
 }
 
-void SysMutex::lock() throw() {
+void SysMutex::lock() noexcept {
 	pthread_mutex_lock(&mutex);
 }
 
 
-void SysMutex::unlock() throw() {
+void SysMutex::unlock() noexcept {
 	pthread_mutex_unlock(&mutex);
 }
 

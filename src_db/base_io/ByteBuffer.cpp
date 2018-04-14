@@ -10,14 +10,14 @@
 
 namespace alinous {
 
-ByteBuffer::ByteBuffer() throw() {
+ByteBuffer::ByteBuffer() noexcept {
 	this->buff = new RawArrayPrimitive<uint8_t>(64);
 	this->lim = 64;
 	this->cap = 64;
 	this->pos = 0;
 }
 
-ByteBuffer::ByteBuffer(int length) throw() {
+ByteBuffer::ByteBuffer(int length) noexcept {
 	this->buff = new RawArrayPrimitive<uint8_t>(length);
 	this->lim = length;
 	this->cap = length;

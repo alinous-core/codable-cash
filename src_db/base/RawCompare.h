@@ -12,7 +12,7 @@
 namespace alinous {
 struct RawCompare {
 public:
-	int operator() (const void* const a, const void* const b) const throw(){
+	int operator() (const void* const a, const void* const b) const noexcept{
 		long long diff = (long long)a - (long long)b;
 		if(diff == 0){
 			return 0;

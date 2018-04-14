@@ -14,11 +14,11 @@ namespace alinous {
 
 class SysMutex {
 public:
-	SysMutex() throw();
-	~SysMutex() throw();
+	SysMutex() noexcept;
+	~SysMutex() noexcept;
 
-	void lock() throw();
-	void unlock() throw();
+	void lock() noexcept;
+	void unlock() noexcept;
 private:
 	pthread_mutex_t mutex;
 };

@@ -18,8 +18,8 @@ public:
 	CharsetConverter();
 	virtual ~CharsetConverter();
 
-	virtual CharsetDecoder* newDecoder() throw()  = 0;
-	virtual CharsetEncoder* newEncoder() throw()  = 0;
+	virtual CharsetDecoder* newDecoder() noexcept  = 0;
+	virtual CharsetEncoder* newEncoder() noexcept  = 0;
 };
 
 } /* namespace alinous */

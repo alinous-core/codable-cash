@@ -19,13 +19,13 @@ template <typename T, typename C = RawCompare> class ArrayList {
 public:
 	typedef T* ElementType;
 
-	ArrayList() throw() : numArray(0), currentSize(DEFAULT_RAW_ARRAY_SIZE),
+	ArrayList() noexcept : numArray(0), currentSize(DEFAULT_RAW_ARRAY_SIZE),
 			root(new ElementType[this->currentSize * sizeof(ElementType)]), cursor(root),
 			sorted(false),
 			compareFunctor() {
 	}
 
-	ArrayList(int defaultSize) throw() : numArray(0), currentSize(defaultSize > 4 ? defaultSize : 4),
+	ArrayList(int defaultSize) noexcept : numArray(0), currentSize(defaultSize > 4 ? defaultSize : 4),
 			root(new ElementType[this->currentSize * sizeof(ElementType)]), cursor(root),
 			sorted(false),
 			compareFunctor(){
@@ -38,7 +38,7 @@ public:
 		}
 	}
 
-	void addElement(T* ptr) throw()
+	void addElement(T* ptr) noexcept
 	{
 		if(__builtin_expect(this->currentSize <= this->numArray, 0)){
 			realloc();
@@ -51,7 +51,7 @@ public:
 		this->sorted = false;
 	}
 
-	void realloc() throw() {
+	void realloc() noexcept {
 		int lastSize = this->currentSize;
 		int size = this->currentSize * 2;
 
@@ -68,7 +68,7 @@ public:
 		this->cursor = this->root + this->numArray;
 	}
 
-	inline void __copy(T** dest, int dest_start, T** src, int src_start, const int count) throw()
+	inline void __copy(T** dest, int dest_start, T** src, int src_start, const int count) noexcept
 	{
 		T** d = dest + dest_start;
 		T** s = src + src_start;
@@ -76,22 +76,22 @@ public:
 		::memcpy(d, s, count * sizeof(T*));
 	}
 
-	inline int size() const throw() {
+	inline int size() const noexcept {
 		return numArray;
 	}
 
-	inline T* get(int i) const throw() {
+	inline T* get(int i) const noexcept {
 		return *(this->root + i);
 	}
 
-	inline T* remove(int index) throw()
+	inline T* remove(int index) noexcept
 	{
 		T* ptr = get(index);
 		remove(index, 1);
 		return ptr;
 	}
 
-	inline void remove(const int index, const int length) throw()
+	inline void remove(const int index, const int length) noexcept
 	{
 #ifdef __DEBUG__
 		assert(index + length <= this->numArray);

@@ -14,10 +14,10 @@ namespace alinous {
 
 class BufferUnderflowException : public Exception{
 public:
-	BufferUnderflowException() throw();
-	BufferUnderflowException(Exception* cause) throw();
-	BufferUnderflowException(UnicodeString* message) throw();
-	BufferUnderflowException(UnicodeString* message, Exception* cause) throw();
+	BufferUnderflowException() noexcept;
+	BufferUnderflowException(Exception* cause) noexcept;
+	BufferUnderflowException(UnicodeString* message) noexcept;
+	BufferUnderflowException(UnicodeString* message, Exception* cause) noexcept;
 
 	virtual ~BufferUnderflowException();
 

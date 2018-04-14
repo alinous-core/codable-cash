@@ -16,18 +16,18 @@ namespace alinous {
 template <typename T>
 class RawArrayPrimitive {
 public:
-	RawArrayPrimitive(int defaultSize) throw() : numArray(0),
+	RawArrayPrimitive(int defaultSize) noexcept : numArray(0),
 			currentSize(defaultSize > 4 ? defaultSize : 4),
 			root(new T[currentSize]),
 			sorted(false){
 	}
 
-	~RawArrayPrimitive() throw() {
+	~RawArrayPrimitive() noexcept {
 		delete [] root;
 	}
 
 
-	void addElement(const T value) throw() {
+	void addElement(const T value) noexcept {
 		if(__builtin_expect(this->currentSize == this->numArray, 0)){
 			int size = this->currentSize * 2;
 
@@ -47,20 +47,20 @@ public:
 		this->sorted = false;
 	}
 
-	inline int size() const throw() {
+	inline int size() const noexcept {
 		return numArray;
 	}
-	inline T get(const int i) const throw() {
+	inline T get(const int i) const noexcept {
 		return *(this->root + i);
 	}
-	/*inline T* getPtr(const int i) const throw() {
+	/*inline T* getPtr(const int i) const noexcept {
 		return (this->root + i);
 	}
-	inline void set(const int i, T value) const throw() {
+	inline void set(const int i, T value) const noexcept {
 		*(this->root + i) = value;
 	}*/
 
-	inline void setNumArray(int numArray) throw() {
+	inline void setNumArray(int numArray) noexcept {
 		this->numArray = numArray;
 	}
 private:

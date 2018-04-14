@@ -11,12 +11,12 @@
 
 namespace alinous {
 
-File::File(const UnicodeString* pathname) throw() {
+File::File(const UnicodeString* pathname) noexcept {
 	this->path = new UnicodeString(pathname);
 	this->pathSeparator = new UnicodeString(L"/");
 }
 
-File::~File() throw() {
+File::~File() noexcept {
 	delete this->path;
 	delete this->pathSeparator;
 }
