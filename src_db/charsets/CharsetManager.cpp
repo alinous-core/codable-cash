@@ -9,6 +9,7 @@
 #include "base/UnicodeString.h"
 
 #include "CharsetConverter.h"
+#include "base/HashMap.h"
 
 namespace alinous {
 

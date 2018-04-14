@@ -1,5 +1,6 @@
 set(__src
 	base/Exception.cpp
+	base/RawBitSet.cpp
 	base/SysMutex.cpp
 	base/UnicodeString.cpp
 )
