@@ -15,16 +15,57 @@ namespace alinous {
 template <typename T> class RawArrayPrimitive;
 
 class ByteBuffer {
+protected:
+	ByteBuffer(const int length) noexcept;
 public:
-	ByteBuffer() noexcept;
-	ByteBuffer(int length) noexcept;
-	virtual ~ByteBuffer();
+	static ByteBuffer* allocate(const int capacity) noexcept;
+	virtual ~ByteBuffer() noexcept;
+
+	inline bool hasRemaining() noexcept {
+    	return (pos < lim);
+    }
+	int remaining() const noexcept;
+	int position() const noexcept;
+	ByteBuffer* position(const int newPosition) noexcept;
+	int limit() noexcept;
+	ByteBuffer* limit(const int limit) noexcept;
+	int capacity() noexcept;
+	char get() noexcept;
+	char get(const int index) const noexcept;
+	ByteBuffer* get(uint8_t* dest, int length) noexcept(false);
+	ByteBuffer* get(uint8_t* dest, int off, int len) noexcept(false);
+
+	ByteBuffer* put(uint8_t b) noexcept;
+	ByteBuffer* put(int index, uint8_t b) noexcept;
+	ByteBuffer* put(uint8_t* src, int length) noexcept(false);
+	ByteBuffer* put(uint8_t* src, int off, int len) noexcept(false);
+	ByteBuffer* put(ByteBuffer* src) noexcept;
+	ByteBuffer* putChar(wchar_t value) noexcept;
+	ByteBuffer* putShort(short value) noexcept;
+	ByteBuffer* putInt(int32_t value) noexcept;
+	ByteBuffer* putInt(int32_t position, int value) noexcept;
+	ByteBuffer* putLong(int64_t value) noexcept;
+	ByteBuffer* putFloat(double value) noexcept;
+	ByteBuffer* putDouble(double value) noexcept;
+	uint64_t getLong() noexcept;
+	uint64_t getLong(int position) noexcept;
+	double getDouble() noexcept;
+	double getDouble(int position) noexcept;
+	float getFloat() noexcept;
+	float getFloat(int position) noexcept;
+	int32_t getInt() noexcept;
+	int32_t getInt(int position) noexcept;
+	wchar_t getChar() noexcept;
+	wchar_t getChar(int position) noexcept;
+	int16_t getShort() noexcept;
+	int16_t getShort(int position) noexcept;
+
 
 private:
     int pos;
     int lim;
     int cap;
-    RawArrayPrimitive<uint8_t>* buff;
+    RawArrayPrimitive<uint8_t>* data;
 };
 
 } /* namespace alinous */

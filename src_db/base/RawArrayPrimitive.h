@@ -53,10 +53,11 @@ public:
 	inline T get(const int i) const noexcept {
 		return *(this->root + i);
 	}
-	/*inline T* getPtr(const int i) const noexcept {
-		return (this->root + i);
+
+	inline T* getRoot() const noexcept {
+		return this->root;
 	}
-	*/
+
 	inline void set(const int i, T value) const noexcept {
 		*(this->root + i) = value;
 	}

@@ -22,7 +22,7 @@ TEST_GROUP(ByteBufferTestGroup) {
 
 
 TEST(ByteBufferTestGroup, test01){
-	ByteBuffer* buff = new ByteBuffer(8);
+	ByteBuffer* buff = ByteBuffer::allocate(8);
 	delete buff;
 }
 
