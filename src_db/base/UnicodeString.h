@@ -48,7 +48,7 @@ public:
 
 	UnicodeString* insert(int position, wchar_t ch) noexcept;
 	UnicodeString* insert(int dstOffset, UnicodeString* str) noexcept;
-	UnicodeString* insert(int dstOffset, wchar_t* str, int offset, int count) noexcept;
+	UnicodeString* insert(int dstOffset, const wchar_t* str, int offset, int count) noexcept;
 
 	int length() const noexcept;
 	wchar_t get(int i) const noexcept;

@@ -258,6 +258,10 @@ int UnicodeString::lastIndexOf(UnicodeString* str, int lastIndex) const noexcept
 	if(lastIndex > this->length()){
 		lastIndex = this->length();
 	}
+	if(lastIndex < str->length()){
+		return -1;
+	}
+
 	wchar_t ch = str->charAt(0);
 	int index = lastIndexOf(ch, lastIndex);
 	while(index >= 0){
@@ -270,7 +274,7 @@ int UnicodeString::lastIndexOf(UnicodeString* str, int lastIndex) const noexcept
 			return -1;
 		}
 
-		index = indexOf(ch, index);
+		index = lastIndexOf(ch, index);
 	}
 
 	return -1;
@@ -291,7 +295,7 @@ UnicodeString* UnicodeString::insert(int dstOffset, UnicodeString* str) noexcept
 	return this;
 }
 
-UnicodeString* UnicodeString::insert(int dstOffset, wchar_t* str, int offset, int count) noexcept {
+UnicodeString* UnicodeString::insert(int dstOffset, const wchar_t* str, int offset, int count) noexcept {
 	int position = dstOffset;
 	for(int i = 0; i != count; ++i){
 		insert(position++, str[i]);
