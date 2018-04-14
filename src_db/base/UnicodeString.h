@@ -24,6 +24,7 @@ public:
 	UnicodeString* append(UnicodeString* str) noexcept;
 
 	char* toCString();
+	const wchar_t* towString() const;
 
 	int length() const noexcept;
 	wchar_t get(int i) const noexcept;
@@ -37,6 +38,12 @@ public:
 protected:
 	RawArrayPrimitive<wchar_t>* buff;
 	int __hashCode;
+
+public:
+	class ValueCompare {
+	public:
+		int operator () (const UnicodeString* const a, const UnicodeString* const b) const;
+	};
 };
 
 } /* namespace alinous */

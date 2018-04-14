@@ -65,10 +65,30 @@ public:
 	inline void setNumArray(int numArray) noexcept {
 		this->numArray = numArray;
 	}
-private:
+
+	void remove(const int index) noexcept {
+		remove(index, 1);
+	}
+
+	void remove(const int index, const int length) noexcept {
+		#ifdef __DEBUG__
+		assert(index + length <= this->numArray);
+		#endif
+
+		const int copySize = (this->numArray - index - length);
+		if(copySize > 0){
+			for(int i = 0; i < copySize; i++){
+				this->root[index + i] = this->root[index + i + length];
+			}
+		}
+
+		this->numArray = this->numArray - length;
+	}
+
 	int numArray;
 	int currentSize;
 	T* root;
+private:
 	bool sorted;
 };
 

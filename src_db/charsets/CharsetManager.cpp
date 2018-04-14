@@ -20,7 +20,7 @@ CharsetManager::~CharsetManager() {
 }
 
 CharsetConverter* CharsetManager::getConverter(UnicodeString* charset) noexcept {
-
+	return nullptr;
 }
 
 } /* namespace alinous */

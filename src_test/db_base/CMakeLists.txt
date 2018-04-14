@@ -6,6 +6,7 @@ set(src
 set(db_base_test_src
 	test_thread.cpp
 	test_arraylist.cpp
+	test_hashmap.cpp
 	test_unicode_string.cpp
 )
 

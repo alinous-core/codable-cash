@@ -7,6 +7,8 @@
 
 #include <base/UnicodeString.h>
 
+#include <wchar.h>
+
 namespace alinous {
 
 
@@ -73,6 +75,25 @@ char* UnicodeString::toCString(){
 	return nullptr;
 }
 
+const wchar_t* UnicodeString::towString() const
+{
+	if(this->buff->currentSize == this->buff->numArray){
+		this->buff->addElement(0);
+		this->buff->remove(this->buff->numArray - 1);
+	}else{
+		//wchar_t lastCh = this->buff->get(this->buff->numArray);
+		//if(lastCh != 0x0){
+		//	this->buff->addElement(0);
+		//	this->buff->remove(this->buff->numArray - 1);
+		//}
+		this->buff->addElement(0);
+		this->buff->remove(this->buff->numArray - 1);
+	}
+	this->buff->root[this->buff->numArray] = L'\0';
+
+	return this->buff->root;
+}
+
 wchar_t UnicodeString::get(int i) const noexcept { return this->buff->get(i); };
 wchar_t UnicodeString::charAt(int index) const noexcept
 {
@@ -127,6 +148,15 @@ int UnicodeString::hashCode()  noexcept {
         this->__hashCode = hash;
     }
     return this->__hashCode;
+}
+
+int UnicodeString::ValueCompare::operator () (const UnicodeString* const a, const UnicodeString* const b) const {
+	const wchar_t* astr = a->towString();
+	const wchar_t* bstr = b->towString();
+
+	int res = wcscmp(astr, bstr);
+
+	return res;
 }
 
 } /* namespace alinous */
