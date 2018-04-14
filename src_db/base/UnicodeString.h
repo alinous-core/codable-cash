@@ -18,15 +18,37 @@ public:
 	UnicodeString(const wchar_t* str, int cap) noexcept;
 	UnicodeString(const UnicodeString* ptr) noexcept;
 	UnicodeString(const UnicodeString& inst) noexcept;
-
-
 	virtual ~UnicodeString();
 
 	UnicodeString* append(wchar_t ch) noexcept;
 	UnicodeString* append(UnicodeString* str) noexcept;
 
 	char* toCString();
-	const wchar_t* towString() const;
+	const wchar_t* towString() const noexcept;
+
+	UnicodeString* toLowerCase() const noexcept;
+	UnicodeString* toUpperCase() const noexcept;
+
+	bool startsWith(UnicodeString* str) const noexcept;
+	bool startsWith(UnicodeString* str, int start) const noexcept;
+	bool endsWith(UnicodeString* str) const noexcept;
+	int getNextMatch(int pos, UnicodeString* str, wchar_t* next) const noexcept;
+
+
+	UnicodeString* substring(int begin) const noexcept;
+	UnicodeString* substring(int begin, int end) const noexcept;
+	int indexOf(UnicodeString* str) const noexcept;
+	int indexOf(UnicodeString* str, int lastIndex) const noexcept;
+	int indexOf(wchar_t ch) const noexcept;
+	int indexOf(wchar_t ch, int lastIndex) const noexcept;
+	int lastIndexOf(wchar_t ch) const noexcept;
+	int lastIndexOf(wchar_t ch, int lastIndex) const noexcept;
+	int lastIndexOf(UnicodeString* str) const noexcept;
+	int lastIndexOf(UnicodeString* str, int lastIndex) const noexcept;
+
+	UnicodeString* insert(int position, wchar_t ch) noexcept;
+	UnicodeString* insert(int dstOffset, UnicodeString* str) noexcept;
+	UnicodeString* insert(int dstOffset, wchar_t* str, int offset, int count) noexcept;
 
 	int length() const noexcept;
 	wchar_t get(int i) const noexcept;

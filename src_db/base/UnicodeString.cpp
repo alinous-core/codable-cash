@@ -8,6 +8,7 @@
 #include <base/UnicodeString.h>
 
 #include <wchar.h>
+#include <wctype.h>
 
 namespace alinous {
 
@@ -86,7 +87,7 @@ char* UnicodeString::toCString(){
 	return nullptr;
 }
 
-const wchar_t* UnicodeString::towString() const
+const wchar_t* UnicodeString::towString() const noexcept
 {
 	if(this->buff->currentSize == this->buff->numArray){
 		this->buff->addElement(0);
@@ -104,6 +105,202 @@ const wchar_t* UnicodeString::towString() const
 
 	return this->buff->root;
 }
+
+UnicodeString* UnicodeString::toLowerCase() const noexcept
+{
+	UnicodeString* newStr = new UnicodeString(L"");
+
+	const int size = this->buff->size();
+	for(int i = 0; i != size; ++i){
+		wchar_t newCh = towlower(this->buff->get(i));
+
+		newStr->append(newCh);
+	}
+
+	return newStr;
+}
+UnicodeString* UnicodeString::toUpperCase() const noexcept
+{
+	UnicodeString* newStr = new UnicodeString(L"");
+
+	const int size = this->buff->size();
+	for(int i = 0; i < size; i++){
+		wchar_t newCh = towupper(this->buff->get(i));
+
+		newStr->append(newCh);
+	}
+
+	return newStr;
+}
+
+bool UnicodeString::startsWith(UnicodeString* str) const noexcept
+{
+	return startsWith(str, 0);
+}
+bool UnicodeString::startsWith(UnicodeString* str, int start) const noexcept {
+	const int length = this->length();
+
+	int pos = 0;
+	wchar_t match;
+	for(int i = start; i < length; i++){
+		wchar_t ch = this->charAt(i);
+		pos = getNextMatch(pos, str, &match);
+		if(pos < 0){
+			return true;
+		}
+
+		if(match != ch){
+			return false;
+		}
+	}
+
+	pos = getNextMatch(pos, str, &match);
+	if(pos < 0){
+		return true;
+	}
+
+	return false;
+
+}
+
+bool UnicodeString::endsWith(UnicodeString* str) const noexcept {
+	const int length = str->length();
+	int pos = this->length() - 1;
+	int posTarget = length - 1;
+
+	for(int i = 0; i != length; ++i){
+		if(this->charAt(pos--) != str->charAt(posTarget--)){
+			return false;
+		}
+	}
+
+	return true;
+}
+
+int UnicodeString::getNextMatch(int pos, UnicodeString* str, wchar_t* next) const noexcept {
+	if(str->length() <= pos){
+		return -1;
+	}
+
+	*next = str->charAt(pos++);
+
+	return pos;
+}
+
+
+UnicodeString* UnicodeString::substring(int begin) const noexcept
+{
+	return substring(begin, length());
+}
+UnicodeString* UnicodeString::substring(int begin, int end) const noexcept
+{
+	UnicodeString* newStr =  new UnicodeString(L"");
+
+	const wchar_t *str = towString();
+
+	const int max = end;
+	for(int i = begin; i != max; i++){
+		newStr->append(str[i]);
+	}
+
+	return newStr;
+}
+int UnicodeString::indexOf(UnicodeString* str) const noexcept {
+	return indexOf(str, 0);
+}
+int UnicodeString::indexOf(UnicodeString* str, int lastIndex) const noexcept {
+	wchar_t ch =str->charAt(0);
+	int index = indexOf(ch, lastIndex);
+	while(index >= 0){
+		if(this->startsWith(str, index)){
+			return index;
+		}
+
+		index++;
+		if(this->length() <= index){
+			return -1;
+		}
+
+		index = indexOf(ch, index);
+	}
+
+	return -1;
+}
+int UnicodeString::indexOf(wchar_t ch) const noexcept {
+	return indexOf(ch, 0);
+}
+int UnicodeString::indexOf(wchar_t ch, int lastIndex) const noexcept {
+	const int length = this->length();
+	for(int i = lastIndex; i < length; i++){
+		if(this->charAt(i) == ch){
+			return i;
+		}
+	}
+
+	return -1;
+}
+int UnicodeString::lastIndexOf(wchar_t ch) const noexcept {
+	return lastIndexOf(ch, length() - 1);
+}
+int UnicodeString::lastIndexOf(wchar_t ch, int lastIndex) const noexcept {
+	for (int i = lastIndex; i >= 0; i--) {
+		if(this->charAt(i) == ch){
+			return i;
+		}
+	}
+
+	return -1;
+}
+int UnicodeString::lastIndexOf(UnicodeString* str) const noexcept {
+	return lastIndexOf(str, length());
+}
+int UnicodeString::lastIndexOf(UnicodeString* str, int lastIndex) const noexcept {
+	if(lastIndex > this->length()){
+		lastIndex = this->length();
+	}
+	wchar_t ch = str->charAt(0);
+	int index = lastIndexOf(ch, lastIndex);
+	while(index >= 0){
+		if(this->startsWith(str, index)){
+			return index;
+		}
+
+		index--;
+		if(index < 0){
+			return -1;
+		}
+
+		index = indexOf(ch, index);
+	}
+
+	return -1;
+}
+
+UnicodeString* UnicodeString::insert(int position, wchar_t ch) noexcept {
+	buff->addElement(ch ,position);
+	return this;
+}
+
+UnicodeString* UnicodeString::insert(int dstOffset, UnicodeString* str) noexcept {
+	const int count = str->length();
+	int position = dstOffset;
+	for(int i = 0; i != count; ++i){
+		insert(position++, str->charAt(i));
+	}
+
+	return this;
+}
+
+UnicodeString* UnicodeString::insert(int dstOffset, wchar_t* str, int offset, int count) noexcept {
+	int position = dstOffset;
+	for(int i = 0; i != count; ++i){
+		insert(position++, str[i]);
+	}
+	return this;
+}
+
+
+
 
 wchar_t UnicodeString::get(int i) const noexcept { return this->buff->get(i); };
 wchar_t UnicodeString::charAt(int index) const noexcept

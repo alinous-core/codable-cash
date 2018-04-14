@@ -31,6 +31,10 @@ public:
 	V* get(K* key) noexcept {
 		return this->hashMapKeySet->getValue(key);
 	}
+
+	HashMapKeySet<K, V>* keySet() noexcept {
+		return this->hashMapKeySet;
+	}
 protected:
 	HashMapKeySet<K, V>* hashMapKeySet;
 };

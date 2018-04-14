@@ -36,25 +36,6 @@ public:
 
 		delete this->list;
 	}
-/*
-	virtual void add(K* e) throw() {
-		if(e == nullptr){
-			this->nullElement = new HashMapInternalElement<K, V>(nullptr, nullptr);
-			return;
-		}
-
-		HashMapInternalElement<K, V> tmp(e, nullptr);
-		HashMapInternalElement<K,V>* obj = this->list->search(&tmp);
-		if(obj != nullptr){
-			obj->value = nullptr;
-
-			return;
-		}
-
-		HashMapInternalElement<K, V>* element = new HashMapInternalElement<K, V>(e, nullptr);
-
-		this->list->addElement(element);
-	}*/
 
 	V* addElement(K *key, V* value) noexcept {
 		if(key == nullptr){

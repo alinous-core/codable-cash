@@ -62,10 +62,20 @@ TEST(HashMapTestGroup, put03){
 	last = map->put(&strkey2, &str2);
 	CHECK(last != nullptr);
 
+	// get
+	UnicodeString* str2eq = map->get(&strkey2);
+	CHECK(str2eq->equals(&str2));
+
 	delete map;
 }
 
+TEST(HashMapTestGroup, keySet){
+	UnicodeString strkey(L"key");
 
+	for(int i = 0; i != 10; ++i){
+
+	}
+}
 
 TEST_GROUP(HashMapKeySetTestGroup) {
 	TEST_SETUP() {}

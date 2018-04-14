@@ -47,6 +47,32 @@ public:
 		this->sorted = false;
 	}
 
+	void addElement(const T value, const int index) throw() {
+		if(__builtin_expect(this->currentSize == this->numArray, 0)){
+			int size = this->currentSize * 2;
+
+			T* newPtr = new T[size];
+
+			::memcpy(newPtr, this->root, sizeof(T) * this->currentSize);
+
+			delete [] this->root;
+
+			this->root = newPtr;
+			this->currentSize = size;
+		}
+
+		int copySize = this->numArray - index;
+		if(copySize > 0){
+			for(int i = this->numArray; i >= index; i--){
+				this->root[i + 1] = this->root[i];
+			}
+		}
+
+		this->numArray++;
+		this->root[index] = value;
+	}
+
+
 	inline int size() const noexcept {
 		return numArray;
 	}
