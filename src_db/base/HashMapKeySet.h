@@ -15,70 +15,88 @@ class HashMapRawArray;
 template <typename T, typename V>
 class HashMapInternalElement;
 
-template <typename T, typename V>
+template <typename K, typename V>
 class HashMapKeySet {
 public:
 	HashMapKeySet() noexcept {
-		this->list = new HashMapRawArray<T, V>();
+		this->list = new HashMapRawArray<K, V>();
 		this->nullElement = nullptr;
 	}
 
 	virtual ~HashMapKeySet() noexcept {
+		typename HashMapRawArray<K, V>::Iterator it = this->list->iterator();
+		while(it.hasNext()){
+			HashMapInternalElement<K, V>* element = it.next();
+
+			if(element->key != nullptr){
+				delete element->key;
+			}
+			delete element;
+		}
+
 		delete this->list;
 	}
-
-	virtual void add(T* e) throw() {
+/*
+	virtual void add(K* e) throw() {
 		if(e == nullptr){
-			this->nullElement = new HashMapInternalElement<T, V>(nullptr, nullptr);
+			this->nullElement = new HashMapInternalElement<K, V>(nullptr, nullptr);
 			return;
 		}
 
-		HashMapInternalElement<T, V> tmp(e, nullptr);
-		HashMapInternalElement<T,V>* obj = this->list->search(&tmp);
+		HashMapInternalElement<K, V> tmp(e, nullptr);
+		HashMapInternalElement<K,V>* obj = this->list->search(&tmp);
 		if(obj != nullptr){
 			obj->value = nullptr;
 
 			return;
 		}
 
-		HashMapInternalElement<T, V>* element = new HashMapInternalElement<T, V>(e, nullptr);
+		HashMapInternalElement<K, V>* element = new HashMapInternalElement<K, V>(e, nullptr);
 
 		this->list->addElement(element);
-	}
+	}*/
 
-	void addElement(const HashMapInternalElement<T, V>* e) throw() {
-		if(e->key == nullptr){
+	V* addElement(K *key, V* value) noexcept {
+		if(key == nullptr){
 			if(this->nullElement != nullptr){
-				this->nullElement->value = e->value;
-				return;
+				V* last = this->nullElement->value;
+
+				this->nullElement->value = value;
+				return last;
 			}
 
-			this->nullElement = new HashMapInternalElement<T,V>(e->key, e->value);
+			K *newKey = new K(*key);
+			this->nullElement = new HashMapInternalElement<K,V>(newKey, value);
 
-			return;
+			return nullptr;
 		}
 
-
-		HashMapInternalElement<T,V>* obj = this->list->search(e);
+		HashMapInternalElement<K,V> tmp(key, value);
+		HashMapInternalElement<K,V>* obj = this->list->search(&tmp);
 
 		if(obj != nullptr){
-			obj->value = e->value;
+			V* last = obj->value;
+			obj->value = value;
 
-			return;
+			return last;
 		}
-		obj = new HashMapInternalElement<T,V>(e->key, e->value);
+
+		K *newKey = new K(*key);
+		obj = new HashMapInternalElement<K,V>(newKey, value);
 
 		this->list->addElement(obj);
+
+		return nullptr;
 	}
 
-	V* getValue(T* key) throw() {
+	V* getValue(K* key) throw() {
 		if(key == nullptr){
 			V* val = this->nullElement == nullptr ? nullptr : this->nullElement->value;
 			return val;
 		}
 
-		HashMapInternalElement<T,V> tmp(key, nullptr);
-		HashMapInternalElement<T,V>* obj = this->list->search(&tmp);
+		HashMapInternalElement<K,V> tmp(key, nullptr);
+		HashMapInternalElement<K,V>* obj = this->list->search(&tmp);
 		if(obj == nullptr){
 			return nullptr;
 		}
@@ -94,7 +112,7 @@ public:
 
 		auto it = this->list->iterator();
 		while(it.hasNext()){
-			HashMapInternalElement<T,V>* obj = it.next();
+			HashMapInternalElement<K,V>* obj = it.next();
 			delete obj;
 		}
 
@@ -102,8 +120,8 @@ public:
 	}
 
 private:
-	HashMapRawArray<T, V>* list;
-	HashMapInternalElement<T, V>* nullElement;
+	HashMapRawArray<K, V>* list;
+	HashMapInternalElement<K, V>* nullElement;
 };
 
 

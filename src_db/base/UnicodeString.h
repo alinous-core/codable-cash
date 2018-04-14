@@ -17,6 +17,8 @@ public:
 	UnicodeString(const wchar_t* str) noexcept;
 	UnicodeString(const wchar_t* str, int cap) noexcept;
 	UnicodeString(const UnicodeString* ptr) noexcept;
+	UnicodeString(const UnicodeString& inst) noexcept;
+
 
 	virtual ~UnicodeString();
 

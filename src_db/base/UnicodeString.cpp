@@ -36,12 +36,23 @@ UnicodeString::UnicodeString(const wchar_t* str, int cap) noexcept {
 }
 
 UnicodeString::UnicodeString(const UnicodeString* ptr) noexcept{
-	this->buff =  new RawArrayPrimitive<wchar_t>(32);
+	this->buff =  new RawArrayPrimitive<wchar_t>(ptr->length() + 1);
 	this->__hashCode = 0;
 
 	int length = ptr->length();
 	for(int i = 0; i != length; ++i){
 		wchar_t ch = ptr->charAt(i);
+		append(ch);
+	}
+}
+
+UnicodeString::UnicodeString(const UnicodeString& inst) noexcept {
+	this->buff =  new RawArrayPrimitive<wchar_t>(inst.length() + 1);
+	this->__hashCode = 0;
+
+	int length = inst.length();
+	for(int i = 0; i != length; ++i){
+		wchar_t ch = inst.charAt(i);
 		append(ch);
 	}
 }

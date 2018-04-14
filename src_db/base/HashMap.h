@@ -14,21 +14,25 @@
 namespace alinous {
 
 
-
-
-
-template <typename T, typename V>
+template <typename K, typename V>
 class HashMap {
 public:
-	HashMap() noexcept : hashMapKeySet(){
-
+	HashMap() noexcept {
+		this->hashMapKeySet = new HashMapKeySet<K, V>();
 	}
 	virtual ~HashMap() noexcept {
-
+		delete this->hashMapKeySet;
 	}
 
+	V* put(K* key, V* value) noexcept {
+		return this->hashMapKeySet->addElement(key, value);
+	}
+
+	V* get(K* key) noexcept {
+		return this->hashMapKeySet->getValue(key);
+	}
 protected:
-	HashMapKeySet<T, V>* hashMapKeySet;
+	HashMapKeySet<K, V>* hashMapKeySet;
 };
 
 

@@ -70,6 +70,7 @@ public:
 
 		return ptr;
 	}
+	/*
 	bool removeByObj(const HashMapInternalElement<K, V>* obj) noexcept {
 		int hashcode = getHash(obj);
 		bool result =  arrays[hashcode].removeByObj(obj);
@@ -82,7 +83,7 @@ public:
 		}
 
 		return result;
-	}
+	}*/
 	HashMapInternalElement<K, V>* search(const HashMapInternalElement<K, V>* value) noexcept {
 		int hashcode = getHash(value);
 		return arrays[hashcode].search(value);
