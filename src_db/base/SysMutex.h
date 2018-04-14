@@ -14,8 +14,8 @@ namespace alinous {
 
 class SysMutex {
 public:
-	SysMutex();
-	~SysMutex();
+	SysMutex() throw();
+	~SysMutex() throw();
 
 	void lock() throw();
 	void unlock() throw();

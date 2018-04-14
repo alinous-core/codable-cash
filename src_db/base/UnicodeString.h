@@ -20,7 +20,8 @@ public:
 
 	virtual ~UnicodeString();
 
-	UnicodeString* append(wchar_t ch);
+	UnicodeString* append(wchar_t ch) throw();
+	UnicodeString* append(UnicodeString* str) throw();
 
 	char* toCString();
 

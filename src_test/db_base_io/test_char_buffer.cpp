@@ -21,7 +21,7 @@ TEST_GROUP(CharBufferTestGroup) {
 
 
 TEST(CharBufferTestGroup, test01){
-	CharBuffer* buff = new CharBuffer();
+	CharBuffer* buff = CharBuffer::allocate(8);
 	delete buff;
 }
 

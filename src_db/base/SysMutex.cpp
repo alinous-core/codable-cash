@@ -9,11 +9,11 @@
 
 namespace alinous {
 
-SysMutex::SysMutex() {
+SysMutex::SysMutex() throw() {
 	pthread_mutex_init(&mutex, nullptr);
 }
 
-SysMutex::~SysMutex() {
+SysMutex::~SysMutex() throw() {
 	pthread_mutex_destroy(&mutex);
 }
 

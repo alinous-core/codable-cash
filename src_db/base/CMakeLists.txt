@@ -1,4 +1,5 @@
 set(__src
+	base/Exception.cpp
 	base/SysMutex.cpp
 	base/UnicodeString.cpp
 )

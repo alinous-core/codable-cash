@@ -49,10 +49,21 @@ UnicodeString::~UnicodeString() {
 }
 
 
-UnicodeString* UnicodeString::append(wchar_t ch)
+UnicodeString* UnicodeString::append(wchar_t ch) throw()
 {
 	this->buff->addElement(ch);
 	this->__hashCode = 0;
+
+	return this;
+}
+
+UnicodeString* UnicodeString::append(UnicodeString* str) throw() {
+	int len = str->length();
+
+	for(int i = 0; i != len; ++i){
+		wchar_t ch = str->charAt(i);
+		append(ch);
+	}
 
 	return this;
 }

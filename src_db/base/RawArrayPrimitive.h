@@ -22,7 +22,7 @@ public:
 			sorted(false){
 	}
 
-	~RawArrayPrimitive(){
+	~RawArrayPrimitive() throw() {
 		delete [] root;
 	}
 
@@ -59,6 +59,10 @@ public:
 	inline void set(const int i, T value) const throw() {
 		*(this->root + i) = value;
 	}*/
+
+	inline void setNumArray(int numArray) throw() {
+		this->numArray = numArray;
+	}
 private:
 	int numArray;
 	int currentSize;
