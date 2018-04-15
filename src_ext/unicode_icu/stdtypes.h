@@ -4,8 +4,8 @@
  */
 
 
-#ifndef UNICODE_STDTYPES_H_
-#define UNICODE_STDTYPES_H_
+#ifndef UNICODE_ICU_STDTYPES_H_
+#define UNICODE_ICU_STDTYPES_H_
 
 #include <stdint.h>
 
@@ -20,4 +20,4 @@ constexpr static const UBool FALSE{0};
 
 }
 
-#endif /* UNICODE_STDTYPES_H_ */
+#endif /* UNICODE_ICU_STDTYPES_H_ */

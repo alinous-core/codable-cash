@@ -3,7 +3,7 @@ set(CMAKE_CXX_FLAGS "-std=c++0x -D__cplusplus=201103L -Wall -fmessage-length=0 -
 
 # import source codes
 add_subdirectory(yescrypt)
-add_subdirectory(unicode)
+add_subdirectory(unicode_icu)
 
 message (STATUS "ext source codes ${yescryptsrc}")
 message (STATUS "ext source codes ${unicodesrc}")

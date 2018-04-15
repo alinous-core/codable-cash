@@ -9,6 +9,7 @@
 
 #include "base/exceptions.h"
 #include "base/UnicodeString.h"
+#include "base/Character.h"
 
 namespace alinous {
 
@@ -46,7 +47,7 @@ int Integer::parseInt(UnicodeString* string, int radix)
 	}
 	return parse(string, i, radix, negative);
 }
-/*
+
 int Integer::parse(UnicodeString* string, int offset, int radix, bool negative)
 {
 	int max = Integer::MIN_VALUE / radix;
@@ -79,7 +80,7 @@ int Integer::parse(UnicodeString* string, int offset, int radix, bool negative)
 	}
 	return result;
 }
-*/
+
 int Integer::compareTo(const Integer* object) const noexcept {
 	return value > object->value ? 1 : (value < object->value ? -1 : 0);
 }

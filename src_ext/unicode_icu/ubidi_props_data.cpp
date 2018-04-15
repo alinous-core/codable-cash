@@ -3,8 +3,8 @@
  * Licensed under the MIT license.
  */
 
-#include "uchar.h"
 #include "ubidi_props_data.h"
+#include "uchar.h""
 
 
 namespace icu {

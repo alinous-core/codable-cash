@@ -5,13 +5,12 @@
 
 
 #include "stdtypes.h"
-
-#include "uchar_props_data.h"
-#include "utrie2.h"
-#include "uprops.h"
 #include "ubidi_props.h"
 #include "ubidi_props_data.h"
 #include "ucase_props_data.h"
+#include "uchar_props_data.h"
+#include "uprops.h"
+#include "utrie2.h"
 
 #ifndef UNICODE_UCHAR_H_
 #define UNICODE_UCHAR_H_

@@ -1,4 +1,5 @@
 set(__src
+	base/Character.cpp
 	base/Exception.cpp
 	base/Integer.cpp
 	base/RawBitSet.cpp
