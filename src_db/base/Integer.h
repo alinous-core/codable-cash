@@ -26,10 +26,11 @@ public:
 
 	static int parseInt(UnicodeString* string);
 	static int parseInt(UnicodeString* string, int radix);
-private:
+protected:
 	static int parse(UnicodeString* string, int offset, int radix, bool negative);
 
 public:
+	int hashCode() noexcept;
 	bool equals(const Integer* o) const noexcept { return compareTo(o) == 0;};
 	int compareTo(const Integer* object) const noexcept;
 

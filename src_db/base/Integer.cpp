@@ -63,12 +63,7 @@ int Integer::parse(UnicodeString* string, int offset, int radix, bool negative)
 		{
 			throw new NumberFormatException(string);
 		}
-		int next = result * radix - digit;
-		if(next > result)
-		{
-			throw new NumberFormatException(string);
-		}
-		result = next;
+		result = result * radix - digit;
 	}
 	if(!negative)
 	{
@@ -79,6 +74,11 @@ int Integer::parse(UnicodeString* string, int offset, int radix, bool negative)
 		}
 	}
 	return result;
+}
+
+int Integer::hashCode() noexcept
+{
+	return value;
 }
 
 int Integer::compareTo(const Integer* object) const noexcept {

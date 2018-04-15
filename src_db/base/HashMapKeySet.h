@@ -8,12 +8,15 @@
 #ifndef BASE_HASHMAPKEYSET_H_
 #define BASE_HASHMAPKEYSET_H_
 
+#include "Iterator.h"
+
 namespace alinous {
 
 template <typename T, typename V>
 class HashMapRawArray;
 template <typename T, typename V>
 class HashMapInternalElement;
+
 
 template <typename K, typename V>
 class HashMapKeySet {
@@ -98,6 +101,51 @@ public:
 		}
 
 		this->list->reset();
+	}
+
+	class HashMapKeySetIterator : public Iterator<K> {
+	public:
+		HashMapKeySetIterator(HashMapRawArray<K, V>* list, HashMapInternalElement<K, V>* nullelement)throw() : Iterator<K>(),
+			internalIt(list->iterator()), outputNull(false), nullElement(nullelement)
+		{
+		}
+		virtual ~HashMapKeySetIterator() throw() {
+		}
+
+		virtual bool hasNext() throw() {
+			if(this->outputNull == false && this->nullElement != nullptr){
+				return true;
+			}
+			return this->internalIt.hasNext();
+		}
+		virtual K* next() throw() {
+			if(this->outputNull == false){
+				this->outputNull = true;
+
+				if(this->nullElement != nullptr){
+					return this->nullElement->key;
+				}
+			}
+
+			HashMapInternalElement<K, V>* obj = this->internalIt.next();
+			if(obj == nullptr){
+				return nullptr;
+			}
+			return obj->key;
+		}
+		virtual void remove() throw() {
+		}
+
+	private:
+		typename HashMapRawArray<K, V>::Iterator internalIt;
+		bool outputNull;
+		HashMapInternalElement<K, V>* nullElement;
+	};
+
+	Iterator<K>* iterator() noexcept {
+		HashMapKeySetIterator* iterator = new HashMapKeySetIterator(this->list, this->nullElement);
+
+		return iterator;
 	}
 
 private:

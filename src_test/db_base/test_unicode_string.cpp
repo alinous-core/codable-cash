@@ -195,3 +195,14 @@ TEST(UnicodeStringTestGroup, insert){
 	CHECK(strins.equals(&str03));
 }
 
+TEST(UnicodeStringTestGroup, appendInt){
+	UnicodeString str(L"test");
+	UnicodeString str2(L"test123");
+	UnicodeString str3(L"test123-123");
+
+	str.append(123);
+	CHECK(str.equals(&str2));
+	str.append(-123);
+	CHECK(str.equals(&str3));
+}
+

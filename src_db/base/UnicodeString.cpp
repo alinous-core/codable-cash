@@ -97,6 +97,35 @@ UnicodeString* UnicodeString::append(UnicodeString* str) noexcept {
 	return this;
 }
 
+UnicodeString* UnicodeString::append(int value) noexcept
+{
+	if(value < 0){
+		value = value * -1;
+		__append(L'-');
+	}
+
+	wchar_t buf[64] = {};
+	int offset = 0;
+	while(value != 0){
+		int d = value % 10;
+		value /= 10;
+
+		::swprintf(&buf[offset], sizeof(buff), L"%lld", d);
+
+		offset++;
+	}
+
+	for(int i = offset - 1; i >= 0; i--){
+		__append(buf[i]);
+	}
+
+	__closeString();
+
+	return this;
+}
+
+
+
 char* UnicodeString::toCString(){
 	// TODO: debug
 	return nullptr;

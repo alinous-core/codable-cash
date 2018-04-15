@@ -26,6 +26,8 @@ private:
 public:
 	UnicodeString* append(wchar_t ch) noexcept;
 	UnicodeString* append(UnicodeString* str) noexcept;
+	UnicodeString* append(int value) noexcept;
+
 
 	char* toCString();
 	const wchar_t* towString() const noexcept;
