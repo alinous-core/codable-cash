@@ -66,7 +66,7 @@ public:
 
 		int copySize = this->numArray - index;
 		if(copySize > 0){
-			for(int i = this->numArray; i >= index; i--){
+			for(int i = this->numArray; i > index; i--){
 				this->root[i] = this->root[i - 1];
 			}
 		}

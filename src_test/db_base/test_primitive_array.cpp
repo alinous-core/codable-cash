@@ -44,5 +44,12 @@ TEST(RawArrayPrimitiveTestGroup, test02){
 	ar.set(4, 0);
 	CHECK(p[4] == 0);
 
+	ar.addElement(0, 5);
+	p = ar.getRoot();
+
+	CHECK(p[5] == 0);
+	CHECK(p[6] == 2);
+	CHECK(p[7] == 1);
+	CHECK(p[8] == 0);
 }
 
