@@ -38,6 +38,9 @@ public:
 		}
 
 		delete this->list;
+		if(this->nullElement != nullptr){
+			delete this->nullElement;
+		}
 	}
 
 	V* addElement(K *key, V* value) noexcept {
@@ -49,8 +52,7 @@ public:
 				return last;
 			}
 
-			K *newKey = new K(*key);
-			this->nullElement = new HashMapInternalElement<K,V>(newKey, value);
+			this->nullElement = new HashMapInternalElement<K,V>(nullptr, value);
 
 			return nullptr;
 		}

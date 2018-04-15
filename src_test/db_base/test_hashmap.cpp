@@ -127,6 +127,55 @@ TEST(HashMapTestGroup, keySet02){
 	delete map;
 }
 
+TEST(HashMapTestGroup, keySetWithNull){
+	UnicodeString strkey(L"key");
+
+	HashMap<Integer, UnicodeString>* map = new HashMap<Integer, UnicodeString>();
+
+	for(int i = 0; i != 1000; ++i){
+		Integer key(i);
+
+		UnicodeString* value = new UnicodeString(L"value");
+		value->append(i);
+
+		map->put(&key, value);
+	}
+
+	map->put(nullptr, new UnicodeString(L"value"));
+
+	HashMapKeySet<Integer, UnicodeString>* keyset = map->keySet();
+	Iterator<Integer> *it = keyset->iterator();
+	while(it->hasNext()){
+		Integer* key = it->next();
+		UnicodeString* value = map->get(key);
+
+		if(value == nullptr){
+			continue;
+		}
+
+		delete value;
+	}
+
+	Integer* ended = it->next();
+
+	// remove don't work
+	it->remove();
+
+	delete it;
+
+	delete map;
+}
+
+TEST(HashMapTestGroup, keySetWithNull02){
+	HashMap<Integer, UnicodeString>* map = new HashMap<Integer, UnicodeString>();
+
+	map->put(nullptr, new UnicodeString(L"value"));
+
+	UnicodeString* last = map->put(nullptr, nullptr);
+	delete last;
+
+	delete map;
+}
 
 
 TEST_GROUP(HashMapKeySetTestGroup) {

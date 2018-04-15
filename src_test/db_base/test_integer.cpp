@@ -21,8 +21,10 @@ TEST_GROUP(IntegerTestGroup) {
 
 TEST(IntegerTestGroup, construct){
 	Integer* value = new Integer(100);
-
+	Integer cpy(*value);
+	//Integer* cpy2 = new Integer(cpy);
 	delete value;
+	//delete cpy2;
 }
 
 TEST(IntegerTestGroup, parseInt){
