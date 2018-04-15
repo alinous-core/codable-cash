@@ -48,7 +48,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 	)
 	add_custom_target(report)
 	add_custom_command(TARGET report
-		COMMAND genhtml --title "CodableCash Test Report" -s -p ${PROJECT_SOURCE_DIR} -o html_report ${infofiles}
+		COMMAND genhtml --no-function-coverage --title "CodableCash Test Report" -s -p ${PROJECT_SOURCE_DIR} -o html_report ${infofiles}
 		WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 		)
 		
