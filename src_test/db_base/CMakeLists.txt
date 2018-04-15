@@ -4,10 +4,12 @@ set(src
 )
 
 set(db_base_test_src
-	test_thread.cpp
 	test_arraylist.cpp
+	test_character.cpp
+	test_exceptions.cpp
 	test_hashmap.cpp
 	test_integer.cpp
+	test_thread.cpp
 	test_unicode_string.cpp
 )
 
