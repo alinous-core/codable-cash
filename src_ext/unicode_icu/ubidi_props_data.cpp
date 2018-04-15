@@ -4,7 +4,7 @@
  */
 
 #include "ubidi_props_data.h"
-#include "uchar.h""
+#include "uchar.h"
 
 
 namespace icu {

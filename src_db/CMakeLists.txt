@@ -10,6 +10,6 @@ message (STATUS "db source codes ${dbiosrc}")
 message (STATUS "db source codes ${dbcharsetssrc}")
 
 add_library(alinousdb STATIC alinousdbmain.cpp ${dbbasesrc} ${dbiosrc} ${dbcharsetssrc})
-target_link_libraries(alinousdb pthread)
+target_link_libraries(alinousdb extlib pthread)
 
 

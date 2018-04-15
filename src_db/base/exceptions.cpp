@@ -6,6 +6,7 @@
  */
 
 #include <base/exceptions.h>
+#include "UnicodeString.h"
 
 namespace alinous {
 

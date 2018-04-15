@@ -1,6 +1,7 @@
 set(__src
 	base/Character.cpp
 	base/Exception.cpp
+	base/exceptions.cpp
 	base/Integer.cpp
 	base/RawBitSet.cpp
 	base/SysMutex.cpp
