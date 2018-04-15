@@ -28,5 +28,5 @@ add_custom_command(TARGET ${target_name}
 	COMMAND lcov -c -d ${gnodir} -o ${infoname}
 	WORKING_DIRECTORY ${workdir}
 )
-add_dependencies(report ${target_name})
+add_dependencies(lcov ${target_name})
 

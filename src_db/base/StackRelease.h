@@ -13,9 +13,9 @@ namespace alinous {
 template <typename T>
 class StackRelease {
 public:
-	inline StackRelease(T* ptr) : ptr(ptr){
+	StackRelease(T* ptr) : ptr(ptr){
 	}
-	inline ~StackRelease(){
+	~StackRelease(){
 		delete ptr;
 	}
 private:

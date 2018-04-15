@@ -7,7 +7,7 @@ add_subdirectory(src_ext)
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 	message(STATUS "Debug Build")
 		
-	set(CMAKE_CXX_FLAGS "-std=c++0x -D__cplusplus=201103L -fmessage-length=0 -g -O0 -coverage")
+	set(CMAKE_CXX_FLAGS "-std=c++0x -D__cplusplus=201103L -fmessage-length=0 -g -O0 -coverage -fno-inline -fno-inline-small-functions -fno-default-inline")
 	set(CMAKE_C_FLAGS "-g -O0 -coverage -fprofile-arcs -ftest-coverage")
 	set(CMAKE_EXE_LINKER_FLAGS="-fprofile-arcs -ftest-coverage")
 	
@@ -38,16 +38,44 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 	
 	# Report
 	set(infofiles
-		coverage/report_crypto/report_crypto.info
-		coverage/report_db_base/report_db_base.info
-		coverage/report_db_base_io/report_db_base_io.info
-		coverage/report_db_charsets/report_db_charsets.info
+		#coverage/report_crypto/report_crypto.info
+		#coverage/report_db_base/report_db_base.info
+		#coverage/report_db_base_io/report_db_base_io.info
+		#coverage/report_db_charsets/report_db_charsets.info
+		#coverage/report_test_db_base/report_test_db_base.info
+		#coverage/report_test_db_base_io/report_test_db_base_io.info
+		coverage/test.info
 	)
 	add_custom_target(report)
 	add_custom_command(TARGET report
 		COMMAND genhtml --title "CodableCash Test Report" -s -p ${PROJECT_SOURCE_DIR} -o html_report ${infofiles}
 		WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 		)
+		
+	set(covdir coverage/)
+	set(workdir ${CMAKE_BINARY_DIR}/${covdir})
+		
+	add_custom_target(lcov
+	    COMMAND mkdir -p ${covdir}
+	    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+	    )
+	
+	add_custom_command(TARGET lcov
+	    COMMAND echo "=================== LCOV ===================="
+		
+		COMMAND lcov -a report_crypto/report_crypto.info -a report_db_base/report_db_base.info -o test.info
+		COMMAND lcov -a test.info -a report_db_base_io/report_db_base_io.info -o test.info
+		COMMAND lcov -a test.info -a report_db_charsets/report_db_charsets.info -o test.info
+		COMMAND lcov -a test.info -a report_test_db_base/report_test_db_base.info -o test.info
+		COMMAND lcov -a test.info -a report_test_db_base_io/report_test_db_base_io.info -o test.info
+		COMMAND lcov -a test.info -a report_test_db_charsets/report_test_db_charsets.info -o test.info
+				
+		COMMAND lcov --remove test.info '/usr/include/*' '*/src_test/*' -o test.info
+		
+		WORKING_DIRECTORY ${workdir}
+)
+	add_dependencies(report lcov)
+	
 endif()
 
 

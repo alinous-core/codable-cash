@@ -13,3 +13,4 @@ add_library(alinousdb STATIC alinousdbmain.cpp ${dbbasesrc} ${dbiosrc} ${dbchars
 target_link_libraries(alinousdb extlib pthread)
 
 
+

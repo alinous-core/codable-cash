@@ -2,7 +2,7 @@
 
 
 pushd target
-make all
+make all -j4
 make test
 make report
 popd

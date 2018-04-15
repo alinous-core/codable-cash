@@ -26,7 +26,6 @@ add_custom_command(TARGET ${target_name}
     COMMAND echo "=================== GCOV ${target_name} ===================="
 	COMMAND gcov -b -l ${__src} -o ${gnodir}
 	COMMAND lcov -c -d ${gnodir} -o ${infoname}
-	#COMMAND genhtml -o output ${infoname}
 	WORKING_DIRECTORY ${workdir}
 )
-add_dependencies(report ${target_name})
+add_dependencies(lcov ${target_name})
