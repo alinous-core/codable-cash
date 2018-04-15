@@ -38,14 +38,14 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 	
 	# Report
 	set(infofiles
-		coverage/crypto/cryptotest.info
+		coverage/report_crypto/report_crypto.info
 		coverage/report_db_base/report_db_base.info
 		coverage/report_db_base_io/report_db_base_io.info
 		coverage/report_db_charsets/report_db_charsets.info
 	)
 	add_custom_target(report)
 	add_custom_command(TARGET report
-		COMMAND genhtml -o html_report ${infofiles}
+		COMMAND genhtml --title "CodableCash Test Report" -s -p ${PROJECT_SOURCE_DIR} -o html_report ${infofiles}
 		WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 		)
 endif()

@@ -1,27 +1,32 @@
 
 
-set(__cryptosrc
+set(__src
 	crypto/Schnorr.cpp
 	crypto/SchnorrKeyPair.cpp
 	crypto/SchnorrSignature.cpp
 )
 	
-set(cryptosrc ${__cryptosrc} PARENT_SCOPE)
+set(cryptosrc ${__src} PARENT_SCOPE)
 
 
+set(target_name report_crypto)
 set(gnodir ${CMAKE_BINARY_DIR}/src/CMakeFiles/codablelib.dir/crypto/)
 
-add_custom_target(report_crypto
-    COMMAND mkdir -p coverage/crypto
+set(infoname ${target_name}.info)
+set(covdir coverage/${target_name})
+set(workdir ${CMAKE_BINARY_DIR}/${covdir})
+
+
+add_custom_target(${target_name}
+    COMMAND mkdir -p ${covdir}
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     )
 
-add_custom_command(TARGET report_crypto
-    COMMAND echo "=================== GCOV crypto ===================="
-	COMMAND gcov -b  ${__cryptosrc} -o ${gnodir}
-	COMMAND lcov -c -d ${gnodir} -o cryptotest.info
-	#COMMAND genhtml -o output test.info
-	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/coverage/crypto
+add_custom_command(TARGET ${target_name}
+    COMMAND echo "=================== GCOV ${target_name} ===================="
+	COMMAND gcov -b -l ${__src} -o ${gnodir}
+	COMMAND lcov -c -d ${gnodir} -o ${infoname}
+	WORKING_DIRECTORY ${workdir}
 )
-add_dependencies(report report_crypto)
+add_dependencies(report ${target_name})
 

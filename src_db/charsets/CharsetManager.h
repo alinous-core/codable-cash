@@ -12,13 +12,21 @@ namespace alinous {
 
 class UnicodeString;
 class CharsetConverter;
+template<typename K, typename V> class HashMap;
 
 class CharsetManager {
-public:
+private:
 	CharsetManager();
+public:
 	virtual ~CharsetManager();
 
+	static CharsetManager* getInstance() noexcept;
+	static void closeInstance() noexcept;
+
 	CharsetConverter* getConverter(UnicodeString* charset) noexcept;
+private:
+	static CharsetManager* instance;
+	HashMap<UnicodeString, CharsetConverter>* charConverters;
 };
 
 } /* namespace alinous */

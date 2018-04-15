@@ -9,6 +9,7 @@
 #include "CppUTest/CommandLineTestRunner.h"
 
 #include "charsets/CharsetManager.h"
+#include "base/UnicodeString.h"
 
 using namespace alinous;
 
@@ -20,9 +21,17 @@ TEST_GROUP(CharsetTestGroup) {
 };
 
 
-TEST(CharsetTestGroup, test01){
-	CharsetManager* mgr = new CharsetManager();
-	delete mgr;
+TEST(CharsetTestGroup, construct){
+	CharsetManager* mgr = CharsetManager::getInstance();
+	CharsetManager::closeInstance();
 }
 
+TEST(CharsetTestGroup, getConverter){
+	CharsetManager* mgr = CharsetManager::getInstance();
+
+	UnicodeString charset(L"utf-8");
+	CharsetConverter* cnv = mgr->getConverter(&charset);
+
+	CharsetManager::closeInstance();
+}
 

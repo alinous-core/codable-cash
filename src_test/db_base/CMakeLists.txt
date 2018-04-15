@@ -9,6 +9,7 @@ set(db_base_test_src
 	test_exceptions.cpp
 	test_hashmap.cpp
 	test_integer.cpp
+	test_stack_release.cpp
 	test_thread.cpp
 	test_unicode_string.cpp
 )

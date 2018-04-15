@@ -10,16 +10,38 @@
 
 #include "CharsetConverter.h"
 #include "base/HashMap.h"
+#include "base/StackRelease.h"
 
 namespace alinous {
 
-CharsetManager::CharsetManager() {
+CharsetManager* CharsetManager::instance = nullptr;
+
+CharsetManager::CharsetManager() : charConverters(new HashMap<UnicodeString, CharsetConverter>()) {
 }
 
 CharsetManager::~CharsetManager() {
+	delete this->charConverters;
+}
+
+CharsetManager* CharsetManager::getInstance() noexcept {
+	if(CharsetManager::instance == nullptr)
+	{
+		CharsetManager::instance = new CharsetManager();
+	}
+	return CharsetManager::instance;
+}
+void CharsetManager::closeInstance() noexcept {
+	if(CharsetManager::instance != nullptr){
+		delete CharsetManager::instance;
+		CharsetManager::instance = nullptr;
+	}
 }
 
 CharsetConverter* CharsetManager::getConverter(UnicodeString* charset) noexcept {
+	UnicodeString* ucharset = charset->toUpperCase();
+	StackRelease<UnicodeString> r_ucharset(ucharset);
+
+
 	return nullptr;
 }
 
