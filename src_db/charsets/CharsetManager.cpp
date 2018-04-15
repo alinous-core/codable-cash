@@ -41,6 +41,19 @@ CharsetConverter* CharsetManager::getConverter(UnicodeString* charset) noexcept 
 	UnicodeString* ucharset = charset->toUpperCase();
 	StackRelease<UnicodeString> r_ucharset(ucharset);
 
+	UnicodeString* altcharset = ucharset->replace(L'-', L'_');
+	StackRelease<UnicodeString> r_altcharset(altcharset);
+
+	CharsetConverter* conv = this->charConverters->get(ucharset);
+	if(conv != nullptr)
+	{
+		return conv;
+	}
+	conv = this->charConverters->get(altcharset);
+	if(conv != nullptr)
+	{
+		return conv;
+	}
 
 	return nullptr;
 }

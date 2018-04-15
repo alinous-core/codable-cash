@@ -124,6 +124,23 @@ UnicodeString* UnicodeString::append(int value) noexcept
 	return this;
 }
 
+UnicodeString* UnicodeString::replace(wchar_t last, wchar_t next) const noexcept {
+	UnicodeString *retStr =  new UnicodeString(L"");
+
+	const int maxLoop = this->buff->numArray;
+	for(int i = 0; i != maxLoop; ++i){
+		wchar_t ch = this->buff->get(i);
+		if(ch == last){
+			retStr->__append(next);
+		}else{
+			retStr->__append(ch);
+		}
+	}
+
+	retStr->__closeString();
+
+	return retStr;
+}
 
 
 char* UnicodeString::toCString(){

@@ -14,7 +14,7 @@
 
 using namespace alinous;
 
-TEST_GROUP(ExceptionsTestGroup) {
+TEST_GROUP(BaseExceptionsTestGroup) {
 	TEST_SETUP() {}
 	TEST_TEARDOWN() {}
 
@@ -67,12 +67,12 @@ void testException(){
 	delete ex; ex = nullptr;
 }
 
-TEST(ExceptionsTestGroup, ex){
+TEST(BaseExceptionsTestGroup, ex){
 	Exception* ex = new Exception();
 	delete ex;
 }
 
-TEST(ExceptionsTestGroup, test01){
+TEST(BaseExceptionsTestGroup, test01){
 	testException<BufferUnderflowException>();
 	testException<BufferOverflowException>();
 }

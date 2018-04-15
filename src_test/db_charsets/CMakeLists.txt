@@ -3,16 +3,22 @@ set(src
 	testmain.cpp
 )
 
-set(db_base_io_test_src
+set(testsrc
 	test_charsets.cpp
 )
 
+foreach(loop_var IN LISTS testsrc)
+	list(APPEND __testsrc db_charsets/${loop_var})
+endforeach()
+set(db_charset_test_src ${__testsrc} PARENT_SCOPE)
+
+
 set(testtarget db_charset_test)
 
-add_executable(${testtarget} ${src} ${db_base_io_test_src})
+add_executable(${testtarget} ${src} ${testsrc})
 target_link_libraries(${testtarget} codablelib extlib alinousdb pthread gmp ${CPPUTEST_LDFLAGS})
 
-add_test(${testtarget} ${testtarget} -v)
+#add_test(${testtarget} ${testtarget} -v)
 
 
 

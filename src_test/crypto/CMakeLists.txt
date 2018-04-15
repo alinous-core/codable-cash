@@ -3,16 +3,23 @@ set(src
 	"testmain.cpp"
 )
 
-set(cryptotestsrc
+set(testsrc
 	test_mpz.cpp
 	test_yescript.cpp
 	test_schnorr.cpp
 )
 
-add_executable(testmain ${src} ${cryptotestsrc})
-target_link_libraries(testmain codablelib extlib gmp ${CPPUTEST_LDFLAGS})
+foreach(loop_var IN LISTS testsrc)
+	list(APPEND __testsrc crypto/${loop_var})
+endforeach()
+set(cryptotestsrc ${__testsrc} PARENT_SCOPE)
 
-add_test(testcrypto testmain -v)
+add_executable(testcrypt ${src} ${testsrc})
+target_link_libraries(testcrypt codablelib extlib gmp ${CPPUTEST_LDFLAGS})
 
+
+
+
+#add_test(testcrypto testmain -v)
 
 
