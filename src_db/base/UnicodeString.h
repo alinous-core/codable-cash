@@ -20,6 +20,10 @@ public:
 	UnicodeString(const UnicodeString& inst) noexcept;
 	virtual ~UnicodeString();
 
+private:
+	UnicodeString* __append(wchar_t ch) noexcept;
+	void __closeString() noexcept;
+public:
 	UnicodeString* append(wchar_t ch) noexcept;
 	UnicodeString* append(UnicodeString* str) noexcept;
 

@@ -62,11 +62,24 @@ UnicodeString::~UnicodeString() {
 	delete buff;
 }
 
+UnicodeString* UnicodeString::__append(wchar_t ch) noexcept {
+	this->buff->addElement(ch);
+
+	return this;
+}
+
+void UnicodeString::__closeString() noexcept {
+	this->buff->addElement(L'\0');
+	this->buff->backLast();
+
+	this->__hashCode = 0;
+}
+
 
 UnicodeString* UnicodeString::append(wchar_t ch) noexcept
 {
-	this->buff->addElement(ch);
-	this->__hashCode = 0;
+	__append(ch);
+	__closeString();
 
 	return this;
 }
@@ -76,8 +89,10 @@ UnicodeString* UnicodeString::append(UnicodeString* str) noexcept {
 
 	for(int i = 0; i != len; ++i){
 		wchar_t ch = str->charAt(i);
-		append(ch);
+		__append(ch);
 	}
+
+	__closeString();
 
 	return this;
 }
@@ -89,20 +104,6 @@ char* UnicodeString::toCString(){
 
 const wchar_t* UnicodeString::towString() const noexcept
 {
-	if(this->buff->currentSize == this->buff->numArray){
-		this->buff->addElement(0);
-		this->buff->remove(this->buff->numArray - 1);
-	}else{
-		//wchar_t lastCh = this->buff->get(this->buff->numArray);
-		//if(lastCh != 0x0){
-		//	this->buff->addElement(0);
-		//	this->buff->remove(this->buff->numArray - 1);
-		//}
-		this->buff->addElement(0);
-		this->buff->remove(this->buff->numArray - 1);
-	}
-	this->buff->root[this->buff->numArray] = L'\0';
-
 	return this->buff->root;
 }
 
@@ -114,8 +115,10 @@ UnicodeString* UnicodeString::toLowerCase() const noexcept
 	for(int i = 0; i != size; ++i){
 		wchar_t newCh = towlower(this->buff->get(i));
 
-		newStr->append(newCh);
+		newStr->__append(newCh);
 	}
+
+	newStr->__closeString();
 
 	return newStr;
 }
@@ -127,8 +130,10 @@ UnicodeString* UnicodeString::toUpperCase() const noexcept
 	for(int i = 0; i < size; i++){
 		wchar_t newCh = towupper(this->buff->get(i));
 
-		newStr->append(newCh);
+		newStr->__append(newCh);
 	}
+
+	newStr->__closeString();
 
 	return newStr;
 }
@@ -200,8 +205,9 @@ UnicodeString* UnicodeString::substring(int begin, int end) const noexcept
 
 	const int max = end;
 	for(int i = begin; i != max; i++){
-		newStr->append(str[i]);
+		newStr->__append(str[i]);
 	}
+	newStr->__closeString();
 
 	return newStr;
 }

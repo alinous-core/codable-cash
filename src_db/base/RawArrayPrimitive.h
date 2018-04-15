@@ -26,6 +26,9 @@ public:
 		delete [] root;
 	}
 
+	void backLast(){
+		this->numArray--;
+	}
 
 	void addElement(const T value) noexcept {
 		if(__builtin_expect(this->currentSize == this->numArray, 0)){
