@@ -20,7 +20,7 @@ public:
 	CharsetDecoder();
 	virtual ~CharsetDecoder();
 
-	virtual CoderResult decodeLoop(ByteBuffer* bb, CharBuffer* cb) = 0;
+	virtual CoderResult decodeLoop(ByteBuffer* in, CharBuffer* out) = 0;
 };
 
 } /* namespace alinous */

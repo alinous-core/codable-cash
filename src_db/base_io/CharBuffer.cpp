@@ -13,6 +13,20 @@
 
 namespace alinous {
 
+CharBuffer::CharBuffer(const wchar_t* buffer, int length) noexcept {
+	this->data = new RawArrayPrimitive<wchar_t>(length);
+	this->data->setNumArray(length);
+
+	this->lim = length;
+	this->pos = 0;
+	this->cap = length;
+
+	const int maxLoop = length;
+	for(int i = 0; i != maxLoop; ++i){
+		data->addElement(buffer[i]);
+	}
+}
+
 CharBuffer::CharBuffer(int size) noexcept {
 	this->data = new RawArrayPrimitive<wchar_t>(size);
 	this->data->setNumArray(size);
@@ -26,6 +40,24 @@ CharBuffer::~CharBuffer() noexcept {
 	delete this->data;
 }
 
+CharBuffer* CharBuffer::wrap(const wchar_t* buffer, int begin, int count) noexcept {
+	return new CharBuffer(buffer + begin, count);
+}
+
+CharBuffer* CharBuffer::wrap(UnicodeString* str) noexcept {
+	return wrap(str, 0, str->length());
+}
+
+CharBuffer* CharBuffer::wrap(UnicodeString* str, int begin, int count) noexcept {
+	CharBuffer* newBuffer = new CharBuffer(count);
+
+	for (int i = 0; i < count; i++) {
+		newBuffer->put(str->charAt(begin + i));
+	}
+
+	newBuffer->position(0);
+	return newBuffer;
+}
 
 CharBuffer* CharBuffer::allocate(int capacity) noexcept {
 	return new CharBuffer(capacity);

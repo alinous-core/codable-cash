@@ -49,9 +49,6 @@ public:
 		return &encoder;
 	}
 
-
-
-
 	private:
 	Decoder decoder;
 	Encoder encoder;

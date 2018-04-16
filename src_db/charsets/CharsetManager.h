@@ -11,6 +11,9 @@
 #include "base/UnicodeString.h"
 #include "base/ArrayList.h"
 
+#include "CharsetConverter.h"
+#include "charsets/UTF8.h"
+
 namespace alinous {
 
 class CharsetConverter;

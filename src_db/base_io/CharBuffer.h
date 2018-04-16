@@ -19,11 +19,15 @@ class BufferUnderflowException;
 
 class CharBuffer {
 protected:
+	CharBuffer(const wchar_t* buffer, int length) noexcept;
 	CharBuffer(int size) noexcept;
 public:
 	virtual ~CharBuffer() noexcept;
 
 	static CharBuffer* allocate(int capacity) noexcept;
+	static CharBuffer* wrap(const wchar_t* buffer, int begin, int count) noexcept;
+	static CharBuffer* wrap(UnicodeString* str) noexcept;
+	static CharBuffer* wrap(UnicodeString* str, int begin, int count) noexcept;
 
 	CharBuffer* clear() noexcept;
 	bool hasRemaining() const noexcept;
