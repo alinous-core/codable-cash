@@ -36,6 +36,7 @@ add_custom_target(${target_name}
 
 add_custom_command(TARGET ${target_name}
     COMMAND echo "=================== GCOV ${target_name} ===================="
+    COMMAND gcov -b -l ${testsrc} -o ${gnodir}
 	COMMAND lcov -c -d ${gnodir} -o ${infoname}
 	WORKING_DIRECTORY ${workdir}
 )
