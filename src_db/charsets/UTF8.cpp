@@ -134,8 +134,7 @@ CoderResult UTF_8Converter::Encoder::encodeLoop(CharBuffer* in, ByteBuffer* out)
 					out->put(((char)(jchar & 0xFF)));
 					outRemaining -- ;
 				}
-								else
-				{
+				else {
 					if(jchar <= 0x7FF)
 					{
 						if(outRemaining < 2)
@@ -147,8 +146,7 @@ CoderResult UTF_8Converter::Encoder::encodeLoop(CharBuffer* in, ByteBuffer* out)
 						out->put(((char)(0x80 + (jchar & 0x3F))));
 						outRemaining -= 2;
 					}
-										else
-					{
+					else {
 						if(jchar >= 0xD800 && jchar <= 0xDFFF)
 						{
 							if(limit <= pos + 1)
@@ -180,8 +178,7 @@ CoderResult UTF_8Converter::Encoder::encodeLoop(CharBuffer* in, ByteBuffer* out)
 							outRemaining -= 4;
 							pos ++ ;
 						}
-												else
-						{
+						else {
 							if(outRemaining < 3)
 							{
 								in->position(pos);

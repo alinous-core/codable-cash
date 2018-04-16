@@ -14,17 +14,12 @@ namespace alinous {
 
 class CoderResult {
 public:
+	CoderResult(const CoderResult& obj) = default;
 	CoderResult(int type, int length) noexcept;
 	virtual ~CoderResult();
 
 	static const CoderResult UNDERFLOW;
 	static const CoderResult OVERFLOW;
-
-	static const int CR_UNDERFLOW  = 0;
-	static const int CR_OVERFLOW   = 1;
-	static const int CR_ERROR_MIN  = 2;
-	static const int CR_MALFORMED  = 2;
-	static const int CR_UNMAPPABLE = 3;
 
     // indicating underflow error type
     static const int TYPE_UNDERFLOW = 1;
@@ -36,7 +31,7 @@ public:
     static const int TYPE_UNMAPPABLE_CHAR = 4;
 
 	static CoderResult malformedForLength(int length){
-		CoderResult result(CR_MALFORMED, length);
+		CoderResult result(TYPE_MALFORMED_INPUT, length);
 		return result;
 	}
 
@@ -48,6 +43,9 @@ public:
     }
     bool isUnmappable(){
         return this->type == TYPE_UNMAPPABLE_CHAR;
+    }
+    bool isMalformed(){
+        return this->type == TYPE_MALFORMED_INPUT;
     }
 	static CoderResult unmappableForLength(int length){
 		if (length > 0) {

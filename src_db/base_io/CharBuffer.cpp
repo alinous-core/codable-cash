@@ -23,7 +23,7 @@ CharBuffer::CharBuffer(const wchar_t* buffer, int length) noexcept {
 
 	const int maxLoop = length;
 	for(int i = 0; i != maxLoop; ++i){
-		data->addElement(buffer[i]);
+		data->set(i, buffer[i]);
 	}
 }
 

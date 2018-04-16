@@ -63,14 +63,14 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 	add_custom_command(TARGET lcov
 	    COMMAND echo "=================== LCOV ===================="
 		
-		COMMAND lcov -a report_crypto/report_crypto.info -a report_db_base/report_db_base.info -o test.info
-		COMMAND lcov -a test.info -a report_db_base_io/report_db_base_io.info -o test.info
-		COMMAND lcov -a test.info -a report_db_charsets/report_db_charsets.info -o test.info
-		COMMAND lcov -a test.info -a report_test_db_base/report_test_db_base.info -o test.info
-		COMMAND lcov -a test.info -a report_test_db_base_io/report_test_db_base_io.info -o test.info
-		COMMAND lcov -a test.info -a report_test_db_charsets/report_test_db_charsets.info -o test.info
+		COMMAND lcov -a report_crypto/report_crypto.info -a report_db_base/report_db_base.info -o test01.info
+		COMMAND lcov -a test01.info -a report_db_base_io/report_db_base_io.info -o test02.info
+		COMMAND lcov -a test02.info -a report_db_charsets/report_db_charsets.info -o test03.info
+		COMMAND lcov -a test03.info -a report_test_db_base/report_test_db_base.info -o test04.info
+		COMMAND lcov -a test04.info -a report_test_db_base_io/report_test_db_base_io.info -o test05.info
+		COMMAND lcov -a test05.info -a report_test_db_charsets/report_test_db_charsets.info -o test.info
 				
-		COMMAND lcov --remove test.info '/usr/include/*' '*/src_test/*' -o test.info
+		COMMAND lcov --remove test05.info '/usr/include/*' '*/src_test/*' -o test.info
 		
 		WORKING_DIRECTORY ${workdir}
 )
