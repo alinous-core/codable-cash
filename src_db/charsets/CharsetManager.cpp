@@ -48,11 +48,11 @@ CharsetConverter* CharsetManager::getConverter(UnicodeString* charset) noexcept 
 	if(conv != nullptr)
 	{
 		return conv;
-	}
-	conv = this->charConverters->get(altcharset);
-	if(conv != nullptr)
-	{
-		return conv;
+		conv = this->charConverters->get(altcharset);
+		if(conv != nullptr)
+		{
+			return conv;
+		}
 	}
 
 	return nullptr;

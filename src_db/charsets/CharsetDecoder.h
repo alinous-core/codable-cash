@@ -8,12 +8,19 @@
 #ifndef CHARSETS_CHARSETDECODER_H_
 #define CHARSETS_CHARSETDECODER_H_
 
+#include "CoderResult.h"
+
 namespace alinous {
+
+class ByteBuffer;
+class CharBuffer;
 
 class CharsetDecoder {
 public:
 	CharsetDecoder();
 	virtual ~CharsetDecoder();
+
+	virtual CoderResult decodeLoop(ByteBuffer* bb, CharBuffer* cb) = 0;
 };
 
 } /* namespace alinous */

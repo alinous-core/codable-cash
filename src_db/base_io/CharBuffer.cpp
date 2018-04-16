@@ -46,6 +46,10 @@ int CharBuffer::remaining() const noexcept
 	 return this->lim - this->pos;
 }
 
+int CharBuffer::position() const noexcept {
+	return this->pos;
+}
+
 CharBuffer* CharBuffer::position(int newPosition) noexcept {
 	this->pos = newPosition;
 	return this;

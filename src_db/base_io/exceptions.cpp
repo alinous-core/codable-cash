@@ -11,7 +11,7 @@
 
 namespace alinous {
 
-const wchar_t* BufferUnderflowException::defaultMessage = L"Buffer is under flown";
+const wchar_t* BufferUnderflowException::defaultMessage = L"Buffer is under flown. ";
 
 BufferUnderflowException::BufferUnderflowException() noexcept : Exception() {
 	this->message = new UnicodeString(defaultMessage);
@@ -31,7 +31,7 @@ BufferUnderflowException::~BufferUnderflowException() {
 }
 
 
-const wchar_t* BufferOverflowException::defaultMessage = L"Buffer is under flown";
+const wchar_t* BufferOverflowException::defaultMessage = L"Buffer is under flown. ";
 
 BufferOverflowException::BufferOverflowException() noexcept : Exception() {
 	this->message = new UnicodeString(defaultMessage);
@@ -50,4 +50,6 @@ BufferOverflowException::BufferOverflowException(UnicodeString* message, Excepti
 BufferOverflowException::~BufferOverflowException() {
 }
 
+
 } /* namespace alinous */
+

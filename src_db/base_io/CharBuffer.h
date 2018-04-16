@@ -28,6 +28,7 @@ public:
 	CharBuffer* clear() noexcept;
 	bool hasRemaining() const noexcept;
 	int remaining() const noexcept;
+	int position() const noexcept;
 	CharBuffer* position(int newPosition) noexcept;
 	int limit() const noexcept;
 	CharBuffer* limit(int limit) noexcept;

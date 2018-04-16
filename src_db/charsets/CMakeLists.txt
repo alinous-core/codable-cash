@@ -3,6 +3,8 @@ set(__src
 	charsets/CharsetConverter.cpp
 	charsets/CharsetDecoder.cpp
 	charsets/CharsetEncoder.cpp
+	charsets/CoderResult.cpp
+	charsets/UTF8.cpp
 )
 	
 set(dbcharsetssrc ${__src} PARENT_SCOPE)
