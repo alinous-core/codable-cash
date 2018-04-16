@@ -16,11 +16,11 @@ namespace alinous {
 template <typename K,typename V>
 class HashMapInternalElement {
 public:
-	HashMapInternalElement(K* k, V* v)  : key(k), value(v){}
-	K* key;
+	HashMapInternalElement(const K* k, V* v)  : key(k), value(v){}
+	const K* key;
 	V* value;
 	int hashCode() const  {
-		K* keyPtr = this->key;
+		const K* keyPtr = this->key;
 
 		return keyPtr->hashCode();
 	}

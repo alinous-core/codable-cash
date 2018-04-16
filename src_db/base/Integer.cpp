@@ -76,7 +76,7 @@ int Integer::parse(UnicodeString* string, int offset, int radix, bool negative)
 	return result;
 }
 
-int Integer::hashCode() noexcept
+int Integer::hashCode() const noexcept
 {
 	return value;
 }

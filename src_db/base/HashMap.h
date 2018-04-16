@@ -24,11 +24,11 @@ public:
 		delete this->hashMapKeySet;
 	}
 
-	V* put(K* key, V* value) noexcept {
+	V* put(const K* key, V* value) noexcept {
 		return this->hashMapKeySet->addElement(key, value);
 	}
 
-	V* get(K* key) noexcept {
+	V* get(const K* key) noexcept {
 		return this->hashMapKeySet->getValue(key);
 	}
 

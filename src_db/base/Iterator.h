@@ -20,7 +20,7 @@ public:
 	virtual ~Iterator() throw() {}
 
 	virtual bool hasNext() {return false;}
-	virtual T* next() {return nullptr;}
+	virtual const T* next() {return nullptr;}
 	virtual void remove() {};
 };
 

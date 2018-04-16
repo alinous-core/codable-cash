@@ -43,7 +43,7 @@ public:
 		}
 	}
 
-	V* addElement(K *key, V* value) noexcept {
+	V* addElement(const K *key, V* value) noexcept {
 		if(key == nullptr){
 			if(this->nullElement != nullptr){
 				V* last = this->nullElement->value;
@@ -75,7 +75,7 @@ public:
 		return nullptr;
 	}
 
-	V* getValue(K* key) throw() {
+	V* getValue(const K* key) throw() {
 		if(key == nullptr){
 			V* val = this->nullElement == nullptr ? nullptr : this->nullElement->value;
 			return val;
@@ -120,7 +120,7 @@ public:
 			}
 			return this->internalIt.hasNext();
 		}
-		virtual K* next() throw() {
+		virtual const K* next() throw() {
 			if(this->outputNull == false){
 				this->outputNull = true;
 

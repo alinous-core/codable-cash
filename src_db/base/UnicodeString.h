@@ -61,11 +61,11 @@ public:
 	wchar_t get(int i) const noexcept;
 	wchar_t charAt(int index) const noexcept;
 	int isEmpty() const noexcept;
-	bool equals(UnicodeString* str) noexcept;
+	bool equals(const UnicodeString* str) const noexcept;
 
-	bool __equals(UnicodeString* str) const noexcept;
+	bool __equals(const UnicodeString* str) const noexcept;
 
-	int hashCode() noexcept;
+	int hashCode() const noexcept;
 protected:
 	RawArrayPrimitive<wchar_t>* buff;
 	int __hashCode;

@@ -19,9 +19,11 @@ UnicodeString::UnicodeString(const wchar_t* str) noexcept {
 	const wchar_t* ptr = str;
 	while(*ptr != 0){
 		wchar_t ch = *ptr;
-		append(ch);
+		__append(ch);
 		ptr++;
 	}
+
+	__closeString();
 }
 
 UnicodeString::UnicodeString(const wchar_t* str, int cap) noexcept {
@@ -31,9 +33,11 @@ UnicodeString::UnicodeString(const wchar_t* str, int cap) noexcept {
 	const wchar_t* ptr = str;
 	while(*ptr != 0){
 		wchar_t ch = *ptr;
-		append(ch);
+		__append(ch);
 		ptr++;
 	}
+
+	__closeString();
 }
 
 UnicodeString::UnicodeString(const UnicodeString* ptr) noexcept{
@@ -43,8 +47,10 @@ UnicodeString::UnicodeString(const UnicodeString* ptr) noexcept{
 	int length = ptr->length();
 	for(int i = 0; i != length; ++i){
 		wchar_t ch = ptr->charAt(i);
-		append(ch);
+		__append(ch);
 	}
+
+	__closeString();
 }
 
 UnicodeString::UnicodeString(const UnicodeString& inst) noexcept {
@@ -54,8 +60,10 @@ UnicodeString::UnicodeString(const UnicodeString& inst) noexcept {
 	int length = inst.length();
 	for(int i = 0; i != length; ++i){
 		wchar_t ch = inst.charAt(i);
-		append(ch);
+		__append(ch);
 	}
+
+	__closeString();
 }
 
 UnicodeString::~UnicodeString() {
@@ -72,7 +80,16 @@ void UnicodeString::__closeString() noexcept {
 	this->buff->addElement(L'\0');
 	this->buff->backLast();
 
-	this->__hashCode = 0;
+	const int count = length();
+    if (count == 0) {
+    	this->__hashCode = 0;
+        return;
+    }
+    int hash = 0;
+    for (int i = 0; i < count; i++) {
+        hash = charAt(i) + ((hash << 5) - hash);
+    }
+    this->__hashCode = hash;
 }
 
 
@@ -334,6 +351,9 @@ int UnicodeString::lastIndexOf(UnicodeString* str, int lastIndex) const noexcept
 
 UnicodeString* UnicodeString::insert(int position, wchar_t ch) noexcept {
 	buff->addElement(ch ,position);
+
+	__closeString();
+
 	return this;
 }
 
@@ -372,7 +392,7 @@ int UnicodeString::isEmpty() const noexcept {
 	return this->buff->size() == 0;
 }
 
-bool UnicodeString::equals(UnicodeString* str) noexcept
+bool UnicodeString::equals(const UnicodeString* str) const noexcept
 {
 	int hash = str->hashCode();
 	if(hash != this->hashCode()){
@@ -382,7 +402,7 @@ bool UnicodeString::equals(UnicodeString* str) noexcept
 	return __equals(str);
 }
 
-bool UnicodeString::__equals(UnicodeString* str) const noexcept{
+bool UnicodeString::__equals(const UnicodeString* str) const noexcept{
 	const int size = str->length();
 	if(size != this->length()){
 		return false;
@@ -399,18 +419,7 @@ bool UnicodeString::__equals(UnicodeString* str) const noexcept{
 	return true;
 }
 
-int UnicodeString::hashCode()  noexcept {
-    if (this->__hashCode == 0) {
-    	const int count = length();
-        if (count == 0) {
-            return 0;
-        }
-        int hash = 0;
-        for (int i = 0; i < count; i++) {
-            hash = charAt(i) + ((hash << 5) - hash);
-        }
-        this->__hashCode = hash;
-    }
+int UnicodeString::hashCode() const noexcept {
     return this->__hashCode;
 }
 

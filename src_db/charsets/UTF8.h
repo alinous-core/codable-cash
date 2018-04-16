@@ -16,26 +16,12 @@ namespace alinous {
 
 class UnicodeString;
 
-class UTF_8 : public CharsetConverter {
+class UTF_8Converter : public CharsetConverter {
 public:
-	class Decoder;
-	class Encoder;
-
-	UTF_8();
-	virtual ~UTF_8();
-
-	virtual CharsetDecoder* newDecoder() noexcept {
-		return &decoder;
-	}
-	virtual CharsetEncoder* newEncoder() noexcept {
-		return &encoder;
-	}
-
-
 	class Decoder final : public CharsetDecoder {
 	public:
-		Decoder() throw() ;
-		virtual ~Decoder() throw();
+		Decoder() noexcept ;
+		virtual ~Decoder() noexcept;
 	private:
 		static constexpr int remainingBytes[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, -1, -1, -1, -1, -1, -1, -1, -1};
 		static constexpr int remainingNumbers[]{0, 4224, 401536, 29892736};
@@ -47,13 +33,24 @@ public:
 
 	class Encoder final : public CharsetEncoder {
 	public:
-		Encoder(const Encoder& base) = default;
-	public:
 		Encoder() noexcept;
 		virtual ~Encoder() noexcept;
 	public:
 		virtual CoderResult encodeLoop(CharBuffer* in, ByteBuffer* out) final;
 	};
+
+	UTF_8Converter() noexcept;
+	virtual ~UTF_8Converter() noexcept;
+
+	virtual CharsetDecoder* newDecoder() noexcept {
+		return &decoder;
+	}
+	virtual CharsetEncoder* newEncoder() noexcept {
+		return &encoder;
+	}
+
+
+
 
 	private:
 	Decoder decoder;

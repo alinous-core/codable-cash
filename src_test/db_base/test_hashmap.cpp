@@ -88,7 +88,7 @@ TEST(HashMapTestGroup, keySet){
 	HashMapKeySet<UnicodeString, UnicodeString>* keyset = map->keySet();
 	Iterator<UnicodeString> *it = keyset->iterator();
 	while(it->hasNext()){
-		UnicodeString* key = it->next();
+		const UnicodeString* key = it->next();
 		UnicodeString* value = map->get(key);
 
 		delete value;
@@ -116,7 +116,7 @@ TEST(HashMapTestGroup, keySet02){
 	HashMapKeySet<Integer, UnicodeString>* keyset = map->keySet();
 	Iterator<Integer> *it = keyset->iterator();
 	while(it->hasNext()){
-		Integer* key = it->next();
+		const Integer* key = it->next();
 		UnicodeString* value = map->get(key);
 
 		delete value;
@@ -146,7 +146,7 @@ TEST(HashMapTestGroup, keySetWithNull){
 	HashMapKeySet<Integer, UnicodeString>* keyset = map->keySet();
 	Iterator<Integer> *it = keyset->iterator();
 	while(it->hasNext()){
-		Integer* key = it->next();
+		const Integer* key = it->next();
 		UnicodeString* value = map->get(key);
 
 		if(value == nullptr){
@@ -156,7 +156,7 @@ TEST(HashMapTestGroup, keySetWithNull){
 		delete value;
 	}
 
-	Integer* ended = it->next();
+	const Integer* ended = it->next();
 
 	// remove don't work
 	it->remove();

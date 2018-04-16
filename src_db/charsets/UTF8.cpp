@@ -12,14 +12,28 @@
 
 namespace alinous {
 
-UTF_8::UTF_8() {
+constexpr int UTF_8Converter::Decoder::remainingBytes[];
+constexpr int UTF_8Converter::Decoder::remainingNumbers[];
+constexpr int UTF_8Converter::Decoder::lowerEncodingLimit[];
+
+UTF_8Converter::UTF_8Converter() noexcept : CharsetConverter() {
 }
 
-UTF_8::~UTF_8() {
+UTF_8Converter::~UTF_8Converter() noexcept {
 }
 
+UTF_8Converter::Decoder::Decoder() noexcept : CharsetDecoder() {
 
-CoderResult UTF_8::Decoder::decodeLoop(ByteBuffer* in, CharBuffer* out) {
+}
+UTF_8Converter::Decoder::~Decoder() {
+}
+
+UTF_8Converter::Encoder::Encoder() noexcept : CharsetEncoder() {
+}
+UTF_8Converter::Encoder::~Encoder() noexcept{
+}
+
+CoderResult UTF_8Converter::Decoder::decodeLoop(ByteBuffer* in, CharBuffer* out) {
 	int outRemaining = out->remaining();
 	int pos = in->position();
 	int limit = in->limit();
@@ -72,8 +86,7 @@ CoderResult UTF_8::Decoder::decodeLoop(ByteBuffer* in, CharBuffer* out) {
 					out->put(((wchar_t)jchar));
 					outRemaining -- ;
 				}
-								else
-				{
+				else{
 					if(outRemaining < 2)
 					{
 						in->position(pos);
@@ -96,7 +109,7 @@ CoderResult UTF_8::Decoder::decodeLoop(ByteBuffer* in, CharBuffer* out) {
 	}
 }
 
-CoderResult UTF_8::Encoder::encodeLoop(CharBuffer* in, ByteBuffer* out) {
+CoderResult UTF_8Converter::Encoder::encodeLoop(CharBuffer* in, ByteBuffer* out) {
 	int outRemaining = out->remaining();
 	int pos = in->position();
 	int limit = in->limit();
