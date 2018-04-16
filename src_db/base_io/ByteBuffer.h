@@ -35,7 +35,7 @@ public:
 	ByteBuffer* get(uint8_t* dest, int length) noexcept(false);
 	ByteBuffer* get(uint8_t* dest, int off, int len) noexcept(false);
 
-	ByteBuffer* put(uint8_t b) noexcept;
+	ByteBuffer* put(char b) noexcept;
 	ByteBuffer* put(int index, uint8_t b) noexcept;
 	ByteBuffer* put(uint8_t* src, int length) noexcept(false);
 	ByteBuffer* put(uint8_t* src, int off, int len) noexcept(false);

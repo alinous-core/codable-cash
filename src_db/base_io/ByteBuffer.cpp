@@ -85,7 +85,7 @@ ByteBuffer* ByteBuffer::get(uint8_t* dest, int off, int len) noexcept(false) {
 	return this;
 }
 
-ByteBuffer* ByteBuffer::put(uint8_t b) noexcept {
+ByteBuffer* ByteBuffer::put(char b) noexcept {
 	data->set(this->pos++, b);
 	return this;
 }

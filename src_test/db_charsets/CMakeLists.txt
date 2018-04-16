@@ -5,6 +5,7 @@ set(src
 
 set(testsrc
 	test_charsets.cpp
+	test_charsets2.cpp
 )
 
 foreach(loop_var IN LISTS testsrc)
