@@ -343,6 +343,29 @@ TEST(CharsetTestGroup, convertUTF8_DecodeMal02){
 	delete chin;
 }
 
+TEST(CharsetTestGroup, convertUTF8_DecodeUnderflowSalo){
+	CharsetManager* mgr = CharsetManager::getInstance();
+
+	UnicodeString charset(L"utf-8");
+	CharsetConverter* cnv = mgr->getConverter(&charset);
+	CHECK(cnv != nullptr);
+
+	UnicodeString strJp02(L"");
+	strJp02.append((wchar_t)0xD800)->append((wchar_t)0xDC00)->append('b');
+
+	CharsetEncoder* enc = cnv->newEncoder();
+
+	CharBuffer* chin = CharBuffer::wrap(&strJp02);
+	ByteBuffer* bout = ByteBuffer::allocate(10);
+
+	CoderResult result = enc->encodeLoop(chin, bout);
+
+	CHECK(result.isUnderflow());
+
+	delete bout;
+	delete chin;
+}
+
 TEST(CharsetTestGroup, convertUTF8_DecodeUnderFlow){
 	CharsetManager* mgr = CharsetManager::getInstance();
 
