@@ -13,16 +13,14 @@ foreach(loop_var IN LISTS testsrc)
 endforeach()
 set(db_charset_test_src ${__testsrc} PARENT_SCOPE)
 
-
+#[[
 set(testtarget db_charset_test)
-
 add_executable(${testtarget} ${src} ${testsrc})
 target_link_libraries(${testtarget} codablelib extlib alinousdb pthread gmp ${CPPUTEST_LDFLAGS})
-#add_test(${testtarget} ${testtarget} -v)
+add_test(${testtarget} ${testtarget} -v)
+]]#
 
-
-set(target_name report_test_db_charsets)
 set(gnodir ${CMAKE_BINARY_DIR}/src_test/CMakeFiles/testall.dir/db_charsets)
-outgcov(${target_name} ${gnodir} ${testsrc})
+outgcov(report_test_db_charsets ${gnodir} ${testsrc})
 
 

@@ -23,16 +23,15 @@ endforeach()
 set(db_base_test_src ${__testsrc} PARENT_SCOPE)
 
 
+#[[
 add_executable(db_base_test ${src} ${testsrc})
 target_link_libraries(db_base_test codablelib extlib alinousdb pthread gmp ${CPPUTEST_LDFLAGS})
-
 #add_test(testdbbase db_base_test -v)
+]]#
 
 
-set(target_name report_test_db_base)
 set(gnodir ${CMAKE_BINARY_DIR}/src_test/CMakeFiles/testall.dir/db_base/)
-
-outgcov(${target_name} ${gnodir} ${testsrc})
+outgcov(report_test_db_base ${gnodir} ${testsrc})
 
 
 
