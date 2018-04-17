@@ -19,7 +19,7 @@ TEST_GROUP(DbBaseMiscTestGroup) {
 	TEST_TEARDOWN() {}
 };
 
-
+/*
 TEST(DbBaseMiscTestGroup, iteratorVirtual){
 	Iterator<Integer>* it = new Iterator<Integer>();
 	it->hasNext();
@@ -37,3 +37,4 @@ TEST(DbBaseMiscTestGroup, iteratorVirtual02){
 
 	delete it;
 }
+*/

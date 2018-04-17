@@ -19,9 +19,9 @@ public:
 	}
 	virtual ~Iterator() throw() {}
 
-	virtual bool hasNext() {return false;}
-	virtual const T* next() {return nullptr;}
-	virtual void remove() {};
+	virtual bool hasNext() = 0;
+	virtual const T* next() = 0;
+	virtual void remove() = 0;
 };
 
 } /* namespace alinous */
