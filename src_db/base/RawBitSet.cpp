@@ -99,14 +99,17 @@ int RawBitSet::nextSetBit(const uint32_t pos) const noexcept
 	{
 		return -1;
 	}
+
+	int ret = -1;
 	for(uint32_t j = 0; j < ELM_SIZE; j ++ )
 	{
 		if(((bits[idx] & (TWO_N_ARRAY[j])) != 0))
 		{
-			return (idx << OFFSET) + j;
+			ret = (idx << OFFSET) + j;
+			break;
 		}
 	}
-	return -1;
+	return ret;
 }
 
 void RawBitSet::clear() noexcept

@@ -5,6 +5,7 @@ set(src
 
 set(testsrc
 	test_arraylist.cpp
+	test_bitset.cpp
 	test_character.cpp
 	test_exceptions.cpp
 	test_hashmap.cpp
