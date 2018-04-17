@@ -34,7 +34,6 @@ public:
 	bool equals(const Integer* o) const noexcept { return compareTo(o) == 0;};
 	int compareTo(const Integer* object) const noexcept;
 
-private:
 	int value;
 
 public:

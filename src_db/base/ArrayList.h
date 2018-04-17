@@ -166,20 +166,11 @@ private:
 		if(end < 0){
 			return 0;
 		}
-		if(compareFunctor(_root[end], value) > 0){
-			return end;
+		else if(begin >= this->numArray){
+			return this->numArray;
 		}
 
-
-		if(begin >= size()){
-			return size();
-		}
-
-		if(compareFunctor(_root[begin], value) > 0){
-			return begin;
-		}
-
-		return size();
+		return begin;
 	}
 
 	int indexOfInsertByLoop(const T* value) const noexcept

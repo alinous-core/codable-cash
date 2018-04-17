@@ -6,10 +6,11 @@
  */
 
 
-#include <iostream>
+#include <stdio.h>
 #include "CppUTest/CommandLineTestRunner.h"
 
 #include "base/ArrayList.h"
+#include "base/Integer.h"
 
 using namespace alinous;
 
@@ -119,4 +120,70 @@ TEST(ArrayListTestGroup, test08){
 	}
 }
 
+void releaseInternalObjects(ArrayList<Integer, Integer::ValueCompare>* ptr){
+	int maxLoop = ptr->size();
+	for(int i = 0; i != maxLoop; ++i){
+		Integer* pInt = ptr->get(i);
+		delete pInt;
+	}
+}
 
+void isSorted(ArrayList<Integer, Integer::ValueCompare>* ptr){
+	Integer* last = nullptr;
+
+	int maxLoop = ptr->size();
+	for(int i = 0; i != maxLoop; ++i){
+		Integer* pInt = ptr->get(i);
+
+		if(last){
+			CHECK(last->compareTo(pInt) <= 0);
+		}
+
+		//printf("%d\n", pInt->value);
+
+
+		last = pInt;
+	}
+}
+
+TEST(ArrayListTestGroup, sort01){
+	ArrayList<Integer, Integer::ValueCompare> ar(8);
+
+	int maxLoop = 10;
+	for(int i = 0; i != 10; ++i){
+		Integer* pInt = new Integer(maxLoop - i);
+		ar.addElement(pInt);
+	}
+
+	ar.sort();
+
+	isSorted(&ar);
+	releaseInternalObjects(&ar);
+}
+
+TEST(ArrayListTestGroup, sortInsert){
+	ArrayList<Integer, Integer::ValueCompare> ar(8);
+
+	int maxLoop = 10;
+	for(int i = 0; i != 10; ++i){
+		Integer* pInt = new Integer(maxLoop - i);
+		ar.addElement(pInt);
+	}
+
+	ar.addElementWithSorted(new Integer(11));
+	ar.addElementWithSorted(new Integer(0));
+	ar.addElementWithSorted(new Integer(5));
+	ar.addElementWithSorted(new Integer(-1));
+	ar.addElementWithSorted(new Integer(-1));
+	ar.addElementWithSorted(new Integer(100));
+	ar.addElementWithSorted(new Integer(100));
+
+	ar.addElementWithSorted(new Integer(100));
+
+	ar.addElementWithSorted(new Integer(200));
+
+	CHECK(ar.size() == (maxLoop + 9));
+
+	isSorted(&ar);
+	releaseInternalObjects(&ar);
+}
