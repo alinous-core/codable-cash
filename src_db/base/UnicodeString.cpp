@@ -9,6 +9,11 @@
 
 #include <wchar.h>
 #include <wctype.h>
+#include <string.h>
+
+#include "base_io/CharBuffer.h"
+#include "base_io/ByteBuffer.h"
+#include "charsets/CharsetManager.h"
 
 namespace alinous {
 
@@ -161,8 +166,27 @@ UnicodeString* UnicodeString::replace(wchar_t last, wchar_t next) const noexcept
 
 
 char* UnicodeString::toCString(){
+	CharBuffer* in = CharBuffer::wrap(this);
+	ByteBuffer* out = ByteBuffer::allocate(this->length() * 2 + 1);
+	UnicodeString utf8(L"utf-8");
+
+	CharsetManager* mgr = CharsetManager::getInstance();
+	CharsetConverter* cnv = mgr->getConverter(&utf8);
+
+	CharsetEncoder* encoder = cnv->newEncoder();
+	encoder->encodeLoop(in ,out);
+
+	int size = out->position() + 1;
+	char* retBuff = new char[size];
+
+	::memcpy(retBuff, out->data->getRoot(), size);
+	retBuff[size - 1] = '\0';
+
+	delete in;
+	delete out;
+
 	// TODO: debug
-	return nullptr;
+	return retBuff;
 }
 
 const wchar_t* UnicodeString::towString() const noexcept

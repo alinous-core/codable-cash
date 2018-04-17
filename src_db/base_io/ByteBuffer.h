@@ -16,6 +16,7 @@ template <typename T> class RawArrayPrimitive;
 
 class ByteBuffer {
 protected:
+	friend class UnicodeString;
 	ByteBuffer(const int length) noexcept;
 public:
 	static ByteBuffer* allocate(const int capacity) noexcept;

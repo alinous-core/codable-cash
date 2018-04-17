@@ -9,12 +9,15 @@
 #include "CppUTest/CommandLineTestRunner.h"
 
 #include "base/UnicodeString.h"
+#include "charsets/CharsetManager.h"
 
 using namespace alinous;
 
 TEST_GROUP(UnicodeStringTestGroup) {
 	TEST_SETUP() {}
-	TEST_TEARDOWN() {}
+	TEST_TEARDOWN() {
+		CharsetManager::closeInstance();
+	}
 
 };
 
@@ -206,3 +209,14 @@ TEST(UnicodeStringTestGroup, appendInt){
 	CHECK(str.equals(&str3));
 }
 
+
+TEST(UnicodeStringTestGroup, toCStr){
+	UnicodeString str(L"test");
+
+	char* cstr = str.toCString();
+
+	int cmp = strcmp("test", cstr);
+	CHECK(cmp == 0);
+
+	delete [] cstr;
+}
