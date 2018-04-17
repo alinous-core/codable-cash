@@ -133,10 +133,10 @@ CharBuffer* CharBuffer::put(UnicodeString* str) noexcept {
 	}
 	return this;
 }
-CharBuffer* CharBuffer::put(wchar_t* src, int length) noexcept(false) {
+CharBuffer* CharBuffer::put(const wchar_t* src, int length) noexcept(false) {
 	put(src, 0, length);
 }
-CharBuffer* CharBuffer::put(wchar_t* src, int off, int len) noexcept(false) {
+CharBuffer* CharBuffer::put(const wchar_t* src, int off, int len) noexcept(false) {
     if (len > remaining()) {
         throw new BufferOverflowException();
     }
