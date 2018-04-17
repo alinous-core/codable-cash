@@ -21,7 +21,8 @@ TEST_GROUP(IntegerTestGroup) {
 
 TEST(IntegerTestGroup, construct){
 	Integer* value = new Integer(100);
-	Integer cpy(*value);
+	const Integer cpy(*value);
+	Integer cpy2(cpy);
 	//Integer* cpy2 = new Integer(cpy);
 	delete value;
 	//delete cpy2;
