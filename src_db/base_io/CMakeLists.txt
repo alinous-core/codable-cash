@@ -11,7 +11,6 @@ set(target_name report_db_base_io)
 set(gnodir ${CMAKE_BINARY_DIR}/src_db/CMakeFiles/alinousdb.dir/base_io/)
 
 
-
 set(infoname ${target_name}.info)
 set(covdir coverage/${target_name})
 set(workdir ${CMAKE_BINARY_DIR}/${covdir})

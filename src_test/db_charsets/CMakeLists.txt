@@ -23,6 +23,6 @@ target_link_libraries(${testtarget} codablelib extlib alinousdb pthread gmp ${CP
 
 set(target_name report_test_db_charsets)
 set(gnodir ${CMAKE_BINARY_DIR}/src_test/CMakeFiles/testall.dir/db_charsets)
-outgcov(${target_name} ${gnodir})
+outgcov(${target_name} ${gnodir} ${testsrc})
 
 

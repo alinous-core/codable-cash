@@ -80,7 +80,7 @@ endif()
 
 #[[ =========================================================================================== ]]#
 
-function(outgcov target_name gnodir)
+function(outgcov target_name gnodir srclist)
 	set(infoname ${target_name}.info)
 	set(covdir coverage/${target_name})
 	set(workdir ${CMAKE_BINARY_DIR}/${covdir})
@@ -93,7 +93,7 @@ function(outgcov target_name gnodir)
 	
 	add_custom_command(TARGET ${target_name}
 	    COMMAND echo "=================== GCOV ${target_name} ===================="
-	    COMMAND gcov -b ${testsrc} -o ${gnodir}
+	    COMMAND gcov -b ${srclist} -o ${gnodir}
 		COMMAND lcov -c -d ${gnodir} -o ${infoname}
 		WORKING_DIRECTORY ${workdir}
 	)
