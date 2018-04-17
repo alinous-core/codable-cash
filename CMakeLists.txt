@@ -78,6 +78,29 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 	
 endif()
 
+#[[ =========================================================================================== ]]#
+
+function(outgcov target_name gnodir)
+	set(infoname ${target_name}.info)
+	set(covdir coverage/${target_name})
+	set(workdir ${CMAKE_BINARY_DIR}/${covdir})
+	
+	
+	add_custom_target(${target_name}
+	    COMMAND mkdir -p ${covdir}
+	    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+	    )
+	
+	add_custom_command(TARGET ${target_name}
+	    COMMAND echo "=================== GCOV ${target_name} ===================="
+	    COMMAND gcov -b ${testsrc} -o ${gnodir}
+		COMMAND lcov -c -d ${gnodir} -o ${infoname}
+		WORKING_DIRECTORY ${workdir}
+	)
+	add_dependencies(lcov ${target_name})
+endfunction(outgcov)
+
+#[[ =========================================================================================== ]]#
 
 set(src
 	"AlinousStore.cpp"
