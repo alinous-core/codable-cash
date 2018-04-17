@@ -95,11 +95,11 @@ ByteBuffer* ByteBuffer::put(int index, uint8_t b) noexcept {
 	return this;
 }
 
-ByteBuffer* ByteBuffer::put(uint8_t* src, int length) noexcept(false) {
+ByteBuffer* ByteBuffer::put(const uint8_t* src, int length) noexcept(false) {
     return put(src, 0, length);
 }
 
-ByteBuffer* ByteBuffer::put(uint8_t* src, int off, int len) noexcept(false) {
+ByteBuffer* ByteBuffer::put(const uint8_t* src, int off, int len) noexcept(false) {
 /*    int length = src->length;
     if ((off < 0) || (len < 0) || off + len > length) {
         throw new IndexOutOfBoundsException(ctx);
@@ -137,11 +137,33 @@ ByteBuffer* ByteBuffer::putChar(wchar_t value) noexcept {
 	return this;
 }
 
+ByteBuffer* ByteBuffer::putChar(int position, wchar_t value) noexcept {
+	//data->set(this->pos++, value & 0xFF);
+	//data->set(this->pos++, (value >> 1) & 0xFF);
+
+	uint16_t sh = (uint16_t)value;
+	char* bytes = (char*)&sh;
+
+	data->set(position++, bytes[0]);
+	data->set(position++, bytes[1]);
+
+	return this;
+}
+
 ByteBuffer* ByteBuffer::putShort(short value) noexcept {
 	char* bytes = (char*)&value;
 
 	data->set(this->pos++, bytes[0]);
 	data->set(this->pos++, bytes[1]);
+
+	return this;
+}
+
+ByteBuffer* ByteBuffer::putShort(int position, short value) noexcept {
+	char* bytes = (char*)&value;
+
+	data->set(position++, bytes[0]);
+	data->set(position++, bytes[1]);
 
 	return this;
 }
@@ -188,13 +210,35 @@ ByteBuffer* ByteBuffer::putLong(int64_t value) noexcept {
 	return this;
 }
 
-ByteBuffer* ByteBuffer::putFloat(double value) noexcept {
+ByteBuffer* ByteBuffer::putLong(int position, int64_t value) noexcept {
+	char* bytes = (char*)&value;
+
+
+	::memcpy(&data->getRoot()[position], bytes, sizeof(int64_t));
+
+	this->pos += sizeof(int64_t);
+
+	return this;
+}
+
+ByteBuffer* ByteBuffer::putFloat(float value) noexcept {
 	char* bytes = (char*)&value;
 
 	data->set(this->pos++, bytes[0]);
 	data->set(this->pos++, bytes[1]);
 	data->set(this->pos++, bytes[2]);
 	data->set(this->pos++, bytes[3]);
+
+	return this;
+}
+
+ByteBuffer* ByteBuffer::putFloat(int position, float value) noexcept {
+	char* bytes = (char*)&value;
+
+	data->set(position++, bytes[0]);
+	data->set(position++, bytes[1]);
+	data->set(position++, bytes[2]);
+	data->set(position++, bytes[3]);
 
 	return this;
 }
@@ -210,6 +254,21 @@ ByteBuffer* ByteBuffer::putDouble(double value) noexcept {
 	data->set(this->pos++, bytes[5]);
 	data->set(this->pos++, bytes[6]);
 	data->set(this->pos++, bytes[7]);
+
+	return this;
+}
+
+ByteBuffer* ByteBuffer::putDouble(int position, double value) noexcept {
+	char* bytes = (char*)&value;
+
+	data->set(position++, bytes[0]);
+	data->set(position++, bytes[1]);
+	data->set(position++, bytes[2]);
+	data->set(position++, bytes[3]);
+	data->set(position++, bytes[4]);
+	data->set(position++, bytes[5]);
+	data->set(position++, bytes[6]);
+	data->set(position++, bytes[7]);
 
 	return this;
 }

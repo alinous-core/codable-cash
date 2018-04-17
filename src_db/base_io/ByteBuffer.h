@@ -37,16 +37,21 @@ public:
 
 	ByteBuffer* put(char b) noexcept;
 	ByteBuffer* put(int index, uint8_t b) noexcept;
-	ByteBuffer* put(uint8_t* src, int length) noexcept(false);
-	ByteBuffer* put(uint8_t* src, int off, int len) noexcept(false);
+	ByteBuffer* put(const uint8_t* src, int length) noexcept(false);
+	ByteBuffer* put(const uint8_t* src, int off, int len) noexcept(false);
 	ByteBuffer* put(ByteBuffer* src) noexcept;
 	ByteBuffer* putChar(wchar_t value) noexcept;
+	ByteBuffer* putChar(int position, wchar_t value) noexcept;
 	ByteBuffer* putShort(short value) noexcept;
+	ByteBuffer* putShort(int position, short value) noexcept;
 	ByteBuffer* putInt(int32_t value) noexcept;
 	ByteBuffer* putInt(int32_t position, int value) noexcept;
+	ByteBuffer* putLong(int position, int64_t value) noexcept;
 	ByteBuffer* putLong(int64_t value) noexcept;
-	ByteBuffer* putFloat(double value) noexcept;
+	ByteBuffer* putFloat(float value) noexcept;
+	ByteBuffer* putFloat(int position, float value) noexcept;
 	ByteBuffer* putDouble(double value) noexcept;
+	ByteBuffer* putDouble(int position, double value) noexcept;
 	uint64_t getLong() noexcept;
 	uint64_t getLong(int position) noexcept;
 	double getDouble() noexcept;
