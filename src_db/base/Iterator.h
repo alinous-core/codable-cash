@@ -13,11 +13,7 @@ namespace alinous {
 template <typename T>
 class Iterator {
 public:
-	Iterator() noexcept
-	{
-
-	}
-	virtual ~Iterator() throw() {}
+	virtual ~Iterator(){};
 
 	virtual bool hasNext() = 0;
 	virtual const T* next() = 0;
