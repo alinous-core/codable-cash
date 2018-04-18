@@ -15,6 +15,8 @@
 
 #include <stdlib.h>
 
+
+
 namespace alinous {
 
 #define S_PRINTF swprintf
@@ -27,29 +29,25 @@ namespace alinous {
 #define PATH_SEPARATOR L"/"
 #endif
 
+class UnicodeString;
+
 class Os {
 public:
-	static void* memcpy(void *__restrict __dest, const void *__restrict __src, size_t __n) noexcept {
-		return ::memcpy(__dest, __src, __n);
-	}
-	static size_t strlen (const char *__s) noexcept {
-		return ::strlen(__s);
-	}
+	static void* memcpy(void *__restrict __dest, const void *__restrict __src, size_t __n) noexcept;
+	static size_t strlen (const char *__s) noexcept;
+	static wchar_t toupper (int ch) noexcept;
+	static int wcscmp(const wchar_t *__s1, const wchar_t *__s2) noexcept;
 
-	static wchar_t toupper (int ch) noexcept {
-		return ::toupper(ch);
-	}
-
-	static int wcscmp(const wchar_t *__s1, const wchar_t *__s2) noexcept {
-		return ::wcscmp(__s1, __s2);
-	}
-
-	static char *realpath(const char *path, char *resolved_path) noexcept {
-		return ::realpath(path, resolved_path);
-	}
-	static void realpath_free(char* path){
-		::free(path);
-	}
+	/**************************************************************************
+	 * File functions
+	 */
+	static char* realpath(const char *path, char *resolved_path) noexcept;
+	static void realpath_free(char* path) noexcept;
+	static bool file_exists(UnicodeString* path) noexcept;
+	static int mkdirs(UnicodeString *path,
+			bool __S_IRUSR , bool __S_IWUSR, bool __S_IXUSR,
+			bool __S_IRGRP , bool __S_IWGRP, bool __S_IXGRP,
+			bool __S_IROTH , bool __S_IWOTH, bool __S_IXOTH) noexcept;
 };
 
 }

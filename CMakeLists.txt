@@ -61,6 +61,9 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 		COMMAND cp test01.info test.info
 		COMMAND lcov -a test.info -a report_db_charsets/report_db_charsets.info -o test01.info
 		COMMAND cp test01.info test.info
+		COMMAND lcov -a test.info -a report_osenv/report_osenv.info -o test01.info
+		COMMAND cp test01.info test.info
+		
 		COMMAND lcov -a test.info -a report_test_crypto/report_test_crypto.info -o test01.info
 		COMMAND cp test01.info test.info
 		COMMAND lcov -a test.info -a report_test_db_base/report_test_db_base.info -o test01.info

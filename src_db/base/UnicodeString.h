@@ -31,9 +31,9 @@ private:
 	UnicodeString* __append(wchar_t ch) noexcept;
 	void __closeString() noexcept;
 public:
-	UnicodeString* append(wchar_t ch) noexcept;
-	UnicodeString* append(UnicodeString* str) noexcept;
-	UnicodeString* append(int value) noexcept;
+	UnicodeString* append(const wchar_t ch) noexcept;
+	UnicodeString* append(const UnicodeString* str) noexcept;
+	UnicodeString* append(const int value) noexcept;
 
 	UnicodeString* replace(wchar_t last, wchar_t next) const noexcept;
 
@@ -65,7 +65,8 @@ public:
 	UnicodeString* insert(int dstOffset, UnicodeString* str) noexcept;
 	UnicodeString* insert(int dstOffset, const wchar_t* str, int offset, int count) noexcept;
 
-	ArrayList<UnicodeString>* split(UnicodeString* pattern) const noexcept;
+	ArrayList<UnicodeString>* split(const UnicodeString* pattern) const noexcept;
+	ArrayList<UnicodeString>* split(const UnicodeString* pattern, bool addBlankString) const noexcept;
 
 	int length() const noexcept;
 	wchar_t get(int i) const noexcept;

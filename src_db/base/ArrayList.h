@@ -46,6 +46,14 @@ public:
 		}
 	}
 
+	void addAll(ArrayList<T, C>* list){
+		int maxLoop = list->size();
+		for(int i = 0; i != maxLoop; ++i){
+			T* ptr = list->get(i);
+			addElement(ptr);
+		}
+	}
+
 	void addElement(T* ptr) noexcept
 	{
 		if(__builtin_expect(this->currentSize <= this->numArray, 0)){

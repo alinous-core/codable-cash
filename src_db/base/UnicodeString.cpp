@@ -126,7 +126,7 @@ void UnicodeString::__closeString() noexcept {
 }
 
 
-UnicodeString* UnicodeString::append(wchar_t ch) noexcept
+UnicodeString* UnicodeString::append(const wchar_t ch) noexcept
 {
 	__append(ch);
 	__closeString();
@@ -134,7 +134,7 @@ UnicodeString* UnicodeString::append(wchar_t ch) noexcept
 	return this;
 }
 
-UnicodeString* UnicodeString::append(UnicodeString* str) noexcept {
+UnicodeString* UnicodeString::append(const UnicodeString* str) noexcept {
 	int len = str->length();
 
 	for(int i = 0; i != len; ++i){
@@ -147,8 +147,9 @@ UnicodeString* UnicodeString::append(UnicodeString* str) noexcept {
 	return this;
 }
 
-UnicodeString* UnicodeString::append(int value) noexcept
+UnicodeString* UnicodeString::append(const int v) noexcept
 {
+	int value = v;
 	if(value < 0){
 		value = value * -1;
 		__append(L'-');
@@ -426,7 +427,11 @@ UnicodeString* UnicodeString::insert(int dstOffset, const wchar_t* str, int offs
 	return this;
 }
 
-ArrayList<UnicodeString>* UnicodeString::split(UnicodeString* regex) const noexcept {
+ArrayList<UnicodeString>* UnicodeString::split(const UnicodeString* regex) const noexcept {
+	return split(regex, true);
+}
+
+ArrayList<UnicodeString>* UnicodeString::split(const UnicodeString* regex, bool addBlankString) const noexcept {
 	ArrayList<UnicodeString>* list = new ArrayList<UnicodeString>();
 
 
@@ -436,8 +441,12 @@ ArrayList<UnicodeString>* UnicodeString::split(UnicodeString* regex) const noexc
 	std::wsregex_token_iterator it(str.begin(), str.end(), wreg, -1), end;
 	for (; it != end; ++it) {
 		const std::wstring res(it->first, it->second);
-		const wchar_t *cwstr = res.c_str();
+
 		int len = res.length();
+		if(!addBlankString && len == 0){
+			continue;
+		}
+		const wchar_t *cwstr = res.c_str();
 
 		UnicodeString* result = new UnicodeString(cwstr);
 		list->addElement(result);

@@ -15,12 +15,15 @@ class UnicodeString;
 class File {
 public:
 	static const UnicodeString pathSeparator;
+	static const UnicodeString DOT;
+	static const UnicodeString DDOT;
 
 	File(const UnicodeString* pathname) noexcept;
 	virtual ~File() noexcept;
 
 	UnicodeString* getAbsolutePath() const;
 	bool isAbsolute() const noexcept;
+	bool exists() const noexcept;
 private:
 	UnicodeString* __getAbsolutePath() const noexcept;
 

@@ -16,7 +16,9 @@ using namespace alinous;
 
 
 TEST_GROUP(FileTestGroup) {
-	TEST_SETUP() {}
+	TEST_SETUP() {
+		CharsetManager::getInstance();
+	}
 	TEST_TEARDOWN() {
 		CharsetManager::closeInstance();
 	}
@@ -25,10 +27,64 @@ TEST_GROUP(FileTestGroup) {
 
 
 TEST(FileTestGroup, test01){
-	UnicodeString path(L"testdir");
+	UnicodeString path(L"/test/path/index.html");
 	File* file = new File(&path);
 
+	UnicodeString* ret = file->getAbsolutePath();
+	delete ret;
 
+	delete file;
+}
+
+TEST(FileTestGroup, test02){
+	UnicodeString path(L".");
+	File* file = new File(&path);
+
+	UnicodeString* ret = file->getAbsolutePath();
+	delete ret;
+
+	delete file;
+}
+
+TEST(FileTestGroup, test03){
+	UnicodeString path(L"dfgdfhjghkjghhgkj/gfdgsdfgdfsg");
+	File* file = new File(&path);
+
+	UnicodeString* ret = file->getAbsolutePath();
+	delete ret;
+
+	delete file;
+
+	CharsetManager::closeInstance();
+}
+
+TEST(FileTestGroup, test04){
+	UnicodeString path(L"../dfgdfhjghkjghhgkj/gfdgsdfgdfsg");
+	File* file = new File(&path);
+
+	UnicodeString* ret = file->getAbsolutePath();
+	delete ret;
+
+	delete file;
+
+	CharsetManager::closeInstance();
+}
+
+TEST(FileTestGroup, test05){
+	UnicodeString path(L"./dfgdfhjghkjghhgkj/gfdgsdfgdfsg");
+	File* file = new File(&path);
+
+	UnicodeString* ret = file->getAbsolutePath();
+	delete ret;
+
+	delete file;
+}
+
+TEST(FileTestGroup, mkdir01){
+	UnicodeString path(L"./test_data");
+	File* file = new File(&path);
+
+	file->mkdirs();
 
 	delete file;
 }
