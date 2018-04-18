@@ -23,6 +23,11 @@ TEST(IntegerTestGroup, construct){
 	Integer* value = new Integer(100);
 	const Integer cpy(*value);
 	Integer cpy2(cpy);
+	Integer cpy3(0);
+
+	cpy3 = cpy;
+	CHECK(cpy3.value == 100);
+
 	//Integer* cpy2 = new Integer(cpy);
 	delete value;
 	//delete cpy2;
