@@ -7,12 +7,15 @@
 
 #include <base/UnicodeString.h>
 
-
 #include "osenv/funcs.h"
 
+#include "base/StackRelease.h"
 #include "base_io/CharBuffer.h"
 #include "base_io/ByteBuffer.h"
 #include "charsets/CharsetManager.h"
+
+#include <regex>
+#include <iostream>
 
 namespace alinous {
 
@@ -41,6 +44,32 @@ UnicodeString::UnicodeString(const wchar_t* str, int cap) noexcept {
 		ptr++;
 	}
 
+	__closeString();
+}
+
+UnicodeString::UnicodeString(const char* str) noexcept {
+	UnicodeString utf8str(L"utf-8");
+	CharsetConverter* cnv =  CharsetManager::getInstance()->getConverter(&utf8str);
+
+	int len = Os::strlen(str) + 1;
+	ByteBuffer *in = ByteBuffer::wrap((const uint8_t*)str, len);
+	CharBuffer * out = CharBuffer::allocate(len * 2);
+	StackRelease<ByteBuffer> _in(in);
+	StackRelease<CharBuffer> _out(out);
+
+	CharsetDecoder* dec = cnv->newDecoder();
+
+	dec->decodeLoop(in, out);
+
+	int pos = out->position();
+	this->buff =  new RawArrayPrimitive<wchar_t>(pos + 1);
+	this->__hashCode = 0;
+
+	out->position(0);
+	for(int i = 0; i != pos; ++i){
+		wchar_t ch = out->get();
+		__append(ch);
+	}
 	__closeString();
 }
 
@@ -164,7 +193,7 @@ UnicodeString* UnicodeString::replace(wchar_t last, wchar_t next) const noexcept
 }
 
 
-char* UnicodeString::toCString(){
+const char* UnicodeString::toCString() const {
 	CharBuffer* in = CharBuffer::wrap(this);
 	ByteBuffer* out = ByteBuffer::allocate(this->length() * 2 + 1);
 	UnicodeString utf8(L"utf-8");
@@ -184,7 +213,6 @@ char* UnicodeString::toCString(){
 	delete in;
 	delete out;
 
-	// TODO: debug
 	return retBuff;
 }
 
@@ -224,11 +252,11 @@ UnicodeString* UnicodeString::toUpperCase() const noexcept
 	return newStr;
 }
 
-bool UnicodeString::startsWith(UnicodeString* str) const noexcept
+bool UnicodeString::startsWith(const UnicodeString* str) const noexcept
 {
 	return startsWith(str, 0);
 }
-bool UnicodeString::startsWith(UnicodeString* str, int start) const noexcept {
+bool UnicodeString::startsWith(const UnicodeString* str, int start) const noexcept {
 	const int length = this->length();
 
 	int pos = 0;
@@ -254,7 +282,7 @@ bool UnicodeString::startsWith(UnicodeString* str, int start) const noexcept {
 
 }
 
-bool UnicodeString::endsWith(UnicodeString* str) const noexcept {
+bool UnicodeString::endsWith(const UnicodeString* str) const noexcept {
 	const int length = str->length();
 	int pos = this->length() - 1;
 	int posTarget = length - 1;
@@ -268,7 +296,7 @@ bool UnicodeString::endsWith(UnicodeString* str) const noexcept {
 	return true;
 }
 
-int UnicodeString::getNextMatch(int pos, UnicodeString* str, wchar_t* next) const noexcept {
+int UnicodeString::getNextMatch(int pos, const UnicodeString* str, wchar_t* next) const noexcept {
 	if(str->length() <= pos){
 		return -1;
 	}
@@ -398,7 +426,25 @@ UnicodeString* UnicodeString::insert(int dstOffset, const wchar_t* str, int offs
 	return this;
 }
 
+ArrayList<UnicodeString>* UnicodeString::split(UnicodeString* regex) const noexcept {
+	ArrayList<UnicodeString>* list = new ArrayList<UnicodeString>();
 
+
+	const std::wstring str = towString();
+	std::wregex wreg(regex->towString());
+
+	std::wsregex_token_iterator it(str.begin(), str.end(), wreg, -1), end;
+	for (; it != end; ++it) {
+		const std::wstring res(it->first, it->second);
+		const wchar_t *cwstr = res.c_str();
+		int len = res.length();
+
+		UnicodeString* result = new UnicodeString(cwstr);
+		list->addElement(result);
+	}
+
+	return list;
+}
 
 
 wchar_t UnicodeString::get(int i) const noexcept { return this->buff->get(i); };

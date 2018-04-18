@@ -26,8 +26,8 @@ public:
 
 	static CharBuffer* allocate(int capacity) noexcept;
 	static CharBuffer* wrap(const wchar_t* buffer, int begin, int count) noexcept;
-	static CharBuffer* wrap(UnicodeString* str) noexcept;
-	static CharBuffer* wrap(UnicodeString* str, int begin, int count) noexcept;
+	static CharBuffer* wrap(const UnicodeString* str) noexcept;
+	static CharBuffer* wrap(const UnicodeString* str, int begin, int count) noexcept;
 
 	CharBuffer* clear() noexcept;
 	bool hasRemaining() const noexcept;

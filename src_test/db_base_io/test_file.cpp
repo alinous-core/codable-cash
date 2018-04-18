@@ -6,16 +6,20 @@
  */
 
 #include "CppUTest/CommandLineTestRunner.h"
+#include "charsets/CharsetManager.h"
 
 #include "base_io/File.h"
 #include "base/UnicodeString.h"
+
 
 using namespace alinous;
 
 
 TEST_GROUP(FileTestGroup) {
 	TEST_SETUP() {}
-	TEST_TEARDOWN() {}
+	TEST_TEARDOWN() {
+		CharsetManager::closeInstance();
+	}
 
 };
 
@@ -23,6 +27,8 @@ TEST_GROUP(FileTestGroup) {
 TEST(FileTestGroup, test01){
 	UnicodeString path(L"testdir");
 	File* file = new File(&path);
+
+
 
 	delete file;
 }

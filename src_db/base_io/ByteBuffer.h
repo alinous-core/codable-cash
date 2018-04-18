@@ -18,8 +18,11 @@ class ByteBuffer {
 protected:
 	friend class UnicodeString;
 	ByteBuffer(const int length) noexcept;
+	ByteBuffer(const uint8_t* buffer, int length);
 public:
 	static ByteBuffer* allocate(const int capacity) noexcept;
+	static ByteBuffer* wrap(const uint8_t* buffer, int length);
+
 	virtual ~ByteBuffer() noexcept;
 
 	inline bool hasRemaining() noexcept {
@@ -66,7 +69,7 @@ public:
 	int16_t getShort() noexcept;
 	int16_t getShort(int position) noexcept;
 
-
+	const uint8_t* array() const noexcept;
 private:
     int pos;
     int lim;

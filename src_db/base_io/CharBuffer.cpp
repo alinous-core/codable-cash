@@ -44,11 +44,11 @@ CharBuffer* CharBuffer::wrap(const wchar_t* buffer, int begin, int count) noexce
 	return new CharBuffer(buffer + begin, count);
 }
 
-CharBuffer* CharBuffer::wrap(UnicodeString* str) noexcept {
+CharBuffer* CharBuffer::wrap(const UnicodeString* str) noexcept {
 	return wrap(str, 0, str->length());
 }
 
-CharBuffer* CharBuffer::wrap(UnicodeString* str, int begin, int count) noexcept {
+CharBuffer* CharBuffer::wrap(const UnicodeString* str, int begin, int count) noexcept {
 	CharBuffer* newBuffer = new CharBuffer(count);
 
 	for (int i = 0; i < count; i++) {

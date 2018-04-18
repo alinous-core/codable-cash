@@ -38,6 +38,14 @@ public:
 		}
 	}
 
+	void deleteElements(){
+		int maxLoop = size();
+		for(int i = 0; i != maxLoop; ++i){
+			T* ptr = get(i);
+			delete ptr;
+		}
+	}
+
 	void addElement(T* ptr) noexcept
 	{
 		if(__builtin_expect(this->currentSize <= this->numArray, 0)){

@@ -13,10 +13,19 @@
 #include <wctype.h>
 #include <ctype.h>
 
+#include <stdlib.h>
+
 namespace alinous {
 
 #define S_PRINTF swprintf
 
+#ifdef _WIN64
+#define PATH_SEPARATOR L"\\"
+#elseif _WIN32
+#define PATH_SEPARATOR L"\\"
+#else
+#define PATH_SEPARATOR L"/"
+#endif
 
 class Os {
 public:
@@ -35,6 +44,12 @@ public:
 		return ::wcscmp(__s1, __s2);
 	}
 
+	static char *realpath(const char *path, char *resolved_path) noexcept {
+		return ::realpath(path, resolved_path);
+	}
+	static void realpath_free(char* path){
+		::free(path);
+	}
 };
 
 }

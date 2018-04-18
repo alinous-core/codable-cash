@@ -14,12 +14,12 @@ foreach(loop_var IN LISTS testsrc)
 endforeach()
 set(cryptotestsrc ${__testsrc} PARENT_SCOPE)
 
+#[[
 add_executable(testcrypt ${src} ${testsrc})
 target_link_libraries(testcrypt codablelib extlib gmp ${CPPUTEST_LDFLAGS})
-
-
-
-
 #add_test(testcrypto testmain -v)
+]]#
 
 
+set(gnodir ${CMAKE_BINARY_DIR}/src_test/CMakeFiles/testall.dir/crypto/)
+outgcov(report_test_crypto ${gnodir} "${testsrc}")

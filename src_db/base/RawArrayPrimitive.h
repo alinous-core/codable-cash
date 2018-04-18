@@ -16,6 +16,12 @@ namespace alinous {
 template <typename T>
 class RawArrayPrimitive {
 public:
+	int numArray;
+	int currentSize;
+	T* root;
+private:
+	bool sorted;
+public:
 	RawArrayPrimitive(int defaultSize) noexcept : numArray(0),
 			currentSize(defaultSize > 4 ? defaultSize : 4),
 			root(new T[currentSize]),
@@ -114,11 +120,7 @@ public:
 		this->numArray = this->numArray - length;
 	}
 
-	int numArray;
-	int currentSize;
-	T* root;
-private:
-	bool sorted;
+
 };
 
 }

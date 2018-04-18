@@ -164,6 +164,17 @@ TEST(ByteBufferTestGroup, putByteBuffer){
 	CHECK(buff2->getFloat() == flt);
 	CHECK(buff2->getDouble() == dbl);
 
+	ByteBuffer* buff3 = ByteBuffer::wrap(buff2->array(), buff2->limit());
+
+	CHECK(buff3->get() == 'A');
+	CHECK(buff3->getChar() == L'B');
+	CHECK(buff3->getShort() == 124);
+	CHECK(buff3->getInt() == 123456);
+	CHECK(buff3->getLong() == 1234567890);
+	CHECK(buff3->getFloat() == flt);
+	CHECK(buff3->getDouble() == dbl);
+
 	delete buff;
 	delete buff2;
+	delete buff3;
 }

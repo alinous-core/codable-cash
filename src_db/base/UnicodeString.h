@@ -9,15 +9,22 @@
 #define BASE_UNICODESTRING_H_
 
 #include "RawArrayPrimitive.h"
+#include "ArrayList.h"
 
 namespace alinous {
 
+
 class UnicodeString {
+protected:
+	RawArrayPrimitive<wchar_t>* buff;
+	int __hashCode;
 public:
 	UnicodeString(const wchar_t* str) noexcept;
 	UnicodeString(const wchar_t* str, int cap) noexcept;
+	UnicodeString(const char* str) noexcept;
 	UnicodeString(const UnicodeString* ptr) noexcept;
 	UnicodeString(const UnicodeString& inst) noexcept;
+
 	virtual ~UnicodeString();
 
 private:
@@ -30,16 +37,17 @@ public:
 
 	UnicodeString* replace(wchar_t last, wchar_t next) const noexcept;
 
-	char* toCString();
+	const char* toCString() const;
 	const wchar_t* towString() const noexcept;
+	const wchar_t* c_str(){ return towString(); }
 
 	UnicodeString* toLowerCase() const noexcept;
 	UnicodeString* toUpperCase() const noexcept;
 
-	bool startsWith(UnicodeString* str) const noexcept;
-	bool startsWith(UnicodeString* str, int start) const noexcept;
-	bool endsWith(UnicodeString* str) const noexcept;
-	int getNextMatch(int pos, UnicodeString* str, wchar_t* next) const noexcept;
+	bool startsWith(const UnicodeString* str) const noexcept;
+	bool startsWith(const UnicodeString* str, int start) const noexcept;
+	bool endsWith(const UnicodeString* str) const noexcept;
+	int getNextMatch(int pos, const UnicodeString* str, wchar_t* next) const noexcept;
 
 
 	UnicodeString* substring(int begin) const noexcept;
@@ -57,6 +65,8 @@ public:
 	UnicodeString* insert(int dstOffset, UnicodeString* str) noexcept;
 	UnicodeString* insert(int dstOffset, const wchar_t* str, int offset, int count) noexcept;
 
+	ArrayList<UnicodeString>* split(UnicodeString* pattern) const noexcept;
+
 	int length() const noexcept;
 	wchar_t get(int i) const noexcept;
 	wchar_t charAt(int index) const noexcept;
@@ -66,9 +76,7 @@ public:
 	bool __equals(const UnicodeString* str) const noexcept;
 
 	int hashCode() const noexcept;
-protected:
-	RawArrayPrimitive<wchar_t>* buff;
-	int __hashCode;
+
 
 public:
 	class ValueCompare {

@@ -20,10 +20,26 @@ ByteBuffer::ByteBuffer(const int length) noexcept {
 	this->pos = 0;
 }
 
+ByteBuffer::ByteBuffer(const uint8_t* buffer, int length) {
+	this->data = new RawArrayPrimitive<uint8_t>(length);
+	this->lim = length;
+	this->cap = length;
+	this->pos = 0;
+
+	put(buffer, length);
+	this->pos = 0;
+}
+
 ByteBuffer* ByteBuffer::allocate(const int capacity) noexcept {
 	ByteBuffer* buff = new ByteBuffer(capacity);
 	return buff;
 }
+
+ByteBuffer* ByteBuffer::wrap(const uint8_t* buffer, int length) {
+	ByteBuffer* buff = new ByteBuffer(buffer, length);
+	return buff;
+}
+
 
 ByteBuffer::~ByteBuffer() noexcept {
 	delete this->data;
@@ -350,6 +366,10 @@ int16_t ByteBuffer::getShort(int position) noexcept {
 	int16_t val = *((int16_t*)(this->data->getRoot() + position));
 
 	return val;
+}
+
+const uint8_t* ByteBuffer::array() const noexcept {
+	return data->getRoot();
 }
 
 } /* namespace alinous */

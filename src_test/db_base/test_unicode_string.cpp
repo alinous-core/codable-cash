@@ -213,10 +213,38 @@ TEST(UnicodeStringTestGroup, appendInt){
 TEST(UnicodeStringTestGroup, toCStr){
 	UnicodeString str(L"test");
 
-	char* cstr = str.toCString();
+	const char* cstr = str.toCString();
 
 	int cmp = strcmp("test", cstr);
 	CHECK(cmp == 0);
 
 	delete [] cstr;
+}
+
+TEST(UnicodeStringTestGroup, spit01){
+	UnicodeString str(L"testMisMgood");
+	UnicodeString regex(L"M");
+
+	ArrayList<UnicodeString> *list = str.split(&regex);
+
+	CHECK(list->size() == 3);
+
+	CHECK(Os::wcscmp(list->get(0)->towString(), L"test") == 0);
+
+	list->deleteElements();
+	delete list;
+}
+
+TEST(UnicodeStringTestGroup, spit02){
+	UnicodeString str(L"/src/test/alinous");
+	UnicodeString regex(L"\\/");
+
+	ArrayList<UnicodeString> *list = str.split(&regex);
+
+	//CHECK(list->size() == 3);
+
+	//CHECK(Os::wcscmp(list->get(0)->towString(), L"test") == 0);
+
+	list->deleteElements();
+	delete list;
 }
