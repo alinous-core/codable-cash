@@ -11,7 +11,6 @@
 #include "base_io/CharBuffer.h"
 #include "base/UnicodeString.h"
 
-#include <wchar.h>
 
 using namespace alinous;
 
@@ -51,7 +50,7 @@ TEST(CharBufferTestGroup, putString){
 	wchar_t dest[128]{};
 	buff->get(dest, 5);
 
-	CHECK(wcscmp(dest, ustr.towString()));
+	CHECK(Os::wcscmp(dest, ustr.towString()));
 
 	delete buff;
 }
@@ -65,7 +64,7 @@ TEST(CharBufferTestGroup, putWchar_t){
 	wchar_t dest[128]{};
 	buff->get(dest, 5);
 
-	CHECK(wcscmp(dest, str));
+	CHECK(Os::wcscmp(dest, str));
 
 	delete buff;
 }

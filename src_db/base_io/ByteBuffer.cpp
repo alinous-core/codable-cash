@@ -75,7 +75,7 @@ ByteBuffer* ByteBuffer::get(uint8_t* dest, int off, int len) noexcept(false) {
 		throw new BufferUnderflowException();
 	}
 
-	::memcpy(dest + off, data->getRoot() + this->pos, len);
+	Os::memcpy(dest + off, data->getRoot() + this->pos, len);
 	this->pos += len;
 /*
 	for (int i = off; i < off + len; i++) {
@@ -109,7 +109,7 @@ ByteBuffer* ByteBuffer::put(const uint8_t* src, int off, int len) noexcept(false
         throw new BufferOverflowException();
     }
 
-   ::memcpy(data->getRoot() + this->pos, src + off, len);
+    Os::memcpy(data->getRoot() + this->pos, src + off, len);
     this->pos += len;
 
     return this;
@@ -118,7 +118,7 @@ ByteBuffer* ByteBuffer::put(const uint8_t* src, int off, int len) noexcept(false
 ByteBuffer* ByteBuffer::put(ByteBuffer* src) noexcept {
 	int maxLoop = src->lim;
 
-	::memcpy(&data->getRoot()[this->pos], src->data->getRoot(), maxLoop);
+	Os::memcpy(&data->getRoot()[this->pos], src->data->getRoot(), maxLoop);
 	this->pos += maxLoop;
 
 	return this;
@@ -203,7 +203,7 @@ ByteBuffer* ByteBuffer::putLong(int64_t value) noexcept {
 	char* bytes = (char*)&value;
 
 
-	::memcpy(&data->getRoot()[this->pos], bytes, sizeof(int64_t));
+	Os::memcpy(&data->getRoot()[this->pos], bytes, sizeof(int64_t));
 
 	this->pos += sizeof(int64_t);
 
@@ -214,7 +214,7 @@ ByteBuffer* ByteBuffer::putLong(int position, int64_t value) noexcept {
 	char* bytes = (char*)&value;
 
 
-	::memcpy(&data->getRoot()[position], bytes, sizeof(int64_t));
+	Os::memcpy(&data->getRoot()[position], bytes, sizeof(int64_t));
 
 	this->pos += sizeof(int64_t);
 

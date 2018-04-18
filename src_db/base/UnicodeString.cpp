@@ -7,9 +7,8 @@
 
 #include <base/UnicodeString.h>
 
-#include <wchar.h>
-#include <wctype.h>
-#include <string.h>
+
+#include "osenv/funcs.h"
 
 #include "base_io/CharBuffer.h"
 #include "base_io/ByteBuffer.h"
@@ -132,7 +131,7 @@ UnicodeString* UnicodeString::append(int value) noexcept
 		int d = value % 10;
 		value /= 10;
 
-		::swprintf(&buf[offset], sizeof(buff), L"%lld", d);
+		S_PRINTF(&buf[offset], sizeof(buff), L"%lld", d);
 
 		offset++;
 	}
@@ -179,7 +178,7 @@ char* UnicodeString::toCString(){
 	int size = out->position() + 1;
 	char* retBuff = new char[size];
 
-	::memcpy(retBuff, out->data->getRoot(), size);
+	Os::memcpy(retBuff, out->data->getRoot(), size);
 	retBuff[size - 1] = '\0';
 
 	delete in;
@@ -215,7 +214,7 @@ UnicodeString* UnicodeString::toUpperCase() const noexcept
 
 	const int size = this->buff->size();
 	for(int i = 0; i < size; i++){
-		wchar_t newCh = towupper(this->buff->get(i));
+		wchar_t newCh = Os::toupper(this->buff->get(i));
 
 		newStr->__append(newCh);
 	}
@@ -451,7 +450,7 @@ int UnicodeString::ValueCompare::operator () (const UnicodeString* const a, cons
 	const wchar_t* astr = a->towString();
 	const wchar_t* bstr = b->towString();
 
-	int res = wcscmp(astr, bstr);
+	int res = Os::wcscmp(astr, bstr);
 
 	return res;
 }

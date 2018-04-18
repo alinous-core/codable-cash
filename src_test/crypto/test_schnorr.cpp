@@ -6,7 +6,7 @@
  */
 
 #include <iostream>
-#include <string.h>
+#include "osenv/funcs.h"
 #include "CppUTest/CommandLineTestRunner.h"
 #include <gmp.h>
 
@@ -42,7 +42,7 @@ TEST(SchnorrTestGroup, generateKey){
 TEST(SchnorrTestGroup, sign){
 	SchnorrKeyPair* key = Schnorr::generateKey();
 	const char* testData = "asdfghjjklqwertyuiopzxcvbnm,./poiiuuuytrtrree";
-	int size = strlen(testData);
+	int size = alinous::Os::strlen(testData);
 
 	SchnorrSignature* sig = Schnorr::sign(key->secretKey, key->publicKey, (const uint8_t*)testData, (size_t)size);
 
