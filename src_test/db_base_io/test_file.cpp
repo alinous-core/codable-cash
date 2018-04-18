@@ -81,7 +81,7 @@ TEST(FileTestGroup, test05){
 }
 
 TEST(FileTestGroup, mkdir01){
-	UnicodeString path(L"./test_data");
+	UnicodeString path(L"./target/data_out/");
 	File* file = new File(&path);
 
 	file->mkdirs();
