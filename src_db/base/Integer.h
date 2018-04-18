@@ -20,7 +20,7 @@ public:
 	constexpr static const int MIN_RADIX{2};
 	constexpr static const int MAX_RADIX{36};
 
-	Integer(const Integer& base) = default;
+	//Integer(const Integer& base) = default;
 	Integer(int value);
 	virtual ~Integer();
 
