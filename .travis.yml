@@ -10,6 +10,7 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-7
+      - gcc-7
       - cmake
       - yasm
       - lcov
