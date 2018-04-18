@@ -80,11 +80,10 @@ endif()
 
 #[[ =========================================================================================== ]]#
 
-function(outgcov target_name gnodir srclist)
+macro(outgcov target_name gnodir srclist)
 	set(infoname ${target_name}.info)
 	set(covdir coverage/${target_name})
 	set(workdir ${CMAKE_BINARY_DIR}/${covdir})
-	
 	
 	add_custom_target(${target_name}
 	    COMMAND mkdir -p ${covdir}
@@ -92,13 +91,37 @@ function(outgcov target_name gnodir srclist)
 	    )
 	
 	add_custom_command(TARGET ${target_name}
-	    COMMAND echo "=================== GCOV ${target_name} ===================="
+	    COMMAND echo "=================== LCOV ${target_name} ===================="
 	    COMMAND gcov -b ${srclist} -o ${gnodir}
 		COMMAND lcov -c -d ${gnodir} -o ${infoname}
 		WORKING_DIRECTORY ${workdir}
 	)
 	add_dependencies(lcov ${target_name})
-endfunction(outgcov)
+	
+#[[
+	message("gcov srclist : ${srclist}")
+	
+	set(idx 0)
+	foreach(loop_var ${srclist})
+		set(gtarget "${target_name}${idx}")
+		
+		message("gcov gtarget : ${gtarget}")
+		
+		add_custom_target(${gtarget}
+		    COMMAND mkdir -p ${covdir}
+		    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+		)
+		add_custom_command(TARGET ${gtarget}
+			COMMAND echo "=================== GCOV ${loop_var} ===================="
+			COMMAND gcov -b ${loop_var} -o ${gnodir}
+			WORKING_DIRECTORY ${workdir}
+		)
+		add_dependencies(${target_name} ${gtarget})
+		
+		math(EXPR idx "${idx} + 1")
+	endforeach()
+]]#
+endmacro(outgcov)
 
 
 

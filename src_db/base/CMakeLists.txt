@@ -14,4 +14,4 @@ endforeach()
 set(dbbasesrc ${__parentsrc} PARENT_SCOPE)
 
 
-outgcov(report_db_base ${CMAKE_BINARY_DIR}/src_db/CMakeFiles/alinousdb.dir/base/ ${__src})
+outgcov(report_db_base ${CMAKE_BINARY_DIR}/src_db/CMakeFiles/alinousdb.dir/base/ "${__src}")

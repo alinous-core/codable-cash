@@ -12,4 +12,4 @@ set(dbiosrc ${__parentsrc} PARENT_SCOPE)
 	
 
 set(gnodir ${CMAKE_BINARY_DIR}/src_db/CMakeFiles/alinousdb.dir/base_io/)
-outgcov(report_db_base_io ${gnodir} ${__src})
+outgcov(report_db_base_io ${gnodir} "${__src}")

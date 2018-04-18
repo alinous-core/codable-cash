@@ -21,6 +21,6 @@ add_test(${testtarget} ${testtarget} -v)
 ]]#
 
 set(gnodir ${CMAKE_BINARY_DIR}/src_test/CMakeFiles/testall.dir/db_charsets)
-outgcov(report_test_db_charsets ${gnodir} ${testsrc})
+outgcov(report_test_db_charsets ${gnodir} "${testsrc}")
 
 
