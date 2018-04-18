@@ -15,6 +15,7 @@ addons:
       - lcov
     env:
       - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+      - BUILD_SYSTEM=cmake C_COMPILER=gcc-7 CXX_COMPILER=g++-7
 before_install:
   - eval "${MATRIX_EVAL}"
   - sudo apt-get -qq update
