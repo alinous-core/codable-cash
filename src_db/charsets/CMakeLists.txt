@@ -7,12 +7,7 @@ set(__src
 	CoderResult.cpp
 	UTF8.cpp
 )
-
-foreach(loop_var IN LISTS __src)
-	list(APPEND __parentsrc charsets/${loop_var})
-endforeach()
-set(dbcharsetssrc ${__parentsrc} PARENT_SCOPE)
-
+set_parentv("${__src}" charsets dbcharsetssrc)
 
 set(gnodir ${CMAKE_BINARY_DIR}/src_db/CMakeFiles/alinousdb.dir/charsets/)
 outgcov(report_db_charsets ${gnodir} "${__src}")

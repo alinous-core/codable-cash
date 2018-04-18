@@ -9,12 +9,7 @@ set(testsrc
 	test_exceptions.cpp
 	test_file.cpp
 )
-
-foreach(loop_var IN LISTS testsrc)
-	list(APPEND __testsrc db_base_io/${loop_var})
-endforeach()
-set(db_base_io_test_src ${__testsrc} PARENT_SCOPE)
-
+set_parentv("${testsrc}" db_base_io db_base_io_test_src)
 
 #[[
 add_executable(db_base_io_test ${src} ${testsrc})

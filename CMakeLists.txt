@@ -7,7 +7,7 @@ add_subdirectory(src_ext)
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 	message(STATUS "Debug Build")
 		
-	set(CMAKE_CXX_FLAGS "-std=c++0x -D__cplusplus=201103L -fmessage-length=0 -g -O0 -coverage -fno-inline -fno-inline-small-functions -fno-default-inline")
+	set(CMAKE_CXX_FLAGS "-std=c++0x -D__cplusplus=201103L -fmessage-length=0 -g -O0 -coverage")
 	set(CMAKE_C_FLAGS "-g -O0 -coverage -fprofile-arcs -ftest-coverage")
 	set(CMAKE_EXE_LINKER_FLAGS="-fprofile-arcs -ftest-coverage")
 	
@@ -97,33 +97,14 @@ macro(outgcov target_name gnodir srclist)
 		WORKING_DIRECTORY ${workdir}
 	)
 	add_dependencies(lcov ${target_name})
-	
-#[[
-	message("gcov srclist : ${srclist}")
-	
-	set(idx 0)
-	foreach(loop_var ${srclist})
-		set(gtarget "${target_name}${idx}")
-		
-		message("gcov gtarget : ${gtarget}")
-		
-		add_custom_target(${gtarget}
-		    COMMAND mkdir -p ${covdir}
-		    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-		)
-		add_custom_command(TARGET ${gtarget}
-			COMMAND echo "=================== GCOV ${loop_var} ===================="
-			COMMAND gcov -b ${loop_var} -o ${gnodir}
-			WORKING_DIRECTORY ${workdir}
-		)
-		add_dependencies(${target_name} ${gtarget})
-		
-		math(EXPR idx "${idx} + 1")
-	endforeach()
-]]#
 endmacro(outgcov)
 
-
+macro(set_parentv srclist prefix var_name)
+	foreach(loop_var ${srclist})
+		list(APPEND __testsrc ${prefix}/${loop_var})
+	endforeach()
+	set(${var_name} ${__testsrc} PARENT_SCOPE)
+endmacro(set_parentv)
 
 #[[ =========================================================================================== ]]#
 

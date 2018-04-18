@@ -4,11 +4,7 @@ set(__src
 	exceptions.cpp
 	File.cpp
 )
-
-foreach(loop_var IN LISTS __src)
-	list(APPEND __parentsrc base_io/${loop_var})
-endforeach()
-set(dbiosrc ${__parentsrc} PARENT_SCOPE)
+set_parentv("${__src}" base_io dbiosrc)
 	
 
 set(gnodir ${CMAKE_BINARY_DIR}/src_db/CMakeFiles/alinousdb.dir/base_io/)

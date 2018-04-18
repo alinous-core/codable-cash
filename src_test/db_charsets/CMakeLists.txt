@@ -7,11 +7,8 @@ set(testsrc
 	test_charsets.cpp
 	test_charsets2.cpp
 )
+set_parentv("${testsrc}" db_charsets db_charset_test_src)
 
-foreach(loop_var IN LISTS testsrc)
-	list(APPEND __testsrc db_charsets/${loop_var})
-endforeach()
-set(db_charset_test_src ${__testsrc} PARENT_SCOPE)
 
 #[[
 set(testtarget db_charset_test)

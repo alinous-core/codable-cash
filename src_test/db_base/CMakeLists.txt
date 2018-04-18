@@ -17,11 +17,7 @@ set(testsrc
 	test_unicode_string.cpp
 )
 
-foreach(loop_var IN LISTS testsrc)
-	list(APPEND __testsrc db_base/${loop_var})
-endforeach()
-set(db_base_test_src ${__testsrc} PARENT_SCOPE)
-
+set_parentv("${testsrc}" db_base db_base_test_src)
 
 #[[
 add_executable(db_base_test ${src} ${testsrc})
