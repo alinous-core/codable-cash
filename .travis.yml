@@ -1,21 +1,23 @@
 language: cpp
 compiler:
-    - gcc
+    - g++
 env: BUILD=cmake CPP11=ON
 os:
   - linux
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -qq g++-5
   - sudo apt-get install -y libgmp-dev
   - sudo apt-get install -y cpputest
   - pip install --user cpp-coveralls
 addons:
   apt:
     packages:
-    - cmake
-    - yasm
-    - lcov
+      - g++-5
+      - cmake
+      - yasm
+      - lcov
+    env:
+      - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
 script: "./travisbuild.sh"
 after_success:
     - coveralls --root . -E ".*/src_ext/*" -E ".*src_test*" -E "target" -E ".*CMakeFiles.*"
