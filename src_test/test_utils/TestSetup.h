@@ -8,7 +8,10 @@
 #ifndef TEST_UTILS_TESTSETUP_H_
 #define TEST_UTILS_TESTSETUP_H_
 
+#include "base/UnicodeString.h"
+
 extern const char* prog;
+
 
 namespace alinous {
 
@@ -21,6 +24,10 @@ public:
 
 	void setup();
 	void teardown();
+
+	File testCaseDir();
+
+	static UnicodeString TEST_SEG;
 private:
 	File* baseDir;
 };

@@ -84,18 +84,23 @@ TEST(FileTestGroup, test05){
 }
 
 TEST(FileTestGroup, mkdir01){
-	UnicodeString path(L"./target/data_out/");
-	UnicodeString path2(L"./target/data_out/ext/01");
+	File __dir =  this->testenv.testCaseDir();
 
-	File* file = new File(&path);
+	UnicodeString path(L"target/data_out/");
+	UnicodeString path2(L"target/data_out/ext/01");
 
-	file->deleteFile();
+	File* file = __dir.get(&path);
+
+	file->deleteDir();
 	file->mkdirs();
 
-	File* file2 = new File(&path2);
+	CHECK(file->exists());
+
+	File* file2 = __dir.get(&path2);
 	file2->mkdirs();
 
-	file->deleteFile();
+	file->deleteDir();
+	CHECK(!file->exists());
 
 	delete file;
 	delete file2;
@@ -174,6 +179,12 @@ TEST(FileTestGroup, list2){
 	delete files;
 
 	delete baseDir;
+}
+
+TEST(FileTestGroup, projectTestDir){
+	File __dir =  this->testenv.testCaseDir();
+
+
 }
 
 
