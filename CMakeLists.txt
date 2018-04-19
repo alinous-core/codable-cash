@@ -71,6 +71,9 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 		COMMAND lcov -a test.info -a report_test_db_base_io/report_test_db_base_io.info -o test01.info
 		COMMAND cp test01.info test.info
 		COMMAND lcov -a test.info -a report_test_db_charsets/report_test_db_charsets.info -o test01.info
+		COMMAND cp test01.info test.info
+		COMMAND lcov -a test.info -a report_test_utils/report_test_utils.info -o test01.info
+		
 		
 		COMMAND rm test.info
 				
@@ -120,11 +123,12 @@ set(src
 include_directories(${PROJECT_SOURCE_DIR}/src_ext/)
 include_directories(${PROJECT_SOURCE_DIR}/src_db/)
 include_directories(${PROJECT_SOURCE_DIR}/src/)
+include_directories(${PROJECT_SOURCE_DIR}/src_test/)
 
 add_subdirectory(src_db)
 add_subdirectory(src)
 
-add_executable(codablecash ${src} ${top_src_db})
+add_executable(codablecash ${src} ${top_src} ${top_src_db})
 target_link_libraries(codablecash extlib gmp)
 
 #

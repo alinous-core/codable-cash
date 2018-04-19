@@ -6,6 +6,8 @@
  */
 
 #include "CppUTest/CommandLineTestRunner.h"
+#include "test_utils/TestSetup.h"
+
 #include "charsets/CharsetManager.h"
 
 #include "base_io/File.h"
@@ -13,7 +15,7 @@
 
 
 using namespace alinous;
-extern const char* prog;
+
 
 TEST_GROUP(FileTestGroup) {
 	TEST_SETUP() {
