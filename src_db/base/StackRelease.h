@@ -44,6 +44,7 @@ private:
 	ArrayList<T> ptrlist;
 };
 
+
 } /* namespace alinous */
 
 #endif /* BASE_STACKRELEASE_H_ */

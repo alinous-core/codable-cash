@@ -150,7 +150,7 @@ bool File::deleteDir() const noexcept {
 
 bool File::deleteInnerDir(const File* dir) noexcept {
 	ArrayList<UnicodeString>* _list = dir->list();
-	StackArrayRelease<ArrayList<UnicodeString>> r_list;
+	StackRelease<ArrayList<UnicodeString>> r_list(ArrayList<UnicodeString>);
 
 	int maxLoop = _list->size();
 	for(int i = 0; i != maxLoop; ++i){
