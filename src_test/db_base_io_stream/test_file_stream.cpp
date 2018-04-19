@@ -24,3 +24,6 @@ TEST_GROUP(FileStreamTestGroup) {
 
 };
 
+TEST(FileStreamTestGroup, test01){
+
+}
