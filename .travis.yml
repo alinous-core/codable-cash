@@ -17,7 +17,6 @@ addons:
     env: BUILD_SYSTEM=cmake C_COMPILER=gcc-7 CXX_COMPILER=g++-7
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get -qq install gcc-7
   - sudo apt-get install -y libgmp-dev
   - sudo apt-get install -y cpputest
   - pip install --user cpp-coveralls
