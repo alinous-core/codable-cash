@@ -29,6 +29,9 @@ private:
 
 public:
 	bool mkdirs() const noexcept;
+	bool deleteFile() const noexcept;
+	bool isDirectory() const noexcept;
+	bool isFile() const noexcept;
 
 private:
 	UnicodeString *path;

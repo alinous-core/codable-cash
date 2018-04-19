@@ -13,7 +13,7 @@
 
 
 using namespace alinous;
-
+extern const char* prog;
 
 TEST_GROUP(FileTestGroup) {
 	TEST_SETUP() {
@@ -54,8 +54,6 @@ TEST(FileTestGroup, test03){
 	delete ret;
 
 	delete file;
-
-	CharsetManager::closeInstance();
 }
 
 TEST(FileTestGroup, test04){
@@ -66,8 +64,6 @@ TEST(FileTestGroup, test04){
 	delete ret;
 
 	delete file;
-
-	CharsetManager::closeInstance();
 }
 
 TEST(FileTestGroup, test05){
@@ -84,9 +80,35 @@ TEST(FileTestGroup, mkdir01){
 	UnicodeString path(L"./target/data_out/");
 	File* file = new File(&path);
 
+	file->deleteFile();
 	file->mkdirs();
 
 	delete file;
 }
 
+TEST(FileTestGroup, isFile){
+	UnicodeString path(prog);
+	File* file = new File(&path);
 
+	bool f = file->isFile();
+	CHECK(f);
+
+	f = file->isDirectory();
+	CHECK(!f);
+
+	delete file;
+}
+
+
+TEST(FileTestGroup, isFileNotExists){
+	UnicodeString path(L"dfgdfhjghkjghhgkj/gfdgsdfgdfsg");
+	File* file = new File(&path);
+
+	bool f = file->isFile();
+	CHECK(!f);
+
+	f = file->isDirectory();
+	CHECK(!f);
+
+	delete file;
+}

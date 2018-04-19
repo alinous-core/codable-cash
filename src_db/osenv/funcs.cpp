@@ -8,6 +8,7 @@
 
 #include "funcs.h"
 
+#include <stdio.h>
 #include <sys/stat.h>
 
 #include "base/UnicodeString.h"
@@ -92,6 +93,40 @@ int Os::mkdirs(UnicodeString *path,
 	delete [] dirPath;
 
 	return ret;
+}
+
+int Os::deleteFile(const UnicodeString *path) noexcept {
+	const char *from = path->toCString();
+	int ret = ::remove(from);
+
+	delete [] from;
+
+	return ret;
+}
+
+bool Os::isDirectory(const UnicodeString* path) noexcept {
+	struct stat  st;
+	const char* src = path->toCString();
+
+	int ret = stat(src, &st);
+	delete [] src;
+
+	if(ret != 0){
+		return false;
+	}
+	return (st.st_mode & S_IFMT) == S_IFDIR;
+}
+bool Os::isFile(const UnicodeString* path) noexcept {
+	struct stat  st;
+	const char* src = path->toCString();
+
+	int ret = stat(src, &st);
+	delete [] src;
+
+	if(ret != 0){
+		return false;
+	}
+	return (st.st_mode & S_IFMT) != S_IFDIR;
 }
 
 }

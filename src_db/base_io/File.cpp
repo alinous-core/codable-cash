@@ -136,9 +136,23 @@ bool File::mkdirs() const noexcept {
 	return true;
 }
 
+bool File::deleteFile() const noexcept
+{
+	return Os::deleteFile(path);
+}
+
 bool File::exists() const noexcept
 {
 	return Os::file_exists(this->path);
+}
+
+bool File::isDirectory() const noexcept
+{
+	return Os::isDirectory(this->path);
+}
+bool File::isFile() const noexcept
+{
+	return Os::isFile(this->path);
 }
 
 } /* namespace alinous */

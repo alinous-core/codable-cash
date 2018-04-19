@@ -48,6 +48,9 @@ public:
 			bool __S_IRUSR , bool __S_IWUSR, bool __S_IXUSR,
 			bool __S_IRGRP , bool __S_IWGRP, bool __S_IXGRP,
 			bool __S_IROTH , bool __S_IWOTH, bool __S_IXOTH) noexcept;
+	static int deleteFile(const UnicodeString *path) noexcept;
+	static bool isDirectory(const UnicodeString* path) noexcept;
+	static bool isFile(const UnicodeString* path) noexcept;
 };
 
 }
