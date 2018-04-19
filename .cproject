@@ -33,7 +33,7 @@
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1249523948" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.c.compiler.base.273807524" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.base">
-								<option id="gnu.c.compiler.option.include.paths.1255063444" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+								<option id="gnu.c.compiler.option.include.paths.1255063444" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codable-cash/codable-cash/src_db}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codable-cash/codable-cash/src_ext}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codable-cash/codable-cash/src}&quot;"/>
@@ -49,7 +49,7 @@
 								</inputType>
 							</tool>
 							<tool errorParsers="org.eclipse.cdt.core.GASErrorParser" id="cdt.managedbuild.tool.gnu.assembler.base.45150461" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.base">
-								<option id="gnu.both.asm.option.include.paths.1335309851" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
+								<option id="gnu.both.asm.option.include.paths.1335309851" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codable-cash/codable-cash/src_db}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codable-cash/codable-cash/src_ext}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codable-cash/codable-cash/src}&quot;"/>
@@ -60,7 +60,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="dbbase|base_io_stream|src_db|src|src_test|src_ext" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="src_db|src_test|dbbase|src|db_base_io_stream|src_ext" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src_db"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src_ext"/>
