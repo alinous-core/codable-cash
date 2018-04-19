@@ -229,7 +229,7 @@ TEST(UnicodeStringTestGroup, spit01){
 
 	CHECK(list->size() == 3);
 
-	CHECK(Os::wcscmp(list->get(0)->towString(), L"test") == 0);
+	CHECK(Mem::wcscmp(list->get(0)->towString(), L"test") == 0);
 
 	list->deleteElements();
 	delete list;

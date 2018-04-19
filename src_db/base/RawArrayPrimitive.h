@@ -8,7 +8,7 @@
 #ifndef BASE_RAWARRAYPRIMITIVE_H_
 #define BASE_RAWARRAYPRIMITIVE_H_
 
-#include "osenv/funcs.h"
+#include "osenv/memory.h"
 
 
 namespace alinous {
@@ -43,7 +43,7 @@ public:
 			T* newPtr =new T[size];
 			//__memset(newPtr, 0, sizeof(T) * size);
 
-			Os::memcpy(newPtr, this->root, sizeof(T) * this->currentSize);
+			Mem::memcpy(newPtr, this->root, sizeof(T) * this->currentSize);
 
 			delete [] this->root;
 			this->root = newPtr;
@@ -62,7 +62,7 @@ public:
 
 			T* newPtr = new T[size];
 
-			Os::memcpy(newPtr, this->root, sizeof(T) * this->currentSize);
+			Mem::memcpy(newPtr, this->root, sizeof(T) * this->currentSize);
 
 			delete [] this->root;
 

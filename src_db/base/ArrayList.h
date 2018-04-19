@@ -9,7 +9,7 @@
 #define BASE_ARRAYLIST_H_
 
 #include "RawCompare.h"
-#include "osenv/funcs.h"
+#include "osenv/memory.h"
 
 namespace alinous {
 
@@ -89,7 +89,7 @@ public:
 		T** d = dest + dest_start;
 		T** s = src + src_start;
 
-		Os::memcpy(d, s, count * sizeof(T*));
+		Mem::memcpy(d, s, count * sizeof(T*));
 	}
 
 	inline int size() const noexcept {

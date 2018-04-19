@@ -8,18 +8,13 @@
 #ifndef OSENV_FUNCS_H_
 #define OSENV_FUNCS_H_
 
-#include <string.h>
-#include <wchar.h>
-#include <wctype.h>
-#include <ctype.h>
+#include "base/ArrayList.h"
 
 #include <stdlib.h>
 
-
-
 namespace alinous {
 
-#define S_PRINTF swprintf
+
 
 #ifdef _WIN64
 #define PATH_SEPARATOR L"\\"
@@ -31,13 +26,9 @@ namespace alinous {
 
 class UnicodeString;
 
+
 class Os {
 public:
-	static void* memcpy(void *__restrict __dest, const void *__restrict __src, size_t __n) noexcept;
-	static size_t strlen (const char *__s) noexcept;
-	static wchar_t toupper (int ch) noexcept;
-	static int wcscmp(const wchar_t *__s1, const wchar_t *__s2) noexcept;
-
 	/**************************************************************************
 	 * File functions
 	 */
@@ -51,6 +42,7 @@ public:
 	static int deleteFile(const UnicodeString *path) noexcept;
 	static bool isDirectory(const UnicodeString* path) noexcept;
 	static bool isFile(const UnicodeString* path) noexcept;
+	static ArrayList<UnicodeString>* list(const UnicodeString* path) noexcept;
 };
 
 }

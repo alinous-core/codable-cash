@@ -1,6 +1,7 @@
 
 set(__src
 	funcs.cpp
+	memory.cpp
 )
 set_parentv("${__src}" osenv osenvsrc)
 

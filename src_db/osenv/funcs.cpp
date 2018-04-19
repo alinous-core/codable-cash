@@ -10,25 +10,13 @@
 
 #include <stdio.h>
 #include <sys/stat.h>
+#include <dirent.h>
 
 #include "base/UnicodeString.h"
 
+
+
 namespace alinous {
-
-void* Os::memcpy(void *__restrict __dest, const void *__restrict __src, size_t __n) noexcept {
-	return ::memcpy(__dest, __src, __n);
-}
-size_t Os::strlen (const char *__s) noexcept {
-	return ::strlen(__s);
-}
-
-wchar_t Os::toupper (int ch) noexcept {
-	return ::toupper(ch);
-}
-
-int Os::wcscmp(const wchar_t *__s1, const wchar_t *__s2) noexcept {
-	return ::wcscmp(__s1, __s2);
-}
 
 /**************************************************************************
  * File functions
@@ -120,13 +108,41 @@ bool Os::isFile(const UnicodeString* path) noexcept {
 	struct stat  st;
 	const char* src = path->toCString();
 
-	int ret = stat(src, &st);
+	int ret = ::stat(src, &st);
 	delete [] src;
 
 	if(ret != 0){
 		return false;
 	}
 	return (st.st_mode & S_IFMT) != S_IFDIR;
+}
+
+ArrayList<UnicodeString>* Os::list(const UnicodeString* path) noexcept {
+	ArrayList<UnicodeString>* array = new ArrayList<UnicodeString>();
+	const char *dirname = path->toCString();
+
+	DIR* dp= ::opendir(dirname);
+	delete [] dirname;
+
+	if(dp == 0){
+		return 0;
+	}
+
+	struct dirent* dent;
+    do{
+        dent = ::readdir(dp);
+        if (dent!=0){
+        	// std::cout << dent->d_name << std::endl;
+        	UnicodeString *newPath = new UnicodeString(dent->d_name);
+        	array->addElement(newPath);
+
+        	//array->addElement(newPath);
+        }
+    }while(dent != 0);
+
+    closedir(dp);
+
+	return array;
 }
 
 }

@@ -133,7 +133,6 @@ bool File::mkdirs() const noexcept {
 		}
 	}
 
-
 	parts->deleteElements();
 	delete parts;
 
@@ -192,6 +191,25 @@ File* File::getDirectory() const noexcept {
 
 	ret = new File(&tmppathout);
 	return ret;
+}
+
+File* File::get(const UnicodeString* seg) const noexcept {
+	File* ret = nullptr;
+
+	UnicodeString nextPath(this->path);
+	if(nextPath.endsWith(&pathSeparator)){
+		nextPath.append(&pathSeparator);
+	}
+
+	nextPath.append(seg);
+	ret = new File(&nextPath);
+
+	return ret;
+}
+
+ArrayList<UnicodeString>* File::list() const noexcept
+{
+	return Os::list(this->path);
 }
 
 } /* namespace alinous */

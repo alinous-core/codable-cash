@@ -18,11 +18,13 @@ using namespace alinous;
 
 
 TEST_GROUP(FileTestGroup) {
+	TestSetup testenv;
+
 	TEST_SETUP() {
-		CharsetManager::getInstance();
+		testenv.setup();
 	}
 	TEST_TEARDOWN() {
-		CharsetManager::closeInstance();
+		testenv.teardown();
 	}
 
 };
@@ -83,12 +85,20 @@ TEST(FileTestGroup, test05){
 
 TEST(FileTestGroup, mkdir01){
 	UnicodeString path(L"./target/data_out/");
+	UnicodeString path2(L"./target/data_out/ext/01");
+
 	File* file = new File(&path);
 
 	file->deleteFile();
 	file->mkdirs();
 
+	File* file2 = new File(&path2);
+	file2->mkdirs();
+
+	file->deleteFile();
+
 	delete file;
+	delete file2;
 }
 
 TEST(FileTestGroup, isFile){

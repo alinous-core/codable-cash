@@ -50,7 +50,7 @@ TEST(CharBufferTestGroup, putString){
 	wchar_t dest[128]{};
 	buff->get(dest, 5);
 
-	CHECK(Os::wcscmp(dest, ustr.towString()));
+	CHECK(Mem::wcscmp(dest, ustr.towString()));
 
 	delete buff;
 }
@@ -64,7 +64,7 @@ TEST(CharBufferTestGroup, putWchar_t){
 	wchar_t dest[128]{};
 	buff->get(dest, 5);
 
-	CHECK(Os::wcscmp(dest, str));
+	CHECK(Mem::wcscmp(dest, str));
 
 	delete buff;
 }

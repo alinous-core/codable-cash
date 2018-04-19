@@ -12,10 +12,17 @@ extern const char* prog;
 
 namespace alinous {
 
+class File;
+
 class TestSetup {
 public:
 	TestSetup();
 	virtual ~TestSetup();
+
+	void setup();
+	void teardown();
+private:
+	File* baseDir;
 };
 
 } /* namespace alinous */

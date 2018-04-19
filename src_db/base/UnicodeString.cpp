@@ -7,7 +7,7 @@
 
 #include <base/UnicodeString.h>
 
-#include "osenv/funcs.h"
+#include "osenv/memory.h"
 
 #include "base/StackRelease.h"
 #include "base_io/CharBuffer.h"
@@ -51,7 +51,7 @@ UnicodeString::UnicodeString(const char* str) noexcept {
 	UnicodeString utf8str(L"utf-8");
 	CharsetConverter* cnv =  CharsetManager::getInstance()->getConverter(&utf8str);
 
-	int len = Os::strlen(str) + 1;
+	int len = Mem::strlen(str) + 1;
 	ByteBuffer *in = ByteBuffer::wrap((const uint8_t*)str, len);
 	CharBuffer * out = CharBuffer::allocate(len * 2);
 	StackRelease<ByteBuffer> _in(in);
@@ -208,7 +208,7 @@ const char* UnicodeString::toCString() const {
 	int size = out->position() + 1;
 	char* retBuff = new char[size];
 
-	Os::memcpy(retBuff, out->data->getRoot(), size);
+	Mem::memcpy(retBuff, out->data->getRoot(), size);
 	retBuff[size - 1] = '\0';
 
 	delete in;
@@ -243,7 +243,7 @@ UnicodeString* UnicodeString::toUpperCase() const noexcept
 
 	const int size = this->buff->size();
 	for(int i = 0; i < size; i++){
-		wchar_t newCh = Os::toupper(this->buff->get(i));
+		wchar_t newCh = Mem::toupper(this->buff->get(i));
 
 		newStr->__append(newCh);
 	}
@@ -505,7 +505,7 @@ int UnicodeString::ValueCompare::operator () (const UnicodeString* const a, cons
 	const wchar_t* astr = a->towString();
 	const wchar_t* bstr = b->towString();
 
-	int res = Os::wcscmp(astr, bstr);
+	int res = Mem::wcscmp(astr, bstr);
 
 	return res;
 }

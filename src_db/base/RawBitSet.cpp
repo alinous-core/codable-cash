@@ -7,7 +7,7 @@
 
 #include <base/RawBitSet.h>
 
-#include "osenv/funcs.h"
+#include "osenv/memory.h"
 
 namespace alinous {
 
@@ -16,7 +16,7 @@ constexpr const uint64_t RawBitSet::TWO_N_ARRAY[64];
 void RawBitSet::BitsetArray::growLength(uint32_t len) noexcept {
 	uint64_t* tmp = new uint64_t[len]{};
 
-	Os::memcpy(tmp, buff, length * sizeof(uint64_t));
+	Mem::memcpy(tmp, buff, length * sizeof(uint64_t));
 	this->length = len;
 	delete [] buff;
 	buff = tmp;

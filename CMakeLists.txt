@@ -131,15 +131,16 @@ add_subdirectory(src)
 add_executable(codablecash ${src} ${top_src} ${top_src_db})
 target_link_libraries(codablecash extlib gmp)
 
-#
-# Test Codes
-#
-add_subdirectory(src_test)
 
-
-set(testtarget testall)
-add_executable(${testtarget} src_test/testallmain.cpp ${top_src} ${top_testsrc} ${top_src_db})
-target_link_libraries(${testtarget} extlib pthread gmp ${CPPUTEST_LDFLAGS})
-
-add_test(${testtarget} ${testtarget} -v)
-
+if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest")
+	#
+	# Test Codes
+	#
+	add_subdirectory(src_test)
+	
+	set(testtarget testall)
+	add_executable(${testtarget} src_test/testallmain.cpp ${top_src} ${top_src_db} ${top_testsrc})
+	target_link_libraries(${testtarget} extlib pthread gmp ${CPPUTEST_LDFLAGS})
+	
+	add_test(${testtarget} ${testtarget} -v)
+endif()

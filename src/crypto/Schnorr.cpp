@@ -7,7 +7,7 @@
 
 #include "Schnorr.h"
 
-#include "osenv/funcs.h"
+#include "osenv/memory.h"
 #include "yescrypt/sha256.h"
 
 namespace codablecash {
@@ -77,8 +77,8 @@ SchnorrSignature* Schnorr::sign(const mpz_t s, const mpz_t p, const uint8_t* dat
 
 		size_t hashinLen = count + size;
 		uint8_t* hashin = new uint8_t[hashinLen];
-		alinous::Os::memcpy(hashin, data, size);
-		alinous::Os::memcpy(hashin + size, buff, count);
+		alinous::Mem::memcpy(hashin, data, size);
+		alinous::Mem::memcpy(hashin + size, buff, count);
 
 		SHA256_CTX ctx;
 		SHA256_Init(&ctx);
@@ -131,8 +131,8 @@ bool Schnorr::verify(const mpz_t e, const mpz_t y, const mpz_t p, const uint8_t*
 
 		size_t hashinLen = count + size;
 		uint8_t* hashin = new uint8_t[hashinLen];
-		alinous::Os::memcpy(hashin, data, size);
-		alinous::Os::memcpy(hashin + size, buff, count);
+		alinous::Mem::memcpy(hashin, data, size);
+		alinous::Mem::memcpy(hashin + size, buff, count);
 
 		SHA256_CTX ctx;
 		SHA256_Init(&ctx);

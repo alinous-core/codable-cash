@@ -8,9 +8,12 @@
 #ifndef BASE_IO_FILE_H_
 #define BASE_IO_FILE_H_
 
+#include "base/ArrayList.h"
+
 namespace alinous {
 
 class UnicodeString;
+
 
 class File {
 public:
@@ -35,6 +38,8 @@ public:
 	bool isFile() const noexcept;
 
 	File* getDirectory() const noexcept;
+	File* get(const UnicodeString* seg) const noexcept;
+	ArrayList<UnicodeString>* list() const noexcept;
 
 private:
 	UnicodeString *path;
