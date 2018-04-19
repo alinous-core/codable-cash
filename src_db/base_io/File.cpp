@@ -150,19 +150,22 @@ bool File::deleteDir() const noexcept {
 
 bool File::deleteInnerDir(const File* dir) noexcept {
 	ArrayList<UnicodeString>* _list = dir->list();
-	StackRelease<ArrayList<UnicodeString>> r_list(ArrayList<UnicodeString>);
+	StackRelease<ArrayList<UnicodeString>> r_list(_list);
 
 	int maxLoop = _list->size();
 	for(int i = 0; i != maxLoop; ++i){
-		UnicodeString* f = _list->get(i);
-		File innerFile(f);
+		UnicodeString* seg = _list->get(i);
+		File* innerFile = dir->get(seg);
 
-		if(innerFile.isDirectory()){
-			deleteInnerDir(&innerFile);
+		if(innerFile->isDirectory()){
+			deleteInnerDir(innerFile);
 		}else{
-			innerFile.deleteFile();
+			innerFile->deleteFile();
 		}
+
+		delete innerFile;
 	}
+
 	_list->deleteElements();
 
 	return Os::deleteFile(dir->path);

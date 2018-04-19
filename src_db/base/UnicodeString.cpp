@@ -68,6 +68,10 @@ UnicodeString::UnicodeString(const char* str) noexcept {
 	out->position(0);
 	for(int i = 0; i != pos; ++i){
 		wchar_t ch = out->get();
+		if(ch == 0){
+			break;
+		}
+
 		__append(ch);
 	}
 	__closeString();

@@ -37,7 +37,7 @@ public:
 	}
 
 	void addElement(const T value) noexcept {
-		if(__builtin_expect(this->currentSize == this->numArray, 0)){
+		if(__builtin_expect(!(this->currentSize > this->numArray), 0)){
 			int size = this->currentSize * 2;
 
 			T* newPtr =new T[size];
@@ -57,7 +57,7 @@ public:
 	}
 
 	void addElement(const T value, const int index) throw() {
-		if(__builtin_expect(this->currentSize == this->numArray, 0)){
+		if(__builtin_expect(!(this->currentSize > this->numArray), 0)){
 			int size = this->currentSize * 2;
 
 			T* newPtr = new T[size];

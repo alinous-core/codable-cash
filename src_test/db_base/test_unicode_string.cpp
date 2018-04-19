@@ -85,6 +85,19 @@ TEST(UnicodeStringTestGroup, buffer){
 	CHECK(str01.equals(&str));
 }
 
+TEST(UnicodeStringTestGroup, buffer_cstr){
+	UnicodeString str01(L"HelloHello");
+	UnicodeString str("Hello");
+
+	str.append(L'H')->append(L'e');
+
+	str.append(L'l');
+	str.append(L'l');
+	str.append(L'o');
+
+	CHECK(str01.equals(&str));
+}
+
 TEST(UnicodeStringTestGroup, buffer2){
 	UnicodeString str01(L"Hello", 2);
 	UnicodeString str02(L"Hello", 2);
