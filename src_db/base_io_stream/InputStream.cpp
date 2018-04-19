@@ -18,7 +18,7 @@ InputStream::~InputStream() {
 }
 
 
-int InputStream::read(const ArrayList<char>* b) {
+int InputStream::read(const RawArrayPrimitive<char>* b) {
 	return read(b, 0, b->size());
 }
 

@@ -1,5 +1,6 @@
 set(__src
 	InputStream.cpp
+	OutputStream.cpp
 )
 set_parentv("${__src}" base_io_stream dbiostreamsrc)
 	

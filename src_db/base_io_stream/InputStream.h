@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 
-#include "base/ArrayList.h"
+#include "base/RawArrayPrimitive.h"
 
 namespace alinous {
 
@@ -21,8 +21,8 @@ public:
 	virtual ~InputStream();
 
 	virtual void close() = 0;
-	virtual int read(const ArrayList<char>* b, int off, int len) = 0;
-	virtual int read(const ArrayList<char>* b);
+	virtual int read(const RawArrayPrimitive<char>* b, int off, int len) = 0;
+	virtual int read(const RawArrayPrimitive<char>* b);
 	virtual int read() = 0;
 	virtual int available();
 	virtual void mark(int readlimit);
