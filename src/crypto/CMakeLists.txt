@@ -10,7 +10,7 @@ set(cryptosrc ${__src} PARENT_SCOPE)
 
 
 set(target_name report_crypto)
-set(gnodir ${CMAKE_BINARY_DIR}/src/CMakeFiles/codablelib.dir/crypto)
+set(gnodir ${CMAKE_BINARY_DIR}/CMakeFiles/testall.dir/src/crypto)
 
 set(infoname ${target_name}.info)
 set(covdir coverage/${target_name})

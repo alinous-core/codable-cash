@@ -4,7 +4,7 @@ set(__src
 )
 set_parentv("${__src}" osenv osenvsrc)
 
-set(gnodir ${CMAKE_BINARY_DIR}/src_db/CMakeFiles/alinousdb.dir/osenv/)
+set(gnodir ${CMAKE_BINARY_DIR}/CMakeFiles/testall.dir/src_db/osenv/)
 outgcov(report_osenv ${gnodir} "${__src}")
 
 

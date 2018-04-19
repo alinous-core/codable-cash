@@ -104,10 +104,11 @@ macro(outgcov target_name gnodir srclist)
 endmacro(outgcov)
 
 macro(set_parentv srclist prefix var_name)
+	set(__tmptestsrc "")
 	foreach(loop_var ${srclist})
-		list(APPEND __testsrc ${prefix}/${loop_var})
+		list(APPEND __tmptestsrc ${prefix}/${loop_var})
 	endforeach()
-	set(${var_name} ${__testsrc} PARENT_SCOPE)
+	set(${var_name} ${__tmptestsrc} PARENT_SCOPE)
 endmacro(set_parentv)
 
 #[[ =========================================================================================== ]]#
@@ -123,11 +124,18 @@ include_directories(${PROJECT_SOURCE_DIR}/src/)
 add_subdirectory(src_db)
 add_subdirectory(src)
 
-add_executable(codablecash ${src})
-target_link_libraries(codablecash codablelib extlib alinousdb gmp)
+add_executable(codablecash ${src} ${top_src_db})
+target_link_libraries(codablecash extlib gmp)
 
 #
 # Test Codes
 #
 add_subdirectory(src_test)
+
+
+set(testtarget testall)
+add_executable(${testtarget} src_test/testallmain.cpp ${top_src} ${top_testsrc} ${top_src_db})
+target_link_libraries(${testtarget} extlib pthread gmp ${CPPUTEST_LDFLAGS})
+
+add_test(${testtarget} ${testtarget} -v)
 

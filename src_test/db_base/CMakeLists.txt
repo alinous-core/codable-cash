@@ -26,7 +26,7 @@ target_link_libraries(db_base_test codablelib extlib alinousdb pthread gmp ${CPP
 ]]#
 
 
-set(gnodir ${CMAKE_BINARY_DIR}/src_test/CMakeFiles/testall.dir/db_base/)
+set(gnodir ${CMAKE_BINARY_DIR}/CMakeFiles/testall.dir/src_test/db_base)
 outgcov(report_test_db_base ${gnodir} "${testsrc}")
 
 

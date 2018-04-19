@@ -21,5 +21,5 @@ target_link_libraries(testcrypt codablelib extlib gmp ${CPPUTEST_LDFLAGS})
 ]]#
 
 
-set(gnodir ${CMAKE_BINARY_DIR}/src_test/CMakeFiles/testall.dir/crypto/)
+set(gnodir ${CMAKE_BINARY_DIR}/CMakeFiles/testall.dir/src_test/crypto)
 outgcov(report_test_crypto ${gnodir} "${testsrc}")
