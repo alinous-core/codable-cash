@@ -144,6 +144,30 @@ bool File::deleteFile() const noexcept
 	return Os::deleteFile(path);
 }
 
+bool File::deleteDir() const noexcept {
+	return deleteInnerDir(this);
+}
+
+bool File::deleteInnerDir(const File* dir) noexcept {
+	ArrayList<UnicodeString>* _list = dir->list();
+	StackArrayRelease<ArrayList<UnicodeString>> r_list;
+
+	int maxLoop = _list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		UnicodeString* f = _list->get(i);
+		File innerFile(f);
+
+		if(innerFile.isDirectory()){
+			deleteInnerDir(&innerFile);
+		}else{
+			innerFile.deleteFile();
+		}
+	}
+	_list->deleteElements();
+
+	return Os::deleteFile(dir->path);
+}
+
 bool File::exists() const noexcept
 {
 	return Os::file_exists(this->path);
@@ -209,7 +233,7 @@ File* File::get(const UnicodeString* seg) const noexcept {
 
 ArrayList<UnicodeString>* File::list() const noexcept
 {
-	return Os::list(this->path);
+	return Os::listFiles(this->path);
 }
 
 } /* namespace alinous */

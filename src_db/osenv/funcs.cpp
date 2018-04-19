@@ -117,7 +117,7 @@ bool Os::isFile(const UnicodeString* path) noexcept {
 	return (st.st_mode & S_IFMT) != S_IFDIR;
 }
 
-ArrayList<UnicodeString>* Os::list(const UnicodeString* path) noexcept {
+ArrayList<UnicodeString>* Os::listFiles(const UnicodeString* path) noexcept {
 	ArrayList<UnicodeString>* array = new ArrayList<UnicodeString>();
 	const char *dirname = path->toCString();
 

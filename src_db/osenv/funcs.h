@@ -42,7 +42,7 @@ public:
 	static int deleteFile(const UnicodeString *path) noexcept;
 	static bool isDirectory(const UnicodeString* path) noexcept;
 	static bool isFile(const UnicodeString* path) noexcept;
-	static ArrayList<UnicodeString>* list(const UnicodeString* path) noexcept;
+	static ArrayList<UnicodeString>* listFiles(const UnicodeString* path) noexcept;
 };
 
 }

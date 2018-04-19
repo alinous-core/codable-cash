@@ -34,6 +34,7 @@ private:
 public:
 	bool mkdirs() const noexcept;
 	bool deleteFile() const noexcept;
+	bool deleteDir() const noexcept;
 	bool isDirectory() const noexcept;
 	bool isFile() const noexcept;
 
@@ -41,6 +42,8 @@ public:
 	File* get(const UnicodeString* seg) const noexcept;
 	ArrayList<UnicodeString>* list() const noexcept;
 
+private:
+	static bool deleteInnerDir(const File* dir) noexcept;
 private:
 	UnicodeString *path;
 };
