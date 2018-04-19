@@ -1,8 +1,4 @@
 
-set(src
-	testmain.cpp
-)
-
 set(testsrc
 	test_arraylist.cpp
 	test_bitset.cpp

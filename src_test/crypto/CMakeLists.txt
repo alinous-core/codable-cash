@@ -1,8 +1,4 @@
 
-set(src
-	"testmain.cpp"
-)
-
 set(testsrc
 	test_mpz.cpp
 	test_yescript.cpp
