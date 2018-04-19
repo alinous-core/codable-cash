@@ -17,6 +17,10 @@ const UnicodeString File::pathSeparator(PATH_SEPARATOR);
 const UnicodeString File::DOT(L".");
 const UnicodeString File::DDOT(L"..");
 
+File::File(const File& obj) noexcept {
+	this->path = new UnicodeString(obj.path);
+}
+
 File::File(const UnicodeString* pathname) noexcept {
 	this->path = new UnicodeString(pathname);
 }
@@ -153,6 +157,41 @@ bool File::isDirectory() const noexcept
 bool File::isFile() const noexcept
 {
 	return Os::isFile(this->path);
+}
+
+
+File* File::getDirectory() const noexcept {
+	File* ret = nullptr;
+
+	UnicodeString* src = getAbsolutePath();
+	StackRelease<UnicodeString> r_src(src);
+
+	ArrayList<UnicodeString>* parts = src->split(&pathSeparator, false);
+	StackRelease<ArrayList<UnicodeString>> r_parts(parts);
+
+	UnicodeString tmppath(L"", 512);
+	UnicodeString tmppathout(L"", 512);
+
+
+	int const maxLoop = parts->size();
+	for(int i = 0; i != maxLoop; ++i){
+		UnicodeString* seg = parts->get(i);
+
+		tmppath.append(&pathSeparator);
+		tmppath.append(seg);
+
+		if(!Os::isDirectory(&tmppath)){
+			break;
+		}
+
+		tmppathout.append(&pathSeparator);
+		tmppathout.append(seg);
+	}
+
+	parts->deleteElements();
+
+	ret = new File(&tmppathout);
+	return ret;
 }
 
 } /* namespace alinous */

@@ -31,6 +31,9 @@ TEST(FileTestGroup, test01){
 	File* file = new File(&path);
 
 	UnicodeString* ret = file->getAbsolutePath();
+
+	File file2 = *file;
+
 	delete ret;
 
 	delete file;
@@ -112,3 +115,18 @@ TEST(FileTestGroup, isFileNotExists){
 
 	delete file;
 }
+
+TEST(FileTestGroup, getDirectory){
+	UnicodeString path(prog);
+	File file(&path);
+
+	File* dir = file.getDirectory();
+	bool f = dir->isFile();
+	CHECK(!f);
+
+	f = dir->isDirectory();
+	CHECK(f);
+
+	delete dir;
+}
+

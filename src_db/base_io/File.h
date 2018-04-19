@@ -18,6 +18,7 @@ public:
 	static const UnicodeString DOT;
 	static const UnicodeString DDOT;
 
+	File(const File& obj) noexcept;
 	File(const UnicodeString* pathname) noexcept;
 	virtual ~File() noexcept;
 
@@ -32,6 +33,8 @@ public:
 	bool deleteFile() const noexcept;
 	bool isDirectory() const noexcept;
 	bool isFile() const noexcept;
+
+	File* getDirectory() const noexcept;
 
 private:
 	UnicodeString *path;
