@@ -142,3 +142,38 @@ TEST(FileTestGroup, getDirectory){
 	delete dir;
 }
 
+TEST(FileTestGroup, list){
+	UnicodeString path(prog);
+	File file(&path);
+
+	ArrayList<UnicodeString>* files = file.list();
+
+	files->deleteElements();
+	delete files;
+}
+
+TEST(FileTestGroup, list2){
+	UnicodeString path(prog);
+	File file(&path);
+
+	File* baseDir = file.getDirectory();
+
+	ArrayList<UnicodeString>* files = baseDir->list();
+
+	int maxLoop = files->size();
+	for(int i = 0; i != maxLoop; ++i){
+		UnicodeString *p = files->get(i);
+
+		const wchar_t *wstr = p->towString();
+
+		CHECK(Mem::wcscmp(wstr, L".") != 0);
+		CHECK(Mem::wcscmp(wstr, L"..") != 0);
+	}
+
+	files->deleteElements();
+	delete files;
+
+	delete baseDir;
+}
+
+

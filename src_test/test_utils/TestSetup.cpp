@@ -7,6 +7,7 @@
 
 #include "TestSetup.h"
 
+#include "base/StackRelease.h"
 #include "base/UnicodeString.h"
 #include "base_io/File.h"
 
@@ -18,7 +19,9 @@ namespace alinous {
 
 TestSetup::TestSetup() {
 	UnicodeString path(prog);
-	this->baseDir = new File(&path);
+	File progFile(&path);
+
+	this->baseDir = progFile.getDirectory();
 
 }
 
@@ -30,13 +33,24 @@ void TestSetup::setup() {
 	UtestShell *cur = UtestShell::getCurrent();
 
 	const SimpleString group = cur->getGroup();
-	const SimpleString name = cur->getName();
+	const SimpleString name = cur->getGroup();
 
-	const char* c_group = name.asCharString();
+	const char* c_group = group.asCharString();
 	const char* c_name = name.asCharString();
 
+	UnicodeString strGroup(c_group);
+	UnicodeString strName(c_group);
 
+	File *groupBase = this->baseDir->get(&strGroup);
+	File *testCaseBase = this->baseDir->get(&strGroup);
+	StackArrayRelease<File> r_files;
+	r_files.add(groupBase);
+	r_files.add(testCaseBase);
 
+	groupBase->mkdirs();
+
+	//testCaseBase->deleteDir();
+	//testCaseBase->mkdirs();
 }
 void TestSetup::teardown() {
 	CharsetManager::closeInstance();

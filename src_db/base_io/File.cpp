@@ -221,7 +221,7 @@ File* File::get(const UnicodeString* seg) const noexcept {
 	File* ret = nullptr;
 
 	UnicodeString nextPath(this->path);
-	if(nextPath.endsWith(&pathSeparator)){
+	if(!nextPath.endsWith(&pathSeparator)){
 		nextPath.append(&pathSeparator);
 	}
 

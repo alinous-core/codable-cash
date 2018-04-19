@@ -13,6 +13,7 @@
 #include <dirent.h>
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 
 
@@ -119,24 +120,27 @@ bool Os::isFile(const UnicodeString* path) noexcept {
 
 ArrayList<UnicodeString>* Os::listFiles(const UnicodeString* path) noexcept {
 	ArrayList<UnicodeString>* array = new ArrayList<UnicodeString>();
+
 	const char *dirname = path->toCString();
 
 	DIR* dp= ::opendir(dirname);
 	delete [] dirname;
 
 	if(dp == 0){
-		return 0;
+		return array;
 	}
 
 	struct dirent* dent;
     do{
         dent = ::readdir(dp);
-        if (dent!=0){
+        if (dent != 0){
         	// std::cout << dent->d_name << std::endl;
+
+        	if(Mem::strcmp(dent->d_name, ".") == 0 || Mem::strcmp(dent->d_name, "..") == 0){
+        		continue;
+        	}
         	UnicodeString *newPath = new UnicodeString(dent->d_name);
         	array->addElement(newPath);
-
-        	//array->addElement(newPath);
         }
     }while(dent != 0);
 

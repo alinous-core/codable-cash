@@ -23,6 +23,7 @@ public:
 	static size_t strlen (const char *__s) noexcept;
 	static wchar_t toupper (int ch) noexcept;
 	static int wcscmp(const wchar_t *__s1, const wchar_t *__s2) noexcept;
+	static int strcmp(const char *__s1, const char *__s2) noexcept;
 };
 
 } /* namespace alinous */

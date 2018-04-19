@@ -18,7 +18,9 @@ public:
 	StackRelease(T* ptr) : ptr(ptr){
 	}
 	~StackRelease(){
-		delete ptr;
+		if(this->ptr != nullptr){
+			delete ptr;
+		}
 	}
 private:
 	T* ptr;
@@ -38,7 +40,7 @@ public:
 		}
 	}
 	void add(T* ptr){
-		ptrlist->addElement(ptr);
+		ptrlist.addElement(ptr);
 	}
 private:
 	ArrayList<T> ptrlist;
