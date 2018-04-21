@@ -11,20 +11,24 @@
 namespace alinous {
 
 class SysThread;
+class UnicodeString;
 
 class AbstractThreadRunner {
 public:
 	AbstractThreadRunner();
+	AbstractThreadRunner(const UnicodeString* name);
 	virtual ~AbstractThreadRunner();
 
 	void start() noexcept;
 	void join() const noexcept;
+	SysThread* getThread() const noexcept;
 protected:
 	static void* threadStartFunction(void* param) noexcept;
 
 	virtual void process() noexcept = 0;
 protected:
 	SysThread* pThread;
+	UnicodeString* name;
 };
 
 } /* namespace alinous */

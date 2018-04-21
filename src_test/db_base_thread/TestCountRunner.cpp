@@ -12,6 +12,10 @@ namespace alinous {
 TestCountRunner::TestCountRunner() : AbstractThreadRunner() {
 }
 
+TestCountRunner::TestCountRunner(const UnicodeString* name) : AbstractThreadRunner(name) {
+
+}
+
 TestCountRunner::~TestCountRunner() {
 }
 

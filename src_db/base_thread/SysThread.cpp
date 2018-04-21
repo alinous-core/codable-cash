@@ -21,20 +21,18 @@ SysThread::SysThread(const UnicodeString* name) noexcept : id(0) {
 
 }
 
-SysThread* SysThread::createThread(SysThreadRoutine threadFunc, void* params) noexcept {
-	return createThread(nullptr, threadFunc, params);
-}
-
 SysThread* SysThread::createThread(const UnicodeString* name, SysThreadRoutine threadFunc, void* params) noexcept {
 	assert(threadFunc != nullptr);
 
 	SysThread* thread = new SysThread(name);
 	thread->id = Os::createThread(threadFunc, params);
 
-	const char* c_name = name->toCString();
-	Os::setThreadName(thread->id, c_name);
+	if(name){
+		const char* c_name = name->toCString();
+		Os::setThreadName(thread->id, c_name);
 
-	delete [] c_name;
+		delete [] c_name;
+	}
 
 	return thread;
 }
@@ -42,12 +40,14 @@ SysThread* SysThread::createThread(const UnicodeString* name, SysThreadRoutine t
 SysThread* SysThread::getCurrentThread() noexcept {
 	THREAD_ID id = Os::getCurrentThreadId();
 
-	Os::getThreadName(id);
-
 	UnicodeString* name = Os::getThreadName(id);
 	StackRelease<UnicodeString> r_name(name);
 
 	return new SysThread(name);
+}
+
+bool SysThread::equals(const SysThread* other) const noexcept {
+	return this->id == other->id;
 }
 
 SysThread::~SysThread() {

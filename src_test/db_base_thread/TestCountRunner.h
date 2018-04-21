@@ -12,8 +12,11 @@
 
 namespace alinous {
 
+class UnicodeString;
+
 class TestCountRunner : public AbstractThreadRunner {
 public:
+	TestCountRunner(const UnicodeString* name);
 	TestCountRunner();
 	virtual ~TestCountRunner();
 
