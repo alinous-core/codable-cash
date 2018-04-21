@@ -18,6 +18,7 @@ public:
 	virtual ~AbstractThreadRunner();
 
 	void start() noexcept;
+	void join() const noexcept;
 protected:
 	static void* threadStartFunction(void* param) noexcept;
 

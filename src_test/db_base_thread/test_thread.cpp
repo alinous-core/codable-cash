@@ -7,6 +7,8 @@
 
 
 #include "CppUTest/CommandLineTestRunner.h"
+#include "test_utils/TestSetup.h"
+
 #include "base_thread/SysMutex.h"
 
 using namespace alinous;
@@ -14,8 +16,9 @@ using namespace alinous;
 
 TEST_GROUP(SysMutexTestGroup) {
 	TEST_SETUP() {}
-	TEST_TEARDOWN() {}
-
+	TEST_TEARDOWN() {
+		TestSetup::clearStatics();
+	}
 };
 
 

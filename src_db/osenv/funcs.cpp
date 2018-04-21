@@ -28,7 +28,7 @@ THREAD_ID Os::getCurrentThreadId() noexcept {
 	return ::pthread_self();
 }
 
-THREAD_ID createThread(SysThreadRoutine threadFunc, void* params) noexcept {
+THREAD_ID Os::createThread(SysThreadRoutine threadFunc, void* params) noexcept {
 	THREAD_ID id;
 	::pthread_create( &id, nullptr, threadFunc, params);
 	return id;

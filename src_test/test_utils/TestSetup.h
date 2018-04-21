@@ -27,6 +27,8 @@ public:
 
 	File testCaseDir();
 
+	static void clearStatics();
+
 	static UnicodeString TEST_SEG;
 private:
 	File* baseDir;

@@ -57,6 +57,10 @@ void TestSetup::setup() {
 	testCaseBase->mkdirs();
 }
 void TestSetup::teardown() {
+	clearStatics();
+}
+
+void TestSetup::clearStatics() {
 	CharsetManager::closeInstance();
 }
 

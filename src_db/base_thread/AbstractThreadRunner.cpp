@@ -8,6 +8,8 @@
 #include "base_thread/AbstractThreadRunner.h"
 #include "base_thread/SysThread.h"
 
+#include "base/StackRelease.h"
+
 namespace alinous {
 
 AbstractThreadRunner::AbstractThreadRunner() : pThread(nullptr){
@@ -31,5 +33,10 @@ void* AbstractThreadRunner::threadStartFunction(void* param) noexcept {
 	return nullptr;
 }
 
+void AbstractThreadRunner::join() const noexcept {
+	if(this->pThread){
+		this->pThread->join();
+	}
+}
 
 } /* namespace alinous */
