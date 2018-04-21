@@ -39,9 +39,14 @@ void Os::setThreadName(THREAD_ID id, const char* name) noexcept {
 }
 UnicodeString* Os::getThreadName(THREAD_ID id) noexcept {
 	char thread_name[256]{};
-	::pthread_getname_np(id, thread_name, sizeof(thread_name));
+	int ret = ::pthread_getname_np(id, thread_name, sizeof(thread_name));
 
-	return new UnicodeString(thread_name);
+	UnicodeString* name = nullptr;
+	if(ret == 0){
+		name = new UnicodeString(thread_name);
+	}
+
+	return name;
 }
 
 void Os::joinThread(THREAD_ID id) noexcept {
