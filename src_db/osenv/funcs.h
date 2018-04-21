@@ -11,6 +11,7 @@
 #include "base/ArrayList.h"
 
 #include <stdlib.h>
+#include <pthread.h>
 
 namespace alinous {
 
@@ -24,11 +25,20 @@ namespace alinous {
 #define PATH_SEPARATOR L"/"
 #endif
 
+#define THREAD_ID pthread_t
+
 class UnicodeString;
 
 
 class Os {
 public:
+	/**************************************************************************
+	 * Thread functions
+	 */
+	static THREAD_ID getCurrentThreadId() noexcept;
+	static void setThreadName(THREAD_ID id, const char* name) noexcept;
+	static UnicodeString* getThreadName(THREAD_ID id) noexcept;
+
 	/**************************************************************************
 	 * File functions
 	 */

@@ -47,12 +47,12 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 		
 	set(covdir coverage/)
 	set(workdir ${CMAKE_BINARY_DIR}/${covdir})
-		
+	
+	
 	add_custom_target(lcov
 	    COMMAND mkdir -p ${covdir}
 	    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 	    )
-	
 	add_custom_command(TARGET lcov
 	    COMMAND echo "Merging LCOV...."
 		
@@ -76,6 +76,8 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 		COMMAND lcov -a test.info -a report_test_db_base_io/report_test_db_base_io.info -o test01.info >> lcov.log
 		COMMAND cp test01.info test.info
 		COMMAND lcov -a test.info -a report_db_base_io_stream/report_db_base_io_stream.info -o test01.info >> lcov.log
+		COMMAND cp test01.info test.info
+		COMMAND lcov -a test.info -a report_test_db_base_thread/report_test_db_base_thread.info -o test01.info >> lcov.log
 		COMMAND cp test01.info test.info		
 		COMMAND lcov -a test.info -a report_test_db_charsets/report_test_db_charsets.info -o test01.info >> lcov.log
 		COMMAND cp test01.info test.info

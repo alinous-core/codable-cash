@@ -16,6 +16,7 @@ namespace alinous {
 class File;
 class UnicodeString;
 class ByteBuffer;
+class SysThread;
 
 
 class FileOutputStream {
@@ -41,7 +42,7 @@ private:
 		int fd;
 
 		SysMutex mutex;
-		//SysThread* th;
+		SysThread* th;
 
 		FileBuffer(int fd);
 		~FileBuffer();

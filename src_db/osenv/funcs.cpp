@@ -12,12 +12,31 @@
 #include <sys/stat.h>
 #include <dirent.h>
 
+
+
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
 
-
 namespace alinous {
+
+
+/**************************************************************************
+ * Thread functions
+ */
+THREAD_ID Os::getCurrentThreadId() noexcept {
+	return ::pthread_self();
+}
+
+void Os::setThreadName(THREAD_ID id, const char* name) noexcept {
+	::pthread_setname_np(id, name);
+}
+UnicodeString* Os::getThreadName(THREAD_ID id) noexcept {
+	char thread_name[256]{};
+	::pthread_getname_np(id, thread_name, sizeof(thread_name));
+
+	return new UnicodeString(thread_name);
+}
 
 /**************************************************************************
  * File functions

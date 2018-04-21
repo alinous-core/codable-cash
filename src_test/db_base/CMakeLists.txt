@@ -9,7 +9,6 @@ set(testsrc
 	test_misc.cpp
 	test_primitive_array.cpp
 	test_stack_release.cpp
-	test_thread.cpp
 	test_unicode_string.cpp
 )
 handle_sub(testall "${testsrc}" test db_base)
