@@ -12,13 +12,8 @@ set(testsrc
 	test_thread.cpp
 	test_unicode_string.cpp
 )
-#handle_sub("${testsrc}" test db_base)
+handle_sub("${testsrc}" test db_base)
 
-
-set_parentv("${testsrc}" db_base db_base_test_src)
-
-set(gnodir ${CMAKE_BINARY_DIR}/CMakeFiles/testall.dir/src_test/db_base)
-outgcov(report_test_db_base ${gnodir} "${testsrc}")
 
 
 

@@ -78,7 +78,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 		COMMAND cp test01.info test.info		
 		COMMAND lcov -a test.info -a report_test_db_charsets/report_test_db_charsets.info -o test01.info
 		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_test_utils/report_test_utils.info -o test01.info
+		COMMAND lcov -a test.info -a report_test_test_utils/report_test_test_utils.info -o test01.info
 		
 		
 		COMMAND rm test.info
@@ -121,8 +121,6 @@ macro(set_parentv srclist prefix var_name)
 endmacro(set_parentv)
 
 macro(handle_sub subsrclist subPrefix subName)
-	#set_parentv("${subsrclist}" ${subName} "${subPrefix}_${subName}_src")
-	
 	set(__tmptestsrc "")
 	foreach(loop_var ${subsrclist})
 		list(APPEND __tmptestsrc "${subName}/${loop_var}")

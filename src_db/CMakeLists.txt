@@ -11,7 +11,7 @@ add_subdirectory(charsets)
 add_subdirectory(osenv)
 
 
-message("src_db : ${__testsrc}")
+message("-- src_db : ${__testsrc}")
 
 set_parentv("${__testsrc}" src_db top_src_db)
 
