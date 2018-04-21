@@ -1,10 +1,10 @@
 
-set(__testsrc "")
+set(__dirsrc "")
 
 
 # import source codes
 add_subdirectory(crypto)
 
-set_parentv("${__testsrc}" src top_src)
+set_parentv("${__dirsrc}" src top_src)
 
 

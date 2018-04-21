@@ -1,6 +1,6 @@
 
 
-set(__testsrc "")
+set(__dirsrc "")
 
 # import source codes
 add_subdirectory(base)
@@ -11,7 +11,7 @@ add_subdirectory(charsets)
 add_subdirectory(osenv)
 
 
-message("-- src_db : ${__testsrc}")
+message("-- src_db : ${__dirsrc}")
 
-set_parentv("${__testsrc}" src_db top_src_db)
+set_parentv("${__dirsrc}" src_db top_src_db)
 
