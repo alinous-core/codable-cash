@@ -7,7 +7,7 @@
 
 
 #include "CppUTest/CommandLineTestRunner.h"
-#include "base/SysMutex.h"
+#include "base_thread/SysMutex.h"
 
 using namespace alinous;
 

@@ -61,9 +61,11 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 		COMMAND cp test01.info test.info
 		COMMAND lcov -a test.info -a report_db_base_io_stream/report_db_base_io_stream.info -o test01.info
 		COMMAND cp test01.info test.info
+		COMMAND lcov -a test.info -a report_db_base_thread/report_db_base_thread.info -o test01.info
+		COMMAND cp test01.info test.info
 		COMMAND lcov -a test.info -a report_db_charsets/report_db_charsets.info -o test01.info
 		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_osenv/report_osenv.info -o test01.info
+		COMMAND lcov -a test.info -a report_db_osenv/report_db_osenv.info -o test01.info
 		COMMAND cp test01.info test.info
 		
 		COMMAND lcov -a test.info -a report_test_crypto/report_test_crypto.info -o test01.info
@@ -117,6 +119,28 @@ macro(set_parentv srclist prefix var_name)
 	endforeach()
 	set(${var_name} ${__tmptestsrc} PARENT_SCOPE)
 endmacro(set_parentv)
+
+macro(handle_sub subsrclist subPrefix subName)
+	#set_parentv("${subsrclist}" ${subName} "${subPrefix}_${subName}_src")
+	
+	set(__tmptestsrc "")
+	foreach(loop_var ${subsrclist})
+		list(APPEND __tmptestsrc "${subName}/${loop_var}")
+	endforeach()
+	set(tmpsrc ${__tmptestsrc})
+	
+	set(gnodir "${CMAKE_BINARY_DIR}/CMakeFiles/testall.dir/src_${subPrefix}/${subName}")
+	outgcov("report_${subPrefix}_${subName}" ${gnodir} "${subsrclist}")
+		
+	list(LENGTH __testsrc list_length)
+	if(${list_length} EQUAL 0)
+		set(__testsrc "${tmpsrc}" PARENT_SCOPE)
+	else(expression)
+		set(__testsrc "${__testsrc};${tmpsrc}" PARENT_SCOPE)
+	endif()
+	
+	
+endmacro(handle_sub)
 
 #[[ =========================================================================================== ]]#
 

@@ -7,9 +7,5 @@ set(__src
 	CoderResult.cpp
 	UTF8.cpp
 )
-set_parentv("${__src}" charsets dbcharsetssrc)
-
-set(gnodir ${CMAKE_BINARY_DIR}/CMakeFiles/testall.dir/src_db/charsets/)
-outgcov(report_db_charsets ${gnodir} "${__src}")
-
+handle_sub("${__src}" db charsets)
 

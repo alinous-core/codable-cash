@@ -12,15 +12,10 @@ set(testsrc
 	test_thread.cpp
 	test_unicode_string.cpp
 )
+#handle_sub("${testsrc}" test db_base)
+
 
 set_parentv("${testsrc}" db_base db_base_test_src)
-
-#[[
-add_executable(db_base_test ${src} ${testsrc})
-target_link_libraries(db_base_test codablelib extlib alinousdb pthread gmp ${CPPUTEST_LDFLAGS})
-#add_test(testdbbase db_base_test -v)
-]]#
-
 
 set(gnodir ${CMAKE_BINARY_DIR}/CMakeFiles/testall.dir/src_test/db_base)
 outgcov(report_test_db_base ${gnodir} "${testsrc}")

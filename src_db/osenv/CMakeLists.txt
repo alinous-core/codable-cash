@@ -3,9 +3,7 @@ set(__src
 	funcs.cpp
 	memory.cpp
 )
-set_parentv("${__src}" osenv osenvsrc)
+handle_sub("${__src}" db osenv)
 
-set(gnodir ${CMAKE_BINARY_DIR}/CMakeFiles/testall.dir/src_db/osenv/)
-outgcov(report_osenv ${gnodir} "${__src}")
 
 
