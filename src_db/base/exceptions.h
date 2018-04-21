@@ -14,20 +14,20 @@ namespace alinous {
 
 class NumberFormatException : public Exception{
 public:
-	NumberFormatException() noexcept;
-	NumberFormatException(Exception* cause) noexcept;
-	NumberFormatException(UnicodeString* message) noexcept;
-	NumberFormatException(UnicodeString* message, Exception* cause) noexcept;
+	NumberFormatException(const char* srcfile, int srcline) noexcept;
+	NumberFormatException(Exception* cause, const char* srcfile, int srcline) noexcept;
+	NumberFormatException(UnicodeString* message, const char* srcfile, int srcline) noexcept;
+	NumberFormatException(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept;
 	virtual ~NumberFormatException();
 	static const wchar_t* defaultMessage;
 };
 
 class IllegalArgumentException : public Exception{
 public:
-	IllegalArgumentException() noexcept;
-	IllegalArgumentException(Exception* cause) noexcept;
-	IllegalArgumentException(UnicodeString* message) noexcept;
-	IllegalArgumentException(UnicodeString* message, Exception* cause) noexcept;
+	IllegalArgumentException(const char* srcfile, int srcline) noexcept;
+	IllegalArgumentException(Exception* cause, const char* srcfile, int srcline) noexcept;
+	IllegalArgumentException(UnicodeString* message, const char* srcfile, int srcline) noexcept;
+	IllegalArgumentException(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept;
 	virtual ~IllegalArgumentException();
 	static const wchar_t* defaultMessage;
 };

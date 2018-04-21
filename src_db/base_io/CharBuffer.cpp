@@ -109,7 +109,7 @@ CharBuffer* CharBuffer::get(wchar_t* dest, int off, int length) noexcept(false) 
     }
 */
     if (length > remaining()) {
-        throw new BufferUnderflowException();
+        throw new BufferUnderflowException(__FILE__, __LINE__);
     }
 
 	int maxLoop = off + length;
@@ -138,7 +138,7 @@ CharBuffer* CharBuffer::put(const wchar_t* src, int length) noexcept(false) {
 }
 CharBuffer* CharBuffer::put(const wchar_t* src, int off, int len) noexcept(false) {
     if (len > remaining()) {
-        throw new BufferOverflowException();
+        throw new BufferOverflowException(__FILE__, __LINE__);
     }
     for (int i = off; i < off + len; i++) {
         put(src[i]);

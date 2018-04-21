@@ -14,20 +14,20 @@ namespace alinous {
 
 class BufferUnderflowException : public Exception{
 public:
-	BufferUnderflowException() noexcept;
-	BufferUnderflowException(Exception* cause) noexcept;
-	BufferUnderflowException(UnicodeString* message) noexcept;
-	BufferUnderflowException(UnicodeString* message, Exception* cause) noexcept;
+	BufferUnderflowException(const char* srcfile, int srcline) noexcept;
+	BufferUnderflowException(Exception* cause, const char* srcfile, int srcline) noexcept;
+	BufferUnderflowException(UnicodeString* message, const char* srcfile, int srcline) noexcept;
+	BufferUnderflowException(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept;
 	virtual ~BufferUnderflowException();
 	static const wchar_t* defaultMessage;
 };
 
 class BufferOverflowException : public Exception{
 public:
-	BufferOverflowException() noexcept;
-	BufferOverflowException(Exception* cause) noexcept;
-	BufferOverflowException(UnicodeString* message) noexcept;
-	BufferOverflowException(UnicodeString* message, Exception* cause) noexcept;
+	BufferOverflowException(const char* srcfile, int srcline) noexcept;
+	BufferOverflowException(Exception* cause, const char* srcfile, int srcline) noexcept;
+	BufferOverflowException(UnicodeString* message, const char* srcfile, int srcline) noexcept;
+	BufferOverflowException(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept;
 	virtual ~BufferOverflowException();
 	static const wchar_t* defaultMessage;
 };

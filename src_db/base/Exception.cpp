@@ -11,14 +11,14 @@
 
 namespace alinous {
 
-Exception::Exception() noexcept : cause(nullptr), message(nullptr) {
+Exception::Exception(const char* srcfile, int srcline) noexcept : srcfile(srcfile), srcline(srcline), cause(nullptr), message(nullptr) {
 }
 
-Exception::Exception(Exception* cause) noexcept : cause(cause), message(nullptr) {
+Exception::Exception(Exception* cause, const char* srcfile, int srcline) noexcept : srcfile(srcfile), srcline(srcline), cause(cause), message(nullptr) {
 }
-Exception::Exception(UnicodeString* message) noexcept: cause(nullptr), message(nullptr) {
+Exception::Exception(UnicodeString* message, const char* srcfile, int srcline) noexcept: srcfile(srcfile), srcline(srcline), cause(nullptr), message(nullptr) {
 }
-Exception::Exception(UnicodeString* message, Exception* cause) noexcept : cause(cause), message(nullptr){
+Exception::Exception(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept : srcfile(srcfile), srcline(srcline), cause(cause), message(nullptr){
 
 }
 

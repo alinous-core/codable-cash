@@ -14,16 +14,18 @@ class UnicodeString;
 
 class Exception {
 public:
-	Exception() noexcept;
-	Exception(Exception* cause) noexcept;
-	Exception(UnicodeString* message) noexcept;
-	Exception(UnicodeString* message, Exception* cause) noexcept;
+	Exception(const char* srcfile, int srcline) noexcept;
+	Exception(Exception* cause, const char* srcfile, int srcline) noexcept;
+	Exception(UnicodeString* message, const char* srcfile, int srcline) noexcept;
+	Exception(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept;
 
 	virtual ~Exception();
 
 protected:
 	UnicodeString* message;
 	Exception* cause;
+	const char* srcfile;
+	int srcline;
 };
 
 } /* namespace alinous */

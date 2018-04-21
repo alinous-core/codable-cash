@@ -33,17 +33,17 @@ int Integer::parseInt(UnicodeString* string, int radix)
 {
 	if(string == nullptr || radix < Integer::MIN_RADIX || radix > Integer::MAX_RADIX)
 	{
-		throw new NumberFormatException();
+		throw new NumberFormatException(__FILE__, __LINE__);
 	}
 	int length = string->length();int i = 0;
 	if(length == 0)
 	{
-		throw new NumberFormatException(string);
+		throw new NumberFormatException(string, __FILE__, __LINE__);
 	}
 	bool negative = string->charAt(i) == L'-';
 	if(negative && ++i == length)
 	{
-		throw new NumberFormatException(string);
+		throw new NumberFormatException(string, __FILE__, __LINE__);
 	}
 	return parse(string, i, radix, negative);
 }
@@ -57,11 +57,11 @@ int Integer::parse(UnicodeString* string, int offset, int radix, bool negative)
 		int digit = Character::digit(string->charAt(offset++), radix);
 		if(digit == -1)
 		{
-			throw new NumberFormatException(string);
+			throw new NumberFormatException(string, __FILE__, __LINE__);
 		}
 		if(max > result)
 		{
-			throw new NumberFormatException(string);
+			throw new NumberFormatException(string, __FILE__, __LINE__);
 		}
 		result = result * radix - digit;
 	}
@@ -70,7 +70,7 @@ int Integer::parse(UnicodeString* string, int offset, int radix, bool negative)
 		result = -result;
 		if(result < 0)
 		{
-			throw new NumberFormatException(string);
+			throw new NumberFormatException(string, __FILE__, __LINE__);
 		}
 	}
 	return result;

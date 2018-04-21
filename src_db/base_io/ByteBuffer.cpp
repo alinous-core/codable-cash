@@ -88,7 +88,7 @@ ByteBuffer* ByteBuffer::get(uint8_t* dest, int length) noexcept(false) {
 
 ByteBuffer* ByteBuffer::get(uint8_t* dest, int off, int len) noexcept(false) {
 	if (__builtin_expect(len > remaining(), 0)) {
-		throw new BufferUnderflowException();
+		throw new BufferUnderflowException(__FILE__, __LINE__);
 	}
 
 	Mem::memcpy(dest + off, data->getRoot() + this->pos, len);
@@ -122,7 +122,7 @@ ByteBuffer* ByteBuffer::put(const uint8_t* src, int off, int len) noexcept(false
     }
 */
     if (len > remaining()) {
-        throw new BufferOverflowException();
+        throw new BufferOverflowException(__FILE__, __LINE__);
     }
 
     Mem::memcpy(data->getRoot() + this->pos, src + off, len);

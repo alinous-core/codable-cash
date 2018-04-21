@@ -53,7 +53,7 @@ public:
 			return r;
 		}
 		// niochar.08=The length must be positive: {0}.
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException(__FILE__, __LINE__);
 	}
 
 private:
