@@ -3,6 +3,6 @@ set(__src
 	InputStream.cpp
 	OutputStream.cpp
 )
-handle_sub("${__src}" db base_io_stream)
+handle_sub(codablecashlib "${__src}" db base_io_stream)
 
 

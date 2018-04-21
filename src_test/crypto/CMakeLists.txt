@@ -4,5 +4,5 @@ set(testsrc
 	test_yescript.cpp
 	test_schnorr.cpp
 )
-handle_sub("${testsrc}" test crypto)
+handle_sub(testall "${testsrc}" test crypto)
 

@@ -20,6 +20,7 @@ class ByteBuffer;
 
 class FileOutputStream {
 public:
+	FileOutputStream(){};
 	FileOutputStream(File *file);
 	FileOutputStream(File* file, bool append);
 	FileOutputStream(UnicodeString* fileName);

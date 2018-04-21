@@ -5,5 +5,5 @@ set(testsrc
 	test_exceptions.cpp
 	test_file.cpp
 )
-handle_sub("${testsrc}" test db_base_io)
+handle_sub(testall "${testsrc}" test db_base_io)
 

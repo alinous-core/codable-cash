@@ -9,6 +9,8 @@
 #include "CppUTest/CommandLineTestRunner.h"
 #include "test_utils/TestSetup.h"
 
+#include "base_io_stream/FileOutputStream.h"
+
 using namespace alinous;
 
 
@@ -25,5 +27,5 @@ TEST_GROUP(FileStreamTestGroup) {
 };
 
 TEST(FileStreamTestGroup, test01){
-
+	FileOutputStream stream;
 }

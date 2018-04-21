@@ -40,7 +40,8 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 	set(infofiles coverage/test.info)
 	add_custom_target(report)
 	add_custom_command(TARGET report
-		COMMAND genhtml --no-function-coverage --title "CodableCash Test Report" -s -p ${PROJECT_SOURCE_DIR} -o html_report ${infofiles}
+		COMMAND genhtml --no-function-coverage --title "CodableCash Test Report" -s -p ${PROJECT_SOURCE_DIR} -o html_report ${infofiles} >> report.log
+		
 		WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 		)
 		
@@ -53,37 +54,37 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 	    )
 	
 	add_custom_command(TARGET lcov
-	    COMMAND echo "=================== LCOV ===================="
+	    COMMAND echo "Merging LCOV...."
 		
-		COMMAND lcov -a report_crypto/report_crypto.info -a report_db_base/report_db_base.info -o test01.info
+		COMMAND lcov -a report_crypto/report_crypto.info -a report_db_base/report_db_base.info -o test01.info >> lcov.log
 		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_db_base_io/report_db_base_io.info -o test01.info
+		COMMAND lcov -a test.info -a report_db_base_io/report_db_base_io.info -o test01.info >> lcov.log
 		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_db_base_io_stream/report_db_base_io_stream.info -o test01.info
+		COMMAND lcov -a test.info -a report_db_base_io_stream/report_db_base_io_stream.info -o test01.info >> lcov.log
 		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_db_base_thread/report_db_base_thread.info -o test01.info
+		COMMAND lcov -a test.info -a report_db_base_thread/report_db_base_thread.info -o test01.info >> lcov.log
 		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_db_charsets/report_db_charsets.info -o test01.info
+		COMMAND lcov -a test.info -a report_db_charsets/report_db_charsets.info -o test01.info >> lcov.log
 		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_db_osenv/report_db_osenv.info -o test01.info
+		COMMAND lcov -a test.info -a report_db_osenv/report_db_osenv.info -o test01.info >> lcov.log
 		COMMAND cp test01.info test.info
 		
-		COMMAND lcov -a test.info -a report_test_crypto/report_test_crypto.info -o test01.info
+		COMMAND lcov -a test.info -a report_test_crypto/report_test_crypto.info -o test01.info >> lcov.log
 		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_test_db_base/report_test_db_base.info -o test01.info
+		COMMAND lcov -a test.info -a report_test_db_base/report_test_db_base.info -o test01.info >> lcov.log
 		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_test_db_base_io/report_test_db_base_io.info -o test01.info
+		COMMAND lcov -a test.info -a report_test_db_base_io/report_test_db_base_io.info -o test01.info >> lcov.log
 		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_db_base_io_stream/report_db_base_io_stream.info -o test01.info
+		COMMAND lcov -a test.info -a report_db_base_io_stream/report_db_base_io_stream.info -o test01.info >> lcov.log
 		COMMAND cp test01.info test.info		
-		COMMAND lcov -a test.info -a report_test_db_charsets/report_test_db_charsets.info -o test01.info
+		COMMAND lcov -a test.info -a report_test_db_charsets/report_test_db_charsets.info -o test01.info >> lcov.log
 		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_test_test_utils/report_test_test_utils.info -o test01.info
+		COMMAND lcov -a test.info -a report_test_test_utils/report_test_test_utils.info -o test01.info >> lcov.log
 		
 		
 		COMMAND rm test.info
 				
-		COMMAND lcov --remove test01.info '/usr/include/*' '*/src_test/*' -o test.info
+		COMMAND lcov --remove test01.info '/usr/include/*' '*/src_test/*' -o test.info >> lcov.log
 		
 		WORKING_DIRECTORY ${workdir}
 )
@@ -104,9 +105,9 @@ macro(outgcov target_name gnodir srclist)
 	    )
 	
 	add_custom_command(TARGET ${target_name}
-	    COMMAND echo "=================== LCOV ${target_name} ===================="
-	    COMMAND gcov -b ${srclist} -o ${gnodir}
-		COMMAND lcov -c -d ${gnodir} -o ${infoname}
+	    COMMAND echo "Making GCOV and LCOV of ${target_name} ...."
+	    COMMAND gcov -b ${srclist} -o ${gnodir} >> gcov.log
+		COMMAND lcov -c -d ${gnodir} -o ${infoname} >> lcov.log
 		WORKING_DIRECTORY ${workdir}
 	)
 	add_dependencies(lcov ${target_name})
@@ -120,28 +121,42 @@ macro(set_parentv srclist prefix var_name)
 	set(${var_name} ${__tmptestsrc} PARENT_SCOPE)
 endmacro(set_parentv)
 
-macro(handle_sub subsrclist subPrefix subName)
+macro(handle_sub target subsrclist subPrefix subName)
 	set(__tmptestsrc "")
 	foreach(loop_var ${subsrclist})
 		list(APPEND __tmptestsrc "${subName}/${loop_var}")
 	endforeach()
 	set(tmpsrc ${__tmptestsrc})
 	
-	set(gnodir "${CMAKE_BINARY_DIR}/CMakeFiles/testall.dir/src_${subPrefix}/${subName}")
-	outgcov("report_${subPrefix}_${subName}" ${gnodir} "${subsrclist}")
+	## subprefix
+	if(${subPrefix} STREQUAL "null")
+		set(src_out_dir "src")
+	else()
+		set(src_out_dir src_${subPrefix})
+	endif()
+	
+	#report name
+	if(${subPrefix} STREQUAL "null")
+		set(report_name "report_${subName}")
+	else()
+		set(report_name "report_${subPrefix}_${subName}")
+	endif()
 		
+	set(gnodir "${CMAKE_BINARY_DIR}/CMakeFiles/${target}.dir/${src_out_dir}/${subName}")
+	outgcov("${report_name}" ${gnodir} "${subsrclist}")
+	
 	list(LENGTH __testsrc list_length)
 	if(${list_length} EQUAL 0)
 		set(__testsrc "${tmpsrc}" PARENT_SCOPE)
-	else(expression)
+	else()
 		set(__testsrc "${__testsrc};${tmpsrc}" PARENT_SCOPE)
 	endif()	
 endmacro(handle_sub)
 
 #[[ =========================================================================================== ]]#
 
-set(src
-	"AlinousStore.cpp"
+set(srcmain
+	AlinousStore.cpp
 )
 
 include_directories(${PROJECT_SOURCE_DIR}/src_ext/)
@@ -149,11 +164,15 @@ include_directories(${PROJECT_SOURCE_DIR}/src_db/)
 include_directories(${PROJECT_SOURCE_DIR}/src/)
 include_directories(${PROJECT_SOURCE_DIR}/src_test/)
 
+
 add_subdirectory(src_db)
 add_subdirectory(src)
 
-add_executable(codablecash ${src} ${top_src} ${top_src_db})
-target_link_libraries(codablecash extlib gmp)
+add_library(codablecashlib STATIC ${top_src} ${top_src_db})
+target_link_libraries(codablecashlib extlib pthread gmp)
+
+add_executable(codablecash ${srcmain})
+target_link_libraries(codablecash codablecashlib extlib pthread gmp)
 
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest")
@@ -163,8 +182,8 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 	add_subdirectory(src_test)
 	
 	set(testtarget testall)
-	add_executable(${testtarget} src_test/testallmain.cpp ${top_src} ${top_src_db} ${top_testsrc})
-	target_link_libraries(${testtarget} extlib pthread gmp ${CPPUTEST_LDFLAGS})
+	add_executable(${testtarget} src_test/testallmain.cpp ${top_testsrc})
+	target_link_libraries(${testtarget} codablecashlib extlib pthread gmp ${CPPUTEST_LDFLAGS})
 	
 	add_test(${testtarget} ${testtarget} -v)
 endif()

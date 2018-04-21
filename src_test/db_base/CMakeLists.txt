@@ -12,7 +12,7 @@ set(testsrc
 	test_thread.cpp
 	test_unicode_string.cpp
 )
-handle_sub("${testsrc}" test db_base)
+handle_sub(testall "${testsrc}" test db_base)
 
 
 

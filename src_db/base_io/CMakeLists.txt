@@ -4,4 +4,4 @@ set(__src
 	exceptions.cpp
 	File.cpp
 )
-handle_sub("${__src}" db base_io)
+handle_sub(codablecashlib "${__src}" db base_io)

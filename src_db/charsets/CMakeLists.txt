@@ -7,5 +7,5 @@ set(__src
 	CoderResult.cpp
 	UTF8.cpp
 )
-handle_sub("${__src}" db charsets)
+handle_sub(codablecashlib "${__src}" db charsets)
 

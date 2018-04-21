@@ -6,5 +6,5 @@ set(__src
 	RawBitSet.cpp
 	UnicodeString.cpp
 )
-handle_sub("${__src}" db base)
+handle_sub(codablecashlib "${__src}" db base)
 

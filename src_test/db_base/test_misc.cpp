@@ -19,6 +19,10 @@ TEST_GROUP(DbBaseMiscTestGroup) {
 	TEST_TEARDOWN() {}
 };
 
+
+TEST(DbBaseMiscTestGroup, test01){
+
+}
 /*
 TEST(DbBaseMiscTestGroup, iteratorVirtual){
 	Iterator<Integer>* it = new Iterator<Integer>();
