@@ -137,9 +137,7 @@ macro(handle_sub subsrclist subPrefix subName)
 		set(__testsrc "${tmpsrc}" PARENT_SCOPE)
 	else(expression)
 		set(__testsrc "${__testsrc};${tmpsrc}" PARENT_SCOPE)
-	endif()
-	
-	
+	endif()	
 endmacro(handle_sub)
 
 #[[ =========================================================================================== ]]#
