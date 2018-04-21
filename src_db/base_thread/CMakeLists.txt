@@ -1,4 +1,5 @@
 set(__src
+	AbstractThreadRunner.cpp
 	SysMutex.cpp
 	SysThread.cpp
 )

@@ -18,7 +18,9 @@ TEST_GROUP(SysMutexTestGroup) {
 
 };
 
-TEST(SysMutexTestGroup, test01){
+
+
+TEST(SysMutexTestGroup, SysMutex){
 	SysMutex mutex;
 
 	mutex.lock();

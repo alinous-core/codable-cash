@@ -29,6 +29,8 @@ namespace alinous {
 
 class UnicodeString;
 
+typedef void *(*SysThreadRoutine) (void *);
+
 
 class Os {
 public:
@@ -36,8 +38,10 @@ public:
 	 * Thread functions
 	 */
 	static THREAD_ID getCurrentThreadId() noexcept;
+	static THREAD_ID createThread(SysThreadRoutine threadFunc, void* params) noexcept;
 	static void setThreadName(THREAD_ID id, const char* name) noexcept;
 	static UnicodeString* getThreadName(THREAD_ID id) noexcept;
+	static void joinThread(THREAD_ID id) noexcept;
 
 	/**************************************************************************
 	 * File functions

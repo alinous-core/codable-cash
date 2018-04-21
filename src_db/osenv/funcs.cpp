@@ -28,6 +28,12 @@ THREAD_ID Os::getCurrentThreadId() noexcept {
 	return ::pthread_self();
 }
 
+THREAD_ID createThread(SysThreadRoutine threadFunc, void* params) noexcept {
+	THREAD_ID id;
+	::pthread_create( &id, nullptr, threadFunc, params);
+	return id;
+}
+
 void Os::setThreadName(THREAD_ID id, const char* name) noexcept {
 	::pthread_setname_np(id, name);
 }
@@ -36,6 +42,10 @@ UnicodeString* Os::getThreadName(THREAD_ID id) noexcept {
 	::pthread_getname_np(id, thread_name, sizeof(thread_name));
 
 	return new UnicodeString(thread_name);
+}
+
+void Os::joinThread(THREAD_ID id) noexcept {
+	::pthread_join(id, nullptr);
 }
 
 /**************************************************************************

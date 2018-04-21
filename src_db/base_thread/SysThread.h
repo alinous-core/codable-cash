@@ -13,20 +13,16 @@
 
 namespace alinous {
 
-typedef void *(*SysThreadRoutine) (void *);
-
 class SysThread {
 private:
 	SysThread(const UnicodeString* name) noexcept;
 public:
 	static SysThread* createThread(SysThreadRoutine threadFunc, void* params) noexcept;
 	static SysThread* createThread(const UnicodeString* name, SysThreadRoutine threadFunc, void* params) noexcept;
-
 	static SysThread* getCurrentThread() noexcept;
-
-
 	virtual ~SysThread();
 
+	void join() const noexcept;
 private:
 	THREAD_ID id;
 	UnicodeString* name;

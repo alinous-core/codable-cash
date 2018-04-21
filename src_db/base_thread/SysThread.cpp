@@ -29,8 +29,7 @@ SysThread* SysThread::createThread(const UnicodeString* name, SysThreadRoutine t
 	assert(threadFunc != nullptr);
 
 	SysThread* thread = new SysThread(name);
-
-	::pthread_create( &(thread->id), nullptr, threadFunc, params);
+	thread->id = Os::createThread(threadFunc, params);
 
 	const char* c_name = name->toCString();
 	Os::setThreadName(thread->id, c_name);
@@ -54,6 +53,12 @@ SysThread* SysThread::getCurrentThread() noexcept {
 SysThread::~SysThread() {
 	if(this->name != nullptr){
 		delete this->name;
+	}
+}
+
+void SysThread::join() const noexcept {
+	if(this->id != 0){
+		Os::joinThread(this->id);
 	}
 }
 
