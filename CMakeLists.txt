@@ -55,42 +55,11 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 	    )
 	add_custom_command(TARGET lcov
 	    COMMAND echo "Merging LCOV...."
-		
-		COMMAND lcov -a report_crypto/report_crypto.info -a report_db_base/report_db_base.info -o test01.info >> lcov.log
-		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_db_base_io/report_db_base_io.info -o test01.info >> lcov.log
-		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_db_base_io_stream/report_db_base_io_stream.info -o test01.info >> lcov.log
-		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_db_base_thread/report_db_base_thread.info -o test01.info >> lcov.log
-		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_db_charsets/report_db_charsets.info -o test01.info >> lcov.log
-		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_db_osenv/report_db_osenv.info -o test01.info >> lcov.log
-		COMMAND cp test01.info test.info
-		
-		COMMAND lcov -a test.info -a report_test_crypto/report_test_crypto.info -o test01.info >> lcov.log
-		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_test_db_base/report_test_db_base.info -o test01.info >> lcov.log
-		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_test_db_base_io/report_test_db_base_io.info -o test01.info >> lcov.log
-		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_db_base_io_stream/report_db_base_io_stream.info -o test01.info >> lcov.log
-		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_test_db_base_thread/report_test_db_base_thread.info -o test01.info >> lcov.log
-		COMMAND cp test01.info test.info		
-		COMMAND lcov -a test.info -a report_test_db_charsets/report_test_db_charsets.info -o test01.info >> lcov.log
-		COMMAND cp test01.info test.info
-		COMMAND lcov -a test.info -a report_test_test_utils/report_test_test_utils.info -o test01.info >> lcov.log
-		
-		
-		COMMAND rm test.info
-				
-		COMMAND lcov --remove test01.info '/usr/include/*' '*/src_test/*' -o test.info >> lcov.log
+		COMMAND ${CMAKE_COMMAND} -DCMAKE_BINARY_DIR=${CMAKE_BINARY_DIR} -P ${PROJECT_SOURCE_DIR}/CMakeReport.cmake
 		
 		WORKING_DIRECTORY ${workdir}
 )
-	add_dependencies(report lcov)
+add_dependencies(report lcov)
 	
 endif()
 
