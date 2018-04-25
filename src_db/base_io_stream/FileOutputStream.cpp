@@ -5,8 +5,9 @@
  *      Author: iizuka
  */
 
-#include <base_io_stream/FileOutputStream.h>
+#include "debug/debugMacros.h"
 
+#include "base_io_stream/FileOutputStream.h"
 #include "base_io/File.h"
 
 namespace alinous {

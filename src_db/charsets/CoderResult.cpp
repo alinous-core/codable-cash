@@ -5,7 +5,8 @@
  *      Author: iizuka
  */
 
-#include <charsets/CoderResult.h>
+#include "debug/debugMacros.h"
+#include "charsets/CoderResult.h"
 
 namespace alinous {
 

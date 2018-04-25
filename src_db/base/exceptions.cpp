@@ -5,7 +5,9 @@
  *      Author: iizuka
  */
 
-#include <base/exceptions.h>
+#include "debug/debugMacros.h"
+
+#include "base/exceptions.h"
 #include "UnicodeString.h"
 
 namespace alinous {

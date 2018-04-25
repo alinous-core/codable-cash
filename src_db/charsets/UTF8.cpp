@@ -5,7 +5,8 @@
  *      Author: iizuka
  */
 
-#include <charsets/UTF8.h>
+#include "debug/debugMacros.h"
+#include "charsets/UTF8.h"
 
 #include "base_io/CharBuffer.h"
 #include "base_io/ByteBuffer.h"

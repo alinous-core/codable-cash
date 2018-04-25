@@ -5,6 +5,8 @@
  *      Author: iizuka
  */
 
+#include "debug/debugMacros.h"
+
 #include "SchnorrSignature.h"
 
 namespace codablecash {

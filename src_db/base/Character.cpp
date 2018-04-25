@@ -5,8 +5,9 @@
  *      Author: iizuka
  */
 
-#include <base/Character.h>
+#include "debug/debugMacros.h"
 
+#include "base/Character.h"
 #include "unicode_icu/uchar.h"
 
 namespace alinous {

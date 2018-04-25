@@ -5,7 +5,9 @@
  *      Author: iizuka
  */
 
-#include <base/Integer.h>
+#include "debug/debugMacros.h"
+
+#include "base/Integer.h"
 
 #include "base/exceptions.h"
 #include "base/UnicodeString.h"

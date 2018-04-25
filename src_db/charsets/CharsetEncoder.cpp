@@ -5,7 +5,9 @@
  *      Author: iizuka
  */
 
-#include <charsets/CharsetEncoder.h>
+#include "debug/debugMacros.h"
+
+#include "charsets/CharsetEncoder.h"
 
 namespace alinous {
 

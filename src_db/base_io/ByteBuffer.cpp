@@ -5,7 +5,9 @@
  *      Author: iizuka
  */
 
-#include <base_io/ByteBuffer.h>
+#include "debug/debugMacros.h"
+
+#include "base_io/ByteBuffer.h"
 #include "base_io/exceptions.h"
 
 #include "base/RawArrayPrimitive.h"

@@ -5,7 +5,10 @@
  *      Author: iizuka
  */
 
-#include <osenv/memory.h>
+
+#include "debug/debugMacros.h"
+
+#include "osenv/memory.h"
 
 namespace alinous {
 

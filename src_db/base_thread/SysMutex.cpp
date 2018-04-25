@@ -5,6 +5,8 @@
  *      Author: iizuka
  */
 
+#include "debug/debugMacros.h"
+
 #include "SysMutex.h"
 
 namespace alinous {

@@ -5,7 +5,13 @@
  *      Author: iizuka
  */
 
-#include <base/UnicodeString.h>
+
+#include <regex>
+#include <iostream>
+
+#include "debug/debugMacros.h"
+
+#include "base/UnicodeString.h"
 
 #include "osenv/memory.h"
 
@@ -14,8 +20,8 @@
 #include "base_io/ByteBuffer.h"
 #include "charsets/CharsetManager.h"
 
-#include <regex>
-#include <iostream>
+
+
 
 namespace alinous {
 

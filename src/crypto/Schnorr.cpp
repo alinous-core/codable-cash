@@ -5,6 +5,8 @@
  *      Author: iizuka
  */
 
+#include "debug/debugMacros.h"
+
 #include "Schnorr.h"
 
 #include "osenv/memory.h"

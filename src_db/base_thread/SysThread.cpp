@@ -5,10 +5,12 @@
  *      Author: iizuka
  */
 
+#include "debug/debugMacros.h"
+
 #include "base_thread/SysThread.h"
 #include "base/StackRelease.h"
 
-#include <assert.h>
+
 
 namespace alinous {
 

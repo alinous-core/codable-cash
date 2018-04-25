@@ -5,6 +5,8 @@
  *      Author: iizuka
  */
 
+#include "debug/debugMacros.h"
+
 #include "InputStream.h"
 
 #include "base/ArrayList.h"

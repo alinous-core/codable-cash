@@ -5,6 +5,8 @@
  *      Author: iizuka
  */
 
+#include "debug/debugMacros.h"
+
 #include "base_thread/AbstractThreadRunner.h"
 #include "base_thread/SysThread.h"
 

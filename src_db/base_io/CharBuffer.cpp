@@ -5,7 +5,9 @@
  *      Author: iizuka
  */
 
-#include <base_io/CharBuffer.h>
+#include "debug/debugMacros.h"
+
+#include "base_io/CharBuffer.h"
 
 #include "base/RawArrayPrimitive.h"
 #include "base/UnicodeString.h"

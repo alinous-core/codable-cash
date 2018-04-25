@@ -5,6 +5,7 @@
  *      Author: iizuka
  */
 
+#include "debug/debugMacros.h"
 
 #include "funcs.h"
 

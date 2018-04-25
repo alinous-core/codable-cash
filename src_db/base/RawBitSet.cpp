@@ -5,8 +5,9 @@
  *      Author: iizuka
  */
 
-#include <base/RawBitSet.h>
+#include "debug/debugMacros.h"
 
+#include "base/RawBitSet.h"
 #include "osenv/memory.h"
 
 namespace alinous {

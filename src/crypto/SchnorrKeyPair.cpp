@@ -5,6 +5,8 @@
  *      Author: iizuka
  */
 
+#include "debug/debugMacros.h"
+
 #include "SchnorrKeyPair.h"
 
 namespace codablecash {

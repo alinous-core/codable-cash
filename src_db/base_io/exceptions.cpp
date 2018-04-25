@@ -5,7 +5,9 @@
  *      Author: iizuka
  */
 
-#include <base_io/exceptions.h>
+#include "debug/debugMacros.h"
+
+#include "base_io/exceptions.h"
 #include "base/Exception.h"
 #include "base/UnicodeString.h"
 

@@ -5,7 +5,9 @@
  *      Author: iizuka
  */
 
-#include <charsets/CharsetManager.h>
+#include "debug/debugMacros.h"
+
+#include "charsets/CharsetManager.h"
 #include "base/UnicodeString.h"
 
 
