@@ -8,50 +8,32 @@
 #ifndef BASE_IO_STREAM_FILEOUTPUTSTREAM_H_
 #define BASE_IO_STREAM_FILEOUTPUTSTREAM_H_
 
+#include "osenv/funcs.h"
+#include "base_io_stream/OutputStream.h"
 #include "base/RawArrayPrimitive.h"
-#include "base_thread/SysMutex.h"
 
 namespace alinous {
 
 class File;
 class UnicodeString;
-class ByteBuffer;
-class SysThread;
 
 
-class FileOutputStream {
+class FileOutputStream : public OutputStream {
 public:
-	FileOutputStream(){};
-	FileOutputStream(File *file);
-	FileOutputStream(File* file, bool append);
-	FileOutputStream(UnicodeString* fileName);
-	FileOutputStream(UnicodeString* fileName, bool append);
+	FileOutputStream(const File *file) noexcept;
+	FileOutputStream(const File* file, bool append) noexcept;
+	FileOutputStream(const UnicodeString* fileName) noexcept;
+	FileOutputStream(const UnicodeString* fileName, bool append) noexcept;
 	virtual ~FileOutputStream();
 
+	void open(bool sync);
+
+	virtual void write(const RawArrayPrimitive<char>* buffer, int off, int len);
+	virtual void write(int b);
 protected:
-private:
-	class FileBuffer{
-	public:
-		long int size;
-		int num;
-		ByteBuffer* buff;
-		ByteBuffer* flushbuff;
-		ByteBuffer* one;
-		ByteBuffer* two;
-
-		int fd;
-
-		SysMutex mutex;
-		SysThread* th;
-
-		FileBuffer(int fd);
-		~FileBuffer();
-		static void* doFlush(void* param);
-		void flush();
-		void join();
-		void write(RawArrayPrimitive<char>* buffer, int off, int len);
-		void write(int b);
-	};
+	File* file;
+	FileDescriptor fd;
+	bool append;
 };
 
 } /* namespace alinous */

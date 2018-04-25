@@ -27,12 +27,12 @@ private:
 };
 
 template <typename T>
-class StackArrayRelease {
+class StackMultipleRelease {
 public:
-	StackArrayRelease(){
+	StackMultipleRelease(){
 
 	}
-	~StackArrayRelease(){
+	~StackMultipleRelease(){
 		int maxLoop = this->ptrlist.size();
 		for(int i = 0; i < maxLoop; ++i){
 			T* ptr = this->ptrlist.get(i);

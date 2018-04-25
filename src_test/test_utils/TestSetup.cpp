@@ -47,7 +47,7 @@ void TestSetup::setup() {
 
 	File *groupBase = this->baseDir->get(&strGroup);
 	File *testCaseBase = groupBase->get(&strName);
-	StackArrayRelease<File> r_files;
+	StackMultipleRelease<File> r_files;
 	r_files.add(groupBase);
 	r_files.add(testCaseBase);
 
@@ -78,7 +78,7 @@ File TestSetup::testCaseDir() {
 
 	File *groupBase = this->baseDir->get(&strGroup);
 	File *testCaseBase = groupBase->get(&strName);
-	StackArrayRelease<File> r_files;
+	StackMultipleRelease<File> r_files;
 	r_files.add(groupBase);
 	r_files.add(testCaseBase);
 

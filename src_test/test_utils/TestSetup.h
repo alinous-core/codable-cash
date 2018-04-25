@@ -9,6 +9,7 @@
 #define TEST_UTILS_TESTSETUP_H_
 
 #include "base/UnicodeString.h"
+#include "base_io/File.h"
 
 extern const char* prog;
 

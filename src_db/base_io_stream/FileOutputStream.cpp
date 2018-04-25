@@ -13,23 +13,39 @@
 namespace alinous {
 
 
-FileOutputStream::FileOutputStream(File *file) {
+FileOutputStream::FileOutputStream(const File *file) noexcept : OutputStream(), fd(), append(false) {
+	this->file = new File(*file);
 
 }
-FileOutputStream::FileOutputStream(File* file, bool append) {
-
+FileOutputStream::FileOutputStream(const File* file, bool append) noexcept : OutputStream(), fd(), append(append) {
+	this->file = new File(*file);
 }
-FileOutputStream::FileOutputStream(UnicodeString* fileName) {
-
+FileOutputStream::FileOutputStream(const UnicodeString* fileName) noexcept : OutputStream(), fd(), append(false) {
+	this->file = new File(fileName);
 }
-FileOutputStream::FileOutputStream(UnicodeString* fileName, bool append){
-
+FileOutputStream::FileOutputStream(const UnicodeString* fileName, bool append) noexcept : OutputStream(), fd(), append(append) {
+	this->file = new File(fileName);
 }
 
 FileOutputStream::~FileOutputStream() {
-	// TODO Auto-generated destructor stub
+	if(this->fd.isOpened()){
+
+	}
+	if(this->file){
+		delete this->file;
+	}
 }
 
+void FileOutputStream::open(bool sync) {
+	this->fd = Os::openFile2Write(this->file, this->append, sync);
+}
 
+void FileOutputStream::write(const RawArrayPrimitive<char>* buffer, int off, int len) {
+
+}
+
+void FileOutputStream::write(int b) {
+
+}
 
 } /* namespace alinous */

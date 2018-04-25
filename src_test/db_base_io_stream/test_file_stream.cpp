@@ -27,5 +27,7 @@ TEST_GROUP(FileStreamTestGroup) {
 };
 
 TEST(FileStreamTestGroup, test01){
-	FileOutputStream stream;
+	File projectFolder = this->testenv.testCaseDir();
+
+	// FileOutputStream stream(&projectFolder);
 }

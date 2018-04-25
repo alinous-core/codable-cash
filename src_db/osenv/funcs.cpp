@@ -12,11 +12,12 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <dirent.h>
-
+#include <fcntl.h>
 
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
+#include "base_io/File.h"
 
 
 namespace alinous {
@@ -182,6 +183,32 @@ ArrayList<UnicodeString>* Os::listFiles(const UnicodeString* path) noexcept {
     closedir(dp);
 
 	return array;
+}
+
+FileDescriptor Os::openFile2Write(File *file, bool append, bool sync) noexcept {
+	UnicodeString* path = file->getAbsolutePath();
+	StackRelease<UnicodeString> r_path(path);
+
+	const char* cpath = path->toCString();
+
+	int mode = O_CREAT | O_WRONLY;
+	if(append){
+		mode |= O_APPEND;
+	}else{
+		mode |= O_TRUNC;
+	}
+	if(sync){
+		mode |= O_SYNC;
+	}
+
+	int fd = ::open(cpath, mode);
+
+	delete [] cpath;
+
+	FileDescriptor desc;
+	desc.fd = fd;
+
+	return desc;
 }
 
 }

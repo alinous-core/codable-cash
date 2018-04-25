@@ -28,8 +28,16 @@ namespace alinous {
 #define THREAD_ID pthread_t
 
 class UnicodeString;
+class File;
 
 typedef void *(*SysThreadRoutine) (void *);
+
+class FileDescriptor {
+public:
+	int fd;
+	FileDescriptor() : fd(0) {};
+	bool isOpened() const noexcept;
+};
 
 
 class Os {
@@ -57,6 +65,8 @@ public:
 	static bool isDirectory(const UnicodeString* path) noexcept;
 	static bool isFile(const UnicodeString* path) noexcept;
 	static ArrayList<UnicodeString>* listFiles(const UnicodeString* path) noexcept;
+
+	static FileDescriptor openFile2Write(File *file, bool append, bool sync) noexcept;
 };
 
 }
