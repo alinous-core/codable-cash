@@ -66,7 +66,10 @@ public:
 	static bool isFile(const UnicodeString* path) noexcept;
 	static ArrayList<UnicodeString>* listFiles(const UnicodeString* path) noexcept;
 
-	static FileDescriptor openFile2Write(File *file, bool append, bool sync) noexcept;
+	static FileDescriptor openFile2Write(const File *file, bool append, bool sync) noexcept;
+	static int write2File(FileDescriptor* fd, char* buff, int length);
+
+	static void closeFileDescriptor(FileDescriptor *fd) noexcept;
 };
 
 }

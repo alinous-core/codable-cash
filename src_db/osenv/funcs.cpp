@@ -9,10 +9,12 @@
 
 #include "funcs.h"
 
+#include <unistd.h>
 #include <stdio.h>
 #include <sys/stat.h>
 #include <dirent.h>
 #include <fcntl.h>
+
 
 
 #include "base/UnicodeString.h"
@@ -58,6 +60,11 @@ void Os::joinThread(THREAD_ID id) noexcept {
 /**************************************************************************
  * File functions
  */
+bool FileDescriptor::isOpened() const noexcept {
+	return this->fd > 0;
+}
+
+
 char* Os::realpath(const char *path, char *resolved_path) noexcept {
 	return ::realpath(path, resolved_path);
 }
@@ -185,7 +192,7 @@ ArrayList<UnicodeString>* Os::listFiles(const UnicodeString* path) noexcept {
 	return array;
 }
 
-FileDescriptor Os::openFile2Write(File *file, bool append, bool sync) noexcept {
+FileDescriptor Os::openFile2Write(const File *file, bool append, bool sync) noexcept {
 	UnicodeString* path = file->getAbsolutePath();
 	StackRelease<UnicodeString> r_path(path);
 
@@ -211,4 +218,15 @@ FileDescriptor Os::openFile2Write(File *file, bool append, bool sync) noexcept {
 	return desc;
 }
 
+int Os::write2File(FileDescriptor* fd, char* buff, int length) {
+	return ::write(fd->fd, buff, length);
 }
+
+void Os::closeFileDescriptor(FileDescriptor* fd) noexcept {
+	::close(fd->fd);
+	fd->fd = 0;
+}
+
+}
+
+

@@ -31,6 +31,8 @@ public:
 	virtual void write(const RawArrayPrimitive<char>* buffer, int off, int len);
 	virtual void write(int b);
 protected:
+	void close() noexcept;
+protected:
 	File* file;
 	FileDescriptor fd;
 	bool append;

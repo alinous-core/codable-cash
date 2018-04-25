@@ -8,7 +8,12 @@
 #include "debug/debugMacros.h"
 
 #include "base_io_stream/FileOutputStream.h"
+#include "base_io_stream/exceptions.h"
 #include "base_io/File.h"
+
+#include "base/UnicodeString.h"
+
+#include "base/StackRelease.h"
 
 namespace alinous {
 
@@ -29,23 +34,42 @@ FileOutputStream::FileOutputStream(const UnicodeString* fileName, bool append) n
 
 FileOutputStream::~FileOutputStream() {
 	if(this->fd.isOpened()){
-
+		close();
 	}
 	if(this->file){
 		delete this->file;
 	}
 }
 
+/**
+ * throws FileOpenException
+ */
 void FileOutputStream::open(bool sync) {
 	this->fd = Os::openFile2Write(this->file, this->append, sync);
+
+	if(!this->fd.isOpened()){
+		UnicodeString* path = this->file->getAbsolutePath();
+		StackRelease<UnicodeString> r_path(path);
+
+		throw new FileOpenException(path, __FILE__, __LINE__);
+	}
+}
+
+void FileOutputStream::close() noexcept {
+	Os::closeFileDescriptor(&this->fd);
 }
 
 void FileOutputStream::write(const RawArrayPrimitive<char>* buffer, int off, int len) {
-
+	char* buff2write = buffer->getRoot() + off;
+	Os::write2File(&this->fd, buff2write, len);
 }
 
 void FileOutputStream::write(int b) {
-
+	char buff[]{};
+	buff[0] = b;
+	Os::write2File(&this->fd, buff, 1);
 }
+
+
 
 } /* namespace alinous */

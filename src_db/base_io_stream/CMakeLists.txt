@@ -1,4 +1,5 @@
 set(__src
+	exceptions.cpp
 	FileOutputStream.cpp
 	InputStream.cpp
 	OutputStream.cpp
