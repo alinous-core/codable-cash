@@ -218,8 +218,16 @@ FileDescriptor Os::openFile2Write(const File *file, bool append, bool sync) noex
 	return desc;
 }
 
-int Os::write2File(FileDescriptor* fd, char* buff, int length) {
+int Os::write2File(const FileDescriptor* fd, const char* buff, int length) noexcept {
 	return ::write(fd->fd, buff, length);
+}
+
+int Os::readFile(const FileDescriptor* fd, char* buffer, int size) noexcept {
+	return ::read(fd->fd, buffer, size);
+}
+
+int Os::syncFile(const FileDescriptor* fd) noexcept {
+	::syncfs(fd->fd);
 }
 
 void Os::closeFileDescriptor(FileDescriptor* fd) noexcept {

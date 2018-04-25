@@ -19,8 +19,8 @@ public:
 
 	virtual void close() = 0;
 	virtual void flush() = 0;
-	virtual void write(const RawArrayPrimitive<char>* buffer);
-	virtual void write(const RawArrayPrimitive<char>* buffer, int off, int len) = 0;
+	virtual void write(const char* buffer, int size);
+	virtual void write(const char* buffer, int off, int len) = 0;
 	virtual void write(int b) = 0;
 
 	virtual bool checkError();

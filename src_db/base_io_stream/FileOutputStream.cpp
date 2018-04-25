@@ -55,12 +55,17 @@ void FileOutputStream::open(bool sync) {
 	}
 }
 
-void FileOutputStream::close() noexcept {
+void FileOutputStream::close() {
 	Os::closeFileDescriptor(&this->fd);
 }
 
-void FileOutputStream::write(const RawArrayPrimitive<char>* buffer, int off, int len) {
-	char* buff2write = buffer->getRoot() + off;
+
+void FileOutputStream::flush() {
+	Os::syncFile(&this->fd);
+}
+
+void FileOutputStream::write(const char* buffer, int off, int len) {
+	const char* buff2write = buffer + off;
 	Os::write2File(&this->fd, buff2write, len);
 }
 
@@ -69,7 +74,6 @@ void FileOutputStream::write(int b) {
 	buff[0] = b;
 	Os::write2File(&this->fd, buff, 1);
 }
-
 
 
 } /* namespace alinous */

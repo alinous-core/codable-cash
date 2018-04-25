@@ -17,8 +17,8 @@ OutputStream::OutputStream() {
 OutputStream::~OutputStream() {
 }
 
-void OutputStream::write(const RawArrayPrimitive<char>* buffer) {
-    write(buffer, 0, buffer->size());
+void OutputStream::write(const char* buffer, int size) {
+    write(buffer, 0, size);
 }
 
 bool OutputStream::checkError(){

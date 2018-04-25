@@ -9,6 +9,7 @@
 #define OSENV_FUNCS_H_
 
 #include "base/ArrayList.h"
+#include "base/RawArrayPrimitive.h"
 
 #include <stdlib.h>
 #include <pthread.h>
@@ -67,7 +68,9 @@ public:
 	static ArrayList<UnicodeString>* listFiles(const UnicodeString* path) noexcept;
 
 	static FileDescriptor openFile2Write(const File *file, bool append, bool sync) noexcept;
-	static int write2File(FileDescriptor* fd, char* buff, int length);
+	static int write2File(const FileDescriptor* fd, const char* buff, int length) noexcept;
+	static int readFile(const FileDescriptor* fd, char* buffer, int size) noexcept;
+	static int syncFile(const FileDescriptor* fd) noexcept;
 
 	static void closeFileDescriptor(FileDescriptor *fd) noexcept;
 };
