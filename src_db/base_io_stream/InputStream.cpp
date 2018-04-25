@@ -20,18 +20,14 @@ InputStream::~InputStream() {
 }
 
 
-int InputStream::read(const RawArrayPrimitive<char>* b) {
-	return read(b, 0, b->size());
+int InputStream::read(char* b, int size) {
+	return read(b, 0, size);
 }
 
 int InputStream::available() { return 0; }
 void InputStream::mark(int readlimit) {}
 bool InputStream::markSupported() { return false; }
 void InputStream::reset(){};
-int64_t InputStream::skip(int64_t n){ return n; }
-
-
-
 
 
 

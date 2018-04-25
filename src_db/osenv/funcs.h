@@ -72,6 +72,8 @@ public:
 	static int readFile(const FileDescriptor* fd, char* buffer, int size) noexcept;
 	static int syncFile(const FileDescriptor* fd) noexcept;
 
+	static FileDescriptor openFile2Read(const File *file) noexcept;
+
 	static void closeFileDescriptor(FileDescriptor *fd) noexcept;
 };
 

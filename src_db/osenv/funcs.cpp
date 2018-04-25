@@ -218,6 +218,24 @@ FileDescriptor Os::openFile2Write(const File *file, bool append, bool sync) noex
 	return desc;
 }
 
+FileDescriptor Os::openFile2Read(const File *file) noexcept {
+	UnicodeString* path = file->getAbsolutePath();
+		StackRelease<UnicodeString> r_path(path);
+
+		const char* cpath = path->toCString();
+
+		int mode = O_RDONLY;
+
+		int fd = ::open(cpath, mode);
+
+		delete [] cpath;
+
+		FileDescriptor desc;
+		desc.fd = fd;
+
+		return desc;
+}
+
 int Os::write2File(const FileDescriptor* fd, const char* buff, int length) noexcept {
 	return ::write(fd->fd, buff, length);
 }

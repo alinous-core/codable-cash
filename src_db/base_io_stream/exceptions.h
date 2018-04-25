@@ -22,6 +22,16 @@ public:
 	static const wchar_t* defaultMessage;
 };
 
+class FileIOException : public Exception{
+public:
+	FileIOException(const char* srcfile, int srcline) noexcept;
+	FileIOException(Exception* cause, const char* srcfile, int srcline) noexcept;
+	FileIOException(UnicodeString* message, const char* srcfile, int srcline) noexcept;
+	FileIOException(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept;
+	virtual ~FileIOException();
+	static const wchar_t* defaultMessage;
+};
+
 } /* namespace alinous */
 
 #endif /* BASE_IO_STREAM_EXCEPTIONS_H_ */

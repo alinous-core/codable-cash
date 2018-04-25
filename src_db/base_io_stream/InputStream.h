@@ -21,15 +21,14 @@ public:
 	virtual ~InputStream();
 
 	virtual void close() = 0;
-	virtual int read(const RawArrayPrimitive<char>* b, int off, int len) = 0;
-	virtual int read(const RawArrayPrimitive<char>* b);
+	virtual int read(char* b, int off, int len) = 0;
+	virtual int read(char* b, int size);
 	virtual int read() = 0;
-	virtual int available();
+	virtual int available() = 0;
 	virtual void mark(int readlimit);
 	virtual bool markSupported();
 	virtual void reset();
 
-	virtual int64_t skip(int64_t n);
 };
 
 } /* namespace alinous */

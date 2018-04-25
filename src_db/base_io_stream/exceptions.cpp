@@ -29,5 +29,25 @@ FileOpenException::FileOpenException(UnicodeString* message, Exception* cause, c
 FileOpenException::~FileOpenException() {
 }
 
+const wchar_t* FileIOException::defaultMessage = L"Failed in File I/O";
+
+FileIOException::FileIOException(const char* srcfile, int srcline) noexcept : Exception(srcfile, srcline) {
+	this->message = new UnicodeString(defaultMessage);
+}
+FileIOException::FileIOException(Exception* cause, const char* srcfile, int srcline) noexcept : Exception(cause, srcfile, srcline) {
+	this->message = new UnicodeString(defaultMessage);
+}
+FileIOException::FileIOException(UnicodeString* message, const char* srcfile, int srcline) noexcept : Exception(message, srcfile, srcline) {
+	this->message = new UnicodeString(defaultMessage);
+	this->message->append(message);
+}
+FileIOException::FileIOException(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept : Exception(message, cause, srcfile, srcline) {
+	this->message = new UnicodeString(defaultMessage);
+	this->message->append(message);
+}
+FileIOException::~FileIOException() {
+}
+
+
 
 } /* namespace alinous */
