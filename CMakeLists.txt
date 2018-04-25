@@ -36,6 +36,8 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 	
 	enable_testing()
 	
+	add_definitions(-D__TEST_CPP_UNIT__=1)
+	
 	# Report
 	set(infofiles coverage/test.info)
 	add_custom_target(report)

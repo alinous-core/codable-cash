@@ -11,7 +11,14 @@
 
 #include <assert.h>
 
+#ifdef __TEST_CPP_UNIT__
 #include "CppUTest/MemoryLeakDetectorNewMacros.h"
 
+
+
+#else
+
+
+#endif
 
 #endif /* DEBUG_DEBUGMACROS_H_ */
