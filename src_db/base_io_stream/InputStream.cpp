@@ -24,7 +24,6 @@ int InputStream::read(char* b, int size) {
 	return read(b, 0, size);
 }
 
-int InputStream::available() { return 0; }
 void InputStream::mark(int readlimit) {}
 bool InputStream::markSupported() { return false; }
 void InputStream::reset(){};

@@ -21,8 +21,5 @@ void OutputStream::write(const char* buffer, int size) {
     write(buffer, 0, size);
 }
 
-bool OutputStream::checkError(){
-	return false;
-}
 
 } /* namespace alinous */

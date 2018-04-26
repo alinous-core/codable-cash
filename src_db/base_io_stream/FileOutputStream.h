@@ -29,7 +29,7 @@ public:
 	void open(bool sync);
 
 	virtual void write(const char* buffer, int off, int len);
-	virtual void write(int b);
+	virtual void write(const char* buffer, int size);
 	virtual void close();
 	virtual void flush();
 

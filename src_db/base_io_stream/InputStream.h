@@ -20,10 +20,10 @@ public:
 	InputStream();
 	virtual ~InputStream();
 
+	virtual void open() = 0;
 	virtual void close() = 0;
 	virtual int read(char* b, int off, int len) = 0;
 	virtual int read(char* b, int size);
-	virtual int read() = 0;
 	virtual int available() = 0;
 	virtual void mark(int readlimit);
 	virtual bool markSupported();

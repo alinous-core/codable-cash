@@ -208,7 +208,7 @@ FileDescriptor Os::openFile2Write(const File *file, bool append, bool sync) noex
 		mode |= O_SYNC;
 	}
 
-	int fd = ::open(cpath, mode);
+	int fd = ::open(cpath, mode, 0644);
 
 	delete [] cpath;
 

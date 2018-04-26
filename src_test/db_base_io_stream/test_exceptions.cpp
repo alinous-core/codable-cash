@@ -23,5 +23,6 @@ TEST_GROUP(FileExceptionsTestGroup) {
 
 TEST(FileExceptionsTestGroup, test01){
 	testException<FileOpenException>();
+	testException<FileIOException>();
 }
 

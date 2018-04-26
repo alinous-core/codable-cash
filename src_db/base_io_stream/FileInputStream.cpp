@@ -20,7 +20,7 @@ FileInputStream::FileInputStream(const File* file) noexcept : InputStream(), fd(
 }
 
 FileInputStream::FileInputStream(const UnicodeString* fileName) noexcept : InputStream(), fd() {
-	this->file = new File(*file);
+	this->file = new File(fileName);
 }
 
 FileInputStream::~FileInputStream() {
@@ -47,21 +47,12 @@ void FileInputStream::close() {
 	Os::closeFileDescriptor(&this->fd);
 }
 
-int FileInputStream::read(char* b, int off, int len) {
-	return Os::readFile(&this->fd, b + off, len);
+int FileInputStream::read(char* b, int size) {
+	return InputStream::read(b, size);
 }
 
-int FileInputStream::read() {
-	char ch[1]{};
-
-	int ret = Os::readFile(&this->fd, ch, 1);
-	if(ret != 1){
-		UnicodeString msg(L"Failed in reading a byte");
-
-		throw new FileIOException(&msg, __FILE__, __LINE__);
-	}
-
-	return (int)ch[0];
+int FileInputStream::read(char* b, int off, int len) {
+	return Os::readFile(&this->fd, b + off, len);
 }
 
 int FileInputStream::available() {
@@ -69,3 +60,5 @@ int FileInputStream::available() {
 }
 
 } /* namespace alinous */
+
+

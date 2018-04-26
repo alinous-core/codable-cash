@@ -22,10 +22,10 @@ public:
 	FileInputStream(const UnicodeString* fileName) noexcept;
 	virtual ~FileInputStream();
 
-	void open();
+	virtual void open();
 	virtual void close();
+	virtual int read(char* b, int size);
 	virtual int read(char* b, int off, int len);
-	virtual int read();
 	virtual int available();
 
 protected:
