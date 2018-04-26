@@ -1,22 +1,20 @@
 /*
- * RandomAccessFile.cpp
+ * DiskCacheManager.cpp
  *
  *  Created on: 2018/04/26
  *      Author: iizuka
  */
 
-#include "random_access_file/RandomAccessFile.h"
-
-#include "osenv/funcs.h"
+#include <random_access_file/DiskCacheManager.h>
 
 namespace alinous {
 
-RandomAccessFile::RandomAccessFile() {
+DiskCacheManager::DiskCacheManager() {
 	// TODO Auto-generated constructor stub
 
 }
 
-RandomAccessFile::~RandomAccessFile() {
+DiskCacheManager::~DiskCacheManager() {
 	// TODO Auto-generated destructor stub
 }
 

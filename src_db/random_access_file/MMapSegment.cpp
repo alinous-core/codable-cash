@@ -1,22 +1,20 @@
 /*
- * RandomAccessFile.cpp
+ * MMapSegment.cpp
  *
  *  Created on: 2018/04/26
  *      Author: iizuka
  */
 
-#include "random_access_file/RandomAccessFile.h"
-
-#include "osenv/funcs.h"
+#include <random_access_file/MMapSegment.h>
 
 namespace alinous {
 
-RandomAccessFile::RandomAccessFile() {
+MMapSegment::MMapSegment() {
 	// TODO Auto-generated constructor stub
 
 }
 
-RandomAccessFile::~RandomAccessFile() {
+MMapSegment::~MMapSegment() {
 	// TODO Auto-generated destructor stub
 }
 
