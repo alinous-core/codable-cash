@@ -11,6 +11,7 @@
 namespace alinous {
 
 StackUnlocker::StackUnlocker(SysMutex* mutex) : mutex(mutex) {
+	mutex->lock();
 }
 
 StackUnlocker::~StackUnlocker() {
