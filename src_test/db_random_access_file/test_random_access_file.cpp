@@ -26,6 +26,7 @@ TEST_GROUP(RandomAccessFileTestGroup) {
 
 TEST(RandomAccessFileTestGroup, construct){
 	File projectFolder = this->testenv.testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 	UnicodeString mode(L"wr");
 

@@ -29,6 +29,9 @@ public:
 protected:
 	constexpr static uint64_t PAGE_NUM_CACHE{4};
 
+	uint64_t getSegmentSize() const noexcept;
+
+protected:
 	File* file;
 	uint64_t position;
 

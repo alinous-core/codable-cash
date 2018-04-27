@@ -7,8 +7,6 @@
 
 #include "TestSetup.h"
 
-
-
 #include "charsets/CharsetManager.h"
 
 #include "CppUTest/CommandLineTestRunner.h"
@@ -61,6 +59,7 @@ void TestSetup::teardown() {
 
 void TestSetup::clearStatics() {
 	CharsetManager::closeInstance();
+	ErrorPointManager::closeInstance();
 }
 
 File TestSetup::testCaseDir() {

@@ -12,6 +12,8 @@
 #include "base/StackRelease.h"
 #include "base_io/File.h"
 
+#include "debug/ErrorPointManager.h"
+
 extern const char* prog;
 
 

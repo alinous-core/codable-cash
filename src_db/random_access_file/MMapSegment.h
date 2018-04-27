@@ -13,14 +13,20 @@
 
 namespace alinous {
 
+class MMapSegments;
+
 class MMapSegment {
 public:
-	MMapSegment();
+	friend class MMapSegments;
+
+	MMapSegment(uint64_t mappedSize, uint64_t) noexcept;
 	virtual ~MMapSegment();
 
 protected:
 	int refCount;
 	uint64_t mappedSize;
+	uint64_t position;
+	uint8_t* buffer;
 };
 
 } /* namespace alinous */

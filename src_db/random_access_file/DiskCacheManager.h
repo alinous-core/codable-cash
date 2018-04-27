@@ -14,6 +14,9 @@ class DiskCacheManager {
 public:
 	DiskCacheManager();
 	virtual ~DiskCacheManager();
+
+protected:
+
 };
 
 } /* namespace alinous */

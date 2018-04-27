@@ -29,9 +29,15 @@ public:
 	V* put(const K* key, V* value) noexcept {
 		return this->hashMapKeySet->addElement(key, value);
 	}
+	V* put(const K& key, V* value) noexcept {
+		return this->hashMapKeySet->addElement(&key, value);
+	}
 
 	V* get(const K* key) noexcept {
 		return this->hashMapKeySet->getValue(key);
+	}
+	V* get(const K& key) noexcept {
+		return this->hashMapKeySet->getValue(&key);
 	}
 
 	HashMapKeySet<K, V>* keySet() noexcept {
