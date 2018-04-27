@@ -265,7 +265,7 @@ FileDescriptor Os::openFile2ReadWrite(const File *file, bool sync) noexcept {
 			mode |= O_SYNC;
 		}
 
-		int fd = ::open(cpath, mode);
+		int fd = ::open(cpath, mode, 0644);
 
 		delete [] cpath;
 

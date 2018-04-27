@@ -18,7 +18,9 @@ public:
 	MMapSegment();
 	virtual ~MMapSegment();
 
-
+protected:
+	int refCount;
+	uint64_t mappedSize;
 };
 
 } /* namespace alinous */

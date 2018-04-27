@@ -1,5 +1,6 @@
 set(__src
 	AbstractThreadRunner.cpp
+	StackUnlocker.cpp
 	SysMutex.cpp
 	SysThread.cpp
 )

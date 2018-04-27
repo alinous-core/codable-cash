@@ -7,6 +7,8 @@
 
 #include "random_access_file/MMapSegment.h"
 
+#include "debug/debugMacros.h"
+
 namespace alinous {
 
 MMapSegment::MMapSegment() {

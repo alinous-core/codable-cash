@@ -7,6 +7,8 @@
 
 #include "random_access_file/DiskCacheManager.h"
 
+#include "debug/debugMacros.h"
+
 namespace alinous {
 
 DiskCacheManager::DiskCacheManager() {

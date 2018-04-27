@@ -11,6 +11,7 @@
 #include <stdint.h>
 
 #include "base/ArrayList.h"
+#include "base_thread/SysMutex.h"
 
 namespace alinous {
 
@@ -24,10 +25,12 @@ public:
 	void onResized(uint64_t fileSize);
 
 protected:
-	volatile ArrayList<MMapSegment> segIndex;
+	ArrayList<MMapSegment>* segIndex;
 	uint64_t numSegments;
 	uint64_t segmentSize;
 	uint64_t fileSize;
+
+	SysMutex lock;
 };
 
 } /* namespace alinous */

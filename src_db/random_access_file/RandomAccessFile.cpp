@@ -17,6 +17,8 @@
 
 #include "base/StackRelease.h"
 
+#include "debug/debugMacros.h"
+
 namespace alinous {
 
 constexpr uint64_t RandomAccessFile::PAGE_NUM_CACHE;
@@ -43,12 +45,12 @@ void RandomAccessFile::open() {
 	this->position = 0;
 	this->fileSize = this->file->length();
 
+	uint64_t segmentSize = this->pageSize * PAGE_NUM_CACHE;
+	this->segments = new MMapSegments(this->fileSize, segmentSize);
+
 	if(this->fileSize == 0){
 		setLength(this->pageSize * PAGE_NUM_CACHE);
 	}
-
-	uint64_t segmentSize = this->pageSize * PAGE_NUM_CACHE;
-	this->segments = new MMapSegments(this->fileSize, segmentSize);
 }
 
 void RandomAccessFile::setLength(uint64_t newLength) {
