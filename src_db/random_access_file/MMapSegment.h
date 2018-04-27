@@ -8,12 +8,17 @@
 #ifndef RANDOM_ACCESS_FILE_MMAPSEGMENT_H_
 #define RANDOM_ACCESS_FILE_MMAPSEGMENT_H_
 
+#include <stdint.h>
+#include "base/ArrayList.h"
+
 namespace alinous {
 
 class MMapSegment {
 public:
 	MMapSegment();
 	virtual ~MMapSegment();
+
+
 };
 
 } /* namespace alinous */

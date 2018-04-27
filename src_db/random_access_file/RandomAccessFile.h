@@ -10,6 +10,8 @@
 
 #include <stdint.h>
 
+#include "osenv/funcs.h"
+
 namespace alinous {
 
 class UnicodeString;
@@ -19,17 +21,20 @@ class DiskCacheManager;
 
 class RandomAccessFile {
 public:
-	RandomAccessFile();
-	virtual ~RandomAccessFile();
+	RandomAccessFile(const File* file, DiskCacheManager* diskCacheManager) noexcept;
+	virtual ~RandomAccessFile() noexcept;
 
+	void open();
+	void setLength(uint64_t newLength);
 protected:
+	constexpr static uint64_t PAGE_NUM_CACHE{4};
+
 	File* file;
-	UnicodeString* mode;
 	uint64_t position;
 
-	int fd;
-	long long pageSize;
-	long long fileSize;
+	FileDescriptor fd;
+	uint64_t pageSize;
+	uint64_t fileSize;
 	MMapSegments* segments;
 	DiskCacheManager* diskCacheManager;
 

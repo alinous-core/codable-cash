@@ -34,6 +34,7 @@ public:
 	UnicodeString* append(const wchar_t ch) noexcept;
 	UnicodeString* append(const UnicodeString* str) noexcept;
 	UnicodeString* append(const int value) noexcept;
+	UnicodeString* append(const wchar_t* str) noexcept;
 
 	UnicodeString* replace(wchar_t last, wchar_t next) const noexcept;
 

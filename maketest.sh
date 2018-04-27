@@ -3,6 +3,6 @@
 
 pushd target
 make all -j4
-make test
+make test ARGS='-V'
 make report
 popd

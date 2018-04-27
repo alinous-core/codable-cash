@@ -243,4 +243,10 @@ ArrayList<UnicodeString>* File::list() const noexcept
 	return Os::listFiles(this->path);
 }
 
+int File::length() const noexcept {
+	return Os::fileLength(this);
+}
+
+
 } /* namespace alinous */
+

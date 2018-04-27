@@ -37,6 +37,7 @@ public:
 	bool deleteDir() const noexcept;
 	bool isDirectory() const noexcept;
 	bool isFile() const noexcept;
+	int length() const noexcept;
 
 	File* getDirectory() const noexcept;
 	File* get(const UnicodeString* seg) const noexcept;

@@ -5,17 +5,24 @@
  *      Author: iizuka
  */
 
-#include <random_access_file/MMapSegments.h>
+#include "random_access_file/MMapSegments.h"
 
 namespace alinous {
 
-MMapSegments::MMapSegments() {
-	// TODO Auto-generated constructor stub
+MMapSegments::MMapSegments(uint64_t fileSize, uint64_t segmentSize) noexcept
+		: fileSize(fileSize), segmentSize(segmentSize) {
+	int numSegments = (fileSize % segmentSize) == 0 ? fileSize / segmentSize : (fileSize / segmentSize) + 1;
+	this->numSegments = numSegments;
+}
+
+MMapSegments::~MMapSegments() noexcept {
 
 }
 
-MMapSegments::~MMapSegments() {
-	// TODO Auto-generated destructor stub
+void alinous::MMapSegments::onResized(uint64_t fileSize) {
+
 }
+
 
 } /* namespace alinous */
+

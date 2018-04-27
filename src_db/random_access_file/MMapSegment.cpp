@@ -5,17 +5,16 @@
  *      Author: iizuka
  */
 
-#include <random_access_file/MMapSegment.h>
+#include "random_access_file/MMapSegment.h"
 
 namespace alinous {
 
 MMapSegment::MMapSegment() {
-	// TODO Auto-generated constructor stub
 
 }
 
 MMapSegment::~MMapSegment() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */

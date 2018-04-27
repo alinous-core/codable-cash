@@ -27,6 +27,20 @@ private:
 };
 
 template <typename T>
+class StackArrayRelease {
+public:
+	StackArrayRelease(T* ptr) : ptr(ptr){
+	}
+	~StackArrayRelease(){
+		if(this->ptr != nullptr){
+			delete [] ptr;
+		}
+	}
+private:
+	T* ptr;
+};
+
+template <typename T>
 class StackMultipleRelease {
 public:
 	StackMultipleRelease(){

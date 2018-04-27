@@ -66,15 +66,26 @@ public:
 	static bool isDirectory(const UnicodeString* path) noexcept;
 	static bool isFile(const UnicodeString* path) noexcept;
 	static ArrayList<UnicodeString>* listFiles(const UnicodeString* path) noexcept;
+	static int fileLength(const File* const file) noexcept;
+
+	static uint64_t getSystemPageSize() noexcept;
 
 	static FileDescriptor openFile2Write(const File *file, bool append, bool sync) noexcept;
+	static FileDescriptor openFile2Read(const File *file) noexcept;
+	static FileDescriptor openFile2ReadWrite(const File *file, bool sync) noexcept;
+	static void closeFileDescriptor(FileDescriptor *fd) noexcept;
+
 	static int write2File(const FileDescriptor* fd, const char* buff, int length) noexcept;
 	static int readFile(const FileDescriptor* fd, char* buffer, int size) noexcept;
 	static int syncFile(const FileDescriptor* fd) noexcept;
 
-	static FileDescriptor openFile2Read(const File *file) noexcept;
+	enum SeekOrigin {
+		FROM_BEGINING = 0,
+		CURRENT_POS = 1,
+		FROM_END = 2
+	};
+	static int seekFile(const FileDescriptor* fd, int64_t offset, SeekOrigin origin) noexcept;
 
-	static void closeFileDescriptor(FileDescriptor *fd) noexcept;
 };
 
 }

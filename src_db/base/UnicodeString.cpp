@@ -144,6 +144,18 @@ UnicodeString* UnicodeString::append(const wchar_t ch) noexcept
 	return this;
 }
 
+UnicodeString* UnicodeString::append(const wchar_t* str) noexcept
+{
+	int len = Mem::wstrlen(str);
+	for(int i = 0; i != len; ++i){
+		wchar_t ch = str[i];
+		__append(ch);
+	}
+
+	__closeString();
+	return this;
+}
+
 UnicodeString* UnicodeString::append(const UnicodeString* str) noexcept {
 	int len = str->length();
 

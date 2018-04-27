@@ -25,7 +25,17 @@ TEST_GROUP(RandomAccessFileTestGroup) {
 };
 
 TEST(RandomAccessFileTestGroup, construct){
-	RandomAccessFile file;
+	File projectFolder = this->testenv.testCaseDir();
+
+	UnicodeString mode(L"wr");
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	RandomAccessFile file(outFile, nullptr);
+	file.open();
+
 }
 
 

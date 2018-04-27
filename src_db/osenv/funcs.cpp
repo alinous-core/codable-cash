@@ -192,6 +192,24 @@ ArrayList<UnicodeString>* Os::listFiles(const UnicodeString* path) noexcept {
 	return array;
 }
 
+int Os::fileLength(const File* const file) noexcept {
+	struct stat  st;
+
+	UnicodeString *path = file->getAbsolutePath();
+
+	const char* src = path->toCString();
+	int ret = stat(src, &st);
+
+	delete path;
+	delete [] src;
+
+	if(ret != 0){
+		return -1;
+	}
+
+	return st.st_size;
+}
+
 FileDescriptor Os::openFile2Write(const File *file, bool append, bool sync) noexcept {
 	UnicodeString* path = file->getAbsolutePath();
 	StackRelease<UnicodeString> r_path(path);
@@ -236,8 +254,33 @@ FileDescriptor Os::openFile2Read(const File *file) noexcept {
 		return desc;
 }
 
+FileDescriptor Os::openFile2ReadWrite(const File *file, bool sync) noexcept {
+	UnicodeString* path = file->getAbsolutePath();
+		StackRelease<UnicodeString> r_path(path);
+
+		const char* cpath = path->toCString();
+
+		int mode = O_CREAT | O_RDWR | O_APPEND;
+		if(sync){
+			mode |= O_SYNC;
+		}
+
+		int fd = ::open(cpath, mode);
+
+		delete [] cpath;
+
+		FileDescriptor desc;
+		desc.fd = fd;
+
+		return desc;
+}
+
 int Os::write2File(const FileDescriptor* fd, const char* buff, int length) noexcept {
-	return ::write(fd->fd, buff, length);
+	int ret = 0;
+	if(length > 0){
+		ret = ::write(fd->fd, buff, length);
+	}
+	return ret;
 }
 
 int Os::readFile(const FileDescriptor* fd, char* buffer, int size) noexcept {
@@ -252,6 +295,17 @@ void Os::closeFileDescriptor(FileDescriptor* fd) noexcept {
 	::close(fd->fd);
 	fd->fd = 0;
 }
+
+int Os::seekFile(const FileDescriptor* fd, int64_t offset, SeekOrigin origin) noexcept {
+	return ::lseek(fd->fd, offset, origin);
+}
+
+
+uint64_t Os::getSystemPageSize() noexcept {
+	return ::sysconf(_SC_PAGE_SIZE);
+}
+
+
 
 }
 
