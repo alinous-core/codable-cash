@@ -8,10 +8,10 @@
 #ifndef BASE_HASHMAP_H_
 #define BASE_HASHMAP_H_
 
-#include "debug/debugMacros.h"
-
 #include "HashMapRawArray.h"
 #include "HashMapKeySet.h"
+
+#include "debug/debugMacros.h"
 
 namespace alinous {
 

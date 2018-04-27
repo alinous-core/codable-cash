@@ -8,12 +8,15 @@
 #ifndef DEBUG_ERRORPOINTMANAGER_H_
 #define DEBUG_ERRORPOINTMANAGER_H_
 
-#include "base/HashMap.h"
+// #include "base/HashMap.h"
+
 
 namespace alinous {
 
 class UnicodeString;
 class ErrorOccurrence;
+
+template<typename K, typename V> class HashMap;
 
 class ErrorPointManager {
 public:
@@ -32,7 +35,7 @@ public:
 protected:
 	static ErrorPointManager* inst;
 
-	HashMap<UnicodeString, ErrorOccurrence> occurences;
+	HashMap<UnicodeString, ErrorOccurrence>* occurences;
 	ErrorOccurrence* current;
 };
 

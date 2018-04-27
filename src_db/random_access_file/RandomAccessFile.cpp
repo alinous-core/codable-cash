@@ -36,6 +36,7 @@ RandomAccessFile::~RandomAccessFile() noexcept {
 }
 
 void RandomAccessFile::open() {
+	ERROR_POINT(L"RandomAccessFile::open")
 	this->fd = Os::openFile2ReadWrite(this->file, true);
 
 	if(!this->fd.isOpened()){
@@ -77,6 +78,8 @@ void RandomAccessFile::setLength(uint64_t newLength) {
 	char *tmp = new char[this->pageSize]{};
 	StackArrayRelease<char> t_tmp(tmp);
 
+	ERROR_POINT(L"RandomAccessFile::setLength::01")
+
 	for(int i = 0; i != numBlocks; ++i){
 		n = Os::write2File(&this->fd, tmp, this->pageSize);
 		if(n != this->pageSize){
@@ -86,6 +89,7 @@ void RandomAccessFile::setLength(uint64_t newLength) {
 		}
 	}
 
+	ERROR_POINT(L"RandomAccessFile::setLength::02")
 	n = Os::write2File(&this->fd, tmp, modBytes);
 	if(n != modBytes){
 		UnicodeString* path = this->file->getAbsolutePath();

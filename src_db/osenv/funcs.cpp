@@ -192,7 +192,7 @@ ArrayList<UnicodeString>* Os::listFiles(const UnicodeString* path) noexcept {
 	return array;
 }
 
-int Os::fileLength(const File* const file) noexcept {
+int64_t Os::fileLength(const File* const file) noexcept {
 	struct stat  st;
 
 	UnicodeString *path = file->getAbsolutePath();
@@ -255,27 +255,31 @@ FileDescriptor Os::openFile2Read(const File *file) noexcept {
 }
 
 FileDescriptor Os::openFile2ReadWrite(const File *file, bool sync) noexcept {
+	CAUSE_ERROR_BY_RETURN(L"Os::openFile2ReadWrite", FileDescriptor(-1))
+
 	UnicodeString* path = file->getAbsolutePath();
-		StackRelease<UnicodeString> r_path(path);
+	StackRelease<UnicodeString> r_path(path);
 
-		const char* cpath = path->toCString();
+	const char* cpath = path->toCString();
 
-		int mode = O_CREAT | O_RDWR | O_APPEND;
-		if(sync){
-			mode |= O_SYNC;
-		}
+	int mode = O_CREAT | O_RDWR | O_APPEND;
+	if(sync){
+		mode |= O_SYNC;
+	}
 
-		int fd = ::open(cpath, mode, 0644);
+	int fd = ::open(cpath, mode, 0644);
 
-		delete [] cpath;
+	delete [] cpath;
 
-		FileDescriptor desc;
-		desc.fd = fd;
+	FileDescriptor desc;
+	desc.fd = fd;
 
-		return desc;
+	return desc;
 }
 
 int Os::write2File(const FileDescriptor* fd, const char* buff, int length) noexcept {
+	CAUSE_ERROR_BY_RETURN(L"Os::write2File", -1)
+
 	int ret = 0;
 	if(length > 0){
 		ret = ::write(fd->fd, buff, length);

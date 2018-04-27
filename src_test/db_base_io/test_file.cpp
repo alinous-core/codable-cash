@@ -12,7 +12,7 @@
 
 #include "base_io/File.h"
 #include "base/UnicodeString.h"
-
+#include "osenv/funcs.h"
 
 using namespace alinous;
 
@@ -29,6 +29,15 @@ TEST_GROUP(FileTestGroup) {
 
 };
 
+TEST(FileTestGroup, fileLengthError){
+	UnicodeString path(L"dfgdfhjghkjghhgkj/gfdgsdfgdfsg");
+	File* file = new File(&path);
+
+	int64_t ret = Os::fileLength(file);
+	CHECK(ret < 0)
+
+	delete file;
+}
 
 TEST(FileTestGroup, test01){
 	UnicodeString path(L"/test/path/index.html");

@@ -37,6 +37,7 @@ class FileDescriptor {
 public:
 	int fd;
 	FileDescriptor() : fd(0) {};
+	FileDescriptor(int fd) : fd(fd) {};
 	bool isOpened() const noexcept;
 };
 
@@ -66,7 +67,7 @@ public:
 	static bool isDirectory(const UnicodeString* path) noexcept;
 	static bool isFile(const UnicodeString* path) noexcept;
 	static ArrayList<UnicodeString>* listFiles(const UnicodeString* path) noexcept;
-	static int fileLength(const File* const file) noexcept;
+	static int64_t fileLength(const File* const file) noexcept;
 
 	static uint64_t getSystemPageSize() noexcept;
 

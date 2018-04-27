@@ -7,9 +7,11 @@
 
 #include "CppUTest/CommandLineTestRunner.h"
 
-#include "base/HashMap.h"
+
 #include "base/UnicodeString.h"
 #include "base/Integer.h"
+
+#include "base/HashMap.h"
 
 using namespace alinous;
 

@@ -1,6 +1,5 @@
 
 set(__src
-	ErrorActivationPoint.cpp
 	ErrorOccurrence.cpp
 	ErrorPointManager.cpp
 )
