@@ -85,4 +85,52 @@ TEST(RandomAccessFileTestGroup, setLengthError01){
 	delete exp;
 }
 
+TEST(RandomAccessFileTestGroup, fileSetupWriteError01){
+	File projectFolder = this->testenv.testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+	UnicodeString mode(L"wr");
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	errmgr->activatePoint(L"RandomAccessFile::setLength::01", L"Os::write2File", 1);
+
+	RandomAccessFile file(outFile, nullptr);
+
+	Exception* exp;
+	try{
+		file.open();
+	}catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr)
+	delete exp;
+}
+
+TEST(RandomAccessFileTestGroup, fileSetupWriteError02){
+	File projectFolder = this->testenv.testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+	UnicodeString mode(L"wr");
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	errmgr->activatePoint(L"RandomAccessFile::setLength::02", L"Os::write2File", 1);
+
+	RandomAccessFile file(outFile, nullptr);
+
+	Exception* exp;
+	try{
+		file.open();
+	}catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr)
+	delete exp;
+}
+
 
