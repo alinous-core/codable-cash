@@ -1,7 +1,9 @@
 set(__src
 	AbstractThreadRunner.cpp
 	ILock.cpp
+	LockCondition.cpp
 	StackUnlocker.cpp
+	SynchronizedLock.cpp
 	SysMutex.cpp
 	SysThread.cpp
 )
