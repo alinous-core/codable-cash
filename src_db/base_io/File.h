@@ -41,6 +41,7 @@ public:
 
 	File* getDirectory() const noexcept;
 	File* get(const UnicodeString* seg) const noexcept;
+	File* get(const wchar_t* seg) const noexcept;
 	ArrayList<UnicodeString>* list() const noexcept;
 
 private:

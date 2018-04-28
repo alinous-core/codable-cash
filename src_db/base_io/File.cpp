@@ -224,6 +224,11 @@ File* File::getDirectory() const noexcept {
 	return ret;
 }
 
+File* File::get(const wchar_t* seg) const noexcept {
+	UnicodeString segstr(seg);
+	return get(&segstr);
+}
+
 File* File::get(const UnicodeString* seg) const noexcept {
 	File* ret = nullptr;
 

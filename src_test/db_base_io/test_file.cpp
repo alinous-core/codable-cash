@@ -108,11 +108,17 @@ TEST(FileTestGroup, mkdir01){
 	File* file2 = __dir.get(&path2);
 	file2->mkdirs();
 
+
+	File* file3 = file2->get(L"test.bin");
+	FileDescriptor fd = Os::openFile2Write(file3, false, true);
+	Os::closeFileDescriptor(&fd);
+
 	file->deleteDir();
 	CHECK(!file->exists());
 
 	delete file;
 	delete file2;
+	delete file3;
 }
 
 TEST(FileTestGroup, isFile){
