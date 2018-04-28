@@ -10,14 +10,14 @@
 
 namespace alinous {
 
-class SysMutex;
+class ILock;
 
 class StackUnlocker {
 public:
-	StackUnlocker(SysMutex* mutex);
+	StackUnlocker(ILock* mutex);
 	virtual ~StackUnlocker();
 private:
-	SysMutex* mutex;
+	ILock* mutex;
 };
 
 } /* namespace alinous */

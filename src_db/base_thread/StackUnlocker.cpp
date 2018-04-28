@@ -6,11 +6,11 @@
  */
 
 #include "base_thread/StackUnlocker.h"
-#include "base_thread/SysMutex.h"
+#include "base_thread/ILock.h"
 
 namespace alinous {
 
-StackUnlocker::StackUnlocker(SysMutex* mutex) : mutex(mutex) {
+StackUnlocker::StackUnlocker(ILock* mutex) : mutex(mutex) {
 	mutex->lock();
 }
 

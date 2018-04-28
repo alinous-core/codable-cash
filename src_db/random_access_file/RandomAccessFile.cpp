@@ -54,6 +54,11 @@ void RandomAccessFile::open() {
 	}
 }
 
+int RandomAccessFile::read(uint64_t fpos, const char* buff, int count) {
+	int segSize = getSegmentSize();
+
+}
+
 uint64_t RandomAccessFile::getSegmentSize() const noexcept {
 	return this->pageSize * PAGE_NUM_CACHE;
 }
@@ -101,5 +106,8 @@ void RandomAccessFile::setLength(uint64_t newLength) {
 	this->segments->onResized(this->fileSize);
 
 }
+
+
+
 
 } /* namespace alinous */

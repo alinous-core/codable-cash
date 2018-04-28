@@ -11,7 +11,7 @@
 
 namespace alinous {
 
-SysMutex::SysMutex() noexcept {
+SysMutex::SysMutex() noexcept : ILock() {
 	pthread_mutex_init(&mutex, nullptr);
 }
 

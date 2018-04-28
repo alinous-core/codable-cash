@@ -25,6 +25,10 @@ public:
 	void onResized(uint64_t fileSize);
 
 protected:
+	uint64_t getNumSegments(uint64_t fileSize, uint64_t segmentSize) const noexcept;
+
+
+protected:
 	ArrayList<MMapSegment>* segIndex;
 	uint64_t numSegments;
 	uint64_t segmentSize;

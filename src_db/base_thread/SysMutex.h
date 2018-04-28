@@ -10,15 +10,17 @@
 
 #include <pthread.h>
 
+#include "base_thread/ILock.h"
+
 namespace alinous {
 
-class SysMutex {
+class SysMutex : public ILock {
 public:
 	SysMutex() noexcept;
-	~SysMutex() noexcept;
+	virtual ~SysMutex() noexcept;
 
-	void lock() noexcept;
-	void unlock() noexcept;
+	virtual void lock() noexcept;
+	virtual void unlock() noexcept;
 private:
 	pthread_mutex_t mutex;
 };

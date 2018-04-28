@@ -8,7 +8,11 @@
 #ifndef RANDOM_ACCESS_FILE_DISKCACHEMANAGER_H_
 #define RANDOM_ACCESS_FILE_DISKCACHEMANAGER_H_
 
+#include "base/RawLinkedList.h"
+
 namespace alinous {
+
+class MMapSegment;
 
 class DiskCacheManager {
 public:
@@ -16,7 +20,7 @@ public:
 	virtual ~DiskCacheManager();
 
 protected:
-
+	RawLinkedList<MMapSegment> cache;
 };
 
 } /* namespace alinous */

@@ -16,7 +16,7 @@ namespace alinous {
 
 MMapSegments::MMapSegments(uint64_t fileSize, uint64_t segmentSize) noexcept
 		: fileSize(fileSize), segmentSize(segmentSize) {
-	int numSegments = (fileSize % segmentSize) == 0 ? fileSize / segmentSize : (fileSize / segmentSize) + 1;
+	int numSegments = getNumSegments(fileSize, segmentSize);
 	this->numSegments = numSegments;
 
 	StackUnlocker stackLock(&this->lock);
@@ -39,7 +39,11 @@ MMapSegments::~MMapSegments() noexcept {
 	delete this->segIndex;
 }
 
-void alinous::MMapSegments::onResized(uint64_t fileSize) {
+uint64_t MMapSegments::getNumSegments(uint64_t fileSize, uint64_t segmentSize) const noexcept {
+	return (fileSize % segmentSize) == 0 ? fileSize / segmentSize : (fileSize / segmentSize) + 1;
+}
+
+void MMapSegments::onResized(uint64_t fileSize) {
 	StackUnlocker stackLock(&this->lock);
 
 	if(fileSize <=  this->fileSize){
@@ -48,17 +52,20 @@ void alinous::MMapSegments::onResized(uint64_t fileSize) {
 
 	int lastTopSegment = this->segIndex->size() - 1;
 
-	uint64_t diffSize = fileSize - this->fileSize;
+	int newNumSegments = getNumSegments(fileSize, segmentSize);
+
+	uint64_t diffSize = newNumSegments - this->numSegments;
 	for(uint64_t i = 0; i != diffSize; ++i){
 		this->segIndex->addElement(nullptr);
 	}
 
-	int numSegments = (fileSize % segmentSize) == 0 ? fileSize / segmentSize : (fileSize / segmentSize) + 1;
-	this->numSegments = numSegments;
+	this->numSegments = newNumSegments;
 	this->fileSize = fileSize;
 
 	// TODO: hadle last seg
-
+	if(lastTopSegment < 0 || this->segIndex->get(lastTopSegment) == nullptr){
+		return;
+	}
 }
 
 
