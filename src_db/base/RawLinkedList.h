@@ -145,6 +145,30 @@ public:
 	inline int size() noexcept {
 		return this->length;
 	}
+
+	void moveElementToTop(Element* element) noexcept {
+		if(element == root){
+			return;
+		}
+
+		if(this->last == element){
+			this->last = element->prev;
+		}
+
+		element->prev->next = element->next;
+
+		if(element->next != nullptr){
+			element->next->prev = element->prev;
+		}
+
+		root->prev = element;
+		element->next = root;
+		element->prev = nullptr;
+
+		root = element;
+
+	}
+
 protected:
 	Element* getElement(int index) noexcept {
 		int i = 0;
@@ -245,6 +269,8 @@ protected:
 
 		return element;
 	}
+
+
 /*
 	void moveElementToLast(Element* element) noexcept {
 		if(element == last){
@@ -267,28 +293,7 @@ protected:
 		this->last = element;
 	}
 
-	void moveElementToTop(Element* element) noexcept {
-		if(element == root){
-			return;
-		}
-
-		if(this->last == element){
-			this->last = element->prev;
-		}
-
-		element->prev->next = element->next;
-
-		if(element->next != nullptr){
-			element->next->prev = element->prev;
-		}
-
-		root->prev = element;
-		element->next = root;
-		element->prev = nullptr;
-
-		root = element;
-
-	}*/
+*/
 };
 
 } /* namespace alinous */

@@ -52,7 +52,11 @@ int FileInputStream::read(char* b, int size) {
 }
 
 int FileInputStream::read(char* b, int off, int len) {
-	return Os::readFile(&this->fd, b + off, len);
+	int ret = Os::readFile(&this->fd, b + off, len);
+	//if(ret < 0){
+	//	throw new FileIOException(__FILE__, __LINE__);
+	//}
+	return ret;
 }
 
 int FileInputStream::available() {

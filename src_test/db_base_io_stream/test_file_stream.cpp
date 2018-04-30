@@ -65,6 +65,7 @@ TEST(FileStreamTestGroup, writeOpen){
 	stream.close();
 }
 
+
 TEST(FileStreamTestGroup, writeAppendOpen){
 	File projectFolder = this->testenv.testCaseDir();
 
