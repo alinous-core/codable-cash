@@ -7,6 +7,7 @@
 
 #include "random_access_file/MMapSegments.h"
 #include "random_access_file/MMapSegment.h"
+#include "random_access_file/DiskCacheManager.h"
 
 #include "base_thread/StackUnlocker.h"
 
@@ -21,7 +22,7 @@ MMapSegments::MMapSegments(uint64_t fileSize, uint64_t segmentSize) noexcept
 
 	StackUnlocker stackLock(&this->lock);
 
-	this->segIndex = new ArrayList<MMapSegment>(numSegments);
+	this->segIndex = new ArrayList<RawLinkedList<MMapSegment>::Element>(numSegments);
 	for(int i = 0; i != numSegments; ++i){
 		this->segIndex->addElement(nullptr);
 	}
@@ -30,9 +31,9 @@ MMapSegments::MMapSegments(uint64_t fileSize, uint64_t segmentSize) noexcept
 MMapSegments::~MMapSegments() noexcept {
 	int maxLoop = this->segIndex->size();
 	for(int i = 0; i != maxLoop; ++i){
-		MMapSegment* seg = this->segIndex->get(i);
+		RawLinkedList<MMapSegment>::Element* seg = this->segIndex->get(i);
 		if(seg != nullptr){
-			delete seg;
+			delete seg->data;
 		}
 	}
 
@@ -43,7 +44,7 @@ uint64_t MMapSegments::getNumSegments(uint64_t fileSize, uint64_t segmentSize) c
 	return (fileSize % segmentSize) == 0 ? fileSize / segmentSize : (fileSize / segmentSize) + 1;
 }
 
-void MMapSegments::onResized(uint64_t fileSize) {
+void MMapSegments::onResized(uint64_t fileSize) noexcept {
 	StackUnlocker stackLock(&this->lock);
 
 	if(fileSize <=  this->fileSize){
@@ -68,6 +69,21 @@ void MMapSegments::onResized(uint64_t fileSize) {
 	}
 }
 
+MMapSegment* MMapSegments::getSegment(uint64_t fpos, DiskCacheManager* cache) noexcept {
+	StackUnlocker stackLock(&this->lock);
+
+	uint64_t index = (fpos / this->segmentSize);
+	uint64_t offset = fpos % this->segmentSize;
+
+	RawLinkedList<MMapSegment>::Element* seg = this->segIndex->get(index);
+	if(seg != nullptr){
+		cache->fireCacheHit(seg);
+		seg->data->addRefCount();
+		return seg->data;
+	}
+
+
+}
 
 } /* namespace alinous */
 

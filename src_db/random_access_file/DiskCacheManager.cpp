@@ -11,13 +11,17 @@
 
 namespace alinous {
 
-DiskCacheManager::DiskCacheManager() {
+DiskCacheManager::DiskCacheManager() noexcept{
 	// TODO Auto-generated constructor stub
 
 }
 
-DiskCacheManager::~DiskCacheManager() {
+DiskCacheManager::~DiskCacheManager() noexcept{
 	// TODO Auto-generated destructor stub
+}
+
+void DiskCacheManager::fireCacheHit(RawLinkedList<MMapSegment>::Element* seg) noexcept {
+
 }
 
 } /* namespace alinous */

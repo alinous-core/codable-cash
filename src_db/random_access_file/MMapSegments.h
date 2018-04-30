@@ -11,25 +11,28 @@
 #include <stdint.h>
 
 #include "base/ArrayList.h"
+#include "base/RawLinkedList.h"
 #include "base_thread/SysMutex.h"
 
 namespace alinous {
 
 class MMapSegment;
+class DiskCacheManager;
 
 class MMapSegments {
 public:
 	MMapSegments(uint64_t fileSize, uint64_t segmentSize) noexcept;
 	virtual ~MMapSegments() noexcept;
 
-	void onResized(uint64_t fileSize);
+	void onResized(uint64_t fileSize) noexcept;
+	MMapSegment* getSegment(uint64_t fpos, DiskCacheManager *cache) noexcept;
 
 protected:
 	uint64_t getNumSegments(uint64_t fileSize, uint64_t segmentSize) const noexcept;
 
 
 protected:
-	ArrayList<MMapSegment>* segIndex;
+	ArrayList<RawLinkedList<MMapSegment>::Element>* segIndex;
 	uint64_t numSegments;
 	uint64_t segmentSize;
 	uint64_t fileSize;

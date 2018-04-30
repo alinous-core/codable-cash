@@ -10,6 +10,7 @@
 
 #include <stdint.h>
 #include "base/ArrayList.h"
+#include "base_thread/SynchronizedLock.h"
 
 namespace alinous {
 
@@ -22,12 +23,27 @@ public:
 	MMapSegment(uint64_t mappedSize, uint64_t) noexcept;
 	virtual ~MMapSegment();
 
+	void addRefCount() noexcept;
+	void decRefCount() noexcept;
+	bool isUsed() noexcept;
+
 protected:
-	int refCount;
 	uint64_t mappedSize;
 	uint64_t position;
 	uint8_t* buffer;
+
+	SynchronizedLock lock;
+	int refCount;
 };
+
+class MMapSegmentStackRelease {
+public:
+	MMapSegmentStackRelease(MMapSegment* ptr) noexcept;
+	~MMapSegmentStackRelease() noexcept;
+private:
+	MMapSegment* ptr;
+};
+
 
 } /* namespace alinous */
 

@@ -16,9 +16,13 @@ class MMapSegment;
 
 class DiskCacheManager {
 public:
-	DiskCacheManager();
-	virtual ~DiskCacheManager();
+	friend class MMapSegments;
 
+	DiskCacheManager() noexcept;
+	virtual ~DiskCacheManager() noexcept;
+
+protected:
+	void fireCacheHit(RawLinkedList<MMapSegment>::Element* seg) noexcept;
 protected:
 	RawLinkedList<MMapSegment> cache;
 };

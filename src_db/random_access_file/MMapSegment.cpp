@@ -7,6 +7,7 @@
 
 #include "random_access_file/MMapSegment.h"
 #include "random_access_file/MMapSegments.h"
+#include "base_thread/StackUnlocker.h"
 
 #include "debug/debugMacros.h"
 
@@ -22,5 +23,30 @@ MMapSegment::~MMapSegment() {
 	delete this->buffer;
 }
 
+void MMapSegment::addRefCount() noexcept {
+	StackUnlocker unlocker(&this->lock);
+
+	this->refCount++;
+}
+
+void MMapSegment::decRefCount() noexcept {
+	StackUnlocker unlocker(&this->lock);
+
+	this->refCount--;
+}
+
+bool MMapSegment::isUsed() noexcept {
+	StackUnlocker unlocker(&this->lock);
+	return this->refCount != 0;
+}
+
+MMapSegmentStackRelease::MMapSegmentStackRelease(MMapSegment* ptr) noexcept : ptr(ptr){
+}
+
+MMapSegmentStackRelease::~MMapSegmentStackRelease() noexcept {
+	ptr->decRefCount();
+}
+
 } /* namespace alinous */
+
 

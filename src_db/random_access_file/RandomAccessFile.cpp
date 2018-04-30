@@ -13,6 +13,7 @@
 #include "base_io_stream/exceptions.h"
 
 #include "random_access_file/MMapSegments.h"
+#include "random_access_file/MMapSegment.h"
 #include "random_access_file/DiskCacheManager.h"
 
 #include "base/StackRelease.h"
@@ -55,8 +56,10 @@ void RandomAccessFile::open() {
 }
 
 int RandomAccessFile::read(uint64_t fpos, const char* buff, int count) {
-	int segSize = getSegmentSize();
+	uint64_t segSize = getSegmentSize();
 
+	MMapSegment* seg = this->segments->getSegment(fpos, this->diskCacheManager);
+	seg->decRefCount();
 }
 
 uint64_t RandomAccessFile::getSegmentSize() const noexcept {
