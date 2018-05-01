@@ -9,6 +9,8 @@
 #include "random_access_file/MMapSegments.h"
 #include "base_thread/StackUnlocker.h"
 
+#include "base_io_stream/exceptions.h"
+
 #include "debug/debugMacros.h"
 
 namespace alinous {
@@ -16,7 +18,7 @@ namespace alinous {
 MMapSegment::MMapSegment(uint64_t mappedSize, uint64_t position, MMapSegments* parent) noexcept : refCount(0), mappedSize(mappedSize)
 				, position(position), parent(parent)
 {
-	this->buffer = new uint8_t[mappedSize];
+	this->buffer = new uint8_t[this->mappedSize];
 }
 
 MMapSegment::~MMapSegment() {
@@ -54,7 +56,14 @@ void MMapSegment::requestCacheOut() noexcept {
 }
 
 void MMapSegment::loadData(FileDescriptor fd) {
-
+	int ret = Os::seekFile(&fd, this->position, Os::SeekOrigin::FROM_BEGINING);
+	if(ret < 0){
+		throw new FileIOException(__FILE__, __LINE__);
+	}
+	Os::readFile(&fd, (char*)this->buffer, this->mappedSize);
+	if(ret != this->mappedSize){
+		throw new FileIOException(__FILE__, __LINE__);
+	}
 }
 
 MMapSegmentStackRelease::MMapSegmentStackRelease(MMapSegment* ptr) noexcept : ptr(ptr){
