@@ -67,6 +67,14 @@ public:
 		this->sorted = false;
 	}
 
+	void addElement(T* ptr, int index) noexcept {
+		if(__builtin_expect(this->currentSize <= this->numArray, 0)){
+			realloc();
+		}
+
+		*(this->root + index) = ptr;
+	}
+
 	void realloc() noexcept {
 		int lastSize = this->currentSize;
 		int size = this->currentSize * 2;

@@ -13,7 +13,7 @@
 
 namespace alinous {
 
-MMapSegment::MMapSegment(uint64_t mappedSize, uint64_t) noexcept : refCount(0), mappedSize(mappedSize)
+MMapSegment::MMapSegment(uint64_t mappedSize, uint64_t position) noexcept : refCount(0), mappedSize(mappedSize)
 				, position(position)
 {
 	this->buffer = new uint8_t[mappedSize];

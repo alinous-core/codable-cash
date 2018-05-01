@@ -9,6 +9,7 @@
 #define RANDOM_ACCESS_FILE_DISKCACHEMANAGER_H_
 
 #include "base/RawLinkedList.h"
+#include "base_thread/SysMutex.h"
 
 namespace alinous {
 
@@ -21,10 +22,11 @@ public:
 	DiskCacheManager() noexcept;
 	virtual ~DiskCacheManager() noexcept;
 
-protected:
 	void fireCacheHit(RawLinkedList<MMapSegment>::Element* seg) noexcept;
+	RawLinkedList<MMapSegment>::Element* registerCache(MMapSegment* newSeg) noexcept;
 protected:
 	RawLinkedList<MMapSegment> cache;
+	SysMutex lock;
 };
 
 } /* namespace alinous */

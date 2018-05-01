@@ -58,8 +58,10 @@ void RandomAccessFile::open() {
 int RandomAccessFile::read(uint64_t fpos, const char* buff, int count) {
 	uint64_t segSize = getSegmentSize();
 
-	MMapSegment* seg = this->segments->getSegment(fpos, this->diskCacheManager);
-	seg->decRefCount();
+	MMapSegment* seg = this->segments->getSegment(fpos, this->diskCacheManager, this->fd);
+	MMapSegmentStackRelease dec(seg);
+
+
 }
 
 uint64_t RandomAccessFile::getSegmentSize() const noexcept {

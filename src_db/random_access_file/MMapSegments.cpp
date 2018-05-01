@@ -69,11 +69,10 @@ void MMapSegments::onResized(uint64_t fileSize) noexcept {
 	}
 }
 
-MMapSegment* MMapSegments::getSegment(uint64_t fpos, DiskCacheManager* cache) noexcept {
+MMapSegment* MMapSegments::getSegment(uint64_t fpos, DiskCacheManager* cache, FileDescriptor fd) noexcept {
 	StackUnlocker stackLock(&this->lock);
 
-	uint64_t index = (fpos / this->segmentSize);
-	uint64_t offset = fpos % this->segmentSize;
+	int index = (int)(fpos / this->segmentSize);
 
 	RawLinkedList<MMapSegment>::Element* seg = this->segIndex->get(index);
 	if(seg != nullptr){
@@ -82,8 +81,26 @@ MMapSegment* MMapSegments::getSegment(uint64_t fpos, DiskCacheManager* cache) no
 		return seg->data;
 	}
 
+	MMapSegment* newSeg = newSegment(fpos, fd);
+	RawLinkedList<MMapSegment>::Element* segElement = cache->registerCache(newSeg);
+	this->segIndex->addElement(segElement, index);
 
+	return newSeg;
 }
+
+MMapSegment* MMapSegments::newSegment(uint64_t fpos, FileDescriptor fd) noexcept {
+	uint64_t offset = fpos % this->segmentSize;
+	uint64_t segPos = fpos - offset;
+
+	uint64_t segSize = this->fileSize - segPos;
+	if(segSize > this->segmentSize){
+		segSize = this->segmentSize;
+	}
+
+	MMapSegment* seg = new MMapSegment(segSize, segPos);
+	return seg;
+}
+
 
 } /* namespace alinous */
 

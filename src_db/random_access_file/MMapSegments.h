@@ -13,6 +13,7 @@
 #include "base/ArrayList.h"
 #include "base/RawLinkedList.h"
 #include "base_thread/SysMutex.h"
+#include "osenv/funcs.h"
 
 namespace alinous {
 
@@ -25,7 +26,8 @@ public:
 	virtual ~MMapSegments() noexcept;
 
 	void onResized(uint64_t fileSize) noexcept;
-	MMapSegment* getSegment(uint64_t fpos, DiskCacheManager *cache) noexcept;
+	MMapSegment* getSegment(uint64_t fpos, DiskCacheManager *cache, FileDescriptor fd) noexcept;
+	MMapSegment* newSegment(uint64_t fpos, FileDescriptor fd) noexcept;
 
 protected:
 	uint64_t getNumSegments(uint64_t fileSize, uint64_t segmentSize) const noexcept;

@@ -6,6 +6,7 @@
  */
 
 #include "random_access_file/DiskCacheManager.h"
+#include "base_thread/StackUnlocker.h"
 
 #include "debug/debugMacros.h"
 
@@ -21,7 +22,19 @@ DiskCacheManager::~DiskCacheManager() noexcept{
 }
 
 void DiskCacheManager::fireCacheHit(RawLinkedList<MMapSegment>::Element* seg) noexcept {
-
+	StackUnlocker locker(&this->lock);
+	this->cache.moveElementToTop(seg);
 }
 
+RawLinkedList<MMapSegment>::Element* DiskCacheManager::registerCache(
+		MMapSegment* newSeg) noexcept
+{
+	StackUnlocker locker(&this->lock);
+	RawLinkedList<MMapSegment>::Element* newElement = this->cache.add(0, newSeg);
+
+	return newElement;
+}
+
+
 } /* namespace alinous */
+

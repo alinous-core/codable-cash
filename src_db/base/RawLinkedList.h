@@ -62,14 +62,17 @@ public:
 	inline void add(T* data) noexcept {
 		addLast(data);
 	}
-	void add(int index, T* element) noexcept {
+	Element* add(int index, T* element) noexcept {
+		Element* newElement = nullptr;
 		if(index == this->length){
-			addLast(element);
+			newElement = addLast(element);
 		}else{
 			Element* e = getElement(index);
-			Element* newElement = new Element(element);
+			newElement = new Element(element);
 			addBefore(e, newElement);
 		}
+
+		return newElement;
 	}
 	void clear() noexcept {
 		const int max = this->length;

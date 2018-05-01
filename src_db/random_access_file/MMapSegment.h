@@ -20,7 +20,7 @@ class MMapSegment {
 public:
 	friend class MMapSegments;
 
-	MMapSegment(uint64_t mappedSize, uint64_t) noexcept;
+	MMapSegment(uint64_t mappedSize, uint64_t position) noexcept;
 	virtual ~MMapSegment();
 
 	void addRefCount() noexcept;
