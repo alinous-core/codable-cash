@@ -9,7 +9,9 @@
 #include "random_access_file/MMapSegment.h"
 #include "random_access_file/DiskCacheManager.h"
 
+#include "base/UnicodeString.h"
 #include "base_thread/StackUnlocker.h"
+#include "base_io_stream/exceptions.h"
 
 #include "debug/debugMacros.h"
 
@@ -51,9 +53,7 @@ uint64_t MMapSegments::getNumSegments(uint64_t fileSize, uint64_t segmentSize) c
 void MMapSegments::onResized(uint64_t fileSize) noexcept {
 	StackUnlocker stackLock(&this->lock);
 
-	if(fileSize <=  this->fileSize){
-		return;
-	}
+	assert(fileSize >  this->fileSize);
 
 	int lastTopSegment = this->segIndex->size() - 1;
 
@@ -73,7 +73,7 @@ void MMapSegments::onResized(uint64_t fileSize) noexcept {
 	}
 }
 
-MMapSegment* MMapSegments::getSegment(uint64_t fpos, DiskCacheManager* cache, FileDescriptor fd) noexcept {
+MMapSegment* MMapSegments::getSegment(uint64_t fpos, DiskCacheManager* cache, FileDescriptor fd) {
 	StackUnlocker stackLock(&this->lock);
 
 	cacheOutSegmentIndex();
@@ -94,7 +94,7 @@ MMapSegment* MMapSegments::getSegment(uint64_t fpos, DiskCacheManager* cache, Fi
 	return newSeg;
 }
 
-MMapSegment* MMapSegments::newSegment(uint64_t fpos, FileDescriptor fd) noexcept {
+MMapSegment* MMapSegments::newSegment(uint64_t fpos, FileDescriptor fd) {
 	uint64_t offset = fpos % this->segmentSize;
 	uint64_t segPos = fpos - offset;
 
@@ -104,7 +104,14 @@ MMapSegment* MMapSegments::newSegment(uint64_t fpos, FileDescriptor fd) noexcept
 	}
 
 	MMapSegment* seg = new MMapSegment(segSize, segPos, this);
-	seg->loadData(fd);
+	try{
+		seg->loadData(fd);
+	}catch(Exception* e){
+		delete seg;
+
+		UnicodeString msg(L"Failed in making new cache segment");
+		throw new FileIOException(&msg, e, __FILE__, __LINE__);
+	}
 
 	return seg;
 }

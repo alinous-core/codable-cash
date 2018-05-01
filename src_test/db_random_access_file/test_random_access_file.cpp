@@ -149,6 +149,7 @@ TEST(RandomAccessFileTestGroup, fileRead){
 	char* buff = new char[8];
 	uint64_t fpos = 12;
 	file.read(fpos, buff, 8);
+	file.read(fpos, buff, 8);
 
 	delete [] buff;
 }
@@ -169,6 +170,7 @@ TEST(RandomAccessFileTestGroup, fileReadAndClose){
 	char* buff = new char[8];
 	uint64_t fpos = 12;
 	file.read(fpos, buff, 8);
+	file.read(fpos, buff, 8);
 
 	delete [] buff;
 
@@ -176,6 +178,67 @@ TEST(RandomAccessFileTestGroup, fileReadAndClose){
 	CHECK(diskCache.size() == 0)
 
 	file.open();
+}
+
+TEST(RandomAccessFileTestGroup, fileReadError){
+	File projectFolder = this->testenv.testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	DiskCacheManager diskCache(1);
+	RandomAccessFile file(outFile, &diskCache);
+
+	file.open();
+
+	char* buff = new char[8];
+	uint64_t fpos = 12;
+
+	errmgr->activatePoint(L"MMapSegment::loadData::01", L"Os::seekFile", 1);
+
+	Exception* exp = nullptr;
+	try{
+		file.read(fpos, buff, 8);
+	}catch(Exception* e){
+		exp = e;
+	}
+	CHECK(dynamic_cast<FileIOException*>(exp) != nullptr)
+	delete exp;
+
+	delete [] buff;
+}
+
+TEST(RandomAccessFileTestGroup, fileReadError2){
+	File projectFolder = this->testenv.testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	DiskCacheManager diskCache(1);
+	RandomAccessFile file(outFile, &diskCache);
+
+	file.open();
+
+	char* buff = new char[8];
+	uint64_t fpos = 12;
+
+	errmgr->activatePoint(L"MMapSegment::loadData::02", L"Os::readFile", 1);
+
+	Exception* exp = nullptr;
+	try{
+		file.read(fpos, buff, 8);
+	}catch(Exception* e){
+		exp = e;
+	}
+	CHECK(dynamic_cast<FileIOException*>(exp) != nullptr)
+	delete exp;
+
+
+	delete [] buff;
 }
 
 

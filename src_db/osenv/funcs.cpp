@@ -288,6 +288,8 @@ int Os::write2File(const FileDescriptor* fd, const char* buff, int length) noexc
 }
 
 int Os::readFile(const FileDescriptor* fd, char* buffer, int size) noexcept {
+	CAUSE_ERROR_BY_RETURN(L"Os::readFile", -1)
+
 	return ::read(fd->fd, buffer, size);
 }
 
@@ -301,6 +303,7 @@ void Os::closeFileDescriptor(FileDescriptor* fd) noexcept {
 }
 
 int Os::seekFile(const FileDescriptor* fd, int64_t offset, SeekOrigin origin) noexcept {
+	CAUSE_ERROR_BY_RETURN(L"Os::seekFile", -1)
 	return ::lseek(fd->fd, offset, origin);
 }
 

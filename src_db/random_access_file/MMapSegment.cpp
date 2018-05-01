@@ -56,10 +56,15 @@ void MMapSegment::requestCacheOut() noexcept {
 }
 
 void MMapSegment::loadData(FileDescriptor fd) {
+	ERROR_POINT(L"MMapSegment::loadData::01")
+
 	int ret = Os::seekFile(&fd, this->position, Os::SeekOrigin::FROM_BEGINING);
 	if(ret < 0){
 		throw new FileIOException(__FILE__, __LINE__);
 	}
+
+	ERROR_POINT(L"MMapSegment::loadData::02")
+
 	ret = Os::readFile(&fd, (char*)this->buffer, this->mappedSize);
 	if(ret != this->mappedSize){
 		throw new FileIOException(__FILE__, __LINE__);
