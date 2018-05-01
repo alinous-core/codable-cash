@@ -174,6 +174,8 @@ TEST(RandomAccessFileTestGroup, fileReadAndClose){
 
 	file.close();
 	CHECK(diskCache.size() == 0)
+
+	file.open();
 }
 
 
