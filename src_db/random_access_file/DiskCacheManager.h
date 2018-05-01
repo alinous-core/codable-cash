@@ -23,7 +23,11 @@ public:
 	virtual ~DiskCacheManager() noexcept;
 
 	void fireCacheHit(RawLinkedList<MMapSegment>::Element* seg) noexcept;
+	void fireCacheRemoved(RawLinkedList<MMapSegment>::Element* seg) noexcept;
+
 	RawLinkedList<MMapSegment>::Element* registerCache(MMapSegment* newSeg) noexcept;
+
+	int size() const noexcept;
 protected:
 	RawLinkedList<MMapSegment> cache;
 	int maxCache;

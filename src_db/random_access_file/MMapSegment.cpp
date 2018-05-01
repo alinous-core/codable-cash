@@ -22,7 +22,7 @@ MMapSegment::MMapSegment(uint64_t mappedSize, uint64_t position, MMapSegments* p
 }
 
 MMapSegment::~MMapSegment() {
-	delete this->buffer;
+	delete [] this->buffer;
 }
 
 void MMapSegment::addRefCount() noexcept {
@@ -60,7 +60,7 @@ void MMapSegment::loadData(FileDescriptor fd) {
 	if(ret < 0){
 		throw new FileIOException(__FILE__, __LINE__);
 	}
-	Os::readFile(&fd, (char*)this->buffer, this->mappedSize);
+	ret = Os::readFile(&fd, (char*)this->buffer, this->mappedSize);
 	if(ret != this->mappedSize){
 		throw new FileIOException(__FILE__, __LINE__);
 	}

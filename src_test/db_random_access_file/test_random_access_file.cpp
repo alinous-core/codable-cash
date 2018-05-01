@@ -9,6 +9,7 @@
 #include "test_utils/TestSetup.h"
 
 #include "random_access_file/RandomAccessFile.h"
+#include "random_access_file/DiskCacheManager.h"
 #include "base_io_stream/exceptions.h"
 
 using namespace alinous;
@@ -113,8 +114,6 @@ TEST(RandomAccessFileTestGroup, fileSetupWriteError02){
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
-	UnicodeString mode(L"wr");
-
 	UnicodeString name(L"out.bin");
 	File* outFile = projectFolder.get(&name);
 	StackRelease<File> r_outFile(outFile);
@@ -132,5 +131,50 @@ TEST(RandomAccessFileTestGroup, fileSetupWriteError02){
 	CHECK(exp != nullptr)
 	delete exp;
 }
+
+
+TEST(RandomAccessFileTestGroup, fileRead){
+	File projectFolder = this->testenv.testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	DiskCacheManager diskCache(1);
+	RandomAccessFile file(outFile, &diskCache);
+
+	file.open();
+
+	char* buff = new char[8];
+	uint64_t fpos = 12;
+	file.read(fpos, buff, 8);
+
+	delete [] buff;
+}
+
+TEST(RandomAccessFileTestGroup, fileReadAndClose){
+	File projectFolder = this->testenv.testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	DiskCacheManager diskCache(1);
+	RandomAccessFile file(outFile, &diskCache);
+
+	file.open();
+
+	char* buff = new char[8];
+	uint64_t fpos = 12;
+	file.read(fpos, buff, 8);
+
+	delete [] buff;
+
+	file.close();
+	CHECK(diskCache.size() == 0)
+}
+
 
 

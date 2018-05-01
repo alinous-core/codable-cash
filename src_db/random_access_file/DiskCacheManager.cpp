@@ -26,12 +26,18 @@ void DiskCacheManager::fireCacheHit(RawLinkedList<MMapSegment>::Element* seg) no
 	this->cache.moveElementToTop(seg);
 }
 
+void DiskCacheManager::fireCacheRemoved(RawLinkedList<MMapSegment>::Element* seg) noexcept {
+	StackUnlocker locker(&this->lock);
+
+	this->cache.remove(seg);
+}
+
 RawLinkedList<MMapSegment>::Element* DiskCacheManager::registerCache(
 		MMapSegment* newSeg) noexcept
 {
 	StackUnlocker locker(&this->lock);
 
-	if(this->maxCache > this->cache.size()){
+	if(this->maxCache <= this->cache.size()){
 		RawLinkedList<MMapSegment>::Element* outSeg = this->cache.getLastElement();
 
 		outSeg->data->waitForUnused();
@@ -47,6 +53,9 @@ RawLinkedList<MMapSegment>::Element* DiskCacheManager::registerCache(
 	return newElement;
 }
 
+int DiskCacheManager::size() const noexcept {
+	return this->cache.size();
+}
 
 } /* namespace alinous */
 

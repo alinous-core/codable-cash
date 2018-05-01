@@ -29,17 +29,20 @@ MMapSegments::MMapSegments(uint64_t fileSize, uint64_t segmentSize) noexcept
 }
 
 MMapSegments::~MMapSegments() noexcept {
+	delete this->segIndex;
+}
+
+void MMapSegments::clearElements(DiskCacheManager* diskManager) noexcept {
 	int maxLoop = this->segIndex->size();
 	for(int i = 0; i != maxLoop; ++i){
 		RawLinkedList<MMapSegment>::Element* seg = this->segIndex->get(i);
 		if(seg != nullptr){
-			delete seg->data;
+			MMapSegment* data = seg->data;
+			diskManager->fireCacheRemoved(seg);
+			delete data;
 		}
 	}
-
-	delete this->segIndex;
 }
-
 
 uint64_t MMapSegments::getNumSegments(uint64_t fileSize, uint64_t segmentSize) const noexcept {
 	return (fileSize % segmentSize) == 0 ? fileSize / segmentSize : (fileSize / segmentSize) + 1;

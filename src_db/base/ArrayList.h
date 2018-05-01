@@ -11,6 +11,8 @@
 #include "RawCompare.h"
 #include "osenv/memory.h"
 
+#include "debug/debugMacros.h"
+
 namespace alinous {
 
 #define DEFAULT_RAW_ARRAY_SIZE 64
@@ -68,9 +70,7 @@ public:
 	}
 
 	void setElement(T* ptr, int index) noexcept {
-		if(__builtin_expect(this->currentSize <= this->numArray, 0)){
-			realloc();
-		}
+		assert((this->currentSize - 1) > index);
 
 		*(this->root + index) = ptr;
 	}

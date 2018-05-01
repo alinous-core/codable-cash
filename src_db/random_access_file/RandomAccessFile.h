@@ -25,6 +25,7 @@ public:
 	virtual ~RandomAccessFile() noexcept;
 
 	void open();
+	void close() noexcept;
 	void setLength(uint64_t newLength);
 
 	int read(uint64_t fpos, const char* buff, int count);

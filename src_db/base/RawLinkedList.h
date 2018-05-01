@@ -9,6 +9,7 @@
 #define BASE_RAWLINKEDLIST_H_
 
 #include "RawCompare.h"
+#include "debug/debugMacros.h"
 
 namespace alinous {
 
@@ -132,6 +133,12 @@ public:
 		return ret;
 
 	}
+	void remove(Element* del) noexcept {
+		assert(del != nullptr);
+
+		removeElement(del);
+	}
+
 	bool remove(T* data) noexcept {
 		int index = indexOf(data);
 		if(index < 0){
@@ -145,11 +152,11 @@ public:
 		return true;
 	}
 
-	inline int size() noexcept {
+	inline int size() const noexcept {
 		return this->length;
 	}
 
-	Element* getLastElement() noexcept {
+	Element* getLastElement() const noexcept {
 		return this->last;
 	}
 

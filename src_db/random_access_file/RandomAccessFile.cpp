@@ -32,8 +32,8 @@ RandomAccessFile::RandomAccessFile(const File* file, DiskCacheManager* diskCache
 }
 
 RandomAccessFile::~RandomAccessFile() noexcept {
+	close();
 	delete this->file;
-	delete this->segments;
 }
 
 void RandomAccessFile::open() {
@@ -55,6 +55,19 @@ void RandomAccessFile::open() {
 	}
 }
 
+void RandomAccessFile::close() noexcept {
+	if(!this->fd.isOpened()){
+		return;
+	}
+
+	this->segments->clearElements(this->diskCacheManager);
+	delete this->segments;
+	this->segments = nullptr;
+
+	Os::closeFileDescriptor(&this->fd);
+}
+
+
 int RandomAccessFile::read(uint64_t fpos, const char* buff, int count) {
 	uint64_t segSize = getSegmentSize();
 
@@ -63,6 +76,7 @@ int RandomAccessFile::read(uint64_t fpos, const char* buff, int count) {
 
 
 }
+
 
 uint64_t RandomAccessFile::getSegmentSize() const noexcept {
 	return this->pageSize * PAGE_NUM_CACHE;

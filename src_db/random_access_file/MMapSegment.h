@@ -24,6 +24,7 @@ public:
 	MMapSegment(uint64_t mappedSize, uint64_t position, MMapSegments* parent) noexcept;
 	virtual ~MMapSegment();
 
+
 	void addRefCount() noexcept;
 	void decRefCount() noexcept;
 	bool isUsed() noexcept;
