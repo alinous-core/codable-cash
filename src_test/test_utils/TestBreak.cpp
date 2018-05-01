@@ -40,4 +40,8 @@ void TestBreak::breakpoint(int num) {
 	this->lock.wait();
 }
 
+int TestBreak::current() {
+	return this->location;
+}
+
 } /* namespace alinous */

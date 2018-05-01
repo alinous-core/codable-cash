@@ -57,6 +57,11 @@ void Os::joinThread(THREAD_ID id) noexcept {
 	::pthread_join(id, nullptr);
 }
 
+void Os::usleep(uint32_t microsec) noexcept {
+	::usleep(microsec);
+}
+
+
 /**************************************************************************
  * File functions
  */
@@ -315,5 +320,4 @@ uint64_t Os::getSystemPageSize() noexcept {
 
 
 }
-
 

@@ -12,6 +12,8 @@
 #include "random_access_file/DiskCacheManager.h"
 #include "base_io_stream/exceptions.h"
 
+#include "random_access_file/MMapSegment.h"
+
 using namespace alinous;
 
 
@@ -89,8 +91,6 @@ TEST(RandomAccessFileTestGroup, setLengthError01){
 TEST(RandomAccessFileTestGroup, fileSetupWriteError01){
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
-
-	UnicodeString mode(L"wr");
 
 	UnicodeString name(L"out.bin");
 	File* outFile = projectFolder.get(&name);
@@ -241,5 +241,55 @@ TEST(RandomAccessFileTestGroup, fileReadError2){
 	delete [] buff;
 }
 
+TEST(RandomAccessFileTestGroup, fileWrite){
+	File projectFolder = this->testenv.testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	DiskCacheManager diskCache(1);
+	RandomAccessFile file(outFile, &diskCache);
+
+	file.open();
+
+	int buffSize = 8;
+	uint64_t fpos = 12;
+
+	char* buff = new char[buffSize];
+	StackArrayRelease<char> r_buff(buff);
+
+	file.write(fpos, buff, buffSize);
+
+}
+
+
+TEST(RandomAccessFileTestGroup, getSegment){
+	File projectFolder = this->testenv.testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	DiskCacheManager diskCache(1);
+	RandomAccessFile file(outFile, &diskCache);
+
+	file.open();
+
+	uint64_t fpos = 12;
+	MMapSegment* seg = file.getSegment(fpos);
+	seg->decRefCount();
+
+	fpos = Os::getSystemPageSize() * 64;
+	Exception* exp = nullptr;
+	try{
+		seg = file.getSegment(fpos);
+	}catch(Exception* e){
+		exp = e;
+	}
+	CHECK(dynamic_cast<FileIOException*>(exp) != nullptr)
+	delete exp;
+}
 

@@ -71,12 +71,12 @@ void RandomAccessFile::close() noexcept {
 int RandomAccessFile::read(uint64_t fpos, char* buff, int count) {
 	uint64_t segSize = getSegmentSize();
 
-	MMapSegment* seg = this->segments->getSegment(fpos, this->diskCacheManager, this->fd);
-	MMapSegmentStackRelease dec(seg);
-
 	int count2Read = count;
 	int currentfpos = fpos;
 	while(count2Read > 0){
+		MMapSegment* seg = this->segments->getSegment(currentfpos, this->diskCacheManager, this->fd);
+		MMapSegmentStackRelease dec(seg);
+
 		uint64_t offset = currentfpos % segSize;
 		uint8_t* ptr = seg->getPtr(offset);
 		int cnt = seg->remains(offset);
@@ -92,6 +92,29 @@ int RandomAccessFile::read(uint64_t fpos, char* buff, int count) {
 	return count;
 }
 
+int RandomAccessFile::write(uint64_t fpos, const char* buff, int count) {
+	uint64_t segSize = getSegmentSize();
+
+	int count2Write = count;
+	int currentfpos = fpos;
+	while(count2Write > 0){
+		MMapSegment* seg = this->segments->getSegment(currentfpos, this->diskCacheManager, this->fd);
+		MMapSegmentStackRelease dec(seg);
+
+		uint64_t offset = currentfpos % segSize;
+		uint8_t* ptr = seg->getPtr(offset);
+		int cnt = seg->remains(offset);
+		cnt = cnt > count2Write ? count2Write : cnt;
+
+		Mem::memcpy(ptr, buff, cnt);
+
+		count2Write -= cnt;
+		currentfpos += cnt;
+		buff += cnt;
+	}
+
+	return count;
+}
 
 uint64_t RandomAccessFile::getSegmentSize() const noexcept {
 	return this->pageSize * PAGE_NUM_CACHE;
@@ -141,7 +164,11 @@ void RandomAccessFile::setLength(uint64_t newLength) {
 
 }
 
+MMapSegment* RandomAccessFile::getSegment(uint64_t fpos) {
+	return this->segments->getSegment(fpos, this->diskCacheManager, this->fd);
+}
 
 
 
 } /* namespace alinous */
+

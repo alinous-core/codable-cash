@@ -53,6 +53,8 @@ public:
 	static UnicodeString* getThreadName(THREAD_ID id) noexcept;
 	static void joinThread(THREAD_ID id) noexcept;
 
+	static void usleep(uint32_t microsec) noexcept;
+
 	/**************************************************************************
 	 * File functions
 	 */

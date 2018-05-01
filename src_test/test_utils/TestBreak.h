@@ -20,9 +20,11 @@ public:
 	void resume(int num);
 
 	void breakpoint(int num);
+	int current();
 private:
 	SynchronizedLock lock;
 	int location;
+
 
 };
 

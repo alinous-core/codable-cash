@@ -13,6 +13,7 @@
 #include "base_io/File.h"
 
 #include "debug/ErrorPointManager.h"
+#include "test_utils/TestBreak.h"
 
 extern const char* prog;
 

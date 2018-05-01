@@ -38,11 +38,12 @@ void MMapSegment::decRefCount() noexcept {
 	this->lock.notifyAll();
 }
 
+/*
 bool MMapSegment::isUsed() noexcept {
 	StackUnlocker unlocker(&this->lock);
 	return this->refCount != 0;
 }
-
+*/
 void MMapSegment::waitForUnused() noexcept {
 	StackUnlocker unlocker(&this->lock);
 

@@ -17,6 +17,7 @@ namespace alinous {
 class UnicodeString;
 class File;
 class MMapSegments;
+class MMapSegment;
 class DiskCacheManager;
 
 class RandomAccessFile {
@@ -29,6 +30,9 @@ public:
 	void setLength(uint64_t newLength);
 
 	int read(uint64_t fpos, char* buff, int count);
+	int write(uint64_t fpos, const char* buff, int count);
+
+	MMapSegment* getSegment(uint64_t fpos);
 protected:
 	constexpr static uint64_t PAGE_NUM_CACHE{4};
 

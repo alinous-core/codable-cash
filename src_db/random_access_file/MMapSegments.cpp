@@ -35,6 +35,9 @@ MMapSegments::~MMapSegments() noexcept {
 }
 
 void MMapSegments::clearElements(DiskCacheManager* diskManager) noexcept {
+	StackUnlocker stackLock(&this->lock);
+	cacheOutSegmentIndex();
+
 	int maxLoop = this->segIndex->size();
 	for(int i = 0; i != maxLoop; ++i){
 		RawLinkedList<MMapSegment>::Element* seg = this->segIndex->get(i);
@@ -51,9 +54,10 @@ uint64_t MMapSegments::getNumSegments(uint64_t fileSize, uint64_t segmentSize) c
 }
 
 void MMapSegments::onResized(uint64_t fileSize) noexcept {
-	StackUnlocker stackLock(&this->lock);
-
 	assert(fileSize >  this->fileSize);
+
+	StackUnlocker stackLock(&this->lock);
+	cacheOutSegmentIndex();
 
 	int lastTopSegment = this->segIndex->size() - 1;
 
@@ -74,8 +78,11 @@ void MMapSegments::onResized(uint64_t fileSize) noexcept {
 }
 
 MMapSegment* MMapSegments::getSegment(uint64_t fpos, DiskCacheManager* cache, FileDescriptor fd) {
-	StackUnlocker stackLock(&this->lock);
+	if(this->fileSize <= fpos){
+		throw new FileIOException(__FILE__, __LINE__);
+	}
 
+	StackUnlocker stackLock(&this->lock);
 	cacheOutSegmentIndex();
 
 	int index = (int)(fpos / this->segmentSize);
@@ -90,6 +97,7 @@ MMapSegment* MMapSegments::getSegment(uint64_t fpos, DiskCacheManager* cache, Fi
 	MMapSegment* newSeg = newSegment(fpos, fd);
 	RawLinkedList<MMapSegment>::Element* segElement = cache->registerCache(newSeg);
 	this->segIndex->setElement(segElement, index);
+	newSeg->addRefCount();
 
 	return newSeg;
 }

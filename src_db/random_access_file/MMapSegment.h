@@ -27,7 +27,7 @@ public:
 
 	void addRefCount() noexcept;
 	void decRefCount() noexcept;
-	bool isUsed() noexcept;
+	//bool isUsed() noexcept;
 	void waitForUnused() noexcept;
 	void requestCacheOut() noexcept;
 
