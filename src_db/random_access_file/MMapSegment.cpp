@@ -66,6 +66,16 @@ void MMapSegment::loadData(FileDescriptor fd) {
 	}
 }
 
+uint8_t* MMapSegment::getPtr(uint64_t offset) const noexcept {
+	assert(offset < this->mappedSize);
+	return this->buffer + offset;
+}
+
+uint64_t MMapSegment::remains(uint64_t offset) const noexcept {
+	return this->mappedSize - offset;
+}
+
+
 MMapSegmentStackRelease::MMapSegmentStackRelease(MMapSegment* ptr) noexcept : ptr(ptr){
 }
 

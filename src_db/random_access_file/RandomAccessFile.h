@@ -28,7 +28,7 @@ public:
 	void close() noexcept;
 	void setLength(uint64_t newLength);
 
-	int read(uint64_t fpos, const char* buff, int count);
+	int read(uint64_t fpos, char* buff, int count);
 protected:
 	constexpr static uint64_t PAGE_NUM_CACHE{4};
 

@@ -33,6 +33,9 @@ public:
 
 	void loadData(FileDescriptor fd);
 
+	uint8_t* getPtr(uint64_t offset) const noexcept;
+	uint64_t remains(uint64_t offset) const noexcept;
+
 protected:
 	uint64_t mappedSize;
 	uint64_t position;

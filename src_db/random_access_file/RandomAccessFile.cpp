@@ -68,13 +68,28 @@ void RandomAccessFile::close() noexcept {
 }
 
 
-int RandomAccessFile::read(uint64_t fpos, const char* buff, int count) {
+int RandomAccessFile::read(uint64_t fpos, char* buff, int count) {
 	uint64_t segSize = getSegmentSize();
 
 	MMapSegment* seg = this->segments->getSegment(fpos, this->diskCacheManager, this->fd);
 	MMapSegmentStackRelease dec(seg);
 
+	int count2Read = count;
+	int currentfpos = fpos;
+	while(count2Read > 0){
+		uint64_t offset = currentfpos % segSize;
+		uint8_t* ptr = seg->getPtr(offset);
+		int cnt = seg->remains(offset);
+		cnt = cnt > count2Read ? count2Read : cnt;
 
+		Mem::memcpy(buff, ptr, cnt);
+
+		count2Read -= cnt;
+		currentfpos += cnt;
+		buff += cnt;
+	}
+
+	return count;
 }
 
 
