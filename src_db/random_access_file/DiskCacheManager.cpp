@@ -6,19 +6,19 @@
  */
 
 #include "random_access_file/DiskCacheManager.h"
+#include "random_access_file/MMapSegment.h"
+
 #include "base_thread/StackUnlocker.h"
 
 #include "debug/debugMacros.h"
 
 namespace alinous {
 
-DiskCacheManager::DiskCacheManager() noexcept{
-	// TODO Auto-generated constructor stub
-
+DiskCacheManager::DiskCacheManager(int maxCache) noexcept : maxCache(maxCache){
 }
 
 DiskCacheManager::~DiskCacheManager() noexcept{
-	// TODO Auto-generated destructor stub
+
 }
 
 void DiskCacheManager::fireCacheHit(RawLinkedList<MMapSegment>::Element* seg) noexcept {
@@ -30,8 +30,20 @@ RawLinkedList<MMapSegment>::Element* DiskCacheManager::registerCache(
 		MMapSegment* newSeg) noexcept
 {
 	StackUnlocker locker(&this->lock);
-	RawLinkedList<MMapSegment>::Element* newElement = this->cache.add(0, newSeg);
 
+	if(this->maxCache > this->cache.size()){
+		RawLinkedList<MMapSegment>::Element* outSeg = this->cache.getLastElement();
+
+		outSeg->data->waitForUnused();
+
+		// request delete from segment index
+		outSeg->data->requestCacheOut();
+
+		MMapSegment* seg = this->cache.remove(this->cache.size() - 1);
+		delete seg;
+	}
+
+	RawLinkedList<MMapSegment>::Element* newElement = this->cache.add(0, newSeg);
 	return newElement;
 }
 

@@ -13,8 +13,8 @@
 
 namespace alinous {
 
-MMapSegment::MMapSegment(uint64_t mappedSize, uint64_t position) noexcept : refCount(0), mappedSize(mappedSize)
-				, position(position)
+MMapSegment::MMapSegment(uint64_t mappedSize, uint64_t position, MMapSegments* parent) noexcept : refCount(0), mappedSize(mappedSize)
+				, position(position), parent(parent)
 {
 	this->buffer = new uint8_t[mappedSize];
 }
@@ -33,11 +33,28 @@ void MMapSegment::decRefCount() noexcept {
 	StackUnlocker unlocker(&this->lock);
 
 	this->refCount--;
+	this->lock.notifyAll();
 }
 
 bool MMapSegment::isUsed() noexcept {
 	StackUnlocker unlocker(&this->lock);
 	return this->refCount != 0;
+}
+
+void MMapSegment::waitForUnused() noexcept {
+	StackUnlocker unlocker(&this->lock);
+
+	if(this->refCount != 0){
+		this->lock.wait();
+	}
+}
+
+void MMapSegment::requestCacheOut() noexcept {
+	this->parent->requestCacheOut(this);
+}
+
+void MMapSegment::loadData(FileDescriptor fd) {
+
 }
 
 MMapSegmentStackRelease::MMapSegmentStackRelease(MMapSegment* ptr) noexcept : ptr(ptr){
@@ -46,6 +63,7 @@ MMapSegmentStackRelease::MMapSegmentStackRelease(MMapSegment* ptr) noexcept : pt
 MMapSegmentStackRelease::~MMapSegmentStackRelease() noexcept {
 	ptr->decRefCount();
 }
+
 
 } /* namespace alinous */
 

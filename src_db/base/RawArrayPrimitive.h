@@ -36,6 +36,11 @@ public:
 		this->numArray--;
 	}
 
+	void reset() throw() {
+		this->numArray = 0;
+		this->sorted = false;
+	}
+
 	void addElement(const T value) noexcept {
 		if(__builtin_expect(!(this->currentSize > this->numArray), 0)){
 			int size = this->currentSize * 2;

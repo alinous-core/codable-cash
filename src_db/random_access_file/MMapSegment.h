@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include "base/ArrayList.h"
 #include "base_thread/SynchronizedLock.h"
+#include "osenv/funcs.h"
 
 namespace alinous {
 
@@ -20,12 +21,16 @@ class MMapSegment {
 public:
 	friend class MMapSegments;
 
-	MMapSegment(uint64_t mappedSize, uint64_t position) noexcept;
+	MMapSegment(uint64_t mappedSize, uint64_t position, MMapSegments* parent) noexcept;
 	virtual ~MMapSegment();
 
 	void addRefCount() noexcept;
 	void decRefCount() noexcept;
 	bool isUsed() noexcept;
+	void waitForUnused() noexcept;
+	void requestCacheOut() noexcept;
+
+	void loadData(FileDescriptor fd);
 
 protected:
 	uint64_t mappedSize;
@@ -34,6 +39,7 @@ protected:
 
 	SynchronizedLock lock;
 	int refCount;
+	MMapSegments* parent;
 };
 
 class MMapSegmentStackRelease {

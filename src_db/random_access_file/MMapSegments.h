@@ -10,6 +10,7 @@
 
 #include <stdint.h>
 
+#include "base/RawArrayPrimitive.h"
 #include "base/ArrayList.h"
 #include "base/RawLinkedList.h"
 #include "base_thread/SysMutex.h"
@@ -28,6 +29,8 @@ public:
 	void onResized(uint64_t fileSize) noexcept;
 	MMapSegment* getSegment(uint64_t fpos, DiskCacheManager *cache, FileDescriptor fd) noexcept;
 	MMapSegment* newSegment(uint64_t fpos, FileDescriptor fd) noexcept;
+	void requestCacheOut(MMapSegment* seg) noexcept;
+	void cacheOutSegmentIndex() noexcept;
 
 protected:
 	uint64_t getNumSegments(uint64_t fileSize, uint64_t segmentSize) const noexcept;
@@ -39,6 +42,8 @@ protected:
 	uint64_t segmentSize;
 	uint64_t fileSize;
 
+
+	RawArrayPrimitive<int> removeList;
 	SysMutex lock;
 };
 

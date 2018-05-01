@@ -149,6 +149,10 @@ public:
 		return this->length;
 	}
 
+	Element* getLastElement() noexcept {
+		return this->last;
+	}
+
 	void moveElementToTop(Element* element) noexcept {
 		if(element == root){
 			return;

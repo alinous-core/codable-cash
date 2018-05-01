@@ -67,7 +67,7 @@ public:
 		this->sorted = false;
 	}
 
-	void addElement(T* ptr, int index) noexcept {
+	void setElement(T* ptr, int index) noexcept {
 		if(__builtin_expect(this->currentSize <= this->numArray, 0)){
 			realloc();
 		}
