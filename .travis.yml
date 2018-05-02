@@ -1,7 +1,7 @@
 language: cpp
 compiler:
     - gcc-7
-env: BUILD=cmake CPP11=ON CXX=g++-7 CC=gcc-7
+env: BUILD=cmake CPP11=ON CXX=g++-5 CC=gcc-5
 os:
   - linux
 sudo: false
@@ -15,7 +15,7 @@ addons:
       - cmake
       - yasm
       - lcov
-    env: BUILD_SYSTEM=cmake C_COMPILER=gcc-7 CXX_COMPILER=g++-7
+    env: BUILD_SYSTEM=cmake C_COMPILER=gcc-5 CXX_COMPILER=g++-5
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y libgmp-dev
