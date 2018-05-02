@@ -21,11 +21,9 @@ TEST_GROUP(RAFTestGroup) {
 	TestSetup testenv;
 
 	TEST_SETUP() {
-		printf("TEST_SETUP();");fflush(stdout);
 		testenv.setup();
 	}
 	TEST_TEARDOWN() {
-		printf("TEST_TEARDOWN();");fflush(stdout);
 		testenv.teardown();
 	}
 };
@@ -244,12 +242,9 @@ TEST(RAFTestGroup, fileReadError2){
 }
 
 TEST(RAFTestGroup, fileWrite){
-	printf("fileWrite starts\n");fflush(stdout);
-
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
-	printf("init debug info\n");fflush(stdout);
 
 	UnicodeString name(L"out.bin");
 	File* outFile = projectFolder.get(&name);
@@ -258,11 +253,7 @@ TEST(RAFTestGroup, fileWrite){
 	DiskCacheManager diskCache(1);
 	RandomAccessFile file(outFile, &diskCache);
 
-	printf("before open\n");fflush(stdout);
-
 	file.open();
-
-	printf("after open\n");fflush(stdout);
 
 	int buffSize = 8;
 	uint64_t fpos = 12;
@@ -271,12 +262,9 @@ TEST(RAFTestGroup, fileWrite){
 	StackArrayRelease<char> r_buff(buff);
 
 	file.write(fpos, buff, buffSize);
-
-	printf("after write\n");fflush(stdout);
-
 }
 
-/*
+
 TEST(RAFTestGroup, getSegment){
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
@@ -304,4 +292,4 @@ TEST(RAFTestGroup, getSegment){
 	CHECK(dynamic_cast<FileIOException*>(exp) != nullptr)
 	delete exp;
 }
-*/
+

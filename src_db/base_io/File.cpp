@@ -115,16 +115,6 @@ bool File::mkdirs() const noexcept {
 	UnicodeString* src = getAbsolutePath();
 	StackRelease<UnicodeString> r_src(src);
 
-
-// TODO: DEBUG:
-	{
-	const char* c_str = src->toCString();
-	printf("make dir : %s\n", c_str);
-
-	delete [] c_str;
-	}
-//////////////
-
 	ArrayList<UnicodeString>* parts = src->split(&pathSeparator, false);
 
 	UnicodeString *path = new UnicodeString(L"", 512);
@@ -139,22 +129,11 @@ bool File::mkdirs() const noexcept {
 
 		File file(path);
 
-		// TODO: DEBUG:
-		{
-			const char* c_str = path->toCString();
-			printf("check dir : %s\n", c_str);
-
-			delete [] c_str;
-		}
-		//////////////
-
 		bool ex = file.exists();
 		if(!ex){
-			int ret = Os::mkdirs(path ,true, true, true
+			Os::mkdirs(path ,true, true, true
 					,true, true, true
 					,true, true, true);
-
-			printf("made it %d\n", ret);
 		}
 	}
 

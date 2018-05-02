@@ -24,14 +24,6 @@ TestSetup::TestSetup() {
 
 	this->baseDir = dir->get(&TEST_SEG);
 	delete dir;
-
-	// TODO: debug
-	UnicodeString* abspath = this->baseDir->getAbsolutePath();
-	const char* cpath = abspath->toCString();
-
-	printf("\nPATH : %s\n", cpath);
-	delete [] cpath;
-	delete abspath;
 }
 
 TestSetup::~TestSetup() {
@@ -39,8 +31,6 @@ TestSetup::~TestSetup() {
 }
 
 void TestSetup::setup() {
-	printf("setup() begin;\n");
-
 	UtestShell *cur = UtestShell::getCurrent();
 
 	const SimpleString group = cur->getGroup();
@@ -52,27 +42,17 @@ void TestSetup::setup() {
 	UnicodeString strGroup(c_group);
 	UnicodeString strName(c_name);
 
-	printf("setup() begin;\n");
-
 	File *groupBase = this->baseDir->get(&strGroup);
 	File *testCaseBase = groupBase->get(&strName);
 	StackMultipleRelease<File> r_files;
 	r_files.add(groupBase);
 	r_files.add(testCaseBase);
 
-	printf("before groupBase->mkdirs();\n");
-
 	groupBase->mkdirs();
-
-	printf("before testCaseBase->deleteDir();\n");
 
 	testCaseBase->deleteDir();
 
-	printf("testCaseBase->mkdirs();\n");
-
 	testCaseBase->mkdirs();
-
-	printf("TestSetup::setup() done");fflush(stdout);
 }
 void TestSetup::teardown() {
 	clearStatics();
