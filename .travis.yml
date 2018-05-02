@@ -1,6 +1,6 @@
 language: cpp
 compiler:
-    - gcc-7
+    - gcc-5
 env: BUILD=cmake CPP11=ON CXX=g++-5 CC=gcc-5
 os:
   - linux
@@ -10,8 +10,8 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - g++-7
-      - gcc-7
+      - g++-5
+      - gcc-5
       - cmake
       - yasm
       - lcov
