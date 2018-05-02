@@ -158,5 +158,5 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 	add_executable(${testtarget} src_test/testallmain.cpp ${top_testsrc})
 	target_link_libraries(${testtarget} codablecashlib extlib pthread gmp ${CPPUTEST_LDFLAGS})
 	
-	add_test(${testtarget} ${testtarget} -v)
+	add_test(${testtarget} ${testtarget})
 endif()
