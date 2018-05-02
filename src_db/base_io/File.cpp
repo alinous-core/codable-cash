@@ -150,9 +150,11 @@ bool File::mkdirs() const noexcept {
 
 		bool ex = file.exists();
 		if(!ex){
-			Os::mkdirs(path ,true, true, true
+			int ret = Os::mkdirs(path ,true, true, true
 					,true, true, true
 					,true, true, true);
+
+			printf("made it %d\n", ret);
 		}
 	}
 

@@ -243,12 +243,12 @@ TEST(RAFTestGroup, fileReadError2){
 }
 
 TEST(RAFTestGroup, fileWrite){
-	printf("fileWrite starts");
+	printf("fileWrite starts");fflush(stdout);
 
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
-	printf("init debug info");
+	printf("init debug info");fflush(stdout);
 
 	UnicodeString name(L"out.bin");
 	File* outFile = projectFolder.get(&name);
@@ -257,11 +257,11 @@ TEST(RAFTestGroup, fileWrite){
 	DiskCacheManager diskCache(1);
 	RandomAccessFile file(outFile, &diskCache);
 
-	printf("before open");
+	printf("before open");fflush(stdout);
 
 	file.open();
 
-	printf("after open");
+	printf("after open");fflush(stdout);
 
 	int buffSize = 8;
 	uint64_t fpos = 12;
@@ -271,7 +271,7 @@ TEST(RAFTestGroup, fileWrite){
 
 	file.write(fpos, buff, buffSize);
 
-	printf("after write");
+	printf("after write");fflush(stdout);
 
 }
 

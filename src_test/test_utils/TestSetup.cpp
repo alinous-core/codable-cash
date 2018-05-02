@@ -72,7 +72,7 @@ void TestSetup::setup() {
 
 	testCaseBase->mkdirs();
 
-	printf("TestSetup::setup() done");
+	printf("TestSetup::setup() done");fflush(stdout);
 }
 void TestSetup::teardown() {
 	clearStatics();
