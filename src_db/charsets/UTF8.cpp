@@ -46,7 +46,7 @@ CoderResult UTF_8Converter::Decoder::decodeLoop(ByteBuffer* in, CharBuffer* out)
 				if(outRemaining == 0)
 				{
 					in->position(pos);
-					return CoderResult::OVERFLOW;
+					return CoderResult::__OVERFLOW;
 				}
 				int jchar = in->get();
 				if(jchar < 0)
@@ -61,7 +61,7 @@ CoderResult UTF_8Converter::Decoder::decodeLoop(ByteBuffer* in, CharBuffer* out)
 					if(limit - pos < 1 + tail)
 					{
 						in->position(pos);
-						return CoderResult::UNDERFLOW;
+						return CoderResult::__UNDERFLOW;
 					}
 					int nextByte = 0;
 					for(int i = 0; i < tail; i ++ )
@@ -91,7 +91,7 @@ CoderResult UTF_8Converter::Decoder::decodeLoop(ByteBuffer* in, CharBuffer* out)
 					if(outRemaining < 2)
 					{
 						in->position(pos);
-						return CoderResult::OVERFLOW;
+						return CoderResult::__OVERFLOW;
 					}
 					out->put(((wchar_t)((jchar >> 0xA) + 0xD7C0)));
 					out->put(((wchar_t)((jchar & 0x3FF) + 0xDC00)));
@@ -100,7 +100,7 @@ CoderResult UTF_8Converter::Decoder::decodeLoop(ByteBuffer* in, CharBuffer* out)
 				pos ++ ;
 			}
 			in->position(pos);
-			return CoderResult::UNDERFLOW;
+			return CoderResult::__UNDERFLOW;
 		}
 		catch(Exception* e)
 		{
@@ -122,7 +122,7 @@ CoderResult UTF_8Converter::Encoder::encodeLoop(CharBuffer* in, ByteBuffer* out)
 				if(outRemaining == 0)
 				{
 					in->position(pos);
-					return CoderResult::OVERFLOW;
+					return CoderResult::__OVERFLOW;
 				}
 				int jchar = (in->get() & 0xFFFF);
 				if(jchar <= 0x7F)
@@ -130,7 +130,7 @@ CoderResult UTF_8Converter::Encoder::encodeLoop(CharBuffer* in, ByteBuffer* out)
 					if(outRemaining < 1)
 					{
 						in->position(pos);
-						return CoderResult::OVERFLOW;
+						return CoderResult::__OVERFLOW;
 					}
 					out->put(((char)(jchar & 0xFF)));
 					outRemaining -- ;
@@ -141,7 +141,7 @@ CoderResult UTF_8Converter::Encoder::encodeLoop(CharBuffer* in, ByteBuffer* out)
 						if(outRemaining < 2)
 						{
 							in->position(pos);
-							return CoderResult::OVERFLOW;
+							return CoderResult::__OVERFLOW;
 						}
 						out->put(((char)(0xC0 + ((jchar >> 6) & 0x1F))));
 						out->put(((char)(0x80 + (jchar & 0x3F))));
@@ -153,12 +153,12 @@ CoderResult UTF_8Converter::Encoder::encodeLoop(CharBuffer* in, ByteBuffer* out)
 							if(limit <= pos + 1)
 							{
 								in->position(pos);
-								return CoderResult::UNDERFLOW;
+								return CoderResult::__UNDERFLOW;
 							}
 							if(outRemaining < 4)
 							{
 								in->position(pos);
-								return CoderResult::OVERFLOW;
+								return CoderResult::__OVERFLOW;
 							}
 							if(jchar >= 0xDC00)
 							{
@@ -183,7 +183,7 @@ CoderResult UTF_8Converter::Encoder::encodeLoop(CharBuffer* in, ByteBuffer* out)
 							if(outRemaining < 3)
 							{
 								in->position(pos);
-								return CoderResult::OVERFLOW;
+								return CoderResult::__OVERFLOW;
 							}
 							out->put(((char)(0xE0 + ((jchar >> 12) & 0x0F))));
 							out->put(((char)(0x80 + ((jchar >> 6) & 0x3F))));
@@ -201,7 +201,7 @@ CoderResult UTF_8Converter::Encoder::encodeLoop(CharBuffer* in, ByteBuffer* out)
 		}
 	}
 	in->position(pos);
-	return CoderResult::UNDERFLOW;
+	return CoderResult::__UNDERFLOW;
 }
 
 } /* namespace alinous */

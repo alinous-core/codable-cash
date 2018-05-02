@@ -18,8 +18,8 @@ public:
 	CoderResult(int type, int length) noexcept;
 	virtual ~CoderResult();
 
-	static const CoderResult UNDERFLOW;
-	static const CoderResult OVERFLOW;
+	static const CoderResult __UNDERFLOW;
+	static const CoderResult __OVERFLOW;
 
     // indicating underflow error type
     static const int TYPE_UNDERFLOW = 1;

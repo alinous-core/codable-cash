@@ -10,8 +10,8 @@
 
 namespace alinous {
 
-const CoderResult CoderResult::UNDERFLOW{CoderResult::TYPE_UNDERFLOW, 0};
-const CoderResult CoderResult::OVERFLOW{CoderResult::TYPE_OVERFLOW, 0};
+const CoderResult CoderResult::__UNDERFLOW{CoderResult::TYPE_UNDERFLOW, 0};
+const CoderResult CoderResult::__OVERFLOW{CoderResult::TYPE_OVERFLOW, 0};
 
 CoderResult::CoderResult(int type, int length) noexcept : type(type), length(length) {
 }
