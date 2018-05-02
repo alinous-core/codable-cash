@@ -10,13 +10,15 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - g++-5
-      - gcc-5
+      - gcc-4.9
+      - g++-4.9
       - cmake
       - yasm
       - lcov
     env: BUILD_SYSTEM=cmake C_COMPILER=gcc CXX_COMPILER=g++
 before_install:
+  - export CC="gcc-4.9"
+  - export CXX="g++-4.9"
   - sudo apt-get -qq update
   - sudo apt-get install -y libgmp-dev
   - sudo apt-get install -y cpputest
