@@ -264,7 +264,7 @@ TEST(RandomAccessFileTestGroup, fileWrite){
 
 }
 
-
+/*
 TEST(RandomAccessFileTestGroup, getSegment){
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
@@ -292,4 +292,4 @@ TEST(RandomAccessFileTestGroup, getSegment){
 	CHECK(dynamic_cast<FileIOException*>(exp) != nullptr)
 	delete exp;
 }
-
+*/
