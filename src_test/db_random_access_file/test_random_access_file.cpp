@@ -17,7 +17,7 @@
 using namespace alinous;
 
 
-TEST_GROUP(RandomAccessFileTestGroup) {
+TEST_GROUP(RAFTestGroup) {
 	TestSetup testenv;
 
 	TEST_SETUP() {
@@ -28,7 +28,7 @@ TEST_GROUP(RandomAccessFileTestGroup) {
 	}
 };
 
-TEST(RandomAccessFileTestGroup, construct){
+TEST(RAFTestGroup, construct){
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
@@ -42,7 +42,7 @@ TEST(RandomAccessFileTestGroup, construct){
 	file.open();
 }
 
-TEST(RandomAccessFileTestGroup, openError){
+TEST(RAFTestGroup, openError){
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
@@ -66,7 +66,7 @@ TEST(RandomAccessFileTestGroup, openError){
 	delete exp;
 }
 
-TEST(RandomAccessFileTestGroup, setLengthError01){
+TEST(RAFTestGroup, setLengthError01){
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
@@ -88,7 +88,7 @@ TEST(RandomAccessFileTestGroup, setLengthError01){
 	delete exp;
 }
 
-TEST(RandomAccessFileTestGroup, fileSetupWriteError01){
+TEST(RAFTestGroup, fileSetupWriteError01){
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
@@ -110,7 +110,7 @@ TEST(RandomAccessFileTestGroup, fileSetupWriteError01){
 	delete exp;
 }
 
-TEST(RandomAccessFileTestGroup, fileSetupWriteError02){
+TEST(RAFTestGroup, fileSetupWriteError02){
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
@@ -133,7 +133,7 @@ TEST(RandomAccessFileTestGroup, fileSetupWriteError02){
 }
 
 
-TEST(RandomAccessFileTestGroup, fileRead){
+TEST(RAFTestGroup, fileRead){
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
@@ -154,7 +154,7 @@ TEST(RandomAccessFileTestGroup, fileRead){
 	delete [] buff;
 }
 
-TEST(RandomAccessFileTestGroup, fileReadAndClose){
+TEST(RAFTestGroup, fileReadAndClose){
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
@@ -180,7 +180,7 @@ TEST(RandomAccessFileTestGroup, fileReadAndClose){
 	file.open();
 }
 
-TEST(RandomAccessFileTestGroup, fileReadError){
+TEST(RAFTestGroup, fileReadError){
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
@@ -210,7 +210,7 @@ TEST(RandomAccessFileTestGroup, fileReadError){
 	delete [] buff;
 }
 
-TEST(RandomAccessFileTestGroup, fileReadError2){
+TEST(RAFTestGroup, fileReadError2){
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
@@ -241,7 +241,7 @@ TEST(RandomAccessFileTestGroup, fileReadError2){
 	delete [] buff;
 }
 
-TEST(RandomAccessFileTestGroup, fileWrite){
+TEST(RAFTestGroup, fileWrite){
 	printf("fileWrite starts");
 
 	File projectFolder = this->testenv.testCaseDir();
@@ -275,7 +275,7 @@ TEST(RandomAccessFileTestGroup, fileWrite){
 }
 
 /*
-TEST(RandomAccessFileTestGroup, getSegment){
+TEST(RAFTestGroup, getSegment){
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
