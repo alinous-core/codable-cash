@@ -242,10 +242,12 @@ TEST(RandomAccessFileTestGroup, fileReadError2){
 }
 
 TEST(RandomAccessFileTestGroup, fileWrite){
+	printf("fileWrite starts");
+
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
-	printf("fileWrite starts");
+	printf("init debug info");
 
 	UnicodeString name(L"out.bin");
 	File* outFile = projectFolder.get(&name);

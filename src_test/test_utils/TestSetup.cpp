@@ -55,10 +55,19 @@ void TestSetup::setup() {
 	r_files.add(groupBase);
 	r_files.add(testCaseBase);
 
+	printf("before groupBase->mkdirs();");
+
 	groupBase->mkdirs();
 
+	printf("before testCaseBase->deleteDir();");
+
 	testCaseBase->deleteDir();
+
+	printf("testCaseBase->mkdirs();");
+
 	testCaseBase->mkdirs();
+
+	printf("TestSetup::setup() done");
 }
 void TestSetup::teardown() {
 	clearStatics();
