@@ -21,6 +21,7 @@ TEST_GROUP(RAFTestGroup) {
 	TestSetup testenv;
 
 	TEST_SETUP() {
+		printf("TEST_SETUP();");
 		testenv.setup();
 	}
 	TEST_TEARDOWN() {

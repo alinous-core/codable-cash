@@ -20,7 +20,7 @@
 using namespace alinous;
 
 
-TEST_GROUP(RandomAccessFileThreadTestGroup) {
+TEST_GROUP(RAFCacheOut) {
 	TestSetup testenv;
 
 	TEST_SETUP() {
@@ -56,7 +56,7 @@ private:
 
 
 
-TEST(RandomAccessFileThreadTestGroup, getSegmentCacheOut01){
+TEST(RAFCacheOut, getSegmentCacheOut01){
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
