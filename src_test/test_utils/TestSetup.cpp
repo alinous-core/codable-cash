@@ -24,6 +24,14 @@ TestSetup::TestSetup() {
 
 	this->baseDir = dir->get(&TEST_SEG);
 	delete dir;
+
+	// DEBUG:
+	UnicodeString* abspath = this->baseDir->getAbsolutePath();
+	const char* cpath = abspath->toCString();
+
+	printf("\nPATH : %s\n", cpath);
+	delete [] cpath;
+	delete abspath;
 }
 
 TestSetup::~TestSetup() {
