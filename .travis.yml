@@ -1,6 +1,6 @@
 language: cpp
 compiler:
-    - gcc
+    - gcc-7
 env: BUILD=cmake CPP11=ON CXX=g++-7 CC=gcc-7
 os:
   - linux
