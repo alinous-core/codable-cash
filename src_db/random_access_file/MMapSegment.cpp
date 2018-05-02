@@ -16,7 +16,7 @@
 namespace alinous {
 
 MMapSegment::MMapSegment(uint64_t mappedSize, uint64_t position, MMapSegments* parent) noexcept : refCount(0), mappedSize(mappedSize)
-				, position(position), parent(parent)
+				, position(position), parent(parent), dirty(false)
 {
 	this->buffer = new uint8_t[this->mappedSize];
 }
@@ -77,6 +77,13 @@ uint8_t* MMapSegment::getPtr(uint64_t offset) const noexcept {
 	return this->buffer + offset;
 }
 
+void MMapSegment::setDirty(bool dirty) noexcept {
+	this->dirty = dirty;
+}
+bool MMapSegment::isDirty() const noexcept {
+	return this->dirty;
+}
+
 uint64_t MMapSegment::remains(uint64_t offset) const noexcept {
 	return this->mappedSize - offset;
 }
@@ -88,6 +95,7 @@ MMapSegmentStackRelease::MMapSegmentStackRelease(MMapSegment* ptr) noexcept : pt
 MMapSegmentStackRelease::~MMapSegmentStackRelease() noexcept {
 	ptr->decRefCount();
 }
+
 
 
 } /* namespace alinous */

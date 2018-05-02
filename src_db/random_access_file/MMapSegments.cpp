@@ -77,7 +77,7 @@ void MMapSegments::onResized(uint64_t fileSize) noexcept {
 	}
 }
 
-MMapSegment* MMapSegments::getSegment(uint64_t fpos, DiskCacheManager* cache, FileDescriptor fd) {
+MMapSegment* MMapSegments::getSegment(uint64_t fpos, DiskCacheManager* cache, FileDescriptor& fd) {
 	if(this->fileSize <= fpos){
 		throw new FileIOException(__FILE__, __LINE__);
 	}
@@ -102,7 +102,7 @@ MMapSegment* MMapSegments::getSegment(uint64_t fpos, DiskCacheManager* cache, Fi
 	return newSeg;
 }
 
-MMapSegment* MMapSegments::newSegment(uint64_t fpos, FileDescriptor fd) {
+MMapSegment* MMapSegments::newSegment(uint64_t fpos, FileDescriptor& fd) {
 	uint64_t offset = fpos % this->segmentSize;
 	uint64_t segPos = fpos - offset;
 
@@ -139,6 +139,18 @@ void MMapSegments::cacheOutSegmentIndex() noexcept {
 	this->removeList.reset();
 }
 
+void MMapSegments::sync(bool flushDisk, FileDescriptor& fd) {
+	int maxLoop = this->segIndex->size();
+	for(int i = 0; i != maxLoop; ++i){
+		RawLinkedList<MMapSegment>::Element* seg = this->segIndex->get(i);
+		if(seg != nullptr && seg->data->isDirty()){
+			MMapSegment* data = seg->data;
+
+		}
+	}
+}
+
 
 } /* namespace alinous */
+
 

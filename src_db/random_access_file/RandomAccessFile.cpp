@@ -107,6 +107,7 @@ int RandomAccessFile::write(uint64_t fpos, const char* buff, int count) {
 		cnt = cnt > count2Write ? count2Write : cnt;
 
 		Mem::memcpy(ptr, buff, cnt);
+		seg->setDirty(true);
 
 		count2Write -= cnt;
 		currentfpos += cnt;
@@ -114,6 +115,14 @@ int RandomAccessFile::write(uint64_t fpos, const char* buff, int count) {
 	}
 
 	return count;
+}
+
+void RandomAccessFile::sync(bool flushDisk) {
+	this->segments->sync(flushDisk, this->fd);
+
+	if(flushDisk){
+		Os::syncFile(&this->fd);
+	}
 }
 
 uint64_t RandomAccessFile::getSegmentSize() const noexcept {

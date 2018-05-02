@@ -36,6 +36,8 @@ public:
 	uint8_t* getPtr(uint64_t offset) const noexcept;
 	uint64_t remains(uint64_t offset) const noexcept;
 
+	void setDirty(bool dirty) noexcept;
+	bool isDirty() const noexcept;
 protected:
 	uint64_t mappedSize;
 	uint64_t position;
@@ -44,6 +46,8 @@ protected:
 	SynchronizedLock lock;
 	int refCount;
 	MMapSegments* parent;
+
+	bool dirty;
 };
 
 class MMapSegmentStackRelease {

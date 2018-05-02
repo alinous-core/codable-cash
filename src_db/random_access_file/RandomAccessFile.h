@@ -31,6 +31,7 @@ public:
 
 	int read(uint64_t fpos, char* buff, int count);
 	int write(uint64_t fpos, const char* buff, int count);
+	void sync(bool flushDisk);
 
 	MMapSegment* getSegment(uint64_t fpos);
 protected:
