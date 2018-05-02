@@ -1,7 +1,7 @@
 language: cpp
 compiler:
     - gcc
-env: BUILD=cmake CPP11=ON
+env: BUILD=cmake CPP11=ON CXX=g++-7 CC=gcc-7
 os:
   - linux
 sudo: false
@@ -20,7 +20,6 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y libgmp-dev
   - sudo apt-get install -y cpputest
-  - sudo apt-get -qq install g++-7.3
   - pip install --user cpp-coveralls
 script: ./travisbuild.sh
 after_success:
