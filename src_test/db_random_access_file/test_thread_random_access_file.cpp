@@ -55,7 +55,7 @@ private:
 };
 
 
-
+/*
 TEST(RandomAccessFileThreadTestGroup, getSegmentCacheOut01){
 	File projectFolder = this->testenv.testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
@@ -99,5 +99,5 @@ TEST(RandomAccessFileThreadTestGroup, getSegmentCacheOut01){
 	runner01->join();
 	runner02->join();
 }
-
+*/
 
