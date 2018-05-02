@@ -23,7 +23,7 @@ before_install:
   - pip install --user cpp-coveralls
 script: ./travisbuild.sh
 after_success:
-    - pushd target && make test && popd
+    - pushd target && ls -la && pwd && make test && popd
     - pushd target && make report && popd
     - coveralls --root . -E ".*/src_ext/*" -E ".*src_test*" -E "target" -E ".*CMakeFiles.*"
 notifications:
