@@ -11,7 +11,7 @@ git clone https://github.com/cpputest/cpputest.git
 cd cpputest
 git checkout v3.8
 cmake CMakeLists.txt
-make
+make install
 cd ../..
 
 
