@@ -3,8 +3,8 @@
 echo 'Build latest CppUTest'
 set -e
 
-mkdir cpputest
-cd cpputest
+mkdir ext
+cd ext
 
 git clone https://github.com/cpputest/cpputest.git
 
