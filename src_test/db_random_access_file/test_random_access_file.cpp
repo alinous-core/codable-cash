@@ -21,11 +21,11 @@ TEST_GROUP(RAFTestGroup) {
 	TestSetup testenv;
 
 	TEST_SETUP() {
-		printf("TEST_SETUP();");
+		printf("TEST_SETUP();");fflush(stdout);
 		testenv.setup();
 	}
 	TEST_TEARDOWN() {
-		printf("TEST_TEARDOWN();");
+		printf("TEST_TEARDOWN();");fflush(stdout);
 		testenv.teardown();
 	}
 };
