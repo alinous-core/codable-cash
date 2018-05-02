@@ -25,7 +25,7 @@ public:
 	RandomAccessFile(const File* file, DiskCacheManager* diskCacheManager) noexcept;
 	virtual ~RandomAccessFile() noexcept;
 
-	void open();
+	void open(bool sync=false);
 	void close() noexcept;
 	void setLength(uint64_t newLength);
 

@@ -36,9 +36,9 @@ RandomAccessFile::~RandomAccessFile() noexcept {
 	delete this->file;
 }
 
-void RandomAccessFile::open() {
+void RandomAccessFile::open(bool sync) {
 	ERROR_POINT(L"RandomAccessFile::open")
-	this->fd = Os::openFile2ReadWrite(this->file, true);
+	this->fd = Os::openFile2ReadWrite(this->file, sync);
 
 	if(!this->fd.isOpened()){
 		throw new FileOpenException(__FILE__, __LINE__);

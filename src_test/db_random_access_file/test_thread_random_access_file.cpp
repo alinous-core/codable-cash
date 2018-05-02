@@ -30,35 +30,6 @@ TEST_GROUP(RandomAccessFileThreadTestGroup) {
 		testenv.teardown();
 	}
 };
-/*
-TEST(RandomAccessFileThreadTestGroup, getSegment){
-	File projectFolder = this->testenv.testCaseDir();
-	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
-
-	UnicodeString name(L"out.bin");
-	File* outFile = projectFolder.get(&name);
-	StackRelease<File> r_outFile(outFile);
-
-	DiskCacheManager diskCache(1);
-	RandomAccessFile file(outFile, &diskCache);
-
-	file.open();
-
-	uint64_t fpos = 12;
-	MMapSegment* seg = file.getSegment(fpos);
-	seg->decRefCount();
-
-	fpos = Os::getSystemPageSize() * 64;
-	Exception* exp = nullptr;
-	try{
-		seg = file.getSegment(fpos);
-	}catch(Exception* e){
-		exp = e;
-	}
-	CHECK(dynamic_cast<FileIOException*>(exp) != nullptr)
-	delete exp;
-}
-*/
 
 class TestSegRuuer : public AbstractThreadRunner {
 public:
@@ -96,7 +67,7 @@ TEST(RandomAccessFileThreadTestGroup, getSegmentCacheOut01){
 	DiskCacheManager diskCache(1);
 	RandomAccessFile file(outFile, &diskCache);
 
-	file.open();
+	file.open(true);
 
 	uint64_t segsize = Os::getSystemPageSize() * 4;
 	uint64_t newLength = segsize * 3;
