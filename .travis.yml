@@ -4,6 +4,7 @@ compiler:
 env: BUILD=cmake CPP11=ON
 os:
   - linux
+sudo: false
 addons:
   apt:
     sources:
