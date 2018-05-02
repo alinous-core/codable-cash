@@ -39,6 +39,8 @@ TestSetup::~TestSetup() {
 }
 
 void TestSetup::setup() {
+	printf("setup() begin;\n");
+
 	UtestShell *cur = UtestShell::getCurrent();
 
 	const SimpleString group = cur->getGroup();
@@ -50,21 +52,23 @@ void TestSetup::setup() {
 	UnicodeString strGroup(c_group);
 	UnicodeString strName(c_name);
 
+	printf("setup() begin;\n");
+
 	File *groupBase = this->baseDir->get(&strGroup);
 	File *testCaseBase = groupBase->get(&strName);
 	StackMultipleRelease<File> r_files;
 	r_files.add(groupBase);
 	r_files.add(testCaseBase);
 
-	printf("before groupBase->mkdirs();");
+	printf("before groupBase->mkdirs();\n");
 
 	groupBase->mkdirs();
 
-	printf("before testCaseBase->deleteDir();");
+	printf("before testCaseBase->deleteDir();\n");
 
 	testCaseBase->deleteDir();
 
-	printf("testCaseBase->mkdirs();");
+	printf("testCaseBase->mkdirs();\n");
 
 	testCaseBase->mkdirs();
 
