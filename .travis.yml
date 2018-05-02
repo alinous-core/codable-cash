@@ -20,7 +20,7 @@ before_install:
   - sudo apt-get install -y libgmp-dev
   - sudo apt-get install -y cpputest
   - pip install --user cpp-coveralls
-script: "./travisbuild.sh"
+script: ./travisbuild.sh
 after_success:
     - coveralls --root . -E ".*/src_ext/*" -E ".*src_test*" -E "target" -E ".*CMakeFiles.*"
 notifications:
