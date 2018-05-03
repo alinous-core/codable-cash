@@ -173,7 +173,7 @@ add_custom_target(cppcheck
     COMMAND cppcheck --enable=all --std=c++11 --language=c++ --suppressions-list=cppcheck/Suppressions.txt
     	--includes-file=cppcheck/includes.txt --config-excludes-file=cppcheck/excludes.txt
     	-i /usr/
-    	-D__TEST_CPP_UNIT__=1 --xml --output-file=${CMAKE_BINARY_DIR}/result.xml ./src
+    	-D__TEST_CPP_UNIT__=1 --xml --xml-version=2 --output-file=${CMAKE_BINARY_DIR}/cppcheck.xml ./src
     
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     )
