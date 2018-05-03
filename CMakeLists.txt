@@ -157,7 +157,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 	add_executable(${testtarget} src_test/testallmain.cpp ${top_testsrc})
 	target_link_libraries(${testtarget} codablecashlib extlib pthread gmp ${CPPUTEST_LDFLAGS})
 	
-	add_test(${testtarget} ${testtarget})
+	add_test(${testtarget} ${testtarget} -ojunit)
 endif()
 
 
@@ -174,6 +174,6 @@ add_custom_target(cppcheck
     	--includes-file=cppcheck/includes.txt --config-excludes-file=cppcheck/excludes.txt
     	-i /usr/
     	-D__TEST_CPP_UNIT__=1 --xml --output-file=${CMAKE_BINARY_DIR}/result.xml ./src
-    		
+    
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     )
