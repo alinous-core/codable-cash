@@ -16,6 +16,8 @@ namespace alinous {
 template <typename K,typename V>
 class HashMapInternalElement {
 public:
+	HashMapInternalElement(const HashMapInternalElement& inst) = default;
+
 	HashMapInternalElement(const K* k, V* v)  : key(k), value(v){}
 	const K* key;
 	V* value;
