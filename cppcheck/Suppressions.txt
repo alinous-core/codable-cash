@@ -1,4 +1,3 @@
-unusedFunction
-uninitMemberVar
-unmatchedSuppression
-missingInclude
+*:/usr/include/*
+*:src_test/*
+*:src_ext/

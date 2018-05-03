@@ -15,7 +15,7 @@ namespace alinous {
 template <typename T>
 class StackRelease {
 public:
-	StackRelease(T* ptr) : ptr(ptr){
+	explicit StackRelease(T* ptr) : ptr(ptr){
 	}
 	~StackRelease(){
 		if(this->ptr != nullptr){
@@ -29,7 +29,7 @@ private:
 template <typename T>
 class StackArrayRelease {
 public:
-	StackArrayRelease(T* ptr) : ptr(ptr){
+	explicit StackArrayRelease(T* ptr) : ptr(ptr){
 	}
 	~StackArrayRelease(){
 		if(this->ptr != nullptr){
