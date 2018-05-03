@@ -94,7 +94,7 @@ uint64_t MMapSegment::remains(uint64_t offset) const noexcept {
 
 
 MMapSegmentStackRelease::MMapSegmentStackRelease(MMapSegment* ptr) noexcept {
-	this->ptr = nullptr;
+	this->ptr = ptr;
 }
 
 MMapSegmentStackRelease::~MMapSegmentStackRelease() noexcept {
