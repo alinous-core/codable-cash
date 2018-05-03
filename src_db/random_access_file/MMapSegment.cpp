@@ -15,9 +15,13 @@
 
 namespace alinous {
 
-MMapSegment::MMapSegment(uint64_t mappedSize, uint64_t position, MMapSegments* parent) noexcept : refCount(0), mappedSize(mappedSize)
-				, position(position), parent(parent), dirty(false)
+MMapSegment::MMapSegment(uint64_t mappedSize, uint64_t position, MMapSegments* parent) noexcept
 {
+	this->refCount = 0;
+	this->mappedSize = mappedSize;
+	this->position = position;
+	this->parent = parent;
+	this->dirty = false;
 	this->buffer = new uint8_t[this->mappedSize];
 }
 

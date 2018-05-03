@@ -17,9 +17,15 @@
 
 namespace alinous {
 
-MMapSegments::MMapSegments(uint64_t fileSize, uint64_t segmentSize) noexcept
-		: fileSize(fileSize), segmentSize(segmentSize), removeList(64), numSegments(getNumSegments(fileSize, segmentSize)) {
+MMapSegments::MMapSegments(uint64_t fileSize, uint64_t segmentSize) noexcept {
 	StackUnlocker stackLock(&this->lock);
+
+	this->fileSize = fileSize;
+	this->segmentSize = segmentSize;
+	this->removeList = new RawArrayPrimitive<int>(64);
+
+	this->numSegments = getNumSegments(fileSize, segmentSize);
+
 
 	this->segIndex = new ArrayList<RawLinkedList<MMapSegment>::Element>(numSegments);
 	for(int i = 0; i != numSegments; ++i){
@@ -29,6 +35,7 @@ MMapSegments::MMapSegments(uint64_t fileSize, uint64_t segmentSize) noexcept
 
 MMapSegments::~MMapSegments() noexcept {
 	delete this->segIndex;
+	delete this->removeList;
 }
 
 void MMapSegments::clearElements(DiskCacheManager* diskManager, FileDescriptor& fd) noexcept {
@@ -137,18 +144,18 @@ MMapSegment* MMapSegments::newSegment(uint64_t fpos, FileDescriptor& fd) {
 void MMapSegments::requestCacheOut(MMapSegment* seg) noexcept {
 	StackUnlocker locker(&this->removeListlock);
 	int index = seg->position / this->segmentSize;
-	this->removeList.addElement(index);
+	this->removeList->addElement(index);
 }
 
 void MMapSegments::cacheOutSegmentIndex() noexcept {
 	StackUnlocker locker(&this->removeListlock);
-	int maxLoop = this->removeList.size();
+	int maxLoop = this->removeList->size();
 	for(int i = 0; i != maxLoop; ++i){
-		int index = this->removeList.get(i);
+		int index = this->removeList->get(i);
 		this->segIndex->setElement(nullptr, index);
 	}
 
-	this->removeList.reset();
+	this->removeList->reset();
 }
 
 void MMapSegments::sync(bool flushDisk, FileDescriptor& fd) {

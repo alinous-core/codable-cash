@@ -48,7 +48,7 @@ protected:
 	uint64_t fileSize;
 
 
-	RawArrayPrimitive<int> removeList;
+	RawArrayPrimitive<int>* removeList;
 	SysMutex removeListlock;
 };
 

@@ -14,7 +14,8 @@
 
 namespace alinous {
 
-DiskCacheManager::DiskCacheManager(int maxCache) noexcept : maxCache(maxCache){
+DiskCacheManager::DiskCacheManager(int maxCache) noexcept {
+	this->maxCache = maxCache;
 }
 
 DiskCacheManager::~DiskCacheManager() noexcept{
