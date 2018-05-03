@@ -12,7 +12,7 @@ namespace alinous {
 
 class Character {
 public:
-	Character(wchar_t value);
+	explicit Character(wchar_t value);
 	virtual ~Character();
 
 	static int digit(int codePoint, int radix) noexcept;
