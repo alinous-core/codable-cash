@@ -1,9 +1,9 @@
 #!/bin/bash -eux
 
 
-if test -e target ; then
-  rm -rf ./target/
-fi
+#if test -e target ; then
+#  rm -rf ./target/
+#fi
 
 mkdir target
 
