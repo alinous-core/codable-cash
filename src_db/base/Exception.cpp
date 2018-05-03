@@ -15,14 +15,27 @@ namespace alinous {
 Exception::Exception(const char* srcfile, int srcline) noexcept : cause(nullptr), message(nullptr) {
 	this->srcfile = srcfile;
 	this->srcline = srcline;
+	this->cause = nullptr;
+	this->message = nullptr;
 }
 
-Exception::Exception(Exception* cause, const char* srcfile, int srcline) noexcept : srcfile(srcfile), srcline(srcline), cause(cause), message(nullptr) {
+Exception::Exception(Exception* cause, const char* srcfile, int srcline) noexcept {
+	this->srcfile = srcfile;
+	this->srcline = srcline;
+	this->cause = cause;
+	this->message = nullptr;
 }
-Exception::Exception(UnicodeString* message, const char* srcfile, int srcline) noexcept: srcfile(srcfile), srcline(srcline), cause(nullptr), message(nullptr) {
+Exception::Exception(UnicodeString* message, const char* srcfile, int srcline) noexcept {
+	this->srcfile = srcfile;
+	this->srcline = srcline;
+	this->cause = nullptr;
+	this->message = message;
 }
-Exception::Exception(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept : srcfile(srcfile), srcline(srcline), cause(cause), message(nullptr){
-
+Exception::Exception(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept {
+	this->srcfile = srcfile;
+	this->srcline = srcline;
+	this->cause = cause;
+	this->message = message;
 }
 
 Exception::~Exception() {
