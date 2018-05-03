@@ -24,8 +24,8 @@ namespace alinous {
 
 constexpr uint64_t RandomAccessFile::PAGE_NUM_CACHE;
 
-RandomAccessFile::RandomAccessFile(const File* file, DiskCacheManager* diskCacheManager) noexcept
-				: fd() {
+RandomAccessFile::RandomAccessFile(const File* file, DiskCacheManager* diskCacheManager) noexcept {
+	this->fd = FileDescriptor(0);
 	this->position = 0;
 	this->fileSize = 0;
 	this->diskCacheManager = diskCacheManager;
