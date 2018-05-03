@@ -22,6 +22,7 @@ class DiskCacheManager;
 
 class RandomAccessFile {
 public:
+	RandomAccessFile(const RandomAccessFile& base) = delete;
 	RandomAccessFile(const File* file, DiskCacheManager* diskCacheManager) noexcept;
 	virtual ~RandomAccessFile() noexcept;
 

@@ -23,6 +23,7 @@ class DiskCacheManager;
 
 class MMapSegments {
 public:
+	MMapSegments(const MMapSegments& base) = delete;
 	MMapSegments(uint64_t fileSize, uint64_t segmentSize) noexcept;
 	virtual ~MMapSegments() noexcept;
 

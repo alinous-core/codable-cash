@@ -45,6 +45,7 @@ public:
 	RawBitSet bitset;
 	int numElements;
 
+	HashMapRawArray(const HashMapRawArray& base) = delete;
 	HashMapRawArray()  :
 		bitset(MAX_HASH / 8), numElements(0)
 	{

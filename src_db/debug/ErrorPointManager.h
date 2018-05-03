@@ -20,6 +20,7 @@ template<typename K, typename V> class HashMap;
 
 class ErrorPointManager {
 public:
+	ErrorPointManager(const ErrorPointManager& base) = delete;
 	ErrorPointManager();
 	virtual ~ErrorPointManager();
 

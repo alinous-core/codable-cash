@@ -19,6 +19,8 @@ namespace alinous {
 template <typename K, typename V>
 class HashMap {
 public:
+	HashMap(const HashMap& base) = delete;
+
 	HashMap() noexcept {
 		this->hashMapKeySet = new HashMapKeySet<K, V>();
 	}

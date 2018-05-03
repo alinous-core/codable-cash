@@ -14,6 +14,7 @@ class UnicodeString;
 
 class ErrorOccurrence {
 public:
+	ErrorOccurrence(const ErrorOccurrence& base) = delete;
 	ErrorOccurrence(const wchar_t* name, int errorCount);
 	virtual ~ErrorOccurrence();
 

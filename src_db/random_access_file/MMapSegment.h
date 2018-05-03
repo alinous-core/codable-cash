@@ -21,6 +21,7 @@ class MMapSegment {
 public:
 	friend class MMapSegments;
 
+	MMapSegment(const MMapSegment& base) = delete;
 	MMapSegment(uint64_t mappedSize, uint64_t position, MMapSegments* parent) noexcept;
 	virtual ~MMapSegment();
 

@@ -21,6 +21,7 @@ template<typename K, typename V> class HashMap;
 
 class CharsetManager {
 private:
+	CharsetManager(const CharsetManager& base) = delete;
 	CharsetManager();
 public:
 	virtual ~CharsetManager();
