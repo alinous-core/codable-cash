@@ -60,7 +60,7 @@ void RandomAccessFile::close() noexcept {
 		return;
 	}
 
-	this->segments->clearElements(this->diskCacheManager);
+	this->segments->clearElements(this->diskCacheManager, this->fd);
 	delete this->segments;
 	this->segments = nullptr;
 

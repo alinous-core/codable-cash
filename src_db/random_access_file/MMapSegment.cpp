@@ -56,7 +56,7 @@ void MMapSegment::requestCacheOut() noexcept {
 	this->parent->requestCacheOut(this);
 }
 
-void MMapSegment::loadData(FileDescriptor fd) {
+void MMapSegment::loadData(FileDescriptor& fd) {
 	ERROR_POINT(L"MMapSegment::loadData::01")
 
 	int ret = Os::seekFile(&fd, this->position, Os::SeekOrigin::FROM_BEGINING);
@@ -96,7 +96,17 @@ MMapSegmentStackRelease::~MMapSegmentStackRelease() noexcept {
 	ptr->decRefCount();
 }
 
+int MMapSegment::writeBack(FileDescriptor& fd) {
+	ERROR_POINT(L"MMapSegment::writeBack")
 
+	int ret = Os::write2File(&fd, (char*)this->buffer, this->mappedSize);
+
+	if(ret != this->mappedSize){
+		throw new FileIOException(__FILE__, __LINE__);
+	}
+
+	return ret;
+}
 
 } /* namespace alinous */
 

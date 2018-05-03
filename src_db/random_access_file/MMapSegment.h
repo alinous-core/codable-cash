@@ -31,13 +31,15 @@ public:
 	void waitForUnused() noexcept;
 	void requestCacheOut() noexcept;
 
-	void loadData(FileDescriptor fd);
+	void loadData(FileDescriptor& fd);
 
 	uint8_t* getPtr(uint64_t offset) const noexcept;
 	uint64_t remains(uint64_t offset) const noexcept;
 
 	void setDirty(bool dirty) noexcept;
 	bool isDirty() const noexcept;
+
+	int writeBack(FileDescriptor& fd);
 protected:
 	uint64_t mappedSize;
 	uint64_t position;

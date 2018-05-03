@@ -26,7 +26,7 @@ public:
 	MMapSegments(uint64_t fileSize, uint64_t segmentSize) noexcept;
 	virtual ~MMapSegments() noexcept;
 
-	void clearElements(DiskCacheManager *diskManager) noexcept;
+	void clearElements(DiskCacheManager *diskManager, FileDescriptor& fd) noexcept;
 
 	void onResized(uint64_t fileSize) noexcept;
 	MMapSegment* getSegment(uint64_t fpos, DiskCacheManager *cache, FileDescriptor& fd);

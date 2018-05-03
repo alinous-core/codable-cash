@@ -169,4 +169,3 @@ add_custom_target(cppcheck
     		
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     )
-

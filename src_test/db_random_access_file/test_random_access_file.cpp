@@ -264,6 +264,66 @@ TEST(RAFTestGroup, fileWrite){
 	file.write(fpos, buff, buffSize);
 }
 
+TEST(RAFTestGroup, fileWriteSync){
+	File projectFolder = this->testenv.testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	DiskCacheManager diskCache(1);
+	RandomAccessFile file(outFile, &diskCache);
+
+	file.open();
+
+	int buffSize = 8;
+	uint64_t fpos = 12;
+
+	char* buff = new char[buffSize];
+	StackArrayRelease<char> r_buff(buff);
+
+	file.write(fpos, buff, buffSize);
+
+	file.sync(true);
+}
+
+TEST(RAFTestGroup, fileWriteSyncError){
+	File projectFolder = this->testenv.testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	DiskCacheManager diskCache(1);
+	RandomAccessFile file(outFile, &diskCache);
+
+	file.open();
+
+	int buffSize = 8;
+	uint64_t fpos = 12;
+
+	char* buff = new char[buffSize];
+	StackArrayRelease<char> r_buff(buff);
+
+	file.write(fpos, buff, buffSize);
+
+	errmgr->activatePoint(L"MMapSegment::writeBack", L"Os::write2File", 1);
+
+	Exception* exp = nullptr;
+	try{
+		file.sync(true);
+	}catch(Exception* e){
+		exp = e;
+	}
+	CHECK(dynamic_cast<FileIOException*>(exp) != nullptr)
+	delete exp;
+
+}
+
 
 TEST(RAFTestGroup, getSegment){
 	File projectFolder = this->testenv.testCaseDir();
@@ -292,4 +352,6 @@ TEST(RAFTestGroup, getSegment){
 	CHECK(dynamic_cast<FileIOException*>(exp) != nullptr)
 	delete exp;
 }
+
+
 

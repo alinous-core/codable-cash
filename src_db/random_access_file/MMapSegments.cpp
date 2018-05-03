@@ -34,7 +34,7 @@ MMapSegments::~MMapSegments() noexcept {
 	delete this->segIndex;
 }
 
-void MMapSegments::clearElements(DiskCacheManager* diskManager) noexcept {
+void MMapSegments::clearElements(DiskCacheManager* diskManager, FileDescriptor& fd) noexcept {
 	StackUnlocker stackLock(&this->lock);
 	cacheOutSegmentIndex();
 
@@ -44,6 +44,11 @@ void MMapSegments::clearElements(DiskCacheManager* diskManager) noexcept {
 		if(seg != nullptr){
 			MMapSegment* data = seg->data;
 			diskManager->fireCacheRemoved(seg);
+
+			if(data->isDirty()){
+				data->writeBack(fd);
+			}
+
 			delete data;
 		}
 	}
@@ -150,6 +155,7 @@ void MMapSegments::sync(bool flushDisk, FileDescriptor& fd) {
 		if(seg != nullptr && seg->data->isDirty()){
 			MMapSegment* data = seg->data;
 
+			data->writeBack(fd);
 		}
 	}
 }
