@@ -5,7 +5,7 @@
 #  rm -rf ./target/
 #fi
 
-mkdir target
+mkdir -p target
 
 pushd target
 cmake -DCMAKE_BUILD_TYPE=Debug ..
