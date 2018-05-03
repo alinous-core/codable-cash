@@ -19,6 +19,7 @@ class BufferUnderflowException;
 
 class CharBuffer {
 protected:
+	CharBuffer(const CharBuffer& base) = delete;
 	CharBuffer(const wchar_t* buffer, int length) noexcept;
 	explicit CharBuffer(int size) noexcept;
 public:

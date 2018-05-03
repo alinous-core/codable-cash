@@ -21,6 +21,8 @@ class HashMapInternalElement;
 template <typename K, typename V>
 class HashMapKeySet {
 public:
+	HashMapKeySet(const HashMapKeySet& inst) = default;
+
 	HashMapKeySet() noexcept {
 		this->list = new HashMapRawArray<K, V>();
 		this->nullElement = nullptr;

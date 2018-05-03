@@ -21,7 +21,7 @@ public:
 	constexpr static const int MAX_RADIX{36};
 
 	Integer(const Integer& base) = default;
-	Integer(int value);
+	explicit Integer(int value);
 	virtual ~Integer();
 
 	static int parseInt(UnicodeString* string);
