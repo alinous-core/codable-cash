@@ -170,12 +170,11 @@ endforeach()
 ]]#
 
 add_custom_target(cppcheck
-    COMMAND cppcheck --enable=all --std=c++11 --language=c++ --suppressions-list=cppcheck/Suppressions.txt
-    	--includes-file=cppcheck/includes.txt
+    COMMAND cppcheck --enable=all --std=c++11 --language=c++ --suppressions-list=${PROJECT_SOURCE_DIR}/cppcheck/Suppressions.txt
+    	--includes-file=${PROJECT_SOURCE_DIR}/cppcheck/includes.txt
     	-i/usr/include/c++/7/
     	-D__TEST_CPP_UNIT__=1 --xml --xml-version=2 --output-file=${CMAKE_BINARY_DIR}/cppcheck.xml
     	--cppcheck-build-dir=${CMAKE_BINARY_DIR}/cppcheck/
-    	--check-config
     	./src/ ./src_db/ ./src_ext/ ./src_test/
     	
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
