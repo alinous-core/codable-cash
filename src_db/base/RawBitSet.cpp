@@ -23,8 +23,11 @@ void RawBitSet::BitsetArray::growLength(uint32_t len) noexcept {
 	buff = tmp;
 }
 
-RawBitSet::RawBitSet(uint32_t nbits) noexcept : bits( (nbits >> OFFSET) + ((nbits & RIGHT_BITS) > 0) ? 1 : 0 )
-		, _needClear(false), actualArrayLength(0), isLengthActual(true) {
+RawBitSet::RawBitSet(uint32_t nbits) noexcept : bits( (nbits >> OFFSET) + ((nbits & RIGHT_BITS) > 0) ? 1 : 0 ) {
+	this->_needClear = false;
+	this->actualArrayLength = 0;
+	this->isLengthActual = true;
+
 }
 
 RawBitSet::~RawBitSet() {
