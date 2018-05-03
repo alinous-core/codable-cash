@@ -1,0 +1,5 @@
+/usr/include/
+/usr/include/c++/7/bits/basic_string.h
+src_ext/
+src_test/
+target/

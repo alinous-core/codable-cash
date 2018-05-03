@@ -105,6 +105,8 @@ int MMapSegment::writeBack(FileDescriptor& fd) {
 		throw new FileIOException(__FILE__, __LINE__);
 	}
 
+	this->dirty = false;
+
 	return ret;
 }
 

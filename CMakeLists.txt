@@ -147,7 +147,6 @@ target_link_libraries(codablecashlib extlib pthread gmp)
 add_executable(codablecash ${srcmain})
 target_link_libraries(codablecash codablecashlib extlib pthread gmp)
 
-
 if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest")
 	#
 	# Test Codes
@@ -163,9 +162,18 @@ endif()
 
 
 #[[ =========================================================================================== ]]#
+#[[
+get_cmake_property(_variableNames VARIABLES)
+foreach(_variableName ${_variableNames})
+        message(STATUS "${_variableName}=${${_variableName}}")
+endforeach()
+]]#
 
 add_custom_target(cppcheck
-    COMMAND cppcheck --enable=all --suppress=unusedFunction --xml -i./src_ext/ -i./src_test/ -itarget/  .
+    COMMAND cppcheck --enable=all --std=c++11 --language=c++ --suppressions-list=cppcheck/Suppressions.txt
+    	--includes-file=cppcheck/includes.txt --config-excludes-file=cppcheck/excludes.txt
+    	-i /usr/
+    	-D__TEST_CPP_UNIT__=1 --xml --output-file=${CMAKE_BINARY_DIR}/result.xml ./src
     		
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     )

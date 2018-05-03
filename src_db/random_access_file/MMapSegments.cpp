@@ -58,7 +58,7 @@ uint64_t MMapSegments::getNumSegments(uint64_t fileSize, uint64_t segmentSize) c
 	return (fileSize % segmentSize) == 0 ? fileSize / segmentSize : (fileSize / segmentSize) + 1;
 }
 
-void MMapSegments::onResized(uint64_t fileSize) noexcept {
+void MMapSegments::onResized(uint64_t fileSize, FileDescriptor& fd) {
 	assert(fileSize >  this->fileSize);
 
 	StackUnlocker stackLock(&this->lock);
@@ -80,6 +80,14 @@ void MMapSegments::onResized(uint64_t fileSize) noexcept {
 	if(lastTopSegment < 0 || this->segIndex->get(lastTopSegment) == nullptr){
 		return;
 	}
+
+	RawLinkedList<MMapSegment>::Element* segElement = this->segIndex->get(lastTopSegment);
+	MMapSegment* seg = segElement->data;
+	if(seg->isDirty()){
+		seg->writeBack(fd);
+	}
+
+
 }
 
 MMapSegment* MMapSegments::getSegment(uint64_t fpos, DiskCacheManager* cache, FileDescriptor& fd) {

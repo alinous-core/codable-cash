@@ -169,7 +169,7 @@ void RandomAccessFile::setLength(uint64_t newLength) {
 	}
 
 	this->fileSize = this->file->length();
-	this->segments->onResized(this->fileSize);
+	this->segments->onResized(this->fileSize, this->fd);
 
 }
 
