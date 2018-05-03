@@ -15,11 +15,11 @@
 
 namespace alinous {
 
-FileInputStream::FileInputStream(const File* file) noexcept : InputStream(), fd() {
+FileInputStream::FileInputStream(const File* file) noexcept : InputStream() {
 	this->file = new File(*file);
 }
 
-FileInputStream::FileInputStream(const UnicodeString* fileName) noexcept : InputStream(), fd() {
+FileInputStream::FileInputStream(const UnicodeString* fileName) noexcept : InputStream() {
 	this->file = new File(fileName);
 }
 

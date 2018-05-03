@@ -12,7 +12,7 @@
 
 namespace alinous {
 
-Exception::Exception(const char* srcfile, int srcline) noexcept : cause(nullptr), message(nullptr) {
+Exception::Exception(const char* srcfile, int srcline) noexcept {
 	this->srcfile = srcfile;
 	this->srcline = srcline;
 	this->cause = nullptr;
