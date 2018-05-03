@@ -54,7 +54,7 @@ protected:
 
 class MMapSegmentStackRelease {
 public:
-	MMapSegmentStackRelease(MMapSegment* ptr) noexcept;
+	explicit MMapSegmentStackRelease(MMapSegment* ptr) noexcept;
 	~MMapSegmentStackRelease() noexcept;
 private:
 	MMapSegment* ptr;

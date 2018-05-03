@@ -24,7 +24,7 @@ public:
 
 	explicit FileOutputStream(const File *file) noexcept;
 	FileOutputStream(const File* file, bool append) noexcept;
-	FileOutputStream(const UnicodeString* fileName) noexcept;
+	explicit FileOutputStream(const UnicodeString* fileName) noexcept;
 	FileOutputStream(const UnicodeString* fileName, bool append) noexcept;
 	virtual ~FileOutputStream();
 

@@ -15,8 +15,10 @@ class UnicodeString;
 
 class AbstractThreadRunner {
 public:
+	AbstractThreadRunner(const AbstractThreadRunner& inst) = delete;
+
 	AbstractThreadRunner();
-	AbstractThreadRunner(const UnicodeString* name);
+	explicit AbstractThreadRunner(const UnicodeString* name);
 	virtual ~AbstractThreadRunner();
 
 	void start() noexcept;
