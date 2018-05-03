@@ -25,7 +25,11 @@ namespace alinous {
 constexpr uint64_t RandomAccessFile::PAGE_NUM_CACHE;
 
 RandomAccessFile::RandomAccessFile(const File* file, DiskCacheManager* diskCacheManager) noexcept
-				: position(0), fd(), fileSize(0), diskCacheManager(diskCacheManager){
+				: fd() {
+	this->position = 0;
+	this->fileSize = 0;
+	this->diskCacheManager = diskCacheManager;
+
 	this->file = new File(*file);
 	this->segments = nullptr;
 	this->pageSize = Os::getSystemPageSize();
