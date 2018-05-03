@@ -1,5 +1,5 @@
 *:/usr/include/*
-*:src_test/*
+*:src_test/
 *:src_ext/
 *:src_ext/unicode_icu/
 *:src_ext/yescrypt/

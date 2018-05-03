@@ -175,6 +175,7 @@ add_custom_target(cppcheck
     	-i/usr/include/c++/7/
     	-D__TEST_CPP_UNIT__=1 --xml --xml-version=2 --output-file=${CMAKE_BINARY_DIR}/cppcheck.xml
     	--cppcheck-build-dir=${CMAKE_BINARY_DIR}/cppcheck/
+    	--check-config
     	./src/ ./src_db/ ./src_ext/ ./src_test/
     	
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}

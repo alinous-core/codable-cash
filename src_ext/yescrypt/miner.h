@@ -4,10 +4,10 @@
 
 #include <stdbool.h>
 #include <inttypes.h>
-#include <sys/time.h>
+//#include <sys/time.h>
 #include <pthread.h>
 //#include <jansson.h>
-#include <curl/curl.h>
+//#include <curl/curl.h>
 
 #ifdef STDC_HEADERS
 # include <stdlib.h>
@@ -203,8 +203,8 @@ extern char *abin2hex(const unsigned char *p, size_t len);
 extern bool hex2bin(unsigned char *p, const char *hexstr, size_t len);
 extern int varint_encode(unsigned char *p, uint64_t n);
 extern size_t address_to_script(unsigned char *out, size_t outsz, const char *addr);
-extern int timeval_subtract(struct timeval *result, struct timeval *x,
-	struct timeval *y);
+//extern int timeval_subtract(struct timeval *result, struct timeval *x,
+//	struct timeval *y);
 extern bool fulltest(const uint32_t *hash, const uint32_t *target);
 extern void diff_to_target(uint32_t *target, double diff);
 
@@ -222,7 +222,7 @@ struct stratum_job {
 	bool clean;
 	double diff;
 };
-
+/*
 struct stratum_ctx {
 	char *url;
 
@@ -261,5 +261,5 @@ extern bool tq_push(struct thread_q *tq, void *data);
 extern void *tq_pop(struct thread_q *tq, const struct timespec *abstime);
 extern void tq_freeze(struct thread_q *tq);
 extern void tq_thaw(struct thread_q *tq);
-
+*/
 #endif /* __MINER_H__ */
