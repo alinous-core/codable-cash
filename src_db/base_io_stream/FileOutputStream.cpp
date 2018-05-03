@@ -18,20 +18,20 @@
 namespace alinous {
 
 
-FileOutputStream::FileOutputStream(const File *file) noexcept : OutputStream() {
+FileOutputStream::FileOutputStream(const File *file) noexcept  {
 	this->append = false;
 	this->file = new File(*file);
 
 }
-FileOutputStream::FileOutputStream(const File* file, bool append) noexcept : OutputStream() {
+FileOutputStream::FileOutputStream(const File* file, bool append) noexcept {
 	this->append = append;
 	this->file = new File(*file);
 }
-FileOutputStream::FileOutputStream(const UnicodeString* fileName) noexcept : OutputStream() {
+FileOutputStream::FileOutputStream(const UnicodeString* fileName) noexcept {
 	this->append = false;
 	this->file = new File(fileName);
 }
-FileOutputStream::FileOutputStream(const UnicodeString* fileName, bool append) noexcept : OutputStream() {
+FileOutputStream::FileOutputStream(const UnicodeString* fileName, bool append) noexcept  {
 	this->append = append;
 	this->file = new File(fileName);
 }
