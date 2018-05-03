@@ -24,7 +24,7 @@ public:
 	public:
 		int length;
 		uint64_t* buff;
-		BitsetArray(int numBits) noexcept : length(numBits), buff(new uint64_t[numBits]{}) {
+		explicit BitsetArray(int numBits) noexcept : length(numBits), buff(new uint64_t[numBits]{}) {
 		}
 		~BitsetArray() noexcept {
 			delete [] buff;
@@ -44,7 +44,7 @@ public:
 		}
 	};
 
-	RawBitSet(uint32_t nbits) noexcept;
+	explicit RawBitSet(uint32_t nbits) noexcept;
 	virtual ~RawBitSet();
 
 	bool get(uint32_t pos) noexcept ;

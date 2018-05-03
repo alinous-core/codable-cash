@@ -18,8 +18,10 @@ class UnicodeString;
 
 class FileInputStream : public InputStream {
 public:
-	FileInputStream(const File *file) noexcept;
-	FileInputStream(const UnicodeString* fileName) noexcept;
+	explicit FileInputStream(const FileInputStream& inst) = delete;
+
+	explicit FileInputStream(const File *file) noexcept;
+	explicit FileInputStream(const UnicodeString* fileName) noexcept;
 	virtual ~FileInputStream();
 
 	virtual void open();
