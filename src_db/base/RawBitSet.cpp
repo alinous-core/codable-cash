@@ -23,7 +23,8 @@ void RawBitSet::BitsetArray::growLength(uint32_t len) noexcept {
 	buff = tmp;
 }
 
-RawBitSet::RawBitSet(uint32_t nbits) noexcept : bits( (nbits >> OFFSET) + ((nbits & RIGHT_BITS) > 0) ? 1 : 0 ) {
+RawBitSet::RawBitSet(uint32_t nbits) noexcept {
+	this->bits = new BitsetArray( (nbits >> OFFSET) + ((nbits & RIGHT_BITS) > 0) ? 1 : 0 );
 	this->_needClear = false;
 	this->actualArrayLength = 0;
 	this->isLengthActual = true;
@@ -31,6 +32,7 @@ RawBitSet::RawBitSet(uint32_t nbits) noexcept : bits( (nbits >> OFFSET) + ((nbit
 }
 
 RawBitSet::~RawBitSet() {
+	delete this->bits;
 }
 
 void RawBitSet::set(uint32_t pos) noexcept
@@ -39,11 +41,11 @@ void RawBitSet::set(uint32_t pos) noexcept
 	assert(pos >= (uint32_t)0);
 #endif
 	int len = (pos >> OFFSET) + 1;
-	if(len > bits.length)
+	if(len > bits->length)
 	{
-		bits.growLength(len);
+		bits->growLength(len);
 	}
-	bits.set(bits[len - 1] | (TWO_N_ARRAY[pos & RIGHT_BITS]), len - 1);
+	bits->set((*bits)[len - 1] | (TWO_N_ARRAY[pos & RIGHT_BITS]), len - 1);
 	if(len > (int)actualArrayLength)
 	{
 		actualArrayLength = len;
@@ -64,8 +66,8 @@ void RawBitSet::clear(uint32_t pos) noexcept
 	uint32_t arrayPos = pos >> OFFSET;
 	if(arrayPos < actualArrayLength)
 	{
-		bits.set(bits[arrayPos] & (~(TWO_N_ARRAY[pos & RIGHT_BITS])),arrayPos);
-		if(bits[actualArrayLength - 1] == (uint64_t)0)
+		bits->set((*bits)[arrayPos] & (~(TWO_N_ARRAY[pos & RIGHT_BITS])),arrayPos);
+		if((*bits)[actualArrayLength - 1] == (uint64_t)0)
 		{
 			isLengthActual = false;
 		}
@@ -84,18 +86,18 @@ int RawBitSet::nextSetBit(const uint32_t pos) const noexcept
 		return -1;
 	}
 	uint32_t idx = pos >> OFFSET;
-	if(bits[idx] != (uint64_t)0L)
+	if((*bits)[idx] != (uint64_t)0L)
 	{
 		for(uint32_t j = pos & RIGHT_BITS; j < ELM_SIZE; j ++ )
 		{
-			if(((bits[idx] & (TWO_N_ARRAY[j])) != (uint64_t)0))
+			if((((*bits)[idx] & (TWO_N_ARRAY[j])) != (uint64_t)0))
 			{
 				return (idx << OFFSET) + j;
 			}
 		}
 	}
 	idx ++ ;
-	while(idx < actualArrayLength && bits[idx] == (uint64_t)0L)
+	while(idx < actualArrayLength && (*bits)[idx] == (uint64_t)0L)
 	{
 		idx ++ ;
 	}
@@ -107,7 +109,7 @@ int RawBitSet::nextSetBit(const uint32_t pos) const noexcept
 	int ret = -1;
 	for(uint32_t j = 0; j < ELM_SIZE; j ++ )
 	{
-		if(((bits[idx] & (TWO_N_ARRAY[j])) != 0))
+		if((((*bits)[idx] & (TWO_N_ARRAY[j])) != 0))
 		{
 			ret = (idx << OFFSET) + j;
 			break;
@@ -121,9 +123,9 @@ void RawBitSet::clear() noexcept
 	if(_needClear)
 	{
 
-		for(uint32_t i = 0; i < (uint32_t)bits.length; i ++ )
+		for(uint32_t i = 0; i < (uint32_t)bits->length; i ++ )
 		{
-			bits.set(0L, i);
+			bits->set(0L, i);
 		}
 		actualArrayLength = 0;
 		isLengthActual = true;

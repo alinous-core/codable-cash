@@ -55,7 +55,7 @@ public:
 	void clear() noexcept ;
 
 private:
-	BitsetArray bits;
+	BitsetArray* bits;
 	bool _needClear;
 	uint32_t actualArrayLength;
 	bool isLengthActual;
