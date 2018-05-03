@@ -125,11 +125,13 @@ MMapSegment* MMapSegments::newSegment(uint64_t fpos, FileDescriptor& fd) {
 }
 
 void MMapSegments::requestCacheOut(MMapSegment* seg) noexcept {
+	StackUnlocker locker(&this->removeListlock);
 	int index = seg->position / this->segmentSize;
 	this->removeList.addElement(index);
 }
 
 void MMapSegments::cacheOutSegmentIndex() noexcept {
+	StackUnlocker locker(&this->removeListlock);
 	int maxLoop = this->removeList.size();
 	for(int i = 0; i != maxLoop; ++i){
 		int index = this->removeList.get(i);
@@ -140,6 +142,8 @@ void MMapSegments::cacheOutSegmentIndex() noexcept {
 }
 
 void MMapSegments::sync(bool flushDisk, FileDescriptor& fd) {
+	StackUnlocker stackLock(&this->lock);
+
 	int maxLoop = this->segIndex->size();
 	for(int i = 0; i != maxLoop; ++i){
 		RawLinkedList<MMapSegment>::Element* seg = this->segIndex->get(i);

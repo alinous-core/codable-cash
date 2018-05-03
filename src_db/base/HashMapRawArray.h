@@ -39,20 +39,26 @@ template <typename K, typename V>
 class HashMapRawArray {
 public:
 	static const int MAX_HASH = 64;
-	ArrayList<HashMapInternalElement<K, V>, typename HashMapInternalElement<K, V>::ValueCompare> arrays[MAX_HASH];
+	ArrayList<HashMapInternalElement<K, V>, typename HashMapInternalElement<K, V>::ValueCompare>** arrays;
 	RawBitSet bitset;
 	int numElements;
 
-	HashMapRawArray()  : arrays({
-		4,4,4,4,4,4,4,4, 4,4,4,4,4,4,4,4, 4,4,4,4,4,4,4,4, 4,4,4,4,4,4,4,4, // 32
-		4,4,4,4,4,4,4,4, 4,4,4,4,4,4,4,4, 4,4,4,4,4,4,4,4, 4,4,4,4,4,4,4,4 // 64
-				}),
+	HashMapRawArray()  :
 		bitset(MAX_HASH / 8), numElements(0)
 	{
-
+		this->arrays = new ArrayList<HashMapInternalElement<K, V>, typename HashMapInternalElement<K, V>::ValueCompare>*[MAX_HASH];
+		for(int i = 0; i != MAX_HASH; ++ i){
+			ArrayList<HashMapInternalElement<K, V>, typename HashMapInternalElement<K, V>::ValueCompare> *ar
+				= new ArrayList<HashMapInternalElement<K, V>, typename HashMapInternalElement<K, V>::ValueCompare>(4);
+			this->arrays[i] = ar;
+		}
 	}
 	virtual ~HashMapRawArray() noexcept {
-
+		for(int i = 0; i != MAX_HASH; ++ i){
+			ArrayList<HashMapInternalElement<K, V>, typename HashMapInternalElement<K, V>::ValueCompare> *ar = arrays[i];
+			delete ar;
+		}
+		delete [] arrays;
 	}
 
 	int size() const noexcept {
@@ -64,7 +70,7 @@ public:
 	HashMapInternalElement<K, V>* addElement(HashMapInternalElement<K, V>* ptr) noexcept {
 		int hashcode = getHash(ptr);
 
-		arrays[hashcode].addElementWithSorted(ptr);
+		arrays[hashcode]->addElementWithSorted(ptr);
 		bitset.set(hashcode);
 		++numElements;
 
@@ -86,7 +92,7 @@ public:
 	}*/
 	HashMapInternalElement<K, V>* search(const HashMapInternalElement<K, V>* value) noexcept {
 		int hashcode = getHash(value);
-		return arrays[hashcode].search(value);
+		return arrays[hashcode]->search(value);
 	}
 
 	void reset() noexcept {
@@ -100,12 +106,12 @@ public:
 	public:
 		int hashCode;
 		int index;
-		ArrayList<HashMapInternalElement<K, V>, typename HashMapInternalElement<K, V>::ValueCompare>* arrays;
+		ArrayList<HashMapInternalElement<K, V>, typename HashMapInternalElement<K, V>::ValueCompare>** arrays;
 		const RawBitSet* bitset;
-		Iterator(ArrayList<HashMapInternalElement<K, V>, typename HashMapInternalElement<K, V>::ValueCompare>* ptr, RawBitSet* bitset) throw()
+		Iterator(ArrayList<HashMapInternalElement<K, V>, typename HashMapInternalElement<K, V>::ValueCompare>** ptr, RawBitSet* bitset) throw()
 			: hashCode(0), index(0), arrays(ptr), bitset(bitset) {}
 		bool hasNext() const throw() {
-			ArrayList<HashMapInternalElement<K, V>, typename HashMapInternalElement<K, V>::ValueCompare>* current = &arrays[hashCode];
+			ArrayList<HashMapInternalElement<K, V>, typename HashMapInternalElement<K, V>::ValueCompare>* current = arrays[hashCode];
 			if(current->size() == index){
 				const int nextHash = hashCode + 1;
 				if(nextHash == MAX_HASH){
@@ -122,7 +128,7 @@ public:
 			return true;
 		}
 		HashMapInternalElement<K, V>* next() throw() {
-			const ArrayList<HashMapInternalElement<K, V>, typename HashMapInternalElement<K, V>::ValueCompare>* current = &arrays[hashCode];
+			const ArrayList<HashMapInternalElement<K, V>, typename HashMapInternalElement<K, V>::ValueCompare>* current = arrays[hashCode];
 			if(current->size() == index){
 				const int nextHash = hashCode + 1;
 				int next = bitset->nextSetBit(nextHash);
@@ -135,7 +141,7 @@ public:
 				hashCode = next;
 			}
 
-			current = &arrays[hashCode];
+			current = arrays[hashCode];
 			return current->get(index++);
 		}
 	};

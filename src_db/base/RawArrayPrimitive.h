@@ -22,7 +22,8 @@ public:
 private:
 	bool sorted;
 public:
-	RawArrayPrimitive(int defaultSize) noexcept : numArray(0),
+	RawArrayPrimitive(const RawArrayPrimitive& inst) = delete;
+	explicit RawArrayPrimitive(int defaultSize) noexcept : numArray(0),
 			currentSize(defaultSize > 4 ? defaultSize : 4),
 			root(new T[currentSize]),
 			sorted(false){

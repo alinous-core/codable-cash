@@ -42,13 +42,14 @@ protected:
 
 protected:
 	ArrayList<RawLinkedList<MMapSegment>::Element>* segIndex;
+	SysMutex lock;
 	uint64_t numSegments;
 	uint64_t segmentSize;
 	uint64_t fileSize;
 
 
 	RawArrayPrimitive<int> removeList;
-	SysMutex lock;
+	SysMutex removeListlock;
 };
 
 } /* namespace alinous */

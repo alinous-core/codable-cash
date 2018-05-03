@@ -41,6 +41,7 @@ CoderResult UTF_8Converter::Decoder::decodeLoop(ByteBuffer* in, CharBuffer* out)
 	{
 		try
 		{
+			int nextByte = 0;
 			while(pos < limit)
 			{
 				if(outRemaining == 0)
@@ -63,7 +64,7 @@ CoderResult UTF_8Converter::Decoder::decodeLoop(ByteBuffer* in, CharBuffer* out)
 						in->position(pos);
 						return CoderResult::__UNDERFLOW;
 					}
-					int nextByte = 0;
+					nextByte = 0;
 					for(int i = 0; i < tail; i ++ )
 					{
 						nextByte = in->get() & 0xFF;

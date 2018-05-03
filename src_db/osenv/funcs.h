@@ -37,7 +37,7 @@ class FileDescriptor {
 public:
 	int fd;
 	FileDescriptor() : fd(0) {};
-	FileDescriptor(int fd) : fd(fd) {};
+	explicit FileDescriptor(int fd) : fd(fd) {};
 	bool isOpened() const noexcept;
 };
 

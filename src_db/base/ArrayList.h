@@ -27,7 +27,9 @@ public:
 			compareFunctor() {
 	}
 
-	ArrayList(int defaultSize) noexcept : numArray(0), currentSize(defaultSize > 4 ? defaultSize : 4),
+	ArrayList(const ArrayList& list) = delete;
+
+	explicit ArrayList(int defaultSize) noexcept : numArray(0), currentSize(defaultSize > 4 ? defaultSize : 4),
 			root(new ElementType[this->currentSize * sizeof(ElementType)]), cursor(root),
 			sorted(false),
 			compareFunctor(){
@@ -76,7 +78,7 @@ public:
 	}
 
 	void realloc() noexcept {
-		int lastSize = this->currentSize;
+
 		int size = this->currentSize * 2;
 
 		ElementType* newPtr = new ElementType [size]{};
@@ -282,7 +284,7 @@ private:
 		int root = rootDefault;
 		int left = (root + 1) * 2 - 1;;
 		int right = left + 1;
-		const T* leafMax;
+		const T* leafMax  = nullptr;
 		const T* rootValue = nullptr;
 		const ElementType* const _root = this->root;
 

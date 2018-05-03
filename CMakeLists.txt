@@ -160,3 +160,13 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 	
 	add_test(${testtarget} ${testtarget})
 endif()
+
+
+#[[ =========================================================================================== ]]#
+
+add_custom_target(cppcheck
+    COMMAND cppcheck --enable=all --suppress=unusedFunction --xml -i./src_ext/ -i./src_test/ -itarget/  .
+    		
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+    )
+
