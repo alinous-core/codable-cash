@@ -20,7 +20,9 @@ class UnicodeString;
 
 class FileOutputStream : public OutputStream {
 public:
-	FileOutputStream(const File *file) noexcept;
+	FileOutputStream(const FileOutputStream& inst) = delete;
+
+	explicit FileOutputStream(const File *file) noexcept;
 	FileOutputStream(const File* file, bool append) noexcept;
 	FileOutputStream(const UnicodeString* fileName) noexcept;
 	FileOutputStream(const UnicodeString* fileName, bool append) noexcept;

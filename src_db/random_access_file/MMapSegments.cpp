@@ -18,10 +18,7 @@
 namespace alinous {
 
 MMapSegments::MMapSegments(uint64_t fileSize, uint64_t segmentSize) noexcept
-		: fileSize(fileSize), segmentSize(segmentSize), removeList(64) {
-	int numSegments = getNumSegments(fileSize, segmentSize);
-	this->numSegments = numSegments;
-
+		: fileSize(fileSize), segmentSize(segmentSize), removeList(64), numSegments(getNumSegments(fileSize, segmentSize)) {
 	StackUnlocker stackLock(&this->lock);
 
 	this->segIndex = new ArrayList<RawLinkedList<MMapSegment>::Element>(numSegments);
