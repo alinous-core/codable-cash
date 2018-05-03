@@ -18,7 +18,7 @@ class RawLinkedList {
 public:
 	class Element {
 	public:
-		inline Element(T* ptr) noexcept : data(ptr), next(nullptr), prev(nullptr){}
+		explicit Element(T* ptr) noexcept : data(ptr), next(nullptr), prev(nullptr){}
 
 		T* data;
 		Element* next;
@@ -26,7 +26,7 @@ public:
 	};
 	class Iterator {
 	public:
-		inline Iterator(RawLinkedList<T, C>* list) noexcept : list(list), current(list->root) {}
+		explicit Iterator(RawLinkedList<T, C>* list) noexcept : list(list), current(list->root) {}
 
 		inline bool hasNext() noexcept {
 			return current != nullptr;

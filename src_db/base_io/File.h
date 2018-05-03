@@ -22,7 +22,7 @@ public:
 	static const UnicodeString DDOT;
 
 	File(const File& obj) noexcept;
-	File(const UnicodeString* pathname) noexcept;
+	explicit File(const UnicodeString* pathname) noexcept;
 	virtual ~File() noexcept;
 
 	UnicodeString* getAbsolutePath() const;

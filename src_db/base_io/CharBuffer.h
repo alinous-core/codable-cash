@@ -20,7 +20,7 @@ class BufferUnderflowException;
 class CharBuffer {
 protected:
 	CharBuffer(const wchar_t* buffer, int length) noexcept;
-	CharBuffer(int size) noexcept;
+	explicit CharBuffer(int size) noexcept;
 public:
 	virtual ~CharBuffer() noexcept;
 

@@ -19,7 +19,7 @@ class DiskCacheManager {
 public:
 	friend class MMapSegments;
 
-	DiskCacheManager(int maxCache) noexcept;
+	explicit DiskCacheManager(int maxCache) noexcept;
 	virtual ~DiskCacheManager() noexcept;
 
 	void fireCacheHit(RawLinkedList<MMapSegment>::Element* seg) noexcept;
