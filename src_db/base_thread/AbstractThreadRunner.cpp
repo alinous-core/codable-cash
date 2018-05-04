@@ -36,7 +36,7 @@ void AbstractThreadRunner::start() noexcept {
 }
 
 void* AbstractThreadRunner::threadStartFunction(void* param) noexcept {
-	AbstractThreadRunner* __this = (AbstractThreadRunner*)param;
+	AbstractThreadRunner* __this = static_cast<AbstractThreadRunner*>(param);
 	__this->process();
 
 	return nullptr;

@@ -106,7 +106,7 @@ CoderResult UTF_8Converter::Decoder::decodeLoop(ByteBuffer* in, CharBuffer* out)
 		catch(Exception* e)
 		{
 			in->position(pos);
-			throw e;
+			throw new IllegalArgumentException(e, __FILE__, __LINE__);
 		}
 	}
 }
