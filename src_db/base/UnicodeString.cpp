@@ -183,7 +183,7 @@ UnicodeString* UnicodeString::append(const int v) noexcept
 		int d = value % 10;
 		value /= 10;
 
-		S_PRINTF(&buf[offset], sizeof(buff), L"%lld", d);
+		S_PRINTF(&buf[offset], sizeof(buff), L"%d", d);
 
 		offset++;
 	}

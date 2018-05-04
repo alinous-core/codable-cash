@@ -19,6 +19,8 @@ protected:
 	RawArrayPrimitive<wchar_t>* buff;
 	int __hashCode;
 public:
+	UnicodeString &operator=(const UnicodeString &o) = delete;
+
 	explicit UnicodeString(const wchar_t* str) noexcept;
 	explicit UnicodeString(const wchar_t* str, int cap) noexcept;
 	explicit UnicodeString(const char* str) noexcept;
