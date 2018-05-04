@@ -173,7 +173,7 @@ endforeach()
 
 add_custom_target(cppcheck
     COMMAND cppcheck --enable=all --std=c++11 --language=c++ --suppressions-list=${PROJECT_SOURCE_DIR}/cppcheck/Suppressions.txt
-    	--includes-file=${PROJECT_SOURCE_DIR}/cppcheck/includes.txt
+    	--includes-file=${PROJECT_SOURCE_DIR}/cppcheck/includes.txt --cppcheck-build-dir=${CMAKE_BINARY_DIR}/cppcheck/
     	-i/usr/include/c++/7/
     	-D__TEST_CPP_UNIT__=1 --xml --xml-version=2 --output-file=${CMAKE_BINARY_DIR}/cppcheck.xml
     	./src/ ./src_db/ ./src_test/
