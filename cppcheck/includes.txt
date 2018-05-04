@@ -2,8 +2,4 @@ src_ext/
 src/
 src_db/
 src_test/
-/usr/include/
-/usr/include/c++/7/
-/usr/include/c++/7/tr1/
-/usr/include/linux/
-/usr/include/x86_64-linux-gnu/
+

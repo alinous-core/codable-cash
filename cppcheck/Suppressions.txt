@@ -2,4 +2,5 @@
 *:src_test/*
 *:src_ext/*
 unusedFunction
+missingInclude
 unmatchedSuppression
