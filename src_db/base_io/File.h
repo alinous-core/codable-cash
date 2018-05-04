@@ -22,6 +22,8 @@ public:
 	static const UnicodeString DDOT;
 
 	File(const File& obj) noexcept;
+	File &operator=(const File &o) = delete;
+
 	explicit File(const UnicodeString* pathname) noexcept;
 	virtual ~File() noexcept;
 

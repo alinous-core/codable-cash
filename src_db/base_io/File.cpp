@@ -24,6 +24,12 @@ const UnicodeString File::DDOT(L"..");
 File::File(const File& obj) noexcept {
 	this->path = new UnicodeString(obj.path);
 }
+/*
+File& File::operator =(const File& obj) {
+	this->path = obj.path;
+
+	return *this;
+}*/
 
 File::File(const UnicodeString* pathname) noexcept {
 	this->path = new UnicodeString(pathname);
@@ -151,6 +157,8 @@ bool File::deleteFile() const noexcept
 bool File::deleteDir() const noexcept {
 	return deleteInnerDir(this);
 }
+
+
 
 bool File::deleteInnerDir(const File* dir) noexcept {
 	ArrayList<UnicodeString>* _list = dir->list();
