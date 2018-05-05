@@ -19,6 +19,7 @@ public:
 	class Element {
 	public:
 		explicit Element(T* ptr) noexcept : data(ptr), next(nullptr), prev(nullptr){}
+		~Element(){}
 
 		T* data;
 		Element* next;

@@ -141,7 +141,7 @@ TEST(RAFTestGroup, fileRead){
 	File* outFile = projectFolder.get(&name);
 	StackRelease<File> r_outFile(outFile);
 
-	DiskCacheManager diskCache(1);
+	DiskCacheManager diskCache(16525);
 	RandomAccessFile file(outFile, &diskCache);
 
 	file.open();
@@ -162,7 +162,7 @@ TEST(RAFTestGroup, fileReadAndClose){
 	File* outFile = projectFolder.get(&name);
 	StackRelease<File> r_outFile(outFile);
 
-	DiskCacheManager diskCache(1);
+	DiskCacheManager diskCache(16525);
 	RandomAccessFile file(outFile, &diskCache);
 
 	file.open();
@@ -188,7 +188,7 @@ TEST(RAFTestGroup, fileReadError){
 	File* outFile = projectFolder.get(&name);
 	StackRelease<File> r_outFile(outFile);
 
-	DiskCacheManager diskCache(1);
+	DiskCacheManager diskCache(16525);
 	RandomAccessFile file(outFile, &diskCache);
 
 	file.open();
@@ -218,7 +218,7 @@ TEST(RAFTestGroup, fileReadError2){
 	File* outFile = projectFolder.get(&name);
 	StackRelease<File> r_outFile(outFile);
 
-	DiskCacheManager diskCache(1);
+	DiskCacheManager diskCache(16525);
 	RandomAccessFile file(outFile, &diskCache);
 
 	file.open();
@@ -250,7 +250,7 @@ TEST(RAFTestGroup, fileWrite){
 	File* outFile = projectFolder.get(&name);
 	StackRelease<File> r_outFile(outFile);
 
-	DiskCacheManager diskCache(1);
+	DiskCacheManager diskCache(16525);
 	RandomAccessFile file(outFile, &diskCache);
 
 	file.open();
@@ -273,7 +273,7 @@ TEST(RAFTestGroup, fileWriteSync){
 	File* outFile = projectFolder.get(&name);
 	StackRelease<File> r_outFile(outFile);
 
-	DiskCacheManager diskCache(1);
+	DiskCacheManager diskCache(16525);
 	RandomAccessFile file(outFile, &diskCache);
 
 	file.open();
@@ -298,7 +298,7 @@ TEST(RAFTestGroup, fileWriteSyncError){
 	File* outFile = projectFolder.get(&name);
 	StackRelease<File> r_outFile(outFile);
 
-	DiskCacheManager diskCache(1);
+	DiskCacheManager diskCache(16525);
 	RandomAccessFile file(outFile, &diskCache);
 
 	file.open();
@@ -333,7 +333,7 @@ TEST(RAFTestGroup, getSegment){
 	File* outFile = projectFolder.get(&name);
 	StackRelease<File> r_outFile(outFile);
 
-	DiskCacheManager diskCache(1);
+	DiskCacheManager diskCache(16525);
 	RandomAccessFile file(outFile, &diskCache);
 
 	file.open();

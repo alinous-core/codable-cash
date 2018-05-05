@@ -115,7 +115,7 @@ int MMapSegment::writeBack(FileDescriptor& fd) {
 	return ret;
 }
 
-uint64_t MMapSegment::sigmentSize() const noexcept {
+uint64_t MMapSegment::segmentSize() const noexcept {
 	uint64_t size = sizeof(uint64_t) * 2
 			+ sizeof(uint8_t*) + this->mappedSize
 			+ sizeof(SynchronizedLock*) + SynchronizedLock::getObjectSize()
