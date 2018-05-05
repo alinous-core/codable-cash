@@ -42,20 +42,31 @@ void MMapSegments::clearElements(DiskCacheManager* diskManager, FileDescriptor& 
 	StackUnlocker stackLock(&this->lock);
 	cacheOutSegmentIndex();
 
+	// TODO: debug
+
 	int maxLoop = this->segIndex->size();
 	for(int i = 0; i != maxLoop; ++i){
+		printf("MMapSegments::clearElements 49 \n");::fflush(stdout);
 		RawLinkedList<MMapSegment>::Element* seg = this->segIndex->get(i);
+
+		printf("MMapSegments::clearElements 52 \n");::fflush(stdout);
 		if(seg != nullptr){
 			MMapSegment* data = seg->data;
+
+			printf("MMapSegments::clearElements 56 \n");::fflush(stdout);
 			diskManager->fireCacheRemoved(seg);
 
+			printf("MMapSegments::clearElements 59 \n");::fflush(stdout);
 			if(data->isDirty()){
 				data->writeBack(fd);
 			}
 
+			printf("MMapSegments::clearElements 64 \n");::fflush(stdout);
 			delete data;
 		}
 	}
+
+	printf("MMapSegments::clearElements end.. \n");::fflush(stdout);
 }
 
 uint64_t MMapSegments::getNumSegments(uint64_t fileSize, uint64_t segmentSize) const noexcept {
