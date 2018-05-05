@@ -15,6 +15,7 @@ namespace alinous {
 
 class SysThread {
 private:
+	SysThread(const SysThread& base) = delete;
 	explicit SysThread(const UnicodeString* name) noexcept;
 public:
 	static SysThread* createThread(const UnicodeString* name, SysThreadRoutine threadFunc, void* params) noexcept;
