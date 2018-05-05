@@ -389,7 +389,6 @@ TEST(RAFTestGroup, pagesizeChange){
 
 	delete [] buff;
 
-	uint64_t fpos = 12;
 	MMapSegment* seg = file.getSegment(fpos);
 	seg->decRefCount();
 
