@@ -64,7 +64,7 @@ TEST(RAFCacheOut, getSegmentCacheOut01){
 	File* outFile = projectFolder.get(&name);
 	StackRelease<File> r_outFile(outFile);
 
-	DiskCacheManager diskCache(1);
+	DiskCacheManager diskCache(16525);
 	RandomAccessFile file(outFile, &diskCache);
 
 	file.open(true);

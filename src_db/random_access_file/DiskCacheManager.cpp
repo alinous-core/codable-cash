@@ -16,6 +16,7 @@ namespace alinous {
 
 DiskCacheManager::DiskCacheManager(int maxCache) noexcept {
 	this->maxCache = maxCache;
+	this->currentSize = 0;
 }
 
 DiskCacheManager::~DiskCacheManager() noexcept{
@@ -30,7 +31,9 @@ void DiskCacheManager::fireCacheHit(RawLinkedList<MMapSegment>::Element* seg) no
 void DiskCacheManager::fireCacheRemoved(RawLinkedList<MMapSegment>::Element* seg) noexcept {
 	StackUnlocker locker(&this->lock);
 
+	MMapSegment* data = seg->data;
 	this->cache.remove(seg);
+	this->currentSize -= data->segmentSize();
 }
 
 RawLinkedList<MMapSegment>::Element* DiskCacheManager::registerCache(
@@ -38,7 +41,7 @@ RawLinkedList<MMapSegment>::Element* DiskCacheManager::registerCache(
 {
 	StackUnlocker locker(&this->lock);
 
-	if(this->maxCache <= this->cache.size()){
+	if(this->maxCache <= this->currentSize){
 		RawLinkedList<MMapSegment>::Element* outSeg = this->cache.getLastElement();
 
 		outSeg->data->waitForUnused();
@@ -47,15 +50,19 @@ RawLinkedList<MMapSegment>::Element* DiskCacheManager::registerCache(
 		outSeg->data->requestCacheOut();
 
 		MMapSegment* seg = this->cache.remove(this->cache.size() - 1);
-		delete seg;
+		this->currentSize -= outSeg->data->segmentSize();
+
+		delete seg; // means outSeg
 	}
 
 	RawLinkedList<MMapSegment>::Element* newElement = this->cache.add(0, newSeg);
+	this->currentSize += newSeg->segmentSize();
+
 	return newElement;
 }
 
 int DiskCacheManager::size() const noexcept {
-	return this->cache.size();
+	return this->currentSize;
 }
 
 } /* namespace alinous */

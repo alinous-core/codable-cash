@@ -31,6 +31,7 @@ public:
 protected:
 	RawLinkedList<MMapSegment> cache;
 	uint64_t maxCache;
+	uint64_t currentSize;
 	SysMutex lock;
 };
 
