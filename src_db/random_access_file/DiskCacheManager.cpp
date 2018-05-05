@@ -32,8 +32,8 @@ void DiskCacheManager::fireCacheRemoved(RawLinkedList<MMapSegment>::Element* seg
 	StackUnlocker locker(&this->lock);
 
 	MMapSegment* data = seg->data;
-	this->cache.remove(seg);
 	this->currentSize -= data->segmentSize();
+	this->cache.remove(seg);
 }
 
 RawLinkedList<MMapSegment>::Element* DiskCacheManager::registerCache(
@@ -52,6 +52,8 @@ RawLinkedList<MMapSegment>::Element* DiskCacheManager::registerCache(
 		this->currentSize -= segdata->segmentSize();
 
 		this->cache.remove(this->cache.size() - 1);
+
+		delete segdata;
 	}
 
 	RawLinkedList<MMapSegment>::Element* newElement = this->cache.add(0, newSeg);

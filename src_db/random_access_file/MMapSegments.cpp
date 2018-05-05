@@ -62,7 +62,8 @@ void MMapSegments::clearElements(DiskCacheManager* diskManager, FileDescriptor& 
 			}
 
 			printf("MMapSegments::clearElements 64 \n");::fflush(stdout);
-			delete data; printf("MMapSegments::clearElements after delete data \n");::fflush(stdout);
+			delete data;
+			printf("MMapSegments::clearElements after delete data \n");::fflush(stdout);
 		}
 	}
 

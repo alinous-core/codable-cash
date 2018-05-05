@@ -72,7 +72,7 @@ public:
 	}
 
 	void setElement(T* ptr, int index) noexcept {
-		assert((this->currentSize - 1) > index);
+		assert(this->numArray > index);
 
 		*(this->root + index) = ptr;
 	}
