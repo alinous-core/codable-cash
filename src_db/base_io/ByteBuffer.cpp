@@ -305,29 +305,67 @@ uint64_t ByteBuffer::getLong(int position) noexcept {
 }
 
 double ByteBuffer::getDouble() noexcept {
-	double val = *((double*)(this->data->getRoot() + this->pos));
+	uint8_t* ptr = this->data->getRoot() + this->pos;
+	uint8_t dest[8]{};
+
+	dest[0] = ptr[0];
+	dest[1] = ptr[1];
+	dest[2] = ptr[2];
+	dest[3] = ptr[3];
+	dest[4] = ptr[4];
+	dest[5] = ptr[5];
+	dest[6] = ptr[6];
+	dest[7] = ptr[7];
+
 	this->pos += sizeof(double);
 
-	return val;
+	return *(reinterpret_cast<double*>((void*)dest));
 }
 
 double ByteBuffer::getDouble(int position) noexcept {
-	double val = *((double*)(this->data->getRoot() + position));
+	uint8_t* ptr = this->data->getRoot() + position;
+	uint8_t dest[8]{};
 
-	return val;
+	dest[0] = ptr[0];
+	dest[1] = ptr[1];
+	dest[2] = ptr[2];
+	dest[3] = ptr[3];
+	dest[4] = ptr[4];
+	dest[5] = ptr[5];
+	dest[6] = ptr[6];
+	dest[7] = ptr[7];
+
+	this->pos += sizeof(double);
+
+	return *(reinterpret_cast<double*>((void*)dest));
 }
 
 float ByteBuffer::getFloat() noexcept {
-	float val = *((float*)(this->data->getRoot() + this->pos));
+	uint8_t* ptr = this->data->getRoot() + this->pos;
+	uint8_t dest[4]{};
+
+	dest[0] = ptr[0];
+	dest[1] = ptr[1];
+	dest[2] = ptr[2];
+	dest[3] = ptr[3];
+
 	this->pos += sizeof(float);
 
-	return val;
+	return *(reinterpret_cast<float*>((void*)dest));
 }
 
 float ByteBuffer::getFloat(int position) noexcept {
-	float val = *((float*)(this->data->getRoot() + position));
+	uint8_t* ptr = this->data->getRoot() + position;
+	uint8_t dest[4]{};
 
-	return val;
+	dest[0] = ptr[0];
+	dest[1] = ptr[1];
+	dest[2] = ptr[2];
+	dest[3] = ptr[3];
+
+	this->pos += sizeof(float);
+
+	return *(reinterpret_cast<float*>((void*)dest));
 }
 
 int32_t ByteBuffer::getInt() noexcept {
