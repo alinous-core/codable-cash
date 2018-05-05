@@ -367,5 +367,30 @@ TEST(RAFTestGroup, constructWithPagesize){
 	file.open();
 }
 
+TEST(RAFTestGroup, pagesizeChange){
+	File projectFolder = this->testenv.testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	DiskCacheManager diskCache(16525);
+	RandomAccessFile file(outFile, &diskCache, 256); // page size * 4 = 1024
+
+	file.open();
+
+	char* buff = new char[8];
+	uint64_t fpos = 12;
+	file.read(fpos, buff, 8);
+	file.read(fpos, buff, 8);
+
+	delete [] buff;
+
+	file.setLength(1024 + 64);
+
+
+}
+
 
 
