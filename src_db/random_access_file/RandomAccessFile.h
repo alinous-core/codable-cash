@@ -24,6 +24,7 @@ class RandomAccessFile {
 public:
 	RandomAccessFile(const RandomAccessFile& base) = delete;
 	RandomAccessFile(const File* file, DiskCacheManager* diskCacheManager) noexcept;
+	RandomAccessFile(const File* file, DiskCacheManager* diskCacheManager, uint64_t pageSize) noexcept;
 	virtual ~RandomAccessFile() noexcept;
 
 	void open(bool sync=false);

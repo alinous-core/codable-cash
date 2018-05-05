@@ -34,6 +34,16 @@ RandomAccessFile::RandomAccessFile(const File* file, DiskCacheManager* diskCache
 	this->pageSize = Os::getSystemPageSize();
 }
 
+RandomAccessFile::RandomAccessFile(const File* file, DiskCacheManager* diskCacheManager, uint64_t pageSize) noexcept {
+	this->position = 0;
+	this->fileSize = 0;
+	this->diskCacheManager = diskCacheManager;
+
+	this->file = new File(*file);
+	this->segments = nullptr;
+	this->pageSize = pageSize;
+}
+
 RandomAccessFile::~RandomAccessFile() noexcept {
 	close();
 	delete this->file;

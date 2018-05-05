@@ -353,5 +353,19 @@ TEST(RAFTestGroup, getSegment){
 	delete exp;
 }
 
+TEST(RAFTestGroup, constructWithPagesize){
+	File projectFolder = this->testenv.testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	DiskCacheManager diskCache(16525);
+	RandomAccessFile file(outFile, &diskCache, 256);
+
+	file.open();
+}
+
 
 
