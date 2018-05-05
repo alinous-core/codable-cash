@@ -384,10 +384,14 @@ TEST(RAFTestGroup, pagesizeChange){
 
 	char* buff = new char[8];
 	uint64_t fpos = 12;
-	//file.read(fpos, buff, 8);
+	file.read(fpos, buff, 8);
 	//file.read(fpos, buff, 8);
 
 	delete [] buff;
+
+	uint64_t fpos = 12;
+	MMapSegment* seg = file.getSegment(fpos);
+	seg->decRefCount();
 
 //	file.setLength(1024 + 64);
 
