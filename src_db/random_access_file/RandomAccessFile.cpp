@@ -73,9 +73,11 @@ void RandomAccessFile::close() noexcept {
 		return;
 	}
 
-	this->segments->clearElements(this->diskCacheManager, this->fd);
-	delete this->segments;
-	this->segments = nullptr;
+	if(this->segments != nullptr){
+		this->segments->clearElements(this->diskCacheManager, this->fd);
+		delete this->segments;
+		this->segments = nullptr;
+	}
 
 	Os::closeFileDescriptor(&this->fd);
 }
