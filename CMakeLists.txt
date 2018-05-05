@@ -7,7 +7,7 @@ add_subdirectory(src_ext)
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 	message(STATUS "Debug Build")
 		
-	set(CMAKE_CXX_FLAGS "-std=c++0x -D__cplusplus=201103L -fmessage-length=0 -g -O0 -coverage")
+	set(CMAKE_CXX_FLAGS "-std=c++0x -D__cplusplus=201103L -fmessage-length=0 -O3 -coverage")
 	set(CMAKE_C_FLAGS "-g -O0 -coverage -fprofile-arcs -ftest-coverage")
 	set(CMAKE_EXE_LINKER_FLAGS="-fprofile-arcs -ftest-coverage")
 	
@@ -16,7 +16,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 	
 	message(STATUS "Debug Build" ${CMAKE_CXX_FLAGS})
 elseif(CMAKE_BUILD_TYPE STREQUAL "ReleaseTest")
-	set(CMAKE_CXX_FLAGS "-std=c++0x -D__cplusplus=201103L -fmessage-length=0 -g3 -march=native -MMD -MP -MF")
+	set(CMAKE_CXX_FLAGS "-std=c++0x -D__cplusplus=201103L -fmessage-length=0 -g -march=native -MMD -MP -MF")
 else()
 	set(CMAKE_CXX_FLAGS "-std=c++0x -D__cplusplus=201103L -Wall -fmessage-length=0 -O3 -march=native -MMD -MP -MF")
 endif()
@@ -145,7 +145,7 @@ add_library(codablecashlib STATIC ${top_src} ${top_src_db})
 target_link_libraries(codablecashlib extlib pthread gmp)
 
 add_executable(codablecash ${srcmain})
-target_link_libraries(codablecash codablecashlib extlib pthread gmp)
+target_link_libraries(codablecash codablecashlib extlib pthread gmp ${CPPUTEST_LDFLAGS})
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest")
 	#

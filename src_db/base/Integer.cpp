@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "debug/debugMacros.h"
+//#include "debug/debugMacros.h"
 
 #include "base/Integer.h"
 
@@ -69,7 +69,7 @@ int Integer::parse(UnicodeString* string, int offset, int radix, bool negative)
 	}
 	if(!negative)
 	{
-		result = -result;
+		result = -1 * result;
 		if(result < 0)
 		{
 			throw new NumberFormatException(string, __FILE__, __LINE__);

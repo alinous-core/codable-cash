@@ -6,6 +6,7 @@
  */
 
 #include "CppUTest/CommandLineTestRunner.h"
+#include "CppUTest/MemoryLeakDetectorNewMacros.h"
 #include "test_utils/TestSetup.h"
 
 #include "random_access_file/RandomAccessFile.h"
