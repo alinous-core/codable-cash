@@ -9,6 +9,7 @@
 #define BASE_THREAD_SYNCHRONIZEDLOCK_H_
 
 #include <pthread.h>
+#include <inttypes.h>
 
 #include "base_thread/ILock.h"
 #include "base_thread/LockCondition.h"
@@ -25,6 +26,7 @@ public:
 	void wait();
 	void notifyAll();
 
+	static uint64_t getObjectSize() noexcept;
 
 protected:
 	LockCondition* cond;

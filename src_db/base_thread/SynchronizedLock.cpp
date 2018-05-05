@@ -39,4 +39,9 @@ void SynchronizedLock::notifyAll() {
 	::pthread_cond_broadcast(&this->cond->cond);
 }
 
+uint64_t SynchronizedLock::getObjectSize() noexcept {
+	uint64_t size = sizeof(LockCondition*) + sizeof(pthread_cond_t);
+	return size;
+}
+
 } /* namespace alinous */

@@ -42,7 +42,7 @@ public:
 
 	int writeBack(FileDescriptor& fd);
 
-
+	uint64_t sigmentSize() const noexcept;
 protected:
 	uint64_t mappedSize;
 	uint64_t position;

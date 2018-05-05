@@ -115,6 +115,15 @@ int MMapSegment::writeBack(FileDescriptor& fd) {
 	return ret;
 }
 
-} /* namespace alinous */
+uint64_t MMapSegment::sigmentSize() const noexcept {
+	uint64_t size = sizeof(uint64_t) * 2
+			+ sizeof(uint8_t*) + this->mappedSize
+			+ sizeof(SynchronizedLock*) + SynchronizedLock::getObjectSize()
+			+ sizeof(pthread_mutex_t)
+			+ sizeof(int) + sizeof(MMapSegments*) + sizeof(bool);
+	return size;
+}
 
+
+} /* namespace alinous */
 
