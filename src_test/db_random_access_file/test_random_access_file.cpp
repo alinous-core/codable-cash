@@ -385,7 +385,7 @@ TEST(RAFTestGroup, pagesizeChange){
 	char* buff = new char[8];
 	uint64_t fpos = 12;
 	file.read(fpos, buff, 8);
-	file.read(fpos, buff, 8);
+	//file.read(fpos, buff, 8);
 
 	delete [] buff;
 
