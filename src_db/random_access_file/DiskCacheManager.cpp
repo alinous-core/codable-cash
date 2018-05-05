@@ -43,16 +43,15 @@ RawLinkedList<MMapSegment>::Element* DiskCacheManager::registerCache(
 
 	if(this->maxCache <= this->currentSize){
 		RawLinkedList<MMapSegment>::Element* outSeg = this->cache.getLastElement();
+		MMapSegment* segdata = outSeg->data;
 
-		outSeg->data->waitForUnused();
+		segdata->waitForUnused();
 
 		// request delete from segment index
-		outSeg->data->requestCacheOut();
+		segdata->requestCacheOut();
+		this->currentSize -= segdata->segmentSize();
 
-		MMapSegment* seg = this->cache.remove(this->cache.size() - 1);
-		this->currentSize -= outSeg->data->segmentSize();
-
-		delete seg; // means outSeg
+		this->cache.remove(this->cache.size() - 1);
 	}
 
 	RawLinkedList<MMapSegment>::Element* newElement = this->cache.add(0, newSeg);
