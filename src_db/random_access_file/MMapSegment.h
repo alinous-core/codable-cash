@@ -41,6 +41,8 @@ public:
 	bool isDirty() const noexcept;
 
 	int writeBack(FileDescriptor& fd);
+
+
 protected:
 	uint64_t mappedSize;
 	uint64_t position;

@@ -30,7 +30,7 @@ public:
 	int size() const noexcept;
 protected:
 	RawLinkedList<MMapSegment> cache;
-	int maxCache;
+	uint64_t maxCache;
 	SysMutex lock;
 };
 
