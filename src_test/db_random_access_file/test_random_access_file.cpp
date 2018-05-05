@@ -391,6 +391,10 @@ TEST(RAFTestGroup, pagesizeChange){
 
 	file.setLength(1024 + 64);
 
+	printf("before close ");::fflush(stdout);
+
+	file.close();
+
 	printf("test ends ");::fflush(stdout);
 
 }
