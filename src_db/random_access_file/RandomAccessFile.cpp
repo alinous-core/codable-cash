@@ -73,19 +73,12 @@ void RandomAccessFile::close() noexcept {
 		return;
 	}
 
-	// TODO: debug
-
-	printf("RandomAccessFile::close() 78 \n");::fflush(stdout);
-
 	if(this->segments != nullptr){
 		this->segments->clearElements(this->diskCacheManager, this->fd);
-		printf("RandomAccessFile::close() 82 \n");::fflush(stdout);
 		delete this->segments;
-		printf("RandomAccessFile::close() 84 \n");::fflush(stdout);
 		this->segments = nullptr;
 	}
 
-	printf("RandomAccessFile::close() 88 \n");::fflush(stdout);
 	Os::closeFileDescriptor(&this->fd);
 }
 

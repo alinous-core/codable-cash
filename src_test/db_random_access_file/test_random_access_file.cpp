@@ -385,15 +385,15 @@ TEST(RAFTestGroup, pagesizeChange){
 
 	char* buff = new char[8];
 	uint64_t fpos = 12;
-	//file.read(fpos, buff, 8);
-	//file.read(fpos, buff, 8);
+	file.read(fpos, buff, 8);
+	file.read(fpos, buff, 8);
 
 	delete [] buff;
 
 	MMapSegment* seg = file.getSegment(fpos);
 	seg->decRefCount();
 
-//	file.setLength(1024 + 64);
+	file.setLength(1024 + 64);
 
 	printf("before close \n");::fflush(stdout);
 
