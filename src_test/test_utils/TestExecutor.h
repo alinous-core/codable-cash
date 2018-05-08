@@ -28,6 +28,7 @@ public:
 	int execute(int ac, char** av) noexcept;
 private:
 	void init(const char* prog) noexcept;
+	void execTest() noexcept;
 private:
 	HashMap<UnicodeString, TestGroup>* groups;
 	bool initialized;

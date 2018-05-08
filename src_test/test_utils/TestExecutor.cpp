@@ -7,7 +7,10 @@
 
 #include "test_utils/TestExecutor.h"
 #include "test_utils/TestGroup.h"
+#include "test_utils/TestParams.h"
 #include "base/UnicodeString.h"
+
+#include "osenv/funcs.h"
 
 namespace alinous {
 
@@ -35,6 +38,25 @@ int TestExecutor::execute(int ac, char** av) noexcept {
 		init(av[0]);
 	}
 
+	TestParams params;
+
+	try{
+		params.init(ac, av);
+	}catch(TestParamsException* ex){
+		printf("Wrong parameter...\n");
+		return -1;
+	}
+
+	printf("Start Testing...\n");
+
+	execTest();
+
+	printf("Testing Summary\n");
+
+	return 1;
+}
+
+void TestExecutor::execTest() noexcept {
 	auto* it = this->groups->keySet()->iterator();
 	while(it->hasNext()){
 		const UnicodeString* key = it->next();
@@ -42,7 +64,6 @@ int TestExecutor::execute(int ac, char** av) noexcept {
 
 		grp->execute();
 	}
-
 	delete it;
 }
 
@@ -55,5 +76,7 @@ void TestExecutor::init(const char* prog) noexcept {
 	}
 	delete it;
 }
+
+
 
 } /* namespace alinous */
