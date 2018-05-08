@@ -47,4 +47,8 @@ void TestGroup::execute() {
 	delete it;
 }
 
+UnicodeString* TestGroup::getName() const noexcept{
+	return this->groupName;
+}
+
 } /* namespace alinous */

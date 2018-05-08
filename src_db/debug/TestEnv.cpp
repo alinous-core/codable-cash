@@ -7,16 +7,52 @@
 
 #include "debug/TestEnv.h"
 #include "debug/TestCase.h"
+#include "debug/TestGroup.h"
 #include "debug/TestGroupActions.h"
+
+#include "base_io/File.h"
+#include "base/UnicodeString.h"
 
 namespace alinous {
 
+
+const UnicodeString* TestEnv::TEST_SEG() {
+	static UnicodeString str(L"test_out");
+	return &str;
+}
+
+
 TestEnv::TestEnv(TestCase* testCase) {
 	this->testCase = testCase;
-
+	this->baseDir = nullptr;
 }
+
+void TestEnv::init(const char* prog) noexcept {
+	UnicodeString path(prog);
+	File progFile(&path);
+
+	File* dir = progFile.getDirectory();
+
+	this->baseDir = dir->get(TEST_SEG());
+	delete dir;
+}
+
 
 TestEnv::~TestEnv() {
+	delete this->baseDir;
 }
+
+void TestEnv::setup() {
+	File *groupBase = this->baseDir->get(this->testCase->getGroup()->getName());
+}
+
+void TestEnv::teardown() {
+}
+
+File TestEnv::testCaseDir() {
+
+}
+
+
 
 } /* namespace alinous */

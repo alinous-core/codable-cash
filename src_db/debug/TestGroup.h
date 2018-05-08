@@ -26,9 +26,8 @@ public:
 	void addTestCase(UnicodeString* name, TestCase* testCase) noexcept;
 	virtual void execute();
 
-	UnicodeString* getName() const noexcept{
-		return this->groupName;
-	}
+	UnicodeString* getName() const noexcept;
+
 private:
 	UnicodeString* groupName;
 	HashMap<UnicodeString, TestCase>* tests;
