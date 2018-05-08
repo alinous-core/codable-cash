@@ -62,6 +62,10 @@ void TestExecutor::execTest(TestParams* params) noexcept {
 		const UnicodeString* key = it->next();
 		TestGroup* grp = this->groups->get(key);
 
+		if(params->skipGroup(grp->getName())){
+			continue;
+		}
+
 		grp->execute(params);
 	}
 	delete it;
