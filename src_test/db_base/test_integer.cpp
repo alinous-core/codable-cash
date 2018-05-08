@@ -103,27 +103,44 @@ public:
 
 TEST(IntegerTestGroup, parseIntError2){
 	UnicodeString strerror(L"-124");
-	UnicodeString strerror2(L"-1A24");
-	UnicodeString strerror3(L"FFFFFFFFFFFFFFFF");
-	UnicodeString strerror4(L"-FFFFFFFFFFFFFFFF");
-	UnicodeString strerror5(L"2147483648");
-	UnicodeString strerror6(L"1119");
 
 	TInteger::test_error2(&strerror, 0, 10, false);
 	TInteger::test_error2(&strerror, 0, 10, true);
+}
+
+TEST(IntegerTestGroup, parseIntError2_strerror2){
+	UnicodeString strerror2(L"-1A24");
+
 	TInteger::test_error2(&strerror2, 0, 10, true);
 	TInteger::test_error2(&strerror2, 0, 10, false);
+}
+
+TEST(IntegerTestGroup, parseIntError2_strerror3){
+	UnicodeString strerror3(L"FFFFFFFFFFFFFFFF");
+
 	TInteger::test_error2(&strerror3, 0, 16, false);
 	TInteger::test_error2(&strerror3, 0, 10, true);
+}
+
+TEST(IntegerTestGroup, parseIntError2_strerror4){
+	UnicodeString strerror4(L"-FFFFFFFFFFFFFFFF");
 
 	TInteger::test_error2(&strerror4, 0, 16, false);
 	TInteger::test_error2(&strerror4, 0, 10, true);
+}
+
+TEST(IntegerTestGroup, parseIntError2_strerror5){
+	//UnicodeString strerror5(L"2147483648");
+	UnicodeString strerror5(L"2147483649");
 
 	//TInteger::test_error2(&strerror5, 0, 10, true);
 	TInteger::test_error2(&strerror5, 0, 10, false);
+}
+
+TEST(IntegerTestGroup, parseIntError2_strerror6){
+	UnicodeString strerror6(L"1119");
 
 	TInteger::test_error2(&strerror6, 0, -10, false);
-
 }
 
 TEST(IntegerTestGroup, parseIntRaxixError){

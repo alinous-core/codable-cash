@@ -45,6 +45,7 @@ void MMapSegments::clearElements(DiskCacheManager* diskManager, FileDescriptor& 
 	int maxLoop = this->segIndex->size();
 	for(int i = 0; i != maxLoop; ++i){
 		RawLinkedList<MMapSegment>::Element* seg = this->segIndex->get(i);
+
 		if(seg != nullptr){
 			MMapSegment* data = seg->data;
 			diskManager->fireCacheRemoved(seg);

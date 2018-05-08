@@ -303,6 +303,8 @@ int Os::syncFile(const FileDescriptor* fd) noexcept {
 }
 
 void Os::closeFileDescriptor(FileDescriptor* fd) noexcept {
+	//printf("FD: %d", fd->fd);::fflush(stdout);
+
 	::close(fd->fd);
 	fd->fd = 0;
 }

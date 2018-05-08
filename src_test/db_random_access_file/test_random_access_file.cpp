@@ -6,6 +6,7 @@
  */
 
 #include "CppUTest/CommandLineTestRunner.h"
+#include "CppUTest/MemoryLeakDetectorNewMacros.h"
 #include "test_utils/TestSetup.h"
 
 #include "random_access_file/RandomAccessFile.h"
@@ -351,6 +352,55 @@ TEST(RAFTestGroup, getSegment){
 	}
 	CHECK(dynamic_cast<FileIOException*>(exp) != nullptr)
 	delete exp;
+}
+
+TEST(RAFTestGroup, constructWithPagesize){
+	File projectFolder = this->testenv.testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	DiskCacheManager diskCache(16525);
+	RandomAccessFile file(outFile, &diskCache, 256);
+
+	file.open();
+}
+
+TEST(RAFTestGroup, pagesizeChange){
+	File projectFolder = this->testenv.testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	printf("before DiskCacheManager\n");::fflush(stdout);
+
+	DiskCacheManager diskCache(16525);
+	RandomAccessFile file(outFile, &diskCache, 256); // page size * 4 = 1024
+
+	file.open();
+
+	char* buff = new char[8];
+	uint64_t fpos = 12;
+	file.read(fpos, buff, 8);
+	file.read(fpos, buff, 8);
+
+	delete [] buff;
+
+	MMapSegment* seg = file.getSegment(fpos);
+	seg->decRefCount();
+
+	file.setLength(1024 + 64);
+
+	printf("before close \n");::fflush(stdout);
+
+	file.close();
+
+	printf("test ends \n");::fflush(stdout);
+
 }
 
 
