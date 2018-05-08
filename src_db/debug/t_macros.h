@@ -12,6 +12,7 @@
 #include "debug/TestExecutor.h"
 #include "debug/TestGroup.h"
 #include "debug/TestCase.h"
+#include "debug/Check.h"
 
 #define _STR_L(str) L##str
 #define STR_L(str) _STR_L(#str)
@@ -37,5 +38,7 @@ public: \
 } grp##_##testName_inst(&grp_test_test_inst, STR_L(testName), new TestGroupSetup_##grp(), __FILE__, __LINE__); \
 void TestCase_##grp##_##testName::testBody()
 
+
+#define CHECK(cnd) addCheck(new Check(__FILE__, __LINE__))->checkCondition(cnd);
 
 #endif /* DEBUG_T_MACROS_H_ */

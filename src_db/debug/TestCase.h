@@ -8,27 +8,34 @@
 #ifndef DEBUG_TESTCASE_H_
 #define DEBUG_TESTCASE_H_
 
+#include "base/ArrayList.h"
+
 namespace alinous {
 
 class TestGroup;
 class TestGroupActions;
 class UnicodeString;
+class Check;
 
 class TestCase {
 public:
 	TestCase(const TestCase& base) = delete;
 	TestCase(TestGroup* group, const wchar_t* name, TestGroupActions* setup, const char* file, int line) noexcept;
 	virtual ~TestCase() noexcept;
+
 	virtual void testBody() = 0;
 	void doTest();
+
+	Check* addCheck(Check* check) noexcept;
 private:
 	TestGroup* group;
 	TestGroupActions* setup;
 
-public:
-	const char* file;
+	UnicodeString* file;
 	int line;
 	UnicodeString* name;
+
+	ArrayList<Check>* checks;
 
 };
 

@@ -29,8 +29,9 @@ public:
 	static CharsetManager* getInstance() noexcept;
 	static void closeInstance() noexcept;
 
-	static const UnicodeString UTF_8;
-	static const UnicodeString _UTF_8;
+
+	static const UnicodeString* UTF_8() noexcept;
+	static const UnicodeString* _UTF_8() noexcept;
 
 	CharsetConverter* getConverter(UnicodeString* charset) noexcept;
 private:

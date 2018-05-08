@@ -8,6 +8,7 @@
 #include "debug/TestCase.h"
 #include "debug/TestGroup.h"
 #include "debug/TestGroupActions.h"
+#include "debug/Check.h"
 #include "base/UnicodeString.h"
 
 namespace alinous {
@@ -16,8 +17,9 @@ TestCase::TestCase(TestGroup* group, const wchar_t* name, TestGroupActions* setu
 	this->group = group;
 	this->name = new UnicodeString(name);
 	this->setup = setup;
-	this->file = file;
+	this->file = new UnicodeString(file);
 	this->line = line;
+	this->checks = new ArrayList<Check>();
 
 	this->setup->setNames(group->getName(), this->name);
 
@@ -27,6 +29,10 @@ TestCase::TestCase(TestGroup* group, const wchar_t* name, TestGroupActions* setu
 TestCase::~TestCase() noexcept {
 	delete this->name;
 	delete this->setup;
+	delete this->file;
+
+	this->checks->deleteElements();
+	delete this->checks;
 }
 
 void TestCase::doTest() {
@@ -48,6 +54,11 @@ void TestCase::doTest() {
 	catch(...){
 
 	}
+}
+
+Check* TestCase::addCheck(Check* check) noexcept {
+	this->checks->addElement(check);
+	return check;
 }
 
 } /* namespace alinous */

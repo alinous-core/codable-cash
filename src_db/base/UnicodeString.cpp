@@ -54,7 +54,7 @@ UnicodeString::UnicodeString(const wchar_t* str, int cap) noexcept {
 }
 
 UnicodeString::UnicodeString(const char* str) noexcept {
-	UnicodeString utf8str(L"utf-8");
+	UnicodeString utf8str(CharsetManager::UTF_8());
 	CharsetConverter* cnv =  CharsetManager::getInstance()->getConverter(&utf8str);
 
 	int len = Mem::strlen(str) + 1;

@@ -1,5 +1,6 @@
 
 set(__src
+	Check.cpp
 	ErrorOccurrence.cpp
 	ErrorPointManager.cpp
 	TestCase.cpp
