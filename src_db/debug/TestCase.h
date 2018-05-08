@@ -30,6 +30,7 @@ public:
 	Check* addCheck(Check* check) noexcept;
 
 	const TestGroup* getGroup() const noexcept;
+	TestEnv* getEnv() noexcept;
 private:
 	TestGroup* group;
 	TestGroupActions* setup;

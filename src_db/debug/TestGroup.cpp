@@ -8,6 +8,7 @@
 #include "debug/TestGroup.h"
 #include "debug/TestExecutor.h"
 #include "debug/TestCase.h"
+#include "debug/TestEnv.h"
 #include "base/UnicodeString.h"
 #include "base/HashMap.h"
 
@@ -27,6 +28,19 @@ TestGroup::~TestGroup() noexcept {
 
 void TestGroup::addTestCase(UnicodeString* name, TestCase* testCase) noexcept {
 	this->tests->put(name, testCase);
+}
+
+void TestGroup::init(const char* prog) noexcept {
+	auto it = this->tests->keySet()->iterator();
+
+	while(it->hasNext()){
+		const UnicodeString* key = it->next();
+		TestCase* testCase = this->tests->get(key);
+
+		testCase->getEnv()->init(prog);
+	}
+
+	delete it;
 }
 
 void TestGroup::execute() {
@@ -52,3 +66,5 @@ UnicodeString* TestGroup::getName() const noexcept{
 }
 
 } /* namespace alinous */
+
+

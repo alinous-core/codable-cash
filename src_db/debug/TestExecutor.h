@@ -22,16 +22,15 @@ public:
 	TestExecutor();
 	virtual ~TestExecutor();
 
-	static TestExecutor* get() noexcept {
-		static TestExecutor testExecInst;
-
-		return &testExecInst;
-	}
+	static TestExecutor* get() noexcept;
 	void addGroup(UnicodeString* name, TestGroup* group) noexcept;
 
-	void execute() noexcept;
+	void execute(int ac, char** av) noexcept;
+private:
+	void init(const char* prog) noexcept;
 private:
 	HashMap<UnicodeString, TestGroup>* groups;
+	bool initialized;
 };
 
 

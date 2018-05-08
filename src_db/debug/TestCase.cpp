@@ -68,6 +68,9 @@ Check* TestCase::addCheck(Check* check) noexcept {
 const TestGroup* TestCase::getGroup() const noexcept {
 	return this->group;
 }
-
+TestEnv* TestCase::getEnv() noexcept {
+	return this->env;
+}
 
 } /* namespace alinous */
+

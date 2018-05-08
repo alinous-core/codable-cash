@@ -23,6 +23,8 @@ public:
 	explicit TestGroup(const wchar_t* groupName, const char* file, int line) noexcept;
 	virtual ~TestGroup() noexcept;
 
+	void init(const char* prog) noexcept;
+
 	void addTestCase(UnicodeString* name, TestCase* testCase) noexcept;
 	virtual void execute();
 
