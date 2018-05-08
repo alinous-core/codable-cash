@@ -16,6 +16,8 @@ TestCase::TestCase(TestGroup* group, const wchar_t* name, TestGroupActions* setu
 	this->group = group;
 	this->name = new UnicodeString(name);
 	this->setup = setup;
+
+	group->addTestCase(this->name, this);
 }
 
 TestCase::~TestCase() noexcept {

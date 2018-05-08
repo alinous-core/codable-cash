@@ -18,6 +18,7 @@ class TestGroup;
 
 class TestExecutor {
 public:
+	TestExecutor(const TestExecutor& base) = delete;
 	TestExecutor();
 	virtual ~TestExecutor();
 
