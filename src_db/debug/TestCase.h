@@ -23,8 +23,13 @@ public:
 	void doTest();
 private:
 	TestGroup* group;
-	UnicodeString* name;
 	TestGroupActions* setup;
+
+public:
+	const char* file;
+	int line;
+	UnicodeString* name;
+
 };
 
 } /* namespace alinous */

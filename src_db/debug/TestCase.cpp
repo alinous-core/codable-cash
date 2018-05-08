@@ -16,6 +16,10 @@ TestCase::TestCase(TestGroup* group, const wchar_t* name, TestGroupActions* setu
 	this->group = group;
 	this->name = new UnicodeString(name);
 	this->setup = setup;
+	this->file = file;
+	this->line = line;
+
+	this->setup->setNames(group->getName(), this->name);
 
 	group->addTestCase(this->name, this);
 }
