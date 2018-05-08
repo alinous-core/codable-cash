@@ -1,6 +1,6 @@
 
 #include "CppUTest/CommandLineTestRunner.h"
-#include "debug/TestExecutor.h"
+#include "test_utils/TestExecutor.h"
 
 const char* prog = nullptr;
 

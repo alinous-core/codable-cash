@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "debug/TestExecutor.h"
-#include "debug/TestGroup.h"
+#include "test_utils/TestExecutor.h"
+#include "test_utils/TestGroup.h"
 #include "base/UnicodeString.h"
 
 namespace alinous {
@@ -30,7 +30,7 @@ void TestExecutor::addGroup(UnicodeString* name, TestGroup* group) noexcept {
 	this->groups->put(name, group);
 }
 
-void TestExecutor::execute(int ac, char** av) noexcept {
+int TestExecutor::execute(int ac, char** av) noexcept {
 	if(!this->initialized){
 		init(av[0]);
 	}

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "debug/TestGroupActions.h"
+#include "test_utils/TestGroupActions.h"
 #include "base/UnicodeString.h"
 
 namespace alinous {

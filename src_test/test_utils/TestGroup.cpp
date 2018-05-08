@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "debug/TestGroup.h"
-#include "debug/TestExecutor.h"
-#include "debug/TestCase.h"
-#include "debug/TestEnv.h"
+#include "test_utils/TestGroup.h"
+#include "test_utils/TestExecutor.h"
+#include "test_utils/TestCase.h"
+#include "test_utils/TestEnv.h"
 #include "base/UnicodeString.h"
 #include "base/HashMap.h"
 

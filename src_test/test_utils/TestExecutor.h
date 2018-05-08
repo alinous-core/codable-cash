@@ -25,7 +25,7 @@ public:
 	static TestExecutor* get() noexcept;
 	void addGroup(UnicodeString* name, TestGroup* group) noexcept;
 
-	void execute(int ac, char** av) noexcept;
+	int execute(int ac, char** av) noexcept;
 private:
 	void init(const char* prog) noexcept;
 private:

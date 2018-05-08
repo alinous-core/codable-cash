@@ -8,12 +8,12 @@
 #ifndef DEBUG_T_MACROS_H_
 #define DEBUG_T_MACROS_H_
 
-#include "debug/TestGroupActions.h"
-#include "debug/TestExecutor.h"
-#include "debug/TestGroup.h"
-#include "debug/TestCase.h"
-#include "debug/Check.h"
-#include "debug/TestEnv.h"
+#include "test_utils/TestGroupActions.h"
+#include "test_utils/TestExecutor.h"
+#include "test_utils/TestGroup.h"
+#include "test_utils/TestCase.h"
+#include "test_utils/Check.h"
+#include "test_utils/TestEnv.h"
 
 #include "base_io/File.h"
 #include "base/UnicodeString.h"

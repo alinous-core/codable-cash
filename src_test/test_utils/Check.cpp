@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "debug/Check.h"
+#include "test_utils/Check.h"
 #include "base/UnicodeString.h"
 
 namespace alinous {
