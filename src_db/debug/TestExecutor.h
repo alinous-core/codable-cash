@@ -29,9 +29,8 @@ public:
 	}
 	void addGroup(UnicodeString* name, TestGroup* group) noexcept;
 
+	void execute() noexcept;
 private:
-
-
 	HashMap<UnicodeString, TestGroup>* groups;
 };
 
