@@ -25,4 +25,25 @@ TestCase::~TestCase() noexcept {
 	delete this->setup;
 }
 
+void TestCase::doTest() {
+
+	try{
+		this->setup->setup();
+	}catch(...){
+
+	}
+	try{
+		testBody();
+	}catch(...){
+
+	}
+
+	try{
+		this->setup->teardown();
+	}
+	catch(...){
+
+	}
+}
+
 } /* namespace alinous */

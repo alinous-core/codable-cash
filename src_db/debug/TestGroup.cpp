@@ -30,6 +30,21 @@ void TestGroup::addTestCase(UnicodeString* name, TestCase* testCase) noexcept {
 }
 
 void TestGroup::execute() {
+	auto it = this->tests->keySet()->iterator();
+
+	while(it->hasNext()){
+		const UnicodeString* key = it->next();
+		TestCase* testCase = this->tests->get(key);
+
+		try{
+			testCase->doTest();
+		}
+		catch(...){
+
+		}
+	}
+
+	delete it;
 }
 
 } /* namespace alinous */

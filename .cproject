@@ -25,10 +25,10 @@
 							<tool id="cdt.managedbuild.tool.gnu.archiver.base.1487368184" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
 							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.cpp.compiler.base.1466808468" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
 								<option id="gnu.cpp.compiler.option.include.paths.1181001750" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codable-cash/src_db}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codable-cash/src_ext}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codable-cash/src_test}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codable-cash/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/src_test}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/src_ext}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/src_db}&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.261417299" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__TEST_CPP_UNIT__=1"/>
@@ -36,12 +36,7 @@
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1249523948" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.c.compiler.base.273807524" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.base">
-								<option id="gnu.c.compiler.option.include.paths.1255063444" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codable-cash/src_db}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codable-cash/src_ext}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codable-cash/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codable-cash/src_test}&quot;"/>
-								</option>
+								<option id="gnu.c.compiler.option.include.paths.1255063444" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1750939571" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.base.638630983" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.base"/>
