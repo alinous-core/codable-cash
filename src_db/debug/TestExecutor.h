@@ -21,12 +21,19 @@ public:
 	TestExecutor();
 	virtual ~TestExecutor();
 
+	static TestExecutor* get() noexcept {
+		static TestExecutor testExecInst;
+
+		return &testExecInst;
+	}
 	void addGroup(UnicodeString* name, TestGroup* group) noexcept;
+
 private:
-	HashMap<UnicodeString, TestGroup> groups;
+
+
+	HashMap<UnicodeString, TestGroup>* groups;
 };
 
-extern TestExecutor testExecInst;
 
 
 } /* namespace alinous */
