@@ -17,6 +17,7 @@ class TestGroupActions;
 class UnicodeString;
 class Check;
 class TestEnv;
+class TestParams;
 
 class TestCase {
 public:
@@ -25,7 +26,7 @@ public:
 	virtual ~TestCase() noexcept;
 
 	virtual void testBody() = 0;
-	void doTest();
+	void doTest(TestParams* params);
 
 	Check* addCheck(Check* check) noexcept;
 

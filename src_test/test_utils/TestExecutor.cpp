@@ -66,6 +66,10 @@ void TestExecutor::execTest(TestParams* params) noexcept {
 			continue;
 		}
 
+		if(params->isV()){
+			printf("Testing Test Group : %ls\n", grp->getName()->towString());
+		}
+
 		grp->execute(params);
 	}
 	delete it;

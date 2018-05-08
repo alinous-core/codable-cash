@@ -52,7 +52,7 @@ void TestGroup::execute(TestParams* params) {
 
 		TestCase* testCase = this->tests->get(key);
 		try{
-			testCase->doTest();
+			testCase->doTest(params);
 		}
 		catch(...){
 

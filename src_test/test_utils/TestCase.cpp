@@ -10,6 +10,7 @@
 #include "test_utils/TestGroupActions.h"
 #include "test_utils/Check.h"
 #include "test_utils/TestEnv.h"
+#include "test_utils/TestParams.h"
 #include "base/UnicodeString.h"
 
 namespace alinous {
@@ -38,8 +39,8 @@ TestCase::~TestCase() noexcept {
 	delete this->checks;
 }
 
-void TestCase::doTest() {
-
+void TestCase::doTest(TestParams* params) {
+	const char* result = "OK";
 	try{
 		this->setup->setup();
 	}catch(...){
@@ -56,6 +57,13 @@ void TestCase::doTest() {
 	}
 	catch(...){
 
+	}
+
+	if(params->isV()){
+		printf("  %ls ... %s\n", this->name->towString(), result);
+	}
+	else{
+		printf(".");
 	}
 }
 
