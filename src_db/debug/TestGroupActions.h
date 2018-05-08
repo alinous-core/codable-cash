@@ -11,6 +11,7 @@
 namespace alinous {
 
 class UnicodeString;
+class TestEnv;
 
 class TestGroupActions {
 public:
@@ -21,9 +22,12 @@ public:
 	virtual void teardown();
 
 	void setNames(UnicodeString* testGroupName, UnicodeString* testCaseName) noexcept;
+	void setTestEnv(TestEnv* env) noexcept;
 protected:
 	UnicodeString* testCaseName;
 	UnicodeString* testGroupName;
+
+	TestEnv* env;
 };
 
 } /* namespace alinous */

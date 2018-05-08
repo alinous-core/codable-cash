@@ -16,6 +16,7 @@ class TestGroup;
 class TestGroupActions;
 class UnicodeString;
 class Check;
+class TestEnv;
 
 class TestCase {
 public:
@@ -27,6 +28,8 @@ public:
 	void doTest();
 
 	Check* addCheck(Check* check) noexcept;
+
+	const TestGroup* getGroup() const noexcept;
 private:
 	TestGroup* group;
 	TestGroupActions* setup;
@@ -37,6 +40,8 @@ private:
 
 	ArrayList<Check>* checks;
 
+protected:
+	TestEnv* env;
 };
 
 } /* namespace alinous */

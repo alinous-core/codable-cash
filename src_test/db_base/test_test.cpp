@@ -11,11 +11,16 @@
 using namespace alinous;
 
 TEST_GROUP(test_test){
-	TEST_SETUP{}
-	TEST_TEARDOWN{}
+	TEST_SETUP{
+
+	}
+	TEST_TEARDOWN{
+
+	}
 };
 
 TEST(test_test, test01){
+
 	int val = 10;
 
 	CHECK(val == 10);

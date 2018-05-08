@@ -4,6 +4,7 @@ set(__src
 	ErrorOccurrence.cpp
 	ErrorPointManager.cpp
 	TestCase.cpp
+	TestEnv.cpp
 	TestExecutor.cpp
 	TestGroup.cpp
 	TestGroupActions.cpp

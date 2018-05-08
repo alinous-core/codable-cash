@@ -13,6 +13,7 @@
 #include "debug/TestGroup.h"
 #include "debug/TestCase.h"
 #include "debug/Check.h"
+#include "debug/TestEnv.h"
 
 #define _STR_L(str) L##str
 #define STR_L(str) _STR_L(#str)

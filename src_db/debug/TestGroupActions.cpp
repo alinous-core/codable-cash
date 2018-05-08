@@ -13,6 +13,7 @@ namespace alinous {
 alinous::TestGroupActions::TestGroupActions() {
 	this->testCaseName = nullptr;
 	this->testGroupName = nullptr;
+	this->env = nullptr;
 }
 
 alinous::TestGroupActions::~TestGroupActions() {
@@ -27,9 +28,15 @@ void alinous::TestGroupActions::setup() {
 void alinous::TestGroupActions::teardown() {
 }
 
-} /* namespace alinous */
-
-void alinous::TestGroupActions::setNames(UnicodeString* testGroupName, UnicodeString* testCaseName) noexcept {
+void TestGroupActions::setNames(UnicodeString* testGroupName, UnicodeString* testCaseName) noexcept {
 	this->testCaseName = new UnicodeString(testCaseName);
 	this->testGroupName = new UnicodeString(testGroupName);
 }
+
+void TestGroupActions::setTestEnv(TestEnv* env) noexcept {
+	this->env = env;
+}
+
+} /* namespace alinous */
+
+
