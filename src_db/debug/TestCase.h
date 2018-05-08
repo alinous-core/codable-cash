@@ -31,6 +31,7 @@ public:
 
 	const TestGroup* getGroup() const noexcept;
 	TestEnv* getEnv() noexcept;
+	const UnicodeString* getName() const noexcept;
 private:
 	TestGroup* group;
 	TestGroupActions* setup;

@@ -8,12 +8,16 @@
 #ifndef DEBUG_T_MACROS_H_
 #define DEBUG_T_MACROS_H_
 
-#include <debug/TestGroupActions.h>
+#include "debug/TestGroupActions.h"
 #include "debug/TestExecutor.h"
 #include "debug/TestGroup.h"
 #include "debug/TestCase.h"
 #include "debug/Check.h"
 #include "debug/TestEnv.h"
+
+#include "base_io/File.h"
+#include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #define _STR_L(str) L##str
 #define STR_L(str) _STR_L(#str)

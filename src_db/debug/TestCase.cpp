@@ -71,6 +71,8 @@ const TestGroup* TestCase::getGroup() const noexcept {
 TestEnv* TestCase::getEnv() noexcept {
 	return this->env;
 }
-
+const UnicodeString* TestCase::getName() const noexcept {
+	return this->name;
+}
 } /* namespace alinous */
 
