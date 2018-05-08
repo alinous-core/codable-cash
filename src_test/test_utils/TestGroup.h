@@ -14,6 +14,7 @@ namespace alinous {
 class UnicodeString;
 class TestExecutor;
 class TestCase;
+class TestParams;
 template <typename K, typename V> class HashMap;
 
 class TestGroup {
@@ -26,7 +27,7 @@ public:
 	void init(const char* prog) noexcept;
 
 	void addTestCase(UnicodeString* name, TestCase* testCase) noexcept;
-	virtual void execute();
+	virtual void execute(TestParams* params);
 
 	UnicodeString* getName() const noexcept;
 

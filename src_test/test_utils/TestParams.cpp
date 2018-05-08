@@ -46,5 +46,20 @@ char* TestParams::nextParam(int* i, char** av, int length) {
 	return av[*i];
 }
 
+bool TestParams::skipGroup(const UnicodeString* grp) const noexcept {
+	int size = this->execGroups.size();
+	if(size == 0){
+		return false;
+	}
+
+	for(int i = 0; i != size; ++i){
+		UnicodeString* value = this->execGroups.get(i);
+		if(value->equals(grp)){
+			return false;
+		}
+	}
+	return true;
+}
+
 } /* namespace alinous */
 

@@ -49,20 +49,20 @@ int TestExecutor::execute(int ac, char** av) noexcept {
 
 	printf("Start Testing...\n");
 
-	execTest();
+	execTest(&params);
 
 	printf("Testing Summary\n");
 
 	return 1;
 }
 
-void TestExecutor::execTest() noexcept {
+void TestExecutor::execTest(TestParams* params) noexcept {
 	auto* it = this->groups->keySet()->iterator();
 	while(it->hasNext()){
 		const UnicodeString* key = it->next();
 		TestGroup* grp = this->groups->get(key);
 
-		grp->execute();
+		grp->execute(params);
 	}
 	delete it;
 }

@@ -9,6 +9,7 @@
 #include "test_utils/TestExecutor.h"
 #include "test_utils/TestCase.h"
 #include "test_utils/TestEnv.h"
+#include "test_utils/TestParams.h"
 #include "base/UnicodeString.h"
 #include "base/HashMap.h"
 
@@ -43,13 +44,17 @@ void TestGroup::init(const char* prog) noexcept {
 	delete it;
 }
 
-void TestGroup::execute() {
+void TestGroup::execute(TestParams* params) {
 	auto it = this->tests->keySet()->iterator();
 
 	while(it->hasNext()){
 		const UnicodeString* key = it->next();
-		TestCase* testCase = this->tests->get(key);
 
+		if(params->skipGroup(key)){
+			continue;
+		}
+
+		TestCase* testCase = this->tests->get(key);
 		try{
 			testCase->doTest();
 		}

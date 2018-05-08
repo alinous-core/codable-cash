@@ -21,6 +21,8 @@ public:
 	void init(int ac, char** av);
 	static char* nextParam(int* i, char** av, int length);
 
+	bool skipGroup(const UnicodeString* grp) const noexcept;
+private:
 	bool v;
 	ArrayList<UnicodeString, UnicodeString::ValueCompare> execGroups;
 };

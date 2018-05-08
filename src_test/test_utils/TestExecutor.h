@@ -15,6 +15,7 @@ namespace alinous {
 
 class UnicodeString;
 class TestGroup;
+class TestParams;
 
 class TestExecutor {
 public:
@@ -28,7 +29,7 @@ public:
 	int execute(int ac, char** av) noexcept;
 private:
 	void init(const char* prog) noexcept;
-	void execTest() noexcept;
+	void execTest(TestParams* params) noexcept;
 private:
 	HashMap<UnicodeString, TestGroup>* groups;
 	bool initialized;
