@@ -11,7 +11,7 @@
 
 namespace alinous {
 
-TestGroup::TestGroup(UnicodeString* groupName) noexcept {
+TestGroup::TestGroup(const wchar_t* groupName, const char* file, int line) noexcept {
 	this->groupName = new UnicodeString(groupName);
 }
 

@@ -8,6 +8,7 @@
 #ifndef DEBUG_T_MACROS_H_
 #define DEBUG_T_MACROS_H_
 
+#include <debug/TestGroupActions.h>
 #include "debug/TestExecutor.h"
 #include "debug/TestGroup.h"
 #include "debug/TestCase.h"

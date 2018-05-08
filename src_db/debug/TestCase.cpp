@@ -7,19 +7,20 @@
 
 #include "debug/TestCase.h"
 #include "debug/TestGroup.h"
+#include "debug/TestGroupActions.h"
 #include "base/UnicodeString.h"
 
 namespace alinous {
 
-TestCase::TestCase(TestGroup* group, UnicodeString* name) noexcept {
+TestCase::TestCase(TestGroup* group, const wchar_t* name, TestGroupActions* setup, const char* file, int line) noexcept {
 	this->group = group;
 	this->name = new UnicodeString(name);
-
+	this->setup = setup;
 }
 
 TestCase::~TestCase() noexcept {
-	delete this->group;
 	delete this->name;
+	delete this->setup;
 }
 
 } /* namespace alinous */

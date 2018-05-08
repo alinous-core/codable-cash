@@ -11,16 +11,18 @@
 namespace alinous {
 
 class TestGroup;
+class TestGroupActions;
 class UnicodeString;
 
 class TestCase {
 public:
-	TestCase(TestGroup* group, UnicodeString* name) noexcept;
+	TestCase(TestGroup* group, const wchar_t* name, TestGroupActions* setup, const char* file, int line) noexcept;
 	virtual ~TestCase() noexcept;
-
+	virtual void testBody() = 0;
 private:
 	TestGroup* group;
 	UnicodeString* name;
+	TestGroupActions* setup;
 };
 
 } /* namespace alinous */

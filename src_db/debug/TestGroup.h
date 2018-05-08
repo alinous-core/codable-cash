@@ -15,7 +15,7 @@ class UnicodeString;
 
 class TestGroup {
 public:
-	explicit TestGroup(UnicodeString* groupName) noexcept;
+	explicit TestGroup(const wchar_t* groupName, const char* file, int line) noexcept;
 	virtual ~TestGroup() noexcept;
 
 private:
