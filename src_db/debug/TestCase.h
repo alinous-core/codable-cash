@@ -16,6 +16,7 @@ class UnicodeString;
 
 class TestCase {
 public:
+	TestCase(const TestCase& base) = delete;
 	TestCase(TestGroup* group, const wchar_t* name, TestGroupActions* setup, const char* file, int line) noexcept;
 	virtual ~TestCase() noexcept;
 	virtual void testBody() = 0;

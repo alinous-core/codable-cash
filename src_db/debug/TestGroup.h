@@ -12,9 +12,12 @@
 namespace alinous {
 
 class UnicodeString;
+class TestExecutor;
 
 class TestGroup {
 public:
+	friend class TestExecutor;
+	TestGroup(const TestGroup& base) = delete;
 	explicit TestGroup(const wchar_t* groupName, const char* file, int line) noexcept;
 	virtual ~TestGroup() noexcept;
 

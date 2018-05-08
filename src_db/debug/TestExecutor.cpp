@@ -5,19 +5,24 @@
  *      Author: iizuka
  */
 
-#include <debug/TestExecutor.h>
+#include "debug/TestExecutor.h"
+
+#include "base/UnicodeString.h"
 
 namespace alinous {
 
 TestExecutor testExecInst;
 
 TestExecutor::TestExecutor() {
-	// TODO Auto-generated constructor stub
-
 }
 
 TestExecutor::~TestExecutor() {
-	// TODO Auto-generated destructor stub
+	auto it = this->groups.keySet()->iterator();
+
+
+}
+
+void TestExecutor::addGroup(UnicodeString* name, TestGroup* group) noexcept {
 }
 
 } /* namespace alinous */
