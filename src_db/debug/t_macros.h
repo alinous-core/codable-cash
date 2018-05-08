@@ -18,15 +18,24 @@
 
 
 #define TEST_GROUP(grp) \
-class grp : public TestGroup { \
+class GRP_##grp : public TestGroup { \
 public: \
-	grp(const wchar_t* groupName) : TestGroup(groupName){ \
-	}\
-	virtual ~grp(){ \
-	} \
-} grp##_inst(STR_L(grp));
+	GRP_##grp(const wchar_t* groupName, const char* file, int line) : TestGroup(groupName, file, line){} \
+	virtual ~GRP_##grp(){} \
+} grp_##grp##_inst(STR_L(grp), __FILE__, __LINE__); \
+struct TestGroupSetup_test_test : public TestGroupActions
 
+#define TEST_SETUP virtual void setup()
+#define TEST_TEARDOWN virtual void teardown()
 
+#define TEST(grp, testName) \
+class TestCase_##grp##_##testName : TestCase { \
+public: \
+	TestCase_##grp##_##testName(TestGroup* group, const wchar_t* name, TestGroupActions* setup, const char* file, int line) : TestCase(group, name, setup, file, line){} \
+	virtual ~TestCase_##grp##_##testName(){} \
+	virtual void testBody(); \
+} grp##_##testName_inst(&grp_test_test_inst, L"test01_test", new TestGroupSetup_test_test(), __FILE__, __LINE__); \
+void TestCase_##grp##_##testName::testBody()
 
 
 #endif /* DEBUG_T_MACROS_H_ */

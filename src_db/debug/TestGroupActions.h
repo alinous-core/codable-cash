@@ -12,7 +12,8 @@ namespace alinous {
 
 class TestGroupActions {
 public:
-	virtual ~TestGroupActions(){}
+	TestGroupActions();
+	virtual ~TestGroupActions();
 	virtual void setup();
 	virtual void teardown();
 };

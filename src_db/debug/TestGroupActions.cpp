@@ -5,14 +5,23 @@
  *      Author: iizuka
  */
 
-#include <debug/TestGroupActions.h>
+#include "debug/TestGroupActions.h"
 
 namespace alinous {
 
-} /* namespace alinous */
+alinous::TestGroupActions::TestGroupActions() {
+}
+
+alinous::TestGroupActions::~TestGroupActions() {
+}
+
 
 void alinous::TestGroupActions::setup() {
 }
 
 void alinous::TestGroupActions::teardown() {
 }
+
+} /* namespace alinous */
+
+
