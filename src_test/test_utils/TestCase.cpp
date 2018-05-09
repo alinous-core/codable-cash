@@ -24,6 +24,10 @@ TestCase::TestCase(TestGroup* group, const wchar_t* name, TestGroupActions* setu
 	this->checks = new ArrayList<Check>();
 	this->env = new TestEnv(this);
 
+	this->done = false;
+	this->failed = false;
+	this->millisec = 0;
+
 	this->setup->setNames(group->getName(), this->name);
 	this->setup->setTestEnv(this->env);
 
@@ -41,26 +45,39 @@ TestCase::~TestCase() noexcept {
 
 void TestCase::doTest(TestParams* params) {
 	const char* result = "OK";
+
+	setDone();
 	try{
 		this->setup->setup();
 	}catch(...){
-
+		setFailed();
+		if(params->isV()){
+			printf("  %ls [%ls at %d]... failed in setup()\n", this->name->towString(), this->file->towString(), getLine());
+		}
+		return;
 	}
 	try{
 		testBody();
 	}catch(...){
-
+		setFailed();
+		if(params->isV()){
+			printf("  !!!!! %ls [%ls at %d]... failed. Exception was thrown on test body.\n", this->name->towString(), this->file->towString(), getLine());
+		}
 	}
 
 	try{
 		this->setup->teardown();
 	}
 	catch(...){
-
+		setFailed();
+		if(params->isV()){
+			printf("  !!!!! %ls [%ls at %d]... failed in teardown()\n", this->name->towString(), this->file->towString(), getLine());
+		}
+		return;
 	}
 
 	if(params->isV()){
-		printf("  %ls ... %s\n", this->name->towString(), result);
+		printf("  %ls() [%ls at %d]... %s\n", this->name->towString(), this->file->towString(), getLine(),result);
 	}
 	else{
 		printf(".");
@@ -82,5 +99,30 @@ TestEnv* TestCase::getEnv() noexcept {
 const UnicodeString* TestCase::getName() const noexcept {
 	return this->name;
 }
+
+const UnicodeString* TestCase::getFile() const noexcept {
+	return this->file;
+}
+
+const int TestCase::getLine() const noexcept {
+	return this->line;
+}
+
+bool TestCase::isDone() const noexcept {
+	return this->done;
+}
+
+void TestCase::setDone() noexcept {
+	this->done = true;
+}
+
+bool TestCase::isFailed() const noexcept {
+	return this->failed;
+}
+
+void TestCase::setFailed() noexcept {
+	this->failed = true;
+}
+
 } /* namespace alinous */
 

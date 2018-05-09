@@ -15,6 +15,7 @@ class UnicodeString;
 class TestExecutor;
 class TestCase;
 class TestParams;
+class TestSummary;
 template <typename K, typename V> class HashMap;
 
 class TestGroup {
@@ -28,6 +29,7 @@ public:
 
 	void addTestCase(UnicodeString* name, TestCase* testCase) noexcept;
 	virtual void execute(TestParams* params);
+	void summaryTest(TestSummary* summary) noexcept;
 
 	UnicodeString* getName() const noexcept;
 

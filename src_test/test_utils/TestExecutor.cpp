@@ -8,6 +8,7 @@
 #include "test_utils/TestExecutor.h"
 #include "test_utils/TestGroup.h"
 #include "test_utils/TestParams.h"
+#include "test_utils/TestSummary.h"
 #include "base/UnicodeString.h"
 
 #include "osenv/funcs.h"
@@ -53,6 +54,9 @@ int TestExecutor::execute(int ac, char** av) noexcept {
 
 	printf("Testing Summary\n");
 
+	TestSummary summary;
+	summaryTest(&summary);
+
 	return 1;
 }
 
@@ -85,6 +89,15 @@ void TestExecutor::init(const char* prog) noexcept {
 	delete it;
 }
 
+void TestExecutor::summaryTest(TestSummary* summary) noexcept {
+	auto* it = this->groups->keySet()->iterator();
+	while(it->hasNext()){
+		const UnicodeString* key = it->next();
+		TestGroup* grp = this->groups->get(key);
 
+		grp->summaryTest(summary);
+	}
+	delete it;
+}
 
 } /* namespace alinous */

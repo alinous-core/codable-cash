@@ -33,6 +33,14 @@ public:
 	const TestGroup* getGroup() const noexcept;
 	TestEnv* getEnv() noexcept;
 	const UnicodeString* getName() const noexcept;
+
+	const UnicodeString* getFile() const noexcept;
+	const int getLine() const noexcept;
+
+	bool isDone() const noexcept;
+	void setDone() noexcept;
+	bool isFailed() const noexcept;
+	void setFailed() noexcept;
 private:
 	TestGroup* group;
 	TestGroupActions* setup;
@@ -42,6 +50,9 @@ private:
 	UnicodeString* name;
 
 	ArrayList<Check>* checks;
+	bool done;
+	bool failed;
+	int millisec;
 
 protected:
 	TestEnv* env;

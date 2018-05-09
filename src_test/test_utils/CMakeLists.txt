@@ -9,6 +9,7 @@ set(testsrc
 	TestGroup.cpp
 	TestGroupActions.cpp
 	TestParams.cpp
+	TestSummary.cpp
 )
 handle_sub(testall "${testsrc}" test test_utils)
 

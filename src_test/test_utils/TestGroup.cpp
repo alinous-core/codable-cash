@@ -10,6 +10,7 @@
 #include "test_utils/TestCase.h"
 #include "test_utils/TestEnv.h"
 #include "test_utils/TestParams.h"
+#include "test_utils/TestSummary.h"
 #include "base/UnicodeString.h"
 #include "base/HashMap.h"
 
@@ -60,6 +61,10 @@ void TestGroup::execute(TestParams* params) {
 	}
 
 	delete it;
+}
+
+void TestGroup::summaryTest(TestSummary* summary) noexcept {
+
 }
 
 UnicodeString* TestGroup::getName() const noexcept{
