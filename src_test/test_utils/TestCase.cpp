@@ -88,6 +88,11 @@ void TestCase::doTest(TestParams* params) {
 	}
 
 	if(params->isV()){
+		if(isFailed()){
+			result = "Failed!!!!!!!!!!!";
+		}else{
+			result = "OK";
+		}
 		double milli = ((double)this->microsec) / (double)1000;
 		printf("  %ls() [%ls at %d]... %s(%lf ms)\n", this->name->towString(), this->file->towString(), getLine(), result, milli);
 	}

@@ -40,7 +40,7 @@ public: \
 	TestCase_##grp##_##testName(TestGroup* group, const wchar_t* name, TestGroupActions* setup, const char* file, int line) : TestCase(group, name, setup, file, line){} \
 	virtual ~TestCase_##grp##_##testName(){} \
 	virtual void testBody(); \
-} grp##_##testName_inst(&grp_test_test_inst, STR_L(testName), new TestGroupSetup_##grp(), __FILE__, __LINE__); \
+} grp##_##testName##_inst(&grp_test_test_inst, STR_L(testName), new TestGroupSetup_##grp(), __FILE__, __LINE__); \
 void TestCase_##grp##_##testName::testBody()
 
 

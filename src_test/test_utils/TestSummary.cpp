@@ -68,7 +68,36 @@ void TestSummary::echoSummary() const noexcept {
 
 	if(this->failedTest != 0){
 		printf("Failure Report\n");
+		echoFailureSummary();
 	}
+}
+
+void TestSummary::echoFailureSummary() const noexcept {
+	auto it = this->failedTests->keySet()->iterator();
+	while(it->hasNext()){
+		const UnicodeString* group = it->next();
+		ArrayList<TestCase>* failedCases = this->failedTests->get(group);
+
+		printf("  %ls\n", group->towString());
+
+		int maxLoop = failedCases->size();
+		for(int i = 0; i != maxLoop; ++i){
+			TestCase* failedCase = failedCases->get(i);
+			printf("    %ls(%ls at %d)\n", failedCase->getName()->towString(), failedCase->getFile()->towString(), failedCase->getLine());
+
+			ArrayList<Check>* checkList = failedCase->getChecks();
+			int checkSize = checkList->size();
+			for(int j = 0; j != checkSize; ++j){
+				Check* chk = checkList->get(j);
+				if(chk->isOk()){
+					continue;
+				}
+				printf("      Check at %d\n", chk->getLine());
+			}
+		}
+	}
+
+	delete it;
 }
 
 void TestSummary::analyzeChecks(ArrayList<Check>* checkList) noexcept{

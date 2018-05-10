@@ -32,4 +32,9 @@ TEST(test_test, test01){
 	CHECK(val == 10);
 }
 
+TEST(test_test, test02){
+	int val = 10;
+	CHECK(val != 10);
+}
+
 

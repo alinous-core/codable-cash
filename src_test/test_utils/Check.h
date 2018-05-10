@@ -21,6 +21,10 @@ public:
 	void checkCondition(bool condition) noexcept;
 	bool isOk() const noexcept;
 
+	int getLine() const {
+		return line;
+	}
+
 protected:
 	bool ok;
 	UnicodeString* file;
