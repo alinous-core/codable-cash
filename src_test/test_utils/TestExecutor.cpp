@@ -40,7 +40,6 @@ int TestExecutor::execute(int ac, char** av) noexcept {
 	}
 
 	TestParams params;
-
 	try{
 		params.init(ac, av);
 	}catch(TestParamsException* ex){
@@ -49,13 +48,20 @@ int TestExecutor::execute(int ac, char** av) noexcept {
 	}
 
 	printf("Start Testing...\n");
+	uint64_t start, end;
 
+	start = Os::getMicroSec();
 	execTest(&params);
-
-	printf("Testing Summary\n");
+	end = Os::getMicroSec();
 
 	TestSummary summary;
 	summaryTest(&summary);
+
+	printf("Testing Summary\n");
+	summary.echoSummary();
+
+	double milli = ((double)end-(double)start) / (double)1000;
+	printf("Testing Duration : %.3lf ms\n", milli);
 
 	return 1;
 }

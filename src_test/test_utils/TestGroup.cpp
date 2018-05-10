@@ -69,7 +69,7 @@ void TestGroup::summaryTest(TestSummary* summary) noexcept {
 	while(it->hasNext()){
 		const UnicodeString* key = it->next();
 		TestCase* testCase = this->tests->get(key);
-
+		summary->analyze(testCase);
 	}
 
 	delete it;

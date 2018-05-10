@@ -23,6 +23,7 @@ public:
 	virtual ~TestSummary() noexcept;
 
 	void analyze(TestCase* testCase) noexcept;
+	void echoSummary() const noexcept;
 private:
 	ArrayList<TestCase>* getGroupCaseList(const UnicodeString* grp) noexcept;
 	void analyzeChecks(ArrayList<Check>* checkList) noexcept;

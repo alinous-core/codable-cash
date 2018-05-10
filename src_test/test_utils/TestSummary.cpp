@@ -60,6 +60,17 @@ void alinous::TestSummary::analyze(TestCase* testCase) noexcept {
 	analyzeChecks(checkList);
 }
 
+void TestSummary::echoSummary() const noexcept {
+	float percent = ((float)this->successedTest / (float)this->totalTests) * 100;
+
+	printf("  %.2lf%% success (Total : %d, Success %d, Failed %d)\n", percent, this->totalTests, this->successedTest, this->failedTest);
+	printf("  Checks(success : %d, failed :%d)\n", this->successedcheck, this->failedcheck);
+
+	if(this->failedTest != 0){
+		printf("Failure Report\n");
+	}
+}
+
 void TestSummary::analyzeChecks(ArrayList<Check>* checkList) noexcept{
 	int maxLoop = checkList->size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -70,9 +81,7 @@ void TestSummary::analyzeChecks(ArrayList<Check>* checkList) noexcept{
 		}else{
 			this->failedcheck++;
 		}
-
 	}
-
 }
 
 ArrayList<TestCase>* TestSummary::getGroupCaseList(const UnicodeString* grp) noexcept {
