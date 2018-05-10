@@ -16,11 +16,16 @@ Writer::~Writer() {
 Writer::Writer() {
 }
 
-void Writer::write(wchar_t* cbuf, int size) {
+
+void Writer::write(const wchar_t* cbuf) {
+	int size = Mem::wstrlen(cbuf);
+	write(cbuf, size);
+}
+void Writer::write(const wchar_t* cbuf, int size) {
 	write(cbuf, 0, size);
 }
 
-void Writer::write(UnicodeString* str) {
+void Writer::write(const UnicodeString* str) {
 	write(str, 0, str->length());
 }
 

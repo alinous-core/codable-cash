@@ -18,6 +18,7 @@ class UnicodeString;
 class Check;
 class TestEnv;
 class TestParams;
+class Writer;
 
 class TestCase {
 public:
@@ -43,6 +44,7 @@ public:
 	void setFailed() noexcept;
 
 	ArrayList<Check>* getChecks() const noexcept;
+	void exportJUnitXML(Writer* writer) const;
 
 private:
 	TestGroup* group;

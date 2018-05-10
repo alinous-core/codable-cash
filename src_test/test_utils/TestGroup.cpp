@@ -14,6 +14,7 @@
 #include "base/UnicodeString.h"
 #include "base/HashMap.h"
 
+#include "base_io_stream/Writer.h"
 namespace alinous {
 
 TestGroup::TestGroup(const wchar_t* groupName, const char* file, int line) noexcept {
@@ -77,6 +78,33 @@ void TestGroup::summaryTest(TestSummary* summary) noexcept {
 
 UnicodeString* TestGroup::getName() const noexcept{
 	return this->groupName;
+}
+
+void TestGroup::exportJUnitXML(Writer* writer) const {
+	TestSummary summary;
+	auto it = this->tests->keySet()->iterator();
+	while(it->hasNext()){
+		const UnicodeString* key = it->next();
+		TestCase* testCase = this->tests->get(key);
+		summary.analyze(testCase);
+	}
+
+	delete it;
+
+	UnicodeString testSuite(L"  <testsuite failures=\"");
+	testSuite.append(summary.getFailedTest())->append(L"\" hostname=\"localhost\" name=\"")
+			->append(this->groupName)->append(L"\" tests=\"")->append(summary.getTotalTests())->append(L"\"")->append(L">\n");
+	writer->write(&testSuite);
+
+	it = this->tests->keySet()->iterator();
+	while(it->hasNext()){
+		const UnicodeString* key = it->next();
+		TestCase* testCase = this->tests->get(key);
+
+		testCase->exportJUnitXML(writer);
+	}
+
+	writer->write(L"  </testsuite>\n");
 }
 
 } /* namespace alinous */

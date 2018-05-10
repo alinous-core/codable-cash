@@ -17,6 +17,7 @@ class TestCase;
 class TestParams;
 class TestSummary;
 template <typename K, typename V> class HashMap;
+class Writer;
 
 class TestGroup {
 public:
@@ -30,6 +31,7 @@ public:
 	void addTestCase(UnicodeString* name, TestCase* testCase) noexcept;
 	virtual void execute(TestParams* params);
 	void summaryTest(TestSummary* summary) noexcept;
+	void exportJUnitXML(Writer* writer) const;
 
 	UnicodeString* getName() const noexcept;
 

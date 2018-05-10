@@ -28,6 +28,8 @@ public:
 	void addGroup(UnicodeString* name, TestGroup* group) noexcept;
 
 	int execute(int ac, char** av) noexcept;
+
+	void exporJUnitXML() const;
 private:
 	void init(const char* prog) noexcept;
 	void execTest(TestParams* params) noexcept;

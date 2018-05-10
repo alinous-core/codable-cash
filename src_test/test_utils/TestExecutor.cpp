@@ -13,6 +13,11 @@
 
 #include "osenv/funcs.h"
 
+#include "base_io/File.h"
+#include "base_io_stream/FileOutputStream.h"
+#include "base_io_stream/exceptions.h"
+
+#include "base_io_stream/OutputStreamWriter.h"
 namespace alinous {
 
 TestExecutor::TestExecutor() {
@@ -63,6 +68,8 @@ int TestExecutor::execute(int ac, char** av) noexcept {
 	double milli = ((double)end-(double)start) / (double)1000;
 	printf("Testing Duration : %.3lf ms\n", milli);
 
+	exporJUnitXML();
+
 	return 1;
 }
 
@@ -95,6 +102,39 @@ void TestExecutor::init(const char* prog) noexcept {
 		grp->init(prog);
 	}
 	delete it;
+}
+
+void TestExecutor::exporJUnitXML() const {
+	UnicodeString path(L"junit.xml");
+	File file(&path);
+
+	FileOutputStream* stream = nullptr;
+	OutputStreamWriter* writer = nullptr;
+	try{
+		stream = new FileOutputStream(&file);
+		stream->open(false);
+
+		writer = new OutputStreamWriter(stream);
+
+		writer->write(L"<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
+		writer->write(L"<testsuite name=\"CPP Program Test All\">\n");
+
+		auto* it = this->groups->keySet()->iterator();
+		while(it->hasNext()){
+			const UnicodeString* key = it->next();
+			TestGroup* grp = this->groups->get(key);
+
+			grp->exportJUnitXML(writer);
+		}
+		delete it;
+
+		writer->write(L"</testsuite>\n");
+
+		writer->close();
+	}
+	catch(Exception* exp){
+		delete exp;
+	}
 }
 
 void TestExecutor::summaryTest(TestSummary* summary) noexcept {

@@ -36,18 +36,22 @@ void OutputStreamWriter::flush() {
 	this->out->flush();
 }
 
-void OutputStreamWriter::write(wchar_t* cbuf, int size) {
+void OutputStreamWriter::write(const wchar_t* cbuf) {
+	Writer::write(cbuf);
+}
+
+void OutputStreamWriter::write(const wchar_t* cbuf, int size) {
 	Writer::write(cbuf, size);
 }
 
-void OutputStreamWriter::write(wchar_t* cbuf, int off, int len) {
+void OutputStreamWriter::write(const wchar_t* cbuf, int off, int len) {
 	UnicodeString* outStr = new UnicodeString(cbuf);
 	StackRelease<UnicodeString> r_outStr(outStr);
 
 	write(outStr, off, len);
 }
 
-void OutputStreamWriter::write(UnicodeString* str, int off, int len) {
+void OutputStreamWriter::write(const UnicodeString* str, int off, int len) {
 	UnicodeString* outStr = str->substring(off, len);
 	StackRelease<UnicodeString> r_outStr(outStr);
 
@@ -56,7 +60,7 @@ void OutputStreamWriter::write(UnicodeString* str, int off, int len) {
 	this->out->write(c_str, length);
 }
 
-void OutputStreamWriter::write(UnicodeString* str) {
+void OutputStreamWriter::write(const UnicodeString* str) {
 	Writer::write(str);
 }
 

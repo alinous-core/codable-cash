@@ -24,6 +24,17 @@ public:
 
 	void analyze(TestCase* testCase) noexcept;
 	void echoSummary() const noexcept;
+
+	int getFailedTest() const {
+		return failedTest;
+	}
+	int getSuccessedTest() const {
+		return successedTest;
+	}
+	int getTotalTests() const {
+		return totalTests;
+	}
+
 private:
 	ArrayList<TestCase>* getGroupCaseList(const UnicodeString* grp) noexcept;
 	void analyzeChecks(ArrayList<Check>* checkList) noexcept;
