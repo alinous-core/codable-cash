@@ -44,6 +44,6 @@ public: \
 void TestCase_##grp##_##testName::testBody()
 
 
-#define CHECK(cnd) addCheck(new Check(__FILE__, __LINE__))->checkCondition(cnd);
+#define CHECK(cnd) addCheck(new Check(env->getTestCase(), __FILE__, __LINE__))->checkCondition(cnd);
 
 #endif /* DEBUG_T_MACROS_H_ */

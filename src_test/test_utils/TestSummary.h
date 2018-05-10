@@ -13,11 +13,19 @@
 
 namespace alinous {
 
+class TestCase;
+class UnicodeString;
+class Check;
+
 class TestSummary {
 public:
-	TestSummary();
-	virtual ~TestSummary();
+	TestSummary() noexcept;
+	virtual ~TestSummary() noexcept;
 
+	void analyze(TestCase* testCase) noexcept;
+private:
+	ArrayList<TestCase>* getGroupCaseList(const UnicodeString* grp) noexcept;
+	void analyzeChecks(ArrayList<Check>* checkList) noexcept;
 private:
 	int totalTests;
 	int successedTest;
@@ -26,7 +34,7 @@ private:
 	int failedcheck;
 
 	// failed
-
+	HashMap<UnicodeString, ArrayList<TestCase>>* failedTests;
 };
 
 } /* namespace alinous */

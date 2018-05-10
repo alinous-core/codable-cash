@@ -124,5 +124,9 @@ void TestCase::setFailed() noexcept {
 	this->failed = true;
 }
 
+ArrayList<Check>* TestCase::getChecks() const noexcept {
+	return this->checks;
+}
+
 } /* namespace alinous */
 

@@ -64,7 +64,15 @@ void TestGroup::execute(TestParams* params) {
 }
 
 void TestGroup::summaryTest(TestSummary* summary) noexcept {
+	auto it = this->tests->keySet()->iterator();
 
+	while(it->hasNext()){
+		const UnicodeString* key = it->next();
+		TestCase* testCase = this->tests->get(key);
+
+	}
+
+	delete it;
 }
 
 UnicodeString* TestGroup::getName() const noexcept{

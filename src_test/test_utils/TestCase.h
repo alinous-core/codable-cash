@@ -41,6 +41,9 @@ public:
 	void setDone() noexcept;
 	bool isFailed() const noexcept;
 	void setFailed() noexcept;
+
+	ArrayList<Check>* getChecks() const noexcept;
+
 private:
 	TestGroup* group;
 	TestGroupActions* setup;

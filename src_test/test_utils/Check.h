@@ -10,19 +10,22 @@
 
 namespace alinous {
 class UnicodeString;
+class TestCase;
 
 class Check {
 public:
 	Check(const Check& base) = delete;
-	Check(const char* file, int line);
+	Check(TestCase* testCase, const char* file, int line);
 	virtual ~Check();
 
 	void checkCondition(bool condition) noexcept;
+	bool isOk() const noexcept;
 
 protected:
 	bool ok;
 	UnicodeString* file;
 	int line;
+	TestCase* testCase;
 };
 
 } /* namespace alinous */

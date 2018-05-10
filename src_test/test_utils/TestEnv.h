@@ -31,6 +31,11 @@ public:
 	File testCaseDir();
 
 	static const UnicodeString* TEST_SEG();
+
+	TestCase* getTestCase() const {
+		return testCase;
+	}
+
 private:
 	File* baseDir;
 
