@@ -55,7 +55,7 @@ private:
 	ArrayList<Check>* checks;
 	bool done;
 	bool failed;
-	int millisec;
+	uint64_t microsec;
 
 protected:
 	TestEnv* env;

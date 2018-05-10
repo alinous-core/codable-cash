@@ -13,6 +13,11 @@
 #include "test_utils/TestParams.h"
 #include "base/UnicodeString.h"
 
+#include <chrono>
+
+#include "osenv/funcs.h"
+using namespace std::chrono;
+
 namespace alinous {
 
 TestCase::TestCase(TestGroup* group, const wchar_t* name, TestGroupActions* setup, const char* file, int line) noexcept {
@@ -26,7 +31,7 @@ TestCase::TestCase(TestGroup* group, const wchar_t* name, TestGroupActions* setu
 
 	this->done = false;
 	this->failed = false;
-	this->millisec = 0;
+	this->microsec = 0;
 
 	this->setup->setNames(group->getName(), this->name);
 	this->setup->setTestEnv(this->env);
@@ -56,14 +61,20 @@ void TestCase::doTest(TestParams* params) {
 		}
 		return;
 	}
+
+	uint64_t start, end;
 	try{
+		start = Os::getMicroSec();
 		testBody();
+		end = Os::getMicroSec();
 	}catch(...){
+		end = Os::getMicroSec();
 		setFailed();
 		if(params->isV()){
 			printf("  !!!!! %ls [%ls at %d]... failed. Exception was thrown on test body.\n", this->name->towString(), this->file->towString(), getLine());
 		}
 	}
+	this->microsec = end - start;
 
 	try{
 		this->setup->teardown();
@@ -77,7 +88,8 @@ void TestCase::doTest(TestParams* params) {
 	}
 
 	if(params->isV()){
-		printf("  %ls() [%ls at %d]... %s\n", this->name->towString(), this->file->towString(), getLine(),result);
+		double milli = ((double)this->microsec) / (double)1000;
+		printf("  %ls() [%ls at %d]... %s(%lf ms)\n", this->name->towString(), this->file->towString(), getLine(), result, milli);
 	}
 	else{
 		printf(".");
