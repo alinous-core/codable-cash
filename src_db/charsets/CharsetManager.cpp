@@ -56,7 +56,7 @@ void CharsetManager::closeInstance() noexcept {
 	}
 }
 
-CharsetConverter* CharsetManager::getConverter(UnicodeString* charset) noexcept {
+CharsetConverter* CharsetManager::getConverter(const UnicodeString* charset) noexcept {
 	UnicodeString* ucharset = charset->toLowerCase();
 	StackRelease<UnicodeString> r_ucharset(ucharset);
 

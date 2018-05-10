@@ -215,14 +215,17 @@ UnicodeString* UnicodeString::replace(wchar_t last, wchar_t next) const noexcept
 	return retStr;
 }
 
-
 const char* UnicodeString::toCString() const {
+	UnicodeString utf8(L"utf-8");
+	return toCString(&utf8);
+}
+const char* UnicodeString::toCString(const UnicodeString* charset) const {
 	CharBuffer* in = CharBuffer::wrap(this);
 	ByteBuffer* out = ByteBuffer::allocate(this->length() * 2 + 1);
-	UnicodeString utf8(L"utf-8");
+
 
 	CharsetManager* mgr = CharsetManager::getInstance();
-	CharsetConverter* cnv = mgr->getConverter(&utf8);
+	CharsetConverter* cnv = mgr->getConverter(charset);
 
 	CharsetEncoder* encoder = cnv->newEncoder();
 	encoder->encodeLoop(in ,out);

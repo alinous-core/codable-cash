@@ -33,7 +33,7 @@ public:
 	static const UnicodeString* UTF_8() noexcept;
 	static const UnicodeString* _UTF_8() noexcept;
 
-	CharsetConverter* getConverter(UnicodeString* charset) noexcept;
+	CharsetConverter* getConverter(const UnicodeString* charset) noexcept;
 private:
 	static CharsetManager* instance;
 	HashMap<UnicodeString, CharsetConverter>* charConverters;
