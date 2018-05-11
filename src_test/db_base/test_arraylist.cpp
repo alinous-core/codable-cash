@@ -7,7 +7,7 @@
 
 
 #include <stdio.h>
-#include "CppUTest/CommandLineTestRunner.h"
+#include "test_utils/t_macros.h"
 
 #include "base/ArrayList.h"
 #include "base/Integer.h"
@@ -136,7 +136,9 @@ void isSorted(ArrayList<Integer, Integer::ValueCompare>* ptr){
 		Integer* pInt = ptr->get(i);
 
 		if(last){
-			CHECK(last->compareTo(pInt) <= 0);
+			if(!(last->compareTo(pInt) <= 0)){
+				throw -1;
+			}
 		}
 
 		//printf("%d\n", pInt->value);

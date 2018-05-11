@@ -22,7 +22,9 @@ MMapSegment::MMapSegment(uint64_t mappedSize, uint64_t position, MMapSegments* p
 	this->position = position;
 	this->parent = parent;
 	this->dirty = false;
-	this->buffer = new uint8_t[this->mappedSize];
+	this->buffer = new char[this->mappedSize];
+
+	Mem::memset(this->buffer, 0, this->mappedSize);
 }
 
 MMapSegment::~MMapSegment() {
@@ -70,13 +72,13 @@ void MMapSegment::loadData(FileDescriptor& fd) {
 
 	ERROR_POINT(L"MMapSegment::loadData::02")
 
-	ret = Os::readFile(&fd, (char*)this->buffer, this->mappedSize);
+	ret = Os::readFile(&fd, this->buffer, this->mappedSize);
 	if(ret != this->mappedSize){
 		throw new FileIOException(__FILE__, __LINE__);
 	}
 }
 
-uint8_t* MMapSegment::getPtr(uint64_t offset) const noexcept {
+char* MMapSegment::getPtr(uint64_t offset) const noexcept {
 	assert(offset < this->mappedSize);
 	return this->buffer + offset;
 }

@@ -13,7 +13,7 @@ pushd target
 cmake -DCMAKE_BUILD_TYPE=Debug ..
 
 make all
-# make test #ARGS='-V'
-# make report
+#make test #ARGS='-V'
+#make report
 
 popd

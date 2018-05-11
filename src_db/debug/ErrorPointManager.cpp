@@ -15,7 +15,6 @@
 
 namespace alinous {
 
-ErrorPointManager* ErrorPointManager::inst;
 
 ErrorPointManager::ErrorPointManager() : current(nullptr) {
 	this->occurences = new HashMap<UnicodeString, ErrorOccurrence>();
@@ -35,22 +34,18 @@ void ErrorPointManager::clear() {
 
 		delete occurrence;
 	}
+
+	this->occurences->clear();
+	this->current = nullptr;
 }
 
 
 ErrorPointManager* ErrorPointManager::getInstance() noexcept {
-	if(inst == nullptr){
-		inst = new ErrorPointManager();
-	}
-	return inst;
+	static ErrorPointManager inst;
+
+	return &inst;
 }
 
-void ErrorPointManager::closeInstance() noexcept {
-	if(inst != nullptr){
-		delete inst;
-		inst = nullptr;
-	}
-}
 
 void ErrorPointManager::activatePoint(const wchar_t* pointName,
 		const wchar_t* occurrenceName, int errorCount) noexcept

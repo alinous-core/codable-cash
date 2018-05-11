@@ -1,4 +1,6 @@
 target/
 ext/
 .cccc/
+junit.xml
+
 

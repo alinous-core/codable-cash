@@ -2,7 +2,5 @@
 
 
 pushd target
-
-
-valgrind ./testall -v -gRAFTestGroup
+make valgrind
 popd

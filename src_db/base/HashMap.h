@@ -28,6 +28,10 @@ public:
 		delete this->hashMapKeySet;
 	}
 
+	void clear() noexcept {
+		this->hashMapKeySet->clear();
+	}
+
 	V* put(const K* key, V* value) noexcept {
 		return this->hashMapKeySet->addElement(key, value);
 	}

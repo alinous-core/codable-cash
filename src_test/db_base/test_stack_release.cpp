@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "CppUTest/CommandLineTestRunner.h"
+#include "test_utils/t_macros.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"

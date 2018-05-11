@@ -14,7 +14,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <fcntl.h>
-
+#include <time.h>
 
 
 #include "base/UnicodeString.h"
@@ -61,6 +61,13 @@ void Os::usleep(uint32_t microsec) noexcept {
 	::usleep(microsec);
 }
 
+uint64_t Os::getMicroSec() noexcept {
+	struct timespec startTime;
+	clock_gettime(CLOCK_REALTIME, &startTime);
+
+	uint64_t microsec = startTime.tv_sec * 1000000 + (startTime.tv_nsec / 1000);
+	return microsec;
+}
 
 /**************************************************************************
  * File functions
@@ -322,4 +329,5 @@ uint64_t Os::getSystemPageSize() noexcept {
 
 
 }
+
 

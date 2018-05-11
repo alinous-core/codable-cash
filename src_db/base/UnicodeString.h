@@ -41,6 +41,7 @@ public:
 	UnicodeString* replace(wchar_t last, wchar_t next) const noexcept;
 
 	const char* toCString() const;
+	const char* toCString(const UnicodeString* charset) const;
 	const wchar_t* towString() const noexcept;
 	const wchar_t* c_str(){ return towString(); }
 

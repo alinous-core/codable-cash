@@ -6,10 +6,12 @@
  */
 
 #include <iostream>
-#include "CppUTest/CommandLineTestRunner.h"
 #include <gmp.h>
 
 #include "yescrypt/yescrypt.h"
+#include "test_utils/t_macros.h"
+
+using namespace alinous;
 
 #define YESCRYPT_N 2048
 #define YESCRYPT_R 8

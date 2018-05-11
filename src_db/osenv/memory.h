@@ -22,6 +22,7 @@ namespace alinous {
 class Mem {
 public:
 	static void* memcpy(void *__restrict __dest, const void *__restrict __src, size_t __n) noexcept;
+	static void* memset(void *__s, int __c, size_t __n) noexcept;
 	static size_t strlen (const char *__s) noexcept;
 	static wchar_t toupper (int ch) noexcept;
 	static int wcscmp(const wchar_t *__s1, const wchar_t *__s2) noexcept;

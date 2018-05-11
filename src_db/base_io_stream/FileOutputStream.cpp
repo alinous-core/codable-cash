@@ -60,7 +60,9 @@ void FileOutputStream::open(bool sync) {
 }
 
 void FileOutputStream::close() {
-	Os::closeFileDescriptor(&this->fd);
+	if(this->fd.isOpened()){
+		Os::closeFileDescriptor(&this->fd);
+	}
 }
 
 void FileOutputStream::write(const char* buffer, int size) {

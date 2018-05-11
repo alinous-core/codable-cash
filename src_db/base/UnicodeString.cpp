@@ -54,7 +54,7 @@ UnicodeString::UnicodeString(const wchar_t* str, int cap) noexcept {
 }
 
 UnicodeString::UnicodeString(const char* str) noexcept {
-	UnicodeString utf8str(L"utf-8");
+	UnicodeString utf8str(CharsetManager::UTF_8());
 	CharsetConverter* cnv =  CharsetManager::getInstance()->getConverter(&utf8str);
 
 	int len = Mem::strlen(str) + 1;
@@ -215,14 +215,17 @@ UnicodeString* UnicodeString::replace(wchar_t last, wchar_t next) const noexcept
 	return retStr;
 }
 
-
 const char* UnicodeString::toCString() const {
+	UnicodeString utf8(L"utf-8");
+	return toCString(&utf8);
+}
+const char* UnicodeString::toCString(const UnicodeString* charset) const {
 	CharBuffer* in = CharBuffer::wrap(this);
 	ByteBuffer* out = ByteBuffer::allocate(this->length() * 2 + 1);
-	UnicodeString utf8(L"utf-8");
+
 
 	CharsetManager* mgr = CharsetManager::getInstance();
-	CharsetConverter* cnv = mgr->getConverter(&utf8);
+	CharsetConverter* cnv = mgr->getConverter(charset);
 
 	CharsetEncoder* encoder = cnv->newEncoder();
 	encoder->encodeLoop(in ,out);
@@ -309,6 +312,10 @@ bool UnicodeString::endsWith(const UnicodeString* str) const noexcept {
 	const int length = str->length();
 	int pos = this->length() - 1;
 	int posTarget = length - 1;
+
+	if(length > this->length()){
+		return false;
+	}
 
 	for(int i = 0; i != length; ++i){
 		if(this->charAt(pos--) != str->charAt(posTarget--)){

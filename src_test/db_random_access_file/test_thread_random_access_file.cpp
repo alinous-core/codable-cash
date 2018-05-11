@@ -5,8 +5,7 @@
  *      Author: iizuka
  */
 
-#include "CppUTest/CommandLineTestRunner.h"
-#include "test_utils/TestSetup.h"
+#include "test_utils/t_macros.h"
 
 #include "random_access_file/RandomAccessFile.h"
 #include "random_access_file/DiskCacheManager.h"
@@ -17,17 +16,16 @@
 
 #include "osenv/funcs.h"
 
+#include "test_utils/TestBreak.h"
 using namespace alinous;
 
 
 TEST_GROUP(RAFCacheOut) {
-	TestSetup testenv;
-
 	TEST_SETUP() {
-		testenv.setup();
+		env->setup();
 	}
 	TEST_TEARDOWN() {
-		testenv.teardown();
+		env->teardown();
 	}
 };
 
@@ -57,7 +55,7 @@ private:
 
 
 TEST(RAFCacheOut, getSegmentCacheOut01){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 	UnicodeString name(L"out.bin");

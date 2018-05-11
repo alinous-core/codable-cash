@@ -25,7 +25,6 @@ public:
 	virtual ~ErrorPointManager();
 
 	static ErrorPointManager* getInstance() noexcept;
-	static void closeInstance() noexcept;
 
 	void activatePoint(const wchar_t* pointName, const wchar_t* occurrenceName, int errorCount) noexcept;
 	void activatePoint(const wchar_t* pointName, ErrorOccurrence* occurrence) noexcept;
@@ -34,8 +33,6 @@ public:
 
 	void clear();
 protected:
-	static ErrorPointManager* inst;
-
 	HashMap<UnicodeString, ErrorOccurrence>* occurences;
 	ErrorOccurrence* current;
 };

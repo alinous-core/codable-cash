@@ -101,6 +101,7 @@ public:
 		auto it = this->list->iterator();
 		while(it.hasNext()){
 			HashMapInternalElement<K,V>* obj = it.next();
+			delete obj->key;
 			delete obj;
 		}
 

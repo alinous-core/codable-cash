@@ -6,7 +6,7 @@
  */
 
 
-#include "CppUTest/CommandLineTestRunner.h"
+#include "test_utils/t_macros.h"
 
 #include "charsets/CharsetManager.h"
 #include "charsets/CharsetDecoder.h"
@@ -24,19 +24,18 @@ using namespace alinous;
 
 TEST_GROUP(CharsetTestGroup2) {
 	TEST_SETUP() {
-		CharsetManager* mgr = CharsetManager::getInstance();
-		UnicodeString charset(L"utf-8");
-		CharsetConverter* cnv = mgr->getConverter(&charset);
-		dec = cnv->newDecoder();
 	}
 	TEST_TEARDOWN() {
 		CharsetManager::closeInstance();
 	}
 
-	CharsetDecoder* dec;
+
 };
 
 TEST(CharsetTestGroup2, decodeMalform5){
+	UnicodeString charset(L"utf-8");
+	CharsetDecoder* dec = CharsetManager::getInstance()->getConverter(&charset)->newDecoder();
+
 	ByteBuffer* bin = ByteBuffer::allocate(32);
 	CharBuffer* cout = CharBuffer::allocate(16);
 
@@ -51,6 +50,9 @@ TEST(CharsetTestGroup2, decodeMalform5){
 }
 
 TEST(CharsetTestGroup2, decodeUnderFlow){
+	UnicodeString charset(L"utf-8");
+	CharsetDecoder* dec = CharsetManager::getInstance()->getConverter(&charset)->newDecoder();
+
 	ByteBuffer* bin = ByteBuffer::allocate(32);
 	CharBuffer* cout = CharBuffer::allocate(1);
 
@@ -66,6 +68,9 @@ TEST(CharsetTestGroup2, decodeUnderFlow){
 }
 
 TEST(CharsetTestGroup2, decodeMalform){
+	UnicodeString charset(L"utf-8");
+	CharsetDecoder* dec = CharsetManager::getInstance()->getConverter(&charset)->newDecoder();
+
 	ByteBuffer* bin = ByteBuffer::allocate(32);
 	CharBuffer* cout = CharBuffer::allocate(1);
 
@@ -80,6 +85,9 @@ TEST(CharsetTestGroup2, decodeMalform){
 }
 
 TEST(CharsetTestGroup2, decodeMalform2){
+	UnicodeString charset(L"utf-8");
+	CharsetDecoder* dec = CharsetManager::getInstance()->getConverter(&charset)->newDecoder();
+
 	ByteBuffer* bin = ByteBuffer::allocate(32);
 	CharBuffer* cout = CharBuffer::allocate(1);
 
@@ -94,6 +102,9 @@ TEST(CharsetTestGroup2, decodeMalform2){
 }
 
 TEST(CharsetTestGroup2, decodeMalform3){
+	UnicodeString charset(L"utf-8");
+	CharsetDecoder* dec = CharsetManager::getInstance()->getConverter(&charset)->newDecoder();
+
 	ByteBuffer* bin = ByteBuffer::allocate(32);
 	CharBuffer* cout = CharBuffer::allocate(1);
 
@@ -109,6 +120,9 @@ TEST(CharsetTestGroup2, decodeMalform3){
 }
 
 TEST(CharsetTestGroup2, decodeMalform4){
+	UnicodeString charset(L"utf-8");
+	CharsetDecoder* dec = CharsetManager::getInstance()->getConverter(&charset)->newDecoder();
+
 	ByteBuffer* bin = ByteBuffer::allocate(32);
 	CharBuffer* cout = CharBuffer::allocate(16);
 
@@ -124,6 +138,9 @@ TEST(CharsetTestGroup2, decodeMalform4){
 }
 
 TEST(CharsetTestGroup2, decodeOverFlow){
+	UnicodeString charset(L"utf-8");
+	CharsetDecoder* dec = CharsetManager::getInstance()->getConverter(&charset)->newDecoder();
+
 	ByteBuffer* bin = ByteBuffer::allocate(32);
 	CharBuffer* cout = CharBuffer::allocate(1);
 
@@ -138,6 +155,9 @@ TEST(CharsetTestGroup2, decodeOverFlow){
 }
 
 TEST(CharsetTestGroup2, decodeOverFlow2){
+	UnicodeString charset(L"utf-8");
+	CharsetDecoder* dec = CharsetManager::getInstance()->getConverter(&charset)->newDecoder();
+
 	ByteBuffer* bin = ByteBuffer::allocate(32);
 	CharBuffer* cout = CharBuffer::allocate(1);
 
@@ -152,6 +172,9 @@ TEST(CharsetTestGroup2, decodeOverFlow2){
 }
 
 TEST(CharsetTestGroup2, decodeOverFlow3){
+	UnicodeString charset(L"utf-8");
+	CharsetDecoder* dec = CharsetManager::getInstance()->getConverter(&charset)->newDecoder();
+
 	ByteBuffer* bin = ByteBuffer::allocate(32);
 	CharBuffer* cout = CharBuffer::allocate(1);
 

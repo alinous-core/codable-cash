@@ -18,8 +18,15 @@
 namespace alinous {
 
 CharsetManager* CharsetManager::instance = nullptr;
-const UnicodeString CharsetManager::UTF_8(L"utf-8");
-const UnicodeString CharsetManager::_UTF_8(L"utf_8");
+
+const UnicodeString* CharsetManager::UTF_8() noexcept {
+	static UnicodeString str(L"utf-8");
+	return &str;
+}
+const UnicodeString* CharsetManager::_UTF_8() noexcept {
+	static UnicodeString str(L"utf_8");
+	return &str;
+}
 
 CharsetManager::CharsetManager() : charConverters(new HashMap<UnicodeString, CharsetConverter>()),
 		__charConverters(new ArrayList<CharsetConverter>()){
@@ -49,7 +56,7 @@ void CharsetManager::closeInstance() noexcept {
 	}
 }
 
-CharsetConverter* CharsetManager::getConverter(UnicodeString* charset) noexcept {
+CharsetConverter* CharsetManager::getConverter(const UnicodeString* charset) noexcept {
 	UnicodeString* ucharset = charset->toLowerCase();
 	StackRelease<UnicodeString> r_ucharset(ucharset);
 
@@ -63,9 +70,9 @@ CharsetConverter* CharsetManager::getConverter(UnicodeString* charset) noexcept 
 	}
 
 
-	if(ucharset->equals(&UTF_8) || altcharset->equals(&_UTF_8)){
+	if(ucharset->equals(UTF_8()) || altcharset->equals(_UTF_8())){
 		conv = new UTF_8Converter();
-		this->charConverters->put(&UTF_8, conv);
+		this->charConverters->put(UTF_8(), conv);
 		this->__charConverters->addElement(conv);
 
 		return conv;

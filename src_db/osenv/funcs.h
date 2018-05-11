@@ -13,6 +13,8 @@
 
 #include <stdlib.h>
 #include <pthread.h>
+#include <stdint.h>
+
 
 namespace alinous {
 
@@ -54,6 +56,8 @@ public:
 	static void joinThread(THREAD_ID id) noexcept;
 
 	static void usleep(uint32_t microsec) noexcept;
+
+	static uint64_t getMicroSec() noexcept;
 
 	/**************************************************************************
 	 * File functions

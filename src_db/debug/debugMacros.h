@@ -12,7 +12,6 @@
 #include <assert.h>
 
 #ifdef __TEST_CPP_UNIT__
-#include "CppUTest/MemoryLeakDetectorNewMacros.h"
 #include "debug/ErrorPointManager.h"
 
 #define ERROR_POINT(pointName) ErrorPointManager::getInstance()->reachPoint(pointName);

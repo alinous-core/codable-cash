@@ -17,8 +17,10 @@ template <typename K,typename V>
 class HashMapInternalElement {
 public:
 	HashMapInternalElement(const HashMapInternalElement& inst) = default;
-
 	HashMapInternalElement(const K* k, V* v)  : key(k), value(v){}
+	~HashMapInternalElement(){
+	}
+
 	const K* key;
 	V* value;
 	int hashCode() const  {
@@ -100,7 +102,7 @@ public:
 
 	void reset() noexcept {
 		for(int i = 0; i != MAX_HASH; i++){
-			arrays[i].reset();
+			arrays[i]->reset();
 		}
 		bitset.clear();
 		numElements = 0;

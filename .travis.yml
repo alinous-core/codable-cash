@@ -10,23 +10,20 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - gcc-4.9
-      - g++-4.9
+      - gcc-7
+      - g++-7
       - cmake
       - yasm
       - lcov
     env: BUILD_SYSTEM=cmake C_COMPILER=gcc CXX_COMPILER=g++
 before_install:
-  - export CC="gcc-4.9"
-  - export CXX="g++-4.9"
+  - export CC="gcc-7"
+  - export CXX="g++-7"
   - sudo apt-get -qq update
   - sudo apt-get install -y libgmp-dev
-  - sudo ./traviscpputest.sh
   - pip install --user cpp-coveralls
 script: ./travisbuild.sh
 after_success:
-#    - pushd target && ls -la && ./testall -v -p -gRAFTestGroup && popd
-#    - pushd target && make report && popd
 #    - coveralls --root . -E ".*/src_ext/*" -E ".*src_test*" -E "target" -E ".*CMakeFiles.*"
 notifications:
   email:
