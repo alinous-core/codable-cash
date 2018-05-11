@@ -9,7 +9,6 @@
 
 #include "base_thread/StackUnlocker.h"
 
-#include "CppUTest/CommandLineTestRunner.h"
 
 namespace alinous {
 
