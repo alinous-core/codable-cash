@@ -137,6 +137,9 @@ void TestExecutor::exporJUnitXML() const {
 	catch(Exception* exp){
 		delete exp;
 	}
+
+	delete writer;
+	delete stream;
 }
 
 void TestExecutor::summaryTest(TestSummary* summary) noexcept {

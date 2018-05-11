@@ -58,6 +58,8 @@ void OutputStreamWriter::write(const UnicodeString* str, int off, int len) {
 	const char* c_str = outStr->toCString();
 	int length = Mem::strlen(c_str);
 	this->out->write(c_str, length);
+
+	delete [] c_str;
 }
 
 void OutputStreamWriter::write(const UnicodeString* str) {

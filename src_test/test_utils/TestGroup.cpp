@@ -103,6 +103,7 @@ void TestGroup::exportJUnitXML(Writer* writer) const {
 
 		testCase->exportJUnitXML(writer);
 	}
+	delete it;
 
 	writer->write(L"  </testsuite>\n");
 }

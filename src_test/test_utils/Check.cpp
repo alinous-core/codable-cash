@@ -19,6 +19,7 @@ alinous::Check::Check(TestCase* testCase, const char* file, int line) {
 }
 
 alinous::Check::~Check() {
+	delete this->file;
 }
 
 void alinous::Check::checkCondition(bool condition) noexcept {
