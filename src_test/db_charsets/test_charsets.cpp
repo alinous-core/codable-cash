@@ -6,7 +6,7 @@
  */
 
 
-#include "CppUTest/CommandLineTestRunner.h"
+#include "test_utils/t_macros.h"
 
 #include "charsets/CharsetManager.h"
 #include "charsets/CharsetDecoder.h"
@@ -92,7 +92,7 @@ void testPatterns(UnicodeString* str){
 
 	UnicodeString charset(L"utf-8");
 	CharsetConverter* cnv = mgr->getConverter(&charset);
-	CHECK(cnv != nullptr);
+	if(cnv == nullptr){ throw -1;}
 
 	CharsetDecoder* dec = cnv->newDecoder();
 	CharsetEncoder* enc = cnv->newEncoder();
@@ -101,18 +101,18 @@ void testPatterns(UnicodeString* str){
 	ByteBuffer* bout = ByteBuffer::allocate(str->length() * 3);
 
 	CoderResult result = enc->encodeLoop(chin, bout);
-	CHECK(result.isUnderflow());
-	CHECK(!result.isOverflow());
-	CHECK(!result.isUnmappable());
+	if(!result.isUnderflow()){ throw -1;}
+	if(result.isOverflow()){ throw -1;}
+	if(result.isUnmappable()){ throw -1;}
 
 	CharBuffer* chout = CharBuffer::allocate(bout->position() * 3);
 
 	bout->limit(bout->position());
 	bout->position(0);
 	result = dec->decodeLoop(bout, chout);
-	CHECK(result.isUnderflow());
-	CHECK(!result.isOverflow());
-	CHECK(!result.isUnmappable());
+	if(!result.isUnderflow()){ throw -1;}
+	if(result.isOverflow()){ throw -1;}
+	if(result.isUnmappable()){ throw -1;}
 
 	int pos = chout->position();
 	UnicodeString str2(L"");
@@ -120,7 +120,7 @@ void testPatterns(UnicodeString* str){
 		str2.append(chout->get(i));
 	}
 
-	CHECK(str2.equals(str));
+	if(!str2.equals(str)){ throw -1;}
 
 	delete bout;
 	delete chin;
@@ -144,7 +144,7 @@ void overFlowTest(UnicodeString* str, int cap){
 
 	UnicodeString charset(L"utf-8");
 	CharsetConverter* cnv = mgr->getConverter(&charset);
-	CHECK(cnv != nullptr);
+	if(cnv == nullptr){ throw -1;}
 
 	CharsetEncoder* enc = cnv->newEncoder();
 
@@ -155,8 +155,8 @@ void overFlowTest(UnicodeString* str, int cap){
 	chin->put(L'\0');
 
 	CoderResult result = enc->encodeLoop(chin, bout);
-	CHECK(!result.isUnderflow());
-	CHECK(result.isOverflow());
+	if(result.isUnderflow()){ throw -1;}
+	if(!result.isOverflow()){ throw -1;}
 	//CHECK(!result.isUnmappable());
 
 	delete bout;
