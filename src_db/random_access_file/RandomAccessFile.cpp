@@ -93,7 +93,7 @@ int RandomAccessFile::read(uint64_t fpos, char* buff, int count) {
 		MMapSegmentStackRelease dec(seg);
 
 		uint64_t offset = currentfpos % segSize;
-		uint8_t* ptr = seg->getPtr(offset);
+		char* ptr = seg->getPtr(offset);
 		int cnt = seg->remains(offset);
 		cnt = cnt > count2Read ? count2Read : cnt;
 
@@ -117,7 +117,7 @@ int RandomAccessFile::write(uint64_t fpos, const char* buff, int count) {
 		MMapSegmentStackRelease dec(seg);
 
 		uint64_t offset = currentfpos % segSize;
-		uint8_t* ptr = seg->getPtr(offset);
+		char* ptr = seg->getPtr(offset);
 		int cnt = seg->remains(offset);
 		cnt = cnt > count2Write ? count2Write : cnt;
 

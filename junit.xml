@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuite name="CPP Program Test All">
   <testsuite failures="" hostname="localhost" name="UnicodeStringTestGroup" tests="19">
-    <testcase classname="UnicodeStringTestGroup" name="hash" time="0.000022">
+    <testcase classname="UnicodeStringTestGroup" name="hash" time="0.000020">
     </testcase>
     <testcase classname="UnicodeStringTestGroup" name="destruct" time="0.000001">
     </testcase>
     <testcase classname="UnicodeStringTestGroup" name="toCStr" time="0.000046">
     </testcase>
-    <testcase classname="UnicodeStringTestGroup" name="spit01" time="0.000095">
+    <testcase classname="UnicodeStringTestGroup" name="spit01" time="0.000084">
     </testcase>
-    <testcase classname="UnicodeStringTestGroup" name="spit02" time="0.000056">
+    <testcase classname="UnicodeStringTestGroup" name="spit02" time="0.000065">
     </testcase>
     <testcase classname="UnicodeStringTestGroup" name="buffer" time="0.000027">
     </testcase>
-    <testcase classname="UnicodeStringTestGroup" name="equals" time="0.000021">
+    <testcase classname="UnicodeStringTestGroup" name="equals" time="0.000019">
     </testcase>
-    <testcase classname="UnicodeStringTestGroup" name="insert" time="0.000028">
+    <testcase classname="UnicodeStringTestGroup" name="insert" time="0.000026">
     </testcase>
-    <testcase classname="UnicodeStringTestGroup" name="indexOf" time="0.000096">
+    <testcase classname="UnicodeStringTestGroup" name="indexOf" time="0.000090">
     </testcase>
-    <testcase classname="UnicodeStringTestGroup" name="startsWith" time="0.000032">
+    <testcase classname="UnicodeStringTestGroup" name="startsWith" time="0.000029">
     </testcase>
-    <testcase classname="UnicodeStringTestGroup" name="substring" time="0.000027">
+    <testcase classname="UnicodeStringTestGroup" name="substring" time="0.000015">
     </testcase>
-    <testcase classname="UnicodeStringTestGroup" name="upper_lower" time="0.000056">
+    <testcase classname="UnicodeStringTestGroup" name="upper_lower" time="0.000020">
     </testcase>
-    <testcase classname="UnicodeStringTestGroup" name="endsWith" time="0.000044">
+    <testcase classname="UnicodeStringTestGroup" name="endsWith" time="0.000018">
     </testcase>
-    <testcase classname="UnicodeStringTestGroup" name="__equals" time="0.000028">
+    <testcase classname="UnicodeStringTestGroup" name="__equals" time="0.000026">
     </testcase>
-    <testcase classname="UnicodeStringTestGroup" name="test01" time="0.000032">
+    <testcase classname="UnicodeStringTestGroup" name="test01" time="0.000029">
     </testcase>
-    <testcase classname="UnicodeStringTestGroup" name="buffer2" time="0.000027">
+    <testcase classname="UnicodeStringTestGroup" name="buffer2" time="0.000026">
     </testcase>
-    <testcase classname="UnicodeStringTestGroup" name="buffer3" time="0.000028">
+    <testcase classname="UnicodeStringTestGroup" name="buffer3" time="0.000026">
     </testcase>
-    <testcase classname="UnicodeStringTestGroup" name="buffer_cstr" time="0.000017">
+    <testcase classname="UnicodeStringTestGroup" name="buffer_cstr" time="0.000015">
     </testcase>
-    <testcase classname="UnicodeStringTestGroup" name="appendInt" time="0.000030">
+    <testcase classname="UnicodeStringTestGroup" name="appendInt" time="0.000027">
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="RAFCacheOut" tests="1">
-    <testcase classname="RAFCacheOut" name="getSegmentCacheOut01" time="0.605660">
+    <testcase classname="RAFCacheOut" name="getSegmentCacheOut01" time="0.504268">
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="Yescript" tests="2">
-    <testcase classname="Yescript" name="test01" time="0.015338">
+    <testcase classname="Yescript" name="test01" time="0.010072">
     </testcase>
-    <testcase classname="Yescript" name="test02" time="0.010105">
+    <testcase classname="Yescript" name="test02" time="0.009567">
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="IntegerTestGroup" tests="11">
-    <testcase classname="IntegerTestGroup" name="parseIntError2" time="0.000068">
+    <testcase classname="IntegerTestGroup" name="parseIntError2" time="0.000088">
     </testcase>
     <testcase classname="IntegerTestGroup" name="construct" time="0.000014">
     </testcase>
     <testcase classname="IntegerTestGroup" name="parseIntError16" time="0.000030">
     </testcase>
-    <testcase classname="IntegerTestGroup" name="parseInt" time="0.000013">
+    <testcase classname="IntegerTestGroup" name="parseInt" time="0.000012">
     </testcase>
-    <testcase classname="IntegerTestGroup" name="parseIntError" time="0.000027">
+    <testcase classname="IntegerTestGroup" name="parseIntError" time="0.000037">
     </testcase>
-    <testcase classname="IntegerTestGroup" name="parseIntRaxixError" time="0.000012">
+    <testcase classname="IntegerTestGroup" name="parseIntRaxixError" time="0.000023">
     </testcase>
     <testcase classname="IntegerTestGroup" name="parseIntError2_strerror5" time="0.000006">
     </testcase>
@@ -69,123 +69,123 @@
     </testcase>
     <testcase classname="IntegerTestGroup" name="parseIntError2_strerror3" time="0.000010">
     </testcase>
-    <testcase classname="IntegerTestGroup" name="parseIntError2_strerror4" time="0.000021">
+    <testcase classname="IntegerTestGroup" name="parseIntError2_strerror4" time="0.000010">
     </testcase>
-    <testcase classname="IntegerTestGroup" name="parseIntError2_strerror2" time="0.000009">
+    <testcase classname="IntegerTestGroup" name="parseIntError2_strerror2" time="0.000008">
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="ByteBufferTestGroup" tests="6">
-    <testcase classname="ByteBufferTestGroup" name="put" time="0.000100">
+    <testcase classname="ByteBufferTestGroup" name="put" time="0.000092">
     </testcase>
-    <testcase classname="ByteBufferTestGroup" name="putByteBuffer" time="0.000112">
+    <testcase classname="ByteBufferTestGroup" name="putByteBuffer" time="0.000108">
     </testcase>
-    <testcase classname="ByteBufferTestGroup" name="putByteBufferArray" time="0.000019">
+    <testcase classname="ByteBufferTestGroup" name="putByteBufferArray" time="0.000006">
     </testcase>
     <testcase classname="ByteBufferTestGroup" name="putByteBufferArrayError01" time="0.000021">
     </testcase>
-    <testcase classname="ByteBufferTestGroup" name="putByteBufferArrayError02" time="0.000013">
+    <testcase classname="ByteBufferTestGroup" name="putByteBufferArrayError02" time="0.000012">
     </testcase>
-    <testcase classname="ByteBufferTestGroup" name="test01" time="0.000001">
+    <testcase classname="ByteBufferTestGroup" name="test01" time="0.000000">
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="HashMapTestGroup" tests="8">
-    <testcase classname="HashMapTestGroup" name="keySetWithNull02" time="0.000029">
+    <testcase classname="HashMapTestGroup" name="keySetWithNull02" time="0.000027">
     </testcase>
     <testcase classname="HashMapTestGroup" name="construct" time="0.000014">
     </testcase>
-    <testcase classname="HashMapTestGroup" name="keySet02" time="0.003129">
+    <testcase classname="HashMapTestGroup" name="keySet02" time="0.002979">
     </testcase>
-    <testcase classname="HashMapTestGroup" name="put01" time="0.000058">
+    <testcase classname="HashMapTestGroup" name="put01" time="0.000045">
     </testcase>
-    <testcase classname="HashMapTestGroup" name="put02" time="0.000029">
+    <testcase classname="HashMapTestGroup" name="put02" time="0.000028">
     </testcase>
-    <testcase classname="HashMapTestGroup" name="put03" time="0.000034">
+    <testcase classname="HashMapTestGroup" name="put03" time="0.000033">
     </testcase>
-    <testcase classname="HashMapTestGroup" name="keySetWithNull" time="0.003008">
+    <testcase classname="HashMapTestGroup" name="keySetWithNull" time="0.002800">
     </testcase>
-    <testcase classname="HashMapTestGroup" name="keySet" time="0.005746">
+    <testcase classname="HashMapTestGroup" name="keySet" time="0.005476">
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="CharBufferTestGroup" tests="6">
-    <testcase classname="CharBufferTestGroup" name="putString" time="0.000029">
+    <testcase classname="CharBufferTestGroup" name="putString" time="0.000022">
     </testcase>
-    <testcase classname="CharBufferTestGroup" name="put" time="0.000007">
+    <testcase classname="CharBufferTestGroup" name="put" time="0.000006">
     </testcase>
-    <testcase classname="CharBufferTestGroup" name="putWchar_tError" time="0.000025">
+    <testcase classname="CharBufferTestGroup" name="putWchar_tError" time="0.000016">
     </testcase>
-    <testcase classname="CharBufferTestGroup" name="getWchar_tError" time="0.000012">
+    <testcase classname="CharBufferTestGroup" name="getWchar_tError" time="0.000013">
     </testcase>
     <testcase classname="CharBufferTestGroup" name="test01" time="0.000006">
     </testcase>
-    <testcase classname="CharBufferTestGroup" name="putWchar_t" time="0.000006">
+    <testcase classname="CharBufferTestGroup" name="putWchar_t" time="0.000007">
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="ArrayListTestGroup" tests="9">
-    <testcase classname="ArrayListTestGroup" name="sortInsert" time="0.000026">
+    <testcase classname="ArrayListTestGroup" name="sortInsert" time="0.000013">
     </testcase>
     <testcase classname="ArrayListTestGroup" name="sort01" time="0.000002">
     </testcase>
-    <testcase classname="ArrayListTestGroup" name="test07" time="0.000629">
+    <testcase classname="ArrayListTestGroup" name="test07" time="0.000621">
     </testcase>
-    <testcase classname="ArrayListTestGroup" name="test08" time="0.000574">
+    <testcase classname="ArrayListTestGroup" name="test08" time="0.000512">
     </testcase>
-    <testcase classname="ArrayListTestGroup" name="test05" time="0.000006">
+    <testcase classname="ArrayListTestGroup" name="test05" time="0.000007">
     </testcase>
-    <testcase classname="ArrayListTestGroup" name="test06" time="0.000006">
+    <testcase classname="ArrayListTestGroup" name="test06" time="0.000005">
     </testcase>
-    <testcase classname="ArrayListTestGroup" name="test03" time="0.000519">
+    <testcase classname="ArrayListTestGroup" name="test03" time="0.000490">
     </testcase>
-    <testcase classname="ArrayListTestGroup" name="test01" time="0.000007">
+    <testcase classname="ArrayListTestGroup" name="test01" time="0.000031">
     </testcase>
-    <testcase classname="ArrayListTestGroup" name="test02" time="0.000019">
+    <testcase classname="ArrayListTestGroup" name="test02" time="0.000017">
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="SchnorrTestGroup" tests="3">
-    <testcase classname="SchnorrTestGroup" name="generateKey" time="0.000076">
+    <testcase classname="SchnorrTestGroup" name="generateKey" time="0.000068">
     </testcase>
-    <testcase classname="SchnorrTestGroup" name="sign" time="0.000108">
+    <testcase classname="SchnorrTestGroup" name="sign" time="0.000081">
     </testcase>
-    <testcase classname="SchnorrTestGroup" name="test01" time="0.000000">
+    <testcase classname="SchnorrTestGroup" name="test01" time="0.000001">
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="FileTestGroup" tests="13">
     <testcase classname="FileTestGroup" name="isFileNotExists" time="0.000023">
     </testcase>
-    <testcase classname="FileTestGroup" name="list" time="0.000016">
+    <testcase classname="FileTestGroup" name="list" time="0.000015">
     </testcase>
-    <testcase classname="FileTestGroup" name="isFile" time="0.000029">
+    <testcase classname="FileTestGroup" name="isFile" time="0.000027">
     </testcase>
     <testcase classname="FileTestGroup" name="projectTestDir" time="0.000014">
     </testcase>
-    <testcase classname="FileTestGroup" name="getDirectory" time="0.000116">
+    <testcase classname="FileTestGroup" name="getDirectory" time="0.000134">
     </testcase>
-    <testcase classname="FileTestGroup" name="list2" time="0.000378">
+    <testcase classname="FileTestGroup" name="list2" time="0.000364">
     </testcase>
-    <testcase classname="FileTestGroup" name="fileLengthError" time="0.000117">
+    <testcase classname="FileTestGroup" name="fileLengthError" time="0.000106">
     </testcase>
-    <testcase classname="FileTestGroup" name="test05" time="0.000097">
+    <testcase classname="FileTestGroup" name="test05" time="0.000094">
     </testcase>
-    <testcase classname="FileTestGroup" name="test03" time="0.000093">
+    <testcase classname="FileTestGroup" name="test03" time="0.000089">
     </testcase>
-    <testcase classname="FileTestGroup" name="test04" time="0.000097">
+    <testcase classname="FileTestGroup" name="test04" time="0.000092">
     </testcase>
     <testcase classname="FileTestGroup" name="test01" time="0.000004">
     </testcase>
-    <testcase classname="FileTestGroup" name="test02" time="0.000010">
+    <testcase classname="FileTestGroup" name="test02" time="0.000009">
     </testcase>
-    <testcase classname="FileTestGroup" name="mkdir01" time="0.000676">
+    <testcase classname="FileTestGroup" name="mkdir01" time="0.000647">
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="FileStreamTestGroup" tests="6">
-    <testcase classname="FileStreamTestGroup" name="readOpenError" time="0.000079">
+    <testcase classname="FileStreamTestGroup" name="readOpenError" time="0.000073">
     </testcase>
-    <testcase classname="FileStreamTestGroup" name="construct" time="0.000051">
+    <testcase classname="FileStreamTestGroup" name="construct" time="0.000037">
     </testcase>
-    <testcase classname="FileStreamTestGroup" name="writeAndRead" time="0.508505">
+    <testcase classname="FileStreamTestGroup" name="writeAndRead" time="1.068900">
     </testcase>
-    <testcase classname="FileStreamTestGroup" name="writeOpen" time="0.000099">
+    <testcase classname="FileStreamTestGroup" name="writeOpen" time="0.000079">
     </testcase>
-    <testcase classname="FileStreamTestGroup" name="writeOpenError" time="0.000074">
+    <testcase classname="FileStreamTestGroup" name="writeOpenError" time="0.000071">
     </testcase>
     <testcase classname="FileStreamTestGroup" name="writeAppendOpen" time="0.000058">
     </testcase>
@@ -195,33 +195,33 @@
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="RawLinkedListTestGroup" tests="6">
-    <testcase classname="RawLinkedListTestGroup" name="testAdd04" time="0.000103">
+    <testcase classname="RawLinkedListTestGroup" name="testAdd04" time="0.000082">
     </testcase>
-    <testcase classname="RawLinkedListTestGroup" name="testAdd05" time="0.001168">
+    <testcase classname="RawLinkedListTestGroup" name="testAdd05" time="0.001130">
     </testcase>
-    <testcase classname="RawLinkedListTestGroup" name="testAdd02" time="0.000010">
+    <testcase classname="RawLinkedListTestGroup" name="testAdd02" time="0.000009">
     </testcase>
-    <testcase classname="RawLinkedListTestGroup" name="testAdd03" time="0.000061">
+    <testcase classname="RawLinkedListTestGroup" name="testAdd03" time="0.000038">
     </testcase>
-    <testcase classname="RawLinkedListTestGroup" name="testAdd01" time="0.000016">
+    <testcase classname="RawLinkedListTestGroup" name="testAdd01" time="0.000007">
     </testcase>
     <testcase classname="RawLinkedListTestGroup" name="construct" time="0.000006">
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="MpzTestGroup" tests="1">
-    <testcase classname="MpzTestGroup" name="test01" time="0.419477">
+    <testcase classname="MpzTestGroup" name="test01" time="0.398280">
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="BaseExceptionsTestGroup" tests="2">
     <testcase classname="BaseExceptionsTestGroup" name="ex" time="0.000001">
     </testcase>
-    <testcase classname="BaseExceptionsTestGroup" name="test01" time="0.000050">
+    <testcase classname="BaseExceptionsTestGroup" name="test01" time="0.000048">
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="BitsetTestGroup" tests="3">
-    <testcase classname="BitsetTestGroup" name="test03" time="0.000330">
+    <testcase classname="BitsetTestGroup" name="test03" time="0.000344">
     </testcase>
-    <testcase classname="BitsetTestGroup" name="test01" time="0.000019">
+    <testcase classname="BitsetTestGroup" name="test01" time="0.000018">
     </testcase>
     <testcase classname="BitsetTestGroup" name="test02" time="0.000006">
     </testcase>
@@ -233,39 +233,39 @@
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="FileExceptionsTestGroup" tests="1">
-    <testcase classname="FileExceptionsTestGroup" name="test01" time="0.000032">
+    <testcase classname="FileExceptionsTestGroup" name="test01" time="0.000045">
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="RAFTestGroup" tests="15">
-    <testcase classname="RAFTestGroup" name="fileWriteSync" time="0.097861">
+    <testcase classname="RAFTestGroup" name="fileWriteSync" time="0.089943">
     </testcase>
-    <testcase classname="RAFTestGroup" name="getSegment" time="0.000147">
+    <testcase classname="RAFTestGroup" name="getSegment" time="0.000144">
     </testcase>
-    <testcase classname="RAFTestGroup" name="fileReadError" time="0.000131">
+    <testcase classname="RAFTestGroup" name="fileReadError" time="0.000124">
     </testcase>
-    <testcase classname="RAFTestGroup" name="construct" time="0.000098">
+    <testcase classname="RAFTestGroup" name="construct" time="0.000088">
     </testcase>
-    <testcase classname="RAFTestGroup" name="fileSetupWriteError01" time="0.000097">
+    <testcase classname="RAFTestGroup" name="fileSetupWriteError01" time="0.000090">
     </testcase>
-    <testcase classname="RAFTestGroup" name="fileSetupWriteError02" time="0.000118">
+    <testcase classname="RAFTestGroup" name="fileSetupWriteError02" time="0.000108">
     </testcase>
-    <testcase classname="RAFTestGroup" name="fileWrite" time="0.000117">
+    <testcase classname="RAFTestGroup" name="fileWrite" time="0.000113">
     </testcase>
-    <testcase classname="RAFTestGroup" name="fileReadAndClose" time="0.000139">
+    <testcase classname="RAFTestGroup" name="fileReadAndClose" time="0.000127">
     </testcase>
-    <testcase classname="RAFTestGroup" name="fileRead" time="0.000105">
+    <testcase classname="RAFTestGroup" name="fileRead" time="0.000094">
     </testcase>
-    <testcase classname="RAFTestGroup" name="fileWriteSyncError" time="0.000159">
+    <testcase classname="RAFTestGroup" name="fileWriteSyncError" time="0.000131">
     </testcase>
-    <testcase classname="RAFTestGroup" name="openError" time="0.000047">
+    <testcase classname="RAFTestGroup" name="openError" time="0.000043">
     </testcase>
-    <testcase classname="RAFTestGroup" name="pagesizeChange" time="0.000207">
+    <testcase classname="RAFTestGroup" name="pagesizeChange" time="0.000114">
     </testcase>
-    <testcase classname="RAFTestGroup" name="constructWithPagesize" time="0.000089">
+    <testcase classname="RAFTestGroup" name="constructWithPagesize" time="0.000083">
     </testcase>
-    <testcase classname="RAFTestGroup" name="fileReadError2" time="0.000153">
+    <testcase classname="RAFTestGroup" name="fileReadError2" time="0.000130">
     </testcase>
-    <testcase classname="RAFTestGroup" name="setLengthError01" time="0.000051">
+    <testcase classname="RAFTestGroup" name="setLengthError01" time="0.000049">
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="test_test" tests="1">
@@ -273,17 +273,17 @@
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="HashMapKeySetTestGroup" tests="1">
-    <testcase classname="HashMapKeySetTestGroup" name="construct" time="0.000019">
+    <testcase classname="HashMapKeySetTestGroup" name="construct" time="0.000016">
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="RawArrayPrimitiveTestGroup" tests="2">
-    <testcase classname="RawArrayPrimitiveTestGroup" name="test01" time="0.000009">
+    <testcase classname="RawArrayPrimitiveTestGroup" name="test01" time="0.000010">
     </testcase>
-    <testcase classname="RawArrayPrimitiveTestGroup" name="test02" time="0.000082">
+    <testcase classname="RawArrayPrimitiveTestGroup" name="test02" time="0.000068">
     </testcase>
   </testsuite>
   <testsuite failures="" hostname="localhost" name="CharacterTestGroup" tests="1">
-    <testcase classname="CharacterTestGroup" name="test01" time="0.000001">
+    <testcase classname="CharacterTestGroup" name="test01" time="0.000000">
     </testcase>
   </testsuite>
 </testsuite>

@@ -255,7 +255,7 @@ TEST(RAFTestGroup, fileWrite){
 	int buffSize = 8;
 	uint64_t fpos = 12;
 
-	char* buff = new char[buffSize];
+	char* buff = new char[buffSize]{};
 	StackArrayRelease<char> r_buff(buff);
 
 	file.write(fpos, buff, buffSize);
@@ -278,7 +278,7 @@ TEST(RAFTestGroup, fileWriteSync){
 	int buffSize = 8;
 	uint64_t fpos = 12;
 
-	char* buff = new char[buffSize];
+	char* buff = new char[buffSize]{};
 	StackArrayRelease<char> r_buff(buff);
 
 	file.write(fpos, buff, buffSize);
@@ -303,7 +303,7 @@ TEST(RAFTestGroup, fileWriteSyncError){
 	int buffSize = 8;
 	uint64_t fpos = 12;
 
-	char* buff = new char[buffSize];
+	char* buff = new char[buffSize]{};
 	StackArrayRelease<char> r_buff(buff);
 
 	file.write(fpos, buff, buffSize);
