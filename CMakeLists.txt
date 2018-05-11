@@ -23,17 +23,6 @@ endif()
 
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest")
-	if(DEFINED ENV{CPPUTEST_HOME})
-	    message(STATUS "Using CppUTest home: $ENV{CPPUTEST_HOME}")
-	    set(CPPUTEST_INCLUDE_DIRS $ENV{CPPUTEST_HOME}/include)
-	    set(CPPUTEST_LIBRARIES $ENV{CPPUTEST_HOME}/lib)
-	    set(CPPUTEST_LDFLAGS CppUTest CppUTestExt)
-	else()
-	    find_package(PkgConfig REQUIRED)
-	    pkg_search_module(CPPUTEST REQUIRED cpputest>=3.4)
-	    message(STATUS "Found CppUTest version ${CPPUTEST_VERSION}")
-	endif()
-	
 	enable_testing()
 	
 	add_definitions(-D__TEST_CPP_UNIT__=1)
@@ -155,7 +144,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 	
 	set(testtarget testall)
 	add_executable(${testtarget} src_test/testallmain.cpp ${top_testsrc})
-	target_link_libraries(${testtarget} codablecashlib extlib pthread gmp ${CPPUTEST_LDFLAGS})
+	target_link_libraries(${testtarget} codablecashlib extlib pthread gmp)
 	
 	add_test(${testtarget} ${testtarget})
 endif()
