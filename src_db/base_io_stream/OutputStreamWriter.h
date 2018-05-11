@@ -19,7 +19,7 @@ class OutputStreamWriter: public Writer {
 public:
 	OutputStreamWriter(const OutputStreamWriter& base) = delete;
 	OutputStreamWriter(OutputStream* out, UnicodeString* charsetName);
-	OutputStreamWriter(OutputStream* out);
+	explicit OutputStreamWriter(OutputStream* out);
 	virtual ~OutputStreamWriter();
 
 	virtual void close();
