@@ -35,6 +35,7 @@ public:
 		return totalTests;
 	}
 
+	bool isSuccess() const noexcept;
 private:
 	ArrayList<TestCase>* getGroupCaseList(const UnicodeString* grp) noexcept;
 	void analyzeChecks(ArrayList<Check>* checkList) noexcept;

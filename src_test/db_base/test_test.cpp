@@ -11,10 +11,10 @@
 using namespace alinous;
 
 TEST_GROUP(test_test){
-	TEST_SETUP{
+	TEST_SETUP(){
 		this->env->setup();
 	}
-	TEST_TEARDOWN{
+	TEST_TEARDOWN(){
 		this->env->teardown();
 	}
 };
@@ -31,10 +31,11 @@ TEST(test_test, test01){
 	int val = 10;
 	CHECK(val == 10);
 }
-
+/*
 TEST(test_test, test02){
 	int val = 10;
 	CHECK(val != 10);
 }
+*/
 
 

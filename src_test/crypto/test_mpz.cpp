@@ -1,11 +1,13 @@
 #include <iostream>
-#include "CppUTest/CommandLineTestRunner.h"
 #include <gmp.h>
 
+#include "test_utils/t_macros.h"
+
+using namespace alinous;
 
 TEST_GROUP(MpzTestGroup) {
-	TEST_SETUP() {}
-	TEST_TEARDOWN() {}
+	TEST_SETUP(){}
+	TEST_TEARDOWN(){}
 
 };
 
@@ -29,10 +31,5 @@ TEST(MpzTestGroup, test01){
 
 	mpz_clear(a);
 	mpz_clear(b);
-}
-
-TEST(MpzTestGroup, test02){
-
-
 }
 

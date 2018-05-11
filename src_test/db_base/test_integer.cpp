@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "CppUTest/CommandLineTestRunner.h"
+#include "test_utils/t_macros.h"
 
 #include "base/Integer.h"
 #include "base/UnicodeString.h"
@@ -54,7 +54,7 @@ void test_error(UnicodeString* str, int radix){
 	catch(NumberFormatException* e){
 		exp = e;
 	}
-	CHECK(exp != nullptr); delete exp;
+	if(exp == nullptr){throw -1;} delete exp;
 }
 
 TEST(IntegerTestGroup, parseIntError){
@@ -97,7 +97,8 @@ public:
 		catch(NumberFormatException* e){
 			exp = e;
 		}
-		CHECK(exp != nullptr); delete exp;
+		if(exp == nullptr){ throw -1;}
+		delete exp;
 	}
 };
 

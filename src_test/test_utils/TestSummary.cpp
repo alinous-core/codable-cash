@@ -122,8 +122,10 @@ ArrayList<TestCase>* TestSummary::getGroupCaseList(const UnicodeString* grp) noe
 	return list;
 }
 
+bool TestSummary::isSuccess() const noexcept {
+	return this->failedTest == 0;
+}
 
 
 } /* namespace alinous */
-
 

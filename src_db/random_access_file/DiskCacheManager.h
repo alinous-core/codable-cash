@@ -11,6 +11,8 @@
 #include "base/RawLinkedList.h"
 #include "base_thread/SysMutex.h"
 
+#include <stdint.h>
+
 namespace alinous {
 
 class MMapSegment;

@@ -140,25 +140,24 @@ include_directories(${PROJECT_SOURCE_DIR}/src_test/)
 
 add_subdirectory(src_db)
 add_subdirectory(src)
-add_subdirectory(src_test)
 
 add_library(codablecashlib STATIC ${top_src} ${top_src_db})
 target_link_libraries(codablecashlib extlib pthread gmp)
 
-add_executable(codablecash ${srcmain} ${top_testsrc})
-target_link_libraries(codablecash codablecashlib extlib pthread gmp ${CPPUTEST_LDFLAGS})
+add_executable(codablecash ${srcmain})
+target_link_libraries(codablecash codablecashlib extlib pthread gmp)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest")
 	#
 	# Test Codes
 	#
-	#add_subdirectory(src_test)
+	add_subdirectory(src_test)
 	
 	set(testtarget testall)
 	add_executable(${testtarget} src_test/testallmain.cpp ${top_testsrc})
 	target_link_libraries(${testtarget} codablecashlib extlib pthread gmp ${CPPUTEST_LDFLAGS})
 	
-	add_test(${testtarget} ${testtarget} -ojunit)
+	add_test(${testtarget} ${testtarget})
 endif()
 
 

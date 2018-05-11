@@ -7,12 +7,14 @@
 
 #include <iostream>
 #include "osenv/memory.h"
-#include "CppUTest/CommandLineTestRunner.h"
 #include <gmp.h>
 
 #include "crypto/Schnorr.h"
 
+#include "test_utils/t_macros.h"
+
 using namespace codablecash;
+using namespace alinous;
 
 TEST_GROUP(SchnorrTestGroup) {
 	TEST_SETUP() {}
@@ -33,7 +35,7 @@ TEST(SchnorrTestGroup, generateKey){
 
 	mpz_powm(ans, Schnorr::cnsts.G, key->secretKey, Schnorr::cnsts.Q);
 
-	CHECK_TRUE(mpz_cmp(ans, key->publicKey) == 0);
+	CHECK(mpz_cmp(ans, key->publicKey) == 0);
 
 	mpz_clear(ans);
 	delete key;
@@ -49,7 +51,7 @@ TEST(SchnorrTestGroup, sign){
 
 	bool result = Schnorr::verify(sig, key->publicKey, (const uint8_t*)testData, (size_t)size);
 
-	CHECK_TRUE(result);
+	CHECK(result);
 
 	delete key;
 	delete sig;

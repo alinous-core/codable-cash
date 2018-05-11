@@ -7,7 +7,7 @@
 
 
 
-#include "CppUTest/CommandLineTestRunner.h"
+#include "test_utils/t_macros.h"
 
 #include "base/exceptions.h"
 #include "base/UnicodeString.h"
@@ -31,7 +31,7 @@ void testException(){
 	catch(T* e){
 		ex = e;
 	}
-	CHECK(ex != nullptr);
+	if(ex == nullptr){throw -1;};
 	delete ex; ex = nullptr;
 
 	ex = nullptr;
@@ -42,7 +42,7 @@ void testException(){
 	catch(T* e){
 		ex = e;
 	}
-	CHECK(ex != nullptr);
+	if(ex == nullptr){throw -1;};
 	delete ex; ex = nullptr;
 
 	T* excause = new T(__FILE__, __LINE__);
@@ -52,7 +52,7 @@ void testException(){
 	catch(T* e){
 		ex = e;
 	}
-	CHECK(ex != nullptr);
+	if(ex == nullptr){throw -1;};
 	delete ex; ex = nullptr;
 
 	excause = new T(__FILE__, __LINE__);
@@ -63,7 +63,7 @@ void testException(){
 	catch(T* e){
 		ex = e;
 	}
-	CHECK(ex != nullptr);
+	if(ex == nullptr){throw -1;};
 	delete ex; ex = nullptr;
 }
 

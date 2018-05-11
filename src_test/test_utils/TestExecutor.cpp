@@ -70,7 +70,9 @@ int TestExecutor::execute(int ac, char** av) noexcept {
 
 	exporJUnitXML();
 
-	return 1;
+	int exitValue = summary.isSuccess() ? 0 : -1;
+
+	return exitValue;
 }
 
 

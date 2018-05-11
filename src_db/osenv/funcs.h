@@ -13,6 +13,7 @@
 
 #include <stdlib.h>
 #include <pthread.h>
+#include <stdint.h>
 
 
 namespace alinous {

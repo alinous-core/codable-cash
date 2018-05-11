@@ -9,6 +9,7 @@
 #define DEBUG_TESTCASE_H_
 
 #include "base/ArrayList.h"
+#include <stdint.h>
 
 namespace alinous {
 

@@ -21,10 +21,5 @@ const char* prog = nullptr;
 
 int main(int ac, char** av) {
 	prog = av[0];
-
-	TestExecutor* exec = TestExecutor::get();
-	exec->execute(ac, av);
-
-	return EXIT_SUCCESS;
-
+	return 0;
 }
