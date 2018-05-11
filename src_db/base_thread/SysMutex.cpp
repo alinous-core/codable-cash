@@ -13,6 +13,7 @@ namespace alinous {
 
 SysMutex::SysMutex() noexcept : ILock() {
 	pthread_mutex_init(&mutex, nullptr);
+	this->count = 0;
 }
 
 SysMutex::~SysMutex() noexcept {
@@ -21,10 +22,12 @@ SysMutex::~SysMutex() noexcept {
 
 void SysMutex::lock() noexcept {
 	pthread_mutex_lock(&mutex);
+	this->count++;
 }
 
 
 void SysMutex::unlock() noexcept {
+	this->count--;
 	pthread_mutex_unlock(&mutex);
 }
 

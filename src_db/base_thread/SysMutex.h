@@ -23,6 +23,7 @@ public:
 	virtual void unlock() noexcept;
 private:
 	pthread_mutex_t mutex;
+	int count;
 };
 
 } /* namespace codablecash */

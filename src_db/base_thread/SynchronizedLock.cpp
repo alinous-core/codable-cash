@@ -13,12 +13,10 @@ namespace alinous {
 
 SynchronizedLock::SynchronizedLock() : ILock() {
 	this->cond = new LockCondition();
-	::pthread_cond_init(&this->cond->cond, 0);
 	::pthread_mutex_init(&mutex, NULL);
 }
 
 SynchronizedLock::~SynchronizedLock() {
-	::pthread_cond_destroy(&this->cond->cond);
 	::pthread_mutex_destroy(&mutex);
 	delete this->cond;
 }

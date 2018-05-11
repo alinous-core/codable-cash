@@ -24,7 +24,12 @@ TEST_GROUP(RAFTestGroup) {
 		env->teardown();
 	}
 };
-
+/*
+TEST(RAFTestGroup, segSize){
+	uint64_t segSize = Os::getSystemPageSize();
+	printf("%ld\n", segSize);
+}
+*/
 TEST(RAFTestGroup, construct){
 	File projectFolder = this->env->testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
