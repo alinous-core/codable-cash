@@ -17,8 +17,10 @@ template <typename K,typename V>
 class HashMapInternalElement {
 public:
 	HashMapInternalElement(const HashMapInternalElement& inst) = default;
-
 	HashMapInternalElement(const K* k, V* v)  : key(k), value(v){}
+	~HashMapInternalElement(){
+	}
+
 	const K* key;
 	V* value;
 	int hashCode() const  {

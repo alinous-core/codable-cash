@@ -47,7 +47,9 @@ TEST(CharBufferTestGroup, putString){
 	UnicodeString ustr(L"Hello");
 	buff->put(&ustr);
 
-	wchar_t dest[128]{};
+	wchar_t dest[128];
+	Mem::memset(dest, 0, 128);
+
 	buff->get(dest, 5);
 
 	CHECK(Mem::wcscmp(dest, ustr.towString()));

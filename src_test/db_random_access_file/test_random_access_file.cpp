@@ -372,7 +372,7 @@ TEST(RAFTestGroup, pagesizeChange){
 	File* outFile = projectFolder.get(&name);
 	StackRelease<File> r_outFile(outFile);
 
-	printf("before DiskCacheManager\n");::fflush(stdout);
+	//printf("before DiskCacheManager\n");::fflush(stdout);
 
 	DiskCacheManager diskCache(16525);
 	RandomAccessFile file(outFile, &diskCache, 256); // page size * 4 = 1024
@@ -391,11 +391,11 @@ TEST(RAFTestGroup, pagesizeChange){
 
 	file.setLength(1024 + 64);
 
-	printf("before close \n");::fflush(stdout);
+	//printf("before close \n");::fflush(stdout);
 
 	file.close();
 
-	printf("test ends \n");::fflush(stdout);
+	//printf("test ends \n");::fflush(stdout);
 
 }
 
