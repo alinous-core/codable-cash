@@ -180,3 +180,9 @@ add_custom_target(cppcheck
     	
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     )
+
+add_custom_target(valgrind
+	COMMAND valgrind --log-file=val.log --leak-check=full ./testall
+	
+	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+	)
