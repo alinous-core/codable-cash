@@ -313,6 +313,10 @@ bool UnicodeString::endsWith(const UnicodeString* str) const noexcept {
 	int pos = this->length() - 1;
 	int posTarget = length - 1;
 
+	if(length > this->length()){
+		return false;
+	}
+
 	for(int i = 0; i != length; ++i){
 		if(this->charAt(pos--) != str->charAt(posTarget--)){
 			return false;

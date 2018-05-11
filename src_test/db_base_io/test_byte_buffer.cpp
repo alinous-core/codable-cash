@@ -6,7 +6,7 @@
  */
 
 
-#include "CppUTest/CommandLineTestRunner.h"
+#include "test_utils/t_macros.h"
 
 #include "base_io/ByteBuffer.h"
 #include "base/UnicodeString.h"

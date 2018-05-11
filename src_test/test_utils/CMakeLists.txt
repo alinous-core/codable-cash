@@ -2,7 +2,6 @@
 set(testsrc
 	Check.cpp
 	TestBreak.cpp
-	TestSetup.cpp
 	TestCase.cpp
 	TestEnv.cpp
 	TestExecutor.cpp

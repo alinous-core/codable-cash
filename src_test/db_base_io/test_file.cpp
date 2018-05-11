@@ -5,8 +5,7 @@
  *      Author: iizuka
  */
 
-#include "CppUTest/CommandLineTestRunner.h"
-#include "test_utils/TestSetup.h"
+#include "test_utils/t_macros.h"
 
 #include "charsets/CharsetManager.h"
 
@@ -18,13 +17,11 @@ using namespace alinous;
 
 
 TEST_GROUP(FileTestGroup) {
-	TestSetup testenv;
-
 	TEST_SETUP() {
-		testenv.setup();
+		env->setup();
 	}
 	TEST_TEARDOWN() {
-		testenv.teardown();
+		env->teardown();
 	}
 
 };
@@ -93,7 +90,7 @@ TEST(FileTestGroup, test05){
 }
 
 TEST(FileTestGroup, mkdir01){
-	File __dir =  this->testenv.testCaseDir();
+	File __dir =  this->env->testCaseDir();
 
 	UnicodeString path(L"target/data_out/");
 	UnicodeString path2(L"target/data_out/ext/01");
@@ -197,7 +194,7 @@ TEST(FileTestGroup, list2){
 }
 
 TEST(FileTestGroup, projectTestDir){
-	File __dir =  this->testenv.testCaseDir();
+	File __dir =  this->env->testCaseDir();
 
 
 }

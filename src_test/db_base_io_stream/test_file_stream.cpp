@@ -6,8 +6,7 @@
  */
 
 
-#include "CppUTest/CommandLineTestRunner.h"
-#include "test_utils/TestSetup.h"
+#include "test_utils/t_macros.h"
 
 #include "base_io_stream/FileOutputStream.h"
 #include "base_io_stream/FileInputStream.h"
@@ -17,19 +16,17 @@ using namespace alinous;
 
 
 TEST_GROUP(FileStreamTestGroup) {
-	TestSetup testenv;
-
 	TEST_SETUP() {
-		testenv.setup();
+		env->setup();
 	}
 	TEST_TEARDOWN() {
-		testenv.teardown();
+		env->teardown();
 	}
 
 };
 
 TEST(FileStreamTestGroup, construct){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 
 	FileOutputStream stream(&projectFolder);
 	FileInputStream inStream(&projectFolder);
@@ -48,7 +45,7 @@ TEST(FileStreamTestGroup, construct){
 }
 
 TEST(FileStreamTestGroup, writeOpen){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 
 	UnicodeString strfile01(L"test.txt");
 	File* outFile = projectFolder.get(&strfile01);
@@ -67,7 +64,7 @@ TEST(FileStreamTestGroup, writeOpen){
 
 
 TEST(FileStreamTestGroup, writeAppendOpen){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 
 	UnicodeString strfile01(L"test.txt");
 	File* outFile = projectFolder.get(&strfile01);
@@ -82,7 +79,7 @@ TEST(FileStreamTestGroup, writeAppendOpen){
 }
 
 TEST(FileStreamTestGroup, writeAndRead){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 
 	UnicodeString strfile01(L"test.txt");
 	File* outFile = projectFolder.get(&strfile01);
@@ -114,7 +111,7 @@ TEST(FileStreamTestGroup, writeAndRead){
 }
 
 TEST(FileStreamTestGroup, writeOpenError){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 
 	UnicodeString strfile01(L"dummy/test.txt");
 	File* outFile = projectFolder.get(&strfile01);
@@ -135,7 +132,7 @@ TEST(FileStreamTestGroup, writeOpenError){
 }
 
 TEST(FileStreamTestGroup, readOpenError){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 
 	UnicodeString strfile01(L"dummy/test.txt");
 	File* readFile = projectFolder.get(&strfile01);

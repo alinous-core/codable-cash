@@ -6,12 +6,10 @@
  */
 
 
-#include "CppUTest/CommandLineTestRunner.h"
+#include "test_utils/t_macros.h"
 
 #include "base_io_stream/exceptions.h"
 #include "base/UnicodeString.h"
-
-#include "test_utils/TestSetup.h"
 
 using namespace alinous;
 

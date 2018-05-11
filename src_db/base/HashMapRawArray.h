@@ -100,7 +100,7 @@ public:
 
 	void reset() noexcept {
 		for(int i = 0; i != MAX_HASH; i++){
-			arrays[i].reset();
+			arrays[i]->reset();
 		}
 		bitset.clear();
 		numElements = 0;

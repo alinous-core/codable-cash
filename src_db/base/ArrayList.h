@@ -50,6 +50,14 @@ public:
 		}
 	}
 
+	void reset() throw() {
+		this->numArray = 0;
+		this->cursor = this->root;
+
+		this->sorted = true;
+	}
+
+
 	void addAll(ArrayList<T, C>* list){
 		int maxLoop = list->size();
 		for(int i = 0; i != maxLoop; ++i){

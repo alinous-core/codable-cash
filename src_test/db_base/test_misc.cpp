@@ -6,15 +6,16 @@
  */
 
 
-#include "CppUTest/CommandLineTestRunner.h"
+#include "base/UnicodeString.h"
 
 #include "base/Iterator.h"
 #include "base/Integer.h"
 
+#include "test_utils/t_macros.h"
+
 using namespace alinous;
 
 TEST_GROUP(DbBaseMiscTestGroup) {
-	friend class Integer;
 	TEST_SETUP() {}
 	TEST_TEARDOWN() {}
 };

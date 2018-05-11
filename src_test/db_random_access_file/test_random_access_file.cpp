@@ -5,9 +5,7 @@
  *      Author: iizuka
  */
 
-#include "CppUTest/CommandLineTestRunner.h"
-#include "CppUTest/MemoryLeakDetectorNewMacros.h"
-#include "test_utils/TestSetup.h"
+#include "test_utils/t_macros.h"
 
 #include "random_access_file/RandomAccessFile.h"
 #include "random_access_file/DiskCacheManager.h"
@@ -19,18 +17,16 @@ using namespace alinous;
 
 
 TEST_GROUP(RAFTestGroup) {
-	TestSetup testenv;
-
 	TEST_SETUP() {
-		testenv.setup();
+		env->setup();
 	}
 	TEST_TEARDOWN() {
-		testenv.teardown();
+		env->teardown();
 	}
 };
 
 TEST(RAFTestGroup, construct){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 	UnicodeString mode(L"wr");
@@ -44,7 +40,7 @@ TEST(RAFTestGroup, construct){
 }
 
 TEST(RAFTestGroup, openError){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 	UnicodeString mode(L"wr");
@@ -68,7 +64,7 @@ TEST(RAFTestGroup, openError){
 }
 
 TEST(RAFTestGroup, setLengthError01){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 	UnicodeString mode(L"wr");
@@ -90,7 +86,7 @@ TEST(RAFTestGroup, setLengthError01){
 }
 
 TEST(RAFTestGroup, fileSetupWriteError01){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 	UnicodeString name(L"out.bin");
@@ -112,7 +108,7 @@ TEST(RAFTestGroup, fileSetupWriteError01){
 }
 
 TEST(RAFTestGroup, fileSetupWriteError02){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 	UnicodeString name(L"out.bin");
@@ -135,7 +131,7 @@ TEST(RAFTestGroup, fileSetupWriteError02){
 
 
 TEST(RAFTestGroup, fileRead){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 	UnicodeString name(L"out.bin");
@@ -156,7 +152,7 @@ TEST(RAFTestGroup, fileRead){
 }
 
 TEST(RAFTestGroup, fileReadAndClose){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 	UnicodeString name(L"out.bin");
@@ -182,7 +178,7 @@ TEST(RAFTestGroup, fileReadAndClose){
 }
 
 TEST(RAFTestGroup, fileReadError){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 	UnicodeString name(L"out.bin");
@@ -212,7 +208,7 @@ TEST(RAFTestGroup, fileReadError){
 }
 
 TEST(RAFTestGroup, fileReadError2){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 	UnicodeString name(L"out.bin");
@@ -243,7 +239,7 @@ TEST(RAFTestGroup, fileReadError2){
 }
 
 TEST(RAFTestGroup, fileWrite){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 
@@ -266,7 +262,7 @@ TEST(RAFTestGroup, fileWrite){
 }
 
 TEST(RAFTestGroup, fileWriteSync){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 
@@ -291,7 +287,7 @@ TEST(RAFTestGroup, fileWriteSync){
 }
 
 TEST(RAFTestGroup, fileWriteSyncError){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 
@@ -327,7 +323,7 @@ TEST(RAFTestGroup, fileWriteSyncError){
 
 
 TEST(RAFTestGroup, getSegment){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 	UnicodeString name(L"out.bin");
@@ -355,7 +351,7 @@ TEST(RAFTestGroup, getSegment){
 }
 
 TEST(RAFTestGroup, constructWithPagesize){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 	UnicodeString name(L"out.bin");
@@ -369,7 +365,7 @@ TEST(RAFTestGroup, constructWithPagesize){
 }
 
 TEST(RAFTestGroup, pagesizeChange){
-	File projectFolder = this->testenv.testCaseDir();
+	File projectFolder = this->env->testCaseDir();
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 	UnicodeString name(L"out.bin");

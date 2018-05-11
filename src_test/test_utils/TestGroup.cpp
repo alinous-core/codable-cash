@@ -59,8 +59,10 @@ void TestGroup::execute(TestParams* params) {
 		catch(...){
 
 		}
-	}
 
+		ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+		errmgr->clear();
+	}
 	delete it;
 }
 

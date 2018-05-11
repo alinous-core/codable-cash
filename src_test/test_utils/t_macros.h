@@ -46,4 +46,51 @@ void TestCase_##grp##_##testName::testBody()
 
 #define CHECK(cnd) addCheck(new Check(env->getTestCase(), __FILE__, __LINE__))->checkCondition(cnd);
 
+using namespace alinous;
+
+template<typename T>
+void testException(){
+	T* ex = nullptr;
+	try{
+		throw new T(__FILE__, __LINE__);
+	}
+	catch(T* e){
+		ex = e;
+	}
+	if(ex == nullptr){throw -1;};
+	delete ex; ex = nullptr;
+
+	ex = nullptr;
+	try{
+		UnicodeString msg(L"error message");
+		throw new T(&msg, __FILE__, __LINE__);
+	}
+	catch(T* e){
+		ex = e;
+	}
+	if(ex == nullptr){throw -1;};
+	delete ex; ex = nullptr;
+
+	T* excause = new T(__FILE__, __LINE__);
+	try{
+		throw new T(excause, __FILE__, __LINE__);
+	}
+	catch(T* e){
+		ex = e;
+	}
+	if(ex == nullptr){throw -1;};
+	delete ex; ex = nullptr;
+
+	excause = new T(__FILE__, __LINE__);
+	try{
+		UnicodeString msg(L"error message");
+		throw new T(&msg, excause, __FILE__, __LINE__);
+	}
+	catch(T* e){
+		ex = e;
+	}
+	if(ex == nullptr){throw -1;};
+	delete ex; ex = nullptr;
+}
+
 #endif /* DEBUG_T_MACROS_H_ */
