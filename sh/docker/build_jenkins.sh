@@ -1,6 +1,6 @@
 #!/bin/bash -eux
 
 pushd docker/debug/
-./run.sh
+./run_jenkins.sh
 popd
 
