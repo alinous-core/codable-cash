@@ -7,6 +7,11 @@ rm -rf ./target/
 ./sh/maketest.sh
 ./sh/makecheck.sh
 
-useradd $1
-chown -R $1:$1 ./target
+
+echo "useradd $1 -u $2 -g $3"
+echo "chown $1:$1 -R ./target"
+
+groupadd -g $3 $1
+useradd $1 -u $2 -g $3
+chown $1:$1 -R ./target
 

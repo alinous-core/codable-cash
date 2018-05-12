@@ -5,7 +5,10 @@ if [ -n "$1" ]; then
   execuser=$1
 fi
 
-echo "user : $execuser"
+usr_uid=$(id -u $execuser)
+usr_gid=$(id -g $execuser)
+
+echo "user : $execuser ($usr_uid:$usr_gid)"
 
 pushd ../..
 
@@ -22,4 +25,4 @@ docker container run --rm \
 	-v /var/run/docker.sock:/var/run/docker.sock \
 	-v $projectSrc:/var/codablecash \
 	 ubuntu16 \
-	/var/make.sh $execuser
+	/var/make.sh $execuser $usr_uid $usr_gid
