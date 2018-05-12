@@ -15,4 +15,4 @@ docker container run --rm --privileged\
 	-v /var/run/docker.sock:/var/run/docker.sock \
 	-v $projectSrc:/var/codablecash \
 	 ubuntu16 \
-	/var/make.sh $(whoami)
+	/var/make.sh jenkins
