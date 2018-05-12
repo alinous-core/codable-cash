@@ -40,6 +40,7 @@ void SynchronizedLock::wait() {
 
 void SynchronizedLock::notifyAll() {
 	int ret = ::pthread_cond_broadcast(&this->cond->cond);
+	assert(ret == 0);
 }
 
 uint64_t SynchronizedLock::getObjectSize() noexcept {
