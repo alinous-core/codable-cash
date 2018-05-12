@@ -13,5 +13,5 @@ popd
 # --name test-dev
 docker container run --rm \
 	-v $projectSrc:/var/codablecash \
-	-it ubuntu16 \
+	 ubuntu16 \
 	/var/make.sh
