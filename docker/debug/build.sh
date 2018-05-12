@@ -1,4 +1,5 @@
 #!/bin/bash
 
-docker build -t ubuntu16 .
+# --no-cache
+docker build --no-cache -t ubuntu16 .
 
