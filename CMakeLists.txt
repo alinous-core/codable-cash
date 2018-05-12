@@ -171,7 +171,9 @@ add_custom_target(cppcheck
     )
 
 add_custom_target(valgrind
-	COMMAND valgrind --log-file=val.log --leak-check=full ./testall
+	COMMAND valgrind --leak-check=full
+		--xml=yes --xml-file=testall.%p.valgrind.xml
+		./testall
 	
 	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 	)

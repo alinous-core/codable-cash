@@ -12,11 +12,13 @@
 namespace alinous {
 
 LockCondition::LockCondition() {
-	::pthread_cond_init(&cond, 0);
+	int ret = ::pthread_cond_init(&cond, 0);
+	assert(ret == 0);
 }
 
 LockCondition::~LockCondition() {
-	::pthread_cond_destroy(&cond);
+	int ret = ::pthread_cond_destroy(&cond);
+	assert(ret == 0);
 }
 
 } /* namespace alinous */

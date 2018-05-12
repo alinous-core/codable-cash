@@ -13,28 +13,34 @@ namespace alinous {
 
 SynchronizedLock::SynchronizedLock() : ILock() {
 	this->cond = new LockCondition();
-	::pthread_mutex_init(&mutex, NULL);
+	int ret = ::pthread_mutex_init(&mutex, NULL);
+	assert(ret == 0);
 }
 
 SynchronizedLock::~SynchronizedLock() {
-	::pthread_mutex_destroy(&mutex);
+	int ret = ::pthread_mutex_destroy(&mutex);
+	assert(ret == 0);
 	delete this->cond;
 }
 
 void SynchronizedLock::lock() {
-	::pthread_mutex_lock(&mutex);
+	int ret = ::pthread_mutex_lock(&mutex);
+	assert(ret == 0);
 }
 
 void SynchronizedLock::unlock() {
-	::pthread_mutex_unlock(&mutex) ;
+	int ret = ::pthread_mutex_unlock(&mutex);
+	assert(ret == 0);
 }
 
 void SynchronizedLock::wait() {
-	::pthread_cond_wait(&this->cond->cond, &mutex);
+	int ret = ::pthread_cond_wait(&this->cond->cond, &mutex);
+	assert(ret == 0);
 }
 
 void SynchronizedLock::notifyAll() {
-	::pthread_cond_broadcast(&this->cond->cond);
+	int ret = ::pthread_cond_broadcast(&this->cond->cond);
+	assert(ret == 0);
 }
 
 uint64_t SynchronizedLock::getObjectSize() noexcept {
