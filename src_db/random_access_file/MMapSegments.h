@@ -29,7 +29,7 @@ public:
 
 	void clearElements(DiskCacheManager *diskManager, FileDescriptor& fd) noexcept;
 
-	void onResized(uint64_t fileSize, FileDescriptor& fd);
+	void onResized(uint64_t fileSize, FileDescriptor& fd, DiskCacheManager* diskManager);
 	MMapSegment* getSegment(uint64_t fpos, DiskCacheManager *cache, FileDescriptor& fd);
 	MMapSegment* newSegment(uint64_t fpos, FileDescriptor& fd);
 	void requestCacheOut(MMapSegment* seg) noexcept;
