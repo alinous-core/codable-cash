@@ -62,6 +62,9 @@ int TestExecutor::execute(int ac, char** av) noexcept {
 	TestSummary summary;
 	summaryTest(&summary);
 
+	if(!params.isV()){
+		printf("\n");
+	}
 	printf("Testing Summary\n");
 	summary.echoSummary();
 

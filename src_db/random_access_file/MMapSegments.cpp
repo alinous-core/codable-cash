@@ -63,7 +63,7 @@ uint64_t MMapSegments::getNumSegments(uint64_t fileSize, uint64_t segmentSize) c
 	return (fileSize % segmentSize) == 0 ? fileSize / segmentSize : (fileSize / segmentSize) + 1;
 }
 
-void MMapSegments::onResized(uint64_t fileSize, FileDescriptor& fd) {
+void MMapSegments::onResized(uint64_t fileSize, FileDescriptor& fd, DiskCacheManager* diskManager) {
 	assert(fileSize >  this->fileSize);
 
 	StackUnlocker stackLock(&this->lock);
@@ -81,7 +81,7 @@ void MMapSegments::onResized(uint64_t fileSize, FileDescriptor& fd) {
 	this->numSegments = newNumSegments;
 	this->fileSize = fileSize;
 
-	// TODO: hadle last seg
+	// hadle last seg
 	if(lastTopSegment < 0 || this->segIndex->get(lastTopSegment) == nullptr){
 		return;
 	}
@@ -92,7 +92,10 @@ void MMapSegments::onResized(uint64_t fileSize, FileDescriptor& fd) {
 		seg->writeBack(fd);
 	}
 
+	this->segIndex->setElement(nullptr, lastTopSegment);
+	diskManager->fireCacheRemoved(segElement);
 
+	delete seg;
 }
 
 MMapSegment* MMapSegments::getSegment(uint64_t fpos, DiskCacheManager* cache, FileDescriptor& fd) {

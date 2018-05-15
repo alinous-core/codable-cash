@@ -43,6 +43,8 @@ public:
 	int writeBack(FileDescriptor& fd);
 
 	uint64_t segmentSize() const noexcept;
+
+	//int getWaitCount() noexcept;
 protected:
 	uint64_t mappedSize;
 	uint64_t position;
@@ -53,6 +55,8 @@ protected:
 	MMapSegments* parent;
 
 	bool dirty;
+
+	int waitCount;
 };
 
 class MMapSegmentStackRelease {

@@ -176,6 +176,8 @@ TEST(HashMapTestGroup, keySetWithNull02){
 	UnicodeString* last = map->put(nullptr, nullptr);
 	delete last;
 
+	map->clear();
+
 	delete map;
 }
 

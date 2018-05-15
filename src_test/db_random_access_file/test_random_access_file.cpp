@@ -392,16 +392,12 @@ TEST(RAFTestGroup, pagesizeChange){
 	delete [] buff;
 
 	MMapSegment* seg = file.getSegment(fpos);
+	seg->setDirty(true);
 	seg->decRefCount();
 
 	file.setLength(1024 + 64);
 
-	//printf("before close \n");::fflush(stdout);
-
 	file.close();
-
-	//printf("test ends \n");::fflush(stdout);
-
 }
 
 

@@ -23,6 +23,7 @@ MMapSegment::MMapSegment(uint64_t mappedSize, uint64_t position, MMapSegments* p
 	this->parent = parent;
 	this->dirty = false;
 	this->buffer = new char[this->mappedSize];
+	this->waitCount = 0;
 
 	Mem::memset(this->buffer, 0, this->mappedSize);
 }
@@ -54,7 +55,9 @@ void MMapSegment::waitForUnused() noexcept {
 	StackUnlocker unlocker(&this->lock);
 
 	if(this->refCount != 0){
+		this->waitCount++;
 		this->lock.wait();
+		this->waitCount--;
 	}
 }
 
@@ -125,7 +128,11 @@ uint64_t MMapSegment::segmentSize() const noexcept {
 			+ sizeof(int) + sizeof(MMapSegments*) + sizeof(bool);
 	return size;
 }
-
-
+/*
+int MMapSegment::getWaitCount() noexcept {
+	StackUnlocker unlocker(&this->lock);
+	return this->waitCount;
+}
+*/
 } /* namespace alinous */
 
