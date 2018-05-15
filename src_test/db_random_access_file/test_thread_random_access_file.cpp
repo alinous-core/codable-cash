@@ -31,36 +31,41 @@ TEST_GROUP(RAFCacheOut) {
 
 class TestSegRuuer : public AbstractThreadRunner {
 public:
-	TestSegRuuer(const UnicodeString* name, RandomAccessFile* file, TestBreak* breakpoint, uint64_t fpos): AbstractThreadRunner(name),
-				file(file), breakpoint(breakpoint), fpos(fpos) {}
+	TestSegRuuer(const UnicodeString* name, RandomAccessFile* file, TestBreak* breakpoint, uint64_t fpos, int no): AbstractThreadRunner(name),
+				file(file), breakpoint(breakpoint), fpos(fpos), no(no){
+		this->seg = nullptr;
+	}
 	virtual ~TestSegRuuer(){}
 
 	virtual void process() noexcept{
 		breakpoint->breakpoint(1);
 
-		MMapSegment* seg = file->getSegment(fpos);
+		seg = file->getSegment(fpos);
 
 		breakpoint->breakpoint(2);
 
-		Os::usleep(30 * 1000);
-
 		seg->decRefCount();
 	}
+
 private:
 	RandomAccessFile* file;
 	TestBreak* breakpoint;
 	uint64_t fpos;
+	int no;
+	MMapSegment* seg;
 };
 
 
-
-TEST(RAFCacheOut, getSegmentCacheOut01){
-	File projectFolder = this->env->testCaseDir();
+static void testOnce(File projectFolder){
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
 
 	UnicodeString name(L"out.bin");
 	File* outFile = projectFolder.get(&name);
 	StackRelease<File> r_outFile(outFile);
+
+	if(outFile->exists()){
+		outFile->deleteFile();
+	}
 
 	DiskCacheManager diskCache(16525);
 	RandomAccessFile file(outFile, &diskCache);
@@ -76,8 +81,8 @@ TEST(RAFCacheOut, getSegmentCacheOut01){
 	UnicodeString str02(L"test02");
 	TestBreak break01;
 	TestBreak break02;
-	TestSegRuuer* runner01 = new TestSegRuuer(&str01, &file, &break01, 10);
-	TestSegRuuer* runner02 = new TestSegRuuer(&str02, &file, &break02, segsize * 2 + 1);
+	TestSegRuuer* runner01 = new TestSegRuuer(&str01, &file, &break01, 10, 1);
+	TestSegRuuer* runner02 = new TestSegRuuer(&str02, &file, &break02, segsize * 2 + 1, 2);
 
 	StackRelease<TestSegRuuer> r_runner01(runner01);
 	StackRelease<TestSegRuuer> r_runner02(runner02);
@@ -85,17 +90,31 @@ TEST(RAFCacheOut, getSegmentCacheOut01){
 	runner02->start();
 
 	break01.resume(1);
+
+	// wait for first thread got segment
 	while(break01.current() != 2){
-		Os::usleep(1000);
+		Os::usleep(100);
 	}
 
 	break02.resume(1);
+
+	// before resume first one, wait for second thread is waiting
+	Os::usleep(1000);
 
 	break01.resume(2);
 	break02.resume(2);
 
 	runner01->join();
 	runner02->join();
+}
+
+
+TEST(RAFCacheOut, getSegmentCacheOut01){
+	File projectFolder = this->env->testCaseDir();
+
+	testOnce(projectFolder);
+	testOnce(projectFolder);
+	testOnce(projectFolder);
 }
 
 

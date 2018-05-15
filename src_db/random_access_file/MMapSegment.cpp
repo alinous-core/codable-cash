@@ -128,11 +128,11 @@ uint64_t MMapSegment::segmentSize() const noexcept {
 			+ sizeof(int) + sizeof(MMapSegments*) + sizeof(bool);
 	return size;
 }
-
+/*
 int MMapSegment::getWaitCount() noexcept {
 	StackUnlocker unlocker(&this->lock);
 	return this->waitCount;
 }
-
+*/
 } /* namespace alinous */
 

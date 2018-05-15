@@ -44,7 +44,7 @@ public:
 
 	uint64_t segmentSize() const noexcept;
 
-	int getWaitCount() noexcept;
+	//int getWaitCount() noexcept;
 protected:
 	uint64_t mappedSize;
 	uint64_t position;
