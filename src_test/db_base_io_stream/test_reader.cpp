@@ -33,11 +33,9 @@ TEST_GROUP(ReaderTestGroup) {
 
 };
 
-TEST(ReaderTestGroup, construct){
-	File projectFolder = this->env->testCaseDir();
-
+static UnicodeString* makeTestFile(File projectFolder, const wchar_t* content){
 	_ST(File, outFile, projectFolder.get(L"out.txt"))
-	_ST(UnicodeString, path, outFile->getAbsolutePath())
+	UnicodeString* path = outFile->getAbsolutePath();
 
 	UnicodeString charset(L"utf-8");
 	FileOutputStream outStream(path);
@@ -47,7 +45,24 @@ TEST(ReaderTestGroup, construct){
 	writer.write(L"Hello world");
 	writer.close();
 
+	return path;
+}
+
+TEST(ReaderTestGroup, construct){
+	_ST(UnicodeString, path, makeTestFile(this->env->testCaseDir(), L"Hello world"))
+
+	UnicodeString charset(L"utf-8");
 	FileInputStream stream(path);
 	stream.open();
 	InputStreamReader reader(&stream, &charset);
+
+	wchar_t* buff = new wchar_t[12]{};
+	int red = reader.read(buff, 12);
+
+	delete [] buff;
 }
+
+
+
+
+

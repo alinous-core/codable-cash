@@ -31,11 +31,13 @@ InputStreamReader::InputStreamReader(InputStream* in) {
 void InputStreamReader::init() noexcept {
 	this->bytes = nullptr;
 	this->chars = nullptr;
+	this->charsRemain = nullptr;
 	this->buffer = nullptr;
 	this->bufferLength = 0;
 
 	this->remainBytes = ByteBuffer::allocate(4);
 	this->remainBytes->position(0);
+	this->remainBytes->limit(0);
 
 }
 
@@ -52,6 +54,9 @@ InputStreamReader::~InputStreamReader() {
 	if(this->chars != nullptr){
 		delete this->chars;
 	}
+	if(this->charsRemain != nullptr){
+		delete this->charsRemain;
+	}
 	if(this->remainBytes != nullptr){
 		delete this->remainBytes;
 	}
@@ -62,6 +67,20 @@ void InputStreamReader::close() {
 }
 
 int InputStreamReader::read(wchar_t* b, int off, int len) {
+	if(this->charsRemain != nullptr && this->charsRemain->hasRemaining()){
+		int diff = this->charsRemain->remaining();
+		int nred = 0;
+		while(this->charsRemain->hasRemaining()){
+			wchar_t ch = this->charsRemain->get();
+			b[nred] = ch;
+			nred++;
+			off++;
+
+			if(nred == len){
+				return nred;
+			}
+		}
+	}
 
 	return __read(b, off, len);
 }
@@ -114,12 +133,33 @@ int InputStreamReader::__read(wchar_t* b, int off, int len) {
 	int decodecLength = this->chars->remaining();
 	int actualLength = decodecLength <= len ? decodecLength : len;
 
+	this->chars->get(b, actualLength);
+
 	int diff = decodecLength - actualLength;
 	if(diff > 0){
-
+		setupRemainCharBuffer(diff);
+		while(this->chars->hasRemaining()){
+			wchar_t ch = this->chars->get();
+			this->charsRemain->put(ch);
+		}
+		int pos = this->charsRemain->position();
+		this->charsRemain->limit(pos);
+		this->charsRemain->position(0);
 	}
 
 	return actualLength;
+}
+
+void InputStreamReader::setupRemainCharBuffer(int diff) noexcept {
+	if(this->charsRemain != nullptr && this->charsRemain->capacity() >= diff){
+		this->charsRemain->clear();
+		return;
+	}
+	if(this->charsRemain != nullptr){
+		delete this->charsRemain;
+	}
+	this->charsRemain = CharBuffer::allocate(diff);
+	this->charsRemain->clear();
 }
 
 void InputStreamReader::initBuffer(int estimatedLength) noexcept {
@@ -142,7 +182,7 @@ void InputStreamReader::initBuffer(int estimatedLength) noexcept {
 }
 
 int InputStreamReader::read(wchar_t* b, int size) {
-	return read(b, size);
+	return read(b, 0, size);
 }
 
 

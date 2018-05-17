@@ -31,6 +31,7 @@ private:
 	void init() noexcept;
 	void initBuffer(int estimatedLength) noexcept;
 	int __read(wchar_t* b, int off, int len);
+	void setupRemainCharBuffer(int diff) noexcept;
 
 	InputStream* stream;
 	UnicodeString* charsetName;

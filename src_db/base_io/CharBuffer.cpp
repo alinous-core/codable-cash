@@ -95,6 +95,9 @@ CharBuffer* CharBuffer::limit(int limit) noexcept {
 	this->lim = limit;
 	return this;
 }
+int CharBuffer::capacity() const noexcept {
+	return this->cap;
+}
 wchar_t CharBuffer::get() noexcept {
 	return data->get(this->pos++);
 }
@@ -149,3 +152,4 @@ CharBuffer* CharBuffer::put(const wchar_t* src, int off, int len) noexcept(false
 }
 
 } /* namespace alinous */
+
