@@ -60,6 +60,10 @@ private:
 	ArrayList<T> ptrlist;
 };
 
+#define _ST(clazz, ref, getPtr) \
+	clazz* ref = getPtr; \
+	StackRelease<clazz> __r_##ref(ref);
+
 
 } /* namespace alinous */
 

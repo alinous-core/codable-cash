@@ -44,7 +44,9 @@ void FileInputStream::open() {
 }
 
 void FileInputStream::close() {
-	Os::closeFileDescriptor(&this->fd);
+	if(this->fd.isOpened()){
+		Os::closeFileDescriptor(&this->fd);
+	}
 }
 
 int FileInputStream::read(char* b, int size) {
