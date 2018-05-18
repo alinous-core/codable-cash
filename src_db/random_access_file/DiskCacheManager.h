@@ -21,6 +21,7 @@ class DiskCacheManager {
 public:
 	friend class MMapSegments;
 
+	DiskCacheManager() noexcept;
 	explicit DiskCacheManager(int maxCache) noexcept;
 	virtual ~DiskCacheManager() noexcept;
 

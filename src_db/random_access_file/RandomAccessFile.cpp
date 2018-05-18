@@ -153,6 +153,10 @@ void RandomAccessFile::setLength(uint64_t newLength) noexcept(false) {
 
 		throw new FileIOException(msg.towString(), __FILE__, __LINE__);
 	}
+	if(newLength <= this->fileSize){
+		return;
+	}
+
 
 	uint64_t newSize = newLength - this->fileSize;
 	const uint64_t numBlocks = newSize / this->pageSize;
