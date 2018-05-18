@@ -114,6 +114,10 @@ public:
 		return numArray;
 	}
 
+	inline bool isEmpty() const noexcept {
+		return numArray == 0;
+	}
+
 	inline T* get(int i) const noexcept {
 		return *(this->root + i);
 	}
