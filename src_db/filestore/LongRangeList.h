@@ -15,6 +15,7 @@ namespace alinous {
 
 class LongRange;
 class LongRangeIterator;
+class LongRangeHitStatus;
 
 class LongRangeList {
 public:
@@ -22,17 +23,21 @@ public:
 	virtual ~LongRangeList();
 public:
 	void addRange(int64_t value) noexcept ;
-	void removeRange(int64_t value) noexcept ;
-	LongRange* get(int listIndex) const noexcept ;
+	void addRange(int64_t min, int64_t max) noexcept ;
+
 	bool isEmpty() const noexcept ;
 	int size() const noexcept ;
-	LongRangeIterator* iterator() const noexcept ;
+	LongRange* get(int listIndex) const noexcept;
+	LongRangeIterator* iterator() noexcept;
+
+/*
+	void removeRange(int64_t value) noexcept ;
+	 ;
+*/
 private:
-	void spiltByRemove(LongRange* range, int64_t value, int pos) noexcept ;
-	void insertRange(int pos, LongRange* newRange) noexcept ;
-	void insertOrExtend(int pos, int64_t value) noexcept ;
-	void insertRange(int pos, int64_t value) noexcept ;
-	int indexOfInsert(int64_t value) const noexcept ;
+	LongRangeHitStatus* hitStatus(uint64_t value, const LongRange* range, bool findHigher) const noexcept;
+	void setHitStatus(LongRange* range, int pos, uint64_t value) const noexcept;
+//	int indexOfInsert(int64_t value) const noexcept ;
 private:
 	ArrayList<LongRange>* list;
 };

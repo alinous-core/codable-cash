@@ -35,7 +35,7 @@ bool LongRangeIterator::hasNext() noexcept {
 	return this->current > 0;
 }
 
-int64_t LongRangeIterator::next() noexcept {
+uint64_t LongRangeIterator::next() noexcept {
 	long long ret = this->current;
 	LongRange* range = list->get(this->listIndex);
 	if(range->hasNext(this->current)){

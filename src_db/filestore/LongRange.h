@@ -14,19 +14,30 @@ namespace alinous {
 
 class LongRange {
 public:
-	LongRange(int64_t min, int64_t max);
+	constexpr static int LT{-1};
+	constexpr static int GT{1};
+	constexpr static int INC{0};
+
+	constexpr static int LTINC{-1};
+	constexpr static int GTINC{1};
+
+	explicit LongRange(const LongRange* base) noexcept;
+	LongRange(uint64_t min, uint64_t max) noexcept;
 	virtual ~LongRange();
 
-	int64_t width() noexcept ;
-	bool hasNext(int64_t value) const noexcept ;
-	int64_t getMin() const noexcept ;
-	void setMin(int64_t min) noexcept ;
-	int64_t getMax() const noexcept ;
-	void setMax(int64_t max) noexcept ;
+	int compare(uint64_t value) const noexcept;
+	int includeType(uint64_t value) const noexcept;
+
+	uint64_t width() noexcept ;
+	bool hasNext(uint64_t value) const noexcept ;
+	uint64_t getMin() const noexcept ;
+	void setMin(uint64_t min) noexcept ;
+	uint64_t getMax() const noexcept ;
+	void setMax(uint64_t max) noexcept ;
 private:
 private:
-	int64_t min;
-	int64_t max;
+	uint64_t min;
+	uint64_t max;
 };
 
 } /* namespace alinous */

@@ -25,6 +25,9 @@ TEST_GROUP(TestFileStoreGroup) {
 	}
 };
 
+TEST(TestFileStoreGroup, exceptions){
+	testException<FileStorageException>();
+}
 
 TEST(TestFileStoreGroup, construct){
 	File projectFolder = this->env->testCaseDir();

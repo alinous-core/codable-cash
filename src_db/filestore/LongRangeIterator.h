@@ -20,7 +20,7 @@ public:
 	virtual ~LongRangeIterator() noexcept;
 
 	bool hasNext() noexcept;
-	int64_t next() noexcept;
+	uint64_t next() noexcept;
 private:
 	LongRangeList* list;
 	int listIndex;
