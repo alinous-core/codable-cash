@@ -144,14 +144,14 @@ uint64_t RandomAccessFile::getSegmentSize() const noexcept {
 	return this->pageSize * PAGE_NUM_CACHE;
 }
 
-void RandomAccessFile::setLength(uint64_t newLength) {
+void RandomAccessFile::setLength(uint64_t newLength) noexcept(false) {
 	if(!this->fd.isOpened()){
 		UnicodeString* path = this->file->getAbsolutePath();
 		StackRelease<UnicodeString> r_path(path);
 		UnicodeString msg(path);
 		msg.append(L" is not opened at setLength()");
 
-		throw new FileIOException(&msg, __FILE__, __LINE__);
+		throw new FileIOException(msg.towString(), __FILE__, __LINE__);
 	}
 
 	uint64_t newSize = newLength - this->fileSize;
@@ -171,7 +171,7 @@ void RandomAccessFile::setLength(uint64_t newLength) {
 		if(n != this->pageSize){
 			UnicodeString* path = this->file->getAbsolutePath();
 			StackRelease<UnicodeString> r_path(path);
-			throw new FileIOException(path, __FILE__, __LINE__);
+			throw new FileIOException(path->towString(), __FILE__, __LINE__);
 		}
 	}
 
@@ -180,7 +180,7 @@ void RandomAccessFile::setLength(uint64_t newLength) {
 	if(n != modBytes){
 		UnicodeString* path = this->file->getAbsolutePath();
 		StackRelease<UnicodeString> r_path(path);
-		throw new FileIOException(path, __FILE__, __LINE__);
+		throw new FileIOException(path->towString(), __FILE__, __LINE__);
 	}
 
 	this->fileSize = this->file->length();
@@ -188,7 +188,7 @@ void RandomAccessFile::setLength(uint64_t newLength) {
 
 }
 
-MMapSegment* RandomAccessFile::getSegment(uint64_t fpos) {
+MMapSegment* RandomAccessFile::getSegment(uint64_t fpos) noexcept(false) {
 	return this->segments->getSegment(fpos, this->diskCacheManager, this->fd);
 }
 

@@ -14,10 +14,11 @@ class UnicodeString;
 
 class Exception {
 public:
+	Exception(const Exception& base) = delete;
 	Exception(const char* srcfile, int srcline) noexcept;
 	Exception(Exception* cause, const char* srcfile, int srcline) noexcept;
-	Exception(UnicodeString* message, const char* srcfile, int srcline) noexcept;
-	Exception(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept;
+	Exception(const wchar_t* message, const char* srcfile, int srcline) noexcept;
+	Exception(const wchar_t* message, Exception* cause, const char* srcfile, int srcline) noexcept;
 
 	virtual ~Exception();
 

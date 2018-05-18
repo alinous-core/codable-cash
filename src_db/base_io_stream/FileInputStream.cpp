@@ -39,7 +39,7 @@ void FileInputStream::open() {
 		UnicodeString* path = this->file->getAbsolutePath();
 		StackRelease<UnicodeString> r_path(path);
 
-		throw new FileOpenException(path, __FILE__, __LINE__);
+		throw new FileOpenException(path->towString(), __FILE__, __LINE__);
 	}
 }
 

@@ -21,11 +21,11 @@ BufferUnderflowException::BufferUnderflowException(const char* srcfile, int srcl
 BufferUnderflowException::BufferUnderflowException(Exception* cause, const char* srcfile, int srcline) noexcept : Exception(cause, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 }
-BufferUnderflowException::BufferUnderflowException(UnicodeString* message, const char* srcfile, int srcline) noexcept : Exception(message, srcfile, srcline) {
+BufferUnderflowException::BufferUnderflowException(const wchar_t* message, const char* srcfile, int srcline) noexcept : Exception(message, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 	this->message->append(message);
 }
-BufferUnderflowException::BufferUnderflowException(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept : Exception(message, cause, srcfile, srcline) {
+BufferUnderflowException::BufferUnderflowException(const wchar_t* message, Exception* cause, const char* srcfile, int srcline) noexcept : Exception(message, cause, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 	this->message->append(message);
 }
@@ -41,11 +41,11 @@ BufferOverflowException::BufferOverflowException(const char* srcfile, int srclin
 BufferOverflowException::BufferOverflowException(Exception* cause, const char* srcfile, int srcline) noexcept : Exception(cause, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 }
-BufferOverflowException::BufferOverflowException(UnicodeString* message, const char* srcfile, int srcline) noexcept : Exception(message, srcfile, srcline) {
+BufferOverflowException::BufferOverflowException(const wchar_t* message, const char* srcfile, int srcline) noexcept : Exception(message, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 	this->message->append(message);
 }
-BufferOverflowException::BufferOverflowException(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept : Exception(message, cause, srcfile, srcline) {
+BufferOverflowException::BufferOverflowException(const wchar_t* message, Exception* cause, const char* srcfile, int srcline) noexcept : Exception(message, cause, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 	this->message->append(message);
 }

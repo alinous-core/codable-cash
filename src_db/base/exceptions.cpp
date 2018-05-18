@@ -20,11 +20,11 @@ NumberFormatException::NumberFormatException(const char* srcfile, int srcline) n
 NumberFormatException::NumberFormatException(Exception* cause, const char* srcfile, int srcline) noexcept : Exception(cause, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 }
-NumberFormatException::NumberFormatException(UnicodeString* message, const char* srcfile, int srcline) noexcept : Exception(message, srcfile, srcline) {
+NumberFormatException::NumberFormatException(const wchar_t* message, const char* srcfile, int srcline) noexcept : Exception(message, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 	this->message->append(message);
 }
-NumberFormatException::NumberFormatException(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept : Exception(message, cause, srcfile, srcline) {
+NumberFormatException::NumberFormatException(const wchar_t* message, Exception* cause, const char* srcfile, int srcline) noexcept : Exception(message, cause, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 	this->message->append(message);
 }
@@ -40,11 +40,11 @@ IllegalArgumentException::IllegalArgumentException(const char* srcfile, int srcl
 IllegalArgumentException::IllegalArgumentException(Exception* cause, const char* srcfile, int srcline) noexcept : Exception(cause, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 }
-IllegalArgumentException::IllegalArgumentException(UnicodeString* message, const char* srcfile, int srcline) noexcept : Exception(message, srcfile, srcline) {
+IllegalArgumentException::IllegalArgumentException(const wchar_t* message, const char* srcfile, int srcline) noexcept : Exception(message, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 	this->message->append(message);
 }
-IllegalArgumentException::IllegalArgumentException(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept : Exception(message, cause, srcfile, srcline) {
+IllegalArgumentException::IllegalArgumentException(const wchar_t* message, Exception* cause, const char* srcfile, int srcline) noexcept : Exception(message, cause, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 	this->message->append(message);
 }

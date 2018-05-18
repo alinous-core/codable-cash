@@ -25,17 +25,17 @@ Exception::Exception(Exception* cause, const char* srcfile, int srcline) noexcep
 	this->cause = cause;
 	this->message = nullptr;
 }
-Exception::Exception(UnicodeString* message, const char* srcfile, int srcline) noexcept {
+Exception::Exception(const wchar_t* message, const char* srcfile, int srcline) noexcept {
 	this->srcfile = srcfile;
 	this->srcline = srcline;
 	this->cause = nullptr;
-	this->message = message;
+	this->message = new UnicodeString(message);
 }
-Exception::Exception(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept {
+Exception::Exception(const wchar_t* message, Exception* cause, const char* srcfile, int srcline) noexcept {
 	this->srcfile = srcfile;
 	this->srcline = srcline;
 	this->cause = cause;
-	this->message = message;
+	this->message = new UnicodeString(message);
 }
 
 Exception::~Exception() {

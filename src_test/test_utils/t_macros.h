@@ -63,7 +63,7 @@ void testException(){
 	ex = nullptr;
 	try{
 		UnicodeString msg(L"error message");
-		throw new T(&msg, __FILE__, __LINE__);
+		throw new T(msg.towString(), __FILE__, __LINE__);
 	}
 	catch(T* e){
 		ex = e;
@@ -84,7 +84,7 @@ void testException(){
 	excause = new T(__FILE__, __LINE__);
 	try{
 		UnicodeString msg(L"error message");
-		throw new T(&msg, excause, __FILE__, __LINE__);
+		throw new T(msg.towString(), excause, __FILE__, __LINE__);
 	}
 	catch(T* e){
 		ex = e;

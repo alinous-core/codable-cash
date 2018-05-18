@@ -139,7 +139,7 @@ MMapSegment* MMapSegments::newSegment(uint64_t fpos, FileDescriptor& fd) {
 		delete seg;
 
 		UnicodeString msg(L"Failed in making new cache segment");
-		throw new FileIOException(&msg, e, __FILE__, __LINE__);
+		throw new FileIOException(msg.towString(), e, __FILE__, __LINE__);
 	}
 
 	return seg;
