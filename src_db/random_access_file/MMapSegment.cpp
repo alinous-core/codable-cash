@@ -106,7 +106,7 @@ MMapSegmentStackRelease::~MMapSegmentStackRelease() noexcept {
 	ptr->decRefCount();
 }
 
-int MMapSegment::writeBack(FileDescriptor& fd) {
+int MMapSegment::writeBack(FileDescriptor& fd) noexcept(false) {
 	ERROR_POINT(L"MMapSegment::writeBack")
 
 	int ret = Os::write2File(&fd, (char*)this->buffer, this->mappedSize);
