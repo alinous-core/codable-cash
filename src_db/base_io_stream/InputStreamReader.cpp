@@ -67,8 +67,9 @@ void InputStreamReader::close() {
 }
 
 int InputStreamReader::read(wchar_t* b, int off, int len) {
+	int diff = 0;
 	if(this->charsRemain != nullptr && this->charsRemain->hasRemaining()){
-		int diff = this->charsRemain->remaining();
+		diff = this->charsRemain->remaining();
 		int nred = 0;
 		while(this->charsRemain->hasRemaining()){
 			wchar_t ch = this->charsRemain->get();
@@ -80,9 +81,10 @@ int InputStreamReader::read(wchar_t* b, int off, int len) {
 				return nred;
 			}
 		}
+		len -= diff;
 	}
 
-	return __read(b, off, len);
+	return diff + __read(b, off, len);
 }
 
 int InputStreamReader::__read(wchar_t* b, int off, int len) {
@@ -133,7 +135,7 @@ int InputStreamReader::__read(wchar_t* b, int off, int len) {
 	int decodecLength = this->chars->remaining();
 	int actualLength = decodecLength <= len ? decodecLength : len;
 
-	this->chars->get(b, actualLength);
+	this->chars->get(b, off, actualLength);
 
 	int diff = decodecLength - actualLength;
 	if(diff > 0){
