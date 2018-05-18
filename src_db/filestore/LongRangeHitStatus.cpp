@@ -16,6 +16,10 @@ LongRangeHitStatus::LongRangeHitStatus(const LongRange* range) noexcept {
 	this->lower = nullptr;
 	this->higher = nullptr;
 
+	this->includedPos = -1;
+	this->lowerPos = -1;
+	this->higherPos = -1;
+
 }
 
 LongRangeHitStatus::~LongRangeHitStatus() {

@@ -52,7 +52,8 @@ void LongRangeList::addRange(int64_t min, int64_t max) noexcept {
 
 	}
 	else { // if(!minStatus->lowJoinable() && !maxStatus->highJoinable()){
-
+		int insertPos = minStatus->lower != nullptr ? minStatus->lowerPos : 0;
+		insertRange(insertPos, range);
 	}
 }
 
@@ -86,6 +87,7 @@ LongRangeHitStatus* LongRangeList::hitStatus(uint64_t value, const LongRange* ra
 		int cmp = midRange->compare(value);
 		if(cmp == 0){
 			status->included = midRange;
+			status->includedPos = mid;
 			return status;
 		}
 		else if(cmp > 0){
@@ -103,6 +105,7 @@ LongRangeHitStatus* LongRangeList::hitStatus(uint64_t value, const LongRange* ra
 			midRange = this->list->get(begin);
 			if(midRange->compare(value) > 0){
 				status->higher = midRange;
+				status->higherPos = begin;
 				break;
 			}
 			begin++;
@@ -113,6 +116,7 @@ LongRangeHitStatus* LongRangeList::hitStatus(uint64_t value, const LongRange* ra
 			midRange = this->list->get(begin);
 			if(midRange->compare(value) < 0){
 				status->lower = midRange;
+				status->lowerPos = begin;
 				break;
 			}
 			begin--;
@@ -137,7 +141,4 @@ LongRange* LongRangeList::get(int listIndex) const noexcept {
 LongRangeIterator* LongRangeList::iterator() noexcept {
 	return new LongRangeIterator(this);
 }
-
-
-
 } /* namespace alinous */

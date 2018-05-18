@@ -25,6 +25,10 @@ public:
 	LongRange* lower;
 	LongRange* higher;
 
+	int includedPos;
+	int lowerPos;
+	int higherPos;
+
 	const LongRange* current;
 };
 
