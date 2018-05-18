@@ -37,6 +37,7 @@ public:
 	CharBuffer* position(int newPosition) noexcept;
 	int limit() const noexcept;
 	CharBuffer* limit(int limit) noexcept;
+	int capacity() const noexcept;
 	wchar_t get() noexcept;
 	wchar_t get(int index) const noexcept;
 	CharBuffer* get(wchar_t* dest, int length) noexcept(false);

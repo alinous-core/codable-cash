@@ -47,6 +47,14 @@ ByteBuffer::~ByteBuffer() noexcept {
 	delete this->data;
 }
 
+
+ByteBuffer* ByteBuffer::clear() noexcept {
+	this->lim = this->cap;
+	this->pos = 0;
+	return this;
+}
+
+
 int ByteBuffer::remaining() const noexcept
 {
 	 return this->lim - this->pos;
@@ -413,3 +421,4 @@ const uint8_t* ByteBuffer::array() const noexcept {
 }
 
 } /* namespace alinous */
+

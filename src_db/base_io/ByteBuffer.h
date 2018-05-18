@@ -26,6 +26,7 @@ public:
 
 	virtual ~ByteBuffer() noexcept;
 
+	ByteBuffer* clear() noexcept;
 	inline bool hasRemaining() noexcept {
     	return (pos < lim);
     }

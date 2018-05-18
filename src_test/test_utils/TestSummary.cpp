@@ -61,7 +61,7 @@ void alinous::TestSummary::analyze(TestCase* testCase) noexcept {
 }
 
 void TestSummary::echoSummary() const noexcept {
-	float percent = ((float)this->successedTest / (float)this->totalTests) * 100;
+	float percent = ((float)this->successedTest / ((float)this->successedTest + this->failedTest)) * 100;
 
 	printf("  %.2lf%% success (Total : %d, Success %d, Failed %d)\n", percent, this->totalTests, this->successedTest, this->failedTest);
 	printf("  Checks(success : %d, failed :%d)\n", this->successedcheck, this->failedcheck);
