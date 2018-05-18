@@ -94,10 +94,6 @@ LongRangeHitStatus* LongRangeList::hitStatus(uint64_t value, const LongRange* ra
 	return status;
 }
 
-void LongRangeList::setHitStatus(LongRange* range, int pos, uint64_t value) const noexcept {
-
-}
-
 bool LongRangeList::isEmpty() const noexcept {
 	return this->list->isEmpty();
 }
@@ -109,41 +105,6 @@ int LongRangeList::size() const noexcept {
 LongRange* LongRangeList::get(int listIndex) const noexcept {
 	return this->list->get(listIndex);
 }
-
-/*
-int LongRangeList::indexOfInsert(int64_t value) const noexcept {
-	int begin = 0;
-	int end = this->list->size() - 1;
-	int mid = (begin + end) / 2;
-	while(begin <= end)	{
-		mid = (begin + end) / 2;
-		if(list->get(mid)->getMax() - value == (int64_t)0){
-			return mid;
-		}
-		else {
-			if(list->get(mid)->getMax() - value < (int64_t)0){
-				begin = mid + 1;
-			}
-			else{
-				end = mid - 1;
-			}
-		}
-	}
-	if(end < 0)	{
-		return 0;
-	}
-	if(list->get(end)->getMax() - value > (int64_t)0) {
-		return end;
-	}
-	if(begin >= this->list->size())	{
-		return this->list->size();
-	}
-	if(list->get(begin)->getMax() - value > (int64_t)0){
-		return begin;
-	}
-	return this->list->size();
-}
-*/
 
 LongRangeIterator* LongRangeList::iterator() noexcept {
 	return new LongRangeIterator(this);

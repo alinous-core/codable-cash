@@ -36,8 +36,6 @@ public:
 */
 private:
 	LongRangeHitStatus* hitStatus(uint64_t value, const LongRange* range, bool findHigher) const noexcept;
-	void setHitStatus(LongRange* range, int pos, uint64_t value) const noexcept;
-//	int indexOfInsert(int64_t value) const noexcept ;
 private:
 	ArrayList<LongRange>* list;
 };
