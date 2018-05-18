@@ -19,6 +19,7 @@ class LongRangeHitStatus;
 
 class LongRangeList {
 public:
+	LongRangeList(const LongRangeList& base) = delete;
 	LongRangeList();
 	virtual ~LongRangeList();
 public:
