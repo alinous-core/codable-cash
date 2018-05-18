@@ -23,12 +23,15 @@ LongRangeHitStatus::~LongRangeHitStatus() {
 }
 
 bool LongRangeHitStatus::lowJoinable() const noexcept {
-	return this->lower != nullptr && this->lower->getMax() + 1 == this->current->getMin();
+	return (this->lower != nullptr && this->lower->getMax() + 1 == this->current->getMin() ) ||
+			( this->included != nullptr );
 }
 
 bool LongRangeHitStatus::highJoinable() const noexcept {
-	return this->higher != nullptr && this->higher->getMax() - 1 == this->current->getMax();
+	return (this->higher != nullptr && this->higher->getMin() - 1 == this->current->getMax()) ||
+			( this->included != nullptr );
 }
 
-
 } /* namespace alinous */
+
+

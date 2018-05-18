@@ -35,6 +35,7 @@ public:
 	 ;
 */
 private:
+	void insertRange(int pos, LongRange* range) noexcept;
 	LongRangeHitStatus* hitStatus(uint64_t value, const LongRange* range, bool findHigher) const noexcept;
 private:
 	ArrayList<LongRange>* list;

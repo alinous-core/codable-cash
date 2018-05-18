@@ -28,6 +28,7 @@ public:
 	const LongRange* current;
 };
 
+
 } /* namespace alinous */
 
 #endif /* FILESTORE_LONGRANGEHITSTATUS_H_ */

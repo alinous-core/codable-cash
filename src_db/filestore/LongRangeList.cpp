@@ -40,6 +40,33 @@ void LongRangeList::addRange(int64_t min, int64_t max) noexcept {
 	_ST(LongRangeHitStatus, minStatus, hitStatus(range->getMin(), range, false))
 	_ST(LongRangeHitStatus, maxStatus, hitStatus(range->getMax(), range, true))
 
+	if(minStatus->lowJoinable() && maxStatus->highJoinable()){
+		delete range;
+	}
+	else if(!minStatus->lowJoinable() && maxStatus->highJoinable()){
+		delete range;
+
+	}
+	else if(minStatus->lowJoinable() && !maxStatus->highJoinable()){
+		delete range;
+
+	}
+	else { // if(!minStatus->lowJoinable() && !maxStatus->highJoinable()){
+
+	}
+}
+
+void LongRangeList::insertRange(int pos, LongRange* range) noexcept {
+	int lastSize = list->size();
+
+	list->addElement(nullptr);
+
+	for(int i = lastSize; i != pos; --i){
+		LongRange* r = list->get(lastSize - 1);
+		list->setElement(r, lastSize);
+	}
+
+	list->setElement(range, pos);
 }
 
 LongRangeHitStatus* LongRangeList::hitStatus(uint64_t value, const LongRange* range, bool findHigher) const noexcept {
@@ -71,6 +98,7 @@ LongRangeHitStatus* LongRangeList::hitStatus(uint64_t value, const LongRange* ra
 
 	// find nearest
 	if(findHigher){
+		int listSize = this->list->size();
 		do{
 			midRange = this->list->get(begin);
 			if(midRange->compare(value) > 0){
@@ -78,7 +106,7 @@ LongRangeHitStatus* LongRangeList::hitStatus(uint64_t value, const LongRange* ra
 				break;
 			}
 			begin++;
-		}while(begin >= 0);
+		}while(begin < listSize);
 	}
 	else{ // lower range
 		do{
