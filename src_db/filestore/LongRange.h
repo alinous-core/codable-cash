@@ -21,6 +21,7 @@ public:
 	constexpr static int LTINC{-1};
 	constexpr static int GTINC{1};
 
+	LongRange(const LongRange& base) = delete;
 	explicit LongRange(const LongRange* base) noexcept;
 	LongRange(uint64_t min, uint64_t max) noexcept;
 	virtual ~LongRange();

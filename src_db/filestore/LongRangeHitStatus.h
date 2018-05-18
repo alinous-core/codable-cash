@@ -14,7 +14,8 @@ class LongRange;
 
 class LongRangeHitStatus {
 public:
-	LongRangeHitStatus(const LongRange* range) noexcept;
+	LongRangeHitStatus(const LongRangeHitStatus& base) = delete;
+	explicit LongRangeHitStatus(const LongRange* range) noexcept;
 	virtual ~LongRangeHitStatus();
 
 	bool lowJoinable() const noexcept;

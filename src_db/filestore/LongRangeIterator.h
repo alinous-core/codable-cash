@@ -16,7 +16,8 @@ class LongRangeList;
 
 class LongRangeIterator {
 public:
-	LongRangeIterator(LongRangeList* list) noexcept;
+	LongRangeIterator(const LongRangeIterator& base) = delete;
+	explicit LongRangeIterator(LongRangeList* list) noexcept;
 	virtual ~LongRangeIterator() noexcept;
 
 	bool hasNext() noexcept;

@@ -75,13 +75,12 @@ LongRangeHitStatus* LongRangeList::hitStatus(uint64_t value, const LongRange* ra
 
 	int begin = 0;
 	int end = this->list->size() - 1;
-	int mid = 0;
 
 	int minIndex;
 	LongRange* midRange = nullptr;
 
 	do{
-		mid = (begin + end) / 2;
+		int mid = (begin + end) / 2;
 
 		midRange = list->get(mid);
 		int cmp = midRange->compare(value);
