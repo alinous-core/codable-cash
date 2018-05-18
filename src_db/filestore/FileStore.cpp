@@ -37,7 +37,7 @@ FileStore::~FileStore() noexcept {
 	delete this->name;
 }
 
-void FileStore::open() {
+void FileStore::open() noexcept(false) {
 	File baseDir(dir);
 	if(!baseDir.exists()){
 		baseDir.mkdirs();
@@ -49,9 +49,11 @@ void FileStore::open() {
 	this->file = new RandomAccessFile(storeFile, this->cacheManager);
 
 	_ST(UnicodeString, headerfilename, new UnicodeString(this->name))
-	headerfilename->append(L".bin");
+	headerfilename->append(L"-header.bin");
 	_ST(File, storeHeaderFile, baseDir.get(headerfilename))
-	this->file = new RandomAccessFile(storeHeaderFile, this->cacheManager);
+	this->headerFile = new RandomAccessFile(storeHeaderFile, this->cacheManager);
+
+
 }
 
 bool FileStore::isOpened() const noexcept {
@@ -59,7 +61,16 @@ bool FileStore::isOpened() const noexcept {
 }
 
 void FileStore::close() noexcept {
-
+	if(this->headerFile != nullptr){
+		this->headerFile->close();
+		delete this->headerFile;
+		this->headerFile = nullptr;
+	}
+	if(this->file != nullptr){
+		this->file->close();
+		delete this->file;
+		this->file = nullptr;
+	}
 }
 
 } /* namespace alinous */

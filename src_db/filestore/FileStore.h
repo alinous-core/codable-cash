@@ -16,10 +16,11 @@ class UnicodeString;
 
 class FileStore {
 public:
+	FileStore(const FileStore& base) = delete;
 	FileStore(UnicodeString* dir, UnicodeString* name, DiskCacheManager* cacheManager) noexcept;
 	virtual ~FileStore() noexcept;
 
-	void open();
+	void open() noexcept(false);
 	bool isOpened() const noexcept;
 	void close() noexcept;
 private:
