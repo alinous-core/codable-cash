@@ -29,13 +29,13 @@ Exception::Exception(const wchar_t* message, const char* srcfile, int srcline) n
 	this->srcfile = srcfile;
 	this->srcline = srcline;
 	this->cause = nullptr;
-	this->message = new UnicodeString(message);
+	this->message = nullptr; //new UnicodeString(message);
 }
 Exception::Exception(const wchar_t* message, Exception* cause, const char* srcfile, int srcline) noexcept {
 	this->srcfile = srcfile;
 	this->srcline = srcline;
 	this->cause = cause;
-	this->message = new UnicodeString(message);
+	this->message = nullptr; //new UnicodeString(message);
 }
 
 Exception::~Exception() {
