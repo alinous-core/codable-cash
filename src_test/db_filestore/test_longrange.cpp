@@ -8,10 +8,11 @@
 #include "test_utils/t_macros.h"
 
 #include "filestore/LongRangeList.h"
-
-#include "base/StackRelease.h"
-
 #include "filestore/LongRangeIterator.h"
+#include "base/StackRelease.h"
+#include "base/RawBitSet.h"
+
+
 using namespace alinous;
 
 TEST_GROUP(TestLongRangeGroup) {
@@ -35,12 +36,39 @@ TEST(TestLongRangeGroup, addSimpleRange){
 	}
 }
 
-TEST(TestLongRangeGroup, addSimpleRange02){
+TEST(TestLongRangeGroup, emptyIterator){
 	LongRangeList list;
 
-	list.addRange(10, 15);
+	_ST(LongRangeIterator, it, list.iterator())
+	while(it->hasNext()){
+		uint64_t val = it->next();
+	}
+}
+
+static void addRange(RawBitSet* bitset, LongRangeList* list, uint64_t min, uint64_t max){
+	for(uint64_t i = min; i <= max; ++i){
+		bitset->set((uint32_t)i);
+	}
+	list->addRange(min, max);
+}
 
 
-	list.addRange(1, 2);
+TEST(TestLongRangeGroup, addSimpleRange02){
+	RawBitSet bitset(128);
 
+	LongRangeList list;
+
+	addRange(&bitset, &list, 10, 15);
+	addRange(&bitset, &list, 1, 2);
+
+	int pos = bitset.nextSetBit(0);
+
+	_ST(LongRangeIterator, it, list.iterator())
+	while(it->hasNext()){
+		uint64_t val = it->next();
+		CHECK(val == pos)
+
+		pos = bitset.nextSetBit(pos + 1);
+	}
+	CHECK(pos < 0);
 }
