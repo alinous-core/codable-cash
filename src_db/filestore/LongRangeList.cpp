@@ -36,25 +36,40 @@ void LongRangeList::addRange(int64_t min, int64_t max) noexcept {
 		return;
 	}
 
+	// check
 	LongRange* range = new LongRange(min, max);
 	_ST(LongRangeHitStatus, minStatus, hitStatus(range->getMin(), range, false))
 	_ST(LongRangeHitStatus, maxStatus, hitStatus(range->getMax(), range, true))
+
+	// check inclusion
 
 	if(minStatus->lowJoinable() && maxStatus->highJoinable()){
 		delete range;
 	}
 	else if(!minStatus->lowJoinable() && maxStatus->highJoinable()){
-		delete range;
+		LongRange* range2update = maxStatus->getHigh(); // high from range
+		assert(range2update != nullptr);
 
+		range2update->setMin(range->getMin());
+		delete range;
 	}
 	else if(minStatus->lowJoinable() && !maxStatus->highJoinable()){
-		delete range;
+		LongRange* range2update = minStatus->getLow(); // low from range
+		assert(range2update != nullptr);
 
+		range2update->setMax(range->getMax());
+
+		delete range;
 	}
 	else { // if(!minStatus->lowJoinable() && !maxStatus->highJoinable()){
 		int insertPos = minStatus->lower != nullptr ? minStatus->lowerPos : 0;
 		insertRange(insertPos, range);
 	}
+}
+
+void LongRangeList::removeRange(LongRange* range) noexcept {
+	_ST(LongRangeHitStatus, status, hitStatus(range->getMin(), range, false))
+
 }
 
 void LongRangeList::insertRange(int pos, LongRange* range) noexcept {
@@ -70,6 +85,8 @@ void LongRangeList::insertRange(int pos, LongRange* range) noexcept {
 	list->setElement(range, pos);
 }
 
+
+
 LongRangeHitStatus* LongRangeList::hitStatus(uint64_t value, const LongRange* range, bool findHigher) const noexcept {
 	LongRangeHitStatus* status = new LongRangeHitStatus(range);
 
@@ -84,18 +101,19 @@ LongRangeHitStatus* LongRangeList::hitStatus(uint64_t value, const LongRange* ra
 
 		midRange = list->get(mid);
 		int cmp = midRange->compare(value);
-		if(cmp == 0){
+
+		if(cmp > 0){
+			end = mid - 1;
+		}
+		else if(cmp < 0){
+			begin = mid + 1;
+		}
+		else { // cmp == 0
 			status->included = midRange;
 			status->includedPos = mid;
 			return status;
 		}
-		else if(cmp > 0){
-			end = mid;
-		}
-		else{
-			begin = mid;
-		}
-	}while(begin != end);
+	}while(begin < end);
 
 	// find nearest
 	if(findHigher){

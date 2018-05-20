@@ -21,6 +21,9 @@ public:
 	bool lowJoinable() const noexcept;
 	bool highJoinable() const noexcept;
 
+	LongRange* getLow() const noexcept;
+	LongRange* getHigh() const noexcept;
+
 public:
 	LongRange* included;
 	LongRange* lower;

@@ -36,6 +36,14 @@ bool LongRangeHitStatus::highJoinable() const noexcept {
 			( this->included != nullptr );
 }
 
+LongRange* LongRangeHitStatus::getLow() const noexcept {
+	return this->included == nullptr ? this->lower : this->included;
+}
+
+LongRange* LongRangeHitStatus::getHigh() const noexcept {
+	return this->included == nullptr ? this->higher : this->included;
+}
+
 } /* namespace alinous */
 
 

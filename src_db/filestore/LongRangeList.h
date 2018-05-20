@@ -25,16 +25,14 @@ public:
 public:
 	void addRange(int64_t value) noexcept ;
 	void addRange(int64_t min, int64_t max) noexcept ;
+	void removeRange(LongRange* range) noexcept;
 
 	bool isEmpty() const noexcept ;
 	int size() const noexcept ;
 	LongRange* get(int listIndex) const noexcept;
 	LongRangeIterator* iterator() noexcept;
 
-/*
-	void removeRange(int64_t value) noexcept ;
-	 ;
-*/
+
 private:
 	void insertRange(int pos, LongRange* range) noexcept;
 	LongRangeHitStatus* hitStatus(uint64_t value, const LongRange* range, bool findHigher) const noexcept;

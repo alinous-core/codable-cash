@@ -20,6 +20,14 @@ TEST_GROUP(TestLongRangeGroup) {
 	TEST_TEARDOWN() {}
 };
 
+static void addRange(RawBitSet* bitset, LongRangeList* list, uint64_t min, uint64_t max){
+	for(uint64_t i = min; i <= max; ++i){
+		bitset->set((uint32_t)i);
+	}
+	list->addRange(min, max);
+}
+
+
 TEST(TestLongRangeGroup, construct){
 	LongRangeList list;
 }
@@ -45,13 +53,6 @@ TEST(TestLongRangeGroup, emptyIterator){
 	}
 }
 
-static void addRange(RawBitSet* bitset, LongRangeList* list, uint64_t min, uint64_t max){
-	for(uint64_t i = min; i <= max; ++i){
-		bitset->set((uint32_t)i);
-	}
-	list->addRange(min, max);
-}
-
 
 TEST(TestLongRangeGroup, addSimpleRange02){
 	RawBitSet bitset(128);
@@ -72,3 +73,66 @@ TEST(TestLongRangeGroup, addSimpleRange02){
 	}
 	CHECK(pos < 0);
 }
+
+TEST(TestLongRangeGroup, addSimpleRangeIncluded){
+	RawBitSet bitset(128);
+
+	LongRangeList list;
+
+	addRange(&bitset, &list, 10, 15);
+	addRange(&bitset, &list, 11, 13);
+
+	int pos = bitset.nextSetBit(0);
+
+	_ST(LongRangeIterator, it, list.iterator())
+	while(it->hasNext()){
+		uint64_t val = it->next();
+		CHECK(val == pos)
+
+		pos = bitset.nextSetBit(pos + 1);
+	}
+	CHECK(pos < 0);
+}
+
+TEST(TestLongRangeGroup, addSimpleRangeLowJoin){
+	RawBitSet bitset(128);
+
+	LongRangeList list;
+
+	addRange(&bitset, &list, 10, 15);
+	addRange(&bitset, &list, 16, 17);
+
+	int pos = bitset.nextSetBit(0);
+
+	_ST(LongRangeIterator, it, list.iterator())
+	while(it->hasNext()){
+		uint64_t val = it->next();
+		CHECK(val == pos)
+
+		pos = bitset.nextSetBit(pos + 1);
+	}
+	CHECK(pos < 0);
+}
+
+TEST(TestLongRangeGroup, addSimpleRangeHighJoin){
+	RawBitSet bitset(128);
+
+	LongRangeList list;
+
+	addRange(&bitset, &list, 10, 15);
+	addRange(&bitset, &list, 8, 9);
+
+	int pos = bitset.nextSetBit(0);
+
+	_ST(LongRangeIterator, it, list.iterator())
+	while(it->hasNext()){
+		uint64_t val = it->next();
+		CHECK(val == pos)
+
+		pos = bitset.nextSetBit(pos + 1);
+	}
+	CHECK(pos < 0);
+}
+
+
+
