@@ -23,6 +23,11 @@ public:
 
 	LongRange* getLow() const noexcept;
 	LongRange* getHigh() const noexcept;
+	int getHighPos() const noexcept;
+
+	int getLowerIncludePos() const noexcept;
+	int getHigherIncludePos(int listSize) const noexcept;
+
 
 public:
 	LongRange* included;

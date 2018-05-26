@@ -32,8 +32,9 @@ public:
 	LongRange* get(int listIndex) const noexcept;
 	LongRangeIterator* iterator() noexcept;
 
-
+	void assertList() const;
 private:
+	void removeInclusion(LongRange* range) const noexcept;
 	void insertRange(int pos, LongRange* range) noexcept;
 	LongRangeHitStatus* hitStatus(uint64_t value, const LongRange* range, bool findHigher) const noexcept;
 private:

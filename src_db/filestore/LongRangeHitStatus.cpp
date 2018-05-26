@@ -44,6 +44,24 @@ LongRange* LongRangeHitStatus::getHigh() const noexcept {
 	return this->included == nullptr ? this->higher : this->included;
 }
 
+int LongRangeHitStatus::getHighPos() const noexcept {
+	return this->included == nullptr ? this->higherPos : this->includedPos;
+}
+
+int LongRangeHitStatus::getLowerIncludePos() const noexcept {
+	if(this->included == nullptr && this->lower == nullptr){
+		return -1;
+	}
+	return this->included != nullptr ? this->includedPos - 1 : this->lowerPos;
+}
+
+int LongRangeHitStatus::getHigherIncludePos(int listSize) const noexcept {
+	if(this->included == nullptr && this->higher == nullptr){
+		return listSize;
+	}
+	return this->included != nullptr ? this->includedPos + 1 : this->higherPos;
+}
+
 } /* namespace alinous */
 
 

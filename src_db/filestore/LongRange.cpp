@@ -44,14 +44,14 @@ uint64_t LongRange::getMax() const noexcept {
 }
 
 int LongRange::compare(uint64_t value) const noexcept {
+	if(min <= value && value <= max){
+		return 0;
+	}
+
 	if(min > value){
 		return 1;
 	}
-	if(max < value){
-		return -1;
-	}
-
-	return 0;
+	return -1;
 }
 
 void LongRange::setMax(uint64_t max) noexcept {
