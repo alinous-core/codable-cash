@@ -55,8 +55,10 @@ void LongRangeList::addRange(int64_t min, int64_t max) noexcept {
 		rangeLow->setMin(rangeLow->getMin() < range->getMin() ? rangeLow->getMin() : range->getMin());
 		rangeLow->setMax(rangeHigh->getMax() > range->getMax() ? rangeHigh->getMax() : range->getMax());
 
-		list->remove(removePos);
-		delete rangeHigh;
+		if(rangeHigh != rangeLow){
+			list->remove(removePos);
+			delete rangeHigh;
+		}
 
 		delete range;
 	}
@@ -152,10 +154,6 @@ LongRangeHitStatus* LongRangeList::hitStatus(uint64_t value, const LongRange* ra
 		}
 	}
 	else{ // lower range
-		int listSize = this->list->size();
-		if(mid == listSize){
-			mid--;
-		}
 		while(mid >= 0){
 			midRange = this->list->get(mid);
 			if(midRange->compare(value) < 0){

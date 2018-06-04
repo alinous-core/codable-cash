@@ -22,11 +22,11 @@ LongRange::LongRange(uint64_t min, uint64_t max) noexcept {
 
 LongRange::~LongRange() {
 }
-
+/*
 uint64_t LongRange::width() noexcept {
 	return this->min - this->max + 1;
 }
-
+*/
 bool LongRange::hasNext(uint64_t value) const noexcept {
 	return this->max > value;
 }
