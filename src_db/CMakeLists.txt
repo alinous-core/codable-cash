@@ -9,6 +9,7 @@ add_subdirectory(base_io_stream)
 add_subdirectory(base_thread)
 add_subdirectory(charsets)
 add_subdirectory(debug)
+add_subdirectory(filestore)
 add_subdirectory(osenv)
 add_subdirectory(random_access_file)
 

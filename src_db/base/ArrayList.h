@@ -46,7 +46,9 @@ public:
 		int maxLoop = size();
 		for(int i = 0; i != maxLoop; ++i){
 			T* ptr = get(i);
-			delete ptr;
+			if(ptr != nullptr){
+				delete ptr;
+			}
 		}
 	}
 
@@ -112,6 +114,10 @@ public:
 
 	inline int size() const noexcept {
 		return numArray;
+	}
+
+	inline bool isEmpty() const noexcept {
+		return numArray == 0;
 	}
 
 	inline T* get(int i) const noexcept {
@@ -186,14 +192,15 @@ private:
 		while(begin <= end) {
 			mid = (begin + end) / 2;
 
-			if(compareFunctor(_root[mid], value) == 0){
-				return mid;
-			}
-			else if(compareFunctor(_root[mid], value) < 0){
+			int result = compareFunctor(_root[mid], value);
+			if(result < 0){
 				begin = mid + 1;
 			}
-			else {
+			else if(result > 0){
 				end = mid - 1;
+			}
+			else {
+				return mid;
 			}
 		}
 
@@ -220,7 +227,7 @@ private:
 		return maxLoop;
 	}
 
-	void insertWithKeepingOrder(T* ptr, int index) throw()
+	void insertWithKeepingOrder(T* ptr, int index) noexcept
 	{
 		if(__builtin_expect(this->currentSize == this->numArray, 0)){
 			realloc();

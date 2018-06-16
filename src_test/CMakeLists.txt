@@ -7,6 +7,7 @@ add_subdirectory(db_base_io)
 add_subdirectory(db_base_io_stream)
 add_subdirectory(db_base_thread)
 add_subdirectory(db_charsets)
+add_subdirectory(db_filestore)
 add_subdirectory(db_random_access_file)
 add_subdirectory(test_utils)
 

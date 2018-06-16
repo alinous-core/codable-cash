@@ -32,7 +32,7 @@ public:
 	void waitForUnused() noexcept;
 	void requestCacheOut() noexcept;
 
-	void loadData(FileDescriptor& fd);
+	void loadData(FileDescriptor& fd) noexcept(false);
 
 	char* getPtr(uint64_t offset) const noexcept;
 	uint64_t remains(uint64_t offset) const noexcept;
@@ -40,7 +40,7 @@ public:
 	void setDirty(bool dirty) noexcept;
 	bool isDirty() const noexcept;
 
-	int writeBack(FileDescriptor& fd);
+	int writeBack(FileDescriptor& fd) noexcept(false);
 
 	uint64_t segmentSize() const noexcept;
 

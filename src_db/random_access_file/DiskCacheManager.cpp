@@ -14,6 +14,12 @@
 
 namespace alinous {
 
+DiskCacheManager::DiskCacheManager() noexcept {
+	this->maxCache = Os::getSystemPageSize() * 4 * 4;
+	this->currentSize = 0;
+}
+
+
 DiskCacheManager::DiskCacheManager(int maxCache) noexcept {
 	this->maxCache = maxCache;
 	this->currentSize = 0;

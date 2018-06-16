@@ -61,6 +61,7 @@ SchnorrSignature* Schnorr::sign(const mpz_t s, const mpz_t p, const uint8_t* dat
 	mpz_init(e);
 	mpz_init(y);
 
+
 	mpz_t r, powG;
 	mpz_init(r);
 	{

@@ -16,8 +16,8 @@ class BufferUnderflowException : public Exception{
 public:
 	BufferUnderflowException(const char* srcfile, int srcline) noexcept;
 	BufferUnderflowException(Exception* cause, const char* srcfile, int srcline) noexcept;
-	BufferUnderflowException(UnicodeString* message, const char* srcfile, int srcline) noexcept;
-	BufferUnderflowException(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept;
+	BufferUnderflowException(const wchar_t* message, const char* srcfile, int srcline) noexcept;
+	BufferUnderflowException(const wchar_t* message, Exception* cause, const char* srcfile, int srcline) noexcept;
 	virtual ~BufferUnderflowException();
 	static const wchar_t* defaultMessage;
 };
@@ -26,8 +26,8 @@ class BufferOverflowException : public Exception{
 public:
 	BufferOverflowException(const char* srcfile, int srcline) noexcept;
 	BufferOverflowException(Exception* cause, const char* srcfile, int srcline) noexcept;
-	BufferOverflowException(UnicodeString* message, const char* srcfile, int srcline) noexcept;
-	BufferOverflowException(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept;
+	BufferOverflowException(const wchar_t* message, const char* srcfile, int srcline) noexcept;
+	BufferOverflowException(const wchar_t* message, Exception* cause, const char* srcfile, int srcline) noexcept;
 	virtual ~BufferOverflowException();
 	static const wchar_t* defaultMessage;
 };

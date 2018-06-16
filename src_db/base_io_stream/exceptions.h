@@ -16,8 +16,8 @@ class FileOpenException : public Exception{
 public:
 	FileOpenException(const char* srcfile, int srcline) noexcept;
 	FileOpenException(Exception* cause, const char* srcfile, int srcline) noexcept;
-	FileOpenException(UnicodeString* message, const char* srcfile, int srcline) noexcept;
-	FileOpenException(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept;
+	FileOpenException(const wchar_t* message, const char* srcfile, int srcline) noexcept;
+	FileOpenException(const wchar_t* message, Exception* cause, const char* srcfile, int srcline) noexcept;
 	virtual ~FileOpenException();
 	static const wchar_t* defaultMessage;
 };
@@ -26,8 +26,8 @@ class FileIOException : public Exception{
 public:
 	FileIOException(const char* srcfile, int srcline) noexcept;
 	FileIOException(Exception* cause, const char* srcfile, int srcline) noexcept;
-	FileIOException(UnicodeString* message, const char* srcfile, int srcline) noexcept;
-	FileIOException(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept;
+	FileIOException(const wchar_t* message, const char* srcfile, int srcline) noexcept;
+	FileIOException(const wchar_t* message, Exception* cause, const char* srcfile, int srcline) noexcept;
 	virtual ~FileIOException();
 	static const wchar_t* defaultMessage;
 };

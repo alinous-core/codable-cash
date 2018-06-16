@@ -18,11 +18,11 @@ FileOpenException::FileOpenException(const char* srcfile, int srcline) noexcept 
 FileOpenException::FileOpenException(Exception* cause, const char* srcfile, int srcline) noexcept : Exception(cause, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 }
-FileOpenException::FileOpenException(UnicodeString* message, const char* srcfile, int srcline) noexcept : Exception(message, srcfile, srcline) {
+FileOpenException::FileOpenException(const wchar_t* message, const char* srcfile, int srcline) noexcept : Exception(message, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 	this->message->append(message);
 }
-FileOpenException::FileOpenException(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept : Exception(message, cause, srcfile, srcline) {
+FileOpenException::FileOpenException(const wchar_t* message, Exception* cause, const char* srcfile, int srcline) noexcept : Exception(message, cause, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 	this->message->append(message);
 }
@@ -37,11 +37,11 @@ FileIOException::FileIOException(const char* srcfile, int srcline) noexcept : Ex
 FileIOException::FileIOException(Exception* cause, const char* srcfile, int srcline) noexcept : Exception(cause, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 }
-FileIOException::FileIOException(UnicodeString* message, const char* srcfile, int srcline) noexcept : Exception(message, srcfile, srcline) {
+FileIOException::FileIOException(const wchar_t* message, const char* srcfile, int srcline) noexcept : Exception(message, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 	this->message->append(message);
 }
-FileIOException::FileIOException(UnicodeString* message, Exception* cause, const char* srcfile, int srcline) noexcept : Exception(message, cause, srcfile, srcline) {
+FileIOException::FileIOException(const wchar_t* message, Exception* cause, const char* srcfile, int srcline) noexcept : Exception(message, cause, srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
 	this->message->append(message);
 }
