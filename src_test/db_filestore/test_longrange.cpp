@@ -12,6 +12,8 @@
 #include "base/StackRelease.h"
 #include "base/RawBitSet.h"
 
+#include <stdlib.h>
+
 
 using namespace alinous;
 
@@ -31,7 +33,7 @@ static void addRange(RawBitSet* bitset, LongRangeList* list, uint64_t min, uint6
 	list->addRange(min, max);
 }
 
-/*
+
 TEST(TestLongRangeGroup, construct){
 	LongRangeList list;
 }
@@ -214,7 +216,7 @@ TEST(TestLongRangeGroup, addSimpleIncludes02){
 		list.assertList();
 	}
 }
-*/
+
 
 TEST(TestLongRangeGroup, addSinleRange){
 	RawBitSet bitset(128);
@@ -297,4 +299,72 @@ TEST(TestLongRangeGroup, addSinleRange03){
 		list.assertList();
 	}
 }
+
+TEST(TestLongRangeGroup, addSinleRange04){
+	RawBitSet bitset(128);
+
+	LongRangeList list;
+
+	addRange(&bitset, &list, 8, 10);
+	list.assertList();
+
+	addRange(&bitset, &list, 12, 12);
+	list.assertList();
+
+	addRange(&bitset, &list, 13, 13);
+	list.assertList();
+
+	addRange(&bitset, &list, 8, 13);
+	list.assertList();
+
+	{
+		int pos = bitset.nextSetBit(0);
+		_ST(LongRangeIterator, it, list.iterator())
+		while(it->hasNext()){
+			uint64_t val = it->next();
+			CHECK(val == pos)
+
+			pos = bitset.nextSetBit(pos + 1);
+		}
+		CHECK(pos < 0);
+		list.assertList();
+	}
+}
+
+
+static void randomAdd(RawBitSet* bitset, LongRangeList* list){
+	uint64_t mod = 1000;
+	uint64_t mod_width = 100;
+
+	uint64_t min = 1 + (rand() % mod);
+	uint64_t max = min + (rand() % mod);
+
+	addRange(bitset, list, min, max);
+	list->assertList();
+}
+
+TEST(TestLongRangeGroup, addRamdom){
+	RawBitSet bitset(128);
+	LongRangeList list;
+
+	for(int i = 0; i != 10000; ++i){
+		randomAdd(&bitset, &list);
+	}
+
+	{
+		int pos = bitset.nextSetBit(0);
+		_ST(LongRangeIterator, it, list.iterator())
+		while(it->hasNext()){
+			uint64_t val = it->next();
+			CHECK(val == pos)
+
+			pos = bitset.nextSetBit(pos + 1);
+		}
+		CHECK(pos < 0);
+		list.assertList();
+	}
+}
+
+
+
 
