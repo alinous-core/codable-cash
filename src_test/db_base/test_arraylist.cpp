@@ -109,6 +109,9 @@ TEST(ArrayListTestGroup, test08){
 		ar.addElement(new dummyInt(i));
 	}
 
+	int pos = ar.indexOfPtr(nullptr);
+	CHECK(pos < 0);
+
 	int size = ar.size();
 	CHECK(ar.size() == maxLoop);
 

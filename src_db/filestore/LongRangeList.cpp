@@ -63,8 +63,6 @@ void LongRangeList::removeRange(const LongRange* range) noexcept {
 		}
 	}
 
-
-
 }
 
 
@@ -72,7 +70,8 @@ bool LongRangeList::needSplit(LongRangeHitStatus* minStatus, LongRangeHitStatus*
 	LongRange* minRange = minStatus->getIncluded();
 	LongRange* maxRange = maxStatus->getIncluded();
 
-	if(minRange != nullptr && maxRange != nullptr && minRange != maxRange){
+	if((minRange != nullptr && maxRange != nullptr && minRange != maxRange) ||
+			(minRange == nullptr && maxRange == nullptr)){
 		return false;
 	}
 
