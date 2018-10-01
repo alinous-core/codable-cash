@@ -65,21 +65,23 @@ int LongRange::compare(uint64_t value) const noexcept {
 bool LongRange::removeLow(uint64_t value) noexcept {
 	assert(this->min <= value);
 
-	if(this->min == this->max && this->min){
-		return true;
-	}
+	//if(this->min == this->max && this->min){
+	//	return true;
+	//}
 
 	this->min = value + 1;
-	return false;
+	return !(this->min <= this->max);
 }
 
 bool LongRange::removeHigh(uint64_t value) noexcept {
-	if(this->min == this->max && this->min){
-		return true;
-	}
+	assert(this->max >= value);
 
-	this->max = value + 1;
-	return false;
+	//if(this->min == this->max && this->min){
+	//	return true;
+	//}
+
+	this->max = value - 1;
+	return !(this->min <= this->max);
 }
 
 } /* namespace alinous */

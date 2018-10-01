@@ -124,6 +124,17 @@ public:
 		return *(this->root + i);
 	}
 
+	inline int indexOfPtr(T* ptr){
+		int maxLoop = this->size();
+		for(int i = 0; i != maxLoop; ++i){
+			if(ptr == get(i)){
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
 	inline T* remove(int index) noexcept
 	{
 		T* ptr = get(index);

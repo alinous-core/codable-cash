@@ -44,14 +44,26 @@ void LongRangeList::removeRange(const LongRange* range) noexcept {
 	}
 
 	// no split
+	bool removeHigh, removeLow;
 	if(minStatus->hasIncluded()){
 		LongRange* r = minStatus->getIncluded();
-		r->removeLow(range->getMin());
+		removeHigh = r->removeHigh(range->getMin());
+
+		if(removeHigh){
+			int idx = this->list->indexOfPtr(r);
+			this->list->remove(idx);
+		}
 	}
 	if(maxStatus->hasIncluded()){
 		LongRange* r = maxStatus->getIncluded();
-		r->removeHigh(r->getMax());
+		removeLow = r->removeLow(range->getMax());
+		if(removeLow){
+			int idx = this->list->indexOfPtr(r);
+			this->list->remove(idx);
+		}
 	}
+
+
 
 }
 
