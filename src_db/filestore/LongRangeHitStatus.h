@@ -20,9 +20,11 @@ public:
 
 	bool lowJoinable() const noexcept;
 	bool highJoinable() const noexcept;
+	bool hasIncluded() const noexcept;
 
 	LongRange* getLow() const noexcept;
 	LongRange* getHigh() const noexcept;
+	LongRange* getIncluded() const noexcept;
 	int getHighPos() const noexcept;
 
 	int getLowerIncludePos() const noexcept;

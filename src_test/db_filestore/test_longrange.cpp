@@ -365,6 +365,271 @@ TEST(TestLongRangeGroup, addRamdom){
 	}
 }
 
+static void removeBitset(RawBitSet* bitset, uint64_t min, uint64_t max){
+	for(uint64_t i = min; i <= max; ++i){
+		bitset->clear((uint32_t)i);
+	}
+}
 
+static void removeRange(RawBitSet* bitset, LongRangeList* list, uint64_t min, uint64_t max){
+	assert(min <= max);
+
+	removeBitset(bitset, min, max);
+	list->removeRange(min, max);
+}
+
+
+TEST(TestLongRangeGroup, remove01){
+	RawBitSet bitset(128);
+	LongRangeList list;
+
+	addRange(&bitset, &list, 5, 10);
+	list.assertList();
+
+	removeRange(&bitset, &list, 7, 9);
+
+	{
+		int pos = bitset.nextSetBit(0);
+		_ST(LongRangeIterator, it, list.iterator())
+		while(it->hasNext()){
+			uint64_t val = it->next();
+			CHECK(val == pos)
+
+			pos = bitset.nextSetBit(pos + 1);
+		}
+		CHECK(pos < 0);
+		list.assertList();
+	}
+}
+
+
+TEST(TestLongRangeGroup, remove02){
+	RawBitSet bitset(128);
+	LongRangeList list;
+
+	addRange(&bitset, &list, 5, 10);
+	list.assertList();
+
+	removeRange(&bitset, &list, 5, 10);
+
+
+	{
+		int pos = bitset.nextSetBit(0);
+		_ST(LongRangeIterator, it, list.iterator())
+		while(it->hasNext()){
+			uint64_t val = it->next();
+			CHECK(val == pos)
+
+			pos = bitset.nextSetBit(pos + 1);
+		}
+		CHECK(pos < 0);
+		list.assertList();
+	}
+}
+
+
+TEST(TestLongRangeGroup, remove03){
+	RawBitSet bitset(128);
+	LongRangeList list;
+
+	addRange(&bitset, &list, 5, 10);
+	list.assertList();
+
+	removeRange(&bitset, &list, 5, 8);
+
+
+	{
+		int pos = bitset.nextSetBit(0);
+		_ST(LongRangeIterator, it, list.iterator())
+		while(it->hasNext()){
+			uint64_t val = it->next();
+			CHECK(val == pos)
+
+			pos = bitset.nextSetBit(pos + 1);
+		}
+		CHECK(pos < 0);
+		list.assertList();
+	}
+}
+
+
+TEST(TestLongRangeGroup, remove04){
+	RawBitSet bitset(128);
+	LongRangeList list;
+
+	addRange(&bitset, &list, 5, 10);
+	list.assertList();
+
+	removeRange(&bitset, &list, 6, 10);
+
+
+	{
+		int pos = bitset.nextSetBit(0);
+		_ST(LongRangeIterator, it, list.iterator())
+		while(it->hasNext()){
+			uint64_t val = it->next();
+			CHECK(val == pos)
+
+			pos = bitset.nextSetBit(pos + 1);
+		}
+		CHECK(pos < 0);
+		list.assertList();
+	}
+}
+
+
+TEST(TestLongRangeGroup, remove05){
+	RawBitSet bitset(128);
+	LongRangeList list;
+
+	addRange(&bitset, &list, 5, 10);
+	list.assertList();
+
+	addRange(&bitset, &list, 15, 20);
+	list.assertList();
+
+	addRange(&bitset, &list, 23, 26);
+	list.assertList();
+
+	removeRange(&bitset, &list, 6, 23);
+
+
+	{
+		int pos = bitset.nextSetBit(0);
+		_ST(LongRangeIterator, it, list.iterator())
+		while(it->hasNext()){
+			uint64_t val = it->next();
+			CHECK(val == pos)
+
+			pos = bitset.nextSetBit(pos + 1);
+		}
+		CHECK(pos < 0);
+		list.assertList();
+	}
+}
+
+
+TEST(TestLongRangeGroup, remove06){
+	RawBitSet bitset(128);
+	LongRangeList list;
+
+	addRange(&bitset, &list, 5, 10);
+	list.assertList();
+
+	addRange(&bitset, &list, 15, 20);
+	list.assertList();
+
+	addRange(&bitset, &list, 23, 26);
+	list.assertList();
+
+	removeRange(&bitset, &list, 5, 26);
+
+
+	{
+		int pos = bitset.nextSetBit(0);
+		_ST(LongRangeIterator, it, list.iterator())
+		while(it->hasNext()){
+			uint64_t val = it->next();
+			CHECK(val == pos)
+
+			pos = bitset.nextSetBit(pos + 1);
+		}
+		CHECK(pos < 0);
+		list.assertList();
+	}
+}
+
+
+TEST(TestLongRangeGroup, remove07){
+	RawBitSet bitset(128);
+	LongRangeList list;
+
+	addRange(&bitset, &list, 5, 10);
+	list.assertList();
+
+	addRange(&bitset, &list, 15, 20);
+	list.assertList();
+
+	addRange(&bitset, &list, 23, 26);
+	list.assertList();
+
+	removeRange(&bitset, &list, 6, 25);
+
+
+	{
+		int pos = bitset.nextSetBit(0);
+		_ST(LongRangeIterator, it, list.iterator())
+		while(it->hasNext()){
+			uint64_t val = it->next();
+			CHECK(val == pos)
+
+			pos = bitset.nextSetBit(pos + 1);
+		}
+		CHECK(pos < 0);
+		list.assertList();
+	}
+}
+
+
+TEST(TestLongRangeGroup, remove08){
+	RawBitSet bitset(128);
+	LongRangeList list;
+
+	addRange(&bitset, &list, 5, 10);
+	list.assertList();
+
+	addRange(&bitset, &list, 15, 20);
+	list.assertList();
+
+	addRange(&bitset, &list, 23, 26);
+	list.assertList();
+
+	removeRange(&bitset, &list, 0, 100);
+
+
+	{
+		int pos = bitset.nextSetBit(0);
+		_ST(LongRangeIterator, it, list.iterator())
+		while(it->hasNext()){
+			uint64_t val = it->next();
+			CHECK(val == pos)
+
+			pos = bitset.nextSetBit(pos + 1);
+		}
+		CHECK(pos < 0);
+		list.assertList();
+	}
+}
+
+
+TEST(TestLongRangeGroup, remove09){
+	RawBitSet bitset(128);
+	LongRangeList list;
+
+	addRange(&bitset, &list, 5, 10);
+	list.assertList();
+
+	addRange(&bitset, &list, 15, 20);
+	list.assertList();
+
+	addRange(&bitset, &list, 23, 26);
+	list.assertList();
+
+	removeRange(&bitset, &list, 11, 21);
+
+
+	{
+		int pos = bitset.nextSetBit(0);
+		_ST(LongRangeIterator, it, list.iterator())
+		while(it->hasNext()){
+			uint64_t val = it->next();
+			CHECK(val == pos)
+
+			pos = bitset.nextSetBit(pos + 1);
+		}
+		CHECK(pos < 0);
+		list.assertList();
+	}
+}
 
 

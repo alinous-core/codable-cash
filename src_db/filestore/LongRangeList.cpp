@@ -24,8 +24,85 @@ LongRangeList::~LongRangeList() {
 	delete this->list;
 }
 
-void LongRangeList::removeRange(LongRange* range) noexcept {
+void LongRangeList::removeRange(int64_t min, int64_t max) noexcept {
+	assert(min <= max);
+
+	LongRange range(min, max);
+	removeRange(&range);
 }
+
+void LongRangeList::removeRange(const LongRange* range) noexcept {
+	_ST(LongRangeHitStatus, minStatus, hitStatus(range->getMin(), range, false))
+	_ST(LongRangeHitStatus, maxStatus, hitStatus(range->getMax(), range, true))
+
+	// check inclusion
+	removeInclusion(range);
+
+	// split
+	if(needSplit(minStatus, maxStatus, range)){
+		return;
+	}
+
+	// no split
+	if(minStatus->hasIncluded()){
+		LongRange* r = minStatus->getIncluded();
+		bool remove = r->removeHigh(range->getMin());
+
+		if(remove){
+			int idx = this->list->indexOfPtr(r);
+			this->list->remove(idx);
+		}
+	}
+	if(maxStatus->hasIncluded()){
+		LongRange* r = maxStatus->getIncluded();
+		bool remove = r->removeLow(range->getMax());
+		if(remove){
+			int idx = this->list->indexOfPtr(r);
+			this->list->remove(idx);
+		}
+	}
+
+}
+
+
+bool LongRangeList::needSplit(LongRangeHitStatus* minStatus, LongRangeHitStatus* maxStatus, const LongRange* range) noexcept {
+	LongRange* minRange = minStatus->getIncluded();
+	LongRange* maxRange = maxStatus->getIncluded();
+
+	if((minRange != nullptr && maxRange != nullptr && minRange != maxRange) ||
+			(minRange == nullptr && maxRange == nullptr)){
+		return false;
+	}
+
+	uint64_t highRangeStart = range->getMax();
+	uint64_t lowRangeStart = range->getMin();
+
+	bool lowExists = minRange->getMin() < lowRangeStart;
+	bool highExists = minRange->getMax() > highRangeStart;
+
+	if(lowExists && highExists){
+		uint64_t low = minRange->getMin();
+		uint64_t high = lowRangeStart - 1;
+
+		LongRange* newRange = new LongRange(low, high);
+
+		minRange->setMin(highRangeStart + 1);
+
+		insertRange(minStatus->includedPos, newRange);
+	}
+	else if(!lowExists && highExists){
+		minRange->setMin(highRangeStart + 1);
+	}
+	else if(lowExists && !highExists){
+		minRange->setMax(lowRangeStart - 1);
+	}
+	else{
+		this->list->remove(minStatus->includedPos);
+	}
+
+	return true;
+}
+
 
 void LongRangeList::addRange(int64_t value) noexcept {
 	addRange(value, value);
@@ -83,7 +160,7 @@ void LongRangeList::addRange(int64_t min, int64_t max) noexcept {
 	}
 }
 
-void LongRangeList::removeInclusion(LongRange* range) const noexcept {
+void LongRangeList::removeInclusion(const LongRange* range) const noexcept {
 	_ST(LongRangeHitStatus, minStatus, hitStatus(range->getMin(), range, true))
 	_ST(LongRangeHitStatus, maxStatus, hitStatus(range->getMax(), range, false))
 
@@ -206,5 +283,4 @@ void LongRangeList::assertList() const {
 }
 
 } /* namespace alinous */
-
 
