@@ -25,7 +25,8 @@ public:
 public:
 	void addRange(int64_t value) noexcept ;
 	void addRange(int64_t min, int64_t max) noexcept ;
-	void removeRange(LongRange* range) noexcept;
+	void removeRange(int64_t min, int64_t max) noexcept;
+	void removeRange(const LongRange* range) noexcept;
 
 	bool isEmpty() const noexcept ;
 	int size() const noexcept ;
@@ -34,7 +35,8 @@ public:
 
 	void assertList() const;
 private:
-	void removeInclusion(LongRange* range) const noexcept;
+	bool needSplit(LongRangeHitStatus* minStatus, LongRangeHitStatus* maxStatus, const LongRange* range) noexcept;
+	void removeInclusion(const LongRange* range) const noexcept;
 	void insertRange(int pos, LongRange* range) noexcept;
 	LongRangeHitStatus* hitStatus(uint64_t value, const LongRange* range, bool findHigher) const noexcept;
 private:

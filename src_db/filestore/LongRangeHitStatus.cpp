@@ -36,12 +36,20 @@ bool LongRangeHitStatus::highJoinable() const noexcept {
 			( this->included != nullptr );
 }
 
+bool LongRangeHitStatus::hasIncluded() const noexcept {
+	return this->included != nullptr;
+}
+
 LongRange* LongRangeHitStatus::getLow() const noexcept {
 	return this->included == nullptr ? this->lower : this->included;
 }
 
 LongRange* LongRangeHitStatus::getHigh() const noexcept {
 	return this->included == nullptr ? this->higher : this->included;
+}
+
+LongRange* LongRangeHitStatus::getIncluded() const noexcept {
+	return this->included;
 }
 
 int LongRangeHitStatus::getHighPos() const noexcept {

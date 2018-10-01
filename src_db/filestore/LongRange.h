@@ -20,7 +20,6 @@ public:
 	virtual ~LongRange();
 
 	int compare(uint64_t value) const noexcept;
-	int includeType(uint64_t value) const noexcept;
 
 	//uint64_t width() noexcept ;
 	bool hasNext(uint64_t value) const noexcept ;
@@ -28,6 +27,9 @@ public:
 	void setMin(uint64_t min) noexcept ;
 	uint64_t getMax() const noexcept ;
 	void setMax(uint64_t max) noexcept ;
+
+	bool removeLow(uint64_t value) noexcept;
+	bool removeHigh(uint64_t value) noexcept;
 
 private:
 	uint64_t min;
