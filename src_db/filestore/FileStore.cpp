@@ -28,12 +28,7 @@ FileStore::FileStore(UnicodeString* dir, UnicodeString* name, DiskCacheManager* 
 }
 
 FileStore::~FileStore() noexcept {
-	if(this->headerFile != nullptr){
-		delete this->headerFile;
-	}
-	if(this->file != nullptr){
-		delete this->file;
-	}
+	close();
 	delete this->dir;
 	delete this->name;
 }
@@ -75,9 +70,6 @@ void FileStore::deleteLastFiles(File& baseDir) const noexcept{
 
 void FileStore::open(bool sync) noexcept(false) {
 	File baseDir(dir);
-	if(!baseDir.exists()){
-		baseDir.mkdirs();
-	}
 
 	openFile(baseDir, sync);
 	openHeaderFile(baseDir, sync);

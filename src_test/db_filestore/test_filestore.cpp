@@ -50,3 +50,36 @@ TEST(TestFileStoreGroup, createNew){
 
 	store.createStore(true, 1024);
 }
+
+
+TEST(TestFileStoreGroup, createNewDelete){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file02");
+	FileStore store(baseDirStr, &name, &cacheManager);
+
+	store.createStore(true, 1024);
+
+	store.createStore(true, 1024);
+
+}
+
+TEST(TestFileStoreGroup, openClose){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file02");
+	FileStore store(baseDirStr, &name, &cacheManager);
+
+	store.createStore(true, 1024);
+
+	store.open(true);
+
+	CHECK(store.isOpened())
+
+}
