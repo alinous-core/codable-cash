@@ -84,7 +84,7 @@ void FileStore::openFile(File& baseDir, bool sync) {
 	try{
 		this->file->open(sync);
 	}catch(Exception* e){
-		throw new FileStorageException(L"Failed in Opening file.", __FILE__, __LINE__);
+		throw new FileStorageException(L"Failed in Opening file.", e, __FILE__, __LINE__);
 	}
 }
 
@@ -97,7 +97,7 @@ void FileStore::openHeaderFile(File& baseDir, bool sync) {
 	try{
 		this->headerFile->open(sync);
 	}catch(Exception* e){
-		throw new FileStorageException(L"Failed in Opening header file.", __FILE__, __LINE__);
+		throw new FileStorageException(L"Failed in Opening header file.", e, __FILE__, __LINE__);
 	}
 }
 
