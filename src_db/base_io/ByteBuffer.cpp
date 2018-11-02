@@ -371,7 +371,7 @@ float ByteBuffer::getFloat(int position) noexcept {
 	dest[2] = ptr[2];
 	dest[3] = ptr[3];
 
-	this->pos += sizeof(float);
+	this->pos = position + sizeof(float);
 
 	return *(reinterpret_cast<float*>((void*)dest));
 }
@@ -385,6 +385,7 @@ int32_t ByteBuffer::getInt() noexcept {
 
 int32_t ByteBuffer::getInt(int position) noexcept {
 	int32_t val = *((int32_t*)(this->data->getRoot() + position));
+	this->pos = position + sizeof(int16_t);
 
 	return val;
 }
@@ -399,6 +400,7 @@ wchar_t ByteBuffer::getChar() noexcept {
 
 wchar_t ByteBuffer::getChar(int position) noexcept {
 	int16_t val = *((int16_t*)(this->data->getRoot() + position));
+	this->pos = position + sizeof(int16_t);
 
 	return (wchar_t)val;
 }
@@ -412,6 +414,7 @@ int16_t ByteBuffer::getShort() noexcept {
 
 int16_t ByteBuffer::getShort(int position) noexcept {
 	int16_t val = *((int16_t*)(this->data->getRoot() + position));
+	this->pos = position + sizeof(int16_t);
 
 	return val;
 }
