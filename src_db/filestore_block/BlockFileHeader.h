@@ -18,7 +18,8 @@ class LongRangeList;
 namespace alinous {
 class BlockFileHeader {
 public:
-	BlockFileHeader(RandomAccessFile* file) noexcept;
+	BlockFileHeader(const BlockFileHeader& base) = delete;
+	explicit BlockFileHeader(RandomAccessFile* file) noexcept;
 	virtual ~BlockFileHeader() noexcept;
 
 	void createStore(bool del, uint64_t defaultSize) noexcept(false);

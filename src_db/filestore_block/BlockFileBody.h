@@ -16,7 +16,8 @@ class RandomAccessFile;
 
 class BlockFileBody {
 public:
-	BlockFileBody(RandomAccessFile* file) noexcept;
+	BlockFileBody(const BlockFileBody& base) = delete;
+	explicit BlockFileBody(RandomAccessFile* file) noexcept;
 	virtual ~BlockFileBody() noexcept;
 
 private:
