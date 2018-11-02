@@ -50,3 +50,87 @@ TEST(TestFileStoreGroup, createNew){
 
 	store.createStore(true, 1024);
 }
+
+
+TEST(TestFileStoreGroup, createNewDelete){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file02");
+	FileStore store(baseDirStr, &name, &cacheManager);
+
+	store.createStore(true, 1024);
+
+	store.createStore(true, 1024);
+
+}
+
+TEST(TestFileStoreGroup, openClose){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file02");
+	FileStore store(baseDirStr, &name, &cacheManager);
+
+	store.createStore(true, 1024);
+
+	store.open(true);
+
+	CHECK(store.isOpened())
+}
+
+TEST(TestFileStoreGroup, openError01){
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file02");
+	FileStore store(baseDirStr, &name, &cacheManager);
+
+	store.createStore(true, 1024);
+
+	errmgr->activatePoint(L"RandomAccessFile::open", L"Os::openFile2ReadWrite", 1);
+
+	Exception* exp;
+	try{
+		store.open(true);
+	}catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr)
+	delete exp;
+
+}
+
+TEST(TestFileStoreGroup, openError02){
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file02");
+	FileStore store(baseDirStr, &name, &cacheManager);
+
+	store.createStore(true, 1024);
+
+	errmgr->activatePoint(L"RandomAccessFile::open", L"Os::openFile2ReadWrite", 2);
+
+	Exception* exp;
+	try{
+		store.open(true);
+	}catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr)
+	delete exp;
+
+}

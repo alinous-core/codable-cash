@@ -51,6 +51,7 @@ void LongRangeList::removeRange(const LongRange* range) noexcept {
 		if(remove){
 			int idx = this->list->indexOfPtr(r);
 			this->list->remove(idx);
+			delete r;
 		}
 	}
 	if(maxStatus->hasIncluded()){
@@ -59,6 +60,7 @@ void LongRangeList::removeRange(const LongRange* range) noexcept {
 		if(remove){
 			int idx = this->list->indexOfPtr(r);
 			this->list->remove(idx);
+			delete r;
 		}
 	}
 
@@ -97,7 +99,9 @@ bool LongRangeList::needSplit(LongRangeHitStatus* minStatus, LongRangeHitStatus*
 		minRange->setMax(lowRangeStart - 1);
 	}
 	else{
+		LongRange* r = this->list->get(minStatus->includedPos);
 		this->list->remove(minStatus->includedPos);
+		delete r;
 	}
 
 	return true;

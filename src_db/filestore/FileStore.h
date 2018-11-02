@@ -29,12 +29,13 @@ public:
 	bool isOpened() const noexcept;
 	void close() noexcept;
 
-private:
+protected:
 	void openFile(File& baseDir, bool sync);
 	void openHeaderFile(File& baseDir, bool sync);
 	void deleteLastFiles(File& baseDir) const noexcept;
 private:
 	DiskCacheManager* cacheManager;
+protected:
 	RandomAccessFile* file;
 	RandomAccessFile* headerFile;
 

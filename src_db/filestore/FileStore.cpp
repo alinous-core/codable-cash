@@ -28,12 +28,7 @@ FileStore::FileStore(UnicodeString* dir, UnicodeString* name, DiskCacheManager* 
 }
 
 FileStore::~FileStore() noexcept {
-	if(this->headerFile != nullptr){
-		delete this->headerFile;
-	}
-	if(this->file != nullptr){
-		delete this->file;
-	}
+	close();
 	delete this->dir;
 	delete this->name;
 }
@@ -75,9 +70,6 @@ void FileStore::deleteLastFiles(File& baseDir) const noexcept{
 
 void FileStore::open(bool sync) noexcept(false) {
 	File baseDir(dir);
-	if(!baseDir.exists()){
-		baseDir.mkdirs();
-	}
 
 	openFile(baseDir, sync);
 	openHeaderFile(baseDir, sync);
@@ -92,7 +84,7 @@ void FileStore::openFile(File& baseDir, bool sync) {
 	try{
 		this->file->open(sync);
 	}catch(Exception* e){
-		throw new FileStorageException(L"Failed in Opening file.", __FILE__, __LINE__);
+		throw new FileStorageException(L"Failed in Opening file.", e, __FILE__, __LINE__);
 	}
 }
 
@@ -105,7 +97,7 @@ void FileStore::openHeaderFile(File& baseDir, bool sync) {
 	try{
 		this->headerFile->open(sync);
 	}catch(Exception* e){
-		throw new FileStorageException(L"Failed in Opening header file.", __FILE__, __LINE__);
+		throw new FileStorageException(L"Failed in Opening header file.", e, __FILE__, __LINE__);
 	}
 }
 
