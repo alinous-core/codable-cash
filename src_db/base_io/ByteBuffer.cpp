@@ -11,6 +11,7 @@
 #include "base_io/exceptions.h"
 
 #include "base/RawArrayPrimitive.h"
+#include "base_io/ReverseByteBuffer.h"
 
 
 namespace alinous {
@@ -40,6 +41,19 @@ ByteBuffer* ByteBuffer::allocate(const int capacity) noexcept {
 ByteBuffer* ByteBuffer::wrap(const uint8_t* buffer, int length) {
 	ByteBuffer* buff = new ByteBuffer(buffer, length);
 	return buff;
+}
+
+ByteBuffer* ByteBuffer::allocateWithEndian(const int capacity,
+		bool bigEndian) noexcept {
+	int32_t num = 0xABCDEF01;
+	char* p = (char*)(&num);
+
+	bool isBig = (*p == 0xAB);
+	if(isBig == bigEndian){
+		return ByteBuffer::allocate(capacity);
+	}
+
+	return new ReverseByteBuffer(capacity);
 }
 
 
