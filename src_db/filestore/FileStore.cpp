@@ -5,6 +5,8 @@
  *      Author: iizuka
  */
 
+#include "debug/debugMacros.h"
+
 #include "filestore/FileStore.h"
 
 #include "random_access_file/DiskCacheManager.h"

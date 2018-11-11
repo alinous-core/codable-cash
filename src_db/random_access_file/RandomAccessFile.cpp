@@ -136,7 +136,10 @@ void RandomAccessFile::sync(bool flushDisk) {
 	this->segments->sync(flushDisk, this->fd);
 
 	if(flushDisk){
-		Os::syncFile(&this->fd);
+		int code = Os::syncFile(&this->fd);
+		if(code < 0){
+			throw new FileIOException(L"Failed in synchronizing file.", __FILE__, __LINE__);
+		}
 	}
 }
 

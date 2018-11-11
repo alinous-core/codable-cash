@@ -51,7 +51,30 @@ TEST(TestBlockFileStoreGroup, createStore){
 	BlockFileStore store(baseDirStr, &name, &cacheManager);
 
 	store.createStore(false, 1024);
+}
 
+TEST(TestBlockFileStoreGroup, createStoreFailure){
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+	errmgr->activatePoint(L"BlockFileStore::createStore", L"Os::syncFile", 1);
+
+
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file01");
+	BlockFileStore store(baseDirStr, &name, &cacheManager);
+
+	Exception* exp = nullptr;
+	try{
+		store.createStore(false, 1024);
+	}catch(Exception* e){
+		exp = e;
+	}
+
+	CHECK(exp != nullptr)
+	delete exp;
 }
 
 

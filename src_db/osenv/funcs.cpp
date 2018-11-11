@@ -306,6 +306,8 @@ int Os::readFile(const FileDescriptor* fd, char* buffer, int size) noexcept {
 }
 
 int Os::syncFile(const FileDescriptor* fd) noexcept {
+	CAUSE_ERROR_BY_RETURN(L"Os::syncFile", -1)
+
 	::syncfs(fd->fd);
 }
 
