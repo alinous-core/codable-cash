@@ -95,11 +95,16 @@ void LongRange::toBinary(ByteBuffer* buff) noexcept{
 	buff->putLong(this->max);
 }
 
-void LongRange::fromBinary(ByteBuffer* buff) noexcept {
-	this->min = buff->getLong();
-	this->max = buff->getLong();
+LongRange* LongRange::fromBinary(ByteBuffer* buff) noexcept {
+	uint64_t min = buff->getLong();
+	uint64_t max = buff->getLong();
+
+	return new LongRange(min, max);
 }
 
+bool LongRange::equals(LongRange* other) noexcept {
+	return this->min == other->min && this->max == other->max;
+}
 } /* namespace alinous */
 
 

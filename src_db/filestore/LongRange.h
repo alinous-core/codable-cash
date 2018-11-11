@@ -33,9 +33,11 @@ public:
 	bool removeLow(uint64_t value) noexcept;
 	bool removeHigh(uint64_t value) noexcept;
 
+	bool equals(LongRange* other) noexcept;
+
 	int binarySize() noexcept;
 	void toBinary(ByteBuffer* buff) noexcept;
-	void fromBinary(ByteBuffer* buff) noexcept;
+	static LongRange* fromBinary(ByteBuffer* buff) noexcept;
 
 private:
 	uint64_t min;

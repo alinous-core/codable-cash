@@ -194,6 +194,7 @@ void LongRangeList::insertRange(int pos, LongRange* range) noexcept {
 	list->setElement(range, pos);
 }
 
+
 LongRangeHitStatus* LongRangeList::hitStatus(uint64_t value, const LongRange* range, bool findHigher) const noexcept {
 	LongRangeHitStatus* status = new LongRangeHitStatus(range);
 
@@ -304,14 +305,42 @@ void LongRangeList::toBinary(ByteBuffer* buff) noexcept {
 	int size = this->size();
 	buff->putInt(size);
 
-	for(int i = 0; i != size; ){
+	for(int i = 0; i != size; ++i){
 		LongRange* range = this->list->get(i);
 		range->toBinary(buff);
 	}
 }
 
-void LongRangeList::fromBinary(ByteBuffer* buff) noexcept {
+LongRangeList* LongRangeList::fromBinary(ByteBuffer* buff) noexcept {
+	LongRangeList* list = new LongRangeList();
+
 	int size = buff->getInt();
+
+	for(int i = 0; i != size; ++i){
+		LongRange* range = LongRange::fromBinary(buff);
+
+		list->addRange(range->getMin(), range->getMax());
+		delete range;
+	}
+
+	return list;
+}
+
+bool LongRangeList::equals(LongRangeList* other) noexcept {
+	int maxLoop = other->size();
+	if(maxLoop != size()){
+		return false;
+	}
+
+	for(int i = 0; i != maxLoop; ++i){
+		LongRange* range = this->list->get(i);
+		LongRange* range2 = other->get(i);
+
+		if(!range->equals(range2)){
+			return false;
+		}
+	}
+	return true;
 }
 
 

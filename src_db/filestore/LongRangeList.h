@@ -37,8 +37,9 @@ public:
 
 	int binarySize() noexcept;
 	void toBinary(ByteBuffer* buff) noexcept;
-	void fromBinary(ByteBuffer* buff) noexcept;
+	static LongRangeList* fromBinary(ByteBuffer* buff) noexcept;
 
+	bool equals(LongRangeList* other) noexcept;
 	void assertList() const;
 
 
