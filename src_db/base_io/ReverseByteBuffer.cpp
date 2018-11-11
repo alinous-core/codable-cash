@@ -174,7 +174,7 @@ ByteBuffer* ReverseByteBuffer::putDouble(int position, double value) noexcept {
 	return this;
 }
 
-uint64_t ReverseByteBuffer::getLong() noexcept {
+int64_t ReverseByteBuffer::getLong() noexcept {
 	uint8_t* ptr = this->data->getRoot() + this->pos;
 	uint8_t dest[8]{};
 
@@ -192,7 +192,7 @@ uint64_t ReverseByteBuffer::getLong() noexcept {
 	return *(reinterpret_cast<uint64_t*>((void*)dest));
 }
 
-uint64_t ReverseByteBuffer::getLong(int position) noexcept {
+int64_t ReverseByteBuffer::getLong(int position) noexcept {
 	uint8_t* ptr = this->data->getRoot() + position;
 	uint8_t dest[8]{};
 

@@ -33,7 +33,7 @@ void BlockFileStore::createStore(bool del, uint64_t defaultSize) noexcept(false)
 
 	try{
 		this->header->createStore(del);
-
+		this->body->createStore(del);
 	}
 	catch(Exception* e){
 		internalClear();

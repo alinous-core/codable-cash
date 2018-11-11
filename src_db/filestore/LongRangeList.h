@@ -13,6 +13,8 @@
 
 namespace alinous {
 
+class ByteBuffer;
+
 class LongRange;
 class LongRangeIterator;
 class LongRangeHitStatus;
@@ -33,7 +35,13 @@ public:
 	LongRange* get(int listIndex) const noexcept;
 	LongRangeIterator* iterator() noexcept;
 
+	int binarySize() noexcept;
+	void toBinary(ByteBuffer* buff) noexcept;
+	void fromBinary(ByteBuffer* buff) noexcept;
+
 	void assertList() const;
+
+
 private:
 	bool needSplit(LongRangeHitStatus* minStatus, LongRangeHitStatus* maxStatus, const LongRange* range) noexcept;
 	void removeInclusion(const LongRange* range) const noexcept;

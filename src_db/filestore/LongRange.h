@@ -12,6 +12,8 @@
 
 namespace alinous {
 
+class ByteBuffer;
+
 class LongRange {
 public:
 	LongRange(const LongRange& base) = delete;
@@ -30,6 +32,10 @@ public:
 
 	bool removeLow(uint64_t value) noexcept;
 	bool removeHigh(uint64_t value) noexcept;
+
+	int binarySize() noexcept;
+	void toBinary(ByteBuffer* buff) noexcept;
+	void fromBinary(ByteBuffer* buff) noexcept;
 
 private:
 	uint64_t min;

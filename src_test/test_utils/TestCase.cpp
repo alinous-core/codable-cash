@@ -100,6 +100,7 @@ void TestCase::doTest(TestParams* params) {
 	}
 	else{
 		printf(".");
+		fflush( stdout );
 	}
 }
 

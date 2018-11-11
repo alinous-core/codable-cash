@@ -9,6 +9,8 @@
 
 #include "debug/debugMacros.h"
 
+#include "base_io/ByteBuffer.h"
+
 namespace alinous {
 
 
@@ -82,6 +84,20 @@ bool LongRange::removeHigh(uint64_t value) noexcept {
 
 	this->max = value - 1;
 	return !(this->min <= this->max);
+}
+
+int LongRange::binarySize() noexcept {
+	return 8 + 8;
+}
+
+void LongRange::toBinary(ByteBuffer* buff) noexcept{
+	buff->putLong(this->min);
+	buff->putLong(this->max);
+}
+
+void LongRange::fromBinary(ByteBuffer* buff) noexcept {
+	this->min = buff->getLong();
+	this->max = buff->getLong();
 }
 
 } /* namespace alinous */

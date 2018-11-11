@@ -12,6 +12,8 @@
 
 #include "base/StackRelease.h"
 
+#include "base_io/ByteBuffer.h"
+
 namespace alinous {
 
 
@@ -285,6 +287,34 @@ void LongRangeList::assertList() const {
 		lastRange = range;
 	}
 }
+
+int LongRangeList::binarySize() noexcept {
+	int size = 4;
+
+	int maxLoop = this->list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		LongRange* range = this->list->get(i);
+		size += range->binarySize();
+	}
+
+	return size;
+}
+
+void LongRangeList::toBinary(ByteBuffer* buff) noexcept {
+	int size = this->size();
+	buff->putInt(size);
+
+	for(int i = 0; i != size; ){
+		LongRange* range = this->list->get(i);
+		range->toBinary(buff);
+	}
+}
+
+void LongRangeList::fromBinary(ByteBuffer* buff) noexcept {
+	int size = buff->getInt();
+}
+
+
 
 } /* namespace alinous */
 

@@ -32,8 +32,8 @@ public:
 	virtual ByteBuffer* putFloat(int position, float value) noexcept;
 	virtual ByteBuffer* putDouble(double value) noexcept;
 	virtual ByteBuffer* putDouble(int position, double value) noexcept;
-	virtual uint64_t getLong() noexcept;
-	virtual uint64_t getLong(int position) noexcept;
+	virtual int64_t getLong() noexcept;
+	virtual int64_t getLong(int position) noexcept;
 	virtual double getDouble() noexcept;
 	virtual double getDouble(int position) noexcept;
 	virtual float getFloat() noexcept;
