@@ -29,6 +29,9 @@ public:
 	bool isOpened() const noexcept;
 	void close() noexcept;
 
+
+private:
+	void internalClear() noexcept;
 private:
 	BlockFileHeader* header;
 	BlockFileBody* body;

@@ -16,4 +16,8 @@ BlockFileBody::BlockFileBody(RandomAccessFile* file) noexcept : file(file){
 BlockFileBody::~BlockFileBody() {
 }
 
+void BlockFileBody::createStore(bool del) {
+
+}
+
 } /* namespace alinous */

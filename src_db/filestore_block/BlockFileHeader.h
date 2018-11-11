@@ -22,7 +22,10 @@ public:
 	explicit BlockFileHeader(RandomAccessFile* file) noexcept;
 	virtual ~BlockFileHeader() noexcept;
 
-	void createStore(bool del, uint64_t defaultSize) noexcept(false);
+	void createStore(bool del) noexcept(false);
+
+private:
+	void clearArea() noexcept;
 
 private:
 	RandomAccessFile* file;

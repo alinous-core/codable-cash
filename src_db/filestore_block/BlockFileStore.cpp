@@ -10,6 +10,8 @@
 #include "filestore_block/BlockFileHeader.h"
 #include "filestore_block/BlockFileBody.h"
 
+#include "exceptions.h"
+
 namespace alinous {
 
 BlockFileStore::BlockFileStore(UnicodeString* dir, UnicodeString* name, DiskCacheManager* cacheManager) noexcept
@@ -20,17 +22,26 @@ BlockFileStore::BlockFileStore(UnicodeString* dir, UnicodeString* name, DiskCach
 }
 
 BlockFileStore::~BlockFileStore() noexcept {
-	if(this->header){
-		delete this->header;
-	}
-	if(this->body){
-		delete this->body;
-	}
+	close();
 }
 
 void BlockFileStore::createStore(bool del, uint64_t defaultSize) noexcept(false) {
 	FileStore::createStore(del, defaultSize);
 
+	this->header = new BlockFileHeader(this->headerFile);
+	this->body = new BlockFileBody(this->file);
+
+	try{
+		this->header->createStore(del);
+
+	}
+	catch(Exception* e){
+		internalClear();
+
+		throw new BlockFileStorageException(L"", e, __FILE__, __LINE__);
+	}
+
+	internalClear();
 }
 
 
@@ -39,8 +50,20 @@ bool BlockFileStore::isOpened() const noexcept {
 }
 
 void BlockFileStore::close() noexcept {
+	internalClear();
 
 	FileStore::close();
+}
+
+void BlockFileStore::internalClear() noexcept {
+	if(this->header){
+		delete this->header;
+		this->header = nullptr;
+	}
+	if(this->body){
+		delete this->body;
+		this->body = nullptr;
+	}
 }
 
 } /* namespace alinous */
