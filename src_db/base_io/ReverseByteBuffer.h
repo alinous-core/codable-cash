@@ -20,30 +20,30 @@ public:
 
 	virtual ~ReverseByteBuffer() noexcept;
 
-	virtual ByteBuffer* putChar(wchar_t value) noexcept;
-	virtual ByteBuffer* putChar(int position, wchar_t value) noexcept;
-	virtual ByteBuffer* putShort(short value) noexcept;
-	virtual ByteBuffer* putShort(int position, short value) noexcept;
-	virtual ByteBuffer* putInt(int32_t value) noexcept;
-	virtual ByteBuffer* putInt(int32_t position, int value) noexcept;
-	virtual ByteBuffer* putLong(int position, int64_t value) noexcept;
-	virtual ByteBuffer* putLong(int64_t value) noexcept;
-	virtual ByteBuffer* putFloat(float value) noexcept;
-	virtual ByteBuffer* putFloat(int position, float value) noexcept;
-	virtual ByteBuffer* putDouble(double value) noexcept;
-	virtual ByteBuffer* putDouble(int position, double value) noexcept;
-	virtual int64_t getLong() noexcept;
-	virtual int64_t getLong(int position) noexcept;
-	virtual double getDouble() noexcept;
-	virtual double getDouble(int position) noexcept;
-	virtual float getFloat() noexcept;
-	virtual float getFloat(int position) noexcept;
-	virtual int32_t getInt() noexcept;
-	virtual int32_t getInt(int position) noexcept;
-	virtual wchar_t getChar() noexcept;
-	virtual wchar_t getChar(int position) noexcept;
-	virtual int16_t getShort() noexcept;
-	virtual int16_t getShort(int position) noexcept;
+	virtual ByteBuffer* putChar(wchar_t value) noexcept(false);
+	virtual ByteBuffer* putChar(int position, wchar_t value) noexcept(false);
+	virtual ByteBuffer* putShort(short value) noexcept(false);
+	virtual ByteBuffer* putShort(int position, short value) noexcept(false);
+	virtual ByteBuffer* putInt(int32_t value) noexcept(false);
+	virtual ByteBuffer* putInt(int32_t position, int value) noexcept(false);
+	virtual ByteBuffer* putLong(int position, int64_t value) noexcept(false);
+	virtual ByteBuffer* putLong(int64_t value) noexcept(false);
+	virtual ByteBuffer* putFloat(float value) noexcept(false);
+	virtual ByteBuffer* putFloat(int position, float value) noexcept(false);
+	virtual ByteBuffer* putDouble(double value) noexcept(false);
+	virtual ByteBuffer* putDouble(int position, double value) noexcept(false);
+	virtual int64_t getLong() noexcept(false);
+	virtual int64_t getLong(int position) noexcept(false);
+	virtual double getDouble() noexcept(false);
+	virtual double getDouble(int position) noexcept(false);
+	virtual float getFloat() noexcept(false);
+	virtual float getFloat(int position) noexcept(false);
+	virtual int32_t getInt() noexcept(false);
+	virtual int32_t getInt(int position) noexcept(false);
+	virtual wchar_t getChar() noexcept(false);
+	virtual wchar_t getChar(int position) noexcept(false);
+	virtual int16_t getShort() noexcept(false);
+	virtual int16_t getShort(int position) noexcept(false);
 };
 
 } /* namespace alinous */

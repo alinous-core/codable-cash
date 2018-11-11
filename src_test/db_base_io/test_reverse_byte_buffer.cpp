@@ -8,6 +8,7 @@
 #include "test_utils/t_macros.h"
 
 #include "base_io/ReverseByteBuffer.h"
+#include "base_io/exceptions.h"
 
 #include <stdio.h>
 
@@ -167,4 +168,279 @@ TEST(ReverseByteBufferTestGroup, littleendian){
 
 	delete buff;
 }
+
+TEST(ReverseByteBufferTestGroup, putExceptions){
+	Exception* exp = nullptr;
+
+	ByteBuffer* buff = new ReverseByteBuffer(1);
+	buff->put(0x01);
+
+	//////////////
+	try{
+		buff->put(0x02);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp;	exp = nullptr;
+
+	//////////////
+	try{
+		buff->put(3, 0x02);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	//////////////
+	try{
+		buff->putChar(L'A');
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp;	exp = nullptr;
+
+	//////////////
+	try{
+		buff->putChar(3, L'A');
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	//////////////
+	try{
+		buff->putShort(1);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp;	exp = nullptr;
+
+	//////////////
+	try{
+		buff->putShort(3, 1);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	//////////////
+	try{
+		buff->putInt(1);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp;	exp = nullptr;
+
+	//////////////
+	try{
+		buff->putInt(3, 1);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	//////////////
+	try{
+		buff->putLong(1);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp;	exp = nullptr;
+
+	//////////////
+	try{
+		buff->putLong(3, 1);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	//////////////
+	try{
+		buff->putFloat(1);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp;	exp = nullptr;
+
+	//////////////
+	try{
+		buff->putFloat(3, 1);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+
+	//////////////
+	try{
+		buff->putDouble(1);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp;	exp = nullptr;
+
+	//////////////
+	try{
+		buff->putDouble(3, 1);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	delete buff;
+}
+
+TEST(ReverseByteBufferTestGroup, getExceptions){
+	Exception* exp = nullptr;
+
+	ByteBuffer* buff = new ReverseByteBuffer(1);
+	buff->put(0x01);
+
+	//////////////
+	try{
+		buff->get();
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	//////////////
+	try{
+		buff->get(2);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	//////////////
+	try{
+		buff->getChar();
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	//////////////
+	try{
+		buff->getChar(2);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+
+	//////////////
+	try{
+		buff->getShort();
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	//////////////
+	try{
+		buff->getShort(2);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	//////////////
+	try{
+		buff->getInt();
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	//////////////
+	try{
+		buff->getInt(2);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	//////////////
+	try{
+		buff->getLong();
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	//////////////
+	try{
+		buff->getLong(2);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	//////////////
+	try{
+		buff->getFloat();
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	//////////////
+	try{
+		buff->getFloat(2);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	//////////////
+	try{
+		buff->getDouble();
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	//////////////
+	try{
+		buff->getDouble(2);
+	}
+	catch(Exception* e){
+		exp = e;
+	}
+	CHECK(exp != nullptr); delete exp; exp = nullptr;
+
+	delete buff;
+}
+
+
+
 
