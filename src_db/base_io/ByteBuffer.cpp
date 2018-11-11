@@ -11,6 +11,7 @@
 #include "base_io/exceptions.h"
 
 #include "base/RawArrayPrimitive.h"
+#include "base_io/ReverseByteBuffer.h"
 
 
 namespace alinous {
@@ -40,6 +41,19 @@ ByteBuffer* ByteBuffer::allocate(const int capacity) noexcept {
 ByteBuffer* ByteBuffer::wrap(const uint8_t* buffer, int length) {
 	ByteBuffer* buff = new ByteBuffer(buffer, length);
 	return buff;
+}
+
+ByteBuffer* ByteBuffer::allocateWithEndian(const int capacity,
+		bool bigEndian) noexcept {
+	int32_t num = 0xABCDEF01;
+	char* p = (char*)(&num);
+
+	bool isBig = (*p == 0xAB);
+	if(isBig == bigEndian){
+		return ByteBuffer::allocate(capacity);
+	}
+
+	return new ReverseByteBuffer(capacity);
 }
 
 
@@ -83,11 +97,19 @@ int ByteBuffer::capacity() noexcept {
 	return this->cap;
 }
 
-char ByteBuffer::get() noexcept {
+char ByteBuffer::get() noexcept(false) {
+	if(remaining() < (int)sizeof(char)){
+		throw new BufferOverflowException(L"put(char b)", __FILE__, __LINE__);
+	}
+
 	return data->get(this->pos++);
 }
 
-char ByteBuffer::get(const int index) const noexcept {
+char ByteBuffer::get(const int index) const noexcept(false) {
+	if(index + (int)sizeof(char) > lim){
+		throw new BufferOverflowException(L"put(int index, uint8_t b)", __FILE__, __LINE__);
+	}
+
 	return data->get(index);
 }
 
@@ -111,12 +133,20 @@ ByteBuffer* ByteBuffer::get(uint8_t* dest, int off, int len) noexcept(false) {
 	return this;
 }
 
-ByteBuffer* ByteBuffer::put(char b) noexcept {
+ByteBuffer* ByteBuffer::put(char b) noexcept(false) {
+	if(remaining() < (int)sizeof(char)){
+		throw new BufferOverflowException(L"put(char b)", __FILE__, __LINE__);
+	}
+
 	data->set(this->pos++, b);
 	return this;
 }
 
-ByteBuffer* ByteBuffer::put(int index, uint8_t b) noexcept {
+ByteBuffer* ByteBuffer::put(int index, uint8_t b) noexcept(false) {
+	if(index + (int)sizeof(char) > lim){
+		throw new BufferOverflowException(L"put(int index, uint8_t b)", __FILE__, __LINE__);
+	}
+
 	data->set(index, b);
 	return this;
 }
@@ -126,11 +156,6 @@ ByteBuffer* ByteBuffer::put(const uint8_t* src, int length) noexcept(false) {
 }
 
 ByteBuffer* ByteBuffer::put(const uint8_t* src, int off, int len) noexcept(false) {
-/*    int length = src->length;
-    if ((off < 0) || (len < 0) || off + len > length) {
-        throw new IndexOutOfBoundsException(ctx);
-    }
-*/
     if (len > remaining()) {
         throw new BufferOverflowException(__FILE__, __LINE__);
     }
@@ -141,8 +166,12 @@ ByteBuffer* ByteBuffer::put(const uint8_t* src, int off, int len) noexcept(false
     return this;
 }
 
-ByteBuffer* ByteBuffer::put(ByteBuffer* src) noexcept {
+ByteBuffer* ByteBuffer::put(ByteBuffer* src) noexcept(false) {
 	int maxLoop = src->lim;
+
+	if(remaining() < maxLoop){
+		throw new BufferOverflowException(L"put(ByteBuffer* src)", __FILE__, __LINE__);
+	}
 
 	Mem::memcpy(&data->getRoot()[this->pos], src->data->getRoot(), maxLoop);
 	this->pos += maxLoop;
@@ -150,9 +179,10 @@ ByteBuffer* ByteBuffer::put(ByteBuffer* src) noexcept {
 	return this;
 }
 
-ByteBuffer* ByteBuffer::putChar(wchar_t value) noexcept {
-	//data->set(this->pos++, value & 0xFF);
-	//data->set(this->pos++, (value >> 1) & 0xFF);
+ByteBuffer* ByteBuffer::putChar(wchar_t value) noexcept(false) {
+	if(remaining() < (int)sizeof(short)){
+		throw new BufferOverflowException(L"put(wchar_t value)", __FILE__, __LINE__);
+	}
 
 	uint16_t sh = (uint16_t)value;
 	char* bytes = (char*)&sh;
@@ -163,9 +193,10 @@ ByteBuffer* ByteBuffer::putChar(wchar_t value) noexcept {
 	return this;
 }
 
-ByteBuffer* ByteBuffer::putChar(int position, wchar_t value) noexcept {
-	//data->set(this->pos++, value & 0xFF);
-	//data->set(this->pos++, (value >> 1) & 0xFF);
+ByteBuffer* ByteBuffer::putChar(int position, wchar_t value) noexcept(false) {
+	if(this->lim - position < (int)sizeof(short)){
+		throw new BufferOverflowException(L"putChar(int position, wchar_t value)", __FILE__, __LINE__);
+	}
 
 	uint16_t sh = (uint16_t)value;
 	char* bytes = (char*)&sh;
@@ -176,7 +207,11 @@ ByteBuffer* ByteBuffer::putChar(int position, wchar_t value) noexcept {
 	return this;
 }
 
-ByteBuffer* ByteBuffer::putShort(short value) noexcept {
+ByteBuffer* ByteBuffer::putShort(short value) noexcept(false) {
+	if(remaining() < (int)sizeof(short)){
+		throw new BufferOverflowException(L"putShort(short value)", __FILE__, __LINE__);
+	}
+
 	char* bytes = (char*)&value;
 
 	data->set(this->pos++, bytes[0]);
@@ -185,7 +220,11 @@ ByteBuffer* ByteBuffer::putShort(short value) noexcept {
 	return this;
 }
 
-ByteBuffer* ByteBuffer::putShort(int position, short value) noexcept {
+ByteBuffer* ByteBuffer::putShort(int position, short value) noexcept(false) {
+	if(this->lim - position < (int)sizeof(short)){
+		throw new BufferOverflowException(L"putShort(int position, short value)", __FILE__, __LINE__);
+	}
+
 	char* bytes = (char*)&value;
 
 	data->set(position++, bytes[0]);
@@ -194,26 +233,24 @@ ByteBuffer* ByteBuffer::putShort(int position, short value) noexcept {
 	return this;
 }
 
-ByteBuffer* ByteBuffer::putInt(int32_t value) noexcept {
+ByteBuffer* ByteBuffer::putInt(int32_t value) noexcept(false) {
+	if(remaining() < (int)sizeof(int32_t)){
+		throw new BufferOverflowException(L"putInt(int32_t value)", __FILE__, __LINE__);
+	}
+
 	int32_t* ptr = (int32_t*)(data->getRoot() + this->pos);
 	*ptr = value;
 
 	this->pos += 4;
 
-/*
-	char* bytes = (char*)&value;
-
-	char* dest = data->getRoot();
-
-	dest[this->pos++] = bytes[0];
-	dest[this->pos++] = bytes[1];
-	dest[this->pos++] = bytes[2];
-	dest[this->pos++] = bytes[3];
-*/
 	return this;
 }
 
-ByteBuffer* ByteBuffer::putInt(int32_t position, int value) noexcept {
+ByteBuffer* ByteBuffer::putInt(int32_t position, int value) noexcept(false) {
+	if(this->lim - position < (int)sizeof(int32_t)){
+		throw new BufferOverflowException(L"putInt(int32_t position, int value)", __FILE__, __LINE__);
+	}
+
 	char* bytes = (char*)&value;
 
 	int pos = position;
@@ -225,7 +262,11 @@ ByteBuffer* ByteBuffer::putInt(int32_t position, int value) noexcept {
 	return this;
 }
 
-ByteBuffer* ByteBuffer::putLong(int64_t value) noexcept {
+ByteBuffer* ByteBuffer::putLong(int64_t value) noexcept(false) {
+	if(remaining() < (int)sizeof(int64_t)){
+		throw new BufferOverflowException(L"putLong(int64_t value)", __FILE__, __LINE__);
+	}
+
 	char* bytes = (char*)&value;
 
 
@@ -236,7 +277,11 @@ ByteBuffer* ByteBuffer::putLong(int64_t value) noexcept {
 	return this;
 }
 
-ByteBuffer* ByteBuffer::putLong(int position, int64_t value) noexcept {
+ByteBuffer* ByteBuffer::putLong(int position, int64_t value) noexcept(false) {
+	if(this->lim - position < (int)sizeof(int64_t)){
+		throw new BufferOverflowException(L"putLong(int position, int64_t value)", __FILE__, __LINE__);
+	}
+
 	char* bytes = (char*)&value;
 
 
@@ -247,7 +292,11 @@ ByteBuffer* ByteBuffer::putLong(int position, int64_t value) noexcept {
 	return this;
 }
 
-ByteBuffer* ByteBuffer::putFloat(float value) noexcept {
+ByteBuffer* ByteBuffer::putFloat(float value) noexcept(false) {
+	if(remaining() < (int)sizeof(float)){
+		throw new BufferOverflowException(L"putFloat(float value)", __FILE__, __LINE__);
+	}
+
 	char* bytes = (char*)&value;
 
 	data->set(this->pos++, bytes[0]);
@@ -258,7 +307,11 @@ ByteBuffer* ByteBuffer::putFloat(float value) noexcept {
 	return this;
 }
 
-ByteBuffer* ByteBuffer::putFloat(int position, float value) noexcept {
+ByteBuffer* ByteBuffer::putFloat(int position, float value) noexcept(false) {
+	if(this->lim - position < (int)sizeof(float)){
+		throw new BufferOverflowException(L"putFloat(int position, float value)", __FILE__, __LINE__);
+	}
+
 	char* bytes = (char*)&value;
 
 	data->set(position++, bytes[0]);
@@ -269,7 +322,11 @@ ByteBuffer* ByteBuffer::putFloat(int position, float value) noexcept {
 	return this;
 }
 
-ByteBuffer* ByteBuffer::putDouble(double value) noexcept {
+ByteBuffer* ByteBuffer::putDouble(double value) noexcept(false) {
+	if(remaining() < (int)sizeof(double)){
+		throw new BufferOverflowException(L"putDouble(double value)", __FILE__, __LINE__);
+	}
+
 	char* bytes = (char*)&value;
 
 	data->set(this->pos++, bytes[0]);
@@ -284,7 +341,11 @@ ByteBuffer* ByteBuffer::putDouble(double value) noexcept {
 	return this;
 }
 
-ByteBuffer* ByteBuffer::putDouble(int position, double value) noexcept {
+ByteBuffer* ByteBuffer::putDouble(int position, double value) noexcept(false) {
+	if(this->lim - position < (int)sizeof(double)){
+		throw new BufferOverflowException(L"putDouble(int position, double value)", __FILE__, __LINE__);
+	}
+
 	char* bytes = (char*)&value;
 
 	data->set(position++, bytes[0]);
@@ -299,20 +360,32 @@ ByteBuffer* ByteBuffer::putDouble(int position, double value) noexcept {
 	return this;
 }
 
-uint64_t ByteBuffer::getLong() noexcept {
+int64_t ByteBuffer::getLong() noexcept(false) {
+	if(remaining() < (int)sizeof(int64_t)){
+		throw new BufferOverflowException(__FILE__, __LINE__);
+	}
+
 	long long val = *((long long*)(this->data->getRoot() + this->pos));
 	this->pos += sizeof(int64_t);
 
 	return val;
 }
 
-uint64_t ByteBuffer::getLong(int position) noexcept {
+int64_t ByteBuffer::getLong(int position) noexcept(false) {
+	if(this->lim - position < (int)sizeof(int64_t)){
+		throw new BufferOverflowException(__FILE__, __LINE__);
+	}
+
 	long long val = *((long long*)(this->data->getRoot() + position));
 
 	return val;
 }
 
-double ByteBuffer::getDouble() noexcept {
+double ByteBuffer::getDouble() noexcept(false) {
+	if(remaining() < (int)sizeof(double)){
+		throw new BufferOverflowException(__FILE__, __LINE__);
+	}
+
 	uint8_t* ptr = this->data->getRoot() + this->pos;
 	uint8_t dest[8]{};
 
@@ -330,7 +403,11 @@ double ByteBuffer::getDouble() noexcept {
 	return *(reinterpret_cast<double*>((void*)dest));
 }
 
-double ByteBuffer::getDouble(int position) noexcept {
+double ByteBuffer::getDouble(int position) noexcept(false) {
+	if(this->lim - position < (int)sizeof(double)){
+		throw new BufferOverflowException(__FILE__, __LINE__);
+	}
+
 	uint8_t* ptr = this->data->getRoot() + position;
 	uint8_t dest[8]{};
 
@@ -348,7 +425,11 @@ double ByteBuffer::getDouble(int position) noexcept {
 	return *(reinterpret_cast<double*>((void*)dest));
 }
 
-float ByteBuffer::getFloat() noexcept {
+float ByteBuffer::getFloat() noexcept(false) {
+	if(remaining() < (int)sizeof(float)){
+		throw new BufferOverflowException(__FILE__, __LINE__);
+	}
+
 	uint8_t* ptr = this->data->getRoot() + this->pos;
 	uint8_t dest[4]{};
 
@@ -362,7 +443,11 @@ float ByteBuffer::getFloat() noexcept {
 	return *(reinterpret_cast<float*>((void*)dest));
 }
 
-float ByteBuffer::getFloat(int position) noexcept {
+float ByteBuffer::getFloat(int position) noexcept(false) {
+	if(this->lim - position < (int)sizeof(float)){
+		throw new BufferOverflowException(__FILE__, __LINE__);
+	}
+
 	uint8_t* ptr = this->data->getRoot() + position;
 	uint8_t dest[4]{};
 
@@ -376,21 +461,33 @@ float ByteBuffer::getFloat(int position) noexcept {
 	return *(reinterpret_cast<float*>((void*)dest));
 }
 
-int32_t ByteBuffer::getInt() noexcept {
+int32_t ByteBuffer::getInt() noexcept(false) {
+	if(remaining() < (int)sizeof(int32_t)){
+		throw new BufferOverflowException(L"", __FILE__, __LINE__);
+	}
+
 	int32_t val = *((int32_t*)(this->data->getRoot() + this->pos));
 	this->pos += sizeof(int32_t);
 
 	return val;
 }
 
-int32_t ByteBuffer::getInt(int position) noexcept {
+int32_t ByteBuffer::getInt(int position) noexcept(false) {
+	if(this->lim - position < (int)sizeof(int32_t)){
+		throw new BufferOverflowException(__FILE__, __LINE__);
+	}
+
 	int32_t val = *((int32_t*)(this->data->getRoot() + position));
 	this->pos = position + sizeof(int16_t);
 
 	return val;
 }
 
-wchar_t ByteBuffer::getChar() noexcept {
+wchar_t ByteBuffer::getChar() noexcept(false) {
+	if(remaining() < (int)sizeof(int16_t)){
+		throw new BufferOverflowException(L"", __FILE__, __LINE__);
+	}
+
 	wchar_t val = *((short*)(this->data->getRoot() + this->pos));
 
 	this->pos += sizeof(int16_t);
@@ -398,21 +495,33 @@ wchar_t ByteBuffer::getChar() noexcept {
 	return (wchar_t)val;
 }
 
-wchar_t ByteBuffer::getChar(int position) noexcept {
+wchar_t ByteBuffer::getChar(int position) noexcept(false) {
+	if(this->lim - position < (int)sizeof(int16_t)){
+		throw new BufferOverflowException(__FILE__, __LINE__);
+	}
+
 	int16_t val = *((int16_t*)(this->data->getRoot() + position));
 	this->pos = position + sizeof(int16_t);
 
 	return (wchar_t)val;
 }
 
-int16_t ByteBuffer::getShort() noexcept {
+int16_t ByteBuffer::getShort() noexcept(false) {
+	if(remaining() < (int)sizeof(int16_t)){
+		throw new BufferOverflowException(L"", __FILE__, __LINE__);
+	}
+
 	int16_t val = *((int16_t*)(this->data->getRoot() + this->pos));
 	this->pos += sizeof(int16_t);
 
 	return val;
 }
 
-int16_t ByteBuffer::getShort(int position) noexcept {
+int16_t ByteBuffer::getShort(int position) noexcept(false) {
+	if(this->lim - position < (int)sizeof(int16_t)){
+		throw new BufferOverflowException(__FILE__, __LINE__);
+	}
+
 	int16_t val = *((int16_t*)(this->data->getRoot() + position));
 	this->pos = position + sizeof(int16_t);
 

@@ -633,3 +633,38 @@ TEST(TestLongRangeGroup, remove09){
 }
 
 
+TEST(TestLongRangeGroup, equals01){
+	LongRangeList list;
+	list.addRange(10, 12);
+
+	LongRangeList list2;
+	list2.addRange(10, 12);
+
+	bool result = list.equals(&list2);
+	CHECK(result)
+}
+
+TEST(TestLongRangeGroup, equals02){
+	LongRangeList list;
+	list.addRange(10, 12);
+
+	LongRangeList list2;
+	list2.addRange(10, 13);
+
+	bool result = list.equals(&list2);
+	CHECK(!result)
+}
+
+TEST(TestLongRangeGroup, equals03){
+	LongRangeList list;
+	list.addRange(10, 12);
+
+	LongRangeList list2;
+	list.addRange(10, 12);
+	list.addRange(14, 14);
+
+	bool result = list.equals(&list2);
+	CHECK(!result)
+}
+
+

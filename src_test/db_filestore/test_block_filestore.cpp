@@ -14,6 +14,7 @@
 #include "base/StackRelease.h"
 
 #include "filestore_block/BlockFileStore.h"
+#include "filestore_block/exceptions.h"
 
 using namespace alinous;
 
@@ -26,6 +27,9 @@ TEST_GROUP(TestBlockFileStoreGroup) {
 	}
 };
 
+TEST(TestBlockFileStoreGroup, exceptions){
+	testException<BlockFileStorageException>();
+}
 
 TEST(TestBlockFileStoreGroup, construct){
 	File projectFolder = this->env->testCaseDir();

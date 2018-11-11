@@ -39,75 +39,67 @@ CoderResult UTF_8Converter::Decoder::decodeLoop(ByteBuffer* in, CharBuffer* out)
 	int pos = in->position();
 	int limit = in->limit();
 	{
-		try
+		int nextByte = 0;
+		while(pos < limit)
 		{
-			int nextByte = 0;
-			while(pos < limit)
+			if(outRemaining == 0)
 			{
-				if(outRemaining == 0)
+				in->position(pos);
+				return CoderResult::__OVERFLOW;
+			}
+			int jchar = in->get();
+			if(jchar < 0)
+			{
+				jchar = jchar & 0x7F;
+				int tail = remainingBytes[jchar];
+				if(tail == -1)
+				{
+					in->position(pos);
+					return CoderResult::malformedForLength(1);
+				}
+				if(limit - pos < 1 + tail)
+				{
+					in->position(pos);
+					return CoderResult::__UNDERFLOW;
+				}
+				nextByte = 0;
+				for(int i = 0; i < tail; i ++ )
+				{
+					nextByte = in->get() & 0xFF;
+					if((nextByte & 0xC0) != 0x80)
+					{
+						in->position(pos);
+						return CoderResult::malformedForLength(1 + i);
+					}
+					jchar = (jchar << 6) + nextByte;
+				}
+				jchar -= remainingNumbers[tail];
+				if(jchar < lowerEncodingLimit[tail])
+				{
+					in->position(pos);
+					return CoderResult::malformedForLength(1);
+				}
+				pos += tail;
+			}
+			if(jchar <= 0xffff)
+			{
+				out->put(((wchar_t)jchar));
+				outRemaining -- ;
+			}
+			else{
+				if(outRemaining < 2)
 				{
 					in->position(pos);
 					return CoderResult::__OVERFLOW;
 				}
-				int jchar = in->get();
-				if(jchar < 0)
-				{
-					jchar = jchar & 0x7F;
-					int tail = remainingBytes[jchar];
-					if(tail == -1)
-					{
-						in->position(pos);
-						return CoderResult::malformedForLength(1);
-					}
-					if(limit - pos < 1 + tail)
-					{
-						in->position(pos);
-						return CoderResult::__UNDERFLOW;
-					}
-					nextByte = 0;
-					for(int i = 0; i < tail; i ++ )
-					{
-						nextByte = in->get() & 0xFF;
-						if((nextByte & 0xC0) != 0x80)
-						{
-							in->position(pos);
-							return CoderResult::malformedForLength(1 + i);
-						}
-						jchar = (jchar << 6) + nextByte;
-					}
-					jchar -= remainingNumbers[tail];
-					if(jchar < lowerEncodingLimit[tail])
-					{
-						in->position(pos);
-						return CoderResult::malformedForLength(1);
-					}
-					pos += tail;
-				}
-				if(jchar <= 0xffff)
-				{
-					out->put(((wchar_t)jchar));
-					outRemaining -- ;
-				}
-				else{
-					if(outRemaining < 2)
-					{
-						in->position(pos);
-						return CoderResult::__OVERFLOW;
-					}
-					out->put(((wchar_t)((jchar >> 0xA) + 0xD7C0)));
-					out->put(((wchar_t)((jchar & 0x3FF) + 0xDC00)));
-					outRemaining -= 2;
-				}
-				pos ++ ;
+				out->put(((wchar_t)((jchar >> 0xA) + 0xD7C0)));
+				out->put(((wchar_t)((jchar & 0x3FF) + 0xDC00)));
+				outRemaining -= 2;
 			}
-			in->position(pos);
-			return CoderResult::__UNDERFLOW;
+			pos ++ ;
 		}
-		catch(Exception* e)
-		{
-			in->position(pos);
-			throw new IllegalArgumentException(e, __FILE__, __LINE__);
-		}
+		in->position(pos);
+		return CoderResult::__UNDERFLOW;
 	}
 }
 
@@ -116,89 +108,82 @@ CoderResult UTF_8Converter::Encoder::encodeLoop(CharBuffer* in, ByteBuffer* out)
 	int pos = in->position();
 	int limit = in->limit();
 	{
-		try
+		while(pos < limit)
 		{
-			while(pos < limit)
+			if(outRemaining == 0)
 			{
-				if(outRemaining == 0)
+				in->position(pos);
+				return CoderResult::__OVERFLOW;
+			}
+			int jchar = (in->get() & 0xFFFF);
+			if(jchar <= 0x7F)
+			{
+				if(outRemaining < 1)
 				{
 					in->position(pos);
 					return CoderResult::__OVERFLOW;
 				}
-				int jchar = (in->get() & 0xFFFF);
-				if(jchar <= 0x7F)
+				out->put(((char)(jchar & 0xFF)));
+				outRemaining -- ;
+			}
+			else {
+				if(jchar <= 0x7FF)
 				{
-					if(outRemaining < 1)
+					if(outRemaining < 2)
 					{
 						in->position(pos);
 						return CoderResult::__OVERFLOW;
 					}
-					out->put(((char)(jchar & 0xFF)));
-					outRemaining -- ;
+					out->put(((char)(0xC0 + ((jchar >> 6) & 0x1F))));
+					out->put(((char)(0x80 + (jchar & 0x3F))));
+					outRemaining -= 2;
 				}
 				else {
-					if(jchar <= 0x7FF)
+					if(jchar >= 0xD800 && jchar <= 0xDFFF)
 					{
-						if(outRemaining < 2)
+						if(limit <= pos + 1)
+						{
+							in->position(pos);
+							return CoderResult::__UNDERFLOW;
+						}
+						if(outRemaining < 4)
 						{
 							in->position(pos);
 							return CoderResult::__OVERFLOW;
 						}
-						out->put(((char)(0xC0 + ((jchar >> 6) & 0x1F))));
-						out->put(((char)(0x80 + (jchar & 0x3F))));
-						outRemaining -= 2;
+						if(jchar >= 0xDC00)
+						{
+							in->position(pos);
+							return CoderResult::malformedForLength(1);
+						}
+						int jchar2 = (in->get() & 0xFFFF);
+						if(jchar2 < 0xDC00)
+						{
+							in->position(pos);
+							return CoderResult::malformedForLength(1);
+						}
+						int n = (jchar << 10) + jchar2 + 0xFCA02400;
+						out->put(((char)(0xF0 + ((n >> 18) & 0x07))));
+						out->put(((char)(0x80 + ((n >> 12) & 0x3F))));
+						out->put(((char)(0x80 + ((n >> 6) & 0x3F))));
+						out->put(((char)(0x80 + (n & 0x3F))));
+						outRemaining -= 4;
+						pos ++ ;
 					}
 					else {
-						if(jchar >= 0xD800 && jchar <= 0xDFFF)
+						if(outRemaining < 3)
 						{
-							if(limit <= pos + 1)
-							{
-								in->position(pos);
-								return CoderResult::__UNDERFLOW;
-							}
-							if(outRemaining < 4)
-							{
-								in->position(pos);
-								return CoderResult::__OVERFLOW;
-							}
-							if(jchar >= 0xDC00)
-							{
-								in->position(pos);
-								return CoderResult::malformedForLength(1);
-							}
-							int jchar2 = (in->get() & 0xFFFF);
-							if(jchar2 < 0xDC00)
-							{
-								in->position(pos);
-								return CoderResult::malformedForLength(1);
-							}
-							int n = (jchar << 10) + jchar2 + 0xFCA02400;
-							out->put(((char)(0xF0 + ((n >> 18) & 0x07))));
-							out->put(((char)(0x80 + ((n >> 12) & 0x3F))));
-							out->put(((char)(0x80 + ((n >> 6) & 0x3F))));
-							out->put(((char)(0x80 + (n & 0x3F))));
-							outRemaining -= 4;
-							pos ++ ;
+							in->position(pos);
+							return CoderResult::__OVERFLOW;
 						}
-						else {
-							if(outRemaining < 3)
-							{
-								in->position(pos);
-								return CoderResult::__OVERFLOW;
-							}
-							out->put(((char)(0xE0 + ((jchar >> 12) & 0x0F))));
-							out->put(((char)(0x80 + ((jchar >> 6) & 0x3F))));
-							out->put(((char)(0x80 + (jchar & 0x3F))));
-							outRemaining -= 3;
-						}
+						out->put(((char)(0xE0 + ((jchar >> 12) & 0x0F))));
+						out->put(((char)(0x80 + ((jchar >> 6) & 0x3F))));
+						out->put(((char)(0x80 + (jchar & 0x3F))));
+						outRemaining -= 3;
 					}
 				}
-				pos ++ ;
 			}
-		}
-		catch(Exception* e)
-		{
-			in->position(pos);
+			pos ++ ;
 		}
 	}
 	in->position(pos);

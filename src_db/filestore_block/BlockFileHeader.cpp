@@ -15,15 +15,20 @@ BlockFileHeader::BlockFileHeader(RandomAccessFile* file) noexcept : file(file) {
 }
 
 BlockFileHeader::~BlockFileHeader() noexcept {
-	if(this->usedArea != nullptr){
-		delete this->usedArea;
-	}
+	clearArea();
 }
 
-void BlockFileHeader::createStore(bool del, uint64_t defaultSize) noexcept(false) {
+void BlockFileHeader::createStore(bool del) noexcept(false) {
 	this->usedArea = new LongRangeList();
 
-	delete this->usedArea;
+	clearArea();
+}
+
+void BlockFileHeader::clearArea() noexcept {
+	if(this->usedArea != nullptr){
+		delete this->usedArea;
+		this->usedArea = nullptr;
+	}
 }
 
 } /* namespace alinous */

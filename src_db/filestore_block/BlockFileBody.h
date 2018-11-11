@@ -20,6 +20,8 @@ public:
 	explicit BlockFileBody(RandomAccessFile* file) noexcept;
 	virtual ~BlockFileBody() noexcept;
 
+	void createStore(bool del) noexcept(false);
+
 private:
 	RandomAccessFile* file;
 };
