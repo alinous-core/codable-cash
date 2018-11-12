@@ -52,7 +52,7 @@ void MMapSegments::clearElements(DiskCacheManager* diskManager, FileDescriptor& 
 			if(data->isDirty()){
 				try{
 					data->writeBack(fd);
-				}catch(...){}
+				}catch(Exception* ignore){ delete ignore; }
 			}
 
 			diskManager->fireCacheRemoved(seg);

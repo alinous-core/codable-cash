@@ -109,8 +109,6 @@ MMapSegmentStackRelease::~MMapSegmentStackRelease() noexcept {
 int MMapSegment::writeBack(FileDescriptor& fd) noexcept(false) {
 	ERROR_POINT(L"MMapSegment::writeBack")
 
-
-// FIXME seek
 	int ret = Os::seekFile(&fd, this->position, Os::SeekOrigin::FROM_BEGINING);
 	if(ret < 0){
 		throw new FileIOException(__FILE__, __LINE__);
