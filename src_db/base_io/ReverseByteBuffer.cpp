@@ -243,7 +243,7 @@ int64_t ReverseByteBuffer::getLong() noexcept(false) {
 
 	this->pos += sizeof(uint64_t);
 
-	return *(reinterpret_cast<uint64_t*>((void*)dest));
+	return *(reinterpret_cast<int64_t*>((void*)dest));
 }
 
 int64_t ReverseByteBuffer::getLong(int position) noexcept(false) {
@@ -265,7 +265,7 @@ int64_t ReverseByteBuffer::getLong(int position) noexcept(false) {
 
 	this->pos = position + sizeof(uint64_t);
 
-	return *(reinterpret_cast<uint64_t*>((void*)dest));
+	return *(reinterpret_cast<int64_t*>((void*)dest));
 }
 
 double ReverseByteBuffer::getDouble() noexcept(false) {

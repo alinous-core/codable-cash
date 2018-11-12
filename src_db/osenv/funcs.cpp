@@ -274,7 +274,7 @@ FileDescriptor Os::openFile2ReadWrite(const File *file, bool sync) noexcept {
 
 	const char* cpath = path->toCString();
 
-	int mode = O_CREAT | O_RDWR | O_APPEND;
+	int mode = O_CREAT | O_RDWR; // | O_BINARY;
 	if(sync){
 		mode |= O_SYNC;
 	}
@@ -308,7 +308,7 @@ int Os::readFile(const FileDescriptor* fd, char* buffer, int size) noexcept {
 int Os::syncFile(const FileDescriptor* fd) noexcept {
 	CAUSE_ERROR_BY_RETURN(L"Os::syncFile", -1)
 
-	::syncfs(fd->fd);
+	return ::syncfs(fd->fd);
 }
 
 void Os::closeFileDescriptor(FileDescriptor* fd) noexcept {

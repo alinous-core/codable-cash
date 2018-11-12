@@ -18,6 +18,7 @@ namespace alinous {
 
 BlockFileHeader::BlockFileHeader(RandomAccessFile* file) noexcept : file(file) {
 	this->usedArea = nullptr;
+	this->bodySize = 0;
 }
 
 BlockFileHeader::~BlockFileHeader() noexcept {
@@ -25,7 +26,7 @@ BlockFileHeader::~BlockFileHeader() noexcept {
 }
 
 void BlockFileHeader::createStore(bool del, uint64_t defaultSize) noexcept(false) {
-	syncFile(defaultSize);
+	sync2File(defaultSize);
 	clearArea();
 }
 
@@ -36,8 +37,9 @@ void BlockFileHeader::clearArea() noexcept {
 	}
 }
 
-void BlockFileHeader::syncFile(uint64_t blockFileSize) noexcept(false) {
+void BlockFileHeader::sync2File(uint64_t blockFileSize) noexcept(false) {
 	this->usedArea = new LongRangeList();
+	this->bodySize = blockFileSize;
 
 	int binSize = sizeof(uint64_t) + this->usedArea->binarySize();
 
@@ -51,14 +53,39 @@ void BlockFileHeader::syncFile(uint64_t blockFileSize) noexcept(false) {
 
 
 	// sync with file
-	this->file->setLength(binSize);
+	this->file->setLength(binSize + sizeof(uint64_t));
 
-	const char* binary = (const char*)buff->array();
-	int cnt = this->file->write(0, binary, binSize);
+	// file size
+	ByteBuffer* buffSizeHeader = ByteBuffer::allocateWithEndian(sizeof(int64_t), true);
+	StackRelease<ByteBuffer> _st_buffSizeHeader(buffSizeHeader);
+	buffSizeHeader->putLong(binSize);
+	buffSizeHeader->position(0);
 
-	assert(cnt == binSize);
+	uint64_t fpos = 0;
+	const char* binary = (const char*)buffSizeHeader->array();
+	fpos += this->file->write(fpos, binary, sizeof(int64_t));
+
+	// content
+	binary = (const char*)buff->array();
+//	int cnt = this->file->write(fpos, binary, binSize);
+//	assert(cnt == binSize);
 
 	this->file->sync(true);
+}
+
+void BlockFileHeader::loadFromFile() {
+	uint64_t fpos = 0;
+	char sizeHeaderBinary[sizeof(uint64_t)]{'A'};
+	this->file->read(fpos, sizeHeaderBinary, sizeof(uint64_t));
+
+	ByteBuffer* buffSizeHeader = ByteBuffer::allocateWithEndian(sizeof(uint64_t), true);
+	StackRelease<ByteBuffer> _st_buffSizeHeader(buffSizeHeader);
+
+	buffSizeHeader->put((const uint8_t*)sizeHeaderBinary, sizeof(uint64_t));
+	int64_t loadSize = buffSizeHeader->getLong(0);
+
+	loadSize++;
+
 }
 
 } /* namespace alinous */

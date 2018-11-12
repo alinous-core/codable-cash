@@ -46,11 +46,30 @@ void BlockFileStore::createStore(bool del, uint64_t defaultSize) noexcept(false)
 		internalClear();
 		FileStore::close();
 
-		throw new BlockFileStorageException(L"", e, __FILE__, __LINE__);
+		throw new BlockFileStorageException(L"Failed in creating block file store", e, __FILE__, __LINE__);
 	}
 
 	internalClear();
 	FileStore::close();
+}
+
+void BlockFileStore::open(bool sync) noexcept(false) {
+	ERROR_POINT(L"BlockFileStore::open")
+
+	FileStore::open(sync);
+
+	this->header = new BlockFileHeader(this->headerFile);
+	this->body = new BlockFileBody(this->file);
+
+	try{
+		this->header->loadFromFile();
+	}
+	catch(Exception* e){
+		internalClear();
+		FileStore::close();
+
+		throw new BlockFileStorageException(L"Failed in opening block file store", e, __FILE__, __LINE__);
+	}
 }
 
 
@@ -76,4 +95,5 @@ void BlockFileStore::internalClear() noexcept {
 }
 
 } /* namespace alinous */
+
 

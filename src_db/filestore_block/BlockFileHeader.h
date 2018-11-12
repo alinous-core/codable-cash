@@ -24,14 +24,17 @@ public:
 
 	void createStore(bool del, uint64_t defaultSize) noexcept(false);
 
+	void sync2File(uint64_t blockFileSize) noexcept(false);
+	void loadFromFile() noexcept(false);
 private:
 	void clearArea() noexcept;
 
-	void syncFile(uint64_t blockFileSize) noexcept(false);
+
 
 private:
 	RandomAccessFile* file;
 	LongRangeList* usedArea;
+	uint64_t bodySize;
 
 };
 

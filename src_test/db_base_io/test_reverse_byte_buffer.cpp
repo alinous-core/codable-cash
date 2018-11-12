@@ -71,6 +71,18 @@ TEST(ReverseByteBufferTestGroup, put){
 }
 
 
+TEST(ReverseByteBufferTestGroup, put02){
+	int cap = 128;
+	ReverseByteBuffer* buff = new ReverseByteBuffer(128);
+
+	buff->putLong(12);
+	int64_t val = buff->getLong(0);
+
+	CHECK(val == 12)
+
+	delete buff;
+}
+
 TEST(ReverseByteBufferTestGroup, bigendian){
 	int cap = 128;
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(cap, true);

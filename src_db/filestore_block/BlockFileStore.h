@@ -26,6 +26,8 @@ public:
 	virtual ~BlockFileStore() noexcept;
 
 	void createStore(bool del, uint64_t defaultSize) noexcept(false);
+
+	void open(bool sync) noexcept(false);
 	bool isOpened() const noexcept;
 	void close() noexcept;
 
