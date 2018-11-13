@@ -320,6 +320,7 @@ TEST(RAFTestGroup, fileWriteSyncError){
 		file.sync(true);
 	}catch(Exception* e){
 		exp = e;
+		file.close();
 	}
 	CHECK(dynamic_cast<FileIOException*>(exp) != nullptr)
 	delete exp;
@@ -400,5 +401,83 @@ TEST(RAFTestGroup, pagesizeChange){
 	file.close();
 }
 
+TEST(RAFTestGroup, readWrite){
+	File projectFolder = this->env->testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	const char* str = "Hello World!!\n";
+	{
+		DiskCacheManager diskCache(16525);
+		RandomAccessFile file(outFile, &diskCache, 256);
+		file.open();
+
+
+		file.write(0, str, 15);
+
+		char buff[14]{};
+		file.read(0, buff, 15);
+
+		file.sync(true);
+
+		file.close();
+	}
+
+	{
+		DiskCacheManager diskCache(16525);
+		RandomAccessFile file(outFile, &diskCache, 256);
+		file.open();
+		char buff[15]{};
+		file.read(0, buff, 15);
+
+		file.close();
+
+		int result = Mem::strcmp(str, buff);
+		CHECK(result == 0)
+	}
+}
+
+TEST(RAFTestGroup, readWrite02){
+	File projectFolder = this->env->testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	const char* str = "Hello World!!\n";
+	{
+		DiskCacheManager diskCache(16525);
+		RandomAccessFile file(outFile, &diskCache, 256);
+		file.open();
+
+		file.setLength(256 * 4 * 2);
+
+		file.write(256 * 4 - 6, str, 15);
+
+		char buff[14]{};
+		file.read(0, buff, 15);
+
+		file.sync(true);
+
+		file.close();
+	}
+
+	{
+		DiskCacheManager diskCache(16525);
+		RandomAccessFile file(outFile, &diskCache, 256);
+		file.open();
+		char buff[15]{};
+		file.read(256 * 4 - 6, buff, 15);
+
+		file.close();
+
+		int result = Mem::strcmp(str, buff);
+		CHECK(result == 0)
+	}
+}
 
 

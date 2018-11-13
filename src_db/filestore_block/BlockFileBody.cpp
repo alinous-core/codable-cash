@@ -7,6 +7,8 @@
 
 #include "filestore_block/BlockFileBody.h"
 
+#include "debug/debugMacros.h"
+
 namespace alinous {
 
 BlockFileBody::BlockFileBody(RandomAccessFile* file) noexcept : file(file){
