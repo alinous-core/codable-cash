@@ -90,10 +90,10 @@ TEST(TestBlockFileStoreGroup, openStore){
 
 	store.open(false);
 }
-/*
+
 TEST(TestBlockFileStoreGroup, openStoreError){
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
-	errmgr->activatePoint(L"BlockFileStore::open", L"Os::syncFile", 1);
+	errmgr->activatePoint(L"BlockFileStore::open", L"Os::seekFile", 1);
 
 	File projectFolder = this->env->testCaseDir();
 	_ST(File, baseDir, projectFolder.get(L"store"))
@@ -115,5 +115,5 @@ TEST(TestBlockFileStoreGroup, openStoreError){
 	CHECK(exp != nullptr)
 	delete exp;
 }
-*/
+
 

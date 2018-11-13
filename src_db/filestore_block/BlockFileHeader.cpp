@@ -67,15 +67,15 @@ void BlockFileHeader::sync2File(uint64_t blockFileSize) noexcept(false) {
 
 	// content
 	binary = (const char*)buff->array();
-//	int cnt = this->file->write(fpos, binary, binSize);
-//	assert(cnt == binSize);
+	int cnt = this->file->write(fpos, binary, binSize);
+	assert(cnt == binSize);
 
 	this->file->sync(true);
 }
 
 void BlockFileHeader::loadFromFile() {
 	uint64_t fpos = 0;
-	char sizeHeaderBinary[sizeof(uint64_t)]{'A'};
+	char sizeHeaderBinary[sizeof(uint64_t)]{};
 	this->file->read(fpos, sizeHeaderBinary, sizeof(uint64_t));
 
 	ByteBuffer* buffSizeHeader = ByteBuffer::allocateWithEndian(sizeof(uint64_t), true);
@@ -84,8 +84,10 @@ void BlockFileHeader::loadFromFile() {
 	buffSizeHeader->put((const uint8_t*)sizeHeaderBinary, sizeof(uint64_t));
 	int64_t loadSize = buffSizeHeader->getLong(0);
 
-	loadSize++;
+	ByteBuffer* rangeBinary = ByteBuffer::allocateWithEndian(loadSize, true);
+	StackRelease<ByteBuffer> _st_rangeBinary(rangeBinary);
 
+	this->usedArea = LongRangeList::fromBinary(rangeBinary);
 }
 
 } /* namespace alinous */
