@@ -89,6 +89,8 @@ TEST(TestBlockFileStoreGroup, openStore){
 	store.createStore(false, 1024);
 
 	store.open(false);
+
+	CHECK(store.isOpened())
 }
 
 TEST(TestBlockFileStoreGroup, openStoreError){
