@@ -42,6 +42,7 @@ public:
 	bool equals(LongRangeList* other) noexcept;
 	void assertList() const;
 
+	uint64_t firstEmpty() noexcept;
 
 private:
 	bool needSplit(LongRangeHitStatus* minStatus, LongRangeHitStatus* maxStatus, const LongRange* range) noexcept;

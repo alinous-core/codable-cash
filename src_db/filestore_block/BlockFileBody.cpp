@@ -11,14 +11,17 @@
 
 namespace alinous {
 
-BlockFileBody::BlockFileBody(RandomAccessFile* file) noexcept : file(file){
-
+BlockFileBody::BlockFileBody(RandomAccessFile* file) noexcept{
+	this->file = file;
+	this->blockSize = 0;
 }
 
 BlockFileBody::~BlockFileBody() {
 }
 
-void BlockFileBody::createStore(bool del) {
+void BlockFileBody::createStore(bool del, uint64_t blockSize) {
+	this->blockSize = blockSize;
+
 
 }
 

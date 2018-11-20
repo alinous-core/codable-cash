@@ -13,6 +13,7 @@
 namespace alinous {
 	class BlockFileHeader;
 	class BlockFileBody;
+	class BlockHandle;
 }
 
 namespace alinous {
@@ -26,11 +27,13 @@ public:
 	virtual ~BlockFileStore() noexcept;
 
 	void createStore(bool del, uint64_t defaultSize) noexcept(false);
+	void createStore(bool del, uint64_t defaultSize, uint64_t blockSize) noexcept(false);
 
 	void open(bool sync) noexcept(false);
 	bool isOpened() const noexcept;
 	void close() noexcept;
 
+	BlockHandle* alloc(uint64_t size);
 
 private:
 	void internalClear() noexcept;

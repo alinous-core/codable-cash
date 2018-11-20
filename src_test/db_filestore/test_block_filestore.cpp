@@ -14,6 +14,7 @@
 #include "base/StackRelease.h"
 
 #include "filestore_block/BlockFileStore.h"
+#include "filestore_block/BlockHandle.h"
 #include "filestore_block/exceptions.h"
 
 using namespace alinous;
@@ -116,6 +117,28 @@ TEST(TestBlockFileStoreGroup, openStoreError){
 
 	CHECK(exp != nullptr)
 	delete exp;
+}
+
+TEST(TestBlockFileStoreGroup, alloc01){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file01");
+	BlockFileStore store(baseDirStr, &name, &cacheManager);
+
+	store.createStore(false, 1024);
+
+	store.open(false);
+
+	BlockHandle* handle = store.alloc(10);
+
+
+	delete handle;
+
+	store.close();
+
 }
 
 

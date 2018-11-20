@@ -11,6 +11,7 @@
 
 #include "filestore_block/BlockFileHeader.h"
 #include "filestore_block/BlockFileBody.h"
+#include "filestore_block/BlockHandle.h"
 
 #include "exceptions.h"
 
@@ -28,7 +29,11 @@ BlockFileStore::~BlockFileStore() noexcept {
 	close();
 }
 
-void BlockFileStore::createStore(bool del, uint64_t defaultSize) noexcept(false) {
+void BlockFileStore::createStore(bool del, uint64_t defaultSize) {
+	createStore(del, defaultSize, 256);
+}
+
+void BlockFileStore::createStore(bool del, uint64_t defaultSize, uint64_t blockSize) noexcept(false) {
 	ERROR_POINT(L"BlockFileStore::createStore")
 
 	FileStore::createStore(del, defaultSize);
@@ -39,8 +44,8 @@ void BlockFileStore::createStore(bool del, uint64_t defaultSize) noexcept(false)
 	this->body = new BlockFileBody(this->file);
 
 	try{
-		this->header->createStore(del, defaultSize);
-		this->body->createStore(del);
+		this->header->createStore(del, defaultSize, blockSize);
+		this->body->createStore(del, blockSize);
 	}
 	catch(Exception* e){
 		internalClear();
@@ -81,6 +86,25 @@ void BlockFileStore::close() noexcept {
 	internalClear();
 
 	FileStore::close();
+}
+
+BlockHandle* BlockFileStore::alloc(uint64_t size) {
+	BlockHandle* handle = new BlockHandle(this);
+
+	try{
+		uint64_t pos = this->header->alloc();
+		handle->current = pos;
+		handle->start = pos;
+
+	}
+	catch(Exception* e){
+		internalClear();
+		FileStore::close();
+
+		throw new BlockFileStorageException(L"Failed in allocating block", e, __FILE__, __LINE__);
+	}
+
+	return handle;
 }
 
 void BlockFileStore::internalClear() noexcept {

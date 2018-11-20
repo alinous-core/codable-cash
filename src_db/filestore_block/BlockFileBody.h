@@ -20,10 +20,11 @@ public:
 	explicit BlockFileBody(RandomAccessFile* file) noexcept;
 	virtual ~BlockFileBody() noexcept;
 
-	void createStore(bool del) noexcept(false);
+	void createStore(bool del, uint64_t blockSize) noexcept(false);
 
 private:
 	RandomAccessFile* file;
+	uint64_t blockSize;
 };
 
 } /* namespace alinous */
