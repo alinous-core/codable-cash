@@ -23,6 +23,9 @@ public:
 	explicit BlockHandle(BlockFileStore* store) noexcept;
 	virtual ~BlockHandle();
 
+
+
+
 public:
 	uint64_t start;
 	uint64_t current;

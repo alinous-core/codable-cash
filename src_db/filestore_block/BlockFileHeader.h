@@ -30,6 +30,10 @@ public:
 	void loadFromFile() noexcept(false);
 
 	uint64_t alloc();
+
+	inline uint64_t getBlockSize() noexcept {
+		return this->blockSize;
+	}
 private:
 	void clearArea() noexcept;
 
@@ -38,7 +42,7 @@ private:
 private:
 	RandomAccessFile* file;
 	LongRangeList* usedArea;
-	uint64_t bodySize;
+	uint64_t blockSize;
 
 };
 

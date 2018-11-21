@@ -9,12 +9,16 @@
 
 namespace alinous {
 
-BlockData::BlockData() noexcept {
-	this->buffer = nullptr;
+BlockData::BlockData(uint16_t blockSize, uint64_t currentPos) noexcept {
+	this->blockSize = blockSize;
+	this->currentPos = currentPos;
+
+	this->used = 0;
+	this->nextPos = 0;
 }
 
 BlockData::~BlockData() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */

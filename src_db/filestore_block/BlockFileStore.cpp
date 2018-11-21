@@ -41,10 +41,12 @@ void BlockFileStore::createStore(bool del, uint64_t defaultSize, uint64_t blockS
 	FileStore::open(true);
 
 	this->header = new BlockFileHeader(this->headerFile);
-	this->body = new BlockFileBody(this->file);
+
 
 	try{
 		this->header->createStore(del, defaultSize, blockSize);
+
+		this->body = new BlockFileBody(this->file, this->header->getBlockSize());
 		this->body->createStore(del, blockSize);
 	}
 	catch(Exception* e){
@@ -64,10 +66,11 @@ void BlockFileStore::open(bool sync) noexcept(false) {
 	FileStore::open(sync);
 
 	this->header = new BlockFileHeader(this->headerFile);
-	this->body = new BlockFileBody(this->file);
+
 
 	try{
 		this->header->loadFromFile();
+		this->body = new BlockFileBody(this->file, this->header->getBlockSize());
 	}
 	catch(Exception* e){
 		internalClear();
@@ -91,10 +94,15 @@ void BlockFileStore::close() noexcept {
 BlockHandle* BlockFileStore::alloc(uint64_t size) {
 	BlockHandle* handle = new BlockHandle(this);
 
+	uint64_t blockSize = this->body->getBlockSize();
+
+	int allocBlocks = size % blockSize == 0 ? size / blockSize : size / blockSize + 1;
+
 	try{
 		uint64_t pos = this->header->alloc();
 		handle->current = pos;
 		handle->start = pos;
+
 
 	}
 	catch(Exception* e){
@@ -107,6 +115,11 @@ BlockHandle* BlockFileStore::alloc(uint64_t size) {
 	return handle;
 }
 
+uint64_t BlockFileStore::internalAllocBody(uint64_t size) {
+
+}
+
+
 void BlockFileStore::internalClear() noexcept {
 	if(this->header){
 		delete this->header;
@@ -117,6 +130,7 @@ void BlockFileStore::internalClear() noexcept {
 		this->body = nullptr;
 	}
 }
+
 
 } /* namespace alinous */
 

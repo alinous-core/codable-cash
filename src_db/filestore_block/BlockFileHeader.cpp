@@ -20,7 +20,7 @@ namespace alinous {
 
 BlockFileHeader::BlockFileHeader(RandomAccessFile* file) noexcept : file(file) {
 	this->usedArea = nullptr;
-	this->bodySize = 0;
+	this->blockSize = 0;
 }
 
 BlockFileHeader::~BlockFileHeader() noexcept {
@@ -42,12 +42,12 @@ void BlockFileHeader::clearArea() noexcept {
 }
 
 void BlockFileHeader::sync2File() noexcept(false) {
-	sync2File(this->bodySize);
+	sync2File(this->blockSize);
 }
 
 void BlockFileHeader::sync2File(uint64_t blockFileSize) noexcept(false) {
 	this->usedArea = new LongRangeList();
-	this->bodySize = blockFileSize;
+	this->blockSize = blockFileSize;
 
 	uint32_t headSize = sizeof(uint64_t)*2;
 	int binSize = headSize + this->usedArea->binarySize();
@@ -98,7 +98,7 @@ void BlockFileHeader::loadFromFile() {
 
 	buffSizeHeader->position(0);
 	int64_t loadSize = buffSizeHeader->getLong();
-	this->bodySize = buffSizeHeader->getLong();
+	this->blockSize = buffSizeHeader->getLong();
 
 	int areaSize = loadSize - headSize;
 	if(areaSize < 4){

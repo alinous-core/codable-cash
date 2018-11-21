@@ -11,9 +11,9 @@
 
 namespace alinous {
 
-BlockFileBody::BlockFileBody(RandomAccessFile* file) noexcept{
+BlockFileBody::BlockFileBody(RandomAccessFile* file, uint64_t blockSize) noexcept{
 	this->file = file;
-	this->blockSize = 0;
+	this->blockSize = blockSize;
 }
 
 BlockFileBody::~BlockFileBody() {

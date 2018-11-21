@@ -37,6 +37,8 @@ public:
 
 private:
 	void internalClear() noexcept;
+	uint64_t internalAllocBody(uint64_t size);
+
 private:
 	BlockFileHeader* header;
 	BlockFileBody* body;

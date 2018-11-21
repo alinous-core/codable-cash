@@ -17,11 +17,14 @@ class RandomAccessFile;
 class BlockFileBody {
 public:
 	BlockFileBody(const BlockFileBody& base) = delete;
-	explicit BlockFileBody(RandomAccessFile* file) noexcept;
+	explicit BlockFileBody(RandomAccessFile* file, uint64_t blockSize) noexcept;
 	virtual ~BlockFileBody() noexcept;
 
 	void createStore(bool del, uint64_t blockSize) noexcept(false);
 
+	inline uint64_t getBlockSize(){
+		return this->blockSize;
+	}
 private:
 	RandomAccessFile* file;
 	uint64_t blockSize;
