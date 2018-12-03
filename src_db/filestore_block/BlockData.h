@@ -20,6 +20,7 @@ class BlockData {
 public:
 	static constexpr int HEADER_SIZE{sizeof(uint64_t)*2 + sizeof(uint16_t)};
 
+	BlockData(const BlockData& obj) = delete;
 	BlockData(uint16_t blockSize, uint64_t fpos, uint16_t used, uint64_t nextfpos, const char* data) noexcept;
 	virtual ~BlockData();
 
