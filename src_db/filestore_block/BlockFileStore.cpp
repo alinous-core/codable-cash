@@ -13,6 +13,8 @@
 #include "filestore_block/BlockFileBody.h"
 #include "filestore_block/BlockHandle.h"
 
+#include "base/ArrayList.h"
+
 #include "exceptions.h"
 
 
@@ -96,14 +98,8 @@ BlockHandle* BlockFileStore::alloc(uint64_t size) {
 
 	uint64_t blockSize = this->body->getBlockSize();
 
-	int allocBlocks = size % blockSize == 0 ? size / blockSize : size / blockSize + 1;
-
 	try{
-		uint64_t pos = this->header->alloc();
-		handle->current = pos;
-		handle->start = pos;
-
-
+		internalAllocBody(handle, size);
 	}
 	catch(Exception* e){
 		internalClear();
@@ -115,8 +111,54 @@ BlockHandle* BlockFileStore::alloc(uint64_t size) {
 	return handle;
 }
 
-uint64_t BlockFileStore::internalAllocBody(uint64_t size) {
+typedef struct __block_alloc_t {
+	uint16_t used;
+	uint64_t fpos;
+	uint64_t nextfpos;
+} block_alloc_t;
 
+
+void BlockFileStore::internalAllocBody(BlockHandle* handle, uint64_t size) {
+	uint64_t blockSize = this->body->getBlockSize();
+
+	int allocBlocks = size / blockSize;
+	int mod = size % blockSize;
+	if(mod != 0){
+		allocBlocks++;
+	}
+
+	ArrayList<block_alloc_t> list;
+	list.setDeleteOnExit();
+
+	for(int i = 0; i != allocBlocks; ++i){
+		block_alloc_t* block = new block_alloc_t;
+		uint64_t pos = this->header->alloc();
+		block->fpos = pos * this->body->getBlockSize(); // block No starts with 1
+
+		block->used = (blockSize < size) ? blockSize : size;
+
+		size -= block->used;
+		list.addElement(block);
+	}
+
+	for(int i = 0; i != allocBlocks; ++i){
+		block_alloc_t* block = list.get(i);
+
+		int nextIdx = i + 1;
+		if(list.size() > nextIdx){
+			block_alloc_t* nextblock = list.get(nextIdx);
+
+			block->nextfpos = nextblock->fpos;
+		}else{
+			block->nextfpos = 0;
+		}
+	}
+
+	for(int i = 0; i != allocBlocks; ++i){
+		block_alloc_t* block = list.get(i);
+
+		this->body->alloc(block->fpos, block->used, block->nextfpos);
+	}
 }
 
 

@@ -174,6 +174,7 @@ TEST(TestBlockFileStoreGroup, alloc01){
 	BlockHandle* handle = store.alloc(10);
 
 
+
 	delete handle;
 
 	store.close();

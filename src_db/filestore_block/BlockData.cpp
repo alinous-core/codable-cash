@@ -7,18 +7,41 @@
 
 #include "filestore_block/BlockData.h"
 
+#include "base_io/ReverseByteBuffer.h"
+#include "base/StackRelease.h"
+
+#include "osenv/memory.h"
+
 namespace alinous {
 
-BlockData::BlockData(uint16_t blockSize, uint64_t currentPos) noexcept {
+BlockData::BlockData(uint16_t blockSize, uint64_t fpos, uint16_t used, uint64_t nextfpos, const char* data) noexcept {
 	this->blockSize = blockSize;
-	this->currentPos = currentPos;
+	this->currentfPos = fpos;
 
-	this->used = 0;
-	this->nextPos = 0;
+	this->used = used;
+	this->nextfpos = nextfpos;
+
+	this->data = new char[dataSize()]{};
+	Mem::memcpy(this->data, data, used);
 }
 
 BlockData::~BlockData() {
+	delete [] this->data;
 
+}
+
+BlockData* BlockData::createNewBlock(uint64_t blockSize, uint64_t fpos, uint16_t used, uint64_t nextfpos) {
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(blockSize, true);
+	StackRelease<ByteBuffer> _st_buff(buff);
+
+	buff->putLong(fpos);
+	buff->putLong(nextfpos);
+	buff->putShort(used);
+
+	buff->position(0);
+	const char* data = ((const char*)buff->array()) + HEADER_SIZE;
+
+	return new BlockData(blockSize, fpos, used, nextfpos, data);
 }
 
 } /* namespace alinous */
