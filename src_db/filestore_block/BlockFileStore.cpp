@@ -96,8 +96,6 @@ void BlockFileStore::close() noexcept {
 BlockHandle* BlockFileStore::alloc(uint64_t size) {
 	BlockHandle* handle = new BlockHandle(this);
 
-	uint64_t blockSize = this->body->getBlockSize();
-
 	try{
 		internalAllocBody(handle, size);
 	}
