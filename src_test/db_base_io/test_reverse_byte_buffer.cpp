@@ -129,7 +129,22 @@ TEST(ReverseByteBufferTestGroup, bigendian){
 	CHECK(buff->getFloat(pos) == flt); pos += sizeof(float);
 	CHECK(buff->getDouble(pos) == dbl); pos += sizeof(double);
 
+
+	pos = buff->capacity();
+	buff->position(0);
+	ByteBuffer* wbuff = ByteBuffer::wrapWithEndian(buff->array(), pos, true);
+
+	pos = 0;
+	CHECK(wbuff->get(pos) == 'B'); pos += sizeof(char);
+	CHECK(wbuff->getChar(pos) == L'C'); pos += sizeof(short);
+	CHECK(wbuff->getShort(pos) == -124); pos += sizeof(short);
+	CHECK(wbuff->getInt(pos) == -123456); pos += sizeof(int);
+	CHECK(wbuff->getLong(pos) == -1234567890); pos += sizeof(int64_t);
+	CHECK(wbuff->getFloat(pos) == flt); pos += sizeof(float);
+	CHECK(wbuff->getDouble(pos) == dbl); pos += sizeof(double);
+
 	delete buff;
+	delete wbuff;
 }
 
 TEST(ReverseByteBufferTestGroup, littleendian){
@@ -178,7 +193,22 @@ TEST(ReverseByteBufferTestGroup, littleendian){
 	CHECK(buff->getFloat(pos) == flt); pos += sizeof(float);
 	CHECK(buff->getDouble(pos) == dbl); pos += sizeof(double);
 
+
+	pos = buff->capacity();
+	buff->position(0);
+	ByteBuffer* wbuff = ByteBuffer::wrapWithEndian(buff->array(), pos, false);
+
+	pos = 0;
+	CHECK(wbuff->get(pos) == 'B'); pos += sizeof(char);
+	CHECK(wbuff->getChar(pos) == L'C'); pos += sizeof(short);
+	CHECK(wbuff->getShort(pos) == -124); pos += sizeof(short);
+	CHECK(wbuff->getInt(pos) == -123456); pos += sizeof(int);
+	CHECK(wbuff->getLong(pos) == -1234567890); pos += sizeof(int64_t);
+	CHECK(wbuff->getFloat(pos) == flt); pos += sizeof(float);
+	CHECK(wbuff->getDouble(pos) == dbl); pos += sizeof(double);
+
 	delete buff;
+	delete wbuff;
 }
 
 TEST(ReverseByteBufferTestGroup, putExceptions){
