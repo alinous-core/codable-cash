@@ -56,6 +56,18 @@ ByteBuffer* ByteBuffer::allocateWithEndian(const int capacity,
 	return new ReverseByteBuffer(capacity);
 }
 
+ByteBuffer* ByteBuffer::wrapWithEndian(const uint8_t* buffer, int length, bool bigEndian) noexcept {
+	int32_t num = 0xABCDEF01;
+	char* p = (char*)(&num);
+
+	bool isBig = (*p == 0xAB);
+	if(isBig == bigEndian){
+		return ByteBuffer::wrap(buffer, length);
+	}
+
+	return ReverseByteBuffer::wrap(buffer, length);
+}
+
 
 ByteBuffer::~ByteBuffer() noexcept {
 	delete this->data;

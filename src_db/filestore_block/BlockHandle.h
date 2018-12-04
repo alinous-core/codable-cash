@@ -23,14 +23,11 @@ public:
 	explicit BlockHandle(BlockFileStore* store) noexcept;
 	virtual ~BlockHandle();
 
-
+	void loadBlock(uint64_t fpos);
 
 
 public:
-	uint64_t start;
-	uint64_t current;
-
-	BlockData* data;
+	uint64_t fpos;
 
 	BlockFileStore* store;
 };

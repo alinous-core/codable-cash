@@ -15,12 +15,18 @@ namespace alinous {
 
 ReverseByteBuffer::ReverseByteBuffer(const int length) noexcept : ByteBuffer(length){
 }
-/*
+
 ReverseByteBuffer::ReverseByteBuffer(const uint8_t* buffer, int length) : ByteBuffer(buffer, length) {
 }
-*/
+
 ReverseByteBuffer::~ReverseByteBuffer() noexcept {
 }
+
+ByteBuffer* ReverseByteBuffer::wrap(const uint8_t* buffer, int length) {
+	ReverseByteBuffer* buff = new ReverseByteBuffer(buffer, length);
+	return buff;
+}
+
 
 
 ByteBuffer* ReverseByteBuffer::putChar(wchar_t value) noexcept(false) {
@@ -454,3 +460,4 @@ int16_t ReverseByteBuffer::getShort(int position) noexcept(false) {
 }
 
 } /* namespace alinous */
+

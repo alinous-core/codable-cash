@@ -13,17 +13,23 @@
 namespace alinous {
 
 BlockHandle::BlockHandle(BlockFileStore* store) noexcept {
-	this->start = 0;
-	this->current = 0;
-	this->data = nullptr;
+	this->fpos = 0;
 
 	this->store = store;
 }
 
 BlockHandle::~BlockHandle() {
-	if(this->data != nullptr){
-		delete this->data;
-	}
 }
 
+void BlockHandle::loadBlock(uint64_t fpos) {
+	this->fpos = fpos;
+
+	BlockFileBody* body = this->store->getBody();
+
+
+
+}
+
+
 } /* namespace alinous */
+

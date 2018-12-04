@@ -12,6 +12,7 @@
 #include "filestore_block/BlockFileHeader.h"
 #include "filestore_block/BlockFileBody.h"
 #include "filestore_block/BlockHandle.h"
+#include "filestore_block/BlockData.h"
 
 #include "base/ArrayList.h"
 
@@ -117,7 +118,7 @@ typedef struct __block_alloc_t {
 
 
 void BlockFileStore::internalAllocBody(BlockHandle* handle, uint64_t size) {
-	uint64_t blockSize = this->body->getBlockSize();
+	uint64_t blockSize = this->body->getBlockSize() - BlockData::HEADER_SIZE;
 
 	int allocBlocks = size / blockSize;
 	int mod = size % blockSize;

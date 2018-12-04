@@ -24,12 +24,12 @@ public:
 	void createStore(bool del, uint64_t blockSize) noexcept(false);
 
 	uint64_t alloc(uint64_t fpos, uint64_t used, uint64_t nextfpos);
+	void writeBlock(BlockData* data);
+	BlockData* loadBlock(uint64_t fpos);
 
 	inline uint64_t getBlockSize(){
 		return this->blockSize;
 	}
-private:
-	void writeBlock(BlockData* data);
 
 private:
 	RandomAccessFile* file;

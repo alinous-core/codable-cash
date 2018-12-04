@@ -35,6 +35,10 @@ public:
 
 	BlockHandle* alloc(uint64_t size);
 
+	BlockFileBody* getBody() const {
+		return body;
+	}
+
 private:
 	void internalClear() noexcept;
 	void internalAllocBody(BlockHandle* handle, uint64_t size);

@@ -59,4 +59,13 @@ void BlockFileBody::writeBlock(BlockData* data) {
 	this->file->write(fpos, data->getData(), length);
 }
 
+BlockData* BlockFileBody::loadBlock(uint64_t fpos) {
+	char* buff = new char[this->blockSize];
+	StackArrayRelease<char> _st_buff(buff);
+
+	this->file->read(fpos, buff, this->blockSize);
+
+	return BlockData::fromBinary(this->blockSize, buff, this->blockSize);
+}
+
 } /* namespace alinous */

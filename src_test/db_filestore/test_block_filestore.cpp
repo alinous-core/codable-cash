@@ -172,10 +172,9 @@ TEST(TestBlockFileStoreGroup, alloc01){
 	store.open(false);
 
 	BlockHandle* handle = store.alloc(10);
-
-
-
 	delete handle;
+
+
 
 	store.close();
 
