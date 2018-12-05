@@ -117,11 +117,11 @@ typedef struct __block_alloc_t {
 } block_alloc_t;
 
 
-void BlockFileStore::internalAllocBody(BlockHandle* handle, uint64_t size) {
-	uint64_t blockSize = this->body->getBlockSize() - BlockData::HEADER_SIZE;
+void BlockFileStore::internalAllocBody(BlockHandle* handle, const uint64_t size) {
+	uint64_t blockDataSize = this->body->getBlockSize() - BlockData::HEADER_SIZE;
 
-	int allocBlocks = size / blockSize;
-	int mod = size % blockSize;
+	int allocBlocks = size / blockDataSize;
+	int mod = size % blockDataSize;
 	if(mod != 0){
 		allocBlocks++;
 	}
@@ -129,14 +129,15 @@ void BlockFileStore::internalAllocBody(BlockHandle* handle, uint64_t size) {
 	ArrayList<block_alloc_t> list;
 	list.setDeleteOnExit();
 
+	uint64_t sizeRemain = size;
 	for(int i = 0; i != allocBlocks; ++i){
 		block_alloc_t* block = new block_alloc_t;
 		uint64_t pos = this->header->alloc();
 		block->fpos = pos * this->body->getBlockSize(); // block No starts with 1
 
-		block->used = (blockSize < size) ? blockSize : size;
+		block->used = (blockDataSize < sizeRemain) ? blockDataSize : sizeRemain;
 
-		size -= block->used;
+		sizeRemain -= block->used;
 		list.addElement(block);
 	}
 
@@ -158,6 +159,8 @@ void BlockFileStore::internalAllocBody(BlockHandle* handle, uint64_t size) {
 
 		this->body->alloc(block->fpos, block->used, block->nextfpos);
 	}
+
+	handle->initOnAlloc(list.get(0)->fpos, size);
 }
 
 

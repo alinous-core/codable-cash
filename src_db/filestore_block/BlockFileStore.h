@@ -41,7 +41,7 @@ public:
 
 private:
 	void internalClear() noexcept;
-	void internalAllocBody(BlockHandle* handle, uint64_t size);
+	void internalAllocBody(BlockHandle* handle, const uint64_t size);
 
 private:
 	BlockFileHeader* header;

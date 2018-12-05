@@ -13,11 +13,13 @@
 namespace alinous {
 class BlockFileStore;
 class BlockData;
+class ByteBuffer;
 }
 
 namespace alinous {
 
 class BlockHandle {
+	friend class BlockFileStore;
 public:
 	BlockHandle() = delete;
 	explicit BlockHandle(BlockFileStore* store) noexcept;
@@ -26,10 +28,15 @@ public:
 	void loadBlock(uint64_t fpos);
 
 
-public:
-	uint64_t fpos;
+	int size() noexcept;
 
+private:
+	void initOnAlloc(uint64_t fpos, int size) noexcept;
+
+private:
+	uint64_t fpos;
 	BlockFileStore* store;
+	ByteBuffer* buffer;
 };
 
 } /* namespace alinous */
