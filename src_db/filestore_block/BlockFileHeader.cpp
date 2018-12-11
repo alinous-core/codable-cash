@@ -41,9 +41,9 @@ void BlockFileHeader::clearArea() noexcept {
 	}
 }
 
-void BlockFileHeader::sync2File() noexcept(false) {
-	sync2File(this->blockSize);
-}
+//void BlockFileHeader::sync2File() noexcept(false) {
+//	sync2File(this->blockSize);
+//}
 
 void BlockFileHeader::sync2File(uint64_t blockFileSize) noexcept(false) {
 	this->usedArea = new LongRangeList();
