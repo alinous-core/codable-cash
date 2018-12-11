@@ -26,10 +26,13 @@ public:
 	virtual ~BlockHandle();
 
 	void loadBlock(uint64_t fpos);
-
+	void write(const char* bytes, int length);
 
 	int size() noexcept;
 
+	uint64_t getFpos() const {
+		return fpos;
+	}
 private:
 	void initOnAlloc(uint64_t fpos, int size) noexcept;
 

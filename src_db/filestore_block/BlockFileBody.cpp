@@ -55,7 +55,7 @@ void BlockFileBody::writeBlock(BlockData* data) {
 	int fpos = data->getCurrentfPos();
 	fpos += this->file->write(fpos, (const char*)buff->array(), length);
 
-	length = data->dataSize();
+	length = data->getUsed();
 	this->file->write(fpos, data->getData(), length);
 }
 

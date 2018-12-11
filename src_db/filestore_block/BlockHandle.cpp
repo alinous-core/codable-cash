@@ -36,7 +36,8 @@ void BlockHandle::loadBlock(uint64_t fpos) {
 	BlockFileBody* body = this->store->getBody();
 	RawArrayPrimitive<char> bytes(512);
 
-	BlockData* block;
+	BlockData* block = nullptr;
+	uint64_t nextPos;
 	do{
 		block = body->loadBlock(fpos);
 		StackRelease<BlockData> _stBlock(block);
@@ -48,8 +49,10 @@ void BlockHandle::loadBlock(uint64_t fpos) {
 		for(int i = 0; i != maxLoop; ++i){
 			bytes.addElement(data[i]);
 		}
+
+		nextPos = block->getNextfpos();
 	}
-	while(block->getNextfpos() != 0);
+	while(nextPos != 0);
 
 
 	const char* _data = bytes.root;
@@ -60,6 +63,42 @@ void BlockHandle::loadBlock(uint64_t fpos) {
 
 int BlockHandle::size() noexcept {
 	return this->buffer->capacity();
+}
+
+void BlockHandle::write(const char* bytes, int length) {
+	if(this->buffer != nullptr){
+		delete this->buffer;
+	}
+
+	// buffer
+	this->buffer = ByteBuffer::wrapWithEndian((const uint8_t*)bytes, length, true);
+	this->buffer->position(0);
+
+	// storage data
+	BlockData* block;
+	BlockFileBody* body = this->store->getBody();
+	const char* ptr = bytes;
+	int blockDataLength = body->getBlockSize() - BlockData::HEADER_SIZE;
+	int remain = length;
+	do{
+		block = body->loadBlock(fpos);
+		StackRelease<BlockData> _stBlock(block);
+
+		int writeLength = remain < blockDataLength ? remain : blockDataLength;
+
+		block->updateData(ptr, writeLength);
+		body->writeBlock(block);
+
+		remain -= writeLength;
+		ptr += writeLength;
+
+	}
+	while(remain > 0 && block->getNextfpos() != 0);
+
+	// alloc
+
+	// dispose
+
 }
 
 void BlockHandle::initOnAlloc(uint64_t fpos, int size) noexcept {

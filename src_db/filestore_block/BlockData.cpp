@@ -27,7 +27,6 @@ BlockData::BlockData(uint16_t blockSize, uint64_t fpos, uint16_t used, uint64_t 
 
 BlockData::~BlockData() {
 	delete [] this->data;
-
 }
 
 BlockData* BlockData::createNewBlock(uint64_t blockSize, uint64_t fpos, uint16_t used, uint64_t nextfpos) {
@@ -59,4 +58,12 @@ BlockData* BlockData::fromBinary(uint64_t blockSize, const char* bin, int length
 	return new BlockData(blockSize, fpos, used, nextfpos, data);
 }
 
+void BlockData::updateData(const char* ptr, int length) noexcept {
+	this->used = length;
+
+	Mem::memcpy(this->data, ptr, length);
+}
+
 } /* namespace alinous */
+
+

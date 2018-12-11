@@ -35,10 +35,12 @@ public:
 	static BlockData* createNewBlock(uint64_t blockSize, uint64_t fpos, uint16_t used, uint64_t nextfpos);
 	static BlockData* fromBinary(uint64_t blockSize, const char* bin, int length);
 
+	void updateData(const char* ptr, int length) noexcept;
+
 	uint64_t getCurrentfPos() const noexcept {
 		return currentfPos;
 	}
-	char* getData() const {
+	const char* getData() const {
 		return data;
 	}
 	uint64_t getNextfpos() const noexcept {

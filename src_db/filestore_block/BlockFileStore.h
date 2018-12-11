@@ -34,6 +34,7 @@ public:
 	void close() noexcept;
 
 	BlockHandle* alloc(uint64_t size);
+	BlockHandle* get(uint64_t fpos);
 
 	BlockFileBody* getBody() const {
 		return body;

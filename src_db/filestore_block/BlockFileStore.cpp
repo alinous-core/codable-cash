@@ -175,7 +175,15 @@ void BlockFileStore::internalClear() noexcept {
 	}
 }
 
+BlockHandle* BlockFileStore::get(uint64_t fpos) {
+	BlockHandle* handle = new BlockHandle(this);
+
+	handle->loadBlock(fpos);
+
+	return handle;
+}
+
+
 
 } /* namespace alinous */
-
 

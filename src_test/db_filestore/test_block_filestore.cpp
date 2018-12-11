@@ -158,6 +158,31 @@ TEST(TestBlockFileStoreGroup, openStoreError2){
 	delete exp;
 }
 
+static const char* makeTestData(int start, int length) {
+	char* ptr = new char[length];
+
+	for(int i = 0; i != length; ++i){
+		char ch = start % 128;
+		start++;
+
+		ptr[i] = ch;
+	}
+	return ptr;
+}
+
+static bool checkTestData(int start, const char* data, int length) {
+	for(int i = 0; i != length; ++i){
+		char ch = start % 128;
+		start++;
+
+		if(data[i] != ch){
+			return false;
+		}
+	}
+	return true;
+}
+
+
 TEST(TestBlockFileStoreGroup, alloc01){
 	File projectFolder = this->env->testCaseDir();
 	_ST(File, baseDir, projectFolder.get(L"store"))
@@ -171,12 +196,26 @@ TEST(TestBlockFileStoreGroup, alloc01){
 
 	store.open(false);
 
-	BlockHandle* handle = store.alloc(10);
+	{
+		BlockHandle* handle = store.alloc(10);
 
+		const char* data = makeTestData(3, 10);
+		StackArrayRelease<const char> _st_data(data);
 
-	delete handle;
+		handle->write(data, 10);
 
+		uint64_t fpos = handle->getFpos();
+		delete handle;
 
+		handle = store.get(fpos);
+
+		CHECK(handle->size() == 10)
+
+		bool checkTest = checkTestData(3, data, 10);
+		CHECK(checkTest)
+
+		delete handle;
+	}
 
 	store.close();
 
