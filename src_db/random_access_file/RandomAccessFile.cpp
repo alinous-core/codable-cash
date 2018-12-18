@@ -107,7 +107,22 @@ int RandomAccessFile::read(uint64_t fpos, char* buff, int count) {
 	return count;
 }
 
+#ifdef __TEST_CPP_UNIT__
+static int errorHook(){
+	CAUSE_ERROR_BY_RETURN(L"RandomAccessFile::write", -1)
+	return 0;
+}
+
+#endif
+
+
 int RandomAccessFile::write(uint64_t fpos, const char* buff, int count) {
+#ifdef __TEST_CPP_UNIT__
+	if(errorHook() < 0){
+		throw new FileIOException(__FILE__, __LINE__);
+	}
+#endif
+
 	uint64_t segSize = getSegmentSize();
 
 	int count2Write = count;

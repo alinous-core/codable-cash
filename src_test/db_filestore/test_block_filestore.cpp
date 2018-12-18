@@ -21,6 +21,8 @@
 
 #include "random_access_file/RandomAccessFile.h"
 
+#include "db_exceptions.h"
+
 using namespace alinous;
 
 TEST_GROUP(TestBlockFileStoreGroup) {
@@ -335,4 +337,30 @@ TEST(TestBlockFileStoreGroup, alloc04){
 	store.close();
 }
 
+TEST(TestBlockFileStoreGroup, allocError){
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file01");
+	BlockFileStore store(baseDirStr, &name, &cacheManager);
+
+	store.createStore(false, 256);
+	store.open(false);
+
+	//
+	errmgr->activatePoint(L"BlockFileStore::alloc", L"RandomAccessFile::write", 1);
+
+	Exception* exp = nullptr;
+	try {
+		store.alloc(100);
+	} catch (Exception* e) {
+		exp = e;
+	}
+
+	delete exp;
+}
 
