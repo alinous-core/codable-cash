@@ -24,6 +24,7 @@ public:
 	static ByteBuffer* allocate(const int capacity) noexcept;
 	static ByteBuffer* wrap(const uint8_t* buffer, int length);
 	static ByteBuffer* allocateWithEndian(const int capacity, bool bigEndian) noexcept;
+	static ByteBuffer* wrapWithEndian(const uint8_t* buffer, int length, bool bigEndian) noexcept(false);
 
 	virtual ~ByteBuffer() noexcept;
 

@@ -11,6 +11,10 @@
 
 #include "filestore_block/BlockFileHeader.h"
 #include "filestore_block/BlockFileBody.h"
+#include "filestore_block/BlockHandle.h"
+#include "filestore_block/BlockData.h"
+
+#include "base/ArrayList.h"
 
 #include "exceptions.h"
 
@@ -28,7 +32,11 @@ BlockFileStore::~BlockFileStore() noexcept {
 	close();
 }
 
-void BlockFileStore::createStore(bool del, uint64_t defaultSize) noexcept(false) {
+void BlockFileStore::createStore(bool del, uint64_t defaultSize) {
+	createStore(del, defaultSize, 256);
+}
+
+void BlockFileStore::createStore(bool del, uint64_t defaultSize, uint64_t blockSize) noexcept(false) {
 	ERROR_POINT(L"BlockFileStore::createStore")
 
 	FileStore::createStore(del, defaultSize);
@@ -36,11 +44,13 @@ void BlockFileStore::createStore(bool del, uint64_t defaultSize) noexcept(false)
 	FileStore::open(true);
 
 	this->header = new BlockFileHeader(this->headerFile);
-	this->body = new BlockFileBody(this->file);
+
 
 	try{
-		this->header->createStore(del, defaultSize);
-		this->body->createStore(del);
+		this->header->createStore(del, defaultSize, blockSize);
+
+		this->body = new BlockFileBody(this->file, this->header->getBlockSize());
+		this->body->createStore(del, blockSize);
 	}
 	catch(Exception* e){
 		internalClear();
@@ -59,10 +69,11 @@ void BlockFileStore::open(bool sync) noexcept(false) {
 	FileStore::open(sync);
 
 	this->header = new BlockFileHeader(this->headerFile);
-	this->body = new BlockFileBody(this->file);
+
 
 	try{
 		this->header->loadFromFile();
+		this->body = new BlockFileBody(this->file, this->header->getBlockSize());
 	}
 	catch(Exception* e){
 		internalClear();
@@ -83,6 +94,76 @@ void BlockFileStore::close() noexcept {
 	FileStore::close();
 }
 
+BlockHandle* BlockFileStore::alloc(uint64_t size) {
+	BlockHandle* handle = new BlockHandle(this);
+
+	try{
+		internalAllocBody(handle, size);
+	}
+	catch(Exception* e){
+		internalClear();
+		FileStore::close();
+
+		throw new BlockFileStorageException(L"Failed in allocating block", e, __FILE__, __LINE__);
+	}
+
+	return handle;
+}
+
+typedef struct __block_alloc_t {
+	uint16_t used;
+	uint64_t fpos;
+	uint64_t nextfpos;
+} block_alloc_t;
+
+
+void BlockFileStore::internalAllocBody(BlockHandle* handle, const uint64_t size) {
+	uint64_t blockDataSize = this->body->getBlockSize() - BlockData::HEADER_SIZE;
+
+	int allocBlocks = size / blockDataSize;
+	int mod = size % blockDataSize;
+	if(mod != 0){
+		allocBlocks++;
+	}
+
+	ArrayList<block_alloc_t> list;
+	list.setDeleteOnExit();
+
+	uint64_t sizeRemain = size;
+	for(int i = 0; i != allocBlocks; ++i){
+		block_alloc_t* block = new block_alloc_t;
+		uint64_t pos = this->header->alloc();
+		block->fpos = pos * this->body->getBlockSize(); // block No starts with 1
+
+		block->used = (blockDataSize < sizeRemain) ? blockDataSize : sizeRemain;
+
+		sizeRemain -= block->used;
+		list.addElement(block);
+	}
+
+	for(int i = 0; i != allocBlocks; ++i){
+		block_alloc_t* block = list.get(i);
+
+		int nextIdx = i + 1;
+		if(list.size() > nextIdx){
+			block_alloc_t* nextblock = list.get(nextIdx);
+
+			block->nextfpos = nextblock->fpos;
+		}else{
+			block->nextfpos = 0;
+		}
+	}
+
+	for(int i = 0; i != allocBlocks; ++i){
+		block_alloc_t* block = list.get(i);
+
+		this->body->alloc(block->fpos, block->used, block->nextfpos);
+	}
+
+	handle->initOnAlloc(list.get(0)->fpos, size);
+}
+
+
 void BlockFileStore::internalClear() noexcept {
 	if(this->header){
 		delete this->header;
@@ -94,6 +175,15 @@ void BlockFileStore::internalClear() noexcept {
 	}
 }
 
-} /* namespace alinous */
+BlockHandle* BlockFileStore::get(uint64_t fpos) {
+	BlockHandle* handle = new BlockHandle(this);
 
+	handle->loadBlock(fpos);
+
+	return handle;
+}
+
+
+
+} /* namespace alinous */
 

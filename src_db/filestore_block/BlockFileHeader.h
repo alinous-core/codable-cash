@@ -22,10 +22,19 @@ public:
 	explicit BlockFileHeader(RandomAccessFile* file) noexcept;
 	virtual ~BlockFileHeader() noexcept;
 
-	void createStore(bool del, uint64_t defaultSize) noexcept(false);
+	void createStore(bool del, uint64_t defaultSize, uint64_t blockSize) noexcept(false);
 
+	//void sync2File() noexcept(false);
+	void sync(bool fileSync=true) noexcept(false);
 	void sync2File(uint64_t blockFileSize) noexcept(false);
 	void loadFromFile() noexcept(false);
+
+	uint64_t alloc();
+	void remove(uint64_t fpos);
+
+	inline uint64_t getBlockSize() noexcept {
+		return this->blockSize;
+	}
 private:
 	void clearArea() noexcept;
 
@@ -34,7 +43,7 @@ private:
 private:
 	RandomAccessFile* file;
 	LongRangeList* usedArea;
-	uint64_t bodySize;
+	uint64_t blockSize;
 
 };
 

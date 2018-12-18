@@ -343,6 +343,20 @@ bool LongRangeList::equals(LongRangeList* other) noexcept {
 	return true;
 }
 
+uint64_t LongRangeList::firstEmpty() noexcept {
+	if(this->list->isEmpty()){
+		return 0;
+	}
+
+	LongRange *range = this->list->get(0);
+	uint64_t min = range->getMin();
+
+	if(min == 0){
+		return range->getMax() + 1;
+	}
+
+	return 0;
+}
 
 
 } /* namespace alinous */

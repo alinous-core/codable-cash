@@ -16,9 +16,11 @@ class ReverseByteBuffer : public ByteBuffer {
 public:
 	ReverseByteBuffer(const ReverseByteBuffer& base) = delete;
 	explicit ReverseByteBuffer(const int length) noexcept;
-	//ReverseByteBuffer(const uint8_t* buffer, int length);
+	ReverseByteBuffer(const uint8_t* buffer, int length);
 
 	virtual ~ReverseByteBuffer() noexcept;
+
+	static ByteBuffer* wrap(const uint8_t* buffer, int length);
 
 	virtual ByteBuffer* putChar(wchar_t value) noexcept(false);
 	virtual ByteBuffer* putChar(int position, wchar_t value) noexcept(false);

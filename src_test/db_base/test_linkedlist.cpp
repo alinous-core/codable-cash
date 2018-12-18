@@ -138,5 +138,37 @@ TEST(RawLinkedListTestGroup, testAdd05){
 	}
 }
 
+TEST(RawLinkedListTestGroup, testMoveElementToTop01){
+	RawLinkedList<Integer> list;
+
+	int maxLoop = 3;
+	for(int i = 0; i != maxLoop; ++i){
+		Integer* ptr = new Integer(i);
+		list.add(ptr);
+	}
+
+	RawLinkedList<Integer>::Element* el = list.getLastElement()->prev;
+
+	list.moveElementToTop(el);
+
+
+	Integer* ptr = list.get(0);
+	CHECK(ptr->value == 1)
+	ptr = list.get(1);
+	CHECK(ptr->value == 0)
+	ptr = list.get(2);
+	CHECK(ptr->value == 2)
+
+	for(int i = 0; i != maxLoop; ++i){
+		Integer* ptr = list.get(0);
+
+		bool c = list.remove(ptr);
+		CHECK(c)
+
+		delete ptr;
+	}
+
+}
+
 
 

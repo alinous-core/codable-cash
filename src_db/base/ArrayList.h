@@ -24,7 +24,7 @@ public:
 	ArrayList() noexcept : numArray(0), currentSize(DEFAULT_RAW_ARRAY_SIZE),
 			root(new ElementType[this->currentSize * sizeof(ElementType)]), cursor(root),
 			sorted(false),
-			compareFunctor() {
+			compareFunctor(), deleteOnExit(false) {
 	}
 
 	ArrayList(const ArrayList& list) = delete;
@@ -32,14 +32,21 @@ public:
 	explicit ArrayList(int defaultSize) noexcept : numArray(0), currentSize(defaultSize > 4 ? defaultSize : 4),
 			root(new ElementType[this->currentSize * sizeof(ElementType)]), cursor(root),
 			sorted(false),
-			compareFunctor(){
+			compareFunctor(), deleteOnExit(false){
 	}
 
 	~ArrayList(){
 		if(this->root != nullptr){
+			if(this->deleteOnExit){
+				deleteElements();
+			}
 			delete [] this->root;
 			this->root = nullptr;
 		}
+	}
+
+	void setDeleteOnExit(){
+		this->deleteOnExit = true;
 	}
 
 	void deleteElements(){
@@ -350,6 +357,7 @@ private:
 	ElementType* cursor;
 	bool sorted;
 	const C compareFunctor;
+	bool deleteOnExit;
 };
 
 }

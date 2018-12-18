@@ -8,6 +8,8 @@
 #include "debug/debugMacros.h"
 
 #include "filestore_block/BlockFileHeader.h"
+#include "filestore_block/exceptions.h"
+
 #include "filestore/LongRangeList.h"
 #include "base_io/ByteBuffer.h"
 #include "random_access_file/RandomAccessFile.h"
@@ -18,15 +20,17 @@ namespace alinous {
 
 BlockFileHeader::BlockFileHeader(RandomAccessFile* file) noexcept : file(file) {
 	this->usedArea = nullptr;
-	this->bodySize = 0;
+	this->blockSize = 0;
 }
 
 BlockFileHeader::~BlockFileHeader() noexcept {
 	clearArea();
 }
 
-void BlockFileHeader::createStore(bool del, uint64_t defaultSize) noexcept(false) {
-	sync2File(defaultSize);
+void BlockFileHeader::createStore(bool del, uint64_t defaultSize, uint64_t blockSize) noexcept(false) {
+	sync2File(blockSize);
+	sync();
+
 	clearArea();
 }
 
@@ -37,11 +41,16 @@ void BlockFileHeader::clearArea() noexcept {
 	}
 }
 
+//void BlockFileHeader::sync2File() noexcept(false) {
+//	sync2File(this->blockSize);
+//}
+
 void BlockFileHeader::sync2File(uint64_t blockFileSize) noexcept(false) {
 	this->usedArea = new LongRangeList();
-	this->bodySize = blockFileSize;
+	this->blockSize = blockFileSize;
 
-	int binSize = sizeof(uint64_t) + this->usedArea->binarySize();
+	uint32_t headSize = sizeof(uint64_t)*2;
+	int binSize = headSize + this->usedArea->binarySize();
 
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(binSize, true);
 	StackRelease<ByteBuffer> _st_buff(buff);
@@ -53,12 +62,13 @@ void BlockFileHeader::sync2File(uint64_t blockFileSize) noexcept(false) {
 
 
 	// sync with file
-	this->file->setLength(binSize + sizeof(uint64_t));
+	this->file->setLength(binSize + headSize);
 
 	// file size
-	ByteBuffer* buffSizeHeader = ByteBuffer::allocateWithEndian(sizeof(int64_t), true);
+	ByteBuffer* buffSizeHeader = ByteBuffer::allocateWithEndian(headSize, true);
 	StackRelease<ByteBuffer> _st_buffSizeHeader(buffSizeHeader);
 	buffSizeHeader->putLong(binSize);
+	buffSizeHeader->putLong(blockFileSize);
 	buffSizeHeader->position(0);
 
 	uint64_t fpos = 0;
@@ -69,25 +79,62 @@ void BlockFileHeader::sync2File(uint64_t blockFileSize) noexcept(false) {
 	binary = (const char*)buff->array();
 	int cnt = this->file->write(fpos, binary, binSize);
 	assert(cnt == binSize);
+}
 
-	this->file->sync(true);
+void BlockFileHeader::sync(bool fileSync) noexcept(false) {
+	this->file->sync(fileSync);
 }
 
 void BlockFileHeader::loadFromFile() {
 	uint64_t fpos = 0;
-	char sizeHeaderBinary[sizeof(uint64_t)]{};
-	this->file->read(fpos, sizeHeaderBinary, sizeof(uint64_t));
+	uint32_t headSize = sizeof(uint64_t)*2;
+	char sizeHeaderBinary[headSize]{};
+	fpos += this->file->read(fpos, sizeHeaderBinary, headSize);
 
-	ByteBuffer* buffSizeHeader = ByteBuffer::allocateWithEndian(sizeof(uint64_t), true);
+	ByteBuffer* buffSizeHeader = ByteBuffer::allocateWithEndian(headSize, true);
 	StackRelease<ByteBuffer> _st_buffSizeHeader(buffSizeHeader);
 
-	buffSizeHeader->put((const uint8_t*)sizeHeaderBinary, sizeof(uint64_t));
-	int64_t loadSize = buffSizeHeader->getLong(0);
+	buffSizeHeader->put((const uint8_t*)sizeHeaderBinary, headSize);
 
-	ByteBuffer* rangeBinary = ByteBuffer::allocateWithEndian(loadSize, true);
+	buffSizeHeader->position(0);
+	int64_t loadSize = buffSizeHeader->getLong();
+	this->blockSize = buffSizeHeader->getLong();
+
+	int areaSize = loadSize - headSize;
+	if(areaSize < 4){
+		throw new BlockFileStorageException(L"File header format is broken", __FILE__, __LINE__);
+	}
+
+	char* usedAreaBinary = new char[areaSize]{};
+	StackArrayRelease<char> st_usedAreaBinary(usedAreaBinary);
+	fpos += this->file->read(fpos, sizeHeaderBinary, areaSize);
+
+	ByteBuffer* rangeBinary = ByteBuffer::allocateWithEndian(areaSize, true);
 	StackRelease<ByteBuffer> _st_rangeBinary(rangeBinary);
 
+	rangeBinary->put((unsigned char*)usedAreaBinary, areaSize);
+	rangeBinary->position(0);
 	this->usedArea = LongRangeList::fromBinary(rangeBinary);
 }
 
+uint64_t BlockFileHeader::alloc() {
+	uint64_t pos = this->usedArea->firstEmpty();
+
+	this->usedArea->addRange(pos);
+	this->file->sync(false);
+
+	return pos;
+}
+
+void BlockFileHeader::remove(uint64_t fpos) {
+	uint64_t pos = fpos / this->blockSize;
+
+	this->usedArea->removeRange(pos, pos);
+}
+
+
+
+
 } /* namespace alinous */
+
+
