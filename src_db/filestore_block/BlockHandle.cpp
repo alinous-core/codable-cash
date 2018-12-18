@@ -132,7 +132,36 @@ void BlockHandle::write(const char* bytes, int length) {
 	}
 
 	// dispose
+	if(nextPos != 0){
+		block = body->loadBlock(lastBlockPos);
+		StackRelease<BlockData> _stBlock(block);
 
+		block->updateNextFpos(0);
+		body->writeBlock(block);
+
+		removeBlocks(nextPos);
+	}
+
+}
+
+void BlockHandle::removeBlocks(uint64_t fpos) {
+	uint64_t nextPos = fpos;
+	BlockFileBody* body = this->store->getBody();
+	BlockFileHeader* header = this->store->getHeader();
+
+	do{
+		BlockData* block = body->loadBlock(nextPos);
+		StackRelease<BlockData> _stBlock(block);
+
+		uint64_t curfpos = block->getCurrentfPos();
+		nextPos = block->getNextfpos();
+
+		header->remove(curfpos);
+
+	}
+	while(nextPos != 0);
+
+	header->sync(false);
 }
 
 void BlockHandle::initOnAlloc(uint64_t fpos, int size) noexcept {

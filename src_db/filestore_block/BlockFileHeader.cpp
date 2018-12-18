@@ -81,8 +81,8 @@ void BlockFileHeader::sync2File(uint64_t blockFileSize) noexcept(false) {
 	assert(cnt == binSize);
 }
 
-void BlockFileHeader::sync() noexcept(false) {
-	this->file->sync(true);
+void BlockFileHeader::sync(bool fileSync) noexcept(false) {
+	this->file->sync(fileSync);
 }
 
 void BlockFileHeader::loadFromFile() {
@@ -125,6 +125,13 @@ uint64_t BlockFileHeader::alloc() {
 
 	return pos;
 }
+
+void BlockFileHeader::remove(uint64_t fpos) {
+	uint64_t pos = fpos / this->blockSize;
+
+	this->usedArea->removeRange(pos, pos);
+}
+
 
 
 

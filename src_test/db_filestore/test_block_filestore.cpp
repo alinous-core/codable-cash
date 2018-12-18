@@ -297,4 +297,42 @@ TEST(TestBlockFileStoreGroup, alloc03){
 	store.close();
 }
 
+TEST(TestBlockFileStoreGroup, alloc04){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file01");
+	BlockFileStore store(baseDirStr, &name, &cacheManager);
+
+	store.createStore(false, 256);
+	store.open(false);
+
+	{
+		BlockHandle* handle = store.alloc(1000);
+
+		int datasize = 300;
+		const char* data = makeTestData(3, datasize);
+		StackArrayRelease<const char> _st_data(data);
+
+		handle->write(data, datasize);
+		uint64_t fpos = handle->getFpos();
+
+		delete handle;
+
+		handle = store.get(fpos);
+		CHECK(handle->size() == datasize)
+
+		ByteBuffer* buff = handle->getBuffer();
+		bool checkTest = checkTestData(3, (const char*)buff->array(), datasize);
+		CHECK(checkTest)
+
+		delete handle;
+
+	}
+
+	store.close();
+}
+
 

@@ -30,6 +30,7 @@ public:
 	ByteBuffer* getBuffer() const {
 		return this->buffer;
 	}
+	void removeBlocks(uint64_t fpos);
 
 	int size() noexcept;
 

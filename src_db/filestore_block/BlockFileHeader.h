@@ -25,11 +25,12 @@ public:
 	void createStore(bool del, uint64_t defaultSize, uint64_t blockSize) noexcept(false);
 
 	//void sync2File() noexcept(false);
-	void sync() noexcept(false);
+	void sync(bool fileSync=true) noexcept(false);
 	void sync2File(uint64_t blockFileSize) noexcept(false);
 	void loadFromFile() noexcept(false);
 
 	uint64_t alloc();
+	void remove(uint64_t fpos);
 
 	inline uint64_t getBlockSize() noexcept {
 		return this->blockSize;
