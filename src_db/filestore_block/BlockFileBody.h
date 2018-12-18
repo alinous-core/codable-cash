@@ -27,6 +27,7 @@ public:
 	void writeBlock(BlockData* data);
 	BlockData* loadBlock(uint64_t fpos);
 
+
 	inline uint64_t getBlockSize(){
 		return this->blockSize;
 	}

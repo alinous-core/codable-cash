@@ -121,6 +121,7 @@ uint64_t BlockFileHeader::alloc() {
 	uint64_t pos = this->usedArea->firstEmpty();
 
 	this->usedArea->addRange(pos);
+	this->file->sync(false);
 
 	return pos;
 }

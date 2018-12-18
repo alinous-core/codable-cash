@@ -9,6 +9,7 @@
 
 #include "filestore_block/BlockFileStore.h"
 #include "filestore_block/BlockFileBody.h"
+#include "filestore_block/BlockFileHeader.h"
 #include "filestore_block/BlockData.h"
 
 #include "base/RawArrayPrimitive.h"
@@ -30,6 +31,14 @@ BlockHandle::~BlockHandle() {
 	}
 }
 
+
+static void __copy(BlockData* block, const char* data, RawArrayPrimitive<char>* bytes){
+	int maxLoop = block->getUsed();
+	for(int i = 0; i != maxLoop; ++i){
+		bytes->addElement(data[i]);
+	}
+}
+
 void BlockHandle::loadBlock(uint64_t fpos) {
 	this->fpos = fpos;
 
@@ -37,7 +46,6 @@ void BlockHandle::loadBlock(uint64_t fpos) {
 	RawArrayPrimitive<char> bytes(512);
 
 	BlockData* block = nullptr;
-	uint64_t nextPos;
 	do{
 		block = body->loadBlock(fpos);
 		StackRelease<BlockData> _stBlock(block);
@@ -45,14 +53,11 @@ void BlockHandle::loadBlock(uint64_t fpos) {
 		const char* data = block->getData();
 
 
-		int maxLoop = block->getUsed();
-		for(int i = 0; i != maxLoop; ++i){
-			bytes.addElement(data[i]);
-		}
+		__copy(block, data, &bytes);
 
-		nextPos = block->getNextfpos();
+		fpos = block->getNextfpos();
 	}
-	while(nextPos != 0);
+	while(fpos != 0);
 
 
 	const char* _data = bytes.root;
@@ -80,8 +85,10 @@ void BlockHandle::write(const char* bytes, int length) {
 	const char* ptr = bytes;
 	int blockDataLength = body->getBlockSize() - BlockData::HEADER_SIZE;
 	int remain = length;
+	uint64_t nextPos = this->fpos;
+	uint64_t lastBlockPos = 0;
 	do{
-		block = body->loadBlock(fpos);
+		block = body->loadBlock(nextPos);
 		StackRelease<BlockData> _stBlock(block);
 
 		int writeLength = remain < blockDataLength ? remain : blockDataLength;
@@ -92,10 +99,37 @@ void BlockHandle::write(const char* bytes, int length) {
 		remain -= writeLength;
 		ptr += writeLength;
 
+		lastBlockPos = block->getCurrentfPos();
+		nextPos = block->getNextfpos();
 	}
-	while(remain > 0 && block->getNextfpos() != 0);
+	while(remain > 0 && nextPos != 0);
 
 	// alloc
+	BlockFileHeader* header = this->store->getHeader();
+
+	BlockData* lastblock = nullptr;
+	while(remain > 0){
+		uint64_t newfpos = header->alloc() * body->getBlockSize();
+
+		{
+			lastblock = body->loadBlock(lastBlockPos);
+			StackRelease<BlockData> _stLastBlock(lastblock);
+
+			lastblock->updateNextFpos(newfpos);
+			body->writeBlock(lastblock);
+		}
+
+		block = BlockData::createNewBlock(body->getBlockSize(), newfpos, 0, 0);
+		StackRelease<BlockData> _stBlock(block);
+
+		int writeLength = remain < blockDataLength ? remain : blockDataLength;
+		block->updateData(ptr, writeLength);
+		body->writeBlock(block);
+
+		remain -= writeLength;
+		ptr += writeLength;
+		lastBlockPos = block->getCurrentfPos();
+	}
 
 	// dispose
 

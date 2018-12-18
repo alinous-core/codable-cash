@@ -27,6 +27,9 @@ public:
 
 	void loadBlock(uint64_t fpos);
 	void write(const char* bytes, int length);
+	ByteBuffer* getBuffer() const {
+		return this->buffer;
+	}
 
 	int size() noexcept;
 

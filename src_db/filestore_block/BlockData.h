@@ -36,6 +36,9 @@ public:
 	static BlockData* fromBinary(uint64_t blockSize, const char* bin, int length);
 
 	void updateData(const char* ptr, int length) noexcept;
+	void updateNextFpos(uint64_t nextfpos) noexcept {
+		this->nextfpos = nextfpos;
+	}
 
 	uint64_t getCurrentfPos() const noexcept {
 		return currentfPos;

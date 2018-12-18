@@ -39,6 +39,9 @@ public:
 	BlockFileBody* getBody() const {
 		return body;
 	}
+	BlockFileHeader* getHeader() const {
+		return header;
+	}
 
 private:
 	void internalClear() noexcept;

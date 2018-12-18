@@ -13,6 +13,8 @@
 #include "base_io/File.h"
 #include "base/StackRelease.h"
 
+#include "base_io/ByteBuffer.h"
+
 #include "filestore_block/BlockFileStore.h"
 #include "filestore_block/BlockHandle.h"
 #include "filestore_block/exceptions.h"
@@ -211,14 +213,88 @@ TEST(TestBlockFileStoreGroup, alloc01){
 
 		CHECK(handle->size() == 10)
 
-		bool checkTest = checkTestData(3, data, 10);
+		ByteBuffer* buff = handle->getBuffer();
+
+		bool checkTest = checkTestData(3, (const char*)buff->array(), 10);
 		CHECK(checkTest)
 
 		delete handle;
 	}
 
 	store.close();
+}
 
+TEST(TestBlockFileStoreGroup, alloc02){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file01");
+	BlockFileStore store(baseDirStr, &name, &cacheManager);
+
+	store.createStore(false, 256);
+	store.open(false);
+
+	{
+		BlockHandle* handle = store.alloc(520);
+
+		int datasize = 500;
+		const char* data = makeTestData(3, datasize);
+		StackArrayRelease<const char> _st_data(data);
+
+		handle->write(data, datasize);
+		uint64_t fpos = handle->getFpos();
+
+		delete handle;
+
+		handle = store.get(fpos);
+		CHECK(handle->size() == datasize)
+
+		ByteBuffer* buff = handle->getBuffer();
+		bool checkTest = checkTestData(3, (const char*)buff->array(), 10);
+		CHECK(checkTest)
+
+		delete handle;
+	}
+	store.close();
+}
+
+TEST(TestBlockFileStoreGroup, alloc03){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file01");
+	BlockFileStore store(baseDirStr, &name, &cacheManager);
+
+	store.createStore(false, 256);
+	store.open(false);
+
+	{
+		BlockHandle* handle = store.alloc(100);
+
+		int datasize = 500;
+		const char* data = makeTestData(3, datasize);
+		StackArrayRelease<const char> _st_data(data);
+
+		handle->write(data, datasize);
+		uint64_t fpos = handle->getFpos();
+
+		delete handle;
+
+		handle = store.get(fpos);
+		CHECK(handle->size() == datasize)
+
+		ByteBuffer* buff = handle->getBuffer();
+		bool checkTest = checkTestData(3, (const char*)buff->array(), datasize);
+		CHECK(checkTest)
+
+		delete handle;
+	}
+
+	store.close();
 }
 
 
