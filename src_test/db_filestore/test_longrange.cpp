@@ -667,4 +667,11 @@ TEST(TestLongRangeGroup, equals03){
 	CHECK(!result)
 }
 
+TEST(TestLongRangeGroup, firstEmpty01){
+	LongRangeList list;
+	list.addRange(10, 12);
+
+	uint64_t pos = list.firstEmpty();
+	CHECK(pos == 0)
+}
 
