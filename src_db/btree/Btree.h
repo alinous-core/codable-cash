@@ -22,6 +22,8 @@ public:
 
 
 private:
+	UnicodeString* name;
+	File* folder;
 	BtreeStorage* store;
 };
 

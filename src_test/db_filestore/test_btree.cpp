@@ -7,8 +7,9 @@
 
 #include "test_utils/t_macros.h"
 
-#include "filestore/LongRangeList.h"
-#include "filestore/LongRangeIterator.h"
+#include "btree/Btree.h"
+
+
 #include "base/StackRelease.h"
 #include "base/RawBitSet.h"
 
