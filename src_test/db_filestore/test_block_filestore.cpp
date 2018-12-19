@@ -62,7 +62,7 @@ TEST(TestBlockFileStoreGroup, createStore){
 
 TEST(TestBlockFileStoreGroup, createStoreFailure){
 	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
-	errmgr->activatePoint(L"BlockFileStore::createStore", L"Os::syncFile", 1);
+	errmgr->activatePoint(L"BlockFileStore::createStore", L"RandomAccessFile::write", 1);
 
 
 	File projectFolder = this->env->testCaseDir();
