@@ -10,10 +10,19 @@
 
 namespace alinous {
 
+class File;
+class UnicodeString;
+
+class BtreeStorage;
+
 class Btree {
 public:
-	Btree();
+	Btree(File* folder, UnicodeString* name);
 	virtual ~Btree();
+
+
+private:
+	BtreeStorage* store;
 };
 
 } /* namespace alinous */

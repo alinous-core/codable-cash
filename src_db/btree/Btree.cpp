@@ -5,17 +5,21 @@
  *      Author: iizuka
  */
 
-#include <btree/Btree.h>
+#include "btree/Btree.h"
+#include "btree/BtreeStorage.h"
 
 namespace alinous {
 
-Btree::Btree() {
-	// TODO Auto-generated constructor stub
+Btree::Btree(File* folder, UnicodeString* name) {
+
+	this->store = nullptr;
 
 }
 
 Btree::~Btree() {
-	// TODO Auto-generated destructor stub
+	if(this->store != nullptr){
+		delete this->store, this->store = nullptr;
+	}
 }
 
 } /* namespace alinous */
