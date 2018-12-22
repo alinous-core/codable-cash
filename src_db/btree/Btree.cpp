@@ -29,8 +29,9 @@ Btree::~Btree() {
 }
 
 void Btree::create(BtreeConfig* config) {
+	BtreeStorage newStore(this->folder, this->name);
 
-
+	newStore.create(this->cacheManager, config);
 }
 
 } /* namespace alinous */

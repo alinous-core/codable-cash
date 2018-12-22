@@ -16,6 +16,7 @@ namespace alinous {
 
 class BtreeConfig : public IBlockObject {
 public:
+	BtreeConfig(const BtreeConfig& inst);
 	BtreeConfig();
 	virtual ~BtreeConfig();
 

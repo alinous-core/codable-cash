@@ -10,6 +10,11 @@
 
 namespace alinous {
 
+BtreeConfig::BtreeConfig(const BtreeConfig& inst) {
+	this->blockSize = inst.blockSize;
+	this->nodeNumber = inst.nodeNumber;
+}
+
 BtreeConfig::BtreeConfig() {
 	this->blockSize = 256;
 	this->nodeNumber = 8;
@@ -21,6 +26,8 @@ BtreeConfig::~BtreeConfig() {
 int BtreeConfig::binarySize() {
 	return sizeof(this->blockSize) + sizeof(this->nodeNumber);
 }
+
+
 
 void BtreeConfig::toBinary(ByteBuffer* out) {
 	out->putLong(this->blockSize);
