@@ -18,6 +18,7 @@ class BtreeConfig;
 
 class Btree {
 public:
+	Btree() = delete;
 	Btree(File* folder, UnicodeString* name, DiskCacheManager* cacheManager);
 	virtual ~Btree();
 

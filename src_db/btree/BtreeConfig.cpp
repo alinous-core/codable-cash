@@ -10,9 +10,9 @@
 
 namespace alinous {
 
-BtreeConfig::BtreeConfig(const BtreeConfig& inst) {
-	this->blockSize = inst.blockSize;
-	this->nodeNumber = inst.nodeNumber;
+BtreeConfig::BtreeConfig(const BtreeConfig* inst) {
+	this->blockSize = inst->blockSize;
+	this->nodeNumber = inst->nodeNumber;
 }
 
 BtreeConfig::BtreeConfig() {
