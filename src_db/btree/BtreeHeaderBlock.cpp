@@ -23,6 +23,10 @@ BtreeHeaderBlock::~BtreeHeaderBlock() {
 	}
 }
 
+void BtreeHeaderBlock::setConfig(BtreeConfig* config) noexcept {
+	this->config = new BtreeConfig(config);
+}
+
 int BtreeHeaderBlock::binarySize() {
 	int size = this->config->binarySize();
 	size += sizeof(this->rootFpos);
@@ -35,3 +39,5 @@ void BtreeHeaderBlock::toBinary(ByteBuffer* out) {
 }
 
 } /* namespace alinous */
+
+

@@ -24,11 +24,16 @@ public:
 	virtual int binarySize();
 	virtual void toBinary(ByteBuffer* out);
 
-	BtreeConfig* getConfig() const {
+	BtreeConfig* getConfig() const noexcept {
 		return config;
 	}
-	void setConfig(BtreeConfig* config) {
-		this->config = config;
+	void setConfig(BtreeConfig* config) noexcept;
+
+	uint64_t getRootFpos() const {
+		return rootFpos;
+	}
+	void setRootFpos(uint64_t rootFpos) {
+		this->rootFpos = rootFpos;
 	}
 
 private:

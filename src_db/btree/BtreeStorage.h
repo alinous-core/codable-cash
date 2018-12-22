@@ -8,6 +8,8 @@
 #ifndef BTREE_BTREESTORAGE_H_
 #define BTREE_BTREESTORAGE_H_
 
+#include <inttypes.h>
+
 namespace alinous {
 
 class UnicodeString;
@@ -15,6 +17,7 @@ class File;
 class BlockFileStore;
 class DiskCacheManager;
 class BtreeConfig;
+class BtreeHeaderBlock;
 
 class BtreeStorage {
 public:
@@ -22,6 +25,10 @@ public:
 	virtual ~BtreeStorage();
 
 	void create(DiskCacheManager* cacheManager, BtreeConfig* config);
+
+private:
+	BtreeHeaderBlock* makeHeader(BtreeConfig* config, uint64_t rootFpos);
+
 private:
 	UnicodeString* name;
 	File* folder;
