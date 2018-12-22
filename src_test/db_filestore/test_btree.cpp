@@ -8,7 +8,8 @@
 #include "test_utils/t_macros.h"
 
 #include "btree/Btree.h"
-
+#include "btree/BtreeConfig.h"
+#include "random_access_file/DiskCacheManager.h"
 
 #include "base/StackRelease.h"
 #include "base/RawBitSet.h"
@@ -20,11 +21,26 @@
 
 using namespace alinous;
 
-TEST_GROUP(TestBTree) {
+TEST_GROUP(TestBTreeGroup) {
 	TEST_SETUP() {}
 	TEST_TEARDOWN() {}
 };
 
-TEST(TestBTree, constract){
+TEST(TestBTreeGroup, constract){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file01");
+
+	Btree btree(baseDir, &name, &cacheManager);
+
+	BtreeConfig config;
+	btree.create(&config);
+
+}
+
+TEST(TestBTreeGroup, open){
 
 }

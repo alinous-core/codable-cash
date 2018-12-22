@@ -12,19 +12,22 @@ namespace alinous {
 
 class File;
 class UnicodeString;
-
 class BtreeStorage;
+class DiskCacheManager;
+class BtreeConfig;
 
 class Btree {
 public:
-	Btree(File* folder, UnicodeString* name);
+	Btree(File* folder, UnicodeString* name, DiskCacheManager* cacheManager);
 	virtual ~Btree();
 
+	void create(BtreeConfig* config);
 
 private:
 	UnicodeString* name;
 	File* folder;
 	BtreeStorage* store;
+	DiskCacheManager* cacheManager;
 };
 
 } /* namespace alinous */

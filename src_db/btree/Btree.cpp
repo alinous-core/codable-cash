@@ -13,11 +13,11 @@
 
 namespace alinous {
 
-Btree::Btree(File* folder, UnicodeString* name) {
+Btree::Btree(File* folder, UnicodeString* name, DiskCacheManager* cacheManager) {
 	this->folder = new File(*folder);
 	this->name = new UnicodeString(name);
 	this->store = nullptr;
-
+	this->cacheManager = cacheManager;
 }
 
 Btree::~Btree() {
@@ -26,6 +26,11 @@ Btree::~Btree() {
 	}
 	delete this->name, this->name = nullptr;
 	delete this->folder, this->folder = nullptr;
+}
+
+void Btree::create(BtreeConfig* config) {
+
+
 }
 
 } /* namespace alinous */

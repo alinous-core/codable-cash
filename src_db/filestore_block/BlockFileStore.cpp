@@ -103,6 +103,8 @@ BlockHandle* BlockFileStore::alloc(uint64_t size) {
 		internalAllocBody(handle, size);
 	}
 	catch(Exception* e){
+		delete handle;
+
 		internalClear();
 		FileStore::close();
 
