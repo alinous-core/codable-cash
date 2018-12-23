@@ -95,12 +95,16 @@ void BlockFileStore::close() noexcept {
 }
 
 BlockHandle* BlockFileStore::alloc(uint64_t size) {
+	ERROR_POINT(L"BlockFileStore::alloc")
+
 	BlockHandle* handle = new BlockHandle(this);
 
 	try{
 		internalAllocBody(handle, size);
 	}
 	catch(Exception* e){
+		delete handle;
+
 		internalClear();
 		FileStore::close();
 

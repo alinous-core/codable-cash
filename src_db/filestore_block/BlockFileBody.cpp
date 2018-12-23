@@ -41,6 +41,8 @@ uint64_t BlockFileBody::alloc(uint64_t fpos, uint64_t used, uint64_t nextfpos) {
 	return 0;
 }
 
+
+
 void BlockFileBody::writeBlock(BlockData* data) {
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(this->blockSize, true);
 	StackRelease<ByteBuffer> _st_buff(buff);

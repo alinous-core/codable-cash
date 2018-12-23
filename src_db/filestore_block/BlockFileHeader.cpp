@@ -29,7 +29,7 @@ BlockFileHeader::~BlockFileHeader() noexcept {
 
 void BlockFileHeader::createStore(bool del, uint64_t defaultSize, uint64_t blockSize) noexcept(false) {
 	sync2File(blockSize);
-	sync();
+	sync(false);
 
 	clearArea();
 }
