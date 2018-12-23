@@ -8,16 +8,13 @@
 #include "btreekey/ULongKey.h"
 
 
-
 namespace alinous {
 
-ULongKey::ULongKey() {
-	// TODO Auto-generated constructor stub
-
+ULongKey::ULongKey(uint64_t value) {
+	this->value = value;
 }
 
 ULongKey::~ULongKey() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

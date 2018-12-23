@@ -14,21 +14,27 @@
 namespace alinous {
 
 class AbstractTreeNode;
+class AbstractBtreeKey;
 
 class NodeCache {
 public:
 	NodeCache(int numDataBuffer, int numNodeBuffer);
 	virtual ~NodeCache();
 
+	void clear() noexcept;
+
+private:
+	void clearList(RawLinkedList<AbstractTreeNode>* list) noexcept;
+	void clearMap(HashMap<AbstractBtreeKey, RawLinkedList<AbstractTreeNode>::Element>* map) noexcept;
 private:
 	int numDataBuffer;
 	int numNodeBuffer;
 
-	RawLinkedList<AbstractTreeNode> nodes;
-	HashMap<AbstractBtreeKey, AbstractTreeNode> nodesMap;
+	RawLinkedList<AbstractTreeNode>* nodes;
+	HashMap<AbstractBtreeKey, RawLinkedList<AbstractTreeNode>::Element>* nodesMap;
 
-	RawLinkedList<AbstractTreeNode> datas;
-	HashMap<AbstractBtreeKey, AbstractTreeNode> datasMap;
+	RawLinkedList<AbstractTreeNode>* datas;
+	HashMap<AbstractBtreeKey, RawLinkedList<AbstractTreeNode>::Element>* datasMap;
 
 
 };

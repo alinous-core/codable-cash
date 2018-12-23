@@ -16,7 +16,7 @@ namespace alinous {
 
 class ULongKey: public AbstractBtreeKey {
 public:
-	explicit ULongKey();
+	explicit ULongKey(uint64_t value);
 	virtual ~ULongKey();
 
 	uint64_t getValue() const noexcept {
