@@ -10,6 +10,7 @@
 #include "btree/InfinityKey.h"
 #include "btree/TreeNode.h"
 #include "btree/BtreeConfig.h"
+#include "btree/NodeCache.h"
 
 #include "base_io/File.h"
 #include "base_io/ReverseByteBuffer.h"
@@ -25,6 +26,7 @@ BtreeStorage::BtreeStorage(File* folder, UnicodeString* name) {
 	this->name = name;
 	this->folder = folder;
 	this->store = nullptr;
+	this->cache = nullptr;
 }
 
 BtreeStorage::~BtreeStorage() {
@@ -32,6 +34,9 @@ BtreeStorage::~BtreeStorage() {
 	this->folder = nullptr;
 	if(this->store != nullptr){
 		delete this->store, this->store = nullptr;
+	}
+	if(this->cache != nullptr){
+		delete this->cache, this->cache = nullptr;
 	}
 }
 
@@ -107,6 +112,7 @@ BtreeHeaderBlock* BtreeStorage::makeHeader(BtreeConfig* config, uint64_t rootFpo
 }
 
 void BtreeStorage::open(int numDataBuffer, int numNodeBuffer) {
+
 
 }
 
