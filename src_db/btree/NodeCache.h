@@ -18,6 +18,7 @@ class AbstractBtreeKey;
 
 class NodeCache {
 public:
+	NodeCache(const NodeCache& inst) = delete;
 	NodeCache(int numDataBuffer, int numNodeBuffer);
 	virtual ~NodeCache();
 
