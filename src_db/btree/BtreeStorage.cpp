@@ -7,6 +7,9 @@
 
 #include "btree/BtreeStorage.h"
 #include "btree/BtreeHeaderBlock.h"
+#include "btree/InfinityKey.h"
+#include "btree/TreeNode.h"
+#include "btree/BtreeConfig.h"
 
 #include "base_io/File.h"
 #include "base_io/ReverseByteBuffer.h"
@@ -55,10 +58,17 @@ void BtreeStorage::create(DiskCacheManager* cacheManager, BtreeConfig* config) {
 		rootFpos = handle->getFpos();
 	}
 
+	// root node
 	{
-		// root node
 		BlockHandle* handle = blockstore->get(rootFpos);
 		StackRelease<BlockHandle> __st_handle(handle);
+
+		InfinityKey* infinityKey = new InfinityKey();
+		TreeNode rootNode(true, config->nodeNumber, infinityKey);
+
+		int cap = rootNode.binarySize();
+		ByteBuffer* buff = ReverseByteBuffer::allocateWithEndian(cap, true);
+		StackRelease<ByteBuffer> __st_buff(buff);
 
 	}
 
@@ -69,7 +79,7 @@ void BtreeStorage::create(DiskCacheManager* cacheManager, BtreeConfig* config) {
 
 
 		int headerSize = header->binarySize();
-		ByteBuffer* buff = ReverseByteBuffer::allocate(headerSize);
+		ByteBuffer* buff = ReverseByteBuffer::allocateWithEndian(headerSize, true);
 		StackRelease<ByteBuffer> __st_buff(buff);
 
 		header->toBinary(buff);

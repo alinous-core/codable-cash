@@ -40,7 +40,7 @@ int TreeNode::binarySize() {
 
 	size += AbstractTreeNode::binarySize(); // key + fpos...
 
-	size += sizeof(int); // number of children
+	size += sizeof(int32_t); // number of children
 	size += sizeof(uint64_t) * this->children->size();
 
 	return size;
@@ -52,6 +52,8 @@ void TreeNode::toBinary(ByteBuffer* out) {
 	AbstractTreeNode::toBinary(out); // key + fpos...
 
 	int maxLoop = this->children->size();
+	out->putInt(maxLoop);
+
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractTreeNode* node = this->children->get(i);
 

@@ -18,6 +18,9 @@ public:
 	virtual ~InfinityKey();
 
 	virtual bool isInfinity();
+
+	virtual int binarySize();
+	virtual void toBinary(ByteBuffer* out);
 };
 
 } /* namespace alinous */
