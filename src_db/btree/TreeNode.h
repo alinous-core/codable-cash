@@ -15,10 +15,12 @@
 
 namespace alinous {
 
+class AbstractBtreeKey;
+
 class TreeNode: public AbstractTreeNode {
 public:
-	explicit TreeNode(int numChildren);
-	explicit TreeNode(bool isroot, int numChildren);
+	explicit TreeNode(int numChildren, AbstractBtreeKey* key);
+	explicit TreeNode(bool isroot, int numChildren, AbstractBtreeKey* key);
 	virtual ~TreeNode();
 
 	virtual bool isLeaf() const noexcept { return false; }

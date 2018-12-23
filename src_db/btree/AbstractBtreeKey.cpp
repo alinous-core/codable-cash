@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-AbstractBtreeKey::AbstractBtreeKey() {
+AbstractBtreeKey::AbstractBtreeKey() : IBlockObject() {
 }
 
 AbstractBtreeKey::~AbstractBtreeKey() {

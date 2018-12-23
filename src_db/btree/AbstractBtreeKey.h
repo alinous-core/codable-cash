@@ -16,6 +16,8 @@ class AbstractBtreeKey: public IBlockObject {
 public:
 	AbstractBtreeKey();
 	virtual ~AbstractBtreeKey();
+
+	virtual bool isInfinity() = 0;
 };
 
 } /* namespace alinous */

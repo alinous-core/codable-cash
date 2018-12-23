@@ -7,6 +7,7 @@ set(__src
 	BtreeConfig.cpp
 	BtreeStorage.cpp
 	DataNode.cpp
+	InfinityKey.cpp
 	TreeNode.cpp
 )
 handle_sub(codablecashlib "${__src}" db btree)

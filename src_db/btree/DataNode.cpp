@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-DataNode::DataNode() : AbstractTreeNode() {
+DataNode::DataNode() : AbstractTreeNode(nullptr) {
 
 
 }
