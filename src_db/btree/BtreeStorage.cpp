@@ -43,21 +43,44 @@ void BtreeStorage::create(DiskCacheManager* cacheManager, BtreeConfig* config) {
 
 	blockstore->open(false);
 
-	BtreeHeaderBlock* header = makeHeader(config, 0);
-	StackRelease<BtreeHeaderBlock> __st_header(header);
+	uint64_t rootFpos;
+	{
+		// pre alloc
+		BlockHandle* handle = blockstore->alloc(1);
+		delete handle;
 
-	int headerSize = header->binarySize();
-	ByteBuffer* buff = ReverseByteBuffer::allocate(headerSize);
-	StackRelease<ByteBuffer> __st_buff(buff);
+		handle = blockstore->alloc(1);
+		StackRelease<BlockHandle> __st_handle(handle);
 
-	header->toBinary(buff);
-	buff->position(0);
+		rootFpos = handle->getFpos();
+	}
+
+	{
+		// root node
+		BlockHandle* handle = blockstore->get(rootFpos);
+		StackRelease<BlockHandle> __st_handle(handle);
+
+	}
+
+	{
+		// first header
+		BtreeHeaderBlock* header = makeHeader(config, rootFpos);
+		StackRelease<BtreeHeaderBlock> __st_header(header);
 
 
-	BlockHandle* handle = blockstore->alloc(headerSize);
-	StackRelease<BlockHandle> __st_handle(handle);
+		int headerSize = header->binarySize();
+		ByteBuffer* buff = ReverseByteBuffer::allocate(headerSize);
+		StackRelease<ByteBuffer> __st_buff(buff);
 
-	handle->write((const char*)buff->array(), headerSize);
+		header->toBinary(buff);
+		buff->position(0);
+
+		BlockHandle* handle = blockstore->get(0);
+		StackRelease<BlockHandle> __st_handle(handle);
+
+		handle->write((const char*)buff->array(), headerSize);
+	}
+
 
 
 	blockstore->close();

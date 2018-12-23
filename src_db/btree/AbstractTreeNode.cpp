@@ -9,13 +9,12 @@
 
 namespace alinous {
 
-AbstractTreeNode::AbstractTreeNode() {
-	// TODO Auto-generated constructor stub
+AbstractTreeNode::AbstractTreeNode() : IBlockObject() {
 
 }
 
 AbstractTreeNode::~AbstractTreeNode() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */

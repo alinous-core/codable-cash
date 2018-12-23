@@ -9,15 +9,28 @@
 #define BTREE_TREENODE_H_
 
 #include "btree/AbstractTreeNode.h"
+#include "base/ArrayList.h"
+
+#include <inttypes.h>
 
 namespace alinous {
 
 class TreeNode: public AbstractTreeNode {
 public:
-	TreeNode();
+	explicit TreeNode(int numChildren);
+	explicit TreeNode(bool isroot, int numChildren);
 	virtual ~TreeNode();
 
-	virtual bool isLeaf() const { return false; }
+	virtual bool isLeaf() const noexcept { return false; }
+
+	bool isRoot() const noexcept;
+
+	virtual int binarySize();
+	virtual void toBinary(ByteBuffer* out);
+
+private:
+	bool root;
+	ArrayList<AbstractTreeNode>* children;
 };
 
 } /* namespace alinous */

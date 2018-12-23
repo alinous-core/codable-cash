@@ -5,17 +5,26 @@
  *      Author: iizuka
  */
 
-#include <btree/DataNode.h>
+#include "btree/DataNode.h"
 
 namespace alinous {
 
-DataNode::DataNode() {
-	// TODO Auto-generated constructor stub
+DataNode::DataNode() : AbstractTreeNode() {
+
 
 }
 
 DataNode::~DataNode() {
+
+}
+
+int DataNode::binarySize() {
 	// TODO Auto-generated destructor stub
+	return 0;
+}
+
+void DataNode::toBinary(ByteBuffer* out) {
+	// TODO Auto-generated constructor stub
 }
 
 } /* namespace alinous */

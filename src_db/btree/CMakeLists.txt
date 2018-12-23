@@ -1,5 +1,6 @@
 
 set(__src
+	AbstractBtreeKey.cpp
 	AbstractTreeNode.cpp
 	Btree.cpp
 	BtreeHeaderBlock.cpp

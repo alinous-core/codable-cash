@@ -8,9 +8,11 @@
 #ifndef BTREE_ABSTRACTTREENODE_H_
 #define BTREE_ABSTRACTTREENODE_H_
 
+#include "filestore_block/IBlockObject.h"
+
 namespace alinous {
 
-class AbstractTreeNode {
+class AbstractTreeNode : IBlockObject {
 public:
 	AbstractTreeNode();
 	virtual ~AbstractTreeNode();

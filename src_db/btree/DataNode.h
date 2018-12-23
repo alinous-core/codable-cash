@@ -18,6 +18,8 @@ public:
 	virtual ~DataNode();
 
 	virtual bool isLeaf() const { return true; }
+	virtual int binarySize();
+	virtual void toBinary(ByteBuffer* out);
 };
 
 } /* namespace alinous */
