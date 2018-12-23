@@ -94,8 +94,6 @@ void BtreeStorage::create(DiskCacheManager* cacheManager, BtreeConfig* config) {
 		handle->write((const char*)buff->array(), headerSize);
 	}
 
-
-
 	blockstore->close();
 }
 
@@ -108,4 +106,14 @@ BtreeHeaderBlock* BtreeStorage::makeHeader(BtreeConfig* config, uint64_t rootFpo
 
 }
 
+void BtreeStorage::open(int numDataBuffer, int numNodeBuffer) {
+
+}
+
+void BtreeStorage::close() {
+
+}
+
+
 } /* namespace alinous */
+

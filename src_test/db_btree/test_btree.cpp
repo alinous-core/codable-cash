@@ -38,9 +38,20 @@ TEST(TestBTreeGroup, constract){
 
 	BtreeConfig config;
 	btree.create(&config);
-
 }
 
 TEST(TestBTreeGroup, open){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file01");
+
+	Btree btree(baseDir, &name, &cacheManager);
+
+	BtreeConfig config;
+	btree.create(&config);
+
 
 }

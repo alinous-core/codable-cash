@@ -26,6 +26,9 @@ public:
 
 	void create(DiskCacheManager* cacheManager, BtreeConfig* config);
 
+	void open(int numDataBuffer, int numNodeBuffer);
+	void close();
+
 private:
 	BtreeHeaderBlock* makeHeader(BtreeConfig* config, uint64_t rootFpos);
 

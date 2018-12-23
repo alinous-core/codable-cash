@@ -16,6 +16,11 @@ class BtreeStorage;
 class DiskCacheManager;
 class BtreeConfig;
 
+typedef struct __btree_open_config {
+	int numDataBuffer = 256;
+	int numNodeBuffer = 512;
+} BtreeOpenConfig;
+
 class Btree {
 public:
 	Btree() = delete;
@@ -25,11 +30,15 @@ public:
 
 	void create(BtreeConfig* config);
 
+	void open(BtreeOpenConfig* config);
+	void close();
+
 private:
 	UnicodeString* name;
 	File* folder;
 	BtreeStorage* store;
 	DiskCacheManager* cacheManager;
+	BtreeConfig* config;
 };
 
 } /* namespace alinous */
