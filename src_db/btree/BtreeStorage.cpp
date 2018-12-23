@@ -53,9 +53,9 @@ void BtreeStorage::create(DiskCacheManager* cacheManager, BtreeConfig* config) {
 		delete handle;
 
 		handle = blockstore->alloc(1);
-		StackRelease<BlockHandle> __st_handle(handle);
 
 		rootFpos = handle->getFpos();
+		delete handle;
 	}
 
 	// root node
@@ -70,6 +70,9 @@ void BtreeStorage::create(DiskCacheManager* cacheManager, BtreeConfig* config) {
 		ByteBuffer* buff = ReverseByteBuffer::allocateWithEndian(cap, true);
 		StackRelease<ByteBuffer> __st_buff(buff);
 
+		rootNode.toBinary(buff);
+
+		handle->write((const char*)buff->array(), cap);
 	}
 
 	{
