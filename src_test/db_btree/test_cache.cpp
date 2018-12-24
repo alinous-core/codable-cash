@@ -13,6 +13,11 @@
 #include "btree/TreeNode.h"
 #include "btree/NodeCacheRef.h"
 
+#include "test_utils/TestBreak.h"
+#include "base_thread/AbstractThreadRunner.h"
+
+#include "osenv/funcs.h"
+
 using namespace alinous;
 
 TEST_GROUP(TestNodeCashGroup) {
@@ -58,9 +63,66 @@ TEST(TestNodeCashGroup, add02){
 	TreeNode* node2 = new TreeNode(false, 4, new ULongKey(2));
 	node2->setFpos(fpos2);
 	cache.add(node2);
+
+	NodeCacheRef* ref = cache.get(fpos);
+	CHECK(ref == nullptr)
+
+	ref = cache.get(fpos2);
+	CHECK(ref != nullptr)
 }
 
+class TestCacheRuuer : public AbstractThreadRunner {
+public:
+	TestCacheRuuer(const UnicodeString* name, TestBreak* breakpoint, NodeCache* cache) : AbstractThreadRunner(name) {
+		this->breakpoint = breakpoint;
+		this->cache = cache;
+	}
+	virtual ~TestCacheRuuer(){}
 
+	virtual void process() noexcept{
+		uint64_t fpos2 = 512;
+		TreeNode* node2 = new TreeNode(false, 4, new ULongKey(2));
+		node2->setFpos(fpos2);
+
+		breakpoint->breakpoint(1);
+		cache->add(node2);
+	}
+
+private:
+	TestBreak* breakpoint;
+	NodeCache* cache;
+};
+
+TEST(TestNodeCashGroup, add03){
+	NodeCache cache(1, 1);
+	uint64_t fpos = 256;
+	uint64_t fpos2 = 512;
+
+	// thread test
+	UnicodeString str01(L"test01");
+	TestBreak break01;
+
+	TestCacheRuuer* runner01 = new TestCacheRuuer(&str01, &break01, &cache);
+	runner01->start();
+
+	TreeNode* node1 = new TreeNode(false, 4, new ULongKey(1));
+	node1->setFpos(fpos);
+	cache.add(node1);
+
+	// lock
+	NodeCacheRef* ref = cache.get(fpos);
+	CHECK(ref != nullptr)
+	ref->inc();
+
+	break01.resume(1);
+	// before resume first one, wait for second thread is waiting
+	Os::usleep(1000);
+
+	// unlock
+	ref->dec();
+
+	runner01->join();
+}
 
 
 
