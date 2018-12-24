@@ -22,6 +22,11 @@ CachedFpos::CachedFpos(uint64_t fpos) {
 	this->fpos = fpos;
 }
 
+CachedFpos& CachedFpos::operator =(const CachedFpos& inst) {
+	this->fpos = inst.fpos;
+	return(*this);
+}
+
 int CachedFpos::hashCode() const noexcept {
 	return (int)this->fpos;
 }

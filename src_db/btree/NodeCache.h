@@ -24,6 +24,8 @@ public:
 	CachedFpos(const CachedFpos& inst);
 	explicit CachedFpos(uint64_t fpos);
 
+	CachedFpos &operator=(const CachedFpos &inst);
+
 	int hashCode() const noexcept;
 	class ValueCompare {
 	public:

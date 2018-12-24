@@ -23,6 +23,15 @@ TEST(TestNodeCashGroup, constract){
 	NodeCache cache(10, 10);
 }
 
+TEST(TestNodeCashGroup, copyConst){
+	CachedFpos f1(10);
+	CachedFpos f2(20);
+
+	f2 = f1;
+
+	CHECK(f2.fpos == f1.fpos)
+}
+
 TEST(TestNodeCashGroup, add01){
 	NodeCache cache(10, 10);
 
