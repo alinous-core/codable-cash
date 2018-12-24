@@ -181,6 +181,39 @@ TEST(HashMapTestGroup, keySetWithNull02){
 	delete map;
 }
 
+TEST(HashMapTestGroup, remove01){
+	HashMap<Integer, UnicodeString>* map = new HashMap<Integer, UnicodeString>();
+	UnicodeString* str =  new UnicodeString(L"value");
+	Integer* key = new Integer(10);
+	Integer* keyx = new Integer(11);
+
+
+
+	map->put(key, str);
+	map->remove(keyx);
+	map->remove(key);
+
+	map->remove(nullptr);
+
+	delete key;
+	delete keyx;
+	delete str;
+	delete map;
+
+}
+
+TEST(HashMapTestGroup, remove02){
+	HashMap<Integer, UnicodeString>* map = new HashMap<Integer, UnicodeString>();
+
+	UnicodeString* str =  new UnicodeString(L"value");
+	map->put(nullptr, str);
+	map->remove(nullptr);
+
+	delete str;
+	delete map;
+}
+
+
 
 TEST_GROUP(HashMapKeySetTestGroup) {
 	TEST_SETUP() {}
