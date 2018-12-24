@@ -10,11 +10,19 @@
 
 #include "base/RawLinkedList.h"
 #include "base/HashMap.h"
+#include "base_thread/SynchronizedLock.h"
 
 namespace alinous {
 
 class AbstractTreeNode;
+class NodeCacheRef;
 class AbstractBtreeKey;
+
+
+class CachedFpos {
+public:
+	uint64_t fpos;
+};
 
 class NodeCache {
 public:
@@ -24,20 +32,23 @@ public:
 
 	void clear() noexcept;
 
+	void add(AbstractTreeNode* node);
+
+
 private:
-	void clearList(RawLinkedList<AbstractTreeNode>* list) noexcept;
-	void clearMap(HashMap<AbstractBtreeKey, RawLinkedList<AbstractTreeNode>::Element>* map) noexcept;
+	void clearList(RawLinkedList<NodeCacheRef>* list) noexcept;
+	void clearMap(HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Element>* map) noexcept;
 private:
 	int numDataBuffer;
 	int numNodeBuffer;
 
-	RawLinkedList<AbstractTreeNode>* nodes;
-	HashMap<AbstractBtreeKey, RawLinkedList<AbstractTreeNode>::Element>* nodesMap;
+	RawLinkedList<NodeCacheRef>* nodes;
+	HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Element>* nodesMap;
 
-	RawLinkedList<AbstractTreeNode>* datas;
-	HashMap<AbstractBtreeKey, RawLinkedList<AbstractTreeNode>::Element>* datasMap;
+	RawLinkedList<NodeCacheRef>* datas;
+	HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Element>* datasMap;
 
-
+	SynchronizedLock lock;
 };
 
 } /* namespace alinous */

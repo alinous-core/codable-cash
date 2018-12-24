@@ -27,6 +27,11 @@ public:
 		this->value = value;
 	}
 
+	virtual bool isInfinity() { return false; }
+
+	virtual int binarySize();
+	virtual void toBinary(ByteBuffer* out);
+
 private:
 	uint64_t value;
 };

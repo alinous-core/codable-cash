@@ -8,6 +8,9 @@
 #include "btree/NodeCache.h"
 #include "btree/AbstractTreeNode.h"
 #include "btree/AbstractBtreeKey.h"
+#include "btree/NodeCacheRef.h"
+
+#include "base_thread/StackUnlocker.h"
 
 namespace alinous {
 
@@ -15,11 +18,11 @@ NodeCache::NodeCache(int numDataBuffer, int numNodeBuffer) {
 	this->numDataBuffer = numDataBuffer;
 	this->numNodeBuffer = numNodeBuffer;
 
-	this->nodes = new RawLinkedList<AbstractTreeNode>();
-	this->datas = new RawLinkedList<AbstractTreeNode>();
+	this->nodes = new RawLinkedList<NodeCacheRef>();
+	this->datas = new RawLinkedList<NodeCacheRef>();
 
-	this->nodesMap = new HashMap<AbstractBtreeKey, RawLinkedList<AbstractTreeNode>::Element>();
-	this->datasMap = new HashMap<AbstractBtreeKey, RawLinkedList<AbstractTreeNode>::Element>();
+	this->nodesMap = new HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Element>();
+	this->datasMap = new HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Element>();
 
 }
 
@@ -41,16 +44,25 @@ void NodeCache::clear() noexcept {
 	clearMap(this->datasMap);
 }
 
-void NodeCache::clearList(RawLinkedList<AbstractTreeNode>* list) noexcept {
+void NodeCache::clearList(RawLinkedList<NodeCacheRef>* list) noexcept {
+	this->lock.lock();
+	StackUnlocker __unlock(&this->lock);
+
 	auto it = list->iterator();
 	while(it.hasNext()){
-		AbstractTreeNode* node = it.next();
+		NodeCacheRef* node = it.next();
 		delete node;
 	}
 	list->clear();
 }
 
-void NodeCache::clearMap(HashMap<AbstractBtreeKey, RawLinkedList<AbstractTreeNode>::Element>* map) noexcept {
+void NodeCache::add(AbstractTreeNode* node) {
+	this->lock.lock();
+	StackUnlocker __unlock(&this->lock);
+
+}
+
+void NodeCache::clearMap(HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Element>* map) noexcept {
 	map->clear();
 }
 
