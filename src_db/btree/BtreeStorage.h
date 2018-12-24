@@ -30,6 +30,12 @@ public:
 	void open(int numDataBuffer, int numNodeBuffer, DiskCacheManager* cacheManager);
 	void close();
 
+	BtreeHeaderBlock* loadHeader();
+
+	void setRootFpos(uint64_t rootFpos){
+		this->rootFpos = rootFpos;
+	}
+
 private:
 	BtreeHeaderBlock* makeHeader(BtreeConfig* config, uint64_t rootFpos);
 
@@ -38,6 +44,8 @@ private:
 	File* folder;
 	BlockFileStore* store;
 	NodeCache* cache;
+
+	uint64_t rootFpos;
 };
 
 } /* namespace alinous */

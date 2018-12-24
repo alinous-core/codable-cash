@@ -38,6 +38,15 @@ void BtreeHeaderBlock::toBinary(ByteBuffer* out) {
 	out->putLong(this->rootFpos);
 }
 
+BtreeHeaderBlock* BtreeHeaderBlock::fromBinary(ByteBuffer* in){
+	BtreeHeaderBlock* header = new BtreeHeaderBlock();
+
+	header->config = BtreeConfig::fromBinary(in);
+	header->rootFpos = in->getLong();
+
+	return header;
+}
+
 } /* namespace alinous */
 
 

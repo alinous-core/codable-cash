@@ -22,6 +22,7 @@ public:
 
 	virtual int binarySize();
 	virtual void toBinary(ByteBuffer* out);
+	static BtreeConfig* fromBinary(ByteBuffer* in);
 
 	uint64_t blockSize;
 	uint64_t nodeNumber;

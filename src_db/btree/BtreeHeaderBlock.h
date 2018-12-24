@@ -24,6 +24,8 @@ public:
 	virtual int binarySize();
 	virtual void toBinary(ByteBuffer* out);
 
+	static BtreeHeaderBlock* fromBinary(ByteBuffer* in);
+
 	BtreeConfig* getConfig() const noexcept {
 		return config;
 	}

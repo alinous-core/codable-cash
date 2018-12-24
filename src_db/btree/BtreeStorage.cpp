@@ -27,6 +27,7 @@ BtreeStorage::BtreeStorage(File* folder, UnicodeString* name) {
 	this->folder = folder;
 	this->store = nullptr;
 	this->cache = nullptr;
+	this->rootFpos = 0;
 }
 
 BtreeStorage::~BtreeStorage() {
@@ -102,6 +103,8 @@ void BtreeStorage::create(DiskCacheManager* cacheManager, BtreeConfig* config) {
 	blockstore->close();
 }
 
+
+
 BtreeHeaderBlock* BtreeStorage::makeHeader(BtreeConfig* config, uint64_t rootFpos) {
 	BtreeHeaderBlock* header = new BtreeHeaderBlock();
 	header->setConfig(config);
@@ -116,8 +119,21 @@ void BtreeStorage::open(int numDataBuffer, int numNodeBuffer, DiskCacheManager* 
 	StackRelease<UnicodeString> __st_folderstr(folderstr);
 
 	this->store = new BlockFileStore(folderstr, this->name, cacheManager);
-	this->cache = new NodeCache(numDataBuffer, numNodeBuffer);
+	this->store->open(false);
 
+	this->cache = new NodeCache(numDataBuffer, numNodeBuffer);
+}
+
+BtreeHeaderBlock* BtreeStorage::loadHeader() {
+	// load 0 fpos
+	BlockHandle* handle = this->store->get(0);
+	StackRelease<BlockHandle> __st_handle(handle);
+
+	ByteBuffer* buff = handle->getBuffer();
+	buff->position(0);
+
+	BtreeHeaderBlock* header = BtreeHeaderBlock::fromBinary(buff);
+	return header;
 }
 
 void BtreeStorage::close() {
