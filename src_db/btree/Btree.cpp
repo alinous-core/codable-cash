@@ -39,12 +39,11 @@ void Btree::create(BtreeConfig* config) {
 void Btree::open(BtreeOpenConfig* config) {
 	this->store = new BtreeStorage(this->folder, this->name);
 
-	this->store->open(config->numDataBuffer, config->numNodeBuffer);
+	this->store->open(config->numDataBuffer, config->numNodeBuffer, this->cacheManager);
 }
 
 void Btree::close() {
 	this->store->close();
-	delete this->store, this->store = nullptr;
 }
 
 } /* namespace alinous */

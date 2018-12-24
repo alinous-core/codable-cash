@@ -53,5 +53,9 @@ TEST(TestBTreeGroup, open){
 	BtreeConfig config;
 	btree.create(&config);
 
+	BtreeOpenConfig opconf;
+	btree.open(&opconf);
+
+	btree.close();
 
 }

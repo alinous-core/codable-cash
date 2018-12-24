@@ -111,13 +111,18 @@ BtreeHeaderBlock* BtreeStorage::makeHeader(BtreeConfig* config, uint64_t rootFpo
 
 }
 
-void BtreeStorage::open(int numDataBuffer, int numNodeBuffer) {
+void BtreeStorage::open(int numDataBuffer, int numNodeBuffer, DiskCacheManager* cacheManager) {
+	UnicodeString* folderstr = this->folder->getAbsolutePath();
+	StackRelease<UnicodeString> __st_folderstr(folderstr);
 
+	this->store = new BlockFileStore(folderstr, this->name, cacheManager);
+	this->cache = new NodeCache(numDataBuffer, numNodeBuffer);
 
 }
 
 void BtreeStorage::close() {
-
+	this->store->close();
+	this->cache->clear();
 }
 
 
