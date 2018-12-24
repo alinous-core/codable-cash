@@ -327,6 +327,42 @@ TEST(RAFTestGroup, fileWriteSyncError){
 
 }
 
+TEST(RAFTestGroup, fileWriteSyncError02){
+	File projectFolder = this->env->testCaseDir();
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	DiskCacheManager diskCache(16525);
+	RandomAccessFile file(outFile, &diskCache);
+
+	file.open();
+
+	int buffSize = 8;
+	uint64_t fpos = 12;
+
+	char* buff = new char[buffSize]{};
+	StackArrayRelease<char> r_buff(buff);
+
+	file.write(fpos, buff, buffSize);
+
+	errmgr->activatePoint(L"RandomAccessFile::sync", L"Os::syncFile", 1);
+
+	Exception* exp = nullptr;
+	try{
+		file.sync(true);
+	}catch(Exception* e){
+		exp = e;
+		file.close();
+	}
+	CHECK(dynamic_cast<FileIOException*>(exp) != nullptr)
+	delete exp;
+
+}
+
 
 TEST(RAFTestGroup, getSegment){
 	File projectFolder = this->env->testCaseDir();
