@@ -21,6 +21,15 @@ class AbstractBtreeKey;
 
 class CachedFpos {
 public:
+	CachedFpos(const CachedFpos& inst);
+	explicit CachedFpos(uint64_t fpos);
+
+	int hashCode() const noexcept;
+	class ValueCompare {
+	public:
+		int operator() (const CachedFpos* const _this, const  CachedFpos* const object) const noexcept;
+	};
+
 	uint64_t fpos;
 };
 
@@ -36,6 +45,11 @@ public:
 
 
 private:
+	void internalAddNode(AbstractTreeNode* node, SynchronizedLock* lock,
+			HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Element>* map,
+			RawLinkedList<NodeCacheRef>* list);
+
+
 	void clearList(RawLinkedList<NodeCacheRef>* list) noexcept;
 	void clearMap(HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Element>* map) noexcept;
 private:
@@ -48,7 +62,8 @@ private:
 	RawLinkedList<NodeCacheRef>* datas;
 	HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Element>* datasMap;
 
-	SynchronizedLock lock;
+	SynchronizedLock nodesLock;
+	SynchronizedLock datasLock;
 };
 
 } /* namespace alinous */
