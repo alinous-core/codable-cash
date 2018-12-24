@@ -34,11 +34,14 @@ TEST(TestNodeCashGroup, copyConst){
 
 TEST(TestNodeCashGroup, add01){
 	NodeCache cache(10, 10);
+	uint64_t fpos = 256;
 
 	TreeNode* node = new TreeNode(false, 4, new ULongKey(1));
-	node->setFpos(256);
+	node->setFpos(fpos);
 
 	cache.add(node);
+
+	cache.get(fpos);
 }
 
 

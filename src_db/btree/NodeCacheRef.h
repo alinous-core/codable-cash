@@ -22,6 +22,11 @@ public:
 
 	void inc();
 	void dec();
+	bool isDeletable() noexcept;
+
+	AbstractTreeNode* getNode() const noexcept {
+		return this->node;
+	}
 private:
 	int count;
 	SynchronizedLock lock;

@@ -41,4 +41,16 @@ void NodeCacheRef::dec() {
 	this->parentLock->unlock();
 }
 
+bool NodeCacheRef::isDeletable() noexcept {
+	this->lock.lock();
+
+	bool result = (this->count == 0);
+
+	this->lock.unlock();
+
+	return result;
+}
+
 } /* namespace alinous */
+
+

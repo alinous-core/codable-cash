@@ -85,18 +85,47 @@ void NodeCache::clearMap(HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Elemen
 	map->clear();
 }
 
-void NodeCache::add(AbstractTreeNode* node) {
+NodeCacheRef* NodeCache::get(uint64_t fpos) noexcept {
+	CachedFpos key(fpos);
+
+	{
+		StackUnlocker __unlock(&this->nodesLock);
+		RawLinkedList<NodeCacheRef>::Element* element = this->nodesMap->get(key);
+		if(element != nullptr){
+			onCacheHit(element, this->nodes, &this->nodesLock);
+			return element->data;
+		}
+	}
+
+	{
+		StackUnlocker __unlock(&this->datasLock);
+		RawLinkedList<NodeCacheRef>::Element* element = this->datasMap->get(key);
+		if(element != nullptr){
+			onCacheHit(element, this->datas, &this->datasLock);
+			return element->data;
+		}
+	}
+
+	return nullptr;
+}
+
+void NodeCache::onCacheHit(RawLinkedList<NodeCacheRef>::Element* element,
+							RawLinkedList<NodeCacheRef>* list, SynchronizedLock* lock) noexcept {
+	list->moveElementToTop(element);
+}
+
+void NodeCache::add(AbstractTreeNode* node) noexcept {
 	if(node->isLeaf()){
-		internalAddNode(node, &this->datasLock, this->datasMap, this->datas);
+		internalAddNode(node, &this->datasLock, this->datasMap, this->datas, this->numDataBuffer);
 	}
 	else{
-		internalAddNode(node, &this->nodesLock, this->nodesMap, this->nodes);
+		internalAddNode(node, &this->nodesLock, this->nodesMap, this->nodes, this->numNodeBuffer);
 	}
 }
 
 void NodeCache::internalAddNode(AbstractTreeNode* node, SynchronizedLock* lock,
 		HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Element>* map,
-		RawLinkedList<NodeCacheRef>* list) {
+		RawLinkedList<NodeCacheRef>* list, int max) noexcept {
 	StackUnlocker __unlock(lock);
 
 	NodeCacheRef* ref = new NodeCacheRef(node, lock);
@@ -104,6 +133,29 @@ void NodeCache::internalAddNode(AbstractTreeNode* node, SynchronizedLock* lock,
 
 	CachedFpos fpos(node->getFpos());
 	map->put(&fpos, element);
+
+	if(list->size() > max){
+		cacheOut(map, list, lock);
+	}
+}
+
+void NodeCache::cacheOut(HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Element>* map,
+		RawLinkedList<NodeCacheRef>* list, SynchronizedLock* lock) noexcept {
+	int lastIndex = list->size() - 1;
+
+	NodeCacheRef* ref = list->get(lastIndex);
+	list->remove(lastIndex);
+
+	uint64_t fpos = ref->getNode()->getFpos();
+	CachedFpos key(fpos);
+
+	map->remove(&key);
+
+	while(!ref->isDeletable()){
+		lock->wait();
+	}
+
+	delete ref;
 }
 
 
