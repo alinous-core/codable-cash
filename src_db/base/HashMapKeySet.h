@@ -108,6 +108,31 @@ public:
 		this->list->reset();
 	}
 
+	void remove(K* o) noexcept {
+		if(o == nullptr){
+			if(this->nullElement != nullptr){
+				delete this->nullElement;
+				this->nullElement = nullptr;
+			}
+
+			return;
+		}
+
+
+		HashMapInternalElement<K,V> tmp(o, nullptr);
+		HashMapInternalElement<K,V>* removObj = this->list->search(&tmp);
+		if(removObj == nullptr){
+			return;
+		}
+
+		this->list->removeByObj(removObj);
+
+		delete removObj->key;
+		delete removObj;
+
+		return;
+	}
+
 	class HashMapKeySetIterator : public Iterator<K> {
 	public:
 		HashMapKeySetIterator(HashMapRawArray<K, V>* list, HashMapInternalElement<K, V>* nullelement)throw() : Iterator<K>(),

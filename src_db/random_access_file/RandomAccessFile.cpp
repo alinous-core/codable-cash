@@ -148,6 +148,8 @@ int RandomAccessFile::write(uint64_t fpos, const char* buff, int count) {
 }
 
 void RandomAccessFile::sync(bool flushDisk) {
+	ERROR_POINT(L"RandomAccessFile::sync")
+
 	this->segments->sync(flushDisk, this->fd);
 
 	if(flushDisk){

@@ -15,6 +15,7 @@ namespace alinous {
 class BTreeKeyFactory {
 public:
 	static const constexpr uint32_t INFINITY_KEY{0x01};
+	static const constexpr uint32_t ULONG_KEY{0x02};
 
 	BTreeKeyFactory();
 	virtual ~BTreeKeyFactory();

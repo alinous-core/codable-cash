@@ -81,20 +81,20 @@ public:
 
 		return ptr;
 	}
-	/*
+
 	bool removeByObj(const HashMapInternalElement<K, V>* obj) noexcept {
 		int hashcode = getHash(obj);
-		bool result =  arrays[hashcode].removeByObj(obj);
+		bool result =  arrays[hashcode]->removeByObj(obj);
 		if(result){
 			--numElements;
 		}
 
-		if(arrays[hashcode].size() == 0){
+		if(arrays[hashcode]->size() == 0){
 			bitset.clear(hashcode);
 		}
 
 		return result;
-	}*/
+	}
 	HashMapInternalElement<K, V>* search(const HashMapInternalElement<K, V>* value) noexcept {
 		int hashcode = getHash(value);
 		return arrays[hashcode]->search(value);

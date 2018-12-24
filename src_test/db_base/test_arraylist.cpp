@@ -192,3 +192,20 @@ TEST(ArrayListTestGroup, sortInsert){
 	isSorted(&ar);
 	releaseInternalObjects(&ar);
 }
+
+
+TEST(ArrayListTestGroup, removeObjFalse){
+	ArrayList<dummyInt> ar;
+
+	ar.addElement(new dummyInt(1));
+
+	dummyInt val(2);
+	bool result = ar.removeByObj(&val);
+	CHECK(result == false)
+
+	int size = ar.size();
+	for(int i = 0; i != size; ++i){
+		dummyInt* ptr = ar.get(i);
+		delete ptr;
+	}
+}

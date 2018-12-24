@@ -18,6 +18,8 @@ Btree::Btree(File* folder, UnicodeString* name, DiskCacheManager* cacheManager) 
 	this->name = new UnicodeString(name);
 	this->store = nullptr;
 	this->cacheManager = cacheManager;
+
+	this->config = nullptr;
 }
 
 Btree::~Btree() {
@@ -32,6 +34,17 @@ void Btree::create(BtreeConfig* config) {
 	BtreeStorage newStore(this->folder, this->name);
 
 	newStore.create(this->cacheManager, config);
+}
+
+void Btree::open(BtreeOpenConfig* config) {
+	this->store = new BtreeStorage(this->folder, this->name);
+
+	this->store->open(config->numDataBuffer, config->numNodeBuffer);
+}
+
+void Btree::close() {
+	this->store->close();
+	delete this->store, this->store = nullptr;
 }
 
 } /* namespace alinous */

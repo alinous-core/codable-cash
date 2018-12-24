@@ -18,6 +18,7 @@ class BlockFileStore;
 class DiskCacheManager;
 class BtreeConfig;
 class BtreeHeaderBlock;
+class NodeCache;
 
 class BtreeStorage {
 public:
@@ -26,6 +27,9 @@ public:
 
 	void create(DiskCacheManager* cacheManager, BtreeConfig* config);
 
+	void open(int numDataBuffer, int numNodeBuffer);
+	void close();
+
 private:
 	BtreeHeaderBlock* makeHeader(BtreeConfig* config, uint64_t rootFpos);
 
@@ -33,6 +37,7 @@ private:
 	UnicodeString* name;
 	File* folder;
 	BlockFileStore* store;
+	NodeCache* cache;
 };
 
 } /* namespace alinous */

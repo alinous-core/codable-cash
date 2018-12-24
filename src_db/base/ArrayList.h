@@ -131,7 +131,7 @@ public:
 		return *(this->root + i);
 	}
 
-	inline int indexOfPtr(T* ptr){
+	inline int indexOfPtr(const T* ptr){
 		int maxLoop = this->size();
 		for(int i = 0; i != maxLoop; ++i){
 			if(ptr == get(i)){
@@ -164,6 +164,19 @@ public:
 
 		this->numArray = this->numArray - length;
 		this->cursor -= length;
+	}
+
+	bool removeByObj(const T* obj) throw()
+	{
+		int index = indexOfPtr(obj);
+
+		if(index < 0){
+			return false;
+		}
+
+		remove(index);
+
+		return true;
 	}
 
 	void addElementWithSorted(T* ptr) throw() {
