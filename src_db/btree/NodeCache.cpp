@@ -62,13 +62,13 @@ void NodeCache::clear() noexcept {
 	{
 		StackUnlocker __unlock(&this->nodesLock);
 		clearList(this->nodes);
-		clearMap(this->datasMap);
+		clearMap(this->nodesMap);
 	}
 
 	{
 		StackUnlocker __unlock(&this->datasLock);
 		clearList(this->datas);
-		clearMap(this->nodesMap);
+		clearMap(this->datasMap);
 	}
 }
 
@@ -102,8 +102,8 @@ void NodeCache::internalAddNode(AbstractTreeNode* node, SynchronizedLock* lock,
 	NodeCacheRef* ref = new NodeCacheRef(node, lock);
 	RawLinkedList<NodeCacheRef>::Element* element = list->add(0, ref);
 
-	CachedFpos* fpos = new CachedFpos(node->getFpos());
-	map->put(fpos, element);
+	CachedFpos fpos(node->getFpos());
+	map->put(&fpos, element);
 }
 
 

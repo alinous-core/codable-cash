@@ -35,10 +35,10 @@ TEST(TestNodeCashGroup, copyConst){
 TEST(TestNodeCashGroup, add01){
 	NodeCache cache(10, 10);
 
-	TreeNode node(false, 4, new ULongKey(1));
-	node.setFpos(256);
+	TreeNode* node = new TreeNode(false, 4, new ULongKey(1));
+	node->setFpos(256);
 
-
+	cache.add(node);
 }
 
 
