@@ -122,6 +122,7 @@ TEST(TestNodeCashGroup, add03){
 	ref->dec();
 
 	runner01->join();
+	delete runner01;
 }
 
 
