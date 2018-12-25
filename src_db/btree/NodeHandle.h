@@ -14,7 +14,8 @@ class NodeCacheRef;
 
 class NodeHandle {
 public:
-	NodeHandle(NodeCacheRef* ref);
+	NodeHandle(const NodeHandle& inst) = delete;
+	explicit NodeHandle(NodeCacheRef* ref);
 	virtual ~NodeHandle();
 
 private:
