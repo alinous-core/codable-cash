@@ -42,7 +42,7 @@ TEST(TestNodeCashGroup, add01){
 	NodeCache cache(10, 10);
 	uint64_t fpos = 256;
 
-	TreeNode* node = new TreeNode(false, 4, new ULongKey(1));
+	TreeNode* node = new TreeNode(false, 4, new ULongKey(1), true);
 	node->setFpos(fpos);
 
 	cache.add(node);
@@ -56,11 +56,11 @@ TEST(TestNodeCashGroup, add02){
 	uint64_t fpos = 256;
 	uint64_t fpos2 = 512;
 
-	TreeNode* node1 = new TreeNode(false, 4, new ULongKey(1));
+	TreeNode* node1 = new TreeNode(false, 4, new ULongKey(1), true);
 	node1->setFpos(fpos);
 	cache.add(node1);
 
-	TreeNode* node2 = new TreeNode(false, 4, new ULongKey(2));
+	TreeNode* node2 = new TreeNode(false, 4, new ULongKey(2), true);
 	node2->setFpos(fpos2);
 	cache.add(node2);
 
@@ -81,7 +81,7 @@ public:
 
 	virtual void process() noexcept{
 		uint64_t fpos2 = 512;
-		TreeNode* node2 = new TreeNode(false, 4, new ULongKey(2));
+		TreeNode* node2 = new TreeNode(false, 4, new ULongKey(2), true);
 		node2->setFpos(fpos2);
 
 		breakpoint->breakpoint(1);
@@ -105,7 +105,7 @@ TEST(TestNodeCashGroup, add03){
 	TestCacheRuuer* runner01 = new TestCacheRuuer(&str01, &break01, &cache);
 	runner01->start();
 
-	TreeNode* node1 = new TreeNode(false, 4, new ULongKey(1));
+	TreeNode* node1 = new TreeNode(false, 4, new ULongKey(1), true);
 	node1->setFpos(fpos);
 	cache.add(node1);
 

@@ -16,6 +16,9 @@ class BtreeStorage;
 class DiskCacheManager;
 class BtreeConfig;
 
+class AbstractBtreeKey;
+class IBlockObject;
+
 typedef struct __btree_open_config {
 	int numDataBuffer = 256;
 	int numNodeBuffer = 512;
@@ -32,6 +35,8 @@ public:
 
 	void open(BtreeOpenConfig* config);
 	void close();
+
+	void insert(AbstractBtreeKey* key, IBlockObject* data);
 
 private:
 	UnicodeString* name;

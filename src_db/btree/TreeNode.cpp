@@ -11,16 +11,18 @@
 
 namespace alinous {
 
-TreeNode::TreeNode(int numChildren, AbstractBtreeKey* key) : AbstractTreeNode(key) {
+TreeNode::TreeNode(int numChildren, AbstractBtreeKey* key, bool reaf) : AbstractTreeNode(key) {
 	this->root = false;
+	this->reaf = reaf;
 	this->children = new ArrayList<AbstractTreeNode>(numChildren);
 	for(int i = 0; i != numChildren; ++i){
 		this->children->addElement(nullptr);
 	}
 }
 
-TreeNode::TreeNode(bool isroot, int numChildren, AbstractBtreeKey* key) : AbstractTreeNode(key) {
+TreeNode::TreeNode(bool isroot, int numChildren, AbstractBtreeKey* key, bool reaf) : AbstractTreeNode(key) {
 	this->root = isroot;
+	this->reaf = reaf;
 	this->children = new ArrayList<AbstractTreeNode>(numChildren);
 	for(int i = 0; i != numChildren; ++i){
 		this->children->addElement(nullptr);
@@ -44,6 +46,10 @@ int TreeNode::binarySize() {
 	size += sizeof(uint64_t) * this->children->size();
 
 	return size;
+}
+
+bool TreeNode::isLeaf() const noexcept {
+	return this->reaf;
 }
 
 void TreeNode::toBinary(ByteBuffer* out) {

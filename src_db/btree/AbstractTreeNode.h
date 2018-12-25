@@ -23,7 +23,7 @@ public:
 	explicit AbstractTreeNode(AbstractBtreeKey* key);
 	virtual ~AbstractTreeNode();
 
-	virtual bool isLeaf() const = 0;
+	virtual bool isData() const = 0;
 	AbstractBtreeKey* getKey() const noexcept {
 		return this->key;
 	}

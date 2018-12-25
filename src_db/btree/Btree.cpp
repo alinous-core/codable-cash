@@ -58,4 +58,8 @@ void Btree::close() {
 	this->store->close();
 }
 
+void Btree::insert(AbstractBtreeKey* key, IBlockObject* data) {
+
+}
+
 } /* namespace alinous */
