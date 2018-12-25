@@ -17,7 +17,7 @@ class AbstractBtreeKey;
 
 class DataNode: public AbstractTreeNode {
 public:
-	DataNode(AbstractBtreeKey* key);
+	explicit DataNode(AbstractBtreeKey* key);
 	virtual ~DataNode();
 
 	virtual bool isData() const { return true; }

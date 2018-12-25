@@ -67,6 +67,8 @@ void Btree::insert(AbstractBtreeKey* key, IBlockObject* data) {
 	StackRelease<NodeHandle> __st_rootNode(rootNode);
 
 
+
+
 }
 
 } /* namespace alinous */

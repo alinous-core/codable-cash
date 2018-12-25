@@ -10,6 +10,7 @@ set(__src
 	exceptions.cpp
 	NodeCache.cpp
 	NodeCacheRef.cpp
+	NodeCursor.cpp
 	NodeHandle.cpp
 	TreeNode.cpp
 )
