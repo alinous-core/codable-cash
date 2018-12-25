@@ -7,6 +7,7 @@
 
 #include "btreekey/BTreeKeyFactory.h"
 #include "btreekey/InfinityKey.h"
+#include "btreekey/exceptions.h"
 
 namespace alinous {
 
@@ -26,7 +27,7 @@ AbstractBtreeKey* BTreeKeyFactory::fromBinary(uint32_t keyType, ByteBuffer* in) 
 		break;
 	}
 
-
+	throw new KeyFormatException(__FILE__, __LINE__);
 }
 
 

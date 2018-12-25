@@ -1,6 +1,7 @@
 
 set(__src
 	BTreeKeyFactory.cpp
+	exceptions.cpp
 	InfinityKey.cpp
 	ULongKey.cpp
 )
