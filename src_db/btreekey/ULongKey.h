@@ -31,6 +31,7 @@ public:
 
 	virtual int binarySize();
 	virtual void toBinary(ByteBuffer* out);
+	static ULongKey* fromBinary(ByteBuffer* in);
 
 private:
 	uint64_t value;

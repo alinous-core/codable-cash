@@ -20,15 +20,21 @@ ULongKey::~ULongKey() {
 }
 
 int ULongKey::binarySize() {
-	int size = sizeof(char);
+	int size = sizeof(uint32_t);
 	size += sizeof(this->value);
 	return size;
 }
 
 void ULongKey::toBinary(ByteBuffer* out) {
-	out->put(BTreeKeyFactory::ULONG_KEY);
+	out->putInt(BTreeKeyFactory::ULONG_KEY);
 	out->putLong(this->value);
-
 }
 
+ULongKey* ULongKey::fromBinary(ByteBuffer* in) {
+	uint64_t value = in->getLong();
+	return new ULongKey(value);
+}
+
+
 } /* namespace alinous */
+
