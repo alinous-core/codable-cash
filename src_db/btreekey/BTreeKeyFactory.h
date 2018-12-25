@@ -23,7 +23,7 @@ public:
 	BTreeKeyFactory();
 	virtual ~BTreeKeyFactory();
 
-	virtual AbstractBtreeKey* fromBinary(ByteBuffer* in);
+	virtual AbstractBtreeKey* fromBinary(uint32_t keyType, ByteBuffer* in);
 };
 
 } /* namespace alinous */

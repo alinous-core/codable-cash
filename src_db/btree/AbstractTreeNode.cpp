@@ -7,7 +7,7 @@
 
 #include "btree/AbstractTreeNode.h"
 #include "btree/AbstractBtreeKey.h"
-#include "btree/BTreeKeyFactory.h"
+#include "btreekey/BTreeKeyFactory.h"
 
 #include "base_io/ReverseByteBuffer.h"
 
@@ -36,7 +36,8 @@ void AbstractTreeNode::toBinary(ByteBuffer* out) {
 }
 
 void AbstractTreeNode::fromBinaryAbstract(ByteBuffer* in, BTreeKeyFactory* factory) {
-	factory->fromBinary(in);
+	char keytype = in->getInt();
+	this->key = factory->fromBinary(keytype, in);
 
 	this->fpos = in->getLong();
 }

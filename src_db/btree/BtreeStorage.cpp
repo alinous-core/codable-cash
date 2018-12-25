@@ -7,13 +7,13 @@
 
 #include "btree/BtreeStorage.h"
 #include "btree/BtreeHeaderBlock.h"
-#include "btree/InfinityKey.h"
 #include "btree/TreeNode.h"
 #include "btree/DataNode.h"
 #include "btree/BtreeConfig.h"
 #include "btree/NodeCache.h"
 #include "btree/NodeHandle.h"
 
+#include "btreekey/InfinityKey.h"
 
 #include "base_io/File.h"
 #include "base_io/ReverseByteBuffer.h"

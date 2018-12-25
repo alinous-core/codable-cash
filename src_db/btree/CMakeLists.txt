@@ -4,11 +4,9 @@ set(__src
 	AbstractTreeNode.cpp
 	Btree.cpp
 	BtreeHeaderBlock.cpp
-	BTreeKeyFactory.cpp
 	BtreeConfig.cpp
 	BtreeStorage.cpp
 	DataNode.cpp
-	InfinityKey.cpp
 	NodeCache.cpp
 	NodeCacheRef.cpp
 	NodeHandle.cpp

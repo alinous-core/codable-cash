@@ -9,7 +9,7 @@
 
 #include "btree/Btree.h"
 #include "btree/BtreeConfig.h"
-#include "btree/BTreeKeyFactory.h"
+#include "btreekey/BTreeKeyFactory.h"
 #include "random_access_file/DiskCacheManager.h"
 
 #include "base/StackRelease.h"

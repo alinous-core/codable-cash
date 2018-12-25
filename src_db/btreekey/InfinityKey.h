@@ -21,6 +21,7 @@ public:
 
 	virtual int binarySize();
 	virtual void toBinary(ByteBuffer* out);
+	static InfinityKey* fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

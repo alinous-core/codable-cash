@@ -6,7 +6,7 @@
  */
 
 #include "btreekey/ULongKey.h"
-#include "btree/BTreeKeyFactory.h"
+#include "btreekey/BTreeKeyFactory.h"
 
 #include "base_io/ReverseByteBuffer.h"
 
