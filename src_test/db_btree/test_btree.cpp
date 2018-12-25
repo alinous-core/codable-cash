@@ -9,6 +9,7 @@
 
 #include "btree/Btree.h"
 #include "btree/BtreeConfig.h"
+#include "btree/BTreeKeyFactory.h"
 #include "random_access_file/DiskCacheManager.h"
 
 #include "base/StackRelease.h"
@@ -33,8 +34,9 @@ TEST(TestBTreeGroup, constract){
 
 	DiskCacheManager cacheManager;
 	UnicodeString name(L"file01");
+	BTreeKeyFactory factory;
 
-	Btree btree(baseDir, &name, &cacheManager);
+	Btree btree(baseDir, &name, &cacheManager, &factory);
 
 	BtreeConfig config;
 	btree.create(&config);
@@ -47,8 +49,9 @@ TEST(TestBTreeGroup, open){
 
 	DiskCacheManager cacheManager;
 	UnicodeString name(L"file01");
+	BTreeKeyFactory factory;
 
-	Btree btree(baseDir, &name, &cacheManager);
+	Btree btree(baseDir, &name, &cacheManager, &factory);
 
 	BtreeConfig config;
 	btree.create(&config);

@@ -12,6 +12,8 @@
 
 namespace alinous {
 
+class BTreeKeyFactory;
+
 class DataNode: public AbstractTreeNode {
 public:
 	DataNode();
@@ -20,6 +22,7 @@ public:
 	virtual bool isData() const { return true; }
 	virtual int binarySize();
 	virtual void toBinary(ByteBuffer* out);
+	static DataNode* fromBinary(ByteBuffer* in, BTreeKeyFactory* factory);
 };
 
 } /* namespace alinous */

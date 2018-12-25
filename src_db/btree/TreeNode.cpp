@@ -11,21 +11,27 @@
 
 namespace alinous {
 
-TreeNode::TreeNode(int numChildren, AbstractBtreeKey* key, bool reaf) : AbstractTreeNode(key) {
+TreeNode::TreeNode() : AbstractTreeNode(nullptr) {
 	this->root = false;
-	this->reaf = reaf;
-	this->children = new ArrayList<AbstractTreeNode>(numChildren);
+	this->leaf = false;
+	this->children = nullptr;
+}
+
+TreeNode::TreeNode(int numChildren, AbstractBtreeKey* key, bool leaf) : AbstractTreeNode(key) {
+	this->root = false;
+	this->leaf = leaf;
+	this->children = new RawArrayPrimitive<uint64_t>(numChildren);
 	for(int i = 0; i != numChildren; ++i){
-		this->children->addElement(nullptr);
+		this->children->addElement(0);
 	}
 }
 
-TreeNode::TreeNode(bool isroot, int numChildren, AbstractBtreeKey* key, bool reaf) : AbstractTreeNode(key) {
+TreeNode::TreeNode(bool isroot, int numChildren, AbstractBtreeKey* key, bool leaf) : AbstractTreeNode(key) {
 	this->root = isroot;
-	this->reaf = reaf;
-	this->children = new ArrayList<AbstractTreeNode>(numChildren);
+	this->leaf = leaf;
+	this->children = new RawArrayPrimitive<uint64_t>(numChildren);
 	for(int i = 0; i != numChildren; ++i){
-		this->children->addElement(nullptr);
+		this->children->addElement(0);
 	}
 }
 
@@ -42,6 +48,8 @@ int TreeNode::binarySize() {
 
 	size += AbstractTreeNode::binarySize(); // key + fpos...
 
+	size += sizeof(char)*2; // isRoot + isLeaf
+
 	size += sizeof(int32_t); // number of children
 	size += sizeof(uint64_t) * this->children->size();
 
@@ -49,7 +57,7 @@ int TreeNode::binarySize() {
 }
 
 bool TreeNode::isLeaf() const noexcept {
-	return this->reaf;
+	return this->leaf;
 }
 
 void TreeNode::toBinary(ByteBuffer* out) {
@@ -57,15 +65,26 @@ void TreeNode::toBinary(ByteBuffer* out) {
 
 	AbstractTreeNode::toBinary(out); // key + fpos...
 
+	out->put(this->root ? 1 : 0);
+	out->put(this->leaf ? 1 : 0);
+
 	int maxLoop = this->children->size();
 	out->putInt(maxLoop);
 
 	for(int i = 0; i != maxLoop; ++i){
-		AbstractTreeNode* node = this->children->get(i);
-
-		uint64_t fpos = (node == nullptr) ? 0 : node->getFpos();
-		out->putLong(fpos);
+		uint64_t nodefpos = this->children->get(i);
+		out->putLong(nodefpos);
 	}
 }
 
+TreeNode* TreeNode::fromBinary(ByteBuffer* in, BTreeKeyFactory* factory) {
+	TreeNode* node = new TreeNode();
+
+	node->fromBinaryAbstract(in, factory);
+
+	return node;
+}
+
+
 } /* namespace alinous */
+

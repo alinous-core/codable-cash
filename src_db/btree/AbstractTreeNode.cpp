@@ -7,6 +7,7 @@
 
 #include "btree/AbstractTreeNode.h"
 #include "btree/AbstractBtreeKey.h"
+#include "btree/BTreeKeyFactory.h"
 
 #include "base_io/ReverseByteBuffer.h"
 
@@ -23,6 +24,7 @@ AbstractTreeNode::~AbstractTreeNode() {
 
 int AbstractTreeNode::binarySize() {
 	int size = this->key->binarySize();
+
 	size += sizeof(this->fpos);
 
 	return size;
@@ -33,4 +35,12 @@ void AbstractTreeNode::toBinary(ByteBuffer* out) {
 	out->putLong(this->fpos);
 }
 
+void AbstractTreeNode::fromBinaryAbstract(ByteBuffer* in, BTreeKeyFactory* factory) {
+	factory->fromBinary(in);
+
+	this->fpos = in->getLong();
+}
+
+
 } /* namespace alinous */
+

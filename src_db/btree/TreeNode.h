@@ -10,14 +10,18 @@
 
 #include "btree/AbstractTreeNode.h"
 #include "base/ArrayList.h"
+#include "base/RawArrayPrimitive.h"
 
 #include <inttypes.h>
 
 namespace alinous {
 
 class AbstractBtreeKey;
+class BTreeKeyFactory;
 
 class TreeNode: public AbstractTreeNode {
+private:
+	TreeNode();
 public:
 	explicit TreeNode(int numChildren, AbstractBtreeKey* key, bool reaf);
 	explicit TreeNode(bool isroot, int numChildren, AbstractBtreeKey* key, bool reaf);
@@ -30,11 +34,12 @@ public:
 
 	virtual int binarySize();
 	virtual void toBinary(ByteBuffer* out);
+	static TreeNode* fromBinary(ByteBuffer* in, BTreeKeyFactory* factory);
 
 private:
 	bool root;
-	bool reaf;
-	ArrayList<AbstractTreeNode>* children;
+	bool leaf;
+	RawArrayPrimitive<uint64_t>* children;
 };
 
 } /* namespace alinous */

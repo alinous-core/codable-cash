@@ -11,6 +11,7 @@ set(__src
 	InfinityKey.cpp
 	NodeCache.cpp
 	NodeCacheRef.cpp
+	NodeHandle.cpp
 	TreeNode.cpp
 )
 handle_sub(codablecashlib "${__src}" db btree)

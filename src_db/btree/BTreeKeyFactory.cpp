@@ -15,4 +15,10 @@ BTreeKeyFactory::BTreeKeyFactory() {
 BTreeKeyFactory::~BTreeKeyFactory() {
 }
 
+AbstractBtreeKey* BTreeKeyFactory::fromBinary(ByteBuffer* in) {
+
+}
+
+
 } /* namespace alinous */
+

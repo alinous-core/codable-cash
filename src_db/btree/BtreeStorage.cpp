@@ -9,8 +9,11 @@
 #include "btree/BtreeHeaderBlock.h"
 #include "btree/InfinityKey.h"
 #include "btree/TreeNode.h"
+#include "btree/DataNode.h"
 #include "btree/BtreeConfig.h"
 #include "btree/NodeCache.h"
+#include "btree/NodeHandle.h"
+
 
 #include "base_io/File.h"
 #include "base_io/ReverseByteBuffer.h"
@@ -20,11 +23,14 @@
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
+#include "base_thread/StackUnlocker.h"
+
 namespace alinous {
 
-BtreeStorage::BtreeStorage(File* folder, UnicodeString* name) {
+BtreeStorage::BtreeStorage(File* folder, UnicodeString* name, BTreeKeyFactory* factory) {
 	this->name = name;
 	this->folder = folder;
+	this->factory = factory;
 	this->store = nullptr;
 	this->cache = nullptr;
 	this->rootFpos = 0;
@@ -141,6 +147,43 @@ void BtreeStorage::close() {
 	this->cache->clear();
 }
 
+NodeHandle* BtreeStorage::loadRoot() {
+	return loadNode(this->rootFpos);
+}
+
+NodeHandle* BtreeStorage::loadNode(uint64_t fpos) {
+	StackUnlocker __lock(&this->lock);
+
+	NodeCacheRef* ref = this->cache->get(fpos);
+	if(ref != nullptr){
+		return new NodeHandle(ref);
+	}
+
+	BlockHandle* handle = this->store->get(fpos);
+	StackRelease<BlockHandle> __st_handle(handle);
+
+	ByteBuffer* buff = handle->getBuffer();
+	buff->position(0);
+
+	AbstractTreeNode* node = BtreeStorage::makeNodeFromBinary(buff, this->factory);
+
+	this->cache->add(node);
+	ref = this->cache->get(fpos);
+
+	return new NodeHandle(ref);
+}
+
+AbstractTreeNode* BtreeStorage::makeNodeFromBinary(ByteBuffer* buff, BTreeKeyFactory* factory) {
+	char nodeType = buff->get();
+
+	if(nodeType == AbstractTreeNode::NODE){
+		return TreeNode::fromBinary(buff, factory);
+	}
+
+	assert(nodeType == AbstractTreeNode::DATA);
+	return DataNode::fromBinary(buff, factory);
+}
 
 } /* namespace alinous */
+
 

@@ -14,6 +14,7 @@
 namespace alinous {
 
 class AbstractBtreeKey;
+class BTreeKeyFactory;
 
 class AbstractTreeNode : IBlockObject {
 public:
@@ -37,6 +38,8 @@ public:
 
 	virtual int binarySize();
 	virtual void toBinary(ByteBuffer* out);
+
+	void fromBinaryAbstract(ByteBuffer* in, BTreeKeyFactory* factory);
 
 protected:
 	AbstractBtreeKey* key;
