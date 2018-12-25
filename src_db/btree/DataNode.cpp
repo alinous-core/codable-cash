@@ -9,8 +9,7 @@
 
 namespace alinous {
 
-DataNode::DataNode() : AbstractTreeNode(nullptr) {
-
+DataNode::DataNode(AbstractBtreeKey* key) : AbstractTreeNode(key) {
 
 }
 

@@ -7,6 +7,7 @@ set(__src
 	BtreeConfig.cpp
 	BtreeStorage.cpp
 	DataNode.cpp
+	exceptions.cpp
 	NodeCache.cpp
 	NodeCacheRef.cpp
 	NodeHandle.cpp

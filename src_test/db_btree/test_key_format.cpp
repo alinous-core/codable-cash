@@ -9,6 +9,7 @@
 #include "test_utils/t_macros.h"
 
 #include "btreekey/exceptions.h"
+#include "btree/exceptions.h"
 #include "btreekey/BTreeKeyFactory.h"
 
 
@@ -20,6 +21,7 @@ TEST_GROUP(TestKeyFormatGroup) {
 };
 
 TEST(TestKeyFormatGroup, exceptions){
+	testException<NodeStructureException>();
 	testException<KeyFormatException>();
 }
 

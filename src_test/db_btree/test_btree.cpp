@@ -9,8 +9,11 @@
 
 #include "btree/Btree.h"
 #include "btree/BtreeConfig.h"
-#include "btreekey/BTreeKeyFactory.h"
+#include "btree/TreeNode.h"
+#include "btree/DataNode.h"
+#include "btree/exceptions.h"
 
+#include "btreekey/BTreeKeyFactory.h"
 #include "btreekey/ULongKey.h"
 #include "TempValue.h"
 
@@ -30,6 +33,44 @@ TEST_GROUP(TestBTreeGroup) {
 	TEST_SETUP() {}
 	TEST_TEARDOWN() {}
 };
+
+TEST(TestBTreeGroup, casterror01){
+	uint64_t fpos = 256;
+
+	TreeNode* node = new TreeNode(false, 4, new ULongKey(1), true);
+	node->setFpos(fpos);
+
+	Exception* ex = nullptr;
+	try{
+		AbstractTreeNode::toDataNode(node);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+	delete ex;
+
+	delete node;
+}
+
+TEST(TestBTreeGroup, casterror02){
+	uint64_t fpos = 256;
+
+	DataNode* node = new DataNode(new ULongKey(1));
+	node->setFpos(fpos);
+
+	Exception* ex = nullptr;
+	try{
+		AbstractTreeNode::toTreeNode(node);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+	delete ex;
+
+	delete node;
+}
 
 TEST(TestBTreeGroup, constract){
 	File projectFolder = this->env->testCaseDir();

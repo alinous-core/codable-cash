@@ -11,6 +11,8 @@
 namespace alinous {
 
 class NodeCacheRef;
+class TreeNode;
+class DataNode;
 
 class NodeHandle {
 public:
@@ -18,6 +20,12 @@ public:
 	explicit NodeHandle(NodeCacheRef* ref);
 	virtual ~NodeHandle();
 
+	bool isRoot() const;
+	bool isLeaf() const;
+	bool isData() const noexcept;
+
+	TreeNode* toTreeNode() const;
+	DataNode* toDataNode() const;
 private:
 	NodeCacheRef* ref;
 };

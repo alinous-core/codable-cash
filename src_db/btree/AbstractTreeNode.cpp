@@ -7,6 +7,11 @@
 
 #include "btree/AbstractTreeNode.h"
 #include "btree/AbstractBtreeKey.h"
+#include "btree/exceptions.h"
+
+#include "btree/TreeNode.h"
+#include "btree/DataNode.h"
+
 #include "btreekey/BTreeKeyFactory.h"
 
 #include "base_io/ReverseByteBuffer.h"
@@ -42,6 +47,19 @@ void AbstractTreeNode::fromBinaryAbstract(ByteBuffer* in, BTreeKeyFactory* facto
 	this->fpos = in->getLong();
 }
 
+DataNode* AbstractTreeNode::toDataNode(AbstractTreeNode* node) {
+	if(!node->isData()){
+		throw new NodeStructureException(__FILE__, __LINE__);
+	}
+	return dynamic_cast<DataNode*>(node);
+}
+
+TreeNode* AbstractTreeNode::toTreeNode(AbstractTreeNode* node) {
+	if(node->isData()){
+		throw new NodeStructureException(__FILE__, __LINE__);
+	}
+	return dynamic_cast<TreeNode*>(node);
+}
 
 } /* namespace alinous */
 

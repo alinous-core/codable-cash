@@ -13,10 +13,11 @@
 namespace alinous {
 
 class BTreeKeyFactory;
+class AbstractBtreeKey;
 
 class DataNode: public AbstractTreeNode {
 public:
-	DataNode();
+	DataNode(AbstractBtreeKey* key);
 	virtual ~DataNode();
 
 	virtual bool isData() const { return true; }
