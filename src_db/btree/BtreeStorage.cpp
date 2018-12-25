@@ -77,6 +77,7 @@ void BtreeStorage::create(DiskCacheManager* cacheManager, BtreeConfig* config) {
 
 		InfinityKey* infinityKey = new InfinityKey();
 		TreeNode rootNode(true, config->nodeNumber, infinityKey, true);
+		rootNode.setFpos(rootFpos);
 
 		int cap = rootNode.binarySize();
 		ByteBuffer* buff = ReverseByteBuffer::allocateWithEndian(cap, true);

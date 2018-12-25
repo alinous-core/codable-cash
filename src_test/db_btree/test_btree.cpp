@@ -10,6 +10,10 @@
 #include "btree/Btree.h"
 #include "btree/BtreeConfig.h"
 #include "btreekey/BTreeKeyFactory.h"
+
+#include "btreekey/ULongKey.h"
+#include "TempValue.h"
+
 #include "random_access_file/DiskCacheManager.h"
 
 #include "base/StackRelease.h"
@@ -58,6 +62,13 @@ TEST(TestBTreeGroup, open){
 
 	BtreeOpenConfig opconf;
 	btree.open(&opconf);
+
+	{
+		ULongKey key(10);
+		TempValue value;
+
+		btree.insert(&key, &value);
+	}
 
 	btree.close();
 

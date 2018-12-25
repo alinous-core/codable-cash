@@ -82,6 +82,16 @@ TreeNode* TreeNode::fromBinary(ByteBuffer* in, BTreeKeyFactory* factory) {
 
 	node->fromBinaryAbstract(in, factory);
 
+	node->root = (in->get() == 1);
+	node->leaf = (in->get() == 1);
+
+	int maxLoop = in->getInt();
+	node->children = new RawArrayPrimitive<uint64_t>(maxLoop);
+	for(int i = 0; i != maxLoop; ++i){
+		uint64_t nodefpos = in->getLong();
+		node->children->addElement(nodefpos);
+	}
+
 	return node;
 }
 
