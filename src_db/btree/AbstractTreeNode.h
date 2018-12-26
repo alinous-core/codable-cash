@@ -10,6 +10,7 @@
 
 #include "filestore_block/IBlockObject.h"
 #include <inttypes.h>
+#include "base/RawArrayPrimitive.h"
 
 namespace alinous {
 
@@ -40,8 +41,9 @@ public:
 
 	virtual int binarySize();
 	virtual void toBinary(ByteBuffer* out);
-
 	void fromBinaryAbstract(ByteBuffer* in, BTreeKeyFactory* factory);
+
+	virtual RawArrayPrimitive<uint64_t>* getInnerNodeFpos() const = 0;
 
 	static DataNode* toDataNode(AbstractTreeNode* node);
 	static TreeNode* toTreeNode(AbstractTreeNode* node);

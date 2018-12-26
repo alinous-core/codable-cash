@@ -10,6 +10,7 @@
 #include "btree/BtreeHeaderBlock.h"
 #include "btree/BtreeConfig.h"
 #include "btree/NodeHandle.h"
+#include "btree/NodeCursor.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
@@ -64,11 +65,9 @@ void Btree::close() {
 
 void Btree::insert(AbstractBtreeKey* key, IBlockObject* data) {
 	NodeHandle* rootNode = this->store->loadRoot();
-	StackRelease<NodeHandle> __st_rootNode(rootNode);
 
-
-
-
+	NodeCursor cursor(rootNode, this->store, this->config->nodeNumber);
+	cursor.insert(key, data);
 }
 
 } /* namespace alinous */

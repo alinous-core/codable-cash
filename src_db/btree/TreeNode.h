@@ -36,6 +36,7 @@ public:
 	virtual void toBinary(ByteBuffer* out);
 	static TreeNode* fromBinary(ByteBuffer* in, BTreeKeyFactory* factory);
 
+	virtual RawArrayPrimitive<uint64_t>* getInnerNodeFpos() const;
 private:
 	bool root;
 	bool leaf;

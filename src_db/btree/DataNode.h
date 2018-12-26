@@ -10,6 +10,8 @@
 
 #include "btree/AbstractTreeNode.h"
 
+#include "base/RawArrayPrimitive.h"
+
 namespace alinous {
 
 class BTreeKeyFactory;
@@ -17,13 +19,19 @@ class AbstractBtreeKey;
 
 class DataNode: public AbstractTreeNode {
 public:
-	explicit DataNode(AbstractBtreeKey* key);
+	DataNode();
+	explicit DataNode(int numChildren, AbstractBtreeKey* key);
 	virtual ~DataNode();
 
 	virtual bool isData() const { return true; }
 	virtual int binarySize();
 	virtual void toBinary(ByteBuffer* out);
 	static DataNode* fromBinary(ByteBuffer* in, BTreeKeyFactory* factory);
+
+	virtual RawArrayPrimitive<uint64_t>* getInnerNodeFpos() const;
+
+private:
+	RawArrayPrimitive<uint64_t>* children;
 };
 
 } /* namespace alinous */

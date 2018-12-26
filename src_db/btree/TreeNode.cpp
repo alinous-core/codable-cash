@@ -95,6 +95,9 @@ TreeNode* TreeNode::fromBinary(ByteBuffer* in, BTreeKeyFactory* factory) {
 	return node;
 }
 
+RawArrayPrimitive<uint64_t>* TreeNode::getInnerNodeFpos() const {
+	return this->children;
+}
 
 } /* namespace alinous */
 

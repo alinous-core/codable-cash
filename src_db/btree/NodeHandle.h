@@ -8,6 +8,10 @@
 #ifndef BTREE_NODEHANDLE_H_
 #define BTREE_NODEHANDLE_H_
 
+#include "base/RawArrayPrimitive.h"
+
+#include <inttypes.h>
+
 namespace alinous {
 
 class NodeCacheRef;
@@ -26,6 +30,8 @@ public:
 
 	TreeNode* toTreeNode() const;
 	DataNode* toDataNode() const;
+
+	RawArrayPrimitive<uint64_t>* getInnerNodeFpos() const;
 private:
 	NodeCacheRef* ref;
 };

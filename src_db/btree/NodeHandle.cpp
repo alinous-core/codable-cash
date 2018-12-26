@@ -41,4 +41,8 @@ DataNode* NodeHandle::toDataNode() const {
 	return AbstractTreeNode::toDataNode(this->ref->getNode());
 }
 
+RawArrayPrimitive<uint64_t>* NodeHandle::getInnerNodeFpos() const {
+	return this->ref->getNode()->getInnerNodeFpos();
+}
+
 } /* namespace alinous */
