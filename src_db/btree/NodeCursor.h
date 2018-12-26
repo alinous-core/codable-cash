@@ -37,6 +37,7 @@ private:
 
 class NodeCursor {
 public:
+	NodeCursor(const NodeCursor& inst) = delete;
 	NodeCursor(NodeHandle* rootNode, BtreeStorage* store, int nodeNumber);
 	virtual ~NodeCursor();
 
