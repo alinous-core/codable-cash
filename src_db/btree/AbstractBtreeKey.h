@@ -18,6 +18,7 @@ public:
 	virtual ~AbstractBtreeKey();
 
 	virtual bool isInfinity() = 0;
+	virtual int compareTo(AbstractBtreeKey* key) const noexcept = 0;
 };
 
 } /* namespace alinous */

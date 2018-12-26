@@ -33,6 +33,8 @@ public:
 	virtual void toBinary(ByteBuffer* out);
 	static ULongKey* fromBinary(ByteBuffer* in);
 
+	virtual int compareTo(AbstractBtreeKey* key) const noexcept;
+
 private:
 	uint64_t value;
 };

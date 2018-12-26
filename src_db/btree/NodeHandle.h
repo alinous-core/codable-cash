@@ -28,6 +28,8 @@ public:
 	bool isLeaf() const;
 	bool isData() const noexcept;
 
+	NodeCacheRef* getRef() const noexcept;
+
 	TreeNode* toTreeNode() const;
 	DataNode* toDataNode() const;
 

@@ -33,6 +33,10 @@ bool NodeHandle::isData() const noexcept {
 	return this->ref->getNode()->isData();
 }
 
+NodeCacheRef* NodeHandle::getRef() const noexcept {
+	return this->ref;
+}
+
 TreeNode* NodeHandle::toTreeNode() const {
 	return AbstractTreeNode::toTreeNode(this->ref->getNode());
 }
@@ -46,3 +50,5 @@ RawArrayPrimitive<uint64_t>* NodeHandle::getInnerNodeFpos() const {
 }
 
 } /* namespace alinous */
+
+

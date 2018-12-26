@@ -17,6 +17,7 @@ class BtreeStorage;
 class AbstractBtreeKey;
 class IBlockObject;
 class AbstractTreeNode;
+class AbstractBtreeKey;
 
 class NodePosition {
 public:
@@ -24,6 +25,7 @@ public:
 	~NodePosition();
 
 	bool isLeaf() const;
+	bool hasKey(AbstractBtreeKey* key) const;
 
 	void loadInnerNodes(BtreeStorage* store);
 private:
@@ -50,6 +52,7 @@ public:
 private:
 	ArrayList<NodePosition>* nodestack;
 	int nodeNumber; // max inner nodes number in a node
+	BtreeStorage* store;
 
 };
 

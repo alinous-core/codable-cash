@@ -35,6 +35,12 @@ InfinityKey* InfinityKey::fromBinary(ByteBuffer* in) {
 	return new InfinityKey();
 }
 
+int InfinityKey::compareTo(AbstractBtreeKey* key) const noexcept {
+	if(key->isInfinity()){
+		return 0;
+	}
+	return 1;
+}
 
 } /* namespace alinous */
 

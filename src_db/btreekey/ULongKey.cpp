@@ -35,6 +35,15 @@ ULongKey* ULongKey::fromBinary(ByteBuffer* in) {
 	return new ULongKey(value);
 }
 
+int ULongKey::compareTo(AbstractBtreeKey* key) const noexcept {
+	if(key->isInfinity()){
+		return -1;
+	}
+
+	ULongKey* ulkey = dynamic_cast<ULongKey*>(key);
+
+	return this->value - ulkey->value;
+}
 
 } /* namespace alinous */
 

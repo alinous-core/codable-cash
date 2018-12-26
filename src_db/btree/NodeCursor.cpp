@@ -7,7 +7,10 @@
 
 #include "btree/NodeCursor.h"
 #include "btree/NodeHandle.h"
+#include "btree/AbstractTreeNode.h"
 #include "btree/AbstractBtreeKey.h"
+#include "btree/BtreeStorage.h"
+#include "btree/NodeCacheRef.h"
 
 namespace alinous {
 
@@ -31,10 +34,37 @@ bool NodePosition::isLeaf() const {
 	return this->node->isLeaf();
 }
 
-void NodePosition::loadInnerNodes(BtreeStorage* store) {
-	RawArrayPrimitive<uint64_t>* fopsList = this->node->getInnerNodeFpos();
-	this->innerNodes = new ArrayList<NodeHandle>(fopsList->size());
+bool NodePosition::hasKey(AbstractBtreeKey* key) const {
+	int maxLoop = this->innerNodes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		NodeHandle* nodeHandle = this->innerNodes->get(i);
+		if(nodeHandle == nullptr){
+			return false;
+		}
+		AbstractBtreeKey* inkey = nodeHandle->getRef()->getNode()->getKey();
+		if(key->compareTo(inkey)){
+			return true;
+		}
+	}
 
+	return false;
+}
+
+void NodePosition::loadInnerNodes(BtreeStorage* store) {
+	RawArrayPrimitive<uint64_t>* fposList = this->node->getInnerNodeFpos();
+	this->innerNodes = new ArrayList<NodeHandle>(fposList->size());
+
+	int maxLoop = fposList->size();
+	for(int i = 0; i != maxLoop; ++i){
+		uint64_t fpos = fposList->get(i);
+		if(fpos == 0){
+			this->innerNodes->addElement(nullptr);
+			continue;
+		}
+
+		NodeHandle* nodeHandle = store->loadNode(fpos);
+		this->innerNodes->addElement(nodeHandle);
+	}
 }
 
 /****************************************************************************************/
@@ -44,6 +74,7 @@ NodeCursor::NodeCursor(NodeHandle* rootNode, BtreeStorage* store, int nodeNumber
 	NodePosition* npos = new NodePosition(rootNode);
 	push(npos);
 
+	this->store = store;
 	this->nodeNumber = nodeNumber;
 }
 
@@ -79,13 +110,18 @@ NodePosition* NodeCursor::top() noexcept {
 void NodeCursor::insert(AbstractBtreeKey* key, IBlockObject* data) {
 	NodePosition* current = top();
 
+	// check data nodes
+	current->loadInnerNodes(this->store);
+
 	// down to leaf node
 	while(!current->isLeaf()){
 
 	}
 
-	// check data nodes
 	// 1. already has key
+	if(current->hasKey(key)){
+		return;
+	}
 
 	// 2. Add key, then check whether the node is full or not
 
