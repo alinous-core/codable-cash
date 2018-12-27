@@ -42,5 +42,9 @@ int InfinityKey::compareTo(AbstractBtreeKey* key) const noexcept {
 	return 1;
 }
 
+AbstractBtreeKey* InfinityKey::clone() const noexcept {
+	return new InfinityKey();
+}
+
 } /* namespace alinous */
 

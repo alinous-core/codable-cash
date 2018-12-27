@@ -12,6 +12,7 @@
 #include "btree/TreeNode.h"
 #include "btree/DataNode.h"
 #include "btree/exceptions.h"
+#include "btree/NodeCursor.h"
 
 #include "btreekey/BTreeKeyFactory.h"
 #include "btreekey/ULongKey.h"
@@ -72,6 +73,19 @@ TEST(TestBTreeGroup, casterror02){
 	delete node;
 }
 
+TEST(TestBTreeGroup, structureerror01){
+
+	Exception* ex;
+	try{
+		NodePosition::checkNoNull(nullptr, __FILE__, __LINE__);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+	delete ex;
+}
+
 TEST(TestBTreeGroup, constract){
 	File projectFolder = this->env->testCaseDir();
 	_ST(File, baseDir, projectFolder.get(L"store"))
@@ -79,9 +93,10 @@ TEST(TestBTreeGroup, constract){
 
 	DiskCacheManager cacheManager;
 	UnicodeString name(L"file01");
-	BTreeKeyFactory factory;
+	BTreeKeyFactory* factory = new BTreeKeyFactory();
+	TmpValueFactory* dfactory = new TmpValueFactory();
 
-	Btree btree(baseDir, &name, &cacheManager, &factory);
+	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
 
 	BtreeConfig config;
 	btree.create(&config);
@@ -94,9 +109,31 @@ TEST(TestBTreeGroup, open){
 
 	DiskCacheManager cacheManager;
 	UnicodeString name(L"file01");
-	BTreeKeyFactory factory;
+	BTreeKeyFactory* factory = new BTreeKeyFactory();
+	TmpValueFactory* dfactory = new TmpValueFactory();
 
-	Btree btree(baseDir, &name, &cacheManager, &factory);
+	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
+
+	BtreeConfig config;
+	btree.create(&config);
+
+	BtreeOpenConfig opconf;
+	btree.open(&opconf);
+	btree.close();
+}
+
+
+TEST(TestBTreeGroup, add01){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file01");
+	BTreeKeyFactory* factory = new BTreeKeyFactory();
+	TmpValueFactory* dfactory = new TmpValueFactory();
+
+	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
 
 	BtreeConfig config;
 	btree.create(&config);
@@ -112,5 +149,4 @@ TEST(TestBTreeGroup, open){
 	}
 
 	btree.close();
-
 }

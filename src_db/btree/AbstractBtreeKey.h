@@ -19,6 +19,7 @@ public:
 
 	virtual bool isInfinity() = 0;
 	virtual int compareTo(AbstractBtreeKey* key) const noexcept = 0;
+	virtual AbstractBtreeKey* clone()  const noexcept = 0;
 };
 
 } /* namespace alinous */

@@ -25,9 +25,12 @@ public:
 	~NodePosition();
 
 	bool isLeaf() const;
-	bool hasKey(AbstractBtreeKey* key) const;
+	bool hasKey(const AbstractBtreeKey* key) const;
+	bool isFull(int nodeNumber) const noexcept;
 
 	void loadInnerNodes(BtreeStorage* store);
+
+	static void checkNoNull(NodeHandle* nodeHandle, const char* srcfile, int srcline) noexcept(false);
 private:
 	int pos;
 	NodeHandle* node;
@@ -48,7 +51,10 @@ public:
 	void push(NodePosition* node) noexcept;
 	NodePosition* top() noexcept;
 
-	void insert(AbstractBtreeKey* key, IBlockObject* data);
+	void insert(const AbstractBtreeKey* key, const IBlockObject* data);
+private:
+	void splitNode();
+
 private:
 	ArrayList<NodePosition>* nodestack;
 	int nodeNumber; // max inner nodes number in a node

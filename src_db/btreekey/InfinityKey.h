@@ -24,6 +24,7 @@ public:
 	static InfinityKey* fromBinary(ByteBuffer* in);
 
 	virtual int compareTo(AbstractBtreeKey* key) const noexcept;
+	virtual AbstractBtreeKey* clone() const noexcept;
 };
 
 } /* namespace alinous */

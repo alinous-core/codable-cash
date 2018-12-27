@@ -45,5 +45,9 @@ int ULongKey::compareTo(AbstractBtreeKey* key) const noexcept {
 	return this->value - ulkey->value;
 }
 
+AbstractBtreeKey* ULongKey::clone() const noexcept {
+	return new ULongKey(this->value);
+}
+
 } /* namespace alinous */
 

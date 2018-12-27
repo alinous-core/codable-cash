@@ -22,4 +22,12 @@ int TempValue::binarySize() {
 void TempValue::toBinary(ByteBuffer* out) {
 }
 
+/**************************************************/
+
+alinous::TmpValueFactory::~TmpValueFactory() {
+
+}
+
 } /* namespace alinous */
+
+

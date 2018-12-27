@@ -12,16 +12,20 @@
 #include "btree/NodeHandle.h"
 #include "btree/NodeCursor.h"
 
+#include "btree/AbstractBtreeDataFactory.h"
+#include "btreekey/BTreeKeyFactory.h"
+
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 #include "base_io/File.h"
 
 namespace alinous {
 
-Btree::Btree(File* folder, UnicodeString* name, DiskCacheManager* cacheManager, BTreeKeyFactory* factory) {
+Btree::Btree(File* folder, UnicodeString* name, DiskCacheManager* cacheManager, BTreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory) {
 	this->folder = new File(*folder);
 	this->name = new UnicodeString(name);
 	this->factory = factory;
+	this->dfactory = dfactory;
 	this->store = nullptr;
 	this->cacheManager = cacheManager;
 
@@ -37,6 +41,8 @@ Btree::~Btree() {
 	}
 	delete this->name, this->name = nullptr;
 	delete this->folder, this->folder = nullptr;
+	delete this->factory;
+	delete this->dfactory;
 }
 
 void Btree::create(BtreeConfig* config) {

@@ -11,6 +11,7 @@
 #include <inttypes.h>
 
 #include "filestore_block/IBlockObject.h"
+#include "btree/AbstractBtreeDataFactory.h"
 
 namespace alinous {
 
@@ -22,6 +23,11 @@ public:
 	virtual int binarySize();
 	virtual void toBinary(ByteBuffer* out);
 
+};
+
+class TmpValueFactory : public AbstractBtreeDataFactory {
+public:
+	virtual ~TmpValueFactory();
 };
 
 } /* namespace alinous */

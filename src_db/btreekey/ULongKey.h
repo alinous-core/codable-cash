@@ -34,6 +34,7 @@ public:
 	static ULongKey* fromBinary(ByteBuffer* in);
 
 	virtual int compareTo(AbstractBtreeKey* key) const noexcept;
+	virtual AbstractBtreeKey* clone() const noexcept;
 
 private:
 	uint64_t value;

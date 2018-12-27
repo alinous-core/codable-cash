@@ -11,6 +11,9 @@
 #include "btree/AbstractBtreeKey.h"
 #include "btree/BtreeStorage.h"
 #include "btree/NodeCacheRef.h"
+#include "btree/exceptions.h"
+
+#include "btree/DataNode.h"
 
 namespace alinous {
 
@@ -34,7 +37,7 @@ bool NodePosition::isLeaf() const {
 	return this->node->isLeaf();
 }
 
-bool NodePosition::hasKey(AbstractBtreeKey* key) const {
+bool NodePosition::hasKey(const AbstractBtreeKey* key) const {
 	int maxLoop = this->innerNodes->size();
 	for(int i = 0; i != maxLoop; ++i){
 		NodeHandle* nodeHandle = this->innerNodes->get(i);
@@ -54,6 +57,8 @@ void NodePosition::loadInnerNodes(BtreeStorage* store) {
 	RawArrayPrimitive<uint64_t>* fposList = this->node->getInnerNodeFpos();
 	this->innerNodes = new ArrayList<NodeHandle>(fposList->size());
 
+	this->innerCount = 0;
+
 	int maxLoop = fposList->size();
 	for(int i = 0; i != maxLoop; ++i){
 		uint64_t fpos = fposList->get(i);
@@ -63,10 +68,22 @@ void NodePosition::loadInnerNodes(BtreeStorage* store) {
 		}
 
 		NodeHandle* nodeHandle = store->loadNode(fpos);
+		checkNoNull(nodeHandle, __FILE__, __LINE__);
+
 		this->innerNodes->addElement(nodeHandle);
+		this->innerCount++;
 	}
 }
 
+bool NodePosition::isFull(int nodeNumber) const noexcept {
+	return this->innerCount >= nodeNumber;
+}
+
+void NodePosition::checkNoNull(NodeHandle* nodeHandle, const char* srcfile, int srcline) noexcept(false) {
+	if(nodeHandle == nullptr){
+		throw new NodeStructureException(srcfile, srcline);
+	}
+}
 /****************************************************************************************/
 
 NodeCursor::NodeCursor(NodeHandle* rootNode, BtreeStorage* store, int nodeNumber) {
@@ -107,7 +124,7 @@ NodePosition* NodeCursor::top() noexcept {
 	return this->nodestack->get(index);
 }
 
-void NodeCursor::insert(AbstractBtreeKey* key, IBlockObject* data) {
+void NodeCursor::insert(const AbstractBtreeKey* key, const IBlockObject* data) {
 	NodePosition* current = top();
 
 	// check data nodes
@@ -124,6 +141,13 @@ void NodeCursor::insert(AbstractBtreeKey* key, IBlockObject* data) {
 	}
 
 	// 2. Add key, then check whether the node is full or not
+	if(current->isFull(this->nodeNumber)){
+
+		return;
+	}
+
+	// simply add data
+	DataNode dataNode(this->nodeNumber, key->clone());
 
 }
 
