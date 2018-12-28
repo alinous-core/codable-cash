@@ -57,7 +57,7 @@ TEST(TestBTreeGroup, casterror01){
 TEST(TestBTreeGroup, casterror02){
 	uint64_t fpos = 256;
 
-	DataNode* node = new DataNode(1, new ULongKey(1));
+	DataNode* node = new DataNode(new ULongKey(1));
 	node->setFpos(fpos);
 
 	Exception* ex = nullptr;

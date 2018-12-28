@@ -17,6 +17,7 @@ namespace alinous {
 class NodeCacheRef;
 class TreeNode;
 class DataNode;
+class AbstractBtreeKey;
 
 class NodeHandle {
 public:
@@ -29,6 +30,7 @@ public:
 	bool isData() const noexcept;
 
 	NodeCacheRef* getRef() const noexcept;
+	AbstractBtreeKey* getKey() const noexcept;
 
 	TreeNode* toTreeNode() const;
 	DataNode* toDataNode() const;

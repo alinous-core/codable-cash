@@ -190,13 +190,13 @@ AbstractTreeNode* BtreeStorage::makeNodeFromBinary(ByteBuffer* buff, BTreeKeyFac
 
 uint64_t BtreeStorage::storeData(const IBlockObject* data) {
 	int size = data->binarySize();
+	BlockHandle* handle = this->store->alloc(size);
+	StackRelease<BlockHandle> __st_handle(handle);
+
 	ByteBuffer* buff = ReverseByteBuffer::allocateWithEndian(size, true);
 	StackRelease<ByteBuffer> __st_buff(buff);
 
 	data->toBinary(buff);
-
-	BlockHandle* handle = this->store->alloc(size);
-	StackRelease<BlockHandle> __st_handle(handle);
 
 	const char* ptr = (const char*)buff->array();
 	handle->write(ptr, size);
@@ -204,20 +204,37 @@ uint64_t BtreeStorage::storeData(const IBlockObject* data) {
 	return handle->getFpos();
 }
 
-uint64_t BtreeStorage::storeNode(const AbstractTreeNode* node) {
+uint64_t BtreeStorage::storeNode(AbstractTreeNode* node) {
 	int size = node->binarySize();
+	BlockHandle* handle = this->store->alloc(size);
+	StackRelease<BlockHandle> __st_handle(handle);
+
+	ByteBuffer* buff = ReverseByteBuffer::allocateWithEndian(size, true);
+	StackRelease<ByteBuffer> __st_buff(buff);
+
+	node->setFpos(handle->getFpos());
+	node->toBinary(buff);
+
+	const char* ptr = (const char*)buff->array();
+	handle->write(ptr, size);
+
+	return handle->getFpos();
+}
+
+void BtreeStorage::updateNode(AbstractTreeNode* node) {
+	int size = node->binarySize();
+	BlockHandle* handle = this->store->get(node->getFpos());
+	StackRelease<BlockHandle> __st_handle(handle);
+
 	ByteBuffer* buff = ReverseByteBuffer::allocateWithEndian(size, true);
 	StackRelease<ByteBuffer> __st_buff(buff);
 
 	node->toBinary(buff);
 
-	BlockHandle* handle = this->store->alloc(size);
-	StackRelease<BlockHandle> __st_handle(handle);
-
 	const char* ptr = (const char*)buff->array();
-
-	return handle->getFpos();
+	handle->write(ptr, size);
 }
+
 
 } /* namespace alinous */
 

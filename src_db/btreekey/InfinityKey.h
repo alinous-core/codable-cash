@@ -17,13 +17,13 @@ public:
 	InfinityKey();
 	virtual ~InfinityKey();
 
-	virtual bool isInfinity();
+	virtual bool isInfinity() const;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
 	static InfinityKey* fromBinary(ByteBuffer* in);
 
-	virtual int compareTo(AbstractBtreeKey* key) const noexcept;
+	virtual int compareTo(const AbstractBtreeKey* key) const noexcept;
 	virtual AbstractBtreeKey* clone() const noexcept;
 };
 

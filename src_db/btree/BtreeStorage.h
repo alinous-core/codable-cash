@@ -48,7 +48,9 @@ public:
 	}
 
 	uint64_t storeData(const IBlockObject* data);
-	uint64_t storeNode(const AbstractTreeNode* node);
+	uint64_t storeNode(AbstractTreeNode* node);
+	void updateNode(AbstractTreeNode* node);
+
 private:
 	BtreeHeaderBlock* makeHeader(BtreeConfig* config, uint64_t rootFpos);
 	static AbstractTreeNode* makeNodeFromBinary(ByteBuffer* buff, BTreeKeyFactory* factory);

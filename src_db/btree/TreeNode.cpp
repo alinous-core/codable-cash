@@ -43,7 +43,7 @@ bool TreeNode::isRoot() const noexcept {
 	return this->root;
 }
 
-int TreeNode::binarySize() {
+int TreeNode::binarySize() const {
 	int size = sizeof(char); // nodetype
 
 	size += AbstractTreeNode::binarySize(); // key + fpos...
@@ -60,7 +60,7 @@ bool TreeNode::isLeaf() const noexcept {
 	return this->leaf;
 }
 
-void TreeNode::toBinary(ByteBuffer* out) {
+void TreeNode::toBinary(ByteBuffer* out) const {
 	out->put(AbstractTreeNode::NODE); // nodetype
 
 	AbstractTreeNode::toBinary(out); // key + fpos...

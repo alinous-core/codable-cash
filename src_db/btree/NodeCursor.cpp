@@ -8,6 +8,7 @@
 #include "btree/NodeCursor.h"
 #include "btree/NodeHandle.h"
 #include "btree/AbstractTreeNode.h"
+#include "btree/TreeNode.h"
 #include "btree/AbstractBtreeKey.h"
 #include "btree/BtreeStorage.h"
 #include "btree/NodeCacheRef.h"
@@ -77,6 +78,37 @@ void NodePosition::loadInnerNodes(BtreeStorage* store) {
 
 bool NodePosition::isFull(int nodeNumber) const noexcept {
 	return this->innerCount >= nodeNumber;
+}
+
+void NodePosition::addNode(const AbstractBtreeKey* key, uint64_t fpos, int nodeNumber) {
+	for(int i = 0; i != nodeNumber; ++i){
+		NodeHandle* nh = this->innerNodes->get(i);
+
+		if(nh == nullptr || nh->getKey()->compareTo(key) < 0){
+			internalAddNode(i, fpos);
+			break;
+		}
+	}
+}
+
+void NodePosition::internalAddNode(int index, uint64_t fpos) {
+	TreeNode* treeNode = this->node->toTreeNode();
+	RawArrayPrimitive<uint64_t>* list = treeNode->getInnerNodeFpos();
+
+	int first = list->size() - 1;
+	for(int i = first; i > index; --i){
+		uint64_t f = list->get(i - 1);
+		list->set(i ,f);
+	}
+	list->set(index ,fpos);
+
+	this->innerCount++;
+}
+
+void NodePosition::save(BtreeStorage* store) {
+	AbstractTreeNode* node = this->node->getRef()->getNode();
+
+	store->updateNode(node);
 }
 
 void NodePosition::checkNoNull(NodeHandle* nodeHandle, const char* srcfile, int srcline) noexcept(false) {
@@ -149,9 +181,13 @@ void NodeCursor::insert(const AbstractBtreeKey* key, const IBlockObject* data) {
 	// simply add data
 	uint64_t dataFpos = this->store->storeData(data);
 
-	DataNode dataNode(this->nodeNumber, key->clone());
+	DataNode dataNode(key->clone());
+	dataNode.getInnerNodeFpos()->addElement(dataFpos, 0);
 
+	uint64_t newDataNodeFpos = this->store->storeNode(&dataNode);
 
+	current->addNode(key, newDataNodeFpos, this->nodeNumber);
+	current->save(this->store);
 }
 
 

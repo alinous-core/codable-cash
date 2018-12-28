@@ -35,12 +35,12 @@ ULongKey* ULongKey::fromBinary(ByteBuffer* in) {
 	return new ULongKey(value);
 }
 
-int ULongKey::compareTo(AbstractBtreeKey* key) const noexcept {
+int ULongKey::compareTo(const AbstractBtreeKey* key) const noexcept {
 	if(key->isInfinity()){
 		return -1;
 	}
 
-	ULongKey* ulkey = dynamic_cast<ULongKey*>(key);
+	const ULongKey* ulkey = dynamic_cast<const ULongKey*>(key);
 
 	return this->value - ulkey->value;
 }

@@ -11,12 +11,12 @@
 
 namespace alinous {
 
-DataNode::DataNode() : AbstractTreeNode(key) {
+DataNode::DataNode() : AbstractTreeNode(nullptr) {
 	this->children = nullptr;
 }
 
-DataNode::DataNode(int numChildren, AbstractBtreeKey* key) : AbstractTreeNode(key) {
-	this->children = new RawArrayPrimitive<uint64_t>(numChildren);
+DataNode::DataNode(AbstractBtreeKey* key) : AbstractTreeNode(key) {
+	this->children = new RawArrayPrimitive<uint64_t>(8);
 }
 
 DataNode::~DataNode() {

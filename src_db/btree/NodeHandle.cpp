@@ -49,6 +49,10 @@ RawArrayPrimitive<uint64_t>* NodeHandle::getInnerNodeFpos() const {
 	return this->ref->getNode()->getInnerNodeFpos();
 }
 
+AbstractBtreeKey* NodeHandle::getKey() const noexcept {
+	return this->ref->getNode()->getKey();
+}
+
 } /* namespace alinous */
 
 

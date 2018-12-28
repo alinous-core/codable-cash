@@ -32,8 +32,8 @@ public:
 	bool isRoot() const noexcept;
 	bool isLeaf() const noexcept;
 
-	virtual int binarySize();
-	virtual void toBinary(ByteBuffer* out);
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
 	static TreeNode* fromBinary(ByteBuffer* in, BTreeKeyFactory* factory);
 
 	virtual RawArrayPrimitive<uint64_t>* getInnerNodeFpos() const;

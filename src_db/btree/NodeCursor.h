@@ -10,6 +10,8 @@
 
 #include "base/ArrayList.h"
 
+#include <inttypes.h>
+
 namespace alinous {
 
 class NodeHandle;
@@ -30,7 +32,13 @@ public:
 
 	void loadInnerNodes(BtreeStorage* store);
 
+	void addNode(const AbstractBtreeKey* key, uint64_t fpos, int nodeNumber);
+	void save(BtreeStorage* store);
+
 	static void checkNoNull(NodeHandle* nodeHandle, const char* srcfile, int srcline) noexcept(false);
+private:
+	void internalAddNode(int index, uint64_t fpos);
+
 private:
 	int pos;
 	NodeHandle* node;

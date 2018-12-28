@@ -18,7 +18,7 @@ InfinityKey::InfinityKey() : AbstractBtreeKey() {
 InfinityKey::~InfinityKey() {
 }
 
-bool InfinityKey::isInfinity() {
+bool InfinityKey::isInfinity() const {
 	return true;
 }
 
@@ -35,7 +35,7 @@ InfinityKey* InfinityKey::fromBinary(ByteBuffer* in) {
 	return new InfinityKey();
 }
 
-int InfinityKey::compareTo(AbstractBtreeKey* key) const noexcept {
+int InfinityKey::compareTo(const AbstractBtreeKey* key) const noexcept {
 	if(key->isInfinity()){
 		return 0;
 	}
