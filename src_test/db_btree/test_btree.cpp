@@ -143,7 +143,7 @@ TEST(TestBTreeGroup, add01){
 
 	{
 		ULongKey key(10);
-		TempValue value;
+		TempValue value(10);
 
 		btree.insert(&key, &value);
 	}

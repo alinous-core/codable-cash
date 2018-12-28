@@ -27,7 +27,7 @@ AbstractTreeNode::~AbstractTreeNode() {
 	delete this->key;
 }
 
-int AbstractTreeNode::binarySize() {
+int AbstractTreeNode::binarySize() const {
 	int size = this->key->binarySize();
 
 	size += sizeof(this->fpos);
@@ -35,7 +35,7 @@ int AbstractTreeNode::binarySize() {
 	return size;
 }
 
-void AbstractTreeNode::toBinary(ByteBuffer* out) {
+void AbstractTreeNode::toBinary(ByteBuffer* out) const {
 	this->key->toBinary(out);
 	out->putLong(this->fpos);
 }

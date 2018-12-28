@@ -107,6 +107,8 @@ void BtreeStorage::create(DiskCacheManager* cacheManager, BtreeConfig* config) {
 		handle->write((const char*)buff->array(), headerSize);
 	}
 
+	blockstore->sync(false);
+
 	blockstore->close();
 }
 
@@ -185,6 +187,37 @@ AbstractTreeNode* BtreeStorage::makeNodeFromBinary(ByteBuffer* buff, BTreeKeyFac
 	return DataNode::fromBinary(buff, factory);
 }
 
-} /* namespace alinous */
 
+uint64_t BtreeStorage::storeData(const IBlockObject* data) {
+	int size = data->binarySize();
+	ByteBuffer* buff = ReverseByteBuffer::allocateWithEndian(size, true);
+	StackRelease<ByteBuffer> __st_buff(buff);
+
+	data->toBinary(buff);
+
+	BlockHandle* handle = this->store->alloc(size);
+	StackRelease<BlockHandle> __st_handle(handle);
+
+	const char* ptr = (const char*)buff->array();
+	handle->write(ptr, size);
+
+	return handle->getFpos();
+}
+
+uint64_t BtreeStorage::storeNode(const AbstractTreeNode* node) {
+	int size = node->binarySize();
+	ByteBuffer* buff = ReverseByteBuffer::allocateWithEndian(size, true);
+	StackRelease<ByteBuffer> __st_buff(buff);
+
+	node->toBinary(buff);
+
+	BlockHandle* handle = this->store->alloc(size);
+	StackRelease<BlockHandle> __st_handle(handle);
+
+	const char* ptr = (const char*)buff->array();
+
+	return handle->getFpos();
+}
+
+} /* namespace alinous */
 

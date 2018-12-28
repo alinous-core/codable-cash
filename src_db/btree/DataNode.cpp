@@ -23,7 +23,7 @@ DataNode::~DataNode() {
 	delete this->children;
 }
 
-int DataNode::binarySize() {
+int DataNode::binarySize() const {
 	int size = sizeof(char); // nodetype
 
 	size += AbstractTreeNode::binarySize(); // key + fpos...
@@ -34,7 +34,7 @@ int DataNode::binarySize() {
 	return size;
 }
 
-void DataNode::toBinary(ByteBuffer* out) {
+void DataNode::toBinary(ByteBuffer* out) const {
 	out->put(AbstractTreeNode::DATA); // nodetype
 
 	AbstractTreeNode::toBinary(out); // key + fpos...

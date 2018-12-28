@@ -29,8 +29,8 @@ public:
 
 	virtual bool isInfinity() { return false; }
 
-	virtual int binarySize();
-	virtual void toBinary(ByteBuffer* out);
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
 	static ULongKey* fromBinary(ByteBuffer* in);
 
 	virtual int compareTo(AbstractBtreeKey* key) const noexcept;

@@ -62,6 +62,7 @@ void Btree::open(BtreeOpenConfig* config) {
 
 		this->store->setRootFpos(header->getRootFpos());
 		this->config = new BtreeConfig(header->getConfig());
+
 	}
 }
 

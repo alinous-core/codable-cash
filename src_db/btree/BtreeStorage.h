@@ -24,8 +24,10 @@ class NodeCache;
 class NodeHandle;
 class AbstractTreeNode;
 class ByteBuffer;
+class IBlockObject;
 
 class BTreeKeyFactory;
+
 
 class BtreeStorage {
 public:
@@ -41,12 +43,12 @@ public:
 	NodeHandle* loadRoot();
 	NodeHandle* loadNode(uint64_t fpos);
 
-
 	void setRootFpos(uint64_t rootFpos){
 		this->rootFpos = rootFpos;
 	}
 
-
+	uint64_t storeData(const IBlockObject* data);
+	uint64_t storeNode(const AbstractTreeNode* node);
 private:
 	BtreeHeaderBlock* makeHeader(BtreeConfig* config, uint64_t rootFpos);
 	static AbstractTreeNode* makeNodeFromBinary(ByteBuffer* buff, BTreeKeyFactory* factory);

@@ -6,20 +6,24 @@
  */
 
 #include "db_btree/TempValue.h"
+#include "base_io/ReverseByteBuffer.h"
 
 namespace alinous {
 
-TempValue::TempValue() {
+TempValue::TempValue(uint64_t value) {
+	this->value = value;
 }
 
 TempValue::~TempValue() {
 }
 
-int TempValue::binarySize() {
-	return 0;
+int TempValue::binarySize() const {
+	return sizeof(TmpValueFactory::TMPVALUE) + sizeof(this->value);
 }
 
-void TempValue::toBinary(ByteBuffer* out) {
+void TempValue::toBinary(ByteBuffer* out) const {
+	out->putInt(TmpValueFactory::TMPVALUE);
+	out->putLong(this->value);
 }
 
 /**************************************************/

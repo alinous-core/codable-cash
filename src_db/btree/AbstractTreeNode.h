@@ -39,8 +39,8 @@ public:
 		this->fpos = fpos;
 	}
 
-	virtual int binarySize();
-	virtual void toBinary(ByteBuffer* out);
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
 	void fromBinaryAbstract(ByteBuffer* in, BTreeKeyFactory* factory);
 
 	virtual RawArrayPrimitive<uint64_t>* getInnerNodeFpos() const = 0;

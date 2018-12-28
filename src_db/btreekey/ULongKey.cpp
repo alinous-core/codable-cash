@@ -19,13 +19,13 @@ ULongKey::ULongKey(uint64_t value) {
 ULongKey::~ULongKey() {
 }
 
-int ULongKey::binarySize() {
+int ULongKey::binarySize() const {
 	int size = sizeof(uint32_t);
 	size += sizeof(this->value);
 	return size;
 }
 
-void ULongKey::toBinary(ByteBuffer* out) {
+void ULongKey::toBinary(ByteBuffer* out) const {
 	out->putInt(BTreeKeyFactory::ULONG_KEY);
 	out->putLong(this->value);
 }

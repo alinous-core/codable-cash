@@ -136,13 +136,14 @@ void BlockFileStore::internalAllocBody(BlockHandle* handle, const uint64_t size)
 	uint64_t sizeRemain = size;
 	for(int i = 0; i != allocBlocks; ++i){
 		block_alloc_t* block = new block_alloc_t;
+		list.addElement(block);
+
 		uint64_t pos = this->header->alloc();
 		block->fpos = pos * this->body->getBlockSize(); // block No starts with 1
 
 		block->used = (blockDataSize < sizeRemain) ? blockDataSize : sizeRemain;
 
 		sizeRemain -= block->used;
-		list.addElement(block);
 	}
 
 	for(int i = 0; i != allocBlocks; ++i){
@@ -185,6 +186,11 @@ BlockHandle* BlockFileStore::get(uint64_t fpos) {
 	handle->loadBlock(fpos);
 
 	return handle;
+}
+
+void BlockFileStore::sync(bool fsync) {
+	this->header->sync(fsync);
+	this->body->sync(fsync);
 }
 
 

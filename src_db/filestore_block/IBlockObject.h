@@ -17,8 +17,8 @@ public:
 	IBlockObject(){}
 	virtual ~IBlockObject(){};
 
-	virtual int binarySize() = 0;
-	virtual void toBinary(ByteBuffer* out) = 0;
+	virtual int binarySize() const = 0;
+	virtual void toBinary(ByteBuffer* out) const = 0;
 };
 
 } /* namespace alinous */

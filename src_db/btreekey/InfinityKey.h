@@ -19,8 +19,8 @@ public:
 
 	virtual bool isInfinity();
 
-	virtual int binarySize();
-	virtual void toBinary(ByteBuffer* out);
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
 	static InfinityKey* fromBinary(ByteBuffer* in);
 
 	virtual int compareTo(AbstractBtreeKey* key) const noexcept;

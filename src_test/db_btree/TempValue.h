@@ -17,16 +17,20 @@ namespace alinous {
 
 class TempValue : public IBlockObject {
 public:
-	TempValue();
+	explicit TempValue(uint64_t value);
 	virtual ~TempValue();
 
-	virtual int binarySize();
-	virtual void toBinary(ByteBuffer* out);
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
 
+private:
+	uint64_t value;
 };
 
 class TmpValueFactory : public AbstractBtreeDataFactory {
 public:
+	static const constexpr uint32_t TMPVALUE{100};
+
 	virtual ~TmpValueFactory();
 };
 

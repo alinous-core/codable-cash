@@ -147,7 +147,10 @@ void NodeCursor::insert(const AbstractBtreeKey* key, const IBlockObject* data) {
 	}
 
 	// simply add data
+	uint64_t dataFpos = this->store->storeData(data);
+
 	DataNode dataNode(this->nodeNumber, key->clone());
+
 
 }
 

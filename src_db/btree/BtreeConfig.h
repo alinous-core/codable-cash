@@ -20,8 +20,8 @@ public:
 	BtreeConfig();
 	virtual ~BtreeConfig();
 
-	virtual int binarySize();
-	virtual void toBinary(ByteBuffer* out);
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
 	static BtreeConfig* fromBinary(ByteBuffer* in);
 
 	uint64_t blockSize;

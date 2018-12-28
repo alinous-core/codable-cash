@@ -26,7 +26,7 @@ public:
 
 	//void sync2File() noexcept(false);
 	void sync(bool fileSync=true) noexcept(false);
-	void sync2File(uint64_t blockFileSize) noexcept(false);
+	void sync2File() noexcept(false);
 	void loadFromFile() noexcept(false);
 
 	uint64_t alloc();

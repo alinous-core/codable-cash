@@ -22,12 +22,12 @@ bool InfinityKey::isInfinity() {
 	return true;
 }
 
-int alinous::InfinityKey::binarySize() {
+int alinous::InfinityKey::binarySize() const {
 	int size = sizeof(uint32_t);
 	return size;
 }
 
-void alinous::InfinityKey::toBinary(ByteBuffer* out) {
+void alinous::InfinityKey::toBinary(ByteBuffer* out) const {
 	out->putInt(BTreeKeyFactory::INFINITY_KEY);
 }
 

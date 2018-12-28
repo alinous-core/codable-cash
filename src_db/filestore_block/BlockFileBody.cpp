@@ -70,4 +70,10 @@ BlockData* BlockFileBody::loadBlock(uint64_t fpos) {
 	return BlockData::fromBinary(this->blockSize, buff, this->blockSize);
 }
 
+void BlockFileBody::sync(bool fileSync) {
+	this->file->sync(fileSync);
+}
+
+
 } /* namespace alinous */
+
