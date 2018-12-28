@@ -7,10 +7,13 @@
 
 #include "btree/BtreeStorage.h"
 #include "btree/BtreeHeaderBlock.h"
-#include "btree/InfinityKey.h"
 #include "btree/TreeNode.h"
+#include "btree/DataNode.h"
 #include "btree/BtreeConfig.h"
 #include "btree/NodeCache.h"
+#include "btree/NodeHandle.h"
+
+#include "btreekey/InfinityKey.h"
 
 #include "base_io/File.h"
 #include "base_io/ReverseByteBuffer.h"
@@ -20,13 +23,17 @@
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
+#include "base_thread/StackUnlocker.h"
+
 namespace alinous {
 
-BtreeStorage::BtreeStorage(File* folder, UnicodeString* name) {
+BtreeStorage::BtreeStorage(File* folder, UnicodeString* name, BTreeKeyFactory* factory) {
 	this->name = name;
 	this->folder = folder;
+	this->factory = factory;
 	this->store = nullptr;
 	this->cache = nullptr;
+	this->rootFpos = 0;
 }
 
 BtreeStorage::~BtreeStorage() {
@@ -69,7 +76,8 @@ void BtreeStorage::create(DiskCacheManager* cacheManager, BtreeConfig* config) {
 		StackRelease<BlockHandle> __st_handle(handle);
 
 		InfinityKey* infinityKey = new InfinityKey();
-		TreeNode rootNode(true, config->nodeNumber, infinityKey);
+		TreeNode rootNode(true, config->nodeNumber, infinityKey, true);
+		rootNode.setFpos(rootFpos);
 
 		int cap = rootNode.binarySize();
 		ByteBuffer* buff = ReverseByteBuffer::allocateWithEndian(cap, true);
@@ -99,8 +107,12 @@ void BtreeStorage::create(DiskCacheManager* cacheManager, BtreeConfig* config) {
 		handle->write((const char*)buff->array(), headerSize);
 	}
 
+	blockstore->sync(false);
+
 	blockstore->close();
 }
+
+
 
 BtreeHeaderBlock* BtreeStorage::makeHeader(BtreeConfig* config, uint64_t rootFpos) {
 	BtreeHeaderBlock* header = new BtreeHeaderBlock();
@@ -111,13 +123,116 @@ BtreeHeaderBlock* BtreeStorage::makeHeader(BtreeConfig* config, uint64_t rootFpo
 
 }
 
-void BtreeStorage::open(int numDataBuffer, int numNodeBuffer) {
+void BtreeStorage::open(int numDataBuffer, int numNodeBuffer, DiskCacheManager* cacheManager) {
+	UnicodeString* folderstr = this->folder->getAbsolutePath();
+	StackRelease<UnicodeString> __st_folderstr(folderstr);
 
+	this->store = new BlockFileStore(folderstr, this->name, cacheManager);
+	this->store->open(false);
 
+	this->cache = new NodeCache(numDataBuffer, numNodeBuffer);
+}
+
+BtreeHeaderBlock* BtreeStorage::loadHeader() {
+	// load 0 fpos
+	BlockHandle* handle = this->store->get(0);
+	StackRelease<BlockHandle> __st_handle(handle);
+
+	ByteBuffer* buff = handle->getBuffer();
+	buff->position(0);
+
+	BtreeHeaderBlock* header = BtreeHeaderBlock::fromBinary(buff);
+	return header;
 }
 
 void BtreeStorage::close() {
+	this->store->close();
+	this->cache->clear();
+}
 
+NodeHandle* BtreeStorage::loadRoot() {
+	return loadNode(this->rootFpos);
+}
+
+NodeHandle* BtreeStorage::loadNode(uint64_t fpos) {
+	StackUnlocker __lock(&this->lock);
+
+	NodeCacheRef* ref = this->cache->get(fpos);
+	if(ref != nullptr){
+		return new NodeHandle(ref);
+	}
+
+	BlockHandle* handle = this->store->get(fpos);
+	StackRelease<BlockHandle> __st_handle(handle);
+
+	ByteBuffer* buff = handle->getBuffer();
+	buff->position(0);
+
+	AbstractTreeNode* node = BtreeStorage::makeNodeFromBinary(buff, this->factory);
+
+	this->cache->add(node);
+	ref = this->cache->get(fpos);
+
+	return new NodeHandle(ref);
+}
+
+AbstractTreeNode* BtreeStorage::makeNodeFromBinary(ByteBuffer* buff, BTreeKeyFactory* factory) {
+	char nodeType = buff->get();
+
+	if(nodeType == AbstractTreeNode::NODE){
+		return TreeNode::fromBinary(buff, factory);
+	}
+
+	assert(nodeType == AbstractTreeNode::DATA);
+	return DataNode::fromBinary(buff, factory);
+}
+
+
+uint64_t BtreeStorage::storeData(const IBlockObject* data) {
+	int size = data->binarySize();
+	BlockHandle* handle = this->store->alloc(size);
+	StackRelease<BlockHandle> __st_handle(handle);
+
+	ByteBuffer* buff = ReverseByteBuffer::allocateWithEndian(size, true);
+	StackRelease<ByteBuffer> __st_buff(buff);
+
+	data->toBinary(buff);
+
+	const char* ptr = (const char*)buff->array();
+	handle->write(ptr, size);
+
+	return handle->getFpos();
+}
+
+uint64_t BtreeStorage::storeNode(AbstractTreeNode* node) {
+	int size = node->binarySize();
+	BlockHandle* handle = this->store->alloc(size);
+	StackRelease<BlockHandle> __st_handle(handle);
+
+	ByteBuffer* buff = ReverseByteBuffer::allocateWithEndian(size, true);
+	StackRelease<ByteBuffer> __st_buff(buff);
+
+	node->setFpos(handle->getFpos());
+	node->toBinary(buff);
+
+	const char* ptr = (const char*)buff->array();
+	handle->write(ptr, size);
+
+	return handle->getFpos();
+}
+
+void BtreeStorage::updateNode(AbstractTreeNode* node) {
+	int size = node->binarySize();
+	BlockHandle* handle = this->store->get(node->getFpos());
+	StackRelease<BlockHandle> __st_handle(handle);
+
+	ByteBuffer* buff = ReverseByteBuffer::allocateWithEndian(size, true);
+	StackRelease<ByteBuffer> __st_buff(buff);
+
+	node->toBinary(buff);
+
+	const char* ptr = (const char*)buff->array();
+	handle->write(ptr, size);
 }
 
 

@@ -16,6 +16,11 @@ class BtreeStorage;
 class DiskCacheManager;
 class BtreeConfig;
 
+class AbstractBtreeKey;
+class IBlockObject;
+class BTreeKeyFactory;
+class AbstractBtreeDataFactory;
+
 typedef struct __btree_open_config {
 	int numDataBuffer = 256;
 	int numNodeBuffer = 512;
@@ -25,7 +30,7 @@ class Btree {
 public:
 	Btree() = delete;
 	Btree(const Btree& inst) = delete;
-	Btree(File* folder, UnicodeString* name, DiskCacheManager* cacheManager);
+	Btree(File* folder, UnicodeString* name, DiskCacheManager* cacheManager, BTreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory);
 	virtual ~Btree();
 
 	void create(BtreeConfig* config);
@@ -33,9 +38,14 @@ public:
 	void open(BtreeOpenConfig* config);
 	void close();
 
+	void insert(AbstractBtreeKey* key, IBlockObject* data);
+
 private:
 	UnicodeString* name;
 	File* folder;
+	BTreeKeyFactory* factory;
+	AbstractBtreeDataFactory* dfactory;
+
 	BtreeStorage* store;
 	DiskCacheManager* cacheManager;
 	BtreeConfig* config;

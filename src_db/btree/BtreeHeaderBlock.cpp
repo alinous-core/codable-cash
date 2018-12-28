@@ -27,15 +27,24 @@ void BtreeHeaderBlock::setConfig(BtreeConfig* config) noexcept {
 	this->config = new BtreeConfig(config);
 }
 
-int BtreeHeaderBlock::binarySize() {
+int BtreeHeaderBlock::binarySize() const {
 	int size = this->config->binarySize();
 	size += sizeof(this->rootFpos);
 	return size;
 }
 
-void BtreeHeaderBlock::toBinary(ByteBuffer* out) {
+void BtreeHeaderBlock::toBinary(ByteBuffer* out) const {
 	this->config->toBinary(out);
 	out->putLong(this->rootFpos);
+}
+
+BtreeHeaderBlock* BtreeHeaderBlock::fromBinary(ByteBuffer* in){
+	BtreeHeaderBlock* header = new BtreeHeaderBlock();
+
+	header->config = BtreeConfig::fromBinary(in);
+	header->rootFpos = in->getLong();
+
+	return header;
 }
 
 } /* namespace alinous */

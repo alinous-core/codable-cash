@@ -23,15 +23,24 @@ BtreeConfig::BtreeConfig() {
 BtreeConfig::~BtreeConfig() {
 }
 
-int BtreeConfig::binarySize() {
+int BtreeConfig::binarySize() const {
 	return sizeof(this->blockSize) + sizeof(this->nodeNumber);
 }
 
-
-
-void BtreeConfig::toBinary(ByteBuffer* out) {
+void BtreeConfig::toBinary(ByteBuffer* out) const {
 	out->putLong(this->blockSize);
 	out->putLong(this->nodeNumber);
 }
 
+BtreeConfig* BtreeConfig::fromBinary(ByteBuffer* in) {
+	BtreeConfig* inst = new BtreeConfig();
+
+	inst->blockSize = in->getLong();
+	inst->nodeNumber = in->getLong();
+
+	return inst;
+}
+
+
 } /* namespace alinous */
+

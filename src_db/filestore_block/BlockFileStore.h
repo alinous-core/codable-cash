@@ -35,6 +35,7 @@ public:
 
 	BlockHandle* alloc(uint64_t size);
 	BlockHandle* get(uint64_t fpos);
+	void sync(bool fsync);
 
 	BlockFileBody* getBody() const {
 		return body;

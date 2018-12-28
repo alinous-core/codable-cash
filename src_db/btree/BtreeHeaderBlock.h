@@ -21,8 +21,10 @@ public:
 	BtreeHeaderBlock();
 	virtual ~BtreeHeaderBlock();
 
-	virtual int binarySize();
-	virtual void toBinary(ByteBuffer* out);
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+
+	static BtreeHeaderBlock* fromBinary(ByteBuffer* in);
 
 	BtreeConfig* getConfig() const noexcept {
 		return config;

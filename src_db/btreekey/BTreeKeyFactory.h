@@ -12,6 +12,9 @@
 
 namespace alinous {
 
+class AbstractBtreeKey;
+class ByteBuffer;
+
 class BTreeKeyFactory {
 public:
 	static const constexpr uint32_t INFINITY_KEY{0x01};
@@ -20,7 +23,7 @@ public:
 	BTreeKeyFactory();
 	virtual ~BTreeKeyFactory();
 
-
+	virtual AbstractBtreeKey* fromBinary(uint32_t keyType, ByteBuffer* in);
 };
 
 } /* namespace alinous */

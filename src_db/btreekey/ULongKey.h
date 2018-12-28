@@ -27,10 +27,14 @@ public:
 		this->value = value;
 	}
 
-	virtual bool isInfinity() { return false; }
+	virtual bool isInfinity() const { return false; }
 
-	virtual int binarySize();
-	virtual void toBinary(ByteBuffer* out);
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+	static ULongKey* fromBinary(ByteBuffer* in);
+
+	virtual int compareTo(const AbstractBtreeKey* key) const noexcept;
+	virtual AbstractBtreeKey* clone() const noexcept;
 
 private:
 	uint64_t value;

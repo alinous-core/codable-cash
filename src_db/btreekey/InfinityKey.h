@@ -17,10 +17,14 @@ public:
 	InfinityKey();
 	virtual ~InfinityKey();
 
-	virtual bool isInfinity();
+	virtual bool isInfinity() const;
 
-	virtual int binarySize();
-	virtual void toBinary(ByteBuffer* out);
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+	static InfinityKey* fromBinary(ByteBuffer* in);
+
+	virtual int compareTo(const AbstractBtreeKey* key) const noexcept;
+	virtual AbstractBtreeKey* clone() const noexcept;
 };
 
 } /* namespace alinous */

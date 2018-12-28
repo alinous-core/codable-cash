@@ -115,7 +115,7 @@ void NodeCache::onCacheHit(RawLinkedList<NodeCacheRef>::Element* element,
 }
 
 void NodeCache::add(AbstractTreeNode* node) noexcept {
-	if(node->isLeaf()){
+	if(node->isData()){
 		internalAddNode(node, &this->datasLock, this->datasMap, this->datas, this->numDataBuffer);
 	}
 	else{

@@ -6,7 +6,7 @@
  */
 
 #include "btreekey/ULongKey.h"
-#include "btree/BTreeKeyFactory.h"
+#include "btreekey/BTreeKeyFactory.h"
 
 #include "base_io/ReverseByteBuffer.h"
 
@@ -19,16 +19,35 @@ ULongKey::ULongKey(uint64_t value) {
 ULongKey::~ULongKey() {
 }
 
-int ULongKey::binarySize() {
-	int size = sizeof(char);
+int ULongKey::binarySize() const {
+	int size = sizeof(uint32_t);
 	size += sizeof(this->value);
 	return size;
 }
 
-void ULongKey::toBinary(ByteBuffer* out) {
-	out->put(BTreeKeyFactory::ULONG_KEY);
+void ULongKey::toBinary(ByteBuffer* out) const {
+	out->putInt(BTreeKeyFactory::ULONG_KEY);
 	out->putLong(this->value);
+}
 
+ULongKey* ULongKey::fromBinary(ByteBuffer* in) {
+	uint64_t value = in->getLong();
+	return new ULongKey(value);
+}
+
+int ULongKey::compareTo(const AbstractBtreeKey* key) const noexcept {
+	if(key->isInfinity()){
+		return -1;
+	}
+
+	const ULongKey* ulkey = dynamic_cast<const ULongKey*>(key);
+
+	return this->value - ulkey->value;
+}
+
+AbstractBtreeKey* ULongKey::clone() const noexcept {
+	return new ULongKey(this->value);
 }
 
 } /* namespace alinous */
+

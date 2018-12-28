@@ -10,10 +10,14 @@
 
 #include "filestore_block/IBlockObject.h"
 #include <inttypes.h>
+#include "base/RawArrayPrimitive.h"
 
 namespace alinous {
 
 class AbstractBtreeKey;
+class BTreeKeyFactory;
+class DataNode;
+class TreeNode;
 
 class AbstractTreeNode : IBlockObject {
 public:
@@ -23,7 +27,7 @@ public:
 	explicit AbstractTreeNode(AbstractBtreeKey* key);
 	virtual ~AbstractTreeNode();
 
-	virtual bool isLeaf() const = 0;
+	virtual bool isData() const = 0;
 	AbstractBtreeKey* getKey() const noexcept {
 		return this->key;
 	}
@@ -35,8 +39,14 @@ public:
 		this->fpos = fpos;
 	}
 
-	virtual int binarySize();
-	virtual void toBinary(ByteBuffer* out);
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+	void fromBinaryAbstract(ByteBuffer* in, BTreeKeyFactory* factory);
+
+	virtual RawArrayPrimitive<uint64_t>* getInnerNodeFpos() const = 0;
+
+	static DataNode* toDataNode(AbstractTreeNode* node);
+	static TreeNode* toTreeNode(AbstractTreeNode* node);
 
 protected:
 	AbstractBtreeKey* key;

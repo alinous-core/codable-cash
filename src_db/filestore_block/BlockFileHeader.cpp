@@ -28,7 +28,9 @@ BlockFileHeader::~BlockFileHeader() noexcept {
 }
 
 void BlockFileHeader::createStore(bool del, uint64_t defaultSize, uint64_t blockSize) noexcept(false) {
-	sync2File(blockSize);
+	this->blockSize = blockSize;
+	this->usedArea = new LongRangeList();
+
 	sync(false);
 
 	clearArea();
@@ -45,17 +47,16 @@ void BlockFileHeader::clearArea() noexcept {
 //	sync2File(this->blockSize);
 //}
 
-void BlockFileHeader::sync2File(uint64_t blockFileSize) noexcept(false) {
-	this->usedArea = new LongRangeList();
-	this->blockSize = blockFileSize;
-
+void BlockFileHeader::sync2File() noexcept(false) {
 	uint32_t headSize = sizeof(uint64_t)*2;
-	int binSize = headSize + this->usedArea->binarySize();
+	int contentSize = this->usedArea->binarySize();
+	int binSize = headSize + contentSize;
 
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(binSize, true);
 	StackRelease<ByteBuffer> _st_buff(buff);
 
-	buff->putLong(blockFileSize);
+	buff->putLong(binSize);
+	buff->putLong(this->blockSize);
 
 	this->usedArea->toBinary(buff);
 	buff->position(0);
@@ -68,20 +69,21 @@ void BlockFileHeader::sync2File(uint64_t blockFileSize) noexcept(false) {
 	ByteBuffer* buffSizeHeader = ByteBuffer::allocateWithEndian(headSize, true);
 	StackRelease<ByteBuffer> _st_buffSizeHeader(buffSizeHeader);
 	buffSizeHeader->putLong(binSize);
-	buffSizeHeader->putLong(blockFileSize);
+	buffSizeHeader->putLong(this->blockSize);
 	buffSizeHeader->position(0);
 
 	uint64_t fpos = 0;
 	const char* binary = (const char*)buffSizeHeader->array();
-	fpos += this->file->write(fpos, binary, sizeof(int64_t));
+	fpos += this->file->write(fpos, binary,headSize);
 
 	// content
-	binary = (const char*)buff->array();
-	int cnt = this->file->write(fpos, binary, binSize);
-	assert(cnt == binSize);
+	binary = ((const char*)buff->array()) + headSize;
+	int cnt = this->file->write(fpos, binary, contentSize);
+	assert(cnt == contentSize);
 }
 
 void BlockFileHeader::sync(bool fileSync) noexcept(false) {
+	this->sync2File();
 	this->file->sync(fileSync);
 }
 
@@ -107,7 +109,7 @@ void BlockFileHeader::loadFromFile() {
 
 	char* usedAreaBinary = new char[areaSize]{};
 	StackArrayRelease<char> st_usedAreaBinary(usedAreaBinary);
-	fpos += this->file->read(fpos, sizeHeaderBinary, areaSize);
+	fpos += this->file->read(fpos, usedAreaBinary, areaSize);
 
 	ByteBuffer* rangeBinary = ByteBuffer::allocateWithEndian(areaSize, true);
 	StackRelease<ByteBuffer> _st_rangeBinary(rangeBinary);
@@ -121,7 +123,7 @@ uint64_t BlockFileHeader::alloc() {
 	uint64_t pos = this->usedArea->firstEmpty();
 
 	this->usedArea->addRange(pos);
-	this->file->sync(false);
+	this->sync2File();
 
 	return pos;
 }
