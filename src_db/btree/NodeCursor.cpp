@@ -38,20 +38,20 @@ bool NodePosition::isLeaf() const {
 	return this->node->isLeaf();
 }
 
-bool NodePosition::hasKey(const AbstractBtreeKey* key) const {
+NodeHandle* NodePosition::hasKey(const AbstractBtreeKey* key) const {
 	int maxLoop = this->innerNodes->size();
 	for(int i = 0; i != maxLoop; ++i){
 		NodeHandle* nodeHandle = this->innerNodes->get(i);
 		if(nodeHandle == nullptr){
-			return false;
+			return nullptr;
 		}
 		AbstractBtreeKey* inkey = nodeHandle->getRef()->getNode()->getKey();
-		if(key->compareTo(inkey)){
-			return true;
+		if(key->compareTo(inkey) == 0){
+			return nodeHandle;
 		}
 	}
 
-	return false;
+	return nullptr;
 }
 
 void NodePosition::loadInnerNodes(BtreeStorage* store) {
@@ -84,7 +84,7 @@ void NodePosition::addNode(const AbstractBtreeKey* key, uint64_t fpos, int nodeN
 	for(int i = 0; i != nodeNumber; ++i){
 		NodeHandle* nh = this->innerNodes->get(i);
 
-		if(nh == nullptr || nh->getKey()->compareTo(key) < 0){
+		if(nh == nullptr || nh->getKey()->compareTo(key) > 0){
 			internalAddNode(i, fpos);
 			break;
 		}
@@ -168,7 +168,15 @@ void NodeCursor::insert(const AbstractBtreeKey* key, const IBlockObject* data) {
 	}
 
 	// 1. already has key
-	if(current->hasKey(key)){
+	NodeHandle* sameKeyDataNode = current->hasKey(key);
+	if(sameKeyDataNode != nullptr){
+		uint64_t dataFpos = this->store->storeData(data);
+
+		DataNode* dnode = sameKeyDataNode->toDataNode();
+		dnode->getInnerNodeFpos()->addElement(dataFpos, 0);
+
+		this->store->updateNode(dnode);
+
 		return;
 	}
 

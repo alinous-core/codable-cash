@@ -122,6 +122,13 @@ TEST(TestBTreeGroup, open){
 	btree.close();
 }
 
+static void addKeyValue(uint64_t key, uint64_t value, Btree* btree){
+	ULongKey lkey(key);
+	TempValue tvalue(value);
+
+	btree->insert(&lkey, &tvalue);
+}
+
 
 TEST(TestBTreeGroup, add01){
 	File projectFolder = this->env->testCaseDir();
@@ -142,10 +149,9 @@ TEST(TestBTreeGroup, add01){
 	btree.open(&opconf);
 
 	{
-		ULongKey key(10);
-		TempValue value(10);
-
-		btree.insert(&key, &value);
+		addKeyValue(10, 10, &btree);
+		addKeyValue(6, 6, &btree);
+		addKeyValue(6, 6, &btree);
 	}
 
 	btree.close();

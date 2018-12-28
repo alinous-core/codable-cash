@@ -27,7 +27,7 @@ public:
 	~NodePosition();
 
 	bool isLeaf() const;
-	bool hasKey(const AbstractBtreeKey* key) const;
+	NodeHandle* hasKey(const AbstractBtreeKey* key) const;
 	bool isFull(int nodeNumber) const noexcept;
 
 	void loadInnerNodes(BtreeStorage* store);
