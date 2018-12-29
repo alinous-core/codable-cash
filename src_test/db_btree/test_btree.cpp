@@ -13,9 +13,11 @@
 #include "btree/DataNode.h"
 #include "btree/exceptions.h"
 #include "btree/NodeCursor.h"
+#include "btree/NodePosition.h"
 
 #include "btreekey/BTreeKeyFactory.h"
 #include "btreekey/ULongKey.h"
+#include "btreekey/InfinityKey.h"
 #include "TempValue.h"
 
 #include "random_access_file/DiskCacheManager.h"
@@ -34,6 +36,18 @@ TEST_GROUP(TestBTreeGroup) {
 	TEST_SETUP() {}
 	TEST_TEARDOWN() {}
 };
+
+TEST(TestBTreeGroup, infinityKey){
+	InfinityKey key;
+	InfinityKey* key2 = dynamic_cast<InfinityKey*>(key.clone());
+	ULongKey ulkey(100);
+
+	CHECK(key.compareTo(key2) == 0)
+	CHECK(key.compareTo(&ulkey) > 0)
+
+	delete key2;
+}
+
 
 TEST(TestBTreeGroup, casterror01){
 	uint64_t fpos = 256;
@@ -59,6 +73,8 @@ TEST(TestBTreeGroup, casterror02){
 
 	DataNode* node = new DataNode(new ULongKey(1));
 	node->setFpos(fpos);
+
+	CHECK(node->isData())
 
 	Exception* ex = nullptr;
 	try{
@@ -122,6 +138,13 @@ TEST(TestBTreeGroup, open){
 	btree.close();
 }
 
+static void addKeyValue(uint64_t key, uint64_t value, Btree* btree){
+	ULongKey lkey(key);
+	TempValue tvalue(value);
+
+	btree->insert(&lkey, &tvalue);
+}
+
 
 TEST(TestBTreeGroup, add01){
 	File projectFolder = this->env->testCaseDir();
@@ -136,16 +159,20 @@ TEST(TestBTreeGroup, add01){
 	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
 
 	BtreeConfig config;
+	config.nodeNumber = 2;
 	btree.create(&config);
 
 	BtreeOpenConfig opconf;
 	btree.open(&opconf);
 
 	{
-		ULongKey key(10);
-		TempValue value(10);
+		addKeyValue(10, 10, &btree);
+		addKeyValue(6, 6, &btree);
+		addKeyValue(6, 6, &btree);
 
-		btree.insert(&key, &value);
+		addKeyValue(3, 3, &btree);
+		addKeyValue(2, 2, &btree);
+		addKeyValue(100, 100, &btree);
 	}
 
 	btree.close();
