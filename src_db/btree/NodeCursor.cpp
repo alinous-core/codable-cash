@@ -118,7 +118,7 @@ void NodeCursor::splitLeafNode(const AbstractBtreeKey* key, const IBlockObject* 
 	DataNode dataNode(key->clone());
 	dataNode.getInnerNodeFpos()->addElement(dataFpos, 0);
 
-	uint64_t newDataNodeFpos = this->store->storeNode(&dataNode);
+	this->store->storeNode(&dataNode);
 
 	// split
 	ArrayList<NodeHandle>* list = current->getInnerNodes();
@@ -177,9 +177,37 @@ void NodeCursor::addToParent(TreeNode* newNode) {
 	}
 }
 
-void NodeCursor::splitTreeNode(TreeNode* newNode) {
-	// FIXME todo
+void NodeCursor::splitTreeNode(TreeNode* node) {
+	NodePosition* current = top();
 
+	// split
+	ArrayList<NodeHandle>* list = current->getInnerNodes();
+
+	RawArrayPrimitive<uint64_t> list1(this->nodeNumber);
+	RawArrayPrimitive<uint64_t> list2(this->nodeNumber);
+
+	AbstractBtreeKey* newKey = setupTwoLists(list, node, &list1, &list2);
+	StackRelease<AbstractBtreeKey> __st_newkey(newKey);
+
+	// new Node
+	TreeNode newNode(this->nodeNumber, newKey->clone(), true);
+	newNode.updateInnerNodeFpos(&list1);
+	this->store->storeNode(&newNode);
+
+	// update current
+	bool isroot = current->isRoot();
+	current->setRoot(false);
+	current->updateInnerNodeFpos(&list2);
+	current->save(this->store);
+
+	// add to parent node
+	if(isroot){
+		createNewRoot(&newNode);
+	}
+	else{
+		addToParent(&newNode);
+	}
+	// FIXME todo
 }
 
 AbstractBtreeKey* NodeCursor::setupTwoLists(ArrayList<NodeHandle>* list, AbstractTreeNode* node,
