@@ -17,6 +17,7 @@
 
 #include "btreekey/BTreeKeyFactory.h"
 #include "btreekey/ULongKey.h"
+#include "btreekey/InfinityKey.h"
 #include "TempValue.h"
 
 #include "random_access_file/DiskCacheManager.h"
@@ -35,6 +36,18 @@ TEST_GROUP(TestBTreeGroup) {
 	TEST_SETUP() {}
 	TEST_TEARDOWN() {}
 };
+
+TEST(TestBTreeGroup, infinityKey){
+	InfinityKey key;
+	InfinityKey* key2 = dynamic_cast<InfinityKey*>(key.clone());
+	ULongKey ulkey(100);
+
+	CHECK(key.compareTo(key2) == 0)
+	CHECK(key.compareTo(&ulkey) > 0)
+
+	delete key2;
+}
+
 
 TEST(TestBTreeGroup, casterror01){
 	uint64_t fpos = 256;
