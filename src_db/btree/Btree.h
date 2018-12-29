@@ -15,6 +15,7 @@ class UnicodeString;
 class BtreeStorage;
 class DiskCacheManager;
 class BtreeConfig;
+class BtreeScanner;
 
 class AbstractBtreeKey;
 class IBlockObject;
@@ -39,6 +40,7 @@ public:
 	void close();
 
 	void insert(AbstractBtreeKey* key, IBlockObject* data);
+	BtreeScanner* getScanner();
 
 private:
 	UnicodeString* name;

@@ -14,6 +14,7 @@
 #include "btree/exceptions.h"
 #include "btree/NodeCursor.h"
 #include "btree/NodePosition.h"
+#include "btree/BtreeScanner.h"
 
 #include "btreekey/BTreeKeyFactory.h"
 #include "btreekey/ULongKey.h"

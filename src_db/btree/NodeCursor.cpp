@@ -207,7 +207,6 @@ void NodeCursor::splitTreeNode(TreeNode* node) {
 	else{
 		addToParent(&newNode);
 	}
-	// FIXME todo
 }
 
 AbstractBtreeKey* NodeCursor::setupTwoLists(ArrayList<NodeHandle>* list, AbstractTreeNode* node,
