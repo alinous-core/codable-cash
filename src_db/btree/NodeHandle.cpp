@@ -25,6 +25,10 @@ bool NodeHandle::isRoot() const {
 	return AbstractTreeNode::toTreeNode(this->ref->getNode())->isRoot();
 }
 
+void NodeHandle::setIsRoot(bool isroot) {
+	return AbstractTreeNode::toTreeNode(this->ref->getNode())->setIsRoot(isroot);
+}
+
 bool NodeHandle::isLeaf() const {
 	return AbstractTreeNode::toTreeNode(this->ref->getNode())->isLeaf();
 }
@@ -54,5 +58,4 @@ AbstractBtreeKey* NodeHandle::getKey() const noexcept {
 }
 
 } /* namespace alinous */
-
 

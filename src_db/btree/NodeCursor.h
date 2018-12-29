@@ -9,6 +9,7 @@
 #define BTREE_NODECURSOR_H_
 
 #include "base/ArrayList.h"
+#include "base/RawArrayPrimitive.h"
 
 #include <inttypes.h>
 
@@ -20,33 +21,7 @@ class AbstractBtreeKey;
 class IBlockObject;
 class AbstractTreeNode;
 class AbstractBtreeKey;
-
-class NodePosition {
-public:
-	explicit NodePosition(NodeHandle* nodeHandle);
-	~NodePosition();
-
-	bool isLeaf() const;
-	NodeHandle* hasKey(const AbstractBtreeKey* key) const;
-	bool isFull(int nodeNumber) const noexcept;
-
-	void loadInnerNodes(BtreeStorage* store);
-
-	void addNode(const AbstractBtreeKey* key, uint64_t fpos, int nodeNumber);
-	void save(BtreeStorage* store);
-
-	static void checkNoNull(NodeHandle* nodeHandle, const char* srcfile, int srcline) noexcept(false);
-private:
-	void internalAddNode(int index, uint64_t fpos);
-
-private:
-	int pos;
-	NodeHandle* node;
-	ArrayList<NodeHandle>* innerNodes;
-	int innerCount;
-};
-
-/****************************************************************************************/
+class NodePosition;
 
 class NodeCursor {
 public:
@@ -61,7 +36,9 @@ public:
 
 	void insert(const AbstractBtreeKey* key, const IBlockObject* data);
 private:
-	void splitNode();
+	void splitLeafNode(const AbstractBtreeKey* key, const IBlockObject* data);
+	AbstractBtreeKey* setupTwoLists(ArrayList<NodeHandle>* list, AbstractTreeNode* node,
+			RawArrayPrimitive<uint64_t>* list1, RawArrayPrimitive<uint64_t>* list2);
 
 private:
 	ArrayList<NodePosition>* nodestack;

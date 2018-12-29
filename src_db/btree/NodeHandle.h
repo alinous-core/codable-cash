@@ -26,6 +26,7 @@ public:
 	virtual ~NodeHandle();
 
 	bool isRoot() const;
+	void setIsRoot(bool isroot);
 	bool isLeaf() const;
 	bool isData() const noexcept;
 

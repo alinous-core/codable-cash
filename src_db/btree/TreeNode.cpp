@@ -43,6 +43,10 @@ bool TreeNode::isRoot() const noexcept {
 	return this->root;
 }
 
+void TreeNode::setIsRoot(bool isroot) noexcept {
+	this->root = isroot;
+}
+
 int TreeNode::binarySize() const {
 	int size = sizeof(char); // nodetype
 
@@ -99,5 +103,20 @@ RawArrayPrimitive<uint64_t>* TreeNode::getInnerNodeFpos() const {
 	return this->children;
 }
 
+void TreeNode::updateInnerNodeFpos(const RawArrayPrimitive<uint64_t>* newlist) noexcept {
+	int maxLoop = this->children->size();
+	for(int i = 0; i != maxLoop; ++i){
+		this->children->set(i, 0);
+	}
+
+	maxLoop = newlist->size();
+	for(int i = 0; i != maxLoop; ++i){
+		uint64_t f = newlist->get(i);
+		this->children->set(i, f);
+	}
+}
+
 } /* namespace alinous */
+
+
 

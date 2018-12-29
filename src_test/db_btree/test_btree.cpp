@@ -13,6 +13,7 @@
 #include "btree/DataNode.h"
 #include "btree/exceptions.h"
 #include "btree/NodeCursor.h"
+#include "btree/NodePosition.h"
 
 #include "btreekey/BTreeKeyFactory.h"
 #include "btreekey/ULongKey.h"
@@ -143,6 +144,7 @@ TEST(TestBTreeGroup, add01){
 	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
 
 	BtreeConfig config;
+	config.nodeNumber = 2;
 	btree.create(&config);
 
 	BtreeOpenConfig opconf;
@@ -152,6 +154,8 @@ TEST(TestBTreeGroup, add01){
 		addKeyValue(10, 10, &btree);
 		addKeyValue(6, 6, &btree);
 		addKeyValue(6, 6, &btree);
+
+		addKeyValue(3, 3, &btree);
 	}
 
 	btree.close();

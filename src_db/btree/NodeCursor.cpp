@@ -6,6 +6,7 @@
  */
 
 #include "btree/NodeCursor.h"
+#include "btree/NodePosition.h"
 #include "btree/NodeHandle.h"
 #include "btree/AbstractTreeNode.h"
 #include "btree/TreeNode.h"
@@ -16,106 +17,11 @@
 
 #include "btree/DataNode.h"
 
+#include "base/StackRelease.h"
+
 namespace alinous {
 
-NodePosition::NodePosition(NodeHandle* nodeHandle) {
-	this->node = nodeHandle;
-	this->pos = 0;
-	this->innerNodes = nullptr;
-	this->innerCount = 0;
-}
 
-NodePosition::~NodePosition() {
-	delete this->node;
-
-	if(this->innerNodes != nullptr){
-		this->innerNodes->deleteElements();
-		delete this->innerNodes;
-	}
-}
-
-bool NodePosition::isLeaf() const {
-	return this->node->isLeaf();
-}
-
-NodeHandle* NodePosition::hasKey(const AbstractBtreeKey* key) const {
-	int maxLoop = this->innerNodes->size();
-	for(int i = 0; i != maxLoop; ++i){
-		NodeHandle* nodeHandle = this->innerNodes->get(i);
-		if(nodeHandle == nullptr){
-			return nullptr;
-		}
-		AbstractBtreeKey* inkey = nodeHandle->getRef()->getNode()->getKey();
-		if(key->compareTo(inkey) == 0){
-			return nodeHandle;
-		}
-	}
-
-	return nullptr;
-}
-
-void NodePosition::loadInnerNodes(BtreeStorage* store) {
-	RawArrayPrimitive<uint64_t>* fposList = this->node->getInnerNodeFpos();
-	this->innerNodes = new ArrayList<NodeHandle>(fposList->size());
-
-	this->innerCount = 0;
-
-	int maxLoop = fposList->size();
-	for(int i = 0; i != maxLoop; ++i){
-		uint64_t fpos = fposList->get(i);
-		if(fpos == 0){
-			this->innerNodes->addElement(nullptr);
-			continue;
-		}
-
-		NodeHandle* nodeHandle = store->loadNode(fpos);
-		checkNoNull(nodeHandle, __FILE__, __LINE__);
-
-		this->innerNodes->addElement(nodeHandle);
-		this->innerCount++;
-	}
-}
-
-bool NodePosition::isFull(int nodeNumber) const noexcept {
-	return this->innerCount >= nodeNumber;
-}
-
-void NodePosition::addNode(const AbstractBtreeKey* key, uint64_t fpos, int nodeNumber) {
-	for(int i = 0; i != nodeNumber; ++i){
-		NodeHandle* nh = this->innerNodes->get(i);
-
-		if(nh == nullptr || nh->getKey()->compareTo(key) > 0){
-			internalAddNode(i, fpos);
-			break;
-		}
-	}
-}
-
-void NodePosition::internalAddNode(int index, uint64_t fpos) {
-	TreeNode* treeNode = this->node->toTreeNode();
-	RawArrayPrimitive<uint64_t>* list = treeNode->getInnerNodeFpos();
-
-	int first = list->size() - 1;
-	for(int i = first; i > index; --i){
-		uint64_t f = list->get(i - 1);
-		list->set(i ,f);
-	}
-	list->set(index ,fpos);
-
-	this->innerCount++;
-}
-
-void NodePosition::save(BtreeStorage* store) {
-	AbstractTreeNode* node = this->node->getRef()->getNode();
-
-	store->updateNode(node);
-}
-
-void NodePosition::checkNoNull(NodeHandle* nodeHandle, const char* srcfile, int srcline) noexcept(false) {
-	if(nodeHandle == nullptr){
-		throw new NodeStructureException(srcfile, srcline);
-	}
-}
 /****************************************************************************************/
 
 NodeCursor::NodeCursor(NodeHandle* rootNode, BtreeStorage* store, int nodeNumber) {
@@ -182,7 +88,7 @@ void NodeCursor::insert(const AbstractBtreeKey* key, const IBlockObject* data) {
 
 	// 2. Add key, then check whether the node is full or not
 	if(current->isFull(this->nodeNumber)){
-
+		splitLeafNode(key, data);
 		return;
 	}
 
@@ -198,7 +104,88 @@ void NodeCursor::insert(const AbstractBtreeKey* key, const IBlockObject* data) {
 	current->save(this->store);
 }
 
+void NodeCursor::splitLeafNode(const AbstractBtreeKey* key, const IBlockObject* data) {
+	NodePosition* current = top();
 
+	// data node
+	uint64_t dataFpos = this->store->storeData(data);
+	DataNode dataNode(key->clone());
+	dataNode.getInnerNodeFpos()->addElement(dataFpos, 0);
+
+	uint64_t newDataNodeFpos = this->store->storeNode(&dataNode);
+
+	// split
+	ArrayList<NodeHandle>* list = current->getInnerNodes();
+
+	RawArrayPrimitive<uint64_t> list1(this->nodeNumber);
+	RawArrayPrimitive<uint64_t> list2(this->nodeNumber);
+
+	AbstractBtreeKey* newKey = setupTwoLists(list, &dataNode, &list1, &list2);
+	StackRelease<AbstractBtreeKey> __st_newkey(newKey);
+
+	// new Node
+	TreeNode newNode(this->nodeNumber, newKey->clone(), true);
+	newNode.updateInnerNodeFpos(&list1);
+	this->store->storeNode(&newNode);
+
+	// TODO: update newNode & current
+	bool isroot = current->isRoot();
+	current->setRoot(false);
+
+
+	// add to parent node
+	if(isroot){
+
+	}
+	else{
+
+	}
+}
+
+AbstractBtreeKey* NodeCursor::setupTwoLists(ArrayList<NodeHandle>* list, AbstractTreeNode* node,
+								RawArrayPrimitive<uint64_t>* list1, RawArrayPrimitive<uint64_t>* list2) {
+	ArrayList<AbstractTreeNode> allList(list->size() + 1);
+
+	AbstractBtreeKey* key = node->getKey();
+	bool done = false;
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		NodeHandle* nh = list->get(i);
+		assert(nh != nullptr);
+
+		if(!done){
+			AbstractBtreeKey* nhKey = nh->getKey();
+			if(nhKey->compareTo(key) > 0){
+				done = true;
+				allList.addElement(node);
+			}
+		}
+
+		AbstractTreeNode* nhnode = nh->getRef()->getNode();
+		allList.addElement(nhnode);
+	}
+
+	// it does not come here
+	//if(!done){
+	//	allList.addElement(node);
+	//}
+	assert(done);
+
+	int total = allList.size();
+	int list1Size = total / 2;
+
+	int i = 0;
+	for(; i != list1Size; ++i){
+		AbstractTreeNode* n = allList.get(i);
+		list1->addElement(n->getFpos());
+	}
+	for(; i != total; ++i){
+		AbstractTreeNode* n = allList.get(i);
+		list2->addElement(n->getFpos());
+	}
+
+	return allList.get(list1Size - 1)->getKey()->clone();
+}
 
 } /* namespace alinous */
 

@@ -13,6 +13,7 @@ set(__src
 	NodeCacheRef.cpp
 	NodeCursor.cpp
 	NodeHandle.cpp
+	NodePosition.cpp
 	TreeNode.cpp
 )
 handle_sub(codablecashlib "${__src}" db btree)
