@@ -61,6 +61,8 @@ TEST(TestBTreeGroup, casterror02){
 	DataNode* node = new DataNode(new ULongKey(1));
 	node->setFpos(fpos);
 
+	CHECK(node->isData())
+
 	Exception* ex = nullptr;
 	try{
 		AbstractTreeNode::toTreeNode(node);
