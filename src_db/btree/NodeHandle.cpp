@@ -32,11 +32,11 @@ void NodeHandle::setIsRoot(bool isroot) {
 bool NodeHandle::isLeaf() const {
 	return AbstractTreeNode::toTreeNode(this->ref->getNode())->isLeaf();
 }
-
+/*
 bool NodeHandle::isData() const noexcept {
 	return this->ref->getNode()->isData();
 }
-
+*/
 NodeCacheRef* NodeHandle::getRef() const noexcept {
 	return this->ref;
 }

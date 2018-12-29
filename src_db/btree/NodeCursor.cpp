@@ -41,7 +41,6 @@ NodeCursor::~NodeCursor() {
 		delete n;
 	}
 
-
 	delete this->nodestack;
 }
 
@@ -71,7 +70,13 @@ void NodeCursor::insert(const AbstractBtreeKey* key, const IBlockObject* data) {
 
 	// down to leaf node
 	while(!current->isLeaf()){
+		uint64_t nextFpos = current->getNextChild(key);
+		NodeHandle* nh = this->store->loadNode(nextFpos);
 
+		current = new NodePosition(nh);
+		push(current);
+
+		current->loadInnerNodes(this->store);
 	}
 
 	// 1. already has key
@@ -154,6 +159,8 @@ void NodeCursor::createNewRoot(TreeNode* newNode) {
 	nodes->set(1, current->getFpos());
 
 	this->store->storeNode(&rootNode);
+
+	this->store->updateRootFpos(rootNode.getFpos());
 }
 
 void NodeCursor::addToParent(TreeNode* newNode) {

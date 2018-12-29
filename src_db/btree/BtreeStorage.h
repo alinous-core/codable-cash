@@ -51,6 +51,8 @@ public:
 	uint64_t storeNode(AbstractTreeNode* node);
 	void updateNode(AbstractTreeNode* node);
 
+	void updateRootFpos(uint64_t rootFpos);
+
 private:
 	BtreeHeaderBlock* makeHeader(BtreeConfig* config, uint64_t rootFpos);
 	static AbstractTreeNode* makeNodeFromBinary(ByteBuffer* buff, BTreeKeyFactory* factory);

@@ -34,10 +34,11 @@ public:
 	uint64_t getFpos() const noexcept;
 
 	ArrayList<NodeHandle>* getInnerNodes() const noexcept;
-
 	void loadInnerNodes(BtreeStorage* store);
-
 	void addNode(const AbstractBtreeKey* key, uint64_t fpos, int nodeNumber);
+
+	uint64_t getNextChild(const AbstractBtreeKey* key) const;
+
 	void save(BtreeStorage* store);
 
 	void updateInnerNodeFpos(const RawArrayPrimitive<uint64_t>* newlist);

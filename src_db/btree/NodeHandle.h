@@ -28,7 +28,7 @@ public:
 	bool isRoot() const;
 	void setIsRoot(bool isroot);
 	bool isLeaf() const;
-	bool isData() const noexcept;
+	//bool isData() const noexcept;
 
 	NodeCacheRef* getRef() const noexcept;
 	AbstractBtreeKey* getKey() const noexcept;
