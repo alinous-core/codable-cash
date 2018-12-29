@@ -27,9 +27,18 @@ NodePosition::~NodePosition() {
 	delete this->node;
 
 	if(this->innerNodes != nullptr){
-		this->innerNodes->deleteElements();
-		delete this->innerNodes;
+		clearCache();
 	}
+}
+
+void NodePosition::clearCache() {
+	this->innerNodes->deleteElements();
+	delete this->innerNodes, this->innerNodes = nullptr;
+
+}
+
+uint64_t NodePosition::getFpos() const noexcept {
+	return this->node->getRef()->getNode()->getFpos();
 }
 
 bool NodePosition::isLeaf() const {
@@ -95,12 +104,12 @@ void NodePosition::addNode(const AbstractBtreeKey* key, uint64_t fpos, int nodeN
 			break;
 		}
 	}
+	clearCache();
 }
 
 ArrayList<NodeHandle>* NodePosition::getInnerNodes() const noexcept {
 	return this->innerNodes;
 }
-
 
 void NodePosition::internalAddNode(int index, uint64_t fpos) {
 	TreeNode* treeNode = this->node->toTreeNode();
@@ -116,6 +125,13 @@ void NodePosition::internalAddNode(int index, uint64_t fpos) {
 	this->innerCount++;
 }
 
+void NodePosition::updateInnerNodeFpos(const RawArrayPrimitive<uint64_t>* newlist) {
+	TreeNode* treeNode = this->node->toTreeNode();
+	treeNode->updateInnerNodeFpos(newlist);
+
+	clearCache();
+}
+
 void NodePosition::save(BtreeStorage* store) {
 	AbstractTreeNode* node = this->node->getRef()->getNode();
 
@@ -129,3 +145,5 @@ void NodePosition::checkNoNull(NodeHandle* nodeHandle, const char* srcfile, int 
 }
 
 } /* namespace alinous */
+
+

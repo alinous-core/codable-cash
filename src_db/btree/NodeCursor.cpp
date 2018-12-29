@@ -16,6 +16,7 @@
 #include "btree/exceptions.h"
 
 #include "btree/DataNode.h"
+#include "btreekey/InfinityKey.h"
 
 #include "base/StackRelease.h"
 
@@ -128,18 +129,49 @@ void NodeCursor::splitLeafNode(const AbstractBtreeKey* key, const IBlockObject* 
 	newNode.updateInnerNodeFpos(&list1);
 	this->store->storeNode(&newNode);
 
-	// TODO: update newNode & current
+	// update current
 	bool isroot = current->isRoot();
 	current->setRoot(false);
-
+	current->updateInnerNodeFpos(&list2);
+	current->save(this->store);
 
 	// add to parent node
 	if(isroot){
-
+		createNewRoot(&newNode);
 	}
 	else{
-
+		addToParent(&newNode);
 	}
+}
+
+void NodeCursor::createNewRoot(TreeNode* newNode) {
+	NodePosition* current = pop();
+	StackRelease<NodePosition> _st_current(current);
+
+	TreeNode rootNode(true, this->nodeNumber, new InfinityKey(), false);
+	RawArrayPrimitive<uint64_t>* nodes = rootNode.getInnerNodeFpos();
+	nodes->set(0, newNode->getFpos());
+	nodes->set(1, current->getFpos());
+
+	this->store->storeNode(&rootNode);
+}
+
+void NodeCursor::addToParent(TreeNode* newNode) {
+	delete pop();
+
+	NodePosition* current = top();
+
+	if(current->isFull(this->nodeNumber)){
+		splitTreeNode(newNode);
+	}
+	else{
+		current->addNode(newNode->getKey(), newNode->getFpos(), this->nodeNumber);
+		current->save(this->store);
+	}
+}
+
+void NodeCursor::splitTreeNode(TreeNode* newNode) {
+
 }
 
 AbstractBtreeKey* NodeCursor::setupTwoLists(ArrayList<NodeHandle>* list, AbstractTreeNode* node,
@@ -186,6 +218,8 @@ AbstractBtreeKey* NodeCursor::setupTwoLists(ArrayList<NodeHandle>* list, Abstrac
 
 	return allList.get(list1Size - 1)->getKey()->clone();
 }
+
+
 
 } /* namespace alinous */
 

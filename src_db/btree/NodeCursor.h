@@ -22,6 +22,7 @@ class IBlockObject;
 class AbstractTreeNode;
 class AbstractBtreeKey;
 class NodePosition;
+class TreeNode;
 
 class NodeCursor {
 public:
@@ -39,6 +40,9 @@ private:
 	void splitLeafNode(const AbstractBtreeKey* key, const IBlockObject* data);
 	AbstractBtreeKey* setupTwoLists(ArrayList<NodeHandle>* list, AbstractTreeNode* node,
 			RawArrayPrimitive<uint64_t>* list1, RawArrayPrimitive<uint64_t>* list2);
+	void createNewRoot(TreeNode* newNode);
+	void addToParent(TreeNode* newNode);
+	void splitTreeNode(TreeNode* newNode);
 
 private:
 	ArrayList<NodePosition>* nodestack;

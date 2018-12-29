@@ -24,11 +24,14 @@ public:
 	explicit NodePosition(NodeHandle* nodeHandle);
 	~NodePosition();
 
+	void clearCache();
+
 	bool isLeaf() const;
 	bool isRoot() const;
 	void setRoot(bool isroot);
 	NodeHandle* hasKey(const AbstractBtreeKey* key) const;
 	bool isFull(int nodeNumber) const noexcept;
+	uint64_t getFpos() const noexcept;
 
 	ArrayList<NodeHandle>* getInnerNodes() const noexcept;
 
@@ -36,6 +39,8 @@ public:
 
 	void addNode(const AbstractBtreeKey* key, uint64_t fpos, int nodeNumber);
 	void save(BtreeStorage* store);
+
+	void updateInnerNodeFpos(const RawArrayPrimitive<uint64_t>* newlist);
 
 	static void checkNoNull(NodeHandle* nodeHandle, const char* srcfile, int srcline) noexcept(false);
 private:
