@@ -121,6 +121,8 @@ BtreeHeaderBlock* BtreeStorage::makeHeader(BtreeConfig* config, uint64_t rootFpo
 }
 
 void BtreeStorage::updateRootFpos(uint64_t rootFpos) {
+	this->rootFpos = rootFpos;
+
 	BlockHandle* handle = this->store->get(0);
 	StackRelease<BlockHandle> __st_handle(handle);
 

@@ -158,7 +158,7 @@ TEST(TestBTreeGroup, add01){
 		addKeyValue(6, 6, &btree);
 
 		addKeyValue(3, 3, &btree);
-		//addKeyValue(2, 2, &btree);
+		addKeyValue(2, 2, &btree);
 	}
 
 	btree.close();
