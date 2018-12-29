@@ -178,6 +178,7 @@ void NodeCursor::addToParent(TreeNode* newNode) {
 }
 
 void NodeCursor::splitTreeNode(TreeNode* newNode) {
+	// FIXME todo
 
 }
 
@@ -204,11 +205,9 @@ AbstractBtreeKey* NodeCursor::setupTwoLists(ArrayList<NodeHandle>* list, Abstrac
 		allList.addElement(nhnode);
 	}
 
-	// it does not come here
-	//if(!done){
-	//	allList.addElement(node);
-	//}
-	assert(done);
+	if(!done){
+		allList.addElement(node);
+	}
 
 	int total = allList.size();
 	int list1Size = total / 2;
