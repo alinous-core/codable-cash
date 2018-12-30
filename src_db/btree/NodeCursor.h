@@ -36,6 +36,7 @@ public:
 
 	void insert(const AbstractBtreeKey* key, const IBlockObject* data);
 	IBlockObject* gotoFirst();
+	IBlockObject* getNext();
 
 	static void checkIsDataNode(NodeHandle* nodeHandle, const char* srcfile, int srcline);
 private:

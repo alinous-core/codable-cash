@@ -28,6 +28,7 @@ public:
 
 	bool isLeaf() const;
 	bool isRoot() const;
+	// bool isData() const;
 	void setRoot(bool isroot);
 	NodeHandle* hasKey(const AbstractBtreeKey* key) const;
 	bool isFull(int nodeNumber) const noexcept;
@@ -44,6 +45,8 @@ public:
 	void updateInnerNodeFpos(const RawArrayPrimitive<uint64_t>* newlist);
 
 	uint64_t nextData();
+	uint64_t nextNode();
+	bool hasNext();
 
 	static void checkNoNull(NodeHandle* nodeHandle, const char* srcfile, int srcline) noexcept(false);
 private:

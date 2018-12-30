@@ -204,7 +204,16 @@ TEST(TestBTreeGroup, add01){
 		scanner->begin();
 		while(scanner->hasNext()){
 			IBlockObject* obj = scanner->next();
+			TempValue* tmp = dynamic_cast<TempValue*>(obj);
+			uint64_t v = tmp->getValue();
 		}
+	}
+
+	{
+		// irregular case
+		BtreeScanner* scanner = btree.getScanner();
+		StackRelease<BtreeScanner> __st_scanner(scanner);
+		scanner->hasNext();
 	}
 
 	btree.close();

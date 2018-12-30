@@ -37,7 +37,7 @@ bool BtreeScanner::hasNext() {
 		this->initialized = true;
 	}
 	else{
-
+		this->nextObj = this->cursor->getNext();
 	}
 
 	return this->nextObj != nullptr;

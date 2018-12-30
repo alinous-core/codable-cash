@@ -23,6 +23,10 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
 
+	uint64_t getValue() const {
+		return value;
+	}
+
 private:
 	uint64_t value;
 };
