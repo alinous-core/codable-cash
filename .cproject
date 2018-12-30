@@ -29,6 +29,9 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/src_test}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/src_ext}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/src_db}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/src_blockchain}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/src_smartcontract}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/src_smartcontract_vm}&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.261417299" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__TEST_CPP_UNIT__=1"/>
