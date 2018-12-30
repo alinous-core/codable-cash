@@ -11,11 +11,16 @@
 namespace alinous {
 
 class NodeCursor;
+class NodeHandle;
 
 class BtreeScanner {
 public:
 	BtreeScanner(NodeCursor* cursor);
 	virtual ~BtreeScanner();
+
+	void begin();
+	bool hasNext();
+	NodeHandle* next();
 
 private:
 	NodeCursor* cursor;

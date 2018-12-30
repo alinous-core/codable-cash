@@ -159,6 +159,10 @@ void NodePosition::checkNoNull(NodeHandle* nodeHandle, const char* srcfile, int 
 	}
 }
 
-} /* namespace alinous */
+NodeHandle* NodePosition::getNodeHandle() const noexcept {
+	return this->node;
+}
 
+
+} /* namespace alinous */
 

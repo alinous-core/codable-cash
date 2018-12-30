@@ -190,7 +190,7 @@ void NodeCursor::splitTreeNode(TreeNode* node) {
 	StackRelease<AbstractBtreeKey> __st_newkey(newKey);
 
 	// new Node
-	TreeNode newNode(this->nodeNumber, newKey->clone(), true);
+	TreeNode newNode(this->nodeNumber, newKey->clone(), false);
 	newNode.updateInnerNodeFpos(&list1);
 	this->store->storeNode(&newNode);
 
@@ -252,8 +252,36 @@ AbstractBtreeKey* NodeCursor::setupTwoLists(ArrayList<NodeHandle>* list, Abstrac
 	return allList.get(list1Size - 1)->getKey()->clone();
 }
 
+void NodeCursor::gotoFirst() {
+	NodePosition* current = top();
 
+	// check data nodes
+	current->loadInnerNodes(this->store);
+
+	while(!current->isLeaf()){
+		uint64_t nextFpos = current->getInnerNodes()->get(0)->getFpos();
+		NodeHandle* nh = this->store->loadNode(nextFpos);
+
+		current = new NodePosition(nh);
+		push(current);
+
+		current->loadInnerNodes(this->store);
+	}
+
+	uint64_t nextFpos = current->getInnerNodes()->get(0)->getFpos();
+	NodeHandle* nh = this->store->loadNode(nextFpos);
+	current = new NodePosition(nh);
+	push(current);
+
+	checkIsDataNode(current->getNodeHandle(), __FILE__, __LINE__);
+
+}
+
+void NodeCursor::checkIsDataNode(NodeHandle* nodeHandle, const char* srcfile, int srcline) {
+	if(!nodeHandle->isData()){
+		throw new NodeStructureException(srcfile, srcline);
+	}
+}
 
 } /* namespace alinous */
-
 

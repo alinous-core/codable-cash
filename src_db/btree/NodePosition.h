@@ -32,6 +32,7 @@ public:
 	NodeHandle* hasKey(const AbstractBtreeKey* key) const;
 	bool isFull(int nodeNumber) const noexcept;
 	uint64_t getFpos() const noexcept;
+	NodeHandle* getNodeHandle() const noexcept;
 
 	ArrayList<NodeHandle>* getInnerNodes() const noexcept;
 	void loadInnerNodes(BtreeStorage* store);

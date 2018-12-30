@@ -19,4 +19,16 @@ BtreeScanner::~BtreeScanner() {
 	delete this->cursor;
 }
 
+void BtreeScanner::begin() {
+	this->cursor->gotoFirst();
+}
+
+bool BtreeScanner::hasNext() {
+}
+
+NodeHandle* BtreeScanner::next() {
+}
+
 } /* namespace alinous */
+
+

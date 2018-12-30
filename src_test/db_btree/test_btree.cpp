@@ -15,6 +15,8 @@
 #include "btree/NodeCursor.h"
 #include "btree/NodePosition.h"
 #include "btree/BtreeScanner.h"
+#include "btree/NodeCacheRef.h"
+#include "btree/NodeHandle.h"
 
 #include "btreekey/BTreeKeyFactory.h"
 #include "btreekey/ULongKey.h"
@@ -49,6 +51,25 @@ TEST(TestBTreeGroup, infinityKey){
 	delete key2;
 }
 
+TEST(TestBTreeGroup, checkDataNode){
+	TreeNode* node = new TreeNode(false, 4, new ULongKey(1), true);
+	SynchronizedLock lock;
+	NodeCacheRef ref(node, &lock);
+
+	NodeHandle handle(&ref);
+
+	Exception* ex = nullptr;
+	try{
+		NodeCursor::checkIsDataNode(&handle, __FILE__, __LINE__);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+	delete ex;
+
+
+}
 
 TEST(TestBTreeGroup, casterror01){
 	uint64_t fpos = 256;
@@ -174,6 +195,13 @@ TEST(TestBTreeGroup, add01){
 		addKeyValue(3, 3, &btree);
 		addKeyValue(2, 2, &btree);
 		addKeyValue(100, 100, &btree);
+	}
+
+	{
+		BtreeScanner* scanner = btree.getScanner();
+		StackRelease<BtreeScanner> __st_scanner(scanner);
+
+		scanner->begin();
 	}
 
 	btree.close();
