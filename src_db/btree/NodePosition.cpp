@@ -40,7 +40,7 @@ void NodePosition::clearCache() {
 }
 
 uint64_t NodePosition::getFpos() const noexcept {
-	return this->node->getRef()->getNode()->getFpos();
+	return this->node->getFpos();
 }
 
 bool NodePosition::isLeaf() const {
@@ -122,7 +122,7 @@ uint64_t NodePosition::getNextChild(const AbstractBtreeKey* key) const {
 		NodeHandle* nh = this->innerNodes->get(i);
 
 		if(key->compareTo(nh->getKey()) < 0){
-			ret = nh->getRef()->getNode()->getFpos();
+			ret = nh->getFpos();
 			break;
 		}
 	}
