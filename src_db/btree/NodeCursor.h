@@ -35,7 +35,7 @@ public:
 	NodePosition* top() noexcept;
 
 	void insert(const AbstractBtreeKey* key, const IBlockObject* data);
-	void gotoFirst();
+	IBlockObject* gotoFirst();
 
 	static void checkIsDataNode(NodeHandle* nodeHandle, const char* srcfile, int srcline);
 private:

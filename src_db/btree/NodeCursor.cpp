@@ -252,7 +252,7 @@ AbstractBtreeKey* NodeCursor::setupTwoLists(ArrayList<NodeHandle>* list, Abstrac
 	return allList.get(list1Size - 1)->getKey()->clone();
 }
 
-void NodeCursor::gotoFirst() {
+IBlockObject* NodeCursor::gotoFirst() {
 	NodePosition* current = top();
 
 	// check data nodes
@@ -275,6 +275,9 @@ void NodeCursor::gotoFirst() {
 
 	checkIsDataNode(current->getNodeHandle(), __FILE__, __LINE__);
 
+	uint64_t datafpos = current->nextData();
+
+	return this->store->loadData(datafpos);
 }
 
 void NodeCursor::checkIsDataNode(NodeHandle* nodeHandle, const char* srcfile, int srcline) {

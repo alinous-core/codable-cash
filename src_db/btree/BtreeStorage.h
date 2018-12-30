@@ -27,11 +27,12 @@ class ByteBuffer;
 class IBlockObject;
 
 class BTreeKeyFactory;
+class AbstractBtreeDataFactory;
 
 
 class BtreeStorage {
 public:
-	BtreeStorage(File* folder, UnicodeString* name, BTreeKeyFactory* factory);
+	BtreeStorage(File* folder, UnicodeString* name, BTreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory);
 	virtual ~BtreeStorage();
 
 	void create(DiskCacheManager* cacheManager, BtreeConfig* config);
@@ -42,6 +43,7 @@ public:
 	BtreeHeaderBlock* loadHeader();
 	NodeHandle* loadRoot();
 	NodeHandle* loadNode(uint64_t fpos);
+	IBlockObject* loadData(uint64_t fpos);
 
 	void setRootFpos(uint64_t rootFpos){
 		this->rootFpos = rootFpos;
@@ -61,6 +63,7 @@ private:
 	UnicodeString* name;
 	File* folder;
 	BTreeKeyFactory* factory;
+	AbstractBtreeDataFactory* dfactory;
 
 	BlockFileStore* store;
 	NodeCache* cache;

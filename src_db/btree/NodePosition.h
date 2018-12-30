@@ -41,8 +41,9 @@ public:
 	uint64_t getNextChild(const AbstractBtreeKey* key) const;
 
 	void save(BtreeStorage* store);
-
 	void updateInnerNodeFpos(const RawArrayPrimitive<uint64_t>* newlist);
+
+	uint64_t nextData();
 
 	static void checkNoNull(NodeHandle* nodeHandle, const char* srcfile, int srcline) noexcept(false);
 private:

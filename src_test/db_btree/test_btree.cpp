@@ -202,6 +202,9 @@ TEST(TestBTreeGroup, add01){
 		StackRelease<BtreeScanner> __st_scanner(scanner);
 
 		scanner->begin();
+		while(scanner->hasNext()){
+			IBlockObject* obj = scanner->next();
+		}
 	}
 
 	btree.close();

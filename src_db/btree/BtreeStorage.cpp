@@ -12,6 +12,7 @@
 #include "btree/BtreeConfig.h"
 #include "btree/NodeCache.h"
 #include "btree/NodeHandle.h"
+#include "btree/AbstractBtreeDataFactory.h"
 
 #include "btreekey/InfinityKey.h"
 
@@ -27,13 +28,14 @@
 
 namespace alinous {
 
-BtreeStorage::BtreeStorage(File* folder, UnicodeString* name, BTreeKeyFactory* factory) {
+BtreeStorage::BtreeStorage(File* folder, UnicodeString* name, BTreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory) {
 	this->name = name;
 	this->folder = folder;
 	this->factory = factory;
 	this->store = nullptr;
 	this->cache = nullptr;
 	this->rootFpos = 0;
+	this->dfactory = dfactory;
 }
 
 BtreeStorage::~BtreeStorage() {
@@ -195,7 +197,17 @@ NodeHandle* BtreeStorage::loadNode(uint64_t fpos) {
 	return new NodeHandle(ref);
 }
 
+IBlockObject* BtreeStorage::loadData(uint64_t fpos) {
+	StackUnlocker __lock(&this->lock);
 
+	BlockHandle* handle = this->store->get(fpos);
+	StackRelease<BlockHandle> __st_handle(handle);
+
+	ByteBuffer* buff = handle->getBuffer();
+	buff->position(0);
+
+	return this->dfactory->makeDataFromBinary(buff);
+}
 
 AbstractTreeNode* BtreeStorage::makeNodeFromBinary(ByteBuffer* buff, BTreeKeyFactory* factory) {
 	char nodeType = buff->get();

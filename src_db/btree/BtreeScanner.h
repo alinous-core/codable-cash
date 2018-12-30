@@ -12,6 +12,7 @@ namespace alinous {
 
 class NodeCursor;
 class NodeHandle;
+class IBlockObject;
 
 class BtreeScanner {
 public:
@@ -21,10 +22,12 @@ public:
 
 	void begin();
 	bool hasNext();
-	NodeHandle* next();
+	IBlockObject* next();
 
 private:
 	NodeCursor* cursor;
+	IBlockObject* nextObj;
+	bool initialized;
 };
 
 } /* namespace alinous */

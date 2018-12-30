@@ -12,6 +12,7 @@
 #include "btree/BtreeStorage.h"
 #include "btree/NodeCacheRef.h"
 #include "btree/TreeNode.h"
+#include "btree/DataNode.h"
 #include "btree/exceptions.h"
 
 namespace alinous {
@@ -163,6 +164,18 @@ NodeHandle* NodePosition::getNodeHandle() const noexcept {
 	return this->node;
 }
 
+uint64_t NodePosition::nextData() {
+	DataNode* dnode = this->node->toDataNode();
+	RawArrayPrimitive<uint64_t>* list = dnode->getInnerNodeFpos();
+
+	if(list->size() <= this->pos){
+		return 0;
+	}
+
+	int cur = this->pos++;
+	return list->get(cur);
+}
 
 } /* namespace alinous */
+
 

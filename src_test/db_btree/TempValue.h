@@ -32,6 +32,8 @@ public:
 	static const constexpr uint32_t TMPVALUE{100};
 
 	virtual ~TmpValueFactory();
+
+	virtual IBlockObject* makeDataFromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

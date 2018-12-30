@@ -47,13 +47,13 @@ Btree::~Btree() {
 }
 
 void Btree::create(BtreeConfig* config) {
-	BtreeStorage newStore(this->folder, this->name, this->factory);
+	BtreeStorage newStore(this->folder, this->name, this->factory, this->dfactory);
 
 	newStore.create(this->cacheManager, config);
 }
 
 void Btree::open(BtreeOpenConfig* config) {
-	this->store = new BtreeStorage(this->folder, this->name, this->factory);
+	this->store = new BtreeStorage(this->folder, this->name, this->factory, this->dfactory);
 
 	this->store->open(config->numDataBuffer, config->numNodeBuffer, this->cacheManager);
 
