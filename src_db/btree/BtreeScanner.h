@@ -15,7 +15,8 @@ class NodeHandle;
 
 class BtreeScanner {
 public:
-	BtreeScanner(NodeCursor* cursor);
+	BtreeScanner(const BtreeScanner& inst) = delete;
+	explicit BtreeScanner(NodeCursor* cursor);
 	virtual ~BtreeScanner();
 
 	void begin();
