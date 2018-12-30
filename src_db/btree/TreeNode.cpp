@@ -91,7 +91,9 @@ TreeNode* TreeNode::fromBinary(ByteBuffer* in, BTreeKeyFactory* factory) {
 
 	int maxLoop = in->getInt();
 	node->children = new RawArrayPrimitive<uint64_t>(maxLoop);
-	for(int i = 0; i != maxLoop; ++i){
+
+	int i = 0;
+	for(; i != maxLoop; ++i){
 		uint64_t nodefpos = in->getLong();
 		node->children->addElement(nodefpos);
 	}

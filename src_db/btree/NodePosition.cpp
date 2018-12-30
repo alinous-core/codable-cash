@@ -12,6 +12,7 @@
 #include "btree/BtreeStorage.h"
 #include "btree/NodeCacheRef.h"
 #include "btree/TreeNode.h"
+#include "btree/DataNode.h"
 #include "btree/exceptions.h"
 
 namespace alinous {
@@ -32,9 +33,10 @@ NodePosition::~NodePosition() {
 }
 
 void NodePosition::clearCache() {
-	this->innerNodes->deleteElements();
-	delete this->innerNodes, this->innerNodes = nullptr;
-
+	if(this->innerNodes != nullptr){
+		this->innerNodes->deleteElements();
+		delete this->innerNodes, this->innerNodes = nullptr;
+	}
 }
 
 uint64_t NodePosition::getFpos() const noexcept {
@@ -52,7 +54,11 @@ bool NodePosition::isRoot() const {
 void NodePosition::setRoot(bool isroot) {
 	this->node->setIsRoot(isroot);
 }
-
+/*
+bool NodePosition::isData() const {
+	return this->node->isData();
+}
+*/
 NodeHandle* NodePosition::hasKey(const AbstractBtreeKey* key) const {
 	int maxLoop = this->innerNodes->size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -70,6 +76,8 @@ NodeHandle* NodePosition::hasKey(const AbstractBtreeKey* key) const {
 }
 
 void NodePosition::loadInnerNodes(BtreeStorage* store) {
+	clearCache();
+
 	RawArrayPrimitive<uint64_t>* fposList = this->node->getInnerNodeFpos();
 	this->innerNodes = new ArrayList<NodeHandle>(fposList->size());
 
@@ -157,6 +165,38 @@ void NodePosition::checkNoNull(NodeHandle* nodeHandle, const char* srcfile, int 
 	if(nodeHandle == nullptr){
 		throw new NodeStructureException(srcfile, srcline);
 	}
+}
+
+NodeHandle* NodePosition::getNodeHandle() const noexcept {
+	return this->node;
+}
+
+uint64_t NodePosition::nextData() {
+	DataNode* dnode = this->node->toDataNode();
+	RawArrayPrimitive<uint64_t>* list = dnode->getInnerNodeFpos();
+
+	if(list->size() - 1 < this->pos){
+		return 0;
+	}
+
+	int cur = this->pos++;
+	return list->get(cur);
+}
+
+uint64_t NodePosition::nextNode() {
+	TreeNode* treeNode = this->node->toTreeNode();
+	RawArrayPrimitive<uint64_t>* list = treeNode->getInnerNodeFpos();
+
+	if(this->innerCount - 1 < this->pos){
+		return 0;
+	}
+
+	int cur = this->pos++;
+	return list->get(cur);
+}
+
+bool NodePosition::hasNext() {
+	return this->innerCount > this->pos;
 }
 
 } /* namespace alinous */

@@ -10,9 +10,13 @@
 
 namespace alinous {
 
+class IBlockObject;
+class ByteBuffer;
+
 class AbstractBtreeDataFactory {
 public:
 	virtual ~AbstractBtreeDataFactory();
+	virtual IBlockObject* makeDataFromBinary(ByteBuffer* in) = 0;
 };
 
 } /* namespace alinous */

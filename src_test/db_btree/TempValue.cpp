@@ -32,6 +32,14 @@ alinous::TmpValueFactory::~TmpValueFactory() {
 
 }
 
+IBlockObject* TmpValueFactory::makeDataFromBinary(ByteBuffer* in) {
+	int type = in->getInt();
+
+	uint64_t value = in->getLong();
+	return new TempValue(value);
+
+}
+
 } /* namespace alinous */
 
 

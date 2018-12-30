@@ -11,6 +11,7 @@
 #include "btree/BtreeConfig.h"
 #include "btree/NodeHandle.h"
 #include "btree/NodeCursor.h"
+#include "btree/BtreeScanner.h"
 
 #include "btree/AbstractBtreeDataFactory.h"
 #include "btreekey/BTreeKeyFactory.h"
@@ -46,13 +47,13 @@ Btree::~Btree() {
 }
 
 void Btree::create(BtreeConfig* config) {
-	BtreeStorage newStore(this->folder, this->name, this->factory);
+	BtreeStorage newStore(this->folder, this->name, this->factory, this->dfactory);
 
 	newStore.create(this->cacheManager, config);
 }
 
 void Btree::open(BtreeOpenConfig* config) {
-	this->store = new BtreeStorage(this->folder, this->name, this->factory);
+	this->store = new BtreeStorage(this->folder, this->name, this->factory, this->dfactory);
 
 	this->store->open(config->numDataBuffer, config->numNodeBuffer, this->cacheManager);
 
@@ -75,6 +76,13 @@ void Btree::insert(AbstractBtreeKey* key, IBlockObject* data) {
 
 	NodeCursor cursor(rootNode, this->store, this->config->nodeNumber);
 	cursor.insert(key, data);
+}
+
+BtreeScanner* Btree::getScanner() {
+	NodeHandle* rootNode = this->store->loadRoot();
+	NodeCursor* cursor = new NodeCursor(rootNode, this->store, this->config->nodeNumber);
+
+	return new BtreeScanner(cursor);
 }
 
 } /* namespace alinous */

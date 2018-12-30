@@ -23,6 +23,10 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
 
+	uint64_t getValue() const {
+		return value;
+	}
+
 private:
 	uint64_t value;
 };
@@ -32,6 +36,8 @@ public:
 	static const constexpr uint32_t TMPVALUE{100};
 
 	virtual ~TmpValueFactory();
+
+	virtual IBlockObject* makeDataFromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

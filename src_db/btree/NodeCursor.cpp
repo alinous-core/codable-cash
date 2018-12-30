@@ -108,6 +108,8 @@ void NodeCursor::insert(const AbstractBtreeKey* key, const IBlockObject* data) {
 
 	current->addNode(key, newDataNodeFpos, this->nodeNumber);
 	current->save(this->store);
+
+	current->loadInnerNodes(this->store);
 }
 
 void NodeCursor::splitLeafNode(const AbstractBtreeKey* key, const IBlockObject* data) {
@@ -174,6 +176,9 @@ void NodeCursor::addToParent(TreeNode* newNode) {
 	else{
 		current->addNode(newNode->getKey(), newNode->getFpos(), this->nodeNumber);
 		current->save(this->store);
+
+		// reload
+		current->loadInnerNodes(this->store);
 	}
 }
 
@@ -190,7 +195,7 @@ void NodeCursor::splitTreeNode(TreeNode* node) {
 	StackRelease<AbstractBtreeKey> __st_newkey(newKey);
 
 	// new Node
-	TreeNode newNode(this->nodeNumber, newKey->clone(), true);
+	TreeNode newNode(this->nodeNumber, newKey->clone(), false);
 	newNode.updateInnerNodeFpos(&list1);
 	this->store->storeNode(&newNode);
 
@@ -207,7 +212,6 @@ void NodeCursor::splitTreeNode(TreeNode* node) {
 	else{
 		addToParent(&newNode);
 	}
-	// FIXME todo
 }
 
 AbstractBtreeKey* NodeCursor::setupTwoLists(ArrayList<NodeHandle>* list, AbstractTreeNode* node,
@@ -253,8 +257,89 @@ AbstractBtreeKey* NodeCursor::setupTwoLists(ArrayList<NodeHandle>* list, Abstrac
 	return allList.get(list1Size - 1)->getKey()->clone();
 }
 
+IBlockObject* NodeCursor::gotoFirst() {
+	NodePosition* current = top();
 
+	// check data nodes
+	current->loadInnerNodes(this->store);
+
+	while(!current->isLeaf()){
+	//	uint64_t nextFpos = current->getInnerNodes()->get(0)->getFpos();
+		uint64_t nextFpos = current->nextNode();
+		NodeHandle* nh = this->store->loadNode(nextFpos);
+
+		current = new NodePosition(nh);
+		push(current);
+
+		current->loadInnerNodes(this->store);
+	}
+
+	uint64_t nextFpos = current->nextNode();
+	NodeHandle* nh = this->store->loadNode(nextFpos);
+	current = new NodePosition(nh);
+	push(current);
+
+	checkIsDataNode(current->getNodeHandle(), __FILE__, __LINE__);
+
+	uint64_t datafpos = current->nextData();
+
+	return this->store->loadData(datafpos);
+}
+
+IBlockObject* NodeCursor::getNext() {
+	NodePosition* current = top();
+
+	// get data from current node;
+	checkIsDataNode(current->getNodeHandle(), __FILE__, __LINE__);
+	uint64_t dfpos = current->nextData();
+
+	if(dfpos != 0){
+		return this->store->loadData(dfpos);
+	}
+
+	// pop data node
+	delete pop();
+
+	current = top();
+	while(!current->isLeaf() || !current->hasNext()){
+		uint64_t nextfpos = current->nextNode();
+
+		if(nextfpos == 0){
+			if(current->isRoot()){
+				return nullptr;
+			}
+			delete pop();
+			current = top();
+		}
+		else{
+			NodeHandle* nh = this->store->loadNode(nextfpos);
+			current = new NodePosition(nh);
+			push(current);
+
+			current->loadInnerNodes(this->store);
+		}
+	}
+
+	// current is leaf having next data
+	uint64_t nextfpos = current->nextNode();
+	NodeHandle* nh = this->store->loadNode(nextfpos);
+	current = new NodePosition(nh);
+	push(current);
+
+	checkIsDataNode(current->getNodeHandle(), __FILE__, __LINE__);
+
+	uint64_t datafpos = current->nextData();
+
+	return this->store->loadData(datafpos);
+}
+
+
+
+void NodeCursor::checkIsDataNode(NodeHandle* nodeHandle, const char* srcfile, int srcline) {
+	if(!nodeHandle->isData()){
+		throw new NodeStructureException(srcfile, srcline);
+	}
+}
 
 } /* namespace alinous */
-
 

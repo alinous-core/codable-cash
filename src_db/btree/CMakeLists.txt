@@ -5,6 +5,7 @@ set(__src
 	AbstractTreeNode.cpp
 	Btree.cpp
 	BtreeHeaderBlock.cpp
+	BtreeScanner.cpp
 	BtreeConfig.cpp
 	BtreeStorage.cpp
 	DataNode.cpp

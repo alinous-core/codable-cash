@@ -14,6 +14,9 @@
 #include "btree/exceptions.h"
 #include "btree/NodeCursor.h"
 #include "btree/NodePosition.h"
+#include "btree/BtreeScanner.h"
+#include "btree/NodeCacheRef.h"
+#include "btree/NodeHandle.h"
 
 #include "btreekey/BTreeKeyFactory.h"
 #include "btreekey/ULongKey.h"
@@ -48,6 +51,25 @@ TEST(TestBTreeGroup, infinityKey){
 	delete key2;
 }
 
+TEST(TestBTreeGroup, checkDataNode){
+	TreeNode* node = new TreeNode(false, 4, new ULongKey(1), true);
+	SynchronizedLock lock;
+	NodeCacheRef ref(node, &lock);
+
+	NodeHandle handle(&ref);
+
+	Exception* ex = nullptr;
+	try{
+		NodeCursor::checkIsDataNode(&handle, __FILE__, __LINE__);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+	delete ex;
+
+
+}
 
 TEST(TestBTreeGroup, casterror01){
 	uint64_t fpos = 256;
@@ -165,6 +187,7 @@ TEST(TestBTreeGroup, add01){
 	BtreeOpenConfig opconf;
 	btree.open(&opconf);
 
+	RawArrayPrimitive<uint64_t> answers(32);
 	{
 		addKeyValue(10, 10, &btree);
 		addKeyValue(6, 6, &btree);
@@ -173,6 +196,116 @@ TEST(TestBTreeGroup, add01){
 		addKeyValue(3, 3, &btree);
 		addKeyValue(2, 2, &btree);
 		addKeyValue(100, 100, &btree);
+
+		answers.addElement(2);
+		answers.addElement(3);
+		answers.addElement(6);
+		answers.addElement(6);
+		answers.addElement(10);
+		answers.addElement(100);
+	}
+
+	{
+		BtreeScanner* scanner = btree.getScanner();
+		StackRelease<BtreeScanner> __st_scanner(scanner);
+
+		scanner->begin();
+		int i = 0;
+		while(scanner->hasNext()){
+			IBlockObject* obj = scanner->next();
+			TempValue* tmp = dynamic_cast<TempValue*>(obj);
+			uint64_t v = tmp->getValue();
+
+			uint64_t a = answers.get(i++);
+			CHECK(v == a)
+		}
+	}
+
+	{
+		// irregular case
+		BtreeScanner* scanner = btree.getScanner();
+		StackRelease<BtreeScanner> __st_scanner(scanner);
+		scanner->hasNext();
+	}
+
+	btree.close();
+}
+
+TEST(TestBTreeGroup, add02){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file01");
+	BTreeKeyFactory* factory = new BTreeKeyFactory();
+	TmpValueFactory* dfactory = new TmpValueFactory();
+
+	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
+
+	BtreeConfig config;
+	config.nodeNumber  = 3;
+	btree.create(&config);
+
+	BtreeOpenConfig opconf;
+	btree.open(&opconf);
+
+	RawArrayPrimitive<uint64_t> answers(32);
+	{
+		addKeyValue(10, 10, &btree);
+		addKeyValue(6, 6, &btree);
+		addKeyValue(6, 6, &btree);
+
+		addKeyValue(3, 3, &btree);
+		addKeyValue(2, 2, &btree);
+		addKeyValue(100, 100, &btree);
+		addKeyValue(50, 50, &btree);
+		addKeyValue(7, 7, &btree);
+		addKeyValue(8, 8, &btree);
+		addKeyValue(9, 9, &btree);
+		addKeyValue(11, 11, &btree);
+		addKeyValue(12, 12, &btree);
+		addKeyValue(13, 13, &btree);
+		addKeyValue(14, 14, &btree);
+
+
+		answers.addElement(2);
+		answers.addElement(3);
+		answers.addElement(6);
+		answers.addElement(6);
+		answers.addElement(7);
+		answers.addElement(8);
+		answers.addElement(9);
+		answers.addElement(10);
+		answers.addElement(11);
+		answers.addElement(12);
+		answers.addElement(13);
+		answers.addElement(14);
+		answers.addElement(50);
+		answers.addElement(100);
+	}
+
+	{
+		BtreeScanner* scanner = btree.getScanner();
+		StackRelease<BtreeScanner> __st_scanner(scanner);
+
+		scanner->begin();
+		int i = 0;
+		while(scanner->hasNext()){
+			IBlockObject* obj = scanner->next();
+			TempValue* tmp = dynamic_cast<TempValue*>(obj);
+			uint64_t v = tmp->getValue();
+
+			uint64_t a = answers.get(i++);
+			CHECK(v == a)
+		}
+	}
+
+	{
+		// irregular case
+		BtreeScanner* scanner = btree.getScanner();
+		StackRelease<BtreeScanner> __st_scanner(scanner);
+		scanner->hasNext();
 	}
 
 	btree.close();

@@ -28,10 +28,12 @@ public:
 
 	bool isLeaf() const;
 	bool isRoot() const;
+	// bool isData() const;
 	void setRoot(bool isroot);
 	NodeHandle* hasKey(const AbstractBtreeKey* key) const;
 	bool isFull(int nodeNumber) const noexcept;
 	uint64_t getFpos() const noexcept;
+	NodeHandle* getNodeHandle() const noexcept;
 
 	ArrayList<NodeHandle>* getInnerNodes() const noexcept;
 	void loadInnerNodes(BtreeStorage* store);
@@ -40,8 +42,11 @@ public:
 	uint64_t getNextChild(const AbstractBtreeKey* key) const;
 
 	void save(BtreeStorage* store);
-
 	void updateInnerNodeFpos(const RawArrayPrimitive<uint64_t>* newlist);
+
+	uint64_t nextData();
+	uint64_t nextNode();
+	bool hasNext();
 
 	static void checkNoNull(NodeHandle* nodeHandle, const char* srcfile, int srcline) noexcept(false);
 private:

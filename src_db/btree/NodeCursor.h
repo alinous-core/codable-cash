@@ -30,12 +30,15 @@ public:
 	NodeCursor(NodeHandle* rootNode, BtreeStorage* store, int nodeNumber);
 	virtual ~NodeCursor();
 
-
 	NodePosition* pop() noexcept;
 	void push(NodePosition* node) noexcept;
 	NodePosition* top() noexcept;
 
 	void insert(const AbstractBtreeKey* key, const IBlockObject* data);
+	IBlockObject* gotoFirst();
+	IBlockObject* getNext();
+
+	static void checkIsDataNode(NodeHandle* nodeHandle, const char* srcfile, int srcline);
 private:
 	void splitLeafNode(const AbstractBtreeKey* key, const IBlockObject* data);
 	AbstractBtreeKey* setupTwoLists(ArrayList<NodeHandle>* list, AbstractTreeNode* node,
@@ -43,6 +46,8 @@ private:
 	void createNewRoot(TreeNode* newNode);
 	void addToParent(TreeNode* newNode);
 	void splitTreeNode(TreeNode* newNode);
+
+
 
 private:
 	ArrayList<NodePosition>* nodestack;

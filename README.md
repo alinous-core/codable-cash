@@ -3,5 +3,13 @@
 # codablecash
 Scalable Smart Contract Ledger.
 
+## Consensus
+
+
+## Smart Contract
+
+
+## Sharding for Scalability
+
 
 # Testing
