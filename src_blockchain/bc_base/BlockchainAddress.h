@@ -14,6 +14,12 @@ class BlockchainAddress {
 public:
 	BlockchainAddress();
 	virtual ~BlockchainAddress();
+
+	static BlockchainAddress* createAddress() noexcept;
+
+private:
+	char shardhash;
+	char* pubkey32;
 };
 
 } /* namespace codablecash */
