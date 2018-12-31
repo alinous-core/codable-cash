@@ -5,16 +5,15 @@
  *      Author: iizuka
  */
 
-#include "bc_network/NetworkShardStatus.h"
+#include "bc_network/NetworkShardsStatus.h"
 
 namespace codablecash {
 
-NetworkShardStatus::NetworkShardStatus() {
-	// TODO Auto-generated constructor stub
-
+NetworkShardsStatus::NetworkShardsStatus(int numShard) {
+	this->numShard = numShard;
 }
 
-NetworkShardStatus::~NetworkShardStatus() {
+NetworkShardsStatus::~NetworkShardsStatus() {
 	// TODO Auto-generated destructor stub
 }
 

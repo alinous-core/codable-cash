@@ -1,7 +1,7 @@
 
 
 set(__src
-	NetworkShardStatus.cpp
+	NetworkShardsStatus.cpp
 )
 handle_sub(codablecashlib "${__src}" blockchain bc_network)
 

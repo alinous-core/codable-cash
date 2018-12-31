@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
+#include <bc_network/NetworkShardsStatus.h>
 #include "test_utils/t_macros.h"
 
-#include "bc_network/NetworkShardStatus.h"
 
 using namespace alinous;
 using namespace codablecash;
@@ -18,7 +18,7 @@ TEST_GROUP(TestShardStatGroup) {
 };
 
 TEST(TestShardStatGroup, constract){
-	NetworkShardStatus* address = new NetworkShardStatus();
+	NetworkShardsStatus* address = new NetworkShardsStatus(8);
 	delete address;
 }
 
