@@ -2,7 +2,14 @@
 [![Coverage Status](https://coveralls.io/repos/github/alinous-core/codablecash/badge.svg)](https://coveralls.io/github/alinous-core/codablecash)
 # Codablecash
 
-Scalable Smart Contract Ledger with rapid blockchain consensus.
+Scalable Smart Contract Ledger with rapid blockchain consensus. The Codablecash is for Dapp application platform which has RDBMS on the blockchain data.
+
+**Current development status **   
+
+Now making first alpha version.
+ - [Latest Jenkins Status](http://ci.codablecash.org/job/codablecash_develop/ "develop branch")
+ - Author's Twitter [@alinous_core](https://twitter.com/alinous_core "Tomohiro Iizuka") 
+
 
 ## Consensus
 
@@ -29,6 +36,10 @@ After the transaction is registered into "Main Data Chain", received coin become
 
 In order to execute transactions processing parallelly, multiple chains can work simultaneously.
 The "Main Data Chain" absorbs difference of transaction numbers of each shard, and makes maintenance(Soft fork for update) easy.
+
+### Finalizing Blockchain
+
+Codablecash can finalize blockchain rapidly. Therefore it can use snapshot to make blockchain data compact.
 
 
 ## Smart Contract
