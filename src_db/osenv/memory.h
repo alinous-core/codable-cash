@@ -29,6 +29,7 @@ public:
 	static int wstrlen(const wchar_t *__s1) noexcept;
 
 	static int strcmp(const char *__s1, const char *__s2) noexcept;
+	static int memcmp(const void* lhs, const void* rhs, size_t count);
 
 };
 

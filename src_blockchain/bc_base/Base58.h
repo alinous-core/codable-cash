@@ -24,7 +24,7 @@ public:
 	static int* INDEXES;
 
 	static UnicodeString* encode(const char* input, int inputLength) noexcept;
-	static char* decode(UnicodeString* input) noexcept;
+	static ByteBuffer* decode(UnicodeString* input) noexcept;
 
 private:
 	static char divmod(char* number, int numberLength, int firstDigit, int base, int divisor);
