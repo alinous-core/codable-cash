@@ -35,11 +35,14 @@ int alinous::Mem::wstrlen(const wchar_t* __s1) noexcept {
 	return ::wcslen(__s1);
 }
 
-
 int Mem::strcmp(const char *__s1, const char *__s2) noexcept {
 	return ::strcmp(__s1, __s2);
 }
 
-} /* namespace alinous */
+int alinous::Mem::memcmp(const void* lhs, const void* rhs, size_t count) {
+	return ::memcmp(lhs, rhs, count);
+}
 
+
+} /* namespace alinous */
 

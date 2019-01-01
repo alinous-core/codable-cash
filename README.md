@@ -42,10 +42,10 @@ The feature of the language is below.
  - Supports SQL 
 
 
-### Offline and Online Execution
+### Off-Chain and On-Chain Execution
 
-The Smart Contract program contains Offline and Online parts.
-Offline part makes it possible to cooperate with external devices(Web Service, IoT, etc).
+The Smart Contract program contains Off-Chain and On-Chain parts.
+Off-Chain part makes it possible to cooperate with external devices(Web Service, IoT, etc).
 
 ### Development Environment
 
