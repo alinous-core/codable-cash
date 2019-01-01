@@ -2,6 +2,7 @@
 set(__dirsrc "")
 
 # import source codes
+add_subdirectory(bc)
 add_subdirectory(bc_base)
 add_subdirectory(bc_network)
 add_subdirectory(flash)
