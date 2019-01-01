@@ -27,6 +27,7 @@ TEST(TestBase58Group, encode){
 	bool res = str->equals(&ans);
 
 	CHECK(res)
+	delete str;
 }
 
 
