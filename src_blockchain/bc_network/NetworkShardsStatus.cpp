@@ -18,11 +18,5 @@ NetworkShardsStatus::NetworkShardsStatus(int numShard) {
 NetworkShardsStatus::~NetworkShardsStatus() {
 }
 
-int NetworkShardsStatus::binarySize() const {
-	return 0;
-}
-
-void NetworkShardsStatus::toBinary(ByteBuffer* out) const {
-}
 
 } /* namespace codablecash */

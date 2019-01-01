@@ -20,14 +20,12 @@ using namespace alinous;
 
 class NetworkShard;
 
-class NetworkShardsStatus : public IBlockObject {
+class NetworkShardsStatus {
 public:
 
 	explicit NetworkShardsStatus(int numShard);
 	virtual ~NetworkShardsStatus();
 
-	virtual int binarySize() const;
-	virtual void toBinary(ByteBuffer* out) const;
 private:
 	int numShard;
 	ArrayList<NetworkShard> shards;

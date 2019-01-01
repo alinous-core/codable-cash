@@ -8,10 +8,25 @@
 #ifndef BC_BLOCKCHAINSCONFIG_H_
 #define BC_BLOCKCHAINSCONFIG_H_
 
-namespace codablecash {
+namespace alinous {
+class File;
+}
 
+namespace codablecash {
+using namespace alinous;
+
+/**
+ * load config from file
+ */
 class BlockchainsConfig {
 public:
+	BlockchainsConfig(const BlockchainsConfig& inst);
+	BlockchainsConfig();
+	~BlockchainsConfig();
+
+public:
+	int numShards;
+	File* baseFolder;
 
 };
 
