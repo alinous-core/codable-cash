@@ -8,16 +8,29 @@
 #ifndef BC_NETWORK_NETWORKSHARDSSTATUS_H_
 #define BC_NETWORK_NETWORKSHARDSSTATUS_H_
 
-namespace codablecash {
+#include "filestore_block/IBlockObject.h"
+#include "base/ArrayList.h"
 
-class NetworkShardsStatus {
+namespace alinous {
+class ByteBuffer;
+}
+
+namespace codablecash {
+using namespace alinous;
+
+class NetworkShard;
+
+class NetworkShardsStatus : public IBlockObject {
 public:
 
 	explicit NetworkShardsStatus(int numShard);
 	virtual ~NetworkShardsStatus();
 
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
 private:
 	int numShard;
+	ArrayList<NetworkShard> shards;
 };
 
 } /* namespace codablecash */
