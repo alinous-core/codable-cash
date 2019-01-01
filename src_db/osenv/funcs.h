@@ -29,6 +29,7 @@ namespace alinous {
 #endif
 
 #define THREAD_ID pthread_t
+#define THREAD_KEY pthread_key_t
 
 class UnicodeString;
 class File;
@@ -54,6 +55,10 @@ public:
 	static void setThreadName(THREAD_ID id, const char* name) noexcept;
 	static UnicodeString* getThreadName(THREAD_ID id) noexcept;
 	static void joinThread(THREAD_ID id) noexcept;
+	static int threadKeyCreate(THREAD_KEY* key);
+	static int threadKeyDelete(THREAD_KEY key);
+	static int threadSetSpecific(THREAD_KEY key, const void* value) noexcept;
+	static void* threadGetSpecific(THREAD_KEY key) noexcept;
 
 	static void usleep(uint32_t microsec) noexcept;
 

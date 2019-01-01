@@ -11,6 +11,8 @@
 #include "base/ArrayList.h"
 #include <stdint.h>
 
+#include "osenv/funcs.h"
+
 namespace alinous {
 
 class TestGroup;
@@ -23,6 +25,8 @@ class Writer;
 
 class TestCase {
 public:
+	static THREAD_KEY TEST_CASE_KEY;
+
 	TestCase(const TestCase& base) = delete;
 	TestCase(TestGroup* group, const wchar_t* name, TestGroupActions* setup, const char* file, int line) noexcept;
 	virtual ~TestCase() noexcept;

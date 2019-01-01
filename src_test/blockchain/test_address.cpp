@@ -19,8 +19,7 @@ TEST_GROUP(TestBlockchainAddressGroup) {
 };
 
 TEST(TestBlockchainAddressGroup, constract){
-	BlockchainAddress* address = new BlockchainAddress();
-	delete address;
+
 }
 
 

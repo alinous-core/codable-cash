@@ -69,6 +69,22 @@ uint64_t Os::getMicroSec() noexcept {
 	return microsec;
 }
 
+int Os::threadKeyCreate(THREAD_KEY* key) {
+	return ::pthread_key_create(key, nullptr);
+}
+
+int Os::threadKeyDelete(THREAD_KEY key) {
+	return ::pthread_key_delete(key);
+}
+
+int Os::threadSetSpecific(THREAD_KEY key, const void* value) noexcept {
+	return ::pthread_setspecific(key, value);
+}
+
+void* Os::threadGetSpecific(THREAD_KEY key) noexcept {
+	return ::pthread_getspecific(key);
+}
+
 /**************************************************************************
  * File functions
  */
