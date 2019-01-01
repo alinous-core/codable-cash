@@ -7,6 +7,8 @@
 
 #include "bc_network/NetworkShardsStatus.h"
 
+#include "bc_network/NetworkShard.h"
+
 namespace codablecash {
 
 NetworkShardsStatus::NetworkShardsStatus(int numShard) {
@@ -14,7 +16,7 @@ NetworkShardsStatus::NetworkShardsStatus(int numShard) {
 }
 
 NetworkShardsStatus::~NetworkShardsStatus() {
-	// TODO Auto-generated destructor stub
 }
+
 
 } /* namespace codablecash */

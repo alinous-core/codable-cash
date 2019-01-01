@@ -2,9 +2,11 @@
 set(__dirsrc "")
 
 # import source codes
+add_subdirectory(bc)
 add_subdirectory(bc_base)
 add_subdirectory(bc_network)
-
+add_subdirectory(flash)
+add_subdirectory(main)
 
 message(STATUS "src_blockchain : ${__dirsrc}")
 
