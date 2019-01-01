@@ -20,7 +20,7 @@ using namespace alinous;
 class Base58 {
 public:
 	static const constexpr char* ALPHABET{"123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"};
-	static const constexpr char ENCODED_ZERO{1};
+	static const constexpr char ENCODED_ZERO{'1'};
 	static int* INDEXES;
 
 	static UnicodeString* encode(const char* input, int inputLength) noexcept;

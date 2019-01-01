@@ -43,9 +43,9 @@ UnicodeString* Base58::encode(const char* input, int inputLength) noexcept {
     	}
     }
 
-    while (outputStart < encodedLength && encoded[outputStart] == ENCODED_ZERO) {
-        ++outputStart;
-    }
+  //  while (outputStart < encodedLength && encoded[outputStart] == ENCODED_ZERO) {
+  //      ++outputStart;
+  //  }
 
 	while (--zeros >= 0) {
 		encoded[--outputStart] = ENCODED_ZERO;
@@ -69,7 +69,7 @@ ByteBuffer* Base58::decode(UnicodeString* input) noexcept {
 	}
 
 	int input58Length = input->length();
-	char* input58 = new char[input->length()];
+	char* input58 = new char[input->length()]{};
 	StackArrayRelease<char> __st_input58(input58);
 	for (int i = 0; i < input->length(); ++i) {
 		 wchar_t c = input->charAt(i);
@@ -86,7 +86,7 @@ ByteBuffer* Base58::decode(UnicodeString* input) noexcept {
     }
 
 	int decodedLength = input->length();
-	char* decoded = new char[decodedLength];
+	char* decoded = new char[decodedLength]{};
 	StackArrayRelease<char> __st_decoded(decoded);
 	int outputStart = decodedLength;
 	for (int inputStart = zeros; inputStart < input58Length; ) {
