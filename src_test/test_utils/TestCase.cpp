@@ -15,8 +15,6 @@
 
 #include <chrono>
 
-#include "osenv/funcs.h"
-
 #include "base_io_stream/Writer.h"
 using namespace std::chrono;
 
@@ -66,6 +64,8 @@ void TestCase::doTest(TestParams* params) {
 
 	uint64_t start, end;
 	try{
+		Check::getThreadKeyRegistory()->registerTestCase(this);
+
 		start = Os::getMicroSec();
 		testBody();
 		end = Os::getMicroSec();

@@ -22,10 +22,13 @@ class NetworkShard;
 
 class NetworkShardsStatus {
 public:
+	static const constexpr int MAX_SHARD_HASH{0xFF};
 
 	explicit NetworkShardsStatus(int numShard);
 	virtual ~NetworkShardsStatus();
 
+	int size() const noexcept;
+	NetworkShard* getShard(int pos) const noexcept;
 private:
 	int numShard;
 	ArrayList<NetworkShard> shards;

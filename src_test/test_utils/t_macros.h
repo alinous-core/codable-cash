@@ -44,7 +44,7 @@ public: \
 void TestCase_##grp##_##testName::testBody()
 
 
-#define CHECK(cnd) addCheck(new Check(env->getTestCase(), __FILE__, __LINE__))->checkCondition(cnd);
+#define CHECK(cnd) __mcAddcheck(new Check(env->getTestCase(), __FILE__, __LINE__))->checkCondition(cnd);
 
 using namespace alinous;
 
