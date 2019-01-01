@@ -10,12 +10,16 @@
 
 namespace codablecash {
 
+class NetworkShard;
+
 class BlockchainAddress {
-public:
+private:
 	BlockchainAddress();
+public:
+
 	virtual ~BlockchainAddress();
 
-	static BlockchainAddress* createAddress() noexcept;
+	static BlockchainAddress* createAddress(NetworkShard* shard) noexcept;
 
 private:
 	char shardhash;
