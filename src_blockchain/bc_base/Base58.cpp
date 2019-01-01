@@ -50,28 +50,6 @@ UnicodeString* Base58::encode(const char* input, int inputLength) noexcept {
 		encoded[--outputStart] = ENCODED_ZERO;
 	}
 
-    /*
-     *
-        // Convert base-256 digits to base-58 digits (plus conversion to ASCII characters)
-        input = Arrays.copyOf(input, input.length); // since we modify it in-place
-        char[] encoded = new char[input.length * 2]; // upper bound
-        int outputStart = encoded.length;
-        for (int inputStart = zeros; inputStart < input.length; ) {
-            encoded[--outputStart] = ALPHABET[divmod(input, inputStart, 256, 58)];
-            if (input[inputStart] == 0) {
-                ++inputStart; // optimization - skip leading zeros
-            }
-        }
-        // Preserve exactly as many leading encoded zeros in output as there were leading zeros in input.
-        while (outputStart < encoded.length && encoded[outputStart] == ENCODED_ZERO) {
-            ++outputStart;
-        }
-        while (--zeros >= 0) {
-            encoded[--outputStart] = ENCODED_ZERO;
-		}
-		return new String(encoded, outputStart, encoded.length - outputStart);
-     *
-     */
     UnicodeString* str = new UnicodeString(L"");
     int maxLoop = encodedLength - outputStart;
     for(int i = 0; i != maxLoop; ++i){
