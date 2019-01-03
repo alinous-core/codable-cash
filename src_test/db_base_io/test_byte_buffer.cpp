@@ -186,6 +186,9 @@ TEST(ByteBufferTestGroup, clone){
 	ByteBuffer* buff2 = buff->clone();
 
 	CHECK(buff->capacity() == buff2->capacity())
+
+	delete buff;
+	delete buff2;
 }
 
 TEST(ByteBufferTestGroup, putExceptions){
