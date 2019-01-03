@@ -8,6 +8,8 @@
 #ifndef BC_BASE_BLOCKCHAINADDRESS_H_
 #define BC_BASE_BLOCKCHAINADDRESS_H_
 
+#include "bc_base/AbstractAddress.h"
+
 namespace alinous {
 class ByteBuffer;
 }
@@ -17,7 +19,7 @@ using namespace alinous;
 
 class NetworkShard;
 
-class BlockchainAddress {
+class BlockchainAddress : public AbstractAddress {
 private:
 	BlockchainAddress();
 public:

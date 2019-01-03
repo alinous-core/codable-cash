@@ -14,7 +14,7 @@
 
 namespace codablecash {
 
-BlockchainAddress::BlockchainAddress() {
+BlockchainAddress::BlockchainAddress() : AbstractAddress(AbstractAddress::NORMAL_ADDRESS) {
 	this->shardhash = 0;
 	this->pubkey = nullptr;
 	this->secretkey = nullptr;
