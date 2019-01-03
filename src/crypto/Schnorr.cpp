@@ -165,7 +165,7 @@ bool Schnorr::verify(const mpz_t e, const mpz_t y, const mpz_t p, const uint8_t*
 ByteBuffer* Schnorr::toByteBuffer(const mpz_t s) noexcept {
 	size_t count;
 	uint8_t* buff =  (uint8_t*)mpz_export(NULL, &count, 1, 1, 1, 0, s);
-	StackArrayRelease<uint8_t> __st_buff(buff);
+	StackRelease<uint8_t> __st_buff(buff);
 
 	return ByteBuffer::wrapWithEndian(buff, count, true);
 }
