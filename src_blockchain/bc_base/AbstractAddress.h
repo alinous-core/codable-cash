@@ -19,6 +19,8 @@ public:
 	virtual ~AbstractAddress();
 
 	int getType() const noexcept;
+
+	virtual AbstractAddress* clone() const noexcept = 0;
 private:
 	int type;
 };

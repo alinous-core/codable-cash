@@ -46,6 +46,8 @@ public:
 	virtual wchar_t getChar(int position) noexcept(false);
 	virtual int16_t getShort() noexcept(false);
 	virtual int16_t getShort(int position) noexcept(false);
+
+	virtual ByteBuffer* clone() const noexcept;
 };
 
 } /* namespace alinous */

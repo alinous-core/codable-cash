@@ -40,8 +40,22 @@ BlockchainAddress* BlockchainAddress::createAddress(const NetworkShard* shard) n
 	address->pubkey = pub;
 	address->secretkey = sec;
 
+	address->shardhash = shard->getRandomHash();
 
 	return address;
+}
+
+AbstractAddress* BlockchainAddress::clone() const noexcept {
+	BlockchainAddress* addr = new BlockchainAddress();
+	addr->shardhash = this->shardhash;
+	if(this->pubkey != nullptr){
+		addr->pubkey = this->pubkey->clone();
+	}
+	if(this->secretkey != nullptr){
+		addr->secretkey = this->secretkey->clone();
+	}
+
+	return addr;
 }
 
 } /* namespace codablecash */

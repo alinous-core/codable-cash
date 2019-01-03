@@ -6,16 +6,19 @@
  */
 
 #include "bc_base/TransactionOutput.h"
+#include "bc_base/BalanceUnit.h"
+#include "AbstractAddress.h"
 
 namespace codablecash {
 
 TransactionOutput::TransactionOutput(const AbstractAddress* address, uint64_t amount) {
-	// TODO Auto-generated constructor stub
-
+	this->address = address->clone();
+	this->balance = new BalanceUnit(amount);
 }
 
 TransactionOutput::~TransactionOutput() {
-	// TODO Auto-generated destructor stub
+	delete this->address;
+	delete this->balance;
 }
 
 } /* namespace codablecash */

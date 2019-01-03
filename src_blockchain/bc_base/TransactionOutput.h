@@ -19,6 +19,10 @@ class TransactionOutput {
 public:
 	TransactionOutput(const AbstractAddress* address, uint64_t amount);
 	virtual ~TransactionOutput();
+
+private:
+	BalanceUnit* balance;
+	AbstractAddress* address;
 };
 
 } /* namespace codablecash */

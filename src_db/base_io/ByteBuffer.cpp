@@ -544,5 +544,10 @@ const uint8_t* ByteBuffer::array() const noexcept {
 	return data->getRoot();
 }
 
+ByteBuffer* ByteBuffer::clone() const noexcept {
+	return new ByteBuffer(array(), this->cap);
+}
+
 } /* namespace alinous */
+
 

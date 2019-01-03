@@ -6,16 +6,20 @@
  */
 
 #include "bc_base/TransactionInput.h"
+#include "bc_base/BalanceUnit.h"
+#include "AbstractAddress.h"
 
 namespace codablecash {
 
 TransactionInput::TransactionInput(const AbstractAddress* address, uint64_t amount) {
-	// TODO Auto-generated constructor stub
+	this->address = address->clone();
+	this->balance = new BalanceUnit(amount);
 
 }
 
 TransactionInput::~TransactionInput() {
-	// TODO Auto-generated destructor stub
+	delete this->address;
+	delete this->balance;
 }
 
 

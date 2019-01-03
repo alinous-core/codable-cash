@@ -23,11 +23,10 @@ class BlockchainAddress : public AbstractAddress {
 private:
 	BlockchainAddress();
 public:
-
 	virtual ~BlockchainAddress();
 
 	static BlockchainAddress* createAddress(const NetworkShard* shard) noexcept;
-
+	virtual AbstractAddress* clone() const noexcept;
 private:
 	char shardhash;
 	ByteBuffer* pubkey;
