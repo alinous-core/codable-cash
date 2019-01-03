@@ -11,6 +11,7 @@
 
 #include "osenv/memory.h"
 #include "yescrypt/sha256.h"
+#include "base_io/ReverseByteBuffer.h"
 
 namespace codablecash {
 
@@ -158,6 +159,13 @@ bool Schnorr::verify(const mpz_t e, const mpz_t y, const mpz_t p, const uint8_t*
 	mpz_clear(e2);
 
 	return cmp == 0;
+}
+
+ByteBuffer* Schnorr::toByteBuffer(const mpz_t s) noexcept {
+	size_t count;
+	uint8_t* buff =  (uint8_t*)mpz_export(NULL, &count, 1, 1, 1, 0, s);
+
+	return ByteBuffer::wrapWithEndian(buff, count, true);
 }
 
 }

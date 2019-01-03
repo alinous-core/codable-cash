@@ -7,22 +7,39 @@
 
 #include "bc_base/BlockchainAddress.h"
 #include "bc_network/NetworkShard.h"
+#include "crypto/Schnorr.h"
+#include "base_io/ReverseByteBuffer.h"
+
+#include "base/StackRelease.h"
 
 namespace codablecash {
 
 BlockchainAddress::BlockchainAddress() {
 	this->shardhash = 0;
-	this->pubkey32 = nullptr;
+	this->pubkey = nullptr;
+	this->secretkey = nullptr;
 }
 
 BlockchainAddress::~BlockchainAddress() {
-	if(this->pubkey32 != nullptr){
-		delete [] this->pubkey32;
+	if(this->pubkey != nullptr){
+		delete this->pubkey;
+	}
+	if(this->secretkey != nullptr){
+		delete this->secretkey;
 	}
 }
 
 BlockchainAddress* BlockchainAddress::createAddress(NetworkShard* shard) noexcept {
 	BlockchainAddress* address = new BlockchainAddress();
+
+	SchnorrKeyPair* key = Schnorr::generateKey();
+	StackRelease<SchnorrKeyPair> __st_key(key);
+
+	ByteBuffer* pub = Schnorr::toByteBuffer(key->publicKey);
+	ByteBuffer* sec = Schnorr::toByteBuffer(key->secretKey);
+	address->pubkey = pub;
+	address->secretkey = sec;
+
 
 	return address;
 }

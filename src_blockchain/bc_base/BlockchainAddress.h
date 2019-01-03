@@ -8,7 +8,12 @@
 #ifndef BC_BASE_BLOCKCHAINADDRESS_H_
 #define BC_BASE_BLOCKCHAINADDRESS_H_
 
+namespace alinous {
+class ByteBuffer;
+}
+
 namespace codablecash {
+using namespace alinous;
 
 class NetworkShard;
 
@@ -23,7 +28,8 @@ public:
 
 private:
 	char shardhash;
-	char* pubkey32;
+	ByteBuffer* pubkey;
+	ByteBuffer* secretkey;
 };
 
 } /* namespace codablecash */

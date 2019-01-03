@@ -14,7 +14,13 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+
+namespace alinous {
+class ByteBuffer;
+}
+
 namespace codablecash {
+using namespace alinous;
 
 class SchnorrConsts {
 public:
@@ -39,6 +45,8 @@ public:
 
 	Schnorr();
 	virtual ~Schnorr();
+
+	static ByteBuffer* toByteBuffer(const mpz_t s) noexcept;
 
 };
 
