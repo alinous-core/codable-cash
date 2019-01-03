@@ -30,6 +30,9 @@ TEST(TestBlockchainAddressGroup, constract){
 	NetworkShard* shard = shards->getShard(1);
 	BlockchainAddress* address = BlockchainAddress::createAddress(shard);
 	StackRelease<BlockchainAddress> __st_address(address);
+
+	int type = address->getType();
+	CHECK(type == AbstractAddress::NORMAL_ADDRESS)
 }
 
 

@@ -14,7 +14,7 @@ namespace codablecash {
 NetworkShardsStatus::NetworkShardsStatus(int numShard) {
 	this->numShard = numShard;
 
-	int shardsize = NetworkShardsStatus::MAX_SHARD_HASH / numShard;
+	int shardsize = (NetworkShardsStatus::MAX_SHARD_HASH + 1) / numShard;
 	for(int i = 0; i != numShard; ++i){
 		NetworkShard* shard = new NetworkShard(i * shardsize, shardsize);
 		this->shards.addElement(shard);

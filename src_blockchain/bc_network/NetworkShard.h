@@ -11,9 +11,16 @@
 namespace codablecash {
 
 class NetworkShard {
+private:
+	NetworkShard();
 public:
 	NetworkShard(int start, int length);
 	virtual ~NetworkShard();
+
+	int size() const noexcept;
+
+	char getRandomHash() const noexcept;
+	NetworkShard* clone() const noexcept;
 
 private:
 	int begin;

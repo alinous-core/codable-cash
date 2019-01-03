@@ -74,6 +74,8 @@ public:
 	virtual int16_t getShort(int position) noexcept(false);
 
 	const uint8_t* array() const noexcept;
+
+	virtual ByteBuffer* clone() const;
 protected:
     int pos;
     int lim;

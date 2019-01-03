@@ -8,22 +8,29 @@
 #ifndef BC_BASE_BLOCKCHAINADDRESS_H_
 #define BC_BASE_BLOCKCHAINADDRESS_H_
 
+#include "bc_base/AbstractAddress.h"
+
+namespace alinous {
+class ByteBuffer;
+}
+
 namespace codablecash {
+using namespace alinous;
 
 class NetworkShard;
 
-class BlockchainAddress {
+class BlockchainAddress : public AbstractAddress {
 private:
 	BlockchainAddress();
 public:
-
 	virtual ~BlockchainAddress();
 
-	static BlockchainAddress* createAddress(NetworkShard* shard) noexcept;
-
+	static BlockchainAddress* createAddress(const NetworkShard* shard) noexcept;
+	virtual AbstractAddress* clone() const noexcept;
 private:
 	char shardhash;
-	char* pubkey32;
+	ByteBuffer* pubkey;
+	ByteBuffer* secretkey;
 };
 
 } /* namespace codablecash */

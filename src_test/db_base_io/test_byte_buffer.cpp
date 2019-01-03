@@ -181,6 +181,16 @@ TEST(ByteBufferTestGroup, putByteBuffer){
 	delete buff3;
 }
 
+TEST(ByteBufferTestGroup, clone){
+	ByteBuffer* buff = ByteBuffer::allocate(128);
+	ByteBuffer* buff2 = buff->clone();
+
+	CHECK(buff->capacity() == buff2->capacity())
+
+	delete buff;
+	delete buff2;
+}
+
 TEST(ByteBufferTestGroup, putExceptions){
 	Exception* exp = nullptr;
 

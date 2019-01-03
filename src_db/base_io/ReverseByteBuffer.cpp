@@ -459,5 +459,9 @@ int16_t ReverseByteBuffer::getShort(int position) noexcept(false) {
 	return val;
 }
 
+ByteBuffer* ReverseByteBuffer::clone() const {
+	return new ReverseByteBuffer(array(), this->cap);
+}
 } /* namespace alinous */
+
 
