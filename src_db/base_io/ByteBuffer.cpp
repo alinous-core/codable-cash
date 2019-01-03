@@ -544,7 +544,7 @@ const uint8_t* ByteBuffer::array() const noexcept {
 	return data->getRoot();
 }
 
-ByteBuffer* ByteBuffer::clone() const noexcept {
+ByteBuffer* ByteBuffer::clone() const {
 	return new ByteBuffer(array(), this->cap);
 }
 

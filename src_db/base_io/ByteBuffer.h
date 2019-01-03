@@ -75,7 +75,7 @@ public:
 
 	const uint8_t* array() const noexcept;
 
-	virtual ByteBuffer* clone() const noexcept;
+	virtual ByteBuffer* clone() const;
 protected:
     int pos;
     int lim;
