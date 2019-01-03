@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include <bc_network/NetworkShardsStatus.h>
+#include "bc_network/NetworkShardsStatus.h"
 #include "test_utils/t_macros.h"
 
 

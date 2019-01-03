@@ -29,7 +29,7 @@ BlockchainAddress::~BlockchainAddress() {
 	}
 }
 
-BlockchainAddress* BlockchainAddress::createAddress(NetworkShard* shard) noexcept {
+BlockchainAddress* BlockchainAddress::createAddress(const NetworkShard* shard) noexcept {
 	BlockchainAddress* address = new BlockchainAddress();
 
 	SchnorrKeyPair* key = Schnorr::generateKey();

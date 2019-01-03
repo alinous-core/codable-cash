@@ -8,11 +8,16 @@
 #ifndef BC_BASE_TRANSACTIONOUTPUT_H_
 #define BC_BASE_TRANSACTIONOUTPUT_H_
 
+#include <inttypes.h>
+
 namespace codablecash {
+
+class BalanceUnit;
+class AbstractAddress;
 
 class TransactionOutput {
 public:
-	TransactionOutput();
+	TransactionOutput(const AbstractAddress* address, uint64_t amount);
 	virtual ~TransactionOutput();
 };
 

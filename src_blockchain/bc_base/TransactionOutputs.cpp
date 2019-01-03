@@ -16,7 +16,13 @@ TransactionOutputs::TransactionOutputs() {
 }
 
 TransactionOutputs::~TransactionOutputs() {
+	this->outputs->deleteElements();
 	delete this->outputs;
+}
+
+void TransactionOutputs::addOutput(const AbstractAddress* address, uint64_t amount) {
+	TransactionOutput* output = new TransactionOutput(address, amount);
+	this->outputs->addElement(output);
 }
 
 } /* namespace codablecash */

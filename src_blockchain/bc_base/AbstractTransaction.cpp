@@ -14,7 +14,6 @@ AbstractTransaction::AbstractTransaction(int type) {
 }
 
 AbstractTransaction::~AbstractTransaction() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace codablecash */

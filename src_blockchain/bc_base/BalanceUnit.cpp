@@ -9,8 +9,8 @@
 
 namespace codablecash {
 
-BalanceUnit::BalanceUnit() {
-	this->amount = 0;
+BalanceUnit::BalanceUnit(uint64_t amount) {
+	this->amount = amount;
 }
 
 BalanceUnit::~BalanceUnit() {

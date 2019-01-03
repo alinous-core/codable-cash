@@ -8,12 +8,22 @@
 #ifndef BC_BASE_TRANSACTIONINPUT_H_
 #define BC_BASE_TRANSACTIONINPUT_H_
 
+#include <inttypes.h>
+
 namespace codablecash {
+
+class BalanceUnit;
+class AbstractAddress;
 
 class TransactionInput {
 public:
-	TransactionInput();
+	TransactionInput(const AbstractAddress* address, uint64_t amount);
 	virtual ~TransactionInput();
+
+private:
+	BalanceUnit* balance;
+	AbstractAddress* address;
+
 };
 
 } /* namespace codablecash */

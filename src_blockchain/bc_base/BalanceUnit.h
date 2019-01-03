@@ -14,7 +14,7 @@ namespace codablecash {
 
 class BalanceUnit {
 public:
-	BalanceUnit();
+	BalanceUnit(uint64_t amount);
 	virtual ~BalanceUnit();
 
 	uint64_t getAmount() const noexcept;

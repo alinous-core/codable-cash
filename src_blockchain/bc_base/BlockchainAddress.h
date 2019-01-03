@@ -26,7 +26,7 @@ public:
 
 	virtual ~BlockchainAddress();
 
-	static BlockchainAddress* createAddress(NetworkShard* shard) noexcept;
+	static BlockchainAddress* createAddress(const NetworkShard* shard) noexcept;
 
 private:
 	char shardhash;

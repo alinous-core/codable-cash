@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include <bc_base/TransactionOutput.h>
+#include "bc_base/TransactionOutput.h"
 
 namespace codablecash {
 
-TransactionOutput::TransactionOutput() {
+TransactionOutput::TransactionOutput(const AbstractAddress* address, uint64_t amount) {
 	// TODO Auto-generated constructor stub
 
 }
