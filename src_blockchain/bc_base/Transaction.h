@@ -24,9 +24,12 @@ public:
 	Transaction();
 	virtual ~Transaction();
 
-	void addInput(const AbstractAddress* address, uint64_t amount);
-	void addOutput(const AbstractAddress* address, uint64_t amount);
+	void addInput(const AbstractAddress* address, uint64_t amount) noexcept;
+	void addOutput(const AbstractAddress* address, uint64_t amount) noexcept;
+	void setFee(uint64_t amount) noexcept;
 
+	uint64_t getTotalInput() const noexcept;
+	uint64_t getTotalOutput() const noexcept;
 private:
 	// body part
 	TransactionInputs* inputs;

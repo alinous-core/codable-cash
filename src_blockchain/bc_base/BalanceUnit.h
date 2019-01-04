@@ -18,6 +18,7 @@ public:
 	virtual ~BalanceUnit();
 
 	uint64_t getAmount() const noexcept;
+	void setAmount(uint64_t amount) noexcept{this->amount = amount;}
 private:
 	uint64_t amount;
 };

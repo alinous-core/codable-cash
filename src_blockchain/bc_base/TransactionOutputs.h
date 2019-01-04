@@ -23,7 +23,8 @@ public:
 	TransactionOutputs();
 	virtual ~TransactionOutputs();
 
-	void addOutput(const AbstractAddress* address, uint64_t amount);
+	void addOutput(const AbstractAddress* address, uint64_t amount) noexcept;
+	uint64_t getTotalOutput() const noexcept;
 
 private:
 	ArrayList<TransactionOutput>* outputs;

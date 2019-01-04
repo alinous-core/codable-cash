@@ -54,7 +54,12 @@ TEST(TestTransactionGroup, balancetrx){
 	trx->addInput(addr3, 200);
 
 	trx->addOutput(addr4, 100);
-	trx->addOutput(addr5, 400);
+	trx->addOutput(addr5, 399);
+	trx->setFee(1);
+
+	uint64_t in = trx->getTotalInput();
+	uint64_t out = trx->getTotalOutput();
+	CHECK(in == out)
 }
 
 

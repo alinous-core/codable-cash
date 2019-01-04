@@ -20,6 +20,7 @@ public:
 	TransactionOutput(const AbstractAddress* address, uint64_t amount);
 	virtual ~TransactionOutput();
 
+	BalanceUnit* getBalance() const noexcept;
 private:
 	BalanceUnit* balance;
 	AbstractAddress* address;

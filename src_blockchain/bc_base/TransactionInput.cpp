@@ -22,6 +22,8 @@ TransactionInput::~TransactionInput() {
 	delete this->balance;
 }
 
-
+uint64_t TransactionInput::getBalanceAmount() const noexcept {
+	return this->balance->getAmount();
+}
 
 } /* namespace codablecash */

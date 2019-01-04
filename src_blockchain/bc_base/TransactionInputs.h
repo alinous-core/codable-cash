@@ -23,7 +23,8 @@ public:
 	TransactionInputs();
 	virtual ~TransactionInputs();
 
-	void addInput(const AbstractAddress* address, uint64_t amount);
+	void addInput(const AbstractAddress* address, uint64_t amount) noexcept;
+	uint64_t getTotalInput() const noexcept;
 
 private:
 	ArrayList<TransactionInput>* inputs;

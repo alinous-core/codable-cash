@@ -20,6 +20,8 @@ public:
 	TransactionInput(const AbstractAddress* address, uint64_t amount);
 	virtual ~TransactionInput();
 
+	uint64_t getBalanceAmount() const noexcept;
+
 private:
 	BalanceUnit* balance;
 	AbstractAddress* address;

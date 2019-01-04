@@ -21,4 +21,10 @@ TransactionOutput::~TransactionOutput() {
 	delete this->balance;
 }
 
+BalanceUnit* TransactionOutput::getBalance() const noexcept {
+	return this->balance;
+}
+
 } /* namespace codablecash */
+
+

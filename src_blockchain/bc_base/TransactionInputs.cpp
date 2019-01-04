@@ -19,9 +19,24 @@ TransactionInputs::~TransactionInputs() {
 	delete this->inputs;
 }
 
-void TransactionInputs::addInput(const AbstractAddress* address, uint64_t amount) {
+void TransactionInputs::addInput(const AbstractAddress* address, uint64_t amount) noexcept {
 	TransactionInput* input = new TransactionInput(address, amount);
 	this->inputs->addElement(input);
 }
 
+uint64_t TransactionInputs::getTotalInput() const noexcept {
+	uint64_t total = 0;
+
+	int maxLoop = this->inputs->size();
+	for(int i = 0; i != maxLoop; ++i){
+		TransactionInput* input = this->inputs->get(i);
+		total += input->getBalanceAmount();
+
+	}
+
+	return total;
+}
+
+
 } /* namespace codablecash */
+

@@ -25,14 +25,25 @@ Transaction::~Transaction() {
 	delete this->fee;
 }
 
-void Transaction::addInput(const AbstractAddress* address, uint64_t amount) {
+void Transaction::addInput(const AbstractAddress* address, uint64_t amount) noexcept {
 	this->inputs->addInput(address, amount);
 }
 
-void Transaction::addOutput(const AbstractAddress* address, uint64_t amount) {
+void Transaction::addOutput(const AbstractAddress* address, uint64_t amount) noexcept {
 	this->outputs->addOutput(address, amount);
 }
 
+uint64_t Transaction::getTotalInput() const noexcept {
+	return this->inputs->getTotalInput();
+}
+
+uint64_t Transaction::getTotalOutput() const noexcept {
+	return this->outputs->getTotalOutput() + this->fee->getAmount();
+}
+
+void Transaction::setFee(uint64_t amount) noexcept {
+	this->fee->setAmount(amount);
+}
 
 } /* namespace codablecash */
 
