@@ -25,6 +25,18 @@ BalanceUnit* TransactionOutput::getBalance() const noexcept {
 	return this->balance;
 }
 
+int TransactionOutput::binarySize() const {
+	int total = this->address->binarySize();
+	total += this->balance->binarySize();
+
+	return total;
+}
+
+void TransactionOutput::toBinary(ByteBuffer* out) const {
+	this->address->toBinary(out);
+	this->balance->toBinary(out);
+}
+
 } /* namespace codablecash */
 
 

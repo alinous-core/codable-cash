@@ -45,5 +45,26 @@ void Transaction::setFee(uint64_t amount) noexcept {
 	this->fee->setAmount(amount);
 }
 
+int Transaction::binarySize() const {
+	int total = this->inputs->binarySize();
+	total += this->outputs->binarySize();
+	total += this->fee->binarySize();
+
+	return total;
+}
+
+void Transaction::toBinary(ByteBuffer* out) const {
+	this->inputs->toBinary(out);
+	this->outputs->toBinary(out);
+	this->fee->toBinary(out);
+}
+
+Transaction* Transaction::fromBinary(ByteBuffer* in) {
+	Transaction* trx = new Transaction();
+
+
+	return trx;
+}
+
 } /* namespace codablecash */
 

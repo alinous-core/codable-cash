@@ -11,6 +11,8 @@
 #include <inttypes.h>
 
 #include "base/ArrayList.h"
+#include "filestore_block/IBlockObject.h"
+
 
 namespace codablecash {
 using namespace alinous;
@@ -18,7 +20,7 @@ using namespace alinous;
 class TransactionInput;
 class AbstractAddress;
 
-class TransactionInputs {
+class TransactionInputs : public IBlockObject {
 public:
 	TransactionInputs();
 	virtual ~TransactionInputs();
@@ -26,6 +28,8 @@ public:
 	void addInput(const AbstractAddress* address, uint64_t amount) noexcept;
 	uint64_t getTotalInput() const noexcept;
 
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
 private:
 	ArrayList<TransactionInput>* inputs;
 };

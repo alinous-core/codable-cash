@@ -30,6 +30,10 @@ public:
 
 	uint64_t getTotalInput() const noexcept;
 	uint64_t getTotalOutput() const noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+	static Transaction* fromBinary(ByteBuffer* in);
 private:
 	// body part
 	TransactionInputs* inputs;

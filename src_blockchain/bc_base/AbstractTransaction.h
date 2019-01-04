@@ -8,14 +8,20 @@
 #ifndef BC_BASE_ABSTRACTTRANSACTION_H_
 #define BC_BASE_ABSTRACTTRANSACTION_H_
 
-namespace codablecash {
+#include "filestore_block/IBlockObject.h"
 
-class AbstractTransaction {
+namespace codablecash {
+using namespace alinous;
+
+class AbstractTransaction : public IBlockObject {
 public:
 	static const constexpr int TYPE_SEND_BALANCE = 1;
 
 	explicit AbstractTransaction(int type);
 	virtual ~AbstractTransaction();
+
+	virtual int binarySize() const = 0;
+	virtual void toBinary(ByteBuffer* out) const = 0;
 
 protected:
 	int type;

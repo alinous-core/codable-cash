@@ -10,17 +10,23 @@
 
 #include <inttypes.h>
 
+#include "filestore_block/IBlockObject.h"
+
 namespace codablecash {
+using namespace alinous;
 
 class BalanceUnit;
 class AbstractAddress;
 
-class TransactionInput {
+class TransactionInput : public IBlockObject {
 public:
 	TransactionInput(const AbstractAddress* address, uint64_t amount);
 	virtual ~TransactionInput();
 
 	uint64_t getBalanceAmount() const noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
 
 private:
 	BalanceUnit* balance;

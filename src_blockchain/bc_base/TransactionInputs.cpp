@@ -7,6 +7,7 @@
 
 #include "bc_base/TransactionInputs.h"
 #include "bc_base/TransactionInput.h"
+#include "base_io/ByteBuffer.h"
 
 namespace codablecash {
 
@@ -37,6 +38,27 @@ uint64_t TransactionInputs::getTotalInput() const noexcept {
 	return total;
 }
 
+int TransactionInputs::binarySize() const {
+	int total = sizeof(int32_t);
+
+	int maxLoop = this->inputs->size();
+	for(int i = 0; i != maxLoop; ++i){
+		TransactionInput* input = this->inputs->get(i);
+		total += input->binarySize();
+	}
+
+	return total;
+}
+
+void TransactionInputs::toBinary(ByteBuffer* out) const {
+	int maxLoop = this->inputs->size();
+	out->putInt(maxLoop);
+
+	for(int i = 0; i != maxLoop; ++i){
+		TransactionInput* input = this->inputs->get(i);
+		input->toBinary(out);
+	}
+}
 
 } /* namespace codablecash */
 
