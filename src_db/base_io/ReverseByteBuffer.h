@@ -47,7 +47,7 @@ public:
 	virtual int16_t getShort() noexcept(false);
 	virtual int16_t getShort(int position) noexcept(false);
 
-	virtual ByteBuffer* clone() const;
+	virtual ByteBuffer* clone() const noexcept(false);
 };
 
 } /* namespace alinous */

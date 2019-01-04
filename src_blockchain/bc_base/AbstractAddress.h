@@ -8,9 +8,12 @@
 #ifndef BC_BASE_ABSTRACTADDRESS_H_
 #define BC_BASE_ABSTRACTADDRESS_H_
 
-namespace codablecash {
+#include "filestore_block/IBlockObject.h"
 
-class AbstractAddress {
+namespace codablecash {
+using namespace alinous;
+
+class AbstractAddress : public IBlockObject {
 public:
 	static const constexpr char NORMAL_ADDRESS{0x01};
 	static const constexpr char MULTISIG_ADDRESS{0x01};
@@ -21,6 +24,7 @@ public:
 	int getType() const noexcept;
 
 	virtual AbstractAddress* clone() const noexcept = 0;
+	virtual bool equals(const AbstractAddress* other) const noexcept = 0;
 private:
 	int type;
 };
