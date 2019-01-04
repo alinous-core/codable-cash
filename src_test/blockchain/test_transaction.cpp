@@ -84,6 +84,7 @@ TEST(TestTransactionGroup, binary){
 
 	int size = trx->binarySize();
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true);
+	StackRelease<ByteBuffer> __st_buff(buff);
 	trx->toBinary(buff);
 
 	CHECK(buff->position() == size)
