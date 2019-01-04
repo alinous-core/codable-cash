@@ -11,6 +11,7 @@
 #include "bc_base/BalanceUnit.h"
 #include "bc_network/NetworkShard.h"
 
+#include "base_io/ByteBuffer.h"
 #include "base/StackRelease.h"
 
 using namespace alinous;
@@ -54,7 +55,44 @@ TEST(TestTransactionGroup, balancetrx){
 	trx->addInput(addr3, 200);
 
 	trx->addOutput(addr4, 100);
-	trx->addOutput(addr5, 400);
+	trx->addOutput(addr5, 399);
+	trx->setFee(1);
+
+	uint64_t in = trx->getTotalInput();
+	uint64_t out = trx->getTotalOutput();
+	CHECK(in == out)
 }
 
+TEST(TestTransactionGroup, binary){
+	Transaction* trx = new Transaction();
+	StackRelease<Transaction> __st_trx(trx);
+
+	StackMultipleRelease<BlockchainAddress> release;
+	BlockchainAddress* addr1 = createAddr(); release.add(addr1);
+	BlockchainAddress* addr2 = createAddr(); release.add(addr2);
+	BlockchainAddress* addr3 = createAddr(); release.add(addr3);
+	BlockchainAddress* addr4 = createAddr(); release.add(addr4);
+	BlockchainAddress* addr5 = createAddr(); release.add(addr5);
+
+	trx->addInput(addr1, 100);
+	trx->addInput(addr2, 200);
+	trx->addInput(addr3, 200);
+
+	trx->addOutput(addr4, 100);
+	trx->addOutput(addr5, 399);
+	trx->setFee(1);
+
+	int size = trx->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true);
+	StackRelease<ByteBuffer> __st_buff(buff);
+	trx->toBinary(buff);
+
+	CHECK(buff->position() == size)
+
+	buff->position(0);
+	Transaction* trx2 = Transaction::fromBinary(buff);
+	StackRelease<Transaction> __st_trx2(trx2);
+
+	CHECK(buff->position() == size)
+}
 

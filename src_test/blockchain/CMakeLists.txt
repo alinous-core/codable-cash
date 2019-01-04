@@ -1,5 +1,6 @@
 
 set(testsrc
+	DummyAddress.cpp
 	test_address.cpp
 	test_base58.cpp
 	test_blockchain_fw.cpp

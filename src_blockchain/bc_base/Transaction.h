@@ -24,9 +24,16 @@ public:
 	Transaction();
 	virtual ~Transaction();
 
-	void addInput(const AbstractAddress* address, uint64_t amount);
-	void addOutput(const AbstractAddress* address, uint64_t amount);
+	void addInput(const AbstractAddress* address, uint64_t amount) noexcept;
+	void addOutput(const AbstractAddress* address, uint64_t amount) noexcept;
+	void setFee(uint64_t amount) noexcept;
 
+	uint64_t getTotalInput() const noexcept;
+	uint64_t getTotalOutput() const noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+	static Transaction* fromBinary(ByteBuffer* in);
 private:
 	// body part
 	TransactionInputs* inputs;

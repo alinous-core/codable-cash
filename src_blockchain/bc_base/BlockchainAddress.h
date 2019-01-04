@@ -27,6 +27,12 @@ public:
 
 	static BlockchainAddress* createAddress(const NetworkShard* shard) noexcept;
 	virtual AbstractAddress* clone() const noexcept;
+
+	virtual int binarySize() const noexcept(false);
+	virtual void toBinary(ByteBuffer* out) const noexcept(false);
+	static BlockchainAddress* fromBinary(ByteBuffer* in) noexcept(false);
+
+	virtual bool equals(const AbstractAddress* other) const noexcept;
 private:
 	char shardhash;
 	ByteBuffer* pubkey;

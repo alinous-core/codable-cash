@@ -12,6 +12,7 @@
 
 #include "base/RawArrayPrimitive.h"
 #include "base_io/ReverseByteBuffer.h"
+#include "osenv/memory.h"
 
 
 namespace alinous {
@@ -544,8 +545,14 @@ const uint8_t* ByteBuffer::array() const noexcept {
 	return data->getRoot();
 }
 
-ByteBuffer* ByteBuffer::clone() const {
+ByteBuffer* ByteBuffer::clone() const noexcept(false) {
 	return new ByteBuffer(array(), this->cap);
+}
+
+bool ByteBuffer::binaryEquals(const ByteBuffer* buff) const noexcept {
+	int length = this->cap < buff->cap ? this->cap : buff->cap;
+
+	return Mem::memcmp(array(), buff->array(), length) == 0;
 }
 
 } /* namespace alinous */

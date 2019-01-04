@@ -39,7 +39,7 @@ int Mem::strcmp(const char *__s1, const char *__s2) noexcept {
 	return ::strcmp(__s1, __s2);
 }
 
-int alinous::Mem::memcmp(const void* lhs, const void* rhs, size_t count) {
+int Mem::memcmp(const void* lhs, const void* rhs, size_t count) {
 	return ::memcmp(lhs, rhs, count);
 }
 

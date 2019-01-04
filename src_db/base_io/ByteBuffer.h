@@ -75,7 +75,8 @@ public:
 
 	const uint8_t* array() const noexcept;
 
-	virtual ByteBuffer* clone() const;
+	virtual ByteBuffer* clone() const noexcept(false);
+	bool binaryEquals(const ByteBuffer* buff) const noexcept;
 protected:
     int pos;
     int lim;

@@ -25,14 +25,49 @@ Transaction::~Transaction() {
 	delete this->fee;
 }
 
-void Transaction::addInput(const AbstractAddress* address, uint64_t amount) {
+void Transaction::addInput(const AbstractAddress* address, uint64_t amount) noexcept {
 	this->inputs->addInput(address, amount);
 }
 
-void Transaction::addOutput(const AbstractAddress* address, uint64_t amount) {
+void Transaction::addOutput(const AbstractAddress* address, uint64_t amount) noexcept {
 	this->outputs->addOutput(address, amount);
 }
 
+uint64_t Transaction::getTotalInput() const noexcept {
+	return this->inputs->getTotalInput();
+}
+
+uint64_t Transaction::getTotalOutput() const noexcept {
+	return this->outputs->getTotalOutput() + this->fee->getAmount();
+}
+
+void Transaction::setFee(uint64_t amount) noexcept {
+	this->fee->setAmount(amount);
+}
+
+int Transaction::binarySize() const {
+	int total = this->inputs->binarySize();
+	total += this->outputs->binarySize();
+	total += this->fee->binarySize();
+
+	return total;
+}
+
+void Transaction::toBinary(ByteBuffer* out) const {
+	this->inputs->toBinary(out);
+	this->outputs->toBinary(out);
+	this->fee->toBinary(out);
+}
+
+Transaction* Transaction::fromBinary(ByteBuffer* in) {
+	Transaction* trx = new Transaction();
+
+	trx->inputs->importBinary(in);
+	trx->outputs->importBinary(in);
+	trx->fee->importBinary(in);
+
+	return trx;
+}
 
 } /* namespace codablecash */
 

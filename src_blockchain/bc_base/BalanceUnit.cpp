@@ -6,6 +6,7 @@
  */
 
 #include "bc_base/BalanceUnit.h"
+#include "base_io/ByteBuffer.h"
 
 namespace codablecash {
 
@@ -20,4 +21,18 @@ uint64_t BalanceUnit::getAmount() const noexcept {
 	return this->amount;
 }
 
+int BalanceUnit::binarySize() const {
+	return sizeof(uint64_t);
+}
+
+void BalanceUnit::toBinary(ByteBuffer* out) const {
+	out->putLong(this->amount);
+}
+
+void BalanceUnit::importBinary(ByteBuffer* in) {
+	this->amount = in->getLong();
+}
+
 } /* namespace codablecash */
+
+
