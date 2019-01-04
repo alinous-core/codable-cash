@@ -49,6 +49,7 @@ TEST(TestBlockchainAddressGroup, binary){
 
 	int size = address->binarySize();
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true);
+	StackRelease<ByteBuffer> __st_buff(buff);
 
 	address->toBinary(buff);
 
