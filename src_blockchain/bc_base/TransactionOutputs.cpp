@@ -60,4 +60,12 @@ void TransactionOutputs::toBinary(ByteBuffer* out) const {
 	}
 }
 
+void codablecash::TransactionOutputs::importBinary(ByteBuffer* in) {
+	int maxLoop =in->getInt();
+	for(int i = 0; i != maxLoop; ++i){
+		TransactionOutput* output = TransactionOutput::fromBinary(in);
+		this->outputs->addElement(output);
+	}
+}
+
 } /* namespace codablecash */

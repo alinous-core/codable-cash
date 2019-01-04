@@ -29,4 +29,10 @@ void BalanceUnit::toBinary(ByteBuffer* out) const {
 	out->putLong(this->amount);
 }
 
+void BalanceUnit::importBinary(ByteBuffer* in) {
+	this->amount = in->getLong();
+}
+
 } /* namespace codablecash */
+
+

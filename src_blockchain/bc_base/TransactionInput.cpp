@@ -7,9 +7,15 @@
 
 #include "bc_base/TransactionInput.h"
 #include "bc_base/BalanceUnit.h"
-#include "AbstractAddress.h"
+#include "BlockchainAddress.h"
+
 
 namespace codablecash {
+
+TransactionInput::TransactionInput() {
+	this->address = nullptr;
+	this->balance = nullptr;
+}
 
 TransactionInput::TransactionInput(const AbstractAddress* address, uint64_t amount) {
 	this->address = address->clone();
@@ -36,6 +42,16 @@ int TransactionInput::binarySize() const {
 void TransactionInput::toBinary(ByteBuffer* out) const {
 	this->address->toBinary(out);
 	this->balance->toBinary(out);
+}
+
+TransactionInput* TransactionInput::fromBinary(ByteBuffer* in) {
+	TransactionInput* input = new TransactionInput();
+
+	input->address = BlockchainAddress::fromBinary(in);
+	input->balance = new BalanceUnit(0);
+	input->balance->importBinary(in);
+
+	return input;
 }
 
 } /* namespace codablecash */

@@ -62,6 +62,9 @@ void Transaction::toBinary(ByteBuffer* out) const {
 Transaction* Transaction::fromBinary(ByteBuffer* in) {
 	Transaction* trx = new Transaction();
 
+	trx->inputs->importBinary(in);
+	trx->outputs->importBinary(in);
+	trx->fee->importBinary(in);
 
 	return trx;
 }

@@ -19,6 +19,8 @@ class BalanceUnit;
 class AbstractAddress;
 
 class TransactionInput : public IBlockObject {
+private:
+	TransactionInput();
 public:
 	TransactionInput(const AbstractAddress* address, uint64_t amount);
 	virtual ~TransactionInput();
@@ -27,7 +29,7 @@ public:
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
-
+	static TransactionInput* fromBinary(ByteBuffer* in);
 private:
 	BalanceUnit* balance;
 	AbstractAddress* address;

@@ -87,5 +87,11 @@ TEST(TestTransactionGroup, binary){
 	trx->toBinary(buff);
 
 	CHECK(buff->position() == size)
+
+	buff->position(0);
+	Transaction* trx2 = Transaction::fromBinary(buff);
+	StackRelease<Transaction> __st_trx2(trx2);
+
+	CHECK(buff->position() == size)
 }
 

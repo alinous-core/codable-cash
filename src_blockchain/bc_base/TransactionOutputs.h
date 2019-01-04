@@ -28,6 +28,7 @@ public:
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
+	void importBinary(ByteBuffer* in);
 
 private:
 	ArrayList<TransactionOutput>* outputs;

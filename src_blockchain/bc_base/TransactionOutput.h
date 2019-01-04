@@ -18,6 +18,8 @@ class BalanceUnit;
 class AbstractAddress;
 
 class TransactionOutput : public IBlockObject {
+private:
+	TransactionOutput();
 public:
 	TransactionOutput(const AbstractAddress* address, uint64_t amount);
 	virtual ~TransactionOutput();
@@ -26,7 +28,7 @@ public:
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
-
+	static TransactionOutput* fromBinary(ByteBuffer* in);
 private:
 	BalanceUnit* balance;
 	AbstractAddress* address;
