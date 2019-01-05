@@ -24,7 +24,7 @@ class TransactionIdIndex;
 
 class MemPool {
 public:
-	MemPool(File* baseDir);
+	MemPool(const File* baseDir);
 	virtual ~MemPool();
 
 	void init();

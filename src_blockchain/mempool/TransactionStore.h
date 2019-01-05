@@ -21,7 +21,7 @@ class TransactionStore {
 public:
 	static const constexpr wchar_t* FILE_NAME{L"mempool"};
 
-	TransactionStore(File* baseDir, DiskCacheManager* cacheManager);
+	TransactionStore(const File* baseDir, DiskCacheManager* cacheManager);
 	virtual ~TransactionStore();
 
 	bool exists() const noexcept;

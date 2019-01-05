@@ -15,7 +15,7 @@
 
 namespace codablecash {
 
-TransactionStore::TransactionStore(File* baseDir, DiskCacheManager* cacheManager) {
+TransactionStore::TransactionStore(const File* baseDir, DiskCacheManager* cacheManager) {
 	this->baseDir = new File(*baseDir);
 	this->cacheManager = cacheManager;
 	this->store = nullptr;

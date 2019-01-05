@@ -11,10 +11,10 @@
 
 namespace codablecash {
 
-FeeIndex::FeeIndex(File* baseDir, DiskCacheManager* cacheManager) {
+FeeIndex::FeeIndex(const File* baseDir, DiskCacheManager* cacheManager) {
 	this->baseDir = new File(*baseDir);
 	this->cacheManager = cacheManager;
-	this->btree = btree;
+	this->btree = nullptr;
 }
 
 FeeIndex::~FeeIndex() {

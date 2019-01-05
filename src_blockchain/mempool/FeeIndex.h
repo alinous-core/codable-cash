@@ -21,7 +21,7 @@ class FeeIndex {
 public:
 	static const constexpr wchar_t* FILE_NAME{L"idx_fee"};
 
-	FeeIndex(File* baseDir, DiskCacheManager* cacheManager);
+	FeeIndex(const File* baseDir, DiskCacheManager* cacheManager);
 	virtual ~FeeIndex();
 
 

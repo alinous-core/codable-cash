@@ -19,7 +19,7 @@
 
 namespace codablecash {
 
-MemPool::MemPool(File* baseDir) {
+MemPool::MemPool(const File* baseDir) {
 	this->baseDir = new File(*baseDir);
 	this->cacheManager = new DiskCacheManager(1024 * 2);
 	this->store = nullptr;
