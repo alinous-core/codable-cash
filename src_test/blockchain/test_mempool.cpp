@@ -25,3 +25,14 @@ TEST(TestMempoolGroup, constract){
 
 	MemPool memPool(baseDir);
 }
+
+TEST(TestMempoolGroup, init){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+
+	{
+		MemPool memPool(baseDir);
+		memPool.init();
+		memPool.close();
+	}
+}

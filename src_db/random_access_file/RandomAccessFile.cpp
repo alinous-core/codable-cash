@@ -216,7 +216,8 @@ MMapSegment* RandomAccessFile::getSegment(uint64_t fpos) noexcept(false) {
 	return this->segments->getSegment(fpos, this->diskCacheManager, this->fd);
 }
 
-
+bool RandomAccessFile::exists() const noexcept {
+	return this->file->exists();
+}
 
 } /* namespace alinous */
-

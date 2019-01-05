@@ -12,27 +12,30 @@
 
 namespace alinous {
 class File;
-class Btree;
 class DiskCacheManager;
-class BTreeKeyFactory;
 }
 
 namespace codablecash {
 using namespace alinous;
 
+class TransactionStore;
+class FeeIndex;
+class TransactionIdIndex;
+
 class MemPool {
 public:
-	MemPool(File* file);
+	MemPool(const File* baseDir);
 	virtual ~MemPool();
 
 	void init();
 	void close();
 
 private:
-	File* file;
+	File* baseDir;
 	DiskCacheManager* cacheManager;
-	BTreeKeyFactory* keyFactory;
-	Btree* mainStore;
+	TransactionStore* store;
+	FeeIndex* index;
+	TransactionIdIndex* trxIdIndex;
 };
 
 } /* namespace codablecash */

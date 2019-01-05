@@ -6,6 +6,10 @@
  */
 
 #include "mempool/MemPool.h"
+#include "mempool/TransactionStore.h"
+#include "mempool/TransactionIdIndex.h"
+#include "mempool/FeeIndex.h"
+
 #include "base/UnicodeString.h"
 #include "base_io/File.h"
 #include "random_access_file/DiskCacheManager.h"
@@ -15,30 +19,45 @@
 
 namespace codablecash {
 
-MemPool::MemPool(File* file) {
-	this->file = new File(*file);
-	this->mainStore = nullptr;
-	this->cacheManager = nullptr;
-	this->keyFactory = new BTreeKeyFactory();
+MemPool::MemPool(const File* baseDir) {
+	this->baseDir = new File(*baseDir);
+	this->cacheManager = new DiskCacheManager(1024 * 2);
+	this->store = nullptr;
+	this->index = nullptr;
+	this->trxIdIndex = nullptr;
 }
 
 MemPool::~MemPool() {
-	delete this->file;
-	if(this->mainStore != nullptr){
-		delete this->mainStore;
-	}
+	delete this->baseDir;
 	if(this->cacheManager != nullptr){
 		delete this->cacheManager;
 	}
-	delete this->keyFactory;
+
+	if(this->store != nullptr){
+		delete this->store;
+	}
+	if(this->index != nullptr){
+		delete this->index;
+	}
+	if(this->trxIdIndex != nullptr){
+		delete this->trxIdIndex;
+	}
 }
 
 void MemPool::init() {
-	UnicodeString name(L"membool");
+	this->store = new TransactionStore(this->baseDir, this->cacheManager);
+	this->index = new FeeIndex(this->baseDir, this->cacheManager);
+	this->trxIdIndex = new TransactionIdIndex(this->baseDir, this->cacheManager);
 
+	if(!this->store->exists()){
+		this->store->create();
+	}
+
+	this->store->open();
 }
 
 void MemPool::close() {
+	this->store->close();
 }
 
 } /* namespace codablecash */

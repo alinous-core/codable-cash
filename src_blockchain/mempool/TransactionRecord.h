@@ -8,11 +8,16 @@
 #ifndef MEMPOOL_TRANSACTIONRECORD_H_
 #define MEMPOOL_TRANSACTIONRECORD_H_
 
+namespace alinous {
+class File;
+}
+
 namespace codablecash {
+using namespace alinous;
 
 class TransactionRecord {
 public:
-	TransactionRecord();
+	explicit TransactionRecord();
 	virtual ~TransactionRecord();
 };
 
