@@ -11,12 +11,16 @@
 #include "bc_base/BalanceUnit.h"
 #include "bc_base/AbstractAddress.h"
 
+#include "base_io/ByteBuffer.h"
+#include "osenv/funcs.h"
+
 namespace codablecash {
 
 Transaction::Transaction() : AbstractTransaction(AbstractTransaction::TYPE_SEND_BALANCE) {
 	this->inputs = new TransactionInputs();
 	this->outputs = new TransactionOutputs();
 	this->fee = new BalanceUnit(0L);
+	this->timelong = Os::getTimestampLong();
 }
 
 Transaction::~Transaction() {
@@ -50,6 +54,8 @@ int Transaction::binarySize() const {
 	total += this->outputs->binarySize();
 	total += this->fee->binarySize();
 
+	total += sizeof(uint64_t);
+
 	return total;
 }
 
@@ -57,6 +63,7 @@ void Transaction::toBinary(ByteBuffer* out) const {
 	this->inputs->toBinary(out);
 	this->outputs->toBinary(out);
 	this->fee->toBinary(out);
+	out->putLong(this->timelong);
 }
 
 Transaction* Transaction::fromBinary(ByteBuffer* in) {
@@ -65,6 +72,7 @@ Transaction* Transaction::fromBinary(ByteBuffer* in) {
 	trx->inputs->importBinary(in);
 	trx->outputs->importBinary(in);
 	trx->fee->importBinary(in);
+	trx->timelong = in->getLong();
 
 	return trx;
 }

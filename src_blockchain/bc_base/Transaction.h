@@ -36,6 +36,7 @@ public:
 	static Transaction* fromBinary(ByteBuffer* in);
 private:
 	// body part
+	uint64_t timelong;
 	TransactionInputs* inputs;
 	TransactionOutputs* outputs;
 	BalanceUnit* fee;

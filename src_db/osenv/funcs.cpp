@@ -69,6 +69,12 @@ uint64_t Os::getMicroSec() noexcept {
 	return microsec;
 }
 
+uint64_t Os::getTimestampLong() noexcept {
+	time_t t = time(NULL);
+	return (uint64_t)t;
+}
+
+
 int Os::threadKeyCreate(THREAD_KEY* key) {
 	return ::pthread_key_create(key, nullptr);
 }

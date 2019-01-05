@@ -94,5 +94,14 @@ TEST(TestTransactionGroup, binary){
 	StackRelease<Transaction> __st_trx2(trx2);
 
 	CHECK(buff->position() == size)
+
+	// check binary
+	size = trx2->binarySize();
+	ByteBuffer* buff2 = ByteBuffer::allocateWithEndian(size, true);
+	StackRelease<ByteBuffer> __st_buff2(buff2);
+	trx2->toBinary(buff2);
+
+	CHECK(buff2->capacity() == buff->capacity())
+	CHECK(Mem::memcmp(buff->array(), buff2->array(), buff->capacity()) == 0)
 }
 
