@@ -63,6 +63,7 @@ public:
 	static void usleep(uint32_t microsec) noexcept;
 
 	static uint64_t getMicroSec() noexcept;
+	static uint64_t getTimestampLong() noexcept;
 
 	/**************************************************************************
 	 * File functions
