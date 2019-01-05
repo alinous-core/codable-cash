@@ -18,11 +18,15 @@ class TransactionInputs;
 class TransactionOutputs;
 class BalanceUnit;
 class AbstractAddress;
+class TransactionId;
 
 class Transaction : public AbstractTransaction {
 public:
 	Transaction();
 	virtual ~Transaction();
+
+	void updateTransactionId();
+	const TransactionId* getTransactionId() const noexcept;
 
 	void addInput(const AbstractAddress* address, uint64_t amount) noexcept;
 	void addOutput(const AbstractAddress* address, uint64_t amount) noexcept;
@@ -35,6 +39,9 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	static Transaction* fromBinary(ByteBuffer* in);
 private:
+	// id
+	TransactionId* trxId;
+
 	// body part
 	uint64_t timelong;
 	TransactionInputs* inputs;

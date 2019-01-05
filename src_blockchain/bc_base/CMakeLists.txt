@@ -7,6 +7,7 @@ set(__src
 	Base58.cpp
 	BlockchainAddress.cpp
 	Transaction.cpp
+	TransactionId.cpp
 	TransactionInput.cpp
 	TransactionInputs.cpp
 	TransactionOutput.cpp
