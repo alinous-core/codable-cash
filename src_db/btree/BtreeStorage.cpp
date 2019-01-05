@@ -28,7 +28,7 @@
 
 namespace alinous {
 
-BtreeStorage::BtreeStorage(File* folder, UnicodeString* name, BTreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory) {
+BtreeStorage::BtreeStorage(File* folder, UnicodeString* name, BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory) {
 	this->name = name;
 	this->folder = folder;
 	this->factory = factory;
@@ -47,6 +47,16 @@ BtreeStorage::~BtreeStorage() {
 	if(this->cache != nullptr){
 		delete this->cache, this->cache = nullptr;
 	}
+}
+
+bool BtreeStorage::exists() const noexcept {
+	UnicodeString* folderstr = this->folder->getAbsolutePath();
+	StackRelease<UnicodeString> __st_folderstr(folderstr);
+
+	BlockFileStore* blockstore = new BlockFileStore(folderstr, this->name, nullptr);
+	StackRelease<BlockFileStore> __st_blockstore(blockstore);
+
+	return blockstore->exists();
 }
 
 void BtreeStorage::create(DiskCacheManager* cacheManager, BtreeConfig* config) {
@@ -209,7 +219,7 @@ IBlockObject* BtreeStorage::loadData(uint64_t fpos) {
 	return this->dfactory->makeDataFromBinary(buff);
 }
 
-AbstractTreeNode* BtreeStorage::makeNodeFromBinary(ByteBuffer* buff, BTreeKeyFactory* factory) {
+AbstractTreeNode* BtreeStorage::makeNodeFromBinary(ByteBuffer* buff, BtreeKeyFactory* factory) {
 	char nodeType = buff->get();
 
 	if(nodeType == AbstractTreeNode::NODE){
@@ -270,4 +280,3 @@ void BtreeStorage::updateNode(AbstractTreeNode* node) {
 
 
 } /* namespace alinous */
-

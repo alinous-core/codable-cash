@@ -26,15 +26,16 @@ class AbstractTreeNode;
 class ByteBuffer;
 class IBlockObject;
 
-class BTreeKeyFactory;
+class BtreeKeyFactory;
 class AbstractBtreeDataFactory;
 
 
 class BtreeStorage {
 public:
-	BtreeStorage(File* folder, UnicodeString* name, BTreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory);
+	BtreeStorage(File* folder, UnicodeString* name, BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory);
 	virtual ~BtreeStorage();
 
+	bool exists() const noexcept;
 	void create(DiskCacheManager* cacheManager, BtreeConfig* config);
 
 	void open(int numDataBuffer, int numNodeBuffer, DiskCacheManager* cacheManager);
@@ -57,12 +58,12 @@ public:
 
 private:
 	BtreeHeaderBlock* makeHeader(BtreeConfig* config, uint64_t rootFpos);
-	static AbstractTreeNode* makeNodeFromBinary(ByteBuffer* buff, BTreeKeyFactory* factory);
+	static AbstractTreeNode* makeNodeFromBinary(ByteBuffer* buff, BtreeKeyFactory* factory);
 
 private:
 	UnicodeString* name;
 	File* folder;
-	BTreeKeyFactory* factory;
+	BtreeKeyFactory* factory;
 	AbstractBtreeDataFactory* dfactory;
 
 	BlockFileStore* store;

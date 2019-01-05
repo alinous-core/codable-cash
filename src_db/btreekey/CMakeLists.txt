@@ -1,6 +1,6 @@
 
 set(__src
-	BTreeKeyFactory.cpp
+	BtreeKeyFactory.cpp
 	exceptions.cpp
 	InfinityKey.cpp
 	ULongKey.cpp

@@ -81,7 +81,7 @@ void TreeNode::toBinary(ByteBuffer* out) const {
 	}
 }
 
-TreeNode* TreeNode::fromBinary(ByteBuffer* in, BTreeKeyFactory* factory) {
+TreeNode* TreeNode::fromBinary(ByteBuffer* in, BtreeKeyFactory* factory) {
 	TreeNode* node = new TreeNode();
 
 	node->fromBinaryAbstract(in, factory);

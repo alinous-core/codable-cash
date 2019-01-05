@@ -15,15 +15,15 @@ namespace alinous {
 class AbstractBtreeKey;
 class ByteBuffer;
 
-class BTreeKeyFactory {
+class BtreeKeyFactory {
 public:
 	static const constexpr uint32_t INFINITY_KEY{0x01};
 	static const constexpr uint32_t ULONG_KEY{0x02};
 
-	BTreeKeyFactory();
-	virtual ~BTreeKeyFactory();
+	BtreeKeyFactory();
+	virtual ~BtreeKeyFactory();
 
-	virtual AbstractBtreeKey* fromBinary(uint32_t keyType, ByteBuffer* in);
+	virtual AbstractBtreeKey* fromBinary(uint32_t keyType, ByteBuffer* in) const;
 };
 
 } /* namespace alinous */

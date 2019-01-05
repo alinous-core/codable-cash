@@ -5,6 +5,7 @@
  *      Author: iizuka
  */
 
+#include <btreekey/BtreeKeyFactory.h>
 #include "test_utils/t_macros.h"
 
 #include "btree/Btree.h"
@@ -18,7 +19,6 @@
 #include "btree/NodeCacheRef.h"
 #include "btree/NodeHandle.h"
 
-#include "btreekey/BTreeKeyFactory.h"
 #include "btreekey/ULongKey.h"
 #include "btreekey/InfinityKey.h"
 #include "TempValue.h"
@@ -131,7 +131,7 @@ TEST(TestBTreeGroup, constract){
 
 	DiskCacheManager cacheManager;
 	UnicodeString name(L"file01");
-	BTreeKeyFactory* factory = new BTreeKeyFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory();
 	TmpValueFactory* dfactory = new TmpValueFactory();
 
 	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
@@ -147,7 +147,7 @@ TEST(TestBTreeGroup, open){
 
 	DiskCacheManager cacheManager;
 	UnicodeString name(L"file01");
-	BTreeKeyFactory* factory = new BTreeKeyFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory();
 	TmpValueFactory* dfactory = new TmpValueFactory();
 
 	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
@@ -175,7 +175,7 @@ TEST(TestBTreeGroup, add01){
 
 	DiskCacheManager cacheManager;
 	UnicodeString name(L"file01");
-	BTreeKeyFactory* factory = new BTreeKeyFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory();
 	TmpValueFactory* dfactory = new TmpValueFactory();
 
 	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
@@ -238,7 +238,7 @@ TEST(TestBTreeGroup, add02){
 
 	DiskCacheManager cacheManager;
 	UnicodeString name(L"file01");
-	BTreeKeyFactory* factory = new BTreeKeyFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory();
 	TmpValueFactory* dfactory = new TmpValueFactory();
 
 	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);

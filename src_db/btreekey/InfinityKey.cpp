@@ -5,9 +5,8 @@
  *      Author: iizuka
  */
 
+#include <btreekey/BtreeKeyFactory.h>
 #include "btreekey/InfinityKey.h"
-#include "btreekey/BTreeKeyFactory.h"
-
 #include "base_io/ReverseByteBuffer.h"
 
 namespace alinous {
@@ -28,7 +27,7 @@ int alinous::InfinityKey::binarySize() const {
 }
 
 void alinous::InfinityKey::toBinary(ByteBuffer* out) const {
-	out->putInt(BTreeKeyFactory::INFINITY_KEY);
+	out->putInt(BtreeKeyFactory::INFINITY_KEY);
 }
 
 InfinityKey* InfinityKey::fromBinary(ByteBuffer* in) {

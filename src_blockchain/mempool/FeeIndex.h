@@ -24,7 +24,11 @@ public:
 	FeeIndex(const File* baseDir, DiskCacheManager* cacheManager);
 	virtual ~FeeIndex();
 
+	bool exists() const noexcept;
+	void create() noexcept(false);
 
+	void open() noexcept(false);
+	void close() noexcept;
 
 private:
 	File* baseDir;

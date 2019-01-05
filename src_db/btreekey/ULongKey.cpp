@@ -5,9 +5,8 @@
  *      Author: iizuka
  */
 
+#include <btreekey/BtreeKeyFactory.h>
 #include "btreekey/ULongKey.h"
-#include "btreekey/BTreeKeyFactory.h"
-
 #include "base_io/ReverseByteBuffer.h"
 
 namespace alinous {
@@ -26,7 +25,7 @@ int ULongKey::binarySize() const {
 }
 
 void ULongKey::toBinary(ByteBuffer* out) const {
-	out->putInt(BTreeKeyFactory::ULONG_KEY);
+	out->putInt(BtreeKeyFactory::ULONG_KEY);
 	out->putLong(this->value);
 }
 

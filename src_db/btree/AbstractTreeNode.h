@@ -15,7 +15,7 @@
 namespace alinous {
 
 class AbstractBtreeKey;
-class BTreeKeyFactory;
+class BtreeKeyFactory;
 class DataNode;
 class TreeNode;
 
@@ -41,7 +41,7 @@ public:
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
-	void fromBinaryAbstract(ByteBuffer* in, BTreeKeyFactory* factory);
+	void fromBinaryAbstract(ByteBuffer* in, BtreeKeyFactory* factory);
 
 	virtual RawArrayPrimitive<uint64_t>* getInnerNodeFpos() const = 0;
 

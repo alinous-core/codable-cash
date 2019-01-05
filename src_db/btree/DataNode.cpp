@@ -48,7 +48,7 @@ void DataNode::toBinary(ByteBuffer* out) const {
 	}
 }
 
-DataNode* DataNode::fromBinary(ByteBuffer* in, BTreeKeyFactory* factory) {
+DataNode* DataNode::fromBinary(ByteBuffer* in, BtreeKeyFactory* factory) {
 	DataNode* node = new DataNode();
 
 	node->fromBinaryAbstract(in, factory);

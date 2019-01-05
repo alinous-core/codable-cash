@@ -5,6 +5,7 @@
  *      Author: iizuka
  */
 
+#include <btreekey/BtreeKeyFactory.h>
 #include "btree/Btree.h"
 #include "btree/BtreeStorage.h"
 #include "btree/BtreeHeaderBlock.h"
@@ -14,15 +15,13 @@
 #include "btree/BtreeScanner.h"
 
 #include "btree/AbstractBtreeDataFactory.h"
-#include "btreekey/BTreeKeyFactory.h"
-
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 #include "base_io/File.h"
 
 namespace alinous {
 
-Btree::Btree(File* folder, UnicodeString* name, DiskCacheManager* cacheManager, BTreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory) {
+Btree::Btree(const File* folder, const UnicodeString* name, DiskCacheManager* cacheManager, BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory) {
 	this->folder = new File(*folder);
 	this->name = new UnicodeString(name);
 	this->factory = factory;
@@ -44,6 +43,11 @@ Btree::~Btree() {
 	delete this->folder, this->folder = nullptr;
 	delete this->factory;
 	delete this->dfactory;
+}
+
+bool Btree::exists() const noexcept {
+	BtreeStorage newStore(this->folder, this->name, this->factory, this->dfactory);
+	return newStore.exists();
 }
 
 void Btree::create(BtreeConfig* config) {
