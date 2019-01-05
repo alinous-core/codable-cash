@@ -132,5 +132,17 @@ TEST(TestFileStoreGroup, openError02){
 	}
 	CHECK(exp != nullptr)
 	delete exp;
+}
 
+TEST(TestFileStoreGroup, notExists){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file02");
+	FileStore store(baseDirStr, &name, &cacheManager);
+
+	bool res = store.exists();
+	CHECK(!res)
 }

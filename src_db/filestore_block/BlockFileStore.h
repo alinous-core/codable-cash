@@ -26,6 +26,7 @@ public:
 	BlockFileStore(UnicodeString* dir, UnicodeString* name, DiskCacheManager* cacheManager) noexcept;
 	virtual ~BlockFileStore() noexcept;
 
+
 	void createStore(bool del, uint64_t defaultSize) noexcept(false);
 	void createStore(bool del, uint64_t defaultSize, uint64_t blockSize) noexcept(false);
 

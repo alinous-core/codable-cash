@@ -516,4 +516,17 @@ TEST(RAFTestGroup, readWrite02){
 	}
 }
 
+TEST(RAFTestGroup, notExists){
+	File projectFolder = this->env->testCaseDir();
+
+	UnicodeString name(L"out.bin");
+	File* outFile = projectFolder.get(&name);
+	StackRelease<File> r_outFile(outFile);
+
+	DiskCacheManager diskCache(16525);
+	RandomAccessFile file(outFile, &diskCache, 256);
+	bool ex = file.exists();
+	CHECK(!ex)
+}
+
 

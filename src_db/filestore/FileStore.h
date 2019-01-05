@@ -24,6 +24,7 @@ public:
 	virtual ~FileStore() noexcept;
 
 	void createStore(bool del, uint64_t defaultSize) noexcept(false);
+	bool exists() const noexcept;
 
 	void open(bool sync) noexcept(false);
 	bool isOpened() const noexcept;

@@ -27,8 +27,6 @@ BlockFileBody::~BlockFileBody() {
 
 void BlockFileBody::createStore(bool del, uint64_t blockSize) {
 	this->blockSize = blockSize;
-
-
 }
 
 uint64_t BlockFileBody::alloc(uint64_t fpos, uint64_t used, uint64_t nextfpos) {
@@ -40,8 +38,6 @@ uint64_t BlockFileBody::alloc(uint64_t fpos, uint64_t used, uint64_t nextfpos) {
 
 	return 0;
 }
-
-
 
 void BlockFileBody::writeBlock(BlockData* data) {
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(this->blockSize, true);

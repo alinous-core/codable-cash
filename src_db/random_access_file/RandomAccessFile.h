@@ -27,6 +27,8 @@ public:
 	RandomAccessFile(const File* file, DiskCacheManager* diskCacheManager, uint64_t pageSize) noexcept;
 	virtual ~RandomAccessFile() noexcept;
 
+	bool exists() const noexcept;
+
 	void open(bool sync=false);
 	void close() noexcept;
 	void setLength(uint64_t newLength);

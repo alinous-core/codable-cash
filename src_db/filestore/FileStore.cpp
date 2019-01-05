@@ -35,6 +35,22 @@ FileStore::~FileStore() noexcept {
 	delete this->name;
 }
 
+bool FileStore::exists() const noexcept {
+	File baseDir(dir);
+
+	_ST(UnicodeString, filename, new UnicodeString(this->name))
+	filename->append(L".bin");
+	_ST(File, storeFile, baseDir.get(filename))
+	RandomAccessFile body(storeFile, this->cacheManager);
+
+	_ST(UnicodeString, headerfilename, new UnicodeString(this->name))
+	headerfilename->append(L"-header.bin");
+	_ST(File, storeHeaderFile, baseDir.get(headerfilename))
+	RandomAccessFile header(storeHeaderFile, this->cacheManager);
+
+	return body.exists() && header.exists();
+}
+
 void FileStore::createStore(bool del, uint64_t defaultSize) noexcept(false) {
 	File baseDir(dir);
 	if(!baseDir.exists()){
@@ -121,4 +137,7 @@ void FileStore::close() noexcept {
 }
 
 
+
 } /* namespace alinous */
+
+
