@@ -46,6 +46,8 @@ MemPool::~MemPool() {
 
 void MemPool::init() {
 	this->store = new TransactionStore(this->baseDir, this->cacheManager);
+	this->index = new FeeIndex(this->baseDir, this->cacheManager);
+	this->trxIdIndex = new TransactionIdIndex(this->baseDir, this->cacheManager);
 
 	if(!this->store->exists()){
 		this->store->create();

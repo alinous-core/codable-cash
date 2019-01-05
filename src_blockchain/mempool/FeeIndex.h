@@ -10,6 +10,8 @@
 
 namespace alinous {
 class File;
+class DiskCacheManager;
+class Btree;
 }
 
 namespace codablecash {
@@ -17,11 +19,17 @@ using namespace alinous;
 
 class FeeIndex {
 public:
-	FeeIndex(File* baseDir);
+	static const constexpr wchar_t* FILE_NAME{L"idx_fee"};
+
+	FeeIndex(File* baseDir, DiskCacheManager* cacheManager);
 	virtual ~FeeIndex();
+
+
 
 private:
 	File* baseDir;
+	DiskCacheManager* cacheManager;
+	Btree* btree;
 };
 
 } /* namespace codablecash */
