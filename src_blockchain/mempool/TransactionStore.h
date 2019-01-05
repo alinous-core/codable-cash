@@ -10,6 +10,8 @@
 
 namespace alinous {
 class File;
+class BlockFileStore;
+class DiskCacheManager;
 }
 
 namespace codablecash {
@@ -17,11 +19,23 @@ using namespace alinous;
 
 class TransactionStore {
 public:
-	TransactionStore(File* baseDir);
+	static const constexpr wchar_t* FILE_NAME{L"mempool"};
+
+	TransactionStore(File* baseDir, DiskCacheManager* cacheManager);
 	virtual ~TransactionStore();
 
+	bool exists() const noexcept;
+	void create() noexcept(false);
+
+	void open() noexcept(false);
+	void close() noexcept;
+
+private:
+	File getStoreFile() const noexcept;
 private:
 	File* baseDir;
+	DiskCacheManager* cacheManager;
+	BlockFileStore* store;
 };
 
 } /* namespace codablecash */
