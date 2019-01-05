@@ -15,22 +15,29 @@
 
 namespace codablecash {
 
-MemPool::MemPool(File* file) {
-	this->file = new File(*file);
-	this->mainStore = nullptr;
+MemPool::MemPool(File* baseDir) {
+	this->baseDir = new File(*baseDir);
 	this->cacheManager = nullptr;
-	this->keyFactory = new BTreeKeyFactory();
+	this->store = nullptr;
+	this->index = nullptr;
+	this->trxIdIndex = nullptr;
 }
 
 MemPool::~MemPool() {
-	delete this->file;
-	if(this->mainStore != nullptr){
-		delete this->mainStore;
-	}
+	delete this->baseDir;
 	if(this->cacheManager != nullptr){
 		delete this->cacheManager;
 	}
-	delete this->keyFactory;
+
+	if(this->store != nullptr){
+		delete this->store;
+	}
+	if(this->index != nullptr){
+		delete this->index;
+	}
+	if(this->trxIdIndex != nullptr){
+		delete this->trxIdIndex;
+	}
 }
 
 void MemPool::init() {
