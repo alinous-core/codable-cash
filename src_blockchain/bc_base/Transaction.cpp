@@ -10,9 +10,13 @@
 #include "bc_base/TransactionOutputs.h"
 #include "bc_base/BalanceUnit.h"
 #include "bc_base/AbstractAddress.h"
+#include "bc_base/TransactionId.h"
 
 #include "base_io/ByteBuffer.h"
 #include "osenv/funcs.h"
+#include "base/StackRelease.h"
+
+#include "crypto/Sha256.h"
 
 namespace codablecash {
 
@@ -21,12 +25,16 @@ Transaction::Transaction() : AbstractTransaction(AbstractTransaction::TYPE_SEND_
 	this->outputs = new TransactionOutputs();
 	this->fee = new BalanceUnit(0L);
 	this->timelong = Os::getTimestampLong();
+	this->trxId = nullptr;
 }
 
 Transaction::~Transaction() {
 	delete this->inputs;
 	delete this->outputs;
 	delete this->fee;
+	if(this->trxId != nullptr){
+		delete this->trxId;
+	}
 }
 
 void Transaction::addInput(const AbstractAddress* address, uint64_t amount) noexcept {
@@ -64,6 +72,34 @@ void Transaction::toBinary(ByteBuffer* out) const {
 	this->outputs->toBinary(out);
 	this->fee->toBinary(out);
 	out->putLong(this->timelong);
+}
+
+void Transaction::updateTransactionId() {
+	if(this->trxId != nullptr){
+		delete this->trxId, this->trxId = nullptr;
+	}
+
+	int size = this->inputs->binarySize();
+	size += this->outputs->binarySize();
+	size += this->fee->binarySize();
+	size += sizeof(uint64_t);
+
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true);
+	StackRelease<ByteBuffer> __st_buff(buff);
+
+	this->inputs->toBinary(buff);
+	this->outputs->toBinary(buff);
+	this->fee->toBinary(buff);
+	buff->putLong(this->timelong);
+
+	ByteBuffer* sha = Sha256::sha256((const char*)buff->array(), size, true);
+	StackRelease<ByteBuffer> __st_sha(sha);
+
+	this->trxId = new TransactionId((const char*)sha->array(), sha->capacity());
+}
+
+const TransactionId* Transaction::getTransactionId() const noexcept {
+	return this->trxId;
 }
 
 Transaction* Transaction::fromBinary(ByteBuffer* in) {

@@ -63,6 +63,32 @@ TEST(TestTransactionGroup, balancetrx){
 	CHECK(in == out)
 }
 
+TEST(TestTransactionGroup, trxid){
+	Transaction* trx = new Transaction();
+	StackRelease<Transaction> __st_trx(trx);
+
+	StackMultipleRelease<BlockchainAddress> release;
+	BlockchainAddress* addr1 = createAddr(); release.add(addr1);
+	BlockchainAddress* addr2 = createAddr(); release.add(addr2);
+	BlockchainAddress* addr3 = createAddr(); release.add(addr3);
+	BlockchainAddress* addr4 = createAddr(); release.add(addr4);
+	BlockchainAddress* addr5 = createAddr(); release.add(addr5);
+
+	trx->addInput(addr1, 100);
+	trx->addInput(addr2, 200);
+	trx->addInput(addr3, 200);
+
+	trx->addOutput(addr4, 100);
+	trx->addOutput(addr5, 399);
+	trx->setFee(1);
+
+	trx->updateTransactionId();
+	trx->updateTransactionId();
+
+	const TransactionId* trxId = trx->getTransactionId();
+	CHECK(trxId != nullptr)
+}
+
 TEST(TestTransactionGroup, binary){
 	Transaction* trx = new Transaction();
 	StackRelease<Transaction> __st_trx(trx);
