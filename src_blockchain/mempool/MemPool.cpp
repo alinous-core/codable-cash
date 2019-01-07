@@ -49,18 +49,21 @@ void MemPool::init() {
 	this->feeIndex = new FeeIndex(this->baseDir, this->cacheManager);
 	this->trxIdIndex = new TransactionIdIndex(this->baseDir, this->cacheManager);
 
-	if(!this->feeIndex->exists() || !this->store->exists()){
+	if(!this->feeIndex->exists() || !this->store->exists() || !this->store->exists()){
 		this->store->create();
 		this->feeIndex->create();
+		this->trxIdIndex->create();
 	}
 
 	this->store->open();
 	this->feeIndex->open();
+	this->trxIdIndex->open();
 }
 
 void MemPool::close() {
 	this->store->close();
 	this->feeIndex->close();
+	this->trxIdIndex->close();
 }
 
 } /* namespace codablecash */
