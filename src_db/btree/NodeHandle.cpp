@@ -50,7 +50,9 @@ DataNode* NodeHandle::toDataNode() const {
 }
 
 RawArrayPrimitive<uint64_t>* NodeHandle::getInnerNodeFpos() const {
-	return this->ref->getNode()->getInnerNodeFpos();
+	TreeNode* treeNode = toTreeNode();
+
+	return treeNode->getInnerNodeFpos();
 }
 
 AbstractBtreeKey* NodeHandle::getKey() const noexcept {

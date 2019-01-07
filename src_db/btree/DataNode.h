@@ -28,10 +28,11 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	static DataNode* fromBinary(ByteBuffer* in, BtreeKeyFactory* factory);
 
-	virtual RawArrayPrimitive<uint64_t>* getInnerNodeFpos() const;
+	uint64_t getDataFpos() const noexcept;
+	void setDataFpos(uint64_t fpos) noexcept;
 
 private:
-	RawArrayPrimitive<uint64_t>* children;
+	uint64_t datafpos;
 };
 
 } /* namespace alinous */

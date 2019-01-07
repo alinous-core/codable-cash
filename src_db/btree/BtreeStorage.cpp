@@ -247,6 +247,13 @@ uint64_t BtreeStorage::storeData(const IBlockObject* data) {
 	return handle->getFpos();
 }
 
+void BtreeStorage::removeData(uint64_t dataFpos) {
+	BlockHandle* handle = this->store->get(dataFpos);
+	StackRelease<BlockHandle> __st_handle(handle);
+
+	handle->removeBlocks(dataFpos);
+}
+
 uint64_t BtreeStorage::storeNode(AbstractTreeNode* node) {
 	int size = node->binarySize();
 	BlockHandle* handle = this->store->alloc(size);
@@ -278,5 +285,8 @@ void BtreeStorage::updateNode(AbstractTreeNode* node) {
 	handle->write(ptr, size);
 }
 
+const AbstractBtreeDataFactory* BtreeStorage::getDataFactory() const noexcept {
+	return this->dfactory;
+}
 
 } /* namespace alinous */

@@ -43,8 +43,6 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	void fromBinaryAbstract(ByteBuffer* in, BtreeKeyFactory* factory);
 
-	virtual RawArrayPrimitive<uint64_t>* getInnerNodeFpos() const = 0;
-
 	static DataNode* toDataNode(AbstractTreeNode* node);
 	static TreeNode* toTreeNode(AbstractTreeNode* node);
 

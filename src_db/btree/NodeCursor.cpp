@@ -13,6 +13,7 @@
 #include "btree/AbstractBtreeKey.h"
 #include "btree/BtreeStorage.h"
 #include "btree/NodeCacheRef.h"
+#include "btree/AbstractBtreeDataFactory.h"
 #include "btree/exceptions.h"
 
 #include "btree/DataNode.h"
@@ -82,10 +83,10 @@ void NodeCursor::insert(const AbstractBtreeKey* key, const IBlockObject* data) {
 	// 1. already has key
 	NodeHandle* sameKeyDataNode = current->hasKey(key);
 	if(sameKeyDataNode != nullptr){
-		uint64_t dataFpos = this->store->storeData(data);
-
 		DataNode* dnode = sameKeyDataNode->toDataNode();
-		dnode->getInnerNodeFpos()->addElement(dataFpos, 0);
+
+		const AbstractBtreeDataFactory* dfactory = this->store->getDataFactory();
+		dfactory->registerData(data, dnode, this->store);
 
 		this->store->updateNode(dnode);
 
@@ -99,10 +100,10 @@ void NodeCursor::insert(const AbstractBtreeKey* key, const IBlockObject* data) {
 	}
 
 	// simply add data
-	uint64_t dataFpos = this->store->storeData(data);
-
 	DataNode dataNode(key->clone());
-	dataNode.getInnerNodeFpos()->addElement(dataFpos, 0);
+
+	const AbstractBtreeDataFactory* dfactory = this->store->getDataFactory();
+	dfactory->registerData(data, &dataNode, this->store);
 
 	uint64_t newDataNodeFpos = this->store->storeNode(&dataNode);
 
@@ -116,9 +117,11 @@ void NodeCursor::splitLeafNode(const AbstractBtreeKey* key, const IBlockObject* 
 	NodePosition* current = top();
 
 	// data node
-	uint64_t dataFpos = this->store->storeData(data);
+
 	DataNode dataNode(key->clone());
-	dataNode.getInnerNodeFpos()->addElement(dataFpos, 0);
+
+	const AbstractBtreeDataFactory* dfactory = this->store->getDataFactory();
+	dfactory->registerData(data, &dataNode, this->store);
 
 	this->store->storeNode(&dataNode);
 

@@ -28,7 +28,7 @@ public:
 
 	bool isLeaf() const;
 	bool isRoot() const;
-	// bool isData() const;
+	bool isData() const;
 	void setRoot(bool isroot);
 	NodeHandle* hasKey(const AbstractBtreeKey* key) const;
 	bool isFull(int nodeNumber) const noexcept;

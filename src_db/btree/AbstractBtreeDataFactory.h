@@ -12,11 +12,14 @@ namespace alinous {
 
 class IBlockObject;
 class ByteBuffer;
+class BtreeStorage;
+class DataNode;
 
 class AbstractBtreeDataFactory {
 public:
 	virtual ~AbstractBtreeDataFactory();
 	virtual IBlockObject* makeDataFromBinary(ByteBuffer* in) = 0;
+	virtual void registerData(const IBlockObject* data, DataNode* dataNode, BtreeStorage* store) const;
 };
 
 } /* namespace alinous */

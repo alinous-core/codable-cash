@@ -51,10 +51,14 @@ public:
 	}
 
 	uint64_t storeData(const IBlockObject* data);
+	void removeData(uint64_t dataFpos);
+
 	uint64_t storeNode(AbstractTreeNode* node);
 	void updateNode(AbstractTreeNode* node);
 
 	void updateRootFpos(uint64_t rootFpos);
+
+	const AbstractBtreeDataFactory* getDataFactory() const noexcept;
 
 private:
 	BtreeHeaderBlock* makeHeader(BtreeConfig* config, uint64_t rootFpos);

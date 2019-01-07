@@ -54,11 +54,11 @@ bool NodePosition::isRoot() const {
 void NodePosition::setRoot(bool isroot) {
 	this->node->setIsRoot(isroot);
 }
-/*
+
 bool NodePosition::isData() const {
 	return this->node->isData();
 }
-*/
+
 NodeHandle* NodePosition::hasKey(const AbstractBtreeKey* key) const {
 	int maxLoop = this->innerNodes->size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -173,14 +173,13 @@ NodeHandle* NodePosition::getNodeHandle() const noexcept {
 
 uint64_t NodePosition::nextData() {
 	DataNode* dnode = this->node->toDataNode();
-	RawArrayPrimitive<uint64_t>* list = dnode->getInnerNodeFpos();
 
-	if(list->size() - 1 < this->pos){
+	if(1 < this->pos){
 		return 0;
 	}
 
-	int cur = this->pos++;
-	return list->get(cur);
+	this->pos++;
+	return dnode->getFpos();
 }
 
 uint64_t NodePosition::nextNode() {
