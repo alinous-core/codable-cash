@@ -200,7 +200,7 @@ TEST(TestBTreeGroup, add01){
 		answers.addElement(2);
 		answers.addElement(3);
 		answers.addElement(6);
-		answers.addElement(6);
+		//answers.addElement(6);
 		answers.addElement(10);
 		answers.addElement(100);
 	}
@@ -271,7 +271,6 @@ TEST(TestBTreeGroup, add02){
 
 		answers.addElement(2);
 		answers.addElement(3);
-		answers.addElement(6);
 		answers.addElement(6);
 		answers.addElement(7);
 		answers.addElement(8);
