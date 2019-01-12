@@ -21,6 +21,11 @@ NodeHandle::~NodeHandle() {
 	ref->dec();
 }
 
+NodeHandle* NodeHandle::clone() const noexcept {
+	NodeHandle* newInst = new NodeHandle(this->ref);
+	return newInst;
+}
+
 bool NodeHandle::isRoot() const {
 	return AbstractTreeNode::toTreeNode(this->ref->getNode())->isRoot();
 }
@@ -50,7 +55,9 @@ DataNode* NodeHandle::toDataNode() const {
 }
 
 RawArrayPrimitive<uint64_t>* NodeHandle::getInnerNodeFpos() const {
-	return this->ref->getNode()->getInnerNodeFpos();
+	TreeNode* treeNode = toTreeNode();
+
+	return treeNode->getInnerNodeFpos();
 }
 
 AbstractBtreeKey* NodeHandle::getKey() const noexcept {
@@ -62,5 +69,3 @@ uint64_t NodeHandle::getFpos() const noexcept {
 }
 
 } /* namespace alinous */
-
-

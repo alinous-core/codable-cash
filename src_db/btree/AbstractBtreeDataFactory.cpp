@@ -6,10 +6,23 @@
  */
 
 #include "btree/AbstractBtreeDataFactory.h"
+#include "btree/DataNode.h"
+#include "btree/BtreeStorage.h"
+
 
 namespace alinous {
 
 AbstractBtreeDataFactory::~AbstractBtreeDataFactory() {
+}
+
+void AbstractBtreeDataFactory::registerData(const IBlockObject* data, DataNode* dataNode, BtreeStorage* store) const {
+	uint64_t dataFpos = dataNode->getDataFpos();
+	if(dataFpos != 0){
+		store->removeData(dataFpos);
+	}
+
+	dataFpos = store->storeData(data);
+	dataNode->setDataFpos(dataFpos);
 }
 
 } /* namespace alinous */

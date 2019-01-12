@@ -28,7 +28,7 @@
 
 namespace alinous {
 
-BtreeStorage::BtreeStorage(File* folder, UnicodeString* name, BTreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory) {
+BtreeStorage::BtreeStorage(File* folder, UnicodeString* name, BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory) {
 	this->name = name;
 	this->folder = folder;
 	this->factory = factory;
@@ -47,6 +47,16 @@ BtreeStorage::~BtreeStorage() {
 	if(this->cache != nullptr){
 		delete this->cache, this->cache = nullptr;
 	}
+}
+
+bool BtreeStorage::exists() const noexcept {
+	UnicodeString* folderstr = this->folder->getAbsolutePath();
+	StackRelease<UnicodeString> __st_folderstr(folderstr);
+
+	BlockFileStore* blockstore = new BlockFileStore(folderstr, this->name, nullptr);
+	StackRelease<BlockFileStore> __st_blockstore(blockstore);
+
+	return blockstore->exists();
 }
 
 void BtreeStorage::create(DiskCacheManager* cacheManager, BtreeConfig* config) {
@@ -171,8 +181,16 @@ void BtreeStorage::close() {
 	this->cache->clear();
 }
 
+void BtreeStorage::sync(bool syncDisk) {
+	this->store->sync(syncDisk);
+}
+
 NodeHandle* BtreeStorage::loadRoot() {
 	return loadNode(this->rootFpos);
+}
+
+void BtreeStorage::setRootFpos(uint64_t rootFpos){
+	this->rootFpos = rootFpos;
 }
 
 NodeHandle* BtreeStorage::loadNode(uint64_t fpos) {
@@ -209,7 +227,7 @@ IBlockObject* BtreeStorage::loadData(uint64_t fpos) {
 	return this->dfactory->makeDataFromBinary(buff);
 }
 
-AbstractTreeNode* BtreeStorage::makeNodeFromBinary(ByteBuffer* buff, BTreeKeyFactory* factory) {
+AbstractTreeNode* BtreeStorage::makeNodeFromBinary(ByteBuffer* buff, BtreeKeyFactory* factory) {
 	char nodeType = buff->get();
 
 	if(nodeType == AbstractTreeNode::NODE){
@@ -218,6 +236,21 @@ AbstractTreeNode* BtreeStorage::makeNodeFromBinary(ByteBuffer* buff, BTreeKeyFac
 
 	assert(nodeType == AbstractTreeNode::DATA);
 	return DataNode::fromBinary(buff, factory);
+}
+
+void BtreeStorage::remove(uint64_t fpos) {
+	StackUnlocker __lock(&this->lock);
+
+	// clear cache
+	NodeCacheRef* ref = this->cache->get(fpos);
+	if(ref != nullptr){
+		// delete cache object
+		this->cache->remove(ref);
+	}
+
+	BlockHandle* handle = this->store->get(fpos);
+	StackRelease<BlockHandle> __st_handle(handle);
+	handle->removeBlocks(fpos);
 }
 
 
@@ -235,6 +268,13 @@ uint64_t BtreeStorage::storeData(const IBlockObject* data) {
 	handle->write(ptr, size);
 
 	return handle->getFpos();
+}
+
+void BtreeStorage::removeData(uint64_t dataFpos) {
+	BlockHandle* handle = this->store->get(dataFpos);
+	StackRelease<BlockHandle> __st_handle(handle);
+
+	handle->removeBlocks(dataFpos);
 }
 
 uint64_t BtreeStorage::storeNode(AbstractTreeNode* node) {
@@ -268,6 +308,8 @@ void BtreeStorage::updateNode(AbstractTreeNode* node) {
 	handle->write(ptr, size);
 }
 
+const AbstractBtreeDataFactory* BtreeStorage::getDataFactory() const noexcept {
+	return this->dfactory;
+}
 
 } /* namespace alinous */
-

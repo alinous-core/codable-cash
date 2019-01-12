@@ -25,6 +25,8 @@ public:
 	explicit NodeHandle(NodeCacheRef* ref);
 	virtual ~NodeHandle();
 
+	NodeHandle* clone() const noexcept;
+
 	bool isRoot() const;
 	void setIsRoot(bool isroot);
 	bool isLeaf() const;

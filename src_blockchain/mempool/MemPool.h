@@ -34,7 +34,7 @@ private:
 	File* baseDir;
 	DiskCacheManager* cacheManager;
 	TransactionStore* store;
-	FeeIndex* index;
+	FeeIndex* feeIndex;
 	TransactionIdIndex* trxIdIndex;
 };
 

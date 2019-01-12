@@ -26,43 +26,49 @@ class AbstractTreeNode;
 class ByteBuffer;
 class IBlockObject;
 
-class BTreeKeyFactory;
+class BtreeKeyFactory;
 class AbstractBtreeDataFactory;
 
 
 class BtreeStorage {
 public:
-	BtreeStorage(File* folder, UnicodeString* name, BTreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory);
+	BtreeStorage(File* folder, UnicodeString* name, BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory);
 	virtual ~BtreeStorage();
 
+	bool exists() const noexcept;
 	void create(DiskCacheManager* cacheManager, BtreeConfig* config);
 
 	void open(int numDataBuffer, int numNodeBuffer, DiskCacheManager* cacheManager);
 	void close();
+	void sync(bool syncDisk);
 
 	BtreeHeaderBlock* loadHeader();
 	NodeHandle* loadRoot();
 	NodeHandle* loadNode(uint64_t fpos);
 	IBlockObject* loadData(uint64_t fpos);
 
-	void setRootFpos(uint64_t rootFpos){
-		this->rootFpos = rootFpos;
-	}
+	void remove(uint64_t fpos);
+
+	void setRootFpos(uint64_t rootFpos);
 
 	uint64_t storeData(const IBlockObject* data);
+	void removeData(uint64_t dataFpos);
+
 	uint64_t storeNode(AbstractTreeNode* node);
 	void updateNode(AbstractTreeNode* node);
 
 	void updateRootFpos(uint64_t rootFpos);
 
+	const AbstractBtreeDataFactory* getDataFactory() const noexcept;
+
 private:
 	BtreeHeaderBlock* makeHeader(BtreeConfig* config, uint64_t rootFpos);
-	static AbstractTreeNode* makeNodeFromBinary(ByteBuffer* buff, BTreeKeyFactory* factory);
+	static AbstractTreeNode* makeNodeFromBinary(ByteBuffer* buff, BtreeKeyFactory* factory);
 
 private:
 	UnicodeString* name;
 	File* folder;
-	BTreeKeyFactory* factory;
+	BtreeKeyFactory* factory;
 	AbstractBtreeDataFactory* dfactory;
 
 	BlockFileStore* store;

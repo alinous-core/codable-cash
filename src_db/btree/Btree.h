@@ -19,7 +19,7 @@ class BtreeScanner;
 
 class AbstractBtreeKey;
 class IBlockObject;
-class BTreeKeyFactory;
+class BtreeKeyFactory;
 class AbstractBtreeDataFactory;
 
 typedef struct __btree_open_config {
@@ -31,9 +31,10 @@ class Btree {
 public:
 	Btree() = delete;
 	Btree(const Btree& inst) = delete;
-	Btree(File* folder, UnicodeString* name, DiskCacheManager* cacheManager, BTreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory);
+	Btree(const File* folder, const UnicodeString* name, DiskCacheManager* cacheManager, BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory);
 	virtual ~Btree();
 
+	bool exists() const noexcept;
 	void create(BtreeConfig* config);
 
 	void open(BtreeOpenConfig* config);
@@ -42,10 +43,12 @@ public:
 	void insert(AbstractBtreeKey* key, IBlockObject* data);
 	BtreeScanner* getScanner();
 
+	void remove(const AbstractBtreeKey* key);
+
 private:
 	UnicodeString* name;
 	File* folder;
-	BTreeKeyFactory* factory;
+	BtreeKeyFactory* factory;
 	AbstractBtreeDataFactory* dfactory;
 
 	BtreeStorage* store;

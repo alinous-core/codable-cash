@@ -5,6 +5,7 @@
  *      Author: iizuka
  */
 
+#include <btreekey/BtreeKeyFactory.h>
 #include "mempool/MemPool.h"
 #include "mempool/TransactionStore.h"
 #include "mempool/TransactionIdIndex.h"
@@ -15,7 +16,6 @@
 #include "random_access_file/DiskCacheManager.h"
 
 #include "btree/Btree.h"
-#include "btreekey/BTreeKeyFactory.h"
 
 namespace codablecash {
 
@@ -23,7 +23,7 @@ MemPool::MemPool(const File* baseDir) {
 	this->baseDir = new File(*baseDir);
 	this->cacheManager = new DiskCacheManager(1024 * 2);
 	this->store = nullptr;
-	this->index = nullptr;
+	this->feeIndex = nullptr;
 	this->trxIdIndex = nullptr;
 }
 
@@ -36,8 +36,8 @@ MemPool::~MemPool() {
 	if(this->store != nullptr){
 		delete this->store;
 	}
-	if(this->index != nullptr){
-		delete this->index;
+	if(this->feeIndex != nullptr){
+		delete this->feeIndex;
 	}
 	if(this->trxIdIndex != nullptr){
 		delete this->trxIdIndex;
@@ -46,18 +46,24 @@ MemPool::~MemPool() {
 
 void MemPool::init() {
 	this->store = new TransactionStore(this->baseDir, this->cacheManager);
-	this->index = new FeeIndex(this->baseDir, this->cacheManager);
+	this->feeIndex = new FeeIndex(this->baseDir, this->cacheManager);
 	this->trxIdIndex = new TransactionIdIndex(this->baseDir, this->cacheManager);
 
-	if(!this->store->exists()){
+	if(!this->feeIndex->exists() || !this->store->exists() || !this->store->exists()){
 		this->store->create();
+		this->feeIndex->create();
+		this->trxIdIndex->create();
 	}
 
 	this->store->open();
+	this->feeIndex->open();
+	this->trxIdIndex->open();
 }
 
 void MemPool::close() {
 	this->store->close();
+	this->feeIndex->close();
+	this->trxIdIndex->close();
 }
 
 } /* namespace codablecash */

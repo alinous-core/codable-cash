@@ -19,8 +19,16 @@ using namespace alinous;
 
 class TransactionIdIndex {
 public:
+	static const constexpr wchar_t* FILE_NAME{L"idx_trx"};
+
 	TransactionIdIndex(File* baseDir, DiskCacheManager* cacheManager);
 	virtual ~TransactionIdIndex();
+
+	bool exists() const noexcept;
+	void create() noexcept(false);
+
+	void open() noexcept(false);
+	void close() noexcept;
 
 private:
 	File* baseDir;

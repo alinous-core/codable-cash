@@ -13,6 +13,7 @@
 #include "btree/AbstractBtreeKey.h"
 #include "btree/BtreeStorage.h"
 #include "btree/NodeCacheRef.h"
+#include "btree/AbstractBtreeDataFactory.h"
 #include "btree/exceptions.h"
 
 #include "btree/DataNode.h"
@@ -82,10 +83,10 @@ void NodeCursor::insert(const AbstractBtreeKey* key, const IBlockObject* data) {
 	// 1. already has key
 	NodeHandle* sameKeyDataNode = current->hasKey(key);
 	if(sameKeyDataNode != nullptr){
-		uint64_t dataFpos = this->store->storeData(data);
-
 		DataNode* dnode = sameKeyDataNode->toDataNode();
-		dnode->getInnerNodeFpos()->addElement(dataFpos, 0);
+
+		const AbstractBtreeDataFactory* dfactory = this->store->getDataFactory();
+		dfactory->registerData(data, dnode, this->store);
 
 		this->store->updateNode(dnode);
 
@@ -99,10 +100,10 @@ void NodeCursor::insert(const AbstractBtreeKey* key, const IBlockObject* data) {
 	}
 
 	// simply add data
-	uint64_t dataFpos = this->store->storeData(data);
-
 	DataNode dataNode(key->clone());
-	dataNode.getInnerNodeFpos()->addElement(dataFpos, 0);
+
+	const AbstractBtreeDataFactory* dfactory = this->store->getDataFactory();
+	dfactory->registerData(data, &dataNode, this->store);
 
 	uint64_t newDataNodeFpos = this->store->storeNode(&dataNode);
 
@@ -116,9 +117,10 @@ void NodeCursor::splitLeafNode(const AbstractBtreeKey* key, const IBlockObject* 
 	NodePosition* current = top();
 
 	// data node
-	uint64_t dataFpos = this->store->storeData(data);
 	DataNode dataNode(key->clone());
-	dataNode.getInnerNodeFpos()->addElement(dataFpos, 0);
+
+	const AbstractBtreeDataFactory* dfactory = this->store->getDataFactory();
+	dfactory->registerData(data, &dataNode, this->store);
 
 	this->store->storeNode(&dataNode);
 
@@ -257,6 +259,26 @@ AbstractBtreeKey* NodeCursor::setupTwoLists(ArrayList<NodeHandle>* list, Abstrac
 	return allList.get(list1Size - 1)->getKey()->clone();
 }
 
+
+NodePosition* NodeCursor::gotoLeaf(const AbstractBtreeKey* key) {
+	NodePosition* current = top();
+
+	// check data nodes
+	current->loadInnerNodes(this->store);
+
+	while(!current->isLeaf()){
+		uint64_t nextFpos = current->getNextChild(key);
+		NodeHandle* nh = this->store->loadNode(nextFpos);
+
+		current = new NodePosition(nh);
+		push(current);
+
+		current->loadInnerNodes(this->store);
+	}
+
+	return current;
+}
+
 IBlockObject* NodeCursor::gotoFirst() {
 	NodePosition* current = top();
 
@@ -291,11 +313,11 @@ IBlockObject* NodeCursor::getNext() {
 
 	// get data from current node;
 	checkIsDataNode(current->getNodeHandle(), __FILE__, __LINE__);
-	uint64_t dfpos = current->nextData();
+	//uint64_t dfpos = current->nextData();
 
-	if(dfpos != 0){
-		return this->store->loadData(dfpos);
-	}
+	//if(dfpos != 0){
+	//	return this->store->loadData(dfpos);
+	//}
 
 	// pop data node
 	delete pop();
@@ -333,13 +355,74 @@ IBlockObject* NodeCursor::getNext() {
 	return this->store->loadData(datafpos);
 }
 
-
-
 void NodeCursor::checkIsDataNode(NodeHandle* nodeHandle, const char* srcfile, int srcline) {
 	if(!nodeHandle->isData()){
 		throw new NodeStructureException(srcfile, srcline);
 	}
 }
 
-} /* namespace alinous */
+bool NodeCursor::remove(const AbstractBtreeKey* key) {
+	NodePosition* leafNode = gotoLeaf(key);
 
+	bool removed = leafNode->removeChildNode(key, this->store);
+	if(!removed){
+		return false;
+	}
+
+	internalRemoveFromUpper();
+	internalRemoveRoot();
+	this->store->sync(false);
+
+	return true;
+}
+
+void NodeCursor::internalRemoveRoot() {
+	NodePosition* current = pop();
+	while(!current->isRoot()){
+		delete current;
+		current = pop();
+	}
+
+	push(current);
+
+	while(current->getInnerCount() == 1){
+		NodeHandle* nh = current->getInnerNodes()->get(0); // next root
+
+		// update new root
+		NodePosition* newPos = new NodePosition(nh->clone());
+		newPos->loadInnerNodes(this->store);
+
+		newPos->setRoot(true);
+		uint64_t nextfpos = newPos->getFpos();
+		this->store->setRootFpos(nextfpos);
+
+		// remove last root
+		uint64_t fpos = current->getFpos();
+		delete current;
+		this->store->remove(fpos);
+
+		pop();
+		push(newPos);
+		current = top();
+	}
+}
+
+void NodeCursor::internalRemoveFromUpper() {
+	NodePosition* current = top();
+
+	while(!current->isRoot() && current->isEmpty()){
+		AbstractBtreeKey* key = current->getKey()->clone();
+		StackRelease<AbstractBtreeKey> __st_key(key);
+
+		pop();
+		delete current;
+
+
+		NodePosition* upperNode = top();
+		upperNode->removeChildNode(key, this->store);
+
+		current = upperNode;
+	}
+}
+
+} /* namespace alinous */

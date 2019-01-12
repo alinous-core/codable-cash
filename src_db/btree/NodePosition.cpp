@@ -15,6 +15,8 @@
 #include "btree/DataNode.h"
 #include "btree/exceptions.h"
 
+#include "base/StackRelease.h"
+
 namespace alinous {
 
 NodePosition::NodePosition(NodeHandle* nodeHandle) {
@@ -37,6 +39,14 @@ void NodePosition::clearCache() {
 		this->innerNodes->deleteElements();
 		delete this->innerNodes, this->innerNodes = nullptr;
 	}
+}
+
+bool NodePosition::isEmpty() const noexcept {
+	return this->innerCount == 0;
+}
+
+const AbstractBtreeKey* NodePosition::getKey() const noexcept {
+	return this->node->getKey();
 }
 
 uint64_t NodePosition::getFpos() const noexcept {
@@ -121,7 +131,7 @@ uint64_t NodePosition::getNextChild(const AbstractBtreeKey* key) const {
 	for(int i = 0; i != maxLoop; ++i){
 		NodeHandle* nh = this->innerNodes->get(i);
 
-		if(key->compareTo(nh->getKey()) < 0){
+		if(key->compareTo(nh->getKey()) <= 0){
 			ret = nh->getFpos();
 			break;
 		}
@@ -173,14 +183,14 @@ NodeHandle* NodePosition::getNodeHandle() const noexcept {
 
 uint64_t NodePosition::nextData() {
 	DataNode* dnode = this->node->toDataNode();
-	RawArrayPrimitive<uint64_t>* list = dnode->getInnerNodeFpos();
 
-	if(list->size() - 1 < this->pos){
-		return 0;
-	}
+	//if(0 < this->pos){
+	//	return 0;
+	//}
+	assert(this->pos == 0);
 
-	int cur = this->pos++;
-	return list->get(cur);
+	this->pos++;
+	return dnode->getDataFpos();
 }
 
 uint64_t NodePosition::nextNode() {
@@ -199,6 +209,88 @@ bool NodePosition::hasNext() {
 	return this->innerCount > this->pos;
 }
 
+bool NodePosition::removeChildNode(const AbstractBtreeKey* key, BtreeStorage* store) {
+	int removePos = indexof(key);
+	if(removePos < 0){
+		return false;
+	}
+
+	if(isLeaf()){
+		internalRemoveLeafChildNode(removePos, store);
+	}
+	else{
+		internalRemoveChildNode(removePos, store);
+	}
+
+	return true;
+}
+
+void NodePosition::removeInnerNodeFpos(int index) noexcept {
+	RawArrayPrimitive<uint64_t>* dnodesList = this->node->getInnerNodeFpos();
+	int maxLoop = this->innerCount - 1;
+	int i = index;
+	for(; i != maxLoop; i++){
+		uint64_t nextfpos = dnodesList->get(i + 1);
+		dnodesList->set(i, nextfpos);
+	}
+
+	dnodesList->set(i, 0);
+}
+
+void NodePosition::internalRemoveChildNode(int index, BtreeStorage* store) {
+	// delete cache use count
+	NodeHandle* nh = this->innerNodes->get(index);
+	TreeNode* treeNode = nh->toTreeNode();
+
+	this->innerNodes->remove(index);
+
+	// remove child node
+	uint64_t nodeFpos = treeNode->getFpos();
+	delete nh;
+
+	store->remove(nodeFpos);
+
+	// update self
+	removeInnerNodeFpos(index);
+	this->innerCount--;
+	store->updateNode(this->node->getRef()->getNode());
+}
+
+void NodePosition::internalRemoveLeafChildNode(int index, BtreeStorage* store) {
+	// delete cache use count
+	NodeHandle* nh = this->innerNodes->get(index);
+	DataNode* dnode = nh->toDataNode();
+
+	this->innerNodes->remove(index);
+
+	// remove data
+	uint64_t dataFpos = dnode->getDataFpos();
+	delete nh;
+
+	store->removeData(dataFpos);
+
+	// remove child data node
+	uint64_t nodeFpos = dnode->getFpos();
+	store->remove(nodeFpos);
+
+	// update self
+	removeInnerNodeFpos(index);
+	this->innerCount--;
+
+	store->updateNode(this->node->getRef()->getNode());
+}
+
+int NodePosition::indexof(const AbstractBtreeKey* key) const {
+	int maxLoop = this->innerCount;
+	for(int i = 0; i != maxLoop; ++i){
+		NodeHandle* nh = this->innerNodes->get(i);
+
+		if(key->compareTo(nh->getKey()) == 0){
+			return i;
+		}
+	}
+
+	return -1;
+}
+
 } /* namespace alinous */
-
-

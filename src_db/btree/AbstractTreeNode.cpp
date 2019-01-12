@@ -5,14 +5,13 @@
  *      Author: iizuka
  */
 
+#include <btreekey/BtreeKeyFactory.h>
 #include "btree/AbstractTreeNode.h"
 #include "btree/AbstractBtreeKey.h"
 #include "btree/exceptions.h"
 
 #include "btree/TreeNode.h"
 #include "btree/DataNode.h"
-
-#include "btreekey/BTreeKeyFactory.h"
 
 #include "base_io/ReverseByteBuffer.h"
 
@@ -40,7 +39,7 @@ void AbstractTreeNode::toBinary(ByteBuffer* out) const {
 	out->putLong(this->fpos);
 }
 
-void AbstractTreeNode::fromBinaryAbstract(ByteBuffer* in, BTreeKeyFactory* factory) {
+void AbstractTreeNode::fromBinaryAbstract(ByteBuffer* in, BtreeKeyFactory* factory) {
 	char keytype = in->getInt();
 	this->key = factory->fromBinary(keytype, in);
 

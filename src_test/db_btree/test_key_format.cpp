@@ -6,11 +6,11 @@
  */
 
 
+#include <btreekey/BtreeKeyFactory.h>
 #include "test_utils/t_macros.h"
 
 #include "btreekey/exceptions.h"
 #include "btree/exceptions.h"
-#include "btreekey/BTreeKeyFactory.h"
 
 
 using namespace alinous;
@@ -28,7 +28,7 @@ TEST(TestKeyFormatGroup, exceptions){
 TEST(TestKeyFormatGroup, noKeyType){
 	Exception* ex;
 	try{
-		BTreeKeyFactory factory;
+		BtreeKeyFactory factory;
 		factory.fromBinary(100, nullptr);
 	}
 	catch(Exception* e){

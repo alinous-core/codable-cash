@@ -45,6 +45,7 @@ public:
 
 	void add(AbstractTreeNode* node) noexcept;
 	NodeCacheRef* get(uint64_t fpos) noexcept;
+	void remove(NodeCacheRef* ref) noexcept;
 
 private:
 	void internalAddNode(AbstractTreeNode* node, SynchronizedLock* lock,
@@ -54,6 +55,10 @@ private:
 			SynchronizedLock* lock) noexcept;
 
 	void onCacheHit(RawLinkedList<NodeCacheRef>::Element* element, RawLinkedList<NodeCacheRef>* list, SynchronizedLock* lock) noexcept;
+	void removeCachedRef(NodeCacheRef* ref, SynchronizedLock* lock) noexcept;
+
+	void internalRemove(AbstractTreeNode* node, SynchronizedLock* lock, HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Element>* map,
+			RawLinkedList<NodeCacheRef>* list) noexcept;
 
 	void clearList(RawLinkedList<NodeCacheRef>* list) noexcept;
 	void clearMap(HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Element>* map) noexcept;
