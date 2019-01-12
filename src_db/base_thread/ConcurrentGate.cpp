@@ -39,7 +39,7 @@ void ConcurrentGate::enter() noexcept {
 
 				this->roomWaiter--;
 				if(this->roomWaiter == 0){
-					this->roomLock.notifyAll();
+					this->roomLock.notify();
 				}
 			}
 			this->counter++;
@@ -52,7 +52,7 @@ void ConcurrentGate::exit() noexcept {
 		StackUnlocker __st_lock(&this->stateLock);
 		this->counter--;
 		if(this->counter == 0){
-			this->stateLock.notifyAll();
+			this->stateLock.notify();
 		}
 	}
 }
@@ -62,7 +62,7 @@ void ConcurrentGate::open() noexcept {
 		StackUnlocker __st_lock(&this->stateLock);
 
 		this->isOpened = true;
-		this->stateLock.notifyAll();
+		this->stateLock.notify();
 	}
 
 	{

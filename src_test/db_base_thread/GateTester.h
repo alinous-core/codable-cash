@@ -17,6 +17,7 @@ namespace alinous {
 class ConcurrentGate;
 class SynchronizedLock;
 class Exception;
+class CriticalSectionMarker;
 
 class GateTester : public AbstractThreadRunner {
 public:
@@ -24,7 +25,11 @@ public:
 	static const constexpr int READER{2};
 
 	static SynchronizedLock* launchComplete;
+	static CriticalSectionMarker* criticalMarker;
 	static Exception* lastException;
+
+	static SynchronizedLock* getStaticLock() noexcept;
+	static CriticalSectionMarker* getMarker() noexcept;
 
 	GateTester();
 	virtual ~GateTester();

@@ -12,6 +12,8 @@
 #include "base/ArrayList.h"
 #include "base_thread/StackUnlocker.h"
 
+#include "osenv/funcs.h"
+
 using namespace alinous;
 
 TEST_GROUP(ConccurentGateTestGroup) {
@@ -76,5 +78,5 @@ TEST(ConccurentGateTestGroup, run){
 		tester->join();
 	}
 
-	delete GateTester::launchComplete;
+	CHECK(GateTester::lastException == nullptr);
 }
