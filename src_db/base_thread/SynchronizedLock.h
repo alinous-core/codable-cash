@@ -25,6 +25,7 @@ public:
 	virtual void unlock();
 	void wait();
 	void notifyAll();
+	void notify();
 
 	static uint64_t getObjectSize() noexcept;
 

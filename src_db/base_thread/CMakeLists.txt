@@ -1,5 +1,6 @@
 set(__src
 	AbstractThreadRunner.cpp
+	ConcurrentGate.cpp
 	ILock.cpp
 	LockCondition.cpp
 	StackUnlocker.cpp

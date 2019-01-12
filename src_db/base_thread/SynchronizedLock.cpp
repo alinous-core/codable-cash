@@ -43,6 +43,10 @@ void SynchronizedLock::notifyAll() {
 	assert(ret == 0);
 }
 
+void SynchronizedLock::notify() {
+	::pthread_cond_signal(&this->cond->cond);
+}
+
 uint64_t SynchronizedLock::getObjectSize() noexcept {
 	uint64_t size = sizeof(LockCondition*) + sizeof(pthread_cond_t);
 	return size;
