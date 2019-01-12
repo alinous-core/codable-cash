@@ -44,6 +44,8 @@ public:
 
 	static void checkIsDataNode(NodeHandle* nodeHandle, const char* srcfile, int srcline);
 private:
+	void internalRemoveFromUpper();
+
 	void splitLeafNode(const AbstractBtreeKey* key, const IBlockObject* data);
 	AbstractBtreeKey* setupTwoLists(ArrayList<NodeHandle>* list, AbstractTreeNode* node,
 			RawArrayPrimitive<uint64_t>* list1, RawArrayPrimitive<uint64_t>* list2);

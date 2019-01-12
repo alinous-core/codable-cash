@@ -25,6 +25,9 @@ public:
 	~NodePosition();
 
 	void clearCache();
+	bool isEmpty() const noexcept;
+
+	const AbstractBtreeKey* getKey() const noexcept;
 
 	bool isLeaf() const;
 	bool isRoot() const;
@@ -48,12 +51,14 @@ public:
 	uint64_t nextNode();
 	bool hasNext();
 
-	bool removeNode(const AbstractBtreeKey* key, BtreeStorage* store);
+	bool removeChildNode(const AbstractBtreeKey* key, BtreeStorage* store);
 
 	static void checkNoNull(NodeHandle* nodeHandle, const char* srcfile, int srcline) noexcept(false);
 private:
 	void internalAddNode(int index, uint64_t fpos);
-	void internalRemoveLeafNode(int index, BtreeStorage* store);
+	void internalRemoveLeafChildNode(int index, BtreeStorage* store);
+	void internalRemoveChildNode(int index, BtreeStorage* store);
+	void removeInnerNodeFpos(int index) noexcept;
 	int indexof(const AbstractBtreeKey* key) const;
 private:
 	int pos;

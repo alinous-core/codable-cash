@@ -329,6 +329,7 @@ TEST(TestBTreeGroup, remove01){
 	BtreeOpenConfig opconf;
 	btree.open(&opconf);
 
+	RawArrayPrimitive<uint64_t> answers(32);
 	{
 		addKeyValue(10, 10, &btree);
 		addKeyValue(6, 6, &btree);
@@ -344,8 +345,52 @@ TEST(TestBTreeGroup, remove01){
 		addKeyValue(13, 13, &btree);
 		addKeyValue(14, 14, &btree);
 
-		ULongKey lkey(7);
-		btree.remove(&lkey);
+		answers.addElement(2);
+		answers.addElement(3);
+		answers.addElement(6);
+		//answers.addElement(7);
+		//answers.addElement(8);
+		//answers.addElement(9);
+		//answers.addElement(10);
+		answers.addElement(11);
+		answers.addElement(12);
+		answers.addElement(13);
+		answers.addElement(14);
+		answers.addElement(50);
+		answers.addElement(100);
+
+		{
+			ULongKey lkey(7);
+			btree.remove(&lkey);
+		}
+		{
+			ULongKey lkey(7000);
+			btree.remove(&lkey);
+		}
+		{
+			ULongKey lkey8(8);
+			btree.remove(&lkey8);
+			ULongKey lkey9(9);
+			btree.remove(&lkey9);
+			ULongKey lkey10(10);
+			btree.remove(&lkey10);
+		}
+
+		{
+			BtreeScanner* scanner = btree.getScanner();
+			StackRelease<BtreeScanner> __st_scanner(scanner);
+
+			scanner->begin();
+			int i = 0;
+			while(scanner->hasNext()){
+				IBlockObject* obj = scanner->next();
+				TempValue* tmp = dynamic_cast<TempValue*>(obj);
+				uint64_t v = tmp->getValue();
+
+				uint64_t a = answers.get(i++);
+				CHECK(v == a)
+			}
+		}
 	}
 
 	btree.close();

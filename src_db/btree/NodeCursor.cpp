@@ -314,11 +314,11 @@ IBlockObject* NodeCursor::getNext() {
 
 	// get data from current node;
 	checkIsDataNode(current->getNodeHandle(), __FILE__, __LINE__);
-	uint64_t dfpos = current->nextData();
+	//uint64_t dfpos = current->nextData();
 
-	if(dfpos != 0){
-		return this->store->loadData(dfpos);
-	}
+	//if(dfpos != 0){
+	//	return this->store->loadData(dfpos);
+	//}
 
 	// pop data node
 	delete pop();
@@ -365,12 +365,35 @@ void NodeCursor::checkIsDataNode(NodeHandle* nodeHandle, const char* srcfile, in
 bool NodeCursor::remove(const AbstractBtreeKey* key) {
 	NodePosition* leafNode = gotoLeaf(key);
 
-	bool removed = leafNode->removeNode(key, this->store);
+	bool removed = leafNode->removeChildNode(key, this->store);
 	if(!removed){
 		return false;
 	}
 
+	internalRemoveFromUpper();
+//	while(){
+
+//	}
+
+
 	return true;
+}
+
+void NodeCursor::internalRemoveFromUpper() {
+	NodePosition* current = top();
+
+	while(!current->isRoot() && current->isEmpty()){
+		AbstractBtreeKey* key = current->getKey()->clone();
+		StackRelease<AbstractBtreeKey> __st_key(key);
+
+		delete current;
+		pop();
+
+		NodePosition* upperNode = top();
+		upperNode->removeChildNode(key, this->store);
+
+		current = upperNode;
+	}
 }
 
 } /* namespace alinous */

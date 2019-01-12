@@ -39,6 +39,14 @@ void NodePosition::clearCache() {
 	}
 }
 
+bool NodePosition::isEmpty() const noexcept {
+	return this->innerCount == 0;
+}
+
+const AbstractBtreeKey* NodePosition::getKey() const noexcept {
+	return this->node->getKey();
+}
+
 uint64_t NodePosition::getFpos() const noexcept {
 	return this->node->getFpos();
 }
@@ -121,7 +129,7 @@ uint64_t NodePosition::getNextChild(const AbstractBtreeKey* key) const {
 	for(int i = 0; i != maxLoop; ++i){
 		NodeHandle* nh = this->innerNodes->get(i);
 
-		if(key->compareTo(nh->getKey()) < 0){
+		if(key->compareTo(nh->getKey()) <= 0){
 			ret = nh->getFpos();
 			break;
 		}
@@ -174,9 +182,10 @@ NodeHandle* NodePosition::getNodeHandle() const noexcept {
 uint64_t NodePosition::nextData() {
 	DataNode* dnode = this->node->toDataNode();
 
-	if(0 < this->pos){
-		return 0;
-	}
+	//if(0 < this->pos){
+	//	return 0;
+	//}
+	assert(this->pos == 0);
 
 	this->pos++;
 	return dnode->getDataFpos();
@@ -198,24 +207,23 @@ bool NodePosition::hasNext() {
 	return this->innerCount > this->pos;
 }
 
-bool NodePosition::removeNode(const AbstractBtreeKey* key, BtreeStorage* store) {
+bool NodePosition::removeChildNode(const AbstractBtreeKey* key, BtreeStorage* store) {
 	int removePos = indexof(key);
 	if(removePos < 0){
 		return false;
 	}
 
 	if(isLeaf()){
-		internalRemoveLeafNode(removePos, store);
+		internalRemoveLeafChildNode(removePos, store);
 	}
 	else{
-		// FIXME not leaf
+		internalRemoveChildNode(removePos, store);
 	}
 
 	return true;
 }
 
-void NodePosition::internalRemoveLeafNode(int index, BtreeStorage* store) {
-	// shift
+void NodePosition::removeInnerNodeFpos(int index) noexcept {
 	RawArrayPrimitive<uint64_t>* dnodesList = this->node->getInnerNodeFpos();
 	int maxLoop = this->innerCount - 1;
 	int i = index;
@@ -225,9 +233,27 @@ void NodePosition::internalRemoveLeafNode(int index, BtreeStorage* store) {
 	}
 
 	dnodesList->set(i, 0);
+}
 
+void NodePosition::internalRemoveChildNode(int index, BtreeStorage* store) {
+	// delete cache use count
+	NodeHandle* nh = this->innerNodes->get(index);
+	TreeNode* treeNode = nh->toTreeNode();
+
+	this->innerNodes->remove(index);
+	delete nh;
+
+	// remove child node
+	uint64_t nodeFpos = treeNode->getFpos();
+	store->remove(nodeFpos);
+
+	// update self
+	removeInnerNodeFpos(index);
 	this->innerCount--;
+	store->updateNode(this->node->getRef()->getNode());
+}
 
+void NodePosition::internalRemoveLeafChildNode(int index, BtreeStorage* store) {
 	// delete cache use count
 	NodeHandle* nh = this->innerNodes->get(index);
 	DataNode* dnode = nh->toDataNode();
@@ -239,9 +265,15 @@ void NodePosition::internalRemoveLeafNode(int index, BtreeStorage* store) {
 	uint64_t dataFpos = dnode->getDataFpos();
 	store->removeData(dataFpos);
 
-	// remove node
+	// remove child data node
 	uint64_t nodeFpos = dnode->getFpos();
 	store->remove(nodeFpos);
+
+	// update self
+	removeInnerNodeFpos(index);
+	this->innerCount--;
+
+	store->updateNode(this->node->getRef()->getNode());
 }
 
 int NodePosition::indexof(const AbstractBtreeKey* key) const {
@@ -249,7 +281,7 @@ int NodePosition::indexof(const AbstractBtreeKey* key) const {
 	for(int i = 0; i != maxLoop; ++i){
 		NodeHandle* nh = this->innerNodes->get(i);
 
-		if(key->compareTo(nh->getKey()) < 0){
+		if(key->compareTo(nh->getKey()) == 0){
 			return i;
 		}
 	}
