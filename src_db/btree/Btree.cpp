@@ -67,7 +67,6 @@ void Btree::open(BtreeOpenConfig* config) {
 
 		this->store->setRootFpos(header->getRootFpos());
 		this->config = new BtreeConfig(header->getConfig());
-
 	}
 }
 
@@ -87,6 +86,14 @@ BtreeScanner* Btree::getScanner() {
 	NodeCursor* cursor = new NodeCursor(rootNode, this->store, this->config->nodeNumber);
 
 	return new BtreeScanner(cursor);
+}
+
+void Btree::remove(const AbstractBtreeKey* key) {
+	NodeHandle* rootNode = this->store->loadRoot();
+	NodeCursor* cursor = new NodeCursor(rootNode, this->store, this->config->nodeNumber);
+	StackRelease<NodeCursor> __st_cursor(cursor);
+
+	cursor->remove(key);
 }
 
 } /* namespace alinous */

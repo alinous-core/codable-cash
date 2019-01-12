@@ -46,6 +46,8 @@ public:
 	NodeHandle* loadNode(uint64_t fpos);
 	IBlockObject* loadData(uint64_t fpos);
 
+	void remove(uint64_t fpos);
+
 	void setRootFpos(uint64_t rootFpos){
 		this->rootFpos = rootFpos;
 	}

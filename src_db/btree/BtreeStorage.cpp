@@ -230,6 +230,21 @@ AbstractTreeNode* BtreeStorage::makeNodeFromBinary(ByteBuffer* buff, BtreeKeyFac
 	return DataNode::fromBinary(buff, factory);
 }
 
+void BtreeStorage::remove(uint64_t fpos) {
+	StackUnlocker __lock(&this->lock);
+
+	// clear cache
+	NodeCacheRef* ref = this->cache->get(fpos);
+	if(ref != nullptr){
+		// delete cache object
+		this->cache->remove(ref);
+	}
+
+	BlockHandle* handle = this->store->get(fpos);
+	StackRelease<BlockHandle> __st_handle(handle);
+	handle->removeBlocks(fpos);
+}
+
 
 uint64_t BtreeStorage::storeData(const IBlockObject* data) {
 	int size = data->binarySize();

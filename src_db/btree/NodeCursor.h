@@ -38,6 +38,10 @@ public:
 	IBlockObject* gotoFirst();
 	IBlockObject* getNext();
 
+	NodePosition* gotoLeaf(const AbstractBtreeKey* key);
+
+	bool remove(const AbstractBtreeKey* key);
+
 	static void checkIsDataNode(NodeHandle* nodeHandle, const char* srcfile, int srcline);
 private:
 	void splitLeafNode(const AbstractBtreeKey* key, const IBlockObject* data);
@@ -46,8 +50,6 @@ private:
 	void createNewRoot(TreeNode* newNode);
 	void addToParent(TreeNode* newNode);
 	void splitTreeNode(TreeNode* newNode);
-
-
 
 private:
 	ArrayList<NodePosition>* nodestack;

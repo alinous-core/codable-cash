@@ -48,10 +48,13 @@ public:
 	uint64_t nextNode();
 	bool hasNext();
 
+	bool removeNode(const AbstractBtreeKey* key, BtreeStorage* store);
+
 	static void checkNoNull(NodeHandle* nodeHandle, const char* srcfile, int srcline) noexcept(false);
 private:
 	void internalAddNode(int index, uint64_t fpos);
-
+	void internalRemoveLeafNode(int index, BtreeStorage* store);
+	int indexof(const AbstractBtreeKey* key) const;
 private:
 	int pos;
 	NodeHandle* node;

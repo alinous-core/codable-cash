@@ -260,6 +260,26 @@ AbstractBtreeKey* NodeCursor::setupTwoLists(ArrayList<NodeHandle>* list, Abstrac
 	return allList.get(list1Size - 1)->getKey()->clone();
 }
 
+
+NodePosition* NodeCursor::gotoLeaf(const AbstractBtreeKey* key) {
+	NodePosition* current = top();
+
+	// check data nodes
+	current->loadInnerNodes(this->store);
+
+	while(!current->isLeaf()){
+		uint64_t nextFpos = current->getNextChild(key);
+		NodeHandle* nh = this->store->loadNode(nextFpos);
+
+		current = new NodePosition(nh);
+		push(current);
+
+		current->loadInnerNodes(this->store);
+	}
+
+	return current;
+}
+
 IBlockObject* NodeCursor::gotoFirst() {
 	NodePosition* current = top();
 
@@ -336,13 +356,21 @@ IBlockObject* NodeCursor::getNext() {
 	return this->store->loadData(datafpos);
 }
 
-
-
 void NodeCursor::checkIsDataNode(NodeHandle* nodeHandle, const char* srcfile, int srcline) {
 	if(!nodeHandle->isData()){
 		throw new NodeStructureException(srcfile, srcline);
 	}
 }
 
-} /* namespace alinous */
+bool NodeCursor::remove(const AbstractBtreeKey* key) {
+	NodePosition* leafNode = gotoLeaf(key);
 
+	bool removed = leafNode->removeNode(key, this->store);
+	if(!removed){
+		return false;
+	}
+
+	return true;
+}
+
+} /* namespace alinous */

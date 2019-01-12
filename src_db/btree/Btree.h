@@ -43,6 +43,8 @@ public:
 	void insert(AbstractBtreeKey* key, IBlockObject* data);
 	BtreeScanner* getScanner();
 
+	void remove(const AbstractBtreeKey* key);
+
 private:
 	UnicodeString* name;
 	File* folder;

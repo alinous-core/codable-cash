@@ -198,6 +198,63 @@ bool NodePosition::hasNext() {
 	return this->innerCount > this->pos;
 }
 
+bool NodePosition::removeNode(const AbstractBtreeKey* key, BtreeStorage* store) {
+	int removePos = indexof(key);
+	if(removePos < 0){
+		return false;
+	}
+
+	if(isLeaf()){
+		internalRemoveLeafNode(removePos, store);
+	}
+	else{
+		// FIXME not leaf
+	}
+
+	return true;
+}
+
+void NodePosition::internalRemoveLeafNode(int index, BtreeStorage* store) {
+	// shift
+	RawArrayPrimitive<uint64_t>* dnodesList = this->node->getInnerNodeFpos();
+	int maxLoop = this->innerCount - 1;
+	int i = index;
+	for(; i != maxLoop; i++){
+		uint64_t nextfpos = dnodesList->get(i + 1);
+		dnodesList->set(i, nextfpos);
+	}
+
+	dnodesList->set(i, 0);
+
+	this->innerCount--;
+
+	// delete cache use count
+	NodeHandle* nh = this->innerNodes->get(index);
+	DataNode* dnode = nh->toDataNode();
+
+	this->innerNodes->remove(index);
+	delete nh;
+
+	// remove data
+	uint64_t dataFpos = dnode->getDataFpos();
+	store->removeData(dataFpos);
+
+	// remove node
+	uint64_t nodeFpos = dnode->getFpos();
+	store->remove(nodeFpos);
+}
+
+int NodePosition::indexof(const AbstractBtreeKey* key) const {
+	int maxLoop = this->innerCount;
+	for(int i = 0; i != maxLoop; ++i){
+		NodeHandle* nh = this->innerNodes->get(i);
+
+		if(key->compareTo(nh->getKey()) < 0){
+			return i;
+		}
+	}
+
+	return -1;
+}
+
 } /* namespace alinous */
-
-

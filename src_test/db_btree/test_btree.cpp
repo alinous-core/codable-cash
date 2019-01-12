@@ -310,4 +310,45 @@ TEST(TestBTreeGroup, add02){
 	btree.close();
 }
 
+TEST(TestBTreeGroup, remove01){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file01");
+	BtreeKeyFactory* factory = new BtreeKeyFactory();
+	TmpValueFactory* dfactory = new TmpValueFactory();
+
+	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
+
+	BtreeConfig config;
+	config.nodeNumber  = 3;
+	btree.create(&config);
+
+	BtreeOpenConfig opconf;
+	btree.open(&opconf);
+
+	{
+		addKeyValue(10, 10, &btree);
+		addKeyValue(6, 6, &btree);
+		addKeyValue(3, 3, &btree);
+		addKeyValue(2, 2, &btree);
+		addKeyValue(100, 100, &btree);
+		addKeyValue(50, 50, &btree);
+		addKeyValue(7, 7, &btree);
+		addKeyValue(8, 8, &btree);
+		addKeyValue(9, 9, &btree);
+		addKeyValue(11, 11, &btree);
+		addKeyValue(12, 12, &btree);
+		addKeyValue(13, 13, &btree);
+		addKeyValue(14, 14, &btree);
+
+		ULongKey lkey(7);
+		btree.remove(&lkey);
+	}
+
+	btree.close();
+}
+
 

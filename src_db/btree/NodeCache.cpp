@@ -139,6 +139,30 @@ void NodeCache::internalAddNode(AbstractTreeNode* node, SynchronizedLock* lock,
 	}
 }
 
+void NodeCache::remove(NodeCacheRef* ref) noexcept {
+	if(ref->getNode()->isData()){
+		internalRemove(ref->getNode(), &this->datasLock, this->datasMap, this->datas);
+	}
+	else{
+		internalRemove(ref->getNode(), &this->nodesLock, this->nodesMap, this->nodes);
+	}
+}
+
+void NodeCache::internalRemove(AbstractTreeNode* node, SynchronizedLock* lock, HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Element>* map,
+		RawLinkedList<NodeCacheRef>* list) noexcept {
+	StackUnlocker __unlock(lock);
+
+	uint64_t fpos = node->getFpos();
+	CachedFpos cfpos(fpos);
+
+	RawLinkedList<NodeCacheRef>::Element* element = map->get(&cfpos);
+	NodeCacheRef* ref = element->data;
+	map->remove(&cfpos);
+
+	list->remove(element);
+	removeCachedRef(ref, lock);
+}
+
 void NodeCache::cacheOut(HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Element>* map,
 		RawLinkedList<NodeCacheRef>* list, SynchronizedLock* lock) noexcept {
 	int lastIndex = list->size() - 1;
@@ -151,6 +175,10 @@ void NodeCache::cacheOut(HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Elemen
 
 	map->remove(&key);
 
+	removeCachedRef(ref, lock);
+}
+
+void NodeCache::removeCachedRef(NodeCacheRef* ref, SynchronizedLock* lock) noexcept {
 	while(!ref->isDeletable()){
 		lock->wait();
 	}
@@ -158,8 +186,4 @@ void NodeCache::cacheOut(HashMap<CachedFpos, RawLinkedList<NodeCacheRef>::Elemen
 	delete ref;
 }
 
-
-
 } /* namespace alinous */
-
-
