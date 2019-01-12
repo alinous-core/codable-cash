@@ -43,6 +43,8 @@ private:
 	int loops;
 
 	THREAD_ID id;
+
+public:
 	bool ready;
 };
 
