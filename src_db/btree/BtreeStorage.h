@@ -40,6 +40,7 @@ public:
 
 	void open(int numDataBuffer, int numNodeBuffer, DiskCacheManager* cacheManager);
 	void close();
+	void sync(bool syncDisk);
 
 	BtreeHeaderBlock* loadHeader();
 	NodeHandle* loadRoot();
@@ -48,9 +49,7 @@ public:
 
 	void remove(uint64_t fpos);
 
-	void setRootFpos(uint64_t rootFpos){
-		this->rootFpos = rootFpos;
-	}
+	void setRootFpos(uint64_t rootFpos);
 
 	uint64_t storeData(const IBlockObject* data);
 	void removeData(uint64_t dataFpos);

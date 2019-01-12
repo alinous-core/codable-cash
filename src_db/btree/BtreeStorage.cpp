@@ -181,8 +181,16 @@ void BtreeStorage::close() {
 	this->cache->clear();
 }
 
+void BtreeStorage::sync(bool syncDisk) {
+	this->store->sync(syncDisk);
+}
+
 NodeHandle* BtreeStorage::loadRoot() {
 	return loadNode(this->rootFpos);
+}
+
+void BtreeStorage::setRootFpos(uint64_t rootFpos){
+	this->rootFpos = rootFpos;
 }
 
 NodeHandle* BtreeStorage::loadNode(uint64_t fpos) {

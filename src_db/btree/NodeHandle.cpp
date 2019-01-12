@@ -21,6 +21,11 @@ NodeHandle::~NodeHandle() {
 	ref->dec();
 }
 
+NodeHandle* NodeHandle::clone() const noexcept {
+	NodeHandle* newInst = new NodeHandle(this->ref);
+	return newInst;
+}
+
 bool NodeHandle::isRoot() const {
 	return AbstractTreeNode::toTreeNode(this->ref->getNode())->isRoot();
 }
@@ -64,5 +69,3 @@ uint64_t NodeHandle::getFpos() const noexcept {
 }
 
 } /* namespace alinous */
-
-

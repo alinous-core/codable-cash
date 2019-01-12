@@ -15,6 +15,8 @@
 #include "btree/DataNode.h"
 #include "btree/exceptions.h"
 
+#include "base/StackRelease.h"
+
 namespace alinous {
 
 NodePosition::NodePosition(NodeHandle* nodeHandle) {
@@ -241,10 +243,11 @@ void NodePosition::internalRemoveChildNode(int index, BtreeStorage* store) {
 	TreeNode* treeNode = nh->toTreeNode();
 
 	this->innerNodes->remove(index);
-	delete nh;
 
 	// remove child node
 	uint64_t nodeFpos = treeNode->getFpos();
+	delete nh;
+
 	store->remove(nodeFpos);
 
 	// update self
@@ -259,10 +262,11 @@ void NodePosition::internalRemoveLeafChildNode(int index, BtreeStorage* store) {
 	DataNode* dnode = nh->toDataNode();
 
 	this->innerNodes->remove(index);
-	delete nh;
 
 	// remove data
 	uint64_t dataFpos = dnode->getDataFpos();
+	delete nh;
+
 	store->removeData(dataFpos);
 
 	// remove child data node

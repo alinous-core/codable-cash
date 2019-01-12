@@ -26,6 +26,7 @@ public:
 
 	void clearCache();
 	bool isEmpty() const noexcept;
+	int getInnerCount() const noexcept{return this->innerCount;};
 
 	const AbstractBtreeKey* getKey() const noexcept;
 

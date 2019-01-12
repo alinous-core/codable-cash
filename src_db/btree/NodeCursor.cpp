@@ -117,7 +117,6 @@ void NodeCursor::splitLeafNode(const AbstractBtreeKey* key, const IBlockObject* 
 	NodePosition* current = top();
 
 	// data node
-
 	DataNode dataNode(key->clone());
 
 	const AbstractBtreeDataFactory* dfactory = this->store->getDataFactory();
@@ -371,12 +370,41 @@ bool NodeCursor::remove(const AbstractBtreeKey* key) {
 	}
 
 	internalRemoveFromUpper();
-//	while(){
-
-//	}
-
+	internalRemoveRoot();
+	this->store->sync(false);
 
 	return true;
+}
+
+void NodeCursor::internalRemoveRoot() {
+	NodePosition* current = pop();
+	while(!current->isRoot()){
+		delete current;
+		current = pop();
+	}
+
+	push(current);
+
+	while(current->getInnerCount() == 1){
+		NodeHandle* nh = current->getInnerNodes()->get(0); // next root
+
+		// update new root
+		NodePosition* newPos = new NodePosition(nh->clone());
+		newPos->loadInnerNodes(this->store);
+
+		newPos->setRoot(true);
+		uint64_t nextfpos = newPos->getFpos();
+		this->store->setRootFpos(nextfpos);
+
+		// remove last root
+		uint64_t fpos = current->getFpos();
+		delete current;
+		this->store->remove(fpos);
+
+		pop();
+		push(newPos);
+		current = top();
+	}
 }
 
 void NodeCursor::internalRemoveFromUpper() {
@@ -386,8 +414,9 @@ void NodeCursor::internalRemoveFromUpper() {
 		AbstractBtreeKey* key = current->getKey()->clone();
 		StackRelease<AbstractBtreeKey> __st_key(key);
 
-		delete current;
 		pop();
+		delete current;
+
 
 		NodePosition* upperNode = top();
 		upperNode->removeChildNode(key, this->store);

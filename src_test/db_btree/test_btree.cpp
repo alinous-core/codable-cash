@@ -396,4 +396,65 @@ TEST(TestBTreeGroup, remove01){
 	btree.close();
 }
 
+static void removeValue(uint64_t value, Btree* btree){
+	ULongKey lkey(value);
+	btree->remove(&lkey);
+}
+
+TEST(TestBTreeGroup, remove02){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file01");
+	BtreeKeyFactory* factory = new BtreeKeyFactory();
+	TmpValueFactory* dfactory = new TmpValueFactory();
+
+	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
+
+	BtreeConfig config;
+	config.nodeNumber  = 2;
+	btree.create(&config);
+
+	BtreeOpenConfig opconf;
+	btree.open(&opconf);
+
+	RawArrayPrimitive<uint64_t> answers(32);
+	{
+		addKeyValue(1, 1, &btree);
+		addKeyValue(2, 2, &btree);
+		addKeyValue(3, 3, &btree);
+		addKeyValue(4, 4, &btree);
+		addKeyValue(5, 5, &btree);
+		addKeyValue(6, 6, &btree);
+
+		removeValue(1, &btree);
+		removeValue(2, &btree);
+		removeValue(3, &btree);
+
+		answers.addElement(4);
+		answers.addElement(5);
+		answers.addElement(6);
+	}
+
+	{
+		BtreeScanner* scanner = btree.getScanner();
+		StackRelease<BtreeScanner> __st_scanner(scanner);
+
+		scanner->begin();
+		int i = 0;
+		while(scanner->hasNext()){
+			IBlockObject* obj = scanner->next();
+			TempValue* tmp = dynamic_cast<TempValue*>(obj);
+			uint64_t v = tmp->getValue();
+
+			uint64_t a = answers.get(i++);
+			CHECK(v == a)
+		}
+	}
+
+	btree.close();
+}
+
 
