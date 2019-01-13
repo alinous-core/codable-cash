@@ -150,7 +150,7 @@ MMapSegment* MMapSegments::newSegment(uint64_t fpos, FileDescriptor& fd) {
 
 void MMapSegments::requestCacheOut(MMapSegment* seg) noexcept {
 	StackUnlocker locker(&this->removeListlock);
-	int index = seg->position / this->segmentSize;
+
 	this->removeList->addElement(seg);
 }
 
