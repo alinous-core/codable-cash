@@ -15,8 +15,12 @@ using namespace alinous;
 using namespace codablecash;
 
 TEST_GROUP(TestMempoolGroup) {
-	TEST_SETUP(){}
-	TEST_TEARDOWN(){}
+	TEST_SETUP(){
+		env->setup();
+	}
+	TEST_TEARDOWN(){
+		env->teardown();
+	}
 };
 
 TEST(TestMempoolGroup, constract){
@@ -29,6 +33,12 @@ TEST(TestMempoolGroup, constract){
 TEST(TestMempoolGroup, init){
 	File projectFolder = this->env->testCaseDir();
 	_ST(File, baseDir, projectFolder.get(L"store"))
+
+	{
+		MemPool memPool(baseDir);
+		memPool.init();
+		memPool.close();
+	}
 
 	{
 		MemPool memPool(baseDir);

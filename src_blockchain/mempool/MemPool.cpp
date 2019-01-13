@@ -49,7 +49,7 @@ void MemPool::init() {
 	this->feeIndex = new FeeIndex(this->baseDir, this->cacheManager);
 	this->trxIdIndex = new TransactionIdIndex(this->baseDir, this->cacheManager);
 
-	if(!this->feeIndex->exists() || !this->store->exists() || !this->store->exists()){
+	if(!this->store->exists() || !this->feeIndex->exists() || !this->trxIdIndex->exists()){
 		this->store->create();
 		this->feeIndex->create();
 		this->trxIdIndex->create();
