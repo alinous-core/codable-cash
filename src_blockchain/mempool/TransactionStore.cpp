@@ -39,6 +39,12 @@ bool TransactionStore::exists() const noexcept {
 }
 
 void TransactionStore::open() noexcept(false){
+	UnicodeString fileName(TransactionStore::FILE_NAME);
+	UnicodeString* dir = this->baseDir->getAbsolutePath();
+	StackRelease<UnicodeString> __st_dir(dir);
+
+	this->store = new BlockFileStore(dir, &fileName, this->cacheManager);
+
 	this->store->open(false);
 }
 
@@ -71,8 +77,8 @@ void TransactionStore::create() noexcept(false) {
 	UnicodeString* dir = this->baseDir->getAbsolutePath();
 	StackRelease<UnicodeString> __st_dir(dir);
 
-	this->store = new BlockFileStore(dir, &fileName, this->cacheManager);
-	this->store->createStore(true, 1024);
+	BlockFileStore tmpStore(dir, &fileName, this->cacheManager);
+	tmpStore.createStore(true, 1024);
 }
 
 } /* namespace codablecash */

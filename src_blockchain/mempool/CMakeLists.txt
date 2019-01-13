@@ -1,7 +1,7 @@
 
 set(__src
 	FeeIndex.cpp
-	FeeValueFactory.cpp
+	IndexValueFactory.cpp
 	MemPool.cpp
 	TransactionIdIndex.cpp
 	TransactionRecord.cpp
