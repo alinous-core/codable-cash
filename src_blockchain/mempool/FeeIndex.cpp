@@ -11,6 +11,7 @@
 #include "base/UnicodeString.h"
 #include "base_io/File.h"
 #include "btree/Btree.h"
+#include "btree/BtreeConfig.h"
 
 namespace codablecash {
 
@@ -31,10 +32,19 @@ bool FeeIndex::exists() const noexcept {
 	UnicodeString fileName(FeeIndex::FILE_NAME);
 	Btree btree(this->baseDir, &fileName, this->cacheManager, new BtreeKeyFactory(), new FeeValueFactory());
 
-	return btree.exists();
+	bool ex = btree.exists();
+
+	return ex;
 }
 
 void FeeIndex::create() noexcept(false) {
+	UnicodeString fileName(FeeIndex::FILE_NAME);
+	Btree btree(this->baseDir, &fileName, this->cacheManager, new BtreeKeyFactory(), new FeeValueFactory());
+
+	BtreeConfig config;
+	config.nodeNumber = 8;
+	config.blockSize = 256;
+	btree.create(&config);
 }
 
 void FeeIndex::open() noexcept(false) {

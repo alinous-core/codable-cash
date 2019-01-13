@@ -30,7 +30,12 @@ TransactionStore::~TransactionStore() {
 
 bool TransactionStore::exists() const noexcept {
 	File f = getStoreFile();
-	return f.exists();
+	File hf = getStoreHeaderFile();
+
+	bool fb = f.exists();
+	bool hfb = hf.exists();
+
+	return fb && hfb;
 }
 
 void TransactionStore::open() noexcept(false){
@@ -42,7 +47,20 @@ void TransactionStore::close() noexcept {
 }
 
 File TransactionStore::getStoreFile() const noexcept {
-	File* f = this->baseDir->get(TransactionStore::FILE_NAME);
+	UnicodeString binFileName(TransactionStore::FILE_NAME);
+	binFileName.append(L".bin");
+
+	File* f = this->baseDir->get(&binFileName);
+	StackRelease<File> __st_f(f);
+
+	return *f;
+}
+
+File TransactionStore::getStoreHeaderFile() const noexcept {
+	UnicodeString binFileName(TransactionStore::FILE_NAME);
+	binFileName.append(L"-header.bin");
+
+	File* f = this->baseDir->get(&binFileName);
 	StackRelease<File> __st_f(f);
 
 	return *f;

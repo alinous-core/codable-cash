@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include <btreekey/BtreeKeyFactory.h>
+#include "btreekey/BtreeKeyFactory.h"
 #include "test_utils/t_macros.h"
 
 #include "btree/Btree.h"
@@ -36,8 +36,12 @@
 using namespace alinous;
 
 TEST_GROUP(TestBTreeGroup) {
-	TEST_SETUP() {}
-	TEST_TEARDOWN() {}
+	TEST_SETUP(){
+		env->setup();
+	}
+	TEST_TEARDOWN(){
+		env->teardown();
+	}
 };
 
 TEST(TestBTreeGroup, infinityKey){

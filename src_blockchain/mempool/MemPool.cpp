@@ -16,12 +16,13 @@
 #include "random_access_file/DiskCacheManager.h"
 
 #include "btree/Btree.h"
+#include "osenv/funcs.h"
 
 namespace codablecash {
 
 MemPool::MemPool(const File* baseDir) {
 	this->baseDir = new File(*baseDir);
-	this->cacheManager = new DiskCacheManager(1024 * 2);
+	this->cacheManager = new DiskCacheManager(Os::getSystemPageSize() * 4 * 4);
 	this->store = nullptr;
 	this->feeIndex = nullptr;
 	this->trxIdIndex = nullptr;
@@ -49,7 +50,7 @@ void MemPool::init() {
 	this->feeIndex = new FeeIndex(this->baseDir, this->cacheManager);
 	this->trxIdIndex = new TransactionIdIndex(this->baseDir, this->cacheManager);
 
-	if(!this->feeIndex->exists() || !this->store->exists() || !this->store->exists()){
+	if(!this->store->exists() || !this->feeIndex->exists() || !this->trxIdIndex->exists()){
 		this->store->create();
 		this->feeIndex->create();
 		this->trxIdIndex->create();

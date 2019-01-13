@@ -15,9 +15,12 @@ using namespace alinous;
 using namespace codablecash;
 
 TEST_GROUP(TestBlockchainFrameworkGroup) {
-	TEST_SETUP(){}
-	TEST_TEARDOWN(){}
-
+	TEST_SETUP(){
+		env->setup();
+	}
+	TEST_TEARDOWN(){
+		env->teardown();
+	}
 };
 
 TEST(TestBlockchainFrameworkGroup, constract){

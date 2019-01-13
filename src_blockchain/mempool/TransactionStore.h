@@ -32,6 +32,7 @@ public:
 
 private:
 	File getStoreFile() const noexcept;
+	File getStoreHeaderFile() const noexcept;
 private:
 	File* baseDir;
 	DiskCacheManager* cacheManager;

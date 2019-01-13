@@ -33,7 +33,7 @@ public:
 	MMapSegment* getSegment(uint64_t fpos, DiskCacheManager *cache, FileDescriptor& fd);
 	MMapSegment* newSegment(uint64_t fpos, FileDescriptor& fd);
 	void requestCacheOut(MMapSegment* seg) noexcept;
-	void cacheOutSegmentIndex() noexcept;
+	void cacheOutSegmentIndex(FileDescriptor& fd);
 
 	void sync(bool flushDisk, FileDescriptor& fd);
 
@@ -49,7 +49,7 @@ protected:
 	uint64_t fileSize;
 
 
-	RawArrayPrimitive<int>* removeList;
+	ArrayList<MMapSegment>* removeList;
 	SysMutex removeListlock;
 };
 
