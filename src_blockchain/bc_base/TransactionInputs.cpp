@@ -11,6 +11,17 @@
 
 namespace codablecash {
 
+codablecash::TransactionInputs::TransactionInputs(const TransactionInputs& inst) {
+	this->inputs = new ArrayList<TransactionInput>();
+
+	int maxLoop = inst.inputs->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const TransactionInput* in = inst.inputs->get(i);
+
+		this->inputs->addElement(new TransactionInput(*in));
+	}
+}
+
 TransactionInputs::TransactionInputs() {
 	this->inputs = new ArrayList<TransactionInput>();
 }
@@ -32,7 +43,6 @@ uint64_t TransactionInputs::getTotalInput() const noexcept {
 	for(int i = 0; i != maxLoop; ++i){
 		TransactionInput* input = this->inputs->get(i);
 		total += input->getBalanceAmount();
-
 	}
 
 	return total;
@@ -69,4 +79,3 @@ void TransactionInputs::importBinary(ByteBuffer* in) {
 }
 
 } /* namespace codablecash */
-

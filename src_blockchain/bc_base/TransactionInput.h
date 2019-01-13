@@ -22,6 +22,7 @@ class TransactionInput : public IBlockObject {
 private:
 	TransactionInput();
 public:
+	TransactionInput(const TransactionInput& inst);
 	TransactionInput(const AbstractAddress* address, uint64_t amount);
 	virtual ~TransactionInput();
 

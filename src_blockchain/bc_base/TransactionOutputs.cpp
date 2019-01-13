@@ -12,9 +12,18 @@
 
 namespace codablecash {
 
-TransactionOutputs::TransactionOutputs() {
+TransactionOutputs::TransactionOutputs(const TransactionOutputs& inst) {
 	this->outputs = new ArrayList<TransactionOutput>;
 
+	int maxLoop = inst.outputs->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const TransactionOutput* out = inst.outputs->get(i);
+		this->outputs->addElement(new TransactionOutput(*out));
+	}
+}
+
+TransactionOutputs::TransactionOutputs() {
+	this->outputs = new ArrayList<TransactionOutput>;
 }
 
 TransactionOutputs::~TransactionOutputs() {

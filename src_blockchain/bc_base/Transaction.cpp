@@ -20,6 +20,18 @@
 
 namespace codablecash {
 
+Transaction::Transaction(const Transaction& inst) : AbstractTransaction(inst) {
+	this->inputs = new TransactionInputs(*inst.inputs);
+	this->outputs = new TransactionOutputs(*inst.outputs);
+	this->fee = new BalanceUnit(inst.fee->getAmount());
+	this->timelong = inst.timelong;
+
+	this->trxId = nullptr;
+	if(inst.trxId != nullptr){
+		this->trxId = new TransactionId(*inst.trxId);
+	}
+}
+
 Transaction::Transaction() : AbstractTransaction(AbstractTransaction::TYPE_SEND_BALANCE) {
 	this->inputs = new TransactionInputs();
 	this->outputs = new TransactionOutputs();

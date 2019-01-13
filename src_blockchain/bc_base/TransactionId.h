@@ -17,6 +17,7 @@ using namespace alinous;
 
 class TransactionId {
 public:
+	TransactionId(const TransactionId& inst);
 	TransactionId(const char* binary, int length);
 	virtual ~TransactionId();
 

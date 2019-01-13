@@ -17,6 +17,7 @@ class AbstractTransaction : public IBlockObject {
 public:
 	static const constexpr int TYPE_SEND_BALANCE = 1;
 
+	AbstractTransaction(const AbstractTransaction& inst);
 	explicit AbstractTransaction(int type);
 	virtual ~AbstractTransaction();
 

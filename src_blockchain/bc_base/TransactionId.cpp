@@ -11,6 +11,11 @@
 
 namespace codablecash {
 
+TransactionId::TransactionId(const TransactionId& inst) {
+	const ByteBuffer* buff = inst.id;
+	this->id = ByteBuffer::wrapWithEndian(buff->array(), buff->capacity(), true);
+}
+
 TransactionId::TransactionId(const char* binary, int length) {
 	this->id = ByteBuffer::wrapWithEndian((const uint8_t*)binary, length, true);
 }

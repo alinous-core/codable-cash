@@ -11,6 +11,11 @@
 
 namespace codablecash {
 
+TransactionOutput::TransactionOutput(const TransactionOutput& inst) {
+	this->address = inst.address->clone();
+	this->balance = new BalanceUnit(inst.getBalance()->getAmount());
+}
+
 TransactionOutput::TransactionOutput() {
 	this->address = nullptr;
 	this->balance = nullptr;

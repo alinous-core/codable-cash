@@ -22,6 +22,7 @@ class AbstractAddress;
 
 class TransactionInputs : public IBlockObject {
 public:
+	TransactionInputs(const TransactionInputs& inst);
 	TransactionInputs();
 	virtual ~TransactionInputs();
 

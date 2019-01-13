@@ -22,6 +22,7 @@ class TransactionId;
 
 class Transaction : public AbstractTransaction {
 public:
+	Transaction(const Transaction& inst);
 	Transaction();
 	virtual ~Transaction();
 
