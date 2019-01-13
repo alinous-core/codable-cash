@@ -19,6 +19,8 @@
 
 #include "blockchain/DummyTrxUtils.h"
 
+#include "mempool/FeeTransactionsListValue.h"
+
 using namespace alinous;
 using namespace codablecash;
 
@@ -30,6 +32,18 @@ TEST_GROUP(TestMempoolGroup) {
 		env->teardown();
 	}
 };
+
+TEST(TestMempoolGroup, list){
+	FeeTransactionsListValue list1(10);
+	FeeTransactionsListValue list2(11);
+	FeeTransactionsListValue list3(11);
+	FeeTransactionsListValue list4;
+
+	list1.join(&list2);
+	list1.join(&list3);
+	list1.join(&list4);
+
+}
 
 TEST(TestMempoolGroup, constract){
 	File projectFolder = this->env->testCaseDir();

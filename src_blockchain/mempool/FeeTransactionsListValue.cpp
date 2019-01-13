@@ -50,7 +50,28 @@ FeeTransactionsListValue* FeeTransactionsListValue::fromBinary(ByteBuffer* in) {
 }
 
 void FeeTransactionsListValue::join(const FeeTransactionsListValue* value) noexcept {
-	// FIXME
+	const RawArrayPrimitive<uint64_t>* newList = &value->list;
+
+	int maxLoop = newList->size();
+	for(int i = 0; i != maxLoop; ++i){
+		uint64_t v = newList->get(i);
+		if(contains(v)){
+			continue;
+		}
+		this->list.addElement(v);
+	}
+}
+
+bool FeeTransactionsListValue::contains(uint64_t value) const noexcept {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		uint64_t v = this->list.get(i);
+		if(v == value){
+			return true;
+		}
+	}
+
+	return false;
 }
 
 } /* namespace codablecash */

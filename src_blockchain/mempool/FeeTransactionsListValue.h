@@ -26,7 +26,7 @@ public:
 	static FeeTransactionsListValue* fromBinary(ByteBuffer* in);
 
 	void join(const FeeTransactionsListValue* value) noexcept;
-
+	bool contains(uint64_t value) const noexcept;
 private:
 	RawArrayPrimitive<uint64_t> list;
 };
