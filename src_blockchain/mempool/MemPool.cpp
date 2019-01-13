@@ -28,6 +28,16 @@ MemPool::MemPool(const File* baseDir) {
 	this->trxIdIndex = nullptr;
 }
 
+
+MemPool::MemPool(const File* baseDir, int cacheBytes) {
+	this->baseDir = new File(*baseDir);
+	this->cacheManager = new DiskCacheManager(cacheBytes);
+	this->store = nullptr;
+	this->feeIndex = nullptr;
+	this->trxIdIndex = nullptr;
+}
+
+
 MemPool::~MemPool() {
 	delete this->baseDir;
 	if(this->cacheManager != nullptr){
@@ -67,4 +77,10 @@ void MemPool::close() {
 	this->trxIdIndex->close();
 }
 
+void MemPool::addTransaction(const AbstractTransaction* trx) {
+
+}
+
 } /* namespace codablecash */
+
+
