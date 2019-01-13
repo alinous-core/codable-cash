@@ -36,7 +36,7 @@ private:
 class StackReadLock {
 public:
 	StackReadLock(StackReadLock& inst) = delete;
-	StackReadLock(ConcurrentGate* gate) noexcept;
+	explicit StackReadLock(ConcurrentGate* gate) noexcept;
 	~StackReadLock();
 private:
 	ConcurrentGate* gate;
@@ -45,7 +45,7 @@ private:
 class StackWriteLock {
 public:
 	StackWriteLock(StackWriteLock& inst) = delete;
-	StackWriteLock(ConcurrentGate* gate) noexcept;
+	explicit StackWriteLock(ConcurrentGate* gate) noexcept;
 	~StackWriteLock();
 private:
 	ConcurrentGate* gate;
