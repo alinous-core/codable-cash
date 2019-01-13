@@ -23,6 +23,9 @@ public:
 	TransactionId(const char* binary, int length);
 	virtual ~TransactionId();
 
+	int size() const noexcept;
+	const char* toArray() const noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
 

@@ -19,7 +19,7 @@ class TransactionId;
 
 class TransactionIdKey : public AbstractBtreeKey {
 public:
-	TransactionIdKey(const TransactionId trxId);
+	TransactionIdKey(const TransactionId* trxId);
 	virtual ~TransactionIdKey();
 
 	virtual bool isInfinity() const;

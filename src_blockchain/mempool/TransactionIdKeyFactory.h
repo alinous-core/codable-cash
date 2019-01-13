@@ -19,7 +19,7 @@ using namespace alinous;
 
 class TransactionIdKeyFactory : public BtreeKeyFactory {
 public:
-	static const constexpr uint32_t TRX_ID_KEY{0x03};
+	static const constexpr uint32_t TRX_ID_KEY{0x13};
 
 	TransactionIdKeyFactory();
 	virtual ~TransactionIdKeyFactory();

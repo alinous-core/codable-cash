@@ -8,9 +8,13 @@
 #include "mempool/TransactionIdIndex.h"
 #include "mempool/IndexValueFactory.h"
 #include "mempool/TransactionIdKeyFactory.h"
+#include "mempool/TransactionIdKey.h"
+#include "mempool/FeeIndex.h"
+
+#include "bc_base/TransactionId.h"
 
 #include "btreekey/BtreeKeyFactory.h"
-#include "mempool/FeeIndex.h"
+
 #include "base/UnicodeString.h"
 #include "base_io/File.h"
 #include "btree/Btree.h"
@@ -65,6 +69,7 @@ void TransactionIdIndex::close() noexcept {
 }
 
 void codablecash::TransactionIdIndex::addIndex(const TransactionId* trxId, uint64_t fpos) {
+	TransactionIdKey key(trxId);
 
 }
 

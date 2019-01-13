@@ -24,12 +24,27 @@ TransactionId::~TransactionId() {
 	delete this->id;
 }
 
+int TransactionId::size() const noexcept {
+	return this->id->capacity();
+}
+
+const char* TransactionId::toArray() const noexcept {
+	return (const char*)this->id->array();
+}
+
 int codablecash::TransactionId::binarySize() const {
-	// FIXME
+	int total = sizeof(int32_t);
+	total += this->id->capacity();
+
+	return total;
 }
 
 void codablecash::TransactionId::toBinary(ByteBuffer* out) const {
-	// FIXME
+	int cap = this->id->capacity();
+	out->putInt(cap);
+	out->put(this->id->array(), cap);
 }
 
 } /* namespace codablecash */
+
+
