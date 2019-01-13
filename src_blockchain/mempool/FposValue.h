@@ -21,6 +21,7 @@ public:
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
+	static FposValue* fromBinary(ByteBuffer* in);
 
 private:
 	uint64_t fpos;

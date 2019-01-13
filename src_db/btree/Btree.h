@@ -40,7 +40,7 @@ public:
 	void open(const BtreeOpenConfig* config);
 	void close();
 
-	void insert(AbstractBtreeKey* key, IBlockObject* data);
+	void insert(const AbstractBtreeKey* key, const IBlockObject* data);
 	BtreeScanner* getScanner();
 
 	void remove(const AbstractBtreeKey* key);

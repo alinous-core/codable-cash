@@ -17,9 +17,11 @@ class ByteBuffer;
 namespace codablecash {
 using namespace alinous;
 
-class TransactionId  : public IBlockObject {
+class TransactionId : public IBlockObject {
+private:
+	TransactionId();
 public:
-	TransactionId(const TransactionId& inst);
+	explicit TransactionId(const TransactionId& inst);
 	TransactionId(const char* binary, int length);
 	virtual ~TransactionId();
 
@@ -28,6 +30,7 @@ public:
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
+	static TransactionId* fromBinary(ByteBuffer* in);
 
 private:
 	ByteBuffer* id; // 32 bytes

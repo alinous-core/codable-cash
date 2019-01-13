@@ -8,8 +8,13 @@
 #include "bc_base/TransactionId.h"
 
 #include "base_io/ByteBuffer.h"
+#include "base/StackRelease.h"
 
 namespace codablecash {
+
+TransactionId::TransactionId() {
+	this->id = nullptr;
+}
 
 TransactionId::TransactionId(const TransactionId& inst) {
 	const ByteBuffer* buff = inst.id;
@@ -45,6 +50,20 @@ void codablecash::TransactionId::toBinary(ByteBuffer* out) const {
 	out->put(this->id->array(), cap);
 }
 
+TransactionId* TransactionId::fromBinary(ByteBuffer* in) {
+	TransactionId* trxId = new TransactionId();
+
+	int cap = in->getInt();
+
+	uint8_t* buff = new uint8_t[cap];
+	StackArrayRelease<uint8_t> __st_buff(buff);
+
+	in->get(buff, cap);
+
+	trxId->id = ByteBuffer::wrapWithEndian(buff, cap, true);
+	trxId->id->position(0);
+
+	return trxId;
+}
+
 } /* namespace codablecash */
-
-

@@ -25,6 +25,10 @@ void FposValue::toBinary(ByteBuffer* out) const {
 	out->putLong(this->fpos);
 }
 
+FposValue* FposValue::fromBinary(ByteBuffer* in) {
+	uint64_t fpos = in->getLong();
+	return new FposValue(fpos);
+}
+
+
 } /* namespace codablecash */
-
-

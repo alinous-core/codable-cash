@@ -6,6 +6,7 @@
  */
 
 #include "mempool/IndexValueFactory.h"
+#include "mempool/FposValue.h"
 
 namespace codablecash {
 
@@ -16,8 +17,8 @@ IndexValueFactory::~IndexValueFactory() {
 }
 
 IBlockObject* IndexValueFactory::makeDataFromBinary(ByteBuffer* in) {
-	// FIXME
-	return nullptr;
+	// value is Fpos
+	return FposValue::fromBinary(in);
 }
 
 } /* namespace codablecash */

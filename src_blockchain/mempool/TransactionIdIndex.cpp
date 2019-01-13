@@ -73,6 +73,7 @@ void codablecash::TransactionIdIndex::addIndex(const TransactionId* trxId, uint6
 	TransactionIdKey key(trxId);
 	FposValue value(fpos);
 
+	this->btree->insert(&key, &value);
 }
 
 } /* namespace codablecash */

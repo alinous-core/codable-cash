@@ -18,8 +18,10 @@ using namespace alinous;
 class TransactionId;
 
 class TransactionIdKey : public AbstractBtreeKey {
+private:
+	TransactionIdKey();
 public:
-	TransactionIdKey(const TransactionId* trxId);
+	explicit TransactionIdKey(const TransactionId* trxId);
 	virtual ~TransactionIdKey();
 
 	virtual bool isInfinity() const;
@@ -28,6 +30,7 @@ public:
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
+	static TransactionIdKey* fromBinary(ByteBuffer* in);
 
 private:
 	TransactionId* trxId;

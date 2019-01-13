@@ -14,9 +14,12 @@
 
 namespace codablecash {
 
+TransactionIdKey::TransactionIdKey() {
+	this->trxId = nullptr;
+}
+
 TransactionIdKey::TransactionIdKey(const TransactionId* trxId) : AbstractBtreeKey() {
 	this->trxId = new TransactionId(*trxId);
-
 }
 
 TransactionIdKey::~TransactionIdKey() {
@@ -49,15 +52,24 @@ AbstractBtreeKey* TransactionIdKey::clone() const noexcept {
 }
 
 int TransactionIdKey::binarySize() const {
-	int total = sizeof(char);
+	int total = sizeof(TransactionIdKeyFactory::TRX_ID_KEY);
 	total += this->trxId->binarySize();
 
 	return total;
 }
 
 void TransactionIdKey::toBinary(ByteBuffer* out) const {
-	out->put(TransactionIdKeyFactory::TRX_ID_KEY);
+	out->putInt(TransactionIdKeyFactory::TRX_ID_KEY);
 	this->trxId->toBinary(out);
 }
 
+TransactionIdKey* TransactionIdKey::fromBinary(ByteBuffer* in) {
+	TransactionIdKey* key = new TransactionIdKey();
+	key->trxId = TransactionId::fromBinary(in);
+
+	return key;
+}
+
 } /* namespace codablecash */
+
+
