@@ -5,8 +5,10 @@
  *      Author: iizuka
  */
 
-#include <mempool/IndexValueFactory.h>
 #include "mempool/TransactionIdIndex.h"
+#include "mempool/IndexValueFactory.h"
+#include "mempool/TransactionIdKeyFactory.h"
+
 #include "btreekey/BtreeKeyFactory.h"
 #include "mempool/FeeIndex.h"
 #include "base/UnicodeString.h"
@@ -31,7 +33,7 @@ TransactionIdIndex::~TransactionIdIndex() {
 
 bool TransactionIdIndex::exists() const noexcept {
 	UnicodeString fileName(TransactionIdIndex::FILE_NAME);
-	Btree btree(this->baseDir, &fileName, this->cacheManager, new BtreeKeyFactory(), new IndexValueFactory());
+	Btree btree(this->baseDir, &fileName, this->cacheManager, new TransactionIdKeyFactory(), new IndexValueFactory());
 
 	bool ex = btree.exists();
 
@@ -40,7 +42,7 @@ bool TransactionIdIndex::exists() const noexcept {
 
 void TransactionIdIndex::create() noexcept(false) {
 	UnicodeString fileName(TransactionIdIndex::FILE_NAME);
-	Btree btree(this->baseDir, &fileName, this->cacheManager, new BtreeKeyFactory(), new IndexValueFactory());
+	Btree btree(this->baseDir, &fileName, this->cacheManager, new TransactionIdKeyFactory(), new IndexValueFactory());
 
 	BtreeConfig config;
 	config.nodeNumber = 8;
@@ -50,7 +52,7 @@ void TransactionIdIndex::create() noexcept(false) {
 
 void TransactionIdIndex::open() noexcept(false) {
 	UnicodeString fileName(TransactionIdIndex::FILE_NAME);
-	this->btree = new Btree(this->baseDir, &fileName, this->cacheManager, new BtreeKeyFactory(), new IndexValueFactory());
+	this->btree = new Btree(this->baseDir, &fileName, this->cacheManager, new TransactionIdKeyFactory(), new IndexValueFactory());
 
 	BtreeOpenConfig opconf;
 	opconf.numDataBuffer = 256;
@@ -60,6 +62,10 @@ void TransactionIdIndex::open() noexcept(false) {
 
 void TransactionIdIndex::close() noexcept {
 	this->btree->close();
+}
+
+void codablecash::TransactionIdIndex::addIndex(const TransactionId* trxId, uint64_t fpos) {
+
 }
 
 } /* namespace codablecash */

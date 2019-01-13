@@ -41,6 +41,7 @@ public:
 	static Transaction* fromBinary(ByteBuffer* in);
 
 	virtual AbstractTransaction* clone() const;
+	virtual const BalanceUnit* getFee() const noexcept;
 private:
 	// id
 	TransactionId* trxId;

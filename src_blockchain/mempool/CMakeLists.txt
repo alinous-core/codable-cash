@@ -4,6 +4,8 @@ set(__src
 	IndexValueFactory.cpp
 	MemPool.cpp
 	TransactionIdIndex.cpp
+	TransactionIdKey.cpp
+	TransactionIdKeyFactory.cpp
 	TransactionRecord.cpp
 	TransactionStore.cpp
 )

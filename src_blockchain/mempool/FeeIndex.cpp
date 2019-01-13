@@ -61,4 +61,8 @@ void FeeIndex::close() noexcept {
 	this->btree->close();
 }
 
+void FeeIndex::addIndex(const BalanceUnit* fee, uint64_t fpos) {
+
+}
+
 } /* namespace codablecash */

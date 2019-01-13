@@ -14,6 +14,7 @@ namespace codablecash {
 using namespace alinous;
 
 class TransactionId;
+class BalanceUnit;
 
 class AbstractTransaction : public IBlockObject {
 public:
@@ -29,6 +30,7 @@ public:
 
 	virtual void updateTransactionId() = 0;
 	virtual const TransactionId* getTransactionId() const noexcept = 0;
+	virtual const BalanceUnit* getFee() const noexcept = 0;
 
 	int getType() const noexcept {
 		return type;

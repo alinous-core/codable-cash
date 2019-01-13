@@ -8,6 +8,8 @@
 #ifndef MEMPOOL_TRANSACTIONIDINDEX_H_
 #define MEMPOOL_TRANSACTIONIDINDEX_H_
 
+#include <inttypes.h>
+
 namespace alinous {
 class File;
 class DiskCacheManager;
@@ -16,6 +18,8 @@ class Btree;
 
 namespace codablecash {
 using namespace alinous;
+
+class TransactionId;
 
 class TransactionIdIndex {
 public:
@@ -29,6 +33,8 @@ public:
 
 	void open() noexcept(false);
 	void close() noexcept;
+
+	void addIndex(const TransactionId* trxId, uint64_t fpos);
 
 private:
 	File* baseDir;

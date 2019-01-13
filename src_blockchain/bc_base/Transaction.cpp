@@ -130,5 +130,8 @@ AbstractTransaction* Transaction::clone() const {
 	return trx;
 }
 
-} /* namespace codablecash */
+const BalanceUnit* Transaction::getFee() const noexcept {
+	return this->fee;
+}
 
+} /* namespace codablecash */

@@ -92,6 +92,11 @@ void MemPool::addTransaction(const AbstractTransaction* trx) {
 
 	uint64_t fpos = this->store->storeTransaction(&record);
 
+	const TransactionId* trxId = record.getTrx()->getTransactionId();
+	this->trxIdIndex->addIndex(trxId, fpos);
+
+	const BalanceUnit* fee = record.getTrx()->getFee();
+	this->feeIndex->addIndex(fee, fpos);
 }
 
 } /* namespace codablecash */

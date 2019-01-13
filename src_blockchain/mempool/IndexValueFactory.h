@@ -13,7 +13,7 @@
 namespace codablecash {
 using namespace alinous;
 
-class IndexValueFactory : public AbstractBtreeDataFactory{
+class IndexValueFactory : public AbstractBtreeDataFactory {
 public:
 	IndexValueFactory();
 	virtual ~IndexValueFactory();
