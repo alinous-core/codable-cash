@@ -270,6 +270,22 @@ uint64_t BtreeStorage::storeData(const IBlockObject* data) {
 	return handle->getFpos();
 }
 
+uint64_t BtreeStorage::storeData(const IBlockObject* data, uint64_t fpos) {
+	BlockHandle* handle = this->store->get(fpos);
+	StackRelease<BlockHandle> __st_handle(handle);
+
+	int size = data->binarySize();
+	ByteBuffer* buff = ReverseByteBuffer::allocateWithEndian(size, true);
+	StackRelease<ByteBuffer> __st_buff(buff);
+
+	data->toBinary(buff);
+
+	const char* ptr = (const char*)buff->array();
+	handle->write(ptr, size);
+
+	return handle->getFpos();
+}
+
 void BtreeStorage::removeData(uint64_t dataFpos) {
 	BlockHandle* handle = this->store->get(dataFpos);
 	StackRelease<BlockHandle> __st_handle(handle);
