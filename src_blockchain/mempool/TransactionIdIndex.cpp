@@ -10,6 +10,7 @@
 #include "mempool/TransactionIdKeyFactory.h"
 #include "mempool/TransactionIdKey.h"
 #include "mempool/FeeIndex.h"
+#include "mempool/FposValue.h"
 
 #include "bc_base/TransactionId.h"
 
@@ -70,6 +71,7 @@ void TransactionIdIndex::close() noexcept {
 
 void codablecash::TransactionIdIndex::addIndex(const TransactionId* trxId, uint64_t fpos) {
 	TransactionIdKey key(trxId);
+	FposValue value(fpos);
 
 }
 
