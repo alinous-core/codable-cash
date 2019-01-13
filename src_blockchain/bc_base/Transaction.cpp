@@ -86,6 +86,17 @@ void Transaction::toBinary(ByteBuffer* out) const {
 	out->putLong(this->timelong);
 }
 
+Transaction* Transaction::fromBinary(ByteBuffer* in) {
+	Transaction* trx = new Transaction();
+
+	trx->inputs->importBinary(in);
+	trx->outputs->importBinary(in);
+	trx->fee->importBinary(in);
+	trx->timelong = in->getLong();
+
+	return trx;
+}
+
 void Transaction::updateTransactionId() {
 	if(this->trxId != nullptr){
 		delete this->trxId, this->trxId = nullptr;
@@ -114,14 +125,8 @@ const TransactionId* Transaction::getTransactionId() const noexcept {
 	return this->trxId;
 }
 
-Transaction* Transaction::fromBinary(ByteBuffer* in) {
-	Transaction* trx = new Transaction();
-
-	trx->inputs->importBinary(in);
-	trx->outputs->importBinary(in);
-	trx->fee->importBinary(in);
-	trx->timelong = in->getLong();
-
+AbstractTransaction* Transaction::clone() const {
+	AbstractTransaction* trx = new Transaction(*this);
 	return trx;
 }
 

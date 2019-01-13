@@ -6,11 +6,15 @@
  */
 
 #include "mempool/TransactionStore.h"
+#include "mempool/TransactionRecord.h"
+
 #include "base_io/File.h"
+#include "base_io/ByteBuffer.h"
+
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 #include "filestore_block/BlockFileStore.h"
-
+#include "filestore_block/BlockHandle.h"
 
 
 namespace codablecash {
@@ -60,6 +64,26 @@ File TransactionStore::getStoreFile() const noexcept {
 	StackRelease<File> __st_f(f);
 
 	return *f;
+}
+
+uint64_t TransactionStore::storeTransaction(const TransactionRecord* record) {
+	int size = record->binarySize();
+
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true);
+	StackRelease<ByteBuffer> __st_buff(buff);
+	record->toBinary(buff);
+
+	buff->position(0);
+
+	BlockHandle* handle = this->store->alloc(size);
+	StackRelease<BlockHandle> __st_handle(handle);
+
+	assert(buff->capacity() == size);
+
+	handle->write((const char*)buff->array(), size);
+
+	uint64_t fpos = handle->getFpos();
+	return fpos;
 }
 
 File TransactionStore::getStoreHeaderFile() const noexcept {

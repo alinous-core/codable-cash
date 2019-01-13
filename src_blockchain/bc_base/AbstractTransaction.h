@@ -13,6 +13,8 @@
 namespace codablecash {
 using namespace alinous;
 
+class TransactionId;
+
 class AbstractTransaction : public IBlockObject {
 public:
 	static const constexpr int TYPE_SEND_BALANCE = 1;
@@ -23,6 +25,14 @@ public:
 
 	virtual int binarySize() const = 0;
 	virtual void toBinary(ByteBuffer* out) const = 0;
+	virtual AbstractTransaction* clone() const = 0;
+
+	virtual void updateTransactionId() = 0;
+	virtual const TransactionId* getTransactionId() const noexcept = 0;
+
+	int getType() const noexcept {
+		return type;
+	}
 
 protected:
 	int type;

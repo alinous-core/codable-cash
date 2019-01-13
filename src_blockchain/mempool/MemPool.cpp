@@ -5,17 +5,22 @@
  *      Author: iizuka
  */
 
-#include <btreekey/BtreeKeyFactory.h>
+
 #include "mempool/MemPool.h"
 #include "mempool/TransactionStore.h"
 #include "mempool/TransactionIdIndex.h"
 #include "mempool/FeeIndex.h"
+#include "mempool/TransactionRecord.h"
+
+#include "bc_base/Transaction.h"
 
 #include "base/UnicodeString.h"
 #include "base_io/File.h"
 #include "random_access_file/DiskCacheManager.h"
+#include "base_thread/ConcurrentGate.h"
 
 #include "btree/Btree.h"
+#include "btreekey/BtreeKeyFactory.h"
 #include "osenv/funcs.h"
 
 namespace codablecash {
@@ -26,6 +31,7 @@ MemPool::MemPool(const File* baseDir) {
 	this->store = nullptr;
 	this->feeIndex = nullptr;
 	this->trxIdIndex = nullptr;
+	this->rwLock = new ConcurrentGate();
 }
 
 
@@ -35,6 +41,7 @@ MemPool::MemPool(const File* baseDir, int cacheBytes) {
 	this->store = nullptr;
 	this->feeIndex = nullptr;
 	this->trxIdIndex = nullptr;
+	this->rwLock = new ConcurrentGate();
 }
 
 
@@ -53,6 +60,7 @@ MemPool::~MemPool() {
 	if(this->trxIdIndex != nullptr){
 		delete this->trxIdIndex;
 	}
+	delete this->rwLock;
 }
 
 void MemPool::init() {
@@ -78,9 +86,12 @@ void MemPool::close() {
 }
 
 void MemPool::addTransaction(const AbstractTransaction* trx) {
+	StackWriteLock __lock(this->rwLock);
+
+	TransactionRecord record(trx);
+
+	uint64_t fpos = this->store->storeTransaction(&record);
 
 }
 
 } /* namespace codablecash */
-
-

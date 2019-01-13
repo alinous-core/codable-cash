@@ -13,6 +13,7 @@
 namespace alinous {
 class File;
 class DiskCacheManager;
+class ConcurrentGate;
 }
 
 namespace codablecash {
@@ -40,6 +41,8 @@ private:
 	TransactionStore* store;
 	FeeIndex* feeIndex;
 	TransactionIdIndex* trxIdIndex;
+
+	ConcurrentGate* rwLock;
 };
 
 } /* namespace codablecash */
