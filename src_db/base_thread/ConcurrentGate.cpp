@@ -90,4 +90,22 @@ void ConcurrentGate::close() noexcept {
 	}
 }
 
+
+StackReadLock::StackReadLock(ConcurrentGate* gate) noexcept {
+	this->gate = gate;
+	gate->enter();
+}
+
+StackReadLock::~StackReadLock() {
+	gate->exit();
+}
+
+StackWriteLock::StackWriteLock(ConcurrentGate* gate) noexcept {
+	this->gate = gate;
+	gate->close();
+}
+
+StackWriteLock::~StackWriteLock() {
+	gate->open();
+}
 } /* namespace alinous */
