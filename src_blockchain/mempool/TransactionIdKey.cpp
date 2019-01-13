@@ -10,13 +10,13 @@
 
 namespace codablecash {
 
-TransactionIdKey::TransactionIdKey() {
+TransactionIdKey::TransactionIdKey(const TransactionId trxId) : AbstractBtreeKey() {
 	// TODO Auto-generated constructor stub
 
 }
 
 TransactionIdKey::~TransactionIdKey() {
-	// TODO Auto-generated destructor stub
+	delete this->trxId;
 }
 
 bool TransactionIdKey::isInfinity() const {
@@ -24,6 +24,14 @@ bool TransactionIdKey::isInfinity() const {
 }
 
 int TransactionIdKey::compareTo(const AbstractBtreeKey* key) const noexcept {
+	if(key->isInfinity()){
+		return -1;
+	}
+
+	const TransactionId* id2 = dynamic_cast<const TransactionId*>(key);
+
+
+
 }
 
 AbstractBtreeKey* TransactionIdKey::clone() const noexcept {

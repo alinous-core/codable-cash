@@ -24,4 +24,12 @@ TransactionId::~TransactionId() {
 	delete this->id;
 }
 
+int codablecash::TransactionId::binarySize() const {
+	// FIXME
+}
+
+void codablecash::TransactionId::toBinary(ByteBuffer* out) const {
+	// FIXME
+}
+
 } /* namespace codablecash */
