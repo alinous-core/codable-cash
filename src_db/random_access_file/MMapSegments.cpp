@@ -22,7 +22,7 @@ MMapSegments::MMapSegments(uint64_t fileSize, uint64_t segmentSize) noexcept {
 
 	this->fileSize = fileSize;
 	this->segmentSize = segmentSize;
-	this->removeList = new RawArrayPrimitive<int>(64);
+	this->removeList = new ArrayList<MMapSegment>(64);
 
 	this->numSegments = getNumSegments(fileSize, segmentSize);
 
@@ -40,7 +40,7 @@ MMapSegments::~MMapSegments() noexcept {
 
 void MMapSegments::clearElements(DiskCacheManager* diskManager, FileDescriptor& fd) noexcept {
 	StackUnlocker stackLock(&this->lock);
-	cacheOutSegmentIndex();
+	cacheOutSegmentIndex(fd);
 
 	int maxLoop = this->segIndex->size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -70,7 +70,7 @@ void MMapSegments::onResized(uint64_t fileSize, FileDescriptor& fd, DiskCacheMan
 	assert(fileSize >  this->fileSize);
 
 	StackUnlocker stackLock(&this->lock);
-	cacheOutSegmentIndex();
+	cacheOutSegmentIndex(fd);
 
 	int lastTopSegment = this->segIndex->size() - 1;
 
@@ -107,7 +107,7 @@ MMapSegment* MMapSegments::getSegment(uint64_t fpos, DiskCacheManager* cache, Fi
 	}
 
 	StackUnlocker stackLock(&this->lock);
-	cacheOutSegmentIndex();
+	cacheOutSegmentIndex(fd);
 
 	int index = (int)(fpos / this->segmentSize);
 
@@ -151,15 +151,22 @@ MMapSegment* MMapSegments::newSegment(uint64_t fpos, FileDescriptor& fd) {
 void MMapSegments::requestCacheOut(MMapSegment* seg) noexcept {
 	StackUnlocker locker(&this->removeListlock);
 	int index = seg->position / this->segmentSize;
-	this->removeList->addElement(index);
+	this->removeList->addElement(seg);
 }
 
-void MMapSegments::cacheOutSegmentIndex() noexcept {
+void MMapSegments::cacheOutSegmentIndex(FileDescriptor& fd) {
 	StackUnlocker locker(&this->removeListlock);
 	int maxLoop = this->removeList->size();
 	for(int i = 0; i != maxLoop; ++i){
-		int index = this->removeList->get(i);
+		MMapSegment* seg = this->removeList->get(i);
+
+		int index = seg->position / this->segmentSize;
 		this->segIndex->setElement(nullptr, index);
+
+		if(seg->isDirty()){
+			seg->writeBack(fd);
+		}
+		delete seg;
 	}
 
 	this->removeList->reset();
@@ -167,6 +174,7 @@ void MMapSegments::cacheOutSegmentIndex() noexcept {
 
 void MMapSegments::sync(bool flushDisk, FileDescriptor& fd) {
 	StackUnlocker stackLock(&this->lock);
+	cacheOutSegmentIndex(fd);
 
 	int maxLoop = this->segIndex->size();
 	for(int i = 0; i != maxLoop; ++i){

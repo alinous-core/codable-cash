@@ -16,12 +16,13 @@
 #include "random_access_file/DiskCacheManager.h"
 
 #include "btree/Btree.h"
+#include "osenv/funcs.h"
 
 namespace codablecash {
 
 MemPool::MemPool(const File* baseDir) {
 	this->baseDir = new File(*baseDir);
-	this->cacheManager = new DiskCacheManager(1024 * 2);
+	this->cacheManager = new DiskCacheManager(Os::getSystemPageSize() * 4 * 4);
 	this->store = nullptr;
 	this->feeIndex = nullptr;
 	this->trxIdIndex = nullptr;
