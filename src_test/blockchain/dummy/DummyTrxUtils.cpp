@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "blockchain/DummyTrxUtils.h"
+#include "blockchain/dummy/DummyTrxUtils.h"
 #include "base/StackRelease.h"
 
 #include "bc_base/Transaction.h"

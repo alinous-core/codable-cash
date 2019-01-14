@@ -18,7 +18,7 @@
 #include "bc_network/NetworkShard.h"
 #include "bc_network/NetworkShardsStatus.h"
 
-#include "blockchain/DummyTrxUtils.h"
+#include "blockchain/dummy/DummyTrxUtils.h"
 
 #include "mempool/FeeTransactionsListValue.h"
 
