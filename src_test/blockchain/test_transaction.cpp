@@ -131,3 +131,45 @@ TEST(TestTransactionGroup, binary){
 	CHECK(Mem::memcmp(buff->array(), buff2->array(), buff->capacity()) == 0)
 }
 
+TEST(TestTransactionGroup, copy){
+	Transaction* trx = new Transaction();
+	StackRelease<Transaction> __st_trx(trx);
+
+	StackMultipleRelease<BlockchainAddress> release;
+	BlockchainAddress* addr1 = createAddr(); release.add(addr1);
+	BlockchainAddress* addr2 = createAddr(); release.add(addr2);
+	BlockchainAddress* addr3 = createAddr(); release.add(addr3);
+	BlockchainAddress* addr4 = createAddr(); release.add(addr4);
+	BlockchainAddress* addr5 = createAddr(); release.add(addr5);
+
+	trx->addInput(addr1, 100);
+	trx->addInput(addr2, 200);
+	trx->addInput(addr3, 200);
+
+	trx->addOutput(addr4, 100);
+	trx->addOutput(addr5, 399);
+	trx->setFee(1);
+
+	trx->updateTransactionId();
+
+	int size = trx->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true);
+	StackRelease<ByteBuffer> __st_buff(buff);
+	trx->toBinary(buff);
+
+	CHECK(buff->position() == size)
+
+	buff->position(0);
+	Transaction* trx2 = new Transaction(*trx);
+	StackRelease<Transaction> __st_trx2(trx2);
+
+	// check binary
+	size = trx2->binarySize();
+	ByteBuffer* buff2 = ByteBuffer::allocateWithEndian(size, true);
+	StackRelease<ByteBuffer> __st_buff2(buff2);
+	trx2->toBinary(buff2);
+
+	CHECK(buff2->capacity() == buff->capacity())
+	CHECK(Mem::memcmp(buff->array(), buff2->array(), buff->capacity()) == 0)
+}
+

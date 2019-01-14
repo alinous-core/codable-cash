@@ -13,6 +13,10 @@ AbstractTransaction::AbstractTransaction(int type) {
 	this->type = type;
 }
 
+AbstractTransaction::AbstractTransaction(const AbstractTransaction& inst) {
+	this->type = inst.type;
+}
+
 AbstractTransaction::~AbstractTransaction() {
 }
 

@@ -20,6 +20,18 @@
 
 namespace codablecash {
 
+Transaction::Transaction(const Transaction& inst) : AbstractTransaction(inst) {
+	this->inputs = new TransactionInputs(*inst.inputs);
+	this->outputs = new TransactionOutputs(*inst.outputs);
+	this->fee = new BalanceUnit(inst.fee->getAmount());
+	this->timelong = inst.timelong;
+
+	this->trxId = nullptr;
+	if(inst.trxId != nullptr){
+		this->trxId = new TransactionId(*inst.trxId);
+	}
+}
+
 Transaction::Transaction() : AbstractTransaction(AbstractTransaction::TYPE_SEND_BALANCE) {
 	this->inputs = new TransactionInputs();
 	this->outputs = new TransactionOutputs();
@@ -74,6 +86,17 @@ void Transaction::toBinary(ByteBuffer* out) const {
 	out->putLong(this->timelong);
 }
 
+Transaction* Transaction::fromBinary(ByteBuffer* in) {
+	Transaction* trx = new Transaction();
+
+	trx->inputs->importBinary(in);
+	trx->outputs->importBinary(in);
+	trx->fee->importBinary(in);
+	trx->timelong = in->getLong();
+
+	return trx;
+}
+
 void Transaction::updateTransactionId() {
 	if(this->trxId != nullptr){
 		delete this->trxId, this->trxId = nullptr;
@@ -102,16 +125,13 @@ const TransactionId* Transaction::getTransactionId() const noexcept {
 	return this->trxId;
 }
 
-Transaction* Transaction::fromBinary(ByteBuffer* in) {
-	Transaction* trx = new Transaction();
-
-	trx->inputs->importBinary(in);
-	trx->outputs->importBinary(in);
-	trx->fee->importBinary(in);
-	trx->timelong = in->getLong();
-
+AbstractTransaction* Transaction::clone() const {
+	AbstractTransaction* trx = new Transaction(*this);
 	return trx;
 }
 
-} /* namespace codablecash */
+const BalanceUnit* Transaction::getFee() const noexcept {
+	return this->fee;
+}
 
+} /* namespace codablecash */

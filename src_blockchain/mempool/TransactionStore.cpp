@@ -6,11 +6,15 @@
  */
 
 #include "mempool/TransactionStore.h"
+#include "mempool/TransactionRecord.h"
+
 #include "base_io/File.h"
+#include "base_io/ByteBuffer.h"
+
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 #include "filestore_block/BlockFileStore.h"
-
+#include "filestore_block/BlockHandle.h"
 
 
 namespace codablecash {
@@ -39,6 +43,12 @@ bool TransactionStore::exists() const noexcept {
 }
 
 void TransactionStore::open() noexcept(false){
+	UnicodeString fileName(TransactionStore::FILE_NAME);
+	UnicodeString* dir = this->baseDir->getAbsolutePath();
+	StackRelease<UnicodeString> __st_dir(dir);
+
+	this->store = new BlockFileStore(dir, &fileName, this->cacheManager);
+
 	this->store->open(false);
 }
 
@@ -56,6 +66,26 @@ File TransactionStore::getStoreFile() const noexcept {
 	return *f;
 }
 
+uint64_t TransactionStore::storeTransaction(const TransactionRecord* record) {
+	int size = record->binarySize();
+
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true);
+	StackRelease<ByteBuffer> __st_buff(buff);
+	record->toBinary(buff);
+
+	buff->position(0);
+
+	BlockHandle* handle = this->store->alloc(size);
+	StackRelease<BlockHandle> __st_handle(handle);
+
+	assert(buff->capacity() == size);
+
+	handle->write((const char*)buff->array(), size);
+
+	uint64_t fpos = handle->getFpos();
+	return fpos;
+}
+
 File TransactionStore::getStoreHeaderFile() const noexcept {
 	UnicodeString binFileName(TransactionStore::FILE_NAME);
 	binFileName.append(L"-header.bin");
@@ -71,8 +101,8 @@ void TransactionStore::create() noexcept(false) {
 	UnicodeString* dir = this->baseDir->getAbsolutePath();
 	StackRelease<UnicodeString> __st_dir(dir);
 
-	this->store = new BlockFileStore(dir, &fileName, this->cacheManager);
-	this->store->createStore(true, 1024);
+	BlockFileStore tmpStore(dir, &fileName, this->cacheManager);
+	tmpStore.createStore(true, 1024);
 }
 
 } /* namespace codablecash */

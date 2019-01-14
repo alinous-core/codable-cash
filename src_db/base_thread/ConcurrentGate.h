@@ -33,6 +33,24 @@ private:
 	SynchronizedLock roomLock;
 };
 
+class StackReadLock {
+public:
+	StackReadLock(StackReadLock& inst) = delete;
+	explicit StackReadLock(ConcurrentGate* gate) noexcept;
+	~StackReadLock();
+private:
+	ConcurrentGate* gate;
+};
+
+class StackWriteLock {
+public:
+	StackWriteLock(StackWriteLock& inst) = delete;
+	explicit StackWriteLock(ConcurrentGate* gate) noexcept;
+	~StackWriteLock();
+private:
+	ConcurrentGate* gate;
+};
+
 } /* namespace alinous */
 
 #endif /* BASE_THREAD_CONCURRENTGATE_H_ */

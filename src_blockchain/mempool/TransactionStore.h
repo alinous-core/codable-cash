@@ -8,6 +8,8 @@
 #ifndef MEMPOOL_TRANSACTIONSTORE_H_
 #define MEMPOOL_TRANSACTIONSTORE_H_
 
+#include <inttypes.h>
+
 namespace alinous {
 class File;
 class BlockFileStore;
@@ -16,6 +18,8 @@ class DiskCacheManager;
 
 namespace codablecash {
 using namespace alinous;
+
+class TransactionRecord;
 
 class TransactionStore {
 public:
@@ -29,6 +33,8 @@ public:
 
 	void open() noexcept(false);
 	void close() noexcept;
+
+	uint64_t storeTransaction(const TransactionRecord* record);
 
 private:
 	File getStoreFile() const noexcept;

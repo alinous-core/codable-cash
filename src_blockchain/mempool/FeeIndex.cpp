@@ -5,13 +5,19 @@
  *      Author: iizuka
  */
 
-#include "btreekey/BtreeKeyFactory.h"
 #include "mempool/FeeIndex.h"
-#include "mempool/FeeValueFactory.h"
+#include "mempool/FeeTransactionsListValueFactory.h"
+#include "mempool/FeeTransactionsListValue.h"
+
 #include "base/UnicodeString.h"
 #include "base_io/File.h"
+
+#include "bc_base/BalanceUnit.h"
+
 #include "btree/Btree.h"
 #include "btree/BtreeConfig.h"
+#include "btreekey/ULongKey.h"
+#include "btreekey/BtreeKeyFactory.h"
 
 namespace codablecash {
 
@@ -30,7 +36,7 @@ FeeIndex::~FeeIndex() {
 
 bool FeeIndex::exists() const noexcept {
 	UnicodeString fileName(FeeIndex::FILE_NAME);
-	Btree btree(this->baseDir, &fileName, this->cacheManager, new BtreeKeyFactory(), new FeeValueFactory());
+	Btree btree(this->baseDir, &fileName, this->cacheManager, new BtreeKeyFactory(), new FeeTransactionsListValueFactory());
 
 	bool ex = btree.exists();
 
@@ -39,7 +45,7 @@ bool FeeIndex::exists() const noexcept {
 
 void FeeIndex::create() noexcept(false) {
 	UnicodeString fileName(FeeIndex::FILE_NAME);
-	Btree btree(this->baseDir, &fileName, this->cacheManager, new BtreeKeyFactory(), new FeeValueFactory());
+	Btree btree(this->baseDir, &fileName, this->cacheManager, new BtreeKeyFactory(), new FeeTransactionsListValueFactory());
 
 	BtreeConfig config;
 	config.nodeNumber = 8;
@@ -48,9 +54,24 @@ void FeeIndex::create() noexcept(false) {
 }
 
 void FeeIndex::open() noexcept(false) {
+	UnicodeString fileName(FeeIndex::FILE_NAME);
+	this->btree = new Btree(this->baseDir, &fileName, this->cacheManager, new BtreeKeyFactory(), new FeeTransactionsListValueFactory());
+
+	BtreeOpenConfig opconf;
+	opconf.numDataBuffer = 256;
+	opconf.numNodeBuffer = 512;
+	this->btree->open(&opconf);
 }
 
 void FeeIndex::close() noexcept {
+	this->btree->close();
+}
+
+void FeeIndex::addIndex(const BalanceUnit* fee, uint64_t fpos) {
+	ULongKey key(fee->getAmount());
+	FeeTransactionsListValue value(fpos);
+
+	this->btree->insert(&key, &value);
 }
 
 } /* namespace codablecash */

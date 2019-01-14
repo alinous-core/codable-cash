@@ -52,6 +52,7 @@ public:
 	void setRootFpos(uint64_t rootFpos);
 
 	uint64_t storeData(const IBlockObject* data);
+	uint64_t storeData(const IBlockObject* data, uint64_t fpos);
 	void removeData(uint64_t dataFpos);
 
 	uint64_t storeNode(AbstractTreeNode* node);

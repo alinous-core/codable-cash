@@ -21,6 +21,7 @@ class TransactionOutput : public IBlockObject {
 private:
 	TransactionOutput();
 public:
+	TransactionOutput(const TransactionOutput& inst);
 	TransactionOutput(const AbstractAddress* address, uint64_t amount);
 	virtual ~TransactionOutput();
 

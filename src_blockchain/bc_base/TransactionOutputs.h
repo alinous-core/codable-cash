@@ -20,6 +20,7 @@ class AbstractAddress;
 
 class TransactionOutputs : public IBlockObject {
 public:
+	TransactionOutputs(const TransactionOutputs& inst);
 	TransactionOutputs();
 	virtual ~TransactionOutputs();
 

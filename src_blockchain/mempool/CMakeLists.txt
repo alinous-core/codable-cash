@@ -1,9 +1,14 @@
 
 set(__src
 	FeeIndex.cpp
-	FeeValueFactory.cpp
+	FeeTransactionsListValue.cpp
+	FeeTransactionsListValueFactory.cpp
+	FposValue.cpp
+	IndexValueFactory.cpp
 	MemPool.cpp
 	TransactionIdIndex.cpp
+	TransactionIdKey.cpp
+	TransactionIdKeyFactory.cpp
 	TransactionRecord.cpp
 	TransactionStore.cpp
 )

@@ -106,7 +106,7 @@ ByteBuffer* ByteBuffer::limit(const int limit) noexcept
 	return this;
 }
 
-int ByteBuffer::capacity() noexcept {
+int ByteBuffer::capacity() const noexcept {
 	return this->cap;
 }
 

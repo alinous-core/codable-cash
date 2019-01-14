@@ -22,11 +22,12 @@ class TransactionId;
 
 class Transaction : public AbstractTransaction {
 public:
+	Transaction(const Transaction& inst);
 	Transaction();
 	virtual ~Transaction();
 
-	void updateTransactionId();
-	const TransactionId* getTransactionId() const noexcept;
+	virtual void updateTransactionId();
+	virtual const TransactionId* getTransactionId() const noexcept;
 
 	void addInput(const AbstractAddress* address, uint64_t amount) noexcept;
 	void addOutput(const AbstractAddress* address, uint64_t amount) noexcept;
@@ -38,6 +39,9 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
 	static Transaction* fromBinary(ByteBuffer* in);
+
+	virtual AbstractTransaction* clone() const;
+	virtual const BalanceUnit* getFee() const noexcept;
 private:
 	// id
 	TransactionId* trxId;

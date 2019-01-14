@@ -5,22 +5,22 @@
  *      Author: iizuka
  */
 
-#ifndef MEMPOOL_FEEVALUEFACTORY_H_
-#define MEMPOOL_FEEVALUEFACTORY_H_
+#ifndef MEMPOOL_INDEXVALUEFACTORY_H_
+#define MEMPOOL_INDEXVALUEFACTORY_H_
 
 #include "btree/AbstractBtreeDataFactory.h"
 
 namespace codablecash {
 using namespace alinous;
 
-class FeeValueFactory : public AbstractBtreeDataFactory{
+class IndexValueFactory : public AbstractBtreeDataFactory {
 public:
-	FeeValueFactory();
-	virtual ~FeeValueFactory();
+	IndexValueFactory();
+	virtual ~IndexValueFactory();
 
 	virtual IBlockObject* makeDataFromBinary(ByteBuffer* in);
 };
 
 } /* namespace codablecash */
 
-#endif /* MEMPOOL_FEEVALUEFACTORY_H_ */
+#endif /* MEMPOOL_INDEXVALUEFACTORY_H_ */

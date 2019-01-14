@@ -37,7 +37,7 @@ public:
 	ByteBuffer* position(const int newPosition) noexcept;
 	int limit() noexcept;
 	ByteBuffer* limit(const int limit) noexcept;
-	int capacity() noexcept;
+	int capacity() const noexcept;
 	char get() noexcept(false);
 	char get(const int index) const noexcept(false);
 	ByteBuffer* get(uint8_t* dest, int length) noexcept(false);
