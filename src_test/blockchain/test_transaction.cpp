@@ -13,6 +13,7 @@
 
 #include "base_io/ByteBuffer.h"
 #include "base/StackRelease.h"
+#include "bc/exceptions.h"
 
 using namespace alinous;
 using namespace codablecash;
@@ -37,6 +38,27 @@ static BlockchainAddress* createAddr(){
 	BlockchainAddress* addr1 = BlockchainAddress::createAddress(&shard1);
 
 	return addr1;
+}
+
+TEST(TestTransactionGroup, testMulformatException){
+	testException<MulformattedTransactionBinaryException>();
+}
+
+TEST(TestTransactionGroup, factoryerror){
+	ByteBuffer* in = ByteBuffer::allocateWithEndian(4, true);
+	StackRelease<ByteBuffer> __st_buff(in);
+	in->put(-1);
+
+	Exception* ex = nullptr;
+	try{
+		AbstractTransaction* trx = AbstractTransaction::fromBinary(in);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr)
+	delete ex;
 }
 
 TEST(TestTransactionGroup, balancetrx){
@@ -116,7 +138,7 @@ TEST(TestTransactionGroup, binary){
 	CHECK(buff->position() == size)
 
 	buff->position(0);
-	Transaction* trx2 = Transaction::fromBinary(buff);
+	Transaction* trx2 = dynamic_cast<Transaction*>(AbstractTransaction::fromBinary(buff));
 	StackRelease<Transaction> __st_trx2(trx2);
 
 	CHECK(buff->position() == size)

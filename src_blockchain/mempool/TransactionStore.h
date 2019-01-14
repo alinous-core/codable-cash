@@ -35,6 +35,7 @@ public:
 	void close() noexcept;
 
 	uint64_t storeTransaction(const TransactionRecord* record);
+	TransactionRecord* loadRecord(uint64_t fpos);
 
 private:
 	File getStoreFile() const noexcept;

@@ -35,6 +35,8 @@ public:
 	void close() noexcept;
 
 	void addIndex(const TransactionId* trxId, uint64_t fpos);
+	uint64_t findbyTransactionId(const TransactionId* trxId) const;
+	void removeTransaction(const TransactionId* trxId);
 
 private:
 	File* baseDir;

@@ -23,6 +23,9 @@ class TransactionStore;
 class FeeIndex;
 class TransactionIdIndex;
 class AbstractTransaction;
+class FposValue;
+class TransactionId;
+class TransactionRecord;
 
 class MemPool {
 public:
@@ -34,6 +37,11 @@ public:
 	void close();
 
 	void addTransaction(const AbstractTransaction* trx);
+	bool removeTransaction(const TransactionId* trxId);
+	TransactionRecord* findByTransactionId(const TransactionId* trxId);
+
+private:
+	TransactionRecord* __findByTransactionId(const TransactionId* trxId);
 
 private:
 	File* baseDir;

@@ -15,6 +15,7 @@
 #include "bc_base/Transaction.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 #include "base_io/File.h"
 #include "random_access_file/DiskCacheManager.h"
 #include "base_thread/ConcurrentGate.h"
@@ -97,6 +98,38 @@ void MemPool::addTransaction(const AbstractTransaction* trx) {
 
 	const BalanceUnit* fee = record.getTrx()->getFee();
 	this->feeIndex->addIndex(fee, fpos);
+}
+
+bool MemPool::removeTransaction(const TransactionId* trxId) {
+	StackWriteLock __lock(this->rwLock);
+
+	TransactionRecord* rec = __findByTransactionId(trxId);
+	if(rec == nullptr){
+		return false;
+	}
+
+	StackRelease<TransactionRecord> __st_rec(rec);
+	const AbstractTransaction* trx = rec->getTrx();
+
+	this->trxIdIndex->removeTransaction(trxId);
+
+	return true;
+}
+
+TransactionRecord* MemPool::findByTransactionId(const TransactionId* trxId) {
+	StackReadLock __lock(this->rwLock);
+
+	return __findByTransactionId(trxId);
+}
+
+TransactionRecord* MemPool::__findByTransactionId(const TransactionId* trxId) {
+	uint64_t fpos = this->trxIdIndex->findbyTransactionId(trxId);
+	if(fpos == 0){
+		return nullptr;
+	}
+
+	TransactionRecord* record = this->store->loadRecord(fpos);
+	return record;
 }
 
 } /* namespace codablecash */

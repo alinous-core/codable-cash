@@ -5,7 +5,6 @@
  *      Author: iizuka
  */
 
-#include <btreekey/BtreeKeyFactory.h>
 #include "btree/Btree.h"
 #include "btree/BtreeStorage.h"
 #include "btree/BtreeHeaderBlock.h"
@@ -18,6 +17,8 @@
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 #include "base_io/File.h"
+
+#include "btreekey/BtreeKeyFactory.h"
 
 namespace alinous {
 
@@ -86,6 +87,14 @@ BtreeScanner* Btree::getScanner() {
 	NodeCursor* cursor = new NodeCursor(rootNode, this->store, this->config->nodeNumber);
 
 	return new BtreeScanner(cursor);
+}
+
+IBlockObject* Btree::findByKey(const AbstractBtreeKey* key) {
+	NodeHandle* rootNode = this->store->loadRoot();
+	NodeCursor* cursor = new NodeCursor(rootNode, this->store, this->config->nodeNumber);
+	StackRelease<NodeCursor> __st_cursor(cursor);
+
+	return cursor->find(key);
 }
 
 void Btree::remove(const AbstractBtreeKey* key) {

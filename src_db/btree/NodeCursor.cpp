@@ -259,6 +259,24 @@ AbstractBtreeKey* NodeCursor::setupTwoLists(ArrayList<NodeHandle>* list, Abstrac
 	return allList.get(list1Size - 1)->getKey()->clone();
 }
 
+IBlockObject* NodeCursor::gotoKey(const AbstractBtreeKey* key) {
+	gotoLeaf(key);
+
+	NodePosition* current = top();
+
+	const NodeHandle* nh = current->gotoEqMoreThanKey(key);
+	if(nh == nullptr){
+		return nullptr;
+	}
+
+	NodePosition* nodePos = new NodePosition(nh->clone());
+	push(nodePos);
+
+	uint64_t dataFpos = nodePos->nextData();
+	IBlockObject* obj = store->loadData(dataFpos);
+
+	return obj;
+}
 
 NodePosition* NodeCursor::gotoLeaf(const AbstractBtreeKey* key) {
 	NodePosition* current = top();
@@ -278,6 +296,7 @@ NodePosition* NodeCursor::gotoLeaf(const AbstractBtreeKey* key) {
 
 	return current;
 }
+
 
 IBlockObject* NodeCursor::gotoFirst() {
 	NodePosition* current = top();
@@ -361,6 +380,21 @@ void NodeCursor::checkIsDataNode(NodeHandle* nodeHandle, const char* srcfile, in
 	}
 }
 
+IBlockObject* NodeCursor::find(const AbstractBtreeKey* key) {
+	NodePosition* leafNode = gotoLeaf(key);
+
+	const NodeHandle* nh = leafNode->gotoEqKey(key);
+	if(nh == nullptr){
+		return nullptr;
+	}
+
+	DataNode* dataNode = nh->toDataNode();
+
+	uint64_t dataFpos = dataNode->getDataFpos();
+
+	return this->store->loadData(dataFpos);
+}
+
 bool NodeCursor::remove(const AbstractBtreeKey* key) {
 	NodePosition* leafNode = gotoLeaf(key);
 
@@ -385,7 +419,7 @@ void NodeCursor::internalRemoveRoot() {
 
 	push(current);
 
-	while(current->getInnerCount() == 1){
+	while(current->getInnerCount() == 1 && !current->isLeaf()){
 		NodeHandle* nh = current->getInnerNodes()->get(0); // next root
 
 		// update new root

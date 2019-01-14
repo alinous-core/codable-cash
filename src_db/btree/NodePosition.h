@@ -43,7 +43,7 @@ public:
 	void loadInnerNodes(BtreeStorage* store);
 	void addNode(const AbstractBtreeKey* key, uint64_t fpos, int nodeNumber);
 
-	uint64_t getNextChild(const AbstractBtreeKey* key) const;
+	uint64_t getNextChild(const AbstractBtreeKey* key);
 
 	void save(BtreeStorage* store);
 	void updateInnerNodeFpos(const RawArrayPrimitive<uint64_t>* newlist);
@@ -51,6 +51,9 @@ public:
 	uint64_t nextData();
 	uint64_t nextNode();
 	bool hasNext();
+
+	const NodeHandle* gotoEqMoreThanKey(const AbstractBtreeKey* key);
+	const NodeHandle* gotoEqKey(const AbstractBtreeKey* key);
 
 	bool removeChildNode(const AbstractBtreeKey* key, BtreeStorage* store);
 

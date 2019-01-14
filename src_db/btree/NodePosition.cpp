@@ -125,11 +125,12 @@ void NodePosition::addNode(const AbstractBtreeKey* key, uint64_t fpos, int nodeN
 	clearCache();
 }
 
-uint64_t NodePosition::getNextChild(const AbstractBtreeKey* key) const {
+uint64_t NodePosition::getNextChild(const AbstractBtreeKey* key) {
 	uint64_t ret = 0;
 	int maxLoop = this->innerCount;
 	for(int i = 0; i != maxLoop; ++i){
 		NodeHandle* nh = this->innerNodes->get(i);
+		this->pos++;
 
 		if(key->compareTo(nh->getKey()) <= 0){
 			ret = nh->getFpos();
@@ -293,4 +294,34 @@ int NodePosition::indexof(const AbstractBtreeKey* key) const {
 	return -1;
 }
 
+const NodeHandle* NodePosition::gotoEqMoreThanKey(const AbstractBtreeKey* key) {
+	int maxLoop = this->innerCount;
+
+	for(int i = 0; i != maxLoop; ++i){
+		this->pos++;
+		NodeHandle* nh = this->innerNodes->get(i);
+		if(key->compareTo(nh->getKey()) <= 0){
+			return nh;
+		}
+	}
+
+	return nullptr;
+}
+
+const NodeHandle* NodePosition::gotoEqKey(const AbstractBtreeKey* key) {
+	int maxLoop = this->innerCount;
+
+	for(int i = 0; i != maxLoop; ++i){
+		this->pos++;
+		NodeHandle* nh = this->innerNodes->get(i);
+		if(key->compareTo(nh->getKey()) == 0){
+			return nh;
+		}
+	}
+
+	return nullptr;
+}
+
 } /* namespace alinous */
+
+

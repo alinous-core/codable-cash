@@ -42,6 +42,7 @@ public:
 
 	void insert(const AbstractBtreeKey* key, const IBlockObject* data);
 	BtreeScanner* getScanner();
+	IBlockObject* findByKey(const AbstractBtreeKey* key);
 
 	void remove(const AbstractBtreeKey* key);
 

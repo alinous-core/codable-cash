@@ -11,6 +11,10 @@
 
 namespace codablecash {
 
+TransactionRecord::TransactionRecord() {
+	this->trx = nullptr;
+}
+
 TransactionRecord::TransactionRecord(const AbstractTransaction* trx) {
 	this->trx = trx->clone();
 	this->trx->updateTransactionId();
@@ -25,14 +29,20 @@ int TransactionRecord::binarySize() const {
 }
 
 void TransactionRecord::toBinary(ByteBuffer* out) const {
-	int type = this->trx->getType();
-	out->put(type);
-
 	this->trx->toBinary(out);
 }
 
-AbstractTransaction* TransactionRecord::getTrx() const noexcept {
+TransactionRecord* TransactionRecord::fromBinary(ByteBuffer* in) {
+	TransactionRecord* rec = new TransactionRecord();
+	rec->trx = AbstractTransaction::fromBinary(in);
+
+	return rec;
+}
+
+const AbstractTransaction* TransactionRecord::getTrx() const noexcept {
 	return this->trx;
 }
 
 } /* namespace codablecash */
+
+
