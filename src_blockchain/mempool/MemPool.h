@@ -37,7 +37,11 @@ public:
 	void close();
 
 	void addTransaction(const AbstractTransaction* trx);
+	bool removeTransaction(const TransactionId* trxId);
 	TransactionRecord* findByTransactionId(const TransactionId* trxId);
+
+private:
+	TransactionRecord* __findByTransactionId(const TransactionId* trxId);
 
 private:
 	File* baseDir;

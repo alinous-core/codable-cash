@@ -39,7 +39,7 @@ TransactionRecord* TransactionRecord::fromBinary(ByteBuffer* in) {
 	return rec;
 }
 
-AbstractTransaction* TransactionRecord::getTrx() const noexcept {
+const AbstractTransaction* TransactionRecord::getTrx() const noexcept {
 	return this->trx;
 }
 

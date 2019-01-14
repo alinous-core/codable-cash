@@ -152,6 +152,8 @@ TEST(TestMempoolGroup, addTrx){
 		TransactionRecord* rec = memPool.findByTransactionId(trxid);
 		CHECK(rec != nullptr)
 		delete rec;
+
+		memPool.removeTransaction(trxid);
 	}
 
 	memPool.close();

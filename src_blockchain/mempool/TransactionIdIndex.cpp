@@ -91,4 +91,10 @@ uint64_t TransactionIdIndex::findbyTransactionId(const TransactionId* trxId) con
 	return fposValue->getFpos();
 }
 
+void codablecash::TransactionIdIndex::removeTransaction(const TransactionId* trxId) {
+	TransactionIdKey key(trxId);
+
+	this->btree->remove(&key);
+}
+
 } /* namespace codablecash */

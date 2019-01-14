@@ -30,7 +30,7 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	static TransactionRecord* fromBinary(ByteBuffer* in);
 
-	AbstractTransaction* getTrx() const noexcept;
+	const AbstractTransaction* getTrx() const noexcept;
 private:
 	AbstractTransaction* trx;
 };

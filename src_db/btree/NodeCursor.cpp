@@ -419,7 +419,7 @@ void NodeCursor::internalRemoveRoot() {
 
 	push(current);
 
-	while(current->getInnerCount() == 1){
+	while(current->getInnerCount() == 1 && !current->isLeaf()){
 		NodeHandle* nh = current->getInnerNodes()->get(0); // next root
 
 		// update new root
