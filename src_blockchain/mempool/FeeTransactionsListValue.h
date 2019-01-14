@@ -27,6 +27,10 @@ public:
 
 	void join(const FeeTransactionsListValue* value) noexcept;
 	bool contains(uint64_t value) const noexcept;
+	void remove(uint64_t value) noexcept;
+	int indexof(uint64_t value) const noexcept;
+
+	bool isEmpty() const noexcept;
 private:
 	RawArrayPrimitive<uint64_t> list;
 };

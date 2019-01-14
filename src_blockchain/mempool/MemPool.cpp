@@ -103,7 +103,8 @@ void MemPool::addTransaction(const AbstractTransaction* trx) {
 bool MemPool::removeTransaction(const TransactionId* trxId) {
 	StackWriteLock __lock(this->rwLock);
 
-	TransactionRecord* rec = __findByTransactionId(trxId);
+	uint64_t fpos = 0;
+	TransactionRecord* rec = __findByTransactionId(trxId, &fpos);
 	if(rec == nullptr){
 		return false;
 	}
@@ -113,22 +114,25 @@ bool MemPool::removeTransaction(const TransactionId* trxId) {
 
 	this->trxIdIndex->removeTransaction(trxId);
 
+	this->feeIndex->removeIndex(trx->getFee(), fpos);
+
 	return true;
 }
 
 TransactionRecord* MemPool::findByTransactionId(const TransactionId* trxId) {
 	StackReadLock __lock(this->rwLock);
 
-	return __findByTransactionId(trxId);
+	uint64_t fpos = 0;
+	return __findByTransactionId(trxId, &fpos);
 }
 
-TransactionRecord* MemPool::__findByTransactionId(const TransactionId* trxId) {
-	uint64_t fpos = this->trxIdIndex->findbyTransactionId(trxId);
-	if(fpos == 0){
+TransactionRecord* MemPool::__findByTransactionId(const TransactionId* trxId, uint64_t* outfpos) {
+	*outfpos = this->trxIdIndex->findbyTransactionId(trxId);
+	if(*outfpos == 0){
 		return nullptr;
 	}
 
-	TransactionRecord* record = this->store->loadRecord(fpos);
+	TransactionRecord* record = this->store->loadRecord(*outfpos);
 	return record;
 }
 

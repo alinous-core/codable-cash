@@ -8,14 +8,14 @@
 #include "btree/AbstractBtreeDataFactory.h"
 #include "btree/DataNode.h"
 #include "btree/BtreeStorage.h"
-
+#include "btree/AbstractBtreeKey.h"
 
 namespace alinous {
 
 AbstractBtreeDataFactory::~AbstractBtreeDataFactory() {
 }
 
-void AbstractBtreeDataFactory::registerData(const IBlockObject* data, DataNode* dataNode, BtreeStorage* store) const {
+void AbstractBtreeDataFactory::registerData(const AbstractBtreeKey* key, const IBlockObject* data, DataNode* dataNode, BtreeStorage* store) const {
 	uint64_t dataFpos = dataNode->getDataFpos();
 	if(dataFpos != 0){
 		store->removeData(dataFpos);

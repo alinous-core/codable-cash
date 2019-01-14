@@ -35,7 +35,7 @@ public:
 	void close() noexcept;
 
 	void addIndex(const BalanceUnit* fee, uint64_t fpos);
-
+	void removeIndex(const BalanceUnit* fee, uint64_t fpos);
 
 private:
 	File* baseDir;

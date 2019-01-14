@@ -8,7 +8,7 @@
 #ifndef MEMPOOL_MEMPOOL_H_
 #define MEMPOOL_MEMPOOL_H_
 
-
+#include <inttypes.h>
 
 namespace alinous {
 class File;
@@ -41,7 +41,7 @@ public:
 	TransactionRecord* findByTransactionId(const TransactionId* trxId);
 
 private:
-	TransactionRecord* __findByTransactionId(const TransactionId* trxId);
+	TransactionRecord* __findByTransactionId(const TransactionId* trxId, uint64_t* outfpos);
 
 private:
 	File* baseDir;

@@ -29,6 +29,9 @@ public:
 	virtual int compareTo(const AbstractBtreeKey* key) const noexcept;
 	virtual AbstractBtreeKey* clone() const noexcept;
 
+	uint64_t getFpos() const {
+		return fpos;
+	}
 protected:
 	uint64_t value;
 	uint64_t fpos;

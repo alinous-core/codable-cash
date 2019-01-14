@@ -77,4 +77,11 @@ void FeeIndex::addIndex(const BalanceUnit* fee, uint64_t fpos) {
 	this->btree->insert(&key, &value);
 }
 
+void FeeIndex::removeIndex(const BalanceUnit* fee, uint64_t fpos) {
+	FeeIndexKey key(fee->getAmount(), fpos);
+
+	this->btree->remove(&key);
+}
+
+
 } /* namespace codablecash */

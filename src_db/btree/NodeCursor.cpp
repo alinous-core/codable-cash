@@ -86,7 +86,7 @@ void NodeCursor::insert(const AbstractBtreeKey* key, const IBlockObject* data) {
 		DataNode* dnode = sameKeyDataNode->toDataNode();
 
 		const AbstractBtreeDataFactory* dfactory = this->store->getDataFactory();
-		dfactory->registerData(data, dnode, this->store);
+		dfactory->registerData(key, data, dnode, this->store);
 
 		this->store->updateNode(dnode);
 
@@ -103,7 +103,7 @@ void NodeCursor::insert(const AbstractBtreeKey* key, const IBlockObject* data) {
 	DataNode dataNode(key->clone());
 
 	const AbstractBtreeDataFactory* dfactory = this->store->getDataFactory();
-	dfactory->registerData(data, &dataNode, this->store);
+	dfactory->registerData(key, data, &dataNode, this->store);
 
 	uint64_t newDataNodeFpos = this->store->storeNode(&dataNode);
 
@@ -120,7 +120,7 @@ void NodeCursor::splitLeafNode(const AbstractBtreeKey* key, const IBlockObject* 
 	DataNode dataNode(key->clone());
 
 	const AbstractBtreeDataFactory* dfactory = this->store->getDataFactory();
-	dfactory->registerData(data, &dataNode, this->store);
+	dfactory->registerData(key, data, &dataNode, this->store);
 
 	this->store->storeNode(&dataNode);
 

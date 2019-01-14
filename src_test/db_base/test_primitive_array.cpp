@@ -53,3 +53,14 @@ TEST(RawArrayPrimitiveTestGroup, test02){
 	CHECK(p[8] == 0);
 }
 
+TEST(RawArrayPrimitiveTestGroup, testRemove){
+	RawArrayPrimitive<int> ar(4);
+
+	for(int i = 0; i != 8; ++i){
+		ar.addElement(i, 0);
+	}
+
+	ar.remove(4);
+
+}
+
