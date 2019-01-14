@@ -49,8 +49,8 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseTest"
 		COMMAND ${CMAKE_COMMAND} -DCMAKE_BINARY_DIR=${CMAKE_BINARY_DIR} -P ${PROJECT_SOURCE_DIR}/CMakeReport.cmake
 		
 		WORKING_DIRECTORY ${workdir}
-)
-add_dependencies(report lcov)
+		)
+	add_dependencies(report lcov)
 	
 endif()
 
