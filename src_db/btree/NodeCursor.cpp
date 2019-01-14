@@ -266,7 +266,7 @@ IBlockObject* NodeCursor::gotoKey(const AbstractBtreeKey* key) {
 
 	const NodeHandle* nh = current->gotoEqMoreThanKey(key);
 	if(nh == nullptr){
-
+		return nullptr;
 	}
 
 	NodePosition* nodePos = new NodePosition(nh->clone());

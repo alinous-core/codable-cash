@@ -225,6 +225,23 @@ TEST(TestBTreeGroup, add01){
 		}
 	}
 	{
+		ULongKey lkey(7);
+
+		BtreeScanner* scanner = btree.getScanner();
+		StackRelease<BtreeScanner> __st_scanner(scanner);
+
+		scanner->begin(&lkey);
+		int i = 3;
+		while(scanner->hasNext()){
+			const IBlockObject* obj = scanner->next();
+			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
+			uint64_t v = tmp->getValue();
+
+			uint64_t a = answers.get(i++);
+			CHECK(v == a)
+		}
+	}
+	{
 		ULongKey lkey(6);
 
 		BtreeScanner* scanner = btree.getScanner();
@@ -240,7 +257,15 @@ TEST(TestBTreeGroup, add01){
 			uint64_t a = answers.get(i++);
 			CHECK(v == a)
 		}
+	}
+	{
+		ULongKey lkey(1000);
 
+		BtreeScanner* scanner = btree.getScanner();
+		StackRelease<BtreeScanner> __st_scanner(scanner);
+
+		scanner->begin(&lkey);
+		CHECK(scanner->hasNext() == false)
 	}
 
 	{
