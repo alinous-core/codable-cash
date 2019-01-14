@@ -36,7 +36,7 @@ public:
 	virtual int compareTo(const AbstractBtreeKey* key) const noexcept;
 	virtual AbstractBtreeKey* clone() const noexcept;
 
-private:
+protected:
 	uint64_t value;
 };
 

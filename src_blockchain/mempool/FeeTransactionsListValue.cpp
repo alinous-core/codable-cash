@@ -74,4 +74,29 @@ bool FeeTransactionsListValue::contains(uint64_t value) const noexcept {
 	return false;
 }
 
+void FeeTransactionsListValue::remove(uint64_t value) noexcept {
+	int index = indexof(value);
+
+	this->list.remove(index);
+}
+
+int FeeTransactionsListValue::indexof(uint64_t value) const noexcept {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		uint64_t v = this->list.get(i);
+		if(v == value){
+			return i;
+		}
+	}
+
+	return -1;
+
+}
+
+bool FeeTransactionsListValue::isEmpty() const noexcept {
+	return this->list.size() == 0;
+}
+
 } /* namespace codablecash */
+
+

@@ -23,6 +23,7 @@
 
 #include "mempool/FeeTransactionsListValue.h"
 #include "mempool/TransactionIdKey.h"
+#include "mempool/FeeIndexKey.h"
 
 #include "btreekey/InfinityKey.h"
 
@@ -55,6 +56,23 @@ TEST(TestMempoolGroup, TransactionIdKey){
 	int res = key.compareTo(&infkey);
 	CHECK(res < 0)
 }
+
+TEST(TestMempoolGroup, FeeIndexKey){
+	FeeIndexKey key(10);
+	InfinityKey infkey;
+
+	int res = key.compareTo(&infkey);
+	CHECK(res < 0)
+}
+
+TEST(TestMempoolGroup, FeeTransactionsListValueIndexof){
+	FeeTransactionsListValue* baseValue = new FeeTransactionsListValue();
+	StackRelease<FeeTransactionsListValue> __st_base(baseValue);
+
+	int index = baseValue->indexof(10);
+	CHECK(index < 0)
+}
+
 
 TEST(TestMempoolGroup, list){
 	FeeTransactionsListValue list1(10);
@@ -93,7 +111,7 @@ TEST(TestMempoolGroup, init){
 }
 
 static void addTrx(MemPool* memPool, const NetworkShard* shard, uint64_t total, int numIn, int numOut, uint64_t fee) {
-	AbstractTransaction* trx = DummyTrxUtils::makeTrx(shard, 1000, 2, 3, 1);
+	AbstractTransaction* trx = DummyTrxUtils::makeTrx(shard, total, numIn, numOut, fee);
 	StackRelease<AbstractTransaction> __st_trx(trx);
 
 	memPool->addTransaction(trx);
@@ -153,7 +171,51 @@ TEST(TestMempoolGroup, addTrx){
 		CHECK(rec != nullptr)
 		delete rec;
 
-		memPool.removeTransaction(trxid);
+		bool result = memPool.removeTransaction(trxid);
+		CHECK(result)
+
+		rec = memPool.findByTransactionId(trxid);
+		CHECK(rec == nullptr)
+
+		result = memPool.removeTransaction(trxid);
+		CHECK(!result)
+	}
+
+	memPool.close();
+
+}
+
+TEST(TestMempoolGroup, removeAll){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+
+	NetworkShardsStatus* address = new NetworkShardsStatus(8);
+	StackRelease<NetworkShardsStatus> __st_address(address);
+	NetworkShard* shard = address->getShard(2);
+
+	MemPool memPool(baseDir);
+	memPool.init();
+
+	{
+		AbstractTransaction* trx = DummyTrxUtils::makeTrx(shard, 1000, 1, 1, 1);
+		StackRelease<AbstractTransaction> __st_trx(trx);
+
+		memPool.addTransaction(trx);
+
+		trx->updateTransactionId();
+		const TransactionId* trxid = trx->getTransactionId();
+		TransactionRecord* rec = memPool.findByTransactionId(trxid);
+		CHECK(rec != nullptr)
+		delete rec;
+
+		bool result = memPool.removeTransaction(trxid);
+		CHECK(result)
+
+		rec = memPool.findByTransactionId(trxid);
+		CHECK(rec == nullptr)
+
+		result = memPool.removeTransaction(trxid);
+		CHECK(!result)
 	}
 
 	memPool.close();

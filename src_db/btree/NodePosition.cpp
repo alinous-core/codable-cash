@@ -14,6 +14,7 @@
 #include "btree/TreeNode.h"
 #include "btree/DataNode.h"
 #include "btree/exceptions.h"
+#include "btree/AbstractBtreeDataFactory.h"
 
 #include "base/StackRelease.h"
 
@@ -217,7 +218,7 @@ bool NodePosition::removeChildNode(const AbstractBtreeKey* key, BtreeStorage* st
 	}
 
 	if(isLeaf()){
-		internalRemoveLeafChildNode(removePos, store);
+		internalRemoveLeafChildNode(removePos, store, key);
 	}
 	else{
 		internalRemoveChildNode(removePos, store);
@@ -257,15 +258,22 @@ void NodePosition::internalRemoveChildNode(int index, BtreeStorage* store) {
 	store->updateNode(this->node->getRef()->getNode());
 }
 
-void NodePosition::internalRemoveLeafChildNode(int index, BtreeStorage* store) {
+void NodePosition::internalRemoveLeafChildNode(int index, BtreeStorage* store, const AbstractBtreeKey* key) {
+	const AbstractBtreeDataFactory* dfactory = store->getDataFactory();
+
 	// delete cache use count
 	NodeHandle* nh = this->innerNodes->get(index);
 	DataNode* dnode = nh->toDataNode();
 
-	this->innerNodes->remove(index);
+	bool remove = dfactory->beforeRemove(dnode, store, key);
+	if(!remove){
+		return;
+	}
+
+	uint64_t dataFpos = dnode->getDataFpos();
 
 	// remove data
-	uint64_t dataFpos = dnode->getDataFpos();
+	this->innerNodes->remove(index);
 	delete nh;
 
 	store->removeData(dataFpos);

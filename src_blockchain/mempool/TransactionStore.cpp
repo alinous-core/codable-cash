@@ -105,6 +105,11 @@ void TransactionStore::create() noexcept(false) {
 
 	BlockFileStore tmpStore(dir, &fileName, this->cacheManager);
 	tmpStore.createStore(true, 1024);
+
+	tmpStore.open(false);
+	BlockHandle* handle = tmpStore.alloc(10);
+	delete handle;
+	tmpStore.close();
 }
 
 TransactionRecord* TransactionStore::loadRecord(uint64_t fpos) {
