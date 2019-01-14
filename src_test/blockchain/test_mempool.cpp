@@ -69,6 +69,13 @@ TEST(TestMempoolGroup, init){
 	}
 }
 
+static void addTrx(MemPool* memPool, const NetworkShard* shard, uint64_t total, int numIn, int numOut, uint64_t fee) {
+	AbstractTransaction* trx = DummyTrxUtils::makeTrx(shard, 1000, 2, 3, 1);
+	StackRelease<AbstractTransaction> __st_trx(trx);
+
+	memPool->addTransaction(trx);
+}
+
 TEST(TestMempoolGroup, addTrx){
 	File projectFolder = this->env->testCaseDir();
 	_ST(File, baseDir, projectFolder.get(L"store"))
@@ -80,13 +87,40 @@ TEST(TestMempoolGroup, addTrx){
 	MemPool memPool(baseDir);
 	memPool.init();
 
+	addTrx(&memPool, shard, 1000, 2, 3, 1);
+	addTrx(&memPool, shard, 1000, 2, 3, 1);
+	addTrx(&memPool, shard, 1000, 2, 3, 1);
+	addTrx(&memPool, shard, 1000, 2, 3, 1);
+	addTrx(&memPool, shard, 1000, 2, 3, 1);
+	addTrx(&memPool, shard, 1000, 2, 3, 1);
+	addTrx(&memPool, shard, 1000, 2, 3, 1);
+	addTrx(&memPool, shard, 1000, 2, 3, 1);
+	addTrx(&memPool, shard, 1000, 2, 3, 1);
+	addTrx(&memPool, shard, 1000, 2, 3, 1);
+
+	addTrx(&memPool, shard, 1000, 2, 3, 2);
+	addTrx(&memPool, shard, 1000, 2, 3, 2);
+	addTrx(&memPool, shard, 1000, 2, 3, 2);
+	addTrx(&memPool, shard, 1000, 2, 3, 2);
+	addTrx(&memPool, shard, 1000, 2, 3, 2);
+	addTrx(&memPool, shard, 1000, 2, 3, 2);
+
+	addTrx(&memPool, shard, 1000, 2, 3, 2);
+	addTrx(&memPool, shard, 1000, 2, 3, 3);
+	addTrx(&memPool, shard, 1000, 2, 3, 4);
+	addTrx(&memPool, shard, 1000, 2, 3, 5);
+	addTrx(&memPool, shard, 1000, 2, 3, 6);
+	addTrx(&memPool, shard, 1000, 2, 3, 7);
+	addTrx(&memPool, shard, 1000, 2, 3, 8);
+	addTrx(&memPool, shard, 1000, 2, 3, 9);
+	addTrx(&memPool, shard, 1000, 2, 3, 10);
+
 	{
-		AbstractTransaction* trx = DummyTrxUtils::makeTrx(shard, 1000, 2, 3, 1);
+		AbstractTransaction* trx = DummyTrxUtils::makeTrx(shard, 1000, 1, 1, 1);
 		StackRelease<AbstractTransaction> __st_trx(trx);
 
 		memPool.addTransaction(trx);
 	}
-
 
 	memPool.close();
 

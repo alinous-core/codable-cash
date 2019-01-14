@@ -43,7 +43,9 @@ int TransactionIdKey::compareTo(const AbstractBtreeKey* key) const noexcept {
 		return size - size2;
 	}*/
 
-	return Mem::memcmp(this->trxId->toArray(), key2->trxId->toArray(), size);
+	int diff =  Mem::memcmp(this->trxId->toArray(), key2->trxId->toArray(), size);
+
+	return diff;
 }
 
 AbstractBtreeKey* TransactionIdKey::clone() const noexcept {
