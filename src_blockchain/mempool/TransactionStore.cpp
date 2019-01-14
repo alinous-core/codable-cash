@@ -105,4 +105,12 @@ void TransactionStore::create() noexcept(false) {
 	tmpStore.createStore(true, 1024);
 }
 
+TransactionRecord* TransactionStore::loadRecord(uint64_t fpos) {
+	BlockHandle* handle = this->store->get(fpos);
+	StackRelease<BlockHandle> __st_handle(handle);
+
+
+
+}
+
 } /* namespace codablecash */

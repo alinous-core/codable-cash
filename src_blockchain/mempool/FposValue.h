@@ -23,6 +23,10 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	static FposValue* fromBinary(ByteBuffer* in);
 
+	uint64_t getFpos() const noexcept {
+		return fpos;
+	}
+
 private:
 	uint64_t fpos;
 };

@@ -18,7 +18,7 @@
 #include "bc_network/NetworkShard.h"
 #include "bc_network/NetworkShardsStatus.h"
 
-#include "blockchain/dummy/DummyTrxUtils.h"
+#include "blockchain/DummyTrxUtils.h"
 
 #include "mempool/FeeTransactionsListValue.h"
 
@@ -98,7 +98,10 @@ TEST(TestMempoolGroup, addTrx){
 	addTrx(&memPool, shard, 1000, 2, 3, 1);
 	addTrx(&memPool, shard, 1000, 2, 3, 1);
 	addTrx(&memPool, shard, 1000, 2, 3, 1);
+	addTrx(&memPool, shard, 1000, 2, 3, 1);
+	addTrx(&memPool, shard, 1000, 2, 3, 1);
 
+	addTrx(&memPool, shard, 1000, 2, 3, 2);
 	addTrx(&memPool, shard, 1000, 2, 3, 2);
 	addTrx(&memPool, shard, 1000, 2, 3, 2);
 	addTrx(&memPool, shard, 1000, 2, 3, 2);

@@ -21,6 +21,8 @@
 #include "btree/Btree.h"
 #include "btree/BtreeConfig.h"
 
+#include "base/StackRelease.h"
+
 namespace codablecash {
 
 TransactionIdIndex::TransactionIdIndex(File* baseDir, DiskCacheManager* cacheManager) {
@@ -78,6 +80,15 @@ void TransactionIdIndex::addIndex(const TransactionId* trxId, uint64_t fpos) {
 
 uint64_t TransactionIdIndex::findbyTransactionId(const TransactionId* trxId) const {
 	TransactionIdKey key(trxId);
+
+	IBlockObject* obj = this->btree->findByKey(&key);
+	if(obj == nullptr){
+		return 0;
+	}
+
+	StackRelease<IBlockObject> __st_obj(obj);
+	FposValue* fposValue = dynamic_cast<FposValue*>(obj);
+	return fposValue->getFpos();
 }
 
 } /* namespace codablecash */

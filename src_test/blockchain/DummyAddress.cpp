@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "blockchain/dummy/DummyAddress.h"
+#include "blockchain/DummyAddress.h"
 
 
 namespace codablecash {

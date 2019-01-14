@@ -99,9 +99,16 @@ void MemPool::addTransaction(const AbstractTransaction* trx) {
 	this->feeIndex->addIndex(fee, fpos);
 }
 
-FposValue* MemPool::findByTransactionId(const TransactionId* trxId) {
+TransactionRecord* MemPool::findByTransactionId(const TransactionId* trxId) {
 	StackReadLock __lock(this->rwLock);
 
+	uint64_t fpos = this->trxIdIndex->findbyTransactionId(trxId);
+	if(fpos == 0){
+		return nullptr;
+	}
+
+	TransactionRecord* record = this->store->loadRecord(fpos);
+	return record;
 }
 
 } /* namespace codablecash */

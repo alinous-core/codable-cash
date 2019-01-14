@@ -12,7 +12,7 @@
 #include "base_io/ReverseByteBuffer.h"
 #include "base/StackRelease.h"
 
-#include "blockchain/dummy/DummyAddress.h"
+#include "blockchain/DummyAddress.h"
 
 using namespace alinous;
 using namespace codablecash;

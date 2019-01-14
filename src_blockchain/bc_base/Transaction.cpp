@@ -70,7 +70,8 @@ void Transaction::setFee(uint64_t amount) noexcept {
 }
 
 int Transaction::binarySize() const {
-	int total = this->inputs->binarySize();
+	int total = sizeof(char);
+	total += this->inputs->binarySize();
 	total += this->outputs->binarySize();
 	total += this->fee->binarySize();
 
@@ -80,6 +81,8 @@ int Transaction::binarySize() const {
 }
 
 void Transaction::toBinary(ByteBuffer* out) const {
+	out->put(this->type);
+
 	this->inputs->toBinary(out);
 	this->outputs->toBinary(out);
 	this->fee->toBinary(out);
