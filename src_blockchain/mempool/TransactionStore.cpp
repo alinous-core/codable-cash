@@ -8,6 +8,8 @@
 #include "mempool/TransactionStore.h"
 #include "mempool/TransactionRecord.h"
 
+#include "bc_base/AbstractTransaction.h"
+
 #include "base_io/File.h"
 #include "base_io/ByteBuffer.h"
 
@@ -109,8 +111,10 @@ TransactionRecord* TransactionStore::loadRecord(uint64_t fpos) {
 	BlockHandle* handle = this->store->get(fpos);
 	StackRelease<BlockHandle> __st_handle(handle);
 
+	ByteBuffer* buff = handle->getBuffer();
 
-
+	TransactionRecord* rec = TransactionRecord::fromBinary(buff);
+	return rec;
 }
 
 } /* namespace codablecash */

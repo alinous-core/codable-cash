@@ -46,6 +46,7 @@ TEST(TestTransactionGroup, testMulformatException){
 
 TEST(TestTransactionGroup, factoryerror){
 	ByteBuffer* in = ByteBuffer::allocateWithEndian(4, true);
+	StackRelease<ByteBuffer> __st_buff(in);
 	in->put(-1);
 
 	Exception* ex = nullptr;

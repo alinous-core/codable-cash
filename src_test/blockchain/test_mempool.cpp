@@ -7,6 +7,7 @@
 
 #include "test_utils/t_macros.h"
 #include "mempool/MemPool.h"
+#include "mempool/TransactionRecord.h"
 
 #include "base_io/ByteBuffer.h"
 #include "base/StackRelease.h"
@@ -21,6 +22,9 @@
 #include "blockchain/DummyTrxUtils.h"
 
 #include "mempool/FeeTransactionsListValue.h"
+#include "mempool/TransactionIdKey.h"
+
+#include "btreekey/InfinityKey.h"
 
 using namespace alinous;
 using namespace codablecash;
@@ -33,6 +37,24 @@ TEST_GROUP(TestMempoolGroup) {
 		env->teardown();
 	}
 };
+
+TEST(TestMempoolGroup, TransactionIdKey){
+	NetworkShardsStatus* address = new NetworkShardsStatus(8);
+	StackRelease<NetworkShardsStatus> __st_address(address);
+	NetworkShard* shard = address->getShard(2);
+
+	AbstractTransaction* trx = DummyTrxUtils::makeTrx(shard, 1000, 2, 3, 1);
+	StackRelease<AbstractTransaction> __st_trx(trx);
+
+	trx->updateTransactionId();
+	const TransactionId* trxid = trx->getTransactionId();
+
+	TransactionIdKey key(trxid);
+	InfinityKey infkey;
+
+	int res = key.compareTo(&infkey);
+	CHECK(res < 0)
+}
 
 TEST(TestMempoolGroup, list){
 	FeeTransactionsListValue list1(10);
@@ -127,7 +149,9 @@ TEST(TestMempoolGroup, addTrx){
 
 		trx->updateTransactionId();
 		const TransactionId* trxid = trx->getTransactionId();
-		memPool.findByTransactionId(trxid);
+		TransactionRecord* rec = memPool.findByTransactionId(trxid);
+		CHECK(rec != nullptr)
+		delete rec;
 	}
 
 	memPool.close();
