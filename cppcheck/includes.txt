@@ -1,5 +1,8 @@
 src_ext/
 src/
+src_blockchain/
 src_db/
+src_smartcontract/
+src_smartcontract_vm/
 src_test/
 /usr/include/
