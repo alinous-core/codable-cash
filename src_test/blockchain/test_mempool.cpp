@@ -23,6 +23,7 @@
 
 #include "mempool/FeeTransactionsListValue.h"
 #include "mempool/TransactionIdKey.h"
+#include "mempool/FeeIndexKey.h"
 
 #include "btreekey/InfinityKey.h"
 
@@ -50,6 +51,14 @@ TEST(TestMempoolGroup, TransactionIdKey){
 	const TransactionId* trxid = trx->getTransactionId();
 
 	TransactionIdKey key(trxid);
+	InfinityKey infkey;
+
+	int res = key.compareTo(&infkey);
+	CHECK(res < 0)
+}
+
+TEST(TestMempoolGroup, FeeIndexKey){
+	FeeIndexKey key(10);
 	InfinityKey infkey;
 
 	int res = key.compareTo(&infkey);

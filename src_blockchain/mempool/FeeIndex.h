@@ -36,6 +36,7 @@ public:
 
 	void addIndex(const BalanceUnit* fee, uint64_t fpos);
 
+
 private:
 	File* baseDir;
 	DiskCacheManager* cacheManager;

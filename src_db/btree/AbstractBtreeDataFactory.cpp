@@ -25,4 +25,8 @@ void AbstractBtreeDataFactory::registerData(const IBlockObject* data, DataNode* 
 	dataNode->setDataFpos(dataFpos);
 }
 
+bool AbstractBtreeDataFactory::beforeRemove(DataNode* dataNode, BtreeStorage* store, const AbstractBtreeKey* key) const {
+	return true;
+}
+
 } /* namespace alinous */

@@ -60,7 +60,7 @@ public:
 	static void checkNoNull(NodeHandle* nodeHandle, const char* srcfile, int srcline) noexcept(false);
 private:
 	void internalAddNode(int index, uint64_t fpos);
-	void internalRemoveLeafChildNode(int index, BtreeStorage* store);
+	void internalRemoveLeafChildNode(int index, BtreeStorage* store, const AbstractBtreeKey* key);
 	void internalRemoveChildNode(int index, BtreeStorage* store);
 	void removeInnerNodeFpos(int index) noexcept;
 	int indexof(const AbstractBtreeKey* key) const;

@@ -21,11 +21,11 @@ FeeTransactionsListValueFactory::FeeTransactionsListValueFactory() {
 FeeTransactionsListValueFactory::~FeeTransactionsListValueFactory() {
 }
 
-IBlockObject* codablecash::FeeTransactionsListValueFactory::makeDataFromBinary(ByteBuffer* in) {
+IBlockObject* FeeTransactionsListValueFactory::makeDataFromBinary(ByteBuffer* in) {
 	return FeeTransactionsListValue::fromBinary(in);
 }
 
-void codablecash::FeeTransactionsListValueFactory::registerData(const IBlockObject* data, DataNode* dataNode,
+void FeeTransactionsListValueFactory::registerData(const IBlockObject* data, DataNode* dataNode,
 		BtreeStorage* store) const {
 	uint64_t dataFpos = dataNode->getDataFpos();
 	if(dataFpos != 0){
@@ -43,6 +43,11 @@ void codablecash::FeeTransactionsListValueFactory::registerData(const IBlockObje
 
 	dataFpos = store->storeData(data);
 	dataNode->setDataFpos(dataFpos);
+}
+
+bool FeeTransactionsListValueFactory::beforeRemove(DataNode* dataNode, BtreeStorage* store, const AbstractBtreeKey* key) const {
+	// FIXME
+	return true;
 }
 
 } /* namespace codablecash */
