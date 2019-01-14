@@ -81,6 +81,8 @@ void Btree::insert(const AbstractBtreeKey* key, const IBlockObject* data) {
 	cursor.insert(key, data);
 }
 
+
+
 BtreeScanner* Btree::getScanner() {
 	NodeHandle* rootNode = this->store->loadRoot();
 	NodeCursor* cursor = new NodeCursor(rootNode, this->store, this->config->nodeNumber);

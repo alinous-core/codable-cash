@@ -216,13 +216,31 @@ TEST(TestBTreeGroup, add01){
 		scanner->begin();
 		int i = 0;
 		while(scanner->hasNext()){
-			IBlockObject* obj = scanner->next();
-			TempValue* tmp = dynamic_cast<TempValue*>(obj);
+			const IBlockObject* obj = scanner->next();
+			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
 			uint64_t v = tmp->getValue();
 
 			uint64_t a = answers.get(i++);
 			CHECK(v == a)
 		}
+	}
+	{
+		ULongKey lkey(6);
+
+		BtreeScanner* scanner = btree.getScanner();
+		StackRelease<BtreeScanner> __st_scanner(scanner);
+
+		scanner->begin(&lkey);
+		int i = 2;
+		while(scanner->hasNext()){
+			const IBlockObject* obj = scanner->next();
+			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
+			uint64_t v = tmp->getValue();
+
+			uint64_t a = answers.get(i++);
+			CHECK(v == a)
+		}
+
 	}
 
 	{
@@ -295,8 +313,8 @@ TEST(TestBTreeGroup, add02){
 		scanner->begin();
 		int i = 0;
 		while(scanner->hasNext()){
-			IBlockObject* obj = scanner->next();
-			TempValue* tmp = dynamic_cast<TempValue*>(obj);
+			const IBlockObject* obj = scanner->next();
+			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
 			uint64_t v = tmp->getValue();
 
 			uint64_t a = answers.get(i++);
@@ -387,8 +405,8 @@ TEST(TestBTreeGroup, remove01){
 			scanner->begin();
 			int i = 0;
 			while(scanner->hasNext()){
-				IBlockObject* obj = scanner->next();
-				TempValue* tmp = dynamic_cast<TempValue*>(obj);
+				const IBlockObject* obj = scanner->next();
+				const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
 				uint64_t v = tmp->getValue();
 
 				uint64_t a = answers.get(i++);
@@ -449,8 +467,8 @@ TEST(TestBTreeGroup, remove02){
 		scanner->begin();
 		int i = 0;
 		while(scanner->hasNext()){
-			IBlockObject* obj = scanner->next();
-			TempValue* tmp = dynamic_cast<TempValue*>(obj);
+			const IBlockObject* obj = scanner->next();
+			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
 			uint64_t v = tmp->getValue();
 
 			uint64_t a = answers.get(i++);

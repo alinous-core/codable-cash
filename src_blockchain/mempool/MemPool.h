@@ -23,6 +23,8 @@ class TransactionStore;
 class FeeIndex;
 class TransactionIdIndex;
 class AbstractTransaction;
+class FposValue;
+class TransactionId;
 
 class MemPool {
 public:
@@ -34,6 +36,7 @@ public:
 	void close();
 
 	void addTransaction(const AbstractTransaction* trx);
+	FposValue* findByTransactionId(const TransactionId* trxId);
 
 private:
 	File* baseDir;

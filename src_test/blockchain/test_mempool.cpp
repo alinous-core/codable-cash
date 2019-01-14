@@ -12,6 +12,7 @@
 #include "base/StackRelease.h"
 
 #include "bc_base/Transaction.h"
+#include "bc_base/TransactionId.h"
 #include "bc_base/BlockchainAddress.h"
 #include "bc_base/BalanceUnit.h"
 #include "bc_network/NetworkShard.h"
@@ -120,6 +121,10 @@ TEST(TestMempoolGroup, addTrx){
 		StackRelease<AbstractTransaction> __st_trx(trx);
 
 		memPool.addTransaction(trx);
+
+		trx->updateTransactionId();
+		const TransactionId* trxid = trx->getTransactionId();
+		memPool.findByTransactionId(trxid);
 	}
 
 	memPool.close();

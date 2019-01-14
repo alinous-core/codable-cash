@@ -69,11 +69,15 @@ void TransactionIdIndex::close() noexcept {
 	this->btree->close();
 }
 
-void codablecash::TransactionIdIndex::addIndex(const TransactionId* trxId, uint64_t fpos) {
+void TransactionIdIndex::addIndex(const TransactionId* trxId, uint64_t fpos) {
 	TransactionIdKey key(trxId);
 	FposValue value(fpos);
 
 	this->btree->insert(&key, &value);
+}
+
+uint64_t TransactionIdIndex::findbyTransactionId(const TransactionId* trxId) const {
+	TransactionIdKey key(trxId);
 }
 
 } /* namespace codablecash */

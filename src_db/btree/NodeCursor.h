@@ -38,6 +38,7 @@ public:
 	IBlockObject* gotoFirst();
 	IBlockObject* getNext();
 
+	IBlockObject* gotoKey(const AbstractBtreeKey* key);
 	NodePosition* gotoLeaf(const AbstractBtreeKey* key);
 
 	bool remove(const AbstractBtreeKey* key);

@@ -259,6 +259,24 @@ AbstractBtreeKey* NodeCursor::setupTwoLists(ArrayList<NodeHandle>* list, Abstrac
 	return allList.get(list1Size - 1)->getKey()->clone();
 }
 
+IBlockObject* NodeCursor::gotoKey(const AbstractBtreeKey* key) {
+	gotoLeaf(key);
+
+	NodePosition* current = top();
+
+	const NodeHandle* nh = current->gotoEqMoreThanKey(key);
+	if(nh == nullptr){
+
+	}
+
+	NodePosition* nodePos = new NodePosition(nh->clone());
+	push(nodePos);
+
+	uint64_t dataFpos = nodePos->nextData();
+	IBlockObject* obj = store->loadData(dataFpos);
+
+	return obj;
+}
 
 NodePosition* NodeCursor::gotoLeaf(const AbstractBtreeKey* key) {
 	NodePosition* current = top();
@@ -278,6 +296,7 @@ NodePosition* NodeCursor::gotoLeaf(const AbstractBtreeKey* key) {
 
 	return current;
 }
+
 
 IBlockObject* NodeCursor::gotoFirst() {
 	NodePosition* current = top();
