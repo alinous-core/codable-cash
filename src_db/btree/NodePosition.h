@@ -53,6 +53,7 @@ public:
 	bool hasNext();
 
 	const NodeHandle* gotoEqMoreThanKey(const AbstractBtreeKey* key);
+	const NodeHandle* gotoEqKey(const AbstractBtreeKey* key);
 
 	bool removeChildNode(const AbstractBtreeKey* key, BtreeStorage* store);
 

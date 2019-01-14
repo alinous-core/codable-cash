@@ -41,6 +41,7 @@ public:
 	IBlockObject* gotoKey(const AbstractBtreeKey* key);
 	NodePosition* gotoLeaf(const AbstractBtreeKey* key);
 
+	IBlockObject* find(const AbstractBtreeKey* key);
 	bool remove(const AbstractBtreeKey* key);
 
 	static void checkIsDataNode(NodeHandle* nodeHandle, const char* srcfile, int srcline);

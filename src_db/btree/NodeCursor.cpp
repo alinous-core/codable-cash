@@ -380,6 +380,21 @@ void NodeCursor::checkIsDataNode(NodeHandle* nodeHandle, const char* srcfile, in
 	}
 }
 
+IBlockObject* NodeCursor::find(const AbstractBtreeKey* key) {
+	NodePosition* leafNode = gotoLeaf(key);
+
+	const NodeHandle* nh = leafNode->gotoEqKey(key);
+	if(nh == nullptr){
+		return nullptr;
+	}
+
+	DataNode* dataNode = nh->toDataNode();
+
+	uint64_t dataFpos = dataNode->getDataFpos();
+
+	return this->store->loadData(dataFpos);
+}
+
 bool NodeCursor::remove(const AbstractBtreeKey* key) {
 	NodePosition* leafNode = gotoLeaf(key);
 

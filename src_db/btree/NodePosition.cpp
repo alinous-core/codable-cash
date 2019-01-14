@@ -308,4 +308,20 @@ const NodeHandle* NodePosition::gotoEqMoreThanKey(const AbstractBtreeKey* key) {
 	return nullptr;
 }
 
+const NodeHandle* NodePosition::gotoEqKey(const AbstractBtreeKey* key) {
+	int maxLoop = this->innerCount;
+
+	for(int i = 0; i != maxLoop; ++i){
+		this->pos++;
+		NodeHandle* nh = this->innerNodes->get(i);
+		if(key->compareTo(nh->getKey()) == 0){
+			return nh;
+		}
+	}
+
+	return nullptr;
+}
+
 } /* namespace alinous */
+
+

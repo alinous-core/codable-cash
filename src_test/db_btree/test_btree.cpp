@@ -275,6 +275,20 @@ TEST(TestBTreeGroup, add01){
 		scanner->hasNext();
 	}
 
+	{
+		ULongKey lkey(6);
+		IBlockObject* obj = btree.findByKey(&lkey);
+		const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
+		uint64_t v = tmp->getValue();
+		CHECK(v == 6)
+
+		delete obj;
+
+		ULongKey lkey2(7);
+		obj = btree.findByKey(&lkey2);
+		CHECK(obj == nullptr)
+	}
+
 	btree.close();
 }
 
