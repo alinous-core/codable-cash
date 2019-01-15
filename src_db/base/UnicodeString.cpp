@@ -365,10 +365,10 @@ UnicodeString* UnicodeString::substring(int begin, int end) const noexcept
 
 	return newStr;
 }
-int UnicodeString::indexOf(UnicodeString* str) const noexcept {
+int UnicodeString::indexOf(const UnicodeString* str) const noexcept {
 	return indexOf(str, 0);
 }
-int UnicodeString::indexOf(UnicodeString* str, int lastIndex) const noexcept {
+int UnicodeString::indexOf(const UnicodeString* str, int lastIndex) const noexcept {
 	wchar_t ch =str->charAt(0);
 	int index = indexOf(ch, lastIndex);
 	while(index >= 0){

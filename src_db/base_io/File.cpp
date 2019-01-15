@@ -108,7 +108,7 @@ UnicodeString* File::__getAbsolutePath() const noexcept {
 }
 
 bool File::isAbsolute() const noexcept {
-	return this->path->startsWith(&pathSeparator);
+	return this->path->startsWith(&pathSeparator) && this->path->indexOf(&DDOT) < 0;
 }
 
 bool File::mkdirs() const noexcept {

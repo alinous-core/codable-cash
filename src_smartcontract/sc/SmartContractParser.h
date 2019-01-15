@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#ifndef SC_PARSER_SMARTCONTRACTPARSER_H_
-#define SC_PARSER_SMARTCONTRACTPARSER_H_
+#ifndef SC_SMARTCONTRACTPARSER_H_
+#define SC_SMARTCONTRACTPARSER_H_
 
 namespace alinous {
 class File;
@@ -16,13 +16,15 @@ class File;
 namespace codablecash {
 using namespace alinous;
 
-
 class SmartContractParser {
 public:
-	SmartContractParser();
+	SmartContractParser(const File* file);
 	virtual ~SmartContractParser();
+
+private:
+	File* file;
 };
 
 } /* namespace codablecash */
 
-#endif /* SC_PARSER_SMARTCONTRACTPARSER_H_ */
+#endif /* SC_SMARTCONTRACTPARSER_H_ */

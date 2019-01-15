@@ -5,17 +5,17 @@
  *      Author: iizuka
  */
 
-#include "sc_parser/SmartContractParser.h"
+#include "sc/SmartContractParser.h"
+#include "base_io/File.h"
 
 namespace codablecash {
 
-SmartContractParser::SmartContractParser() {
-	// TODO Auto-generated constructor stub
-
+SmartContractParser::SmartContractParser(const File* file) {
+	this->file = new File(*file);
 }
 
 SmartContractParser::~SmartContractParser() {
-	// TODO Auto-generated destructor stub
+	delete file;
 }
 
 } /* namespace codablecash */
