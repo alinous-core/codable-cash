@@ -2,7 +2,7 @@
 /* JavaCCOptions:STATIC=false,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 #include "TokenMgrError.h"
 
-namespace alinous {
+namespace alinouslang {
 
   /**
    * Returns a detailed message for the Error when it is thrown by the
@@ -113,4 +113,4 @@ JJSimpleString addUnicodeEscapes(const JJString& str) {
 }
 
 }
-/* JavaCC - OriginalChecksum=761da10b85a14829fac5913f6fd00c52 (do not edit this line) */
+/* JavaCC - OriginalChecksum=5f8e7de19ce693b93ead1a2a6d59d379 (do not edit this line) */

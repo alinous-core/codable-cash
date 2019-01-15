@@ -6,7 +6,7 @@
 #include "JavaCC.h"
 
 
-namespace alinous {
+namespace alinouslang {
 
 enum LexerErrors {
   /**
@@ -88,4 +88,4 @@ public:
 }
 
 #endif
-/* JavaCC - OriginalChecksum=93f7ec24b247b093d8f1d0113b945222 (do not edit this line) */
+/* JavaCC - OriginalChecksum=66b57c6c78f043461144c23df27fede0 (do not edit this line) */

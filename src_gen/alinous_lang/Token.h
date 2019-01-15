@@ -6,7 +6,7 @@
 #include "JavaCC.h"
 
 
-namespace alinous {
+namespace alinouslang {
 
 /**
  * Describes the input token stream.
@@ -114,4 +114,4 @@ class Token
 }
 
 #endif
-/* JavaCC - OriginalChecksum=9e003d820f8e2cdd49bf502b9490cf1a (do not edit this line) */
+/* JavaCC - OriginalChecksum=cf01621002d247f46ff1d4111502fdb2 (do not edit this line) */

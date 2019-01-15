@@ -9,7 +9,7 @@
 #define INITIAL_BUFFER_SIZE 4096
 #endif
 
-namespace alinous {
+namespace alinouslang {
 
 /**
  * This class describes a character stream that maintains line and
@@ -266,4 +266,4 @@ protected:
 }
 
 #endif
-/* JavaCC - OriginalChecksum=7aa5c0b0530c527f7ddc9755c6197ab6 (do not edit this line) */
+/* JavaCC - OriginalChecksum=2cb052151de78c04201fc2db451a257f (do not edit this line) */

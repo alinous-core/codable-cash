@@ -2,7 +2,7 @@
 /* JavaCCOptions:STATIC=false,SUPPORT_CLASS_VISIBILITY_PUBLIC=true,TOKEN_INCLUDES=,TOKEN_EXTENDS= */
 #include "Token.h"
 
-namespace alinous {
+namespace alinouslang {
 
 /**
  * Describes the input token stream.
@@ -94,4 +94,4 @@ namespace alinous {
   }
 
 }
-/* JavaCC - OriginalChecksum=d9ff21148b03f00a65a762de12671149 (do not edit this line) */
+/* JavaCC - OriginalChecksum=af81fd8c811473fc8f715408750b72e6 (do not edit this line) */

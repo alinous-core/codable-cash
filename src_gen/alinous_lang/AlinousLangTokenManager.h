@@ -8,7 +8,7 @@
 #include "TokenManager.h"
 #include "AlinousLangConstants.h"
 
-namespace alinous {
+namespace alinouslang {
 class AlinousLang;
 
 /** Token Manager. */

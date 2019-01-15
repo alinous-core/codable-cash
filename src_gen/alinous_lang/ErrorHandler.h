@@ -8,7 +8,7 @@
 #include "JavaCC.h"
 #include "Token.h"
 
-namespace alinous {
+namespace alinouslang {
 
 JJSimpleString addUnicodeEscapes(const JJString& str);
 
@@ -76,4 +76,4 @@ JJSimpleString addUnicodeEscapes(const JJString& str);
 
 #endif
 
-/* JavaCC - OriginalChecksum=8ea46cce69182b6e58628bcbcb9cde64 (do not edit this line) */
+/* JavaCC - OriginalChecksum=4700bceaa05d96ad5ea6e681b5582b65 (do not edit this line) */

@@ -3,7 +3,7 @@
 #include "ParseException.h"
 
 
-namespace alinous {
+namespace alinouslang {
 /**
  * This exception is thrown when parse errors are encountered.
  * You can explicitly create objects of this exception type by
@@ -42,6 +42,7 @@ namespace alinous {
    */
 
   ParseException::ParseException() {
+	  // test
   }
 
   /** Constructor with message. */
@@ -179,4 +180,4 @@ namespace alinous {
    }
 
 }
-/* JavaCC - OriginalChecksum=d023ba8279041f207dfad487ffc5d419 (do not edit this line) */
+/* JavaCC - OriginalChecksum=1b215af1167c71ae8e05962f18b6996f (do not edit this line) */

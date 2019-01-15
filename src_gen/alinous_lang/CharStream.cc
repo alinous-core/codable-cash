@@ -31,7 +31,7 @@ class StringReaderStream : public ReaderStream {
 };
 }
 
-namespace alinous {
+namespace alinouslang {
 void CharStream::ReInit(const JJString& str, int startline,
                         int startcolumn, int buffersize) {
   StringReaderStream *stream = new StringReaderStream(str);
@@ -207,4 +207,4 @@ void CharStream::UpdateLineColumn(JJChar c) {
 }
 
 }
-/* JavaCC - OriginalChecksum=df4e913b9eb2a83e2c79050b837133b4 (do not edit this line) */
+/* JavaCC - OriginalChecksum=f53dd0dfd20ca89d883b884bc399c543 (do not edit this line) */

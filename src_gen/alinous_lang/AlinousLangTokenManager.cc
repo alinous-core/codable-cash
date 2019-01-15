@@ -1,7 +1,7 @@
 /* AlinousLangTokenManager.cc */
 #include "AlinousLangTokenManager.h"
 #include "TokenMgrError.h"
-namespace alinous {
+namespace alinouslang {
 static const int jjnextStates[] = {0
 };
 static JJChar jjstrLiteralChars_0[] = {0};

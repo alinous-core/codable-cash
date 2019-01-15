@@ -6,7 +6,7 @@
 #include "TokenManager.h"
 #include "AlinousLangConstants.h"
 #include "ErrorHandler.h"
-namespace alinous {
+namespace alinouslang {
   struct JJCalls {
     int        gen;
     int        arg;

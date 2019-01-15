@@ -7,7 +7,7 @@
 #include "Token.h"
 
 
-namespace alinous {
+namespace alinouslang {
 /**
  * This exception is thrown when parse errors are encountered.
  * You can explicitly create objects of this exception type by
@@ -96,4 +96,4 @@ class ParseException {
 }
 
 #endif
-/* JavaCC - OriginalChecksum=aead75d4b36a4c8cfa328947fa94bb34 (do not edit this line) */
+/* JavaCC - OriginalChecksum=d5be7579915a656b4729ae8033b0980e (do not edit this line) */

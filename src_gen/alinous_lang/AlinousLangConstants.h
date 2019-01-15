@@ -8,7 +8,7 @@
 #define ALINOUSLANGCONSTANTS_H
 #include "JavaCC.h"
 
-namespace alinous {
+namespace alinouslang {
   /** End of File. */
 const  int _EOF = 0;
 

@@ -1,7 +1,7 @@
 /* AlinousLang.cc */
 #include "AlinousLang.h"
 #include "TokenMgrError.h"
-namespace alinous {
+namespace alinouslang {
 
   /** Constructor with user supplied TokenManager. */
 

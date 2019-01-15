@@ -3,7 +3,7 @@ options {
 JAVA_UNICODE_ESCAPE = false;
 UNICODE_INPUT = true;
 OUTPUT_LANGUAGE = "c++";
-NAMESPACE = "alinous";
+NAMESPACE = "alinouslang";
 OUTPUT_DIRECTORY = "src_gen/alinous_lang/";
 FORCE_LA_CHECK = true;
 //PARSER_INCLUDES = "test.h";
