@@ -7,6 +7,7 @@
 
 #include "sc/SmartContractParser.h"
 #include "sc/ParserReaderStream.h"
+#include "sc/ParseErrorHandler.h"
 
 #include "base_io/File.h"
 #include "base_io_stream/FileInputStream.h"
@@ -25,6 +26,7 @@ SmartContractParser::SmartContractParser(const File* file) {
 	this->charStream = nullptr;
 	this->tokenManager = nullptr;
 	this->alinousLang = nullptr;
+	this->parserHandler = nullptr;
 }
 
 SmartContractParser::~SmartContractParser() {
@@ -58,9 +60,15 @@ CompilationUnit* SmartContractParser::parse() {
 
 	this->tokenManager = new AlinousLangTokenManager(charStream);
 
+	this->parserHandler = new ParseErrorHandler();
 	this->alinousLang = new AlinousLang(tokenManager);
+	this->alinousLang->setErrorHandler(this->parserHandler);
 
 	return alinousLang->compilationUnit();
+}
+
+bool SmartContractParser::hasError() const noexcept {
+	return this->parserHandler->hasError();
 }
 
 } /* namespace codablecash */

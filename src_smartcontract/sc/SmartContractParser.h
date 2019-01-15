@@ -25,6 +25,7 @@ using namespace alinouslang;
 
 class CompilationUnit;
 class ParserReaderStream;
+class ParseErrorHandler;
 
 class SmartContractParser {
 public:
@@ -32,6 +33,7 @@ public:
 	virtual ~SmartContractParser();
 
 	CompilationUnit* parse();
+	bool hasError() const noexcept;
 private:
 	File* file;
 	FileInputStream* inStream;
@@ -39,6 +41,8 @@ private:
 	CharStream* charStream;
 	AlinousLangTokenManager* tokenManager;
 	AlinousLang* alinousLang;
+
+	ParseErrorHandler* parserHandler;
 };
 
 } /* namespace codablecash */
