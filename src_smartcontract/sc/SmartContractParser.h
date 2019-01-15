@@ -18,9 +18,10 @@ using namespace alinous;
 
 class SmartContractParser {
 public:
-	SmartContractParser(const File* file);
+	explicit SmartContractParser(const File* file);
 	virtual ~SmartContractParser();
 
+	void parse();
 private:
 	File* file;
 };

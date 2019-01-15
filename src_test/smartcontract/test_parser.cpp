@@ -37,4 +37,5 @@ TEST(TestParserGroup, parseTest){
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/hello.alns"))
 
 	SmartContractParser parser(sourceFile);
+	parser.parse();
 }
