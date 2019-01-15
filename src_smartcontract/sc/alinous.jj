@@ -350,14 +350,33 @@ MORE:
 * Alinous Language Starts
 */
 
+
+
 ClassDeclare* classDeclare() :
 {
 	ClassDeclare* clazz = new ClassDeclare();
 	Token* cls = nullptr;
 	Token* name = nullptr;
+	ClassDeclareBlock* block = nullptr;
+	
 }
 {
-	cls="class" name=<IDENTIFIER> "{" "}" {
+	cls="class" name=<IDENTIFIER> block=classDeclareBlock() {
+	    clazz->setPositions(cls, block);
+	    clazz->setBlock(block);
 		return clazz;
+	}
+}
+
+ClassDeclareBlock* classDeclareBlock() :
+{
+	ClassDeclareBlock* block = new ClassDeclareBlock();
+	Token* begin, *end;
+}
+{
+	begin="{" end="}"
+	{
+	    block->setPositions(_P(begin, end));
+		return block;
 	}
 }

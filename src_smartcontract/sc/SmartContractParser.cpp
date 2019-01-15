@@ -38,6 +38,7 @@ void SmartContractParser::parse() {
 	AlinousLangTokenManager tokenManager(&charStream);
 
 	AlinousLang alinousLang(&tokenManager);
+
 	delete alinousLang.classDeclare();
 
 }

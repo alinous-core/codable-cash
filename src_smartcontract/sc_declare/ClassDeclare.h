@@ -8,15 +8,21 @@
 #ifndef SC_DECLARE_CLASSDECLARE_H_
 #define SC_DECLARE_CLASSDECLARE_H_
 
+#include "sc/CodeElement.h"
 
 namespace codablecash {
 
-class ClassDeclare {
+class ClassDeclareBlock;
+
+class ClassDeclare : public CodeElement {
 public:
 	ClassDeclare();
 	virtual ~ClassDeclare();
 
+	void setBlock(ClassDeclareBlock* block);
 
+private:
+	ClassDeclareBlock* block;
 };
 
 } /* namespace codablecash */

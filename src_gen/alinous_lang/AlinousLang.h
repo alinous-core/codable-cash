@@ -20,7 +20,10 @@ namespace alinouslang {
 class AlinousLang {
 public:
 ClassDeclare
+
+
             * classDeclare();
+ClassDeclareBlock                 * classDeclareBlock();
 
 public: 
   void setErrorHandler(ErrorHandler *eh) {

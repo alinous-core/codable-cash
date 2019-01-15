@@ -8,9 +8,12 @@ namespace alinouslang {
 
 
 ClassDeclare
+
+
             * AlinousLang::classDeclare() {ClassDeclare* clazz = new ClassDeclare();
         Token* cls = nullptr;
         Token* name = nullptr;
+        ClassDeclareBlock* block = nullptr;
     if (!hasError) {
     cls = jj_consume_token(CLASS);
     }
@@ -18,13 +21,25 @@ ClassDeclare
     name = jj_consume_token(IDENTIFIER);
     }
     if (!hasError) {
-    jj_consume_token(L_BRACE);
+    block = classDeclareBlock();
+    }
+clazz->setPositions(cls, block);
+            clazz->setBlock(block);
+                return clazz;
+assert(false);
+}
+
+
+ClassDeclareBlock                 * AlinousLang::classDeclareBlock() {ClassDeclareBlock* block = new ClassDeclareBlock();
+        Token* begin, *end;
+    if (!hasError) {
+    begin = jj_consume_token(L_BRACE);
     }
     if (!hasError) {
-    jj_consume_token(R_BRACE);
+    end = jj_consume_token(R_BRACE);
     }
-    cls->image;
-return clazz;
+block->setPositions(_P(begin, end));
+                return block;
 assert(false);
 }
 
