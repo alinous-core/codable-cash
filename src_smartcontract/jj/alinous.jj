@@ -1,4 +1,3 @@
-
 options {
 JAVA_UNICODE_ESCAPE = true;
 UNICODE_INPUT = true;
@@ -15,6 +14,10 @@ PARSER_BEGIN(AlinousLang)
 // write includes here
 
 PARSER_END(AlinousLang)
+
+/******************************************************************************************
+* Alinous Language Lex
+*/
 
 SKIP :
 {
@@ -356,7 +359,8 @@ CompilationUnit* compilationUnit() :
 	ClassDeclare* clazz = nullptr;
 }
 {
-	(	    clazz=classDeclare() {
+	(
+	    clazz=classDeclare() {
 	        unit->setPosition(clazz);
 			unit->addClassDeclare(clazz);
 	    }
@@ -395,3 +399,4 @@ ClassDeclareBlock* classDeclareBlock() :
 		return block;
 	}
 }
+

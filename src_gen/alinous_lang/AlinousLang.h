@@ -31,13 +31,6 @@ ClassDeclareBlock                 * classDeclareBlock();
  { jj_save(0, xla); }
   }
 
- inline bool jj_3_1()
- {
-    if (jj_done) return true;
-    if (jj_3R_2()) return true;
-    return false;
-  }
-
  inline bool jj_3R_3()
  {
     if (jj_done) return true;
@@ -51,6 +44,13 @@ ClassDeclareBlock                 * classDeclareBlock();
     if (jj_scan_token(CLASS)) return true;
     if (jj_scan_token(IDENTIFIER)) return true;
     if (jj_3R_3()) return true;
+    return false;
+  }
+
+ inline bool jj_3_1()
+ {
+    if (jj_done) return true;
+    if (jj_3R_2()) return true;
     return false;
   }
 
