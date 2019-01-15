@@ -6,16 +6,22 @@
  */
 
 #include "sc_declare/ClassDeclare.h"
+#include "sc_declare/ClassDeclareBlock.h"
 
 namespace codablecash {
 
 ClassDeclare::ClassDeclare() {
-	// TODO Auto-generated constructor stub
-
+	this->block = nullptr;
 }
 
 ClassDeclare::~ClassDeclare() {
-	// TODO Auto-generated destructor stub
+	if(this->block != nullptr){
+		delete this->block;
+	}
+}
+
+void ClassDeclare::setBlock(ClassDeclareBlock* block) {
+	this->block = block;
 }
 
 } /* namespace codablecash */

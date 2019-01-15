@@ -8,6 +8,7 @@
 #include "test_utils/t_macros.h"
 
 #include "sc/SmartContractParser.h"
+#include "sc/CompilationUnit.h"
 
 using namespace alinous;
 using namespace codablecash;
@@ -37,5 +38,6 @@ TEST(TestParserGroup, parseTest){
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/hello.alns"))
 
 	SmartContractParser parser(sourceFile);
-	parser.parse();
+	CompilationUnit* unit = parser.parse();
+	delete unit;
 }

@@ -12,9 +12,13 @@
 #include "sc/CompilationUnit.h"
 
 #include "sc_declare/ClassDeclare.h"
+#include "sc_declare/ClassDeclareBlock.h"
 
 namespace alinouslang {
 using namespace codablecash;
 }
+
+#define _P(tokenBegin, tokenEnd) tokenBegin->beginLine, tokenBegin->beginColumn, tokenEnd->endLine, tokenEnd->endColumn
+#define _PO()
 
 #endif /* SC_ALINOUSLANG_H_ */

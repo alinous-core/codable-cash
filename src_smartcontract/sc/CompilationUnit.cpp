@@ -6,16 +6,20 @@
  */
 
 #include "sc/CompilationUnit.h"
+#include "sc_declare/ClassDeclare.h"
 
 namespace codablecash {
 
-CompilationUnit::CompilationUnit() {
-	// TODO Auto-generated constructor stub
+CompilationUnit::CompilationUnit() : classes(4) {
 
 }
 
 CompilationUnit::~CompilationUnit() {
-	// TODO Auto-generated destructor stub
+	this->classes.deleteElements();
+}
+
+void CompilationUnit::addClassDeclare(ClassDeclare* clazz) {
+	this->classes.addElement(clazz);
 }
 
 } /* namespace codablecash */

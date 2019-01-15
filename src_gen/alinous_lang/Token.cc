@@ -28,6 +28,7 @@ namespace alinouslang {
   {
     this->next = nullptr;
     this->specialToken = nullptr;
+    this->kind = 0;
   }
 
   /**

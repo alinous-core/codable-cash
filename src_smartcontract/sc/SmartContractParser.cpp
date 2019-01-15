@@ -26,7 +26,7 @@ SmartContractParser::~SmartContractParser() {
 	delete file;
 }
 
-void SmartContractParser::parse() {
+CompilationUnit* SmartContractParser::parse() {
 	int length = this->file->length();
 	FileInputStream inStream(this->file);
 
@@ -38,8 +38,8 @@ void SmartContractParser::parse() {
 	AlinousLangTokenManager tokenManager(&charStream);
 
 	AlinousLang alinousLang(&tokenManager);
-	delete alinousLang.classDeclare();
 
+	return alinousLang.compilationUnit();
 }
 
 } /* namespace codablecash */
