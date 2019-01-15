@@ -34,4 +34,15 @@ void CodeElement::setPositions(Token* token, CodeElement* end) {
 	this->endColumn = end->endColumn;
 }
 
+void CodeElement::setPosition(CodeElement* element) {
+	if(this->beginLine == 0 && this->beginColumn == 0){
+		this->beginLine = element->beginLine;
+		this->beginColumn = element->beginColumn;
+		return;
+	}
+
+	this->endLine = element->endLine;
+	this->endColumn = element->endColumn;
+}
+
 } /* namespace codablecash */

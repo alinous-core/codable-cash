@@ -7,10 +7,34 @@ namespace alinouslang {
 
 
 
-ClassDeclare
+
+CompilationUnit
+               * AlinousLang::compilationUnit() {CompilationUnit* unit = new CompilationUnit();
+        ClassDeclare* clazz = nullptr;
+    if (!hasError) {
+    while (!hasError) {
+      if (jj_2_1(3)) {
+        ;
+      } else {
+        goto end_label_1;
+      }
+      if (!hasError) {
+      clazz = classDeclare();
+      }
+      if (!hasError) {
+unit->setPosition(clazz);
+                        unit->addClassDeclare(clazz);
+      }
+    }
+    end_label_1: ;
+    }
+unit->setPosition(clazz);
+                return unit;
+assert(false);
+}
 
 
-            * AlinousLang::classDeclare() {ClassDeclare* clazz = new ClassDeclare();
+ClassDeclare            * AlinousLang::classDeclare() {ClassDeclare* clazz = new ClassDeclare();
         Token* cls = nullptr;
         Token* name = nullptr;
         ClassDeclareBlock* block = nullptr;
@@ -99,6 +123,16 @@ Token * AlinousLang::jj_consume_token(int kind)  {
     jj_ntk = -1;
     if (token->kind == kind) {
       jj_gen++;
+      if (++jj_gc > 100) {
+        jj_gc = 0;
+        for (int i = 0; i < 1; i++) {
+          JJCalls *c = &jj_2_rtns[i];
+          while (c != nullptr) {
+            if (c->gen < jj_gen) c->first = nullptr;
+            c = c->next;
+          }
+        }
+      }
       return token;
     }
     token = oldToken;
@@ -107,6 +141,28 @@ Token * AlinousLang::jj_consume_token(int kind)  {
     errorHandler->handleUnexpectedToken(kind, image.substr(1, image.size() - 2), getToken(1), this);
     hasError = true;
     return token;
+  }
+
+
+bool  AlinousLang::jj_scan_token(int kind){
+    if (jj_scanpos == jj_lastpos) {
+      jj_la--;
+      if (jj_scanpos->next == nullptr) {
+        jj_lastpos = jj_scanpos = jj_scanpos->next = token_source->getNextToken();
+      } else {
+        jj_lastpos = jj_scanpos = jj_scanpos->next;
+      }
+    } else {
+      jj_scanpos = jj_scanpos->next;
+    }
+    if (jj_rescan) {
+      int i = 0; Token *tok = token;
+      while (tok != nullptr && tok != jj_scanpos) { i++; tok = tok->next; }
+      if (tok != nullptr) jj_add_error_token(kind, i);
+    }
+    if (jj_scanpos->kind != kind) return true;
+    if (jj_la == 0 && jj_scanpos == jj_lastpos) { return jj_done = true; }
+    return false;
   }
 
 
@@ -140,6 +196,10 @@ int AlinousLang::jj_ntk_f(){
   }
 
 
+  void AlinousLang::jj_add_error_token(int kind, int pos)  {
+  }
+
+
  void  AlinousLang::parseError()   {
       fprintf(stderr, "Parse error at: %d:%d, after token: %s encountered: %s\n", token->beginLine, token->beginColumn, addUnicodeEscapes(token->image).c_str(), addUnicodeEscapes(getToken(1)->image).c_str());
    }
@@ -154,6 +214,34 @@ int AlinousLang::jj_ntk_f(){
   }
 
   void AlinousLang::disable_tracing()  {
+  }
+
+
+  void AlinousLang::jj_rescan_token(){
+    jj_rescan = true;
+    for (int i = 0; i < 1; i++) {
+      JJCalls *p = &jj_2_rtns[i];
+      do {
+        if (p->gen > jj_gen) {
+          jj_la = p->arg; jj_lastpos = jj_scanpos = p->first;
+          switch (i) {
+            case 0: jj_3_1(); break;
+          }
+        }
+        p = p->next;
+      } while (p != nullptr);
+    }
+    jj_rescan = false;
+  }
+
+
+  void AlinousLang::jj_save(int index, int xla){
+    JJCalls *p = &jj_2_rtns[index];
+    while (p->gen > jj_gen) {
+      if (p->next == nullptr) { p = p->next = new JJCalls(); break; }
+      p = p->next;
+    }
+    p->gen = jj_gen + xla - jj_la; p->first = token; p->arg = xla;
   }
 
 

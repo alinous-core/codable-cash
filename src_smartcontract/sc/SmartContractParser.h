@@ -16,12 +16,14 @@ class File;
 namespace codablecash {
 using namespace alinous;
 
+class CompilationUnit;
+
 class SmartContractParser {
 public:
 	explicit SmartContractParser(const File* file);
 	virtual ~SmartContractParser();
 
-	void parse();
+	CompilationUnit* parse();
 private:
 	File* file;
 };

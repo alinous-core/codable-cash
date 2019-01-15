@@ -350,7 +350,22 @@ MORE:
 * Alinous Language Starts
 */
 
-
+CompilationUnit* compilationUnit() :
+{
+	CompilationUnit* unit = new CompilationUnit();
+	ClassDeclare* clazz = nullptr;
+}
+{
+	(	    clazz=classDeclare() {
+	        unit->setPosition(clazz);
+			unit->addClassDeclare(clazz);
+	    }
+	)*
+	{
+	    unit->setPosition(clazz);
+		return unit;
+	}
+}
 
 ClassDeclare* classDeclare() :
 {

@@ -22,6 +22,7 @@ public:
 
 	void setPositions(int beginLine, int beginColumn, int endLine, int endColumn);
 	void setPositions(Token* token, CodeElement* end);
+	void setPosition(CodeElement* end);
 
 
 protected:

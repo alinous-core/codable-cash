@@ -8,12 +8,23 @@
 #ifndef SC_COMPILATIONUNIT_H_
 #define SC_COMPILATIONUNIT_H_
 
-namespace codablecash {
+#include "sc/CodeElement.h"
+#include "base/ArrayList.h"
 
-class CompilationUnit {
+namespace codablecash {
+using namespace alinous;
+
+class ClassDeclare;
+
+class CompilationUnit : public CodeElement {
 public:
 	CompilationUnit();
 	virtual ~CompilationUnit();
+
+	void addClassDeclare(ClassDeclare* clazz);
+
+private:
+	ArrayList<ClassDeclare> classes;
 };
 
 } /* namespace codablecash */
