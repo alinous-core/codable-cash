@@ -9,13 +9,13 @@ namespace alinouslang {
 
 void    * AlinousLang::Input() {
     if (!hasError) {
-    jj_consume_token(5);
+    jj_consume_token(199);
     }
     if (!hasError) {
     BC();
     }
     if (!hasError) {
-    jj_consume_token(6);
+    jj_consume_token(200);
     }
 return nullptr;
 }
@@ -23,7 +23,7 @@ return nullptr;
 
 void    * AlinousLang::BC() {
     if (!hasError) {
-    jj_consume_token(7);
+    jj_consume_token(201);
     }
 return nullptr;
 }

@@ -18,7 +18,23 @@ public:
   FILE *debugStream;
   void  setDebugStream(FILE *ds);
  int  jjStopAtPos(int pos, int kind);
+ int  jjMoveStringLiteralDfa0_2();
  int  jjMoveStringLiteralDfa0_0();
+ int  jjMoveStringLiteralDfa1_0(unsigned long long active0, unsigned long long active1, unsigned long long active2, unsigned long long active3);
+ int  jjMoveStringLiteralDfa2_0(unsigned long long old0, unsigned long long active0, unsigned long long old1, unsigned long long active1, unsigned long long old2, unsigned long long active2, unsigned long long old3, unsigned long long active3);
+ int  jjMoveStringLiteralDfa3_0(unsigned long long old0, unsigned long long active0, unsigned long long old1, unsigned long long active1, unsigned long long old2, unsigned long long active2);
+ int  jjMoveStringLiteralDfa4_0(unsigned long long old0, unsigned long long active0, unsigned long long old1, unsigned long long active1, unsigned long long old2, unsigned long long active2);
+ int  jjMoveStringLiteralDfa5_0(unsigned long long old0, unsigned long long active0, unsigned long long old1, unsigned long long active1, unsigned long long old2, unsigned long long active2);
+ int  jjMoveStringLiteralDfa6_0(unsigned long long old0, unsigned long long active0, unsigned long long old1, unsigned long long active1, unsigned long long old2, unsigned long long active2);
+ int  jjMoveStringLiteralDfa7_0(unsigned long long old0, unsigned long long active0, unsigned long long old1, unsigned long long active1, unsigned long long old2, unsigned long long active2);
+ int  jjMoveStringLiteralDfa8_0(unsigned long long old0, unsigned long long active0, unsigned long long old1, unsigned long long active1, unsigned long long old2, unsigned long long active2);
+ int  jjMoveStringLiteralDfa9_0(unsigned long long old0, unsigned long long active0, unsigned long long old1, unsigned long long active1, unsigned long long old2, unsigned long long active2);
+ int  jjMoveStringLiteralDfa10_0(unsigned long long old1, unsigned long long active1, unsigned long long old2, unsigned long long active2);
+ int  jjMoveStringLiteralDfa11_0(unsigned long long old1, unsigned long long active1, unsigned long long old2, unsigned long long active2);
+int jjMoveNfa_0(int startState, int curPos);
+ int  jjMoveStringLiteralDfa0_1();
+ int  jjMoveStringLiteralDfa1_1(unsigned long long active3);
+bool jjCanMove_0(int hiByte, int i1, int i2, unsigned long long l1, unsigned long long l2);
 Token * jjFillToken();
 
 public:
@@ -29,6 +45,7 @@ public:
     int jjmatchedKind;
 
 Token * getNextToken();
+void  SkipLexicalActions(Token *matchedToken);
 #define jjCheckNAdd(state)\
 {\
    if (jjrounds[state] != jjround)\
@@ -49,6 +66,13 @@ Token * getNextToken();
    jjCheckNAdd(state2);\
 }
 
+#define jjCheckNAddStates(start, end)\
+{\
+   for (int x = start; x <= end; x++) {\
+      jjCheckNAdd(jjnextStates[x]);\
+   } /*while (start++ != end);*/\
+}
+
 #ifndef JAVACC_CHARSTREAM
 #define JAVACC_CHARSTREAM CharStream
 #endif
@@ -66,8 +90,8 @@ public:
   const JJSimpleString jjKindsForStateVector(int lexState, int vec[], int start, int end);
 
   JAVACC_CHARSTREAM*        input_stream;
-  int                       jjrounds[0];
-  int                       jjstateSet[2 * 0];
+  int                       jjrounds[73];
+  int                       jjstateSet[2 * 73];
   JJString                  jjimage;
   JJString                  image;
   int                       jjimageLen;

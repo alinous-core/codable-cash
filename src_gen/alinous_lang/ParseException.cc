@@ -42,11 +42,14 @@ namespace alinouslang {
    */
 
   ParseException::ParseException() {
-	  // test
+	  tokenImage = nullptr;
+	  expectedTokenSequences = nullptr;
   }
 
   /** Constructor with message. */
   ParseException::ParseException(const JJString& message) {
+	  tokenImage = nullptr;
+	  expectedTokenSequences = nullptr;
   }
 
 

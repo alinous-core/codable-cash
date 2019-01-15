@@ -47,6 +47,7 @@ namespace alinouslang {
 
   /** No arg constructor. */
   TokenMgrError::TokenMgrError() {
+	  errorCode = 0;
   }
 
   /** Constructor with message and reason. */
