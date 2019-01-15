@@ -3,6 +3,7 @@ set(__dirsrc "")
 
 # import source codes
 add_subdirectory(sc)
+add_subdirectory(sc_parser)
 
 
 message(STATUS "src_smartcontract : ${__dirsrc}")
