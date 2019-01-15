@@ -470,7 +470,7 @@ jjstrLiteralChars_197,
 jjstrLiteralChars_198, 
 };
 
-
+/** Lexer state names. */
 /** Lex State array. */
 static const int jjnewLexState[] = {
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 

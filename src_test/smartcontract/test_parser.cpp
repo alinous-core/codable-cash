@@ -41,3 +41,16 @@ TEST(TestParserGroup, parseTest){
 	CompilationUnit* unit = parser.parse();
 	delete unit;
 }
+
+TEST(TestParserGroup, parseError01){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/helloerr1.alns"))
+
+	SmartContractParser parser(sourceFile);
+	CompilationUnit* unit = parser.parse();
+	if(unit != nullptr){
+		delete unit;
+	}
+
+	CHECK(parser.hasError())
+}

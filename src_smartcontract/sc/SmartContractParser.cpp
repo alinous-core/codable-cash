@@ -7,6 +7,7 @@
 
 #include "sc/SmartContractParser.h"
 #include "sc/ParserReaderStream.h"
+#include "sc/ParseErrorHandler.h"
 
 #include "base_io/File.h"
 #include "base_io_stream/FileInputStream.h"
@@ -20,26 +21,54 @@ using namespace alinouslang;
 
 SmartContractParser::SmartContractParser(const File* file) {
 	this->file = new File(*file);
+	this->inStream = nullptr;
+	this->readStream = nullptr;
+	this->charStream = nullptr;
+	this->tokenManager = nullptr;
+	this->alinousLang = nullptr;
+	this->parserHandler = nullptr;
 }
 
 SmartContractParser::~SmartContractParser() {
 	delete file;
+
+	if(this->alinousLang){
+		delete this->alinousLang;
+	}
+	if(this->tokenManager){
+		delete this->tokenManager;
+	}
+	if(this->charStream){
+		delete this->charStream;
+	}
+	if(this->readStream){
+		delete this->readStream;
+	}
+	if(this->inStream){
+		delete this->inStream;
+	}
 }
 
 CompilationUnit* SmartContractParser::parse() {
 	int length = this->file->length();
-	FileInputStream inStream(this->file);
+	this->inStream = new FileInputStream(this->file);
 
-	inStream.open();
+	this->inStream->open();
 
-	ParserReaderStream readStream(&inStream, length);
-	CharStream charStream(&readStream);
+	this->readStream = new ParserReaderStream(inStream, length);
+	this->charStream = new CharStream(readStream);
 
-	AlinousLangTokenManager tokenManager(&charStream);
+	this->tokenManager = new AlinousLangTokenManager(charStream);
 
-	AlinousLang alinousLang(&tokenManager);
+	this->parserHandler = new ParseErrorHandler();
+	this->alinousLang = new AlinousLang(tokenManager);
+	this->alinousLang->setErrorHandler(this->parserHandler);
 
-	return alinousLang.compilationUnit();
+	return alinousLang->compilationUnit();
+}
+
+bool SmartContractParser::hasError() const noexcept {
+	return this->parserHandler->hasError();
 }
 
 } /* namespace codablecash */

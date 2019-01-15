@@ -4,7 +4,8 @@ UNICODE_INPUT = true;
 OUTPUT_LANGUAGE = "c++";
 NAMESPACE = "alinouslang";
 OUTPUT_DIRECTORY = "src_gen/alinous_lang/";
-FORCE_LA_CHECK = true;
+FORCE_LA_CHECK = false;
+ERROR_REPORTING = true;
 PARSER_INCLUDES = "sc/alinouslang.h";
 //STATIC = false; // ignored by c++
 }
@@ -361,19 +362,18 @@ CompilationUnit* compilationUnit() :
 {
 	(
 	    clazz=classDeclare() {
-	        unit->setPosition(clazz);
+			unit->setPosition(clazz);
 			unit->addClassDeclare(clazz);
 	    }
-	)*
+	)+
 	{
-	    unit->setPosition(clazz);
 		return unit;
 	}
 }
 
 ClassDeclare* classDeclare() :
 {
-	ClassDeclare* clazz = new ClassDeclare();
+	ClassDeclare* clazz = nullptr;
 	Token* cls = nullptr;
 	Token* name = nullptr;
 	ClassDeclareBlock* block = nullptr;
@@ -381,21 +381,29 @@ ClassDeclare* classDeclare() :
 }
 {
 	cls="class" name=<IDENTIFIER> block=classDeclareBlock() {
-	    clazz->setPositions(cls, block);
-	    clazz->setBlock(block);
+	    if(!hasError) {
+	        clazz = new ClassDeclare();
+		    clazz->setPositions(cls, block);
+		    clazz->setBlock(block);
+	    }
+
 		return clazz;
 	}
 }
 
 ClassDeclareBlock* classDeclareBlock() :
 {
-	ClassDeclareBlock* block = new ClassDeclareBlock();
+	ClassDeclareBlock* block = nullptr;
 	Token* begin, *end;
 }
 {
 	begin="{" end="}"
 	{
-	    block->setPositions(_P(begin, end));
+	    if(!hasError) {
+			block = new ClassDeclareBlock();
+	   		block->setPositions(_P(begin, end));
+	    }
+
 		return block;
 	}
 }

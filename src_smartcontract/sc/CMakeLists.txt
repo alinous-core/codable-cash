@@ -3,6 +3,8 @@
 set(__src
 	CodeElement.cpp
 	CompilationUnit.cpp
+	CompileError.cpp
+	ParseErrorHandler.cpp
 	ParserReaderStream.cpp
 	SmartContract.cpp
 	SmartContractParser.cpp

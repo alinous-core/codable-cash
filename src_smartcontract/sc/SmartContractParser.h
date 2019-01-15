@@ -10,13 +10,22 @@
 
 namespace alinous {
 class File;
+class FileInputStream;
 }
 
+namespace alinouslang {
+class CharStream;
+class AlinousLangTokenManager;
+class AlinousLang;
+}
 
 namespace codablecash {
 using namespace alinous;
+using namespace alinouslang;
 
 class CompilationUnit;
+class ParserReaderStream;
+class ParseErrorHandler;
 
 class SmartContractParser {
 public:
@@ -24,8 +33,16 @@ public:
 	virtual ~SmartContractParser();
 
 	CompilationUnit* parse();
+	bool hasError() const noexcept;
 private:
 	File* file;
+	FileInputStream* inStream;
+	ParserReaderStream* readStream;
+	CharStream* charStream;
+	AlinousLangTokenManager* tokenManager;
+	AlinousLang* alinousLang;
+
+	ParseErrorHandler* parserHandler;
 };
 
 } /* namespace codablecash */

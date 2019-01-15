@@ -38,11 +38,11 @@ void CodeElement::setPosition(CodeElement* element) {
 	if(this->beginLine == 0 && this->beginColumn == 0){
 		this->beginLine = element->beginLine;
 		this->beginColumn = element->beginColumn;
-		return;
+		//return;
 	}
 
-	this->endLine = element->endLine;
-	this->endColumn = element->endColumn;
+	//this->endLine = element->endLine;
+	//this->endColumn = element->endColumn;
 }
 
 } /* namespace codablecash */
