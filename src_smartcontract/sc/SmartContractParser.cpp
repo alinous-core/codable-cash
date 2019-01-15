@@ -13,6 +13,7 @@
 
 #include "alinous_lang/CharStream.h"
 #include "alinous_lang/AlinousLangTokenManager.h"
+#include "alinous_lang/AlinousLang.h"
 
 namespace codablecash {
 using namespace alinouslang;
@@ -36,11 +37,8 @@ void SmartContractParser::parse() {
 
 	AlinousLangTokenManager tokenManager(&charStream);
 
-	Token* t = tokenManager.getNextToken();
-	delete t;
-
-	t = tokenManager.getNextToken();
-	delete t;
+	AlinousLang alinousLang(&tokenManager);
+	delete alinousLang.classDeclare();
 
 }
 

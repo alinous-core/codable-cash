@@ -268,11 +268,6 @@ static JJChar jjstrLiteralChars_195[] = {0};
 static JJChar jjstrLiteralChars_196[] = {0};
 static JJChar jjstrLiteralChars_197[] = {0};
 static JJChar jjstrLiteralChars_198[] = {0};
-
-static JJChar jjstrLiteralChars_199[] = {0x61, 0};
-static JJChar jjstrLiteralChars_200[] = {0x63, 0};
-
-static JJChar jjstrLiteralChars_201[] = {0x62, 0};
 static const JJString jjstrLiteralImages[] = {
 jjstrLiteralChars_0, 
 jjstrLiteralChars_1, 
@@ -473,12 +468,20 @@ jjstrLiteralChars_195,
 jjstrLiteralChars_196, 
 jjstrLiteralChars_197, 
 jjstrLiteralChars_198, 
-jjstrLiteralChars_199, 
-jjstrLiteralChars_200, 
-jjstrLiteralChars_201, 
 };
 
 /** Lexer state names. */
+static const JJChar lexStateNames_arr_0[] = 
+{0x44, 0x45, 0x46, 0x41, 0x55, 0x4c, 0x54, 0};
+static const JJChar lexStateNames_arr_1[] = 
+{0x43, 0x4f, 0x4d, 0x4d, 0};
+static const JJChar lexStateNames_arr_2[] = 
+{0x4c, 0x5f, 0x43, 0x4f, 0x4d, 0x4d, 0};
+static const JJString lexStateNames[] = {
+lexStateNames_arr_0, 
+lexStateNames_arr_1, 
+lexStateNames_arr_2, 
+};
 
 /** Lex State array. */
 static const int jjnewLexState[] = {
@@ -489,11 +492,10 @@ static const int jjnewLexState[] = {
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
-   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 2, 0, -1, 0, -1, -1, 
-   -1, -1, 
+   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 2, 0, -1, 0, -1, 
 };
 static const unsigned long long jjtoToken[] = {
-   0xfffffffffffc2201ULL, 0xffffffffffffffffULL, 0xffffffffffffffffULL, 0x381ULL, 
+   0xfffffffffffc2201ULL, 0xffffffffffffffffULL, 0xffffffffffffffffULL, 0x1ULL, 
 };
 static const unsigned long long jjtoSkip[] = {
    0x1eULL, 0x0ULL, 0x0ULL, 0x28ULL, 
@@ -638,13 +640,10 @@ static const unsigned long long jjtoSpecial[] = {
          jjmatchedKind = 37;
          return jjMoveNfa_0(0, 0);
       case 97:
-         jjmatchedKind = 199;
          return jjMoveStringLiteralDfa1_0(0x800000000000000ULL, 0x8000400000000000ULL, 0x32000009000020ULL, 0x0ULL);
       case 98:
-         jjmatchedKind = 201;
          return jjMoveStringLiteralDfa1_0(0x3000000000000000ULL, 0x1000000000000000ULL, 0x41000000002800ULL, 0x0ULL);
       case 99:
-         jjmatchedKind = 200;
          return jjMoveStringLiteralDfa1_0(0xc200000000000000ULL, 0x100000000000003ULL, 0x8000000420440000ULL, 0x0ULL);
       case 100:
          return jjMoveStringLiteralDfa1_0(0x0ULL, 0x20040000004ULL, 0x4800041ULL, 0x0ULL);
@@ -3316,7 +3315,6 @@ Token * AlinousLangTokenManager::getNextToken(){
      errorHandler->lexicalError(EOFSeen, curLexState, error_line, error_column, error_after, curChar, this);
    }
   }
-  return nullptr;
 }
 
 

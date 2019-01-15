@@ -4,6 +4,7 @@
 #include "CharStream.h"
 #include "Token.h"
 #include "TokenManager.h"
+#include "sc/alinouslang.h"
 #include "AlinousLangConstants.h"
 #include "ErrorHandler.h"
 namespace alinouslang {
@@ -18,8 +19,8 @@ namespace alinouslang {
 
 class AlinousLang {
 public:
-void    * Input();
-void    * BC();
+ClassDeclare
+            * classDeclare();
 
 public: 
   void setErrorHandler(ErrorHandler *eh) {

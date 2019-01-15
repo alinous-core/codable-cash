@@ -7,25 +7,25 @@ namespace alinouslang {
 
 
 
-void    * AlinousLang::Input() {
+ClassDeclare
+            * AlinousLang::classDeclare() {ClassDeclare* clazz = new ClassDeclare();
+        Token* cls = nullptr;
+        Token* name = nullptr;
     if (!hasError) {
-    jj_consume_token(199);
+    cls = jj_consume_token(CLASS);
     }
     if (!hasError) {
-    BC();
+    name = jj_consume_token(IDENTIFIER);
     }
     if (!hasError) {
-    jj_consume_token(200);
+    jj_consume_token(L_BRACE);
     }
-return nullptr;
-}
-
-
-void    * AlinousLang::BC() {
     if (!hasError) {
-    jj_consume_token(201);
+    jj_consume_token(R_BRACE);
     }
-return nullptr;
+    cls->image;
+return clazz;
+assert(false);
 }
 
 

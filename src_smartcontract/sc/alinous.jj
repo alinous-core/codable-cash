@@ -6,12 +6,11 @@ OUTPUT_LANGUAGE = "c++";
 NAMESPACE = "alinouslang";
 OUTPUT_DIRECTORY = "src_gen/alinous_lang/";
 FORCE_LA_CHECK = true;
-//PARSER_INCLUDES = "test.h";
+PARSER_INCLUDES = "sc/alinouslang.h";
 //STATIC = false; // ignored by c++
 }
 
 PARSER_BEGIN(AlinousLang)
-
 
 // write includes here
 
@@ -347,20 +346,18 @@ MORE:
 	< ~[] >
 }
 
-void* Input() :
-{}
-{
-  "a" BC() "c"
-  {
-	return nullptr;
-  }
-}
+/******************************************************************************************
+* Alinous Language Starts
+*/
 
-void* BC() :
-{}
+ClassDeclare* classDeclare() :
 {
-  "b"
-    {
-	return nullptr;
-  }
+	ClassDeclare* clazz = new ClassDeclare();
+	Token* cls = nullptr;
+	Token* name = nullptr;
+}
+{
+	cls="class" name=<IDENTIFIER> "{" "}" {
+		return clazz;
+	}
 }

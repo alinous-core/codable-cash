@@ -1,6 +1,7 @@
 
 
 set(__src
+	CompilationUnit.cpp
 	ParserReaderStream.cpp
 	SmartContract.cpp
 	SmartContractParser.cpp
