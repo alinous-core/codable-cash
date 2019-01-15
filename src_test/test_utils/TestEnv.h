@@ -36,8 +36,13 @@ public:
 		return testCase;
 	}
 
+	const File* getProjectRoot() const {
+		return projectRoot;
+	}
+
 private:
 	File* baseDir;
+	File* projectRoot;
 
 protected:
 	TestCase* testCase;

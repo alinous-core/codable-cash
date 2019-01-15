@@ -57,8 +57,8 @@ public:
 
 	UnicodeString* substring(int begin) const noexcept;
 	UnicodeString* substring(int begin, int end) const noexcept;
-	int indexOf(UnicodeString* str) const noexcept;
-	int indexOf(UnicodeString* str, int lastIndex) const noexcept;
+	int indexOf(const UnicodeString* str) const noexcept;
+	int indexOf(const UnicodeString* str, int lastIndex) const noexcept;
 	int indexOf(wchar_t ch) const noexcept;
 	int indexOf(wchar_t ch, int lastIndex) const noexcept;
 	int lastIndexOf(wchar_t ch) const noexcept;

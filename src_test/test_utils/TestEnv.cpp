@@ -26,6 +26,7 @@ const UnicodeString* TestEnv::TEST_SEG() {
 TestEnv::TestEnv(TestCase* testCase) {
 	this->testCase = testCase;
 	this->baseDir = nullptr;
+	this->projectRoot = nullptr;
 }
 
 void TestEnv::init(const char* prog) noexcept {
@@ -35,6 +36,14 @@ void TestEnv::init(const char* prog) noexcept {
 	File* dir = progFile.getDirectory();
 
 	this->baseDir = dir->get(TEST_SEG());
+
+	File* tmp = dir->get(L"..");
+	UnicodeString* rootPath = tmp->getAbsolutePath();
+
+	this->projectRoot = new File(rootPath);
+
+	delete tmp;
+	delete rootPath;
 	delete dir;
 }
 

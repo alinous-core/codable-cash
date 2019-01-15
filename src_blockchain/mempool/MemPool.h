@@ -29,7 +29,7 @@ class TransactionRecord;
 
 class MemPool {
 public:
-	MemPool(const File* baseDir);
+	explicit MemPool(const File* baseDir);
 	MemPool(const File* baseDir, int cacheBytes);
 	virtual ~MemPool();
 

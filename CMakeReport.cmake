@@ -44,7 +44,7 @@ endforeach()
 
 
 execute_process(
-  COMMAND lcov --remove test01.info "/usr/include/*" "*/src_test/*" -o test.info
+  COMMAND lcov --remove test01.info "/usr/include/*" "*/src_test/*" "*/src_gen/*" -o test.info
   WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
   OUTPUT_QUIET
 )
