@@ -1,0 +1,44 @@
+
+options {
+JAVA_UNICODE_ESCAPE = false;
+UNICODE_INPUT = true;
+OUTPUT_LANGUAGE = "c++";
+NAMESPACE = "alinous";
+OUTPUT_DIRECTORY = "src_gen/alinous_lang/";
+FORCE_LA_CHECK = true;
+//PARSER_INCLUDES = "test.h";
+//STATIC = false; // ignored by c++
+}
+
+PARSER_BEGIN(AlinousLang)
+
+
+// write includes here
+
+PARSER_END(AlinousLang)
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+}
+
+void* Input() :
+{}
+{
+  "a" BC() "c"
+  {
+	return nullptr;
+  }
+}
+
+void* BC() :
+{}
+{
+  "b"
+    {
+	return nullptr;
+  }
+}

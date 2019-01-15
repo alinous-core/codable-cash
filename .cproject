@@ -25,22 +25,32 @@
 							<tool id="cdt.managedbuild.tool.gnu.archiver.base.1487368184" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
 							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.cpp.compiler.base.1466808468" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
 								<option id="gnu.cpp.compiler.option.include.paths.1181001750" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/src_test}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/src_ext}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/src_db}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/src_blockchain}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/src_smartcontract}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/src_smartcontract_vm}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_test}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_ext}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_db}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_blockchain}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_smartcontract}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_smartcontract_vm}&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.261417299" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__TEST_CPP_UNIT__=1"/>
-									<listOptionValue builtIn="false" value="__cplusplus=201103L"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1249523948" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.c.compiler.base.273807524" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.base">
-								<option id="gnu.c.compiler.option.include.paths.1255063444" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths"/>
+								<option id="gnu.c.compiler.option.include.paths.1255063444" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_test}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_ext}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_db}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_blockchain}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_smartcontract}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_smartcontract_vm}&quot;"/>
+								</option>
+								<option id="gnu.c.compiler.option.preprocessor.def.symbols.671947844" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="__TEST_CPP_UNIT__=1"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1750939571" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.base.638630983" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.base"/>
@@ -51,17 +61,26 @@
 								</inputType>
 							</tool>
 							<tool errorParsers="org.eclipse.cdt.core.GASErrorParser" id="cdt.managedbuild.tool.gnu.assembler.base.45150461" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.base">
-								<option id="gnu.both.asm.option.include.paths.1335309851" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths"/>
+								<option id="gnu.both.asm.option.include.paths.1335309851" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_test}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_ext}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_db}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_blockchain}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_smartcontract}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/codablecash/codablecash/src_smartcontract_vm}&quot;"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1518519841" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="src_db|src_smartcontract|src_test|src_blockchain|dbbase|src_smartcontract_vm|src|db_base_io_stream|src_ext" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="src_db|src_smartcontract|src_test|src_blockchain|dbbase|src_smartcontract_vm|src|db_base_io_stream|src_gen|src_ext" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src_blockchain"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src_db"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src_ext"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src_gen"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src_smartcontract"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src_smartcontract_vm"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src_test"/>
