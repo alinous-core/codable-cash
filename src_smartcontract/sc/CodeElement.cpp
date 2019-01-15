@@ -35,6 +35,9 @@ void CodeElement::setPositions(Token* token, CodeElement* end) {
 }
 
 void CodeElement::setPosition(CodeElement* element) {
+	if(element == nullptr){
+		return;
+	}
 	if(this->beginLine == 0 && this->beginColumn == 0){
 		this->beginLine = element->beginLine;
 		this->beginColumn = element->beginColumn;
