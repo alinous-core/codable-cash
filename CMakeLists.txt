@@ -124,6 +124,7 @@ set(srcmain
 include_directories(${PROJECT_SOURCE_DIR}/src/)
 include_directories(${PROJECT_SOURCE_DIR}/src_blockchain/)
 include_directories(${PROJECT_SOURCE_DIR}/src_db/)
+include_directories(${PROJECT_SOURCE_DIR}/src_gen/)
 include_directories(${PROJECT_SOURCE_DIR}/src_ext/)
 include_directories(${PROJECT_SOURCE_DIR}/src_smartcontract/)
 include_directories(${PROJECT_SOURCE_DIR}/src_smartcontract_vm/)
