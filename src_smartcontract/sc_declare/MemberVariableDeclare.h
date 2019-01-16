@@ -8,9 +8,11 @@
 #ifndef SC_DECLARE_MEMBERVARIABLEDECLARE_H_
 #define SC_DECLARE_MEMBERVARIABLEDECLARE_H_
 
+#include "sc/CodeElement.h"
+
 namespace alinous {
 
-class MemberVariableDeclare {
+class MemberVariableDeclare : CodeElement {
 public:
 	MemberVariableDeclare();
 	virtual ~MemberVariableDeclare();

@@ -11,8 +11,13 @@
 
 #include "sc/CompilationUnit.h"
 
+#include "sc_declare/ArgumentDeclare.h"
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/ClassDeclareBlock.h"
+#include "sc_declare/MemberVariableDeclare.h"
+#include "sc_declare/MethodDeclare.h"
+#include "sc_declare/PackageDeclare.h"
+#include "sc_declare/TypeDeclare.h"
 
 namespace alinouslang {
 using namespace alinous;

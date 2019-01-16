@@ -23,11 +23,12 @@ public:
 	static const constexpr short CLASS_DECLARE_BLOCK{2};
 	static const constexpr short PACKAGE_DECLARE{3};
 	static const constexpr short METHOD_DECLARE{4};
-	static const constexpr short MEMBER_VARIABLE_DECLARE{5};
-	static const constexpr short TYPE_DECLARE{5};
+	static const constexpr short ARGUMENT_DECLARE{5};
+	static const constexpr short MEMBER_VARIABLE_DECLARE{6};
+	static const constexpr short TYPE_DECLARE{7};
 
 
-	CodeElement(short kind);
+	explicit CodeElement(short kind);
 	virtual ~CodeElement();
 
 	void setPositions(int beginLine, int beginColumn, int endLine, int endColumn);

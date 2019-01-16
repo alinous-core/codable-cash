@@ -1,6 +1,7 @@
 
 
 set(__src
+	ArgumentDeclare.cpp
 	ClassDeclare.cpp
 	ClassDeclareBlock.cpp
 	MemberVariableDeclare.cpp

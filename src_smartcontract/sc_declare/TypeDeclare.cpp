@@ -5,17 +5,15 @@
  *      Author: iizuka
  */
 
-#include <sc_declare/TypeDeclare.h>
+#include "sc_declare/TypeDeclare.h"
 
 namespace alinous {
 
-TypeDeclare::TypeDeclare() {
-	// TODO Auto-generated constructor stub
-
+TypeDeclare::TypeDeclare() : CodeElement(CodeElement::TYPE_DECLARE) {
 }
 
 TypeDeclare::~TypeDeclare() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */

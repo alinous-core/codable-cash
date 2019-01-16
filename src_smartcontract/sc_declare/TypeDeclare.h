@@ -8,9 +8,11 @@
 #ifndef SC_DECLARE_TYPEDECLARE_H_
 #define SC_DECLARE_TYPEDECLARE_H_
 
+#include "sc/CodeElement.h"
+
 namespace alinous {
 
-class TypeDeclare {
+class TypeDeclare : public CodeElement {
 public:
 	TypeDeclare();
 	virtual ~TypeDeclare();
