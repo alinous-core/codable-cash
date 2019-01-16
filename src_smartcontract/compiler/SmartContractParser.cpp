@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sc/SmartContractParser.h"
-#include "sc/ParserReaderStream.h"
-#include "sc/ParseErrorHandler.h"
-#include "sc/LexErrorHandler.h"
+#include "compiler/SmartContractParser.h"
+#include "compiler/ParserReaderStream.h"
+#include "compiler/ParseErrorHandler.h"
+#include "compiler/LexErrorHandler.h"
 
 #include "base_io/File.h"
 #include "base_io_stream/FileInputStream.h"

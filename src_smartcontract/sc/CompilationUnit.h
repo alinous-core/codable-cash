@@ -14,15 +14,18 @@
 namespace alinous {
 
 class ClassDeclare;
+class PackageDeclare;
 
 class CompilationUnit : public CodeElement {
 public:
 	CompilationUnit();
 	virtual ~CompilationUnit();
 
+	void setPackage(PackageDeclare* package);
 	void addClassDeclare(ClassDeclare* clazz);
 
 private:
+	PackageDeclare* package;
 	ArrayList<ClassDeclare> classes;
 };
 

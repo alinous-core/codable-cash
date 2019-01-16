@@ -2,6 +2,7 @@
 set(__dirsrc "")
 
 # import source codes
+add_subdirectory(compiler)
 add_subdirectory(sc)
 add_subdirectory(sc_declare)
 

@@ -6,9 +6,16 @@
 CompilationUnit* compilationUnit() :
 {
 	CompilationUnit* unit = new CompilationUnit();
+	PackageDeclare* pkg = nullptr;
 	ClassDeclare* clazz = nullptr;
 }
 {
+	[
+		pkg=packageDeclare() {
+			
+		}
+	]
+    
 	(
 	    clazz=classDeclare() {
 			unit->setPosition(clazz);
@@ -21,7 +28,12 @@ CompilationUnit* compilationUnit() :
 	}
 }
 
+PackageDeclare* packageDeclare() : {
+	PackageDeclare* pkg = nullptr;
+}
+{
 
+}
 
 ClassDeclare* classDeclare() :
 {

@@ -21,6 +21,10 @@ public:
 
 	static const constexpr short CLASS_DECLARE{1};
 	static const constexpr short CLASS_DECLARE_BLOCK{2};
+	static const constexpr short PACKAGE_DECLARE{3};
+	static const constexpr short METHOD_DECLARE{4};
+	static const constexpr short MEMBER_VARIABLE_DECLARE{5};
+	static const constexpr short TYPE_DECLARE{5};
 
 
 	CodeElement(short kind);

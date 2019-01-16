@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sc/ParseErrorHandler.h"
-#include "sc/CompileError.h"
+#include "compiler/ParseErrorHandler.h"
+#include "compiler/CompileError.h"
 #include "base/UnicodeString.h"
 
 namespace alinous {
