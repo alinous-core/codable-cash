@@ -8,7 +8,7 @@
 #include "test_utils/t_macros.h"
 
 #include "base_thread/ConcurrentGate.h"
-#include "db_base_thread/GateTester.h"
+#include "db/db_base_thread/GateTester.h"
 #include "base/ArrayList.h"
 #include "base_thread/StackUnlocker.h"
 

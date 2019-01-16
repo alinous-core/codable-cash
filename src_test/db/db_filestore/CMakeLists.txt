@@ -5,5 +5,5 @@ set(testsrc
 	test_longrange.cpp
 	test_longrange_binary.cpp
 )
-handle_sub(testall "${testsrc}" test db_filestore)
+handle_sub(testall "${testsrc}" test db/db_filestore)
 

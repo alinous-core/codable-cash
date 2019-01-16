@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "db_base_thread/GateTester.h"
-#include "db_base_thread/CriticalSectionMarkerException.h"
-#include "db_base_thread/CriticalSectionMarker.h"
+#include "db/db_base_thread/GateTester.h"
+#include "db/db_base_thread/CriticalSectionMarkerException.h"
+#include "db/db_base_thread/CriticalSectionMarker.h"
 
 #include "base_thread/SysThread.h"
 #include "base_thread/StackUnlocker.h"

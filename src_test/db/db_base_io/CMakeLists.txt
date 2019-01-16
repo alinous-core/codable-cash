@@ -6,5 +6,5 @@ set(testsrc
 	test_file.cpp
 	test_reverse_byte_buffer.cpp
 )
-handle_sub(testall "${testsrc}" test db_base_io)
+handle_sub(testall "${testsrc}" test db/db_base_io)
 

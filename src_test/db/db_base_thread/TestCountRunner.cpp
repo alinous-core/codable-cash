@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include <db_base_thread/TestCountRunner.h>
+#include "db/db_base_thread/TestCountRunner.h"
 
 namespace alinous {
 

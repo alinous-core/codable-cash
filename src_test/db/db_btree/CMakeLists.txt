@@ -5,4 +5,4 @@ set(testsrc
 	test_cache.cpp
 	test_key_format.cpp
 )
-handle_sub(testall "${testsrc}" test db_btree)
+handle_sub(testall "${testsrc}" test db/db_btree)

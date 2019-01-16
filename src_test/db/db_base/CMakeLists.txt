@@ -13,7 +13,7 @@ set(testsrc
 	test_test.cpp
 	test_unicode_string.cpp
 )
-handle_sub(testall "${testsrc}" test db_base)
+handle_sub(testall "${testsrc}" test db/db_base)
 
 
 

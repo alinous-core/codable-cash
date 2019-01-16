@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "db_base_thread/CriticalSectionMarker.h"
+#include "db/db_base_thread/CriticalSectionMarker.h"
 #include "base_thread/StackUnlocker.h"
-#include "db_base_thread/CriticalSectionMarkerException.h"
+#include "db/db_base_thread/CriticalSectionMarkerException.h"
 
 namespace alinous {
 

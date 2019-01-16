@@ -99,9 +99,11 @@ macro(handle_sub target subsrclist subPrefix subName)
 	
 	#report name
 	if(${subPrefix} STREQUAL "null")
-		set(report_name "report_${subName}")
+		string(REPLACE "/" "_" subName2 ${subName})
+		set(report_name "report_${subName2}")
 	else()
-		set(report_name "report_${subPrefix}_${subName}")
+		string(REPLACE "/" "_" subName2 ${subName})
+		set(report_name "report_${subPrefix}_${subName2}")
 	endif()
 		
 	set(gnodir "${CMAKE_BINARY_DIR}/CMakeFiles/${target}.dir/${src_out_dir}/${subName}")
