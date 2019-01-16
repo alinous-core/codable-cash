@@ -8,7 +8,7 @@
 #include "sc/LexError.h"
 #include "base/UnicodeString.h"
 
-namespace codablecash {
+namespace alinous {
 
 LexError::LexError(UnicodeString* errorAfter, UnicodeString* encoutedChar, int line, int column) {
 	this->errorAfter = errorAfter;
@@ -22,4 +22,4 @@ LexError::~LexError() {
 	delete this->encoutedChar;
 }
 
-} /* namespace codablecash */
+} /* namespace alinous */

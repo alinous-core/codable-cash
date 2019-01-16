@@ -10,7 +10,7 @@
 
 #include "sc/CodeElement.h"
 
-namespace codablecash {
+namespace alinous {
 
 class ClassDeclareBlock;
 
@@ -25,6 +25,6 @@ private:
 	ClassDeclareBlock* block;
 };
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 #endif /* SC_DECLARE_CLASSDECLARE_H_ */

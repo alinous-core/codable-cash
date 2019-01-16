@@ -10,10 +10,6 @@
 
 namespace alinous {
 class UnicodeString;
-}
-
-namespace codablecash {
-using namespace alinous;
 
 class CompileError {
 public:
@@ -28,6 +24,6 @@ private:
 
 };
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 #endif /* SC_COMPILEERROR_H_ */

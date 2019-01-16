@@ -8,7 +8,7 @@
 #include "sc/CodeElement.h"
 #include "alinous_lang/Token.h"
 
-namespace codablecash {
+namespace alinous {
 
 CodeElement::CodeElement(short kind) {
 	this->kind = kind;
@@ -46,4 +46,4 @@ void CodeElement::setPosition(CodeElement* element) {
 	//this->endColumn = element->endColumn;
 }
 
-} /* namespace codablecash */
+} /* namespace alinous */

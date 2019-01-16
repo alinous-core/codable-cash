@@ -9,7 +9,7 @@
 #include "sc/CompileError.h"
 #include "base/UnicodeString.h"
 
-namespace codablecash {
+namespace alinous {
 
 ParseErrorHandler::ParseErrorHandler() {
 }
@@ -30,4 +30,4 @@ bool ParseErrorHandler::hasError() const noexcept {
 	return !this->list.isEmpty();
 }
 
-} /* namespace codablecash */
+} /* namespace alinous */

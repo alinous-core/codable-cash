@@ -11,8 +11,7 @@
 #include "alinous_lang/ErrorHandler.h"
 #include "base/ArrayList.h"
 
-namespace codablecash {
-using namespace alinous;
+namespace alinous {
 using namespace alinouslang;
 
 class CompileError;
@@ -30,6 +29,6 @@ private:
 	ArrayList<CompileError> list;
 };
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 #endif /* SC_PARSEERRORHANDLER_H_ */

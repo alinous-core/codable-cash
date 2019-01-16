@@ -15,7 +15,7 @@
 #include "sc_declare/ClassDeclareBlock.h"
 
 namespace alinouslang {
-using namespace codablecash;
+using namespace alinous;
 }
 
 #define _P(tokenBegin, tokenEnd) tokenBegin->beginLine, tokenBegin->beginColumn, tokenEnd->endLine, tokenEnd->endColumn

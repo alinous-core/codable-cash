@@ -11,8 +11,7 @@
 #include "sc/CodeElement.h"
 #include "base/ArrayList.h"
 
-namespace codablecash {
-using namespace alinous;
+namespace alinous {
 
 class ClassDeclare;
 
@@ -27,6 +26,6 @@ private:
 	ArrayList<ClassDeclare> classes;
 };
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 #endif /* SC_COMPILATIONUNIT_H_ */

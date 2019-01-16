@@ -10,10 +10,6 @@
 
 namespace alinous {
 class UnicodeString;
-}
-
-namespace codablecash {
-using namespace alinous;
 
 class LexError {
 public:
@@ -27,6 +23,6 @@ private:
 	int column;
 };
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 #endif /* SC_LEXERROR_H_ */

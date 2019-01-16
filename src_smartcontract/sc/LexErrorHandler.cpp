@@ -9,7 +9,7 @@
 #include "sc/LexError.h"
 #include "base/UnicodeString.h"
 
-namespace codablecash {
+namespace alinous {
 
 LexErrorHandler::LexErrorHandler() {
 }
@@ -34,9 +34,9 @@ void LexErrorHandler::lexicalError(bool EOFSeen, int lexState, int errorLine,
 	this->list.addElement(er);
 }
 
-bool codablecash::LexErrorHandler::hasError() const noexcept {
+bool LexErrorHandler::hasError() const noexcept {
 	return !this->list.isEmpty();
 }
 
 
-} /* namespace codablecash */
+} /* namespace alinous */

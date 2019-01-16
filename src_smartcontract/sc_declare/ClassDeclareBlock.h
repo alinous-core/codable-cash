@@ -10,7 +10,7 @@
 
 #include "sc/CodeElement.h"
 
-namespace codablecash {
+namespace alinous {
 
 class ClassDeclareBlock : public CodeElement{
 public:
@@ -18,6 +18,6 @@ public:
 	virtual ~ClassDeclareBlock();
 };
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 #endif /* SC_DECLARE_CLASSDECLAREBLOCK_H_ */

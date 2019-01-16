@@ -19,8 +19,7 @@ class AlinousLangTokenManager;
 class AlinousLang;
 }
 
-namespace codablecash {
-using namespace alinous;
+namespace alinous {
 using namespace alinouslang;
 
 class CompilationUnit;
@@ -48,6 +47,6 @@ private:
 	LexErrorHandler* lexErrorHandler;
 };
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 #endif /* SC_SMARTCONTRACTPARSER_H_ */

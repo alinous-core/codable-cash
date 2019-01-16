@@ -8,7 +8,7 @@
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/ClassDeclareBlock.h"
 
-namespace codablecash {
+namespace alinous {
 
 ClassDeclare::ClassDeclare() : CodeElement(CodeElement::CLASS_DECLARE) {
 	this->block = nullptr;
@@ -24,4 +24,4 @@ void ClassDeclare::setBlock(ClassDeclareBlock* block) {
 	this->block = block;
 }
 
-} /* namespace codablecash */
+} /* namespace alinous */

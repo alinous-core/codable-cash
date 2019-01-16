@@ -12,10 +12,6 @@
 
 namespace alinous {
 class InputStream;
-}
-
-namespace codablecash {
-using namespace alinous;
 
 class ParserReaderStream : public ReaderStream {
 public:

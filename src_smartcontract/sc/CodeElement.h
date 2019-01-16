@@ -12,7 +12,7 @@ namespace alinouslang {
 class Token;
 }
 
-namespace codablecash {
+namespace alinous {
 using namespace alinouslang;
 
 class CodeElement {
@@ -39,6 +39,6 @@ protected:
 	int endColumn;
 };
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 #endif /* SC_CODEELEMENT_H_ */

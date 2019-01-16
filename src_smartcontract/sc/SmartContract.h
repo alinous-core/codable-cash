@@ -8,7 +8,7 @@
 #ifndef SC_SMARTCONTRACT_H_
 #define SC_SMARTCONTRACT_H_
 
-namespace codablecash {
+namespace alinous {
 
 class SmartContract {
 public:
@@ -16,6 +16,6 @@ public:
 	virtual ~SmartContract();
 };
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 #endif /* SC_SMARTCONTRACT_H_ */

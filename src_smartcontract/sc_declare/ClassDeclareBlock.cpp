@@ -7,7 +7,7 @@
 
 #include "sc_declare/ClassDeclareBlock.h"
 
-namespace codablecash {
+namespace alinous {
 
 ClassDeclareBlock::ClassDeclareBlock()  : CodeElement(CodeElement::CLASS_DECLARE_BLOCK) {
 }
@@ -15,4 +15,4 @@ ClassDeclareBlock::ClassDeclareBlock()  : CodeElement(CodeElement::CLASS_DECLARE
 ClassDeclareBlock::~ClassDeclareBlock() {
 }
 
-} /* namespace codablecash */
+} /* namespace alinous */

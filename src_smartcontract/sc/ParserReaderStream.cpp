@@ -8,7 +8,7 @@
 #include "sc/ParserReaderStream.h"
 #include "base_io_stream/InputStream.h"
 
-namespace codablecash {
+namespace alinous {
 
 ParserReaderStream::ParserReaderStream(InputStream* inputStream, int size) {
 	this->inputStream = inputStream;
@@ -32,4 +32,4 @@ bool ParserReaderStream::endOfInput() {
 	return max_ == 0;
 }
 
-} /* namespace codablecash */
+} /* namespace alinous */

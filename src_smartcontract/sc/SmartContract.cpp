@@ -7,7 +7,7 @@
 
 #include "sc/SmartContract.h"
 
-namespace codablecash {
+namespace alinous {
 
 SmartContract::SmartContract() {
 
@@ -17,4 +17,4 @@ SmartContract::~SmartContract() {
 
 }
 
-} /* namespace codablecash */
+} /* namespace alinous */

@@ -11,9 +11,6 @@
 #include "sc/SmartContract.h"
 
 using namespace alinous;
-using namespace codablecash;
-
-
 
 TEST_GROUP(TestSmartContractGroup) {
 	TEST_SETUP(){}

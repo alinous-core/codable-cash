@@ -17,7 +17,7 @@
 #include "alinous_lang/AlinousLangTokenManager.h"
 #include "alinous_lang/AlinousLang.h"
 
-namespace codablecash {
+namespace alinous {
 using namespace alinouslang;
 
 SmartContractParser::SmartContractParser(const File* file) {
@@ -80,6 +80,6 @@ bool SmartContractParser::hasLexError() const noexcept {
 	return this->parserErrorHandler != nullptr && this->lexErrorHandler->hasError();
 }
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 

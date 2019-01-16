@@ -8,7 +8,7 @@
 #include "sc/CompileError.h"
 #include "base/UnicodeString.h"
 
-namespace codablecash {
+namespace alinous {
 
 CompileError::CompileError(UnicodeString* expectedToken, UnicodeString* actualToken, int line, int column) {
 	this->expectedToken = expectedToken;
@@ -27,4 +27,4 @@ CompileError::~CompileError() {
 
 }
 
-} /* namespace codablecash */
+} /* namespace alinous */

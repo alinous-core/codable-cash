@@ -11,8 +11,7 @@
 #include "alinous_lang/ErrorHandler.h"
 #include "base/ArrayList.h"
 
-namespace codablecash {
-using namespace alinous;
+namespace alinous {
 using namespace alinouslang;
 
 class LexError;
@@ -29,6 +28,6 @@ private:
 	ArrayList<LexError> list;
 };
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 #endif /* SC_LEXERRORHANDLER_H_ */
