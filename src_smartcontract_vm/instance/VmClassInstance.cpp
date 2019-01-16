@@ -10,12 +10,10 @@
 namespace alinous {
 
 VmClassInstance::VmClassInstance() {
-	// TODO Auto-generated constructor stub
 
 }
 
 VmClassInstance::~VmClassInstance() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

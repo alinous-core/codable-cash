@@ -5,17 +5,14 @@
  *      Author: iizuka
  */
 
-#include <main/Blockchain.h>
+#include "main/Blockchain.h"
 
 namespace codablecash {
 
 Blockchain::Blockchain() {
-	// TODO Auto-generated constructor stub
-
 }
 
 Blockchain::~Blockchain() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace codablecash */
