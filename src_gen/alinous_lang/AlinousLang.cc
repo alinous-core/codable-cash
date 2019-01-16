@@ -45,6 +45,9 @@ unit->setPosition(clazz);
     }
     end_label_1: ;
     }
+    if (!hasError) {
+    jj_consume_token(0);
+    }
 return unit;
 assert(false);
 }
@@ -63,13 +66,12 @@ ClassDeclare            * AlinousLang::classDeclare() {ClassDeclare* clazz = nul
     if (!hasError) {
     block = classDeclareBlock();
     }
-if(!hasError) {
-                clazz = new ClassDeclare();
-                    clazz->setPositions(cls, block);
-                    clazz->setBlock(block);
-            }
-
-                return clazz;
+    if (!hasError) {
+clazz = new ClassDeclare();
+            clazz->setPositions(cls, block);
+            clazz->setBlock(block);
+    }
+return clazz;
 assert(false);
 }
 

@@ -8,6 +8,7 @@
 #include "sc/SmartContractParser.h"
 #include "sc/ParserReaderStream.h"
 #include "sc/ParseErrorHandler.h"
+#include "sc/LexErrorHandler.h"
 
 #include "base_io/File.h"
 #include "base_io_stream/FileInputStream.h"
@@ -26,7 +27,8 @@ SmartContractParser::SmartContractParser(const File* file) {
 	this->charStream = nullptr;
 	this->tokenManager = nullptr;
 	this->alinousLang = nullptr;
-	this->parserHandler = nullptr;
+	this->parserErrorHandler = nullptr;
+	this->lexErrorHandler = nullptr;
 }
 
 SmartContractParser::~SmartContractParser() {
@@ -59,16 +61,23 @@ CompilationUnit* SmartContractParser::parse() {
 	this->charStream = new CharStream(readStream);
 
 	this->tokenManager = new AlinousLangTokenManager(charStream);
+	this->lexErrorHandler = new LexErrorHandler();
+	this->tokenManager->setErrorHandler(this->lexErrorHandler);
 
-	this->parserHandler = new ParseErrorHandler();
+	this->parserErrorHandler = new ParseErrorHandler();
 	this->alinousLang = new AlinousLang(tokenManager);
-	this->alinousLang->setErrorHandler(this->parserHandler);
+	this->alinousLang->setErrorHandler(this->parserErrorHandler);
 
 	return alinousLang->compilationUnit();
 }
 
 bool SmartContractParser::hasError() const noexcept {
-	return this->parserHandler->hasError();
+	return this->parserErrorHandler != nullptr && this->parserErrorHandler != nullptr &&
+			(this->parserErrorHandler->hasError() || this->lexErrorHandler->hasError());
+}
+
+bool SmartContractParser::hasLexError() const noexcept {
+	return this->parserErrorHandler != nullptr && this->lexErrorHandler->hasError();
 }
 
 } /* namespace codablecash */
