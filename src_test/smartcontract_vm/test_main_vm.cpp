@@ -9,10 +9,10 @@
 #include "test_utils/t_macros.h"
 
 #include "vm/VirtualMachine.h"
+#include "sc/SmartContract.h"
+#include "base_io_stream/FileInputStream.h"
 
 using namespace alinous;
-using namespace codablecash;
-
 
 
 TEST_GROUP(TestVMGroup) {
@@ -23,5 +23,21 @@ TEST_GROUP(TestVMGroup) {
 
 TEST(TestVMGroup, construct){
 	VirtualMachine* vm = new VirtualMachine();
+	delete vm;
+}
+
+TEST(TestVMGroup, loadAndExec){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/parser/hello.alns"))
+
+	SmartContract* sc = new SmartContract();
+	FileInputStream stream(sourceFile);
+
+	int length = sourceFile->length();
+	sc->addCompilationUnit(&stream, length);
+
+	VirtualMachine* vm = new VirtualMachine();
+	vm->loadSmartContract(sc);
+
 	delete vm;
 }
