@@ -45,8 +45,6 @@ SmartContractParser::SmartContractParser(InputStream* stream, int length) {
 }
 
 SmartContractParser::~SmartContractParser() {
-	delete file;
-
 	if(this->alinousLang){
 		delete this->alinousLang;
 	}
@@ -59,9 +57,11 @@ SmartContractParser::~SmartContractParser() {
 	if(this->readStream){
 		delete this->readStream;
 	}
-	if(this->inStream){
+	if(this->file != nullptr && this->inStream){
 		delete this->inStream;
 	}
+
+	delete file;
 }
 
 CompilationUnit* SmartContractParser::parse() {
