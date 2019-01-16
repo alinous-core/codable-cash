@@ -21,6 +21,7 @@ class AlinousLang {
 public:
 CompilationUnit
                * compilationUnit();
+PackageDeclare              * packageDeclare();
 ClassDeclare            * classDeclare();
 ClassDeclareBlock                 * classDeclareBlock();
 
@@ -48,7 +49,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[2];
+  int           jj_la1[3];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 

@@ -3,19 +3,19 @@
 #include "TokenMgrError.h"
 namespace alinouslang {
   unsigned int jj_la1_0[] = {
-0x0,};
+0x0,0x0,};
   unsigned int jj_la1_1[] = {
-0x2000000,};
+0x1000000,0x2000000,};
   unsigned int jj_la1_2[] = {
-0x0,};
+0x0,0x0,};
   unsigned int jj_la1_3[] = {
-0x0,};
+0x0,0x0,};
   unsigned int jj_la1_4[] = {
-0x0,};
+0x0,0x0,};
   unsigned int jj_la1_5[] = {
-0x0,};
+0x0,0x0,};
   unsigned int jj_la1_6[] = {
-0x0,};
+0x0,0x0,};
 
   /** Constructor with user supplied TokenManager. */
 
@@ -23,7 +23,24 @@ namespace alinouslang {
 
 CompilationUnit
                * AlinousLang::compilationUnit() {CompilationUnit* unit = new CompilationUnit();
+        PackageDeclare* pkg = nullptr;
         ClassDeclare* clazz = nullptr;
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case PACKAGE:{
+      if (!hasError) {
+      pkg = packageDeclare();
+      }
+      if (!hasError) {
+unit->setPackage(pkg);
+      }
+      break;
+      }
+    default:
+      jj_la1[0] = jj_gen;
+      ;
+    }
+    }
     if (!hasError) {
     while (!hasError) {
       if (!hasError) {
@@ -39,7 +56,7 @@ unit->setPosition(clazz);
         break;
         }
       default:
-        jj_la1[0] = jj_gen;
+        jj_la1[1] = jj_gen;
         goto end_label_1;
       }
     }
@@ -49,6 +66,26 @@ unit->setPosition(clazz);
     jj_consume_token(0);
     }
 return unit;
+assert(false);
+}
+
+
+PackageDeclare              * AlinousLang::packageDeclare() {PackageDeclare* pkg = nullptr;
+        Token* t = nullptr;
+    if (!hasError) {
+    t = jj_consume_token(PACKAGE);
+    }
+    if (!hasError) {
+pkg=new PackageDeclare();
+                pkg->setPosition(t);
+    }
+    if (!hasError) {
+    jj_consume_token(SEMI_COLON);
+    }
+    if (!hasError) {
+pkg->setPosition(t);
+    }
+return pkg;
 assert(false);
 }
 
@@ -121,7 +158,7 @@ void AlinousLang::ReInit(TokenManager* tokenManager){
     trace = false;
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
 

@@ -12,7 +12,7 @@ CompilationUnit* compilationUnit() :
 {
 	[
 		pkg=packageDeclare() {
-			
+			unit->setPackage(pkg);
 		}
 	]
     
@@ -30,9 +30,20 @@ CompilationUnit* compilationUnit() :
 
 PackageDeclare* packageDeclare() : {
 	PackageDeclare* pkg = nullptr;
+	Token* t = nullptr;
 }
 {
-
+	t="package" {
+		pkg=new PackageDeclare();
+		pkg->setPosition(t);
+	}
+	
+	";" {
+		pkg->setPosition(t);
+	}
+	{
+		return pkg;
+	}
 }
 
 ClassDeclare* classDeclare() :

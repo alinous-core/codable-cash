@@ -22,7 +22,20 @@ using namespace alinouslang;
 
 SmartContractParser::SmartContractParser(const File* file) {
 	this->file = new File(*file);
+	this->length = 0;
 	this->inStream = nullptr;
+	this->readStream = nullptr;
+	this->charStream = nullptr;
+	this->tokenManager = nullptr;
+	this->alinousLang = nullptr;
+	this->parserErrorHandler = nullptr;
+	this->lexErrorHandler = nullptr;
+}
+
+SmartContractParser::SmartContractParser(InputStream* stream, int length) {
+	this->file = nullptr;
+	this->length = length;
+	this->inStream = stream;
 	this->readStream = nullptr;
 	this->charStream = nullptr;
 	this->tokenManager = nullptr;
@@ -52,10 +65,18 @@ SmartContractParser::~SmartContractParser() {
 }
 
 CompilationUnit* SmartContractParser::parse() {
-	int length = this->file->length();
-	this->inStream = new FileInputStream(this->file);
+	if(this->inStream == nullptr){
+		this->length = this->file->length();
+		this->inStream = new FileInputStream(this->file);
+	}
 
-	this->inStream->open();
+	return parseStream();
+}
+
+CompilationUnit* SmartContractParser::parseStream() {
+	if(!this->inStream->available()){
+		this->inStream->open();
+	}
 
 	this->readStream = new ParserReaderStream(inStream, length);
 	this->charStream = new CharStream(readStream);
@@ -81,5 +102,7 @@ bool SmartContractParser::hasLexError() const noexcept {
 }
 
 } /* namespace alinous */
+
+
 
 

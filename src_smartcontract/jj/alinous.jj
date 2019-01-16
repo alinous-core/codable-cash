@@ -357,9 +357,16 @@ MORE:
 CompilationUnit* compilationUnit() :
 {
 	CompilationUnit* unit = new CompilationUnit();
+	PackageDeclare* pkg = nullptr;
 	ClassDeclare* clazz = nullptr;
 }
 {
+	[
+		pkg=packageDeclare() {
+			unit->setPackage(pkg);
+		}
+	]
+    
 	(
 	    clazz=classDeclare() {
 			unit->setPosition(clazz);
@@ -369,6 +376,24 @@ CompilationUnit* compilationUnit() :
 	<EOF>
 	{
 		return unit;
+	}
+}
+
+PackageDeclare* packageDeclare() : {
+	PackageDeclare* pkg = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="package" {
+		pkg=new PackageDeclare();
+		pkg->setPosition(t);
+	}
+	
+	";" {
+		pkg->setPosition(t);
+	}
+	{
+		return pkg;
 	}
 }
 

@@ -39,11 +39,22 @@ void CodeElement::setPosition(CodeElement* element) {
 	if(this->beginLine == 0 && this->beginColumn == 0){
 		this->beginLine = element->beginLine;
 		this->beginColumn = element->beginColumn;
-		//return;
+		return;
 	}
 
-	//this->endLine = element->endLine;
-	//this->endColumn = element->endColumn;
+	this->endLine = element->endLine;
+	this->endColumn = element->endColumn;
+}
+
+void CodeElement::setPosition(Token* token) {
+	if(this->beginLine == 0 && this->beginColumn == 0){
+		this->beginLine = token->beginLine;
+		this->beginColumn = token->beginColumn;
+		return;
+	}
+
+	this->endLine = token->endLine;
+	this->endColumn = token->endColumn;
 }
 
 } /* namespace alinous */
