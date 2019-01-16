@@ -2,6 +2,8 @@
 set(__dirsrc "")
 
 # import source codes
+add_subdirectory(instance)
+add_subdirectory(memory)
 add_subdirectory(vm)
 
 
