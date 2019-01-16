@@ -10,7 +10,7 @@
 
 namespace codablecash {
 
-CompilationUnit::CompilationUnit() : classes(4) {
+CompilationUnit::CompilationUnit() : classes(4), CodeElement(CodeElement::COMPILANT_UNIT) {
 
 }
 

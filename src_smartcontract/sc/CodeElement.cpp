@@ -10,7 +10,8 @@
 
 namespace codablecash {
 
-CodeElement::CodeElement() {
+CodeElement::CodeElement(short kind) {
+	this->kind = kind;
 	this->beginLine = 0;
 	this->beginColumn = 0;
 	this->endLine = 0;

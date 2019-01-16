@@ -9,7 +9,7 @@
 
 namespace codablecash {
 
-ClassDeclareBlock::ClassDeclareBlock() {
+ClassDeclareBlock::ClassDeclareBlock()  : CodeElement(CodeElement::CLASS_DECLARE_BLOCK) {
 }
 
 ClassDeclareBlock::~ClassDeclareBlock() {

@@ -10,7 +10,7 @@
 
 namespace codablecash {
 
-ClassDeclare::ClassDeclare() {
+ClassDeclare::ClassDeclare() : CodeElement(CodeElement::CLASS_DECLARE) {
 	this->block = nullptr;
 }
 
