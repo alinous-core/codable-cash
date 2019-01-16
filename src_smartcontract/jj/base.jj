@@ -15,6 +15,7 @@ CompilationUnit* compilationUnit() :
 			unit->addClassDeclare(clazz);
 	    }
 	)+
+	<EOF>
 	{
 		return unit;
 	}
@@ -30,12 +31,11 @@ ClassDeclare* classDeclare() :
 }
 {
 	cls="class" name=<IDENTIFIER> block=classDeclareBlock() {
-	    if(!hasError) {
-	        clazz = new ClassDeclare();
-		    clazz->setPositions(cls, block);
-		    clazz->setBlock(block);
-	    }
-
+        clazz = new ClassDeclare();
+	    clazz->setPositions(cls, block);
+	    clazz->setBlock(block);
+	}
+	{
 		return clazz;
 	}
 }

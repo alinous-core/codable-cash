@@ -4,6 +4,8 @@ set(__src
 	CodeElement.cpp
 	CompilationUnit.cpp
 	CompileError.cpp
+	LexError.cpp
+	LexErrorHandler.cpp
 	ParseErrorHandler.cpp
 	ParserReaderStream.cpp
 	SmartContract.cpp
