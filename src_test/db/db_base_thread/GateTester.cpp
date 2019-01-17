@@ -58,9 +58,9 @@ void GateTester::process() noexcept {
 			{
 				StackUnlocker __st_lock2(GateTester::launchComplete);
 				GateTester::launchComplete->notifyAll();
+				this->ready = true;
 			}
 
-			this->ready = true;
 			this->startLock->wait();
 		}
 	}
