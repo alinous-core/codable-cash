@@ -1,5 +1,6 @@
 
 set(testsrc
+	test_class_fw.cpp
 	test_main_sc.cpp
 	test_parser.cpp
 )
