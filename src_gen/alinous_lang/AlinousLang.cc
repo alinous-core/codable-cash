@@ -161,7 +161,10 @@ clazz = new ClassDeclare();
 clazz->setPositions(cls, block);
             clazz->setBlock(block);
     }
-return clazz;
+if(hasError) {
+                delete clazz, clazz = nullptr;
+            }
+                return clazz;
 assert(false);
 }
 

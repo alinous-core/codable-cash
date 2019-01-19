@@ -97,6 +97,9 @@ ClassDeclare* classDeclare() :
 	    clazz->setBlock(block);
 	}
 	{
+	    if(hasError) {
+	        delete clazz, clazz = nullptr;
+	    }
 		return clazz;
 	}
 }
