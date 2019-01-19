@@ -93,7 +93,8 @@ pkg->setName(name);
     if (!hasError) {
 pkg->setPosition(t);
     }
-return pkg;
+__ONERROR(pkg);
+                return pkg;
 assert(false);
 }
 
@@ -135,7 +136,8 @@ names->addSegment(_STR(t));
     if (!hasError) {
 
     }
-return names;
+__ONERROR(names);
+                return names;
 assert(false);
 }
 
@@ -161,9 +163,7 @@ clazz = new ClassDeclare();
 clazz->setPositions(cls, block);
             clazz->setBlock(block);
     }
-if(hasError) {
-                delete clazz, clazz = nullptr;
-            }
+__ONERROR(clazz);
                 return clazz;
 assert(false);
 }
@@ -175,13 +175,17 @@ ClassDeclareBlock                 * AlinousLang::classDeclareBlock() {ClassDecla
     begin = jj_consume_token(L_BRACE);
     }
     if (!hasError) {
+block = new ClassDeclareBlock();
+                block->setPosition(begin);
+    }
+    if (!hasError) {
     end = jj_consume_token(R_BRACE);
     }
-if(!hasError) {
-                        block = new ClassDeclareBlock();
-                        block->setPositions(_P(begin, end));
-            }
-
+    if (!hasError) {
+block = new ClassDeclareBlock();
+                block->setPosition(end);
+    }
+__ONERROR(block);
                 return block;
 assert(false);
 }

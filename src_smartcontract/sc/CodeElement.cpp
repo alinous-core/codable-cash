@@ -21,12 +21,14 @@ CodeElement::CodeElement(short kind) {
 CodeElement::~CodeElement() {
 }
 
+/*
 void CodeElement::setPositions(int beginLine, int beginColumn, int endLine, int endColumn) {
 	this->beginLine = beginLine;
 	this->beginColumn = beginColumn;
 	this->endLine = endLine;
 	this->endColumn = endColumn;
 }
+*/
 
 void CodeElement::setPositions(Token* token, CodeElement* end) {
 	this->beginLine = token->beginLine;

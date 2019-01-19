@@ -29,5 +29,9 @@ using namespace alinous;
 #define _PO()
 
 #define _STR(t) new UnicodeString(t->image.c_str())
+#define __ONERROR(obj) \
+	if(hasError){\
+		delete obj, obj=nullptr;\
+	}
 
 #endif /* SC_ALINOUSLANG_H_ */

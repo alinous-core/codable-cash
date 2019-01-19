@@ -48,6 +48,7 @@ PackageDeclare* packageDeclare() : {
 		pkg->setPosition(t);
 	}
 	{
+	    __ONERROR(pkg);
 		return pkg;
 	}
 }
@@ -74,6 +75,7 @@ PackageNameDeclare* packageNameDeclare() :
 
 	}
 	{
+	    __ONERROR(names);
 		return names;
 	}
 
@@ -97,9 +99,7 @@ ClassDeclare* classDeclare() :
 	    clazz->setBlock(block);
 	}
 	{
-	    if(hasError) {
-	        delete clazz, clazz = nullptr;
-	    }
+	    __ONERROR(clazz);
 		return clazz;
 	}
 }
@@ -110,13 +110,17 @@ ClassDeclareBlock* classDeclareBlock() :
 	Token* begin, *end;
 }
 {
-	begin="{" end="}"
+	begin="{" {
+		block = new ClassDeclareBlock();
+		block->setPosition(begin);
+	}
+	 end="}"
 	{
-	    if(!hasError) {
-			block = new ClassDeclareBlock();
-	   		block->setPositions(_P(begin, end));
-	    }
-
+		block = new ClassDeclareBlock();
+   		block->setPosition(end);
+	}
+	{
+		__ONERROR(block);
 		return block;
 	}
 }
