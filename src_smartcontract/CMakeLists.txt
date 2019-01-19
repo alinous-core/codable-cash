@@ -5,6 +5,7 @@ set(__dirsrc "")
 add_subdirectory(compiler)
 add_subdirectory(sc)
 add_subdirectory(sc_declare)
+add_subdirectory(sc_declare_types)
 
 
 message(STATUS "src_smartcontract : ${__dirsrc}")
