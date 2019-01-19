@@ -22,6 +22,7 @@ public:
 CompilationUnit
                * compilationUnit();
 PackageDeclare              * packageDeclare();
+PackageNameDeclare                  * packageNameDeclare();
 ClassDeclare            * classDeclare();
 ClassDeclareBlock                 * classDeclareBlock();
 
@@ -49,7 +50,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[3];
+  int           jj_la1[4];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 

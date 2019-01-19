@@ -7,6 +7,9 @@
 
 #include "test_utils/t_macros.h"
 
+#include "sc/CompilationUnit.h"
+#include "compiler/SmartContractParser.h"
+
 TEST_GROUP(TestClassFwGroup) {
 	TEST_SETUP(){}
 	TEST_TEARDOWN(){}
@@ -14,5 +17,10 @@ TEST_GROUP(TestClassFwGroup) {
 };
 
 TEST(TestClassFwGroup, construct){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/classfw/class.alns"))
 
+	SmartContractParser parser(sourceFile);
+	CompilationUnit* unit = parser.parse();
+	delete unit;
 }

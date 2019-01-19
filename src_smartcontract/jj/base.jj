@@ -30,12 +30,18 @@ CompilationUnit* compilationUnit() :
 
 PackageDeclare* packageDeclare() : {
 	PackageDeclare* pkg = nullptr;
+	PackageNameDeclare* name = nullptr;
 	Token* t = nullptr;
 }
 {
 	t="package" {
 		pkg=new PackageDeclare();
 		pkg->setPosition(t);
+	}
+
+	name=packageNameDeclare() {
+	    pkg->setName(name);
+		pkg->setPosition(name);
 	}
 	
 	";" {
@@ -44,6 +50,33 @@ PackageDeclare* packageDeclare() : {
 	{
 		return pkg;
 	}
+}
+
+PackageNameDeclare* packageNameDeclare() :
+{
+	PackageNameDeclare* names = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=< IDENTIFIER > {
+	    names = new PackageNameDeclare();
+		names->addSegment(_STR(t));
+		names->setPosition(t);
+	}
+
+	(
+	    "." t=< IDENTIFIER > {
+			names->addSegment(_STR(t));
+			names->setPosition(t);
+	    }
+	)*
+	{
+
+	}
+	{
+		return names;
+	}
+
 }
 
 ClassDeclare* classDeclare() :
@@ -55,8 +88,11 @@ ClassDeclare* classDeclare() :
 	
 }
 {
-	cls="class" name=<IDENTIFIER> block=classDeclareBlock() {
-        clazz = new ClassDeclare();
+	cls="class" name=<IDENTIFIER> {
+		 clazz = new ClassDeclare();
+		 clazz->setName(_STR(name));
+	}
+	block=classDeclareBlock() {
 	    clazz->setPositions(cls, block);
 	    clazz->setBlock(block);
 	}
@@ -81,4 +117,5 @@ ClassDeclareBlock* classDeclareBlock() :
 		return block;
 	}
 }
+
 

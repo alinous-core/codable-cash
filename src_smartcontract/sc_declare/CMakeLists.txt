@@ -6,6 +6,7 @@ set(__src
 	ClassDeclareBlock.cpp
 	MemberVariableDeclare.cpp
 	MethodDeclare.cpp
+	PackageNameDeclare.cpp
 	PackageDeclare.cpp
 	TypeDeclare.cpp
 )

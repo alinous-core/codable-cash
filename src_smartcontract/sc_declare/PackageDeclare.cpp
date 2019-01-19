@@ -6,15 +6,24 @@
  */
 
 #include "sc_declare/PackageDeclare.h"
+#include "sc_declare/PackageNameDeclare.h"
 
 namespace alinous {
 
 PackageDeclare::PackageDeclare() : CodeElement(CodeElement::PACKAGE_DECLARE){
-
+	this->name = nullptr;
 }
 
 PackageDeclare::~PackageDeclare() {
-
+	if(this->name){
+		delete this->name;
+	}
 }
 
+void PackageDeclare::setName(PackageNameDeclare* name) {
+	this->name = name;
+}
+
+
 } /* namespace alinous */
+

@@ -3,19 +3,19 @@
 #include "TokenMgrError.h"
 namespace alinouslang {
   unsigned int jj_la1_0[] = {
-0x0,0x0,};
+0x0,0x0,0x0,};
   unsigned int jj_la1_1[] = {
-0x1000000,0x2000000,};
+0x1000000,0x2000000,0x80,};
   unsigned int jj_la1_2[] = {
-0x0,0x0,};
+0x0,0x0,0x0,};
   unsigned int jj_la1_3[] = {
-0x0,0x0,};
+0x0,0x0,0x0,};
   unsigned int jj_la1_4[] = {
-0x0,0x0,};
+0x0,0x0,0x0,};
   unsigned int jj_la1_5[] = {
-0x0,0x0,};
+0x0,0x0,0x0,};
   unsigned int jj_la1_6[] = {
-0x0,0x0,};
+0x0,0x0,0x0,};
 
   /** Constructor with user supplied TokenManager. */
 
@@ -71,6 +71,7 @@ assert(false);
 
 
 PackageDeclare              * AlinousLang::packageDeclare() {PackageDeclare* pkg = nullptr;
+        PackageNameDeclare* name = nullptr;
         Token* t = nullptr;
     if (!hasError) {
     t = jj_consume_token(PACKAGE);
@@ -80,12 +81,61 @@ pkg=new PackageDeclare();
                 pkg->setPosition(t);
     }
     if (!hasError) {
+    name = packageNameDeclare();
+    }
+    if (!hasError) {
+pkg->setName(name);
+                pkg->setPosition(name);
+    }
+    if (!hasError) {
     jj_consume_token(SEMI_COLON);
     }
     if (!hasError) {
 pkg->setPosition(t);
     }
 return pkg;
+assert(false);
+}
+
+
+PackageNameDeclare                  * AlinousLang::packageNameDeclare() {PackageNameDeclare* names = nullptr;
+        Token* t = nullptr;
+    if (!hasError) {
+    t = jj_consume_token(IDENTIFIER);
+    }
+    if (!hasError) {
+names = new PackageNameDeclare();
+                names->addSegment(_STR(t));
+                names->setPosition(t);
+    }
+    if (!hasError) {
+    while (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case DOT:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[2] = jj_gen;
+        goto end_label_2;
+      }
+      if (!hasError) {
+      jj_consume_token(DOT);
+      }
+      if (!hasError) {
+      t = jj_consume_token(IDENTIFIER);
+      }
+      if (!hasError) {
+names->addSegment(_STR(t));
+                        names->setPosition(t);
+      }
+    }
+    end_label_2: ;
+    }
+    if (!hasError) {
+
+    }
+return names;
 assert(false);
 }
 
@@ -101,11 +151,14 @@ ClassDeclare            * AlinousLang::classDeclare() {ClassDeclare* clazz = nul
     name = jj_consume_token(IDENTIFIER);
     }
     if (!hasError) {
+clazz = new ClassDeclare();
+                 clazz->setName(_STR(name));
+    }
+    if (!hasError) {
     block = classDeclareBlock();
     }
     if (!hasError) {
-clazz = new ClassDeclare();
-            clazz->setPositions(cls, block);
+clazz->setPositions(cls, block);
             clazz->setBlock(block);
     }
 return clazz;
@@ -158,7 +211,7 @@ void AlinousLang::ReInit(TokenManager* tokenManager){
     trace = false;
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
 

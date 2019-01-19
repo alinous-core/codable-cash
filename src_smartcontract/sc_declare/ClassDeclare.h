@@ -13,16 +13,19 @@
 namespace alinous {
 
 class ClassDeclareBlock;
+class UnicodeString;
 
 class ClassDeclare : public CodeElement {
 public:
 	ClassDeclare();
 	virtual ~ClassDeclare();
 
-	void setBlock(ClassDeclareBlock* block);
+	void setBlock(ClassDeclareBlock* block) noexcept;
+	void setName(UnicodeString* name) noexcept;
 
 private:
 	ClassDeclareBlock* block;
+	UnicodeString* name;
 };
 
 } /* namespace alinous */

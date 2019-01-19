@@ -12,10 +12,17 @@
 
 namespace alinous {
 
+class PackageNameDeclare;
+
 class PackageDeclare : public CodeElement {
 public:
 	PackageDeclare();
 	virtual ~PackageDeclare();
+
+	void setName(PackageNameDeclare* name);
+
+private:
+	PackageNameDeclare* name;
 };
 
 } /* namespace alinous */
