@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-VoidType::VoidType() : CodeElement(CodeElement::TYPE_VOID) {
+VoidType::VoidType() : AbstractType(CodeElement::TYPE_VOID) {
 
 }
 

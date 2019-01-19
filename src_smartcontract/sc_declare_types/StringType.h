@@ -8,12 +8,11 @@
 #ifndef SC_DECLARE_TYPES_STRINGTYPE_H_
 #define SC_DECLARE_TYPES_STRINGTYPE_H_
 
-#include "sc_declare/ITypeDeclare.h"
-#include "sc/CodeElement.h"
+#include "sc_declare_types/AbstractType.h"
 
 namespace alinous {
 
-class StringType : public CodeElement, public ITypeDeclare {
+class StringType : public AbstractType {
 public:
 	StringType();
 	virtual ~StringType();

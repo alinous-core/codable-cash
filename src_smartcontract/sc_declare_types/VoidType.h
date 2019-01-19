@@ -8,12 +8,11 @@
 #ifndef SC_DECLARE_TYPES_VOIDTYPE_H_
 #define SC_DECLARE_TYPES_VOIDTYPE_H_
 
-#include "sc_declare/ITypeDeclare.h"
-#include "sc/CodeElement.h"
+#include "sc_declare_types/AbstractType.h"
 
 namespace alinous {
 
-class VoidType : public CodeElement, public ITypeDeclare {
+class VoidType : public AbstractType {
 public:
 	VoidType();
 	virtual ~VoidType();

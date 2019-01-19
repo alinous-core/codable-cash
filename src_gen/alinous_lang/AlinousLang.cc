@@ -199,7 +199,7 @@ block = new ClassDeclareBlock();
         method = methodDeclare();
         }
         if (!hasError) {
-
+block->addMethod(method);
         }
       } else {
         switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
@@ -210,7 +210,7 @@ block = new ClassDeclareBlock();
           member = memberVariableDeclare();
           }
           if (!hasError) {
-
+block->addVariable(member);
           }
           break;
           }
@@ -235,9 +235,10 @@ assert(false);
 }
 
 
-MethodDeclare             * AlinousLang::methodDeclare() {Token* t = nullptr;
+MethodDeclare             * AlinousLang::methodDeclare() {MethodDeclare* method = new MethodDeclare();
+        Token* t = nullptr;
         AccessControlDeclare* ctrl = nullptr;
-        ITypeDeclare* type = nullptr;
+        AbstractType* type = nullptr;
     if (!hasError) {
     ctrl = accessControlDeclare();
     }
@@ -246,6 +247,10 @@ MethodDeclare             * AlinousLang::methodDeclare() {Token* t = nullptr;
     case STATIC:{
       if (!hasError) {
       t = jj_consume_token(STATIC);
+      }
+      if (!hasError) {
+method->setStatic(true);
+                method->setPosition(t);
       }
       break;
       }
@@ -258,19 +263,31 @@ MethodDeclare             * AlinousLang::methodDeclare() {Token* t = nullptr;
     type = typeDeclare();
     }
     if (!hasError) {
-    jj_consume_token(IDENTIFIER);
+method->setPosition(type);
+    }
+    if (!hasError) {
+    t = jj_consume_token(IDENTIFIER);
+    }
+    if (!hasError) {
+method->setName(_STR(t));
+            method->setPosition(t);
     }
     if (!hasError) {
     t = jj_consume_token(SEMI_COLON);
     }
-
+    if (!hasError) {
+method->setPosition(t);
+    }
+__ONERROR(method);
+                return method;
 assert(false);
 }
 
 
-MemberVariableDeclare                     * AlinousLang::memberVariableDeclare() {Token* t = nullptr;
+MemberVariableDeclare                     * AlinousLang::memberVariableDeclare() {MemberVariableDeclare* variable = new MemberVariableDeclare();
+        Token* t = nullptr;
         AccessControlDeclare* ctrl = nullptr;
-        ITypeDeclare* type = nullptr;
+        AbstractType* type = nullptr;
         ArgumentsListDeclare* args = nullptr;
     if (!hasError) {
     ctrl = accessControlDeclare();
@@ -306,7 +323,8 @@ MemberVariableDeclare                     * AlinousLang::memberVariableDeclare()
     if (!hasError) {
 
     }
-
+__ONERROR(variable);
+                return variable;
 assert(false);
 }
 
@@ -360,7 +378,8 @@ assert(false);
 }
 
 
-ArgumentsListDeclare                    * AlinousLang::argumentsListDeclare() {Token* t = nullptr;
+ArgumentsListDeclare                    * AlinousLang::argumentsListDeclare() {ArgumentsListDeclare* arguments = new ArgumentsListDeclare();
+        Token* t = nullptr;
     if (!hasError) {
     t = jj_consume_token(L_PARENTHESIS);
     }
@@ -370,12 +389,13 @@ ArgumentsListDeclare                    * AlinousLang::argumentsListDeclare() {T
     if (!hasError) {
 
     }
-
+__ONERROR(arguments);
+                return arguments;
 assert(false);
 }
 
 
-ITypeDeclare            * AlinousLang::typeDeclare() {ITypeDeclare* dec = nullptr;
+AbstractType            * AlinousLang::typeDeclare() {AbstractType* dec = nullptr;
     if (!hasError) {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case CHAR:{

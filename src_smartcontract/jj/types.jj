@@ -1,7 +1,7 @@
 
 
-ITypeDeclare* typeDeclare() : {
-	ITypeDeclare* dec = nullptr;
+AbstractType* typeDeclare() : {
+	AbstractType* dec = nullptr;
 }
 {
 	(		dec=charType()

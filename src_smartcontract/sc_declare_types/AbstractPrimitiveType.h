@@ -8,12 +8,11 @@
 #ifndef SC_DECLARE_TYPES_ABSTRACTPRIMITIVETYPE_H_
 #define SC_DECLARE_TYPES_ABSTRACTPRIMITIVETYPE_H_
 
-#include "sc/CodeElement.h"
-#include "sc_declare/ITypeDeclare.h"
+#include "sc_declare_types/AbstractType.h"
 
 namespace alinous {
 
-class AbstractPrimitiveType : public CodeElement, public ITypeDeclare {
+class AbstractPrimitiveType : public AbstractType {
 public:
 	AbstractPrimitiveType(short kind);
 	virtual ~AbstractPrimitiveType();

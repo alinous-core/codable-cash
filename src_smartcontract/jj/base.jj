@@ -117,11 +117,11 @@ ClassDeclareBlock* classDeclareBlock() :
 	}
 
 	( LOOKAHEAD(3)		method=methodDeclare() {
-
+			block->addMethod(method);
 		}
 		|
 		member=memberVariableDeclare() {
-
+			block->addVariable(member);
 		}
 	)*
 
@@ -137,29 +137,43 @@ ClassDeclareBlock* classDeclareBlock() :
 }
 
 MethodDeclare* methodDeclare() : {
+    MethodDeclare* method = new MethodDeclare();
 	Token* t = nullptr;
 	AccessControlDeclare* ctrl = nullptr;
-	ITypeDeclare* type = nullptr;
+	AbstractType* type = nullptr;
 }
 {
     ctrl=accessControlDeclare()
     
-	[t="static"]
+	[t="static" {
+	    method->setStatic(true);
+		method->setPosition(t);
+	}
+	]
 
-	type=typeDeclare()
-
-	< IDENTIFIER >
-
-	t=";" {
-
+	type=typeDeclare() {
+		method->setPosition(type);
 	}
 
+	t=< IDENTIFIER > {
+	    method->setName(_STR(t));
+	    method->setPosition(t);
+	}
+
+	t=";" {
+		method->setPosition(t);
+	}
+	{
+	    __ONERROR(method);
+		return method;
+	}
 }
 
 MemberVariableDeclare* memberVariableDeclare() : {
+    MemberVariableDeclare* variable = new MemberVariableDeclare();
 	Token* t = nullptr;
 	AccessControlDeclare* ctrl = nullptr;
-	ITypeDeclare* type = nullptr;
+	AbstractType* type = nullptr;
 	ArgumentsListDeclare* args = nullptr;
 }
 {
@@ -179,7 +193,8 @@ MemberVariableDeclare* memberVariableDeclare() : {
 	}
 	
 	{
-
+	    __ONERROR(variable);
+		return variable;
 	}
 }
 
@@ -213,6 +228,7 @@ AccessControlDeclare* accessControlDeclare() : {
 }
 
 ArgumentsListDeclare* argumentsListDeclare() : {
+    ArgumentsListDeclare* arguments = new ArgumentsListDeclare();
 	Token* t = nullptr;
 }
 {
@@ -222,7 +238,8 @@ ArgumentsListDeclare* argumentsListDeclare() : {
 
 	}
 	{
-
+	    __ONERROR(arguments);
+		return arguments;
 	}
 }
 

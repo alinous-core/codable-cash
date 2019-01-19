@@ -12,10 +12,18 @@
 
 namespace alinous {
 
+class UnicodeString;
+
 class MethodDeclare : public CodeElement {
 public:
 	MethodDeclare();
 	virtual ~MethodDeclare();
+
+	void setStatic(bool s) noexcept;
+	void setName(UnicodeString* name) noexcept;
+private:
+	UnicodeString* name;
+	bool _static;
 };
 
 } /* namespace alinous */

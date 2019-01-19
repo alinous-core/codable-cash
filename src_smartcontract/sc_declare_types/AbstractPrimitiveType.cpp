@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-AbstractPrimitiveType::AbstractPrimitiveType(short kind) : CodeElement(kind), ITypeDeclare() {
+AbstractPrimitiveType::AbstractPrimitiveType(short kind) : AbstractType(kind) {
 }
 
 AbstractPrimitiveType::~AbstractPrimitiveType() {

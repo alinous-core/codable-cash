@@ -6,7 +6,6 @@ set(__src
 	ArgumentsListDeclare.cpp
 	ClassDeclare.cpp
 	ClassDeclareBlock.cpp
-	ITypeDeclare.cpp
 	MemberVariableDeclare.cpp
 	MethodDeclare.cpp
 	PackageNameDeclare.cpp

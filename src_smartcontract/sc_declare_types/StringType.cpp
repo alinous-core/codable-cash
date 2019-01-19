@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-StringType::StringType() : CodeElement(CodeElement::TYPE_STRING) {
+StringType::StringType() : AbstractType(CodeElement::TYPE_STRING) {
 }
 
 StringType::~StringType() {
