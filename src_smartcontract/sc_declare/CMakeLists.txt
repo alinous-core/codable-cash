@@ -1,7 +1,9 @@
 
 
 set(__src
+	AccessControlDeclare.cpp
 	ArgumentDeclare.cpp
+	ArgumentsListDeclare.cpp
 	ClassDeclare.cpp
 	ClassDeclareBlock.cpp
 	ITypeDeclare.cpp

@@ -9,13 +9,11 @@
 
 namespace alinous {
 
-IntType::IntType() {
-	// TODO Auto-generated constructor stub
+IntType::IntType()  : AbstractPrimitiveType(CodeElement::TYPE_INT) {
 
 }
 
 IntType::~IntType() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

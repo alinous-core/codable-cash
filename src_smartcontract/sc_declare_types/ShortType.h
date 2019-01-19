@@ -8,11 +8,11 @@
 #ifndef SC_DECLARE_TYPES_SHORTTYPE_H_
 #define SC_DECLARE_TYPES_SHORTTYPE_H_
 
-#include "sc_declare/ITypeDeclare.h"
+#include "sc_declare_types/AbstractPrimitiveType.h"
 
 namespace alinous {
 
-class ShortType : public ITypeDeclare {
+class ShortType : public AbstractPrimitiveType {
 public:
 	ShortType();
 	virtual ~ShortType();

@@ -8,11 +8,11 @@
 #ifndef SC_DECLARE_TYPES_CHARTYPE_H_
 #define SC_DECLARE_TYPES_CHARTYPE_H_
 
-#include "sc_declare/ITypeDeclare.h"
+#include "sc_declare_types/AbstractPrimitiveType.h"
 
 namespace alinous {
 
-class CharType : public ITypeDeclare {
+class CharType : public AbstractPrimitiveType {
 public:
 	CharType();
 	virtual ~CharType();

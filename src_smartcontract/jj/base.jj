@@ -72,7 +72,6 @@ PackageNameDeclare* packageNameDeclare() :
 	    }
 	)*
 	{
-
 	}
 	{
 	    __ONERROR(names);
@@ -108,6 +107,8 @@ ClassDeclareBlock* classDeclareBlock() :
 {
 	ClassDeclareBlock* block = nullptr;
 	Token* begin, *end;
+	MethodDeclare* method = nullptr;
+	MemberVariableDeclare* member = nullptr;
 }
 {
 	begin="{" {
@@ -115,6 +116,14 @@ ClassDeclareBlock* classDeclareBlock() :
 		block->setPosition(begin);
 	}
 
+	( LOOKAHEAD(3)		method=methodDeclare() {
+
+		}
+		|
+		member=memberVariableDeclare() {
+
+		}
+	)*
 
 	
 	 end="}"
@@ -127,8 +136,95 @@ ClassDeclareBlock* classDeclareBlock() :
 	}
 }
 
+MethodDeclare* methodDeclare() : {
+	Token* t = nullptr;
+	AccessControlDeclare* ctrl = nullptr;
+	ITypeDeclare* type = nullptr;
+}
+{
+    ctrl=accessControlDeclare()
+    
+	[t="static"]
 
+	type=typeDeclare()
 
+	< IDENTIFIER >
+
+	t=";" {
+
+	}
+
+}
+
+MemberVariableDeclare* memberVariableDeclare() : {
+	Token* t = nullptr;
+	AccessControlDeclare* ctrl = nullptr;
+	ITypeDeclare* type = nullptr;
+	ArgumentsListDeclare* args = nullptr;
+}
+{
+	ctrl=accessControlDeclare()
+
+	[t="static"]
+
+	type=typeDeclare()
+
+	t=< IDENTIFIER >
+
+	args=argumentsListDeclare() {
+
+	}
+	t=";" {
+
+	}
+	
+	{
+
+	}
+}
+
+AccessControlDeclare* accessControlDeclare() : {
+	Token* t = nullptr;
+	AccessControlDeclare* ctrl = new AccessControlDeclare();
+}
+{
+    ( 
+		t="public" {
+			ctrl->setCtrl(AccessControlDeclare::PUBLIC);
+			ctrl->setPositions(_P(t, t));
+		}
+		|
+		t="protected" {
+			ctrl->setCtrl(AccessControlDeclare::PROTECTED);
+			ctrl->setPositions(_P(t, t));
+		}
+		|      
+		t="private" {
+			ctrl->setCtrl(AccessControlDeclare::PRIVATE);
+			ctrl->setPositions(_P(t, t));
+		}
+	)
+	{
+	}
+	{
+	    __ONERROR(ctrl);
+		return ctrl;
+	}
+}
+
+ArgumentsListDeclare* argumentsListDeclare() : {
+	Token* t = nullptr;
+}
+{
+	t="("
+
+	t=")" {
+
+	}
+	{
+
+	}
+}
 
 
 

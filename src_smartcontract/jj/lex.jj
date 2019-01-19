@@ -146,23 +146,24 @@ TOKEN :
 | <CLASS_INTERFACE: "interface">
 | < ABSTRACT: "abstract" >
 | < BREAK: "break" >
-| < BYTE: "byte" >
+| < CHAR: "char" >
+| < SHORT: "short" >
+| < INT: "int" >
+| < LONG: "long" >
+| < STRING: "String" >
 | < CASE: "case" >
 | < CATCH: "catch" >
 | < _CONST: "const" >
 | < CONTINUE: "continue" >
 | < DO: "do" >
 | < ELSE: "else" >
-| < ENUM: "enum" >
 | < EXTENDS: "extends" >
-| < FINAL: "final" >
 | < FINALLY: "finally" >
 | < FOR: "for" >
 | < GOTO: "goto" >
 | < IF: "if" >
 | < IMPLEMENTS: "implements" >
 | < INSTANCEOF: "instanceof" >
-| < NATIVE: "native" >
 | < NEW: "new" >
 | < PRIVATE: "private" >
 | < PROTECTED: "protected" >
@@ -180,13 +181,7 @@ TOKEN :
 | < VOID: "void" >
 | < WHILE: "while" >
 | <INCLUDE: "include" >
-| <DOWNLOAD: "download">
-| <REDIRECT: "redirect" >
-| <REFERER_FROM : "refer_from">
-| <VALIDATOR: "validator">
 	
-| <PARALLEL: "parallel">
-| <LOCAL: "local">
 | < TRUE: "true" >
 | < FALSE: "false" >
 }

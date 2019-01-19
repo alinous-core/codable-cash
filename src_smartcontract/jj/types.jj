@@ -1,0 +1,110 @@
+
+
+ITypeDeclare* typeDeclare() : {
+	ITypeDeclare* dec = nullptr;
+}
+{
+	(		dec=charType()
+		|
+		dec=shortType()
+		|
+		dec=intType()
+		|
+		dec=longType()
+		|
+		dec=stringType()
+		|
+		dec=voidType()
+	)
+	{
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+CharType* charType() : {
+	CharType* dec = nullptr;
+	Token* t=nullptr;
+}
+{
+	t="char" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+ShortType* shortType() : {
+	ShortType* dec = new ShortType();
+	Token* t=nullptr;
+}
+{
+	t="short" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+IntType* intType() : {
+	IntType* dec = new IntType();
+	Token* t=nullptr;
+}
+{
+	t="int" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+LongType* longType() : {
+	LongType* dec = new LongType();
+	Token* t=nullptr;
+}
+{
+	t="long" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+StringType* stringType() : {
+	StringType* dec = new StringType();
+	Token* t=nullptr;
+}
+{
+	t="String" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+VoidType* voidType() : {
+	VoidType* dec = new VoidType();
+	Token* t=nullptr;
+}
+{
+	t="void" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+

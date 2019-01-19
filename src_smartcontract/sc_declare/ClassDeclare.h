@@ -10,10 +10,14 @@
 
 #include "sc/CodeElement.h"
 
+#include "base/ArrayList.h"
+
 namespace alinous {
 
 class ClassDeclareBlock;
 class UnicodeString;
+class MethodDeclare;
+class MemberVariableDeclare;
 
 class ClassDeclare : public CodeElement {
 public:
@@ -22,10 +26,15 @@ public:
 
 	void setBlock(ClassDeclareBlock* block) noexcept;
 	void setName(UnicodeString* name) noexcept;
-
+	void addMethod(MethodDeclare* method) noexcept;
+	void addVariable(MemberVariableDeclare* variable) noexcept;
 private:
 	ClassDeclareBlock* block;
 	UnicodeString* name;
+
+	ArrayList<MethodDeclare> methods;
+	ArrayList<MemberVariableDeclare> variables;
+
 };
 
 } /* namespace alinous */

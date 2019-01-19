@@ -12,6 +12,8 @@
 
 #include "sc/CompilationUnit.h"
 
+#include "sc_declare/AccessControlDeclare.h"
+#include "sc_declare/ArgumentsListDeclare.h"
 #include "sc_declare/ArgumentDeclare.h"
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/ClassDeclareBlock.h"
@@ -20,6 +22,14 @@
 #include "sc_declare/PackageDeclare.h"
 #include "sc_declare/PackageNameDeclare.h"
 #include "sc_declare/TypeDeclare.h"
+
+#include "sc_declare_types/CharType.h"
+#include "sc_declare_types/ShortType.h"
+#include "sc_declare_types/IntType.h"
+#include "sc_declare_types/LongType.h"
+#include "sc_declare_types/StringType.h"
+#include "sc_declare_types/VoidType.h"
+
 
 namespace alinouslang {
 using namespace alinous;

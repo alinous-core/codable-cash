@@ -8,11 +8,11 @@
 #ifndef SC_DECLARE_TYPES_LONGTYPE_H_
 #define SC_DECLARE_TYPES_LONGTYPE_H_
 
-#include "sc_declare/ITypeDeclare.h"
+#include "sc_declare_types/AbstractPrimitiveType.h"
 
 namespace alinous {
 
-class LongType : public ITypeDeclare {
+class LongType : public AbstractPrimitiveType {
 public:
 	LongType();
 	virtual ~LongType();

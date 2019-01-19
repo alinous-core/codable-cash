@@ -5,17 +5,14 @@
  *      Author: iizuka
  */
 
-#include <sc_declare_types/AbstractPrimitiveType.h>
+#include "sc_declare_types/AbstractPrimitiveType.h"
 
 namespace alinous {
 
-AbstractPrimitiveType::AbstractPrimitiveType() {
-	// TODO Auto-generated constructor stub
-
+AbstractPrimitiveType::AbstractPrimitiveType(short kind) : CodeElement(kind), ITypeDeclare() {
 }
 
 AbstractPrimitiveType::~AbstractPrimitiveType() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

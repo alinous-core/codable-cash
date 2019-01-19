@@ -9,13 +9,11 @@
 
 namespace alinous {
 
-VoidType::VoidType() {
-	// TODO Auto-generated constructor stub
+VoidType::VoidType() : CodeElement(CodeElement::TYPE_VOID) {
 
 }
 
 VoidType::~VoidType() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

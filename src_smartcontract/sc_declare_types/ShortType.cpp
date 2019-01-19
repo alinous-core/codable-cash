@@ -9,13 +9,10 @@
 
 namespace alinous {
 
-ShortType::ShortType() {
-	// TODO Auto-generated constructor stub
-
+ShortType::ShortType() : AbstractPrimitiveType(CodeElement::TYPE_SHORT) {
 }
 
 ShortType::~ShortType() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

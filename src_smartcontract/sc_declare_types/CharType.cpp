@@ -9,13 +9,10 @@
 
 namespace alinous {
 
-CharType::CharType() {
-	// TODO Auto-generated constructor stub
-
+CharType::CharType() : AbstractPrimitiveType(CodeElement::TYPE_CHAR) {
 }
 
 CharType::~CharType() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

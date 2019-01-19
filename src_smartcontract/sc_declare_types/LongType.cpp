@@ -9,13 +9,10 @@
 
 namespace alinous {
 
-LongType::LongType() {
-	// TODO Auto-generated constructor stub
-
+LongType::LongType() : AbstractPrimitiveType(CodeElement::TYPE_LONG) {
 }
 
 LongType::~LongType() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

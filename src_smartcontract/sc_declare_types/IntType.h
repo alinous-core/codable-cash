@@ -8,11 +8,11 @@
 #ifndef SC_DECLARE_TYPES_INTTYPE_H_
 #define SC_DECLARE_TYPES_INTTYPE_H_
 
-#include "sc_declare/ITypeDeclare.h"
+#include "sc_declare_types/AbstractPrimitiveType.h"
 
 namespace alinous {
 
-class IntType : public ITypeDeclare {
+class IntType : public AbstractPrimitiveType {
 public:
 	IntType();
 	virtual ~IntType();

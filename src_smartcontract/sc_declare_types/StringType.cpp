@@ -9,13 +9,10 @@
 
 namespace alinous {
 
-StringType::StringType() {
-	// TODO Auto-generated constructor stub
-
+StringType::StringType() : CodeElement(CodeElement::TYPE_STRING) {
 }
 
 StringType::~StringType() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

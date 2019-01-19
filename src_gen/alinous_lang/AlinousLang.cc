@@ -3,21 +3,22 @@
 #include "TokenMgrError.h"
 namespace alinouslang {
   unsigned int jj_la1_0[] = {
-0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_1[] = {
-0x1000000,0x2000000,0x80,};
+0x1000000,0x2000000,0x80,0x0,0x0,0x0,0x0,0x0,0xe0000000,};
   unsigned int jj_la1_2[] = {
-0x0,0x0,0x0,};
+0x0,0x0,0x0,0x70000,0x70000,0x100000,0x100000,0x70000,0x10000003,};
   unsigned int jj_la1_3[] = {
-0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_4[] = {
-0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_5[] = {
-0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_6[] = {
-0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
 
   /** Constructor with user supplied TokenManager. */
+
 
 
 
@@ -171,12 +172,56 @@ assert(false);
 
 ClassDeclareBlock                 * AlinousLang::classDeclareBlock() {ClassDeclareBlock* block = nullptr;
         Token* begin, *end;
+        MethodDeclare* method = nullptr;
+        MemberVariableDeclare* member = nullptr;
     if (!hasError) {
     begin = jj_consume_token(L_BRACE);
     }
     if (!hasError) {
 block = new ClassDeclareBlock();
                 block->setPosition(begin);
+    }
+    if (!hasError) {
+    while (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case PRIVATE:
+      case PROTECTED:
+      case PUBLIC:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[3] = jj_gen;
+        goto end_label_3;
+      }
+      if (jj_2_1(3)) {
+        if (!hasError) {
+        method = methodDeclare();
+        }
+        if (!hasError) {
+
+        }
+      } else {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case PRIVATE:
+        case PROTECTED:
+        case PUBLIC:{
+          if (!hasError) {
+          member = memberVariableDeclare();
+          }
+          if (!hasError) {
+
+          }
+          break;
+          }
+        default:
+          jj_la1[4] = jj_gen;
+          jj_consume_token(-1);
+          errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+        }
+      }
+    }
+    end_label_3: ;
     }
     if (!hasError) {
     end = jj_consume_token(R_BRACE);
@@ -186,6 +231,284 @@ block->setPosition(end);
     }
 __ONERROR(block);
                 return block;
+assert(false);
+}
+
+
+MethodDeclare             * AlinousLang::methodDeclare() {Token* t = nullptr;
+        AccessControlDeclare* ctrl = nullptr;
+        ITypeDeclare* type = nullptr;
+    if (!hasError) {
+    ctrl = accessControlDeclare();
+    }
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case STATIC:{
+      if (!hasError) {
+      t = jj_consume_token(STATIC);
+      }
+      break;
+      }
+    default:
+      jj_la1[5] = jj_gen;
+      ;
+    }
+    }
+    if (!hasError) {
+    type = typeDeclare();
+    }
+    if (!hasError) {
+    jj_consume_token(IDENTIFIER);
+    }
+    if (!hasError) {
+    t = jj_consume_token(SEMI_COLON);
+    }
+
+assert(false);
+}
+
+
+MemberVariableDeclare                     * AlinousLang::memberVariableDeclare() {Token* t = nullptr;
+        AccessControlDeclare* ctrl = nullptr;
+        ITypeDeclare* type = nullptr;
+        ArgumentsListDeclare* args = nullptr;
+    if (!hasError) {
+    ctrl = accessControlDeclare();
+    }
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case STATIC:{
+      if (!hasError) {
+      t = jj_consume_token(STATIC);
+      }
+      break;
+      }
+    default:
+      jj_la1[6] = jj_gen;
+      ;
+    }
+    }
+    if (!hasError) {
+    type = typeDeclare();
+    }
+    if (!hasError) {
+    t = jj_consume_token(IDENTIFIER);
+    }
+    if (!hasError) {
+    args = argumentsListDeclare();
+    }
+    if (!hasError) {
+
+    }
+    if (!hasError) {
+    t = jj_consume_token(SEMI_COLON);
+    }
+    if (!hasError) {
+
+    }
+
+assert(false);
+}
+
+
+AccessControlDeclare                    * AlinousLang::accessControlDeclare() {Token* t = nullptr;
+        AccessControlDeclare* ctrl = new AccessControlDeclare();
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case PUBLIC:{
+      if (!hasError) {
+      t = jj_consume_token(PUBLIC);
+      }
+      if (!hasError) {
+ctrl->setCtrl(AccessControlDeclare::PUBLIC);
+                        ctrl->setPositions(_P(t, t));
+      }
+      break;
+      }
+    case PROTECTED:{
+      if (!hasError) {
+      t = jj_consume_token(PROTECTED);
+      }
+      if (!hasError) {
+ctrl->setCtrl(AccessControlDeclare::PROTECTED);
+                        ctrl->setPositions(_P(t, t));
+      }
+      break;
+      }
+    case PRIVATE:{
+      if (!hasError) {
+      t = jj_consume_token(PRIVATE);
+      }
+      if (!hasError) {
+ctrl->setCtrl(AccessControlDeclare::PRIVATE);
+                        ctrl->setPositions(_P(t, t));
+      }
+      break;
+      }
+    default:
+      jj_la1[7] = jj_gen;
+      jj_consume_token(-1);
+      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+    }
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(ctrl);
+                return ctrl;
+assert(false);
+}
+
+
+ArgumentsListDeclare                    * AlinousLang::argumentsListDeclare() {Token* t = nullptr;
+    if (!hasError) {
+    t = jj_consume_token(L_PARENTHESIS);
+    }
+    if (!hasError) {
+    t = jj_consume_token(R_PARENTHESIS);
+    }
+    if (!hasError) {
+
+    }
+
+assert(false);
+}
+
+
+ITypeDeclare            * AlinousLang::typeDeclare() {ITypeDeclare* dec = nullptr;
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case CHAR:{
+      if (!hasError) {
+      dec = charType();
+      }
+      break;
+      }
+    case SHORT:{
+      if (!hasError) {
+      dec = shortType();
+      }
+      break;
+      }
+    case INT:{
+      if (!hasError) {
+      dec = intType();
+      }
+      break;
+      }
+    case LONG:{
+      if (!hasError) {
+      dec = longType();
+      }
+      break;
+      }
+    case STRING:{
+      if (!hasError) {
+      dec = stringType();
+      }
+      break;
+      }
+    case VOID:{
+      if (!hasError) {
+      dec = voidType();
+      }
+      break;
+      }
+    default:
+      jj_la1[8] = jj_gen;
+      jj_consume_token(-1);
+      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+    }
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(dec);
+                return dec;
+assert(false);
+}
+
+
+CharType        * AlinousLang::charType() {CharType* dec = nullptr;
+        Token* t=nullptr;
+    if (!hasError) {
+    t = jj_consume_token(CHAR);
+    }
+    if (!hasError) {
+dec->setPositions(_P(t, t));
+    }
+__ONERROR(dec);
+                return dec;
+assert(false);
+}
+
+
+ShortType         * AlinousLang::shortType() {ShortType* dec = new ShortType();
+        Token* t=nullptr;
+    if (!hasError) {
+    t = jj_consume_token(SHORT);
+    }
+    if (!hasError) {
+dec->setPositions(_P(t, t));
+    }
+__ONERROR(dec);
+                return dec;
+assert(false);
+}
+
+
+IntType       * AlinousLang::intType() {IntType* dec = new IntType();
+        Token* t=nullptr;
+    if (!hasError) {
+    t = jj_consume_token(INT);
+    }
+    if (!hasError) {
+dec->setPositions(_P(t, t));
+    }
+__ONERROR(dec);
+                return dec;
+assert(false);
+}
+
+
+LongType        * AlinousLang::longType() {LongType* dec = new LongType();
+        Token* t=nullptr;
+    if (!hasError) {
+    t = jj_consume_token(LONG);
+    }
+    if (!hasError) {
+dec->setPositions(_P(t, t));
+    }
+__ONERROR(dec);
+                return dec;
+assert(false);
+}
+
+
+StringType          * AlinousLang::stringType() {StringType* dec = new StringType();
+        Token* t=nullptr;
+    if (!hasError) {
+    t = jj_consume_token(STRING);
+    }
+    if (!hasError) {
+dec->setPositions(_P(t, t));
+    }
+__ONERROR(dec);
+                return dec;
+assert(false);
+}
+
+
+VoidType        * AlinousLang::voidType() {VoidType* dec = new VoidType();
+        Token* t=nullptr;
+    if (!hasError) {
+    t = jj_consume_token(VOID);
+    }
+    if (!hasError) {
+dec->setPositions(_P(t, t));
+    }
+__ONERROR(dec);
+                return dec;
 assert(false);
 }
 
@@ -217,7 +540,7 @@ void AlinousLang::ReInit(TokenManager* tokenManager){
     trace = false;
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
   }
 
 
@@ -246,6 +569,16 @@ Token * AlinousLang::jj_consume_token(int kind)  {
     jj_ntk = -1;
     if (token->kind == kind) {
       jj_gen++;
+      if (++jj_gc > 100) {
+        jj_gc = 0;
+        for (int i = 0; i < 1; i++) {
+          JJCalls *c = &jj_2_rtns[i];
+          while (c != nullptr) {
+            if (c->gen < jj_gen) c->first = nullptr;
+            c = c->next;
+          }
+        }
+      }
       return token;
     }
     token = oldToken;
@@ -254,6 +587,28 @@ Token * AlinousLang::jj_consume_token(int kind)  {
     errorHandler->handleUnexpectedToken(kind, image.substr(1, image.size() - 2), getToken(1), this);
     hasError = true;
     return token;
+  }
+
+
+bool  AlinousLang::jj_scan_token(int kind){
+    if (jj_scanpos == jj_lastpos) {
+      jj_la--;
+      if (jj_scanpos->next == nullptr) {
+        jj_lastpos = jj_scanpos = jj_scanpos->next = token_source->getNextToken();
+      } else {
+        jj_lastpos = jj_scanpos = jj_scanpos->next;
+      }
+    } else {
+      jj_scanpos = jj_scanpos->next;
+    }
+    if (jj_rescan) {
+      int i = 0; Token *tok = token;
+      while (tok != nullptr && tok != jj_scanpos) { i++; tok = tok->next; }
+      if (tok != nullptr) jj_add_error_token(kind, i);
+    }
+    if (jj_scanpos->kind != kind) return true;
+    if (jj_la == 0 && jj_scanpos == jj_lastpos) { return jj_done = true; }
+    return false;
   }
 
 
@@ -287,6 +642,10 @@ int AlinousLang::jj_ntk_f(){
   }
 
 
+  void AlinousLang::jj_add_error_token(int kind, int pos)  {
+  }
+
+
  void  AlinousLang::parseError()   {
       fprintf(stderr, "Parse error at: %d:%d, after token: %s encountered: %s\n", token->beginLine, token->beginColumn, addUnicodeEscapes(token->image).c_str(), addUnicodeEscapes(getToken(1)->image).c_str());
    }
@@ -301,6 +660,34 @@ int AlinousLang::jj_ntk_f(){
   }
 
   void AlinousLang::disable_tracing()  {
+  }
+
+
+  void AlinousLang::jj_rescan_token(){
+    jj_rescan = true;
+    for (int i = 0; i < 1; i++) {
+      JJCalls *p = &jj_2_rtns[i];
+      do {
+        if (p->gen > jj_gen) {
+          jj_la = p->arg; jj_lastpos = jj_scanpos = p->first;
+          switch (i) {
+            case 0: jj_3_1(); break;
+          }
+        }
+        p = p->next;
+      } while (p != nullptr);
+    }
+    jj_rescan = false;
+  }
+
+
+  void AlinousLang::jj_save(int index, int xla){
+    JJCalls *p = &jj_2_rtns[index];
+    while (p->gen > jj_gen) {
+      if (p->next == nullptr) { p = p->next = new JJCalls(); break; }
+      p = p->next;
+    }
+    p->gen = jj_gen + xla - jj_la; p->first = token; p->arg = xla;
   }
 
 
