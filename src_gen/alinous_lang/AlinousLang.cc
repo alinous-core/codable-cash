@@ -3,19 +3,19 @@
 #include "TokenMgrError.h"
 namespace alinouslang {
   unsigned int jj_la1_0[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_1[] = {
-0x1000000,0x2000000,0x80,0x0,0x0,0x0,0x0,0x0,0xe0000000,};
+0x1000000,0x2000000,0x80,0x0,0x0,0x0,0x0,0x0,0x100,0xe0000000,0xe0000000,};
   unsigned int jj_la1_2[] = {
-0x0,0x0,0x0,0x70000,0x70000,0x100000,0x100000,0x70000,0x10000003,};
+0x0,0x0,0x0,0x70000,0x70000,0x100000,0x100000,0x70000,0x0,0x10000003,0x10000003,};
   unsigned int jj_la1_3[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_4[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_5[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_6[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
 
   /** Constructor with user supplied TokenManager. */
 
@@ -402,17 +402,88 @@ assert(false);
 
 ArgumentsListDeclare                    * AlinousLang::argumentsListDeclare() {ArgumentsListDeclare* arguments = new ArgumentsListDeclare();
         Token* t = nullptr;
+        ArgumentDeclare* arg = nullptr;
     if (!hasError) {
     t = jj_consume_token(L_PARENTHESIS);
+    }
+    if (!hasError) {
+arguments->setPosition(t);
+    }
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case CHAR:
+    case SHORT:
+    case INT:
+    case LONG:
+    case STRING:
+    case VOID:{
+      if (!hasError) {
+      arg = argumentDeclare();
+      }
+      if (!hasError) {
+arguments->addArgument(arg);
+                    arguments->setPosition(arg);
+      }
+      if (!hasError) {
+      while (!hasError) {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case COMMA:{
+          ;
+          break;
+          }
+        default:
+          jj_la1[8] = jj_gen;
+          goto end_label_4;
+        }
+        if (!hasError) {
+        jj_consume_token(COMMA);
+        }
+        if (!hasError) {
+        arg = argumentDeclare();
+        }
+        if (!hasError) {
+arguments->addArgument(arg);
+                        arguments->setPosition(arg);
+        }
+      }
+      end_label_4: ;
+      }
+      break;
+      }
+    default:
+      jj_la1[9] = jj_gen;
+      ;
+    }
     }
     if (!hasError) {
     t = jj_consume_token(R_PARENTHESIS);
     }
     if (!hasError) {
-
+arguments->setPosition(t);
     }
 __ONERROR(arguments);
                 return arguments;
+assert(false);
+}
+
+
+ArgumentDeclare               * AlinousLang::argumentDeclare() {ArgumentDeclare* arg = new ArgumentDeclare();
+        AbstractType* type = nullptr;
+        Token* t = nullptr;
+    if (!hasError) {
+    type = typeDeclare();
+    }
+    if (!hasError) {
+
+    }
+    if (!hasError) {
+    t = jj_consume_token(IDENTIFIER);
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(arg);
+                return arg;
 assert(false);
 }
 
@@ -457,7 +528,7 @@ AbstractType            * AlinousLang::typeDeclare() {AbstractType* dec = nullpt
       break;
       }
     default:
-      jj_la1[8] = jj_gen;
+      jj_la1[10] = jj_gen;
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
     }
@@ -582,7 +653,7 @@ void AlinousLang::ReInit(TokenManager* tokenManager){
     trace = false;
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 11; i++) jj_la1[i] = -1;
   }
 
 

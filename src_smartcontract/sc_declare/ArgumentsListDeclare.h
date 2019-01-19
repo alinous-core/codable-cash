@@ -9,13 +9,20 @@
 #define SC_DECLARE_ARGUMENTSLISTDECLARE_H_
 
 #include "sc/CodeElement.h"
+#include "base/ArrayList.h"
 
 namespace alinous {
+
+class ArgumentDeclare;
 
 class ArgumentsListDeclare : public CodeElement {
 public:
 	ArgumentsListDeclare();
 	virtual ~ArgumentsListDeclare();
+
+	void addArgument(ArgumentDeclare* arg) noexcept;
+private:
+	ArrayList<ArgumentDeclare> list;
 };
 
 } /* namespace alinous */

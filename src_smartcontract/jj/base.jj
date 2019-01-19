@@ -248,12 +248,27 @@ AccessControlDeclare* accessControlDeclare() : {
 ArgumentsListDeclare* argumentsListDeclare() : {
     ArgumentsListDeclare* arguments = new ArgumentsListDeclare();
 	Token* t = nullptr;
+	ArgumentDeclare* arg = nullptr;
 }
 {
-	t="("
+	t="(" {
+		arguments->setPosition(t);
+	}
+
+	[
+		arg=argumentDeclare() {
+		    arguments->addArgument(arg);
+		    arguments->setPosition(arg);
+		}
+		(
+		    "," arg=argumentDeclare() {
+		        arguments->addArgument(arg);
+		        arguments->setPosition(arg);
+		    }		)*
+	]
 
 	t=")" {
-
+		arguments->setPosition(t);
 	}
 	{
 	    __ONERROR(arguments);
@@ -261,5 +276,25 @@ ArgumentsListDeclare* argumentsListDeclare() : {
 	}
 }
 
+
+ArgumentDeclare* argumentDeclare() : {
+	ArgumentDeclare* arg = new ArgumentDeclare();
+	AbstractType* type = nullptr;
+	Token* t = nullptr;
+}
+{
+    type=typeDeclare() {
+
+    }
+
+    t=< IDENTIFIER > {
+
+    }
+
+	{
+	    __ONERROR(arg);
+		return arg;
+	}
+}
 
 

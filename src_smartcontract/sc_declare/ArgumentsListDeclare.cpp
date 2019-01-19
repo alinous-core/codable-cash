@@ -6,6 +6,7 @@
  */
 
 #include "sc_declare/ArgumentsListDeclare.h"
+#include "sc_declare/ArgumentDeclare.h"
 
 namespace alinous {
 
@@ -13,6 +14,11 @@ ArgumentsListDeclare::ArgumentsListDeclare() : CodeElement(CodeElement::ARGUMENT
 }
 
 ArgumentsListDeclare::~ArgumentsListDeclare() {
+	this->list.deleteElements();
+}
+
+void ArgumentsListDeclare::addArgument(ArgumentDeclare* arg) noexcept {
+	this->list.addElement(arg);
 }
 
 } /* namespace alinous */
