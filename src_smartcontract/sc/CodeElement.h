@@ -24,10 +24,11 @@ public:
 	static const constexpr short PACKAGE_DECLARE{3};
 	static const constexpr short PACKAGE_NAME_DECLARE{4};
 	static const constexpr short METHOD_DECLARE{5};
-	static const constexpr short ARGUMENT_DECLARE{6};
-	static const constexpr short MEMBER_VARIABLE_DECLARE{7};
-	static const constexpr short TYPE_DECLARE{8};
-	static const constexpr short ACCESS_CONTROL_DECLARE{9};
+	static const constexpr short ARGUMENTS_LIST_DECLARE{6};
+	static const constexpr short ARGUMENT_DECLARE{7};
+	static const constexpr short MEMBER_VARIABLE_DECLARE{8};
+	static const constexpr short TYPE_DECLARE{9};
+	static const constexpr short ACCESS_CONTROL_DECLARE{10};
 
 
 	static const constexpr short TYPE_CHAR{20};

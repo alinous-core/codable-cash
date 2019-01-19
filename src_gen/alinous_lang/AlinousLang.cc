@@ -244,6 +244,10 @@ MethodDeclare             * AlinousLang::methodDeclare() {MethodDeclare* method 
     ctrl = accessControlDeclare();
     }
     if (!hasError) {
+method->setAccessControl(ctrl);
+                method->setPosition(ctrl);
+    }
+    if (!hasError) {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case STATIC:{
       if (!hasError) {
@@ -264,7 +268,8 @@ method->setStatic(true);
     type = typeDeclare();
     }
     if (!hasError) {
-method->setPosition(type);
+method->setType(type);
+                method->setPosition(type);
     }
     if (!hasError) {
     t = jj_consume_token(IDENTIFIER);
@@ -277,7 +282,8 @@ method->setName(_STR(t));
     args = argumentsListDeclare();
     }
     if (!hasError) {
-
+method->setArguments(args);
+                method->setPosition(args);
     }
     if (!hasError) {
     t = jj_consume_token(SEMI_COLON);

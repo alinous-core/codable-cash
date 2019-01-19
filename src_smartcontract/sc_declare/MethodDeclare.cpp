@@ -6,6 +6,9 @@
  */
 
 #include "sc_declare/MethodDeclare.h"
+#include "sc_declare/AccessControlDeclare.h"
+#include "sc_declare/ArgumentsListDeclare.h"
+#include "sc_declare_types/AbstractType.h"
 #include "base/UnicodeString.h"
 
 namespace alinous {
@@ -13,21 +16,44 @@ namespace alinous {
 MethodDeclare::MethodDeclare() : CodeElement(CodeElement::METHOD_DECLARE) {
 	this->_static = false;
 	this->name = nullptr;
+	this->ctrl = nullptr;
+	this->type = nullptr;
+	this->args = nullptr;
 }
 
 MethodDeclare::~MethodDeclare() {
 	if(this->name){
 		delete this->name;
 	}
-
+	if(this->ctrl){
+		delete this->ctrl;
+	}
+	if(this->type){
+		delete this->type;
+	}
+	if(this->args){
+		delete this->args;
+	}
 }
 
 void MethodDeclare::setStatic(bool s) noexcept {
 	this->_static = s;
 }
 
+void MethodDeclare::setAccessControl(AccessControlDeclare* ctrl) noexcept {
+	this->ctrl = ctrl;
+}
+
+void MethodDeclare::setType(AbstractType* type) noexcept {
+	this->type = type;
+}
+
 void MethodDeclare::setName(UnicodeString* name) noexcept {
 	this->name = name;
+}
+
+void MethodDeclare::setArguments(ArgumentsListDeclare* args) noexcept {
+	this->args = args;
 }
 
 } /* namespace alinous */

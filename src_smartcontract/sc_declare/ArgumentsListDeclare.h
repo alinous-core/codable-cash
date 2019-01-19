@@ -8,9 +8,11 @@
 #ifndef SC_DECLARE_ARGUMENTSLISTDECLARE_H_
 #define SC_DECLARE_ARGUMENTSLISTDECLARE_H_
 
+#include "sc/CodeElement.h"
+
 namespace alinous {
 
-class ArgumentsListDeclare {
+class ArgumentsListDeclare : public CodeElement {
 public:
 	ArgumentsListDeclare();
 	virtual ~ArgumentsListDeclare();

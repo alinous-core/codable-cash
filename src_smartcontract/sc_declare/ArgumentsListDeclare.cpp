@@ -9,13 +9,10 @@
 
 namespace alinous {
 
-ArgumentsListDeclare::ArgumentsListDeclare() {
-	// TODO Auto-generated constructor stub
-
+ArgumentsListDeclare::ArgumentsListDeclare() : CodeElement(CodeElement::ARGUMENTS_LIST_DECLARE) {
 }
 
 ArgumentsListDeclare::~ArgumentsListDeclare() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

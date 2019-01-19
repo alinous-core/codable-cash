@@ -144,7 +144,10 @@ MethodDeclare* methodDeclare() : {
 	ArgumentsListDeclare* args = nullptr;
 }
 {
-    ctrl=accessControlDeclare()
+    ctrl=accessControlDeclare() {
+		method->setAccessControl(ctrl);
+		method->setPosition(ctrl);
+    }
     
 	[t="static" {
 	    method->setStatic(true);
@@ -153,6 +156,7 @@ MethodDeclare* methodDeclare() : {
 	]
 
 	type=typeDeclare() {
+	    method->setType(type);
 		method->setPosition(type);
 	}
 
@@ -162,7 +166,8 @@ MethodDeclare* methodDeclare() : {
 	}
 
 	args=argumentsListDeclare() {
-
+	  	method->setArguments(args);
+		method->setPosition(args);
 	}
 
 	t=";" {

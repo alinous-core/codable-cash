@@ -12,6 +12,9 @@
 
 namespace alinous {
 
+class AccessControlDeclare;
+class AbstractType;
+class ArgumentsListDeclare;
 class UnicodeString;
 
 class MethodDeclare : public CodeElement {
@@ -19,11 +22,17 @@ public:
 	MethodDeclare();
 	virtual ~MethodDeclare();
 
+	void setAccessControl(AccessControlDeclare* ctrl) noexcept;
+	void setType(AbstractType* type) noexcept;
 	void setStatic(bool s) noexcept;
 	void setName(UnicodeString* name) noexcept;
+	void setArguments(ArgumentsListDeclare* args) noexcept;
 private:
+	AccessControlDeclare* ctrl;
+	AbstractType* type;
 	UnicodeString* name;
 	bool _static;
+	ArgumentsListDeclare* args;
 };
 
 } /* namespace alinous */
