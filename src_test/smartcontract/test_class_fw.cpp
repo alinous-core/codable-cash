@@ -22,5 +22,19 @@ TEST(TestClassFwGroup, construct){
 
 	SmartContractParser parser(sourceFile);
 	CompilationUnit* unit = parser.parse();
+	CHECK(!parser.hasError())
+
+
+	delete unit;
+}
+
+TEST(TestClassFwGroup, memberVariable){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/classfw/classMember.alns"))
+
+	SmartContractParser parser(sourceFile);
+	CompilationUnit* unit = parser.parse();
+	CHECK(!parser.hasError())
+
 	delete unit;
 }

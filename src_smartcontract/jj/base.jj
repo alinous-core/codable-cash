@@ -116,7 +116,7 @@ ClassDeclareBlock* classDeclareBlock() :
 		block->setPosition(begin);
 	}
 
-	( LOOKAHEAD(3)		method=methodDeclare() {
+	( LOOKAHEAD(5)		method=methodDeclare() {
 			block->addMethod(method);
 		}
 		|
@@ -141,6 +141,7 @@ MethodDeclare* methodDeclare() : {
 	Token* t = nullptr;
 	AccessControlDeclare* ctrl = nullptr;
 	AbstractType* type = nullptr;
+	ArgumentsListDeclare* args = nullptr;
 }
 {
     ctrl=accessControlDeclare()
@@ -160,6 +161,10 @@ MethodDeclare* methodDeclare() : {
 	    method->setPosition(t);
 	}
 
+	args=argumentsListDeclare() {
+
+	}
+
 	t=";" {
 		method->setPosition(t);
 	}
@@ -174,22 +179,30 @@ MemberVariableDeclare* memberVariableDeclare() : {
 	Token* t = nullptr;
 	AccessControlDeclare* ctrl = nullptr;
 	AbstractType* type = nullptr;
-	ArgumentsListDeclare* args = nullptr;
 }
 {
-	ctrl=accessControlDeclare()
-
-	[t="static"]
-
-	type=typeDeclare()
-
-	t=< IDENTIFIER >
-
-	args=argumentsListDeclare() {
-
+	ctrl=accessControlDeclare() {
+	    variable->setAccessControl(ctrl);
+		variable->setPosition(ctrl);
 	}
-	t=";" {
 
+	[t="static" {
+	    variable->setStatic(true);
+		variable->setPosition(t);
+	}]
+
+	type=typeDeclare() {
+		variable->setType(type);
+		variable->setPosition(type);
+	}
+
+	t=< IDENTIFIER > {
+	    variable->setName(_STR(t));
+		variable->setPosition(t);
+	}
+
+	t=";" {
+		variable->setPosition(t);
 	}
 	
 	{

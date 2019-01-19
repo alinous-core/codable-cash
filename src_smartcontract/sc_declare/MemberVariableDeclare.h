@@ -12,10 +12,24 @@
 
 namespace alinous {
 
-class MemberVariableDeclare : CodeElement {
+class AbstractType;
+class AccessControlDeclare;
+class UnicodeString;
+
+class MemberVariableDeclare : public CodeElement {
 public:
 	MemberVariableDeclare();
 	virtual ~MemberVariableDeclare();
+
+	void setAccessControl(AccessControlDeclare* ctrl) noexcept;
+	void setType(AbstractType* type) noexcept;
+	void setStatic(bool s) noexcept;
+	void setName(UnicodeString* name) noexcept;
+private:
+	AccessControlDeclare* ctrl;
+	AbstractType* type;
+	bool _static;
+	UnicodeString* name;
 };
 
 } /* namespace alinous */

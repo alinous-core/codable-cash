@@ -194,7 +194,7 @@ block = new ClassDeclareBlock();
         jj_la1[3] = jj_gen;
         goto end_label_3;
       }
-      if (jj_2_1(3)) {
+      if (jj_2_1(5)) {
         if (!hasError) {
         method = methodDeclare();
         }
@@ -239,6 +239,7 @@ MethodDeclare             * AlinousLang::methodDeclare() {MethodDeclare* method 
         Token* t = nullptr;
         AccessControlDeclare* ctrl = nullptr;
         AbstractType* type = nullptr;
+        ArgumentsListDeclare* args = nullptr;
     if (!hasError) {
     ctrl = accessControlDeclare();
     }
@@ -273,6 +274,12 @@ method->setName(_STR(t));
             method->setPosition(t);
     }
     if (!hasError) {
+    args = argumentsListDeclare();
+    }
+    if (!hasError) {
+
+    }
+    if (!hasError) {
     t = jj_consume_token(SEMI_COLON);
     }
     if (!hasError) {
@@ -288,15 +295,22 @@ MemberVariableDeclare                     * AlinousLang::memberVariableDeclare()
         Token* t = nullptr;
         AccessControlDeclare* ctrl = nullptr;
         AbstractType* type = nullptr;
-        ArgumentsListDeclare* args = nullptr;
     if (!hasError) {
     ctrl = accessControlDeclare();
+    }
+    if (!hasError) {
+variable->setAccessControl(ctrl);
+                variable->setPosition(ctrl);
     }
     if (!hasError) {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case STATIC:{
       if (!hasError) {
       t = jj_consume_token(STATIC);
+      }
+      if (!hasError) {
+variable->setStatic(true);
+                variable->setPosition(t);
       }
       break;
       }
@@ -309,19 +323,21 @@ MemberVariableDeclare                     * AlinousLang::memberVariableDeclare()
     type = typeDeclare();
     }
     if (!hasError) {
+variable->setType(type);
+                variable->setPosition(type);
+    }
+    if (!hasError) {
     t = jj_consume_token(IDENTIFIER);
     }
     if (!hasError) {
-    args = argumentsListDeclare();
-    }
-    if (!hasError) {
-
+variable->setName(_STR(t));
+                variable->setPosition(t);
     }
     if (!hasError) {
     t = jj_consume_token(SEMI_COLON);
     }
     if (!hasError) {
-
+variable->setPosition(t);
     }
 __ONERROR(variable);
                 return variable;
@@ -449,7 +465,7 @@ assert(false);
 }
 
 
-CharType        * AlinousLang::charType() {CharType* dec = nullptr;
+CharType        * AlinousLang::charType() {CharType* dec = new CharType();
         Token* t=nullptr;
     if (!hasError) {
     t = jj_consume_token(CHAR);

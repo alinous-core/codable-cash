@@ -25,7 +25,7 @@ AbstractType* typeDeclare() : {
 }
 
 CharType* charType() : {
-	CharType* dec = nullptr;
+	CharType* dec = new CharType();
 	Token* t=nullptr;
 }
 {
