@@ -12,10 +12,20 @@
 
 namespace alinous {
 
+class AbstractType;
+class UnicodeString;
+
 class ArgumentDeclare : public CodeElement {
 public:
 	ArgumentDeclare();
 	virtual ~ArgumentDeclare();
+
+	void setType(AbstractType* type) noexcept;
+	void setName(UnicodeString* name) noexcept;
+
+private:
+	AbstractType* type;
+	UnicodeString* name;
 };
 
 } /* namespace alinous */

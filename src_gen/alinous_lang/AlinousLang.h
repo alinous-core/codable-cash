@@ -45,13 +45,6 @@ VoidType        * voidType();
  { jj_save(0, xla); }
   }
 
- inline bool jj_3R_21()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(SHORT)) return true;
-    return false;
-  }
-
  inline bool jj_3R_9()
  {
     if (jj_done) return true;
@@ -98,6 +91,13 @@ VoidType        * voidType();
     return false;
   }
 
+ inline bool jj_3R_23()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(LONG)) return true;
+    return false;
+  }
+
  inline bool jj_3R_5()
  {
     if (jj_done) return true;
@@ -118,10 +118,10 @@ VoidType        * voidType();
     return false;
   }
 
- inline bool jj_3R_23()
+ inline bool jj_3R_18()
  {
     if (jj_done) return true;
-    if (jj_scan_token(LONG)) return true;
+    if (jj_3R_25()) return true;
     return false;
   }
 
@@ -129,13 +129,6 @@ VoidType        * voidType();
  {
     if (jj_done) return true;
     if (jj_scan_token(PUBLIC)) return true;
-    return false;
-  }
-
- inline bool jj_3R_18()
- {
-    if (jj_done) return true;
-    if (jj_3R_25()) return true;
     return false;
   }
 
@@ -210,13 +203,6 @@ VoidType        * voidType();
     return false;
   }
 
- inline bool jj_3_1()
- {
-    if (jj_done) return true;
-    if (jj_3R_5()) return true;
-    return false;
-  }
-
  inline bool jj_3R_8()
  {
     if (jj_done) return true;
@@ -238,6 +224,20 @@ VoidType        * voidType();
     }
     }
     }
+    return false;
+  }
+
+ inline bool jj_3_1()
+ {
+    if (jj_done) return true;
+    if (jj_3R_5()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_21()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(SHORT)) return true;
     return false;
   }
 

@@ -284,11 +284,13 @@ ArgumentDeclare* argumentDeclare() : {
 }
 {
     type=typeDeclare() {
-
+		arg->setType(type);
+		arg->setPosition(type);
     }
 
     t=< IDENTIFIER > {
-
+		arg->setName(_STR(t));
+		arg->setPosition(t);
     }
 
 	{

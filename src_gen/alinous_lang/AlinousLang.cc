@@ -474,13 +474,15 @@ ArgumentDeclare               * AlinousLang::argumentDeclare() {ArgumentDeclare*
     type = typeDeclare();
     }
     if (!hasError) {
-
+arg->setType(type);
+                arg->setPosition(type);
     }
     if (!hasError) {
     t = jj_consume_token(IDENTIFIER);
     }
     if (!hasError) {
-
+arg->setName(_STR(t));
+                arg->setPosition(t);
     }
 __ONERROR(arg);
                 return arg;
