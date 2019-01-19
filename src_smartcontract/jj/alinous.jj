@@ -465,9 +465,11 @@ ClassDeclareBlock* classDeclareBlock() :
 		block = new ClassDeclareBlock();
 		block->setPosition(begin);
 	}
+
+
+	
 	 end="}"
 	{
-		block = new ClassDeclareBlock();
    		block->setPosition(end);
 	}
 	{
@@ -475,5 +477,7 @@ ClassDeclareBlock* classDeclareBlock() :
 		return block;
 	}
 }
+
+
 
 

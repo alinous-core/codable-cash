@@ -182,8 +182,7 @@ block = new ClassDeclareBlock();
     end = jj_consume_token(R_BRACE);
     }
     if (!hasError) {
-block = new ClassDeclareBlock();
-                block->setPosition(end);
+block->setPosition(end);
     }
 __ONERROR(block);
                 return block;
