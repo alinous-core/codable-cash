@@ -11,22 +11,24 @@
 #include "sc/CodeElement.h"
 #include "base/ArrayList.h"
 
-namespace codablecash {
-using namespace alinous;
+namespace alinous {
 
 class ClassDeclare;
+class PackageDeclare;
 
 class CompilationUnit : public CodeElement {
 public:
 	CompilationUnit();
 	virtual ~CompilationUnit();
 
+	void setPackage(PackageDeclare* package);
 	void addClassDeclare(ClassDeclare* clazz);
 
 private:
+	PackageDeclare* package;
 	ArrayList<ClassDeclare> classes;
 };
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 #endif /* SC_COMPILATIONUNIT_H_ */

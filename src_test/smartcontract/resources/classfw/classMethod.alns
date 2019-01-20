@@ -1,0 +1,9 @@
+
+package test.fw;
+
+class HelloWorld {
+	public void test(int value, long lv);
+	public void test2() {
+	
+	}
+}

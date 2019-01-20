@@ -9,11 +9,9 @@
 #include "test_utils/t_macros.h"
 
 #include "sc/SmartContract.h"
+#include "base_io_stream/FileInputStream.h"
 
 using namespace alinous;
-using namespace codablecash;
-
-
 
 TEST_GROUP(TestSmartContractGroup) {
 	TEST_SETUP(){}
@@ -23,6 +21,19 @@ TEST_GROUP(TestSmartContractGroup) {
 
 TEST(TestSmartContractGroup, construct){
 	SmartContract* sc = new SmartContract();
+	delete sc;
+}
+
+TEST(TestSmartContractGroup, newFile){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/parser/hello.alns"))
+
+	SmartContract* sc = new SmartContract();
+	FileInputStream stream(sourceFile);
+
+	int length = sourceFile->length();
+	sc->addCompilationUnit(&stream, length);
+
 	delete sc;
 }
 

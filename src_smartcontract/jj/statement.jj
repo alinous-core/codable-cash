@@ -1,0 +1,23 @@
+
+/******************************************************************************************
+* Alinous Language Statements Starts
+*/
+
+StatementBlock* statementBlock() : {
+	StatementBlock* block = new StatementBlock();
+	Token* t = nullptr;
+}
+{
+	t="{" {
+		block->setPosition(t);
+	}
+	
+	
+	t="}" {
+		block->setPosition(t);
+	}
+	{
+	    __ONERROR(block);
+		return block;
+	}
+}

@@ -6,13 +6,25 @@
  */
 
 #include "sc_declare/ClassDeclareBlock.h"
+#include "sc_declare/MemberVariableDeclare.h"
+#include "sc_declare/MethodDeclare.h"
 
-namespace codablecash {
+namespace alinous {
 
-ClassDeclareBlock::ClassDeclareBlock() {
+ClassDeclareBlock::ClassDeclareBlock()  : CodeElement(CodeElement::CLASS_DECLARE_BLOCK) {
 }
 
 ClassDeclareBlock::~ClassDeclareBlock() {
+	this->methods.deleteElements();
+	this->variables.deleteElements();
 }
 
-} /* namespace codablecash */
+void ClassDeclareBlock::addMethod(MethodDeclare* method) noexcept {
+	this->methods.addElement(method);
+}
+
+void ClassDeclareBlock::addVariable(MemberVariableDeclare* variable) noexcept {
+	this->variables.addElement(variable);
+}
+
+} /* namespace alinous */

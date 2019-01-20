@@ -21,8 +21,24 @@ class AlinousLang {
 public:
 CompilationUnit
                * compilationUnit();
+PackageDeclare              * packageDeclare();
+PackageNameDeclare                  * packageNameDeclare();
 ClassDeclare            * classDeclare();
 ClassDeclareBlock                 * classDeclareBlock();
+MethodDeclare             * methodDeclare(AccessControlDeclare* ctrl, bool _static, AbstractType* type, Token* identifier);
+MemberVariableDeclare                     * memberVariableDeclare(AccessControlDeclare* ctrl, bool _static, AbstractType* type, Token* identifier);
+AccessControlDeclare                    * accessControlDeclare();
+ArgumentsListDeclare                    * argumentsListDeclare();
+ArgumentDeclare               * argumentDeclare();
+AbstractType            * typeDeclare();
+CharType        * charType();
+ShortType         * shortType();
+IntType       * intType();
+LongType        * longType();
+StringType          * stringType();
+VoidType        * voidType();
+StatementBlock
+              * statementBlock();
 
 public: 
   void setErrorHandler(ErrorHandler *eh) {
@@ -48,7 +64,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[2];
+  int           jj_la1[12];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 

@@ -7,19 +7,27 @@
 
 #include "sc/CompilationUnit.h"
 #include "sc_declare/ClassDeclare.h"
+#include "sc_declare/PackageDeclare.h"
 
-namespace codablecash {
+namespace alinous {
 
-CompilationUnit::CompilationUnit() : classes(4) {
-
+CompilationUnit::CompilationUnit() : classes(4), CodeElement(CodeElement::COMPILANT_UNIT) {
+	this->package = nullptr;
 }
 
 CompilationUnit::~CompilationUnit() {
+	if(this->package){
+		delete this->package;
+	}
 	this->classes.deleteElements();
+}
+
+void CompilationUnit::setPackage(PackageDeclare* package) {
+	this->package = package;
 }
 
 void CompilationUnit::addClassDeclare(ClassDeclare* clazz) {
 	this->classes.addElement(clazz);
 }
 
-} /* namespace codablecash */
+} /* namespace alinous */

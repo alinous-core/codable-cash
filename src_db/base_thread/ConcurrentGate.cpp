@@ -30,7 +30,11 @@ void ConcurrentGate::enter() noexcept {
 				StackUnlocker __st_lock2(&this->roomLock);
 				this->roomWaiter++;
 			}
-			this->stateLock.wait();
+
+			while(!this->isOpened){
+				this->stateLock.wait();
+			}
+
 			/* ---------------------
 						ROOM
 			 ---------------------- */
@@ -52,7 +56,7 @@ void ConcurrentGate::exit() noexcept {
 		StackUnlocker __st_lock(&this->stateLock);
 		this->counter--;
 		if(this->counter == 0){
-			this->stateLock.notify();
+			this->stateLock.notifyAll();
 		}
 	}
 }
@@ -62,7 +66,7 @@ void ConcurrentGate::open() noexcept {
 		StackUnlocker __st_lock(&this->stateLock);
 
 		this->isOpened = true;
-		this->stateLock.notify();
+		this->stateLock.notifyAll();
 	}
 
 	{
@@ -83,7 +87,7 @@ void ConcurrentGate::close() noexcept {
 		StackUnlocker __st_lock(&this->stateLock);
 
 		this->isOpened = false; // close the gate
-		if(this->counter > 0){
+		while(this->counter > 0){
 			//out(" [ Gate :" + Thread.currentThread().getId() + "] wait for reader threads ends");
 			this->stateLock.wait();
 		}

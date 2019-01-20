@@ -10,21 +10,26 @@
 
 #include "sc/CodeElement.h"
 
-namespace codablecash {
+#include "base/ArrayList.h"
+
+namespace alinous {
 
 class ClassDeclareBlock;
+class UnicodeString;
+
 
 class ClassDeclare : public CodeElement {
 public:
 	ClassDeclare();
 	virtual ~ClassDeclare();
 
-	void setBlock(ClassDeclareBlock* block);
-
+	void setBlock(ClassDeclareBlock* block) noexcept;
+	void setName(UnicodeString* name) noexcept;
 private:
 	ClassDeclareBlock* block;
+	UnicodeString* name;
 };
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 #endif /* SC_DECLARE_CLASSDECLARE_H_ */

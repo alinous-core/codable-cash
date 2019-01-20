@@ -6,9 +6,16 @@
 CompilationUnit* compilationUnit() :
 {
 	CompilationUnit* unit = new CompilationUnit();
+	PackageDeclare* pkg = nullptr;
 	ClassDeclare* clazz = nullptr;
 }
 {
+	[
+		pkg=packageDeclare() {
+			unit->setPackage(pkg);
+		}
+	]
+    
 	(
 	    clazz=classDeclare() {
 			unit->setPosition(clazz);
@@ -21,6 +28,58 @@ CompilationUnit* compilationUnit() :
 	}
 }
 
+PackageDeclare* packageDeclare() : {
+	PackageDeclare* pkg = nullptr;
+	PackageNameDeclare* name = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="package" {
+		pkg=new PackageDeclare();
+		pkg->setPosition(t);
+	}
+
+	name=packageNameDeclare() {
+	    pkg->setName(name);
+		pkg->setPosition(name);
+	}
+	
+	";" {
+		pkg->setPosition(t);
+	}
+	{
+	    __ONERROR(pkg);
+		return pkg;
+	}
+}
+
+PackageNameDeclare* packageNameDeclare() :
+{
+	PackageNameDeclare* names = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=< IDENTIFIER > {
+	    names = new PackageNameDeclare();
+		names->addSegment(_STR(t));
+		names->setPosition(t);
+	}
+
+	(
+	    "." t=< IDENTIFIER > {
+			names->addSegment(_STR(t));
+			names->setPosition(t);
+	    }
+	)*
+	{
+	}
+	{
+	    __ONERROR(names);
+		return names;
+	}
+
+}
+
 ClassDeclare* classDeclare() :
 {
 	ClassDeclare* clazz = nullptr;
@@ -30,12 +89,16 @@ ClassDeclare* classDeclare() :
 	
 }
 {
-	cls="class" name=<IDENTIFIER> block=classDeclareBlock() {
-        clazz = new ClassDeclare();
+	cls="class" name=<IDENTIFIER> {
+		 clazz = new ClassDeclare();
+		 clazz->setName(_STR(name));
+	}
+	block=classDeclareBlock() {
 	    clazz->setPositions(cls, block);
 	    clazz->setBlock(block);
 	}
 	{
+	    __ONERROR(clazz);
 		return clazz;
 	}
 }
@@ -44,16 +107,200 @@ ClassDeclareBlock* classDeclareBlock() :
 {
 	ClassDeclareBlock* block = nullptr;
 	Token* begin, *end;
+	
+	MethodDeclare* method = nullptr;
+	MemberVariableDeclare* member = nullptr;
+
+	AccessControlDeclare* ctrl = nullptr;
+	bool _static=false;
+	AbstractType* type = nullptr;
+	Token* t=nullptr;
 }
 {
-	begin="{" end="}"
-	{
-	    if(!hasError) {
-			block = new ClassDeclareBlock();
-	   		block->setPositions(_P(begin, end));
+	begin="{" {
+		block = new ClassDeclareBlock();
+		block->setPosition(begin);
+	}
+
+	(
+		ctrl=accessControlDeclare() {
 	    }
 
+		[
+			t="static" {
+			    _static=true;
+			}
+		]
+
+		type=typeDeclare() {
+		}
+	
+		t=< IDENTIFIER > {
+		}
+
+		(			method=methodDeclare(ctrl, _static, type, t) {
+				block->addMethod(method);
+			}
+			|
+			member=memberVariableDeclare(ctrl, _static, type, t) {
+				block->addVariable(member);
+			}
+		)
+		{
+		    _static = false;
+		}
+	)*
+
+	
+	 end="}"
+	{
+   		block->setPosition(end);
+	}
+	{
+		__ONERROR(block);
 		return block;
 	}
 }
+
+MethodDeclare* methodDeclare(AccessControlDeclare* ctrl, bool _static, AbstractType* type, Token* identifier) : {
+    MethodDeclare* method = new MethodDeclare();
+
+    method->setPosition(ctrl);
+    
+	method->setAccessControl(ctrl);
+	method->setStatic(_static);
+	method->setType(type);
+	method->setName(_STR(identifier));
+    
+	Token* t = nullptr;
+	ArgumentsListDeclare* args = nullptr;
+	StatementBlock* block = nullptr;
+}
+{
+	args=argumentsListDeclare() {
+	  	method->setArguments(args);
+		method->setPosition(args);
+	}
+	
+	(
+		block=statementBlock() {
+			method->setBlock(block);
+			method->setPosition(block);
+		}
+		|
+		t=";" {
+			method->setPosition(t);
+		}
+	)
+	{
+	}
+	{
+	    __ONERROR(method);
+		return method;
+	}
+}
+
+MemberVariableDeclare* memberVariableDeclare(AccessControlDeclare* ctrl, bool _static, AbstractType* type, Token* identifier) : {
+    MemberVariableDeclare* variable = new MemberVariableDeclare();
+	Token* t = nullptr;
+	
+	variable->setPosition(ctrl);
+
+	variable->setAccessControl(ctrl);
+	variable->setStatic(_static);
+	variable->setType(type);
+	variable->setName(_STR(identifier));
+}
+{
+	t=";" {
+		variable->setPosition(t);
+	}
+	
+	{
+	    __ONERROR(variable);
+		return variable;
+	}
+}
+
+AccessControlDeclare* accessControlDeclare() : {
+	Token* t = nullptr;
+	AccessControlDeclare* ctrl = new AccessControlDeclare();
+}
+{
+    ( 
+		t="public" {
+			ctrl->setCtrl(AccessControlDeclare::PUBLIC);
+			ctrl->setPositions(_P(t, t));
+		}
+		|
+		t="protected" {
+			ctrl->setCtrl(AccessControlDeclare::PROTECTED);
+			ctrl->setPositions(_P(t, t));
+		}
+		|      
+		t="private" {
+			ctrl->setCtrl(AccessControlDeclare::PRIVATE);
+			ctrl->setPositions(_P(t, t));
+		}
+	)
+	{
+	    __ONERROR(ctrl);
+		return ctrl;
+	}
+}
+
+ArgumentsListDeclare* argumentsListDeclare() : {
+    ArgumentsListDeclare* arguments = new ArgumentsListDeclare();
+	Token* t = nullptr;
+	ArgumentDeclare* arg = nullptr;
+}
+{
+	t="(" {
+		arguments->setPosition(t);
+	}
+
+	[
+		arg=argumentDeclare() {
+		    arguments->addArgument(arg);
+		    arguments->setPosition(arg);
+		}
+		(
+		    "," arg=argumentDeclare() {
+		        arguments->addArgument(arg);
+		        arguments->setPosition(arg);
+		    }		)*
+	]
+
+	t=")" {
+		arguments->setPosition(t);
+	}
+	{
+	    __ONERROR(arguments);
+		return arguments;
+	}
+}
+
+
+ArgumentDeclare* argumentDeclare() : {
+	ArgumentDeclare* arg = new ArgumentDeclare();
+	AbstractType* type = nullptr;
+	Token* t = nullptr;
+}
+{
+    type=typeDeclare() {
+		arg->setType(type);
+		arg->setPosition(type);
+    }
+
+    t=< IDENTIFIER > {
+		arg->setName(_STR(t));
+		arg->setPosition(t);
+    }
+
+	{
+	    __ONERROR(arg);
+		return arg;
+	}
+}
+
 

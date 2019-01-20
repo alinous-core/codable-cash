@@ -62,8 +62,6 @@ int FileInputStream::read(char* b, int off, int len) {
 }
 
 int FileInputStream::available() {
-
-
 	return this->fd.isOpened();
 }
 

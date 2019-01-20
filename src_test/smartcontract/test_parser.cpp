@@ -7,11 +7,10 @@
 
 #include "test_utils/t_macros.h"
 
-#include "sc/SmartContractParser.h"
+#include "compiler/SmartContractParser.h"
 #include "sc/CompilationUnit.h"
 
 using namespace alinous;
-using namespace codablecash;
 
 TEST_GROUP(TestParserGroup) {
 	TEST_SETUP(){
