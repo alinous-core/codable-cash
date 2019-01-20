@@ -3,6 +3,7 @@ set(__src
 	Exception.cpp
 	exceptions.cpp
 	Integer.cpp
+	Long.cpp
 	RawBitSet.cpp
 	UnicodeString.cpp
 )

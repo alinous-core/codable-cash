@@ -27,6 +27,24 @@ Integer::Integer(int value) : value(value) {
 Integer::~Integer() {
 }
 
+int Integer::numberOfLeadingZeros(int i) {
+    i |= i >> 1;
+    i |= i >> 2;
+    i |= i >> 4;
+    i |= i >> 8;
+    i |= i >> 16;
+    return bitCount(~i);
+}
+
+int Integer::bitCount(int i) {
+    i -= ((i >> 1) & 0x55555555);
+    i = (i & 0x33333333) + ((i >> 2) & 0x33333333);
+    i = (((i >> 4) + i) & 0x0F0F0F0F);
+    i += (i >> 8);
+    i += (i >> 16);
+    return (i & 0x0000003F);
+}
+
 int Integer::parseInt(UnicodeString* string)
 {
 	return parseInt(string, 10);
@@ -93,3 +111,4 @@ int Integer::ValueCompare::operator() (const Integer* const _this, const  Intege
 }
 
 } /* namespace alinous */
+

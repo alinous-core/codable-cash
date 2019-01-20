@@ -13,17 +13,31 @@
 namespace alinous {
 
 class UnicodeString;
+class BitLevel;
 
 class BigInteger {
 public:
+	friend class BitLevel;
+
 	BigInteger(int sign, int value);
+	BigInteger(UnicodeString* val);
 	BigInteger(UnicodeString* val, int radix);
 	virtual ~BigInteger();
+
+	int bitLength();
+	int getFirstNonzeroDigit();
+
+	long longValue();
+
+private:
+	static void setFromString(BigInteger* bi, UnicodeString* val, int radix);
+	void cutOffLeadingZeroes();
 
 private:
 	int numberLength;
 	int sign;
 	int* digits;
+	int firstNonzeroDigit;
 };
 
 } /* namespace alinous */

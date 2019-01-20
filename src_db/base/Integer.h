@@ -24,6 +24,9 @@ public:
 	explicit Integer(int value);
 	virtual ~Integer();
 
+	static int numberOfLeadingZeros(int i);
+	static int bitCount(int i);
+
 	static int parseInt(UnicodeString* string);
 	static int parseInt(UnicodeString* string, int radix);
 protected:

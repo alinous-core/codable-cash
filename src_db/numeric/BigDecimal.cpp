@@ -6,8 +6,10 @@
  */
 
 #include "numeric/BigDecimal.h"
+#include "numeric/BigInteger.h"
 
 #include "base/Integer.h"
+#include "base/Long.h"
 #include "base/UnicodeString.h"
 #include "base/exceptions.h"
 
@@ -103,18 +105,33 @@ void BigDecimal::__BigDecimal(int16_t* in, int offset, int len) {
     }
 
     // Parsing the unscaled value
-    /*
+
     if (bufLength < 19) {
         smallValue = Long::parseLong(unscaledBuffer);
-        bitLength = bitLength(smallValue);
+        bitLength = __bitLength(smallValue);
     } else {
-        setUnscaledValue(new BigInteger(unscaledBuffer.toString()));
+        setUnscaledValue(new BigInteger(unscaledBuffer));
     }
-    precision = unscaledBuffer.length() - counter;
+    precision = unscaledBuffer->length() - counter;
     if (unscaledBuffer->charAt(0) == L'-') {
         precision --;
     }
-    */
+
+}
+
+int BigDecimal::__bitLength(int64_t smallValue) {
+    if(smallValue < 0) {
+        smallValue = ~smallValue;
+    }
+    return 64 - Long::numberOfLeadingZeros(smallValue);
+}
+
+void BigDecimal::setUnscaledValue(BigInteger* unscaledValue) {
+    this->intVal = unscaledValue;
+    this->bitLength = unscaledValue->bitLength();
+    if(this->bitLength < 64) {
+        this->smallValue = unscaledValue->longValue();
+    }
 }
 
 } /* namespace alinous */
