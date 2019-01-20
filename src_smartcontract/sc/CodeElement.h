@@ -27,8 +27,7 @@ public:
 	static const constexpr short ARGUMENTS_LIST_DECLARE{6};
 	static const constexpr short ARGUMENT_DECLARE{7};
 	static const constexpr short MEMBER_VARIABLE_DECLARE{8};
-	static const constexpr short TYPE_DECLARE{9};
-	static const constexpr short ACCESS_CONTROL_DECLARE{10};
+	static const constexpr short ACCESS_CONTROL_DECLARE{9};
 
 
 	static const constexpr short TYPE_CHAR{20};

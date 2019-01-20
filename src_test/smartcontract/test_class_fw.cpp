@@ -39,4 +39,13 @@ TEST(TestClassFwGroup, memberVariable){
 	delete unit;
 }
 
+TEST(TestClassFwGroup, methods){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/classfw/classMethod.alns"))
 
+	SmartContractParser parser(sourceFile);
+	CompilationUnit* unit = parser.parse();
+	CHECK(!parser.hasError())
+
+	delete unit;
+}

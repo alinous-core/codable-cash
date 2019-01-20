@@ -21,7 +21,6 @@
 #include "sc_declare/MethodDeclare.h"
 #include "sc_declare/PackageDeclare.h"
 #include "sc_declare/PackageNameDeclare.h"
-#include "sc_declare/TypeDeclare.h"
 
 #include "sc_declare_types/CharType.h"
 #include "sc_declare_types/ShortType.h"
