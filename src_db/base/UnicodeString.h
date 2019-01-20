@@ -11,6 +11,8 @@
 #include "RawArrayPrimitive.h"
 #include "ArrayList.h"
 
+#include <inttypes.h>
+
 namespace alinous {
 
 
@@ -38,6 +40,9 @@ public:
 	UnicodeString* append(const int value) noexcept;
 	UnicodeString* append(const wchar_t* str) noexcept;
 	UnicodeString* append(const wchar_t* str, int len) noexcept;
+	UnicodeString* append(const int16_t* str, int offset, int len) noexcept;
+
+	static UnicodeString* valueOf(const int16_t* str, int offset, int len);
 
 	UnicodeString* replace(wchar_t last, wchar_t next) const noexcept;
 

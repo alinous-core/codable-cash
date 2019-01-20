@@ -166,6 +166,27 @@ UnicodeString* UnicodeString::append(const wchar_t* str, int len) noexcept {
 	return this;
 }
 
+UnicodeString* UnicodeString::append(const int16_t* str, int offset, int len) noexcept {
+	for(int i = 0; i != len; ++i){
+		wchar_t ch = str[offset + i];
+		__append(ch);
+	}
+
+	__closeString();
+	return this;
+}
+
+UnicodeString* UnicodeString::valueOf(const int16_t* str, int offset, int len) {
+	UnicodeString* ret = new UnicodeString(L"");
+
+	for(int i = 0; i != len; ++i){
+		wchar_t ch = str[offset + i];
+		ret->append(ch);
+	}
+
+	return ret;
+}
+
 UnicodeString* UnicodeString::append(const UnicodeString* str) noexcept {
 	int len = str->length();
 
