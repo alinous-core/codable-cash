@@ -34,7 +34,6 @@ void BigDecimal::__BigDecimal(int16_t* in, int offset, int len) {
 	int last = offset + (len - 1);
 	UnicodeString* scaleString = nullptr; // buffer for scale
 	UnicodeString* unscaledBuffer; // buffer for unscaled value
-    long newScale; // the new scale
 
     unscaledBuffer = new UnicodeString(L"");
     int bufLength = 0;
@@ -97,7 +96,7 @@ void BigDecimal::__BigDecimal(int16_t* in, int offset, int len) {
         delete scaleString;
         scaleString = UnicodeString::valueOf(in, begin, last + 1 - begin);
         // Checking if the scale is defined
-        newScale = (long)scale - Integer::parseInt(scaleString);
+        int64_t newScale = (int64_t)scale - Integer::parseInt(scaleString);
         scale = (int)newScale;
         if (newScale != scale) {
             throw new NumberFormatException(__FILE__, __LINE__);

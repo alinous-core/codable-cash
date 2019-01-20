@@ -20,5 +20,16 @@ TEST_GROUP(BigIntegerGroup) {
 TEST(BigIntegerGroup, construct01){
 	BigInteger* big = new BigInteger(1, 100);
 
+	int64_t v = big->longValue();
+	CHECK(v = 100);
+
+	delete big;
+}
+TEST(BigIntegerGroup, construct02){
+	BigInteger* big = new BigInteger(-1, 100);
+
+	int64_t v = big->longValue();
+	CHECK(v = -100);
+
 	delete big;
 }

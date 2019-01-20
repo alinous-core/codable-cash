@@ -17,7 +17,7 @@ class BigInteger;
 
 class BigDecimal {
 public:
-	BigDecimal(UnicodeString* val);
+	explicit BigDecimal(UnicodeString* val);
 	virtual ~BigDecimal();
 
 private:

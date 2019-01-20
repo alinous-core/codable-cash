@@ -66,12 +66,11 @@ void BigInteger::setFromString(BigInteger* bi, UnicodeString* val, int radix) {
     // Parse an input string and accumulate the BigInteger's magnitude
     int digitIndex = 0; // index of digits array
     int substrEnd = startChar + ((topChars == 0) ? charsPerInt : topChars);
-    int newDigit;
 
     for (int substrStart = startChar; substrStart < endChar; substrStart = substrEnd, substrEnd = substrStart
             + charsPerInt) {
         int bigRadixDigit = Integer::parseInt(val->substring(substrStart, substrEnd), radix);
-        newDigit = Multiplication::multiplyByInt(digits, digitIndex, bigRadix);
+        int newDigit = Multiplication::multiplyByInt(digits, digitIndex, bigRadix);
         newDigit += Elementary::inplaceAdd(digits, digitIndex, bigRadixDigit);
         digits[digitIndex++] = newDigit;
     }
@@ -108,8 +107,8 @@ int BigInteger::getFirstNonzeroDigit() {
     return firstNonzeroDigit;
 }
 
-long BigInteger::longValue() {
-    long value = (numberLength > 1) ? (((long) digits[1]) << 32)
+int64_t BigInteger::longValue() {
+	int64_t value = (numberLength > 1) ? (((int64_t) digits[1]) << 32)
             | (digits[0] & 0xFFFFFFFFL) : (digits[0] & 0xFFFFFFFFL);
     return (sign * value);
 }

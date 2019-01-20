@@ -19,15 +19,17 @@ class BigInteger {
 public:
 	friend class BitLevel;
 
+	BigInteger(const BigInteger& inst) = delete;
+
 	BigInteger(int sign, int value);
-	BigInteger(UnicodeString* val);
+	explicit BigInteger(UnicodeString* val);
 	BigInteger(UnicodeString* val, int radix);
 	virtual ~BigInteger();
 
 	int bitLength();
 	int getFirstNonzeroDigit();
 
-	long longValue();
+	int64_t longValue();
 
 private:
 	static void setFromString(BigInteger* bi, UnicodeString* val, int radix);

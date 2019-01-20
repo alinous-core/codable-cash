@@ -23,10 +23,9 @@ int64_t Long::parseLong(UnicodeString* string) {
 }
 
 int64_t Long::parseLong(UnicodeString* string, int radix){
-	int length = string->length(), i = 0;
-	bool negative = string->charAt(i) == '-';
+	bool negative = string->charAt(0) == '-';
 
-	return parse(string, i, radix, negative);
+	return parse(string, 0, radix, negative);
 }
 
 int64_t Long::parse(UnicodeString* string, int offset, int radix, bool negative) {
