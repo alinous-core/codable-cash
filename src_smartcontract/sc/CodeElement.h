@@ -37,6 +37,8 @@ public:
 	static const constexpr short TYPE_STRING{24};
 	static const constexpr short TYPE_VOID{25};
 
+	static const constexpr short STMT_BLOCK{50};
+
 
 	explicit CodeElement(short kind);
 	virtual ~CodeElement();

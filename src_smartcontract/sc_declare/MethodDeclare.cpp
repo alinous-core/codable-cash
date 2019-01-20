@@ -9,6 +9,7 @@
 #include "sc_declare/AccessControlDeclare.h"
 #include "sc_declare/ArgumentsListDeclare.h"
 #include "sc_declare_types/AbstractType.h"
+#include "sc_statement/StatementBlock.h"
 #include "base/UnicodeString.h"
 
 namespace alinous {
@@ -19,6 +20,7 @@ MethodDeclare::MethodDeclare() : CodeElement(CodeElement::METHOD_DECLARE) {
 	this->ctrl = nullptr;
 	this->type = nullptr;
 	this->args = nullptr;
+	this->block = nullptr;
 }
 
 MethodDeclare::~MethodDeclare() {
@@ -33,6 +35,9 @@ MethodDeclare::~MethodDeclare() {
 	}
 	if(this->args){
 		delete this->args;
+	}
+	if(this->block){
+		delete this->block;
 	}
 }
 
@@ -54,6 +59,10 @@ void MethodDeclare::setName(UnicodeString* name) noexcept {
 
 void MethodDeclare::setArguments(ArgumentsListDeclare* args) noexcept {
 	this->args = args;
+}
+
+void MethodDeclare::setBlock(StatementBlock* block) noexcept {
+	this->block = block;
 }
 
 } /* namespace alinous */

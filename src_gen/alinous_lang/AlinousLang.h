@@ -37,6 +37,8 @@ IntType       * intType();
 LongType        * longType();
 StringType          * stringType();
 VoidType        * voidType();
+StatementBlock
+              * statementBlock();
 
 public: 
   void setErrorHandler(ErrorHandler *eh) {
@@ -62,7 +64,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[11];
+  int           jj_la1[12];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 

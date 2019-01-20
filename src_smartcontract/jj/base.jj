@@ -174,15 +174,25 @@ MethodDeclare* methodDeclare(AccessControlDeclare* ctrl, bool _static, AbstractT
     
 	Token* t = nullptr;
 	ArgumentsListDeclare* args = nullptr;
+	StatementBlock* block = nullptr;
 }
 {
 	args=argumentsListDeclare() {
 	  	method->setArguments(args);
 		method->setPosition(args);
 	}
-
-	t=";" {
-		method->setPosition(t);
+	
+	(
+		block=statementBlock() {
+			method->setBlock(block);
+			method->setPosition(block);
+		}
+		|
+		t=";" {
+			method->setPosition(t);
+		}
+	)
+	{
 	}
 	{
 	    __ONERROR(method);

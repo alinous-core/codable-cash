@@ -16,6 +16,7 @@ class AccessControlDeclare;
 class AbstractType;
 class ArgumentsListDeclare;
 class UnicodeString;
+class StatementBlock;
 
 class MethodDeclare : public CodeElement {
 public:
@@ -27,12 +28,14 @@ public:
 	void setStatic(bool s) noexcept;
 	void setName(UnicodeString* name) noexcept;
 	void setArguments(ArgumentsListDeclare* args) noexcept;
+	void setBlock(StatementBlock* block) noexcept;
 private:
 	AccessControlDeclare* ctrl;
 	AbstractType* type;
 	UnicodeString* name;
 	bool _static;
 	ArgumentsListDeclare* args;
+	StatementBlock* block;
 };
 
 } /* namespace alinous */

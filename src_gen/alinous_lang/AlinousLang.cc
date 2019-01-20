@@ -3,19 +3,19 @@
 #include "TokenMgrError.h"
 namespace alinouslang {
   unsigned int jj_la1_0[] = {
-0x0,0x0,0x0,0x0,0x0,0x200000,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x200000,0x200000,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_1[] = {
-0x1000000,0x2000000,0x80,0x0,0x0,0x4,0x0,0x100,0xe0000000,0xe0000000,};
+0x1000000,0x2000000,0x80,0x0,0x0,0x4,0x800,0x0,0x100,0xe0000000,0xe0000000,};
   unsigned int jj_la1_2[] = {
-0x0,0x0,0x0,0x70000,0x100000,0x0,0x70000,0x0,0x10000003,0x10000003,};
+0x0,0x0,0x0,0x70000,0x100000,0x0,0x0,0x70000,0x0,0x10000003,0x10000003,};
   unsigned int jj_la1_3[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_4[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_5[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_6[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
 
   /** Constructor with user supplied TokenManager. */
 
@@ -288,6 +288,7 @@ MethodDeclare             * AlinousLang::methodDeclare(AccessControlDeclare* ctr
 
         Token* t = nullptr;
         ArgumentsListDeclare* args = nullptr;
+        StatementBlock* block = nullptr;
     if (!hasError) {
     args = argumentsListDeclare();
     }
@@ -296,10 +297,34 @@ method->setArguments(args);
                 method->setPosition(args);
     }
     if (!hasError) {
-    t = jj_consume_token(SEMI_COLON);
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case L_BRACE:{
+      if (!hasError) {
+      block = statementBlock();
+      }
+      if (!hasError) {
+method->setBlock(block);
+                        method->setPosition(block);
+      }
+      break;
+      }
+    case SEMI_COLON:{
+      if (!hasError) {
+      t = jj_consume_token(SEMI_COLON);
+      }
+      if (!hasError) {
+method->setPosition(t);
+      }
+      break;
+      }
+    default:
+      jj_la1[6] = jj_gen;
+      jj_consume_token(-1);
+      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+    }
     }
     if (!hasError) {
-method->setPosition(t);
+
     }
 __ONERROR(method);
                 return method;
@@ -363,7 +388,7 @@ ctrl->setCtrl(AccessControlDeclare::PRIVATE);
       break;
       }
     default:
-      jj_la1[6] = jj_gen;
+      jj_la1[7] = jj_gen;
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
     }
@@ -406,7 +431,7 @@ arguments->addArgument(arg);
           break;
           }
         default:
-          jj_la1[7] = jj_gen;
+          jj_la1[8] = jj_gen;
           goto end_label_4;
         }
         if (!hasError) {
@@ -425,7 +450,7 @@ arguments->addArgument(arg);
       break;
       }
     default:
-      jj_la1[8] = jj_gen;
+      jj_la1[9] = jj_gen;
       ;
     }
     }
@@ -504,7 +529,7 @@ AbstractType            * AlinousLang::typeDeclare() {AbstractType* dec = nullpt
       break;
       }
     default:
-      jj_la1[9] = jj_gen;
+      jj_la1[10] = jj_gen;
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
     }
@@ -602,6 +627,27 @@ assert(false);
 }
 
 
+StatementBlock
+              * AlinousLang::statementBlock() {StatementBlock* block = new StatementBlock();
+        Token* t = nullptr;
+    if (!hasError) {
+    t = jj_consume_token(L_BRACE);
+    }
+    if (!hasError) {
+block->setPosition(t);
+    }
+    if (!hasError) {
+    t = jj_consume_token(R_BRACE);
+    }
+    if (!hasError) {
+block->setPosition(t);
+    }
+__ONERROR(block);
+                return block;
+assert(false);
+}
+
+
   AlinousLang::AlinousLang(TokenManager *tokenManager){
     head = nullptr;
     ReInit(tokenManager);
@@ -629,7 +675,7 @@ void AlinousLang::ReInit(TokenManager* tokenManager){
     trace = false;
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 10; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 11; i++) jj_la1[i] = -1;
   }
 
 
