@@ -14,14 +14,24 @@ namespace alinous {
 
 class UnicodeString;
 class BitLevel;
+class Multiplication;
+class Elementary;
 
 class BigInteger {
 public:
 	friend class BitLevel;
+	friend class Multiplication;
+	friend class Elementary;
 
-	BigInteger(const BigInteger& inst) = delete;
+    static const constexpr int EQUALS = 0;
+    static const constexpr int GREATER = 1;
+    static const constexpr int LESS = -1;
+
+	BigInteger(const BigInteger& inst);
 
 	BigInteger(int sign, int value);
+	BigInteger(int sign, int numberLength, int* digits);
+
 	explicit BigInteger(UnicodeString* val);
 	BigInteger(UnicodeString* val, int radix);
 	virtual ~BigInteger();
@@ -30,6 +40,21 @@ public:
 	int getFirstNonzeroDigit();
 
 	int64_t longValue();
+
+	BigInteger* multiply(BigInteger* val);
+	BigInteger* shiftRight(int n);
+	BigInteger* shiftLeft(int n);
+	BigInteger* subtract(BigInteger* val);
+	BigInteger* add(BigInteger* val);
+	BigInteger* divide(BigInteger* divisor);
+
+	BigInteger* negate();
+	bool isOne();
+
+	static BigInteger* valueOf(int64_t val);
+
+    static const BigInteger* SMALL_VALUE;
+    static BigInteger* __SMALL_VALUES();
 
 private:
 	static void setFromString(BigInteger* bi, UnicodeString* val, int radix);

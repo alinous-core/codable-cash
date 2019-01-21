@@ -18,6 +18,16 @@ public:
 	virtual ~BitLevel();
 
 	static int bitLength(BigInteger* val);
+	static BigInteger* shiftLeft(BigInteger* source, int count);
+	static BigInteger* shiftRight(BigInteger* source, int count);
+
+
+	static void arraycopy(int* src, int srcPos, int* dest, int destPos, int length);
+
+	static void shiftLeft(int* result, int result_len, int* source, int intCount, int count);
+	static bool shiftRight(int* result, int resultLen, int* source, int intCount, int count);
+
+	static void shiftLeftOneBit(int* result, int* source, int srcLen);
 };
 
 } /* namespace alinous */

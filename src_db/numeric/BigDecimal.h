@@ -20,10 +20,18 @@ public:
 	explicit BigDecimal(UnicodeString* val);
 	virtual ~BigDecimal();
 
+	int64_t longValue() const;
+	BigInteger* toBigInteger() const;
+
 private:
+	static const constexpr double LOG10_2 = 0.3010299956639812;
+
 	void __BigDecimal(int16_t* in, int offset, int len);
 	static int __bitLength(int64_t smallValue);
 	void setUnscaledValue(BigInteger* unscaledValue);
+	BigInteger* getUnscaledValue() const;
+	bool isZero() const;
+	int aproxPrecision() const;
 
 private:
 	int32_t scale;

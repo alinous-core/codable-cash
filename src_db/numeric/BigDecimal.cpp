@@ -7,6 +7,7 @@
 
 #include "numeric/BigDecimal.h"
 #include "numeric/BigInteger.h"
+#include "numeric/Multiplication.h"
 
 #include "base/Integer.h"
 #include "base/Long.h"
@@ -16,6 +17,8 @@
 namespace alinous {
 
 BigDecimal::BigDecimal(UnicodeString* val) {
+	this->intVal = nullptr;
+
 	int len = val->length();
 	int16_t* in = new int16_t[len];
 	for(int i = 0; i != len; ++i){
@@ -26,6 +29,9 @@ BigDecimal::BigDecimal(UnicodeString* val) {
 }
 
 BigDecimal::~BigDecimal() {
+	if(this->intVal){
+		delete this->intVal;
+	}
 
 }
 
@@ -98,9 +104,9 @@ void BigDecimal::__BigDecimal(int16_t* in, int offset, int len) {
         // Checking if the scale is defined
         int64_t newScale = (int64_t)scale - Integer::parseInt(scaleString);
         scale = (int)newScale;
-        if (newScale != scale) {
-            throw new NumberFormatException(__FILE__, __LINE__);
-        }
+      //  if (newScale != scale) {
+      //      throw new NumberFormatException(__FILE__, __LINE__);
+      //  }
     }
 
     // Parsing the unscaled value
@@ -125,12 +131,46 @@ int BigDecimal::__bitLength(int64_t smallValue) {
     return 64 - Long::numberOfLeadingZeros(smallValue);
 }
 
+int64_t BigDecimal::longValue() const {
+    /* If scale <= -64 there are at least 64 trailing bits zero in 10^(-scale).
+     * If the scale is positive and very large the long value could be zero. */
+    return ((scale <= -64) || (scale > aproxPrecision())
+    ? 0L
+            : toBigInteger()->longValue());
+}
+
+BigInteger* BigDecimal::toBigInteger() const {
+    if ((scale == 0) || (isZero())) {
+        return getUnscaledValue();
+    } else if (scale < 0) {
+        return getUnscaledValue()->multiply(Multiplication::powerOf10(-(int64_t)scale));
+    } else {// (scale > 0)
+        return getUnscaledValue()->divide(Multiplication::powerOf10(scale));
+    }
+}
+
 void BigDecimal::setUnscaledValue(BigInteger* unscaledValue) {
     this->intVal = unscaledValue;
     this->bitLength = unscaledValue->bitLength();
     if(this->bitLength < 64) {
         this->smallValue = unscaledValue->longValue();
     }
+}
+
+BigInteger* BigDecimal::getUnscaledValue() const {
+ //   if(intVal == nullptr) {
+//        intVal = BigInteger->valueOf(smallValue);
+ //   }
+    return intVal;
+}
+
+bool BigDecimal::isZero() const {
+	return this->bitLength == 0 && this->smallValue != -1;
+}
+
+int BigDecimal::aproxPrecision() const {
+    return (this->precision > 0) ? this->precision
+            : ((int) ((this->bitLength - 1) * LOG10_2)) + 1;
 }
 
 } /* namespace alinous */
