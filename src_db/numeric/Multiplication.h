@@ -19,10 +19,10 @@ public:
 	static const constexpr int whenUseKaratsuba{63};
 
 
-	static const BigInteger* bigTenPows[];
-	static const BigInteger* bigFivePows[];
+	static BigInteger** bigTenPows;
+	static BigInteger** bigFivePows;
 
-	static void initbigpows();
+	static BigInteger** initbigpows(bool ten);
 
 	static int multiplyByInt(int* a, int aSize, int factor);
 	static int multiplyByInt(int* res, int* a, int aSize, int factor);
@@ -33,6 +33,7 @@ public:
 	static BigInteger* multiplyPAP(const BigInteger* a, const BigInteger* b);
 	static void multArraysPAP(int* aDigits, int aLen, int* bDigits, int bLen, int* resDigits);
 	static void multPAP(int* a, int* b, int* t, int aLen, int bLen);
+	static BigInteger* pow(BigInteger* base, int exponent);
 
 	static int* square(int* a, int aLen, int* res);
 

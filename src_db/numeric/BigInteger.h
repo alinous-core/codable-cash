@@ -27,7 +27,15 @@ public:
     static const constexpr int GREATER = 1;
     static const constexpr int LESS = -1;
 
-    static const BigInteger TEN;
+    static const BigInteger ZERO;
+    static const BigInteger ONE;
+    static BigInteger TEN;
+
+    static const BigInteger* SMALL_VALUE;
+    static BigInteger* __SMALL_VALUES();
+
+    static BigInteger** TWO_POWS;
+    static BigInteger** initTwoPows();
 
 	BigInteger(const BigInteger& inst);
 
@@ -39,7 +47,6 @@ public:
 	virtual ~BigInteger();
 
 	int bitLength();
-	int getFirstNonzeroDigit();
 
 	int64_t longValue();
 
@@ -50,13 +57,19 @@ public:
 	BigInteger* add(BigInteger* val);
 	BigInteger* divide(BigInteger* divisor);
 
+	BigInteger* pow(int exp);
+
 	BigInteger* negate() const;
 	bool isOne();
+	bool testBit(int n);
+	int getFirstNonzeroDigit();
 
 	static BigInteger* valueOf(int64_t val);
 
-    static const BigInteger* SMALL_VALUE;
-    static BigInteger* __SMALL_VALUES();
+	bool equals(const BigInteger* x) const;
+	bool equalsArrays(const int* b) const;
+
+    static BigInteger* getPowerOfTwo(int exp);
 
 private:
 	static void setFromString(BigInteger* bi, UnicodeString* val, int radix);

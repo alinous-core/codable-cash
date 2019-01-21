@@ -10,14 +10,44 @@
 #include "numeric/BitLevel.h"
 #include "base/Integer.h"
 
+#include "base/ArrayList.h"
+
 namespace alinous {
 
-const BigInteger* Multiplication::bigTenPows[32]{};
-const BigInteger* Multiplication::bigFivePows[32]{};
+BigInteger** Multiplication::bigTenPows = initbigpows(true);
+BigInteger** Multiplication::bigFivePows = initbigpows(false);
 
-void Multiplication::initbigpows() {
+BigInteger** Multiplication::initbigpows(bool ten) {
+	static bool init = false;
+	static ArrayList<BigInteger> __bigFivePows(32);
+	static ArrayList<BigInteger> __bigTenPows(32);
 
-    int i;
+	if(!init){
+	    int i;
+	    int64_t fivePow = 1L;
+
+	    __bigFivePows.setDeleteOnExit();
+	    __bigTenPows.setDeleteOnExit();
+
+	    for (i = 0; i <= 18; i++) {
+	        __bigFivePows.addElement(BigInteger::valueOf(fivePow));
+	        __bigTenPows.addElement(BigInteger::valueOf(fivePow << i));
+	        fivePow *= 5;
+	    }
+	    for (; i < /*bigTenPows.length*/32; i++) {
+	        __bigFivePows.addElement( __bigFivePows.get(i - 1)->multiply(__bigFivePows.get(1)));
+	        __bigTenPows.addElement( __bigTenPows.get(i - 1)->multiply(&BigInteger::TEN));
+	    }
+
+		init = true;
+	}
+
+	if(ten){
+		return __bigTenPows.getRoot();
+	}
+	return __bigFivePows.getRoot();
+
+/*    int i;
     int64_t fivePow = 1L;
 
     for (i = 0; i <= 18; i++) {
@@ -25,10 +55,12 @@ void Multiplication::initbigpows() {
         bigTenPows[i] = BigInteger::valueOf(fivePow << i);
         fivePow *= 5;
     }
-    for (; i < /*bigTenPows.length*/32; i++) {
+   // for (; i < bigTenPows.length; i++) {
+    for (; i < 32; i++) {
         bigFivePows[i] = bigFivePows[i - 1]->multiply(bigFivePows[1]);
         bigTenPows[i] = bigTenPows[i - 1]->multiply(&BigInteger::TEN);
     }
+*/
 }
 
 int Multiplication::multiplyByInt(int* a, int aSize, int factor) {
@@ -54,35 +86,35 @@ BigInteger* Multiplication::powerOf10(int64_t exp) {
 	// FIXME
 
     // PRE: exp >= 0
-   /*int intExp = (int)exp;
+	int intExp = (int)exp;
     // "SMALL POWERS"
-    if (exp < bigTenPows.length) {
+    if (exp < /*bigTenPows.length*/ 32) {
         // The largest power that fit in 'long' type
         return bigTenPows[intExp];
     } else if (exp <= 50) {
         // To calculate:    10^exp
-        return BigInteger.TEN.pow(intExp);
+        return BigInteger::TEN.pow(intExp);
     } else if (exp <= 1000) {
         // To calculate:    5^exp * 2^exp
-        return bigFivePows[1].pow(intExp).shiftLeft(intExp);
+        return bigFivePows[1]->pow(intExp)->shiftLeft(intExp);
     }
     // "LARGE POWERS"
     /*
      * To check if there is free memory to allocate a BigInteger of the
      * estimated size, measured in bytes: 1 + [exp / log10(2)]
      */
-	/*
+
     long byteArraySize = 1 + (long)(exp / 2.4082399653118496);
 
-    if (byteArraySize > Runtime.getRuntime().freeMemory()) {
+    //if (byteArraySize > Runtime.getRuntime().freeMemory()) {
         // math.01=power of ten too big
-        throw new ArithmeticException(Messages.getString("math.01")); //$NON-NLS-1$
-    }
-    if (exp <= Integer.MAX_VALUE) {
+     //   throw new ArithmeticException(Messages.getString("math.01")); //$NON-NLS-1$
+    //}
+    if (exp <= Integer::MAX_VALUE) {
         // To calculate:    5^exp * 2^exp
-        return bigFivePows[1].pow(intExp).shiftLeft(intExp);
+        return bigFivePows[1]->pow(intExp)->shiftLeft(intExp);
     }
-    */
+
     /*
      * "HUGE POWERS"
      *
@@ -90,27 +122,27 @@ BigInteger* Multiplication::powerOf10(int64_t exp) {
      * big.
      */
     // To calculate:    5^exp
-    /*
-    BigInteger* powerOfFive = bigFivePows[1].pow(Integer.MAX_VALUE);
+
+    BigInteger* powerOfFive = bigFivePows[1]->pow(Integer::MAX_VALUE);
     BigInteger* res = powerOfFive;
     long longExp = exp - Integer::MAX_VALUE;
 
     intExp = (int)(exp % Integer::MAX_VALUE);
     while (longExp > Integer::MAX_VALUE) {
-        res = res.multiply(powerOfFive);
+        res = res->multiply(powerOfFive);
         longExp -= Integer::MAX_VALUE;
     }
-    res = res->multiply(bigFivePows[1].pow(intExp));
+    res = res->multiply(bigFivePows[1]->pow(intExp));
     // To calculate:    5^exp << exp
-    res = res->shiftLeft(Integer.MAX_VALUE);
+    res = res->shiftLeft(Integer::MAX_VALUE);
     longExp = exp - Integer::MAX_VALUE;
     while (longExp > Integer::MAX_VALUE) {
-        res = res.shiftLeft(Integer::MAX_VALUE);
+        res = res->shiftLeft(Integer::MAX_VALUE);
         longExp -= Integer::MAX_VALUE;
     }
-    res = res::shiftLeft(intExp);
+    res = res->shiftLeft(intExp);
     return res;
-    */
+
 }
 
 BigInteger* Multiplication::multiply(const BigInteger* x, const BigInteger* y) {
@@ -204,6 +236,33 @@ void Multiplication::multPAP(int* a, int* b, int* t, int aLen, int bLen) {
          }
          t[i+bLen] = (int) carry;
     }
+}
+
+BigInteger* Multiplication::pow(BigInteger* base, int exponent) {
+    // PRE: exp > 0
+    BigInteger* res = new BigInteger(BigInteger::ONE);
+    BigInteger* acc = base;
+
+    for (; exponent > 1; exponent >>= 1) {
+        if ((exponent & 1) != 0) {
+            // if odd, multiply one more time by acc
+            res = res->multiply(acc);
+        }
+        // acc = base^(2^i)
+        //a limit where karatsuba performs a faster square than the square algorithm
+        if ( acc->numberLength == 1 ){
+            acc = acc->multiply(acc); // square
+        }
+        else{
+        	int newLength = acc->numberLength<<1;
+        	int* sqres = new int [newLength]{};
+        	square(acc->digits, acc->numberLength, sqres);
+            acc = new BigInteger(1, newLength, sqres);
+        }
+    }
+    // exponent == 1, multiply one more time
+    res = res->multiply(acc);
+    return res;
 }
 
 int* Multiplication::square(int* a, int aLen, int* res) {

@@ -17,6 +17,7 @@
 #include "base/Integer.h"
 
 #include "base/StackRelease.h"
+#include "base/ArrayList.h"
 
 namespace alinous {
 
@@ -31,7 +32,27 @@ BigInteger* BigInteger::__SMALL_VALUES() {
 	return SMALL_VALUES;
 }
 
-const BigInteger BigInteger::TEN(1, 10);
+const BigInteger BigInteger::ZERO(0, 0);
+const BigInteger BigInteger::ONE(1, 1);
+BigInteger BigInteger::TEN(1, 10);
+
+BigInteger** BigInteger::TWO_POWS = initTwoPows();
+BigInteger** BigInteger::initTwoPows() {
+	static bool init = false;
+	static ArrayList<BigInteger> __TWO_POWS(32);
+
+	if(!init){
+		__TWO_POWS.setDeleteOnExit();
+
+        for(int i = 0; i < 32; i++) {
+            TWO_POWS[i] = BigInteger::valueOf(1L<<i);
+        }
+
+		init = true;
+	}
+
+	return __TWO_POWS.getRoot();
+}
 
 BigInteger::BigInteger(const BigInteger& inst) {
 	this->firstNonzeroDigit = inst.firstNonzeroDigit;
@@ -233,6 +254,81 @@ BigInteger* BigInteger::divide(BigInteger* divisor) {
 
 bool BigInteger::isOne() {
 	return ((numberLength == 1) && (digits[0] == 1));
+}
+
+BigInteger* BigInteger::pow(int exp) {
+    if (exp < 0) {
+        // math.16=Negative exponent
+        throw new ArithmeticException(L"Negative exponent", __FILE__, __LINE__); //$NON-NLS-1$
+    }
+    if (exp == 0) {
+        return new BigInteger(1, 1); // ONE;
+    } else if (exp == 1 || equals(&ONE) || equals(&ZERO)) {
+        return new BigInteger(*this);
+    }
+
+    // if even take out 2^x factor which we can
+    // calculate by shifting.
+    if (!testBit(0)) {
+        int x = 1;
+        while (!testBit(x)) {
+            x++;
+        }
+        return getPowerOfTwo(x*exp)->multiply(this->shiftRight(x)->pow(exp));
+    }
+    return Multiplication::pow(this, exp);
+}
+
+bool BigInteger::equals(const BigInteger* x1) const {
+    return sign == x1->sign && numberLength == x1->numberLength
+            && equalsArrays(x1->digits);
+}
+
+bool BigInteger::equalsArrays(const int* b) const {
+    int i;
+    for (i = numberLength - 1; (i >= 0) && (digits[i] == b[i]); i--) {
+        // Empty
+    }
+    return i < 0;
+}
+
+bool BigInteger::testBit(int n) {
+    if (n == 0) {
+        return ((digits[0] & 1) != 0);
+    }
+    if (n < 0) {
+        // math.15=Negative bit address
+        throw new ArithmeticException(L"Negative bit address", __FILE__, __LINE__); //$NON-NLS-1$
+    }
+    int intCount = n >> 5;
+    if (intCount >= numberLength) {
+        return (sign < 0);
+    }
+    int digit = digits[intCount];
+    n = (1 << (n & 31)); // int with 1 set to the needed position
+    if (sign < 0) {
+        int firstNonZeroDigit = getFirstNonzeroDigit();
+        if (intCount < firstNonZeroDigit) {
+            return false;
+        } else if (firstNonZeroDigit == intCount) {
+            digit = -digit;
+        } else {
+            digit = ~digit;
+        }
+    }
+    return ((digit & n) != 0);
+}
+
+BigInteger* BigInteger::getPowerOfTwo(int exp) {
+    if(exp < 32){ // TWO_POWS.length) {
+        return new BigInteger(*TWO_POWS[exp]);
+    }
+    int intCount = exp >> 5;
+    int bitN = exp & 31;
+    int* resDigits = new int[intCount+1];
+    resDigits[intCount] = 1 << bitN;
+
+    return new BigInteger(1, intCount+1, resDigits);
 }
 
 void BigInteger::cutOffLeadingZeroes() {
