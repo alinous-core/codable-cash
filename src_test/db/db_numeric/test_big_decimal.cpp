@@ -57,3 +57,36 @@ TEST(BigDecimalGroup, construct04){
 	CHECK(l == 0L)
 }
 
+TEST(BigDecimalGroup, construct05){
+	UnicodeString str(L"5.1234567897654321e138");
+	BigDecimal dec(&str);
+
+	int64_t l = dec.longValue();
+	CHECK(l == 0L)
+}
+
+TEST(BigDecimalGroup, construct06){
+	UnicodeString str(L"123E04");
+	BigDecimal dec(&str);
+
+	int64_t l = dec.longValue();
+	CHECK(l == 1230000L)
+}
+
+TEST(BigDecimalGroup, construct07){
+	UnicodeString str(L"-1.234E-112");
+	BigDecimal dec(&str);
+
+	int64_t l = dec.longValue();
+	CHECK(l == 0)
+}
+
+TEST(BigDecimalGroup, construct08){
+	UnicodeString str(L"3132342342341908309182309128393331323423423419083091823091283933");
+	BigDecimal dec(&str);
+
+	int64_t l = dec.longValue();
+	//CHECK(l == 0)
+
+}
+
