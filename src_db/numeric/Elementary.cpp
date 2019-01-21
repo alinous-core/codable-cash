@@ -21,23 +21,23 @@ int alinous::Elementary::inplaceAdd(int* a, int aSize, int addend) {
     return (int) carry;
 }
 
-BigInteger* Elementary::subtract(const BigInteger* op1, const BigInteger* op2) {
+BigInteger Elementary::subtract(const BigInteger& op1, const BigInteger& op2) {
 	int resSign;
 	int* resDigits;
-	int op1Sign = op1->sign;
-	int op2Sign = op2->sign;
+	int op1Sign = op1.sign;
+	int op2Sign = op2.sign;
 
 	if (op2Sign == 0) {
-		return new BigInteger(*op1);
+		return op1;
 	}
 	if (op1Sign == 0) {
-		return op2->negate();
+		return op2.negate();
 	}
-	int op1Len = op1->numberLength;
-	int op2Len = op2->numberLength;
+	int op1Len = op1.numberLength;
+	int op2Len = op2.numberLength;
 	if (op1Len + op2Len == 2) {
-		long a = ( op1->digits[0] & 0xFFFFFFFFL );
-		long b = ( op2->digits[0] & 0xFFFFFFFFL );
+		int64_t a = ( op1.digits[0] & 0xFFFFFFFFL );
+		int64_t b = ( op2.digits[0] & 0xFFFFFFFFL );
 		if (op1Sign < 0) {
 			a = -a;
 		}
@@ -47,31 +47,31 @@ BigInteger* Elementary::subtract(const BigInteger* op1, const BigInteger* op2) {
 		return BigInteger::valueOf(a - b);
 	}
 	int cmp = ( ( op1Len != op2Len ) ? ( ( op1Len > op2Len ) ? 1 : -1 )
-			: Elementary::compareArrays (op1->digits, op2->digits, op1Len) );
+			: Elementary::compareArrays (op1.digits, op2.digits, op1Len) );
 
 	int resDigits_length = 0;
 	if (cmp == BigInteger::LESS) {
 		resSign = -op2Sign;
-		resDigits = ( op1Sign == op2Sign ) ? subtract (op2->digits, op2Len,
-				op1->digits, op1Len) : add (op2->digits, op2Len, op1->digits,
+		resDigits = ( op1Sign == op2Sign ) ? subtract (op2.digits, op2Len,
+				op1.digits, op1Len) : add (op2.digits, op2Len, op1.digits,
 				op1Len);
 		resDigits_length = op2Len;
 	} else {
 		resSign = op1Sign;
 		if (op1Sign == op2Sign) {
 			if (cmp == BigInteger::EQUALS) {
-				return new BigInteger(0, 0);
+				return BigInteger::ZERO; // new BigInteger(0, 0);
 			}
-			resDigits = subtract (op1->digits, op1Len, op2->digits, op2Len);
+			resDigits = subtract (op1.digits, op1Len, op2.digits, op2Len);
 			resDigits_length = op1Len;
 		} else {
-			resDigits = add(op1->digits, op1Len, op2->digits, op2Len);
+			resDigits = add(op1.digits, op1Len, op2.digits, op2Len);
 			resDigits_length = op1Len;
 		}
 	}
 	// BigInteger* res = new BigInteger (resSign, resDigits.length, resDigits);
-	 BigInteger* res = new BigInteger (resSign, resDigits_length, resDigits);
-	res->cutOffLeadingZeroes ();
+	 BigInteger res(resSign, resDigits_length, resDigits);
+	res.cutOffLeadingZeroes ();
 	return res;
 }
 
@@ -82,11 +82,11 @@ int* Elementary::subtract(int* a, int aSize, int* b, int bSize) {
     return res;
 }
 
-BigInteger* Elementary::add(BigInteger* op1, BigInteger* op2) {
+BigInteger Elementary::add(BigInteger& op1, BigInteger& op2) {
     int* resDigits;
     int resSign;
-    int op1Sign = op1->sign;
-    int op2Sign = op2->sign;
+    int op1Sign = op1.sign;
+    int op2Sign = op2.sign;
 
     if (op1Sign == 0) {
         return op2;
@@ -94,13 +94,13 @@ BigInteger* Elementary::add(BigInteger* op1, BigInteger* op2) {
     if (op2Sign == 0) {
         return op1;
     }
-    int op1Len = op1->numberLength;
-    int op2Len = op2->numberLength;
+    int op1Len = op1.numberLength;
+    int op2Len = op2.numberLength;
 
     int resDigits_length = 0;
     if (op1Len + op2Len == 2) {
-        int64_t a = (op1->digits[0] & 0xFFFFFFFFL);
-        int64_t b = (op2->digits[0] & 0xFFFFFFFFL);
+        int64_t a = (op1.digits[0] & 0xFFFFFFFFL);
+        int64_t b = (op2.digits[0] & 0xFFFFFFFFL);
         int64_t res;
         int valueLo;
         int valueHi;
@@ -112,38 +112,38 @@ BigInteger* Elementary::add(BigInteger* op1, BigInteger* op2) {
 
             int param[2]{ valueLo, valueHi };
 
-            return ((valueHi == 0) ? new BigInteger(op1Sign, valueLo)
-                    : new BigInteger(op1Sign, 2, param));
+            return ((valueHi == 0) ? BigInteger(op1Sign, valueLo)
+                    : BigInteger(op1Sign, 2, param));
         }
         return BigInteger::valueOf((op1Sign < 0) ? (b - a) : (a - b));
     } else if (op1Sign == op2Sign) {
         resSign = op1Sign;
         // an augend should not be shorter than addend
-        resDigits = (op1Len >= op2Len) ? add(op1->digits, op1Len,
-                op2->digits, op2Len) : add(op2->digits, op2Len, op1->digits,
+        resDigits = (op1Len >= op2Len) ? add(op1.digits, op1Len,
+                op2.digits, op2Len) : add(op2.digits, op2Len, op1.digits,
                 op1Len);
         resDigits_length = (op1Len >= op2Len) ? op1Len + 1 : op2Len + 1;
     } else { // signs are different
         int cmp = ((op1Len != op2Len) ? ((op1Len > op2Len) ? 1 : -1)
-                : compareArrays(op1->digits, op2->digits, op1Len));
+                : compareArrays(op1.digits, op2.digits, op1Len));
 
         if (cmp == BigInteger::EQUALS) {
-            return new BigInteger(0, 0); //BigInteger.ZERO;
+            return BigInteger::ZERO;
         }
         // a minuend should not be shorter than subtrahend
         if (cmp == BigInteger::GREATER) {
             resSign = op1Sign;
-            resDigits = subtract(op1->digits, op1Len, op2->digits, op2Len);
+            resDigits = subtract(op1.digits, op1Len, op2.digits, op2Len);
             resDigits_length = op1Len;
         } else {
             resSign = op2Sign;
-            resDigits = subtract(op2->digits, op2Len, op1->digits, op1Len);
+            resDigits = subtract(op2.digits, op2Len, op1.digits, op1Len);
             resDigits_length = op2Len;
         }
     }
     //BigInteger* res = new BigInteger(resSign, resDigits.length, resDigits);
-    BigInteger* res = new BigInteger(resSign, resDigits_length, resDigits);
-    res->cutOffLeadingZeroes();
+    BigInteger res(resSign, resDigits_length, resDigits);
+    res.cutOffLeadingZeroes();
     return res;
 }
 

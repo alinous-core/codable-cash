@@ -31,13 +31,13 @@ const BigInteger** Multiplication::initbigpows(bool ten) {
 	    __bigTenPows.setDeleteOnExit();
 
 	    for (i = 0; i <= 18; i++) {
-	        __bigFivePows.addElement(BigInteger::valueOf(fivePow));
-	        __bigTenPows.addElement(BigInteger::valueOf(fivePow << i));
+	        __bigFivePows.addElement(new BigInteger(BigInteger::valueOf(fivePow)));
+	        __bigTenPows.addElement(new BigInteger(BigInteger::valueOf(fivePow << i)));
 	        fivePow *= 5;
 	    }
 	    for (; i < /*bigTenPows.length*/32; i++) {
-	        __bigFivePows.addElement( __bigFivePows.get(i - 1)->multiply(__bigFivePows.get(1)));
-	        __bigTenPows.addElement( __bigTenPows.get(i - 1)->multiply(&BigInteger::TEN));
+	        __bigFivePows.addElement(new BigInteger( __bigFivePows.get(i - 1)->multiply(*__bigFivePows.get(1))));
+	        __bigTenPows.addElement(new BigInteger( __bigTenPows.get(i - 1)->multiply(BigInteger::TEN)));
 	    }
 
 		init = true;
@@ -83,7 +83,7 @@ int64_t Multiplication::unsignedMultAddAdd(int a, int b, int c, int d) {
 	return (a & 0xFFFFFFFFL) * (b & 0xFFFFFFFFL) + (c & 0xFFFFFFFFL) + (d & 0xFFFFFFFFL);
 }
 
-BigInteger* Multiplication::powerOf10(int64_t exp) {
+BigInteger Multiplication::powerOf10(int64_t exp) {
     // PRE: exp >= 0
 	StackMultipleRelease<BigInteger> _st_bint;
 
@@ -91,17 +91,13 @@ BigInteger* Multiplication::powerOf10(int64_t exp) {
     // "SMALL POWERS"
     if (exp < /*bigTenPows.length*/ 32) {
         // The largest power that fit in 'long' type
-        return new BigInteger(*bigTenPows[intExp]);
+        return BigInteger(*bigTenPows[intExp]);
     } else if (exp <= 50) {
         // To calculate:    10^exp
-        return BigInteger::TEN.pow(intExp);
+        return BigInteger(BigInteger::TEN).pow(intExp);
     } else if (exp <= 1000) {
         // To calculate:    5^exp * 2^exp
-    	BigInteger* tmp = new BigInteger(*bigFivePows[1]); _st_bint.add(tmp);
-    	tmp = tmp->pow(intExp);  _st_bint.add(tmp);
-
-    	return tmp->shiftLeft(intExp);
-        //return bigFivePows[1]->pow(intExp)->shiftLeft(intExp);
+        return BigInteger(*bigFivePows[1]).pow(intExp).shiftLeft(intExp);
     }
     // "LARGE POWERS"
     /*
@@ -117,11 +113,7 @@ BigInteger* Multiplication::powerOf10(int64_t exp) {
     //}
     if (exp <= Integer::MAX_VALUE) {
         // To calculate:    5^exp * 2^exp
-    	BigInteger* tmp = new BigInteger(*bigFivePows[1]); _st_bint.add(tmp);
-    	tmp = tmp->pow(intExp);  _st_bint.add(tmp);
-
-    	return tmp->shiftLeft(intExp);
-        // return bigFivePows[1]->pow(intExp)->shiftLeft(intExp);
+        return BigInteger(*bigFivePows[1]).pow(intExp).shiftLeft(intExp);
     }
 
     /*
@@ -131,56 +123,39 @@ BigInteger* Multiplication::powerOf10(int64_t exp) {
      * big.
      */
     // To calculate:    5^exp
-
-    BigInteger* tmp = new BigInteger(*bigFivePows[1]); _st_bint.add(tmp);
-
-    //BigInteger* powerOfFive = bigFivePows[1]->pow(Integer::MAX_VALUE);
-    BigInteger* powerOfFive = tmp->pow(Integer::MAX_VALUE); _st_bint.add(powerOfFive);
-
-    BigInteger* res = powerOfFive;
-    long longExp = exp - Integer::MAX_VALUE;
+    BigInteger powerOfFive = BigInteger(*bigFivePows[1]).pow(Integer::MAX_VALUE);
+    BigInteger res = powerOfFive;
+    int64_t longExp = exp - Integer::MAX_VALUE;
 
     intExp = (int)(exp % Integer::MAX_VALUE);
     while (longExp > Integer::MAX_VALUE) {
-    	_st_bint.add(res);
-        res = res->multiply(powerOfFive);
+        res = res.multiply(powerOfFive);
         longExp -= Integer::MAX_VALUE;
     }
-
-    tmp = tmp->pow(intExp); _st_bint.add(tmp);
-
-    _st_bint.add(res);
-    res = res->multiply(tmp);
-    //res = res->multiply(bigFivePows[1]->pow(intExp));
+    res = res.multiply(BigInteger(*bigFivePows[1]).pow(intExp));
     // To calculate:    5^exp << exp
-
-    _st_bint.add(res);
-    res = res->shiftLeft(Integer::MAX_VALUE);
+    res = res.shiftLeft(Integer::MAX_VALUE);
     longExp = exp - Integer::MAX_VALUE;
     while (longExp > Integer::MAX_VALUE) {
-    	_st_bint.add(res);
-        res = res->shiftLeft(Integer::MAX_VALUE);
+        res = res.shiftLeft(Integer::MAX_VALUE);
         longExp -= Integer::MAX_VALUE;
     }
-
-    _st_bint.add(res);
-    res = res->shiftLeft(intExp);
+    res = res.shiftLeft(intExp);
     return res;
 
 }
 
-BigInteger* Multiplication::multiply(const BigInteger* x, const BigInteger* y) {
+BigInteger Multiplication::multiply(const BigInteger& x, const BigInteger& y) {
 	return karatsuba(x, y);
 }
 
-BigInteger* Multiplication::karatsuba(const BigInteger* op1, const BigInteger* op2) {
-	const BigInteger* temp = nullptr;
-    if (op2->numberLength > op1->numberLength) {
-        temp = op1;
+BigInteger Multiplication::karatsuba(BigInteger op1, BigInteger op2) {
+    if (op2.numberLength > op1.numberLength) {
+    	BigInteger temp = op1;
         op1 = op2;
         op2 = temp;
     }
-    if (op2->numberLength < whenUseKaratsuba) {
+    if (op2.numberLength < whenUseKaratsuba) {
         return multiplyPAP(op1, op2);
     }
     /*  Karatsuba:  u = u1*B + u0
@@ -188,49 +163,50 @@ BigInteger* Multiplication::karatsuba(const BigInteger* op1, const BigInteger* o
      *  u*v = (u1*v1)*B^2 + ((u1-u0)*(v0-v1) + u1*v1 + u0*v0)*B + u0*v0
      */
     // ndiv2 = (op1.numberLength / 2) * 32
-    int ndiv2 = (op1->numberLength & 0xFFFFFFFE) << 4;
-    BigInteger* upperOp1 = op1->shiftRight(ndiv2);
-    BigInteger* upperOp2 = op2->shiftRight(ndiv2);
-    BigInteger* lowerOp1 = op1->subtract(upperOp1->shiftLeft(ndiv2));
-    BigInteger* lowerOp2 = op2->subtract(upperOp2->shiftLeft(ndiv2));
+    int ndiv2 = (op1.numberLength & 0xFFFFFFFE) << 4;
+    BigInteger upperOp1 = op1.shiftRight(ndiv2);
+    BigInteger upperOp2 = op2.shiftRight(ndiv2);
+    BigInteger lowerOp1 = op1.subtract(upperOp1.shiftLeft(ndiv2));
+    BigInteger lowerOp2 = op2.subtract(upperOp2.shiftLeft(ndiv2));
 
-    BigInteger* upper = karatsuba(upperOp1, upperOp2);
-    BigInteger* lower = karatsuba(lowerOp1, lowerOp2);
-    BigInteger* middle = karatsuba( upperOp1->subtract(lowerOp1),
-            lowerOp2->subtract(upperOp2));
-    middle = middle->add(upper)->add(lower);
-    middle = middle->shiftLeft(ndiv2);
-    upper = upper->shiftLeft(ndiv2 << 1);
+    BigInteger upper = karatsuba(upperOp1, upperOp2);
+    BigInteger lower = karatsuba(lowerOp1, lowerOp2);
+    BigInteger middle = karatsuba( upperOp1.subtract(lowerOp1),
+            lowerOp2.subtract(upperOp2));
 
-    return upper->add(middle)->add(lower);
+    middle = middle.add(upper).add(lower);
+    middle = middle.shiftLeft(ndiv2);
+    upper = upper.shiftLeft(ndiv2 << 1);
+
+    return upper.add(middle).add(lower);
 }
 
-BigInteger* Multiplication::multiplyPAP(const BigInteger* a, const BigInteger* b) {
-    int aLen = a->numberLength;
-    int bLen = b->numberLength;
+BigInteger Multiplication::multiplyPAP(const BigInteger& a, const BigInteger& b) {
+    int aLen = a.numberLength;
+    int bLen = b.numberLength;
     int resLength = aLen + bLen;
-    int resSign = (a->sign != b->sign) ? -1 : 1;
+    int resSign = (a.sign != b.sign) ? -1 : 1;
     // A special case when both numbers don't exceed int
     if (resLength == 2) {
-        int64_t val = unsignedMultAddAdd(a->digits[0], b->digits[0], 0, 0);
+        int64_t val = unsignedMultAddAdd(a.digits[0], b.digits[0], 0, 0);
         int valueLo = (int)val;
         int valueHi = (int)( ((uint64_t)val) >> 32);
         int* param = new int[2]{valueLo, valueHi};
         StackArrayRelease<int> __st_param(param);
 
         return ((valueHi == 0)
-			? new BigInteger(resSign, valueLo)
-			: new BigInteger(resSign, 2, param));
+			? BigInteger(resSign, valueLo)
+			: BigInteger(resSign, 2, param));
     }
-    int* aDigits = a->digits;
-    int* bDigits = b->digits;
+    int* aDigits = a.digits;
+    int* bDigits = b.digits;
     int* resDigits = new int[resLength];
     StackArrayRelease<int> __st_resDigits(resDigits);
 
     // Common case
     multArraysPAP(aDigits, aLen, bDigits, bLen, resDigits);
-    BigInteger* result = new BigInteger(resSign, resLength, resDigits);
-    result->cutOffLeadingZeroes();
+    BigInteger result(resSign, resLength, resDigits);
+    result.cutOffLeadingZeroes();
     return result;
 }
 
@@ -265,30 +241,30 @@ void Multiplication::multPAP(int* a, int* b, int* t, int aLen, int bLen) {
     }
 }
 
-BigInteger* Multiplication::pow(BigInteger* base, int exponent) {
+BigInteger Multiplication::pow(const BigInteger& base, int exponent) {
     // PRE: exp > 0
-    BigInteger* res = new BigInteger(BigInteger::ONE);
-    BigInteger* acc = base;
+    BigInteger res(BigInteger::ONE);
+    BigInteger acc = base;
 
     for (; exponent > 1; exponent >>= 1) {
         if ((exponent & 1) != 0) {
             // if odd, multiply one more time by acc
-            res = res->multiply(acc);
+            res = res.multiply(acc);
         }
         // acc = base^(2^i)
         //a limit where karatsuba performs a faster square than the square algorithm
-        if ( acc->numberLength == 1 ){
-            acc = acc->multiply(acc); // square
+        if ( acc.numberLength == 1 ){
+            acc = acc.multiply(acc); // square
         }
         else{
-        	int newLength = acc->numberLength<<1;
+        	int newLength = acc.numberLength<<1;
         	int* sqres = new int [newLength]{};
-        	square(acc->digits, acc->numberLength, sqres);
-            acc = new BigInteger(1, newLength, sqres);
+        	square(acc.digits, acc.numberLength, sqres);
+            acc = BigInteger(1, newLength, sqres);
         }
     }
     // exponent == 1, multiply one more time
-    res = res->multiply(acc);
+    res = res.multiply(acc);
     return res;
 }
 

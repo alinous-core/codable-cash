@@ -45,7 +45,7 @@ BigInteger** BigInteger::initTwoPows() {
 		__TWO_POWS.setDeleteOnExit();
 
         for(int i = 0; i < 32; i++) {
-        	__TWO_POWS.addElement(BigInteger::valueOf(1L<<i));
+        	__TWO_POWS.addElement(new BigInteger(BigInteger::valueOf(1L<<i)));
         }
 
 		init = true;
@@ -179,68 +179,68 @@ int64_t BigInteger::longValue() {
     return (sign * value);
 }
 
-BigInteger* BigInteger::multiply(const BigInteger* val) const {
+BigInteger BigInteger::multiply(const BigInteger& val) const {
     // This let us to throw NullPointerException when val == null
-    if (val->sign == 0) {
-        return new BigInteger(0, 0);
+    if (val.sign == 0) {
+        return BigInteger::ZERO; // new BigInteger(0, 0);
     }
     if (sign == 0) {
-        return new BigInteger(0, 0);
+        return BigInteger::ZERO; //new BigInteger(0, 0);
     }
 
-    return Multiplication::multiply(this, val);
+    return Multiplication::multiply(*this, val);
 }
 
-BigInteger* BigInteger::shiftRight(int n) const {
+BigInteger BigInteger::shiftRight(int n) const {
     if ((n == 0) || (sign == 0)) {
-        return new BigInteger(*this);
+        return *this;
     }
     return ((n > 0) ? BitLevel::shiftRight(this, n) : BitLevel::shiftLeft(this, -n));
 }
 
-BigInteger* BigInteger::shiftLeft(int n) {
+BigInteger BigInteger::shiftLeft(int n) {
     if ((n == 0) || (sign == 0)) {
-        return this;
+        return *this;
     }
     return ((n > 0) ? BitLevel::shiftLeft(this, n) : BitLevel::shiftRight(this, -n));
 }
 
-BigInteger* BigInteger::subtract(BigInteger* val) const {
-	return Elementary::subtract(this, val);
+BigInteger BigInteger::subtract(const BigInteger& val) const {
+	return Elementary::subtract(*this, val);
 }
 
-BigInteger* BigInteger::add(BigInteger* val) {
-	return Elementary::add(this, val);
+BigInteger BigInteger::add(BigInteger& val) {
+	return Elementary::add(*this, val);
 }
 
-BigInteger* BigInteger::divide(BigInteger* divisor) {
-    if (divisor->sign == 0) {
+BigInteger BigInteger::divide(BigInteger& divisor) {
+    if (divisor.sign == 0) {
         // math.17=BigInteger divide by zero
         throw new ArithmeticException(L"BigInteger divide by zero", __FILE__, __LINE__); //$NON-NLS-1$
     }
-    int divisorSign = divisor->sign;
-    if (divisor->isOne()) {
-        return ((divisor->sign > 0) ? new BigInteger(*this) : this->negate());
+    int divisorSign = divisor.sign;
+    if (divisor.isOne()) {
+        return ((divisor.sign > 0) ? *this : this->negate());
     }
     int thisSign = sign;
     int thisLen = numberLength;
-    int divisorLen = divisor->numberLength;
+    int divisorLen = divisor.numberLength;
     if (thisLen + divisorLen == 2) {
         long val = (digits[0] & 0xFFFFFFFFL)
-                / (divisor->digits[0] & 0xFFFFFFFFL);
+                / (divisor.digits[0] & 0xFFFFFFFFL);
         if (thisSign != divisorSign) {
             val = -val;
         }
         return valueOf(val);
     }
     int cmp = ((thisLen != divisorLen) ? ((thisLen > divisorLen) ? 1 : -1)
-            : Elementary::compareArrays(digits, divisor->digits, thisLen));
+            : Elementary::compareArrays(digits, divisor.digits, thisLen));
     if (cmp == EQUALS) {
-        return ((thisSign == divisorSign) ? new BigInteger(1, 1) : new BigInteger(1, -1));
+        return ((thisSign == divisorSign) ? BigInteger::ONE : BigInteger(1, -1));
         //return ((thisSign == divisorSign) ? ONE : MINUS_ONE);
     }
     if (cmp == LESS) {
-        return new BigInteger(0, 0); // ZERO;
+        return BigInteger::ZERO;
     }
     int resLength = thisLen - divisorLen + 1;
     int* resDigits = new int[resLength];
@@ -249,13 +249,13 @@ BigInteger* BigInteger::divide(BigInteger* divisor) {
     int resSign = ((thisSign == divisorSign) ? 1 : -1);
     if (divisorLen == 1) {
         Division::divideArrayByInt(resDigits, digits, thisLen,
-                divisor->digits[0]);
+                divisor.digits[0]);
     } else {
        Division::divide(resDigits, resLength, digits, thisLen,
-                divisor->digits, divisorLen);
+                divisor.digits, divisorLen);
     }
-    BigInteger* result = new BigInteger(resSign, resLength, resDigits);
-    result->cutOffLeadingZeroes();
+    BigInteger result(resSign, resLength, resDigits);
+    result.cutOffLeadingZeroes();
     return result;
 }
 
@@ -263,15 +263,15 @@ bool BigInteger::isOne() {
 	return ((numberLength == 1) && (digits[0] == 1));
 }
 
-BigInteger* BigInteger::pow(int exp) {
+BigInteger BigInteger::pow(int exp) {
     if (exp < 0) {
         // math.16=Negative exponent
         throw new ArithmeticException(L"Negative exponent", __FILE__, __LINE__); //$NON-NLS-1$
     }
     if (exp == 0) {
-        return new BigInteger(1, 1); // ONE;
+        return BigInteger::ONE;
     } else if (exp == 1 || equals(&ONE) || equals(&ZERO)) {
-        return new BigInteger(*this);
+        return *this;
     }
 
     // if even take out 2^x factor which we can
@@ -281,9 +281,9 @@ BigInteger* BigInteger::pow(int exp) {
         while (!testBit(x)) {
             x++;
         }
-        return getPowerOfTwo(x*exp)->multiply(this->shiftRight(x)->pow(exp));
+        return getPowerOfTwo(x*exp).multiply(this->shiftRight(x).pow(exp));
     }
-    return Multiplication::pow(this, exp);
+    return Multiplication::pow(*this, exp);
 }
 
 bool BigInteger::equals(const BigInteger* x1) const {
@@ -326,9 +326,9 @@ bool BigInteger::testBit(int n) {
     return ((digit & n) != 0);
 }
 
-BigInteger* BigInteger::getPowerOfTwo(int exp) {
+BigInteger BigInteger::getPowerOfTwo(int exp) {
     if(exp < 32){ // TWO_POWS.length) {
-        return new BigInteger(*TWO_POWS[exp]);
+        return *TWO_POWS[exp];
     }
     int intCount = exp >> 5;
     int bitN = exp & 31;
@@ -337,7 +337,7 @@ BigInteger* BigInteger::getPowerOfTwo(int exp) {
 
     resDigits[intCount] = 1 << bitN;
 
-    return new BigInteger(1, intCount+1, resDigits);
+    return BigInteger(1, intCount+1, resDigits);
 }
 
 void BigInteger::cutOffLeadingZeroes() {
@@ -349,21 +349,21 @@ void BigInteger::cutOffLeadingZeroes() {
     }
 }
 
-BigInteger* BigInteger::negate() const {
-    return ((sign == 0) ? new BigInteger(*this)
-            : new BigInteger(-sign, numberLength, digits));
+BigInteger BigInteger::negate() const {
+    return ((sign == 0) ? *this
+            : BigInteger(-sign, numberLength, digits));
 }
 
-BigInteger* BigInteger::valueOf(int64_t val) {
+BigInteger BigInteger::valueOf(int64_t val) {
     if (val < 0) {
         if (val != -1) {
-            return new BigInteger(-1, -val);
+            return BigInteger(-1, -val);
         }
-        return new BigInteger(-1, -1);
+        return BigInteger(-1, -1);
     } else if (val <= 10) {
-        return new BigInteger(BigInteger::SMALL_VALUE[(int) val]);
+        return BigInteger(BigInteger::SMALL_VALUE[(int) val]);
     } else {// (val > 10)
-        return new BigInteger(1, val);
+        return BigInteger(1, val);
     }
 }
 

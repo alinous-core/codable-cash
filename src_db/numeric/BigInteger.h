@@ -50,26 +50,26 @@ public:
 
 	int64_t longValue();
 
-	BigInteger* multiply(const BigInteger* val) const;
-	BigInteger* shiftRight(int n) const;
-	BigInteger* shiftLeft(int n);
-	BigInteger* subtract(BigInteger* val) const;
-	BigInteger* add(BigInteger* val);
-	BigInteger* divide(BigInteger* divisor);
+	BigInteger multiply(const BigInteger& val) const;
+	BigInteger shiftRight(int n) const;
+	BigInteger shiftLeft(int n);
+	BigInteger subtract(const BigInteger& val) const;
+	BigInteger add(BigInteger& val);
+	BigInteger divide(BigInteger& divisor);
 
-	BigInteger* pow(int exp);
+	BigInteger pow(int exp);
 
-	BigInteger* negate() const;
+	BigInteger negate() const;
 	bool isOne();
 	bool testBit(int n);
 	int getFirstNonzeroDigit();
 
-	static BigInteger* valueOf(int64_t val);
+	static BigInteger valueOf(int64_t val);
 
 	bool equals(const BigInteger* x) const;
 	bool equalsArrays(const int* b) const;
 
-    static BigInteger* getPowerOfTwo(int exp);
+    static BigInteger getPowerOfTwo(int exp);
 
 private:
 	static void setFromString(BigInteger* bi, UnicodeString* val, int radix);

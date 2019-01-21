@@ -21,7 +21,7 @@ public:
 	virtual ~BigDecimal();
 
 	int64_t longValue();
-	BigInteger* toBigInteger();
+	BigInteger toBigInteger();
 
 private:
 	static const constexpr double LOG10_2 = 0.3010299956639812;
@@ -29,7 +29,7 @@ private:
 	void __BigDecimal(int16_t* in, int offset, int len);
 	static int __bitLength(int64_t smallValue);
 	void setUnscaledValue(BigInteger* unscaledValue);
-	BigInteger* getUnscaledValue();
+	BigInteger getUnscaledValue();
 	bool isZero() const;
 	int aproxPrecision() const;
 

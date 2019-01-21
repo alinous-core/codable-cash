@@ -142,9 +142,9 @@ int64_t BigDecimal::longValue() {
 		return 0L;
 	}
 
-	BigInteger* bigInt = toBigInteger();
-	StackRelease<BigInteger> _st_(bigInt);
-	return bigInt->longValue();
+	BigInteger bigInt = toBigInteger();
+
+	return bigInt.longValue();
 
     /* If scale <= -64 there are at least 64 trailing bits zero in 10^(-scale).
      * If the scale is positive and very large the long value could be zero. */
@@ -153,19 +153,17 @@ int64_t BigDecimal::longValue() {
             : toBigInteger()->longValue());*/
 }
 
-BigInteger* BigDecimal::toBigInteger() {
+BigInteger BigDecimal::toBigInteger() {
     if ((scale == 0) || (isZero())) {
-        return new BigInteger(*getUnscaledValue());
+        return getUnscaledValue();
     } else if (scale < 0) {
-    	BigInteger* pow10 = Multiplication::powerOf10(-(int64_t)scale);
-    	StackRelease<BigInteger> __st_pow10(pow10);
+    	BigInteger pow10 = Multiplication::powerOf10(-(int64_t)scale);
 
-        return getUnscaledValue()->multiply(pow10);
+        return getUnscaledValue().multiply(pow10);
     } else {// (scale > 0)
-    	BigInteger* pow10 = Multiplication::powerOf10(scale);
-    	StackRelease<BigInteger> __st_pow10(pow10);
+    	BigInteger pow10 = Multiplication::powerOf10(scale);
 
-        return getUnscaledValue()->divide(pow10);
+        return getUnscaledValue().divide(pow10);
     }
 }
 
@@ -177,11 +175,11 @@ void BigDecimal::setUnscaledValue(BigInteger* unscaledValue) {
     }
 }
 
-BigInteger* BigDecimal::getUnscaledValue() {
+BigInteger BigDecimal::getUnscaledValue() {
 	if(intVal == nullptr) {
-		intVal = BigInteger::valueOf(smallValue);
+		intVal = new BigInteger(BigInteger::valueOf(smallValue));
 	}
-    return intVal;
+    return *intVal;
 }
 
 bool BigDecimal::isZero() const {
