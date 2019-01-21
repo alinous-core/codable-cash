@@ -17,7 +17,7 @@ class BigInteger;
 class Elementary {
 public:
 	static int inplaceAdd(int* a, int aSize, int addend);
-	static BigInteger* subtract(BigInteger* op1, BigInteger* op2);
+	static BigInteger* subtract(const BigInteger* op1, const BigInteger* op2);
 	static int compareArrays(int* a, int* b, int size);
 
 	static BigInteger* add(BigInteger* op1, BigInteger* op2);

@@ -37,7 +37,7 @@ int BitLevel::bitLength(BigInteger* val) {
     return bLength;
 }
 
-BigInteger* BitLevel::shiftLeft(BigInteger* source, int count) {
+BigInteger* BitLevel::shiftLeft(const BigInteger* source, int count) {
     int intCount = count >> 5;
     count &= 31; // %= 32
     int resLength = source->numberLength + intCount
@@ -68,7 +68,7 @@ void BitLevel::shiftLeft(int* result, int result_len, int* source, int intCount,
     }
 }
 
-BigInteger* BitLevel::shiftRight(BigInteger* source, int count) {
+BigInteger* BitLevel::shiftRight(const BigInteger* source, int count) {
     int intCount = count >> 5; // count of integers
     count &= 31; // count of remaining bits
     if (intCount >= source->numberLength) {

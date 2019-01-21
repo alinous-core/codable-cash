@@ -18,8 +18,8 @@ public:
 	virtual ~BitLevel();
 
 	static int bitLength(BigInteger* val);
-	static BigInteger* shiftLeft(BigInteger* source, int count);
-	static BigInteger* shiftRight(BigInteger* source, int count);
+	static BigInteger* shiftLeft(const BigInteger* source, int count);
+	static BigInteger* shiftRight(const BigInteger* source, int count);
 
 
 	static void arraycopy(int* src, int srcPos, int* dest, int destPos, int length);

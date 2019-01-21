@@ -31,6 +31,8 @@ BigInteger* BigInteger::__SMALL_VALUES() {
 	return SMALL_VALUES;
 }
 
+const BigInteger BigInteger::TEN(1, 10);
+
 BigInteger::BigInteger(const BigInteger& inst) {
 	this->firstNonzeroDigit = inst.firstNonzeroDigit;
 	this->sign = inst.sign;
@@ -151,7 +153,7 @@ int64_t BigInteger::longValue() {
     return (sign * value);
 }
 
-BigInteger* BigInteger::multiply(BigInteger* val) {
+BigInteger* BigInteger::multiply(const BigInteger* val) const {
     // This let us to throw NullPointerException when val == null
     if (val->sign == 0) {
         return new BigInteger(0, 0);
@@ -163,9 +165,9 @@ BigInteger* BigInteger::multiply(BigInteger* val) {
     return Multiplication::multiply(this, val);
 }
 
-BigInteger* BigInteger::shiftRight(int n) {
+BigInteger* BigInteger::shiftRight(int n) const {
     if ((n == 0) || (sign == 0)) {
-        return this;
+        return new BigInteger(*this);
     }
     return ((n > 0) ? BitLevel::shiftRight(this, n) : BitLevel::shiftLeft(this, -n));
 }
@@ -177,7 +179,7 @@ BigInteger* BigInteger::shiftLeft(int n) {
     return ((n > 0) ? BitLevel::shiftLeft(this, n) : BitLevel::shiftRight(this, -n));
 }
 
-BigInteger* BigInteger::subtract(BigInteger* val) {
+BigInteger* BigInteger::subtract(BigInteger* val) const {
 	return Elementary::subtract(this, val);
 }
 
@@ -242,7 +244,7 @@ void BigInteger::cutOffLeadingZeroes() {
     }
 }
 
-BigInteger* BigInteger::negate() {
+BigInteger* BigInteger::negate() const {
     return ((sign == 0) ? new BigInteger(*this)
             : new BigInteger(-sign, numberLength, digits));
 }

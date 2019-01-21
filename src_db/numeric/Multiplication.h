@@ -18,13 +18,19 @@ class Multiplication {
 public:
 	static const constexpr int whenUseKaratsuba{63};
 
+
+	static const BigInteger* bigTenPows[];
+	static const BigInteger* bigFivePows[];
+
+	static void initbigpows();
+
 	static int multiplyByInt(int* a, int aSize, int factor);
 	static int multiplyByInt(int* res, int* a, int aSize, int factor);
 	static int64_t unsignedMultAddAdd(int a, int b, int c, int d);
 	static BigInteger* powerOf10(int64_t exp);
-	static BigInteger* multiply(BigInteger* x, BigInteger* y);
-	static BigInteger* karatsuba(BigInteger* op1, BigInteger* op2);
-	static BigInteger* multiplyPAP(BigInteger* a, BigInteger* b);
+	static BigInteger* multiply(const BigInteger* x, const BigInteger* y);
+	static BigInteger* karatsuba(const BigInteger* op1, const BigInteger* op2);
+	static BigInteger* multiplyPAP(const BigInteger* a, const BigInteger* b);
 	static void multArraysPAP(int* aDigits, int aLen, int* bDigits, int bLen, int* resDigits);
 	static void multPAP(int* a, int* b, int* t, int aLen, int bLen);
 

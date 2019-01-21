@@ -27,6 +27,8 @@ public:
     static const constexpr int GREATER = 1;
     static const constexpr int LESS = -1;
 
+    static const BigInteger TEN;
+
 	BigInteger(const BigInteger& inst);
 
 	BigInteger(int sign, int value);
@@ -41,14 +43,14 @@ public:
 
 	int64_t longValue();
 
-	BigInteger* multiply(BigInteger* val);
-	BigInteger* shiftRight(int n);
+	BigInteger* multiply(const BigInteger* val) const;
+	BigInteger* shiftRight(int n) const;
 	BigInteger* shiftLeft(int n);
-	BigInteger* subtract(BigInteger* val);
+	BigInteger* subtract(BigInteger* val) const;
 	BigInteger* add(BigInteger* val);
 	BigInteger* divide(BigInteger* divisor);
 
-	BigInteger* negate();
+	BigInteger* negate() const;
 	bool isOne();
 
 	static BigInteger* valueOf(int64_t val);

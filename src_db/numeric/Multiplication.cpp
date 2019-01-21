@@ -12,6 +12,25 @@
 
 namespace alinous {
 
+const BigInteger* Multiplication::bigTenPows[32]{};
+const BigInteger* Multiplication::bigFivePows[32]{};
+
+void Multiplication::initbigpows() {
+
+    int i;
+    int64_t fivePow = 1L;
+
+    for (i = 0; i <= 18; i++) {
+        bigFivePows[i] = BigInteger::valueOf(fivePow);
+        bigTenPows[i] = BigInteger::valueOf(fivePow << i);
+        fivePow *= 5;
+    }
+    for (; i < /*bigTenPows.length*/32; i++) {
+        bigFivePows[i] = bigFivePows[i - 1]->multiply(bigFivePows[1]);
+        bigTenPows[i] = bigTenPows[i - 1]->multiply(&BigInteger::TEN);
+    }
+}
+
 int Multiplication::multiplyByInt(int* a, int aSize, int factor) {
 	return multiplyByInt(a, a, aSize, factor);
 }
@@ -35,7 +54,7 @@ BigInteger* Multiplication::powerOf10(int64_t exp) {
 	// FIXME
 
     // PRE: exp >= 0
-/*    int intExp = (int)exp;
+   /*int intExp = (int)exp;
     // "SMALL POWERS"
     if (exp < bigTenPows.length) {
         // The largest power that fit in 'long' type
@@ -94,12 +113,12 @@ BigInteger* Multiplication::powerOf10(int64_t exp) {
     */
 }
 
-BigInteger* Multiplication::multiply(BigInteger* x, BigInteger* y) {
+BigInteger* Multiplication::multiply(const BigInteger* x, const BigInteger* y) {
 	return karatsuba(x, y);
 }
 
-BigInteger* Multiplication::karatsuba(BigInteger* op1, BigInteger* op2) {
-    BigInteger* temp = nullptr;
+BigInteger* Multiplication::karatsuba(const BigInteger* op1, const BigInteger* op2) {
+	const BigInteger* temp = nullptr;
     if (op2->numberLength > op1->numberLength) {
         temp = op1;
         op1 = op2;
@@ -130,7 +149,7 @@ BigInteger* Multiplication::karatsuba(BigInteger* op1, BigInteger* op2) {
     return upper->add(middle)->add(lower);
 }
 
-BigInteger* Multiplication::multiplyPAP(BigInteger* a, BigInteger* b) {
+BigInteger* Multiplication::multiplyPAP(const BigInteger* a, const BigInteger* b) {
     int aLen = a->numberLength;
     int bLen = b->numberLength;
     int resLength = aLen + bLen;

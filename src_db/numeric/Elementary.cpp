@@ -21,14 +21,14 @@ int alinous::Elementary::inplaceAdd(int* a, int aSize, int addend) {
     return (int) carry;
 }
 
-BigInteger* Elementary::subtract(BigInteger* op1, BigInteger* op2) {
+BigInteger* Elementary::subtract(const BigInteger* op1, const BigInteger* op2) {
 	int resSign;
 	int* resDigits;
 	int op1Sign = op1->sign;
 	int op2Sign = op2->sign;
 
 	if (op2Sign == 0) {
-		return op1;
+		return new BigInteger(*op1);
 	}
 	if (op1Sign == 0) {
 		return op2->negate();
