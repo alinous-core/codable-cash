@@ -25,12 +25,65 @@ TEST(BigDecimalGroup, testException){
 	testException<ArithmeticException>();
 }
 
-TEST(BigDecimalGroup, construct01){
-	UnicodeString str(L"1234567890");
+
+TEST(BigDecimalGroup, construct01_0){
+	UnicodeString str(L"00.00e+10");
 	BigDecimal dec(&str);
 
 	int64_t l = dec.longValue();
-	CHECK(l == 1234567890L)
+	CHECK(l == 0)
+}
+
+TEST(BigDecimalGroup, construct01){
+	{
+		UnicodeString str(L"00.00");
+		BigDecimal dec(&str);
+
+		int64_t l = dec.longValue();
+		CHECK(l == 0)
+	}
+	{
+		UnicodeString str(L"00.00e+10");
+		BigDecimal dec(&str);
+
+		int64_t l = dec.longValue();
+		CHECK(l == 0)
+	}
+	{
+		UnicodeString str(L"1234567890");
+		BigDecimal dec(&str);
+
+		int64_t l = dec.longValue();
+		CHECK(l == 1234567890L)
+	}
+	{
+		UnicodeString str(L"1");
+		BigDecimal dec(&str);
+
+		int64_t l = dec.longValue();
+		CHECK(l == 1)
+	}
+	{
+		UnicodeString str(L"8");
+		BigDecimal dec(&str);
+
+		int64_t l = dec.longValue();
+		CHECK(l == 8)
+	}
+	{
+		UnicodeString str(L"0");
+		BigDecimal dec(&str);
+
+		int64_t l = dec.longValue();
+		CHECK(l == 0)
+	}
+	{
+		UnicodeString str(L"00016");
+		BigDecimal dec(&str);
+
+		int64_t l = dec.longValue();
+		CHECK(l == 16)
+	}
 }
 
 TEST(BigDecimalGroup, construct02){
@@ -90,3 +143,20 @@ TEST(BigDecimalGroup, construct08){
 
 }
 
+TEST(BigDecimalGroup, construct09){
+	UnicodeString str(L"31323423423419083091823091283933313234234234190830918230912839333132342342341908309182309128393331323423423419083091823091283933");
+	BigDecimal dec(&str);
+
+	int64_t l = dec.longValue();
+	//CHECK(l == 0)
+
+}
+
+TEST(BigDecimalGroup, construct10){
+	UnicodeString str(L"1234567890123456789");
+	BigDecimal dec(&str);
+
+	int64_t l = dec.longValue();
+	//CHECK(l == 0)
+
+}

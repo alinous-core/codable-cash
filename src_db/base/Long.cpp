@@ -9,6 +9,7 @@
 #include "base/Character.h"
 #include "base/UnicodeString.h"
 #include "base/exceptions.h"
+#include "base/StackRelease.h"
 
 namespace alinous {
 
@@ -74,6 +75,44 @@ int Long::bitCount(int64_t lng) {
     i = (i & 0x00FF00FF) + ((i >> 8) & 0x00FF00FF);
     i = (i & 0x0000FFFF) + ((i >> 16) & 0x0000FFFF);
     return i;
+}
+
+UnicodeString* Long::toString(int64_t l, int radix) {
+    if (radix < Character::MIN_RADIX || radix > Character::MAX_RADIX) {
+        radix = 10;
+    }
+    if (l == 0) {
+        return new UnicodeString(L"0"); //$NON-NLS-1$
+    }
+
+    int count = 2;
+    long j = l;
+    bool negative = l < 0;
+    if (!negative) {
+        count = 1;
+        j = -l;
+    }
+    while ((l /= radix) != 0) {
+        count++;
+    }
+
+    wchar_t* buffer = new wchar_t[count + 1]{};
+    StackArrayRelease<wchar_t> __st_buffer(buffer);
+
+    do {
+        int ch = 0 - (int) (j % radix);
+        if (ch > 9) {
+            ch = ch - 10 + L'a';
+        } else {
+            ch += L'0';
+        }
+        buffer[--count] = (wchar_t) ch;
+    } while ((j /= radix) != 0);
+    if (negative) {
+        buffer[0] = L'-';
+    }
+    //return new UnicodeString(0, buffer.length, buffer);
+    return new UnicodeString(buffer);
 }
 
 } /* namespace alinous */

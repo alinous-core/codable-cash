@@ -20,6 +20,8 @@ TEST_GROUP(BigIntegerGroup) {
 };
 
 TEST(BigIntegerGroup, construct01){
+	BigInteger::test();
+
 	BigInteger* big = new BigInteger(1, 100);
 
 	int64_t v = big->longValue();

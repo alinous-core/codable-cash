@@ -8,7 +8,13 @@
 #ifndef NUMERIC_CONVERSION_H_
 #define NUMERIC_CONVERSION_H_
 
+#include <inttypes.h>
+
 namespace alinous {
+
+class UnicodeString;
+
+class BigInteger;
 
 class Conversion {
 public:
@@ -24,6 +30,11 @@ public:
             387420489, 481890304, 594823321, 729000000, 887503681, 1073741824,
             1291467969, 1544804416, 1838265625, 60466176 };
 
+    static UnicodeString* bigInteger2String(const BigInteger& val, int radix);
+    static UnicodeString* toDecimalScaledString(BigInteger val, int scale);
+    static int64_t divideLongByBillion(int64_t a);
+
+    static void arraycopy(int* src, int srcPos, int* dest, int destPos, int length);
 };
 
 } /* namespace alinous */

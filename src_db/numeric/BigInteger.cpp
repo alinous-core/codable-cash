@@ -21,6 +21,10 @@
 
 namespace alinous {
 
+const constexpr int BigInteger::EQUALS;
+const constexpr int BigInteger::GREATER;
+const constexpr int BigInteger::LESS;
+
 const BigInteger* BigInteger::SMALL_VALUE = BigInteger::__SMALL_VALUES();
 
 BigInteger* BigInteger::__SMALL_VALUES() {
@@ -340,6 +344,14 @@ BigInteger BigInteger::getPowerOfTwo(int exp) {
     return BigInteger(1, intCount+1, resDigits);
 }
 
+UnicodeString* BigInteger::toString(int radix) {
+	return Conversion::bigInteger2String(*this, radix);
+}
+
+UnicodeString* BigInteger::toString() const {
+	return Conversion::toDecimalScaledString(*this, 0);
+}
+
 void BigInteger::cutOffLeadingZeroes() {
     while ((numberLength > 0) && (digits[--numberLength] == 0)) {
         // Empty
@@ -347,6 +359,9 @@ void BigInteger::cutOffLeadingZeroes() {
     if (digits[numberLength++] == 0) {
         sign = 0;
     }
+}
+BigInteger BigInteger::abs() const {
+	return ((sign < 0) ? BigInteger(1, numberLength, digits) : *this);
 }
 
 BigInteger BigInteger::negate() const {
@@ -368,3 +383,5 @@ BigInteger BigInteger::valueOf(int64_t val) {
 }
 
 } /* namespace alinous */
+
+

@@ -7,6 +7,7 @@ set(__src
 	Division.cpp
 	Elementary.cpp
 	exceptions.cpp
+	Math.cpp
 	Multiplication.cpp
 )
 handle_sub(codablecashlib "${__src}" db numeric)

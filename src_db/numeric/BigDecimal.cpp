@@ -43,7 +43,6 @@ void BigDecimal::__BigDecimal(int16_t* in, int offset, int len) {
 
 	int begin = offset;
 	int last = offset + (len - 1);
-	UnicodeString* scaleString = nullptr; // buffer for scale
 	UnicodeString* unscaledBuffer; // buffer for unscaled value
 
     unscaledBuffer = new UnicodeString(L""); __st_unicode.add(unscaledBuffer);
@@ -104,8 +103,8 @@ void BigDecimal::__BigDecimal(int16_t* in, int offset, int len) {
             }
         }
         // Accumulating all remaining digits
-        delete scaleString;
-        scaleString = UnicodeString::valueOf(in, begin, last + 1 - begin);
+        UnicodeString* scaleString = UnicodeString::valueOf(in, begin, last + 1 - begin);
+        StackRelease<UnicodeString> __st_scaleString(scaleString);
         // Checking if the scale is defined
         int64_t newScale = (int64_t)scale - Integer::parseInt(scaleString);
         scale = (int)newScale;

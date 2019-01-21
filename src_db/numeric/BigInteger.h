@@ -16,13 +16,14 @@ class UnicodeString;
 class BitLevel;
 class Multiplication;
 class Elementary;
+class Conversion;
 
 class BigInteger {
-public:
 	friend class BitLevel;
 	friend class Multiplication;
 	friend class Elementary;
-
+	friend class Conversion;
+public:
     static const constexpr int EQUALS = 0;
     static const constexpr int GREATER = 1;
     static const constexpr int LESS = -1;
@@ -37,7 +38,12 @@ public:
     static BigInteger** TWO_POWS;
     static BigInteger** initTwoPows();
 
+    BigInteger() = delete;
 	BigInteger(const BigInteger& inst);
+	BigInteger &operator=(const BigInteger &inst){
+		*this = inst;
+		return(*this);
+	}
 
 	BigInteger(int sign, int value);
 	BigInteger(int sign, int numberLength, const int* digits);
@@ -59,6 +65,7 @@ public:
 
 	BigInteger pow(int exp);
 
+	BigInteger abs() const;
 	BigInteger negate() const;
 	bool isOne();
 	bool testBit(int n);
@@ -71,6 +78,10 @@ public:
 
     static BigInteger getPowerOfTwo(int exp);
 
+    UnicodeString* toString(int radix);
+    UnicodeString* toString() const;
+
+    static void test(){};
 private:
 	static void setFromString(BigInteger* bi, const UnicodeString* val, int radix);
 	void cutOffLeadingZeroes();

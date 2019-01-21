@@ -25,6 +25,7 @@ public:
 
 	static int numberOfLeadingZeros(int64_t lng);
 	static int bitCount(int64_t lng);
+	static UnicodeString* toString(int64_t l, int radix);
 };
 
 } /* namespace alinous */

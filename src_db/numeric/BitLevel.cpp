@@ -74,7 +74,7 @@ BigInteger BitLevel::shiftRight(const BigInteger* source, int count) {
     if (intCount >= source->numberLength) {
         return ((source->sign < 0) ? BigInteger::ONE : BigInteger::ZERO);
     }
-    int i;
+
     int resLength = source->numberLength - intCount;
     int *resDigits = new int[resLength + 1];
 
@@ -82,7 +82,8 @@ BigInteger BitLevel::shiftRight(const BigInteger* source, int count) {
     if (source->sign < 0) {
         // Checking if the dropped bits are zeros (the remainder equals to
         // 0)
-        for (i = 0; (i < intCount) && (source->digits[i] == 0); i++) {
+        int i = 0;
+        for (; (i < intCount) && (source->digits[i] == 0); i++) {
             ;
         }
         // If the remainder is not zero, add 1 to the result
@@ -125,7 +126,7 @@ bool BitLevel::shiftRight(int* result, int resultLen, int* source, int intCount,
             | ( source[i + intCount + 1] << leftShiftCount );
         }
         result[i] = ( ((unsigned int)source[i + intCount]) >> count );
-        i++;
+        //i++;
     }
 
     return allZero;

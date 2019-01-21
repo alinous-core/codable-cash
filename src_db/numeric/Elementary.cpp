@@ -101,14 +101,11 @@ BigInteger Elementary::add(BigInteger& op1, BigInteger& op2) {
     if (op1Len + op2Len == 2) {
         int64_t a = (op1.digits[0] & 0xFFFFFFFFL);
         int64_t b = (op2.digits[0] & 0xFFFFFFFFL);
-        int64_t res;
-        int valueLo;
-        int valueHi;
 
         if (op1Sign == op2Sign) {
-            res = a + b;
-            valueLo = (int) res;
-            valueHi = (int) (((uint64_t)res) >> 32);
+        	int64_t res = a + b;
+        	int valueLo = (int) res;
+        	int valueHi = (int) (((uint64_t)res) >> 32);
 
             int param[2]{ valueLo, valueHi };
 

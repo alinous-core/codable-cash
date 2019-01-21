@@ -29,6 +29,8 @@ public:
 
 	static int parseInt(UnicodeString* string);
 	static int parseInt(UnicodeString* string, int radix);
+
+	static UnicodeString* toString(int i, int radix);
 protected:
 	static int parse(UnicodeString* string, int offset, int radix, bool negative);
 
