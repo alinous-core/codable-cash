@@ -13,6 +13,7 @@
 #include "base/Long.h"
 #include "base/UnicodeString.h"
 #include "base/exceptions.h"
+#include "base/StackRelease.h"
 
 namespace alinous {
 
@@ -21,6 +22,8 @@ BigDecimal::BigDecimal(UnicodeString* val) {
 
 	int len = val->length();
 	int16_t* in = new int16_t[len];
+	StackArrayRelease<int16_t> __st_in(in);
+
 	for(int i = 0; i != len; ++i){
 		in[i] = val->charAt(i);
 	}
@@ -36,12 +39,14 @@ BigDecimal::~BigDecimal() {
 }
 
 void BigDecimal::__BigDecimal(int16_t* in, int offset, int len) {
+	StackMultipleRelease<UnicodeString> __st_unicode;
+
 	int begin = offset;
 	int last = offset + (len - 1);
 	UnicodeString* scaleString = nullptr; // buffer for scale
 	UnicodeString* unscaledBuffer; // buffer for unscaled value
 
-    unscaledBuffer = new UnicodeString(L"");
+    unscaledBuffer = new UnicodeString(L""); __st_unicode.add(unscaledBuffer);
     int bufLength = 0;
 
     if ((offset <= last) && (in[offset] == L'+')) {
@@ -131,7 +136,7 @@ int BigDecimal::__bitLength(int64_t smallValue) {
     return 64 - Long::numberOfLeadingZeros(smallValue);
 }
 
-int64_t BigDecimal::longValue() const {
+int64_t BigDecimal::longValue() {
     /* If scale <= -64 there are at least 64 trailing bits zero in 10^(-scale).
      * If the scale is positive and very large the long value could be zero. */
     return ((scale <= -64) || (scale > aproxPrecision())
@@ -139,7 +144,7 @@ int64_t BigDecimal::longValue() const {
             : toBigInteger()->longValue());
 }
 
-BigInteger* BigDecimal::toBigInteger() const {
+BigInteger* BigDecimal::toBigInteger() {
     if ((scale == 0) || (isZero())) {
         return getUnscaledValue();
     } else if (scale < 0) {
@@ -157,10 +162,10 @@ void BigDecimal::setUnscaledValue(BigInteger* unscaledValue) {
     }
 }
 
-BigInteger* BigDecimal::getUnscaledValue() const {
- //   if(intVal == nullptr) {
-//        intVal = BigInteger->valueOf(smallValue);
- //   }
+BigInteger* BigDecimal::getUnscaledValue() {
+	if(intVal == nullptr) {
+		intVal = BigInteger::valueOf(smallValue);
+	}
     return intVal;
 }
 

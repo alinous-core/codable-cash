@@ -79,12 +79,16 @@ BigInteger::BigInteger(UnicodeString* val, int radix) {
 	setFromString(this, val, radix);
 }
 
-BigInteger::BigInteger(int sign, int numberLength, int* digits) {
+BigInteger::BigInteger(int sign, int numberLength, const int* digits) {
 	this->firstNonzeroDigit = -2;
 
     this->sign = sign;
     this->numberLength = numberLength;
-    this->digits = digits;
+
+    this->digits = new int[numberLength];
+    for(int i = 0; i != numberLength; ++i){
+    	this->digits[i] = digits[i];
+    }
 }
 
 BigInteger::BigInteger(UnicodeString* val) {
@@ -239,6 +243,8 @@ BigInteger* BigInteger::divide(BigInteger* divisor) {
     }
     int resLength = thisLen - divisorLen + 1;
     int* resDigits = new int[resLength];
+    StackArrayRelease<int> __st_resDigits(resDigits);
+
     int resSign = ((thisSign == divisorSign) ? 1 : -1);
     if (divisorLen == 1) {
         Division::divideArrayByInt(resDigits, digits, thisLen,
@@ -326,6 +332,8 @@ BigInteger* BigInteger::getPowerOfTwo(int exp) {
     int intCount = exp >> 5;
     int bitN = exp & 31;
     int* resDigits = new int[intCount+1];
+    StackArrayRelease<int> __st_resDigits(resDigits);
+
     resDigits[intCount] = 1 << bitN;
 
     return new BigInteger(1, intCount+1, resDigits);

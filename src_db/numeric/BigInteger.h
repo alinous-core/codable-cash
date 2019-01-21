@@ -40,7 +40,7 @@ public:
 	BigInteger(const BigInteger& inst);
 
 	BigInteger(int sign, int value);
-	BigInteger(int sign, int numberLength, int* digits);
+	BigInteger(int sign, int numberLength, const int* digits);
 
 	explicit BigInteger(UnicodeString* val);
 	BigInteger(UnicodeString* val, int radix);

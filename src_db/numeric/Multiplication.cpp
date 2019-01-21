@@ -11,6 +11,7 @@
 #include "base/Integer.h"
 
 #include "base/ArrayList.h"
+#include "base/StackRelease.h"
 
 namespace alinous {
 
@@ -83,8 +84,6 @@ int64_t Multiplication::unsignedMultAddAdd(int a, int b, int c, int d) {
 }
 
 BigInteger* Multiplication::powerOf10(int64_t exp) {
-	// FIXME
-
     // PRE: exp >= 0
 	int intExp = (int)exp;
     // "SMALL POWERS"
@@ -192,6 +191,7 @@ BigInteger* Multiplication::multiplyPAP(const BigInteger* a, const BigInteger* b
         int valueLo = (int)val;
         int valueHi = (int)( ((uint64_t)val) >> 32);
         int* param = new int[2]{valueLo, valueHi};
+        StackArrayRelease<int> __st_param(param);
 
         return ((valueHi == 0)
 			? new BigInteger(resSign, valueLo)
@@ -200,6 +200,8 @@ BigInteger* Multiplication::multiplyPAP(const BigInteger* a, const BigInteger* b
     int* aDigits = a->digits;
     int* bDigits = b->digits;
     int* resDigits = new int[resLength];
+    StackArrayRelease<int> __st_resDigits(resDigits);
+
     // Common case
     multArraysPAP(aDigits, aLen, bDigits, bLen, resDigits);
     BigInteger* result = new BigInteger(resSign, resLength, resDigits);
