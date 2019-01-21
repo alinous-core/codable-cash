@@ -75,6 +75,7 @@ BigInteger::BigInteger(int sign, int value) {
 
 BigInteger::BigInteger(UnicodeString* val, int radix) {
 	this->firstNonzeroDigit = -2;
+	this->digits =nullptr;
 
 	setFromString(this, val, radix);
 }
@@ -250,7 +251,7 @@ BigInteger* BigInteger::divide(BigInteger* divisor) {
         Division::divideArrayByInt(resDigits, digits, thisLen,
                 divisor->digits[0]);
     } else {
-        delete [] Division::divide(resDigits, resLength, digits, thisLen,
+       Division::divide(resDigits, resLength, digits, thisLen,
                 divisor->digits, divisorLen);
     }
     BigInteger* result = new BigInteger(resSign, resLength, resDigits);

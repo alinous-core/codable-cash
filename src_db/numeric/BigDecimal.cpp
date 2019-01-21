@@ -137,20 +137,35 @@ int BigDecimal::__bitLength(int64_t smallValue) {
 }
 
 int64_t BigDecimal::longValue() {
+
+	if((scale <= -64) || (scale > aproxPrecision()) ){
+		return 0L;
+	}
+
+	BigInteger* bigInt = toBigInteger();
+	StackRelease<BigInteger> _st_(bigInt);
+	return bigInt->longValue();
+
     /* If scale <= -64 there are at least 64 trailing bits zero in 10^(-scale).
      * If the scale is positive and very large the long value could be zero. */
-    return ((scale <= -64) || (scale > aproxPrecision())
+  /* return ((scale <= -64) || (scale > aproxPrecision())
     ? 0L
-            : toBigInteger()->longValue());
+            : toBigInteger()->longValue());*/
 }
 
 BigInteger* BigDecimal::toBigInteger() {
     if ((scale == 0) || (isZero())) {
-        return getUnscaledValue();
+        return new BigInteger(*getUnscaledValue());
     } else if (scale < 0) {
-        return getUnscaledValue()->multiply(Multiplication::powerOf10(-(int64_t)scale));
+    	BigInteger* pow10 = Multiplication::powerOf10(-(int64_t)scale);
+    	StackRelease<BigInteger> __st_pow10(pow10);
+
+        return getUnscaledValue()->multiply(pow10);
     } else {// (scale > 0)
-        return getUnscaledValue()->divide(Multiplication::powerOf10(scale));
+    	BigInteger* pow10 = Multiplication::powerOf10(scale);
+    	StackRelease<BigInteger> __st_pow10(pow10);
+
+        return getUnscaledValue()->divide(pow10);
     }
 }
 

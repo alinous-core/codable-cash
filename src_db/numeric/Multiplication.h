@@ -19,10 +19,10 @@ public:
 	static const constexpr int whenUseKaratsuba{63};
 
 
-	static BigInteger** bigTenPows;
-	static BigInteger** bigFivePows;
+	static const BigInteger** bigTenPows;
+	static const BigInteger** bigFivePows;
 
-	static BigInteger** initbigpows(bool ten);
+	static const BigInteger** initbigpows(bool ten);
 
 	static int multiplyByInt(int* a, int aSize, int factor);
 	static int multiplyByInt(int* res, int* a, int aSize, int factor);

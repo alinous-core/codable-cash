@@ -49,3 +49,11 @@ TEST(BigDecimalGroup, construct03){
 	CHECK(l == -1234567890L)
 }
 
+TEST(BigDecimalGroup, construct04){
+	UnicodeString str(L"0.1234567890");
+	BigDecimal dec(&str);
+
+	int64_t l = dec.longValue();
+	CHECK(l == 0L)
+}
+

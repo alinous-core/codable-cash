@@ -15,13 +15,13 @@
 
 namespace alinous {
 
-BigInteger** Multiplication::bigTenPows = initbigpows(true);
-BigInteger** Multiplication::bigFivePows = initbigpows(false);
+const BigInteger** Multiplication::bigTenPows = initbigpows(true);
+const BigInteger** Multiplication::bigFivePows = initbigpows(false);
 
-BigInteger** Multiplication::initbigpows(bool ten) {
+const BigInteger** Multiplication::initbigpows(bool ten) {
 	static bool init = false;
-	static ArrayList<BigInteger> __bigFivePows(32);
-	static ArrayList<BigInteger> __bigTenPows(32);
+	static ArrayList<const BigInteger> __bigFivePows(32);
+	static ArrayList<const BigInteger> __bigTenPows(32);
 
 	if(!init){
 	    int i;
@@ -85,17 +85,23 @@ int64_t Multiplication::unsignedMultAddAdd(int a, int b, int c, int d) {
 
 BigInteger* Multiplication::powerOf10(int64_t exp) {
     // PRE: exp >= 0
+	StackMultipleRelease<BigInteger> _st_bint;
+
 	int intExp = (int)exp;
     // "SMALL POWERS"
     if (exp < /*bigTenPows.length*/ 32) {
         // The largest power that fit in 'long' type
-        return bigTenPows[intExp];
+        return new BigInteger(*bigTenPows[intExp]);
     } else if (exp <= 50) {
         // To calculate:    10^exp
         return BigInteger::TEN.pow(intExp);
     } else if (exp <= 1000) {
         // To calculate:    5^exp * 2^exp
-        return bigFivePows[1]->pow(intExp)->shiftLeft(intExp);
+    	BigInteger* tmp = new BigInteger(*bigFivePows[1]); _st_bint.add(tmp);
+    	tmp = tmp->pow(intExp);  _st_bint.add(tmp);
+
+    	return tmp->shiftLeft(intExp);
+        //return bigFivePows[1]->pow(intExp)->shiftLeft(intExp);
     }
     // "LARGE POWERS"
     /*
@@ -111,7 +117,11 @@ BigInteger* Multiplication::powerOf10(int64_t exp) {
     //}
     if (exp <= Integer::MAX_VALUE) {
         // To calculate:    5^exp * 2^exp
-        return bigFivePows[1]->pow(intExp)->shiftLeft(intExp);
+    	BigInteger* tmp = new BigInteger(*bigFivePows[1]); _st_bint.add(tmp);
+    	tmp = tmp->pow(intExp);  _st_bint.add(tmp);
+
+    	return tmp->shiftLeft(intExp);
+        // return bigFivePows[1]->pow(intExp)->shiftLeft(intExp);
     }
 
     /*
@@ -122,23 +132,38 @@ BigInteger* Multiplication::powerOf10(int64_t exp) {
      */
     // To calculate:    5^exp
 
-    BigInteger* powerOfFive = bigFivePows[1]->pow(Integer::MAX_VALUE);
+    BigInteger* tmp = new BigInteger(*bigFivePows[1]); _st_bint.add(tmp);
+
+    //BigInteger* powerOfFive = bigFivePows[1]->pow(Integer::MAX_VALUE);
+    BigInteger* powerOfFive = tmp->pow(Integer::MAX_VALUE); _st_bint.add(powerOfFive);
+
     BigInteger* res = powerOfFive;
     long longExp = exp - Integer::MAX_VALUE;
 
     intExp = (int)(exp % Integer::MAX_VALUE);
     while (longExp > Integer::MAX_VALUE) {
+    	_st_bint.add(res);
         res = res->multiply(powerOfFive);
         longExp -= Integer::MAX_VALUE;
     }
-    res = res->multiply(bigFivePows[1]->pow(intExp));
+
+    tmp = tmp->pow(intExp); _st_bint.add(tmp);
+
+    _st_bint.add(res);
+    res = res->multiply(tmp);
+    //res = res->multiply(bigFivePows[1]->pow(intExp));
     // To calculate:    5^exp << exp
+
+    _st_bint.add(res);
     res = res->shiftLeft(Integer::MAX_VALUE);
     longExp = exp - Integer::MAX_VALUE;
     while (longExp > Integer::MAX_VALUE) {
+    	_st_bint.add(res);
         res = res->shiftLeft(Integer::MAX_VALUE);
         longExp -= Integer::MAX_VALUE;
     }
+
+    _st_bint.add(res);
     res = res->shiftLeft(intExp);
     return res;
 
