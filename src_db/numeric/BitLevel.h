@@ -17,7 +17,7 @@ public:
 	BitLevel();
 	virtual ~BitLevel();
 
-	static int bitLength(BigInteger* val);
+	static int bitLength(const BigInteger& val);
 	static BigInteger shiftLeft(const BigInteger* source, int count);
 	static BigInteger shiftRight(const BigInteger* source, int count);
 

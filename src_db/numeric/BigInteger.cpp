@@ -73,7 +73,7 @@ BigInteger::BigInteger(int sign, int value) {
     this->digits = new int[1] { value };
 }
 
-BigInteger::BigInteger(UnicodeString* val, int radix) {
+BigInteger::BigInteger(const UnicodeString* val, int radix) {
 	this->firstNonzeroDigit = -2;
 	this->digits =nullptr;
 
@@ -92,13 +92,13 @@ BigInteger::BigInteger(int sign, int numberLength, const int* digits) {
     }
 }
 
-BigInteger::BigInteger(UnicodeString* val) {
+BigInteger::BigInteger(const UnicodeString* val) {
 	this->firstNonzeroDigit = -2;
 
 	setFromString(this, val, 10);
 }
 
-void BigInteger::setFromString(BigInteger* bi, UnicodeString* val, int radix) {
+void BigInteger::setFromString(BigInteger* bi, const UnicodeString* val, int radix) {
     int sign;
     int* digits;
     int numberLength;
@@ -154,11 +154,11 @@ BigInteger::~BigInteger() {
 	}
 }
 
-int BigInteger::bitLength() {
-	return BitLevel::bitLength(this);
+int BigInteger::bitLength() const {
+	return BitLevel::bitLength(*this);
 }
 
-int BigInteger::getFirstNonzeroDigit() {
+int BigInteger::getFirstNonzeroDigit() const {
     if (firstNonzeroDigit == -2) {
         int i;
         if (this->sign == 0) {
@@ -173,7 +173,7 @@ int BigInteger::getFirstNonzeroDigit() {
     return firstNonzeroDigit;
 }
 
-int64_t BigInteger::longValue() {
+int64_t BigInteger::longValue() const {
 	int64_t value = (numberLength > 1) ? (((int64_t) digits[1]) << 32)
             | (digits[0] & 0xFFFFFFFFL) : (digits[0] & 0xFFFFFFFFL);
     return (sign * value);
@@ -361,7 +361,7 @@ BigInteger BigInteger::valueOf(int64_t val) {
         }
         return BigInteger(-1, -1);
     } else if (val <= 10) {
-        return BigInteger(BigInteger::SMALL_VALUE[(int) val]);
+        return BigInteger::SMALL_VALUE[(int) val];
     } else {// (val > 10)
         return BigInteger(1, val);
     }

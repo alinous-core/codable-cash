@@ -42,13 +42,13 @@ public:
 	BigInteger(int sign, int value);
 	BigInteger(int sign, int numberLength, const int* digits);
 
-	explicit BigInteger(UnicodeString* val);
-	BigInteger(UnicodeString* val, int radix);
+	explicit BigInteger(const UnicodeString* val);
+	BigInteger(const UnicodeString* val, int radix);
 	virtual ~BigInteger();
 
-	int bitLength();
+	int bitLength() const;
 
-	int64_t longValue();
+	int64_t longValue() const;
 
 	BigInteger multiply(const BigInteger& val) const;
 	BigInteger shiftRight(int n) const;
@@ -62,7 +62,7 @@ public:
 	BigInteger negate() const;
 	bool isOne();
 	bool testBit(int n);
-	int getFirstNonzeroDigit();
+	int getFirstNonzeroDigit() const;
 
 	static BigInteger valueOf(int64_t val);
 
@@ -72,14 +72,14 @@ public:
     static BigInteger getPowerOfTwo(int exp);
 
 private:
-	static void setFromString(BigInteger* bi, UnicodeString* val, int radix);
+	static void setFromString(BigInteger* bi, const UnicodeString* val, int radix);
 	void cutOffLeadingZeroes();
 
 private:
 	int numberLength;
 	int sign;
 	int* digits;
-	int firstNonzeroDigit;
+	mutable int firstNonzeroDigit;
 };
 
 } /* namespace alinous */

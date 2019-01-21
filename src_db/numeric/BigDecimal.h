@@ -28,7 +28,7 @@ private:
 
 	void __BigDecimal(int16_t* in, int offset, int len);
 	static int __bitLength(int64_t smallValue);
-	void setUnscaledValue(BigInteger* unscaledValue);
+	void setUnscaledValue(const BigInteger& unscaledValue);
 	BigInteger getUnscaledValue();
 	bool isZero() const;
 	int aproxPrecision() const;

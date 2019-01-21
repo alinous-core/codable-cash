@@ -18,17 +18,17 @@ BitLevel::BitLevel() {
 BitLevel::~BitLevel() {
 }
 
-int BitLevel::bitLength(BigInteger* val) {
-    if (val->sign == 0) {
+int BitLevel::bitLength(const BigInteger& val) {
+    if (val.sign == 0) {
         return 0;
     }
-    int bLength = (val->numberLength << 5);
-    int highDigit = val->digits[val->numberLength - 1];
+    int bLength = (val.numberLength << 5);
+    int highDigit = val.digits[val.numberLength - 1];
 
-    if (val->sign < 0) {
-        int i = val->getFirstNonzeroDigit();
+    if (val.sign < 0) {
+        int i = val.getFirstNonzeroDigit();
         // We reduce the problem to the positive case.
-        if (i == val->numberLength - 1) {
+        if (i == val.numberLength - 1) {
             highDigit--;
         }
     }

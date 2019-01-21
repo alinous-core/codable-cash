@@ -120,7 +120,7 @@ void BigDecimal::__BigDecimal(int16_t* in, int offset, int len) {
         smallValue = Long::parseLong(unscaledBuffer);
         bitLength = __bitLength(smallValue);
     } else {
-        setUnscaledValue(new BigInteger(unscaledBuffer));
+        setUnscaledValue(BigInteger(unscaledBuffer));
     }
     precision = unscaledBuffer->length() - counter;
     if (unscaledBuffer->charAt(0) == L'-') {
@@ -167,11 +167,11 @@ BigInteger BigDecimal::toBigInteger() {
     }
 }
 
-void BigDecimal::setUnscaledValue(BigInteger* unscaledValue) {
-    this->intVal = unscaledValue;
-    this->bitLength = unscaledValue->bitLength();
+void BigDecimal::setUnscaledValue(const BigInteger& unscaledValue) {
+    this->intVal = new BigInteger(unscaledValue);
+    this->bitLength = unscaledValue.bitLength();
     if(this->bitLength < 64) {
-        this->smallValue = unscaledValue->longValue();
+        this->smallValue = unscaledValue.longValue();
     }
 }
 
