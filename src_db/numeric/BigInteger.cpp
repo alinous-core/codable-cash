@@ -14,6 +14,8 @@
 #include "base/UnicodeString.h"
 #include "base/Integer.h"
 
+#include "base/StackRelease.h"
+
 namespace alinous {
 
 BigInteger::BigInteger(int sign, int value) {
@@ -61,6 +63,7 @@ void BigInteger::setFromString(BigInteger* bi, UnicodeString* val, int radix) {
         bigRadixDigitsLength++;
     }
     digits = new int[bigRadixDigitsLength];
+
     // Get the maximal power of radix that fits in int
     int bigRadix = Conversion::bigRadices[radix - 2];
     // Parse an input string and accumulate the BigInteger's magnitude
@@ -69,7 +72,10 @@ void BigInteger::setFromString(BigInteger* bi, UnicodeString* val, int radix) {
 
     for (int substrStart = startChar; substrStart < endChar; substrStart = substrEnd, substrEnd = substrStart
             + charsPerInt) {
-        int bigRadixDigit = Integer::parseInt(val->substring(substrStart, substrEnd), radix);
+    	UnicodeString* subStr = val->substring(substrStart, substrEnd);
+    	StackRelease<UnicodeString> __st_subStr(subStr);
+
+        int bigRadixDigit = Integer::parseInt(subStr, radix);
         int newDigit = Multiplication::multiplyByInt(digits, digitIndex, bigRadix);
         newDigit += Elementary::inplaceAdd(digits, digitIndex, bigRadixDigit);
         digits[digitIndex++] = newDigit;
