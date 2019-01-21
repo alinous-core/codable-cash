@@ -35,6 +35,22 @@ TEST(TestConversionGroup, classval){
 
 	UnicodeString* str8 = Conversion::toDecimalScaledString(zero, -1); rel.add(str8);
 
+	UnicodeString ans0(L"0");
+	UnicodeString ans1(L"0.0");
+	UnicodeString ans2(L"0.00");
+	UnicodeString ans3(L"0.000");
+	UnicodeString ans4(L"0.0000");
+	UnicodeString ans5(L"0.00000");
+	UnicodeString ans6(L"0.000000");
+
+	CHECK(ans0.equals(str0))
+	CHECK(ans1.equals(str))
+	CHECK(ans2.equals(str2))
+	CHECK(ans3.equals(str3))
+	CHECK(ans4.equals(str4))
+	CHECK(ans5.equals(str5))
+	CHECK(ans6.equals(str6))
+
 
 }
 
