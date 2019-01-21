@@ -41,7 +41,19 @@ public:
     BigInteger() = delete;
 	BigInteger(const BigInteger& inst);
 	BigInteger &operator=(const BigInteger &inst){
-		*this = inst;
+		this->firstNonzeroDigit = inst.firstNonzeroDigit;
+		this->sign = inst.sign;
+		this->numberLength = inst.numberLength;
+
+		if(this->digits){
+			delete [] this->digits;
+		}
+		this->digits = new int[this->numberLength] {};
+
+		for(int i = 0; i != this->numberLength; ++i){
+			this->digits[i] = inst.digits[i];
+		}
+
 		return(*this);
 	}
 

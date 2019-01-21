@@ -13,6 +13,7 @@ namespace alinous {
 class BigInteger;
 
 class BitLevel {
+	friend class BigInteger;
 public:
 	BitLevel();
 	virtual ~BitLevel();

@@ -11,7 +11,7 @@
 namespace alinous {
 
 double alinous::Math::log(double d) {
-	return log(d);
+	return ::log(d);
 }
 
 
