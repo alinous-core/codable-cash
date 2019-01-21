@@ -45,7 +45,7 @@ BigInteger** BigInteger::initTwoPows() {
 		__TWO_POWS.setDeleteOnExit();
 
         for(int i = 0; i < 32; i++) {
-            TWO_POWS[i] = BigInteger::valueOf(1L<<i);
+        	__TWO_POWS.addElement(BigInteger::valueOf(1L<<i));
         }
 
 		init = true;
