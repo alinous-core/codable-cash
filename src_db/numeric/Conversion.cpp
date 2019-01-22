@@ -295,7 +295,7 @@ int64_t Conversion::divideLongByBillion(int64_t a) {
 
 void Conversion::arraycopy(int* src, int srcPos, int* dest, int destPos, int length) {
 	for(int i = 0; i != length; ++i){
-		dest[srcPos + i] = src[destPos + i];
+		dest[destPos + i] = src[srcPos + i];
 	}
 }
 

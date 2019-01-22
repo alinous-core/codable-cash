@@ -105,7 +105,7 @@ BigInteger BitLevel::shiftRight(const BigInteger* source, int count) {
 
 void BitLevel::arraycopy(int* src, int srcPos, int* dest, int destPos, int length) {
 	for(int i = 0; i != length; ++i){
-		dest[srcPos + i] = src[destPos + i];
+		dest[destPos + i] = src[srcPos + i];
 	}
 }
 

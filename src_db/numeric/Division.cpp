@@ -218,7 +218,7 @@ int Division::multiplyAndSubtract(int* a, int start, int* b, int bLen, int c) {
 
 void Division::arraycopy(int* src, int srcPos, int* dest, int destPos, int length) {
 	for(int i = 0; i != length; ++i){
-		dest[srcPos + i] = src[destPos + i];
+		dest[destPos + i] = src[srcPos + i];
 	}
 }
 
