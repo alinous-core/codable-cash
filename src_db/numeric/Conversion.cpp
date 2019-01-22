@@ -47,6 +47,8 @@ UnicodeString* Conversion::bigInteger2String(const BigInteger& val, int radix) {
             : 0)) + 1;
 
     wchar_t* result = new wchar_t[resLengthInChars]{};
+    StackArrayRelease<wchar_t> __st_result(result);
+
     int currentChar = resLengthInChars;
     int resDigit;
     if (radix != 16) {

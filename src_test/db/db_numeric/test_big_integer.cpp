@@ -154,6 +154,11 @@ TEST(BigIntegerGroup, construct07){
 		CHECK(chk)
 	}
 	{
+		UnicodeString str(L"-878824397432651481891353247987891423768534321387864361143548364457698487264387568743568743265873246576467643756437657436587436");
+		bool chk = testToString(&str, 10);
+		CHECK(chk)
+	}
+	{
 		UnicodeString str(L"0");
 		bool chk = testToString(&str, 10);
 		CHECK(chk)
