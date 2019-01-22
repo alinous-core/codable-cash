@@ -21,7 +21,7 @@ BigDecimal::BigDecimal(UnicodeString* val) {
 	this->intVal = nullptr;
 
 	int len = val->length();
-	int16_t* in = new int16_t[len];
+	int16_t* in = new int16_t[len]{};
 	StackArrayRelease<int16_t> __st_in(in);
 
 	for(int i = 0; i != len; ++i){

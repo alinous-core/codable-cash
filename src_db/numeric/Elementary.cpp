@@ -77,7 +77,7 @@ BigInteger Elementary::subtract(const BigInteger& op1, const BigInteger& op2) {
 
 int* Elementary::subtract(int* a, int aSize, int* b, int bSize) {
     // PRE: a[] >= b[]
-    int* res = new int[aSize];
+    int* res = new int[aSize]{};
     subtract(res, a, aSize, b, bSize);
     return res;
 }
@@ -146,7 +146,7 @@ BigInteger Elementary::add(BigInteger& op1, BigInteger& op2) {
 
 int* Elementary::add(int* a, int aSize, int* b, int bSize) {
     // PRE: a[] >= b[]
-    int* res = new int[aSize + 1];
+    int* res = new int[aSize + 1]{};
     add(res, a, aSize, b, bSize);
     return res;
 }

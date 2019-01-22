@@ -71,12 +71,212 @@ TEST(BigIntegerMulGroup, mul04){
 
 	BigInteger big1(&bstr1, radix);
 	BigInteger big2(&bstr2, radix);
+	BigInteger ans(&bstr, radix);
 
 	BigInteger big = big1.multiply(big2);
 
+	bool blans = ans.equals(&big);
+	CHECK(blans)
+}
+
+TEST(BigIntegerMulGroup, mul05){
+	StackMultipleRelease<UnicodeString> rel;
+
+	int radix = 10;
+	UnicodeString bstr1(L"100000000000000000000000000000000000000");
+	UnicodeString bstr2(L"10000000000000000000000000000000000000000000000");
+	UnicodeString bstr(L"1000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
+
+	BigInteger big1(&bstr1, radix);
+	BigInteger big2(&bstr2, radix);
 	BigInteger ans(&bstr, radix);
 
-	bool blans = ans.equals(&big);
+	BigInteger big = big1.multiply(big2);
 
+	bool blans = ans.equals(&big);
+	CHECK(blans)
+}
+
+TEST(BigIntegerMulGroup, mul06){
+	StackMultipleRelease<UnicodeString> rel;
+
+	int radix = 10;
+	UnicodeString bstr1(L"10");
+	UnicodeString bstr2(L"10");
+	UnicodeString bstr(L"10");
+
+	BigInteger big1(&bstr1, radix);
+	BigInteger big2(&bstr2, radix);
+	BigInteger ans(&bstr, radix);
+
+	big1 = big1.pow(100);
+	big2 = big2.pow(80);
+	ans = ans.pow(180);
+
+	BigInteger big = big1.multiply(big2);
+
+	bool blans = ans.equals(&big);
+	CHECK(blans)
+}
+
+TEST(BigIntegerMulGroup, mul06_1){
+	StackMultipleRelease<UnicodeString> rel;
+
+	int radix = 10;
+	UnicodeString bstr1(L"0");
+	UnicodeString bstr2(L"0");
+	UnicodeString bstr(L"0");
+
+	BigInteger big1(&bstr1, radix);
+	BigInteger big2(&bstr2, radix);
+	BigInteger ans(&bstr, radix);
+
+	ans = ans.pow(180);
+
+	BigInteger big = big1.multiply(big2);
+
+	bool blans = ans.equals(&big);
+	CHECK(blans)
+}
+
+TEST(BigIntegerMulGroup, mul06_2){
+	StackMultipleRelease<UnicodeString> rel;
+
+	int radix = 10;
+	UnicodeString bstr1(L"1");
+	UnicodeString bstr2(L"2");
+	UnicodeString bstr(L"2");
+
+	BigInteger big1(&bstr1, radix);
+	BigInteger big2(&bstr2, radix);
+	BigInteger ans(&bstr, radix);
+
+	BigInteger big = big1.multiply(big2);
+
+	bool blans = ans.equals(&big);
+	CHECK(blans)
+}
+
+
+TEST(BigIntegerMulGroup, mul06_3){
+	StackMultipleRelease<UnicodeString> rel;
+
+	int radix = 10;
+	UnicodeString bstr1(L"1");
+	UnicodeString bstr2(L"1");
+	UnicodeString bstr(L"1");
+
+	BigInteger big1(&bstr1, radix);
+	BigInteger big2(&bstr2, radix);
+	BigInteger ans(&bstr, radix);
+
+	BigInteger big = big1.multiply(big2);
+
+	bool blans = ans.equals(&big);
+	CHECK(blans)
+}
+
+TEST(BigIntegerMulGroup, mul06_4){
+	StackMultipleRelease<UnicodeString> rel;
+
+	int radix = 10;
+	UnicodeString bstr1(L"0");
+	UnicodeString bstr2(L"10");
+	UnicodeString bstr(L"0");
+
+	BigInteger big1(&bstr1, radix);
+	BigInteger big2(&bstr2, radix);
+	BigInteger ans(&bstr, radix);
+
+	BigInteger big = big1.multiply(big2);
+
+	bool blans = ans.equals(&big);
+	CHECK(blans)
+}
+
+TEST(BigIntegerMulGroup, mul06_5){
+	StackMultipleRelease<UnicodeString> rel;
+
+	int radix = 10;
+	UnicodeString bstr1(L"0");
+	UnicodeString bstr(L"0");
+
+	BigInteger big1(&bstr1, radix);
+	BigInteger big2 = BigInteger::valueOf(-1);
+	BigInteger ans(&bstr, radix);
+
+	int f = big1.getFirstNonzeroDigit();
+	CHECK(f == -1)
+
+	BigInteger big = big1.multiply(big2);
+
+	bool blans = ans.equals(&big);
+	CHECK(blans)
+}
+
+
+TEST(BigIntegerMulGroup, mul07){
+	StackMultipleRelease<UnicodeString> rel;
+
+	int radix = 10;
+	UnicodeString bstr1(L"10");
+	UnicodeString bstr2(L"10");
+	UnicodeString bstr(L"10");
+
+	BigInteger big1(&bstr1, radix);
+	BigInteger big2(&bstr2, radix);
+	BigInteger ans(&bstr, radix);
+
+	big1 = big1.pow(200);
+	big2 = big2.pow(280);
+	ans = ans.pow(480);
+
+	BigInteger big = big1.multiply(big2);
+
+	bool blans = ans.equals(&big);
+	CHECK(blans)
+}
+
+TEST(BigIntegerMulGroup, mul08){
+	StackMultipleRelease<UnicodeString> rel;
+
+	int radix = 10;
+	UnicodeString bstr1(L"10");
+	UnicodeString bstr2(L"10");
+	UnicodeString bstr(L"10");
+
+	BigInteger big1(&bstr1, radix);
+	BigInteger big2(&bstr2, radix);
+	BigInteger ans(&bstr, radix);
+
+	big1 = big1.pow(0).multiply(big1.pow(600)).pow(1);
+	big2 = big2.pow(700).shiftRight(0);
+	ans = ans.pow(1300);
+
+	BigInteger big = big1.multiply(big2);
+
+	bool blans = ans.equals(&big);
+	CHECK(blans)
+}
+
+TEST(BigIntegerMulGroup, mul09){
+	StackMultipleRelease<UnicodeString> rel;
+
+	int radix = 10;
+	UnicodeString bstr1(L"10");
+	UnicodeString bstr2(L"-10");
+	UnicodeString bstr(L"-10");
+
+	BigInteger big1(&bstr1, radix);
+	BigInteger big2(&bstr2, radix);
+	BigInteger ans(&bstr, radix);
+
+	big1 = big1.pow(1000);
+	big2 = big2.pow(1001);
+	ans = ans.pow(2001);
+
+	BigInteger big = big1.multiply(big2);
+
+	bool blans = ans.equals(&big);
 	CHECK(blans)
 }

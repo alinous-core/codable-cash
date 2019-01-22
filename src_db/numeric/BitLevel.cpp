@@ -42,7 +42,7 @@ BigInteger BitLevel::shiftLeft(const BigInteger* source, int count) {
     count &= 31; // %= 32
     int resLength = source->numberLength + intCount
             + ( ( count == 0 ) ? 0 : 1 );
-    int* resDigits = new int[resLength];
+    int* resDigits = new int[resLength]{};
 
     shiftLeft(resDigits, resLength, source->digits, intCount, count);
     BigInteger result(source->sign, resLength, resDigits);
@@ -76,7 +76,7 @@ BigInteger BitLevel::shiftRight(const BigInteger* source, int count) {
     }
 
     int resLength = source->numberLength - intCount;
-    int *resDigits = new int[resLength + 1];
+    int *resDigits = new int[resLength + 1]{};
 
     shiftRight(resDigits, resLength, source->digits, intCount, count);
     if (source->sign < 0) {

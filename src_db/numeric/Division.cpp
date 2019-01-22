@@ -54,9 +54,9 @@ int Division::divideArrayByInt(int* dest, int* src, const int srcLength, const i
 }
 
 int* Division::divide(int* quot, int quotLength, int* a, int aLength, int* b, int bLength) {
-    int* normA = new int[aLength + 1]; // the normalized dividend
+    int* normA = new int[aLength + 1]{}; // the normalized dividend
     // an extra byte is needed for correct shift
-    int* normB = new int[bLength + 1]; // the normalized divisor;
+    int* normB = new int[bLength + 1]{}; // the normalized divisor;
     int normBLength = bLength;
     /*
      * Step D1: normalize a and b and put the results to a1 and b1 the

@@ -80,7 +80,7 @@ int Multiplication::multiplyByInt(int* res, int* a, int aSize, int factor) {
 }
 
 int64_t Multiplication::unsignedMultAddAdd(int a, int b, int c, int d) {
-	return (a & 0xFFFFFFFFL) * (b & 0xFFFFFFFFL) + (c & 0xFFFFFFFFL) + (d & 0xFFFFFFFFL);
+	return ((uint64_t)a & 0xFFFFFFFFL) * ((uint64_t)b & 0xFFFFFFFFL) + ((uint64_t)c & 0xFFFFFFFFL) + ((uint64_t)d & 0xFFFFFFFFL);
 }
 
 BigInteger Multiplication::powerOf10(int64_t exp) {
@@ -200,7 +200,7 @@ BigInteger Multiplication::multiplyPAP(const BigInteger& a, const BigInteger& b)
     }
     int* aDigits = a.digits;
     int* bDigits = b.digits;
-    int* resDigits = new int[resLength];
+    int* resDigits = new int[resLength]{};
     StackArrayRelease<int> __st_resDigits(resDigits);
 
     // Common case

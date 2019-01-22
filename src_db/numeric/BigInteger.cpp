@@ -90,7 +90,7 @@ BigInteger::BigInteger(int sign, int numberLength, const int* digits) {
     this->sign = sign;
     this->numberLength = numberLength;
 
-    this->digits = new int[numberLength];
+    this->digits = new int[numberLength]{};
     for(int i = 0; i != numberLength; ++i){
     	this->digits[i] = digits[i];
     }
@@ -126,7 +126,7 @@ void BigInteger::setFromString(BigInteger* bi, const UnicodeString* val, int rad
     if (topChars != 0) {
         bigRadixDigitsLength++;
     }
-    digits = new int[bigRadixDigitsLength];
+    digits = new int[bigRadixDigitsLength]{};
 
     // Get the maximal power of radix that fits in int
     int bigRadix = Conversion::bigRadices[radix - 2];
@@ -247,7 +247,7 @@ BigInteger BigInteger::divide(BigInteger& divisor) {
         return BigInteger::ZERO;
     }
     int resLength = thisLen - divisorLen + 1;
-    int* resDigits = new int[resLength];
+    int* resDigits = new int[resLength]{};
     StackArrayRelease<int> __st_resDigits(resDigits);
 
     int resSign = ((thisSign == divisorSign) ? 1 : -1);
@@ -336,7 +336,7 @@ BigInteger BigInteger::getPowerOfTwo(int exp) {
     }
     int intCount = exp >> 5;
     int bitN = exp & 31;
-    int* resDigits = new int[intCount+1];
+    int* resDigits = new int[intCount+1]{};
     StackArrayRelease<int> __st_resDigits(resDigits);
 
     resDigits[intCount] = 1 << bitN;

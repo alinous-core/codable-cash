@@ -52,7 +52,7 @@ UnicodeString* Conversion::bigInteger2String(const BigInteger& val, int radix) {
     int currentChar = resLengthInChars;
     int resDigit;
     if (radix != 16) {
-        int* temp = new int[numberLength];
+        int* temp = new int[numberLength]{};
         StackArrayRelease<int> __st_temp(temp);
 
         arraycopy(digits, 0, temp, 0, numberLength);
@@ -166,7 +166,7 @@ UnicodeString* Conversion::toDecimalScaledString(BigInteger val, int scale) {
             } while (v != 0);
         }
     } else {
-        int* temp = new int[numberLength];
+        int* temp = new int[numberLength]{};
         StackArrayRelease<int> __st_temp(temp);
 
         int tempLen = numberLength;
