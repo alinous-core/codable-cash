@@ -196,3 +196,48 @@ TEST(BigIntegerGroup, construct07){
 	}
 }
 
+TEST(BigIntegerGroup, testShift01){
+	BigInteger ff(L"0xff", 16);
+	BigInteger shfted = ff.shiftLeft(8);
+
+	BigInteger ans(L"0xff0", 16);
+
+	CHECK(shfted.equals(&ans))
+}
+
+TEST(BigIntegerGroup, testShift02){
+	BigInteger ff(L"0xff", 16);
+	BigInteger shfted = ff.rightShift(-8);
+
+	BigInteger ans(L"0xff0", 16);
+
+	CHECK(shfted.equals(&ans))
+}
+
+TEST(BigIntegerGroup, testShift03){
+	BigInteger ff(L"0xff", 16);
+	BigInteger shfted = ff.rightShift(8);
+
+	BigInteger ans(L"0xf", 16);
+
+	CHECK(shfted.equals(&ans))
+}
+
+TEST(BigIntegerGroup, testShift04){
+	BigInteger ff(L"0xff", 16);
+	BigInteger shfted = ff.shiftLeft(-8);
+
+	BigInteger ans(L"0xf", 16);
+
+	CHECK(shfted.equals(&ans))
+}
+
+TEST(BigIntegerGroup, testShift05){
+	BigInteger ff((int64_t)10);
+	BigInteger shfted = ff.shiftLeft(0);
+	BigInteger shfted2 = ff.rightShift(0);
+
+	CHECK(shfted.equals(&ff))
+	CHECK(shfted2.equals(&ff))
+}
+

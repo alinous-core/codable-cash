@@ -21,6 +21,7 @@ public:
 	virtual ~BigDecimal();
 
 	int64_t longValue();
+	BigInteger toBigInteger();
 private:
 	static const constexpr double LOG10_2 = 0.3010299956639812;
 
@@ -31,7 +32,7 @@ private:
 	bool isZero() const;
 	int aproxPrecision() const;
 
-	BigInteger toBigInteger();
+
 
 private:
 	int32_t scale;

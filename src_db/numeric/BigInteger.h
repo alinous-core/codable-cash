@@ -27,8 +27,8 @@ public:
 		return(*this);
 	}
 
-	BigInteger(int64_t value);
-
+	explicit BigInteger(const wchar_t* str, int radix);
+	explicit BigInteger(int64_t value);
 	explicit BigInteger(const UnicodeString* val);
 	BigInteger(const UnicodeString* val, int radix);
 	virtual ~BigInteger();

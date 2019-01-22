@@ -23,6 +23,15 @@ BigInteger::BigInteger(const mpz_t mpvalue) {
 	mpz_init_set(this->value, mpvalue);
 }
 
+BigInteger::BigInteger(const wchar_t* str, int radix) {
+	UnicodeString ustr(str);
+
+	const char* cstr = ustr.toCString();
+
+	mpz_init_set_str(this->value, cstr, radix);
+
+	delete [] cstr;
+}
 
 BigInteger::BigInteger(const BigInteger& inst) {
 	mpz_init(this->value);
@@ -68,7 +77,10 @@ BigInteger BigInteger::multiply(const BigInteger& val) const {
 
 	mpz_mul(op, this->value, val.value);
 
-	return BigInteger(op);
+	BigInteger ret(op);
+	mpz_clear(op);
+
+	return ret;
 }
 
 BigInteger BigInteger::subtract(const BigInteger& val) const {
@@ -77,7 +89,10 @@ BigInteger BigInteger::subtract(const BigInteger& val) const {
 
 	mpz_sub(op, this->value, val.value);
 
-	return BigInteger(op);
+	BigInteger ret(op);
+	mpz_clear(op);
+
+	return ret;
 }
 
 BigInteger BigInteger::add(const BigInteger& val) {
@@ -86,7 +101,10 @@ BigInteger BigInteger::add(const BigInteger& val) {
 
 	mpz_add(op, this->value, val.value);
 
-	return BigInteger(op);
+	BigInteger ret(op);
+	mpz_clear(op);
+
+	return ret;
 }
 
 BigInteger BigInteger::divide(const BigInteger& divisor) {
@@ -95,7 +113,10 @@ BigInteger BigInteger::divide(const BigInteger& divisor) {
 
 	mpz_tdiv_q(op, this->value, divisor.value);
 
-	return BigInteger(op);
+	BigInteger ret(op);
+	mpz_clear(op);
+
+	return ret;
 }
 
 BigInteger BigInteger::pow(uint64_t exp) {
@@ -104,14 +125,14 @@ BigInteger BigInteger::pow(uint64_t exp) {
 
 	mpz_pow_ui(op, this->value, exp);
 
+	BigInteger ret(op);
+	mpz_clear(op);
 
-	return BigInteger(op);
+	return ret;
 }
 
 BigInteger BigInteger::shiftLeft(int n) {
-	int sign = mpz_sgn(this->value);
-
-    if ((n == 0) || (sign == 0)) {
+    if (n == 0) {
         return *this;
     }
     if(n < 0){
@@ -122,13 +143,14 @@ BigInteger BigInteger::shiftLeft(int n) {
 	mpz_init(op);
     mpz_mul_2exp(op, this->value, n);
 
-    return BigInteger(op);
+	BigInteger ret(op);
+	mpz_clear(op);
+
+	return ret;
 }
 
 BigInteger BigInteger::rightShift(int n) {
-	int sign = mpz_sgn(this->value);
-
-    if ((n == 0) || (sign == 0)) {
+    if (n == 0) {
         return *this;
     }
     if(n < 0){
@@ -139,7 +161,10 @@ BigInteger BigInteger::rightShift(int n) {
 	mpz_init(op);
 	mpz_tdiv_q_2exp(op, this->value, n);
 
-    return BigInteger(op);
+	BigInteger ret(op);
+	mpz_clear(op);
+
+	return ret;
 }
 
 
@@ -154,7 +179,6 @@ bool BigInteger::testBit(int n) {
 }
 
 UnicodeString* BigInteger::toString(int radix) const {
-	size_t count;
 	char *buff = mpz_get_str(nullptr, radix, this->value);
 
 	UnicodeString* str = new UnicodeString(buff);
@@ -174,7 +198,10 @@ BigInteger BigInteger::abs() const {
 
 	mpz_abs(op, this->value);
 
-	return BigInteger(op);
+	BigInteger ret(op);
+	mpz_clear(op);
+
+	return ret;
 }
 
 BigInteger BigInteger::negate() const {
@@ -183,7 +210,10 @@ BigInteger BigInteger::negate() const {
 
 	mpz_neg(op, this->value);
 
-	return BigInteger(op);
+	BigInteger ret(op);
+	mpz_clear(op);
+
+	return ret;
 }
 
 BigInteger BigInteger::valueOf(int64_t val) {
