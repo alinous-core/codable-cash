@@ -19,7 +19,7 @@ public:
 	virtual ~Character();
 
 	static int digit(int codePoint, int radix) noexcept;
-	static char forDigit(int digit, int radix);
+	static wchar_t forDigit(int digit, int radix);
 private:
 	wchar_t value;
 

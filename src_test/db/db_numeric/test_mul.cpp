@@ -8,7 +8,6 @@
 #include "test_utils/t_macros.h"
 
 #include "numeric/BigInteger.h"
-#include "numeric/Conversion.h"
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
@@ -21,12 +20,12 @@ TEST_GROUP(BigIntegerMulGroup) {
 
 TEST(BigIntegerMulGroup, mul01){
 	StackMultipleRelease<UnicodeString> rel;
-	BigInteger big1(1, 100);
-	BigInteger big2(1, 200);
+	BigInteger big1(100);
+	BigInteger big2(200);
 
 	BigInteger big = big1.multiply(big2);
 
-	UnicodeString* str0 = Conversion::toDecimalScaledString(big, 0); rel.add(str0);
+	UnicodeString* str0 = big.toString(); rel.add(str0);
 	UnicodeString ans(L"20000");
 	CHECK(ans.equals(str0))
 }
@@ -41,7 +40,7 @@ TEST(BigIntegerMulGroup, mul02){
 
 	BigInteger big = big1.multiply(big2);
 
-	UnicodeString* str0 = Conversion::toDecimalScaledString(big, 0); rel.add(str0);
+	UnicodeString* str0 = big.toString(); rel.add(str0);
 	UnicodeString ans(L"1000");
 	CHECK(ans.equals(str0))
 }
@@ -56,7 +55,7 @@ TEST(BigIntegerMulGroup, mul03){
 
 	BigInteger big = big1.multiply(big2);
 
-	UnicodeString* str0 = Conversion::toDecimalScaledString(big, 0); rel.add(str0);
+	UnicodeString* str0 = big.toString(); rel.add(str0);
 	UnicodeString ans(L"-1000");
 	CHECK(ans.equals(str0))
 }
@@ -205,9 +204,6 @@ TEST(BigIntegerMulGroup, mul06_5){
 	BigInteger big2 = BigInteger::valueOf(-1);
 	BigInteger ans(&bstr, radix);
 
-	int f = big1.getFirstNonzeroDigit();
-	CHECK(f == -1)
-
 	BigInteger big = big1.multiply(big2);
 
 	bool blans = ans.equals(&big);
@@ -250,7 +246,7 @@ TEST(BigIntegerMulGroup, mul08){
 	BigInteger ans(&bstr, radix);
 
 	big1 = big1.pow(0).multiply(big1.pow(600)).pow(1);
-	big2 = big2.pow(700).shiftRight(0);
+	big2 = big2.pow(700);
 	ans = ans.pow(1300);
 
 	BigInteger big = big1.multiply(big2);
@@ -280,3 +276,5 @@ TEST(BigIntegerMulGroup, mul09){
 	bool blans = ans.equals(&big);
 	CHECK(blans)
 }
+
+

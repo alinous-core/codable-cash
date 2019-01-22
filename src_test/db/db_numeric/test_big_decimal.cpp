@@ -160,3 +160,4 @@ TEST(BigDecimalGroup, construct10){
 	//CHECK(l == 0)
 
 }
+

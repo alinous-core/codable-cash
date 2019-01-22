@@ -19,9 +19,16 @@ TEST_GROUP(BigIntegerGroup) {
 	TEST_TEARDOWN() {}
 };
 
+TEST(BigIntegerGroup, negate){
+	BigInteger big1(100);
+	BigInteger big2 = big1.negate();
+
+	CHECK(big2.longValue() == -100)
+}
+
 TEST(BigIntegerGroup, classval){
-	BigInteger big1(1, 100);
-	BigInteger big2(1, 200);
+	BigInteger big1(100);
+	BigInteger big2(200);
 
 	big2 = big1;
 
@@ -30,17 +37,16 @@ TEST(BigIntegerGroup, classval){
 }
 
 TEST(BigIntegerGroup, construct01){
-	BigInteger::test();
-
-	BigInteger* big = new BigInteger(1, 100);
+	BigInteger* big = new BigInteger(100);
 
 	int64_t v = big->longValue();
 	CHECK(v = 100);
 
 	delete big;
 }
+
 TEST(BigIntegerGroup, construct02){
-	BigInteger* big = new BigInteger(-1, 100);
+	BigInteger* big = new BigInteger(-100);
 
 	int64_t v = big->longValue();
 	CHECK(v = -100);
@@ -189,3 +195,4 @@ TEST(BigIntegerGroup, construct07){
 		CHECK(chk)
 	}
 }
+

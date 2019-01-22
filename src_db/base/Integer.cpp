@@ -27,7 +27,7 @@ Integer::Integer(int value) : value(value) {
 
 Integer::~Integer() {
 }
-
+/*
 int Integer::numberOfLeadingZeros(int i) {
     i |= i >> 1;
     i |= i >> 2;
@@ -45,7 +45,7 @@ int Integer::bitCount(int i) {
     i += (i >> 16);
     return (i & 0x0000003F);
 }
-
+*/
 int Integer::parseInt(UnicodeString* string)
 {
 	return parseInt(string, 10);

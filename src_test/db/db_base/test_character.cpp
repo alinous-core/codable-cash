@@ -22,3 +22,15 @@ TEST(CharacterTestGroup, test01){
 	Character * ch = new Character(L'A');
 	delete ch;
 }
+
+TEST(CharacterTestGroup, test02){
+	wchar_t ch = Character::forDigit(12, 16);
+
+	CHECK(ch == L'c');
+}
+
+TEST(CharacterTestGroup, test03){
+	wchar_t ch = Character::forDigit(16, 16);
+
+	CHECK(ch == 0);
+}

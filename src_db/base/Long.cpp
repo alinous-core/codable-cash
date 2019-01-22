@@ -42,16 +42,10 @@ int64_t Long::parse(UnicodeString* string, int offset, int radix, bool negative)
             throw new NumberFormatException(__FILE__, __LINE__);
         }
         int64_t next = result * radix - digit;
-        if (next > result) {
-            throw new NumberFormatException(__FILE__, __LINE__);
-        }
         result = next;
     }
     if (!negative) {
         result = -result;
-        if (result < 0) {
-            throw new NumberFormatException(__FILE__, __LINE__);
-        }
     }
     return result;
 }
@@ -67,8 +61,8 @@ int Long::numberOfLeadingZeros(int64_t lng) {
 }
 
 int Long::bitCount(int64_t lng) {
-    lng = (lng & 0x5555555555555555L) + ((lng >> 1) & 0x5555555555555555L);
-    lng = (lng & 0x3333333333333333L) + ((lng >> 2) & 0x3333333333333333L);
+    lng = (lng & 0x5555555555555555LL) + ((lng >> 1) & 0x5555555555555555LL);
+    lng = (lng & 0x3333333333333333LL) + ((lng >> 2) & 0x3333333333333333LL);
     // adjust for 64-bit integer
     int i = (int) ((((uint64_t)lng) >> 32) + lng);
     i = (i & 0x0F0F0F0F) + ((i >> 4) & 0x0F0F0F0F);

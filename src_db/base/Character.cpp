@@ -22,10 +22,10 @@ int Character::digit(int codePoint, int radix) noexcept {
 	return icu::u_digit(codePoint, radix);
 }
 
-char Character::forDigit(int digit, int radix) {
+wchar_t Character::forDigit(int digit, int radix) {
     if (MIN_RADIX <= radix && radix <= MAX_RADIX) {
         if (0 <= digit && digit < radix) {
-            return (char) (digit < 10 ? digit + '0' : digit + 'a' - 10);
+            return (wchar_t) (digit < 10 ? digit + L'0' : digit + L'a' - 10);
         }
     }
     return 0;

@@ -52,7 +52,7 @@ UnicodeString::UnicodeString(const wchar_t* str, int cap) noexcept {
 
 	__closeString();
 }
-
+/*
 UnicodeString::UnicodeString(const wchar_t* str, int offset, int count) noexcept {
 	this->buff =  new RawArrayPrimitive<wchar_t>(count);
 	this->__hashCode = 0;
@@ -64,7 +64,7 @@ UnicodeString::UnicodeString(const wchar_t* str, int offset, int count) noexcept
 
 	__closeString();
 }
-
+*/
 UnicodeString::UnicodeString(const char* str) noexcept {
 	UnicodeString utf8str(CharsetManager::UTF_8());
 	CharsetConverter* cnv =  CharsetManager::getInstance()->getConverter(&utf8str);

@@ -11,6 +11,8 @@
 
 namespace codablecash {
 
+using namespace std;
+
 SchnorrSignature::SchnorrSignature(mpz_t e, mpz_t y) {
 	mpz_init_set(this->e, e);
 	mpz_init_set(this->y, y);

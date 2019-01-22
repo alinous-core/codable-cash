@@ -135,37 +135,6 @@ int BigDecimal::__bitLength(int64_t smallValue) {
     return 64 - Long::numberOfLeadingZeros(smallValue);
 }
 
-int64_t BigDecimal::longValue() {
-
-	if((scale <= -64) || (scale > aproxPrecision()) ){
-		return 0L;
-	}
-
-	BigInteger bigInt = toBigInteger();
-
-	return bigInt.longValue();
-
-    /* If scale <= -64 there are at least 64 trailing bits zero in 10^(-scale).
-     * If the scale is positive and very large the long value could be zero. */
-  /* return ((scale <= -64) || (scale > aproxPrecision())
-    ? 0L
-            : toBigInteger()->longValue());*/
-}
-
-BigInteger BigDecimal::toBigInteger() {
-    if ((scale == 0) || (isZero())) {
-        return getUnscaledValue();
-    } else if (scale < 0) {
-    	BigInteger pow10 = Multiplication::powerOf10(-(int64_t)scale);
-
-        return getUnscaledValue().multiply(pow10);
-    } else {// (scale > 0)
-    	BigInteger pow10 = Multiplication::powerOf10(scale);
-
-        return getUnscaledValue().divide(pow10);
-    }
-}
-
 void BigDecimal::setUnscaledValue(const BigInteger& unscaledValue) {
     this->intVal = new BigInteger(unscaledValue);
     this->bitLength = unscaledValue.bitLength();
@@ -188,6 +157,23 @@ bool BigDecimal::isZero() const {
 int BigDecimal::aproxPrecision() const {
     return (this->precision > 0) ? this->precision
             : ((int) ((this->bitLength - 1) * LOG10_2)) + 1;
+}
+
+int64_t alinous::BigDecimal::longValue() {
+    return ((scale <= -64) || (scale > aproxPrecision())
+    ? 0L
+            : toBigInteger().longValue());
+}
+
+BigInteger BigDecimal::toBigInteger() {
+    if ((scale == 0) || (isZero())) {
+        return getUnscaledValue();
+    } else if (scale < 0) {
+        return getUnscaledValue().multiply(Multiplication::powerOf10(-(int64_t)scale));
+    } else {// (scale > 0)
+    	BigInteger tmp = getUnscaledValue();
+        return tmp.divide(Multiplication::powerOf10(scale));
+    }
 }
 
 } /* namespace alinous */
