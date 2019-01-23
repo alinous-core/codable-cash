@@ -8,12 +8,23 @@
 #ifndef MAIN_BLOCKCHAIN_H_
 #define MAIN_BLOCKCHAIN_H_
 
+namespace alinous {
+class File;
+}
+
 namespace codablecash {
+using namespace alinous;
+
+class BlockchainStore;
 
 class Blockchain {
 public:
-	Blockchain();
+	Blockchain(const File* baseDir);
 	virtual ~Blockchain();
+
+private:
+	File* baseDir;
+	BlockchainStore* store;
 };
 
 } /* namespace codablecash */

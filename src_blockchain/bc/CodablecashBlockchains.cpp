@@ -43,14 +43,21 @@ CodablecashBlockchains::~CodablecashBlockchains() {
 void CodablecashBlockchains::init() {
 	this->shardStatus = new NetworkShardsStatus(this->config->numShards);
 
-	File* flashBase = this->baseDir->get(L"flash");
+	File* dataDir = this->baseDir->get(L"blockchain");
+	StackRelease<File> __st_dataDir(dataDir);
+
+	if(!dataDir->exists()){
+		dataDir->mkdirs();
+	}
+
+	File* flashBase = dataDir->get(L"flash");
 	StackRelease<File> __st_flashBase(flashBase);
 	this->flashChain = new FlashBlockchain(flashBase);
 
-    File* blockchainBase = this->baseDir->get(L"main");
+    File* blockchainBase = dataDir->get(L"main");
     StackRelease<File> st_blockchainBase(blockchainBase);
     
-	this->blockchain = new Blockchain();
+	this->blockchain = new Blockchain(blockchainBase);
 
 }
 
