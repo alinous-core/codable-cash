@@ -261,3 +261,13 @@ TEST(UnicodeStringTestGroup, spit02){
 	list->deleteElements();
 	delete list;
 }
+
+TEST(UnicodeStringTestGroup, append){
+	UnicodeString str(L"/src/test/alinous");
+	const wchar_t* regex = L"aaaa/src/test/alinous";
+
+	UnicodeString str2(L"");
+	str2.append(regex, 4, 17);
+
+	CHECK(str2.equals(&str))
+}

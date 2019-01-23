@@ -22,4 +22,13 @@ int Character::digit(int codePoint, int radix) noexcept {
 	return icu::u_digit(codePoint, radix);
 }
 
+wchar_t Character::forDigit(int digit, int radix) {
+    if (MIN_RADIX <= radix && radix <= MAX_RADIX) {
+        if (0 <= digit && digit < radix) {
+            return (wchar_t) (digit < 10 ? digit + L'0' : digit + L'a' - 10);
+        }
+    }
+    return 0;
+}
+
 } /* namespace alinous */

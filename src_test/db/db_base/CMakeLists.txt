@@ -7,6 +7,7 @@ set(testsrc
 	test_hashmap.cpp
 	test_integer.cpp
 	test_linkedlist.cpp
+	test_long.cpp
 	test_misc.cpp
 	test_primitive_array.cpp
 	test_stack_release.cpp

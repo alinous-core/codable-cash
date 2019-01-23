@@ -31,8 +31,6 @@ public:
 	static int wstrlen(const wchar_t *__s1) noexcept;
 
 	static int strcmp(const char *__s1, const char *__s2) noexcept;
-
-
 };
 
 } /* namespace alinous */

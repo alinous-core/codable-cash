@@ -52,7 +52,19 @@ UnicodeString::UnicodeString(const wchar_t* str, int cap) noexcept {
 
 	__closeString();
 }
+/*
+UnicodeString::UnicodeString(const wchar_t* str, int offset, int count) noexcept {
+	this->buff =  new RawArrayPrimitive<wchar_t>(count);
+	this->__hashCode = 0;
 
+	for(int i = 0; i != count; ++i){
+		wchar_t ch = str[offset + i];
+		__append(ch);
+	}
+
+	__closeString();
+}
+*/
 UnicodeString::UnicodeString(const char* str) noexcept {
 	UnicodeString utf8str(CharsetManager::UTF_8());
 	CharsetConverter* cnv =  CharsetManager::getInstance()->getConverter(&utf8str);
@@ -164,6 +176,37 @@ UnicodeString* UnicodeString::append(const wchar_t* str, int len) noexcept {
 
 	__closeString();
 	return this;
+}
+
+UnicodeString* UnicodeString::append(const int16_t* str, int offset, int len) noexcept {
+	for(int i = 0; i != len; ++i){
+		wchar_t ch = str[offset + i];
+		__append(ch);
+	}
+
+	__closeString();
+	return this;
+}
+
+UnicodeString* UnicodeString::append(const wchar_t* str, int offset, int len) noexcept {
+	for(int i = 0; i != len; ++i){
+		wchar_t ch = str[offset + i];
+		__append(ch);
+	}
+
+	__closeString();
+	return this;
+}
+
+UnicodeString* UnicodeString::valueOf(const int16_t* str, int offset, int len) {
+	UnicodeString* ret = new UnicodeString(L"");
+
+	for(int i = 0; i != len; ++i){
+		wchar_t ch = str[offset + i];
+		ret->append(ch);
+	}
+
+	return ret;
 }
 
 UnicodeString* UnicodeString::append(const UnicodeString* str) noexcept {

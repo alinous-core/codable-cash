@@ -13,6 +13,7 @@ add_subdirectory(charsets)
 add_subdirectory(debug)
 add_subdirectory(filestore)
 add_subdirectory(filestore_block)
+add_subdirectory(numeric)
 add_subdirectory(osenv)
 add_subdirectory(random_access_file)
 

@@ -49,6 +49,10 @@ public:
 		this->deleteOnExit = true;
 	}
 
+	ElementType* getRoot() const noexcept {
+		return this->root;
+	}
+
 	void deleteElements(){
 		int maxLoop = size();
 		for(int i = 0; i != maxLoop; ++i){

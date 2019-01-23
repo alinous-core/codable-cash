@@ -158,3 +158,30 @@ TEST(IntegerTestGroup, parseIntRaxixError){
 	}
 	CHECK(exp != nullptr); delete exp;
 }
+
+TEST(IntegerTestGroup, toString){
+	UnicodeString* str = Integer::toString(-100, 100);
+	UnicodeString ans(L"-100");
+
+	CHECK(ans.equals(str))
+
+	delete str;
+}
+
+TEST(IntegerTestGroup, toString02){
+	UnicodeString* str = Integer::toString(0, 10);
+	UnicodeString ans(L"0");
+
+	CHECK(ans.equals(str))
+
+	delete str;
+}
+
+TEST(IntegerTestGroup, toString03){
+	UnicodeString* str = Integer::toString(0xFFFF, 16);
+	UnicodeString ans(L"ffff");
+
+	CHECK(ans.equals(str))
+
+	delete str;
+}
