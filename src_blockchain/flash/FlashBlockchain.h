@@ -15,6 +15,7 @@ class File;
 namespace codablecash {
 using namespace alinous;
 
+class FlashChainStore;
 class MemPool;
 
 class FlashBlockchain {
@@ -24,6 +25,7 @@ public:
 
 private:
 	MemPool* mempool;
+	FlashChainStore* store;
 };
 
 } /* namespace codablecash */
