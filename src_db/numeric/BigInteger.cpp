@@ -5,16 +5,19 @@
  *      Author: iizuka
  */
 
+
 #include "numeric/BigInteger.h"
 #include "numeric/exceptions.h"
-
+#include "base_io/ByteBuffer.h"
 #include "base/UnicodeString.h"
+
 #include "base/Integer.h"
 
 #include "base/StackRelease.h"
 #include "base/ArrayList.h"
 
 #include <stdlib.h>
+
 
 
 namespace alinous {
@@ -95,7 +98,7 @@ BigInteger BigInteger::subtract(const BigInteger& val) const {
 	return ret;
 }
 
-BigInteger BigInteger::add(const BigInteger& val) {
+BigInteger BigInteger::add(const BigInteger& val) const {
 	mpz_t op;
 	mpz_init(op);
 
@@ -107,7 +110,7 @@ BigInteger BigInteger::add(const BigInteger& val) {
 	return ret;
 }
 
-BigInteger BigInteger::divide(const BigInteger& divisor) {
+BigInteger BigInteger::divide(const BigInteger& divisor) const {
 	mpz_t op;
 	mpz_init(op);
 
@@ -119,7 +122,7 @@ BigInteger BigInteger::divide(const BigInteger& divisor) {
 	return ret;
 }
 
-BigInteger BigInteger::pow(uint64_t exp) {
+BigInteger BigInteger::pow(uint64_t exp) const {
 	mpz_t op;
 	mpz_init(op);
 
@@ -131,7 +134,7 @@ BigInteger BigInteger::pow(uint64_t exp) {
 	return ret;
 }
 
-BigInteger BigInteger::shiftLeft(int n) {
+BigInteger BigInteger::shiftLeft(int n) const {
     if (n == 0) {
         return *this;
     }
@@ -149,7 +152,7 @@ BigInteger BigInteger::shiftLeft(int n) {
 	return ret;
 }
 
-BigInteger BigInteger::rightShift(int n) {
+BigInteger BigInteger::rightShift(int n) const {
     if (n == 0) {
         return *this;
     }
@@ -173,7 +176,7 @@ bool BigInteger::equals(const BigInteger* x1) const {
 	return cmp == 0;
 }
 
-bool BigInteger::testBit(int n) {
+bool BigInteger::testBit(int n) const {
 	mp_bitcnt_t bit_index = n;
 	return mpz_tstbit(this->value, bit_index);
 }
@@ -220,6 +223,26 @@ BigInteger BigInteger::valueOf(int64_t val) {
 	return BigInteger(val);
 }
 
+ByteBuffer* BigInteger::toBinary() const {
+	size_t count;
+	uint8_t* data =  (uint8_t*)mpz_export(NULL, &count, 1, 1, 1, 0, this->value);
+
+	ByteBuffer* buff = ByteBuffer::wrapWithEndian(data, count, true);
+	::free(data);
+
+	return buff;
+}
+
+BigInteger* BigInteger::fromBinary(const char* buff, int length) {
+	mpz_t mpvalue;
+	mpz_init(mpvalue);
+	mpz_import(mpvalue, length, 1, 1, 1, 0, buff);
+
+	BigInteger* big  = new BigInteger(mpvalue);
+
+	mpz_clear(mpvalue);
+
+	return big;
+}
+
 } /* namespace alinous */
-
-

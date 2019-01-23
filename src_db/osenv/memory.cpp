@@ -14,7 +14,7 @@ namespace alinous {
 
 
 void* Mem::memset(void *__s, int __c, size_t __n) noexcept {
-	::memset(__s, __c, __n);
+	return ::memset(__s, __c, __n);
 }
 void* Mem::memcpy(void *__restrict __dest, const void *__restrict __src, size_t __n) noexcept {
 	return ::memcpy(__dest, __src, __n);

@@ -33,7 +33,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <inttypes.h>
-
+/*
 static const uint32_t keypad[12] = {
 	0x80000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x00000280
 };
@@ -54,7 +54,7 @@ static inline void HMAC_SHA256_80_init(const uint32_t *key,
 	uint32_t pad[16];
 	int i;
 
-	/* tstate is assumed to contain the midstate of key */
+	// tstate is assumed to contain the midstate of key
 	memcpy(pad, key + 16, 16);
 	memcpy(pad + 4, keypad, 48);
 	sha256_transform(tstate, pad, 0);
@@ -117,7 +117,7 @@ static inline void PBKDF2_SHA256_128_32(uint32_t *tstate, uint32_t *ostate,
 	for (i = 0; i < 8; i++)
 		output[i] = swab32(ostate[i]);
 }
-
+*/
 
 #ifdef HAVE_SHA256_4WAY
 
@@ -410,7 +410,7 @@ void scrypt_core_3way(uint32_t *X, uint32_t *V, int N);
 #endif
 
 #else
-
+/*
 static inline void xor_salsa8(uint32_t B[16], const uint32_t Bx[16])
 {
 	uint32_t x00,x01,x02,x03,x04,x05,x06,x07,x08,x09,x10,x11,x12,x13,x14,x15;
@@ -434,7 +434,7 @@ static inline void xor_salsa8(uint32_t B[16], const uint32_t Bx[16])
 	x15 = (B[15] ^= Bx[15]);
 	for (i = 0; i < 8; i += 2) {
 #define R(a, b) (((a) << (b)) | ((a) >> (32 - (b))))
-		/* Operate on columns. */
+		// Operate on columns.
 		x04 ^= R(x00+x12, 7);	x09 ^= R(x05+x01, 7);
 		x14 ^= R(x10+x06, 7);	x03 ^= R(x15+x11, 7);
 		
@@ -447,7 +447,7 @@ static inline void xor_salsa8(uint32_t B[16], const uint32_t Bx[16])
 		x00 ^= R(x12+x08,18);	x05 ^= R(x01+x13,18);
 		x10 ^= R(x06+x02,18);	x15 ^= R(x11+x07,18);
 		
-		/* Operate on rows. */
+		// Operate on rows.
 		x01 ^= R(x00+x03, 7);	x06 ^= R(x05+x04, 7);
 		x11 ^= R(x10+x09, 7);	x12 ^= R(x15+x14, 7);
 		
@@ -495,7 +495,7 @@ static inline void scrypt_core(uint32_t *X, uint32_t *V, int N)
 		xor_salsa8(&X[0], &X[16]);
 		xor_salsa8(&X[16], &X[0]);
 	}
-}
+}*/
 
 #endif
 
@@ -508,7 +508,7 @@ unsigned char *scrypt_buffer_alloc(int N)
 {
 	return malloc((size_t)N * SCRYPT_MAX_WAYS * 128 + 63);
 }
-
+/*
 static void scrypt_1024_1_1_256(const uint32_t *input, uint32_t *output,
 	uint32_t *midstate, unsigned char *scratchpad, int N)
 {
@@ -526,7 +526,7 @@ static void scrypt_1024_1_1_256(const uint32_t *input, uint32_t *output,
 
 	PBKDF2_SHA256_128_32(tstate, ostate, X, output);
 }
-
+*/
 #ifdef HAVE_SHA256_4WAY
 static void scrypt_1024_1_1_256_4way(const uint32_t *input,
 	uint32_t *output, uint32_t *midstate, unsigned char *scratchpad, int N)

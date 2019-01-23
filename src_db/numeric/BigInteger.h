@@ -14,6 +14,7 @@
 namespace alinous {
 
 class UnicodeString;
+class ByteBuffer;
 
 class BigInteger {
 private:
@@ -39,17 +40,17 @@ public:
 
 	BigInteger multiply(const BigInteger& val) const;
 	BigInteger subtract(const BigInteger& val) const;
-	BigInteger add(const BigInteger& val);
-	BigInteger divide(const BigInteger& divisor);
+	BigInteger add(const BigInteger& val) const;
+	BigInteger divide(const BigInteger& divisor) const;
 
-	BigInteger rightShift(int n);
-	BigInteger shiftLeft(int n);
+	BigInteger rightShift(int n) const;
+	BigInteger shiftLeft(int n) const;
 
-	BigInteger pow(uint64_t exp);
+	BigInteger pow(uint64_t exp) const;
 
 	BigInteger abs() const;
 	BigInteger negate() const;
-	bool testBit(int n);
+	bool testBit(int n) const;
 
 	static BigInteger valueOf(int64_t val);
 
@@ -57,6 +58,9 @@ public:
 
     UnicodeString* toString(int radix) const;
     UnicodeString* toString() const;
+
+    ByteBuffer* toBinary() const;
+	static BigInteger* fromBinary(const char* buff, int length);
 
 private:
 	mpz_t value;
