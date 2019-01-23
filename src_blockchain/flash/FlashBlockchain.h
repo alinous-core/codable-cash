@@ -8,12 +8,22 @@
 #ifndef FLASH_FLASHBLOCKCHAIN_H_
 #define FLASH_FLASHBLOCKCHAIN_H_
 
+namespace alinous {
+class File;
+}
+
 namespace codablecash {
+using namespace alinous;
+
+class MemPool;
 
 class FlashBlockchain {
 public:
-	FlashBlockchain();
+	FlashBlockchain(const File* baseDir);
 	virtual ~FlashBlockchain();
+
+private:
+	MemPool* mempool;
 };
 
 } /* namespace codablecash */

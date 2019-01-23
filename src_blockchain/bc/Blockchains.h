@@ -8,7 +8,12 @@
 #ifndef BC_BLOCKCHAINS_H_
 #define BC_BLOCKCHAINS_H_
 
+namespace alinous {
+class File;
+}
+
 namespace codablecash {
+using namespace alinous;
 
 class BlockchainsConfig;
 class NetworkShardsStatus;
@@ -29,6 +34,8 @@ private:
 	NetworkShardsStatus* shardStatus;
 	FlashBlockchain* flashChain;
 	Blockchain* blockchain;
+
+	File* baseDir;
 
 };
 
