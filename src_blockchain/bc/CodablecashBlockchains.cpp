@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "bc/Blockchains.h"
+#include "bc/CodablecashBlockchains.h"
 #include "bc/BlockchainsConfig.h"
 #include "bc_network/NetworkShardsStatus.h"
 #include "flash/FlashBlockchain.h"
@@ -16,7 +16,7 @@
 
 namespace codablecash {
 
-Blockchains::Blockchains(const BlockchainsConfig* config) {
+CodablecashBlockchains::CodablecashBlockchains(const BlockchainsConfig* config) {
 	this->config = new BlockchainsConfig(*config);
 	this->shardStatus = nullptr;
 	this->flashChain = nullptr;
@@ -24,7 +24,7 @@ Blockchains::Blockchains(const BlockchainsConfig* config) {
 	this->baseDir = new File(*config->baseFolder);
 }
 
-Blockchains::~Blockchains() {
+CodablecashBlockchains::~CodablecashBlockchains() {
 	delete this->config;
 	if(this->shardStatus != nullptr){
 		delete this->shardStatus;
@@ -40,13 +40,16 @@ Blockchains::~Blockchains() {
 	}
 }
 
-void Blockchains::init() {
+void CodablecashBlockchains::init() {
 	this->shardStatus = new NetworkShardsStatus(this->config->numShards);
 
 	File* flashBase = this->baseDir->get(L"flash");
 	StackRelease<File> __st_flashBase(flashBase);
-
 	this->flashChain = new FlashBlockchain(flashBase);
+
+    File* blockchainBase = this->baseDir->get(L"main");
+    StackRelease<File> st_blockchainBase(blockchainBase);
+    
 	this->blockchain = new Blockchain();
 
 }

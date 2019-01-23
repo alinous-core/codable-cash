@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#ifndef BC_BLOCKCHAINS_H_
-#define BC_BLOCKCHAINS_H_
+#ifndef BC_CODABLECASHBLOCKCHAINS_H_
+#define BC_CODABLECASHBLOCKCHAINS_H_
 
 namespace alinous {
 class File;
@@ -21,11 +21,11 @@ class FlashBlockchain;
 class Blockchain;
 
 
-class Blockchains {
+class CodablecashBlockchains {
 public:
-	Blockchains(const Blockchains& inst) = delete;
-	explicit Blockchains(const BlockchainsConfig* config);
-	virtual ~Blockchains();
+	CodablecashBlockchains(const CodablecashBlockchains& inst) = delete;
+	explicit CodablecashBlockchains(const BlockchainsConfig* config);
+	virtual ~CodablecashBlockchains();
 
 	void init();
 
@@ -41,4 +41,4 @@ private:
 
 } /* namespace codablecash */
 
-#endif /* BC_BLOCKCHAINS_H_ */
+#endif /* BC_CODABLECASHBLOCKCHAINS_H_ */

@@ -6,9 +6,9 @@
  */
 
 
+#include <bc/CodablecashBlockchains.h>
 #include "test_utils/t_macros.h"
 
-#include "bc/Blockchains.h"
 #include "bc/BlockchainsConfig.h"
 
 using namespace alinous;
@@ -32,7 +32,7 @@ TEST(TestBlockchainFrameworkGroup, constract){
 	BlockchainsConfig config;
 	config.baseFolder = new File(*baseDir);
 
-	Blockchains chains(&config);
+	CodablecashBlockchains chains(&config);
 
 	chains.init();
 
