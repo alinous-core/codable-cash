@@ -1,10 +1,5 @@
 
 set(__src
-	FeeIndex.cpp
-	FeeIndexKey.cpp
-	FeeIndexKeyFactory.cpp
-	FeeTransactionsListValue.cpp
-	FeeTransactionsListValueFactory.cpp
 	FposValue.cpp
 	IndexValueFactory.cpp
 	MemPool.cpp

@@ -9,7 +9,7 @@
 #include "mempool/MemPool.h"
 #include "mempool/TransactionStore.h"
 #include "mempool/TransactionIdIndex.h"
-#include "mempool/FeeIndex.h"
+#include "mempool_idx/FeeIndex.h"
 #include "mempool/TransactionRecord.h"
 
 #include "bc_base/Transaction.h"

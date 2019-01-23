@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "mempool/FeeIndexKeyFactory.h"
-#include "mempool/FeeIndexKey.h"
+#include "mempool_idx/FeeIndexKeyFactory.h"
+#include "mempool_idx/FeeIndexKey.h"
 
 namespace codablecash {
 
