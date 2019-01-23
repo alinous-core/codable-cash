@@ -17,7 +17,7 @@ class UnicodeString;
 
 class BigInteger {
 private:
-	BigInteger(const mpz_t mpvalue);
+	explicit BigInteger(const mpz_t mpvalue);
 public:
     BigInteger() = delete;
 	BigInteger(const BigInteger& inst);

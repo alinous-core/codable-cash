@@ -241,3 +241,41 @@ TEST(BigIntegerGroup, testShift05){
 	CHECK(shfted2.equals(&ff))
 }
 
+TEST(BigIntegerGroup, testabs){
+	BigInteger ff((int64_t)-10);
+	BigInteger ff2((int64_t)10);
+
+	BigInteger ans = ff.abs();
+	CHECK(ff2.equals(&ans))
+}
+
+TEST(BigIntegerGroup, testadd){
+	BigInteger ff((int64_t)-10);
+	BigInteger ff2((int64_t)10);
+	BigInteger ff3((int64_t)0);
+
+	BigInteger ans = ff.add(ff2);
+	CHECK(ans.equals(&ff3))
+}
+
+TEST(BigIntegerGroup, testsub){
+	BigInteger ff((int64_t)10);
+	BigInteger ff2((int64_t)10);
+	BigInteger ff3((int64_t)0);
+
+	BigInteger ans = ff.subtract(ff2);
+	CHECK(ans.equals(&ff3))
+}
+
+TEST(BigIntegerGroup, testtestbit){
+	BigInteger ff((int64_t)8);
+
+	CHECK(ff.testBit(0) == 0);
+	CHECK(ff.testBit(1) == 0);
+	CHECK(ff.testBit(2) == 0);
+	CHECK(ff.testBit(3) == 1);
+	CHECK(ff.testBit(4) == 0);
+}
+
+
+

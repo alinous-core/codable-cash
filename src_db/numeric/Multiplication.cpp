@@ -49,65 +49,9 @@ const BigInteger** Multiplication::initbigpows(bool ten) {
 }
 
 BigInteger Multiplication::powerOf10(int64_t exp) {
-    // PRE: exp >= 0
-	StackMultipleRelease<BigInteger> _st_bint;
+	BigInteger res(10);
 
-	int intExp = (int)exp;
-    // "SMALL POWERS"
-    if (exp < /*bigTenPows.length*/ 32) {
-        // The largest power that fit in 'long' type
-        return BigInteger(*bigTenPows[intExp]);
-    } else if (exp <= 50) {
-        // To calculate:    10^exp
-        return BigInteger(BigInteger(10)).pow(intExp);
-    } else if (exp <= 1000) {
-        // To calculate:    5^exp * 2^exp
-        return BigInteger(*bigFivePows[1]).pow(intExp).shiftLeft(intExp);
-    }
-    // "LARGE POWERS"
-    /*
-     * To check if there is free memory to allocate a BigInteger of the
-     * estimated size, measured in bytes: 1 + [exp / log10(2)]
-     */
-
-    long byteArraySize = 1 + (long)(exp / 2.4082399653118496);
-
-    //if (byteArraySize > Runtime.getRuntime().freeMemory()) {
-        // math.01=power of ten too big
-     //   throw new ArithmeticException(Messages.getString("math.01")); //$NON-NLS-1$
-    //}
-    if (exp <= Integer::MAX_VALUE) {
-        // To calculate:    5^exp * 2^exp
-        return BigInteger(*bigFivePows[1]).pow(intExp).shiftLeft(intExp);
-    }
-
-    /*
-     * "HUGE POWERS"
-     *
-     * This branch probably won't be executed since the power of ten is too
-     * big.
-     */
-    // To calculate:    5^exp
-    BigInteger powerOfFive = BigInteger(*bigFivePows[1]).pow(Integer::MAX_VALUE);
-    BigInteger res = powerOfFive;
-    int64_t longExp = exp - Integer::MAX_VALUE;
-
-    intExp = (int)(exp % Integer::MAX_VALUE);
-    while (longExp > Integer::MAX_VALUE) {
-        res = res.multiply(powerOfFive);
-        longExp -= Integer::MAX_VALUE;
-    }
-    res = res.multiply(BigInteger(*bigFivePows[1]).pow(intExp));
-    // To calculate:    5^exp << exp
-    res = res.shiftLeft(Integer::MAX_VALUE);
-    longExp = exp - Integer::MAX_VALUE;
-    while (longExp > Integer::MAX_VALUE) {
-        res = res.shiftLeft(Integer::MAX_VALUE);
-        longExp -= Integer::MAX_VALUE;
-    }
-    res = res.shiftLeft(intExp);
-    return res;
-
+	return res.pow(exp);
 }
 
 } /* namespace alinous */
