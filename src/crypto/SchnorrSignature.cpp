@@ -7,7 +7,7 @@
 
 #include "debug/debugMacros.h"
 
-#include "SchnorrSignature.h"
+#include "crypto/SchnorrSignature.h"
 
 namespace codablecash {
 

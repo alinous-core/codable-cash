@@ -7,7 +7,7 @@
 
 #include "debug/debugMacros.h"
 
-#include "Schnorr.h"
+#include "crypto/Schnorr.h"
 
 #include "osenv/memory.h"
 #include "yescrypt/sha256.h"
