@@ -6,6 +6,7 @@
  */
 
 
+#include "base_io/ByteBuffer.h"
 #include "test_utils/t_macros.h"
 
 #include "numeric/BigInteger.h"
@@ -277,5 +278,21 @@ TEST(BigIntegerGroup, testtestbit){
 	CHECK(ff.testBit(4) == 0);
 }
 
+TEST(BigIntegerGroup, binary){
+	UnicodeString bstr1(L"100000000000000000000000000000000000000");
+	BigInteger big1(&bstr1, 10);
+
+	ByteBuffer* buff = big1.toBinary();
+
+	BigInteger* ans = BigInteger::fromBinary((const char*)buff->array(), buff->capacity());
+
+	UnicodeString* str = ans->toString(10);
+
+	bool bl = bstr1.equals(str);
+
+	delete buff;
+	delete ans;
+	delete str;
+}
 
 

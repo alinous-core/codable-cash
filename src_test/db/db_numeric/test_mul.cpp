@@ -10,6 +10,7 @@
 #include "numeric/BigInteger.h"
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
+#include "base_io/ByteBuffer.h"
 
 using namespace alinous;
 
@@ -276,5 +277,4 @@ TEST(BigIntegerMulGroup, mul09){
 	bool blans = ans.equals(&big);
 	CHECK(blans)
 }
-
 
