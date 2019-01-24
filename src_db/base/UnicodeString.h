@@ -21,23 +21,11 @@ protected:
 	RawArrayPrimitive<wchar_t>* buff;
 	int __hashCode;
 public:
-	UnicodeString &operator=(const UnicodeString &o){
-		this->buff->reset();
+	UnicodeString &operator=(const UnicodeString &o);
 
-		int maxLoop = o.length();
-		for(int i = 0; i != maxLoop; ++i){
-			wchar_t ch = o.charAt(i);
-			append(ch);
-		}
 
-		return *this;
-	}
-
-	static UnicodeString str(const wchar_t* str) {
-		UnicodeString obj(str);
-		return obj;
-	}
 	UnicodeString(const UnicodeString& inst) noexcept;
+	UnicodeString() noexcept;
 
 	explicit UnicodeString(const wchar_t* str) noexcept;
 	explicit UnicodeString(const wchar_t* str, int cap) noexcept;

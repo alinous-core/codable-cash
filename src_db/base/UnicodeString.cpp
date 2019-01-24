@@ -25,9 +25,30 @@
 
 namespace alinous {
 
+UnicodeString& UnicodeString::operator=(const UnicodeString &o) {
+	if(&o != this){
+		if(this->buff == nullptr){
+			this->buff = new RawArrayPrimitive<wchar_t>(32);
+		}
+		this->buff->reset();
+
+		int maxLoop = o.length();
+		for(int i = 0; i != maxLoop; ++i){
+			wchar_t ch = o.charAt(i);
+			append(ch);
+		}
+	}
+
+	return *this;
+}
+
+UnicodeString::UnicodeString() noexcept {
+	this->buff = nullptr;
+	this->__hashCode = 0;
+}
 
 UnicodeString::UnicodeString(const wchar_t* str) noexcept {
-	this->buff =  new RawArrayPrimitive<wchar_t>(32);
+	this->buff = new RawArrayPrimitive<wchar_t>(32);
 	this->__hashCode = 0;
 	const wchar_t* ptr = str;
 	while(*ptr != 0){

@@ -21,6 +21,7 @@ class SchnorrSignature {
 public:
 	BigInteger* e, *y;
 
+	SchnorrSignature(const SchnorrSignature& inst) = delete;
 	SchnorrSignature(const BigInteger& e, const BigInteger& y);
 	virtual ~SchnorrSignature();
 };

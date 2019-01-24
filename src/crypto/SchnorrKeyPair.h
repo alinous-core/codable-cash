@@ -19,6 +19,8 @@ using namespace alinous;
 
 class SchnorrKeyPair {
 public:
+
+	SchnorrKeyPair(const SchnorrKeyPair& inst) = delete;
 	SchnorrKeyPair(const BigInteger& secretKey, const BigInteger& publicKey);
 	virtual ~SchnorrKeyPair();
 
