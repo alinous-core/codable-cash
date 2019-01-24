@@ -14,24 +14,24 @@
 
 using namespace alinous;
 
-TEST_GROUP(BigIntegerMulGroup) {
+TEST_GROUP(TestBigIntegerMulGroup) {
 	TEST_SETUP() {}
 	TEST_TEARDOWN() {}
 };
 
-TEST(BigIntegerMulGroup, mul01){
+TEST(TestBigIntegerMulGroup, mul01){
 	StackMultipleRelease<UnicodeString> rel;
 	BigInteger big1(100);
 	BigInteger big2(200);
 
 	BigInteger big = big1.multiply(big2);
 
-	UnicodeString* str0 = big.toString(); rel.add(str0);
+	UnicodeString str0 = big.toString();
 	UnicodeString ans(L"20000");
 	CHECK(ans.equals(str0))
 }
 
-TEST(BigIntegerMulGroup, mul02){
+TEST(TestBigIntegerMulGroup, mul02){
 	StackMultipleRelease<UnicodeString> rel;
 
 	UnicodeString bstr1(L"10");
@@ -41,12 +41,12 @@ TEST(BigIntegerMulGroup, mul02){
 
 	BigInteger big = big1.multiply(big2);
 
-	UnicodeString* str0 = big.toString(); rel.add(str0);
+	UnicodeString str0 = big.toString();
 	UnicodeString ans(L"1000");
 	CHECK(ans.equals(str0))
 }
 
-TEST(BigIntegerMulGroup, mul03){
+TEST(TestBigIntegerMulGroup, mul03){
 	StackMultipleRelease<UnicodeString> rel;
 
 	UnicodeString bstr1(L"10");
@@ -56,12 +56,12 @@ TEST(BigIntegerMulGroup, mul03){
 
 	BigInteger big = big1.multiply(big2);
 
-	UnicodeString* str0 = big.toString(); rel.add(str0);
+	UnicodeString str0 = big.toString();
 	UnicodeString ans(L"-1000");
 	CHECK(ans.equals(str0))
 }
 
-TEST(BigIntegerMulGroup, mul04){
+TEST(TestBigIntegerMulGroup, mul04){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;
@@ -79,7 +79,7 @@ TEST(BigIntegerMulGroup, mul04){
 	CHECK(blans)
 }
 
-TEST(BigIntegerMulGroup, mul05){
+TEST(TestBigIntegerMulGroup, mul05){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;
@@ -97,7 +97,7 @@ TEST(BigIntegerMulGroup, mul05){
 	CHECK(blans)
 }
 
-TEST(BigIntegerMulGroup, mul06){
+TEST(TestBigIntegerMulGroup, mul06){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;
@@ -119,7 +119,7 @@ TEST(BigIntegerMulGroup, mul06){
 	CHECK(blans)
 }
 
-TEST(BigIntegerMulGroup, mul06_1){
+TEST(TestBigIntegerMulGroup, mul06_1){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;
@@ -139,7 +139,7 @@ TEST(BigIntegerMulGroup, mul06_1){
 	CHECK(blans)
 }
 
-TEST(BigIntegerMulGroup, mul06_2){
+TEST(TestBigIntegerMulGroup, mul06_2){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;
@@ -158,7 +158,7 @@ TEST(BigIntegerMulGroup, mul06_2){
 }
 
 
-TEST(BigIntegerMulGroup, mul06_3){
+TEST(TestBigIntegerMulGroup, mul06_3){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;
@@ -176,7 +176,7 @@ TEST(BigIntegerMulGroup, mul06_3){
 	CHECK(blans)
 }
 
-TEST(BigIntegerMulGroup, mul06_4){
+TEST(TestBigIntegerMulGroup, mul06_4){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;
@@ -194,7 +194,7 @@ TEST(BigIntegerMulGroup, mul06_4){
 	CHECK(blans)
 }
 
-TEST(BigIntegerMulGroup, mul06_5){
+TEST(TestBigIntegerMulGroup, mul06_5){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;
@@ -212,7 +212,7 @@ TEST(BigIntegerMulGroup, mul06_5){
 }
 
 
-TEST(BigIntegerMulGroup, mul07){
+TEST(TestBigIntegerMulGroup, mul07){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;
@@ -234,7 +234,7 @@ TEST(BigIntegerMulGroup, mul07){
 	CHECK(blans)
 }
 
-TEST(BigIntegerMulGroup, mul08){
+TEST(TestBigIntegerMulGroup, mul08){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;
@@ -256,7 +256,7 @@ TEST(BigIntegerMulGroup, mul08){
 	CHECK(blans)
 }
 
-TEST(BigIntegerMulGroup, mul09){
+TEST(TestBigIntegerMulGroup, mul09){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;

@@ -13,12 +13,12 @@
 
 using namespace alinous;
 
-TEST_GROUP(BigIntegerDivGroup) {
+TEST_GROUP(TestBigIntegerDivGroup) {
 	TEST_SETUP() {}
 	TEST_TEARDOWN() {}
 };
 
-TEST(BigIntegerDivGroup, div01){
+TEST(TestBigIntegerDivGroup, div01){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;
@@ -36,7 +36,7 @@ TEST(BigIntegerDivGroup, div01){
 	CHECK(blans)
 }
 
-TEST(BigIntegerDivGroup, div02){
+TEST(TestBigIntegerDivGroup, div02){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;
@@ -54,7 +54,7 @@ TEST(BigIntegerDivGroup, div02){
 	CHECK(blans)
 }
 
-TEST(BigIntegerDivGroup, div03){
+TEST(TestBigIntegerDivGroup, div03){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;
@@ -72,7 +72,7 @@ TEST(BigIntegerDivGroup, div03){
 	CHECK(blans)
 }
 
-TEST(BigIntegerDivGroup, div04){
+TEST(TestBigIntegerDivGroup, div04){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;
@@ -90,7 +90,7 @@ TEST(BigIntegerDivGroup, div04){
 	CHECK(blans)
 }
 
-TEST(BigIntegerDivGroup, div05){
+TEST(TestBigIntegerDivGroup, div05){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;
@@ -108,7 +108,7 @@ TEST(BigIntegerDivGroup, div05){
 	CHECK(blans)
 }
 
-TEST(BigIntegerDivGroup, div06){
+TEST(TestBigIntegerDivGroup, div06){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;
@@ -130,7 +130,7 @@ TEST(BigIntegerDivGroup, div06){
 	CHECK(blans)
 }
 
-TEST(BigIntegerDivGroup, div07){
+TEST(TestBigIntegerDivGroup, div07){
 	StackMultipleRelease<UnicodeString> rel;
 
 	int radix = 10;
@@ -155,7 +155,7 @@ TEST(BigIntegerDivGroup, div07){
 	CHECK(blans)
 }
 
-TEST(BigIntegerDivGroup, div08){
+TEST(TestBigIntegerDivGroup, div08){
 
 	int32_t sval = 0xffffffff;
 	uint32_t uval = 0xffffffff;

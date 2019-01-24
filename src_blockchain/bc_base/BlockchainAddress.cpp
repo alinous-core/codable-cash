@@ -35,8 +35,8 @@ BlockchainAddress* BlockchainAddress::createAddress(const NetworkShard* shard) n
 	SchnorrKeyPair* key = Schnorr::generateKey();
 	StackRelease<SchnorrKeyPair> __st_key(key);
 
-	ByteBuffer* pub = Schnorr::toByteBuffer(key->publicKey);
-	ByteBuffer* sec = Schnorr::toByteBuffer(key->secretKey);
+	ByteBuffer* pub = Schnorr::toByteBuffer(*key->publicKey);
+	ByteBuffer* sec = Schnorr::toByteBuffer(*key->secretKey);
 	address->pubkey = pub;
 	address->secretkey = sec;
 

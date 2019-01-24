@@ -8,19 +8,20 @@
 #include "debug/debugMacros.h"
 
 #include "crypto/SchnorrSignature.h"
+#include "numeric/BigInteger.h"
 
 namespace codablecash {
 
 using namespace std;
 
-SchnorrSignature::SchnorrSignature(mpz_t e, mpz_t y) {
-	mpz_init_set(this->e, e);
-	mpz_init_set(this->y, y);
+SchnorrSignature::SchnorrSignature(const BigInteger& e, const BigInteger& y) {
+	this->e = new BigInteger(e);
+	this->y = new BigInteger(y);
 }
 
 SchnorrSignature::~SchnorrSignature() {
-	mpz_clear(this->e);
-	mpz_clear(this->y);
+	delete this->e;
+	delete this->y;
 }
 
 } /* namespace codablecash */

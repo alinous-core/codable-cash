@@ -552,6 +552,10 @@ int UnicodeString::isEmpty() const noexcept {
 	return this->buff->size() == 0;
 }
 
+bool UnicodeString::equals(const UnicodeString& str) const noexcept {
+	return equals(&str);
+}
+
 bool UnicodeString::equals(const UnicodeString* str) const noexcept
 {
 	int hash = str->hashCode();

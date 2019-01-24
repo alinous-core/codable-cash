@@ -15,19 +15,19 @@
 
 using namespace alinous;
 
-TEST_GROUP(BigIntegerGroup) {
+TEST_GROUP(TestBigIntegerGroup) {
 	TEST_SETUP() {}
 	TEST_TEARDOWN() {}
 };
 
-TEST(BigIntegerGroup, negate){
+TEST(TestBigIntegerGroup, negate){
 	BigInteger big1(100);
 	BigInteger big2 = big1.negate();
 
 	CHECK(big2.longValue() == -100)
 }
 
-TEST(BigIntegerGroup, classval){
+TEST(TestBigIntegerGroup, classval){
 	BigInteger big1(100);
 	BigInteger big2(200);
 
@@ -37,7 +37,7 @@ TEST(BigIntegerGroup, classval){
 	CHECK(bl);
 }
 
-TEST(BigIntegerGroup, construct01){
+TEST(TestBigIntegerGroup, construct01){
 	BigInteger* big = new BigInteger(100);
 
 	int64_t v = big->longValue();
@@ -46,7 +46,7 @@ TEST(BigIntegerGroup, construct01){
 	delete big;
 }
 
-TEST(BigIntegerGroup, construct02){
+TEST(TestBigIntegerGroup, construct02){
 	BigInteger* big = new BigInteger(-100);
 
 	int64_t v = big->longValue();
@@ -55,7 +55,7 @@ TEST(BigIntegerGroup, construct02){
 	delete big;
 }
 
-TEST(BigIntegerGroup, construct03){
+TEST(TestBigIntegerGroup, construct03){
 	UnicodeString str(L"100");
 
 	BigInteger* big = new BigInteger(&str);
@@ -66,7 +66,7 @@ TEST(BigIntegerGroup, construct03){
 	delete big;
 }
 
-TEST(BigIntegerGroup, construct04){
+TEST(TestBigIntegerGroup, construct04){
 	UnicodeString str(L"-100");
 
 	BigInteger* big = new BigInteger(&str);
@@ -77,7 +77,7 @@ TEST(BigIntegerGroup, construct04){
 	delete big;
 }
 
-TEST(BigIntegerGroup, construct05){
+TEST(TestBigIntegerGroup, construct05){
 	UnicodeString str(L"0");
 
 	BigInteger* big = new BigInteger(&str);
@@ -88,7 +88,7 @@ TEST(BigIntegerGroup, construct05){
 	delete big;
 }
 
-TEST(BigIntegerGroup, construct06){
+TEST(TestBigIntegerGroup, construct06){
 	UnicodeString str(L"100");
 
 	BigInteger* big = new BigInteger(&str, 10);
@@ -103,7 +103,7 @@ static bool testToString(UnicodeString* str, int radix) {
 	{
 		BigInteger* big = new BigInteger(str, radix);
 
-		UnicodeString* str2 = big->toString(16);
+		UnicodeString str2 = big->toString(16);
 
 		BigInteger* big2 = new BigInteger(str2, 16);
 
@@ -112,7 +112,6 @@ static bool testToString(UnicodeString* str, int radix) {
 			return false;
 		}
 
-		delete str2;
 		delete big;
 		delete big2;
 	}
@@ -120,7 +119,7 @@ static bool testToString(UnicodeString* str, int radix) {
 	{
 		BigInteger* big = new BigInteger(str, 10);
 
-		UnicodeString* str2 = big->toString(10);
+		UnicodeString str2 = big->toString(10);
 
 		BigInteger* big2 = new BigInteger(str2, 10);
 
@@ -129,7 +128,6 @@ static bool testToString(UnicodeString* str, int radix) {
 			return false;
 		}
 
-		delete str2;
 		delete big;
 		delete big2;
 	}
@@ -137,7 +135,7 @@ static bool testToString(UnicodeString* str, int radix) {
 	{
 		BigInteger* big = new BigInteger(str, 10);
 
-		UnicodeString* str2 = big->toString(12);
+		UnicodeString str2 = big->toString(12);
 
 		BigInteger* big2 = new BigInteger(str2, 12);
 
@@ -146,7 +144,6 @@ static bool testToString(UnicodeString* str, int radix) {
 			return false;
 		}
 
-		delete str2;
 		delete big;
 		delete big2;
 	}
@@ -154,7 +151,7 @@ static bool testToString(UnicodeString* str, int radix) {
 	return true;
 }
 
-TEST(BigIntegerGroup, construct07){
+TEST(TestBigIntegerGroup, construct07){
 	{
 		UnicodeString str(L"878824397432651481891353247987891423768534321387864361143548364457698487264387568743568743265873246576467643756437657436587436");
 		bool chk = testToString(&str, 10);
@@ -197,7 +194,7 @@ TEST(BigIntegerGroup, construct07){
 	}
 }
 
-TEST(BigIntegerGroup, testShift01){
+TEST(TestBigIntegerGroup, testShift01){
 	BigInteger ff(L"0xff", 16);
 	BigInteger shfted = ff.shiftLeft(8);
 
@@ -206,7 +203,7 @@ TEST(BigIntegerGroup, testShift01){
 	CHECK(shfted.equals(&ans))
 }
 
-TEST(BigIntegerGroup, testShift02){
+TEST(TestBigIntegerGroup, testShift02){
 	BigInteger ff(L"0xff", 16);
 	BigInteger shfted = ff.rightShift(-8);
 
@@ -215,7 +212,7 @@ TEST(BigIntegerGroup, testShift02){
 	CHECK(shfted.equals(&ans))
 }
 
-TEST(BigIntegerGroup, testShift03){
+TEST(TestBigIntegerGroup, testShift03){
 	BigInteger ff(L"0xff", 16);
 	BigInteger shfted = ff.rightShift(8);
 
@@ -224,7 +221,7 @@ TEST(BigIntegerGroup, testShift03){
 	CHECK(shfted.equals(&ans))
 }
 
-TEST(BigIntegerGroup, testShift04){
+TEST(TestBigIntegerGroup, testShift04){
 	BigInteger ff(L"0xff", 16);
 	BigInteger shfted = ff.shiftLeft(-8);
 
@@ -233,7 +230,7 @@ TEST(BigIntegerGroup, testShift04){
 	CHECK(shfted.equals(&ans))
 }
 
-TEST(BigIntegerGroup, testShift05){
+TEST(TestBigIntegerGroup, testShift05){
 	BigInteger ff((int64_t)10);
 	BigInteger shfted = ff.shiftLeft(0);
 	BigInteger shfted2 = ff.rightShift(0);
@@ -242,7 +239,7 @@ TEST(BigIntegerGroup, testShift05){
 	CHECK(shfted2.equals(&ff))
 }
 
-TEST(BigIntegerGroup, testabs){
+TEST(TestBigIntegerGroup, testabs){
 	BigInteger ff((int64_t)-10);
 	BigInteger ff2((int64_t)10);
 
@@ -250,7 +247,7 @@ TEST(BigIntegerGroup, testabs){
 	CHECK(ff2.equals(&ans))
 }
 
-TEST(BigIntegerGroup, testadd){
+TEST(TestBigIntegerGroup, testadd){
 	BigInteger ff((int64_t)-10);
 	BigInteger ff2((int64_t)10);
 	BigInteger ff3((int64_t)0);
@@ -259,7 +256,7 @@ TEST(BigIntegerGroup, testadd){
 	CHECK(ans.equals(&ff3))
 }
 
-TEST(BigIntegerGroup, testsub){
+TEST(TestBigIntegerGroup, testsub){
 	BigInteger ff((int64_t)10);
 	BigInteger ff2((int64_t)10);
 	BigInteger ff3((int64_t)0);
@@ -268,7 +265,7 @@ TEST(BigIntegerGroup, testsub){
 	CHECK(ans.equals(&ff3))
 }
 
-TEST(BigIntegerGroup, testtestbit){
+TEST(TestBigIntegerGroup, testtestbit){
 	BigInteger ff((int64_t)8);
 
 	CHECK(ff.testBit(0) == 0);
@@ -278,7 +275,7 @@ TEST(BigIntegerGroup, testtestbit){
 	CHECK(ff.testBit(4) == 0);
 }
 
-TEST(BigIntegerGroup, binary){
+TEST(TestBigIntegerGroup, binary){
 	UnicodeString bstr1(L"100000000000000000000000000000000000000");
 	BigInteger big1(&bstr1, 10);
 
@@ -286,13 +283,21 @@ TEST(BigIntegerGroup, binary){
 
 	BigInteger* ans = BigInteger::fromBinary((const char*)buff->array(), buff->capacity());
 
-	UnicodeString* str = ans->toString(10);
+	UnicodeString str = ans->toString(10);
 
 	bool bl = bstr1.equals(str);
 
 	delete buff;
 	delete ans;
-	delete str;
+}
+
+TEST(TestBigIntegerGroup, mod){
+	BigInteger big1(UnicodeString(L"11"), 10);
+	BigInteger big2(UnicodeString(L"100"));
+
+	BigInteger ans = big1.mod(big2);
+	bool res = ans.toString().equals(UnicodeString(L"11"));
+	CHECK(res)
 }
 
 

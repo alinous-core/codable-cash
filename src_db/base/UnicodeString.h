@@ -21,14 +21,30 @@ protected:
 	RawArrayPrimitive<wchar_t>* buff;
 	int __hashCode;
 public:
-	UnicodeString &operator=(const UnicodeString &o) = delete;
+	UnicodeString &operator=(const UnicodeString &o){
+		this->buff->reset();
+
+		int maxLoop = o.length();
+		for(int i = 0; i != maxLoop; ++i){
+			wchar_t ch = o.charAt(i);
+			append(ch);
+		}
+
+		return *this;
+	}
+
+	static UnicodeString str(const wchar_t* str) {
+		UnicodeString obj(str);
+		return obj;
+	}
+	UnicodeString(const UnicodeString& inst) noexcept;
 
 	explicit UnicodeString(const wchar_t* str) noexcept;
 	explicit UnicodeString(const wchar_t* str, int cap) noexcept;
 	//explicit UnicodeString(const wchar_t* str, int offset, int count) noexcept;
 	explicit UnicodeString(const char* str) noexcept;
 	explicit UnicodeString(const UnicodeString* ptr) noexcept;
-	explicit UnicodeString(const UnicodeString& inst) noexcept;
+
 
 	virtual ~UnicodeString();
 
@@ -85,6 +101,7 @@ public:
 	wchar_t charAt(int index) const noexcept;
 	int isEmpty() const noexcept;
 	bool equals(const UnicodeString* str) const noexcept;
+	bool equals(const UnicodeString& str) const noexcept;
 
 	bool __equals(const UnicodeString* str) const noexcept;
 

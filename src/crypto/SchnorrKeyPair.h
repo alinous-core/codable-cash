@@ -10,15 +10,20 @@
 
 #include <gmp.h>
 
+namespace alinous {
+class BigInteger;
+}
+
 namespace codablecash {
+using namespace alinous;
 
 class SchnorrKeyPair {
 public:
-	SchnorrKeyPair(mpz_t secretKey, mpz_t publicKey);
+	SchnorrKeyPair(const BigInteger& secretKey, const BigInteger& publicKey);
 	virtual ~SchnorrKeyPair();
 
-	mpz_t secretKey;
-	mpz_t publicKey;
+	BigInteger* secretKey;
+	BigInteger* publicKey;
 };
 
 } /* namespace codablecash */

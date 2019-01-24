@@ -14,6 +14,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#include "numeric/BigInteger.h"
 
 namespace alinous {
 class ByteBuffer;
@@ -24,9 +25,9 @@ using namespace alinous;
 
 class SchnorrConsts {
 public:
-	mpz_t Q;
-	mpz_t Q_1;
-	mpz_t G;
+	const BigInteger Q;
+	const BigInteger Q_1;
+	const BigInteger G;
 
 	SchnorrConsts();
 	~SchnorrConsts();
@@ -39,14 +40,14 @@ public:
 	static SchnorrConsts cnsts;
 
 	static SchnorrKeyPair* generateKey();
-	static SchnorrSignature* sign(const mpz_t s, const mpz_t p, const uint8_t* data, size_t size);
-	static bool verify(const mpz_t e, const mpz_t y, const mpz_t p, const uint8_t* data, size_t size);
-	static bool verify(const SchnorrSignature* sig, const mpz_t p, const uint8_t* data, size_t size);
+	static SchnorrSignature* sign(const BigInteger& s, const BigInteger& p, const uint8_t* data, size_t size);
+	static bool verify(const BigInteger& e, const BigInteger& y, const BigInteger& p, const uint8_t* data, size_t size);
+	static bool verify(const SchnorrSignature& sig, const BigInteger& p, const uint8_t* data, size_t size);
 
 	Schnorr();
 	virtual ~Schnorr();
 
-	static ByteBuffer* toByteBuffer(const mpz_t s) noexcept;
+	static ByteBuffer* toByteBuffer(const BigInteger& s) noexcept;
 
 };
 
