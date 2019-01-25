@@ -9,9 +9,15 @@
 #define FLASH_ABSTRACTFLASHBLOCK_H_
 #include <cstdint>
 
+#include "base/ArrayList.h"
+
 namespace codablecash {
+using namespace alinous;
+
+class AbstractTransaction;
 
 class MinerSignature;
+class AbstractFlashBlockHeader;
 
 class AbstractFlashBlock {
 public:
@@ -24,8 +30,8 @@ public:
 
 protected:
 	uint8_t type;
-	uint64_t height;
-	MinerSignature* minerSig;
+	AbstractFlashBlockHeader* header;
+	ArrayList<AbstractTransaction> list;
 };
 
 } /* namespace codablecash */

@@ -22,6 +22,7 @@ protected:
 	ByteBuffer(const uint8_t* buffer, int length);
 public:
 	static ByteBuffer* allocate(const int capacity) noexcept;
+	static ByteBuffer* wrap(const char* buffer, int length);
 	static ByteBuffer* wrap(const uint8_t* buffer, int length);
 	static ByteBuffer* allocateWithEndian(const int capacity, bool bigEndian) noexcept;
 	static ByteBuffer* wrapWithEndian(const uint8_t* buffer, int length, bool bigEndian) noexcept(false);

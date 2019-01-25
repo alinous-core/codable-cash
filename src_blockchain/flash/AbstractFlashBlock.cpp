@@ -6,18 +6,19 @@
  */
 
 #include "flash/AbstractFlashBlock.h"
+
+#include "bc_base/AbstractTransaction.h"
 #include "MinerSignature.h"
 
 namespace codablecash {
 
 AbstractFlashBlock::AbstractFlashBlock(uint8_t type) {
 	this->type = type;
-	this->height = 0;
-	this->minerSig = nullptr;
+	this->header = nullptr;
 }
 
 AbstractFlashBlock::~AbstractFlashBlock() {
-	delete this->minerSig;
+	this->list.deleteElements();
 }
 
 

@@ -19,6 +19,7 @@ class BalanceUnit;
 class AbstractTransaction : public IBlockObject {
 public:
 	static const constexpr char TYPE_SEND_BALANCE = 1;
+	static const constexpr char TYPE_TICKET = 2;
 
 	AbstractTransaction(const AbstractTransaction& inst);
 	explicit AbstractTransaction(int type);

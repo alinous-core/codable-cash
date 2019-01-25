@@ -39,6 +39,10 @@ ByteBuffer* ByteBuffer::allocate(const int capacity) noexcept {
 	return buff;
 }
 
+ByteBuffer* ByteBuffer::wrap(const char* buffer, int length) {
+	return wrap((const uint8_t*)buffer, length);
+}
+
 ByteBuffer* ByteBuffer::wrap(const uint8_t* buffer, int length) {
 	ByteBuffer* buff = new ByteBuffer(buffer, length);
 	return buff;

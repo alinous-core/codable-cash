@@ -9,6 +9,7 @@
 #define BASE_STACKRELEASE_H_
 
 #include "ArrayList.h"
+#include <type_traits>
 
 namespace alinous {
 
@@ -63,6 +64,8 @@ private:
 #define _ST(clazz, ref, getPtr) \
 	clazz* ref = getPtr; \
 	StackRelease<clazz> __r_##ref(ref);
+
+#define __STP(obj) StackRelease<std::remove_pointer<decltype(obj)>::type> __st_##obj##__(obj)
 
 
 } /* namespace alinous */
