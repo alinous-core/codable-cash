@@ -169,15 +169,15 @@ void UnicodeString::__closeString() noexcept {
 }
 
 
-UnicodeString* UnicodeString::append(const wchar_t ch) noexcept
+UnicodeString& UnicodeString::append(const wchar_t ch) noexcept
 {
 	__append(ch);
 	__closeString();
 
-	return this;
+	return *this;
 }
 
-UnicodeString* UnicodeString::append(const wchar_t* str) noexcept
+UnicodeString& UnicodeString::append(const wchar_t* str) noexcept
 {
 	int len = Mem::wstrlen(str);
 	for(int i = 0; i != len; ++i){
@@ -186,37 +186,37 @@ UnicodeString* UnicodeString::append(const wchar_t* str) noexcept
 	}
 
 	__closeString();
-	return this;
+	return *this;
 }
 
-UnicodeString* UnicodeString::append(const wchar_t* str, int len) noexcept {
+UnicodeString& UnicodeString::append(const wchar_t* str, int len) noexcept {
 	for(int i = 0; i != len; ++i){
 		wchar_t ch = str[i];
 		__append(ch);
 	}
 
 	__closeString();
-	return this;
+	return *this;
 }
 
-UnicodeString* UnicodeString::append(const int16_t* str, int offset, int len) noexcept {
+UnicodeString& UnicodeString::append(const int16_t* str, int offset, int len) noexcept {
 	for(int i = 0; i != len; ++i){
 		wchar_t ch = str[offset + i];
 		__append(ch);
 	}
 
 	__closeString();
-	return this;
+	return *this;
 }
 
-UnicodeString* UnicodeString::append(const wchar_t* str, int offset, int len) noexcept {
+UnicodeString& UnicodeString::append(const wchar_t* str, int offset, int len) noexcept {
 	for(int i = 0; i != len; ++i){
 		wchar_t ch = str[offset + i];
 		__append(ch);
 	}
 
 	__closeString();
-	return this;
+	return *this;
 }
 
 UnicodeString* UnicodeString::valueOf(const int16_t* str, int offset, int len) {
@@ -230,7 +230,7 @@ UnicodeString* UnicodeString::valueOf(const int16_t* str, int offset, int len) {
 	return ret;
 }
 
-UnicodeString* UnicodeString::append(const UnicodeString* str) noexcept {
+UnicodeString& UnicodeString::append(const UnicodeString* str) noexcept {
 	int len = str->length();
 
 	for(int i = 0; i != len; ++i){
@@ -240,10 +240,10 @@ UnicodeString* UnicodeString::append(const UnicodeString* str) noexcept {
 
 	__closeString();
 
-	return this;
+	return *this;
 }
 
-UnicodeString* UnicodeString::append(const int v) noexcept
+UnicodeString& UnicodeString::append(const int v) noexcept
 {
 	int value = v;
 	if(value < 0){
@@ -268,7 +268,7 @@ UnicodeString* UnicodeString::append(const int v) noexcept
 
 	__closeString();
 
-	return this;
+	return *this;
 }
 
 UnicodeString* UnicodeString::replace(wchar_t last, wchar_t next) const noexcept {

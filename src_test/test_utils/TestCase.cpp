@@ -156,15 +156,15 @@ void TestCase::exportJUnitXML(Writer* writer) const {
 	UnicodeString milStr(buff);
 
 	UnicodeString caseStr(L"    <testcase classname=\"");
-	caseStr.append(this->group->getName())->append(L"\" name=\"")->append(this->name)->append(L"\" time=\"")
-			->append(&milStr)->append(L"\">\n");
+	caseStr.append(this->group->getName()).append(L"\" name=\"").append(this->name).append(L"\" time=\"")
+			.append(&milStr).append(L"\">\n");
 	writer->write(&caseStr);
 
 	if(failed){
 		writer->write(L"      <failure>\n");
 
 		UnicodeString failure(L"");
-		failure.append(this->file)->append(L" at ")->append(this->line)->append(L"\n");
+		failure.append(this->file).append(L" at ").append(this->line).append(L"\n");
 		writer->write(L"        ");
 		writer->write(&failure);
 

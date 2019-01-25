@@ -40,13 +40,13 @@ private:
 	UnicodeString* __append(wchar_t ch) noexcept;
 	void __closeString() noexcept;
 public:
-	UnicodeString* append(const wchar_t ch) noexcept;
-	UnicodeString* append(const UnicodeString* str) noexcept;
-	UnicodeString* append(const int value) noexcept;
-	UnicodeString* append(const wchar_t* str) noexcept;
-	UnicodeString* append(const wchar_t* str, int len) noexcept;
-	UnicodeString* append(const int16_t* str, int offset, int len) noexcept;
-	UnicodeString* append(const wchar_t* str, int offset, int len) noexcept;
+	UnicodeString& append(const wchar_t ch) noexcept;
+	UnicodeString& append(const UnicodeString* str) noexcept;
+	UnicodeString& append(const int value) noexcept;
+	UnicodeString& append(const wchar_t* str) noexcept;
+	UnicodeString& append(const wchar_t* str, int len) noexcept;
+	UnicodeString& append(const int16_t* str, int offset, int len) noexcept;
+	UnicodeString& append(const wchar_t* str, int offset, int len) noexcept;
 
 	static UnicodeString* valueOf(const int16_t* str, int offset, int len);
 

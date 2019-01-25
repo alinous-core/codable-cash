@@ -83,7 +83,7 @@ TEST(TestUnicodeStringTestGroup, buffer){
 	UnicodeString str01(L"Hello");
 	UnicodeString str(L"", 2);
 
-	str.append(L'H')->append(L'e');
+	str.append(L'H').append(L'e');
 
 	str.append(L'l');
 	str.append(L'l');
@@ -96,7 +96,7 @@ TEST(TestUnicodeStringTestGroup, buffer_cstr){
 	UnicodeString str01(L"HelloHello");
 	UnicodeString str("Hello");
 
-	str.append(L'H')->append(L'e');
+	str.append(L'H').append(L'e');
 
 	str.append(L'l');
 	str.append(L'l');
