@@ -6,16 +6,20 @@
  */
 
 #include "flash/AbstractFlashBlock.h"
+#include "MinerSignature.h"
 
 namespace codablecash {
 
+AbstractFlashBlock::AbstractFlashBlock(uint8_t type) {
+	this->type = type;
+	this->height = 0;
+	this->minerSig = nullptr;
+}
+
 AbstractFlashBlock::~AbstractFlashBlock() {
-	// TODO Auto-generated destructor stub
+	delete this->minerSig;
 }
 
-AbstractFlashBlock::AbstractFlashBlock() {
-	// TODO Auto-generated constructor stub
 
-}
 
 } /* namespace codablecash */

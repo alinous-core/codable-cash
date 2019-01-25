@@ -5,12 +5,11 @@
  *      Author: iizuka
  */
 
-#include <flash/PoWGeneratedBlock.h>
+#include "flash/PoWGeneratedBlock.h"
 
 namespace codablecash {
 
-PoWGeneratedBlock::PoWGeneratedBlock() {
-	// TODO Auto-generated constructor stub
+PoWGeneratedBlock::PoWGeneratedBlock() : AbstractFlashBlock(AbstractFlashBlock::BLK_POW) {
 
 }
 

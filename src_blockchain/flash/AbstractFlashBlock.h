@@ -11,13 +11,21 @@
 
 namespace codablecash {
 
+class MinerSignature;
+
 class AbstractFlashBlock {
 public:
+	static const constexpr uint8_t BLK_TICKET{0x01};
+	static const constexpr uint8_t BLK_POW{0x02};
+
+	AbstractFlashBlock(uint8_t type);
 	virtual ~AbstractFlashBlock();
-	AbstractFlashBlock();
+
 
 protected:
+	uint8_t type;
 	uint64_t height;
+	MinerSignature* minerSig;
 };
 
 } /* namespace codablecash */

@@ -3,6 +3,7 @@
 set(__src
 	AbstractFlashBlock.cpp
 	FlashBlockchain.cpp
+	MinerSignature.cpp
 	PoWGeneratedBlock.cpp
 	TicketGeneratedBlock.cpp
 )

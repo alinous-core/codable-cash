@@ -8,7 +8,7 @@
 #ifndef FLASH_TICKETGENERATEDBLOCK_H_
 #define FLASH_TICKETGENERATEDBLOCK_H_
 
-#include <flash/AbstractFlashBlock.h>
+#include "flash/AbstractFlashBlock.h"
 
 namespace codablecash {
 

@@ -9,13 +9,11 @@
 
 namespace codablecash {
 
-TicketGeneratedBlock::TicketGeneratedBlock() {
-	// TODO Auto-generated constructor stub
+TicketGeneratedBlock::TicketGeneratedBlock() : AbstractFlashBlock(AbstractFlashBlock::BLK_TICKET) {
 
 }
 
 TicketGeneratedBlock::~TicketGeneratedBlock() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace codablecash */
