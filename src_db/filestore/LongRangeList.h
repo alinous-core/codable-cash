@@ -9,7 +9,7 @@
 #define FILESTORE_LONGRANGELIST_H_
 
 #include "base/ArrayList.h"
-#include <inttypes.h>
+#include <cstdint>
 
 namespace alinous {
 

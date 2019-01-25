@@ -8,7 +8,7 @@
 #ifndef BASE_RAWBITSET_H_
 #define BASE_RAWBITSET_H_
 
-#include <inttypes.h>
+#include <cstdint>
 
 namespace alinous {
 

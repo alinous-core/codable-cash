@@ -8,7 +8,7 @@
 #ifndef NUMERIC_BIGINTEGER_H_
 #define NUMERIC_BIGINTEGER_H_
 
-#include <inttypes.h>
+#include <cstdint>
 #include <gmp.h>
 
 namespace alinous {

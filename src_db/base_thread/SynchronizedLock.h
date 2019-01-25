@@ -9,7 +9,7 @@
 #define BASE_THREAD_SYNCHRONIZEDLOCK_H_
 
 #include <pthread.h>
-#include <inttypes.h>
+#include <cstdint>
 
 #include "base_thread/ILock.h"
 #include "base_thread/LockCondition.h"

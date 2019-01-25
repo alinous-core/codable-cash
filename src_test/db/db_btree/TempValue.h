@@ -8,7 +8,7 @@
 #ifndef DB_BTREE_TEMPVALUE_H_
 #define DB_BTREE_TEMPVALUE_H_
 
-#include <inttypes.h>
+#include <cstdint>
 
 #include "filestore_block/IBlockObject.h"
 #include "btree/AbstractBtreeDataFactory.h"

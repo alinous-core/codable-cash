@@ -9,7 +9,7 @@
 #define BTREE_ABSTRACTTREENODE_H_
 
 #include "filestore_block/IBlockObject.h"
-#include <inttypes.h>
+#include <cstdint>
 #include "base/RawArrayPrimitive.h"
 
 namespace alinous {

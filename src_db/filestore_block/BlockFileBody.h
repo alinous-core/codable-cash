@@ -8,7 +8,7 @@
 #ifndef FILESTORE_BLOCK_BLOCKFILEBODY_H_
 #define FILESTORE_BLOCK_BLOCKFILEBODY_H_
 
-#include <inttypes.h>
+#include <cstdint>
 
 namespace alinous {
 

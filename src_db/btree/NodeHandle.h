@@ -10,7 +10,7 @@
 
 #include "base/RawArrayPrimitive.h"
 
-#include <inttypes.h>
+#include <cstdint>
 
 namespace alinous {
 

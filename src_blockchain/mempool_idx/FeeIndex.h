@@ -8,7 +8,7 @@
 #ifndef MEMPOOL_FEEINDEX_H_
 #define MEMPOOL_FEEINDEX_H_
 
-#include <inttypes.h>
+#include <cstdint>
 
 namespace alinous {
 class File;

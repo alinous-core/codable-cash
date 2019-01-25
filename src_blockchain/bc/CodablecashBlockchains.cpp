@@ -26,18 +26,11 @@ CodablecashBlockchains::CodablecashBlockchains(const BlockchainsConfig* config) 
 
 CodablecashBlockchains::~CodablecashBlockchains() {
 	delete this->config;
-	if(this->shardStatus != nullptr){
-		delete this->shardStatus;
-	}
-	if(this->flashChain != nullptr){
-		delete this->flashChain;
-	}
-	if(this->blockchain != nullptr){
-		delete this->blockchain;
-	}
-	if(this->baseDir != nullptr){
-		delete this->baseDir;
-	}
+	delete this->shardStatus;
+	delete this->flashChain;
+	delete this->blockchain;
+	delete this->baseDir;
+
 }
 
 void CodablecashBlockchains::init() {

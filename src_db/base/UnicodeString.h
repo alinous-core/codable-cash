@@ -11,7 +11,7 @@
 #include "RawArrayPrimitive.h"
 #include "ArrayList.h"
 
-#include <inttypes.h>
+#include <cstdint>
 
 namespace alinous {
 

@@ -8,7 +8,7 @@
 #ifndef BC_BASE_BALANCEUNIT_H_
 #define BC_BASE_BALANCEUNIT_H_
 
-#include <inttypes.h>
+#include <cstdint>
 
 #include "filestore_block/IBlockObject.h"
 

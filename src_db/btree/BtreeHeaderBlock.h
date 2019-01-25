@@ -8,7 +8,7 @@
 #ifndef BTREE_BTREEHEADERBLOCK_H_
 #define BTREE_BTREEHEADERBLOCK_H_
 
-#include <inttypes.h>
+#include <cstdint>
 
 #include "filestore_block/IBlockObject.h"
 

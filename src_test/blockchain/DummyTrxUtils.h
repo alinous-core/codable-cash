@@ -8,7 +8,7 @@
 #ifndef BLOCKCHAIN_DUMMYTRXUTILS_H_
 #define BLOCKCHAIN_DUMMYTRXUTILS_H_
 
-#include <inttypes.h>
+#include <cstdint>
 
 namespace codablecash {
 

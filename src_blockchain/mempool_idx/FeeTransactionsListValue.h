@@ -8,7 +8,7 @@
 #ifndef MEMPOOL_FEETRANSACTIONSLISTVALUE_H_
 #define MEMPOOL_FEETRANSACTIONSLISTVALUE_H_
 
-#include <inttypes.h>
+#include <cstdint>
 #include "filestore_block/IBlockObject.h"
 #include "base/RawArrayPrimitive.h"
 

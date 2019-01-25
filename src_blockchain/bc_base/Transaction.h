@@ -8,7 +8,7 @@
 #ifndef BC_BASE_TRANSACTION_H_
 #define BC_BASE_TRANSACTION_H_
 
-#include <inttypes.h>
+#include <cstdint>
 
 #include "bc_base/AbstractTransaction.h"
 

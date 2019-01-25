@@ -8,7 +8,7 @@
 #ifndef BTREE_BTREESTORAGE_H_
 #define BTREE_BTREESTORAGE_H_
 
-#include <inttypes.h>
+#include <cstdint>
 
 #include "base_thread/SynchronizedLock.h"
 

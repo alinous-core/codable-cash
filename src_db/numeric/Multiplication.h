@@ -8,7 +8,7 @@
 #ifndef NUMERIC_MULTIPLICATION_H_
 #define NUMERIC_MULTIPLICATION_H_
 
-#include <inttypes.h>
+#include <cstdint>
 
 namespace alinous {
 
