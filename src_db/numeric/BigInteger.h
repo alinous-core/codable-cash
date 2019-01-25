@@ -22,11 +22,7 @@ private:
 public:
     BigInteger() = delete;
 	BigInteger(const BigInteger& inst);
-	BigInteger &operator=(const BigInteger &inst){
-		mpz_set(this->value, inst.value);
-
-		return(*this);
-	}
+	BigInteger &operator=(const BigInteger &inst);
 
 	explicit BigInteger(const wchar_t* str, int radix);
 	explicit BigInteger(int64_t value);

@@ -22,6 +22,13 @@
 
 namespace alinous {
 
+BigInteger& BigInteger::operator =(const BigInteger& inst) {
+	if(this != &inst){
+		mpz_set(this->value, inst.value);
+	}
+	return(*this);
+}
+
 BigInteger::BigInteger(const mpz_t mpvalue) {
 	mpz_init_set(this->value, mpvalue);
 }
