@@ -71,10 +71,13 @@ TEST(TestPoW, calchash){
 TEST(TestPoW, calcnoncehash){
 	NonceCalc calc;
 
-	BigInteger brate((int64_t)0xFFFFFFFF);
-	BigInteger diff = calc.calcNecessaryDifficulty(brate, 10);
-	//::printf("diff : %s\n", diff.toString(16).toCString());
+	BigInteger brate((int64_t)100);
+	BigInteger diff = calc.calcNecessaryDifficulty(brate, 5);
+	// ::printf("diff : %s\n", diff.toString(16).toCString());
 
-	//BigInteger hash = calc.calcHash4Diff(diff);
-	//::printf("hash : %s\n", hash.toString(16).toCString());
+	BigInteger hash = calc.calcHash4Diff(diff);
+	UnicodeString out = hash.toString("%064Zx");
+	//::printf("hash : %s\n", out.toCString());
+
+	CHECK(out.startsWith(UnicodeString(L"00")))
 }

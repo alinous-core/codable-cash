@@ -258,6 +258,15 @@ UnicodeString BigInteger::toString(int radix) const {
 	return str;
 }
 
+UnicodeString BigInteger::toString(const char* format) const {
+	char buff[1024]{};
+
+	gmp_snprintf(buff, sizeof(buff), format, this->value);
+
+	UnicodeString str(buff);
+	return str;
+}
+
 UnicodeString BigInteger::toString() const {
 	return toString(10);
 }

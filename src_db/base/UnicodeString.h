@@ -60,6 +60,7 @@ public:
 	UnicodeString* toLowerCase() const noexcept;
 	UnicodeString* toUpperCase() const noexcept;
 
+	bool startsWith(const UnicodeString& str) const noexcept;
 	bool startsWith(const UnicodeString* str) const noexcept;
 	bool startsWith(const UnicodeString* str, int start) const noexcept;
 	bool endsWith(const UnicodeString* str) const noexcept;

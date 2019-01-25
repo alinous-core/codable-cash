@@ -38,24 +38,17 @@ BigInteger NonceCalc::calcNecessaryDifficulty(const BigInteger& hashrate, uint64
 
 	return hashrate.multiply(tm);
 }
-/*
+
 BigInteger NonceCalc::calcHash4Diff(const BigInteger& diff) {
-	// 256 bits = 32 bytes
-	BigInteger max(L"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16);
+	// 256 bytes
+	BigInteger max(L"1", 16);
+	max = max.shiftLeft(256);
 
-	BigInteger available = diff.multiply(max).subtract(max).divide(diff);
-	return available;
-
+	BigInteger hash = max.divide(diff);
+	return hash;
 }
 
-BigInteger NonceCalc::nBitsDiff(int n) {
-	BigInteger max(L"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16);
-	BigInteger two(2);
-	BigInteger exponent(256);
-	BigInteger nbig(n);
 
-	BigInteger sub = two.pow(exponent.subtract(nbig));
-}*/
 
 int NonceCalc::yescrypt(const uint8_t* passwd, size_t passwdlen,
 		const uint8_t* salt, size_t saltlen, uint8_t* buf, size_t buflen) {

@@ -27,8 +27,7 @@ public:
 	ByteBuffer* calc(const ByteBuffer* in, const ByteBuffer* nonce);
 
 	BigInteger calcNecessaryDifficulty(const BigInteger& hashrate, uint64_t targetTimeSec);
-	//BigInteger calcHash4Diff(const BigInteger& diff);
-	//BigInteger nBitsDiff(int n);
+	BigInteger calcHash4Diff(const BigInteger& diff);
 
 private:
 	static int yescrypt(const uint8_t *passwd, size_t passwdlen,

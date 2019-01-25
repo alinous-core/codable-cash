@@ -60,6 +60,7 @@ public:
 	bool equals(const BigInteger* x) const;
 	int compareTo(const BigInteger& x) const;
 
+	UnicodeString toString(const char* format) const;
     UnicodeString toString(int radix) const;
     UnicodeString toString() const;
 

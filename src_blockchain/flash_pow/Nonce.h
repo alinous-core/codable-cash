@@ -14,6 +14,9 @@ class Nonce {
 public:
 	Nonce();
 	virtual ~Nonce();
+
+private:
+
 };
 
 } /* namespace codablecash */

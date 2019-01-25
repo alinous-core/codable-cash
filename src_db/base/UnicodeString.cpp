@@ -352,6 +352,10 @@ UnicodeString* UnicodeString::toUpperCase() const noexcept
 	return newStr;
 }
 
+bool UnicodeString::startsWith(const UnicodeString& str) const noexcept {
+	return startsWith(&str);
+}
+
 bool UnicodeString::startsWith(const UnicodeString* str) const noexcept
 {
 	return startsWith(str, 0);
