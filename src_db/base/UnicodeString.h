@@ -11,7 +11,7 @@
 #include "RawArrayPrimitive.h"
 #include "ArrayList.h"
 
-#include <inttypes.h>
+#include <cstdint>
 
 namespace alinous {
 
@@ -21,14 +21,18 @@ protected:
 	RawArrayPrimitive<wchar_t>* buff;
 	int __hashCode;
 public:
-	UnicodeString &operator=(const UnicodeString &o) = delete;
+	UnicodeString &operator=(const UnicodeString &o);
+
+
+	UnicodeString(const UnicodeString& inst) noexcept;
+	UnicodeString() noexcept;
 
 	explicit UnicodeString(const wchar_t* str) noexcept;
 	explicit UnicodeString(const wchar_t* str, int cap) noexcept;
 	//explicit UnicodeString(const wchar_t* str, int offset, int count) noexcept;
 	explicit UnicodeString(const char* str) noexcept;
 	explicit UnicodeString(const UnicodeString* ptr) noexcept;
-	explicit UnicodeString(const UnicodeString& inst) noexcept;
+
 
 	virtual ~UnicodeString();
 
@@ -36,13 +40,13 @@ private:
 	UnicodeString* __append(wchar_t ch) noexcept;
 	void __closeString() noexcept;
 public:
-	UnicodeString* append(const wchar_t ch) noexcept;
-	UnicodeString* append(const UnicodeString* str) noexcept;
-	UnicodeString* append(const int value) noexcept;
-	UnicodeString* append(const wchar_t* str) noexcept;
-	UnicodeString* append(const wchar_t* str, int len) noexcept;
-	UnicodeString* append(const int16_t* str, int offset, int len) noexcept;
-	UnicodeString* append(const wchar_t* str, int offset, int len) noexcept;
+	UnicodeString& append(const wchar_t ch) noexcept;
+	UnicodeString& append(const UnicodeString* str) noexcept;
+	UnicodeString& append(const int value) noexcept;
+	UnicodeString& append(const wchar_t* str) noexcept;
+	UnicodeString& append(const wchar_t* str, int len) noexcept;
+	UnicodeString& append(const int16_t* str, int offset, int len) noexcept;
+	UnicodeString& append(const wchar_t* str, int offset, int len) noexcept;
 
 	static UnicodeString* valueOf(const int16_t* str, int offset, int len);
 
@@ -56,6 +60,7 @@ public:
 	UnicodeString* toLowerCase() const noexcept;
 	UnicodeString* toUpperCase() const noexcept;
 
+	bool startsWith(const UnicodeString& str) const noexcept;
 	bool startsWith(const UnicodeString* str) const noexcept;
 	bool startsWith(const UnicodeString* str, int start) const noexcept;
 	bool endsWith(const UnicodeString* str) const noexcept;
@@ -85,6 +90,7 @@ public:
 	wchar_t charAt(int index) const noexcept;
 	int isEmpty() const noexcept;
 	bool equals(const UnicodeString* str) const noexcept;
+	bool equals(const UnicodeString& str) const noexcept;
 
 	bool __equals(const UnicodeString* str) const noexcept;
 

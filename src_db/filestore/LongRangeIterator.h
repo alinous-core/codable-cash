@@ -8,7 +8,7 @@
 #ifndef FILESTORE_LONGRANGEITERATOR_H_
 #define FILESTORE_LONGRANGEITERATOR_H_
 
-#include <inttypes.h>
+#include <cstdint>
 
 namespace alinous {
 

@@ -17,17 +17,17 @@
 
 using namespace alinous;
 
-TEST_GROUP(BigDecimalGroup) {
+TEST_GROUP(TestBigDecimalGroup) {
 	TEST_SETUP() {}
 	TEST_TEARDOWN() {}
 };
 
-TEST(BigDecimalGroup, testException){
+TEST(TestBigDecimalGroup, testException){
 	testException<ArithmeticException>();
 }
 
 
-TEST(BigDecimalGroup, construct01_0){
+TEST(TestBigDecimalGroup, construct01_0){
 	UnicodeString str(L"00.00e+10");
 	BigDecimal dec(&str);
 
@@ -35,7 +35,7 @@ TEST(BigDecimalGroup, construct01_0){
 	CHECK(l == 0)
 }
 
-TEST(BigDecimalGroup, construct01){
+TEST(TestBigDecimalGroup, construct01){
 	{
 		UnicodeString str(L"00.00");
 		BigDecimal dec(&str);
@@ -87,7 +87,7 @@ TEST(BigDecimalGroup, construct01){
 	}
 }
 
-TEST(BigDecimalGroup, construct02){
+TEST(TestBigDecimalGroup, construct02){
 	UnicodeString str(L"+1234567890");
 	BigDecimal dec(&str);
 
@@ -95,7 +95,7 @@ TEST(BigDecimalGroup, construct02){
 	CHECK(l == 1234567890L)
 }
 
-TEST(BigDecimalGroup, construct03){
+TEST(TestBigDecimalGroup, construct03){
 	UnicodeString str(L"-1234567890");
 	BigDecimal dec(&str);
 
@@ -103,7 +103,7 @@ TEST(BigDecimalGroup, construct03){
 	CHECK(l == -1234567890L)
 }
 
-TEST(BigDecimalGroup, construct04){
+TEST(TestBigDecimalGroup, construct04){
 	UnicodeString str(L"0.1234567890");
 	BigDecimal dec(&str);
 
@@ -111,7 +111,7 @@ TEST(BigDecimalGroup, construct04){
 	CHECK(l == 0L)
 }
 
-TEST(BigDecimalGroup, construct05){
+TEST(TestBigDecimalGroup, construct05){
 	UnicodeString str(L"5.1234567897654321e138");
 	BigDecimal dec(&str);
 
@@ -119,7 +119,7 @@ TEST(BigDecimalGroup, construct05){
 	CHECK(l == 0L)
 }
 
-TEST(BigDecimalGroup, construct06){
+TEST(TestBigDecimalGroup, construct06){
 	UnicodeString str(L"123E04");
 	BigDecimal dec(&str);
 
@@ -127,7 +127,7 @@ TEST(BigDecimalGroup, construct06){
 	CHECK(l == 1230000L)
 }
 
-TEST(BigDecimalGroup, construct07){
+TEST(TestBigDecimalGroup, construct07){
 	UnicodeString str(L"-1.234E-112");
 	BigDecimal dec(&str);
 
@@ -135,7 +135,7 @@ TEST(BigDecimalGroup, construct07){
 	CHECK(l == 0)
 }
 
-TEST(BigDecimalGroup, construct08){
+TEST(TestBigDecimalGroup, construct08){
 	UnicodeString str(L"3132342342341908309182309128393331323423423419083091823091283933");
 	BigDecimal dec(&str);
 
@@ -144,7 +144,7 @@ TEST(BigDecimalGroup, construct08){
 
 }
 
-TEST(BigDecimalGroup, construct09){
+TEST(TestBigDecimalGroup, construct09){
 	UnicodeString str(L"31323423423419083091823091283933313234234234190830918230912839333132342342341908309182309128393331323423423419083091823091283933");
 	BigDecimal dec(&str);
 
@@ -153,7 +153,7 @@ TEST(BigDecimalGroup, construct09){
 
 }
 
-TEST(BigDecimalGroup, construct10){
+TEST(TestBigDecimalGroup, construct10){
 	UnicodeString str(L"1234567890123456789");
 	BigDecimal dec(&str);
 
@@ -162,14 +162,12 @@ TEST(BigDecimalGroup, construct10){
 
 }
 
-TEST(BigDecimalGroup, construct11){
+TEST(TestBigDecimalGroup, construct11){
 	UnicodeString str(L"3132342342341908309182309128393331323423423419083091823091283933313234234234190830918230912839333132342342341908309182309128393331323423423419083091823091283933313234234234190830918230912839333132342342341908309182309128393331323423423419083091823091283933313234234234190830918230912839333132342342341908309182309128393331323423423419083091823091283933313234234234190830918230912839333132342342341908309182309128393331323423423419083091823091283933313234234234190830918230912839333132342342341908309182309128393331323423423419083091823091283933313234234234190830918230912839333132342342341908309182309128393331323423423419083091823091283933313234234234190830918230912839333132342342341908309182309128393331323423423419083091823091283933313234234234190830918230912839333132342342341908309182309128393331323423423419083091823091283933313234234234190830918230912839333132342342341908309182309128393331323423423419083091823091283933313234234234190830918230912839333132342342341908309182309128393331323423423419083091823091283933");
 	BigDecimal dec(&str);
 
 	BigInteger big = dec.toBigInteger();
-	UnicodeString* ans = big.toString(10);
-	CHECK(ans->equals(&str))
-
-	delete ans;
+	UnicodeString ans = big.toString(10);
+	CHECK(ans.equals(str))
 }
 

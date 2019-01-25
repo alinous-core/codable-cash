@@ -6,6 +6,7 @@ set(__src
 	BalanceUnit.cpp
 	Base58.cpp
 	BlockchainAddress.cpp
+	TicketTransaction.cpp
 	Transaction.cpp
 	TransactionId.cpp
 	TransactionInput.cpp

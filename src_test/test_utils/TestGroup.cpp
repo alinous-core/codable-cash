@@ -94,8 +94,8 @@ void TestGroup::exportJUnitXML(Writer* writer) const {
 	delete it;
 
 	UnicodeString testSuite(L"  <testsuite failures=\"");
-	testSuite.append(summary.getFailedTest())->append(L"\" hostname=\"localhost\" name=\"")
-			->append(this->groupName)->append(L"\" tests=\"")->append(summary.getTotalTests())->append(L"\"")->append(L">\n");
+	testSuite.append(summary.getFailedTest()).append(L"\" hostname=\"localhost\" name=\"")
+			.append(this->groupName).append(L"\" tests=\"").append(summary.getTotalTests()).append(L"\"").append(L">\n");
 	writer->write(&testSuite);
 
 	it = this->tests->keySet()->iterator();

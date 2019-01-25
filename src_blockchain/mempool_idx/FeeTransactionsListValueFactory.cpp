@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "mempool/FeeTransactionsListValueFactory.h"
-#include "mempool/FeeTransactionsListValue.h"
+#include "mempool_idx/FeeTransactionsListValueFactory.h"
+#include "mempool_idx/FeeTransactionsListValue.h"
 
-#include "mempool/FeeIndexKey.h"
+#include "mempool_idx/FeeIndexKey.h"
 
 #include "btree/DataNode.h"
 #include "btree/BtreeStorage.h"

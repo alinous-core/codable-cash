@@ -9,7 +9,7 @@
 #define MEMPOOL_FEEINDEXKEY_H_
 
 #include "btree/AbstractBtreeKey.h"
-#include <inttypes.h>
+#include <cstdint>
 
 namespace codablecash {
 using namespace alinous;

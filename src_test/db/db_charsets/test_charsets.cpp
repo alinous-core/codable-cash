@@ -258,7 +258,7 @@ TEST(CharsetTestGroup, convertUTF8_DecodeOverflow5){
 	CHECK(cnv != nullptr);
 
 	UnicodeString strJp02(L"");
-	strJp02.append((wchar_t)0xD800)->append((wchar_t)0xDC00);
+	strJp02.append((wchar_t)0xD800).append((wchar_t)0xDC00);
 
 	CharsetEncoder* enc = cnv->newEncoder();
 
@@ -282,7 +282,7 @@ TEST(CharsetTestGroup, convertUTF8_DecodeOverFlow02){
 	CHECK(cnv != nullptr);
 
 	UnicodeString strJp02(L"");
-	strJp02.append((wchar_t)0xD800)->append('A');
+	strJp02.append((wchar_t)0xD800).append('A');
 
 	CharsetEncoder* enc = cnv->newEncoder();
 
@@ -305,7 +305,7 @@ TEST(CharsetTestGroup, convertUTF8_DecodeMal01){
 	CHECK(cnv != nullptr);
 
 	UnicodeString strJp02(L"");
-	strJp02.append((wchar_t)0xD800)->append((wchar_t)0xD800);
+	strJp02.append((wchar_t)0xD800).append((wchar_t)0xD800);
 
 	CharsetEncoder* enc = cnv->newEncoder();
 
@@ -328,7 +328,7 @@ TEST(CharsetTestGroup, convertUTF8_DecodeMal02){
 	CHECK(cnv != nullptr);
 
 	UnicodeString strJp02(L"");
-	strJp02.append((wchar_t)0xDC00)->append((wchar_t)0xD800);
+	strJp02.append((wchar_t)0xDC00).append((wchar_t)0xD800);
 
 	CharsetEncoder* enc = cnv->newEncoder();
 
@@ -351,7 +351,7 @@ TEST(CharsetTestGroup, convertUTF8_DecodeUnderflowSalo){
 	CHECK(cnv != nullptr);
 
 	UnicodeString strJp02(L"");
-	strJp02.append((wchar_t)0xD800)->append((wchar_t)0xDC00)->append('b');
+	strJp02.append((wchar_t)0xD800).append((wchar_t)0xDC00).append('b');
 
 	CharsetEncoder* enc = cnv->newEncoder();
 

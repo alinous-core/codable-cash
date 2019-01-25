@@ -8,7 +8,7 @@
 #ifndef BTREE_BTREEKEYFACTORY_H_
 #define BTREE_BTREEKEYFACTORY_H_
 
-#include <inttypes.h>
+#include <cstdint>
 
 namespace alinous {
 

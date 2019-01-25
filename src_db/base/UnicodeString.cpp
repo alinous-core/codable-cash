@@ -25,9 +25,30 @@
 
 namespace alinous {
 
+UnicodeString& UnicodeString::operator=(const UnicodeString &o) {
+	if(&o != this){
+		if(this->buff == nullptr){
+			this->buff = new RawArrayPrimitive<wchar_t>(32);
+		}
+		this->buff->reset();
+
+		int maxLoop = o.length();
+		for(int i = 0; i != maxLoop; ++i){
+			wchar_t ch = o.charAt(i);
+			append(ch);
+		}
+	}
+
+	return *this;
+}
+
+UnicodeString::UnicodeString() noexcept {
+	this->buff = nullptr;
+	this->__hashCode = 0;
+}
 
 UnicodeString::UnicodeString(const wchar_t* str) noexcept {
-	this->buff =  new RawArrayPrimitive<wchar_t>(32);
+	this->buff = new RawArrayPrimitive<wchar_t>(32);
 	this->__hashCode = 0;
 	const wchar_t* ptr = str;
 	while(*ptr != 0){
@@ -148,15 +169,15 @@ void UnicodeString::__closeString() noexcept {
 }
 
 
-UnicodeString* UnicodeString::append(const wchar_t ch) noexcept
+UnicodeString& UnicodeString::append(const wchar_t ch) noexcept
 {
 	__append(ch);
 	__closeString();
 
-	return this;
+	return *this;
 }
 
-UnicodeString* UnicodeString::append(const wchar_t* str) noexcept
+UnicodeString& UnicodeString::append(const wchar_t* str) noexcept
 {
 	int len = Mem::wstrlen(str);
 	for(int i = 0; i != len; ++i){
@@ -165,37 +186,37 @@ UnicodeString* UnicodeString::append(const wchar_t* str) noexcept
 	}
 
 	__closeString();
-	return this;
+	return *this;
 }
 
-UnicodeString* UnicodeString::append(const wchar_t* str, int len) noexcept {
+UnicodeString& UnicodeString::append(const wchar_t* str, int len) noexcept {
 	for(int i = 0; i != len; ++i){
 		wchar_t ch = str[i];
 		__append(ch);
 	}
 
 	__closeString();
-	return this;
+	return *this;
 }
 
-UnicodeString* UnicodeString::append(const int16_t* str, int offset, int len) noexcept {
+UnicodeString& UnicodeString::append(const int16_t* str, int offset, int len) noexcept {
 	for(int i = 0; i != len; ++i){
 		wchar_t ch = str[offset + i];
 		__append(ch);
 	}
 
 	__closeString();
-	return this;
+	return *this;
 }
 
-UnicodeString* UnicodeString::append(const wchar_t* str, int offset, int len) noexcept {
+UnicodeString& UnicodeString::append(const wchar_t* str, int offset, int len) noexcept {
 	for(int i = 0; i != len; ++i){
 		wchar_t ch = str[offset + i];
 		__append(ch);
 	}
 
 	__closeString();
-	return this;
+	return *this;
 }
 
 UnicodeString* UnicodeString::valueOf(const int16_t* str, int offset, int len) {
@@ -209,7 +230,7 @@ UnicodeString* UnicodeString::valueOf(const int16_t* str, int offset, int len) {
 	return ret;
 }
 
-UnicodeString* UnicodeString::append(const UnicodeString* str) noexcept {
+UnicodeString& UnicodeString::append(const UnicodeString* str) noexcept {
 	int len = str->length();
 
 	for(int i = 0; i != len; ++i){
@@ -219,10 +240,10 @@ UnicodeString* UnicodeString::append(const UnicodeString* str) noexcept {
 
 	__closeString();
 
-	return this;
+	return *this;
 }
 
-UnicodeString* UnicodeString::append(const int v) noexcept
+UnicodeString& UnicodeString::append(const int v) noexcept
 {
 	int value = v;
 	if(value < 0){
@@ -247,7 +268,7 @@ UnicodeString* UnicodeString::append(const int v) noexcept
 
 	__closeString();
 
-	return this;
+	return *this;
 }
 
 UnicodeString* UnicodeString::replace(wchar_t last, wchar_t next) const noexcept {
@@ -329,6 +350,10 @@ UnicodeString* UnicodeString::toUpperCase() const noexcept
 	newStr->__closeString();
 
 	return newStr;
+}
+
+bool UnicodeString::startsWith(const UnicodeString& str) const noexcept {
+	return startsWith(&str);
 }
 
 bool UnicodeString::startsWith(const UnicodeString* str) const noexcept
@@ -550,6 +575,10 @@ int UnicodeString::length() const noexcept {
 
 int UnicodeString::isEmpty() const noexcept {
 	return this->buff->size() == 0;
+}
+
+bool UnicodeString::equals(const UnicodeString& str) const noexcept {
+	return equals(&str);
 }
 
 bool UnicodeString::equals(const UnicodeString* str) const noexcept

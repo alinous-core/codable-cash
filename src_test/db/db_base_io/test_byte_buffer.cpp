@@ -20,19 +20,19 @@
 using namespace alinous;
 
 
-TEST_GROUP(ByteBufferTestGroup) {
+TEST_GROUP(TestByteBufferTestGroup) {
 	TEST_SETUP() {}
 	TEST_TEARDOWN() {}
 
 };
 
 
-TEST(ByteBufferTestGroup, test01){
+TEST(TestByteBufferTestGroup, test01){
 	ByteBuffer* buff = ByteBuffer::allocate(8);
 	delete buff;
 }
 
-TEST(ByteBufferTestGroup, put){
+TEST(TestByteBufferTestGroup, put){
 	int cap = 128;
 	ByteBuffer* buff = ByteBuffer::allocate(128);
 	CHECK(cap == buff->capacity());
@@ -80,7 +80,7 @@ TEST(ByteBufferTestGroup, put){
 	delete buff;
 }
 
-TEST(ByteBufferTestGroup, putByteBufferArray){
+TEST(TestByteBufferTestGroup, putByteBufferArray){
 	int cap = 128;
 	ByteBuffer* buff = ByteBuffer::allocate(128);
 	const char* str = "Hello Wrold";
@@ -97,7 +97,7 @@ TEST(ByteBufferTestGroup, putByteBufferArray){
 	delete buff;
 }
 
-TEST(ByteBufferTestGroup, putByteBufferArrayError01){
+TEST(TestByteBufferTestGroup, putByteBufferArrayError01){
 	int cap = 128;
 	ByteBuffer* buff = ByteBuffer::allocate(4);
 	const char* str = "Hello Wrold";
@@ -114,7 +114,7 @@ TEST(ByteBufferTestGroup, putByteBufferArrayError01){
 	delete buff;
 }
 
-TEST(ByteBufferTestGroup, putByteBufferArrayError02){
+TEST(TestByteBufferTestGroup, putByteBufferArrayError02){
 	int cap = 128;
 	ByteBuffer* buff = ByteBuffer::allocate(128);
 	const char* str = "Hello Wrold";
@@ -138,7 +138,7 @@ TEST(ByteBufferTestGroup, putByteBufferArrayError02){
 	delete buff;
 }
 
-TEST(ByteBufferTestGroup, putByteBuffer){
+TEST(TestByteBufferTestGroup, putByteBuffer){
 	int cap = 128;
 	ByteBuffer* buff = ByteBuffer::allocate(128);
 	ByteBuffer* buff2 = ByteBuffer::allocate(128);
@@ -181,7 +181,7 @@ TEST(ByteBufferTestGroup, putByteBuffer){
 	delete buff3;
 }
 
-TEST(ByteBufferTestGroup, clone){
+TEST(TestByteBufferTestGroup, clone){
 	ByteBuffer* buff = ByteBuffer::allocate(128);
 	ByteBuffer* buff2 = buff->clone();
 
@@ -191,7 +191,7 @@ TEST(ByteBufferTestGroup, clone){
 	delete buff2;
 }
 
-TEST(ByteBufferTestGroup, putExceptions){
+TEST(TestByteBufferTestGroup, putExceptions){
 	Exception* exp = nullptr;
 
 	ByteBuffer* buff = ByteBuffer::allocate(1);
@@ -339,7 +339,7 @@ TEST(ByteBufferTestGroup, putExceptions){
 	delete buff;
 }
 
-TEST(ByteBufferTestGroup, getExceptions){
+TEST(TestByteBufferTestGroup, getExceptions){
 	Exception* exp = nullptr;
 
 	ByteBuffer* buff = ByteBuffer::allocate(1);

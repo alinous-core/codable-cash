@@ -8,7 +8,7 @@
 #ifndef BC_BASE_TRANSACTIONINPUTS_H_
 #define BC_BASE_TRANSACTIONINPUTS_H_
 
-#include <inttypes.h>
+#include <cstdint>
 
 #include "base/ArrayList.h"
 #include "filestore_block/IBlockObject.h"

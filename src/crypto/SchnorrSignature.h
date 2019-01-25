@@ -10,13 +10,19 @@
 
 #include <gmp.h>
 
+namespace alinous {
+class BigInteger;
+}
+
 namespace codablecash {
+using namespace alinous;
 
 class SchnorrSignature {
 public:
-	mpz_t e, y;
+	BigInteger* e, *y;
 
-	SchnorrSignature(mpz_t e, mpz_t y);
+	SchnorrSignature(const SchnorrSignature& inst) = delete;
+	SchnorrSignature(const BigInteger& e, const BigInteger& y);
 	virtual ~SchnorrSignature();
 };
 

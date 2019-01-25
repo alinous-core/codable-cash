@@ -5,10 +5,12 @@
  *      Author: iizuka
  */
 
+
 #include "numeric/BigInteger.h"
 #include "numeric/exceptions.h"
-
+#include "base_io/ByteBuffer.h"
 #include "base/UnicodeString.h"
+
 #include "base/Integer.h"
 
 #include "base/StackRelease.h"
@@ -17,7 +19,15 @@
 #include <stdlib.h>
 
 
+
 namespace alinous {
+
+BigInteger& BigInteger::operator =(const BigInteger& inst) {
+	if(this != &inst){
+		mpz_set(this->value, inst.value);
+	}
+	return(*this);
+}
 
 BigInteger::BigInteger(const mpz_t mpvalue) {
 	mpz_init_set(this->value, mpvalue);
@@ -51,8 +61,24 @@ BigInteger::BigInteger(const UnicodeString* val, int radix) {
 	delete [] str;
 }
 
+BigInteger::BigInteger(const UnicodeString& val, int radix) {
+	const char* str = val.toCString();
+
+	mpz_init_set_str(this->value, str, radix);
+
+	delete [] str;
+}
+
 BigInteger::BigInteger(const UnicodeString* val) {
 	const char* str = val->toCString();
+
+	mpz_init_set_str(this->value, str, 10);
+
+	delete [] str;
+}
+
+BigInteger::BigInteger(const UnicodeString& val) {
+	const char* str = val.toCString();
 
 	mpz_init_set_str(this->value, str, 10);
 
@@ -83,6 +109,11 @@ BigInteger BigInteger::multiply(const BigInteger& val) const {
 	return ret;
 }
 
+BigInteger& BigInteger::multiplySelf(const BigInteger& val) {
+	mpz_mul(this->value, this->value, val.value);
+	return *this;
+}
+
 BigInteger BigInteger::subtract(const BigInteger& val) const {
 	mpz_t op;
 	mpz_init(op);
@@ -95,7 +126,12 @@ BigInteger BigInteger::subtract(const BigInteger& val) const {
 	return ret;
 }
 
-BigInteger BigInteger::add(const BigInteger& val) {
+BigInteger& BigInteger::subtractSelf(const BigInteger& val) {
+	mpz_sub(this->value, this->value, val.value);
+	return *this;
+}
+
+BigInteger BigInteger::add(const BigInteger& val) const {
 	mpz_t op;
 	mpz_init(op);
 
@@ -107,7 +143,7 @@ BigInteger BigInteger::add(const BigInteger& val) {
 	return ret;
 }
 
-BigInteger BigInteger::divide(const BigInteger& divisor) {
+BigInteger BigInteger::divide(const BigInteger& divisor) const {
 	mpz_t op;
 	mpz_init(op);
 
@@ -119,7 +155,7 @@ BigInteger BigInteger::divide(const BigInteger& divisor) {
 	return ret;
 }
 
-BigInteger BigInteger::pow(uint64_t exp) {
+BigInteger BigInteger::pow(uint64_t exp) const {
 	mpz_t op;
 	mpz_init(op);
 
@@ -131,7 +167,36 @@ BigInteger BigInteger::pow(uint64_t exp) {
 	return ret;
 }
 
-BigInteger BigInteger::shiftLeft(int n) {
+BigInteger BigInteger::modPow(const BigInteger& exponent, const BigInteger& m) const {
+	mpz_t op;
+	mpz_init(op);
+
+	mpz_powm(op, this->value, exponent.value, m.value);
+
+	BigInteger ret(op);
+	mpz_clear(op);
+
+	return ret;
+}
+
+BigInteger BigInteger::mod(const BigInteger& m) const {
+	mpz_t op;
+	mpz_init(op);
+
+	mpz_mod(op, this->value, m.value);
+
+	BigInteger ret(op);
+	mpz_clear(op);
+
+	return ret;
+}
+
+BigInteger& BigInteger::modSelf(const BigInteger& m) {
+	mpz_mod(this->value, this->value, m.value);
+	return *this;
+}
+
+BigInteger BigInteger::shiftLeft(int n) const {
     if (n == 0) {
         return *this;
     }
@@ -149,7 +214,7 @@ BigInteger BigInteger::shiftLeft(int n) {
 	return ret;
 }
 
-BigInteger BigInteger::rightShift(int n) {
+BigInteger BigInteger::rightShift(int n) const {
     if (n == 0) {
         return *this;
     }
@@ -173,22 +238,36 @@ bool BigInteger::equals(const BigInteger* x1) const {
 	return cmp == 0;
 }
 
-bool BigInteger::testBit(int n) {
+int BigInteger::compareTo(const BigInteger& x) const {
+	int cmp = mpz_cmp(this->value, x.value);
+	return cmp;
+}
+
+bool BigInteger::testBit(int n) const {
 	mp_bitcnt_t bit_index = n;
 	return mpz_tstbit(this->value, bit_index);
 }
 
-UnicodeString* BigInteger::toString(int radix) const {
+UnicodeString BigInteger::toString(int radix) const {
 	char *buff = mpz_get_str(nullptr, radix, this->value);
 
-	UnicodeString* str = new UnicodeString(buff);
+	UnicodeString str(buff);
 
 	::free(buff);
 
 	return str;
 }
 
-UnicodeString* BigInteger::toString() const {
+UnicodeString BigInteger::toString(const char* format) const {
+	char buff[1024]{};
+
+	gmp_snprintf(buff, sizeof(buff), format, this->value);
+
+	UnicodeString str(buff);
+	return str;
+}
+
+UnicodeString BigInteger::toString() const {
 	return toString(10);
 }
 
@@ -220,6 +299,43 @@ BigInteger BigInteger::valueOf(int64_t val) {
 	return BigInteger(val);
 }
 
+ByteBuffer* BigInteger::toBinary() const {
+	size_t count;
+	uint8_t* data =  (uint8_t*)mpz_export(NULL, &count, 1, 1, 1, 0, this->value);
+
+	ByteBuffer* buff = ByteBuffer::wrapWithEndian(data, count, true);
+	::free(data);
+
+	return buff;
+}
+
+BigInteger* BigInteger::fromBinary(const char* buff, int length) {
+	mpz_t mpvalue;
+	mpz_init(mpvalue);
+	mpz_import(mpvalue, length, 1, 1, 1, 0, buff);
+
+	BigInteger* big  = new BigInteger(mpvalue);
+
+	mpz_clear(mpvalue);
+
+	return big;
+}
+
+BigInteger BigInteger::ramdom() {
+	mpz_t s;
+	mpz_init(s);
+
+	gmp_randstate_t state;
+	gmp_randinit_default(state);
+
+	mpz_urandomb (s, state, 256);
+
+	BigInteger big(s);
+
+	gmp_randclear(state);
+	mpz_clear(s);
+
+	return big;
+}
+
 } /* namespace alinous */
-
-

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "mempool/FeeTransactionsListValue.h"
+#include "mempool_idx/FeeTransactionsListValue.h"
 #include "base_io/ByteBuffer.h"
 
 namespace codablecash {

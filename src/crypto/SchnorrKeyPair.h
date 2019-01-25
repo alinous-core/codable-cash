@@ -9,16 +9,26 @@
 #define CRYPTO_SCHNORRKEYPAIR_H_
 
 #include <gmp.h>
+#include "IKeyPair.h"
+
+namespace alinous {
+class BigInteger;
+}
 
 namespace codablecash {
+using namespace alinous;
 
-class SchnorrKeyPair {
+class SchnorrKeyPair : public IKeyPair {
 public:
-	SchnorrKeyPair(mpz_t secretKey, mpz_t publicKey);
+
+	SchnorrKeyPair(const SchnorrKeyPair& inst) = delete;
+	SchnorrKeyPair(const BigInteger& secretKey, const BigInteger& publicKey);
 	virtual ~SchnorrKeyPair();
 
-	mpz_t secretKey;
-	mpz_t publicKey;
+	virtual ByteBuffer* toBinary() const;
+
+	BigInteger* secretKey;
+	BigInteger* publicKey;
 };
 
 } /* namespace codablecash */

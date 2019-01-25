@@ -8,7 +8,7 @@
 #ifndef FILESTORE_BLOCK_BLOCKHANDLE_H_
 #define FILESTORE_BLOCK_BLOCKHANDLE_H_
 
-#include <inttypes.h>
+#include <cstdint>
 
 namespace alinous {
 class BlockFileStore;

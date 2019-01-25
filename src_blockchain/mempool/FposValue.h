@@ -8,7 +8,7 @@
 #ifndef MEMPOOL_FPOSVALUE_H_
 #define MEMPOOL_FPOSVALUE_H_
 
-#include <inttypes.h>
+#include <cstdint>
 #include "filestore_block/IBlockObject.h"
 
 namespace codablecash {

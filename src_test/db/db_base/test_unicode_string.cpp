@@ -13,7 +13,7 @@
 
 using namespace alinous;
 
-TEST_GROUP(UnicodeStringTestGroup) {
+TEST_GROUP(TestUnicodeStringTestGroup) {
 	TEST_SETUP() {}
 	TEST_TEARDOWN() {
 		CharsetManager::closeInstance();
@@ -21,13 +21,20 @@ TEST_GROUP(UnicodeStringTestGroup) {
 
 };
 
-TEST(UnicodeStringTestGroup, destruct){
+TEST(TestUnicodeStringTestGroup, operators){
+	UnicodeString str;
+	str = UnicodeString(L"test");
+
+
+}
+
+TEST(TestUnicodeStringTestGroup, destruct){
 	const wchar_t* str = L"Hello";
 	UnicodeString *ptr = new UnicodeString(str);
 	delete ptr;
 }
 
-TEST(UnicodeStringTestGroup, test01){
+TEST(TestUnicodeStringTestGroup, test01){
 	const wchar_t* str = L"Hello";
 	UnicodeString ustr(str);
 
@@ -40,7 +47,7 @@ TEST(UnicodeStringTestGroup, test01){
 	CHECK(ch == 'e');
 }
 
-TEST(UnicodeStringTestGroup, hash){
+TEST(TestUnicodeStringTestGroup, hash){
 	UnicodeString str01(L"Hello");
 	UnicodeString str02(L"Hello");
 	UnicodeString str03(L"HelloWorld");
@@ -52,7 +59,7 @@ TEST(UnicodeStringTestGroup, hash){
 	CHECK(str04.hashCode() == 0);
 }
 
-TEST(UnicodeStringTestGroup, equals){
+TEST(TestUnicodeStringTestGroup, equals){
 	UnicodeString str01(L"Hello");
 	UnicodeString str02(L"Hello");
 	UnicodeString str03(L"HelloWorld");
@@ -61,7 +68,7 @@ TEST(UnicodeStringTestGroup, equals){
 	CHECK(!str01.equals(&str03));
 }
 
-TEST(UnicodeStringTestGroup, __equals){
+TEST(TestUnicodeStringTestGroup, __equals){
 	UnicodeString str01(L"Hello");
 	UnicodeString str02(L"Hello");
 	UnicodeString str03(L"HelloWorld");
@@ -72,11 +79,11 @@ TEST(UnicodeStringTestGroup, __equals){
 	CHECK(!str03.__equals(&str04));
 }
 
-TEST(UnicodeStringTestGroup, buffer){
+TEST(TestUnicodeStringTestGroup, buffer){
 	UnicodeString str01(L"Hello");
 	UnicodeString str(L"", 2);
 
-	str.append(L'H')->append(L'e');
+	str.append(L'H').append(L'e');
 
 	str.append(L'l');
 	str.append(L'l');
@@ -85,11 +92,11 @@ TEST(UnicodeStringTestGroup, buffer){
 	CHECK(str01.equals(&str));
 }
 
-TEST(UnicodeStringTestGroup, buffer_cstr){
+TEST(TestUnicodeStringTestGroup, buffer_cstr){
 	UnicodeString str01(L"HelloHello");
 	UnicodeString str("Hello");
 
-	str.append(L'H')->append(L'e');
+	str.append(L'H').append(L'e');
 
 	str.append(L'l');
 	str.append(L'l');
@@ -98,7 +105,7 @@ TEST(UnicodeStringTestGroup, buffer_cstr){
 	CHECK(str01.equals(&str));
 }
 
-TEST(UnicodeStringTestGroup, buffer2){
+TEST(TestUnicodeStringTestGroup, buffer2){
 	UnicodeString str01(L"Hello", 2);
 	UnicodeString str02(L"Hello", 2);
 	UnicodeString str03(L"HelloWorld", 2);
@@ -109,7 +116,7 @@ TEST(UnicodeStringTestGroup, buffer2){
 	CHECK(!str03.__equals(&str04));
 }
 
-TEST(UnicodeStringTestGroup, buffer3){
+TEST(TestUnicodeStringTestGroup, buffer3){
 	UnicodeString str01(L"Hello", 2);
 	UnicodeString str02(L"Hello", 2);
 	UnicodeString str03(L"HelloWorld", 2);
@@ -120,7 +127,7 @@ TEST(UnicodeStringTestGroup, buffer3){
 	CHECK(!str03.equals(&str04));
 }
 
-TEST(UnicodeStringTestGroup, startsWith){
+TEST(TestUnicodeStringTestGroup, startsWith){
 	UnicodeString str01(L"Hello");
 	UnicodeString str02(L"He");
 	UnicodeString str03(L"el");
@@ -133,7 +140,7 @@ TEST(UnicodeStringTestGroup, startsWith){
 	CHECK(!str01.startsWith(&str04));
 }
 
-TEST(UnicodeStringTestGroup, endsWith){
+TEST(TestUnicodeStringTestGroup, endsWith){
 	UnicodeString str01(L"Hello");
 	UnicodeString str02(L"llo");
 	UnicodeString str03(L"el");
@@ -143,7 +150,7 @@ TEST(UnicodeStringTestGroup, endsWith){
 	CHECK(!str01.endsWith(&str04));
 }
 
-TEST(UnicodeStringTestGroup, substring){
+TEST(TestUnicodeStringTestGroup, substring){
 	UnicodeString str01(L"Hello");
 	UnicodeString str02(L"ello");
 
@@ -152,7 +159,7 @@ TEST(UnicodeStringTestGroup, substring){
 	delete str;
 }
 
-TEST(UnicodeStringTestGroup, upper_lower){
+TEST(TestUnicodeStringTestGroup, upper_lower){
 	UnicodeString str01(L"Hello");
 	UnicodeString str02(L"HELLO");
 	UnicodeString str03(L"hello");
@@ -166,7 +173,7 @@ TEST(UnicodeStringTestGroup, upper_lower){
 	delete str;
 }
 
-TEST(UnicodeStringTestGroup, indexOf){
+TEST(TestUnicodeStringTestGroup, indexOf){
 	UnicodeString str01(L"Hello");
 	UnicodeString str02(L"llo");
 	UnicodeString str03(L"llo1");
@@ -194,7 +201,7 @@ TEST(UnicodeStringTestGroup, indexOf){
 	CHECK(str01.lastIndexOf(&str08) < 0);
 }
 
-TEST(UnicodeStringTestGroup, insert){
+TEST(TestUnicodeStringTestGroup, insert){
 	UnicodeString str01(L"Hello");
 	UnicodeString str02(L"World");
 	UnicodeString str03(L"HelloWorld");
@@ -211,7 +218,7 @@ TEST(UnicodeStringTestGroup, insert){
 	CHECK(strins.equals(&str03));
 }
 
-TEST(UnicodeStringTestGroup, appendInt){
+TEST(TestUnicodeStringTestGroup, appendInt){
 	UnicodeString str(L"test");
 	UnicodeString str2(L"test123");
 	UnicodeString str3(L"test123-123");
@@ -223,7 +230,7 @@ TEST(UnicodeStringTestGroup, appendInt){
 }
 
 
-TEST(UnicodeStringTestGroup, toCStr){
+TEST(TestUnicodeStringTestGroup, toCStr){
 	UnicodeString str(L"test");
 
 	const char* cstr = str.toCString();
@@ -234,7 +241,7 @@ TEST(UnicodeStringTestGroup, toCStr){
 	delete [] cstr;
 }
 
-TEST(UnicodeStringTestGroup, spit01){
+TEST(TestUnicodeStringTestGroup, spit01){
 	UnicodeString str(L"testMisMgood");
 	UnicodeString regex(L"M");
 
@@ -248,7 +255,7 @@ TEST(UnicodeStringTestGroup, spit01){
 	delete list;
 }
 
-TEST(UnicodeStringTestGroup, spit02){
+TEST(TestUnicodeStringTestGroup, spit02){
 	UnicodeString str(L"/src/test/alinous");
 	UnicodeString regex(L"\\/");
 
@@ -262,7 +269,7 @@ TEST(UnicodeStringTestGroup, spit02){
 	delete list;
 }
 
-TEST(UnicodeStringTestGroup, append){
+TEST(TestUnicodeStringTestGroup, append){
 	UnicodeString str(L"/src/test/alinous");
 	const wchar_t* regex = L"aaaa/src/test/alinous";
 

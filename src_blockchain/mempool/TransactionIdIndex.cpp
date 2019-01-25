@@ -9,7 +9,7 @@
 #include "mempool/IndexValueFactory.h"
 #include "mempool/TransactionIdKeyFactory.h"
 #include "mempool/TransactionIdKey.h"
-#include "mempool/FeeIndex.h"
+#include "mempool_idx/FeeIndex.h"
 #include "mempool/FposValue.h"
 
 #include "bc_base/TransactionId.h"

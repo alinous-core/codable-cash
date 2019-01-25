@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "mempool/FeeIndexKey.h"
-#include "mempool/FeeIndexKeyFactory.h"
+#include "mempool_idx/FeeIndexKey.h"
+#include "mempool_idx/FeeIndexKeyFactory.h"
 
 #include "base_io/ByteBuffer.h"
 

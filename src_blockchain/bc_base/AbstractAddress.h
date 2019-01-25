@@ -16,7 +16,7 @@ using namespace alinous;
 class AbstractAddress : public IBlockObject {
 public:
 	static const constexpr char NORMAL_ADDRESS{0x01};
-	static const constexpr char MULTISIG_ADDRESS{0x01};
+	static const constexpr char MULTISIG_ADDRESS{0x02};
 
 	explicit AbstractAddress(int type);
 	virtual ~AbstractAddress();

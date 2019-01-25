@@ -21,9 +21,9 @@
 
 #include "blockchain/DummyTrxUtils.h"
 
-#include "mempool/FeeTransactionsListValue.h"
+#include "mempool_idx/FeeTransactionsListValue.h"
 #include "mempool/TransactionIdKey.h"
-#include "mempool/FeeIndexKey.h"
+#include "mempool_idx/FeeIndexKey.h"
 
 #include "btreekey/InfinityKey.h"
 

@@ -8,7 +8,7 @@
 #ifndef MEMPOOL_TRANSACTIONIDINDEX_H_
 #define MEMPOOL_TRANSACTIONIDINDEX_H_
 
-#include <inttypes.h>
+#include <cstdint>
 
 namespace alinous {
 class File;

@@ -7,18 +7,32 @@
 
 #include "debug/debugMacros.h"
 
-#include "SchnorrKeyPair.h"
+#include "crypto/SchnorrKeyPair.h"
+
+#include "base_io/ByteBuffer.h"
+#include "numeric/BigInteger.h"
 
 namespace codablecash {
 
-SchnorrKeyPair::SchnorrKeyPair(mpz_t secretKey, mpz_t publicKey) {
-	mpz_init_set(this->secretKey, secretKey);
-	mpz_init_set(this->publicKey, publicKey);
+SchnorrKeyPair::SchnorrKeyPair(const BigInteger& secretKey, const BigInteger& publicKey) {
+	this->secretKey = new BigInteger(secretKey);
+	this->publicKey = new BigInteger(publicKey);
 }
 
 SchnorrKeyPair::~SchnorrKeyPair() {
-	mpz_clear(this->secretKey);
-	mpz_clear(this->publicKey);
+	delete this->secretKey;
+	delete this->publicKey;
+}
+
+ByteBuffer* SchnorrKeyPair::toBinary() const {
+	ByteBuffer* p = this->publicKey->toBinary();
+	ByteBuffer* s = this->secretKey->toBinary();
+
+	p->put(s);
+
+	delete s;
+
+	return p;
 }
 
 } /* namespace codablecash */

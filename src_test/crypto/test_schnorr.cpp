@@ -49,27 +49,20 @@ TEST(SchnorrTestGroup, test01){
 TEST(SchnorrTestGroup, generateKey){
 	SchnorrKeyPair* key = Schnorr::generateKey();
 
-	mpz_t ans; mpz_init(ans);
+	BigInteger ans = Schnorr::cnsts.G.modPow(*key->secretKey, Schnorr::cnsts.Q);
+	CHECK(ans.equals(key->publicKey));
 
-	mpz_powm(ans, Schnorr::cnsts.G, key->secretKey, Schnorr::cnsts.Q);
-
-	CHECK(mpz_cmp(ans, key->publicKey) == 0);
-
-	mpz_clear(ans);
 	delete key;
 }
 
 TEST(SchnorrTestGroup, sign){
 	SchnorrKeyPair* key = Schnorr::generateKey();
+
 	const char* testData = "asdfghjjklqwertyuiopzxcvbnm,./poiiuuuytrtrree";
 	int size = alinous::Mem::strlen(testData);
 
-	SchnorrSignature* sig = Schnorr::sign(key->secretKey, key->publicKey, (const uint8_t*)testData, (size_t)size);
-
-
-	bool result = Schnorr::verify(sig, key->publicKey, (const uint8_t*)testData, (size_t)size);
-
-	CHECK(result);
+	SchnorrSignature* sig = Schnorr::sign(*key->secretKey, *key->publicKey, (const uint8_t*)testData, (size_t)size);
+	bool result = Schnorr::verify(*sig, *key->publicKey, (const uint8_t*)testData, (size_t)size);
 
 	delete key;
 	delete sig;
