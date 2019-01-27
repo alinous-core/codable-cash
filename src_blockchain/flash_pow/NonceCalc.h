@@ -21,6 +21,8 @@ using namespace alinous;
 
 class NonceCalc {
 public:
+	static const BigInteger MAX_HASH;
+
 	NonceCalc();
 	virtual ~NonceCalc();
 
@@ -28,6 +30,9 @@ public:
 
 	BigInteger calcNecessaryDifficulty(const BigInteger& hashrate, uint64_t targetTimeSec);
 	BigInteger calcHash4Diff(const BigInteger& diff);
+
+	uint32_t toCompactDiff(const BigInteger& big);
+	BigInteger toBigintDiff(const uint32_t compact);
 
 private:
 	static int yescrypt(const uint8_t *passwd, size_t passwdlen,

@@ -205,7 +205,7 @@ TEST(TestBigIntegerGroup, testShift01){
 
 TEST(TestBigIntegerGroup, testShift02){
 	BigInteger ff(L"0xff", 16);
-	BigInteger shfted = ff.rightShift(-8);
+	BigInteger shfted = ff.shiftRight(-8);
 
 	BigInteger ans(L"0xff0", 16);
 
@@ -214,7 +214,7 @@ TEST(TestBigIntegerGroup, testShift02){
 
 TEST(TestBigIntegerGroup, testShift03){
 	BigInteger ff(L"0xff", 16);
-	BigInteger shfted = ff.rightShift(8);
+	BigInteger shfted = ff.shiftRight(8);
 
 	BigInteger ans(L"0xf", 16);
 
@@ -233,7 +233,7 @@ TEST(TestBigIntegerGroup, testShift04){
 TEST(TestBigIntegerGroup, testShift05){
 	BigInteger ff((int64_t)10);
 	BigInteger shfted = ff.shiftLeft(0);
-	BigInteger shfted2 = ff.rightShift(0);
+	BigInteger shfted2 = ff.shiftRight(0);
 
 	CHECK(shfted.equals(&ff))
 	CHECK(shfted2.equals(&ff))

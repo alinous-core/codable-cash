@@ -201,7 +201,7 @@ BigInteger BigInteger::shiftLeft(int n) const {
         return *this;
     }
     if(n < 0){
-    	return rightShift(-n);
+    	return shiftRight(-n);
     }
 
 	mpz_t op;
@@ -214,7 +214,7 @@ BigInteger BigInteger::shiftLeft(int n) const {
 	return ret;
 }
 
-BigInteger BigInteger::rightShift(int n) const {
+BigInteger BigInteger::shiftRight(int n) const {
     if (n == 0) {
         return *this;
     }
