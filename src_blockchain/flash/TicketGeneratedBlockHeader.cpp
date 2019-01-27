@@ -9,13 +9,11 @@
 
 namespace codablecash {
 
-TicketGeneratedBlockHeader::TicketGeneratedBlockHeader() {
-	// TODO Auto-generated constructor stub
-
+TicketGeneratedBlockHeader::TicketGeneratedBlockHeader(uint64_t height, const MinerSignature* minerSig, const Nonce* nonce)
+								: AbstractFlashBlockHeader(height, minerSig, nonce) {
 }
 
 TicketGeneratedBlockHeader::~TicketGeneratedBlockHeader() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace codablecash */

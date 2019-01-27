@@ -12,6 +12,7 @@ namespace codablecash {
 
 class MinerSignature {
 public:
+	MinerSignature(const MinerSignature& inst) = default;
 	MinerSignature();
 	virtual ~MinerSignature();
 };
