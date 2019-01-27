@@ -43,7 +43,7 @@ public:
 	BigInteger add(const BigInteger& val) const;
 	BigInteger divide(const BigInteger& divisor) const;
 
-	BigInteger rightShift(int n) const;
+	BigInteger shiftRight(int n) const;
 	BigInteger shiftLeft(int n) const;
 
 	BigInteger pow(uint64_t exp) const;

@@ -73,7 +73,7 @@ TEST(TestPoW, calcnoncehash){
 
 	BigInteger brate((int64_t)100);
 	BigInteger diff = calc.calcNecessaryDifficulty(brate, 5);
-	// ::printf("diff : %s\n", diff.toString(16).toCString());
+	//::printf("diff : %s\n", diff.toString(16).toCString());
 
 	BigInteger hash = calc.calcHash4Diff(diff);
 	UnicodeString out = hash.toString("%064Zx");
@@ -81,3 +81,18 @@ TEST(TestPoW, calcnoncehash){
 
 	CHECK(out.startsWith(UnicodeString(L"00")))
 }
+
+TEST(TestPoW, compactNonce01){
+	NonceCalc calc;
+
+	BigInteger bdiff(L"8d4fdf3b645a1cac083126e978d4f", 16);
+
+	uint32_t comp = calc.toCompactDiff(bdiff);
+	BigInteger cmpBig = calc.toBigintDiff(comp);
+
+	uint32_t comp2 = calc.toCompactDiff(cmpBig);
+
+	CHECK(comp == comp2)
+}
+
+

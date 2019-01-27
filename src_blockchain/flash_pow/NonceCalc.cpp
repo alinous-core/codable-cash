@@ -20,6 +20,8 @@
 
 namespace codablecash {
 
+const BigInteger NonceCalc::MAX_HASH = BigInteger(L"1", 16).shiftLeft(256);
+
 NonceCalc::NonceCalc() {
 }
 
@@ -40,15 +42,9 @@ BigInteger NonceCalc::calcNecessaryDifficulty(const BigInteger& hashrate, uint64
 }
 
 BigInteger NonceCalc::calcHash4Diff(const BigInteger& diff) {
-	// 256 bytes
-	BigInteger max(L"1", 16);
-	max = max.shiftLeft(256);
-
-	BigInteger hash = max.divide(diff);
+	BigInteger hash = MAX_HASH.divide(diff);
 	return hash;
 }
-
-
 
 int NonceCalc::yescrypt(const uint8_t* passwd, size_t passwdlen,
 		const uint8_t* salt, size_t saltlen, uint8_t* buf, size_t buflen) {
@@ -68,5 +64,40 @@ int NonceCalc::yescrypt(const uint8_t* passwd, size_t passwdlen,
 
 	return retval;
 }
+
+uint32_t NonceCalc::toCompactDiff(const BigInteger& big) {
+	int width = big.bitLength();
+	uint32_t ret = 0;
+
+	uint32_t exponent2 = 0;
+	if(width > 24){
+		exponent2 = width - 24;
+	}
+
+	ret = exponent2 << 24;
+
+	BigInteger fixedPointPart = big.shiftRight(exponent2);
+	uint32_t lfixedPointPart = fixedPointPart.longValue();
+
+	ret = ret | lfixedPointPart;
+
+	return ret;
+}
+
+BigInteger NonceCalc::toBigintDiff(const uint32_t compact) {
+	static uint32_t mask = 0x00ffffffUL;
+	int exponent2 = compact >> 24;
+
+	uint32_t lfixedPointPart = mask & compact;
+
+	BigInteger big(lfixedPointPart);
+	BigInteger exp(2);
+	exp = exp.pow(exponent2);
+
+	return big.multiply(exp);
+}
+
+
+
 
 } /* namespace codablecash */
