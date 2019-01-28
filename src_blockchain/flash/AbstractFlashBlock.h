@@ -25,7 +25,7 @@ public:
 	static const constexpr uint8_t BLK_TICKET{0x01};
 	static const constexpr uint8_t BLK_POW{0x02};
 
-	AbstractFlashBlock(uint8_t type);
+	explicit AbstractFlashBlock(uint8_t type);
 	virtual ~AbstractFlashBlock();
 
 	virtual int binarySize() const;
