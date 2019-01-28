@@ -44,6 +44,18 @@ NodeIdentifier::NodeIdentifier(NodeIdentifier&& inst) {
 	inst.shard = nullptr;
 }
 
+NodeIdentifier::NodeIdentifier(const NodeIdentifier& inst) {
+	this->pair = inst.pair->clone();
+	this->shard = new NetworkShard(*inst.shard);
+}
+
+int NodeIdentifier::binarySize() const {
+	// FIXME NodeIdentifier
+}
+
+void NodeIdentifier::toBinary(ByteBuffer* out) const {
+}
+
 NodeIdentifier NodeIdentifier::create(const NetworkShard* shard) {
 	NodeIdentifier nodeId;
 	nodeId.pair = Schnorr::generateKey();

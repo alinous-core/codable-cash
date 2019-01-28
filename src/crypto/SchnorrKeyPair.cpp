@@ -24,6 +24,10 @@ SchnorrKeyPair::~SchnorrKeyPair() {
 	delete this->publicKey;
 }
 
+IKeyPair* SchnorrKeyPair::clone() const noexcept {
+	return new SchnorrKeyPair(*this->secretKey, *this->publicKey);
+}
+
 ByteBuffer* SchnorrKeyPair::toBinary() const {
 	ByteBuffer* p = this->publicKey->toBinary();
 	ByteBuffer* s = this->secretKey->toBinary();

@@ -25,6 +25,7 @@ public:
 	SchnorrKeyPair(const BigInteger& secretKey, const BigInteger& publicKey);
 	virtual ~SchnorrKeyPair();
 
+	virtual IKeyPair* clone() const noexcept;
 	virtual ByteBuffer* toBinary() const;
 
 	BigInteger* secretKey;

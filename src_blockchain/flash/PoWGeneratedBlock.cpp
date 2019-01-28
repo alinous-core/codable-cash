@@ -17,7 +17,7 @@ PoWGeneratedBlock::PoWGeneratedBlock(uint64_t height, const MinerSignature* mine
 }
 
 PoWGeneratedBlock::~PoWGeneratedBlock() {
-	// TODO Auto-generated destructor stub
+	delete this->header;
 }
 
 } /* namespace codablecash */

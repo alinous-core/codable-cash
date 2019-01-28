@@ -9,13 +9,12 @@
 
 namespace codablecash {
 
-Nonce::Nonce() {
-	// TODO Auto-generated constructor stub
-
+Nonce::Nonce(uint32_t targetDiff, uint32_t diff) {
+	this->targetDiff = targetDiff;
+	this->diff = diff;
 }
 
 Nonce::~Nonce() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace codablecash */

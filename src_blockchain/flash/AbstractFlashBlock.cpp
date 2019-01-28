@@ -21,6 +21,14 @@ AbstractFlashBlock::~AbstractFlashBlock() {
 	this->list.deleteElements();
 }
 
+int AbstractFlashBlock::binarySize() const {
+	int total = sizeof(this->type);
 
+	// FIXME
+}
+
+void AbstractFlashBlock::toBinary(ByteBuffer* out) const {
+	// FIXME
+}
 
 } /* namespace codablecash */

@@ -5,6 +5,9 @@
  *      Author: iizuka
  */
 
+#include "flash_pow/Nonce.h"
+#include "flash/MinerSignature.h"
+#include "bc_network/NodeIdentifier.h"
 #include "bc_network/NetworkShardsStatus.h"
 #include "flash/PoWGeneratedBlock.h"
 #include "test_utils/t_macros.h"
@@ -21,9 +24,11 @@ TEST_GROUP(TestFlashBlocks) {
 TEST(TestFlashBlocks, newPow){
 	NetworkShardsStatus* address = new NetworkShardsStatus(8); __STP(address);
 
-	//MinerSignature sig();
+	NodeIdentifier nodeId = NodeIdentifier::create(address->getShard(2));
+	MinerSignature sig(&nodeId);
+	Nonce nonce(1, 2);
 
-	//PoWGeneratedBlock* block = new PoWGeneratedBlock();
+	PoWGeneratedBlock* block = new PoWGeneratedBlock(1, &sig, &nonce); __STP(block);
 
 }
 

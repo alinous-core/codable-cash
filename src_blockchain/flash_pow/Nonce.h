@@ -14,7 +14,7 @@ namespace codablecash {
 class Nonce {
 public:
 	Nonce(const Nonce& inst) = default;
-	Nonce();
+	Nonce(uint32_t targetDiff, uint32_t diff);
 	virtual ~Nonce();
 
 	uint32_t getDiff() const {

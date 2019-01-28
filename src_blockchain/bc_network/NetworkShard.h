@@ -14,6 +14,7 @@ class NetworkShard {
 private:
 	NetworkShard();
 public:
+	NetworkShard(const NetworkShard& inst) = default;
 	NetworkShard(int start, int length);
 	virtual ~NetworkShard();
 

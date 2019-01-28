@@ -7,6 +7,7 @@
 
 #ifndef BC_NETWORK_NODEIDENTIFIER_H_
 #define BC_NETWORK_NODEIDENTIFIER_H_
+#include "filestore_block/IBlockObject.h"
 
 namespace alinous {
 class ByteBuffer;
@@ -19,15 +20,17 @@ class IKeyPair;
 
 class NetworkShard;
 
-class NodeIdentifier {
+class NodeIdentifier : public IBlockObject {
 public:
 	NodeIdentifier& operator= (NodeIdentifier&& inst);
 	NodeIdentifier(NodeIdentifier&& inst);
+	NodeIdentifier(const NodeIdentifier& inst);
 
 	NodeIdentifier();
 	virtual ~NodeIdentifier();
 
-
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
 
 	static NodeIdentifier create(const NetworkShard* shard);
 

@@ -24,4 +24,12 @@ AbstractFlashBlockHeader::~AbstractFlashBlockHeader() {
 	delete this->nonce;
 }
 
+int AbstractFlashBlockHeader::binarySize() const {
+	// FIXME AbstractFlashBlockHeader
+
+}
+
+void AbstractFlashBlockHeader::toBinary(ByteBuffer* out) const {
+}
+
 } /* namespace codablecash */

@@ -19,6 +19,7 @@ class IKeyPair {
 public:
 	virtual ~IKeyPair();
 
+	virtual IKeyPair* clone() const noexcept = 0;
 	virtual ByteBuffer* toBinary() const = 0;
 };
 
