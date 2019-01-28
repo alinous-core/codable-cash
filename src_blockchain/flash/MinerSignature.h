@@ -10,11 +10,16 @@
 
 namespace codablecash {
 
+class NodeIdentifier;
+
 class MinerSignature {
 public:
 	MinerSignature(const MinerSignature& inst) = default;
-	MinerSignature();
+	MinerSignature(NodeIdentifier* nodeId);
 	virtual ~MinerSignature();
+
+private:
+	NodeIdentifier* nodeId;
 };
 
 } /* namespace codablecash */

@@ -6,16 +6,16 @@
  */
 
 #include "MinerSignature.h"
+#include "bc_network/NodeIdentifier.h"
 
 namespace codablecash {
 
-MinerSignature::MinerSignature() {
-	// TODO Auto-generated constructor stub
-
+MinerSignature::MinerSignature(NodeIdentifier* nodeId) {
+	this->nodeId = nodeId;
 }
 
 MinerSignature::~MinerSignature() {
-	// TODO Auto-generated destructor stub
+	delete this->nodeId;
 }
 
 } /* namespace codablecash */

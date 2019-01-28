@@ -5,6 +5,9 @@
  *      Author: iizuka
  */
 
+#include <algorithm>
+#include "../../src_blockchain/bc_network/NodeIdentifier.h"
+#include "base/StackRelease.h"
 #include "bc_network/NetworkShardsStatus.h"
 #include "bc_network/NetworkShard.h"
 #include "test_utils/t_macros.h"
@@ -35,4 +38,12 @@ TEST(TestShardStatGroup, clone){
 	delete address;
 }
 
+TEST(TestShardStatGroup, nodeid){
+	NetworkShardsStatus* address = new NetworkShardsStatus(8); __STP(address);
+	NetworkShard* shard = address->getShard(2);
 
+	NodeIdentifier nodeId = NodeIdentifier::create(shard);
+	NodeIdentifier nodeId2;
+
+	nodeId2 = std::move(nodeId);
+}

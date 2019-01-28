@@ -21,8 +21,15 @@ class NetworkShard;
 
 class NodeIdentifier {
 public:
+	NodeIdentifier& operator= (NodeIdentifier&& inst);
+	NodeIdentifier(NodeIdentifier&& inst);
+
 	NodeIdentifier();
 	virtual ~NodeIdentifier();
+
+
+
+	static NodeIdentifier create(const NetworkShard* shard);
 
 private:
 	NetworkShard* shard;

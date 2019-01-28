@@ -6,11 +6,14 @@
  */
 
 #include "flash/PoWGeneratedBlock.h"
+#include "PoWGeneratedBlockHeader.h"
+
 
 namespace codablecash {
 
-PoWGeneratedBlock::PoWGeneratedBlock() : AbstractFlashBlock(AbstractFlashBlock::BLK_POW) {
-
+PoWGeneratedBlock::PoWGeneratedBlock(uint64_t height, const MinerSignature* minerSig, const Nonce* nonce)
+					: AbstractFlashBlock(AbstractFlashBlock::BLK_POW) {
+	this->header = new PoWGeneratedBlockHeader(height, minerSig, nonce);
 }
 
 PoWGeneratedBlock::~PoWGeneratedBlock() {
