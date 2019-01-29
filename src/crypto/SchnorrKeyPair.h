@@ -19,13 +19,21 @@ namespace codablecash {
 using namespace alinous;
 
 class SchnorrKeyPair : public IKeyPair {
+private:
+	friend class IKeyPair;
+	SchnorrKeyPair();
+
 public:
 
 	SchnorrKeyPair(const SchnorrKeyPair& inst) = delete;
 	SchnorrKeyPair(const BigInteger& secretKey, const BigInteger& publicKey);
 	virtual ~SchnorrKeyPair();
 
-	virtual ByteBuffer* toBinary() const;
+	virtual IKeyPair* clone() const noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+
 
 	BigInteger* secretKey;
 	BigInteger* publicKey;

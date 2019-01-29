@@ -7,6 +7,7 @@
 
 #include "flash/AbstractFlashBlock.h"
 
+#include "AbstractFlashBlockHeader.h"
 #include "bc_base/AbstractTransaction.h"
 #include "MinerSignature.h"
 
@@ -21,6 +22,15 @@ AbstractFlashBlock::~AbstractFlashBlock() {
 	this->list.deleteElements();
 }
 
+int AbstractFlashBlock::binarySize() const {
+	int total = sizeof(this->type);
+	total += this->header->binarySize();
 
+	// FIXME
+}
+
+void AbstractFlashBlock::toBinary(ByteBuffer* out) const {
+	// FIXME
+}
 
 } /* namespace codablecash */

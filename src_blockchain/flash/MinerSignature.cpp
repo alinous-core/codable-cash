@@ -7,15 +7,39 @@
 
 #include "MinerSignature.h"
 
+#include "bc_network/NodeIdentifier.h"
+
 namespace codablecash {
 
 MinerSignature::MinerSignature() {
-	// TODO Auto-generated constructor stub
+	this->nodeId = nullptr;
+}
 
+MinerSignature::MinerSignature(const MinerSignature& inst) {
+	this->nodeId = new NodeIdentifier(*inst.nodeId);
+}
+
+MinerSignature::MinerSignature(const NodeIdentifier* nodeId) {
+	this->nodeId = new NodeIdentifier(*nodeId);
 }
 
 MinerSignature::~MinerSignature() {
-	// TODO Auto-generated destructor stub
+	delete this->nodeId;
+}
+
+int MinerSignature::binarySize() const {
+	return this->nodeId->binarySize();
+}
+
+void MinerSignature::toBinary(ByteBuffer* out) const {
+	this->nodeId->toBinary(out);
+}
+
+MinerSignature* MinerSignature::fromBinary(ByteBuffer* in) {
+	MinerSignature* sig = new MinerSignature();
+	sig->nodeId = NodeIdentifier::fromBinary(in);
+
+	return sig;
 }
 
 } /* namespace codablecash */

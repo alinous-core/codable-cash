@@ -12,9 +12,12 @@
 
 namespace codablecash {
 
+class MinerSignature;
+class Nonce;
+
 class PoWGeneratedBlock: public AbstractFlashBlock {
 public:
-	PoWGeneratedBlock();
+	PoWGeneratedBlock(uint64_t height, const MinerSignature* minerSig, const Nonce* nonce);
 	virtual ~PoWGeneratedBlock();
 };
 

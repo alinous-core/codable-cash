@@ -10,18 +10,26 @@
 
 #include <cstdint>
 
+#include "filestore_block/IBlockObject.h"
+
 namespace codablecash {
+using namespace alinous;
 
 class MinerSignature;
+class Nonce;
 
-class AbstractFlashBlockHeader {
+class AbstractFlashBlockHeader : public IBlockObject {
 public:
-	AbstractFlashBlockHeader();
+	AbstractFlashBlockHeader(uint64_t height, const MinerSignature* minerSig, const Nonce* nonce);
 	virtual ~AbstractFlashBlockHeader();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
 
 protected:
 	uint64_t height;
 	MinerSignature* minerSig;
+	Nonce* nonce;
 };
 
 } /* namespace codablecash */

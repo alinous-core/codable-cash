@@ -10,9 +10,15 @@
 #include "crypto/SchnorrKeyPair.h"
 
 #include "base_io/ByteBuffer.h"
+#include "base/StackRelease.h"
 #include "numeric/BigInteger.h"
 
 namespace codablecash {
+
+SchnorrKeyPair::SchnorrKeyPair() {
+	this->secretKey = nullptr;
+	this->publicKey = nullptr;
+}
 
 SchnorrKeyPair::SchnorrKeyPair(const BigInteger& secretKey, const BigInteger& publicKey) {
 	this->secretKey = new BigInteger(secretKey);
@@ -24,15 +30,25 @@ SchnorrKeyPair::~SchnorrKeyPair() {
 	delete this->publicKey;
 }
 
-ByteBuffer* SchnorrKeyPair::toBinary() const {
-	ByteBuffer* p = this->publicKey->toBinary();
-	ByteBuffer* s = this->secretKey->toBinary();
+IKeyPair* SchnorrKeyPair::clone() const noexcept {
+	return new SchnorrKeyPair(*this->secretKey, *this->publicKey);
+}
 
-	p->put(s);
+int SchnorrKeyPair::binarySize() const {
+	ByteBuffer* p = this->publicKey->toBinary(); __STP(p);
+	ByteBuffer* s = this->secretKey->toBinary(); __STP(s);
 
-	delete s;
+	return sizeof(int8_t) + p->capacity() + s->capacity();
+}
 
-	return p;
+void SchnorrKeyPair::toBinary(ByteBuffer* out) const {
+	out->put(IKeyPair::PAIR_SCHNORR);
+
+	ByteBuffer* p = this->publicKey->toBinary(); __STP(p);
+	ByteBuffer* s = this->secretKey->toBinary(); __STP(s);
+
+	out->put(p);
+	out->put(s);
 }
 
 } /* namespace codablecash */

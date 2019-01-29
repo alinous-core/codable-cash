@@ -11,13 +11,13 @@
 
 namespace codablecash {
 
-PoWGeneratedBlockHeader::PoWGeneratedBlockHeader() {
-	this->nonce = nullptr;
+PoWGeneratedBlockHeader::PoWGeneratedBlockHeader(uint64_t height, const MinerSignature* minerSig, const Nonce* nonce)
+					: AbstractFlashBlockHeader(height, minerSig, nonce) {
 
 }
 
 PoWGeneratedBlockHeader::~PoWGeneratedBlockHeader() {
-	delete this->nonce;
+
 }
 
 } /* namespace codablecash */

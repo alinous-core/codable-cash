@@ -8,12 +8,17 @@
 #ifndef BC_NETWORK_NETWORKSHARD_H_
 #define BC_NETWORK_NETWORKSHARD_H_
 
-namespace codablecash {
+#include "filestore_block/IBlockObject.h"
+#include <cstdlib>
 
-class NetworkShard {
+namespace codablecash {
+using namespace alinous;
+
+class NetworkShard : public IBlockObject {
 private:
 	NetworkShard();
 public:
+	NetworkShard(const NetworkShard& inst) = default;
 	NetworkShard(int start, int length);
 	virtual ~NetworkShard();
 
@@ -22,9 +27,13 @@ public:
 	char getRandomHash() const noexcept;
 	NetworkShard* clone() const noexcept;
 
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+	static NetworkShard* fromBinary(ByteBuffer* in);
+
 private:
-	int begin;
-	int end;
+	int32_t begin;
+	int32_t end;
 };
 
 } /* namespace codablecash */

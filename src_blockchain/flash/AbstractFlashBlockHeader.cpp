@@ -6,18 +6,30 @@
  */
 
 #include "AbstractFlashBlockHeader.h"
+
+#include "flash_pow/Nonce.h"
 #include "MinerSignature.h"
 
 
 namespace codablecash {
 
-AbstractFlashBlockHeader::AbstractFlashBlockHeader() {
-	this->height = 0;
-	this->minerSig = nullptr;
+AbstractFlashBlockHeader::AbstractFlashBlockHeader(uint64_t height, const MinerSignature* minerSig, const Nonce* nonce) {
+	this->height = height;
+	this->minerSig = new MinerSignature(*minerSig);
+	this->nonce = new Nonce(*nonce);
 }
 
 AbstractFlashBlockHeader::~AbstractFlashBlockHeader() {
 	delete this->minerSig;
+	delete this->nonce;
+}
+
+int AbstractFlashBlockHeader::binarySize() const {
+	// FIXME AbstractFlashBlockHeader
+
+}
+
+void AbstractFlashBlockHeader::toBinary(ByteBuffer* out) const {
 }
 
 } /* namespace codablecash */

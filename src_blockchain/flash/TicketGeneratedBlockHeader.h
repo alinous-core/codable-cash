@@ -14,7 +14,7 @@ namespace codablecash {
 
 class TicketGeneratedBlockHeader : public AbstractFlashBlockHeader {
 public:
-	TicketGeneratedBlockHeader();
+	TicketGeneratedBlockHeader(uint64_t height, const MinerSignature* minerSig, const Nonce* nonce);
 	virtual ~TicketGeneratedBlockHeader();
 };
 

@@ -8,12 +8,27 @@
 #ifndef FLASH_MINERSIGNATURE_H_
 #define FLASH_MINERSIGNATURE_H_
 
-namespace codablecash {
+#include "filestore_block/IBlockObject.h"
 
-class MinerSignature {
-public:
+namespace codablecash {
+using namespace alinous;
+
+class NodeIdentifier;
+
+class MinerSignature : public alinous::IBlockObject {
+private:
 	MinerSignature();
+public:
+	MinerSignature(const MinerSignature& inst);
+	explicit MinerSignature(const NodeIdentifier* nodeId);
 	virtual ~MinerSignature();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+	static MinerSignature* fromBinary(ByteBuffer* in);
+
+private:
+	NodeIdentifier* nodeId;
 };
 
 } /* namespace codablecash */

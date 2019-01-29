@@ -13,14 +13,15 @@
 namespace codablecash {
 
 class Nonce;
+class MinerSignature;
 
 class PoWGeneratedBlockHeader : public AbstractFlashBlockHeader {
 public:
-	PoWGeneratedBlockHeader();
+	PoWGeneratedBlockHeader(uint64_t height, const MinerSignature* minerSig, const Nonce* nonce);
 	virtual ~PoWGeneratedBlockHeader();
 
 private:
-	Nonce* nonce;
+
 };
 
 } /* namespace codablecash */

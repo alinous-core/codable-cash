@@ -9,6 +9,7 @@
 #define FLASH_ABSTRACTFLASHBLOCK_H_
 #include <cstdint>
 
+#include "filestore_block/IBlockObject.h"
 #include "base/ArrayList.h"
 
 namespace codablecash {
@@ -19,15 +20,16 @@ class AbstractTransaction;
 class MinerSignature;
 class AbstractFlashBlockHeader;
 
-class AbstractFlashBlock {
+class AbstractFlashBlock : public IBlockObject {
 public:
 	static const constexpr uint8_t BLK_TICKET{0x01};
 	static const constexpr uint8_t BLK_POW{0x02};
 
-	AbstractFlashBlock(uint8_t type);
+	explicit AbstractFlashBlock(uint8_t type);
 	virtual ~AbstractFlashBlock();
 
-
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
 protected:
 	uint8_t type;
 	AbstractFlashBlockHeader* header;
