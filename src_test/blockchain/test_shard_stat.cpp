@@ -63,7 +63,7 @@ TEST(TestShardStatGroup, shardbinary){
 	CHECK(length == bshard->position())
 
 	bshard->position(0);
-	NetworkShard* shard2 = NetworkShard::fromBinary(bshard);
+	NetworkShard* shard2 = NetworkShard::fromBinary(bshard); __STP(shard2);
 
 	CHECK(shard->size() == shard2->size());
 }
