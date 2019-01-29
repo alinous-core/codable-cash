@@ -19,6 +19,10 @@ namespace codablecash {
 using namespace alinous;
 
 class SchnorrKeyPair : public IKeyPair {
+private:
+	friend class IKeyPair;
+	SchnorrKeyPair();
+
 public:
 
 	SchnorrKeyPair(const SchnorrKeyPair& inst) = delete;

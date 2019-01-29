@@ -15,6 +15,11 @@
 
 namespace codablecash {
 
+SchnorrKeyPair::SchnorrKeyPair() {
+	this->secretKey = nullptr;
+	this->publicKey = nullptr;
+}
+
 SchnorrKeyPair::SchnorrKeyPair(const BigInteger& secretKey, const BigInteger& publicKey) {
 	this->secretKey = new BigInteger(secretKey);
 	this->publicKey = new BigInteger(publicKey);
