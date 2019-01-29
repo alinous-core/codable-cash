@@ -36,6 +36,7 @@ TEST_GROUP(TestBlockFileStoreGroup) {
 
 TEST(TestBlockFileStoreGroup, exceptions){
 	testException<BlockFileStorageException>();
+	testException<BinaryFormatException>();
 }
 
 TEST(TestBlockFileStoreGroup, construct){

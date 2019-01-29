@@ -31,6 +31,7 @@ public:
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
+	static NodeIdentifier* fromBinary(ByteBuffer* in);
 
 	static NodeIdentifier create(const NetworkShard* shard);
 

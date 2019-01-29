@@ -7,6 +7,7 @@
 
 #include "flash/AbstractFlashBlock.h"
 
+#include "AbstractFlashBlockHeader.h"
 #include "bc_base/AbstractTransaction.h"
 #include "MinerSignature.h"
 
@@ -23,6 +24,7 @@ AbstractFlashBlock::~AbstractFlashBlock() {
 
 int AbstractFlashBlock::binarySize() const {
 	int total = sizeof(this->type);
+	total += this->header->binarySize();
 
 	// FIXME
 }

@@ -26,7 +26,10 @@ public:
 	virtual ~SchnorrKeyPair();
 
 	virtual IKeyPair* clone() const noexcept;
-	virtual ByteBuffer* toBinary() const;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+
 
 	BigInteger* secretKey;
 	BigInteger* publicKey;

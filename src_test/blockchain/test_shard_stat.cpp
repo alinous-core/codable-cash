@@ -5,11 +5,14 @@
  *      Author: iizuka
  */
 
+#include "base_io/ByteBuffer.h"
 #include <algorithm>
-#include "../../src_blockchain/bc_network/NodeIdentifier.h"
+#include "bc_network/NodeIdentifier.h"
 #include "base/StackRelease.h"
 #include "bc_network/NetworkShardsStatus.h"
 #include "bc_network/NetworkShard.h"
+
+#include "crypto/IKeyPair.h"
 #include "test_utils/t_macros.h"
 
 
@@ -46,4 +49,21 @@ TEST(TestShardStatGroup, nodeid){
 	NodeIdentifier nodeId2;
 
 	nodeId2 = std::move(nodeId);
+}
+
+TEST(TestShardStatGroup, shardbinary){
+	NetworkShardsStatus* address = new NetworkShardsStatus(8); __STP(address);
+	NetworkShard* shard = address->getShard(2);
+
+	int length = shard->binarySize();
+	ByteBuffer* bshard = ByteBuffer::allocate(length); __STP(bshard);
+
+	shard->toBinary(bshard);
+
+	CHECK(length == bshard->position())
+
+	bshard->position(0);
+	NetworkShard* shard2 = NetworkShard::fromBinary(bshard);
+
+	CHECK(shard->size() == shard2->size());
 }

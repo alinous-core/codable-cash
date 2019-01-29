@@ -5,11 +5,14 @@
  *      Author: iizuka
  */
 
+#include "base_io/ByteBuffer.h"
 #include "bc_network/NetworkShard.h"
 
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+
+using alinous::ByteBuffer;
 
 namespace codablecash {
 
@@ -48,5 +51,20 @@ NetworkShard* NetworkShard::clone() const noexcept {
 }
 
 
-} /* namespace codablecash */
+int NetworkShard::binarySize() const {
+	return sizeof(this->begin) + sizeof(this->end);
+}
 
+void NetworkShard::toBinary(ByteBuffer* out) const {
+	out->putInt(this->begin);
+	out->putInt(this->end);
+}
+
+NetworkShard* NetworkShard::fromBinary(ByteBuffer* in) {
+	int32_t begin = in->getInt();
+	int32_t end = in->getInt();
+
+	return new NetworkShard(begin, end - begin + 1);
+}
+
+} /* namespace codablecash */

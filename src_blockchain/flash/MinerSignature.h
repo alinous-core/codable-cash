@@ -18,7 +18,7 @@ class NodeIdentifier;
 class MinerSignature : public alinous::IBlockObject {
 public:
 	MinerSignature(const MinerSignature& inst);
-	MinerSignature(const NodeIdentifier* nodeId);
+	explicit MinerSignature(const NodeIdentifier* nodeId);
 	virtual ~MinerSignature();
 
 	virtual int binarySize() const;

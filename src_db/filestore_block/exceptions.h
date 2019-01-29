@@ -23,6 +23,16 @@ public:
 	static const wchar_t* defaultMessage;
 };
 
+class BinaryFormatException : public Exception{
+public:
+	BinaryFormatException(const char* srcfile, int srcline) noexcept;
+	BinaryFormatException(Exception* cause, const char* srcfile, int srcline) noexcept;
+	BinaryFormatException(const wchar_t* message, const char* srcfile, int srcline) noexcept;
+	BinaryFormatException(const wchar_t* message, Exception* cause, const char* srcfile, int srcline) noexcept;
+	virtual ~BinaryFormatException();
+	static const wchar_t* defaultMessage;
+};
+
 } /* namespace alinous */
 
 #endif /* FILESTORE_BLOCK_EXCEPTIONS_H_ */

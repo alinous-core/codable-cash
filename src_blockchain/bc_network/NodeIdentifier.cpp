@@ -50,10 +50,17 @@ NodeIdentifier::NodeIdentifier(const NodeIdentifier& inst) {
 }
 
 int NodeIdentifier::binarySize() const {
-	// FIXME NodeIdentifier
+	return this->pair->binarySize() +this->shard->binarySize();
 }
 
 void NodeIdentifier::toBinary(ByteBuffer* out) const {
+
+	// FIXME NodeIdentifier
+
+}
+
+NodeIdentifier* NodeIdentifier::fromBinary(ByteBuffer* in) {
+
 }
 
 NodeIdentifier NodeIdentifier::create(const NetworkShard* shard) {

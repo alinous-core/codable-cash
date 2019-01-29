@@ -9,13 +9,20 @@
 #define FLASH_POW_NONCE_H_
 #include <cstdint>
 
-namespace codablecash {
+#include "filestore_block/IBlockObject.h"
 
-class Nonce {
+namespace codablecash {
+using namespace alinous;
+
+class Nonce : public IBlockObject {
 public:
 	Nonce(const Nonce& inst) = default;
 	Nonce(uint32_t targetDiff, uint32_t diff);
 	virtual ~Nonce();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+	static Nonce* fromBinary(ByteBuffer* in);
 
 	uint32_t getDiff() const {
 		return diff;
