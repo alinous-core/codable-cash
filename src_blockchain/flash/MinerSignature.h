@@ -16,6 +16,8 @@ using namespace alinous;
 class NodeIdentifier;
 
 class MinerSignature : public alinous::IBlockObject {
+private:
+	MinerSignature();
 public:
 	MinerSignature(const MinerSignature& inst);
 	explicit MinerSignature(const NodeIdentifier* nodeId);
@@ -23,6 +25,7 @@ public:
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
+	static MinerSignature* fromBinary(ByteBuffer* in);
 
 private:
 	NodeIdentifier* nodeId;
