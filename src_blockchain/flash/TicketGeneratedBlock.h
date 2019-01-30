@@ -16,6 +16,9 @@ class TicketGeneratedBlock: public AbstractFlashBlock {
 public:
 	TicketGeneratedBlock();
 	virtual ~TicketGeneratedBlock();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
 };
 
 } /* namespace codablecash */

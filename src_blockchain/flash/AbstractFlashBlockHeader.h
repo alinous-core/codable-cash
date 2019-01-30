@@ -19,14 +19,21 @@ class MinerSignature;
 class Nonce;
 
 class AbstractFlashBlockHeader : public IBlockObject {
+private:
+	AbstractFlashBlockHeader(int kind);
 public:
-	AbstractFlashBlockHeader(uint64_t height, const MinerSignature* minerSig, const Nonce* nonce);
+	static const constexpr uint8_t BLKH_TICKET_V0{0x01};
+	static const constexpr uint8_t BLKH_POW_V0{0x02};
+
+	AbstractFlashBlockHeader(int kind, uint64_t height, const MinerSignature* minerSig, const Nonce* nonce);
 	virtual ~AbstractFlashBlockHeader();
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
+	static AbstractFlashBlockHeader* fromBinary(ByteBuffer* in);
 
 protected:
+	uint8_t kind;
 	uint64_t height;
 	MinerSignature* minerSig;
 	Nonce* nonce;

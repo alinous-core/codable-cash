@@ -10,7 +10,7 @@
 namespace codablecash {
 
 TicketGeneratedBlockHeader::TicketGeneratedBlockHeader(uint64_t height, const MinerSignature* minerSig, const Nonce* nonce)
-								: AbstractFlashBlockHeader(height, minerSig, nonce) {
+								: AbstractFlashBlockHeader(AbstractFlashBlockHeader::BLKH_TICKET_V0, height, minerSig, nonce) {
 }
 
 TicketGeneratedBlockHeader::~TicketGeneratedBlockHeader() {

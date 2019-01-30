@@ -16,9 +16,18 @@ class MinerSignature;
 class Nonce;
 
 class PoWGeneratedBlock: public AbstractFlashBlock {
+private:
+	friend class AbstractFlashBlock;
+
+	PoWGeneratedBlock();
+
 public:
 	PoWGeneratedBlock(uint64_t height, const MinerSignature* minerSig, const Nonce* nonce);
 	virtual ~PoWGeneratedBlock();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+
 };
 
 } /* namespace codablecash */

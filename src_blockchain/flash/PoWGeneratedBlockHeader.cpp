@@ -12,7 +12,7 @@
 namespace codablecash {
 
 PoWGeneratedBlockHeader::PoWGeneratedBlockHeader(uint64_t height, const MinerSignature* minerSig, const Nonce* nonce)
-					: AbstractFlashBlockHeader(height, minerSig, nonce) {
+					: AbstractFlashBlockHeader(AbstractFlashBlockHeader::BLKH_POW_V0, height, minerSig, nonce) {
 
 }
 
