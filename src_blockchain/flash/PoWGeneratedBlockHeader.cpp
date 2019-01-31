@@ -11,6 +11,9 @@
 
 namespace codablecash {
 
+PoWGeneratedBlockHeader::PoWGeneratedBlockHeader() : AbstractFlashBlockHeader(AbstractFlashBlockHeader::BLKH_POW_V0) {
+}
+
 PoWGeneratedBlockHeader::PoWGeneratedBlockHeader(uint64_t height, const MinerSignature* minerSig, const Nonce* nonce)
 					: AbstractFlashBlockHeader(AbstractFlashBlockHeader::BLKH_POW_V0, height, minerSig, nonce) {
 
@@ -18,6 +21,18 @@ PoWGeneratedBlockHeader::PoWGeneratedBlockHeader(uint64_t height, const MinerSig
 
 PoWGeneratedBlockHeader::~PoWGeneratedBlockHeader() {
 
+}
+
+int PoWGeneratedBlockHeader::binarySize() const {
+	return AbstractFlashBlockHeader::binarySize();
+}
+
+void PoWGeneratedBlockHeader::toBinary(ByteBuffer* out) const {
+	AbstractFlashBlockHeader::toBinary(out);
+}
+
+void PoWGeneratedBlockHeader::fromBinary(ByteBuffer* in) {
+	AbstractFlashBlockHeader::fromBinary(in);
 }
 
 } /* namespace codablecash */

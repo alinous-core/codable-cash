@@ -24,4 +24,6 @@ void TicketGeneratedBlock::toBinary(ByteBuffer* out) const {
 	AbstractFlashBlock::toBinary(out);
 }
 
+
+
 } /* namespace codablecash */

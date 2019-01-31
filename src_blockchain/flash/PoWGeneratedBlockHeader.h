@@ -16,10 +16,16 @@ class Nonce;
 class MinerSignature;
 
 class PoWGeneratedBlockHeader : public AbstractFlashBlockHeader {
+private:
+	friend class AbstractFlashBlockHeader;
+	PoWGeneratedBlockHeader();
 public:
 	PoWGeneratedBlockHeader(uint64_t height, const MinerSignature* minerSig, const Nonce* nonce);
 	virtual ~PoWGeneratedBlockHeader();
 
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+	virtual void fromBinary(ByteBuffer* in);
 private:
 
 };

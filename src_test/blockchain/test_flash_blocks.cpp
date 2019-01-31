@@ -30,6 +30,8 @@ TEST(TestFlashBlocks, newPow){
 
 	PoWGeneratedBlock* block = new PoWGeneratedBlock(1, &sig, &nonce); __STP(block);
 
+	int cap = block->binarySize();
+
 }
 
 
