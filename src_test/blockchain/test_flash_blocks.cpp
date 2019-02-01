@@ -11,6 +11,7 @@
 #include "bc_network/NetworkShardsStatus.h"
 #include "flash/PoWGeneratedBlock.h"
 #include "test_utils/t_macros.h"
+#include "base_io/ByteBuffer.h"
 
 using namespace alinous;
 using namespace codablecash;
@@ -31,6 +32,10 @@ TEST(TestFlashBlocks, newPow){
 	PoWGeneratedBlock* block = new PoWGeneratedBlock(1, &sig, &nonce); __STP(block);
 
 	int cap = block->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(cap, true);
+	block->toBinary(buff);
+
+
 
 }
 

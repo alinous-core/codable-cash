@@ -28,7 +28,7 @@ int PoWGeneratedBlock::binarySize() const {
 }
 
 void PoWGeneratedBlock::toBinary(ByteBuffer* out) const {
-	PoWGeneratedBlock::toBinary(out);
+	AbstractFlashBlock::toBinary(out);
 }
 
 } /* namespace codablecash */
