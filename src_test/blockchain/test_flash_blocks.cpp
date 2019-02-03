@@ -35,6 +35,8 @@ TEST(TestFlashBlocks, newPow){
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(cap, true);
 	block->toBinary(buff);
 
+	buff->position(0);
+	AbstractFlashBlock* resBlock = AbstractFlashBlock::createFromBinary(buff); __STP(resBlock);
 
 
 }

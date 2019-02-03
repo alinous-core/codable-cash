@@ -31,4 +31,9 @@ void PoWGeneratedBlock::toBinary(ByteBuffer* out) const {
 	AbstractFlashBlock::toBinary(out);
 }
 
+void PoWGeneratedBlock::fromBinary(ByteBuffer* in) {
+	AbstractFlashBlock::fromBinary(in);
+}
+
+
 } /* namespace codablecash */

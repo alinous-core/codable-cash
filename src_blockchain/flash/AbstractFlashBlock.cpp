@@ -13,6 +13,8 @@
 #include "base_io/ByteBuffer.h"
 
 #include "flash/PoWGeneratedBlock.h"
+#include "flash/TicketGeneratedBlock.h"
+#include "filestore_block/exceptions.h"
 
 namespace codablecash {
 
@@ -53,7 +55,13 @@ void AbstractFlashBlock::toBinary(ByteBuffer* out) const {
 }
 
 void AbstractFlashBlock::fromBinary(ByteBuffer* in) {
-	//this->header =
+	this->header = AbstractFlashBlockHeader::createFromBinary(in);
+
+	int maxLoop = in->getInt();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractTransaction* trx = AbstractTransaction::fromBinary(in);
+		this->list.addElement(trx);
+	}
 }
 
 AbstractFlashBlock* AbstractFlashBlock::createFromBinary(ByteBuffer* in) {
@@ -65,10 +73,10 @@ AbstractFlashBlock* AbstractFlashBlock::createFromBinary(ByteBuffer* in) {
 			blk = new PoWGeneratedBlock();
 			break;
 		case AbstractFlashBlock::BLK_TICKET_V0:
-
+			blk = new TicketGeneratedBlock();
 			break;
 		default:
-			break;
+			throw new BinaryFormatException(L"wrong block type.", __FILE__, __LINE__);
 	}
 
 	blk->fromBinary(in);

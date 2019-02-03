@@ -36,19 +36,26 @@ IKeyPair* SchnorrKeyPair::clone() const noexcept {
 
 int SchnorrKeyPair::binarySize() const {
 	ByteBuffer* p = this->publicKey->toBinary(); __STP(p);
-	ByteBuffer* s = this->secretKey->toBinary(); __STP(s);
 
-	return sizeof(int8_t) + p->capacity() + s->capacity();
+	return sizeof(int8_t) + sizeof(int16_t) + p->capacity();
 }
 
 void SchnorrKeyPair::toBinary(ByteBuffer* out) const {
 	out->put(IKeyPair::PAIR_SCHNORR);
 
 	ByteBuffer* p = this->publicKey->toBinary(); __STP(p);
-	ByteBuffer* s = this->secretKey->toBinary(); __STP(s);
 
+	out->putShort(p->capacity());
 	out->put(p);
-	out->put(s);
+}
+
+void SchnorrKeyPair::fromBinary(ByteBuffer* in) {
+	int length = in->getShort();
+	int position = in->position();
+
+	this->publicKey = BigInteger::fromBinary((const char*)in->array() + position, length);
+
+	in->position(position + length);
 }
 
 } /* namespace codablecash */

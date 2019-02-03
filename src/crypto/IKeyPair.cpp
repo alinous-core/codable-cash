@@ -16,7 +16,7 @@ namespace codablecash {
 IKeyPair::~IKeyPair() {
 }
 
-IKeyPair* IKeyPair::fromBinary(ByteBuffer* in) {
+IKeyPair* IKeyPair::createFromBinary(ByteBuffer* in) {
 	int32_t type = in->get();
 
 	IKeyPair* pair = nullptr;
