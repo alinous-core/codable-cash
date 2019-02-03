@@ -32,7 +32,7 @@ TEST(TestFlashBlocks, newPow){
 	PoWGeneratedBlock* block = new PoWGeneratedBlock(1, &sig, &nonce); __STP(block);
 
 	int cap = block->binarySize();
-	ByteBuffer* buff = ByteBuffer::allocateWithEndian(cap, true);
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(cap, true); __STP(buff);
 	block->toBinary(buff);
 
 	buff->position(0);
