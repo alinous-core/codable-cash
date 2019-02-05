@@ -38,6 +38,17 @@ public:
 	static const constexpr short TYPE_VOID{25};
 
 	static const constexpr short STMT_BLOCK{50};
+	static const constexpr short STMT_VARIABLE_DECLARE{51};
+	static const constexpr short STMT_SUBSTITUTION{52};
+
+	static const constexpr short STMT_BREAK{60};
+	static const constexpr short STMT_CONTINUE{61};
+	static const constexpr short STMT_DO_WHILE{62};
+	static const constexpr short STMT_FOR{63};
+	static const constexpr short STMT_IF{64};
+	static const constexpr short STMT_RETURN{65};
+	static const constexpr short STMT_WHILE{66};
+
 
 
 	explicit CodeElement(short kind);
