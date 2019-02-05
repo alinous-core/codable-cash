@@ -61,7 +61,7 @@ void NodeIdentifier::toBinary(ByteBuffer* out) const {
 NodeIdentifier* NodeIdentifier::fromBinary(ByteBuffer* in) {
 	NodeIdentifier* nodeId = new NodeIdentifier();
 
-	nodeId->pair = IKeyPair::fromBinary(in);
+	nodeId->pair = IKeyPair::createFromBinary(in);
 	nodeId->shard = NetworkShard::fromBinary(in);
 
 	return nodeId;

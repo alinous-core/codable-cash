@@ -11,13 +11,29 @@
 
 namespace codablecash {
 
+PoWGeneratedBlock::PoWGeneratedBlock() : AbstractFlashBlock(AbstractFlashBlock::BLK_POW_V0) {
+}
+
 PoWGeneratedBlock::PoWGeneratedBlock(uint64_t height, const MinerSignature* minerSig, const Nonce* nonce)
-					: AbstractFlashBlock(AbstractFlashBlock::BLK_POW) {
+					: AbstractFlashBlock(AbstractFlashBlock::BLK_POW_V0) {
 	this->header = new PoWGeneratedBlockHeader(height, minerSig, nonce);
 }
 
 PoWGeneratedBlock::~PoWGeneratedBlock() {
 	delete this->header;
 }
+
+int PoWGeneratedBlock::binarySize() const {
+	return AbstractFlashBlock::binarySize();
+}
+
+void PoWGeneratedBlock::toBinary(ByteBuffer* out) const {
+	AbstractFlashBlock::toBinary(out);
+}
+
+void PoWGeneratedBlock::fromBinary(ByteBuffer* in) {
+	AbstractFlashBlock::fromBinary(in);
+}
+
 
 } /* namespace codablecash */

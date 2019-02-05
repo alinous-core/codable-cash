@@ -22,16 +22,22 @@ class AbstractFlashBlockHeader;
 
 class AbstractFlashBlock : public IBlockObject {
 public:
-	static const constexpr uint8_t BLK_TICKET{0x01};
-	static const constexpr uint8_t BLK_POW{0x02};
+	static const constexpr uint16_t BLK_TICKET_V0{0x01};
+	static const constexpr uint16_t BLK_POW_V0{0x02};
 
-	explicit AbstractFlashBlock(uint8_t type);
+	explicit AbstractFlashBlock(uint16_t type);
 	virtual ~AbstractFlashBlock();
+
+	void addTrx(AbstractTransaction* trx) noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
+	virtual void fromBinary(ByteBuffer* in);
+
+	static AbstractFlashBlock* createFromBinary(ByteBuffer* in);
+
 protected:
-	uint8_t type;
+	uint16_t type;
 	AbstractFlashBlockHeader* header;
 	ArrayList<AbstractTransaction> list;
 };

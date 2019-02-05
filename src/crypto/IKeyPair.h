@@ -26,8 +26,9 @@ public:
 	virtual IKeyPair* clone() const noexcept = 0;
 	virtual void toBinary(ByteBuffer* out) const = 0;
 	virtual int binarySize() const = 0;
+	virtual void fromBinary(ByteBuffer* in) = 0;
 
-	static IKeyPair* fromBinary(ByteBuffer* in);
+	static IKeyPair* createFromBinary(ByteBuffer* in);
 };
 
 } /* namespace codablecash */
