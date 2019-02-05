@@ -64,6 +64,10 @@ void AbstractFlashBlock::fromBinary(ByteBuffer* in) {
 	}
 }
 
+void AbstractFlashBlock::addTrx(AbstractTransaction* trx) noexcept {
+	this->list.addElement(trx);
+}
+
 AbstractFlashBlock* AbstractFlashBlock::createFromBinary(ByteBuffer* in) {
 	uint16_t type = in->getShort();
 

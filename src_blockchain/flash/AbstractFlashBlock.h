@@ -28,6 +28,8 @@ public:
 	explicit AbstractFlashBlock(uint16_t type);
 	virtual ~AbstractFlashBlock();
 
+	void addTrx(AbstractTransaction* trx) noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
 	virtual void fromBinary(ByteBuffer* in);

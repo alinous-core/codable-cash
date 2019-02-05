@@ -12,13 +12,22 @@
 
 namespace codablecash {
 
+class MinerSignature;
+class Nonce;
+
 class TicketGeneratedBlock: public AbstractFlashBlock {
-public:
+private:
+	friend class AbstractFlashBlock;
+
 	TicketGeneratedBlock();
+
+public:
+	TicketGeneratedBlock(uint64_t height, const MinerSignature* minerSig, const Nonce* nonce);
 	virtual ~TicketGeneratedBlock();
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace codablecash */
