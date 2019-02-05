@@ -15,6 +15,7 @@
 #include "base_io/ByteBuffer.h"
 #include "crypto/Sha256.h"
 #include "yescrypt/sha256.h"
+#include "base/Exception.h"
 
 using namespace codablecash;
 using namespace alinous;
@@ -24,6 +25,25 @@ TEST_GROUP(SchnorrTestGroup) {
 	TEST_TEARDOWN() {}
 
 };
+
+TEST(SchnorrTestGroup, IKeyPairCreateError){
+	Exception* ex = nullptr;
+
+	try{
+		ByteBuffer* buff = ByteBuffer::allocateWithEndian(32, true); __STP(buff);
+		buff->put(128);
+		buff->position(0);
+
+		IKeyPair::createFromBinary(buff);
+	}
+	catch (Exception* e) {
+		ex = e;
+	}
+
+	CHECK(ex != nullptr)
+	delete ex;
+
+}
 
 TEST(SchnorrTestGroup, sha){
 	ByteBuffer* bin = Schnorr::toByteBuffer(Schnorr::cnsts.G);
