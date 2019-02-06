@@ -649,29 +649,39 @@ assert(false);
 
 
 IfStatement
-           * AlinousLang::ifStatement() {IfStatement* stmt = new IfStatement();
-        StatementBlock* blk = nullptr;
+           * AlinousLang::ifStatement() {IfStatement* ifstmt = new IfStatement();
+        AbstractExpression* exp;
+        AbstractStatement* stmt;
         Token* t = nullptr;
     if (!hasError) {
-    t = jj_consume_token(IF);
+    // FIXME replace statement and expression
+            t = jj_consume_token(IF);
     }
     if (!hasError) {
-stmt->setPosition(t);
+ifstmt->setPosition(t);
     }
     if (!hasError) {
     jj_consume_token(L_PARENTHESIS);
     }
     if (!hasError) {
+    exp = nullLiteral();
+    }
+    if (!hasError) {
+ifstmt->setExpression(exp);
+                ifstmt->setPosition(exp);
+    }
+    if (!hasError) {
     jj_consume_token(R_PARENTHESIS);
     }
     if (!hasError) {
-    blk = statementBlock();
+    stmt = statementBlock();
     }
     if (!hasError) {
-stmt->setPosition(blk);
+ifstmt->setStatement(stmt);
+                ifstmt->setPosition(stmt);
     }
-__ONERROR(stmt);
-                return stmt;
+__ONERROR(ifstmt);
+                return ifstmt;
 assert(false);
 }
 

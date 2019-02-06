@@ -4,24 +4,30 @@
 */
 
 IfStatement* ifStatement() : {
-	IfStatement* stmt = new IfStatement();
-	StatementBlock* blk = nullptr;
+	IfStatement* ifstmt = new IfStatement();
+	AbstractExpression* exp;
+	AbstractStatement* stmt;
 	Token* t = nullptr;
 }
-{ 
+{
+	// FIXME replace statement and expression
 	t="if" {
-		stmt->setPosition(t);
+		ifstmt->setPosition(t);
 	}
 	"("
-	
+	exp=nullLiteral() {
+		ifstmt->setExpression(exp);
+		ifstmt->setPosition(exp);
+	}
 	
 	")"
 	
-	blk=statementBlock() {
-		stmt->setPosition(blk);
+	stmt=statementBlock() {
+		ifstmt->setStatement(stmt);
+		ifstmt->setPosition(stmt);
 	}
 	{
-		 __ONERROR(stmt);
-		return stmt;
+		 __ONERROR(ifstmt);
+		return ifstmt;
 	}
 }

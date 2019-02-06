@@ -17,5 +17,13 @@ TEST_GROUP(TestCtrlStatementGroup) {
 };
 
 TEST(TestCtrlStatementGroup, if01){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement_ctrl/if.alns"))
 
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	IfStatement* lit = lang->ifStatement(); __STP(lit);
+
+	CHECK(!parser.hasError())
 }

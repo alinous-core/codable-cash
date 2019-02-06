@@ -12,14 +12,18 @@
 
 namespace alinous {
 
+class AbstractExpression;
+
 class IfStatement: public AbstractStatement {
 public:
 	IfStatement();
 	virtual ~IfStatement();
 
+	void setExpression(AbstractExpression* exp) noexcept;
+	void setStatement(AbstractStatement* stmt) noexcept;
 
 private:
-
+	AbstractExpression* exp;
 	AbstractStatement* stmt;
 };
 
