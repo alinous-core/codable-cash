@@ -39,6 +39,8 @@ StringType          * stringType();
 VoidType        * voidType();
 StatementBlock
               * statementBlock();
+IfStatement
+           * ifStatement();
 NullLiteral
 
            * nullLiteral();

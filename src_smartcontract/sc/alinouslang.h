@@ -31,6 +31,14 @@
 
 #include "sc_statement/StatementBlock.h"
 
+#include "sc_statement_ctrl/BreakStatement.h"
+#include "sc_statement_ctrl/ContinueStatement.h"
+#include "sc_statement_ctrl/DoWhileStatement.h"
+#include "sc_statement_ctrl/ForStatement.h"
+#include "sc_statement_ctrl/IfStatement.h"
+#include "sc_statement_ctrl/ReturnStatement.h"
+#include "sc_statement_ctrl/WhileStatement.h"
+
 #include "sc_expression/NullLiteral.h"
 
 

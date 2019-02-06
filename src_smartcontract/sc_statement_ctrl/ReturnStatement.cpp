@@ -10,7 +10,6 @@
 namespace alinous {
 
 ReturnStatement::ReturnStatement() : AbstractStatement(CodeElement::STMT_RETURN) {
-	// TODO Auto-generated constructor stub
 
 }
 

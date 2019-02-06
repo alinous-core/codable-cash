@@ -648,6 +648,34 @@ assert(false);
 }
 
 
+IfStatement
+           * AlinousLang::ifStatement() {IfStatement* stmt = new IfStatement();
+        StatementBlock* blk = nullptr;
+        Token* t = nullptr;
+    if (!hasError) {
+    t = jj_consume_token(IF);
+    }
+    if (!hasError) {
+stmt->setPosition(t);
+    }
+    if (!hasError) {
+    jj_consume_token(L_PARENTHESIS);
+    }
+    if (!hasError) {
+    jj_consume_token(R_PARENTHESIS);
+    }
+    if (!hasError) {
+    blk = statementBlock();
+    }
+    if (!hasError) {
+stmt->setPosition(blk);
+    }
+__ONERROR(stmt);
+                return stmt;
+assert(false);
+}
+
+
 NullLiteral
 
            * AlinousLang::nullLiteral() {NullLiteral* lit = new NullLiteral();

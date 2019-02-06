@@ -10,12 +10,10 @@
 namespace alinous {
 
 BreakStatement::BreakStatement() : AbstractStatement(CodeElement::STMT_BREAK) {
-	// TODO Auto-generated constructor stub
 
 }
 
 BreakStatement::~BreakStatement() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

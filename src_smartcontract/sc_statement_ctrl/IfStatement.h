@@ -16,6 +16,11 @@ class IfStatement: public AbstractStatement {
 public:
 	IfStatement();
 	virtual ~IfStatement();
+
+
+private:
+
+	AbstractStatement* stmt;
 };
 
 } /* namespace alinous */

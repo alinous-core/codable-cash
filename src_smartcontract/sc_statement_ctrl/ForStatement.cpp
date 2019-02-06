@@ -10,8 +10,6 @@
 namespace alinous {
 
 ForStatement::ForStatement() : AbstractStatement(CodeElement::STMT_FOR) {
-	// TODO Auto-generated constructor stub
-
 }
 
 ForStatement::~ForStatement() {

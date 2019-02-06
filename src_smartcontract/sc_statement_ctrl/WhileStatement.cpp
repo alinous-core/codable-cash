@@ -10,7 +10,6 @@
 namespace alinous {
 
 WhileStatement::WhileStatement() : AbstractStatement(CodeElement::STMT_WHILE) {
-	// TODO Auto-generated constructor stub
 
 }
 

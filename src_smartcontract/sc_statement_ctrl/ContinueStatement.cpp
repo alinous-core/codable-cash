@@ -10,7 +10,6 @@
 namespace alinous {
 
 ContinueStatement::ContinueStatement() : AbstractStatement(CodeElement::STMT_CONTINUE) {
-	// TODO Auto-generated constructor stub
 
 }
 

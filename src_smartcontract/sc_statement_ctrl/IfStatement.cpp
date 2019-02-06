@@ -10,7 +10,6 @@
 namespace alinous {
 
 IfStatement::IfStatement() : AbstractStatement(CodeElement::STMT_IF) {
-	// TODO Auto-generated constructor stub
 
 }
 

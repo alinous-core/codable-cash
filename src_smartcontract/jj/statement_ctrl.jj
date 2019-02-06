@@ -1,0 +1,27 @@
+
+/******************************************************************************************
+* Alinous Language Control Statements Starts
+*/
+
+IfStatement* ifStatement() : {
+	IfStatement* stmt = new IfStatement();
+	StatementBlock* blk = nullptr;
+	Token* t = nullptr;
+}
+{ 
+	t="if" {
+		stmt->setPosition(t);
+	}
+	"("
+	
+	
+	")"
+	
+	blk=statementBlock() {
+		stmt->setPosition(blk);
+	}
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
