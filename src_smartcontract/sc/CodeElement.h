@@ -40,6 +40,7 @@ public:
 	static const constexpr short STMT_BLOCK{50};
 	static const constexpr short STMT_VARIABLE_DECLARE{51};
 	static const constexpr short STMT_SUBSTITUTION{52};
+	static const constexpr short STMT_EXPRESSION{53};
 
 	static const constexpr short STMT_BREAK{60};
 	static const constexpr short STMT_CONTINUE{61};
@@ -48,6 +49,35 @@ public:
 	static const constexpr short STMT_IF{64};
 	static const constexpr short STMT_RETURN{65};
 	static const constexpr short STMT_WHILE{66};
+
+
+	static const constexpr short EXP_ALLOCATION{80};
+	static const constexpr short EXP_ARRAY_REF{81};
+	static const constexpr short EXP_MEMBER_REF{82};
+	static const constexpr short EXP_CAST{83};
+	static const constexpr short EXP_LITERAL{84};
+	static const constexpr short EXP_NUMBER_LITERAL{85};
+	static const constexpr short EXP_BOOLEAN_LITERAL{86};
+	static const constexpr short EXP_NULL_LITERAL{87};
+	static const constexpr short EXP_PARENTHESIS{88};
+
+	static const constexpr short EXP_FUNCTIONCALL{100};
+
+	static const constexpr short EXP_AND{110};
+	static const constexpr short EXP_BIT_REV{111};
+	static const constexpr short EXP_OR{112};
+	static const constexpr short EXP_EX_OR{113};
+	static const constexpr short EXP_SHIFT{114};
+
+	static const constexpr short EXP_ADD{120};
+	static const constexpr short EXP_MUL{121};
+	static const constexpr short EXP_POST_INC{122};
+	static const constexpr short EXP_PRE_INC{123};
+
+	static const constexpr short EXP_CND_AND{130};
+	static const constexpr short EXP_CND_OR{131};
+	static const constexpr short EXP_CND_EQ{132};
+	static const constexpr short EXP_CND_RELATIONAL{133};
 
 
 
