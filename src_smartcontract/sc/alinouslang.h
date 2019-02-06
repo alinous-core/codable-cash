@@ -31,6 +31,8 @@
 
 #include "sc_statement/StatementBlock.h"
 
+#include "sc_expression/NullLiteral.h"
+
 
 namespace alinouslang {
 using namespace alinous;

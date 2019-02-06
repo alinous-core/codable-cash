@@ -14,7 +14,7 @@ namespace alinous {
 
 class AbstractExpression: public CodeElement {
 public:
-	AbstractExpression();
+	AbstractExpression(int kind);
 	virtual ~AbstractExpression();
 };
 

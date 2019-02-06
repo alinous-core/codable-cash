@@ -30,6 +30,14 @@ void CodeElement::setPositions(int beginLine, int beginColumn, int endLine, int 
 }
 
 
+void CodeElement::setPositions(Token* token, Token* end) {
+	this->beginLine = token->beginLine;
+	this->beginColumn = token->beginColumn;
+	this->endLine = end->endLine;
+	this->endColumn = end->endColumn;
+}
+
+
 void CodeElement::setPositions(Token* token, CodeElement* end) {
 	this->beginLine = token->beginLine;
 	this->beginColumn = token->beginColumn;

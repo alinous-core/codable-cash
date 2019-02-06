@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-AbstractExpression::AbstractExpression() {
+AbstractExpression::AbstractExpression(int kind) : CodeElement(kind) {
 	// TODO Auto-generated constructor stub
 
 }

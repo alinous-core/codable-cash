@@ -390,7 +390,7 @@ PackageDeclare* packageDeclare() : {
 		pkg->setPosition(name);
 	}
 	
-	";" {
+	t=";" {
 		pkg->setPosition(t);
 	}
 	{
@@ -783,3 +783,28 @@ StatementBlock* statementBlock() : {
 		return block;
 	}
 }
+
+
+
+
+
+/******************************************************************************************
+* Alinous Language Expressions Starts
+*/
+
+
+NullLiteral* nullLiteral() :
+{
+	NullLiteral* lit = new NullLiteral();
+	Token* t = nullptr;
+}
+{
+	t=<_NULL> {
+		lit->setPositions(t, t);
+	}
+	{
+		 __ONERROR(lit);
+		return lit;
+	}
+}
+

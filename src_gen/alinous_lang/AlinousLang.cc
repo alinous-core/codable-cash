@@ -88,7 +88,7 @@ pkg->setName(name);
                 pkg->setPosition(name);
     }
     if (!hasError) {
-    jj_consume_token(SEMI_COLON);
+    t = jj_consume_token(SEMI_COLON);
     }
     if (!hasError) {
 pkg->setPosition(t);
@@ -644,6 +644,22 @@ block->setPosition(t);
     }
 __ONERROR(block);
                 return block;
+assert(false);
+}
+
+
+NullLiteral
+
+           * AlinousLang::nullLiteral() {NullLiteral* lit = new NullLiteral();
+        Token* t = nullptr;
+    if (!hasError) {
+    t = jj_consume_token(_NULL);
+    }
+    if (!hasError) {
+lit->setPositions(t, t);
+    }
+__ONERROR(lit);
+                return lit;
 assert(false);
 }
 

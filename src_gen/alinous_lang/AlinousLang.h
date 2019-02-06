@@ -39,6 +39,9 @@ StringType          * stringType();
 VoidType        * voidType();
 StatementBlock
               * statementBlock();
+NullLiteral
+
+           * nullLiteral();
 
 public: 
   void setErrorHandler(ErrorHandler *eh) {

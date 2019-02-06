@@ -5,17 +5,15 @@
  *      Author: iizuka
  */
 
-#include <sc_expression/NullLiteral.h>
+#include "sc_expression/NullLiteral.h"
 
 namespace alinous {
 
-NullLiteral::NullLiteral() {
-	// TODO Auto-generated constructor stub
-
+NullLiteral::NullLiteral() : AbstractExpression(CodeElement::EXP_NULL_LITERAL) {
 }
 
 NullLiteral::~NullLiteral() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */

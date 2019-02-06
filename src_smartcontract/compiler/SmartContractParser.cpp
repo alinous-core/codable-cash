@@ -64,6 +64,30 @@ SmartContractParser::~SmartContractParser() {
 	delete file;
 }
 
+AlinousLang* SmartContractParser::getDebugAlinousLang() {
+	if(this->inStream == nullptr){
+		this->length = this->file->length();
+		this->inStream = new FileInputStream(this->file);
+	}
+
+	if(!this->inStream->available()){
+		this->inStream->open();
+	}
+
+	this->readStream = new ParserReaderStream(inStream, length);
+	this->charStream = new CharStream(readStream);
+
+	this->tokenManager = new AlinousLangTokenManager(charStream);
+	this->lexErrorHandler = new LexErrorHandler();
+	this->tokenManager->setErrorHandler(this->lexErrorHandler);
+
+	this->parserErrorHandler = new ParseErrorHandler();
+	this->alinousLang = new AlinousLang(tokenManager);
+	this->alinousLang->setErrorHandler(this->parserErrorHandler);
+
+	return this->alinousLang;
+}
+
 CompilationUnit* SmartContractParser::parse() {
 	if(this->inStream == nullptr){
 		this->length = this->file->length();
@@ -102,7 +126,5 @@ bool SmartContractParser::hasLexError() const noexcept {
 }
 
 } /* namespace alinous */
-
-
 
 

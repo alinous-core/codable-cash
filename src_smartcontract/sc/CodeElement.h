@@ -85,6 +85,7 @@ public:
 	virtual ~CodeElement();
 
 	void setPositions(int beginLine, int beginColumn, int endLine, int endColumn);
+	void setPositions(Token* token, Token* end);
 	void setPositions(Token* token, CodeElement* end);
 	void setPosition(CodeElement* element);
 	void setPosition(Token* token);

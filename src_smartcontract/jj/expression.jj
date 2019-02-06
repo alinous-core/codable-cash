@@ -4,3 +4,18 @@
 */
 
 
+NullLiteral* nullLiteral() :
+{
+	NullLiteral* lit = new NullLiteral();
+	Token* t = nullptr;
+}
+{
+	t=<_NULL> {
+		lit->setPositions(t, t);
+	}
+	{
+		 __ONERROR(lit);
+		return lit;
+	}
+}
+

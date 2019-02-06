@@ -5,17 +5,16 @@
  *      Author: iizuka
  */
 
-#include <sc_expression/LiteralExpression.h>
+#include "sc_expression/LiteralExpression.h"
 
 namespace alinous {
 
-LiteralExpression::LiteralExpression() {
-	// TODO Auto-generated constructor stub
+LiteralExpression::LiteralExpression() : AbstractExpression(CodeElement::EXP_LITERAL){
 
 }
 
 LiteralExpression::~LiteralExpression() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */
