@@ -60,6 +60,7 @@ public:
 	static const constexpr short EXP_BOOLEAN_LITERAL{86};
 	static const constexpr short EXP_NULL_LITERAL{87};
 	static const constexpr short EXP_PARENTHESIS{88};
+	static const constexpr short EXP_VARIABLE_ID{89};
 
 	static const constexpr short EXP_FUNCTIONCALL{100};
 

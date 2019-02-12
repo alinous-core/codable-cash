@@ -41,11 +41,11 @@ StatementBlock
               * statementBlock();
 IfStatement
            * ifStatement();
-NullLiteral
+VariableIdentifier
 
-
-
-           * nullLiteral();
+                  * variableIdentifier();
+AbstractExpression                  * literal();
+NullLiteral           * nullLiteral();
 NumberLiteral             * numberLiteral();
 BooleanLiteral              * booleanLiteral();
 LiteralExpression                 * literalExpression();
@@ -74,7 +74,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[14];
+  int           jj_la1[15];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 

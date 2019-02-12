@@ -6,6 +6,40 @@
 
 
 
+
+
+VariableIdentifier* variableIdentifier() : {
+	VariableIdentifier* valId = new VariableIdentifier();
+	Token* t = nullptr;
+}
+{
+	t=<IDENTIFIER> {
+		valId->setName(_STR(t));
+	}
+	{
+		 __ONERROR(valId);
+		return valId;
+	}
+}
+
+AbstractExpression* literal() : {
+	AbstractExpression* lit = nullptr;
+}
+{
+	(
+		lit=nullLiteral() |
+		lit=booleanLiteral() |
+		lit=numberLiteral() |
+		lit=literalExpression()
+	)
+	{
+	}
+	{
+		return lit;
+	}
+}
+
+
 NullLiteral* nullLiteral() :
 {
 	NullLiteral* lit = new NullLiteral();

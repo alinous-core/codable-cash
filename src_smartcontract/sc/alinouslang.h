@@ -50,6 +50,7 @@
 #include "sc_expression/NullLiteral.h"
 #include "sc_expression/NumberLiteral.h"
 #include "sc_expression/ParenthesisExpression.h"
+#include "sc_expression/VariableIdentifier.h"
 
 #include "sc_expression_arithmetic/AddExpression.h"
 #include "sc_expression_arithmetic/MultiplicativeExpression.h"
