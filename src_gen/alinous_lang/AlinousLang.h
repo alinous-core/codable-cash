@@ -46,6 +46,7 @@ AbstractExpression
 AbstractExpression                  * memberReferenceExpression();
 AbstractExpression                  * arrayReferenceExpression();
 AbstractExpression                  * primitive();
+ParenthesisExpression                     * parenthesisExpression();
 VariableIdentifier                  * variableIdentifier();
 AbstractExpression                  * literal();
 NullLiteral           * nullLiteral();

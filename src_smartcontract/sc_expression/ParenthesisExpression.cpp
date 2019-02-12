@@ -9,13 +9,16 @@
 
 namespace alinous {
 
-ParenthesisExpression::ParenthesisExpression() {
-	// TODO Auto-generated constructor stub
-
+ParenthesisExpression::ParenthesisExpression() : AbstractExpression(CodeElement::EXP_PARENTHESIS) {
+	this->exp = nullptr;
 }
 
 ParenthesisExpression::~ParenthesisExpression() {
-	// TODO Auto-generated destructor stub
+	delete this->exp;
+}
+
+void ParenthesisExpression::setExp(AbstractExpression* exp) noexcept {
+	this->exp = exp;
 }
 
 } /* namespace alinous */

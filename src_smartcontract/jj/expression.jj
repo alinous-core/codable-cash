@@ -78,18 +78,42 @@ AbstractExpression* arrayReferenceExpression() : {
 	}
 }
 
-
 AbstractExpression* primitive() : {
 	AbstractExpression* exp = nullptr;
 }
 {
 	(
+		exp=parenthesisExpression() |
 		exp=literal() |
 		exp=variableIdentifier()
 	)
 	{
 	}
 	{
+		return exp;
+	}
+}
+
+ParenthesisExpression* parenthesisExpression() : {
+	ParenthesisExpression* exp = new ParenthesisExpression();
+	AbstractExpression* e = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="(" {
+		exp->setPosition(t);
+	}
+	
+	e=expression() {
+		exp->setExp(e);
+		exp->setPosition(e);
+	}
+	
+	t=")" {
+		exp->setPosition(t);
+	}
+	{
+		 __ONERROR(exp);
 		return exp;
 	}
 }
