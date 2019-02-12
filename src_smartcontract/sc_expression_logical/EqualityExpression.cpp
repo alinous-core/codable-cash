@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include <sc_expression_logical/EqualityExpression.h>
+#include "sc_expression_logical/EqualityExpression.h"
 
 namespace alinous {
 

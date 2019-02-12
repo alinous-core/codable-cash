@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include <sc_expression_logical/ConditionalOrExpression.h>
+#include "sc_expression_logical/ConditionalOrExpression.h"
 
 namespace alinous {
 

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include <sc_expression_logical/NotExpression.h>
+#include "sc_expression_logical/NotExpression.h"
 
 namespace alinous {
 

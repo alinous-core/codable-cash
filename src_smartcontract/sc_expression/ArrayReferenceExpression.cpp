@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include <sc_expression/ArrayReferenceExpression.h>
+#include "sc_expression/ArrayReferenceExpression.h"
 
 namespace alinous {
 

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include <sc_expression_bit/ExclusiveOrExpression.h>
+#include "sc_expression_bit/ExclusiveOrExpression.h"
 
 namespace alinous {
 

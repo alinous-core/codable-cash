@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include <sc_expression_bit/ShiftExpression.h>
+#include "sc_expression_bit/ShiftExpression.h"
 
 namespace alinous {
 
