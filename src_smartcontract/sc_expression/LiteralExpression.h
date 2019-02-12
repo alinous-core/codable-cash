@@ -11,11 +11,18 @@
 #include "sc_expression/AbstractExpression.h"
 
 namespace alinous {
+class UnicodeString;
 
 class LiteralExpression: public AbstractExpression {
 public:
 	LiteralExpression();
 	virtual ~LiteralExpression();
+
+	void setString(UnicodeString* str, bool dquote) noexcept;
+
+private:
+	UnicodeString* str;
+	bool dquote;
 };
 
 } /* namespace alinous */

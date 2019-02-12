@@ -6,15 +6,22 @@
  */
 
 #include "sc_expression/LiteralExpression.h"
+#include "base/UnicodeString.h"
 
 namespace alinous {
 
 LiteralExpression::LiteralExpression() : AbstractExpression(CodeElement::EXP_LITERAL){
-
+	this->str = nullptr;
+	this->dquote = true;
 }
 
 LiteralExpression::~LiteralExpression() {
+	delete this->str;
+}
 
+void LiteralExpression::setString(UnicodeString* str, bool dquote) noexcept {
+	this->str = str;
+	this->dquote = dquote;
 }
 
 } /* namespace alinous */

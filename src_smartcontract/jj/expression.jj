@@ -4,6 +4,8 @@
 */
 
 
+
+
 NullLiteral* nullLiteral() :
 {
 	NullLiteral* lit = new NullLiteral();
@@ -19,7 +21,67 @@ NullLiteral* nullLiteral() :
 	}
 }
 
+NumberLiteral* numberLiteral() : {
+	NumberLiteral* lit = new NumberLiteral();
+	Token* t = nullptr;
+}
+{
+	t=<INTEGER_LITERAL>
+	{
+		lit->setValue(_STR(t));
+		lit->setPositions(t, t);
+	}
+	{
+		 __ONERROR(lit);
+		return lit;
+	}
+}
 
 
+BooleanLiteral* booleanLiteral() : {
+	BooleanLiteral* lit = new BooleanLiteral();
+	Token* t = nullptr;
+}
+{
+	(
+		t="true" {
+			lit->setValue(true);
+		}
+		|
+		t="false" {
+			lit->setValue(false);
+		}
+	)
+	{
+		lit->setPositions(t, t);
+	}
+	{
+		 __ONERROR(lit);
+		return lit;
+	}
+}
+
+LiteralExpression* literalExpression() :
+{
+	LiteralExpression* lit = new LiteralExpression();
+	Token* t = nullptr;
+}
+{
+	(
+		t=<STRING_LITERAL> {
+			lit->setString(_STR(t), true);
+		}
+		|
+		t=<SQL_STRING_LITERAL> {
+			lit->setString(_STR(t), false);
+		}
+	){
+		lit->setPositions(t, t);
+	}
+	{
+		 __ONERROR(lit);
+		return lit;
+	}
+}
 
 

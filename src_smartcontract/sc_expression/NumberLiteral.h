@@ -8,12 +8,20 @@
 #ifndef SC_EXPRESSION_NUMBERLITERAL_H_
 #define SC_EXPRESSION_NUMBERLITERAL_H_
 
-namespace alinous {
+#include "sc_expression/AbstractExpression.h"
 
-class NumberLiteral {
+namespace alinous {
+class UnicodeString;
+
+class NumberLiteral : public AbstractExpression {
 public:
 	NumberLiteral();
 	virtual ~NumberLiteral();
+
+	void setValue(UnicodeString* str) noexcept;
+
+private:
+	UnicodeString* str;
 };
 
 } /* namespace alinous */

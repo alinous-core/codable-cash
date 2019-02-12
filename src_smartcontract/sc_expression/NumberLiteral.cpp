@@ -6,16 +6,20 @@
  */
 
 #include "sc_expression/NumberLiteral.h"
+#include "base/UnicodeString.h"
 
 namespace alinous {
 
-NumberLiteral::NumberLiteral() {
-	// TODO Auto-generated constructor stub
-
+NumberLiteral::NumberLiteral() : AbstractExpression(CodeElement::EXP_NUMBER_LITERAL) {
+	this->str = nullptr;
 }
 
 NumberLiteral::~NumberLiteral() {
-	// TODO Auto-generated destructor stub
+	delete this->str;
+}
+
+void NumberLiteral::setValue(UnicodeString* str) noexcept {
+	this->str = str;
 }
 
 } /* namespace alinous */

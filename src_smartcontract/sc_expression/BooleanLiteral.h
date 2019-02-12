@@ -8,12 +8,19 @@
 #ifndef SC_EXPRESSION_BOOLEANLITERAL_H_
 #define SC_EXPRESSION_BOOLEANLITERAL_H_
 
+#include "sc_expression/AbstractExpression.h"
+
 namespace alinous {
 
-class BooleanLiteral {
+class BooleanLiteral : public AbstractExpression {
 public:
 	BooleanLiteral();
 	virtual ~BooleanLiteral();
+
+	void setValue(bool v) noexcept;
+
+private:
+	bool value;
 };
 
 } /* namespace alinous */

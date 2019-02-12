@@ -3,19 +3,19 @@
 #include "TokenMgrError.h"
 namespace alinouslang {
   unsigned int jj_la1_0[] = {
-0x0,0x0,0x0,0x0,0x0,0x200000,0x200000,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x200000,0x200000,0x0,0x0,0x0,0x0,0x0,0x140000,};
   unsigned int jj_la1_1[] = {
-0x1000000,0x2000000,0x80,0x0,0x0,0x4,0x800,0x0,0x100,0xe0000000,0xe0000000,};
+0x1000000,0x2000000,0x80,0x0,0x0,0x4,0x800,0x0,0x100,0xe0000000,0xe0000000,0x0,0x0,};
   unsigned int jj_la1_2[] = {
-0x0,0x0,0x0,0x70000,0x100000,0x0,0x0,0x70000,0x0,0x10000003,0x10000003,};
+0x0,0x0,0x0,0x70000,0x100000,0x0,0x0,0x70000,0x0,0x10000003,0x10000003,0x80000000,0x0,};
   unsigned int jj_la1_3[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x0,};
   unsigned int jj_la1_4[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_5[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_6[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
 
   /** Constructor with user supplied TokenManager. */
 
@@ -688,10 +688,101 @@ assert(false);
 
 NullLiteral
 
+
+
            * AlinousLang::nullLiteral() {NullLiteral* lit = new NullLiteral();
         Token* t = nullptr;
     if (!hasError) {
     t = jj_consume_token(_NULL);
+    }
+    if (!hasError) {
+lit->setPositions(t, t);
+    }
+__ONERROR(lit);
+                return lit;
+assert(false);
+}
+
+
+NumberLiteral             * AlinousLang::numberLiteral() {NumberLiteral* lit = new NumberLiteral();
+        Token* t = nullptr;
+    if (!hasError) {
+    t = jj_consume_token(INTEGER_LITERAL);
+    }
+    if (!hasError) {
+lit->setValue(_STR(t));
+                lit->setPositions(t, t);
+    }
+__ONERROR(lit);
+                return lit;
+assert(false);
+}
+
+
+BooleanLiteral              * AlinousLang::booleanLiteral() {BooleanLiteral* lit = new BooleanLiteral();
+        Token* t = nullptr;
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case TRUE:{
+      if (!hasError) {
+      t = jj_consume_token(TRUE);
+      }
+      if (!hasError) {
+lit->setValue(true);
+      }
+      break;
+      }
+    case FALSE:{
+      if (!hasError) {
+      t = jj_consume_token(FALSE);
+      }
+      if (!hasError) {
+lit->setValue(false);
+      }
+      break;
+      }
+    default:
+      jj_la1[11] = jj_gen;
+      jj_consume_token(-1);
+      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+    }
+    }
+    if (!hasError) {
+lit->setPositions(t, t);
+    }
+__ONERROR(lit);
+                return lit;
+assert(false);
+}
+
+
+LiteralExpression                 * AlinousLang::literalExpression() {LiteralExpression* lit = new LiteralExpression();
+        Token* t = nullptr;
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case STRING_LITERAL:{
+      if (!hasError) {
+      t = jj_consume_token(STRING_LITERAL);
+      }
+      if (!hasError) {
+lit->setString(_STR(t), true);
+      }
+      break;
+      }
+    case SQL_STRING_LITERAL:{
+      if (!hasError) {
+      t = jj_consume_token(SQL_STRING_LITERAL);
+      }
+      if (!hasError) {
+lit->setString(_STR(t), false);
+      }
+      break;
+      }
+    default:
+      jj_la1[12] = jj_gen;
+      jj_consume_token(-1);
+      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+    }
     }
     if (!hasError) {
 lit->setPositions(t, t);
@@ -729,7 +820,7 @@ void AlinousLang::ReInit(TokenManager* tokenManager){
     trace = false;
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 11; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 13; i++) jj_la1[i] = -1;
   }
 
 

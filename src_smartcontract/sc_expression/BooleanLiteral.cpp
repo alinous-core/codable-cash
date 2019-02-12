@@ -9,13 +9,15 @@
 
 namespace alinous {
 
-BooleanLiteral::BooleanLiteral() {
-	// TODO Auto-generated constructor stub
-
+BooleanLiteral::BooleanLiteral() : AbstractExpression(CodeElement::EXP_BOOLEAN_LITERAL) {
+	this->value = false;
 }
 
 BooleanLiteral::~BooleanLiteral() {
-	// TODO Auto-generated destructor stub
+}
+
+void BooleanLiteral::setValue(bool v) noexcept {
+	this->value = v;
 }
 
 } /* namespace alinous */

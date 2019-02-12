@@ -43,7 +43,12 @@ IfStatement
            * ifStatement();
 NullLiteral
 
+
+
            * nullLiteral();
+NumberLiteral             * numberLiteral();
+BooleanLiteral              * booleanLiteral();
+LiteralExpression                 * literalExpression();
 
 public: 
   void setErrorHandler(ErrorHandler *eh) {
@@ -69,7 +74,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[12];
+  int           jj_la1[14];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 
