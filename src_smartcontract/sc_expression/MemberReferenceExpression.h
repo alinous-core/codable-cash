@@ -8,9 +8,12 @@
 #ifndef SC_EXPRESSION_MEMBERREFERENCEEXPRESSION_H_
 #define SC_EXPRESSION_MEMBERREFERENCEEXPRESSION_H_
 
-namespace alinous {
+#include "sc_expression/AbstractBinaryExpression.h"
 
-class MemberReferenceExpression {
+namespace alinous {
+class VariableIdentifier;
+
+class MemberReferenceExpression : public AbstractBinaryExpression {
 public:
 	MemberReferenceExpression();
 	virtual ~MemberReferenceExpression();

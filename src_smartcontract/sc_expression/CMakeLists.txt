@@ -1,6 +1,7 @@
 
 
 set(__src
+	AbstractBinaryExpression.cpp
 	AbstractExpression.cpp
 	AllocationExpression.cpp
 	ArrayReferenceExpression.cpp

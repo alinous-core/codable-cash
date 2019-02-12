@@ -41,9 +41,12 @@ StatementBlock
               * statementBlock();
 IfStatement
            * ifStatement();
-VariableIdentifier
-
-                  * variableIdentifier();
+AbstractExpression
+                  * expression();
+AbstractExpression                  * memberReferenceExpression();
+AbstractExpression                  * arrayReferenceExpression();
+AbstractExpression                  * primitive();
+VariableIdentifier                  * variableIdentifier();
 AbstractExpression                  * literal();
 NullLiteral           * nullLiteral();
 NumberLiteral             * numberLiteral();
@@ -74,7 +77,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[15];
+  int           jj_la1[18];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 

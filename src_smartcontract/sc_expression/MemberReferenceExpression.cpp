@@ -7,15 +7,14 @@
 
 #include "sc_expression/MemberReferenceExpression.h"
 
+#include "sc_expression/AbstractExpression.h"
+
 namespace alinous {
 
-MemberReferenceExpression::MemberReferenceExpression() {
-	// TODO Auto-generated constructor stub
-
+MemberReferenceExpression::MemberReferenceExpression() : AbstractBinaryExpression(CodeElement::EXP_MEMBER_REF) {
 }
 
 MemberReferenceExpression::~MemberReferenceExpression() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

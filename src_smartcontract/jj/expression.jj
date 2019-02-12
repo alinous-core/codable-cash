@@ -3,9 +3,96 @@
 * Alinous Language Expressions Starts
 */
 
+AbstractExpression* expression() : {
+	AbstractExpression* exp = nullptr;
+}
+{
+	(
+		exp=memberReferenceExpression()
+	)
+	{
+	}
+	{
+		return exp;
+	}
+}
 
 
+AbstractExpression* memberReferenceExpression() :{
+	MemberReferenceExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=arrayReferenceExpression() 
+	(
+		"." right=arrayReferenceExpression() {
+			if(exp == nullptr){
+				exp = new MemberReferenceExpression();
+				exp->addExp(left);
+				exp->setPosition(left);
+				left = exp;
+			}
+			
+			exp->addExp(right);
+			exp->setPosition(right);
+		}
+	)*
+	{
+	}
+	{
+		__ONERROR(left);
+		
+		return left;
+	}
+	
+}
 
+AbstractExpression* arrayReferenceExpression() : {
+	ArrayReferenceExpression* exp = new ArrayReferenceExpression();
+	Token* t = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=primitive() 
+	(
+		t="[" {
+			if(exp == nullptr){
+				exp = new ArrayReferenceExpression();
+				exp->setExp(left);
+				exp->setPosition(left);
+				left = exp;
+			}
+		}
+		right=expression()
+		t="]" {
+			exp->addIndex(right);
+			exp->setPosition(t);		
+		}
+	)*
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+
+AbstractExpression* primitive() : {
+	AbstractExpression* exp = nullptr;
+}
+{
+	(
+		exp=literal() |
+		exp=variableIdentifier()
+	)
+	{
+	}
+	{
+		return exp;
+	}
+}
 
 
 VariableIdentifier* variableIdentifier() : {

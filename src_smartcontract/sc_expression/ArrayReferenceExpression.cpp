@@ -9,13 +9,21 @@
 
 namespace alinous {
 
-ArrayReferenceExpression::ArrayReferenceExpression() {
-	// TODO Auto-generated constructor stub
-
+ArrayReferenceExpression::ArrayReferenceExpression() : AbstractExpression(CodeElement::EXP_ARRAY_REF) {
+	this->exp = nullptr;
 }
 
 ArrayReferenceExpression::~ArrayReferenceExpression() {
-	// TODO Auto-generated destructor stub
+	delete this->exp;
+	this->list.deleteElements();
+}
+
+void ArrayReferenceExpression::setExp(AbstractExpression* exp) noexcept {
+	this->exp = exp;
+}
+
+void ArrayReferenceExpression::addIndex(AbstractExpression* exp) noexcept {
+	this->list.addElement(exp);
 }
 
 } /* namespace alinous */
