@@ -10,12 +10,11 @@ IfStatement* ifStatement() : {
 	Token* t = nullptr;
 }
 {
-	// FIXME replace statement and expression
 	t="if" {
 		ifstmt->setPosition(t);
 	}
 	"("
-	exp=nullLiteral() {
+	exp=expression() {
 		ifstmt->setExpression(exp);
 		ifstmt->setPosition(exp);
 	}

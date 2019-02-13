@@ -8,12 +8,23 @@
 #ifndef SC_EXPRESSION_FUNCTIONCALLEXPRESSION_H_
 #define SC_EXPRESSION_FUNCTIONCALLEXPRESSION_H_
 
-namespace alinous {
+#include "sc_expression/AbstractExpression.h"
+#include "base/ArrayList.h"
 
-class FunctionCallExpression {
+namespace alinous {
+class UnicodeString;
+
+class FunctionCallExpression : public AbstractExpression {
 public:
 	FunctionCallExpression();
 	virtual ~FunctionCallExpression();
+
+	void setName(AbstractExpression* exp) noexcept;
+	void addArgument(AbstractExpression* exp) noexcept;
+
+private:
+	AbstractExpression* name;
+	ArrayList<AbstractExpression> args;
 };
 
 } /* namespace alinous */

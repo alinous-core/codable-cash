@@ -799,12 +799,11 @@ IfStatement* ifStatement() : {
 	Token* t = nullptr;
 }
 {
-	// FIXME replace statement and expression
 	t="if" {
 		ifstmt->setPosition(t);
 	}
 	"("
-	exp=nullLiteral() {
+	exp=expression() {
 		ifstmt->setExpression(exp);
 		ifstmt->setPosition(exp);
 	}
@@ -838,6 +837,7 @@ AbstractExpression* expression() : {
 	}
 }
 
+// cast
 
 AbstractExpression* memberReferenceExpression() :{
 	MemberReferenceExpression* exp = nullptr;
@@ -877,7 +877,7 @@ AbstractExpression* arrayReferenceExpression() : {
 	AbstractExpression* right = nullptr;
 }
 {
-	left=primitive() 
+	left=functionCallExpression() 
 	(
 		t="[" {
 			if(exp == nullptr){
@@ -890,13 +890,70 @@ AbstractExpression* arrayReferenceExpression() : {
 		right=expression()
 		t="]" {
 			exp->addIndex(right);
-			exp->setPosition(t);		
+			exp->setPosition(t);
 		}
 	)*
+	{}
 	{
 		__ONERROR(left);
 		return left;
 	}
+}
+
+// func call
+AbstractExpression* functionCallExpression() : {
+	FunctionCallExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractExpression* left = nullptr;
+}
+{
+	left=primitive()
+	
+	[
+		t="(" {
+			exp = new FunctionCallExpression();
+			exp->setName(left);
+			exp->setPosition(left);
+			exp->setPosition(t);
+			
+			left = exp;
+		}
+		
+		functionCallExpressionArg(exp)		
+		
+		t=")" {
+			exp->setPosition(t);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+void functionCallExpressionArg(FunctionCallExpression* exp) : {
+	AbstractExpression* arg = nullptr;
+	Token* t = nullptr;
+}
+{
+	[
+		arg=expression() {
+			exp->addArgument(arg);
+			exp->setPosition(arg);
+		}
+		
+		(
+			t="," {
+				exp->setPosition(t);
+			}
+			
+			arg=expression() {
+				exp->addArgument(arg);
+				exp->setPosition(arg);
+			}
+		)*
+	]
 }
 
 AbstractExpression* primitive() : {

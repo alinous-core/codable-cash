@@ -43,8 +43,11 @@ IfStatement
            * ifStatement();
 AbstractExpression
                   * expression();
-AbstractExpression                  * memberReferenceExpression();
+AbstractExpression
+                  * memberReferenceExpression();
 AbstractExpression                  * arrayReferenceExpression();
+AbstractExpression                  * functionCallExpression();
+void functionCallExpressionArg(FunctionCallExpression* exp);
 AbstractExpression                  * primitive();
 ParenthesisExpression                     * parenthesisExpression();
 VariableIdentifier                  * variableIdentifier();
@@ -78,7 +81,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[18];
+  int           jj_la1[21];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 

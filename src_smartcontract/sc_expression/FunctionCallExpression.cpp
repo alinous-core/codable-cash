@@ -6,16 +6,25 @@
  */
 
 #include "sc_expression/FunctionCallExpression.h"
+#include "base/UnicodeString.h"
 
 namespace alinous {
 
-FunctionCallExpression::FunctionCallExpression() {
-	// TODO Auto-generated constructor stub
-
+FunctionCallExpression::FunctionCallExpression() : AbstractExpression(CodeElement::EXP_FUNCTIONCALL) {
+	this->name = nullptr;
 }
 
 FunctionCallExpression::~FunctionCallExpression() {
-	// TODO Auto-generated destructor stub
+	delete this->name;
+	this->args.deleteElements();
+}
+
+void FunctionCallExpression::setName(AbstractExpression* exp) noexcept {
+	this->name = exp;
+}
+
+void FunctionCallExpression::addArgument(AbstractExpression* exp) noexcept {
+	this->args.addElement(exp);
 }
 
 } /* namespace alinous */
