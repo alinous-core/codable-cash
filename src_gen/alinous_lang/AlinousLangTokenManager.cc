@@ -258,6 +258,8 @@ static JJChar jjstrLiteralChars_190[] = {0};
 static JJChar jjstrLiteralChars_191[] = {0};
 static JJChar jjstrLiteralChars_192[] = {0};
 static JJChar jjstrLiteralChars_193[] = {0};
+
+static JJChar jjstrLiteralChars_194[] = {0x7e, 0};
 static const JJString jjstrLiteralImages[] = {
 jjstrLiteralChars_0, 
 jjstrLiteralChars_1, 
@@ -453,6 +455,7 @@ jjstrLiteralChars_190,
 jjstrLiteralChars_191, 
 jjstrLiteralChars_192, 
 jjstrLiteralChars_193, 
+jjstrLiteralChars_194, 
 };
 
 /** Lexer state names. */
@@ -477,10 +480,10 @@ static const int jjnewLexState[] = {
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
-   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 2, 0, -1, 0, -1, 
+   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 2, 0, -1, 0, -1, -1, 
 };
 static const unsigned long long jjtoToken[] = {
-   0xfffffffffffc2201ULL, 0xffffffffffffffffULL, 0xfffffffffffffffULL, 0x0ULL, 
+   0xfffffffffffc2201ULL, 0xffffffffffffffffULL, 0xfffffffffffffffULL, 0x4ULL, 
 };
 static const unsigned long long jjtoSkip[] = {
    0x1eULL, 0x0ULL, 0x4000000000000000ULL, 0x1ULL, 
@@ -674,6 +677,9 @@ static const unsigned long long jjtoSpecial[] = {
          return jjMoveStringLiteralDfa1_0(0x80000000ULL, 0x0ULL, 0x0ULL);
       case 125:
          jjmatchedKind = 44;
+         return jjMoveNfa_0(0, 0);
+      case 126:
+         jjmatchedKind = 194;
          return jjMoveNfa_0(0, 0);
       default :
          return jjMoveNfa_0(0, 0);

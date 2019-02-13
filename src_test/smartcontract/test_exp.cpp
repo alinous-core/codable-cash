@@ -42,5 +42,15 @@ TEST(TestExpressionGroup, notexp){
 	CHECK(!parser.hasError())
 }
 
+TEST(TestExpressionGroup, bitrevexp){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/expression/bitrev.alns"))
 
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractExpression* exp = lang->expression(); __STP(exp);
+
+	CHECK(!parser.hasError())
+}
 

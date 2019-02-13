@@ -44,7 +44,8 @@ IfStatement
 AbstractExpression
                   * expression();
 AbstractExpression
-                  * notExpression();
+                  * bitReverseExpression();
+AbstractExpression                  * notExpression();
 AbstractExpression                  * castExpression();
 AbstractExpression                  * memberReferenceExpression();
 AbstractExpression                  * arrayReferenceExpression();
@@ -84,14 +85,6 @@ LiteralExpression                 * literalExpression();
  {
     if (jj_done) return true;
     if (jj_3R_19()) return true;
-    return false;
-  }
-
- inline bool jj_3_1()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(L_PARENTHESIS)) return true;
-    if (jj_3R_8()) return true;
     return false;
   }
 
@@ -182,6 +175,14 @@ LiteralExpression                 * literalExpression();
     return false;
   }
 
+ inline bool jj_3_1()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(L_PARENTHESIS)) return true;
+    if (jj_3R_8()) return true;
+    return false;
+  }
+
 
 public: 
   void setErrorHandler(ErrorHandler *eh) {
@@ -207,7 +208,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[22];
+  int           jj_la1[23];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 

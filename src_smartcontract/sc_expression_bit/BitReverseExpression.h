@@ -8,12 +8,18 @@
 #ifndef SC_EXPRESSION_BIT_BITREVERSEEXPRESSION_H_
 #define SC_EXPRESSION_BIT_BITREVERSEEXPRESSION_H_
 
+#include "sc_expression/AbstractExpression.h"
+
 namespace alinous {
 
-class BitReverseExpression {
+class BitReverseExpression : public AbstractExpression {
 public:
 	BitReverseExpression();
 	virtual ~BitReverseExpression();
+
+	void setExpression(AbstractExpression* exp) noexcept;
+private:
+	AbstractExpression* exp;
 };
 
 } /* namespace alinous */

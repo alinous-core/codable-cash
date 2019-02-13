@@ -9,13 +9,16 @@
 
 namespace alinous {
 
-BitReverseExpression::BitReverseExpression() {
-	// TODO Auto-generated constructor stub
-
+BitReverseExpression::BitReverseExpression() : AbstractExpression(CodeElement::EXP_BIT_REV) {
+	this->exp = nullptr;
 }
 
 BitReverseExpression::~BitReverseExpression() {
-	// TODO Auto-generated destructor stub
+	delete this->exp;
+}
+
+void BitReverseExpression::setExpression(AbstractExpression* exp) noexcept {
+	this->exp = exp;
 }
 
 } /* namespace alinous */
