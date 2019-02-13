@@ -839,7 +839,7 @@ assert(false);
 }
 
 
-AbstractExpression                  * AlinousLang::arrayReferenceExpression() {ArrayReferenceExpression* exp = new ArrayReferenceExpression();
+AbstractExpression                  * AlinousLang::arrayReferenceExpression() {ArrayReferenceExpression* exp = nullptr;
         Token* t = nullptr;
         AbstractExpression* left = nullptr;
         AbstractExpression* right = nullptr;
