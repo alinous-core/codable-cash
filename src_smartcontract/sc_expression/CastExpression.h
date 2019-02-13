@@ -8,12 +8,21 @@
 #ifndef SC_EXPRESSION_CASTEXPRESSION_H_
 #define SC_EXPRESSION_CASTEXPRESSION_H_
 
-namespace alinous {
+#include "sc_expression/AbstractExpression.h"
 
-class CastExpression {
+namespace alinous {
+class AbstractType;
+
+class CastExpression : public AbstractExpression {
 public:
 	CastExpression();
 	virtual ~CastExpression();
+
+	void setType(AbstractType* type) noexcept;
+	void setExpression(AbstractExpression* exp) noexcept;
+private:
+	AbstractType* type;
+	AbstractExpression* exp;
 };
 
 } /* namespace alinous */

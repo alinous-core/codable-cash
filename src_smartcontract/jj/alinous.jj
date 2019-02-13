@@ -828,7 +828,7 @@ AbstractExpression* expression() : {
 }
 {
 	(
-		exp=memberReferenceExpression()
+		exp=castExpression()
 	)
 	{
 	}
@@ -838,6 +838,47 @@ AbstractExpression* expression() : {
 }
 
 // cast
+AbstractExpression* castExpression() : {
+	Token* t = nullptr;
+	CastExpression* exp = nullptr;
+	AbstractType* type = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	[LOOKAHEAD(2)
+		t="(" {
+			exp = new CastExpression();
+			exp->setPosition(t);
+			left = exp;
+		}
+		
+		type=typeDeclare() {
+			exp->setType(type);
+			exp->setPosition(type);
+		}
+		
+		t=")" {
+			exp->setPosition(t);
+		}
+	]
+	
+	right=memberReferenceExpression() {
+		if(left==nullptr){
+			left = right;
+		}
+		else{
+			exp->setExpression(right);
+			exp->setPosition(right);
+		}
+	}
+	
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
 
 AbstractExpression* memberReferenceExpression() :{
 	MemberReferenceExpression* exp = nullptr;
@@ -864,7 +905,6 @@ AbstractExpression* memberReferenceExpression() :{
 	}
 	{
 		__ONERROR(left);
-		
 		return left;
 	}
 	
