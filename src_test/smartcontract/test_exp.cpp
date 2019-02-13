@@ -30,5 +30,17 @@ TEST(TestExpressionGroup, literal01){
 	CHECK(!parser.hasError())
 }
 
+TEST(TestExpressionGroup, notexp){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/expression/not.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractExpression* exp = lang->expression(); __STP(exp);
+
+	CHECK(!parser.hasError())
+}
+
 
 

@@ -9,13 +9,16 @@
 
 namespace alinous {
 
-NotExpression::NotExpression() {
-	// TODO Auto-generated constructor stub
-
+NotExpression::NotExpression() : AbstractExpression(CodeElement::EXP_CND_NOT) {
+	this->exp = nullptr;
 }
 
 NotExpression::~NotExpression() {
-	// TODO Auto-generated destructor stub
+	delete this->exp;
+}
+
+void NotExpression::setExpression(AbstractExpression* exp) noexcept {
+	this->exp = exp;
 }
 
 } /* namespace alinous */

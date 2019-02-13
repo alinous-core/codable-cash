@@ -8,12 +8,18 @@
 #ifndef SC_EXPRESSION_LOGICAL_NOTEXPRESSION_H_
 #define SC_EXPRESSION_LOGICAL_NOTEXPRESSION_H_
 
+#include "sc_expression/AbstractExpression.h"
+
 namespace alinous {
 
-class NotExpression {
+class NotExpression : public AbstractExpression {
 public:
 	NotExpression();
 	virtual ~NotExpression();
+
+	void setExpression(AbstractExpression* exp) noexcept;
+private:
+	AbstractExpression* exp;
 };
 
 } /* namespace alinous */

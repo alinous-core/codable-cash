@@ -79,6 +79,7 @@ public:
 	static const constexpr short EXP_CND_OR{131};
 	static const constexpr short EXP_CND_EQ{132};
 	static const constexpr short EXP_CND_RELATIONAL{133};
+	static const constexpr short EXP_CND_NOT{134};
 
 
 
