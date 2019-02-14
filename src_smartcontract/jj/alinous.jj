@@ -828,7 +828,7 @@ AbstractExpression* expression() : {
 }
 {
 	(
-		exp=postIncrementExpression()
+		exp=multiplicativeExpression()
 	)
 	{
 	}
@@ -837,7 +837,60 @@ AbstractExpression* expression() : {
 	}
 }
 
-// Not BitReverse ++ -- nagate
+AbstractExpression* multiplicativeExpression() : {
+	Token* t = nullptr;
+	MultiplicativeExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=negateExpression()
+	(
+		(
+			t="*" {
+				if(exp == nullptr){
+					exp = new MultiplicativeExpression();
+					exp->setPosition(left);
+					exp->setPosition(t);
+					exp->addExp(left);
+					left = exp;
+				}
+				exp->addOpe(MultiplicativeExpression::MUL);
+			}
+			|
+			t="/" {
+				if(exp == nullptr){
+					exp = new MultiplicativeExpression();
+					exp->setPosition(left);
+					exp->setPosition(t);
+					exp->addExp(left);
+					left = exp;
+				}
+				exp->addOpe(MultiplicativeExpression::DIV);
+			}
+			|
+			t="%" {
+				if(exp == nullptr){
+					exp = new MultiplicativeExpression();
+					exp->setPosition(left);
+					exp->setPosition(t);
+					exp->addExp(left);
+					left = exp;
+				}
+				exp->addOpe(MultiplicativeExpression::MOD);
+			}
+		)
+		
+		right=negateExpression() {
+			exp->addExp(right);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
 
 AbstractExpression* negateExpression() :{
 	Token* t = nullptr;

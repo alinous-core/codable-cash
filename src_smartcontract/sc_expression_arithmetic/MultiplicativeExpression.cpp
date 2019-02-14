@@ -9,13 +9,14 @@
 
 namespace alinous {
 
-MultiplicativeExpression::MultiplicativeExpression() : AbstractBinaryExpression(CodeElement::EXP_MUL) {
-	// TODO Auto-generated constructor stub
-
+MultiplicativeExpression::MultiplicativeExpression() : AbstractBinaryExpression(CodeElement::EXP_MUL), operations(8) {
 }
 
 MultiplicativeExpression::~MultiplicativeExpression() {
-	// TODO Auto-generated destructor stub
+}
+
+void MultiplicativeExpression::addOpe(uint8_t ope) noexcept {
+	this->operations.addElement(ope);
 }
 
 } /* namespace alinous */
