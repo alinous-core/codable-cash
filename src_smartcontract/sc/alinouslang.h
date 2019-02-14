@@ -31,6 +31,45 @@
 
 #include "sc_statement/StatementBlock.h"
 
+#include "sc_statement_ctrl/BreakStatement.h"
+#include "sc_statement_ctrl/ContinueStatement.h"
+#include "sc_statement_ctrl/DoWhileStatement.h"
+#include "sc_statement_ctrl/ForStatement.h"
+#include "sc_statement_ctrl/IfStatement.h"
+#include "sc_statement_ctrl/ReturnStatement.h"
+#include "sc_statement_ctrl/WhileStatement.h"
+
+
+#include "sc_expression/AllocationExpression.h"
+#include "sc_expression/ArrayReferenceExpression.h"
+#include "sc_expression/BooleanLiteral.h"
+#include "sc_expression/CastExpression.h"
+#include "sc_expression/FunctionCallExpression.h"
+#include "sc_expression/LiteralExpression.h"
+#include "sc_expression/MemberReferenceExpression.h"
+#include "sc_expression/NullLiteral.h"
+#include "sc_expression/NumberLiteral.h"
+#include "sc_expression/ParenthesisExpression.h"
+#include "sc_expression/VariableIdentifier.h"
+
+#include "sc_expression_arithmetic/AddExpression.h"
+#include "sc_expression_arithmetic/MultiplicativeExpression.h"
+#include "sc_expression_arithmetic/NegateExpression.h"
+#include "sc_expression_arithmetic/PostIncrementExpression.h"
+#include "sc_expression_arithmetic/PreIncrementExpression.h"
+
+#include "sc_expression_bit/AndExpression.h"
+#include "sc_expression_bit/BitReverseExpression.h"
+#include "sc_expression_bit/ExclusiveOrExpression.h"
+#include "sc_expression_bit/OrExpression.h"
+#include "sc_expression_bit/ShiftExpression.h"
+
+#include "sc_expression_logical/ConditionalAndExpression.h"
+#include "sc_expression_logical/ConditionalOrExpression.h"
+#include "sc_expression_logical/EqualityExpression.h"
+#include "sc_expression_logical/NotExpression.h"
+#include "sc_expression_logical/RelationalExpression.h"
+
 
 namespace alinouslang {
 using namespace alinous;

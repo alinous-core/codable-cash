@@ -6,7 +6,12 @@ add_subdirectory(compiler)
 add_subdirectory(sc)
 add_subdirectory(sc_declare)
 add_subdirectory(sc_declare_types)
+add_subdirectory(sc_expression)
+add_subdirectory(sc_expression_arithmetic)
+add_subdirectory(sc_expression_bit)
+add_subdirectory(sc_expression_logical)
 add_subdirectory(sc_statement)
+add_subdirectory(sc_statement_ctrl)
 
 
 message(STATUS "src_smartcontract : ${__dirsrc}")

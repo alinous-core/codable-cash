@@ -1,0 +1,32 @@
+
+/******************************************************************************************
+* Alinous Language Control Statements Starts
+*/
+
+IfStatement* ifStatement() : {
+	IfStatement* ifstmt = new IfStatement();
+	AbstractExpression* exp;
+	AbstractStatement* stmt;
+	Token* t = nullptr;
+}
+{
+	t="if" {
+		ifstmt->setPosition(t);
+	}
+	"("
+	exp=expression() {
+		ifstmt->setExpression(exp);
+		ifstmt->setPosition(exp);
+	}
+	
+	")"
+	
+	stmt=statementBlock() {
+		ifstmt->setStatement(stmt);
+		ifstmt->setPosition(stmt);
+	}
+	{
+		 __ONERROR(ifstmt);
+		return ifstmt;
+	}
+}

@@ -38,6 +38,8 @@ public:
 	bool hasError() const noexcept;
 	bool hasLexError() const noexcept;
 
+	AlinousLang* getDebugAlinousLang();
+
 private:
 	CompilationUnit* parseStream();
 private:

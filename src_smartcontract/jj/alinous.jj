@@ -390,7 +390,7 @@ PackageDeclare* packageDeclare() : {
 		pkg->setPosition(name);
 	}
 	
-	";" {
+	t=";" {
 		pkg->setPosition(t);
 	}
 	{
@@ -783,3 +783,531 @@ StatementBlock* statementBlock() : {
 		return block;
 	}
 }
+
+
+
+
+
+/******************************************************************************************
+* Alinous Language Control Statements Starts
+*/
+
+IfStatement* ifStatement() : {
+	IfStatement* ifstmt = new IfStatement();
+	AbstractExpression* exp;
+	AbstractStatement* stmt;
+	Token* t = nullptr;
+}
+{
+	t="if" {
+		ifstmt->setPosition(t);
+	}
+	"("
+	exp=expression() {
+		ifstmt->setExpression(exp);
+		ifstmt->setPosition(exp);
+	}
+	
+	")"
+	
+	stmt=statementBlock() {
+		ifstmt->setStatement(stmt);
+		ifstmt->setPosition(stmt);
+	}
+	{
+		 __ONERROR(ifstmt);
+		return ifstmt;
+	}
+}
+/******************************************************************************************
+* Alinous Language Expressions Starts
+*/
+
+AbstractExpression* expression() : {
+	AbstractExpression* exp = nullptr;
+}
+{
+	(
+		exp=postIncrementExpression()
+	)
+	{
+	}
+	{
+		return exp;
+	}
+}
+
+// Not BitReverse ++ -- nagate
+
+AbstractExpression* negateExpression() :{
+	Token* t = nullptr;
+	NegateExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	[
+		t="-" {
+			exp = new NegateExpression();
+			exp->setPosition(t);
+			left = exp;
+		}
+	]
+	right=postIncrementExpression() {
+		if(left==nullptr){
+			left = right;
+		}
+		else{
+			exp->setExpression(right);
+			exp->setPosition(right);
+		}
+	}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* postIncrementExpression() : {
+	Token* t = nullptr;
+	PostIncrementExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+}
+{
+	left=preIncrementExpression()
+	
+	[
+		(
+			t="--" {
+				exp = new PostIncrementExpression();
+				exp->setExpression(left);
+				exp->setOpe(PostIncrementExpression::MINUS);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				left = exp;
+			}
+			|
+			t="++" {
+				exp = new PostIncrementExpression();
+				exp->setExpression(left);
+				exp->setOpe(PostIncrementExpression::PLUS);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				left = exp;
+			}			
+		)
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+	
+}
+
+AbstractExpression* preIncrementExpression() : {
+	Token* t = nullptr;
+	PreIncrementExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	[
+		(
+			t="--" {
+				exp = new PreIncrementExpression();
+				exp->setOpe(PreIncrementExpression::MINUS);
+				exp->setPosition(t);
+				left = exp;
+			}
+			|
+			t="++" {
+				exp = new PreIncrementExpression();
+				exp->setOpe(PreIncrementExpression::PLUS);
+				exp->setPosition(t);
+				left = exp;
+			}			
+		)
+	]
+	right=bitReverseExpression() {
+		if(left==nullptr){
+			left = right;
+		}
+		else{
+			exp->setExpression(right);
+			exp->setPosition(right);
+		}
+	}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* bitReverseExpression() : {
+	Token* t = nullptr;
+	BitReverseExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	[
+		t="~" {
+			exp = new BitReverseExpression();
+			exp->setPosition(t);
+			left = exp;
+		}
+	]
+	right=notExpression() {
+		if(left==nullptr){
+			left = right;
+		}
+		else{
+			exp->setExpression(right);
+			exp->setPosition(right);
+		}
+	}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* notExpression() : {
+	Token* t = nullptr;
+	NotExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	[
+		t="!" {
+			exp = new NotExpression();
+			exp->setPosition(t);
+			left = exp;
+		}
+	]
+	right=castExpression() {
+		if(left==nullptr){
+			left = right;
+		}
+		else{
+			exp->setExpression(right);
+			exp->setPosition(right);
+		}
+	}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* castExpression() : {
+	Token* t = nullptr;
+	CastExpression* exp = nullptr;
+	AbstractType* type = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	[LOOKAHEAD(2)
+		t="(" {
+			exp = new CastExpression();
+			exp->setPosition(t);
+			left = exp;
+		}
+		
+		type=typeDeclare() {
+			exp->setType(type);
+			exp->setPosition(type);
+		}
+		
+		t=")" {
+			exp->setPosition(t);
+		}
+	]
+	
+	right=memberReferenceExpression() {
+		if(left==nullptr){
+			left = right;
+		}
+		else{
+			exp->setExpression(right);
+			exp->setPosition(right);
+		}
+	}
+	
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* memberReferenceExpression() :{
+	MemberReferenceExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=arrayReferenceExpression() 
+	(
+		"." right=arrayReferenceExpression() {
+			if(exp == nullptr){
+				exp = new MemberReferenceExpression();
+				exp->addExp(left);
+				exp->setPosition(left);
+				left = exp;
+			}
+			
+			exp->addExp(right);
+			exp->setPosition(right);
+		}
+	)*
+	{
+	}
+	{
+		__ONERROR(left);
+		return left;
+	}
+	
+}
+
+AbstractExpression* arrayReferenceExpression() : {
+	ArrayReferenceExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=functionCallExpression() 
+	(
+		t="[" {
+			if(exp == nullptr){
+				exp = new ArrayReferenceExpression();
+				exp->setExp(left);
+				exp->setPosition(left);
+				left = exp;
+			}
+		}
+		right=expression()
+		t="]" {
+			exp->addIndex(right);
+			exp->setPosition(t);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+// func call
+AbstractExpression* functionCallExpression() : {
+	FunctionCallExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractExpression* left = nullptr;
+}
+{
+	left=primitive()
+	
+	[
+		t="(" {
+			exp = new FunctionCallExpression();
+			exp->setName(left);
+			exp->setPosition(left);
+			exp->setPosition(t);
+			
+			left = exp;
+		}
+		
+		functionCallExpressionArg(exp)		
+		
+		t=")" {
+			exp->setPosition(t);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+void functionCallExpressionArg(FunctionCallExpression* exp) : {
+	AbstractExpression* arg = nullptr;
+	Token* t = nullptr;
+}
+{
+	[
+		arg=expression() {
+			exp->addArgument(arg);
+			exp->setPosition(arg);
+		}
+		
+		(
+			t="," {
+				exp->setPosition(t);
+			}
+			
+			arg=expression() {
+				exp->addArgument(arg);
+				exp->setPosition(arg);
+			}
+		)*
+	]
+}
+
+AbstractExpression* primitive() : {
+	AbstractExpression* exp = nullptr;
+}
+{
+	(
+		exp=parenthesisExpression() |
+		exp=literal() |
+		exp=variableIdentifier()
+	)
+	{
+	}
+	{
+		return exp;
+	}
+}
+
+ParenthesisExpression* parenthesisExpression() : {
+	ParenthesisExpression* exp = new ParenthesisExpression();
+	AbstractExpression* e = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="(" {
+		exp->setPosition(t);
+	}
+	
+	e=expression() {
+		exp->setExp(e);
+		exp->setPosition(e);
+	}
+	
+	t=")" {
+		exp->setPosition(t);
+	}
+	{
+		 __ONERROR(exp);
+		return exp;
+	}
+}
+
+
+VariableIdentifier* variableIdentifier() : {
+	VariableIdentifier* valId = new VariableIdentifier();
+	Token* t = nullptr;
+}
+{
+	t=<IDENTIFIER> {
+		valId->setName(_STR(t));
+	}
+	{
+		 __ONERROR(valId);
+		return valId;
+	}
+}
+
+AbstractExpression* literal() : {
+	AbstractExpression* lit = nullptr;
+}
+{
+	(
+		lit=nullLiteral() |
+		lit=booleanLiteral() |
+		lit=numberLiteral() |
+		lit=literalExpression()
+	)
+	{
+	}
+	{
+		return lit;
+	}
+}
+
+
+NullLiteral* nullLiteral() :
+{
+	NullLiteral* lit = new NullLiteral();
+	Token* t = nullptr;
+}
+{
+	t=<_NULL> {
+		lit->setPositions(t, t);
+	}
+	{
+		 __ONERROR(lit);
+		return lit;
+	}
+}
+
+NumberLiteral* numberLiteral() : {
+	NumberLiteral* lit = new NumberLiteral();
+	Token* t = nullptr;
+}
+{
+	t=<INTEGER_LITERAL>
+	{
+		lit->setValue(_STR(t));
+		lit->setPositions(t, t);
+	}
+	{
+		 __ONERROR(lit);
+		return lit;
+	}
+}
+
+
+BooleanLiteral* booleanLiteral() : {
+	BooleanLiteral* lit = new BooleanLiteral();
+	Token* t = nullptr;
+}
+{
+	(
+		t="true" {
+			lit->setValue(true);
+		}
+		|
+		t="false" {
+			lit->setValue(false);
+		}
+	)
+	{
+		lit->setPositions(t, t);
+	}
+	{
+		 __ONERROR(lit);
+		return lit;
+	}
+}
+
+LiteralExpression* literalExpression() :
+{
+	LiteralExpression* lit = new LiteralExpression();
+	Token* t = nullptr;
+}
+{
+	(
+		t=<STRING_LITERAL> {
+			lit->setString(_STR(t), true);
+		}
+		|
+		t=<SQL_STRING_LITERAL> {
+			lit->setString(_STR(t), false);
+		}
+	){
+		lit->setPositions(t, t);
+	}
+	{
+		 __ONERROR(lit);
+		return lit;
+	}
+}
+
+
