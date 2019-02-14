@@ -8,12 +8,56 @@ AbstractExpression* expression() : {
 }
 {
 	(
-		exp=multiplicativeExpression()
+		exp=additiveExpression()
 	)
 	{
 	}
 	{
 		return exp;
+	}
+}
+
+AbstractExpression* additiveExpression() : {
+	Token* t = nullptr;
+	AddExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=multiplicativeExpression()
+	(
+		(
+			t="+" {
+				if(exp == nullptr){
+					exp = new AddExpression();
+					exp->setPosition(left);
+					exp->setPosition(t);
+					exp->addExp(left);
+					left = exp;
+				}
+				exp->addOpe(AddExpression::ADD);
+			}
+			|
+			t="-" {
+				if(exp == nullptr){
+					exp = new AddExpression();
+					exp->setPosition(left);
+					exp->setPosition(t);
+					exp->addExp(left);
+					left = exp;
+				}
+				exp->addOpe(AddExpression::SUB);
+			}
+		)
+
+		right=multiplicativeExpression() {
+			exp->addExp(right);
+		}	
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
 	}
 }
 

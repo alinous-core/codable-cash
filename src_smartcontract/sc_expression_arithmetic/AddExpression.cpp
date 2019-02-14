@@ -9,13 +9,14 @@
 
 namespace alinous {
 
-AddExpression::AddExpression() : AbstractBinaryExpression(CodeElement::EXP_ADD) {
-	// TODO Auto-generated constructor stub
-
+AddExpression::AddExpression() : AbstractBinaryExpression(CodeElement::EXP_ADD), operations(8) {
 }
 
 AddExpression::~AddExpression() {
-	// TODO Auto-generated destructor stub
+}
+
+void AddExpression::addOpe(uint8_t ope) noexcept {
+	this->operations.addElement(ope);
 }
 
 } /* namespace alinous */
