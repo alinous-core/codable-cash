@@ -828,12 +828,78 @@ AbstractExpression* expression() : {
 }
 {
 	(
-		exp=equalityExpression()
+		exp=exclusiveOrExpression()
 	)
 	{
 	}
 	{
 		return exp;
+	}
+}
+
+AbstractExpression*  exclusiveOrExpression() : {
+	Token* t = nullptr;
+	ExclusiveOrExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=andExpression()
+	(
+
+		t="^" {
+			if(exp == nullptr){
+				exp = new ExclusiveOrExpression();
+				exp->setPosition(left);
+				exp->addExp(left);
+				left = exp;
+			}
+			
+			exp->setPosition(t);
+		}
+
+		right=andExpression() {
+			exp->addExp(right);
+			exp->setPosition(right);
+		}	
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* andExpression() : {
+	Token* t = nullptr;
+	AndExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=equalityExpression()
+	(
+
+		t="&" {
+			if(exp == nullptr){
+				exp = new AndExpression();
+				exp->setPosition(left);
+				exp->addExp(left);
+				left = exp;
+			}
+			
+			exp->setPosition(t);
+		}
+
+		right=equalityExpression() {
+			exp->addExp(right);
+			exp->setPosition(right);
+		}	
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
 	}
 }
 
