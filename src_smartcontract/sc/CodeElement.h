@@ -72,8 +72,9 @@ public:
 
 	static const constexpr short EXP_ADD{120};
 	static const constexpr short EXP_MUL{121};
-	static const constexpr short EXP_POST_INC{122};
-	static const constexpr short EXP_PRE_INC{123};
+	static const constexpr short EXP_NEGATE{122};
+	static const constexpr short EXP_POST_INC{123};
+	static const constexpr short EXP_PRE_INC{124};
 
 	static const constexpr short EXP_CND_AND{130};
 	static const constexpr short EXP_CND_OR{131};

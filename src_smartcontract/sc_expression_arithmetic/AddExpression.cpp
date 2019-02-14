@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-AddExpression::AddExpression() : AbstractExpression(CodeElement::EXP_ADD) {
+AddExpression::AddExpression() : AbstractBinaryExpression(CodeElement::EXP_ADD) {
 	// TODO Auto-generated constructor stub
 
 }

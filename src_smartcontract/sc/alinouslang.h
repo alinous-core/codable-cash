@@ -54,6 +54,7 @@
 
 #include "sc_expression_arithmetic/AddExpression.h"
 #include "sc_expression_arithmetic/MultiplicativeExpression.h"
+#include "sc_expression_arithmetic/NegateExpression.h"
 #include "sc_expression_arithmetic/PostIncrementExpression.h"
 #include "sc_expression_arithmetic/PreIncrementExpression.h"
 

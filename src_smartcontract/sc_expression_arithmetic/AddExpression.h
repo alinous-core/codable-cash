@@ -8,11 +8,11 @@
 #ifndef SC_EXPRESSION_ADDEXPRESSION_H_
 #define SC_EXPRESSION_ADDEXPRESSION_H_
 
-#include "sc_expression/AbstractExpression.h"
+#include "sc_expression/AbstractBinaryExpression.h"
 
 namespace alinous {
 
-class AddExpression: public AbstractExpression {
+class AddExpression: public AbstractBinaryExpression {
 public:
 	AddExpression();
 	virtual ~AddExpression();

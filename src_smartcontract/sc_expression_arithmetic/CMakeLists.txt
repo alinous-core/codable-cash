@@ -3,6 +3,7 @@
 set(__src
 	AddExpression.cpp
 	MultiplicativeExpression.cpp
+	NegateExpression.cpp
 	PostIncrementExpression.cpp
 	PreIncrementExpression.cpp
 )

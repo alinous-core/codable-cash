@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-MultiplicativeExpression::MultiplicativeExpression() {
+MultiplicativeExpression::MultiplicativeExpression() : AbstractBinaryExpression(CodeElement::EXP_MUL) {
 	// TODO Auto-generated constructor stub
 
 }
