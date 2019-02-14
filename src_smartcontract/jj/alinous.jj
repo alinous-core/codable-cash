@@ -828,12 +828,78 @@ AbstractExpression* expression() : {
 }
 {
 	(
-		exp=orExpression()
+		exp=conditionalOrExpression()
 	)
 	{
 	}
 	{
 		return exp;
+	}
+}
+
+AbstractExpression* conditionalOrExpression() : {
+	Token* t = nullptr;
+	ConditionalOrExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=conditionalAndExpression()
+	(
+
+		t="||" {
+			if(exp == nullptr){
+				exp = new ConditionalOrExpression();
+				exp->setPosition(left);
+				exp->addExp(left);
+				left = exp;
+			}
+			
+			exp->setPosition(t);
+		}
+
+		right=conditionalAndExpression() {
+			exp->addExp(right);
+			exp->setPosition(right);
+		}	
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* conditionalAndExpression() : {
+	Token* t = nullptr;
+	ConditionalAndExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=orExpression()
+	(
+
+		t="&&" {
+			if(exp == nullptr){
+				exp = new ConditionalAndExpression();
+				exp->setPosition(left);
+				exp->addExp(left);
+				left = exp;
+			}
+			
+			exp->setPosition(t);
+		}
+
+		right=orExpression() {
+			exp->addExp(right);
+			exp->setPosition(right);
+		}	
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
 	}
 }
 
@@ -870,7 +936,7 @@ AbstractExpression* orExpression() : {
 	}
 }
 
-AbstractExpression*  exclusiveOrExpression() : {
+AbstractExpression* exclusiveOrExpression() : {
 	Token* t = nullptr;
 	ExclusiveOrExpression* exp = nullptr;
 	AbstractExpression* left = nullptr;
