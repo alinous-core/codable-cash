@@ -828,12 +828,122 @@ AbstractExpression* expression() : {
 }
 {
 	(
-		exp=shiftExpression()
+		exp=equalityExpression()
 	)
 	{
 	}
 	{
 		return exp;
+	}
+}
+
+AbstractExpression* equalityExpression() : {
+	Token* t = nullptr;
+	EqualityExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=relationalExpression()
+	[
+		(
+			t="==" {
+				exp = new EqualityExpression();
+				exp->setPosition(left);
+				exp->setLeft(left);
+				left = exp;
+
+				exp->setPosition(t);
+				exp->setOp(EqualityExpression::EQ);
+			}
+			|
+			t="!=" {
+				exp = new EqualityExpression();
+				exp->setPosition(left);
+				exp->setLeft(left);
+				left = exp;
+
+				exp->setPosition(t);
+				exp->setOp(EqualityExpression::NOT_EQ);
+			}
+		)
+		
+		right=relationalExpression() {
+			exp->setRight(right);
+			exp->setPosition(right);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+
+AbstractExpression* relationalExpression() : {
+	Token* t = nullptr;
+	RelationalExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=shiftExpression()
+	
+	[
+		(
+			t=">" {
+				exp = new RelationalExpression();
+				exp->setPosition(left);
+				exp->setLeft(left);
+				left = exp;
+
+				
+				exp->setPosition(t);
+				exp->setOp(RelationalExpression::GT);
+			}
+			|
+			t=">=" {
+				exp = new RelationalExpression();
+				exp->setPosition(left);
+				exp->setLeft(left);
+				left = exp;
+				
+				exp->setPosition(t);
+				exp->setOp(RelationalExpression::GT_EQ);
+			}
+			|
+			t="<" {
+				exp = new RelationalExpression();
+				exp->setPosition(left);
+				exp->setLeft(left);
+				left = exp;
+
+				
+				exp->setPosition(t);
+				exp->setOp(RelationalExpression::LT);
+			}
+			|
+			t="<=" {
+				exp = new RelationalExpression();
+				exp->setPosition(left);
+				exp->setLeft(left);
+				left = exp;
+				
+				exp->setPosition(t);
+				exp->setOp(RelationalExpression::LT_EQ);
+			}
+		)
+		
+		right=shiftExpression() {
+			exp->setRight(right);
+			exp->setPosition(right);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
 	}
 }
 

@@ -43,6 +43,8 @@ IfStatement
            * ifStatement();
 AbstractExpression
                   * expression();
+AbstractExpression                  * equalityExpression();
+AbstractExpression                  * relationalExpression();
 AbstractExpression                  * shiftExpression();
 AbstractExpression                  * additiveExpression();
 AbstractExpression                  * multiplicativeExpression();
@@ -90,6 +92,14 @@ LiteralExpression                 * literalExpression();
  {
     if (jj_done) return true;
     if (jj_3R_22()) return true;
+    return false;
+  }
+
+ inline bool jj_3_1()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(L_PARENTHESIS)) return true;
+    if (jj_3R_11()) return true;
     return false;
   }
 
@@ -180,14 +190,6 @@ LiteralExpression                 * literalExpression();
     return false;
   }
 
- inline bool jj_3_1()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(L_PARENTHESIS)) return true;
-    if (jj_3R_11()) return true;
-    return false;
-  }
-
 
 public: 
   void setErrorHandler(ErrorHandler *eh) {
@@ -213,7 +215,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[34];
+  int           jj_la1[38];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 

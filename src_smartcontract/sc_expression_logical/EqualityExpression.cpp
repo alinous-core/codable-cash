@@ -9,13 +9,27 @@
 
 namespace alinous {
 
-EqualityExpression::EqualityExpression() {
-	// TODO Auto-generated constructor stub
-
+EqualityExpression::EqualityExpression() : AbstractExpression(CodeElement::EXP_CND_EQ) {
+	this->left = nullptr;
+	this->right = nullptr;
+	this->op = 0;
 }
 
 EqualityExpression::~EqualityExpression() {
-	// TODO Auto-generated destructor stub
+	delete this->left;
+	delete this->right;
+}
+
+void EqualityExpression::setLeft(AbstractExpression* exp) noexcept {
+	this->left = exp;
+}
+
+void EqualityExpression::setRight(AbstractExpression* exp) noexcept {
+	this->right = exp;
+}
+
+void EqualityExpression::setOp(uint8_t op) noexcept {
+	this->op = op;
 }
 
 } /* namespace alinous */
