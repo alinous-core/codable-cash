@@ -828,12 +828,45 @@ AbstractExpression* expression() : {
 }
 {
 	(
-		exp=exclusiveOrExpression()
+		exp=orExpression()
 	)
 	{
 	}
 	{
 		return exp;
+	}
+}
+
+AbstractExpression* orExpression() : {
+	Token* t = nullptr;
+	OrExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=exclusiveOrExpression()
+	(
+
+		t="|" {
+			if(exp == nullptr){
+				exp = new OrExpression();
+				exp->setPosition(left);
+				exp->addExp(left);
+				left = exp;
+			}
+			
+			exp->setPosition(t);
+		}
+
+		right=exclusiveOrExpression() {
+			exp->addExp(right);
+			exp->setPosition(right);
+		}	
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
 	}
 }
 
