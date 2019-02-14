@@ -8,7 +8,7 @@ AbstractExpression* expression() : {
 }
 {
 	(
-		exp=bitReverseExpression()
+		exp=preIncrementExpression()
 	)
 	{
 	}
@@ -18,6 +18,45 @@ AbstractExpression* expression() : {
 }
 
 // Not BitReverse ++ -- nagate
+
+AbstractExpression* preIncrementExpression() : {
+	Token* t = nullptr;
+	PreIncrementExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	[
+		(
+			t="--" {
+				exp = new PreIncrementExpression();
+				exp->setOpe(PreIncrementExpression::MINUS);
+				exp->setPosition(t);
+				left = exp;
+			}
+			|
+			t="++" {
+				exp = new PreIncrementExpression();
+				exp->setOpe(PreIncrementExpression::PLUS);
+				exp->setPosition(t);
+				left = exp;
+			}			
+		)
+	]
+	right=bitReverseExpression() {
+		if(left==nullptr){
+			left = right;
+		}
+		else{
+			exp->setExpression(right);
+			exp->setPosition(right);
+		}
+	}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
 
 AbstractExpression* bitReverseExpression() : {
 	Token* t = nullptr;

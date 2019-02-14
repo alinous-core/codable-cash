@@ -9,13 +9,21 @@
 
 namespace alinous {
 
-PreIncrementExpression::PreIncrementExpression() {
-	// TODO Auto-generated constructor stub
-
+PreIncrementExpression::PreIncrementExpression() : AbstractExpression(CodeElement::EXP_PRE_INC) {
+	this->exp = nullptr;
+	this->ope = 0;
 }
 
 PreIncrementExpression::~PreIncrementExpression() {
-	// TODO Auto-generated destructor stub
+	delete this->exp;
+}
+
+void PreIncrementExpression::setExpression(AbstractExpression* exp) noexcept {
+	this->exp = exp;
+}
+
+void PreIncrementExpression::setOpe(int ope) noexcept {
+	this->ope = ope;
 }
 
 } /* namespace alinous */

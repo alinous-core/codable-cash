@@ -54,3 +54,15 @@ TEST(TestExpressionGroup, bitrevexp){
 	CHECK(!parser.hasError())
 }
 
+TEST(TestExpressionGroup, preinc){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/expression/preinc.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractExpression* exp = lang->expression(); __STP(exp);
+
+	CHECK(!parser.hasError())
+}
+
