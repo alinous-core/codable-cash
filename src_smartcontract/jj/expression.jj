@@ -8,12 +8,59 @@ AbstractExpression* expression() : {
 }
 {
 	(
-		exp=additiveExpression()
+		exp=shiftExpression()
 	)
 	{
 	}
 	{
 		return exp;
+	}
+}
+
+AbstractExpression* shiftExpression() : {
+	Token* t = nullptr;
+	ShiftExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=additiveExpression()
+	(
+		(
+			t="<<" {
+				if(exp == nullptr){
+					exp = new ShiftExpression();
+					exp->setPosition(left);
+					exp->addExp(left);
+					left = exp;
+				}
+				
+				exp->setPosition(t);
+				exp->addOpe(ShiftExpression::LEFT);
+			}
+			|
+			t=">>" {
+				if(exp == nullptr){
+					exp = new ShiftExpression();
+					exp->setPosition(left);
+					exp->addExp(left);
+					left = exp;
+				}
+				
+				exp->setPosition(t);
+				exp->addOpe(ShiftExpression::RIGHT);
+			}
+		)
+
+		right=additiveExpression() {
+			exp->addExp(right);
+			exp->setPosition(right);
+		}	
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
 	}
 }
 
@@ -31,10 +78,11 @@ AbstractExpression* additiveExpression() : {
 				if(exp == nullptr){
 					exp = new AddExpression();
 					exp->setPosition(left);
-					exp->setPosition(t);
 					exp->addExp(left);
 					left = exp;
 				}
+				
+				exp->setPosition(t);
 				exp->addOpe(AddExpression::ADD);
 			}
 			|
@@ -42,16 +90,18 @@ AbstractExpression* additiveExpression() : {
 				if(exp == nullptr){
 					exp = new AddExpression();
 					exp->setPosition(left);
-					exp->setPosition(t);
 					exp->addExp(left);
 					left = exp;
 				}
+				
+				exp->setPosition(t);
 				exp->addOpe(AddExpression::SUB);
 			}
 		)
 
 		right=multiplicativeExpression() {
 			exp->addExp(right);
+			exp->setPosition(right);
 		}	
 	)*
 	{}
@@ -75,38 +125,39 @@ AbstractExpression* multiplicativeExpression() : {
 				if(exp == nullptr){
 					exp = new MultiplicativeExpression();
 					exp->setPosition(left);
-					exp->setPosition(t);
 					exp->addExp(left);
 					left = exp;
 				}
 				exp->addOpe(MultiplicativeExpression::MUL);
+				exp->setPosition(t);
 			}
 			|
 			t="/" {
 				if(exp == nullptr){
 					exp = new MultiplicativeExpression();
 					exp->setPosition(left);
-					exp->setPosition(t);
 					exp->addExp(left);
 					left = exp;
 				}
 				exp->addOpe(MultiplicativeExpression::DIV);
+				exp->setPosition(t);
 			}
 			|
 			t="%" {
 				if(exp == nullptr){
 					exp = new MultiplicativeExpression();
 					exp->setPosition(left);
-					exp->setPosition(t);
 					exp->addExp(left);
 					left = exp;
 				}
 				exp->addOpe(MultiplicativeExpression::MOD);
+				exp->setPosition(t);
 			}
 		)
 		
 		right=negateExpression() {
 			exp->addExp(right);
+			exp->setPosition(right);
 		}
 	)*
 	{}

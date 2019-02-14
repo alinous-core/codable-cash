@@ -10,12 +10,9 @@
 namespace alinous {
 
 AbstractExpression::AbstractExpression(int kind) : CodeElement(kind) {
-	// TODO Auto-generated constructor stub
-
 }
 
 AbstractExpression::~AbstractExpression() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */
