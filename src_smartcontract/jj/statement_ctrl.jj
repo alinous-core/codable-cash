@@ -21,7 +21,7 @@ IfStatement* ifStatement() : {
 	
 	")"
 	
-	stmt=statementBlock() {
+	stmt=statement() {
 		ifstmt->setStatement(stmt);
 		ifstmt->setPosition(stmt);
 	}
