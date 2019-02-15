@@ -14,7 +14,6 @@ ContinueStatement::ContinueStatement() : AbstractStatement(CodeElement::STMT_CON
 }
 
 ContinueStatement::~ContinueStatement() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

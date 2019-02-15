@@ -838,13 +838,57 @@ AbstractStatement* ctrlStatement() : {
 {
 	(
 		stmt=ifStatement() |
-		stmt=breakStatement()
+		stmt=breakStatement() |
+		stmt=continueStatement() |
+		stmt=returnStatement()
 	)
 	{}
 	{
 		return stmt;
 	}
 }
+
+ReturnStatement* returnStatement() : {
+	ReturnStatement* stmt = new ReturnStatement();
+	AbstractExpression* exp = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="return" {
+		stmt->setPosition(t);
+	}
+	[
+		exp=expression() {
+			stmt->setExpression(exp);
+			stmt->setPosition(exp);
+		}
+	]
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+ContinueStatement* continueStatement() : {
+	ContinueStatement* stmt = new ContinueStatement();
+	Token* t = nullptr;
+}
+{
+	t="continue" {
+		stmt->setPosition(t);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}	
+}
+
 
 BreakStatement* breakStatement() : {
 	BreakStatement* stmt = new BreakStatement();

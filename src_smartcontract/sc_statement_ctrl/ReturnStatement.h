@@ -11,11 +11,16 @@
 #include "sc_statement/AbstractStatement.h"
 
 namespace alinous {
+class AbstractExpression;
 
 class ReturnStatement: public AbstractStatement {
 public:
 	ReturnStatement();
 	virtual ~ReturnStatement();
+
+	void setExpression(AbstractExpression* exp) noexcept;
+private:
+	AbstractExpression* exp;
 };
 
 } /* namespace alinous */
