@@ -8,13 +8,27 @@
 
 namespace alinous {
 
-RelationalExpression::RelationalExpression() {
-	// TODO Auto-generated constructor stub
-
+RelationalExpression::RelationalExpression() : AbstractExpression(CodeElement::EXP_CND_RELATIONAL) {
+	this->left = nullptr;
+	this->right = nullptr;
+	this->op = 0;
 }
 
 RelationalExpression::~RelationalExpression() {
-	// TODO Auto-generated destructor stub
+	delete this->left;
+	delete this->right;
+}
+
+void RelationalExpression::setLeft(AbstractExpression* exp) noexcept {
+	this->left = exp;
+}
+
+void RelationalExpression::setRight(AbstractExpression* exp) noexcept {
+	this->right = exp;
+}
+
+void RelationalExpression::setOp(uint8_t op) noexcept {
+	this->op = op;
 }
 
 } /* namespace alinous */

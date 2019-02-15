@@ -9,13 +9,14 @@
 
 namespace alinous {
 
-ShiftExpression::ShiftExpression() {
-	// TODO Auto-generated constructor stub
-
+ShiftExpression::ShiftExpression() : AbstractBinaryExpression(CodeElement::EXP_SHIFT), operations(4) {
 }
 
 ShiftExpression::~ShiftExpression() {
-	// TODO Auto-generated destructor stub
+}
+
+void ShiftExpression::addOpe(uint8_t ope) noexcept {
+	this->operations.addElement(ope);
 }
 
 } /* namespace alinous */

@@ -3,19 +3,19 @@
 #include "TokenMgrError.h"
 namespace alinouslang {
   unsigned int jj_la1_0[] = {
-0x0,0x0,0x0,0x0,0x0,0x200000,0x200000,0x0,0x0,0x0,0x0,0x8000000,0x5000000,0x5000000,0x5000000,0x5000000,0x0,0x0,0x0,0x0,0x0,0x0,0x5140200,0x140200,0x140200,0x0,0x140000,};
+0x0,0x0,0x0,0x0,0x0,0x200000,0x200000,0x0,0x0,0x0,0x0,0x80000000,0x40000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xa000000,0xa000000,0x30800000,0x30800000,0x8000000,0x5000000,0x5000000,0x5000000,0x5000000,0x0,0x0,0x0,0x0,0x0,0xd140200,0x140200,0x140200,0x0,0x140000,};
   unsigned int jj_la1_1[] = {
-0x1000000,0x2000000,0x80,0x0,0x0,0x4,0x800,0x0,0x100,0xe0000000,0xe0000000,0x0,0x0,0x0,0x0,0x0,0x0,0x80000,0x80,0x10,0x4,0x100,0x80004,0x4,0x0,0x0,0x0,};
+0x1000000,0x2000000,0x80,0x0,0x0,0x4,0x800,0x0,0x100,0xe0000000,0xe0000000,0x0,0x0,0x2,0x0,0x1,0x6000,0x6000,0x78000,0x78000,0x200000,0x200000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80000,0x80,0x10,0x100,0x80004,0x4,0x0,0x0,0x0,};
   unsigned int jj_la1_2[] = {
-0x0,0x0,0x0,0x70000,0x100000,0x0,0x0,0x70000,0x0,0x10000003,0x10000003,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80000000,0x80000000,0x80000000,0x80000000,0x0,};
+0x0,0x0,0x0,0x70000,0x100000,0x0,0x0,0x70000,0x0,0x10000003,0x10000003,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80008000,0x80008000,0x80000000,0x80000000,0x0,};
   unsigned int jj_la1_3[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x1,0x1,0x1,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x1,0x1,0x1,0x0,};
   unsigned int jj_la1_4[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_5[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x8040000,0x8040000,0x40000,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x8040000,0x8040000,0x40000,0x0,0x0,};
   unsigned int jj_la1_6[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x4,0x0,0x0,0x0,0x0,0x0,0x4,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x4,0x0,0x0,0x0,0x0,0x0,0x8,0x8,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x10,0x0,0x0,0x0,0x0,0x10,0x0,0x0,0x0,0x0,};
 
   /** Constructor with user supplied TokenManager. */
 
@@ -690,7 +690,7 @@ AbstractExpression
                   * AlinousLang::expression() {AbstractExpression* exp = nullptr;
     if (!hasError) {
     if (!hasError) {
-    exp = postIncrementExpression();
+    exp = conditionalOrExpression();
     }
     }
     if (!hasError) {
@@ -701,8 +701,690 @@ assert(false);
 }
 
 
-AbstractExpression
-                  * AlinousLang::negateExpression() {Token* t = nullptr;
+AbstractExpression                  * AlinousLang::conditionalOrExpression() {Token* t = nullptr;
+        ConditionalOrExpression* exp = nullptr;
+        AbstractExpression* left = nullptr;
+        AbstractExpression* right = nullptr;
+    if (!hasError) {
+    left = conditionalAndExpression();
+    }
+    if (!hasError) {
+    while (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case LOGICAL_OR:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[11] = jj_gen;
+        goto end_label_5;
+      }
+      if (!hasError) {
+      t = jj_consume_token(LOGICAL_OR);
+      }
+      if (!hasError) {
+if(exp == nullptr){
+                                exp = new ConditionalOrExpression();
+                                exp->setPosition(left);
+                                exp->addExp(left);
+                                left = exp;
+                        }
+
+                        exp->setPosition(t);
+      }
+      if (!hasError) {
+      right = conditionalAndExpression();
+      }
+      if (!hasError) {
+exp->addExp(right);
+                        exp->setPosition(right);
+      }
+    }
+    end_label_5: ;
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractExpression                  * AlinousLang::conditionalAndExpression() {Token* t = nullptr;
+        ConditionalAndExpression* exp = nullptr;
+        AbstractExpression* left = nullptr;
+        AbstractExpression* right = nullptr;
+    if (!hasError) {
+    left = orExpression();
+    }
+    if (!hasError) {
+    while (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case LOGICAL_AND:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[12] = jj_gen;
+        goto end_label_6;
+      }
+      if (!hasError) {
+      t = jj_consume_token(LOGICAL_AND);
+      }
+      if (!hasError) {
+if(exp == nullptr){
+                                exp = new ConditionalAndExpression();
+                                exp->setPosition(left);
+                                exp->addExp(left);
+                                left = exp;
+                        }
+
+                        exp->setPosition(t);
+      }
+      if (!hasError) {
+      right = orExpression();
+      }
+      if (!hasError) {
+exp->addExp(right);
+                        exp->setPosition(right);
+      }
+    }
+    end_label_6: ;
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractExpression                  * AlinousLang::orExpression() {Token* t = nullptr;
+        OrExpression* exp = nullptr;
+        AbstractExpression* left = nullptr;
+        AbstractExpression* right = nullptr;
+    if (!hasError) {
+    left = exclusiveOrExpression();
+    }
+    if (!hasError) {
+    while (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case BIT_OR:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[13] = jj_gen;
+        goto end_label_7;
+      }
+      if (!hasError) {
+      t = jj_consume_token(BIT_OR);
+      }
+      if (!hasError) {
+if(exp == nullptr){
+                                exp = new OrExpression();
+                                exp->setPosition(left);
+                                exp->addExp(left);
+                                left = exp;
+                        }
+
+                        exp->setPosition(t);
+      }
+      if (!hasError) {
+      right = exclusiveOrExpression();
+      }
+      if (!hasError) {
+exp->addExp(right);
+                        exp->setPosition(right);
+      }
+    }
+    end_label_7: ;
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractExpression                  * AlinousLang::exclusiveOrExpression() {Token* t = nullptr;
+        ExclusiveOrExpression* exp = nullptr;
+        AbstractExpression* left = nullptr;
+        AbstractExpression* right = nullptr;
+    if (!hasError) {
+    left = andExpression();
+    }
+    if (!hasError) {
+    while (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case 194:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[14] = jj_gen;
+        goto end_label_8;
+      }
+      if (!hasError) {
+      t = jj_consume_token(194);
+      }
+      if (!hasError) {
+if(exp == nullptr){
+                                exp = new ExclusiveOrExpression();
+                                exp->setPosition(left);
+                                exp->addExp(left);
+                                left = exp;
+                        }
+
+                        exp->setPosition(t);
+      }
+      if (!hasError) {
+      right = andExpression();
+      }
+      if (!hasError) {
+exp->addExp(right);
+                        exp->setPosition(right);
+      }
+    }
+    end_label_8: ;
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractExpression                  * AlinousLang::andExpression() {Token* t = nullptr;
+        AndExpression* exp = nullptr;
+        AbstractExpression* left = nullptr;
+        AbstractExpression* right = nullptr;
+    if (!hasError) {
+    left = equalityExpression();
+    }
+    if (!hasError) {
+    while (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case BIT_AND:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[15] = jj_gen;
+        goto end_label_9;
+      }
+      if (!hasError) {
+      t = jj_consume_token(BIT_AND);
+      }
+      if (!hasError) {
+if(exp == nullptr){
+                                exp = new AndExpression();
+                                exp->setPosition(left);
+                                exp->addExp(left);
+                                left = exp;
+                        }
+
+                        exp->setPosition(t);
+      }
+      if (!hasError) {
+      right = equalityExpression();
+      }
+      if (!hasError) {
+exp->addExp(right);
+                        exp->setPosition(right);
+      }
+    }
+    end_label_9: ;
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractExpression                  * AlinousLang::equalityExpression() {Token* t = nullptr;
+        EqualityExpression* exp = nullptr;
+        AbstractExpression* left = nullptr;
+        AbstractExpression* right = nullptr;
+    if (!hasError) {
+    left = relationalExpression();
+    }
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case CMP_EQUALS:
+    case CMP_NOTEQUALS:{
+      if (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case CMP_EQUALS:{
+        if (!hasError) {
+        t = jj_consume_token(CMP_EQUALS);
+        }
+        if (!hasError) {
+exp = new EqualityExpression();
+                                exp->setPosition(left);
+                                exp->setLeft(left);
+                                left = exp;
+
+                                exp->setPosition(t);
+                                exp->setOp(EqualityExpression::EQ);
+        }
+        break;
+        }
+      case CMP_NOTEQUALS:{
+        if (!hasError) {
+        t = jj_consume_token(CMP_NOTEQUALS);
+        }
+        if (!hasError) {
+exp = new EqualityExpression();
+                                exp->setPosition(left);
+                                exp->setLeft(left);
+                                left = exp;
+
+                                exp->setPosition(t);
+                                exp->setOp(EqualityExpression::NOT_EQ);
+        }
+        break;
+        }
+      default:
+        jj_la1[16] = jj_gen;
+        jj_consume_token(-1);
+        errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+      }
+      }
+      if (!hasError) {
+      right = relationalExpression();
+      }
+      if (!hasError) {
+exp->setRight(right);
+                        exp->setPosition(right);
+      }
+      break;
+      }
+    default:
+      jj_la1[17] = jj_gen;
+      ;
+    }
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractExpression                  * AlinousLang::relationalExpression() {Token* t = nullptr;
+        RelationalExpression* exp = nullptr;
+        AbstractExpression* left = nullptr;
+        AbstractExpression* right = nullptr;
+    if (!hasError) {
+    left = shiftExpression();
+    }
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case GT:
+    case GEQ:
+    case LT:
+    case LEQ:{
+      if (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case GT:{
+        if (!hasError) {
+        t = jj_consume_token(GT);
+        }
+        if (!hasError) {
+exp = new RelationalExpression();
+                                exp->setPosition(left);
+                                exp->setLeft(left);
+                                left = exp;
+
+
+                                exp->setPosition(t);
+                                exp->setOp(RelationalExpression::GT);
+        }
+        break;
+        }
+      case GEQ:{
+        if (!hasError) {
+        t = jj_consume_token(GEQ);
+        }
+        if (!hasError) {
+exp = new RelationalExpression();
+                                exp->setPosition(left);
+                                exp->setLeft(left);
+                                left = exp;
+
+                                exp->setPosition(t);
+                                exp->setOp(RelationalExpression::GT_EQ);
+        }
+        break;
+        }
+      case LT:{
+        if (!hasError) {
+        t = jj_consume_token(LT);
+        }
+        if (!hasError) {
+exp = new RelationalExpression();
+                                exp->setPosition(left);
+                                exp->setLeft(left);
+                                left = exp;
+
+
+                                exp->setPosition(t);
+                                exp->setOp(RelationalExpression::LT);
+        }
+        break;
+        }
+      case LEQ:{
+        if (!hasError) {
+        t = jj_consume_token(LEQ);
+        }
+        if (!hasError) {
+exp = new RelationalExpression();
+                                exp->setPosition(left);
+                                exp->setLeft(left);
+                                left = exp;
+
+                                exp->setPosition(t);
+                                exp->setOp(RelationalExpression::LT_EQ);
+        }
+        break;
+        }
+      default:
+        jj_la1[18] = jj_gen;
+        jj_consume_token(-1);
+        errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+      }
+      }
+      if (!hasError) {
+      right = shiftExpression();
+      }
+      if (!hasError) {
+exp->setRight(right);
+                        exp->setPosition(right);
+      }
+      break;
+      }
+    default:
+      jj_la1[19] = jj_gen;
+      ;
+    }
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractExpression                  * AlinousLang::shiftExpression() {Token* t = nullptr;
+        ShiftExpression* exp = nullptr;
+        AbstractExpression* left = nullptr;
+        AbstractExpression* right = nullptr;
+    if (!hasError) {
+    left = additiveExpression();
+    }
+    if (!hasError) {
+    while (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case RSIGNEDSHIFT:
+      case 195:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[20] = jj_gen;
+        goto end_label_10;
+      }
+      if (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case 195:{
+        if (!hasError) {
+        t = jj_consume_token(195);
+        }
+        if (!hasError) {
+if(exp == nullptr){
+                                        exp = new ShiftExpression();
+                                        exp->setPosition(left);
+                                        exp->addExp(left);
+                                        left = exp;
+                                }
+
+                                exp->setPosition(t);
+                                exp->addOpe(ShiftExpression::LEFT);
+        }
+        break;
+        }
+      case RSIGNEDSHIFT:{
+        if (!hasError) {
+        t = jj_consume_token(RSIGNEDSHIFT);
+        }
+        if (!hasError) {
+if(exp == nullptr){
+                                        exp = new ShiftExpression();
+                                        exp->setPosition(left);
+                                        exp->addExp(left);
+                                        left = exp;
+                                }
+
+                                exp->setPosition(t);
+                                exp->addOpe(ShiftExpression::RIGHT);
+        }
+        break;
+        }
+      default:
+        jj_la1[21] = jj_gen;
+        jj_consume_token(-1);
+        errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+      }
+      }
+      if (!hasError) {
+      right = additiveExpression();
+      }
+      if (!hasError) {
+exp->addExp(right);
+                        exp->setPosition(right);
+      }
+    }
+    end_label_10: ;
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractExpression                  * AlinousLang::additiveExpression() {Token* t = nullptr;
+        AddExpression* exp = nullptr;
+        AbstractExpression* left = nullptr;
+        AbstractExpression* right = nullptr;
+    if (!hasError) {
+    left = multiplicativeExpression();
+    }
+    if (!hasError) {
+    while (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case PLUS:
+      case MINUS:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[22] = jj_gen;
+        goto end_label_11;
+      }
+      if (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case PLUS:{
+        if (!hasError) {
+        t = jj_consume_token(PLUS);
+        }
+        if (!hasError) {
+if(exp == nullptr){
+                                        exp = new AddExpression();
+                                        exp->setPosition(left);
+                                        exp->addExp(left);
+                                        left = exp;
+                                }
+
+                                exp->setPosition(t);
+                                exp->addOpe(AddExpression::ADD);
+        }
+        break;
+        }
+      case MINUS:{
+        if (!hasError) {
+        t = jj_consume_token(MINUS);
+        }
+        if (!hasError) {
+if(exp == nullptr){
+                                        exp = new AddExpression();
+                                        exp->setPosition(left);
+                                        exp->addExp(left);
+                                        left = exp;
+                                }
+
+                                exp->setPosition(t);
+                                exp->addOpe(AddExpression::SUB);
+        }
+        break;
+        }
+      default:
+        jj_la1[23] = jj_gen;
+        jj_consume_token(-1);
+        errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+      }
+      }
+      if (!hasError) {
+      right = multiplicativeExpression();
+      }
+      if (!hasError) {
+exp->addExp(right);
+                        exp->setPosition(right);
+      }
+    }
+    end_label_11: ;
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractExpression                  * AlinousLang::multiplicativeExpression() {Token* t = nullptr;
+        MultiplicativeExpression* exp = nullptr;
+        AbstractExpression* left = nullptr;
+        AbstractExpression* right = nullptr;
+    if (!hasError) {
+    left = negateExpression();
+    }
+    if (!hasError) {
+    while (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case ASTERISK:
+      case DIV:
+      case MODULO:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[24] = jj_gen;
+        goto end_label_12;
+      }
+      if (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case ASTERISK:{
+        if (!hasError) {
+        t = jj_consume_token(ASTERISK);
+        }
+        if (!hasError) {
+if(exp == nullptr){
+                                        exp = new MultiplicativeExpression();
+                                        exp->setPosition(left);
+                                        exp->addExp(left);
+                                        left = exp;
+                                }
+                                exp->addOpe(MultiplicativeExpression::MUL);
+                                exp->setPosition(t);
+        }
+        break;
+        }
+      case DIV:{
+        if (!hasError) {
+        t = jj_consume_token(DIV);
+        }
+        if (!hasError) {
+if(exp == nullptr){
+                                        exp = new MultiplicativeExpression();
+                                        exp->setPosition(left);
+                                        exp->addExp(left);
+                                        left = exp;
+                                }
+                                exp->addOpe(MultiplicativeExpression::DIV);
+                                exp->setPosition(t);
+        }
+        break;
+        }
+      case MODULO:{
+        if (!hasError) {
+        t = jj_consume_token(MODULO);
+        }
+        if (!hasError) {
+if(exp == nullptr){
+                                        exp = new MultiplicativeExpression();
+                                        exp->setPosition(left);
+                                        exp->addExp(left);
+                                        left = exp;
+                                }
+                                exp->addOpe(MultiplicativeExpression::MOD);
+                                exp->setPosition(t);
+        }
+        break;
+        }
+      default:
+        jj_la1[25] = jj_gen;
+        jj_consume_token(-1);
+        errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+      }
+      }
+      if (!hasError) {
+      right = negateExpression();
+      }
+      if (!hasError) {
+exp->addExp(right);
+                        exp->setPosition(right);
+      }
+    }
+    end_label_12: ;
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractExpression                  * AlinousLang::negateExpression() {Token* t = nullptr;
         NegateExpression* exp = nullptr;
         AbstractExpression* left = nullptr;
         AbstractExpression* right = nullptr;
@@ -720,7 +1402,7 @@ exp = new NegateExpression();
       break;
       }
     default:
-      jj_la1[11] = jj_gen;
+      jj_la1[26] = jj_gen;
       ;
     }
     }
@@ -783,7 +1465,7 @@ exp = new PostIncrementExpression();
         break;
         }
       default:
-        jj_la1[12] = jj_gen;
+        jj_la1[27] = jj_gen;
         jj_consume_token(-1);
         errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
       }
@@ -791,7 +1473,7 @@ exp = new PostIncrementExpression();
       break;
       }
     default:
-      jj_la1[13] = jj_gen;
+      jj_la1[28] = jj_gen;
       ;
     }
     }
@@ -839,7 +1521,7 @@ exp = new PreIncrementExpression();
         break;
         }
       default:
-        jj_la1[14] = jj_gen;
+        jj_la1[29] = jj_gen;
         jj_consume_token(-1);
         errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
       }
@@ -847,7 +1529,7 @@ exp = new PreIncrementExpression();
       break;
       }
     default:
-      jj_la1[15] = jj_gen;
+      jj_la1[30] = jj_gen;
       ;
     }
     }
@@ -875,9 +1557,9 @@ AbstractExpression                  * AlinousLang::bitReverseExpression() {Token
         AbstractExpression* right = nullptr;
     if (!hasError) {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case 194:{
+    case 196:{
       if (!hasError) {
-      t = jj_consume_token(194);
+      t = jj_consume_token(196);
       }
       if (!hasError) {
 exp = new BitReverseExpression();
@@ -887,7 +1569,7 @@ exp = new BitReverseExpression();
       break;
       }
     default:
-      jj_la1[16] = jj_gen;
+      jj_la1[31] = jj_gen;
       ;
     }
     }
@@ -927,7 +1609,7 @@ exp = new NotExpression();
       break;
       }
     default:
-      jj_la1[17] = jj_gen;
+      jj_la1[32] = jj_gen;
       ;
     }
     }
@@ -1014,8 +1696,8 @@ AbstractExpression                  * AlinousLang::memberReferenceExpression() {
         break;
         }
       default:
-        jj_la1[18] = jj_gen;
-        goto end_label_5;
+        jj_la1[33] = jj_gen;
+        goto end_label_13;
       }
       if (!hasError) {
       jj_consume_token(DOT);
@@ -1035,7 +1717,7 @@ if(exp == nullptr){
                         exp->setPosition(right);
       }
     }
-    end_label_5: ;
+    end_label_13: ;
     }
     if (!hasError) {
 
@@ -1061,8 +1743,8 @@ AbstractExpression                  * AlinousLang::arrayReferenceExpression() {A
         break;
         }
       default:
-        jj_la1[19] = jj_gen;
-        goto end_label_6;
+        jj_la1[34] = jj_gen;
+        goto end_label_14;
       }
       if (!hasError) {
       t = jj_consume_token(L_BRACKET);
@@ -1086,7 +1768,7 @@ exp->addIndex(right);
                         exp->setPosition(t);
       }
     }
-    end_label_6: ;
+    end_label_14: ;
     }
     if (!hasError) {
 
@@ -1104,8 +1786,7 @@ AbstractExpression                  * AlinousLang::functionCallExpression() {Fun
     left = primitive();
     }
     if (!hasError) {
-    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case L_PARENTHESIS:{
+    if (jj_2_2(2)) {
       if (!hasError) {
       t = jj_consume_token(L_PARENTHESIS);
       }
@@ -1126,10 +1807,7 @@ exp = new FunctionCallExpression();
       if (!hasError) {
 exp->setPosition(t);
       }
-      break;
-      }
-    default:
-      jj_la1[20] = jj_gen;
+    } else {
       ;
     }
     }
@@ -1151,13 +1829,15 @@ void AlinousLang::functionCallExpressionArg(FunctionCallExpression* exp) {Abstra
     case SQL_STRING_LITERAL:
     case PLUSPLUS:
     case MINUSMINUS:
+    case MINUS:
     case L_PARENTHESIS:
     case NOT:
+    case NEW:
     case TRUE:
     case FALSE:
     case _NULL:
     case IDENTIFIER:
-    case 194:{
+    case 196:{
       if (!hasError) {
       arg = expression();
       }
@@ -1173,8 +1853,8 @@ exp->addArgument(arg);
           break;
           }
         default:
-          jj_la1[21] = jj_gen;
-          goto end_label_7;
+          jj_la1[35] = jj_gen;
+          goto end_label_15;
         }
         if (!hasError) {
         t = jj_consume_token(COMMA);
@@ -1190,12 +1870,12 @@ exp->addArgument(arg);
                                 exp->setPosition(arg);
         }
       }
-      end_label_7: ;
+      end_label_15: ;
       }
       break;
       }
     default:
-      jj_la1[22] = jj_gen;
+      jj_la1[36] = jj_gen;
       ;
     }
     }
@@ -1208,6 +1888,12 @@ AbstractExpression                  * AlinousLang::primitive() {AbstractExpressi
     case L_PARENTHESIS:{
       if (!hasError) {
       exp = parenthesisExpression();
+      }
+      break;
+      }
+    case NEW:{
+      if (!hasError) {
+      exp = allocationExpression();
       }
       break;
       }
@@ -1229,7 +1915,7 @@ AbstractExpression                  * AlinousLang::primitive() {AbstractExpressi
       break;
       }
     default:
-      jj_la1[23] = jj_gen;
+      jj_la1[37] = jj_gen;
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
     }
@@ -1238,6 +1924,43 @@ AbstractExpression                  * AlinousLang::primitive() {AbstractExpressi
 
     }
 return exp;
+assert(false);
+}
+
+
+AllocationExpression                    * AlinousLang::allocationExpression() {AllocationExpression* exp = nullptr;
+        PackageNameDeclare* packageName = nullptr;
+        AbstractExpression* func = nullptr;
+        Token* t = nullptr;
+    if (!hasError) {
+    t = jj_consume_token(NEW);
+    }
+    if (!hasError) {
+exp = new AllocationExpression();
+                exp->setPosition(t);
+    }
+    if (!hasError) {
+    if (jj_2_3(2)) {
+      if (!hasError) {
+      packageName = packageNameDeclare();
+      }
+      if (!hasError) {
+exp->setPackage(packageName);
+                        exp->setPosition(packageName);
+      }
+    } else {
+      ;
+    }
+    }
+    if (!hasError) {
+    func = functionCallExpression();
+    }
+    if (!hasError) {
+exp->setExpression((FunctionCallExpression*)func);
+                exp->setPosition(func);
+    }
+__ONERROR(exp);
+                return exp;
 assert(false);
 }
 
@@ -1314,7 +2037,7 @@ AbstractExpression                  * AlinousLang::literal() {AbstractExpression
       break;
       }
     default:
-      jj_la1[24] = jj_gen;
+      jj_la1[38] = jj_gen;
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
     }
@@ -1379,7 +2102,7 @@ lit->setValue(false);
       break;
       }
     default:
-      jj_la1[25] = jj_gen;
+      jj_la1[39] = jj_gen;
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
     }
@@ -1416,7 +2139,7 @@ lit->setString(_STR(t), false);
       break;
       }
     default:
-      jj_la1[26] = jj_gen;
+      jj_la1[40] = jj_gen;
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
     }
@@ -1457,7 +2180,7 @@ void AlinousLang::ReInit(TokenManager* tokenManager){
     trace = false;
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 27; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 41; i++) jj_la1[i] = -1;
   }
 
 
@@ -1488,7 +2211,7 @@ Token * AlinousLang::jj_consume_token(int kind)  {
       jj_gen++;
       if (++jj_gc > 100) {
         jj_gc = 0;
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 3; i++) {
           JJCalls *c = &jj_2_rtns[i];
           while (c != nullptr) {
             if (c->gen < jj_gen) c->first = nullptr;
@@ -1582,13 +2305,15 @@ int AlinousLang::jj_ntk_f(){
 
   void AlinousLang::jj_rescan_token(){
     jj_rescan = true;
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 3; i++) {
       JJCalls *p = &jj_2_rtns[i];
       do {
         if (p->gen > jj_gen) {
           jj_la = p->arg; jj_lastpos = jj_scanpos = p->first;
           switch (i) {
             case 0: jj_3_1(); break;
+            case 1: jj_3_2(); break;
+            case 2: jj_3_3(); break;
           }
         }
         p = p->next;

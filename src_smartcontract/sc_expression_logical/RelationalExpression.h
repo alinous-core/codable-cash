@@ -8,12 +8,28 @@
 #ifndef SC_EXPRESSION_RELATIONALEXPRESSION_H_
 #define SC_EXPRESSION_RELATIONALEXPRESSION_H_
 
+#include "sc_expression/AbstractExpression.h"
+#include <cstdint>
+
 namespace alinous {
 
-class RelationalExpression {
+class RelationalExpression : public AbstractExpression {
 public:
+	static const constexpr uint8_t GT{1};
+	static const constexpr uint8_t GT_EQ{2};
+	static const constexpr uint8_t LT{3};
+	static const constexpr uint8_t LT_EQ{4};
+
 	RelationalExpression();
 	virtual ~RelationalExpression();
+
+	void setLeft(AbstractExpression* exp) noexcept;
+	void setRight(AbstractExpression* exp) noexcept;
+	void setOp(uint8_t op) noexcept;
+private:
+	AbstractExpression* left;
+	AbstractExpression* right;
+	uint8_t op;
 };
 
 } /* namespace alinous */

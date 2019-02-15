@@ -9,13 +9,10 @@
 
 namespace alinous {
 
-OrExpression::OrExpression() {
-	// TODO Auto-generated constructor stub
-
+OrExpression::OrExpression() : AbstractBinaryExpression(CodeElement::EXP_OR) {
 }
 
 OrExpression::~OrExpression() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

@@ -10,12 +10,22 @@
 
 #include "sc_expression/AbstractBinaryExpression.h"
 
+#include "base/RawArrayPrimitive.h"
+#include <cstdint>
+
 namespace alinous {
 
 class AddExpression: public AbstractBinaryExpression {
 public:
+	static const constexpr uint8_t ADD{1};
+	static const constexpr uint8_t SUB{2};
+
 	AddExpression();
 	virtual ~AddExpression();
+
+	void addOpe(uint8_t ope) noexcept;
+private:
+	RawArrayPrimitive<uint8_t> operations;
 };
 
 } /* namespace alinous */

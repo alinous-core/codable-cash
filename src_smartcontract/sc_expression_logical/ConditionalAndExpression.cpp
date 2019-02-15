@@ -9,13 +9,10 @@
 
 namespace alinous {
 
-ConditionalAndExpression::ConditionalAndExpression() {
-	// TODO Auto-generated constructor stub
-
+ConditionalAndExpression::ConditionalAndExpression() : AbstractBinaryExpression(CodeElement::EXP_CND_AND) {
 }
 
 ConditionalAndExpression::~ConditionalAndExpression() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

@@ -775,6 +775,10 @@ const  int L_COMM = 2;
   static const JJChar tokenImage_arr_193[] = 
 {0x22, 0x3c, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x20, 0x6f, 0x66, 0x20, 0x6b, 0x69, 0x6e, 0x64, 0x20, 0x31, 0x39, 0x33, 0x3e, 0x22, 0};
   static const JJChar tokenImage_arr_194[] = 
+{0x22, 0x5e, 0x22, 0};
+  static const JJChar tokenImage_arr_195[] = 
+{0x22, 0x3c, 0x3c, 0x22, 0};
+  static const JJChar tokenImage_arr_196[] = 
 {0x22, 0x7e, 0x22, 0};
   static const JJChar* const tokenImage[] = {
 tokenImage_arr_0, 
@@ -972,6 +976,8 @@ tokenImage_arr_191,
 tokenImage_arr_192, 
 tokenImage_arr_193, 
 tokenImage_arr_194, 
+tokenImage_arr_195, 
+tokenImage_arr_196, 
   };
 
 }

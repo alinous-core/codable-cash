@@ -9,13 +9,10 @@
 
 namespace alinous {
 
-ExclusiveOrExpression::ExclusiveOrExpression() {
-	// TODO Auto-generated constructor stub
-
+ExclusiveOrExpression::ExclusiveOrExpression() : AbstractBinaryExpression(CodeElement::EXP_EX_OR) {
 }
 
 ExclusiveOrExpression::~ExclusiveOrExpression() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */
