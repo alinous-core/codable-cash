@@ -772,6 +772,7 @@ AbstractStatement* statement() : {
 	(
 		stmt=statementBlock() |
 		LOOKAHEAD(2) stmt=substitutionStatement() |
+		stmt=variableDeclareStatement() |
 		stmt=expressionStatement() |
 		stmt=ctrlStatement() |
 		stmt=blankStatement()
@@ -780,6 +781,43 @@ AbstractStatement* statement() : {
 	{
 		return stmt;
 	}
+}
+
+VariableDeclareStatement* variableDeclareStatement() : {
+	VariableDeclareStatement* stmt = new VariableDeclareStatement();
+	AbstractType* type = nullptr;
+	VariableIdentifier* valId = nullptr;
+	AbstractExpression* exp = nullptr;
+	Token* t = nullptr;
+}
+{
+	type=typeDeclare() {
+		stmt->setType(type);
+		stmt->setPosition(type);
+	}
+	
+	valId=variableIdentifier() {
+		stmt->setVariableId(valId);
+		stmt->setPosition(valId);
+	}
+	
+	[
+		t="=" {
+			stmt->setPosition(t);
+		}
+		exp=expression() {
+			stmt->setInitExpression(exp);
+			stmt->setPosition(exp);
+		}
+	]
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}	
 }
 
 SubstitutionStatement* substitutionStatement() : {
@@ -800,6 +838,10 @@ SubstitutionStatement* substitutionStatement() : {
 	exp=expression() {
 		stmt->setExpression(exp);
 		stmt->setPosition(exp);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
 	}
 	
 	{

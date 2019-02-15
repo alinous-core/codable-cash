@@ -7,15 +7,34 @@
 
 #include "sc_statement/VariableDeclareStatement.h"
 
+#include "sc_declare_types/AbstractType.h"
+#include "sc_expression/VariableIdentifier.h"
+#include "sc_expression/AbstractExpression.h"
+
 namespace alinous {
 
 VariableDeclareStatement::VariableDeclareStatement() : AbstractStatement(CodeElement::STMT_VARIABLE_DECLARE) {
-	// TODO Auto-generated constructor stub
-
+	this->type =nullptr;
+	this->variableId = nullptr;
+	this->exp = nullptr;
 }
 
 VariableDeclareStatement::~VariableDeclareStatement() {
-	// TODO Auto-generated destructor stub
+	delete this->type;
+	delete this->variableId;
+	delete this->exp;
+}
+
+void VariableDeclareStatement::setType(AbstractType* type) noexcept {
+	this->type = type;
+}
+
+void VariableDeclareStatement::setVariableId(VariableIdentifier* variableId) noexcept {
+	this->variableId = variableId;
+}
+
+void VariableDeclareStatement::setInitExpression(AbstractExpression* exp) noexcept {
+	this->exp = exp;
 }
 
 } /* namespace alinous */
