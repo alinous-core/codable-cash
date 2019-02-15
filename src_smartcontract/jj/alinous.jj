@@ -840,12 +840,46 @@ AbstractStatement* ctrlStatement() : {
 		stmt=ifStatement() |
 		stmt=breakStatement() |
 		stmt=continueStatement() |
-		stmt=returnStatement()
+		stmt=returnStatement() |
+		stmt=whileStatement()
 	)
 	{}
 	{
 		return stmt;
 	}
+}
+
+WhileStatement* whileStatement() : {
+	WhileStatement* stmt = new WhileStatement();
+	AbstractExpression* exp = nullptr;
+	AbstractStatement* st = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="while" {
+		stmt->setPosition(t);
+	}
+	t="(" {
+		stmt->setPosition(t);
+	}
+	
+	exp=expression() {
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	
+	t=")" {
+		stmt->setPosition(t);
+	}
+	st=statement() {
+		stmt->setStatement(st);
+		stmt->setPosition(st);
+	}
+	
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}	
 }
 
 ReturnStatement* returnStatement() : {
