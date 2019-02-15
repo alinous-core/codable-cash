@@ -11,11 +11,20 @@
 #include "sc_statement/AbstractStatement.h"
 
 namespace alinous {
+class VariableIdentifier;
+class AbstractExpression;
 
 class SubstitutionStatement: public AbstractStatement {
 public:
 	SubstitutionStatement();
 	virtual ~SubstitutionStatement();
+
+	void setVariableId(VariableIdentifier* variable) noexcept;
+	void setExpression(AbstractExpression* exp) noexcept;
+private:
+	VariableIdentifier* variable;
+	AbstractExpression* exp;
+
 };
 
 } /* namespace alinous */

@@ -347,7 +347,7 @@ AbstractExpression* additiveExpression() : {
 }
 {
 	left=multiplicativeExpression()
-	(
+	(LOOKAHEAD(2)
 		(
 			t="+" {
 				if(exp == nullptr){
@@ -479,7 +479,7 @@ AbstractExpression* postIncrementExpression() : {
 {
 	left=preIncrementExpression()
 	
-	[
+	[LOOKAHEAD(2)
 		(
 			t="--" {
 				exp = new PostIncrementExpression();

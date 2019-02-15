@@ -9,11 +9,97 @@ AbstractStatement* statement() : {
 {
 	(
 		stmt=statementBlock() |
+		LOOKAHEAD(2) stmt=substitutionStatement() |
+		stmt=variableDeclareStatement() |
 		stmt=expressionStatement() |
-		stmt=ctrlStatement()
+		stmt=ctrlStatement() |
+		stmt=blankStatement()
 	)
 	{}
 	{
+		return stmt;
+	}
+}
+
+VariableDeclareStatement* variableDeclareStatement() : {
+	VariableDeclareStatement* stmt = new VariableDeclareStatement();
+	AbstractType* type = nullptr;
+	VariableIdentifier* valId = nullptr;
+	AbstractExpression* exp = nullptr;
+	Token* t = nullptr;
+}
+{
+	type=typeDeclare() {
+		stmt->setType(type);
+		stmt->setPosition(type);
+	}
+	
+	valId=variableIdentifier() {
+		stmt->setVariableId(valId);
+		stmt->setPosition(valId);
+	}
+	
+	[
+		t="=" {
+			stmt->setPosition(t);
+		}
+		exp=expression() {
+			stmt->setInitExpression(exp);
+			stmt->setPosition(exp);
+		}
+	]
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}	
+}
+
+SubstitutionStatement* substitutionStatement() : {
+	SubstitutionStatement* stmt = new SubstitutionStatement();
+	VariableIdentifier* valId = nullptr;
+	AbstractExpression* exp = nullptr;
+	Token* t = nullptr;
+}
+{
+	valId=variableIdentifier() {
+		stmt->setVariableId(valId);
+		stmt->setPosition(valId);
+	}
+	t="=" {
+		stmt->setPosition(t);
+	}
+	
+	exp=expression() {
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+BlankStatement* blankStatement() : {
+	BlankStatement* stmt = new BlankStatement();
+	Token* t = nullptr;
+}
+{
+	t=";" {
+		stmt->setPosition(t);
+		stmt->setPosition(t);
+	}
+	
+	{
+		__ONERROR(stmt);
 		return stmt;
 	}
 }
