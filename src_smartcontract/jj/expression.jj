@@ -715,7 +715,7 @@ AbstractExpression* functionCallExpression() : {
 {
 	left=primitive()
 	
-	[
+	[LOOKAHEAD(2)
 		t="(" {
 			exp = new FunctionCallExpression();
 			exp->setName(left);
@@ -768,12 +768,41 @@ AbstractExpression* primitive() : {
 {
 	(
 		exp=parenthesisExpression() |
+		exp=allocationExpression() |
 		exp=literal() |
 		exp=variableIdentifier()
 	)
 	{
 	}
 	{
+		return exp;
+	}
+}
+
+AllocationExpression* allocationExpression() : {
+	AllocationExpression* exp = nullptr;
+	PackageNameDeclare* packageName = nullptr;
+	AbstractExpression* func = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="new" {
+		exp = new AllocationExpression();
+		exp->setPosition(t);
+	}
+	[LOOKAHEAD(2)
+		packageName=packageNameDeclare() {
+			exp->setPackage(packageName);
+			exp->setPosition(packageName);
+		}
+	]
+	
+	func=functionCallExpression() {
+		exp->setExpression((FunctionCallExpression*)func);
+		exp->setPosition(func);
+	}	
+	{
+		 __ONERROR(exp);
 		return exp;
 	}
 }

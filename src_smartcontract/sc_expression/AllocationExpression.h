@@ -8,12 +8,23 @@
 #ifndef SC_EXPRESSION_ALLOCATIONEXPRESSION_H_
 #define SC_EXPRESSION_ALLOCATIONEXPRESSION_H_
 
-namespace alinous {
+#include "sc_expression/AbstractExpression.h"
 
-class AllocationExpression {
+namespace alinous {
+class PackageNameDeclare;
+class FunctionCallExpression;
+
+class AllocationExpression : public AbstractExpression {
 public:
 	AllocationExpression();
 	virtual ~AllocationExpression();
+
+	void setPackage(PackageNameDeclare* packageName) noexcept;
+	void setExpression(FunctionCallExpression* exp) noexcept;
+
+private:
+	PackageNameDeclare* packageName;
+	FunctionCallExpression* exp;
 };
 
 } /* namespace alinous */
