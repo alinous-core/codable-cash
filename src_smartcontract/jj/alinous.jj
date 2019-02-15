@@ -771,7 +771,8 @@ AbstractStatement* statement() : {
 {
 	(
 		stmt=statementBlock() |
-		stmt=expressionStatement()
+		stmt=expressionStatement() |
+		stmt=ctrlStatement()
 	)
 	{}
 	{
@@ -831,6 +832,37 @@ ExpressionStatement* expressionStatement() : {
 * Alinous Language Control Statements Starts
 */
 
+AbstractStatement* ctrlStatement() : {
+	AbstractStatement* stmt = nullptr;
+}
+{
+	(
+		stmt=ifStatement() |
+		stmt=breakStatement()
+	)
+	{}
+	{
+		return stmt;
+	}
+}
+
+BreakStatement* breakStatement() : {
+	BreakStatement* stmt = new BreakStatement();
+	Token* t = nullptr;
+}
+{
+	t="break" {
+		stmt->setPosition(t);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}	
+}
+
 IfStatement* ifStatement() : {
 	IfStatement* ifstmt = new IfStatement();
 	AbstractExpression* exp;
@@ -858,6 +890,9 @@ IfStatement* ifStatement() : {
 		return ifstmt;
 	}
 }
+
+
+
 /******************************************************************************************
 * Alinous Language Expressions Starts
 */

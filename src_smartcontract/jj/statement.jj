@@ -9,7 +9,8 @@ AbstractStatement* statement() : {
 {
 	(
 		stmt=statementBlock() |
-		stmt=expressionStatement()
+		stmt=expressionStatement() |
+		stmt=ctrlStatement()
 	)
 	{}
 	{
