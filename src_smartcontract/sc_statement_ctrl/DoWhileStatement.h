@@ -11,11 +11,19 @@
 #include "sc_statement/AbstractStatement.h"
 
 namespace alinous {
+class AbstractExpression;
 
 class DoWhileStatement: public AbstractStatement {
 public:
 	DoWhileStatement();
 	virtual ~DoWhileStatement();
+
+	void setExpression(AbstractExpression* exp) noexcept;
+	void setStatement(AbstractStatement* stmt) noexcept;
+
+private:
+	AbstractExpression* exp;
+	AbstractStatement* stmt;
 };
 
 } /* namespace alinous */
