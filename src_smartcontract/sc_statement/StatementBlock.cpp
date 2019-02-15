@@ -13,6 +13,11 @@ StatementBlock::StatementBlock() : AbstractStatement(CodeElement::STMT_BLOCK) {
 }
 
 StatementBlock::~StatementBlock() {
+	this->statements.deleteElements();
+}
+
+void StatementBlock::addStatement(AbstractStatement* stmt) noexcept {
+	this->statements.addElement(stmt);
 }
 
 } /* namespace alinous */

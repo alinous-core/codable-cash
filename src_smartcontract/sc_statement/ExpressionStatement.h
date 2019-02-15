@@ -8,12 +8,19 @@
 #ifndef SC_STATEMENT_EXPRESSIONSTATEMENT_H_
 #define SC_STATEMENT_EXPRESSIONSTATEMENT_H_
 
-namespace alinous {
+#include "sc_statement/AbstractStatement.h"
 
-class ExpressionStatement {
+namespace alinous {
+class AbstractExpression;
+
+class ExpressionStatement : public AbstractStatement {
 public:
 	ExpressionStatement();
 	virtual ~ExpressionStatement();
+
+	void setExpression(AbstractExpression* exp) noexcept;
+private:
+	AbstractExpression* exp;
 };
 
 } /* namespace alinous */

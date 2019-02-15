@@ -765,8 +765,24 @@ VoidType* voidType() : {
 * Alinous Language Statements Starts
 */
 
+AbstractStatement* statement() : {
+	AbstractStatement* stmt = nullptr;
+}
+{
+	(
+		stmt=statementBlock() |
+		stmt=expressionStatement() |
+		stmt=ctrlStatement()
+	)
+	{}
+	{
+		return stmt;
+	}
+}
+
 StatementBlock* statementBlock() : {
 	StatementBlock* block = new StatementBlock();
+	AbstractStatement* stmt = nullptr;
 	Token* t = nullptr;
 }
 {
@@ -774,6 +790,12 @@ StatementBlock* statementBlock() : {
 		block->setPosition(t);
 	}
 	
+	(
+		stmt=statement() {
+			block->addStatement(stmt);
+			block->setPosition(stmt);
+		}
+	)*
 	
 	t="}" {
 		block->setPosition(t);
@@ -785,12 +807,222 @@ StatementBlock* statementBlock() : {
 }
 
 
+ExpressionStatement* expressionStatement() : {
+	ExpressionStatement* stmt = new ExpressionStatement();
+	Token* t = nullptr;
+	AbstractExpression* exp = nullptr;
+}
+{
+	exp=expression() {
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
 
 
 
 /******************************************************************************************
 * Alinous Language Control Statements Starts
 */
+
+AbstractStatement* ctrlStatement() : {
+	AbstractStatement* stmt = nullptr;
+}
+{
+	(
+		stmt=ifStatement() |
+		stmt=breakStatement() |
+		stmt=continueStatement() |
+		stmt=returnStatement() |
+		stmt=whileStatement() |
+		stmt=doWhileStatement() |
+		stmt=forStatement()
+	)
+	{}
+	{
+		return stmt;
+	}
+}
+
+ForStatement* forStatement() : {
+	ForStatement* stmt = new ForStatement();
+	AbstractExpression* exp = nullptr;
+	AbstractStatement* st = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="for" {
+		stmt->setPosition(t);
+	}
+	t="(" {
+		stmt->setPosition(t);
+	}
+	
+	st=statement() {
+		stmt->setInit(st);
+		stmt->setPosition(st);
+	}
+	
+	exp=expression() {
+		stmt->setCondition(exp);
+		stmt->setPosition(exp);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	
+	exp=expression() {
+		stmt->setPostLoop(exp);
+		stmt->setPosition(exp);
+	}	
+	
+	t=")" {
+		stmt->setPosition(t);
+	}
+	st=statement() {
+		stmt->setStatement(st);
+		stmt->setPosition(st);
+	}
+	
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+DoWhileStatement* doWhileStatement() : {
+	DoWhileStatement* stmt = new DoWhileStatement();
+	AbstractExpression* exp = nullptr;
+	AbstractStatement* st = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="do" {
+		stmt->setPosition(t);
+	}
+	st=statement() {
+		stmt->setStatement(st);
+		stmt->setPosition(st);
+	}
+	t="while" {
+		stmt->setPosition(t);
+	}
+	t="(" {
+		stmt->setPosition(t);
+	}
+	exp=expression() {
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	
+	t=")" {
+		stmt->setPosition(t);
+	}
+	
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+WhileStatement* whileStatement() : {
+	WhileStatement* stmt = new WhileStatement();
+	AbstractExpression* exp = nullptr;
+	AbstractStatement* st = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="while" {
+		stmt->setPosition(t);
+	}
+	t="(" {
+		stmt->setPosition(t);
+	}
+	
+	exp=expression() {
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	
+	t=")" {
+		stmt->setPosition(t);
+	}
+	st=statement() {
+		stmt->setStatement(st);
+		stmt->setPosition(st);
+	}
+	
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}	
+}
+
+ReturnStatement* returnStatement() : {
+	ReturnStatement* stmt = new ReturnStatement();
+	AbstractExpression* exp = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="return" {
+		stmt->setPosition(t);
+	}
+	[
+		exp=expression() {
+			stmt->setExpression(exp);
+			stmt->setPosition(exp);
+		}
+	]
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+ContinueStatement* continueStatement() : {
+	ContinueStatement* stmt = new ContinueStatement();
+	Token* t = nullptr;
+}
+{
+	t="continue" {
+		stmt->setPosition(t);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}	
+}
+
+
+BreakStatement* breakStatement() : {
+	BreakStatement* stmt = new BreakStatement();
+	Token* t = nullptr;
+}
+{
+	t="break" {
+		stmt->setPosition(t);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}	
+}
 
 IfStatement* ifStatement() : {
 	IfStatement* ifstmt = new IfStatement();
@@ -810,7 +1042,7 @@ IfStatement* ifStatement() : {
 	
 	")"
 	
-	stmt=statementBlock() {
+	stmt=statement() {
 		ifstmt->setStatement(stmt);
 		ifstmt->setPosition(stmt);
 	}
@@ -819,6 +1051,9 @@ IfStatement* ifStatement() : {
 		return ifstmt;
 	}
 }
+
+
+
 /******************************************************************************************
 * Alinous Language Expressions Starts
 */

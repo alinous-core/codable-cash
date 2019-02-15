@@ -5,17 +5,21 @@
  *      Author: iizuka
  */
 
-#include <sc_statement/ExpressionStatement.h>
+#include "sc_statement/ExpressionStatement.h"
+#include "sc_expression/AbstractExpression.h"
 
 namespace alinous {
 
-ExpressionStatement::ExpressionStatement() {
-	// TODO Auto-generated constructor stub
-
+ExpressionStatement::ExpressionStatement() : AbstractStatement(CodeElement::STMT_EXPRESSION) {
+	this->exp = nullptr;
 }
 
 ExpressionStatement::~ExpressionStatement() {
-	// TODO Auto-generated destructor stub
+	delete this->exp;
+}
+
+void ExpressionStatement::setExpression(AbstractExpression* exp) noexcept {
+	this->exp = exp;
 }
 
 } /* namespace alinous */

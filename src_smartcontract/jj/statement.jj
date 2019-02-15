@@ -3,8 +3,24 @@
 * Alinous Language Statements Starts
 */
 
+AbstractStatement* statement() : {
+	AbstractStatement* stmt = nullptr;
+}
+{
+	(
+		stmt=statementBlock() |
+		stmt=expressionStatement() |
+		stmt=ctrlStatement()
+	)
+	{}
+	{
+		return stmt;
+	}
+}
+
 StatementBlock* statementBlock() : {
 	StatementBlock* block = new StatementBlock();
+	AbstractStatement* stmt = nullptr;
 	Token* t = nullptr;
 }
 {
@@ -12,6 +28,12 @@ StatementBlock* statementBlock() : {
 		block->setPosition(t);
 	}
 	
+	(
+		stmt=statement() {
+			block->addStatement(stmt);
+			block->setPosition(stmt);
+		}
+	)*
 	
 	t="}" {
 		block->setPosition(t);
@@ -23,5 +45,23 @@ StatementBlock* statementBlock() : {
 }
 
 
+ExpressionStatement* expressionStatement() : {
+	ExpressionStatement* stmt = new ExpressionStatement();
+	Token* t = nullptr;
+	AbstractExpression* exp = nullptr;
+}
+{
+	exp=expression() {
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
 
 
