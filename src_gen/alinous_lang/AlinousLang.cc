@@ -649,6 +649,28 @@ assert(false);
 }
 
 
+ExpressionStatement                   * AlinousLang::expressionStatement() {ExpressionStatement* stmt = new ExpressionStatement();
+        Token* t = nullptr;
+        AbstractExpression* exp = nullptr;
+    if (!hasError) {
+    exp = expression();
+    }
+    if (!hasError) {
+stmt->setExpression(exp);
+                stmt->setPosition(exp);
+    }
+    if (!hasError) {
+    t = jj_consume_token(SEMI_COLON);
+    }
+    if (!hasError) {
+stmt->setPosition(t);
+    }
+__ONERROR(stmt);
+                return stmt;
+assert(false);
+}
+
+
 IfStatement
            * AlinousLang::ifStatement() {IfStatement* ifstmt = new IfStatement();
         AbstractExpression* exp;

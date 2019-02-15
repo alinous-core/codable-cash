@@ -785,6 +785,24 @@ StatementBlock* statementBlock() : {
 }
 
 
+ExpressionStatement* expressionStatement() : {
+	ExpressionStatement* stmt = new ExpressionStatement();
+	Token* t = nullptr;
+	AbstractExpression* exp = nullptr;
+}
+{
+	exp=expression() {
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
 
 
 

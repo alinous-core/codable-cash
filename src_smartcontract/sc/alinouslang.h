@@ -29,6 +29,7 @@
 #include "sc_declare_types/StringType.h"
 #include "sc_declare_types/VoidType.h"
 
+#include "sc_statement/ExpressionStatement.h"
 #include "sc_statement/StatementBlock.h"
 
 #include "sc_statement_ctrl/BreakStatement.h"

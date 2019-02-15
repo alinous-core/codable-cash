@@ -3,6 +3,8 @@
 * Alinous Language Statements Starts
 */
 
+
+
 StatementBlock* statementBlock() : {
 	StatementBlock* block = new StatementBlock();
 	Token* t = nullptr;
@@ -23,12 +25,23 @@ StatementBlock* statementBlock() : {
 }
 
 
-ExpressionStatement* ExpressionStatement() : {
+ExpressionStatement* expressionStatement() : {
 	ExpressionStatement* stmt = new ExpressionStatement();
 	Token* t = nullptr;
+	AbstractExpression* exp = nullptr;
 }
 {
-	// test
+	exp=expression() {
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
 }
 
 
