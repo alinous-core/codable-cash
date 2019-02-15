@@ -2,6 +2,7 @@
 
 set(__src
 	AbstractStatement.cpp
+	BlankStatement.cpp
 	ExpressionStatement.cpp
 	StatementBlock.cpp
 	SubstitutionStatement.cpp

@@ -772,10 +772,27 @@ AbstractStatement* statement() : {
 	(
 		stmt=statementBlock() |
 		stmt=expressionStatement() |
-		stmt=ctrlStatement()
+		stmt=ctrlStatement() |
+		stmt=blankStatement()
 	)
 	{}
 	{
+		return stmt;
+	}
+}
+
+BlankStatement* blankStatement() : {
+	BlankStatement* stmt = new BlankStatement();
+	Token* t = nullptr;
+}
+{
+	t=";" {
+		stmt->setPosition(t);
+		stmt->setPosition(t);
+	}
+	
+	{
+		__ONERROR(stmt);
 		return stmt;
 	}
 }

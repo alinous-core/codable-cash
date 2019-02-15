@@ -31,6 +31,7 @@
 
 #include "sc_statement/ExpressionStatement.h"
 #include "sc_statement/StatementBlock.h"
+#include "sc_statement/BlankStatement.h"
 
 #include "sc_statement_ctrl/BreakStatement.h"
 #include "sc_statement_ctrl/ContinueStatement.h"

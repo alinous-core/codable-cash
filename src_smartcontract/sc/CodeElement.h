@@ -41,6 +41,7 @@ public:
 	static const constexpr short STMT_VARIABLE_DECLARE{51};
 	static const constexpr short STMT_SUBSTITUTION{52};
 	static const constexpr short STMT_EXPRESSION{53};
+	static const constexpr short STMT_BLANK{54};
 
 	static const constexpr short STMT_BREAK{60};
 	static const constexpr short STMT_CONTINUE{61};
