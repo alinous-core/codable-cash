@@ -6,16 +6,27 @@
  */
 
 #include "sc_statement/SubstitutionStatement.h"
+#include "sc_expression/VariableIdentifier.h"
+#include "sc_expression/AbstractExpression.h"
 
 namespace alinous {
 
 SubstitutionStatement::SubstitutionStatement() : AbstractStatement(CodeElement::STMT_SUBSTITUTION) {
-	// TODO Auto-generated constructor stub
-
+	this->variable = nullptr;
+	this->exp = nullptr;
 }
 
 SubstitutionStatement::~SubstitutionStatement() {
-	// TODO Auto-generated destructor stub
+	delete this->variable;
+	delete this->exp;
+}
+
+void SubstitutionStatement::setVariableId(VariableIdentifier* variable) noexcept {
+	this->variable = variable;
+}
+
+void SubstitutionStatement::setExpression(AbstractExpression* exp) noexcept {
+	this->exp = exp;
 }
 
 } /* namespace alinous */
