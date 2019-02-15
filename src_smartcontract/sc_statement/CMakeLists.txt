@@ -2,7 +2,9 @@
 
 set(__src
 	AbstractStatement.cpp
+	ExpressionStatement.cpp
 	StatementBlock.cpp
+	SubstitutionStatement.cpp
 	SubstitutionStatement.cpp
 	VariableDeclareStatement.cpp
 )
