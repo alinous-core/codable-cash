@@ -842,10 +842,57 @@ AbstractStatement* ctrlStatement() : {
 		stmt=continueStatement() |
 		stmt=returnStatement() |
 		stmt=whileStatement() |
-		stmt=doWhileStatement()
+		stmt=doWhileStatement() |
+		stmt=forStatement()
 	)
 	{}
 	{
+		return stmt;
+	}
+}
+
+ForStatement* forStatement() : {
+	ForStatement* stmt = new ForStatement();
+	AbstractExpression* exp = nullptr;
+	AbstractStatement* st = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="for" {
+		stmt->setPosition(t);
+	}
+	t="(" {
+		stmt->setPosition(t);
+	}
+	
+	st=statement() {
+		stmt->setInit(st);
+		stmt->setPosition(st);
+	}
+	
+	exp=expression() {
+		stmt->setCondition(exp);
+		stmt->setPosition(exp);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	
+	exp=expression() {
+		stmt->setPostLoop(exp);
+		stmt->setPosition(exp);
+	}	
+	
+	t=")" {
+		stmt->setPosition(t);
+	}
+	st=statement() {
+		stmt->setStatement(st);
+		stmt->setPosition(st);
+	}
+	
+	{
+		 __ONERROR(stmt);
 		return stmt;
 	}
 }

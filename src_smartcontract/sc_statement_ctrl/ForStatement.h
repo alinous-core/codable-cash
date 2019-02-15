@@ -11,11 +11,23 @@
 #include "sc_statement/AbstractStatement.h"
 
 namespace alinous {
+class AbstractExpression;
 
 class ForStatement: public AbstractStatement {
 public:
 	ForStatement();
 	virtual ~ForStatement();
+
+	void setStatement(AbstractStatement* stmt) noexcept;
+
+	void setInit(AbstractStatement* init) noexcept;
+	void setCondition(AbstractExpression* cond) noexcept;
+	void setPostLoop(AbstractExpression* postLoop) noexcept;
+private:
+	AbstractStatement* init;
+	AbstractExpression* cond;
+	AbstractExpression* postLoop;
+	AbstractStatement* stmt;
 };
 
 } /* namespace alinous */
