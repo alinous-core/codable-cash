@@ -11,11 +11,20 @@
 #include "sql/AbstractSQLExpression.h"
 
 namespace alinous {
+class UnicodeString;
 
 class SQLColumnIdentifier : public AbstractSQLExpression {
 public:
 	SQLColumnIdentifier();
 	virtual ~SQLColumnIdentifier();
+
+	void setSchema(UnicodeString* schema) noexcept;
+	void setTableName(UnicodeString* tableName) noexcept;
+	void setColumnName(UnicodeString* columnName) noexcept;
+private:
+	UnicodeString* schema;
+	UnicodeString* tableName;
+	UnicodeString* columnName;
 };
 
 } /* namespace alinous */

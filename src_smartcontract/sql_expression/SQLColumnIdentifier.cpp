@@ -6,16 +6,32 @@
  */
 
 #include "sql_expression/SQLColumnIdentifier.h"
+#include "base/UnicodeString.h"
 
 namespace alinous {
 
 SQLColumnIdentifier::SQLColumnIdentifier() : AbstractSQLExpression(CodeElement::SQL_EXP_COLUMN_ID){
-	// TODO Auto-generated constructor stub
-
+	this->schema = nullptr;
+	this->tableName =nullptr;
+	this->columnName =nullptr;
 }
 
 SQLColumnIdentifier::~SQLColumnIdentifier() {
-	// TODO Auto-generated destructor stub
+	delete this->schema;
+	delete this->tableName;
+	delete this->columnName;
+}
+
+void SQLColumnIdentifier::setSchema(UnicodeString* schema) noexcept {
+	this->schema = schema;
+}
+
+void SQLColumnIdentifier::setTableName(UnicodeString* tableName) noexcept {
+	this->tableName = tableName;
+}
+
+void SQLColumnIdentifier::setColumnName(UnicodeString* columnName) noexcept {
+	this->columnName = columnName;
 }
 
 } /* namespace alinous */

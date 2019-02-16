@@ -18,10 +18,10 @@ public:
 	TableIdentifier();
 	virtual ~TableIdentifier();
 
-	void setScheme(UnicodeString* scheme) noexcept;
+	void setSchema(UnicodeString* schema) noexcept;
 	void setTableName(UnicodeString* tableName) noexcept;
 private:
-	UnicodeString* scheme;
+	UnicodeString* schema;
 	UnicodeString* tableName;
 };
 

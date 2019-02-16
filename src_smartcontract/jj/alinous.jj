@@ -2164,6 +2164,55 @@ DropTableStatement* dropTableStatement() : {
 * SQL Language Expressions Starts
 */
 
+
+
+SQLColumnIdentifier* sqlColumnIdentifier() : {
+	SQLColumnIdentifier* exp = new SQLColumnIdentifier();
+	Token* t = nullptr;
+	Token* t1 = nullptr;
+	Token* t2 = nullptr;
+	Token* t3 = nullptr;
+}
+{
+	t1=<IDENTIFIER> {
+		exp->setPosition(t1);
+	}
+	[
+		t="." {
+			exp->setPosition(t);
+		}
+		t2=<IDENTIFIER> {
+			exp->setPosition(t2);
+		}
+		[
+			t="." {
+				exp->setPosition(t);
+			}
+			t3=<IDENTIFIER> {
+				exp->setPosition(t2);
+			}
+		]
+	]
+	{
+		if(t3 != nullptr){
+			exp->setSchema(_STR(t1));
+			exp->setTableName(_STR(t2));
+			exp->setColumnName(_STR(t3));
+		}
+		if(t2 != nullptr){
+			exp->setTableName(_STR(t1));
+			exp->setColumnName(_STR(t2));
+		}
+		else{
+			exp->setColumnName(_STR(t1));
+		}
+	}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
 TableIdentifier* tableIdentifier() : {
 	TableIdentifier* exp = new TableIdentifier();
 	Token* t = nullptr;
@@ -2184,7 +2233,7 @@ TableIdentifier* tableIdentifier() : {
 	]
 	{
 		if(t2 != nullptr){
-			exp->setScheme(_STR(t1));
+			exp->setSchema(_STR(t1));
 			exp->setTableName(_STR(t2));
 		}
 		else{

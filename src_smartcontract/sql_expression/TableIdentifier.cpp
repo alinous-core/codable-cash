@@ -11,17 +11,17 @@
 namespace alinous {
 
 TableIdentifier::TableIdentifier() : AbstractSQLExpression(CodeElement::SQL_EXP_TABLE_ID) {
-	this->scheme = nullptr;
+	this->schema = nullptr;
 	this->tableName =nullptr;
 }
 
 TableIdentifier::~TableIdentifier() {
-	delete this->scheme;
+	delete this->schema;
 	delete this->tableName;
 }
 
-void TableIdentifier::setScheme(UnicodeString* scheme) noexcept {
-	this->scheme = scheme;
+void TableIdentifier::setSchema(UnicodeString* schema) noexcept {
+	this->schema = schema;
 }
 
 void TableIdentifier::setTableName(UnicodeString* tableName) noexcept {
