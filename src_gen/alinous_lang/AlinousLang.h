@@ -88,8 +88,9 @@ AbstractSQLStatement
                     * ddlStatement();
 CreateTableStatement                    * createTableStatement();
 DropTableStatement                  * dropTableStatement();
-SQLBooleanLiteral
-                 * sqlBooleanLiteral();
+SQLLiteral
+          * sqlLiteral();
+SQLBooleanLiteral                 * sqlBooleanLiteral();
 SQLColumnIdentifier                   * sqlColumnIdentifier();
 TableIdentifier               * tableIdentifier();
  inline bool jj_2_1(int xla)
@@ -781,7 +782,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[51];
+  int           jj_la1[52];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 

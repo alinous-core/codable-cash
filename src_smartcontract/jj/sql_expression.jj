@@ -3,7 +3,28 @@
 * SQL Language Expressions Starts
 */
 
-
+SQLLiteral* sqlLiteral() : {
+	SQLLiteral* exp = new SQLLiteral();
+	Token* t = nullptr;
+}
+{
+	(
+		t=<INTEGER_LITERAL> {
+			exp->setValue(_STR(t), SQLLiteral::TYPE_NUMBER);
+			exp->setPosition(t);
+		}
+		|
+		t=<SQL_STRING_LITERAL> {
+			exp->setValue(_STR(t), SQLLiteral::TYPE_STRING);
+			exp->setPosition(t);
+		}
+	)
+	{}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
 
 SQLBooleanLiteral* sqlBooleanLiteral() : {
 	SQLBooleanLiteral* exp = new SQLBooleanLiteral();
