@@ -19,6 +19,14 @@ TEST_GROUP(TestSQLExpressionGroup) {
 };
 
 TEST(TestSQLExpressionGroup, tableId){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/sqlexp/tableid.alns"))
 
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	TableIdentifier* tableId = lang->tableIdentifier(); __STP(tableId);
+
+	CHECK(!parser.hasError())
 }
 

@@ -88,6 +88,8 @@ AbstractSQLStatement
                     * ddlStatement();
 CreateTableStatement                    * createTableStatement();
 DropTableStatement                  * dropTableStatement();
+TableIdentifier
+               * tableIdentifier();
  inline bool jj_2_1(int xla)
  {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
@@ -777,7 +779,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[47];
+  int           jj_la1[48];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 
