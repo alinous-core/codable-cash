@@ -10,12 +10,14 @@
 namespace alinous {
 
 SQLBooleanLiteral::SQLBooleanLiteral() : AbstractSQLExpression(CodeElement::SQL_EXP_BOOL_LITERAL) {
-	// TODO Auto-generated constructor stub
-
+	this->value = false;
 }
 
 SQLBooleanLiteral::~SQLBooleanLiteral() {
-	// TODO Auto-generated destructor stub
+}
+
+void SQLBooleanLiteral::setValue(bool value) noexcept {
+	this->value = value;
 }
 
 } /* namespace alinous */

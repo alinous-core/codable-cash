@@ -16,6 +16,10 @@ class SQLBooleanLiteral : public AbstractSQLExpression {
 public:
 	SQLBooleanLiteral();
 	virtual ~SQLBooleanLiteral();
+
+	void setValue(bool value) noexcept;
+private:
+	bool value;
 };
 
 } /* namespace alinous */

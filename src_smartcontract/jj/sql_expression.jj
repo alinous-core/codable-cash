@@ -5,6 +5,29 @@
 
 
 
+SQLBooleanLiteral* sqlBooleanLiteral() : {
+	SQLBooleanLiteral* exp = new SQLBooleanLiteral();
+	Token* t = nullptr;
+}
+{
+	(
+		t=<TRUE> {
+			exp->setValue(true);
+			exp->setPosition(t);
+		}
+		|
+		t= <FALSE> {
+			exp->setValue(false);
+			exp->setPosition(t);
+		}
+	)
+	{}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
 SQLColumnIdentifier* sqlColumnIdentifier() : {
 	SQLColumnIdentifier* exp = new SQLColumnIdentifier();
 	Token* t = nullptr;
@@ -28,7 +51,7 @@ SQLColumnIdentifier* sqlColumnIdentifier() : {
 				exp->setPosition(t);
 			}
 			t3=<IDENTIFIER> {
-				exp->setPosition(t2);
+				exp->setPosition(t3);
 			}
 		]
 	]
