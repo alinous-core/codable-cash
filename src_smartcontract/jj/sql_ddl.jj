@@ -1,0 +1,69 @@
+
+/******************************************************************************************
+* SQL Language DDL Statements Starts
+*/
+
+AbstractSQLStatement* ddlStatement() : {
+	AbstractSQLStatement* stmt = nullptr;
+}
+{
+	(
+		stmt=createTableStatement() |
+		stmt=dropTableStatement()
+	)
+	{}
+	{
+		return stmt;
+	}
+}
+
+CreateTableStatement* createTableStatement() : {
+	CreateTableStatement* stmt = new CreateTableStatement();
+	Token* t = null;
+}
+{
+	t=<CREATE>{
+		stmt->setPosition(t);
+	}
+	t=<TABLE>{
+		stmt->setPosition(t);
+	}
+	<L_PARENTHESIS> {
+	
+		stmt->setPosition(t);
+	}
+	
+	
+	<R_PARENTHESIS> {
+		stmt->setPosition(t);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}	
+}
+
+DropTableStatement* dropTableStatement() : {
+	DropTableStatement* stmt = new DropTableStatement();
+	Token* t = null;
+}
+{
+	t=<DROP>{
+		stmt->setPosition(t);
+	}
+	t=<TABLE>{
+		stmt->setPosition(t);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}	
+}

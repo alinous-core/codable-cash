@@ -12,7 +12,8 @@ add_subdirectory(sc_expression_bit)
 add_subdirectory(sc_expression_logical)
 add_subdirectory(sc_statement)
 add_subdirectory(sc_statement_ctrl)
-
+add_subdirectory(sql)
+add_subdirectory(sql_ddl)
 
 message(STATUS "src_smartcontract : ${__dirsrc}")
 

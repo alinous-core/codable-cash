@@ -84,6 +84,10 @@ NullLiteral           * nullLiteral();
 NumberLiteral             * numberLiteral();
 BooleanLiteral              * booleanLiteral();
 LiteralExpression                 * literalExpression();
+AbstractSQLStatement
+                    * ddlStatement();
+CreateTableStatement                    * createTableStatement();
+DropTableStatement                  * dropTableStatement();
  inline bool jj_2_1(int xla)
  {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
@@ -225,17 +229,17 @@ LiteralExpression                 * literalExpression();
     return false;
   }
 
- inline bool jj_3R_41()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(LONG)) return true;
-    return false;
-  }
-
  inline bool jj_3R_70()
  {
     if (jj_done) return true;
     if (jj_3R_20()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_41()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(LONG)) return true;
     return false;
   }
 
@@ -373,17 +377,17 @@ LiteralExpression                 * literalExpression();
     return false;
   }
 
- inline bool jj_3R_33()
- {
-    if (jj_done) return true;
-    if (jj_3R_43()) return true;
-    return false;
-  }
-
  inline bool jj_3R_78()
  {
     if (jj_done) return true;
     if (jj_scan_token(_NULL)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_33()
+ {
+    if (jj_done) return true;
+    if (jj_3R_43()) return true;
     return false;
   }
 
@@ -408,13 +412,6 @@ LiteralExpression                 * literalExpression();
     return false;
   }
 
- inline bool jj_3R_29()
- {
-    if (jj_done) return true;
-    if (jj_3R_39()) return true;
-    return false;
-  }
-
  inline bool jj_3_3()
  {
     if (jj_done) return true;
@@ -434,6 +431,13 @@ LiteralExpression                 * literalExpression();
     return false;
   }
 
+ inline bool jj_3R_29()
+ {
+    if (jj_done) return true;
+    if (jj_3R_39()) return true;
+    return false;
+  }
+
  inline bool jj_3R_76()
  {
     if (jj_done) return true;
@@ -441,17 +445,17 @@ LiteralExpression                 * literalExpression();
     return false;
   }
 
- inline bool jj_3R_28()
- {
-    if (jj_done) return true;
-    if (jj_3R_38()) return true;
-    return false;
-  }
-
  inline bool jj_3R_75()
  {
     if (jj_done) return true;
     if (jj_3R_79()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_28()
+ {
+    if (jj_done) return true;
+    if (jj_3R_38()) return true;
     return false;
   }
 
@@ -773,7 +777,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[46];
+  int           jj_la1[47];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 
