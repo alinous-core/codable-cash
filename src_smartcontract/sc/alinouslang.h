@@ -74,6 +74,22 @@
 #include "sc_expression_logical/NotExpression.h"
 #include "sc_expression_logical/RelationalExpression.h"
 
+#include "sql_ddl/CreateTableStatement.h"
+#include "sql_ddl/DropTableStatement.h"
+
+#include "sql_dml/BeginStatement.h"
+#include "sql_dml/CommitStatement.h"
+#include "sql_dml/DeleteStatement.h"
+#include "sql_dml/InsertStatement.h"
+#include "sql_dml/RollbackStatement.h"
+#include "sql_dml/SelectStatement.h"
+#include "sql_dml/UpdateStatement.h"
+
+#include "sql_dml_parts/SQLColumnsList.h"
+#include "sql_dml_parts/SQLFrom.h"
+#include "sql_dml_parts/SQLFrom.h"
+#include "sql_dml_parts/SQLGroupBy.h"
+#include "sql_dml_parts/SQLLimitOffset.h"
 
 namespace alinouslang {
 using namespace alinous;

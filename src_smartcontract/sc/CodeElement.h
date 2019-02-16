@@ -83,6 +83,33 @@ public:
 	static const constexpr short EXP_CND_RELATIONAL{133};
 	static const constexpr short EXP_CND_NOT{134};
 
+	static const constexpr short DDL_CREATE_TABLE{150};
+	static const constexpr short DDL_DROP_TABLE{151};
+
+	static const constexpr short DML_STMT_BEGIN{160};
+	static const constexpr short DML_STMT_COMMIT{161};
+	static const constexpr short DML_STMT_DELETE{162};
+	static const constexpr short DML_STMT_INSERT{163};
+	static const constexpr short DML_STMT_ROLLBACK{164};
+	static const constexpr short DML_STMT_SELECT{165};
+	static const constexpr short DML_STMT_UPDATE{166};
+
+	static const constexpr short SQL_EXP_ADDITIVE{180};
+	static const constexpr short SQL_EXP_AND{181};
+	static const constexpr short SQL_EXP_BOOL_LITERAL{182};
+	static const constexpr short SQL_EXP_COLUMN_ID{183};
+	static const constexpr short SQL_EXP_EQUALITY{184};
+	static const constexpr short SQL_EXP_EXP_LIST{185};
+	static const constexpr short SQL_EXP_IN{186};
+	static const constexpr short SQL_EXP_IS_NULL{187};
+	static const constexpr short SQL_EXP_LIKE{188};
+	static const constexpr short SQL_EXP_LITERAL{189};
+	static const constexpr short SQL_EXP_MULTIPLICATIVE{190};
+	static const constexpr short SQL_EXP_NOT{191};
+	static const constexpr short SQL_EXP_OR{192};
+	static const constexpr short SQL_EXP_PARENTHESIS{193};
+	static const constexpr short SQL_EXP_RELATIONAL{194};
+	static const constexpr short SQL_EXP_TABLE_ID{195};
 
 
 	explicit CodeElement(short kind);

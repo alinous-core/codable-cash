@@ -13,7 +13,8 @@ AbstractStatement* statement() : {
 		stmt=variableDeclareStatement() |
 		stmt=expressionStatement() |
 		stmt=ctrlStatement() |
-		stmt=blankStatement()
+		stmt=blankStatement() |
+		stmt=ddlStatement()
 	)
 	{}
 	{
