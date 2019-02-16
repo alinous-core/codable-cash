@@ -2,3 +2,10 @@
 /******************************************************************************************
 * SQL Language Expressions Starts
 */
+
+TableIdentifier* tableIdentifier() : {
+	TableIdentifier* exp = new TableIdentifier();
+}
+{
+	
+}

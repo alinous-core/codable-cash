@@ -8,12 +8,21 @@
 #ifndef SQL_EXPRESSION_TABLEIDENTIFIER_H_
 #define SQL_EXPRESSION_TABLEIDENTIFIER_H_
 
-namespace alinous {
+#include "sql/AbstractSQLExpression.h"
 
-class TableIdentifier {
+namespace alinous {
+class UnicodeString;
+
+class TableIdentifier : public AbstractSQLExpression {
 public:
 	TableIdentifier();
 	virtual ~TableIdentifier();
+
+	void setScheme(UnicodeString* scheme) noexcept;
+	void setTableName(UnicodeString* tableName) noexcept;
+private:
+	UnicodeString* scheme;
+	UnicodeString* tableName;
 };
 
 } /* namespace alinous */

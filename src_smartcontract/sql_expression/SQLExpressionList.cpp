@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sql_dml_parts/SQLExpressionList.h"
+#include "sql_expression/SQLExpressionList.h"
 
 namespace alinous {
 

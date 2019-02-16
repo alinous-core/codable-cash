@@ -14,6 +14,7 @@ add_subdirectory(sc_statement)
 add_subdirectory(sc_statement_ctrl)
 add_subdirectory(sql)
 add_subdirectory(sql_ddl)
+add_subdirectory(sql_expression)
 
 message(STATUS "src_smartcontract : ${__dirsrc}")
 
