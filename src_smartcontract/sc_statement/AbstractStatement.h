@@ -14,7 +14,7 @@ namespace alinous {
 
 class AbstractStatement : public CodeElement {
 public:
-	AbstractStatement(short kind);
+	explicit AbstractStatement(short kind);
 	virtual ~AbstractStatement();
 };
 
