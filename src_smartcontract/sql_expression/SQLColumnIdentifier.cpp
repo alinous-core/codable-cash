@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-SQLColumnIdentifier::SQLColumnIdentifier() {
+SQLColumnIdentifier::SQLColumnIdentifier() : AbstractSQLExpression(CodeElement::SQL_EXP_COLUMN_ID){
 	// TODO Auto-generated constructor stub
 
 }

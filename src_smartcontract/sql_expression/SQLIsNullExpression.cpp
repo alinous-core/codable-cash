@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-SQLIsNullExpression::SQLIsNullExpression() {
+SQLIsNullExpression::SQLIsNullExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_IS_NULL) {
 	// TODO Auto-generated constructor stub
 
 }

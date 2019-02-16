@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-SQLOrExpression::SQLOrExpression() {
+SQLOrExpression::SQLOrExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_OR) {
 	// TODO Auto-generated constructor stub
 
 }

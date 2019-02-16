@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-SQLLiteral::SQLLiteral() {
+SQLLiteral::SQLLiteral() : AbstractSQLExpression(CodeElement::SQL_EXP_LITERAL) {
 	// TODO Auto-generated constructor stub
 
 }

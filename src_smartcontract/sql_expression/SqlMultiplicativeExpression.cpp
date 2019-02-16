@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-SqlMultiplicativeExpression::SqlMultiplicativeExpression() {
+SqlMultiplicativeExpression::SqlMultiplicativeExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_MULTIPLICATIVE) {
 	// TODO Auto-generated constructor stub
 
 }

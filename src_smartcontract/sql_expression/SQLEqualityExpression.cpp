@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-SQLEqualityExpression::SQLEqualityExpression() {
+SQLEqualityExpression::SQLEqualityExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_EQUALITY) {
 	// TODO Auto-generated constructor stub
 
 }

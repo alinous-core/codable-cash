@@ -8,9 +8,11 @@
 #ifndef SQL_EXPRESSION_SQLMULTIPLICATIVEEXPRESSION_H_
 #define SQL_EXPRESSION_SQLMULTIPLICATIVEEXPRESSION_H_
 
+#include "sql/AbstractSQLExpression.h"
+
 namespace alinous {
 
-class SqlMultiplicativeExpression {
+class SqlMultiplicativeExpression : public AbstractSQLExpression {
 public:
 	SqlMultiplicativeExpression();
 	virtual ~SqlMultiplicativeExpression();

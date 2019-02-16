@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include <sql_expression/SQLInExpression.h>
+#include "sql_expression/SQLInExpression.h"
 
 namespace alinous {
 
-SQLInExpression::SQLInExpression() {
+SQLInExpression::SQLInExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_IN) {
 	// TODO Auto-generated constructor stub
 
 }

@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-SQLParenthesisExpression::SQLParenthesisExpression() {
+SQLParenthesisExpression::SQLParenthesisExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_PARENTHESIS) {
 	// TODO Auto-generated constructor stub
 
 }

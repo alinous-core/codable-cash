@@ -8,9 +8,11 @@
 #ifndef SQL_EXPRESSION_SQLANDEXPRESSION_H_
 #define SQL_EXPRESSION_SQLANDEXPRESSION_H_
 
+#include "sql/AbstractSQLExpression.h"
+
 namespace alinous {
 
-class SQLAndExpression {
+class SQLAndExpression  : public AbstractSQLExpression {
 public:
 	SQLAndExpression();
 	virtual ~SQLAndExpression();

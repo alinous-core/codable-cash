@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-SQLAdditiveExpression::SQLAdditiveExpression() {
+SQLAdditiveExpression::SQLAdditiveExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_ADDITIVE) {
 	// TODO Auto-generated constructor stub
 
 }

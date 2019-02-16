@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-SQLExpressionList::SQLExpressionList() {
+SQLExpressionList::SQLExpressionList() : AbstractSQLExpression(CodeElement::SQL_EXP_EXP_LIST) {
 	// TODO Auto-generated constructor stub
 
 }

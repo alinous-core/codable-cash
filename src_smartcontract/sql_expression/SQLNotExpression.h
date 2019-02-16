@@ -8,9 +8,11 @@
 #ifndef SQL_EXPRESSION_SQLNOTEXPRESSION_H_
 #define SQL_EXPRESSION_SQLNOTEXPRESSION_H_
 
+#include "sql/AbstractSQLExpression.h"
+
 namespace alinous {
 
-class SQLNotExpression {
+class SQLNotExpression : public AbstractSQLExpression {
 public:
 	SQLNotExpression();
 	virtual ~SQLNotExpression();

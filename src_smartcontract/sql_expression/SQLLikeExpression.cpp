@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-SQLLikeExpression::SQLLikeExpression() {
+SQLLikeExpression::SQLLikeExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_LIKE) {
 	// TODO Auto-generated constructor stub
 
 }

@@ -8,9 +8,11 @@
 #ifndef SQL_EXPRESSION_SQLCOLUMNIDENTIFIER_H_
 #define SQL_EXPRESSION_SQLCOLUMNIDENTIFIER_H_
 
+#include "sql/AbstractSQLExpression.h"
+
 namespace alinous {
 
-class SQLColumnIdentifier {
+class SQLColumnIdentifier : public AbstractSQLExpression {
 public:
 	SQLColumnIdentifier();
 	virtual ~SQLColumnIdentifier();
