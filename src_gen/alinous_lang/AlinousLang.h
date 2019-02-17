@@ -88,8 +88,11 @@ AbstractSQLStatement
                     * ddlStatement();
 CreateTableStatement                    * createTableStatement();
 DropTableStatement                  * dropTableStatement();
-SQLLiteral
-          * sqlLiteral();
+AbstractSQLExpression
+                     * sqlExpression();
+AbstractSQLExpression                     * sqlPrimitiveExpression();
+SQLParenthesisExpression                        * sqlParenthesisExpression();
+SQLLiteral          * sqlLiteral();
 SQLBooleanLiteral                 * sqlBooleanLiteral();
 SQLColumnIdentifier                   * sqlColumnIdentifier();
 TableIdentifier               * tableIdentifier();
@@ -782,7 +785,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[52];
+  int           jj_la1[53];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 

@@ -2164,6 +2164,60 @@ DropTableStatement* dropTableStatement() : {
 * SQL Language Expressions Starts
 */
 
+AbstractSQLExpression* sqlExpression() : {
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	(
+		exp=sqlPrimitiveExpression()
+	)
+	{}
+	{
+		return exp;
+	}
+}
+
+AbstractSQLExpression* sqlPrimitiveExpression() : {
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	(
+		exp=sqlParenthesisExpression() |
+		exp=sqlLiteral() |
+		exp=sqlBooleanLiteral() |
+		exp=sqlColumnIdentifier()
+	)
+	{}
+	{
+		return exp;
+	}
+}
+
+
+SQLParenthesisExpression* sqlParenthesisExpression() : {
+	SQLParenthesisExpression* exp = new SQLParenthesisExpression();
+	Token* t = nullptr;
+	AbstractSQLExpression* ex = nullptr;
+}
+{
+	t="(" {
+		exp->setPosition(t);
+	}
+	
+	ex=sqlExpression() {
+		exp->setExpression(ex);
+		exp->setPosition(ex);
+	}
+
+	t=")" {
+		exp->setPosition(t);
+	}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
 SQLLiteral* sqlLiteral() : {
 	SQLLiteral* exp = new SQLLiteral();
 	Token* t = nullptr;

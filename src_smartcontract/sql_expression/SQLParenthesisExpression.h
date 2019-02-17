@@ -16,6 +16,10 @@ class SQLParenthesisExpression : public AbstractSQLExpression {
 public:
 	SQLParenthesisExpression();
 	virtual ~SQLParenthesisExpression();
+
+	void setExpression(AbstractSQLExpression* exp) noexcept;
+private:
+	AbstractSQLExpression* exp;
 };
 
 } /* namespace alinous */
