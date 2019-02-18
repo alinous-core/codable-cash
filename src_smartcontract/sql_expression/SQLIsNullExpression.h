@@ -16,6 +16,10 @@ class SQLIsNullExpression : public AbstractSQLExpression {
 public:
 	SQLIsNullExpression();
 	virtual ~SQLIsNullExpression();
+
+	void setExpression(AbstractSQLExpression* exp) noexcept;
+private:
+	AbstractSQLExpression* exp;
 };
 
 } /* namespace alinous */

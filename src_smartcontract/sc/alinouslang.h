@@ -93,6 +93,8 @@
 
 #include "sql_expression/SQLAdditiveExpression.h"
 #include "sql_expression/SQLAndExpression.h"
+#include "sql_expression/SQLBetweenExpression.h"
+#include "sql_expression/SQLBooleanLiteral.h"
 #include "sql_expression/SQLLiteral.h"
 #include "sql_expression/SQLLikeExpression.h"
 #include "sql_expression/SQLIsNullExpression.h"
@@ -100,13 +102,13 @@
 #include "sql_expression/SQLExpressionList.h"
 #include "sql_expression/SQLEqualityExpression.h"
 #include "sql_expression/SQLColumnIdentifier.h"
-#include "sql_expression/SQLBooleanLiteral.h"
 #include "sql_expression/SqlMultiplicativeExpression.h"
 #include "sql_expression/SQLNotExpression.h"
 #include "sql_expression/SQLOrExpression.h"
 #include "sql_expression/SQLParenthesisExpression.h"
 #include "sql_expression/SQLRelationalExpression.h"
 #include "sql_expression/TableIdentifier.h"
+#include "sql_expression/SQLPlaceHolder.h"
 
 namespace alinouslang {
 using namespace alinous;

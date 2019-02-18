@@ -97,19 +97,23 @@ public:
 	static const constexpr short SQL_EXP_ADDITIVE{180};
 	static const constexpr short SQL_EXP_AND{181};
 	static const constexpr short SQL_EXP_BOOL_LITERAL{182};
-	static const constexpr short SQL_EXP_COLUMN_ID{183};
-	static const constexpr short SQL_EXP_EQUALITY{184};
-	static const constexpr short SQL_EXP_EXP_LIST{185};
-	static const constexpr short SQL_EXP_IN{186};
-	static const constexpr short SQL_EXP_IS_NULL{187};
-	static const constexpr short SQL_EXP_LIKE{188};
-	static const constexpr short SQL_EXP_LITERAL{189};
-	static const constexpr short SQL_EXP_MULTIPLICATIVE{190};
-	static const constexpr short SQL_EXP_NOT{191};
-	static const constexpr short SQL_EXP_OR{192};
-	static const constexpr short SQL_EXP_PARENTHESIS{193};
-	static const constexpr short SQL_EXP_RELATIONAL{194};
-	static const constexpr short SQL_EXP_TABLE_ID{195};
+	static const constexpr short SQL_EXP_BETWEEN{183};
+	static const constexpr short SQL_EXP_COLUMN_ID{184};
+	static const constexpr short SQL_EXP_EQUALITY{185};
+	static const constexpr short SQL_EXP_EXP_LIST{186};
+	static const constexpr short SQL_EXP_FUNCTION_CALL{187};
+	static const constexpr short SQL_EXP_IN{188};
+	static const constexpr short SQL_EXP_IS_NULL{189};
+	static const constexpr short SQL_EXP_LIKE{190};
+	static const constexpr short SQL_EXP_LITERAL{191};
+	static const constexpr short SQL_EXP_MULTIPLICATIVE{192};
+	static const constexpr short SQL_EXP_NOT{193};
+	static const constexpr short SQL_EXP_OR{194};
+	static const constexpr short SQL_EXP_PARENTHESIS{195};
+	static const constexpr short SQL_EXP_RELATIONAL{196};
+	static const constexpr short SQL_EXP_TABLE_ID{197};
+	static const constexpr short SQL_EXP_PLACE_HOLDER{198};
+
 
 
 	explicit CodeElement(short kind);
