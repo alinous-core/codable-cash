@@ -2169,12 +2169,52 @@ AbstractSQLExpression* sqlExpression() : {
 }
 {
 	(
-		exp=sqlIsNullExpression()
+		exp=sqlLikeExpression()
 	)
 	{}
 	{
 		return exp;
 	}
+}
+
+AbstractSQLExpression* sqlLikeExpression() : {
+	SQLLikeExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	SQLLiteral* right = nullptr;
+}
+{
+	left=sqlIsNullExpression()
+	[LOOKAHEAD(2)
+		t=<LIKE> {
+			exp = new SQLLikeExpression();
+			exp->setLeft(left);
+			
+			exp->setPosition(left);
+			exp->setPosition(t);
+			left = exp;
+		}
+		
+		right=sqlLiteral() {
+			exp->setRight(right);
+			exp->setPosition(right);
+		}
+		
+		[
+			t=<ESCAPE> {
+				exp->setPosition(t);
+			}
+			right=sqlLiteral() {
+				exp->setEscape(right);
+				exp->setPosition(right);
+			}
+		]
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}	
 }
 
 AbstractSQLExpression* sqlIsNullExpression() : {
@@ -2206,6 +2246,7 @@ AbstractSQLExpression* sqlIsNullExpression() : {
 			exp->setPosition(t);
 		}
 	]
+	{}
 	{
 		__ONERROR(left);
 		return left;
