@@ -90,6 +90,7 @@ CreateTableStatement                    * createTableStatement();
 DropTableStatement                  * dropTableStatement();
 AbstractSQLExpression
                      * sqlExpression();
+AbstractSQLExpression                     * sqlNotExpression();
 AbstractSQLExpression                     * sqlLikeExpression();
 AbstractSQLExpression                     * sqlIsNullExpression();
 AbstractSQLExpression                     * sqlBetweenExpression();
@@ -184,13 +185,6 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_42()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(SQL_STRING_LITERAL)) return true;
-    return false;
-  }
-
  inline bool jj_3R_92()
  {
     if (jj_done) return true;
@@ -202,13 +196,6 @@ TableIdentifier               * tableIdentifier();
  {
     if (jj_done) return true;
     if (jj_scan_token(PLUS)) return true;
-    return false;
-  }
-
- inline bool jj_3R_41()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(INTEGER_LITERAL)) return true;
     return false;
   }
 
@@ -245,18 +232,6 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_28()
- {
-    if (jj_done) return true;
-    Token * xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_41()) {
-    jj_scanpos = xsp;
-    if (jj_3R_42()) return true;
-    }
-    return false;
-  }
-
  inline bool jj_3R_88()
  {
     if (jj_done) return true;
@@ -266,6 +241,17 @@ TableIdentifier               * tableIdentifier();
     jj_scanpos = xsp;
     if (jj_3R_92()) return true;
     }
+    return false;
+  }
+
+ inline bool jj_3_8()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(IS)) return true;
+    Token * xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_29()) jj_scanpos = xsp;
+    if (jj_scan_token(_NULL)) return true;
     return false;
   }
 
@@ -300,13 +286,6 @@ TableIdentifier               * tableIdentifier();
  {
     if (jj_done) return true;
     if (jj_3R_22()) return true;
-    return false;
-  }
-
- inline bool jj_3R_29()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(SQL_NOT)) return true;
     return false;
   }
 
@@ -395,17 +374,6 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3_8()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(IS)) return true;
-    Token * xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_29()) jj_scanpos = xsp;
-    if (jj_scan_token(_NULL)) return true;
-    return false;
-  }
-
  inline bool jj_3R_46()
  {
     if (jj_done) return true;
@@ -431,6 +399,14 @@ TableIdentifier               * tableIdentifier();
  {
     if (jj_done) return true;
     if (jj_scan_token(INTEGER_LITERAL)) return true;
+    return false;
+  }
+
+ inline bool jj_3_7()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(LIKE)) return true;
+    if (jj_3R_28()) return true;
     return false;
   }
 
@@ -558,18 +534,18 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
+ inline bool jj_3R_30()
+ {
+    if (jj_done) return true;
+    if (jj_3R_31()) return true;
+    if (jj_scan_token(L_PARENTHESIS)) return true;
+    return false;
+  }
+
  inline bool jj_3R_61()
  {
     if (jj_done) return true;
     if (jj_3R_64()) return true;
-    return false;
-  }
-
- inline bool jj_3_7()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(LIKE)) return true;
-    if (jj_3R_28()) return true;
     return false;
   }
 
@@ -615,6 +591,13 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
+ inline bool jj_3_9()
+ {
+    if (jj_done) return true;
+    if (jj_3R_30()) return true;
+    return false;
+  }
+
  inline bool jj_3R_65()
  {
     if (jj_done) return true;
@@ -654,25 +637,10 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_30()
- {
-    if (jj_done) return true;
-    if (jj_3R_31()) return true;
-    if (jj_scan_token(L_PARENTHESIS)) return true;
-    return false;
-  }
-
  inline bool jj_3R_56()
  {
     if (jj_done) return true;
     if (jj_3R_61()) return true;
-    return false;
-  }
-
- inline bool jj_3_9()
- {
-    if (jj_done) return true;
-    if (jj_3R_30()) return true;
     return false;
   }
 
@@ -762,6 +730,13 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
+ inline bool jj_3R_42()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(SQL_STRING_LITERAL)) return true;
+    return false;
+  }
+
  inline bool jj_3R_76()
  {
     if (jj_done) return true;
@@ -773,6 +748,13 @@ TableIdentifier               * tableIdentifier();
  {
     if (jj_done) return true;
     if (jj_3R_80()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_41()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(INTEGER_LITERAL)) return true;
     return false;
   }
 
@@ -814,6 +796,18 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
+ inline bool jj_3R_28()
+ {
+    if (jj_done) return true;
+    Token * xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_41()) {
+    jj_scanpos = xsp;
+    if (jj_3R_42()) return true;
+    }
+    return false;
+  }
+
  inline bool jj_3R_71()
  {
     if (jj_done) return true;
@@ -843,6 +837,13 @@ TableIdentifier               * tableIdentifier();
  {
     if (jj_done) return true;
     if (jj_scan_token(MINUS)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_29()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(SQL_NOT)) return true;
     return false;
   }
 
@@ -885,7 +886,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[61];
+  int           jj_la1[62];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 
