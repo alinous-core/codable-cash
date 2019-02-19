@@ -18,7 +18,9 @@ public:
 	SQLExpressionList();
 	virtual ~SQLExpressionList();
 
-
+	void addExpression(AbstractSQLExpression* exp) noexcept;
+private:
+	ArrayList<AbstractSQLExpression> list;
 };
 
 } /* namespace alinous */

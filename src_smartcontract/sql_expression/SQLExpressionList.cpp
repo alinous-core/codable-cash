@@ -10,12 +10,14 @@
 namespace alinous {
 
 SQLExpressionList::SQLExpressionList() : AbstractSQLExpression(CodeElement::SQL_EXP_EXP_LIST) {
-	// TODO Auto-generated constructor stub
-
 }
 
 SQLExpressionList::~SQLExpressionList() {
-	// TODO Auto-generated destructor stub
+	this->list.deleteElements();
+}
+
+void SQLExpressionList::addExpression(AbstractSQLExpression* exp) noexcept {
+	this->list.addElement(exp);
 }
 
 } /* namespace alinous */
