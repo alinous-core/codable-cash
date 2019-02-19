@@ -11,6 +11,7 @@ namespace alinous {
 
 SQLIsNullExpression::SQLIsNullExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_IS_NULL) {
 	this->exp = nullptr;
+	this->notnull = false;
 }
 
 SQLIsNullExpression::~SQLIsNullExpression() {
@@ -19,6 +20,10 @@ SQLIsNullExpression::~SQLIsNullExpression() {
 
 void SQLIsNullExpression::setExpression(AbstractSQLExpression* exp) noexcept {
 	this->exp = exp;
+}
+
+void SQLIsNullExpression::setNotNull(bool notnull) noexcept {
+	this->notnull = notnull;
 }
 
 } /* namespace alinous */

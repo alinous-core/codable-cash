@@ -18,8 +18,10 @@ public:
 	virtual ~SQLIsNullExpression();
 
 	void setExpression(AbstractSQLExpression* exp) noexcept;
+	void setNotNull(bool notnull) noexcept;
 private:
 	AbstractSQLExpression* exp;
+	bool notnull;
 };
 
 } /* namespace alinous */

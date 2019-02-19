@@ -8,11 +8,46 @@ AbstractSQLExpression* sqlExpression() : {
 }
 {
 	(
-		exp=sqlBetweenExpression()
+		exp=sqlIsNullExpression()
 	)
 	{}
 	{
 		return exp;
+	}
+}
+
+AbstractSQLExpression* sqlIsNullExpression() : {
+	SQLIsNullExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlBetweenExpression()
+	[LOOKAHEAD(2)
+		t=<IS> {
+			exp = new SQLIsNullExpression();
+			exp->setExpression(left);
+			
+			exp->setPosition(left);
+			exp->setPosition(t);
+			left = exp;
+		}
+		
+		[
+			t=<SQL_NOT> {
+				exp->setNotNull(true);
+				exp->setPosition(t);
+			}
+		]
+		
+		t=<_NULL> {
+			exp->setPosition(t);
+		}
+	]
+	{
+		__ONERROR(left);
+		return left;
 	}
 }
 
