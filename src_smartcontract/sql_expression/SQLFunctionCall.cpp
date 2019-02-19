@@ -5,17 +5,26 @@
  *      Author: iizuka
  */
 
-#include <sql_expression/SQLFunctionCall.h>
+#include "sql_expression/SQLFunctionCall.h"
+#include "sc_expression/VariableIdentifier.h"
 
 namespace alinous {
 
-SQLFunctionCall::~SQLFunctionCall() {
-	// TODO Auto-generated destructor stub
+SQLFunctionCall::SQLFunctionCall() : AbstractSQLExpression(CodeElement::SQL_EXP_FUNCTION_CALL) {
+	this->name = nullptr;
 }
 
-SQLFunctionCall::SQLFunctionCall() {
-	// TODO Auto-generated constructor stub
+SQLFunctionCall::~SQLFunctionCall() {
+	delete this->name;
+	this->arguments.deleteElements();
+}
 
+void SQLFunctionCall::setName(VariableIdentifier* name) noexcept {
+	this->name = name;
+}
+
+void SQLFunctionCall::addArgument(AbstractSQLExpression* arg) noexcept {
+	this->arguments.addElement(arg);
 }
 
 } /* namespace alinous */

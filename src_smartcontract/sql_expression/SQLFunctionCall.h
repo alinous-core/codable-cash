@@ -8,12 +8,22 @@
 #ifndef SQL_EXPRESSION_SQLFUNCTIONCALL_H_
 #define SQL_EXPRESSION_SQLFUNCTIONCALL_H_
 
-namespace alinous {
+#include "sql/AbstractSQLExpression.h"
+#include "base/ArrayList.h"
 
-class SQLFunctionCall {
+namespace alinous {
+class VariableIdentifier;
+
+class SQLFunctionCall : public AbstractSQLExpression {
 public:
-	virtual ~SQLFunctionCall();
 	SQLFunctionCall();
+	virtual ~SQLFunctionCall();
+
+	void setName(VariableIdentifier* name) noexcept;
+	void addArgument(AbstractSQLExpression* arg) noexcept;
+private:
+	VariableIdentifier* name;
+	ArrayList<AbstractSQLExpression> arguments;
 };
 
 } /* namespace alinous */

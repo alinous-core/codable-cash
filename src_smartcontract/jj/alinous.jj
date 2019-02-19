@@ -2184,13 +2184,65 @@ AbstractSQLExpression* sqlPrimitiveExpression() : {
 	(
 		exp=sqlParenthesisExpression() |
 		exp=sqlLiteral() |
+		LOOKAHEAD(2) exp = sqlFunctionCall() |
 		exp=sqlBooleanLiteral() |
-		exp=sqlColumnIdentifier()
+		exp=sqlColumnIdentifier() |
+		exp=sqlPlaceHolder()
 	)
 	{}
 	{
 		return exp;
 	}
+}
+
+SQLFunctionCall* sqlFunctionCall() : {
+	SQLFunctionCall* exp = new SQLFunctionCall();
+	Token* t = nullptr;
+	VariableIdentifier* name = nullptr;
+}
+{
+	name=variableIdentifier() {
+		exp->setName(name);
+		exp->setPosition(name);
+	}
+	t="(" {
+		exp->setPosition(t);
+	}
+	
+	sqlFunctionCallArguments(exp)
+	
+	t=")" {
+		exp->setPosition(t);
+	}
+	
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+void sqlFunctionCallArguments(SQLFunctionCall* exp) : {
+	AbstractSQLExpression* ex = nullptr;
+	Token* t = nullptr;
+}
+{
+	[
+		ex=sqlExpression() {
+			exp->addArgument(ex);
+			exp->setPosition(ex);
+		}
+		
+		(
+			"," {
+				exp->setPosition(t);
+			}
+			ex=sqlExpression() {
+				exp->addArgument(ex);
+				exp->setPosition(ex);
+			}
+			
+		)*
+	]
 }
 
 SQLPlaceHolder* sqlPlaceHolder() : {

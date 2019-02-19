@@ -95,6 +95,7 @@
 #include "sql_expression/SQLAndExpression.h"
 #include "sql_expression/SQLBetweenExpression.h"
 #include "sql_expression/SQLBooleanLiteral.h"
+#include "sql_expression/SQLFunctionCall.h"
 #include "sql_expression/SQLLiteral.h"
 #include "sql_expression/SQLLikeExpression.h"
 #include "sql_expression/SQLIsNullExpression.h"
