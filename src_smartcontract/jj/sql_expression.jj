@@ -8,7 +8,7 @@ AbstractSQLExpression* sqlExpression() : {
 }
 {
 	(
-		exp=sqlPrimitiveExpression()
+		exp=sqlInExpression()
 	)
 	{}
 	{
@@ -16,7 +16,41 @@ AbstractSQLExpression* sqlExpression() : {
 	}
 }
 
-
+AbstractSQLExpression* sqlInExpression() : {
+	SQLInExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	SQLExpressionList* list = nullptr;
+}
+{
+	
+	left=sqlPrimitiveExpression()
+	[
+		t=<IN> {
+			exp = new SQLInExpression();
+			exp->setLeft(left);
+			
+			exp->setPosition(left);
+			exp->setPosition(t);
+			left = exp;
+		}
+		t="(" {
+			exp->setPosition(t);
+		}
+		
+		list=sqlExpressionList() {
+			exp->setList(list);
+		}
+		
+		t=")" {
+			exp->setPosition(t);
+		}
+	]
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
 
 AbstractSQLExpression* sqlPrimitiveExpression() : {
 	AbstractSQLExpression* exp = nullptr;

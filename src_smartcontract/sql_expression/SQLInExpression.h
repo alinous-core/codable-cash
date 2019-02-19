@@ -11,11 +11,18 @@
 #include "sql/AbstractSQLExpression.h"
 
 namespace alinous {
+class SQLExpressionList;
 
 class SQLInExpression : public AbstractSQLExpression {
 public:
 	SQLInExpression();
 	virtual ~SQLInExpression();
+
+	void setLeft(AbstractSQLExpression* left) noexcept;
+	void setList(SQLExpressionList* list) noexcept;
+private:
+	AbstractSQLExpression* left;
+	SQLExpressionList* list;
 };
 
 } /* namespace alinous */

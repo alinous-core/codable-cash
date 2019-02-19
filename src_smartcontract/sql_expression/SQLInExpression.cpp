@@ -6,16 +6,26 @@
  */
 
 #include "sql_expression/SQLInExpression.h"
+#include "sql_expression/SQLExpressionList.h"
 
 namespace alinous {
 
 SQLInExpression::SQLInExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_IN) {
-	// TODO Auto-generated constructor stub
-
+	this->left = nullptr;
+	this->list = nullptr;
 }
 
 SQLInExpression::~SQLInExpression() {
-	// TODO Auto-generated destructor stub
+	delete this->left;
+	delete this->list;
+}
+
+void SQLInExpression::setLeft(AbstractSQLExpression* left) noexcept {
+	this->left = left;
+}
+
+void SQLInExpression::setList(SQLExpressionList* list) noexcept {
+	this->list = list;
 }
 
 } /* namespace alinous */
