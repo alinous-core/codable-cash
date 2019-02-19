@@ -90,6 +90,7 @@ CreateTableStatement                    * createTableStatement();
 DropTableStatement                  * dropTableStatement();
 AbstractSQLExpression
                      * sqlExpression();
+AbstractSQLExpression                     * sqlBetweenExpression();
 AbstractSQLExpression                     * sqlInExpression();
 AbstractSQLExpression                     * sqlPrimitiveExpression();
 SQLFunctionCall               * sqlFunctionCall();
@@ -186,6 +187,13 @@ TableIdentifier               * tableIdentifier();
     xsp = jj_scanpos;
     if (jj_3R_55()) jj_scanpos = xsp;
     if (jj_3R_56()) return true;
+    return false;
+  }
+
+ inline bool jj_3_7()
+ {
+    if (jj_done) return true;
+    if (jj_3R_28()) return true;
     return false;
   }
 
@@ -321,14 +329,6 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_28()
- {
-    if (jj_done) return true;
-    if (jj_3R_29()) return true;
-    if (jj_scan_token(L_PARENTHESIS)) return true;
-    return false;
-  }
-
  inline bool jj_3R_82()
  {
     if (jj_done) return true;
@@ -348,13 +348,6 @@ TableIdentifier               * tableIdentifier();
     xsp = jj_scanpos;
     if (jj_3R_50()) jj_scanpos = xsp;
     if (jj_3R_51()) return true;
-    return false;
-  }
-
- inline bool jj_3_7()
- {
-    if (jj_done) return true;
-    if (jj_3R_28()) return true;
     return false;
   }
 
@@ -789,6 +782,14 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
+ inline bool jj_3R_28()
+ {
+    if (jj_done) return true;
+    if (jj_3R_29()) return true;
+    if (jj_scan_token(L_PARENTHESIS)) return true;
+    return false;
+  }
+
 
 public: 
   void setErrorHandler(ErrorHandler *eh) {
@@ -814,7 +815,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[58];
+  int           jj_la1[59];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 

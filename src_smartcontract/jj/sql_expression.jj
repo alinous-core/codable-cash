@@ -8,11 +8,50 @@ AbstractSQLExpression* sqlExpression() : {
 }
 {
 	(
-		exp=sqlInExpression()
+		exp=sqlBetweenExpression()
 	)
 	{}
 	{
 		return exp;
+	}
+}
+
+AbstractSQLExpression* sqlBetweenExpression() : {
+	SQLBetweenExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlInExpression()
+	[
+		t=<BETWEEN> {
+			exp = new SQLBetweenExpression();
+			exp->setLeft(left);
+			
+			exp->setPosition(left);
+			exp->setPosition(t);
+			left = exp;
+		}
+		
+		right=sqlExpression() {
+			exp->setStart(right);
+			exp->setPosition(right);
+		}
+		
+		t=<SQLAND> {
+			exp->setPosition(t);
+		}
+		
+		right=sqlExpression() {
+			exp->setEnd(right);
+			exp->setPosition(right);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
 	}
 }
 
@@ -46,6 +85,7 @@ AbstractSQLExpression* sqlInExpression() : {
 			exp->setPosition(t);
 		}
 	]
+	{}
 	{
 		__ONERROR(left);
 		return left;
