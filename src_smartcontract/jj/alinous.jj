@@ -2193,6 +2193,32 @@ AbstractSQLExpression* sqlPrimitiveExpression() : {
 	}
 }
 
+SQLPlaceHolder* sqlPlaceHolder() : {
+	SQLPlaceHolder* exp = new SQLPlaceHolder();
+	Token* t = nullptr;
+	AbstractExpression* ex = nullptr;
+}
+{
+	t="$" {
+		exp->setPosition(t);
+	}
+	t="{" {
+		exp->setPosition(t);
+	}
+	
+	ex=expression() {
+		exp->setExpression(ex);
+	}
+	
+	t="}" {
+		exp->setPosition(t);
+	}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
 
 SQLParenthesisExpression* sqlParenthesisExpression() : {
 	SQLParenthesisExpression* exp = new SQLParenthesisExpression();

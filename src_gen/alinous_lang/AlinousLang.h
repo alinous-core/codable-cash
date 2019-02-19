@@ -91,6 +91,7 @@ DropTableStatement                  * dropTableStatement();
 AbstractSQLExpression
                      * sqlExpression();
 AbstractSQLExpression                     * sqlPrimitiveExpression();
+SQLPlaceHolder              * sqlPlaceHolder();
 SQLParenthesisExpression                        * sqlParenthesisExpression();
 SQLLiteral          * sqlLiteral();
 SQLBooleanLiteral                 * sqlBooleanLiteral();

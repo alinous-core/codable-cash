@@ -2864,6 +2864,39 @@ assert(false);
 }
 
 
+SQLPlaceHolder              * AlinousLang::sqlPlaceHolder() {SQLPlaceHolder* exp = new SQLPlaceHolder();
+        Token* t = nullptr;
+        AbstractExpression* ex = nullptr;
+    if (!hasError) {
+    t = jj_consume_token(DOLLAR);
+    }
+    if (!hasError) {
+exp->setPosition(t);
+    }
+    if (!hasError) {
+    t = jj_consume_token(L_BRACE);
+    }
+    if (!hasError) {
+exp->setPosition(t);
+    }
+    if (!hasError) {
+    ex = expression();
+    }
+    if (!hasError) {
+exp->setExpression(ex);
+    }
+    if (!hasError) {
+    t = jj_consume_token(R_BRACE);
+    }
+    if (!hasError) {
+exp->setPosition(t);
+    }
+__ONERROR(exp);
+                return exp;
+assert(false);
+}
+
+
 SQLParenthesisExpression                        * AlinousLang::sqlParenthesisExpression() {SQLParenthesisExpression* exp = new SQLParenthesisExpression();
         Token* t = nullptr;
         AbstractSQLExpression* ex = nullptr;

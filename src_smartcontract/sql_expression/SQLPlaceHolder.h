@@ -8,12 +8,20 @@
 #ifndef SQL_EXPRESSION_SQLPLACEHOLDER_H_
 #define SQL_EXPRESSION_SQLPLACEHOLDER_H_
 
+#include "sql/AbstractSQLExpression.h"
+
 namespace alinous {
 
-class SQLPlaceHolder {
+class AbstractExpression;
+
+class SQLPlaceHolder : public AbstractSQLExpression {
 public:
 	SQLPlaceHolder();
 	virtual ~SQLPlaceHolder();
+
+	void setExpression(AbstractExpression* exp) noexcept;
+private:
+	AbstractExpression* exp;
 };
 
 } /* namespace alinous */
