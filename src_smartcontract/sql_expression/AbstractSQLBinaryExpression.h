@@ -1,0 +1,23 @@
+/*
+ * AbstractSQLBinaryExpression.h
+ *
+ *  Created on: 2019/02/20
+ *      Author: iizuka
+ */
+
+#ifndef SQL_EXPRESSION_ABSTRACTSQLBINARYEXPRESSION_H_
+#define SQL_EXPRESSION_ABSTRACTSQLBINARYEXPRESSION_H_
+
+#include "sql/AbstractSQLExpression.h"
+
+namespace alinous {
+
+class AbstractSQLBinaryExpression : public AbstractSQLExpression {
+public:
+	explicit AbstractSQLBinaryExpression(int kind);
+	virtual ~AbstractSQLBinaryExpression();
+};
+
+} /* namespace alinous */
+
+#endif /* SQL_EXPRESSION_ABSTRACTSQLBINARYEXPRESSION_H_ */

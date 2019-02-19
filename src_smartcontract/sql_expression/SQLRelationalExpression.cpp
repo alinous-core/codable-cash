@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-SQLRelationalExpression::SQLRelationalExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_RELATIONAL) {
+SQLRelationalExpression::SQLRelationalExpression() : AbstractSQLBinaryExpression(CodeElement::SQL_EXP_RELATIONAL) {
 	// TODO Auto-generated constructor stub
 
 }

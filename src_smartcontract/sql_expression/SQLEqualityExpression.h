@@ -8,11 +8,11 @@
 #ifndef SQL_EXPRESSION_SQLEQUALITYEXPRESSION_H_
 #define SQL_EXPRESSION_SQLEQUALITYEXPRESSION_H_
 
-#include "sql/AbstractSQLExpression.h"
+#include "sql_expression/AbstractSQLBinaryExpression.h"
 
 namespace alinous {
 
-class SQLEqualityExpression : public AbstractSQLExpression {
+class SQLEqualityExpression : public AbstractSQLBinaryExpression {
 public:
 	SQLEqualityExpression();
 	virtual ~SQLEqualityExpression();

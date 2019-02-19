@@ -1,6 +1,7 @@
 
 
 set(__src
+	AbstractSQLBinaryExpression.cpp
 	SQLAdditiveExpression.cpp
 	SQLAndExpression.cpp
 	SQLBetweenExpression.cpp
