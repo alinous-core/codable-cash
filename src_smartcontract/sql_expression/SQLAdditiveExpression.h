@@ -9,13 +9,22 @@
 #define SQL_EXPRESSION_SQLADDITIVEEXPRESSION_H_
 
 #include "sql_expression/AbstractSQLBinaryExpression.h"
+#include "base/RawArrayPrimitive.h"
+#include <cstdint>
 
 namespace alinous {
 
 class SQLAdditiveExpression : public AbstractSQLBinaryExpression {
 public:
+	static const constexpr uint8_t ADD{1};
+	static const constexpr uint8_t SUB{2};
+
 	SQLAdditiveExpression();
 	virtual ~SQLAdditiveExpression();
+
+	void addOpe(uint8_t ope) noexcept;
+private:
+	RawArrayPrimitive<uint8_t> operations;
 };
 
 } /* namespace alinous */

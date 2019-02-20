@@ -9,13 +9,10 @@
 
 namespace alinous {
 
-SQLAdditiveExpression::SQLAdditiveExpression() : AbstractSQLBinaryExpression(CodeElement::SQL_EXP_ADDITIVE) {
-	// TODO Auto-generated constructor stub
-
+SQLAdditiveExpression::SQLAdditiveExpression() : AbstractSQLBinaryExpression(CodeElement::SQL_EXP_ADDITIVE), operations(4) {
 }
 
 SQLAdditiveExpression::~SQLAdditiveExpression() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

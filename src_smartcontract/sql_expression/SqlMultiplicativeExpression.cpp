@@ -9,13 +9,14 @@
 
 namespace alinous {
 
-SqlMultiplicativeExpression::SqlMultiplicativeExpression() : AbstractSQLBinaryExpression(CodeElement::SQL_EXP_MULTIPLICATIVE) {
-	// TODO Auto-generated constructor stub
-
+SqlMultiplicativeExpression::SqlMultiplicativeExpression() : AbstractSQLBinaryExpression(CodeElement::SQL_EXP_MULTIPLICATIVE), operations(4) {
 }
 
 SqlMultiplicativeExpression::~SqlMultiplicativeExpression() {
-	// TODO Auto-generated destructor stub
+}
+
+void SqlMultiplicativeExpression::addOpe(uint8_t ope) noexcept {
+	this->operations.addElement(ope);
 }
 
 } /* namespace alinous */

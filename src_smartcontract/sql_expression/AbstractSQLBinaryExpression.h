@@ -9,6 +9,7 @@
 #define SQL_EXPRESSION_ABSTRACTSQLBINARYEXPRESSION_H_
 
 #include "sql/AbstractSQLExpression.h"
+#include "base/ArrayList.h"
 
 namespace alinous {
 
@@ -16,6 +17,10 @@ class AbstractSQLBinaryExpression : public AbstractSQLExpression {
 public:
 	explicit AbstractSQLBinaryExpression(int kind);
 	virtual ~AbstractSQLBinaryExpression();
+
+	void addOperand(AbstractSQLExpression* exp) noexcept;
+protected:
+	ArrayList<AbstractSQLExpression> operands;
 };
 
 } /* namespace alinous */

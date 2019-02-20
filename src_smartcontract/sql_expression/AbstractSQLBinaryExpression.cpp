@@ -13,6 +13,11 @@ AbstractSQLBinaryExpression::AbstractSQLBinaryExpression(int kind) : AbstractSQL
 }
 
 AbstractSQLBinaryExpression::~AbstractSQLBinaryExpression() {
+	this->operands.deleteElements();
+}
+
+void AbstractSQLBinaryExpression::addOperand(AbstractSQLExpression* exp) noexcept {
+	this->operands.addElement(exp);
 }
 
 } /* namespace alinous */
