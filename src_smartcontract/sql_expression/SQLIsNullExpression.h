@@ -8,12 +8,20 @@
 #ifndef SQL_EXPRESSION_SQLISNULLEXPRESSION_H_
 #define SQL_EXPRESSION_SQLISNULLEXPRESSION_H_
 
+#include "sql/AbstractSQLExpression.h"
+
 namespace alinous {
 
-class SQLIsNullExpression {
+class SQLIsNullExpression : public AbstractSQLExpression {
 public:
 	SQLIsNullExpression();
 	virtual ~SQLIsNullExpression();
+
+	void setExpression(AbstractSQLExpression* exp) noexcept;
+	void setNotNull(bool notnull) noexcept;
+private:
+	AbstractSQLExpression* exp;
+	bool notnull;
 };
 
 } /* namespace alinous */

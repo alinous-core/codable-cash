@@ -9,13 +9,10 @@
 
 namespace alinous {
 
-SQLAndExpression::SQLAndExpression() {
-	// TODO Auto-generated constructor stub
-
+SQLAndExpression::SQLAndExpression() : AbstractSQLBinaryExpression(CodeElement::SQL_EXP_AND) {
 }
 
 SQLAndExpression::~SQLAndExpression() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

@@ -1,12 +1,15 @@
 
 
 set(__src
+	AbstractSQLBinaryExpression.cpp
 	SQLAdditiveExpression.cpp
 	SQLAndExpression.cpp
+	SQLBetweenExpression.cpp
 	SQLBooleanLiteral.cpp
 	SQLColumnIdentifier.cpp
 	SQLEqualityExpression.cpp
 	SQLExpressionList.cpp
+	SQLFunctionCall.cpp
 	SQLInExpression.cpp
 	SQLIsNullExpression
 	SQLLikeExpression.cpp
@@ -15,6 +18,7 @@ set(__src
 	SQLNotExpression.cpp
 	SQLOrExpression.cpp
 	SQLParenthesisExpression.cpp
+	SQLPlaceHolder.cpp
 	SQLRelationalExpression.cpp
 	TableIdentifier.cpp
 )

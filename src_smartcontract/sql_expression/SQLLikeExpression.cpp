@@ -6,16 +6,32 @@
  */
 
 #include "sql_expression/SQLLikeExpression.h"
+#include "sql_expression/SQLLiteral.h"
 
 namespace alinous {
 
-SQLLikeExpression::SQLLikeExpression() {
-	// TODO Auto-generated constructor stub
-
+SQLLikeExpression::SQLLikeExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_LIKE) {
+	this->left = nullptr;
+	this->right = nullptr;
+	this->escape = nullptr;
 }
 
 SQLLikeExpression::~SQLLikeExpression() {
-	// TODO Auto-generated destructor stub
+	delete this->left;
+	delete this->right;
+	delete this->escape;
+}
+
+void SQLLikeExpression::setLeft(AbstractSQLExpression* left) noexcept {
+	this->left = left;
+}
+
+void SQLLikeExpression::setRight(SQLLiteral* right) noexcept {
+	this->right = right;
+}
+
+void SQLLikeExpression::setEscape(SQLLiteral* escape) noexcept {
+	this->escape = escape;
 }
 
 } /* namespace alinous */

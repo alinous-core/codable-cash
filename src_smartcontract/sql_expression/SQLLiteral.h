@@ -8,12 +8,24 @@
 #ifndef SQL_EXPRESSION_SQLLITERAL_H_
 #define SQL_EXPRESSION_SQLLITERAL_H_
 
-namespace alinous {
+#include "sql/AbstractSQLExpression.h"
+#include <cstdint>
 
-class SQLLiteral {
+namespace alinous {
+class UnicodeString;
+
+class SQLLiteral : public AbstractSQLExpression {
 public:
+	static const constexpr uint8_t TYPE_STRING{1};
+	static const constexpr uint8_t TYPE_NUMBER{2};
+
 	SQLLiteral();
 	virtual ~SQLLiteral();
+
+	void setValue(UnicodeString* value, uint8_t type) noexcept;
+private:
+	UnicodeString* value;
+	uint8_t type;
 };
 
 } /* namespace alinous */

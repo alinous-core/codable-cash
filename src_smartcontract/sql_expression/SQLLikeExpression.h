@@ -8,12 +8,24 @@
 #ifndef SQL_EXPRESSION_SQLLIKEEXPRESSION_H_
 #define SQL_EXPRESSION_SQLLIKEEXPRESSION_H_
 
-namespace alinous {
+#include "sql/AbstractSQLExpression.h"
 
-class SQLLikeExpression {
+namespace alinous {
+class SQLLiteral;
+
+class SQLLikeExpression : public AbstractSQLExpression {
 public:
 	SQLLikeExpression();
 	virtual ~SQLLikeExpression();
+
+	void setLeft(AbstractSQLExpression* left) noexcept;
+	void setRight(SQLLiteral* right) noexcept;
+	void setEscape(SQLLiteral* escape) noexcept;
+private:
+	AbstractSQLExpression* left;
+	SQLLiteral* right;
+	SQLLiteral* escape;
+
 };
 
 } /* namespace alinous */

@@ -8,12 +8,21 @@
 #ifndef SQL_EXPRESSION_SQLINEXPRESSION_H_
 #define SQL_EXPRESSION_SQLINEXPRESSION_H_
 
-namespace alinous {
+#include "sql/AbstractSQLExpression.h"
 
-class SQLInExpression {
+namespace alinous {
+class SQLExpressionList;
+
+class SQLInExpression : public AbstractSQLExpression {
 public:
 	SQLInExpression();
 	virtual ~SQLInExpression();
+
+	void setLeft(AbstractSQLExpression* left) noexcept;
+	void setList(SQLExpressionList* list) noexcept;
+private:
+	AbstractSQLExpression* left;
+	SQLExpressionList* list;
 };
 
 } /* namespace alinous */

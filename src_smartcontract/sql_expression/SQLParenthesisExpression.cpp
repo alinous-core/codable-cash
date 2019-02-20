@@ -9,13 +9,16 @@
 
 namespace alinous {
 
-SQLParenthesisExpression::SQLParenthesisExpression() {
-	// TODO Auto-generated constructor stub
-
+SQLParenthesisExpression::SQLParenthesisExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_PARENTHESIS) {
+	this->exp = nullptr;
 }
 
 SQLParenthesisExpression::~SQLParenthesisExpression() {
-	// TODO Auto-generated destructor stub
+	delete this->exp;
+}
+
+void SQLParenthesisExpression::setExpression(AbstractSQLExpression* exp) noexcept {
+	this->exp = exp;
 }
 
 } /* namespace alinous */

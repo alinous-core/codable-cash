@@ -9,13 +9,16 @@
 
 namespace alinous {
 
-SQLNotExpression::SQLNotExpression() {
-	// TODO Auto-generated constructor stub
-
+SQLNotExpression::SQLNotExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_NOT) {
+	this->exp = nullptr;
 }
 
 SQLNotExpression::~SQLNotExpression() {
-	// TODO Auto-generated destructor stub
+	delete this->exp;
+}
+
+void SQLNotExpression::setExpression(AbstractSQLExpression* exp) noexcept {
+	this->exp = exp;
 }
 
 } /* namespace alinous */

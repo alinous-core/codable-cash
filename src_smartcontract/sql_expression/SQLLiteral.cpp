@@ -6,16 +6,22 @@
  */
 
 #include "sql_expression/SQLLiteral.h"
+#include "base/UnicodeString.h"
 
 namespace alinous {
 
-SQLLiteral::SQLLiteral() {
-	// TODO Auto-generated constructor stub
-
+SQLLiteral::SQLLiteral() : AbstractSQLExpression(CodeElement::SQL_EXP_LITERAL) {
+	this->value = nullptr;
+	this->type = TYPE_STRING;
 }
 
 SQLLiteral::~SQLLiteral() {
-	// TODO Auto-generated destructor stub
+	delete this->value;
+}
+
+void SQLLiteral::setValue(UnicodeString* value, uint8_t type) noexcept {
+	this->value = value;
+	this->type = type;
 }
 
 } /* namespace alinous */

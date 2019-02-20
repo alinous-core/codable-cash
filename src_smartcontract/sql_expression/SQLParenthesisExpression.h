@@ -8,12 +8,18 @@
 #ifndef SQL_EXPRESSION_SQLPARENTHESISEXPRESSION_H_
 #define SQL_EXPRESSION_SQLPARENTHESISEXPRESSION_H_
 
+#include "sql/AbstractSQLExpression.h"
+
 namespace alinous {
 
-class SQLParenthesisExpression {
+class SQLParenthesisExpression : public AbstractSQLExpression {
 public:
 	SQLParenthesisExpression();
 	virtual ~SQLParenthesisExpression();
+
+	void setExpression(AbstractSQLExpression* exp) noexcept;
+private:
+	AbstractSQLExpression* exp;
 };
 
 } /* namespace alinous */

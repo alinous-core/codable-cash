@@ -3,19 +3,17 @@
 #include "TokenMgrError.h"
 namespace alinouslang {
   unsigned int jj_la1_0[] = {
-0x0,0x0,0x0,0x0,0x0,0x200000,0x200000,0x0,0x0,0x0,0x0,0x0,0xd340200,0x400000,0xd340200,0x0,0xd140200,0x80000000,0x40000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xa000000,0x30800000,0x30800000,0x8000000,0x5000000,0x5000000,0x5000000,0x0,0x0,0x0,0x0,0x0,0xd140200,0x140200,0x140200,0x0,0x140000,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x200000,0x200000,0x0,0x0,0x0,0x0,0x0,0xd340200,0x400000,0xd340200,0x0,0xd140200,0x80000000,0x40000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xa000000,0x30800000,0x30800000,0x8000000,0x5000000,0x5000000,0x5000000,0x0,0x0,0x0,0x0,0x0,0xd140200,0x140200,0x140200,0x0,0x140000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x400000,0x400000,0xa000000,0xa000000,0x30800000,0x30800000,0x100200,0x0,0x0,0x100200,0x100200,0x0,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_1[] = {
-0x1000000,0x2000000,0x80,0x0,0x0,0x4,0x800,0x0,0x100,0xe0000000,0xe0000000,0x800,0xf0080004,0x0,0xf0080804,0x10000000,0x80004,0x0,0x0,0x2,0x0,0x1,0x6000,0x6000,0x78000,0x78000,0x200000,0x200000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80000,0x80,0x10,0x100,0x80004,0x4,0x0,0x0,0x0,0x0,};
+0x1000000,0x2000000,0x80,0x0,0x0,0x4,0x800,0x0,0x100,0xe0000000,0xe0000000,0x800,0xf0080004,0x0,0xf0080804,0x10000000,0x80004,0x0,0x0,0x2,0x0,0x1,0x6000,0x6000,0x78000,0x78000,0x200000,0x200000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80000,0x80,0x10,0x100,0x80004,0x4,0x0,0x0,0x0,0x0,0x80000,0x0,0x0,0x0,0x0,0x78000,0x78000,0x4000,0x4000,0x0,0x0,0x0,0x0,0x4,0x40,0x100,0x80044,0x0,0x0,0x80,0x80,0x100,0x80,};
   unsigned int jj_la1_2[] = {
-0x0,0x0,0x0,0x70000,0x100000,0x0,0x0,0x70000,0x0,0x10000003,0x10000003,0x0,0xb0089463,0x0,0xb0089463,0x20081460,0x80008000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80008000,0x80008000,0x80000000,0x80000000,0x0,0x0,};
+0x0,0x0,0x0,0x70000,0x100000,0x0,0x0,0x70000,0x0,0x10000003,0x10000003,0x0,0xb0089463,0x0,0xb0089463,0x20081460,0x80008000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80008000,0x80008000,0x80000000,0x80000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80000000,0x0,0x80000000,0x0,0x80000000,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_3[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x0,0x1,0x0,0x1,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x1,0x1,0x1,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x0,0x1,0x0,0x1,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x1,0x1,0x1,0x0,0x0,0x0,0x800,0x80000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x0,0x1,0x0,0x1,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_4[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x60000,0x0,0x60000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x60000,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1800,0x0,0x1800,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1800,0x0,0x0,0x0,0x40,0x20,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
   unsigned int jj_la1_5[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x8040000,0x0,0x8040000,0x0,0x8040000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x8040000,0x8040000,0x40000,0x0,0x0,0x0,};
-  unsigned int jj_la1_6[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x10,0x0,0x10,0x0,0x10,0x0,0x0,0x0,0x4,0x0,0x0,0x0,0x0,0x0,0x8,0x8,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x10,0x0,0x0,0x0,0x0,0x10,0x0,0x0,0x0,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x40201000,0x0,0x40201000,0x0,0x40201000,0x0,0x0,0x0,0x10000000,0x0,0x0,0x0,0x0,0x0,0x20000000,0x20000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x40000000,0x0,0x0,0x0,0x0,0x40201000,0x201000,0x1000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80000000,0x80000000,0x0,0x0,0x0,0x0,0x0,0x200000,0x0,0x200000,0x0,0x0,0x0,0x0,0x0,0x0,};
 
   /** Constructor with user supplied TokenManager. */
 
@@ -670,7 +668,7 @@ AbstractStatement
         case FALSE:
         case _NULL:
         case IDENTIFIER:
-        case 196:{
+        case 190:{
           if (!hasError) {
           stmt = expressionStatement();
           }
@@ -864,7 +862,7 @@ block->setPosition(t);
       case DROP:
       case _NULL:
       case IDENTIFIER:
-      case 196:{
+      case 190:{
         ;
         break;
         }
@@ -1152,7 +1150,7 @@ stmt->setPosition(t);
     case FALSE:
     case _NULL:
     case IDENTIFIER:
-    case 196:{
+    case 190:{
       if (!hasError) {
       exp = expression();
       }
@@ -1430,7 +1428,7 @@ AbstractExpression                  * AlinousLang::exclusiveOrExpression() {Toke
     if (!hasError) {
     while (!hasError) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case 194:{
+      case 188:{
         ;
         break;
         }
@@ -1439,7 +1437,7 @@ AbstractExpression                  * AlinousLang::exclusiveOrExpression() {Toke
         goto end_label_9;
       }
       if (!hasError) {
-      t = jj_consume_token(194);
+      t = jj_consume_token(188);
       }
       if (!hasError) {
 if(exp == nullptr){
@@ -1709,7 +1707,7 @@ AbstractExpression                  * AlinousLang::shiftExpression() {Token* t =
     while (!hasError) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case RSIGNEDSHIFT:
-      case 195:{
+      case 189:{
         ;
         break;
         }
@@ -1719,9 +1717,9 @@ AbstractExpression                  * AlinousLang::shiftExpression() {Token* t =
       }
       if (!hasError) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case 195:{
+      case 189:{
         if (!hasError) {
-        t = jj_consume_token(195);
+        t = jj_consume_token(189);
         }
         if (!hasError) {
 if(exp == nullptr){
@@ -2116,9 +2114,9 @@ AbstractExpression                  * AlinousLang::bitReverseExpression() {Token
         AbstractExpression* right = nullptr;
     if (!hasError) {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case 196:{
+    case 190:{
       if (!hasError) {
-      t = jj_consume_token(196);
+      t = jj_consume_token(190);
       }
       if (!hasError) {
 exp = new BitReverseExpression();
@@ -2396,7 +2394,7 @@ void AlinousLang::functionCallExpressionArg(FunctionCallExpression* exp) {Abstra
     case FALSE:
     case _NULL:
     case IDENTIFIER:
-    case 196:{
+    case 190:{
       if (!hasError) {
       arg = expression();
       }
@@ -2806,6 +2804,1203 @@ assert(false);
 }
 
 
+AbstractSQLExpression
+                     * AlinousLang::sqlExpression() {AbstractSQLExpression* exp = nullptr;
+    if (!hasError) {
+    if (!hasError) {
+    exp = sqlOrExpression();
+    }
+    }
+    if (!hasError) {
+
+    }
+return exp;
+assert(false);
+}
+
+
+AbstractSQLExpression                     * AlinousLang::sqlOrExpression() {SQLOrExpression* exp = nullptr;
+        Token* t = nullptr;
+        AbstractSQLExpression* left = nullptr;
+        AbstractSQLExpression* right = nullptr;
+    if (!hasError) {
+    left = sqlAndExpression();
+    }
+    if (!hasError) {
+    while (!hasError) {
+      if (jj_2_7(2)) {
+        ;
+      } else {
+        goto end_label_17;
+      }
+      if (!hasError) {
+      t = jj_consume_token(OR);
+      }
+      if (!hasError) {
+if(exp == nullptr){
+                                exp = new SQLOrExpression();
+                                exp->addOperand(left);
+                                exp->setPosition(left);
+                                left = exp;
+                        }
+
+                        exp->setPosition(t);
+      }
+      if (!hasError) {
+      right = sqlAndExpression();
+      }
+      if (!hasError) {
+exp->addOperand(right);
+                        exp->setPosition(right);
+      }
+    }
+    end_label_17: ;
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractSQLExpression                     * AlinousLang::sqlAndExpression() {SQLAndExpression* exp = nullptr;
+        Token* t = nullptr;
+        AbstractSQLExpression* left = nullptr;
+        AbstractSQLExpression* right = nullptr;
+    if (!hasError) {
+    left = sqlNotExpression();
+    }
+    if (!hasError) {
+    while (!hasError) {
+      if (jj_2_8(2)) {
+        ;
+      } else {
+        goto end_label_18;
+      }
+      if (!hasError) {
+      t = jj_consume_token(SQLAND);
+      }
+      if (!hasError) {
+if(exp == nullptr){
+                                exp = new SQLAndExpression();
+                                exp->addOperand(left);
+                                exp->setPosition(left);
+                                left = exp;
+                        }
+
+                        exp->setPosition(t);
+      }
+      if (!hasError) {
+      right = sqlNotExpression();
+      }
+      if (!hasError) {
+exp->addOperand(right);
+                        exp->setPosition(right);
+      }
+    }
+    end_label_18: ;
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractSQLExpression                     * AlinousLang::sqlNotExpression() {SQLNotExpression* exp = nullptr;
+        Token* t = nullptr;
+        AbstractSQLExpression* left = nullptr;
+        AbstractSQLExpression* right = nullptr;
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case NOT:{
+      if (!hasError) {
+      t = jj_consume_token(NOT);
+      }
+      if (!hasError) {
+exp = new SQLNotExpression();
+                        exp->setPosition(t);
+                        left = exp;
+      }
+      break;
+      }
+    default:
+      jj_la1[46] = jj_gen;
+      ;
+    }
+    }
+    if (!hasError) {
+    right = sqlLikeExpression();
+    }
+    if (!hasError) {
+if(left == nullptr){
+                        left = right;
+                }
+                else{
+                        exp->setExpression(right);
+                        exp->setPosition(right);
+                }
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractSQLExpression                     * AlinousLang::sqlLikeExpression() {SQLLikeExpression* exp = nullptr;
+        Token* t = nullptr;
+        AbstractSQLExpression* left = nullptr;
+        SQLLiteral* right = nullptr;
+    if (!hasError) {
+    left = sqlIsNullExpression();
+    }
+    if (!hasError) {
+    if (jj_2_9(2)) {
+      if (!hasError) {
+      t = jj_consume_token(LIKE);
+      }
+      if (!hasError) {
+exp = new SQLLikeExpression();
+                        exp->setLeft(left);
+
+                        exp->setPosition(left);
+                        exp->setPosition(t);
+                        left = exp;
+      }
+      if (!hasError) {
+      right = sqlLiteral();
+      }
+      if (!hasError) {
+exp->setRight(right);
+                        exp->setPosition(right);
+      }
+      if (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case ESCAPE:{
+        if (!hasError) {
+        t = jj_consume_token(ESCAPE);
+        }
+        if (!hasError) {
+exp->setPosition(t);
+        }
+        if (!hasError) {
+        right = sqlLiteral();
+        }
+        if (!hasError) {
+exp->setEscape(right);
+                                exp->setPosition(right);
+        }
+        break;
+        }
+      default:
+        jj_la1[47] = jj_gen;
+        ;
+      }
+      }
+    } else {
+      ;
+    }
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractSQLExpression                     * AlinousLang::sqlIsNullExpression() {SQLIsNullExpression* exp = nullptr;
+        Token* t = nullptr;
+        AbstractSQLExpression* left = nullptr;
+        AbstractSQLExpression* right = nullptr;
+    if (!hasError) {
+    left = sqlBetweenExpression();
+    }
+    if (!hasError) {
+    if (jj_2_10(2)) {
+      if (!hasError) {
+      t = jj_consume_token(IS);
+      }
+      if (!hasError) {
+exp = new SQLIsNullExpression();
+                        exp->setExpression(left);
+
+                        exp->setPosition(left);
+                        exp->setPosition(t);
+                        left = exp;
+      }
+      if (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case SQL_NOT:{
+        if (!hasError) {
+        t = jj_consume_token(SQL_NOT);
+        }
+        if (!hasError) {
+exp->setNotNull(true);
+                                exp->setPosition(t);
+        }
+        break;
+        }
+      default:
+        jj_la1[48] = jj_gen;
+        ;
+      }
+      }
+      if (!hasError) {
+      t = jj_consume_token(_NULL);
+      }
+      if (!hasError) {
+exp->setPosition(t);
+      }
+    } else {
+      ;
+    }
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractSQLExpression                     * AlinousLang::sqlBetweenExpression() {SQLBetweenExpression* exp = nullptr;
+        Token* t = nullptr;
+        AbstractSQLExpression* left = nullptr;
+        AbstractSQLExpression* right = nullptr;
+    if (!hasError) {
+    left = sqlInExpression();
+    }
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case BETWEEN:{
+      if (!hasError) {
+      t = jj_consume_token(BETWEEN);
+      }
+      if (!hasError) {
+exp = new SQLBetweenExpression();
+                        exp->setLeft(left);
+
+                        exp->setPosition(left);
+                        exp->setPosition(t);
+                        left = exp;
+      }
+      if (!hasError) {
+      right = sqlExpression();
+      }
+      if (!hasError) {
+exp->setStart(right);
+                        exp->setPosition(right);
+      }
+      if (!hasError) {
+      t = jj_consume_token(SQLAND);
+      }
+      if (!hasError) {
+exp->setPosition(t);
+      }
+      if (!hasError) {
+      right = sqlExpression();
+      }
+      if (!hasError) {
+exp->setEnd(right);
+                        exp->setPosition(right);
+      }
+      break;
+      }
+    default:
+      jj_la1[49] = jj_gen;
+      ;
+    }
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractSQLExpression                     * AlinousLang::sqlInExpression() {SQLInExpression* exp = nullptr;
+        Token* t = nullptr;
+        AbstractSQLExpression* left = nullptr;
+        SQLExpressionList* list = nullptr;
+    if (!hasError) {
+    left = sqlRelationalExpression();
+    }
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case IN:{
+      if (!hasError) {
+      t = jj_consume_token(IN);
+      }
+      if (!hasError) {
+exp = new SQLInExpression();
+                        exp->setLeft(left);
+
+                        exp->setPosition(left);
+                        exp->setPosition(t);
+                        left = exp;
+      }
+      if (!hasError) {
+      t = jj_consume_token(L_PARENTHESIS);
+      }
+      if (!hasError) {
+exp->setPosition(t);
+      }
+      if (!hasError) {
+      list = sqlExpressionList();
+      }
+      if (!hasError) {
+exp->setList(list);
+      }
+      if (!hasError) {
+      t = jj_consume_token(R_PARENTHESIS);
+      }
+      if (!hasError) {
+exp->setPosition(t);
+      }
+      break;
+      }
+    default:
+      jj_la1[50] = jj_gen;
+      ;
+    }
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractSQLExpression                     * AlinousLang::sqlRelationalExpression() {SQLRelationalExpression* exp = nullptr;
+        Token* t = nullptr;
+        AbstractSQLExpression* left = nullptr;
+        AbstractSQLExpression* right = nullptr;
+    if (!hasError) {
+    left = sqlEqualityExpression();
+    }
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case GT:
+    case GEQ:
+    case LT:
+    case LEQ:{
+      if (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case LT:{
+        if (!hasError) {
+        t = jj_consume_token(LT);
+        }
+        if (!hasError) {
+exp = new SQLRelationalExpression();
+                                exp->setLeft(left);
+                                exp->setOp(SQLRelationalExpression::LT);
+                                exp->setPosition(left);
+                                exp->setPosition(t);
+
+                                left = exp;
+        }
+        break;
+        }
+      case GT:{
+        if (!hasError) {
+        t = jj_consume_token(GT);
+        }
+        if (!hasError) {
+exp = new SQLRelationalExpression();
+                                exp->setLeft(left);
+                                exp->setOp(SQLRelationalExpression::GT);
+                                exp->setPosition(left);
+                                exp->setPosition(t);
+
+                                left = exp;
+        }
+        break;
+        }
+      case LEQ:{
+        if (!hasError) {
+        t = jj_consume_token(LEQ);
+        }
+        if (!hasError) {
+exp = new SQLRelationalExpression();
+                                exp->setLeft(left);
+                                exp->setOp(SQLRelationalExpression::LT_EQ);
+                                exp->setPosition(left);
+                                exp->setPosition(t);
+
+                                left = exp;
+        }
+        break;
+        }
+      case GEQ:{
+        if (!hasError) {
+        t = jj_consume_token(GEQ);
+        }
+        if (!hasError) {
+exp = new SQLRelationalExpression();
+                                exp->setLeft(left);
+                                exp->setOp(SQLRelationalExpression::GT_EQ);
+                                exp->setPosition(left);
+                                exp->setPosition(t);
+
+                                left = exp;
+        }
+        break;
+        }
+      default:
+        jj_la1[51] = jj_gen;
+        jj_consume_token(-1);
+        errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+      }
+      }
+      if (!hasError) {
+      right = sqlEqualityExpression();
+      }
+      if (!hasError) {
+exp->setRight(right);
+                        exp->setPosition(right);
+      }
+      break;
+      }
+    default:
+      jj_la1[52] = jj_gen;
+      ;
+    }
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractSQLExpression                     * AlinousLang::sqlEqualityExpression() {SQLEqualityExpression* exp = nullptr;
+        Token* t = nullptr;
+        AbstractSQLExpression* left = nullptr;
+        AbstractSQLExpression* right = nullptr;
+    if (!hasError) {
+    left = sqlAdditiveExpression();
+    }
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case EQUALS:
+    case CMP_NOTEQUALS:
+    case 191:{
+      if (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case EQUALS:{
+        if (!hasError) {
+        t = jj_consume_token(EQUALS);
+        }
+        if (!hasError) {
+exp = new SQLEqualityExpression();
+                                exp->setLeft(left);
+                                exp->setOp(SQLEqualityExpression::EQ);
+                                exp->setPosition(left);
+                                exp->setPosition(t);
+
+                                left = exp;
+        }
+        break;
+        }
+      case 191:{
+        if (!hasError) {
+        t = jj_consume_token(191);
+        }
+        if (!hasError) {
+exp = new SQLEqualityExpression();
+                                exp->setLeft(left);
+                                exp->setOp(SQLEqualityExpression::NOT_EQ);
+                                exp->setPosition(left);
+                                exp->setPosition(t);
+
+                                left = exp;
+        }
+        break;
+        }
+      case CMP_NOTEQUALS:{
+        if (!hasError) {
+        t = jj_consume_token(CMP_NOTEQUALS);
+        }
+        if (!hasError) {
+exp = new SQLEqualityExpression();
+                                exp->setLeft(left);
+                                exp->setOp(SQLEqualityExpression::NOT_EQ);
+                                exp->setPosition(left);
+                                exp->setPosition(t);
+
+                                left = exp;
+        }
+        break;
+        }
+      default:
+        jj_la1[53] = jj_gen;
+        jj_consume_token(-1);
+        errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+      }
+      }
+      if (!hasError) {
+      right = sqlAdditiveExpression();
+      }
+      if (!hasError) {
+exp->setRight(right);
+                        exp->setPosition(right);
+      }
+      break;
+      }
+    default:
+      jj_la1[54] = jj_gen;
+      ;
+    }
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractSQLExpression                     * AlinousLang::sqlAdditiveExpression() {SQLAdditiveExpression* exp = nullptr;
+        Token* t = nullptr;
+        AbstractSQLExpression* left = nullptr;
+        AbstractSQLExpression* right = nullptr;
+    if (!hasError) {
+    left = sqlMultiplicativeExpression();
+    }
+    if (!hasError) {
+    while (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case PLUS:
+      case MINUS:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[55] = jj_gen;
+        goto end_label_19;
+      }
+      if (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case PLUS:{
+        if (!hasError) {
+        t = jj_consume_token(PLUS);
+        }
+        if (!hasError) {
+if(exp == nullptr){
+                                        exp = new SQLAdditiveExpression();
+                                        exp->addOperand(left);
+                                        exp->setPosition(left);
+                                        left = exp;
+                                }
+                                exp->addOpe(SQLAdditiveExpression::ADD);
+                                exp->setPosition(t);
+        }
+        break;
+        }
+      case MINUS:{
+        if (!hasError) {
+        t = jj_consume_token(MINUS);
+        }
+        if (!hasError) {
+if(exp == nullptr){
+                                        exp = new SQLAdditiveExpression();
+                                        exp->addOperand(left);
+                                        exp->setPosition(left);
+                                        left = exp;
+                                }
+                                exp->addOpe(SQLAdditiveExpression::SUB);
+                                exp->setPosition(t);
+        }
+        break;
+        }
+      default:
+        jj_la1[56] = jj_gen;
+        jj_consume_token(-1);
+        errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+      }
+      }
+      if (!hasError) {
+      right = sqlMultiplicativeExpression();
+      }
+      if (!hasError) {
+exp->addOperand(right);
+                        exp->setPosition(right);
+      }
+    }
+    end_label_19: ;
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractSQLExpression                     * AlinousLang::sqlMultiplicativeExpression() {SqlMultiplicativeExpression* exp = nullptr;
+        Token* t = nullptr;
+        AbstractSQLExpression* left = nullptr;
+        AbstractSQLExpression* right = nullptr;
+    if (!hasError) {
+    left = sqlPrimitiveExpression();
+    }
+    if (!hasError) {
+    while (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case ASTERISK:
+      case DIV:
+      case MODULO:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[57] = jj_gen;
+        goto end_label_20;
+      }
+      if (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case ASTERISK:{
+        if (!hasError) {
+        t = jj_consume_token(ASTERISK);
+        }
+        if (!hasError) {
+if(exp == nullptr){
+                                        exp = new SqlMultiplicativeExpression();
+                                        exp->addOperand(left);
+                                        exp->setPosition(left);
+                                        left = exp;
+                                }
+                                exp->addOpe(SqlMultiplicativeExpression::MUL);
+                                exp->setPosition(t);
+        }
+        break;
+        }
+      case DIV:{
+        if (!hasError) {
+        t = jj_consume_token(DIV);
+        }
+        if (!hasError) {
+if(exp == nullptr){
+                                        exp = new SqlMultiplicativeExpression();
+                                        exp->addOperand(left);
+                                        exp->setPosition(left);
+                                        left = exp;
+                                }
+                                exp->addOpe(SqlMultiplicativeExpression::DIV);
+                                exp->setPosition(t);
+        }
+        break;
+        }
+      case MODULO:{
+        if (!hasError) {
+        t = jj_consume_token(MODULO);
+        }
+        if (!hasError) {
+if(exp == nullptr){
+                                        exp = new SqlMultiplicativeExpression();
+                                        exp->addOperand(left);
+                                        exp->setPosition(left);
+                                        left = exp;
+                                }
+                                exp->addOpe(SqlMultiplicativeExpression::MOD);
+                                exp->setPosition(t);
+        }
+        break;
+        }
+      default:
+        jj_la1[58] = jj_gen;
+        jj_consume_token(-1);
+        errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+      }
+      }
+      if (!hasError) {
+      right = sqlPrimitiveExpression();
+      }
+      if (!hasError) {
+exp->addOperand(right);
+                        exp->setPosition(right);
+      }
+    }
+    end_label_20: ;
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(left);
+                return left;
+assert(false);
+}
+
+
+AbstractSQLExpression                     * AlinousLang::sqlPrimitiveExpression() {AbstractSQLExpression* exp = nullptr;
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case L_PARENTHESIS:{
+      if (!hasError) {
+      exp = sqlParenthesisExpression();
+      }
+      break;
+      }
+    case INTEGER_LITERAL:
+    case SQL_STRING_LITERAL:{
+      if (!hasError) {
+      exp = sqlLiteral();
+      }
+      break;
+      }
+    default:
+      jj_la1[59] = jj_gen;
+      if (jj_2_11(2)) {
+        if (!hasError) {
+        exp = sqlFunctionCall();
+        }
+      } else {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case TRUE:
+        case FALSE:{
+          if (!hasError) {
+          exp = sqlBooleanLiteral();
+          }
+          break;
+          }
+        case IDENTIFIER:{
+          if (!hasError) {
+          exp = sqlColumnIdentifier();
+          }
+          break;
+          }
+        case DOLLAR:{
+          if (!hasError) {
+          exp = sqlPlaceHolder();
+          }
+          break;
+          }
+        default:
+          jj_la1[60] = jj_gen;
+          jj_consume_token(-1);
+          errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+        }
+      }
+    }
+    }
+    if (!hasError) {
+
+    }
+return exp;
+assert(false);
+}
+
+
+SQLFunctionCall               * AlinousLang::sqlFunctionCall() {SQLFunctionCall* exp = new SQLFunctionCall();
+        Token* t = nullptr;
+        VariableIdentifier* name = nullptr;
+    if (!hasError) {
+    name = variableIdentifier();
+    }
+    if (!hasError) {
+exp->setName(name);
+                exp->setPosition(name);
+    }
+    if (!hasError) {
+    t = jj_consume_token(L_PARENTHESIS);
+    }
+    if (!hasError) {
+exp->setPosition(t);
+    }
+    if (!hasError) {
+    sqlFunctionCallArguments(exp);
+    }
+    if (!hasError) {
+    t = jj_consume_token(R_PARENTHESIS);
+    }
+    if (!hasError) {
+exp->setPosition(t);
+    }
+__ONERROR(exp);
+                return exp;
+assert(false);
+}
+
+
+void AlinousLang::sqlFunctionCallArguments(SQLFunctionCall* exp) {AbstractSQLExpression* ex = nullptr;
+        Token* t = nullptr;
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case INTEGER_LITERAL:
+    case SQL_STRING_LITERAL:
+    case L_PARENTHESIS:
+    case DOLLAR:
+    case NOT:
+    case TRUE:
+    case FALSE:
+    case IDENTIFIER:{
+      if (!hasError) {
+      ex = sqlExpression();
+      }
+      if (!hasError) {
+exp->addArgument(ex);
+                        exp->setPosition(ex);
+      }
+      if (!hasError) {
+      while (!hasError) {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case COMMA:{
+          ;
+          break;
+          }
+        default:
+          jj_la1[61] = jj_gen;
+          goto end_label_21;
+        }
+        if (!hasError) {
+        jj_consume_token(COMMA);
+        }
+        if (!hasError) {
+exp->setPosition(t);
+        }
+        if (!hasError) {
+        ex = sqlExpression();
+        }
+        if (!hasError) {
+exp->addArgument(ex);
+                                exp->setPosition(ex);
+        }
+      }
+      end_label_21: ;
+      }
+      break;
+      }
+    default:
+      jj_la1[62] = jj_gen;
+      ;
+    }
+    }
+}
+
+
+SQLPlaceHolder              * AlinousLang::sqlPlaceHolder() {SQLPlaceHolder* exp = new SQLPlaceHolder();
+        Token* t = nullptr;
+        AbstractExpression* ex = nullptr;
+    if (!hasError) {
+    t = jj_consume_token(DOLLAR);
+    }
+    if (!hasError) {
+exp->setPosition(t);
+    }
+    if (!hasError) {
+    t = jj_consume_token(L_BRACE);
+    }
+    if (!hasError) {
+exp->setPosition(t);
+    }
+    if (!hasError) {
+    ex = expression();
+    }
+    if (!hasError) {
+exp->setExpression(ex);
+    }
+    if (!hasError) {
+    t = jj_consume_token(R_BRACE);
+    }
+    if (!hasError) {
+exp->setPosition(t);
+    }
+__ONERROR(exp);
+                return exp;
+assert(false);
+}
+
+
+SQLParenthesisExpression                        * AlinousLang::sqlParenthesisExpression() {SQLParenthesisExpression* exp = new SQLParenthesisExpression();
+        Token* t = nullptr;
+        AbstractSQLExpression* ex = nullptr;
+    if (!hasError) {
+    t = jj_consume_token(L_PARENTHESIS);
+    }
+    if (!hasError) {
+exp->setPosition(t);
+    }
+    if (!hasError) {
+    ex = sqlExpression();
+    }
+    if (!hasError) {
+exp->setExpression(ex);
+                exp->setPosition(ex);
+    }
+    if (!hasError) {
+    t = jj_consume_token(R_PARENTHESIS);
+    }
+    if (!hasError) {
+exp->setPosition(t);
+    }
+__ONERROR(exp);
+                return exp;
+assert(false);
+}
+
+
+SQLLiteral          * AlinousLang::sqlLiteral() {SQLLiteral* exp = new SQLLiteral();
+        Token* t = nullptr;
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case INTEGER_LITERAL:{
+      if (!hasError) {
+      t = jj_consume_token(INTEGER_LITERAL);
+      }
+      if (!hasError) {
+exp->setValue(_STR(t), SQLLiteral::TYPE_NUMBER);
+                        exp->setPosition(t);
+      }
+      break;
+      }
+    case SQL_STRING_LITERAL:{
+      if (!hasError) {
+      t = jj_consume_token(SQL_STRING_LITERAL);
+      }
+      if (!hasError) {
+exp->setValue(_STR(t), SQLLiteral::TYPE_STRING);
+                        exp->setPosition(t);
+      }
+      break;
+      }
+    default:
+      jj_la1[63] = jj_gen;
+      jj_consume_token(-1);
+      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+    }
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(exp);
+                return exp;
+assert(false);
+}
+
+
+SQLBooleanLiteral                 * AlinousLang::sqlBooleanLiteral() {SQLBooleanLiteral* exp = new SQLBooleanLiteral();
+        Token* t = nullptr;
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case TRUE:{
+      if (!hasError) {
+      t = jj_consume_token(TRUE);
+      }
+      if (!hasError) {
+exp->setValue(true);
+                        exp->setPosition(t);
+      }
+      break;
+      }
+    case FALSE:{
+      if (!hasError) {
+      t = jj_consume_token(FALSE);
+      }
+      if (!hasError) {
+exp->setValue(false);
+                        exp->setPosition(t);
+      }
+      break;
+      }
+    default:
+      jj_la1[64] = jj_gen;
+      jj_consume_token(-1);
+      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+    }
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(exp);
+                return exp;
+assert(false);
+}
+
+
+SQLColumnIdentifier                   * AlinousLang::sqlColumnIdentifier() {SQLColumnIdentifier* exp = new SQLColumnIdentifier();
+        Token* t = nullptr;
+        Token* t1 = nullptr;
+        Token* t2 = nullptr;
+        Token* t3 = nullptr;
+    if (!hasError) {
+    t1 = jj_consume_token(IDENTIFIER);
+    }
+    if (!hasError) {
+exp->setPosition(t1);
+    }
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case DOT:{
+      if (!hasError) {
+      t = jj_consume_token(DOT);
+      }
+      if (!hasError) {
+exp->setPosition(t);
+      }
+      if (!hasError) {
+      t2 = jj_consume_token(IDENTIFIER);
+      }
+      if (!hasError) {
+exp->setPosition(t2);
+      }
+      if (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case DOT:{
+        if (!hasError) {
+        t = jj_consume_token(DOT);
+        }
+        if (!hasError) {
+exp->setPosition(t);
+        }
+        if (!hasError) {
+        t3 = jj_consume_token(IDENTIFIER);
+        }
+        if (!hasError) {
+exp->setPosition(t3);
+        }
+        break;
+        }
+      default:
+        jj_la1[65] = jj_gen;
+        ;
+      }
+      }
+      break;
+      }
+    default:
+      jj_la1[66] = jj_gen;
+      ;
+    }
+    }
+    if (!hasError) {
+if(t3 != nullptr){
+                        exp->setSchema(_STR(t1));
+                        exp->setTableName(_STR(t2));
+                        exp->setColumnName(_STR(t3));
+                }
+                if(t2 != nullptr){
+                        exp->setTableName(_STR(t1));
+                        exp->setColumnName(_STR(t2));
+                }
+                else{
+                        exp->setColumnName(_STR(t1));
+                }
+    }
+__ONERROR(exp);
+                return exp;
+assert(false);
+}
+
+
+SQLExpressionList
+                 * AlinousLang::sqlExpressionList() {SQLExpressionList* exp = new SQLExpressionList();
+        Token* t = nullptr;
+        AbstractSQLExpression* ex = nullptr;
+    if (!hasError) {
+    ex = sqlExpression();
+    }
+    if (!hasError) {
+exp->addExpression(ex);
+                exp->setPosition(ex);
+    }
+    if (!hasError) {
+    while (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case COMMA:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[67] = jj_gen;
+        goto end_label_22;
+      }
+      if (!hasError) {
+      jj_consume_token(COMMA);
+      }
+      if (!hasError) {
+exp->setPosition(t);
+      }
+      if (!hasError) {
+      ex = sqlExpression();
+      }
+      if (!hasError) {
+exp->addExpression(ex);
+                        exp->setPosition(ex);
+      }
+    }
+    end_label_22: ;
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(exp);
+                return exp;
+assert(false);
+}
+
+
+TableIdentifier               * AlinousLang::tableIdentifier() {TableIdentifier* exp = new TableIdentifier();
+        Token* t = nullptr;
+        Token* t1 = nullptr;
+        Token* t2 = nullptr;
+    if (!hasError) {
+    t1 = jj_consume_token(IDENTIFIER);
+    }
+    if (!hasError) {
+exp->setPosition(t1);
+    }
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case DOT:{
+      if (!hasError) {
+      t = jj_consume_token(DOT);
+      }
+      if (!hasError) {
+exp->setPosition(t);
+      }
+      if (!hasError) {
+      t2 = jj_consume_token(IDENTIFIER);
+      }
+      if (!hasError) {
+exp->setPosition(t2);
+      }
+      break;
+      }
+    default:
+      jj_la1[68] = jj_gen;
+      ;
+    }
+    }
+    if (!hasError) {
+if(t2 != nullptr){
+                        exp->setSchema(_STR(t1));
+                        exp->setTableName(_STR(t2));
+                }
+                else{
+                        exp->setTableName(_STR(t1));
+                }
+    }
+__ONERROR(exp);
+                return exp;
+assert(false);
+}
+
+
   AlinousLang::AlinousLang(TokenManager *tokenManager){
     head = nullptr;
     ReInit(tokenManager);
@@ -2833,7 +4028,7 @@ void AlinousLang::ReInit(TokenManager* tokenManager){
     trace = false;
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 46; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 69; i++) jj_la1[i] = -1;
   }
 
 
@@ -2864,7 +4059,7 @@ Token * AlinousLang::jj_consume_token(int kind)  {
       jj_gen++;
       if (++jj_gc > 100) {
         jj_gc = 0;
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 11; i++) {
           JJCalls *c = &jj_2_rtns[i];
           while (c != nullptr) {
             if (c->gen < jj_gen) c->first = nullptr;
@@ -2958,7 +4153,7 @@ int AlinousLang::jj_ntk_f(){
 
   void AlinousLang::jj_rescan_token(){
     jj_rescan = true;
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 11; i++) {
       JJCalls *p = &jj_2_rtns[i];
       do {
         if (p->gen > jj_gen) {
@@ -2970,6 +4165,11 @@ int AlinousLang::jj_ntk_f(){
             case 3: jj_3_4(); break;
             case 4: jj_3_5(); break;
             case 5: jj_3_6(); break;
+            case 6: jj_3_7(); break;
+            case 7: jj_3_8(); break;
+            case 8: jj_3_9(); break;
+            case 9: jj_3_10(); break;
+            case 10: jj_3_11(); break;
           }
         }
         p = p->next;

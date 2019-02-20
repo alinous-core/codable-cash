@@ -2,3 +2,749 @@
 /******************************************************************************************
 * SQL Language Expressions Starts
 */
+
+AbstractSQLExpression* sqlExpression() : {
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	(
+		exp=sqlOrExpression()
+	)
+	{}
+	{
+		return exp;
+	}
+}
+
+AbstractSQLExpression* sqlOrExpression() : {
+	SQLOrExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlAndExpression()
+	(LOOKAHEAD(2)
+		t=<OR> {
+			if(exp == nullptr){
+				exp = new SQLOrExpression();
+				exp->addOperand(left);
+				exp->setPosition(left);
+				left = exp;
+			}
+
+			exp->setPosition(t);
+		}
+		right=sqlAndExpression() {
+			exp->addOperand(right);
+			exp->setPosition(right);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlAndExpression() : {
+	SQLAndExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlNotExpression()
+	(LOOKAHEAD(2)
+		t=<SQLAND> {
+			if(exp == nullptr){
+				exp = new SQLAndExpression();
+				exp->addOperand(left);
+				exp->setPosition(left);
+				left = exp;
+			}
+
+			exp->setPosition(t);
+		}
+		right=sqlNotExpression() {
+			exp->addOperand(right);
+			exp->setPosition(right);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlNotExpression() : {
+	SQLNotExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	[
+		t=<NOT> {
+			exp = new SQLNotExpression();
+			exp->setPosition(t);
+			left = exp;
+		}
+	]
+	right=sqlLikeExpression() {
+		if(left == nullptr){
+			left = right;
+		}
+		else{
+			exp->setExpression(right);
+			exp->setPosition(right);
+		}
+	}
+	
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlLikeExpression() : {
+	SQLLikeExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	SQLLiteral* right = nullptr;
+}
+{
+	left=sqlIsNullExpression()
+	[LOOKAHEAD(2)
+		t=<LIKE> {
+			exp = new SQLLikeExpression();
+			exp->setLeft(left);
+			
+			exp->setPosition(left);
+			exp->setPosition(t);
+			left = exp;
+		}
+		
+		right=sqlLiteral() {
+			exp->setRight(right);
+			exp->setPosition(right);
+		}
+		
+		[
+			t=<ESCAPE> {
+				exp->setPosition(t);
+			}
+			right=sqlLiteral() {
+				exp->setEscape(right);
+				exp->setPosition(right);
+			}
+		]
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}	
+}
+
+AbstractSQLExpression* sqlIsNullExpression() : {
+	SQLIsNullExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlBetweenExpression()
+	[LOOKAHEAD(2)
+		t=<IS> {
+			exp = new SQLIsNullExpression();
+			exp->setExpression(left);
+			
+			exp->setPosition(left);
+			exp->setPosition(t);
+			left = exp;
+		}
+		
+		[
+			t=<SQL_NOT> {
+				exp->setNotNull(true);
+				exp->setPosition(t);
+			}
+		]
+		
+		t=<_NULL> {
+			exp->setPosition(t);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlBetweenExpression() : {
+	SQLBetweenExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlInExpression()
+	[
+		t=<BETWEEN> {
+			exp = new SQLBetweenExpression();
+			exp->setLeft(left);
+			
+			exp->setPosition(left);
+			exp->setPosition(t);
+			left = exp;
+		}
+		
+		right=sqlExpression() {
+			exp->setStart(right);
+			exp->setPosition(right);
+		}
+		
+		t=<SQLAND> {
+			exp->setPosition(t);
+		}
+		
+		right=sqlExpression() {
+			exp->setEnd(right);
+			exp->setPosition(right);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlInExpression() : {
+	SQLInExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	SQLExpressionList* list = nullptr;
+}
+{
+	
+	left=sqlRelationalExpression()
+	[
+		t=<IN> {
+			exp = new SQLInExpression();
+			exp->setLeft(left);
+			
+			exp->setPosition(left);
+			exp->setPosition(t);
+			left = exp;
+		}
+		t="(" {
+			exp->setPosition(t);
+		}
+		
+		list=sqlExpressionList() {
+			exp->setList(list);
+		}
+		
+		t=")" {
+			exp->setPosition(t);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlRelationalExpression() : {
+	SQLRelationalExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlEqualityExpression()
+	[
+		(
+			t="<" {
+				exp = new SQLRelationalExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLRelationalExpression::LT);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+			|
+			t=">" {
+				exp = new SQLRelationalExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLRelationalExpression::GT);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+			|
+			t="<=" {
+				exp = new SQLRelationalExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLRelationalExpression::LT_EQ);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+			|
+			t=">=" {
+				exp = new SQLRelationalExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLRelationalExpression::GT_EQ);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+		)
+		right=sqlEqualityExpression() {
+			exp->setRight(right);
+			exp->setPosition(right);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlEqualityExpression() : {
+	SQLEqualityExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlAdditiveExpression()
+	[
+		(
+			t="=" {
+				exp = new SQLEqualityExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLEqualityExpression::EQ);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+			|
+			t="<>" {
+				exp = new SQLEqualityExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLEqualityExpression::NOT_EQ);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+			|
+			t="!=" {
+				exp = new SQLEqualityExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLEqualityExpression::NOT_EQ);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+		)
+		right=sqlAdditiveExpression() {
+			exp->setRight(right);
+			exp->setPosition(right);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlAdditiveExpression() : {
+	SQLAdditiveExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlMultiplicativeExpression()
+	(
+		(
+			t="+" {
+				if(exp == nullptr){
+					exp = new SQLAdditiveExpression();
+					exp->addOperand(left);
+					exp->setPosition(left);
+					left = exp;
+				}
+				exp->addOpe(SQLAdditiveExpression::ADD);
+				exp->setPosition(t);
+			}
+			|
+			t="-" {
+				if(exp == nullptr){
+					exp = new SQLAdditiveExpression();
+					exp->addOperand(left);
+					exp->setPosition(left);
+					left = exp;
+				}
+				exp->addOpe(SQLAdditiveExpression::SUB);
+				exp->setPosition(t);
+			}
+		)
+		right=sqlMultiplicativeExpression() {
+			exp->addOperand(right);
+			exp->setPosition(right);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlMultiplicativeExpression() : {
+	SqlMultiplicativeExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlPrimitiveExpression()
+	(
+		(
+			t="*" {
+				if(exp == nullptr){
+					exp = new SqlMultiplicativeExpression();
+					exp->addOperand(left);
+					exp->setPosition(left);
+					left = exp;
+				}
+				exp->addOpe(SqlMultiplicativeExpression::MUL);
+				exp->setPosition(t);
+			}
+			|
+			t="/" {
+				if(exp == nullptr){
+					exp = new SqlMultiplicativeExpression();
+					exp->addOperand(left);
+					exp->setPosition(left);
+					left = exp;
+				}
+				exp->addOpe(SqlMultiplicativeExpression::DIV);
+				exp->setPosition(t);
+			}
+			|
+			t="%" {
+				if(exp == nullptr){
+					exp = new SqlMultiplicativeExpression();
+					exp->addOperand(left);
+					exp->setPosition(left);
+					left = exp;
+				}
+				exp->addOpe(SqlMultiplicativeExpression::MOD);
+				exp->setPosition(t);
+			}
+		)
+		right=sqlPrimitiveExpression() {
+			exp->addOperand(right);
+			exp->setPosition(right);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlPrimitiveExpression() : {
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	(
+		exp=sqlParenthesisExpression() |
+		exp=sqlLiteral() |
+		LOOKAHEAD(2) exp = sqlFunctionCall() |
+		exp=sqlBooleanLiteral() |
+		exp=sqlColumnIdentifier() |
+		exp=sqlPlaceHolder()
+	)
+	{}
+	{
+		return exp;
+	}
+}
+
+SQLFunctionCall* sqlFunctionCall() : {
+	SQLFunctionCall* exp = new SQLFunctionCall();
+	Token* t = nullptr;
+	VariableIdentifier* name = nullptr;
+}
+{
+	name=variableIdentifier() {
+		exp->setName(name);
+		exp->setPosition(name);
+	}
+	t="(" {
+		exp->setPosition(t);
+	}
+	
+	sqlFunctionCallArguments(exp)
+	
+	t=")" {
+		exp->setPosition(t);
+	}
+	
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+void sqlFunctionCallArguments(SQLFunctionCall* exp) : {
+	AbstractSQLExpression* ex = nullptr;
+	Token* t = nullptr;
+}
+{
+	[
+		ex=sqlExpression() {
+			exp->addArgument(ex);
+			exp->setPosition(ex);
+		}
+		
+		(
+			"," {
+				exp->setPosition(t);
+			}
+			ex=sqlExpression() {
+				exp->addArgument(ex);
+				exp->setPosition(ex);
+			}
+			
+		)*
+	]
+}
+
+SQLPlaceHolder* sqlPlaceHolder() : {
+	SQLPlaceHolder* exp = new SQLPlaceHolder();
+	Token* t = nullptr;
+	AbstractExpression* ex = nullptr;
+}
+{
+	t="$" {
+		exp->setPosition(t);
+	}
+	t="{" {
+		exp->setPosition(t);
+	}
+	
+	ex=expression() {
+		exp->setExpression(ex);
+	}
+	
+	t="}" {
+		exp->setPosition(t);
+	}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+
+SQLParenthesisExpression* sqlParenthesisExpression() : {
+	SQLParenthesisExpression* exp = new SQLParenthesisExpression();
+	Token* t = nullptr;
+	AbstractSQLExpression* ex = nullptr;
+}
+{
+	t="(" {
+		exp->setPosition(t);
+	}
+	
+	ex=sqlExpression() {
+		exp->setExpression(ex);
+		exp->setPosition(ex);
+	}
+
+	t=")" {
+		exp->setPosition(t);
+	}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+SQLLiteral* sqlLiteral() : {
+	SQLLiteral* exp = new SQLLiteral();
+	Token* t = nullptr;
+}
+{
+	(
+		t=<INTEGER_LITERAL> {
+			exp->setValue(_STR(t), SQLLiteral::TYPE_NUMBER);
+			exp->setPosition(t);
+		}
+		|
+		t=<SQL_STRING_LITERAL> {
+			exp->setValue(_STR(t), SQLLiteral::TYPE_STRING);
+			exp->setPosition(t);
+		}
+	)
+	{}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+SQLBooleanLiteral* sqlBooleanLiteral() : {
+	SQLBooleanLiteral* exp = new SQLBooleanLiteral();
+	Token* t = nullptr;
+}
+{
+	(
+		t=<TRUE> {
+			exp->setValue(true);
+			exp->setPosition(t);
+		}
+		|
+		t= <FALSE> {
+			exp->setValue(false);
+			exp->setPosition(t);
+		}
+	)
+	{}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+SQLColumnIdentifier* sqlColumnIdentifier() : {
+	SQLColumnIdentifier* exp = new SQLColumnIdentifier();
+	Token* t = nullptr;
+	Token* t1 = nullptr;
+	Token* t2 = nullptr;
+	Token* t3 = nullptr;
+}
+{
+	t1=<IDENTIFIER> {
+		exp->setPosition(t1);
+	}
+	[
+		t="." {
+			exp->setPosition(t);
+		}
+		t2=<IDENTIFIER> {
+			exp->setPosition(t2);
+		}
+		[
+			t="." {
+				exp->setPosition(t);
+			}
+			t3=<IDENTIFIER> {
+				exp->setPosition(t3);
+			}
+		]
+	]
+	{
+		if(t3 != nullptr){
+			exp->setSchema(_STR(t1));
+			exp->setTableName(_STR(t2));
+			exp->setColumnName(_STR(t3));
+		}
+		if(t2 != nullptr){
+			exp->setTableName(_STR(t1));
+			exp->setColumnName(_STR(t2));
+		}
+		else{
+			exp->setColumnName(_STR(t1));
+		}
+	}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+/******************************************************************************************
+* SQL Language Expressions Special Part Starts
+*/
+
+SQLExpressionList* sqlExpressionList() : {
+	SQLExpressionList* exp = new SQLExpressionList();
+	Token* t = nullptr;
+	AbstractSQLExpression* ex = nullptr;
+}
+{
+	ex=sqlExpression() {
+		exp->addExpression(ex);
+		exp->setPosition(ex);
+	}
+	(
+		"," {
+			exp->setPosition(t);
+		}
+		ex=sqlExpression() {
+			exp->addExpression(ex);
+			exp->setPosition(ex);
+		}
+		
+	)*
+	{}
+	{
+		__ONERROR(exp);
+		return exp;
+	}	
+}
+
+TableIdentifier* tableIdentifier() : {
+	TableIdentifier* exp = new TableIdentifier();
+	Token* t = nullptr;
+	Token* t1 = nullptr;
+	Token* t2 = nullptr;
+}
+{
+	t1=<IDENTIFIER> {
+		exp->setPosition(t1);
+	}
+	[
+		t="." {
+			exp->setPosition(t);
+		}
+		t2=<IDENTIFIER> {
+			exp->setPosition(t2);
+		}
+	]
+	{
+		if(t2 != nullptr){
+			exp->setSchema(_STR(t1));
+			exp->setTableName(_STR(t2));
+		}
+		else{
+			exp->setTableName(_STR(t1));
+		}
+	}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}

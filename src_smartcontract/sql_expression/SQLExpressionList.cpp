@@ -5,17 +5,19 @@
  *      Author: iizuka
  */
 
-#include "sql_dml_parts/SQLExpressionList.h"
+#include "sql_expression/SQLExpressionList.h"
 
 namespace alinous {
 
-SQLExpressionList::SQLExpressionList() {
-	// TODO Auto-generated constructor stub
-
+SQLExpressionList::SQLExpressionList() : AbstractSQLExpression(CodeElement::SQL_EXP_EXP_LIST) {
 }
 
 SQLExpressionList::~SQLExpressionList() {
-	// TODO Auto-generated destructor stub
+	this->list.deleteElements();
+}
+
+void SQLExpressionList::addExpression(AbstractSQLExpression* exp) noexcept {
+	this->list.addElement(exp);
 }
 
 } /* namespace alinous */
