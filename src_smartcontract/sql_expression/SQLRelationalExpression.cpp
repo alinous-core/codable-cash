@@ -9,13 +9,27 @@
 
 namespace alinous {
 
-SQLRelationalExpression::SQLRelationalExpression() : AbstractSQLBinaryExpression(CodeElement::SQL_EXP_RELATIONAL) {
-	// TODO Auto-generated constructor stub
-
+SQLRelationalExpression::SQLRelationalExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_RELATIONAL) {
+	this->left = nullptr;
+	this->right = nullptr;
+	this->op = 0;
 }
 
 SQLRelationalExpression::~SQLRelationalExpression() {
-	// TODO Auto-generated destructor stub
+	delete this->left;
+	delete this->right;
+}
+
+void SQLRelationalExpression::setLeft(AbstractSQLExpression* exp) noexcept {
+	this->left = exp;
+}
+
+void SQLRelationalExpression::setRight(AbstractSQLExpression* exp) noexcept {
+	this->right = exp;
+}
+
+void SQLRelationalExpression::setOp(uint8_t op) noexcept {
+	this->op = op;
 }
 
 } /* namespace alinous */

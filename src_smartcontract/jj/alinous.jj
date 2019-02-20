@@ -2330,7 +2330,7 @@ AbstractSQLExpression* sqlInExpression() : {
 }
 {
 	
-	left=sqlPrimitiveExpression()
+	left=sqlRelationalExpression()
 	[
 		t=<IN> {
 			exp = new SQLInExpression();
@@ -2350,6 +2350,120 @@ AbstractSQLExpression* sqlInExpression() : {
 		
 		t=")" {
 			exp->setPosition(t);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlRelationalExpression() : {
+	SQLRelationalExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlEqualityExpression()
+	[
+		(
+			t="<" {
+				exp = new SQLRelationalExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLRelationalExpression::LT);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+			|
+			t=">" {
+				exp = new SQLRelationalExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLRelationalExpression::GT);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+			|
+			t="<=" {
+				exp = new SQLRelationalExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLRelationalExpression::LT_EQ);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+			|
+			t=">=" {
+				exp = new SQLRelationalExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLRelationalExpression::GT_EQ);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+		)
+		right=sqlEqualityExpression() {
+			exp->setRight(right);
+			exp->setPosition(right);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlEqualityExpression() : {
+	SQLEqualityExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlPrimitiveExpression()
+	[
+		(
+			t="=" {
+				exp = new SQLEqualityExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLEqualityExpression::EQ);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+			|
+			t="<>" {
+				exp = new SQLEqualityExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLEqualityExpression::NOT_EQ);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+			|
+			t="!=" {
+				exp = new SQLEqualityExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLEqualityExpression::NOT_EQ);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+		)
+		right=sqlPrimitiveExpression() {
+			exp->setRight(right);
+			exp->setPosition(right);
 		}
 	]
 	{}

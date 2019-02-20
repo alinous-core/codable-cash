@@ -257,6 +257,7 @@ static JJChar jjstrLiteralChars_188[] = {0x5e, 0};
 static JJChar jjstrLiteralChars_189[] = {0x3c, 0x3c, 0};
 
 static JJChar jjstrLiteralChars_190[] = {0x7e, 0};
+static JJChar jjstrLiteralChars_191[] = {0x3c, 0x3e, 0};
 static const JJString jjstrLiteralImages[] = {
 jjstrLiteralChars_0, 
 jjstrLiteralChars_1, 
@@ -449,6 +450,7 @@ jjstrLiteralChars_187,
 jjstrLiteralChars_188, 
 jjstrLiteralChars_189, 
 jjstrLiteralChars_190, 
+jjstrLiteralChars_191, 
 };
 
 /** Lexer state names. */
@@ -473,16 +475,16 @@ static const int jjnewLexState[] = {
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
-   -1, -1, -1, -1, -1, -1, -1, 1, 2, 0, -1, 0, -1, -1, -1, -1, 
+   -1, -1, -1, -1, -1, -1, -1, 1, 2, 0, -1, 0, -1, -1, -1, -1, -1, 
 };
 static const unsigned long long jjtoToken[] = {
-   0xfffffffffffc2201ULL, 0xffffffffffffffffULL, 0x703fffffffffffffULL, 
+   0xfffffffffffc2201ULL, 0xffffffffffffffffULL, 0xf03fffffffffffffULL, 0x0ULL, 
 };
 static const unsigned long long jjtoSkip[] = {
-   0x1eULL, 0x0ULL, 0x500000000000000ULL, 
+   0x1eULL, 0x0ULL, 0x500000000000000ULL, 0x0ULL, 
 };
 static const unsigned long long jjtoSpecial[] = {
-   0x0ULL, 0x0ULL, 0x500000000000000ULL, 
+   0x0ULL, 0x0ULL, 0x500000000000000ULL, 0x0ULL, 
 };
 
   void  AlinousLangTokenManager::setDebugStream(FILE *ds){ debugStream = ds; }
@@ -562,7 +564,7 @@ static const unsigned long long jjtoSpecial[] = {
          return jjMoveNfa_0(0, 0);
       case 60:
          jjmatchedKind = 49;
-         return jjMoveStringLiteralDfa1_0(0x4000000000000ULL, 0x80000000000ULL, 0x2000000000000000ULL);
+         return jjMoveStringLiteralDfa1_0(0x4000000000000ULL, 0x80000000000ULL, 0xa000000000000000ULL);
       case 61:
          jjmatchedKind = 22;
          return jjMoveStringLiteralDfa1_0(0x200000000000ULL, 0x0ULL, 0x0ULL);
@@ -757,6 +759,11 @@ static const unsigned long long jjtoSpecial[] = {
          if ((active0 & 0x20000000000000ULL) != 0L)
          {
             jjmatchedKind = 53;
+            jjmatchedPos = 1;
+         }
+         else if ((active2 & 0x8000000000000000ULL) != 0L)
+         {
+            jjmatchedKind = 191;
             jjmatchedPos = 1;
          }
          return jjMoveStringLiteralDfa2_0(active0, 0x40000000000000ULL, active1, 0L, active2, 0L);

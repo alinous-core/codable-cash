@@ -9,13 +9,27 @@
 
 namespace alinous {
 
-SQLEqualityExpression::SQLEqualityExpression() : AbstractSQLBinaryExpression(CodeElement::SQL_EXP_EQUALITY) {
-	// TODO Auto-generated constructor stub
-
+SQLEqualityExpression::SQLEqualityExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_EQUALITY) {
+	this->left = nullptr;
+	this->right = nullptr;
+	this->op = 0;
 }
 
 SQLEqualityExpression::~SQLEqualityExpression() {
-	// TODO Auto-generated destructor stub
+	delete this->left;
+	delete this->right;
+}
+
+void SQLEqualityExpression::setLeft(AbstractSQLExpression* exp) noexcept {
+	this->left = exp;
+}
+
+void SQLEqualityExpression::setRight(AbstractSQLExpression* exp) noexcept {
+	this->right = exp;
+}
+
+void SQLEqualityExpression::setOp(uint8_t op) noexcept {
+	this->op = op;
 }
 
 } /* namespace alinous */
