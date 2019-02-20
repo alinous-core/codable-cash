@@ -8,11 +8,73 @@ AbstractSQLExpression* sqlExpression() : {
 }
 {
 	(
-		exp=sqlNotExpression()
+		exp=sqlOrExpression()
 	)
 	{}
 	{
 		return exp;
+	}
+}
+
+AbstractSQLExpression* sqlOrExpression() : {
+	SQLOrExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlAndExpression()
+	(LOOKAHEAD(2)
+		t=<OR> {
+			if(exp == nullptr){
+				exp = new SQLOrExpression();
+				exp->addOperand(left);
+				exp->setPosition(left);
+				left = exp;
+			}
+
+			exp->setPosition(t);
+		}
+		right=sqlAndExpression() {
+			exp->addOperand(right);
+			exp->setPosition(right);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlAndExpression() : {
+	SQLAndExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlNotExpression()
+	(LOOKAHEAD(2)
+		t=<SQLAND> {
+			if(exp == nullptr){
+				exp = new SQLAndExpression();
+				exp->addOperand(left);
+				exp->setPosition(left);
+				left = exp;
+			}
+
+			exp->setPosition(t);
+		}
+		right=sqlNotExpression() {
+			exp->addOperand(right);
+			exp->setPosition(right);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
 	}
 }
 
