@@ -2428,7 +2428,7 @@ AbstractSQLExpression* sqlEqualityExpression() : {
 	AbstractSQLExpression* right = nullptr;
 }
 {
-	left=sqlPrimitiveExpression()
+	left=sqlAdditiveExpression()
 	[
 		(
 			t="=" {
@@ -2461,11 +2461,110 @@ AbstractSQLExpression* sqlEqualityExpression() : {
 				left = exp;
 			}
 		)
-		right=sqlPrimitiveExpression() {
+		right=sqlAdditiveExpression() {
 			exp->setRight(right);
 			exp->setPosition(right);
 		}
 	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlAdditiveExpression() : {
+	SQLAdditiveExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlMultiplicativeExpression()
+	(
+		(
+			t="+" {
+				if(exp == nullptr){
+					exp = new SQLAdditiveExpression();
+					exp->addOperand(left);
+					exp->setPosition(left);
+					left = exp;
+				}
+				exp->addOpe(SQLAdditiveExpression::ADD);
+				exp->setPosition(t);
+			}
+			|
+			t="-" {
+				if(exp == nullptr){
+					exp = new SQLAdditiveExpression();
+					exp->addOperand(left);
+					exp->setPosition(left);
+					left = exp;
+				}
+				exp->addOpe(SQLAdditiveExpression::SUB);
+				exp->setPosition(t);
+			}
+		)
+		right=sqlMultiplicativeExpression() {
+			exp->addOperand(right);
+			exp->setPosition(right);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlMultiplicativeExpression() : {
+	SqlMultiplicativeExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlPrimitiveExpression()
+	(
+		(
+			t="*" {
+				if(exp == nullptr){
+					exp = new SqlMultiplicativeExpression();
+					exp->addOperand(left);
+					exp->setPosition(left);
+					left = exp;
+				}
+				exp->addOpe(SqlMultiplicativeExpression::MUL);
+				exp->setPosition(t);
+			}
+			|
+			t="/" {
+				if(exp == nullptr){
+					exp = new SqlMultiplicativeExpression();
+					exp->addOperand(left);
+					exp->setPosition(left);
+					left = exp;
+				}
+				exp->addOpe(SqlMultiplicativeExpression::DIV);
+				exp->setPosition(t);
+			}
+			|
+			t="%" {
+				if(exp == nullptr){
+					exp = new SqlMultiplicativeExpression();
+					exp->addOperand(left);
+					exp->setPosition(left);
+					left = exp;
+				}
+				exp->addOpe(SqlMultiplicativeExpression::MOD);
+				exp->setPosition(t);
+			}
+		)
+		right=sqlPrimitiveExpression() {
+			exp->addOperand(right);
+			exp->setPosition(right);
+		}
+	)*
 	{}
 	{
 		__ONERROR(left);

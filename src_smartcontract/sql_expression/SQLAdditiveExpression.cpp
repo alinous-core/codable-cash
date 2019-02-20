@@ -15,4 +15,8 @@ SQLAdditiveExpression::SQLAdditiveExpression() : AbstractSQLBinaryExpression(Cod
 SQLAdditiveExpression::~SQLAdditiveExpression() {
 }
 
+void SQLAdditiveExpression::addOpe(uint8_t ope) noexcept {
+	this->operations.addElement(ope);
+}
+
 } /* namespace alinous */
