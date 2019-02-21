@@ -2793,6 +2793,7 @@ assert(false);
 
 DropTableStatement                  * AlinousLang::dropTableStatement() {DropTableStatement* stmt = new DropTableStatement();
         Token* t = null;
+        TableIdentifier* tableId = nullptr;
     if (!hasError) {
     t = jj_consume_token(DROP);
     }
@@ -2804,6 +2805,13 @@ stmt->setPosition(t);
     }
     if (!hasError) {
 stmt->setPosition(t);
+    }
+    if (!hasError) {
+    tableId = tableIdentifier();
+    }
+    if (!hasError) {
+stmt->setTableId(tableId);
+                stmt->setPosition(tableId);
     }
     if (!hasError) {
     t = jj_consume_token(SEMI_COLON);

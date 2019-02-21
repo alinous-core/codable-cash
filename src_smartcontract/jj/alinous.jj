@@ -2138,6 +2138,7 @@ CreateTableStatement* createTableStatement() : {
 DropTableStatement* dropTableStatement() : {
 	DropTableStatement* stmt = new DropTableStatement();
 	Token* t = null;
+	TableIdentifier* tableId = nullptr;
 }
 {
 	t=<DROP>{
@@ -2145,6 +2146,11 @@ DropTableStatement* dropTableStatement() : {
 	}
 	t=<TABLE>{
 		stmt->setPosition(t);
+	}
+	
+	tableId=tableIdentifier() {
+		stmt->setTableId(tableId);
+		stmt->setPosition(tableId);
 	}
 	
 	t=";" {
