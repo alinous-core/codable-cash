@@ -85,7 +85,22 @@ SQLColumnsList* sqlColumnsList() : {
 }
 {
 	colId=sqlColumnIdentifier() {
-	
+		stmt->addColumn(colId);
+		stmt->setPosition(colId);
+	}
+	(
+		t="," {
+			stmt->setPosition(t);
+		}
+		colId=sqlColumnIdentifier() {
+			stmt->addColumn(colId);
+			stmt->setPosition(colId);
+		}
+	)*
+	{}
+	{
+		__ONERROR(stmt);
+		return stmt;
 	}
 }
 
