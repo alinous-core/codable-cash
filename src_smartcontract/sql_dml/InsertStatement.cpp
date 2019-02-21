@@ -7,15 +7,35 @@
 
 #include "sql_dml/InsertStatement.h"
 
+#include "sql_expression/TableIdentifier.h"
+#include "sql_dml_parts/SQLColumnsList.h"
+#include "sql_expression/SQLExpressionList.h"
+
 namespace alinous {
 
 InsertStatement::InsertStatement() : AbstractSQLStatement(CodeElement::DML_STMT_INSERT) {
-	// TODO Auto-generated constructor stub
-
+	this->tableId = nullptr;
+	this->columns = nullptr;
+	this->expList = nullptr;
 }
 
 InsertStatement::~InsertStatement() {
-	// TODO Auto-generated destructor stub
+	delete this->tableId;
+	delete this->columns;
+	delete this->expList;
 }
+
+void InsertStatement::setTable(TableIdentifier* tableId) noexcept {
+	this->tableId = tableId;
+}
+
+void InsertStatement::setColumns(SQLColumnsList* columns) noexcept {
+	this->columns = columns;
+}
+
+void InsertStatement::setExpressionList(SQLExpressionList* expList) noexcept {
+	this->expList = expList;
+}
+
 
 } /* namespace alinous */

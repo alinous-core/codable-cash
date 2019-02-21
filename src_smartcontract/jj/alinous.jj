@@ -2174,11 +2174,81 @@ AbstractSQLStatement* sqlDmlStatement() : {
 		stmt=beginStatement() |
 		stmt=commitStatement() |
 		stmt=rollbackStatement() |
-		stmt=deleteStatement() 
+		stmt=deleteStatement() |
+		stmt=insertStatement()
 	)
 	{}
 	{
 		return stmt;
+	}
+}
+
+InsertStatement* insertStatement() : {
+	InsertStatement* stmt = new InsertStatement();
+	Token* t = nullptr;
+	TableIdentifier* tableId = nullptr;
+	SQLColumnsList* columns = nullptr;
+	SQLExpressionList* expList = nullptr;
+}
+{
+	t=<INSERT> {
+		stmt->setPosition(t);
+	}
+	t=<INTO> {
+		stmt->setPosition(t);
+	}
+	tableId=tableIdentifier() {
+		stmt->setTable(tableId);
+		stmt->setPosition(tableId);
+	}
+	
+	[
+		t="(" {
+			stmt->setPosition(t);
+		}
+		
+		columns=sqlColumnsList() {
+			stmt->setColumns(columns);
+			stmt->setPosition(columns);
+		}
+		
+		t=")" {
+			stmt->setPosition(t);
+		}
+	]
+	
+	t=<VALUES> {
+		stmt->setPosition(t);
+	}	
+	t="(" {
+		stmt->setPosition(t);
+	}
+	expList=sqlExpressionList() {
+		stmt->setExpressionList(expList);
+		stmt->setPosition(expList);
+	}
+	
+	t=")" {
+		stmt->setPosition(t);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLColumnsList* sqlColumnsList() : {
+	SQLColumnsList* stmt = new SQLColumnsList();
+	Token* t = nullptr;
+	SQLColumnIdentifier* colId = nullptr;
+}
+{
+	colId=sqlColumnIdentifier() {
+	
 	}
 }
 

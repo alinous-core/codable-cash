@@ -6,16 +6,19 @@
  */
 
 #include "sql_dml_parts/SQLColumnsList.h"
+#include "sql_expression/SQLColumnIdentifier.h"
 
 namespace alinous {
 
 SQLColumnsList::SQLColumnsList() {
-	// TODO Auto-generated constructor stub
-
 }
 
 SQLColumnsList::~SQLColumnsList() {
-	// TODO Auto-generated destructor stub
+	this->list.deleteElements();
+}
+
+void SQLColumnsList::addColumn(SQLColumnIdentifier* colId) noexcept {
+	this->list.addElement(colId);
 }
 
 } /* namespace alinous */
