@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-UpdateStatement::UpdateStatement() {
+UpdateStatement::UpdateStatement() : AbstractSQLStatement(CodeElement::DML_STMT_UPDATE) {
 	// TODO Auto-generated constructor stub
 
 }

@@ -776,7 +776,8 @@ AbstractStatement* statement() : {
 		stmt=expressionStatement() |
 		stmt=ctrlStatement() |
 		stmt=blankStatement() |
-		stmt=ddlStatement()
+		stmt=ddlStatement() |
+		stmt=sqlDmlStatement()
 	)
 	{}
 	{
@@ -2159,6 +2160,141 @@ DropTableStatement* dropTableStatement() : {
 * SQL Language DML Statements Starts
 */
 
+AbstractSQLStatement* sqlDmlStatement() : {
+	AbstractSQLStatement* stmt = nullptr;
+}
+{
+	(
+		stmt=beginStatement() |
+		stmt=commitStatement() |
+		stmt=rollbackStatement() |
+		stmt=deleteStatement() 
+	)
+	{}
+	{
+		return stmt;
+	}
+}
+
+DeleteStatement* deleteStatement() : {
+	DeleteStatement* stmt = new DeleteStatement();
+	Token* t = nullptr;
+	SQLFrom* from = nullptr;
+	SQLWhere* where = nullptr;
+}
+{
+	t=<DELETE> {
+		stmt->setPosition(t);
+	}
+	from=sqlFrom() {
+		stmt->setFrom(from);
+		stmt->setPosition(from);
+	}
+	[
+		where=sqlWhere() {
+			stmt->setWhere(where);
+			stmt->setPosition(where);
+		}
+	]
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLWhere* sqlWhere() : {
+	SQLWhere* stmt = new SQLWhere();
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	t=<WHERE> {
+		stmt->setPosition(t);
+	}
+	exp=sqlExpression() {
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLFrom* sqlFrom() : {
+	SQLFrom* stmt = new SQLFrom();
+	Token* t = nullptr;
+	TableIdentifier* tableId = nullptr;
+}
+{
+	t=<FROM> {
+		stmt->setPosition(t);
+	}
+	tableId=tableIdentifier() {
+		stmt->setTableId(tableId);
+		stmt->setPosition(tableId);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}	
+}
+
+BeginStatement* beginStatement() : {
+	BeginStatement* stmt = new BeginStatement();
+	Token* t = null;
+}
+{
+	t=<BEGIN> {
+		stmt->setPosition(t);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+CommitStatement* commitStatement() : {
+	CommitStatement* stmt = new CommitStatement();
+	Token* t = null;
+}
+{
+	t=<COMMIT> {
+		stmt->setPosition(t);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+RollbackStatement* rollbackStatement() : {
+	RollbackStatement* stmt = new RollbackStatement();
+	Token* t = null;
+}
+{
+	t=<ROLLBACK> {
+		stmt->setPosition(t);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
 
 /******************************************************************************************
 * SQL Language Expressions Starts

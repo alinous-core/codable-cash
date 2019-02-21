@@ -8,9 +8,11 @@
 #ifndef SQL_DML_SELECTSTATEMENT_H_
 #define SQL_DML_SELECTSTATEMENT_H_
 
+#include "sql/AbstractSQLStatement.h"
+
 namespace alinous {
 
-class SelectStatement {
+class SelectStatement : public AbstractSQLStatement {
 public:
 	SelectStatement();
 	virtual ~SelectStatement();

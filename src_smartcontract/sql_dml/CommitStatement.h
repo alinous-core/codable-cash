@@ -8,9 +8,11 @@
 #ifndef SQL_DML_COMMITSTATEMENT_H_
 #define SQL_DML_COMMITSTATEMENT_H_
 
+#include "sql/AbstractSQLStatement.h"
+
 namespace alinous {
 
-class CommitStatement {
+class CommitStatement : public AbstractSQLStatement {
 public:
 	CommitStatement();
 	virtual ~CommitStatement();

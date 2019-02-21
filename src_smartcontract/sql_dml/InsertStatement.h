@@ -8,9 +8,11 @@
 #ifndef SQL_DML_INSERTSTATEMENT_H_
 #define SQL_DML_INSERTSTATEMENT_H_
 
+#include "sql/AbstractSQLStatement.h"
+
 namespace alinous {
 
-class InsertStatement {
+class InsertStatement : public AbstractSQLStatement {
 public:
 	InsertStatement();
 	virtual ~InsertStatement();

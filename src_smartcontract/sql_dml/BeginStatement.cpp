@@ -9,13 +9,10 @@
 
 namespace alinous {
 
-BeginStatement::BeginStatement() {
-	// TODO Auto-generated constructor stub
-
+BeginStatement::BeginStatement() : AbstractSQLStatement(CodeElement::DML_STMT_BEGIN) {
 }
 
 BeginStatement::~BeginStatement() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

@@ -6,16 +6,20 @@
  */
 
 #include "sql_dml_parts/SQLFrom.h"
+#include "sql_expression/TableIdentifier.h"
 
 namespace alinous {
 
 SQLFrom::SQLFrom() {
-	// TODO Auto-generated constructor stub
-
+	this->tableId = nullptr;
 }
 
 SQLFrom::~SQLFrom() {
-	// TODO Auto-generated destructor stub
+	delete this->tableId;
+}
+
+void SQLFrom::setTableId(TableIdentifier* tableId) noexcept {
+	this->tableId = tableId;
 }
 
 } /* namespace alinous */

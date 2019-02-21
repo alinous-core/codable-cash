@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-SelectStatement::SelectStatement() {
+SelectStatement::SelectStatement() : AbstractSQLStatement(CodeElement::DML_STMT_SELECT) {
 	// TODO Auto-generated constructor stub
 
 }

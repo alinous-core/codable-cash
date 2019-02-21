@@ -4,7 +4,11 @@ set(__src
 	SQLColumnsList.cpp
 	SQLFrom.cpp
 	SQLGroupBy.cpp
+	SQLHaving.cpp
+	SQLJoin.cpp
 	SQLLimitOffset.cpp
+	SQLSet.cpp
+	SQLWhere.cpp
 )
 
 handle_sub(codablecashlib "${__src}" smartcontract sql_dml_parts)

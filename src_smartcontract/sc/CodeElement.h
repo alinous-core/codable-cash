@@ -114,7 +114,7 @@ public:
 	static const constexpr short SQL_EXP_TABLE_ID{197};
 	static const constexpr short SQL_EXP_PLACE_HOLDER{198};
 
-
+	static const constexpr short SQL_PART{220};
 
 	explicit CodeElement(short kind);
 	virtual ~CodeElement();

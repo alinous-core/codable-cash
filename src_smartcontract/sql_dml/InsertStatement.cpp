@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-InsertStatement::InsertStatement() {
+InsertStatement::InsertStatement() : AbstractSQLStatement(CodeElement::DML_STMT_INSERT) {
 	// TODO Auto-generated constructor stub
 
 }

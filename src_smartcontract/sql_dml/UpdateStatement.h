@@ -8,9 +8,11 @@
 #ifndef SQL_DML_UPDATESTATEMENT_H_
 #define SQL_DML_UPDATESTATEMENT_H_
 
+#include "sql/AbstractSQLStatement.h"
+
 namespace alinous {
 
-class UpdateStatement {
+class UpdateStatement : public AbstractSQLStatement {
 public:
 	UpdateStatement();
 	virtual ~UpdateStatement();
