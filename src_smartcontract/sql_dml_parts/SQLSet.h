@@ -8,12 +8,21 @@
 #ifndef SQL_DML_PARTS_SQLSET_H_
 #define SQL_DML_PARTS_SQLSET_H_
 
+#include "sql/AbstractSQLPart.h"
+#include "base/ArrayList.h"
+
 namespace alinous {
 
-class SQLSet {
+class SQLSetPair;
+
+class SQLSet : public AbstractSQLPart {
 public:
 	SQLSet();
 	virtual ~SQLSet();
+
+	void addPair(SQLSetPair* pair) noexcept;
+private:
+	ArrayList<SQLSetPair> list;
 };
 
 } /* namespace alinous */

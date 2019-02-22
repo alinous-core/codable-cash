@@ -6,16 +6,34 @@
  */
 
 #include "sql_dml/UpdateStatement.h"
+#include "sql_expression/TableIdentifier.h"
+#include "sql_dml_parts/SQLWhere.h"
+#include "sql_dml_parts/SQLSet.h"
 
 namespace alinous {
 
 UpdateStatement::UpdateStatement() : AbstractSQLStatement(CodeElement::DML_STMT_UPDATE) {
-	// TODO Auto-generated constructor stub
-
+	this->tableId = nullptr;
+	this->set = nullptr;
+	this->where = nullptr;
 }
 
 UpdateStatement::~UpdateStatement() {
-	// TODO Auto-generated destructor stub
+	delete this->tableId;
+	delete this->set;
+	delete this->where;
+}
+
+void UpdateStatement::setTable(TableIdentifier* tableId) noexcept {
+	this->tableId = tableId;
+}
+
+void UpdateStatement::setSet(SQLSet* set) noexcept {
+	this->set = set;
+}
+
+void UpdateStatement::setWhere(SQLWhere* where) noexcept {
+	this->where = where;
 }
 
 } /* namespace alinous */

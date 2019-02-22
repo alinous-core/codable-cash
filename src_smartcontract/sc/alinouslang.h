@@ -92,6 +92,7 @@
 #include "sql_dml_parts/SQLJoin.h"
 #include "sql_dml_parts/SQLLimitOffset.h"
 #include "sql_dml_parts/SQLSet.h"
+#include "sql_dml_parts/SQLSetPair.h"
 #include "sql_dml_parts/SQLWhere.h"
 
 #include "sql_expression/SQLAdditiveExpression.h"

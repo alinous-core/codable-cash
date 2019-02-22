@@ -6,16 +6,19 @@
  */
 
 #include "sql_dml_parts/SQLSet.h"
+#include "sql_dml_parts/SQLSetPair.h"
 
 namespace alinous {
 
 SQLSet::SQLSet() {
-	// TODO Auto-generated constructor stub
-
 }
 
 SQLSet::~SQLSet() {
-	// TODO Auto-generated destructor stub
+	this->list.deleteElements();
+}
+
+void SQLSet::addPair(SQLSetPair* pair) noexcept {
+	this->list.addElement(pair);
 }
 
 } /* namespace alinous */

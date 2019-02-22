@@ -2175,10 +2175,101 @@ AbstractSQLStatement* sqlDmlStatement() : {
 		stmt=commitStatement() |
 		stmt=rollbackStatement() |
 		stmt=deleteStatement() |
-		stmt=insertStatement()
+		stmt=insertStatement() |
+		stmt=updateStatement()
 	)
 	{}
 	{
+		return stmt;
+	}
+}
+
+UpdateStatement* updateStatement() : {
+	UpdateStatement* stmt = new UpdateStatement();
+	Token* t = nullptr;
+	TableIdentifier* tableId = nullptr;
+	SQLSet* set = nullptr;
+	SQLWhere* where = nullptr;
+}
+{
+	t=<UPDATE> {
+		stmt->setPosition(t);
+	}
+	tableId=tableIdentifier() {
+		stmt->setTable(tableId);
+		stmt->setPosition(tableId);
+	}
+	set=sqlSet() {
+		stmt->setSet(set);
+		stmt->setPosition(set);
+	}
+	[
+		where=sqlWhere() {
+			stmt->setWhere(where);
+			stmt->setPosition(where);
+		}
+	]	
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLSet* sqlSet() : {
+	SQLSet* stmt = new SQLSet();
+	Token* t = nullptr;
+	SQLSetPair* pair = nullptr;
+}
+{
+	t=<SET> {
+		stmt->setPosition(t);
+	}
+	pair=sqlSetPair() {
+		stmt->addPair(pair);
+		stmt->setPosition(pair);
+	}
+	(
+		t="," {
+			stmt->setPosition(t);
+		}
+		pair=sqlSetPair() {
+			stmt->addPair(pair);
+			stmt->setPosition(pair);
+		}	
+	)*
+	{}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLSetPair* sqlSetPair() : {
+	SQLSetPair* stmt = new SQLSetPair();
+	Token* t = nullptr;
+	SQLColumnIdentifier* colId = nullptr;
+	AbstractSQLExpression* ex = nullptr;
+}
+{
+	colId=sqlColumnIdentifier() {
+		stmt->setColumn(colId);
+		stmt->setPosition(colId);
+	}
+	
+	t="=" {
+		stmt->setPosition(t);
+	}
+	
+	ex=sqlExpression() {
+		stmt->setExpression(ex);
+		stmt->setPosition(ex);
+	}
+	{
+		__ONERROR(stmt);
 		return stmt;
 	}
 }
