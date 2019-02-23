@@ -13,10 +13,83 @@ AbstractSQLStatement* sqlDmlStatement() : {
 		stmt=rollbackStatement() |
 		stmt=deleteStatement() |
 		stmt=insertStatement() |
-		stmt=updateStatement()
+		stmt=updateStatement() |
+		stmt=selectStatement()
 	)
 	{}
 	{
+		return stmt;
+	}
+}
+
+SelectStatement* selectStatement() : {
+	SelectStatement* stmt = new SelectStatement();
+	Token* t = nullptr;
+	SQLExpressionList* expList = nullptr;
+	SQLFrom* from = nullptr;
+	SQLWhere* where = nullptr;
+	SQLLimitOffset* limitOffset = nullptr;
+}
+{
+	t=<SELECT> {
+		stmt->setPosition(t);
+	}
+	expList=sqlExpressionList() {
+		stmt->setList(expList);
+		stmt->setPosition(expList);
+	}
+	from=sqlFrom() {
+		stmt->setFrom(from);
+		stmt->setPosition(from);
+	}
+	[
+		where=sqlWhere() {
+			stmt->setWhere(where);
+			stmt->setPosition(where);
+		}
+	]
+	
+	limitOffset=sqlLimitOffset() {
+		stmt->setLimitOffset(limitOffset);
+		stmt->setPosition(limitOffset);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLLimitOffset* sqlLimitOffset() : {
+	SQLLimitOffset* stmt = new SQLLimitOffset();
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	[
+		t=<LIMIT> {
+			stmt->setPosition(t);
+		}
+		exp=sqlExpression() {
+			stmt->setLimit(exp);
+			stmt->setPosition(exp);
+		}
+	]
+	[
+		t=<OFFSET> {
+			stmt->setPosition(t);
+		}
+		exp=sqlExpression() {
+			stmt->setOffset(exp);
+			stmt->setPosition(exp);
+		}
+	]
+	{}
+	{
+		__ONERROR(stmt);
 		return stmt;
 	}
 }
