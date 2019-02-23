@@ -2188,7 +2188,7 @@ AbstractSQLStatement* sqlDmlStatement() : {
 SelectStatement* selectStatement() : {
 	SelectStatement* stmt = new SelectStatement();
 	Token* t = nullptr;
-	SQLExpressionList* expList = nullptr;
+	SQLSelectTargetList* expList = nullptr;
 	SQLFrom* from = nullptr;
 	SQLWhere* where = nullptr;
 	SQLOrderBy* orderBy = nullptr;
@@ -2199,7 +2199,7 @@ SelectStatement* selectStatement() : {
 	t=<SELECT> {
 		stmt->setPosition(t);
 	}
-	expList=sqlExpressionList() {
+	expList=sqlSelectTargetList() {
 		stmt->setList(expList);
 		stmt->setPosition(expList);
 	}
@@ -2239,6 +2239,66 @@ SelectStatement* selectStatement() : {
 	}
 }
 
+SQLSelectTargetList* sqlSelectTargetList() : {
+	SQLSelectTargetList* stmt = new SQLSelectTargetList();
+	Token* t = nullptr;
+	SQLSelectTarget* target = nullptr;
+}
+{
+	target=sqlSelectTarget() {
+		stmt->addTarget(target);
+		stmt->setPosition(target);
+	}
+	(
+		t="," {
+			stmt->setPosition(t);
+		}
+		target=sqlSelectTarget() {
+			stmt->addTarget(target);
+			stmt->setPosition(target);
+		}
+	)*
+	{}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLSelectTarget* sqlSelectTarget() : {
+	SQLSelectTarget* stmt = new SQLSelectTarget();
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	(
+		t="*" {
+			stmt->setWildcard(true);
+			stmt->setPosition(t);
+		}
+		|
+		(
+			exp=sqlExpression() {
+				stmt->setExpression(exp);
+				stmt->setPosition(exp);
+			}
+			[
+				t=<AS> {
+					stmt->setPosition(t);
+				}
+				t=<IDENTIFIER> {
+					stmt->setAsName(_STR(t));
+					stmt->setPosition(t);
+				}
+			]
+		)
+	)
+	{}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
 
 SQLGroupBy* sqlGroupBy() : {
 	SQLGroupBy* stmt = new SQLGroupBy();

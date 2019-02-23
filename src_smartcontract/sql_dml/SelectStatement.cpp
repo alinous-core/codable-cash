@@ -11,7 +11,8 @@
 #include "sql_dml_parts/SQLGroupBy.h"
 #include "sql_dml_parts/SQLOrderBy.h"
 #include "sql_dml_parts/SQLLimitOffset.h"
-#include "sql_expression/SQLExpressionList.h"
+#include "sql_dml_parts/SQLSelectTargetList.h"
+
 namespace alinous {
 
 SelectStatement::SelectStatement() : AbstractSQLStatement(CodeElement::DML_STMT_SELECT) {
@@ -32,7 +33,7 @@ SelectStatement::~SelectStatement() {
 	delete this->limitOffset;
 }
 
-void SelectStatement::setList(SQLExpressionList* list) noexcept {
+void SelectStatement::setList(SQLSelectTargetList* list) noexcept {
 	this->list = list;
 }
 

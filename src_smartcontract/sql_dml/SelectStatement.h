@@ -11,7 +11,7 @@
 #include "sql/AbstractSQLStatement.h"
 
 namespace alinous {
-class SQLExpressionList;
+class SQLSelectTargetList;
 class SQLFrom;
 class SQLWhere;
 class SQLGroupBy;
@@ -23,14 +23,14 @@ public:
 	SelectStatement();
 	virtual ~SelectStatement();
 
-	void setList(SQLExpressionList* list) noexcept;
+	void setList(SQLSelectTargetList* list) noexcept;
 	void setFrom(SQLFrom* from) noexcept;
 	void setWhere(SQLWhere* where) noexcept;
 	void setGroupBy(SQLGroupBy* groupBy) noexcept;
 	void setOrderBy(SQLOrderBy* orderBy) noexcept;
 	void setLimitOffset(SQLLimitOffset* limitOffset) noexcept;
 private:
-	SQLExpressionList* list;
+	SQLSelectTargetList* list;
 	SQLFrom* from;
 	SQLWhere* where;
 	SQLGroupBy* groupBy;

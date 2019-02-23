@@ -8,6 +8,8 @@ set(__src
 	SQLJoin.cpp
 	SQLLimitOffset.cpp
 	SQLOrderBy.cpp
+	SQLSelectTarget.cpp
+	SQLSelectTargetList.cpp
 	SQLSet.cpp
 	SQLSetPair.cpp
 	SQLWhere.cpp
