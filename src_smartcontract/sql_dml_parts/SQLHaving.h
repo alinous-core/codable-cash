@@ -8,12 +8,19 @@
 #ifndef SQL_DML_PARTS_SQLHAVING_H_
 #define SQL_DML_PARTS_SQLHAVING_H_
 
-namespace alinous {
+#include "sql/AbstractSQLPart.h"
 
-class SQLHaving {
+namespace alinous {
+class AbstractSQLExpression;
+
+class SQLHaving : public AbstractSQLPart {
 public:
 	SQLHaving();
 	virtual ~SQLHaving();
+
+	void setExpression(AbstractSQLExpression* exp) noexcept;
+private:
+	AbstractSQLExpression* exp;
 };
 
 } /* namespace alinous */

@@ -7,6 +7,7 @@ set(__src
 	SQLHaving.cpp
 	SQLJoin.cpp
 	SQLLimitOffset.cpp
+	SQLOrderBy.cpp
 	SQLSet.cpp
 	SQLSetPair.cpp
 	SQLWhere.cpp

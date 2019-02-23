@@ -6,16 +6,20 @@
  */
 
 #include "sql_dml_parts/SQLHaving.h"
+#include "sql/AbstractSQLExpression.h"
 
 namespace alinous {
 
 SQLHaving::SQLHaving() {
-	// TODO Auto-generated constructor stub
-
+	this->exp = nullptr;
 }
 
 SQLHaving::~SQLHaving() {
-	// TODO Auto-generated destructor stub
+	delete this->exp;
+}
+
+void alinous::SQLHaving::setExpression(AbstractSQLExpression* exp) noexcept {
+	this->exp = exp;
 }
 
 } /* namespace alinous */

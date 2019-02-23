@@ -10,12 +10,15 @@
 namespace alinous {
 
 SQLGroupBy::SQLGroupBy() {
-	// TODO Auto-generated constructor stub
-
+	this->having = nullptr;
 }
 
 SQLGroupBy::~SQLGroupBy() {
-	// TODO Auto-generated destructor stub
+	delete this->having;
+}
+
+void SQLGroupBy::setHaving(SQLHaving* having) noexcept {
+	this->having = having;
 }
 
 } /* namespace alinous */

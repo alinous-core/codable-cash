@@ -2191,6 +2191,7 @@ SelectStatement* selectStatement() : {
 	SQLExpressionList* expList = nullptr;
 	SQLFrom* from = nullptr;
 	SQLWhere* where = nullptr;
+	SQLOrderBy* orderBy = nullptr;
 	SQLLimitOffset* limitOffset = nullptr;
 }
 {
@@ -2211,7 +2212,12 @@ SelectStatement* selectStatement() : {
 			stmt->setPosition(where);
 		}
 	]
-	
+	[
+		orderBy=sqlOrderBy() {
+			stmt->setOrderBy(orderBy);
+			stmt->setPosition(orderBy);
+		}
+	]
 	limitOffset=sqlLimitOffset() {
 		stmt->setLimitOffset(limitOffset);
 		stmt->setPosition(limitOffset);
@@ -2219,6 +2225,28 @@ SelectStatement* selectStatement() : {
 	
 	t=";" {
 		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLOrderBy* sqlOrderBy() : {
+	SQLOrderBy* stmt = new SQLOrderBy();
+	Token* t = nullptr;
+	SQLColumnsList* columns = nullptr;
+}
+{
+	t=<ORDER> {
+		stmt->setPosition(t);
+	}
+	t=<BY> {
+		stmt->setPosition(t);
+	}
+	columns=sqlColumnsList() {
+		stmt->setList(columns);
+		stmt->setPosition(columns);
 	}
 	{
 		__ONERROR(stmt);

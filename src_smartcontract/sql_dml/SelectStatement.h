@@ -14,6 +14,7 @@ namespace alinous {
 class SQLExpressionList;
 class SQLFrom;
 class SQLWhere;
+class SQLOrderBy;
 class SQLLimitOffset;
 
 class SelectStatement : public AbstractSQLStatement {
@@ -24,11 +25,13 @@ public:
 	void setList(SQLExpressionList* list) noexcept;
 	void setFrom(SQLFrom* from) noexcept;
 	void setWhere(SQLWhere* where) noexcept;
+	void setOrderBy(SQLOrderBy* orderBy) noexcept;
 	void setLimitOffset(SQLLimitOffset* limitOffset) noexcept;
 private:
 	SQLExpressionList* list;
 	SQLFrom* from;
 	SQLWhere* where;
+	SQLOrderBy* orderBy;
 	SQLLimitOffset* limitOffset;
 };
 
