@@ -2192,6 +2192,7 @@ SelectStatement* selectStatement() : {
 	SQLFrom* from = nullptr;
 	SQLWhere* where = nullptr;
 	SQLOrderBy* orderBy = nullptr;
+	SQLGroupBy* groupBy = nullptr;
 	SQLLimitOffset* limitOffset = nullptr;
 }
 {
@@ -2213,6 +2214,12 @@ SelectStatement* selectStatement() : {
 		}
 	]
 	[
+		 groupBy=sqlGroupBy() {
+			stmt->setGroupBy(groupBy);
+			stmt->setPosition(groupBy);
+		 }
+	]
+	[
 		orderBy=sqlOrderBy() {
 			stmt->setOrderBy(orderBy);
 			stmt->setPosition(orderBy);
@@ -2225,6 +2232,57 @@ SelectStatement* selectStatement() : {
 	
 	t=";" {
 		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+
+SQLGroupBy* sqlGroupBy() : {
+	SQLGroupBy* stmt = new SQLGroupBy();
+	Token* t = nullptr;
+	SQLColumnsList* columns = nullptr;
+	SQLHaving* having = nullptr;
+}
+{
+	t=<GROUP> {
+		stmt->setPosition(t);
+	}
+	t=<BY> {
+		stmt->setPosition(t);
+	}
+	columns=sqlColumnsList() {
+		stmt->setList(columns);
+		stmt->setPosition(columns);
+	}
+	
+	[
+		having=sqlHaving() {
+			stmt->setHaving(having);
+			stmt->setPosition(having);
+		}
+	]
+	{}	
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLHaving* sqlHaving() : {
+	SQLHaving* stmt = new SQLHaving();
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	t=<HAVING> {
+		stmt->setPosition(t);
+	}
+	exp=sqlExpression() {
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
 	}
 	{
 		__ONERROR(stmt);

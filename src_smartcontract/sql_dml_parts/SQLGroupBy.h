@@ -11,6 +11,7 @@
 #include "sql/AbstractSQLPart.h"
 
 namespace alinous {
+class SQLColumnsList;
 class SQLHaving;
 
 class SQLGroupBy : public AbstractSQLPart {
@@ -18,8 +19,10 @@ public:
 	SQLGroupBy();
 	virtual ~SQLGroupBy();
 
+	void setList(SQLColumnsList* list) noexcept;
 	void setHaving(SQLHaving* having) noexcept;
 private:
+	SQLColumnsList* list;
 	SQLHaving* having;
 };
 
