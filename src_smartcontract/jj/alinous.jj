@@ -3414,6 +3414,44 @@ SQLExpressionList* sqlExpressionList() : {
 	}	
 }
 
+
+/******************************************************************************************
+* SQL Language JOIN Special Part Starts
+*/
+
+
+AbstractSQLExpression* join() : {
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=joinTarget() {
+	
+	}
+	[
+		<LEFT> [<OUTER>] <JOIN>
+		right=join()
+	]
+	
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* joinTarget() : {
+	AbstractSQLExpression* target = nullptr;
+}
+{
+	(
+		target=tableIdentifier()
+		|
+		(
+			"(" target=join() ")"
+		)
+	)
+}
+
 TableIdentifier* tableIdentifier() : {
 	TableIdentifier* exp = new TableIdentifier();
 	Token* t = nullptr;

@@ -5,12 +5,13 @@
  *      Author: iizuka
  */
 
-#include "sql_expression/TableIdentifier.h"
+#include "sql_join_parts/TableIdentifier.h"
 #include "base/UnicodeString.h"
+
 
 namespace alinous {
 
-TableIdentifier::TableIdentifier() : AbstractSQLExpression(CodeElement::SQL_EXP_TABLE_ID) {
+TableIdentifier::TableIdentifier() : AbstractJoinPart(CodeElement::SQL_EXP_TABLE_ID) {
 	this->schema = nullptr;
 	this->tableName =nullptr;
 }

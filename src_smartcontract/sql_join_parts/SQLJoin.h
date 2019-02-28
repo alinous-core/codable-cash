@@ -8,12 +8,24 @@
 #ifndef SQL_DML_PARTS_SQLJOIN_H_
 #define SQL_DML_PARTS_SQLJOIN_H_
 
+#include "sql/AbstractJoinPart.h"
+#include <cstdint>
+
+#include "base/ArrayList.h"
+
+
 namespace alinous {
 
-class SQLJoin {
+class SQLJoinPart;
+
+class SQLJoin : public AbstractJoinPart {
 public:
 	SQLJoin();
 	virtual ~SQLJoin();
+
+	void addJoinPart(SQLJoinPart* part) noexcept;
+private:
+	ArrayList<SQLJoinPart> list;
 };
 
 } /* namespace alinous */

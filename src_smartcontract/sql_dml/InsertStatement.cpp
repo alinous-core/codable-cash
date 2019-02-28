@@ -7,9 +7,9 @@
 
 #include "sql_dml/InsertStatement.h"
 
-#include "sql_expression/TableIdentifier.h"
 #include "sql_dml_parts/SQLColumnsList.h"
 #include "sql_expression/SQLExpressionList.h"
+#include "sql_join_parts/TableIdentifier.h"
 
 namespace alinous {
 

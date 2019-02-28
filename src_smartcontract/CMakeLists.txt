@@ -17,6 +17,7 @@ add_subdirectory(sql_ddl)
 add_subdirectory(sql_dml)
 add_subdirectory(sql_dml_parts)
 add_subdirectory(sql_expression)
+add_subdirectory(sql_join_parts)
 
 message(STATUS "src_smartcontract : ${__dirsrc}")
 

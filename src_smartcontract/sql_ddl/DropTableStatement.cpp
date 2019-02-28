@@ -6,8 +6,7 @@
  */
 
 #include "sql_ddl/DropTableStatement.h"
-#include "sql_expression/TableIdentifier.h"
-
+#include "sql_join_parts/TableIdentifier.h"
 namespace alinous {
 
 DropTableStatement::DropTableStatement() : AbstractSQLStatement(CodeElement::DDL_DROP_TABLE) {

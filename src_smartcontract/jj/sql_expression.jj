@@ -716,35 +716,3 @@ SQLExpressionList* sqlExpressionList() : {
 	}	
 }
 
-TableIdentifier* tableIdentifier() : {
-	TableIdentifier* exp = new TableIdentifier();
-	Token* t = nullptr;
-	Token* t1 = nullptr;
-	Token* t2 = nullptr;
-}
-{
-	t1=<IDENTIFIER> {
-		exp->setPosition(t1);
-	}
-	[
-		t="." {
-			exp->setPosition(t);
-		}
-		t2=<IDENTIFIER> {
-			exp->setPosition(t2);
-		}
-	]
-	{
-		if(t2 != nullptr){
-			exp->setSchema(_STR(t1));
-			exp->setTableName(_STR(t2));
-		}
-		else{
-			exp->setTableName(_STR(t1));
-		}
-	}
-	{
-		__ONERROR(exp);
-		return exp;
-	}
-}

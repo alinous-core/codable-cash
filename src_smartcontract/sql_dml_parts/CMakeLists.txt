@@ -5,7 +5,6 @@ set(__src
 	SQLFrom.cpp
 	SQLGroupBy.cpp
 	SQLHaving.cpp
-	SQLJoin.cpp
 	SQLLimitOffset.cpp
 	SQLOrderBy.cpp
 	SQLSelectTarget.cpp

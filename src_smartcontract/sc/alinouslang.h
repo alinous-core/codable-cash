@@ -89,7 +89,6 @@
 #include "sql_dml_parts/SQLFrom.h"
 #include "sql_dml_parts/SQLGroupBy.h"
 #include "sql_dml_parts/SQLHaving.h"
-#include "sql_dml_parts/SQLJoin.h"
 #include "sql_dml_parts/SQLLimitOffset.h"
 #include "sql_dml_parts/SQLOrderBy.h"
 #include "sql_dml_parts/SQLSelectTarget.h"
@@ -115,8 +114,14 @@
 #include "sql_expression/SQLOrExpression.h"
 #include "sql_expression/SQLParenthesisExpression.h"
 #include "sql_expression/SQLRelationalExpression.h"
-#include "sql_expression/TableIdentifier.h"
 #include "sql_expression/SQLPlaceHolder.h"
+
+#include "sql_join_parts/ParenthesisJoinPart.h"
+#include "sql_join_parts/SQLJoin.h"
+#include "sql_join_parts/SQLJoinPart.h"
+#include "sql_join_parts/TableIdentifier.h"
+#include "sql_join_parts/TableList.h"
+
 
 namespace alinouslang {
 using namespace alinous;

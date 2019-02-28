@@ -131,6 +131,10 @@ SQLBooleanLiteral                 * sqlBooleanLiteral();
 SQLColumnIdentifier                   * sqlColumnIdentifier();
 SQLExpressionList
                  * sqlExpressionList();
+AbstractSQLExpression
+
+                     * join();
+AbstractSQLExpression                     * joinTarget();
 TableIdentifier               * tableIdentifier();
  inline bool jj_2_1(int xla)
  {
@@ -1130,7 +1134,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[85];
+  int           jj_la1[88];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 

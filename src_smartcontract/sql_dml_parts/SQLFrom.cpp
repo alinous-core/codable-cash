@@ -6,7 +6,7 @@
  */
 
 #include "sql_dml_parts/SQLFrom.h"
-#include "sql_expression/TableIdentifier.h"
+#include "sql_join_parts/TableIdentifier.h"
 
 namespace alinous {
 

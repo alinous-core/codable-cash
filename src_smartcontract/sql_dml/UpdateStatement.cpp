@@ -6,9 +6,10 @@
  */
 
 #include "sql_dml/UpdateStatement.h"
-#include "sql_expression/TableIdentifier.h"
 #include "sql_dml_parts/SQLWhere.h"
 #include "sql_dml_parts/SQLSet.h"
+
+#include "sql_join_parts/TableIdentifier.h"
 
 namespace alinous {
 
