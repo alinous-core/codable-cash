@@ -28,3 +28,5 @@ TEST(TestDDLGroup, createTable01){
 
 	CHECK(!parser.hasError())
 }
+
+

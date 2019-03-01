@@ -795,12 +795,15 @@ AllocationExpression* allocationExpression() : {
 			exp->setPackage(packageName);
 			exp->setPosition(packageName);
 		}
+		t="." {
+			exp->setPosition(t);
+		}
 	]
 	
 	func=functionCallExpression() {
 		exp->setExpression((FunctionCallExpression*)func);
 		exp->setPosition(func);
-	}	
+	}
 	{
 		 __ONERROR(exp);
 		return exp;

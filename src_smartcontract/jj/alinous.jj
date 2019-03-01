@@ -411,7 +411,7 @@ PackageNameDeclare* packageNameDeclare() :
 		names->setPosition(t);
 	}
 
-	(
+	(LOOKAHEAD(2)
 	    "." t=< IDENTIFIER > {
 			names->addSegment(_STR(t));
 			names->setPosition(t);
@@ -1938,12 +1938,15 @@ AllocationExpression* allocationExpression() : {
 			exp->setPackage(packageName);
 			exp->setPosition(packageName);
 		}
+		t="." {
+			exp->setPosition(t);
+		}
 	]
 	
 	func=functionCallExpression() {
 		exp->setExpression((FunctionCallExpression*)func);
 		exp->setPosition(func);
-	}	
+	}
 	{
 		 __ONERROR(exp);
 		return exp;
