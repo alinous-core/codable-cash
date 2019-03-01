@@ -23,8 +23,10 @@ public:
 	SQLJoin();
 	virtual ~SQLJoin();
 
+	void setFirst(AbstractJoinPart* first) noexcept;
 	void addJoinPart(SQLJoinPart* part) noexcept;
 private:
+	AbstractJoinPart* first;
 	ArrayList<SQLJoinPart> list;
 };
 

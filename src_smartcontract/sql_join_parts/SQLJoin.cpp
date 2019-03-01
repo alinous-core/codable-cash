@@ -10,10 +10,16 @@
 namespace alinous {
 
 SQLJoin::SQLJoin() : AbstractJoinPart(CodeElement::SQL_EXP_JOIN) {
+	this->first = nullptr;
 }
 
 SQLJoin::~SQLJoin() {
 	this->list.deleteElements();
+	delete this->first;
+}
+
+void SQLJoin::setFirst(AbstractJoinPart* first) noexcept {
+	this->first = first;
 }
 
 void SQLJoin::addJoinPart(SQLJoinPart* part) noexcept {

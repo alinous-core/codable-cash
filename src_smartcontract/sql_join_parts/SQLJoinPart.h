@@ -12,20 +12,26 @@
 #include "sql/AbstractJoinPart.h"
 
 namespace alinous {
+class TableIdentifier;
+class AbstractSQLExpression;
 
 class SQLJoinPart : public AbstractJoinPart {
 public:
 	static const constexpr uint8_t LEFT_OUTER_JOIN{1};
 	static const constexpr uint8_t RIGHT_OUTER_JOIN{2};
 	static const constexpr uint8_t INNER_JOIN{3};
-	static const constexpr uint8_t CROSS_JOIN{3};
+	static const constexpr uint8_t CROSS_JOIN{4};
 
 	SQLJoinPart();
 	virtual ~SQLJoinPart();
 
 	void setJoinType(uint8_t joinType) noexcept;
+	void setTable(TableIdentifier* table) noexcept;
+	void setExpression(AbstractSQLExpression* exp) noexcept;
 private:
 	uint8_t joinType;
+	TableIdentifier* table;
+	AbstractSQLExpression* exp;
 };
 
 } /* namespace alinous */

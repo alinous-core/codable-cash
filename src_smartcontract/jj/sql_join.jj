@@ -38,12 +38,13 @@ AbstractJoinPart* tableList() : {
 
 AbstractJoinPart* join() : {
 	AbstractJoinPart* left = nullptr;
-	AbstractJoinPart* right = nullptr;
+	SQLJoinPart* right = nullptr;
+	SQLJoin* joinBody = nullptr;
 	
 }
 {
 	left=joinTarget()
-	[
+	(
 		(
 			right=leftJoin()
 			|
@@ -53,7 +54,18 @@ AbstractJoinPart* join() : {
 			|
 			right=crossJoin()
 		)
-	]
+		{
+			if(joinBody == nullptr){
+				joinBody = new SQLJoin();
+				joinBody->setPosition(left);
+				joinBody->setFirst(left);
+				
+				left = joinBody;
+			}
+			
+			joinBody->addJoinPart(right);
+		}
+	)*
 	
 	{
 		__ONERROR(left);
@@ -63,7 +75,10 @@ AbstractJoinPart* join() : {
 
 SQLJoinPart* innerJoin() : {
 	SQLJoinPart* join = new SQLJoinPart();
+	join->setJoinType(SQLJoinPart::INNER_JOIN);
 	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+	TableIdentifier* table = nullptr;
 }
 {
 	t=<INNER> {
@@ -73,7 +88,20 @@ SQLJoinPart* innerJoin() : {
 	t=<JOIN> {
 		join->setPosition(t);
 	}
-	
+	table=tableIdentifier() {
+		join->setTable(table);
+		join->setPosition(table);
+	}
+	[
+		t=<ON>  {
+			join->setPosition(t);
+		}
+		exp=sqlExpression() {
+			join->setExpression(exp);
+			join->setPosition(exp);
+		}
+	]
+	{}	
 	{
 		__ONERROR(join);
 		return join;
@@ -83,7 +111,9 @@ SQLJoinPart* innerJoin() : {
 
 SQLJoinPart* leftJoin() : {
 	SQLJoinPart* join = new SQLJoinPart();
+	join->setJoinType(SQLJoinPart::LEFT_OUTER_JOIN);
 	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
 }
 {
 	t=<LEFT> {
@@ -97,7 +127,16 @@ SQLJoinPart* leftJoin() : {
 	t=<JOIN> {
 		join->setPosition(t);
 	}
-	
+	[
+		t=<ON>  {
+			join->setPosition(t);
+		}
+		exp=sqlExpression() {
+			join->setExpression(exp);
+			join->setPosition(exp);
+		}
+	]
+	{}
 	{
 		__ONERROR(join);
 		return join;
@@ -106,7 +145,9 @@ SQLJoinPart* leftJoin() : {
 
 SQLJoinPart* rightJoin() : {
 	SQLJoinPart* join = new SQLJoinPart();
+	join->setJoinType(SQLJoinPart::RIGHT_OUTER_JOIN);
 	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
 }
 {
 	t=<RIGHT> {
@@ -120,7 +161,16 @@ SQLJoinPart* rightJoin() : {
 	t=<JOIN> {
 		join->setPosition(t);
 	}
-	
+	[
+		t=<ON>  {
+			join->setPosition(t);
+		}
+		exp=sqlExpression() {
+			join->setExpression(exp);
+			join->setPosition(exp);
+		}
+	]
+	{}
 	{
 		__ONERROR(join);
 		return join;
@@ -129,7 +179,9 @@ SQLJoinPart* rightJoin() : {
 
 SQLJoinPart* crossJoin() : {
 	SQLJoinPart* join = new SQLJoinPart();
+	join->setJoinType(SQLJoinPart::CROSS_JOIN);
 	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
 }
 {
 	t=<CROSS>  {
@@ -138,7 +190,17 @@ SQLJoinPart* crossJoin() : {
 	t=<JOIN>  {
 		join->setPosition(t);
 	}
-	
+	[
+		t=<ON>  {
+			join->setPosition(t);
+		}
+		exp=sqlExpression() {
+			join->setExpression(exp);
+			join->setPosition(exp);
+		}
+	]
+	{}
+
 	{
 		__ONERROR(join);
 		return join;
