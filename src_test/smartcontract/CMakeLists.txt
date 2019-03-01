@@ -11,6 +11,7 @@ set(testsrc
 	test_main_sc.cpp
 	test_parser.cpp
 	test_sql_exp.cpp
+	test_statement.cpp
 )
 handle_sub(testall "${testsrc}" test smartcontract)
 
