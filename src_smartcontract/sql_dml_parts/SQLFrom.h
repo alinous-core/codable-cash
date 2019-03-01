@@ -12,15 +12,17 @@
 
 namespace alinous {
 class TableIdentifier;
+class AbstractJoinPart;
 
 class SQLFrom : public AbstractSQLPart {
 public:
 	SQLFrom();
 	virtual ~SQLFrom();
 
-	void setTableId(TableIdentifier* tableId) noexcept;
+	void setTable(AbstractJoinPart* tableId) noexcept;
+
 private:
-	TableIdentifier* tableId;
+	AbstractJoinPart* tableId;
 };
 
 } /* namespace alinous */

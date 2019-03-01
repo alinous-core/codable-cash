@@ -3606,7 +3606,7 @@ assert(false);
 
 SQLFrom       * AlinousLang::sqlFrom() {SQLFrom* stmt = new SQLFrom();
         Token* t = nullptr;
-        TableIdentifier* tableId = nullptr;
+        AbstractJoinPart* tableId = nullptr;
     if (!hasError) {
     t = jj_consume_token(FROM);
     }
@@ -3614,10 +3614,10 @@ SQLFrom       * AlinousLang::sqlFrom() {SQLFrom* stmt = new SQLFrom();
 stmt->setPosition(t);
     }
     if (!hasError) {
-    tableId = tableIdentifier();
+    tableId = tableList();
     }
     if (!hasError) {
-stmt->setTableId(tableId);
+stmt->setTable(tableId);
                 stmt->setPosition(tableId);
     }
 __ONERROR(stmt);

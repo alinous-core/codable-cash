@@ -7,6 +7,7 @@
 
 #include "sql_dml_parts/SQLFrom.h"
 #include "sql_join_parts/TableIdentifier.h"
+#include "sql/AbstractJoinPart.h"
 
 namespace alinous {
 
@@ -18,7 +19,7 @@ SQLFrom::~SQLFrom() {
 	delete this->tableId;
 }
 
-void SQLFrom::setTableId(TableIdentifier* tableId) noexcept {
+void SQLFrom::setTable(AbstractJoinPart* tableId) noexcept {
 	this->tableId = tableId;
 }
 

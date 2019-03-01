@@ -2629,14 +2629,14 @@ SQLWhere* sqlWhere() : {
 SQLFrom* sqlFrom() : {
 	SQLFrom* stmt = new SQLFrom();
 	Token* t = nullptr;
-	TableIdentifier* tableId = nullptr;
+	AbstractJoinPart* tableId = nullptr;
 }
 {
 	t=<FROM> {
 		stmt->setPosition(t);
 	}
-	tableId=tableIdentifier() {
-		stmt->setTableId(tableId);
+	tableId=tableList() {
+		stmt->setTable(tableId);
 		stmt->setPosition(tableId);
 	}
 	{
