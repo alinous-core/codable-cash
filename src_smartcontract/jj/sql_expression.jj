@@ -86,7 +86,7 @@ AbstractSQLExpression* sqlNotExpression() : {
 }
 {
 	[
-		t=<NOT> {
+		t=<SQL_NOT> {
 			exp = new SQLNotExpression();
 			exp->setPosition(t);
 			left = exp;
@@ -202,7 +202,7 @@ AbstractSQLExpression* sqlBetweenExpression() : {
 			left = exp;
 		}
 		
-		right=sqlExpression() {
+		right=sqlAdditiveExpression() {
 			exp->setStart(right);
 			exp->setPosition(right);
 		}
@@ -211,7 +211,7 @@ AbstractSQLExpression* sqlBetweenExpression() : {
 			exp->setPosition(t);
 		}
 		
-		right=sqlExpression() {
+		right=sqlAdditiveExpression() {
 			exp->setEnd(right);
 			exp->setPosition(right);
 		}
@@ -480,8 +480,8 @@ AbstractSQLExpression* sqlPrimitiveExpression() : {
 	(
 		exp=sqlParenthesisExpression() |
 		exp=sqlLiteral() |
-		LOOKAHEAD(2) exp = sqlFunctionCall() |
 		exp=sqlBooleanLiteral() |
+		LOOKAHEAD(2) exp = sqlFunctionCall() |
 		exp=sqlColumnIdentifier() |
 		exp=sqlPlaceHolder()
 	)
@@ -607,6 +607,11 @@ SQLLiteral* sqlLiteral() : {
 			exp->setValue(_STR(t), SQLLiteral::TYPE_STRING);
 			exp->setPosition(t);
 		}
+		|
+		t=<CHARACTER_LITERAL> {
+			exp->setValue(_STR(t), SQLLiteral::TYPE_STRING);
+			exp->setPosition(t);
+		}
 	)
 	{}
 	{
@@ -700,7 +705,7 @@ SQLExpressionList* sqlExpressionList() : {
 		exp->setPosition(ex);
 	}
 	(
-		"," {
+		t="," {
 			exp->setPosition(t);
 		}
 		ex=sqlExpression() {
