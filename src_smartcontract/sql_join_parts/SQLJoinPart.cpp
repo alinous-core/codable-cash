@@ -18,4 +18,8 @@ SQLJoinPart::~SQLJoinPart() {
 
 }
 
+void SQLJoinPart::setJoinType(uint8_t joinType) noexcept {
+	this->joinType = joinType;
+}
+
 } /* namespace alinous */

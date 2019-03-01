@@ -4,17 +4,24 @@
 */
 
 
-AbstractSQLExpression* join() : {
-	AbstractSQLExpression* left = nullptr;
-	AbstractSQLExpression* right = nullptr;
+AbstractJoinPart* join() : {
+	AbstractJoinPart* left = nullptr;
+	AbstractJoinPart* right = nullptr;
 }
 {
-	left=joinTarget() {
-	
-	}
+	left=joinTarget()
 	[
-		<LEFT> [<OUTER>] <JOIN>
-		right=join()
+		(
+			right=tableList()
+			|
+			right=leftJoin()
+			|
+			right=rightJoin()
+			|
+			right=innerJoin()
+			|
+			right=crossJoin()
+		)
 	]
 	
 	{
@@ -23,17 +30,154 @@ AbstractSQLExpression* join() : {
 	}
 }
 
-AbstractSQLExpression* joinTarget() : {
-	AbstractSQLExpression* target = nullptr;
+TableList* tableList() : {
+	TableList* join = new TableList();
+	Token* t = nullptr;
+	TableIdentifier* table = nullptr;
+}
+{
+	table=tableIdentifier() {
+		join->addTable(table);
+		join->setPosition(table);
+	}
+	(
+		t="," {
+			join->setPosition(t);
+		}
+		table=tableIdentifier() {
+			join->addTable(table);
+			join->setPosition(table);
+		}
+	)*
+	{}
+	{
+		__ONERROR(join);
+		return join;
+	}
+}
+
+SQLJoinPart* innerJoin() : {
+	SQLJoinPart* join = new SQLJoinPart();
+	Token* t = nullptr;
+}
+{
+	t=<INNER> {
+		join->setPosition(t);
+	}
+	
+	t=<JOIN> {
+		join->setPosition(t);
+	}
+	
+	{
+		__ONERROR(join);
+		return join;
+	}
+}
+
+
+SQLJoinPart* leftJoin() : {
+	SQLJoinPart* join = new SQLJoinPart();
+	Token* t = nullptr;
+}
+{
+	t=<LEFT> {
+		join->setPosition(t);
+	}
+	[
+		t=<OUTER> {
+			join->setPosition(t);
+		}
+	]
+	t=<JOIN> {
+		join->setPosition(t);
+	}
+	
+	{
+		__ONERROR(join);
+		return join;
+	}
+}
+
+SQLJoinPart* rightJoin() : {
+	SQLJoinPart* join = new SQLJoinPart();
+	Token* t = nullptr;
+}
+{
+	t=<RIGHT> {
+		join->setPosition(t);
+	}
+	[
+		t=<OUTER> {
+			join->setPosition(t);
+		}
+	]
+	t=<JOIN> {
+		join->setPosition(t);
+	}
+	
+	{
+		__ONERROR(join);
+		return join;
+	}
+}
+
+SQLJoinPart* crossJoin() : {
+	SQLJoinPart* join = new SQLJoinPart();
+	Token* t = nullptr;
+}
+{
+	t=<CROSS>  {
+		join->setPosition(t);
+	}
+	t=<JOIN>  {
+		join->setPosition(t);
+	}
+	
+	{
+		__ONERROR(join);
+		return join;
+	}
+}
+
+
+AbstractJoinPart* joinTarget() : {
+	AbstractJoinPart* target = nullptr;
 }
 {
 	(
 		target=tableIdentifier()
 		|
-		(
-			"(" target=join() ")"
-		)
+		target=parenthesisJoinPart()
 	)
+	{}
+	{
+		return target;
+	}
+}
+
+ParenthesisJoinPart* parenthesisJoinPart() : {
+	ParenthesisJoinPart* part = new ParenthesisJoinPart();
+	Token* t = nullptr;
+	AbstractJoinPart* target = nullptr;
+}
+{
+	t="(" {
+		part->setPosition(t);
+	}
+	
+	target=join() {
+		part->setPart(target);
+		part->setPosition(target);
+	}
+	
+	t=")" {
+		part->setPosition(t);
+	}
+	{
+		__ONERROR(part);
+		return part;
+	}
 }
 
 TableIdentifier* tableIdentifier() : {

@@ -16,6 +16,10 @@ class ParenthesisJoinPart : public AbstractJoinPart {
 public:
 	ParenthesisJoinPart();
 	virtual ~ParenthesisJoinPart();
+
+	void setPart(AbstractJoinPart* part) noexcept;
+private:
+	AbstractJoinPart* part;
 };
 
 } /* namespace alinous */

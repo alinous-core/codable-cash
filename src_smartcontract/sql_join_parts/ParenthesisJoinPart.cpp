@@ -10,10 +10,15 @@
 namespace alinous {
 
 ParenthesisJoinPart::ParenthesisJoinPart() : AbstractJoinPart(CodeElement::SQL_EXP_PARENTHESIS_JOIN_PART) {
-
+	this->part = nullptr;
 }
 
 ParenthesisJoinPart::~ParenthesisJoinPart() {
+	delete this->part;
+}
+
+void ParenthesisJoinPart::setPart(AbstractJoinPart* part) noexcept {
+	this->part = part;
 }
 
 } /* namespace alinous */
