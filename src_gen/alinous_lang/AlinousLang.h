@@ -132,9 +132,8 @@ SQLColumnIdentifier                   * sqlColumnIdentifier();
 SQLExpressionList
                  * sqlExpressionList();
 AbstractJoinPart
-
-                * join();
-TableList         * tableList();
+                * tableList();
+AbstractJoinPart                * join();
 SQLJoinPart           * innerJoin();
 SQLJoinPart           * leftJoin();
 SQLJoinPart           * rightJoin();

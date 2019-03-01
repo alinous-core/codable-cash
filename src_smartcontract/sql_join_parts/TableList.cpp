@@ -17,7 +17,7 @@ TableList::~TableList() {
 	this->list.deleteElements();
 }
 
-void TableList::addTable(TableIdentifier* tableId) noexcept {
+void TableList::addTable(AbstractJoinPart* tableId) noexcept {
 	this->list.addElement(tableId);
 }
 

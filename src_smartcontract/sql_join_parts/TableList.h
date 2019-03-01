@@ -20,9 +20,9 @@ public:
 	TableList();
 	virtual ~TableList();
 
-	void addTable(TableIdentifier* tableId) noexcept;
+	void addTable(AbstractJoinPart* tableId) noexcept;
 private:
-	ArrayList<TableIdentifier> list;
+	ArrayList<AbstractJoinPart> list;
 };
 
 } /* namespace alinous */

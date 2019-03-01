@@ -3,17 +3,48 @@
 * SQL Language JOIN Special Part Starts
 */
 
+AbstractJoinPart* tableList() : {
+	AbstractJoinPart* left = nullptr;
+	TableList* tablelist = nullptr;
+	Token* t = nullptr;
+	TableIdentifier* table = nullptr;
+}
+{
+	left=join()
+	(
+		t="," {
+			if(tablelist == nullptr){
+				tablelist =  new TableList();
+				tablelist->addTable(left);
+				tablelist->setPosition(left);
+				
+				left = tablelist;
+			}
+			
+			tablelist->setPosition(t);
+		}
+		
+		table=tableIdentifier() {
+			tablelist->addTable(table);
+			tablelist->setPosition(table);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
 
 AbstractJoinPart* join() : {
 	AbstractJoinPart* left = nullptr;
 	AbstractJoinPart* right = nullptr;
+	
 }
 {
 	left=joinTarget()
 	[
 		(
-			right=tableList()
-			|
 			right=leftJoin()
 			|
 			right=rightJoin()
@@ -27,32 +58,6 @@ AbstractJoinPart* join() : {
 	{
 		__ONERROR(left);
 		return left;
-	}
-}
-
-TableList* tableList() : {
-	TableList* join = new TableList();
-	Token* t = nullptr;
-	TableIdentifier* table = nullptr;
-}
-{
-	table=tableIdentifier() {
-		join->addTable(table);
-		join->setPosition(table);
-	}
-	(
-		t="," {
-			join->setPosition(t);
-		}
-		table=tableIdentifier() {
-			join->addTable(table);
-			join->setPosition(table);
-		}
-	)*
-	{}
-	{
-		__ONERROR(join);
-		return join;
 	}
 }
 
