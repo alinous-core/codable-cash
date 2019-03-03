@@ -29,4 +29,16 @@ TEST(TestDDLGroup, createTable01){
 	CHECK(!parser.hasError())
 }
 
+TEST(TestDDLGroup, droptable){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/ddl/droptable.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+}
+
 
