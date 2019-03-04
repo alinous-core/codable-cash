@@ -17,7 +17,19 @@ TEST_GROUP(TestDMLGroup) {
 	TEST_TEARDOWN(){}
 };
 
-TEST(TestDMLGroup, createTable01){
+TEST(TestDMLGroup, delete01){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/delete.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+}
+
+TEST(TestDMLGroup, begin01){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/delete.alns"))
 
