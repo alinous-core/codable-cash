@@ -76,3 +76,16 @@ TEST(TestDMLGroup, insert01){
 
 	CHECK(!parser.hasError())
 }
+
+TEST(TestDMLGroup, update01){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/update01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+}
+
