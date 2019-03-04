@@ -8,9 +8,11 @@
 #ifndef SQL_DML_BEGINSTATEMENT_H_
 #define SQL_DML_BEGINSTATEMENT_H_
 
+#include "sql/AbstractSQLStatement.h"
+
 namespace alinous {
 
-class BeginStatement {
+class BeginStatement : public AbstractSQLStatement {
 public:
 	BeginStatement();
 	virtual ~BeginStatement();

@@ -9,13 +9,10 @@
 
 namespace alinous {
 
-RollbackStatement::RollbackStatement() {
-	// TODO Auto-generated constructor stub
-
+RollbackStatement::RollbackStatement() : AbstractSQLStatement(CodeElement::DML_STMT_ROLLBACK) {
 }
 
 RollbackStatement::~RollbackStatement() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

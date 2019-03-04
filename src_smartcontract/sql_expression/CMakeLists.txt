@@ -20,7 +20,6 @@ set(__src
 	SQLParenthesisExpression.cpp
 	SQLPlaceHolder.cpp
 	SQLRelationalExpression.cpp
-	TableIdentifier.cpp
 )
 
 handle_sub(codablecashlib "${__src}" smartcontract sql_expression)

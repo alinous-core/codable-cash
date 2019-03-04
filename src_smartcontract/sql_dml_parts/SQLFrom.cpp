@@ -6,16 +6,21 @@
  */
 
 #include "sql_dml_parts/SQLFrom.h"
+#include "sql_join_parts/TableIdentifier.h"
+#include "sql/AbstractJoinPart.h"
 
 namespace alinous {
 
 SQLFrom::SQLFrom() {
-	// TODO Auto-generated constructor stub
-
+	this->tableId = nullptr;
 }
 
 SQLFrom::~SQLFrom() {
-	// TODO Auto-generated destructor stub
+	delete this->tableId;
+}
+
+void SQLFrom::setTable(AbstractJoinPart* tableId) noexcept {
+	this->tableId = tableId;
 }
 
 } /* namespace alinous */

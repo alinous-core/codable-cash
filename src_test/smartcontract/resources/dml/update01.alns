@@ -1,0 +1,5 @@
+UPDATE table1
+SET
+	col1 = 1
+WHERE
+	col2 = 'test' AND col5 = 4;

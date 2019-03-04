@@ -8,12 +8,20 @@
 #ifndef SQL_DML_PARTS_SQLCOLUMNSLIST_H_
 #define SQL_DML_PARTS_SQLCOLUMNSLIST_H_
 
-namespace alinous {
+#include "sql/AbstractSQLPart.h"
+#include "base/ArrayList.h"
 
-class SQLColumnsList {
+namespace alinous {
+class SQLColumnIdentifier;
+
+class SQLColumnsList : public AbstractSQLPart {
 public:
 	SQLColumnsList();
 	virtual ~SQLColumnsList();
+
+	void addColumn(SQLColumnIdentifier* colId) noexcept;
+private:
+	ArrayList<SQLColumnIdentifier> list;
 };
 
 } /* namespace alinous */

@@ -1,0 +1,8 @@
+SELECT col1 as A, col2 as B
+FROM table1
+WHERE
+	col3 = 3
+GROUP BY col1, col2
+HAVING count(col4) >= 2
+ORDER BY col1
+LIMIT 4 offset 1;

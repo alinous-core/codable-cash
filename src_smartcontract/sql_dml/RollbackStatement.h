@@ -8,9 +8,11 @@
 #ifndef SQL_DML_ROLLBACKSTATEMENT_H_
 #define SQL_DML_ROLLBACKSTATEMENT_H_
 
+#include "sql/AbstractSQLStatement.h"
+
 namespace alinous {
 
-class RollbackStatement {
+class RollbackStatement : public AbstractSQLStatement {
 public:
 	RollbackStatement();
 	virtual ~RollbackStatement();

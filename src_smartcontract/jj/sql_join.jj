@@ -1,0 +1,296 @@
+
+/******************************************************************************************
+* SQL Language JOIN Special Part Starts
+*/
+
+AbstractJoinPart* tableList() : {
+	AbstractJoinPart* left = nullptr;
+	TableList* tablelist = nullptr;
+	Token* t = nullptr;
+	TableIdentifier* table = nullptr;
+}
+{
+	left=join()
+	(
+		t="," {
+			if(tablelist == nullptr){
+				tablelist =  new TableList();
+				tablelist->addTable(left);
+				tablelist->setPosition(left);
+				
+				left = tablelist;
+			}
+			
+			tablelist->setPosition(t);
+		}
+		
+		table=tableIdentifier() {
+			tablelist->addTable(table);
+			tablelist->setPosition(table);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractJoinPart* join() : {
+	AbstractJoinPart* left = nullptr;
+	SQLJoinPart* right = nullptr;
+	SQLJoin* joinBody = nullptr;
+	
+}
+{
+	left=joinTarget()
+	(
+		(
+			right=leftJoin()
+			|
+			right=rightJoin()
+			|
+			right=innerJoin()
+			|
+			right=crossJoin()
+		)
+		{
+			if(joinBody == nullptr){
+				joinBody = new SQLJoin();
+				joinBody->setPosition(left);
+				joinBody->setFirst(left);
+				
+				left = joinBody;
+			}
+			
+			joinBody->addJoinPart(right);
+		}
+	)*
+	
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+SQLJoinPart* innerJoin() : {
+	SQLJoinPart* join = new SQLJoinPart();
+	join->setJoinType(SQLJoinPart::INNER_JOIN);
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+	TableIdentifier* table = nullptr;
+}
+{
+	t=<INNER> {
+		join->setPosition(t);
+	}
+	
+	t=<JOIN> {
+		join->setPosition(t);
+	}
+	table=tableIdentifier() {
+		join->setTable(table);
+		join->setPosition(table);
+	}
+	[
+		t=<ON>  {
+			join->setPosition(t);
+		}
+		exp=sqlExpression() {
+			join->setExpression(exp);
+			join->setPosition(exp);
+		}
+	]
+	{}	
+	{
+		__ONERROR(join);
+		return join;
+	}
+}
+
+
+SQLJoinPart* leftJoin() : {
+	SQLJoinPart* join = new SQLJoinPart();
+	join->setJoinType(SQLJoinPart::LEFT_OUTER_JOIN);
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+	AbstractJoinPart* table = nullptr;
+}
+{
+	t=<LEFT> {
+		join->setPosition(t);
+	}
+	[
+		t=<OUTER> {
+			join->setPosition(t);
+		}
+	]
+	t=<JOIN> {
+		join->setPosition(t);
+	}
+	table=joinTarget() {
+		join->setTable(table);
+		join->setPosition(table);
+	}
+	[
+		t=<ON>  {
+			join->setPosition(t);
+		}
+		exp=sqlExpression() {
+			join->setExpression(exp);
+			join->setPosition(exp);
+		}
+	]
+	{}
+	{
+		__ONERROR(join);
+		return join;
+	}
+}
+
+SQLJoinPart* rightJoin() : {
+	SQLJoinPart* join = new SQLJoinPart();
+	join->setJoinType(SQLJoinPart::RIGHT_OUTER_JOIN);
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+	AbstractJoinPart* table = nullptr;
+}
+{
+	t=<RIGHT> {
+		join->setPosition(t);
+	}
+	[
+		t=<OUTER> {
+			join->setPosition(t);
+		}
+	]
+	t=<JOIN> {
+		join->setPosition(t);
+	}
+	table=joinTarget() {
+		join->setTable(table);
+		join->setPosition(table);
+	}
+	[
+		t=<ON>  {
+			join->setPosition(t);
+		}
+		exp=sqlExpression() {
+			join->setExpression(exp);
+			join->setPosition(exp);
+		}
+	]
+	{}
+	{
+		__ONERROR(join);
+		return join;
+	}
+}
+
+SQLJoinPart* crossJoin() : {
+	SQLJoinPart* join = new SQLJoinPart();
+	join->setJoinType(SQLJoinPart::CROSS_JOIN);
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+	AbstractJoinPart* table = nullptr;
+}
+{
+	t=<CROSS>  {
+		join->setPosition(t);
+	}
+	t=<JOIN>  {
+		join->setPosition(t);
+	}
+	table=joinTarget() {
+		join->setTable(table);
+		join->setPosition(table);
+	}
+	[
+		t=<ON>  {
+			join->setPosition(t);
+		}
+		exp=sqlExpression() {
+			join->setExpression(exp);
+			join->setPosition(exp);
+		}
+	]
+	{}
+
+	{
+		__ONERROR(join);
+		return join;
+	}
+}
+
+
+AbstractJoinPart* joinTarget() : {
+	AbstractJoinPart* target = nullptr;
+}
+{
+	(
+		target=tableIdentifier()
+		|
+		target=parenthesisJoinPart()
+	)
+	{}
+	{
+		return target;
+	}
+}
+
+ParenthesisJoinPart* parenthesisJoinPart() : {
+	ParenthesisJoinPart* part = new ParenthesisJoinPart();
+	Token* t = nullptr;
+	AbstractJoinPart* target = nullptr;
+}
+{
+	t="(" {
+		part->setPosition(t);
+	}
+	
+	target=join() {
+		part->setPart(target);
+		part->setPosition(target);
+	}
+	
+	t=")" {
+		part->setPosition(t);
+	}
+	{
+		__ONERROR(part);
+		return part;
+	}
+}
+
+TableIdentifier* tableIdentifier() : {
+	TableIdentifier* exp = new TableIdentifier();
+	Token* t = nullptr;
+	Token* t1 = nullptr;
+	Token* t2 = nullptr;
+}
+{
+	t1=<IDENTIFIER> {
+		exp->setPosition(t1);
+	}
+	[
+		t="." {
+			exp->setPosition(t);
+		}
+		t2=<IDENTIFIER> {
+			exp->setPosition(t2);
+		}
+	]
+	{
+		if(t2 != nullptr){
+			exp->setSchema(_STR(t1));
+			exp->setTableName(_STR(t2));
+		}
+		else{
+			exp->setTableName(_STR(t1));
+		}
+	}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}

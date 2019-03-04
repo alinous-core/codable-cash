@@ -1,0 +1,3 @@
+SELECT * FROM table1, table2
+WHERE
+	table1.col1 = table2.col1;

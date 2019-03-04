@@ -86,7 +86,7 @@ AbstractSQLExpression* sqlNotExpression() : {
 }
 {
 	[
-		t=<NOT> {
+		t=<SQL_NOT> {
 			exp = new SQLNotExpression();
 			exp->setPosition(t);
 			left = exp;
@@ -202,7 +202,7 @@ AbstractSQLExpression* sqlBetweenExpression() : {
 			left = exp;
 		}
 		
-		right=sqlExpression() {
+		right=sqlAdditiveExpression() {
 			exp->setStart(right);
 			exp->setPosition(right);
 		}
@@ -211,7 +211,7 @@ AbstractSQLExpression* sqlBetweenExpression() : {
 			exp->setPosition(t);
 		}
 		
-		right=sqlExpression() {
+		right=sqlAdditiveExpression() {
 			exp->setEnd(right);
 			exp->setPosition(right);
 		}
@@ -480,8 +480,8 @@ AbstractSQLExpression* sqlPrimitiveExpression() : {
 	(
 		exp=sqlParenthesisExpression() |
 		exp=sqlLiteral() |
-		LOOKAHEAD(2) exp = sqlFunctionCall() |
 		exp=sqlBooleanLiteral() |
+		LOOKAHEAD(2) exp = sqlFunctionCall() |
 		exp=sqlColumnIdentifier() |
 		exp=sqlPlaceHolder()
 	)
@@ -607,6 +607,11 @@ SQLLiteral* sqlLiteral() : {
 			exp->setValue(_STR(t), SQLLiteral::TYPE_STRING);
 			exp->setPosition(t);
 		}
+		|
+		t=<CHARACTER_LITERAL> {
+			exp->setValue(_STR(t), SQLLiteral::TYPE_STRING);
+			exp->setPosition(t);
+		}
 	)
 	{}
 	{
@@ -671,7 +676,7 @@ SQLColumnIdentifier* sqlColumnIdentifier() : {
 			exp->setTableName(_STR(t2));
 			exp->setColumnName(_STR(t3));
 		}
-		if(t2 != nullptr){
+		else if(t2 != nullptr){
 			exp->setTableName(_STR(t1));
 			exp->setColumnName(_STR(t2));
 		}
@@ -700,7 +705,7 @@ SQLExpressionList* sqlExpressionList() : {
 		exp->setPosition(ex);
 	}
 	(
-		"," {
+		t="," {
 			exp->setPosition(t);
 		}
 		ex=sqlExpression() {
@@ -716,35 +721,3 @@ SQLExpressionList* sqlExpressionList() : {
 	}	
 }
 
-TableIdentifier* tableIdentifier() : {
-	TableIdentifier* exp = new TableIdentifier();
-	Token* t = nullptr;
-	Token* t1 = nullptr;
-	Token* t2 = nullptr;
-}
-{
-	t1=<IDENTIFIER> {
-		exp->setPosition(t1);
-	}
-	[
-		t="." {
-			exp->setPosition(t);
-		}
-		t2=<IDENTIFIER> {
-			exp->setPosition(t2);
-		}
-	]
-	{
-		if(t2 != nullptr){
-			exp->setSchema(_STR(t1));
-			exp->setTableName(_STR(t2));
-		}
-		else{
-			exp->setTableName(_STR(t1));
-		}
-	}
-	{
-		__ONERROR(exp);
-		return exp;
-	}
-}

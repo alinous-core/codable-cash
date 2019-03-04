@@ -564,7 +564,7 @@ static const unsigned long long jjtoSpecial[] = {
          return jjMoveNfa_0(0, 0);
       case 60:
          jjmatchedKind = 49;
-         return jjMoveStringLiteralDfa1_0(0x4000000000000ULL, 0x80000000000ULL, 0xa000000000000000ULL);
+         return jjMoveStringLiteralDfa1_0(0x4000000000000ULL, 0x0ULL, 0xa000000000000000ULL);
       case 61:
          jjmatchedKind = 22;
          return jjMoveStringLiteralDfa1_0(0x200000000000ULL, 0x0ULL, 0x0ULL);
@@ -583,7 +583,7 @@ static const unsigned long long jjtoSpecial[] = {
       case 68:
          return jjMoveStringLiteralDfa1_0(0x0ULL, 0x800001000000000ULL, 0x9002ULL);
       case 69:
-         return jjMoveStringLiteralDfa1_0(0x0ULL, 0x0ULL, 0xa40000000ULL);
+         return jjMoveStringLiteralDfa1_0(0x0ULL, 0x80000000000ULL, 0xa40000000ULL);
       case 70:
          return jjMoveStringLiteralDfa1_0(0x0ULL, 0x2004000000000ULL, 0x208000000000ULL);
       case 71:
@@ -634,7 +634,7 @@ static const unsigned long long jjtoSpecial[] = {
       case 100:
          return jjMoveStringLiteralDfa1_0(0x0ULL, 0x800001000000040ULL, 0x9002ULL);
       case 101:
-         return jjMoveStringLiteralDfa1_0(0x0ULL, 0x180ULL, 0xa40000000ULL);
+         return jjMoveStringLiteralDfa1_0(0x0ULL, 0x80000000180ULL, 0xa40000000ULL);
       case 102:
          return jjMoveStringLiteralDfa1_0(0x0ULL, 0x2004100000600ULL, 0x208000000000ULL);
       case 103:
@@ -779,7 +779,7 @@ static const unsigned long long jjtoSpecial[] = {
       case 68:
          return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0L, active2, 0x60000010000ULL);
       case 69:
-         return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x810181200000000ULL, active2, 0xc81200b228140ULL);
+         return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x810101200000000ULL, active2, 0xc81200b228140ULL);
       case 70:
          if ((active2 & 0x10ULL) != 0L)
          {
@@ -832,7 +832,7 @@ static const unsigned long long jjtoSpecial[] = {
             jjmatchedKind = 135;
             jjmatchedPos = 1;
          }
-         return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x400000000000000ULL, active2, 0x400020000000ULL);
+         return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x400080000000000ULL, active2, 0x400020000000ULL);
       case 84:
          return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0L, active2, 0x100000000ULL);
       case 85:
@@ -853,7 +853,7 @@ static const unsigned long long jjtoSpecial[] = {
       case 100:
          return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0L, active2, 0x60000010000ULL);
       case 101:
-         return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x810181200088000ULL, active2, 0xc81200b228140ULL);
+         return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x810101200088000ULL, active2, 0xc81200b228140ULL);
       case 102:
          if ((active1 & 0x1000ULL) != 0L)
          {
@@ -918,7 +918,7 @@ static const unsigned long long jjtoSpecial[] = {
             jjmatchedKind = 135;
             jjmatchedPos = 1;
          }
-         return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x400000000000000ULL, active2, 0x400020000000ULL);
+         return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x400080000000000ULL, active2, 0x400020000000ULL);
       case 116:
          return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x100002ULL, active2, 0x100000000ULL);
       case 117:
@@ -978,7 +978,7 @@ static const unsigned long long jjtoSpecial[] = {
             jjmatchedKind = 122;
             jjmatchedPos = 2;
          }
-         return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0L, active2, 0x40000000ULL);
+         return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x80000000000ULL, active2, 0x40000000ULL);
       case 68:
          if ((active1 & 0x20000000000ULL) != 0L)
          {
@@ -1021,7 +1021,7 @@ static const unsigned long long jjtoSpecial[] = {
       case 82:
          return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0L, active2, 0x5008000000000ULL);
       case 83:
-         return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x800080400000000ULL, active2, 0x2ULL);
+         return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x800000400000000ULL, active2, 0x2ULL);
       case 84:
          if ((active1 & 0x10000000000000ULL) != 0L)
          {
@@ -1065,7 +1065,7 @@ static const unsigned long long jjtoSpecial[] = {
             jjmatchedKind = 122;
             jjmatchedPos = 2;
          }
-         return jjMoveStringLiteralDfa3_0(active0, 0x100000000000000ULL, active1, 0x40000000ULL, active2, 0x40000000ULL);
+         return jjMoveStringLiteralDfa3_0(active0, 0x100000000000000ULL, active1, 0x80040000000ULL, active2, 0x40000000ULL);
       case 100:
          if ((active1 & 0x20000000000ULL) != 0L)
          {
@@ -1113,7 +1113,7 @@ static const unsigned long long jjtoSpecial[] = {
          }
          return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x6000002ULL, active2, 0x5008000000000ULL);
       case 115:
-         return jjMoveStringLiteralDfa3_0(active0, 0x800000000000000ULL, active1, 0x800080400004084ULL, active2, 0x2ULL);
+         return jjMoveStringLiteralDfa3_0(active0, 0x800000000000000ULL, active1, 0x800000400004084ULL, active2, 0x2ULL);
       case 116:
          if ((active0 & 0x8000000000000000ULL) != 0L)
          {
@@ -1175,14 +1175,14 @@ static const unsigned long long jjtoSpecial[] = {
    switch(curChar)
    {
       case 65:
-         return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x800000000ULL, active2, 0x28808ULL);
+         return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x80800000000ULL, active2, 0x28808ULL);
       case 67:
          if ((active1 & 0x800000000000000ULL) != 0L)
          {
             jjmatchedKind = 123;
             jjmatchedPos = 3;
          }
-         return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x80000000000ULL, active2, 0x200600800000ULL);
+         return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0L, active2, 0x200600800000ULL);
       case 68:
          if ((active2 & 0x8000000000000ULL) != 0L)
          {
@@ -1271,14 +1271,14 @@ static const unsigned long long jjtoSpecial[] = {
       case 87:
          return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0L, active2, 0x40ULL);
       case 97:
-         return jjMoveStringLiteralDfa4_0(active0, 0x1000000000000000ULL, active1, 0x800000200ULL, active2, 0x28808ULL);
+         return jjMoveStringLiteralDfa4_0(active0, 0x1000000000000000ULL, active1, 0x80800000200ULL, active2, 0x28808ULL);
       case 99:
          if ((active1 & 0x800000000000000ULL) != 0L)
          {
             jjmatchedKind = 123;
             jjmatchedPos = 3;
          }
-         return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x80000800008ULL, active2, 0x200600800000ULL);
+         return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x800008ULL, active2, 0x200600800000ULL);
       case 100:
          if ((active1 & 0x10000000ULL) != 0L)
          {
@@ -1426,7 +1426,7 @@ static const unsigned long long jjtoSpecial[] = {
    switch(curChar)
    {
       case 65:
-         return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x80000000000ULL, active2, 0x4000008100000ULL);
+         return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0L, active2, 0x4000008100000ULL);
       case 66:
          return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0L, active2, 0x400ULL);
       case 67:
@@ -1488,7 +1488,7 @@ static const unsigned long long jjtoSpecial[] = {
             jjmatchedKind = 118;
             jjmatchedPos = 4;
          }
-         break;
+         return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x80000000000ULL, active2, 0L);
       case 82:
          if ((active1 & 0x800000000000ULL) != 0L)
          {
@@ -1545,7 +1545,7 @@ static const unsigned long long jjtoSpecial[] = {
          }
          break;
       case 97:
-         return jjMoveStringLiteralDfa5_0(active0, 0x100000000000000ULL, active1, 0x80000014000ULL, active2, 0x4000008100000ULL);
+         return jjMoveStringLiteralDfa5_0(active0, 0x100000000000000ULL, active1, 0x14000ULL, active2, 0x4000008100000ULL);
       case 98:
          return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0L, active2, 0x400ULL);
       case 99:
@@ -1631,7 +1631,7 @@ static const unsigned long long jjtoSpecial[] = {
             jjmatchedKind = 118;
             jjmatchedPos = 4;
          }
-         break;
+         return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x80000000000ULL, active2, 0L);
       case 114:
          if ((active1 & 0x200000ULL) != 0L)
          {
@@ -1746,6 +1746,11 @@ static const unsigned long long jjtoSpecial[] = {
             jjmatchedKind = 100;
             jjmatchedPos = 5;
          }
+         else if ((active1 & 0x80000000000ULL) != 0L)
+         {
+            jjmatchedKind = 107;
+            jjmatchedPos = 5;
+         }
          else if ((active2 & 0x800ULL) != 0L)
          {
             jjmatchedKind = 139;
@@ -1792,8 +1797,6 @@ static const unsigned long long jjtoSpecial[] = {
             jjmatchedPos = 5;
          }
          return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0L, active2, 0x1000002ULL);
-      case 80:
-         return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0x80000000000ULL, active2, 0L);
       case 82:
          return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0L, active2, 0x100000ULL);
       case 83:
@@ -1862,6 +1865,11 @@ static const unsigned long long jjtoSpecial[] = {
             jjmatchedKind = 100;
             jjmatchedPos = 5;
          }
+         else if ((active1 & 0x80000000000ULL) != 0L)
+         {
+            jjmatchedKind = 107;
+            jjmatchedPos = 5;
+         }
          else if ((active2 & 0x800ULL) != 0L)
          {
             jjmatchedKind = 139;
@@ -1927,8 +1935,6 @@ static const unsigned long long jjtoSpecial[] = {
             jjmatchedPos = 5;
          }
          return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0x4020ULL, active2, 0x1000002ULL);
-      case 112:
-         return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0x80000000000ULL, active2, 0L);
       case 114:
          return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0x800000ULL, active2, 0x100000ULL);
       case 115:
@@ -2008,7 +2014,7 @@ static const unsigned long long jjtoSpecial[] = {
             jjmatchedKind = 161;
             jjmatchedPos = 6;
          }
-         return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0x80000000000ULL, active2, 0x100000000ULL);
+         return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0L, active2, 0x100000000ULL);
       case 71:
          return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0L, active2, 0x4000000ULL);
       case 73:
@@ -2096,7 +2102,7 @@ static const unsigned long long jjtoSpecial[] = {
             jjmatchedKind = 161;
             jjmatchedPos = 6;
          }
-         return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0x80000002000ULL, active2, 0x100000000ULL);
+         return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0x2000ULL, active2, 0x100000000ULL);
       case 103:
          return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0L, active2, 0x4000000ULL);
       case 105:
@@ -2177,13 +2183,6 @@ static const unsigned long long jjtoSpecial[] = {
    curChar = input_stream->readChar();
    switch(curChar)
    {
-      case 62:
-         if ((active1 & 0x80000000000ULL) != 0L)
-         {
-            jjmatchedKind = 107;
-            jjmatchedPos = 7;
-         }
-         break;
       case 67:
          return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x10000000000ULL);
       case 69:

@@ -6,16 +6,19 @@
  */
 
 #include "sql_ddl/DropTableStatement.h"
-
+#include "sql_join_parts/TableIdentifier.h"
 namespace alinous {
 
 DropTableStatement::DropTableStatement() : AbstractSQLStatement(CodeElement::DDL_DROP_TABLE) {
-	// TODO Auto-generated constructor stub
-
+	this->tableId = nullptr;
 }
 
 DropTableStatement::~DropTableStatement() {
-	// TODO Auto-generated destructor stub
+	delete this->tableId;
+}
+
+void DropTableStatement::setTableId(TableIdentifier* tableId) noexcept {
+	this->tableId = tableId;
 }
 
 } /* namespace alinous */

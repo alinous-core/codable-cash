@@ -1,7 +1,9 @@
 
 
 set(__src
+	AbstractJoinPart.cpp
 	AbstractSQLExpression.cpp
+	AbstractSQLPart.cpp
 	AbstractSQLStatement.cpp
 	ISQLElement.cpp
 )

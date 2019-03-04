@@ -8,12 +8,21 @@
 #ifndef SQL_DML_PARTS_SQLLIMITOFFSET_H_
 #define SQL_DML_PARTS_SQLLIMITOFFSET_H_
 
-namespace alinous {
+#include "sql/AbstractSQLPart.h"
 
-class SQLLimitOffset {
+namespace alinous {
+class AbstractSQLExpression;
+
+class SQLLimitOffset : public AbstractSQLPart {
 public:
 	SQLLimitOffset();
 	virtual ~SQLLimitOffset();
+
+	void setLimit(AbstractSQLExpression* limit) noexcept;
+	void setOffset(AbstractSQLExpression* offset) noexcept;
+private:
+	AbstractSQLExpression* limit;
+	AbstractSQLExpression* offset;
 };
 
 } /* namespace alinous */

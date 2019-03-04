@@ -8,12 +8,22 @@
 #ifndef SQL_DML_DELETESTATEMENT_H_
 #define SQL_DML_DELETESTATEMENT_H_
 
-namespace alinous {
+#include "sql/AbstractSQLStatement.h"
 
-class DeleteStatement {
+namespace alinous {
+class SQLFrom;
+class SQLWhere;
+
+class DeleteStatement : public AbstractSQLStatement {
 public:
 	DeleteStatement();
 	virtual ~DeleteStatement();
+
+	void setFrom(SQLFrom* from) noexcept;
+	void setWhere(SQLWhere* where) noexcept;
+private:
+	SQLFrom* from;
+	SQLWhere* where;
 };
 
 } /* namespace alinous */

@@ -14,7 +14,8 @@ AbstractStatement* statement() : {
 		stmt=expressionStatement() |
 		stmt=ctrlStatement() |
 		stmt=blankStatement() |
-		stmt=ddlStatement()
+		stmt=ddlStatement() |
+		stmt=sqlDmlStatement()
 	)
 	{}
 	{

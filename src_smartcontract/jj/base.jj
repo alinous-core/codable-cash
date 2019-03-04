@@ -65,7 +65,7 @@ PackageNameDeclare* packageNameDeclare() :
 		names->setPosition(t);
 	}
 
-	(
+	(LOOKAHEAD(2)
 	    "." t=< IDENTIFIER > {
 			names->addSegment(_STR(t));
 			names->setPosition(t);

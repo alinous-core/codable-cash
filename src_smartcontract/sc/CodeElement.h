@@ -113,8 +113,12 @@ public:
 	static const constexpr short SQL_EXP_RELATIONAL{196};
 	static const constexpr short SQL_EXP_TABLE_ID{197};
 	static const constexpr short SQL_EXP_PLACE_HOLDER{198};
+	static const constexpr short SQL_EXP_JOIN{199};
+	static const constexpr short SQL_EXP_JOIN_PART{200};
+	static const constexpr short SQL_EXP_TABLE_LIST{201};
+	static const constexpr short SQL_EXP_PARENTHESIS_JOIN_PART{202};
 
-
+	static const constexpr short SQL_PART{220};
 
 	explicit CodeElement(short kind);
 	virtual ~CodeElement();

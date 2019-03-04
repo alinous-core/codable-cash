@@ -9,13 +9,10 @@
 
 namespace alinous {
 
-CommitStatement::CommitStatement() {
-	// TODO Auto-generated constructor stub
-
+CommitStatement::CommitStatement() : AbstractSQLStatement(CodeElement::DML_STMT_COMMIT) {
 }
 
 CommitStatement::~CommitStatement() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

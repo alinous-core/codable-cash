@@ -11,11 +11,16 @@
 #include "sql/AbstractSQLStatement.h"
 
 namespace alinous {
+class TableIdentifier;
 
 class DropTableStatement : public AbstractSQLStatement {
 public:
 	DropTableStatement();
 	virtual ~DropTableStatement();
+
+	void setTableId(TableIdentifier* tableId) noexcept;
+private:
+	TableIdentifier* tableId;
 };
 
 } /* namespace alinous */

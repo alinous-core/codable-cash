@@ -8,12 +8,21 @@
 #ifndef SQL_DML_PARTS_SQLFROM_H_
 #define SQL_DML_PARTS_SQLFROM_H_
 
-namespace alinous {
+#include "sql/AbstractSQLPart.h"
 
-class SQLFrom {
+namespace alinous {
+class TableIdentifier;
+class AbstractJoinPart;
+
+class SQLFrom : public AbstractSQLPart {
 public:
 	SQLFrom();
 	virtual ~SQLFrom();
+
+	void setTable(AbstractJoinPart* tableId) noexcept;
+
+private:
+	AbstractJoinPart* tableId;
 };
 
 } /* namespace alinous */

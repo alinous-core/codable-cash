@@ -3,3 +3,533 @@
 * SQL Language DML Statements Starts
 */
 
+AbstractSQLStatement* sqlDmlStatement() : {
+	AbstractSQLStatement* stmt = nullptr;
+}
+{
+	(
+		stmt=beginStatement() |
+		stmt=commitStatement() |
+		stmt=rollbackStatement() |
+		stmt=deleteStatement() |
+		stmt=insertStatement() |
+		stmt=updateStatement() |
+		stmt=selectStatement()
+	)
+	{}
+	{
+		return stmt;
+	}
+}
+
+SelectStatement* selectStatement() : {
+	SelectStatement* stmt = new SelectStatement();
+	Token* t = nullptr;
+	SQLSelectTargetList* expList = nullptr;
+	SQLFrom* from = nullptr;
+	SQLWhere* where = nullptr;
+	SQLOrderBy* orderBy = nullptr;
+	SQLGroupBy* groupBy = nullptr;
+	SQLLimitOffset* limitOffset = nullptr;
+}
+{
+	t=<SELECT> {
+		stmt->setPosition(t);
+	}
+	expList=sqlSelectTargetList() {
+		stmt->setList(expList);
+		stmt->setPosition(expList);
+	}
+	from=sqlFrom() {
+		stmt->setFrom(from);
+		stmt->setPosition(from);
+	}
+	[
+		where=sqlWhere() {
+			stmt->setWhere(where);
+			stmt->setPosition(where);
+		}
+	]
+	[
+		 groupBy=sqlGroupBy() {
+			stmt->setGroupBy(groupBy);
+			stmt->setPosition(groupBy);
+		 }
+	]
+	[
+		orderBy=sqlOrderBy() {
+			stmt->setOrderBy(orderBy);
+			stmt->setPosition(orderBy);
+		}
+	]
+	limitOffset=sqlLimitOffset() {
+		stmt->setLimitOffset(limitOffset);
+		stmt->setPosition(limitOffset);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLSelectTargetList* sqlSelectTargetList() : {
+	SQLSelectTargetList* stmt = new SQLSelectTargetList();
+	Token* t = nullptr;
+	SQLSelectTarget* target = nullptr;
+}
+{
+	target=sqlSelectTarget() {
+		stmt->addTarget(target);
+		stmt->setPosition(target);
+	}
+	(
+		t="," {
+			stmt->setPosition(t);
+		}
+		target=sqlSelectTarget() {
+			stmt->addTarget(target);
+			stmt->setPosition(target);
+		}
+	)*
+	{}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLSelectTarget* sqlSelectTarget() : {
+	SQLSelectTarget* stmt = new SQLSelectTarget();
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	(
+		t="*" {
+			stmt->setWildcard(true);
+			stmt->setPosition(t);
+		}
+		|
+		(
+			exp=sqlExpression() {
+				stmt->setExpression(exp);
+				stmt->setPosition(exp);
+			}
+			[
+				t=<AS> {
+					stmt->setPosition(t);
+				}
+				t=<IDENTIFIER> {
+					stmt->setAsName(_STR(t));
+					stmt->setPosition(t);
+				}
+			]
+		)
+	)
+	{}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLGroupBy* sqlGroupBy() : {
+	SQLGroupBy* stmt = new SQLGroupBy();
+	Token* t = nullptr;
+	SQLColumnsList* columns = nullptr;
+	SQLHaving* having = nullptr;
+}
+{
+	t=<GROUP> {
+		stmt->setPosition(t);
+	}
+	t=<BY> {
+		stmt->setPosition(t);
+	}
+	columns=sqlColumnsList() {
+		stmt->setList(columns);
+		stmt->setPosition(columns);
+	}
+	
+	[
+		having=sqlHaving() {
+			stmt->setHaving(having);
+			stmt->setPosition(having);
+		}
+	]
+	{}	
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLHaving* sqlHaving() : {
+	SQLHaving* stmt = new SQLHaving();
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	t=<HAVING> {
+		stmt->setPosition(t);
+	}
+	exp=sqlExpression() {
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLOrderBy* sqlOrderBy() : {
+	SQLOrderBy* stmt = new SQLOrderBy();
+	Token* t = nullptr;
+	SQLColumnsList* columns = nullptr;
+}
+{
+	t=<ORDER> {
+		stmt->setPosition(t);
+	}
+	t=<BY> {
+		stmt->setPosition(t);
+	}
+	columns=sqlColumnsList() {
+		stmt->setList(columns);
+		stmt->setPosition(columns);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLLimitOffset* sqlLimitOffset() : {
+	SQLLimitOffset* stmt = new SQLLimitOffset();
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	[
+		t=<LIMIT> {
+			stmt->setPosition(t);
+		}
+		exp=sqlExpression() {
+			stmt->setLimit(exp);
+			stmt->setPosition(exp);
+		}
+	]
+	[
+		t=<OFFSET> {
+			stmt->setPosition(t);
+		}
+		exp=sqlExpression() {
+			stmt->setOffset(exp);
+			stmt->setPosition(exp);
+		}
+	]
+	{}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+UpdateStatement* updateStatement() : {
+	UpdateStatement* stmt = new UpdateStatement();
+	Token* t = nullptr;
+	TableIdentifier* tableId = nullptr;
+	SQLSet* set = nullptr;
+	SQLWhere* where = nullptr;
+}
+{
+	t=<UPDATE> {
+		stmt->setPosition(t);
+	}
+	tableId=tableIdentifier() {
+		stmt->setTable(tableId);
+		stmt->setPosition(tableId);
+	}
+	set=sqlSet() {
+		stmt->setSet(set);
+		stmt->setPosition(set);
+	}
+	[
+		where=sqlWhere() {
+			stmt->setWhere(where);
+			stmt->setPosition(where);
+		}
+	]	
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLSet* sqlSet() : {
+	SQLSet* stmt = new SQLSet();
+	Token* t = nullptr;
+	SQLSetPair* pair = nullptr;
+}
+{
+	t=<SET> {
+		stmt->setPosition(t);
+	}
+	pair=sqlSetPair() {
+		stmt->addPair(pair);
+		stmt->setPosition(pair);
+	}
+	(
+		t="," {
+			stmt->setPosition(t);
+		}
+		pair=sqlSetPair() {
+			stmt->addPair(pair);
+			stmt->setPosition(pair);
+		}	
+	)*
+	{}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLSetPair* sqlSetPair() : {
+	SQLSetPair* stmt = new SQLSetPair();
+	Token* t = nullptr;
+	SQLColumnIdentifier* colId = nullptr;
+	AbstractSQLExpression* ex = nullptr;
+}
+{
+	colId=sqlColumnIdentifier() {
+		stmt->setColumn(colId);
+		stmt->setPosition(colId);
+	}
+	
+	t="=" {
+		stmt->setPosition(t);
+	}
+	
+	ex=sqlExpression() {
+		stmt->setExpression(ex);
+		stmt->setPosition(ex);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+InsertStatement* insertStatement() : {
+	InsertStatement* stmt = new InsertStatement();
+	Token* t = nullptr;
+	TableIdentifier* tableId = nullptr;
+	SQLColumnsList* columns = nullptr;
+	SQLExpressionList* expList = nullptr;
+}
+{
+	t=<INSERT> {
+		stmt->setPosition(t);
+	}
+	t=<INTO> {
+		stmt->setPosition(t);
+	}
+	tableId=tableIdentifier() {
+		stmt->setTable(tableId);
+		stmt->setPosition(tableId);
+	}
+	
+	[
+		t="(" {
+			stmt->setPosition(t);
+		}
+		
+		columns=sqlColumnsList() {
+			stmt->setColumns(columns);
+			stmt->setPosition(columns);
+		}
+		
+		t=")" {
+			stmt->setPosition(t);
+		}
+	]
+	
+	t=<VALUES> {
+		stmt->setPosition(t);
+	}	
+	t="(" {
+		stmt->setPosition(t);
+	}
+	expList=sqlExpressionList() {
+		stmt->setExpressionList(expList);
+		stmt->setPosition(expList);
+	}
+	
+	t=")" {
+		stmt->setPosition(t);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLColumnsList* sqlColumnsList() : {
+	SQLColumnsList* stmt = new SQLColumnsList();
+	Token* t = nullptr;
+	SQLColumnIdentifier* colId = nullptr;
+}
+{
+	colId=sqlColumnIdentifier() {
+		stmt->addColumn(colId);
+		stmt->setPosition(colId);
+	}
+	(
+		t="," {
+			stmt->setPosition(t);
+		}
+		colId=sqlColumnIdentifier() {
+			stmt->addColumn(colId);
+			stmt->setPosition(colId);
+		}
+	)*
+	{}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+DeleteStatement* deleteStatement() : {
+	DeleteStatement* stmt = new DeleteStatement();
+	Token* t = nullptr;
+	SQLFrom* from = nullptr;
+	SQLWhere* where = nullptr;
+}
+{
+	t=<DELETE> {
+		stmt->setPosition(t);
+	}
+	from=sqlFrom() {
+		stmt->setFrom(from);
+		stmt->setPosition(from);
+	}
+	[
+		where=sqlWhere() {
+			stmt->setWhere(where);
+			stmt->setPosition(where);
+		}
+	]
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLWhere* sqlWhere() : {
+	SQLWhere* stmt = new SQLWhere();
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	t=<WHERE> {
+		stmt->setPosition(t);
+	}
+	exp=sqlExpression() {
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLFrom* sqlFrom() : {
+	SQLFrom* stmt = new SQLFrom();
+	Token* t = nullptr;
+	AbstractJoinPart* tableId = nullptr;
+}
+{
+	t=<FROM> {
+		stmt->setPosition(t);
+	}
+	tableId=tableList() {
+		stmt->setTable(tableId);
+		stmt->setPosition(tableId);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}	
+}
+
+BeginStatement* beginStatement() : {
+	BeginStatement* stmt = new BeginStatement();
+	Token* t = null;
+}
+{
+	t=<BEGIN> {
+		stmt->setPosition(t);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+CommitStatement* commitStatement() : {
+	CommitStatement* stmt = new CommitStatement();
+	Token* t = null;
+}
+{
+	t=<COMMIT> {
+		stmt->setPosition(t);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+RollbackStatement* rollbackStatement() : {
+	RollbackStatement* stmt = new RollbackStatement();
+	Token* t = null;
+}
+{
+	t=<ROLLBACK> {
+		stmt->setPosition(t);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}

@@ -8,12 +8,25 @@
 #ifndef SQL_DML_UPDATESTATEMENT_H_
 #define SQL_DML_UPDATESTATEMENT_H_
 
-namespace alinous {
+#include "sql/AbstractSQLStatement.h"
 
-class UpdateStatement {
+namespace alinous {
+class TableIdentifier;
+class SQLSet;
+class SQLWhere;
+
+class UpdateStatement : public AbstractSQLStatement {
 public:
 	UpdateStatement();
 	virtual ~UpdateStatement();
+
+	void setTable(TableIdentifier* tableId) noexcept;
+	void setSet(SQLSet* set) noexcept;
+	void setWhere(SQLWhere* where) noexcept;
+private:
+	TableIdentifier* tableId;
+	SQLSet* set;
+	SQLWhere* where;
 };
 
 } /* namespace alinous */
