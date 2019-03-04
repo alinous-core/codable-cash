@@ -25,7 +25,7 @@ void SQLJoinPart::setJoinType(uint8_t joinType) noexcept {
 	this->joinType = joinType;
 }
 
-void SQLJoinPart::setTable(TableIdentifier* table) noexcept {
+void SQLJoinPart::setTable(AbstractJoinPart* table) noexcept {
 	this->table = table;
 }
 

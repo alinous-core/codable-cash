@@ -1,0 +1,8 @@
+SELECT *
+FROM
+	table1 LEFT JOIN table2
+	ON
+		table1.col1 = table2.col2
+	LEFT JOIN table3
+	ON
+		table3.col1 = table2.col2;

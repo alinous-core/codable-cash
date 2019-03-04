@@ -3572,6 +3572,7 @@ SQLJoinPart* leftJoin() : {
 	join->setJoinType(SQLJoinPart::LEFT_OUTER_JOIN);
 	Token* t = nullptr;
 	AbstractSQLExpression* exp = nullptr;
+	AbstractJoinPart* table = nullptr;
 }
 {
 	t=<LEFT> {
@@ -3584,6 +3585,10 @@ SQLJoinPart* leftJoin() : {
 	]
 	t=<JOIN> {
 		join->setPosition(t);
+	}
+	table=joinTarget() {
+		join->setTable(table);
+		join->setPosition(table);
 	}
 	[
 		t=<ON>  {
@@ -3606,6 +3611,7 @@ SQLJoinPart* rightJoin() : {
 	join->setJoinType(SQLJoinPart::RIGHT_OUTER_JOIN);
 	Token* t = nullptr;
 	AbstractSQLExpression* exp = nullptr;
+	AbstractJoinPart* table = nullptr;
 }
 {
 	t=<RIGHT> {
@@ -3618,6 +3624,10 @@ SQLJoinPart* rightJoin() : {
 	]
 	t=<JOIN> {
 		join->setPosition(t);
+	}
+	table=joinTarget() {
+		join->setTable(table);
+		join->setPosition(table);
 	}
 	[
 		t=<ON>  {
@@ -3640,6 +3650,7 @@ SQLJoinPart* crossJoin() : {
 	join->setJoinType(SQLJoinPart::CROSS_JOIN);
 	Token* t = nullptr;
 	AbstractSQLExpression* exp = nullptr;
+	AbstractJoinPart* table = nullptr;
 }
 {
 	t=<CROSS>  {
@@ -3647,6 +3658,10 @@ SQLJoinPart* crossJoin() : {
 	}
 	t=<JOIN>  {
 		join->setPosition(t);
+	}
+	table=joinTarget() {
+		join->setTable(table);
+		join->setPosition(table);
 	}
 	[
 		t=<ON>  {

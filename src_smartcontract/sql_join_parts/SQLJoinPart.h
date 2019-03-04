@@ -26,11 +26,11 @@ public:
 	virtual ~SQLJoinPart();
 
 	void setJoinType(uint8_t joinType) noexcept;
-	void setTable(TableIdentifier* table) noexcept;
+	void setTable(AbstractJoinPart* table) noexcept;
 	void setExpression(AbstractSQLExpression* exp) noexcept;
 private:
 	uint8_t joinType;
-	TableIdentifier* table;
+	AbstractJoinPart* table;
 	AbstractSQLExpression* exp;
 };
 

@@ -17,6 +17,7 @@ TEST_GROUP(TestDMLGroup) {
 	TEST_TEARDOWN(){}
 };
 
+
 TEST(TestDMLGroup, delete01){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/delete.alns"))
@@ -116,6 +117,42 @@ TEST(TestDMLGroup, select02){
 TEST(TestDMLGroup, select03){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/select03.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+}
+
+TEST(TestDMLGroup, selectJoin01){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/selectJoin01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+}
+
+TEST(TestDMLGroup, selectJoin02){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/selectJoin02.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+}
+
+TEST(TestDMLGroup, selectJoin03){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/selectJoin03.alns"))
 
 	SmartContractParser parser(sourceFile);
 	AlinousLang* lang = parser.getDebugAlinousLang();

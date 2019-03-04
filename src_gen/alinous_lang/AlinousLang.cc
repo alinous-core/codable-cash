@@ -5075,6 +5075,7 @@ SQLJoinPart           * AlinousLang::leftJoin() {SQLJoinPart* join = new SQLJoin
         join->setJoinType(SQLJoinPart::LEFT_OUTER_JOIN);
         Token* t = nullptr;
         AbstractSQLExpression* exp = nullptr;
+        AbstractJoinPart* table = nullptr;
     if (!hasError) {
     t = jj_consume_token(LEFT);
     }
@@ -5102,6 +5103,13 @@ join->setPosition(t);
     }
     if (!hasError) {
 join->setPosition(t);
+    }
+    if (!hasError) {
+    table = joinTarget();
+    }
+    if (!hasError) {
+join->setTable(table);
+                join->setPosition(table);
     }
     if (!hasError) {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
@@ -5139,6 +5147,7 @@ SQLJoinPart           * AlinousLang::rightJoin() {SQLJoinPart* join = new SQLJoi
         join->setJoinType(SQLJoinPart::RIGHT_OUTER_JOIN);
         Token* t = nullptr;
         AbstractSQLExpression* exp = nullptr;
+        AbstractJoinPart* table = nullptr;
     if (!hasError) {
     t = jj_consume_token(RIGHT);
     }
@@ -5166,6 +5175,13 @@ join->setPosition(t);
     }
     if (!hasError) {
 join->setPosition(t);
+    }
+    if (!hasError) {
+    table = joinTarget();
+    }
+    if (!hasError) {
+join->setTable(table);
+                join->setPosition(table);
     }
     if (!hasError) {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
@@ -5203,6 +5219,7 @@ SQLJoinPart           * AlinousLang::crossJoin() {SQLJoinPart* join = new SQLJoi
         join->setJoinType(SQLJoinPart::CROSS_JOIN);
         Token* t = nullptr;
         AbstractSQLExpression* exp = nullptr;
+        AbstractJoinPart* table = nullptr;
     if (!hasError) {
     t = jj_consume_token(CROSS);
     }
@@ -5214,6 +5231,13 @@ join->setPosition(t);
     }
     if (!hasError) {
 join->setPosition(t);
+    }
+    if (!hasError) {
+    table = joinTarget();
+    }
+    if (!hasError) {
+join->setTable(table);
+                join->setPosition(table);
     }
     if (!hasError) {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
