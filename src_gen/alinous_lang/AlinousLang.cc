@@ -4830,7 +4830,7 @@ if(t3 != nullptr){
                         exp->setTableName(_STR(t2));
                         exp->setColumnName(_STR(t3));
                 }
-                if(t2 != nullptr){
+                else if(t2 != nullptr){
                         exp->setTableName(_STR(t1));
                         exp->setColumnName(_STR(t2));
                 }

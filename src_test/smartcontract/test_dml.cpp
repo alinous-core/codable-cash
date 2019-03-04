@@ -31,7 +31,7 @@ TEST(TestDMLGroup, delete01){
 
 TEST(TestDMLGroup, begin01){
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/delete.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/begin01.alns"))
 
 	SmartContractParser parser(sourceFile);
 	AlinousLang* lang = parser.getDebugAlinousLang();
@@ -40,3 +40,28 @@ TEST(TestDMLGroup, begin01){
 
 	CHECK(!parser.hasError())
 }
+
+TEST(TestDMLGroup, commit01){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/commit01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+}
+
+TEST(TestDMLGroup, rollback01){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/rollback01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+}
+
