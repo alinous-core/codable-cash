@@ -77,6 +77,7 @@ AbstractExpression                  * functionCallExpression();
 void functionCallExpressionArg(FunctionCallExpression* exp);
 AbstractExpression                  * primitive();
 AllocationExpression                    * allocationExpression();
+FunctionCallExpression                      * constructorCallExpression();
 ParenthesisExpression                     * parenthesisExpression();
 VariableIdentifier                  * variableIdentifier();
 AbstractExpression                  * literal();
@@ -237,178 +238,6 @@ TableIdentifier               * tableIdentifier();
  { jj_save(11, xla); }
   }
 
- inline bool jj_3R_124()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(SQL_STRING_LITERAL)) return true;
-    return false;
-  }
-
- inline bool jj_3R_29()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(PLUS)) return true;
-    return false;
-  }
-
- inline bool jj_3R_123()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(STRING_LITERAL)) return true;
-    return false;
-  }
-
- inline bool jj_3R_70()
- {
-    if (jj_done) return true;
-    Token * xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_75()) jj_scanpos = xsp;
-    if (jj_3R_76()) return true;
-    return false;
-  }
-
- inline bool jj_3R_35()
- {
-    if (jj_done) return true;
-    Token * xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_50()) jj_scanpos = xsp;
-    return false;
-  }
-
- inline bool jj_3R_82()
- {
-    if (jj_done) return true;
-    if (jj_3R_85()) return true;
-    return false;
-  }
-
- inline bool jj_3R_62()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(STRING)) return true;
-    return false;
-  }
-
- inline bool jj_3R_120()
- {
-    if (jj_done) return true;
-    Token * xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_123()) {
-    jj_scanpos = xsp;
-    if (jj_3R_124()) return true;
-    }
-    return false;
-  }
-
- inline bool jj_3R_74()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(PLUSPLUS)) return true;
-    return false;
-  }
-
- inline bool jj_3_3()
- {
-    if (jj_done) return true;
-    Token * xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_29()) {
-    jj_scanpos = xsp;
-    if (jj_3R_30()) return true;
-    }
-    if (jj_3R_31()) return true;
-    return false;
-  }
-
- inline bool jj_3R_84()
- {
-    if (jj_done) return true;
-    if (jj_3R_87()) return true;
-    return false;
-  }
-
- inline bool jj_3R_103()
- {
-    if (jj_done) return true;
-    if (jj_3R_31()) return true;
-    return false;
-  }
-
- inline bool jj_3R_122()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(FALSE)) return true;
-    return false;
-  }
-
- inline bool jj_3R_61()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(LONG)) return true;
-    return false;
-  }
-
- inline bool jj_3R_73()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(MINUSMINUS)) return true;
-    return false;
-  }
-
- inline bool jj_3R_121()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(TRUE)) return true;
-    return false;
-  }
-
- inline bool jj_3_10()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(LIKE)) return true;
-    if (jj_3R_39()) return true;
-    return false;
-  }
-
- inline bool jj_3R_52()
- {
-    if (jj_done) return true;
-    if (jj_3R_65()) return true;
-    return false;
-  }
-
- inline bool jj_3R_41()
- {
-    if (jj_done) return true;
-    if (jj_3R_42()) return true;
-    if (jj_scan_token(L_PARENTHESIS)) return true;
-    return false;
-  }
-
- inline bool jj_3_6()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(L_PARENTHESIS)) return true;
-    if (jj_3R_35()) return true;
-    if (jj_scan_token(R_PARENTHESIS)) return true;
-    return false;
-  }
-
- inline bool jj_3R_69()
- {
-    if (jj_done) return true;
-    Token * xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_73()) {
-    jj_scanpos = xsp;
-    if (jj_3R_74()) return true;
-    }
-    return false;
-  }
-
  inline bool jj_3R_118()
  {
     if (jj_done) return true;
@@ -421,10 +250,10 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_89()
+ inline bool jj_3R_30()
  {
     if (jj_done) return true;
-    if (jj_3R_92()) return true;
+    if (jj_scan_token(PLUS)) return true;
     return false;
   }
 
@@ -435,17 +264,20 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_60()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(INT)) return true;
-    return false;
-  }
-
  inline bool jj_3R_97()
  {
     if (jj_done) return true;
     if (jj_3R_106()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_70()
+ {
+    if (jj_done) return true;
+    Token * xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_75()) jj_scanpos = xsp;
+    if (jj_3R_76()) return true;
     return false;
   }
 
@@ -463,6 +295,15 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
+ inline bool jj_3R_36()
+ {
+    if (jj_done) return true;
+    Token * xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_50()) jj_scanpos = xsp;
+    return false;
+  }
+
  inline bool jj_3R_95()
  {
     if (jj_done) return true;
@@ -477,13 +318,10 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_66()
+ inline bool jj_3R_62()
  {
     if (jj_done) return true;
-    Token * xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_69()) jj_scanpos = xsp;
-    if (jj_3R_70()) return true;
+    if (jj_scan_token(STRING)) return true;
     return false;
   }
 
@@ -511,14 +349,7 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_59()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(SHORT)) return true;
-    return false;
-  }
-
- inline bool jj_3R_33()
+ inline bool jj_3R_74()
  {
     if (jj_done) return true;
     if (jj_scan_token(PLUSPLUS)) return true;
@@ -539,14 +370,41 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_81()
+ inline bool jj_3_3()
  {
     if (jj_done) return true;
-    if (jj_3R_84()) return true;
+    Token * xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_30()) {
+    jj_scanpos = xsp;
+    if (jj_3R_31()) return true;
+    }
+    if (jj_3R_32()) return true;
     return false;
   }
 
- inline bool jj_3R_32()
+ inline bool jj_3R_84()
+ {
+    if (jj_done) return true;
+    if (jj_3R_87()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_103()
+ {
+    if (jj_done) return true;
+    if (jj_3R_32()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_61()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(LONG)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_73()
  {
     if (jj_done) return true;
     if (jj_scan_token(MINUSMINUS)) return true;
@@ -563,24 +421,19 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_58()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(CHAR)) return true;
-    return false;
-  }
-
- inline bool jj_3R_86()
- {
-    if (jj_done) return true;
-    if (jj_3R_89()) return true;
-    return false;
-  }
-
  inline bool jj_3R_117()
  {
     if (jj_done) return true;
     if (jj_scan_token(_NULL)) return true;
+    return false;
+  }
+
+ inline bool jj_3_6()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(L_PARENTHESIS)) return true;
+    if (jj_3R_36()) return true;
+    if (jj_scan_token(R_PARENTHESIS)) return true;
     return false;
   }
 
@@ -591,10 +444,22 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_93()
+ inline bool jj_3R_69()
  {
     if (jj_done) return true;
-    if (jj_3R_103()) return true;
+    Token * xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_73()) {
+    jj_scanpos = xsp;
+    if (jj_3R_74()) return true;
+    }
+    return false;
+  }
+
+ inline bool jj_3R_89()
+ {
+    if (jj_done) return true;
+    if (jj_3R_92()) return true;
     return false;
   }
 
@@ -605,17 +470,10 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_49()
+ inline bool jj_3R_60()
  {
     if (jj_done) return true;
-    if (jj_3R_63()) return true;
-    return false;
-  }
-
- inline bool jj_3R_48()
- {
-    if (jj_done) return true;
-    if (jj_3R_62()) return true;
+    if (jj_scan_token(INT)) return true;
     return false;
   }
 
@@ -633,13 +491,6 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_47()
- {
-    if (jj_done) return true;
-    if (jj_3R_61()) return true;
-    return false;
-  }
-
  inline bool jj_3R_114()
  {
     if (jj_done) return true;
@@ -647,10 +498,184 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
+ inline bool jj_3R_66()
+ {
+    if (jj_done) return true;
+    Token * xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_69()) jj_scanpos = xsp;
+    if (jj_3R_70()) return true;
+    return false;
+  }
+
  inline bool jj_3R_113()
  {
     if (jj_done) return true;
     if (jj_3R_117()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_112()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(FALSE)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_111()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(TRUE)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_59()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(SHORT)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_34()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(PLUSPLUS)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_110()
+ {
+    if (jj_done) return true;
+    Token * xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_113()) {
+    jj_scanpos = xsp;
+    if (jj_3R_114()) {
+    jj_scanpos = xsp;
+    if (jj_3R_115()) {
+    jj_scanpos = xsp;
+    if (jj_3R_116()) return true;
+    }
+    }
+    }
+    return false;
+  }
+
+ inline bool jj_3R_81()
+ {
+    if (jj_done) return true;
+    if (jj_3R_84()) return true;
+    return false;
+  }
+
+ inline bool jj_3_9()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(SQLAND)) return true;
+    if (jj_3R_38()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_37()
+ {
+    if (jj_done) return true;
+    if (jj_3R_38()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_105()
+ {
+    if (jj_done) return true;
+    Token * xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_111()) {
+    jj_scanpos = xsp;
+    if (jj_3R_112()) return true;
+    }
+    return false;
+  }
+
+ inline bool jj_3R_33()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(MINUSMINUS)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_58()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(CHAR)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_86()
+ {
+    if (jj_done) return true;
+    if (jj_3R_89()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_42()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(IDENTIFIER)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_93()
+ {
+    if (jj_done) return true;
+    if (jj_3R_103()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_88()
+ {
+    if (jj_done) return true;
+    if (jj_3R_91()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_55()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(CHARACTER_LITERAL)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_49()
+ {
+    if (jj_done) return true;
+    if (jj_3R_63()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_72()
+ {
+    if (jj_done) return true;
+    if (jj_3R_78()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_48()
+ {
+    if (jj_done) return true;
+    if (jj_3R_62()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_54()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(SQL_STRING_LITERAL)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_47()
+ {
+    if (jj_done) return true;
+    if (jj_3R_61()) return true;
     return false;
   }
 
@@ -666,17 +691,17 @@ TableIdentifier               * tableIdentifier();
     if (jj_done) return true;
     Token * xsp;
     xsp = jj_scanpos;
-    if (jj_3R_32()) {
+    if (jj_3R_33()) {
     jj_scanpos = xsp;
-    if (jj_3R_33()) return true;
+    if (jj_3R_34()) return true;
     }
     return false;
   }
 
- inline bool jj_3R_112()
+ inline bool jj_3R_53()
  {
     if (jj_done) return true;
-    if (jj_scan_token(FALSE)) return true;
+    if (jj_scan_token(INTEGER_LITERAL)) return true;
     return false;
   }
 
@@ -701,167 +726,10 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_111()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(TRUE)) return true;
-    return false;
-  }
-
  inline bool jj_3R_77()
  {
     if (jj_done) return true;
     if (jj_3R_81()) return true;
-    return false;
-  }
-
- inline bool jj_3R_110()
- {
-    if (jj_done) return true;
-    Token * xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_113()) {
-    jj_scanpos = xsp;
-    if (jj_3R_114()) {
-    jj_scanpos = xsp;
-    if (jj_3R_115()) {
-    jj_scanpos = xsp;
-    if (jj_3R_116()) return true;
-    }
-    }
-    }
-    return false;
-  }
-
- inline bool jj_3_9()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(SQLAND)) return true;
-    if (jj_3R_38()) return true;
-    return false;
-  }
-
- inline bool jj_3R_34()
- {
-    if (jj_done) return true;
-    Token * xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_44()) {
-    jj_scanpos = xsp;
-    if (jj_3R_45()) {
-    jj_scanpos = xsp;
-    if (jj_3R_46()) {
-    jj_scanpos = xsp;
-    if (jj_3R_47()) {
-    jj_scanpos = xsp;
-    if (jj_3R_48()) {
-    jj_scanpos = xsp;
-    if (jj_3R_49()) return true;
-    }
-    }
-    }
-    }
-    }
-    return false;
-  }
-
- inline bool jj_3R_37()
- {
-    if (jj_done) return true;
-    if (jj_3R_38()) return true;
-    return false;
-  }
-
- inline bool jj_3R_105()
- {
-    if (jj_done) return true;
-    Token * xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_111()) {
-    jj_scanpos = xsp;
-    if (jj_3R_112()) return true;
-    }
-    return false;
-  }
-
- inline bool jj_3R_83()
- {
-    if (jj_done) return true;
-    if (jj_3R_86()) return true;
-    return false;
-  }
-
- inline bool jj_3R_56()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(MINUS)) return true;
-    return false;
-  }
-
- inline bool jj_3R_42()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(IDENTIFIER)) return true;
-    return false;
-  }
-
- inline bool jj_3R_88()
- {
-    if (jj_done) return true;
-    if (jj_3R_91()) return true;
-    return false;
-  }
-
- inline bool jj_3R_55()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(CHARACTER_LITERAL)) return true;
-    return false;
-  }
-
- inline bool jj_3R_72()
- {
-    if (jj_done) return true;
-    if (jj_3R_78()) return true;
-    return false;
-  }
-
- inline bool jj_3R_54()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(SQL_STRING_LITERAL)) return true;
-    return false;
-  }
-
- inline bool jj_3R_28()
- {
-    if (jj_done) return true;
-    if (jj_3R_42()) return true;
-    if (jj_scan_token(EQUALS)) return true;
-    return false;
-  }
-
- inline bool jj_3R_43()
- {
-    if (jj_done) return true;
-    Token * xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_56()) jj_scanpos = xsp;
-    if (jj_3R_57()) return true;
-    return false;
-  }
-
- inline bool jj_3R_53()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(INTEGER_LITERAL)) return true;
-    return false;
-  }
-
- inline bool jj_3R_71()
- {
-    if (jj_done) return true;
-    if (jj_3R_77()) return true;
     return false;
   }
 
@@ -895,28 +763,59 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_90()
- {
-    if (jj_done) return true;
-    if (jj_3R_93()) return true;
-    return false;
-  }
-
- inline bool jj_3_5()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(L_PARENTHESIS)) return true;
-    if (jj_3R_34()) return true;
-    return false;
-  }
-
- inline bool jj_3R_80()
+ inline bool jj_3R_35()
  {
     if (jj_done) return true;
     Token * xsp;
     xsp = jj_scanpos;
-    if (jj_3_5()) jj_scanpos = xsp;
-    if (jj_3R_83()) return true;
+    if (jj_3R_44()) {
+    jj_scanpos = xsp;
+    if (jj_3R_45()) {
+    jj_scanpos = xsp;
+    if (jj_3R_46()) {
+    jj_scanpos = xsp;
+    if (jj_3R_47()) {
+    jj_scanpos = xsp;
+    if (jj_3R_48()) {
+    jj_scanpos = xsp;
+    if (jj_3R_49()) return true;
+    }
+    }
+    }
+    }
+    }
+    return false;
+  }
+
+ inline bool jj_3R_83()
+ {
+    if (jj_done) return true;
+    if (jj_3R_86()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_56()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(MINUS)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_29()
+ {
+    if (jj_done) return true;
+    if (jj_3R_42()) return true;
+    if (jj_scan_token(EQUALS)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_43()
+ {
+    if (jj_done) return true;
+    Token * xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_56()) jj_scanpos = xsp;
+    if (jj_3R_57()) return true;
     return false;
   }
 
@@ -924,14 +823,6 @@ TableIdentifier               * tableIdentifier();
  {
     if (jj_done) return true;
     if (jj_scan_token(L_PARENTHESIS)) return true;
-    return false;
-  }
-
- inline bool jj_3_1()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(DOT)) return true;
-    if (jj_scan_token(IDENTIFIER)) return true;
     return false;
   }
 
@@ -949,30 +840,83 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
+ inline bool jj_3R_71()
+ {
+    if (jj_done) return true;
+    if (jj_3R_77()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_40()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(SQL_NOT)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_90()
+ {
+    if (jj_done) return true;
+    if (jj_3R_93()) return true;
+    return false;
+  }
+
+ inline bool jj_3_5()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(L_PARENTHESIS)) return true;
+    if (jj_3R_35()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_80()
+ {
+    if (jj_done) return true;
+    Token * xsp;
+    xsp = jj_scanpos;
+    if (jj_3_5()) jj_scanpos = xsp;
+    if (jj_3R_83()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_107()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(DOLLAR)) return true;
+    return false;
+  }
+
+ inline bool jj_3_1()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(DOT)) return true;
+    if (jj_scan_token(IDENTIFIER)) return true;
+    return false;
+  }
+
  inline bool jj_3_7()
  {
     if (jj_done) return true;
-    if (jj_3R_36()) return true;
+    if (jj_scan_token(IDENTIFIER)) return true;
     if (jj_scan_token(DOT)) return true;
     return false;
   }
 
- inline bool jj_3R_67()
+ inline bool jj_3_11()
  {
     if (jj_done) return true;
-    if (jj_3R_71()) return true;
+    if (jj_scan_token(IS)) return true;
+    Token * xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_40()) jj_scanpos = xsp;
+    if (jj_scan_token(_NULL)) return true;
     return false;
   }
 
- inline bool jj_3R_36()
+ inline bool jj_3R_65()
  {
     if (jj_done) return true;
-    if (jj_scan_token(IDENTIFIER)) return true;
-    Token * xsp;
-    while (true) {
-      xsp = jj_scanpos;
-      if (jj_3_1()) { jj_scanpos = xsp; break; }
-    }
+    if (jj_3R_68()) return true;
     return false;
   }
 
@@ -983,10 +927,17 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_40()
+ inline bool jj_3R_67()
  {
     if (jj_done) return true;
-    if (jj_scan_token(SQL_NOT)) return true;
+    if (jj_3R_71()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_124()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(SQL_STRING_LITERAL)) return true;
     return false;
   }
 
@@ -1000,7 +951,14 @@ TableIdentifier               * tableIdentifier();
  inline bool jj_3_2()
  {
     if (jj_done) return true;
-    if (jj_3R_28()) return true;
+    if (jj_3R_29()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_123()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(STRING_LITERAL)) return true;
     return false;
   }
 
@@ -1032,10 +990,17 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_31()
+ inline bool jj_3R_32()
  {
     if (jj_done) return true;
     if (jj_3R_43()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_82()
+ {
+    if (jj_done) return true;
+    if (jj_3R_85()) return true;
     return false;
   }
 
@@ -1049,17 +1014,22 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
+ inline bool jj_3R_120()
+ {
+    if (jj_done) return true;
+    Token * xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_123()) {
+    jj_scanpos = xsp;
+    if (jj_3R_124()) return true;
+    }
+    return false;
+  }
+
  inline bool jj_3R_64()
  {
     if (jj_done) return true;
     if (jj_3R_67()) return true;
-    return false;
-  }
-
- inline bool jj_3R_107()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(DOLLAR)) return true;
     return false;
   }
 
@@ -1088,28 +1058,24 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3_11()
+ inline bool jj_3R_122()
  {
     if (jj_done) return true;
-    if (jj_scan_token(IS)) return true;
-    Token * xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_40()) jj_scanpos = xsp;
-    if (jj_scan_token(_NULL)) return true;
+    if (jj_scan_token(FALSE)) return true;
     return false;
   }
 
- inline bool jj_3R_30()
+ inline bool jj_3R_31()
  {
     if (jj_done) return true;
     if (jj_scan_token(MINUS)) return true;
     return false;
   }
 
- inline bool jj_3R_65()
+ inline bool jj_3R_121()
  {
     if (jj_done) return true;
-    if (jj_3R_68()) return true;
+    if (jj_scan_token(TRUE)) return true;
     return false;
   }
 
@@ -1127,10 +1093,33 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
+ inline bool jj_3_10()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(LIKE)) return true;
+    if (jj_3R_39()) return true;
+    return false;
+  }
+
  inline bool jj_3R_50()
  {
     if (jj_done) return true;
     if (jj_3R_64()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_52()
+ {
+    if (jj_done) return true;
+    if (jj_3R_65()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_41()
+ {
+    if (jj_done) return true;
+    if (jj_3R_42()) return true;
+    if (jj_scan_token(L_PARENTHESIS)) return true;
     return false;
   }
 

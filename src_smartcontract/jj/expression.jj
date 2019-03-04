@@ -782,30 +782,64 @@ AbstractExpression* primitive() : {
 AllocationExpression* allocationExpression() : {
 	AllocationExpression* exp = nullptr;
 	PackageNameDeclare* packageName = nullptr;
-	AbstractExpression* func = nullptr;
+	FunctionCallExpression* func = nullptr;
 	Token* t = nullptr;
+	
+	PackageNameDeclare* names = nullptr;
 }
 {
 	t="new" {
 		exp = new AllocationExpression();
 		exp->setPosition(t);
 	}
-	[LOOKAHEAD(2)
-		packageName=packageNameDeclare() {
-			exp->setPackage(packageName);
-			exp->setPosition(packageName);
-		}
-		t="." {
-			exp->setPosition(t);
-		}
-	]
 	
-	func=functionCallExpression() {
-		exp->setExpression((FunctionCallExpression*)func);
+	(LOOKAHEAD(2)
+		 t=< IDENTIFIER > {
+		 	if(packageName == nullptr){
+		 		packageName = new PackageNameDeclare();
+		 		exp->setPackage(packageName);
+		 	}
+		 	
+		 	exp->setPosition(t);
+		 	packageName->setPosition(t);
+		 }
+		 t="." {
+		 	exp->setPosition(t);
+		 }
+	)*
+	
+	func=constructorCallExpression() {
+		exp->setExpression(func);
 		exp->setPosition(func);
 	}
-	{
+
+	{	
 		 __ONERROR(exp);
+		return exp;
+	}
+}
+
+FunctionCallExpression* constructorCallExpression() : {
+	FunctionCallExpression* exp = new FunctionCallExpression();
+	Token* t = nullptr;
+	AbstractExpression* left = nullptr;
+}
+{
+	left=variableIdentifier()
+
+	t="(" {
+		exp->setName(left);
+		exp->setPosition(left);
+		exp->setPosition(t);
+	}
+	
+	functionCallExpressionArg(exp)		
+	
+	t=")" {
+		exp->setPosition(t);
+	}
+	{
+		__ONERROR(exp);
 		return exp;
 	}
 }
