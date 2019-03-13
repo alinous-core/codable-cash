@@ -65,8 +65,8 @@ uint64_t Transaction::getTotalOutput() const noexcept {
 	return this->outputs->getTotalOutput() + this->fee->getAmount();
 }
 
-void Transaction::setFee(uint64_t amount) noexcept {
-	this->fee->setAmount(amount);
+void Transaction::setFee(const BalanceUnit& amount) noexcept {
+	*this->fee = amount;
 }
 
 int Transaction::binarySize() const {
@@ -130,6 +130,8 @@ const TransactionId* Transaction::getTransactionId() const noexcept {
 
 AbstractTransaction* Transaction::clone() const {
 	AbstractTransaction* trx = new Transaction(*this);
+
+	trx->updateTransactionId();
 	return trx;
 }
 
