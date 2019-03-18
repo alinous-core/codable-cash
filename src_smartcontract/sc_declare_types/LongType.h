@@ -16,6 +16,10 @@ class LongType : public AbstractPrimitiveType {
 public:
 	LongType();
 	virtual ~LongType();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

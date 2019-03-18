@@ -23,6 +23,10 @@ public:
 	virtual ~ShiftExpression();
 
 	void addOpe(uint8_t ope) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	RawArrayPrimitive<uint8_t> operations;
 };

@@ -17,3 +17,12 @@ NullLiteral::~NullLiteral() {
 }
 
 } /* namespace alinous */
+
+int alinous::NullLiteral::binarySize() const {
+}
+
+void alinous::NullLiteral::toBinary(ByteBuffer* out) {
+}
+
+void alinous::NullLiteral::fromBinary(ByteBuffer* in) {
+}

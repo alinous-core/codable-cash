@@ -27,3 +27,12 @@ void SQLIsNullExpression::setNotNull(bool notnull) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLIsNullExpression::binarySize() const {
+}
+
+void alinous::SQLIsNullExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLIsNullExpression::fromBinary(ByteBuffer* in) {
+}

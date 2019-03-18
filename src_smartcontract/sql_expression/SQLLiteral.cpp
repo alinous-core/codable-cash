@@ -25,3 +25,12 @@ void SQLLiteral::setValue(UnicodeString* value, uint8_t type) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLLiteral::binarySize() const {
+}
+
+void alinous::SQLLiteral::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLLiteral::fromBinary(ByteBuffer* in) {
+}

@@ -21,6 +21,10 @@ public:
 	void setWildcard(bool wildcard) noexcept;
 	void setExpression(AbstractSQLExpression* exp) noexcept;
 	void setAsName(UnicodeString* asName)noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	bool wildcard;
 	AbstractSQLExpression* exp;

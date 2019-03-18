@@ -17,3 +17,12 @@ ContinueStatement::~ContinueStatement() {
 }
 
 } /* namespace alinous */
+
+int alinous::ContinueStatement::binarySize() const {
+}
+
+void alinous::ContinueStatement::toBinary(ByteBuffer* out) {
+}
+
+void alinous::ContinueStatement::fromBinary(ByteBuffer* in) {
+}

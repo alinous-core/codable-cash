@@ -28,3 +28,12 @@ void ClassDeclareBlock::addVariable(MemberVariableDeclare* variable) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::ClassDeclareBlock::binarySize() const {
+}
+
+void alinous::ClassDeclareBlock::toBinary(ByteBuffer* out) {
+}
+
+void alinous::ClassDeclareBlock::fromBinary(ByteBuffer* in) {
+}

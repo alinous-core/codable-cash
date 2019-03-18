@@ -21,6 +21,10 @@ public:
 	virtual ~ArgumentsListDeclare();
 
 	void addArgument(ArgumentDeclare* arg) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	ArrayList<ArgumentDeclare> list;
 };

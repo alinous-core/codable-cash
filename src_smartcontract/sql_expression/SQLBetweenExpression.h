@@ -21,6 +21,9 @@ public:
 	void setStart(AbstractSQLExpression* exp) noexcept;
 	void setEnd(AbstractSQLExpression* exp) noexcept;
 
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	AbstractSQLExpression* left;
 	AbstractSQLExpression* start;

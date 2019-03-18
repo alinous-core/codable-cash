@@ -23,4 +23,13 @@ void SQLFrom::setTable(AbstractJoinPart* tableId) noexcept {
 	this->tableId = tableId;
 }
 
+int SQLFrom::binarySize() const {
+}
+
+void SQLFrom::toBinary(ByteBuffer* out) {
+}
+
+void SQLFrom::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

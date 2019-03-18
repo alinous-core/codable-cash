@@ -23,3 +23,12 @@ void SQLPlaceHolder::setExpression(AbstractExpression* exp) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLPlaceHolder::binarySize() const {
+}
+
+void alinous::SQLPlaceHolder::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLPlaceHolder::fromBinary(ByteBuffer* in) {
+}

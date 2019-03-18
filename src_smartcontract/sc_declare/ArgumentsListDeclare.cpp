@@ -22,3 +22,12 @@ void ArgumentsListDeclare::addArgument(ArgumentDeclare* arg) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::ArgumentsListDeclare::binarySize() const {
+}
+
+void alinous::ArgumentsListDeclare::toBinary(ByteBuffer* out) {
+}
+
+void alinous::ArgumentsListDeclare::fromBinary(ByteBuffer* in) {
+}

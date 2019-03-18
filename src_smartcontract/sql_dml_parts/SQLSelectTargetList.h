@@ -20,6 +20,10 @@ public:
 	virtual ~SQLSelectTargetList();
 
 	void addTarget(SQLSelectTarget* target) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	ArrayList<SQLSelectTarget> list;
 };

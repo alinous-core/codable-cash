@@ -18,3 +18,12 @@ CreateTableStatement::~CreateTableStatement() {
 }
 
 } /* namespace alinous */
+
+int alinous::CreateTableStatement::binarySize() const {
+}
+
+void alinous::CreateTableStatement::toBinary(ByteBuffer* out) {
+}
+
+void alinous::CreateTableStatement::fromBinary(ByteBuffer* in) {
+}

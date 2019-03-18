@@ -33,3 +33,12 @@ void SQLEqualityExpression::setOp(uint8_t op) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLEqualityExpression::binarySize() const {
+}
+
+void alinous::SQLEqualityExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLEqualityExpression::fromBinary(ByteBuffer* in) {
+}

@@ -20,6 +20,10 @@ public:
 
 	void setLimit(AbstractSQLExpression* limit) noexcept;
 	void setOffset(AbstractSQLExpression* offset) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	AbstractSQLExpression* limit;
 	AbstractSQLExpression* offset;

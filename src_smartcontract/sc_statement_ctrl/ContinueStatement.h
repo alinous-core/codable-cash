@@ -16,6 +16,10 @@ class ContinueStatement: public AbstractStatement {
 public:
 	ContinueStatement();
 	virtual ~ContinueStatement();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

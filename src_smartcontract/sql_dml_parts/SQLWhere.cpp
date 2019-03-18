@@ -22,4 +22,13 @@ void alinous::SQLWhere::setExpression(AbstractSQLExpression* exp) noexcept {
 	this->exp = exp;
 }
 
+int SQLWhere::binarySize() const {
+}
+
+void SQLWhere::toBinary(ByteBuffer* out) {
+}
+
+void SQLWhere::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

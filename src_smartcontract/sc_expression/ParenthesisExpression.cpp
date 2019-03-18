@@ -22,3 +22,12 @@ void ParenthesisExpression::setExp(AbstractExpression* exp) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::ParenthesisExpression::binarySize() const {
+}
+
+void alinous::ParenthesisExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::ParenthesisExpression::fromBinary(ByteBuffer* in) {
+}

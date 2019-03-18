@@ -28,3 +28,12 @@ void SQLFunctionCall::addArgument(AbstractSQLExpression* arg) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLFunctionCall::binarySize() const {
+}
+
+void alinous::SQLFunctionCall::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLFunctionCall::fromBinary(ByteBuffer* in) {
+}

@@ -19,4 +19,13 @@ void AddExpression::addOpe(uint8_t ope) noexcept {
 	this->operations.addElement(ope);
 }
 
+int AddExpression::binarySize() const {
+}
+
+void AddExpression::toBinary(ByteBuffer* out) {
+}
+
+void AddExpression::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

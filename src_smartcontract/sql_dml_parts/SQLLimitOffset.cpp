@@ -28,4 +28,13 @@ void SQLLimitOffset::setOffset(AbstractSQLExpression* offset) noexcept {
 	this->offset = offset;
 }
 
+int SQLLimitOffset::binarySize() const {
+}
+
+void SQLLimitOffset::toBinary(ByteBuffer* out) {
+}
+
+void SQLLimitOffset::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

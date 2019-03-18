@@ -21,4 +21,13 @@ void SQLColumnsList::addColumn(SQLColumnIdentifier* colId) noexcept {
 	this->list.addElement(colId);
 }
 
+int SQLColumnsList::binarySize() const {
+}
+
+void SQLColumnsList::toBinary(ByteBuffer* out) {
+}
+
+void SQLColumnsList::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

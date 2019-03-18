@@ -20,3 +20,12 @@ void MultiplicativeExpression::addOpe(uint8_t ope) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::MultiplicativeExpression::binarySize() const {
+}
+
+void alinous::MultiplicativeExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::MultiplicativeExpression::fromBinary(ByteBuffer* in) {
+}

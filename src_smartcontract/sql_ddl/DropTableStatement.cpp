@@ -21,4 +21,13 @@ void DropTableStatement::setTableId(TableIdentifier* tableId) noexcept {
 	this->tableId = tableId;
 }
 
+int DropTableStatement::binarySize() const {
+}
+
+void DropTableStatement::toBinary(ByteBuffer* out) {
+}
+
+void DropTableStatement::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

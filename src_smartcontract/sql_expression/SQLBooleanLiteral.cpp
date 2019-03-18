@@ -21,3 +21,12 @@ void SQLBooleanLiteral::setValue(bool value) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLBooleanLiteral::binarySize() const {
+}
+
+void alinous::SQLBooleanLiteral::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLBooleanLiteral::fromBinary(ByteBuffer* in) {
+}

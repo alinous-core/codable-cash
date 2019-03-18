@@ -22,6 +22,9 @@ public:
 	void setName(AbstractExpression* exp) noexcept;
 	void addArgument(AbstractExpression* exp) noexcept;
 
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	AbstractExpression* name;
 	ArrayList<AbstractExpression> args;

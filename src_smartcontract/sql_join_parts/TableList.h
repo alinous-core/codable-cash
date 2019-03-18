@@ -21,6 +21,10 @@ public:
 	virtual ~TableList();
 
 	void addTable(AbstractJoinPart* tableId) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	ArrayList<AbstractJoinPart> list;
 };

@@ -28,3 +28,12 @@ void IfStatement::setStatement(AbstractStatement* stmt) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::IfStatement::binarySize() const {
+}
+
+void alinous::IfStatement::toBinary(ByteBuffer* out) {
+}
+
+void alinous::IfStatement::fromBinary(ByteBuffer* in) {
+}

@@ -16,3 +16,12 @@ BlankStatement::~BlankStatement() {
 }
 
 } /* namespace alinous */
+
+int alinous::BlankStatement::binarySize() const {
+}
+
+void alinous::BlankStatement::toBinary(ByteBuffer* out) {
+}
+
+void alinous::BlankStatement::fromBinary(ByteBuffer* in) {
+}

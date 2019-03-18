@@ -34,4 +34,13 @@ void SQLSelectTarget::setAsName(UnicodeString* asName) noexcept {
 	this->asName = asName;
 }
 
+int SQLSelectTarget::binarySize() const {
+}
+
+void SQLSelectTarget::toBinary(ByteBuffer* out) {
+}
+
+void SQLSelectTarget::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

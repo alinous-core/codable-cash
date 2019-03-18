@@ -20,3 +20,12 @@ void SQLAdditiveExpression::addOpe(uint8_t ope) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLAdditiveExpression::binarySize() const {
+}
+
+void alinous::SQLAdditiveExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLAdditiveExpression::fromBinary(ByteBuffer* in) {
+}

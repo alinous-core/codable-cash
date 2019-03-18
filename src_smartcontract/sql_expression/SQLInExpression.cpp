@@ -29,3 +29,12 @@ void SQLInExpression::setList(SQLExpressionList* list) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLInExpression::binarySize() const {
+}
+
+void alinous::SQLInExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLInExpression::fromBinary(ByteBuffer* in) {
+}

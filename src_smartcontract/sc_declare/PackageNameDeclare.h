@@ -22,6 +22,9 @@ public:
 
 	void addSegment(UnicodeString* seg);
 
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	ArrayList<UnicodeString> list;
 };

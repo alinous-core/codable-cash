@@ -20,6 +20,10 @@ public:
 
 	void setExp(AbstractExpression* exp) noexcept;
 	void addIndex(AbstractExpression* exp) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	AbstractExpression* exp;
 	ArrayList<AbstractExpression> list;

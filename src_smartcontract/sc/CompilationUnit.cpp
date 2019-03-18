@@ -30,4 +30,13 @@ void CompilationUnit::addClassDeclare(ClassDeclare* clazz) {
 	this->classes.addElement(clazz);
 }
 
+int CompilationUnit::binarySize() const {
+}
+
+void CompilationUnit::toBinary(ByteBuffer* out) {
+}
+
+void CompilationUnit::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

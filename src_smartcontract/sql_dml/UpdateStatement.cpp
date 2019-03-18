@@ -37,4 +37,13 @@ void UpdateStatement::setWhere(SQLWhere* where) noexcept {
 	this->where = where;
 }
 
+int UpdateStatement::binarySize() const {
+}
+
+void UpdateStatement::toBinary(ByteBuffer* out) {
+}
+
+void UpdateStatement::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

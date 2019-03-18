@@ -16,3 +16,12 @@ LongType::~LongType() {
 }
 
 } /* namespace alinous */
+
+int alinous::LongType::binarySize() const {
+}
+
+void alinous::LongType::toBinary(ByteBuffer* out) {
+}
+
+void alinous::LongType::fromBinary(ByteBuffer* in) {
+}

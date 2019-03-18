@@ -23,6 +23,10 @@ public:
 
 	void addMethod(MethodDeclare* method) noexcept;
 	void addVariable(MemberVariableDeclare* variable) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	ArrayList<MethodDeclare> methods;
 	ArrayList<MemberVariableDeclare> variables;

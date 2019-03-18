@@ -17,3 +17,12 @@ BreakStatement::~BreakStatement() {
 }
 
 } /* namespace alinous */
+
+int alinous::BreakStatement::binarySize() const {
+}
+
+void alinous::BreakStatement::toBinary(ByteBuffer* out) {
+}
+
+void alinous::BreakStatement::fromBinary(ByteBuffer* in) {
+}

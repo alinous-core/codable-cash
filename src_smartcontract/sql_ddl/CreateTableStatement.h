@@ -16,6 +16,10 @@ class CreateTableStatement : public AbstractSQLStatement {
 public:
 	CreateTableStatement();
 	virtual ~CreateTableStatement();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

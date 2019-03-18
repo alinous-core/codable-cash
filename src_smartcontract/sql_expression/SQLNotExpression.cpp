@@ -22,3 +22,12 @@ void SQLNotExpression::setExpression(AbstractSQLExpression* exp) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLNotExpression::binarySize() const {
+}
+
+void alinous::SQLNotExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLNotExpression::fromBinary(ByteBuffer* in) {
+}

@@ -38,3 +38,12 @@ void VariableDeclareStatement::setInitExpression(AbstractExpression* exp) noexce
 }
 
 } /* namespace alinous */
+
+int alinous::VariableDeclareStatement::binarySize() const {
+}
+
+void alinous::VariableDeclareStatement::toBinary(ByteBuffer* out) {
+}
+
+void alinous::VariableDeclareStatement::fromBinary(ByteBuffer* in) {
+}

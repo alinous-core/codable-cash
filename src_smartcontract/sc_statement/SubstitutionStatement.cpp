@@ -30,3 +30,12 @@ void SubstitutionStatement::setExpression(AbstractExpression* exp) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SubstitutionStatement::binarySize() const {
+}
+
+void alinous::SubstitutionStatement::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SubstitutionStatement::fromBinary(ByteBuffer* in) {
+}

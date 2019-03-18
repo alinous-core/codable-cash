@@ -29,4 +29,13 @@ void SQLGroupBy::setHaving(SQLHaving* having) noexcept {
 	this->having = having;
 }
 
+int SQLGroupBy::binarySize() const {
+}
+
+void SQLGroupBy::toBinary(ByteBuffer* out) {
+}
+
+void SQLGroupBy::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

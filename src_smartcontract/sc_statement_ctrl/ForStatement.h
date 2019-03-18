@@ -23,6 +23,10 @@ public:
 	void setInit(AbstractStatement* init) noexcept;
 	void setCondition(AbstractExpression* cond) noexcept;
 	void setPostLoop(AbstractExpression* postLoop) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	AbstractStatement* init;
 	AbstractExpression* cond;

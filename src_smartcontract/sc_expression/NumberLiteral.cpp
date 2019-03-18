@@ -23,3 +23,12 @@ void NumberLiteral::setValue(UnicodeString* str) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::NumberLiteral::binarySize() const {
+}
+
+void alinous::NumberLiteral::toBinary(ByteBuffer* out) {
+}
+
+void alinous::NumberLiteral::fromBinary(ByteBuffer* in) {
+}

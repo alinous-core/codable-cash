@@ -29,6 +29,10 @@ public:
 	void setName(UnicodeString* name) noexcept;
 	void setArguments(ArgumentsListDeclare* args) noexcept;
 	void setBlock(StatementBlock* block) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	AccessControlDeclare* ctrl;
 	AbstractType* type;

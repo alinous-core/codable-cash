@@ -15,4 +15,13 @@ ExclusiveOrExpression::ExclusiveOrExpression() : AbstractBinaryExpression(CodeEl
 ExclusiveOrExpression::~ExclusiveOrExpression() {
 }
 
+int ExclusiveOrExpression::binarySize() const {
+}
+
+void ExclusiveOrExpression::toBinary(ByteBuffer* out) {
+}
+
+void ExclusiveOrExpression::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

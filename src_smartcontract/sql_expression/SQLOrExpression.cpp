@@ -16,3 +16,12 @@ SQLOrExpression::~SQLOrExpression() {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLOrExpression::binarySize() const {
+}
+
+void alinous::SQLOrExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLOrExpression::fromBinary(ByteBuffer* in) {
+}

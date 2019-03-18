@@ -30,3 +30,12 @@ void TableIdentifier::setTableName(UnicodeString* tableName) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::TableIdentifier::binarySize() const {
+}
+
+void alinous::TableIdentifier::toBinary(ByteBuffer* out) {
+}
+
+void alinous::TableIdentifier::fromBinary(ByteBuffer* in) {
+}

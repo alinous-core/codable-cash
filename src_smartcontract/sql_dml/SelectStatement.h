@@ -29,6 +29,10 @@ public:
 	void setGroupBy(SQLGroupBy* groupBy) noexcept;
 	void setOrderBy(SQLOrderBy* orderBy) noexcept;
 	void setLimitOffset(SQLLimitOffset* limitOffset) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	SQLSelectTargetList* list;
 	SQLFrom* from;

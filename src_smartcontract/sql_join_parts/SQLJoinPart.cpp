@@ -35,4 +35,11 @@ void SQLJoinPart::setExpression(AbstractSQLExpression* exp) noexcept {
 
 } /* namespace alinous */
 
+int alinous::SQLJoinPart::binarySize() const {
+}
 
+void alinous::SQLJoinPart::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLJoinPart::fromBinary(ByteBuffer* in) {
+}

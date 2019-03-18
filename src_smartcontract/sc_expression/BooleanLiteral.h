@@ -19,6 +19,10 @@ public:
 
 	void setValue(bool v) noexcept;
 
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
+
 private:
 	bool value;
 };

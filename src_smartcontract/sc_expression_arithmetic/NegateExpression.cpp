@@ -22,3 +22,12 @@ void NegateExpression::setExpression(AbstractExpression* exp) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::NegateExpression::binarySize() const {
+}
+
+void alinous::NegateExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::NegateExpression::fromBinary(ByteBuffer* in) {
+}

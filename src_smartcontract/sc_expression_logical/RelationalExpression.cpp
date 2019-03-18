@@ -32,3 +32,12 @@ void RelationalExpression::setOp(uint8_t op) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::RelationalExpression::binarySize() const {
+}
+
+void alinous::RelationalExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::RelationalExpression::fromBinary(ByteBuffer* in) {
+}

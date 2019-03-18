@@ -16,3 +16,12 @@ ShortType::~ShortType() {
 }
 
 } /* namespace alinous */
+
+int alinous::ShortType::binarySize() const {
+}
+
+void alinous::ShortType::toBinary(ByteBuffer* out) {
+}
+
+void alinous::ShortType::fromBinary(ByteBuffer* in) {
+}

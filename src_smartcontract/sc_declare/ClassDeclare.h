@@ -25,6 +25,10 @@ public:
 
 	void setBlock(ClassDeclareBlock* block) noexcept;
 	void setName(UnicodeString* name) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	ClassDeclareBlock* block;
 	UnicodeString* name;

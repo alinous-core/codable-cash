@@ -34,3 +34,12 @@ void SQLBetweenExpression::setEnd(AbstractSQLExpression* exp) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLBetweenExpression::binarySize() const {
+}
+
+void alinous::SQLBetweenExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLBetweenExpression::fromBinary(ByteBuffer* in) {
+}

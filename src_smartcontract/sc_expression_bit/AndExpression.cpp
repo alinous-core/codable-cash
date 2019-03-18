@@ -16,3 +16,12 @@ AndExpression::~AndExpression() {
 }
 
 } /* namespace alinous */
+
+int alinous::AndExpression::binarySize() const {
+}
+
+void alinous::AndExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::AndExpression::fromBinary(ByteBuffer* in) {
+}

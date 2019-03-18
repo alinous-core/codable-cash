@@ -21,3 +21,12 @@ void BooleanLiteral::setValue(bool v) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::BooleanLiteral::binarySize() const {
+}
+
+void alinous::BooleanLiteral::toBinary(ByteBuffer* out) {
+}
+
+void alinous::BooleanLiteral::fromBinary(ByteBuffer* in) {
+}

@@ -33,3 +33,12 @@ void EqualityExpression::setOp(uint8_t op) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::EqualityExpression::binarySize() const {
+}
+
+void alinous::EqualityExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::EqualityExpression::fromBinary(ByteBuffer* in) {
+}

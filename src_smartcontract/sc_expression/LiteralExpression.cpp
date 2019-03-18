@@ -25,3 +25,12 @@ void LiteralExpression::setString(UnicodeString* str, bool dquote) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::LiteralExpression::binarySize() const {
+}
+
+void alinous::LiteralExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::LiteralExpression::fromBinary(ByteBuffer* in) {
+}

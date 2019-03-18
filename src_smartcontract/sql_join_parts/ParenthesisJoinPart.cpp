@@ -21,4 +21,13 @@ void ParenthesisJoinPart::setPart(AbstractJoinPart* part) noexcept {
 	this->part = part;
 }
 
+int ParenthesisJoinPart::binarySize() const {
+}
+
+void ParenthesisJoinPart::toBinary(ByteBuffer* out) {
+}
+
+void ParenthesisJoinPart::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

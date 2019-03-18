@@ -21,3 +21,12 @@ void SQLExpressionList::addExpression(AbstractSQLExpression* exp) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLExpressionList::binarySize() const {
+}
+
+void alinous::SQLExpressionList::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLExpressionList::fromBinary(ByteBuffer* in) {
+}

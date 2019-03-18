@@ -21,4 +21,13 @@ void TableList::addTable(AbstractJoinPart* tableId) noexcept {
 	this->list.addElement(tableId);
 }
 
+int TableList::binarySize() const {
+}
+
+void TableList::toBinary(ByteBuffer* out) {
+}
+
+void TableList::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

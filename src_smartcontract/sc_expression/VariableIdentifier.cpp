@@ -23,3 +23,12 @@ void VariableIdentifier::setName(UnicodeString* name) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::VariableIdentifier::binarySize() const {
+}
+
+void alinous::VariableIdentifier::toBinary(ByteBuffer* out) {
+}
+
+void alinous::VariableIdentifier::fromBinary(ByteBuffer* in) {
+}

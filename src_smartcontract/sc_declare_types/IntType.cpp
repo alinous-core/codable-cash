@@ -17,3 +17,12 @@ IntType::~IntType() {
 }
 
 } /* namespace alinous */
+
+int alinous::IntType::binarySize() const {
+}
+
+void alinous::IntType::toBinary(ByteBuffer* out) {
+}
+
+void alinous::IntType::fromBinary(ByteBuffer* in) {
+}

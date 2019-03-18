@@ -35,3 +35,12 @@ void SQLColumnIdentifier::setColumnName(UnicodeString* columnName) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLColumnIdentifier::binarySize() const {
+}
+
+void alinous::SQLColumnIdentifier::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLColumnIdentifier::fromBinary(ByteBuffer* in) {
+}

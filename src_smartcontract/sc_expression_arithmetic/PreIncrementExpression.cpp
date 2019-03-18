@@ -27,3 +27,12 @@ void PreIncrementExpression::setOpe(int ope) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::PreIncrementExpression::binarySize() const {
+}
+
+void alinous::PreIncrementExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::PreIncrementExpression::fromBinary(ByteBuffer* in) {
+}

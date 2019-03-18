@@ -16,3 +16,12 @@ StringType::~StringType() {
 }
 
 } /* namespace alinous */
+
+int alinous::StringType::binarySize() const {
+}
+
+void alinous::StringType::toBinary(ByteBuffer* out) {
+}
+
+void alinous::StringType::fromBinary(ByteBuffer* in) {
+}

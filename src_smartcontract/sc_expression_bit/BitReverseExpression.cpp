@@ -21,4 +21,13 @@ void BitReverseExpression::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }
 
+int BitReverseExpression::binarySize() const {
+}
+
+void BitReverseExpression::toBinary(ByteBuffer* out) {
+}
+
+void BitReverseExpression::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

@@ -15,4 +15,14 @@ ConditionalAndExpression::ConditionalAndExpression() : AbstractBinaryExpression(
 ConditionalAndExpression::~ConditionalAndExpression() {
 }
 
+int ConditionalAndExpression::binarySize() const {
+}
+
+void ConditionalAndExpression::toBinary(ByteBuffer* out) {
+}
+
+void ConditionalAndExpression::fromBinary(ByteBuffer* in) {
+}
+
+
 } /* namespace alinous */

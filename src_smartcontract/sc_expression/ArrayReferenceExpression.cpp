@@ -27,3 +27,12 @@ void ArrayReferenceExpression::addIndex(AbstractExpression* exp) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::ArrayReferenceExpression::binarySize() const {
+}
+
+void alinous::ArrayReferenceExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::ArrayReferenceExpression::fromBinary(ByteBuffer* in) {
+}

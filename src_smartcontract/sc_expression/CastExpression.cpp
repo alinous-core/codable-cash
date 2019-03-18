@@ -29,3 +29,12 @@ void CastExpression::setExpression(AbstractExpression* exp) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::CastExpression::binarySize() const {
+}
+
+void alinous::CastExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::CastExpression::fromBinary(ByteBuffer* in) {
+}

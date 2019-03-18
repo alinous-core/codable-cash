@@ -65,4 +65,13 @@ void MethodDeclare::setBlock(StatementBlock* block) noexcept {
 	this->block = block;
 }
 
+int MethodDeclare::binarySize() const {
+}
+
+void MethodDeclare::toBinary(ByteBuffer* out) {
+}
+
+void MethodDeclare::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

@@ -22,3 +22,12 @@ void NotExpression::setExpression(AbstractExpression* exp) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::NotExpression::binarySize() const {
+}
+
+void alinous::NotExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::NotExpression::fromBinary(ByteBuffer* in) {
+}

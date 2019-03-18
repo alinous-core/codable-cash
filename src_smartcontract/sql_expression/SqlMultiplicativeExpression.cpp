@@ -20,3 +20,12 @@ void SqlMultiplicativeExpression::addOpe(uint8_t ope) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SqlMultiplicativeExpression::binarySize() const {
+}
+
+void alinous::SqlMultiplicativeExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SqlMultiplicativeExpression::fromBinary(ByteBuffer* in) {
+}

@@ -18,3 +18,12 @@ MemberReferenceExpression::~MemberReferenceExpression() {
 }
 
 } /* namespace alinous */
+
+int alinous::MemberReferenceExpression::binarySize() const {
+}
+
+void alinous::MemberReferenceExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::MemberReferenceExpression::fromBinary(ByteBuffer* in) {
+}

@@ -21,3 +21,12 @@ void StatementBlock::addStatement(AbstractStatement* stmt) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::StatementBlock::binarySize() const {
+}
+
+void alinous::StatementBlock::toBinary(ByteBuffer* out) {
+}
+
+void alinous::StatementBlock::fromBinary(ByteBuffer* in) {
+}

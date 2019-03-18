@@ -20,6 +20,10 @@ public:
 	virtual ~SQLPlaceHolder();
 
 	void setExpression(AbstractExpression* exp) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	AbstractExpression* exp;
 };

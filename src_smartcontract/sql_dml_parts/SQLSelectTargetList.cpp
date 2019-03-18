@@ -21,4 +21,13 @@ void SQLSelectTargetList::addTarget(SQLSelectTarget* target) noexcept {
 	this->list.addElement(target);
 }
 
+int SQLSelectTargetList::binarySize() const {
+}
+
+void SQLSelectTargetList::toBinary(ByteBuffer* out) {
+}
+
+void SQLSelectTargetList::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

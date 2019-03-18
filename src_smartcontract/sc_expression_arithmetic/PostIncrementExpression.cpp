@@ -27,3 +27,12 @@ void PostIncrementExpression::setOpe(int ope) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::PostIncrementExpression::binarySize() const {
+}
+
+void alinous::PostIncrementExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::PostIncrementExpression::fromBinary(ByteBuffer* in) {
+}

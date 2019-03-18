@@ -22,6 +22,10 @@ public:
 
 	void setExpression(AbstractExpression* exp) noexcept;
 	void setOpe(int ope) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	AbstractExpression* exp;
 	int ope;

@@ -16,3 +16,12 @@ BeginStatement::~BeginStatement() {
 }
 
 } /* namespace alinous */
+
+int alinous::BeginStatement::binarySize() const {
+}
+
+void alinous::BeginStatement::toBinary(ByteBuffer* out) {
+}
+
+void alinous::BeginStatement::fromBinary(ByteBuffer* in) {
+}

@@ -35,3 +35,12 @@ void SQLLikeExpression::setEscape(SQLLiteral* escape) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLLikeExpression::binarySize() const {
+}
+
+void alinous::SQLLikeExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLLikeExpression::fromBinary(ByteBuffer* in) {
+}

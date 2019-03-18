@@ -24,6 +24,14 @@ void PackageDeclare::setName(PackageNameDeclare* name) {
 	this->name = name;
 }
 
+int PackageDeclare::binarySize() const {
+}
+
+void PackageDeclare::toBinary(ByteBuffer* out) {
+}
+
+void PackageDeclare::fromBinary(ByteBuffer* in) {
+}
+
 
 } /* namespace alinous */
-

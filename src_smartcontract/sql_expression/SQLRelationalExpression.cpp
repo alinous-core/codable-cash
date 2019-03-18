@@ -33,3 +33,12 @@ void SQLRelationalExpression::setOp(uint8_t op) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLRelationalExpression::binarySize() const {
+}
+
+void alinous::SQLRelationalExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLRelationalExpression::fromBinary(ByteBuffer* in) {
+}

@@ -36,3 +36,11 @@ void ArgumentDeclare::setName(UnicodeString* name) noexcept {
 
 } /* namespace alinous */
 
+int alinous::ArgumentDeclare::binarySize() const {
+}
+
+void alinous::ArgumentDeclare::toBinary(ByteBuffer* out) {
+}
+
+void alinous::ArgumentDeclare::fromBinary(ByteBuffer* in) {
+}

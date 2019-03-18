@@ -30,4 +30,13 @@ void AllocationExpression::setExpression(FunctionCallExpression* exp) noexcept {
 	this->exp = exp;
 }
 
+int AllocationExpression::binarySize() const {
+}
+
+void AllocationExpression::toBinary(ByteBuffer* out) {
+}
+
+void AllocationExpression::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

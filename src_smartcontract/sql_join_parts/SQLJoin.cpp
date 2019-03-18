@@ -26,4 +26,13 @@ void SQLJoin::addJoinPart(SQLJoinPart* part) noexcept {
 	this->list.addElement(part);
 }
 
+int SQLJoin::binarySize() const {
+}
+
+void SQLJoin::toBinary(ByteBuffer* out) {
+}
+
+void SQLJoin::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

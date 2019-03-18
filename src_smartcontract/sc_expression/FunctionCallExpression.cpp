@@ -28,3 +28,12 @@ void FunctionCallExpression::addArgument(AbstractExpression* exp) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::FunctionCallExpression::binarySize() const {
+}
+
+void alinous::FunctionCallExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::FunctionCallExpression::fromBinary(ByteBuffer* in) {
+}

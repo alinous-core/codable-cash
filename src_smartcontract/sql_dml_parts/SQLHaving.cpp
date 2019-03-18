@@ -23,3 +23,12 @@ void alinous::SQLHaving::setExpression(AbstractSQLExpression* exp) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLHaving::binarySize() const {
+}
+
+void alinous::SQLHaving::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLHaving::fromBinary(ByteBuffer* in) {
+}

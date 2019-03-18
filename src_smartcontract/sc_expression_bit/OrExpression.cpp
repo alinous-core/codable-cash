@@ -15,4 +15,13 @@ OrExpression::OrExpression() : AbstractBinaryExpression(CodeElement::EXP_OR) {
 OrExpression::~OrExpression() {
 }
 
+int OrExpression::binarySize() const {
+}
+
+void OrExpression::toBinary(ByteBuffer* out) {
+}
+
+void OrExpression::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

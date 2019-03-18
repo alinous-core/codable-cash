@@ -17,6 +17,10 @@ class MemberReferenceExpression : public AbstractBinaryExpression {
 public:
 	MemberReferenceExpression();
 	virtual ~MemberReferenceExpression();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

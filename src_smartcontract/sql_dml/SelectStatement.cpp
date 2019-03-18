@@ -57,4 +57,13 @@ void SelectStatement::setLimitOffset(SQLLimitOffset* limitOffset) noexcept {
 	this->limitOffset = limitOffset;
 }
 
+int SelectStatement::binarySize() const {
+}
+
+void SelectStatement::toBinary(ByteBuffer* out) {
+}
+
+void SelectStatement::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

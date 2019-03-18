@@ -16,3 +16,12 @@ CommitStatement::~CommitStatement() {
 }
 
 } /* namespace alinous */
+
+int alinous::CommitStatement::binarySize() const {
+}
+
+void alinous::CommitStatement::toBinary(ByteBuffer* out) {
+}
+
+void alinous::CommitStatement::fromBinary(ByteBuffer* in) {
+}

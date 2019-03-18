@@ -23,3 +23,12 @@ void ExpressionStatement::setExpression(AbstractExpression* exp) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::ExpressionStatement::binarySize() const {
+}
+
+void alinous::ExpressionStatement::toBinary(ByteBuffer* out) {
+}
+
+void alinous::ExpressionStatement::fromBinary(ByteBuffer* in) {
+}

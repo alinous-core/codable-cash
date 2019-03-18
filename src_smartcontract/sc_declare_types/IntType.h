@@ -16,6 +16,10 @@ class IntType : public AbstractPrimitiveType {
 public:
 	IntType();
 	virtual ~IntType();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

@@ -24,4 +24,13 @@ void PackageNameDeclare::addSegment(UnicodeString* seg) {
 }
 
 
+int PackageNameDeclare::binarySize() const {
+}
+
+void PackageNameDeclare::toBinary(ByteBuffer* out) {
+}
+
+void PackageNameDeclare::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

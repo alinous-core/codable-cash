@@ -34,3 +34,12 @@ void alinous::ClassDeclare::setName(UnicodeString* name) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::ClassDeclare::binarySize() const {
+}
+
+void alinous::ClassDeclare::toBinary(ByteBuffer* out) {
+}
+
+void alinous::ClassDeclare::fromBinary(ByteBuffer* in) {
+}

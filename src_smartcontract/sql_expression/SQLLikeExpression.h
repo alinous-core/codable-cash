@@ -21,6 +21,10 @@ public:
 	void setLeft(AbstractSQLExpression* left) noexcept;
 	void setRight(SQLLiteral* right) noexcept;
 	void setEscape(SQLLiteral* escape) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	AbstractSQLExpression* left;
 	SQLLiteral* right;

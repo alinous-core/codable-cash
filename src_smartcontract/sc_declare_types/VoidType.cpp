@@ -17,3 +17,12 @@ VoidType::~VoidType() {
 }
 
 } /* namespace alinous */
+
+int alinous::VoidType::binarySize() const {
+}
+
+void alinous::VoidType::toBinary(ByteBuffer* out) {
+}
+
+void alinous::VoidType::fromBinary(ByteBuffer* in) {
+}

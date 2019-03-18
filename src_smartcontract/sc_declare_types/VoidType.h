@@ -16,6 +16,10 @@ class VoidType : public AbstractType {
 public:
 	VoidType();
 	virtual ~VoidType();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

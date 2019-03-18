@@ -31,3 +31,12 @@ void SQLSetPair::setExpression(AbstractSQLExpression* exp) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLSetPair::binarySize() const {
+}
+
+void alinous::SQLSetPair::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLSetPair::fromBinary(ByteBuffer* in) {
+}

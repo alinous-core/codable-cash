@@ -16,6 +16,10 @@ class SQLOrExpression : public AbstractSQLBinaryExpression {
 public:
 	SQLOrExpression();
 	virtual ~SQLOrExpression();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

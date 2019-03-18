@@ -22,3 +22,12 @@ void SQLParenthesisExpression::setExpression(AbstractSQLExpression* exp) noexcep
 }
 
 } /* namespace alinous */
+
+int alinous::SQLParenthesisExpression::binarySize() const {
+}
+
+void alinous::SQLParenthesisExpression::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLParenthesisExpression::fromBinary(ByteBuffer* in) {
+}

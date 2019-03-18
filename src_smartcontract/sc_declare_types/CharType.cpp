@@ -16,3 +16,12 @@ CharType::~CharType() {
 }
 
 } /* namespace alinous */
+
+int alinous::CharType::binarySize() const {
+}
+
+void alinous::CharType::toBinary(ByteBuffer* out) {
+}
+
+void alinous::CharType::fromBinary(ByteBuffer* in) {
+}

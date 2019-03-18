@@ -23,6 +23,10 @@ public:
 
 	void setCtrl(char ctrl) noexcept;
 
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
+
 private:
 	char accessCtrl;
 };

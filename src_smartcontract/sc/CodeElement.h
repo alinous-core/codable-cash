@@ -8,12 +8,16 @@
 #ifndef SC_CODEELEMENT_H_
 #define SC_CODEELEMENT_H_
 
+#include "base_io/ByteBuffer.h"
+
 namespace alinouslang {
 class Token;
 }
 
 namespace alinous {
 using namespace alinouslang;
+
+class ByteBuffer;
 
 class CodeElement {
 public:
@@ -128,6 +132,10 @@ public:
 	void setPositions(Token* token, CodeElement* end);
 	void setPosition(CodeElement* element);
 	void setPosition(Token* token);
+
+	virtual int binarySize() const = 0;
+	virtual void toBinary(ByteBuffer* out) = 0;
+	virtual void fromBinary(ByteBuffer* in) = 0;
 
 protected:
 	short kind;

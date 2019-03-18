@@ -21,4 +21,13 @@ void SQLSet::addPair(SQLSetPair* pair) noexcept {
 	this->list.addElement(pair);
 }
 
+int SQLSet::binarySize() const {
+}
+
+void SQLSet::toBinary(ByteBuffer* out) {
+}
+
+void SQLSet::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

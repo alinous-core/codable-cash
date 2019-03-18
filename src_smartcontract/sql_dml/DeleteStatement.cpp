@@ -30,5 +30,13 @@ void DeleteStatement::setWhere(SQLWhere* where) noexcept {
 	this->where = where;
 }
 
+int DeleteStatement::binarySize() const {
+}
+
+void DeleteStatement::toBinary(ByteBuffer* out) {
+}
+
+void DeleteStatement::fromBinary(ByteBuffer* in) {
+}
 
 } /* namespace alinous */

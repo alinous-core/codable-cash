@@ -23,6 +23,10 @@ public:
 	void setTable(TableIdentifier* tableId) noexcept;
 	void setSet(SQLSet* set) noexcept;
 	void setWhere(SQLWhere* where) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	TableIdentifier* tableId;
 	SQLSet* set;

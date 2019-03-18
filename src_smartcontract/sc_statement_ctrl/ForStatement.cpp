@@ -41,3 +41,12 @@ void ForStatement::setPostLoop(AbstractExpression* postLoop) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::ForStatement::binarySize() const {
+}
+
+void alinous::ForStatement::toBinary(ByteBuffer* out) {
+}
+
+void alinous::ForStatement::fromBinary(ByteBuffer* in) {
+}

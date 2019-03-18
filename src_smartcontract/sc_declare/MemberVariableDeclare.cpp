@@ -48,3 +48,12 @@ void MemberVariableDeclare::setName(UnicodeString* name) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::MemberVariableDeclare::binarySize() const {
+}
+
+void alinous::MemberVariableDeclare::toBinary(ByteBuffer* out) {
+}
+
+void alinous::MemberVariableDeclare::fromBinary(ByteBuffer* in) {
+}

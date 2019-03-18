@@ -23,3 +23,12 @@ void SQLOrderBy::setList(SQLColumnsList* list) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::SQLOrderBy::binarySize() const {
+}
+
+void alinous::SQLOrderBy::toBinary(ByteBuffer* out) {
+}
+
+void alinous::SQLOrderBy::fromBinary(ByteBuffer* in) {
+}

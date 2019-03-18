@@ -18,6 +18,10 @@ public:
 	virtual ~ParenthesisJoinPart();
 
 	void setPart(AbstractJoinPart* part) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	AbstractJoinPart* part;
 };

@@ -22,6 +22,9 @@ public:
 	void setPackage(PackageNameDeclare* packageName) noexcept;
 	void setExpression(FunctionCallExpression* exp) noexcept;
 
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	PackageNameDeclare* packageName;
 	FunctionCallExpression* exp;

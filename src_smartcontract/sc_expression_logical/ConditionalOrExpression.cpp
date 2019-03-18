@@ -15,4 +15,13 @@ ConditionalOrExpression::ConditionalOrExpression() : AbstractBinaryExpression(Co
 ConditionalOrExpression::~ConditionalOrExpression() {
 }
 
+int ConditionalOrExpression::binarySize() const {
+}
+
+void ConditionalOrExpression::toBinary(ByteBuffer* out) {
+}
+
+void ConditionalOrExpression::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

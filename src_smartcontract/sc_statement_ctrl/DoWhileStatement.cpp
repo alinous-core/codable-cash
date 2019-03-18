@@ -29,3 +29,12 @@ void DoWhileStatement::setStatement(AbstractStatement* stmt) noexcept {
 }
 
 } /* namespace alinous */
+
+int alinous::DoWhileStatement::binarySize() const {
+}
+
+void alinous::DoWhileStatement::toBinary(ByteBuffer* out) {
+}
+
+void alinous::DoWhileStatement::fromBinary(ByteBuffer* in) {
+}

@@ -16,3 +16,12 @@ RollbackStatement::~RollbackStatement() {
 }
 
 } /* namespace alinous */
+
+int alinous::RollbackStatement::binarySize() const {
+}
+
+void alinous::RollbackStatement::toBinary(ByteBuffer* out) {
+}
+
+void alinous::RollbackStatement::fromBinary(ByteBuffer* in) {
+}

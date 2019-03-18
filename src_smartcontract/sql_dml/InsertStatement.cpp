@@ -37,5 +37,13 @@ void InsertStatement::setExpressionList(SQLExpressionList* expList) noexcept {
 	this->expList = expList;
 }
 
+int InsertStatement::binarySize() const {
+}
+
+void InsertStatement::toBinary(ByteBuffer* out) {
+}
+
+void InsertStatement::fromBinary(ByteBuffer* in) {
+}
 
 } /* namespace alinous */
