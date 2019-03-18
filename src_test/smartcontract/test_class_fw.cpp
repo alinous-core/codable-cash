@@ -24,9 +24,25 @@ TEST(TestClassFwGroup, construct){
 	CompilationUnit* unit = parser.parse();
 	CHECK(!parser.hasError())
 
+	delete unit;
+}
+
+TEST(TestClassFwGroup, constructBinary){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/classfw/class.alns"))
+
+	SmartContractParser parser(sourceFile);
+	CompilationUnit* unit = parser.parse();
+
+	int size = unit->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true);
+
+	unit->toBinary(buff);
 
 	delete unit;
 }
+
+
 
 TEST(TestClassFwGroup, memberVariable){
 	const File* projectFolder = this->env->getProjectRoot();

@@ -18,6 +18,7 @@ namespace alinous {
 using namespace alinouslang;
 
 class ByteBuffer;
+class UnicodeString;
 
 class CodeElement {
 public:
@@ -139,6 +140,12 @@ public:
 
 	static CodeElement* createFromBinary(ByteBuffer* in);
 
+	int stringSize(UnicodeString* str) const noexcept;
+	void putString(ByteBuffer* out, UnicodeString* str) const noexcept;
+	UnicodeString* getString(ByteBuffer* in) const noexcept;
+
+	static void checkNotNull(void* ptr);
+	static void checkKind(CodeElement* element, short kind);
 protected:
 	short kind;
 

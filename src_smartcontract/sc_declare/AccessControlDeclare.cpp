@@ -20,13 +20,13 @@ void AccessControlDeclare::setCtrl(char ctrl) noexcept {
 	this->accessCtrl = ctrl;
 }
 
+int AccessControlDeclare::binarySize() const {
+}
+
+void AccessControlDeclare::toBinary(ByteBuffer* out) {
+}
+
+void AccessControlDeclare::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */
-
-int alinous::AccessControlDeclare::binarySize() const {
-}
-
-void alinous::AccessControlDeclare::toBinary(ByteBuffer* out) {
-}
-
-void alinous::AccessControlDeclare::fromBinary(ByteBuffer* in) {
-}

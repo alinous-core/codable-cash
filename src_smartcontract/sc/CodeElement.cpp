@@ -5,6 +5,8 @@
  *      Author: iizuka
  */
 
+#include "debug/debugMacros.h"
+
 #include "sc/CodeElement.h"
 #include "alinous_lang/Token.h"
 #include "sc/CompilationUnit.h"
@@ -104,6 +106,8 @@
 #include "sql_join_parts/SQLJoinPart.h"
 #include "sql_join_parts/TableList.h"
 #include "sql_join_parts/ParenthesisJoinPart.h"
+
+#include "base/UnicodeString.h"
 
 namespace alinous {
 
@@ -446,9 +450,49 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		break;
 	}
 
+	assert(element->kind == type);
+
 	element->fromBinary(in);
 
 	return element;
+}
+
+
+int CodeElement::stringSize(UnicodeString* str) const noexcept {
+	return sizeof(uint32_t) + str->length() * sizeof(uint16_t);
+}
+
+void CodeElement::putString(ByteBuffer* out, UnicodeString* str) const noexcept {
+	uint32_t maxLoop = str->length();
+	out->putInt(maxLoop);
+
+	for(int i = 0; i != maxLoop; ++i){
+		wchar_t ch = str->get(i);
+		out->putChar(ch);
+	}
+}
+
+UnicodeString* CodeElement::getString(ByteBuffer* in) const noexcept {
+	UnicodeString* ret = new UnicodeString(L"");
+	uint32_t maxLoop = in->getInt();
+	for(int i = 0; i != maxLoop; ++i){
+		wchar_t ch = in->getChar();
+		ret->append(ch);
+	}
+
+	return ret;
+}
+
+void CodeElement::checkNotNull(void* ptr) {
+	if(ptr == nullptr){
+
+	}
+}
+
+void CodeElement::checkKind(CodeElement* element, short kind) {
+	if(element->kind != kind){
+
+	}
 }
 
 } /* namespace alinous */

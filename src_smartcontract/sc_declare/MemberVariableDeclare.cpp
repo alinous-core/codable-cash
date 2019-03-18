@@ -47,13 +47,43 @@ void MemberVariableDeclare::setName(UnicodeString* name) noexcept {
 	this->name = name;
 }
 
+
+int MemberVariableDeclare::binarySize() const {
+	checkNotNull(this->ctrl);
+	checkNotNull(this->type);
+	checkNotNull(this->name);
+
+	int total = sizeof(uint16_t);
+
+	total += sizeof(uint8_t);
+	total += this->ctrl->binarySize();
+	total += this->type->binarySize();
+	total += stringSize(this->name);
+
+	return total;
+}
+
+void MemberVariableDeclare::toBinary(ByteBuffer* out) {
+	checkNotNull(this->ctrl);
+	checkNotNull(this->type);
+	checkNotNull(this->name);
+
+	out->putShort(CodeElement::MEMBER_VARIABLE_DECLARE);
+	out->put(this->_static ? (char)1 : (char)0);
+	this->ctrl->toBinary(out);
+	this->type->toBinary(out);
+	putString(out, this->name);
+}
+
+void MemberVariableDeclare::fromBinary(ByteBuffer* in) {
+	uint8_t bl = in->get();
+	this->_static = (bl == 1);
+
+	CodeElement* element = createFromBinary(in);
+	checkKind(element, CodeElement::ACCESS_CONTROL_DECLARE);
+	this->ctrl = dynamic_cast<AccessControlDeclare*>(element);
+
+	// FIXME
+}
+
 } /* namespace alinous */
-
-int alinous::MemberVariableDeclare::binarySize() const {
-}
-
-void alinous::MemberVariableDeclare::toBinary(ByteBuffer* out) {
-}
-
-void alinous::MemberVariableDeclare::fromBinary(ByteBuffer* in) {
-}
