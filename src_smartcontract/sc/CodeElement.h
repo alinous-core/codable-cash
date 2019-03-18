@@ -137,6 +137,8 @@ public:
 	virtual void toBinary(ByteBuffer* out) = 0;
 	virtual void fromBinary(ByteBuffer* in) = 0;
 
+	static CodeElement* createFromBinary(ByteBuffer* in);
+
 protected:
 	short kind;
 
