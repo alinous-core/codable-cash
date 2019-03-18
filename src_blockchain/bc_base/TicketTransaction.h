@@ -29,6 +29,9 @@ public:
 	virtual const TransactionId* getTransactionId() const noexcept;
 	virtual const BalanceUnit* getFee() const noexcept;
 
+	void setNonce(const Nonce* nonce) noexcept;
+	void setFee(const BalanceUnit* fee) noexcept;
+
 private:
 	Nonce* nonce;
 	uint64_t fheight;

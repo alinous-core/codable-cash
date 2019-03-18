@@ -81,5 +81,12 @@ const BalanceUnit* TicketTransaction::getFee() const noexcept {
 	return this->fee;
 }
 
+void TicketTransaction::setNonce(const Nonce* nonce) noexcept {
+	this->nonce = new Nonce(*nonce);
+}
+
+void TicketTransaction::setFee(const BalanceUnit* fee) noexcept {
+	this->fee = new BalanceUnit(*fee);
+}
 
 } /* namespace codablecash */

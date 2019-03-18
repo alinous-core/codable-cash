@@ -17,6 +17,9 @@
 
 #include "bc_base/TicketTransaction.h"
 
+#include "flash_pow/Nonce.h"
+
+#include "bc_base/TransactionId.h"
 using namespace alinous;
 using namespace codablecash;
 
@@ -202,7 +205,37 @@ TEST(TestTransactionGroup, copy){
 
 TEST(TestTransactionGroup, constractTicketTrx){
 	TicketTransaction trx(1L);
-
-
 }
 
+TEST(TestTransactionGroup, ticketTrxTransactionId){
+	TicketTransaction trx(1L);
+	Nonce nonce(1, 2);
+	BalanceUnit fee(10L);
+
+	trx.setNonce(&nonce);
+	trx.setFee(&fee);
+
+	trx.updateTransactionId();
+
+	trx.updateTransactionId();
+}
+
+TEST(TestTransactionGroup, ticketTrxClone){
+	TicketTransaction trx(1L);
+	Nonce nonce(1, 2);
+	BalanceUnit fee(10L);
+
+	trx.setNonce(&nonce);
+	trx.setFee(&fee);
+	trx.updateTransactionId();
+
+	TicketTransaction* trx2 = dynamic_cast<TicketTransaction*>(trx.clone()); __STP(trx2);
+	CHECK(fee.getAmount() == trx2->getFee()->getAmount())
+
+	trx2->updateTransactionId();
+
+	const TransactionId* id1 = trx.getTransactionId();
+	const TransactionId* id2 = trx2->getTransactionId();
+
+	CHECK(id1->equals(id2))
+}
