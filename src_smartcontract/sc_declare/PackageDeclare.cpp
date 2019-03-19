@@ -41,7 +41,7 @@ void PackageDeclare::toBinary(ByteBuffer* out) {
 
 void PackageDeclare::fromBinary(ByteBuffer* in) {
 	CodeElement* nm = CodeElement::createFromBinary(in);
-	checkKind(nm, CodeElement::PACKAGE_DECLARE);
+	checkKind(nm, CodeElement::PACKAGE_NAME_DECLARE);
 
 	this->name = dynamic_cast<PackageNameDeclare*>(nm);
 }

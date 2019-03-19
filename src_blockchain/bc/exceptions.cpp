@@ -10,7 +10,7 @@
 
 namespace codablecash {
 
-const wchar_t* MulformattedTransactionBinaryException::defaultMessage = L"Format of Transaction binary has wrong format. ";
+const wchar_t* MulformattedTransactionBinaryException::defaultMessage = L"Format of Transaction binary is wrong. ";
 
 MulformattedTransactionBinaryException::MulformattedTransactionBinaryException(const char* srcfile, int srcline) noexcept : Exception(srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);

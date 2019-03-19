@@ -9,12 +9,92 @@
 
 #include "sc/CompilationUnit.h"
 #include "compiler/SmartContractParser.h"
+#include "sc/exceptions.h"
 
 TEST_GROUP(TestClassFwGroup) {
 	TEST_SETUP(){}
 	TEST_TEARDOWN(){}
 
 };
+
+TEST(TestClassFwGroup, exceptions){
+	testException<MulformattedScBinaryException>();
+}
+
+TEST(TestClassFwGroup, exceptions01){
+	CompilationUnit element;
+
+	Exception* ex = nullptr;
+	try{
+		CodeElement::checkIsStatement(&element);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+
+	delete ex;
+}
+
+TEST(TestClassFwGroup, exceptions02){
+	CompilationUnit element;
+
+	Exception* ex = nullptr;
+	try{
+		CodeElement::checkIsType(&element);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+
+	delete ex;
+}
+
+TEST(TestClassFwGroup, exceptions03){
+	Exception* ex = nullptr;
+	try{
+		CodeElement::checkNotNull(nullptr);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+
+	delete ex;
+}
+
+TEST(TestClassFwGroup, exceptions04){
+	CompilationUnit element;
+
+	Exception* ex = nullptr;
+	try{
+		CodeElement::checkKind(&element, CodeElement::ARGUMENTS_LIST_DECLARE);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+
+	delete ex;
+}
+
+TEST(TestClassFwGroup, exceptions05){
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(10, true); __STP(buff);
+	buff->putShort(0xffff);
+	buff->position(0);
+
+	Exception* ex = nullptr;
+	try{
+		CodeElement::createFromBinary(buff);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+
+	delete ex;
+}
 
 TEST(TestClassFwGroup, construct){
 	const File* projectFolder = this->env->getProjectRoot();

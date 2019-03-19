@@ -109,6 +109,7 @@
 
 #include "base/UnicodeString.h"
 
+#include "sc/exceptions.h"
 namespace alinous {
 
 CodeElement::CodeElement(short kind) {
@@ -447,7 +448,7 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 
 	//case SQL_PART:
 	default:
-		break;
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 
 	assert(element->kind == type);
@@ -485,26 +486,26 @@ UnicodeString* CodeElement::getString(ByteBuffer* in) const noexcept {
 
 void CodeElement::checkNotNull(void* ptr) {
 	if(ptr == nullptr){
-
+		throw new MulformattedScBinaryException(L"NullPointer exception", __FILE__, __LINE__);
 	}
 }
 
 void CodeElement::checkKind(CodeElement* element, short kind) {
 	if(element->kind != kind){
-
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
 
 void CodeElement::checkIsType(CodeElement* element) {
-	if(element->kind >= TYPE_CHAR && element->kind < STMT_BLOCK){
-
+	if(!(element->kind >= TYPE_CHAR && element->kind < STMT_BLOCK)){
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
 
 void CodeElement::checkIsStatement(CodeElement* element) {
-	if((element->kind >= STMT_BLOCK && element->kind < EXP_ALLOCATION) ||
-			(element->kind >= DDL_CREATE_TABLE && element->kind < SQL_EXP_ADDITIVE)){
-
+	if(!((element->kind >= STMT_BLOCK && element->kind < EXP_ALLOCATION) ||
+			(element->kind >= DDL_CREATE_TABLE && element->kind < SQL_EXP_ADDITIVE))){
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
 
