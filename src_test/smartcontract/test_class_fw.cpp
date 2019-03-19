@@ -27,6 +27,27 @@ TEST(TestClassFwGroup, construct){
 	delete unit;
 }
 
+static bool checkBinary(ByteBuffer* buff){
+	int lastSize = buff->capacity();
+
+	buff->position(0);
+	CodeElement* element = CodeElement::createFromBinary(buff);
+
+	int size = element->binarySize();
+	if(lastSize != size){
+		return false;
+	}
+
+	ByteBuffer* buff2 = ByteBuffer::allocateWithEndian(size, true); __STP(buff2);
+	element->toBinary(buff2);
+
+	if(buff2->position() != size){
+		return false;
+	}
+
+	return Mem::memcmp(buff->array(), buff2->array(), size) == 0;
+}
+
 TEST(TestClassFwGroup, constructBinary){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/classfw/class.alns"))
@@ -39,6 +60,9 @@ TEST(TestClassFwGroup, constructBinary){
 
 	unit->toBinary(buff);
 	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
 
 	delete unit;
 }
@@ -69,6 +93,9 @@ TEST(TestClassFwGroup, memberVariableBinary){
 	unit->toBinary(buff);
 	CHECK(buff->position() == size)
 
+	bool res = checkBinary(buff);
+	CHECK(res)
+
 	delete unit;
 }
 
@@ -95,6 +122,9 @@ TEST(TestClassFwGroup, methodsBinary){
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
 	unit->toBinary(buff);
 	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
 
 	delete unit;
 }

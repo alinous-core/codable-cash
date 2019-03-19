@@ -50,13 +50,11 @@ int CompilationUnit::binarySize() const {
 void CompilationUnit::toBinary(ByteBuffer* out) {
 	out->putShort(CodeElement::COMPILANT_UNIT);
 
-	char bl = 0;
+	char bl = this->package != nullptr ? (char)1 : (char)0;
+	out->put(bl);
+
 	if(this->package != nullptr){
-		out->put((char)1);
 		this->package->toBinary(out);
-	}
-	else{
-		out->put((char)0);
 	}
 
 	uint32_t maxLoop = this->classes.size();
@@ -69,6 +67,22 @@ void CompilationUnit::toBinary(ByteBuffer* out) {
 }
 
 void CompilationUnit::fromBinary(ByteBuffer* in) {
+	char bl = in->get();
+	if(bl == (char)1){
+		CodeElement* element = createFromBinary(in);
+		checkKind(element, CodeElement::PACKAGE_DECLARE);
+		this->package = dynamic_cast<PackageDeclare*>(element);
+	}
+
+	int maxLoop = in->getInt();
+	for(int i = 0; i != maxLoop; ++i){
+		CodeElement* element = createFromBinary(in);
+		checkKind(element, CodeElement::CLASS_DECLARE);
+
+		ClassDeclare* dec = dynamic_cast<ClassDeclare*>(element);
+		this->classes.addElement(dec);
+	}
+
 }
 
 } /* namespace alinous */
