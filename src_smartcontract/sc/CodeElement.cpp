@@ -495,4 +495,17 @@ void CodeElement::checkKind(CodeElement* element, short kind) {
 	}
 }
 
+void CodeElement::checkIsType(CodeElement* element) {
+	if(element->kind >= TYPE_CHAR && element->kind < STMT_BLOCK){
+
+	}
+}
+
+void CodeElement::checkIsStatement(CodeElement* element) {
+	if((element->kind >= STMT_BLOCK && element->kind < EXP_ALLOCATION) ||
+			(element->kind >= DDL_CREATE_TABLE && element->kind < SQL_EXP_ADDITIVE)){
+
+	}
+}
+
 } /* namespace alinous */

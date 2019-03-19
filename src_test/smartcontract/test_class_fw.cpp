@@ -38,6 +38,7 @@ TEST(TestClassFwGroup, constructBinary){
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
 
 	unit->toBinary(buff);
+	CHECK(buff->position() == size)
 
 	delete unit;
 }
@@ -55,6 +56,22 @@ TEST(TestClassFwGroup, memberVariable){
 	delete unit;
 }
 
+TEST(TestClassFwGroup, memberVariableBinary){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/classfw/classMember.alns"))
+
+	SmartContractParser parser(sourceFile);
+	CompilationUnit* unit = parser.parse();
+	CHECK(!parser.hasError())
+
+	int size = unit->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+	unit->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	delete unit;
+}
+
 TEST(TestClassFwGroup, methods){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/classfw/classMethod.alns"))
@@ -65,3 +82,20 @@ TEST(TestClassFwGroup, methods){
 
 	delete unit;
 }
+
+TEST(TestClassFwGroup, methodsBinary){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/classfw/classMethod.alns"))
+
+	SmartContractParser parser(sourceFile);
+	CompilationUnit* unit = parser.parse();
+	CHECK(!parser.hasError())
+
+	int size = unit->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+	unit->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	delete unit;
+}
+

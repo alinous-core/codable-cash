@@ -83,8 +83,10 @@ void MemberVariableDeclare::fromBinary(ByteBuffer* in) {
 	checkKind(element, CodeElement::ACCESS_CONTROL_DECLARE);
 	this->ctrl = dynamic_cast<AccessControlDeclare*>(element);
 
-	// FIXME
+	element = createFromBinary(in);
+	checkIsType(element);
 
+	this->type = dynamic_cast<AbstractType*>(element);
 
 	this->name = getString(in);
 }
