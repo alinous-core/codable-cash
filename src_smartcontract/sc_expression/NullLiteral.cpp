@@ -13,16 +13,20 @@ NullLiteral::NullLiteral() : AbstractExpression(CodeElement::EXP_NULL_LITERAL) {
 }
 
 NullLiteral::~NullLiteral() {
-
 }
+
+int NullLiteral::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void NullLiteral::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::EXP_NULL_LITERAL);
+}
+
+void NullLiteral::fromBinary(ByteBuffer* in) {
+}
+
 
 } /* namespace alinous */
-
-int alinous::NullLiteral::binarySize() const {
-}
-
-void alinous::NullLiteral::toBinary(ByteBuffer* out) {
-}
-
-void alinous::NullLiteral::fromBinary(ByteBuffer* in) {
-}

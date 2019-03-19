@@ -22,13 +22,24 @@ void NumberLiteral::setValue(UnicodeString* str) noexcept {
 	this->str = str;
 }
 
+int NumberLiteral::binarySize() const {
+	checkNotNull(this->str);
+
+	int total = sizeof(uint16_t);
+	total += stringSize(this->str);
+
+	return total;
+}
+
+void NumberLiteral::toBinary(ByteBuffer* out) {
+	checkNotNull(this->str);
+
+	out->putShort(CodeElement::EXP_NUMBER_LITERAL);
+	putString(out, this->str);
+}
+
+void NumberLiteral::fromBinary(ByteBuffer* in) {
+	this->str = getString(in);
+}
+
 } /* namespace alinous */
-
-int alinous::NumberLiteral::binarySize() const {
-}
-
-void alinous::NumberLiteral::toBinary(ByteBuffer* out) {
-}
-
-void alinous::NumberLiteral::fromBinary(ByteBuffer* in) {
-}
