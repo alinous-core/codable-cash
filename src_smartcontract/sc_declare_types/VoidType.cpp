@@ -16,13 +16,17 @@ VoidType::VoidType() : AbstractType(CodeElement::TYPE_VOID) {
 VoidType::~VoidType() {
 }
 
+int VoidType::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void VoidType::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::TYPE_VOID);
+}
+
+void VoidType::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */
-
-int alinous::VoidType::binarySize() const {
-}
-
-void alinous::VoidType::toBinary(ByteBuffer* out) {
-}
-
-void alinous::VoidType::fromBinary(ByteBuffer* in) {
-}

@@ -35,7 +35,7 @@ TEST(TestClassFwGroup, constructBinary){
 	CompilationUnit* unit = parser.parse();
 
 	int size = unit->binarySize();
-	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true);
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
 
 	unit->toBinary(buff);
 

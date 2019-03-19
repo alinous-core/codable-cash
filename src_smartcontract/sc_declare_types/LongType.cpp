@@ -15,13 +15,18 @@ LongType::LongType() : AbstractPrimitiveType(CodeElement::TYPE_LONG) {
 LongType::~LongType() {
 }
 
+int LongType::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void LongType::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::TYPE_LONG);
+}
+
+void LongType::fromBinary(ByteBuffer* in) {
+}
+
+
 } /* namespace alinous */
-
-int alinous::LongType::binarySize() const {
-}
-
-void alinous::LongType::toBinary(ByteBuffer* out) {
-}
-
-void alinous::LongType::fromBinary(ByteBuffer* in) {
-}

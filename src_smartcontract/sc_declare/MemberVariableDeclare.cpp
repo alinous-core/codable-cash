@@ -84,6 +84,9 @@ void MemberVariableDeclare::fromBinary(ByteBuffer* in) {
 	this->ctrl = dynamic_cast<AccessControlDeclare*>(element);
 
 	// FIXME
+
+
+	this->name = getString(in);
 }
 
 } /* namespace alinous */

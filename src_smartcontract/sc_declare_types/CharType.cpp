@@ -15,13 +15,18 @@ CharType::CharType() : AbstractPrimitiveType(CodeElement::TYPE_CHAR) {
 CharType::~CharType() {
 }
 
+int CharType::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void CharType::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::TYPE_CHAR);
+}
+
+void CharType::fromBinary(ByteBuffer* in) {
+}
+
+
 } /* namespace alinous */
-
-int alinous::CharType::binarySize() const {
-}
-
-void alinous::CharType::toBinary(ByteBuffer* out) {
-}
-
-void alinous::CharType::fromBinary(ByteBuffer* in) {
-}

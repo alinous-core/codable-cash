@@ -15,13 +15,17 @@ ShortType::ShortType() : AbstractPrimitiveType(CodeElement::TYPE_SHORT) {
 ShortType::~ShortType() {
 }
 
+int ShortType::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void ShortType::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::TYPE_SHORT);
+}
+
+void ShortType::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */
-
-int alinous::ShortType::binarySize() const {
-}
-
-void alinous::ShortType::toBinary(ByteBuffer* out) {
-}
-
-void alinous::ShortType::fromBinary(ByteBuffer* in) {
-}

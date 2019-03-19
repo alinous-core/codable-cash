@@ -15,13 +15,17 @@ StringType::StringType() : AbstractType(CodeElement::TYPE_STRING) {
 StringType::~StringType() {
 }
 
+int StringType::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void StringType::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::TYPE_STRING);
+}
+
+void StringType::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */
-
-int alinous::StringType::binarySize() const {
-}
-
-void alinous::StringType::toBinary(ByteBuffer* out) {
-}
-
-void alinous::StringType::fromBinary(ByteBuffer* in) {
-}
