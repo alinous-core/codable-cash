@@ -111,7 +111,7 @@ static bool checkBinary(ByteBuffer* buff){
 	int lastSize = buff->capacity();
 
 	buff->position(0);
-	CodeElement* element = CodeElement::createFromBinary(buff);
+	CodeElement* element = CodeElement::createFromBinary(buff); __STP(element);
 
 	int size = element->binarySize();
 	if(lastSize != size){
