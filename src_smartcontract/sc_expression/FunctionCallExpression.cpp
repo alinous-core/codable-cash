@@ -27,13 +27,50 @@ void FunctionCallExpression::addArgument(AbstractExpression* exp) noexcept {
 	this->args.addElement(exp);
 }
 
+int FunctionCallExpression::binarySize() const {
+	checkNotNull(this->name);
+
+	int total = sizeof(uint16_t);
+	total += this->name->binarySize();
+
+	total += sizeof(uint32_t);
+	int maxLoop = this->args.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		total += exp->binarySize();
+	}
+
+	return total;
+}
+
+void FunctionCallExpression::toBinary(ByteBuffer* out) {
+	checkNotNull(this->name);
+
+	out->putShort(CodeElement::EXP_FUNCTIONCALL);
+	this->name->toBinary(out);
+
+	int maxLoop = this->args.size();
+	out->putInt(maxLoop);
+
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		exp->toBinary(out);
+	}
+}
+
+void FunctionCallExpression::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkIsExp(element);
+	this->name = dynamic_cast<AbstractExpression*>(element);
+
+	int maxLoop = in->getInt();
+	for(int i = 0; i != maxLoop; ++i){
+		element = createFromBinary(in);
+		checkIsExp(element);
+		AbstractExpression* exp = dynamic_cast<AbstractExpression*>(element);
+
+		this->args.addElement(exp);
+	}
+}
+
 } /* namespace alinous */
-
-int alinous::FunctionCallExpression::binarySize() const {
-}
-
-void alinous::FunctionCallExpression::toBinary(ByteBuffer* out) {
-}
-
-void alinous::FunctionCallExpression::fromBinary(ByteBuffer* in) {
-}

@@ -26,13 +26,26 @@ void PreIncrementExpression::setOpe(int ope) noexcept {
 	this->ope = ope;
 }
 
+int PreIncrementExpression::binarySize() const {
+	checkNotNull(this->exp);
+
+	int total = sizeof(uint16_t);
+	total += this->exp->binarySize();
+
+	return total;
+}
+
+void PreIncrementExpression::toBinary(ByteBuffer* out) {
+	checkNotNull(this->exp);
+
+	out->putShort(CodeElement::EXP_PRE_INC);
+	this->exp->toBinary(out);
+}
+
+void PreIncrementExpression::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkIsExp(element);
+	this->exp = dynamic_cast<AbstractExpression*>(element);
+}
+
 } /* namespace alinous */
-
-int alinous::PreIncrementExpression::binarySize() const {
-}
-
-void alinous::PreIncrementExpression::toBinary(ByteBuffer* out) {
-}
-
-void alinous::PreIncrementExpression::fromBinary(ByteBuffer* in) {
-}

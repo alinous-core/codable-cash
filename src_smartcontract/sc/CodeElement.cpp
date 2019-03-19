@@ -509,4 +509,10 @@ void CodeElement::checkIsStatement(CodeElement* element) {
 	}
 }
 
+void CodeElement::checkIsExp(CodeElement* element) {
+	if(!(element->kind >= EXP_ALLOCATION && element->kind < DDL_CREATE_TABLE)){
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
+	}
+}
+
 } /* namespace alinous */

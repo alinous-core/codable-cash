@@ -21,13 +21,26 @@ void NotExpression::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }
 
+int NotExpression::binarySize() const {
+	checkNotNull(this->exp);
+
+	int total = sizeof(uint16_t);
+	total += this->exp->binarySize();
+
+	return total;
+}
+
+void NotExpression::toBinary(ByteBuffer* out) {
+	checkNotNull(this->exp);
+
+	out->putShort(CodeElement::EXP_CND_NOT);
+	this->exp->toBinary(out);
+}
+
+void NotExpression::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkIsExp(element);
+	this->exp = dynamic_cast<AbstractExpression*>(element);
+}
+
 } /* namespace alinous */
-
-int alinous::NotExpression::binarySize() const {
-}
-
-void alinous::NotExpression::toBinary(ByteBuffer* out) {
-}
-
-void alinous::NotExpression::fromBinary(ByteBuffer* in) {
-}

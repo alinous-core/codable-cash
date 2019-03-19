@@ -148,6 +148,7 @@ public:
 	static void checkKind(CodeElement* element, short kind);
 	static void checkIsType(CodeElement* element);
 	static void checkIsStatement(CodeElement* element);
+	static void checkIsExp(CodeElement* element);
 protected:
 	short kind;
 

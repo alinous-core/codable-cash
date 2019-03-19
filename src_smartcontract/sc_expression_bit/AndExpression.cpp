@@ -15,13 +15,20 @@ AndExpression::AndExpression() : AbstractBinaryExpression(CodeElement::EXP_AND) 
 AndExpression::~AndExpression() {
 }
 
+int AndExpression::binarySize() const {
+	int total = sizeof(uint16_t);
+	total += AbstractBinaryExpression::binarySize();
+
+	return total;
+}
+
+void AndExpression::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::EXP_AND);
+	AbstractBinaryExpression::toBinary(out);
+}
+
+void AndExpression::fromBinary(ByteBuffer* in) {
+	AbstractBinaryExpression::fromBinary(in);
+}
+
 } /* namespace alinous */
-
-int alinous::AndExpression::binarySize() const {
-}
-
-void alinous::AndExpression::toBinary(ByteBuffer* out) {
-}
-
-void alinous::AndExpression::fromBinary(ByteBuffer* in) {
-}

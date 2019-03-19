@@ -16,12 +16,19 @@ ExclusiveOrExpression::~ExclusiveOrExpression() {
 }
 
 int ExclusiveOrExpression::binarySize() const {
+	int total = sizeof(uint16_t);
+	total += AbstractBinaryExpression::binarySize();
+
+	return total;
 }
 
 void ExclusiveOrExpression::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::EXP_EX_OR);
+	AbstractBinaryExpression::toBinary(out);
 }
 
 void ExclusiveOrExpression::fromBinary(ByteBuffer* in) {
+	AbstractBinaryExpression::fromBinary(in);
 }
 
 } /* namespace alinous */

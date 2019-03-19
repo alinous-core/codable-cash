@@ -20,6 +20,9 @@ public:
 
 	void addExp(AbstractExpression* exp) noexcept;
 
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 protected:
 	ArrayList<AbstractExpression> list;
 };

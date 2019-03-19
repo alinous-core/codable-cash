@@ -22,13 +22,24 @@ void VariableIdentifier::setName(UnicodeString* name) noexcept {
 	this->name = name;
 }
 
+int VariableIdentifier::binarySize() const {
+	checkNotNull(this->name);
+
+	int total = sizeof(uint16_t);
+	total += stringSize(this->name);
+
+	return total;
+}
+
+void VariableIdentifier::toBinary(ByteBuffer* out) {
+	checkNotNull(this->name);
+
+	out->putShort(CodeElement::EXP_VARIABLE_ID);
+	putString(out, this->name);
+}
+
+void VariableIdentifier::fromBinary(ByteBuffer* in) {
+	this->name = getString(in);
+}
+
 } /* namespace alinous */
-
-int alinous::VariableIdentifier::binarySize() const {
-}
-
-void alinous::VariableIdentifier::toBinary(ByteBuffer* out) {
-}
-
-void alinous::VariableIdentifier::fromBinary(ByteBuffer* in) {
-}
