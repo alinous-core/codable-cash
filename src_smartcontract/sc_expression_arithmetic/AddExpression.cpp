@@ -37,6 +37,8 @@ void AddExpression::toBinary(ByteBuffer* out) {
 	AbstractBinaryExpression::toBinary(out);
 
 	int maxLoop = this->operations.size();
+	out->putInt(maxLoop);
+
 	for(int i = 0; i != maxLoop; ++i){
 		uint8_t op = this->operations.get(i);
 		out->put(op);

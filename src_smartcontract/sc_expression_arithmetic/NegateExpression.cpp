@@ -21,13 +21,27 @@ void NegateExpression::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }
 
+
+int NegateExpression::binarySize() const {
+	checkNotNull(this->exp);
+
+	int total = sizeof(uint16_t);
+	total += this->exp->binarySize();
+
+	return total;
+}
+
+void NegateExpression::toBinary(ByteBuffer* out) {
+	checkNotNull(this->exp);
+
+	out->putShort(CodeElement::EXP_NEGATE);
+	this->exp->toBinary(out);
+}
+
+void NegateExpression::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkIsExp(element);
+	this->exp = dynamic_cast<AbstractExpression*>(element);
+}
+
 } /* namespace alinous */
-
-int alinous::NegateExpression::binarySize() const {
-}
-
-void alinous::NegateExpression::toBinary(ByteBuffer* out) {
-}
-
-void alinous::NegateExpression::fromBinary(ByteBuffer* in) {
-}
