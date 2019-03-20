@@ -111,6 +111,21 @@ TEST(TestClassFwGroup, exceptions06){
 	delete ex;
 }
 
+TEST(TestClassFwGroup, exceptions07){
+	CompilationUnit element;
+
+	Exception* ex = nullptr;
+	try{
+		CodeElement::checkIsSQLExp(&element);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+
+	delete ex;
+}
+
 TEST(TestClassFwGroup, construct){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/classfw/class.alns"))

@@ -20,13 +20,21 @@ void SQLBooleanLiteral::setValue(bool value) noexcept {
 	this->value = value;
 }
 
+int SQLBooleanLiteral::binarySize() const {
+	int total = sizeof(uint16_t);
+	total += sizeof(uint8_t);
+
+	return total;
+}
+
+void SQLBooleanLiteral::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::SQL_EXP_BOOL_LITERAL);
+	out->put(this->value ? 1 : 0);
+}
+
+void SQLBooleanLiteral::fromBinary(ByteBuffer* in) {
+	uint8_t bl = in->get();
+	this->value = (bl == 1);
+}
+
 } /* namespace alinous */
-
-int alinous::SQLBooleanLiteral::binarySize() const {
-}
-
-void alinous::SQLBooleanLiteral::toBinary(ByteBuffer* out) {
-}
-
-void alinous::SQLBooleanLiteral::fromBinary(ByteBuffer* in) {
-}

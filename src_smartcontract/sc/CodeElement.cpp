@@ -515,4 +515,10 @@ void CodeElement::checkIsExp(CodeElement* element) {
 	}
 }
 
+void CodeElement::checkIsSQLExp(CodeElement* element) {
+	if(!(element->kind >= SQL_EXP_ADDITIVE && element->kind < SQL_PART)){
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
+	}
+}
+
 } /* namespace alinous */

@@ -15,13 +15,21 @@ SQLOrExpression::SQLOrExpression() : AbstractSQLBinaryExpression(CodeElement::SQ
 SQLOrExpression::~SQLOrExpression() {
 }
 
+int SQLOrExpression::binarySize() const {
+	int total = sizeof(uint16_t);
+	total += AbstractSQLBinaryExpression::binarySize();
+
+	return total;
+}
+
+void SQLOrExpression::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::SQL_EXP_OR);
+	AbstractSQLBinaryExpression::toBinary(out);
+}
+
+void SQLOrExpression::fromBinary(ByteBuffer* in) {
+	AbstractSQLBinaryExpression::fromBinary(in);
+}
+
+
 } /* namespace alinous */
-
-int alinous::SQLOrExpression::binarySize() const {
-}
-
-void alinous::SQLOrExpression::toBinary(ByteBuffer* out) {
-}
-
-void alinous::SQLOrExpression::fromBinary(ByteBuffer* in) {
-}

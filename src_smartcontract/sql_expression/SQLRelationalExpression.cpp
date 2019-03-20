@@ -32,13 +32,38 @@ void SQLRelationalExpression::setOp(uint8_t op) noexcept {
 	this->op = op;
 }
 
+int SQLRelationalExpression::binarySize() const {
+	checkNotNull(this->left);
+	checkNotNull(this->right);
+
+	int total = sizeof(uint16_t);
+	total += this->left->binarySize();
+	total += this->right->binarySize();
+	total += sizeof(uint8_t);
+
+	return total;
+}
+
+void SQLRelationalExpression::toBinary(ByteBuffer* out) {
+	checkNotNull(this->left);
+	checkNotNull(this->right);
+
+	out->putShort(CodeElement::SQL_EXP_RELATIONAL);
+	this->left->toBinary(out);
+	this->right->toBinary(out);
+	out->put(this->op);
+}
+
+void SQLRelationalExpression::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkIsSQLExp(element);
+	this->left = dynamic_cast<AbstractSQLExpression*>(element);
+
+	element = createFromBinary(in);
+	checkIsSQLExp(element);
+	this->right = dynamic_cast<AbstractSQLExpression*>(element);
+
+	this->op = in->get();
+}
+
 } /* namespace alinous */
-
-int alinous::SQLRelationalExpression::binarySize() const {
-}
-
-void alinous::SQLRelationalExpression::toBinary(ByteBuffer* out) {
-}
-
-void alinous::SQLRelationalExpression::fromBinary(ByteBuffer* in) {
-}

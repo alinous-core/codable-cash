@@ -19,6 +19,10 @@ public:
 	virtual ~AbstractSQLBinaryExpression();
 
 	void addOperand(AbstractSQLExpression* exp) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 protected:
 	ArrayList<AbstractSQLExpression> operands;
 };
