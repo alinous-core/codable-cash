@@ -15,13 +15,17 @@ BlankStatement::BlankStatement() : AbstractStatement(CodeElement::STMT_BLANK) {
 BlankStatement::~BlankStatement() {
 }
 
+int BlankStatement::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void BlankStatement::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::STMT_BLANK);
+}
+
+void BlankStatement::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */
-
-int alinous::BlankStatement::binarySize() const {
-}
-
-void alinous::BlankStatement::toBinary(ByteBuffer* out) {
-}
-
-void alinous::BlankStatement::fromBinary(ByteBuffer* in) {
-}
