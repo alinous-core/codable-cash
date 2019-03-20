@@ -31,13 +31,38 @@ void RelationalExpression::setOp(uint8_t op) noexcept {
 	this->op = op;
 }
 
+int RelationalExpression::binarySize() const {
+	checkNotNull(this->left);
+	checkNotNull(this->right);
+
+	int total = sizeof(uint16_t);
+	total += this->left->binarySize();
+	total += this->right->binarySize();
+	total += sizeof(uint8_t);
+
+	return total;
+}
+
+void RelationalExpression::toBinary(ByteBuffer* out) {
+	checkNotNull(this->left);
+	checkNotNull(this->right);
+
+	out->putShort(CodeElement::EXP_CND_RELATIONAL);
+	this->left->toBinary(out);
+	this->right->toBinary(out);
+	out->put(this->op);
+}
+
+void RelationalExpression::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkIsExp(element);
+	this->left = dynamic_cast<AbstractExpression*>(element);
+
+	element = createFromBinary(in);
+	checkIsExp(element);
+	this->right = dynamic_cast<AbstractExpression*>(element);
+
+	this->op = in->get();
+}
+
 } /* namespace alinous */
-
-int alinous::RelationalExpression::binarySize() const {
-}
-
-void alinous::RelationalExpression::toBinary(ByteBuffer* out) {
-}
-
-void alinous::RelationalExpression::fromBinary(ByteBuffer* in) {
-}
