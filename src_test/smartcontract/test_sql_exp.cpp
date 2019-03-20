@@ -469,6 +469,39 @@ TEST(TestSQLExpressionGroup, not01bin){
 	CHECK(res)
 }
 
+TEST(TestSQLExpressionGroup, and01){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/sqlexp/and01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractSQLExpression* exp = lang->sqlExpression(); __STP(exp);
+
+	CHECK(!parser.hasError())
+}
+
+TEST(TestSQLExpressionGroup, and01bin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/sqlexp/and01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractSQLExpression* exp = lang->sqlExpression(); __STP(exp);
+
+	CHECK(!parser.hasError())
+
+	int size = exp->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	exp->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+}
+
 TEST(TestSQLExpressionGroup, or01){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/sqlexp/or01.alns"))
