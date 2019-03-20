@@ -26,13 +26,22 @@ void ArrayReferenceExpression::addIndex(AbstractExpression* exp) noexcept {
 	this->list.addElement(exp);
 }
 
+int ArrayReferenceExpression::binarySize() const {
+	checkNotNull(this->exp);
+
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void ArrayReferenceExpression::toBinary(ByteBuffer* out) {
+	checkNotNull(this->exp);
+	out->putShort(CodeElement::EXP_ARRAY_REF);
+
+
+}
+
+void ArrayReferenceExpression::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */
-
-int alinous::ArrayReferenceExpression::binarySize() const {
-}
-
-void alinous::ArrayReferenceExpression::toBinary(ByteBuffer* out) {
-}
-
-void alinous::ArrayReferenceExpression::fromBinary(ByteBuffer* in) {
-}

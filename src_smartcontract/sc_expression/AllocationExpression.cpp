@@ -31,12 +31,44 @@ void AllocationExpression::setExpression(FunctionCallExpression* exp) noexcept {
 }
 
 int AllocationExpression::binarySize() const {
+	checkNotNull(this->exp);
+
+	int total = sizeof(uint16_t);
+	total += sizeof(uint8_t);
+
+	if(this->packageName != nullptr){
+		total += this->packageName->binarySize();
+	}
+
+	total += this->exp->binarySize();
+
+	return total;
 }
 
 void AllocationExpression::toBinary(ByteBuffer* out) {
+	checkNotNull(this->exp);
+
+	out->putShort(CodeElement::EXP_ALLOCATION);
+
+	out->put(this->packageName != nullptr ? 1 : 0);
+	if(this->packageName != nullptr){
+		this->packageName->toBinary(out);
+	}
+
+	this->exp->toBinary(out);
 }
 
 void AllocationExpression::fromBinary(ByteBuffer* in) {
+	uint8_t bl = in->get();
+	if(bl == 1){
+		CodeElement* element = createFromBinary(in);
+		checkKind(element, CodeElement::PACKAGE_NAME_DECLARE);
+		this->packageName = dynamic_cast<PackageNameDeclare*>(element);
+	}
+
+	CodeElement* element = createFromBinary(in);
+	checkKind(element, CodeElement::EXP_FUNCTIONCALL);
+	this->exp = dynamic_cast<FunctionCallExpression*>(element);
 }
 
 } /* namespace alinous */
