@@ -16,13 +16,17 @@ ContinueStatement::ContinueStatement() : AbstractStatement(CodeElement::STMT_CON
 ContinueStatement::~ContinueStatement() {
 }
 
+int ContinueStatement::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void ContinueStatement::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::STMT_CONTINUE);
+}
+
+void ContinueStatement::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */
-
-int alinous::ContinueStatement::binarySize() const {
-}
-
-void alinous::ContinueStatement::toBinary(ByteBuffer* out) {
-}
-
-void alinous::ContinueStatement::fromBinary(ByteBuffer* in) {
-}

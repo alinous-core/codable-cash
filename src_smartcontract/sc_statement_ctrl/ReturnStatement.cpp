@@ -22,13 +22,27 @@ void ReturnStatement::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }
 
-} /* namespace alinous */
-
 int alinous::ReturnStatement::binarySize() const {
+	checkNotNull(this->exp);
+
+	int total = sizeof(uint16_t);
+	total += this->exp->binarySize();
+
+	return total;
 }
 
 void alinous::ReturnStatement::toBinary(ByteBuffer* out) {
+	checkNotNull(this->exp);
+
+	out->putShort(CodeElement::STMT_RETURN);
+	this->exp->toBinary(out);
 }
 
 void alinous::ReturnStatement::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkIsExp(element);
+	this->exp = dynamic_cast<AbstractExpression*>(element);
 }
+
+
+} /* namespace alinous */

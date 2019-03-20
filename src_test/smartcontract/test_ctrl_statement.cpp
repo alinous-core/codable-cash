@@ -10,6 +10,27 @@
 #include "base/StackRelease.h"
 #include "alinous_lang/AlinousLang.h"
 
+static bool checkBinary(ByteBuffer* buff){
+	int lastSize = buff->capacity();
+
+	buff->position(0);
+	CodeElement* element = CodeElement::createFromBinary(buff); __STP(element);
+
+	int size = element->binarySize();
+	if(lastSize != size){
+		return false;
+	}
+
+	ByteBuffer* buff2 = ByteBuffer::allocateWithEndian(size, true); __STP(buff2);
+	element->toBinary(buff2);
+
+	if(buff2->position() != size){
+		return false;
+	}
+
+	return Mem::memcmp(buff->array(), buff2->array(), size) == 0;
+}
+
 
 TEST_GROUP(TestCtrlStatementGroup) {
 	TEST_SETUP(){}
@@ -28,6 +49,27 @@ TEST(TestCtrlStatementGroup, if01){
 	CHECK(!parser.hasError())
 }
 
+TEST(TestCtrlStatementGroup, if01bin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement_ctrl/if.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	IfStatement* stmt = lang->ifStatement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+
+	int size = stmt->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	stmt->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+}
+
 TEST(TestCtrlStatementGroup, break01){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement_ctrl/break01.alns"))
@@ -38,6 +80,27 @@ TEST(TestCtrlStatementGroup, break01){
 	AbstractStatement* stmt = lang->statement(); __STP(stmt);
 
 	CHECK(!parser.hasError())
+}
+
+TEST(TestCtrlStatementGroup, break01bin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement_ctrl/break01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+
+	int size = stmt->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	stmt->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
 }
 
 TEST(TestCtrlStatementGroup, continue01){
@@ -52,6 +115,27 @@ TEST(TestCtrlStatementGroup, continue01){
 	CHECK(!parser.hasError())
 }
 
+TEST(TestCtrlStatementGroup, continue01bin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement_ctrl/continue01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+
+	int size = stmt->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	stmt->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+}
+
 TEST(TestCtrlStatementGroup, for01){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement_ctrl/for01.alns"))
@@ -62,6 +146,27 @@ TEST(TestCtrlStatementGroup, for01){
 	AbstractStatement* stmt = lang->statement(); __STP(stmt);
 
 	CHECK(!parser.hasError())
+}
+
+TEST(TestCtrlStatementGroup, for01bin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement_ctrl/for01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+
+	int size = stmt->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	stmt->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
 }
 
 TEST(TestCtrlStatementGroup, while01){
@@ -76,6 +181,27 @@ TEST(TestCtrlStatementGroup, while01){
 	CHECK(!parser.hasError())
 }
 
+TEST(TestCtrlStatementGroup, while01bin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement_ctrl/while01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+
+	int size = stmt->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	stmt->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+}
+
 TEST(TestCtrlStatementGroup, dowhile01){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement_ctrl/dowhile01.alns"))
@@ -88,6 +214,27 @@ TEST(TestCtrlStatementGroup, dowhile01){
 	CHECK(!parser.hasError())
 }
 
+TEST(TestCtrlStatementGroup, dowhile01bin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement_ctrl/dowhile01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+
+	int size = stmt->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	stmt->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+}
+
 TEST(TestCtrlStatementGroup, return01){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement_ctrl/return01.alns"))
@@ -98,5 +245,26 @@ TEST(TestCtrlStatementGroup, return01){
 	AbstractStatement* stmt = lang->statement(); __STP(stmt);
 
 	CHECK(!parser.hasError())
+}
+
+TEST(TestCtrlStatementGroup, return01bin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement_ctrl/return01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+
+	int size = stmt->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	stmt->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
 }
 
