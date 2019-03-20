@@ -404,6 +404,26 @@ TEST(TestExpressionGroup, arrayRef){
 	CHECK(!parser.hasError())
 }
 
+TEST(TestExpressionGroup, arrayRefBin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/expression/arrayRef.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractExpression* exp = lang->expression(); __STP(exp);
+
+	CHECK(!parser.hasError())
+
+	int size = exp->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+	exp->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+}
+
 TEST(TestExpressionGroup, mamberRef){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/expression/mamberRef.alns"))
@@ -415,4 +435,25 @@ TEST(TestExpressionGroup, mamberRef){
 
 	CHECK(!parser.hasError())
 }
+
+TEST(TestExpressionGroup, mamberRefBin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/expression/mamberRef.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractExpression* exp = lang->expression(); __STP(exp);
+
+	CHECK(!parser.hasError())
+
+	int size = exp->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+	exp->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+}
+
 

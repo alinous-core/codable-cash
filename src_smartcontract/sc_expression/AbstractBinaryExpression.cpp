@@ -47,7 +47,7 @@ void AbstractBinaryExpression::fromBinary(ByteBuffer* in) {
 	for(int i = 0; i != maxLoop; ++i){
 		CodeElement* element = createFromBinary(in);
 		checkIsExp(element);
-		AbstractExpression* exp = dynamic_cast<AbstractExpression*>(exp);
+		AbstractExpression* exp = dynamic_cast<AbstractExpression*>(element);
 
 		this->list.addElement(exp);
 	}
