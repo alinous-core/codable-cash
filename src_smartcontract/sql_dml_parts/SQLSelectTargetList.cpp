@@ -22,12 +22,39 @@ void SQLSelectTargetList::addTarget(SQLSelectTarget* target) noexcept {
 }
 
 int SQLSelectTargetList::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	total += sizeof(uint32_t);
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SQLSelectTarget* target = this->list.get(i);
+		total += target->binarySize();
+	}
+
+	return total;
 }
 
 void SQLSelectTargetList::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::SQL_PART_SELECT_TARGET_LIST);
+
+	int maxLoop = this->list.size();
+	out->putInt(maxLoop);
+
+	for(int i = 0; i != maxLoop; ++i){
+		SQLSelectTarget* target = this->list.get(i);
+		target->toBinary(out);
+	}
 }
 
 void SQLSelectTargetList::fromBinary(ByteBuffer* in) {
+	int maxLoop = in->getInt();
+	for(int i = 0; i != maxLoop; ++i){
+		CodeElement* element = createFromBinary(in);
+		checkKind(element, CodeElement::SQL_PART_SELECT_TARGET);
+		SQLSelectTarget* target = dynamic_cast<SQLSelectTarget*>(element);
+
+		this->list.addElement(target);
+	}
 }
 
 } /* namespace alinous */

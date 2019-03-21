@@ -132,7 +132,7 @@ public:
 	static const constexpr short SQL_PART_SELECT_TARGET{226};
 	static const constexpr short SQL_PART_SELECT_TARGET_LIST{227};
 	static const constexpr short SQL_PART_SET{228};
-	static const constexpr short SQL_PART_ST_PAIR{229};
+	static const constexpr short SQL_PART_SET_PAIR{229};
 	static const constexpr short SQL_PART_WHERE{230};
 
 
@@ -161,6 +161,7 @@ public:
 	static void checkIsStatement(CodeElement* element);
 	static void checkIsExp(CodeElement* element);
 	static void checkIsSQLExp(CodeElement* element);
+	static void checkIsJoinPart(CodeElement* element);
 protected:
 	short kind;
 

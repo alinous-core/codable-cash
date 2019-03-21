@@ -486,7 +486,7 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 	case SQL_PART_SET:
 		element = new SQLSet();
 		break;
-	case SQL_PART_ST_PAIR:
+	case SQL_PART_SET_PAIR:
 		element = new SQLSetPair();
 		break;
 	case SQL_PART_WHERE:
@@ -563,6 +563,13 @@ void CodeElement::checkIsExp(CodeElement* element) {
 
 void CodeElement::checkIsSQLExp(CodeElement* element) {
 	if(!(element->kind >= SQL_EXP_ADDITIVE && element->kind < SQL_PART_COLUMN_LIST)){
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
+	}
+}
+
+void CodeElement::checkIsJoinPart(CodeElement* element) {
+	if(!(element->kind == SQL_EXP_PARENTHESIS_JOIN_PART || element->kind == SQL_EXP_JOIN ||
+			element->kind == SQL_EXP_TABLE_ID || element->kind == SQL_EXP_TABLE_LIST)){
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }

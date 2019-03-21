@@ -23,12 +23,25 @@ void alinous::SQLWhere::setExpression(AbstractSQLExpression* exp) noexcept {
 }
 
 int SQLWhere::binarySize() const {
+	checkNotNull(this->exp);
+
+	int total = sizeof(uint16_t);
+	total += this->exp->binarySize();
+
+	return total;
 }
 
 void SQLWhere::toBinary(ByteBuffer* out) {
+	checkNotNull(this->exp);
+
+	out->putShort(CodeElement::SQL_PART_WHERE);
+	this->exp->toBinary(out);
 }
 
 void SQLWhere::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkIsSQLExp(element);
+	this->exp = dynamic_cast<AbstractSQLExpression*>(element);
 }
 
 } /* namespace alinous */

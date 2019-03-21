@@ -35,12 +35,52 @@ void SQLSelectTarget::setAsName(UnicodeString* asName) noexcept {
 }
 
 int SQLSelectTarget::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	total += sizeof(uint32_t);
+	total += sizeof(uint32_t);
+	if(this->exp != nullptr){
+		total += this->exp->binarySize();
+	}
+
+	total += sizeof(uint32_t);
+	if(this->asName != nullptr){
+		total += stringSize(this->asName);
+	}
+
+	return total;
 }
 
 void SQLSelectTarget::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::SQL_PART_SELECT_TARGET);
+
+	out->put(this->wildcard ? 1 : 0);
+	out->put(this->exp != nullptr ? 1 : 0);
+	if(this->exp != nullptr){
+		this->exp->toBinary(out);
+	}
+
+	out->put(this->exp != nullptr ? 1 : 0);
+	if(this->asName != nullptr){
+		putString(out, this->asName);
+	}
 }
 
 void SQLSelectTarget::fromBinary(ByteBuffer* in) {
+	int8_t bl = in->get();
+	this->wildcard = (bl == 1);
+
+	bl = in->get();
+	if(bl == 1){
+		CodeElement* element = createFromBinary(in);
+		checkIsSQLExp(element);
+		this->exp = dynamic_cast<AbstractSQLExpression*>(element);
+	}
+
+	bl = in->get();
+	if(bl == 1){
+		this->asName = getString(in);
+	}
 }
 
 } /* namespace alinous */

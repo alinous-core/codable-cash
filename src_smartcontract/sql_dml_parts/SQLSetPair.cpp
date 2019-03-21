@@ -12,7 +12,7 @@
 
 namespace alinous {
 
-SQLSetPair::SQLSetPair() : AbstractSQLPart(CodeElement::SQL_PART_ST_PAIR) {
+SQLSetPair::SQLSetPair() : AbstractSQLPart(CodeElement::SQL_PART_SET_PAIR) {
 	this->colId = nullptr;
 	this->exp = nullptr;
 }
@@ -31,12 +31,33 @@ void SQLSetPair::setExpression(AbstractSQLExpression* exp) noexcept {
 }
 
 int SQLSetPair::binarySize() const {
+	checkNotNull(this->colId);
+	checkNotNull(this->exp);
+
+	int total = sizeof(uint16_t);
+	total += this->colId->binarySize();
+	total += this->exp->binarySize();
+
+	return total;
 }
 
 void SQLSetPair::toBinary(ByteBuffer* out) {
+	checkNotNull(this->colId);
+	checkNotNull(this->exp);
+
+	out->putShort(CodeElement::SQL_PART_SET_PAIR);
+	this->colId->toBinary(out);
+	this->exp->toBinary(out);
 }
 
 void SQLSetPair::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkKind(element, CodeElement::SQL_EXP_COLUMN_ID);
+	this->colId = dynamic_cast<SQLColumnIdentifier*>(element);
+
+	element = createFromBinary(in);
+	checkIsSQLExp(element);
+	this->exp = dynamic_cast<AbstractSQLExpression*>(element);
 }
 
 } /* namespace alinous */
