@@ -568,7 +568,7 @@ void CodeElement::checkIsSQLExp(CodeElement* element) {
 }
 
 void CodeElement::checkIsJoinPart(CodeElement* element) {
-	if(!(element->kind == SQL_EXP_PARENTHESIS_JOIN_PART || element->kind == SQL_EXP_JOIN ||
+	if(!(element->kind == SQL_EXP_PARENTHESIS_JOIN_PART || element->kind == SQL_EXP_JOIN || element->kind == SQL_EXP_JOIN_PART ||
 			element->kind == SQL_EXP_TABLE_ID || element->kind == SQL_EXP_TABLE_LIST)){
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
