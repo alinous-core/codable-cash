@@ -25,6 +25,7 @@ int alinous::CreateTableStatement::binarySize() const {
 }
 
 void alinous::CreateTableStatement::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::DDL_CREATE_TABLE);
 }
 
 void alinous::CreateTableStatement::fromBinary(ByteBuffer* in) {

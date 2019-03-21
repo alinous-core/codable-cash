@@ -22,15 +22,25 @@ void DropTableStatement::setTableId(TableIdentifier* tableId) noexcept {
 }
 
 int DropTableStatement::binarySize() const {
+	checkNotNull(this->tableId);
+
 	int total = sizeof(uint16_t);
+	total += this->tableId->binarySize();
 
 	return total;
 }
 
 void DropTableStatement::toBinary(ByteBuffer* out) {
+	checkNotNull(this->tableId);
+
+	out->putShort(CodeElement::DDL_DROP_TABLE);
+	this->tableId->toBinary(out);
 }
 
 void DropTableStatement::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkKind(element, CodeElement::SQL_EXP_TABLE_ID);
+	this->tableId = dynamic_cast<TableIdentifier*>(element);
 }
 
 } /* namespace alinous */
