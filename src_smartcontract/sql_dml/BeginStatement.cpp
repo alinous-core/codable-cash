@@ -15,13 +15,18 @@ BeginStatement::BeginStatement() : AbstractSQLStatement(CodeElement::DML_STMT_BE
 BeginStatement::~BeginStatement() {
 }
 
+
+int BeginStatement::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void BeginStatement::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::DML_STMT_BEGIN);
+}
+
+void BeginStatement::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */
-
-int alinous::BeginStatement::binarySize() const {
-}
-
-void alinous::BeginStatement::toBinary(ByteBuffer* out) {
-}
-
-void alinous::BeginStatement::fromBinary(ByteBuffer* in) {
-}

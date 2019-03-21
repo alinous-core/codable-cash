@@ -15,13 +15,17 @@ CommitStatement::CommitStatement() : AbstractSQLStatement(CodeElement::DML_STMT_
 CommitStatement::~CommitStatement() {
 }
 
+int CommitStatement::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void CommitStatement::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::DML_STMT_COMMIT);
+}
+
+void CommitStatement::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */
-
-int alinous::CommitStatement::binarySize() const {
-}
-
-void alinous::CommitStatement::toBinary(ByteBuffer* out) {
-}
-
-void alinous::CommitStatement::fromBinary(ByteBuffer* in) {
-}
