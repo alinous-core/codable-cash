@@ -15,4 +15,20 @@ SQLAndExpression::SQLAndExpression() : AbstractSQLBinaryExpression(CodeElement::
 SQLAndExpression::~SQLAndExpression() {
 }
 
+int SQLAndExpression::binarySize() const {
+	int total = sizeof(uint16_t);
+	total += AbstractSQLBinaryExpression::binarySize();
+
+	return total;
+}
+
+void SQLAndExpression::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::SQL_EXP_AND);
+	AbstractSQLBinaryExpression::toBinary(out);
+}
+
+void SQLAndExpression::fromBinary(ByteBuffer* in) {
+	AbstractSQLBinaryExpression::fromBinary(in);
+}
+
 } /* namespace alinous */

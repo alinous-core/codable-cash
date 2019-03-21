@@ -30,5 +30,43 @@ void DeleteStatement::setWhere(SQLWhere* where) noexcept {
 	this->where = where;
 }
 
+int DeleteStatement::binarySize() const {
+	checkNotNull(this->from);
+
+	int total = sizeof(uint16_t);
+	total += this->from->binarySize();
+
+	total += sizeof(uint8_t);
+	if(this->where != nullptr){
+		total += this->where->binarySize();
+	}
+
+	return total;
+}
+
+void DeleteStatement::toBinary(ByteBuffer* out) {
+	checkNotNull(this->from);
+
+	out->putShort(CodeElement::DML_STMT_DELETE);
+	this->from->toBinary(out);
+
+	out->put(this->where != nullptr ? 1 : 0);
+	if(this->where != nullptr){
+		this->where->toBinary(out);
+	}
+}
+
+void DeleteStatement::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkKind(element, CodeElement::SQL_PART_FROM);
+	this->from = dynamic_cast<SQLFrom*>(element);
+
+	int8_t bl = in->get();
+	if(bl == 1){
+		 element = createFromBinary(in);
+		 checkKind(element, CodeElement::SQL_PART_WHERE);
+		 this->where = dynamic_cast<SQLWhere*>(element);
+	}
+}
 
 } /* namespace alinous */

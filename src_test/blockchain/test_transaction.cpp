@@ -15,6 +15,11 @@
 #include "base/StackRelease.h"
 #include "bc/exceptions.h"
 
+#include "bc_base/TicketTransaction.h"
+
+#include "flash_pow/Nonce.h"
+
+#include "bc_base/TransactionId.h"
 using namespace alinous;
 using namespace codablecash;
 
@@ -26,6 +31,9 @@ TEST_GROUP(TestTransactionGroup) {
 TEST(TestTransactionGroup, balanceunit){
 	BalanceUnit bl(111);
 	CHECK(bl.getAmount() == 111)
+
+	BalanceUnit bl2(bl);
+	CHECK(bl2.getAmount() == 111)
 }
 
 TEST(TestTransactionGroup, constract){
@@ -78,7 +86,7 @@ TEST(TestTransactionGroup, balancetrx){
 
 	trx->addOutput(addr4, 100);
 	trx->addOutput(addr5, 399);
-	trx->setFee(1);
+	trx->setFee(BalanceUnit(1));
 
 	uint64_t in = trx->getTotalInput();
 	uint64_t out = trx->getTotalOutput();
@@ -102,7 +110,7 @@ TEST(TestTransactionGroup, trxid){
 
 	trx->addOutput(addr4, 100);
 	trx->addOutput(addr5, 399);
-	trx->setFee(1);
+	trx->setFee(BalanceUnit(1));
 
 	trx->updateTransactionId();
 	trx->updateTransactionId();
@@ -128,7 +136,7 @@ TEST(TestTransactionGroup, binary){
 
 	trx->addOutput(addr4, 100);
 	trx->addOutput(addr5, 399);
-	trx->setFee(1);
+	trx->setFee(BalanceUnit(1));
 
 	int size = trx->binarySize();
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true);
@@ -170,7 +178,7 @@ TEST(TestTransactionGroup, copy){
 
 	trx->addOutput(addr4, 100);
 	trx->addOutput(addr5, 399);
-	trx->setFee(1);
+	trx->setFee(BalanceUnit(1));
 
 	trx->updateTransactionId();
 
@@ -195,3 +203,39 @@ TEST(TestTransactionGroup, copy){
 	CHECK(Mem::memcmp(buff->array(), buff2->array(), buff->capacity()) == 0)
 }
 
+TEST(TestTransactionGroup, constractTicketTrx){
+	TicketTransaction trx(1L);
+}
+
+TEST(TestTransactionGroup, ticketTrxTransactionId){
+	TicketTransaction trx(1L);
+	Nonce nonce(1, 2);
+	BalanceUnit fee(10L);
+
+	trx.setNonce(&nonce);
+	trx.setFee(&fee);
+
+	trx.updateTransactionId();
+
+	trx.updateTransactionId();
+}
+
+TEST(TestTransactionGroup, ticketTrxClone){
+	TicketTransaction trx(1L);
+	Nonce nonce(1, 2);
+	BalanceUnit fee(10L);
+
+	trx.setNonce(&nonce);
+	trx.setFee(&fee);
+	trx.updateTransactionId();
+
+	TicketTransaction* trx2 = dynamic_cast<TicketTransaction*>(trx.clone()); __STP(trx2);
+	CHECK(fee.getAmount() == trx2->getFee()->getAmount())
+
+	trx2->updateTransactionId();
+
+	const TransactionId* id1 = trx.getTransactionId();
+	const TransactionId* id2 = trx2->getTransactionId();
+
+	CHECK(id1->equals(id2))
+}

@@ -25,6 +25,10 @@ public:
 
 	void setFirst(AbstractJoinPart* first) noexcept;
 	void addJoinPart(SQLJoinPart* part) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	AbstractJoinPart* first;
 	ArrayList<SQLJoinPart> list;

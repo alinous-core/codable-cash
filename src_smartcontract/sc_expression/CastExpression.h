@@ -20,6 +20,10 @@ public:
 
 	void setType(AbstractType* type) noexcept;
 	void setExpression(AbstractExpression* exp) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	AbstractType* type;
 	AbstractExpression* exp;

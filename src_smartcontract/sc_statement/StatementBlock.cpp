@@ -20,4 +20,40 @@ void StatementBlock::addStatement(AbstractStatement* stmt) noexcept {
 	this->statements.addElement(stmt);
 }
 
+int StatementBlock::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	total += sizeof(uint32_t);
+	int maxLoop = this->statements.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractStatement* stmt = this->statements.get(i);
+		total += stmt->binarySize();
+	}
+
+	return total;
+}
+
+void StatementBlock::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::STMT_BLOCK);
+
+	int maxLoop = this->statements.size();
+	out->putInt(maxLoop);
+
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractStatement* stmt = this->statements.get(i);
+		stmt->toBinary(out);
+	}
+}
+
+void StatementBlock::fromBinary(ByteBuffer* in) {
+	int maxLoop = in->getInt();
+	for(int i = 0; i != maxLoop; ++i){
+		CodeElement* element = createFromBinary(in);
+		checkIsStatement(element);
+
+		AbstractStatement* stmt = dynamic_cast<AbstractStatement*>(element);
+		this->statements.addElement(stmt);
+	}
+}
+
 } /* namespace alinous */

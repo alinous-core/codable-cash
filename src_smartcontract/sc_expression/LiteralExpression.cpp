@@ -24,4 +24,28 @@ void LiteralExpression::setString(UnicodeString* str, bool dquote) noexcept {
 	this->dquote = dquote;
 }
 
+int LiteralExpression::binarySize() const {
+	checkNotNull(this->str);
+
+	int total = sizeof(uint16_t);
+	total += sizeof(uint8_t);
+	total += stringSize(this->str);
+
+	return total;
+}
+
+void LiteralExpression::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::EXP_LITERAL);
+
+	out->put(this->dquote ? 1 : 0);
+	putString(out, this->str);
+}
+
+void LiteralExpression::fromBinary(ByteBuffer* in) {
+	char bl = in->get();
+	this->dquote = (bl == 1);
+	this->str = getString(in);
+}
+
+
 } /* namespace alinous */

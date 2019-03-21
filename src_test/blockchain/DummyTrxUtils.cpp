@@ -52,7 +52,8 @@ AbstractTransaction* DummyTrxUtils::makeTrx(const NetworkShard* shard, uint64_t 
 		remain -= one;
 	}
 
-	trx->setFee(remain);
+	BalanceUnit amount(remain);
+	trx->setFee(amount);
 
 	return trx;
 }

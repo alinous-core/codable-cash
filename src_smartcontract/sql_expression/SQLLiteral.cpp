@@ -24,4 +24,27 @@ void SQLLiteral::setValue(UnicodeString* value, uint8_t type) noexcept {
 	this->type = type;
 }
 
+int SQLLiteral::binarySize() const {
+	checkNotNull(this->value);
+
+	int total = sizeof(uint16_t);
+	total += stringSize(this->value);
+	total += sizeof(uint8_t);
+
+	return total;
+}
+
+void SQLLiteral::toBinary(ByteBuffer* out) {
+	checkNotNull(this->value);
+
+	out->putShort(CodeElement::SQL_EXP_LITERAL);
+	putString(out, this->value);
+	out->put(this->type);
+}
+
+void SQLLiteral::fromBinary(ByteBuffer* in) {
+	this->value = getString(in);
+	this->type = in->get();
+}
+
 } /* namespace alinous */

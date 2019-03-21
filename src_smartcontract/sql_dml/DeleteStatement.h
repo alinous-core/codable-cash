@@ -21,6 +21,10 @@ public:
 
 	void setFrom(SQLFrom* from) noexcept;
 	void setWhere(SQLWhere* where) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	SQLFrom* from;
 	SQLWhere* where;

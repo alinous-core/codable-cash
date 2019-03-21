@@ -66,4 +66,8 @@ TransactionId* TransactionId::fromBinary(ByteBuffer* in) {
 	return trxId;
 }
 
+bool TransactionId::equals(const TransactionId* other) const noexcept {
+	return this->id->binaryEquals(other->id);
+}
+
 } /* namespace codablecash */

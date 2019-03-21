@@ -20,6 +20,10 @@ public:
 	virtual ~SQLOrderBy();
 
 	void setList(SQLColumnsList* list) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	SQLColumnsList* list;
 };

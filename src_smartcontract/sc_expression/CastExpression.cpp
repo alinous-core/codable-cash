@@ -28,4 +28,34 @@ void CastExpression::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }
 
+int CastExpression::binarySize() const {
+	checkNotNull(this->exp);
+	checkNotNull(this->type);
+
+	int total = sizeof(uint16_t);
+	total += this->exp->binarySize();
+	total += this->type->binarySize();
+
+	return total;
+}
+
+void CastExpression::toBinary(ByteBuffer* out) {
+	checkNotNull(this->exp);
+	checkNotNull(this->type);
+
+	out->putShort(CodeElement::EXP_CAST);
+	this->exp->toBinary(out);
+	this->type->toBinary(out);
+}
+
+void CastExpression::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkIsExp(element);
+	this->exp = dynamic_cast<AbstractExpression*>(element);
+
+	element = createFromBinary(in);
+	checkIsType(element);
+	this->type = dynamic_cast<AbstractType*>(element);
+}
+
 } /* namespace alinous */

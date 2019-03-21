@@ -16,6 +16,10 @@ class CommitStatement : public AbstractSQLStatement {
 public:
 	CommitStatement();
 	virtual ~CommitStatement();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

@@ -19,6 +19,10 @@ public:
 	virtual ~StatementBlock();
 
 	void addStatement(AbstractStatement* stmt) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	ArrayList<AbstractStatement> statements;
 };

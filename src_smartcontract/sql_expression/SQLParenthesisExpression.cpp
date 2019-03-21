@@ -21,4 +21,26 @@ void SQLParenthesisExpression::setExpression(AbstractSQLExpression* exp) noexcep
 	this->exp = exp;
 }
 
+int SQLParenthesisExpression::binarySize() const {
+	checkNotNull(this->exp);
+
+	int total = sizeof(uint16_t);
+	total += this->exp->binarySize();
+
+	return total;
+}
+
+void SQLParenthesisExpression::toBinary(ByteBuffer* out) {
+	checkNotNull(this->exp);
+
+	out->putShort(CodeElement::SQL_EXP_PARENTHESIS);
+	this->exp->toBinary(out);
+}
+
+void SQLParenthesisExpression::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkIsSQLExp(element);
+	this->exp = dynamic_cast<AbstractSQLExpression*>(element);
+}
+
 } /* namespace alinous */

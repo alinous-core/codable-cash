@@ -20,4 +20,22 @@ void BooleanLiteral::setValue(bool v) noexcept {
 	this->value = v;
 }
 
+int BooleanLiteral::binarySize() const {
+	int total = sizeof(uint16_t);
+	total += sizeof(uint8_t);
+
+	return total;
+}
+
+void BooleanLiteral::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::EXP_BOOLEAN_LITERAL);
+	out->put(this->value ? 1 : 0);
+}
+
+void BooleanLiteral::fromBinary(ByteBuffer* in) {
+	char val = in->get();
+	this->value = (val == 1);
+}
+
+
 } /* namespace alinous */

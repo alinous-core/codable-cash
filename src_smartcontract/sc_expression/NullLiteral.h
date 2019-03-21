@@ -15,6 +15,10 @@ class NullLiteral : public AbstractExpression {
 public:
 	NullLiteral();
 	virtual ~NullLiteral();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

@@ -10,6 +10,17 @@
 
 namespace codablecash {
 
+BalanceUnit& BalanceUnit::operator =(const BalanceUnit& o) {
+	if(&o != this){
+		this->amount = o.amount;
+	}
+	return *this;
+}
+
+BalanceUnit::BalanceUnit(const BalanceUnit& inst) {
+	this->amount = inst.amount;
+}
+
 BalanceUnit::BalanceUnit(uint64_t amount) {
 	this->amount = amount;
 }

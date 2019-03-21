@@ -15,4 +15,17 @@ RollbackStatement::RollbackStatement() : AbstractSQLStatement(CodeElement::DML_S
 RollbackStatement::~RollbackStatement() {
 }
 
+int RollbackStatement::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void RollbackStatement::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::DML_STMT_ROLLBACK);
+}
+
+void RollbackStatement::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

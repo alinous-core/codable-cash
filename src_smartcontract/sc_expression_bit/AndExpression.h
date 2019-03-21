@@ -16,6 +16,10 @@ class AndExpression : public AbstractBinaryExpression {
 public:
 	AndExpression();
 	virtual ~AndExpression();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

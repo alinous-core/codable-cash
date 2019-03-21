@@ -37,4 +37,51 @@ void UpdateStatement::setWhere(SQLWhere* where) noexcept {
 	this->where = where;
 }
 
+int UpdateStatement::binarySize() const {
+	checkNotNull(this->tableId);
+	checkNotNull(this->set);
+
+	int total = sizeof(uint16_t);
+	total += this->tableId->binarySize();
+	total += this->set->binarySize();
+
+	total += sizeof(uint8_t);
+	if(this->where != nullptr){
+		total += this->where->binarySize();
+	}
+
+	return total;
+}
+
+void UpdateStatement::toBinary(ByteBuffer* out) {
+	checkNotNull(this->tableId);
+	checkNotNull(this->set);
+
+	out->putShort(CodeElement::DML_STMT_UPDATE);
+	this->tableId->toBinary(out);
+	this->set->toBinary(out);
+
+	out->put(this->where != nullptr ? 1 : 0);
+	if(this->where != nullptr){
+		this->where->toBinary(out);
+	}
+}
+
+void UpdateStatement::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkKind(element, CodeElement::SQL_EXP_TABLE_ID);
+	this->tableId = dynamic_cast<TableIdentifier*>(element);
+
+	element = createFromBinary(in);
+	checkKind(element, CodeElement::SQL_PART_SET);
+	this->set = dynamic_cast<SQLSet*>(element);
+
+	int8_t bl = in->get();
+	if(bl == 1){
+		 element = createFromBinary(in);
+		 checkKind(element, CodeElement::SQL_PART_WHERE);
+		 this->where = dynamic_cast<SQLWhere*>(element);
+	}
+}
+
 } /* namespace alinous */

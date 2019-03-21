@@ -16,6 +16,10 @@ class RollbackStatement : public AbstractSQLStatement {
 public:
 	RollbackStatement();
 	virtual ~RollbackStatement();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

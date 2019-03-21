@@ -8,12 +8,17 @@
 #ifndef SC_CODEELEMENT_H_
 #define SC_CODEELEMENT_H_
 
+#include "base_io/ByteBuffer.h"
+
 namespace alinouslang {
 class Token;
 }
 
 namespace alinous {
 using namespace alinouslang;
+
+class ByteBuffer;
+class UnicodeString;
 
 class CodeElement {
 public:
@@ -118,7 +123,18 @@ public:
 	static const constexpr short SQL_EXP_TABLE_LIST{201};
 	static const constexpr short SQL_EXP_PARENTHESIS_JOIN_PART{202};
 
-	static const constexpr short SQL_PART{220};
+	static const constexpr short SQL_PART_COLUMN_LIST{220};
+	static const constexpr short SQL_PART_FROM{221};
+	static const constexpr short SQL_PART_GROUP_BY{222};
+	static const constexpr short SQL_PART_HAVING{223};
+	static const constexpr short SQL_PART_LIMIT_OFFSET{224};
+	static const constexpr short SQL_PART_ORDER_BY{225};
+	static const constexpr short SQL_PART_SELECT_TARGET{226};
+	static const constexpr short SQL_PART_SELECT_TARGET_LIST{227};
+	static const constexpr short SQL_PART_SET{228};
+	static const constexpr short SQL_PART_SET_PAIR{229};
+	static const constexpr short SQL_PART_WHERE{230};
+
 
 	explicit CodeElement(short kind);
 	virtual ~CodeElement();
@@ -129,6 +145,23 @@ public:
 	void setPosition(CodeElement* element);
 	void setPosition(Token* token);
 
+	virtual int binarySize() const = 0;
+	virtual void toBinary(ByteBuffer* out) = 0;
+	virtual void fromBinary(ByteBuffer* in) = 0;
+
+	static CodeElement* createFromBinary(ByteBuffer* in);
+
+	int stringSize(UnicodeString* str) const noexcept;
+	void putString(ByteBuffer* out, UnicodeString* str) const noexcept;
+	UnicodeString* getString(ByteBuffer* in) const noexcept;
+
+	static void checkNotNull(void* ptr);
+	static void checkKind(CodeElement* element, short kind);
+	static void checkIsType(CodeElement* element);
+	static void checkIsStatement(CodeElement* element);
+	static void checkIsExp(CodeElement* element);
+	static void checkIsSQLExp(CodeElement* element);
+	static void checkIsJoinPart(CodeElement* element);
 protected:
 	short kind;
 

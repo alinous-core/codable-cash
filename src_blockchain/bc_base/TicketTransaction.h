@@ -14,15 +14,30 @@
 namespace codablecash {
 
 class Nonce;
+class TransactionId;
 
 class TicketTransaction : public AbstractTransaction {
 public:
-	TicketTransaction();
+	explicit TicketTransaction(uint64_t fheight);
 	virtual ~TicketTransaction();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+	virtual AbstractTransaction* clone() const;
+
+	virtual void updateTransactionId();
+	virtual const TransactionId* getTransactionId() const noexcept;
+	virtual const BalanceUnit* getFee() const noexcept;
+
+	void setNonce(const Nonce* nonce) noexcept;
+	void setFee(const BalanceUnit* fee) noexcept;
 
 private:
 	Nonce* nonce;
 	uint64_t fheight;
+	BalanceUnit* fee;
+
+	TransactionId* trxId;
 
 };
 

@@ -37,4 +37,42 @@ void VariableDeclareStatement::setInitExpression(AbstractExpression* exp) noexce
 	this->exp = exp;
 }
 
+int VariableDeclareStatement::binarySize() const {
+	checkNotNull(this->type);
+	checkNotNull(this->variableId);
+	checkNotNull(this->exp);
+
+	int total = sizeof(uint16_t);
+	total += this->type->binarySize();
+	total += this->variableId->binarySize();
+	total += this->exp->binarySize();
+
+	return total;
+}
+
+void VariableDeclareStatement::toBinary(ByteBuffer* out) {
+	checkNotNull(this->type);
+	checkNotNull(this->variableId);
+	checkNotNull(this->exp);
+
+	out->putShort(CodeElement::STMT_VARIABLE_DECLARE);
+	this->type->toBinary(out);
+	this->variableId->toBinary(out);
+	this->exp->toBinary(out);
+}
+
+void VariableDeclareStatement::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkIsType(element);
+	this->type = dynamic_cast<AbstractType*>(element);
+
+	element = createFromBinary(in);
+	checkKind(element, CodeElement::EXP_VARIABLE_ID);
+	this->variableId = dynamic_cast<VariableIdentifier*>(element);
+
+	element = createFromBinary(in);
+	checkIsExp(element);
+	this->exp = dynamic_cast<AbstractExpression*>(element);
+}
+
 } /* namespace alinous */

@@ -10,7 +10,7 @@
 
 namespace alinous {
 
-SQLOrderBy::SQLOrderBy() {
+SQLOrderBy::SQLOrderBy() : AbstractSQLPart(CodeElement::SQL_PART_ORDER_BY) {
 	this->list = nullptr;
 }
 
@@ -20,6 +20,28 @@ SQLOrderBy::~SQLOrderBy() {
 
 void SQLOrderBy::setList(SQLColumnsList* list) noexcept {
 	this->list = list;
+}
+
+int SQLOrderBy::binarySize() const {
+	checkNotNull(this->list);
+
+	int total = sizeof(uint16_t);
+	total += this->list->binarySize();
+
+	return total;
+}
+
+void SQLOrderBy::toBinary(ByteBuffer* out) {
+	checkNotNull(this->list);
+
+	out->putShort(CodeElement::SQL_PART_ORDER_BY);
+	this->list->toBinary(out);
+}
+
+void SQLOrderBy::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkKind(element, CodeElement::SQL_PART_COLUMN_LIST);
+	this->list = dynamic_cast<SQLColumnsList*>(element);
 }
 
 } /* namespace alinous */

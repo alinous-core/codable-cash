@@ -27,4 +27,35 @@ void IfStatement::setStatement(AbstractStatement* stmt) noexcept {
 	this->stmt = stmt;
 }
 
+
+int IfStatement::binarySize() const {
+	checkNotNull(this->exp);
+	checkNotNull(this->stmt);
+
+	int total = sizeof(uint16_t);
+	total += this->exp->binarySize();
+	total += this->stmt->binarySize();
+
+	return total;
+}
+
+void IfStatement::toBinary(ByteBuffer* out) {
+	checkNotNull(this->exp);
+	checkNotNull(this->stmt);
+
+	out->putShort(CodeElement::STMT_IF);
+	this->exp->toBinary(out);
+	this->stmt->toBinary(out);
+}
+
+void IfStatement::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkIsExp(element);
+	this->exp = dynamic_cast<AbstractExpression*>(element);
+
+	element = createFromBinary(in);
+	checkIsStatement(element);
+	this->stmt = dynamic_cast<AbstractStatement*>(element);
+}
+
 } /* namespace alinous */

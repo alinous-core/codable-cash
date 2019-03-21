@@ -23,6 +23,10 @@ public:
 	void setTable(TableIdentifier* tableId) noexcept;
 	void setColumns(SQLColumnsList* columns) noexcept;
 	void setExpressionList(SQLExpressionList* expList) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	TableIdentifier* tableId;
 	SQLColumnsList* columns;

@@ -40,4 +40,50 @@ void ForStatement::setPostLoop(AbstractExpression* postLoop) noexcept {
 	this->postLoop = postLoop;
 }
 
+int ForStatement::binarySize() const {
+	checkNotNull(this->stmt);
+	checkNotNull(this->init);
+	checkNotNull(this->cond);
+	checkNotNull(this->postLoop);
+
+	int total = sizeof(uint16_t);
+	total += this->stmt->binarySize();
+	total += this->init->binarySize();
+	total += this->cond->binarySize();
+	total += this->postLoop->binarySize();
+
+	return total;
+}
+
+void ForStatement::toBinary(ByteBuffer* out) {
+	checkNotNull(this->stmt);
+	checkNotNull(this->init);
+	checkNotNull(this->cond);
+	checkNotNull(this->postLoop);
+
+	out->putShort(CodeElement::STMT_FOR);
+	this->stmt->toBinary(out);
+	this->init->toBinary(out);
+	this->cond->toBinary(out);
+	this->postLoop->toBinary(out);
+}
+
+void ForStatement::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkIsStatement(element);
+	this->stmt = dynamic_cast<AbstractStatement*>(element);
+
+	element = createFromBinary(in);
+	checkIsStatement(element);
+	this->init = dynamic_cast<AbstractStatement*>(element);
+
+	element = createFromBinary(in);
+	checkIsExp(element);
+	this->cond = dynamic_cast<AbstractExpression*>(element);
+
+	element = createFromBinary(in);
+	checkIsExp(element);
+	this->postLoop = dynamic_cast<AbstractExpression*>(element);
+}
+
 } /* namespace alinous */

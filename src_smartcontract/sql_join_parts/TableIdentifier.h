@@ -20,6 +20,10 @@ public:
 
 	void setSchema(UnicodeString* schema) noexcept;
 	void setTableName(UnicodeString* tableName) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	UnicodeString* schema;
 	UnicodeString* tableName;

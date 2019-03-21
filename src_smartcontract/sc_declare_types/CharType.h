@@ -16,6 +16,10 @@ class CharType : public AbstractPrimitiveType {
 public:
 	CharType();
 	virtual ~CharType();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

@@ -37,5 +37,53 @@ void InsertStatement::setExpressionList(SQLExpressionList* expList) noexcept {
 	this->expList = expList;
 }
 
+int InsertStatement::binarySize() const {
+	checkNotNull(this->tableId);
+	checkNotNull(this->expList);
+
+	int total = sizeof(uint16_t);
+	total += this->tableId->binarySize();
+
+	total += sizeof(uint8_t);
+	if(this->columns != nullptr){
+		total += this->columns->binarySize();
+	}
+
+	total += this->expList->binarySize();
+
+	return total;
+}
+
+void InsertStatement::toBinary(ByteBuffer* out) {
+	checkNotNull(this->tableId);
+	checkNotNull(this->expList);
+
+	out->putShort(CodeElement::DML_STMT_INSERT);
+	this->tableId->toBinary(out);
+
+	out->put(this->columns != nullptr ? 1 : 0);
+	if(this->columns != nullptr){
+		this->columns->toBinary(out);
+	}
+
+	this->expList->toBinary(out);
+}
+
+void InsertStatement::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkKind(element, CodeElement::SQL_EXP_TABLE_ID);
+	this->tableId = dynamic_cast<TableIdentifier*>(element);
+
+	int8_t bl = in->get();
+	if(bl == 1){
+		element = createFromBinary(in);
+		checkKind(element, CodeElement::SQL_PART_COLUMN_LIST);
+		this->columns = dynamic_cast<SQLColumnsList*>(element);
+	}
+
+	element = createFromBinary(in);
+	checkKind(element, CodeElement::SQL_EXP_EXP_LIST);
+	this->expList = dynamic_cast<SQLExpressionList*>(element);
+}
 
 } /* namespace alinous */

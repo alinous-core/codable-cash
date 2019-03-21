@@ -31,7 +31,7 @@ public:
 
 	void addInput(const AbstractAddress* address, uint64_t amount) noexcept;
 	void addOutput(const AbstractAddress* address, uint64_t amount) noexcept;
-	void setFee(uint64_t amount) noexcept;
+	void setFee(const BalanceUnit& amount) noexcept;
 
 	uint64_t getTotalInput() const noexcept;
 	uint64_t getTotalOutput() const noexcept;

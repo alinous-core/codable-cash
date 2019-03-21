@@ -21,6 +21,10 @@ public:
 
 	void setList(SQLColumnsList* list) noexcept;
 	void setHaving(SQLHaving* having) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	SQLColumnsList* list;
 	SQLHaving* having;

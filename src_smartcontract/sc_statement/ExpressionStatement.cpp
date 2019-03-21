@@ -22,4 +22,26 @@ void ExpressionStatement::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }
 
+int ExpressionStatement::binarySize() const {
+	checkNotNull(this->exp);
+
+	int total = sizeof(uint16_t);
+	total += this->exp->binarySize();
+
+	return total;
+}
+
+void ExpressionStatement::toBinary(ByteBuffer* out) {
+	checkNotNull(this->exp);
+
+	out->putShort(CodeElement::STMT_EXPRESSION);
+	this->exp->toBinary(out);
+}
+
+void ExpressionStatement::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkIsExp(element);
+	this->exp = dynamic_cast<AbstractExpression*>(element);
+}
+
 } /* namespace alinous */

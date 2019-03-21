@@ -16,6 +16,10 @@ class OrExpression : public AbstractBinaryExpression {
 public:
 	OrExpression();
 	virtual ~OrExpression();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

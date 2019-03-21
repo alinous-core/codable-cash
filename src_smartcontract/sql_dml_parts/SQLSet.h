@@ -21,6 +21,10 @@ public:
 	virtual ~SQLSet();
 
 	void addPair(SQLSetPair* pair) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	ArrayList<SQLSetPair> list;
 };

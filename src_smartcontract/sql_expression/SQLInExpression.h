@@ -20,6 +20,10 @@ public:
 
 	void setLeft(AbstractSQLExpression* left) noexcept;
 	void setList(SQLExpressionList* list) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	AbstractSQLExpression* left;
 	SQLExpressionList* list;

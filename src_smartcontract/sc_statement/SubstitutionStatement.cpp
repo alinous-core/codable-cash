@@ -29,4 +29,35 @@ void SubstitutionStatement::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }
 
+int SubstitutionStatement::binarySize() const {
+	checkNotNull(this->variable);
+	checkNotNull(this->exp);
+
+	int total = sizeof(uint16_t);
+	total += this->variable->binarySize();
+	total += this->exp->binarySize();
+
+	return total;
+}
+
+void SubstitutionStatement::toBinary(ByteBuffer* out) {
+	checkNotNull(this->variable);
+	checkNotNull(this->exp);
+
+	out->putShort(CodeElement::STMT_SUBSTITUTION);
+	this->variable->toBinary(out);
+	this->exp->toBinary(out);
+}
+
+void SubstitutionStatement::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkKind(element, CodeElement::EXP_VARIABLE_ID);
+	this->variable = dynamic_cast<VariableIdentifier*>(element);
+
+	element = createFromBinary(in);
+	checkIsExp(element);
+	this->exp = dynamic_cast<AbstractExpression*>(element);
+}
+
+
 } /* namespace alinous */

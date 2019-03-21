@@ -20,6 +20,9 @@ public:
 
 	void setString(UnicodeString* str, bool dquote) noexcept;
 
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	UnicodeString* str;
 	bool dquote;

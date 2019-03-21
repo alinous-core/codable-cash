@@ -16,9 +16,8 @@ CompilationUnit::CompilationUnit() : classes(4), CodeElement(CodeElement::COMPIL
 }
 
 CompilationUnit::~CompilationUnit() {
-	if(this->package){
-		delete this->package;
-	}
+	delete this->package;
+
 	this->classes.deleteElements();
 }
 
@@ -28,6 +27,62 @@ void CompilationUnit::setPackage(PackageDeclare* package) {
 
 void CompilationUnit::addClassDeclare(ClassDeclare* clazz) {
 	this->classes.addElement(clazz);
+}
+
+int CompilationUnit::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	total += sizeof(char);
+	if(this->package){
+		total += this->package->binarySize();
+	}
+
+	total += sizeof(uint32_t);
+	int maxLoop = this->classes.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ClassDeclare* dec = this->classes.get(i);
+		total += dec->binarySize();
+	}
+
+	return total;
+}
+
+void CompilationUnit::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::COMPILANT_UNIT);
+
+	char bl = this->package != nullptr ? (char)1 : (char)0;
+	out->put(bl);
+
+	if(this->package != nullptr){
+		this->package->toBinary(out);
+	}
+
+	uint32_t maxLoop = this->classes.size();
+	out->putInt(maxLoop);
+	for(int i = 0; i != maxLoop; ++i){
+		ClassDeclare* dec = this->classes.get(i);
+		dec->toBinary(out);
+	}
+
+}
+
+void CompilationUnit::fromBinary(ByteBuffer* in) {
+	char bl = in->get();
+	if(bl == (char)1){
+		CodeElement* element = createFromBinary(in);
+		checkKind(element, CodeElement::PACKAGE_DECLARE);
+		this->package = dynamic_cast<PackageDeclare*>(element);
+	}
+
+	int maxLoop = in->getInt();
+	for(int i = 0; i != maxLoop; ++i){
+		CodeElement* element = createFromBinary(in);
+		checkKind(element, CodeElement::CLASS_DECLARE);
+
+		ClassDeclare* dec = dynamic_cast<ClassDeclare*>(element);
+		this->classes.addElement(dec);
+	}
+
 }
 
 } /* namespace alinous */

@@ -17,4 +17,20 @@ MemberReferenceExpression::MemberReferenceExpression() : AbstractBinaryExpressio
 MemberReferenceExpression::~MemberReferenceExpression() {
 }
 
+int MemberReferenceExpression::binarySize() const {
+	int total = sizeof(uint16_t);
+	total += AbstractBinaryExpression::binarySize();
+
+	return total;
+}
+
+void MemberReferenceExpression::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::EXP_MEMBER_REF);
+	AbstractBinaryExpression::toBinary(out);
+}
+
+void MemberReferenceExpression::fromBinary(ByteBuffer* in) {
+	AbstractBinaryExpression::fromBinary(in);
+}
+
 } /* namespace alinous */

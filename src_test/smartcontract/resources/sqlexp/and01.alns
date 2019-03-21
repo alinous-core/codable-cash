@@ -1,0 +1,1 @@
+NOT table1.cola LIKE '%test%' ESCAPE '%' AND col1 IN('test', 'test2', 'test3') OR A = B

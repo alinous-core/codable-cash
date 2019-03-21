@@ -23,6 +23,10 @@ public:
 	void setType(AbstractType* type) noexcept;
 	void setName(UnicodeString* name) noexcept;
 
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
+
 private:
 	AbstractType* type;
 	UnicodeString* name;

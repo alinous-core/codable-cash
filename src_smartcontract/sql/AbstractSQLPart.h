@@ -15,7 +15,7 @@ namespace alinous {
 
 class AbstractSQLPart : public CodeElement, public ISQLElement {
 public:
-	AbstractSQLPart();
+	explicit AbstractSQLPart(int kind);
 	virtual ~AbstractSQLPart();
 };
 

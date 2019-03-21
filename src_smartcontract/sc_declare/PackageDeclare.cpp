@@ -24,6 +24,27 @@ void PackageDeclare::setName(PackageNameDeclare* name) {
 	this->name = name;
 }
 
+int PackageDeclare::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	checkNotNull(this->name);
+	total += this->name->binarySize();
+
+	return total;
+}
+
+void PackageDeclare::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::PACKAGE_DECLARE);
+
+	this->name->toBinary(out);
+}
+
+void PackageDeclare::fromBinary(ByteBuffer* in) {
+	CodeElement* nm = CodeElement::createFromBinary(in);
+	checkKind(nm, CodeElement::PACKAGE_NAME_DECLARE);
+
+	this->name = dynamic_cast<PackageNameDeclare*>(nm);
+}
+
 
 } /* namespace alinous */
-

@@ -17,6 +17,9 @@ using namespace alinous;
 
 class BalanceUnit : public IBlockObject {
 public:
+	BalanceUnit &operator=(const BalanceUnit &o);
+
+	BalanceUnit(const BalanceUnit& inst);
 	explicit BalanceUnit(uint64_t amount);
 	virtual ~BalanceUnit();
 

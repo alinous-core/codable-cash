@@ -23,6 +23,10 @@ public:
 	virtual ~SQLLiteral();
 
 	void setValue(UnicodeString* value, uint8_t type) noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 private:
 	UnicodeString* value;
 	uint8_t type;

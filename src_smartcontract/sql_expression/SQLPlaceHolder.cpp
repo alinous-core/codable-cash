@@ -22,4 +22,26 @@ void SQLPlaceHolder::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }
 
+int SQLPlaceHolder::binarySize() const {
+	checkNotNull(this->exp);
+
+	int total = sizeof(uint16_t);
+	total += this->exp->binarySize();
+
+	return total;
+}
+
+void SQLPlaceHolder::toBinary(ByteBuffer* out) {
+	checkNotNull(this->exp);
+
+	out->putShort(CodeElement::SQL_EXP_PLACE_HOLDER);
+	this->exp->toBinary(out);
+}
+
+void SQLPlaceHolder::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkIsExp(element);
+	this->exp = dynamic_cast<AbstractExpression*>(element);
+}
+
 } /* namespace alinous */
