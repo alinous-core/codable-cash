@@ -37,13 +37,13 @@ void SQLSelectTarget::setAsName(UnicodeString* asName) noexcept {
 int SQLSelectTarget::binarySize() const {
 	int total = sizeof(uint16_t);
 
-	total += sizeof(uint32_t);
-	total += sizeof(uint32_t);
+	total += sizeof(uint8_t);
+	total += sizeof(uint8_t);
 	if(this->exp != nullptr){
 		total += this->exp->binarySize();
 	}
 
-	total += sizeof(uint32_t);
+	total += sizeof(uint8_t);
 	if(this->asName != nullptr){
 		total += stringSize(this->asName);
 	}
@@ -60,7 +60,7 @@ void SQLSelectTarget::toBinary(ByteBuffer* out) {
 		this->exp->toBinary(out);
 	}
 
-	out->put(this->exp != nullptr ? 1 : 0);
+	out->put(this->asName != nullptr ? 1 : 0);
 	if(this->asName != nullptr){
 		putString(out, this->asName);
 	}

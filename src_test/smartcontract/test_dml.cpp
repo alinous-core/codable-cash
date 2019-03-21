@@ -215,15 +215,6 @@ TEST(TestDMLGroup, update01){
 	AbstractStatement* stmt = lang->statement(); __STP(stmt);
 
 	CHECK(!parser.hasError())
-
-	int size = stmt->binarySize();
-	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
-
-	stmt->toBinary(buff);
-	CHECK(buff->position() == size)
-
-	bool res = checkBinary(buff);
-	CHECK(res)
 }
 
 TEST(TestDMLGroup, update01bin){
@@ -236,6 +227,15 @@ TEST(TestDMLGroup, update01bin){
 	AbstractStatement* stmt = lang->statement(); __STP(stmt);
 
 	CHECK(!parser.hasError())
+
+	int size = stmt->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	stmt->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
 }
 
 TEST(TestDMLGroup, select01){
@@ -250,6 +250,27 @@ TEST(TestDMLGroup, select01){
 	CHECK(!parser.hasError())
 }
 
+TEST(TestDMLGroup, select01bin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/select01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+
+	int size = stmt->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	stmt->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+}
+
 TEST(TestDMLGroup, select02){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/select02.alns"))
@@ -260,6 +281,27 @@ TEST(TestDMLGroup, select02){
 	AbstractStatement* stmt = lang->statement(); __STP(stmt);
 
 	CHECK(!parser.hasError())
+}
+
+TEST(TestDMLGroup, select02bin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/select02.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+
+	int size = stmt->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	stmt->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
 }
 
 TEST(TestDMLGroup, select03){
@@ -274,6 +316,27 @@ TEST(TestDMLGroup, select03){
 	CHECK(!parser.hasError())
 }
 
+TEST(TestDMLGroup, select03bin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/select03.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+
+	int size = stmt->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	stmt->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+}
+
 TEST(TestDMLGroup, selectJoin01){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/selectJoin01.alns"))
@@ -284,6 +347,27 @@ TEST(TestDMLGroup, selectJoin01){
 	AbstractStatement* stmt = lang->statement(); __STP(stmt);
 
 	CHECK(!parser.hasError())
+}
+
+TEST(TestDMLGroup, selectJoin01bin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/selectJoin01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+
+	int size = stmt->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	stmt->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
 }
 
 TEST(TestDMLGroup, selectJoin02){
@@ -298,6 +382,27 @@ TEST(TestDMLGroup, selectJoin02){
 	CHECK(!parser.hasError())
 }
 
+TEST(TestDMLGroup, selectJoin02bin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/selectJoin02.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+
+	int size = stmt->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	stmt->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+}
+
 TEST(TestDMLGroup, selectJoin03){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/selectJoin03.alns"))
@@ -308,5 +413,26 @@ TEST(TestDMLGroup, selectJoin03){
 	AbstractStatement* stmt = lang->statement(); __STP(stmt);
 
 	CHECK(!parser.hasError())
+}
+
+TEST(TestDMLGroup, selectJoin03bin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/dml/selectJoin03.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+
+	int size = stmt->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	stmt->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
 }
 

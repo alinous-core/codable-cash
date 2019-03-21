@@ -58,12 +58,101 @@ void SelectStatement::setLimitOffset(SQLLimitOffset* limitOffset) noexcept {
 }
 
 int SelectStatement::binarySize() const {
+	checkNotNull(this->list);
+	checkNotNull(this->from);
+
+	int total = sizeof(uint16_t);
+	total += this->list->binarySize();
+	total += this->from->binarySize();
+
+	total += sizeof(uint8_t);
+	if(this->where != nullptr){
+		total += this->where->binarySize();
+	}
+
+	total += sizeof(uint8_t);
+	if(this->groupBy != nullptr){
+		total += this->groupBy->binarySize();
+	}
+
+	total += sizeof(uint8_t);
+	if(this->orderBy != nullptr){
+		total += this->orderBy->binarySize();
+	}
+
+	total += sizeof(uint8_t);
+	if(this->limitOffset != nullptr){
+		total += this->limitOffset->binarySize();
+	}
+
+	return total;
 }
 
 void SelectStatement::toBinary(ByteBuffer* out) {
+	checkNotNull(this->list);
+	checkNotNull(this->from);
+
+	out->putShort(CodeElement::DML_STMT_SELECT);
+	this->list->toBinary(out);
+	this->from->toBinary(out);
+
+	out->put(this->where != nullptr ? 1 : 0);
+	if(this->where != nullptr){
+		this->where->toBinary(out);
+	}
+
+	out->put(this->groupBy != nullptr ? 1 : 0);
+	if(this->groupBy != nullptr){
+		this->groupBy->toBinary(out);
+	}
+
+	out->put(this->orderBy != nullptr ? 1 : 0);
+	if(this->orderBy != nullptr){
+		this->orderBy->toBinary(out);
+	}
+
+	out->put(this->limitOffset != nullptr ? 1 : 0);
+	if(this->limitOffset != nullptr){
+		this->limitOffset->toBinary(out);
+	}
 }
 
 void SelectStatement::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkKind(element, CodeElement::SQL_PART_SELECT_TARGET_LIST);
+	this->list = dynamic_cast<SQLSelectTargetList*>(element);
+
+	element = createFromBinary(in);
+	checkKind(element, CodeElement::SQL_PART_FROM);
+	this->from = dynamic_cast<SQLFrom*>(element);
+
+	int8_t bl = in->get();
+	if(bl == 1){
+		 element = createFromBinary(in);
+		 checkKind(element, CodeElement::SQL_PART_WHERE);
+		 this->where = dynamic_cast<SQLWhere*>(element);
+	}
+
+	bl = in->get();
+	if(bl == 1){
+		 element = createFromBinary(in);
+		 checkKind(element, CodeElement::SQL_PART_GROUP_BY);
+		 this->groupBy = dynamic_cast<SQLGroupBy*>(element);
+	}
+
+	bl = in->get();
+	if(bl == 1){
+		 element = createFromBinary(in);
+		 checkKind(element, CodeElement::SQL_PART_ORDER_BY);
+		 this->orderBy = dynamic_cast<SQLOrderBy*>(element);
+	}
+
+	bl = in->get();
+	if(bl == 1){
+		 element = createFromBinary(in);
+		 checkKind(element, CodeElement::SQL_PART_LIMIT_OFFSET);
+		 this->limitOffset = dynamic_cast<SQLLimitOffset*>(element);
+	}
 }
 
 } /* namespace alinous */

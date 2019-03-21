@@ -40,7 +40,7 @@ void SQLOrderBy::toBinary(ByteBuffer* out) {
 
 void SQLOrderBy::fromBinary(ByteBuffer* in) {
 	CodeElement* element = createFromBinary(in);
-	checkKind(element, CodeElement::SQL_EXP_COLUMN_ID);
+	checkKind(element, CodeElement::SQL_PART_COLUMN_LIST);
 	this->list = dynamic_cast<SQLColumnsList*>(element);
 }
 
