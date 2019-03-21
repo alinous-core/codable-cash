@@ -10,7 +10,7 @@
 
 namespace alinous {
 
-SQLSelectTargetList::SQLSelectTargetList() {
+SQLSelectTargetList::SQLSelectTargetList() : AbstractSQLPart(CodeElement::SQL_PART_SELECT_TARGET_LIST) {
 }
 
 SQLSelectTargetList::~SQLSelectTargetList() {

@@ -10,7 +10,7 @@
 
 namespace alinous {
 
-SQLColumnsList::SQLColumnsList() {
+SQLColumnsList::SQLColumnsList() : AbstractSQLPart(CodeElement::SQL_PART_COLUMN_LIST) {
 }
 
 SQLColumnsList::~SQLColumnsList() {

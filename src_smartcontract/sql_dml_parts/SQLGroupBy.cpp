@@ -11,7 +11,7 @@
 
 namespace alinous {
 
-SQLGroupBy::SQLGroupBy() {
+SQLGroupBy::SQLGroupBy() : AbstractSQLPart(CodeElement::SQL_PART_GROUP_BY) {
 	this->list = nullptr;
 	this->having = nullptr;
 }

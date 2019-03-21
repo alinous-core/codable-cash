@@ -17,9 +17,11 @@ CreateTableStatement::~CreateTableStatement() {
 
 }
 
-} /* namespace alinous */
 
 int alinous::CreateTableStatement::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
 }
 
 void alinous::CreateTableStatement::toBinary(ByteBuffer* out) {
@@ -27,3 +29,5 @@ void alinous::CreateTableStatement::toBinary(ByteBuffer* out) {
 
 void alinous::CreateTableStatement::fromBinary(ByteBuffer* in) {
 }
+
+} /* namespace alinous */

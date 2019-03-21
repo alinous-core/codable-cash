@@ -123,7 +123,18 @@ public:
 	static const constexpr short SQL_EXP_TABLE_LIST{201};
 	static const constexpr short SQL_EXP_PARENTHESIS_JOIN_PART{202};
 
-	static const constexpr short SQL_PART{220};
+	static const constexpr short SQL_PART_COLUMN_LIST{220};
+	static const constexpr short SQL_PART_FROM{221};
+	static const constexpr short SQL_PART_GROUP_BY{222};
+	static const constexpr short SQL_PART_HAVING{223};
+	static const constexpr short SQL_PART_LIMIT_OFFSET{224};
+	static const constexpr short SQL_PART_ORDER_BY{225};
+	static const constexpr short SQL_PART_SELECT_TARGET{226};
+	static const constexpr short SQL_PART_SELECT_TARGET_LIST{227};
+	static const constexpr short SQL_PART_SET{228};
+	static const constexpr short SQL_PART_ST_PAIR{229};
+	static const constexpr short SQL_PART_WHERE{230};
+
 
 	explicit CodeElement(short kind);
 	virtual ~CodeElement();

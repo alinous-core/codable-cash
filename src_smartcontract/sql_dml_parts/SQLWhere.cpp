@@ -10,7 +10,7 @@
 
 namespace alinous {
 
-SQLWhere::SQLWhere() {
+SQLWhere::SQLWhere() : AbstractSQLPart(CodeElement::SQL_PART_WHERE) {
 	this->exp = nullptr;
 }
 

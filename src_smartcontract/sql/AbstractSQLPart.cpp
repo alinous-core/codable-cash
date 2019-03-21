@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-AbstractSQLPart::AbstractSQLPart() : CodeElement(CodeElement::SQL_PART) {
+AbstractSQLPart::AbstractSQLPart(int kind) : CodeElement(kind) {
 }
 
 AbstractSQLPart::~AbstractSQLPart() {

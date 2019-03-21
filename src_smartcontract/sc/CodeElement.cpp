@@ -107,9 +107,22 @@
 #include "sql_join_parts/TableList.h"
 #include "sql_join_parts/ParenthesisJoinPart.h"
 
+#include "sql_dml_parts/SQLColumnsList.h"
+#include "sql_dml_parts/SQLFrom.h"
+#include "sql_dml_parts/SQLGroupBy.h"
+#include "sql_dml_parts/SQLHaving.h"
+#include "sql_dml_parts/SQLLimitOffset.h"
+#include "sql_dml_parts/SQLOrderBy.h"
+#include "sql_dml_parts/SQLSelectTarget.h"
+#include "sql_dml_parts/SQLSelectTargetList.h"
+#include "sql_dml_parts/SQLSet.h"
+#include "sql_dml_parts/SQLSetPair.h"
+#include "sql_dml_parts/SQLWhere.h"
+
 #include "base/UnicodeString.h"
 
 #include "sc/exceptions.h"
+
 namespace alinous {
 
 CodeElement::CodeElement(short kind) {
@@ -446,7 +459,40 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		element = new ParenthesisJoinPart();
 		break;
 
-	//case SQL_PART:
+	case SQL_PART_COLUMN_LIST:
+		element = new SQLColumnsList();
+		break;
+	case SQL_PART_FROM:
+		element = new SQLFrom();
+		break;
+	case SQL_PART_GROUP_BY:
+		element = new SQLGroupBy();
+		break;
+	case SQL_PART_HAVING:
+		element = new SQLHaving();
+		break;
+	case SQL_PART_LIMIT_OFFSET:
+		element = new SQLLimitOffset();
+		break;
+	case SQL_PART_ORDER_BY:
+		element = new SQLOrderBy();
+		break;
+	case SQL_PART_SELECT_TARGET:
+		element = new SQLSelectTarget();
+		break;
+	case SQL_PART_SELECT_TARGET_LIST:
+		element = new SQLSelectTargetList();
+		break;
+	case SQL_PART_SET:
+		element = new SQLSet();
+		break;
+	case SQL_PART_ST_PAIR:
+		element = new SQLSetPair();
+		break;
+	case SQL_PART_WHERE:
+		element = new SQLWhere();
+		break;
+
 	default:
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
@@ -516,7 +562,7 @@ void CodeElement::checkIsExp(CodeElement* element) {
 }
 
 void CodeElement::checkIsSQLExp(CodeElement* element) {
-	if(!(element->kind >= SQL_EXP_ADDITIVE && element->kind < SQL_PART)){
+	if(!(element->kind >= SQL_EXP_ADDITIVE && element->kind < SQL_PART_COLUMN_LIST)){
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }

@@ -10,7 +10,7 @@
 
 namespace alinous {
 
-SQLSet::SQLSet() {
+SQLSet::SQLSet() : AbstractSQLPart(CodeElement::SQL_PART_SET) {
 }
 
 SQLSet::~SQLSet() {

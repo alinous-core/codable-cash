@@ -11,7 +11,7 @@
 
 namespace alinous {
 
-SQLFrom::SQLFrom() {
+SQLFrom::SQLFrom() : AbstractSQLPart(CodeElement::SQL_PART_FROM) {
 	this->tableId = nullptr;
 }
 

@@ -22,6 +22,9 @@ void DropTableStatement::setTableId(TableIdentifier* tableId) noexcept {
 }
 
 int DropTableStatement::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
 }
 
 void DropTableStatement::toBinary(ByteBuffer* out) {

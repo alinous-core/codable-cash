@@ -11,7 +11,7 @@
 
 namespace alinous {
 
-SQLSelectTarget::SQLSelectTarget() {
+SQLSelectTarget::SQLSelectTarget() : AbstractSQLPart(CodeElement::SQL_PART_SELECT_TARGET) {
 	this->wildcard = false;
 	this->exp = nullptr;
 	this->asName = nullptr;

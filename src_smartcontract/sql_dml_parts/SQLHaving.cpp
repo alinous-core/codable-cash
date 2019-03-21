@@ -10,7 +10,7 @@
 
 namespace alinous {
 
-SQLHaving::SQLHaving() {
+SQLHaving::SQLHaving() : AbstractSQLPart(CodeElement::SQL_PART_HAVING) {
 	this->exp = nullptr;
 }
 
@@ -22,13 +22,13 @@ void alinous::SQLHaving::setExpression(AbstractSQLExpression* exp) noexcept {
 	this->exp = exp;
 }
 
+int SQLHaving::binarySize() const {
+}
+
+void SQLHaving::toBinary(ByteBuffer* out) {
+}
+
+void SQLHaving::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */
-
-int alinous::SQLHaving::binarySize() const {
-}
-
-void alinous::SQLHaving::toBinary(ByteBuffer* out) {
-}
-
-void alinous::SQLHaving::fromBinary(ByteBuffer* in) {
-}

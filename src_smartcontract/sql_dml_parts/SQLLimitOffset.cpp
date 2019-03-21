@@ -10,7 +10,7 @@
 
 namespace alinous {
 
-SQLLimitOffset::SQLLimitOffset() {
+SQLLimitOffset::SQLLimitOffset() : AbstractSQLPart(CodeElement::SQL_PART_LIMIT_OFFSET) {
 	this->limit = nullptr;
 	this->offset = nullptr;
 }
