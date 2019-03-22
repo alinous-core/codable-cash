@@ -11,12 +11,12 @@
 namespace codablecash {
 
 FlashChainStore::FlashChainStore(const File* baseDir) {
-	// TODO Auto-generated constructor stub
+	this->baseDir = new File(*baseDir);
 
 }
 
 FlashChainStore::~FlashChainStore() {
-	// TODO Auto-generated destructor stub
+	delete this->baseDir;
 }
 
 } /* namespace codablecash */

@@ -19,6 +19,9 @@ class FlashChainStore {
 public:
 	FlashChainStore(const File* baseDir);
 	virtual ~FlashChainStore();
+
+private:
+	File* baseDir;
 };
 
 } /* namespace codablecash */
