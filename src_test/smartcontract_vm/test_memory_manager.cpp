@@ -21,8 +21,19 @@ TEST_GROUP(TestMemoryGroup) {
 };
 
 TEST(TestMemoryGroup, construct){
-	VmMemoryManager* vm = new VmMemoryManager();
+	VmMemoryManager* vm = new VmMemoryManager(1024);
 	delete vm;
 }
 
+TEST(TestMemoryGroup, malloc01){
+	VmMemoryManager* vm = new VmMemoryManager(1024);
+	char* ptr = vm->malloc(32);
+
+	int size = vm->getSize(ptr);
+	CHECK(size == 32 + sizeof(uint32_t))
+
+	vm->free(ptr);
+
+	delete vm;
+}
 

@@ -7,13 +7,28 @@
 
 #ifndef MEMORY_VMMEMORYMANAGER_H_
 #define MEMORY_VMMEMORYMANAGER_H_
+#include <cstdint>
+#include <cstddef>
 
 namespace alinous {
 
+class LongRangeList;
+
 class VmMemoryManager {
 public:
-	VmMemoryManager();
+	explicit VmMemoryManager(uint64_t capacity);
 	virtual ~VmMemoryManager();
+
+	char* malloc(uint32_t cap);
+	void free(char* ptr);
+	uint32_t getSize(char* ptr) const noexcept;
+
+private:
+	uint64_t capacity;
+	uint64_t capacityUsed;
+	LongRangeList* used;
+	LongRangeList* available;
+	char* mem;
 };
 
 } /* namespace alinous */
