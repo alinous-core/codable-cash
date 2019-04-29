@@ -11,6 +11,7 @@
 
 #include "base/StackRelease.h"
 
+#include "vm/exceptions.h"
 
 namespace alinous {
 
@@ -32,6 +33,11 @@ VmMemoryManager::~VmMemoryManager() {
 }
 
 char* VmMemoryManager::malloc(uint32_t cap) {
+	uint64_t remain =this->capacity - this->capacityUsed;
+	if(remain < cap){
+		throw new VmMemoryAllocationException(__FILE__, __LINE__);
+	}
+
 	int64_t start = -1;
 	uint32_t allocSize = cap + sizeof(uint32_t);
 
@@ -56,6 +62,7 @@ char* VmMemoryManager::malloc(uint32_t cap) {
 
 	this->capacityUsed += allocSize;
 
+
 	return ptr + sizeof(uint32_t);
 }
 
@@ -63,6 +70,8 @@ void VmMemoryManager::free(char* ptr) {
 	uint32_t allocSize = getSize(ptr);
 	int64_t start = ptr - this->mem - sizeof(uint32_t);
 	int64_t end = start + allocSize - 1;
+
+
 
 	this->available->addRange(start, end);
 	this->used->removeRange(start, end);

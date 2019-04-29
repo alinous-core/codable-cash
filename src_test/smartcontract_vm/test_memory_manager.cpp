@@ -10,6 +10,10 @@
 #include "test_utils/t_macros.h"
 
 #include "memory/VmMemoryManager.h"
+#include "base/StackRelease.h"
+
+#include "base/Exception.h"
+#include "vm/exceptions.h"
 
 using namespace alinous;
 
@@ -19,6 +23,10 @@ TEST_GROUP(TestMemoryGroup) {
 	TEST_TEARDOWN(){}
 
 };
+
+TEST(TestMemoryGroup, testex){
+	testException<VmMemoryAllocationException>();
+}
 
 TEST(TestMemoryGroup, construct){
 	VmMemoryManager* vm = new VmMemoryManager(1024);
@@ -35,5 +43,22 @@ TEST(TestMemoryGroup, malloc01){
 	vm->free(ptr);
 
 	delete vm;
+}
+
+TEST(TestMemoryGroup, malloc01error){
+	Exception* ex = nullptr;
+
+	VmMemoryManager* vm = new VmMemoryManager(1024);
+	__STP(vm);
+
+	try{
+		vm->malloc(1025);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+
+	delete ex;
 }
 
