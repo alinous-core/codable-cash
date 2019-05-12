@@ -1,6 +1,7 @@
 
 
 set(__src
+	AbstractVmInstance.cpp
 	VmClassInstance.cpp
 	VmInstanceStack.cpp
 )

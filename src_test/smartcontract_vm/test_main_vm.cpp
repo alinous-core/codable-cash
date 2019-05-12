@@ -22,7 +22,7 @@ TEST_GROUP(TestVMGroup) {
 };
 
 TEST(TestVMGroup, construct){
-	VirtualMachine* vm = new VirtualMachine();
+	VirtualMachine* vm = new VirtualMachine(1024);
 	delete vm;
 }
 
@@ -36,7 +36,7 @@ TEST(TestVMGroup, loadAndExec){
 	int length = sourceFile->length();
 	sc->addCompilationUnit(&stream, length);
 
-	VirtualMachine* vm = new VirtualMachine();
+	VirtualMachine* vm = new VirtualMachine(1024);
 	vm->loadSmartContract(sc);
 
 	delete vm;

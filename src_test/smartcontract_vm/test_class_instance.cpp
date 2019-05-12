@@ -9,6 +9,7 @@
 #include "test_utils/t_macros.h"
 
 #include "instance/VmClassInstance.h"
+#include "vm/VirtualMachine.h"
 
 using namespace alinous;
 
@@ -20,7 +21,9 @@ TEST_GROUP(TestInstanceGroup) {
 };
 
 TEST(TestInstanceGroup, construct){
-	VmClassInstance* vm = new VmClassInstance();
-	delete vm;
+	VirtualMachine vm(1024);
+
+	VmClassInstance* inst = new(&vm) VmClassInstance();
+	delete inst;
 }
 
