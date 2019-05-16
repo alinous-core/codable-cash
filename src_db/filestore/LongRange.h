@@ -23,7 +23,7 @@ public:
 
 	int compare(uint64_t value) const noexcept;
 
-	//uint64_t width() noexcept ;
+	uint64_t width() noexcept ;
 	bool hasNext(uint64_t value) const noexcept ;
 	uint64_t getMin() const noexcept ;
 	void setMin(uint64_t min) noexcept ;

@@ -8,12 +8,17 @@
 #ifndef INSTANCE_VMCLASSINSTANCE_H_
 #define INSTANCE_VMCLASSINSTANCE_H_
 
+#include "instance/AbstractVmInstance.h"
+
 namespace alinous {
 
-class VmClassInstance {
+class VmClassInstance : public AbstractVmInstance {
 public:
 	VmClassInstance();
 	virtual ~VmClassInstance();
+
+private:
+
 };
 
 } /* namespace alinous */

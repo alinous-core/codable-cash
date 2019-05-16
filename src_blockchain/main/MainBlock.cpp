@@ -5,17 +5,15 @@
  *      Author: iizuka
  */
 
-#include <main/MainBlock.h>
+#include "main/MainBlock.h"
 
 namespace codablecash {
 
 MainBlock::MainBlock() {
-	// TODO Auto-generated constructor stub
 
 }
 
 MainBlock::~MainBlock() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace codablecash */

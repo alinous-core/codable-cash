@@ -7,22 +7,28 @@
 
 #ifndef VM_VIRTUALMACHINE_H_
 #define VM_VIRTUALMACHINE_H_
+#include <cstdint>
 
 namespace alinous {
 
 class VmInstanceStack;
 class SmartContract;
+class VmMemoryManager;
 
 class VirtualMachine {
 public:
-	VirtualMachine();
+	explicit VirtualMachine(uint64_t memCapacity);
 	virtual ~VirtualMachine();
 
 	void loadSmartContract(SmartContract* sc);
 
+	VmMemoryManager* getMemory() noexcept;
+
 private:
 	VmInstanceStack* stack;
 	SmartContract* sc;
+
+	VmMemoryManager* memory;
 };
 
 } /* namespace alinous */
