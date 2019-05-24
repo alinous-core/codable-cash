@@ -41,6 +41,15 @@ MethodDeclare::~MethodDeclare() {
 	}
 }
 
+
+void MethodDeclare::preAnalyze(AnalyzeContext* actx) {
+	// FIXME preAnalyze
+}
+
+void MethodDeclare::analyze(AnalyzeContext* actx) {
+	// FIXME analyze
+}
+
 void MethodDeclare::setStatic(bool s) noexcept {
 	this->_static = s;
 }

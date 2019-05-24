@@ -15,6 +15,8 @@ namespace alinous {
 class File;
 class CompilationUnit;
 class InputStream;
+class VirtualMachine;
+class AnalyzeContext;
 
 class SmartContract {
 public:
@@ -22,9 +24,12 @@ public:
 	virtual ~SmartContract();
 
 	void addCompilationUnit(InputStream* stream, int length);
+	void analyze(VirtualMachine* vm);
+
 
 private:
 	ArrayList<CompilationUnit> progs;
+	AnalyzeContext* actx;
 };
 
 } /* namespace alinous */

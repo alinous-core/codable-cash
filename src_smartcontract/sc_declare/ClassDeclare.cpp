@@ -25,6 +25,14 @@ ClassDeclare::~ClassDeclare() {
 	}
 }
 
+void ClassDeclare::preAnalyze(AnalyzeContext* actx) {
+	this->block->preAnalyze(actx);
+}
+
+void ClassDeclare::analyze(AnalyzeContext* actx) {
+	this->block->analyze(actx);
+}
+
 void ClassDeclare::setBlock(ClassDeclareBlock* block) noexcept {
 	this->block = block;
 }

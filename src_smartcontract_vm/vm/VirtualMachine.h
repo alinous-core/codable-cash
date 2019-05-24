@@ -21,6 +21,7 @@ public:
 	virtual ~VirtualMachine();
 
 	void loadSmartContract(SmartContract* sc);
+	void analyze();
 
 	VmMemoryManager* getMemory() noexcept;
 

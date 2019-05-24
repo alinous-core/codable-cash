@@ -15,11 +15,15 @@ namespace alinous {
 
 class ClassDeclare;
 class PackageDeclare;
+class AnalyzeContext;
 
 class CompilationUnit : public CodeElement {
 public:
 	CompilationUnit();
 	virtual ~CompilationUnit();
+
+	void preAnalyze(AnalyzeContext* actx);
+	void analyze(AnalyzeContext* actx);
 
 	void setPackage(PackageDeclare* package);
 	void addClassDeclare(ClassDeclare* clazz);

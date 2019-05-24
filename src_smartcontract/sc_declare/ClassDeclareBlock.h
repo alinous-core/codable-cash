@@ -15,11 +15,15 @@ namespace alinous {
 
 class MethodDeclare;
 class MemberVariableDeclare;
+class AnalyzeContext;
 
 class ClassDeclareBlock : public CodeElement{
 public:
 	ClassDeclareBlock();
 	virtual ~ClassDeclareBlock();
+
+	void preAnalyze(AnalyzeContext* actx);
+	void analyze(AnalyzeContext* actx);
 
 	void addMethod(MethodDeclare* method) noexcept;
 	void addVariable(MemberVariableDeclare* variable) noexcept;

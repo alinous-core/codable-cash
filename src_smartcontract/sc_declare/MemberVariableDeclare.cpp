@@ -31,6 +31,13 @@ MemberVariableDeclare::~MemberVariableDeclare() {
 	}
 }
 
+
+void MemberVariableDeclare::preAnalyze(AnalyzeContext* actx) {
+}
+
+void MemberVariableDeclare::analyze(AnalyzeContext* actx) {
+}
+
 void MemberVariableDeclare::setAccessControl(AccessControlDeclare* ctrl) noexcept {
 	this->ctrl = ctrl;
 }

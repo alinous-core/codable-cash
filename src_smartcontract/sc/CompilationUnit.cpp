@@ -21,6 +21,22 @@ CompilationUnit::~CompilationUnit() {
 	this->classes.deleteElements();
 }
 
+void CompilationUnit::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->classes.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ClassDeclare* dec = this->classes.get(i);
+
+	}
+}
+
+void CompilationUnit::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->classes.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ClassDeclare* dec = this->classes.get(i);
+
+	}
+}
+
 void CompilationUnit::setPackage(PackageDeclare* package) {
 	this->package = package;
 }

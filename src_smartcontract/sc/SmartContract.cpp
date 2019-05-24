@@ -10,15 +10,18 @@
 
 #include "compiler/SmartContractParser.h"
 
+#include "sc/AnalyzeContext.h"
 
 namespace alinous {
 
 SmartContract::SmartContract() {
+	this->actx = nullptr;
 
 }
 
 SmartContract::~SmartContract() {
 	this->progs.deleteElements();
+	delete this->actx;
 }
 
 void SmartContract::addCompilationUnit(InputStream* stream, int length) {
@@ -27,6 +30,22 @@ void SmartContract::addCompilationUnit(InputStream* stream, int length) {
 	CompilationUnit* unit = parser.parse();
 
 	this->progs.addElement(unit);
+}
+
+void SmartContract::analyze(VirtualMachine* vm) {
+	this->actx = new AnalyzeContext();
+	this->actx->setVm(vm);
+
+	int maxLoop = this->progs.size();
+	for(int i = 0; i != maxLoop; ++i){
+		CompilationUnit* unit = this->progs.get(i);
+		unit->preAnalyze(this->actx);
+	}
+
+	for(int i = 0; i != maxLoop; ++i){
+		CompilationUnit* unit = this->progs.get(i);
+		unit->analyze(this->actx);
+	}
 }
 
 } /* namespace alinous */

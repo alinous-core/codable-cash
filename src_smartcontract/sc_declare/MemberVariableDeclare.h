@@ -15,11 +15,15 @@ namespace alinous {
 class AbstractType;
 class AccessControlDeclare;
 class UnicodeString;
+class AnalyzeContext;
 
 class MemberVariableDeclare : public CodeElement {
 public:
 	MemberVariableDeclare();
 	virtual ~MemberVariableDeclare();
+
+	void preAnalyze(AnalyzeContext* actx);
+	void analyze(AnalyzeContext* actx);
 
 	void setAccessControl(AccessControlDeclare* ctrl) noexcept;
 	void setType(AbstractType* type) noexcept;

@@ -34,4 +34,10 @@ VmMemoryManager* VirtualMachine::getMemory() noexcept {
 	return this->memory;
 }
 
+
+void VirtualMachine::analyze() {
+	this->sc->analyze(this);
+}
+
 } /* namespace alinous */
+
