@@ -1,7 +1,6 @@
 
 
 set(__src
-	AnalyzeContext.cpp
 	CodeElement.cpp
 	CompilationUnit.cpp
 	exceptions.cpp

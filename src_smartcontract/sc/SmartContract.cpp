@@ -10,7 +10,7 @@
 
 #include "compiler/SmartContractParser.h"
 
-#include "sc/AnalyzeContext.h"
+#include "sc_analyze/AnalyzeContext.h"
 
 namespace alinous {
 

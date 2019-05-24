@@ -4,8 +4,7 @@
  *  Created on: 2019/05/22
  *      Author: iizuka
  */
-
-#include "sc/AnalyzeContext.h"
+#include "sc_analyze/AnalyzeContext.h"
 
 namespace alinous {
 
