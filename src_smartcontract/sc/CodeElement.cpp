@@ -21,6 +21,7 @@
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_declare/AccessControlDeclare.h"
 
+#include "sc_declare_types/ByteType.h"
 #include "sc_declare_types/CharType.h"
 #include "sc_declare_types/ShortType.h"
 #include "sc_declare_types/IntType.h"
@@ -123,6 +124,7 @@
 
 #include "sc/exceptions.h"
 
+
 namespace alinous {
 
 CodeElement::CodeElement(short kind) {
@@ -221,7 +223,9 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		element = new AccessControlDeclare();
 		break;
 
-
+	case TYPE_BYTE:
+		element = new ByteType();
+		break;
 	case TYPE_CHAR:
 		element = new CharType();
 		break;
@@ -545,7 +549,7 @@ void CodeElement::checkKind(CodeElement* element, short kind) {
 }
 
 void CodeElement::checkIsType(CodeElement* element) {
-	if(!(element->kind >= TYPE_CHAR && element->kind < STMT_BLOCK)){
+	if(!(element->kind >= TYPE_BYTE && element->kind < STMT_BLOCK)){
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }

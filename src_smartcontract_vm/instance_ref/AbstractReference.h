@@ -7,11 +7,15 @@
 
 #ifndef INSTANCE_REF_ABSTRACTREFERENCE_H_
 #define INSTANCE_REF_ABSTRACTREFERENCE_H_
+#include <cstdint>
 
 namespace alinous {
 
 class AbstractReference {
 public:
+	static constexpr uint8_t REF_OBJ{1};
+
+
 	AbstractReference();
 	virtual ~AbstractReference();
 };

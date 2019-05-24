@@ -35,12 +35,13 @@ public:
 	static const constexpr short ACCESS_CONTROL_DECLARE{9};
 
 
-	static const constexpr short TYPE_CHAR{20};
-	static const constexpr short TYPE_SHORT{21};
-	static const constexpr short TYPE_INT{22};
-	static const constexpr short TYPE_LONG{23};
-	static const constexpr short TYPE_STRING{24};
-	static const constexpr short TYPE_VOID{25};
+	static const constexpr short TYPE_BYTE{20};
+	static const constexpr short TYPE_CHAR{21};
+	static const constexpr short TYPE_SHORT{22};
+	static const constexpr short TYPE_INT{23};
+	static const constexpr short TYPE_LONG{24};
+	static const constexpr short TYPE_STRING{25};
+	static const constexpr short TYPE_VOID{26};
 
 	static const constexpr short STMT_BLOCK{50};
 	static const constexpr short STMT_VARIABLE_DECLARE{51};

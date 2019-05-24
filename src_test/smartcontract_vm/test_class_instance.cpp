@@ -43,6 +43,5 @@ TEST(TestInstanceGroup, constructError){
 
 	CHECK(ex != nullptr)
 	delete ex;
-
 }
 
