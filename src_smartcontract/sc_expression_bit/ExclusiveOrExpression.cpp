@@ -15,6 +15,14 @@ ExclusiveOrExpression::ExclusiveOrExpression() : AbstractBinaryExpression(CodeEl
 ExclusiveOrExpression::~ExclusiveOrExpression() {
 }
 
+void ExclusiveOrExpression::preAnalyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::preAnalyze(actx);
+}
+
+void ExclusiveOrExpression::analyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::analyze(actx);
+}
+
 int ExclusiveOrExpression::binarySize() const {
 	int total = sizeof(uint16_t);
 	total += AbstractBinaryExpression::binarySize();

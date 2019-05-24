@@ -17,6 +17,18 @@ MemberReferenceExpression::MemberReferenceExpression() : AbstractBinaryExpressio
 MemberReferenceExpression::~MemberReferenceExpression() {
 }
 
+void MemberReferenceExpression::preAnalyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::preAnalyze(actx);
+
+	//FIXME
+}
+
+void MemberReferenceExpression::analyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::analyze(actx);
+
+	//FIXME
+}
+
 int MemberReferenceExpression::binarySize() const {
 	int total = sizeof(uint16_t);
 	total += AbstractBinaryExpression::binarySize();

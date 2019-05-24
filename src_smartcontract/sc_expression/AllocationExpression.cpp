@@ -22,6 +22,14 @@ AllocationExpression::~AllocationExpression() {
 	delete this->exp;
 }
 
+void AllocationExpression::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void AllocationExpression::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void AllocationExpression::setPackage(PackageNameDeclare* packageName) noexcept {
 	this->packageName = packageName;
 }

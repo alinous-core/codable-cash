@@ -18,6 +18,9 @@ public:
 	ArrayReferenceExpression();
 	virtual ~ArrayReferenceExpression();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setExp(AbstractExpression* exp) noexcept;
 	void addIndex(AbstractExpression* exp) noexcept;
 

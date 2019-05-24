@@ -17,6 +17,15 @@ NegateExpression::~NegateExpression() {
 	delete this->exp;
 }
 
+void NegateExpression::preAnalyze(AnalyzeContext* actx) {
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+}
+
+void NegateExpression::analyze(AnalyzeContext* actx) {
+	this->exp->analyze(actx);
+}
+
 void NegateExpression::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }

@@ -24,6 +24,9 @@ public:
 	MultiplicativeExpression();
 	virtual ~MultiplicativeExpression();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void addOpe(uint8_t ope) noexcept;
 
 	virtual int binarySize() const;

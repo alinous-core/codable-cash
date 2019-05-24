@@ -19,6 +19,14 @@ RelationalExpression::~RelationalExpression() {
 	delete this->right;
 }
 
+void RelationalExpression::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void RelationalExpression::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void RelationalExpression::setLeft(AbstractExpression* exp) noexcept {
 	this->left = exp;
 }

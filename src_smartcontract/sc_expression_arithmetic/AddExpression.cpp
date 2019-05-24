@@ -15,6 +15,14 @@ AddExpression::AddExpression() : AbstractBinaryExpression(CodeElement::EXP_ADD),
 AddExpression::~AddExpression() {
 }
 
+void AddExpression::preAnalyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::preAnalyze(actx);
+}
+
+void AddExpression::analyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::analyze(actx);
+}
+
 void AddExpression::addOpe(uint8_t ope) noexcept {
 	this->operations.addElement(ope);
 }

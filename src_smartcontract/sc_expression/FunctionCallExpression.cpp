@@ -19,6 +19,23 @@ FunctionCallExpression::~FunctionCallExpression() {
 	this->args.deleteElements();
 }
 
+void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->args.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		exp->setParent(this);
+		exp->preAnalyze(actx);
+	}
+}
+
+void FunctionCallExpression::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->args.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		exp->analyze(actx);
+	}
+}
+
 void FunctionCallExpression::setName(AbstractExpression* exp) noexcept {
 	this->name = exp;
 }

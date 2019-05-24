@@ -15,6 +15,14 @@ ShiftExpression::ShiftExpression() : AbstractBinaryExpression(CodeElement::EXP_S
 ShiftExpression::~ShiftExpression() {
 }
 
+void ShiftExpression::preAnalyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::preAnalyze(actx);
+}
+
+void ShiftExpression::analyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::analyze(actx);
+}
+
 void ShiftExpression::addOpe(uint8_t ope) noexcept {
 	this->operations.addElement(ope);
 }

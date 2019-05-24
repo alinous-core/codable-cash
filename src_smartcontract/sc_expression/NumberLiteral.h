@@ -18,6 +18,9 @@ public:
 	NumberLiteral();
 	virtual ~NumberLiteral();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setValue(UnicodeString* str) noexcept;
 
 	virtual int binarySize() const;

@@ -15,6 +15,14 @@ OrExpression::OrExpression() : AbstractBinaryExpression(CodeElement::EXP_OR) {
 OrExpression::~OrExpression() {
 }
 
+void OrExpression::preAnalyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::preAnalyze(actx);
+}
+
+void OrExpression::analyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::analyze(actx);
+}
+
 int OrExpression::binarySize() const {
 	int total = sizeof(uint16_t);
 	total += AbstractBinaryExpression::binarySize();

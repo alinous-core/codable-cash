@@ -20,6 +20,14 @@ CastExpression::~CastExpression() {
 	delete this->type;
 }
 
+void CastExpression::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void CastExpression::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void CastExpression::setType(AbstractType* type) noexcept {
 	this->type = type;
 }
