@@ -25,6 +25,14 @@ InsertStatement::~InsertStatement() {
 	delete this->expList;
 }
 
+void InsertStatement::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void InsertStatement::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void InsertStatement::setTable(TableIdentifier* tableId) noexcept {
 	this->tableId = tableId;
 }

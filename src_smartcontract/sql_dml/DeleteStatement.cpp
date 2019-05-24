@@ -22,6 +22,14 @@ DeleteStatement::~DeleteStatement() {
 	delete this->where;
 }
 
+void DeleteStatement::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void DeleteStatement::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void DeleteStatement::setFrom(SQLFrom* from) noexcept {
 	this->from = from;
 }

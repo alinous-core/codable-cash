@@ -26,6 +26,7 @@ ClassDeclare::~ClassDeclare() {
 }
 
 void ClassDeclare::preAnalyze(AnalyzeContext* actx) {
+	this->block->setParent(this);
 	this->block->preAnalyze(actx);
 }
 

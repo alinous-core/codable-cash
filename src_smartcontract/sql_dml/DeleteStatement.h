@@ -19,6 +19,9 @@ public:
 	DeleteStatement();
 	virtual ~DeleteStatement();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setFrom(SQLFrom* from) noexcept;
 	void setWhere(SQLWhere* where) noexcept;
 

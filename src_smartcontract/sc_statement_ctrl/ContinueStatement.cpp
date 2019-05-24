@@ -16,6 +16,12 @@ ContinueStatement::ContinueStatement() : AbstractStatement(CodeElement::STMT_CON
 ContinueStatement::~ContinueStatement() {
 }
 
+void ContinueStatement::preAnalyze(AnalyzeContext* actx) {
+}
+
+void ContinueStatement::analyze(AnalyzeContext* actx) {
+}
+
 int ContinueStatement::binarySize() const {
 	int total = sizeof(uint16_t);
 

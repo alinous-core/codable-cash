@@ -15,6 +15,12 @@ BlankStatement::BlankStatement() : AbstractStatement(CodeElement::STMT_BLANK) {
 BlankStatement::~BlankStatement() {
 }
 
+void BlankStatement::preAnalyze(AnalyzeContext* actx) {
+}
+
+void BlankStatement::analyze(AnalyzeContext* actx) {
+}
+
 int BlankStatement::binarySize() const {
 	int total = sizeof(uint16_t);
 

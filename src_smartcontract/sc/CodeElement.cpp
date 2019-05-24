@@ -131,6 +131,8 @@ CodeElement::CodeElement(short kind) {
 	this->beginColumn = 0;
 	this->endLine = 0;
 	this->endColumn = 0;
+
+	this->parent = nullptr;
 }
 
 CodeElement::~CodeElement() {
@@ -572,6 +574,10 @@ void CodeElement::checkIsJoinPart(CodeElement* element) {
 			element->kind == SQL_EXP_TABLE_ID || element->kind == SQL_EXP_TABLE_LIST)){
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
+}
+
+void CodeElement::setParent(CodeElement* parent) noexcept {
+	this->parent = parent;
 }
 
 } /* namespace alinous */

@@ -43,10 +43,15 @@ MethodDeclare::~MethodDeclare() {
 
 
 void MethodDeclare::preAnalyze(AnalyzeContext* actx) {
+	this->args->setParent(this);
+	this->args->preAnalyze(actx);
+
 	// FIXME preAnalyze
 }
 
 void MethodDeclare::analyze(AnalyzeContext* actx) {
+	this->args->analyze(actx);
+
 	// FIXME analyze
 }
 

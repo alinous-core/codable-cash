@@ -17,6 +17,14 @@ DropTableStatement::~DropTableStatement() {
 	delete this->tableId;
 }
 
+void DropTableStatement::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void DropTableStatement::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void DropTableStatement::setTableId(TableIdentifier* tableId) noexcept {
 	this->tableId = tableId;
 }

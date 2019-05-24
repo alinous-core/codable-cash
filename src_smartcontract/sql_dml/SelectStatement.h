@@ -23,6 +23,9 @@ public:
 	SelectStatement();
 	virtual ~SelectStatement();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setList(SQLSelectTargetList* list) noexcept;
 	void setFrom(SQLFrom* from) noexcept;
 	void setWhere(SQLWhere* where) noexcept;

@@ -25,6 +25,14 @@ VariableDeclareStatement::~VariableDeclareStatement() {
 	delete this->exp;
 }
 
+void VariableDeclareStatement::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void VariableDeclareStatement::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void VariableDeclareStatement::setType(AbstractType* type) noexcept {
 	this->type = type;
 }

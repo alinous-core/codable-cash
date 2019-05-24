@@ -19,6 +19,9 @@ public:
 	SubstitutionStatement();
 	virtual ~SubstitutionStatement();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setVariableId(VariableIdentifier* variable) noexcept;
 	void setExpression(AbstractExpression* exp) noexcept;
 

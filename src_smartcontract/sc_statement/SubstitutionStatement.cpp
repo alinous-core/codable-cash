@@ -21,9 +21,18 @@ SubstitutionStatement::~SubstitutionStatement() {
 	delete this->exp;
 }
 
+void SubstitutionStatement::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void SubstitutionStatement::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void SubstitutionStatement::setVariableId(VariableIdentifier* variable) noexcept {
 	this->variable = variable;
 }
+
 
 void SubstitutionStatement::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;

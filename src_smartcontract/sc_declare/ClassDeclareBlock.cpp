@@ -24,12 +24,14 @@ void ClassDeclareBlock::preAnalyze(AnalyzeContext* actx) {
 	int maxLoop = this->variables.size();
 	for(int i = 0; i != maxLoop; ++i){
 		MemberVariableDeclare* val = this->variables.get(i);
+		val->setParent(this);
 		val->preAnalyze(actx);
 	}
 
 	maxLoop = this->methods.size();
 	for(int i = 0; i != maxLoop; ++i){
 		MethodDeclare* method = this->methods.get(i);
+		method->setParent(this);
 		method->preAnalyze(actx);
 	}
 }

@@ -15,6 +15,13 @@ BeginStatement::BeginStatement() : AbstractSQLStatement(CodeElement::DML_STMT_BE
 BeginStatement::~BeginStatement() {
 }
 
+void BeginStatement::preAnalyze(AnalyzeContext* actx) {
+	// FIXME preAnalyze
+}
+
+void BeginStatement::analyze(AnalyzeContext* actx) {
+	// FIXME Analyze
+}
 
 int BeginStatement::binarySize() const {
 	int total = sizeof(uint16_t);

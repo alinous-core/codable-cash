@@ -17,18 +17,25 @@ CreateTableStatement::~CreateTableStatement() {
 
 }
 
+void CreateTableStatement::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
 
-int alinous::CreateTableStatement::binarySize() const {
+void CreateTableStatement::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+int CreateTableStatement::binarySize() const {
 	int total = sizeof(uint16_t);
 
 	return total;
 }
 
-void alinous::CreateTableStatement::toBinary(ByteBuffer* out) {
+void CreateTableStatement::toBinary(ByteBuffer* out) {
 	out->putShort(CodeElement::DDL_CREATE_TABLE);
 }
 
-void alinous::CreateTableStatement::fromBinary(ByteBuffer* in) {
+void CreateTableStatement::fromBinary(ByteBuffer* in) {
 }
 
 } /* namespace alinous */

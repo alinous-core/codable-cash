@@ -18,6 +18,9 @@ public:
 	DropTableStatement();
 	virtual ~DropTableStatement();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setTableId(TableIdentifier* tableId) noexcept;
 
 	virtual int binarySize() const;

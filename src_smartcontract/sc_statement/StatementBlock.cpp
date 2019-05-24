@@ -16,6 +16,14 @@ StatementBlock::~StatementBlock() {
 	this->statements.deleteElements();
 }
 
+void StatementBlock::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void StatementBlock::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void StatementBlock::addStatement(AbstractStatement* stmt) noexcept {
 	this->statements.addElement(stmt);
 }

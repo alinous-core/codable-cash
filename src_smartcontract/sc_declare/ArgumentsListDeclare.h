@@ -14,11 +14,15 @@
 namespace alinous {
 
 class ArgumentDeclare;
+class AnalyzeContext;
 
 class ArgumentsListDeclare : public CodeElement {
 public:
 	ArgumentsListDeclare();
 	virtual ~ArgumentsListDeclare();
+
+	void preAnalyze(AnalyzeContext* actx);
+	void analyze(AnalyzeContext* actx);
 
 	void addArgument(ArgumentDeclare* arg) noexcept;
 

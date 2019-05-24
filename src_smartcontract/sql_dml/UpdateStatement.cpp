@@ -25,6 +25,14 @@ UpdateStatement::~UpdateStatement() {
 	delete this->where;
 }
 
+void UpdateStatement::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void UpdateStatement::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void UpdateStatement::setTable(TableIdentifier* tableId) noexcept {
 	this->tableId = tableId;
 }

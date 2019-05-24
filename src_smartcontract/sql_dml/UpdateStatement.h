@@ -20,6 +20,9 @@ public:
 	UpdateStatement();
 	virtual ~UpdateStatement();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setTable(TableIdentifier* tableId) noexcept;
 	void setSet(SQLSet* set) noexcept;
 	void setWhere(SQLWhere* where) noexcept;

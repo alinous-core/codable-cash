@@ -19,6 +19,15 @@ IfStatement::~IfStatement() {
 	delete this->stmt;
 }
 
+void IfStatement::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void IfStatement::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+
 void IfStatement::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }

@@ -18,6 +18,9 @@ public:
 	ForStatement();
 	virtual ~ForStatement();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setStatement(AbstractStatement* stmt) noexcept;
 
 	void setInit(AbstractStatement* init) noexcept;

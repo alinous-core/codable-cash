@@ -162,6 +162,8 @@ public:
 	static void checkIsExp(CodeElement* element);
 	static void checkIsSQLExp(CodeElement* element);
 	static void checkIsJoinPart(CodeElement* element);
+
+	void setParent(CodeElement* parent) noexcept;
 protected:
 	short kind;
 
@@ -169,6 +171,8 @@ protected:
 	int beginColumn;
 	int endLine;
 	int endColumn;
+
+	CodeElement* parent;
 };
 
 } /* namespace alinous */

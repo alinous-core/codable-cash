@@ -25,7 +25,8 @@ void CompilationUnit::preAnalyze(AnalyzeContext* actx) {
 	int maxLoop = this->classes.size();
 	for(int i = 0; i != maxLoop; ++i){
 		ClassDeclare* dec = this->classes.get(i);
-
+		dec->setParent(this);
+		dec->preAnalyze(actx);
 	}
 }
 
@@ -33,7 +34,7 @@ void CompilationUnit::analyze(AnalyzeContext* actx) {
 	int maxLoop = this->classes.size();
 	for(int i = 0; i != maxLoop; ++i){
 		ClassDeclare* dec = this->classes.get(i);
-
+		dec->analyze(actx);
 	}
 }
 
