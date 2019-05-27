@@ -19,8 +19,9 @@ public:
 	static constexpr uint8_t ISNT_OBJ {1};
 	static constexpr uint8_t INST_STRING{2};
 	static constexpr uint8_t INST_BIG_INT{3};
+	static constexpr uint8_t INST_ARRAY{4};
 
-	AbstractVmInstance();
+	AbstractVmInstance(uint8_t type);
 	virtual ~AbstractVmInstance();
 
 	void* operator new(size_t size, VirtualMachine* vm);

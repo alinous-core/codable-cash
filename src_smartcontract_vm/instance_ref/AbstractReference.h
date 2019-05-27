@@ -14,6 +14,11 @@ namespace alinous {
 class AbstractReference {
 public:
 	static constexpr uint8_t REF_OBJ{1};
+	static constexpr uint8_t REF_BYTE{2};
+	static constexpr uint8_t REF_CHAR{3};
+	static constexpr uint8_t REF_SHORT{4};
+	static constexpr uint8_t REF_INT{5};
+	static constexpr uint8_t REF_LONG{6};
 
 
 	AbstractReference();

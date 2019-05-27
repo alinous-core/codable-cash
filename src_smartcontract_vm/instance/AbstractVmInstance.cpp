@@ -12,7 +12,8 @@
 
 namespace alinous {
 
-AbstractVmInstance::AbstractVmInstance() {
+AbstractVmInstance::AbstractVmInstance(uint8_t type) {
+	this->type = type;
 }
 
 AbstractVmInstance::~AbstractVmInstance() {

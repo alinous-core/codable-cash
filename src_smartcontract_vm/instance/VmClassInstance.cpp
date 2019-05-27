@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-VmClassInstance::VmClassInstance() {
+VmClassInstance::VmClassInstance() : AbstractVmInstance(AbstractVmInstance::ISNT_OBJ){
 
 }
 
