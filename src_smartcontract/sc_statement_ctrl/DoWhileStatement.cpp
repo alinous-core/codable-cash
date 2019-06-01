@@ -21,11 +21,16 @@ DoWhileStatement::~DoWhileStatement() {
 }
 
 void DoWhileStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+
+	this->stmt->setParent(this);
+	this->stmt->preAnalyze(actx);
 }
 
 void alinous::DoWhileStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
+	this->stmt->analyze(actx);
 }
 
 void DoWhileStatement::setExpression(AbstractExpression* exp) noexcept {

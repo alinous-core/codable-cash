@@ -23,11 +23,11 @@ DeleteStatement::~DeleteStatement() {
 }
 
 void DeleteStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void DeleteStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void DeleteStatement::setFrom(SQLFrom* from) noexcept {

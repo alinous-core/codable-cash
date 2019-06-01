@@ -26,11 +26,14 @@ VariableDeclareStatement::~VariableDeclareStatement() {
 }
 
 void VariableDeclareStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->type->setParent(this);
+	this->variableId->setParent(this);
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
 }
 
 void VariableDeclareStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
 }
 
 void VariableDeclareStatement::setType(AbstractType* type) noexcept {

@@ -22,11 +22,16 @@ SubstitutionStatement::~SubstitutionStatement() {
 }
 
 void SubstitutionStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->variable->setParent(this);
+	this->variable->preAnalyze(actx);
+
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
 }
 
 void SubstitutionStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->variable->analyze(actx);
+	this->exp->analyze(actx);
 }
 
 void SubstitutionStatement::setVariableId(AbstractExpression* variable) noexcept {

@@ -21,11 +21,16 @@ WhileStatement::~WhileStatement() {
 }
 
 void WhileStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+
+	this->stmt->setParent(this);
+	this->stmt->preAnalyze(actx);
 }
 
 void WhileStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
+	this->stmt->analyze(actx);
 }
 
 void WhileStatement::setExpression(AbstractExpression* exp) noexcept {

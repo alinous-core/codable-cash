@@ -25,11 +25,37 @@ ForStatement::~ForStatement() {
 }
 
 void ForStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	if(this->stmt != nullptr){
+		this->stmt->setParent(this);
+		this->stmt->preAnalyze(actx);
+	}
+	if(this->init != nullptr){
+		this->init->setParent(this);
+		this->init->preAnalyze(actx);
+	}
+	if(this->cond != nullptr){
+		this->cond->setParent(this);
+		this->cond->preAnalyze(actx);
+	}
+	if(this->postLoop != nullptr){
+		this->postLoop->setParent(this);
+		this->postLoop->preAnalyze(actx);
+	}
 }
 
 void ForStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+	if(this->stmt != nullptr){
+		this->stmt->analyze(actx);
+	}
+	if(this->init != nullptr){
+		this->init->analyze(actx);
+	}
+	if(this->cond != nullptr){
+		this->cond->analyze(actx);
+	}
+	if(this->postLoop != nullptr){
+		this->postLoop->analyze(actx);
+	}
 }
 
 void ForStatement::setStatement(AbstractStatement* stmt) noexcept {

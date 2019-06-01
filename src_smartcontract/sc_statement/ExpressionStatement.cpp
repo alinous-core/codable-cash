@@ -19,11 +19,12 @@ ExpressionStatement::~ExpressionStatement() {
 }
 
 void ExpressionStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
 }
 
 void ExpressionStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
 }
 
 void ExpressionStatement::setExpression(AbstractExpression* exp) noexcept {

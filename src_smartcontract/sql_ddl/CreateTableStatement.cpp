@@ -18,11 +18,9 @@ CreateTableStatement::~CreateTableStatement() {
 }
 
 void CreateTableStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
 }
 
 void CreateTableStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
 }
 
 int CreateTableStatement::binarySize() const {

@@ -17,11 +17,20 @@ StatementBlock::~StatementBlock() {
 }
 
 void StatementBlock::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	int maxLoop = this->statements.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractStatement* stmt = this->statements.get(i);
+		stmt->setParent(this);
+		stmt->preAnalyze(actx);
+	}
 }
 
 void StatementBlock::analyze(AnalyzeContext* actx) {
-	// FIXME
+	int maxLoop = this->statements.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractStatement* stmt = this->statements.get(i);
+		stmt->analyze(actx);
+	}
 }
 
 void StatementBlock::addStatement(AbstractStatement* stmt) noexcept {

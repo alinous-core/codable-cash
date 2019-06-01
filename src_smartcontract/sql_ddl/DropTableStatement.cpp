@@ -18,11 +18,11 @@ DropTableStatement::~DropTableStatement() {
 }
 
 void DropTableStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void DropTableStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void DropTableStatement::setTableId(TableIdentifier* tableId) noexcept {

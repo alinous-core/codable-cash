@@ -26,11 +26,11 @@ UpdateStatement::~UpdateStatement() {
 }
 
 void UpdateStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void UpdateStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void UpdateStatement::setTable(TableIdentifier* tableId) noexcept {

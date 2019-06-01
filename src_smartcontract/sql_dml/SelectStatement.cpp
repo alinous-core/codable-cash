@@ -34,11 +34,11 @@ SelectStatement::~SelectStatement() {
 }
 
 void SelectStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void SelectStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void SelectStatement::setList(SQLSelectTargetList* list) noexcept {

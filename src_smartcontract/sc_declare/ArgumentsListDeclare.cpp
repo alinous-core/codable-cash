@@ -22,11 +22,15 @@ void ArgumentsListDeclare::addArgument(ArgumentDeclare* arg) noexcept {
 }
 
 void ArgumentsListDeclare::preAnalyze(AnalyzeContext* actx) {
-	// FIXME pre analyze
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ArgumentDeclare* arg = this->list.get(i);
+		arg->setParent(this);
+	}
 }
 
 void ArgumentsListDeclare::analyze(AnalyzeContext* actx) {
-	// FIXME analyze
+
 }
 
 int ArgumentsListDeclare::binarySize() const {

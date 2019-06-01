@@ -19,11 +19,12 @@ PreIncrementExpression::~PreIncrementExpression() {
 }
 
 void PreIncrementExpression::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
 }
 
 void PreIncrementExpression::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
 }
 
 void PreIncrementExpression::setExpression(AbstractExpression* exp) noexcept {

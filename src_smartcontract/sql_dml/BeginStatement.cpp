@@ -16,11 +16,9 @@ BeginStatement::~BeginStatement() {
 }
 
 void BeginStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME preAnalyze
 }
 
 void BeginStatement::analyze(AnalyzeContext* actx) {
-	// FIXME Analyze
 }
 
 int BeginStatement::binarySize() const {

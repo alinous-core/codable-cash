@@ -19,11 +19,11 @@ VariableIdentifier::~VariableIdentifier() {
 }
 
 void alinous::VariableIdentifier::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void alinous::VariableIdentifier::analyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void VariableIdentifier::setName(UnicodeString* name) noexcept {

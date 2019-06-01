@@ -20,11 +20,16 @@ IfStatement::~IfStatement() {
 }
 
 void IfStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+
+	this->stmt->setParent(this);
+	this->stmt->preAnalyze(actx);
 }
 
 void IfStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
+	this->stmt->analyze(actx);
 }
 
 

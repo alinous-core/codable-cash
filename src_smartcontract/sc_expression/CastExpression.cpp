@@ -21,11 +21,13 @@ CastExpression::~CastExpression() {
 }
 
 void CastExpression::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->type->setParent(this);
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
 }
 
 void CastExpression::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
 }
 
 void CastExpression::setType(AbstractType* type) noexcept {

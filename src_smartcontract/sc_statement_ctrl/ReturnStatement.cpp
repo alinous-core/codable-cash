@@ -19,11 +19,12 @@ ReturnStatement::~ReturnStatement() {
 }
 
 void ReturnStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
 }
 
 void ReturnStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
 }
 
 

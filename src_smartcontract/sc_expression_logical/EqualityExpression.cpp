@@ -21,11 +21,16 @@ EqualityExpression::~EqualityExpression() {
 }
 
 void EqualityExpression::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->left->setParent(this);
+	this->left->preAnalyze(actx);
+
+	this->right->setParent(this);
+	this->right->preAnalyze(actx);
 }
 
 void EqualityExpression::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->left->analyze(actx);
+	this->right->analyze(actx);
 }
 
 void EqualityExpression::setLeft(AbstractExpression* exp) noexcept {

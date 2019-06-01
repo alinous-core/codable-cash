@@ -17,11 +17,11 @@ BooleanLiteral::~BooleanLiteral() {
 }
 
 void BooleanLiteral::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void BooleanLiteral::analyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void BooleanLiteral::setValue(bool v) noexcept {

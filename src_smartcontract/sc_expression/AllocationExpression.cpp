@@ -23,11 +23,12 @@ AllocationExpression::~AllocationExpression() {
 }
 
 void AllocationExpression::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
 }
 
 void AllocationExpression::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
 }
 
 void AllocationExpression::setPackage(PackageNameDeclare* packageName) noexcept {

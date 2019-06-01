@@ -20,11 +20,16 @@ RelationalExpression::~RelationalExpression() {
 }
 
 void RelationalExpression::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->left->setParent(this);
+	this->left->preAnalyze(actx);
+
+	this->right->setParent(this);
+	this->right->preAnalyze(actx);
 }
 
 void RelationalExpression::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->left->analyze(actx);
+	this->right->analyze(actx);
 }
 
 void RelationalExpression::setLeft(AbstractExpression* exp) noexcept {

@@ -20,11 +20,11 @@ LiteralExpression::~LiteralExpression() {
 }
 
 void LiteralExpression::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void LiteralExpression::analyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void LiteralExpression::setString(UnicodeString* str, bool dquote) noexcept {

@@ -16,11 +16,11 @@ NullLiteral::~NullLiteral() {
 }
 
 void NullLiteral::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void NullLiteral::analyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 int NullLiteral::binarySize() const {

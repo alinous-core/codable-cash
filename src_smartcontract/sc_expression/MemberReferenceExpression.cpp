@@ -19,14 +19,10 @@ MemberReferenceExpression::~MemberReferenceExpression() {
 
 void MemberReferenceExpression::preAnalyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::preAnalyze(actx);
-
-	//FIXME
 }
 
 void MemberReferenceExpression::analyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::analyze(actx);
-
-	//FIXME
 }
 
 int MemberReferenceExpression::binarySize() const {
