@@ -17,6 +17,7 @@ class CompilationUnit;
 class InputStream;
 class VirtualMachine;
 class AnalyzeContext;
+class UnicodeString;
 
 class SmartContract {
 public:
@@ -26,8 +27,13 @@ public:
 	void addCompilationUnit(InputStream* stream, int length);
 	void analyze(VirtualMachine* vm);
 
+	void setMainMethod(const UnicodeString* mainPackage, const UnicodeString* mainClass, const UnicodeString* mainMethod);
+
 
 private:
+	UnicodeString* mainPackage;
+	UnicodeString* mainClass;
+	UnicodeString* mainMethod;
 	ArrayList<CompilationUnit> progs;
 	AnalyzeContext* actx;
 };

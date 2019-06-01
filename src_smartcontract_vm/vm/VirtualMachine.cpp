@@ -30,6 +30,15 @@ void VirtualMachine::loadSmartContract(SmartContract* sc) {
 	this->stack = new VmInstanceStack();
 }
 
+void VirtualMachine::initializeSc() {
+
+
+}
+
+void VirtualMachine::interpret(const UnicodeString* method) {
+
+}
+
 VmMemoryManager* VirtualMachine::getMemory() noexcept {
 	return this->memory;
 }

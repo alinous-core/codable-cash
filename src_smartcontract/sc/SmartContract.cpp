@@ -11,17 +11,30 @@
 #include "compiler/SmartContractParser.h"
 
 #include "sc_analyze/AnalyzeContext.h"
+#include "base/UnicodeString.h"
 
 namespace alinous {
 
 SmartContract::SmartContract() {
 	this->actx = nullptr;
-
+	this->mainPackage = nullptr;
+	this->mainClass = nullptr;
+	this->mainMethod = nullptr;
 }
 
 SmartContract::~SmartContract() {
 	this->progs.deleteElements();
 	delete this->actx;
+	delete this->mainPackage;
+	delete this->mainClass;
+	delete this->mainMethod;
+}
+
+void alinous::SmartContract::setMainMethod(const UnicodeString* mainPackage,
+		const UnicodeString* mainClass, const UnicodeString* mainMethod) {
+	this->mainPackage = new UnicodeString(*mainPackage);
+	this->mainClass = new UnicodeString(*mainClass);
+	this->mainMethod = new UnicodeString(*mainMethod);
 }
 
 void SmartContract::addCompilationUnit(InputStream* stream, int length) {
@@ -49,4 +62,3 @@ void SmartContract::analyze(VirtualMachine* vm) {
 }
 
 } /* namespace alinous */
-

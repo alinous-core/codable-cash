@@ -62,5 +62,20 @@ TEST(TestVMGroup, loadAndExec2){
 	delete vm;
 }
 
+TEST(TestVMGroup, loadAndInitInstance){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/resources/main.alns"));
+
+	SmartContract* sc = new SmartContract();
+	FileInputStream stream(sourceFile);
+
+	int length = sourceFile->length();
+	sc->addCompilationUnit(&stream, length);
+
+	VirtualMachine* vm = new VirtualMachine(1024); __STP(vm);
+	vm->loadSmartContract(sc);
+
+	vm->analyze();
+}
 
 

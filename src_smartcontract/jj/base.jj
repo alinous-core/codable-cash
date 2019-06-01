@@ -132,8 +132,10 @@ ClassDeclareBlock* classDeclareBlock() :
 			}
 		]
 
-		type=typeDeclare() {
-		}
+		[
+			type=typeDeclare() {
+			}
+		]
 	
 		t=< IDENTIFIER > {
 		}
