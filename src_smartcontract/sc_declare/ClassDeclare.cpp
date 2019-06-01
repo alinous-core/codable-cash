@@ -7,6 +7,10 @@
 
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/ClassDeclareBlock.h"
+#include "sc/CompilationUnit.h"
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/PackageSpace.h"
+
 #include "base/UnicodeString.h"
 
 namespace alinous {
@@ -26,6 +30,17 @@ ClassDeclare::~ClassDeclare() {
 }
 
 void ClassDeclare::preAnalyze(AnalyzeContext* actx) {
+	CompilationUnit* unit = getCompilationUnit();
+	PackageSpace* space = actx->getPackegeSpace(unit->getPackageName());
+
+	ClassDeclare* dec = space->getClass(this->name);
+	if(dec != nullptr){
+		// FIXME add class error
+		return;
+	}
+
+	space->addClassDeclare(this);
+
 	this->block->setParent(this);
 	this->block->preAnalyze(actx);
 }
@@ -40,6 +55,10 @@ void ClassDeclare::setBlock(ClassDeclareBlock* block) noexcept {
 
 void alinous::ClassDeclare::setName(UnicodeString* name) noexcept {
 	this->name = name;
+}
+
+const UnicodeString* ClassDeclare::getName() noexcept {
+	return this->name;
 }
 
 int ClassDeclare::binarySize() const {

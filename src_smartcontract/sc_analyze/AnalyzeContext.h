@@ -8,9 +8,13 @@
 #ifndef SC_ANALYZECONTEXT_H_
 #define SC_ANALYZECONTEXT_H_
 
+#include "base/HashMap.h"
+
 namespace alinous {
 
 class VirtualMachine;
+class UnicodeString;
+class PackageSpace;
 
 class AnalyzeContext {
 public:
@@ -19,8 +23,11 @@ public:
 
 	void setVm(VirtualMachine* vm) noexcept;
 
+	PackageSpace* getPackegeSpace(const UnicodeString* spaceName) noexcept;
+
 private:
 	VirtualMachine* vm;
+	HashMap<UnicodeString, PackageSpace> *packageSpaces;
 };
 
 } /* namespace alinous */

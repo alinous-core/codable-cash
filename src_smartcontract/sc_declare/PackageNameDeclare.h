@@ -22,11 +22,15 @@ public:
 
 	void addSegment(UnicodeString* seg);
 
+	const UnicodeString* getName() noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
 private:
 	ArrayList<UnicodeString> list;
+
+	UnicodeString* strName;
 };
 
 } /* namespace alinous */

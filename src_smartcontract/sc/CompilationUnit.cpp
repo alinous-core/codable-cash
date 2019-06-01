@@ -8,6 +8,7 @@
 #include "sc/CompilationUnit.h"
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/PackageDeclare.h"
+#include "base/UnicodeString.h"
 
 namespace alinous {
 
@@ -40,6 +41,14 @@ void CompilationUnit::analyze(AnalyzeContext* actx) {
 
 void CompilationUnit::setPackage(PackageDeclare* package) {
 	this->package = package;
+}
+
+
+const UnicodeString* CompilationUnit::getPackageName() noexcept {
+	if(this->package == nullptr){
+		return nullptr;
+	}
+	return this->package->getPackageName();
 }
 
 void CompilationUnit::addClassDeclare(ClassDeclare* clazz) {

@@ -20,6 +20,7 @@ public:
 	virtual ~PackageDeclare();
 
 	void setName(PackageNameDeclare* name);
+	const UnicodeString* getPackageName() noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

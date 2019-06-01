@@ -21,6 +21,7 @@ TEST_GROUP(TestVMGroup) {
 
 };
 
+
 TEST(TestVMGroup, construct){
 	VirtualMachine* vm = new VirtualMachine(1024);
 	delete vm;
@@ -71,6 +72,12 @@ TEST(TestVMGroup, loadAndInitInstance){
 
 	int length = sourceFile->length();
 	sc->addCompilationUnit(&stream, length);
+
+	UnicodeString mainPackage(L"test.fw");
+	UnicodeString mainClass(L"SmartContract");
+	UnicodeString mainMethod(L"main");
+	sc->setMainMethod(&mainPackage, &mainClass, &mainMethod);
+
 
 	VirtualMachine* vm = new VirtualMachine(1024); __STP(vm);
 	vm->loadSmartContract(sc);

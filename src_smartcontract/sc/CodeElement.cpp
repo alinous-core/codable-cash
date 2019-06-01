@@ -584,4 +584,17 @@ void CodeElement::setParent(CodeElement* parent) noexcept {
 	this->parent = parent;
 }
 
+CodeElement* CodeElement::getParent() noexcept {
+	return this->parent;
+}
+
+CompilationUnit* CodeElement::getCompilationUnit() noexcept {
+	CodeElement* element = this->parent;
+	while(element->kind != CodeElement::COMPILANT_UNIT && element != nullptr){
+		element = element->getParent();
+	}
+
+	return element->kind == CodeElement::COMPILANT_UNIT ? dynamic_cast<CompilationUnit*>(element) : nullptr;
+}
+
 } /* namespace alinous */

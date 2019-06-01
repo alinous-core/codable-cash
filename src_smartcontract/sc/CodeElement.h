@@ -19,6 +19,7 @@ using namespace alinouslang;
 
 class ByteBuffer;
 class UnicodeString;
+class CompilationUnit;
 
 class CodeElement {
 public:
@@ -165,6 +166,9 @@ public:
 	static void checkIsJoinPart(CodeElement* element);
 
 	void setParent(CodeElement* parent) noexcept;
+	CodeElement* getParent() noexcept;
+
+	CompilationUnit* getCompilationUnit() noexcept;
 protected:
 	short kind;
 

@@ -16,6 +16,7 @@ namespace alinous {
 class ClassDeclare;
 class PackageDeclare;
 class AnalyzeContext;
+class UnicodeString;
 
 class CompilationUnit : public CodeElement {
 public:
@@ -27,6 +28,8 @@ public:
 
 	void setPackage(PackageDeclare* package);
 	void addClassDeclare(ClassDeclare* clazz);
+
+	const UnicodeString* getPackageName() noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
