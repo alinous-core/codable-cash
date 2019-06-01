@@ -12,6 +12,12 @@
 #include "sc_statement/StatementBlock.h"
 #include "base/UnicodeString.h"
 
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/AnalyzedClass.h"
+
+#include "sc/exceptions.h"
+
+#include "sc_declare/ClassDeclare.h"
 namespace alinous {
 
 MethodDeclare::MethodDeclare() : CodeElement(CodeElement::METHOD_DECLARE) {
@@ -43,16 +49,24 @@ MethodDeclare::~MethodDeclare() {
 
 
 void MethodDeclare::preAnalyze(AnalyzeContext* actx) {
+	AnalyzedClass* aclass = actx->getAnalyzedClass(this);
+	aclass->addMemberMethodDeclare(this);
+
 	this->args->setParent(this);
 	this->args->preAnalyze(actx);
 
-	// FIXME preAnalyze
+	if(this->block != nullptr){
+		this->block->setParent(this);
+		this->block->preAnalyze(actx);
+	}
 }
 
 void MethodDeclare::analyze(AnalyzeContext* actx) {
 	this->args->analyze(actx);
 
-	// FIXME analyze
+	if(this->block != nullptr){
+		this->block->analyze(actx);
+	}
 }
 
 void MethodDeclare::setStatic(bool s) noexcept {
@@ -77,6 +91,20 @@ void MethodDeclare::setArguments(ArgumentsListDeclare* args) noexcept {
 
 void MethodDeclare::setBlock(StatementBlock* block) noexcept {
 	this->block = block;
+}
+
+bool MethodDeclare::isConstructor() {
+	ClassDeclare* dec = getClassDeclare();
+	if(dec == nullptr){
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
+	}
+
+	const UnicodeString* clsName = dec->getName();
+	return clsName->equals(this->name);
+}
+
+const UnicodeString* MethodDeclare::getName() noexcept {
+	return this->name;
 }
 
 int MethodDeclare::binarySize() const {

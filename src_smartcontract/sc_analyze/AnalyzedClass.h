@@ -16,6 +16,7 @@ namespace alinous {
 class ClassDeclare;
 class UnicodeString;
 class MemberVariableDeclare;
+class MethodDeclare;
 
 class AnalyzedClass {
 public:
@@ -23,11 +24,15 @@ public:
 	virtual ~AnalyzedClass();
 
 	void addMemberVariableDeclare(MemberVariableDeclare* member);
+	void addMemberMethodDeclare(MethodDeclare* method);
 
 private:
 	ClassDeclare* clazz;
 
 	HashMap<UnicodeString, MemberVariableDeclare>* variables;
+
+	HashMap<UnicodeString, MethodDeclare>* constructors;
+	HashMap<UnicodeString, MethodDeclare>* methods;
 
 };
 
