@@ -103,9 +103,14 @@ bool MethodDeclare::isConstructor() {
 	return clsName->equals(this->name);
 }
 
-const UnicodeString* MethodDeclare::getName() noexcept {
+const UnicodeString* MethodDeclare::getName() const noexcept {
 	return this->name;
 }
+
+ArgumentsListDeclare* MethodDeclare::getArguments() const noexcept {
+	return this->args;
+}
+
 
 int MethodDeclare::binarySize() const {
 	checkNotNull(this->name);

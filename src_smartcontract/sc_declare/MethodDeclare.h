@@ -35,7 +35,8 @@ public:
 	void setBlock(StatementBlock* block) noexcept;
 
 	bool isConstructor();
-	const UnicodeString* getName() noexcept;
+	const UnicodeString* getName() const noexcept;
+	ArgumentsListDeclare* getArguments() const noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

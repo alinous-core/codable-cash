@@ -12,10 +12,12 @@
 
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/PackageSpace.h"
+#include "sc_analyze/AnalyzedClass.h"
 
 #include "base/UnicodeString.h"
 
 #include "sc_declare/ClassDeclare.h"
+#include "sc_declare/MethodDeclare.h"
 
 
 namespace alinous {
@@ -72,7 +74,9 @@ void SmartContract::analyze(VirtualMachine* vm) {
 
 void SmartContract::createInstance(VirtualMachine* vm) {
 	PackageSpace* space = this->actx->getPackegeSpace(this->mainPackage);
-	//ClassDeclare* dec = space->getClass(this->mainClass);
+	AnalyzedClass* clazz = space->getClass(this->mainClass);
+
+	MethodDeclare* defConstructor = clazz->getDefaultConstructor();
 
 
 }

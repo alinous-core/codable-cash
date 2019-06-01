@@ -25,6 +25,7 @@ public:
 	void analyze(AnalyzeContext* actx);
 
 	void addArgument(ArgumentDeclare* arg) noexcept;
+	int getSize() const noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

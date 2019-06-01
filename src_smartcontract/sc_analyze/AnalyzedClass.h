@@ -9,7 +9,7 @@
 #define SC_ANALYZE_ANALYZEDCLASS_H_
 
 #include "base/HashMap.h"
-
+#include "base/ArrayList.h"
 
 namespace alinous {
 
@@ -26,12 +26,13 @@ public:
 	void addMemberVariableDeclare(MemberVariableDeclare* member);
 	void addMemberMethodDeclare(MethodDeclare* method);
 
+	MethodDeclare* getDefaultConstructor() noexcept;
 private:
 	ClassDeclare* clazz;
 
 	HashMap<UnicodeString, MemberVariableDeclare>* variables;
 
-	HashMap<UnicodeString, MethodDeclare>* constructors;
+	ArrayList<MethodDeclare>* constructors;
 	HashMap<UnicodeString, MethodDeclare>* methods;
 
 };

@@ -33,6 +33,10 @@ void ArgumentsListDeclare::analyze(AnalyzeContext* actx) {
 
 }
 
+int ArgumentsListDeclare::getSize() const noexcept {
+	return this->list.size();
+}
+
 int ArgumentsListDeclare::binarySize() const {
 	int total = sizeof(uint16_t);
 	total += sizeof(uint32_t);
@@ -57,6 +61,7 @@ void ArgumentsListDeclare::toBinary(ByteBuffer* out) {
 		arg->toBinary(out);
 	}
 }
+
 
 void ArgumentsListDeclare::fromBinary(ByteBuffer* in) {
 	int maxLoop = in->getInt();

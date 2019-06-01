@@ -84,7 +84,7 @@ TEST(TestVMGroup, loadAndInitInstance){
 
 	vm->analyze();
 
-
+	vm->createScInstance();
 }
 
 TEST(TestVMGroup, duplicateClassError){
@@ -116,8 +116,6 @@ TEST(TestVMGroup, duplicateClassError){
 	vm->loadSmartContract(sc);
 
 	vm->analyze();
-
-	vm->createScInstance();
 }
 
 
