@@ -35,7 +35,8 @@ void ClassDeclare::preAnalyze(AnalyzeContext* actx) {
 
 	ClassDeclare* dec = space->getClass(this->name);
 	if(dec != nullptr){
-		// FIXME add class error
+		actx->addValidationError(L"Class is already registered", this);
+
 		return;
 	}
 

@@ -55,6 +55,10 @@ void SmartContract::analyze(VirtualMachine* vm) {
 		unit->preAnalyze(this->actx);
 	}
 
+	if(this->actx->hasError()){
+		return;
+	}
+
 	for(int i = 0; i != maxLoop; ++i){
 		CompilationUnit* unit = this->progs.get(i);
 		unit->analyze(this->actx);

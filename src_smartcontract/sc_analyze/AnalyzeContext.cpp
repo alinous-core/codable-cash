@@ -9,6 +9,8 @@
 #include "base/UnicodeString.h"
 
 #include "sc_analyze/PackageSpace.h"
+#include "sc_analyze/ValidationError.h"
+
 namespace alinous {
 
 AnalyzeContext::AnalyzeContext() {
@@ -28,6 +30,8 @@ AnalyzeContext::~AnalyzeContext() {
 	delete it;
 
 	delete this->packageSpaces;
+
+	this->verrorList.deleteElements();
 }
 
 void AnalyzeContext::setVm(VirtualMachine* vm) noexcept {
@@ -42,6 +46,20 @@ PackageSpace* AnalyzeContext::getPackegeSpace(const UnicodeString* spaceName) no
 	}
 
 	return space;
+}
+
+void AnalyzeContext::addValidationError(const UnicodeString* msg, CodeElement* element) noexcept {
+	ValidationError* error = new ValidationError(ValidationError::ERROR, element, msg);
+	this->verrorList.addElement(error);
+}
+
+void AnalyzeContext::addValidationError(const wchar_t* msg, CodeElement* element) noexcept {
+	UnicodeString str(msg);
+	addValidationError(&str, element);
+}
+
+bool alinous::AnalyzeContext::hasError() noexcept {
+	return !this->verrorList.isEmpty();
 }
 
 } /* namespace alinous */

@@ -9,12 +9,15 @@
 #define SC_ANALYZECONTEXT_H_
 
 #include "base/HashMap.h"
+#include "base/ArrayList.h"
 
 namespace alinous {
 
 class VirtualMachine;
 class UnicodeString;
 class PackageSpace;
+class ValidationError;
+class CodeElement;
 
 class AnalyzeContext {
 public:
@@ -22,12 +25,16 @@ public:
 	virtual ~AnalyzeContext();
 
 	void setVm(VirtualMachine* vm) noexcept;
-
 	PackageSpace* getPackegeSpace(const UnicodeString* spaceName) noexcept;
+	void addValidationError(const UnicodeString* msg, CodeElement* element) noexcept;
+	void addValidationError(const wchar_t* msg, CodeElement* element) noexcept;
+
+	bool hasError() noexcept;
 
 private:
 	VirtualMachine* vm;
 	HashMap<UnicodeString, PackageSpace> *packageSpaces;
+	ArrayList<ValidationError> verrorList;
 };
 
 } /* namespace alinous */
