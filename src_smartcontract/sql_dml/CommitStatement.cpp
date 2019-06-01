@@ -15,6 +15,14 @@ CommitStatement::CommitStatement() : AbstractSQLStatement(CodeElement::DML_STMT_
 CommitStatement::~CommitStatement() {
 }
 
+void CommitStatement::preAnalyze(AnalyzeContext* actx) {
+	//FIXME
+}
+
+void CommitStatement::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 int CommitStatement::binarySize() const {
 	int total = sizeof(uint16_t);
 

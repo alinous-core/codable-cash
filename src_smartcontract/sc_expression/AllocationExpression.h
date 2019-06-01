@@ -19,6 +19,9 @@ public:
 	AllocationExpression();
 	virtual ~AllocationExpression();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setPackage(PackageNameDeclare* packageName) noexcept;
 	void setExpression(FunctionCallExpression* exp) noexcept;
 

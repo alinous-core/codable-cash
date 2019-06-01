@@ -20,6 +20,9 @@ public:
 	PreIncrementExpression();
 	virtual ~PreIncrementExpression();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setExpression(AbstractExpression* exp) noexcept;
 	void setOpe(int ope) noexcept;
 

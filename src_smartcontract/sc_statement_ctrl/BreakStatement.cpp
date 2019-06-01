@@ -16,6 +16,11 @@ BreakStatement::BreakStatement() : AbstractStatement(CodeElement::STMT_BREAK) {
 BreakStatement::~BreakStatement() {
 }
 
+void BreakStatement::preAnalyze(AnalyzeContext* actx) {
+}
+
+void BreakStatement::analyze(AnalyzeContext* actx) {
+}
 
 int BreakStatement::binarySize() const {
 	int total = sizeof(uint16_t);

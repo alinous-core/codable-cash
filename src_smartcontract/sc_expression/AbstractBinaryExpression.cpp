@@ -16,6 +16,23 @@ AbstractBinaryExpression::~AbstractBinaryExpression() {
 	this->list.deleteElements();
 }
 
+void AbstractBinaryExpression::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->list.get(i);
+		exp->setParent(this);
+		exp->preAnalyze(actx);
+	}
+}
+
+void AbstractBinaryExpression::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->list.get(i);
+		exp->analyze(actx);
+	}
+}
+
 void AbstractBinaryExpression::addExp(AbstractExpression* exp) noexcept {
 	this->list.addElement(exp);
 }

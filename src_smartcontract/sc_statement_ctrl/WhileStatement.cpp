@@ -20,6 +20,14 @@ WhileStatement::~WhileStatement() {
 	delete this->stmt;
 }
 
+void WhileStatement::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void WhileStatement::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void WhileStatement::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }

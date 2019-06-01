@@ -19,6 +19,38 @@ ClassDeclareBlock::~ClassDeclareBlock() {
 	this->variables.deleteElements();
 }
 
+
+void ClassDeclareBlock::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->variables.size();
+	for(int i = 0; i != maxLoop; ++i){
+		MemberVariableDeclare* val = this->variables.get(i);
+		val->setParent(this);
+		val->preAnalyze(actx);
+	}
+
+	maxLoop = this->methods.size();
+	for(int i = 0; i != maxLoop; ++i){
+		MethodDeclare* method = this->methods.get(i);
+		method->setParent(this);
+		method->preAnalyze(actx);
+	}
+}
+
+void ClassDeclareBlock::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->variables.size();
+	for(int i = 0; i != maxLoop; ++i){
+		MemberVariableDeclare* val = this->variables.get(i);
+		val->analyze(actx);
+	}
+
+	maxLoop = this->methods.size();
+	for(int i = 0; i != maxLoop; ++i){
+		MethodDeclare* method = this->methods.get(i);
+		method->analyze(actx);
+	}
+}
+
+
 void ClassDeclareBlock::addMethod(MethodDeclare* method) noexcept {
 	this->methods.addElement(method);
 }

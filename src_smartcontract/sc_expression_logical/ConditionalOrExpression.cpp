@@ -15,6 +15,14 @@ ConditionalOrExpression::ConditionalOrExpression() : AbstractBinaryExpression(Co
 ConditionalOrExpression::~ConditionalOrExpression() {
 }
 
+void ConditionalOrExpression::preAnalyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::preAnalyze(actx);
+}
+
+void ConditionalOrExpression::analyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::analyze(actx);
+}
+
 int ConditionalOrExpression::binarySize() const {
 	int total = sizeof(uint16_t);
 	total += AbstractBinaryExpression::binarySize();

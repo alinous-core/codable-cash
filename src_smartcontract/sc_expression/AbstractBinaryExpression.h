@@ -18,6 +18,9 @@ public:
 	explicit AbstractBinaryExpression(int kind);
 	virtual ~AbstractBinaryExpression();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void addExp(AbstractExpression* exp) noexcept;
 
 	virtual int binarySize() const;

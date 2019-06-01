@@ -18,6 +18,15 @@ ReturnStatement::~ReturnStatement() {
 	delete this->exp;
 }
 
+void ReturnStatement::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void ReturnStatement::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+
 void ReturnStatement::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }

@@ -17,6 +17,9 @@ public:
 	ParenthesisExpression();
 	virtual ~ParenthesisExpression();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setExp(AbstractExpression* exp) noexcept;
 
 	virtual int binarySize() const;

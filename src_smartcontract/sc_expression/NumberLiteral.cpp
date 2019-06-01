@@ -18,6 +18,14 @@ NumberLiteral::~NumberLiteral() {
 	delete this->str;
 }
 
+void NumberLiteral::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void NumberLiteral::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void NumberLiteral::setValue(UnicodeString* str) noexcept {
 	this->str = str;
 }

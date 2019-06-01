@@ -18,6 +18,14 @@ PostIncrementExpression::~PostIncrementExpression() {
 	delete this->exp;
 }
 
+void PostIncrementExpression::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void PostIncrementExpression::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void PostIncrementExpression::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }

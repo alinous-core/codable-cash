@@ -20,6 +20,14 @@ EqualityExpression::~EqualityExpression() {
 	delete this->right;
 }
 
+void EqualityExpression::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void EqualityExpression::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void EqualityExpression::setLeft(AbstractExpression* exp) noexcept {
 	this->left = exp;
 }

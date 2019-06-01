@@ -20,6 +20,14 @@ DoWhileStatement::~DoWhileStatement() {
 	delete this->stmt;
 }
 
+void DoWhileStatement::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void alinous::DoWhileStatement::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void DoWhileStatement::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }

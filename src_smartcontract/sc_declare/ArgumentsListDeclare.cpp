@@ -21,6 +21,14 @@ void ArgumentsListDeclare::addArgument(ArgumentDeclare* arg) noexcept {
 	this->list.addElement(arg);
 }
 
+void ArgumentsListDeclare::preAnalyze(AnalyzeContext* actx) {
+	// FIXME pre analyze
+}
+
+void ArgumentsListDeclare::analyze(AnalyzeContext* actx) {
+	// FIXME analyze
+}
+
 int ArgumentsListDeclare::binarySize() const {
 	int total = sizeof(uint16_t);
 	total += sizeof(uint32_t);

@@ -24,6 +24,10 @@ void PackageDeclare::setName(PackageNameDeclare* name) {
 	this->name = name;
 }
 
+const UnicodeString* PackageDeclare::getPackageName() noexcept {
+	return this->name->getName();
+}
+
 int PackageDeclare::binarySize() const {
 	int total = sizeof(uint16_t);
 

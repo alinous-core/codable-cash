@@ -20,6 +20,9 @@ public:
 	InsertStatement();
 	virtual ~InsertStatement();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setTable(TableIdentifier* tableId) noexcept;
 	void setColumns(SQLColumnsList* columns) noexcept;
 	void setExpressionList(SQLExpressionList* expList) noexcept;

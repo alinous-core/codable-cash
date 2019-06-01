@@ -23,6 +23,9 @@ public:
 	RelationalExpression();
 	virtual ~RelationalExpression();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setLeft(AbstractExpression* exp) noexcept;
 	void setRight(AbstractExpression* exp) noexcept;
 	void setOp(uint8_t op) noexcept;

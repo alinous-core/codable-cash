@@ -19,6 +19,8 @@ using namespace alinouslang;
 
 class ByteBuffer;
 class UnicodeString;
+class CompilationUnit;
+class ClassDeclare;
 
 class CodeElement {
 public:
@@ -35,12 +37,13 @@ public:
 	static const constexpr short ACCESS_CONTROL_DECLARE{9};
 
 
-	static const constexpr short TYPE_CHAR{20};
-	static const constexpr short TYPE_SHORT{21};
-	static const constexpr short TYPE_INT{22};
-	static const constexpr short TYPE_LONG{23};
-	static const constexpr short TYPE_STRING{24};
-	static const constexpr short TYPE_VOID{25};
+	static const constexpr short TYPE_BYTE{20};
+	static const constexpr short TYPE_CHAR{21};
+	static const constexpr short TYPE_SHORT{22};
+	static const constexpr short TYPE_INT{23};
+	static const constexpr short TYPE_LONG{24};
+	static const constexpr short TYPE_STRING{25};
+	static const constexpr short TYPE_VOID{26};
 
 	static const constexpr short STMT_BLOCK{50};
 	static const constexpr short STMT_VARIABLE_DECLARE{51};
@@ -162,6 +165,12 @@ public:
 	static void checkIsExp(CodeElement* element);
 	static void checkIsSQLExp(CodeElement* element);
 	static void checkIsJoinPart(CodeElement* element);
+
+	void setParent(CodeElement* parent) noexcept;
+	CodeElement* getParent() noexcept;
+
+	CompilationUnit* getCompilationUnit();
+	ClassDeclare* getClassDeclare();
 protected:
 	short kind;
 
@@ -169,6 +178,8 @@ protected:
 	int beginColumn;
 	int endLine;
 	int endColumn;
+
+	CodeElement* parent;
 };
 
 } /* namespace alinous */

@@ -17,6 +17,15 @@ BitReverseExpression::~BitReverseExpression() {
 	delete this->exp;
 }
 
+
+void BitReverseExpression::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void BitReverseExpression::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void BitReverseExpression::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }

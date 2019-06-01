@@ -15,14 +15,21 @@ namespace alinous {
 
 class ClassDeclare;
 class PackageDeclare;
+class AnalyzeContext;
+class UnicodeString;
 
 class CompilationUnit : public CodeElement {
 public:
 	CompilationUnit();
 	virtual ~CompilationUnit();
 
+	void preAnalyze(AnalyzeContext* actx);
+	void analyze(AnalyzeContext* actx);
+
 	void setPackage(PackageDeclare* package);
 	void addClassDeclare(ClassDeclare* clazz);
+
+	const UnicodeString* getPackageName() noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

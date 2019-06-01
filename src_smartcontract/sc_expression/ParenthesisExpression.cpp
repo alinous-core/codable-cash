@@ -17,6 +17,14 @@ ParenthesisExpression::~ParenthesisExpression() {
 	delete this->exp;
 }
 
+void ParenthesisExpression::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void ParenthesisExpression::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void ParenthesisExpression::setExp(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }

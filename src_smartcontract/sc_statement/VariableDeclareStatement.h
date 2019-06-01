@@ -20,6 +20,9 @@ public:
 	VariableDeclareStatement();
 	virtual ~VariableDeclareStatement();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setType(AbstractType* type) noexcept;
 	void setVariableId(VariableIdentifier* variable) noexcept;
 	void setInitExpression(AbstractExpression* exp) noexcept;

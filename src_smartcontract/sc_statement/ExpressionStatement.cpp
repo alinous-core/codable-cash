@@ -18,6 +18,14 @@ ExpressionStatement::~ExpressionStatement() {
 	delete this->exp;
 }
 
+void ExpressionStatement::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void ExpressionStatement::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void ExpressionStatement::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }

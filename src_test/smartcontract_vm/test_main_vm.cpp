@@ -21,6 +21,7 @@ TEST_GROUP(TestVMGroup) {
 
 };
 
+
 TEST(TestVMGroup, construct){
 	VirtualMachine* vm = new VirtualMachine(1024);
 	delete vm;
@@ -41,3 +42,82 @@ TEST(TestVMGroup, loadAndExec){
 
 	delete vm;
 }
+
+
+TEST(TestVMGroup, loadAndExec2){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/parser/hello.alns"));
+
+
+	SmartContract* sc = new SmartContract();
+	FileInputStream stream(sourceFile);
+
+	int length = sourceFile->length();
+	sc->addCompilationUnit(&stream, length);
+
+	VirtualMachine* vm = new VirtualMachine(1024);
+	vm->loadSmartContract(sc);
+
+	vm->analyze();
+
+	delete vm;
+}
+
+TEST(TestVMGroup, loadAndInitInstance){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/resources/main.alns"));
+
+	SmartContract* sc = new SmartContract();
+	FileInputStream stream(sourceFile);
+
+	int length = sourceFile->length();
+	sc->addCompilationUnit(&stream, length);
+
+	UnicodeString mainPackage(L"test.fw");
+	UnicodeString mainClass(L"SmartContract");
+	UnicodeString mainMethod(L"main");
+	sc->setMainMethod(&mainPackage, &mainClass, &mainMethod);
+
+
+	VirtualMachine* vm = new VirtualMachine(1024); __STP(vm);
+	vm->loadSmartContract(sc);
+
+	vm->analyze();
+
+
+}
+
+TEST(TestVMGroup, duplicateClassError){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/resources/main.alns"));
+	_ST(File, sourceFile2, projectFolder->get(L"src_test/smartcontract_vm/resources/main.alns"));
+
+	SmartContract* sc = new SmartContract();
+	{
+		FileInputStream stream(sourceFile);
+
+		int length = sourceFile->length();
+		sc->addCompilationUnit(&stream, length);
+	}
+	{
+		FileInputStream stream(sourceFile2);
+
+		int length = sourceFile2->length();
+		sc->addCompilationUnit(&stream, length);
+	}
+
+	UnicodeString mainPackage(L"test.fw");
+	UnicodeString mainClass(L"SmartContract");
+	UnicodeString mainMethod(L"main");
+	sc->setMainMethod(&mainPackage, &mainClass, &mainMethod);
+
+
+	VirtualMachine* vm = new VirtualMachine(1024); __STP(vm);
+	vm->loadSmartContract(sc);
+
+	vm->analyze();
+
+	vm->createScInstance();
+}
+
+

@@ -11,6 +11,8 @@
 
 namespace alinous {
 
+class UnicodeString;
+
 class VmInstanceStack;
 class SmartContract;
 class VmMemoryManager;
@@ -21,6 +23,10 @@ public:
 	virtual ~VirtualMachine();
 
 	void loadSmartContract(SmartContract* sc);
+	void analyze();
+
+	void createScInstance();
+	void interpret(const UnicodeString* method);
 
 	VmMemoryManager* getMemory() noexcept;
 

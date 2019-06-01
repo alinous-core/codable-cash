@@ -30,8 +30,22 @@ void VirtualMachine::loadSmartContract(SmartContract* sc) {
 	this->stack = new VmInstanceStack();
 }
 
+void VirtualMachine::createScInstance() {
+	this->sc->createInstance(this);
+}
+
+void VirtualMachine::interpret(const UnicodeString* method) {
+
+}
+
 VmMemoryManager* VirtualMachine::getMemory() noexcept {
 	return this->memory;
 }
 
+
+void VirtualMachine::analyze() {
+	this->sc->analyze(this);
+}
+
 } /* namespace alinous */
+

@@ -16,15 +16,20 @@ namespace alinous {
 
 class ClassDeclareBlock;
 class UnicodeString;
-
+class AnalyzeContext;
 
 class ClassDeclare : public CodeElement {
 public:
 	ClassDeclare();
 	virtual ~ClassDeclare();
 
+	void preAnalyze(AnalyzeContext* actx);
+	void analyze(AnalyzeContext* actx);
+
 	void setBlock(ClassDeclareBlock* block) noexcept;
 	void setName(UnicodeString* name) noexcept;
+
+	const UnicodeString* getName() noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

@@ -17,11 +17,15 @@ class AbstractType;
 class ArgumentsListDeclare;
 class UnicodeString;
 class StatementBlock;
+class AnalyzeContext;
 
 class MethodDeclare : public CodeElement {
 public:
 	MethodDeclare();
 	virtual ~MethodDeclare();
+
+	void preAnalyze(AnalyzeContext* actx);
+	void analyze(AnalyzeContext* actx);
 
 	void setAccessControl(AccessControlDeclare* ctrl) noexcept;
 	void setType(AbstractType* type) noexcept;

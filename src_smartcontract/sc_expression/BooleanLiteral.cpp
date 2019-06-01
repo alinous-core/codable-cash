@@ -16,6 +16,14 @@ BooleanLiteral::BooleanLiteral() : AbstractExpression(CodeElement::EXP_BOOLEAN_L
 BooleanLiteral::~BooleanLiteral() {
 }
 
+void BooleanLiteral::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void BooleanLiteral::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void BooleanLiteral::setValue(bool v) noexcept {
 	this->value = v;
 }

@@ -15,6 +15,12 @@ RollbackStatement::RollbackStatement() : AbstractSQLStatement(CodeElement::DML_S
 RollbackStatement::~RollbackStatement() {
 }
 
+void RollbackStatement::preAnalyze(AnalyzeContext* actx) {
+}
+
+void RollbackStatement::analyze(AnalyzeContext* actx) {
+}
+
 int RollbackStatement::binarySize() const {
 	int total = sizeof(uint16_t);
 

@@ -8,6 +8,7 @@
 #ifndef INSTANCE_ABSTRACTVMINSTANCE_H_
 #define INSTANCE_ABSTRACTVMINSTANCE_H_
 #include <cstddef>
+#include <cstdint>
 
 namespace alinous {
 
@@ -15,11 +16,19 @@ class VirtualMachine;
 
 class AbstractVmInstance {
 public:
-	AbstractVmInstance();
+	static constexpr uint8_t ISNT_OBJ {1};
+	static constexpr uint8_t INST_STRING{2};
+	static constexpr uint8_t INST_BIG_INT{3};
+	static constexpr uint8_t INST_ARRAY{4};
+
+	explicit AbstractVmInstance(uint8_t type);
 	virtual ~AbstractVmInstance();
 
 	void* operator new(size_t size, VirtualMachine* vm);
 	void operator delete(void* p, size_t size);
+
+private:
+	uint8_t type;
 };
 
 } /* namespace alinous */

@@ -8,6 +8,7 @@
 #include "sc/CompilationUnit.h"
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/PackageDeclare.h"
+#include "base/UnicodeString.h"
 
 namespace alinous {
 
@@ -21,8 +22,33 @@ CompilationUnit::~CompilationUnit() {
 	this->classes.deleteElements();
 }
 
+void CompilationUnit::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->classes.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ClassDeclare* dec = this->classes.get(i);
+		dec->setParent(this);
+		dec->preAnalyze(actx);
+	}
+}
+
+void CompilationUnit::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->classes.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ClassDeclare* dec = this->classes.get(i);
+		dec->analyze(actx);
+	}
+}
+
 void CompilationUnit::setPackage(PackageDeclare* package) {
 	this->package = package;
+}
+
+
+const UnicodeString* CompilationUnit::getPackageName() noexcept {
+	if(this->package == nullptr){
+		return nullptr;
+	}
+	return this->package->getPackageName();
 }
 
 void CompilationUnit::addClassDeclare(ClassDeclare* clazz) {

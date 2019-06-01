@@ -33,6 +33,14 @@ SelectStatement::~SelectStatement() {
 	delete this->limitOffset;
 }
 
+void SelectStatement::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void SelectStatement::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void SelectStatement::setList(SQLSelectTargetList* list) noexcept {
 	this->list = list;
 }

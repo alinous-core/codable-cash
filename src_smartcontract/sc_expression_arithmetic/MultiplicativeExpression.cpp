@@ -15,6 +15,14 @@ MultiplicativeExpression::MultiplicativeExpression() : AbstractBinaryExpression(
 MultiplicativeExpression::~MultiplicativeExpression() {
 }
 
+void MultiplicativeExpression::preAnalyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::preAnalyze(actx);
+}
+
+void MultiplicativeExpression::analyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::analyze(actx);
+}
+
 void MultiplicativeExpression::addOpe(uint8_t ope) noexcept {
 	this->operations.addElement(ope);
 }

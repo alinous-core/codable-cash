@@ -19,6 +19,9 @@ public:
 	FunctionCallExpression();
 	virtual ~FunctionCallExpression();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setName(AbstractExpression* exp) noexcept;
 	void addArgument(AbstractExpression* exp) noexcept;
 

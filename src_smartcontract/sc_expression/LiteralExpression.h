@@ -18,6 +18,9 @@ public:
 	LiteralExpression();
 	virtual ~LiteralExpression();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setString(UnicodeString* str, bool dquote) noexcept;
 
 	virtual int binarySize() const;

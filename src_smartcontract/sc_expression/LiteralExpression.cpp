@@ -19,6 +19,14 @@ LiteralExpression::~LiteralExpression() {
 	delete this->str;
 }
 
+void LiteralExpression::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void LiteralExpression::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void LiteralExpression::setString(UnicodeString* str, bool dquote) noexcept {
 	this->str = str;
 	this->dquote = dquote;

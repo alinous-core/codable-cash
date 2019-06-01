@@ -24,6 +24,14 @@ ForStatement::~ForStatement() {
 	delete this->postLoop;
 }
 
+void ForStatement::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void ForStatement::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void ForStatement::setStatement(AbstractStatement* stmt) noexcept {
 	this->stmt = stmt;
 }

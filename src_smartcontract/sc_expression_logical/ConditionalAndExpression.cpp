@@ -15,6 +15,14 @@ ConditionalAndExpression::ConditionalAndExpression() : AbstractBinaryExpression(
 ConditionalAndExpression::~ConditionalAndExpression() {
 }
 
+void ConditionalAndExpression::preAnalyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::preAnalyze(actx);
+}
+
+void ConditionalAndExpression::analyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::analyze(actx);
+}
+
 int ConditionalAndExpression::binarySize() const {
 	int total = sizeof(uint16_t);
 	total += AbstractBinaryExpression::binarySize();

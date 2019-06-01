@@ -18,6 +18,14 @@ ArrayReferenceExpression::~ArrayReferenceExpression() {
 	this->list.deleteElements();
 }
 
+void ArrayReferenceExpression::preAnalyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
+void ArrayReferenceExpression::analyze(AnalyzeContext* actx) {
+	// FIXME
+}
+
 void ArrayReferenceExpression::setExp(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }

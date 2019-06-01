@@ -72,6 +72,18 @@ TEST(TestStatementGroup, substitute01bin){
 	CHECK(res)
 }
 
+TEST(TestStatementGroup, substitute02){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement/substitute02.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractStatement* stmt = lang->statement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+}
+
 TEST(TestStatementGroup, valdec01){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement/valdec01.alns"))

@@ -12,10 +12,15 @@
 
 namespace alinous {
 
+class AnalyzeContext;
+
 class AbstractExpression: public CodeElement {
 public:
 	explicit AbstractExpression(int kind);
 	virtual ~AbstractExpression();
+
+	virtual void preAnalyze(AnalyzeContext* actx) = 0;
+	virtual void analyze(AnalyzeContext* actx) = 0;
 };
 
 } /* namespace alinous */

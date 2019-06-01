@@ -10,6 +10,11 @@
 #include "sc_declare_types/AbstractType.h"
 #include "base/UnicodeString.h"
 
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/AnalyzedClass.h"
+
+#include "sc/exceptions.h"
+
 namespace alinous {
 
 MemberVariableDeclare::MemberVariableDeclare() : CodeElement(CodeElement::MEMBER_VARIABLE_DECLARE) {
@@ -29,6 +34,17 @@ MemberVariableDeclare::~MemberVariableDeclare() {
 	if(this->name){
 		delete this->name;
 	}
+}
+
+
+void MemberVariableDeclare::preAnalyze(AnalyzeContext* actx) {
+	AnalyzedClass* aclass = actx->getAnalyzedClass(this);
+
+
+}
+
+void MemberVariableDeclare::analyze(AnalyzeContext* actx) {
+
 }
 
 void MemberVariableDeclare::setAccessControl(AccessControlDeclare* ctrl) noexcept {

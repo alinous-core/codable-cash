@@ -18,6 +18,9 @@ public:
 	CastExpression();
 	virtual ~CastExpression();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setType(AbstractType* type) noexcept;
 	void setExpression(AbstractExpression* exp) noexcept;
 

@@ -15,6 +15,14 @@ AndExpression::AndExpression() : AbstractBinaryExpression(CodeElement::EXP_AND) 
 AndExpression::~AndExpression() {
 }
 
+void AndExpression::preAnalyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::preAnalyze(actx);
+}
+
+void AndExpression::analyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::analyze(actx);
+}
+
 int AndExpression::binarySize() const {
 	int total = sizeof(uint16_t);
 	total += AbstractBinaryExpression::binarySize();

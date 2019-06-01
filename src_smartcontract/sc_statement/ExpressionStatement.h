@@ -18,6 +18,9 @@ public:
 	ExpressionStatement();
 	virtual ~ExpressionStatement();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setExpression(AbstractExpression* exp) noexcept;
 
 	virtual int binarySize() const;

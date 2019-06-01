@@ -12,6 +12,8 @@
 #include "vm/VirtualMachine.h"
 
 #include "base/Exception.h"
+
+#include "instance_ref/PrimitiveReference.h"
 using namespace alinous;
 
 
@@ -43,6 +45,8 @@ TEST(TestInstanceGroup, constructError){
 
 	CHECK(ex != nullptr)
 	delete ex;
-
 }
 
+TEST(TestInstanceGroup, constructRef){
+	PrimitiveReference ref;
+}

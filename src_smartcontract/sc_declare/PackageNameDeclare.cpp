@@ -12,17 +12,34 @@
 namespace alinous {
 
 PackageNameDeclare::PackageNameDeclare() : CodeElement(CodeElement::PACKAGE_NAME_DECLARE) {
+	this->strName = nullptr;
 
 }
 
 PackageNameDeclare::~PackageNameDeclare() {
 	this->list.deleteElements();
+	delete this->strName;
 }
 
 void PackageNameDeclare::addSegment(UnicodeString* seg) {
 	this->list.addElement(seg);
 }
 
+
+const UnicodeString* PackageNameDeclare::getName() noexcept {
+	if(this->strName == nullptr){
+		this->strName = new UnicodeString(L"");
+
+		this->strName->append(this->list.get(0));
+		int maxLoop = this->list.size();
+		for(int i = 1; i < maxLoop; ++i){
+			this->strName->append(L".");
+			this->strName->append(this->list.get(i));
+		}
+	}
+
+	return this->strName;
+}
 
 int PackageNameDeclare::binarySize() const {
 	int total = sizeof(uint16_t);

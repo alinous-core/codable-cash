@@ -17,6 +17,15 @@ NotExpression::~NotExpression() {
 	delete this->exp;
 }
 
+void NotExpression::preAnalyze(AnalyzeContext* actx) {
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+}
+
+void NotExpression::analyze(AnalyzeContext* actx) {
+	this->exp->analyze(actx);
+}
+
 void NotExpression::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }

@@ -19,6 +19,9 @@ public:
 	IfStatement();
 	virtual ~IfStatement();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setExpression(AbstractExpression* exp) noexcept;
 	void setStatement(AbstractStatement* stmt) noexcept;
 

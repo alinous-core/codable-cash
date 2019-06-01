@@ -18,6 +18,9 @@ public:
 	StatementBlock();
 	virtual ~StatementBlock();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void addStatement(AbstractStatement* stmt) noexcept;
 
 	virtual int binarySize() const;

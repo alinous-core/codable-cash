@@ -18,6 +18,9 @@ public:
 	VariableIdentifier();
 	virtual ~VariableIdentifier();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
 	void setName(UnicodeString* name) noexcept;
 
 	virtual int binarySize() const;
