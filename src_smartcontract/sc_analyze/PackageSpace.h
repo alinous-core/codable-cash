@@ -14,6 +14,7 @@ namespace alinous {
 
 class UnicodeString;
 class ClassDeclare;
+class AnalyzedClass;
 
 class PackageSpace {
 public:
@@ -21,12 +22,12 @@ public:
 	virtual ~PackageSpace();
 
 	void addClassDeclare(ClassDeclare* clazz) noexcept;
-	ClassDeclare* getClass(const UnicodeString* name) noexcept;
+	AnalyzedClass* getClass(const UnicodeString* name) noexcept;
 
 
 private:
 	UnicodeString* name;
-	HashMap<UnicodeString, ClassDeclare>* classes;
+	HashMap<UnicodeString, AnalyzedClass>* classes;
 };
 
 } /* namespace alinous */

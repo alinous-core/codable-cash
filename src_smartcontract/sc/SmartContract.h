@@ -29,6 +29,7 @@ public:
 
 	void setMainMethod(const UnicodeString* mainPackage, const UnicodeString* mainClass, const UnicodeString* mainMethod);
 
+	void createInstance(VirtualMachine* vm);
 
 private:
 	UnicodeString* mainPackage;

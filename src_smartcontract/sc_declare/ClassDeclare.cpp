@@ -33,7 +33,7 @@ void ClassDeclare::preAnalyze(AnalyzeContext* actx) {
 	CompilationUnit* unit = getCompilationUnit();
 	PackageSpace* space = actx->getPackegeSpace(unit->getPackageName());
 
-	ClassDeclare* dec = space->getClass(this->name);
+	AnalyzedClass* dec = space->getClass(this->name);
 	if(dec != nullptr){
 		actx->addValidationError(L"Class is already registered", this);
 

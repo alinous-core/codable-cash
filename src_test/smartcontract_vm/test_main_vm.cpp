@@ -21,7 +21,7 @@ TEST_GROUP(TestVMGroup) {
 
 };
 
-/*
+
 TEST(TestVMGroup, construct){
 	VirtualMachine* vm = new VirtualMachine(1024);
 	delete vm;
@@ -62,7 +62,7 @@ TEST(TestVMGroup, loadAndExec2){
 
 	delete vm;
 }
-*/
+
 TEST(TestVMGroup, loadAndInitInstance){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/resources/main.alns"));
@@ -83,8 +83,10 @@ TEST(TestVMGroup, loadAndInitInstance){
 	vm->loadSmartContract(sc);
 
 	vm->analyze();
+
+
 }
-/*
+
 TEST(TestVMGroup, duplicateClassError){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/resources/main.alns"));
@@ -114,6 +116,8 @@ TEST(TestVMGroup, duplicateClassError){
 	vm->loadSmartContract(sc);
 
 	vm->analyze();
+
+	vm->createScInstance();
 }
-*/
+
 

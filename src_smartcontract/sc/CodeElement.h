@@ -20,6 +20,7 @@ using namespace alinouslang;
 class ByteBuffer;
 class UnicodeString;
 class CompilationUnit;
+class ClassDeclare;
 
 class CodeElement {
 public:
@@ -168,7 +169,8 @@ public:
 	void setParent(CodeElement* parent) noexcept;
 	CodeElement* getParent() noexcept;
 
-	CompilationUnit* getCompilationUnit() noexcept;
+	CompilationUnit* getCompilationUnit();
+	ClassDeclare* getClassDeclare();
 protected:
 	short kind;
 

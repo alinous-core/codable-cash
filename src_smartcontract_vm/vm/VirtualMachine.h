@@ -25,7 +25,7 @@ public:
 	void loadSmartContract(SmartContract* sc);
 	void analyze();
 
-	void initializeSc();
+	void createScInstance();
 	void interpret(const UnicodeString* method);
 
 	VmMemoryManager* getMemory() noexcept;

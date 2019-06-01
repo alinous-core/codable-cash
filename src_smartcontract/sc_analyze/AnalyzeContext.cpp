@@ -11,6 +11,11 @@
 #include "sc_analyze/PackageSpace.h"
 #include "sc_analyze/ValidationError.h"
 
+#include "sc_declare/ClassDeclare.h"
+
+#include "sc/CompilationUnit.h"
+#include "sc/exceptions.h"
+
 namespace alinous {
 
 AnalyzeContext::AnalyzeContext() {
@@ -60,6 +65,18 @@ void AnalyzeContext::addValidationError(const wchar_t* msg, CodeElement* element
 
 bool alinous::AnalyzeContext::hasError() noexcept {
 	return !this->verrorList.isEmpty();
+}
+
+AnalyzedClass* AnalyzeContext::getAnalyzedClass(CodeElement* element) {
+	ClassDeclare* dec = element->getClassDeclare();
+	if(dec == nullptr){
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
+	}
+
+	CompilationUnit* unit = dec->getCompilationUnit();
+	PackageSpace* pkg = getPackegeSpace(unit->getPackageName());
+
+	return pkg->getClass(dec->getName());
 }
 
 } /* namespace alinous */

@@ -18,6 +18,8 @@ class UnicodeString;
 class PackageSpace;
 class ValidationError;
 class CodeElement;
+class AnalyzedClass;
+class ClassDeclare;
 
 class AnalyzeContext {
 public:
@@ -30,6 +32,8 @@ public:
 	void addValidationError(const wchar_t* msg, CodeElement* element) noexcept;
 
 	bool hasError() noexcept;
+
+	AnalyzedClass* getAnalyzedClass(CodeElement* clazz);
 
 private:
 	VirtualMachine* vm;

@@ -588,13 +588,30 @@ CodeElement* CodeElement::getParent() noexcept {
 	return this->parent;
 }
 
-CompilationUnit* CodeElement::getCompilationUnit() noexcept {
+CompilationUnit* CodeElement::getCompilationUnit() {
 	CodeElement* element = this->parent;
 	while(element->kind != CodeElement::COMPILANT_UNIT && element != nullptr){
 		element = element->getParent();
 	}
 
-	return element->kind == CodeElement::COMPILANT_UNIT ? dynamic_cast<CompilationUnit*>(element) : nullptr;
+	if(element == nullptr){
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
+	}
+
+	return dynamic_cast<CompilationUnit*>(element);
+}
+
+ClassDeclare* CodeElement::getClassDeclare() {
+	CodeElement* element = this->parent;
+	while(element->kind != CodeElement::CLASS_DECLARE && element != nullptr){
+		element = element->getParent();
+	}
+
+	if(element == nullptr){
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
+	}
+
+	return dynamic_cast<ClassDeclare*>(element);
 }
 
 } /* namespace alinous */

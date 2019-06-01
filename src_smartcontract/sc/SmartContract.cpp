@@ -11,7 +11,12 @@
 #include "compiler/SmartContractParser.h"
 
 #include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/PackageSpace.h"
+
 #include "base/UnicodeString.h"
+
+#include "sc_declare/ClassDeclare.h"
+
 
 namespace alinous {
 
@@ -63,6 +68,13 @@ void SmartContract::analyze(VirtualMachine* vm) {
 		CompilationUnit* unit = this->progs.get(i);
 		unit->analyze(this->actx);
 	}
+}
+
+void SmartContract::createInstance(VirtualMachine* vm) {
+	PackageSpace* space = this->actx->getPackegeSpace(this->mainPackage);
+	//ClassDeclare* dec = space->getClass(this->mainClass);
+
+
 }
 
 } /* namespace alinous */
