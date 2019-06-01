@@ -30,6 +30,8 @@ public:
 	void setStatic(bool s) noexcept;
 	void setName(UnicodeString* name) noexcept;
 
+	const UnicodeString* getName() noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);

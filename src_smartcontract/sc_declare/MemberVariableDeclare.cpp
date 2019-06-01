@@ -39,8 +39,7 @@ MemberVariableDeclare::~MemberVariableDeclare() {
 
 void MemberVariableDeclare::preAnalyze(AnalyzeContext* actx) {
 	AnalyzedClass* aclass = actx->getAnalyzedClass(this);
-
-
+	aclass->addMemberVariableDeclare(this);
 }
 
 void MemberVariableDeclare::analyze(AnalyzeContext* actx) {
@@ -63,6 +62,9 @@ void MemberVariableDeclare::setName(UnicodeString* name) noexcept {
 	this->name = name;
 }
 
+const UnicodeString* MemberVariableDeclare::getName() noexcept {
+	return this->name;
+}
 
 int MemberVariableDeclare::binarySize() const {
 	checkNotNull(this->ctrl);
