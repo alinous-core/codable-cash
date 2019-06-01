@@ -22,14 +22,14 @@ public:
 	virtual void preAnalyze(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
-	void setVariableId(VariableIdentifier* variable) noexcept;
+	void setVariableId(AbstractExpression* variable) noexcept;
 	void setExpression(AbstractExpression* exp) noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
 private:
-	VariableIdentifier* variable;
+	AbstractExpression* variable;
 	AbstractExpression* exp;
 
 };

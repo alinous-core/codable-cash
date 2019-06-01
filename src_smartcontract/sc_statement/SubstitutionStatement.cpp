@@ -29,7 +29,7 @@ void SubstitutionStatement::analyze(AnalyzeContext* actx) {
 	// FIXME
 }
 
-void SubstitutionStatement::setVariableId(VariableIdentifier* variable) noexcept {
+void SubstitutionStatement::setVariableId(AbstractExpression* variable) noexcept {
 	this->variable = variable;
 }
 

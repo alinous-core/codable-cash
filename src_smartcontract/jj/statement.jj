@@ -11,7 +11,7 @@ AbstractStatement* statement() : {
 		stmt=statementBlock() |
 		LOOKAHEAD(2) stmt=substitutionStatement() |
 		stmt=variableDeclareStatement() |
-		stmt=expressionStatement() |
+		//stmt=expressionStatement() |
 		stmt=ctrlStatement() |
 		stmt=blankStatement() |
 		stmt=ddlStatement() |
@@ -60,27 +60,37 @@ VariableDeclareStatement* variableDeclareStatement() : {
 	}	
 }
 
-SubstitutionStatement* substitutionStatement() : {
-	SubstitutionStatement* stmt = new SubstitutionStatement();
-	VariableIdentifier* valId = nullptr;
+AbstractStatement* substitutionStatement() : {
+	AbstractStatement* stmt = nullptr;
+	
+	AbstractExpression* first = nullptr;
 	AbstractExpression* exp = nullptr;
 	Token* t = nullptr;
 }
 {
-	valId=variableIdentifier() {
-		stmt->setVariableId(valId);
-		stmt->setPosition(valId);
-	}
-	t="=" {
-		stmt->setPosition(t);
-	}
-	
-	exp=expression() {
-		stmt->setExpression(exp);
-		stmt->setPosition(exp);
-	}
+	first=expression()
+	[
+		t="="		
+		exp=expression()
+	]
 	
 	t=";" {
+		if(exp != nullptr){
+			SubstitutionStatement* sstmt = new SubstitutionStatement();
+			stmt = sstmt;
+			sstmt->setVariableId(first);
+			sstmt->setPosition(first);
+			
+			sstmt->setExpression(exp);
+			sstmt->setPosition(exp);
+		}
+		else{
+		 	ExpressionStatement* exstmt = new ExpressionStatement();
+			stmt = exstmt;
+			exstmt->setExpression(first);
+			exstmt->setPosition(first);
+		}		
+		
 		stmt->setPosition(t);
 	}
 	
@@ -132,7 +142,7 @@ StatementBlock* statementBlock() : {
 	}
 }
 
-
+/*
 ExpressionStatement* expressionStatement() : {
 	ExpressionStatement* stmt = new ExpressionStatement();
 	Token* t = nullptr;
@@ -151,5 +161,5 @@ ExpressionStatement* expressionStatement() : {
 		return stmt;
 	}
 }
-
+*/
 
