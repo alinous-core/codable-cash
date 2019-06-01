@@ -619,7 +619,12 @@ TableIdentifier               * tableIdentifier();
  inline bool jj_3R_42()
  {
     if (jj_done) return true;
-    if (jj_scan_token(IDENTIFIER)) return true;
+    Token * xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(181)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(88)) return true;
+    }
     return false;
   }
 
@@ -1148,7 +1153,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[95];
+  int           jj_la1[96];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 

@@ -2019,7 +2019,7 @@ VariableIdentifier* variableIdentifier() : {
 	Token* t = nullptr;
 }
 {
-	t=<IDENTIFIER> {
+	(t=<IDENTIFIER> | t="this") {
 		valId->setName(_STR(t));
 	}
 	{
