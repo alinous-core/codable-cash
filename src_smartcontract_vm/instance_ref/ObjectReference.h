@@ -14,7 +14,7 @@ namespace alinous {
 
 class ObjectReference : public AbstractReference {
 public:
-	ObjectReference(uint8_t type);
+	explicit ObjectReference(uint8_t type);
 	virtual ~ObjectReference();
 };
 

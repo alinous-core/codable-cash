@@ -14,7 +14,7 @@ namespace alinous {
 
 class PrimitiveReference : public AbstractReference {
 public:
-	PrimitiveReference(uint8_t type);
+	explicit PrimitiveReference(uint8_t type);
 	virtual ~PrimitiveReference();
 
 private:

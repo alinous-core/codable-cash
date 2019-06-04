@@ -15,7 +15,7 @@ namespace alinous {
 
 class AbstractReference : public AbstractVmInstance {
 public:
-	AbstractReference(uint8_t type);
+	explicit AbstractReference(uint8_t type);
 	virtual ~AbstractReference();
 };
 
