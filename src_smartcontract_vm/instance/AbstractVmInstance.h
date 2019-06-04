@@ -21,6 +21,15 @@ public:
 	static constexpr uint8_t INST_BIG_INT{3};
 	static constexpr uint8_t INST_ARRAY{4};
 
+
+	static constexpr uint8_t REF_OBJ{101};
+	static constexpr uint8_t REF_BYTE{102};
+	static constexpr uint8_t REF_CHAR{103};
+	static constexpr uint8_t REF_SHORT{104};
+	static constexpr uint8_t REF_INT{105};
+	static constexpr uint8_t REF_LONG{106};
+
+
 	explicit AbstractVmInstance(uint8_t type);
 	virtual ~AbstractVmInstance();
 

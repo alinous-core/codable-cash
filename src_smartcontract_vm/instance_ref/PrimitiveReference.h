@@ -8,12 +8,16 @@
 #ifndef INSTANCE_REF_PRIMITIVEREFERENCE_H_
 #define INSTANCE_REF_PRIMITIVEREFERENCE_H_
 
+#include "instance_ref/AbstractReference.h"
+
 namespace alinous {
 
-class PrimitiveReference {
+class PrimitiveReference : public AbstractReference {
 public:
-	PrimitiveReference();
+	PrimitiveReference(uint8_t type);
 	virtual ~PrimitiveReference();
+
+private:
 };
 
 } /* namespace alinous */

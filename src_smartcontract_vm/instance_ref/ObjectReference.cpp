@@ -9,13 +9,12 @@
 
 namespace alinous {
 
-ObjectReference::ObjectReference() {
-	// TODO Auto-generated constructor stub
+ObjectReference::ObjectReference(uint8_t type) : AbstractReference(type) {
 
 }
 
 ObjectReference::~ObjectReference() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */

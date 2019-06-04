@@ -48,5 +48,5 @@ TEST(TestInstanceGroup, constructError){
 }
 
 TEST(TestInstanceGroup, constructRef){
-	PrimitiveReference ref;
+	PrimitiveReference ref(PrimitiveReference::REF_BYTE);
 }

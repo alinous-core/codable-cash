@@ -8,11 +8,13 @@
 #ifndef INSTANCE_REF_OBJECTREFERENCE_H_
 #define INSTANCE_REF_OBJECTREFERENCE_H_
 
+#include "instance_ref/AbstractReference.h"
+
 namespace alinous {
 
-class ObjectReference {
+class ObjectReference : public AbstractReference {
 public:
-	ObjectReference();
+	ObjectReference(uint8_t type);
 	virtual ~ObjectReference();
 };
 

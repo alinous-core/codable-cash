@@ -9,13 +9,12 @@
 
 namespace alinous {
 
-PrimitiveReference::PrimitiveReference() {
-	// TODO Auto-generated constructor stub
+PrimitiveReference::PrimitiveReference(uint8_t type) : AbstractReference(type) {
 
 }
 
 PrimitiveReference::~PrimitiveReference() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */

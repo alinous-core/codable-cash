@@ -9,13 +9,12 @@
 
 namespace alinous {
 
-AbstractReference::AbstractReference() {
-	// TODO Auto-generated constructor stub
+AbstractReference::AbstractReference(uint8_t type) : AbstractVmInstance(type) {
 
 }
 
 AbstractReference::~AbstractReference() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */
