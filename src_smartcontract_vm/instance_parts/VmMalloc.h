@@ -14,7 +14,7 @@ class VirtualMachine;
 
 class VmMalloc {
 public:
-	VmMalloc(VirtualMachine* vm);
+	explicit VmMalloc(VirtualMachine* vm);
 	virtual ~VmMalloc();
 
 	void* mallocPtrArray(int size);
