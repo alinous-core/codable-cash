@@ -17,4 +17,10 @@ PrimitiveReference::~PrimitiveReference() {
 
 }
 
+PrimitiveReference* PrimitiveReference::createIntReference(VirtualMachine* vm) {
+	PrimitiveReference* ref = new(vm) PrimitiveReference(AbstractVmInstance::REF_INT);
+
+	return ref;
+}
+
 } /* namespace alinous */

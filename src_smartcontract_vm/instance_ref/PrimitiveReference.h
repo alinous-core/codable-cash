@@ -17,6 +17,7 @@ public:
 	explicit PrimitiveReference(uint8_t type);
 	virtual ~PrimitiveReference();
 
+	static PrimitiveReference* createIntReference(VirtualMachine* vm);
 private:
 };
 

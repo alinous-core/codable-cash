@@ -16,6 +16,7 @@ class UnicodeString;
 class VmInstanceStack;
 class SmartContract;
 class VmMemoryManager;
+class VmMalloc;
 
 class VirtualMachine {
 public:
@@ -29,12 +30,14 @@ public:
 	void interpret(const UnicodeString* method);
 
 	VmMemoryManager* getMemory() noexcept;
+	VmMalloc* getAlloc() noexcept;
 
 private:
 	VmInstanceStack* stack;
 	SmartContract* sc;
 
 	VmMemoryManager* memory;
+	VmMalloc* alloc;
 };
 
 } /* namespace alinous */

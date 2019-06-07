@@ -22,7 +22,7 @@ VmMalloc::~VmMalloc() {
 }
 
 void* VmMalloc::mallocPtrArray(int size) {
-	uint64_t mallocSize = size + sizeof(uint32_t);
+	uint64_t mallocSize = size;
 
 	VmMemoryManager* mem = this->vm->getMemory();
 	void* p = mem->malloc(mallocSize);
