@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-VmClassInstance::VmClassInstance() : AbstractVmInstance(AbstractVmInstance::ISNT_OBJ){
+VmClassInstance::VmClassInstance(AnalyzedClass* clazz) : AbstractVmInstance(AbstractVmInstance::ISNT_OBJ), clazz(clazz) {
 
 }
 

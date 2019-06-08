@@ -7,15 +7,25 @@
 
 #include "instance_gc/GcManager.h"
 
+#include "instance/AbstractVmInstance.h"
+
 namespace alinous {
 
 GcManager::GcManager() {
-	// TODO Auto-generated constructor stub
+	this->mainInst = nullptr;
 
 }
 
 GcManager::~GcManager() {
-	// TODO Auto-generated destructor stub
+	delete this->mainInst;
+}
+
+void GcManager::addReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept {
+	// FIXME
+}
+
+void GcManager::removeReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept {
+	// FIXME
 }
 
 } /* namespace alinous */

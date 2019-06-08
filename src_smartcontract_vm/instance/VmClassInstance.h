@@ -12,13 +12,15 @@
 
 namespace alinous {
 
+class AnalyzedClass;
+
 class VmClassInstance : public AbstractVmInstance {
 public:
-	VmClassInstance();
+	VmClassInstance(AnalyzedClass* clazz);
 	virtual ~VmClassInstance();
 
 private:
-
+	AnalyzedClass* const clazz;
 };
 
 } /* namespace alinous */

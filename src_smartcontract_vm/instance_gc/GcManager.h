@@ -10,10 +10,19 @@
 
 namespace alinous {
 
+class AbstractVmInstance;
+
 class GcManager {
 public:
 	GcManager();
 	virtual ~GcManager();
+
+	void addReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept;
+	void removeReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept;
+
+private:
+	AbstractVmInstance* mainInst;
+
 };
 
 } /* namespace alinous */
