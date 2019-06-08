@@ -29,7 +29,7 @@ TEST(TestInstanceGroup, construct){
 	VirtualMachine vm(1024);
 	AnalyzedClass clazz(nullptr);
 
-	VmClassInstance* inst = new(&vm) VmClassInstance(&clazz);
+	VmClassInstance* inst = new(&vm) VmClassInstance(&clazz, &vm);
 	delete inst;
 }
 
@@ -40,7 +40,7 @@ TEST(TestInstanceGroup, constructError){
 	VmClassInstance* inst = nullptr;
 	Exception* ex = nullptr;
 	try {
-		inst = new(&vm) VmClassInstance(&clazz);
+		inst = new(&vm) VmClassInstance(&clazz, &vm);
 	}
 	catch(Exception* e){
 		ex = e;

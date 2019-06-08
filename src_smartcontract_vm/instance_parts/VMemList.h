@@ -14,6 +14,7 @@
 
 #include "instance_parts/VmMalloc.h"
 
+#include "vm/VirtualMachine.h"
 namespace alinous {
 
 #define DEFAULT_VMMEM_ARRAY_SIZE 64
@@ -25,7 +26,7 @@ public:
 
 	VMemList(const VMemList& list) = delete;
 
-	VMemList(VirtualMachine* vm) : numArray(0), currentSize(DEFAULT_RAW_ARRAY_SIZE),
+	explicit VMemList(VirtualMachine* vm) : numArray(0), currentSize(DEFAULT_VMMEM_ARRAY_SIZE),
 			//root(new ElementType[this->currentSize * sizeof(ElementType)]), cursor(root),
 			sorted(false),
 			compareFunctor() {
