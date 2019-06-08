@@ -11,6 +11,7 @@
 
 #include "memory/VmMemoryManager.h"
 #include "instance_parts/VmMalloc.h"
+#include "instance_gc/GcManager.h"
 
 namespace alinous {
 
@@ -19,6 +20,7 @@ VirtualMachine::VirtualMachine(uint64_t memCapacity) {
 	this->sc = nullptr;
 	this->memory = new VmMemoryManager(memCapacity);
 	this->alloc = new VmMalloc(this);
+	this->gc = new GcManager();
 }
 
 VirtualMachine::~VirtualMachine() {
@@ -26,6 +28,7 @@ VirtualMachine::~VirtualMachine() {
 	delete this->stack;
 	delete this->memory;
 	delete this->alloc;
+	delete this->gc;
 }
 
 void VirtualMachine::loadSmartContract(SmartContract* sc) {

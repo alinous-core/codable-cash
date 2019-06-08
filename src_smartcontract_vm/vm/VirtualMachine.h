@@ -17,6 +17,7 @@ class VmInstanceStack;
 class SmartContract;
 class VmMemoryManager;
 class VmMalloc;
+class GcManager;
 
 class VirtualMachine {
 public:
@@ -38,6 +39,7 @@ private:
 
 	VmMemoryManager* memory;
 	VmMalloc* alloc;
+	GcManager* gc;
 };
 
 } /* namespace alinous */

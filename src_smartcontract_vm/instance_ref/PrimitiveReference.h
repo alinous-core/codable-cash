@@ -17,8 +17,13 @@ public:
 	explicit PrimitiveReference(uint8_t type);
 	virtual ~PrimitiveReference();
 
-	static PrimitiveReference* createIntReference(VirtualMachine* vm);
+	static PrimitiveReference* createIntReference(VirtualMachine* vm, int32_t value);
+
+
+	int32_t getIntValue() noexcept;
+	void setIntValue(int32_t value) noexcept;
 private:
+	void* data;
 };
 
 } /* namespace alinous */
