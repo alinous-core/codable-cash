@@ -22,6 +22,10 @@ public:
 	VmClassInstance(AnalyzedClass* clazz, VirtualMachine* vm);
 	virtual ~VmClassInstance();
 
+	static VmClassInstance* createObject(AnalyzedClass* clazz, VirtualMachine* vm);
+
+	void init(VirtualMachine* vm);
+
 private:
 	AnalyzedClass* const clazz;
 	VMemList<AbstractReference> members;

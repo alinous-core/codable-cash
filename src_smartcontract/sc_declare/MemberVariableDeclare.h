@@ -31,6 +31,7 @@ public:
 	void setName(UnicodeString* name) noexcept;
 
 	const UnicodeString* getName() noexcept;
+	AbstractType* getType() noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

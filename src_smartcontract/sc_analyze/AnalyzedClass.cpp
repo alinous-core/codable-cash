@@ -31,7 +31,7 @@ AnalyzedClass::~AnalyzedClass() {
 
 void AnalyzedClass::addMemberVariableDeclare(MemberVariableDeclare* member) {
 	this->variables->put(member->getName(), member);
-
+	this->variablesList.addElement(member);
 }
 
 void AnalyzedClass::addMemberMethodDeclare(MethodDeclare* method) {
@@ -41,6 +41,10 @@ void AnalyzedClass::addMemberMethodDeclare(MethodDeclare* method) {
 	}
 
 	this->methods->put(method->getName(), method);
+}
+
+ArrayList<MemberVariableDeclare>* AnalyzedClass::getMemberVariableDeclareList() noexcept {
+	return &this->variablesList;
 }
 
 MethodDeclare* AnalyzedClass::getDefaultConstructor() noexcept {

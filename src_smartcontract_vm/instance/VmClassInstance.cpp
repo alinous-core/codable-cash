@@ -10,6 +10,13 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "sc_analyze/AnalyzedClass.h"
+#include "sc_declare/MemberVariableDeclare.h"
+
+#include "base/ArrayList.h"
+
+#include "instance_ref/RefereceFactory.h"
+
 namespace alinous {
 
 VmClassInstance::VmClassInstance(AnalyzedClass* clazz, VirtualMachine* vm) :
@@ -18,6 +25,26 @@ VmClassInstance::VmClassInstance(AnalyzedClass* clazz, VirtualMachine* vm) :
 }
 
 VmClassInstance::~VmClassInstance() {
+}
+
+VmClassInstance* VmClassInstance::createObject(AnalyzedClass* clazz, VirtualMachine* vm) {
+	VmClassInstance* inst = new(vm) VmClassInstance(clazz, vm);
+	inst->init(vm);
+
+	return inst;
+}
+
+void VmClassInstance::init(VirtualMachine* vm) {
+	ArrayList<MemberVariableDeclare>* list = this->clazz->getMemberVariableDeclareList();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		MemberVariableDeclare* dec = list->get(i);
+
+		AbstractReference* ref = RefereceFactory::createReferenceFromDefinition(dec);
+		// FIXME reference
+	}
+
 }
 
 } /* namespace alinous */

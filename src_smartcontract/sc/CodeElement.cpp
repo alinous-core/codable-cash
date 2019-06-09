@@ -601,6 +601,10 @@ CompilationUnit* CodeElement::getCompilationUnit() {
 	return dynamic_cast<CompilationUnit*>(element);
 }
 
+short CodeElement::getKind() noexcept {
+	return this->kind;
+}
+
 ClassDeclare* CodeElement::getClassDeclare() {
 	CodeElement* element = this->parent;
 	while(element->kind != CodeElement::CLASS_DECLARE && element != nullptr){

@@ -24,6 +24,7 @@ public:
 	virtual ~AnalyzedClass();
 
 	void addMemberVariableDeclare(MemberVariableDeclare* member);
+	ArrayList<MemberVariableDeclare>* getMemberVariableDeclareList() noexcept;
 	void addMemberMethodDeclare(MethodDeclare* method);
 
 	MethodDeclare* getDefaultConstructor() noexcept;
@@ -31,6 +32,7 @@ private:
 	ClassDeclare* clazz;
 
 	HashMap<UnicodeString, MemberVariableDeclare>* variables;
+	ArrayList<MemberVariableDeclare> variablesList;
 
 	ArrayList<MethodDeclare>* constructors;
 	HashMap<UnicodeString, MethodDeclare>* methods;

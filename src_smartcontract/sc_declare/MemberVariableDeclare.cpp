@@ -66,6 +66,10 @@ const UnicodeString* MemberVariableDeclare::getName() noexcept {
 	return this->name;
 }
 
+AbstractType* MemberVariableDeclare::getType() noexcept {
+	return this->type;
+}
+
 int MemberVariableDeclare::binarySize() const {
 	checkNotNull(this->ctrl);
 	checkNotNull(this->type);

@@ -76,7 +76,10 @@ void SmartContract::createInstance(VirtualMachine* vm) {
 	PackageSpace* space = this->actx->getPackegeSpace(this->mainPackage);
 	AnalyzedClass* clazz = space->getClass(this->mainClass);
 
+
+
 	MethodDeclare* defConstructor = clazz->getDefaultConstructor();
+
 
 
 }

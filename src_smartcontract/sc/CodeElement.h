@@ -166,6 +166,8 @@ public:
 	static void checkIsSQLExp(CodeElement* element);
 	static void checkIsJoinPart(CodeElement* element);
 
+	short getKind() noexcept;
+
 	void setParent(CodeElement* parent) noexcept;
 	CodeElement* getParent() noexcept;
 
