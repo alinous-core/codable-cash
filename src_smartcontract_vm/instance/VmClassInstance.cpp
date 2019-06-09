@@ -25,6 +25,11 @@ VmClassInstance::VmClassInstance(AnalyzedClass* clazz, VirtualMachine* vm) :
 }
 
 VmClassInstance::~VmClassInstance() {
+	int maxLoop = this->members.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractReference* ref = this->members.get(i);
+		delete ref;
+	}
 }
 
 VmClassInstance* VmClassInstance::createObject(AnalyzedClass* clazz, VirtualMachine* vm) {
@@ -41,8 +46,8 @@ void VmClassInstance::init(VirtualMachine* vm) {
 	for(int i = 0; i != maxLoop; ++i){
 		MemberVariableDeclare* dec = list->get(i);
 
-		AbstractReference* ref = RefereceFactory::createReferenceFromDefinition(dec);
-		// FIXME reference
+		AbstractReference* ref = RefereceFactory::createReferenceFromDefinition(dec, vm);
+		this->members.addElement(ref);
 	}
 
 }

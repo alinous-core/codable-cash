@@ -28,4 +28,8 @@ void GcManager::removeReference(AbstractVmInstance* owner, AbstractVmInstance* r
 	// FIXME
 }
 
+void GcManager::setMainInstance(AbstractVmInstance* mainInst) noexcept {
+	this->mainInst = mainInst;
+}
+
 } /* namespace alinous */

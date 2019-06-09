@@ -19,6 +19,8 @@
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/MethodDeclare.h"
 
+#include "instance/VmClassInstance.h"
+#include "instance_gc/GcManager.h"
 
 namespace alinous {
 
@@ -76,12 +78,12 @@ void SmartContract::createInstance(VirtualMachine* vm) {
 	PackageSpace* space = this->actx->getPackegeSpace(this->mainPackage);
 	AnalyzedClass* clazz = space->getClass(this->mainClass);
 
-
-
 	MethodDeclare* defConstructor = clazz->getDefaultConstructor();
 
+	VmClassInstance* inst = VmClassInstance::createObject(clazz, vm);
 
-
+	GcManager* gc = vm->getGc();
+	gc->setMainInstance(inst);
 }
 
 } /* namespace alinous */

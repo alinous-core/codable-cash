@@ -32,6 +32,7 @@ public:
 
 	VmMemoryManager* getMemory() noexcept;
 	VmMalloc* getAlloc() noexcept;
+	GcManager* getGc() noexcept;
 
 private:
 	VmInstanceStack* stack;

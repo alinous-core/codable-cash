@@ -11,10 +11,11 @@
 namespace alinous {
 class AbstractReference;
 class MemberVariableDeclare;
+class VirtualMachine;
 
 class RefereceFactory {
 public:
-	static AbstractReference* createReferenceFromDefinition(MemberVariableDeclare* dec);
+	static AbstractReference* createReferenceFromDefinition(MemberVariableDeclare* dec, VirtualMachine* vm);
 
 private:
 

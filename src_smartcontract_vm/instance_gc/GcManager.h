@@ -20,6 +20,7 @@ public:
 	void addReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept;
 	void removeReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept;
 
+	void setMainInstance(AbstractVmInstance* mainInst) noexcept;
 private:
 	AbstractVmInstance* mainInst;
 

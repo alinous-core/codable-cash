@@ -24,11 +24,13 @@ VirtualMachine::VirtualMachine(uint64_t memCapacity) {
 }
 
 VirtualMachine::~VirtualMachine() {
+	delete this->gc;
+
 	delete this->sc;
 	delete this->stack;
+
 	delete this->memory;
 	delete this->alloc;
-	delete this->gc;
 }
 
 void VirtualMachine::loadSmartContract(SmartContract* sc) {
@@ -54,6 +56,10 @@ VmMalloc* VirtualMachine::getAlloc() noexcept {
 
 void VirtualMachine::analyze() {
 	this->sc->analyze(this);
+}
+
+GcManager* VirtualMachine::getGc() noexcept {
+	return this->gc;
 }
 
 } /* namespace alinous */
