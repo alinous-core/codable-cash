@@ -22,18 +22,22 @@ AbstractReference* RefereceFactory::createReferenceFromDefinition(MemberVariable
 
 	switch(kind){
 	case CodeElement::TYPE_BYTE:
-
+		ref = PrimitiveReference::createByteReference(vm, 0);
 		break;
 	case CodeElement::TYPE_CHAR:
+		ref = PrimitiveReference::createCharReference(vm, 0);
 		break;
 	case CodeElement::TYPE_SHORT:
+		ref = PrimitiveReference::createShortReference(vm, 0);
 		break;
 	case CodeElement::TYPE_INT:
 		ref = PrimitiveReference::createIntReference(vm, 0);
 		break;
 	case CodeElement::TYPE_LONG:
+		ref = PrimitiveReference::createLongReference(vm, 0);
 		break;
 	case CodeElement::TYPE_OBJECT:
+		// FIXME object referenec
 		break;
 	default:
 		break;
