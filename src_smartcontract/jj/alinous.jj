@@ -164,6 +164,7 @@ TOKEN :
 | <CLASS_INTERFACE: "interface">
 | < ABSTRACT: "abstract" >
 | < BREAK: "break" >
+| < BYTE: "byte" >
 | < CHAR: "char" >
 | < SHORT: "short" >
 | < INT: "int" >
@@ -666,7 +667,9 @@ AbstractType* typeDeclare() : {
 	AbstractType* dec = nullptr;
 }
 {
-	(		dec=charType()
+	(
+		dec=byteType()
+		|		dec=charType()
 		|
 		dec=shortType()
 		|
@@ -717,6 +720,20 @@ ObjectType* objectType() : {
 		__ONERROR(dec);
 		return dec;
 	 }
+}
+
+ByteType* byteType() : {
+	ByteType* dec = new ByteType();
+	Token* t=nullptr;
+}
+{
+	t="byte" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
 }
 
 CharType* charType() : {

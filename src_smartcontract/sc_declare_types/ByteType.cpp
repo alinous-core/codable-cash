@@ -22,7 +22,7 @@ int ByteType::binarySize() const {
 }
 
 void ByteType::toBinary(ByteBuffer* out) {
-	out->putShort(CodeElement::TYPE_CHAR);
+	out->putShort(CodeElement::TYPE_BYTE);
 }
 
 void ByteType::fromBinary(ByteBuffer* in) {

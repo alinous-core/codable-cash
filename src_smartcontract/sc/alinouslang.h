@@ -22,6 +22,7 @@
 #include "sc_declare/PackageDeclare.h"
 #include "sc_declare/PackageNameDeclare.h"
 
+#include "sc_declare_types/ByteType.h"
 #include "sc_declare_types/CharType.h"
 #include "sc_declare_types/ShortType.h"
 #include "sc_declare_types/IntType.h"

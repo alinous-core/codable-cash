@@ -28,6 +28,7 @@
 #include "sc_declare_types/LongType.h"
 #include "sc_declare_types/StringType.h"
 #include "sc_declare_types/VoidType.h"
+#include "sc_declare_types/ObjectType.h"
 
 #include "sc_statement/StatementBlock.h"
 #include "sc_statement/VariableDeclareStatement.h"
@@ -243,6 +244,9 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		break;
 	case TYPE_VOID:
 		element = new VoidType();
+		break;
+	case TYPE_OBJECT:
+		element = new ObjectType();
 		break;
 
 	case STMT_BLOCK:

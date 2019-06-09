@@ -2,9 +2,12 @@
 package test.fw;
 
 class HelloWorld {
+	public byte val;
 	public int val;
 	public static char valchar;
 	public short valshort;
 	public long vallong;
 	public String valstr;
+	public TestClass clazz;
+	public org.alinous.TestClass clazz;
 }
