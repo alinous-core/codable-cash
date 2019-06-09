@@ -7,6 +7,7 @@ set(__src
 	CharType.cpp
 	IntType.cpp
 	LongType.cpp
+	ObjectType.cpp
 	ShortType.cpp
 	StringType.cpp
 	VoidType.cpp

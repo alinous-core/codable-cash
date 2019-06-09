@@ -15,6 +15,8 @@ AbstractType* typeDeclare() : {
 		dec=stringType()
 		|
 		dec=voidType()
+		|
+		dec=objectType()
 	)
 	{
 	}
@@ -22,6 +24,37 @@ AbstractType* typeDeclare() : {
 		__ONERROR(dec);
 		return dec;
 	}
+}
+
+ObjectType* objectType() : {
+	ObjectType* dec = new ObjectType();
+	PackageNameDeclare* packageName = nullptr;
+	Token* t=nullptr;
+}
+{
+	(LOOKAHEAD(2)
+		 t=< IDENTIFIER > {
+		 	if(packageName == nullptr){
+		 		packageName = new PackageNameDeclare();
+		 		dec->setPackageName(packageName);
+		 	}
+		 	
+		 	dec->setPosition(t);
+		 	packageName->setPosition(t);
+		 	packageName->addSegment(_STR(t));
+		 }
+		 t="." {
+		 	dec->setPosition(t);
+		 }
+	)*
+	 t=< IDENTIFIER > {
+	 	dec->setName(_STR(t));
+	 	dec->setPosition(t);
+	 }
+	 {
+		__ONERROR(dec);
+		return dec;
+	 }
 }
 
 CharType* charType() : {

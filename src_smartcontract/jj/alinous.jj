@@ -8,6 +8,7 @@ FORCE_LA_CHECK = false;
 ERROR_REPORTING = true;
 PARSER_INCLUDES = "sc/alinouslang.h";
 //STATIC = false; // ignored by c++
+DEBUG_PARSER=false;
 }
 
 PARSER_BEGIN(AlinousLang)
@@ -471,20 +472,27 @@ ClassDeclareBlock* classDeclareBlock() :
 	(
 		ctrl=accessControlDeclare() {
 	    }
-
-		[
-			t="static" {
-			    _static=true;
-			}
-		]
-
-		[
-			type=typeDeclare() {
-			}
-		]
-	
-		t=< IDENTIFIER > {
-		}
+		
+		(LOOKAHEAD(2)
+			(
+				[
+					t="static" {
+					    _static=true;
+					}
+				]
+		
+				[LOOKAHEAD(2)
+					type=typeDeclare() {
+					}
+				]
+			
+				t=< IDENTIFIER >
+			)
+			|
+			(
+				t=< IDENTIFIER > // constructor
+			)	
+		)
 
 		(			method=methodDeclare(ctrl, _static, type, t) {
 				block->addMethod(method);
@@ -669,6 +677,8 @@ AbstractType* typeDeclare() : {
 		dec=stringType()
 		|
 		dec=voidType()
+		|
+		dec=objectType()
 	)
 	{
 	}
@@ -676,6 +686,37 @@ AbstractType* typeDeclare() : {
 		__ONERROR(dec);
 		return dec;
 	}
+}
+
+ObjectType* objectType() : {
+	ObjectType* dec = new ObjectType();
+	PackageNameDeclare* packageName = nullptr;
+	Token* t=nullptr;
+}
+{
+	(LOOKAHEAD(2)
+		 t=< IDENTIFIER > {
+		 	if(packageName == nullptr){
+		 		packageName = new PackageNameDeclare();
+		 		dec->setPackageName(packageName);
+		 	}
+		 	
+		 	dec->setPosition(t);
+		 	packageName->setPosition(t);
+		 	packageName->addSegment(_STR(t));
+		 }
+		 t="." {
+		 	dec->setPosition(t);
+		 }
+	)*
+	 t=< IDENTIFIER > {
+	 	dec->setName(_STR(t));
+	 	dec->setPosition(t);
+	 }
+	 {
+		__ONERROR(dec);
+		return dec;
+	 }
 }
 
 CharType* charType() : {
@@ -1768,32 +1809,34 @@ AbstractExpression* castExpression() : {
 	AbstractExpression* right = nullptr;
 }
 {
-	[LOOKAHEAD(2)
-		t="(" {
-			exp = new CastExpression();
-			exp->setPosition(t);
-			left = exp;
-		}
-		
-		type=typeDeclare() {
-			exp->setType(type);
-			exp->setPosition(type);
-		}
-		
-		t=")" {
-			exp->setPosition(t);
-		}
-	]
-	
-	right=memberReferenceExpression() {
-		if(left==nullptr){
-			left = right;
-		}
-		else{
-			exp->setExpression(right);
-			exp->setPosition(right);
-		}
-	}
+	(LOOKAHEAD(3)
+		(
+			t="(" {
+				exp = new CastExpression();
+				exp->setPosition(t);
+				left = exp;
+			}
+			
+			type=typeDeclare() {
+				exp->setType(type);
+				exp->setPosition(type);
+			}
+			
+			t=")" {
+				exp->setPosition(t);
+			}
+			right=memberReferenceExpression() {
+				exp->setExpression(right);
+				exp->setPosition(right);
+			}
+		)
+		|
+		(
+			right=memberReferenceExpression() {
+				left = right;
+			}
+		)
+	)
 	
 	{
 		__ONERROR(left);
@@ -1957,6 +2000,7 @@ AllocationExpression* allocationExpression() : {
 		 	
 		 	exp->setPosition(t);
 		 	packageName->setPosition(t);
+		 	packageName->addSegment(_STR(t));
 		 }
 		 t="." {
 		 	exp->setPosition(t);

@@ -125,20 +125,27 @@ ClassDeclareBlock* classDeclareBlock() :
 	(
 		ctrl=accessControlDeclare() {
 	    }
-
-		[
-			t="static" {
-			    _static=true;
-			}
-		]
-
-		[
-			type=typeDeclare() {
-			}
-		]
-	
-		t=< IDENTIFIER > {
-		}
+		
+		(LOOKAHEAD(2)
+			(
+				[
+					t="static" {
+					    _static=true;
+					}
+				]
+		
+				[LOOKAHEAD(2)
+					type=typeDeclare() {
+					}
+				]
+			
+				t=< IDENTIFIER >
+			)
+			|
+			(
+				t=< IDENTIFIER > // constructor
+			)	
+		)
 
 		(			method=methodDeclare(ctrl, _static, type, t) {
 				block->addMethod(method);
