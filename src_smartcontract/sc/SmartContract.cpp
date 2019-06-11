@@ -84,6 +84,8 @@ void SmartContract::createInstance(VirtualMachine* vm) {
 
 	GcManager* gc = vm->getGc();
 	gc->setMainInstance(inst);
+
+
 }
 
 } /* namespace alinous */

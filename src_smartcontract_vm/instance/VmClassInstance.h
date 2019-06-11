@@ -24,6 +24,8 @@ public:
 
 	static VmClassInstance* createObject(AnalyzedClass* clazz, VirtualMachine* vm);
 
+
+private:
 	void init(VirtualMachine* vm);
 
 private:

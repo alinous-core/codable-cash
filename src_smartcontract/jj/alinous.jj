@@ -164,6 +164,7 @@ TOKEN :
 | <CLASS_INTERFACE: "interface">
 | < ABSTRACT: "abstract" >
 | < BREAK: "break" >
+| < BOOLEAN: "boolean" >
 | < BYTE: "byte" >
 | < CHAR: "char" >
 | < SHORT: "short" >
@@ -668,6 +669,8 @@ AbstractType* typeDeclare() : {
 }
 {
 	(
+		dec=boolType()
+		|
 		dec=byteType()
 		|		dec=charType()
 		|
@@ -720,6 +723,20 @@ ObjectType* objectType() : {
 		__ONERROR(dec);
 		return dec;
 	 }
+}
+
+BoolType* boolType() : {
+	BoolType* dec = new BoolType();
+	Token* t=nullptr;
+}
+{
+	t="boolean" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
 }
 
 ByteType* byteType() : {

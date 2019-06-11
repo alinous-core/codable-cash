@@ -3,6 +3,7 @@
 set(__src
 	AbstractPrimitiveType.cpp
 	AbstractType.cpp
+	BoolType.cpp
 	ByteType.cpp
 	CharType.cpp
 	IntType.cpp

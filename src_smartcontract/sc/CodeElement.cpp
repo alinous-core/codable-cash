@@ -21,6 +21,7 @@
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_declare/AccessControlDeclare.h"
 
+#include "sc_declare_types/BoolType.h"
 #include "sc_declare_types/ByteType.h"
 #include "sc_declare_types/CharType.h"
 #include "sc_declare_types/ShortType.h"
@@ -224,6 +225,10 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		element = new AccessControlDeclare();
 		break;
 
+
+	case TYPE_BOOL:
+		element = new BoolType();
+		break;
 	case TYPE_BYTE:
 		element = new ByteType();
 		break;

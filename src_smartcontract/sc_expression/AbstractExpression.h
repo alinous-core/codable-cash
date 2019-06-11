@@ -13,6 +13,7 @@
 namespace alinous {
 
 class AnalyzeContext;
+class AbstractType;
 
 class AbstractExpression: public CodeElement {
 public:

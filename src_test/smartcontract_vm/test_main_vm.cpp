@@ -85,6 +85,7 @@ TEST(TestVMGroup, loadAndInitInstance){
 	vm->analyze();
 
 	vm->createScInstance();
+
 }
 
 TEST(TestVMGroup, duplicateClassError){

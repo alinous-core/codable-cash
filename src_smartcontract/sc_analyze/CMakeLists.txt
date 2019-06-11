@@ -3,6 +3,7 @@
 set(__src
 	AnalyzeContext.cpp
 	AnalyzedClass.cpp
+	AnalyzedType.cpp
 	PackageSpace.cpp
 	ValidationError.cpp
 )

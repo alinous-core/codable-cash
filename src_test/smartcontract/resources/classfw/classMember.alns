@@ -2,7 +2,8 @@
 package test.fw;
 
 class HelloWorld {
-	public byte val;
+	public boolean valbool;
+	public byte valbyte;
 	public int val;
 	public static char valchar;
 	public short valshort;
