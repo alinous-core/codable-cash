@@ -5,6 +5,7 @@
  *      Author: iizuka
  */
 #include "sc_expression_logical/RelationalExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -76,6 +77,10 @@ void RelationalExpression::fromBinary(ByteBuffer* in) {
 	this->right = dynamic_cast<AbstractExpression*>(element);
 
 	this->op = in->get();
+}
+
+AnalyzedType RelationalExpression::getType() {
+	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 
 } /* namespace alinous */

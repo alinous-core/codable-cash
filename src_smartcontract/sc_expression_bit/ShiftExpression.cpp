@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression_bit/ShiftExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -61,6 +62,11 @@ void ShiftExpression::fromBinary(ByteBuffer* in) {
 		uint8_t op = in->get();
 		this->operations.addElement(op);
 	}
+}
+
+AnalyzedType ShiftExpression::getType() {
+	AbstractExpression* first = this->list.get(0);
+	return first->getType();
 }
 
 } /* namespace alinous */

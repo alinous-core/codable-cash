@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression/ArrayReferenceExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -92,6 +93,11 @@ void ArrayReferenceExpression::fromBinary(ByteBuffer* in) {
 		AbstractExpression* ex = dynamic_cast<AbstractExpression*>(element);
 		this->list.addElement(ex);
 	}
+}
+
+AnalyzedType ArrayReferenceExpression::getType() {
+	// FIXME analyze array ref type
+	return AnalyzedType();
 }
 
 } /* namespace alinous */

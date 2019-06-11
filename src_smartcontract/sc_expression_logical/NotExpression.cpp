@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression_logical/NotExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -50,6 +51,10 @@ void NotExpression::fromBinary(ByteBuffer* in) {
 	CodeElement* element = createFromBinary(in);
 	checkIsExp(element);
 	this->exp = dynamic_cast<AbstractExpression*>(element);
+}
+
+AnalyzedType NotExpression::getType() {
+	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 
 } /* namespace alinous */

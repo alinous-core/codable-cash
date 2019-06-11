@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression_arithmetic/PreIncrementExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -55,6 +56,10 @@ void PreIncrementExpression::fromBinary(ByteBuffer* in) {
 	CodeElement* element = createFromBinary(in);
 	checkIsExp(element);
 	this->exp = dynamic_cast<AbstractExpression*>(element);
+}
+
+AnalyzedType PreIncrementExpression::getType() {
+	return this->exp->getType();
 }
 
 } /* namespace alinous */

@@ -7,6 +7,8 @@
 
 #include "sc_expression_logical/EqualityExpression.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
 namespace alinous {
 
 EqualityExpression::EqualityExpression() : AbstractExpression(CodeElement::EXP_CND_EQ) {
@@ -77,6 +79,10 @@ void EqualityExpression::fromBinary(ByteBuffer* in) {
 	this->right = dynamic_cast<AbstractExpression*>(element);
 
 	this->op = in->get();
+}
+
+AnalyzedType EqualityExpression::getType() {
+	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 
 } /* namespace alinous */

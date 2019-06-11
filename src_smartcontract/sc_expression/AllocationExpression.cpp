@@ -9,6 +9,7 @@
 
 #include "sc_declare/PackageNameDeclare.h"
 #include "sc_expression/FunctionCallExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -78,6 +79,10 @@ void AllocationExpression::fromBinary(ByteBuffer* in) {
 	CodeElement* element = createFromBinary(in);
 	checkKind(element, CodeElement::EXP_FUNCTIONCALL);
 	this->exp = dynamic_cast<FunctionCallExpression*>(element);
+}
+
+AnalyzedType AllocationExpression::getType() {
+	return this->exp->getType();
 }
 
 } /* namespace alinous */

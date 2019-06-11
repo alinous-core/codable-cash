@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression_logical/ConditionalOrExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -37,6 +38,10 @@ void ConditionalOrExpression::toBinary(ByteBuffer* out) {
 
 void ConditionalOrExpression::fromBinary(ByteBuffer* in) {
 	AbstractBinaryExpression::fromBinary(in);
+}
+
+AnalyzedType ConditionalOrExpression::getType() {
+	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 
 } /* namespace alinous */

@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression/BooleanLiteral.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -45,5 +46,8 @@ void BooleanLiteral::fromBinary(ByteBuffer* in) {
 	this->value = (val == 1);
 }
 
+AnalyzedType BooleanLiteral::getType() {
+	return AnalyzedType(AnalyzedType::TYPE_BOOL);
+}
 
 } /* namespace alinous */

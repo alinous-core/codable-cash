@@ -13,6 +13,14 @@ AnalyzedType::AnalyzedType(uint8_t type) {
 	this->type = type;
 }
 
+AnalyzedType::AnalyzedType(const AnalyzedType& obj) {
+	this->type = obj.type;
+}
+
+AnalyzedType::AnalyzedType() {
+	this->type = TYPE_NULL;
+}
+
 AnalyzedType::~AnalyzedType() {
 
 }

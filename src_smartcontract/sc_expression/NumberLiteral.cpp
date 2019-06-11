@@ -8,6 +8,8 @@
 #include "sc_expression/NumberLiteral.h"
 #include "base/UnicodeString.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
 namespace alinous {
 
 NumberLiteral::NumberLiteral() : AbstractExpression(CodeElement::EXP_NUMBER_LITERAL) {
@@ -47,6 +49,10 @@ void NumberLiteral::toBinary(ByteBuffer* out) {
 
 void NumberLiteral::fromBinary(ByteBuffer* in) {
 	this->str = getString(in);
+}
+
+AnalyzedType NumberLiteral::getType() {
+	return AnalyzedType(AnalyzedType::TYPE_LONG);
 }
 
 } /* namespace alinous */

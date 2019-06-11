@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression/NullLiteral.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -36,5 +37,8 @@ void NullLiteral::toBinary(ByteBuffer* out) {
 void NullLiteral::fromBinary(ByteBuffer* in) {
 }
 
+AnalyzedType NullLiteral::getType() {
+	return AnalyzedType(AnalyzedType::TYPE_NULL);
+}
 
 } /* namespace alinous */

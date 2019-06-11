@@ -9,8 +9,10 @@
 #define SC_EXPRESSION_BIT_OREXPRESSION_H_
 
 #include "sc_expression/AbstractBinaryExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
+class AnalyzedType;
 
 class OrExpression : public AbstractBinaryExpression {
 public:
@@ -23,6 +25,11 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	virtual AnalyzedType getType();
+
+private:
+	AnalyzedType atype;
 };
 
 } /* namespace alinous */

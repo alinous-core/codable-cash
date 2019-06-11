@@ -21,6 +21,8 @@ void AddExpression::preAnalyze(AnalyzeContext* actx) {
 
 void AddExpression::analyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::analyze(actx);
+
+	// FIXME analyze type
 }
 
 void AddExpression::addOpe(uint8_t ope) noexcept {
@@ -61,6 +63,10 @@ void AddExpression::fromBinary(ByteBuffer* in) {
 		uint8_t op = in->get();
 		this->operations.addElement(op);
 	}
+}
+
+AnalyzedType AddExpression::getType() {
+	return this->atype;
 }
 
 } /* namespace alinous */

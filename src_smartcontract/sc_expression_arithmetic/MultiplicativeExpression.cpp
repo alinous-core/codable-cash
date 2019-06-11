@@ -21,6 +21,8 @@ void MultiplicativeExpression::preAnalyze(AnalyzeContext* actx) {
 
 void MultiplicativeExpression::analyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::analyze(actx);
+
+	// FIXME analyze type
 }
 
 void MultiplicativeExpression::addOpe(uint8_t ope) noexcept {
@@ -61,6 +63,10 @@ void MultiplicativeExpression::fromBinary(ByteBuffer* in) {
 		uint8_t op = in->get();
 		this->operations.addElement(op);
 	}
+}
+
+AnalyzedType MultiplicativeExpression::getType() {
+	return this->atype;
 }
 
 } /* namespace alinous */

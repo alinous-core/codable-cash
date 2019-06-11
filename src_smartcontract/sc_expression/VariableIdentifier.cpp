@@ -8,6 +8,8 @@
 #include "sc_expression/VariableIdentifier.h"
 #include "base/UnicodeString.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
 namespace alinous {
 
 VariableIdentifier::VariableIdentifier() : AbstractExpression(CodeElement::EXP_VARIABLE_ID) {
@@ -48,6 +50,12 @@ void VariableIdentifier::toBinary(ByteBuffer* out) {
 
 void VariableIdentifier::fromBinary(ByteBuffer* in) {
 	this->name = getString(in);
+}
+
+
+AnalyzedType VariableIdentifier::getType() {
+	// FIXME analyze variable id type
+	return AnalyzedType();
 }
 
 } /* namespace alinous */

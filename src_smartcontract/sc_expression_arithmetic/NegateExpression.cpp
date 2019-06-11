@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression_arithmetic/NegateExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -51,6 +52,10 @@ void NegateExpression::fromBinary(ByteBuffer* in) {
 	CodeElement* element = createFromBinary(in);
 	checkIsExp(element);
 	this->exp = dynamic_cast<AbstractExpression*>(element);
+}
+
+AnalyzedType NegateExpression::getType() {
+	return this->exp->getType();
 }
 
 } /* namespace alinous */

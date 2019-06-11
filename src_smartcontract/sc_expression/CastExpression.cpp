@@ -7,6 +7,7 @@
 
 #include "sc_expression/CastExpression.h"
 #include "sc_declare_types/AbstractType.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -66,6 +67,11 @@ void CastExpression::fromBinary(ByteBuffer* in) {
 	element = createFromBinary(in);
 	checkIsType(element);
 	this->type = dynamic_cast<AbstractType*>(element);
+}
+
+AnalyzedType CastExpression::getType() {
+	// FIXME analyze cast expression type
+	return AnalyzedType();
 }
 
 } /* namespace alinous */

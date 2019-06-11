@@ -8,6 +8,7 @@
 #include "sc_expression/MemberReferenceExpression.h"
 
 #include "sc_expression/AbstractExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -39,6 +40,11 @@ void MemberReferenceExpression::toBinary(ByteBuffer* out) {
 
 void MemberReferenceExpression::fromBinary(ByteBuffer* in) {
 	AbstractBinaryExpression::fromBinary(in);
+}
+
+AnalyzedType MemberReferenceExpression::getType() {
+	// FIXME analyze member ref type
+	return AnalyzedType();
 }
 
 } /* namespace alinous */

@@ -13,7 +13,7 @@
 namespace alinous {
 
 class AnalyzeContext;
-class AbstractType;
+class AnalyzedType;
 
 class AbstractExpression: public CodeElement {
 public:
@@ -22,6 +22,7 @@ public:
 
 	virtual void preAnalyze(AnalyzeContext* actx) = 0;
 	virtual void analyze(AnalyzeContext* actx) = 0;
+	virtual AnalyzedType getType() = 0;
 };
 
 } /* namespace alinous */

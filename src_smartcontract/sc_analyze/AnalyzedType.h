@@ -13,6 +13,8 @@ namespace alinous {
 
 class AnalyzedType {
 public:
+	static const constexpr short TYPE_NULL{0};
+
 	static const constexpr short TYPE_BOOL{20};
 	static const constexpr short TYPE_BYTE{21};
 	static const constexpr short TYPE_CHAR{22};
@@ -23,7 +25,10 @@ public:
 	static const constexpr short TYPE_VOID{27};
 	static const constexpr short TYPE_OBJECT{28};
 
-	AnalyzedType(uint8_t type);
+	AnalyzedType(const AnalyzedType& obj);
+	explicit AnalyzedType(uint8_t type);
+	AnalyzedType();
+
 	virtual ~AnalyzedType();
 
 private:

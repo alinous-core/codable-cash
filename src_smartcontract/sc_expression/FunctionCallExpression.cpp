@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression/FunctionCallExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 #include "base/UnicodeString.h"
 
 namespace alinous {
@@ -88,6 +89,11 @@ void FunctionCallExpression::fromBinary(ByteBuffer* in) {
 
 		this->args.addElement(exp);
 	}
+}
+
+AnalyzedType FunctionCallExpression::getType() {
+	// FIXME analyze function type
+	return AnalyzedType();
 }
 
 } /* namespace alinous */

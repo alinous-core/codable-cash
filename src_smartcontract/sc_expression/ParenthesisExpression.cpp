@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression/ParenthesisExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -51,4 +52,9 @@ void ParenthesisExpression::fromBinary(ByteBuffer* in) {
 	checkIsExp(element);
 	this->exp = dynamic_cast<AbstractExpression*>(element);
 }
+
+AnalyzedType ParenthesisExpression::getType() {
+	return this->exp->getType();
+}
+
 } /* namespace alinous */

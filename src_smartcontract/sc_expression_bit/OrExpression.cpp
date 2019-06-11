@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression_bit/OrExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -21,6 +22,8 @@ void OrExpression::preAnalyze(AnalyzeContext* actx) {
 
 void OrExpression::analyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::analyze(actx);
+
+	// FIXME analyze type
 }
 
 int OrExpression::binarySize() const {
@@ -37,6 +40,10 @@ void OrExpression::toBinary(ByteBuffer* out) {
 
 void OrExpression::fromBinary(ByteBuffer* in) {
 	AbstractBinaryExpression::fromBinary(in);
+}
+
+AnalyzedType OrExpression::getType() {
+	return this->atype;
 }
 
 } /* namespace alinous */

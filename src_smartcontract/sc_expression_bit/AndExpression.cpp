@@ -21,6 +21,8 @@ void AndExpression::preAnalyze(AnalyzeContext* actx) {
 
 void AndExpression::analyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::analyze(actx);
+
+	// FIXME analyze type
 }
 
 int AndExpression::binarySize() const {
@@ -37,6 +39,10 @@ void AndExpression::toBinary(ByteBuffer* out) {
 
 void AndExpression::fromBinary(ByteBuffer* in) {
 	AbstractBinaryExpression::fromBinary(in);
+}
+
+AnalyzedType AndExpression::getType() {
+	return this->atype;
 }
 
 } /* namespace alinous */
