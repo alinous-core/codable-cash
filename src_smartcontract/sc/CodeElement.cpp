@@ -558,7 +558,7 @@ void CodeElement::checkKind(CodeElement* element, short kind) {
 }
 
 void CodeElement::checkIsType(CodeElement* element) {
-	if(!(element->kind >= TYPE_BYTE && element->kind < STMT_BLOCK)){
+	if(!(element->kind >= TYPE_BOOL && element->kind < STMT_BLOCK)){
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }

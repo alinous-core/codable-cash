@@ -24,7 +24,7 @@ int BoolType::binarySize() const {
 }
 
 void BoolType::toBinary(ByteBuffer* out) {
-	out->putShort(CodeElement::TYPE_CHAR);
+	out->putShort(CodeElement::TYPE_BOOL);
 }
 
 void BoolType::fromBinary(ByteBuffer* in) {
