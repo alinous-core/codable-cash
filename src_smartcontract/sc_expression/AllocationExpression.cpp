@@ -85,4 +85,8 @@ AnalyzedType AllocationExpression::getType() {
 	return this->exp->getType();
 }
 
+AbstractVmInstance* AllocationExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

@@ -58,4 +58,8 @@ AnalyzedType VariableIdentifier::getType() {
 	return AnalyzedType();
 }
 
+AbstractVmInstance* VariableIdentifier::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

@@ -100,4 +100,8 @@ AnalyzedType ArrayReferenceExpression::getType() {
 	return AnalyzedType();
 }
 
+AbstractVmInstance* ArrayReferenceExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

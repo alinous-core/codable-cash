@@ -85,4 +85,8 @@ AnalyzedType EqualityExpression::getType() {
 	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 
+AbstractVmInstance* EqualityExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

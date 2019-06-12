@@ -62,4 +62,8 @@ AnalyzedType PreIncrementExpression::getType() {
 	return this->exp->getType();
 }
 
+AbstractVmInstance* PreIncrementExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

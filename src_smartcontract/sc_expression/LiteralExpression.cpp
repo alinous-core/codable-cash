@@ -60,4 +60,8 @@ AnalyzedType LiteralExpression::getType() {
 	return AnalyzedType(AnalyzedType::TYPE_STRING);
 }
 
+AbstractVmInstance* LiteralExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

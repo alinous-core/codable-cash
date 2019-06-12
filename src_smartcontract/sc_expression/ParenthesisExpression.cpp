@@ -57,4 +57,8 @@ AnalyzedType ParenthesisExpression::getType() {
 	return this->exp->getType();
 }
 
+AbstractVmInstance* ParenthesisExpression::interpret(VirtualMachine* vm) {
+	return this->exp->interpret(vm);
+}
+
 } /* namespace alinous */

@@ -41,4 +41,8 @@ AnalyzedType NullLiteral::getType() {
 	return AnalyzedType(AnalyzedType::TYPE_NULL);
 }
 
+AbstractVmInstance* NullLiteral::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

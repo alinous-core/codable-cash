@@ -70,5 +70,4 @@ void AbstractBinaryExpression::fromBinary(ByteBuffer* in) {
 	}
 }
 
-
 } /* namespace alinous */

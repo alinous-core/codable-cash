@@ -69,4 +69,8 @@ AnalyzedType MultiplicativeExpression::getType() {
 	return this->atype;
 }
 
+AbstractVmInstance* MultiplicativeExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

@@ -55,4 +55,8 @@ AnalyzedType NumberLiteral::getType() {
 	return AnalyzedType(AnalyzedType::TYPE_LONG);
 }
 
+AbstractVmInstance* NumberLiteral::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

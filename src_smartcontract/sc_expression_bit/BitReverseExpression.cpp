@@ -58,4 +58,8 @@ AnalyzedType BitReverseExpression::getType() {
 	return this->exp->getType();
 }
 
+AbstractVmInstance* BitReverseExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

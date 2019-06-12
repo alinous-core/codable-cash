@@ -58,4 +58,8 @@ AnalyzedType NegateExpression::getType() {
 	return this->exp->getType();
 }
 
+AbstractVmInstance* NegateExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

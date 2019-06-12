@@ -47,4 +47,8 @@ AnalyzedType MemberReferenceExpression::getType() {
 	return AnalyzedType();
 }
 
+AbstractVmInstance* MemberReferenceExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

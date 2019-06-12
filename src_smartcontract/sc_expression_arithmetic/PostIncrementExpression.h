@@ -31,6 +31,7 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 	virtual AnalyzedType getType();
+	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 private:
 	AbstractExpression* exp;
 	int ope;

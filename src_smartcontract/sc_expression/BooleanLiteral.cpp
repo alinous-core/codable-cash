@@ -50,4 +50,8 @@ AnalyzedType BooleanLiteral::getType() {
 	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 
+AbstractVmInstance* BooleanLiteral::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

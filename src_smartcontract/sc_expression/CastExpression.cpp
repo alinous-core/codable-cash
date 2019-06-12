@@ -74,4 +74,8 @@ AnalyzedType CastExpression::getType() {
 	return AnalyzedType();
 }
 
+AbstractVmInstance* CastExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

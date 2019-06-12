@@ -44,4 +44,8 @@ AnalyzedType ConditionalOrExpression::getType() {
 	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 
+AbstractVmInstance* ConditionalOrExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

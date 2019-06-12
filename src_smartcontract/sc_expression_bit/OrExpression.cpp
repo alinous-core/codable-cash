@@ -46,4 +46,8 @@ AnalyzedType OrExpression::getType() {
 	return this->atype;
 }
 
+AbstractVmInstance* OrExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

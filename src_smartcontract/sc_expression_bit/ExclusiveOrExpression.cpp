@@ -45,4 +45,8 @@ AnalyzedType ExclusiveOrExpression::getType() {
 	return this->atype;
 }
 
+AbstractVmInstance* ExclusiveOrExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

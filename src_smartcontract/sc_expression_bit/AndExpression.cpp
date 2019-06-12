@@ -25,6 +25,10 @@ void AndExpression::analyze(AnalyzeContext* actx) {
 	// FIXME analyze type
 }
 
+AbstractVmInstance* AndExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 int AndExpression::binarySize() const {
 	int total = sizeof(uint16_t);
 	total += AbstractBinaryExpression::binarySize();

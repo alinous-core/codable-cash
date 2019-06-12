@@ -14,6 +14,8 @@ namespace alinous {
 
 class AnalyzeContext;
 class AnalyzedType;
+class VirtualMachine;
+class AbstractVmInstance;
 
 class AbstractExpression: public CodeElement {
 public:
@@ -23,6 +25,8 @@ public:
 	virtual void preAnalyze(AnalyzeContext* actx) = 0;
 	virtual void analyze(AnalyzeContext* actx) = 0;
 	virtual AnalyzedType getType() = 0;
+
+	virtual AbstractVmInstance* interpret(VirtualMachine* vm) = 0;
 };
 
 } /* namespace alinous */

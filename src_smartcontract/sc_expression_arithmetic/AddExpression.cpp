@@ -69,4 +69,8 @@ AnalyzedType AddExpression::getType() {
 	return this->atype;
 }
 
+AbstractVmInstance* AddExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */

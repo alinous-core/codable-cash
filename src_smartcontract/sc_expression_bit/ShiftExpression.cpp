@@ -69,4 +69,8 @@ AnalyzedType ShiftExpression::getType() {
 	return first->getType();
 }
 
+AbstractVmInstance* ShiftExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
+
 } /* namespace alinous */
