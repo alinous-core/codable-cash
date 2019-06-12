@@ -20,6 +20,7 @@ class MethodDeclare;
 
 class AnalyzedClass {
 public:
+	AnalyzedClass(const AnalyzedClass& inst);
 	explicit AnalyzedClass(ClassDeclare* clazz);
 	virtual ~AnalyzedClass();
 
@@ -34,7 +35,7 @@ private:
 	HashMap<UnicodeString, MemberVariableDeclare>* variables;
 	ArrayList<MemberVariableDeclare> variablesList;
 
-	ArrayList<MethodDeclare>* constructors;
+	ArrayList<MethodDeclare> constructors;
 	HashMap<UnicodeString, MethodDeclare>* methods;
 
 };

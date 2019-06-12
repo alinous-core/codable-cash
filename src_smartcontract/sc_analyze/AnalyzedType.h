@@ -11,6 +11,8 @@
 
 namespace alinous {
 
+class AnalyzedClass;
+
 class AnalyzedType {
 public:
 	static const constexpr short TYPE_NULL{0};
@@ -33,6 +35,7 @@ public:
 
 private:
 	uint8_t type;
+	AnalyzedClass* aclazz;
 };
 
 } /* namespace alinous */

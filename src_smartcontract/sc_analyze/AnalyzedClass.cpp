@@ -15,17 +15,49 @@
 
 namespace alinous {
 
+AnalyzedClass::AnalyzedClass(const AnalyzedClass& inst) {
+	this->clazz = inst.clazz;
+	this->variables = new HashMap<UnicodeString, MemberVariableDeclare>();
+	this->methods = new HashMap<UnicodeString, MethodDeclare>();
+
+	Iterator<UnicodeString>* it = inst.variables->keySet()->iterator();
+	while(it->hasNext()){
+		const UnicodeString* name = it->next();
+		MemberVariableDeclare* dec = inst.variables->get(name);
+		this->variables->put(name, dec);
+	}
+	delete it;
+
+	int maxLoop = inst.variablesList.size();
+	for(int i = 0; i != maxLoop; ++i){
+		MemberVariableDeclare* dec = inst.variablesList.get(i);
+		this->variablesList.addElement(dec);
+	}
+
+	maxLoop = inst.constructors.size();
+	for(int i = 0; i != maxLoop; ++i){
+		MethodDeclare* constructor = inst.constructors.get(i);
+		this->constructors.addElement(constructor);
+	}
+
+	it = inst.methods->keySet()->iterator();
+	while(it->hasNext()){
+		const UnicodeString* name = it->next();
+		MethodDeclare* dec = inst.methods->get(name);
+		this->methods->put(name, dec);
+	}
+	delete it;
+}
+
 AnalyzedClass::AnalyzedClass(ClassDeclare* clazz) {
 	this->clazz = clazz;
 	this->variables = new HashMap<UnicodeString, MemberVariableDeclare>();
-	this->constructors = new ArrayList<MethodDeclare>();
 	this->methods = new HashMap<UnicodeString, MethodDeclare>();
 }
 
 AnalyzedClass::~AnalyzedClass() {
 	this->clazz = nullptr;
 	delete this->variables;
-	delete this->constructors;
 	delete this->methods;
 }
 
@@ -36,7 +68,7 @@ void AnalyzedClass::addMemberVariableDeclare(MemberVariableDeclare* member) {
 
 void AnalyzedClass::addMemberMethodDeclare(MethodDeclare* method) {
 	if(method->isConstructor()){
-		this->constructors->addElement(method);
+		this->constructors.addElement(method);
 		return;
 	}
 
@@ -48,9 +80,9 @@ ArrayList<MemberVariableDeclare>* AnalyzedClass::getMemberVariableDeclareList() 
 }
 
 MethodDeclare* AnalyzedClass::getDefaultConstructor() noexcept {
-	int maxLoop = this->constructors->size();
+	int maxLoop = this->constructors.size();
 	for(int i = 0; i != maxLoop; ++i){
-		MethodDeclare* m = this->constructors->get(i);
+		MethodDeclare* m = this->constructors.get(i);
 		ArgumentsListDeclare* args = m->getArguments();
 		int num = args->getSize();
 		if(num == 0){

@@ -10,6 +10,7 @@
 
 #include "sc_analyze/PackageSpace.h"
 #include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeStackManager.h"
 
 #include "sc_declare/ClassDeclare.h"
 
@@ -21,6 +22,7 @@ namespace alinous {
 AnalyzeContext::AnalyzeContext() {
 	this->vm = nullptr;
 	this->packageSpaces = new HashMap<UnicodeString, PackageSpace>();
+	this->stack = new AnalyzeStackManager();
 }
 
 AnalyzeContext::~AnalyzeContext() {
@@ -37,6 +39,7 @@ AnalyzeContext::~AnalyzeContext() {
 	delete this->packageSpaces;
 
 	this->verrorList.deleteElements();
+	delete this->stack;
 }
 
 void AnalyzeContext::setVm(VirtualMachine* vm) noexcept {

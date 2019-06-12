@@ -20,6 +20,7 @@ class ValidationError;
 class CodeElement;
 class AnalyzedClass;
 class ClassDeclare;
+class AnalyzeStackManager;
 
 class AnalyzeContext {
 public:
@@ -39,6 +40,7 @@ private:
 	VirtualMachine* vm;
 	HashMap<UnicodeString, PackageSpace> *packageSpaces;
 	ArrayList<ValidationError> verrorList;
+	AnalyzeStackManager* stack;
 };
 
 } /* namespace alinous */
