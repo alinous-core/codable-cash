@@ -163,4 +163,8 @@ void SelectStatement::fromBinary(ByteBuffer* in) {
 	}
 }
 
+void SelectStatement::interpret(VirtualMachine* vm) {
+	// FIXME SQL statement
+}
+
 } /* namespace alinous */

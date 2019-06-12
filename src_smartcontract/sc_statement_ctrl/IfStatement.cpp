@@ -72,4 +72,8 @@ void IfStatement::fromBinary(ByteBuffer* in) {
 	this->stmt = dynamic_cast<AbstractStatement*>(element);
 }
 
+void IfStatement::interpret(VirtualMachine* vm) {
+	// FIXME statement
+}
+
 } /* namespace alinous */

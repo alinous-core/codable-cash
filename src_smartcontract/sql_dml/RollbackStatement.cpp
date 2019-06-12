@@ -34,4 +34,8 @@ void RollbackStatement::toBinary(ByteBuffer* out) {
 void RollbackStatement::fromBinary(ByteBuffer* in) {
 }
 
+void RollbackStatement::interpret(VirtualMachine* vm) {
+	// FIXME SQL statement
+}
+
 } /* namespace alinous */

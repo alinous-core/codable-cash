@@ -92,4 +92,8 @@ void UpdateStatement::fromBinary(ByteBuffer* in) {
 	}
 }
 
+void UpdateStatement::interpret(VirtualMachine* vm) {
+	// FIXME SQL statement
+}
+
 } /* namespace alinous */

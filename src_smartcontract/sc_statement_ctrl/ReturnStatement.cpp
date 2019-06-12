@@ -54,5 +54,8 @@ void alinous::ReturnStatement::fromBinary(ByteBuffer* in) {
 	this->exp = dynamic_cast<AbstractExpression*>(element);
 }
 
+void ReturnStatement::interpret(VirtualMachine* vm) {
+	// FIXME statement
+}
 
 } /* namespace alinous */

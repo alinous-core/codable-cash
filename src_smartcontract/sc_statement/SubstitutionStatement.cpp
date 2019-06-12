@@ -73,5 +73,8 @@ void SubstitutionStatement::fromBinary(ByteBuffer* in) {
 	this->exp = dynamic_cast<AbstractExpression*>(element);
 }
 
+void SubstitutionStatement::interpret(VirtualMachine* vm) {
+	// FIXME statement
+}
 
 } /* namespace alinous */

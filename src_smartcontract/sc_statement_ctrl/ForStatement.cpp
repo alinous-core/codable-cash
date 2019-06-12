@@ -120,4 +120,8 @@ void ForStatement::fromBinary(ByteBuffer* in) {
 	this->postLoop = dynamic_cast<AbstractExpression*>(element);
 }
 
+void ForStatement::interpret(VirtualMachine* vm) {
+	// FIXME statement
+}
+
 } /* namespace alinous */

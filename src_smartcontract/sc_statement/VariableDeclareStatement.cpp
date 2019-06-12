@@ -86,4 +86,8 @@ void VariableDeclareStatement::fromBinary(ByteBuffer* in) {
 	this->exp = dynamic_cast<AbstractExpression*>(element);
 }
 
+void VariableDeclareStatement::interpret(VirtualMachine* vm) {
+	// FIXME statement
+}
+
 } /* namespace alinous */

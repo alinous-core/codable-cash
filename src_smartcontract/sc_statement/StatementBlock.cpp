@@ -73,4 +73,12 @@ void StatementBlock::fromBinary(ByteBuffer* in) {
 	}
 }
 
+void StatementBlock::interpret(VirtualMachine* vm) {
+	int maxLoop = this->statements.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractStatement* stmt = this->statements.get(i);
+		stmt->interpret(vm);
+	}
+}
+
 } /* namespace alinous */

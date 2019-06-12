@@ -51,4 +51,8 @@ void DropTableStatement::fromBinary(ByteBuffer* in) {
 	this->tableId = dynamic_cast<TableIdentifier*>(element);
 }
 
+void DropTableStatement::interpret(VirtualMachine* vm) {
+	// FIXME SQL statement
+}
+
 } /* namespace alinous */

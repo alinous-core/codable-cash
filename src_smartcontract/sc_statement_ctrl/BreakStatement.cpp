@@ -35,4 +35,7 @@ void BreakStatement::toBinary(ByteBuffer* out) {
 void BreakStatement::fromBinary(ByteBuffer* in) {
 }
 
+void BreakStatement::interpret(VirtualMachine* vm) {
+}
+
 } /* namespace alinous */

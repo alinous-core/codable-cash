@@ -71,4 +71,8 @@ void DoWhileStatement::fromBinary(ByteBuffer* in) {
 	this->stmt = dynamic_cast<AbstractStatement*>(element);
 }
 
+void DoWhileStatement::interpret(VirtualMachine* vm) {
+	// FIXME statement
+}
+
 } /* namespace alinous */

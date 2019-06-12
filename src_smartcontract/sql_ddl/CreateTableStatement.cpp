@@ -36,4 +36,8 @@ void CreateTableStatement::toBinary(ByteBuffer* out) {
 void CreateTableStatement::fromBinary(ByteBuffer* in) {
 }
 
+void CreateTableStatement::interpret(VirtualMachine* vm) {
+	// FIXME SQL statement
+}
+
 } /* namespace alinous */

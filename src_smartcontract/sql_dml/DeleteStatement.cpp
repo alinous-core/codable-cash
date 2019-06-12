@@ -77,4 +77,8 @@ void DeleteStatement::fromBinary(ByteBuffer* in) {
 	}
 }
 
+void DeleteStatement::interpret(VirtualMachine* vm) {
+	// FIXME SQL statement
+}
+
 } /* namespace alinous */

@@ -35,4 +35,7 @@ void ContinueStatement::toBinary(ByteBuffer* out) {
 void ContinueStatement::fromBinary(ByteBuffer* in) {
 }
 
+void ContinueStatement::interpret(VirtualMachine* vm) {
+}
+
 } /* namespace alinous */

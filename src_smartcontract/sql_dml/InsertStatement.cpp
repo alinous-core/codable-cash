@@ -94,4 +94,8 @@ void InsertStatement::fromBinary(ByteBuffer* in) {
 	this->expList = dynamic_cast<SQLExpressionList*>(element);
 }
 
+void InsertStatement::interpret(VirtualMachine* vm) {
+	// FIXME SQL statement
+}
+
 } /* namespace alinous */

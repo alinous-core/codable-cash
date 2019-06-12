@@ -23,6 +23,8 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	virtual void interpret(VirtualMachine* vm);
 };
 
 } /* namespace alinous */

@@ -34,4 +34,7 @@ void BlankStatement::toBinary(ByteBuffer* out) {
 void BlankStatement::fromBinary(ByteBuffer* in) {
 }
 
+void BlankStatement::interpret(VirtualMachine* vm) {
+}
+
 } /* namespace alinous */

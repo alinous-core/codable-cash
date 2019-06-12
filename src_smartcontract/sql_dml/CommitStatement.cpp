@@ -34,4 +34,8 @@ void CommitStatement::toBinary(ByteBuffer* out) {
 void CommitStatement::fromBinary(ByteBuffer* in) {
 }
 
+void CommitStatement::interpret(VirtualMachine* vm) {
+	// FIXME SQL statement
+}
+
 } /* namespace alinous */
