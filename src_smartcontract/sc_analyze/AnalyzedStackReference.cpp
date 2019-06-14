@@ -22,4 +22,9 @@ AnalyzedStackReference::~AnalyzedStackReference() {
 	delete this->type;
 }
 
+const UnicodeString* alinous::AnalyzedStackReference::getName() noexcept {
+	return this->name;
+}
+
+
 } /* namespace alinous */

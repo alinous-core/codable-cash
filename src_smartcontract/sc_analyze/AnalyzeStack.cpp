@@ -6,6 +6,9 @@
  */
 
 #include "sc_analyze/AnalyzeStack.h"
+#include "sc_analyze/AnalyzedStackReference.h"
+
+#include "base/UnicodeString.h"
 
 namespace alinous {
 
@@ -15,6 +18,11 @@ AnalyzeStack::AnalyzeStack(bool functionStack) {
 
 AnalyzeStack::~AnalyzeStack() {
 	this->variables.deleteElements();
+}
+
+void AnalyzeStack::addVariableDeclare(AnalyzedStackReference* ref) noexcept {
+	this->variables.addElement(ref);
+	this->map.put(ref->getName(), ref);
 }
 
 } /* namespace alinous */

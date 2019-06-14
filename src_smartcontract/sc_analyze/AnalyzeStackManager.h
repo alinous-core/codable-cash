@@ -23,6 +23,8 @@ public:
 	void popFunctionStack() noexcept;
 	void addBlockStack() noexcept;
 	void popBlockStack() noexcept;
+
+	//void addVariableDeclare() noexcept;
 private:
 	ArrayList<AnalyzeStack>* stack;
 };

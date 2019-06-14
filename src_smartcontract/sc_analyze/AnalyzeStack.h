@@ -9,19 +9,23 @@
 #define SC_ANALYZE_ANALYZESTACK_H_
 
 #include "base/ArrayList.h"
+#include "base/HashMap.h"
 
 namespace alinous {
 
 class AnalyzedStackReference;
+class UnicodeString;
 
 class AnalyzeStack {
 public:
 	AnalyzeStack(bool functionStack);
 	virtual ~AnalyzeStack();
 
+	void addVariableDeclare(AnalyzedStackReference* ref) noexcept;
 private:
 	bool functionStack;
 	ArrayList<AnalyzedStackReference> variables;
+	HashMap<UnicodeString, AnalyzedStackReference> map;
 };
 
 } /* namespace alinous */
