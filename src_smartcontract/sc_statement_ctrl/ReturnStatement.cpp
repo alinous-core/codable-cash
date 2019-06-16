@@ -23,6 +23,10 @@ void ReturnStatement::preAnalyze(AnalyzeContext* actx) {
 	this->exp->preAnalyze(actx);
 }
 
+void ReturnStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	this->exp->analyzeTypeRef(actx);
+}
+
 void ReturnStatement::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
 }

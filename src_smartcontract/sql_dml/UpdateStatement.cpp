@@ -29,6 +29,9 @@ void UpdateStatement::preAnalyze(AnalyzeContext* actx) {
 
 }
 
+void UpdateStatement::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
 void UpdateStatement::analyze(AnalyzeContext* actx) {
 
 }

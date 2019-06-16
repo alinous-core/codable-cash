@@ -25,6 +25,14 @@ void StatementBlock::preAnalyze(AnalyzeContext* actx) {
 	}
 }
 
+void StatementBlock::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->statements.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractStatement* stmt = this->statements.get(i);
+		stmt->analyzeTypeRef(actx);
+	}
+}
+
 void StatementBlock::analyze(AnalyzeContext* actx) {
 	int maxLoop = this->statements.size();
 	for(int i = 0; i != maxLoop; ++i){

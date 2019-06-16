@@ -19,6 +19,9 @@ BreakStatement::~BreakStatement() {
 void BreakStatement::preAnalyze(AnalyzeContext* actx) {
 }
 
+void BreakStatement::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
 void BreakStatement::analyze(AnalyzeContext* actx) {
 }
 

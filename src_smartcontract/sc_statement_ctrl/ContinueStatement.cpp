@@ -19,6 +19,9 @@ ContinueStatement::~ContinueStatement() {
 void ContinueStatement::preAnalyze(AnalyzeContext* actx) {
 }
 
+void ContinueStatement::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
 void ContinueStatement::analyze(AnalyzeContext* actx) {
 }
 

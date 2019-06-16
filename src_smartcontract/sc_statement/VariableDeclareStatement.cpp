@@ -28,8 +28,15 @@ VariableDeclareStatement::~VariableDeclareStatement() {
 void VariableDeclareStatement::preAnalyze(AnalyzeContext* actx) {
 	this->type->setParent(this);
 	this->variableId->setParent(this);
+	this->variableId->preAnalyze(actx);
 	this->exp->setParent(this);
 	this->exp->preAnalyze(actx);
+}
+
+void VariableDeclareStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	// FIXME analyzeTypeRef
+
+	this->exp->analyzeTypeRef(actx);
 }
 
 void VariableDeclareStatement::analyze(AnalyzeContext* actx) {

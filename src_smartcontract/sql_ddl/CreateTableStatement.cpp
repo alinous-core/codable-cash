@@ -20,6 +20,10 @@ CreateTableStatement::~CreateTableStatement() {
 void CreateTableStatement::preAnalyze(AnalyzeContext* actx) {
 }
 
+void CreateTableStatement::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+
 void CreateTableStatement::analyze(AnalyzeContext* actx) {
 }
 

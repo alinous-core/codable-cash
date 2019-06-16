@@ -18,6 +18,9 @@ RollbackStatement::~RollbackStatement() {
 void RollbackStatement::preAnalyze(AnalyzeContext* actx) {
 }
 
+void RollbackStatement::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
 void RollbackStatement::analyze(AnalyzeContext* actx) {
 }
 

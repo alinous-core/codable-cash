@@ -29,6 +29,9 @@ void InsertStatement::preAnalyze(AnalyzeContext* actx) {
 
 }
 
+void InsertStatement::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
 void InsertStatement::analyze(AnalyzeContext* actx) {
 
 }

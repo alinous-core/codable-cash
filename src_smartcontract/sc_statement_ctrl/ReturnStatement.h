@@ -19,6 +19,7 @@ public:
 	virtual ~ReturnStatement();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	void setExpression(AbstractExpression* exp) noexcept;

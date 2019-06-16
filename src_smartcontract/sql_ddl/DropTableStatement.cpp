@@ -25,6 +25,9 @@ void DropTableStatement::analyze(AnalyzeContext* actx) {
 
 }
 
+void DropTableStatement::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
 void DropTableStatement::setTableId(TableIdentifier* tableId) noexcept {
 	this->tableId = tableId;
 }

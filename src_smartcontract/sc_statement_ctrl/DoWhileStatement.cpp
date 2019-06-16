@@ -28,6 +28,12 @@ void DoWhileStatement::preAnalyze(AnalyzeContext* actx) {
 	this->stmt->preAnalyze(actx);
 }
 
+void DoWhileStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	this->exp->analyzeTypeRef(actx);
+	this->stmt->analyzeTypeRef(actx);
+}
+
+
 void alinous::DoWhileStatement::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
 	this->stmt->analyze(actx);

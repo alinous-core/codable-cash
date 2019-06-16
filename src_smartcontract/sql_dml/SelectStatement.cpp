@@ -37,6 +37,9 @@ void SelectStatement::preAnalyze(AnalyzeContext* actx) {
 
 }
 
+void SelectStatement::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
 void SelectStatement::analyze(AnalyzeContext* actx) {
 
 }

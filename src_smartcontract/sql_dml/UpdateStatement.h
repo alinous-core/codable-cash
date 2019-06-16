@@ -21,6 +21,7 @@ public:
 	virtual ~UpdateStatement();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	void setTable(TableIdentifier* tableId) noexcept;

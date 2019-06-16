@@ -18,6 +18,10 @@ ExpressionStatement::~ExpressionStatement() {
 	delete this->exp;
 }
 
+void ExpressionStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	this->exp->analyzeTypeRef(actx);
+}
+
 void ExpressionStatement::preAnalyze(AnalyzeContext* actx) {
 	this->exp->setParent(this);
 	this->exp->preAnalyze(actx);

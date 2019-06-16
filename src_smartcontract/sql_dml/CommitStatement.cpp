@@ -18,6 +18,9 @@ CommitStatement::~CommitStatement() {
 void CommitStatement::preAnalyze(AnalyzeContext* actx) {
 }
 
+void CommitStatement::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
 void CommitStatement::analyze(AnalyzeContext* actx) {
 }
 

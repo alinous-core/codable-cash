@@ -26,6 +26,9 @@ void DeleteStatement::preAnalyze(AnalyzeContext* actx) {
 
 }
 
+void DeleteStatement::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
 void DeleteStatement::analyze(AnalyzeContext* actx) {
 
 }

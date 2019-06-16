@@ -28,6 +28,11 @@ void WhileStatement::preAnalyze(AnalyzeContext* actx) {
 	this->stmt->preAnalyze(actx);
 }
 
+void WhileStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	this->exp->analyzeTypeRef(actx);
+	this->stmt->analyzeTypeRef(actx);
+}
+
 void WhileStatement::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
 	this->stmt->analyze(actx);

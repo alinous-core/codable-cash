@@ -18,6 +18,9 @@ BeginStatement::~BeginStatement() {
 void BeginStatement::preAnalyze(AnalyzeContext* actx) {
 }
 
+void BeginStatement::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
 void BeginStatement::analyze(AnalyzeContext* actx) {
 }
 

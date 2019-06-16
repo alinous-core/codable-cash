@@ -29,6 +29,11 @@ void SubstitutionStatement::preAnalyze(AnalyzeContext* actx) {
 	this->exp->preAnalyze(actx);
 }
 
+void SubstitutionStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	this->variable->analyzeTypeRef(actx);
+	this->exp->analyzeTypeRef(actx);
+}
+
 void SubstitutionStatement::analyze(AnalyzeContext* actx) {
 	this->variable->analyze(actx);
 	this->exp->analyze(actx);

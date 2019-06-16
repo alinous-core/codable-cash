@@ -19,6 +19,7 @@ public:
 	virtual ~StatementBlock();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	void addStatement(AbstractStatement* stmt) noexcept;

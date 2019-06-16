@@ -17,7 +17,8 @@ BlankStatement::~BlankStatement() {
 
 void BlankStatement::preAnalyze(AnalyzeContext* actx) {
 }
-
+void BlankStatement::analyzeTypeRef(AnalyzeContext* actx) {
+}
 void BlankStatement::analyze(AnalyzeContext* actx) {
 }
 

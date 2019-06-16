@@ -43,6 +43,21 @@ void ForStatement::preAnalyze(AnalyzeContext* actx) {
 	}
 }
 
+void ForStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	if(this->stmt != nullptr){
+		this->stmt->analyzeTypeRef(actx);
+	}
+	if(this->init != nullptr){
+		this->init->analyzeTypeRef(actx);
+	}
+	if(this->cond != nullptr){
+		this->cond->analyzeTypeRef(actx);
+	}
+	if(this->postLoop != nullptr){
+		this->postLoop->analyzeTypeRef(actx);
+	}
+}
+
 void ForStatement::analyze(AnalyzeContext* actx) {
 	if(this->stmt != nullptr){
 		this->stmt->analyze(actx);
