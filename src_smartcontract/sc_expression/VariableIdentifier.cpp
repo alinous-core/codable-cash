@@ -24,7 +24,7 @@ void VariableIdentifier::preAnalyze(AnalyzeContext* actx) {
 
 }
 
-void VariableIdentifier::analyzeType(AnalyzeContext* actx) {
+void VariableIdentifier::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void VariableIdentifier::analyze(AnalyzeContext* actx) {

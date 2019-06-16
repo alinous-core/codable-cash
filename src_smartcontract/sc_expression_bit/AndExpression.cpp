@@ -19,7 +19,7 @@ void AndExpression::preAnalyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::preAnalyze(actx);
 }
 
-void AndExpression::analyzeType(AnalyzeContext* actx) {
+void AndExpression::analyzeTypeRef(AnalyzeContext* actx) {
 	// FIXME expression : analyze type
 }
 

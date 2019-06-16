@@ -23,7 +23,7 @@ public:
 	virtual ~AbstractExpression();
 
 	virtual void preAnalyze(AnalyzeContext* actx) = 0;
-	virtual void analyzeType(AnalyzeContext* actx) = 0;
+	virtual void analyzeTypeRef(AnalyzeContext* actx) = 0;
 	virtual void analyze(AnalyzeContext* actx) = 0;
 	virtual AnalyzedType getType() = 0;
 

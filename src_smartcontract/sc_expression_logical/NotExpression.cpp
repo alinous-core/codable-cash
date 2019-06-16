@@ -23,7 +23,7 @@ void NotExpression::preAnalyze(AnalyzeContext* actx) {
 	this->exp->preAnalyze(actx);
 }
 
-void NotExpression::analyzeType(AnalyzeContext* actx) {
+void NotExpression::analyzeTypeRef(AnalyzeContext* actx) {
 	// FIXME expression : analyze type
 }
 

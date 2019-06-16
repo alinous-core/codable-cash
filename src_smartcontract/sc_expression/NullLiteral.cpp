@@ -20,7 +20,7 @@ void NullLiteral::preAnalyze(AnalyzeContext* actx) {
 
 }
 
-void NullLiteral::analyzeType(AnalyzeContext* actx) {
+void NullLiteral::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 

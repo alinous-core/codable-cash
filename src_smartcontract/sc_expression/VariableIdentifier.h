@@ -19,7 +19,7 @@ public:
 	virtual ~VariableIdentifier();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
-	virtual void analyzeType(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	void setName(UnicodeString* name) noexcept;

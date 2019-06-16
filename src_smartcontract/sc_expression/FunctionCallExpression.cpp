@@ -29,7 +29,7 @@ void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
 	}
 }
 
-void FunctionCallExpression::analyzeType(AnalyzeContext* actx) {
+void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
 	// FIXME expression : analyze type
 }
 

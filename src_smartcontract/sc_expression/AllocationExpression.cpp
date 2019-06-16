@@ -28,7 +28,7 @@ void AllocationExpression::preAnalyze(AnalyzeContext* actx) {
 	this->exp->preAnalyze(actx);
 }
 
-void AllocationExpression::analyzeType(AnalyzeContext* actx) {
+void AllocationExpression::analyzeTypeRef(AnalyzeContext* actx) {
 
 }
 

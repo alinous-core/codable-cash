@@ -30,9 +30,9 @@ void EqualityExpression::preAnalyze(AnalyzeContext* actx) {
 	this->right->preAnalyze(actx);
 }
 
-void EqualityExpression::analyzeType(AnalyzeContext* actx) {
-	this->left->analyzeType(actx);
-	this->right->analyzeType(actx);
+void EqualityExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	this->left->analyzeTypeRef(actx);
+	this->right->analyzeTypeRef(actx);
 }
 
 void EqualityExpression::analyze(AnalyzeContext* actx) {

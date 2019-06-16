@@ -19,7 +19,7 @@ void MultiplicativeExpression::preAnalyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::preAnalyze(actx);
 }
 
-void MultiplicativeExpression::analyzeType(AnalyzeContext* actx) {
+void MultiplicativeExpression::analyzeTypeRef(AnalyzeContext* actx) {
 	// FIXME expression : analyze type
 }
 

@@ -24,7 +24,7 @@ void BitReverseExpression::preAnalyze(AnalyzeContext* actx) {
 	this->exp->preAnalyze(actx);
 }
 
-void BitReverseExpression::analyzeType(AnalyzeContext* actx) {
+void BitReverseExpression::analyzeTypeRef(AnalyzeContext* actx) {
 	// FIXME expression : analyze type
 }
 

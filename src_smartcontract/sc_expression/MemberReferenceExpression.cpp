@@ -22,7 +22,7 @@ void MemberReferenceExpression::preAnalyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::preAnalyze(actx);
 }
 
-void MemberReferenceExpression::analyzeType(AnalyzeContext* actx) {
+void MemberReferenceExpression::analyzeTypeRef(AnalyzeContext* actx) {
 	// FIXME expression : analyze type
 }
 

@@ -21,7 +21,7 @@ void BooleanLiteral::preAnalyze(AnalyzeContext* actx) {
 
 }
 
-void BooleanLiteral::analyzeType(AnalyzeContext* actx) {
+void BooleanLiteral::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void BooleanLiteral::analyze(AnalyzeContext* actx) {

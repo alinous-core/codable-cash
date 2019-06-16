@@ -19,7 +19,7 @@ public:
 	virtual ~NumberLiteral();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
-	virtual void analyzeType(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	void setValue(UnicodeString* str) noexcept;

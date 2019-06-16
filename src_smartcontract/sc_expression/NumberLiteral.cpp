@@ -24,7 +24,7 @@ void NumberLiteral::preAnalyze(AnalyzeContext* actx) {
 
 }
 
-void NumberLiteral::analyzeType(AnalyzeContext* actx) {
+void NumberLiteral::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 

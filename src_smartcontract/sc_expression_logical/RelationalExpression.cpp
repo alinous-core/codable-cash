@@ -33,9 +33,9 @@ void RelationalExpression::analyze(AnalyzeContext* actx) {
 	this->right->analyze(actx);
 }
 
-void RelationalExpression::analyzeType(AnalyzeContext* actx) {
-	this->left->analyzeType(actx);
-	this->right->analyzeType(actx);
+void RelationalExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	this->left->analyzeTypeRef(actx);
+	this->right->analyzeTypeRef(actx);
 }
 
 void RelationalExpression::setLeft(AbstractExpression* exp) noexcept {

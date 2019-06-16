@@ -23,8 +23,8 @@ void NegateExpression::preAnalyze(AnalyzeContext* actx) {
 	this->exp->preAnalyze(actx);
 }
 
-void NegateExpression::analyzeType(AnalyzeContext* actx) {
-	this->exp->analyzeType(actx);
+void NegateExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	this->exp->analyzeTypeRef(actx);
 }
 
 void NegateExpression::analyze(AnalyzeContext* actx) {

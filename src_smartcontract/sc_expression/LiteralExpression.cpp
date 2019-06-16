@@ -24,7 +24,7 @@ void LiteralExpression::preAnalyze(AnalyzeContext* actx) {
 
 }
 
-void LiteralExpression::analyzeType(AnalyzeContext* actx) {
+void LiteralExpression::analyzeTypeRef(AnalyzeContext* actx) {
 	// FIXME expression : analyze type
 }
 

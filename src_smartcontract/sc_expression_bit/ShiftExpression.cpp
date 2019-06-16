@@ -20,7 +20,7 @@ void ShiftExpression::preAnalyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::preAnalyze(actx);
 }
 
-void ShiftExpression::analyzeType(AnalyzeContext* actx) {
+void ShiftExpression::analyzeTypeRef(AnalyzeContext* actx) {
 	// FIXME expression : analyze type
 }
 

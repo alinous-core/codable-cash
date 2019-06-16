@@ -26,7 +26,7 @@ public:
 	virtual ~MultiplicativeExpression();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
-	virtual void analyzeType(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	void addOpe(uint8_t ope) noexcept;
