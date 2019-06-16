@@ -20,6 +20,10 @@ void OrExpression::preAnalyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::preAnalyze(actx);
 }
 
+void OrExpression::analyzeType(AnalyzeContext* actx) {
+	// FIXME expression : analyze type
+}
+
 void OrExpression::analyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::analyze(actx);
 

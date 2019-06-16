@@ -19,6 +19,7 @@ public:
 	virtual ~AndExpression();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeType(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	virtual int binarySize() const;

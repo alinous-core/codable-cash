@@ -24,6 +24,10 @@ void LiteralExpression::preAnalyze(AnalyzeContext* actx) {
 
 }
 
+void LiteralExpression::analyzeType(AnalyzeContext* actx) {
+	// FIXME expression : analyze type
+}
+
 void LiteralExpression::analyze(AnalyzeContext* actx) {
 
 }

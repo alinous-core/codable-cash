@@ -27,6 +27,10 @@ void CastExpression::preAnalyze(AnalyzeContext* actx) {
 	this->exp->preAnalyze(actx);
 }
 
+void CastExpression::analyzeType(AnalyzeContext* actx) {
+	// FIXME expression : analyze type
+}
+
 void CastExpression::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
 }

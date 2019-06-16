@@ -19,6 +19,10 @@ void ExclusiveOrExpression::preAnalyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::preAnalyze(actx);
 }
 
+void ExclusiveOrExpression::analyzeType(AnalyzeContext* actx) {
+	// FIXME expression : analyze type
+}
+
 void ExclusiveOrExpression::analyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::analyze(actx);
 

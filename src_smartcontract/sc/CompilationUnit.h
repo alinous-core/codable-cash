@@ -24,6 +24,7 @@ public:
 	virtual ~CompilationUnit();
 
 	void preAnalyze(AnalyzeContext* actx);
+	void analyzeType(AnalyzeContext* actx);
 	void analyze(AnalyzeContext* actx);
 
 	void setPackage(PackageDeclare* package);

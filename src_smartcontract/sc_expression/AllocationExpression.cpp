@@ -28,6 +28,10 @@ void AllocationExpression::preAnalyze(AnalyzeContext* actx) {
 	this->exp->preAnalyze(actx);
 }
 
+void AllocationExpression::analyzeType(AnalyzeContext* actx) {
+
+}
+
 void AllocationExpression::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
 }

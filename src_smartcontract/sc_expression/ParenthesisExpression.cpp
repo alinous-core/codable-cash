@@ -23,6 +23,10 @@ void ParenthesisExpression::preAnalyze(AnalyzeContext* actx) {
 	this->exp->preAnalyze(actx);
 }
 
+void ParenthesisExpression::analyzeType(AnalyzeContext* actx) {
+	this->exp->analyzeType(actx);
+}
+
 void ParenthesisExpression::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
 }

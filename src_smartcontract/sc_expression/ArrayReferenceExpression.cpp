@@ -31,6 +31,10 @@ void ArrayReferenceExpression::preAnalyze(AnalyzeContext* actx) {
 	}
 }
 
+void ArrayReferenceExpression::analyzeType(AnalyzeContext* actx) {
+	// FIXME expression : analyze type
+}
+
 void ArrayReferenceExpression::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
 

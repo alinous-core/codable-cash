@@ -24,6 +24,10 @@ void PreIncrementExpression::preAnalyze(AnalyzeContext* actx) {
 	this->exp->preAnalyze(actx);
 }
 
+void alinous::PreIncrementExpression::analyzeType(AnalyzeContext* actx) {
+	this->exp->analyzeType(actx);
+}
+
 void PreIncrementExpression::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
 }

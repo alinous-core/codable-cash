@@ -29,6 +29,10 @@ void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
 	}
 }
 
+void FunctionCallExpression::analyzeType(AnalyzeContext* actx) {
+	// FIXME expression : analyze type
+}
+
 void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 	int maxLoop = this->args.size();
 	for(int i = 0; i != maxLoop; ++i){

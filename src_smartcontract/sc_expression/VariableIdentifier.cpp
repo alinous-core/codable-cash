@@ -20,11 +20,14 @@ VariableIdentifier::~VariableIdentifier() {
 	delete this->name;
 }
 
-void alinous::VariableIdentifier::preAnalyze(AnalyzeContext* actx) {
+void VariableIdentifier::preAnalyze(AnalyzeContext* actx) {
 
 }
 
-void alinous::VariableIdentifier::analyze(AnalyzeContext* actx) {
+void VariableIdentifier::analyzeType(AnalyzeContext* actx) {
+}
+
+void VariableIdentifier::analyze(AnalyzeContext* actx) {
 
 }
 

@@ -18,6 +18,7 @@ public:
 	virtual ~BooleanLiteral();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeType(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	void setValue(bool v) noexcept;

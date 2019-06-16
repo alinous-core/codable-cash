@@ -31,6 +31,10 @@ void CompilationUnit::preAnalyze(AnalyzeContext* actx) {
 	}
 }
 
+void CompilationUnit::analyzeType(AnalyzeContext* actx) {
+
+}
+
 void CompilationUnit::analyze(AnalyzeContext* actx) {
 	int maxLoop = this->classes.size();
 	for(int i = 0; i != maxLoop; ++i){

@@ -19,6 +19,7 @@ public:
 	virtual ~LiteralExpression();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeType(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	void setString(UnicodeString* str, bool dquote) noexcept;

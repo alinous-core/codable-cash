@@ -44,7 +44,7 @@ TEST(TestVMGroup, loadAndExec){
 }
 
 
-TEST(TestVMGroup, loadAndExec2){
+TEST(TestVMGroup, loadAndExecError){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/parser/hello.alns"));
 
