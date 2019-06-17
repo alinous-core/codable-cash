@@ -68,7 +68,14 @@ void SmartContract::analyze(VirtualMachine* vm) {
 		return;
 	}
 
+	for(int i = 0; i != maxLoop; ++i){
+		CompilationUnit* unit = this->progs.get(i);
+		unit->analyzeType(this->actx);
+	}
 
+	if(this->actx->hasError()){
+		return;
+	}
 
 	for(int i = 0; i != maxLoop; ++i){
 		CompilationUnit* unit = this->progs.get(i);
@@ -86,8 +93,6 @@ void SmartContract::createInstance(VirtualMachine* vm) {
 
 	GcManager* gc = vm->getGc();
 	gc->setMainInstance(inst);
-
-
 }
 
 } /* namespace alinous */

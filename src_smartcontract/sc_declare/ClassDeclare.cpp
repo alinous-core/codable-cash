@@ -46,6 +46,11 @@ void ClassDeclare::preAnalyze(AnalyzeContext* actx) {
 	this->block->preAnalyze(actx);
 }
 
+void ClassDeclare::analyzeTypeRef(AnalyzeContext* actx) {
+	this->block->analyzeTypeRef(actx);
+}
+
+
 void ClassDeclare::analyze(AnalyzeContext* actx) {
 	this->block->analyze(actx);
 }

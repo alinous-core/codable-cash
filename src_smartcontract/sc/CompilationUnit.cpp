@@ -32,7 +32,11 @@ void CompilationUnit::preAnalyze(AnalyzeContext* actx) {
 }
 
 void CompilationUnit::analyzeType(AnalyzeContext* actx) {
-
+	int maxLoop = this->classes.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ClassDeclare* dec = this->classes.get(i);
+		dec->analyzeTypeRef(actx);
+	}
 }
 
 void CompilationUnit::analyze(AnalyzeContext* actx) {

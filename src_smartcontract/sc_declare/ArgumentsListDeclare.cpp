@@ -29,6 +29,9 @@ void ArgumentsListDeclare::preAnalyze(AnalyzeContext* actx) {
 	}
 }
 
+void ArgumentsListDeclare::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
 void ArgumentsListDeclare::analyze(AnalyzeContext* actx) {
 
 }

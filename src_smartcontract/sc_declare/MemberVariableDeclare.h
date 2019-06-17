@@ -23,6 +23,7 @@ public:
 	virtual ~MemberVariableDeclare();
 
 	void preAnalyze(AnalyzeContext* actx);
+	void analyzeTypeRef(AnalyzeContext* actx);
 	void analyze(AnalyzeContext* actx);
 
 	void setAccessControl(AccessControlDeclare* ctrl) noexcept;

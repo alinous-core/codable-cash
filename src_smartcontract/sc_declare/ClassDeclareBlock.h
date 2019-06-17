@@ -23,6 +23,7 @@ public:
 	virtual ~ClassDeclareBlock();
 
 	void preAnalyze(AnalyzeContext* actx);
+	void analyzeTypeRef(AnalyzeContext* actx);
 	void analyze(AnalyzeContext* actx);
 
 	void addMethod(MethodDeclare* method) noexcept;

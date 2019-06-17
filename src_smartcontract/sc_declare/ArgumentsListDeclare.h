@@ -22,6 +22,7 @@ public:
 	virtual ~ArgumentsListDeclare();
 
 	void preAnalyze(AnalyzeContext* actx);
+	void analyzeTypeRef(AnalyzeContext* actx);
 	void analyze(AnalyzeContext* actx);
 
 	void addArgument(ArgumentDeclare* arg) noexcept;

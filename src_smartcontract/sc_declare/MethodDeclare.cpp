@@ -61,6 +61,14 @@ void MethodDeclare::preAnalyze(AnalyzeContext* actx) {
 	}
 }
 
+void MethodDeclare::analyzeTypeRef(AnalyzeContext* actx) {
+	this->args->analyzeTypeRef(actx);
+
+	if(this->block != nullptr){
+		this->block->analyzeTypeRef(actx);
+	}
+}
+
 void MethodDeclare::analyze(AnalyzeContext* actx) {
 	this->args->analyze(actx);
 

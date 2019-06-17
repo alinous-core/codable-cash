@@ -36,10 +36,13 @@ MemberVariableDeclare::~MemberVariableDeclare() {
 	}
 }
 
-
 void MemberVariableDeclare::preAnalyze(AnalyzeContext* actx) {
 	AnalyzedClass* aclass = actx->getAnalyzedClass(this);
 	aclass->addMemberVariableDeclare(this);
+}
+
+void alinous::MemberVariableDeclare::analyzeTypeRef(AnalyzeContext* actx) {
+	// TODO: analyzeTypeRef
 }
 
 void MemberVariableDeclare::analyze(AnalyzeContext* actx) {

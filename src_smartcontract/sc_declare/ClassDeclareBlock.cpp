@@ -36,6 +36,21 @@ void ClassDeclareBlock::preAnalyze(AnalyzeContext* actx) {
 	}
 }
 
+void ClassDeclareBlock::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->variables.size();
+	for(int i = 0; i != maxLoop; ++i){
+		MemberVariableDeclare* val = this->variables.get(i);
+		val->analyzeTypeRef(actx);
+	}
+
+	maxLoop = this->methods.size();
+	for(int i = 0; i != maxLoop; ++i){
+		MethodDeclare* method = this->methods.get(i);
+		method->analyzeTypeRef(actx);
+	}
+
+}
+
 void ClassDeclareBlock::analyze(AnalyzeContext* actx) {
 	int maxLoop = this->variables.size();
 	for(int i = 0; i != maxLoop; ++i){
