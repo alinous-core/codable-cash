@@ -6,6 +6,8 @@ set(__src
 	ArgumentsListDeclare.cpp
 	ClassDeclare.cpp
 	ClassDeclareBlock.cpp
+	ImportDeclare.cpp
+	ImportsDeclare.cpp
 	MemberVariableDeclare.cpp
 	MethodDeclare.cpp
 	PackageNameDeclare.cpp

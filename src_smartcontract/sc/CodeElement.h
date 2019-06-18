@@ -35,6 +35,8 @@ public:
 	static const constexpr short ARGUMENT_DECLARE{7};
 	static const constexpr short MEMBER_VARIABLE_DECLARE{8};
 	static const constexpr short ACCESS_CONTROL_DECLARE{9};
+	static const constexpr short IMPORTS_DECLARE{10};
+	static const constexpr short IMPORT_DECLARE{11};
 
 
 	static const constexpr short TYPE_BOOL{20};
@@ -167,6 +169,7 @@ public:
 	static void checkIsExp(CodeElement* element);
 	static void checkIsSQLExp(CodeElement* element);
 	static void checkIsJoinPart(CodeElement* element);
+	static void checkIsImport(CodeElement* element);
 
 	short getKind() noexcept;
 

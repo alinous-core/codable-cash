@@ -20,6 +20,8 @@
 #include "sc_declare/ArgumentDeclare.h"
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_declare/AccessControlDeclare.h"
+#include "sc_declare/ImportsDeclare.h"
+#include "sc_declare/ImportDeclare.h"
 
 #include "sc_declare_types/BoolType.h"
 #include "sc_declare_types/ByteType.h"
@@ -224,7 +226,12 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 	case ACCESS_CONTROL_DECLARE:
 		element = new AccessControlDeclare();
 		break;
-
+	case IMPORTS_DECLARE:
+		element = new ImportsDeclare();
+		break;
+	case IMPORT_DECLARE:
+		element = new ImportDeclare();
+		break;
 
 	case TYPE_BOOL:
 		element = new BoolType();
@@ -588,6 +595,13 @@ void CodeElement::checkIsJoinPart(CodeElement* element) {
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
+
+void CodeElement::checkIsImport(CodeElement* element) {
+	if(!(element->kind == IMPORT_DECLARE)){
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
+	}
+}
+
 
 void CodeElement::setParent(CodeElement* parent) noexcept {
 	this->parent = parent;
