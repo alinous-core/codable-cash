@@ -18,6 +18,10 @@ ImportsDeclare::~ImportsDeclare() {
 
 }
 
+void ImportsDeclare::addImport(ImportDeclare* imp) noexcept {
+	this->list.addElement(imp);
+}
+
 int ImportsDeclare::binarySize() const {
 	int total = sizeof(uint16_t);
 

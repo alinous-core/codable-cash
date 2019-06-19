@@ -15,6 +15,7 @@ namespace alinous {
 
 class ClassDeclare;
 class PackageDeclare;
+class ImportsDeclare;
 class AnalyzeContext;
 class UnicodeString;
 
@@ -28,6 +29,7 @@ public:
 	void analyze(AnalyzeContext* actx);
 
 	void setPackage(PackageDeclare* package);
+	void setImports(ImportsDeclare* imports) noexcept;
 	void addClassDeclare(ClassDeclare* clazz);
 
 	const UnicodeString* getPackageName() noexcept;
@@ -37,6 +39,7 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 private:
 	PackageDeclare* package;
+	ImportsDeclare* imports;
 	ArrayList<ClassDeclare> classes;
 };
 

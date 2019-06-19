@@ -8,16 +8,19 @@
 #include "sc/CompilationUnit.h"
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/PackageDeclare.h"
+#include "sc_declare/ImportsDeclare.h"
 #include "base/UnicodeString.h"
 
 namespace alinous {
 
 CompilationUnit::CompilationUnit() : classes(4), CodeElement(CodeElement::COMPILANT_UNIT) {
 	this->package = nullptr;
+	this->imports = nullptr;
 }
 
 CompilationUnit::~CompilationUnit() {
 	delete this->package;
+	delete this->imports;
 
 	this->classes.deleteElements();
 }
@@ -59,6 +62,11 @@ const UnicodeString* CompilationUnit::getPackageName() noexcept {
 	return this->package->getPackageName();
 }
 
+
+void CompilationUnit::setImports(ImportsDeclare* imports) noexcept {
+	this->imports = imports;
+}
+
 void CompilationUnit::addClassDeclare(ClassDeclare* clazz) {
 	this->classes.addElement(clazz);
 }
@@ -69,6 +77,11 @@ int CompilationUnit::binarySize() const {
 	total += sizeof(char);
 	if(this->package){
 		total += this->package->binarySize();
+	}
+
+	total += sizeof(char);
+	if(this->imports){
+		total += this->imports->binarySize();
 	}
 
 	total += sizeof(uint32_t);
@@ -91,6 +104,13 @@ void CompilationUnit::toBinary(ByteBuffer* out) {
 		this->package->toBinary(out);
 	}
 
+	bl = this->imports != nullptr ? (char)1 : (char)0;
+	out->put(bl);
+
+	if(this->imports != nullptr){
+		this->imports->toBinary(out);
+	}
+
 	uint32_t maxLoop = this->classes.size();
 	out->putInt(maxLoop);
 	for(int i = 0; i != maxLoop; ++i){
@@ -106,6 +126,13 @@ void CompilationUnit::fromBinary(ByteBuffer* in) {
 		CodeElement* element = createFromBinary(in);
 		checkKind(element, CodeElement::PACKAGE_DECLARE);
 		this->package = dynamic_cast<PackageDeclare*>(element);
+	}
+
+	bl = in->get();
+	if(bl == (char)1){
+		CodeElement* element = createFromBinary(in);
+		checkKind(element, CodeElement::IMPORTS_DECLARE);
+		this->imports = dynamic_cast<ImportsDeclare*>(element);
 	}
 
 	int maxLoop = in->getInt();

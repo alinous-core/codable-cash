@@ -356,6 +356,7 @@ CompilationUnit* compilationUnit() :
 {
 	CompilationUnit* unit = new CompilationUnit();
 	PackageDeclare* pkg = nullptr;
+	ImportsDeclare* imports = nullptr;
 	ClassDeclare* clazz = nullptr;
 }
 {
@@ -364,6 +365,10 @@ CompilationUnit* compilationUnit() :
 			unit->setPackage(pkg);
 		}
 	]
+	
+	imports=importsDeclare() {
+		unit->setImports(imports);
+	}
     
 	(
 	    clazz=classDeclare() {
@@ -374,6 +379,58 @@ CompilationUnit* compilationUnit() :
 	<EOF>
 	{
 		return unit;
+	}
+}
+
+ImportsDeclare* importsDeclare() : {
+	ImportsDeclare* importsDeclare = new ImportsDeclare();
+	ImportDeclare* dec = nullptr;
+}
+{
+	(
+		dec=importDeclare() {
+			importsDeclare->addImport(dec);
+			importsDeclare->setPosition(dec);
+		}
+	)*
+	{
+	}
+	{
+	    __ONERROR(importsDeclare);
+		return importsDeclare;
+	}
+}
+
+ImportDeclare* importDeclare() : {
+	ImportDeclare* dec = new ImportDeclare();
+	Token* t = nullptr;
+}
+{
+	t="import" {
+		dec->setPosition(t);
+	}
+	
+	t=< IDENTIFIER > {
+		dec->setPosition(t);
+		dec->appendStr(t->image.c_str());
+	}
+	(
+		t="." {
+			dec->setPosition(t);
+			dec->appendStr(t->image.c_str());
+		}
+		t=< IDENTIFIER > {
+			dec->setPosition(t);
+			dec->appendStr(t->image.c_str());
+		}
+	)*
+	
+	t=";" {
+		dec->setPosition(t);
+	}
+	{
+	    __ONERROR(dec);
+		return dec;
 	}
 }
 
