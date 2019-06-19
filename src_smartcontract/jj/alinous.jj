@@ -492,6 +492,7 @@ ClassDeclare* classDeclare() :
 	Token* cls = nullptr;
 	Token* name = nullptr;
 	ClassDeclareBlock* block = nullptr;
+	Token* t = nullptr;
 	
 }
 {
@@ -499,6 +500,12 @@ ClassDeclare* classDeclare() :
 		 clazz = new ClassDeclare();
 		 clazz->setName(_STR(name));
 	}
+	
+	[
+		t="extends"
+	]
+	
+	
 	block=classDeclareBlock() {
 	    clazz->setPositions(cls, block);
 	    clazz->setBlock(block);
@@ -506,6 +513,83 @@ ClassDeclare* classDeclare() :
 	{
 	    __ONERROR(clazz);
 		return clazz;
+	}
+}
+
+ClassExtends* classExtends() :
+{
+	ClassExtends* extends = new ClassExtends();
+	ClassName* name = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="extends" {
+		extends->setPosition(t);
+	}
+	name=className() {
+		extends->setPosition(name);
+		extends->setClassName(name);
+	}
+	{
+		__ONERROR(extends);
+		return extends;
+	}
+}
+
+ClassImplements* classImplements() :{
+	ClassImplements*  implements = new ClassImplements();
+	ClassName* name = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="implements" {
+		implements->setPosition(t);
+	}
+	name=className() {
+		implements->setPosition(name);
+		implements->addClassName(name);
+	}
+	(
+		t="," {
+			implements->setPosition(t);
+		}
+		name=className() {
+			implements->setPosition(name);
+			implements->addClassName(name);
+		}	
+	)*
+	{}
+	
+	{
+		__ONERROR(implements);
+		return implements;
+	}
+}
+
+ClassName* className() :
+{
+	ClassName* name = new ClassName();
+	Token* t = nullptr;
+}
+{
+	t=< IDENTIFIER > {
+		name->setPosition(t);
+		name->addStr(t->image.c_str());
+	}
+	(
+		t="." {
+			name->setPosition(t);
+			name->addStr(t->image.c_str());
+		}
+		t=< IDENTIFIER > {
+			name->setPosition(t);
+			name->addStr(t->image.c_str());		
+		}
+	)*
+	{}
+	{
+		__ONERROR(name);
+		return name;
 	}
 }
 
