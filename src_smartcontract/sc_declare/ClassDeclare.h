@@ -17,6 +17,8 @@ namespace alinous {
 class ClassDeclareBlock;
 class UnicodeString;
 class AnalyzeContext;
+class ClassExtends;
+class ClassImplements;
 
 class ClassDeclare : public CodeElement {
 public:
@@ -29,6 +31,8 @@ public:
 
 	void setBlock(ClassDeclareBlock* block) noexcept;
 	void setName(UnicodeString* name) noexcept;
+	void setExtends(ClassExtends* extends) noexcept;
+	void setImplements(ClassImplements* implements) noexcept;
 
 	const UnicodeString* getName() noexcept;
 
@@ -38,6 +42,8 @@ public:
 private:
 	ClassDeclareBlock* block;
 	UnicodeString* name;
+	ClassExtends* extends;
+	ClassImplements* implements;
 };
 
 } /* namespace alinous */

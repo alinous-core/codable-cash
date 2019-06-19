@@ -144,7 +144,8 @@ ClassDeclare* classDeclare() :
 	Token* name = nullptr;
 	ClassDeclareBlock* block = nullptr;
 	Token* t = nullptr;
-	
+	ClassExtends* clsextends = nullptr;
+	ClassImplements*  clsimplements = nullptr;	
 }
 {
 	cls="class" name=<IDENTIFIER> {
@@ -153,10 +154,17 @@ ClassDeclare* classDeclare() :
 	}
 	
 	[
-		t="extends"
+		clsextends=classExtends() {
+			clazz->setExtends(clsextends);
+		}
 	]
 	
-	
+	[
+		clsimplements=classImplements() {
+			clazz->setImplements(clsimplements);
+		}
+	]
+		
 	block=classDeclareBlock() {
 	    clazz->setPositions(cls, block);
 	    clazz->setBlock(block);
