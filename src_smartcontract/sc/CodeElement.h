@@ -37,6 +37,9 @@ public:
 	static const constexpr short ACCESS_CONTROL_DECLARE{9};
 	static const constexpr short IMPORTS_DECLARE{10};
 	static const constexpr short IMPORT_DECLARE{11};
+	static const constexpr short CLASS_EXTENDS{12};
+	static const constexpr short CLASS_IMPLEMENTS{13};
+	static const constexpr short CLASS_NAME{14};
 
 
 	static const constexpr short TYPE_BOOL{20};

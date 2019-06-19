@@ -143,6 +143,7 @@ ClassDeclare* classDeclare() :
 	Token* cls = nullptr;
 	Token* name = nullptr;
 	ClassDeclareBlock* block = nullptr;
+	Token* t = nullptr;
 	
 }
 {
@@ -150,6 +151,12 @@ ClassDeclare* classDeclare() :
 		 clazz = new ClassDeclare();
 		 clazz->setName(_STR(name));
 	}
+	
+	[
+		t="extends"
+	]
+	
+	
 	block=classDeclareBlock() {
 	    clazz->setPositions(cls, block);
 	    clazz->setBlock(block);
@@ -159,6 +166,8 @@ ClassDeclare* classDeclare() :
 		return clazz;
 	}
 }
+
+
 
 ClassDeclareBlock* classDeclareBlock() :
 {

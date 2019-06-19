@@ -6,8 +6,11 @@ set(__src
 	ArgumentsListDeclare.cpp
 	ClassDeclare.cpp
 	ClassDeclareBlock.cpp
+	ClassExtends.cpp
+	ClassImplements.cpp
 	ImportDeclare.cpp
 	ImportsDeclare.cpp
+	ClassName.cpp
 	MemberVariableDeclare.cpp
 	MethodDeclare.cpp
 	PackageNameDeclare.cpp

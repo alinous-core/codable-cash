@@ -23,6 +23,9 @@
 #include "sc_declare/PackageNameDeclare.h"
 #include "sc_declare/ImportsDeclare.h"
 #include "sc_declare/ImportDeclare.h"
+#include "sc_declare/ClassExtends.h"
+#include "sc_declare/ClassImplements.h"
+#include "sc_declare/ClassName.h"
 
 #include "sc_declare_types/BoolType.h"
 #include "sc_declare_types/ByteType.h"

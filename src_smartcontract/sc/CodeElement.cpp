@@ -22,6 +22,9 @@
 #include "sc_declare/AccessControlDeclare.h"
 #include "sc_declare/ImportsDeclare.h"
 #include "sc_declare/ImportDeclare.h"
+#include "sc_declare/ClassExtends.h"
+#include "sc_declare/ClassImplements.h"
+#include "sc_declare/ClassName.h"
 
 #include "sc_declare_types/BoolType.h"
 #include "sc_declare_types/ByteType.h"
@@ -231,6 +234,15 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		break;
 	case IMPORT_DECLARE:
 		element = new ImportDeclare();
+		break;
+	case CLASS_EXTENDS:
+		element = new ClassExtends();
+		break;
+	case CLASS_IMPLEMENTS:
+		element = new ClassImplements();
+		break;
+	case CLASS_NAME:
+		element = new ClassName();
 		break;
 
 	case TYPE_BOOL:
