@@ -47,7 +47,7 @@ unit->setPackage(pkg);
     imports = importsDeclare();
     }
     if (!hasError) {
-
+unit->setImports(imports);
     }
     if (!hasError) {
     while (!hasError) {
