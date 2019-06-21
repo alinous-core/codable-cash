@@ -19,6 +19,7 @@
 namespace alinous {
 
 ClassDeclare::ClassDeclare() : CodeElement(CodeElement::CLASS_DECLARE) {
+	this->interface = false;
 	this->block = nullptr;
 	this->name = nullptr;
 	this->extends = nullptr;
@@ -129,6 +130,10 @@ void ClassDeclare::setExtends(ClassExtends* extends) noexcept {
 
 void ClassDeclare::setImplements(ClassImplements* implements) noexcept {
 	this->implements = implements;
+}
+
+void ClassDeclare::setInterface(bool interface) noexcept {
+	this->interface = interface;
 }
 
 void ClassDeclare::fromBinary(ByteBuffer* in) {

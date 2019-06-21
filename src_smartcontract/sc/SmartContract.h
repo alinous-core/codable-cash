@@ -25,7 +25,9 @@ public:
 	virtual ~SmartContract();
 
 	void addCompilationUnit(InputStream* stream, int length);
+	void addCompilationUnit(File* file);
 	void analyze(VirtualMachine* vm);
+	bool hasError() noexcept;
 
 	void setMainMethod(const UnicodeString* mainPackage, const UnicodeString* mainClass, const UnicodeString* mainMethod);
 

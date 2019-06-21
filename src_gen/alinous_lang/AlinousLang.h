@@ -269,77 +269,6 @@ TableIdentifier               * tableIdentifier();
  { jj_save(14, xla); }
   }
 
- inline bool jj_3R_140()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(FALSE)) return true;
-    return false;
-  }
-
- inline bool jj_3R_82()
- {
-    if (jj_done) return true;
-    Token * xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_86()) jj_scanpos = xsp;
-    if (jj_3R_87()) return true;
-    return false;
-  }
-
- inline bool jj_3R_71()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(INT)) return true;
-    return false;
-  }
-
- inline bool jj_3R_139()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(TRUE)) return true;
-    return false;
-  }
-
- inline bool jj_3R_127()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(191)) return true;
-    return false;
-  }
-
- inline bool jj_3R_146()
- {
-    if (jj_done) return true;
-    Token * xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_147()) {
-    jj_scanpos = xsp;
-    if (jj_3R_148()) {
-    jj_scanpos = xsp;
-    if (jj_3R_149()) {
-    jj_scanpos = xsp;
-    if (jj_3R_150()) return true;
-    }
-    }
-    }
-    return false;
-  }
-
- inline bool jj_3R_41()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(PLUSPLUS)) return true;
-    return false;
-  }
-
- inline bool jj_3_12()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(SQLAND)) return true;
-    if (jj_3R_44()) return true;
-    return false;
-  }
-
  inline bool jj_3R_89()
  {
     if (jj_done) return true;
@@ -349,6 +278,14 @@ TableIdentifier               * tableIdentifier();
       xsp = jj_scanpos;
       if (jj_3R_97()) { jj_scanpos = xsp; break; }
     }
+    return false;
+  }
+
+ inline bool jj_3_12()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(SQLAND)) return true;
+    if (jj_3R_44()) return true;
     return false;
   }
 
@@ -390,17 +327,17 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_70()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(SHORT)) return true;
-    return false;
-  }
-
  inline bool jj_3R_40()
  {
     if (jj_done) return true;
     if (jj_scan_token(MINUSMINUS)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_70()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(SHORT)) return true;
     return false;
   }
 
@@ -736,14 +673,6 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3_1()
- {
-    if (jj_done) return true;
-    if (jj_scan_token(DOT)) return true;
-    if (jj_scan_token(IDENTIFIER)) return true;
-    return false;
-  }
-
  inline bool jj_3_4()
  {
     if (jj_done) return true;
@@ -823,6 +752,14 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
+ inline bool jj_3_1()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(DOT)) return true;
+    if (jj_scan_token(IDENTIFIER)) return true;
+    return false;
+  }
+
  inline bool jj_3R_56()
  {
     if (jj_done) return true;
@@ -837,6 +774,13 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
+ inline bool jj_3R_55()
+ {
+    if (jj_done) return true;
+    if (jj_3R_74()) return true;
+    return false;
+  }
+
  inline bool jj_3_14()
  {
     if (jj_done) return true;
@@ -848,13 +792,6 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_55()
- {
-    if (jj_done) return true;
-    if (jj_3R_74()) return true;
-    return false;
-  }
-
  inline bool jj_3_10()
  {
     if (jj_done) return true;
@@ -863,17 +800,17 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
- inline bool jj_3R_79()
- {
-    if (jj_done) return true;
-    if (jj_3R_83()) return true;
-    return false;
-  }
-
  inline bool jj_3R_54()
  {
     if (jj_done) return true;
     if (jj_3R_73()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_79()
+ {
+    if (jj_done) return true;
+    if (jj_3R_83()) return true;
     return false;
   }
 
@@ -1528,6 +1465,69 @@ TableIdentifier               * tableIdentifier();
     return false;
   }
 
+ inline bool jj_3R_140()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(FALSE)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_82()
+ {
+    if (jj_done) return true;
+    Token * xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_86()) jj_scanpos = xsp;
+    if (jj_3R_87()) return true;
+    return false;
+  }
+
+ inline bool jj_3R_71()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(INT)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_139()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(TRUE)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_127()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(191)) return true;
+    return false;
+  }
+
+ inline bool jj_3R_146()
+ {
+    if (jj_done) return true;
+    Token * xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_147()) {
+    jj_scanpos = xsp;
+    if (jj_3R_148()) {
+    jj_scanpos = xsp;
+    if (jj_3R_149()) {
+    jj_scanpos = xsp;
+    if (jj_3R_150()) return true;
+    }
+    }
+    }
+    return false;
+  }
+
+ inline bool jj_3R_41()
+ {
+    if (jj_done) return true;
+    if (jj_scan_token(PLUSPLUS)) return true;
+    return false;
+  }
+
 
 public: 
   void setErrorHandler(ErrorHandler *eh) {
@@ -1553,7 +1553,7 @@ private:
   bool          jj_lookingAhead;
   bool          jj_semLA;
   int           jj_gen;
-  int           jj_la1[104];
+  int           jj_la1[105];
   ErrorHandler *errorHandler = nullptr;
 
 protected: 

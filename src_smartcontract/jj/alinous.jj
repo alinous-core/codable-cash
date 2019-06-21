@@ -497,8 +497,18 @@ ClassDeclare* classDeclare() :
 	ClassImplements*  clsimplements = nullptr;	
 }
 {
-	cls="class" name=<IDENTIFIER> {
-		 clazz = new ClassDeclare();
+	(
+		cls="class" {
+			clazz = new ClassDeclare();
+		}
+		|
+		cls="interface" {
+			clazz = new ClassDeclare();
+			clazz->setInterface(true);
+		}
+	)
+	
+	name=<IDENTIFIER> {
 		 clazz->setName(_STR(name));
 	}
 	

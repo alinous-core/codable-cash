@@ -22,6 +22,9 @@
 #include "instance/VmClassInstance.h"
 #include "instance_gc/GcManager.h"
 
+#include "base_io_stream/FileInputStream.h"
+#include "base_io/File.h"
+
 namespace alinous {
 
 SmartContract::SmartContract() {
@@ -54,6 +57,13 @@ void SmartContract::addCompilationUnit(InputStream* stream, int length) {
 	this->progs.addElement(unit);
 }
 
+void SmartContract::addCompilationUnit(File* file) {
+	FileInputStream stream(file);
+
+	int length = file->length();
+	addCompilationUnit(&stream, length);
+}
+
 void SmartContract::analyze(VirtualMachine* vm) {
 	this->actx = new AnalyzeContext();
 	this->actx->setVm(vm);
@@ -82,6 +92,11 @@ void SmartContract::analyze(VirtualMachine* vm) {
 		unit->analyze(this->actx);
 	}
 }
+
+bool SmartContract::hasError() noexcept {
+	return this->actx->hasError();
+}
+
 
 void SmartContract::createInstance(VirtualMachine* vm) {
 	PackageSpace* space = this->actx->getPackegeSpace(this->mainPackage);

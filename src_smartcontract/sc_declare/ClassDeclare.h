@@ -25,6 +25,8 @@ public:
 	ClassDeclare();
 	virtual ~ClassDeclare();
 
+	void setInterface(bool interface) noexcept;
+
 	void preAnalyze(AnalyzeContext* actx);
 	void analyzeTypeRef(AnalyzeContext* actx);
 	void analyze(AnalyzeContext* actx);
@@ -40,6 +42,7 @@ public:
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
 private:
+	bool interface;
 	ClassDeclareBlock* block;
 	UnicodeString* name;
 	ClassExtends* extends;

@@ -26,6 +26,7 @@ public:
 
 	void loadSmartContract(SmartContract* sc);
 	void analyze();
+	bool hasError() noexcept;
 
 	void createScInstance();
 	void interpret(const UnicodeString* method);

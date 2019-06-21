@@ -58,6 +58,10 @@ void VirtualMachine::analyze() {
 	this->sc->analyze(this);
 }
 
+bool VirtualMachine::hasError() noexcept {
+	return this->sc->hasError();
+}
+
 GcManager* VirtualMachine::getGc() noexcept {
 	return this->gc;
 }
