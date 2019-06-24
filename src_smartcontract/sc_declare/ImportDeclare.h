@@ -13,6 +13,7 @@
 namespace alinous {
 
 class UnicodeString;
+class AnalyzeContext;
 
 class ImportDeclare : public CodeElement {
 public:
@@ -22,6 +23,8 @@ public:
 	void appendStr(const char* cstr) noexcept;
 	bool hasClassName(const UnicodeString* name) noexcept;
 	UnicodeString* getPackageName() noexcept;
+
+	void preAnalyze(AnalyzeContext* actx);
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

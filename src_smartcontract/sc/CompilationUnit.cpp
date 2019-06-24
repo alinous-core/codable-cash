@@ -26,6 +26,11 @@ CompilationUnit::~CompilationUnit() {
 }
 
 void CompilationUnit::preAnalyze(AnalyzeContext* actx) {
+	if(this->imports != nullptr){
+		this->imports->setParent(this);
+		this->imports->preAnalyze(actx);
+	}
+
 	int maxLoop = this->classes.size();
 	for(int i = 0; i != maxLoop; ++i){
 		ClassDeclare* dec = this->classes.get(i);

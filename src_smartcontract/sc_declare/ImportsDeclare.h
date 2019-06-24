@@ -13,6 +13,7 @@
 
 namespace alinous {
 class ImportDeclare;
+class AnalyzeContext;
 
 class ImportsDeclare : public CodeElement {
 public:
@@ -20,6 +21,8 @@ public:
 	virtual ~ImportsDeclare();
 
 	void addImport(ImportDeclare* imp) noexcept;
+
+	void preAnalyze(AnalyzeContext* actx);
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

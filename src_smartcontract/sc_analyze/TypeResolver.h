@@ -23,7 +23,7 @@ class TypeResolver {
 public:
 	static UnicodeString DOT;
 
-	TypeResolver(AnalyzeContext* ctx);
+	explicit TypeResolver(AnalyzeContext* ctx);
 	virtual ~TypeResolver();
 
 	AnalyzedType* findClassType(CodeElement* element, const UnicodeString* name) const;

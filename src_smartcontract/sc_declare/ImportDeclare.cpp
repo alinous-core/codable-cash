@@ -40,6 +40,13 @@ bool ImportDeclare::hasClassName(const UnicodeString* name) noexcept {
 	return this->namePart->equals(name);
 }
 
+void ImportDeclare::preAnalyze(AnalyzeContext* actx) {
+	UnicodeString* pkg = TypeResolver::getPackageName(this->className);
+	if(pkg == nullptr){
+		// FIXME add error
+	}
+}
+
 UnicodeString* ImportDeclare::getPackageName() noexcept {
 	return TypeResolver::getPackageName(this->className);
 }

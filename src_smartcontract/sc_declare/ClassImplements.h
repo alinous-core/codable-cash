@@ -15,6 +15,7 @@ namespace alinous {
 
 class ClassName;
 class AnalyzeContext;
+class AnalyzedType;
 
 class ClassImplements : public CodeElement {
 public:
@@ -31,6 +32,7 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 private:
 	ArrayList<ClassName> list;
+	ArrayList<AnalyzedType> typelist;
 };
 
 } /* namespace alinous */

@@ -8,6 +8,8 @@
 #include "sc_declare/ImportsDeclare.h"
 #include "sc_declare/ImportDeclare.h"
 
+#include "sc_analyze/AnalyzeContext.h"
+
 namespace alinous {
 
 ImportsDeclare::ImportsDeclare() : CodeElement(CodeElement::IMPORTS_DECLARE) {
@@ -21,6 +23,17 @@ ImportsDeclare::~ImportsDeclare() {
 void ImportsDeclare::addImport(ImportDeclare* imp) noexcept {
 	this->list.addElement(imp);
 }
+
+
+void ImportsDeclare::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ImportDeclare* imp = this->list.get(i);
+		imp->setParent(this);
+		imp->preAnalyze(actx);
+	}
+}
+
 
 int ImportsDeclare::binarySize() const {
 	int total = sizeof(uint16_t);
@@ -61,4 +74,3 @@ const ArrayList<ImportDeclare>* ImportsDeclare::getImports() const noexcept {
 }
 
 } /* namespace alinous */
-

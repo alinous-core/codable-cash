@@ -9,6 +9,9 @@
 #include "sc_declare/ClassName.h"
 
 #include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/TypeResolver.h"
+
 namespace alinous {
 
 ClassImplements::ClassImplements() : CodeElement(CodeElement::CLASS_IMPLEMENTS) {
@@ -17,6 +20,7 @@ ClassImplements::ClassImplements() : CodeElement(CodeElement::CLASS_IMPLEMENTS) 
 
 ClassImplements::~ClassImplements() {
 	this->list.deleteElements();
+	this->typelist.deleteElements();
 }
 
 void ClassImplements::addClassName(ClassName* name) noexcept {
@@ -32,6 +36,16 @@ void ClassImplements::preAnalyze(AnalyzeContext* actx) {
 }
 
 void ClassImplements::analyzeTypeRef(AnalyzeContext* actx) {
+	TypeResolver* res = actx->getTypeResolver();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ClassName* n = this->list.get(i);
+		const UnicodeString* name = n->getName();
+
+		AnalyzedType* type = res->findClassType(this, name);
+		this->typelist.addElement(type);
+	}
 }
 
 int ClassImplements::binarySize() const {
