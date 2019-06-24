@@ -1,6 +1,7 @@
 
 set(testsrc
 	test_class_fw.cpp
+	test_compiler_utils.cpp
 	test_ctrl_statement.cpp
 	test_ddl.cpp
 	test_dml.cpp

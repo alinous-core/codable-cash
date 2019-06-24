@@ -71,6 +71,11 @@ void CompilationUnit::addClassDeclare(ClassDeclare* clazz) {
 	this->classes.addElement(clazz);
 }
 
+ImportsDeclare* CompilationUnit::getImportDeclare() const noexcept {
+	return this->imports;
+}
+
+
 int CompilationUnit::binarySize() const {
 	int total = sizeof(uint16_t);
 
@@ -143,7 +148,6 @@ void CompilationUnit::fromBinary(ByteBuffer* in) {
 		ClassDeclare* dec = dynamic_cast<ClassDeclare*>(element);
 		this->classes.addElement(dec);
 	}
-
 }
 
 } /* namespace alinous */

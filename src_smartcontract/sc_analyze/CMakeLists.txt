@@ -8,6 +8,7 @@ set(__src
 	AnalyzeStack.cpp
 	AnalyzeStackManager.cpp
 	PackageSpace.cpp
+	TypeResolver.cpp
 	ValidationError.cpp
 )
 handle_sub(codablecashlib "${__src}" smartcontract sc_analyze)

@@ -8,15 +8,34 @@
 #include "sc_declare/ClassExtends.h"
 #include "sc_declare/ClassName.h"
 
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/TypeResolver.h"
+#include "sc_analyze/AnalyzedType.h"
+
 namespace alinous {
 
 ClassExtends::ClassExtends() : CodeElement(CodeElement::CLASS_EXTENDS) {
 	this->className = nullptr;
+	this->atype = nullptr;
 }
 
 ClassExtends::~ClassExtends() {
 	delete this->className;
+	delete this->atype;
 }
+
+void ClassExtends::preAnalyze(AnalyzeContext* actx) {
+
+}
+
+
+void ClassExtends::analyzeTypeRef(AnalyzeContext* actx) {
+	const UnicodeString* name = this->className->getName();
+	TypeResolver* res = actx->getTypeResolver();
+
+	this->atype = res->findClassType(this, name);
+}
+
 
 void ClassExtends::setClassName(ClassName* className) noexcept {
 	this->className = className;

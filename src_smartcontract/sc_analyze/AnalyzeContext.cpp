@@ -11,11 +11,13 @@
 #include "sc_analyze/PackageSpace.h"
 #include "sc_analyze/ValidationError.h"
 #include "sc_analyze/AnalyzeStackManager.h"
+#include "sc_analyze/TypeResolver.h"
 
 #include "sc_declare/ClassDeclare.h"
 
 #include "sc/CompilationUnit.h"
 #include "sc/exceptions.h"
+
 
 namespace alinous {
 
@@ -23,6 +25,7 @@ AnalyzeContext::AnalyzeContext() {
 	this->vm = nullptr;
 	this->packageSpaces = new HashMap<UnicodeString, PackageSpace>();
 	this->stack = new AnalyzeStackManager();
+	this->typeResolver = new TypeResolver(this);
 }
 
 AnalyzeContext::~AnalyzeContext() {
@@ -40,6 +43,7 @@ AnalyzeContext::~AnalyzeContext() {
 
 	this->verrorList.deleteElements();
 	delete this->stack;
+	delete this->typeResolver;
 }
 
 void AnalyzeContext::setVm(VirtualMachine* vm) noexcept {
@@ -80,6 +84,10 @@ AnalyzedClass* AnalyzeContext::getAnalyzedClass(CodeElement* element) {
 	PackageSpace* pkg = getPackegeSpace(unit->getPackageName());
 
 	return pkg->getClass(dec->getName());
+}
+
+TypeResolver* AnalyzeContext::getTypeResolver() noexcept {
+	return this->typeResolver;
 }
 
 } /* namespace alinous */

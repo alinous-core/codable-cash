@@ -34,6 +34,8 @@ public:
 
 	const UnicodeString* getPackageName() noexcept;
 
+	ImportsDeclare* getImportDeclare() const noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);

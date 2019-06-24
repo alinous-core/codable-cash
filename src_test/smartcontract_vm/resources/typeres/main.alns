@@ -2,6 +2,9 @@
 
 package test.fw;
 
-class MainContract {
+import test.util.Utils;
+import test.util.imple.IDataHandler;
+
+class MainContract extends Utils implements IDataHandler {
 
 }

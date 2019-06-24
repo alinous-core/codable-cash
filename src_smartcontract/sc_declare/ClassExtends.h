@@ -13,11 +13,16 @@
 namespace alinous {
 
 class ClassName;
+class AnalyzeContext;
+class AnalyzedType;
 
 class ClassExtends : public CodeElement {
 public:
 	ClassExtends();
 	virtual ~ClassExtends();
+
+	void preAnalyze(AnalyzeContext* actx);
+	void analyzeTypeRef(AnalyzeContext* actx);
 
 	void setClassName(ClassName* className) noexcept;
 
@@ -26,6 +31,8 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 private:
 	ClassName* className;
+	AnalyzedType* atype;
+
 };
 
 } /* namespace alinous */

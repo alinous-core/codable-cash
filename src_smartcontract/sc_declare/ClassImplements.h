@@ -14,11 +14,15 @@
 namespace alinous {
 
 class ClassName;
+class AnalyzeContext;
 
 class ClassImplements : public CodeElement {
 public:
 	ClassImplements();
 	virtual ~ClassImplements();
+
+	void preAnalyze(AnalyzeContext* actx);
+	void analyzeTypeRef(AnalyzeContext* actx);
 
 	void addClassName(ClassName* name) noexcept;
 

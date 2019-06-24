@@ -15,7 +15,7 @@ ImportsDeclare::ImportsDeclare() : CodeElement(CodeElement::IMPORTS_DECLARE) {
 }
 
 ImportsDeclare::~ImportsDeclare() {
-
+	this->list.deleteElements();
 }
 
 void ImportsDeclare::addImport(ImportDeclare* imp) noexcept {
@@ -56,4 +56,9 @@ void ImportsDeclare::fromBinary(ByteBuffer* in) {
 	}
 }
 
+const ArrayList<ImportDeclare>* ImportsDeclare::getImports() const noexcept {
+	return &this->list;
+}
+
 } /* namespace alinous */
+

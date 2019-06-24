@@ -15,14 +15,14 @@ AnalyzedType::AnalyzedType(uint8_t type) {
 	this->aclazz = nullptr;
 }
 
+AnalyzedType::AnalyzedType(AnalyzedClass* clazz) {
+	this->type = TYPE_OBJECT;
+	this->aclazz = clazz;
+}
+
 AnalyzedType::AnalyzedType(const AnalyzedType& obj) {
 	this->type = obj.type;
-	if(obj.aclazz != nullptr){
-		this->aclazz = new AnalyzedClass(*(obj.aclazz));
-	}
-	else{
-		this->aclazz = nullptr;
-	}
+	this->aclazz = obj.aclazz;
 }
 
 AnalyzedType::AnalyzedType() {
@@ -31,7 +31,7 @@ AnalyzedType::AnalyzedType() {
 }
 
 AnalyzedType::~AnalyzedType() {
-	delete this->aclazz;
+	this->aclazz = nullptr;
 }
 
 } /* namespace alinous */

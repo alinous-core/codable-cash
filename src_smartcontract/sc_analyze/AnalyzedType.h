@@ -27,15 +27,17 @@ public:
 	static const constexpr short TYPE_VOID{27};
 	static const constexpr short TYPE_OBJECT{28};
 
-	AnalyzedType(const AnalyzedType& obj);
+	AnalyzedType(const AnalyzedType& obj); // copy constructor
+
 	explicit AnalyzedType(uint8_t type);
+	explicit AnalyzedType(AnalyzedClass* clazz);
 	AnalyzedType();
 
 	virtual ~AnalyzedType();
 
 private:
 	uint8_t type;
-	AnalyzedClass* aclazz;
+	AnalyzedClass* aclazz; // reference
 };
 
 } /* namespace alinous */

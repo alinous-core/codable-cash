@@ -8,14 +8,18 @@
 #include "sc_declare/ImportDeclare.h"
 #include "base/UnicodeString.h"
 
+#include "sc_analyze/TypeResolver.h"
+
 namespace alinous {
 
 ImportDeclare::ImportDeclare() : CodeElement(CodeElement::IMPORT_DECLARE) {
 	this->className = nullptr;
+	this->namePart = nullptr;
 }
 
 ImportDeclare::~ImportDeclare() {
 	delete this->className;
+	delete this->namePart;
 }
 
 
@@ -26,6 +30,18 @@ void ImportDeclare::appendStr(const char* cstr) noexcept {
 
 	UnicodeString str(cstr);
 	this->className->append(&str);
+}
+
+bool ImportDeclare::hasClassName(const UnicodeString* name) noexcept {
+	if(this->namePart == nullptr){
+		this->namePart = TypeResolver::getClassName(this->className);
+	}
+
+	return this->namePart->equals(name);
+}
+
+UnicodeString* ImportDeclare::getPackageName() noexcept {
+	return TypeResolver::getPackageName(this->className);
 }
 
 int ImportDeclare::binarySize() const {

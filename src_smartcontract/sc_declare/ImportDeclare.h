@@ -20,6 +20,8 @@ public:
 	virtual ~ImportDeclare();
 
 	void appendStr(const char* cstr) noexcept;
+	bool hasClassName(const UnicodeString* name) noexcept;
+	UnicodeString* getPackageName() noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
@@ -27,6 +29,7 @@ public:
 
 private:
 	UnicodeString* className;
+	UnicodeString* namePart;
 };
 
 } /* namespace alinous */

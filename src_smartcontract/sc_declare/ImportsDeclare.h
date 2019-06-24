@@ -25,6 +25,7 @@ public:
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
 
+	const ArrayList<ImportDeclare>* getImports() const noexcept;
 private:
 	ArrayList<ImportDeclare> list;
 };

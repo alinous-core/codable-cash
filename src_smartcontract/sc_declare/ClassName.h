@@ -18,6 +18,7 @@ public:
 	virtual ~ClassName();
 
 	void addStr(const char* str) noexcept;
+	const UnicodeString* getName() noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

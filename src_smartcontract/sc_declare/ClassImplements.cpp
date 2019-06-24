@@ -8,6 +8,7 @@
 #include "sc_declare/ClassImplements.h"
 #include "sc_declare/ClassName.h"
 
+#include "sc_analyze/AnalyzeContext.h"
 namespace alinous {
 
 ClassImplements::ClassImplements() : CodeElement(CodeElement::CLASS_IMPLEMENTS) {
@@ -20,6 +21,17 @@ ClassImplements::~ClassImplements() {
 
 void ClassImplements::addClassName(ClassName* name) noexcept {
 	this->list.addElement(name);
+}
+
+void ClassImplements::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ClassName* n = this->list.get(i);
+		n->setParent(this);
+	}
+}
+
+void ClassImplements::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 int ClassImplements::binarySize() const {

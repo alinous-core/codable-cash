@@ -28,6 +28,10 @@ void ClassName::addStr(const char* str) noexcept {
 	this->fqn->append(&ustr);
 }
 
+const UnicodeString* ClassName::getName() noexcept {
+	return this->fqn;
+}
+
 int ClassName::binarySize() const {
 	checkNotNull(this->fqn);
 

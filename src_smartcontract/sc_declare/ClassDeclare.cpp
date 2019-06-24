@@ -50,12 +50,34 @@ void ClassDeclare::preAnalyze(AnalyzeContext* actx) {
 
 	space->addClassDeclare(this);
 
+	if(this->extends != nullptr){
+		this->extends->setParent(this);
+		this->extends->preAnalyze(actx);
+	}
+	if(this->implements != nullptr){
+		this->implements->setParent(this);
+		this->implements->preAnalyze(actx);
+	}
+
 	this->block->setParent(this);
 	this->block->preAnalyze(actx);
 }
 
 void ClassDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 	this->block->analyzeTypeRef(actx);
+
+	if(this->extends != nullptr){
+		this->extends->analyzeTypeRef(actx);
+	}
+	if(this->implements != nullptr){
+		this->implements->analyzeTypeRef(actx);
+	}
+
+	CompilationUnit* unit = getCompilationUnit();
+	PackageSpace* space = actx->getPackegeSpace(unit->getPackageName());
+	AnalyzedClass* dec = space->getClass(this->name);
+
+
 }
 
 

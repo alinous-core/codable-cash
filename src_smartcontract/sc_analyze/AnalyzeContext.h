@@ -21,6 +21,7 @@ class CodeElement;
 class AnalyzedClass;
 class ClassDeclare;
 class AnalyzeStackManager;
+class TypeResolver;
 
 class AnalyzeContext {
 public:
@@ -35,12 +36,13 @@ public:
 	bool hasError() noexcept;
 
 	AnalyzedClass* getAnalyzedClass(CodeElement* clazz);
-
+	TypeResolver* getTypeResolver() noexcept;
 private:
 	VirtualMachine* vm;
 	HashMap<UnicodeString, PackageSpace> *packageSpaces;
 	ArrayList<ValidationError> verrorList;
 	AnalyzeStackManager* stack;
+	TypeResolver* typeResolver;
 };
 
 } /* namespace alinous */
