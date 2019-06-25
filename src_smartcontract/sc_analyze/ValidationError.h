@@ -21,6 +21,7 @@ public:
 	static constexpr int WARNING = 1;
 
 	static constexpr int CODE_CLASS_ALREADY_EXISTS = 1;
+	static constexpr int CODE_WRONG_IMPORT_FORMAT = 1;
 
 
 	ValidationError(int type, int errorCode, CodeElement* element, const UnicodeString* msg, std::initializer_list<const UnicodeString*> params);

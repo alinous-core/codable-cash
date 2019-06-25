@@ -9,6 +9,10 @@
 #include "base/UnicodeString.h"
 
 #include "sc_analyze/TypeResolver.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
+
+#include "base/StackRelease.h"
 
 namespace alinous {
 
@@ -41,10 +45,9 @@ bool ImportDeclare::hasClassName(const UnicodeString* name) noexcept {
 }
 
 void ImportDeclare::preAnalyze(AnalyzeContext* actx) {
-	UnicodeString* pkg = TypeResolver::getPackageName(this->className);
+	UnicodeString* pkg = TypeResolver::getPackageName(this->className); __STP(pkg);
 	if(pkg == nullptr){
-		// FIXME add error
-
+		actx->addValidationError(ValidationError::CODE_WRONG_IMPORT_FORMAT, this, L"Import class format '{0}' is wrong.", {this->className});
 	}
 }
 
