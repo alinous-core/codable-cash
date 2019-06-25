@@ -11,15 +11,22 @@
 
 namespace alinous {
 
-ValidationError::ValidationError(int type, CodeElement* element, const UnicodeString* msg) {
+ValidationError::ValidationError(int type, int errorCode, CodeElement* element, const UnicodeString* msg, std::initializer_list<const UnicodeString*> params) {
 	this->type = type;
+	this->errorCode = errorCode;
 	this->element = element;
 	this->message = new UnicodeString(*msg);
+
+	for(const UnicodeString* const & p : params){
+		UnicodeString* str = new UnicodeString(p);
+		this->msgParams.addElement(str);
+	}
 }
 
 ValidationError::~ValidationError() {
 	this->element = nullptr;
 	delete this->message;
+	this->msgParams.deleteElements();
 }
 
 } /* namespace alinous */

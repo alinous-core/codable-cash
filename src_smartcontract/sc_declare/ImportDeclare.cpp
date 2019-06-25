@@ -44,6 +44,7 @@ void ImportDeclare::preAnalyze(AnalyzeContext* actx) {
 	UnicodeString* pkg = TypeResolver::getPackageName(this->className);
 	if(pkg == nullptr){
 		// FIXME add error
+
 	}
 }
 

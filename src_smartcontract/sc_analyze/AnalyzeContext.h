@@ -10,6 +10,7 @@
 
 #include "base/HashMap.h"
 #include "base/ArrayList.h"
+#include <initializer_list>
 
 namespace alinous {
 
@@ -30,8 +31,9 @@ public:
 
 	void setVm(VirtualMachine* vm) noexcept;
 	PackageSpace* getPackegeSpace(const UnicodeString* spaceName) noexcept;
-	void addValidationError(const UnicodeString* msg, CodeElement* element) noexcept;
-	void addValidationError(const wchar_t* msg, CodeElement* element) noexcept;
+
+	void addValidationError(int errorCode, CodeElement* element, const UnicodeString* msg, std::initializer_list<const UnicodeString*> params) noexcept;
+	void addValidationError(int errorCode, CodeElement* element, const wchar_t* msg, std::initializer_list<const UnicodeString*> params) noexcept;
 
 	bool hasError() noexcept;
 

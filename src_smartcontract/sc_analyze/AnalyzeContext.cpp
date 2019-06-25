@@ -60,14 +60,14 @@ PackageSpace* AnalyzeContext::getPackegeSpace(const UnicodeString* spaceName) no
 	return space;
 }
 
-void AnalyzeContext::addValidationError(const UnicodeString* msg, CodeElement* element) noexcept {
-	ValidationError* error = new ValidationError(ValidationError::ERROR, element, msg);
+void AnalyzeContext::addValidationError(int errorCode, CodeElement* element, const UnicodeString* msg, std::initializer_list<const UnicodeString*> params) noexcept {
+	ValidationError* error = new ValidationError(ValidationError::ERROR, errorCode, element, msg, params);
 	this->verrorList.addElement(error);
 }
 
-void AnalyzeContext::addValidationError(const wchar_t* msg, CodeElement* element) noexcept {
+void AnalyzeContext::addValidationError(int errorCode, CodeElement* element, const wchar_t* msg, std::initializer_list<const UnicodeString*> params) noexcept {
 	UnicodeString str(msg);
-	addValidationError(&str, element);
+	addValidationError(errorCode, element, &str, params);
 }
 
 bool alinous::AnalyzeContext::hasError() noexcept {

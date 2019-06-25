@@ -13,6 +13,7 @@
 #include "sc/CompilationUnit.h"
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/PackageSpace.h"
+#include "sc_analyze/ValidationError.h"
 
 #include "base/UnicodeString.h"
 
@@ -43,7 +44,7 @@ void ClassDeclare::preAnalyze(AnalyzeContext* actx) {
 
 	AnalyzedClass* dec = space->getClass(this->name);
 	if(dec != nullptr){
-		actx->addValidationError(L"Class is already registered", this);
+		actx->addValidationError(ValidationError::CODE_CLASS_ALREADY_EXISTS, this, L"Class {0} is already registered", {this->name});
 
 		return;
 	}
