@@ -26,6 +26,7 @@ public:
 	void analyzeTypeRef(AnalyzeContext* actx);
 
 	void addClassName(ClassName* name) noexcept;
+	const ArrayList<AnalyzedType>* getAnalyzedTypes() const noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

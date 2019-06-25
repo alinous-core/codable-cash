@@ -20,7 +20,7 @@ class MethodDeclare;
 
 class AnalyzedClass {
 public:
-	AnalyzedClass(const AnalyzedClass& inst);
+	//AnalyzedClass(const AnalyzedClass& inst);
 	explicit AnalyzedClass(ClassDeclare* clazz);
 	virtual ~AnalyzedClass();
 
@@ -28,9 +28,15 @@ public:
 	ArrayList<MemberVariableDeclare>* getMemberVariableDeclareList() noexcept;
 	void addMemberMethodDeclare(MethodDeclare* method);
 
+	void setExtends(AnalyzedClass* clazz) noexcept;
+	void addImplements(AnalyzedClass* clazz) noexcept;
+
 	MethodDeclare* getDefaultConstructor() noexcept;
 private:
 	ClassDeclare* clazz;
+
+	AnalyzedClass* extends;
+	ArrayList<AnalyzedClass> implements;
 
 	HashMap<UnicodeString, MemberVariableDeclare>* variables;
 	ArrayList<MemberVariableDeclare> variablesList;

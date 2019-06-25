@@ -27,6 +27,10 @@ void ClassImplements::addClassName(ClassName* name) noexcept {
 	this->list.addElement(name);
 }
 
+const ArrayList<AnalyzedType>* ClassImplements::getAnalyzedTypes() const noexcept {
+	return &this->typelist;
+}
+
 void ClassImplements::preAnalyze(AnalyzeContext* actx) {
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){

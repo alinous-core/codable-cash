@@ -14,7 +14,7 @@
 #include "base/UnicodeString.h"
 
 namespace alinous {
-
+/*
 AnalyzedClass::AnalyzedClass(const AnalyzedClass& inst) {
 	this->clazz = inst.clazz;
 	this->variables = new HashMap<UnicodeString, MemberVariableDeclare>();
@@ -47,12 +47,20 @@ AnalyzedClass::AnalyzedClass(const AnalyzedClass& inst) {
 		this->methods->put(name, dec);
 	}
 	delete it;
-}
 
+	this->extends = inst.extends;
+	maxLoop = inst.implements.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AnalyzedClass* cls = inst.implements.get(i);
+		this->implements.addElement(cls);
+	}
+}
+*/
 AnalyzedClass::AnalyzedClass(ClassDeclare* clazz) {
 	this->clazz = clazz;
 	this->variables = new HashMap<UnicodeString, MemberVariableDeclare>();
 	this->methods = new HashMap<UnicodeString, MethodDeclare>();
+	this->extends = nullptr;
 }
 
 AnalyzedClass::~AnalyzedClass() {
@@ -77,6 +85,14 @@ void AnalyzedClass::addMemberMethodDeclare(MethodDeclare* method) {
 
 ArrayList<MemberVariableDeclare>* AnalyzedClass::getMemberVariableDeclareList() noexcept {
 	return &this->variablesList;
+}
+
+void AnalyzedClass::setExtends(AnalyzedClass* clazz) noexcept {
+	this->extends = clazz;
+}
+
+void AnalyzedClass::addImplements(AnalyzedClass* clazz) noexcept {
+	this->implements.addElement(clazz);
 }
 
 MethodDeclare* AnalyzedClass::getDefaultConstructor() noexcept {

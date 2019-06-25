@@ -11,6 +11,7 @@
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/TypeResolver.h"
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
 
 namespace alinous {
 
@@ -34,12 +35,20 @@ void ClassExtends::analyzeTypeRef(AnalyzeContext* actx) {
 	TypeResolver* res = actx->getTypeResolver();
 
 	this->atype = res->findClassType(this, name);
+	if(this->atype == nullptr){
+		actx->addValidationError(ValidationError::CODE_WRONG_CLASS_NAME, this, L"The class '{0}' does not exists.", {name});
+	}
 }
 
 
 void ClassExtends::setClassName(ClassName* className) noexcept {
 	this->className = className;
 }
+
+AnalyzedType* ClassExtends::getAnalyzedType() const noexcept {
+	return this->atype;
+}
+
 
 int ClassExtends::binarySize() const {
 	checkNotNull(this->className);

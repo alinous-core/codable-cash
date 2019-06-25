@@ -14,8 +14,11 @@
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/PackageSpace.h"
 #include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/AnalyzedClass.h"
 
 #include "base/UnicodeString.h"
+
 
 namespace alinous {
 
@@ -74,11 +77,31 @@ void ClassDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 		this->implements->analyzeTypeRef(actx);
 	}
 
+	if(actx->hasError()){
+		return;
+	}
+
 	CompilationUnit* unit = getCompilationUnit();
 	PackageSpace* space = actx->getPackegeSpace(unit->getPackageName());
 	AnalyzedClass* dec = space->getClass(this->name);
 
+	// set analyzed class
+	if(this->extends != nullptr){
+		AnalyzedType* cls = this->extends->getAnalyzedType();
+		dec->setExtends(cls->getAnalyzedClass());
+	}
 
+	if(this->implements != nullptr){
+		const ArrayList<AnalyzedType>* list = this->implements->getAnalyzedTypes();
+
+		int maxLoop = list->size();
+		for(int i = 0; i != maxLoop; ++i){
+			AnalyzedType* cls = list->get(i);
+			dec->addImplements(cls->getAnalyzedClass());
+		}
+	}
+
+	this->block->analyzeTypeRef(actx);
 }
 
 

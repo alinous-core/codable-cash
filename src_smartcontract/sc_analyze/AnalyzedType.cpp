@@ -34,4 +34,8 @@ AnalyzedType::~AnalyzedType() {
 	this->aclazz = nullptr;
 }
 
+AnalyzedClass* AnalyzedType::getAnalyzedClass() const noexcept {
+	return this->aclazz;
+}
+
 } /* namespace alinous */

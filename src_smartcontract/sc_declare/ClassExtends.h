@@ -26,6 +26,8 @@ public:
 
 	void setClassName(ClassName* className) noexcept;
 
+	AnalyzedType* getAnalyzedType() const noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);

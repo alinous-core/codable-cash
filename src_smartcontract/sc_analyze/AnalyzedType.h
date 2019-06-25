@@ -35,6 +35,8 @@ public:
 
 	virtual ~AnalyzedType();
 
+	AnalyzedClass* getAnalyzedClass() const noexcept;
+
 private:
 	uint8_t type;
 	AnalyzedClass* aclazz; // reference
