@@ -25,11 +25,13 @@ TEST(TestExecFwGroup, exec){
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/resources/typeres/main.alns"));
 	_ST(File, sourceFile2, projectFolder->get(L"src_test/smartcontract_vm/resources/typeres/utils.alns"));
 	_ST(File, sourceFile3, projectFolder->get(L"src_test/smartcontract_vm/resources/typeres/impl.alns"));
+	_ST(File, sourceFile4, projectFolder->get(L"src_test/smartcontract_vm/resources/typeres/ObjectA.alns"));
 
 	SmartContract* sc = new SmartContract();
 	sc->addCompilationUnit(sourceFile);
 	sc->addCompilationUnit(sourceFile2);
 	sc->addCompilationUnit(sourceFile3);
+	sc->addCompilationUnit(sourceFile4);
 
 	VirtualMachine* vm = new VirtualMachine(1024); __STP(vm);
 	vm->loadSmartContract(sc);

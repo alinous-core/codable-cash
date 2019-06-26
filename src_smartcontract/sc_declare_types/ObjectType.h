@@ -14,7 +14,7 @@ namespace alinous {
 class PackageNameDeclare;
 class UnicodeString;
 
-class ObjectType : public AbstractPrimitiveType {
+class ObjectType : public AbstractType {
 public:
 	ObjectType();
 	virtual ~ObjectType();
@@ -25,6 +25,9 @@ public:
 
 	void setPackageName(PackageNameDeclare* packageName) noexcept;
 	void setName(UnicodeString* className) noexcept;
+
+	PackageNameDeclare* getPackageName() const noexcept;
+	const UnicodeString* getClassName() const noexcept;
 
 private:
 	PackageNameDeclare* packageName;

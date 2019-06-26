@@ -12,7 +12,7 @@
 
 namespace alinous {
 
-ObjectType::ObjectType() : AbstractPrimitiveType(CodeElement::TYPE_OBJECT){
+ObjectType::ObjectType() : AbstractType(CodeElement::TYPE_OBJECT){
 	this->packageName = nullptr;
 	this->className = nullptr;
 }
@@ -63,6 +63,14 @@ void ObjectType::fromBinary(ByteBuffer* in) {
 
 void ObjectType::setName(UnicodeString* className) noexcept {
 	this->className = className;
+}
+
+PackageNameDeclare* ObjectType::getPackageName() const noexcept {
+	return this->packageName;
+}
+
+const UnicodeString* ObjectType::getClassName() const noexcept {
+	return this->className;
 }
 
 } /* namespace alinous */

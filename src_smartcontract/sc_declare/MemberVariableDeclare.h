@@ -16,6 +16,7 @@ class AbstractType;
 class AccessControlDeclare;
 class UnicodeString;
 class AnalyzeContext;
+class AnalyzedType;
 
 class MemberVariableDeclare : public CodeElement {
 public:
@@ -42,6 +43,8 @@ private:
 	AbstractType* type;
 	bool _static;
 	UnicodeString* name;
+
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

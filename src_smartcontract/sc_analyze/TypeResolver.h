@@ -18,6 +18,8 @@ class CodeElement;
 class UnicodeString;
 class CompilationUnit;
 class ImportsDeclare;
+class AbstractType;
+class ObjectType;
 
 class TypeResolver {
 public:
@@ -26,12 +28,16 @@ public:
 	explicit TypeResolver(AnalyzeContext* ctx);
 	virtual ~TypeResolver();
 
+	AnalyzedType* resolveType(CodeElement* element, AbstractType* type) const;
+
 	AnalyzedType* findClassType(CodeElement* element, const UnicodeString* name) const;
 	static bool isFqn(const UnicodeString* name) noexcept;
 	static UnicodeString* getPackageName(const UnicodeString* name) noexcept;
 	static UnicodeString* getClassName(const UnicodeString* name) noexcept;
 
 private:
+	AnalyzedType* resolveType(CodeElement* element, ObjectType* type) const;
+
 	AnalyzedType* findFromImports(const UnicodeString* name, ImportsDeclare* imports) const;
 	AnalyzedType* findClassType(const UnicodeString* packageName, const UnicodeString* name) const;
 

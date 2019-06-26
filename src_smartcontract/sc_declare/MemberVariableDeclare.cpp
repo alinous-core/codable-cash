@@ -12,6 +12,8 @@
 
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedClass.h"
+#include "sc_analyze/TypeResolver.h"
+#include "sc_analyze/AnalyzedType.h"
 
 #include "sc/exceptions.h"
 
@@ -22,18 +24,14 @@ MemberVariableDeclare::MemberVariableDeclare() : CodeElement(CodeElement::MEMBER
 	this->type = nullptr;
 	this->_static = false;
 	this->name = nullptr;
+	this->atype = nullptr;
 }
 
 MemberVariableDeclare::~MemberVariableDeclare() {
-	if(this->ctrl){
-		delete this->ctrl;
-	}
-	if(this->type){
-		delete this->type;
-	}
-	if(this->name){
-		delete this->name;
-	}
+	delete this->ctrl;
+	delete this->type;
+	delete this->name;
+	delete this->atype;
 }
 
 void MemberVariableDeclare::preAnalyze(AnalyzeContext* actx) {
@@ -41,7 +39,14 @@ void MemberVariableDeclare::preAnalyze(AnalyzeContext* actx) {
 	aclass->addMemberVariableDeclare(this);
 }
 
-void alinous::MemberVariableDeclare::analyzeTypeRef(AnalyzeContext* actx) {
+void MemberVariableDeclare::analyzeTypeRef(AnalyzeContext* actx) {
+	TypeResolver* typeResolver = actx->getTypeResolver();
+
+	this->atype = typeResolver->resolveType(this, this->type);
+	if(this->atype == nullptr){
+	//	actx->addValidationError()
+	}
+
 	// TODO: analyzeTypeRef
 }
 

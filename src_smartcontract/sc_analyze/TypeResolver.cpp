@@ -15,9 +15,14 @@
 
 #include "sc_declare/ImportsDeclare.h"
 #include "sc_declare/ImportDeclare.h"
+#include "sc_declare/PackageNameDeclare.h"
+
+#include "sc_declare_types/AbstractType.h"
+#include "sc_declare_types/ObjectType.h"
 
 #include "base/StackRelease.h"
 #include "base/ArrayList.h"
+
 
 namespace alinous {
 
@@ -32,8 +37,62 @@ TypeResolver::~TypeResolver() {
 }
 
 
+AnalyzedType* TypeResolver::resolveType(CodeElement* element, AbstractType* type) const {
+	AnalyzedType* result = nullptr;
 
-AnalyzedType* alinous::TypeResolver::findClassType(CodeElement* element, const UnicodeString* name) const {
+	short kind = type->getKind();
+	switch(kind){
+	case CodeElement::TYPE_BOOL:
+		result = new AnalyzedType(AnalyzedType::TYPE_BOOL);
+		break;
+	case CodeElement::TYPE_BYTE:
+		result = new AnalyzedType(AnalyzedType::TYPE_BYTE);
+		break;
+	case CodeElement::TYPE_CHAR:
+		result = new AnalyzedType(AnalyzedType::TYPE_CHAR);
+		break;
+	case CodeElement::TYPE_SHORT:
+		result = new AnalyzedType(AnalyzedType::TYPE_SHORT);
+		break;
+	case CodeElement::TYPE_INT:
+		result = new AnalyzedType(AnalyzedType::TYPE_INT);
+		break;
+	case CodeElement::TYPE_LONG:
+		result = new AnalyzedType(AnalyzedType::TYPE_LONG);
+		break;
+	case CodeElement::TYPE_STRING:
+		result = new AnalyzedType(AnalyzedType::TYPE_STRING);
+		break;
+	case CodeElement::TYPE_VOID:
+		result = new AnalyzedType(AnalyzedType::TYPE_VOID);
+		break;
+	case CodeElement::TYPE_OBJECT:
+		{
+			ObjectType* otype = dynamic_cast<ObjectType*>(type);
+			result = resolveType(element, otype);
+			break;
+		}
+	default:
+		break;
+	}
+
+	return result;
+}
+
+AnalyzedType* TypeResolver::resolveType(CodeElement* element, ObjectType* type) const {
+	PackageNameDeclare* pkg = type->getPackageName();
+	const UnicodeString* name = type->getClassName();
+
+	if(pkg != nullptr){
+		const UnicodeString* pkgname = pkg->getName();
+		return findClassType(pkgname, name);
+	}
+
+	return findClassType(element, name);
+}
+
+
+AnalyzedType* TypeResolver::findClassType(CodeElement* element, const UnicodeString* name) const {
 	if(!isFqn(name)){
 		CompilationUnit* unit = element->getCompilationUnit();
 
@@ -78,6 +137,9 @@ AnalyzedType* TypeResolver::findClassType(const UnicodeString* packageName, cons
 	}
 
 	AnalyzedClass* clazz = space->getClass(name);
+	if(clazz == nullptr){
+		return nullptr;
+	}
 
 	return new AnalyzedType(clazz);
 }
