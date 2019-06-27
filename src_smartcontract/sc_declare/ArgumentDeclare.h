@@ -14,11 +14,15 @@ namespace alinous {
 
 class AbstractType;
 class UnicodeString;
+class AnalyzeContext;
+class AnalyzedType;
 
 class ArgumentDeclare : public CodeElement {
 public:
 	ArgumentDeclare();
 	virtual ~ArgumentDeclare();
+
+	void analyzeTypeRef(AnalyzeContext* actx);
 
 	void setType(AbstractType* type) noexcept;
 	void setName(UnicodeString* name) noexcept;
@@ -30,6 +34,8 @@ public:
 private:
 	AbstractType* type;
 	UnicodeString* name;
+
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

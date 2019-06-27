@@ -30,6 +30,11 @@ void ArgumentsListDeclare::preAnalyze(AnalyzeContext* actx) {
 }
 
 void ArgumentsListDeclare::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ArgumentDeclare* arg = this->list.get(i);
+		arg->analyzeTypeRef(actx);
+	}
 }
 
 void ArgumentsListDeclare::analyze(AnalyzeContext* actx) {

@@ -7,22 +7,27 @@
 
 #include "sc_declare/ArgumentDeclare.h"
 #include "sc_declare_types/AbstractType.h"
+
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/TypeResolver.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzedType.h"
+
 #include "base/UnicodeString.h"
+
 
 namespace alinous {
 
 ArgumentDeclare::ArgumentDeclare() : CodeElement(CodeElement::ARGUMENT_DECLARE) {
 	this->type = nullptr;
 	this->name = nullptr;
+	this->atype = nullptr;
 }
 
 ArgumentDeclare::~ArgumentDeclare() {
-	if(this->type){
-		delete this->type;
-	}
-	if(this->name){
-		delete this->name;
-	}
+	delete this->type;
+	delete this->name;
+	delete this->atype;
 }
 
 void ArgumentDeclare::setType(AbstractType* type) noexcept {
@@ -31,6 +36,19 @@ void ArgumentDeclare::setType(AbstractType* type) noexcept {
 
 void ArgumentDeclare::setName(UnicodeString* name) noexcept {
 	this->name = name;
+}
+
+void ArgumentDeclare::analyzeTypeRef(AnalyzeContext* actx) {
+	TypeResolver* typeResolver = actx->getTypeResolver();
+
+	this->atype = typeResolver->resolveType(this, this->type);
+	if(this->atype == nullptr){
+		actx->addValidationError(ValidationError::CODE_WRONG_TYPE_NAME, this, L"The type '{0}' does not exists.", {this->type->toString()});
+	}
+	else if(this->atype->getType() == AnalyzedType::TYPE_VOID){
+		actx->addValidationError(ValidationError::CODE_WRONG_TYPE_NAME, this, L"Cannot use void for type declare.", {});
+	}
+
 }
 
 int alinous::ArgumentDeclare::binarySize() const {
