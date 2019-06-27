@@ -9,15 +9,20 @@
 #include "sc_declare/AccessControlDeclare.h"
 #include "sc_declare/ArgumentsListDeclare.h"
 #include "sc_declare_types/AbstractType.h"
+#include "sc_declare/ClassDeclare.h"
+
 #include "sc_statement/StatementBlock.h"
 #include "base/UnicodeString.h"
 
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedClass.h"
+#include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/TypeResolver.h"
+#include "sc_analyze/ValidationError.h"
 
 #include "sc/exceptions.h"
 
-#include "sc_declare/ClassDeclare.h"
+
 namespace alinous {
 
 MethodDeclare::MethodDeclare() : CodeElement(CodeElement::METHOD_DECLARE) {
@@ -27,24 +32,16 @@ MethodDeclare::MethodDeclare() : CodeElement(CodeElement::METHOD_DECLARE) {
 	this->type = nullptr;
 	this->args = nullptr;
 	this->block = nullptr;
+	this->atype = nullptr;
 }
 
 MethodDeclare::~MethodDeclare() {
-	if(this->name){
-		delete this->name;
-	}
-	if(this->ctrl){
-		delete this->ctrl;
-	}
-	if(this->type){
-		delete this->type;
-	}
-	if(this->args){
-		delete this->args;
-	}
-	if(this->block){
-		delete this->block;
-	}
+	delete this->name;
+	delete this->ctrl;
+	delete this->type;
+	delete this->args;
+	delete this->block;
+	delete this->atype;
 }
 
 
@@ -62,6 +59,15 @@ void MethodDeclare::preAnalyze(AnalyzeContext* actx) {
 }
 
 void MethodDeclare::analyzeTypeRef(AnalyzeContext* actx) {
+	TypeResolver* typeResolver = actx->getTypeResolver();
+
+	if(!isConstructor()){
+		this->atype = typeResolver->resolveType(this, this->type);
+		if(this->atype == nullptr){
+			actx->addValidationError(ValidationError::CODE_WRONG_TYPE_NAME, this, L"The type '{0}' does not exists.", {this->type->toString()});
+		}
+	}
+
 	this->args->analyzeTypeRef(actx);
 
 	if(this->block != nullptr){
@@ -117,6 +123,10 @@ const UnicodeString* MethodDeclare::getName() const noexcept {
 
 ArgumentsListDeclare* MethodDeclare::getArguments() const noexcept {
 	return this->args;
+}
+
+AnalyzedType* MethodDeclare::getReturnedType() const noexcept {
+	return this->atype;
 }
 
 

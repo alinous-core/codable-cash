@@ -38,6 +38,7 @@ AnalyzedType::AnalyzedType() {
 
 AnalyzedType::~AnalyzedType() {
 	this->aclazz = nullptr;
+	delete this->str;
 }
 
 AnalyzedClass* AnalyzedType::getAnalyzedClass() const noexcept {

@@ -18,6 +18,7 @@ class ArgumentsListDeclare;
 class UnicodeString;
 class StatementBlock;
 class AnalyzeContext;
+class AnalyzedType;
 
 class MethodDeclare : public CodeElement {
 public:
@@ -38,6 +39,7 @@ public:
 	bool isConstructor();
 	const UnicodeString* getName() const noexcept;
 	ArgumentsListDeclare* getArguments() const noexcept;
+	AnalyzedType* getReturnedType() const noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
@@ -49,6 +51,8 @@ private:
 	bool _static;
 	ArgumentsListDeclare* args;
 	StatementBlock* block;
+
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

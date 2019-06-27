@@ -11,5 +11,9 @@ class MainContract extends Utils implements IDataHandler {
 	
 	}
 	
+	public int getCount(int cnt){
+		return cnt + 1;
+	}
+	
 	private ObjectA objA;
 }

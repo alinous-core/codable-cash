@@ -68,8 +68,6 @@ void ClassDeclare::preAnalyze(AnalyzeContext* actx) {
 }
 
 void ClassDeclare::analyzeTypeRef(AnalyzeContext* actx) {
-	this->block->analyzeTypeRef(actx);
-
 	if(this->extends != nullptr){
 		this->extends->analyzeTypeRef(actx);
 	}
