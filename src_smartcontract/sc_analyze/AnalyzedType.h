@@ -12,6 +12,7 @@
 namespace alinous {
 
 class AnalyzedClass;
+class UnicodeString;
 
 class AnalyzedType {
 public:
@@ -36,10 +37,18 @@ public:
 	virtual ~AnalyzedType();
 
 	AnalyzedClass* getAnalyzedClass() const noexcept;
+	uint8_t getType() const noexcept;
+	const UnicodeString* stringName() noexcept;
+
+private:
+	void makeStringName() noexcept;
+	void makeObjectString() noexcept;
 
 private:
 	uint8_t type;
 	AnalyzedClass* aclazz; // reference
+
+	UnicodeString* str;
 };
 
 } /* namespace alinous */

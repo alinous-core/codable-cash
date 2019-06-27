@@ -14,12 +14,16 @@ namespace alinous {
 
 class LongType : public AbstractPrimitiveType {
 public:
+	static const UnicodeString TYPE_NAME;
+
 	LongType();
 	virtual ~LongType();
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	virtual const UnicodeString* toString() noexcept;
 };
 
 } /* namespace alinous */

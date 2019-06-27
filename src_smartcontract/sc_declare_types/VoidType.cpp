@@ -7,7 +7,12 @@
 
 #include "sc_declare_types/VoidType.h"
 
+#include "base/UnicodeString.h"
+
+
 namespace alinous {
+
+const UnicodeString VoidType::TYPE_NAME(L"void");
 
 VoidType::VoidType() : AbstractType(CodeElement::TYPE_VOID) {
 
@@ -28,5 +33,10 @@ void VoidType::toBinary(ByteBuffer* out) {
 
 void VoidType::fromBinary(ByteBuffer* in) {
 }
+
+const UnicodeString* VoidType::toString() noexcept {
+	return &TYPE_NAME;
+}
+
 
 } /* namespace alinous */

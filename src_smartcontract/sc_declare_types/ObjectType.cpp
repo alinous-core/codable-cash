@@ -15,11 +15,13 @@ namespace alinous {
 ObjectType::ObjectType() : AbstractType(CodeElement::TYPE_OBJECT){
 	this->packageName = nullptr;
 	this->className = nullptr;
+	this->str = nullptr;
 }
 
 ObjectType::~ObjectType() {
 	delete this->packageName;
 	delete this->className;
+	delete this->str;
 }
 
 void ObjectType::setPackageName(PackageNameDeclare* packageName) noexcept {
@@ -59,6 +61,21 @@ void ObjectType::fromBinary(ByteBuffer* in) {
 	}
 
 	this->className = getString(in);
+}
+
+const UnicodeString* ObjectType::toString() noexcept {
+	if(this->str == nullptr){
+		this->str = new UnicodeString(L"");
+
+		if(this->packageName != nullptr){
+			this->str->append(this->packageName->getName());
+			this->str->append(L".");
+		}
+
+		this->str->append(this->className);
+	}
+
+	return this->str;
 }
 
 void ObjectType::setName(UnicodeString* className) noexcept {

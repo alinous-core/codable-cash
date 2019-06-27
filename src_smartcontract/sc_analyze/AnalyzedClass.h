@@ -32,6 +32,7 @@ public:
 	void addImplements(AnalyzedClass* clazz) noexcept;
 
 	MethodDeclare* getDefaultConstructor() noexcept;
+	const UnicodeString* toString() noexcept;
 private:
 	ClassDeclare* clazz;
 

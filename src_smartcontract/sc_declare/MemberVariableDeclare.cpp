@@ -8,12 +8,14 @@
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_declare/AccessControlDeclare.h"
 #include "sc_declare_types/AbstractType.h"
+
 #include "base/UnicodeString.h"
 
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedClass.h"
 #include "sc_analyze/TypeResolver.h"
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
 
 #include "sc/exceptions.h"
 
@@ -44,7 +46,10 @@ void MemberVariableDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 
 	this->atype = typeResolver->resolveType(this, this->type);
 	if(this->atype == nullptr){
-	//	actx->addValidationError()
+		actx->addValidationError(ValidationError::CODE_WRONG_TYPE_NAME, this, L"The type '{0}' does not exists.", {this->type->toString()});
+	}
+	else if(this->atype->getType() == AnalyzedType::TYPE_VOID){
+		actx->addValidationError(ValidationError::CODE_WRONG_TYPE_NAME, this, L"Cannot use void for type declare.", {});
 	}
 
 	// TODO: analyzeTypeRef

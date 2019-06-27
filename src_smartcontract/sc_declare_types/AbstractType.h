@@ -16,6 +16,8 @@ class AbstractType : public CodeElement {
 public:
 	AbstractType(short kind);
 	virtual ~AbstractType();
+
+	virtual const UnicodeString* toString() noexcept = 0;
 };
 
 } /* namespace alinous */

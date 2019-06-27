@@ -23,6 +23,8 @@ public:
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
 
+	virtual const UnicodeString* toString() noexcept;
+
 	void setPackageName(PackageNameDeclare* packageName) noexcept;
 	void setName(UnicodeString* className) noexcept;
 
@@ -32,6 +34,8 @@ public:
 private:
 	PackageNameDeclare* packageName;
 	UnicodeString* className;
+
+	UnicodeString* str;
 };
 
 } /* namespace alinous */

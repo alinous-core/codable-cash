@@ -7,7 +7,11 @@
 
 #include "sc_declare_types/BoolType.h"
 
+#include "base/UnicodeString.h"
+
 namespace alinous {
+
+const UnicodeString BoolType::TYPE_NAME(L"boolean");
 
 BoolType::BoolType() : AbstractPrimitiveType(CodeElement::TYPE_BOOL) {
 
@@ -28,6 +32,10 @@ void BoolType::toBinary(ByteBuffer* out) {
 }
 
 void BoolType::fromBinary(ByteBuffer* in) {
+}
+
+const UnicodeString* BoolType::toString() noexcept {
+	return &TYPE_NAME;
 }
 
 } /* namespace alinous */

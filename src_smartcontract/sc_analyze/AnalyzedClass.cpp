@@ -10,6 +10,7 @@
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_declare/MethodDeclare.h"
 #include "sc_declare/ArgumentsListDeclare.h"
+#include "sc_declare/ClassDeclare.h"
 
 #include "base/UnicodeString.h"
 
@@ -108,5 +109,10 @@ MethodDeclare* AnalyzedClass::getDefaultConstructor() noexcept {
 
 	return nullptr;
 }
+
+const UnicodeString* AnalyzedClass::toString() noexcept {
+	return this->clazz->getName();
+}
+
 
 } /* namespace alinous */

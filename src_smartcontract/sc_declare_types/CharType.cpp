@@ -7,7 +7,11 @@
 
 #include "sc_declare_types/CharType.h"
 
+#include "base/UnicodeString.h"
+
 namespace alinous {
+
+const UnicodeString CharType::TYPE_NAME(L"char");
 
 CharType::CharType() : AbstractPrimitiveType(CodeElement::TYPE_CHAR) {
 }
@@ -26,6 +30,10 @@ void CharType::toBinary(ByteBuffer* out) {
 }
 
 void CharType::fromBinary(ByteBuffer* in) {
+}
+
+const UnicodeString* CharType::toString() noexcept {
+	return &TYPE_NAME;
 }
 
 

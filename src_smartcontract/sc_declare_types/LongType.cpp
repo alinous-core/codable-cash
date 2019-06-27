@@ -7,7 +7,11 @@
 
 #include "sc_declare_types/LongType.h"
 
+#include "base/UnicodeString.h"
+
 namespace alinous {
+
+const UnicodeString LongType::TYPE_NAME(L"long");
 
 LongType::LongType() : AbstractPrimitiveType(CodeElement::TYPE_LONG) {
 }
@@ -26,6 +30,10 @@ void LongType::toBinary(ByteBuffer* out) {
 }
 
 void LongType::fromBinary(ByteBuffer* in) {
+}
+
+const UnicodeString* LongType::toString() noexcept {
+	return &TYPE_NAME;
 }
 
 

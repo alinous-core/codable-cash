@@ -14,12 +14,16 @@ namespace alinous {
 
 class StringType : public AbstractType {
 public:
+	static const UnicodeString TYPE_NAME;
+
 	StringType();
 	virtual ~StringType();
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	virtual const UnicodeString* toString() noexcept;
 };
 
 } /* namespace alinous */
