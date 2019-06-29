@@ -1,6 +1,7 @@
 
 
 set(__src
+	AnalyzedStackReference.cpp
 	AnalyzeStack.cpp
 	AnalyzeStackManager.cpp
 	AnalyzeStackPopper.cpp

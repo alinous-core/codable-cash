@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze/AnalyzedStackReference.h"
+#include "sc_analyze_stack/AnalyzedStackReference.h"
 #include "sc_analyze/AnalyzedType.h"
 
 #include "base/UnicodeString.h"

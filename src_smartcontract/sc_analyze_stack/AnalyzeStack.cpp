@@ -6,7 +6,7 @@
  */
 
 #include "sc_analyze_stack/AnalyzeStack.h"
-#include "sc_analyze/AnalyzedStackReference.h"
+#include "sc_analyze_stack/AnalyzedStackReference.h"
 
 #include "base/UnicodeString.h"
 
