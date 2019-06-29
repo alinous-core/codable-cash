@@ -10,7 +10,7 @@
 
 #include "sc_analyze/PackageSpace.h"
 #include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzeStackManager.h"
+#include "sc_analyze_stack/AnalyzeStackManager.h"
 #include "sc_analyze/TypeResolver.h"
 
 #include "sc_declare/ClassDeclare.h"
@@ -86,8 +86,12 @@ AnalyzedClass* AnalyzeContext::getAnalyzedClass(CodeElement* element) {
 	return pkg->getClass(dec->getName());
 }
 
-TypeResolver* AnalyzeContext::getTypeResolver() noexcept {
+TypeResolver* AnalyzeContext::getTypeResolver() const noexcept {
 	return this->typeResolver;
+}
+
+AnalyzeStackManager* AnalyzeContext::getAnalyzeStackManager() const noexcept {
+	return this->stack;
 }
 
 } /* namespace alinous */

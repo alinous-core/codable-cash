@@ -5,8 +5,6 @@ set(__src
 	AnalyzedClass.cpp
 	AnalyzedStackReference.cpp
 	AnalyzedType.cpp
-	AnalyzeStack.cpp
-	AnalyzeStackManager.cpp
 	PackageSpace.cpp
 	TypeResolver.cpp
 	ValidationError.cpp

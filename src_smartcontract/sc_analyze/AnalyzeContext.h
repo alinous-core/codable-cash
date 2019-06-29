@@ -38,7 +38,9 @@ public:
 	bool hasError() noexcept;
 
 	AnalyzedClass* getAnalyzedClass(CodeElement* clazz);
-	TypeResolver* getTypeResolver() noexcept;
+	TypeResolver* getTypeResolver() const noexcept;
+	AnalyzeStackManager* getAnalyzeStackManager() const noexcept;
+
 private:
 	VirtualMachine* vm;
 	HashMap<UnicodeString, PackageSpace> *packageSpaces;

@@ -7,6 +7,12 @@
 
 #include "sc_statement/StatementBlock.h"
 
+#include "sc_declare/MethodDeclare.h"
+
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze_stack/AnalyzeStackManager.h"
+#include "sc_analyze_stack/AnalyzeStackPopper.h"
+
 namespace alinous {
 
 StatementBlock::StatementBlock() : AbstractStatement(CodeElement::STMT_BLOCK) {
@@ -34,12 +40,36 @@ void StatementBlock::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void StatementBlock::analyze(AnalyzeContext* actx) {
+	short parentKind = this->parent->getKind();
+	if(parentKind == CodeElement::METHOD_DECLARE){
+		analyzeMethodDeclareBlock(actx);
+		return;
+	}
+
 	int maxLoop = this->statements.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractStatement* stmt = this->statements.get(i);
 		stmt->analyze(actx);
 	}
 }
+
+void StatementBlock::analyzeMethodDeclareBlock(AnalyzeContext* actx) {
+	MethodDeclare* method = dynamic_cast<MethodDeclare*>(this->parent);
+
+	AnalyzeStackManager* stack = actx->getAnalyzeStackManager();
+	AnalyzeStackPopper popper(stack, true);
+
+	stack->addFunctionStack();
+
+	// FIXME analyzeMethodDeclareBlock
+
+	int maxLoop = this->statements.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractStatement* stmt = this->statements.get(i);
+		stmt->analyze(actx);
+	}
+}
+
 
 void StatementBlock::addStatement(AbstractStatement* stmt) noexcept {
 	this->statements.addElement(stmt);

@@ -29,6 +29,9 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 	virtual void interpret(VirtualMachine* vm);
+
+private:
+	void analyzeMethodDeclareBlock(AnalyzeContext* actx);
 private:
 	ArrayList<AbstractStatement> statements;
 };

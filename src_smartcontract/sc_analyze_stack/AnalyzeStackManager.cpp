@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze/AnalyzeStackManager.h"
-#include "sc_analyze/AnalyzeStack.h"
+#include "sc_analyze_stack/AnalyzeStackManager.h"
+#include "sc_analyze_stack/AnalyzeStack.h"
 
 
 
