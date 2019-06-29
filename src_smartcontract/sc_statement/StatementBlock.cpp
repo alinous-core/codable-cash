@@ -10,8 +10,12 @@
 #include "sc_declare/MethodDeclare.h"
 
 #include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/TypeResolver.h"
+
 #include "sc_analyze_stack/AnalyzeStackManager.h"
 #include "sc_analyze_stack/AnalyzeStackPopper.h"
+#include "sc_analyze_stack/AnalyzedStackReference.h"
+#include "sc_analyze_stack/AnalyzeStack.h"
 
 namespace alinous {
 
@@ -54,12 +58,22 @@ void StatementBlock::analyze(AnalyzeContext* actx) {
 }
 
 void StatementBlock::analyzeMethodDeclareBlock(AnalyzeContext* actx) {
+	TypeResolver* typeResolver = actx->getTypeResolver();
+
 	MethodDeclare* method = dynamic_cast<MethodDeclare*>(this->parent);
 
-	AnalyzeStackManager* stack = actx->getAnalyzeStackManager();
-	AnalyzeStackPopper popper(stack, true);
+	AnalyzeStackManager* stackMgr = actx->getAnalyzeStackManager();
+	AnalyzeStackPopper popper(stackMgr, true);
+	stackMgr->addFunctionStack();
 
-	stack->addFunctionStack();
+	AnalyzeStack* stack = stackMgr->top();
+
+	if(!method->isStatic()){
+		AnalyzedType* type = typeResolver->getClassType(method);
+		AnalyzedStackReference* ref = new AnalyzedStackReference(&AnalyzedStackReference::THIS, type);
+		stack->addVariableDeclare(ref);
+	}
+
 
 	// FIXME analyzeMethodDeclareBlock
 

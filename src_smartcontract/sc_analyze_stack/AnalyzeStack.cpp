@@ -25,4 +25,8 @@ void AnalyzeStack::addVariableDeclare(AnalyzedStackReference* ref) noexcept {
 	this->map.put(ref->getName(), ref);
 }
 
+bool AnalyzeStack::isFunctionStack() const noexcept {
+	return this->functionStack;
+}
+
 } /* namespace alinous */

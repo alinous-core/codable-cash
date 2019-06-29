@@ -16,12 +16,14 @@
 #include "sc_declare/ImportsDeclare.h"
 #include "sc_declare/ImportDeclare.h"
 #include "sc_declare/PackageNameDeclare.h"
+#include "sc_declare/ClassDeclare.h"
 
 #include "sc_declare_types/AbstractType.h"
 #include "sc_declare_types/ObjectType.h"
 
 #include "base/StackRelease.h"
 #include "base/ArrayList.h"
+
 
 
 namespace alinous {
@@ -34,6 +36,17 @@ TypeResolver::TypeResolver(AnalyzeContext* ctx) : ctx(ctx) {
 
 TypeResolver::~TypeResolver() {
 
+}
+
+
+AnalyzedType* TypeResolver::getClassType(CodeElement* element) const {
+	ClassDeclare* cls = element->getClassDeclare();
+	CompilationUnit* unit = cls->getCompilationUnit();
+
+	const UnicodeString* packageName = unit->getPackageName();
+	const UnicodeString* name = cls->getName();
+
+	return findClassType(packageName, name);
 }
 
 

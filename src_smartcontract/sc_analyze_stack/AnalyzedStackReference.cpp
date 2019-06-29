@@ -12,6 +12,8 @@
 
 namespace alinous {
 
+const UnicodeString AnalyzedStackReference::THIS(L"this");
+
 AnalyzedStackReference::AnalyzedStackReference(const UnicodeString* name, const AnalyzedType* type) {
 	this->name = new UnicodeString(*name);
 	this->type = new AnalyzedType(*type);

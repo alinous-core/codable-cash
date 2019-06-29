@@ -28,9 +28,10 @@ public:
 	explicit TypeResolver(AnalyzeContext* ctx);
 	virtual ~TypeResolver();
 
+	AnalyzedType* getClassType(CodeElement* element) const;
 	AnalyzedType* resolveType(CodeElement* element, AbstractType* type) const;
-
 	AnalyzedType* findClassType(CodeElement* element, const UnicodeString* name) const;
+
 	static bool isFqn(const UnicodeString* name) noexcept;
 	static UnicodeString* getPackageName(const UnicodeString* name) noexcept;
 	static UnicodeString* getClassName(const UnicodeString* name) noexcept;

@@ -14,6 +14,8 @@ class AnalyzedType;
 
 class AnalyzedStackReference {
 public:
+	static const UnicodeString THIS;
+
 	AnalyzedStackReference(const UnicodeString* name, const AnalyzedType* type);
 	virtual ~AnalyzedStackReference();
 

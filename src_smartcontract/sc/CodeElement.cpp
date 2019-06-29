@@ -640,7 +640,7 @@ short CodeElement::getKind() noexcept {
 	return this->kind;
 }
 
-ClassDeclare* CodeElement::getClassDeclare() {
+ClassDeclare* CodeElement::getClassDeclare() const {
 	CodeElement* element = this->parent;
 	while(element->kind != CodeElement::CLASS_DECLARE && element != nullptr){
 		element = element->getParent();

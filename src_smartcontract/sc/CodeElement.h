@@ -180,7 +180,7 @@ public:
 	CodeElement* getParent() noexcept;
 
 	CompilationUnit* getCompilationUnit();
-	ClassDeclare* getClassDeclare();
+	ClassDeclare* getClassDeclare() const;
 protected:
 	short kind;
 

@@ -107,7 +107,7 @@ void MethodDeclare::setBlock(StatementBlock* block) noexcept {
 	this->block = block;
 }
 
-bool MethodDeclare::isConstructor() {
+bool MethodDeclare::isConstructor() const {
 	ClassDeclare* dec = getClassDeclare();
 	if(dec == nullptr){
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
@@ -119,6 +119,11 @@ bool MethodDeclare::isConstructor() {
 
 const UnicodeString* MethodDeclare::getName() const noexcept {
 	return this->name;
+}
+
+
+bool MethodDeclare::isStatic() const noexcept {
+	return this->_static;
 }
 
 ArgumentsListDeclare* MethodDeclare::getArguments() const noexcept {

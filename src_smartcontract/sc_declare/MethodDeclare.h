@@ -36,8 +36,10 @@ public:
 	void setArguments(ArgumentsListDeclare* args) noexcept;
 	void setBlock(StatementBlock* block) noexcept;
 
-	bool isConstructor();
+	bool isConstructor() const;
 	const UnicodeString* getName() const noexcept;
+	bool isStatic() const noexcept;
+
 	ArgumentsListDeclare* getArguments() const noexcept;
 	AnalyzedType* getReturnedType() const noexcept;
 

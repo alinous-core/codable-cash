@@ -22,10 +22,13 @@ public:
 	virtual ~AnalyzeStack();
 
 	void addVariableDeclare(AnalyzedStackReference* ref) noexcept;
+	bool isFunctionStack() const noexcept;
 private:
 	bool functionStack;
 	ArrayList<AnalyzedStackReference> variables;
 	HashMap<UnicodeString, AnalyzedStackReference> map;
+
+
 };
 
 } /* namespace alinous */

@@ -24,6 +24,8 @@ public:
 	void addBlockStack() noexcept;
 	void popBlockStack() noexcept;
 
+	AnalyzeStack* top() const noexcept;
+
 	//void addVariableDeclare() noexcept;
 private:
 	ArrayList<AnalyzeStack>* stack;
