@@ -8,14 +8,18 @@
 #include "sc_statement/StatementBlock.h"
 
 #include "sc_declare/MethodDeclare.h"
+#include "sc_declare/ArgumentsListDeclare.h"
 
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/TypeResolver.h"
+#include "sc_analyze/AnalyzedType.h"
 
 #include "sc_analyze_stack/AnalyzeStackManager.h"
 #include "sc_analyze_stack/AnalyzeStackPopper.h"
 #include "sc_analyze_stack/AnalyzedStackReference.h"
 #include "sc_analyze_stack/AnalyzeStack.h"
+
+#include "base/StackRelease.h"
 
 namespace alinous {
 
@@ -73,12 +77,12 @@ void StatementBlock::analyzeMethodDeclareBlock(AnalyzeContext* actx) {
 	AnalyzeStack* stack = stackMgr->top();
 
 	if(!method->isStatic()){
-		AnalyzedType* type = typeResolver->getClassType(method);
+		AnalyzedType* type = typeResolver->getClassType(method); __STP(type);
 		AnalyzedStackReference* ref = new AnalyzedStackReference(&AnalyzedStackReference::THIS, type);
 		stack->addVariableDeclare(ref);
 	}
 
-
+	ArgumentsListDeclare* arguments = method->getArguments();
 
 	// FIXME analyzeMethodDeclareBlock
 
