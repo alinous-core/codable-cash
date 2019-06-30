@@ -87,8 +87,6 @@ void StatementBlock::analyzeMethodDeclareBlock(AnalyzeContext* actx) {
 	ArgumentsListDeclare* arguments = method->getArguments();
 	buildFunctionArguments2AnalyzedStack(arguments, stack);
 
-	// FIXME analyzeMethodDeclareBlock
-
 	int maxLoop = this->statements.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractStatement* stmt = this->statements.get(i);
