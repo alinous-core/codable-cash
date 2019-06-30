@@ -13,6 +13,7 @@
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/TypeResolver.h"
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_declare/ArgumentDeclare.h"
 
 #include "sc_analyze_stack/AnalyzeStackManager.h"
 #include "sc_analyze_stack/AnalyzeStackPopper.h"
@@ -20,6 +21,7 @@
 #include "sc_analyze_stack/AnalyzeStack.h"
 
 #include "base/StackRelease.h"
+
 
 namespace alinous {
 
@@ -83,6 +85,7 @@ void StatementBlock::analyzeMethodDeclareBlock(AnalyzeContext* actx) {
 	}
 
 	ArgumentsListDeclare* arguments = method->getArguments();
+	buildFunctionArguments2AnalyzedStack(arguments, stack);
 
 	// FIXME analyzeMethodDeclareBlock
 
@@ -90,6 +93,20 @@ void StatementBlock::analyzeMethodDeclareBlock(AnalyzeContext* actx) {
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractStatement* stmt = this->statements.get(i);
 		stmt->analyze(actx);
+	}
+}
+
+void StatementBlock::buildFunctionArguments2AnalyzedStack(ArgumentsListDeclare* arguments, AnalyzeStack* stack) const {
+	const ArrayList<ArgumentDeclare>* list = arguments->getArguments();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		ArgumentDeclare* arg = list->get(i);
+		const AnalyzedType* at = arg->getAnalyzedType();
+		const UnicodeString* n = arg->getName();
+
+		AnalyzedStackReference* ref = new AnalyzedStackReference(n, at);
+		stack->addVariableDeclare(ref);
 	}
 }
 

@@ -38,6 +38,10 @@ void ArgumentDeclare::setName(UnicodeString* name) noexcept {
 	this->name = name;
 }
 
+const UnicodeString* alinous::ArgumentDeclare::getName() const noexcept {
+	return this->name;
+}
+
 void ArgumentDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 	TypeResolver* typeResolver = actx->getTypeResolver();
 
@@ -69,6 +73,10 @@ void alinous::ArgumentDeclare::toBinary(ByteBuffer* out) {
 	out->putShort(CodeElement::ARGUMENT_DECLARE);
 	this->type->toBinary(out);
 	putString(out, this->name);
+}
+
+const AnalyzedType* ArgumentDeclare::getAnalyzedType() const noexcept {
+	return this->atype;
 }
 
 void alinous::ArgumentDeclare::fromBinary(ByteBuffer* in) {

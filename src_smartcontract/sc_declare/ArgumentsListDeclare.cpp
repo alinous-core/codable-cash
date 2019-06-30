@@ -45,6 +45,10 @@ int ArgumentsListDeclare::getSize() const noexcept {
 	return this->list.size();
 }
 
+const ArrayList<ArgumentDeclare>* ArgumentsListDeclare::getArguments() const noexcept {
+	return &this->list;
+}
+
 int ArgumentsListDeclare::binarySize() const {
 	int total = sizeof(uint16_t);
 	total += sizeof(uint32_t);

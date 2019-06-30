@@ -13,6 +13,9 @@
 
 namespace alinous {
 
+class ArgumentsListDeclare;
+class AnalyzeStack;
+
 class StatementBlock : public AbstractStatement {
 public:
 	StatementBlock();
@@ -32,6 +35,7 @@ public:
 
 private:
 	void analyzeMethodDeclareBlock(AnalyzeContext* actx);
+	void buildFunctionArguments2AnalyzedStack(ArgumentsListDeclare* arguments, AnalyzeStack* stack) const;
 private:
 	ArrayList<AbstractStatement> statements;
 };
