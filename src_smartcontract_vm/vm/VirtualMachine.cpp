@@ -6,12 +6,14 @@
  */
 
 #include "vm/VirtualMachine.h"
-#include "instance/VmInstanceStack.h"
 #include "sc/SmartContract.h"
 
 #include "memory/VmMemoryManager.h"
 #include "instance_parts/VmMalloc.h"
 #include "instance_gc/GcManager.h"
+
+#include "stack/VmStackManager.h"
+#include "stack/VmStack.h"
 
 namespace alinous {
 
@@ -21,13 +23,14 @@ VirtualMachine::VirtualMachine(uint64_t memCapacity) {
 	this->memory = new VmMemoryManager(memCapacity);
 	this->alloc = new VmMalloc(this);
 	this->gc = new GcManager();
+	this->stackManager = nullptr;
 }
 
 VirtualMachine::~VirtualMachine() {
+	delete this->stackManager;
 	delete this->gc;
 
 	delete this->sc;
-	delete this->stack;
 
 	delete this->memory;
 	delete this->alloc;
@@ -35,7 +38,7 @@ VirtualMachine::~VirtualMachine() {
 
 void VirtualMachine::loadSmartContract(SmartContract* sc) {
 	this->sc = sc;
-	this->stack = new VmInstanceStack();
+	this->stackManager = new VmStackManager();
 }
 
 void VirtualMachine::createScInstance() {
@@ -60,6 +63,15 @@ void VirtualMachine::analyze() {
 
 bool VirtualMachine::hasError() noexcept {
 	return this->sc->hasError();
+}
+
+void VirtualMachine::newStack() {
+	VmStack* stack = new(this) VmStack();
+	this->stackManager->addStack(stack);
+}
+
+void VirtualMachine::popStack() {
+	this->stackManager->popStack();
 }
 
 GcManager* VirtualMachine::getGc() noexcept {

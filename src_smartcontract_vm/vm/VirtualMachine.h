@@ -18,6 +18,7 @@ class SmartContract;
 class VmMemoryManager;
 class VmMalloc;
 class GcManager;
+class VmStackManager;
 
 class VirtualMachine {
 public:
@@ -31,6 +32,9 @@ public:
 	void createScInstance();
 	void interpret(const UnicodeString* method);
 
+	void newStack();
+	void popStack();
+
 	VmMemoryManager* getMemory() noexcept;
 	VmMalloc* getAlloc() noexcept;
 	GcManager* getGc() noexcept;
@@ -40,6 +44,7 @@ private:
 	SmartContract* sc;
 
 	VmMemoryManager* memory;
+	VmStackManager* stackManager;
 	VmMalloc* alloc;
 	GcManager* gc;
 };

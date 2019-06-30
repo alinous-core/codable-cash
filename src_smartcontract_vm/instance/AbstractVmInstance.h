@@ -16,10 +16,11 @@ class VirtualMachine;
 
 class AbstractVmInstance {
 public:
-	static constexpr uint8_t ISNT_OBJ {1};
-	static constexpr uint8_t INST_STRING{2};
-	static constexpr uint8_t INST_BIG_INT{3};
-	static constexpr uint8_t INST_ARRAY{4};
+	static constexpr uint8_t STACK {1};
+	static constexpr uint8_t ISNT_OBJ {2};
+	static constexpr uint8_t INST_STRING{3};
+	static constexpr uint8_t INST_BIG_INT{4};
+	static constexpr uint8_t INST_ARRAY{5};
 
 
 	static constexpr uint8_t REF_OBJ{101};

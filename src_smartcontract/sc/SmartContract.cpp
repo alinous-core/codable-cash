@@ -25,6 +25,8 @@
 #include "base_io_stream/FileInputStream.h"
 #include "base_io/File.h"
 
+#include "stack/StackPopper.h"
+
 namespace alinous {
 
 SmartContract::SmartContract() {
@@ -108,6 +110,10 @@ void SmartContract::createInstance(VirtualMachine* vm) {
 
 	GcManager* gc = vm->getGc();
 	gc->setMainInstance(inst);
+
+	vm->newStack();
+	StackPopper popStack(vm);
+
 }
 
 } /* namespace alinous */
