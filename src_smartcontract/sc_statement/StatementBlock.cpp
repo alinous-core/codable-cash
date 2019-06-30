@@ -50,6 +50,10 @@ void StatementBlock::analyze(AnalyzeContext* actx) {
 		return;
 	}
 
+	AnalyzeStackManager* stackMgr = actx->getAnalyzeStackManager();
+	AnalyzeStackPopper popper(stackMgr, false);
+	stackMgr->addBlockStack();
+
 	int maxLoop = this->statements.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractStatement* stmt = this->statements.get(i);
@@ -73,6 +77,7 @@ void StatementBlock::analyzeMethodDeclareBlock(AnalyzeContext* actx) {
 		AnalyzedStackReference* ref = new AnalyzedStackReference(&AnalyzedStackReference::THIS, type);
 		stack->addVariableDeclare(ref);
 	}
+
 
 
 	// FIXME analyzeMethodDeclareBlock
