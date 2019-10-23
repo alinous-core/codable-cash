@@ -9,10 +9,13 @@
 #define INSTANCE_ABSTRACTVMINSTANCE_H_
 #include <cstddef>
 #include <cstdint>
+#include "instance_parts/VMemList.h"
 
 namespace alinous {
 
 class VirtualMachine;
+class AbstractReference;
+class GcManager;
 
 class AbstractVmInstance {
 public:
@@ -23,6 +26,7 @@ public:
 	static constexpr uint8_t INST_ARRAY{5};
 
 
+	static constexpr uint8_t REF_ROOT{100};
 	static constexpr uint8_t REF_OBJ{101};
 	static constexpr uint8_t REF_BYTE{102};
 	static constexpr uint8_t REF_CHAR{103};
@@ -37,6 +41,10 @@ public:
 	void* operator new(size_t size, VirtualMachine* vm);
 	void operator delete(void* p, size_t size);
 
+	uint8_t getType() const noexcept;
+	int hashCode() const noexcept;
+
+	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 private:
 	uint8_t type;
 };

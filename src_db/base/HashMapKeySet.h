@@ -77,7 +77,7 @@ public:
 		return nullptr;
 	}
 
-	V* getValue(const K* key) throw() {
+	V* getValue(const K* key) const noexcept {
 		if(key == nullptr){
 			V* val = this->nullElement == nullptr ? nullptr : this->nullElement->value;
 			return val;
@@ -92,7 +92,7 @@ public:
 		return obj->value;
 	}
 
-	void clear() throw() {
+	void clear() noexcept {
 		if(this->nullElement != nullptr){
 			delete this->nullElement;
 			this->nullElement = nullptr;
@@ -131,6 +131,10 @@ public:
 		delete removObj;
 
 		return;
+	}
+
+	int size() const noexcept {
+		return this->nullElement == nullptr ? this->list->size() : this->list->size() + 1;
 	}
 
 	class HashMapKeySetIterator : public Iterator<K> {

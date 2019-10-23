@@ -24,7 +24,7 @@ public:
 
 	static VmClassInstance* createObject(AnalyzedClass* clazz, VirtualMachine* vm);
 
-
+	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 private:
 	void init(VirtualMachine* vm);
 

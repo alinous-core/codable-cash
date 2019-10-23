@@ -55,6 +55,10 @@ int64_t PrimitiveReference::getLongValue() const noexcept {
 	return *((int64_t*)this->data);
 }
 
+bool PrimitiveReference::isPrimitive() const noexcept {
+	return true;
+}
+
 void PrimitiveReference::setLongValue(int64_t value) noexcept {
 	*((int64_t*)this->data) = value;
 }

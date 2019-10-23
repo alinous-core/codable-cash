@@ -17,6 +17,9 @@ class AbstractReference : public AbstractVmInstance {
 public:
 	explicit AbstractReference(uint8_t type);
 	virtual ~AbstractReference();
+
+	virtual bool isPrimitive() const noexcept;
+	virtual AbstractVmInstance* getInstance() noexcept;
 };
 
 } /* namespace alinous */

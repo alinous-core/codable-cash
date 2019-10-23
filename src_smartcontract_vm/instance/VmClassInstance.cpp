@@ -52,4 +52,9 @@ void VmClassInstance::init(VirtualMachine* vm) {
 
 }
 
+const VMemList<AbstractReference>* VmClassInstance::getReferences() const noexcept {
+	return &this->members;
+}
+
+
 } /* namespace alinous */

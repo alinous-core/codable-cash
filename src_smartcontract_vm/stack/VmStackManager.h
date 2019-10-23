@@ -21,6 +21,8 @@ public:
 
 	void addStack(VmStack* stack) noexcept;
 	void popStack() noexcept;
+	VmStack* top() const noexcept;
+	bool isEmpty() const noexcept;
 
 private:
 	ArrayList<VmStack> list;

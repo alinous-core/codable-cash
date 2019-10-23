@@ -15,6 +15,8 @@
 #include "instance_parts/VmMalloc.h"
 
 #include "vm/VirtualMachine.h"
+#include "memory/VmMemoryManager.h"
+
 namespace alinous {
 
 #define DEFAULT_VMMEM_ARRAY_SIZE 64
@@ -23,6 +25,25 @@ template <typename T, typename C = RawCompare>
 class VMemList {
 public:
 	typedef T* ElementType;
+
+	void* operator new(size_t size, VirtualMachine* vm){
+		VmMemoryManager* mem = vm->getMemory();
+		uint64_t mallocSize = size + sizeof(VirtualMachine*);
+
+		void* p = mem->malloc(mallocSize);
+		VirtualMachine** vmp = (VirtualMachine**)p;
+		*vmp = vm;
+
+		return ((char*)p) + sizeof(VirtualMachine*);
+	}
+	void operator delete(void* p, size_t size) {
+		void* ptr = ((char*)p) - sizeof(VirtualMachine*);
+
+		VirtualMachine** vm = (VirtualMachine**)ptr;
+		VmMemoryManager* mem = (*vm)->getMemory();
+
+		mem->free((char*)ptr);
+	}
 
 	VMemList(const VMemList& list) = delete;
 

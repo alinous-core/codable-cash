@@ -20,12 +20,17 @@
 #include "sc_declare/MethodDeclare.h"
 
 #include "instance/VmClassInstance.h"
+#include "instance_ref/ObjectReference.h"
+#include "instance_ref/VmRootReference.h"
+
 #include "instance_gc/GcManager.h"
 
 #include "base_io_stream/FileInputStream.h"
 #include "base_io/File.h"
 
 #include "stack/StackPopper.h"
+#include "stack/VmStack.h"
+
 
 namespace alinous {
 
@@ -34,6 +39,7 @@ SmartContract::SmartContract() {
 	this->mainPackage = nullptr;
 	this->mainClass = nullptr;
 	this->mainMethod = nullptr;
+	this->rootReference = nullptr;
 }
 
 SmartContract::~SmartContract() {
@@ -42,6 +48,7 @@ SmartContract::~SmartContract() {
 	delete this->mainPackage;
 	delete this->mainClass;
 	delete this->mainMethod;
+	delete this->rootReference;
 }
 
 void alinous::SmartContract::setMainMethod(const UnicodeString* mainPackage,
@@ -99,6 +106,14 @@ bool SmartContract::hasError() noexcept {
 	return this->actx->hasError();
 }
 
+VmRootReference* SmartContract::getRootReference() const noexcept {
+	return this->rootReference;
+}
+
+void SmartContract::clearRootReference(VirtualMachine* vm) noexcept {
+	delete this->rootReference;
+	this->rootReference = nullptr;
+}
 
 void SmartContract::createInstance(VirtualMachine* vm) {
 	PackageSpace* space = this->actx->getPackegeSpace(this->mainPackage);
@@ -109,11 +124,20 @@ void SmartContract::createInstance(VirtualMachine* vm) {
 	VmClassInstance* inst = VmClassInstance::createObject(clazz, vm);
 
 	GcManager* gc = vm->getGc();
-	gc->setMainInstance(inst);
+	this->rootReference = new(vm) VmRootReference(vm);
+	this->rootReference->setMainInstance(inst);
 
 	vm->newStack();
 	StackPopper popStack(vm);
 
+	VmStack* stack = vm->topStack();
+
+	ObjectReference* instRef = new(vm) ObjectReference(AbstractVmInstance::REF_OBJ);
+	instRef->setInstance(inst);
+
+	stack->addInnerReference(instRef);
+
+	// FIXME exec constructor
 }
 
 } /* namespace alinous */

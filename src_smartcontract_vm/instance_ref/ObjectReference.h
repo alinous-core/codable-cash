@@ -12,10 +12,20 @@
 
 namespace alinous {
 
+class AbstractVmInstance;
+
 class ObjectReference : public AbstractReference {
 public:
 	explicit ObjectReference(uint8_t type);
 	virtual ~ObjectReference();
+
+	virtual bool isPrimitive() const noexcept;
+	virtual AbstractVmInstance* getInstance() const noexcept;
+
+	void setInstance(AbstractVmInstance* instance) noexcept;
+
+private:
+	AbstractVmInstance* instance;
 };
 
 } /* namespace alinous */

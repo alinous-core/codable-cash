@@ -8,14 +8,30 @@
 #ifndef STACK_VMSTACK_H_
 #define STACK_VMSTACK_H_
 
-#include "instance/AbstractVmInstance.h"
+#include "instance_ref/AbstractReference.h"
+#include "instance/IInstanceContainer.h"
+
+#include "instance_parts/VMemList.h"
 
 namespace alinous {
 
-class VmStack : public AbstractVmInstance {
+class AbstractReference;
+class VirtualMachine;
+class VmRootReference;
+
+class VmStack : public AbstractReference, public IInstanceContainer {
 public:
-	VmStack();
+	VmStack(VirtualMachine* vm);
 	virtual ~VmStack();
+
+	void addInnerReference(AbstractReference* ref);
+
+	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
+	virtual void removeInnerRefs(GcManager* gc) noexcept;
+
+private:
+	VMemList<AbstractReference>* stack;
+	VirtualMachine* vm;
 };
 
 } /* namespace alinous */

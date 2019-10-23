@@ -9,6 +9,7 @@
 
 #include "vm/VirtualMachine.h"
 #include "memory/VmMemoryManager.h"
+#include <cstdint>
 
 namespace alinous {
 
@@ -39,5 +40,19 @@ void AbstractVmInstance::operator delete(void* p, size_t size) {
 	mem->free((char*)ptr);
 
 }
+
+uint8_t AbstractVmInstance::getType() const noexcept {
+	return this->type;
+}
+
+int AbstractVmInstance::hashCode() const noexcept {
+	uint64_t addr = (uint64_t)this;
+	return (int)(addr >> 2);
+}
+
+const VMemList<AbstractReference>* AbstractVmInstance::getReferences() const noexcept {
+	return nullptr;
+}
+
 
 } /* namespace alinous */

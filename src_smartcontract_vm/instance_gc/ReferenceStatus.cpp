@@ -6,6 +6,11 @@
  */
 
 #include "instance_gc/ReferenceStatus.h"
+#include "instance_gc/GcManager.h"
+#include "instance_gc/GcCyclicCheckerContext.h"
+
+#include "instance_ref/AbstractReference.h"
+#include "instance/IInstanceContainer.h"
 
 namespace alinous {
 
@@ -15,6 +20,112 @@ ReferenceStatus::ReferenceStatus(AbstractVmInstance* instance) {
 
 ReferenceStatus::~ReferenceStatus() {
 	this->instance = nullptr;
+}
+
+void ReferenceStatus::addOwner(const AbstractVmInstance* owner) noexcept {
+	uint8_t type = owner->getType();
+
+	ArrayList<const AbstractVmInstance>* list = nullptr;
+
+	switch(type){
+	case AbstractVmInstance::STACK:
+	case AbstractVmInstance::REF_ROOT:
+		list = &this->terminalOwnerList;
+		break;
+	default:
+		list = &this->ownerList;
+		break;
+	}
+
+	const AbstractVmInstance* o = list->search(owner);
+	if(o == nullptr){
+		list->addElementWithSorted(owner);
+	}
+}
+
+void ReferenceStatus::removeOwner(const AbstractVmInstance* owner) noexcept {
+	uint8_t type = owner->getType();
+	ArrayList<const AbstractVmInstance>* list = nullptr;
+
+	switch(type){
+	case AbstractVmInstance::STACK:
+	case AbstractVmInstance::REF_ROOT:
+		list = &this->terminalOwnerList;
+		break;
+	default:
+		list = &this->ownerList;
+		break;
+	}
+
+	list->removeByObj(owner);
+}
+
+
+bool ReferenceStatus::isRemovable() const noexcept {
+	return this->ownerList.isEmpty() && this->terminalOwnerList.isEmpty();
+}
+
+void ReferenceStatus::releseInnerRefs(GcManager* gc) noexcept {
+	// FIXME releseInnerRefs
+	IInstanceContainer* container = dynamic_cast<IInstanceContainer*>(this->instance);
+	if(container != nullptr){
+		((IInstanceContainer*)container)->removeInnerRefs(gc);
+	}
+}
+
+
+AbstractVmInstance* ReferenceStatus::getInstance() const noexcept {
+	return this->instance;
+}
+
+void ReferenceStatus::removeInstance() noexcept {
+	delete this->instance;
+}
+
+bool ReferenceStatus::checkCyclicRemovable(GcCyclicCheckerContext* cctx) noexcept {
+	bool alreadyDone = cctx->hasStatus(this);
+	if(alreadyDone){
+		return true;
+	}
+	if(!this->terminalOwnerList.isEmpty()){
+		return false;
+	}
+
+	cctx->addInstance(this);
+
+	int maxLoop = this->ownerList.size();
+	for(int i = 0; i != maxLoop; ++i){
+		const AbstractVmInstance* inst = this->ownerList.get(i);
+
+		bool result = checkInnerCyclicRemovable(inst, cctx);
+		if(!result){
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool ReferenceStatus::checkInnerCyclicRemovable(const AbstractVmInstance* inst, GcCyclicCheckerContext* cctx) const noexcept{
+	const VMemList<AbstractReference>* list = inst->getReferences();
+	if(list == nullptr){
+		return true;
+	}
+
+	GcManager* gc = cctx->getGC();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractReference* ref = list->get(i);
+		ReferenceStatus* stat = gc->getReferenceStatus(ref);
+
+		bool result = stat->checkCyclicRemovable(cctx);
+		if(!result){
+			return false;
+		}
+	}
+
+	return true;
 }
 
 

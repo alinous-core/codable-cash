@@ -15,6 +15,7 @@
 #include "stack/VmStackManager.h"
 #include "stack/VmStack.h"
 
+#include "instance_ref/VmRootReference.h"
 namespace alinous {
 
 VirtualMachine::VirtualMachine(uint64_t memCapacity) {
@@ -24,13 +25,18 @@ VirtualMachine::VirtualMachine(uint64_t memCapacity) {
 	this->alloc = new VmMalloc(this);
 	this->gc = new GcManager();
 	this->stackManager = nullptr;
+	this->destried = false;
 }
 
 VirtualMachine::~VirtualMachine() {
-	delete this->stackManager;
-	delete this->gc;
+	if(!this->destried){
+		// destroy(); FIXME clear comment
+	}
 
 	delete this->sc;
+
+	delete this->stackManager;
+	delete this->gc;
 
 	delete this->memory;
 	delete this->alloc;
@@ -66,16 +72,49 @@ bool VirtualMachine::hasError() noexcept {
 }
 
 void VirtualMachine::newStack() {
-	VmStack* stack = new(this) VmStack();
+	VmRootReference* root = this->sc->getRootReference();
+
+	VmStack* stack = new(this) VmStack(this);
 	this->stackManager->addStack(stack);
+
+	this->gc->addReference(root, stack);
 }
 
 void VirtualMachine::popStack() {
+	VmStack* stack = this->stackManager->top();
+
 	this->stackManager->popStack();
+
+	VmRootReference* root = this->sc->getRootReference();
+	this->gc->removeReference(root, stack);
+}
+
+VmStack* VirtualMachine::topStack() const noexcept {
+	return this->stackManager->top();
+}
+
+void VirtualMachine::clearStack() noexcept {
+	while(!this->stackManager->isEmpty()){
+		this->stackManager->popStack();
+	}
 }
 
 GcManager* VirtualMachine::getGc() noexcept {
 	return this->gc;
+}
+
+void VirtualMachine::destroy() noexcept {
+	if(this->sc == nullptr){
+		return;
+	}
+
+	clearStack();
+	this->sc->clearRootReference(this);
+
+
+	this->gc->garbageCollect();
+
+	this->destried = true;
 }
 
 } /* namespace alinous */

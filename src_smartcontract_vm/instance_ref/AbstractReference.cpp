@@ -17,4 +17,12 @@ AbstractReference::~AbstractReference() {
 
 }
 
+bool alinous::AbstractReference::isPrimitive() const noexcept {
+	return false;
+}
+
+AbstractVmInstance* alinous::AbstractReference::getInstance() noexcept {
+	return this;
+}
+
 } /* namespace alinous */

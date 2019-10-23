@@ -22,6 +22,7 @@ TEST_GROUP(TestVMGroup) {
 };
 
 
+
 TEST(TestVMGroup, construct){
 	VirtualMachine* vm = new VirtualMachine(1024);
 	delete vm;
@@ -79,13 +80,13 @@ TEST(TestVMGroup, loadAndInitInstance){
 	sc->setMainMethod(&mainPackage, &mainClass, &mainMethod);
 
 
-	VirtualMachine* vm = new VirtualMachine(1024); __STP(vm);
+	VirtualMachine* vm = new VirtualMachine(1024*1024); __STP(vm);
 	vm->loadSmartContract(sc);
 
 	vm->analyze();
 
 	vm->createScInstance();
-
+	vm->destroy();
 }
 
 TEST(TestVMGroup, duplicateClassError){

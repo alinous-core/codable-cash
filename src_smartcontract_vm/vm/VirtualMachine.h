@@ -19,6 +19,7 @@ class VmMemoryManager;
 class VmMalloc;
 class GcManager;
 class VmStackManager;
+class VmStack;
 
 class VirtualMachine {
 public:
@@ -34,11 +35,14 @@ public:
 
 	void newStack();
 	void popStack();
+	VmStack* topStack() const noexcept;
+	void clearStack() noexcept;
 
 	VmMemoryManager* getMemory() noexcept;
 	VmMalloc* getAlloc() noexcept;
 	GcManager* getGc() noexcept;
 
+	void destroy() noexcept;
 private:
 	VmInstanceStack* stack;
 	SmartContract* sc;
@@ -47,6 +51,8 @@ private:
 	VmStackManager* stackManager;
 	VmMalloc* alloc;
 	GcManager* gc;
+
+	bool destried;
 };
 
 } /* namespace alinous */

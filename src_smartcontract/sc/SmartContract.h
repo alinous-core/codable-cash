@@ -18,6 +18,7 @@ class InputStream;
 class VirtualMachine;
 class AnalyzeContext;
 class UnicodeString;
+class VmRootReference;
 
 class SmartContract {
 public:
@@ -31,6 +32,9 @@ public:
 
 	void setMainMethod(const UnicodeString* mainPackage, const UnicodeString* mainClass, const UnicodeString* mainMethod);
 
+	VmRootReference* getRootReference() const noexcept;
+	void clearRootReference(VirtualMachine* vm) noexcept;
+
 	void createInstance(VirtualMachine* vm);
 
 private:
@@ -39,6 +43,8 @@ private:
 	UnicodeString* mainMethod;
 	ArrayList<CompilationUnit> progs;
 	AnalyzeContext* actx;
+
+	VmRootReference* rootReference;
 };
 
 } /* namespace alinous */
