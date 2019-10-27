@@ -16,6 +16,7 @@
 #include "base/ArrayList.h"
 
 #include "instance_ref/RefereceFactory.h"
+#include "instance_gc/GcManager.h"
 
 namespace alinous {
 
@@ -28,7 +29,7 @@ VmClassInstance::~VmClassInstance() {
 	int maxLoop = this->members.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractReference* ref = this->members.get(i);
-		delete ref;
+		if(!ref->isPrimitive()) delete ref;
 	}
 }
 
@@ -39,8 +40,20 @@ VmClassInstance* VmClassInstance::createObject(AnalyzedClass* clazz, VirtualMach
 	return inst;
 }
 
+void VmClassInstance::removeInnerRefs(GcManager* gc) noexcept {
+	int maxLoop = this->members.size();
+
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractReference* ref = this->members.get(i);
+
+		// remove ref
+		gc->removeRefReference(this, ref);
+	}
+}
+
 void VmClassInstance::init(VirtualMachine* vm) {
 	ArrayList<MemberVariableDeclare>* list = this->clazz->getMemberVariableDeclareList();
+	GcManager* gc = vm->getGc();
 
 	int maxLoop = list->size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -48,6 +61,8 @@ void VmClassInstance::init(VirtualMachine* vm) {
 
 		AbstractReference* ref = RefereceFactory::createReferenceFromDefinition(dec, vm);
 		this->members.addElement(ref);
+
+		gc->addRefReference(this, ref);
 	}
 
 }

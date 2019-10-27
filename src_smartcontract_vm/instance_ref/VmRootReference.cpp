@@ -20,7 +20,7 @@ VmRootReference::VmRootReference(VirtualMachine* vm) : AbstractReference(Abstrac
 VmRootReference::~VmRootReference() {
 	if(this->mainInst != nullptr){
 		GcManager* gc = this->vm->getGc();
-		gc->removeReference(this, this->mainInst);
+		gc->removeInstanceReference(this, this->mainInst);
 		this->mainInst = nullptr;
 	}
 }
@@ -29,7 +29,7 @@ void VmRootReference::setMainInstance(AbstractVmInstance* mainInst) noexcept {
 	this->mainInst = mainInst;
 
 	GcManager* gc = this->vm->getGc();
-	gc->addReference(this, this->mainInst);
+	gc->addInstanceReference(this, this->mainInst);
 }
 
 } /* namespace alinous */

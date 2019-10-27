@@ -66,7 +66,6 @@ bool ReferenceStatus::isRemovable() const noexcept {
 }
 
 void ReferenceStatus::releseInnerRefs(GcManager* gc) noexcept {
-	// FIXME releseInnerRefs
 	IInstanceContainer* container = dynamic_cast<IInstanceContainer*>(this->instance);
 	if(container != nullptr){
 		((IInstanceContainer*)container)->removeInnerRefs(gc);
@@ -79,7 +78,9 @@ AbstractVmInstance* ReferenceStatus::getInstance() const noexcept {
 }
 
 void ReferenceStatus::removeInstance() noexcept {
-	delete this->instance;
+	if(this->instance != nullptr){
+		delete this->instance;
+	}
 }
 
 bool ReferenceStatus::checkCyclicRemovable(GcCyclicCheckerContext* cctx) noexcept {
@@ -104,6 +105,16 @@ bool ReferenceStatus::checkCyclicRemovable(GcCyclicCheckerContext* cctx) noexcep
 	}
 
 	return true;
+}
+
+void ReferenceStatus::deleteInstance() noexcept {
+	uint8_t type = this->instance->getType();
+
+	if(type == AbstractVmInstance::STACK){
+		return;
+	}
+
+	delete this->instance;
 }
 
 bool ReferenceStatus::checkInnerCyclicRemovable(const AbstractVmInstance* inst, GcCyclicCheckerContext* cctx) const noexcept{

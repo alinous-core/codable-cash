@@ -23,8 +23,11 @@ public:
 	GcManager();
 	virtual ~GcManager();
 
-	void addReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept;
-	void removeReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept;
+	void addRefReference(AbstractVmInstance* owner, AbstractReference* refered) noexcept;
+	void addInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept;
+	void removeRefReference(AbstractVmInstance* owner, AbstractReference* refered) noexcept;
+	void removeInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept;
+
 
 	ReferenceStatus* getReferenceStatus(AbstractReference* ref) const noexcept;
 

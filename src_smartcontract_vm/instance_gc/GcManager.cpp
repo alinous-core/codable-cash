@@ -29,7 +29,15 @@ GcManager::~GcManager() {
 	//this->removable.deleteElements();
 }
 
-void GcManager::addReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept {
+void GcManager::addRefReference(AbstractVmInstance* owner, AbstractReference* refered) noexcept {
+	AbstractVmInstance* inst = refered->getInstance();
+
+	if(inst != nullptr){
+		addInstanceReference(owner, inst);
+	}
+}
+
+void GcManager::addInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept {
 	VmInstanceKey key(refered);
 
 	ReferenceStatus* status = this->statuses.get(&key);
@@ -41,7 +49,17 @@ void GcManager::addReference(AbstractVmInstance* owner, AbstractVmInstance* refe
 	status->addOwner(owner);
 }
 
-void GcManager::removeReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept {
+
+void GcManager::removeRefReference(AbstractVmInstance* owner, AbstractReference* refered) noexcept {
+	AbstractVmInstance* inst = refered->getInstance();
+
+	if(inst != nullptr){
+		removeInstanceReference(owner, refered);
+	}
+}
+
+
+void GcManager::removeInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept {
 	VmInstanceKey key(refered);
 
 	ReferenceStatus* status = this->statuses.get(&key);
@@ -80,6 +98,8 @@ void GcManager::garbageCollect() {
 		while(!this->removable.isEmpty()){
 			ReferenceStatus* status = this->removable.remove(0);
 			status->releseInnerRefs(this);
+
+			status->deleteInstance();
 
 			delete status;
 		}

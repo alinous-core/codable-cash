@@ -77,7 +77,7 @@ void VirtualMachine::newStack() {
 	VmStack* stack = new(this) VmStack(this);
 	this->stackManager->addStack(stack);
 
-	this->gc->addReference(root, stack);
+	this->gc->addInstanceReference(root, stack);
 }
 
 void VirtualMachine::popStack() {
@@ -86,7 +86,7 @@ void VirtualMachine::popStack() {
 	this->stackManager->popStack();
 
 	VmRootReference* root = this->sc->getRootReference();
-	this->gc->removeReference(root, stack);
+	this->gc->removeInstanceReference(root, stack);
 }
 
 VmStack* VirtualMachine::topStack() const noexcept {

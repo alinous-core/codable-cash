@@ -28,7 +28,7 @@ public:
 	bool isRemovable() const noexcept;
 
 	void releseInnerRefs(GcManager* gc) noexcept;
-
+	void deleteInstance() noexcept;
 
 	AbstractVmInstance* getInstance() const noexcept;
 

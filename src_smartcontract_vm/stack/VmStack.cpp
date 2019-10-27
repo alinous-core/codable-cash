@@ -42,7 +42,7 @@ void VmStack::addInnerReference(AbstractReference* ref) {
 		inst = ref->getInstance();
 	}
 
-	gc->addReference(this, inst);
+	gc->addInstanceReference(this, inst);
 }
 
 const VMemList<AbstractReference>* VmStack::getReferences() const noexcept {
@@ -54,7 +54,7 @@ void VmStack::removeInnerRefs(GcManager* gc) noexcept {
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractReference* ref = this->stack->get(i);
 
-		gc->removeReference(this, ref);
+		gc->removeInstanceReference(this, ref);
 	}
 }
 
