@@ -16,6 +16,11 @@
 #include "stack/VmStack.h"
 
 #include "instance_ref/VmRootReference.h"
+
+#include "sc_declare/MethodDeclare.h"
+#include "sc_statement/StatementBlock.h"
+
+
 namespace alinous {
 
 VirtualMachine::VirtualMachine(uint64_t memCapacity) {
@@ -53,6 +58,12 @@ void VirtualMachine::createScInstance() {
 
 void VirtualMachine::interpret(const UnicodeString* method) {
 
+}
+
+void VirtualMachine::interpret(const MethodDeclare* method) {
+	StatementBlock* block = method->getBlock();
+
+	block->interpret(this);
 }
 
 VmMemoryManager* VirtualMachine::getMemory() noexcept {

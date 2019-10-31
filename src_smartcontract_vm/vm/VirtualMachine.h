@@ -21,6 +21,8 @@ class GcManager;
 class VmStackManager;
 class VmStack;
 
+class MethodDeclare;
+
 class VirtualMachine {
 public:
 	explicit VirtualMachine(uint64_t memCapacity);
@@ -32,6 +34,7 @@ public:
 
 	void createScInstance();
 	void interpret(const UnicodeString* method);
+	void interpret(const MethodDeclare* method);
 
 	void newStack();
 	void popStack();

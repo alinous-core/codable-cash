@@ -16,6 +16,7 @@ class AnalyzeContext;
 class AnalyzedType;
 class VirtualMachine;
 class AbstractVmInstance;
+class VariableInstractionHolder;
 
 class AbstractExpression: public CodeElement {
 public:
@@ -28,6 +29,11 @@ public:
 	virtual AnalyzedType getType() = 0;
 
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm) = 0;
+
+	VariableInstractionHolder* getVariableInstractionHolder() noexcept;
+
+private:
+	VariableInstractionHolder* valInstHolder;
 };
 
 } /* namespace alinous */

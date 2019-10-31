@@ -22,6 +22,8 @@
 
 #include "base/StackRelease.h"
 
+#include "stack/StackPopper.h"
+#include "stack/VmStack.h"
 
 namespace alinous {
 
@@ -150,6 +152,9 @@ void StatementBlock::fromBinary(ByteBuffer* in) {
 }
 
 void StatementBlock::interpret(VirtualMachine* vm) {
+	vm->newStack();
+	StackPopper stackPopper(vm);
+
 	int maxLoop = this->statements.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractStatement* stmt = this->statements.get(i);

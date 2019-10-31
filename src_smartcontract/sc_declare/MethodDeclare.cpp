@@ -107,6 +107,11 @@ void MethodDeclare::setBlock(StatementBlock* block) noexcept {
 	this->block = block;
 }
 
+StatementBlock* MethodDeclare::getBlock() const noexcept {
+	return this->block;
+}
+
+
 bool MethodDeclare::isConstructor() const {
 	ClassDeclare* dec = getClassDeclare();
 	if(dec == nullptr){

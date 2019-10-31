@@ -138,6 +138,7 @@ void SmartContract::createInstance(VirtualMachine* vm) {
 	stack->addInnerReference(instRef);
 
 	// FIXME exec constructor
+	vm->interpret(defConstructor);
 }
 
 } /* namespace alinous */

@@ -36,6 +36,8 @@ public:
 	void setArguments(ArgumentsListDeclare* args) noexcept;
 	void setBlock(StatementBlock* block) noexcept;
 
+	StatementBlock* getBlock() const noexcept;
+
 	bool isConstructor() const;
 	const UnicodeString* getName() const noexcept;
 	bool isStatic() const noexcept;

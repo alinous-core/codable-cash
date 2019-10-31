@@ -8,6 +8,7 @@ add_subdirectory(instance_parts)
 add_subdirectory(instance_ref)
 add_subdirectory(memory)
 add_subdirectory(stack)
+add_subdirectory(variable_access)
 add_subdirectory(vm)
 
 

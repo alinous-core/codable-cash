@@ -23,6 +23,13 @@ void MemberReferenceExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void MemberReferenceExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	VariableInstractionHolder* holder = getVariableInstractionHolder();
+
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->list.get(i);
+
+	}
 	// FIXME expression : analyze type
 }
 
