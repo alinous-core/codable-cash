@@ -23,6 +23,7 @@ class AnalyzedClass;
 class ClassDeclare;
 class AnalyzeStackManager;
 class TypeResolver;
+class AnalyzedClass;
 
 class AnalyzeContext {
 public:
@@ -41,12 +42,15 @@ public:
 	TypeResolver* getTypeResolver() const noexcept;
 	AnalyzeStackManager* getAnalyzeStackManager() const noexcept;
 
+	void setThisClass(AnalyzedClass* thisClass) noexcept;
 private:
 	VirtualMachine* vm;
 	HashMap<UnicodeString, PackageSpace> *packageSpaces;
 	ArrayList<ValidationError> verrorList;
 	AnalyzeStackManager* stack;
 	TypeResolver* typeResolver;
+	AnalyzedClass* thisClass;
+
 };
 
 } /* namespace alinous */

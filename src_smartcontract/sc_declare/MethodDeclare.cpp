@@ -71,6 +71,10 @@ void MethodDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 	this->args->analyzeTypeRef(actx);
 
 	if(this->block != nullptr){
+		// FIXME set this pointer on analysis phase
+		AnalyzedClass* aclass = actx->getAnalyzedClass(this);
+		actx->setThisClass(aclass);
+
 		this->block->analyzeTypeRef(actx);
 	}
 }

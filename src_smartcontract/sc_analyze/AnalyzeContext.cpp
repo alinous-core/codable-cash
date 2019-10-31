@@ -26,6 +26,7 @@ AnalyzeContext::AnalyzeContext() {
 	this->packageSpaces = new HashMap<UnicodeString, PackageSpace>();
 	this->stack = new AnalyzeStackManager();
 	this->typeResolver = new TypeResolver(this);
+	this->thisClass = nullptr;
 }
 
 AnalyzeContext::~AnalyzeContext() {
@@ -92,6 +93,10 @@ TypeResolver* AnalyzeContext::getTypeResolver() const noexcept {
 
 AnalyzeStackManager* AnalyzeContext::getAnalyzeStackManager() const noexcept {
 	return this->stack;
+}
+
+void AnalyzeContext::setThisClass(AnalyzedClass* thisClass) noexcept {
+	this->thisClass = thisClass;
 }
 
 } /* namespace alinous */
