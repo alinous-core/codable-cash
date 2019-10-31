@@ -7,15 +7,17 @@
 
 #include "variable_access/VariableInstractionHolder.h"
 
-#include "variable_access/AbstractVariableInstraction.h"
-
 #include "sc_expression/AbstractExpression.h"
 #include "sc_expression/VariableIdentifier.h"
+#include "sc_expression/ArrayReferenceExpression.h"
 
 #include "sc_analyze/AnalyzeContext.h"
 
+#include "variable_access/AbstractVariableInstraction.h"
 #include "variable_access/ExpressionAccess.h"
 #include "variable_access/ThisPointerAccess.h"
+#include "variable_access/ArrayReferenceAccess.h"
+
 
 namespace alinous {
 
@@ -32,7 +34,10 @@ void VariableInstractionHolder::addExpression(AbstractExpression* exp, AnalyzeCo
 
 	switch(kind){
 	case CodeElement::EXP_VARIABLE_ID:
-
+		addVariableIdExp(exp, actx);
+		break;
+	case CodeElement::EXP_ARRAY_REF:
+		addArrayReference(exp, actx);
 		break;
 	default:
 		ExpressionAccess* access = new ExpressionAccess(exp);
@@ -68,6 +73,16 @@ void VariableInstractionHolder::addVariableIdExp(AbstractExpression* exp, Analyz
 
 
 
+}
+
+void VariableInstractionHolder::addArrayReference(AbstractExpression* exp, AnalyzeContext* actx) noexcept {
+	ArrayReferenceExpression* arrayRefExp = dynamic_cast<ArrayReferenceExpression*>(exp);
+	assert(arrayRefExp != nullptr);
+
+	// FIXME array is stack object or
+
+	ArrayReferenceAccess* access = new ArrayReferenceAccess(arrayRefExp);
+	this->list.addElement(access);
 }
 
 } /* namespace alinous */

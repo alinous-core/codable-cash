@@ -10,6 +10,8 @@
 #include "sc_expression/AbstractExpression.h"
 #include "sc_analyze/AnalyzedType.h"
 
+#include "variable_access/VariableInstractionHolder.h"
+
 namespace alinous {
 
 MemberReferenceExpression::MemberReferenceExpression() : AbstractBinaryExpression(CodeElement::EXP_MEMBER_REF) {
@@ -28,7 +30,7 @@ void MemberReferenceExpression::analyzeTypeRef(AnalyzeContext* actx) {
 
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractExpression* exp = this->list.get(i);
-
+		holder->addExpression(exp, actx);
 	}
 	// FIXME expression : analyze type
 }

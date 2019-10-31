@@ -2,6 +2,7 @@
 
 set(__src
 	AbstractVariableInstraction.cpp
+	ArrayReferenceAccess.cpp
 	ExpressionAccess.cpp
 	StackVariableAccess.cpp
 	ThisPointerAccess.cpp

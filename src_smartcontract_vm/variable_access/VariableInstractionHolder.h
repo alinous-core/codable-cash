@@ -25,6 +25,7 @@ public:
 
 private:
 	void addVariableIdExp(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
+	void addArrayReference(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 
 private:
 	ArrayList<AbstractVariableInstraction> list;
