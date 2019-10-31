@@ -12,10 +12,15 @@
 
 namespace alinous {
 
+class AbstractExpression;
+
 class ExpressionAccess: public AbstractVariableInstraction {
 public:
-	ExpressionAccess();
+	ExpressionAccess(AbstractExpression* exp);
 	virtual ~ExpressionAccess();
+
+private:
+	AbstractExpression* exp;
 };
 
 } /* namespace alinous */

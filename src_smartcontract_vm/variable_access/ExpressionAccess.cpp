@@ -5,17 +5,15 @@
  *      Author: iizuka
  */
 
-#include <variable_access/ExpressionAccess.h>
+#include "variable_access/ExpressionAccess.h"
 
 namespace alinous {
 
-ExpressionAccess::ExpressionAccess() {
-	// TODO Auto-generated constructor stub
-
+ExpressionAccess::ExpressionAccess(AbstractExpression* exp) {
+	this->exp = exp;
 }
 
 ExpressionAccess::~ExpressionAccess() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

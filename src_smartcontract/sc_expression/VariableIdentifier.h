@@ -13,8 +13,11 @@
 namespace alinous {
 class UnicodeString;
 
+
 class VariableIdentifier: public AbstractExpression {
 public:
+	static const UnicodeString __THIS;
+
 	VariableIdentifier();
 	virtual ~VariableIdentifier();
 
@@ -30,6 +33,8 @@ public:
 
 	virtual AnalyzedType getType();
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
+	bool isThis() const noexcept;
 private:
 	UnicodeString* name;
 };

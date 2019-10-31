@@ -12,6 +12,8 @@
 
 namespace alinous {
 
+const UnicodeString VariableIdentifier::__THIS(L"this");
+
 VariableIdentifier::VariableIdentifier() : AbstractExpression(CodeElement::EXP_VARIABLE_ID) {
 	this->name = nullptr;
 }
@@ -64,5 +66,11 @@ AnalyzedType VariableIdentifier::getType() {
 AbstractVmInstance* VariableIdentifier::interpret(VirtualMachine* vm) {
 	return nullptr; // FIXME expression::interpret()
 }
+
+
+bool VariableIdentifier::isThis() const noexcept {
+	return __THIS.equals(this->name);
+}
+
 
 } /* namespace alinous */
