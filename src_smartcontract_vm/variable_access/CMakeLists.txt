@@ -4,6 +4,8 @@ set(__src
 	AbstractVariableInstraction.cpp
 	ArrayReferenceAccess.cpp
 	ExpressionAccess.cpp
+	MemberFunctionCallAccess.cpp
+	MemberVariableAccess.cpp
 	StackVariableAccess.cpp
 	ThisPointerAccess.cpp
 	VariableInstractionHolder.cpp

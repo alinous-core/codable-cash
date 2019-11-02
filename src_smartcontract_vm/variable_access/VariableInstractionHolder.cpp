@@ -17,7 +17,7 @@
 #include "variable_access/ExpressionAccess.h"
 #include "variable_access/ThisPointerAccess.h"
 #include "variable_access/ArrayReferenceAccess.h"
-
+#include "variable_access/MemberVariableAccess.h"
 
 namespace alinous {
 
@@ -38,6 +38,9 @@ void VariableInstractionHolder::addExpression(AbstractExpression* exp, AnalyzeCo
 		break;
 	case CodeElement::EXP_ARRAY_REF:
 		addArrayReference(exp, actx);
+		break;
+	case CodeElement::EXP_FUNCTIONCALL:
+		addFunctionCallExp(exp, actx);
 		break;
 	default:
 		ExpressionAccess* access = new ExpressionAccess(exp);
@@ -71,8 +74,8 @@ void VariableInstractionHolder::addVariableIdExp(AbstractExpression* exp, Analyz
 		this->memberAccess = true;
 	}
 
-
-
+	MemberVariableAccess* access = new MemberVariableAccess(valId);
+	this->list.addElement(access);
 }
 
 void VariableInstractionHolder::addArrayReference(AbstractExpression* exp, AnalyzeContext* actx) noexcept {
@@ -83,6 +86,10 @@ void VariableInstractionHolder::addArrayReference(AbstractExpression* exp, Analy
 
 	ArrayReferenceAccess* access = new ArrayReferenceAccess(arrayRefExp);
 	this->list.addElement(access);
+}
+
+void VariableInstractionHolder::addFunctionCallExp(AbstractExpression* exp,	AnalyzeContext* actx) noexcept {
+	// FIXME array is stack object or
 }
 
 } /* namespace alinous */
