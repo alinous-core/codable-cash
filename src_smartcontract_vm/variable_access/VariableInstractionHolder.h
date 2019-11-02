@@ -15,6 +15,7 @@ namespace alinous {
 class AbstractVariableInstraction;
 class AbstractExpression;
 class AnalyzeContext;
+class VariableIdentifier;
 
 class VariableInstractionHolder {
 public:
@@ -25,6 +26,7 @@ public:
 
 private:
 	void addVariableIdExp(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
+	bool handleStackVariableIdExp(VariableIdentifier* valId, AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 	void addArrayReference(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 	void addFunctionCallExp(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 

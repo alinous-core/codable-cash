@@ -53,4 +53,12 @@ AnalyzeStack* AnalyzeStackManager::top() const noexcept {
 }
 
 
+
+StackVariableAccess* AnalyzeStackManager::findStackVariableAccess(const UnicodeString* name) const noexcept {
+	// FIXME find stack access
+
+	return nullptr;
+}
+
+
 } /* namespace alinous */

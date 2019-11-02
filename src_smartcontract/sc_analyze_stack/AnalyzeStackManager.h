@@ -13,6 +13,8 @@
 namespace alinous {
 
 class AnalyzeStack;
+class StackVariableAccess;
+class UnicodeString;
 
 class AnalyzeStackManager {
 public:
@@ -25,6 +27,8 @@ public:
 	void popBlockStack() noexcept;
 
 	AnalyzeStack* top() const noexcept;
+
+	StackVariableAccess* findStackVariableAccess(const UnicodeString* name) const noexcept;
 
 	//void addVariableDeclare() noexcept;
 private:

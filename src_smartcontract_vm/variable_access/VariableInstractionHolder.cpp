@@ -18,6 +18,10 @@
 #include "variable_access/ThisPointerAccess.h"
 #include "variable_access/ArrayReferenceAccess.h"
 #include "variable_access/MemberVariableAccess.h"
+#include "variable_access/StackVariableAccess.h"
+
+#include "sc_analyze_stack/AnalyzeStackManager.h"
+
 
 namespace alinous {
 
@@ -64,7 +68,9 @@ void VariableInstractionHolder::addVariableIdExp(AbstractExpression* exp, Analyz
 
 	// stack or not
 	if(!this->memberAccess){
-		// FIXME stack
+		if(handleStackVariableIdExp(valId, exp, actx)){
+			return;
+		}
 	}
 
 	// member access
@@ -76,6 +82,19 @@ void VariableInstractionHolder::addVariableIdExp(AbstractExpression* exp, Analyz
 
 	MemberVariableAccess* access = new MemberVariableAccess(valId);
 	this->list.addElement(access);
+}
+
+bool VariableInstractionHolder::handleStackVariableIdExp(VariableIdentifier* valId, AbstractExpression* exp, AnalyzeContext* actx) noexcept {
+	AnalyzeStackManager* stManager = actx->getAnalyzeStackManager();
+
+	UnicodeString* name = valId->getName();
+	StackVariableAccess* access = stManager->findStackVariableAccess(name);
+	if(access != nullptr){
+		this->list.addElement(access);
+		return true;
+	}
+
+	return false;
 }
 
 void VariableInstractionHolder::addArrayReference(AbstractExpression* exp, AnalyzeContext* actx) noexcept {

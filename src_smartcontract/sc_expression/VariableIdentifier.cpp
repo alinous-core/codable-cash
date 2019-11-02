@@ -37,6 +37,10 @@ void VariableIdentifier::setName(UnicodeString* name) noexcept {
 	this->name = name;
 }
 
+UnicodeString* alinous::VariableIdentifier::getName() const noexcept {
+	return this->name;
+}
+
 int VariableIdentifier::binarySize() const {
 	checkNotNull(this->name);
 
