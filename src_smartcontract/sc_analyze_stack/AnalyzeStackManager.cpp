@@ -8,6 +8,7 @@
 #include "sc_analyze_stack/AnalyzeStackManager.h"
 #include "sc_analyze_stack/AnalyzeStack.h"
 
+#include "variable_access/StackVariableAccess.h"
 
 
 namespace alinous {
@@ -52,12 +53,26 @@ AnalyzeStack* AnalyzeStackManager::top() const noexcept {
 	return this->stack->get(pos);
 }
 
-
-
 StackVariableAccess* AnalyzeStackManager::findStackVariableAccess(const UnicodeString* name) const noexcept {
-	// FIXME find stack access
+	// find stack access
+	StackVariableAccess* access = nullptr;
 
-	return nullptr;
+	int topStack = this->stack->size() - 1;
+	for(int i = topStack; i >= 0; --i){
+		AnalyzeStack* stack = this->stack->get(i);
+		int pos = stack->findStackPosOfVariable(name);
+
+		if(pos >= 0){
+			access = new StackVariableAccess(i, pos);
+			break;
+		}
+
+		if(stack->isFunctionStack()){
+			break;
+		}
+	}
+
+	return access;
 }
 
 

@@ -14,8 +14,12 @@ namespace alinous {
 
 class StackVariableAccess: public AbstractVariableInstraction {
 public:
-	StackVariableAccess();
+	StackVariableAccess(int stackPos, int pos);
 	virtual ~StackVariableAccess();
+
+private:
+	int stackPos;
+	int pos;
 };
 
 } /* namespace alinous */

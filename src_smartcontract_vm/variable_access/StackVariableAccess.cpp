@@ -9,13 +9,12 @@
 
 namespace alinous {
 
-StackVariableAccess::StackVariableAccess() {
-	// TODO Auto-generated constructor stub
-
+StackVariableAccess::StackVariableAccess(int stackPos, int pos) {
+	this->stackPos = stackPos;
+	this->pos = pos;
 }
 
 StackVariableAccess::~StackVariableAccess() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

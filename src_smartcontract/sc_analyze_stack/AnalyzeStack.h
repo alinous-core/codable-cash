@@ -23,6 +23,8 @@ public:
 
 	void addVariableDeclare(AnalyzedStackReference* ref) noexcept;
 	bool isFunctionStack() const noexcept;
+
+	int findStackPosOfVariable(const UnicodeString* name) const noexcept;
 private:
 	bool functionStack;
 	ArrayList<AnalyzedStackReference> variables;
