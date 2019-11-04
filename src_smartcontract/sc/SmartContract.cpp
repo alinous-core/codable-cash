@@ -132,9 +132,7 @@ void SmartContract::createInstance(VirtualMachine* vm) {
 
 	VmStack* stack = vm->topStack();
 
-	ObjectReference* instRef = new(vm) ObjectReference(AbstractVmInstance::REF_OBJ);
-	instRef->setInstance(inst);
-
+	ObjectReference* instRef = ObjectReference::createObjectReference(inst, vm);
 	stack->addInnerReference(instRef);
 
 	// FIXME exec constructor

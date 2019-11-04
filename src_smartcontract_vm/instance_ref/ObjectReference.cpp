@@ -7,6 +7,8 @@
 
 #include "instance_ref/ObjectReference.h"
 
+#include "instance/VmClassInstance.h"
+
 namespace alinous {
 
 ObjectReference::ObjectReference(uint8_t type) : AbstractReference(type) {
@@ -15,6 +17,13 @@ ObjectReference::ObjectReference(uint8_t type) : AbstractReference(type) {
 
 ObjectReference::~ObjectReference() {
 
+}
+
+ObjectReference* ObjectReference::createObjectReference(VmClassInstance* clazzInst, VirtualMachine* vm) {
+	ObjectReference* ref = new(vm) ObjectReference(AbstractVmInstance::REF_OBJ);
+	ref->setInstance(clazzInst);
+
+	return ref;
 }
 
 bool ObjectReference::isPrimitive() const noexcept {

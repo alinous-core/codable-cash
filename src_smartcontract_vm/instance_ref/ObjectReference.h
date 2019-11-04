@@ -15,9 +15,12 @@ namespace alinous {
 class AbstractVmInstance;
 
 class ObjectReference : public AbstractReference {
-public:
+protected:
 	explicit ObjectReference(uint8_t type);
+public:
 	virtual ~ObjectReference();
+
+	static ObjectReference* createObjectReference(VmClassInstance* clazzInst, VirtualMachine* vm);
 
 	virtual bool isPrimitive() const noexcept;
 	virtual AbstractVmInstance* getInstance() const noexcept;

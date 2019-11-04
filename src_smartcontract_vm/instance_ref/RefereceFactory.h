@@ -16,7 +16,6 @@ class VirtualMachine;
 class RefereceFactory {
 public:
 	static AbstractReference* createReferenceFromDefinition(MemberVariableDeclare* dec, VirtualMachine* vm);
-
 private:
 
 };

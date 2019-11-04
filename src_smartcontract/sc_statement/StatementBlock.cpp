@@ -25,7 +25,10 @@
 #include "stack/StackPopper.h"
 #include "stack/VmStack.h"
 
+#include "instance_ref/ObjectReference.h"
+
 #include "variable_access/FunctionArguments.h"
+
 
 namespace alinous {
 
@@ -173,14 +176,14 @@ void StatementBlock::interpret(VirtualMachine* vm) {
 void StatementBlock::interpretFunctionArguments(VirtualMachine* vm) {
 	MethodDeclare* method = dynamic_cast<MethodDeclare*>(this->parent);
 	FunctionArguments* args = vm->getFunctionArguments();
+	VmStack* stack = vm->topStack();
 
 	if(!method->isStatic()){
 		VmClassInstance* _this = args->getThisPtr();
+		ObjectReference* ref = ObjectReference::createObjectReference(_this, vm);
 
-		// FIXME
+		stack->addInnerReference(ref);
 	}
-
-	VmStack* stack = vm->topStack();
 
 	const ArrayList<AbstractReference>* list = args->getArguments();
 	int maxLoop = list->size();
