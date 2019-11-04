@@ -22,6 +22,8 @@ class VmStackManager;
 class VmStack;
 
 class MethodDeclare;
+class VmClassInstance;
+class FunctionArguments;
 
 class VirtualMachine {
 public:
@@ -34,7 +36,7 @@ public:
 
 	void createScInstance();
 	void interpret(const UnicodeString* method);
-	void interpret(const MethodDeclare* method);
+	void interpret(MethodDeclare* method, VmClassInstance* _this);
 
 	void newStack();
 	void popStack();
@@ -45,15 +47,19 @@ public:
 	VmMalloc* getAlloc() noexcept;
 	GcManager* getGc() noexcept;
 
+	void setFunctionArguments(FunctionArguments* args) noexcept;
+	FunctionArguments* getFunctionArguments() const noexcept;
+
 	void destroy() noexcept;
 private:
-	VmInstanceStack* stack;
 	SmartContract* sc;
 
 	VmMemoryManager* memory;
 	VmStackManager* stackManager;
 	VmMalloc* alloc;
 	GcManager* gc;
+
+	FunctionArguments* argsRegister;
 
 	bool destried;
 };

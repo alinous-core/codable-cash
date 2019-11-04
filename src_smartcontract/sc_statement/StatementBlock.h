@@ -36,6 +36,7 @@ public:
 private:
 	void analyzeMethodDeclareBlock(AnalyzeContext* actx);
 	void buildFunctionArguments2AnalyzedStack(ArgumentsListDeclare* arguments, AnalyzeStack* stack) const;
+	void interpretFunctionArguments(VirtualMachine* vm);
 private:
 	ArrayList<AbstractStatement> statements;
 };

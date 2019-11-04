@@ -11,6 +11,7 @@
 #include "memory/VmMemoryManager.h"
 #include "instance_parts/VmMalloc.h"
 #include "instance_gc/GcManager.h"
+#include "instance/VmClassInstance.h"
 
 #include "stack/VmStackManager.h"
 #include "stack/VmStack.h"
@@ -20,16 +21,17 @@
 #include "sc_declare/MethodDeclare.h"
 #include "sc_statement/StatementBlock.h"
 
+#include "variable_access/FunctionArguments.h"
 
 namespace alinous {
 
 VirtualMachine::VirtualMachine(uint64_t memCapacity) {
-	this->stack = nullptr;
 	this->sc = nullptr;
 	this->memory = new VmMemoryManager(memCapacity);
 	this->alloc = new VmMalloc(this);
 	this->gc = new GcManager();
 	this->stackManager = nullptr;
+	this->argsRegister = nullptr;
 	this->destried = false;
 }
 
@@ -45,6 +47,8 @@ VirtualMachine::~VirtualMachine() {
 
 	delete this->memory;
 	delete this->alloc;
+
+	this->argsRegister = nullptr;
 }
 
 void VirtualMachine::loadSmartContract(SmartContract* sc) {
@@ -59,11 +63,15 @@ void VirtualMachine::createScInstance() {
 void VirtualMachine::interpret(const UnicodeString* method) {
 
 }
+/**
+ * aaa
+ */
+void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this) {
+	FunctionArguments args;
+	args.setThisPtr(_this);
+	setFunctionArguments(&args);
 
-void VirtualMachine::interpret(const MethodDeclare* method) {
-	StatementBlock* block = method->getBlock();
-
-	block->interpret(this);
+	method->interpret(&args, this);
 }
 
 VmMemoryManager* VirtualMachine::getMemory() noexcept {
@@ -112,6 +120,14 @@ void VirtualMachine::clearStack() noexcept {
 
 GcManager* VirtualMachine::getGc() noexcept {
 	return this->gc;
+}
+
+FunctionArguments* VirtualMachine::getFunctionArguments() const noexcept {
+	return this->argsRegister;
+}
+
+void VirtualMachine::setFunctionArguments(FunctionArguments* args) noexcept {
+	this->argsRegister = args;
 }
 
 void VirtualMachine::destroy() noexcept {

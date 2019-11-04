@@ -23,7 +23,10 @@ VmStack::~VmStack() {
 	int maxLoop = this->stack->size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractReference* ref = this->stack->get(i);
-		delete ref;
+
+		if(!ref->isPrimitive()){
+			delete ref;
+		}
 	}
 
 	delete this->stack;

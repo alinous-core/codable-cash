@@ -19,6 +19,9 @@ class UnicodeString;
 class StatementBlock;
 class AnalyzeContext;
 class AnalyzedType;
+class FunctionArguments;
+class VirtualMachine;
+class AbstractVmInstance;
 
 class MethodDeclare : public CodeElement {
 public:
@@ -48,6 +51,8 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	void interpret(FunctionArguments* args, VirtualMachine* vm);
 private:
 	AccessControlDeclare* ctrl;
 	AbstractType* type;

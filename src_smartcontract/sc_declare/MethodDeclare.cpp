@@ -212,4 +212,12 @@ void MethodDeclare::fromBinary(ByteBuffer* in) {
 	}
 }
 
+
+void MethodDeclare::interpret(FunctionArguments* args, VirtualMachine* vm) {
+	StatementBlock* block = getBlock();
+
+	block->interpret(vm);
+}
+
+
 } /* namespace alinous */

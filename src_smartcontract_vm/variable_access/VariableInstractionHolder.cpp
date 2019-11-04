@@ -60,6 +60,7 @@ void VariableInstractionHolder::addVariableIdExp(AbstractExpression* exp, Analyz
 	if(valId->isThis()){
 		if(this->list.isEmpty()){
 			ThisPointerAccess* access = new ThisPointerAccess();
+
 			this->list.addElement(access);
 			this->memberAccess = true;
 		}

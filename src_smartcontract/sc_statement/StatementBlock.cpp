@@ -25,6 +25,8 @@
 #include "stack/StackPopper.h"
 #include "stack/VmStack.h"
 
+#include "variable_access/FunctionArguments.h"
+
 namespace alinous {
 
 StatementBlock::StatementBlock() : AbstractStatement(CodeElement::STMT_BLOCK) {
@@ -155,10 +157,36 @@ void StatementBlock::interpret(VirtualMachine* vm) {
 	vm->newStack();
 	StackPopper stackPopper(vm);
 
+	// put this pointer on stack
+	if(this->parent->getKind() == CodeElement::METHOD_DECLARE){
+		interpretFunctionArguments(vm);
+	}
+
 	int maxLoop = this->statements.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractStatement* stmt = this->statements.get(i);
 		stmt->interpret(vm);
+	}
+}
+
+
+void StatementBlock::interpretFunctionArguments(VirtualMachine* vm) {
+	MethodDeclare* method = dynamic_cast<MethodDeclare*>(this->parent);
+	FunctionArguments* args = vm->getFunctionArguments();
+
+	if(!method->isStatic()){
+		VmClassInstance* _this = args->getThisPtr();
+
+		// FIXME
+	}
+
+	VmStack* stack = vm->topStack();
+
+	const ArrayList<AbstractReference>* list = args->getArguments();
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractReference* ref = list->get(i);
+		stack->addInnerReference(ref);
 	}
 }
 
