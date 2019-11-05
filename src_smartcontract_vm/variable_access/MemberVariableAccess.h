@@ -19,6 +19,8 @@ public:
 	MemberVariableAccess(VariableIdentifier* valId);
 	virtual ~MemberVariableAccess();
 
+	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
+
 private:
 	VariableIdentifier* valId;
 };

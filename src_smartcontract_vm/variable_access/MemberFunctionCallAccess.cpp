@@ -18,4 +18,8 @@ MemberFunctionCallAccess::~MemberFunctionCallAccess() {
 	// TODO Auto-generated destructor stub
 }
 
+void MemberFunctionCallAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst) {
+	// FIXME analyze
+}
+
 } /* namespace alinous */

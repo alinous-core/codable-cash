@@ -16,4 +16,8 @@ ExpressionAccess::ExpressionAccess(AbstractExpression* exp) {
 ExpressionAccess::~ExpressionAccess() {
 }
 
+void ExpressionAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst) {
+	// FIXME
+}
+
 } /* namespace alinous */

@@ -10,12 +10,11 @@
 namespace alinous {
 
 AbstractVariableInstraction::AbstractVariableInstraction() {
-	// TODO Auto-generated constructor stub
 
 }
 
 AbstractVariableInstraction::~AbstractVariableInstraction() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */

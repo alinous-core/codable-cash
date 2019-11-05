@@ -25,6 +25,11 @@ void MemberReferenceExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void MemberReferenceExpression::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void MemberReferenceExpression::analyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::analyze(actx);
+
 	int maxLoop = this->list.size();
 	VariableInstractionHolder* holder = getVariableInstractionHolder();
 
@@ -32,11 +37,9 @@ void MemberReferenceExpression::analyzeTypeRef(AnalyzeContext* actx) {
 		AbstractExpression* exp = this->list.get(i);
 		holder->addExpression(exp, actx);
 	}
-	// FIXME expression : analyze type
-}
 
-void MemberReferenceExpression::analyze(AnalyzeContext* actx) {
-	AbstractBinaryExpression::analyze(actx);
+
+	// FIXME expression : analyze type
 }
 
 int MemberReferenceExpression::binarySize() const {

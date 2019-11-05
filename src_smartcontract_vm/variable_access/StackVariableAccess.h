@@ -17,6 +17,8 @@ public:
 	StackVariableAccess(int stackPos, int pos);
 	virtual ~StackVariableAccess();
 
+	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
+
 private:
 	int stackPos;
 	int pos;

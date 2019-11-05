@@ -10,10 +10,14 @@
 
 namespace alinous {
 
+class AnalyzeContext;
+
 class AbstractVariableInstraction {
 public:
 	AbstractVariableInstraction();
 	virtual ~AbstractVariableInstraction();
+
+	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst) = 0;
 };
 
 } /* namespace alinous */

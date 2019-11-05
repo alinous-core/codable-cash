@@ -19,6 +19,8 @@ public:
 	ArrayReferenceAccess(ArrayReferenceExpression* arrayRefExp);
 	virtual ~ArrayReferenceAccess();
 
+	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
+private:
 	ArrayReferenceExpression* arrayRefExp;
 };
 

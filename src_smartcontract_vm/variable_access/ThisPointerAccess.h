@@ -16,6 +16,8 @@ class ThisPointerAccess: public AbstractVariableInstraction {
 public:
 	ThisPointerAccess();
 	virtual ~ThisPointerAccess();
+
+	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
 };
 
 } /* namespace alinous */

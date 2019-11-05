@@ -16,4 +16,8 @@ MemberVariableAccess::MemberVariableAccess(VariableIdentifier* valId) {
 MemberVariableAccess::~MemberVariableAccess() {
 }
 
+void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst) {
+	// FIXME analyze
+}
+
 } /* namespace alinous */

@@ -23,7 +23,7 @@ public:
 	virtual ~VariableInstractionHolder();
 
 	void addExpression(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
-
+	void analyze(AnalyzeContext* actx);
 private:
 	void addVariableIdExp(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 	bool handleStackVariableIdExp(VariableIdentifier* valId, AbstractExpression* exp, AnalyzeContext* actx) noexcept;

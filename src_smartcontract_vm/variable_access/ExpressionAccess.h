@@ -19,6 +19,8 @@ public:
 	ExpressionAccess(AbstractExpression* exp);
 	virtual ~ExpressionAccess();
 
+	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
+
 private:
 	AbstractExpression* exp;
 };

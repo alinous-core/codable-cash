@@ -16,4 +16,8 @@ ArrayReferenceAccess::ArrayReferenceAccess(ArrayReferenceExpression* arrayRefExp
 ArrayReferenceAccess::~ArrayReferenceAccess() {
 }
 
+void ArrayReferenceAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst) {
+}
+
+
 } /* namespace alinous */

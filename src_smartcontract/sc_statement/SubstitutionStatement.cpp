@@ -79,6 +79,9 @@ void SubstitutionStatement::fromBinary(ByteBuffer* in) {
 }
 
 void SubstitutionStatement::interpret(VirtualMachine* vm) {
+	AbstractVmInstance* leftValue = this->variable->interpret(vm);
+	AbstractVmInstance* rightValue = this->exp->interpret(vm);
+
 	// FIXME statement
 }
 

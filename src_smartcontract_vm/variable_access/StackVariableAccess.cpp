@@ -17,4 +17,8 @@ StackVariableAccess::StackVariableAccess(int stackPos, int pos) {
 StackVariableAccess::~StackVariableAccess() {
 }
 
+void StackVariableAccess::analyze(AnalyzeContext* actx,	AbstractVariableInstraction* lastIinst) {
+	// FIXME analyze
+}
+
 } /* namespace alinous */

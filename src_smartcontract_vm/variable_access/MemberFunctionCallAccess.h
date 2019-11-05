@@ -16,6 +16,8 @@ class MemberFunctionCallAccess: public AbstractVariableInstraction {
 public:
 	MemberFunctionCallAccess();
 	virtual ~MemberFunctionCallAccess();
+
+	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
 };
 
 } /* namespace alinous */

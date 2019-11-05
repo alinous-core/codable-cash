@@ -61,16 +61,15 @@ void VariableIdentifier::fromBinary(ByteBuffer* in) {
 	this->name = getString(in);
 }
 
-
 AnalyzedType VariableIdentifier::getType() {
 	// FIXME analyze variable id type
 	return AnalyzedType();
 }
 
 AbstractVmInstance* VariableIdentifier::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	// FIXME interpret
+	return nullptr;
 }
-
 
 bool VariableIdentifier::isThis() const noexcept {
 	return __THIS.equals(this->name);

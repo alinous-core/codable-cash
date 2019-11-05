@@ -18,4 +18,8 @@ ThisPointerAccess::~ThisPointerAccess() {
 	// TODO Auto-generated destructor stub
 }
 
+void ThisPointerAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst) {
+	// FIXME analyze
+}
+
 } /* namespace alinous */

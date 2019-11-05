@@ -112,4 +112,22 @@ void VariableInstractionHolder::addFunctionCallExp(AbstractExpression* exp,	Anal
 	// FIXME array is stack object or
 }
 
+void VariableInstractionHolder::analyze(AnalyzeContext* actx) {
+	AbstractVariableInstraction* lastIinst = nullptr;
+
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractVariableInstraction* inst = this->list.get(i);
+		inst->analyze(actx, lastIinst);
+
+		lastIinst = inst;
+
+	}
+
+	// FIXME
+}
+
 } /* namespace alinous */
+
+
