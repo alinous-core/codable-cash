@@ -54,5 +54,9 @@ const VMemList<AbstractReference>* AbstractVmInstance::getReferences() const noe
 	return nullptr;
 }
 
+bool AbstractVmInstance::isReference() const noexcept {
+	return false;
+}
+
 
 } /* namespace alinous */

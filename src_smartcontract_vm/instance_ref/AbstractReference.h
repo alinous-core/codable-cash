@@ -20,6 +20,7 @@ public:
 
 	virtual bool isPrimitive() const noexcept;
 	virtual AbstractVmInstance* getInstance() noexcept;
+	virtual bool isReference() const noexcept;
 };
 
 } /* namespace alinous */

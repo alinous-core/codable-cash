@@ -25,4 +25,8 @@ AbstractVmInstance* alinous::AbstractReference::getInstance() noexcept {
 	return this;
 }
 
+bool alinous::AbstractReference::isReference() const noexcept {
+	return true;
+}
+
 } /* namespace alinous */
