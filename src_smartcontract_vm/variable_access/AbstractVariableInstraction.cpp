@@ -17,4 +17,9 @@ AbstractVariableInstraction::~AbstractVariableInstraction() {
 
 }
 
+AbstractVmInstance* AbstractVariableInstraction::interpret(VirtualMachine* vm) {
+	// FIXME interpret
+	return nullptr;
+}
+
 } /* namespace alinous */

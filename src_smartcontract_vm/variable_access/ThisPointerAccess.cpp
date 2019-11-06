@@ -24,12 +24,15 @@ void ThisPointerAccess::analyze(AnalyzeContext* actx, AbstractVariableInstractio
 	AnalyzedClass* clazz = actx->getThisClass();
 
 	this->type = new AnalyzedType(clazz);
-
-	// FIXME analyze
 }
 
 AnalyzedType* ThisPointerAccess::getAnalyzedType() const noexcept {
 	return this->type;
+}
+
+AbstractVmInstance* ThisPointerAccess::interpret(VirtualMachine* vm) {
+	// FIXME interpret
+	return nullptr;
 }
 
 } /* namespace alinous */

@@ -24,4 +24,9 @@ AnalyzedType* MemberVariableAccess::getAnalyzedType() const noexcept {
 	return nullptr; // FIXME
 }
 
+AbstractVmInstance* MemberVariableAccess::interpret(VirtualMachine* vm) {
+	// FIXME interpret
+	return nullptr;
+}
+
 } /* namespace alinous */

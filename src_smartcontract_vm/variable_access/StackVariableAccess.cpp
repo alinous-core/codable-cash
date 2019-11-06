@@ -25,4 +25,9 @@ AnalyzedType* StackVariableAccess::getAnalyzedType() const noexcept {
 	return nullptr; // FIXME
 }
 
+AbstractVmInstance* StackVariableAccess::interpret(VirtualMachine* vm) {
+	// FIXME interpret
+	return nullptr;
+}
+
 } /* namespace alinous */

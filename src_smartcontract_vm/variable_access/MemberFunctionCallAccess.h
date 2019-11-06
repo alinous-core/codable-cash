@@ -18,6 +18,7 @@ public:
 	virtual ~MemberFunctionCallAccess();
 
 	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
+	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 };
 
 } /* namespace alinous */

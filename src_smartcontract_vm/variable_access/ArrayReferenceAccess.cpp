@@ -23,4 +23,9 @@ AnalyzedType* ArrayReferenceAccess::getAnalyzedType() const noexcept {
 	return nullptr; // FIXME
 }
 
+AbstractVmInstance* ArrayReferenceAccess::interpret(VirtualMachine* vm) {
+	// FIXME interpret
+	return nullptr;
+}
+
 } /* namespace alinous */

@@ -24,4 +24,9 @@ AnalyzedType* ExpressionAccess::getAnalyzedType() const noexcept {
 	return nullptr; // FIXME
 }
 
+AbstractVmInstance* ExpressionAccess::interpret(VirtualMachine* vm) {
+	// FIXME interpret
+	return nullptr;
+}
+
 } /* namespace alinous */
