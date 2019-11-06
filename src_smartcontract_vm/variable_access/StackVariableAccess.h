@@ -18,7 +18,7 @@ public:
 	virtual ~StackVariableAccess();
 
 	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
-
+	virtual AnalyzedType* getAnalyzedType() const noexcept;
 private:
 	int stackPos;
 	int pos;

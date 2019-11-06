@@ -20,7 +20,7 @@ public:
 	virtual ~ThisPointerAccess();
 
 	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
-
+	virtual AnalyzedType* getAnalyzedType() const noexcept;
 private:
 	AnalyzedType* type;
 };

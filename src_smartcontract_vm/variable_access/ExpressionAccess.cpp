@@ -20,4 +20,8 @@ void ExpressionAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction
 	// FIXME
 }
 
+AnalyzedType* ExpressionAccess::getAnalyzedType() const noexcept {
+	return nullptr; // FIXME
+}
+
 } /* namespace alinous */

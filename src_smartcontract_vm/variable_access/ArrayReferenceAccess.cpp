@@ -19,5 +19,8 @@ ArrayReferenceAccess::~ArrayReferenceAccess() {
 void ArrayReferenceAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst) {
 }
 
+AnalyzedType* ArrayReferenceAccess::getAnalyzedType() const noexcept {
+	return nullptr; // FIXME
+}
 
 } /* namespace alinous */

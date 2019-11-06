@@ -11,6 +11,7 @@
 namespace alinous {
 
 class AnalyzeContext;
+class AnalyzedType;
 
 class AbstractVariableInstraction {
 public:
@@ -18,6 +19,7 @@ public:
 	virtual ~AbstractVariableInstraction();
 
 	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst) = 0;
+	virtual AnalyzedType* getAnalyzedType() const noexcept = 0;
 };
 
 } /* namespace alinous */

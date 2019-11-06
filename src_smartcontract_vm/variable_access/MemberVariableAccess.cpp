@@ -20,4 +20,8 @@ void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 	// FIXME analyze
 }
 
+AnalyzedType* MemberVariableAccess::getAnalyzedType() const noexcept {
+	return nullptr; // FIXME
+}
+
 } /* namespace alinous */

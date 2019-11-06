@@ -28,4 +28,8 @@ void ThisPointerAccess::analyze(AnalyzeContext* actx, AbstractVariableInstractio
 	// FIXME analyze
 }
 
+AnalyzedType* ThisPointerAccess::getAnalyzedType() const noexcept {
+	return this->type;
+}
+
 } /* namespace alinous */

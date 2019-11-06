@@ -21,4 +21,8 @@ void StackVariableAccess::analyze(AnalyzeContext* actx,	AbstractVariableInstract
 	// FIXME analyze
 }
 
+AnalyzedType* StackVariableAccess::getAnalyzedType() const noexcept {
+	return nullptr; // FIXME
+}
+
 } /* namespace alinous */
