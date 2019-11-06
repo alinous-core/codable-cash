@@ -43,6 +43,7 @@ public:
 	AnalyzeStackManager* getAnalyzeStackManager() const noexcept;
 
 	void setThisClass(AnalyzedClass* thisClass) noexcept;
+	AnalyzedClass* getThisClass() const noexcept;
 private:
 	VirtualMachine* vm;
 	HashMap<UnicodeString, PackageSpace> *packageSpaces;

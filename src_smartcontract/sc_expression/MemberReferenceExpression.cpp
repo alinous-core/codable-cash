@@ -38,7 +38,7 @@ void MemberReferenceExpression::analyze(AnalyzeContext* actx) {
 		holder->addExpression(exp, actx);
 	}
 
-
+	holder->analyze(actx);
 	// FIXME expression : analyze type
 }
 
@@ -64,6 +64,8 @@ AnalyzedType MemberReferenceExpression::getType() {
 }
 
 AbstractVmInstance* MemberReferenceExpression::interpret(VirtualMachine* vm) {
+
+
 	return nullptr; // FIXME expression::interpret()
 }
 

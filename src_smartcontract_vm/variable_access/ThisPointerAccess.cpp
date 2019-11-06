@@ -6,19 +6,25 @@
  */
 
 #include "variable_access/ThisPointerAccess.h"
+#include "sc_analyze/AnalyzeContext.h"
+
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
 ThisPointerAccess::ThisPointerAccess() {
-	// TODO Auto-generated constructor stub
-
+	this->type = nullptr;
 }
 
 ThisPointerAccess::~ThisPointerAccess() {
-	// TODO Auto-generated destructor stub
+	delete this->type;
 }
 
-void ThisPointerAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst) {
+void ThisPointerAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastInst) {
+	AnalyzedClass* clazz = actx->getThisClass();
+
+	this->type = new AnalyzedType(clazz);
+
 	// FIXME analyze
 }
 

@@ -99,4 +99,8 @@ void AnalyzeContext::setThisClass(AnalyzedClass* thisClass) noexcept {
 	this->thisClass = thisClass;
 }
 
+AnalyzedClass* AnalyzeContext::getThisClass() const noexcept {
+	return this->thisClass;
+}
+
 } /* namespace alinous */
