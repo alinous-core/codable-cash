@@ -61,6 +61,10 @@ AnalyzedType ParenthesisExpression::getType() {
 	return this->exp->getType();
 }
 
+void ParenthesisExpression::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
 AbstractVmInstance* ParenthesisExpression::interpret(VirtualMachine* vm) {
 	return this->exp->interpret(vm);
 }

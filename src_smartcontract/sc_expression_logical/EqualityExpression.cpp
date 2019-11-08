@@ -90,6 +90,11 @@ AnalyzedType EqualityExpression::getType() {
 	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 
+void EqualityExpression::init(VirtualMachine* vm) {
+	this->left->init(vm);
+	this->right->init(vm);
+}
+
 AbstractVmInstance* EqualityExpression::interpret(VirtualMachine* vm) {
 	return nullptr; // FIXME expression::interpret()
 }

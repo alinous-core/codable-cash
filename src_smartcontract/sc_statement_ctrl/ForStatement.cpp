@@ -12,14 +12,14 @@ namespace alinous {
 
 ForStatement::ForStatement() : AbstractStatement(CodeElement::STMT_FOR) {
 	this->stmt = nullptr;
-	this->init = nullptr;
+	this->initStatement = nullptr;
 	this->cond = nullptr;
 	this->postLoop = nullptr;
 }
 
 ForStatement::~ForStatement() {
 	delete this->stmt;
-	delete this->init;
+	delete this->initStatement;
 	delete this->cond;
 	delete this->postLoop;
 }
@@ -29,9 +29,9 @@ void ForStatement::preAnalyze(AnalyzeContext* actx) {
 		this->stmt->setParent(this);
 		this->stmt->preAnalyze(actx);
 	}
-	if(this->init != nullptr){
-		this->init->setParent(this);
-		this->init->preAnalyze(actx);
+	if(this->initStatement != nullptr){
+		this->initStatement->setParent(this);
+		this->initStatement->preAnalyze(actx);
 	}
 	if(this->cond != nullptr){
 		this->cond->setParent(this);
@@ -47,8 +47,8 @@ void ForStatement::analyzeTypeRef(AnalyzeContext* actx) {
 	if(this->stmt != nullptr){
 		this->stmt->analyzeTypeRef(actx);
 	}
-	if(this->init != nullptr){
-		this->init->analyzeTypeRef(actx);
+	if(this->initStatement != nullptr){
+		this->initStatement->analyzeTypeRef(actx);
 	}
 	if(this->cond != nullptr){
 		this->cond->analyzeTypeRef(actx);
@@ -62,8 +62,8 @@ void ForStatement::analyze(AnalyzeContext* actx) {
 	if(this->stmt != nullptr){
 		this->stmt->analyze(actx);
 	}
-	if(this->init != nullptr){
-		this->init->analyze(actx);
+	if(this->initStatement != nullptr){
+		this->initStatement->analyze(actx);
 	}
 	if(this->cond != nullptr){
 		this->cond->analyze(actx);
@@ -77,8 +77,8 @@ void ForStatement::setStatement(AbstractStatement* stmt) noexcept {
 	this->stmt = stmt;
 }
 
-void ForStatement::setInit(AbstractStatement* init) noexcept {
-	this->init = init;
+void ForStatement::setInit(AbstractStatement* initStatement) noexcept {
+	this->initStatement = initStatement;
 }
 
 void ForStatement::setCondition(AbstractExpression* cond) noexcept {
@@ -91,13 +91,13 @@ void ForStatement::setPostLoop(AbstractExpression* postLoop) noexcept {
 
 int ForStatement::binarySize() const {
 	checkNotNull(this->stmt);
-	checkNotNull(this->init);
+	checkNotNull(this->initStatement);
 	checkNotNull(this->cond);
 	checkNotNull(this->postLoop);
 
 	int total = sizeof(uint16_t);
 	total += this->stmt->binarySize();
-	total += this->init->binarySize();
+	total += this->initStatement->binarySize();
 	total += this->cond->binarySize();
 	total += this->postLoop->binarySize();
 
@@ -106,13 +106,13 @@ int ForStatement::binarySize() const {
 
 void ForStatement::toBinary(ByteBuffer* out) {
 	checkNotNull(this->stmt);
-	checkNotNull(this->init);
+	checkNotNull(this->initStatement);
 	checkNotNull(this->cond);
 	checkNotNull(this->postLoop);
 
 	out->putShort(CodeElement::STMT_FOR);
 	this->stmt->toBinary(out);
-	this->init->toBinary(out);
+	this->initStatement->toBinary(out);
 	this->cond->toBinary(out);
 	this->postLoop->toBinary(out);
 }
@@ -124,7 +124,7 @@ void ForStatement::fromBinary(ByteBuffer* in) {
 
 	element = createFromBinary(in);
 	checkIsStatement(element);
-	this->init = dynamic_cast<AbstractStatement*>(element);
+	this->initStatement = dynamic_cast<AbstractStatement*>(element);
 
 	element = createFromBinary(in);
 	checkIsExp(element);
@@ -134,6 +134,22 @@ void ForStatement::fromBinary(ByteBuffer* in) {
 	checkIsExp(element);
 	this->postLoop = dynamic_cast<AbstractExpression*>(element);
 }
+
+void ForStatement::init(VirtualMachine* vm) {
+	if(this->stmt != nullptr){
+		this->stmt->init(vm);
+	}
+	if(this->initStatement != nullptr){
+		this->initStatement->init(vm);
+	}
+	if(this->cond != nullptr){
+		this->cond->init(vm);
+	}
+	if(this->postLoop != nullptr){
+		this->postLoop->init(vm);
+	}
+}
+
 
 void ForStatement::interpret(VirtualMachine* vm) {
 	// FIXME statement

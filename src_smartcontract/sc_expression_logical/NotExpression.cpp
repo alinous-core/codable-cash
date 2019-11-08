@@ -61,6 +61,10 @@ AnalyzedType NotExpression::getType() {
 	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 
+void NotExpression::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
 AbstractVmInstance* NotExpression::interpret(VirtualMachine* vm) {
 	return nullptr; // FIXME expression::interpret()
 }

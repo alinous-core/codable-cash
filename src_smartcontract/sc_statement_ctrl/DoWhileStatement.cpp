@@ -77,6 +77,11 @@ void DoWhileStatement::fromBinary(ByteBuffer* in) {
 	this->stmt = dynamic_cast<AbstractStatement*>(element);
 }
 
+void DoWhileStatement::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+	this->stmt->init(vm);
+}
+
 void DoWhileStatement::interpret(VirtualMachine* vm) {
 	// FIXME statement
 }

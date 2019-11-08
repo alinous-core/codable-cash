@@ -66,6 +66,10 @@ AnalyzedType PostIncrementExpression::getType() {
 	return this->exp->getType();
 }
 
+void PostIncrementExpression::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
 AbstractVmInstance* PostIncrementExpression::interpret(VirtualMachine* vm) {
 	return nullptr; // FIXME expression::interpret()
 }

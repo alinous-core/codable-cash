@@ -76,6 +76,11 @@ void WhileStatement::fromBinary(ByteBuffer* in) {
 	this->stmt = dynamic_cast<AbstractStatement*>(element);
 }
 
+void WhileStatement::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+	this->stmt->init(vm);
+}
+
 void WhileStatement::interpret(VirtualMachine* vm) {
 	// FIXME statement
 }

@@ -104,6 +104,16 @@ AnalyzedType ArrayReferenceExpression::getType() {
 	return AnalyzedType();
 }
 
+void ArrayReferenceExpression::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* ex = this->list.get(i);
+		ex->init(vm);
+	}
+}
+
 AbstractVmInstance* ArrayReferenceExpression::interpret(VirtualMachine* vm) {
 	return nullptr; // FIXME expression::interpret()
 }

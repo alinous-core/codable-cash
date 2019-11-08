@@ -64,6 +64,10 @@ AnalyzedType LiteralExpression::getType() {
 	return AnalyzedType(AnalyzedType::TYPE_STRING);
 }
 
+void LiteralExpression::init(VirtualMachine* vm) {
+	// FIXME const literal
+}
+
 AbstractVmInstance* LiteralExpression::interpret(VirtualMachine* vm) {
 	return nullptr; // FIXME expression::interpret()
 }

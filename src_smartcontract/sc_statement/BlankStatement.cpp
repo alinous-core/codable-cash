@@ -22,6 +22,9 @@ void BlankStatement::analyzeTypeRef(AnalyzeContext* actx) {
 void BlankStatement::analyze(AnalyzeContext* actx) {
 }
 
+void alinous::BlankStatement::init(VirtualMachine* vm) {
+}
+
 int BlankStatement::binarySize() const {
 	int total = sizeof(uint16_t);
 

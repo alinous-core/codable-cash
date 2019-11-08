@@ -45,6 +45,10 @@ AnalyzedType NullLiteral::getType() {
 	return AnalyzedType(AnalyzedType::TYPE_NULL);
 }
 
+void NullLiteral::init(VirtualMachine* vm) {
+	// FIXME null literal
+}
+
 AbstractVmInstance* NullLiteral::interpret(VirtualMachine* vm) {
 	return nullptr; // FIXME expression::interpret()
 }

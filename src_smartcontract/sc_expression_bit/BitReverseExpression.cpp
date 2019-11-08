@@ -62,6 +62,10 @@ AnalyzedType BitReverseExpression::getType() {
 	return this->exp->getType();
 }
 
+void BitReverseExpression::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
 AbstractVmInstance* BitReverseExpression::interpret(VirtualMachine* vm) {
 	return nullptr; // FIXME expression::interpret()
 }

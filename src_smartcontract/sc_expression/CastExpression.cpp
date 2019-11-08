@@ -78,6 +78,10 @@ AnalyzedType CastExpression::getType() {
 	return AnalyzedType();
 }
 
+void CastExpression::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
 AbstractVmInstance* CastExpression::interpret(VirtualMachine* vm) {
 	return nullptr; // FIXME expression::interpret()
 }

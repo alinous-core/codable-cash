@@ -87,10 +87,6 @@ void MethodDeclare::analyze(AnalyzeContext* actx) {
 	}
 }
 
-void MethodDeclare::init(VirtualMachine* vm) {
-	// FIXME
-}
-
 void MethodDeclare::setStatic(bool s) noexcept {
 	this->_static = s;
 }
@@ -216,6 +212,9 @@ void MethodDeclare::fromBinary(ByteBuffer* in) {
 	}
 }
 
+void MethodDeclare::init(VirtualMachine* vm) {
+	this->block->init(vm);
+}
 
 void MethodDeclare::interpret(FunctionArguments* args, VirtualMachine* vm) {
 	StatementBlock* block = getBlock();

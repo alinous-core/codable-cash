@@ -88,6 +88,11 @@ AnalyzedType RelationalExpression::getType() {
 	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 
+void RelationalExpression::init(VirtualMachine* vm) {
+	this->left->init(vm);
+	this->right->init(vm);
+}
+
 AbstractVmInstance* RelationalExpression::interpret(VirtualMachine* vm) {
 	return nullptr; // FIXME expression::interpret()
 }

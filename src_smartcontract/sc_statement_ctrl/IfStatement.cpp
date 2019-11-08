@@ -77,6 +77,12 @@ void IfStatement::fromBinary(ByteBuffer* in) {
 	this->stmt = dynamic_cast<AbstractStatement*>(element);
 }
 
+void IfStatement::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+	this->stmt->init(vm);
+}
+
+
 void IfStatement::interpret(VirtualMachine* vm) {
 	// FIXME statement
 }

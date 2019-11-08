@@ -62,6 +62,10 @@ AnalyzedType NegateExpression::getType() {
 	return this->exp->getType();
 }
 
+void NegateExpression::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
 AbstractVmInstance* NegateExpression::interpret(VirtualMachine* vm) {
 	return nullptr; // FIXME expression::interpret()
 }

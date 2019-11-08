@@ -100,6 +100,14 @@ AnalyzedType FunctionCallExpression::getType() {
 	return AnalyzedType();
 }
 
+void FunctionCallExpression::init(VirtualMachine* vm) {
+	int maxLoop = this->args.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		exp->init(vm);
+	}
+}
+
 AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
 	return nullptr; // FIXME expression::interpret()
 }

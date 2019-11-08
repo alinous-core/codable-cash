@@ -25,6 +25,9 @@ void BreakStatement::analyzeTypeRef(AnalyzeContext* actx) {
 void BreakStatement::analyze(AnalyzeContext* actx) {
 }
 
+void BreakStatement::init(VirtualMachine* vm) {
+}
+
 int BreakStatement::binarySize() const {
 	int total = sizeof(uint16_t);
 

@@ -66,6 +66,9 @@ AnalyzedType VariableIdentifier::getType() {
 	return AnalyzedType();
 }
 
+void VariableIdentifier::init(VirtualMachine* vm) {
+}
+
 AbstractVmInstance* VariableIdentifier::interpret(VirtualMachine* vm) {
 	// FIXME interpret
 	return nullptr;

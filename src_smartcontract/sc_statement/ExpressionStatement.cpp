@@ -57,6 +57,10 @@ void ExpressionStatement::fromBinary(ByteBuffer* in) {
 	this->exp = dynamic_cast<AbstractExpression*>(element);
 }
 
+void ExpressionStatement::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
 void ExpressionStatement::interpret(VirtualMachine* vm) {
 	// FIXME statement
 }

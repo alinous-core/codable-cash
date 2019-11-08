@@ -156,6 +156,14 @@ void StatementBlock::fromBinary(ByteBuffer* in) {
 	}
 }
 
+void StatementBlock::init(VirtualMachine* vm) {
+	int maxLoop = this->statements.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractStatement* stmt = this->statements.get(i);
+		stmt->init(vm);
+	}
+}
+
 void StatementBlock::interpret(VirtualMachine* vm) {
 	vm->newStack();
 	StackPopper stackPopper(vm);
@@ -171,7 +179,6 @@ void StatementBlock::interpret(VirtualMachine* vm) {
 		stmt->interpret(vm);
 	}
 }
-
 
 void StatementBlock::interpretFunctionArguments(VirtualMachine* vm) {
 	MethodDeclare* method = dynamic_cast<MethodDeclare*>(this->parent);

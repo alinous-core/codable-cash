@@ -80,6 +80,11 @@ void SubstitutionStatement::fromBinary(ByteBuffer* in) {
 	this->exp = dynamic_cast<AbstractExpression*>(element);
 }
 
+void SubstitutionStatement::init(VirtualMachine* vm) {
+	this->variable->init(vm);
+	this->exp->init(vm);
+}
+
 void SubstitutionStatement::interpret(VirtualMachine* vm) {
 	AbstractVmInstance* leftValue = this->variable->interpret(vm);
 	AbstractVmInstance* rightValue = this->exp->interpret(vm);

@@ -32,8 +32,6 @@ public:
 	void analyzeTypeRef(AnalyzeContext* actx);
 	void analyze(AnalyzeContext* actx);
 
-	void init(VirtualMachine* vm);
-
 	void setAccessControl(AccessControlDeclare* ctrl) noexcept;
 	void setType(AbstractType* type) noexcept;
 	void setStatic(bool s) noexcept;
@@ -54,6 +52,7 @@ public:
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
 
+	void init(VirtualMachine* vm);
 	void interpret(FunctionArguments* args, VirtualMachine* vm);
 private:
 	AccessControlDeclare* ctrl;

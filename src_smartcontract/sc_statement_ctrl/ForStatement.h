@@ -24,7 +24,7 @@ public:
 
 	void setStatement(AbstractStatement* stmt) noexcept;
 
-	void setInit(AbstractStatement* init) noexcept;
+	void setInit(AbstractStatement* initStatement) noexcept;
 	void setCondition(AbstractExpression* cond) noexcept;
 	void setPostLoop(AbstractExpression* postLoop) noexcept;
 
@@ -32,9 +32,10 @@ public:
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
 
+	virtual void init(VirtualMachine* vm);
 	virtual void interpret(VirtualMachine* vm);
 private:
-	AbstractStatement* init;
+	AbstractStatement* initStatement;
 	AbstractExpression* cond;
 	AbstractExpression* postLoop;
 	AbstractStatement* stmt;

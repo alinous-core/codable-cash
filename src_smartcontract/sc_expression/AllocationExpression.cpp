@@ -89,6 +89,10 @@ AnalyzedType AllocationExpression::getType() {
 	return this->exp->getType();
 }
 
+void AllocationExpression::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
 AbstractVmInstance* AllocationExpression::interpret(VirtualMachine* vm) {
 	return nullptr; // FIXME expression::interpret()
 }

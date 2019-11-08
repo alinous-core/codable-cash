@@ -53,6 +53,10 @@ AnalyzedType BooleanLiteral::getType() {
 	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 
+void BooleanLiteral::init(VirtualMachine* vm) {
+	// FIXME register const
+}
+
 AbstractVmInstance* BooleanLiteral::interpret(VirtualMachine* vm) {
 	return nullptr; // FIXME expression::interpret()
 }

@@ -59,6 +59,10 @@ AnalyzedType NumberLiteral::getType() {
 	return AnalyzedType(AnalyzedType::TYPE_LONG);
 }
 
+void NumberLiteral::init(VirtualMachine* vm) {
+	// FIXME number literal
+}
+
 AbstractVmInstance* NumberLiteral::interpret(VirtualMachine* vm) {
 
 
