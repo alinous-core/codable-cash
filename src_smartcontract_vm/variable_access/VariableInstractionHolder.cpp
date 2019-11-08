@@ -27,6 +27,7 @@ namespace alinous {
 
 VariableInstractionHolder::VariableInstractionHolder() {
 	this->memberAccess = false;
+	this->atype = nullptr;
 }
 
 VariableInstractionHolder::~VariableInstractionHolder() {

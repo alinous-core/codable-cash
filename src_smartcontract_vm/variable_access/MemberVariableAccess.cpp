@@ -18,6 +18,9 @@
 
 #include "base/UnicodeString.h"
 
+#include "instance/VmClassInstance.h"
+#include "instance_ref/AbstractReference.h"
+#include "instance_parts/VMemList.h"
 
 namespace alinous {
 
@@ -58,8 +61,12 @@ AnalyzedType* MemberVariableAccess::getAnalyzedType() const noexcept {
 }
 
 AbstractVmInstance* MemberVariableAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
-	// FIXME interpret
-	return nullptr;
+	VmClassInstance* clazzInst = dynamic_cast<VmClassInstance*>(lastInst);
+
+	const VMemList<AbstractReference>* list = clazzInst->getReferences();
+	AbstractReference* ref = list->get(this->memberIndex);
+
+	return ref;
 }
 
 } /* namespace alinous */
