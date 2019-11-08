@@ -19,6 +19,8 @@
 
 #include "sc/exceptions.h"
 
+#include "vm/VirtualMachine.h"
+
 namespace alinous {
 
 MemberVariableDeclare::MemberVariableDeclare() : CodeElement(CodeElement::MEMBER_VARIABLE_DECLARE) {
@@ -56,6 +58,15 @@ void MemberVariableDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 void MemberVariableDeclare::analyze(AnalyzeContext* actx) {
 
 }
+
+void MemberVariableDeclare::init(VirtualMachine* vm) {
+	if(!this->_static){
+		return;
+	}
+
+	// FIXME handle a static member
+}
+
 
 void MemberVariableDeclare::setAccessControl(AccessControlDeclare* ctrl) noexcept {
 	this->ctrl = ctrl;

@@ -32,6 +32,8 @@ public:
 	void analyzeTypeRef(AnalyzeContext* actx);
 	void analyze(AnalyzeContext* actx);
 
+	void init(VirtualMachine* vm);
+
 	void setAccessControl(AccessControlDeclare* ctrl) noexcept;
 	void setType(AbstractType* type) noexcept;
 	void setStatic(bool s) noexcept;

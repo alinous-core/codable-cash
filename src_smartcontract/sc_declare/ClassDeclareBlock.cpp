@@ -9,6 +9,8 @@
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_declare/MethodDeclare.h"
 
+#include "vm/VirtualMachine.h"
+
 namespace alinous {
 
 ClassDeclareBlock::ClassDeclareBlock()  : CodeElement(CodeElement::CLASS_DECLARE_BLOCK) {
@@ -65,6 +67,19 @@ void ClassDeclareBlock::analyze(AnalyzeContext* actx) {
 	}
 }
 
+void ClassDeclareBlock::init(VirtualMachine* vm) {
+	int maxLoop = this->variables.size();
+	for(int i = 0; i != maxLoop; ++i){
+		MemberVariableDeclare* val = this->variables.get(i);
+		val->init(vm);
+	}
+
+	maxLoop = this->methods.size();
+	for(int i = 0; i != maxLoop; ++i){
+		MethodDeclare* method = this->methods.get(i);
+		method->init(vm);
+	}
+}
 
 void ClassDeclareBlock::addMethod(MethodDeclare* method) noexcept {
 	this->methods.addElement(method);

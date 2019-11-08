@@ -17,6 +17,7 @@ class AccessControlDeclare;
 class UnicodeString;
 class AnalyzeContext;
 class AnalyzedType;
+class VirtualMachine;
 
 class MemberVariableDeclare : public CodeElement {
 public:
@@ -26,6 +27,8 @@ public:
 	void preAnalyze(AnalyzeContext* actx);
 	void analyzeTypeRef(AnalyzeContext* actx);
 	void analyze(AnalyzeContext* actx);
+
+	void init(VirtualMachine* vm);
 
 	void setAccessControl(AccessControlDeclare* ctrl) noexcept;
 	void setType(AbstractType* type) noexcept;

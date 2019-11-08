@@ -16,6 +16,7 @@ namespace alinous {
 class MethodDeclare;
 class MemberVariableDeclare;
 class AnalyzeContext;
+class VirtualMachine;
 
 class ClassDeclareBlock : public CodeElement{
 public:
@@ -25,6 +26,8 @@ public:
 	void preAnalyze(AnalyzeContext* actx);
 	void analyzeTypeRef(AnalyzeContext* actx);
 	void analyze(AnalyzeContext* actx);
+
+	void init(VirtualMachine* vm);
 
 	void addMethod(MethodDeclare* method) noexcept;
 	void addVariable(MemberVariableDeclare* variable) noexcept;

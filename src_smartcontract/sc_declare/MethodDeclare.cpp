@@ -87,6 +87,10 @@ void MethodDeclare::analyze(AnalyzeContext* actx) {
 	}
 }
 
+void MethodDeclare::init(VirtualMachine* vm) {
+	// FIXME
+}
+
 void MethodDeclare::setStatic(bool s) noexcept {
 	this->_static = s;
 }
