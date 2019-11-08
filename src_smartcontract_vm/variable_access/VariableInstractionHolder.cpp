@@ -122,7 +122,16 @@ void VariableInstractionHolder::analyze(AnalyzeContext* actx) {
 
 		lastIinst = inst;
 	}
+
+	this->atype = lastIinst->getAnalyzedType();
 }
+
+
+
+AnalyzedType* VariableInstractionHolder::getAnalyzedType() const noexcept {
+	return this->atype;
+}
+
 
 AbstractVmInstance* VariableInstractionHolder::interpret(VirtualMachine* vm) {
 	AbstractVmInstance* lastInst = nullptr;

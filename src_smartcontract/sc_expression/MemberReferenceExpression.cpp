@@ -58,14 +58,17 @@ void MemberReferenceExpression::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType MemberReferenceExpression::getType() {
-	// FIXME analyze member ref type
-	return AnalyzedType();
+	VariableInstractionHolder* holder = getVariableInstractionHolder();
+	AnalyzedType* atype = holder->getAnalyzedType();
+
+	// analyze member ref type
+	return *atype;
 }
 
 AbstractVmInstance* MemberReferenceExpression::interpret(VirtualMachine* vm) {
+	VariableInstractionHolder* holder = getVariableInstractionHolder();
 
-
-	return nullptr; // FIXME expression::interpret()
+	return holder->interpret(vm);
 }
 
 } /* namespace alinous */

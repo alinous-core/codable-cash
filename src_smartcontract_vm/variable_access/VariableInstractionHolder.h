@@ -18,6 +18,7 @@ class AnalyzeContext;
 class VariableIdentifier;
 class AbstractVmInstance;
 class VirtualMachine;
+class AnalyzedType;
 
 class VariableInstractionHolder {
 public:
@@ -26,6 +27,7 @@ public:
 
 	void addExpression(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 	void analyze(AnalyzeContext* actx);
+	AnalyzedType* getAnalyzedType() const noexcept;
 	AbstractVmInstance* interpret(VirtualMachine* vm);
 private:
 	void addVariableIdExp(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
@@ -36,6 +38,7 @@ private:
 private:
 	ArrayList<AbstractVariableInstraction> list;
 	bool memberAccess;
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

@@ -10,6 +10,11 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "vm/VirtualMachine.h"
+#include "variable_access/FunctionArguments.h"
+
+#include "instance/VmClassInstance.h"
+
 namespace alinous {
 
 ThisPointerAccess::ThisPointerAccess() {
@@ -31,8 +36,10 @@ AnalyzedType* ThisPointerAccess::getAnalyzedType() const noexcept {
 }
 
 AbstractVmInstance* ThisPointerAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
-	// FIXME interpret
-	return nullptr;
+	FunctionArguments* args = vm->getFunctionArguments();
+	VmClassInstance* inst = args->getThisPtr();
+
+	return inst;
 }
 
 } /* namespace alinous */
