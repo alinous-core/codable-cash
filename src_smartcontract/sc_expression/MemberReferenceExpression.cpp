@@ -39,7 +39,6 @@ void MemberReferenceExpression::analyze(AnalyzeContext* actx) {
 	}
 
 	holder->analyze(actx);
-	// FIXME expression : analyze type
 }
 
 int MemberReferenceExpression::binarySize() const {

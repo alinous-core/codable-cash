@@ -13,6 +13,7 @@
 namespace alinous {
 
 class VariableIdentifier;
+class AnalyzedType;
 
 class MemberVariableAccess: public AbstractVariableInstraction {
 public:
@@ -24,6 +25,8 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 private:
 	VariableIdentifier* valId;
+	int memberIndex;
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */
