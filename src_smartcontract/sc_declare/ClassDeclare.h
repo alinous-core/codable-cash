@@ -19,6 +19,7 @@ class UnicodeString;
 class AnalyzeContext;
 class ClassExtends;
 class ClassImplements;
+class VirtualMachine;
 
 class ClassDeclare : public CodeElement {
 public:
@@ -30,6 +31,8 @@ public:
 	void preAnalyze(AnalyzeContext* actx);
 	void analyzeTypeRef(AnalyzeContext* actx);
 	void analyze(AnalyzeContext* actx);
+
+	void init(VirtualMachine* vm);
 
 	void setBlock(ClassDeclareBlock* block) noexcept;
 	void setName(UnicodeString* name) noexcept;

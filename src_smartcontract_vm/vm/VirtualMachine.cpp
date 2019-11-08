@@ -33,6 +33,7 @@ VirtualMachine::VirtualMachine(uint64_t memCapacity) {
 	this->stackManager = nullptr;
 	this->argsRegister = nullptr;
 	this->destried = false;
+	this->initialized = false;
 }
 
 VirtualMachine::~VirtualMachine() {
@@ -57,16 +58,17 @@ void VirtualMachine::loadSmartContract(SmartContract* sc) {
 }
 
 void VirtualMachine::createScInstance() {
+	initialize();
 	this->sc->createInstance(this);
 }
 
 void VirtualMachine::interpret(const UnicodeString* method) {
 
 }
-/**
- * aaa
- */
+
 void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this) {
+	initialize();
+
 	FunctionArguments args;
 	args.setThisPtr(_this);
 	setFunctionArguments(&args);
@@ -128,6 +130,14 @@ FunctionArguments* VirtualMachine::getFunctionArguments() const noexcept {
 
 void VirtualMachine::setFunctionArguments(FunctionArguments* args) noexcept {
 	this->argsRegister = args;
+}
+
+void VirtualMachine::initialize() {
+	if(this->initialized){
+		return;
+	}
+
+	this->sc->initialize(this);
 }
 
 void VirtualMachine::destroy() noexcept {

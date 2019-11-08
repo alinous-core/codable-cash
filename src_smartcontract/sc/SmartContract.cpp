@@ -135,8 +135,16 @@ void SmartContract::createInstance(VirtualMachine* vm) {
 	ObjectReference* instRef = ObjectReference::createObjectReference(inst, vm);
 	stack->addInnerReference(instRef);
 
-	// FIXME exec constructor
+	// exec constructor
 	vm->interpret(defConstructor, inst);
+}
+
+void SmartContract::initialize(VirtualMachine* vm) {
+	int maxLoop = this->progs.size();
+	for(int i = 0; i != maxLoop; ++i){
+		CompilationUnit* unit = this->progs.get(i);
+		unit->init(vm);
+	}
 }
 
 } /* namespace alinous */

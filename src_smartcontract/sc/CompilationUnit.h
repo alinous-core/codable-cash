@@ -18,6 +18,7 @@ class PackageDeclare;
 class ImportsDeclare;
 class AnalyzeContext;
 class UnicodeString;
+class VirtualMachine;
 
 class CompilationUnit : public CodeElement {
 public:
@@ -27,6 +28,7 @@ public:
 	void preAnalyze(AnalyzeContext* actx);
 	void analyzeType(AnalyzeContext* actx);
 	void analyze(AnalyzeContext* actx);
+	void init(VirtualMachine* vm);
 
 	void setPackage(PackageDeclare* package);
 	void setImports(ImportsDeclare* imports) noexcept;

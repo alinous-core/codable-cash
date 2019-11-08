@@ -36,7 +36,7 @@ public:
 	void clearRootReference(VirtualMachine* vm) noexcept;
 
 	void createInstance(VirtualMachine* vm);
-
+	void initialize(VirtualMachine* vm);
 private:
 	UnicodeString* mainPackage;
 	UnicodeString* mainClass;

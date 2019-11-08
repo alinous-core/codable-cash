@@ -107,6 +107,10 @@ void ClassDeclare::analyze(AnalyzeContext* actx) {
 	this->block->analyze(actx);
 }
 
+void ClassDeclare::init(VirtualMachine* vm) {
+	// FIXME init
+}
+
 void ClassDeclare::setBlock(ClassDeclareBlock* block) noexcept {
 	this->block = block;
 }

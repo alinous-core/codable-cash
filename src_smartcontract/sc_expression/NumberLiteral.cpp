@@ -60,6 +60,8 @@ AnalyzedType NumberLiteral::getType() {
 }
 
 AbstractVmInstance* NumberLiteral::interpret(VirtualMachine* vm) {
+
+
 	return nullptr; // FIXME expression::interpret()
 }
 

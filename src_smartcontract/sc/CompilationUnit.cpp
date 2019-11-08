@@ -55,6 +55,15 @@ void CompilationUnit::analyze(AnalyzeContext* actx) {
 	}
 }
 
+void CompilationUnit::init(VirtualMachine* vm) {
+	int maxLoop = this->classes.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ClassDeclare* dec = this->classes.get(i);
+		dec->init(vm);
+	}
+}
+
+
 void CompilationUnit::setPackage(PackageDeclare* package) {
 	this->package = package;
 }

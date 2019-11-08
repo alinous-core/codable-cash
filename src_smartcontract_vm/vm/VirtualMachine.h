@@ -50,6 +50,7 @@ public:
 	void setFunctionArguments(FunctionArguments* args) noexcept;
 	FunctionArguments* getFunctionArguments() const noexcept;
 
+	void initialize();
 	void destroy() noexcept;
 private:
 	SmartContract* sc;
@@ -62,6 +63,7 @@ private:
 	FunctionArguments* argsRegister;
 
 	bool destried;
+	bool initialized;
 };
 
 } /* namespace alinous */
