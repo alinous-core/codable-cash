@@ -21,7 +21,7 @@ public:
 
 	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
 	virtual AnalyzedType* getAnalyzedType() const noexcept;
-	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+	virtual AbstractVmInstance* interpret(VirtualMachine* vm, AbstractVmInstance* lastInst);
 private:
 	AbstractExpression* exp;
 };

@@ -25,7 +25,7 @@ AnalyzedType* StackVariableAccess::getAnalyzedType() const noexcept {
 	return nullptr; // FIXME
 }
 
-AbstractVmInstance* StackVariableAccess::interpret(VirtualMachine* vm) {
+AbstractVmInstance* StackVariableAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
 	// FIXME interpret
 	return nullptr;
 }

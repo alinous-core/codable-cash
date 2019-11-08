@@ -23,7 +23,7 @@ AnalyzedType* ArrayReferenceAccess::getAnalyzedType() const noexcept {
 	return nullptr; // FIXME
 }
 
-AbstractVmInstance* ArrayReferenceAccess::interpret(VirtualMachine* vm) {
+AbstractVmInstance* ArrayReferenceAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
 	// FIXME interpret
 	return nullptr;
 }

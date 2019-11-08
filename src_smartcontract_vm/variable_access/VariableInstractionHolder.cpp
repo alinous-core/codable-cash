@@ -122,10 +122,19 @@ void VariableInstractionHolder::analyze(AnalyzeContext* actx) {
 
 		lastIinst = inst;
 	}
-
-	// FIXME
 }
 
+AbstractVmInstance* VariableInstractionHolder::interpret(VirtualMachine* vm) {
+	AbstractVmInstance* lastInst = nullptr;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractVariableInstraction* inst = this->list.get(i);
+		lastInst = inst->interpret(vm, lastInst);
+	}
+
+	return lastInst;
+}
+
+
 } /* namespace alinous */
-
-

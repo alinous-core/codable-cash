@@ -57,7 +57,7 @@ AnalyzedType* MemberVariableAccess::getAnalyzedType() const noexcept {
 	return this->atype;
 }
 
-AbstractVmInstance* MemberVariableAccess::interpret(VirtualMachine* vm) {
+AbstractVmInstance* MemberVariableAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
 	// FIXME interpret
 	return nullptr;
 }

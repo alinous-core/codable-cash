@@ -17,7 +17,7 @@ AbstractVariableInstraction::~AbstractVariableInstraction() {
 
 }
 
-AbstractVmInstance* AbstractVariableInstraction::interpret(VirtualMachine* vm) {
+AbstractVmInstance* AbstractVariableInstraction::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
 	// FIXME interpret
 	return nullptr;
 }

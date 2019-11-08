@@ -24,7 +24,7 @@ AnalyzedType* ExpressionAccess::getAnalyzedType() const noexcept {
 	return nullptr; // FIXME
 }
 
-AbstractVmInstance* ExpressionAccess::interpret(VirtualMachine* vm) {
+AbstractVmInstance* ExpressionAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
 	// FIXME interpret
 	return nullptr;
 }

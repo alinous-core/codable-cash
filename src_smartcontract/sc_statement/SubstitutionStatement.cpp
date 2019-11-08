@@ -9,6 +9,8 @@
 #include "sc_expression/VariableIdentifier.h"
 #include "sc_expression/AbstractExpression.h"
 
+#include "instance/AbstractVmInstance.h"
+
 namespace alinous {
 
 SubstitutionStatement::SubstitutionStatement() : AbstractStatement(CodeElement::STMT_SUBSTITUTION) {
@@ -81,6 +83,8 @@ void SubstitutionStatement::fromBinary(ByteBuffer* in) {
 void SubstitutionStatement::interpret(VirtualMachine* vm) {
 	AbstractVmInstance* leftValue = this->variable->interpret(vm);
 	AbstractVmInstance* rightValue = this->exp->interpret(vm);
+
+
 
 	// FIXME statement
 }

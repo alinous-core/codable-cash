@@ -22,7 +22,7 @@ public:
 
 	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst) = 0;
 	virtual AnalyzedType* getAnalyzedType() const noexcept = 0;
-	virtual AbstractVmInstance* interpret(VirtualMachine* vm) = 0;
+	virtual AbstractVmInstance* interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) = 0;
 };
 
 } /* namespace alinous */

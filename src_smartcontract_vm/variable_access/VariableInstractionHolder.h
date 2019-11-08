@@ -16,6 +16,8 @@ class AbstractVariableInstraction;
 class AbstractExpression;
 class AnalyzeContext;
 class VariableIdentifier;
+class AbstractVmInstance;
+class VirtualMachine;
 
 class VariableInstractionHolder {
 public:
@@ -24,6 +26,7 @@ public:
 
 	void addExpression(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 	void analyze(AnalyzeContext* actx);
+	AbstractVmInstance* interpret(VirtualMachine* vm);
 private:
 	void addVariableIdExp(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 	bool handleStackVariableIdExp(VariableIdentifier* valId, AbstractExpression* exp, AnalyzeContext* actx) noexcept;

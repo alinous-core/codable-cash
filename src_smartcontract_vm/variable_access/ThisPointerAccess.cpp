@@ -30,7 +30,7 @@ AnalyzedType* ThisPointerAccess::getAnalyzedType() const noexcept {
 	return this->type;
 }
 
-AbstractVmInstance* ThisPointerAccess::interpret(VirtualMachine* vm) {
+AbstractVmInstance* ThisPointerAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
 	// FIXME interpret
 	return nullptr;
 }

@@ -22,4 +22,8 @@ void MemberFunctionCallAccess::analyze(AnalyzeContext* actx, AbstractVariableIns
 	// FIXME analyze
 }
 
+AbstractVmInstance* MemberFunctionCallAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
+	return nullptr; // FIXME interpret
+}
+
 } /* namespace alinous */
