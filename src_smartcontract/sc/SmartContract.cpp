@@ -40,6 +40,7 @@ SmartContract::SmartContract() {
 	this->mainClass = nullptr;
 	this->mainMethod = nullptr;
 	this->rootReference = nullptr;
+	this->initialized = false;
 }
 
 SmartContract::~SmartContract() {
@@ -116,6 +117,8 @@ void SmartContract::clearRootReference(VirtualMachine* vm) noexcept {
 }
 
 void SmartContract::createInstance(VirtualMachine* vm) {
+	initialize(vm);
+
 	PackageSpace* space = this->actx->getPackegeSpace(this->mainPackage);
 	AnalyzedClass* clazz = space->getClass(this->mainClass);
 
@@ -124,7 +127,7 @@ void SmartContract::createInstance(VirtualMachine* vm) {
 	VmClassInstance* inst = VmClassInstance::createObject(clazz, vm);
 
 	GcManager* gc = vm->getGc();
-	this->rootReference = new(vm) VmRootReference(vm);
+
 	this->rootReference->setMainInstance(inst);
 
 	vm->newStack();
@@ -140,11 +143,19 @@ void SmartContract::createInstance(VirtualMachine* vm) {
 }
 
 void SmartContract::initialize(VirtualMachine* vm) {
+	if(this->initialized){
+		return;
+	}
+
+	this->rootReference = new(vm) VmRootReference(vm);
+
 	int maxLoop = this->progs.size();
 	for(int i = 0; i != maxLoop; ++i){
 		CompilationUnit* unit = this->progs.get(i);
 		unit->init(vm);
 	}
+
+	this->initialized = true;
 }
 
 } /* namespace alinous */

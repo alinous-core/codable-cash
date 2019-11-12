@@ -45,6 +45,7 @@ private:
 	AnalyzeContext* actx;
 
 	VmRootReference* rootReference;
+	bool initialized;
 };
 
 } /* namespace alinous */
