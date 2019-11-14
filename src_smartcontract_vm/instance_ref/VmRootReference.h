@@ -9,12 +9,14 @@
 #define INSTANCE_REF_VMROOTREFERENCE_H_
 
 #include "instance_ref/AbstractReference.h"
+#include <cstdint>
 
 
 namespace alinous {
 
 class VirtualMachine;
 class StaticInstanceHolder;
+class PrimitiveReference;
 
 class VmRootReference : public AbstractReference {
 public:
@@ -23,7 +25,7 @@ public:
 
 	void setMainInstance(AbstractVmInstance* mainInst) noexcept;
 
-
+	PrimitiveReference* newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm);
 private:
 	VirtualMachine* vm;
 	AbstractVmInstance* mainInst;

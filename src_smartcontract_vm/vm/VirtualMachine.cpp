@@ -147,6 +147,11 @@ void VirtualMachine::setVmRootReference(VmRootReference* rootReference) noexcept
 	this->rootReference = rootReference;
 }
 
+VmRootReference* VirtualMachine::getVmRootReference() const noexcept {
+	return this->rootReference;
+}
+
+
 void VirtualMachine::destroy() noexcept {
 	if(this->sc == nullptr){
 		return;

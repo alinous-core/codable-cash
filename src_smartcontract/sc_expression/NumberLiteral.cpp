@@ -11,7 +11,12 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "instance_ref/RefereceFactory.h"
+#include "instance_gc/GcManager.h"
 
+#include "vm/VirtualMachine.h"
+
+#include "instance_ref/VmRootReference.h"
 namespace alinous {
 
 const UnicodeString NumberLiteral::l(L"l");
@@ -20,10 +25,12 @@ const UnicodeString NumberLiteral::L(L"L");
 NumberLiteral::NumberLiteral() : AbstractExpression(CodeElement::EXP_NUMBER_LITERAL) {
 	this->str = nullptr;
 	this->value = 0;
+	this->referene = nullptr;
 }
 
 NumberLiteral::~NumberLiteral() {
 	delete this->str;
+	this->referene = nullptr;
 }
 
 void NumberLiteral::preAnalyze(AnalyzeContext* actx) {
@@ -75,6 +82,11 @@ AnalyzedType NumberLiteral::getType() {
 }
 
 void NumberLiteral::init(VirtualMachine* vm) {
+	this->referene = RefereceFactory::createNumericReference(this->value, this->atype.getType(), vm);
+
+	VmRootReference* rootRef = vm->getVmRootReference();
+	this->referene = rootRef->newNumericConstReferenece(this->value, this->atype.getType(), vm);
+
 	// FIXME number literal
 }
 

@@ -15,6 +15,7 @@
 
 namespace alinous {
 class UnicodeString;
+class PrimitiveReference;
 
 class NumberLiteral : public AbstractExpression {
 public:
@@ -43,6 +44,8 @@ private:
 
 	int64_t value;
 	AnalyzedType atype;
+
+	PrimitiveReference* referene;
 };
 
 } /* namespace alinous */

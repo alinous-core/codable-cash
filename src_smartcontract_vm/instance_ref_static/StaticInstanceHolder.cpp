@@ -5,17 +5,23 @@
  *      Author: iizuka
  */
 
-#include <instance_ref_static/StaticInstanceHolder.h>
+#include "instance_ref_static/StaticInstanceHolder.h"
+
+#include "instance_ref_static/NumericConstHolder.h"
 
 namespace alinous {
 
 StaticInstanceHolder::StaticInstanceHolder() {
-	// TODO Auto-generated constructor stub
-
+	this->numeric = new NumericConstHolder();
 }
 
 StaticInstanceHolder::~StaticInstanceHolder() {
-	// TODO Auto-generated destructor stub
+	delete this->numeric;
 }
+
+PrimitiveReference* StaticInstanceHolder::newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm) {
+	return this->numeric->newNumericConstReferenece(value, type, vm);
+}
+
 
 } /* namespace alinous */

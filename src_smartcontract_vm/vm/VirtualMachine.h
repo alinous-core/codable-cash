@@ -52,6 +52,8 @@ public:
 	FunctionArguments* getFunctionArguments() const noexcept;
 
 	void setVmRootReference(VmRootReference* rootReference) noexcept;
+	VmRootReference* getVmRootReference() const noexcept;
+
 
 	void initialize();
 	void destroy() noexcept;

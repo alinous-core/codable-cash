@@ -11,6 +11,7 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "instance_ref/RefereceFactory.h"
 
 namespace alinous {
 
@@ -36,5 +37,10 @@ void VmRootReference::setMainInstance(AbstractVmInstance* mainInst) noexcept {
 	GcManager* gc = this->vm->getGc();
 	gc->addInstanceReference(this, this->mainInst);
 }
+
+PrimitiveReference* VmRootReference::newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm) {
+	return this->staticHolder->newNumericConstReferenece(value, type ,vm);
+}
+
 
 } /* namespace alinous */

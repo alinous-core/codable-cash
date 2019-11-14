@@ -12,6 +12,7 @@
 #include "vm/VirtualMachine.h"
 #include "instance_ref/PrimitiveReference.h"
 
+#include "sc_analyze/AnalyzedType.h"
 namespace alinous {
 
 AbstractReference* RefereceFactory::createReferenceFromDefinition(MemberVariableDeclare* dec, VirtualMachine* vm) {
@@ -37,9 +38,26 @@ AbstractReference* RefereceFactory::createReferenceFromDefinition(MemberVariable
 		ref = PrimitiveReference::createLongReference(vm, 0);
 		break;
 	case CodeElement::TYPE_OBJECT:
+	default:
 		// FIXME object referenec
 		break;
+	}
+
+	return ref;
+}
+
+/***
+ * type is analyzed type
+ */
+PrimitiveReference* RefereceFactory::createNumericReference(int64_t value, uint8_t type, VirtualMachine* vm) {
+	PrimitiveReference* ref = nullptr;
+	switch(type){
+	case AnalyzedType::TYPE_LONG:
+		ref = PrimitiveReference::createLongReference(vm, value);
+		break;
+	case AnalyzedType::TYPE_INT:
 	default:
+		ref = PrimitiveReference::createIntReference(vm, value);
 		break;
 	}
 
@@ -47,4 +65,3 @@ AbstractReference* RefereceFactory::createReferenceFromDefinition(MemberVariable
 }
 
 } /* namespace alinous */
-

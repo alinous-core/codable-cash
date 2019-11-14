@@ -7,13 +7,22 @@
 
 #ifndef INSTANCE_REF_STATIC_STATICINSTANCEHOLDER_H_
 #define INSTANCE_REF_STATIC_STATICINSTANCEHOLDER_H_
+#include <cstdint>
 
 namespace alinous {
+
+class NumericConstHolder;
+class PrimitiveReference;
+class VirtualMachine;
 
 class StaticInstanceHolder {
 public:
 	StaticInstanceHolder();
 	virtual ~StaticInstanceHolder();
+
+	PrimitiveReference* newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm);
+private:
+	NumericConstHolder* numeric;
 };
 
 } /* namespace alinous */

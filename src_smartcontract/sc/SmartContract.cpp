@@ -148,7 +148,7 @@ void SmartContract::initialize(VirtualMachine* vm) {
 	}
 
 	this->rootReference = new(vm) VmRootReference(vm);
-
+	vm->setVmRootReference(this->rootReference);
 
 	int maxLoop = this->progs.size();
 	for(int i = 0; i != maxLoop; ++i){
