@@ -24,6 +24,7 @@ class VmStack;
 class MethodDeclare;
 class VmClassInstance;
 class FunctionArguments;
+class VmRootReference;
 
 class VirtualMachine {
 public:
@@ -50,6 +51,8 @@ public:
 	void setFunctionArguments(FunctionArguments* args) noexcept;
 	FunctionArguments* getFunctionArguments() const noexcept;
 
+	void setVmRootReference(VmRootReference* rootReference) noexcept;
+
 	void initialize();
 	void destroy() noexcept;
 private:
@@ -61,6 +64,7 @@ private:
 	GcManager* gc;
 
 	FunctionArguments* argsRegister;
+	VmRootReference* rootReference;
 
 	bool destried;
 	bool initialized;

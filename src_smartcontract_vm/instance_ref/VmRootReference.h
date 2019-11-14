@@ -14,6 +14,7 @@
 namespace alinous {
 
 class VirtualMachine;
+class StaticInstanceHolder;
 
 class VmRootReference : public AbstractReference {
 public:
@@ -26,6 +27,7 @@ public:
 private:
 	VirtualMachine* vm;
 	AbstractVmInstance* mainInst;
+	StaticInstanceHolder* staticHolder;
 };
 
 } /* namespace alinous */

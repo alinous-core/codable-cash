@@ -7,13 +7,19 @@
 
 #include "sc_expression/NumberLiteral.h"
 #include "base/UnicodeString.h"
+#include "base/Integer.h"
 
 #include "sc_analyze/AnalyzedType.h"
 
+
 namespace alinous {
+
+const UnicodeString NumberLiteral::l(L"l");
+const UnicodeString NumberLiteral::L(L"L");
 
 NumberLiteral::NumberLiteral() : AbstractExpression(CodeElement::EXP_NUMBER_LITERAL) {
 	this->str = nullptr;
+	this->value = 0;
 }
 
 NumberLiteral::~NumberLiteral() {
@@ -29,6 +35,15 @@ void NumberLiteral::analyzeTypeRef(AnalyzeContext* actx) {
 
 
 void NumberLiteral::analyze(AnalyzeContext* actx) {
+	if(this->str->endsWith(&this->L) || this->str->endsWith(&this->l)){
+		// FIXME L
+		this->atype = AnalyzedType(AnalyzedType::TYPE_LONG);
+	}
+	else{
+		this->value = Integer::parseInt(this->str);
+		this->atype = AnalyzedType(AnalyzedType::TYPE_INT);
+	}
+
 }
 
 void NumberLiteral::setValue(UnicodeString* str) noexcept {
@@ -56,7 +71,7 @@ void NumberLiteral::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType NumberLiteral::getType() {
-	return AnalyzedType(AnalyzedType::TYPE_LONG);
+	return this->atype;
 }
 
 void NumberLiteral::init(VirtualMachine* vm) {

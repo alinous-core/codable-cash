@@ -9,12 +9,18 @@
 #define SC_EXPRESSION_NUMBERLITERAL_H_
 
 #include "sc_expression/AbstractExpression.h"
+#include "base/UnicodeString.h"
+
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 class UnicodeString;
 
 class NumberLiteral : public AbstractExpression {
 public:
+	static const UnicodeString l;
+	static const UnicodeString L;
+
 	NumberLiteral();
 	virtual ~NumberLiteral();
 
@@ -34,6 +40,9 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 private:
 	UnicodeString* str;
+
+	int64_t value;
+	AnalyzedType atype;
 };
 
 } /* namespace alinous */

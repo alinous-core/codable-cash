@@ -34,6 +34,7 @@ VirtualMachine::VirtualMachine(uint64_t memCapacity) {
 	this->argsRegister = nullptr;
 	this->destried = false;
 	this->initialized = false;
+	this->rootReference = nullptr;
 }
 
 VirtualMachine::~VirtualMachine() {
@@ -50,6 +51,7 @@ VirtualMachine::~VirtualMachine() {
 	delete this->alloc;
 
 	this->argsRegister = nullptr;
+	this->rootReference = nullptr;
 }
 
 void VirtualMachine::loadSmartContract(SmartContract* sc) {
@@ -138,6 +140,11 @@ void VirtualMachine::initialize() {
 	}
 
 	this->sc->initialize(this);
+	this->initialized = true;
+}
+
+void VirtualMachine::setVmRootReference(VmRootReference* rootReference) noexcept {
+	this->rootReference = rootReference;
 }
 
 void VirtualMachine::destroy() noexcept {
