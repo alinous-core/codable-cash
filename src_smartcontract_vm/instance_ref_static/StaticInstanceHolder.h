@@ -14,6 +14,7 @@ namespace alinous {
 class NumericConstHolder;
 class PrimitiveReference;
 class VirtualMachine;
+class VmRootReference;
 
 class StaticInstanceHolder {
 public:
@@ -21,6 +22,8 @@ public:
 	virtual ~StaticInstanceHolder();
 
 	PrimitiveReference* newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm);
+
+	void removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept;
 private:
 	NumericConstHolder* numeric;
 };

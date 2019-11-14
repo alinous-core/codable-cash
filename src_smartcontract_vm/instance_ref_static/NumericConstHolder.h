@@ -17,7 +17,7 @@ namespace alinous {
 class PrimitiveReference;
 class VirtualMachine;
 class LongIntegerKey;
-
+class VmRootReference;
 
 class NumericConstHolder {
 public:
@@ -26,6 +26,7 @@ public:
 
 	PrimitiveReference* newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm);
 
+	void removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept;
 private:
 	HashMap<LongIntegerKey, PrimitiveReference> intVariables;
 	HashMap<LongIntegerKey, PrimitiveReference> longVariables;

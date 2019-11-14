@@ -51,5 +51,27 @@ PrimitiveReference* NumericConstHolder::newNumericConstReferenece(int64_t value,
 	return referene;
 }
 
+void NumericConstHolder::removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept {
+	GcManager* gc = vm->getGc();
+
+	Iterator<LongIntegerKey>* it = this->intVariables.keySet()->iterator();
+	while(it->hasNext()){
+		const LongIntegerKey* key = it->next();
+		PrimitiveReference* ref = this->intVariables.get(key);
+
+		gc->removeInstanceReference(rootRef, ref);
+	}
+	delete it;
+
+	it = this->longVariables.keySet()->iterator();
+	while(it->hasNext()){
+		const LongIntegerKey* key = it->next();
+		PrimitiveReference* ref = this->longVariables.get(key);
+
+		gc->removeInstanceReference(rootRef, ref);
+	}
+	delete it;
+}
+
 
 } /* namespace alinous */

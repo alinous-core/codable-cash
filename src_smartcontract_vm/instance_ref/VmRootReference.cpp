@@ -26,6 +26,8 @@ VmRootReference::~VmRootReference() {
 		GcManager* gc = this->vm->getGc();
 		gc->removeInstanceReference(this, this->mainInst);
 		this->mainInst = nullptr;
+
+		this->staticHolder->removeInnerReferences(this, this->vm);
 	}
 
 	delete this->staticHolder;

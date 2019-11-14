@@ -23,5 +23,8 @@ PrimitiveReference* StaticInstanceHolder::newNumericConstReferenece(int64_t valu
 	return this->numeric->newNumericConstReferenece(value, type, vm);
 }
 
+void StaticInstanceHolder::removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept {
+	this->numeric->removeInnerReferences(rootRef, vm);
+}
 
 } /* namespace alinous */
