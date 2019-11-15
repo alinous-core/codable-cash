@@ -35,6 +35,7 @@ public:
 private:
 	void addToRemoveble(ReferenceStatus* status) noexcept;
 	void addToNeedCheck(ReferenceStatus* status) noexcept;
+	void removeFromNeedCheck(ReferenceStatus* status) noexcept;
 
 	void checkCycric() noexcept;
 	void removeGcCyclicCheckerContext(GcCyclicCheckerContext* cctx) noexcept;

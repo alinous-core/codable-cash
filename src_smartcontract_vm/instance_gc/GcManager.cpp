@@ -80,6 +80,7 @@ void GcManager::addToRemoveble(ReferenceStatus* status) noexcept {
 
 	if(stat == nullptr){
 		this->removable.addElementWithSorted(status);
+		removeFromNeedCheck(status);
 	}
 }
 
@@ -91,6 +92,12 @@ void GcManager::addToNeedCheck(ReferenceStatus* status) noexcept {
 	if(rstatus == nullptr){
 		this->needCheck.put(&key, status);
 	}
+}
+
+void GcManager::removeFromNeedCheck(ReferenceStatus* status) noexcept {
+	VmInstanceKey key(status->getInstance());
+
+	this->needCheck.remove(&key);
 }
 
 void GcManager::garbageCollect() {

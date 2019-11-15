@@ -17,6 +17,8 @@
 #include "vm/VirtualMachine.h"
 
 #include "instance_ref/VmRootReference.h"
+#include "instance_ref/PrimitiveReference.h"
+
 namespace alinous {
 
 const UnicodeString NumberLiteral::l(L"l");
@@ -86,14 +88,10 @@ void NumberLiteral::init(VirtualMachine* vm) {
 
 	VmRootReference* rootRef = vm->getVmRootReference();
 	this->referene = rootRef->newNumericConstReferenece(this->value, this->atype.getType(), vm);
-
-	// FIXME number literal
 }
 
 AbstractVmInstance* NumberLiteral::interpret(VirtualMachine* vm) {
-
-
-	return nullptr; // FIXME expression::interpret()
+	return this->referene;
 }
 
 } /* namespace alinous */
