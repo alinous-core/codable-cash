@@ -82,6 +82,9 @@ void MethodDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 void MethodDeclare::analyze(AnalyzeContext* actx) {
 	this->args->analyze(actx);
 
+	AnalyzedClass* aclass = actx->getAnalyzedClass(this);
+	actx->setThisClass(aclass);
+
 	if(this->block != nullptr){
 		this->block->analyze(actx);
 	}
