@@ -17,16 +17,20 @@ AbstractReference::~AbstractReference() {
 
 }
 
-bool alinous::AbstractReference::isPrimitive() const noexcept {
+bool AbstractReference::isPrimitive() const noexcept {
 	return false;
 }
 
-AbstractVmInstance* alinous::AbstractReference::getInstance() noexcept {
+AbstractVmInstance* AbstractReference::getInstance() noexcept {
 	return this;
 }
 
-bool alinous::AbstractReference::isReference() const noexcept {
+bool AbstractReference::isReference() const noexcept {
 	return true;
 }
+
+void AbstractReference::substitute(AbstractVmInstance* rightValue, VirtualMachine* vm) {
+}
+
 
 } /* namespace alinous */

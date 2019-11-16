@@ -59,6 +59,33 @@ bool PrimitiveReference::isPrimitive() const noexcept {
 	return true;
 }
 
+void PrimitiveReference::substitute(AbstractVmInstance* rightValue,	VirtualMachine* vm) {
+	uint8_t type = getType();
+	PrimitiveReference* rightRef = dynamic_cast<PrimitiveReference*>(rightValue);
+	assert(rightRef != nullptr);
+
+	switch(type){
+	case AbstractVmInstance::REF_BYTE:
+		setByteValue(rightRef->getByteValue());
+		break;
+	case AbstractVmInstance::REF_CHAR:
+		setCharValue(rightRef->getCharValue());
+		break;
+	case AbstractVmInstance::REF_SHORT:
+		setShortValue(rightRef->getShortValue());
+		break;
+	case AbstractVmInstance::REF_INT:
+		setIntValue(rightRef->getIntValue());
+		break;
+	case AbstractVmInstance::REF_LONG:
+	default:
+		setLongValue(rightRef->getLongValue());
+		break;
+	}
+
+}
+
+
 void PrimitiveReference::setLongValue(int64_t value) noexcept {
 	*((int64_t*)this->data) = value;
 }

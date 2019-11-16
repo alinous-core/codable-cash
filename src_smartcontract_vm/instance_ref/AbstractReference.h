@@ -21,6 +21,8 @@ public:
 	virtual bool isPrimitive() const noexcept;
 	virtual AbstractVmInstance* getInstance() noexcept;
 	virtual bool isReference() const noexcept;
+
+	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
 };
 
 } /* namespace alinous */

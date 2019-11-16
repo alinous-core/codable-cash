@@ -24,6 +24,7 @@ public:
 	static PrimitiveReference* createLongReference(VirtualMachine* vm, int64_t value);
 
 	virtual bool isPrimitive() const noexcept;
+	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
 
 	int32_t getIntValue() const noexcept;
 	void setIntValue(int32_t value) noexcept;

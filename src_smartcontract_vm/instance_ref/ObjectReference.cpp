@@ -38,4 +38,10 @@ void ObjectReference::setInstance(AbstractVmInstance* instance) noexcept {
 	this->instance = instance;
 }
 
+void ObjectReference::substitute(AbstractVmInstance* rightValue, VirtualMachine* vm) {
+	// FIXME substitute
+	assert(false);
+}
+
+
 } /* namespace alinous */

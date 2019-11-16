@@ -11,6 +11,8 @@
 
 #include "instance/AbstractVmInstance.h"
 
+#include "instance_ref/AbstractReference.h"
+
 namespace alinous {
 
 SubstitutionStatement::SubstitutionStatement() : AbstractStatement(CodeElement::STMT_SUBSTITUTION) {
@@ -89,9 +91,10 @@ void SubstitutionStatement::interpret(VirtualMachine* vm) {
 	AbstractVmInstance* leftValue = this->variable->interpret(vm);
 	AbstractVmInstance* rightValue = this->exp->interpret(vm);
 
+	AbstractReference* leftRef = dynamic_cast<AbstractReference*>(leftValue);
+	assert(leftRef->isReference());
 
-
-	// FIXME statement
+	leftRef->substitute(rightValue, vm);
 }
 
 } /* namespace alinous */
