@@ -11,8 +11,7 @@
 #include "sc/SmartContract.h"
 #include "base_io_stream/FileInputStream.h"
 
-#include "instance_ref/ObjectReference.h"
-
+#include "instance_ref/VmRootReference.h"
 using namespace alinous;
 
 
@@ -21,7 +20,13 @@ TEST_GROUP(TestVmVariableGroup) {
 	TEST_TEARDOWN(){}
 };
 
+TEST(TestVmVariableGroup, abstractFuncs){
+	VirtualMachine* vm = new VirtualMachine(1024*1024); __STP(vm);
 
+	VmRootReference* ref = new(vm) VmRootReference(vm);__STP(ref);
+	CHECK(ref->isPrimitive() == false);
+	ref->substitute(nullptr, nullptr);
+}
 
 TEST(TestVmVariableGroup, objectRef){
 	const File* projectFolder = this->env->getProjectRoot();

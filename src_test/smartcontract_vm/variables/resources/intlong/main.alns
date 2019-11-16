@@ -9,6 +9,7 @@ class SmartContract {
 		this.chcount = 3L;
 		this.count = 4;
 		this.lcount = 5L;
+		;
 	}
 	
 	public int main(){
