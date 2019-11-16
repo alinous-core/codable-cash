@@ -15,9 +15,8 @@ namespace alinous {
 class AbstractVmInstance;
 
 class ObjectReference : public AbstractReference {
-protected:
-	explicit ObjectReference(uint8_t type);
 public:
+	explicit ObjectReference(uint8_t type);
 	virtual ~ObjectReference();
 
 	static ObjectReference* createObjectReference(VmClassInstance* clazzInst, VirtualMachine* vm);

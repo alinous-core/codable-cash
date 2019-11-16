@@ -11,8 +11,10 @@
 
 #include "vm/VirtualMachine.h"
 #include "instance_ref/PrimitiveReference.h"
+#include "instance_ref/ObjectReference.h"
 
 #include "sc_analyze/AnalyzedType.h"
+
 namespace alinous {
 
 AbstractReference* RefereceFactory::createReferenceFromDefinition(MemberVariableDeclare* dec, VirtualMachine* vm) {
@@ -39,12 +41,19 @@ AbstractReference* RefereceFactory::createReferenceFromDefinition(MemberVariable
 		break;
 	case CodeElement::TYPE_OBJECT:
 	default:
-		// FIXME object referenec
+		ref = createObjectReferenceFromDefinition(dec, vm);
 		break;
 	}
 
 	return ref;
 }
+
+AbstractReference* RefereceFactory::createObjectReferenceFromDefinition(MemberVariableDeclare* dec, VirtualMachine* vm) {
+	ObjectReference* ref = new(vm) ObjectReference(AbstractReference::REF_OBJ);
+
+	return ref;
+}
+
 
 /***
  * type is analyzed type

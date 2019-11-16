@@ -21,7 +21,7 @@ public:
 	static AbstractReference* createReferenceFromDefinition(MemberVariableDeclare* dec, VirtualMachine* vm);
 	static PrimitiveReference* createNumericReference(int64_t value, uint8_t type, VirtualMachine* vm);
 private:
-
+	static AbstractReference* createObjectReferenceFromDefinition(MemberVariableDeclare* dec, VirtualMachine* vm);
 };
 
 } /* namespace alinous */

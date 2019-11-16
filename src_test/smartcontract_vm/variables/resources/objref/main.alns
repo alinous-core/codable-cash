@@ -14,5 +14,6 @@ class SmartContract {
 	}
 	
 	private int count;
+	private MyObject obj;
 }
 
