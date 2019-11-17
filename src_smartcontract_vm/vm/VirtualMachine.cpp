@@ -13,6 +13,8 @@
 #include "instance_gc/GcManager.h"
 #include "instance/VmClassInstance.h"
 
+#include "instance_ref/AbstractReference.h"
+
 #include "stack/VmStackManager.h"
 #include "stack/VmStack.h"
 
@@ -22,6 +24,7 @@
 #include "sc_statement/StatementBlock.h"
 
 #include "variable_access/FunctionArguments.h"
+
 
 namespace alinous {
 
@@ -65,10 +68,15 @@ void VirtualMachine::createScInstance() {
 }
 
 void VirtualMachine::interpret(const UnicodeString* method) {
+	ArrayList<AbstractReference> list;
+	interpret(method, &list);
+}
+
+void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractReference>* arguments) {
 
 }
 
-void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this) {
+void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, ArrayList<AbstractReference>* arguments) {
 	initialize();
 
 	FunctionArguments args;

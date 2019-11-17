@@ -42,8 +42,6 @@ TEST(TestCallMainInstGroup, callMainMethod){
 	vm->createScInstance();
 
 
-
-
 	vm->destroy();
 
 }

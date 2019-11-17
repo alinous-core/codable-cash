@@ -2,6 +2,7 @@
 set(__dirsrc "")
 
 # import source codes
+add_subdirectory(ext_arguments)
 add_subdirectory(instance)
 add_subdirectory(instance_gc)
 add_subdirectory(instance_parts)

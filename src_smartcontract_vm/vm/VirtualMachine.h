@@ -9,6 +9,8 @@
 #define VM_VIRTUALMACHINE_H_
 #include <cstdint>
 
+#include "base/ArrayList.h"
+
 namespace alinous {
 
 class UnicodeString;
@@ -25,6 +27,7 @@ class MethodDeclare;
 class VmClassInstance;
 class FunctionArguments;
 class VmRootReference;
+class AbstractReference;
 
 class VirtualMachine {
 public:
@@ -36,8 +39,10 @@ public:
 	bool hasError() noexcept;
 
 	void createScInstance();
+
+	void interpret(const UnicodeString* method, ArrayList<AbstractReference>* arguments);
 	void interpret(const UnicodeString* method);
-	void interpret(MethodDeclare* method, VmClassInstance* _this);
+	void interpret(MethodDeclare* method, VmClassInstance* _this, ArrayList<AbstractReference>* arguments);
 
 	void newStack();
 	void popStack();
