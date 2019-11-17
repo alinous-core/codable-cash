@@ -20,7 +20,7 @@ class PrimitiveReference;
 
 class VmRootReference : public AbstractReference {
 public:
-	VmRootReference(VirtualMachine* vm);
+	explicit VmRootReference(VirtualMachine* vm);
 	virtual ~VmRootReference();
 
 	void setMainInstance(AbstractVmInstance* mainInst) noexcept;
