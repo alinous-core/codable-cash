@@ -28,36 +28,6 @@ TEST(TestVmVariableGroup, abstractFuncs){
 	ref->substitute(nullptr, nullptr);
 }
 
-TEST(TestVmVariableGroup, objectRef){
-	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/variables/resources/objref/main.alns"));
-	_ST(File, sourceFile2, projectFolder->get(L"src_test/smartcontract_vm/variables/resources/objref/obj.alns"));
-
-	SmartContract* sc = new SmartContract();
-	{
-		FileInputStream stream(sourceFile);
-		int length = sourceFile->length();
-		sc->addCompilationUnit(&stream, length);
-	}
-	{
-		FileInputStream stream(sourceFile2);
-		int length = sourceFile2->length();
-		sc->addCompilationUnit(&stream, length);
-	}
-
-	UnicodeString mainPackage(L"test.fw");
-	UnicodeString mainClass(L"SmartContract");
-	UnicodeString mainMethod(L"main");
-	sc->setMainMethod(&mainPackage, &mainClass, &mainMethod);
-
-	VirtualMachine* vm = new VirtualMachine(1024*1024); __STP(vm);
-	vm->loadSmartContract(sc);
-
-	vm->analyze();
-	vm->createScInstance();
-	vm->destroy();
-}
-
 TEST(TestVmVariableGroup, primitives){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/variables/resources/intlong/main.alns"));
@@ -80,5 +50,4 @@ TEST(TestVmVariableGroup, primitives){
 	vm->createScInstance();
 	vm->destroy();
 }
-
 

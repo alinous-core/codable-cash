@@ -14,6 +14,7 @@ add_subdirectory(db/db_numeric)
 add_subdirectory(db/db_random_access_file)
 add_subdirectory(smartcontract)
 add_subdirectory(smartcontract_vm)
+add_subdirectory(smartcontract_vm/method_invoke)
 add_subdirectory(smartcontract_vm/variables)
 add_subdirectory(test_utils)
 
