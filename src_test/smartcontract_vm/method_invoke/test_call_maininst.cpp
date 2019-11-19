@@ -11,6 +11,10 @@
 #include "sc/SmartContract.h"
 #include "base_io_stream/FileInputStream.h"
 
+#include "base/UnicodeString.h"
+
+#include "ext_arguments/NullArgument.h"
+
 using namespace alinous;
 
 
@@ -41,8 +45,15 @@ TEST(TestCallMainInstGroup, callMainMethod){
 	vm->analyze();
 	vm->createScInstance();
 
+	{
+		vm->interpret(&mainMethod);
+	}
 
 	vm->destroy();
 
+}
+
+TEST(TestCallMainInstGroup, extArguments){
+	NullArgument nullArg;
 }
 

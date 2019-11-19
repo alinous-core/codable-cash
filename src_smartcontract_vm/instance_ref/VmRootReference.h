@@ -17,18 +17,20 @@ namespace alinous {
 class VirtualMachine;
 class StaticInstanceHolder;
 class PrimitiveReference;
+class VmClassInstance;
 
 class VmRootReference : public AbstractReference {
 public:
 	explicit VmRootReference(VirtualMachine* vm);
 	virtual ~VmRootReference();
 
-	void setMainInstance(AbstractVmInstance* mainInst) noexcept;
+	void setMainInstance(VmClassInstance* mainInst) noexcept;
+	virtual AbstractVmInstance* getInstance() noexcept;
 
 	PrimitiveReference* newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm);
 private:
 	VirtualMachine* vm;
-	AbstractVmInstance* mainInst;
+	VmClassInstance* mainInst;
 	StaticInstanceHolder* staticHolder;
 };
 

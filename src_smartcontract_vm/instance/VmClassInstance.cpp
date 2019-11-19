@@ -71,5 +71,9 @@ const VMemList<AbstractReference>* VmClassInstance::getReferences() const noexce
 	return &this->members;
 }
 
+AnalyzedClass* VmClassInstance::getAnalyzedClass() const noexcept {
+	return this->clazz;
+}
+
 
 } /* namespace alinous */

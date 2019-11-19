@@ -20,6 +20,7 @@ class AnalyzeContext;
 class ClassExtends;
 class ClassImplements;
 class VirtualMachine;
+class AnalyzedType;
 
 class ClassDeclare : public CodeElement {
 public:
@@ -44,6 +45,8 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	ClassDeclare* getBaseClass() const noexcept;
 private:
 	bool interface;
 	ClassDeclareBlock* block;

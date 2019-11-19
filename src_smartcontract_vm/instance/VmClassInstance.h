@@ -28,6 +28,8 @@ public:
 
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 	virtual void removeInnerRefs(GcManager* gc) noexcept;
+
+	AnalyzedClass* getAnalyzedClass() const noexcept;
 private:
 	void init(VirtualMachine* vm);
 

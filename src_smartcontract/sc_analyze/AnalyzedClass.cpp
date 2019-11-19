@@ -7,12 +7,18 @@
 
 #include "sc_analyze/AnalyzedClass.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_declare/MethodDeclare.h"
 #include "sc_declare/ArgumentsListDeclare.h"
 #include "sc_declare/ClassDeclare.h"
 
 #include "base/UnicodeString.h"
+#include "base/ArrayList.h"
+
+#include "instance_ref/AbstractReference.h"
+
 
 namespace alinous {
 /*
@@ -112,6 +118,18 @@ MethodDeclare* AnalyzedClass::getDefaultConstructor() noexcept {
 
 const UnicodeString* AnalyzedClass::toString() noexcept {
 	return this->clazz->getName();
+}
+
+MethodDeclare* AnalyzedClass::findMethodDeclare(const UnicodeString* name, ArrayList<AbstractReference>* arguments) noexcept {
+	ClassDeclare* clazzDec = this->clazz;
+	while(clazzDec != nullptr){
+
+		clazzDec = clazzDec->getBaseClass();
+	}
+}
+
+ClassDeclare* AnalyzedClass::getClassDeclare() const noexcept {
+	return this->clazz;
 }
 
 

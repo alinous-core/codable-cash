@@ -12,6 +12,7 @@
 #include "vm/VirtualMachine.h"
 
 #include "instance_ref/RefereceFactory.h"
+#include "instance/VmClassInstance.h"
 
 namespace alinous {
 
@@ -33,12 +34,17 @@ VmRootReference::~VmRootReference() {
 	delete this->staticHolder;
 }
 
-void VmRootReference::setMainInstance(AbstractVmInstance* mainInst) noexcept {
+void VmRootReference::setMainInstance(VmClassInstance* mainInst) noexcept {
 	this->mainInst = mainInst;
 
 	GcManager* gc = this->vm->getGc();
 	gc->addInstanceReference(this, this->mainInst);
 }
+
+AbstractVmInstance* VmRootReference::getInstance() noexcept {
+	return this->mainInst;
+}
+
 
 PrimitiveReference* VmRootReference::newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm) {
 	return this->staticHolder->newNumericConstReferenece(value, type ,vm);

@@ -16,7 +16,10 @@ namespace alinous {
 class ClassDeclare;
 class UnicodeString;
 class MemberVariableDeclare;
+class ClassDeclare;
 class MethodDeclare;
+class AbstractReference;
+template <typename T, typename C> class ArrayList;
 
 class AnalyzedClass {
 public:
@@ -32,6 +35,10 @@ public:
 	void addImplements(AnalyzedClass* clazz) noexcept;
 
 	MethodDeclare* getDefaultConstructor() noexcept;
+	MethodDeclare* findMethodDeclare(const UnicodeString* name, ArrayList<AbstractReference>* arguments) noexcept;
+
+	ClassDeclare* getClassDeclare() const noexcept;
+
 	const UnicodeString* toString() noexcept;
 private:
 	ClassDeclare* clazz;

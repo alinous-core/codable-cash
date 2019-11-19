@@ -209,4 +209,15 @@ void ClassDeclare::fromBinary(ByteBuffer* in) {
 	}
 }
 
+ClassDeclare* ClassDeclare::getBaseClass() const noexcept {
+	if(this->extends == nullptr){
+		return nullptr;
+	}
+	AnalyzedType* type = this->extends->getAnalyzedType();
+	AnalyzedClass* aclazz = type->getAnalyzedClass();
+
+	return aclazz->getClassDeclare();
+}
+
+
 } /* namespace alinous */

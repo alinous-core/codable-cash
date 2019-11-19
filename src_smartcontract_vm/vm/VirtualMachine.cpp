@@ -23,7 +23,10 @@
 #include "sc_declare/MethodDeclare.h"
 #include "sc_statement/StatementBlock.h"
 
+#include "sc_analyze_functions/FunctionScoreCalc.h"
+
 #include "variable_access/FunctionArguments.h"
+
 
 
 namespace alinous {
@@ -73,6 +76,12 @@ void VirtualMachine::interpret(const UnicodeString* method) {
 }
 
 void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractReference>* arguments) {
+	VmClassInstance* _this = dynamic_cast<VmClassInstance*>(this->sc->getRootReference()->getInstance());
+	AnalyzedClass* aclass = _this->getAnalyzedClass();
+
+	FunctionScoreCalc calc;
+
+	// FIXME interpret
 
 }
 
