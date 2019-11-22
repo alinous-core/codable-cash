@@ -97,6 +97,9 @@ void SmartContract::analyze(VirtualMachine* vm) {
 		return;
 	}
 
+	// inheritance
+	this->actx->analyzeClassInheritance();
+
 	for(int i = 0; i != maxLoop; ++i){
 		CompilationUnit* unit = this->progs.get(i);
 		unit->analyze(this->actx);

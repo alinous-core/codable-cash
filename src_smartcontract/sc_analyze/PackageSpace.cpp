@@ -50,4 +50,21 @@ AnalyzedClass* PackageSpace::getClass(const UnicodeString* name) noexcept {
 	return this->classes->get(name);
 }
 
+void PackageSpace::analyzeClassInheritance(AnalyzeContext* actx) noexcept {
+	Iterator<UnicodeString>* it = this->classes->keySet()->iterator();
+	while(it->hasNext()){
+		const UnicodeString* n = it->next();
+		AnalyzedClass* cls = this->classes->get(n);
+
+		doAnalyzeClassInheritance(cls);
+	}
+
+	delete it;
+}
+
+void PackageSpace::doAnalyzeClassInheritance(AnalyzedClass* cls) noexcept {
+
+	// FIXME
+}
+
 } /* namespace alinous */

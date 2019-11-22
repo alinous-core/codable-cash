@@ -45,7 +45,7 @@ VirtualMachine::VirtualMachine(uint64_t memCapacity) {
 
 VirtualMachine::~VirtualMachine() {
 	if(!this->destried){
-		// destroy(); FIXME clear comment
+		destroy();
 	}
 
 	delete this->sc;

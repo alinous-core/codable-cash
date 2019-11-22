@@ -44,6 +44,8 @@ public:
 
 	void setThisClass(AnalyzedClass* thisClass) noexcept;
 	AnalyzedClass* getThisClass() const noexcept;
+
+	void analyzeClassInheritance();
 private:
 	VirtualMachine* vm;
 	HashMap<UnicodeString, PackageSpace> *packageSpaces;

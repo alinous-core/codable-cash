@@ -103,4 +103,16 @@ AnalyzedClass* AnalyzeContext::getThisClass() const noexcept {
 	return this->thisClass;
 }
 
+void AnalyzeContext::analyzeClassInheritance() {
+	Iterator<UnicodeString>* it = this->packageSpaces->keySet()->iterator();
+	while(it->hasNext()){
+		const UnicodeString* packageName = it->next();
+		PackageSpace* space = this->packageSpaces->get(packageName);
+
+		space->analyzeClassInheritance(this);
+	}
+	delete it;
+}
+
+
 } /* namespace alinous */
