@@ -64,6 +64,7 @@ void PackageSpace::analyzeClassInheritance(AnalyzeContext* actx) noexcept {
 
 void PackageSpace::doAnalyzeClassInheritance(AnalyzedClass* cls) noexcept {
 
+
 	// FIXME
 }
 
