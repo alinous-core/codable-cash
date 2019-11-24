@@ -24,7 +24,10 @@ public:
 	void scanFiles(File* folder, SmartContract* sc);
 	void addCompilantUnit(File* file, SmartContract* sc);
 
+	void setMain(const wchar_t* pkg, const wchar_t* clazz, const wchar_t* method) noexcept;
+
 	VirtualMachine* vm;
+	SmartContract* sc;
 private:
 	File* folder;
 };
