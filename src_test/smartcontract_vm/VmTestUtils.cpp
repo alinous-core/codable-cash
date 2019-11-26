@@ -31,6 +31,17 @@ VmTestUtils::~VmTestUtils() {
 	this->sc = nullptr;
 }
 
+
+bool VmTestUtils::analyze() {
+	vm->analyze();
+	return !vm->hasError();
+}
+
+bool VmTestUtils::createInstance() {
+	vm->createScInstance();
+	return vm->hasError();
+}
+
 void VmTestUtils::loadAllFiles() {
 	SmartContract* sc = new SmartContract();
 

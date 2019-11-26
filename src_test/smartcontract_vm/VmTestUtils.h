@@ -25,6 +25,8 @@ public:
 	void addCompilantUnit(File* file, SmartContract* sc);
 
 	void setMain(const wchar_t* pkg, const wchar_t* clazz, const wchar_t* method) noexcept;
+	bool analyze();
+	bool createInstance();
 
 	VirtualMachine* vm;
 	SmartContract* sc;

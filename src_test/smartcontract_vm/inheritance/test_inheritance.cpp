@@ -26,6 +26,9 @@ TEST(TestInheritanceGroup, inheritance){
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
 	// FIXME test
 
 }

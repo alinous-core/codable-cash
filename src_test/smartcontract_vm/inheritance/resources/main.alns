@@ -2,7 +2,9 @@
 
 package test.fw;
 
-class SmartContract {
+import test.fw.base.BaseClass;
+
+class SmartContract extends BaseClass {
 	public SmartContract() {
 		this.count = 0;
 	}

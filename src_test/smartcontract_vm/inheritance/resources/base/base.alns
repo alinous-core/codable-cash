@@ -1,6 +1,8 @@
 
 package test.fw.base;
 
-class BaseClass {
+import test.fw.base.BaseClass2;
+
+class BaseClass extends BaseClass2 {
 
 }
