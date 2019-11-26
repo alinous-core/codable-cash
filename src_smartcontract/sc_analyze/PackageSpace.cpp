@@ -13,6 +13,8 @@
 #include "sc_declare/ClassDeclare.h"
 
 #include "base/ArrayList.h"
+#include "base/StackRelease.h"
+
 namespace alinous {
 
 PackageSpace::PackageSpace(const UnicodeString* name) {
@@ -84,6 +86,16 @@ void PackageSpace::doAnalyzeClassInheritance(AnalyzedClass* cls) noexcept {
 
 		clazz->setInheritIndex(idxCount);
 		idxCount++;
+	}
+}
+
+void PackageSpace::buildVTables(AnalyzeContext* actx) noexcept {
+	Iterator<UnicodeString>* it = this->classes->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const UnicodeString* n = it->next();
+		AnalyzedClass* cls = this->classes->get(n);
+
+		cls->buildVtable(actx);
 	}
 }
 

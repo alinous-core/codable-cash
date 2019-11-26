@@ -140,6 +140,10 @@ MethodDeclare* AnalyzedClass::findMethodDeclare(const UnicodeString* name, Array
 	}
 }
 
+void AnalyzedClass::buildVtable(AnalyzeContext* actx) noexcept {
+}
+
+
 ClassDeclare* AnalyzedClass::getClassDeclare() const noexcept {
 	return this->clazz;
 }

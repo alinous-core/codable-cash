@@ -20,6 +20,7 @@ class ClassDeclare;
 class MethodDeclare;
 class AbstractReference;
 template <typename T, typename C> class ArrayList;
+class AnalyzeContext;
 
 class AnalyzedClass {
 public:
@@ -38,9 +39,12 @@ public:
 	MethodDeclare* getDefaultConstructor() noexcept;
 	MethodDeclare* findMethodDeclare(const UnicodeString* name, ArrayList<AbstractReference>* arguments) noexcept;
 
+	void buildVtable(AnalyzeContext* actx) noexcept;
+
 	ClassDeclare* getClassDeclare() const noexcept;
 	int getInheritIndex() const noexcept;
 	void setInheritIndex(int inheritIndex) noexcept;
+
 
 	const UnicodeString* toString() noexcept;
 private:

@@ -112,6 +112,16 @@ void AnalyzeContext::analyzeClassInheritance() {
 		space->analyzeClassInheritance(this);
 	}
 	delete it;
+
+	// V tables
+	it = this->packageSpaces->keySet()->iterator();
+	while(it->hasNext()){
+		const UnicodeString* packageName = it->next();
+		PackageSpace* space = this->packageSpaces->get(packageName);
+
+		space->buildVTables(this);
+	}
+	delete it;
 }
 
 

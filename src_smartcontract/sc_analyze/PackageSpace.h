@@ -26,7 +26,7 @@ public:
 	AnalyzedClass* getClass(const UnicodeString* name) noexcept;
 
 	void analyzeClassInheritance(AnalyzeContext* actx) noexcept;
-
+	void buildVTables(AnalyzeContext* actx) noexcept;
 private:
 	void doAnalyzeClassInheritance(AnalyzedClass* cls) noexcept;
 private:
