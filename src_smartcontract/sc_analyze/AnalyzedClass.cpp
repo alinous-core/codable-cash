@@ -8,6 +8,7 @@
 #include "sc_analyze/AnalyzedClass.h"
 
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/AnalyzeContext.h"
 
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_declare/MethodDeclare.h"
@@ -18,6 +19,8 @@
 #include "base/ArrayList.h"
 
 #include "instance_ref/AbstractReference.h"
+
+#include "sc_analyze_functions/VTableRegistory.h"
 
 
 namespace alinous {
@@ -141,6 +144,8 @@ MethodDeclare* AnalyzedClass::findMethodDeclare(const UnicodeString* name, Array
 }
 
 void AnalyzedClass::buildVtable(AnalyzeContext* actx) noexcept {
+	VTableRegistory* vreg = actx->getVtableRegistory();
+
 }
 
 

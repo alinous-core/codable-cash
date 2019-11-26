@@ -24,6 +24,7 @@ class ClassDeclare;
 class AnalyzeStackManager;
 class TypeResolver;
 class AnalyzedClass;
+class VTableRegistory;
 
 class AnalyzeContext {
 public:
@@ -46,6 +47,8 @@ public:
 	AnalyzedClass* getThisClass() const noexcept;
 
 	void analyzeClassInheritance();
+
+	VTableRegistory* getVtableRegistory() const noexcept;
 private:
 	VirtualMachine* vm;
 	HashMap<UnicodeString, PackageSpace> *packageSpaces;
@@ -53,7 +56,7 @@ private:
 	AnalyzeStackManager* stack;
 	TypeResolver* typeResolver;
 	AnalyzedClass* thisClass;
-
+	VTableRegistory* vtableReg;
 };
 
 } /* namespace alinous */

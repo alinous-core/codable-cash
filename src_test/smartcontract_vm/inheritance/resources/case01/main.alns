@@ -13,5 +13,9 @@ class SmartContract extends BaseClass {
 		this.count = 1;
 	}
 	
+	public void vfunc01(int arg){
+	
+	}
+	
 	private int count;
 }

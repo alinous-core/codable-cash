@@ -5,4 +5,7 @@ import test.fw.base.BaseClass2;
 
 class BaseClass extends BaseClass2 {
 
+	public void vfunc01(int arg){
+	
+	}
 }

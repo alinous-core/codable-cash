@@ -13,11 +13,12 @@
 #include "sc_analyze_stack/AnalyzeStackManager.h"
 #include "sc_analyze/TypeResolver.h"
 
+#include "sc_analyze_functions/VTableRegistory.h"
+
 #include "sc_declare/ClassDeclare.h"
 
 #include "sc/CompilationUnit.h"
 #include "sc/exceptions.h"
-
 
 namespace alinous {
 
@@ -27,6 +28,7 @@ AnalyzeContext::AnalyzeContext() {
 	this->stack = new AnalyzeStackManager();
 	this->typeResolver = new TypeResolver(this);
 	this->thisClass = nullptr;
+	this->vtableReg = new VTableRegistory();
 }
 
 AnalyzeContext::~AnalyzeContext() {
@@ -45,6 +47,7 @@ AnalyzeContext::~AnalyzeContext() {
 	this->verrorList.deleteElements();
 	delete this->stack;
 	delete this->typeResolver;
+	delete this->vtableReg;
 }
 
 void AnalyzeContext::setVm(VirtualMachine* vm) noexcept {
@@ -124,5 +127,8 @@ void AnalyzeContext::analyzeClassInheritance() {
 	delete it;
 }
 
+VTableRegistory* AnalyzeContext::getVtableRegistory() const noexcept {
+	return this->vtableReg;
+}
 
 } /* namespace alinous */

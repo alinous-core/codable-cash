@@ -22,7 +22,7 @@ TEST_GROUP(TestInheritanceGroup) {
 
 TEST(TestInheritanceGroup, inheritance){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/inheritance/resources/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/inheritance/resources/case01/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
