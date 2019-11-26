@@ -18,6 +18,10 @@ class ArgumentsListDeclare;
 class UnicodeString;
 class StatementBlock;
 class AnalyzeContext;
+class AnalyzedType;
+class FunctionArguments;
+class VirtualMachine;
+class AbstractVmInstance;
 
 class MethodDeclare : public CodeElement {
 public:
@@ -25,6 +29,7 @@ public:
 	virtual ~MethodDeclare();
 
 	void preAnalyze(AnalyzeContext* actx);
+	void analyzeTypeRef(AnalyzeContext* actx);
 	void analyze(AnalyzeContext* actx);
 
 	void setAccessControl(AccessControlDeclare* ctrl) noexcept;
@@ -34,9 +39,21 @@ public:
 	void setArguments(ArgumentsListDeclare* args) noexcept;
 	void setBlock(StatementBlock* block) noexcept;
 
+	StatementBlock* getBlock() const noexcept;
+
+	bool isConstructor() const;
+	const UnicodeString* getName() const noexcept;
+	bool isStatic() const noexcept;
+
+	ArgumentsListDeclare* getArguments() const noexcept;
+	AnalyzedType* getReturnedType() const noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	void init(VirtualMachine* vm);
+	void interpret(FunctionArguments* args, VirtualMachine* vm);
 private:
 	AccessControlDeclare* ctrl;
 	AbstractType* type;
@@ -44,6 +61,8 @@ private:
 	bool _static;
 	ArgumentsListDeclare* args;
 	StatementBlock* block;
+
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

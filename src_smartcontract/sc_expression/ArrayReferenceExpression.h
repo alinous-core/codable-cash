@@ -19,6 +19,7 @@ public:
 	virtual ~ArrayReferenceExpression();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	void setExp(AbstractExpression* exp) noexcept;
@@ -27,6 +28,11 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	virtual AnalyzedType getType();
+
+	virtual void init(VirtualMachine* vm);
+	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 private:
 	AbstractExpression* exp;
 	ArrayList<AbstractExpression> list;

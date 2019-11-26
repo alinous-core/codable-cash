@@ -15,6 +15,7 @@ namespace alinous {
 class UnicodeString;
 class ClassDeclare;
 class AnalyzedClass;
+class AnalyzeContext;
 
 class PackageSpace {
 public:
@@ -24,7 +25,10 @@ public:
 	void addClassDeclare(ClassDeclare* clazz) noexcept;
 	AnalyzedClass* getClass(const UnicodeString* name) noexcept;
 
-
+	void analyzeClassInheritance(AnalyzeContext* actx) noexcept;
+	void buildVTables(AnalyzeContext* actx) noexcept;
+private:
+	void doAnalyzeClassInheritance(AnalyzedClass* cls) noexcept;
 private:
 	UnicodeString* name;
 	HashMap<UnicodeString, AnalyzedClass>* classes;

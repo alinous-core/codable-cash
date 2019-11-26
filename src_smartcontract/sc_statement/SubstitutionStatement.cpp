@@ -9,6 +9,10 @@
 #include "sc_expression/VariableIdentifier.h"
 #include "sc_expression/AbstractExpression.h"
 
+#include "instance/AbstractVmInstance.h"
+
+#include "instance_ref/AbstractReference.h"
+
 namespace alinous {
 
 SubstitutionStatement::SubstitutionStatement() : AbstractStatement(CodeElement::STMT_SUBSTITUTION) {
@@ -22,11 +26,21 @@ SubstitutionStatement::~SubstitutionStatement() {
 }
 
 void SubstitutionStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->variable->setParent(this);
+	this->variable->preAnalyze(actx);
+
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+}
+
+void SubstitutionStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	this->variable->analyzeTypeRef(actx);
+	this->exp->analyzeTypeRef(actx);
 }
 
 void SubstitutionStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->variable->analyze(actx);
+	this->exp->analyze(actx);
 }
 
 void SubstitutionStatement::setVariableId(AbstractExpression* variable) noexcept {
@@ -68,5 +82,19 @@ void SubstitutionStatement::fromBinary(ByteBuffer* in) {
 	this->exp = dynamic_cast<AbstractExpression*>(element);
 }
 
+void SubstitutionStatement::init(VirtualMachine* vm) {
+	this->variable->init(vm);
+	this->exp->init(vm);
+}
+
+void SubstitutionStatement::interpret(VirtualMachine* vm) {
+	AbstractVmInstance* leftValue = this->variable->interpret(vm);
+	AbstractVmInstance* rightValue = this->exp->interpret(vm);
+
+	AbstractReference* leftRef = dynamic_cast<AbstractReference*>(leftValue);
+	assert(leftRef->isReference());
+
+	leftRef->substitute(rightValue, vm);
+}
 
 } /* namespace alinous */

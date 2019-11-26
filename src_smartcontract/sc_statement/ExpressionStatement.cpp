@@ -18,12 +18,17 @@ ExpressionStatement::~ExpressionStatement() {
 	delete this->exp;
 }
 
+void ExpressionStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	this->exp->analyzeTypeRef(actx);
+}
+
 void ExpressionStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
 }
 
 void ExpressionStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
 }
 
 void ExpressionStatement::setExpression(AbstractExpression* exp) noexcept {
@@ -51,5 +56,14 @@ void ExpressionStatement::fromBinary(ByteBuffer* in) {
 	checkIsExp(element);
 	this->exp = dynamic_cast<AbstractExpression*>(element);
 }
+
+void ExpressionStatement::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
+void ExpressionStatement::interpret(VirtualMachine* vm) {
+	// FIXME statement
+}
+
 
 } /* namespace alinous */

@@ -7,6 +7,7 @@
 
 #include "sc_expression/CastExpression.h"
 #include "sc_declare_types/AbstractType.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -21,11 +22,17 @@ CastExpression::~CastExpression() {
 }
 
 void CastExpression::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->type->setParent(this);
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+}
+
+void CastExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	// FIXME expression : analyze type
 }
 
 void CastExpression::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
 }
 
 void CastExpression::setType(AbstractType* type) noexcept {
@@ -64,6 +71,19 @@ void CastExpression::fromBinary(ByteBuffer* in) {
 	element = createFromBinary(in);
 	checkIsType(element);
 	this->type = dynamic_cast<AbstractType*>(element);
+}
+
+AnalyzedType CastExpression::getType() {
+	// FIXME analyze cast expression type
+	return AnalyzedType();
+}
+
+void CastExpression::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
+AbstractVmInstance* CastExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
 }
 
 } /* namespace alinous */

@@ -18,11 +18,14 @@ DropTableStatement::~DropTableStatement() {
 }
 
 void DropTableStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void DropTableStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+
+}
+
+void DropTableStatement::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void DropTableStatement::setTableId(TableIdentifier* tableId) noexcept {
@@ -49,6 +52,10 @@ void DropTableStatement::fromBinary(ByteBuffer* in) {
 	CodeElement* element = createFromBinary(in);
 	checkKind(element, CodeElement::SQL_EXP_TABLE_ID);
 	this->tableId = dynamic_cast<TableIdentifier*>(element);
+}
+
+void DropTableStatement::interpret(VirtualMachine* vm) {
+	// FIXME SQL statement
 }
 
 } /* namespace alinous */

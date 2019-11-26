@@ -1,0 +1,19 @@
+
+
+package test.fw;
+
+import test.fw.obj.MyObject;
+
+class SmartContract {
+	public SmartContract() {
+		this.count = 4;
+	}
+	
+	public int main(){
+
+	}
+	
+	private int count;
+	private MyObject obj;
+}
+

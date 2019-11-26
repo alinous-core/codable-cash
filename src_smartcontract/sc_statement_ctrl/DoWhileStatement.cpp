@@ -21,11 +21,22 @@ DoWhileStatement::~DoWhileStatement() {
 }
 
 void DoWhileStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+
+	this->stmt->setParent(this);
+	this->stmt->preAnalyze(actx);
 }
 
+void DoWhileStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	this->exp->analyzeTypeRef(actx);
+	this->stmt->analyzeTypeRef(actx);
+}
+
+
 void alinous::DoWhileStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
+	this->stmt->analyze(actx);
 }
 
 void DoWhileStatement::setExpression(AbstractExpression* exp) noexcept {
@@ -64,6 +75,15 @@ void DoWhileStatement::fromBinary(ByteBuffer* in) {
 	element = createFromBinary(in);
 	checkIsStatement(element);
 	this->stmt = dynamic_cast<AbstractStatement*>(element);
+}
+
+void DoWhileStatement::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+	this->stmt->init(vm);
+}
+
+void DoWhileStatement::interpret(VirtualMachine* vm) {
+	// FIXME statement
 }
 
 } /* namespace alinous */

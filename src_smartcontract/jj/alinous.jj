@@ -8,6 +8,7 @@ FORCE_LA_CHECK = false;
 ERROR_REPORTING = true;
 PARSER_INCLUDES = "sc/alinouslang.h";
 //STATIC = false; // ignored by c++
+DEBUG_PARSER=false;
 }
 
 PARSER_BEGIN(AlinousLang)
@@ -163,6 +164,8 @@ TOKEN :
 | <CLASS_INTERFACE: "interface">
 | < ABSTRACT: "abstract" >
 | < BREAK: "break" >
+| < BOOLEAN: "boolean" >
+| < BYTE: "byte" >
 | < CHAR: "char" >
 | < SHORT: "short" >
 | < INT: "int" >
@@ -353,6 +356,7 @@ CompilationUnit* compilationUnit() :
 {
 	CompilationUnit* unit = new CompilationUnit();
 	PackageDeclare* pkg = nullptr;
+	ImportsDeclare* imports = nullptr;
 	ClassDeclare* clazz = nullptr;
 }
 {
@@ -361,6 +365,10 @@ CompilationUnit* compilationUnit() :
 			unit->setPackage(pkg);
 		}
 	]
+	
+	imports=importsDeclare() {
+		unit->setImports(imports);
+	}
     
 	(
 	    clazz=classDeclare() {
@@ -371,6 +379,58 @@ CompilationUnit* compilationUnit() :
 	<EOF>
 	{
 		return unit;
+	}
+}
+
+ImportsDeclare* importsDeclare() : {
+	ImportsDeclare* importsDeclare = new ImportsDeclare();
+	ImportDeclare* dec = nullptr;
+}
+{
+	(
+		dec=importDeclare() {
+			importsDeclare->addImport(dec);
+			importsDeclare->setPosition(dec);
+		}
+	)*
+	{
+	}
+	{
+	    __ONERROR(importsDeclare);
+		return importsDeclare;
+	}
+}
+
+ImportDeclare* importDeclare() : {
+	ImportDeclare* dec = new ImportDeclare();
+	Token* t = nullptr;
+}
+{
+	t="import" {
+		dec->setPosition(t);
+	}
+	
+	t=< IDENTIFIER > {
+		dec->setPosition(t);
+		dec->appendStr(t->image.c_str());
+	}
+	(
+		t="." {
+			dec->setPosition(t);
+			dec->appendStr(t->image.c_str());
+		}
+		t=< IDENTIFIER > {
+			dec->setPosition(t);
+			dec->appendStr(t->image.c_str());
+		}
+	)*
+	
+	t=";" {
+		dec->setPosition(t);
+	}
+	{
+	    __ONERROR(dec);
+		return dec;
 	}
 }
 
@@ -432,13 +492,38 @@ ClassDeclare* classDeclare() :
 	Token* cls = nullptr;
 	Token* name = nullptr;
 	ClassDeclareBlock* block = nullptr;
-	
+	Token* t = nullptr;
+	ClassExtends* clsextends = nullptr;
+	ClassImplements*  clsimplements = nullptr;	
 }
 {
-	cls="class" name=<IDENTIFIER> {
-		 clazz = new ClassDeclare();
+	(
+		cls="class" {
+			clazz = new ClassDeclare();
+		}
+		|
+		cls="interface" {
+			clazz = new ClassDeclare();
+			clazz->setInterface(true);
+		}
+	)
+	
+	name=<IDENTIFIER> {
 		 clazz->setName(_STR(name));
 	}
+	
+	[
+		clsextends=classExtends() {
+			clazz->setExtends(clsextends);
+		}
+	]
+	
+	[
+		clsimplements=classImplements() {
+			clazz->setImplements(clsimplements);
+		}
+	]
+		
 	block=classDeclareBlock() {
 	    clazz->setPositions(cls, block);
 	    clazz->setBlock(block);
@@ -446,6 +531,83 @@ ClassDeclare* classDeclare() :
 	{
 	    __ONERROR(clazz);
 		return clazz;
+	}
+}
+
+ClassExtends* classExtends() :
+{
+	ClassExtends* extends = new ClassExtends();
+	ClassName* name = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="extends" {
+		extends->setPosition(t);
+	}
+	name=className() {
+		extends->setPosition(name);
+		extends->setClassName(name);
+	}
+	{
+		__ONERROR(extends);
+		return extends;
+	}
+}
+
+ClassImplements* classImplements() :{
+	ClassImplements*  implements = new ClassImplements();
+	ClassName* name = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="implements" {
+		implements->setPosition(t);
+	}
+	name=className() {
+		implements->setPosition(name);
+		implements->addClassName(name);
+	}
+	(
+		t="," {
+			implements->setPosition(t);
+		}
+		name=className() {
+			implements->setPosition(name);
+			implements->addClassName(name);
+		}	
+	)*
+	{}
+	
+	{
+		__ONERROR(implements);
+		return implements;
+	}
+}
+
+ClassName* className() :
+{
+	ClassName* name = new ClassName();
+	Token* t = nullptr;
+}
+{
+	t=< IDENTIFIER > {
+		name->setPosition(t);
+		name->addStr(t->image.c_str());
+	}
+	(
+		t="." {
+			name->setPosition(t);
+			name->addStr(t->image.c_str());
+		}
+		t=< IDENTIFIER > {
+			name->setPosition(t);
+			name->addStr(t->image.c_str());		
+		}
+	)*
+	{}
+	{
+		__ONERROR(name);
+		return name;
 	}
 }
 
@@ -471,20 +633,27 @@ ClassDeclareBlock* classDeclareBlock() :
 	(
 		ctrl=accessControlDeclare() {
 	    }
-
-		[
-			t="static" {
-			    _static=true;
-			}
-		]
-
-		[
-			type=typeDeclare() {
-			}
-		]
-	
-		t=< IDENTIFIER > {
-		}
+		
+		(LOOKAHEAD(2)
+			(
+				[
+					t="static" {
+					    _static=true;
+					}
+				]
+		
+				[LOOKAHEAD(2)
+					type=typeDeclare() {
+					}
+				]
+			
+				t=< IDENTIFIER >
+			)
+			|
+			(
+				t=< IDENTIFIER > // constructor
+			)	
+		)
 
 		(			method=methodDeclare(ctrl, _static, type, t) {
 				block->addMethod(method);
@@ -658,7 +827,11 @@ AbstractType* typeDeclare() : {
 	AbstractType* dec = nullptr;
 }
 {
-	(		dec=charType()
+	(
+		dec=boolType()
+		|
+		dec=byteType()
+		|		dec=charType()
 		|
 		dec=shortType()
 		|
@@ -669,8 +842,69 @@ AbstractType* typeDeclare() : {
 		dec=stringType()
 		|
 		dec=voidType()
+		|
+		dec=objectType()
 	)
 	{
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+ObjectType* objectType() : {
+	ObjectType* dec = new ObjectType();
+	PackageNameDeclare* packageName = nullptr;
+	Token* t=nullptr;
+}
+{
+	(LOOKAHEAD(2)
+		 t=< IDENTIFIER > {
+		 	if(packageName == nullptr){
+		 		packageName = new PackageNameDeclare();
+		 		dec->setPackageName(packageName);
+		 	}
+		 	
+		 	dec->setPosition(t);
+		 	packageName->setPosition(t);
+		 	packageName->addSegment(_STR(t));
+		 }
+		 t="." {
+		 	dec->setPosition(t);
+		 }
+	)*
+	 t=< IDENTIFIER > {
+	 	dec->setName(_STR(t));
+	 	dec->setPosition(t);
+	 }
+	 {
+		__ONERROR(dec);
+		return dec;
+	 }
+}
+
+BoolType* boolType() : {
+	BoolType* dec = new BoolType();
+	Token* t=nullptr;
+}
+{
+	t="boolean" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+ByteType* byteType() : {
+	ByteType* dec = new ByteType();
+	Token* t=nullptr;
+}
+{
+	t="byte" {
+		dec->setPositions(_P(t, t));
 	}
 	{
 		__ONERROR(dec);
@@ -1768,32 +2002,34 @@ AbstractExpression* castExpression() : {
 	AbstractExpression* right = nullptr;
 }
 {
-	[LOOKAHEAD(2)
-		t="(" {
-			exp = new CastExpression();
-			exp->setPosition(t);
-			left = exp;
-		}
-		
-		type=typeDeclare() {
-			exp->setType(type);
-			exp->setPosition(type);
-		}
-		
-		t=")" {
-			exp->setPosition(t);
-		}
-	]
-	
-	right=memberReferenceExpression() {
-		if(left==nullptr){
-			left = right;
-		}
-		else{
-			exp->setExpression(right);
-			exp->setPosition(right);
-		}
-	}
+	(LOOKAHEAD(3)
+		(
+			t="(" {
+				exp = new CastExpression();
+				exp->setPosition(t);
+				left = exp;
+			}
+			
+			type=typeDeclare() {
+				exp->setType(type);
+				exp->setPosition(type);
+			}
+			
+			t=")" {
+				exp->setPosition(t);
+			}
+			right=memberReferenceExpression() {
+				exp->setExpression(right);
+				exp->setPosition(right);
+			}
+		)
+		|
+		(
+			right=memberReferenceExpression() {
+				left = right;
+			}
+		)
+	)
 	
 	{
 		__ONERROR(left);
@@ -1957,6 +2193,7 @@ AllocationExpression* allocationExpression() : {
 		 	
 		 	exp->setPosition(t);
 		 	packageName->setPosition(t);
+		 	packageName->addSegment(_STR(t));
 		 }
 		 t="." {
 		 	exp->setPosition(t);

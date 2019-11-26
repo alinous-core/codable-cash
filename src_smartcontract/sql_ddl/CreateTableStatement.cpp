@@ -18,11 +18,13 @@ CreateTableStatement::~CreateTableStatement() {
 }
 
 void CreateTableStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
 }
 
+void CreateTableStatement::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+
 void CreateTableStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
 }
 
 int CreateTableStatement::binarySize() const {
@@ -36,6 +38,10 @@ void CreateTableStatement::toBinary(ByteBuffer* out) {
 }
 
 void CreateTableStatement::fromBinary(ByteBuffer* in) {
+}
+
+void CreateTableStatement::interpret(VirtualMachine* vm) {
+	// FIXME SQL statement
 }
 
 } /* namespace alinous */

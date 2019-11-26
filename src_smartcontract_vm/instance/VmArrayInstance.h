@@ -16,6 +16,8 @@ class VmArrayInstance : public AbstractVmInstance {
 public:
 	VmArrayInstance();
 	virtual ~VmArrayInstance();
+
+	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 };
 
 } /* namespace alinous */

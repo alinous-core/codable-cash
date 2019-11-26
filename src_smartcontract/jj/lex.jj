@@ -146,6 +146,8 @@ TOKEN :
 | <CLASS_INTERFACE: "interface">
 | < ABSTRACT: "abstract" >
 | < BREAK: "break" >
+| < BOOLEAN: "boolean" >
+| < BYTE: "byte" >
 | < CHAR: "char" >
 | < SHORT: "short" >
 | < INT: "int" >

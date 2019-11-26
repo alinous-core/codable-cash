@@ -17,26 +17,49 @@ namespace alinous {
 class ClassDeclareBlock;
 class UnicodeString;
 class AnalyzeContext;
+class ClassExtends;
+class ClassImplements;
+class VirtualMachine;
+class AnalyzedType;
+class MethodDeclare;
 
 class ClassDeclare : public CodeElement {
 public:
 	ClassDeclare();
 	virtual ~ClassDeclare();
 
+	void setInterface(bool interface) noexcept;
+
 	void preAnalyze(AnalyzeContext* actx);
+	void analyzeTypeRef(AnalyzeContext* actx);
 	void analyze(AnalyzeContext* actx);
+
+	void init(VirtualMachine* vm);
 
 	void setBlock(ClassDeclareBlock* block) noexcept;
 	void setName(UnicodeString* name) noexcept;
+	void setExtends(ClassExtends* extends) noexcept;
+	void setImplements(ClassImplements* implements) noexcept;
 
 	const UnicodeString* getName() noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	ClassDeclare* getBaseClass() const noexcept;
+	int getInheritIndex() const noexcept;
+	void setInheritIndex(int inheritIndex) noexcept;
+
+	ArrayList<MethodDeclare>* getMethods() noexcept;
 private:
+	bool interface;
 	ClassDeclareBlock* block;
 	UnicodeString* name;
+	ClassExtends* extends;
+	ClassImplements* implements;
+
+	int inheritIndex;
 };
 
 } /* namespace alinous */

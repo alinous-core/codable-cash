@@ -7,7 +7,12 @@
 
 #include "sc_declare_types/StringType.h"
 
+#include "base/UnicodeString.h"
+
+
 namespace alinous {
+
+const UnicodeString StringType::TYPE_NAME(L"String");
 
 StringType::StringType() : AbstractType(CodeElement::TYPE_STRING) {
 }
@@ -27,5 +32,10 @@ void StringType::toBinary(ByteBuffer* out) {
 
 void StringType::fromBinary(ByteBuffer* in) {
 }
+
+const UnicodeString* StringType::toString() noexcept {
+	return &TYPE_NAME;
+}
+
 
 } /* namespace alinous */

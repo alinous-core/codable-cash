@@ -24,6 +24,7 @@ public:
 	virtual ~SelectStatement();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	void setList(SQLSelectTargetList* list) noexcept;
@@ -36,6 +37,8 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	virtual void interpret(VirtualMachine* vm);
 private:
 	SQLSelectTargetList* list;
 	SQLFrom* from;

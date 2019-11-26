@@ -19,8 +19,18 @@ void AndExpression::preAnalyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::preAnalyze(actx);
 }
 
+void AndExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	// FIXME expression : analyze type
+}
+
 void AndExpression::analyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::analyze(actx);
+
+	// FIXME analyze type
+}
+
+AbstractVmInstance* AndExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
 }
 
 int AndExpression::binarySize() const {
@@ -37,6 +47,10 @@ void AndExpression::toBinary(ByteBuffer* out) {
 
 void AndExpression::fromBinary(ByteBuffer* in) {
 	AbstractBinaryExpression::fromBinary(in);
+}
+
+AnalyzedType AndExpression::getType() {
+	return this->atype;
 }
 
 } /* namespace alinous */

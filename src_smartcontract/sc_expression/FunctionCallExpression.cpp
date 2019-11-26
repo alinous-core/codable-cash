@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression/FunctionCallExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 #include "base/UnicodeString.h"
 
 namespace alinous {
@@ -26,6 +27,10 @@ void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
 		exp->setParent(this);
 		exp->preAnalyze(actx);
 	}
+}
+
+void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	// FIXME expression : analyze type
 }
 
 void FunctionCallExpression::analyze(AnalyzeContext* actx) {
@@ -88,6 +93,23 @@ void FunctionCallExpression::fromBinary(ByteBuffer* in) {
 
 		this->args.addElement(exp);
 	}
+}
+
+AnalyzedType FunctionCallExpression::getType() {
+	// FIXME analyze function type
+	return AnalyzedType();
+}
+
+void FunctionCallExpression::init(VirtualMachine* vm) {
+	int maxLoop = this->args.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		exp->init(vm);
+	}
+}
+
+AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
 }
 
 } /* namespace alinous */

@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression_logical/ConditionalAndExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -17,6 +18,10 @@ ConditionalAndExpression::~ConditionalAndExpression() {
 
 void ConditionalAndExpression::preAnalyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::preAnalyze(actx);
+}
+
+void ConditionalAndExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	// FIXME expression : analyze type
 }
 
 void ConditionalAndExpression::analyze(AnalyzeContext* actx) {
@@ -39,5 +44,12 @@ void ConditionalAndExpression::fromBinary(ByteBuffer* in) {
 	AbstractBinaryExpression::fromBinary(in);
 }
 
+AnalyzedType ConditionalAndExpression::getType() {
+	return AnalyzedType(AnalyzedType::TYPE_BOOL);
+}
+
+AbstractVmInstance* ConditionalAndExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
 
 } /* namespace alinous */

@@ -22,9 +22,12 @@ public:
 	virtual ~ArgumentsListDeclare();
 
 	void preAnalyze(AnalyzeContext* actx);
+	void analyzeTypeRef(AnalyzeContext* actx);
 	void analyze(AnalyzeContext* actx);
 
 	void addArgument(ArgumentDeclare* arg) noexcept;
+	int getSize() const noexcept;
+	const ArrayList<ArgumentDeclare>* getArguments() const noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

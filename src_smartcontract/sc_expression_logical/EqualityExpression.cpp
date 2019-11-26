@@ -7,6 +7,8 @@
 
 #include "sc_expression_logical/EqualityExpression.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
 namespace alinous {
 
 EqualityExpression::EqualityExpression() : AbstractExpression(CodeElement::EXP_CND_EQ) {
@@ -21,11 +23,21 @@ EqualityExpression::~EqualityExpression() {
 }
 
 void EqualityExpression::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->left->setParent(this);
+	this->left->preAnalyze(actx);
+
+	this->right->setParent(this);
+	this->right->preAnalyze(actx);
+}
+
+void EqualityExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	this->left->analyzeTypeRef(actx);
+	this->right->analyzeTypeRef(actx);
 }
 
 void EqualityExpression::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->left->analyze(actx);
+	this->right->analyze(actx);
 }
 
 void EqualityExpression::setLeft(AbstractExpression* exp) noexcept {
@@ -72,6 +84,19 @@ void EqualityExpression::fromBinary(ByteBuffer* in) {
 	this->right = dynamic_cast<AbstractExpression*>(element);
 
 	this->op = in->get();
+}
+
+AnalyzedType EqualityExpression::getType() {
+	return AnalyzedType(AnalyzedType::TYPE_BOOL);
+}
+
+void EqualityExpression::init(VirtualMachine* vm) {
+	this->left->init(vm);
+	this->right->init(vm);
+}
+
+AbstractVmInstance* EqualityExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
 }
 
 } /* namespace alinous */

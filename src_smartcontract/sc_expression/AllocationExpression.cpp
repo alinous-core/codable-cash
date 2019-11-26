@@ -9,6 +9,7 @@
 
 #include "sc_declare/PackageNameDeclare.h"
 #include "sc_expression/FunctionCallExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -23,11 +24,16 @@ AllocationExpression::~AllocationExpression() {
 }
 
 void AllocationExpression::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+}
+
+void AllocationExpression::analyzeTypeRef(AnalyzeContext* actx) {
+
 }
 
 void AllocationExpression::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
 }
 
 void AllocationExpression::setPackage(PackageNameDeclare* packageName) noexcept {
@@ -77,6 +83,18 @@ void AllocationExpression::fromBinary(ByteBuffer* in) {
 	CodeElement* element = createFromBinary(in);
 	checkKind(element, CodeElement::EXP_FUNCTIONCALL);
 	this->exp = dynamic_cast<FunctionCallExpression*>(element);
+}
+
+AnalyzedType AllocationExpression::getType() {
+	return this->exp->getType();
+}
+
+void AllocationExpression::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
+AbstractVmInstance* AllocationExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
 }
 
 } /* namespace alinous */

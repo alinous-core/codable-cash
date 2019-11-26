@@ -26,11 +26,14 @@ UpdateStatement::~UpdateStatement() {
 }
 
 void UpdateStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+
+}
+
+void UpdateStatement::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void UpdateStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void UpdateStatement::setTable(TableIdentifier* tableId) noexcept {
@@ -90,6 +93,10 @@ void UpdateStatement::fromBinary(ByteBuffer* in) {
 		 checkKind(element, CodeElement::SQL_PART_WHERE);
 		 this->where = dynamic_cast<SQLWhere*>(element);
 	}
+}
+
+void UpdateStatement::interpret(VirtualMachine* vm) {
+	// FIXME SQL statement
 }
 
 } /* namespace alinous */

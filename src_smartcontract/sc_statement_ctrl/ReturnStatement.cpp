@@ -19,11 +19,16 @@ ReturnStatement::~ReturnStatement() {
 }
 
 void ReturnStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+}
+
+void ReturnStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	this->exp->analyzeTypeRef(actx);
 }
 
 void ReturnStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
 }
 
 
@@ -53,5 +58,12 @@ void alinous::ReturnStatement::fromBinary(ByteBuffer* in) {
 	this->exp = dynamic_cast<AbstractExpression*>(element);
 }
 
+void ReturnStatement::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
+void ReturnStatement::interpret(VirtualMachine* vm) {
+	// FIXME statement
+}
 
 } /* namespace alinous */

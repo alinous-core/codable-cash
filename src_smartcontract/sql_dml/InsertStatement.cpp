@@ -26,11 +26,14 @@ InsertStatement::~InsertStatement() {
 }
 
 void InsertStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+
+}
+
+void InsertStatement::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void InsertStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void InsertStatement::setTable(TableIdentifier* tableId) noexcept {
@@ -92,6 +95,10 @@ void InsertStatement::fromBinary(ByteBuffer* in) {
 	element = createFromBinary(in);
 	checkKind(element, CodeElement::SQL_EXP_EXP_LIST);
 	this->expList = dynamic_cast<SQLExpressionList*>(element);
+}
+
+void InsertStatement::interpret(VirtualMachine* vm) {
+	// FIXME SQL statement
 }
 
 } /* namespace alinous */

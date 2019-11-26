@@ -26,11 +26,21 @@ VariableDeclareStatement::~VariableDeclareStatement() {
 }
 
 void VariableDeclareStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->type->setParent(this);
+	this->variableId->setParent(this);
+	this->variableId->preAnalyze(actx);
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+}
+
+void VariableDeclareStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	// FIXME analyzeTypeRef
+
+	this->exp->analyzeTypeRef(actx);
 }
 
 void VariableDeclareStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
 }
 
 void VariableDeclareStatement::setType(AbstractType* type) noexcept {
@@ -81,6 +91,14 @@ void VariableDeclareStatement::fromBinary(ByteBuffer* in) {
 	element = createFromBinary(in);
 	checkIsExp(element);
 	this->exp = dynamic_cast<AbstractExpression*>(element);
+}
+
+void VariableDeclareStatement::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
+void VariableDeclareStatement::interpret(VirtualMachine* vm) {
+	// FIXME statement
 }
 
 } /* namespace alinous */

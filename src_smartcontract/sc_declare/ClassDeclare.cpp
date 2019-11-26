@@ -7,17 +7,28 @@
 
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/ClassDeclareBlock.h"
+#include "sc_declare/ClassImplements.h"
+#include "sc_declare/ClassExtends.h"
+
 #include "sc/CompilationUnit.h"
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/PackageSpace.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/AnalyzedClass.h"
 
 #include "base/UnicodeString.h"
+
 
 namespace alinous {
 
 ClassDeclare::ClassDeclare() : CodeElement(CodeElement::CLASS_DECLARE) {
+	this->interface = false;
 	this->block = nullptr;
 	this->name = nullptr;
+	this->extends = nullptr;
+	this->implements = nullptr;
+	this->inheritIndex = -1;
 }
 
 ClassDeclare::~ClassDeclare() {
@@ -27,6 +38,8 @@ ClassDeclare::~ClassDeclare() {
 	if(this->name != nullptr){
 		delete this->name;
 	}
+	delete this->extends;
+	delete this->implements;
 }
 
 void ClassDeclare::preAnalyze(AnalyzeContext* actx) {
@@ -35,19 +48,68 @@ void ClassDeclare::preAnalyze(AnalyzeContext* actx) {
 
 	AnalyzedClass* dec = space->getClass(this->name);
 	if(dec != nullptr){
-		actx->addValidationError(L"Class is already registered", this);
+		actx->addValidationError(ValidationError::CODE_CLASS_ALREADY_EXISTS, this, L"Class {0} is already registered", {this->name});
 
 		return;
 	}
 
 	space->addClassDeclare(this);
 
+	if(this->extends != nullptr){
+		this->extends->setParent(this);
+		this->extends->preAnalyze(actx);
+	}
+	if(this->implements != nullptr){
+		this->implements->setParent(this);
+		this->implements->preAnalyze(actx);
+	}
+
 	this->block->setParent(this);
 	this->block->preAnalyze(actx);
 }
 
+void ClassDeclare::analyzeTypeRef(AnalyzeContext* actx) {
+	if(this->extends != nullptr){
+		this->extends->analyzeTypeRef(actx);
+	}
+	if(this->implements != nullptr){
+		this->implements->analyzeTypeRef(actx);
+	}
+
+	if(actx->hasError()){
+		return;
+	}
+
+	CompilationUnit* unit = getCompilationUnit();
+	PackageSpace* space = actx->getPackegeSpace(unit->getPackageName());
+	AnalyzedClass* dec = space->getClass(this->name);
+
+	// set analyzed class
+	if(this->extends != nullptr){
+		AnalyzedType* cls = this->extends->getAnalyzedType();
+		dec->setExtends(cls->getAnalyzedClass());
+	}
+
+	if(this->implements != nullptr){
+		const ArrayList<AnalyzedType>* list = this->implements->getAnalyzedTypes();
+
+		int maxLoop = list->size();
+		for(int i = 0; i != maxLoop; ++i){
+			AnalyzedType* cls = list->get(i);
+			dec->addImplements(cls->getAnalyzedClass());
+		}
+	}
+
+	this->block->analyzeTypeRef(actx);
+}
+
+
 void ClassDeclare::analyze(AnalyzeContext* actx) {
 	this->block->analyze(actx);
+}
+
+void ClassDeclare::init(VirtualMachine* vm) {
+	this->block->init(vm);
 }
 
 void ClassDeclare::setBlock(ClassDeclareBlock* block) noexcept {
@@ -74,6 +136,16 @@ int ClassDeclare::binarySize() const {
 		total += this->block->binarySize();
 	}
 
+	total += sizeof(uint8_t);
+	if(this->extends != nullptr){
+		total += this->extends->binarySize();
+	}
+
+	total += sizeof(uint8_t);
+	if(this->implements != nullptr){
+		total += this->implements->binarySize();
+	}
+
 	return total;
 }
 
@@ -89,6 +161,28 @@ void ClassDeclare::toBinary(ByteBuffer* out) {
 	if(this->block != nullptr){
 		this->block->toBinary(out);
 	}
+
+	out->put(this->extends != nullptr ? (uint8_t)1 : (uint8_t)0);
+	if(this->extends != nullptr){
+		this->extends->toBinary(out);
+	}
+
+	out->put(this->implements != nullptr ? (uint8_t)1 : (uint8_t)0);
+	if(this->implements != nullptr){
+		this->implements->toBinary(out);
+	}
+}
+
+void ClassDeclare::setExtends(ClassExtends* extends) noexcept {
+	this->extends = extends;
+}
+
+void ClassDeclare::setImplements(ClassImplements* implements) noexcept {
+	this->implements = implements;
+}
+
+void ClassDeclare::setInterface(bool interface) noexcept {
+	this->interface = interface;
 }
 
 void ClassDeclare::fromBinary(ByteBuffer* in) {
@@ -100,6 +194,42 @@ void ClassDeclare::fromBinary(ByteBuffer* in) {
 		checkKind(element, CodeElement::CLASS_DECLARE_BLOCK);
 		this->block = dynamic_cast<ClassDeclareBlock*>(element);
 	}
+
+	bl = in->get();
+	if(bl == 1){
+		CodeElement* element = CodeElement::createFromBinary(in);
+		checkKind(element, CodeElement::CLASS_EXTENDS);
+		this->extends = dynamic_cast<ClassExtends*>(element);
+	}
+
+	bl = in->get();
+	if(bl == 1){
+		CodeElement* element = CodeElement::createFromBinary(in);
+		checkKind(element, CodeElement::CLASS_IMPLEMENTS);
+		this->implements = dynamic_cast<ClassImplements*>(element);
+	}
+}
+
+ClassDeclare* ClassDeclare::getBaseClass() const noexcept {
+	if(this->extends == nullptr){
+		return nullptr;
+	}
+	AnalyzedType* type = this->extends->getAnalyzedType();
+	AnalyzedClass* aclazz = type->getAnalyzedClass();
+
+	return aclazz->getClassDeclare();
+}
+
+int ClassDeclare::getInheritIndex() const noexcept {
+	return this->inheritIndex;
+}
+
+void ClassDeclare::setInheritIndex(int inheritIndex) noexcept {
+	this->inheritIndex = inheritIndex;
+}
+
+ArrayList<MethodDeclare>* ClassDeclare::getMethods() noexcept {
+	return this->block->getMethods();
 }
 
 } /* namespace alinous */

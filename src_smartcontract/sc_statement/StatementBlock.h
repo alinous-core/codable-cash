@@ -13,12 +13,16 @@
 
 namespace alinous {
 
+class ArgumentsListDeclare;
+class AnalyzeStack;
+
 class StatementBlock : public AbstractStatement {
 public:
 	StatementBlock();
 	virtual ~StatementBlock();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	void addStatement(AbstractStatement* stmt) noexcept;
@@ -26,6 +30,14 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	virtual void init(VirtualMachine* vm);
+	virtual void interpret(VirtualMachine* vm);
+
+private:
+	void analyzeMethodDeclareBlock(AnalyzeContext* actx);
+	void buildFunctionArguments2AnalyzedStack(ArgumentsListDeclare* arguments, AnalyzeStack* stack) const;
+	void interpretFunctionArguments(VirtualMachine* vm);
 private:
 	ArrayList<AbstractStatement> statements;
 };

@@ -8,6 +8,7 @@ FORCE_LA_CHECK = false;
 ERROR_REPORTING = true;
 PARSER_INCLUDES = "sc/alinouslang.h";
 //STATIC = false; // ignored by c++
+DEBUG_PARSER=false;
 }
 
 PARSER_BEGIN(AlinousLang)

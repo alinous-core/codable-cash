@@ -12,10 +12,24 @@
 
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/PackageSpace.h"
+#include "sc_analyze/AnalyzedClass.h"
 
 #include "base/UnicodeString.h"
 
 #include "sc_declare/ClassDeclare.h"
+#include "sc_declare/MethodDeclare.h"
+
+#include "instance/VmClassInstance.h"
+#include "instance_ref/ObjectReference.h"
+#include "instance_ref/VmRootReference.h"
+
+#include "instance_gc/GcManager.h"
+
+#include "base_io_stream/FileInputStream.h"
+#include "base_io/File.h"
+
+#include "stack/StackPopper.h"
+#include "stack/VmStack.h"
 
 
 namespace alinous {
@@ -25,6 +39,8 @@ SmartContract::SmartContract() {
 	this->mainPackage = nullptr;
 	this->mainClass = nullptr;
 	this->mainMethod = nullptr;
+	this->rootReference = nullptr;
+	this->initialized = false;
 }
 
 SmartContract::~SmartContract() {
@@ -33,6 +49,7 @@ SmartContract::~SmartContract() {
 	delete this->mainPackage;
 	delete this->mainClass;
 	delete this->mainMethod;
+	delete this->rootReference;
 }
 
 void alinous::SmartContract::setMainMethod(const UnicodeString* mainPackage,
@@ -48,6 +65,13 @@ void SmartContract::addCompilationUnit(InputStream* stream, int length) {
 	CompilationUnit* unit = parser.parse();
 
 	this->progs.addElement(unit);
+}
+
+void SmartContract::addCompilationUnit(File* file) {
+	FileInputStream stream(file);
+
+	int length = file->length();
+	addCompilationUnit(&stream, length);
 }
 
 void SmartContract::analyze(VirtualMachine* vm) {
@@ -66,15 +90,77 @@ void SmartContract::analyze(VirtualMachine* vm) {
 
 	for(int i = 0; i != maxLoop; ++i){
 		CompilationUnit* unit = this->progs.get(i);
+		unit->analyzeType(this->actx);
+	}
+
+	if(this->actx->hasError()){
+		return;
+	}
+
+	// inheritance
+	this->actx->analyzeClassInheritance();
+
+	for(int i = 0; i != maxLoop; ++i){
+		CompilationUnit* unit = this->progs.get(i);
 		unit->analyze(this->actx);
 	}
 }
 
+bool SmartContract::hasError() noexcept {
+	return this->actx->hasError();
+}
+
+VmRootReference* SmartContract::getRootReference() const noexcept {
+	return this->rootReference;
+}
+
+void SmartContract::clearRootReference(VirtualMachine* vm) noexcept {
+	delete this->rootReference;
+	this->rootReference = nullptr;
+}
+
 void SmartContract::createInstance(VirtualMachine* vm) {
+	initialize(vm);
+
 	PackageSpace* space = this->actx->getPackegeSpace(this->mainPackage);
-	//ClassDeclare* dec = space->getClass(this->mainClass);
+	AnalyzedClass* clazz = space->getClass(this->mainClass);
 
+	MethodDeclare* defConstructor = clazz->getDefaultConstructor();
 
+	VmClassInstance* inst = VmClassInstance::createObject(clazz, vm);
+
+	GcManager* gc = vm->getGc();
+
+	this->rootReference->setMainInstance(inst);
+
+	vm->newStack();
+	StackPopper popStack(vm);
+
+	VmStack* stack = vm->topStack();
+
+	ObjectReference* instRef = ObjectReference::createObjectReference(inst, vm);
+	stack->addInnerReference(instRef);
+
+	// exec constructor
+	ArrayList<AbstractReference> arguments;
+	vm->interpret(defConstructor, inst, &arguments);
+}
+
+void SmartContract::initialize(VirtualMachine* vm) {
+	if(this->initialized){
+		return;
+	}
+
+	this->rootReference = new(vm) VmRootReference(vm);
+	vm->setVmRootReference(this->rootReference);
+
+	int maxLoop = this->progs.size();
+	for(int i = 0; i != maxLoop; ++i){
+		CompilationUnit* unit = this->progs.get(i);
+		unit->init(vm);
+	}
+
+	this->initialized = true;
 }
 
 } /* namespace alinous */

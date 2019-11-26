@@ -14,12 +14,16 @@ namespace alinous {
 
 class ByteType : public AbstractPrimitiveType {
 public:
+	static const UnicodeString TYPE_NAME;
+
 	ByteType();
 	virtual ~ByteType();
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	virtual const UnicodeString* toString() noexcept;
 };
 
 } /* namespace alinous */

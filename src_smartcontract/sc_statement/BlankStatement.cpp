@@ -17,8 +17,12 @@ BlankStatement::~BlankStatement() {
 
 void BlankStatement::preAnalyze(AnalyzeContext* actx) {
 }
-
+void BlankStatement::analyzeTypeRef(AnalyzeContext* actx) {
+}
 void BlankStatement::analyze(AnalyzeContext* actx) {
+}
+
+void alinous::BlankStatement::init(VirtualMachine* vm) {
 }
 
 int BlankStatement::binarySize() const {
@@ -32,6 +36,9 @@ void BlankStatement::toBinary(ByteBuffer* out) {
 }
 
 void BlankStatement::fromBinary(ByteBuffer* in) {
+}
+
+void BlankStatement::interpret(VirtualMachine* vm) {
 }
 
 } /* namespace alinous */

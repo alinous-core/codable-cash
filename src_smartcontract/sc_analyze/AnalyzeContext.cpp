@@ -10,6 +10,10 @@
 
 #include "sc_analyze/PackageSpace.h"
 #include "sc_analyze/ValidationError.h"
+#include "sc_analyze_stack/AnalyzeStackManager.h"
+#include "sc_analyze/TypeResolver.h"
+
+#include "sc_analyze_functions/VTableRegistory.h"
 
 #include "sc_declare/ClassDeclare.h"
 
@@ -21,6 +25,10 @@ namespace alinous {
 AnalyzeContext::AnalyzeContext() {
 	this->vm = nullptr;
 	this->packageSpaces = new HashMap<UnicodeString, PackageSpace>();
+	this->stack = new AnalyzeStackManager();
+	this->typeResolver = new TypeResolver(this);
+	this->thisClass = nullptr;
+	this->vtableReg = new VTableRegistory();
 }
 
 AnalyzeContext::~AnalyzeContext() {
@@ -37,6 +45,9 @@ AnalyzeContext::~AnalyzeContext() {
 	delete this->packageSpaces;
 
 	this->verrorList.deleteElements();
+	delete this->stack;
+	delete this->typeResolver;
+	delete this->vtableReg;
 }
 
 void AnalyzeContext::setVm(VirtualMachine* vm) noexcept {
@@ -53,14 +64,14 @@ PackageSpace* AnalyzeContext::getPackegeSpace(const UnicodeString* spaceName) no
 	return space;
 }
 
-void AnalyzeContext::addValidationError(const UnicodeString* msg, CodeElement* element) noexcept {
-	ValidationError* error = new ValidationError(ValidationError::ERROR, element, msg);
+void AnalyzeContext::addValidationError(int errorCode, CodeElement* element, const UnicodeString* msg, std::initializer_list<const UnicodeString*> params) noexcept {
+	ValidationError* error = new ValidationError(ValidationError::ERROR, errorCode, element, msg, params);
 	this->verrorList.addElement(error);
 }
 
-void AnalyzeContext::addValidationError(const wchar_t* msg, CodeElement* element) noexcept {
+void AnalyzeContext::addValidationError(int errorCode, CodeElement* element, const wchar_t* msg, std::initializer_list<const UnicodeString*> params) noexcept {
 	UnicodeString str(msg);
-	addValidationError(&str, element);
+	addValidationError(errorCode, element, &str, params);
 }
 
 bool alinous::AnalyzeContext::hasError() noexcept {
@@ -77,6 +88,47 @@ AnalyzedClass* AnalyzeContext::getAnalyzedClass(CodeElement* element) {
 	PackageSpace* pkg = getPackegeSpace(unit->getPackageName());
 
 	return pkg->getClass(dec->getName());
+}
+
+TypeResolver* AnalyzeContext::getTypeResolver() const noexcept {
+	return this->typeResolver;
+}
+
+AnalyzeStackManager* AnalyzeContext::getAnalyzeStackManager() const noexcept {
+	return this->stack;
+}
+
+void AnalyzeContext::setThisClass(AnalyzedClass* thisClass) noexcept {
+	this->thisClass = thisClass;
+}
+
+AnalyzedClass* AnalyzeContext::getThisClass() const noexcept {
+	return this->thisClass;
+}
+
+void AnalyzeContext::analyzeClassInheritance() {
+	Iterator<UnicodeString>* it = this->packageSpaces->keySet()->iterator();
+	while(it->hasNext()){
+		const UnicodeString* packageName = it->next();
+		PackageSpace* space = this->packageSpaces->get(packageName);
+
+		space->analyzeClassInheritance(this);
+	}
+	delete it;
+
+	// V tables
+	it = this->packageSpaces->keySet()->iterator();
+	while(it->hasNext()){
+		const UnicodeString* packageName = it->next();
+		PackageSpace* space = this->packageSpaces->get(packageName);
+
+		space->buildVTables(this);
+	}
+	delete it;
+}
+
+VTableRegistory* AnalyzeContext::getVtableRegistory() const noexcept {
+	return this->vtableReg;
 }
 
 } /* namespace alinous */

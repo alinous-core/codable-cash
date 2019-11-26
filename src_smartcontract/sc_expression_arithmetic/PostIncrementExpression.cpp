@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression_arithmetic/PostIncrementExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -19,11 +20,16 @@ PostIncrementExpression::~PostIncrementExpression() {
 }
 
 void PostIncrementExpression::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+}
+
+void PostIncrementExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	this->exp->analyzeTypeRef(actx);
 }
 
 void PostIncrementExpression::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
 }
 
 void PostIncrementExpression::setExpression(AbstractExpression* exp) noexcept {
@@ -54,6 +60,18 @@ void PostIncrementExpression::fromBinary(ByteBuffer* in) {
 	CodeElement* element = createFromBinary(in);
 	checkIsExp(element);
 	this->exp = dynamic_cast<AbstractExpression*>(element);
+}
+
+AnalyzedType PostIncrementExpression::getType() {
+	return this->exp->getType();
+}
+
+void PostIncrementExpression::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
+AbstractVmInstance* PostIncrementExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
 }
 
 } /* namespace alinous */

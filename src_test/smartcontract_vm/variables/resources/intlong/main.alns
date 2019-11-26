@@ -1,0 +1,25 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		this.bcount = 1;
+		this.scount = 2L;
+		this.chcount = 3L;
+		this.count = 4;
+		this.lcount = 5L;
+		;
+	}
+	
+	public int main(){
+
+	}
+	
+	private byte bcount;
+	private short scount;
+	private char chcount;
+	private int count;
+	private long lcount;
+}
+

@@ -95,7 +95,7 @@ public:
 
 		return result;
 	}
-	HashMapInternalElement<K, V>* search(const HashMapInternalElement<K, V>* value) noexcept {
+	HashMapInternalElement<K, V>* search(const HashMapInternalElement<K, V>* value) const noexcept {
 		int hashcode = getHash(value);
 		return arrays[hashcode]->search(value);
 	}

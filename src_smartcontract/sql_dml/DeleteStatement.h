@@ -20,6 +20,7 @@ public:
 	virtual ~DeleteStatement();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	void setFrom(SQLFrom* from) noexcept;
@@ -28,6 +29,8 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	virtual void interpret(VirtualMachine* vm);
 private:
 	SQLFrom* from;
 	SQLWhere* where;

@@ -13,6 +13,7 @@
 namespace alinous {
 
 class AnalyzeContext;
+class VirtualMachine;
 
 class AbstractStatement : public CodeElement {
 public:
@@ -20,7 +21,11 @@ public:
 	virtual ~AbstractStatement();
 
 	virtual void preAnalyze(AnalyzeContext* actx) = 0;
+	virtual void analyzeTypeRef(AnalyzeContext* actx) = 0;
 	virtual void analyze(AnalyzeContext* actx) = 0;
+
+	virtual void init(VirtualMachine* vm) = 0;
+	virtual void interpret(VirtualMachine* vm) = 0;
 };
 
 } /* namespace alinous */

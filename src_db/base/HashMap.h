@@ -39,18 +39,26 @@ public:
 		return this->hashMapKeySet->addElement(&key, value);
 	}
 
-	V* get(const K* key) noexcept {
+	V* get(const K* key) const noexcept {
 		return this->hashMapKeySet->getValue(key);
 	}
-	V* get(const K& key) noexcept {
+	V* get(const K& key) const noexcept {
 		return this->hashMapKeySet->getValue(&key);
 	}
 	void remove(K* key) {
 		this->hashMapKeySet->remove(key);
 	}
 
-	HashMapKeySet<K, V>* keySet() noexcept {
+	HashMapKeySet<K, V>* keySet() const noexcept {
 		return this->hashMapKeySet;
+	}
+
+	int size() const noexcept {
+		return this->hashMapKeySet->size();
+	}
+
+	bool isEmpty() const noexcept {
+		return size() == 0;
 	}
 protected:
 	HashMapKeySet<K, V>* hashMapKeySet;

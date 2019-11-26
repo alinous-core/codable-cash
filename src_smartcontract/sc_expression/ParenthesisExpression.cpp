@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression/ParenthesisExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -18,11 +19,16 @@ ParenthesisExpression::~ParenthesisExpression() {
 }
 
 void ParenthesisExpression::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+}
+
+void ParenthesisExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	this->exp->analyzeTypeRef(actx);
 }
 
 void ParenthesisExpression::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
 }
 
 void ParenthesisExpression::setExp(AbstractExpression* exp) noexcept {
@@ -50,4 +56,17 @@ void ParenthesisExpression::fromBinary(ByteBuffer* in) {
 	checkIsExp(element);
 	this->exp = dynamic_cast<AbstractExpression*>(element);
 }
+
+AnalyzedType ParenthesisExpression::getType() {
+	return this->exp->getType();
+}
+
+void ParenthesisExpression::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
+AbstractVmInstance* ParenthesisExpression::interpret(VirtualMachine* vm) {
+	return this->exp->interpret(vm);
+}
+
 } /* namespace alinous */

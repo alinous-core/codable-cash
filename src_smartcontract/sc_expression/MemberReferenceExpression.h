@@ -19,11 +19,15 @@ public:
 	virtual ~MemberReferenceExpression();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	virtual AnalyzedType getType();
+	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 };
 
 } /* namespace alinous */

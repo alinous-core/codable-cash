@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression_arithmetic/PreIncrementExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -19,11 +20,16 @@ PreIncrementExpression::~PreIncrementExpression() {
 }
 
 void PreIncrementExpression::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+}
+
+void alinous::PreIncrementExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	this->exp->analyzeTypeRef(actx);
 }
 
 void PreIncrementExpression::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
 }
 
 void PreIncrementExpression::setExpression(AbstractExpression* exp) noexcept {
@@ -54,6 +60,18 @@ void PreIncrementExpression::fromBinary(ByteBuffer* in) {
 	CodeElement* element = createFromBinary(in);
 	checkIsExp(element);
 	this->exp = dynamic_cast<AbstractExpression*>(element);
+}
+
+AnalyzedType PreIncrementExpression::getType() {
+	return this->exp->getType();
+}
+
+void PreIncrementExpression::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
+AbstractVmInstance* PreIncrementExpression::interpret(VirtualMachine* vm) {
+	return this->exp->interpret(vm);
 }
 
 } /* namespace alinous */

@@ -19,6 +19,7 @@ public:
 	virtual ~LiteralExpression();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	void setString(UnicodeString* str, bool dquote) noexcept;
@@ -26,6 +27,11 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	virtual AnalyzedType getType();
+
+	virtual void init(VirtualMachine* vm);
+	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 private:
 	UnicodeString* str;
 	bool dquote;

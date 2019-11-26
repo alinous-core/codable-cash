@@ -10,6 +10,7 @@
 
 #include "base/HashMap.h"
 #include "base/ArrayList.h"
+#include <initializer_list>
 
 namespace alinous {
 
@@ -20,6 +21,10 @@ class ValidationError;
 class CodeElement;
 class AnalyzedClass;
 class ClassDeclare;
+class AnalyzeStackManager;
+class TypeResolver;
+class AnalyzedClass;
+class VTableRegistory;
 
 class AnalyzeContext {
 public:
@@ -28,17 +33,30 @@ public:
 
 	void setVm(VirtualMachine* vm) noexcept;
 	PackageSpace* getPackegeSpace(const UnicodeString* spaceName) noexcept;
-	void addValidationError(const UnicodeString* msg, CodeElement* element) noexcept;
-	void addValidationError(const wchar_t* msg, CodeElement* element) noexcept;
+
+	void addValidationError(int errorCode, CodeElement* element, const UnicodeString* msg, std::initializer_list<const UnicodeString*> params) noexcept;
+	void addValidationError(int errorCode, CodeElement* element, const wchar_t* msg, std::initializer_list<const UnicodeString*> params) noexcept;
 
 	bool hasError() noexcept;
 
 	AnalyzedClass* getAnalyzedClass(CodeElement* clazz);
+	TypeResolver* getTypeResolver() const noexcept;
+	AnalyzeStackManager* getAnalyzeStackManager() const noexcept;
 
+	void setThisClass(AnalyzedClass* thisClass) noexcept;
+	AnalyzedClass* getThisClass() const noexcept;
+
+	void analyzeClassInheritance();
+
+	VTableRegistory* getVtableRegistory() const noexcept;
 private:
 	VirtualMachine* vm;
 	HashMap<UnicodeString, PackageSpace> *packageSpaces;
 	ArrayList<ValidationError> verrorList;
+	AnalyzeStackManager* stack;
+	TypeResolver* typeResolver;
+	AnalyzedClass* thisClass;
+	VTableRegistory* vtableReg;
 };
 
 } /* namespace alinous */

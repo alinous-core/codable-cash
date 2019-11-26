@@ -1,0 +1,19 @@
+
+
+package test.fw;
+
+import test.util.Utils;
+import test.util.imple.IDataHandler;
+import test.objects.ObjectA;
+
+class MainContract extends Utils implements IDataHandler {
+	public MainContract() {
+	
+	}
+	
+	public int getCount(int cnt){
+		return cnt + 1;
+	}
+	
+	private ObjectA objA;
+}

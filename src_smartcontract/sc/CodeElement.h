@@ -35,15 +35,22 @@ public:
 	static const constexpr short ARGUMENT_DECLARE{7};
 	static const constexpr short MEMBER_VARIABLE_DECLARE{8};
 	static const constexpr short ACCESS_CONTROL_DECLARE{9};
+	static const constexpr short IMPORTS_DECLARE{10};
+	static const constexpr short IMPORT_DECLARE{11};
+	static const constexpr short CLASS_EXTENDS{12};
+	static const constexpr short CLASS_IMPLEMENTS{13};
+	static const constexpr short CLASS_NAME{14};
 
 
-	static const constexpr short TYPE_BYTE{20};
-	static const constexpr short TYPE_CHAR{21};
-	static const constexpr short TYPE_SHORT{22};
-	static const constexpr short TYPE_INT{23};
-	static const constexpr short TYPE_LONG{24};
-	static const constexpr short TYPE_STRING{25};
-	static const constexpr short TYPE_VOID{26};
+	static const constexpr short TYPE_BOOL{20};
+	static const constexpr short TYPE_BYTE{21};
+	static const constexpr short TYPE_CHAR{22};
+	static const constexpr short TYPE_SHORT{23};
+	static const constexpr short TYPE_INT{24};
+	static const constexpr short TYPE_LONG{25};
+	static const constexpr short TYPE_STRING{26};
+	static const constexpr short TYPE_VOID{27};
+	static const constexpr short TYPE_OBJECT{28};
 
 	static const constexpr short STMT_BLOCK{50};
 	static const constexpr short STMT_VARIABLE_DECLARE{51};
@@ -165,12 +172,15 @@ public:
 	static void checkIsExp(CodeElement* element);
 	static void checkIsSQLExp(CodeElement* element);
 	static void checkIsJoinPart(CodeElement* element);
+	static void checkIsImport(CodeElement* element);
+
+	short getKind() noexcept;
 
 	void setParent(CodeElement* parent) noexcept;
 	CodeElement* getParent() noexcept;
 
 	CompilationUnit* getCompilationUnit();
-	ClassDeclare* getClassDeclare();
+	ClassDeclare* getClassDeclare() const;
 protected:
 	short kind;
 

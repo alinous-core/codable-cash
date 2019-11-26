@@ -7,6 +7,7 @@ CompilationUnit* compilationUnit() :
 {
 	CompilationUnit* unit = new CompilationUnit();
 	PackageDeclare* pkg = nullptr;
+	ImportsDeclare* imports = nullptr;
 	ClassDeclare* clazz = nullptr;
 }
 {
@@ -15,6 +16,10 @@ CompilationUnit* compilationUnit() :
 			unit->setPackage(pkg);
 		}
 	]
+	
+	imports=importsDeclare() {
+		unit->setImports(imports);
+	}
     
 	(
 	    clazz=classDeclare() {
@@ -25,6 +30,58 @@ CompilationUnit* compilationUnit() :
 	<EOF>
 	{
 		return unit;
+	}
+}
+
+ImportsDeclare* importsDeclare() : {
+	ImportsDeclare* importsDeclare = new ImportsDeclare();
+	ImportDeclare* dec = nullptr;
+}
+{
+	(
+		dec=importDeclare() {
+			importsDeclare->addImport(dec);
+			importsDeclare->setPosition(dec);
+		}
+	)*
+	{
+	}
+	{
+	    __ONERROR(importsDeclare);
+		return importsDeclare;
+	}
+}
+
+ImportDeclare* importDeclare() : {
+	ImportDeclare* dec = new ImportDeclare();
+	Token* t = nullptr;
+}
+{
+	t="import" {
+		dec->setPosition(t);
+	}
+	
+	t=< IDENTIFIER > {
+		dec->setPosition(t);
+		dec->appendStr(t->image.c_str());
+	}
+	(
+		t="." {
+			dec->setPosition(t);
+			dec->appendStr(t->image.c_str());
+		}
+		t=< IDENTIFIER > {
+			dec->setPosition(t);
+			dec->appendStr(t->image.c_str());
+		}
+	)*
+	
+	t=";" {
+		dec->setPosition(t);
+	}
+	{
+	    __ONERROR(dec);
+		return dec;
 	}
 }
 
@@ -86,13 +143,38 @@ ClassDeclare* classDeclare() :
 	Token* cls = nullptr;
 	Token* name = nullptr;
 	ClassDeclareBlock* block = nullptr;
-	
+	Token* t = nullptr;
+	ClassExtends* clsextends = nullptr;
+	ClassImplements*  clsimplements = nullptr;	
 }
 {
-	cls="class" name=<IDENTIFIER> {
-		 clazz = new ClassDeclare();
+	(
+		cls="class" {
+			clazz = new ClassDeclare();
+		}
+		|
+		cls="interface" {
+			clazz = new ClassDeclare();
+			clazz->setInterface(true);
+		}
+	)
+	
+	name=<IDENTIFIER> {
 		 clazz->setName(_STR(name));
 	}
+	
+	[
+		clsextends=classExtends() {
+			clazz->setExtends(clsextends);
+		}
+	]
+	
+	[
+		clsimplements=classImplements() {
+			clazz->setImplements(clsimplements);
+		}
+	]
+		
 	block=classDeclareBlock() {
 	    clazz->setPositions(cls, block);
 	    clazz->setBlock(block);
@@ -100,6 +182,83 @@ ClassDeclare* classDeclare() :
 	{
 	    __ONERROR(clazz);
 		return clazz;
+	}
+}
+
+ClassExtends* classExtends() :
+{
+	ClassExtends* extends = new ClassExtends();
+	ClassName* name = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="extends" {
+		extends->setPosition(t);
+	}
+	name=className() {
+		extends->setPosition(name);
+		extends->setClassName(name);
+	}
+	{
+		__ONERROR(extends);
+		return extends;
+	}
+}
+
+ClassImplements* classImplements() :{
+	ClassImplements*  implements = new ClassImplements();
+	ClassName* name = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="implements" {
+		implements->setPosition(t);
+	}
+	name=className() {
+		implements->setPosition(name);
+		implements->addClassName(name);
+	}
+	(
+		t="," {
+			implements->setPosition(t);
+		}
+		name=className() {
+			implements->setPosition(name);
+			implements->addClassName(name);
+		}	
+	)*
+	{}
+	
+	{
+		__ONERROR(implements);
+		return implements;
+	}
+}
+
+ClassName* className() :
+{
+	ClassName* name = new ClassName();
+	Token* t = nullptr;
+}
+{
+	t=< IDENTIFIER > {
+		name->setPosition(t);
+		name->addStr(t->image.c_str());
+	}
+	(
+		t="." {
+			name->setPosition(t);
+			name->addStr(t->image.c_str());
+		}
+		t=< IDENTIFIER > {
+			name->setPosition(t);
+			name->addStr(t->image.c_str());		
+		}
+	)*
+	{}
+	{
+		__ONERROR(name);
+		return name;
 	}
 }
 
@@ -125,20 +284,27 @@ ClassDeclareBlock* classDeclareBlock() :
 	(
 		ctrl=accessControlDeclare() {
 	    }
-
-		[
-			t="static" {
-			    _static=true;
-			}
-		]
-
-		[
-			type=typeDeclare() {
-			}
-		]
-	
-		t=< IDENTIFIER > {
-		}
+		
+		(LOOKAHEAD(2)
+			(
+				[
+					t="static" {
+					    _static=true;
+					}
+				]
+		
+				[LOOKAHEAD(2)
+					type=typeDeclare() {
+					}
+				]
+			
+				t=< IDENTIFIER >
+			)
+			|
+			(
+				t=< IDENTIFIER > // constructor
+			)	
+		)
 
 		(			method=methodDeclare(ctrl, _static, type, t) {
 				block->addMethod(method);

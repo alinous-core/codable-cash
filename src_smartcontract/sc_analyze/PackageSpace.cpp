@@ -12,6 +12,9 @@
 
 #include "sc_declare/ClassDeclare.h"
 
+#include "base/ArrayList.h"
+#include "base/StackRelease.h"
+
 namespace alinous {
 
 PackageSpace::PackageSpace(const UnicodeString* name) {
@@ -48,6 +51,52 @@ void PackageSpace::addClassDeclare(ClassDeclare* clazz) noexcept {
 
 AnalyzedClass* PackageSpace::getClass(const UnicodeString* name) noexcept {
 	return this->classes->get(name);
+}
+
+void PackageSpace::analyzeClassInheritance(AnalyzeContext* actx) noexcept {
+	Iterator<UnicodeString>* it = this->classes->keySet()->iterator();
+	while(it->hasNext()){
+		const UnicodeString* n = it->next();
+		AnalyzedClass* cls = this->classes->get(n);
+
+		doAnalyzeClassInheritance(cls);
+	}
+
+	delete it;
+}
+
+void PackageSpace::doAnalyzeClassInheritance(AnalyzedClass* cls) noexcept {
+	ArrayList<AnalyzedClass> list;
+	list.addElement(cls);
+
+	AnalyzedClass* clazz = cls->getExtends();
+
+	while(clazz != nullptr){
+		list.addElement(clazz);
+		clazz = clazz->getExtends();
+	}
+
+	int maxLoop = list.size();
+	int idxCount = 0;
+	for(int i = maxLoop - 1; i >= 0; --i){
+		clazz = list.get(i);
+
+		int idx = clazz->getInheritIndex();
+		assert(idx < 0 || idx == idxCount);
+
+		clazz->setInheritIndex(idxCount);
+		idxCount++;
+	}
+}
+
+void PackageSpace::buildVTables(AnalyzeContext* actx) noexcept {
+	Iterator<UnicodeString>* it = this->classes->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const UnicodeString* n = it->next();
+		AnalyzedClass* cls = this->classes->get(n);
+
+		cls->buildVtable(actx);
+	}
 }
 
 } /* namespace alinous */

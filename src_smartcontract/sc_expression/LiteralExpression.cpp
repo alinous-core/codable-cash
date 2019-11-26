@@ -8,6 +8,7 @@
 #include "sc_expression/LiteralExpression.h"
 #include "base/UnicodeString.h"
 
+#include "sc_analyze/AnalyzedType.h"
 namespace alinous {
 
 LiteralExpression::LiteralExpression() : AbstractExpression(CodeElement::EXP_LITERAL){
@@ -20,11 +21,15 @@ LiteralExpression::~LiteralExpression() {
 }
 
 void LiteralExpression::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+
+}
+
+void LiteralExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	// FIXME expression : analyze type
 }
 
 void LiteralExpression::analyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void LiteralExpression::setString(UnicodeString* str, bool dquote) noexcept {
@@ -55,5 +60,16 @@ void LiteralExpression::fromBinary(ByteBuffer* in) {
 	this->str = getString(in);
 }
 
+AnalyzedType LiteralExpression::getType() {
+	return AnalyzedType(AnalyzedType::TYPE_STRING);
+}
+
+void LiteralExpression::init(VirtualMachine* vm) {
+	// FIXME const literal
+}
+
+AbstractVmInstance* LiteralExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
 
 } /* namespace alinous */

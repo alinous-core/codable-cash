@@ -15,4 +15,8 @@ AbstractSQLStatement::AbstractSQLStatement(int kind) : AbstractStatement(kind) {
 AbstractSQLStatement::~AbstractSQLStatement() {
 }
 
+void AbstractSQLStatement::init(VirtualMachine* vm) {
+}
+
+
 } /* namespace alinous */

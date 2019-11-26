@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression_logical/ConditionalOrExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -17,6 +18,10 @@ ConditionalOrExpression::~ConditionalOrExpression() {
 
 void ConditionalOrExpression::preAnalyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::preAnalyze(actx);
+}
+
+void ConditionalOrExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	// FIXME expression : analyze type
 }
 
 void ConditionalOrExpression::analyze(AnalyzeContext* actx) {
@@ -37,6 +42,14 @@ void ConditionalOrExpression::toBinary(ByteBuffer* out) {
 
 void ConditionalOrExpression::fromBinary(ByteBuffer* in) {
 	AbstractBinaryExpression::fromBinary(in);
+}
+
+AnalyzedType ConditionalOrExpression::getType() {
+	return AnalyzedType(AnalyzedType::TYPE_BOOL);
+}
+
+AbstractVmInstance* ConditionalOrExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
 }
 
 } /* namespace alinous */

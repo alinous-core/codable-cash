@@ -8,10 +8,11 @@
 #ifndef SC_EXPRESSION_MULTIPLICATIVEEXPRESSION_H_
 #define SC_EXPRESSION_MULTIPLICATIVEEXPRESSION_H_
 
-#include "sc_expression/AbstractBinaryExpression.h"
-
-#include "base/RawArrayPrimitive.h"
 #include <cstdint>
+
+#include "sc_expression/AbstractBinaryExpression.h"
+#include "base/RawArrayPrimitive.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -25,6 +26,7 @@ public:
 	virtual ~MultiplicativeExpression();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	void addOpe(uint8_t ope) noexcept;
@@ -32,8 +34,14 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	virtual AnalyzedType getType();
+	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 private:
 	RawArrayPrimitive<uint8_t> operations;
+
+	// analyzed
+	AnalyzedType atype;
 };
 
 } /* namespace alinous */

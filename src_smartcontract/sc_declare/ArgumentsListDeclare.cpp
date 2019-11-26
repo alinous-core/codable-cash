@@ -22,11 +22,31 @@ void ArgumentsListDeclare::addArgument(ArgumentDeclare* arg) noexcept {
 }
 
 void ArgumentsListDeclare::preAnalyze(AnalyzeContext* actx) {
-	// FIXME pre analyze
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ArgumentDeclare* arg = this->list.get(i);
+		arg->setParent(this);
+	}
+}
+
+void ArgumentsListDeclare::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ArgumentDeclare* arg = this->list.get(i);
+		arg->analyzeTypeRef(actx);
+	}
 }
 
 void ArgumentsListDeclare::analyze(AnalyzeContext* actx) {
-	// FIXME analyze
+
+}
+
+int ArgumentsListDeclare::getSize() const noexcept {
+	return this->list.size();
+}
+
+const ArrayList<ArgumentDeclare>* ArgumentsListDeclare::getArguments() const noexcept {
+	return &this->list;
 }
 
 int ArgumentsListDeclare::binarySize() const {
@@ -53,6 +73,7 @@ void ArgumentsListDeclare::toBinary(ByteBuffer* out) {
 		arg->toBinary(out);
 	}
 }
+
 
 void ArgumentsListDeclare::fromBinary(ByteBuffer* in) {
 	int maxLoop = in->getInt();

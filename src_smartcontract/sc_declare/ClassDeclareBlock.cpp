@@ -9,6 +9,8 @@
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_declare/MethodDeclare.h"
 
+#include "vm/VirtualMachine.h"
+
 namespace alinous {
 
 ClassDeclareBlock::ClassDeclareBlock()  : CodeElement(CodeElement::CLASS_DECLARE_BLOCK) {
@@ -36,6 +38,21 @@ void ClassDeclareBlock::preAnalyze(AnalyzeContext* actx) {
 	}
 }
 
+void ClassDeclareBlock::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->variables.size();
+	for(int i = 0; i != maxLoop; ++i){
+		MemberVariableDeclare* val = this->variables.get(i);
+		val->analyzeTypeRef(actx);
+	}
+
+	maxLoop = this->methods.size();
+	for(int i = 0; i != maxLoop; ++i){
+		MethodDeclare* method = this->methods.get(i);
+		method->analyzeTypeRef(actx);
+	}
+
+}
+
 void ClassDeclareBlock::analyze(AnalyzeContext* actx) {
 	int maxLoop = this->variables.size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -50,10 +67,28 @@ void ClassDeclareBlock::analyze(AnalyzeContext* actx) {
 	}
 }
 
+void ClassDeclareBlock::init(VirtualMachine* vm) {
+	int maxLoop = this->variables.size();
+	for(int i = 0; i != maxLoop; ++i){
+		MemberVariableDeclare* val = this->variables.get(i);
+		val->init(vm);
+	}
+
+	maxLoop = this->methods.size();
+	for(int i = 0; i != maxLoop; ++i){
+		MethodDeclare* method = this->methods.get(i);
+		method->init(vm);
+	}
+}
 
 void ClassDeclareBlock::addMethod(MethodDeclare* method) noexcept {
 	this->methods.addElement(method);
 }
+
+ArrayList<MethodDeclare>* ClassDeclareBlock::getMethods() noexcept {
+	return &this->methods;
+}
+
 
 void ClassDeclareBlock::addVariable(MemberVariableDeclare* variable) noexcept {
 	this->variables.addElement(variable);

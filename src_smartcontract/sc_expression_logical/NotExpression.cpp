@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression_logical/NotExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -20,6 +21,10 @@ NotExpression::~NotExpression() {
 void NotExpression::preAnalyze(AnalyzeContext* actx) {
 	this->exp->setParent(this);
 	this->exp->preAnalyze(actx);
+}
+
+void NotExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	// FIXME expression : analyze type
 }
 
 void NotExpression::analyze(AnalyzeContext* actx) {
@@ -50,6 +55,18 @@ void NotExpression::fromBinary(ByteBuffer* in) {
 	CodeElement* element = createFromBinary(in);
 	checkIsExp(element);
 	this->exp = dynamic_cast<AbstractExpression*>(element);
+}
+
+AnalyzedType NotExpression::getType() {
+	return AnalyzedType(AnalyzedType::TYPE_BOOL);
+}
+
+void NotExpression::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
+AbstractVmInstance* NotExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
 }
 
 } /* namespace alinous */

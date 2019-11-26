@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression_arithmetic/NegateExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -20,6 +21,10 @@ NegateExpression::~NegateExpression() {
 void NegateExpression::preAnalyze(AnalyzeContext* actx) {
 	this->exp->setParent(this);
 	this->exp->preAnalyze(actx);
+}
+
+void NegateExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	this->exp->analyzeTypeRef(actx);
 }
 
 void NegateExpression::analyze(AnalyzeContext* actx) {
@@ -51,6 +56,18 @@ void NegateExpression::fromBinary(ByteBuffer* in) {
 	CodeElement* element = createFromBinary(in);
 	checkIsExp(element);
 	this->exp = dynamic_cast<AbstractExpression*>(element);
+}
+
+AnalyzedType NegateExpression::getType() {
+	return this->exp->getType();
+}
+
+void NegateExpression::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
+AbstractVmInstance* NegateExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
 }
 
 } /* namespace alinous */

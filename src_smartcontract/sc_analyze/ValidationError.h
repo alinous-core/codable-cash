@@ -7,6 +7,9 @@
 
 #ifndef SC_ANALYZE_VALIDATIONERROR_H_
 #define SC_ANALYZE_VALIDATIONERROR_H_
+#include <initializer_list>
+
+#include "base/ArrayList.h"
 
 namespace alinous {
 class CodeElement;
@@ -17,13 +20,22 @@ public:
 	static constexpr int ERROR = 10;
 	static constexpr int WARNING = 1;
 
-	ValidationError(int type, CodeElement* element, const UnicodeString* msg);
+	static constexpr int CODE_CLASS_ALREADY_EXISTS = 1;
+	static constexpr int CODE_WRONG_IMPORT_FORMAT = 2;
+	static constexpr int CODE_WRONG_CLASS_NAME = 3;
+	static constexpr int CODE_WRONG_TYPE_NAME = 4;
+	//static constexpr int CODE_WRONG_TYPE_NAME = 4;
+
+
+	ValidationError(int type, int errorCode, CodeElement* element, const UnicodeString* msg, std::initializer_list<const UnicodeString*> params);
 	virtual ~ValidationError();
 
 private:
 	int type;
+	int errorCode;
 	CodeElement* element;
 	UnicodeString* message;
+	ArrayList<UnicodeString> msgParams;
 };
 
 } /* namespace alinous */

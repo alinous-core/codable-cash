@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression_bit/ShiftExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -17,6 +18,10 @@ ShiftExpression::~ShiftExpression() {
 
 void ShiftExpression::preAnalyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::preAnalyze(actx);
+}
+
+void ShiftExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	// FIXME expression : analyze type
 }
 
 void ShiftExpression::analyze(AnalyzeContext* actx) {
@@ -61,6 +66,15 @@ void ShiftExpression::fromBinary(ByteBuffer* in) {
 		uint8_t op = in->get();
 		this->operations.addElement(op);
 	}
+}
+
+AnalyzedType ShiftExpression::getType() {
+	AbstractExpression* first = this->list.get(0);
+	return first->getType();
+}
+
+AbstractVmInstance* ShiftExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
 }
 
 } /* namespace alinous */

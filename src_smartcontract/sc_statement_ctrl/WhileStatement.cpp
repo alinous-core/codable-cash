@@ -21,11 +21,21 @@ WhileStatement::~WhileStatement() {
 }
 
 void WhileStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+
+	this->stmt->setParent(this);
+	this->stmt->preAnalyze(actx);
+}
+
+void WhileStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	this->exp->analyzeTypeRef(actx);
+	this->stmt->analyzeTypeRef(actx);
 }
 
 void WhileStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
+	this->stmt->analyze(actx);
 }
 
 void WhileStatement::setExpression(AbstractExpression* exp) noexcept {
@@ -64,6 +74,15 @@ void WhileStatement::fromBinary(ByteBuffer* in) {
 	element = createFromBinary(in);
 	checkIsStatement(element);
 	this->stmt = dynamic_cast<AbstractStatement*>(element);
+}
+
+void WhileStatement::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+	this->stmt->init(vm);
+}
+
+void WhileStatement::interpret(VirtualMachine* vm) {
+	// FIXME statement
 }
 
 } /* namespace alinous */

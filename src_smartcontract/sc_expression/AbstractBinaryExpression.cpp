@@ -33,6 +33,14 @@ void AbstractBinaryExpression::analyze(AnalyzeContext* actx) {
 	}
 }
 
+void AbstractBinaryExpression::init(VirtualMachine* vm) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->list.get(i);
+		exp->init(vm);
+	}
+}
+
 void AbstractBinaryExpression::addExp(AbstractExpression* exp) noexcept {
 	this->list.addElement(exp);
 }
@@ -69,6 +77,5 @@ void AbstractBinaryExpression::fromBinary(ByteBuffer* in) {
 		this->list.addElement(exp);
 	}
 }
-
 
 } /* namespace alinous */

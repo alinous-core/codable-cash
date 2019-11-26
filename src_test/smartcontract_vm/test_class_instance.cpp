@@ -14,6 +14,8 @@
 #include "base/Exception.h"
 
 #include "instance_ref/PrimitiveReference.h"
+
+#include "sc_analyze/AnalyzedClass.h"
 using namespace alinous;
 
 
@@ -25,18 +27,20 @@ TEST_GROUP(TestInstanceGroup) {
 
 TEST(TestInstanceGroup, construct){
 	VirtualMachine vm(1024);
+	AnalyzedClass clazz(nullptr);
 
-	VmClassInstance* inst = new(&vm) VmClassInstance();
+	VmClassInstance* inst = new(&vm) VmClassInstance(&clazz, &vm);
 	delete inst;
 }
 
 TEST(TestInstanceGroup, constructError){
 	VirtualMachine vm(2);
+	AnalyzedClass clazz(nullptr);
 
 	VmClassInstance* inst = nullptr;
 	Exception* ex = nullptr;
 	try {
-		inst = new(&vm) VmClassInstance();
+		inst = new(&vm) VmClassInstance(&clazz, &vm);
 	}
 	catch(Exception* e){
 		ex = e;
@@ -48,5 +52,5 @@ TEST(TestInstanceGroup, constructError){
 }
 
 TEST(TestInstanceGroup, constructRef){
-	PrimitiveReference ref;
+	PrimitiveReference ref(PrimitiveReference::REF_BYTE);
 }

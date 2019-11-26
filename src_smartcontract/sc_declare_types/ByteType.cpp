@@ -7,7 +7,11 @@
 
 #include "sc_declare_types/ByteType.h"
 
+#include "base/UnicodeString.h"
+
 namespace alinous {
+
+const UnicodeString ByteType::TYPE_NAME(L"byte");
 
 ByteType::ByteType() : AbstractPrimitiveType(CodeElement::TYPE_BYTE) {
 }
@@ -22,10 +26,14 @@ int ByteType::binarySize() const {
 }
 
 void ByteType::toBinary(ByteBuffer* out) {
-	out->putShort(CodeElement::TYPE_CHAR);
+	out->putShort(CodeElement::TYPE_BYTE);
 }
 
 void ByteType::fromBinary(ByteBuffer* in) {
+}
+
+const UnicodeString* ByteType::toString() noexcept {
+	return &TYPE_NAME;
 }
 
 } /* namespace alinous */

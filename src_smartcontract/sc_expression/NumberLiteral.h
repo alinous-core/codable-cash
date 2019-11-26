@@ -9,16 +9,24 @@
 #define SC_EXPRESSION_NUMBERLITERAL_H_
 
 #include "sc_expression/AbstractExpression.h"
+#include "base/UnicodeString.h"
+
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 class UnicodeString;
+class PrimitiveReference;
 
 class NumberLiteral : public AbstractExpression {
 public:
+	static const UnicodeString l;
+	static const UnicodeString L;
+
 	NumberLiteral();
 	virtual ~NumberLiteral();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	void setValue(UnicodeString* str) noexcept;
@@ -26,8 +34,18 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	virtual AnalyzedType getType();
+
+	virtual void init(VirtualMachine* vm);
+	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 private:
 	UnicodeString* str;
+
+	int64_t value;
+	AnalyzedType atype;
+
+	PrimitiveReference* referene;
 };
 
 } /* namespace alinous */

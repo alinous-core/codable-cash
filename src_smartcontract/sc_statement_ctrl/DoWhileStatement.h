@@ -19,6 +19,7 @@ public:
 	virtual ~DoWhileStatement();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
 	void setExpression(AbstractExpression* exp) noexcept;
@@ -27,6 +28,9 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	virtual void init(VirtualMachine* vm);
+	virtual void interpret(VirtualMachine* vm);
 private:
 	AbstractExpression* exp;
 	AbstractStatement* stmt;

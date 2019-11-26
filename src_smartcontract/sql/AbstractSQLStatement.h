@@ -17,6 +17,8 @@ class AbstractSQLStatement : public AbstractStatement, public ISQLElement {
 public:
 	explicit AbstractSQLStatement(int kind);
 	virtual ~AbstractSQLStatement();
+
+	virtual void init(VirtualMachine* vm);
 };
 
 } /* namespace alinous */

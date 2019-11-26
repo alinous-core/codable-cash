@@ -4,7 +4,11 @@ AbstractType* typeDeclare() : {
 	AbstractType* dec = nullptr;
 }
 {
-	(		dec=charType()
+	(
+		dec=boolType()
+		|
+		dec=byteType()
+		|		dec=charType()
 		|
 		dec=shortType()
 		|
@@ -15,8 +19,69 @@ AbstractType* typeDeclare() : {
 		dec=stringType()
 		|
 		dec=voidType()
+		|
+		dec=objectType()
 	)
 	{
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+ObjectType* objectType() : {
+	ObjectType* dec = new ObjectType();
+	PackageNameDeclare* packageName = nullptr;
+	Token* t=nullptr;
+}
+{
+	(LOOKAHEAD(2)
+		 t=< IDENTIFIER > {
+		 	if(packageName == nullptr){
+		 		packageName = new PackageNameDeclare();
+		 		dec->setPackageName(packageName);
+		 	}
+		 	
+		 	dec->setPosition(t);
+		 	packageName->setPosition(t);
+		 	packageName->addSegment(_STR(t));
+		 }
+		 t="." {
+		 	dec->setPosition(t);
+		 }
+	)*
+	 t=< IDENTIFIER > {
+	 	dec->setName(_STR(t));
+	 	dec->setPosition(t);
+	 }
+	 {
+		__ONERROR(dec);
+		return dec;
+	 }
+}
+
+BoolType* boolType() : {
+	BoolType* dec = new BoolType();
+	Token* t=nullptr;
+}
+{
+	t="boolean" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+ByteType* byteType() : {
+	ByteType* dec = new ByteType();
+	Token* t=nullptr;
+}
+{
+	t="byte" {
+		dec->setPositions(_P(t, t));
 	}
 	{
 		__ONERROR(dec);

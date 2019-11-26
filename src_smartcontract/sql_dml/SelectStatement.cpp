@@ -34,11 +34,14 @@ SelectStatement::~SelectStatement() {
 }
 
 void SelectStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+
+}
+
+void SelectStatement::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void SelectStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void SelectStatement::setList(SQLSelectTargetList* list) noexcept {
@@ -161,6 +164,10 @@ void SelectStatement::fromBinary(ByteBuffer* in) {
 		 checkKind(element, CodeElement::SQL_PART_LIMIT_OFFSET);
 		 this->limitOffset = dynamic_cast<SQLLimitOffset*>(element);
 	}
+}
+
+void SelectStatement::interpret(VirtualMachine* vm) {
+	// FIXME SQL statement
 }
 
 } /* namespace alinous */

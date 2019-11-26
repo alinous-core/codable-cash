@@ -7,7 +7,11 @@
 
 #include "sc_declare_types/IntType.h"
 
+#include "base/UnicodeString.h"
+
 namespace alinous {
+
+const UnicodeString IntType::TYPE_NAME(L"String");
 
 IntType::IntType()  : AbstractPrimitiveType(CodeElement::TYPE_INT) {
 
@@ -30,5 +34,8 @@ void IntType::toBinary(ByteBuffer* out) {
 void IntType::fromBinary(ByteBuffer* in) {
 }
 
-} /* namespace alinous */
+const UnicodeString* IntType::toString() noexcept {
+	return &TYPE_NAME;
+}
 
+} /* namespace alinous */

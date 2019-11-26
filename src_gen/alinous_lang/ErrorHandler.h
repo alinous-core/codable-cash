@@ -34,7 +34,7 @@ JJSimpleString addUnicodeEscapes(const JJString& str);
       // production - the production in which this error occurrs.
       virtual void handleParseError(Token *last, Token *unexpected, const JJSimpleString& production, AlinousLang *parser) {
         error_count++;
-        fprintf(stderr, "Encountered: %s at: %d:%d while parsing: %s\n", addUnicodeEscapes(unexpected->image).c_str(), unexpected->beginLine, unexpected->beginColumn, production.c_str());
+        //fprintf(stderr, "Encountered: %s at: %d:%d while parsing: %s\n", addUnicodeEscapes(unexpected->image).c_str(), unexpected->beginLine, unexpected->beginColumn, production.c_str());
       }
       virtual int getErrorCount() {
         return error_count;

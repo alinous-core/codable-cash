@@ -9,16 +9,33 @@
 #define INSTANCE_VMCLASSINSTANCE_H_
 
 #include "instance/AbstractVmInstance.h"
+#include "instance/IInstanceContainer.h"
+#include "instance_parts/VMemList.h"
 
 namespace alinous {
 
-class VmClassInstance : public AbstractVmInstance {
+class AnalyzedClass;
+class AbstractReference;
+class VirtualMachine;
+class GcManager;
+
+class VmClassInstance : public AbstractVmInstance, public IInstanceContainer {
 public:
-	VmClassInstance();
+	VmClassInstance(AnalyzedClass* clazz, VirtualMachine* vm);
 	virtual ~VmClassInstance();
 
-private:
+	static VmClassInstance* createObject(AnalyzedClass* clazz, VirtualMachine* vm);
 
+	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
+	virtual void removeInnerRefs(GcManager* gc) noexcept;
+
+	AnalyzedClass* getAnalyzedClass() const noexcept;
+private:
+	void init(VirtualMachine* vm);
+
+private:
+	AnalyzedClass* const clazz;
+	VMemList<AbstractReference> members;
 };
 
 } /* namespace alinous */

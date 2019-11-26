@@ -8,6 +8,9 @@
 #include "sc_expression/MemberReferenceExpression.h"
 
 #include "sc_expression/AbstractExpression.h"
+#include "sc_analyze/AnalyzedType.h"
+
+#include "variable_access/VariableInstractionHolder.h"
 
 namespace alinous {
 
@@ -19,14 +22,23 @@ MemberReferenceExpression::~MemberReferenceExpression() {
 
 void MemberReferenceExpression::preAnalyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::preAnalyze(actx);
+}
 
-	//FIXME
+void MemberReferenceExpression::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void MemberReferenceExpression::analyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::analyze(actx);
 
-	//FIXME
+	int maxLoop = this->list.size();
+	VariableInstractionHolder* holder = getVariableInstractionHolder();
+
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->list.get(i);
+		holder->addExpression(exp, actx);
+	}
+
+	holder->analyze(actx);
 }
 
 int MemberReferenceExpression::binarySize() const {
@@ -43,6 +55,20 @@ void MemberReferenceExpression::toBinary(ByteBuffer* out) {
 
 void MemberReferenceExpression::fromBinary(ByteBuffer* in) {
 	AbstractBinaryExpression::fromBinary(in);
+}
+
+AnalyzedType MemberReferenceExpression::getType() {
+	VariableInstractionHolder* holder = getVariableInstractionHolder();
+	AnalyzedType* atype = holder->getAnalyzedType();
+
+	// analyze member ref type
+	return *atype;
+}
+
+AbstractVmInstance* MemberReferenceExpression::interpret(VirtualMachine* vm) {
+	VariableInstractionHolder* holder = getVariableInstractionHolder();
+
+	return holder->interpret(vm);
 }
 
 } /* namespace alinous */

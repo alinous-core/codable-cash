@@ -19,7 +19,13 @@ BreakStatement::~BreakStatement() {
 void BreakStatement::preAnalyze(AnalyzeContext* actx) {
 }
 
+void BreakStatement::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
 void BreakStatement::analyze(AnalyzeContext* actx) {
+}
+
+void BreakStatement::init(VirtualMachine* vm) {
 }
 
 int BreakStatement::binarySize() const {
@@ -33,6 +39,9 @@ void BreakStatement::toBinary(ByteBuffer* out) {
 }
 
 void BreakStatement::fromBinary(ByteBuffer* in) {
+}
+
+void BreakStatement::interpret(VirtualMachine* vm) {
 }
 
 } /* namespace alinous */

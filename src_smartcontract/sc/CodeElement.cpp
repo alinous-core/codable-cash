@@ -20,7 +20,13 @@
 #include "sc_declare/ArgumentDeclare.h"
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_declare/AccessControlDeclare.h"
+#include "sc_declare/ImportsDeclare.h"
+#include "sc_declare/ImportDeclare.h"
+#include "sc_declare/ClassExtends.h"
+#include "sc_declare/ClassImplements.h"
+#include "sc_declare/ClassName.h"
 
+#include "sc_declare_types/BoolType.h"
 #include "sc_declare_types/ByteType.h"
 #include "sc_declare_types/CharType.h"
 #include "sc_declare_types/ShortType.h"
@@ -28,6 +34,7 @@
 #include "sc_declare_types/LongType.h"
 #include "sc_declare_types/StringType.h"
 #include "sc_declare_types/VoidType.h"
+#include "sc_declare_types/ObjectType.h"
 
 #include "sc_statement/StatementBlock.h"
 #include "sc_statement/VariableDeclareStatement.h"
@@ -222,7 +229,25 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 	case ACCESS_CONTROL_DECLARE:
 		element = new AccessControlDeclare();
 		break;
+	case IMPORTS_DECLARE:
+		element = new ImportsDeclare();
+		break;
+	case IMPORT_DECLARE:
+		element = new ImportDeclare();
+		break;
+	case CLASS_EXTENDS:
+		element = new ClassExtends();
+		break;
+	case CLASS_IMPLEMENTS:
+		element = new ClassImplements();
+		break;
+	case CLASS_NAME:
+		element = new ClassName();
+		break;
 
+	case TYPE_BOOL:
+		element = new BoolType();
+		break;
 	case TYPE_BYTE:
 		element = new ByteType();
 		break;
@@ -243,6 +268,9 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		break;
 	case TYPE_VOID:
 		element = new VoidType();
+		break;
+	case TYPE_OBJECT:
+		element = new ObjectType();
 		break;
 
 	case STMT_BLOCK:
@@ -549,7 +577,7 @@ void CodeElement::checkKind(CodeElement* element, short kind) {
 }
 
 void CodeElement::checkIsType(CodeElement* element) {
-	if(!(element->kind >= TYPE_BYTE && element->kind < STMT_BLOCK)){
+	if(!(element->kind >= TYPE_BOOL && element->kind < STMT_BLOCK)){
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
@@ -580,6 +608,13 @@ void CodeElement::checkIsJoinPart(CodeElement* element) {
 	}
 }
 
+void CodeElement::checkIsImport(CodeElement* element) {
+	if(!(element->kind == IMPORT_DECLARE)){
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
+	}
+}
+
+
 void CodeElement::setParent(CodeElement* parent) noexcept {
 	this->parent = parent;
 }
@@ -601,7 +636,11 @@ CompilationUnit* CodeElement::getCompilationUnit() {
 	return dynamic_cast<CompilationUnit*>(element);
 }
 
-ClassDeclare* CodeElement::getClassDeclare() {
+short CodeElement::getKind() noexcept {
+	return this->kind;
+}
+
+ClassDeclare* CodeElement::getClassDeclare() const {
 	CodeElement* element = this->parent;
 	while(element->kind != CodeElement::CLASS_DECLARE && element != nullptr){
 		element = element->getParent();

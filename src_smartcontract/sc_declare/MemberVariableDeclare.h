@@ -16,6 +16,8 @@ class AbstractType;
 class AccessControlDeclare;
 class UnicodeString;
 class AnalyzeContext;
+class AnalyzedType;
+class VirtualMachine;
 
 class MemberVariableDeclare : public CodeElement {
 public:
@@ -23,12 +25,18 @@ public:
 	virtual ~MemberVariableDeclare();
 
 	void preAnalyze(AnalyzeContext* actx);
+	void analyzeTypeRef(AnalyzeContext* actx);
 	void analyze(AnalyzeContext* actx);
+
+	void init(VirtualMachine* vm);
 
 	void setAccessControl(AccessControlDeclare* ctrl) noexcept;
 	void setType(AbstractType* type) noexcept;
 	void setStatic(bool s) noexcept;
 	void setName(UnicodeString* name) noexcept;
+
+	const UnicodeString* getName() noexcept;
+	AbstractType* getType() noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
@@ -38,6 +46,8 @@ private:
 	AbstractType* type;
 	bool _static;
 	UnicodeString* name;
+
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

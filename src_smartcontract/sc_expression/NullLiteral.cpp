@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression/NullLiteral.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -16,11 +17,15 @@ NullLiteral::~NullLiteral() {
 }
 
 void NullLiteral::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
+void NullLiteral::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+
 void NullLiteral::analyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 int NullLiteral::binarySize() const {
@@ -36,5 +41,16 @@ void NullLiteral::toBinary(ByteBuffer* out) {
 void NullLiteral::fromBinary(ByteBuffer* in) {
 }
 
+AnalyzedType NullLiteral::getType() {
+	return AnalyzedType(AnalyzedType::TYPE_NULL);
+}
+
+void NullLiteral::init(VirtualMachine* vm) {
+	// FIXME null literal
+}
+
+AbstractVmInstance* NullLiteral::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
 
 } /* namespace alinous */

@@ -5,6 +5,7 @@
  *      Author: iizuka
  */
 #include "sc_expression_logical/RelationalExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -20,11 +21,21 @@ RelationalExpression::~RelationalExpression() {
 }
 
 void RelationalExpression::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->left->setParent(this);
+	this->left->preAnalyze(actx);
+
+	this->right->setParent(this);
+	this->right->preAnalyze(actx);
 }
 
 void RelationalExpression::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->left->analyze(actx);
+	this->right->analyze(actx);
+}
+
+void RelationalExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	this->left->analyzeTypeRef(actx);
+	this->right->analyzeTypeRef(actx);
 }
 
 void RelationalExpression::setLeft(AbstractExpression* exp) noexcept {
@@ -71,6 +82,19 @@ void RelationalExpression::fromBinary(ByteBuffer* in) {
 	this->right = dynamic_cast<AbstractExpression*>(element);
 
 	this->op = in->get();
+}
+
+AnalyzedType RelationalExpression::getType() {
+	return AnalyzedType(AnalyzedType::TYPE_BOOL);
+}
+
+void RelationalExpression::init(VirtualMachine* vm) {
+	this->left->init(vm);
+	this->right->init(vm);
+}
+
+AbstractVmInstance* RelationalExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
 }
 
 } /* namespace alinous */

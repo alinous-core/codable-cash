@@ -9,20 +9,20 @@
 #define INSTANCE_REF_ABSTRACTREFERENCE_H_
 #include <cstdint>
 
+#include "instance/AbstractVmInstance.h"
+
 namespace alinous {
 
-class AbstractReference {
+class AbstractReference : public AbstractVmInstance {
 public:
-	static constexpr uint8_t REF_OBJ{1};
-	static constexpr uint8_t REF_BYTE{2};
-	static constexpr uint8_t REF_CHAR{3};
-	static constexpr uint8_t REF_SHORT{4};
-	static constexpr uint8_t REF_INT{5};
-	static constexpr uint8_t REF_LONG{6};
-
-
-	AbstractReference();
+	explicit AbstractReference(uint8_t type);
 	virtual ~AbstractReference();
+
+	virtual bool isPrimitive() const noexcept;
+	virtual AbstractVmInstance* getInstance() noexcept;
+	virtual bool isReference() const noexcept;
+
+	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
 };
 
 } /* namespace alinous */

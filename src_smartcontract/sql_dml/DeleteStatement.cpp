@@ -23,11 +23,14 @@ DeleteStatement::~DeleteStatement() {
 }
 
 void DeleteStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+
+}
+
+void DeleteStatement::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void DeleteStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void DeleteStatement::setFrom(SQLFrom* from) noexcept {
@@ -75,6 +78,10 @@ void DeleteStatement::fromBinary(ByteBuffer* in) {
 		 checkKind(element, CodeElement::SQL_PART_WHERE);
 		 this->where = dynamic_cast<SQLWhere*>(element);
 	}
+}
+
+void DeleteStatement::interpret(VirtualMachine* vm) {
+	// FIXME SQL statement
 }
 
 } /* namespace alinous */

@@ -3,10 +3,12 @@
 set(__src
 	AbstractPrimitiveType.cpp
 	AbstractType.cpp
+	BoolType.cpp
 	ByteType.cpp
 	CharType.cpp
 	IntType.cpp
 	LongType.cpp
+	ObjectType.cpp
 	ShortType.cpp
 	StringType.cpp
 	VoidType.cpp

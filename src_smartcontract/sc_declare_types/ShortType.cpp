@@ -7,7 +7,11 @@
 
 #include "sc_declare_types/ShortType.h"
 
+#include "base/UnicodeString.h"
+
 namespace alinous {
+
+const UnicodeString ShortType::TYPE_NAME(L"short");
 
 ShortType::ShortType() : AbstractPrimitiveType(CodeElement::TYPE_SHORT) {
 }
@@ -27,5 +31,10 @@ void ShortType::toBinary(ByteBuffer* out) {
 
 void ShortType::fromBinary(ByteBuffer* in) {
 }
+
+const UnicodeString* ShortType::toString() noexcept {
+	return &TYPE_NAME;
+}
+
 
 } /* namespace alinous */

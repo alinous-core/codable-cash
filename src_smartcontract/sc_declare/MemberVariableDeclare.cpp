@@ -8,12 +8,18 @@
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_declare/AccessControlDeclare.h"
 #include "sc_declare_types/AbstractType.h"
+
 #include "base/UnicodeString.h"
 
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedClass.h"
+#include "sc_analyze/TypeResolver.h"
+#include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
 
 #include "sc/exceptions.h"
+
+#include "vm/VirtualMachine.h"
 
 namespace alinous {
 
@@ -22,30 +28,45 @@ MemberVariableDeclare::MemberVariableDeclare() : CodeElement(CodeElement::MEMBER
 	this->type = nullptr;
 	this->_static = false;
 	this->name = nullptr;
+	this->atype = nullptr;
 }
 
 MemberVariableDeclare::~MemberVariableDeclare() {
-	if(this->ctrl){
-		delete this->ctrl;
-	}
-	if(this->type){
-		delete this->type;
-	}
-	if(this->name){
-		delete this->name;
-	}
+	delete this->ctrl;
+	delete this->type;
+	delete this->name;
+	delete this->atype;
 }
-
 
 void MemberVariableDeclare::preAnalyze(AnalyzeContext* actx) {
 	AnalyzedClass* aclass = actx->getAnalyzedClass(this);
+	aclass->addMemberVariableDeclare(this);
+}
 
+void MemberVariableDeclare::analyzeTypeRef(AnalyzeContext* actx) {
+	TypeResolver* typeResolver = actx->getTypeResolver();
 
+	this->atype = typeResolver->resolveType(this, this->type);
+	if(this->atype == nullptr){
+		actx->addValidationError(ValidationError::CODE_WRONG_TYPE_NAME, this, L"The type '{0}' does not exists.", {this->type->toString()});
+	}
+	else if(this->atype->getType() == AnalyzedType::TYPE_VOID){
+		actx->addValidationError(ValidationError::CODE_WRONG_TYPE_NAME, this, L"Cannot use void for type declare.", {});
+	}
 }
 
 void MemberVariableDeclare::analyze(AnalyzeContext* actx) {
 
 }
+
+void MemberVariableDeclare::init(VirtualMachine* vm) {
+	if(!this->_static){
+		return;
+	}
+
+	// FIXME handle a static member
+}
+
 
 void MemberVariableDeclare::setAccessControl(AccessControlDeclare* ctrl) noexcept {
 	this->ctrl = ctrl;
@@ -63,6 +84,13 @@ void MemberVariableDeclare::setName(UnicodeString* name) noexcept {
 	this->name = name;
 }
 
+const UnicodeString* MemberVariableDeclare::getName() noexcept {
+	return this->name;
+}
+
+AbstractType* MemberVariableDeclare::getType() noexcept {
+	return this->type;
+}
 
 int MemberVariableDeclare::binarySize() const {
 	checkNotNull(this->ctrl);

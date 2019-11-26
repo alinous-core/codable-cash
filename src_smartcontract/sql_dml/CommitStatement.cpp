@@ -16,11 +16,12 @@ CommitStatement::~CommitStatement() {
 }
 
 void CommitStatement::preAnalyze(AnalyzeContext* actx) {
-	//FIXME
+}
+
+void CommitStatement::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void CommitStatement::analyze(AnalyzeContext* actx) {
-	// FIXME
 }
 
 int CommitStatement::binarySize() const {
@@ -34,6 +35,10 @@ void CommitStatement::toBinary(ByteBuffer* out) {
 }
 
 void CommitStatement::fromBinary(ByteBuffer* in) {
+}
+
+void CommitStatement::interpret(VirtualMachine* vm) {
+	// FIXME SQL statement
 }
 
 } /* namespace alinous */

@@ -16,11 +16,12 @@ BeginStatement::~BeginStatement() {
 }
 
 void BeginStatement::preAnalyze(AnalyzeContext* actx) {
-	// FIXME preAnalyze
+}
+
+void BeginStatement::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void BeginStatement::analyze(AnalyzeContext* actx) {
-	// FIXME Analyze
 }
 
 int BeginStatement::binarySize() const {
@@ -34,6 +35,10 @@ void BeginStatement::toBinary(ByteBuffer* out) {
 }
 
 void BeginStatement::fromBinary(ByteBuffer* in) {
+}
+
+void BeginStatement::interpret(VirtualMachine* vm) {
+	// FIXME SQL statement
 }
 
 } /* namespace alinous */

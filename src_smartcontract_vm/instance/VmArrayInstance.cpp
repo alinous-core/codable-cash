@@ -16,4 +16,9 @@ VmArrayInstance::~VmArrayInstance() {
 
 }
 
+const VMemList<AbstractReference>* VmArrayInstance::getReferences() const noexcept {
+	// FIXME getReferences()
+	return nullptr;
+}
+
 } /* namespace alinous */

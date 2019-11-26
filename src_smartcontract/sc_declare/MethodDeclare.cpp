@@ -9,8 +9,19 @@
 #include "sc_declare/AccessControlDeclare.h"
 #include "sc_declare/ArgumentsListDeclare.h"
 #include "sc_declare_types/AbstractType.h"
+#include "sc_declare/ClassDeclare.h"
+
 #include "sc_statement/StatementBlock.h"
 #include "base/UnicodeString.h"
+
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/AnalyzedClass.h"
+#include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/TypeResolver.h"
+#include "sc_analyze/ValidationError.h"
+
+#include "sc/exceptions.h"
+
 
 namespace alinous {
 
@@ -21,38 +32,62 @@ MethodDeclare::MethodDeclare() : CodeElement(CodeElement::METHOD_DECLARE) {
 	this->type = nullptr;
 	this->args = nullptr;
 	this->block = nullptr;
+	this->atype = nullptr;
 }
 
 MethodDeclare::~MethodDeclare() {
-	if(this->name){
-		delete this->name;
-	}
-	if(this->ctrl){
-		delete this->ctrl;
-	}
-	if(this->type){
-		delete this->type;
-	}
-	if(this->args){
-		delete this->args;
-	}
-	if(this->block){
-		delete this->block;
-	}
+	delete this->name;
+	delete this->ctrl;
+	delete this->type;
+	delete this->args;
+	delete this->block;
+	delete this->atype;
 }
 
 
 void MethodDeclare::preAnalyze(AnalyzeContext* actx) {
+	AnalyzedClass* aclass = actx->getAnalyzedClass(this);
+	aclass->addMemberMethodDeclare(this);
+
 	this->args->setParent(this);
 	this->args->preAnalyze(actx);
 
-	// FIXME preAnalyze
+	if(this->block != nullptr){
+		this->block->setParent(this);
+		this->block->preAnalyze(actx);
+	}
+}
+
+void MethodDeclare::analyzeTypeRef(AnalyzeContext* actx) {
+	TypeResolver* typeResolver = actx->getTypeResolver();
+
+	if(!isConstructor()){
+		this->atype = typeResolver->resolveType(this, this->type);
+		if(this->atype == nullptr){
+			actx->addValidationError(ValidationError::CODE_WRONG_TYPE_NAME, this, L"The type '{0}' does not exists.", {this->type->toString()});
+		}
+	}
+
+	this->args->analyzeTypeRef(actx);
+
+	if(this->block != nullptr){
+		// set this pointer on analysis phase
+		AnalyzedClass* aclass = actx->getAnalyzedClass(this);
+		actx->setThisClass(aclass);
+
+		this->block->analyzeTypeRef(actx);
+	}
 }
 
 void MethodDeclare::analyze(AnalyzeContext* actx) {
 	this->args->analyze(actx);
 
-	// FIXME analyze
+	AnalyzedClass* aclass = actx->getAnalyzedClass(this);
+	actx->setThisClass(aclass);
+
+	if(this->block != nullptr){
+		this->block->analyze(actx);
+	}
 }
 
 void MethodDeclare::setStatic(bool s) noexcept {
@@ -78,6 +113,39 @@ void MethodDeclare::setArguments(ArgumentsListDeclare* args) noexcept {
 void MethodDeclare::setBlock(StatementBlock* block) noexcept {
 	this->block = block;
 }
+
+StatementBlock* MethodDeclare::getBlock() const noexcept {
+	return this->block;
+}
+
+
+bool MethodDeclare::isConstructor() const {
+	ClassDeclare* dec = getClassDeclare();
+	if(dec == nullptr){
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
+	}
+
+	const UnicodeString* clsName = dec->getName();
+	return clsName->equals(this->name);
+}
+
+const UnicodeString* MethodDeclare::getName() const noexcept {
+	return this->name;
+}
+
+
+bool MethodDeclare::isStatic() const noexcept {
+	return this->_static;
+}
+
+ArgumentsListDeclare* MethodDeclare::getArguments() const noexcept {
+	return this->args;
+}
+
+AnalyzedType* MethodDeclare::getReturnedType() const noexcept {
+	return this->atype;
+}
+
 
 int MethodDeclare::binarySize() const {
 	checkNotNull(this->name);
@@ -146,5 +214,16 @@ void MethodDeclare::fromBinary(ByteBuffer* in) {
 		this->block = dynamic_cast<StatementBlock*>(element);
 	}
 }
+
+void MethodDeclare::init(VirtualMachine* vm) {
+	this->block->init(vm);
+}
+
+void MethodDeclare::interpret(FunctionArguments* args, VirtualMachine* vm) {
+	StatementBlock* block = getBlock();
+
+	block->interpret(vm);
+}
+
 
 } /* namespace alinous */

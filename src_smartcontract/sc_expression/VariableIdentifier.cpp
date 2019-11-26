@@ -8,7 +8,11 @@
 #include "sc_expression/VariableIdentifier.h"
 #include "base/UnicodeString.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
 namespace alinous {
+
+const UnicodeString VariableIdentifier::__THIS(L"this");
 
 VariableIdentifier::VariableIdentifier() : AbstractExpression(CodeElement::EXP_VARIABLE_ID) {
 	this->name = nullptr;
@@ -18,16 +22,23 @@ VariableIdentifier::~VariableIdentifier() {
 	delete this->name;
 }
 
-void alinous::VariableIdentifier::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+void VariableIdentifier::preAnalyze(AnalyzeContext* actx) {
+
 }
 
-void alinous::VariableIdentifier::analyze(AnalyzeContext* actx) {
-	// FIXME
+void VariableIdentifier::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void VariableIdentifier::analyze(AnalyzeContext* actx) {
+
 }
 
 void VariableIdentifier::setName(UnicodeString* name) noexcept {
 	this->name = name;
+}
+
+UnicodeString* alinous::VariableIdentifier::getName() const noexcept {
+	return this->name;
 }
 
 int VariableIdentifier::binarySize() const {
@@ -49,5 +60,23 @@ void VariableIdentifier::toBinary(ByteBuffer* out) {
 void VariableIdentifier::fromBinary(ByteBuffer* in) {
 	this->name = getString(in);
 }
+
+AnalyzedType VariableIdentifier::getType() {
+	// FIXME analyze variable id type
+	return AnalyzedType();
+}
+
+void VariableIdentifier::init(VirtualMachine* vm) {
+}
+
+AbstractVmInstance* VariableIdentifier::interpret(VirtualMachine* vm) {
+	// FIXME interpret
+	return nullptr;
+}
+
+bool VariableIdentifier::isThis() const noexcept {
+	return __THIS.equals(this->name);
+}
+
 
 } /* namespace alinous */

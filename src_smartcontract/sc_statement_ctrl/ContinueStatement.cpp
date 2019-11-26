@@ -19,6 +19,9 @@ ContinueStatement::~ContinueStatement() {
 void ContinueStatement::preAnalyze(AnalyzeContext* actx) {
 }
 
+void ContinueStatement::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
 void ContinueStatement::analyze(AnalyzeContext* actx) {
 }
 
@@ -33,6 +36,12 @@ void ContinueStatement::toBinary(ByteBuffer* out) {
 }
 
 void ContinueStatement::fromBinary(ByteBuffer* in) {
+}
+
+void ContinueStatement::init(VirtualMachine* vm) {
+}
+
+void ContinueStatement::interpret(VirtualMachine* vm) {
 }
 
 } /* namespace alinous */

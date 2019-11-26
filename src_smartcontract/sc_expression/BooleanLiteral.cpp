@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression/BooleanLiteral.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -17,11 +18,14 @@ BooleanLiteral::~BooleanLiteral() {
 }
 
 void BooleanLiteral::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+
+}
+
+void BooleanLiteral::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void BooleanLiteral::analyze(AnalyzeContext* actx) {
-	// FIXME
+
 }
 
 void BooleanLiteral::setValue(bool v) noexcept {
@@ -45,5 +49,16 @@ void BooleanLiteral::fromBinary(ByteBuffer* in) {
 	this->value = (val == 1);
 }
 
+AnalyzedType BooleanLiteral::getType() {
+	return AnalyzedType(AnalyzedType::TYPE_BOOL);
+}
+
+void BooleanLiteral::init(VirtualMachine* vm) {
+	// FIXME register const
+}
+
+AbstractVmInstance* BooleanLiteral::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
+}
 
 } /* namespace alinous */

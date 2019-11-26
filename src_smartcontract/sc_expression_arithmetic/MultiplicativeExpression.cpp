@@ -19,8 +19,14 @@ void MultiplicativeExpression::preAnalyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::preAnalyze(actx);
 }
 
+void MultiplicativeExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	// FIXME expression : analyze type
+}
+
 void MultiplicativeExpression::analyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::analyze(actx);
+
+	// FIXME analyze type
 }
 
 void MultiplicativeExpression::addOpe(uint8_t ope) noexcept {
@@ -61,6 +67,14 @@ void MultiplicativeExpression::fromBinary(ByteBuffer* in) {
 		uint8_t op = in->get();
 		this->operations.addElement(op);
 	}
+}
+
+AnalyzedType MultiplicativeExpression::getType() {
+	return this->atype;
+}
+
+AbstractVmInstance* MultiplicativeExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
 }
 
 } /* namespace alinous */

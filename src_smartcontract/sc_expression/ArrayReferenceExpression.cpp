@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression/ArrayReferenceExpression.h"
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -19,11 +20,29 @@ ArrayReferenceExpression::~ArrayReferenceExpression() {
 }
 
 void ArrayReferenceExpression::preAnalyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* ex = this->list.get(i);
+		ex->setParent(this);
+		ex->preAnalyze(actx);
+	}
+}
+
+void ArrayReferenceExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	// FIXME expression : analyze type
 }
 
 void ArrayReferenceExpression::analyze(AnalyzeContext* actx) {
-	// FIXME
+	this->exp->analyze(actx);
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* ex = this->list.get(i);
+		ex->analyze(actx);
+	}
 }
 
 void ArrayReferenceExpression::setExp(AbstractExpression* exp) noexcept {
@@ -78,6 +97,25 @@ void ArrayReferenceExpression::fromBinary(ByteBuffer* in) {
 		AbstractExpression* ex = dynamic_cast<AbstractExpression*>(element);
 		this->list.addElement(ex);
 	}
+}
+
+AnalyzedType ArrayReferenceExpression::getType() {
+	// FIXME analyze array ref type
+	return AnalyzedType();
+}
+
+void ArrayReferenceExpression::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* ex = this->list.get(i);
+		ex->init(vm);
+	}
+}
+
+AbstractVmInstance* ArrayReferenceExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
 }
 
 } /* namespace alinous */

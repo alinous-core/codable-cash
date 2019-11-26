@@ -19,8 +19,14 @@ void ExclusiveOrExpression::preAnalyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::preAnalyze(actx);
 }
 
+void ExclusiveOrExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	// FIXME expression : analyze type
+}
+
 void ExclusiveOrExpression::analyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::analyze(actx);
+
+	// FIXME analyze type
 }
 
 int ExclusiveOrExpression::binarySize() const {
@@ -37,6 +43,14 @@ void ExclusiveOrExpression::toBinary(ByteBuffer* out) {
 
 void ExclusiveOrExpression::fromBinary(ByteBuffer* in) {
 	AbstractBinaryExpression::fromBinary(in);
+}
+
+AnalyzedType ExclusiveOrExpression::getType() {
+	return this->atype;
+}
+
+AbstractVmInstance* ExclusiveOrExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
 }
 
 } /* namespace alinous */
