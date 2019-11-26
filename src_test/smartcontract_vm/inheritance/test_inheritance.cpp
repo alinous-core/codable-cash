@@ -25,6 +25,7 @@ TEST(TestInheritanceGroup, inheritance){
 	VmTestUtils util(L"src_test/smartcontract_vm/inheritance/resources/", projectFolder);
 
 	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
 	// FIXME test
 
 }
