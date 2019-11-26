@@ -32,12 +32,15 @@ public:
 	void addMemberMethodDeclare(MethodDeclare* method);
 
 	void setExtends(AnalyzedClass* clazz) noexcept;
+	AnalyzedClass* getExtends() const noexcept;
 	void addImplements(AnalyzedClass* clazz) noexcept;
 
 	MethodDeclare* getDefaultConstructor() noexcept;
 	MethodDeclare* findMethodDeclare(const UnicodeString* name, ArrayList<AbstractReference>* arguments) noexcept;
 
 	ClassDeclare* getClassDeclare() const noexcept;
+	int getInheritIndex() const noexcept;
+	void setInheritIndex(int inheritIndex) noexcept;
 
 	const UnicodeString* toString() noexcept;
 private:

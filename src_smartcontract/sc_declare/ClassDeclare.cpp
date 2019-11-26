@@ -28,6 +28,7 @@ ClassDeclare::ClassDeclare() : CodeElement(CodeElement::CLASS_DECLARE) {
 	this->name = nullptr;
 	this->extends = nullptr;
 	this->implements = nullptr;
+	this->inheritIndex = -1;
 }
 
 ClassDeclare::~ClassDeclare() {
@@ -219,5 +220,12 @@ ClassDeclare* ClassDeclare::getBaseClass() const noexcept {
 	return aclazz->getClassDeclare();
 }
 
+int ClassDeclare::getInheritIndex() const noexcept {
+	return this->inheritIndex;
+}
+
+void ClassDeclare::setInheritIndex(int inheritIndex) noexcept {
+	this->inheritIndex = inheritIndex;
+}
 
 } /* namespace alinous */

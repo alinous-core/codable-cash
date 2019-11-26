@@ -47,12 +47,16 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 	ClassDeclare* getBaseClass() const noexcept;
+	int getInheritIndex() const noexcept;
+	void setInheritIndex(int inheritIndex) noexcept;
 private:
 	bool interface;
 	ClassDeclareBlock* block;
 	UnicodeString* name;
 	ClassExtends* extends;
 	ClassImplements* implements;
+
+	int inheritIndex;
 };
 
 } /* namespace alinous */

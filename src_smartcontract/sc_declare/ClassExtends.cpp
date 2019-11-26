@@ -26,7 +26,6 @@ ClassExtends::~ClassExtends() {
 }
 
 void ClassExtends::preAnalyze(AnalyzeContext* actx) {
-
 }
 
 

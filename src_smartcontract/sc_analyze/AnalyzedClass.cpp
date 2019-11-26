@@ -98,6 +98,10 @@ void AnalyzedClass::setExtends(AnalyzedClass* clazz) noexcept {
 	this->extends = clazz;
 }
 
+AnalyzedClass* AnalyzedClass::getExtends() const noexcept {
+	return this->extends;
+}
+
 void AnalyzedClass::addImplements(AnalyzedClass* clazz) noexcept {
 	this->implements.addElement(clazz);
 }
@@ -114,6 +118,14 @@ MethodDeclare* AnalyzedClass::getDefaultConstructor() noexcept {
 	}
 
 	return nullptr;
+}
+
+int AnalyzedClass::getInheritIndex() const noexcept {
+	return this->clazz->getInheritIndex();
+}
+
+void AnalyzedClass::setInheritIndex(int inheritIndex) noexcept {
+	this->clazz->setInheritIndex(inheritIndex);
 }
 
 const UnicodeString* AnalyzedClass::toString() noexcept {

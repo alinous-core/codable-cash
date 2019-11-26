@@ -12,6 +12,7 @@
 
 #include "sc_declare/ClassDeclare.h"
 
+#include "base/ArrayList.h"
 namespace alinous {
 
 PackageSpace::PackageSpace(const UnicodeString* name) {
@@ -63,9 +64,27 @@ void PackageSpace::analyzeClassInheritance(AnalyzeContext* actx) noexcept {
 }
 
 void PackageSpace::doAnalyzeClassInheritance(AnalyzedClass* cls) noexcept {
+	ArrayList<AnalyzedClass> list;
+	list.addElement(cls);
 
+	AnalyzedClass* clazz = cls->getExtends();
 
-	// FIXME
+	while(clazz != nullptr){
+		list.addElement(clazz);
+		clazz = clazz->getExtends();
+	}
+
+	int maxLoop = list.size();
+	int idxCount = 0;
+	for(int i = maxLoop - 1; i >= 0; --i){
+		clazz = list.get(i);
+
+		int idx = clazz->getInheritIndex();
+		assert(idx < 0 || idx == idxCount);
+
+		clazz->setInheritIndex(idxCount);
+		idxCount++;
+	}
 }
 
 } /* namespace alinous */
