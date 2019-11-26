@@ -14,6 +14,7 @@
 #include "sc_declare/MethodDeclare.h"
 #include "sc_declare/ArgumentsListDeclare.h"
 #include "sc_declare/ClassDeclare.h"
+#include "sc_declare/ArgumentDeclare.h"
 
 #include "base/UnicodeString.h"
 #include "base/ArrayList.h"
@@ -143,15 +144,66 @@ MethodDeclare* AnalyzedClass::findMethodDeclare(const UnicodeString* name, Array
 	}
 }
 
+MethodDeclare* AnalyzedClass::findMethodDeclare(const UnicodeString* name, ArrayList<AnalyzedType>* arguments) noexcept {
+
+}
+
+
 void AnalyzedClass::buildVtable(AnalyzeContext* actx) noexcept {
+	ClassDeclare* clazzDec = this->clazz;
+
+	ArrayList<MethodDeclare>* list = clazzDec->getMethods();
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		MethodDeclare* method = list->get(i);
+
+		if(!method->isStatic() && !method->isConstructor()){
+			bulidMethodVTable(actx, method);
+		}
+	}
+
+}
+
+void AnalyzedClass::bulidMethodVTable(AnalyzeContext* actx,	MethodDeclare* method) noexcept {
 	VTableRegistory* vreg = actx->getVtableRegistory();
 
+	AnalyzedClass* clazz = findBaseClassOfMethod(this, method);
+	// FIXME vtable
+
+}
+
+AnalyzedClass* AnalyzedClass::findBaseClassOfMethod(AnalyzedClass* currentClass, MethodDeclare* method) noexcept {
+	AnalyzedClass* clazz= currentClass->getExtends();
+
+	const UnicodeString* methodName = method->getName();
+	ArgumentsListDeclare* argDec = method->getArguments();
+	const ArrayList<ArgumentDeclare>* argList = argDec->getArguments();
+	AnalyzedType* returnedType = method->getReturnedType();
+
+	ArrayList<AnalyzedType> typeList;
+	typeList.setDeleteOnExit();
+
+	int maxLoop = argList->size();
+	for(int i = 0; i != maxLoop; ++i){
+		ArgumentDeclare* dec = argList->get(i);
+		const AnalyzedType* type = dec->getAnalyzedType();
+		AnalyzedType* at = new AnalyzedType(*type);
+
+		typeList.addElement(at);
+	}
+
+	while(clazz != nullptr){
+		MethodDeclare* m = clazz->findMethodDeclare(methodName, &typeList);
+
+		clazz = clazz->getExtends();
+	}
+
+	return clazz;
 }
 
 
 ClassDeclare* AnalyzedClass::getClassDeclare() const noexcept {
 	return this->clazz;
 }
-
 
 } /* namespace alinous */

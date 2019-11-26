@@ -21,6 +21,7 @@ class ClassExtends;
 class ClassImplements;
 class VirtualMachine;
 class AnalyzedType;
+class MethodDeclare;
 
 class ClassDeclare : public CodeElement {
 public:
@@ -49,6 +50,8 @@ public:
 	ClassDeclare* getBaseClass() const noexcept;
 	int getInheritIndex() const noexcept;
 	void setInheritIndex(int inheritIndex) noexcept;
+
+	ArrayList<MethodDeclare>* getMethods() noexcept;
 private:
 	bool interface;
 	ClassDeclareBlock* block;

@@ -21,6 +21,7 @@ class MethodDeclare;
 class AbstractReference;
 template <typename T, typename C> class ArrayList;
 class AnalyzeContext;
+class AnalyzedType;
 
 class AnalyzedClass {
 public:
@@ -38,6 +39,8 @@ public:
 
 	MethodDeclare* getDefaultConstructor() noexcept;
 	MethodDeclare* findMethodDeclare(const UnicodeString* name, ArrayList<AbstractReference>* arguments) noexcept;
+	MethodDeclare* findMethodDeclare(const UnicodeString* name, ArrayList<AnalyzedType>* arguments) noexcept;
+
 
 	void buildVtable(AnalyzeContext* actx) noexcept;
 
@@ -47,6 +50,12 @@ public:
 
 
 	const UnicodeString* toString() noexcept;
+
+private:
+	void bulidMethodVTable(AnalyzeContext* actx, MethodDeclare* method) noexcept;
+	AnalyzedClass* findBaseClassOfMethod(AnalyzedClass* currentClass, MethodDeclare* method) noexcept;
+
+
 private:
 	ClassDeclare* clazz;
 

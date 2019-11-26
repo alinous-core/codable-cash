@@ -85,6 +85,11 @@ void ClassDeclareBlock::addMethod(MethodDeclare* method) noexcept {
 	this->methods.addElement(method);
 }
 
+ArrayList<MethodDeclare>* ClassDeclareBlock::getMethods() noexcept {
+	return &this->methods;
+}
+
+
 void ClassDeclareBlock::addVariable(MemberVariableDeclare* variable) noexcept {
 	this->variables.addElement(variable);
 }

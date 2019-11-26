@@ -228,4 +228,8 @@ void ClassDeclare::setInheritIndex(int inheritIndex) noexcept {
 	this->inheritIndex = inheritIndex;
 }
 
+ArrayList<MethodDeclare>* ClassDeclare::getMethods() noexcept {
+	return this->block->getMethods();
+}
+
 } /* namespace alinous */
