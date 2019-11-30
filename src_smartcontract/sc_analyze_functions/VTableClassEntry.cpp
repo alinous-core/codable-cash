@@ -7,15 +7,16 @@
 
 #include "sc_analyze_functions/VTableClassEntry.h"
 
+#include "sc_analyze/AnalyzedClass.h"
+
 namespace alinous {
 
-VTableClassEntry::VTableClassEntry() {
-	// TODO Auto-generated constructor stub
-
+VTableClassEntry::VTableClassEntry(AnalyzedClass* aclass) {
+	this->aclass = aclass;
 }
 
 VTableClassEntry::~VTableClassEntry() {
-	// TODO Auto-generated destructor stub
+	this->aclass = nullptr;
 }
 
 } /* namespace alinous */

@@ -21,6 +21,7 @@ class ByteBuffer;
 class UnicodeString;
 class CompilationUnit;
 class ClassDeclare;
+class PackageDeclare;
 
 class CodeElement {
 public:
@@ -181,6 +182,7 @@ public:
 
 	CompilationUnit* getCompilationUnit();
 	ClassDeclare* getClassDeclare() const;
+	PackageDeclare* getPackageDeclare() const noexcept;
 protected:
 	short kind;
 

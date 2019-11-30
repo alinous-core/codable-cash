@@ -38,8 +38,8 @@ public:
 	void addImplements(AnalyzedClass* clazz) noexcept;
 
 	MethodDeclare* getDefaultConstructor() noexcept;
-	MethodDeclare* findMethodDeclare(const UnicodeString* name, ArrayList<AbstractReference>* arguments) noexcept;
-	MethodDeclare* findMethodDeclare(const UnicodeString* name, ArrayList<AnalyzedType>* arguments) noexcept;
+	MethodDeclare* findMethodDeclareLocal(const UnicodeString* name, ArrayList<AbstractReference>* arguments) noexcept;
+	MethodDeclare* findMethodDeclareLocal(const UnicodeString* name, ArrayList<AnalyzedType>* arguments, bool strictMatch) noexcept;
 
 
 	void buildVtable(AnalyzeContext* actx) noexcept;

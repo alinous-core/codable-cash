@@ -653,4 +653,16 @@ ClassDeclare* CodeElement::getClassDeclare() const {
 	return dynamic_cast<ClassDeclare*>(element);
 }
 
+
+
+PackageDeclare* CodeElement::getPackageDeclare() const noexcept {
+	CodeElement* element = this->parent;
+	while(element->kind != CodeElement::PACKAGE_DECLARE && element != nullptr){
+		element = element->getParent();
+	}
+
+	return dynamic_cast<PackageDeclare*>(element);
+}
+
+
 } /* namespace alinous */

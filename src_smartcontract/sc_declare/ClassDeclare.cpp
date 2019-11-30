@@ -29,6 +29,7 @@ ClassDeclare::ClassDeclare() : CodeElement(CodeElement::CLASS_DECLARE) {
 	this->extends = nullptr;
 	this->implements = nullptr;
 	this->inheritIndex = -1;
+	this->fqn = nullptr;
 }
 
 ClassDeclare::~ClassDeclare() {
@@ -40,6 +41,7 @@ ClassDeclare::~ClassDeclare() {
 	}
 	delete this->extends;
 	delete this->implements;
+	delete this->fqn;
 }
 
 void ClassDeclare::preAnalyze(AnalyzeContext* actx) {
@@ -123,6 +125,19 @@ void alinous::ClassDeclare::setName(UnicodeString* name) noexcept {
 const UnicodeString* ClassDeclare::getName() noexcept {
 	return this->name;
 }
+
+
+const UnicodeString* ClassDeclare::getFullQualifiedName() noexcept {
+	if(this->fqn == nullptr){
+		this->fqn = new UnicodeString(L"");
+
+
+	}
+	// FIXME
+
+	return this->fqn;
+}
+
 
 int ClassDeclare::binarySize() const {
 	checkNotNull(this->block);

@@ -42,6 +42,7 @@ public:
 	void setImplements(ClassImplements* implements) noexcept;
 
 	const UnicodeString* getName() noexcept;
+	const UnicodeString* getFullQualifiedName() noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
@@ -50,6 +51,7 @@ public:
 	ClassDeclare* getBaseClass() const noexcept;
 	int getInheritIndex() const noexcept;
 	void setInheritIndex(int inheritIndex) noexcept;
+
 
 	ArrayList<MethodDeclare>* getMethods() noexcept;
 private:
@@ -60,6 +62,7 @@ private:
 	ClassImplements* implements;
 
 	int inheritIndex;
+	UnicodeString* fqn;
 };
 
 } /* namespace alinous */

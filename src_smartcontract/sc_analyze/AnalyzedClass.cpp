@@ -22,7 +22,7 @@
 #include "instance_ref/AbstractReference.h"
 
 #include "sc_analyze_functions/VTableRegistory.h"
-
+#include "sc_analyze_functions/FunctionScoreCalc.h"
 
 namespace alinous {
 /*
@@ -136,7 +136,7 @@ const UnicodeString* AnalyzedClass::toString() noexcept {
 	return this->clazz->getName();
 }
 
-MethodDeclare* AnalyzedClass::findMethodDeclare(const UnicodeString* name, ArrayList<AbstractReference>* arguments) noexcept {
+MethodDeclare* AnalyzedClass::findMethodDeclareLocal(const UnicodeString* name, ArrayList<AbstractReference>* arguments) noexcept {
 	ClassDeclare* clazzDec = this->clazz;
 	while(clazzDec != nullptr){
 
@@ -144,13 +144,22 @@ MethodDeclare* AnalyzedClass::findMethodDeclare(const UnicodeString* name, Array
 	}
 }
 
-MethodDeclare* AnalyzedClass::findMethodDeclare(const UnicodeString* name, ArrayList<AnalyzedType>* arguments) noexcept {
+MethodDeclare* AnalyzedClass::findMethodDeclareLocal(const UnicodeString* name, ArrayList<AnalyzedType>* arguments, bool strictMatch) noexcept {
+	FunctionScoreCalc calc;
+
 
 }
 
 
 void AnalyzedClass::buildVtable(AnalyzeContext* actx) noexcept {
+	VTableRegistory* vreg = actx->getVtableRegistory();
+
+
+	//VTableClassEntry* classEntry = vreg->getClassEntry(this->clazz->getString())
+
+
 	ClassDeclare* clazzDec = this->clazz;
+
 
 	ArrayList<MethodDeclare>* list = clazzDec->getMethods();
 	int maxLoop = list->size();
@@ -165,7 +174,7 @@ void AnalyzedClass::buildVtable(AnalyzeContext* actx) noexcept {
 }
 
 void AnalyzedClass::bulidMethodVTable(AnalyzeContext* actx,	MethodDeclare* method) noexcept {
-	VTableRegistory* vreg = actx->getVtableRegistory();
+
 
 	AnalyzedClass* clazz = findBaseClassOfMethod(this, method);
 	// FIXME vtable
@@ -193,7 +202,7 @@ AnalyzedClass* AnalyzedClass::findBaseClassOfMethod(AnalyzedClass* currentClass,
 	}
 
 	while(clazz != nullptr){
-		MethodDeclare* m = clazz->findMethodDeclare(methodName, &typeList);
+		MethodDeclare* m = clazz->findMethodDeclareLocal(methodName, &typeList, true);
 
 		clazz = clazz->getExtends();
 	}
