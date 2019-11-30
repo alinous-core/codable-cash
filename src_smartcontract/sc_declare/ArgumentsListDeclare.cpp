@@ -11,15 +11,22 @@
 #include "base/UnicodeString.h"
 
 #include "sc_analyze/AnalyzedType.h"
+
 namespace alinous {
 
 ArgumentsListDeclare::ArgumentsListDeclare() : CodeElement(CodeElement::ARGUMENTS_LIST_DECLARE) {
 	this->callSig = nullptr;
+	this->typelist = nullptr;
 }
 
 ArgumentsListDeclare::~ArgumentsListDeclare() {
 	this->list.deleteElements();
 	delete this->callSig;
+
+	if(this->typelist != nullptr){
+		this->typelist->deleteElements();
+		delete this->typelist;
+	}
 }
 
 void ArgumentsListDeclare::addArgument(ArgumentDeclare* arg) noexcept {
@@ -71,6 +78,22 @@ const UnicodeString* ArgumentsListDeclare::getCallSignature() noexcept {
 	}
 
 	return this->callSig;
+}
+
+ArrayList<AnalyzedType>* ArgumentsListDeclare::getArgumentsAnalyzedType() noexcept {
+	if(this->typelist == nullptr){
+		this->typelist = new ArrayList<AnalyzedType>();
+
+		int maxLoop = this->list.size();
+		for(int i = 0; i != maxLoop; ++i){
+			ArgumentDeclare* arg = this->list.get(i);
+			AnalyzedType* atype = arg->getAnalyzedType();
+
+			this->typelist->addElement(new AnalyzedType(*atype));
+		}
+	}
+
+	return this->typelist;
 }
 
 

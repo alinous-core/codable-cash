@@ -12,8 +12,10 @@
 
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/MethodDeclare.h"
+#include "sc_declare/ArgumentsListDeclare.h"
 
 #include "base/UnicodeString.h"
+
 
 namespace alinous {
 
@@ -32,10 +34,30 @@ void VTableClassEntry::buildVtable(AnalyzeContext* actx) {
 	int maxLoop = list->size();
 	for(int i = 0; i != maxLoop; ++i){
 		MethodDeclare* method = list->get(i);
+		const UnicodeString* sigStr = method->getCallSignature();
 
-
+		MethodDeclare* superMethod = getSuperClassMethod(method);
 	}
 
+}
+
+MethodDeclare* VTableClassEntry::getSuperClassMethod(MethodDeclare* method) noexcept {
+	MethodDeclare* superMethod = nullptr;
+
+	const UnicodeString* name = method->getName();
+	ArgumentsListDeclare* argList = method->getArguments();
+	ArrayList<AnalyzedType>* typeList = argList->getArgumentsAnalyzedType();
+
+	AnalyzedClass* superClass = this->aclass->getExtends();
+	while(superClass != nullptr){
+
+
+		// FIXME
+
+		superClass = superClass->getExtends();
+	}
+
+	return nullptr;
 }
 
 } /* namespace alinous */

@@ -16,6 +16,7 @@ class AnalyzedClass;
 class AnalyzeContext;
 class UnicodeString;
 class VTableMethodEntry;
+class MethodDeclare;
 
 class VTableClassEntry {
 public:
@@ -23,6 +24,9 @@ public:
 	virtual ~VTableClassEntry();
 
 	void buildVtable(AnalyzeContext* actx);
+
+private:
+	MethodDeclare* getSuperClassMethod(MethodDeclare* method) noexcept;
 private:
 	AnalyzedClass* aclass;
 	HashMap<UnicodeString, VTableMethodEntry> methods;

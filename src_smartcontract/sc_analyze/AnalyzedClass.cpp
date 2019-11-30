@@ -148,22 +148,6 @@ const UnicodeString* AnalyzedClass::getSignatureName() noexcept {
 	return this->sig;
 }
 
-
-MethodDeclare* AnalyzedClass::findMethodDeclareLocal(const UnicodeString* name, ArrayList<AbstractReference>* arguments) noexcept {
-	ClassDeclare* clazzDec = this->clazz;
-	while(clazzDec != nullptr){
-
-		clazzDec = clazzDec->getBaseClass();
-	}
-}
-
-MethodDeclare* AnalyzedClass::findMethodDeclareLocal(const UnicodeString* name, ArrayList<AnalyzedType>* arguments, bool strictMatch) noexcept {
-	FunctionScoreCalc calc;
-
-
-}
-
-
 void AnalyzedClass::buildVtable(AnalyzeContext* actx) noexcept {
 	VTableRegistory* vreg = actx->getVtableRegistory();
 	const UnicodeString* fqn = this->clazz->getFullQualifiedName();
