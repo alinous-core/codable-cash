@@ -22,7 +22,8 @@
 #include "instance_ref/AbstractReference.h"
 
 #include "sc_analyze_functions/VTableRegistory.h"
-
+#include "sc_analyze_functions/FunctionScoreCalc.h"
+#include "sc_analyze_functions/VTableClassEntry.h"
 
 namespace alinous {
 /*
@@ -72,12 +73,14 @@ AnalyzedClass::AnalyzedClass(ClassDeclare* clazz) {
 	this->variables = new HashMap<UnicodeString, MemberVariableDeclare>();
 	this->methods = new HashMap<UnicodeString, MethodDeclare>();
 	this->extends = nullptr;
+	this->sig = nullptr;
 }
 
 AnalyzedClass::~AnalyzedClass() {
 	this->clazz = nullptr;
 	delete this->variables;
 	delete this->methods;
+	delete this->sig;
 }
 
 void AnalyzedClass::addMemberVariableDeclare(MemberVariableDeclare* member) {
@@ -136,7 +139,17 @@ const UnicodeString* AnalyzedClass::toString() noexcept {
 	return this->clazz->getName();
 }
 
-MethodDeclare* AnalyzedClass::findMethodDeclare(const UnicodeString* name, ArrayList<AbstractReference>* arguments) noexcept {
+const UnicodeString* AnalyzedClass::getSignatureName() noexcept {
+	if(this->sig == nullptr){
+		this->sig = new UnicodeString(L"L");
+		this->sig->append(toString());
+		this->sig->append(L";");
+	}
+	return this->sig;
+}
+
+
+MethodDeclare* AnalyzedClass::findMethodDeclareLocal(const UnicodeString* name, ArrayList<AbstractReference>* arguments) noexcept {
 	ClassDeclare* clazzDec = this->clazz;
 	while(clazzDec != nullptr){
 
@@ -144,28 +157,24 @@ MethodDeclare* AnalyzedClass::findMethodDeclare(const UnicodeString* name, Array
 	}
 }
 
-MethodDeclare* AnalyzedClass::findMethodDeclare(const UnicodeString* name, ArrayList<AnalyzedType>* arguments) noexcept {
+MethodDeclare* AnalyzedClass::findMethodDeclareLocal(const UnicodeString* name, ArrayList<AnalyzedType>* arguments, bool strictMatch) noexcept {
+	FunctionScoreCalc calc;
+
 
 }
 
 
 void AnalyzedClass::buildVtable(AnalyzeContext* actx) noexcept {
-	ClassDeclare* clazzDec = this->clazz;
+	VTableRegistory* vreg = actx->getVtableRegistory();
+	const UnicodeString* fqn = this->clazz->getFullQualifiedName();
 
-	ArrayList<MethodDeclare>* list = clazzDec->getMethods();
-	int maxLoop = list->size();
-	for(int i = 0; i != maxLoop; ++i){
-		MethodDeclare* method = list->get(i);
-
-		if(!method->isStatic() && !method->isConstructor()){
-			bulidMethodVTable(actx, method);
-		}
-	}
-
+	VTableClassEntry* classEntry = vreg->getClassEntry(fqn, this);
+	classEntry->buildVtable(actx);
 }
 
+/*
 void AnalyzedClass::bulidMethodVTable(AnalyzeContext* actx,	MethodDeclare* method) noexcept {
-	VTableRegistory* vreg = actx->getVtableRegistory();
+
 
 	AnalyzedClass* clazz = findBaseClassOfMethod(this, method);
 	// FIXME vtable
@@ -193,14 +202,14 @@ AnalyzedClass* AnalyzedClass::findBaseClassOfMethod(AnalyzedClass* currentClass,
 	}
 
 	while(clazz != nullptr){
-		MethodDeclare* m = clazz->findMethodDeclare(methodName, &typeList);
+		MethodDeclare* m = clazz->findMethodDeclareLocal(methodName, &typeList, true);
 
 		clazz = clazz->getExtends();
 	}
 
 	return clazz;
 }
-
+*/
 
 ClassDeclare* AnalyzedClass::getClassDeclare() const noexcept {
 	return this->clazz;

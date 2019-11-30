@@ -12,6 +12,16 @@
 
 namespace alinous {
 
+const UnicodeString AnalyzedType::SIG_BOOL(L"Z");
+const UnicodeString AnalyzedType::SIG_BYTE(L"B");
+const UnicodeString AnalyzedType::SIG_CHAR(L"C");
+const UnicodeString AnalyzedType::SIG_SHORT(L"S");
+const UnicodeString AnalyzedType::SIG_INT(L"I");
+const UnicodeString AnalyzedType::SIG_LONG(L"J");
+const UnicodeString AnalyzedType::SIG_STRING(L"LString;");
+
+
+
 AnalyzedType::AnalyzedType(uint8_t type) {
 	this->type = type;
 	this->aclazz = nullptr;
@@ -90,6 +100,40 @@ void AnalyzedType::makeStringName() noexcept{
 		break;
 	}
 
+}
+
+const UnicodeString* AnalyzedType::getSignatureName() noexcept {
+	const UnicodeString* ret = nullptr;
+
+	switch(this->type){
+	case TYPE_BOOL:
+		ret = &AnalyzedType::SIG_BOOL;
+		break;
+	case TYPE_BYTE:
+		ret = &AnalyzedType::SIG_BYTE;
+		break;
+	case TYPE_CHAR:
+		ret = &AnalyzedType::SIG_CHAR;
+		break;
+	case TYPE_SHORT:
+		ret = &AnalyzedType::SIG_SHORT;
+		break;
+	case TYPE_INT:
+		ret = &AnalyzedType::SIG_INT;
+		break;
+	case TYPE_LONG:
+		ret = &AnalyzedType::SIG_LONG;
+		break;
+	case TYPE_STRING:
+		ret = &AnalyzedType::SIG_STRING;
+		break;
+	case TYPE_OBJECT:
+	default:
+		ret = this->aclazz->getSignatureName();
+		break;
+	}
+
+	return ret;
 }
 
 void AnalyzedType::makeObjectString() noexcept {

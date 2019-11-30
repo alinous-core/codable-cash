@@ -21,6 +21,7 @@ class ByteBuffer;
 class UnicodeString;
 class CompilationUnit;
 class ClassDeclare;
+class PackageDeclare;
 
 class CodeElement {
 public:
@@ -177,10 +178,11 @@ public:
 	short getKind() noexcept;
 
 	void setParent(CodeElement* parent) noexcept;
-	CodeElement* getParent() noexcept;
+	CodeElement* getParent() const noexcept;
 
-	CompilationUnit* getCompilationUnit();
+	CompilationUnit* getCompilationUnit() const;
 	ClassDeclare* getClassDeclare() const;
+	const UnicodeString* getPackageName() const noexcept;
 protected:
 	short kind;
 

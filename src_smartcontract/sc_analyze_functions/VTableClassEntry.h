@@ -10,10 +10,18 @@
 
 namespace alinous {
 
+class AnalyzedClass;
+class AnalyzeContext;
+
 class VTableClassEntry {
 public:
-	VTableClassEntry();
+	VTableClassEntry(AnalyzedClass* aclass);
 	virtual ~VTableClassEntry();
+
+	void buildVtable(AnalyzeContext* actx);
+private:
+	AnalyzedClass* aclass;
+
 };
 
 } /* namespace alinous */

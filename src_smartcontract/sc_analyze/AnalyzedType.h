@@ -28,6 +28,14 @@ public:
 	static const constexpr short TYPE_VOID{27};
 	static const constexpr short TYPE_OBJECT{28};
 
+	static const UnicodeString SIG_BOOL;
+	static const UnicodeString SIG_BYTE;
+	static const UnicodeString SIG_CHAR;
+	static const UnicodeString SIG_SHORT;
+	static const UnicodeString SIG_INT;
+	static const UnicodeString SIG_LONG;
+	static const UnicodeString SIG_STRING;
+
 	AnalyzedType(const AnalyzedType& obj); // copy constructor
 
 	explicit AnalyzedType(uint8_t type);
@@ -39,6 +47,7 @@ public:
 	AnalyzedClass* getAnalyzedClass() const noexcept;
 	uint8_t getType() const noexcept;
 	const UnicodeString* stringName() noexcept;
+	const UnicodeString* getSignatureName() noexcept;
 
 private:
 	void makeStringName() noexcept;

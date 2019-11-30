@@ -619,11 +619,11 @@ void CodeElement::setParent(CodeElement* parent) noexcept {
 	this->parent = parent;
 }
 
-CodeElement* CodeElement::getParent() noexcept {
+CodeElement* CodeElement::getParent() const noexcept {
 	return this->parent;
 }
 
-CompilationUnit* CodeElement::getCompilationUnit() {
+CompilationUnit* CodeElement::getCompilationUnit() const {
 	CodeElement* element = this->parent;
 	while(element->kind != CodeElement::COMPILANT_UNIT && element != nullptr){
 		element = element->getParent();
@@ -642,7 +642,7 @@ short CodeElement::getKind() noexcept {
 
 ClassDeclare* CodeElement::getClassDeclare() const {
 	CodeElement* element = this->parent;
-	while(element->kind != CodeElement::CLASS_DECLARE && element != nullptr){
+	while(element != nullptr && element->kind != CodeElement::CLASS_DECLARE){
 		element = element->getParent();
 	}
 
@@ -652,5 +652,14 @@ ClassDeclare* CodeElement::getClassDeclare() const {
 
 	return dynamic_cast<ClassDeclare*>(element);
 }
+
+
+
+const UnicodeString* CodeElement::getPackageName() const noexcept {
+	CompilationUnit* unit = getCompilationUnit();
+
+	return unit->getPackageName();
+}
+
 
 } /* namespace alinous */

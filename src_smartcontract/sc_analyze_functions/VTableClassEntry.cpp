@@ -7,15 +7,31 @@
 
 #include "sc_analyze_functions/VTableClassEntry.h"
 
+#include "sc_analyze/AnalyzedClass.h"
+
+#include "sc_declare/ClassDeclare.h"
+#include "sc_declare/MethodDeclare.h"
+
 namespace alinous {
 
-VTableClassEntry::VTableClassEntry() {
-	// TODO Auto-generated constructor stub
-
+VTableClassEntry::VTableClassEntry(AnalyzedClass* aclass) {
+	this->aclass = aclass;
 }
 
 VTableClassEntry::~VTableClassEntry() {
-	// TODO Auto-generated destructor stub
+	this->aclass = nullptr;
+}
+
+void VTableClassEntry::buildVtable(AnalyzeContext* actx) {
+	ClassDeclare* clazz = this->aclass->getClassDeclare();
+	ArrayList<MethodDeclare>* list = clazz->getMethods();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		MethodDeclare* method = list->get(i);
+
+	}
+
 }
 
 } /* namespace alinous */

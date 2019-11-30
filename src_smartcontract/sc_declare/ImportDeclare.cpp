@@ -64,7 +64,7 @@ int ImportDeclare::binarySize() const {
 }
 
 void ImportDeclare::toBinary(ByteBuffer* out) {
-	out->putShort(CodeElement::IMPORTS_DECLARE);
+	out->putShort(CodeElement::IMPORT_DECLARE);
 	putString(out, this->className);
 }
 
