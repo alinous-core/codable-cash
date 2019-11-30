@@ -49,6 +49,13 @@ const ArrayList<ArgumentDeclare>* ArgumentsListDeclare::getArguments() const noe
 	return &this->list;
 }
 
+
+const UnicodeString* ArgumentsListDeclare::getCallSignature() noexcept {
+
+	// FIXME;
+}
+
+
 int ArgumentsListDeclare::binarySize() const {
 	int total = sizeof(uint16_t);
 	total += sizeof(uint32_t);

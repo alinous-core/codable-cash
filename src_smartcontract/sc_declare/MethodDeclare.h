@@ -47,6 +47,7 @@ public:
 
 	ArgumentsListDeclare* getArguments() const noexcept;
 	AnalyzedType* getReturnedType() const noexcept;
+	const UnicodeString* getCallSignature() noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
@@ -63,6 +64,7 @@ private:
 	StatementBlock* block;
 
 	AnalyzedType* atype;
+	UnicodeString* callSig;
 };
 
 } /* namespace alinous */

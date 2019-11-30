@@ -28,6 +28,7 @@ public:
 	void addArgument(ArgumentDeclare* arg) noexcept;
 	int getSize() const noexcept;
 	const ArrayList<ArgumentDeclare>* getArguments() const noexcept;
+	const UnicodeString* getCallSignature() noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

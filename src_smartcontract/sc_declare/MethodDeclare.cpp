@@ -33,6 +33,7 @@ MethodDeclare::MethodDeclare() : CodeElement(CodeElement::METHOD_DECLARE) {
 	this->args = nullptr;
 	this->block = nullptr;
 	this->atype = nullptr;
+	this->callSig = nullptr;
 }
 
 MethodDeclare::~MethodDeclare() {
@@ -42,6 +43,7 @@ MethodDeclare::~MethodDeclare() {
 	delete this->args;
 	delete this->block;
 	delete this->atype;
+	delete this->callSig;
 }
 
 
@@ -133,6 +135,18 @@ const UnicodeString* MethodDeclare::getName() const noexcept {
 	return this->name;
 }
 
+const UnicodeString* MethodDeclare::getCallSignature() noexcept {
+	if(this->callSig == nullptr){
+		this->callSig = new UnicodeString(this->name);
+		this->callSig->append(L":");
+
+		const UnicodeString* argStr = this->args->getCallSignature();
+		this->callSig->append(argStr);
+	}
+
+
+	return this->callSig;
+}
 
 bool MethodDeclare::isStatic() const noexcept {
 	return this->_static;

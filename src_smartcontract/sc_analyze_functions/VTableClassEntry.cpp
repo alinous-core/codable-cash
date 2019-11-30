@@ -8,9 +8,12 @@
 #include "sc_analyze_functions/VTableClassEntry.h"
 
 #include "sc_analyze/AnalyzedClass.h"
+#include "sc_analyze_functions/VTableMethodEntry.h"
 
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/MethodDeclare.h"
+
+#include "base/UnicodeString.h"
 
 namespace alinous {
 
@@ -29,6 +32,7 @@ void VTableClassEntry::buildVtable(AnalyzeContext* actx) {
 	int maxLoop = list->size();
 	for(int i = 0; i != maxLoop; ++i){
 		MethodDeclare* method = list->get(i);
+
 
 	}
 
