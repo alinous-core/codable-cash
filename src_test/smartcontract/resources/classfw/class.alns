@@ -1,7 +1,10 @@
 
 package test.fw;
 
-class HelloWorld {
+import test.fw.base.Base;
+import test.fw.base.IBase;
+
+class HelloWorld extends test.fw.base.Base implements IBase {
 
 
 }
