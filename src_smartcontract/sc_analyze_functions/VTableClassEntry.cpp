@@ -37,8 +37,12 @@ void VTableClassEntry::buildVtable(AnalyzeContext* actx) {
 		const UnicodeString* sigStr = method->getCallSignature();
 
 		MethodDeclare* superMethod = getSuperClassMethod(method);
-	}
+		if(superMethod == nullptr){
+			continue;
+		}
 
+		// FIXME error check
+	}
 }
 
 MethodDeclare* VTableClassEntry::getSuperClassMethod(MethodDeclare* method) noexcept {
@@ -50,9 +54,11 @@ MethodDeclare* VTableClassEntry::getSuperClassMethod(MethodDeclare* method) noex
 
 	AnalyzedClass* superClass = this->aclass->getExtends();
 	while(superClass != nullptr){
+		superMethod = superClass->findMethod(name, typeList);
 
-
-		// FIXME
+		if(superMethod != nullptr){
+			return superMethod;
+		}
 
 		superClass = superClass->getExtends();
 	}

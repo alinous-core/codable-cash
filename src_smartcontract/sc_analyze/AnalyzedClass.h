@@ -38,6 +38,7 @@ public:
 	void addImplements(AnalyzedClass* clazz) noexcept;
 
 	MethodDeclare* getDefaultConstructor() noexcept;
+	MethodDeclare* findMethod(const UnicodeString* name, ArrayList<AnalyzedType>* argumentTypeList) noexcept;
 
 	void buildVtable(AnalyzeContext* actx) noexcept;
 
@@ -48,6 +49,8 @@ public:
 
 	const UnicodeString* toString() noexcept;
 	const UnicodeString* getSignatureName() noexcept;
+
+	bool equals(AnalyzedClass* other) noexcept;
 private:
 	//void bulidMethodVTable(AnalyzeContext* actx, MethodDeclare* method) noexcept;
 	//AnalyzedClass* findBaseClassOfMethod(AnalyzedClass* currentClass, MethodDeclare* method) noexcept;

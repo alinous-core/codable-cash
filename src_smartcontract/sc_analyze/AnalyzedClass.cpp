@@ -127,6 +127,33 @@ MethodDeclare* AnalyzedClass::getDefaultConstructor() noexcept {
 	return nullptr;
 }
 
+MethodDeclare* AnalyzedClass::findMethod(const UnicodeString* name, ArrayList<AnalyzedType>* argumentTypeList) noexcept {
+	MethodDeclare* method = this->methods->get(name);
+	if(method == nullptr){
+		return method;
+	}
+
+	ArrayList<AnalyzedType>* argumentTypeList2 = method->getArguments()->getArgumentsAnalyzedType();
+
+	int maxLoop = argumentTypeList->size();
+	if(maxLoop != argumentTypeList2->size()){
+		return nullptr;
+	}
+
+	for(int i = 0; i != maxLoop; ++i){
+		AnalyzedType* atype = argumentTypeList->get(i);
+		AnalyzedType* atype2 = argumentTypeList2->get(i);
+
+		if(!atype->equals(atype2)){
+			return nullptr;
+		}
+	}
+	// FIXME
+
+	return method;
+}
+
+
 int AnalyzedClass::getInheritIndex() const noexcept {
 	return this->clazz->getInheritIndex();
 }
@@ -142,7 +169,8 @@ const UnicodeString* AnalyzedClass::toString() noexcept {
 const UnicodeString* AnalyzedClass::getSignatureName() noexcept {
 	if(this->sig == nullptr){
 		this->sig = new UnicodeString(L"L");
-		this->sig->append(toString());
+
+		this->sig->append(this->clazz->getFullQualifiedName());
 		this->sig->append(L";");
 	}
 	return this->sig;
@@ -159,5 +187,13 @@ void AnalyzedClass::buildVtable(AnalyzeContext* actx) noexcept {
 ClassDeclare* AnalyzedClass::getClassDeclare() const noexcept {
 	return this->clazz;
 }
+
+bool AnalyzedClass::equals(AnalyzedClass* other) noexcept {
+	const UnicodeString* sig = getSignatureName();
+	const UnicodeString* sig2 = other->getSignatureName();
+
+	return sig->equals(sig2);
+}
+
 
 } /* namespace alinous */
