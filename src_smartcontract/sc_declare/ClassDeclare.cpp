@@ -131,9 +131,14 @@ const UnicodeString* ClassDeclare::getFullQualifiedName() noexcept {
 	if(this->fqn == nullptr){
 		this->fqn = new UnicodeString(L"");
 
+		const UnicodeString* package = getPackageName();
+		if(package != nullptr){
+			this->fqn->append(package);
+			this->fqn->append(L".");
+		}
 
+		this->fqn->append(this->name);
 	}
-	// FIXME
 
 	return this->fqn;
 }

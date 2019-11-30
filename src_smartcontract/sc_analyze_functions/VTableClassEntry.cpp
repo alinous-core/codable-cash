@@ -9,6 +9,9 @@
 
 #include "sc_analyze/AnalyzedClass.h"
 
+#include "sc_declare/ClassDeclare.h"
+#include "sc_declare/MethodDeclare.h"
+
 namespace alinous {
 
 VTableClassEntry::VTableClassEntry(AnalyzedClass* aclass) {
@@ -17,6 +20,18 @@ VTableClassEntry::VTableClassEntry(AnalyzedClass* aclass) {
 
 VTableClassEntry::~VTableClassEntry() {
 	this->aclass = nullptr;
+}
+
+void VTableClassEntry::buildVtable(AnalyzeContext* actx) {
+	ClassDeclare* clazz = this->aclass->getClassDeclare();
+	ArrayList<MethodDeclare>* list = clazz->getMethods();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		MethodDeclare* method = list->get(i);
+
+	}
+
 }
 
 } /* namespace alinous */

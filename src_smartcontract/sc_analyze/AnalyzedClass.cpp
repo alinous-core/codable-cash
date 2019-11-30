@@ -23,6 +23,7 @@
 
 #include "sc_analyze_functions/VTableRegistory.h"
 #include "sc_analyze_functions/FunctionScoreCalc.h"
+#include "sc_analyze_functions/VTableClassEntry.h"
 
 namespace alinous {
 /*
@@ -72,12 +73,14 @@ AnalyzedClass::AnalyzedClass(ClassDeclare* clazz) {
 	this->variables = new HashMap<UnicodeString, MemberVariableDeclare>();
 	this->methods = new HashMap<UnicodeString, MethodDeclare>();
 	this->extends = nullptr;
+	this->sig = nullptr;
 }
 
 AnalyzedClass::~AnalyzedClass() {
 	this->clazz = nullptr;
 	delete this->variables;
 	delete this->methods;
+	delete this->sig;
 }
 
 void AnalyzedClass::addMemberVariableDeclare(MemberVariableDeclare* member) {
@@ -136,6 +139,16 @@ const UnicodeString* AnalyzedClass::toString() noexcept {
 	return this->clazz->getName();
 }
 
+const UnicodeString* AnalyzedClass::getSignatureName() noexcept {
+	if(this->sig == nullptr){
+		this->sig = new UnicodeString(L"L");
+		this->sig->append(toString());
+		this->sig->append(L";");
+	}
+	return this->sig;
+}
+
+
 MethodDeclare* AnalyzedClass::findMethodDeclareLocal(const UnicodeString* name, ArrayList<AbstractReference>* arguments) noexcept {
 	ClassDeclare* clazzDec = this->clazz;
 	while(clazzDec != nullptr){
@@ -153,26 +166,13 @@ MethodDeclare* AnalyzedClass::findMethodDeclareLocal(const UnicodeString* name, 
 
 void AnalyzedClass::buildVtable(AnalyzeContext* actx) noexcept {
 	VTableRegistory* vreg = actx->getVtableRegistory();
+	const UnicodeString* fqn = this->clazz->getFullQualifiedName();
 
-
-	//VTableClassEntry* classEntry = vreg->getClassEntry(this->clazz->getString())
-
-
-	ClassDeclare* clazzDec = this->clazz;
-
-
-	ArrayList<MethodDeclare>* list = clazzDec->getMethods();
-	int maxLoop = list->size();
-	for(int i = 0; i != maxLoop; ++i){
-		MethodDeclare* method = list->get(i);
-
-		if(!method->isStatic() && !method->isConstructor()){
-			bulidMethodVTable(actx, method);
-		}
-	}
-
+	VTableClassEntry* classEntry = vreg->getClassEntry(fqn, this);
+	classEntry->buildVtable(actx);
 }
 
+/*
 void AnalyzedClass::bulidMethodVTable(AnalyzeContext* actx,	MethodDeclare* method) noexcept {
 
 
@@ -209,7 +209,7 @@ AnalyzedClass* AnalyzedClass::findBaseClassOfMethod(AnalyzedClass* currentClass,
 
 	return clazz;
 }
-
+*/
 
 ClassDeclare* AnalyzedClass::getClassDeclare() const noexcept {
 	return this->clazz;

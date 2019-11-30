@@ -32,7 +32,7 @@ VTableRegistory::~VTableRegistory() {
 	}
 }
 
-VTableClassEntry* VTableRegistory::getClassEntry(UnicodeString* fqn, AnalyzedClass* aclazz) noexcept {
+VTableClassEntry* VTableRegistory::getClassEntry(const UnicodeString* fqn, AnalyzedClass* aclazz) noexcept {
 	VTableClassEntry* entry = this->classEntries.get(fqn);
 	if(entry == nullptr){
 		entry = new VTableClassEntry(aclazz);

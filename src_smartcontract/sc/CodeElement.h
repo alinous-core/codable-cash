@@ -178,11 +178,11 @@ public:
 	short getKind() noexcept;
 
 	void setParent(CodeElement* parent) noexcept;
-	CodeElement* getParent() noexcept;
+	CodeElement* getParent() const noexcept;
 
-	CompilationUnit* getCompilationUnit();
+	CompilationUnit* getCompilationUnit() const;
 	ClassDeclare* getClassDeclare() const;
-	PackageDeclare* getPackageDeclare() const noexcept;
+	const UnicodeString* getPackageName() const noexcept;
 protected:
 	short kind;
 

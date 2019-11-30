@@ -20,7 +20,7 @@ public:
 	VTableRegistory();
 	virtual ~VTableRegistory();
 
-	VTableClassEntry* getClassEntry(UnicodeString* fqn, AnalyzedClass* aclazz) noexcept;
+	VTableClassEntry* getClassEntry(const UnicodeString* fqn, AnalyzedClass* aclazz) noexcept;
 
 private:
 	HashMap<UnicodeString, VTableClassEntry> classEntries;

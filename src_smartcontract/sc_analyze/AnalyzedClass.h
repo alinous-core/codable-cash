@@ -50,10 +50,10 @@ public:
 
 
 	const UnicodeString* toString() noexcept;
-
+	const UnicodeString* getSignatureName() noexcept;
 private:
-	void bulidMethodVTable(AnalyzeContext* actx, MethodDeclare* method) noexcept;
-	AnalyzedClass* findBaseClassOfMethod(AnalyzedClass* currentClass, MethodDeclare* method) noexcept;
+	//void bulidMethodVTable(AnalyzeContext* actx, MethodDeclare* method) noexcept;
+	//AnalyzedClass* findBaseClassOfMethod(AnalyzedClass* currentClass, MethodDeclare* method) noexcept;
 
 
 private:
@@ -67,6 +67,8 @@ private:
 
 	ArrayList<MethodDeclare> constructors;
 	HashMap<UnicodeString, MethodDeclare>* methods;
+
+	UnicodeString* sig;
 
 };
 
