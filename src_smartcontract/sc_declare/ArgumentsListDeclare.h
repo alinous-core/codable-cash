@@ -15,6 +15,7 @@ namespace alinous {
 
 class ArgumentDeclare;
 class AnalyzeContext;
+class UnicodeString;
 
 class ArgumentsListDeclare : public CodeElement {
 public:
@@ -35,6 +36,7 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 private:
 	ArrayList<ArgumentDeclare> list;
+	UnicodeString* callSig;
 };
 
 } /* namespace alinous */
