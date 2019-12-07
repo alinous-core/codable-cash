@@ -19,7 +19,7 @@
 #include "sc_declare/ArgumentsListDeclare.h"
 
 #include "base/UnicodeString.h"
-
+#include "base/StackRelease.h"
 
 namespace alinous {
 
@@ -28,6 +28,13 @@ VTableClassEntry::VTableClassEntry(AnalyzedClass* aclass) {
 }
 
 VTableClassEntry::~VTableClassEntry() {
+	Iterator<UnicodeString>* it = this->methods.keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const UnicodeString* key = it->next();
+		VTableMethodEntry* m = this->methods.get(key);
+		delete m;
+	}
+
 	this->aclass = nullptr;
 }
 
