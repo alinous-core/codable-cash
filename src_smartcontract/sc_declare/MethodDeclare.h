@@ -65,6 +65,7 @@ private:
 
 	AnalyzedType* atype;
 	UnicodeString* callSig;
+	UnicodeString* fqn;
 };
 
 } /* namespace alinous */

@@ -34,6 +34,7 @@ MethodDeclare::MethodDeclare() : CodeElement(CodeElement::METHOD_DECLARE) {
 	this->block = nullptr;
 	this->atype = nullptr;
 	this->callSig = nullptr;
+	this->fqn = nullptr;
 }
 
 MethodDeclare::~MethodDeclare() {

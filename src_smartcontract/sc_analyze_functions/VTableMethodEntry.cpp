@@ -5,17 +5,16 @@
  *      Author: iizuka
  */
 
-#include <sc_analyze_functions/VTableMethodEntry.h>
+#include "sc_analyze_functions/VTableMethodEntry.h"
 
 namespace alinous {
 
-VTableMethodEntry::VTableMethodEntry() {
-	// TODO Auto-generated constructor stub
-
+VTableMethodEntry::VTableMethodEntry(MethodDeclare* method, int type) {
+	this->method = method;
+	this->type = type;
 }
 
 VTableMethodEntry::~VTableMethodEntry() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace alinous */

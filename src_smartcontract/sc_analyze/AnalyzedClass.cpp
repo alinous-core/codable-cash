@@ -148,7 +148,6 @@ MethodDeclare* AnalyzedClass::findMethod(const UnicodeString* name, ArrayList<An
 			return nullptr;
 		}
 	}
-	// FIXME
 
 	return method;
 }

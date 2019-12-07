@@ -26,10 +26,15 @@ public:
 	void buildVtable(AnalyzeContext* actx);
 
 private:
+	void addMethodEntry(MethodDeclare* method);
+	void addVirtualMethodImplEntry(MethodDeclare* method);
+
 	MethodDeclare* getSuperClassMethod(MethodDeclare* method) noexcept;
+
 private:
 	AnalyzedClass* aclass;
 	HashMap<UnicodeString, VTableMethodEntry> methods;
+
 };
 
 } /* namespace alinous */

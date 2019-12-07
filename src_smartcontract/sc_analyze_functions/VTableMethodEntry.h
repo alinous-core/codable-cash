@@ -10,10 +10,20 @@
 
 namespace alinous {
 
+class MethodDeclare;
+
 class VTableMethodEntry {
 public:
-	VTableMethodEntry();
+	static constexpr int METHOD_NORMAL{1};
+	static constexpr int METHOD_VIRTUAL{2};
+	static constexpr int METHOD_VIRTUAL_SUPER{3};
+
+	VTableMethodEntry(MethodDeclare* method, int type);
 	virtual ~VTableMethodEntry();
+
+private:
+	MethodDeclare* method;
+	int type;
 };
 
 } /* namespace alinous */
