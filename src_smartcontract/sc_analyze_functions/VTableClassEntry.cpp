@@ -40,6 +40,28 @@ VTableClassEntry::~VTableClassEntry() {
 
 void VTableClassEntry::buildVtable(AnalyzeContext* actx) {
 	ClassDeclare* clazz = this->aclass->getClassDeclare();
+
+	buildMethodSelf(clazz, actx);
+
+	// super class's methods
+	buildMethodsuper(clazz, actx);
+}
+
+
+void VTableClassEntry::buildMethodsuper(ClassDeclare* clazz, AnalyzeContext* actx) {
+	ClassDeclare* cls = clazz->getBaseClass();
+	while(cls != nullptr){
+		dobuildMethodSuperClass(cls, actx);
+
+		cls = cls->getBaseClass();
+	}
+}
+
+void VTableClassEntry::dobuildMethodSuperClass(ClassDeclare* clazz,	AnalyzeContext* actx) {
+}
+
+
+void VTableClassEntry::buildMethodSelf(ClassDeclare* clazz,	AnalyzeContext* actx) {
 	ArrayList<MethodDeclare>* list = clazz->getMethods();
 
 	int maxLoop = list->size();
@@ -62,10 +84,8 @@ void VTableClassEntry::buildVtable(AnalyzeContext* actx) {
 
 		addVirtualMethodImplEntry(method);
 	}
-
-	// FIXME super class's methods
-
 }
+
 
 void VTableClassEntry::addMethodEntry(MethodDeclare* method) {
 	VTableMethodEntry* entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_NORMAL);

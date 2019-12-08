@@ -8,4 +8,12 @@ class BaseClass extends BaseClass2 {
 	public void vfunc01(int arg){
 	
 	}
+	
+	public void base01Func() {
+	
+	}
+	
+	public void base02Func() {
+	
+	}
 }

@@ -17,5 +17,9 @@ class SmartContract extends BaseClass {
 	
 	}
 	
+	public void test01(){
+	
+	}
+	
 	private int count;
 }

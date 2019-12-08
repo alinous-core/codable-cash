@@ -16,6 +16,7 @@ class AnalyzedClass;
 class AnalyzeContext;
 class UnicodeString;
 class VTableMethodEntry;
+class ClassDeclare;
 class MethodDeclare;
 
 class VTableClassEntry {
@@ -26,6 +27,10 @@ public:
 	void buildVtable(AnalyzeContext* actx);
 
 private:
+	void buildMethodSelf(ClassDeclare* clazz, AnalyzeContext* actx);
+	void buildMethodsuper(ClassDeclare* clazz, AnalyzeContext* actx);
+	void dobuildMethodSuperClass(ClassDeclare* clazz, AnalyzeContext* actx);
+
 	void addMethodEntry(MethodDeclare* method);
 	void addVirtualMethodImplEntry(MethodDeclare* method);
 
