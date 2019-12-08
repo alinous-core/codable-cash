@@ -33,6 +33,8 @@ private:
 
 	void addMethodEntry(MethodDeclare* method);
 	void addVirtualMethodImplEntry(MethodDeclare* method);
+	void addSuperMethodEntry(MethodDeclare* method);
+	void addSuperVirtualMethodImplEntry(MethodDeclare* method);
 
 	MethodDeclare* getSuperClassMethod(MethodDeclare* method) noexcept;
 

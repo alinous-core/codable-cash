@@ -58,6 +58,43 @@ void VTableClassEntry::buildMethodsuper(ClassDeclare* clazz, AnalyzeContext* act
 }
 
 void VTableClassEntry::dobuildMethodSuperClass(ClassDeclare* clazz,	AnalyzeContext* actx) {
+	ArrayList<MethodDeclare>* list = clazz->getMethods();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		MethodDeclare* method = list->get(i);
+		const UnicodeString* sigStr = method->getCallSignature();
+		AnalyzedType* retType = method->getReturnedType();
+
+		VTableMethodEntry* entry = this->methods.get(sigStr);
+		if(entry != nullptr){
+			continue;
+		}
+
+		MethodDeclare* superMethod = getSuperClassMethod(method);
+		if(superMethod == nullptr){
+			addSuperMethodEntry(method);
+			continue;
+		}
+
+		AnalyzedType* retTypeSuper = superMethod->getReturnedType();
+		if(!retType->equals(retTypeSuper)){
+			actx->addValidationError(ValidationError::CODE_VIRTUAL_FUNC_WITH_DIFFERENT_RETURN, method, L"The method '{0}()' has supuer class method with different return type.", {method->getName()});
+			continue;
+		}
+
+		addSuperVirtualMethodImplEntry(method);
+	}
+}
+
+void VTableClassEntry::addSuperMethodEntry(MethodDeclare* method) {
+	VTableMethodEntry* entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_NORMAL);
+	this->methods.put(method->getCallSignature(), entry);
+}
+
+void VTableClassEntry::addSuperVirtualMethodImplEntry(MethodDeclare* method) {
+	VTableMethodEntry* entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_VIRTUAL_SUPER);
+	this->methods.put(method->getCallSignature(), entry);
 }
 
 
