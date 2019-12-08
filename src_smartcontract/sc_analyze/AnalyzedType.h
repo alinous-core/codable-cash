@@ -49,6 +49,7 @@ public:
 	const UnicodeString* stringName() noexcept;
 	const UnicodeString* getSignatureName() noexcept;
 
+	bool equals(AnalyzedType* other) const noexcept;
 private:
 	void makeStringName() noexcept;
 	void makeObjectString() noexcept;

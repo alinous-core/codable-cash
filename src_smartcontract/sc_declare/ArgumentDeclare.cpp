@@ -75,7 +75,7 @@ void alinous::ArgumentDeclare::toBinary(ByteBuffer* out) {
 	putString(out, this->name);
 }
 
-const AnalyzedType* ArgumentDeclare::getAnalyzedType() const noexcept {
+AnalyzedType* ArgumentDeclare::getAnalyzedType() const noexcept {
 	return this->atype;
 }
 

@@ -27,7 +27,7 @@ public:
 	void setType(AbstractType* type) noexcept;
 	void setName(UnicodeString* name) noexcept;
 
-	const AnalyzedType* getAnalyzedType() const noexcept;
+	AnalyzedType* getAnalyzedType() const noexcept;
 	const UnicodeString* getName() const noexcept;
 
 	virtual int binarySize() const;

@@ -146,4 +146,17 @@ void AnalyzedType::makeObjectString() noexcept {
 	this->str = new UnicodeString(name);
 }
 
+bool AnalyzedType::equals(AnalyzedType* other) const noexcept {
+	if(this->type != other->type){
+		return false;
+	}
+	if(this->type == TYPE_OBJECT){
+		// object type
+		return this->aclazz->equals(other->aclazz);
+	}
+
+	return true;
+}
+
+
 } /* namespace alinous */

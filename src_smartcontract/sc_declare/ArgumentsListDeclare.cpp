@@ -8,13 +8,25 @@
 #include "sc_declare/ArgumentsListDeclare.h"
 #include "sc_declare/ArgumentDeclare.h"
 
+#include "base/UnicodeString.h"
+
+#include "sc_analyze/AnalyzedType.h"
+
 namespace alinous {
 
 ArgumentsListDeclare::ArgumentsListDeclare() : CodeElement(CodeElement::ARGUMENTS_LIST_DECLARE) {
+	this->callSig = nullptr;
+	this->typelist = nullptr;
 }
 
 ArgumentsListDeclare::~ArgumentsListDeclare() {
 	this->list.deleteElements();
+	delete this->callSig;
+
+	if(this->typelist != nullptr){
+		this->typelist->deleteElements();
+		delete this->typelist;
+	}
 }
 
 void ArgumentsListDeclare::addArgument(ArgumentDeclare* arg) noexcept {
@@ -48,6 +60,42 @@ int ArgumentsListDeclare::getSize() const noexcept {
 const ArrayList<ArgumentDeclare>* ArgumentsListDeclare::getArguments() const noexcept {
 	return &this->list;
 }
+
+
+const UnicodeString* ArgumentsListDeclare::getCallSignature() noexcept {
+	if(this->callSig == nullptr){
+		this->callSig = new UnicodeString(L"");
+
+		int maxLoop = this->list.size();
+		for(int i = 0; i != maxLoop; ++i){
+			ArgumentDeclare* arg = this->list.get(i);
+
+			AnalyzedType* atype = arg->getAnalyzedType();
+			const UnicodeString* str = atype->getSignatureName();
+
+			this->callSig->append(str);
+		}
+	}
+
+	return this->callSig;
+}
+
+ArrayList<AnalyzedType>* ArgumentsListDeclare::getArgumentsAnalyzedType() noexcept {
+	if(this->typelist == nullptr){
+		this->typelist = new ArrayList<AnalyzedType>();
+
+		int maxLoop = this->list.size();
+		for(int i = 0; i != maxLoop; ++i){
+			ArgumentDeclare* arg = this->list.get(i);
+			AnalyzedType* atype = arg->getAnalyzedType();
+
+			this->typelist->addElement(new AnalyzedType(*atype));
+		}
+	}
+
+	return this->typelist;
+}
+
 
 int ArgumentsListDeclare::binarySize() const {
 	int total = sizeof(uint16_t);

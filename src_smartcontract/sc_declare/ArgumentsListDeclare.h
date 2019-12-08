@@ -15,6 +15,8 @@ namespace alinous {
 
 class ArgumentDeclare;
 class AnalyzeContext;
+class UnicodeString;
+class AnalyzedType;
 
 class ArgumentsListDeclare : public CodeElement {
 public:
@@ -28,12 +30,17 @@ public:
 	void addArgument(ArgumentDeclare* arg) noexcept;
 	int getSize() const noexcept;
 	const ArrayList<ArgumentDeclare>* getArguments() const noexcept;
+	ArrayList<AnalyzedType>* getArgumentsAnalyzedType() noexcept;
+	const UnicodeString* getCallSignature() noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
 private:
 	ArrayList<ArgumentDeclare> list;
+	UnicodeString* callSig;
+
+	ArrayList<AnalyzedType>* typelist;
 };
 
 } /* namespace alinous */

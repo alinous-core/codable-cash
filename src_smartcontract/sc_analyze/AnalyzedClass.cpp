@@ -127,6 +127,32 @@ MethodDeclare* AnalyzedClass::getDefaultConstructor() noexcept {
 	return nullptr;
 }
 
+MethodDeclare* AnalyzedClass::findMethod(const UnicodeString* name, ArrayList<AnalyzedType>* argumentTypeList) noexcept {
+	MethodDeclare* method = this->methods->get(name);
+	if(method == nullptr){
+		return method;
+	}
+
+	ArrayList<AnalyzedType>* argumentTypeList2 = method->getArguments()->getArgumentsAnalyzedType();
+
+	int maxLoop = argumentTypeList->size();
+	if(maxLoop != argumentTypeList2->size()){
+		return nullptr;
+	}
+
+	for(int i = 0; i != maxLoop; ++i){
+		AnalyzedType* atype = argumentTypeList->get(i);
+		AnalyzedType* atype2 = argumentTypeList2->get(i);
+
+		if(!atype->equals(atype2)){
+			return nullptr;
+		}
+	}
+
+	return method;
+}
+
+
 int AnalyzedClass::getInheritIndex() const noexcept {
 	return this->clazz->getInheritIndex();
 }
@@ -142,27 +168,12 @@ const UnicodeString* AnalyzedClass::toString() noexcept {
 const UnicodeString* AnalyzedClass::getSignatureName() noexcept {
 	if(this->sig == nullptr){
 		this->sig = new UnicodeString(L"L");
-		this->sig->append(toString());
+
+		this->sig->append(this->clazz->getFullQualifiedName());
 		this->sig->append(L";");
 	}
 	return this->sig;
 }
-
-
-MethodDeclare* AnalyzedClass::findMethodDeclareLocal(const UnicodeString* name, ArrayList<AbstractReference>* arguments) noexcept {
-	ClassDeclare* clazzDec = this->clazz;
-	while(clazzDec != nullptr){
-
-		clazzDec = clazzDec->getBaseClass();
-	}
-}
-
-MethodDeclare* AnalyzedClass::findMethodDeclareLocal(const UnicodeString* name, ArrayList<AnalyzedType>* arguments, bool strictMatch) noexcept {
-	FunctionScoreCalc calc;
-
-
-}
-
 
 void AnalyzedClass::buildVtable(AnalyzeContext* actx) noexcept {
 	VTableRegistory* vreg = actx->getVtableRegistory();
@@ -172,47 +183,16 @@ void AnalyzedClass::buildVtable(AnalyzeContext* actx) noexcept {
 	classEntry->buildVtable(actx);
 }
 
-/*
-void AnalyzedClass::bulidMethodVTable(AnalyzeContext* actx,	MethodDeclare* method) noexcept {
-
-
-	AnalyzedClass* clazz = findBaseClassOfMethod(this, method);
-	// FIXME vtable
-
-}
-
-AnalyzedClass* AnalyzedClass::findBaseClassOfMethod(AnalyzedClass* currentClass, MethodDeclare* method) noexcept {
-	AnalyzedClass* clazz= currentClass->getExtends();
-
-	const UnicodeString* methodName = method->getName();
-	ArgumentsListDeclare* argDec = method->getArguments();
-	const ArrayList<ArgumentDeclare>* argList = argDec->getArguments();
-	AnalyzedType* returnedType = method->getReturnedType();
-
-	ArrayList<AnalyzedType> typeList;
-	typeList.setDeleteOnExit();
-
-	int maxLoop = argList->size();
-	for(int i = 0; i != maxLoop; ++i){
-		ArgumentDeclare* dec = argList->get(i);
-		const AnalyzedType* type = dec->getAnalyzedType();
-		AnalyzedType* at = new AnalyzedType(*type);
-
-		typeList.addElement(at);
-	}
-
-	while(clazz != nullptr){
-		MethodDeclare* m = clazz->findMethodDeclareLocal(methodName, &typeList, true);
-
-		clazz = clazz->getExtends();
-	}
-
-	return clazz;
-}
-*/
-
 ClassDeclare* AnalyzedClass::getClassDeclare() const noexcept {
 	return this->clazz;
 }
+
+bool AnalyzedClass::equals(AnalyzedClass* other) noexcept {
+	const UnicodeString* sig = getSignatureName();
+	const UnicodeString* sig2 = other->getSignatureName();
+
+	return sig->equals(sig2);
+}
+
 
 } /* namespace alinous */

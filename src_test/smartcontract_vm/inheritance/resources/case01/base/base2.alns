@@ -10,4 +10,8 @@ class BaseClass2 {
 	public void vfunc01(int arg){
 	
 	}
+	
+	public void base02Func() {
+	
+	}
 }
