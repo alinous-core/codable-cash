@@ -6,7 +6,7 @@ import test.fw.base.BaseClass;
 
 class SmartContract extends BaseClass {
 	public SmartContract() {
-		this.count = 0;
+		test01();
 	}
 	
 	public int main(){
@@ -20,6 +20,4 @@ class SmartContract extends BaseClass {
 	public void test01(){
 	
 	}
-	
-	private int count;
 }
