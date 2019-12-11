@@ -9,9 +9,11 @@
 #define SC_ANALYZE_FUNCTIONS_VTABLECLASSENTRY_H_
 
 #include "base/HashMap.h"
+#include "base/ArrayList.h"
 
 namespace alinous {
 
+class AnalyzedType;
 class AnalyzedClass;
 class AnalyzeContext;
 class UnicodeString;
@@ -25,6 +27,7 @@ public:
 	virtual ~VTableClassEntry();
 
 	void buildVtable(AnalyzeContext* actx);
+	VTableMethodEntry* findEntry(const UnicodeString* methodName, ArrayList<AnalyzedType>* types);
 
 private:
 	void buildMethodSelf(ClassDeclare* clazz, AnalyzeContext* actx);

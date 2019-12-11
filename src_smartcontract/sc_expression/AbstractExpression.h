@@ -26,7 +26,7 @@ public:
 	virtual void preAnalyze(AnalyzeContext* actx) = 0;
 	virtual void analyzeTypeRef(AnalyzeContext* actx) = 0;
 	virtual void analyze(AnalyzeContext* actx) = 0;
-	virtual AnalyzedType getType() = 0;
+	virtual AnalyzedType getType(AnalyzeContext* actx) = 0;
 
 	virtual void init(VirtualMachine* vm) = 0;
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm) = 0;

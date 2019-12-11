@@ -44,7 +44,7 @@ void ConditionalAndExpression::fromBinary(ByteBuffer* in) {
 	AbstractBinaryExpression::fromBinary(in);
 }
 
-AnalyzedType ConditionalAndExpression::getType() {
+AnalyzedType ConditionalAndExpression::getType(AnalyzeContext* actx) {
 	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 

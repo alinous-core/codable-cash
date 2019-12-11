@@ -57,8 +57,8 @@ void ParenthesisExpression::fromBinary(ByteBuffer* in) {
 	this->exp = dynamic_cast<AbstractExpression*>(element);
 }
 
-AnalyzedType ParenthesisExpression::getType() {
-	return this->exp->getType();
+AnalyzedType ParenthesisExpression::getType(AnalyzeContext* actx) {
+	return this->exp->getType(actx);
 }
 
 void ParenthesisExpression::init(VirtualMachine* vm) {

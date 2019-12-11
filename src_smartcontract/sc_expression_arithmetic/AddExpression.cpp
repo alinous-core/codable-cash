@@ -69,7 +69,7 @@ void AddExpression::fromBinary(ByteBuffer* in) {
 	}
 }
 
-AnalyzedType AddExpression::getType() {
+AnalyzedType AddExpression::getType(AnalyzeContext* actx) {
 	return this->atype;
 }
 

@@ -134,6 +134,12 @@ void VTableClassEntry::addVirtualMethodImplEntry(MethodDeclare* method) {
 	this->methods.put(method->getCallSignature(), entry);
 }
 
+VTableMethodEntry* VTableClassEntry::findEntry(const UnicodeString* methodName,	ArrayList<AnalyzedType>* types) {
+	// FIXME todo
+
+	return nullptr;
+}
+
 MethodDeclare* VTableClassEntry::getSuperClassMethod(MethodDeclare* method) noexcept {
 	MethodDeclare* superMethod = nullptr;
 

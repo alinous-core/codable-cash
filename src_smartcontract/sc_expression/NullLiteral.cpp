@@ -41,7 +41,7 @@ void NullLiteral::toBinary(ByteBuffer* out) {
 void NullLiteral::fromBinary(ByteBuffer* in) {
 }
 
-AnalyzedType NullLiteral::getType() {
+AnalyzedType NullLiteral::getType(AnalyzeContext* actx) {
 	return AnalyzedType(AnalyzedType::TYPE_NULL);
 }
 

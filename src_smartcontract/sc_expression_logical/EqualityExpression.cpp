@@ -86,7 +86,7 @@ void EqualityExpression::fromBinary(ByteBuffer* in) {
 	this->op = in->get();
 }
 
-AnalyzedType EqualityExpression::getType() {
+AnalyzedType EqualityExpression::getType(AnalyzeContext* actx) {
 	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 

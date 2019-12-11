@@ -49,7 +49,7 @@ void AndExpression::fromBinary(ByteBuffer* in) {
 	AbstractBinaryExpression::fromBinary(in);
 }
 
-AnalyzedType AndExpression::getType() {
+AnalyzedType AndExpression::getType(AnalyzeContext* actx) {
 	return this->atype;
 }
 

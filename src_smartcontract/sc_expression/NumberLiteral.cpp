@@ -79,7 +79,7 @@ void NumberLiteral::fromBinary(ByteBuffer* in) {
 	this->str = getString(in);
 }
 
-AnalyzedType NumberLiteral::getType() {
+AnalyzedType NumberLiteral::getType(AnalyzeContext* actx) {
 	return this->atype;
 }
 

@@ -58,8 +58,8 @@ void NegateExpression::fromBinary(ByteBuffer* in) {
 	this->exp = dynamic_cast<AbstractExpression*>(element);
 }
 
-AnalyzedType NegateExpression::getType() {
-	return this->exp->getType();
+AnalyzedType NegateExpression::getType(AnalyzeContext* actx) {
+	return this->exp->getType(actx);
 }
 
 void NegateExpression::init(VirtualMachine* vm) {

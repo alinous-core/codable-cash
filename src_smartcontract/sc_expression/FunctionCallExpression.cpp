@@ -6,18 +6,29 @@
  */
 
 #include "sc_expression/FunctionCallExpression.h"
+
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/AnalyzedClass.h"
+
+#include "sc_analyze_functions/VTableRegistory.h"
+
+#include "sc_declare/ClassDeclare.h"
+
 #include "base/UnicodeString.h"
+
 
 namespace alinous {
 
 FunctionCallExpression::FunctionCallExpression() : AbstractExpression(CodeElement::EXP_FUNCTIONCALL) {
 	this->name = nullptr;
+	this->callSig = nullptr;
 }
 
 FunctionCallExpression::~FunctionCallExpression() {
 	delete this->name;
 	this->args.deleteElements();
+	delete this->callSig;
 }
 
 void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
@@ -30,7 +41,6 @@ void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	// FIXME expression : analyze type
 }
 
 void FunctionCallExpression::analyze(AnalyzeContext* actx) {
@@ -39,6 +49,25 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 		AbstractExpression* exp = this->args.get(i);
 		exp->analyze(actx);
 	}
+
+	// FIXME expression : analyze
+	AnalyzedClass* athisClass = actx->getThisClass();
+	ClassDeclare* classDec = athisClass->getClassDeclare();
+	const UnicodeString* fqn = classDec->getFullQualifiedName();
+
+
+	VTableRegistory* vreg = actx->getVtableRegistory();
+	VTableClassEntry* classEntry = vreg->getClassEntry(fqn, athisClass);
+
+	ArrayList<AnalyzedType> typeList;
+	typeList.setDeleteOnExit();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		AnalyzedType type = exp->getType(actx);
+		typeList.addElement(new AnalyzedType(type));
+	}
+
+	//classEntry->findEntry(this->name);
 }
 
 void FunctionCallExpression::setName(AbstractExpression* exp) noexcept {
@@ -95,7 +124,7 @@ void FunctionCallExpression::fromBinary(ByteBuffer* in) {
 	}
 }
 
-AnalyzedType FunctionCallExpression::getType() {
+AnalyzedType FunctionCallExpression::getType(AnalyzeContext* actx) {
 	// FIXME analyze function type
 	return AnalyzedType();
 }

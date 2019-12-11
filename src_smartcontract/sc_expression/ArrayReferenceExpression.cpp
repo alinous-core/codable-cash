@@ -99,7 +99,7 @@ void ArrayReferenceExpression::fromBinary(ByteBuffer* in) {
 	}
 }
 
-AnalyzedType ArrayReferenceExpression::getType() {
+AnalyzedType ArrayReferenceExpression::getType(AnalyzeContext* actx) {
 	// FIXME analyze array ref type
 	return AnalyzedType();
 }

@@ -61,7 +61,7 @@ void VariableIdentifier::fromBinary(ByteBuffer* in) {
 	this->name = getString(in);
 }
 
-AnalyzedType VariableIdentifier::getType() {
+AnalyzedType VariableIdentifier::getType(AnalyzeContext* actx) {
 	// FIXME analyze variable id type
 	return AnalyzedType();
 }
