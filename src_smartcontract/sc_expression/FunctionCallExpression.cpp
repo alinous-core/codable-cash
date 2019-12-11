@@ -25,11 +25,13 @@ namespace alinous {
 
 FunctionCallExpression::FunctionCallExpression() : AbstractExpression(CodeElement::EXP_FUNCTIONCALL) {
 	this->name = nullptr;
+	this->strName = nullptr;
 }
 
 FunctionCallExpression::~FunctionCallExpression() {
 	delete this->name;
 	this->args.deleteElements();
+	delete this->strName;
 }
 
 void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
@@ -46,6 +48,8 @@ void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
 		return;
 	}
 
+	UnicodeString* str = valId->getName();
+	this->strName = new UnicodeString(str);
 }
 
 void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
@@ -75,7 +79,7 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 		typeList.addElement(new AnalyzedType(type));
 	}
 
-//	classEntry->findEntry(this->name, &typeList);
+	VTableMethodEntry* methodEntry = classEntry->findEntry(this->strName, &typeList);
 }
 
 void FunctionCallExpression::setName(AbstractExpression* exp) noexcept {

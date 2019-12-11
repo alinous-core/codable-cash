@@ -40,6 +40,8 @@ private:
 private:
 	AbstractExpression* name;
 	ArrayList<AbstractExpression> args;
+
+	UnicodeString* strName;
 };
 
 } /* namespace alinous */
