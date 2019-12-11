@@ -10,10 +10,13 @@
 #include "sc_analyze/AnalyzedType.h"
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedClass.h"
-
-#include "sc_analyze_functions/VTableRegistory.h"
+#include "sc_analyze/ValidationError.h"
 
 #include "sc_declare/ClassDeclare.h"
+#include "sc_expression/VariableIdentifier.h"
+
+#include "sc_analyze_functions/VTableRegistory.h"
+#include "sc_analyze_functions/VTableClassEntry.h"
 
 #include "base/UnicodeString.h"
 
@@ -22,13 +25,11 @@ namespace alinous {
 
 FunctionCallExpression::FunctionCallExpression() : AbstractExpression(CodeElement::EXP_FUNCTIONCALL) {
 	this->name = nullptr;
-	this->callSig = nullptr;
 }
 
 FunctionCallExpression::~FunctionCallExpression() {
 	delete this->name;
 	this->args.deleteElements();
-	delete this->callSig;
 }
 
 void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
@@ -38,6 +39,13 @@ void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
 		exp->setParent(this);
 		exp->preAnalyze(actx);
 	}
+
+	VariableIdentifier* valId = dynamic_cast<VariableIdentifier*>(this->name);
+	if(valId == nullptr){
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_NAME, this, L"", {});
+		return;
+	}
+
 }
 
 void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
@@ -67,7 +75,7 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 		typeList.addElement(new AnalyzedType(type));
 	}
 
-	//classEntry->findEntry(this->name);
+//	classEntry->findEntry(this->name, &typeList);
 }
 
 void FunctionCallExpression::setName(AbstractExpression* exp) noexcept {

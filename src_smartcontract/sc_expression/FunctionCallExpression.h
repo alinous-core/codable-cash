@@ -37,9 +37,6 @@ public:
 
 private:
 
-
-private:
-	UnicodeString* callSig;
 private:
 	AbstractExpression* name;
 	ArrayList<AbstractExpression> args;
