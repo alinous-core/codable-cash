@@ -152,6 +152,9 @@ void VTableClassEntry::addVirtualMethodImplEntry(MethodDeclare* method) {
 	addMethodNameEntry(entry);
 }
 
+/**
+ * needs actx->setCurrentElement(this);
+ */
 VTableMethodEntry* VTableClassEntry::findEntry(AnalyzeContext* actx, const UnicodeString* methodName, ArrayList<AnalyzedType>* types) {
 	FunctionScoreCalc calc(this);
 
@@ -159,6 +162,7 @@ VTableMethodEntry* VTableClassEntry::findEntry(AnalyzeContext* actx, const Unico
 	if(score == nullptr){
 		int errorCode = calc.getErrorCode();
 		if(errorCode == FunctionScoreCalc::ERROR_AMBIGOUS){
+			ArrayList<MethodScore>* amList = calc.getAmbigousList();
 			actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_AMBIGOUS, actx->getCurrentElement(), L"The method '{0}()' has ambiguous arguments.", {methodName});
 		}
 		return nullptr;
@@ -196,6 +200,7 @@ void VTableClassEntry::addMethodNameEntry(VTableMethodEntry* entry) noexcept {
 	MethodNameCollection* collection = this->methodsNames.get(methodName);
 	if(collection == nullptr){
 		collection = new MethodNameCollection();
+		this->methodsNames.put(methodName, collection);
 	}
 
 	collection->addMethodEntry(entry);
