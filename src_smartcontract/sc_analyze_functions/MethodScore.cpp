@@ -7,6 +7,11 @@
 
 #include "sc_analyze_functions/MethodScore.h"
 
+#include "sc_analyze_functions/VTableMethodEntry.h"
+
+#include "sc_declare/ArgumentsListDeclare.h"
+#include "sc_declare/MethodDeclare.h"
+
 namespace alinous {
 
 MethodScore::MethodScore(VTableMethodEntry* method) {
@@ -20,6 +25,15 @@ MethodScore::~MethodScore() {
 }
 
 void MethodScore::eveluate(ArrayList<AnalyzedType>* types) noexcept {
+	MethodDeclare* m = this->method->getMethod();
+	ArgumentsListDeclare* listDeclare = m->getArguments();
+
+
+	int maxLoop = types->size();
+	for(int i = 0; i != maxLoop; ++i){
+
+
+	}
 }
 
 int MethodScore::getScore() const noexcept {

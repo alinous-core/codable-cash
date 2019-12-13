@@ -27,7 +27,8 @@ public:
 	virtual ~FunctionScoreCalc();
 
 	MethodScore* findMethod(const UnicodeString* methodName, ArrayList<AnalyzedType>* types) noexcept;
-
+	int getErrorCode() const noexcept;
+	ArrayList<MethodScore>* getAmbigousList() noexcept;
 private:
 	void newScore(MethodScore* score) noexcept;
 private:

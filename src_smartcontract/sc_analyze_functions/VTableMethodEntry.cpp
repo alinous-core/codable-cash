@@ -23,5 +23,9 @@ const UnicodeString* VTableMethodEntry::getName() const noexcept {
 	return this->method->getName();
 }
 
+MethodDeclare* VTableMethodEntry::getMethod() const noexcept {
+	return this->method;
+}
+
 
 } /* namespace alinous */

@@ -104,11 +104,13 @@ void VTableClassEntry::dobuildMethodSuperClass(ClassDeclare* clazz,	AnalyzeConte
 void VTableClassEntry::addSuperMethodEntry(MethodDeclare* method) {
 	VTableMethodEntry* entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_NORMAL);
 	this->methods.put(method->getCallSignature(), entry);
+	addMethodNameEntry(entry);
 }
 
 void VTableClassEntry::addSuperVirtualMethodImplEntry(MethodDeclare* method) {
 	VTableMethodEntry* entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_VIRTUAL_SUPER);
 	this->methods.put(method->getCallSignature(), entry);
+	addMethodNameEntry(entry);
 }
 
 
@@ -141,20 +143,27 @@ void VTableClassEntry::buildMethodSelf(ClassDeclare* clazz,	AnalyzeContext* actx
 void VTableClassEntry::addMethodEntry(MethodDeclare* method) {
 	VTableMethodEntry* entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_NORMAL);
 	this->methods.put(method->getCallSignature(), entry);
+	addMethodNameEntry(entry);
 }
 
 void VTableClassEntry::addVirtualMethodImplEntry(MethodDeclare* method) {
 	VTableMethodEntry* entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_VIRTUAL);
 	this->methods.put(method->getCallSignature(), entry);
+	addMethodNameEntry(entry);
 }
 
-VTableMethodEntry* VTableClassEntry::findEntry(const UnicodeString* methodName,	ArrayList<AnalyzedType>* types) {
+VTableMethodEntry* VTableClassEntry::findEntry(AnalyzeContext* actx, const UnicodeString* methodName, ArrayList<AnalyzedType>* types) {
 	FunctionScoreCalc calc(this);
 
 	MethodScore* score = calc.findMethod(methodName, types);
 	if(score == nullptr){
-
+		int errorCode = calc.getErrorCode();
+		if(errorCode == FunctionScoreCalc::ERROR_AMBIGOUS){
+			actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_AMBIGOUS, actx->getCurrentElement(), L"The method '{0}()' has ambiguous arguments.", {methodName});
+		}
+		return nullptr;
 	}
+
 	// FIXME todo
 
 	return nullptr;

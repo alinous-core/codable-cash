@@ -28,7 +28,7 @@ public:
 	virtual ~VTableClassEntry();
 
 	void buildVtable(AnalyzeContext* actx);
-	VTableMethodEntry* findEntry(const UnicodeString* methodName, ArrayList<AnalyzedType>* types);
+	VTableMethodEntry* findEntry(AnalyzeContext* actx, const UnicodeString* methodName, ArrayList<AnalyzedType>* types);
 	MethodNameCollection* getMethodEntryCollection(const UnicodeString* methodName) const noexcept;
 
 private:

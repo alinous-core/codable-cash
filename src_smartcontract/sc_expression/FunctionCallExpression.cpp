@@ -78,7 +78,8 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 		typeList.addElement(new AnalyzedType(type));
 	}
 
-	VTableMethodEntry* methodEntry = classEntry->findEntry(this->strName, &typeList);
+	actx->setCurrentElement(this);
+	VTableMethodEntry* methodEntry = classEntry->findEntry(actx, this->strName, &typeList);
 	// FIXME expression : analyze
 }
 

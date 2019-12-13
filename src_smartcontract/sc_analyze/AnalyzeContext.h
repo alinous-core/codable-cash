@@ -49,6 +49,9 @@ public:
 	void analyzeClassInheritance();
 
 	VTableRegistory* getVtableRegistory() const noexcept;
+
+	void setCurrentElement(CodeElement* current) noexcept;
+	CodeElement* getCurrentElement() const noexcept;
 private:
 	VirtualMachine* vm;
 	HashMap<UnicodeString, PackageSpace> *packageSpaces;
@@ -57,6 +60,8 @@ private:
 	TypeResolver* typeResolver;
 	AnalyzedClass* thisClass;
 	VTableRegistory* vtableReg;
+
+	CodeElement* current;
 };
 
 } /* namespace alinous */

@@ -23,6 +23,7 @@ public:
 	virtual ~VTableMethodEntry();
 
 	const UnicodeString* getName() const noexcept;
+	MethodDeclare* getMethod() const noexcept;
 private:
 	MethodDeclare* method;
 	int type;

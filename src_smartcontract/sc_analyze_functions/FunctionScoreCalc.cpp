@@ -26,6 +26,7 @@ FunctionScoreCalc::FunctionScoreCalc(VTableClassEntry* classEntry) {
 FunctionScoreCalc::~FunctionScoreCalc() {
 	delete this->topScore;
 	this->classEntry = nullptr;
+	this->list.deleteElements();
 }
 
 MethodScore* FunctionScoreCalc::findMethod(const UnicodeString* methodName, ArrayList<AnalyzedType>* types) noexcept {
@@ -50,6 +51,10 @@ MethodScore* FunctionScoreCalc::findMethod(const UnicodeString* methodName, Arra
 	return this->topScore;
 }
 
+ArrayList<MethodScore>* FunctionScoreCalc::getAmbigousList() noexcept {
+	return &this->list;
+}
+
 void FunctionScoreCalc::newScore(MethodScore* score) noexcept {
 	int sc = score->getScore();
 	if(this->topScore == nullptr){
@@ -69,6 +74,10 @@ void FunctionScoreCalc::newScore(MethodScore* score) noexcept {
 		delete this->topScore;
 		this->topScore = score;
 	}
+}
+
+int FunctionScoreCalc::getErrorCode() const noexcept {
+	return this->errorCode;
 }
 
 } /* namespace alinous */
