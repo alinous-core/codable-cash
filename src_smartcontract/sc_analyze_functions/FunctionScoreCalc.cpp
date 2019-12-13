@@ -11,12 +11,14 @@
 
 namespace alinous {
 
-FunctionScoreCalc::FunctionScoreCalc() {
+FunctionScoreCalc::FunctionScoreCalc(VTableClassEntry* classEntry) {
 	this->topScore = nullptr;
+	this->classEntry = classEntry;
 }
 
 FunctionScoreCalc::~FunctionScoreCalc() {
 	delete this->topScore;
+	this->classEntry = nullptr;
 }
 
 } /* namespace alinous */

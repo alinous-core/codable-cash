@@ -79,7 +79,7 @@ void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractRe
 	VmClassInstance* _this = dynamic_cast<VmClassInstance*>(this->sc->getRootReference()->getInstance());
 	AnalyzedClass* aclass = _this->getAnalyzedClass();
 
-	FunctionScoreCalc calc;
+	//FunctionScoreCalc calc;
 
 	// FIXME interpret
 

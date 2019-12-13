@@ -2,6 +2,7 @@
 
 set(__src
 	FunctionScoreCalc.cpp
+	MethodNameCollection.cpp
 	MethodScore.cpp
 	VTableClassEntry.cpp
 	VTableMethodEntry.cpp

@@ -18,6 +18,7 @@ class AnalyzedClass;
 class AnalyzeContext;
 class UnicodeString;
 class VTableMethodEntry;
+class MethodNameCollection;
 class ClassDeclare;
 class MethodDeclare;
 
@@ -41,10 +42,12 @@ private:
 
 	MethodDeclare* getSuperClassMethod(MethodDeclare* method) noexcept;
 
+	void addMethodNameEntry(VTableMethodEntry* entry) noexcept;
+
 private:
 	AnalyzedClass* aclass;
 	HashMap<UnicodeString, VTableMethodEntry> methods;
-
+	HashMap<UnicodeString, MethodNameCollection> methodsNames;
 };
 
 } /* namespace alinous */

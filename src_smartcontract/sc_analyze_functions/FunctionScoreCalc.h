@@ -12,14 +12,17 @@ namespace alinous {
 
 class MethodScore;
 class MethodDeclare;
+class VTableClassEntry;
 
 class FunctionScoreCalc {
 public:
-	FunctionScoreCalc();
+	FunctionScoreCalc(VTableClassEntry* classEntry);
 	virtual ~FunctionScoreCalc();
 
 	MethodDeclare* getMethod() const noexcept;
 private:
+	VTableClassEntry* classEntry;
+
 	MethodScore* topScore;
 
 };

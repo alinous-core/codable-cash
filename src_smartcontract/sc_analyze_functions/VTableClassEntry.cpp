@@ -12,7 +12,9 @@
 #include "sc_analyze/ValidationError.h"
 #include "sc_analyze/AnalyzeContext.h"
 
+#include "sc_analyze_functions/FunctionScoreCalc.h"
 #include "sc_analyze_functions/VTableMethodEntry.h"
+#include "sc_analyze_functions/MethodNameCollection.h"
 
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/MethodDeclare.h"
@@ -21,6 +23,7 @@
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
+
 namespace alinous {
 
 VTableClassEntry::VTableClassEntry(AnalyzedClass* aclass) {
@@ -28,11 +31,22 @@ VTableClassEntry::VTableClassEntry(AnalyzedClass* aclass) {
 }
 
 VTableClassEntry::~VTableClassEntry() {
-	Iterator<UnicodeString>* it = this->methods.keySet()->iterator(); __STP(it);
-	while(it->hasNext()){
-		const UnicodeString* key = it->next();
-		VTableMethodEntry* m = this->methods.get(key);
-		delete m;
+	{
+		Iterator<UnicodeString>* it = this->methods.keySet()->iterator(); __STP(it);
+		while(it->hasNext()){
+			const UnicodeString* key = it->next();
+			VTableMethodEntry* m = this->methods.get(key);
+			delete m;
+		}
+	}
+
+	{
+		Iterator<UnicodeString>* it = this->methodsNames.keySet()->iterator(); __STP(it);
+		while(it->hasNext()){
+			const UnicodeString* key = it->next();
+			MethodNameCollection* col = this->methodsNames.get(key);
+			delete col;
+		}
 	}
 
 	this->aclass = nullptr;
@@ -135,6 +149,8 @@ void VTableClassEntry::addVirtualMethodImplEntry(MethodDeclare* method) {
 }
 
 VTableMethodEntry* VTableClassEntry::findEntry(const UnicodeString* methodName,	ArrayList<AnalyzedType>* types) {
+	FunctionScoreCalc calc(this);
+
 	// FIXME todo
 
 	return nullptr;
@@ -159,6 +175,17 @@ MethodDeclare* VTableClassEntry::getSuperClassMethod(MethodDeclare* method) noex
 	}
 
 	return nullptr;
+}
+
+void VTableClassEntry::addMethodNameEntry(VTableMethodEntry* entry) noexcept {
+	const UnicodeString* methodName = entry->getName();
+
+	MethodNameCollection* collection = this->methodsNames.get(methodName);
+	if(collection == nullptr){
+		collection = new MethodNameCollection();
+	}
+
+	collection->addMethodEntry(entry);
 }
 
 } /* namespace alinous */

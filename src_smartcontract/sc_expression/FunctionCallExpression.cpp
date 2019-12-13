@@ -44,7 +44,7 @@ void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
 
 	VariableIdentifier* valId = dynamic_cast<VariableIdentifier*>(this->name);
 	if(valId == nullptr){
-		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_NAME, this, L"", {});
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_NAME, this, L"Function identifier must be string starts with alphabet.", {});
 		return;
 	}
 
@@ -62,7 +62,6 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 		exp->analyze(actx);
 	}
 
-	// FIXME expression : analyze
 	AnalyzedClass* athisClass = actx->getThisClass();
 	ClassDeclare* classDec = athisClass->getClassDeclare();
 	const UnicodeString* fqn = classDec->getFullQualifiedName();
@@ -80,6 +79,7 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 	}
 
 	VTableMethodEntry* methodEntry = classEntry->findEntry(this->strName, &typeList);
+	// FIXME expression : analyze
 }
 
 void FunctionCallExpression::setName(AbstractExpression* exp) noexcept {
