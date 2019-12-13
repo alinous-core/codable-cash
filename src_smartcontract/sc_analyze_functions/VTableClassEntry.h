@@ -29,6 +29,7 @@ public:
 
 	void buildVtable(AnalyzeContext* actx);
 	VTableMethodEntry* findEntry(const UnicodeString* methodName, ArrayList<AnalyzedType>* types);
+	MethodNameCollection* getMethodEntryCollection(const UnicodeString* methodName) const noexcept;
 
 private:
 	void buildMethodSelf(ClassDeclare* clazz, AnalyzeContext* actx);

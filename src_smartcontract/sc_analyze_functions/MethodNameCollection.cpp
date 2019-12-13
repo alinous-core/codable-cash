@@ -22,4 +22,8 @@ void MethodNameCollection::addMethodEntry(VTableMethodEntry* entry) noexcept {
 	this->list.addElement(entry);
 }
 
+const ArrayList<VTableMethodEntry>* MethodNameCollection::getList() const noexcept {
+	return &this->list;
+}
+
 } /* namespace alinous */

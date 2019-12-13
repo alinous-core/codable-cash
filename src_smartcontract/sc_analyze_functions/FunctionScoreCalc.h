@@ -8,18 +8,23 @@
 #ifndef SC_ANALYZE_FUNCTIONS_FUNCTIONSCORECALC_H_
 #define SC_ANALYZE_FUNCTIONS_FUNCTIONSCORECALC_H_
 
+#include "base/ArrayList.h"
+
 namespace alinous {
 
+class UnicodeString;
 class MethodScore;
 class MethodDeclare;
 class VTableClassEntry;
+class AnalyzedType;
 
 class FunctionScoreCalc {
 public:
 	FunctionScoreCalc(VTableClassEntry* classEntry);
 	virtual ~FunctionScoreCalc();
 
-	MethodDeclare* getMethod() const noexcept;
+
+	MethodScore* findMethod(const UnicodeString* methodName, ArrayList<AnalyzedType>* types) noexcept;
 private:
 	VTableClassEntry* classEntry;
 

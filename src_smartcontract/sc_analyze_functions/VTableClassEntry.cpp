@@ -151,6 +151,10 @@ void VTableClassEntry::addVirtualMethodImplEntry(MethodDeclare* method) {
 VTableMethodEntry* VTableClassEntry::findEntry(const UnicodeString* methodName,	ArrayList<AnalyzedType>* types) {
 	FunctionScoreCalc calc(this);
 
+	MethodScore* score = calc.findMethod(methodName, types);
+	if(score == nullptr){
+
+	}
 	// FIXME todo
 
 	return nullptr;
@@ -186,6 +190,10 @@ void VTableClassEntry::addMethodNameEntry(VTableMethodEntry* entry) noexcept {
 	}
 
 	collection->addMethodEntry(entry);
+}
+
+MethodNameCollection* VTableClassEntry::getMethodEntryCollection(const UnicodeString* methodName) const noexcept {
+	return this->methodsNames.get(methodName);
 }
 
 } /* namespace alinous */

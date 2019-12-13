@@ -20,7 +20,7 @@ public:
 	virtual ~MethodNameCollection();
 
 	void addMethodEntry(VTableMethodEntry* entry) noexcept;
-
+	const ArrayList<VTableMethodEntry>* getList() const noexcept;
 private:
 	ArrayList<VTableMethodEntry> list;
 };
