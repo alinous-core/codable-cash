@@ -20,15 +20,22 @@ class AnalyzedType;
 
 class FunctionScoreCalc {
 public:
+	static constexpr int ERROR_NOT_EXIST = 1;
+	static constexpr int ERROR_AMBIGOUS = 1;
+
 	FunctionScoreCalc(VTableClassEntry* classEntry);
 	virtual ~FunctionScoreCalc();
 
-
 	MethodScore* findMethod(const UnicodeString* methodName, ArrayList<AnalyzedType>* types) noexcept;
+
+private:
+	void newScore(MethodScore* score) noexcept;
 private:
 	VTableClassEntry* classEntry;
 
 	MethodScore* topScore;
+	int errorCode;
+	ArrayList<MethodScore> list;
 
 };
 

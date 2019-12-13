@@ -8,17 +8,25 @@
 #ifndef SC_ANALYZE_FUNCTIONS_METHODSCORE_H_
 #define SC_ANALYZE_FUNCTIONS_METHODSCORE_H_
 
+#include "base/ArrayList.h"
+
 namespace alinous {
 
-class MethodDeclare;
+class VTableMethodEntry;
+class AnalyzedType;
 
 class MethodScore {
 public:
-	MethodScore();
+	explicit MethodScore(VTableMethodEntry* method);
 	virtual ~MethodScore();
 
+	void eveluate(ArrayList<AnalyzedType>* types) noexcept;
+	int getScore() const noexcept;
+	bool isMatch() const noexcept;
+
 private:
-	MethodDeclare* method;
+	VTableMethodEntry* method;
+	bool match;
 	int score;
 };
 

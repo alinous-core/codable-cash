@@ -20,6 +20,7 @@ namespace alinous {
 FunctionScoreCalc::FunctionScoreCalc(VTableClassEntry* classEntry) {
 	this->topScore = nullptr;
 	this->classEntry = classEntry;
+	this->errorCode = 0;
 }
 
 FunctionScoreCalc::~FunctionScoreCalc() {
@@ -38,9 +39,36 @@ MethodScore* FunctionScoreCalc::findMethod(const UnicodeString* methodName, Arra
 	int maxLoop = list->size();
 	for(int i = 0; i != maxLoop; ++i){
 		VTableMethodEntry* entry = list->get(i);
+		MethodScore* score = new MethodScore(entry);
+
+		score->eveluate(types);
+		if(score->isMatch()){
+			newScore(score);
+		}
 	}
 
 	return this->topScore;
+}
+
+void FunctionScoreCalc::newScore(MethodScore* score) noexcept {
+	int sc = score->getScore();
+	if(this->topScore == nullptr){
+		this->topScore = score;
+		return;
+	}
+
+	if(this->topScore->getScore() == sc){
+		this->errorCode = ERROR_AMBIGOUS;
+
+		this->list.addElement(this->topScore);
+		this->list.addElement(score);
+		this->topScore = nullptr;
+		return;
+	}
+	else if(this->topScore->getScore() < sc){
+		delete this->topScore;
+		this->topScore = score;
+	}
 }
 
 } /* namespace alinous */
