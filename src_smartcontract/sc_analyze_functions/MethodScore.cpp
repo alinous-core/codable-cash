@@ -55,14 +55,29 @@ bool MethodScore::evaluateTypeScore(AnalyzedType* base,	AnalyzedType* arg) noexc
 	bool res;
 	switch(tt){
 	case AnalyzedType::TYPE_OBJECT:
+		res = evaluateObjectTypeScore(arg);
+		break;
 	case AnalyzedType::TYPE_BOOL:
+		res = evaluateBoolTypeScore(arg);
+		break;
 	case AnalyzedType::TYPE_BYTE:
+		res = evaluateByteTypeScore(arg);
+		break;
 	case AnalyzedType::TYPE_CHAR:
+		res = evaluateCharTypeScore(arg);
+		break;
 	case AnalyzedType::TYPE_SHORT:
+		res = evaluateShortTypeScore(arg);
+		break;
 	case AnalyzedType::TYPE_LONG:
+		res = evaluateLongTypeScore(arg);
+		break;
 	case AnalyzedType::TYPE_STRING:
+		res = evaluateStringTypeScore(arg);
+		break;
 	case AnalyzedType::TYPE_INT:
 	default:
+		res = evaluateIntTypeScore(arg);
 		break;
 	}
 
@@ -85,12 +100,14 @@ bool MethodScore::evaluateObjectTypeScore(AnalyzedType* arg) noexcept {
 	bool res;
 	switch(tt){
 	case AnalyzedType::TYPE_OBJECT:
+	case AnalyzedType::TYPE_STRING:
 	case AnalyzedType::TYPE_BOOL:
+		break;
 	case AnalyzedType::TYPE_BYTE:
 	case AnalyzedType::TYPE_CHAR:
 	case AnalyzedType::TYPE_SHORT:
 	case AnalyzedType::TYPE_LONG:
-	case AnalyzedType::TYPE_STRING:
+
 	case AnalyzedType::TYPE_INT:
 	default:
 		break;
@@ -101,12 +118,13 @@ bool MethodScore::evaluateObjectTypeScore(AnalyzedType* arg) noexcept {
 
 bool MethodScore::evaluateBoolTypeScore(AnalyzedType* arg) noexcept {
 	uint8_t tt = arg->getType();
-	// FIXME
 
 	bool res = false;
 	switch(tt){
-	case AnalyzedType::TYPE_OBJECT:
 	case AnalyzedType::TYPE_BOOL:
+		res = true;
+		break;
+	case AnalyzedType::TYPE_OBJECT:
 	case AnalyzedType::TYPE_BYTE:
 	case AnalyzedType::TYPE_CHAR:
 	case AnalyzedType::TYPE_SHORT:
@@ -122,18 +140,22 @@ bool MethodScore::evaluateBoolTypeScore(AnalyzedType* arg) noexcept {
 
 bool MethodScore::evaluateByteTypeScore(AnalyzedType* arg) noexcept {
 	uint8_t tt = arg->getType();
-	// FIXME
 
-	bool res;
+	bool res = false;
 	switch(tt){
-	case AnalyzedType::TYPE_OBJECT:
-	case AnalyzedType::TYPE_BOOL:
 	case AnalyzedType::TYPE_BYTE:
+		res = true;
+		break;
 	case AnalyzedType::TYPE_CHAR:
 	case AnalyzedType::TYPE_SHORT:
 	case AnalyzedType::TYPE_LONG:
-	case AnalyzedType::TYPE_STRING:
 	case AnalyzedType::TYPE_INT:
+		res = true;
+		this->score -= 1;
+		break;
+	case AnalyzedType::TYPE_OBJECT:
+	case AnalyzedType::TYPE_BOOL:
+	case AnalyzedType::TYPE_STRING:
 	default:
 		break;
 	}
@@ -141,20 +163,51 @@ bool MethodScore::evaluateByteTypeScore(AnalyzedType* arg) noexcept {
 	return res;
 }
 
-bool MethodScore::evaluateShortTypeScore(AnalyzedType* arg) noexcept {
+bool MethodScore::evaluateCharTypeScore(AnalyzedType* arg) noexcept {
 	uint8_t tt = arg->getType();
-	// FIXME
 
-	bool res;
+	bool res = false;
 	switch(tt){
-	case AnalyzedType::TYPE_OBJECT:
-	case AnalyzedType::TYPE_BOOL:
-	case AnalyzedType::TYPE_BYTE:
 	case AnalyzedType::TYPE_CHAR:
+		res = true;
+		break;
+	case AnalyzedType::TYPE_BYTE:
 	case AnalyzedType::TYPE_SHORT:
 	case AnalyzedType::TYPE_LONG:
-	case AnalyzedType::TYPE_STRING:
 	case AnalyzedType::TYPE_INT:
+		res = true;
+		this->score -= 1;
+		break;
+	case AnalyzedType::TYPE_OBJECT:
+	case AnalyzedType::TYPE_BOOL:
+	case AnalyzedType::TYPE_STRING:
+	default:
+		break;
+	}
+
+	return res;
+}
+
+
+bool MethodScore::evaluateShortTypeScore(AnalyzedType* arg) noexcept {
+	uint8_t tt = arg->getType();
+
+	bool res = false;
+	switch(tt){
+
+	case AnalyzedType::TYPE_BYTE:
+	case AnalyzedType::TYPE_CHAR:
+	case AnalyzedType::TYPE_LONG:
+	case AnalyzedType::TYPE_INT:
+		res = true;
+		this->score -= 1;
+		break;
+	case AnalyzedType::TYPE_SHORT:
+		res = true;
+		break;
+	case AnalyzedType::TYPE_OBJECT:
+	case AnalyzedType::TYPE_BOOL:
+	case AnalyzedType::TYPE_STRING:
 	default:
 		break;
 	}
@@ -164,18 +217,22 @@ bool MethodScore::evaluateShortTypeScore(AnalyzedType* arg) noexcept {
 
 bool MethodScore::evaluateIntTypeScore(AnalyzedType* arg) noexcept {
 	uint8_t tt = arg->getType();
-	// FIXME
 
-	bool res;
+	bool res = false;
 	switch(tt){
-	case AnalyzedType::TYPE_OBJECT:
-	case AnalyzedType::TYPE_BOOL:
 	case AnalyzedType::TYPE_BYTE:
 	case AnalyzedType::TYPE_CHAR:
 	case AnalyzedType::TYPE_SHORT:
 	case AnalyzedType::TYPE_LONG:
-	case AnalyzedType::TYPE_STRING:
+		res = true;
+		this->score -= 1;
+		break;
 	case AnalyzedType::TYPE_INT:
+		res = true;
+		break;
+	case AnalyzedType::TYPE_OBJECT:
+	case AnalyzedType::TYPE_BOOL:
+	case AnalyzedType::TYPE_STRING:
 	default:
 		break;
 	}
@@ -185,18 +242,23 @@ bool MethodScore::evaluateIntTypeScore(AnalyzedType* arg) noexcept {
 
 bool MethodScore::evaluateLongTypeScore(AnalyzedType* arg) noexcept {
 	uint8_t tt = arg->getType();
-	// FIXME
 
-	bool res;
+	bool res = false;
 	switch(tt){
-	case AnalyzedType::TYPE_OBJECT:
-	case AnalyzedType::TYPE_BOOL:
+
 	case AnalyzedType::TYPE_BYTE:
 	case AnalyzedType::TYPE_CHAR:
 	case AnalyzedType::TYPE_SHORT:
-	case AnalyzedType::TYPE_LONG:
-	case AnalyzedType::TYPE_STRING:
 	case AnalyzedType::TYPE_INT:
+		res = true;
+		this->score -= 1;
+		break;
+	case AnalyzedType::TYPE_LONG:
+		res = true;
+		break;
+	case AnalyzedType::TYPE_OBJECT:
+	case AnalyzedType::TYPE_BOOL:
+	case AnalyzedType::TYPE_STRING:
 	default:
 		break;
 	}
@@ -206,17 +268,18 @@ bool MethodScore::evaluateLongTypeScore(AnalyzedType* arg) noexcept {
 
 bool MethodScore::evaluateStringTypeScore(AnalyzedType* arg) noexcept {
 	uint8_t tt = arg->getType();
-	// FIXME
 
-	bool res;
+	bool res = false;
 	switch(tt){
+	case AnalyzedType::TYPE_STRING:
+		res = true;
+		break;
 	case AnalyzedType::TYPE_OBJECT:
 	case AnalyzedType::TYPE_BOOL:
 	case AnalyzedType::TYPE_BYTE:
 	case AnalyzedType::TYPE_CHAR:
 	case AnalyzedType::TYPE_SHORT:
 	case AnalyzedType::TYPE_LONG:
-	case AnalyzedType::TYPE_STRING:
 	case AnalyzedType::TYPE_INT:
 	default:
 		break;

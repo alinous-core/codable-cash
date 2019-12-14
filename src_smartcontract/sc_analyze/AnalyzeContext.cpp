@@ -29,6 +29,7 @@ AnalyzeContext::AnalyzeContext() {
 	this->typeResolver = new TypeResolver(this);
 	this->thisClass = nullptr;
 	this->vtableReg = new VTableRegistory();
+	this->current = nullptr;
 }
 
 AnalyzeContext::~AnalyzeContext() {
