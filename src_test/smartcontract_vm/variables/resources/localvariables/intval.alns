@@ -1,0 +1,8 @@
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		int n = 0;
+	}
+}
