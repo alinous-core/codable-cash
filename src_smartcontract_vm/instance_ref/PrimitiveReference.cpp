@@ -65,6 +65,9 @@ void PrimitiveReference::substitute(AbstractVmInstance* rightValue,	VirtualMachi
 	assert(rightRef != nullptr);
 
 	switch(type){
+	case AbstractVmInstance::REF_BOOL:
+		setIntValue(rightRef->getIntValue());
+		break;
 	case AbstractVmInstance::REF_BYTE:
 		setByteValue(rightRef->getByteValue());
 		break;

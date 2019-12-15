@@ -81,7 +81,7 @@ AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(AnalyzedType
 	case AnalyzedType::TYPE_STRING:
 	case AnalyzedType::TYPE_OBJECT:
 	default:
-		// FIXME object
+		ref = new(vm) ObjectReference(AbstractReference::REF_OBJ);
 		break;
 	}
 

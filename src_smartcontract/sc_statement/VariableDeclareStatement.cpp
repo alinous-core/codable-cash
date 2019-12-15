@@ -21,6 +21,7 @@
 
 #include "stack/VmStack.h"
 
+#include "instance_ref/RefereceFactory.h"
 
 namespace alinous {
 
@@ -122,10 +123,12 @@ void VariableDeclareStatement::init(VirtualMachine* vm) {
 void VariableDeclareStatement::interpret(VirtualMachine* vm) {
 	VmStack* stack = vm->topStack();
 
+	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(this->atype, vm);
+	stack->addInnerReference(ref);
+
 	if(this->exp != nullptr){
 		AbstractVmInstance* instValue = this->exp->interpret(vm);
-
-
+		ref->substitute(instValue, vm);
 	}
 
 	// FIXME statement
