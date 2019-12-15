@@ -11,6 +11,7 @@
 #include "sc_statement/AbstractStatement.h"
 
 namespace alinous {
+class AnalyzedType;
 class AbstractType;
 class VariableIdentifier;
 class AbstractExpression;
@@ -38,6 +39,8 @@ private:
 	AbstractType* type;
 	VariableIdentifier* variableId;
 	AbstractExpression* exp;
+
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

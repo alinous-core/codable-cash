@@ -11,18 +11,31 @@
 #include "sc_expression/VariableIdentifier.h"
 #include "sc_expression/AbstractExpression.h"
 
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/TypeResolver.h"
+#include "sc_analyze/AnalyzedType.h"
+
+#include "sc_analyze_stack/AnalyzeStack.h"
+#include "sc_analyze_stack/AnalyzeStackManager.h"
+#include "sc_analyze_stack/AnalyzedStackReference.h"
+
+#include "stack/VmStack.h"
+
+
 namespace alinous {
 
 VariableDeclareStatement::VariableDeclareStatement() : AbstractStatement(CodeElement::STMT_VARIABLE_DECLARE) {
 	this->type =nullptr;
 	this->variableId = nullptr;
 	this->exp = nullptr;
+	this->atype = nullptr;
 }
 
 VariableDeclareStatement::~VariableDeclareStatement() {
 	delete this->type;
 	delete this->variableId;
 	delete this->exp;
+	delete this->atype;
 }
 
 void VariableDeclareStatement::preAnalyze(AnalyzeContext* actx) {
@@ -34,13 +47,22 @@ void VariableDeclareStatement::preAnalyze(AnalyzeContext* actx) {
 }
 
 void VariableDeclareStatement::analyzeTypeRef(AnalyzeContext* actx) {
-	// FIXME analyzeTypeRef
-
 	this->exp->analyzeTypeRef(actx);
 }
 
 void VariableDeclareStatement::analyze(AnalyzeContext* actx) {
+	TypeResolver* resolver = actx->getTypeResolver();
+	AnalyzeStackManager* stackManager = actx->getAnalyzeStackManager();
+
 	this->exp->analyze(actx);
+
+	this->atype = resolver->resolveType(this, this->type);
+	AnalyzeStack* stack = stackManager->top();
+
+
+	const UnicodeString* strName = this->variableId->getName();
+	AnalyzedStackReference* ref = new AnalyzedStackReference(strName, this->atype);
+	stack->addVariableDeclare(ref);
 }
 
 void VariableDeclareStatement::setType(AbstractType* type) noexcept {
@@ -98,6 +120,8 @@ void VariableDeclareStatement::init(VirtualMachine* vm) {
 }
 
 void VariableDeclareStatement::interpret(VirtualMachine* vm) {
+	VmStack* stack = vm->topStack();
+
 	// FIXME statement
 }
 

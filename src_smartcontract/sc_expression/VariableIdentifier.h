@@ -26,7 +26,7 @@ public:
 	virtual void analyze(AnalyzeContext* actx);
 
 	void setName(UnicodeString* name) noexcept;
-	UnicodeString* getName() const noexcept;
+	const UnicodeString* getName() const noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

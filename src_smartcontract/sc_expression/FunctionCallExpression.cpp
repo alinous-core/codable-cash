@@ -48,7 +48,7 @@ void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
 		return;
 	}
 
-	UnicodeString* str = valId->getName();
+	const UnicodeString* str = valId->getName();
 	this->strName = new UnicodeString(str);
 }
 
