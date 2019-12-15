@@ -17,6 +17,7 @@ public:
 	explicit PrimitiveReference(uint8_t type);
 	virtual ~PrimitiveReference();
 
+	static PrimitiveReference* createBoolReference(VirtualMachine* vm, int8_t value);
 	static PrimitiveReference* createByteReference(VirtualMachine* vm, int8_t value);
 	static PrimitiveReference* createCharReference(VirtualMachine* vm, int16_t value);
 	static PrimitiveReference* createShortReference(VirtualMachine* vm, int16_t value);

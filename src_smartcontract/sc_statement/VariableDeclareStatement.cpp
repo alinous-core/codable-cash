@@ -122,6 +122,12 @@ void VariableDeclareStatement::init(VirtualMachine* vm) {
 void VariableDeclareStatement::interpret(VirtualMachine* vm) {
 	VmStack* stack = vm->topStack();
 
+	if(this->exp != nullptr){
+		AbstractVmInstance* instValue = this->exp->interpret(vm);
+
+
+	}
+
 	// FIXME statement
 }
 

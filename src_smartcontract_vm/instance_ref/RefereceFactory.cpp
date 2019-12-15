@@ -40,6 +40,7 @@ AbstractReference* RefereceFactory::createReferenceFromDefinition(MemberVariable
 		ref = PrimitiveReference::createLongReference(vm, 0);
 		break;
 	case CodeElement::TYPE_OBJECT:
+	case CodeElement::TYPE_STRING:
 	default:
 		ref = createObjectReferenceFromDefinition(dec, vm);
 		break;
@@ -54,6 +55,38 @@ AbstractReference* RefereceFactory::createObjectReferenceFromDefinition(MemberVa
 	return ref;
 }
 
+AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(AnalyzedType* atype, VirtualMachine* vm) {
+	AbstractReference* ref = nullptr;
+
+	uint8_t type = atype->getType();
+	switch(type){
+	case AnalyzedType::TYPE_BOOL:
+		ref = PrimitiveReference::createBoolReference(vm, 0);
+		break;
+	case AnalyzedType::TYPE_BYTE:
+		ref = PrimitiveReference::createByteReference(vm, 0);
+		break;
+	case AnalyzedType::TYPE_CHAR:
+		ref = PrimitiveReference::createCharReference(vm, 0);
+		break;
+	case AnalyzedType::TYPE_SHORT:
+		ref = PrimitiveReference::createShortReference(vm, 0);
+		break;
+	case AnalyzedType::TYPE_INT:
+		ref = PrimitiveReference::createIntReference(vm, 0);
+		break;
+	case AnalyzedType::TYPE_LONG:
+		ref = PrimitiveReference::createLongReference(vm, 0);
+		break;
+	case AnalyzedType::TYPE_STRING:
+	case AnalyzedType::TYPE_OBJECT:
+	default:
+		// FIXME object
+		break;
+	}
+
+	return ref;
+}
 
 /***
  * type is analyzed type
