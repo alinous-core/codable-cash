@@ -65,6 +65,9 @@ void PrimitiveReference::substitute(AbstractVmInstance* rightValue,	VirtualMachi
 	assert(rightRef != nullptr);
 
 	switch(type){
+	case AbstractVmInstance::REF_BOOL:
+		setIntValue(rightRef->getIntValue());
+		break;
 	case AbstractVmInstance::REF_BYTE:
 		setByteValue(rightRef->getByteValue());
 		break;
@@ -88,6 +91,18 @@ void PrimitiveReference::substitute(AbstractVmInstance* rightValue,	VirtualMachi
 
 void PrimitiveReference::setLongValue(int64_t value) noexcept {
 	*((int64_t*)this->data) = value;
+}
+
+
+
+PrimitiveReference* PrimitiveReference::createBoolReference(VirtualMachine* vm,	int8_t value) {
+	PrimitiveReference* ref = new(vm) PrimitiveReference(AbstractVmInstance::REF_BOOL);
+
+	VmMalloc* alloc = vm->getAlloc();
+	ref->data = alloc->mallocPtrArray(sizeof(int32_t));
+	ref->setIntValue(value);
+
+	return ref;
 }
 
 PrimitiveReference* PrimitiveReference::createIntReference(VirtualMachine* vm, int32_t value) {

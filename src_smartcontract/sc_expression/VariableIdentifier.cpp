@@ -37,7 +37,7 @@ void VariableIdentifier::setName(UnicodeString* name) noexcept {
 	this->name = name;
 }
 
-UnicodeString* alinous::VariableIdentifier::getName() const noexcept {
+const UnicodeString* alinous::VariableIdentifier::getName() const noexcept {
 	return this->name;
 }
 
@@ -61,7 +61,7 @@ void VariableIdentifier::fromBinary(ByteBuffer* in) {
 	this->name = getString(in);
 }
 
-AnalyzedType VariableIdentifier::getType() {
+AnalyzedType VariableIdentifier::getType(AnalyzeContext* actx) {
 	// FIXME analyze variable id type
 	return AnalyzedType();
 }

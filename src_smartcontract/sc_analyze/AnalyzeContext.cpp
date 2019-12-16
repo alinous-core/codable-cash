@@ -29,6 +29,7 @@ AnalyzeContext::AnalyzeContext() {
 	this->typeResolver = new TypeResolver(this);
 	this->thisClass = nullptr;
 	this->vtableReg = new VTableRegistory();
+	this->current = nullptr;
 }
 
 AnalyzeContext::~AnalyzeContext() {
@@ -130,5 +131,15 @@ void AnalyzeContext::analyzeClassInheritance() {
 VTableRegistory* AnalyzeContext::getVtableRegistory() const noexcept {
 	return this->vtableReg;
 }
+
+
+void AnalyzeContext::setCurrentElement(CodeElement* current) noexcept {
+	this->current = current;
+}
+
+CodeElement* AnalyzeContext::getCurrentElement() const noexcept {
+	return this->current;
+}
+
 
 } /* namespace alinous */

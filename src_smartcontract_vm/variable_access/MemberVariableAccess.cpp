@@ -40,7 +40,7 @@ void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 	AnalyzedType* atype = lastIinst->getAnalyzedType();
 	AnalyzedClass* clazz = atype->getAnalyzedClass();
 
-	UnicodeString* name = this->valId->getName();
+	const UnicodeString* name = this->valId->getName();
 
 	ArrayList<MemberVariableDeclare>* list = clazz->getMemberVariableDeclareList();
 	int maxLoop = list->size();

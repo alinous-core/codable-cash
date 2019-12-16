@@ -60,7 +60,7 @@ void LiteralExpression::fromBinary(ByteBuffer* in) {
 	this->str = getString(in);
 }
 
-AnalyzedType LiteralExpression::getType() {
+AnalyzedType LiteralExpression::getType(AnalyzeContext* actx) {
 	return AnalyzedType(AnalyzedType::TYPE_STRING);
 }
 

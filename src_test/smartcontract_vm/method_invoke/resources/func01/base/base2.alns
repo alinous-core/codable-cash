@@ -1,0 +1,17 @@
+
+package test.fw.base;
+
+class BaseClass2 {
+	
+	public BaseClass2() {
+	
+	}
+	
+	public void vfunc01(int arg){
+	
+	}
+	
+	public void base02Func() {
+	
+	}
+}

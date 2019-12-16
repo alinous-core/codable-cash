@@ -45,6 +45,9 @@ void CompilationUnit::analyzeType(AnalyzeContext* actx) {
 		ClassDeclare* dec = this->classes.get(i);
 		dec->analyzeTypeRef(actx);
 	}
+
+	// FIXME analyze method Return
+
 }
 
 void CompilationUnit::analyze(AnalyzeContext* actx) {

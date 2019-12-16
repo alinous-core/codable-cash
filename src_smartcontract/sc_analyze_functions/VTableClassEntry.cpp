@@ -12,7 +12,9 @@
 #include "sc_analyze/ValidationError.h"
 #include "sc_analyze/AnalyzeContext.h"
 
+#include "sc_analyze_functions/FunctionScoreCalc.h"
 #include "sc_analyze_functions/VTableMethodEntry.h"
+#include "sc_analyze_functions/MethodNameCollection.h"
 
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/MethodDeclare.h"
@@ -21,6 +23,7 @@
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
+
 namespace alinous {
 
 VTableClassEntry::VTableClassEntry(AnalyzedClass* aclass) {
@@ -28,11 +31,22 @@ VTableClassEntry::VTableClassEntry(AnalyzedClass* aclass) {
 }
 
 VTableClassEntry::~VTableClassEntry() {
-	Iterator<UnicodeString>* it = this->methods.keySet()->iterator(); __STP(it);
-	while(it->hasNext()){
-		const UnicodeString* key = it->next();
-		VTableMethodEntry* m = this->methods.get(key);
-		delete m;
+	{
+		Iterator<UnicodeString>* it = this->methods.keySet()->iterator(); __STP(it);
+		while(it->hasNext()){
+			const UnicodeString* key = it->next();
+			VTableMethodEntry* m = this->methods.get(key);
+			delete m;
+		}
+	}
+
+	{
+		Iterator<UnicodeString>* it = this->methodsNames.keySet()->iterator(); __STP(it);
+		while(it->hasNext()){
+			const UnicodeString* key = it->next();
+			MethodNameCollection* col = this->methodsNames.get(key);
+			delete col;
+		}
 	}
 
 	this->aclass = nullptr;
@@ -90,11 +104,13 @@ void VTableClassEntry::dobuildMethodSuperClass(ClassDeclare* clazz,	AnalyzeConte
 void VTableClassEntry::addSuperMethodEntry(MethodDeclare* method) {
 	VTableMethodEntry* entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_NORMAL);
 	this->methods.put(method->getCallSignature(), entry);
+	addMethodNameEntry(entry);
 }
 
 void VTableClassEntry::addSuperVirtualMethodImplEntry(MethodDeclare* method) {
 	VTableMethodEntry* entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_VIRTUAL_SUPER);
 	this->methods.put(method->getCallSignature(), entry);
+	addMethodNameEntry(entry);
 }
 
 
@@ -127,11 +143,34 @@ void VTableClassEntry::buildMethodSelf(ClassDeclare* clazz,	AnalyzeContext* actx
 void VTableClassEntry::addMethodEntry(MethodDeclare* method) {
 	VTableMethodEntry* entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_NORMAL);
 	this->methods.put(method->getCallSignature(), entry);
+	addMethodNameEntry(entry);
 }
 
 void VTableClassEntry::addVirtualMethodImplEntry(MethodDeclare* method) {
 	VTableMethodEntry* entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_VIRTUAL);
 	this->methods.put(method->getCallSignature(), entry);
+	addMethodNameEntry(entry);
+}
+
+/**
+ * needs actx->setCurrentElement(this);
+ */
+VTableMethodEntry* VTableClassEntry::findEntry(AnalyzeContext* actx, const UnicodeString* methodName, ArrayList<AnalyzedType>* types) {
+	FunctionScoreCalc calc(this);
+
+	MethodScore* score = calc.findMethod(methodName, types);
+	if(score == nullptr){
+		int errorCode = calc.getErrorCode();
+		if(errorCode == FunctionScoreCalc::ERROR_AMBIGOUS){
+			ArrayList<MethodScore>* amList = calc.getAmbigousList();
+			actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_AMBIGOUS, actx->getCurrentElement(), L"The method '{0}()' has ambiguous arguments.", {methodName});
+		}
+		return nullptr;
+	}
+
+	// FIXME todo
+
+	return nullptr;
 }
 
 MethodDeclare* VTableClassEntry::getSuperClassMethod(MethodDeclare* method) noexcept {
@@ -153,6 +192,22 @@ MethodDeclare* VTableClassEntry::getSuperClassMethod(MethodDeclare* method) noex
 	}
 
 	return nullptr;
+}
+
+void VTableClassEntry::addMethodNameEntry(VTableMethodEntry* entry) noexcept {
+	const UnicodeString* methodName = entry->getName();
+
+	MethodNameCollection* collection = this->methodsNames.get(methodName);
+	if(collection == nullptr){
+		collection = new MethodNameCollection();
+		this->methodsNames.put(methodName, collection);
+	}
+
+	collection->addMethodEntry(entry);
+}
+
+MethodNameCollection* VTableClassEntry::getMethodEntryCollection(const UnicodeString* methodName) const noexcept {
+	return this->methodsNames.get(methodName);
 }
 
 } /* namespace alinous */

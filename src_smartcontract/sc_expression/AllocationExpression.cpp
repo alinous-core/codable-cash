@@ -85,8 +85,8 @@ void AllocationExpression::fromBinary(ByteBuffer* in) {
 	this->exp = dynamic_cast<FunctionCallExpression*>(element);
 }
 
-AnalyzedType AllocationExpression::getType() {
-	return this->exp->getType();
+AnalyzedType AllocationExpression::getType(AnalyzeContext* actx) {
+	return this->exp->getType(actx);
 }
 
 void AllocationExpression::init(VirtualMachine* vm) {

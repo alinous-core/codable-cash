@@ -49,7 +49,7 @@ void BooleanLiteral::fromBinary(ByteBuffer* in) {
 	this->value = (val == 1);
 }
 
-AnalyzedType BooleanLiteral::getType() {
+AnalyzedType BooleanLiteral::getType(AnalyzeContext* actx) {
 	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 

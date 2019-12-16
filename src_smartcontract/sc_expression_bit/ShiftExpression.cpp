@@ -68,9 +68,9 @@ void ShiftExpression::fromBinary(ByteBuffer* in) {
 	}
 }
 
-AnalyzedType ShiftExpression::getType() {
+AnalyzedType ShiftExpression::getType(AnalyzeContext* actx) {
 	AbstractExpression* first = this->list.get(0);
-	return first->getType();
+	return first->getType(actx);
 }
 
 AbstractVmInstance* ShiftExpression::interpret(VirtualMachine* vm) {

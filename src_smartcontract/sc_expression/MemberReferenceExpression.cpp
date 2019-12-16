@@ -57,7 +57,7 @@ void MemberReferenceExpression::fromBinary(ByteBuffer* in) {
 	AbstractBinaryExpression::fromBinary(in);
 }
 
-AnalyzedType MemberReferenceExpression::getType() {
+AnalyzedType MemberReferenceExpression::getType(AnalyzeContext* actx) {
 	VariableInstractionHolder* holder = getVariableInstractionHolder();
 	AnalyzedType* atype = holder->getAnalyzedType();
 

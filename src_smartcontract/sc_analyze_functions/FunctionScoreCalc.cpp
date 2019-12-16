@@ -8,15 +8,76 @@
 #include "sc_analyze_functions/FunctionScoreCalc.h"
 
 #include "sc_analyze_functions/MethodScore.h"
+#include "sc_analyze_functions/VTableClassEntry.h"
+#include "sc_analyze_functions/VTableMethodEntry.h"
+#include "sc_analyze_functions/MethodNameCollection.h"
+
+#include "base/ArrayList.h"
+
 
 namespace alinous {
 
-FunctionScoreCalc::FunctionScoreCalc() {
+FunctionScoreCalc::FunctionScoreCalc(VTableClassEntry* classEntry) {
 	this->topScore = nullptr;
+	this->classEntry = classEntry;
+	this->errorCode = 0;
 }
 
 FunctionScoreCalc::~FunctionScoreCalc() {
 	delete this->topScore;
+	this->classEntry = nullptr;
+	this->list.deleteElements();
+}
+
+MethodScore* FunctionScoreCalc::findMethod(const UnicodeString* methodName, ArrayList<AnalyzedType>* types) noexcept {
+	MethodNameCollection* collection = this->classEntry->getMethodEntryCollection(methodName);
+	if(collection == nullptr){
+		return nullptr;
+	}
+
+	const ArrayList<VTableMethodEntry>* list = collection->getList();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		VTableMethodEntry* entry = list->get(i);
+		MethodScore* score = new MethodScore(entry);
+
+		score->eveluate(types);
+		if(score->isMatch()){
+			newScore(score);
+		}
+	}
+
+	return this->topScore;
+}
+
+ArrayList<MethodScore>* FunctionScoreCalc::getAmbigousList() noexcept {
+	return &this->list;
+}
+
+void FunctionScoreCalc::newScore(MethodScore* score) noexcept {
+	int sc = score->getScore();
+	if(this->topScore == nullptr){
+		this->topScore = score;
+		return;
+	}
+
+	if(this->topScore->getScore() == sc){
+		this->errorCode = ERROR_AMBIGOUS;
+
+		this->list.addElement(this->topScore);
+		this->list.addElement(score);
+		this->topScore = nullptr;
+		return;
+	}
+	else if(this->topScore->getScore() < sc){
+		delete this->topScore;
+		this->topScore = score;
+	}
+}
+
+int FunctionScoreCalc::getErrorCode() const noexcept {
+	return this->errorCode;
 }
 
 } /* namespace alinous */

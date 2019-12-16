@@ -9,13 +9,16 @@
 #define SC_ANALYZE_FUNCTIONS_VTABLECLASSENTRY_H_
 
 #include "base/HashMap.h"
+#include "base/ArrayList.h"
 
 namespace alinous {
 
+class AnalyzedType;
 class AnalyzedClass;
 class AnalyzeContext;
 class UnicodeString;
 class VTableMethodEntry;
+class MethodNameCollection;
 class ClassDeclare;
 class MethodDeclare;
 
@@ -25,6 +28,8 @@ public:
 	virtual ~VTableClassEntry();
 
 	void buildVtable(AnalyzeContext* actx);
+	VTableMethodEntry* findEntry(AnalyzeContext* actx, const UnicodeString* methodName, ArrayList<AnalyzedType>* types);
+	MethodNameCollection* getMethodEntryCollection(const UnicodeString* methodName) const noexcept;
 
 private:
 	void buildMethodSelf(ClassDeclare* clazz, AnalyzeContext* actx);
@@ -38,10 +43,12 @@ private:
 
 	MethodDeclare* getSuperClassMethod(MethodDeclare* method) noexcept;
 
+	void addMethodNameEntry(VTableMethodEntry* entry) noexcept;
+
 private:
 	AnalyzedClass* aclass;
 	HashMap<UnicodeString, VTableMethodEntry> methods;
-
+	HashMap<UnicodeString, MethodNameCollection> methodsNames;
 };
 
 } /* namespace alinous */

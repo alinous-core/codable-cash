@@ -6,18 +6,32 @@
  */
 
 #include "sc_expression/FunctionCallExpression.h"
+
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/AnalyzedClass.h"
+#include "sc_analyze/ValidationError.h"
+
+#include "sc_declare/ClassDeclare.h"
+#include "sc_expression/VariableIdentifier.h"
+
+#include "sc_analyze_functions/VTableRegistory.h"
+#include "sc_analyze_functions/VTableClassEntry.h"
+
 #include "base/UnicodeString.h"
+
 
 namespace alinous {
 
 FunctionCallExpression::FunctionCallExpression() : AbstractExpression(CodeElement::EXP_FUNCTIONCALL) {
 	this->name = nullptr;
+	this->strName = nullptr;
 }
 
 FunctionCallExpression::~FunctionCallExpression() {
 	delete this->name;
 	this->args.deleteElements();
+	delete this->strName;
 }
 
 void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
@@ -27,10 +41,18 @@ void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
 		exp->setParent(this);
 		exp->preAnalyze(actx);
 	}
+
+	VariableIdentifier* valId = dynamic_cast<VariableIdentifier*>(this->name);
+	if(valId == nullptr){
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_NAME, this, L"Function identifier must be string starts with alphabet.", {});
+		return;
+	}
+
+	const UnicodeString* str = valId->getName();
+	this->strName = new UnicodeString(str);
 }
 
 void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	// FIXME expression : analyze type
 }
 
 void FunctionCallExpression::analyze(AnalyzeContext* actx) {
@@ -39,6 +61,26 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 		AbstractExpression* exp = this->args.get(i);
 		exp->analyze(actx);
 	}
+
+	AnalyzedClass* athisClass = actx->getThisClass();
+	ClassDeclare* classDec = athisClass->getClassDeclare();
+	const UnicodeString* fqn = classDec->getFullQualifiedName();
+
+
+	VTableRegistory* vreg = actx->getVtableRegistory();
+	VTableClassEntry* classEntry = vreg->getClassEntry(fqn, athisClass);
+
+	ArrayList<AnalyzedType> typeList;
+	typeList.setDeleteOnExit();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		AnalyzedType type = exp->getType(actx);
+		typeList.addElement(new AnalyzedType(type));
+	}
+
+	actx->setCurrentElement(this);
+	VTableMethodEntry* methodEntry = classEntry->findEntry(actx, this->strName, &typeList);
+	// FIXME expression : analyze
 }
 
 void FunctionCallExpression::setName(AbstractExpression* exp) noexcept {
@@ -95,7 +137,7 @@ void FunctionCallExpression::fromBinary(ByteBuffer* in) {
 	}
 }
 
-AnalyzedType FunctionCallExpression::getType() {
+AnalyzedType FunctionCallExpression::getType(AnalyzeContext* actx) {
 	// FIXME analyze function type
 	return AnalyzedType();
 }

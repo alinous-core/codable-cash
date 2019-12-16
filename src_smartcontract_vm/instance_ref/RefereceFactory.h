@@ -15,11 +15,13 @@ class AbstractReference;
 class PrimitiveReference;
 class MemberVariableDeclare;
 class VirtualMachine;
+class AnalyzedType;
 
 class RefereceFactory {
 public:
 	static AbstractReference* createReferenceFromDefinition(MemberVariableDeclare* dec, VirtualMachine* vm);
 	static PrimitiveReference* createNumericReference(int64_t value, uint8_t type, VirtualMachine* vm);
+	static AbstractReference* createReferenceFromAnalyzedType(AnalyzedType* atype, VirtualMachine* vm);
 private:
 	static AbstractReference* createObjectReferenceFromDefinition(MemberVariableDeclare* dec, VirtualMachine* vm);
 };

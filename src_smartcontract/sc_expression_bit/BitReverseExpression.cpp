@@ -58,8 +58,8 @@ void BitReverseExpression::fromBinary(ByteBuffer* in) {
 	this->exp = dynamic_cast<AbstractExpression*>(element);
 }
 
-AnalyzedType BitReverseExpression::getType() {
-	return this->exp->getType();
+AnalyzedType BitReverseExpression::getType(AnalyzeContext* actx) {
+	return this->exp->getType(actx);
 }
 
 void BitReverseExpression::init(VirtualMachine* vm) {

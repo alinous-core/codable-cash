@@ -46,7 +46,7 @@ void OrExpression::fromBinary(ByteBuffer* in) {
 	AbstractBinaryExpression::fromBinary(in);
 }
 
-AnalyzedType OrExpression::getType() {
+AnalyzedType OrExpression::getType(AnalyzeContext* actx) {
 	return this->atype;
 }
 

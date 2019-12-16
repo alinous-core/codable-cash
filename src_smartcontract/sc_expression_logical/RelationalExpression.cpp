@@ -84,7 +84,7 @@ void RelationalExpression::fromBinary(ByteBuffer* in) {
 	this->op = in->get();
 }
 
-AnalyzedType RelationalExpression::getType() {
+AnalyzedType RelationalExpression::getType(AnalyzeContext* actx) {
 	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 

@@ -57,7 +57,7 @@ void NotExpression::fromBinary(ByteBuffer* in) {
 	this->exp = dynamic_cast<AbstractExpression*>(element);
 }
 
-AnalyzedType NotExpression::getType() {
+AnalyzedType NotExpression::getType(AnalyzeContext* actx) {
 	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 

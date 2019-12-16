@@ -62,8 +62,8 @@ void PreIncrementExpression::fromBinary(ByteBuffer* in) {
 	this->exp = dynamic_cast<AbstractExpression*>(element);
 }
 
-AnalyzedType PreIncrementExpression::getType() {
-	return this->exp->getType();
+AnalyzedType PreIncrementExpression::getType(AnalyzeContext* actx) {
+	return this->exp->getType(actx);
 }
 
 void PreIncrementExpression::init(VirtualMachine* vm) {

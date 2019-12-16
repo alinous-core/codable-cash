@@ -73,7 +73,7 @@ void CastExpression::fromBinary(ByteBuffer* in) {
 	this->type = dynamic_cast<AbstractType*>(element);
 }
 
-AnalyzedType CastExpression::getType() {
+AnalyzedType CastExpression::getType(AnalyzeContext* actx) {
 	// FIXME analyze cast expression type
 	return AnalyzedType();
 }

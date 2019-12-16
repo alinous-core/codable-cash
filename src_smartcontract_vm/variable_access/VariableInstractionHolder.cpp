@@ -89,7 +89,7 @@ void VariableInstractionHolder::addVariableIdExp(AbstractExpression* exp, Analyz
 bool VariableInstractionHolder::handleStackVariableIdExp(VariableIdentifier* valId, AbstractExpression* exp, AnalyzeContext* actx) noexcept {
 	AnalyzeStackManager* stManager = actx->getAnalyzeStackManager();
 
-	UnicodeString* name = valId->getName();
+	const UnicodeString* name = valId->getName();
 	StackVariableAccess* access = stManager->findStackVariableAccess(name);
 	if(access != nullptr){
 		this->list.addElement(access);

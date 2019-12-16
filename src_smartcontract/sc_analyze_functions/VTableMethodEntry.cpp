@@ -7,6 +7,8 @@
 
 #include "sc_analyze_functions/VTableMethodEntry.h"
 
+#include "sc_declare/MethodDeclare.h"
+
 namespace alinous {
 
 VTableMethodEntry::VTableMethodEntry(MethodDeclare* method, int type) {
@@ -16,5 +18,14 @@ VTableMethodEntry::VTableMethodEntry(MethodDeclare* method, int type) {
 
 VTableMethodEntry::~VTableMethodEntry() {
 }
+
+const UnicodeString* VTableMethodEntry::getName() const noexcept {
+	return this->method->getName();
+}
+
+MethodDeclare* VTableMethodEntry::getMethod() const noexcept {
+	return this->method;
+}
+
 
 } /* namespace alinous */

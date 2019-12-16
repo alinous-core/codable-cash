@@ -27,6 +27,9 @@ public:
 
 	static constexpr int CODE_VIRTUAL_FUNC_WITH_DIFFERENT_RETURN = 10;
 
+	static constexpr int CODE_WRONG_FUNC_CALL_NAME = 20;
+	static constexpr int CODE_WRONG_FUNC_CALL_AMBIGOUS = 21;
+
 	//static constexpr int CODE_WRONG_TYPE_NAME = 4;
 
 

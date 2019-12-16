@@ -11,6 +11,7 @@
 namespace alinous {
 
 class MethodDeclare;
+class UnicodeString;
 
 class VTableMethodEntry {
 public:
@@ -21,6 +22,8 @@ public:
 	VTableMethodEntry(MethodDeclare* method, int type);
 	virtual ~VTableMethodEntry();
 
+	const UnicodeString* getName() const noexcept;
+	MethodDeclare* getMethod() const noexcept;
 private:
 	MethodDeclare* method;
 	int type;

@@ -69,7 +69,7 @@ void MultiplicativeExpression::fromBinary(ByteBuffer* in) {
 	}
 }
 
-AnalyzedType MultiplicativeExpression::getType() {
+AnalyzedType MultiplicativeExpression::getType(AnalyzeContext* actx) {
 	return this->atype;
 }
 

@@ -33,6 +33,7 @@ public:
 	static constexpr uint8_t REF_SHORT{104};
 	static constexpr uint8_t REF_INT{105};
 	static constexpr uint8_t REF_LONG{106};
+	static constexpr uint8_t REF_BOOL{107};
 
 
 	explicit AbstractVmInstance(uint8_t type);

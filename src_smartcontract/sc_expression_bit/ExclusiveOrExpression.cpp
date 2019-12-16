@@ -45,7 +45,7 @@ void ExclusiveOrExpression::fromBinary(ByteBuffer* in) {
 	AbstractBinaryExpression::fromBinary(in);
 }
 
-AnalyzedType ExclusiveOrExpression::getType() {
+AnalyzedType ExclusiveOrExpression::getType(AnalyzeContext* actx) {
 	return this->atype;
 }
 
