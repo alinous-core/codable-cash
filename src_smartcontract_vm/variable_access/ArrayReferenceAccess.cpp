@@ -20,7 +20,7 @@ void ArrayReferenceAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 }
 
 AnalyzedType* ArrayReferenceAccess::getAnalyzedType() const noexcept {
-	return nullptr; // FIXME
+	return nullptr; // FIXME ArrayReferenceAccess
 }
 
 AbstractVmInstance* ArrayReferenceAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {

@@ -45,7 +45,6 @@ void NumberLiteral::analyzeTypeRef(AnalyzeContext* actx) {
 
 void NumberLiteral::analyze(AnalyzeContext* actx) {
 	if(this->str->endsWith(&this->L) || this->str->endsWith(&this->l)){
-		// FIXME L
 		this->atype = AnalyzedType(AnalyzedType::TYPE_LONG);
 	}
 	else{

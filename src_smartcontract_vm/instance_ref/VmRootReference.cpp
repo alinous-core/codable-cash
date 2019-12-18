@@ -41,6 +41,7 @@ void VmRootReference::setMainInstance(VmClassInstance* mainInst) noexcept {
 	gc->addInstanceReference(this, this->mainInst);
 }
 
+
 AbstractVmInstance* VmRootReference::getInstance() noexcept {
 	return this->mainInst;
 }
