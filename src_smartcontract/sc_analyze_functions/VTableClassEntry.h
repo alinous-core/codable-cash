@@ -21,6 +21,7 @@ class VTableMethodEntry;
 class MethodNameCollection;
 class ClassDeclare;
 class MethodDeclare;
+class MemberVariableTable;
 
 class VTableClassEntry {
 public:
@@ -49,6 +50,8 @@ private:
 	AnalyzedClass* aclass;
 	HashMap<UnicodeString, VTableMethodEntry> methods;
 	HashMap<UnicodeString, MethodNameCollection> methodsNames;
+
+	MemberVariableTable* variables;
 };
 
 } /* namespace alinous */

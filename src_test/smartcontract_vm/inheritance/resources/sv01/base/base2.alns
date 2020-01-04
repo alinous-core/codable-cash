@@ -1,0 +1,11 @@
+
+package test.fw.base;
+
+class BaseClass2 {
+	
+	public BaseClass2() {
+	
+	}
+	
+	protected int nbase2;
+}

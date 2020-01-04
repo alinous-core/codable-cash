@@ -16,6 +16,8 @@
 #include "sc_analyze_functions/VTableMethodEntry.h"
 #include "sc_analyze_functions/MethodNameCollection.h"
 
+#include "sc_analyze_variables/MemberVariableTable.h"
+
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/MethodDeclare.h"
 #include "sc_declare/ArgumentsListDeclare.h"
@@ -28,6 +30,7 @@ namespace alinous {
 
 VTableClassEntry::VTableClassEntry(AnalyzedClass* aclass) {
 	this->aclass = aclass;
+	this->variables = new MemberVariableTable();
 }
 
 VTableClassEntry::~VTableClassEntry() {
@@ -50,6 +53,7 @@ VTableClassEntry::~VTableClassEntry() {
 	}
 
 	this->aclass = nullptr;
+	delete this->variables;
 }
 
 void VTableClassEntry::buildVtable(AnalyzeContext* actx) {
