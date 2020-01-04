@@ -22,6 +22,7 @@ class ClassImplements;
 class VirtualMachine;
 class AnalyzedType;
 class MethodDeclare;
+class MemberVariableDeclare;
 
 class ClassDeclare : public CodeElement {
 public:
@@ -54,6 +55,7 @@ public:
 
 
 	ArrayList<MethodDeclare>* getMethods() noexcept;
+	ArrayList<MemberVariableDeclare>* getMemberVariables() noexcept;
 private:
 	bool interface;
 	ClassDeclareBlock* block;

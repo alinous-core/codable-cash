@@ -46,6 +46,9 @@ private:
 
 	void addMethodNameEntry(VTableMethodEntry* entry) noexcept;
 
+	void buildMemberVariables(ClassDeclare* clazz, AnalyzeContext* actx) noexcept;
+	void doBuildMemberVariables(ClassDeclare* clazz, AnalyzeContext* actx) noexcept;
+
 private:
 	AnalyzedClass* aclass;
 	HashMap<UnicodeString, VTableMethodEntry> methods;

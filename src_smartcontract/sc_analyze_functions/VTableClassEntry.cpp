@@ -21,6 +21,7 @@
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/MethodDeclare.h"
 #include "sc_declare/ArgumentsListDeclare.h"
+#include "sc_declare/MemberVariableDeclare.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
@@ -63,8 +64,38 @@ void VTableClassEntry::buildVtable(AnalyzeContext* actx) {
 
 	// super class's methods
 	buildMethodsuper(clazz, actx);
+
+	// member variables
+	buildMemberVariables(clazz, actx);
 }
 
+void VTableClassEntry::buildMemberVariables(ClassDeclare* clazz, AnalyzeContext* actx) noexcept {
+	ArrayList<ClassDeclare> list;
+
+	ClassDeclare* cls = clazz;
+	while(cls != nullptr){
+		list.addElement(cls);
+		cls = cls->getBaseClass();
+	}
+
+	int maxLoop = list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ClassDeclare* cls = list.get(i);
+		doBuildMemberVariables(cls, actx);
+	}
+}
+
+void VTableClassEntry::doBuildMemberVariables(ClassDeclare* clazz, AnalyzeContext* actx) noexcept {
+	ArrayList<MemberVariableDeclare>* list = clazz->getMemberVariables();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		MemberVariableDeclare* mem = list->get(i);
+
+		const UnicodeString* name = mem->getName();
+
+	}
+}
 
 void VTableClassEntry::buildMethodsuper(ClassDeclare* clazz, AnalyzeContext* actx) {
 	ClassDeclare* cls = clazz->getBaseClass();

@@ -32,6 +32,7 @@ public:
 	void addMethod(MethodDeclare* method) noexcept;
 	void addVariable(MemberVariableDeclare* variable) noexcept;
 	ArrayList<MethodDeclare>* getMethods() noexcept;
+	ArrayList<MemberVariableDeclare>* getMemberVariables() noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
