@@ -1,6 +1,7 @@
 
 
 set(__src
+	MemberVariableEntry.cpp
 	MemberVariableTable.cpp
 )
 

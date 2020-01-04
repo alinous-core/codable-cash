@@ -6,16 +6,32 @@
  */
 
 #include "sc_analyze_variables/MemberVariableTable.h"
+#include "sc_analyze_variables/MemberVariableEntry.h"
+
+#include "base/UnicodeString.h"
 
 namespace alinous {
 
 MemberVariableTable::MemberVariableTable() {
-	// TODO Auto-generated constructor stub
 
 }
 
 MemberVariableTable::~MemberVariableTable() {
-	// TODO Auto-generated destructor stub
+	this->list.deleteElements();
+
 }
+
+void MemberVariableTable::addEntry(const UnicodeString* name, MemberVariableDeclare* dec) noexcept {
+	MemberVariableEntry* entry = new MemberVariableEntry(name, dec);
+
+	this->list.addElement(entry);
+	this->map.put(name, entry);
+}
+
+bool MemberVariableTable::hasEntry(const UnicodeString* name) const noexcept {
+	MemberVariableEntry* entry = this->map.get(name);
+	return entry != nullptr;
+}
+
 
 } /* namespace alinous */

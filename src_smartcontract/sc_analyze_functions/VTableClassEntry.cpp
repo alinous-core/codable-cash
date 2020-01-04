@@ -91,8 +91,8 @@ void VTableClassEntry::doBuildMemberVariables(ClassDeclare* clazz, AnalyzeContex
 	int maxLoop = list->size();
 	for(int i = 0; i != maxLoop; ++i){
 		MemberVariableDeclare* mem = list->get(i);
-
 		const UnicodeString* name = mem->getName();
+
 
 	}
 }
