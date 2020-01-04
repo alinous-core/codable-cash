@@ -93,7 +93,13 @@ void VTableClassEntry::doBuildMemberVariables(ClassDeclare* clazz, AnalyzeContex
 		MemberVariableDeclare* mem = list->get(i);
 		const UnicodeString* name = mem->getName();
 
+		if(this->variables->hasEntry(name)){
+			// error
+			actx->addValidationError(ValidationError::CODE_CLASS_MEMBER_ALREADY_EXISTS, clazz, L"The member '{0}' is defined in super class.", {mem->getName()});
+			continue;
+		}
 
+		this->variables->addEntry(name, mem);
 	}
 }
 
