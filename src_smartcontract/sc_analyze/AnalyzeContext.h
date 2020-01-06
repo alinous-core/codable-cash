@@ -52,6 +52,11 @@ public:
 
 	void setCurrentElement(CodeElement* current) noexcept;
 	CodeElement* getCurrentElement() const noexcept;
+
+private:
+	void analyzeMembers(PackageSpace* space) noexcept;
+	void analyzeMember(AnalyzedClass* cls) noexcept;
+
 private:
 	VirtualMachine* vm;
 	HashMap<UnicodeString, PackageSpace> *packageSpaces;

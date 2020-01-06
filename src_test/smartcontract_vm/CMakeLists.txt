@@ -2,6 +2,7 @@
 set(testsrc
 	test_class_instance.cpp
 	test_exec_fw.cpp
+	test_ext_objects.cpp
 	test_gc.cpp
 	test_main_vm.cpp
 	test_memory_manager.cpp

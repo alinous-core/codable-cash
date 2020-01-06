@@ -1,0 +1,9 @@
+
+package test.fw.base;
+
+import test.fw.base.BaseClass2;
+
+class BaseClass extends BaseClass2 {
+
+	protected int nbase;
+}

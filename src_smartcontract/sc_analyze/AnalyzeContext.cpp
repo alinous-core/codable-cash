@@ -12,13 +12,20 @@
 #include "sc_analyze/ValidationError.h"
 #include "sc_analyze_stack/AnalyzeStackManager.h"
 #include "sc_analyze/TypeResolver.h"
+#include "sc_analyze/AnalyzedClass.h"
 
 #include "sc_analyze_functions/VTableRegistory.h"
+#include "sc_analyze_functions/VTableClassEntry.h"
+
+#include "sc_analyze_variables/MemberVariableTable.h"
+#include "sc_analyze_variables/MemberVariableEntry.h"
 
 #include "sc_declare/ClassDeclare.h"
 
 #include "sc/CompilationUnit.h"
 #include "sc/exceptions.h"
+
+#include "base/StackRelease.h"
 
 namespace alinous {
 
@@ -126,7 +133,47 @@ void AnalyzeContext::analyzeClassInheritance() {
 		space->buildVTables(this);
 	}
 	delete it;
+
+	// members
+	it = this->packageSpaces->keySet()->iterator();
+	while(it->hasNext()){
+		const UnicodeString* packageName = it->next();
+		PackageSpace* space = this->packageSpaces->get(packageName);
+
+		analyzeMembers(space);
+	}
+	delete it;
 }
+
+void AnalyzeContext::analyzeMembers(PackageSpace* space) noexcept {
+	HashMap<UnicodeString, AnalyzedClass>* map = space->getMap();
+
+	Iterator<UnicodeString>* it = map->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const UnicodeString* className = it->next();
+		AnalyzedClass* cls = map->get(className);
+
+		analyzeMember(cls);
+	}
+}
+
+void AnalyzeContext::analyzeMember(AnalyzedClass* cls) noexcept {
+	const UnicodeString* fqn = cls->getFullQualifiedName();
+	VTableClassEntry* classEntry = this->vtableReg->getClassEntry(fqn, cls);
+
+	MemberVariableTable* variables = classEntry->getMemberVariableTable();
+	ArrayList<MemberVariableEntry>* list = variables->getVariableList();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		MemberVariableEntry* entry = list->get(i);
+		MemberVariableDeclare* dec = entry->getMemberVariableDeclare();
+
+		cls->addMemberVariableDeclare(dec);
+	}
+	// FIXME
+}
+
 
 VTableRegistory* AnalyzeContext::getVtableRegistory() const noexcept {
 	return this->vtableReg;
@@ -140,6 +187,5 @@ void AnalyzeContext::setCurrentElement(CodeElement* current) noexcept {
 CodeElement* AnalyzeContext::getCurrentElement() const noexcept {
 	return this->current;
 }
-
 
 } /* namespace alinous */

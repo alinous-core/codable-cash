@@ -89,6 +89,9 @@ ArrayList<MethodDeclare>* ClassDeclareBlock::getMethods() noexcept {
 	return &this->methods;
 }
 
+ArrayList<MemberVariableDeclare>* ClassDeclareBlock::getMemberVariables() noexcept {
+	return &this->variables;
+}
 
 void ClassDeclareBlock::addVariable(MemberVariableDeclare* variable) noexcept {
 	this->variables.addElement(variable);

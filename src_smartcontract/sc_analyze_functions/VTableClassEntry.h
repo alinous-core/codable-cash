@@ -21,6 +21,7 @@ class VTableMethodEntry;
 class MethodNameCollection;
 class ClassDeclare;
 class MethodDeclare;
+class MemberVariableTable;
 
 class VTableClassEntry {
 public:
@@ -30,6 +31,8 @@ public:
 	void buildVtable(AnalyzeContext* actx);
 	VTableMethodEntry* findEntry(AnalyzeContext* actx, const UnicodeString* methodName, ArrayList<AnalyzedType>* types);
 	MethodNameCollection* getMethodEntryCollection(const UnicodeString* methodName) const noexcept;
+
+	MemberVariableTable* getMemberVariableTable() const noexcept;
 
 private:
 	void buildMethodSelf(ClassDeclare* clazz, AnalyzeContext* actx);
@@ -45,10 +48,15 @@ private:
 
 	void addMethodNameEntry(VTableMethodEntry* entry) noexcept;
 
+	void buildMemberVariables(ClassDeclare* clazz, AnalyzeContext* actx) noexcept;
+	void doBuildMemberVariables(ClassDeclare* clazz, AnalyzeContext* actx) noexcept;
+
 private:
 	AnalyzedClass* aclass;
 	HashMap<UnicodeString, VTableMethodEntry> methods;
 	HashMap<UnicodeString, MethodNameCollection> methodsNames;
+
+	MemberVariableTable* variables;
 };
 
 } /* namespace alinous */

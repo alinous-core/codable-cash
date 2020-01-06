@@ -130,8 +130,6 @@ void VariableDeclareStatement::interpret(VirtualMachine* vm) {
 		AbstractVmInstance* instValue = this->exp->interpret(vm);
 		ref->substitute(instValue, vm);
 	}
-
-	// FIXME statement
 }
 
 } /* namespace alinous */

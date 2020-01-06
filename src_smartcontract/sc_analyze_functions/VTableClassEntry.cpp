@@ -16,9 +16,12 @@
 #include "sc_analyze_functions/VTableMethodEntry.h"
 #include "sc_analyze_functions/MethodNameCollection.h"
 
+#include "sc_analyze_variables/MemberVariableTable.h"
+
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/MethodDeclare.h"
 #include "sc_declare/ArgumentsListDeclare.h"
+#include "sc_declare/MemberVariableDeclare.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
@@ -28,6 +31,7 @@ namespace alinous {
 
 VTableClassEntry::VTableClassEntry(AnalyzedClass* aclass) {
 	this->aclass = aclass;
+	this->variables = new MemberVariableTable();
 }
 
 VTableClassEntry::~VTableClassEntry() {
@@ -50,6 +54,7 @@ VTableClassEntry::~VTableClassEntry() {
 	}
 
 	this->aclass = nullptr;
+	delete this->variables;
 }
 
 void VTableClassEntry::buildVtable(AnalyzeContext* actx) {
@@ -59,8 +64,44 @@ void VTableClassEntry::buildVtable(AnalyzeContext* actx) {
 
 	// super class's methods
 	buildMethodsuper(clazz, actx);
+
+	// member variables
+	buildMemberVariables(clazz, actx);
 }
 
+void VTableClassEntry::buildMemberVariables(ClassDeclare* clazz, AnalyzeContext* actx) noexcept {
+	ArrayList<ClassDeclare> list;
+
+	ClassDeclare* cls = clazz;
+	while(cls != nullptr){
+		list.addElement(cls);
+		cls = cls->getBaseClass();
+	}
+
+	int maxLoop = list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ClassDeclare* cls = list.get(i);
+		doBuildMemberVariables(cls, actx);
+	}
+}
+
+void VTableClassEntry::doBuildMemberVariables(ClassDeclare* clazz, AnalyzeContext* actx) noexcept {
+	ArrayList<MemberVariableDeclare>* list = clazz->getMemberVariables();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		MemberVariableDeclare* mem = list->get(i);
+		const UnicodeString* name = mem->getName();
+
+		if(this->variables->hasEntry(name)){
+			// error
+			actx->addValidationError(ValidationError::CODE_CLASS_MEMBER_ALREADY_EXISTS, clazz, L"The member '{0}' is defined in super class.", {mem->getName()});
+			continue;
+		}
+
+		this->variables->addEntry(name, mem);
+	}
+}
 
 void VTableClassEntry::buildMethodsuper(ClassDeclare* clazz, AnalyzeContext* actx) {
 	ClassDeclare* cls = clazz->getBaseClass();
@@ -208,6 +249,10 @@ void VTableClassEntry::addMethodNameEntry(VTableMethodEntry* entry) noexcept {
 
 MethodNameCollection* VTableClassEntry::getMethodEntryCollection(const UnicodeString* methodName) const noexcept {
 	return this->methodsNames.get(methodName);
+}
+
+MemberVariableTable* VTableClassEntry::getMemberVariableTable() const noexcept {
+	return this->variables;
 }
 
 } /* namespace alinous */

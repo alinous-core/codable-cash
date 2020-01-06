@@ -49,6 +49,7 @@ public:
 
 	const UnicodeString* toString() noexcept;
 	const UnicodeString* getSignatureName() noexcept;
+	const UnicodeString* getFullQualifiedName() noexcept;
 
 	bool equals(AnalyzedClass* other) noexcept;
 private:

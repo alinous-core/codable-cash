@@ -175,6 +175,11 @@ const UnicodeString* AnalyzedClass::getSignatureName() noexcept {
 	return this->sig;
 }
 
+const UnicodeString* AnalyzedClass::getFullQualifiedName() noexcept {
+	return this->clazz->getFullQualifiedName();
+}
+
+
 void AnalyzedClass::buildVtable(AnalyzeContext* actx) noexcept {
 	VTableRegistory* vreg = actx->getVtableRegistory();
 	const UnicodeString* fqn = this->clazz->getFullQualifiedName();

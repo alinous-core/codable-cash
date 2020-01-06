@@ -39,7 +39,7 @@ bool VmTestUtils::analyze() {
 
 bool VmTestUtils::createInstance() {
 	vm->createScInstance();
-	return vm->hasError();
+	return !vm->hasError();
 }
 
 void VmTestUtils::loadAllFiles() {

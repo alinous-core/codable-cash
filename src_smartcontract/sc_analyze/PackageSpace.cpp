@@ -99,4 +99,9 @@ void PackageSpace::buildVTables(AnalyzeContext* actx) noexcept {
 	}
 }
 
+
+HashMap<UnicodeString, AnalyzedClass>* PackageSpace::getMap() const noexcept {
+	return this->classes;
+}
+
 } /* namespace alinous */

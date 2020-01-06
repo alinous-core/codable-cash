@@ -252,4 +252,9 @@ ArrayList<MethodDeclare>* ClassDeclare::getMethods() noexcept {
 	return this->block->getMethods();
 }
 
+ArrayList<MemberVariableDeclare>* ClassDeclare::getMemberVariables() noexcept {
+	return this->block->getMemberVariables();
+}
+
+
 } /* namespace alinous */
