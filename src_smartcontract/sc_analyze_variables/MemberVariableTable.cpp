@@ -33,5 +33,9 @@ bool MemberVariableTable::hasEntry(const UnicodeString* name) const noexcept {
 	return entry != nullptr;
 }
 
+ArrayList<MemberVariableEntry>* MemberVariableTable::getVariableList() noexcept {
+	return &this->list;
+}
+
 
 } /* namespace alinous */

@@ -39,8 +39,7 @@ MemberVariableDeclare::~MemberVariableDeclare() {
 }
 
 void MemberVariableDeclare::preAnalyze(AnalyzeContext* actx) {
-	AnalyzedClass* aclass = actx->getAnalyzedClass(this);
-	aclass->addMemberVariableDeclare(this);
+
 }
 
 void MemberVariableDeclare::analyzeTypeRef(AnalyzeContext* actx) {

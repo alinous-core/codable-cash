@@ -27,6 +27,8 @@ public:
 
 	void analyzeClassInheritance(AnalyzeContext* actx) noexcept;
 	void buildVTables(AnalyzeContext* actx) noexcept;
+
+	HashMap<UnicodeString, AnalyzedClass>* getMap() const noexcept;
 private:
 	void doAnalyzeClassInheritance(AnalyzedClass* cls) noexcept;
 private:

@@ -24,4 +24,8 @@ const UnicodeString* MemberVariableEntry::getName() const noexcept {
 	return this->name;
 }
 
+MemberVariableDeclare* MemberVariableEntry::getMemberVariableDeclare() const noexcept {
+	return this->dec;
+}
+
 } /* namespace alinous */

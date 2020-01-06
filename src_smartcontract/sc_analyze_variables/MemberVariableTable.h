@@ -24,6 +24,7 @@ public:
 
 	void addEntry(const UnicodeString* name, MemberVariableDeclare* dec) noexcept;
 	bool hasEntry(const UnicodeString* name) const noexcept;
+	ArrayList<MemberVariableEntry>* getVariableList() noexcept;
 private:
 	ArrayList<MemberVariableEntry> list;
 	HashMap<UnicodeString, MemberVariableEntry> map;

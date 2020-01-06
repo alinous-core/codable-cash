@@ -19,7 +19,7 @@ public:
 	virtual ~MemberVariableEntry();
 
 	const UnicodeString* getName() const noexcept;
-
+	MemberVariableDeclare* getMemberVariableDeclare() const noexcept;
 private:
 	UnicodeString* name;
 	MemberVariableDeclare* dec;

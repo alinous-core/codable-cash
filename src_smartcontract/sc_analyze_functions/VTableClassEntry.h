@@ -32,6 +32,8 @@ public:
 	VTableMethodEntry* findEntry(AnalyzeContext* actx, const UnicodeString* methodName, ArrayList<AnalyzedType>* types);
 	MethodNameCollection* getMethodEntryCollection(const UnicodeString* methodName) const noexcept;
 
+	MemberVariableTable* getMemberVariableTable() const noexcept;
+
 private:
 	void buildMethodSelf(ClassDeclare* clazz, AnalyzeContext* actx);
 	void buildMethodsuper(ClassDeclare* clazz, AnalyzeContext* actx);

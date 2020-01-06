@@ -251,4 +251,8 @@ MethodNameCollection* VTableClassEntry::getMethodEntryCollection(const UnicodeSt
 	return this->methodsNames.get(methodName);
 }
 
+MemberVariableTable* VTableClassEntry::getMemberVariableTable() const noexcept {
+	return this->variables;
+}
+
 } /* namespace alinous */
