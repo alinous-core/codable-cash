@@ -10,10 +10,15 @@
 
 namespace alinous {
 
+class UnicodeString;
+
 class AbstractExtObject {
 public:
-	AbstractExtObject();
+	explicit AbstractExtObject(UnicodeString* name);
 	virtual ~AbstractExtObject();
+
+protected:
+	UnicodeString* name;
 };
 
 } /* namespace alinous */

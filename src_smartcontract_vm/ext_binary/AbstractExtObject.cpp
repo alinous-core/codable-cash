@@ -7,14 +7,16 @@
 
 #include "ext_binary/AbstractExtObject.h"
 
+#include "base/UnicodeString.h"
+
 namespace alinous {
 
-AbstractExtObject::AbstractExtObject() {
-
+AbstractExtObject::AbstractExtObject(UnicodeString* name) {
+	this->name = new UnicodeString(name);
 }
 
 AbstractExtObject::~AbstractExtObject() {
-
+	delete this->name;
 }
 
 } /* namespace alinous */

@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-ExtPrimitiveObject::ExtPrimitiveObject() : AbstractExtObject() {
+ExtPrimitiveObject::ExtPrimitiveObject(UnicodeString* name) : AbstractExtObject(name) {
 
 }
 

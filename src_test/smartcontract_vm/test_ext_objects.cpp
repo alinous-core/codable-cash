@@ -26,11 +26,14 @@ TEST_GROUP(TestExtObjects) {
 };
 
 TEST(TestExtObjects, constructObj){
-	ExtClassObject obj;
+	UnicodeString name("main");
+	ExtClassObject obj(&name);
 }
 
 TEST(TestExtObjects, constructPrimitive){
-	ExtPrimitiveObject obj;
-
+	UnicodeString name("main");
+	ExtPrimitiveObject obj(&name);
 }
+
+
 

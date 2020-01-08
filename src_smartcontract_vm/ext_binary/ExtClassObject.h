@@ -10,12 +10,22 @@
 
 #include "ext_binary/AbstractExtObject.h"
 
+#include "base/ArrayList.h"
+#include "base/HashMap.h"
+
 namespace alinous {
+
+class UnicodeString;
 
 class ExtClassObject : public AbstractExtObject {
 public:
-	ExtClassObject();
+	explicit ExtClassObject(UnicodeString* name);
 	virtual ~ExtClassObject();
+
+	void add(AbstractExtObject* obj) noexcept;
+private:
+	ArrayList<AbstractExtObject>* list;
+	HashMap<UnicodeString, AbstractExtObject>* map;
 };
 
 } /* namespace alinous */

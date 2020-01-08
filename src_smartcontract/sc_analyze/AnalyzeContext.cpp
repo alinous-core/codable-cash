@@ -171,7 +171,6 @@ void AnalyzeContext::analyzeMember(AnalyzedClass* cls) noexcept {
 
 		cls->addMemberVariableDeclare(dec);
 	}
-	// FIXME
 }
 
 

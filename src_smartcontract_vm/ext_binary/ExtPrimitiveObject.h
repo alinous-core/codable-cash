@@ -14,7 +14,7 @@ namespace alinous {
 
 class ExtPrimitiveObject : public AbstractExtObject {
 public:
-	ExtPrimitiveObject();
+	explicit ExtPrimitiveObject(UnicodeString* name);
 	virtual ~ExtPrimitiveObject();
 };
 
