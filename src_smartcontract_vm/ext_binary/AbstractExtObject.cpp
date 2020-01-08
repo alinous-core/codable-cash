@@ -7,14 +7,26 @@
 
 #include "ext_binary/AbstractExtObject.h"
 
+#include "base/UnicodeString.h"
+
+#include "instance/VmInstanceTypesConst.h"
 namespace alinous {
 
-AbstractExtObject::AbstractExtObject() {
-
+AbstractExtObject::AbstractExtObject(UnicodeString* name, uint8_t type) {
+	this->name = new UnicodeString(name);
+	this->type = type;
 }
 
 AbstractExtObject::~AbstractExtObject() {
+	delete this->name;
+}
 
+const UnicodeString* AbstractExtObject::getName() const noexcept {
+	return this->name;
+}
+
+uint8_t AbstractExtObject::getType() const noexcept {
+	return this->type;
 }
 
 } /* namespace alinous */

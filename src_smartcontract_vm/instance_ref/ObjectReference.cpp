@@ -8,6 +8,7 @@
 #include "instance_ref/ObjectReference.h"
 
 #include "instance/VmClassInstance.h"
+#include "instance/VmInstanceTypesConst.h"
 
 namespace alinous {
 
@@ -20,7 +21,7 @@ ObjectReference::~ObjectReference() {
 }
 
 ObjectReference* ObjectReference::createObjectReference(VmClassInstance* clazzInst, VirtualMachine* vm) {
-	ObjectReference* ref = new(vm) ObjectReference(AbstractVmInstance::REF_OBJ);
+	ObjectReference* ref = new(vm) ObjectReference(VmInstanceTypesConst::REF_OBJ);
 	ref->setInstance(clazzInst);
 
 	return ref;

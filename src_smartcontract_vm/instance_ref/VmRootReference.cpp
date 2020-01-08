@@ -13,10 +13,12 @@
 
 #include "instance_ref/RefereceFactory.h"
 #include "instance/VmClassInstance.h"
+#include "instance/VmInstanceTypesConst.h"
+
 
 namespace alinous {
 
-VmRootReference::VmRootReference(VirtualMachine* vm) : AbstractReference(AbstractVmInstance::REF_ROOT) {
+VmRootReference::VmRootReference(VirtualMachine* vm) : AbstractReference(VmInstanceTypesConst::REF_ROOT) {
 	this->vm = vm;
 	this->mainInst = nullptr;
 	this->staticHolder = new StaticInstanceHolder();

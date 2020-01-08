@@ -9,6 +9,8 @@
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_declare_types/AbstractType.h"
 
+#include "instance/VmInstanceTypesConst.h"
+
 #include "vm/VirtualMachine.h"
 #include "instance_ref/PrimitiveReference.h"
 #include "instance_ref/ObjectReference.h"
@@ -50,7 +52,7 @@ AbstractReference* RefereceFactory::createReferenceFromDefinition(MemberVariable
 }
 
 AbstractReference* RefereceFactory::createObjectReferenceFromDefinition(MemberVariableDeclare* dec, VirtualMachine* vm) {
-	ObjectReference* ref = new(vm) ObjectReference(AbstractReference::REF_OBJ);
+	ObjectReference* ref = new(vm) ObjectReference(VmInstanceTypesConst::REF_OBJ);
 
 	return ref;
 }
@@ -81,7 +83,7 @@ AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(AnalyzedType
 	case AnalyzedType::TYPE_STRING:
 	case AnalyzedType::TYPE_OBJECT:
 	default:
-		ref = new(vm) ObjectReference(AbstractReference::REF_OBJ);
+		ref = new(vm) ObjectReference(VmInstanceTypesConst::REF_OBJ);
 		break;
 	}
 

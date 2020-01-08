@@ -16,6 +16,8 @@
 #include "instance_ref/PrimitiveReference.h"
 
 #include "sc_analyze/AnalyzedClass.h"
+
+#include "instance/VmInstanceTypesConst.h"
 using namespace alinous;
 
 
@@ -52,5 +54,5 @@ TEST(TestInstanceGroup, constructError){
 }
 
 TEST(TestInstanceGroup, constructRef){
-	PrimitiveReference ref(PrimitiveReference::REF_BYTE);
+	PrimitiveReference ref(VmInstanceTypesConst::REF_BYTE);
 }
