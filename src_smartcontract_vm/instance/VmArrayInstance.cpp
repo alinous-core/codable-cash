@@ -7,9 +7,11 @@
 
 #include "instance/VmArrayInstance.h"
 
+#include "instance/VmInstanceTypesConst.h"
+
 namespace alinous {
 
-VmArrayInstance::VmArrayInstance() : AbstractVmInstance(AbstractVmInstance::INST_ARRAY) {
+VmArrayInstance::VmArrayInstance() : AbstractVmInstance(VmInstanceTypesConst::INST_ARRAY) {
 }
 
 VmArrayInstance::~VmArrayInstance() {

@@ -18,6 +18,8 @@ ExtClassObject::ExtClassObject(UnicodeString* name) : AbstractExtObject(name) {
 }
 
 ExtClassObject::~ExtClassObject() {
+	this->list->deleteElements();
+
 	delete this->list;
 	delete this->map;
 }

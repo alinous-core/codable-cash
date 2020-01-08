@@ -11,10 +11,12 @@
 
 #include "instance_gc/GcManager.h"
 #include "instance/AbstractVmInstance.h"
+#include "instance/VmInstanceTypesConst.h"
+
 
 namespace alinous {
 
-VmStack::VmStack(VirtualMachine* vm) : AbstractReference(AbstractVmInstance::STACK) {
+VmStack::VmStack(VirtualMachine* vm) : AbstractReference(VmInstanceTypesConst::STACK) {
 	this->stack = new(vm) VMemList<AbstractReference>(vm);
 	this->vm = vm;
 }

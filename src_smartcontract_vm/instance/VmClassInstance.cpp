@@ -18,10 +18,12 @@
 #include "instance_ref/RefereceFactory.h"
 #include "instance_gc/GcManager.h"
 
+#include "instance/VmInstanceTypesConst.h"
+
 namespace alinous {
 
 VmClassInstance::VmClassInstance(AnalyzedClass* clazz, VirtualMachine* vm) :
-		AbstractVmInstance(AbstractVmInstance::ISNT_OBJ), clazz(clazz), members(vm) {
+		AbstractVmInstance(VmInstanceTypesConst::ISNT_OBJ), clazz(clazz), members(vm) {
 
 }
 

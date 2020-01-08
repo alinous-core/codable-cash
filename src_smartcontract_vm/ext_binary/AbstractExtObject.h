@@ -17,6 +17,7 @@ public:
 	explicit AbstractExtObject(UnicodeString* name);
 	virtual ~AbstractExtObject();
 
+	const UnicodeString* getName() const noexcept;
 protected:
 	UnicodeString* name;
 };

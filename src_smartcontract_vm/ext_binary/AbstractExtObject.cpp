@@ -19,4 +19,9 @@ AbstractExtObject::~AbstractExtObject() {
 	delete this->name;
 }
 
+const UnicodeString* AbstractExtObject::getName() const noexcept {
+	return this->name;
+}
+
+
 } /* namespace alinous */

@@ -11,6 +11,7 @@
 
 #include "instance_ref/AbstractReference.h"
 #include "instance/IInstanceContainer.h"
+#include "instance/VmInstanceTypesConst.h"
 
 namespace alinous {
 
@@ -28,8 +29,8 @@ void ReferenceStatus::addOwner(const AbstractVmInstance* owner) noexcept {
 	ArrayList<const AbstractVmInstance>* list = nullptr;
 
 	switch(type){
-	case AbstractVmInstance::STACK:
-	case AbstractVmInstance::REF_ROOT:
+	case VmInstanceTypesConst::STACK:
+	case VmInstanceTypesConst::REF_ROOT:
 		list = &this->terminalOwnerList;
 		break;
 	default:
@@ -48,8 +49,8 @@ void ReferenceStatus::removeOwner(const AbstractVmInstance* owner) noexcept {
 	ArrayList<const AbstractVmInstance>* list = nullptr;
 
 	switch(type){
-	case AbstractVmInstance::STACK:
-	case AbstractVmInstance::REF_ROOT:
+	case VmInstanceTypesConst::STACK:
+	case VmInstanceTypesConst::REF_ROOT:
 		list = &this->terminalOwnerList;
 		break;
 	default:
@@ -110,7 +111,7 @@ bool ReferenceStatus::checkCyclicRemovable(GcCyclicCheckerContext* cctx) noexcep
 void ReferenceStatus::deleteInstance() noexcept {
 	uint8_t type = this->instance->getType();
 
-	if(type == AbstractVmInstance::STACK){
+	if(type == VmInstanceTypesConst::STACK){
 		return;
 	}
 

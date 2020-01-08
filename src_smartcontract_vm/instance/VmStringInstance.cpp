@@ -7,9 +7,12 @@
 
 #include "instance/VmStringInstance.h"
 
+#include "instance/VmInstanceTypesConst.h"
+
+
 namespace alinous {
 
-VmStringInstance::VmStringInstance() : AbstractVmInstance(AbstractVmInstance::INST_STRING) {
+VmStringInstance::VmStringInstance() : AbstractVmInstance(VmInstanceTypesConst::INST_STRING) {
 }
 
 VmStringInstance::~VmStringInstance() {
