@@ -25,5 +25,8 @@ const UnicodeString* AbstractExtObject::getName() const noexcept {
 	return this->name;
 }
 
+uint8_t AbstractExtObject::getType() const noexcept {
+	return this->type;
+}
 
 } /* namespace alinous */
