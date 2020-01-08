@@ -32,7 +32,7 @@ TEST(TestExtObjects, constructObj){
 
 TEST(TestExtObjects, constructPrimitive){
 	UnicodeString name("main");
-	ExtPrimitiveObject obj(&name);
+	//ExtPrimitiveObject obj(&name, );
 }
 
 
