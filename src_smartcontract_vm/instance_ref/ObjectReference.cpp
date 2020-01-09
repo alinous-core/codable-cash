@@ -44,5 +44,8 @@ void ObjectReference::substitute(AbstractVmInstance* rightValue, VirtualMachine*
 	assert(false);
 }
 
+AbstractExtObject* ObjectReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
+	return this->instance->toClassExtObject(name, table);
+}
 
 } /* namespace alinous */

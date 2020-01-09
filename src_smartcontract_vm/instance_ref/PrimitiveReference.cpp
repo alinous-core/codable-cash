@@ -12,6 +12,7 @@
 
 #include "instance/VmInstanceTypesConst.h"
 
+#include "ext_binary/ExtPrimitiveObject.h"
 
 namespace alinous {
 
@@ -91,6 +92,35 @@ void PrimitiveReference::substitute(AbstractVmInstance* rightValue,	VirtualMachi
 
 }
 
+AbstractExtObject* PrimitiveReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
+	uint8_t type = getType();
+
+	AbstractExtObject* extObj = nullptr;
+	switch(type){
+	case VmInstanceTypesConst::REF_BOOL:
+		extObj = ExtPrimitiveObject::createBoolObject(name, getByteValue() == 1);
+		break;
+	case VmInstanceTypesConst::REF_BYTE:
+		extObj = ExtPrimitiveObject::createByteObject(name, getByteValue());
+		break;
+	case VmInstanceTypesConst::REF_CHAR:
+		extObj = ExtPrimitiveObject::createCharObject(name, getCharValue());
+		break;
+	case VmInstanceTypesConst::REF_SHORT:
+		extObj = ExtPrimitiveObject::createShortObject(name, getShortValue());
+		break;
+	case VmInstanceTypesConst::REF_INT:
+		extObj = ExtPrimitiveObject::createIntObject(name, getIntValue());
+		break;
+	case VmInstanceTypesConst::REF_LONG:
+	default:
+		extObj = ExtPrimitiveObject::createLongObject(name, getLongValue());
+		break;
+	}
+
+	// FIXME
+	return extObj;
+}
 
 void PrimitiveReference::setLongValue(int64_t value) noexcept {
 	*((int64_t*)this->data) = value;

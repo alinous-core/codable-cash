@@ -19,7 +19,7 @@ class UnicodeString;
 
 class ExtClassObject : public AbstractExtObject {
 public:
-	explicit ExtClassObject(UnicodeString* name);
+	explicit ExtClassObject(const UnicodeString* name);
 	virtual ~ExtClassObject();
 
 	void add(AbstractExtObject* obj) noexcept;

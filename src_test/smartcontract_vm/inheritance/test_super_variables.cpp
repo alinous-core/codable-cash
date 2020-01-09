@@ -13,6 +13,8 @@
 
 #include "../VmTestUtils.h"
 
+#include "ext_binary/ExtClassObject.h"
+
 using namespace alinous;
 
 TEST_GROUP(TestSuperVariablesGroup) {
@@ -46,5 +48,9 @@ TEST(TestSuperVariablesGroup, inheritanceCreate){
 
 	result = util.createInstance();
 	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject();
+
+	delete obj;
 }
 

@@ -58,5 +58,8 @@ bool AbstractVmInstance::isReference() const noexcept {
 	return false;
 }
 
+AbstractExtObject* AbstractVmInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
+	return nullptr;
+}
 
 } /* namespace alinous */

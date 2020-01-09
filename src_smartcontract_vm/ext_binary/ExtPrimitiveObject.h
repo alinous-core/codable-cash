@@ -14,15 +14,15 @@ namespace alinous {
 
 class ExtPrimitiveObject : public AbstractExtObject {
 public:
-	explicit ExtPrimitiveObject(UnicodeString* name, uint8_t type);
+	explicit ExtPrimitiveObject(const UnicodeString* name, uint8_t type);
 	virtual ~ExtPrimitiveObject();
 
-	static ExtPrimitiveObject* createBoolObject(UnicodeString* name, int8_t value) noexcept;
-	static ExtPrimitiveObject* createByteObject(UnicodeString* name, int8_t value) noexcept;
-	static ExtPrimitiveObject* createCharObject(UnicodeString* name, int16_t value) noexcept;
-	static ExtPrimitiveObject* createShortObject(UnicodeString* name, int16_t value) noexcept;
-	static ExtPrimitiveObject* createIntObject(UnicodeString* name, int32_t value) noexcept;
-	static ExtPrimitiveObject* createLongObject(UnicodeString* name, int64_t value) noexcept;
+	static ExtPrimitiveObject* createBoolObject(const UnicodeString* name, int8_t value) noexcept;
+	static ExtPrimitiveObject* createByteObject(const UnicodeString* name, int8_t value) noexcept;
+	static ExtPrimitiveObject* createCharObject(const UnicodeString* name, int16_t value) noexcept;
+	static ExtPrimitiveObject* createShortObject(const UnicodeString* name, int16_t value) noexcept;
+	static ExtPrimitiveObject* createIntObject(const UnicodeString* name, int32_t value) noexcept;
+	static ExtPrimitiveObject* createLongObject(const UnicodeString* name, int64_t value) noexcept;
 
 	int32_t getIntValue() const noexcept;
 	void setIntValue(int32_t value) noexcept;

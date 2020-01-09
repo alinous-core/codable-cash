@@ -123,7 +123,7 @@ void SmartContract::clearRootReference(VirtualMachine* vm) noexcept {
 	this->rootReference = nullptr;
 }
 
-void SmartContract::createInstance(VirtualMachine* vm) {
+VmClassInstance* SmartContract::createInstance(VirtualMachine* vm) {
 	initialize(vm);
 
 	PackageSpace* space = this->actx->getPackegeSpace(this->mainPackage);
@@ -148,6 +148,8 @@ void SmartContract::createInstance(VirtualMachine* vm) {
 	// exec constructor
 	ArrayList<AbstractReference> arguments;
 	vm->interpret(defConstructor, inst, &arguments);
+
+	return inst;
 }
 
 void SmartContract::initialize(VirtualMachine* vm) {
@@ -165,6 +167,10 @@ void SmartContract::initialize(VirtualMachine* vm) {
 	}
 
 	this->initialized = true;
+}
+
+AnalyzeContext* SmartContract::getAnalyzeContext() const noexcept {
+	return this->actx;
 }
 
 } /* namespace alinous */

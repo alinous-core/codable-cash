@@ -14,7 +14,7 @@
 
 namespace alinous {
 
-ExtPrimitiveObject::ExtPrimitiveObject(UnicodeString* name, uint8_t type) : AbstractExtObject(name, type) {
+ExtPrimitiveObject::ExtPrimitiveObject(const UnicodeString* name, uint8_t type) : AbstractExtObject(name, type) {
 	Mem::memset(this->data, 0, sizeof(this->data));
 
 }
@@ -24,42 +24,42 @@ ExtPrimitiveObject::~ExtPrimitiveObject() {
 }
 
 
-ExtPrimitiveObject* ExtPrimitiveObject::createBoolObject(UnicodeString* name, int8_t value) noexcept {
+ExtPrimitiveObject* ExtPrimitiveObject::createBoolObject(const UnicodeString* name, int8_t value) noexcept {
 	ExtPrimitiveObject* obj = new ExtPrimitiveObject(name, VmInstanceTypesConst::REF_BOOL);
 	obj->setBoolValue(value > 0);
 
 	return obj;
 }
 
-ExtPrimitiveObject* ExtPrimitiveObject::createByteObject(UnicodeString* name, int8_t value) noexcept {
+ExtPrimitiveObject* ExtPrimitiveObject::createByteObject(const UnicodeString* name, int8_t value) noexcept {
 	ExtPrimitiveObject* obj = new ExtPrimitiveObject(name, VmInstanceTypesConst::REF_BYTE);
 	obj->setByteValue(value);
 
 	return obj;
 }
 
-ExtPrimitiveObject* ExtPrimitiveObject::createCharObject(UnicodeString* name, int16_t value) noexcept {
+ExtPrimitiveObject* ExtPrimitiveObject::createCharObject(const UnicodeString* name, int16_t value) noexcept {
 	ExtPrimitiveObject* obj = new ExtPrimitiveObject(name, VmInstanceTypesConst::REF_CHAR);
 	obj->setCharValue(value);
 
 	return obj;
 }
 
-ExtPrimitiveObject* ExtPrimitiveObject::createShortObject(UnicodeString* name, int16_t value) noexcept {
+ExtPrimitiveObject* ExtPrimitiveObject::createShortObject(const UnicodeString* name, int16_t value) noexcept {
 	ExtPrimitiveObject* obj = new ExtPrimitiveObject(name, VmInstanceTypesConst::REF_SHORT);
 	obj->setShortValue(value);
 
 	return obj;
 }
 
-ExtPrimitiveObject* ExtPrimitiveObject::createIntObject(UnicodeString* name, int32_t value) noexcept {
+ExtPrimitiveObject* ExtPrimitiveObject::createIntObject(const UnicodeString* name, int32_t value) noexcept {
 	ExtPrimitiveObject* obj = new ExtPrimitiveObject(name, VmInstanceTypesConst::REF_INT);
 	obj->setIntValue(value);
 
 	return obj;
 }
 
-ExtPrimitiveObject* ExtPrimitiveObject::createLongObject(UnicodeString* name, int64_t value) noexcept {
+ExtPrimitiveObject* ExtPrimitiveObject::createLongObject(const UnicodeString* name, int64_t value) noexcept {
 	ExtPrimitiveObject* obj = new ExtPrimitiveObject(name, VmInstanceTypesConst::REF_LONG);
 	obj->setLongValue(value);
 

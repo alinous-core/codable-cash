@@ -38,7 +38,7 @@ public:
 	void analyze();
 	bool hasError() noexcept;
 
-	void createScInstance();
+	VmClassInstance* createScInstance();
 
 	void interpret(const UnicodeString* method, ArrayList<AbstractReference>* arguments);
 	void interpret(const UnicodeString* method);

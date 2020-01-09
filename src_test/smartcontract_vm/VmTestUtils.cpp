@@ -16,12 +16,20 @@
 #include "base_io/File.h"
 #include "base_io_stream/FileInputStream.h"
 
+#include "instance/VmClassInstance.h"
+
+#include "ext_binary/AbstractExtObject.h"
+#include "ext_binary/ExtClassObject.h"
+
+#include "sc_analyze/AnalyzeContext.h"
+
 namespace alinous {
 
 VmTestUtils::VmTestUtils(const wchar_t* seg, const File* projectFolder) {
 	this->folder = projectFolder->get(seg);
 	this->vm = new VirtualMachine(1024*1024);
 	this->sc = nullptr;
+	this->mainInst = nullptr;
 }
 
 VmTestUtils::~VmTestUtils() {
@@ -29,6 +37,7 @@ VmTestUtils::~VmTestUtils() {
 	delete this->vm;
 	delete this->folder;
 	this->sc = nullptr;
+	this->mainInst = nullptr;
 }
 
 
@@ -38,7 +47,7 @@ bool VmTestUtils::analyze() {
 }
 
 bool VmTestUtils::createInstance() {
-	vm->createScInstance();
+	this->mainInst = vm->createScInstance();
 	return !vm->hasError();
 }
 
@@ -81,6 +90,16 @@ void VmTestUtils::setMain(const wchar_t* pkg, const wchar_t* clazz,	const wchar_
 	UnicodeString mainClass(clazz);
 	UnicodeString mainMethod(method);
 	sc->setMainMethod(&mainPackage, &mainClass, &mainMethod);
+}
+
+ExtClassObject* VmTestUtils::getMainExtObject() {
+	AnalyzeContext* actx = this->sc->getAnalyzeContext();
+	VTableRegistory* reg = actx->getVtableRegistory();
+
+	UnicodeString name(L"name");
+	AbstractExtObject* extObj = this->mainInst->toClassExtObject(&name, reg);
+
+	return dynamic_cast<ExtClassObject*>(extObj);
 }
 
 } /* namespace alinous */

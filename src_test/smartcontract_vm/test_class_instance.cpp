@@ -32,6 +32,8 @@ TEST(TestInstanceGroup, construct){
 	AnalyzedClass clazz(nullptr);
 
 	VmClassInstance* inst = new(&vm) VmClassInstance(&clazz, &vm);
+	CHECK(inst->isReference() == false)
+
 	delete inst;
 }
 

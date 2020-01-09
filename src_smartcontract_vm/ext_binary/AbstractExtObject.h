@@ -15,7 +15,7 @@ class UnicodeString;
 
 class AbstractExtObject {
 public:
-	explicit AbstractExtObject(UnicodeString* name, uint8_t type);
+	explicit AbstractExtObject(const UnicodeString* name, uint8_t type);
 	virtual ~AbstractExtObject();
 
 	const UnicodeString* getName() const noexcept;

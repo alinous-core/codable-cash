@@ -14,6 +14,8 @@ class UnicodeString;
 class File;
 class SmartContract;
 class VirtualMachine;
+class VmClassInstance;
+class ExtClassObject;
 
 class VmTestUtils {
 public:
@@ -27,11 +29,13 @@ public:
 	void setMain(const wchar_t* pkg, const wchar_t* clazz, const wchar_t* method) noexcept;
 	bool analyze();
 	bool createInstance();
+	ExtClassObject* getMainExtObject();
 
 	VirtualMachine* vm;
 	SmartContract* sc;
 private:
 	File* folder;
+	VmClassInstance* mainInst;
 };
 
 } /* namespace alinous */
