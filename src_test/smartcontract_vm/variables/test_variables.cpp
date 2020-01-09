@@ -28,6 +28,14 @@ TEST(TestVmVariableGroup, abstractFuncs){
 	ref->substitute(nullptr, nullptr);
 }
 
+TEST(TestVmVariableGroup, baseToExtObject){
+	VirtualMachine* vm = new VirtualMachine(1024*1024); __STP(vm);
+
+	VmRootReference* ref = new(vm) VmRootReference(vm);__STP(ref);
+	AbstractExtObject* ext = ref->toClassExtObject();
+	CHECK(ext == nullptr);
+}
+
 TEST(TestVmVariableGroup, primitives){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/variables/resources/intlong/main.alns"));

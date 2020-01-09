@@ -58,5 +58,8 @@ bool AbstractVmInstance::isReference() const noexcept {
 	return false;
 }
 
+AbstractExtObject* AbstractVmInstance::toClassExtObject() {
+	return nullptr;
+}
 
 } /* namespace alinous */

@@ -16,6 +16,7 @@ namespace alinous {
 class VirtualMachine;
 class AbstractReference;
 class GcManager;
+class AbstractExtObject;
 
 class AbstractVmInstance {
 public:
@@ -30,6 +31,8 @@ public:
 
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 	virtual bool isReference() const noexcept;
+
+	virtual AbstractExtObject* toClassExtObject();
 private:
 	uint8_t type;
 };

@@ -19,6 +19,7 @@ class VirtualMachine;
 class AnalyzeContext;
 class UnicodeString;
 class VmRootReference;
+class VmClassInstance;
 
 class SmartContract {
 public:
@@ -35,7 +36,7 @@ public:
 	VmRootReference* getRootReference() const noexcept;
 	void clearRootReference(VirtualMachine* vm) noexcept;
 
-	void createInstance(VirtualMachine* vm);
+	VmClassInstance* createInstance(VirtualMachine* vm);
 	void initialize(VirtualMachine* vm);
 private:
 	UnicodeString* mainPackage;

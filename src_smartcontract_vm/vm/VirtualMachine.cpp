@@ -65,9 +65,9 @@ void VirtualMachine::loadSmartContract(SmartContract* sc) {
 	this->stackManager = new VmStackManager();
 }
 
-void VirtualMachine::createScInstance() {
+VmClassInstance* VirtualMachine::createScInstance() {
 	initialize();
-	this->sc->createInstance(this);
+	return this->sc->createInstance(this);
 }
 
 void VirtualMachine::interpret(const UnicodeString* method) {

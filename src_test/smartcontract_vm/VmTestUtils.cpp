@@ -22,6 +22,7 @@ VmTestUtils::VmTestUtils(const wchar_t* seg, const File* projectFolder) {
 	this->folder = projectFolder->get(seg);
 	this->vm = new VirtualMachine(1024*1024);
 	this->sc = nullptr;
+	this->mainInst = nullptr;
 }
 
 VmTestUtils::~VmTestUtils() {
@@ -29,6 +30,7 @@ VmTestUtils::~VmTestUtils() {
 	delete this->vm;
 	delete this->folder;
 	this->sc = nullptr;
+	this->mainInst = nullptr;
 }
 
 
@@ -38,7 +40,7 @@ bool VmTestUtils::analyze() {
 }
 
 bool VmTestUtils::createInstance() {
-	vm->createScInstance();
+	this->mainInst = vm->createScInstance();
 	return !vm->hasError();
 }
 
@@ -81,6 +83,10 @@ void VmTestUtils::setMain(const wchar_t* pkg, const wchar_t* clazz,	const wchar_
 	UnicodeString mainClass(clazz);
 	UnicodeString mainMethod(method);
 	sc->setMainMethod(&mainPackage, &mainClass, &mainMethod);
+}
+
+ExtClassObject* VmTestUtils::getMainExtObject() {
+	return nullptr;
 }
 
 } /* namespace alinous */
