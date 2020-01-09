@@ -86,6 +86,7 @@ void VmTestUtils::setMain(const wchar_t* pkg, const wchar_t* clazz,	const wchar_
 }
 
 ExtClassObject* VmTestUtils::getMainExtObject() {
+	//this->mainInst->
 	// FIXME
 }
 

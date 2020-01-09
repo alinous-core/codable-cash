@@ -91,6 +91,9 @@ void PrimitiveReference::substitute(AbstractVmInstance* rightValue,	VirtualMachi
 
 }
 
+AbstractExtObject* PrimitiveReference::toClassExtObject() {
+	// FIXME
+}
 
 void PrimitiveReference::setLongValue(int64_t value) noexcept {
 	*((int64_t*)this->data) = value;

@@ -77,5 +77,11 @@ AnalyzedClass* VmClassInstance::getAnalyzedClass() const noexcept {
 	return this->clazz;
 }
 
+AbstractExtObject* VmClassInstance::toClassExtObject() {
+	// FIXME
+	return nullptr;
+}
+
+
 
 } /* namespace alinous */

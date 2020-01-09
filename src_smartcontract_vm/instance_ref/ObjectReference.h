@@ -27,6 +27,8 @@ public:
 	void setInstance(AbstractVmInstance* instance) noexcept;
 
 	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
+
+	virtual AbstractExtObject* toClassExtObject();
 private:
 	AbstractVmInstance* instance;
 };
