@@ -36,6 +36,22 @@ TEST(TestVmVariableGroup, baseToExtObject){
 	CHECK(ext == nullptr);
 }
 
+TEST(TestVmVariableGroup, basegetReferences){
+	VirtualMachine* vm = new VirtualMachine(1024*1024); __STP(vm);
+
+	VmRootReference* ref = new(vm) VmRootReference(vm);__STP(ref);
+	const VMemList<AbstractReference>* list = ref->getReferences();
+	CHECK(list == nullptr);
+}
+
+TEST(TestVmVariableGroup, baseIsReference){
+	VirtualMachine* vm = new VirtualMachine(1024*1024); __STP(vm);
+
+	VmRootReference* ref = new(vm) VmRootReference(vm);__STP(ref);
+	CHECK(ref->isReference() == true);
+}
+
+
 TEST(TestVmVariableGroup, primitives){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/variables/resources/intlong/main.alns"));
