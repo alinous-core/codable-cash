@@ -17,7 +17,7 @@ public:
 	VmArrayInstance();
 	virtual ~VmArrayInstance();
 
-	virtual const VMemList<Abstracteference>* getReferences() const noexcept;
+	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 
 };
 
