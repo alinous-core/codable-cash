@@ -20,6 +20,9 @@
 
 #include "instance/VmInstanceTypesConst.h"
 
+#include "ext_binary/ExtClassObject.h"
+
+
 namespace alinous {
 
 VmClassInstance::VmClassInstance(AnalyzedClass* clazz, VirtualMachine* vm) :
@@ -77,11 +80,11 @@ AnalyzedClass* VmClassInstance::getAnalyzedClass() const noexcept {
 	return this->clazz;
 }
 
-AbstractExtObject* VmClassInstance::toClassExtObject(const UnicodeString* name) {
-
+AbstractExtObject* VmClassInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
+	ExtClassObject* extObj = new ExtClassObject(name);
 
 	// FIXME
-	return nullptr;
+	return extObj;
 }
 
 

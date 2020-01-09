@@ -91,7 +91,9 @@ void PrimitiveReference::substitute(AbstractVmInstance* rightValue,	VirtualMachi
 
 }
 
-AbstractExtObject* PrimitiveReference::toClassExtObject(const UnicodeString* name) {
+AbstractExtObject* PrimitiveReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
+
+
 	// FIXME
 }
 

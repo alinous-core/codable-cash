@@ -12,7 +12,7 @@
 #include "instance/VmInstanceTypesConst.h"
 namespace alinous {
 
-AbstractExtObject::AbstractExtObject(UnicodeString* name, uint8_t type) {
+AbstractExtObject::AbstractExtObject(const UnicodeString* name, uint8_t type) {
 	this->name = new UnicodeString(name);
 	this->type = type;
 }

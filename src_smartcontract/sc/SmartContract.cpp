@@ -169,4 +169,8 @@ void SmartContract::initialize(VirtualMachine* vm) {
 	this->initialized = true;
 }
 
+AnalyzeContext* SmartContract::getAnalyzeContext() const noexcept {
+	return this->actx;
+}
+
 } /* namespace alinous */

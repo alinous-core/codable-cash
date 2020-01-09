@@ -17,6 +17,7 @@ class VirtualMachine;
 class AbstractReference;
 class GcManager;
 class AbstractExtObject;
+class VTableRegistory;
 
 class AbstractVmInstance {
 public:
@@ -32,7 +33,7 @@ public:
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 	virtual bool isReference() const noexcept;
 
-	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name);
+	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 private:
 	uint8_t type;
 };

@@ -20,6 +20,7 @@ class AnalyzeContext;
 class UnicodeString;
 class VmRootReference;
 class VmClassInstance;
+class ExtClassObject;
 
 class SmartContract {
 public:
@@ -38,6 +39,9 @@ public:
 
 	VmClassInstance* createInstance(VirtualMachine* vm);
 	void initialize(VirtualMachine* vm);
+
+	AnalyzeContext* getAnalyzeContext() const noexcept;
+
 private:
 	UnicodeString* mainPackage;
 	UnicodeString* mainClass;

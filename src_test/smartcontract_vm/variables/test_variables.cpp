@@ -32,7 +32,7 @@ TEST(TestVmVariableGroup, baseToExtObject){
 	VirtualMachine* vm = new VirtualMachine(1024*1024); __STP(vm);
 
 	VmRootReference* ref = new(vm) VmRootReference(vm);__STP(ref);
-	AbstractExtObject* ext = ref->toClassExtObject(nullptr);
+	AbstractExtObject* ext = ref->toClassExtObject(nullptr, nullptr);
 	CHECK(ext == nullptr);
 }
 

@@ -26,7 +26,7 @@ public:
 
 	virtual bool isPrimitive() const noexcept;
 	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
-	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name);
+	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 
 	int32_t getIntValue() const noexcept;
 	void setIntValue(int32_t value) noexcept;

@@ -21,6 +21,7 @@
 #include "ext_binary/AbstractExtObject.h"
 #include "ext_binary/ExtClassObject.h"
 
+#include "sc_analyze/AnalyzeContext.h"
 
 namespace alinous {
 
@@ -92,8 +93,11 @@ void VmTestUtils::setMain(const wchar_t* pkg, const wchar_t* clazz,	const wchar_
 }
 
 ExtClassObject* VmTestUtils::getMainExtObject() {
+	AnalyzeContext* actx = this->sc->getAnalyzeContext();
+	VTableRegistory* reg = actx->getVtableRegistory();
+
 	UnicodeString name(L"name");
-	AbstractExtObject* extObj = this->mainInst->toClassExtObject(&name);
+	AbstractExtObject* extObj = this->mainInst->toClassExtObject(&name, reg);
 
 	return dynamic_cast<ExtClassObject*>(extObj);
 }
