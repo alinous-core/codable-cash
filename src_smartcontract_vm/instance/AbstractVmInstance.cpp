@@ -58,7 +58,7 @@ bool AbstractVmInstance::isReference() const noexcept {
 	return false;
 }
 
-AbstractExtObject* AbstractVmInstance::toClassExtObject() {
+AbstractExtObject* AbstractVmInstance::toClassExtObject(const UnicodeString* name) {
 	return nullptr;
 }
 

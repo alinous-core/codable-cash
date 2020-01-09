@@ -77,7 +77,9 @@ AnalyzedClass* VmClassInstance::getAnalyzedClass() const noexcept {
 	return this->clazz;
 }
 
-AbstractExtObject* VmClassInstance::toClassExtObject() {
+AbstractExtObject* VmClassInstance::toClassExtObject(const UnicodeString* name) {
+
+
 	// FIXME
 	return nullptr;
 }

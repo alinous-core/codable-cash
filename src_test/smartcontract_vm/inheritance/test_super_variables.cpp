@@ -46,5 +46,7 @@ TEST(TestSuperVariablesGroup, inheritanceCreate){
 
 	result = util.createInstance();
 	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject();
 }
 

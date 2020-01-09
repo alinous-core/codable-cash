@@ -16,6 +16,12 @@
 #include "base_io/File.h"
 #include "base_io_stream/FileInputStream.h"
 
+#include "instance/VmClassInstance.h"
+
+#include "ext_binary/AbstractExtObject.h"
+#include "ext_binary/ExtClassObject.h"
+
+
 namespace alinous {
 
 VmTestUtils::VmTestUtils(const wchar_t* seg, const File* projectFolder) {
@@ -86,8 +92,10 @@ void VmTestUtils::setMain(const wchar_t* pkg, const wchar_t* clazz,	const wchar_
 }
 
 ExtClassObject* VmTestUtils::getMainExtObject() {
-	//this->mainInst->
-	// FIXME
+	UnicodeString name(L"name");
+	AbstractExtObject* extObj = this->mainInst->toClassExtObject(&name);
+
+	return dynamic_cast<ExtClassObject*>(extObj);
 }
 
 } /* namespace alinous */

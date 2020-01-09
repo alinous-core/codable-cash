@@ -28,7 +28,7 @@ public:
 
 	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
 
-	virtual AbstractExtObject* toClassExtObject();
+	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name);
 private:
 	AbstractVmInstance* instance;
 };

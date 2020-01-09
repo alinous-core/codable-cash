@@ -28,7 +28,7 @@ public:
 
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 	virtual void removeInnerRefs(GcManager* gc) noexcept;
-	virtual AbstractExtObject* toClassExtObject();
+	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name);
 
 	AnalyzedClass* getAnalyzedClass() const noexcept;
 private:

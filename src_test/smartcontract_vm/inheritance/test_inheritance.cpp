@@ -30,6 +30,5 @@ TEST(TestInheritanceGroup, inheritance){
 	bool result = util.analyze();
 	CHECK(result)
 
-	ExtClassObject* obj = util.getMainExtObject();
 }
 
