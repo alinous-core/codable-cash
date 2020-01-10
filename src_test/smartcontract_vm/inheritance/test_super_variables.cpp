@@ -14,6 +14,8 @@
 #include "../VmTestUtils.h"
 
 #include "ext_binary/ExtClassObject.h"
+#include "ext_binary/ExtPrimitiveObject.h"
+
 
 using namespace alinous;
 
@@ -51,6 +53,23 @@ TEST(TestSuperVariablesGroup, inheritanceCreate){
 
 	ExtClassObject* obj = util.getMainExtObject();
 
+	{
+		UnicodeString str(L"count");
+		ExtPrimitiveObject* objCount = obj->getExtPrimitiveObject(&str);
+		CHECK(objCount->getIntValue() == 0);
+	}
+
+	{
+		UnicodeString str(L"nbase2");
+		ExtPrimitiveObject* objCount = obj->getExtPrimitiveObject(&str);
+		CHECK(objCount->getIntValue() == 0);
+	}
+
+	{
+		UnicodeString str(L"nbase");
+		ExtPrimitiveObject* objCount = obj->getExtPrimitiveObject(&str);
+		CHECK(objCount->getIntValue() == 0);
+	}
 	delete obj;
 }
 
