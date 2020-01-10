@@ -118,7 +118,6 @@ AbstractExtObject* PrimitiveReference::toClassExtObject(const UnicodeString* nam
 		break;
 	}
 
-	// FIXME
 	return extObj;
 }
 

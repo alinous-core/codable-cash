@@ -16,6 +16,7 @@
 namespace alinous {
 
 class UnicodeString;
+class ExtPrimitiveObject;
 
 class ExtClassObject : public AbstractExtObject {
 public:
@@ -23,6 +24,7 @@ public:
 	virtual ~ExtClassObject();
 
 	void add(AbstractExtObject* obj) noexcept;
+	ExtPrimitiveObject* getExtPrimitiveObject(UnicodeString* name) const noexcept;
 private:
 	ArrayList<AbstractExtObject>* list;
 	HashMap<UnicodeString, AbstractExtObject>* map;

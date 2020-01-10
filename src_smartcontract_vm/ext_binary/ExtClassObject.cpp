@@ -6,10 +6,12 @@
  */
 
 #include "ext_binary/ExtClassObject.h"
+#include "ext_binary/ExtPrimitiveObject.h"
 
 #include "base/UnicodeString.h"
 
 #include "instance/VmInstanceTypesConst.h"
+
 
 namespace alinous {
 
@@ -27,6 +29,13 @@ ExtClassObject::~ExtClassObject() {
 
 void ExtClassObject::add(AbstractExtObject* obj) noexcept {
 	this->list->addElement(obj);
+	this->map->put(obj->getName(), obj);
 }
+
+ExtPrimitiveObject* ExtClassObject::getExtPrimitiveObject(UnicodeString* name) const noexcept {
+	AbstractExtObject* obj = this->map->get(name);
+	return dynamic_cast<ExtPrimitiveObject*>(obj);
+}
+
 
 } /* namespace alinous */
