@@ -172,4 +172,15 @@ void GcManager::copyAll(HashMap<VmInstanceKey, ReferenceStatus>* checkHash) noex
 	}
 }
 
+void GcManager::handleFloatingObject(AbstractVmInstance* refered) noexcept {
+	if(refered == nullptr){
+		return;
+	}
+
+	VmInstanceKey key(refered);
+
+	// FIXME
+}
+
+
 } /* namespace alinous */

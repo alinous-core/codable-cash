@@ -8,6 +8,10 @@
 #include "sc_statement/ExpressionStatement.h"
 #include "sc_expression/AbstractExpression.h"
 
+#include "instance_gc/GcManager.h"
+
+#include "vm/VirtualMachine.h"
+
 namespace alinous {
 
 ExpressionStatement::ExpressionStatement() : AbstractStatement(CodeElement::STMT_EXPRESSION) {
@@ -62,6 +66,10 @@ void ExpressionStatement::init(VirtualMachine* vm) {
 }
 
 void ExpressionStatement::interpret(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
+	AbstractVmInstance* retInst = this->exp->interpret(vm);
+
 	// FIXME statement
 }
 

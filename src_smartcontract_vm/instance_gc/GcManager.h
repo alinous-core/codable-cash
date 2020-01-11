@@ -28,6 +28,7 @@ public:
 	void removeRefReference(AbstractVmInstance* owner, AbstractReference* refered) noexcept;
 	void removeInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept;
 
+	void handleFloatingObject(AbstractVmInstance* refered) noexcept;
 
 	ReferenceStatus* getReferenceStatus(AbstractReference* ref) const noexcept;
 

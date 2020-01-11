@@ -29,5 +29,9 @@ TEST(TestFunctionCallGroup, callMainMethod){
 
 	bool result = util.analyze();
 	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
 }
 
