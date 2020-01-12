@@ -9,6 +9,7 @@
 #define INSTANCE_GC_GCMANAGER_H_
 
 #include "base/HashMap.h"
+#include "instance_gc/ReferenceStatusCompare.h"
 
 namespace alinous {
 
@@ -17,6 +18,7 @@ class ReferenceStatus;
 class VmInstanceKey;
 class AbstractReference;
 class GcCyclicCheckerContext;
+class ReferenceStatusCompare;
 
 class GcManager {
 public:
@@ -46,7 +48,7 @@ private:
 	HashMap<VmInstanceKey, ReferenceStatus> statuses;
 	HashMap<VmInstanceKey, ReferenceStatus> needCheck;
 
-	ArrayList<ReferenceStatus> removable;
+	ArrayList<ReferenceStatus, ReferenceStatusCompare> removable;
 
 };
 

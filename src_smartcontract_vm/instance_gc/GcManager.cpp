@@ -178,8 +178,23 @@ void GcManager::handleFloatingObject(AbstractVmInstance* refered) noexcept {
 	}
 
 	VmInstanceKey key(refered);
+	ReferenceStatus* status = this->statuses.get(&key);
+	if(status != nullptr){
+		return;
+	}
 
-	// FIXME
+	ReferenceStatus* needCheckStatus = this->needCheck.get(&key);
+	if(needCheckStatus != nullptr){
+		return;
+	}
+
+	ReferenceStatus tmp(refered);
+	ReferenceStatus* removableStatus = this->removable.search(&tmp);
+	if(removableStatus != nullptr){
+		return;
+	}
+
+	delete refered;
 }
 
 

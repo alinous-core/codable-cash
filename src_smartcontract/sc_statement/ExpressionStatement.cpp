@@ -69,6 +69,7 @@ void ExpressionStatement::interpret(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
 
 	AbstractVmInstance* retInst = this->exp->interpret(vm);
+	gc->handleFloatingObject(retInst);
 
 	// FIXME statement
 }
