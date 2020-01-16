@@ -45,6 +45,7 @@ public:
 
 	void setThisClass(AnalyzedClass* thisClass) noexcept;
 	AnalyzedClass* getThisClass() const noexcept;
+	void popThisClass() noexcept;
 
 	void analyzeClassInheritance();
 
@@ -63,7 +64,7 @@ private:
 	ArrayList<ValidationError> verrorList;
 	AnalyzeStackManager* stack;
 	TypeResolver* typeResolver;
-	AnalyzedClass* thisClass;
+	ArrayList<AnalyzedClass>* thisClasses;
 	VTableRegistory* vtableReg;
 
 	CodeElement* current;

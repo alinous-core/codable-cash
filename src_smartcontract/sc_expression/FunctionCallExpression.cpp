@@ -13,10 +13,13 @@
 #include "sc_analyze/ValidationError.h"
 
 #include "sc_declare/ClassDeclare.h"
+#include "sc_declare/MethodDeclare.h"
+
 #include "sc_expression/VariableIdentifier.h"
 
 #include "sc_analyze_functions/VTableRegistory.h"
 #include "sc_analyze_functions/VTableClassEntry.h"
+#include "sc_analyze_functions/VTableMethodEntry.h"
 
 #include "base/UnicodeString.h"
 
@@ -26,6 +29,7 @@ namespace alinous {
 FunctionCallExpression::FunctionCallExpression() : AbstractExpression(CodeElement::EXP_FUNCTIONCALL) {
 	this->name = nullptr;
 	this->strName = nullptr;
+	this->methodEntry = nullptr;
 }
 
 FunctionCallExpression::~FunctionCallExpression() {
@@ -55,6 +59,9 @@ void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
 void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
+/**
+ * needs actx->setThisClass
+ */
 void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 	int maxLoop = this->args.size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -79,7 +86,9 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 	}
 
 	actx->setCurrentElement(this);
-	VTableMethodEntry* methodEntry = classEntry->findEntry(actx, this->strName, &typeList);
+	this->methodEntry = classEntry->findEntry(actx, this->strName, &typeList);
+
+
 	// FIXME expression : analyze
 }
 
@@ -138,8 +147,10 @@ void FunctionCallExpression::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType FunctionCallExpression::getType(AnalyzeContext* actx) {
-	// FIXME analyze function type
-	return AnalyzedType();
+	MethodDeclare* method = this->methodEntry->getMethod();
+
+	// analyze function type
+	return *method->getReturnedType();
 }
 
 void FunctionCallExpression::init(VirtualMachine* vm) {

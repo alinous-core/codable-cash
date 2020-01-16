@@ -15,6 +15,7 @@
 #include "sc_analyze_functions/FunctionScoreCalc.h"
 #include "sc_analyze_functions/VTableMethodEntry.h"
 #include "sc_analyze_functions/MethodNameCollection.h"
+#include "sc_analyze_functions/MethodScore.h"
 
 #include "sc_analyze_variables/MemberVariableTable.h"
 
@@ -209,9 +210,7 @@ VTableMethodEntry* VTableClassEntry::findEntry(AnalyzeContext* actx, const Unico
 		return nullptr;
 	}
 
-	// FIXME todo
-
-	return nullptr;
+	return score->getEntry();
 }
 
 MethodDeclare* VTableClassEntry::getSuperClassMethod(MethodDeclare* method) noexcept {

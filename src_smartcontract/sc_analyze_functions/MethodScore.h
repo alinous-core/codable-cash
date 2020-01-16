@@ -24,6 +24,8 @@ public:
 	int getScore() const noexcept;
 	bool isMatch() const noexcept;
 
+	VTableMethodEntry* getEntry() const noexcept;
+
 private:
 	bool evaluateTypeScore(AnalyzedType* base, AnalyzedType* arg) noexcept;
 

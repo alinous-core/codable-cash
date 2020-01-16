@@ -13,6 +13,8 @@
 
 namespace alinous {
 class UnicodeString;
+class VTableMethodEntry;
+
 
 class FunctionCallExpression : public AbstractExpression {
 public:
@@ -42,6 +44,7 @@ private:
 	ArrayList<AbstractExpression> args;
 
 	UnicodeString* strName;
+	VTableMethodEntry* methodEntry;
 };
 
 } /* namespace alinous */
