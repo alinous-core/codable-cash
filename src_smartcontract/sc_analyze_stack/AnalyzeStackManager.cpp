@@ -53,6 +53,10 @@ AnalyzeStack* AnalyzeStackManager::top() const noexcept {
 	return this->stack->get(pos);
 }
 
+AnalyzeStack* AnalyzeStackManager::get(int pos) const noexcept {
+	return this->stack->get(pos);
+}
+
 StackVariableAccess* AnalyzeStackManager::findStackVariableAccess(const UnicodeString* name) const noexcept {
 	// find stack access
 	StackVariableAccess* access = nullptr;
@@ -74,6 +78,22 @@ StackVariableAccess* AnalyzeStackManager::findStackVariableAccess(const UnicodeS
 
 	return access;
 }
+
+StackVariableAccess* AnalyzeStackManager::getThisPointer() const noexcept {
+	StackVariableAccess* access = nullptr;
+
+	int topStack = this->stack->size() - 1;
+	for(int i = topStack; i >= 0; --i){
+		AnalyzeStack* stack = this->stack->get(i);
+		if(stack->isFunctionStack()){
+			access = new StackVariableAccess(i, 0);
+			break;
+		}
+	}
+
+	return access;
+}
+
 
 
 } /* namespace alinous */

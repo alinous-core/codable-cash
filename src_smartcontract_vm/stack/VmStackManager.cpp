@@ -36,4 +36,8 @@ bool VmStackManager::isEmpty() const noexcept {
 	return this->list.isEmpty();
 }
 
+VmStack* VmStackManager::get(int pos) const noexcept {
+	return this->list.get(pos);
+}
+
 } /* namespace alinous */

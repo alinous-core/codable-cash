@@ -12,6 +12,8 @@
 
 namespace alinous {
 
+class AnalyzedType;
+
 class StackVariableAccess: public AbstractVariableInstraction {
 public:
 	StackVariableAccess(int stackPos, int pos);
@@ -23,6 +25,9 @@ public:
 private:
 	int stackPos;
 	int pos;
+
+private:
+	AnalyzedType* type;
 };
 
 } /* namespace alinous */

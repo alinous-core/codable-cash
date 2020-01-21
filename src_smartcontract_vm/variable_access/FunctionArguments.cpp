@@ -41,5 +41,13 @@ const ArrayList<AbstractReference>* FunctionArguments::getArguments() const noex
 	return &this->list;
 }
 
+AbstractVmInstance* alinous::FunctionArguments::getReturnedValue() const noexcept {
+	return this->returnedValue;
+}
+
+void alinous::FunctionArguments::setReturnedValue(AbstractVmInstance* inst) noexcept {
+	this->returnedValue = inst;
+}
+
 
 } /* namespace alinous */

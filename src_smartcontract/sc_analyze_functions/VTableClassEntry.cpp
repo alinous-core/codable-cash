@@ -254,4 +254,9 @@ MemberVariableTable* VTableClassEntry::getMemberVariableTable() const noexcept {
 	return this->variables;
 }
 
+VTableMethodEntry* VTableClassEntry::getVTableMethodEntry(const UnicodeString* callSignature) const noexcept {
+	return this->methods.get(callSignature);
+}
+
+
 } /* namespace alinous */

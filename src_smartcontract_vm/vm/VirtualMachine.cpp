@@ -133,6 +133,10 @@ VmStack* VirtualMachine::topStack() const noexcept {
 	return this->stackManager->top();
 }
 
+VmStack* VirtualMachine::getStackAt(int pos) const noexcept {
+	return this->stackManager->get(pos);
+}
+
 void VirtualMachine::clearStack() noexcept {
 	while(!this->stackManager->isEmpty()){
 		this->stackManager->popStack();
@@ -168,6 +172,9 @@ VmRootReference* VirtualMachine::getVmRootReference() const noexcept {
 	return this->rootReference;
 }
 
+SmartContract* VirtualMachine::getSmartContract() const noexcept {
+	return this->sc;
+}
 
 void VirtualMachine::destroy() noexcept {
 	if(this->sc == nullptr){

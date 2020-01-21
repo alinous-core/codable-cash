@@ -24,8 +24,12 @@ AnalyzedStackReference::~AnalyzedStackReference() {
 	delete this->type;
 }
 
-const UnicodeString* alinous::AnalyzedStackReference::getName() noexcept {
+const UnicodeString* AnalyzedStackReference::getName() const noexcept {
 	return this->name;
+}
+
+const AnalyzedType* AnalyzedStackReference::getType() const noexcept {
+	return this->type;
 }
 
 

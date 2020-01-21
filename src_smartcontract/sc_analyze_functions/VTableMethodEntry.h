@@ -24,6 +24,9 @@ public:
 
 	const UnicodeString* getName() const noexcept;
 	MethodDeclare* getMethod() const noexcept;
+
+	bool isVirtual() const noexcept;
+	bool isStatic() const noexcept;
 private:
 	MethodDeclare* method;
 	int type;

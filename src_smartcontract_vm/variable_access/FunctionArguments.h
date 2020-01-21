@@ -28,6 +28,9 @@ public:
 	VmClassInstance* getThisPtr() const noexcept;
 
 	const ArrayList<AbstractReference>* getArguments() const noexcept;
+	AbstractVmInstance* getReturnedValue() const noexcept;
+	void setReturnedValue(AbstractVmInstance* inst) noexcept;
+
 private:
 	ArrayList<AbstractReference> list;
 	AbstractVmInstance* returnedValue;

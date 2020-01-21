@@ -47,6 +47,7 @@ public:
 	void newStack();
 	void popStack();
 	VmStack* topStack() const noexcept;
+	VmStack* getStackAt(int pos) const noexcept;
 	void clearStack() noexcept;
 
 	VmMemoryManager* getMemory() noexcept;
@@ -59,6 +60,7 @@ public:
 	void setVmRootReference(VmRootReference* rootReference) noexcept;
 	VmRootReference* getVmRootReference() const noexcept;
 
+	SmartContract* getSmartContract() const noexcept;
 
 	void initialize();
 	void destroy() noexcept;

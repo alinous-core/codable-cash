@@ -24,6 +24,9 @@
 
 #include "sc_analyze/AnalyzedThisClassStackPopper.h"
 
+#include "vm/VirtualMachine.h"
+
+
 namespace alinous {
 
 MethodDeclare::MethodDeclare() : CodeElement(CodeElement::METHOD_DECLARE) {
@@ -237,6 +240,7 @@ void MethodDeclare::init(VirtualMachine* vm) {
 
 void MethodDeclare::interpret(FunctionArguments* args, VirtualMachine* vm) {
 	StatementBlock* block = getBlock();
+	vm->setFunctionArguments(args);
 
 	block->interpret(vm);
 }

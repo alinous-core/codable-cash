@@ -7,25 +7,43 @@
 
 #include "variable_access/StackVariableAccess.h"
 
+#include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/AnalyzeContext.h"
+
+#include "sc_analyze_stack/AnalyzeStackManager.h"
+#include "sc_analyze_stack/AnalyzedStackReference.h"
+#include "sc_analyze_stack/AnalyzeStack.h"
+
+#include "vm/VirtualMachine.h"
+
 namespace alinous {
 
 StackVariableAccess::StackVariableAccess(int stackPos, int pos) {
 	this->stackPos = stackPos;
 	this->pos = pos;
+	this->type = nullptr;
 }
 
 StackVariableAccess::~StackVariableAccess() {
+	delete this->type;
 }
 
 void StackVariableAccess::analyze(AnalyzeContext* actx,	AbstractVariableInstraction* lastIinst) {
-	// FIXME analyze
+	AnalyzeStackManager* stackMgr = actx->getAnalyzeStackManager();
+	AnalyzeStack* stack = stackMgr->get(this->stackPos);
+	AnalyzedStackReference* ref = stack->get(this->pos);
+
+	const AnalyzedType* atype = ref->getType();
+	this->type = new AnalyzedType(*atype);
 }
 
 AnalyzedType* StackVariableAccess::getAnalyzedType() const noexcept {
-	return nullptr; // FIXME
+	return this->type;
 }
 
 AbstractVmInstance* StackVariableAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
+	///vm->topStack()
+
 	// FIXME interpret
 	return nullptr;
 }

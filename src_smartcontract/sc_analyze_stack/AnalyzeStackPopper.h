@@ -17,6 +17,7 @@ public:
 	AnalyzeStackPopper(AnalyzeStackManager* stack, bool func);
 	virtual ~AnalyzeStackPopper();
 
+
 private:
 	AnalyzeStackManager* stack;
 	bool func;
