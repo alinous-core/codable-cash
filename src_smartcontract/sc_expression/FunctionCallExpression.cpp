@@ -194,10 +194,24 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
 	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
 	methodDeclare->interpret(&args, vm);
 
-	return nullptr; // FIXME expression::interpret()
+	return args.getReturnedValue(); // FIXME expression::interpret()
 }
 
 void FunctionCallExpression::interpretArguments(VirtualMachine* vm,	FunctionArguments* args) {
+	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
+
+	// this ptr
+	if(!methodDeclare->isStatic()){
+		AbstractVmInstance* inst = this->thisAccess->interpret(vm, nullptr);
+		ObjectReference* classRef = dynamic_cast<ObjectReference*>(inst);
+		assert(classRef != nullptr);
+
+		VmClassInstance* classInst = dynamic_cast<VmClassInstance*>(classRef->getInstance());
+
+		args->setThisPtr(classInst);
+	}
+
+	// arguments
 	int maxLoop = this->args.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractExpression* exp = this->args.get(i);
@@ -223,8 +237,7 @@ AbstractVmInstance* FunctionCallExpression::interpretVirtual(VirtualMachine* vm,
 	AnalyzeContext* actx = sc->getAnalyzeContext();
 	VTableRegistory* vreg = actx->getVtableRegistory();
 
-	AbstractVmInstance* inst = this->thisAccess->interpret(vm, nullptr);
-	VmClassInstance* classInst = dynamic_cast<VmClassInstance*>(inst);
+	VmClassInstance* classInst = args->getThisPtr();
 	assert(classInst != nullptr);
 
 	AnalyzedClass* aclass = classInst->getAnalyzedClass();
@@ -236,8 +249,7 @@ AbstractVmInstance* FunctionCallExpression::interpretVirtual(VirtualMachine* vm,
 
 	methodDeclare->interpret(args, vm);
 
-	return nullptr;
-	// FIXME expression::interpret() virtual
+	return args->getReturnedValue();
 }
 
 } /* namespace alinous */

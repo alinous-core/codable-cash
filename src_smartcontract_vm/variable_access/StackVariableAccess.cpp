@@ -16,6 +16,9 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "stack/VmStack.h"
+
+
 namespace alinous {
 
 StackVariableAccess::StackVariableAccess(int stackPos, int pos) {
@@ -42,10 +45,10 @@ AnalyzedType* StackVariableAccess::getAnalyzedType() const noexcept {
 }
 
 AbstractVmInstance* StackVariableAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
-	///vm->topStack()
+	VmStack* stack = vm->getStackAt(this->stackPos);
+	AbstractVmInstance* inst = stack->get(this->stackPos);
 
-	// FIXME interpret
-	return nullptr;
+	return inst;
 }
 
 } /* namespace alinous */
