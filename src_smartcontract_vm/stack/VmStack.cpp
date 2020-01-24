@@ -64,4 +64,9 @@ void VmStack::removeInnerRefs(GcManager* gc) noexcept {
 }
 
 
+AbstractReference* VmStack::get(int pos) const noexcept {
+	return this->stack->get(pos);
+}
+
+
 } /* namespace alinous */

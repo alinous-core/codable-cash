@@ -30,17 +30,19 @@ TEST(TestVmMemList, construct){
 
 	delete ref;
 }
-/*
+
 TEST(TestVmMemList, test02){
 	VirtualMachine vm(1024);
 
 	PrimitiveReference* ref = PrimitiveReference::createIntReference(&vm, 1);
 	CHECK(ref->getIntValue() == 1)
 
-	VMemList<PrimitiveReference> list(&vm);
-	list.addElement(ref);
+	VMemList<PrimitiveReference>* list = new(&vm) VMemList<PrimitiveReference>(&vm);
+	list->addElement(ref);
+
+	delete ref;
+	delete list;
 }
-*/
 /*
 TEST(TestVmMemList, test02){
 	ArrayList<dummyInt> ar;

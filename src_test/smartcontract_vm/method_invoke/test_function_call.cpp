@@ -12,6 +12,10 @@
 #include "base_io_stream/FileInputStream.h"
 
 #include "../VmTestUtils.h"
+#include "base/StackRelease.h"
+
+#include "ext_binary/ExtClassObject.h"
+#include "ext_binary/ExtPrimitiveObject.h"
 
 using namespace alinous;
 
@@ -29,5 +33,19 @@ TEST(TestFunctionCallGroup, callMainMethod){
 
 	bool result = util.analyze();
 	CHECK(result)
+	if(!result){
+		return;
+	}
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	UnicodeString count(L"count");
+	ExtPrimitiveObject* countObj = obj->getExtPrimitiveObject(&count);
+
+	CHECK(countObj->getIntValue() == 2)
+
+
 }
 

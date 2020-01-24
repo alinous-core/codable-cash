@@ -13,6 +13,9 @@
 
 #include "instance_ref/AbstractReference.h"
 
+#include "instance_gc/GcManager.h"
+
+
 namespace alinous {
 
 SubstitutionStatement::SubstitutionStatement() : AbstractStatement(CodeElement::STMT_SUBSTITUTION) {
@@ -95,6 +98,9 @@ void SubstitutionStatement::interpret(VirtualMachine* vm) {
 	assert(leftRef->isReference());
 
 	leftRef->substitute(rightValue, vm);
+
+	GcManager* gc = vm->getGc();
+	gc->handleFloatingObject(rightValue);
 }
 
 } /* namespace alinous */

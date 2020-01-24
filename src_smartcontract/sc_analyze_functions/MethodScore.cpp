@@ -26,6 +26,10 @@ MethodScore::~MethodScore() {
 
 }
 
+VTableMethodEntry* MethodScore::getEntry() const noexcept {
+	return this->method;
+}
+
 void MethodScore::eveluate(ArrayList<AnalyzedType>* types) noexcept {
 	MethodDeclare* m = this->method->getMethod();
 	ArgumentsListDeclare* listDeclare = m->getArguments();

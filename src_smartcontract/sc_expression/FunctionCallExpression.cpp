@@ -13,25 +13,46 @@
 #include "sc_analyze/ValidationError.h"
 
 #include "sc_declare/ClassDeclare.h"
+#include "sc_declare/MethodDeclare.h"
+
 #include "sc_expression/VariableIdentifier.h"
 
 #include "sc_analyze_functions/VTableRegistory.h"
 #include "sc_analyze_functions/VTableClassEntry.h"
+#include "sc_analyze_functions/VTableMethodEntry.h"
+
+#include "sc_analyze_stack/AnalyzeStackManager.h"
+
+#include "variable_access/StackVariableAccess.h"
+#include "variable_access/FunctionArguments.h"
 
 #include "base/UnicodeString.h"
 
+#include "sc/SmartContract.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "instance/VmClassInstance.h"
+
+#include "instance_ref/AbstractReference.h"
+#include "instance_ref/ObjectReference.h"
 
 namespace alinous {
 
 FunctionCallExpression::FunctionCallExpression() : AbstractExpression(CodeElement::EXP_FUNCTIONCALL) {
 	this->name = nullptr;
 	this->strName = nullptr;
+	this->methodEntry = nullptr;
+	this->thisAccess = nullptr;
+	this->callSignature = nullptr;
 }
 
 FunctionCallExpression::~FunctionCallExpression() {
 	delete this->name;
 	this->args.deleteElements();
 	delete this->strName;
+	delete this->thisAccess;
+	this->callSignature = nullptr;
 }
 
 void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
@@ -55,6 +76,9 @@ void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
 void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
+/**
+ * needs actx->setThisClass
+ */
 void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 	int maxLoop = this->args.size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -79,8 +103,15 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 	}
 
 	actx->setCurrentElement(this);
-	VTableMethodEntry* methodEntry = classEntry->findEntry(actx, this->strName, &typeList);
-	// FIXME expression : analyze
+	this->methodEntry = classEntry->findEntry(actx, this->strName, &typeList);
+	this->callSignature = this->methodEntry->getMethod()->getCallSignature();
+
+	// this ptr
+	if(!this->methodEntry->isStatic()){
+		AnalyzeStackManager* astack = actx->getAnalyzeStackManager();
+		this->thisAccess = astack->getThisPointer();
+		this->thisAccess->analyze(actx, nullptr, this);
+	}
 }
 
 void FunctionCallExpression::setName(AbstractExpression* exp) noexcept {
@@ -138,8 +169,10 @@ void FunctionCallExpression::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType FunctionCallExpression::getType(AnalyzeContext* actx) {
-	// FIXME analyze function type
-	return AnalyzedType();
+	MethodDeclare* method = this->methodEntry->getMethod();
+
+	// analyze function type
+	return *method->getReturnedType();
 }
 
 void FunctionCallExpression::init(VirtualMachine* vm) {
@@ -151,7 +184,72 @@ void FunctionCallExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	FunctionArguments args;
+	interpretArguments(vm, &args);
+
+	if(this->methodEntry->isVirtual()){
+		return interpretVirtual(vm, &args);
+	}
+
+	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
+	methodDeclare->interpret(&args, vm);
+
+	return args.getReturnedValue(); // FIXME expression::interpret()
+}
+
+void FunctionCallExpression::interpretArguments(VirtualMachine* vm,	FunctionArguments* args) {
+	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
+
+	// this ptr
+	if(!methodDeclare->isStatic()){
+		AbstractVmInstance* inst = this->thisAccess->interpret(vm, nullptr);
+		ObjectReference* classRef = dynamic_cast<ObjectReference*>(inst);
+		assert(classRef != nullptr);
+
+		VmClassInstance* classInst = dynamic_cast<VmClassInstance*>(classRef->getInstance());
+
+		args->setThisPtr(classInst);
+	}
+
+	// arguments
+	int maxLoop = this->args.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		AbstractVmInstance* inst = exp->interpret(vm);
+
+		if(inst->isReference()){
+			AbstractReference* ref = dynamic_cast<AbstractReference*>(inst);
+			assert(ref != nullptr);
+			args->addReference(ref);
+		}
+		else{
+			VmClassInstance* clazzInst = dynamic_cast<VmClassInstance*>(inst);
+			assert(clazzInst != nullptr);
+
+			ObjectReference* ref = ObjectReference::createObjectReference(clazzInst, vm);
+			args->addReference(ref);
+		}
+	}
+}
+
+AbstractVmInstance* FunctionCallExpression::interpretVirtual(VirtualMachine* vm, FunctionArguments* args) {
+	SmartContract* sc = vm->getSmartContract();
+	AnalyzeContext* actx = sc->getAnalyzeContext();
+	VTableRegistory* vreg = actx->getVtableRegistory();
+
+	VmClassInstance* classInst = args->getThisPtr();
+	assert(classInst != nullptr);
+
+	AnalyzedClass* aclass = classInst->getAnalyzedClass();
+	const UnicodeString* fqn = aclass->getFullQualifiedName();
+	VTableClassEntry* classEntry = vreg->getClassEntry(fqn, aclass);
+
+	VTableMethodEntry* entry = classEntry->getVTableMethodEntry(this->callSignature);
+	MethodDeclare* methodDeclare = entry->getMethod();
+
+	methodDeclare->interpret(args, vm);
+
+	return args->getReturnedValue();
 }
 
 } /* namespace alinous */

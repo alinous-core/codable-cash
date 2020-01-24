@@ -12,17 +12,22 @@
 
 namespace alinous {
 
+class AnalyzedType;
+
 class StackVariableAccess: public AbstractVariableInstraction {
 public:
 	StackVariableAccess(int stackPos, int pos);
 	virtual ~StackVariableAccess();
 
-	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
+	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element);
 	virtual AnalyzedType* getAnalyzedType() const noexcept;
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm, AbstractVmInstance* lastInst);
 private:
 	int stackPos;
 	int pos;
+
+private:
+	AnalyzedType* type;
 };
 
 } /* namespace alinous */

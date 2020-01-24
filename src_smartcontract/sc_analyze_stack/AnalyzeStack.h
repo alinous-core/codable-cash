@@ -15,6 +15,7 @@ namespace alinous {
 
 class AnalyzedStackReference;
 class UnicodeString;
+class AnalyzedStackReference;
 
 class AnalyzeStack {
 public:
@@ -25,6 +26,8 @@ public:
 	bool isFunctionStack() const noexcept;
 
 	int findStackPosOfVariable(const UnicodeString* name) const noexcept;
+
+	AnalyzedStackReference* get(int pos) const noexcept;
 private:
 	bool functionStack;
 	ArrayList<AnalyzedStackReference> variables;

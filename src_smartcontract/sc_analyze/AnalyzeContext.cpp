@@ -34,7 +34,7 @@ AnalyzeContext::AnalyzeContext() {
 	this->packageSpaces = new HashMap<UnicodeString, PackageSpace>();
 	this->stack = new AnalyzeStackManager();
 	this->typeResolver = new TypeResolver(this);
-	this->thisClass = nullptr;
+	this->thisClasses = new ArrayList<AnalyzedClass>();
 	this->vtableReg = new VTableRegistory();
 	this->current = nullptr;
 }
@@ -56,6 +56,8 @@ AnalyzeContext::~AnalyzeContext() {
 	delete this->stack;
 	delete this->typeResolver;
 	delete this->vtableReg;
+
+	delete this->thisClasses;
 }
 
 void AnalyzeContext::setVm(VirtualMachine* vm) noexcept {
@@ -107,11 +109,19 @@ AnalyzeStackManager* AnalyzeContext::getAnalyzeStackManager() const noexcept {
 }
 
 void AnalyzeContext::setThisClass(AnalyzedClass* thisClass) noexcept {
-	this->thisClass = thisClass;
+	this->thisClasses->addElement(thisClass);
 }
 
 AnalyzedClass* AnalyzeContext::getThisClass() const noexcept {
-	return this->thisClass;
+	int top = this->thisClasses->size() - 1;
+
+	return this->thisClasses->get(top);
+}
+
+
+void AnalyzeContext::popThisClass() noexcept {
+	int top = this->thisClasses->size() - 1;
+	this->thisClasses->remove(top);
 }
 
 void AnalyzeContext::analyzeClassInheritance() {
@@ -156,6 +166,7 @@ void AnalyzeContext::analyzeMembers(PackageSpace* space) noexcept {
 		analyzeMember(cls);
 	}
 }
+
 
 void AnalyzeContext::analyzeMember(AnalyzedClass* cls) noexcept {
 	const UnicodeString* fqn = cls->getFullQualifiedName();

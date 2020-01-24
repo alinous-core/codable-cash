@@ -19,7 +19,8 @@ public:
 	AnalyzedStackReference(const UnicodeString* name, const AnalyzedType* type);
 	virtual ~AnalyzedStackReference();
 
-	const UnicodeString* getName() noexcept;
+	const UnicodeString* getName() const noexcept;
+	const AnalyzedType* getType() const noexcept;
 private:
 	UnicodeString* name;
 	AnalyzedType* type;

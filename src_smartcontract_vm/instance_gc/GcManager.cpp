@@ -172,4 +172,30 @@ void GcManager::copyAll(HashMap<VmInstanceKey, ReferenceStatus>* checkHash) noex
 	}
 }
 
+void GcManager::handleFloatingObject(AbstractVmInstance* refered) noexcept {
+	if(refered == nullptr){
+		return;
+	}
+
+	VmInstanceKey key(refered);
+	ReferenceStatus* status = this->statuses.get(&key);
+	if(status != nullptr){
+		return;
+	}
+
+	ReferenceStatus* needCheckStatus = this->needCheck.get(&key);
+	if(needCheckStatus != nullptr){
+		return;
+	}
+
+	ReferenceStatus tmp(refered);
+	ReferenceStatus* removableStatus = this->removable.search(&tmp);
+	if(removableStatus != nullptr){
+		return;
+	}
+
+	delete refered;
+}
+
+
 } /* namespace alinous */

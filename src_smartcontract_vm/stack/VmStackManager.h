@@ -23,6 +23,7 @@ public:
 	void popStack() noexcept;
 	VmStack* top() const noexcept;
 	bool isEmpty() const noexcept;
+	VmStack* get(int pos) const noexcept;
 
 private:
 	ArrayList<VmStack> list;

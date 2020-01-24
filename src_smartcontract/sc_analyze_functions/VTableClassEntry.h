@@ -33,6 +33,7 @@ public:
 	MethodNameCollection* getMethodEntryCollection(const UnicodeString* methodName) const noexcept;
 
 	MemberVariableTable* getMemberVariableTable() const noexcept;
+	VTableMethodEntry* getVTableMethodEntry(const UnicodeString* callSignature) const noexcept;
 
 private:
 	void buildMethodSelf(ClassDeclare* clazz, AnalyzeContext* actx);

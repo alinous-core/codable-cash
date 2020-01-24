@@ -13,6 +13,10 @@
 
 namespace alinous {
 class UnicodeString;
+class VTableMethodEntry;
+class StackVariableAccess;
+class FunctionArguments;
+
 
 class FunctionCallExpression : public AbstractExpression {
 public:
@@ -36,12 +40,17 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 
 private:
-
+	AbstractVmInstance* interpretVirtual(VirtualMachine* vm, FunctionArguments* args);
+	void interpretArguments(VirtualMachine* vm, FunctionArguments* args);
 private:
 	AbstractExpression* name;
 	ArrayList<AbstractExpression> args;
 
 	UnicodeString* strName;
+	VTableMethodEntry* methodEntry;
+	const UnicodeString* callSignature;
+
+	StackVariableAccess* thisAccess;
 };
 
 } /* namespace alinous */

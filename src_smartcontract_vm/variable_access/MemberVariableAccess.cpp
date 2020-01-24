@@ -13,6 +13,7 @@
 #include "sc_analyze/AnalyzedClass.h"
 #include "sc_analyze/TypeResolver.h"
 #include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/ValidationError.h"
 
 #include "sc_declare/MemberVariableDeclare.h"
 
@@ -21,6 +22,7 @@
 #include "instance/VmClassInstance.h"
 #include "instance_ref/AbstractReference.h"
 #include "instance_parts/VMemList.h"
+
 
 namespace alinous {
 
@@ -34,7 +36,7 @@ MemberVariableAccess::~MemberVariableAccess() {
 	delete this->atype;
 }
 
-void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst) {
+void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
 	TypeResolver* typeResolver = actx->getTypeResolver();
 
 	AnalyzedType* atype = lastIinst->getAnalyzedType();
@@ -53,6 +55,11 @@ void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 			this->atype = typeResolver->resolveType(dec, dec->getType());
 			break;
 		}
+	}
+
+	// FIXME error
+	if(this->memberIndex < 0){
+		actx->addValidationError(ValidationError::CODE_CLASS_MEMBER_DOES_NOT_EXISTS, this->valId, L"The variable '{0}' does not exists.", {name});
 	}
 }
 

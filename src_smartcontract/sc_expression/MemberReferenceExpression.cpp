@@ -38,7 +38,7 @@ void MemberReferenceExpression::analyze(AnalyzeContext* actx) {
 		holder->addExpression(exp, actx);
 	}
 
-	holder->analyze(actx);
+	holder->analyze(actx, this);
 }
 
 int MemberReferenceExpression::binarySize() const {

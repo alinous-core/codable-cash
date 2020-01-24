@@ -14,13 +14,14 @@ class AnalyzeContext;
 class AnalyzedType;
 class AbstractVmInstance;
 class VirtualMachine;
+class CodeElement;
 
 class AbstractVariableInstraction {
 public:
 	AbstractVariableInstraction();
 	virtual ~AbstractVariableInstraction();
 
-	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst) = 0;
+	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) = 0;
 	virtual AnalyzedType* getAnalyzedType() const noexcept = 0;
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) = 0;
 };

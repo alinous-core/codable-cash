@@ -50,5 +50,8 @@ int AnalyzeStack::findStackPosOfVariable(const UnicodeString* name) const noexce
 	return maxLoop - pos - 1;
 }
 
+AnalyzedStackReference* AnalyzeStack::get(int pos) const noexcept {
+	return this->variables.get(pos);
+}
 
 } /* namespace alinous */

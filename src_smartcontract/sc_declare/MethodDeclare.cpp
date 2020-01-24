@@ -22,6 +22,10 @@
 
 #include "sc/exceptions.h"
 
+#include "sc_analyze/AnalyzedThisClassStackPopper.h"
+
+#include "vm/VirtualMachine.h"
+
 
 namespace alinous {
 
@@ -76,7 +80,7 @@ void MethodDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 	if(this->block != nullptr){
 		// set this pointer on analysis phase
 		AnalyzedClass* aclass = actx->getAnalyzedClass(this);
-		actx->setThisClass(aclass);
+		AnalyzedThisClassStackPopper thisStack(actx, aclass);
 
 		this->block->analyzeTypeRef(actx);
 	}
@@ -86,7 +90,7 @@ void MethodDeclare::analyze(AnalyzeContext* actx) {
 	this->args->analyze(actx);
 
 	AnalyzedClass* aclass = actx->getAnalyzedClass(this);
-	actx->setThisClass(aclass);
+	AnalyzedThisClassStackPopper thisStack(actx, aclass);
 
 	if(this->block != nullptr){
 		this->block->analyze(actx);
@@ -236,6 +240,7 @@ void MethodDeclare::init(VirtualMachine* vm) {
 
 void MethodDeclare::interpret(FunctionArguments* args, VirtualMachine* vm) {
 	StatementBlock* block = getBlock();
+	vm->setFunctionArguments(args);
 
 	block->interpret(vm);
 }

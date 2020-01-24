@@ -16,7 +16,7 @@ ExpressionAccess::ExpressionAccess(AbstractExpression* exp) {
 ExpressionAccess::~ExpressionAccess() {
 }
 
-void ExpressionAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst) {
+void ExpressionAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
 	// FIXME
 }
 

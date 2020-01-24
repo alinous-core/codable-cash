@@ -27,5 +27,14 @@ MethodDeclare* VTableMethodEntry::getMethod() const noexcept {
 	return this->method;
 }
 
+bool VTableMethodEntry::isVirtual() const noexcept {
+	return this->type == METHOD_VIRTUAL || this->type == METHOD_VIRTUAL_SUPER;
+}
+
+bool VTableMethodEntry::isStatic() const noexcept {
+	return this->method->isStatic();
+}
+
+
 
 } /* namespace alinous */

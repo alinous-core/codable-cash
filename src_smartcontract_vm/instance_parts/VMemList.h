@@ -36,6 +36,7 @@ public:
 
 		return ((char*)p) + sizeof(VirtualMachine*);
 	}
+
 	void operator delete(void* p, size_t size) {
 		void* ptr = ((char*)p) - sizeof(VirtualMachine*);
 

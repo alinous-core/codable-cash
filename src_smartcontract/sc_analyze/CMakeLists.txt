@@ -3,6 +3,7 @@
 set(__src
 	AnalyzeContext.cpp
 	AnalyzedClass.cpp
+	AnalyzedThisClassStackPopper.cpp
 	AnalyzedType.cpp
 	PackageSpace.cpp
 	TypeResolver.cpp

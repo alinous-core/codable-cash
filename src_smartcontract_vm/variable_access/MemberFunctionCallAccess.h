@@ -17,7 +17,7 @@ public:
 	MemberFunctionCallAccess();
 	virtual ~MemberFunctionCallAccess();
 
-	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
+	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm, AbstractVmInstance* lastInst);
 };
 
