@@ -31,7 +31,7 @@ StackVariableAccess::~StackVariableAccess() {
 	delete this->type;
 }
 
-void StackVariableAccess::analyze(AnalyzeContext* actx,	AbstractVariableInstraction* lastIinst) {
+void StackVariableAccess::analyze(AnalyzeContext* actx,	AbstractVariableInstraction* lastIinst, CodeElement* element) {
 	AnalyzeStackManager* stackMgr = actx->getAnalyzeStackManager();
 	AnalyzeStack* stack = stackMgr->get(this->stackPos);
 	AnalyzedStackReference* ref = stack->get(this->pos);

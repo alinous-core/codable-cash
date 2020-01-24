@@ -14,4 +14,6 @@ class BaseClass2 {
 	public void base02Func() {
 	
 	}
+	
+	private int count;
 }

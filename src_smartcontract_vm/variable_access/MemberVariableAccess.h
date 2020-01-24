@@ -20,7 +20,7 @@ public:
 	MemberVariableAccess(VariableIdentifier* valId);
 	virtual ~MemberVariableAccess();
 
-	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
+	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element);
 	virtual AnalyzedType* getAnalyzedType() const noexcept;
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm, AbstractVmInstance* lastInst);
 private:

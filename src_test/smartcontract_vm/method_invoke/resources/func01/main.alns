@@ -18,6 +18,6 @@ class SmartContract extends BaseClass {
 	}
 	
 	public void test01(){
-	
+		this.count = 2;
 	}
 }

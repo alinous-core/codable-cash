@@ -25,7 +25,7 @@ ThisPointerAccess::~ThisPointerAccess() {
 	delete this->type;
 }
 
-void ThisPointerAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastInst) {
+void ThisPointerAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastInst, CodeElement* element) {
 	AnalyzedClass* clazz = actx->getThisClass();
 
 	this->type = new AnalyzedType(clazz);

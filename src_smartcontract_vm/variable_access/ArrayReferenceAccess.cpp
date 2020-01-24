@@ -16,7 +16,7 @@ ArrayReferenceAccess::ArrayReferenceAccess(ArrayReferenceExpression* arrayRefExp
 ArrayReferenceAccess::~ArrayReferenceAccess() {
 }
 
-void ArrayReferenceAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst) {
+void ArrayReferenceAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
 }
 
 AnalyzedType* ArrayReferenceAccess::getAnalyzedType() const noexcept {

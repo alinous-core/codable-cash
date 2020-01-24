@@ -18,7 +18,7 @@ MemberFunctionCallAccess::~MemberFunctionCallAccess() {
 	// TODO Auto-generated destructor stub
 }
 
-void MemberFunctionCallAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst) {
+void MemberFunctionCallAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
 	// FIXME analyze
 }
 

@@ -110,7 +110,7 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 	if(!this->methodEntry->isStatic()){
 		AnalyzeStackManager* astack = actx->getAnalyzeStackManager();
 		this->thisAccess = astack->getThisPointer();
-		this->thisAccess->analyze(actx, nullptr);
+		this->thisAccess->analyze(actx, nullptr, this);
 	}
 }
 

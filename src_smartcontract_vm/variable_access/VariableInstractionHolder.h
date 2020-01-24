@@ -19,6 +19,7 @@ class VariableIdentifier;
 class AbstractVmInstance;
 class VirtualMachine;
 class AnalyzedType;
+class CodeElement;
 
 class VariableInstractionHolder {
 public:
@@ -26,7 +27,7 @@ public:
 	virtual ~VariableInstractionHolder();
 
 	void addExpression(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
-	void analyze(AnalyzeContext* actx);
+	void analyze(AnalyzeContext* actx, CodeElement* element);
 	AnalyzedType* getAnalyzedType() const noexcept;
 	AbstractVmInstance* interpret(VirtualMachine* vm);
 private:
