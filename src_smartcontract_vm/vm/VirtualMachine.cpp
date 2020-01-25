@@ -24,9 +24,15 @@
 #include "sc_statement/StatementBlock.h"
 
 #include "sc_analyze_functions/FunctionScoreCalc.h"
+#include "sc_analyze_functions/VTableRegistory.h"
+#include "sc_analyze_functions/VTableMethodEntry.h"
+#include "sc_analyze_functions/MethodScore.h"
 
 #include "variable_access/FunctionArguments.h"
 
+#include "sc_analyze/AnalyzedClass.h"
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/AnalyzedType.h"
 
 
 namespace alinous {
@@ -79,10 +85,27 @@ void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractRe
 	VmClassInstance* _this = dynamic_cast<VmClassInstance*>(this->sc->getRootReference()->getInstance());
 	AnalyzedClass* aclass = _this->getAnalyzedClass();
 
-	//FunctionScoreCalc calc;
+	const UnicodeString* fqn = aclass->getFullQualifiedName();
 
-	// FIXME interpret
+	AnalyzeContext* actx = this->sc->getAnalyzeContext();
+	VTableRegistory* vreg = actx->getVtableRegistory();
+	VTableClassEntry* classEntry = vreg->getClassEntry(fqn, aclass);
 
+	FunctionScoreCalc calc(classEntry);
+
+	// FIXME arguments type
+	ArrayList<AnalyzedType> typeList;
+	typeList.setDeleteOnExit();
+
+	MethodScore* score = calc.findMethod(method, &typeList);
+	VTableMethodEntry* methodEntry = score->getEntry();
+	MethodDeclare* methodDeclare = methodEntry->getMethod();
+
+	FunctionArguments args;
+	args.setThisPtr(_this);
+	setFunctionArguments(&args);
+
+	methodDeclare->interpret(&args, this);
 }
 
 void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, ArrayList<AbstractReference>* arguments) {

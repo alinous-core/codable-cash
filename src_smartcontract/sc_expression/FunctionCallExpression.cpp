@@ -194,7 +194,7 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
 	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
 	methodDeclare->interpret(&args, vm);
 
-	return args.getReturnedValue(); // FIXME expression::interpret()
+	return args.getReturnedValue();
 }
 
 void FunctionCallExpression::interpretArguments(VirtualMachine* vm,	FunctionArguments* args) {
