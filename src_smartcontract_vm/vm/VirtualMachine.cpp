@@ -161,8 +161,13 @@ VmStack* VirtualMachine::getStackAt(int pos) const noexcept {
 }
 
 void VirtualMachine::clearStack() noexcept {
+	VmRootReference* root = this->sc->getRootReference();
+
 	while(!this->stackManager->isEmpty()){
+		VmStack* stack = this->stackManager->top();
 		this->stackManager->popStack();
+
+		this->gc->removeInstanceReference(root, stack);
 	}
 }
 
@@ -205,10 +210,9 @@ void VirtualMachine::destroy() noexcept {
 	}
 
 	clearStack();
-	this->sc->clearRootReference(this);
-
-
 	this->gc->garbageCollect();
+
+	this->sc->clearRootReference(this);
 
 	this->destried = true;
 }
