@@ -27,6 +27,8 @@ public:
 	void setMainInstance(VmClassInstance* mainInst) noexcept;
 	virtual AbstractVmInstance* getInstance() noexcept;
 
+	void clearInnerReferences();
+
 	PrimitiveReference* newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm);
 private:
 	VirtualMachine* vm;

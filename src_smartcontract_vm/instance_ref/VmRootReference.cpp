@@ -25,15 +25,21 @@ VmRootReference::VmRootReference(VirtualMachine* vm) : AbstractReference(VmInsta
 }
 
 VmRootReference::~VmRootReference() {
+	clearInnerReferences();
+
+	delete this->staticHolder;
+}
+
+void VmRootReference::clearInnerReferences() {
 	if(this->mainInst != nullptr){
 		GcManager* gc = this->vm->getGc();
 		gc->removeInstanceReference(this, this->mainInst);
 		this->mainInst = nullptr;
 
 		this->staticHolder->removeInnerReferences(this, this->vm);
-	}
 
-	delete this->staticHolder;
+		this->mainInst = nullptr;
+	}
 }
 
 void VmRootReference::setMainInstance(VmClassInstance* mainInst) noexcept {

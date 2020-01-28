@@ -187,3 +187,11 @@ add_custom_target(valgrind
 	
 	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 	)
+
+add_custom_target(valgrindp
+	COMMAND valgrind --leak-check=full
+		--xml=yes --xml-file=testall.%p.valgrind.xml
+		./testall -g TestCallMainInstGroup
+	
+	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+	)

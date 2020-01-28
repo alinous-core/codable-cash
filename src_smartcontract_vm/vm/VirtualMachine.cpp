@@ -205,11 +205,12 @@ SmartContract* VirtualMachine::getSmartContract() const noexcept {
 }
 
 void VirtualMachine::destroy() noexcept {
-	if(this->sc == nullptr){
+	if(this->sc == nullptr || this->sc->getRootReference() == nullptr){
 		return;
 	}
 
 	clearStack();
+	this->sc->getRootReference()->clearInnerReferences();
 	this->gc->garbageCollect();
 
 	this->sc->clearRootReference(this);
