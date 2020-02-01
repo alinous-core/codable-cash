@@ -14,6 +14,7 @@ class ReferenceStatus;
 
 class ReferenceStatusCompare {
 public:
+	friend class ReferenceStatus;
 	int operator() (const ReferenceStatus* const a, const ReferenceStatus* const b) const noexcept;
 };
 

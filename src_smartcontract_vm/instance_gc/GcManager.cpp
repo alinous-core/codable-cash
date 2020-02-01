@@ -54,7 +54,7 @@ void GcManager::removeRefReference(AbstractVmInstance* owner, AbstractReference*
 	AbstractVmInstance* inst = refered->getInstance();
 
 	if(inst != nullptr){
-		removeInstanceReference(owner, refered);
+		removeInstanceReference(owner, inst);
 	}
 }
 

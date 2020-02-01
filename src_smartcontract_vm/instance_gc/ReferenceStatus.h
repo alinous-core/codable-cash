@@ -20,6 +20,8 @@ template <typename K, typename V> class HashMap;
 
 class ReferenceStatus {
 public:
+	friend class ReferenceStatusCompare;
+
 	explicit ReferenceStatus(AbstractVmInstance* instance);
 	virtual ~ReferenceStatus();
 

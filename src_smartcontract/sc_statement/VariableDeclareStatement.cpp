@@ -23,6 +23,7 @@
 
 #include "instance_ref/RefereceFactory.h"
 
+#include "instance_gc/GcManager.h"
 namespace alinous {
 
 VariableDeclareStatement::VariableDeclareStatement() : AbstractStatement(CodeElement::STMT_VARIABLE_DECLARE) {
@@ -121,6 +122,8 @@ void VariableDeclareStatement::init(VirtualMachine* vm) {
 }
 
 void VariableDeclareStatement::interpret(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
 	VmStack* stack = vm->topStack();
 
 	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(this->atype, vm);
@@ -129,6 +132,8 @@ void VariableDeclareStatement::interpret(VirtualMachine* vm) {
 	if(this->exp != nullptr){
 		AbstractVmInstance* instValue = this->exp->interpret(vm);
 		ref->substitute(instValue, vm);
+
+		gc->handleFloatingObject(instValue);
 	}
 }
 
