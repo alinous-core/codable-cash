@@ -22,7 +22,7 @@ public:
 	static ObjectReference* createObjectReference(VmClassInstance* clazzInst, VirtualMachine* vm);
 
 	virtual bool isPrimitive() const noexcept;
-	virtual AbstractVmInstance* getInstance() const noexcept;
+	virtual AbstractVmInstance* getInstance() noexcept;
 
 	void setInstance(AbstractVmInstance* instance) noexcept;
 

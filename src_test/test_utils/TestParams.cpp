@@ -13,10 +13,12 @@ namespace alinous {
 
 TestParams::TestParams() noexcept {
 	this->v = false;
+	this->testName = nullptr;
 }
 
 TestParams::~TestParams() noexcept {
 	this->execGroups.deleteElements();
+	delete this->testName;
 }
 
 void TestParams::init(int ac, char** av) {
@@ -30,6 +32,10 @@ void TestParams::init(int ac, char** av) {
 		else if(Mem::strcmp(value, "-g") == 0){
 			char* grpcstr = nextParam(&i, av, length);
 			this->execGroups.addElement(new UnicodeString(grpcstr));
+		}
+		else if(Mem::strcmp(value, "-t") == 0){
+			char* grpcstr = nextParam(&i, av, length);
+			this->testName = new UnicodeString(grpcstr);
 		}
 		else{
 			throw new TestParamsException();
@@ -61,5 +67,17 @@ bool TestParams::skipGroup(const UnicodeString* grp) const noexcept {
 	return true;
 }
 
-} /* namespace alinous */
 
+bool TestParams::skipTest(const UnicodeString* t) const noexcept {
+	if(this->testName == nullptr){
+		return false;
+	}
+
+	if(t->equals(this->testName)){
+		return false;
+	}
+
+	return true;
+}
+
+} /* namespace alinous */

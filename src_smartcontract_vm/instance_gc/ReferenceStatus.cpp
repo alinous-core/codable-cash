@@ -111,9 +111,9 @@ bool ReferenceStatus::checkCyclicRemovable(GcCyclicCheckerContext* cctx) noexcep
 void ReferenceStatus::deleteInstance() noexcept {
 	uint8_t type = this->instance->getType();
 
-	if(type == VmInstanceTypesConst::STACK){
-		return;
-	}
+	//if(type == VmInstanceTypesConst::STACK){
+	//	return;
+	//}
 
 	delete this->instance;
 }
