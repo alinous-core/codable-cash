@@ -23,6 +23,8 @@ ClassDeclareBlock::~ClassDeclareBlock() {
 
 
 void ClassDeclareBlock::preAnalyze(AnalyzeContext* actx) {
+	addDefaultConstructor();
+
 	int maxLoop = this->variables.size();
 	for(int i = 0; i != maxLoop; ++i){
 		MemberVariableDeclare* val = this->variables.get(i);
@@ -36,6 +38,11 @@ void ClassDeclareBlock::preAnalyze(AnalyzeContext* actx) {
 		method->setParent(this);
 		method->preAnalyze(actx);
 	}
+}
+
+void ClassDeclareBlock::addDefaultConstructor() noexcept {
+	// FIXME add default constructor
+
 }
 
 void ClassDeclareBlock::analyzeTypeRef(AnalyzeContext* actx) {

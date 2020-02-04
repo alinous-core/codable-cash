@@ -24,6 +24,7 @@ public:
 	virtual ~ClassDeclareBlock();
 
 	void preAnalyze(AnalyzeContext* actx);
+	void addDefaultConstructor() noexcept;
 	void analyzeTypeRef(AnalyzeContext* actx);
 	void analyze(AnalyzeContext* actx);
 

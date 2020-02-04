@@ -56,6 +56,10 @@ public:
 
 	ArrayList<MethodDeclare>* getMethods() noexcept;
 	ArrayList<MemberVariableDeclare>* getMemberVariables() noexcept;
+
+private:
+	void addDefaultConstructor() noexcept;
+
 private:
 	bool interface;
 	ClassDeclareBlock* block;
