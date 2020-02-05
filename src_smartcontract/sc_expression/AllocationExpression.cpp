@@ -8,8 +8,9 @@
 #include "sc_expression/AllocationExpression.h"
 
 #include "sc_declare/PackageNameDeclare.h"
-#include "sc_expression/FunctionCallExpression.h"
+#include "sc_expression/ConstructorCall.h"
 #include "sc_analyze/AnalyzedType.h"
+
 
 namespace alinous {
 
@@ -34,13 +35,14 @@ void AllocationExpression::analyzeTypeRef(AnalyzeContext* actx) {
 
 void AllocationExpression::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
+	//FIXME analyze
 }
 
 void AllocationExpression::setPackage(PackageNameDeclare* packageName) noexcept {
 	this->packageName = packageName;
 }
 
-void AllocationExpression::setExpression(FunctionCallExpression* exp) noexcept {
+void AllocationExpression::setExpression(ConstructorCall* exp) noexcept {
 	this->exp = exp;
 }
 
@@ -82,7 +84,7 @@ void AllocationExpression::fromBinary(ByteBuffer* in) {
 
 	CodeElement* element = createFromBinary(in);
 	checkKind(element, CodeElement::EXP_FUNCTIONCALL);
-	this->exp = dynamic_cast<FunctionCallExpression*>(element);
+	this->exp = dynamic_cast<ConstructorCall*>(element);
 }
 
 AnalyzedType AllocationExpression::getType(AnalyzeContext* actx) {

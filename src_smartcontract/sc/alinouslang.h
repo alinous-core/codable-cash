@@ -56,6 +56,7 @@
 #include "sc_expression/ArrayReferenceExpression.h"
 #include "sc_expression/BooleanLiteral.h"
 #include "sc_expression/CastExpression.h"
+#include "sc_expression/ConstructorCall.h"
 #include "sc_expression/FunctionCallExpression.h"
 #include "sc_expression/LiteralExpression.h"
 #include "sc_expression/MemberReferenceExpression.h"

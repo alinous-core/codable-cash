@@ -105,7 +105,7 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 	actx->setCurrentElement(this);
 	this->methodEntry = classEntry->findEntry(actx, this->strName, &typeList);
 	if(this->methodEntry == nullptr){
-		// FIXME has no functions to call
+		// has no functions to call
 		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_NAME, actx->getCurrentElement(), L"The method '{0}()' does not exists.", {this->strName});
 		return;
 	}

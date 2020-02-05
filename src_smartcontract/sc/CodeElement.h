@@ -80,6 +80,7 @@ public:
 	static const constexpr short EXP_VARIABLE_ID{89};
 
 	static const constexpr short EXP_FUNCTIONCALL{100};
+	static const constexpr short EXP_CONSTRUCTORCALL{101};
 
 	static const constexpr short EXP_AND{110};
 	static const constexpr short EXP_BIT_REV{111};

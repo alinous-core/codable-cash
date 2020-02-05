@@ -2173,7 +2173,7 @@ AbstractExpression* primitive() : {
 AllocationExpression* allocationExpression() : {
 	AllocationExpression* exp = nullptr;
 	PackageNameDeclare* packageName = nullptr;
-	FunctionCallExpression* func = nullptr;
+	ConstructorCall* func = nullptr;
 	Token* t = nullptr;
 	
 	PackageNameDeclare* names = nullptr;
@@ -2211,8 +2211,8 @@ AllocationExpression* allocationExpression() : {
 	}
 }
 
-FunctionCallExpression* constructorCallExpression() : {
-	FunctionCallExpression* exp = new FunctionCallExpression();
+ConstructorCall* constructorCallExpression() : {
+	ConstructorCall* exp = new ConstructorCall();
 	Token* t = nullptr;
 	AbstractExpression* left = nullptr;
 }
@@ -2225,7 +2225,7 @@ FunctionCallExpression* constructorCallExpression() : {
 		exp->setPosition(t);
 	}
 	
-	functionCallExpressionArg(exp)		
+	constructorCallExpressionArg(exp)		
 	
 	t=")" {
 		exp->setPosition(t);
@@ -2234,6 +2234,30 @@ FunctionCallExpression* constructorCallExpression() : {
 		__ONERROR(exp);
 		return exp;
 	}
+}
+
+void constructorCallExpressionArg(ConstructorCall* exp) : {
+	AbstractExpression* arg = nullptr;
+	Token* t = nullptr;
+}
+{
+	[
+		arg=expression() {
+			exp->addArgument(arg);
+			exp->setPosition(arg);
+		}
+		
+		(
+			t="," {
+				exp->setPosition(t);
+			}
+			
+			arg=expression() {
+				exp->addArgument(arg);
+				exp->setPosition(arg);
+			}
+		)*
+	]
 }
 
 ParenthesisExpression* parenthesisExpression() : {

@@ -7,6 +7,7 @@ set(__src
 	ArrayReferenceExpression.cpp
 	BooleanLiteral.cpp
 	CastExpression.cpp
+	ConstructorCall.cpp
 	FunctionCallExpression.cpp
 	LiteralExpression.cpp
 	MemberReferenceExpression.cpp

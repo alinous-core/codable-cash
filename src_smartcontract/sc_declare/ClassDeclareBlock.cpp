@@ -9,9 +9,13 @@
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_declare/MethodDeclare.h"
 #include "sc_declare/ArgumentsListDeclare.h"
+#include "sc_declare/AccessControlDeclare.h"
 
 #include "vm/VirtualMachine.h"
 
+#include "base/UnicodeString.h"
+
+#include "sc_statement/StatementBlock.h"
 
 namespace alinous {
 
@@ -47,9 +51,20 @@ void ClassDeclareBlock::addDefaultConstructor(const UnicodeString* className) no
 	}
 
 	MethodDeclare* m = new MethodDeclare();
+	this->methods.addElement(m);
 
+	AccessControlDeclare* ctrl = new AccessControlDeclare();
+	ctrl->setCtrl(AccessControlDeclare::PUBLIC);
+	m->setAccessControl(ctrl);
 
-	// FIXME
+	UnicodeString* name = new UnicodeString(className);
+	m->setName(name);
+
+	ArgumentsListDeclare* argDeclare = new ArgumentsListDeclare();
+	m->setArguments(argDeclare);
+
+	StatementBlock* block = new StatementBlock();
+	m->setBlock(block);
 }
 
 bool ClassDeclareBlock::hasDefaultConstructor(const UnicodeString* className) const noexcept {
@@ -60,6 +75,10 @@ bool ClassDeclareBlock::hasDefaultConstructor(const UnicodeString* className) co
 		const UnicodeString* name = method->getName();
 		ArgumentsListDeclare* arguments = method->getArguments();
 		int argSize = arguments->getSize();
+
+		if(argSize == 0 && name->equals(className)){
+			return true;
+		}
 	}
 
 	return false;
