@@ -8,8 +8,10 @@
 #include "sc_declare/ClassDeclareBlock.h"
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_declare/MethodDeclare.h"
+#include "sc_declare/ArgumentsListDeclare.h"
 
 #include "vm/VirtualMachine.h"
+
 
 namespace alinous {
 
@@ -23,8 +25,6 @@ ClassDeclareBlock::~ClassDeclareBlock() {
 
 
 void ClassDeclareBlock::preAnalyze(AnalyzeContext* actx) {
-	addDefaultConstructor();
-
 	int maxLoop = this->variables.size();
 	for(int i = 0; i != maxLoop; ++i){
 		MemberVariableDeclare* val = this->variables.get(i);
@@ -40,9 +40,29 @@ void ClassDeclareBlock::preAnalyze(AnalyzeContext* actx) {
 	}
 }
 
-void ClassDeclareBlock::addDefaultConstructor() noexcept {
-	// FIXME add default constructor
+void ClassDeclareBlock::addDefaultConstructor(const UnicodeString* className) noexcept {
+	// add default constructor
+	if(hasDefaultConstructor(className)){
+		return;
+	}
 
+	MethodDeclare* m = new MethodDeclare();
+
+
+	// FIXME
+}
+
+bool ClassDeclareBlock::hasDefaultConstructor(const UnicodeString* className) const noexcept {
+	int maxLoop = this->methods.size();
+	for(int i = 0; i != maxLoop; ++i){
+		MethodDeclare* method = this->methods.get(i);
+
+		const UnicodeString* name = method->getName();
+		ArgumentsListDeclare* arguments = method->getArguments();
+		int argSize = arguments->getSize();
+	}
+
+	return false;
 }
 
 void ClassDeclareBlock::analyzeTypeRef(AnalyzeContext* actx) {

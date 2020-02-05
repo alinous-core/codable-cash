@@ -74,7 +74,7 @@ void ClassDeclare::preAnalyze(AnalyzeContext* actx) {
 
 
 void ClassDeclare::addDefaultConstructor() noexcept {
-	this->block->addDefaultConstructor();
+	this->block->addDefaultConstructor(this->name);
 }
 
 
