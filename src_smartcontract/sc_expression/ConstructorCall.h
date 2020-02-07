@@ -19,6 +19,7 @@ public:
 	virtual ~ConstructorCall();
 
 	void setName(AbstractExpression* exp) noexcept;
+	const UnicodeString* getName() noexcept;
 	void addArgument(AbstractExpression* exp) noexcept;
 
 	virtual int binarySize() const;
@@ -36,6 +37,9 @@ public:
 private:
 	AbstractExpression* name;
 	ArrayList<AbstractExpression> args;
+
+	UnicodeString* strName;
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

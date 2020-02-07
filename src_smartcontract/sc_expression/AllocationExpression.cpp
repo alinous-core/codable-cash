@@ -9,8 +9,12 @@
 
 #include "sc_declare/PackageNameDeclare.h"
 #include "sc_expression/ConstructorCall.h"
-#include "sc_analyze/AnalyzedType.h"
 
+#include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/TypeResolver.h"
+#include "sc_analyze/AnalyzeContext.h"
+
+#include "sc_analyze/AnalyzedThisClassStackPopper.h"
 
 namespace alinous {
 
@@ -30,12 +34,27 @@ void AllocationExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void AllocationExpression::analyzeTypeRef(AnalyzeContext* actx) {
-
+	this->exp->analyzeTypeRef(actx);
 }
 
 void AllocationExpression::analyze(AnalyzeContext* actx) {
+	TypeResolver* typeResolver = actx->getTypeResolver();
+
+	UnicodeString className(L"");
+	if(this->packageName != nullptr){
+		const UnicodeString* pkgName = this->packageName->getName();
+		className.append(pkgName);
+		className.append(L".");
+	}
+
+	const UnicodeString* constructorName = this->exp->getName();
+	className.append(constructorName);
+
+	AnalyzedType* atype = typeResolver->findClassType(this, &className);
+
+	AnalyzedThisClassStackPopper popper(actx, atype->getAnalyzedClass());
+
 	this->exp->analyze(actx);
-	//FIXME analyze
 }
 
 void AllocationExpression::setPackage(PackageNameDeclare* packageName) noexcept {

@@ -13,6 +13,7 @@
 namespace alinous {
 class PackageNameDeclare;
 class ConstructorCall;
+class AnalyzedType;
 
 class AllocationExpression : public AbstractExpression {
 public:
@@ -37,6 +38,7 @@ public:
 private:
 	PackageNameDeclare* packageName;
 	ConstructorCall* exp;
+
 };
 
 } /* namespace alinous */
