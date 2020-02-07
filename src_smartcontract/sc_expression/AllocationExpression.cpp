@@ -18,6 +18,7 @@
 
 #include "instance/VmClassInstance.h"
 
+#include "base/StackRelease.h"
 
 namespace alinous {
 
@@ -53,7 +54,7 @@ void AllocationExpression::analyze(AnalyzeContext* actx) {
 	const UnicodeString* constructorName = this->constructorCall->getName();
 	className.append(constructorName);
 
-	AnalyzedType* atype = typeResolver->findClassType(this, &className);
+	AnalyzedType* atype = typeResolver->findClassType(this, &className); __STP(atype);
 
 	AnalyzedThisClassStackPopper popper(actx, atype->getAnalyzedClass());
 

@@ -128,7 +128,7 @@ void GcManager::checkCycric() noexcept {
 	copyAll(&checkHash);
 
 	ArrayList<GcCyclicCheckerContext> list;
-	list.deleteElements();
+	list.setDeleteOnExit();
 
 	Iterator<VmInstanceKey>* it = checkHash.keySet()->iterator(); __STP(it);
 	while(it->hasNext()){
