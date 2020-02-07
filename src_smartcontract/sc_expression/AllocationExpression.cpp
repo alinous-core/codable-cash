@@ -105,7 +105,7 @@ void AllocationExpression::fromBinary(ByteBuffer* in) {
 	}
 
 	CodeElement* element = createFromBinary(in);
-	checkKind(element, CodeElement::EXP_FUNCTIONCALL);
+	checkKind(element, CodeElement::EXP_CONSTRUCTORCALL);
 	this->constructorCall = dynamic_cast<ConstructorCall*>(element);
 }
 
