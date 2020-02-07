@@ -22,13 +22,14 @@ public:
 	static ObjectReference* createObjectReference(VmClassInstance* clazzInst, VirtualMachine* vm);
 
 	virtual bool isPrimitive() const noexcept;
-	virtual AbstractVmInstance* getInstance() const noexcept;
+	virtual AbstractVmInstance* getInstance() noexcept;
 
 	void setInstance(AbstractVmInstance* instance) noexcept;
 
 	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
+	virtual bool isNull() const noexcept;
 private:
 	AbstractVmInstance* instance;
 };

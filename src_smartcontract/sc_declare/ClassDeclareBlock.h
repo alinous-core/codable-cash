@@ -17,6 +17,8 @@ class MethodDeclare;
 class MemberVariableDeclare;
 class AnalyzeContext;
 class VirtualMachine;
+class UnicodeString;
+
 
 class ClassDeclareBlock : public CodeElement{
 public:
@@ -24,6 +26,8 @@ public:
 	virtual ~ClassDeclareBlock();
 
 	void preAnalyze(AnalyzeContext* actx);
+	void addDefaultConstructor(const UnicodeString* className) noexcept;
+	bool hasDefaultConstructor(const UnicodeString* className) const noexcept;
 	void analyzeTypeRef(AnalyzeContext* actx);
 	void analyze(AnalyzeContext* actx);
 

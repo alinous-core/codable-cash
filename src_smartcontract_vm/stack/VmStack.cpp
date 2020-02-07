@@ -22,15 +22,6 @@ VmStack::VmStack(VirtualMachine* vm) : AbstractReference(VmInstanceTypesConst::S
 }
 
 VmStack::~VmStack() {
-	int maxLoop = this->stack->size();
-	for(int i = 0; i != maxLoop; ++i){
-		AbstractReference* ref = this->stack->get(i);
-
-		if(!ref->isPrimitive()){
-			delete ref;
-		}
-	}
-
 	delete this->stack;
 }
 
@@ -59,7 +50,11 @@ void VmStack::removeInnerRefs(GcManager* gc) noexcept {
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractReference* ref = this->stack->get(i);
 
-		gc->removeInstanceReference(this, ref);
+		gc->removeRefReference(this, ref);
+
+		if(!ref->isPrimitive()){
+			delete ref;
+		}
 	}
 }
 

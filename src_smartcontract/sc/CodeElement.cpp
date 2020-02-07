@@ -54,6 +54,7 @@
 #include "sc_expression/ArrayReferenceExpression.h"
 #include "sc_expression/MemberReferenceExpression.h"
 #include "sc_expression/CastExpression.h"
+#include "sc_expression/ConstructorCall.h"
 #include "sc_expression/LiteralExpression.h"
 #include "sc_expression/NumberLiteral.h"
 #include "sc_expression/BooleanLiteral.h"
@@ -344,6 +345,9 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 
 	case EXP_FUNCTIONCALL:
 		element = new FunctionCallExpression();
+		break;
+	case EXP_CONSTRUCTORCALL:
+		element = new ConstructorCall();
 		break;
 
 	case EXP_AND:

@@ -45,6 +45,8 @@ ClassDeclare::~ClassDeclare() {
 }
 
 void ClassDeclare::preAnalyze(AnalyzeContext* actx) {
+	addDefaultConstructor();
+
 	CompilationUnit* unit = getCompilationUnit();
 	PackageSpace* space = actx->getPackegeSpace(unit->getPackageName());
 
@@ -69,6 +71,12 @@ void ClassDeclare::preAnalyze(AnalyzeContext* actx) {
 	this->block->setParent(this);
 	this->block->preAnalyze(actx);
 }
+
+
+void ClassDeclare::addDefaultConstructor() noexcept {
+	this->block->addDefaultConstructor(this->name);
+}
+
 
 void ClassDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 	if(this->extends != nullptr){

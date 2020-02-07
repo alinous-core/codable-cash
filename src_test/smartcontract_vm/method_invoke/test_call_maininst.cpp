@@ -15,6 +15,17 @@
 
 #include "ext_arguments/NullArgument.h"
 
+#include "sc_analyze_functions/VTableRegistory.h"
+
+#include "ext_binary/AbstractExtObject.h"
+#include "ext_binary/ExtClassObject.h"
+#include "ext_binary/ExtPrimitiveObject.h"
+
+#include "sc_analyze/AnalyzeContext.h"
+
+#include "instance/VmClassInstance.h"
+
+
 using namespace alinous;
 
 
@@ -26,7 +37,7 @@ TEST_GROUP(TestCallMainInstGroup) {
 
 TEST(TestCallMainInstGroup, callMainMethod){
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/variables/resources/intlong/main.alns"));
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/method_invoke/resources/callMainMethod/main.alns"));
 
 	SmartContract* sc = new SmartContract();
 	FileInputStream stream(sourceFile);
@@ -43,11 +54,25 @@ TEST(TestCallMainInstGroup, callMainMethod){
 	vm->loadSmartContract(sc);
 
 	vm->analyze();
-	vm->createScInstance();
+	VmClassInstance* mainInst = vm->createScInstance();
 
 	{
 		vm->interpret(&mainMethod);
 	}
+
+	AnalyzeContext* actx = vm->getSmartContract()->getAnalyzeContext();
+	VTableRegistory* reg = actx->getVtableRegistory();
+
+	UnicodeString name(L"name");
+	AbstractExtObject* extObj = mainInst->toClassExtObject(&name, reg); __STP(extObj);
+
+	ExtClassObject* classObject = dynamic_cast<ExtClassObject*>(extObj);
+
+	UnicodeString strCount(L"count");
+	ExtPrimitiveObject* obj = classObject->getExtPrimitiveObject(&strCount);
+	int32_t count = obj->getIntValue();
+
+	CHECK(count == 1);
 
 	vm->destroy();
 

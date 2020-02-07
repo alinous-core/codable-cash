@@ -12,7 +12,8 @@
 
 namespace alinous {
 class PackageNameDeclare;
-class FunctionCallExpression;
+class ConstructorCall;
+class AnalyzedType;
 
 class AllocationExpression : public AbstractExpression {
 public:
@@ -24,7 +25,7 @@ public:
 	virtual void analyze(AnalyzeContext* actx);
 
 	void setPackage(PackageNameDeclare* packageName) noexcept;
-	void setExpression(FunctionCallExpression* exp) noexcept;
+	void setExpression(ConstructorCall* exp) noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
@@ -36,7 +37,8 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 private:
 	PackageNameDeclare* packageName;
-	FunctionCallExpression* exp;
+	ConstructorCall* constructorCall;
+
 };
 
 } /* namespace alinous */

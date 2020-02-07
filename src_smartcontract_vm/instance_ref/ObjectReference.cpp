@@ -9,6 +9,8 @@
 
 #include "instance/VmClassInstance.h"
 #include "instance/VmInstanceTypesConst.h"
+#include "instance_gc/GcManager.h"
+
 
 namespace alinous {
 
@@ -31,7 +33,7 @@ bool ObjectReference::isPrimitive() const noexcept {
 	return false;
 }
 
-AbstractVmInstance* ObjectReference::getInstance() const noexcept {
+AbstractVmInstance* ObjectReference::getInstance() noexcept {
 	return this->instance;
 }
 
@@ -40,12 +42,25 @@ void ObjectReference::setInstance(AbstractVmInstance* instance) noexcept {
 }
 
 void ObjectReference::substitute(AbstractVmInstance* rightValue, VirtualMachine* vm) {
-	// FIXME substitute
-	assert(false);
+	GcManager* gc = vm->getGc();
+
+	if(this->instance != nullptr){
+		gc->removeInstanceReference(this, this->instance);
+		this->instance = nullptr;
+	}
+
+	if(!rightValue->isNull()){
+		gc->addInstanceReference(this, rightValue);
+		this->instance = rightValue;
+	}
 }
 
 AbstractExtObject* ObjectReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
 	return this->instance->toClassExtObject(name, table);
+}
+
+bool ObjectReference::isNull() const noexcept {
+	return this->instance == nullptr;
 }
 
 } /* namespace alinous */

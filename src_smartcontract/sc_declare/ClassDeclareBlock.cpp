@@ -8,8 +8,14 @@
 #include "sc_declare/ClassDeclareBlock.h"
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_declare/MethodDeclare.h"
+#include "sc_declare/ArgumentsListDeclare.h"
+#include "sc_declare/AccessControlDeclare.h"
 
 #include "vm/VirtualMachine.h"
+
+#include "base/UnicodeString.h"
+
+#include "sc_statement/StatementBlock.h"
 
 namespace alinous {
 
@@ -36,6 +42,46 @@ void ClassDeclareBlock::preAnalyze(AnalyzeContext* actx) {
 		method->setParent(this);
 		method->preAnalyze(actx);
 	}
+}
+
+void ClassDeclareBlock::addDefaultConstructor(const UnicodeString* className) noexcept {
+	// add default constructor
+	if(hasDefaultConstructor(className)){
+		return;
+	}
+
+	MethodDeclare* m = new MethodDeclare();
+	this->methods.addElement(m);
+
+	AccessControlDeclare* ctrl = new AccessControlDeclare();
+	ctrl->setCtrl(AccessControlDeclare::PUBLIC);
+	m->setAccessControl(ctrl);
+
+	UnicodeString* name = new UnicodeString(className);
+	m->setName(name);
+
+	ArgumentsListDeclare* argDeclare = new ArgumentsListDeclare();
+	m->setArguments(argDeclare);
+
+	StatementBlock* block = new StatementBlock();
+	m->setBlock(block);
+}
+
+bool ClassDeclareBlock::hasDefaultConstructor(const UnicodeString* className) const noexcept {
+	int maxLoop = this->methods.size();
+	for(int i = 0; i != maxLoop; ++i){
+		MethodDeclare* method = this->methods.get(i);
+
+		const UnicodeString* name = method->getName();
+		ArgumentsListDeclare* arguments = method->getArguments();
+		int argSize = arguments->getSize();
+
+		if(argSize == 0 && name->equals(className)){
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void ClassDeclareBlock::analyzeTypeRef(AnalyzeContext* actx) {

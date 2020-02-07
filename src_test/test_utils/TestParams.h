@@ -22,12 +22,14 @@ public:
 	static char* nextParam(int* i, char** av, int length);
 
 	bool skipGroup(const UnicodeString* grp) const noexcept;
+	bool skipTest(const UnicodeString* t) const noexcept;
 	bool isV() const noexcept {
 		return this->v;
 	}
 private:
 	bool v;
 	ArrayList<UnicodeString, UnicodeString::ValueCompare> execGroups;
+	UnicodeString* testName;
 };
 
 } /* namespace alinous */

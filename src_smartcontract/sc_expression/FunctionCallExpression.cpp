@@ -104,6 +104,12 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 
 	actx->setCurrentElement(this);
 	this->methodEntry = classEntry->findEntry(actx, this->strName, &typeList);
+	if(this->methodEntry == nullptr){
+		// has no functions to call
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_NAME, actx->getCurrentElement(), L"The method '{0}()' does not exists.", {this->strName});
+		return;
+	}
+
 	this->callSignature = this->methodEntry->getMethod()->getCallSignature();
 
 	// this ptr
@@ -194,7 +200,7 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
 	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
 	methodDeclare->interpret(&args, vm);
 
-	return args.getReturnedValue(); // FIXME expression::interpret()
+	return args.getReturnedValue();
 }
 
 void FunctionCallExpression::interpretArguments(VirtualMachine* vm,	FunctionArguments* args) {

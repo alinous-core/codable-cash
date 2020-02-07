@@ -52,6 +52,10 @@ void TestGroup::execute(TestParams* params) {
 	while(it->hasNext()){
 		const UnicodeString* key = it->next();
 
+		if(params->skipTest(key)){
+			continue;
+		}
+
 		TestCase* testCase = this->tests->get(key);
 		try{
 			testCase->doTest(params);

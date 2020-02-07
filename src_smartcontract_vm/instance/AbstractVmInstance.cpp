@@ -62,4 +62,8 @@ AbstractExtObject* AbstractVmInstance::toClassExtObject(const UnicodeString* nam
 	return nullptr;
 }
 
+bool AbstractVmInstance::isNull() const noexcept {
+	return false;
+}
+
 } /* namespace alinous */

@@ -8,44 +8,69 @@
 #include "sc_expression/AllocationExpression.h"
 
 #include "sc_declare/PackageNameDeclare.h"
-#include "sc_expression/FunctionCallExpression.h"
+#include "sc_expression/ConstructorCall.h"
+
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/TypeResolver.h"
+#include "sc_analyze/AnalyzeContext.h"
+
+#include "sc_analyze/AnalyzedThisClassStackPopper.h"
+
+#include "instance/VmClassInstance.h"
+
+#include "base/StackRelease.h"
 
 namespace alinous {
 
 AllocationExpression::AllocationExpression() : AbstractExpression(CodeElement::EXP_ALLOCATION) {
 	this->packageName = nullptr;
-	this->exp = nullptr;
+	this->constructorCall = nullptr;
 }
 
 AllocationExpression::~AllocationExpression() {
 	delete this->packageName;
-	delete this->exp;
+	delete this->constructorCall;
 }
 
 void AllocationExpression::preAnalyze(AnalyzeContext* actx) {
-	this->exp->setParent(this);
-	this->exp->preAnalyze(actx);
+	this->constructorCall->setParent(this);
+	this->constructorCall->preAnalyze(actx);
 }
 
 void AllocationExpression::analyzeTypeRef(AnalyzeContext* actx) {
-
+	this->constructorCall->analyzeTypeRef(actx);
 }
 
 void AllocationExpression::analyze(AnalyzeContext* actx) {
-	this->exp->analyze(actx);
+	TypeResolver* typeResolver = actx->getTypeResolver();
+
+	UnicodeString className(L"");
+	if(this->packageName != nullptr){
+		const UnicodeString* pkgName = this->packageName->getName();
+		className.append(pkgName);
+		className.append(L".");
+	}
+
+	const UnicodeString* constructorName = this->constructorCall->getName();
+	className.append(constructorName);
+
+	AnalyzedType* atype = typeResolver->findClassType(this, &className); __STP(atype);
+
+	AnalyzedThisClassStackPopper popper(actx, atype->getAnalyzedClass());
+
+	this->constructorCall->analyze(actx);
 }
 
 void AllocationExpression::setPackage(PackageNameDeclare* packageName) noexcept {
 	this->packageName = packageName;
 }
 
-void AllocationExpression::setExpression(FunctionCallExpression* exp) noexcept {
-	this->exp = exp;
+void AllocationExpression::setExpression(ConstructorCall* exp) noexcept {
+	this->constructorCall = exp;
 }
 
 int AllocationExpression::binarySize() const {
-	checkNotNull(this->exp);
+	checkNotNull(this->constructorCall);
 
 	int total = sizeof(uint16_t);
 	total += sizeof(uint8_t);
@@ -54,13 +79,13 @@ int AllocationExpression::binarySize() const {
 		total += this->packageName->binarySize();
 	}
 
-	total += this->exp->binarySize();
+	total += this->constructorCall->binarySize();
 
 	return total;
 }
 
 void AllocationExpression::toBinary(ByteBuffer* out) {
-	checkNotNull(this->exp);
+	checkNotNull(this->constructorCall);
 
 	out->putShort(CodeElement::EXP_ALLOCATION);
 
@@ -69,7 +94,7 @@ void AllocationExpression::toBinary(ByteBuffer* out) {
 		this->packageName->toBinary(out);
 	}
 
-	this->exp->toBinary(out);
+	this->constructorCall->toBinary(out);
 }
 
 void AllocationExpression::fromBinary(ByteBuffer* in) {
@@ -81,20 +106,22 @@ void AllocationExpression::fromBinary(ByteBuffer* in) {
 	}
 
 	CodeElement* element = createFromBinary(in);
-	checkKind(element, CodeElement::EXP_FUNCTIONCALL);
-	this->exp = dynamic_cast<FunctionCallExpression*>(element);
+	checkKind(element, CodeElement::EXP_CONSTRUCTORCALL);
+	this->constructorCall = dynamic_cast<ConstructorCall*>(element);
 }
 
 AnalyzedType AllocationExpression::getType(AnalyzeContext* actx) {
-	return this->exp->getType(actx);
+	return this->constructorCall->getType(actx);
 }
 
 void AllocationExpression::init(VirtualMachine* vm) {
-	this->exp->init(vm);
+	this->constructorCall->init(vm);
 }
 
 AbstractVmInstance* AllocationExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	AbstractVmInstance* inst = this->constructorCall->interpret(vm);
+
+	return inst; // expression::interpret()
 }
 
 } /* namespace alinous */

@@ -54,7 +54,7 @@ void GcManager::removeRefReference(AbstractVmInstance* owner, AbstractReference*
 	AbstractVmInstance* inst = refered->getInstance();
 
 	if(inst != nullptr){
-		removeInstanceReference(owner, refered);
+		removeInstanceReference(owner, inst);
 	}
 }
 
@@ -128,7 +128,7 @@ void GcManager::checkCycric() noexcept {
 	copyAll(&checkHash);
 
 	ArrayList<GcCyclicCheckerContext> list;
-	list.deleteElements();
+	list.setDeleteOnExit();
 
 	Iterator<VmInstanceKey>* it = checkHash.keySet()->iterator(); __STP(it);
 	while(it->hasNext()){
