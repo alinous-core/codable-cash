@@ -12,6 +12,8 @@
 
 #include "sc_expression/VariableIdentifier.h"
 
+#include "instance/VmClassInstance.h"
+
 #include "base/UnicodeString.h"
 
 
@@ -127,7 +129,12 @@ AnalyzedType ConstructorCall::getType(AnalyzeContext* actx) {
 
 
 AbstractVmInstance* ConstructorCall::interpret(VirtualMachine* vm) {
-	return nullptr;
+	AnalyzedClass* clazz = this->atype->getAnalyzedClass();
+	VmClassInstance* inst = new(vm) VmClassInstance(clazz, vm);
+
+	// FIXME call constructor
+
+	return inst;
 }
 
 } /* namespace alinous */

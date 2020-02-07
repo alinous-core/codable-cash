@@ -32,6 +32,6 @@ TEST(TestAllocationStmtGroup, objectAllocation){
 	bool result = util.analyze();
 	CHECK(result)
 
-	//result = util.createInstance();
+	result = util.createInstance();
 	CHECK(result)
 }

@@ -37,7 +37,7 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 private:
 	PackageNameDeclare* packageName;
-	ConstructorCall* exp;
+	ConstructorCall* constructorCall;
 
 };
 
