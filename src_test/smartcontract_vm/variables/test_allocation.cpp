@@ -12,6 +12,7 @@
 #include "base_io_stream/FileInputStream.h"
 
 #include "../VmTestUtils.h"
+#include "ext_binary/ExtClassObject.h"
 
 using namespace alinous;
 
@@ -34,4 +35,7 @@ TEST(TestAllocationStmtGroup, objectAllocation){
 
 	result = util.createInstance();
 	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+
 }

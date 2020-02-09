@@ -13,6 +13,11 @@
 
 namespace alinous {
 
+class VTableMethodEntry;
+class StackVariableAccess;
+class FunctionArguments;
+class VmClassInstance;
+
 class ConstructorCall : public AbstractExpression {
 public:
 	ConstructorCall();
@@ -35,11 +40,15 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 
 private:
+	void interpretArguments(VirtualMachine* vm, FunctionArguments* args, VmClassInstance* classInst);
+
+private:
 	AbstractExpression* name;
 	ArrayList<AbstractExpression> args;
 
 	UnicodeString* strName;
 	AnalyzedType* atype;
+	VTableMethodEntry* methodEntry;
 };
 
 } /* namespace alinous */

@@ -9,12 +9,29 @@
 
 #include "sc_analyze/AnalyzedType.h"
 #include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/AnalyzedClass.h"
+#include "sc_analyze/ValidationError.h"
 
 #include "sc_expression/VariableIdentifier.h"
 
 #include "instance/VmClassInstance.h"
 
 #include "base/UnicodeString.h"
+
+#include "sc_declare/ClassDeclare.h"
+
+#include "sc_analyze_functions/VTableClassEntry.h"
+#include "sc_analyze_functions/VTableRegistory.h"
+#include "sc_analyze_functions/VTableMethodEntry.h"
+
+#include "variable_access/StackVariableAccess.h"
+#include "variable_access/FunctionArguments.h"
+
+#include "sc_analyze_stack/AnalyzeStackManager.h"
+
+#include "sc_declare/MethodDeclare.h"
+
+#include "instance_ref/ObjectReference.h"
 
 
 namespace alinous {
@@ -23,6 +40,7 @@ ConstructorCall::ConstructorCall() : AbstractExpression(CodeElement::EXP_CONSTRU
 	this->name = nullptr;
 	this->strName = nullptr;
 	this->atype = nullptr;
+	this->methodEntry = nullptr;
 }
 
 ConstructorCall::~ConstructorCall() {
@@ -119,8 +137,38 @@ void ConstructorCall::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void ConstructorCall::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->args.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		exp->analyze(actx);
+	}
+
 	AnalyzedClass* aclass = actx->getThisClass();
 	this->atype = new AnalyzedType(aclass);
+
+	// Find constructor
+	ClassDeclare* classDec = aclass->getClassDeclare();
+	const UnicodeString* fqn = classDec->getFullQualifiedName();
+
+	VTableRegistory* vreg = actx->getVtableRegistory();
+	VTableClassEntry* classEntry = vreg->getClassEntry(fqn, aclass);
+
+	ArrayList<AnalyzedType> typeList;
+	typeList.setDeleteOnExit();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		AnalyzedType type = exp->getType(actx);
+		typeList.addElement(new AnalyzedType(type));
+	}
+
+	actx->setCurrentElement(this);
+	const UnicodeString* funcName = getName();
+	this->methodEntry = classEntry->findEntry(actx, funcName, &typeList);
+	if(this->methodEntry == nullptr){
+		// has no functions to call
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_NAME, actx->getCurrentElement(), L"The method '{0}()' does not exists.", {this->strName});
+		return;
+	}
 }
 
 AnalyzedType ConstructorCall::getType(AnalyzeContext* actx) {
@@ -132,9 +180,41 @@ AbstractVmInstance* ConstructorCall::interpret(VirtualMachine* vm) {
 	AnalyzedClass* clazz = this->atype->getAnalyzedClass();
 	VmClassInstance* inst = new(vm) VmClassInstance(clazz, vm);
 
-	// FIXME call constructor
+	FunctionArguments args;
+	interpretArguments(vm, &args, inst);
+
+
+	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
+	methodDeclare->interpret(&args, vm);
 
 	return inst;
+}
+
+void ConstructorCall::interpretArguments(VirtualMachine* vm, FunctionArguments* args, VmClassInstance* classInst) {
+	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
+
+	// this ptr
+	args->setThisPtr(classInst);
+
+	// arguments
+	int maxLoop = this->args.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		AbstractVmInstance* inst = exp->interpret(vm);
+
+		if(inst->isReference()){
+			AbstractReference* ref = dynamic_cast<AbstractReference*>(inst);
+			assert(ref != nullptr);
+			args->addReference(ref);
+		}
+		else{
+			VmClassInstance* clazzInst = dynamic_cast<VmClassInstance*>(inst);
+			assert(clazzInst != nullptr);
+
+			ObjectReference* ref = ObjectReference::createObjectReference(clazzInst, vm);
+			args->addReference(ref);
+		}
+	}
 }
 
 } /* namespace alinous */
