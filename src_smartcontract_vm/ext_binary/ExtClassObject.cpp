@@ -32,10 +32,14 @@ void ExtClassObject::add(AbstractExtObject* obj) noexcept {
 	this->map->put(obj->getName(), obj);
 }
 
-ExtPrimitiveObject* ExtClassObject::getExtPrimitiveObject(UnicodeString* name) const noexcept {
+ExtPrimitiveObject* ExtClassObject::getExtPrimitiveObject(const UnicodeString* name) const noexcept {
 	AbstractExtObject* obj = this->map->get(name);
 	return dynamic_cast<ExtPrimitiveObject*>(obj);
 }
 
+ExtClassObject* ExtClassObject::getExtClassObject(const UnicodeString* name) const noexcept {
+	AbstractExtObject* obj = this->map->get(name);
+	return dynamic_cast<ExtClassObject*>(obj);
+}
 
 } /* namespace alinous */
