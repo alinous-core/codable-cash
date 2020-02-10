@@ -37,5 +37,10 @@ TEST(TestAllocationStmtGroup, objectAllocation){
 	CHECK(result)
 
 	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	// obj
+	UnicodeString objA(L"obj");
+	ExtClassObject* objobj = obj->getExtClassObject(&objA);
+
+	CHECK(objobj != nullptr)
 
 }

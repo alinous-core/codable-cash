@@ -24,7 +24,8 @@ public:
 	virtual ~ExtClassObject();
 
 	void add(AbstractExtObject* obj) noexcept;
-	ExtPrimitiveObject* getExtPrimitiveObject(UnicodeString* name) const noexcept;
+	ExtPrimitiveObject* getExtPrimitiveObject(const UnicodeString* name) const noexcept;
+	ExtClassObject* getExtClassObject(const UnicodeString* name) const noexcept;
 private:
 	ArrayList<AbstractExtObject>* list;
 	HashMap<UnicodeString, AbstractExtObject>* map;
