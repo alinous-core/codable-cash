@@ -1,0 +1,14 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		int[] ar;
+	}
+	
+	public int main(){
+
+	}
+}
+

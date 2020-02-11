@@ -44,19 +44,26 @@ void VariableDeclareStatement::preAnalyze(AnalyzeContext* actx) {
 	this->type->setParent(this);
 	this->variableId->setParent(this);
 	this->variableId->preAnalyze(actx);
-	this->exp->setParent(this);
-	this->exp->preAnalyze(actx);
+
+	if(this->exp != nullptr){
+		this->exp->setParent(this);
+		this->exp->preAnalyze(actx);
+	}
 }
 
 void VariableDeclareStatement::analyzeTypeRef(AnalyzeContext* actx) {
-	this->exp->analyzeTypeRef(actx);
+	if(this->exp != nullptr){
+		this->exp->analyzeTypeRef(actx);
+	}
 }
 
 void VariableDeclareStatement::analyze(AnalyzeContext* actx) {
 	TypeResolver* resolver = actx->getTypeResolver();
 	AnalyzeStackManager* stackManager = actx->getAnalyzeStackManager();
 
-	this->exp->analyze(actx);
+	if(this->exp != nullptr){
+		this->exp->analyze(actx);
+	}
 
 	this->atype = resolver->resolveType(this, this->type);
 	AnalyzeStack* stack = stackManager->top();
@@ -82,12 +89,18 @@ void VariableDeclareStatement::setInitExpression(AbstractExpression* exp) noexce
 int VariableDeclareStatement::binarySize() const {
 	checkNotNull(this->type);
 	checkNotNull(this->variableId);
-	checkNotNull(this->exp);
+//	checkNotNull(this->exp);
 
 	int total = sizeof(uint16_t);
 	total += this->type->binarySize();
 	total += this->variableId->binarySize();
-	total += this->exp->binarySize();
+
+	bool isNull = (this->exp == nullptr);
+	total += 1;
+
+	if(!isNull){
+		total += this->exp->binarySize();
+	}
 
 	return total;
 }
@@ -95,12 +108,19 @@ int VariableDeclareStatement::binarySize() const {
 void VariableDeclareStatement::toBinary(ByteBuffer* out) {
 	checkNotNull(this->type);
 	checkNotNull(this->variableId);
-	checkNotNull(this->exp);
+	//checkNotNull(this->exp);
 
 	out->putShort(CodeElement::STMT_VARIABLE_DECLARE);
 	this->type->toBinary(out);
 	this->variableId->toBinary(out);
-	this->exp->toBinary(out);
+
+	bool isNull = (this->exp == nullptr);
+	char bl = isNull ? 0 : 1;
+	out->put(bl);
+
+	if(!isNull){
+		this->exp->toBinary(out);
+	}
 }
 
 void VariableDeclareStatement::fromBinary(ByteBuffer* in) {
@@ -112,13 +132,18 @@ void VariableDeclareStatement::fromBinary(ByteBuffer* in) {
 	checkKind(element, CodeElement::EXP_VARIABLE_ID);
 	this->variableId = dynamic_cast<VariableIdentifier*>(element);
 
-	element = createFromBinary(in);
-	checkIsExp(element);
-	this->exp = dynamic_cast<AbstractExpression*>(element);
+	char bl = in->get();
+	if(bl == 1){
+		element = createFromBinary(in);
+		checkIsExp(element);
+		this->exp = dynamic_cast<AbstractExpression*>(element);
+	}
 }
 
 void VariableDeclareStatement::init(VirtualMachine* vm) {
-	this->exp->init(vm);
+	if(this->exp != nullptr){
+		this->exp->init(vm);
+	}
 }
 
 void VariableDeclareStatement::interpret(VirtualMachine* vm) {
