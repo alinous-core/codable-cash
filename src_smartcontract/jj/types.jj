@@ -27,7 +27,7 @@ AbstractType* typeDeclare() : {
 	(
 		t1="[" t2="]"
 		{
-		
+			dec->addDimension();
 		}
 	)*
 	{

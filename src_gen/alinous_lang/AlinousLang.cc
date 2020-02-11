@@ -869,7 +869,7 @@ AbstractType            * AlinousLang::typeDeclare() {AbstractType* dec = nullpt
       t2 = jj_consume_token(R_BRACKET);
       }
       if (!hasError) {
-
+dec->addDimension();
       }
     }
     end_label_9: ;

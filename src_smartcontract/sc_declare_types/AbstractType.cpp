@@ -10,11 +10,19 @@
 namespace alinous {
 
 AbstractType::AbstractType(short kind) : CodeElement(kind) {
-
+	this->dimension = 1;
 }
 
 AbstractType::~AbstractType() {
 
+}
+
+void AbstractType::addDimension() noexcept {
+	this->dimension++;
+}
+
+int AbstractType::getDimension() const noexcept {
+	return this->dimension;
 }
 
 } /* namespace alinous */

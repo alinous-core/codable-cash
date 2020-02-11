@@ -18,6 +18,11 @@ public:
 	virtual ~AbstractType();
 
 	virtual const UnicodeString* toString() noexcept = 0;
+
+	void addDimension() noexcept;
+	int getDimension() const noexcept;
+private:
+	int dimension;
 };
 
 } /* namespace alinous */
