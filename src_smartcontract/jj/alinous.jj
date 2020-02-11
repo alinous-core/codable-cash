@@ -825,6 +825,8 @@ ArgumentDeclare* argumentDeclare() : {
 
 AbstractType* typeDeclare() : {
 	AbstractType* dec = nullptr;
+	Token* t1 = nullptr;
+	Token* t2 = nullptr;
 }
 {
 	(
@@ -845,6 +847,12 @@ AbstractType* typeDeclare() : {
 		|
 		dec=objectType()
 	)
+	(
+		t1="[" t2="]"
+		{
+		
+		}
+	)*
 	{
 	}
 	{
