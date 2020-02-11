@@ -23,15 +23,18 @@ BoolType::~BoolType() {
 
 int BoolType::binarySize() const {
 	int total = sizeof(uint16_t);
+	total += AbstractType::binarySize();
 
 	return total;
 }
 
 void BoolType::toBinary(ByteBuffer* out) {
 	out->putShort(CodeElement::TYPE_BOOL);
+	AbstractType::toBinary(out);
 }
 
 void BoolType::fromBinary(ByteBuffer* in) {
+	AbstractType::fromBinary(in);
 }
 
 const UnicodeString* BoolType::toString() noexcept {

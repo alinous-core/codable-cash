@@ -21,15 +21,18 @@ ShortType::~ShortType() {
 
 int ShortType::binarySize() const {
 	int total = sizeof(uint16_t);
+	total += AbstractType::binarySize();
 
 	return total;
 }
 
 void ShortType::toBinary(ByteBuffer* out) {
 	out->putShort(CodeElement::TYPE_SHORT);
+	AbstractType::toBinary(out);
 }
 
 void ShortType::fromBinary(ByteBuffer* in) {
+	AbstractType::fromBinary(in);
 }
 
 const UnicodeString* ShortType::toString() noexcept {
