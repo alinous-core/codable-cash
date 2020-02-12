@@ -3035,6 +3035,7 @@ exp->setPosition(t);
       }
       if (!hasError) {
 exp->setPosition(num);
+                        exp->addDim(num);
       }
       if (!hasError) {
       t = jj_consume_token(R_BRACKET);
