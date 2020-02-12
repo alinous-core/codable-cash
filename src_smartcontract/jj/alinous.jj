@@ -2182,6 +2182,7 @@ AllocationExpression* allocationExpression() : {
 	AllocationExpression* exp = nullptr;
 	PackageNameDeclare* packageName = nullptr;
 	ConstructorCall* func = nullptr;
+	ConstructorArray* ar = nullptr;
 	Token* t = nullptr;
 	
 	PackageNameDeclare* names = nullptr;
@@ -2208,13 +2209,59 @@ AllocationExpression* allocationExpression() : {
 		 }
 	)*
 	
-	func=constructorCallExpression() {
-		exp->setExpression(func);
-		exp->setPosition(func);
-	}
+	(LOOKAHEAD(2)
+		(
+			func=constructorCallExpression() {
+				exp->setExpression(func);
+				exp->setPosition(func);
+			}
+		)
+		|
+		(
+			ar=constructorArray() {
+				exp->setPosition(ar);
+			}
+		)
+	)
 
 	{	
 		 __ONERROR(exp);
+		return exp;
+	}
+}
+
+
+ConstructorArray* constructorArray() : {
+	ConstructorArray* exp = new ConstructorArray();
+	Token* t = nullptr;
+	VariableIdentifier* valId = nullptr;
+	NumberLiteral* num = nullptr;
+}
+{
+	valId=variableIdentifier() {
+		exp->setPosition(valId);
+		exp->setValId(valId);
+	}
+	
+	(LOOKAHEAD(2)
+		t="[" {
+			exp->setPosition(t);
+		}
+		
+		num=numberLiteral() {
+			exp->setPosition(num);
+			exp->addDim(num);
+		}
+		
+		t="]" {
+			exp->setPosition(t);
+		}
+	)*
+	{
+	
+	}
+	{
+		__ONERROR(exp);
 		return exp;
 	}
 }
