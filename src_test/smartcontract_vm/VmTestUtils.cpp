@@ -51,13 +51,17 @@ bool VmTestUtils::createInstance() {
 	return !vm->hasError();
 }
 
-void VmTestUtils::loadAllFiles() {
+bool VmTestUtils::loadAllFiles() {
 	SmartContract* sc = new SmartContract();
 
 	scanFiles(this->folder, sc);
 
 	this->sc = sc;
 	this->vm->loadSmartContract(sc);
+
+	const ArrayList<CompileError>* list = this->sc->getCompileErrors();
+
+	return list->isEmpty();
 }
 
 void VmTestUtils::scanFiles(File* folder, SmartContract* sc) {

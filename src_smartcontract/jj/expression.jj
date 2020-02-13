@@ -958,6 +958,20 @@ VariableIdentifier* variableIdentifier() : {
 	}
 }
 
+VariableIdentifier* typeIdentifier() : {
+	VariableIdentifier* valId = new VariableIdentifier();
+	Token* t = nullptr;
+}
+{
+	(t=<IDENTIFIER> | t="boolean" | t="byte" | t="char" | t="short" | t="int" | t="long" | t="String") {
+		valId->setName(_STR(t));
+	}
+	{
+		 __ONERROR(valId);
+		return valId;
+	}
+}
+
 AbstractExpression* literal() : {
 	AbstractExpression* lit = nullptr;
 }
