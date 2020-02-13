@@ -37,6 +37,10 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
+private:
+	void analyzeArray(AnalyzeContext* actx);
+	AbstractVmInstance* interpretArray(VirtualMachine* vm);
 private:
 	PackageNameDeclare* packageName;
 	ConstructorCall* constructorCall;

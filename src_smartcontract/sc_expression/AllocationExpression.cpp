@@ -36,15 +36,31 @@ AllocationExpression::~AllocationExpression() {
 }
 
 void AllocationExpression::preAnalyze(AnalyzeContext* actx) {
-	this->constructorCall->setParent(this);
-	this->constructorCall->preAnalyze(actx);
+	if(this->constructorCall != nullptr){
+		this->constructorCall->setParent(this);
+		this->constructorCall->preAnalyze(actx);
+	}
+	if(this->array != nullptr){
+		this->array->setParent(this);
+		this->array->preAnalyze(actx);
+	}
 }
 
 void AllocationExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	this->constructorCall->analyzeTypeRef(actx);
+	if(this->constructorCall != nullptr){
+		this->constructorCall->analyzeTypeRef(actx);
+	}
+	if(this->array != nullptr){
+		this->array->analyzeTypeRef(actx);
+	}
 }
 
 void AllocationExpression::analyze(AnalyzeContext* actx) {
+	if(this->array != nullptr){
+		analyzeArray(actx);
+		return;
+	}
+
 	TypeResolver* typeResolver = actx->getTypeResolver();
 
 	UnicodeString className(L"");
@@ -62,6 +78,10 @@ void AllocationExpression::analyze(AnalyzeContext* actx) {
 	AnalyzedThisClassStackPopper popper(actx, atype->getAnalyzedClass());
 
 	this->constructorCall->analyze(actx);
+}
+
+void AllocationExpression::analyzeArray(AnalyzeContext* actx) {
+
 }
 
 void AllocationExpression::setPackage(PackageNameDeclare* packageName) noexcept {
@@ -126,9 +146,18 @@ void AllocationExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* AllocationExpression::interpret(VirtualMachine* vm) {
+	if(this->array != nullptr){
+		return interpretArray(vm);
+	}
+
 	AbstractVmInstance* inst = this->constructorCall->interpret(vm);
 
 	return inst; // expression::interpret()
+}
+
+AbstractVmInstance* AllocationExpression::interpretArray(VirtualMachine* vm) {
+	// FIXME interpret array
+	return nullptr;
 }
 
 } /* namespace alinous */

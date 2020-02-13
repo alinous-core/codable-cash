@@ -2239,7 +2239,7 @@ ConstructorArray* constructorArray() : {
 	NumberLiteral* num = nullptr;
 }
 {
-	valId=variableIdentifier() {
+	valId=typeIdentifier() {
 		exp->setPosition(valId);
 		exp->setValId(valId);
 	}
