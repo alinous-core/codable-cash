@@ -9,27 +9,30 @@
 
 #include "sc_declare/PackageNameDeclare.h"
 #include "sc_expression/ConstructorCall.h"
+#include "sc_expression/ConstructorArray.h"
 
 #include "sc_analyze/AnalyzedType.h"
 #include "sc_analyze/TypeResolver.h"
 #include "sc_analyze/AnalyzeContext.h"
-
 #include "sc_analyze/AnalyzedThisClassStackPopper.h"
 
 #include "instance/VmClassInstance.h"
 
 #include "base/StackRelease.h"
 
+
 namespace alinous {
 
 AllocationExpression::AllocationExpression() : AbstractExpression(CodeElement::EXP_ALLOCATION) {
 	this->packageName = nullptr;
 	this->constructorCall = nullptr;
+	this->array = nullptr;
 }
 
 AllocationExpression::~AllocationExpression() {
 	delete this->packageName;
 	delete this->constructorCall;
+	delete this->array;
 }
 
 void AllocationExpression::preAnalyze(AnalyzeContext* actx) {
@@ -67,6 +70,10 @@ void AllocationExpression::setPackage(PackageNameDeclare* packageName) noexcept 
 
 void AllocationExpression::setExpression(ConstructorCall* exp) noexcept {
 	this->constructorCall = exp;
+}
+
+void AllocationExpression::setConstructorArray(ConstructorArray* array) noexcept {
+	this->array = array;
 }
 
 int AllocationExpression::binarySize() const {

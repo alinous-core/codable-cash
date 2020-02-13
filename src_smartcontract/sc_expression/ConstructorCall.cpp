@@ -134,6 +134,12 @@ void ConstructorCall::preAnalyze(AnalyzeContext* actx) {
 }
 
 void ConstructorCall::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->args.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		exp->setParent(this);
+		exp->preAnalyze(actx);
+	}
 }
 
 void ConstructorCall::analyze(AnalyzeContext* actx) {

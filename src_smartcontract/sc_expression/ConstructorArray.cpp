@@ -95,6 +95,8 @@ void ConstructorArray::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void ConstructorArray::analyze(AnalyzeContext* actx) {
+
+
 }
 
 AnalyzedType ConstructorArray::getType(AnalyzeContext* actx) {
@@ -106,6 +108,7 @@ void ConstructorArray::init(VirtualMachine* vm) {
 
 AbstractVmInstance* ConstructorArray::interpret(VirtualMachine* vm) {
 }
+
 
 void ConstructorArray::setValId(VariableIdentifier* valId) noexcept {
 	this->valId = valId;

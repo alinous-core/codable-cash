@@ -2989,6 +2989,7 @@ exp->setExpression(func);
         }
         if (!hasError) {
 exp->setPosition(ar);
+                                exp->setConstructorArray(ar);
         }
         }
         break;

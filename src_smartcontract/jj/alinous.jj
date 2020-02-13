@@ -2220,6 +2220,7 @@ AllocationExpression* allocationExpression() : {
 		(
 			ar=constructorArray() {
 				exp->setPosition(ar);
+				exp->setConstructorArray(ar);
 			}
 		)
 	)
