@@ -479,10 +479,10 @@ int UnicodeString::lastIndexOf(wchar_t ch, int lastIndex) const noexcept {
 
 	return -1;
 }
-int UnicodeString::lastIndexOf(UnicodeString* str) const noexcept {
+int UnicodeString::lastIndexOf(const UnicodeString* str) const noexcept {
 	return lastIndexOf(str, length());
 }
-int UnicodeString::lastIndexOf(UnicodeString* str, int lastIndex) const noexcept {
+int UnicodeString::lastIndexOf(const UnicodeString* str, int lastIndex) const noexcept {
 	if(lastIndex > this->length()){
 		lastIndex = this->length();
 	}

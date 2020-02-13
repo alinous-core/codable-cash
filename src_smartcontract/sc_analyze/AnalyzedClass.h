@@ -25,7 +25,7 @@ class AnalyzedType;
 
 class AnalyzedClass {
 public:
-	//AnalyzedClass(const AnalyzedClass& inst);
+	AnalyzedClass(const AnalyzedClass& inst);
 	explicit AnalyzedClass(ClassDeclare* clazz);
 	virtual ~AnalyzedClass();
 

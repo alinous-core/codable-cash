@@ -26,7 +26,7 @@
 #include "sc_analyze_functions/VTableClassEntry.h"
 
 namespace alinous {
-/*
+
 AnalyzedClass::AnalyzedClass(const AnalyzedClass& inst) {
 	this->clazz = inst.clazz;
 	this->variables = new HashMap<UnicodeString, MemberVariableDeclare>();
@@ -67,7 +67,7 @@ AnalyzedClass::AnalyzedClass(const AnalyzedClass& inst) {
 		this->implements.addElement(cls);
 	}
 }
-*/
+
 AnalyzedClass::AnalyzedClass(ClassDeclare* clazz) {
 	this->clazz = clazz;
 	this->variables = new HashMap<UnicodeString, MemberVariableDeclare>();

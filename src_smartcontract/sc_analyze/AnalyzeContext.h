@@ -45,6 +45,7 @@ public:
 
 	void setThisClass(AnalyzedClass* thisClass) noexcept;
 	AnalyzedClass* getThisClass() const noexcept;
+	AnalyzedClass* getLastThisClass() const noexcept;
 	void popThisClass() noexcept;
 
 	void analyzeClassInheritance();

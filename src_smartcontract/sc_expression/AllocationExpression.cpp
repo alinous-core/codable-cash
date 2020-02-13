@@ -81,7 +81,31 @@ void AllocationExpression::analyze(AnalyzeContext* actx) {
 }
 
 void AllocationExpression::analyzeArray(AnalyzeContext* actx) {
+	UnicodeString className(L"");
+	if(this->packageName != nullptr){
+		const UnicodeString* pkgName = this->packageName->getName();
+		className.append(pkgName);
+		className.append(L".");
+	}
 
+	const UnicodeString* constructorName = this->array->getName();
+	className.append(constructorName);
+
+	AnalyzedType* atype = findType(actx, &className); __STP(atype);
+	AnalyzedThisClassStackPopper popper(actx, atype->getAnalyzedClass());
+
+	this->array->analyze(actx);
+}
+
+AnalyzedType* AllocationExpression::findType(AnalyzeContext* actx, const UnicodeString* className) const {
+	TypeResolver* typeResolver = actx->getTypeResolver();
+
+	AnalyzedType* atype = typeResolver->findBaseType(className);
+	if(atype == nullptr){
+		atype = typeResolver->findClassType(this, className);
+	}
+
+	return atype;
 }
 
 void AllocationExpression::setPackage(PackageNameDeclare* packageName) noexcept {

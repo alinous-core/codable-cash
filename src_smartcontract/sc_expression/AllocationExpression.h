@@ -40,6 +40,7 @@ public:
 
 private:
 	void analyzeArray(AnalyzeContext* actx);
+	AnalyzedType* findType(AnalyzeContext* actx, const UnicodeString* className) const;
 	AbstractVmInstance* interpretArray(VirtualMachine* vm);
 private:
 	PackageNameDeclare* packageName;

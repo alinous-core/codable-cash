@@ -35,6 +35,8 @@ public:
 
 	void setValId(VariableIdentifier* valId) noexcept;
 	void addDim(NumberLiteral* dim) noexcept;
+
+	const UnicodeString* getName() const noexcept;
 private:
 	VariableIdentifier* valId;
 	ArrayList<NumberLiteral> dims;

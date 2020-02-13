@@ -107,6 +107,7 @@ void ConstructorArray::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* ConstructorArray::interpret(VirtualMachine* vm) {
+	return nullptr;
 }
 
 
@@ -116,6 +117,10 @@ void ConstructorArray::setValId(VariableIdentifier* valId) noexcept {
 
 void ConstructorArray::addDim(NumberLiteral* dim) noexcept {
 	this->dims.addElement(dim);
+}
+
+const UnicodeString* ConstructorArray::getName() const noexcept {
+	return this->valId->getName();
 }
 
 } /* namespace alinous */
