@@ -19,6 +19,7 @@
 #include "sc_expression/VariableIdentifier.h"
 #include "sc_expression/NumberLiteral.h"
 
+#include "sc_analyze/AnalyzedThisClassStackPopper.h"
 namespace alinous {
 
 ConstructorArray::ConstructorArray() : AbstractExpression(CodeElement::EXP_CONSTRUCTORARRAY) {
@@ -40,8 +41,8 @@ int ConstructorArray::binarySize() const {
 	total += sizeof(int32_t);
 
 	for(int i = 0; i != maxLoop; ++i){
-		NumberLiteral* lit = this->dims.get(i);
-		total += lit->binarySize();
+		AbstractExpression* exp = this->dims.get(i);
+		total += exp->binarySize();
 	}
 
 	return total;
@@ -54,8 +55,8 @@ void ConstructorArray::toBinary(ByteBuffer* out) {
 
 	int maxLoop = this->dims.size();
 	for(int i = 0; i != maxLoop; ++i){
-		NumberLiteral* lit = this->dims.get(i);
-		lit->toBinary(out);
+		AbstractExpression* exp = this->dims.get(i);
+		exp->toBinary(out);
 	}
 }
 
@@ -69,8 +70,8 @@ void ConstructorArray::fromBinary(ByteBuffer* in) {
 		element = createFromBinary(in);
 		checkKind(element, CodeElement::EXP_NUMBER_LITERAL);
 
-		NumberLiteral* lit = dynamic_cast<NumberLiteral*>(element);
-		this->dims.addElement(lit);
+		AbstractExpression* exp = dynamic_cast<NumberLiteral*>(element);
+		this->dims.addElement(exp);
 	}
 }
 
@@ -79,8 +80,8 @@ void ConstructorArray::preAnalyze(AnalyzeContext* actx) {
 
 	int maxLoop = this->dims.size();
 	for(int i = 0; i != maxLoop; ++i){
-		NumberLiteral* lit = this->dims.get(i);
-		lit->preAnalyze(actx);
+		AbstractExpression* exp = this->dims.get(i);
+		exp->preAnalyze(actx);
 	}
 }
 
@@ -89,12 +90,23 @@ void ConstructorArray::analyzeTypeRef(AnalyzeContext* actx) {
 
 	int maxLoop = this->dims.size();
 	for(int i = 0; i != maxLoop; ++i){
-		NumberLiteral* lit = this->dims.get(i);
-		lit->analyzeTypeRef(actx);
+		AbstractExpression* exp = this->dims.get(i);
+		exp->analyzeTypeRef(actx);
 	}
 }
 
 void ConstructorArray::analyze(AnalyzeContext* actx) {
+	{
+		// recover this class
+		AnalyzedClass* lastThisClass = actx->getLastThisClass();
+		AnalyzedThisClassStackPopper popper(actx, lastThisClass);
+
+		int maxLoop = this->dims.size();
+		for(int i = 0; i != maxLoop; ++i){
+			AbstractExpression* exp = this->dims.get(i);
+			exp->analyze(actx);
+		}
+	}
 
 
 }
@@ -115,7 +127,7 @@ void ConstructorArray::setValId(VariableIdentifier* valId) noexcept {
 	this->valId = valId;
 }
 
-void ConstructorArray::addDim(NumberLiteral* dim) noexcept {
+void ConstructorArray::addDim(AbstractExpression* dim) noexcept {
 	this->dims.addElement(dim);
 }
 

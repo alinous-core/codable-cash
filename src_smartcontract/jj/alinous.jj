@@ -2236,7 +2236,7 @@ ConstructorArray* constructorArray() : {
 	ConstructorArray* exp = new ConstructorArray();
 	Token* t = nullptr;
 	VariableIdentifier* valId = nullptr;
-	NumberLiteral* num = nullptr;
+	AbstractExpression* dim = nullptr;
 }
 {
 	valId=typeIdentifier() {
@@ -2249,9 +2249,9 @@ ConstructorArray* constructorArray() : {
 			exp->setPosition(t);
 		}
 		
-		num=numberLiteral() {
-			exp->setPosition(num);
-			exp->addDim(num);
+		dim=expression() {
+			exp->setPosition(dim);
+			exp->addDim(dim);
 		}
 		
 		t="]" {

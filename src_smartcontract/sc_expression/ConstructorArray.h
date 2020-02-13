@@ -14,7 +14,7 @@
 namespace alinous {
 
 class VariableIdentifier;
-class NumberLiteral;
+class AbstractExpression;
 
 class ConstructorArray : public AbstractExpression {
 public:
@@ -34,12 +34,12 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 
 	void setValId(VariableIdentifier* valId) noexcept;
-	void addDim(NumberLiteral* dim) noexcept;
+	void addDim(AbstractExpression* dim) noexcept;
 
 	const UnicodeString* getName() const noexcept;
 private:
 	VariableIdentifier* valId;
-	ArrayList<NumberLiteral> dims;
+	ArrayList<AbstractExpression> dims;
 };
 
 } /* namespace alinous */

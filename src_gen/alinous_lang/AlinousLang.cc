@@ -3016,7 +3016,7 @@ assert(false);
 ConstructorArray                * AlinousLang::constructorArray() {ConstructorArray* exp = new ConstructorArray();
         Token* t = nullptr;
         VariableIdentifier* valId = nullptr;
-        NumberLiteral* num = nullptr;
+        AbstractExpression* dim = nullptr;
     if (!hasError) {
     valId = typeIdentifier();
     }
@@ -3038,11 +3038,11 @@ exp->setPosition(valId);
 exp->setPosition(t);
       }
       if (!hasError) {
-      num = numberLiteral();
+      dim = expression();
       }
       if (!hasError) {
-exp->setPosition(num);
-                        exp->addDim(num);
+exp->setPosition(dim);
+                        exp->addDim(dim);
       }
       if (!hasError) {
       t = jj_consume_token(R_BRACKET);
