@@ -147,7 +147,6 @@ void ConstructorCall::analyze(AnalyzeContext* actx) {
 	{
 		// recover this class
 		AnalyzedClass* lastThisClass = actx->getLastThisClass();
-		lastThisClass = new AnalyzedClass(*lastThisClass);
 		AnalyzedThisClassStackPopper popper(actx, lastThisClass);
 
 		int maxLoop = this->args.size();
