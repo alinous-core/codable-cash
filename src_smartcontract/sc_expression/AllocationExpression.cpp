@@ -9,39 +9,58 @@
 
 #include "sc_declare/PackageNameDeclare.h"
 #include "sc_expression/ConstructorCall.h"
+#include "sc_expression/ConstructorArray.h"
 
 #include "sc_analyze/AnalyzedType.h"
 #include "sc_analyze/TypeResolver.h"
 #include "sc_analyze/AnalyzeContext.h"
-
 #include "sc_analyze/AnalyzedThisClassStackPopper.h"
 
 #include "instance/VmClassInstance.h"
 
 #include "base/StackRelease.h"
 
+
 namespace alinous {
 
 AllocationExpression::AllocationExpression() : AbstractExpression(CodeElement::EXP_ALLOCATION) {
 	this->packageName = nullptr;
 	this->constructorCall = nullptr;
+	this->array = nullptr;
 }
 
 AllocationExpression::~AllocationExpression() {
 	delete this->packageName;
 	delete this->constructorCall;
+	delete this->array;
 }
 
 void AllocationExpression::preAnalyze(AnalyzeContext* actx) {
-	this->constructorCall->setParent(this);
-	this->constructorCall->preAnalyze(actx);
+	if(this->constructorCall != nullptr){
+		this->constructorCall->setParent(this);
+		this->constructorCall->preAnalyze(actx);
+	}
+	if(this->array != nullptr){
+		this->array->setParent(this);
+		this->array->preAnalyze(actx);
+	}
 }
 
 void AllocationExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	this->constructorCall->analyzeTypeRef(actx);
+	if(this->constructorCall != nullptr){
+		this->constructorCall->analyzeTypeRef(actx);
+	}
+	if(this->array != nullptr){
+		this->array->analyzeTypeRef(actx);
+	}
 }
 
 void AllocationExpression::analyze(AnalyzeContext* actx) {
+	if(this->array != nullptr){
+		analyzeArray(actx);
+		return;
+	}
+
 	TypeResolver* typeResolver = actx->getTypeResolver();
 
 	UnicodeString className(L"");
@@ -61,12 +80,44 @@ void AllocationExpression::analyze(AnalyzeContext* actx) {
 	this->constructorCall->analyze(actx);
 }
 
+void AllocationExpression::analyzeArray(AnalyzeContext* actx) {
+	UnicodeString className(L"");
+	if(this->packageName != nullptr){
+		const UnicodeString* pkgName = this->packageName->getName();
+		className.append(pkgName);
+		className.append(L".");
+	}
+
+	const UnicodeString* constructorName = this->array->getName();
+	className.append(constructorName);
+
+	AnalyzedType* atype = findType(actx, &className); __STP(atype);
+	AnalyzedThisClassStackPopper popper(actx, atype->getAnalyzedClass());
+
+	this->array->analyze(actx);
+}
+
+AnalyzedType* AllocationExpression::findType(AnalyzeContext* actx, const UnicodeString* className) const {
+	TypeResolver* typeResolver = actx->getTypeResolver();
+
+	AnalyzedType* atype = typeResolver->findBaseType(className);
+	if(atype == nullptr){
+		atype = typeResolver->findClassType(this, className);
+	}
+
+	return atype;
+}
+
 void AllocationExpression::setPackage(PackageNameDeclare* packageName) noexcept {
 	this->packageName = packageName;
 }
 
 void AllocationExpression::setExpression(ConstructorCall* exp) noexcept {
 	this->constructorCall = exp;
+}
+
+void AllocationExpression::setConstructorArray(ConstructorArray* array) noexcept {
+	this->array = array;
 }
 
 int AllocationExpression::binarySize() const {
@@ -119,9 +170,18 @@ void AllocationExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* AllocationExpression::interpret(VirtualMachine* vm) {
+	if(this->array != nullptr){
+		return interpretArray(vm);
+	}
+
 	AbstractVmInstance* inst = this->constructorCall->interpret(vm);
 
 	return inst; // expression::interpret()
+}
+
+AbstractVmInstance* AllocationExpression::interpretArray(VirtualMachine* vm) {
+	// FIXME interpret array
+	return nullptr;
 }
 
 } /* namespace alinous */

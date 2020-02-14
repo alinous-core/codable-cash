@@ -22,7 +22,7 @@ public:
 	VmTestUtils(const wchar_t* seg, const File* projectFolder);
 	virtual ~VmTestUtils();
 
-	void loadAllFiles();
+	bool loadAllFiles();
 	void scanFiles(File* folder, SmartContract* sc);
 	void addCompilantUnit(File* file, SmartContract* sc);
 

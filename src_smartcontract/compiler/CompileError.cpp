@@ -10,6 +10,14 @@
 
 namespace alinous {
 
+
+CompileError::CompileError(const CompileError& obj) {
+	this->expectedToken = new UnicodeString(obj.expectedToken);
+	this->actualToken = new UnicodeString(obj.actualToken);
+	this->line = obj.line;
+	this->column = obj.column;
+}
+
 CompileError::CompileError(UnicodeString* expectedToken, UnicodeString* actualToken, int line, int column) {
 	this->expectedToken = expectedToken;
 	this->actualToken = actualToken;

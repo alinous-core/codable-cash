@@ -25,6 +25,10 @@ public:
 
 	bool hasError() const noexcept;
 
+	const ArrayList<CompileError>& getList() const {
+		return list;
+	}
+
 private:
 	ArrayList<CompileError> list;
 };

@@ -40,6 +40,10 @@ public:
 
 	AlinousLang* getDebugAlinousLang();
 
+	const ParseErrorHandler* getParserErrorHandler() const {
+		return parserErrorHandler;
+	}
+
 private:
 	CompilationUnit* parseStream();
 private:

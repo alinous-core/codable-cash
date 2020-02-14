@@ -11,6 +11,7 @@
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedClass.h"
 #include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzedThisClassStackPopper.h"
 
 #include "sc_expression/VariableIdentifier.h"
 
@@ -134,13 +135,25 @@ void ConstructorCall::preAnalyze(AnalyzeContext* actx) {
 }
 
 void ConstructorCall::analyzeTypeRef(AnalyzeContext* actx) {
-}
-
-void ConstructorCall::analyze(AnalyzeContext* actx) {
 	int maxLoop = this->args.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractExpression* exp = this->args.get(i);
-		exp->analyze(actx);
+		exp->setParent(this);
+		exp->preAnalyze(actx);
+	}
+}
+
+void ConstructorCall::analyze(AnalyzeContext* actx) {
+	{
+		// recover this class
+		AnalyzedClass* lastThisClass = actx->getLastThisClass();
+		AnalyzedThisClassStackPopper popper(actx, lastThisClass);
+
+		int maxLoop = this->args.size();
+		for(int i = 0; i != maxLoop; ++i){
+			AbstractExpression* exp = this->args.get(i);
+			exp->analyze(actx);
+		}
 	}
 
 	AnalyzedClass* aclass = actx->getThisClass();
@@ -153,8 +166,11 @@ void ConstructorCall::analyze(AnalyzeContext* actx) {
 	VTableRegistory* vreg = actx->getVtableRegistory();
 	VTableClassEntry* classEntry = vreg->getClassEntry(fqn, aclass);
 
+
 	ArrayList<AnalyzedType> typeList;
 	typeList.setDeleteOnExit();
+
+	int maxLoop = this->args.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractExpression* exp = this->args.get(i);
 		AnalyzedType type = exp->getType(actx);

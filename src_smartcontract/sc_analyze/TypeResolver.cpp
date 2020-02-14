@@ -28,7 +28,15 @@
 
 namespace alinous {
 
-UnicodeString TypeResolver::DOT(L".");
+const UnicodeString TypeResolver::DOT(L".");
+
+const UnicodeString TypeResolver::BOOLEAN(L"boolean");
+const UnicodeString TypeResolver::BYTE(L"byte");
+const UnicodeString TypeResolver::CHAR(L"char");
+const UnicodeString TypeResolver::SHORT(L"short");
+const UnicodeString TypeResolver::INT(L"int");
+const UnicodeString TypeResolver::LONG(L"long");
+const UnicodeString TypeResolver::STRING(L"String");
 
 TypeResolver::TypeResolver(AnalyzeContext* ctx) : ctx(ctx) {
 
@@ -104,8 +112,35 @@ AnalyzedType* TypeResolver::resolveType(CodeElement* element, ObjectType* type) 
 	return findClassType(element, name);
 }
 
+AnalyzedType* TypeResolver::findBaseType(const UnicodeString* name) const {
+	AnalyzedType* result = nullptr;
 
-AnalyzedType* TypeResolver::findClassType(CodeElement* element, const UnicodeString* name) const {
+	if(name->equals(BOOLEAN)){
+		result = new AnalyzedType(AnalyzedType::TYPE_BOOL);
+	}
+	else if(name->equals(BYTE)){
+		result = new AnalyzedType(AnalyzedType::TYPE_BYTE);
+	}
+	else if(name->equals(CHAR)){
+		result = new AnalyzedType(AnalyzedType::TYPE_CHAR);
+	}
+	else if(name->equals(SHORT)){
+		result = new AnalyzedType(AnalyzedType::TYPE_SHORT);
+	}
+	else if(name->equals(INT)){
+		result = new AnalyzedType(AnalyzedType::TYPE_INT);
+	}
+	else if(name->equals(LONG)){
+		result = new AnalyzedType(AnalyzedType::TYPE_LONG);
+	}
+	else if(name->equals(STRING)){
+		result = new AnalyzedType(AnalyzedType::TYPE_STRING);
+	}
+
+	return result;
+}
+
+AnalyzedType* TypeResolver::findClassType(const CodeElement* element, const UnicodeString* name) const {
 	if(!isFqn(name)){
 		CompilationUnit* unit = element->getCompilationUnit();
 

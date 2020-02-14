@@ -25,7 +25,7 @@ TEST_GROUP(TestAllocationStmtGroup) {
 
 TEST(TestAllocationStmtGroup, objectAllocation){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/variables/resources/new01/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/variables/resources/new/new01/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -42,5 +42,19 @@ TEST(TestAllocationStmtGroup, objectAllocation){
 	ExtClassObject* objobj = obj->getExtClassObject(&objA);
 
 	CHECK(objobj != nullptr)
+
+}
+
+TEST(TestAllocationStmtGroup, primitiveArrayAllocation){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/variables/resources/new/new02/", projectFolder);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
 
 }

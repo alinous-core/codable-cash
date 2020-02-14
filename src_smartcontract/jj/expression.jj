@@ -785,6 +785,7 @@ AllocationExpression* allocationExpression() : {
 	AllocationExpression* exp = nullptr;
 	PackageNameDeclare* packageName = nullptr;
 	ConstructorCall* func = nullptr;
+	ConstructorArray* ar = nullptr;
 	Token* t = nullptr;
 	
 	PackageNameDeclare* names = nullptr;
@@ -811,13 +812,60 @@ AllocationExpression* allocationExpression() : {
 		 }
 	)*
 	
-	func=constructorCallExpression() {
-		exp->setExpression(func);
-		exp->setPosition(func);
-	}
+	(LOOKAHEAD(2)
+		(
+			func=constructorCallExpression() {
+				exp->setExpression(func);
+				exp->setPosition(func);
+			}
+		)
+		|
+		(
+			ar=constructorArray() {
+				exp->setPosition(ar);
+				exp->setConstructorArray(ar);
+			}
+		)
+	)
 
 	{	
 		 __ONERROR(exp);
+		return exp;
+	}
+}
+
+
+ConstructorArray* constructorArray() : {
+	ConstructorArray* exp = new ConstructorArray();
+	Token* t = nullptr;
+	VariableIdentifier* valId = nullptr;
+	AbstractExpression* dim = nullptr;
+}
+{
+	valId=typeIdentifier() {
+		exp->setPosition(valId);
+		exp->setValId(valId);
+	}
+	
+	(LOOKAHEAD(2)
+		t="[" {
+			exp->setPosition(t);
+		}
+		
+		dim=expression() {
+			exp->setPosition(dim);
+			exp->addDim(dim);
+		}
+		
+		t="]" {
+			exp->setPosition(t);
+		}
+	)*
+	{
+	
+	}
+	{
+		__ONERROR(exp);
 		return exp;
 	}
 }
@@ -902,6 +950,20 @@ VariableIdentifier* variableIdentifier() : {
 }
 {
 	(t=<IDENTIFIER> | t="this") {
+		valId->setName(_STR(t));
+	}
+	{
+		 __ONERROR(valId);
+		return valId;
+	}
+}
+
+VariableIdentifier* typeIdentifier() : {
+	VariableIdentifier* valId = new VariableIdentifier();
+	Token* t = nullptr;
+}
+{
+	(t=<IDENTIFIER> | t="boolean" | t="byte" | t="char" | t="short" | t="int" | t="long" | t="String") {
 		valId->setName(_STR(t));
 	}
 	{

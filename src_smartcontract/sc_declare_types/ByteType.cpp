@@ -21,15 +21,18 @@ ByteType::~ByteType() {
 
 int ByteType::binarySize() const {
 	int total = sizeof(uint16_t);
+	total += AbstractType::binarySize();
 
 	return total;
 }
 
 void ByteType::toBinary(ByteBuffer* out) {
 	out->putShort(CodeElement::TYPE_BYTE);
+	AbstractType::toBinary(out);
 }
 
 void ByteType::fromBinary(ByteBuffer* in) {
+	AbstractType::fromBinary(in);
 }
 
 const UnicodeString* ByteType::toString() noexcept {

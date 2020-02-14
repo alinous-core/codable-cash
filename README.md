@@ -9,6 +9,7 @@ Scalable Smart Contract Ledger with rapid blockchain consensus. The Codablecash 
 Now making first alpha version.
  - [Latest Jenkins Status](http://ci.codablecash.org/job/codablecash_develop/ "develop branch")
  - Author's Twitter [@alinous_core](https://twitter.com/alinous_core "Tomohiro Iizuka") 
+ - [How to build and test](sh/README.md)
 
 
 ## Consensus

@@ -21,6 +21,7 @@ class UnicodeString;
 class VmRootReference;
 class VmClassInstance;
 class ExtClassObject;
+class CompileError;
 
 class SmartContract {
 public:
@@ -42,6 +43,8 @@ public:
 
 	AnalyzeContext* getAnalyzeContext() const noexcept;
 
+	const ArrayList<CompileError>* getCompileErrors() const noexcept;
+
 private:
 	UnicodeString* mainPackage;
 	UnicodeString* mainClass;
@@ -51,6 +54,8 @@ private:
 
 	VmRootReference* rootReference;
 	bool initialized;
+
+	ArrayList<CompileError> compileErrorList;
 };
 
 } /* namespace alinous */

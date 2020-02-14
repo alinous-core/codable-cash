@@ -21,15 +21,18 @@ CharType::~CharType() {
 
 int CharType::binarySize() const {
 	int total = sizeof(uint16_t);
+	total += AbstractType::binarySize();
 
 	return total;
 }
 
 void CharType::toBinary(ByteBuffer* out) {
 	out->putShort(CodeElement::TYPE_CHAR);
+	AbstractType::toBinary(out);
 }
 
 void CharType::fromBinary(ByteBuffer* in) {
+	AbstractType::fromBinary(in);
 }
 
 const UnicodeString* CharType::toString() noexcept {

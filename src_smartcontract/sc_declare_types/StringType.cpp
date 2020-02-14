@@ -22,15 +22,18 @@ StringType::~StringType() {
 
 int StringType::binarySize() const {
 	int total = sizeof(uint16_t);
+	total += AbstractType::binarySize();
 
 	return total;
 }
 
 void StringType::toBinary(ByteBuffer* out) {
 	out->putShort(CodeElement::TYPE_STRING);
+	AbstractType::toBinary(out);
 }
 
 void StringType::fromBinary(ByteBuffer* in) {
+	AbstractType::fromBinary(in);
 }
 
 const UnicodeString* StringType::toString() noexcept {

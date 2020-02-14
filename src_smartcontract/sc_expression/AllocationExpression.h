@@ -13,6 +13,7 @@
 namespace alinous {
 class PackageNameDeclare;
 class ConstructorCall;
+class ConstructorArray;
 class AnalyzedType;
 
 class AllocationExpression : public AbstractExpression {
@@ -26,6 +27,7 @@ public:
 
 	void setPackage(PackageNameDeclare* packageName) noexcept;
 	void setExpression(ConstructorCall* exp) noexcept;
+	void setConstructorArray(ConstructorArray* array) noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
@@ -35,9 +37,15 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
+private:
+	void analyzeArray(AnalyzeContext* actx);
+	AnalyzedType* findType(AnalyzeContext* actx, const UnicodeString* className) const;
+	AbstractVmInstance* interpretArray(VirtualMachine* vm);
 private:
 	PackageNameDeclare* packageName;
 	ConstructorCall* constructorCall;
+	ConstructorArray* array;
 
 };
 

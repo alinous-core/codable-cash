@@ -75,8 +75,8 @@ public:
 	int indexOf(wchar_t ch, int lastIndex) const noexcept;
 	int lastIndexOf(wchar_t ch) const noexcept;
 	int lastIndexOf(wchar_t ch, int lastIndex) const noexcept;
-	int lastIndexOf(UnicodeString* str) const noexcept;
-	int lastIndexOf(UnicodeString* str, int lastIndex) const noexcept;
+	int lastIndexOf(const UnicodeString* str) const noexcept;
+	int lastIndexOf(const UnicodeString* str, int lastIndex) const noexcept;
 
 	UnicodeString* insert(int position, wchar_t ch) noexcept;
 	UnicodeString* insert(int dstOffset, UnicodeString* str) noexcept;

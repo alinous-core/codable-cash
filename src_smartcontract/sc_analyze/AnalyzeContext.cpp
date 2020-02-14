@@ -118,6 +118,11 @@ AnalyzedClass* AnalyzeContext::getThisClass() const noexcept {
 	return this->thisClasses->get(top);
 }
 
+AnalyzedClass* AnalyzeContext::getLastThisClass() const noexcept {
+	int top = this->thisClasses->size() - 2;
+
+	return this->thisClasses->get(top);
+}
 
 void AnalyzeContext::popThisClass() noexcept {
 	int top = this->thisClasses->size() - 1;

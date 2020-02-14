@@ -9,8 +9,11 @@
 #define SC_DECLARE_TYPES_ABSTRACTTYPE_H_
 
 #include "sc/CodeElement.h"
+#include <cstdint>
 
 namespace alinous {
+
+class ByteBuffer;
 
 class AbstractType : public CodeElement {
 public:
@@ -18,6 +21,15 @@ public:
 	virtual ~AbstractType();
 
 	virtual const UnicodeString* toString() noexcept = 0;
+
+	void addDimension() noexcept;
+	int getDimension() const noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
+private:
+	uint8_t dimension;
 };
 
 } /* namespace alinous */

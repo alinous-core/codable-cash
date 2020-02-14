@@ -23,14 +23,25 @@ class ObjectType;
 
 class TypeResolver {
 public:
-	static UnicodeString DOT;
+	static const UnicodeString DOT;
+
+	static const UnicodeString BOOLEAN;
+	static const UnicodeString BYTE;
+	static const UnicodeString CHAR;
+	static const UnicodeString SHORT;
+	static const UnicodeString INT;
+	static const UnicodeString LONG;
+	static const UnicodeString STRING;
+
 
 	explicit TypeResolver(AnalyzeContext* ctx);
 	virtual ~TypeResolver();
 
 	AnalyzedType* getClassType(CodeElement* element) const;
 	AnalyzedType* resolveType(CodeElement* element, AbstractType* type) const;
-	AnalyzedType* findClassType(CodeElement* element, const UnicodeString* name) const;
+	AnalyzedType* findClassType(const CodeElement* element, const UnicodeString* name) const;
+	AnalyzedType* findBaseType(const UnicodeString* name) const;
+
 
 	static bool isFqn(const UnicodeString* name) noexcept;
 	static UnicodeString* getPackageName(const UnicodeString* name) noexcept;

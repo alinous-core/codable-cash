@@ -31,6 +31,8 @@
 #include "stack/StackPopper.h"
 #include "stack/VmStack.h"
 
+#include "compiler/CompileError.h"
+#include "compiler/ParseErrorHandler.h"
 
 namespace alinous {
 
@@ -50,6 +52,8 @@ SmartContract::~SmartContract() {
 	delete this->mainClass;
 	delete this->mainMethod;
 	delete this->rootReference;
+
+	this->compileErrorList.deleteElements();
 }
 
 void alinous::SmartContract::setMainMethod(const UnicodeString* mainPackage,
@@ -63,6 +67,15 @@ void SmartContract::addCompilationUnit(InputStream* stream, int length) {
 	SmartContractParser parser(stream, length);
 
 	CompilationUnit* unit = parser.parse();
+
+	const ArrayList<CompileError>& errorList = parser.getParserErrorHandler()->getList();
+	int maxLoop = errorList.size();
+	for(int i = 0; i != maxLoop; ++i){
+		CompileError* error = errorList.get(i);
+
+		CompileError* newError = new CompileError(*error);
+		this->compileErrorList.addElement(newError);
+	}
 
 	this->progs.addElement(unit);
 }
@@ -172,5 +185,10 @@ void SmartContract::initialize(VirtualMachine* vm) {
 AnalyzeContext* SmartContract::getAnalyzeContext() const noexcept {
 	return this->actx;
 }
+
+const ArrayList<CompileError>* SmartContract::getCompileErrors() const noexcept {
+	return &this->compileErrorList;
+}
+
 
 } /* namespace alinous */

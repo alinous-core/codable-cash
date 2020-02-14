@@ -13,6 +13,8 @@ class UnicodeString;
 
 class CompileError {
 public:
+	CompileError(const CompileError& obj);
+
 	CompileError(UnicodeString* expectedToken, UnicodeString* actualToken, int line, int column);
 	virtual ~CompileError();
 
