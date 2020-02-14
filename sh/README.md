@@ -38,4 +38,4 @@ After executing Cmake, exectute following Shell script.
 
 By executing test, coverage report is generated in the "codablecash/target/html_report/".
 
-
+![Example of Test Report](testreportexample.png "Example of Test Report") 
