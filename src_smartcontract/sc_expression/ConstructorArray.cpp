@@ -24,11 +24,13 @@ namespace alinous {
 
 ConstructorArray::ConstructorArray() : AbstractExpression(CodeElement::EXP_CONSTRUCTORARRAY) {
 	this->valId = nullptr;
+	this->atype = nullptr;
 }
 
 ConstructorArray::~ConstructorArray() {
 	delete this->valId;
 	this->dims.deleteElements();
+	delete this->atype;
 }
 
 int ConstructorArray::binarySize() const {
@@ -97,10 +99,6 @@ void ConstructorArray::analyzeTypeRef(AnalyzeContext* actx) {
 
 void ConstructorArray::analyze(AnalyzeContext* actx) {
 	{
-		// recover this class
-		AnalyzedClass* lastThisClass = actx->getLastThisClass();
-		AnalyzedThisClassStackPopper popper(actx, lastThisClass);
-
 		int maxLoop = this->dims.size();
 		for(int i = 0; i != maxLoop; ++i){
 			AbstractExpression* exp = this->dims.get(i);
@@ -108,17 +106,29 @@ void ConstructorArray::analyze(AnalyzeContext* actx) {
 		}
 	}
 
-
+	this->atype = new AnalyzedType(*actx->getTmpArrayType());
+	int dim = this->dims.size();
+	this->atype->setDim(dim);
 }
 
 AnalyzedType ConstructorArray::getType(AnalyzeContext* actx) {
+	return *this->atype;
 }
 
 void ConstructorArray::init(VirtualMachine* vm) {
 	this->valId->init(vm);
+
+	int maxLoop = this->dims.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->dims.get(i);
+		exp->init(vm);
+	}
 }
 
 AbstractVmInstance* ConstructorArray::interpret(VirtualMachine* vm) {
+	int dim = this->atype->getDim();
+
+	// FIXME
 	return nullptr;
 }
 

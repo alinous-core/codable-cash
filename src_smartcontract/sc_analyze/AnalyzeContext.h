@@ -25,6 +25,7 @@ class AnalyzeStackManager;
 class TypeResolver;
 class AnalyzedClass;
 class VTableRegistory;
+class AnalyzedType;
 
 class AnalyzeContext {
 public:
@@ -55,6 +56,8 @@ public:
 	void setCurrentElement(CodeElement* current) noexcept;
 	CodeElement* getCurrentElement() const noexcept;
 
+	void setTmpArrayType(AnalyzedType* tmpArrayType) noexcept;
+	AnalyzedType* getTmpArrayType() const noexcept;
 private:
 	void analyzeMembers(PackageSpace* space) noexcept;
 	void analyzeMember(AnalyzedClass* cls) noexcept;
@@ -69,6 +72,7 @@ private:
 	VTableRegistory* vtableReg;
 
 	CodeElement* current;
+	AnalyzedType* tmpArrayType;
 };
 
 } /* namespace alinous */

@@ -37,6 +37,7 @@ AnalyzeContext::AnalyzeContext() {
 	this->thisClasses = new ArrayList<AnalyzedClass>();
 	this->vtableReg = new VTableRegistory();
 	this->current = nullptr;
+	this->tmpArrayType = nullptr;
 }
 
 AnalyzeContext::~AnalyzeContext() {
@@ -201,6 +202,14 @@ void AnalyzeContext::setCurrentElement(CodeElement* current) noexcept {
 
 CodeElement* AnalyzeContext::getCurrentElement() const noexcept {
 	return this->current;
+}
+
+void AnalyzeContext::setTmpArrayType(AnalyzedType* tmpArrayType) noexcept {
+	this->tmpArrayType = tmpArrayType;
+}
+
+AnalyzedType* AnalyzeContext::getTmpArrayType() const noexcept {
+	return this->tmpArrayType;
 }
 
 } /* namespace alinous */

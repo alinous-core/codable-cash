@@ -40,6 +40,8 @@ public:
 private:
 	VariableIdentifier* valId;
 	ArrayList<AbstractExpression> dims;
+
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */
