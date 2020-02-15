@@ -31,6 +31,7 @@ AnalyzedClass::AnalyzedClass(const AnalyzedClass& inst) {
 	this->clazz = inst.clazz;
 	this->variables = new HashMap<UnicodeString, MemberVariableDeclare>();
 	this->methods = new HashMap<UnicodeString, MethodDeclare>();
+	this->sig = nullptr;
 
 	Iterator<UnicodeString>* it = inst.variables->keySet()->iterator();
 	while(it->hasNext()){
