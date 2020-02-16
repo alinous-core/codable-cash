@@ -41,6 +41,15 @@ void VmArrayInstance::removeInnerRefs(GcManager* gc) noexcept {
 	}
 }
 
+const VMemList<AbstractReference>* VmArrayInstance::getReferences() const noexcept {
+	return this->array;
+}
+
+AbstractExtObject* VmArrayInstance::toClassExtObject(const UnicodeString* name,	VTableRegistory* reg) {
+	// FIXME toClassExtObject
+	return nullptr;
+}
+
 void VmArrayInstance::setReference(int pos, AbstractReference* ref) noexcept {
 	this->array->setElement(ref, pos);
 }
