@@ -14,6 +14,7 @@
 
 #include "instance/AbstractVmInstance.h"
 
+
 namespace alinous {
 class VirtualMachine;
 

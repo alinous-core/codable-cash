@@ -15,13 +15,18 @@
 namespace alinous {
 
 class VirtualMachine;
+class VmArrayInstance;
+template <typename T, typename C> class ArrayList;
 
 class ArrayReference : public AbstractReference {
 public:
 	ArrayReference(VirtualMachine* vm);
 	virtual ~ArrayReference();
 
+	void initArray(int dim);
+
 private:
+	VmArrayInstance* instArray;
 };
 
 } /* namespace alinous */

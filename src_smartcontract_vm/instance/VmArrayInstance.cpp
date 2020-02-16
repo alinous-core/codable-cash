@@ -10,6 +10,8 @@
 
 #include "instance_gc/GcManager.h"
 
+#include "instance_ref/AbstractReference.h"
+
 
 namespace alinous {
 
@@ -19,6 +21,7 @@ VmArrayInstance::VmArrayInstance(VirtualMachine* vm) : AbstractVmInstance(VmInst
 }
 
 VmArrayInstance::~VmArrayInstance() {
+	this->array->deleteElements();
 	delete this->array;
 }
 

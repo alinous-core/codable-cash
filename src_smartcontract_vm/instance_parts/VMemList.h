@@ -72,6 +72,16 @@ public:
 		this->sorted = true;
 	}
 
+	void deleteElements(){
+		int maxLoop = size();
+		for(int i = 0; i != maxLoop; ++i){
+			T* ptr = get(i);
+			if(ptr != nullptr){
+				delete ptr;
+			}
+		}
+	}
+
 	void addElement(T* ptr)
 	{
 		if(__builtin_expect(this->currentSize <= this->numArray, 0)){

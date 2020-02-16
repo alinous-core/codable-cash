@@ -15,12 +15,15 @@
 namespace alinous {
 
 ArrayReference::ArrayReference(VirtualMachine* vm) : AbstractReference(VmInstanceTypesConst::REF_ARRAY) {
-
+	this->instArray = nullptr;
 }
 
 ArrayReference::~ArrayReference() {
-
+	this->instArray = nullptr;
 }
 
+void ArrayReference::initArray(int dim) {
+
+}
 
 } /* namespace alinous */
