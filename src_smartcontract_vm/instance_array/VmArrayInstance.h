@@ -20,13 +20,16 @@ class VirtualMachine;
 
 class VmArrayInstance : public AbstractVmInstance, public IInstanceContainer {
 public:
-	VmArrayInstance(VirtualMachine* vm);
+	VmArrayInstance(VirtualMachine* vm, int length);
 	virtual ~VmArrayInstance();
 
 	virtual void removeInnerRefs(GcManager* gc) noexcept;
 
+
+	void setReference(int pos, AbstractReference* ref) noexcept;
 private:
 	VMemList<AbstractReference>* array;
+	int length;
 };
 
 } /* namespace alinous */

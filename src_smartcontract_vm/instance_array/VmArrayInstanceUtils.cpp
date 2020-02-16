@@ -10,6 +10,7 @@
 #include "sc_analyze/AnalyzedType.h"
 
 #include "instance_array/VmArrayInstance.h"
+#include "instance_array/ArrayReference.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -28,12 +29,26 @@ bool VmArrayInstanceUtils::isArrayIndex(AnalyzedType& type) noexcept {
 }
 
 
-VmArrayInstance* VmArrayInstanceUtils::buildArrayInstance(VirtualMachine* vm, int* dims, int size) {
-	VmArrayInstance* inst = new(vm) VmArrayInstance(vm);
+VmArrayInstance* VmArrayInstanceUtils::buildArrayInstance(VirtualMachine* vm, int* dims, int size, const AnalyzedType* atype) {
+	int length = dims[0];
+
+	VmArrayInstance* inst = new(vm) VmArrayInstance(vm, length);
+	for(int i = 0; i != length; ++i){
+		AbstractReference* ref = makeReference(vm, size, 0, atype);
+		inst->setReference(i, ref);
+	}
+
+
 
 	return inst;
 }
 
+AbstractReference* VmArrayInstanceUtils::makeReference(VirtualMachine* vm, int depth, int current, const AnalyzedType* atype) {
+	if(depth - 1 < current){
 
+	}
+
+	return new(vm) ArrayReference(vm);
+}
 
 } /* namespace alinous */

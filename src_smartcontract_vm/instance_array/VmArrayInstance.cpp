@@ -15,8 +15,9 @@
 
 namespace alinous {
 
-VmArrayInstance::VmArrayInstance(VirtualMachine* vm) : AbstractVmInstance(VmInstanceTypesConst::INST_ARRAY) {
+VmArrayInstance::VmArrayInstance(VirtualMachine* vm, int length) : AbstractVmInstance(VmInstanceTypesConst::INST_ARRAY) {
 	this->array = new(vm) VMemList<AbstractReference>(vm);
+	this->length = length;
 
 }
 
@@ -34,6 +35,10 @@ void VmArrayInstance::removeInnerRefs(GcManager* gc) noexcept {
 		// remove ref
 		gc->removeRefReference(this, ref);
 	}
+}
+
+void VmArrayInstance::setReference(int pos, AbstractReference* ref) noexcept {
+	this->array->setElement(ref, pos);
 }
 
 } /* namespace alinous */

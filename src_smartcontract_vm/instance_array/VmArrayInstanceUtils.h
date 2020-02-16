@@ -19,7 +19,10 @@ class VirtualMachine;
 class VmArrayInstanceUtils {
 public:
 	static bool isArrayIndex(AnalyzedType& type) noexcept;
-	static VmArrayInstance* buildArrayInstance(VirtualMachine* vm, int* dims, int size);
+	static VmArrayInstance* buildArrayInstance(VirtualMachine* vm, int* dims, int size, const AnalyzedType* atype);
+
+private:
+	static AbstractReference* makeReference(VirtualMachine* vm, int depth, int current, const AnalyzedType* atype);
 };
 
 } /* namespace alinous */

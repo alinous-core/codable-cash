@@ -155,7 +155,7 @@ AbstractVmInstance* ConstructorArray::interpret(VirtualMachine* vm) {
 		arrayDim[d];
 	}
 
-	return VmArrayInstanceUtils::buildArrayInstance(vm, arrayDim, dim);
+	return VmArrayInstanceUtils::buildArrayInstance(vm, arrayDim, dim, this->atype);
 }
 
 
