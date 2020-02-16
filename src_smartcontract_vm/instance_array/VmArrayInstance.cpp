@@ -19,6 +19,10 @@ VmArrayInstance::VmArrayInstance(VirtualMachine* vm, int length) : AbstractVmIns
 	this->array = new(vm) VMemList<AbstractReference>(vm);
 	this->length = length;
 
+	for(int i = 0; i != length; ++i){
+		this->array->addElement(nullptr);
+	}
+
 }
 
 VmArrayInstance::~VmArrayInstance() {
