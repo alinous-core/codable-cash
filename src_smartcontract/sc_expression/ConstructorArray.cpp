@@ -9,6 +9,8 @@
 
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/AnalyzedThisClassStackPopper.h"
+#include "sc_analyze/ValidationError.h"
 
 #include "instance/AbstractVmInstance.h"
 
@@ -19,16 +21,23 @@
 #include "sc_expression/VariableIdentifier.h"
 #include "sc_expression/NumberLiteral.h"
 
-#include "sc_analyze/AnalyzedThisClassStackPopper.h"
+#include "instance_array/VmArrayInstanceUtils.h"
+#include "instance_ref/PrimitiveReference.h"
+
+#include "base/StackRelease.h"
+
+
 namespace alinous {
 
 ConstructorArray::ConstructorArray() : AbstractExpression(CodeElement::EXP_CONSTRUCTORARRAY) {
 	this->valId = nullptr;
+	this->atype = nullptr;
 }
 
 ConstructorArray::~ConstructorArray() {
 	delete this->valId;
 	this->dims.deleteElements();
+	delete this->atype;
 }
 
 int ConstructorArray::binarySize() const {
@@ -97,29 +106,56 @@ void ConstructorArray::analyzeTypeRef(AnalyzeContext* actx) {
 
 void ConstructorArray::analyze(AnalyzeContext* actx) {
 	{
-		// recover this class
-		AnalyzedClass* lastThisClass = actx->getLastThisClass();
-		AnalyzedThisClassStackPopper popper(actx, lastThisClass);
-
 		int maxLoop = this->dims.size();
 		for(int i = 0; i != maxLoop; ++i){
 			AbstractExpression* exp = this->dims.get(i);
 			exp->analyze(actx);
+
+			// check array index type
+			AnalyzedType type = exp->getType(actx);
+			bool res = VmArrayInstanceUtils::isArrayIndex(type);
+			if(!res){
+				actx->addValidationError(ValidationError::CODE_ARRAY_INDEX_MUST_BE_NUMERIC, this, L"Array index must be numeric value.", {});
+			}
+
 		}
 	}
 
-
+	this->atype = new AnalyzedType(*actx->getTmpArrayType());
+	int dim = this->dims.size();
+	this->atype->setDim(dim);
 }
 
 AnalyzedType ConstructorArray::getType(AnalyzeContext* actx) {
+	return *this->atype;
 }
 
 void ConstructorArray::init(VirtualMachine* vm) {
 	this->valId->init(vm);
+
+	int maxLoop = this->dims.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->dims.get(i);
+		exp->init(vm);
+	}
 }
 
 AbstractVmInstance* ConstructorArray::interpret(VirtualMachine* vm) {
-	return nullptr;
+	int dim = this->atype->getDim();
+
+	int* arrayDim = new int[dim];
+	StackArrayRelease<int> __releaseArrayDim(arrayDim);
+	for(int i = 0; i != dim; ++i){
+		AbstractExpression* idxExp = this->dims.get(i);
+		AbstractVmInstance* idxInst = idxExp->interpret(vm);
+
+		PrimitiveReference* primitive = dynamic_cast<PrimitiveReference*>(idxInst);
+		int d = primitive->getIntValue();
+
+		arrayDim[i] = d;
+	}
+
+	return VmArrayInstanceUtils::buildArrayInstance(vm, arrayDim, dim, this->atype);
 }
 
 

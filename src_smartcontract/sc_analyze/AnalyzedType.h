@@ -49,6 +49,10 @@ public:
 	const UnicodeString* stringName() noexcept;
 	const UnicodeString* getSignatureName() noexcept;
 
+	void setDim(int dim) noexcept;
+	int getDim() const noexcept;
+	bool isArray() const noexcept;
+
 	bool equals(AnalyzedType* other) const noexcept;
 private:
 	void makeStringName() noexcept;
@@ -57,6 +61,7 @@ private:
 private:
 	uint8_t type;
 	AnalyzedClass* aclazz; // reference
+	int dim;
 
 	UnicodeString* str;
 };

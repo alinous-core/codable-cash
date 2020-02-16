@@ -12,7 +12,9 @@ namespace alinous {
 
 AnalyzedThisClassStackPopper::AnalyzedThisClassStackPopper(AnalyzeContext* actx, AnalyzedClass* thisClass) {
 	this->actx = actx;
-	this->actx->setThisClass(thisClass);
+	if(thisClass != nullptr){
+		this->actx->setThisClass(thisClass);
+	}
 }
 
 AnalyzedThisClassStackPopper::~AnalyzedThisClassStackPopper() {

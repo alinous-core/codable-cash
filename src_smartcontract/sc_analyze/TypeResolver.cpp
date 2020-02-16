@@ -97,6 +97,9 @@ AnalyzedType* TypeResolver::resolveType(CodeElement* element, AbstractType* type
 		break;
 	}
 
+	int dim = type->getDimension();
+	result->setDim(dim);
+
 	return result;
 }
 

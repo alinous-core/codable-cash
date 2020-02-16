@@ -51,6 +51,10 @@ char* VmMemoryManager::malloc(uint32_t cap) {
 		}
 	}
 
+	if(start < 0){
+		throw new VmMemoryAllocationException(__FILE__, __LINE__);
+	}
+
 	int64_t end = start + allocSize - 1;
 	this->available->removeRange(start, end);
 	this->used->addRange(start, end);
@@ -80,9 +84,9 @@ void VmMemoryManager::free(char* ptr) {
 
 uint32_t VmMemoryManager::getSize(char* ptr) const noexcept {
 	char* head = ptr - sizeof(uint32_t);
+	uint32_t* uintPtr = (uint32_t*)head;
 
-
-	return *head;
+	return *uintPtr;
 }
 
 } /* namespace alinous */

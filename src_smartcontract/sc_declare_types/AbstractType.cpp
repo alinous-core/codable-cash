@@ -11,7 +11,7 @@
 namespace alinous {
 
 AbstractType::AbstractType(short kind) : CodeElement(kind) {
-	this->dimension = 1;
+	this->dimension = 0;
 }
 
 AbstractType::~AbstractType() {

@@ -62,3 +62,31 @@ TEST(TestMemoryGroup, malloc01error){
 	delete ex;
 }
 
+TEST(TestMemoryGroup, malloc02error){
+	Exception* ex = nullptr;
+	int seg = 6;
+	int size = seg* (2 + sizeof(uint32_t));
+	VmMemoryManager* vm = new VmMemoryManager(size); __STP(vm);
+
+	try{
+		char* ptr01 = vm->malloc(2);
+		char* ptr02 = vm->malloc(2);
+		char* ptr03 = vm->malloc(2);
+		char* ptr04 = vm->malloc(2);
+		char* ptr05 = vm->malloc(2);
+		char* ptr06 = vm->malloc(2);
+
+		vm->free(ptr02);
+		vm->free(ptr04);
+		vm->free(ptr06);
+
+		vm->malloc(4);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+
+	delete ex;
+}
+

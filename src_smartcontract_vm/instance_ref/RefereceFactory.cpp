@@ -17,10 +17,19 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "instance_array/ArrayReference.h"
+
+
 namespace alinous {
 
 AbstractReference* RefereceFactory::createReferenceFromDefinition(MemberVariableDeclare* dec, VirtualMachine* vm) {
 	AbstractType* type = dec->getType();
+
+	// array
+	int dim = type->getDimension();
+	if(dim > 0){
+		return new(vm) ArrayReference(vm);
+	}
 
 	short kind = type->getKind();
 	AbstractReference* ref = nullptr;
@@ -57,8 +66,13 @@ AbstractReference* RefereceFactory::createObjectReferenceFromDefinition(MemberVa
 	return ref;
 }
 
-AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(AnalyzedType* atype, VirtualMachine* vm) {
+AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(const AnalyzedType* atype, VirtualMachine* vm) {
 	AbstractReference* ref = nullptr;
+
+	// is Array
+	if(atype->isArray()){
+		return createArrayReferenceFromAnalyzedType(atype, vm);
+	}
 
 	uint8_t type = atype->getType();
 	switch(type){
@@ -90,6 +104,12 @@ AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(AnalyzedType
 	return ref;
 }
 
+AbstractReference* RefereceFactory::createArrayReferenceFromAnalyzedType(const AnalyzedType* atype, VirtualMachine* vm) {
+	ArrayReference* ref = new(vm) ArrayReference(vm);
+
+	return ref;
+}
+
 /***
  * type is analyzed type
  */
@@ -107,5 +127,6 @@ PrimitiveReference* RefereceFactory::createNumericReference(int64_t value, uint8
 
 	return ref;
 }
+
 
 } /* namespace alinous */

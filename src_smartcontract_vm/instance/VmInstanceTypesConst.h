@@ -16,8 +16,10 @@ public:
 	static constexpr uint8_t STACK {1};
 	static constexpr uint8_t ISNT_OBJ {2};
 	static constexpr uint8_t INST_STRING{3};
-	static constexpr uint8_t INST_BIG_INT{4};
-	static constexpr uint8_t INST_ARRAY{5};
+	static constexpr uint8_t INST_ARRAY{4};
+
+	static constexpr uint8_t INST_BIG_INT{10};
+
 
 
 	static constexpr uint8_t REF_ROOT{100};
@@ -28,6 +30,8 @@ public:
 	static constexpr uint8_t REF_INT{105};
 	static constexpr uint8_t REF_LONG{106};
 	static constexpr uint8_t REF_BOOL{107};
+
+	static constexpr uint8_t REF_ARRAY{150};
 };
 
 } /* namespace alinous */

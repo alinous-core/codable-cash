@@ -26,24 +26,28 @@ AnalyzedType::AnalyzedType(uint8_t type) {
 	this->type = type;
 	this->aclazz = nullptr;
 	this->str = nullptr;
+	this->dim = 0;
 }
 
 AnalyzedType::AnalyzedType(AnalyzedClass* clazz) {
 	this->type = TYPE_OBJECT;
 	this->aclazz = clazz;
 	this->str = nullptr;
+	this->dim = 0;
 }
 
 AnalyzedType::AnalyzedType(const AnalyzedType& obj) {
 	this->type = obj.type;
 	this->aclazz = obj.aclazz;
 	this->str = nullptr;
+	this->dim = obj.dim;
 }
 
 AnalyzedType::AnalyzedType() {
 	this->type = TYPE_NULL;
 	this->aclazz = nullptr;
 	this->str = nullptr;
+	this->dim = 0;
 }
 
 AnalyzedType::~AnalyzedType() {
@@ -57,6 +61,14 @@ AnalyzedClass* AnalyzedType::getAnalyzedClass() const noexcept {
 
 uint8_t AnalyzedType::getType() const noexcept {
 	return this->type;
+}
+
+void AnalyzedType::setDim(int dim) noexcept {
+	this->dim = dim;
+}
+
+int AnalyzedType::getDim() const noexcept {
+	return this->dim;
 }
 
 const UnicodeString* AnalyzedType::stringName() noexcept {
@@ -134,6 +146,10 @@ const UnicodeString* AnalyzedType::getSignatureName() noexcept {
 	}
 
 	return ret;
+}
+
+bool AnalyzedType::isArray() const noexcept {
+	return this->dim > 0;
 }
 
 void AnalyzedType::makeObjectString() noexcept {

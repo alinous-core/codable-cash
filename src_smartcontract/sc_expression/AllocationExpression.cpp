@@ -20,6 +20,7 @@
 
 #include "base/StackRelease.h"
 
+#include "sc_analyze/ValidationError.h"
 
 namespace alinous {
 
@@ -92,7 +93,12 @@ void AllocationExpression::analyzeArray(AnalyzeContext* actx) {
 	className.append(constructorName);
 
 	AnalyzedType* atype = findType(actx, &className); __STP(atype);
-	AnalyzedThisClassStackPopper popper(actx, atype->getAnalyzedClass());
+	if(atype == nullptr){
+		actx->addValidationError(ValidationError::CODE_ALLOCATION_TYPE_DOES_NOT_EXISTS, this, L"The class '{0}' does not exists.", {&className});
+		return;
+	}
+
+	actx->setTmpArrayType(atype);
 
 	this->array->analyze(actx);
 }
@@ -162,10 +168,19 @@ void AllocationExpression::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType AllocationExpression::getType(AnalyzeContext* actx) {
+	if(this->array != nullptr){
+		return this->array->getType(actx);
+	}
+
 	return this->constructorCall->getType(actx);
 }
 
 void AllocationExpression::init(VirtualMachine* vm) {
+	if(this->array != nullptr){
+		this->array->init(vm);
+		return;
+	}
+
 	this->constructorCall->init(vm);
 }
 
@@ -180,8 +195,9 @@ AbstractVmInstance* AllocationExpression::interpret(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* AllocationExpression::interpretArray(VirtualMachine* vm) {
-	// FIXME interpret array
-	return nullptr;
+	AbstractVmInstance* inst = this->array->interpret(vm);
+
+	return inst;
 }
 
 } /* namespace alinous */
