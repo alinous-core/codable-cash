@@ -57,4 +57,7 @@ TEST(TestAllocationStmtGroup, primitiveArrayAllocation){
 	result = util.analyze();
 	CHECK(result)
 
+	//result = util.createInstance();
+	//CHECK(result)
+
 }

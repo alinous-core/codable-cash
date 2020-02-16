@@ -2,7 +2,6 @@
 
 set(__src
 	AbstractReference.cpp
-	ArrayReference.cpp
 	ObjectReference.cpp
 	PrimitiveReference.cpp
 	RefereceFactory.cpp

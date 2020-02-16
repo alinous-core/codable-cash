@@ -128,6 +128,8 @@ void ConstructorArray::init(VirtualMachine* vm) {
 AbstractVmInstance* ConstructorArray::interpret(VirtualMachine* vm) {
 	int dim = this->atype->getDim();
 
+
+
 	// FIXME
 	return nullptr;
 }

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "instance_ref/ArrayReference.h"
+#include "instance_array/ArrayReference.h"
 
 #include "instance/AbstractVmInstance.h"
 #include "instance/VmInstanceTypesConst.h"

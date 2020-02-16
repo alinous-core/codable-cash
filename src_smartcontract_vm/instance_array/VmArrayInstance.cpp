@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "instance/VmArrayInstance.h"
+#include "instance_array/VmArrayInstance.h"
 #include "instance/VmInstanceTypesConst.h"
 
 #include "instance_gc/GcManager.h"
