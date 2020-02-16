@@ -148,6 +148,10 @@ const UnicodeString* AnalyzedType::getSignatureName() noexcept {
 	return ret;
 }
 
+bool AnalyzedType::isArray() const noexcept {
+	return this->dim > 0;
+}
+
 void AnalyzedType::makeObjectString() noexcept {
 	if(this->aclazz == nullptr){
 		this->str = new UnicodeString(L"null");

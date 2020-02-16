@@ -51,6 +51,7 @@ public:
 
 	void setDim(int dim) noexcept;
 	int getDim() const noexcept;
+	bool isArray() const noexcept;
 
 	bool equals(AnalyzedType* other) const noexcept;
 private:

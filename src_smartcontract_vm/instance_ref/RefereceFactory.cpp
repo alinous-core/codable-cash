@@ -60,6 +60,11 @@ AbstractReference* RefereceFactory::createObjectReferenceFromDefinition(MemberVa
 AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(AnalyzedType* atype, VirtualMachine* vm) {
 	AbstractReference* ref = nullptr;
 
+	// FIXME is Array
+	if(atype->isArray()){
+		return createArrayReferenceFromAnalyzedType(atype, vm);
+	}
+
 	uint8_t type = atype->getType();
 	switch(type){
 	case AnalyzedType::TYPE_BOOL:
@@ -90,6 +95,11 @@ AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(AnalyzedType
 	return ref;
 }
 
+AbstractReference* RefereceFactory::createArrayReferenceFromAnalyzedType(AnalyzedType* atype, VirtualMachine* vm) {
+	// FIXME createArrayReferenceFromAnalyzedType
+	return nullptr;
+}
+
 /***
  * type is analyzed type
  */
@@ -107,5 +117,6 @@ PrimitiveReference* RefereceFactory::createNumericReference(int64_t value, uint8
 
 	return ref;
 }
+
 
 } /* namespace alinous */

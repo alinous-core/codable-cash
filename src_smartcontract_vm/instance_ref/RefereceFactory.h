@@ -24,6 +24,7 @@ public:
 	static AbstractReference* createReferenceFromAnalyzedType(AnalyzedType* atype, VirtualMachine* vm);
 private:
 	static AbstractReference* createObjectReferenceFromDefinition(MemberVariableDeclare* dec, VirtualMachine* vm);
+	static AbstractReference* createArrayReferenceFromAnalyzedType(AnalyzedType* atype, VirtualMachine* vm);
 };
 
 } /* namespace alinous */

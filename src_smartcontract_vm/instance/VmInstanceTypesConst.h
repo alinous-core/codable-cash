@@ -27,6 +27,8 @@ public:
 	static constexpr uint8_t REF_INT{105};
 	static constexpr uint8_t REF_LONG{106};
 	static constexpr uint8_t REF_BOOL{107};
+
+	static constexpr uint8_t REF_ARRAY{150};
 };
 
 } /* namespace alinous */
