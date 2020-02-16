@@ -51,6 +51,10 @@ char* VmMemoryManager::malloc(uint32_t cap) {
 		}
 	}
 
+	if(start < 0){
+		throw new VmMemoryAllocationException(__FILE__, __LINE__);
+	}
+
 	int64_t end = start + allocSize - 1;
 	this->available->removeRange(start, end);
 	this->used->addRange(start, end);
