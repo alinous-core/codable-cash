@@ -3,6 +3,7 @@
 set(__src
 	AbstractVmInstance.cpp
 	IInstanceContainer.cpp
+	VmArrayInstance.cpp
 	VmClassInstance.cpp
 	VmInstanceTypesConst.cpp
 	VmStringInstance.cpp

@@ -9,25 +9,19 @@
 #define INSTANCE_REF_ARRAYREFERENCE_H_
 
 #include "instance_ref/AbstractReference.h"
-#include "instance_parts/VMemList.h"
-#include "instance/IInstanceContainer.h"
+
 
 
 namespace alinous {
 
 class VirtualMachine;
 
-class ArrayReference : public AbstractReference, public IInstanceContainer {
+class ArrayReference : public AbstractReference {
 public:
 	ArrayReference(VirtualMachine* vm);
 	virtual ~ArrayReference();
 
-	virtual void removeInnerRefs(GcManager* gc) noexcept;
-
-	void add(AbstractVmInstance* inst);
-
 private:
-	VMemList<AbstractVmInstance>* array;
 };
 
 } /* namespace alinous */
