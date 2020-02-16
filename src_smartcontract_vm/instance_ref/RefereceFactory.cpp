@@ -66,7 +66,7 @@ AbstractReference* RefereceFactory::createObjectReferenceFromDefinition(MemberVa
 	return ref;
 }
 
-AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(AnalyzedType* atype, VirtualMachine* vm) {
+AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(const AnalyzedType* atype, VirtualMachine* vm) {
 	AbstractReference* ref = nullptr;
 
 	// is Array
@@ -104,7 +104,7 @@ AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(AnalyzedType
 	return ref;
 }
 
-AbstractReference* RefereceFactory::createArrayReferenceFromAnalyzedType(AnalyzedType* atype, VirtualMachine* vm) {
+AbstractReference* RefereceFactory::createArrayReferenceFromAnalyzedType(const AnalyzedType* atype, VirtualMachine* vm) {
 	ArrayReference* ref = new(vm) ArrayReference(vm);
 
 	return ref;

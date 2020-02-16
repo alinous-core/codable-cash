@@ -14,6 +14,7 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "instance_ref/RefereceFactory.h"
 
 namespace alinous {
 
@@ -45,7 +46,8 @@ VmArrayInstance* VmArrayInstanceUtils::buildArrayInstance(VirtualMachine* vm, in
 
 AbstractReference* VmArrayInstanceUtils::makeReference(VirtualMachine* vm, int depth, int current, const AnalyzedType* atype) {
 	if(depth - 1 < current){
-
+		AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(atype, vm);
+		return ref;
 	}
 
 	return new(vm) ArrayReference(vm);

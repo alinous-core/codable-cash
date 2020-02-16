@@ -21,10 +21,10 @@ class RefereceFactory {
 public:
 	static AbstractReference* createReferenceFromDefinition(MemberVariableDeclare* dec, VirtualMachine* vm);
 	static PrimitiveReference* createNumericReference(int64_t value, uint8_t type, VirtualMachine* vm);
-	static AbstractReference* createReferenceFromAnalyzedType(AnalyzedType* atype, VirtualMachine* vm);
+	static AbstractReference* createReferenceFromAnalyzedType(const AnalyzedType* atype, VirtualMachine* vm);
 private:
 	static AbstractReference* createObjectReferenceFromDefinition(MemberVariableDeclare* dec, VirtualMachine* vm);
-	static AbstractReference* createArrayReferenceFromAnalyzedType(AnalyzedType* atype, VirtualMachine* vm);
+	static AbstractReference* createArrayReferenceFromAnalyzedType(const AnalyzedType* atype, VirtualMachine* vm);
 };
 
 } /* namespace alinous */
