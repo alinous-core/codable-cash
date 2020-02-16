@@ -57,6 +57,15 @@ public:
 		this->vm = vm;
 	}
 
+	VMemList(VirtualMachine* vm, int defSize) : numArray(0), currentSize(defSize),
+				//root(new ElementType[this->currentSize * sizeof(ElementType)]), cursor(root),
+				sorted(false),
+				compareFunctor() {
+		this->root = (ElementType*)vm->getAlloc()->mallocPtrArray(this->currentSize * sizeof(ElementType));
+		this->cursor = this->root;
+		this->vm = vm;
+	}
+
 	virtual ~VMemList(){
 		this->vm->getAlloc()->releaseArray(this->root);
 	}

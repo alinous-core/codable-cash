@@ -80,9 +80,9 @@ void VmMemoryManager::free(char* ptr) {
 
 uint32_t VmMemoryManager::getSize(char* ptr) const noexcept {
 	char* head = ptr - sizeof(uint32_t);
+	uint32_t* uintPtr = (uint32_t*)head;
 
-
-	return *head;
+	return *uintPtr;
 }
 
 } /* namespace alinous */

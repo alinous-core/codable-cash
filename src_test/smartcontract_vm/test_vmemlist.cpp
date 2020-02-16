@@ -43,6 +43,22 @@ TEST(TestVmMemList, test02){
 	delete ref;
 	delete list;
 }
+
+TEST(TestVmMemList, testAddNullptr){
+	VirtualMachine vm(1024 * 4);
+
+	VMemList<PrimitiveReference>* list = new(&vm) VMemList<PrimitiveReference>(&vm, 2);
+	int maxLoop = 10;
+	for(int i = 0; i != maxLoop; ++i){
+		//PrimitiveReference* ref = PrimitiveReference::createIntReference(&vm, 1);
+		list->addElement(nullptr);
+	}
+
+
+	list->deleteElements();
+	delete list;
+
+}
 /*
 TEST(TestVmMemList, test02){
 	ArrayList<dummyInt> ar;
