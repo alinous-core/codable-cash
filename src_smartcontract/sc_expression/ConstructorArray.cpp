@@ -9,6 +9,8 @@
 
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/AnalyzedThisClassStackPopper.h"
+#include "sc_analyze/ValidationError.h"
 
 #include "instance/AbstractVmInstance.h"
 
@@ -19,7 +21,9 @@
 #include "sc_expression/VariableIdentifier.h"
 #include "sc_expression/NumberLiteral.h"
 
-#include "sc_analyze/AnalyzedThisClassStackPopper.h"
+#include "instance_array/VmArrayInstanceUtils.h"
+
+
 namespace alinous {
 
 ConstructorArray::ConstructorArray() : AbstractExpression(CodeElement::EXP_CONSTRUCTORARRAY) {
@@ -103,6 +107,14 @@ void ConstructorArray::analyze(AnalyzeContext* actx) {
 		for(int i = 0; i != maxLoop; ++i){
 			AbstractExpression* exp = this->dims.get(i);
 			exp->analyze(actx);
+
+			// check array index type
+			AnalyzedType type = exp->getType(actx);
+			bool res = VmArrayInstanceUtils::isArrayIndex(type);
+			if(!res){
+				actx->addValidationError(ValidationError::CODE_ARRAY_INDEX_MUST_BE_NUMERIC, this, L"Array index must be numeric value.", {});
+			}
+
 		}
 	}
 

@@ -35,6 +35,8 @@ public:
 
 	static constexpr int CODE_ALLOCATION_TYPE_DOES_NOT_EXISTS = 40;
 
+	static constexpr int CODE_ARRAY_INDEX_MUST_BE_NUMERIC = 50;
+
 	//static constexpr int CODE_WRONG_TYPE_NAME = 4;
 
 
