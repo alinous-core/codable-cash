@@ -9,6 +9,10 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "instance_array/VmArrayInstance.h"
+
+#include "vm/VirtualMachine.h"
+
 
 namespace alinous {
 
@@ -22,6 +26,14 @@ bool VmArrayInstanceUtils::isArrayIndex(AnalyzedType& type) noexcept {
 					type.getType() == AnalyzedType::TYPE_LONG
 			);
 }
+
+
+VmArrayInstance* VmArrayInstanceUtils::buildArrayInstance(VirtualMachine* vm, int* dims, int size) {
+	VmArrayInstance* inst = new(vm) VmArrayInstance(vm);
+
+	return inst;
+}
+
 
 
 } /* namespace alinous */

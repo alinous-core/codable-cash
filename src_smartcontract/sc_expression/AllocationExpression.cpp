@@ -195,8 +195,9 @@ AbstractVmInstance* AllocationExpression::interpret(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* AllocationExpression::interpretArray(VirtualMachine* vm) {
-	// FIXME interpret array
-	return nullptr;
+	AbstractVmInstance* inst = this->array->interpret(vm);
+
+	return inst;
 }
 
 } /* namespace alinous */

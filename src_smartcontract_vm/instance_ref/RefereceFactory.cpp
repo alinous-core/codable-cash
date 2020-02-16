@@ -17,10 +17,19 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "instance_array/ArrayReference.h"
+
+
 namespace alinous {
 
 AbstractReference* RefereceFactory::createReferenceFromDefinition(MemberVariableDeclare* dec, VirtualMachine* vm) {
 	AbstractType* type = dec->getType();
+
+	// array
+	int dim = type->getDimension();
+	if(dim > 0){
+		return new(vm) ArrayReference(vm);
+	}
 
 	short kind = type->getKind();
 	AbstractReference* ref = nullptr;
@@ -60,7 +69,7 @@ AbstractReference* RefereceFactory::createObjectReferenceFromDefinition(MemberVa
 AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(AnalyzedType* atype, VirtualMachine* vm) {
 	AbstractReference* ref = nullptr;
 
-	// FIXME is Array
+	// is Array
 	if(atype->isArray()){
 		return createArrayReferenceFromAnalyzedType(atype, vm);
 	}
@@ -96,8 +105,9 @@ AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(AnalyzedType
 }
 
 AbstractReference* RefereceFactory::createArrayReferenceFromAnalyzedType(AnalyzedType* atype, VirtualMachine* vm) {
-	// FIXME createArrayReferenceFromAnalyzedType
-	return nullptr;
+	ArrayReference* ref = new(vm) ArrayReference(vm);
+
+	return ref;
 }
 
 /***

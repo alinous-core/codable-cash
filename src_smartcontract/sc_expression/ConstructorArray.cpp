@@ -22,6 +22,9 @@
 #include "sc_expression/NumberLiteral.h"
 
 #include "instance_array/VmArrayInstanceUtils.h"
+#include "instance_ref/PrimitiveReference.h"
+
+#include "base/StackRelease.h"
 
 
 namespace alinous {
@@ -140,10 +143,19 @@ void ConstructorArray::init(VirtualMachine* vm) {
 AbstractVmInstance* ConstructorArray::interpret(VirtualMachine* vm) {
 	int dim = this->atype->getDim();
 
+	int* arrayDim = new int[dim];
+	StackArrayRelease<int> __releaseArrayDim(arrayDim);
+	for(int i = 0; i != dim; ++i){
+		AbstractExpression* idxExp = this->dims.get(i);
+		AbstractVmInstance* idxInst = idxExp->interpret(vm);
 
+		PrimitiveReference* primitive = dynamic_cast<PrimitiveReference*>(idxInst);
+		int d = primitive->getIntValue();
 
-	// FIXME
-	return nullptr;
+		arrayDim[d];
+	}
+
+	return VmArrayInstanceUtils::buildArrayInstance(vm, arrayDim, dim);
 }
 
 
