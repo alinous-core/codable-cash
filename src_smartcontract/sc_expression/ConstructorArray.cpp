@@ -152,7 +152,7 @@ AbstractVmInstance* ConstructorArray::interpret(VirtualMachine* vm) {
 		PrimitiveReference* primitive = dynamic_cast<PrimitiveReference*>(idxInst);
 		int d = primitive->getIntValue();
 
-		arrayDim[d];
+		arrayDim[i] = d;
 	}
 
 	return VmArrayInstanceUtils::buildArrayInstance(vm, arrayDim, dim, this->atype);
