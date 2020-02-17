@@ -26,7 +26,15 @@ VmArrayInstance::VmArrayInstance(VirtualMachine* vm, int length) : AbstractVmIns
 }
 
 VmArrayInstance::~VmArrayInstance() {
-	this->array->deleteElements();
+	int maxLoop = this->array->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractReference* ref = this->array->get(i);
+
+		if(ref != nullptr && !ref->isPrimitive()){
+			delete ref;
+		}
+	}
+
 	delete this->array;
 }
 

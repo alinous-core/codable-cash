@@ -31,12 +31,16 @@ bool VmArrayInstanceUtils::isArrayIndex(AnalyzedType& type) noexcept {
 
 
 VmArrayInstance* VmArrayInstanceUtils::buildArrayInstance(VirtualMachine* vm, int* dims, int size, const AnalyzedType* atype) {
+
+
 	int length = dims[0];
 
 	VmArrayInstance* inst = new(vm) VmArrayInstance(vm, length);
 	for(int i = 0; i != length; ++i){
 		AbstractReference* ref = makeReference(vm, size, 0, atype);
 		inst->setReference(i, ref);
+
+
 	}
 
 
@@ -45,8 +49,11 @@ VmArrayInstance* VmArrayInstanceUtils::buildArrayInstance(VirtualMachine* vm, in
 }
 
 AbstractReference* VmArrayInstanceUtils::makeReference(VirtualMachine* vm, int depth, int current, const AnalyzedType* atype) {
-	if(depth - 1 < current){
-		AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(atype, vm);
+	if(depth - 1 <= current){
+		AnalyzedType baseType(*atype);
+		baseType.setDim(0);
+
+		AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(&baseType, vm);
 		return ref;
 	}
 
