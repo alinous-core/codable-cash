@@ -6,11 +6,13 @@
  */
 
 #include "instance_array/ArrayReference.h"
+#include "instance_array/VmArrayInstance.h"
 
 #include "instance/AbstractVmInstance.h"
 #include "instance/VmInstanceTypesConst.h"
 
 #include "instance_gc/GcManager.h"
+
 
 namespace alinous {
 
@@ -20,6 +22,26 @@ ArrayReference::ArrayReference(VirtualMachine* vm) : AbstractReference(VmInstanc
 
 ArrayReference::~ArrayReference() {
 	this->instArray = nullptr;
+}
+
+AbstractVmInstance* ArrayReference::getInstance() noexcept {
+	return this->instArray;
+}
+
+void ArrayReference::substitute(AbstractVmInstance* rightValue,	VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
+	if(this->instArray != nullptr){
+		gc->removeInstanceReference(this, this->instArray);
+		this->instArray = nullptr;
+	}
+
+	if(!rightValue->isNull()){
+		VmArrayInstance* inst = dynamic_cast<VmArrayInstance*>(rightValue);
+
+		gc->addInstanceReference(this, inst);
+		this->instArray = inst;
+	}
 }
 
 void ArrayReference::initArray(int dim) {

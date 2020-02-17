@@ -23,6 +23,9 @@ public:
 	ArrayReference(VirtualMachine* vm);
 	virtual ~ArrayReference();
 
+	virtual AbstractVmInstance* getInstance() noexcept;
+	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
+
 	void initArray(int dim);
 
 private:
