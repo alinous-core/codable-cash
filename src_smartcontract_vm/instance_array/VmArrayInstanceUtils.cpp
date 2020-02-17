@@ -38,9 +38,7 @@ VmArrayInstance* VmArrayInstanceUtils::buildArrayInstance(VirtualMachine* vm, in
 	VmArrayInstance* inst = new(vm) VmArrayInstance(vm, length);
 	for(int i = 0; i != length; ++i){
 		AbstractReference* ref = makeReference(vm, size, 0, atype);
-		inst->setReference(i, ref);
-
-
+		inst->setReference(vm, i, ref);
 	}
 
 

@@ -27,7 +27,6 @@ public:
 	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
 	virtual bool isNull() const noexcept;
 
-	void initArray(int dim);
 
 private:
 	VmArrayInstance* instArray;

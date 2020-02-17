@@ -58,8 +58,19 @@ AbstractExtObject* VmArrayInstance::toClassExtObject(const UnicodeString* name,	
 	return nullptr;
 }
 
-void VmArrayInstance::setReference(int pos, AbstractReference* ref) noexcept {
-	this->array->setElement(ref, pos);
+void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReference* ref) noexcept {
+	GcManager* gc = vm->getGc();
+
+	AbstractReference* last = this->array->get(pos);
+	if(last != nullptr){
+		gc->removeRefReference(this, last);
+	}
+
+	if(ref != nullptr){
+		gc->addRefReference(this, ref);
+		this->array->setElement(ref, pos);
+	}
+
 }
 
 } /* namespace alinous */
