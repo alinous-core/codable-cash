@@ -25,6 +25,7 @@ public:
 
 	virtual AbstractVmInstance* getInstance() noexcept;
 	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
+	virtual bool isNull() const noexcept;
 
 	void initArray(int dim);
 

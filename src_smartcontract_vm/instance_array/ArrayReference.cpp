@@ -44,6 +44,10 @@ void ArrayReference::substitute(AbstractVmInstance* rightValue,	VirtualMachine* 
 	}
 }
 
+bool ArrayReference::isNull() const noexcept {
+	return this->instArray == nullptr;
+}
+
 void ArrayReference::initArray(int dim) {
 
 }
