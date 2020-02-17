@@ -22,6 +22,7 @@ public:
 	static VmArrayInstance* buildArrayInstance(VirtualMachine* vm, int* dims, int size, const AnalyzedType* atype);
 
 private:
+	static void makeDimension(VirtualMachine* vm, int depth, ArrayList<AbstractReference>* lastRefs, int length, const AnalyzedType* atype);
 	static AbstractReference* makeReference(VirtualMachine* vm, int depth, int current, const AnalyzedType* atype);
 };
 

@@ -31,19 +31,37 @@ bool VmArrayInstanceUtils::isArrayIndex(AnalyzedType& type) noexcept {
 
 
 VmArrayInstance* VmArrayInstanceUtils::buildArrayInstance(VirtualMachine* vm, int* dims, int size, const AnalyzedType* atype) {
-
-
 	int length = dims[0];
+
+	ArrayList<AbstractReference> lastRefs;
 
 	VmArrayInstance* inst = new(vm) VmArrayInstance(vm, length);
 	for(int i = 0; i != length; ++i){
 		AbstractReference* ref = makeReference(vm, size, 0, atype);
 		inst->setReference(vm, i, ref);
+		lastRefs.addElement(ref);
 	}
 
 
+	for(int i = 1; i != size; ++i){
+		length = dims[i];
+		makeDimension(vm, i, &lastRefs, length, atype);
+	}
 
 	return inst;
+}
+
+void VmArrayInstanceUtils::makeDimension(VirtualMachine* vm, int depth,	ArrayList<AbstractReference>* lastRefs, int length, const AnalyzedType* atype) {
+	ArrayList<AbstractReference> refs;
+
+	int maxLoop = lastRefs->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractReference* ref = lastRefs->get(i);
+
+	}
+
+	lastRefs->reset();
+	lastRefs->addAll(&refs);
 }
 
 AbstractReference* VmArrayInstanceUtils::makeReference(VirtualMachine* vm, int depth, int current, const AnalyzedType* atype) {
