@@ -46,28 +46,39 @@ VmArrayInstance* VmArrayInstanceUtils::buildArrayInstance(VirtualMachine* vm, in
 
 	for(int i = 1; i != size; ++i){
 		length = dims[i];
-		makeDimension(vm, i, &lastRefs, length, atype);
+		makeDimension(vm, size, i, &lastRefs, length, atype);
 	}
 
 	return inst;
 }
 
-void VmArrayInstanceUtils::makeDimension(VirtualMachine* vm, int depth,	ArrayList<AbstractReference>* lastRefs, int length, const AnalyzedType* atype) {
+void VmArrayInstanceUtils::makeDimension(VirtualMachine* vm, int maxDepth, int current, ArrayList<AbstractReference>* lastRefs, int length, const AnalyzedType* atype) {
 	ArrayList<AbstractReference> refs;
 
 	int maxLoop = lastRefs->size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractReference* ref = lastRefs->get(i);
 
-		uint8_t type = ref->getType();
-		if(type == VmInstanceTypesConst::REF_ARRAY){
+		ArrayReference* arrayReference = dynamic_cast<ArrayReference*>(ref);
 
-		}
+		VmArrayInstance* inst = new(vm) VmArrayInstance(vm, length);
+		ref->substitute(inst, vm);
 
+		setupVmArrayInstance(vm, inst, length, atype, &refs, maxDepth, current);
 	}
 
 	lastRefs->reset();
 	lastRefs->addAll(&refs);
+}
+
+void VmArrayInstanceUtils::setupVmArrayInstance(VirtualMachine* vm, VmArrayInstance* inst,
+		int length, const AnalyzedType* atype, ArrayList<AbstractReference>* refs, int maxDepth, int current) {
+	for(int i = 0; i != length; ++i){
+		AbstractReference* ref = makeReference(vm, maxDepth, current, atype);
+		inst->setReference(vm, i, ref);
+		refs->addElement(ref);
+	}
+
 }
 
 AbstractReference* VmArrayInstanceUtils::makeReference(VirtualMachine* vm, int depth, int current, const AnalyzedType* atype) {
