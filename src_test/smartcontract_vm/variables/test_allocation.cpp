@@ -13,6 +13,7 @@
 
 #include "../VmTestUtils.h"
 #include "ext_binary/ExtClassObject.h"
+#include "ext_binary/ExtArrayObject.h"
 
 using namespace alinous;
 
@@ -60,6 +61,15 @@ TEST(TestAllocationStmtGroup, primitiveArrayAllocation){
 	result = util.createInstance();
 	CHECK(result)
 
+	ExtClassObject* extObj = util.getMainExtObject(); __STP(extObj);
+	UnicodeString strar(L"ar");
+	ExtArrayObject* arObj = extObj->getExtArrayObject(&strar);
+
+	CHECK(arObj != nullptr)
+
+	int length = arObj->getLength();
+	CHECK(length == 3)
+
 }
 
 TEST(TestAllocationStmtGroup, primitiveArrayAllocation02){
@@ -77,7 +87,13 @@ TEST(TestAllocationStmtGroup, primitiveArrayAllocation02){
 	result = util.createInstance();
 	CHECK(result)
 
-	ExtClassObject* extObj = util.getMainExtObject();
+	ExtClassObject* extObj = util.getMainExtObject(); __STP(extObj);
+	UnicodeString strar(L"ar");
+	ExtArrayObject* arObj = extObj->getExtArrayObject(&strar);
 
+	CHECK(arObj != nullptr)
+
+	int length = arObj->getLength();
+	CHECK(length == 3)
 
 }

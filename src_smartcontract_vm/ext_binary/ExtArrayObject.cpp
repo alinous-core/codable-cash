@@ -11,8 +11,8 @@
 
 namespace alinous {
 
-ExtArrayObject::ExtArrayObject(const UnicodeString* name, int dim) : AbstractExtObject(name, VmInstanceTypesConst::INST_ARRAY) {
-	this->dim = dim;
+ExtArrayObject::ExtArrayObject(const UnicodeString* name, int length) : AbstractExtObject(name, VmInstanceTypesConst::INST_ARRAY) {
+	this->length = length;
 }
 
 ExtArrayObject::~ExtArrayObject() {
@@ -23,5 +23,8 @@ void ExtArrayObject::addInnerElement(AbstractExtObject* obj) noexcept {
 	this->array.addElement(obj);
 }
 
+int ExtArrayObject::getLength() const noexcept {
+	return this->length;
+}
 
 } /* namespace alinous */

@@ -17,13 +17,14 @@ class AbstractExtObject;
 
 class ExtArrayObject : public AbstractExtObject {
 public:
-	ExtArrayObject(const UnicodeString* name, int dim);
+	ExtArrayObject(const UnicodeString* name, int length);
 	virtual ~ExtArrayObject();
 
 	void addInnerElement(AbstractExtObject* obj) noexcept;
+	int getLength() const noexcept;
 private:
 	ArrayList<AbstractExtObject> array;
-	int dim;
+	int length;
 };
 
 } /* namespace alinous */
