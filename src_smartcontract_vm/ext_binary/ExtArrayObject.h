@@ -22,6 +22,7 @@ public:
 
 	void addInnerElement(AbstractExtObject* obj) noexcept;
 	int getLength() const noexcept;
+	AbstractExtObject* get(int i) const noexcept;
 private:
 	ArrayList<AbstractExtObject> array;
 	int length;

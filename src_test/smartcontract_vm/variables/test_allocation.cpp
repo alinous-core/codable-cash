@@ -96,4 +96,11 @@ TEST(TestAllocationStmtGroup, primitiveArrayAllocation02){
 	int length = arObj->getLength();
 	CHECK(length == 3)
 
+	arObj = (ExtArrayObject*)arObj->get(2);
+	length = arObj->getLength();
+	CHECK(length == 4)
+
+	arObj = (ExtArrayObject*)arObj->get(3);
+	length = arObj->getLength();
+	CHECK(length == 5)
 }

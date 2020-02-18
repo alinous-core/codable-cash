@@ -27,4 +27,8 @@ int ExtArrayObject::getLength() const noexcept {
 	return this->length;
 }
 
+AbstractExtObject* ExtArrayObject::get(int i) const noexcept {
+	return this->array.get(i);
+}
+
 } /* namespace alinous */
