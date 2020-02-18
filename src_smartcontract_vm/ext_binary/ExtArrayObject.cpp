@@ -16,7 +16,7 @@ ExtArrayObject::ExtArrayObject(const UnicodeString* name, int length) : Abstract
 }
 
 ExtArrayObject::~ExtArrayObject() {
-
+	this->array.deleteElements();
 }
 
 void ExtArrayObject::addInnerElement(AbstractExtObject* obj) noexcept {
