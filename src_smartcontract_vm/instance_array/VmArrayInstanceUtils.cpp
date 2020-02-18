@@ -16,6 +16,7 @@
 
 #include "instance_ref/RefereceFactory.h"
 
+#include "instance/VmInstanceTypesConst.h"
 namespace alinous {
 
 bool VmArrayInstanceUtils::isArrayIndex(AnalyzedType& type) noexcept {
@@ -57,6 +58,11 @@ void VmArrayInstanceUtils::makeDimension(VirtualMachine* vm, int depth,	ArrayLis
 	int maxLoop = lastRefs->size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractReference* ref = lastRefs->get(i);
+
+		uint8_t type = ref->getType();
+		if(type == VmInstanceTypesConst::REF_ARRAY){
+
+		}
 
 	}
 
