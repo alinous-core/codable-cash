@@ -22,7 +22,30 @@ TEST_GROUP(TestLocalVariablesGroup) {
 
 TEST(TestLocalVariablesGroup, intVariable){
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/variables/resources/localvariables/intval.alns"));
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/variables/resources/localvariables/intval/intval.alns"));
+
+	SmartContract* sc = new SmartContract();
+	FileInputStream stream(sourceFile);
+
+	int length = sourceFile->length();
+	sc->addCompilationUnit(&stream, length);
+
+	UnicodeString mainPackage(L"test.fw");
+	UnicodeString mainClass(L"SmartContract");
+	UnicodeString mainMethod(L"main");
+	sc->setMainMethod(&mainPackage, &mainClass, &mainMethod);
+
+	VirtualMachine* vm = new VirtualMachine(1024*1024); __STP(vm);
+	vm->loadSmartContract(sc);
+
+	vm->analyze();
+	vm->createScInstance();
+	vm->destroy();
+}
+
+TEST(TestLocalVariablesGroup, arrayVariable){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/variables/resources/localvariables/intval/intval.alns"));
 
 	SmartContract* sc = new SmartContract();
 	FileInputStream stream(sourceFile);
