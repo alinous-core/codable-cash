@@ -12,6 +12,7 @@
 
 #include "instance_ref/AbstractReference.h"
 
+#include "ext_binary/ExtArrayObject.h"
 
 namespace alinous {
 
@@ -54,8 +55,17 @@ const VMemList<AbstractReference>* VmArrayInstance::getReferences() const noexce
 }
 
 AbstractExtObject* VmArrayInstance::toClassExtObject(const UnicodeString* name,	VTableRegistory* reg) {
-	// FIXME toClassExtObject
-	return nullptr;
+	ExtArrayObject* obj = new ExtArrayObject(name, this->length);
+
+	int maxLoop = this->array->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractReference* ref = this->array->get(i);
+		AbstractExtObject* innerObj = ref->toClassExtObject(name, reg);
+
+		obj->addInnerElement(innerObj);
+	}
+
+	return obj;
 }
 
 void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReference* ref) noexcept {

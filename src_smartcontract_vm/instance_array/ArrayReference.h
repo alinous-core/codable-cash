@@ -27,7 +27,7 @@ public:
 	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
 	virtual bool isNull() const noexcept;
 
-
+	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 private:
 	VmArrayInstance* instArray;
 };

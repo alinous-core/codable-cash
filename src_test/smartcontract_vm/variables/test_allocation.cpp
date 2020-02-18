@@ -77,4 +77,7 @@ TEST(TestAllocationStmtGroup, primitiveArrayAllocation02){
 	result = util.createInstance();
 	CHECK(result)
 
+	ExtClassObject* extObj = util.getMainExtObject();
+
+
 }

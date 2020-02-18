@@ -2,6 +2,7 @@
 
 set(__src
 	AbstractExtObject.cpp
+	ExtArrayObject.cpp
 	ExtClassObject.cpp
 	ExtPrimitiveObject.cpp
 )

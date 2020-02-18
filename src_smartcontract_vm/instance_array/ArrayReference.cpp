@@ -48,5 +48,8 @@ bool ArrayReference::isNull() const noexcept {
 	return this->instArray == nullptr;
 }
 
+AbstractExtObject* ArrayReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
+	return this->instArray->toClassExtObject(name, table);
+}
 
 } /* namespace alinous */
