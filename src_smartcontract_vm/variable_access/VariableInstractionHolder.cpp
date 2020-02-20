@@ -33,6 +33,7 @@ VariableInstractionHolder::VariableInstractionHolder() {
 
 VariableInstractionHolder::~VariableInstractionHolder() {
 	this->list.deleteElements();
+	delete this->atype;
 }
 
 void VariableInstractionHolder::addExpression(AbstractExpression* exp, AnalyzeContext* actx) noexcept {
