@@ -200,7 +200,7 @@ AnalyzedType ConstructorCall::getType(AnalyzeContext* actx) {
 
 AbstractVmInstance* ConstructorCall::interpret(VirtualMachine* vm) {
 	AnalyzedClass* clazz = this->atype->getAnalyzedClass();
-	VmClassInstance* inst = new(vm) VmClassInstance(clazz, vm);
+	VmClassInstance* inst = VmClassInstance::createObject(clazz, vm);
 
 	FunctionArguments args;
 	interpretArguments(vm, &args, inst);
