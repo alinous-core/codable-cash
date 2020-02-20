@@ -20,7 +20,7 @@ public:
 	virtual ~ExpressionAccess();
 
 	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element);
-	virtual AnalyzedType* getAnalyzedType() const noexcept;
+	virtual AnalyzedType getAnalyzedType() const noexcept;
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm, AbstractVmInstance* lastInst);
 private:
 	AbstractExpression* exp;

@@ -7,6 +7,9 @@
 
 #include "variable_access/ExpressionAccess.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
+
 namespace alinous {
 
 ExpressionAccess::ExpressionAccess(AbstractExpression* exp) {
@@ -20,8 +23,8 @@ void ExpressionAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction
 	// FIXME
 }
 
-AnalyzedType* ExpressionAccess::getAnalyzedType() const noexcept {
-	return nullptr; // FIXME
+AnalyzedType ExpressionAccess::getAnalyzedType() const noexcept {
+	return AnalyzedType(); // FIXME
 }
 
 AbstractVmInstance* ExpressionAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {

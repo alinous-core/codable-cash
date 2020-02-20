@@ -40,8 +40,8 @@ void StackVariableAccess::analyze(AnalyzeContext* actx,	AbstractVariableInstract
 	this->type = new AnalyzedType(*atype);
 }
 
-AnalyzedType* StackVariableAccess::getAnalyzedType() const noexcept {
-	return this->type;
+AnalyzedType StackVariableAccess::getAnalyzedType() const noexcept {
+	return *this->type;
 }
 
 AbstractVmInstance* StackVariableAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {

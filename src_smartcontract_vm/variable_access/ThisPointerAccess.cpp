@@ -31,8 +31,8 @@ void ThisPointerAccess::analyze(AnalyzeContext* actx, AbstractVariableInstractio
 	this->type = new AnalyzedType(clazz);
 }
 
-AnalyzedType* ThisPointerAccess::getAnalyzedType() const noexcept {
-	return this->type;
+AnalyzedType ThisPointerAccess::getAnalyzedType() const noexcept {
+	return *this->type;
 }
 
 AbstractVmInstance* ThisPointerAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {

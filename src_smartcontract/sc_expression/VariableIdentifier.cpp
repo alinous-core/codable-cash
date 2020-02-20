@@ -35,6 +35,8 @@ void VariableIdentifier::preAnalyze(AnalyzeContext* actx) {
 }
 
 void VariableIdentifier::analyzeTypeRef(AnalyzeContext* actx) {
+	CodeElement* p = getParent();
+	this->executable = p->isExecutable();
 }
 
 void VariableIdentifier::analyze(AnalyzeContext* actx) {
