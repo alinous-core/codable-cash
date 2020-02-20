@@ -156,16 +156,15 @@ VmClassInstance* SmartContract::createInstance(VirtualMachine* vm) {
 
 	MethodDeclare* defConstructor = clazz->getDefaultConstructor();
 
+	vm->newStack();
+	StackPopper popStack(vm);
+	VmStack* stack = vm->topStack();
+
 	VmClassInstance* inst = VmClassInstance::createObject(clazz, vm);
 
 	GcManager* gc = vm->getGc();
 
 	this->rootReference->setMainInstance(inst);
-
-	vm->newStack();
-	StackPopper popStack(vm);
-
-	VmStack* stack = vm->topStack();
 
 	ObjectReference* instRef = ObjectReference::createObjectReference(inst, vm);
 	stack->addInnerReference(instRef);
