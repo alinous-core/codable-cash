@@ -97,6 +97,11 @@ void SubstitutionStatement::interpret(VirtualMachine* vm) {
 	AbstractReference* leftRef = dynamic_cast<AbstractReference*>(leftValue);
 	assert(leftRef->isReference());
 
+	if(rightValue->isReference()){
+		AbstractReference* rightRef = dynamic_cast<AbstractReference*>(rightValue);
+		rightValue = rightRef->getInstance();
+	}
+
 	leftRef->substitute(rightValue, vm);
 
 	GcManager* gc = vm->getGc();
