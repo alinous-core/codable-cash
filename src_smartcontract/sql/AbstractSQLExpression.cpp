@@ -15,4 +15,9 @@ AbstractSQLExpression::AbstractSQLExpression(int kind) : CodeElement(kind) {
 AbstractSQLExpression::~AbstractSQLExpression() {
 }
 
+bool AbstractSQLExpression::isExecutable() {
+	return true;
+}
+
+
 } /* namespace alinous */

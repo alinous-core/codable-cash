@@ -85,11 +85,14 @@ void ConstructorArray::fromBinary(ByteBuffer* in) {
 }
 
 void ConstructorArray::preAnalyze(AnalyzeContext* actx) {
+	this->valId->setParent(this);
 	this->valId->preAnalyze(actx);
 
 	int maxLoop = this->dims.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractExpression* exp = this->dims.get(i);
+
+		exp->setParent(this);
 		exp->preAnalyze(actx);
 	}
 }

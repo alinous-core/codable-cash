@@ -17,6 +17,8 @@ class AbstractSQLPart : public CodeElement, public ISQLElement {
 public:
 	explicit AbstractSQLPart(int kind);
 	virtual ~AbstractSQLPart();
+
+	virtual bool isExecutable();
 };
 
 } /* namespace alinous */

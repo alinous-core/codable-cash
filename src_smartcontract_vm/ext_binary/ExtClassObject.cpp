@@ -7,6 +7,7 @@
 
 #include "ext_binary/ExtClassObject.h"
 #include "ext_binary/ExtPrimitiveObject.h"
+#include "ext_binary/ExtArrayObject.h"
 
 #include "base/UnicodeString.h"
 
@@ -41,5 +42,11 @@ ExtClassObject* ExtClassObject::getExtClassObject(const UnicodeString* name) con
 	AbstractExtObject* obj = this->map->get(name);
 	return dynamic_cast<ExtClassObject*>(obj);
 }
+
+ExtArrayObject* ExtClassObject::getExtArrayObject(const UnicodeString* name) const noexcept {
+	AbstractExtObject* obj = this->map->get(name);
+	return dynamic_cast<ExtArrayObject*>(obj);
+}
+
 
 } /* namespace alinous */

@@ -15,4 +15,9 @@ AbstractStatement::AbstractStatement(short kind) : CodeElement(kind) {
 AbstractStatement::~AbstractStatement() {
 }
 
+bool AbstractStatement::isExecutable() {
+	return true;
+}
+
+
 } /* namespace alinous */

@@ -24,9 +24,10 @@ public:
 	virtual ~VmArrayInstance();
 
 	virtual void removeInnerRefs(GcManager* gc) noexcept;
+	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
+	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* reg);
 
-
-	void setReference(int pos, AbstractReference* ref) noexcept;
+	void setReference(VirtualMachine* vm, int pos, AbstractReference* ref) noexcept;
 private:
 	VMemList<AbstractReference>* array;
 	int length;

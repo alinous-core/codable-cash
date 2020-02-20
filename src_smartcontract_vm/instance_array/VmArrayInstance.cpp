@@ -12,6 +12,7 @@
 
 #include "instance_ref/AbstractReference.h"
 
+#include "ext_binary/ExtArrayObject.h"
 
 namespace alinous {
 
@@ -26,7 +27,15 @@ VmArrayInstance::VmArrayInstance(VirtualMachine* vm, int length) : AbstractVmIns
 }
 
 VmArrayInstance::~VmArrayInstance() {
-	this->array->deleteElements();
+	int maxLoop = this->array->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractReference* ref = this->array->get(i);
+
+		if(ref != nullptr && !ref->isPrimitive()){
+			delete ref;
+		}
+	}
+
 	delete this->array;
 }
 
@@ -41,8 +50,37 @@ void VmArrayInstance::removeInnerRefs(GcManager* gc) noexcept {
 	}
 }
 
-void VmArrayInstance::setReference(int pos, AbstractReference* ref) noexcept {
-	this->array->setElement(ref, pos);
+const VMemList<AbstractReference>* VmArrayInstance::getReferences() const noexcept {
+	return this->array;
+}
+
+AbstractExtObject* VmArrayInstance::toClassExtObject(const UnicodeString* name,	VTableRegistory* reg) {
+	ExtArrayObject* obj = new ExtArrayObject(name, this->length);
+
+	int maxLoop = this->array->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractReference* ref = this->array->get(i);
+		AbstractExtObject* innerObj = ref->toClassExtObject(name, reg);
+
+		obj->addInnerElement(innerObj);
+	}
+
+	return obj;
+}
+
+void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReference* ref) noexcept {
+	GcManager* gc = vm->getGc();
+
+	AbstractReference* last = this->array->get(pos);
+	if(last != nullptr){
+		gc->removeRefReference(this, last);
+	}
+
+	if(ref != nullptr){
+		gc->addRefReference(this, ref);
+		this->array->setElement(ref, pos);
+	}
+
 }
 
 } /* namespace alinous */

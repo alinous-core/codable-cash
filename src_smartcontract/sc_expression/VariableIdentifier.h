@@ -12,7 +12,7 @@
 
 namespace alinous {
 class UnicodeString;
-
+class AbstractVariableInstraction;
 
 class VariableIdentifier: public AbstractExpression {
 public:
@@ -38,8 +38,14 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 
 	bool isThis() const noexcept;
+
+private:
+	void doAnalyze(AnalyzeContext* actx);
 private:
 	UnicodeString* name;
+
+	bool executable;
+	AbstractVariableInstraction* access;
 };
 
 } /* namespace alinous */

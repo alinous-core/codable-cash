@@ -76,6 +76,8 @@ void VmClassInstance::init(VirtualMachine* vm) {
 		gc->addRefReference(this, ref);
 	}
 
+
+
 }
 
 const VMemList<AbstractReference>* VmClassInstance::getReferences() const noexcept {

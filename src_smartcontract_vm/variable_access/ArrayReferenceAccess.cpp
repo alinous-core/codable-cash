@@ -7,6 +7,9 @@
 
 #include "variable_access/ArrayReferenceAccess.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
+
 namespace alinous {
 
 ArrayReferenceAccess::ArrayReferenceAccess(ArrayReferenceExpression* arrayRefExp) {
@@ -19,8 +22,8 @@ ArrayReferenceAccess::~ArrayReferenceAccess() {
 void ArrayReferenceAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
 }
 
-AnalyzedType* ArrayReferenceAccess::getAnalyzedType() const noexcept {
-	return nullptr; // FIXME ArrayReferenceAccess
+AnalyzedType ArrayReferenceAccess::getAnalyzedType() const noexcept {
+	return AnalyzedType(); // FIXME ArrayReferenceAccess
 }
 
 AbstractVmInstance* ArrayReferenceAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {

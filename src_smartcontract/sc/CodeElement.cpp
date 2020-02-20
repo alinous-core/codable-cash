@@ -669,5 +669,8 @@ const UnicodeString* CodeElement::getPackageName() const noexcept {
 	return unit->getPackageName();
 }
 
+bool CodeElement::isExecutable() {
+	return false;
+}
 
 } /* namespace alinous */

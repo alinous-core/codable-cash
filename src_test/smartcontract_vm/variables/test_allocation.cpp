@@ -13,6 +13,7 @@
 
 #include "../VmTestUtils.h"
 #include "ext_binary/ExtClassObject.h"
+#include "ext_binary/ExtArrayObject.h"
 
 using namespace alinous;
 
@@ -60,4 +61,46 @@ TEST(TestAllocationStmtGroup, primitiveArrayAllocation){
 	result = util.createInstance();
 	CHECK(result)
 
+	ExtClassObject* extObj = util.getMainExtObject(); __STP(extObj);
+	UnicodeString strar(L"ar");
+	ExtArrayObject* arObj = extObj->getExtArrayObject(&strar);
+
+	CHECK(arObj != nullptr)
+
+	int length = arObj->getLength();
+	CHECK(length == 3)
+
+}
+
+TEST(TestAllocationStmtGroup, primitiveArrayAllocation02){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/variables/resources/new/new03/", projectFolder);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* extObj = util.getMainExtObject(); __STP(extObj);
+	UnicodeString strar(L"ar");
+	ExtArrayObject* arObj = extObj->getExtArrayObject(&strar);
+
+	CHECK(arObj != nullptr)
+
+	int length = arObj->getLength();
+	CHECK(length == 3)
+
+	arObj = (ExtArrayObject*)arObj->get(2);
+	length = arObj->getLength();
+	CHECK(length == 4)
+
+	arObj = (ExtArrayObject*)arObj->get(3);
+	length = arObj->getLength();
+	CHECK(length == 5)
 }

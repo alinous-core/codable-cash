@@ -15,4 +15,8 @@ AbstractSQLPart::AbstractSQLPart(int kind) : CodeElement(kind) {
 AbstractSQLPart::~AbstractSQLPart() {
 }
 
+bool AbstractSQLPart::isExecutable() {
+	return true;
+}
+
 } /* namespace alinous */

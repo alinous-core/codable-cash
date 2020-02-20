@@ -39,8 +39,8 @@ MemberVariableAccess::~MemberVariableAccess() {
 void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
 	TypeResolver* typeResolver = actx->getTypeResolver();
 
-	AnalyzedType* atype = lastIinst->getAnalyzedType();
-	AnalyzedClass* clazz = atype->getAnalyzedClass();
+	AnalyzedType atype = lastIinst->getAnalyzedType();
+	AnalyzedClass* clazz = atype.getAnalyzedClass();
 
 	const UnicodeString* name = this->valId->getName();
 
@@ -63,8 +63,8 @@ void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 	}
 }
 
-AnalyzedType* MemberVariableAccess::getAnalyzedType() const noexcept {
-	return this->atype;
+AnalyzedType MemberVariableAccess::getAnalyzedType() const noexcept {
+	return *this->atype;
 }
 
 AbstractVmInstance* MemberVariableAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {

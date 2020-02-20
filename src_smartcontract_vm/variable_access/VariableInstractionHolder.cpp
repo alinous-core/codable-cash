@@ -12,6 +12,7 @@
 #include "sc_expression/ArrayReferenceExpression.h"
 
 #include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/AnalyzedType.h"
 
 #include "variable_access/AbstractVariableInstraction.h"
 #include "variable_access/ExpressionAccess.h"
@@ -32,6 +33,7 @@ VariableInstractionHolder::VariableInstractionHolder() {
 
 VariableInstractionHolder::~VariableInstractionHolder() {
 	this->list.deleteElements();
+	delete this->atype;
 }
 
 void VariableInstractionHolder::addExpression(AbstractExpression* exp, AnalyzeContext* actx) noexcept {
@@ -124,7 +126,8 @@ void VariableInstractionHolder::analyze(AnalyzeContext* actx, CodeElement* eleme
 		lastIinst = inst;
 	}
 
-	this->atype = lastIinst->getAnalyzedType();
+	AnalyzedType at = lastIinst->getAnalyzedType();
+	this->atype = new AnalyzedType(at);
 }
 
 
