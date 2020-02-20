@@ -14,6 +14,9 @@
 #include "sc_analyze/PackageSpace.h"
 #include "sc_analyze/AnalyzedClass.h"
 
+#include "sc_analyze_stack/AnalyzeStackPopper.h"
+#include "sc_analyze_stack/AnalyzeStackManager.h"
+
 #include "base/UnicodeString.h"
 
 #include "sc_declare/ClassDeclare.h"
@@ -33,6 +36,7 @@
 
 #include "compiler/CompileError.h"
 #include "compiler/ParseErrorHandler.h"
+
 
 namespace alinous {
 
@@ -117,10 +121,18 @@ void SmartContract::analyze(VirtualMachine* vm) {
 		return;
 	}
 
-	for(int i = 0; i != maxLoop; ++i){
-		CompilationUnit* unit = this->progs.get(i);
-		unit->analyze(this->actx);
+	{
+		// make top stack
+		AnalyzeStackManager* stackMgr = actx->getAnalyzeStackManager();
+		AnalyzeStackPopper popper(stackMgr, true);
+		stackMgr->addFunctionStack();
+
+		for(int i = 0; i != maxLoop; ++i){
+			CompilationUnit* unit = this->progs.get(i);
+			unit->analyze(this->actx);
+		}
 	}
+
 }
 
 bool SmartContract::hasError() noexcept {

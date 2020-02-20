@@ -38,6 +38,9 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 
 	bool isThis() const noexcept;
+
+private:
+	void doAnalyze(AnalyzeContext* actx);
 private:
 	UnicodeString* name;
 

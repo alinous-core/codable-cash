@@ -46,7 +46,7 @@ AnalyzedType StackVariableAccess::getAnalyzedType() const noexcept {
 
 AbstractVmInstance* StackVariableAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
 	VmStack* stack = vm->getStackAt(this->stackPos);
-	AbstractVmInstance* inst = stack->get(this->stackPos);
+	AbstractVmInstance* inst = stack->get(this->pos);
 
 	return inst;
 }

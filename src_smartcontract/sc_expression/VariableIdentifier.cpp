@@ -14,6 +14,10 @@
 #include "sc_analyze_stack/AnalyzeStackManager.h"
 
 #include "variable_access/AbstractVariableInstraction.h"
+#include "variable_access/StackVariableAccess.h"
+
+#include "instance_ref/AbstractReference.h"
+
 
 namespace alinous {
 
@@ -40,9 +44,19 @@ void VariableIdentifier::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void VariableIdentifier::analyze(AnalyzeContext* actx) {
-	AnalyzeStackManager* stack = actx->getAnalyzeStackManager();
-	stack->findStackVariableAccess(this->name);
+	if(this->executable){
+		doAnalyze(actx);
+	}
+}
 
+void VariableIdentifier::doAnalyze(AnalyzeContext* actx) {
+	AnalyzeStackManager* stack = actx->getAnalyzeStackManager();
+	this->access = stack->findStackVariableAccess(this->name);
+
+	if(this->access != nullptr){
+		this->access->analyze(actx, nullptr, this);
+		return;
+	}
 }
 
 void VariableIdentifier::setName(UnicodeString* name) noexcept {
@@ -74,16 +88,17 @@ void VariableIdentifier::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType VariableIdentifier::getType(AnalyzeContext* actx) {
-	// FIXME analyze variable id type
-	return AnalyzedType();
+	return this->access->getAnalyzedType();
 }
 
 void VariableIdentifier::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* VariableIdentifier::interpret(VirtualMachine* vm) {
-	// FIXME interpret
-	return nullptr;
+	AbstractVmInstance* instOrRef = this->access->interpret(vm, nullptr);
+	AbstractReference* ref = dynamic_cast<AbstractReference*>(instOrRef);
+
+	return ref->getInstance();
 }
 
 bool VariableIdentifier::isThis() const noexcept {
