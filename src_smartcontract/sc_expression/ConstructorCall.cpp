@@ -126,19 +126,25 @@ void ConstructorCall::fromBinary(ByteBuffer* in) {
 }
 
 void ConstructorCall::preAnalyze(AnalyzeContext* actx) {
+	this->name->setParent(this);
+	this->name->preAnalyze(actx);
+
 	int maxLoop = this->args.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractExpression* exp = this->args.get(i);
+
 		exp->setParent(this);
 		exp->preAnalyze(actx);
 	}
 }
 
 void ConstructorCall::analyzeTypeRef(AnalyzeContext* actx) {
+
+
 	int maxLoop = this->args.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractExpression* exp = this->args.get(i);
-		exp->setParent(this);
+
 		exp->preAnalyze(actx);
 	}
 }

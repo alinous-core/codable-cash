@@ -96,9 +96,8 @@ void VariableIdentifier::init(VirtualMachine* vm) {
 
 AbstractVmInstance* VariableIdentifier::interpret(VirtualMachine* vm) {
 	AbstractVmInstance* instOrRef = this->access->interpret(vm, nullptr);
-	AbstractReference* ref = dynamic_cast<AbstractReference*>(instOrRef);
 
-	return ref->getInstance();
+	return instOrRef;
 }
 
 bool VariableIdentifier::isThis() const noexcept {
