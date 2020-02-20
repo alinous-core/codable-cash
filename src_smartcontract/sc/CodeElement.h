@@ -162,6 +162,8 @@ public:
 	virtual void toBinary(ByteBuffer* out) = 0;
 	virtual void fromBinary(ByteBuffer* in) = 0;
 
+	virtual bool isExecutable();
+
 	static CodeElement* createFromBinary(ByteBuffer* in);
 
 	int stringSize(UnicodeString* str) const noexcept;

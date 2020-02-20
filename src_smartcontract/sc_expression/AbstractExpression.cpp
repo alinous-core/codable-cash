@@ -30,4 +30,9 @@ VariableInstractionHolder* AbstractExpression::getVariableInstractionHolder() no
 	return this->valInstHolder;
 }
 
+bool AbstractExpression::isExecutable() {
+	return true;
+}
+
+
 } /* namespace alinous */

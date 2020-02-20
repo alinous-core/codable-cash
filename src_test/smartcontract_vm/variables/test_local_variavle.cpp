@@ -43,9 +43,9 @@ TEST(TestLocalVariablesGroup, intVariable){
 	vm->destroy();
 }
 
-TEST(TestLocalVariablesGroup, arrayVariable){
+TEST(TestLocalVariablesGroup, intaccess){
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/variables/resources/localvariables/intval/intval.alns"));
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/variables/resources/localvariables/stack01/intval.alns"));
 
 	SmartContract* sc = new SmartContract();
 	FileInputStream stream(sourceFile);

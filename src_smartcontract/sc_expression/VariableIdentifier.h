@@ -12,7 +12,7 @@
 
 namespace alinous {
 class UnicodeString;
-
+class AbstractVariableInstraction;
 
 class VariableIdentifier: public AbstractExpression {
 public:
@@ -40,6 +40,9 @@ public:
 	bool isThis() const noexcept;
 private:
 	UnicodeString* name;
+
+	bool executable;
+	AbstractVariableInstraction* access;
 };
 
 } /* namespace alinous */

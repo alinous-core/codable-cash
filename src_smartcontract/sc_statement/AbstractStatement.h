@@ -26,6 +26,8 @@ public:
 
 	virtual void init(VirtualMachine* vm) = 0;
 	virtual void interpret(VirtualMachine* vm) = 0;
+
+	virtual bool isExecutable();
 };
 
 } /* namespace alinous */

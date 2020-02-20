@@ -9,6 +9,11 @@
 #include "base/UnicodeString.h"
 
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/AnalyzeContext.h"
+
+#include "sc_analyze_stack/AnalyzeStackManager.h"
+
+#include "variable_access/AbstractVariableInstraction.h"
 
 namespace alinous {
 
@@ -16,10 +21,13 @@ const UnicodeString VariableIdentifier::__THIS(L"this");
 
 VariableIdentifier::VariableIdentifier() : AbstractExpression(CodeElement::EXP_VARIABLE_ID) {
 	this->name = nullptr;
+	this->access = nullptr;
+	this->executable = false;
 }
 
 VariableIdentifier::~VariableIdentifier() {
 	delete this->name;
+	delete this->access;
 }
 
 void VariableIdentifier::preAnalyze(AnalyzeContext* actx) {
@@ -30,6 +38,8 @@ void VariableIdentifier::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void VariableIdentifier::analyze(AnalyzeContext* actx) {
+	AnalyzeStackManager* stack = actx->getAnalyzeStackManager();
+	stack->findStackVariableAccess(this->name);
 
 }
 

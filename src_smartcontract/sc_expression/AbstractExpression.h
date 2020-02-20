@@ -31,6 +31,8 @@ public:
 	virtual void init(VirtualMachine* vm) = 0;
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm) = 0;
 
+	virtual bool isExecutable();
+
 	VariableInstractionHolder* getVariableInstractionHolder() noexcept;
 
 private:
