@@ -105,6 +105,10 @@ AbstractType* MemberVariableDeclare::getType() noexcept {
 	return this->type;
 }
 
+void MemberVariableDeclare::setExp(AbstractExpression* exp) noexcept {
+	this->exp = exp;
+}
+
 int MemberVariableDeclare::binarySize() const {
 	checkNotNull(this->ctrl);
 	checkNotNull(this->type);

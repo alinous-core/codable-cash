@@ -727,8 +727,20 @@ MemberVariableDeclare* memberVariableDeclare(AccessControlDeclare* ctrl, bool _s
 	variable->setStatic(_static);
 	variable->setType(type);
 	variable->setName(_STR(identifier));
+	
+	AbstractExpression* exp = nullptr;
 }
 {
+	[
+		t="=" {
+			variable->setPosition(t);
+		}
+		exp=expression() {
+			variable->setPosition(exp);
+			variable->setExp(exp);
+		}
+	]
+
 	t=";" {
 		variable->setPosition(t);
 	}

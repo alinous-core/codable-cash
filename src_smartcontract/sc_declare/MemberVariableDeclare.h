@@ -39,6 +39,8 @@ public:
 	const UnicodeString* getName() noexcept;
 	AbstractType* getType() noexcept;
 
+	void setExp(AbstractExpression* exp) noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
