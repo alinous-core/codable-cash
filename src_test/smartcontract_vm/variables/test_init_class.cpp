@@ -15,6 +15,9 @@
 
 #include "../VmTestUtils.h"
 
+#include "ext_binary/ExtClassObject.h"
+#include "ext_binary/ExtPrimitiveObject.h"
+
 using namespace alinous;
 
 
@@ -36,4 +39,10 @@ TEST(TestInitClass, initClass){
 
 	result = util.createInstance();
 	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	UnicodeString strCount(L"count");
+	ExtPrimitiveObject* count = obj->getExtPrimitiveObject(&strCount);
+
+	CHECK(count->getIntValue() == 10);
 }

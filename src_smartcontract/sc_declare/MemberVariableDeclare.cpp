@@ -22,11 +22,14 @@
 #include "sc_analyze_stack/AnalyzeStackPopper.h"
 #include "sc_analyze_stack/AnalyzeStackManager.h"
 
+#include "instance_ref/AbstractReference.h"
+
 #include "sc/exceptions.h"
 
 #include "vm/VirtualMachine.h"
 
 #include "stack/StackPopper.h"
+
 
 namespace alinous {
 
@@ -101,7 +104,8 @@ void MemberVariableDeclare::doOnAllocate(VirtualMachine* vm, AbstractReference* 
 	vm->newStack();
 	StackPopper popStack(vm);
 
-
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	ref->substitute(inst, vm);
 }
 
 void MemberVariableDeclare::setAccessControl(AccessControlDeclare* ctrl) noexcept {
