@@ -17,9 +17,12 @@
 #include "sc_analyze/AnalyzedType.h"
 #include "sc_analyze/ValidationError.h"
 
+#include "sc_expression/AbstractExpression.h"
+
 #include "sc/exceptions.h"
 
 #include "vm/VirtualMachine.h"
+
 
 namespace alinous {
 
@@ -28,6 +31,7 @@ MemberVariableDeclare::MemberVariableDeclare() : CodeElement(CodeElement::MEMBER
 	this->type = nullptr;
 	this->_static = false;
 	this->name = nullptr;
+	this->exp = nullptr;
 	this->atype = nullptr;
 }
 
@@ -35,14 +39,22 @@ MemberVariableDeclare::~MemberVariableDeclare() {
 	delete this->ctrl;
 	delete this->type;
 	delete this->name;
+	delete this->exp;
 	delete this->atype;
 }
 
 void MemberVariableDeclare::preAnalyze(AnalyzeContext* actx) {
-
+	if(this->exp != nullptr){
+		this->exp->setParent(this);
+		this->exp->preAnalyze(actx);
+	}
 }
 
 void MemberVariableDeclare::analyzeTypeRef(AnalyzeContext* actx) {
+	if(this->exp != nullptr){
+		this->exp->analyzeTypeRef(actx);
+	}
+
 	TypeResolver* typeResolver = actx->getTypeResolver();
 
 	this->atype = typeResolver->resolveType(this, this->type);
@@ -55,7 +67,9 @@ void MemberVariableDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void MemberVariableDeclare::analyze(AnalyzeContext* actx) {
-
+	if(this->exp != nullptr){
+		this->exp->analyze(actx);
+	}
 }
 
 void MemberVariableDeclare::init(VirtualMachine* vm) {
@@ -98,6 +112,12 @@ int MemberVariableDeclare::binarySize() const {
 
 	int total = sizeof(uint16_t);
 
+	bool isnull = (this->exp == nullptr);
+	total += sizeof(uint8_t);
+	if(!isnull){
+		total += this->exp->binarySize();
+	}
+
 	total += sizeof(uint8_t);
 	total += this->ctrl->binarySize();
 	total += this->type->binarySize();
@@ -112,6 +132,13 @@ void MemberVariableDeclare::toBinary(ByteBuffer* out) {
 	checkNotNull(this->name);
 
 	out->putShort(CodeElement::MEMBER_VARIABLE_DECLARE);
+
+	bool isnull = (this->exp == nullptr);
+	out->put(isnull ? (char)1 : (char)0);
+	if(!isnull){
+		this->exp->toBinary(out);
+	}
+
 	out->put(this->_static ? (char)1 : (char)0);
 	this->ctrl->toBinary(out);
 	this->type->toBinary(out);
@@ -119,7 +146,15 @@ void MemberVariableDeclare::toBinary(ByteBuffer* out) {
 }
 
 void MemberVariableDeclare::fromBinary(ByteBuffer* in) {
+
 	uint8_t bl = in->get();
+	if(bl == 0){
+		CodeElement* element = createFromBinary(in);
+		checkIsExp(element);
+		this->exp = dynamic_cast<AbstractExpression*>(element);
+	}
+
+	bl = in->get();
 	this->_static = (bl == 1);
 
 	CodeElement* element = createFromBinary(in);

@@ -76,7 +76,9 @@ void VmClassInstance::init(VirtualMachine* vm) {
 		gc->addRefReference(this, ref);
 	}
 
-
+	for(int i = 0; i != maxLoop; ++i){
+		MemberVariableDeclare* dec = list->get(i);
+	}
 
 }
 

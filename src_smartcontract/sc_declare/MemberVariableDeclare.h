@@ -18,6 +18,7 @@ class UnicodeString;
 class AnalyzeContext;
 class AnalyzedType;
 class VirtualMachine;
+class AbstractExpression;
 
 class MemberVariableDeclare : public CodeElement {
 public:
@@ -46,6 +47,7 @@ private:
 	AbstractType* type;
 	bool _static;
 	UnicodeString* name;
+	AbstractExpression* exp;
 
 	AnalyzedType* atype;
 };
