@@ -78,6 +78,9 @@ void VmClassInstance::init(VirtualMachine* vm) {
 
 	for(int i = 0; i != maxLoop; ++i){
 		MemberVariableDeclare* dec = list->get(i);
+		AbstractReference* ref = this->members.get(i);
+
+		dec->onAllocate(vm, ref);
 	}
 
 }

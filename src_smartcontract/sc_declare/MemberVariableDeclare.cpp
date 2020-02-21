@@ -19,10 +19,14 @@
 
 #include "sc_expression/AbstractExpression.h"
 
+#include "sc_analyze_stack/AnalyzeStackPopper.h"
+#include "sc_analyze_stack/AnalyzeStackManager.h"
+
 #include "sc/exceptions.h"
 
 #include "vm/VirtualMachine.h"
 
+#include "stack/StackPopper.h"
 
 namespace alinous {
 
@@ -68,22 +72,36 @@ void MemberVariableDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 
 void MemberVariableDeclare::analyze(AnalyzeContext* actx) {
 	if(this->exp != nullptr){
+		// make top stack
+		AnalyzeStackManager* stackMgr = actx->getAnalyzeStackManager();
+		AnalyzeStackPopper popper(stackMgr, true);
+		stackMgr->addFunctionStack();
+
 		this->exp->analyze(actx);
 	}
 }
 
 void MemberVariableDeclare::init(VirtualMachine* vm) {
 	if(!this->_static){
-		return;
+		if(this->exp != nullptr){
+			this->exp->init(vm);
+		}
 	}
 
 	// FIXME handle a static member
 }
 
-void MemberVariableDeclare::onAllocate(VirtualMachine* vm) {
+void MemberVariableDeclare::onAllocate(VirtualMachine* vm, AbstractReference* ref) {
 	if(this->exp != nullptr){
-
+		doOnAllocate(vm, ref);
 	}
+}
+
+void MemberVariableDeclare::doOnAllocate(VirtualMachine* vm, AbstractReference* ref) {
+	vm->newStack();
+	StackPopper popStack(vm);
+
+
 }
 
 void MemberVariableDeclare::setAccessControl(AccessControlDeclare* ctrl) noexcept {
@@ -177,5 +195,4 @@ void MemberVariableDeclare::fromBinary(ByteBuffer* in) {
 
 	this->name = getString(in);
 }
-
 } /* namespace alinous */
