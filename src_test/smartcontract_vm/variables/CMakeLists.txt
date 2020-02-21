@@ -2,6 +2,7 @@
 set(testsrc
 	test_allocation.cpp
 	test_array_variables.cpp
+	test_init_class.cpp
 	test_local_variavle.cpp
 	test_string_variables.cpp
 	test_variables.cpp

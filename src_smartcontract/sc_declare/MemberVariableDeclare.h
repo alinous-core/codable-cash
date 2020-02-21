@@ -30,6 +30,7 @@ public:
 	void analyze(AnalyzeContext* actx);
 
 	void init(VirtualMachine* vm);
+	void onAllocate(VirtualMachine* vm);
 
 	void setAccessControl(AccessControlDeclare* ctrl) noexcept;
 	void setType(AbstractType* type) noexcept;

@@ -80,6 +80,11 @@ void MemberVariableDeclare::init(VirtualMachine* vm) {
 	// FIXME handle a static member
 }
 
+void MemberVariableDeclare::onAllocate(VirtualMachine* vm) {
+	if(this->exp != nullptr){
+
+	}
+}
 
 void MemberVariableDeclare::setAccessControl(AccessControlDeclare* ctrl) noexcept {
 	this->ctrl = ctrl;
