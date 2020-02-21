@@ -17,9 +17,19 @@
 #include "sc_analyze/AnalyzedType.h"
 #include "sc_analyze/ValidationError.h"
 
+#include "sc_expression/AbstractExpression.h"
+
+#include "sc_analyze_stack/AnalyzeStackPopper.h"
+#include "sc_analyze_stack/AnalyzeStackManager.h"
+
+#include "instance_ref/AbstractReference.h"
+
 #include "sc/exceptions.h"
 
 #include "vm/VirtualMachine.h"
+
+#include "stack/StackPopper.h"
+
 
 namespace alinous {
 
@@ -28,6 +38,7 @@ MemberVariableDeclare::MemberVariableDeclare() : CodeElement(CodeElement::MEMBER
 	this->type = nullptr;
 	this->_static = false;
 	this->name = nullptr;
+	this->exp = nullptr;
 	this->atype = nullptr;
 }
 
@@ -35,14 +46,22 @@ MemberVariableDeclare::~MemberVariableDeclare() {
 	delete this->ctrl;
 	delete this->type;
 	delete this->name;
+	delete this->exp;
 	delete this->atype;
 }
 
 void MemberVariableDeclare::preAnalyze(AnalyzeContext* actx) {
-
+	if(this->exp != nullptr){
+		this->exp->setParent(this);
+		this->exp->preAnalyze(actx);
+	}
 }
 
 void MemberVariableDeclare::analyzeTypeRef(AnalyzeContext* actx) {
+	if(this->exp != nullptr){
+		this->exp->analyzeTypeRef(actx);
+	}
+
 	TypeResolver* typeResolver = actx->getTypeResolver();
 
 	this->atype = typeResolver->resolveType(this, this->type);
@@ -55,17 +74,39 @@ void MemberVariableDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void MemberVariableDeclare::analyze(AnalyzeContext* actx) {
+	if(this->exp != nullptr){
+		// make top stack
+		AnalyzeStackManager* stackMgr = actx->getAnalyzeStackManager();
+		AnalyzeStackPopper popper(stackMgr, true);
+		stackMgr->addFunctionStack();
 
+		this->exp->analyze(actx);
+	}
 }
 
 void MemberVariableDeclare::init(VirtualMachine* vm) {
 	if(!this->_static){
-		return;
+		if(this->exp != nullptr){
+			this->exp->init(vm);
+		}
 	}
 
 	// FIXME handle a static member
 }
 
+void MemberVariableDeclare::onAllocate(VirtualMachine* vm, AbstractReference* ref) {
+	if(this->exp != nullptr){
+		doOnAllocate(vm, ref);
+	}
+}
+
+void MemberVariableDeclare::doOnAllocate(VirtualMachine* vm, AbstractReference* ref) {
+	vm->newStack();
+	StackPopper popStack(vm);
+
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	ref->substitute(inst, vm);
+}
 
 void MemberVariableDeclare::setAccessControl(AccessControlDeclare* ctrl) noexcept {
 	this->ctrl = ctrl;
@@ -91,12 +132,22 @@ AbstractType* MemberVariableDeclare::getType() noexcept {
 	return this->type;
 }
 
+void MemberVariableDeclare::setExp(AbstractExpression* exp) noexcept {
+	this->exp = exp;
+}
+
 int MemberVariableDeclare::binarySize() const {
 	checkNotNull(this->ctrl);
 	checkNotNull(this->type);
 	checkNotNull(this->name);
 
 	int total = sizeof(uint16_t);
+
+	bool isnull = (this->exp == nullptr);
+	total += sizeof(uint8_t);
+	if(!isnull){
+		total += this->exp->binarySize();
+	}
 
 	total += sizeof(uint8_t);
 	total += this->ctrl->binarySize();
@@ -112,6 +163,13 @@ void MemberVariableDeclare::toBinary(ByteBuffer* out) {
 	checkNotNull(this->name);
 
 	out->putShort(CodeElement::MEMBER_VARIABLE_DECLARE);
+
+	bool isnull = (this->exp == nullptr);
+	out->put(isnull ? (char)1 : (char)0);
+	if(!isnull){
+		this->exp->toBinary(out);
+	}
+
 	out->put(this->_static ? (char)1 : (char)0);
 	this->ctrl->toBinary(out);
 	this->type->toBinary(out);
@@ -119,7 +177,15 @@ void MemberVariableDeclare::toBinary(ByteBuffer* out) {
 }
 
 void MemberVariableDeclare::fromBinary(ByteBuffer* in) {
+
 	uint8_t bl = in->get();
+	if(bl == 0){
+		CodeElement* element = createFromBinary(in);
+		checkIsExp(element);
+		this->exp = dynamic_cast<AbstractExpression*>(element);
+	}
+
+	bl = in->get();
 	this->_static = (bl == 1);
 
 	CodeElement* element = createFromBinary(in);
@@ -133,5 +199,4 @@ void MemberVariableDeclare::fromBinary(ByteBuffer* in) {
 
 	this->name = getString(in);
 }
-
 } /* namespace alinous */

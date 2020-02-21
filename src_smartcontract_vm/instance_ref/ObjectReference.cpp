@@ -26,6 +26,8 @@ ObjectReference* ObjectReference::createObjectReference(VmClassInstance* clazzIn
 	ObjectReference* ref = new(vm) ObjectReference(VmInstanceTypesConst::REF_OBJ);
 	ref->setInstance(clazzInst);
 
+
+
 	return ref;
 }
 

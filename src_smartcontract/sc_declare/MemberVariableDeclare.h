@@ -18,6 +18,8 @@ class UnicodeString;
 class AnalyzeContext;
 class AnalyzedType;
 class VirtualMachine;
+class AbstractExpression;
+class AbstractReference;
 
 class MemberVariableDeclare : public CodeElement {
 public:
@@ -29,6 +31,7 @@ public:
 	void analyze(AnalyzeContext* actx);
 
 	void init(VirtualMachine* vm);
+	void onAllocate(VirtualMachine* vm, AbstractReference* ref);
 
 	void setAccessControl(AccessControlDeclare* ctrl) noexcept;
 	void setType(AbstractType* type) noexcept;
@@ -38,14 +41,21 @@ public:
 	const UnicodeString* getName() noexcept;
 	AbstractType* getType() noexcept;
 
+	void setExp(AbstractExpression* exp) noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+private:
+	void doOnAllocate(VirtualMachine* vm, AbstractReference* ref);
+
 private:
 	AccessControlDeclare* ctrl;
 	AbstractType* type;
 	bool _static;
 	UnicodeString* name;
+	AbstractExpression* exp;
 
 	AnalyzedType* atype;
 };
