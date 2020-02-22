@@ -30,6 +30,7 @@
 
 #include "stack/StackPopper.h"
 
+#include "instance_gc/GcManager.h"
 
 namespace alinous {
 
@@ -101,11 +102,15 @@ void MemberVariableDeclare::onAllocate(VirtualMachine* vm, AbstractReference* re
 }
 
 void MemberVariableDeclare::doOnAllocate(VirtualMachine* vm, AbstractReference* ref) {
+	GcManager* gc = vm->getGc();
+
 	vm->newStack();
 	StackPopper popStack(vm);
 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
 	ref->substitute(inst, vm);
+
+	gc->handleFloatingObject(inst);
 }
 
 void MemberVariableDeclare::setAccessControl(AccessControlDeclare* ctrl) noexcept {
