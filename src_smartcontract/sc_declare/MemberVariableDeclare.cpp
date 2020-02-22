@@ -32,6 +32,7 @@
 
 #include "instance_gc/GcManager.h"
 
+#include "sc_analyze/AnalyzedThisClassStackPopper.h"
 namespace alinous {
 
 MemberVariableDeclare::MemberVariableDeclare() : CodeElement(CodeElement::MEMBER_VARIABLE_DECLARE) {
@@ -80,6 +81,10 @@ void MemberVariableDeclare::analyze(AnalyzeContext* actx) {
 		AnalyzeStackManager* stackMgr = actx->getAnalyzeStackManager();
 		AnalyzeStackPopper popper(stackMgr, true);
 		stackMgr->addFunctionStack();
+
+		// this ptr
+		AnalyzedClass* aclass = actx->getAnalyzedClass(this);
+		AnalyzedThisClassStackPopper thispopper(actx, aclass);
 
 		this->exp->analyze(actx);
 	}
