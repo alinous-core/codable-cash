@@ -109,5 +109,22 @@ TEST(TestLocalVariablesGroup, intaccessWithMember){
 	vm->loadSmartContract(sc);
 
 	vm->analyze();
+	VmClassInstance* mainInst = vm->createScInstance();
+
+	{
+		AnalyzeContext* actx = sc->getAnalyzeContext();
+		VTableRegistory* reg = actx->getVtableRegistory();
+
+		UnicodeString name(L"name");
+		AbstractExtObject* extObj = mainInst->toClassExtObject(&name, reg); __STP(extObj);
+
+		ExtClassObject* classObj = dynamic_cast<ExtClassObject*>(extObj);
+
+		UnicodeString strVal(L"val2");
+		ExtPrimitiveObject* val = classObj->getExtPrimitiveObject(&strVal);
+		CHECK(val->getIntValue() == 100);
+	}
+
+	vm->destroy();
 }
 

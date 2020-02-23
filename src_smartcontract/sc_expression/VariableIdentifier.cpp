@@ -130,7 +130,7 @@ AbstractVmInstance* VariableIdentifier::interpret(VirtualMachine* vm) {
 	AbstractVmInstance* lastInst = nullptr;
 
 	if(this->thisAccess != nullptr){
-		this->thisAccess->interpret(vm, nullptr);
+		lastInst = this->thisAccess->interpret(vm, nullptr);
 	}
 
 	AbstractVmInstance* instOrRef = this->access->interpret(vm, lastInst);
