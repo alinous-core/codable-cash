@@ -15,9 +15,19 @@
 
 #include "variable_access/AbstractVariableInstraction.h"
 #include "variable_access/StackVariableAccess.h"
+#include "variable_access/MemberVariableAccess.h"
+#include "variable_access/ThisPointerAccess.h"
 
 #include "instance_ref/AbstractReference.h"
 
+#include "sc_analyze/AnalyzedClass.h"
+
+#include "sc_analyze_functions/VTableRegistory.h"
+#include "sc_analyze_functions/VTableClassEntry.h"
+
+#include "sc_analyze_variables/MemberVariableTable.h"
+
+#include "sc_analyze/ValidationError.h"
 
 namespace alinous {
 
@@ -25,12 +35,14 @@ const UnicodeString VariableIdentifier::__THIS(L"this");
 
 VariableIdentifier::VariableIdentifier() : AbstractExpression(CodeElement::EXP_VARIABLE_ID) {
 	this->name = nullptr;
+	this->thisAccess = nullptr;
 	this->access = nullptr;
 	this->executable = false;
 }
 
 VariableIdentifier::~VariableIdentifier() {
 	delete this->name;
+	delete this->thisAccess;
 	delete this->access;
 }
 
@@ -55,6 +67,26 @@ void VariableIdentifier::doAnalyze(AnalyzeContext* actx) {
 
 	if(this->access != nullptr){
 		this->access->analyze(actx, nullptr, this);
+		return;
+	}
+
+
+	MemberVariableAccess* memAccess = new MemberVariableAccess(this);
+	this->access = memAccess;
+
+	this->thisAccess = new ThisPointerAccess();
+
+	this->thisAccess->analyze(actx, nullptr, this);
+	memAccess->analyze(actx, this->thisAccess, this);
+
+	if(memAccess->hasErrorOnAnalyze()){
+		delete this->access;
+		delete this->thisAccess;
+
+		this->access = nullptr;
+		this->thisAccess = nullptr;
+
+		actx->addValidationError(ValidationError::CODE_CLASS_MEMBER_AND_STACK_VARIABLE_DO_NOT_EXISTS, this, L"Variable for the identifier '{0}' does not exists.", {this->name});
 		return;
 	}
 }
@@ -95,7 +127,13 @@ void VariableIdentifier::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* VariableIdentifier::interpret(VirtualMachine* vm) {
-	AbstractVmInstance* instOrRef = this->access->interpret(vm, nullptr);
+	AbstractVmInstance* lastInst = nullptr;
+
+	if(this->thisAccess != nullptr){
+		lastInst = this->thisAccess->interpret(vm, nullptr);
+	}
+
+	AbstractVmInstance* instOrRef = this->access->interpret(vm, lastInst);
 
 	return instOrRef;
 }

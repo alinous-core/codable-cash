@@ -121,6 +121,7 @@ AnalyzedClass* AnalyzeContext::getThisClass() const noexcept {
 
 AnalyzedClass* AnalyzeContext::getLastThisClass() const noexcept {
 	int top = this->thisClasses->size() - 2;
+	assert(top >= 0);
 
 	return this->thisClasses->get(top);
 }

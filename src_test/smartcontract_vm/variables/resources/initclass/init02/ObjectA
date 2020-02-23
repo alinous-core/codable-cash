@@ -1,0 +1,10 @@
+
+
+package test.fw;
+
+class ObjectA {
+	public ObjectA() {
+	}
+
+	private int count = 5;
+}

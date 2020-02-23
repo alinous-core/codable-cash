@@ -30,7 +30,9 @@
 
 #include "stack/StackPopper.h"
 
+#include "instance_gc/GcManager.h"
 
+#include "sc_analyze/AnalyzedThisClassStackPopper.h"
 namespace alinous {
 
 MemberVariableDeclare::MemberVariableDeclare() : CodeElement(CodeElement::MEMBER_VARIABLE_DECLARE) {
@@ -80,6 +82,10 @@ void MemberVariableDeclare::analyze(AnalyzeContext* actx) {
 		AnalyzeStackPopper popper(stackMgr, true);
 		stackMgr->addFunctionStack();
 
+		// this ptr
+		AnalyzedClass* aclass = actx->getAnalyzedClass(this);
+		AnalyzedThisClassStackPopper thispopper(actx, aclass);
+
 		this->exp->analyze(actx);
 	}
 }
@@ -101,11 +107,15 @@ void MemberVariableDeclare::onAllocate(VirtualMachine* vm, AbstractReference* re
 }
 
 void MemberVariableDeclare::doOnAllocate(VirtualMachine* vm, AbstractReference* ref) {
+	GcManager* gc = vm->getGc();
+
 	vm->newStack();
 	StackPopper popStack(vm);
 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
 	ref->substitute(inst, vm);
+
+	gc->handleFloatingObject(inst);
 }
 
 void MemberVariableDeclare::setAccessControl(AccessControlDeclare* ctrl) noexcept {

@@ -23,6 +23,8 @@ public:
 
 	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) = 0;
 	virtual AnalyzedType getAnalyzedType() const noexcept = 0;
+	virtual bool hasErrorOnAnalyze() const noexcept;
+
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) = 0;
 };
 
