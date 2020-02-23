@@ -34,4 +34,5 @@ AbstractVmInstance* MemberFunctionCallAccess::interpret(VirtualMachine* vm, Abst
 	return nullptr; // FIXME interpret
 }
 
+
 } /* namespace alinous */

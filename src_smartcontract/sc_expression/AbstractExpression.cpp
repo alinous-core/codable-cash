@@ -19,10 +19,6 @@ AbstractExpression::~AbstractExpression() {
 	delete this->valInstHolder;
 }
 
-AbstractVmInstance* AbstractExpression::interpret(VirtualMachine* vm) {
-	return nullptr;
-}
-
 VariableInstractionHolder* AbstractExpression::getVariableInstractionHolder() noexcept {
 	if(this->valInstHolder == nullptr){
 		this->valInstHolder = new VariableInstractionHolder();

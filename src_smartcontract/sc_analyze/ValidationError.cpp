@@ -29,4 +29,9 @@ ValidationError::~ValidationError() {
 	this->msgParams.deleteElements();
 }
 
+int ValidationError::getErrorCode() const noexcept {
+	return this->errorCode;
+}
+
+
 } /* namespace alinous */

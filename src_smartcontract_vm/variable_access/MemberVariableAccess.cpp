@@ -76,4 +76,9 @@ AbstractVmInstance* MemberVariableAccess::interpret(VirtualMachine* vm, Abstract
 	return ref;
 }
 
+bool MemberVariableAccess::hasErrorOnAnalyze() const noexcept {
+	return this->memberIndex < 0;
+}
+
+
 } /* namespace alinous */

@@ -44,6 +44,7 @@ public:
 	ValidationError(int type, int errorCode, CodeElement* element, const UnicodeString* msg, std::initializer_list<const UnicodeString*> params);
 	virtual ~ValidationError();
 
+	int getErrorCode() const noexcept;
 private:
 	int type;
 	int errorCode;
