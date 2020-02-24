@@ -26,7 +26,7 @@ TEST_GROUP(TestFunctionCallGroup) {
 
 TEST(TestFunctionCallGroup, callMainMethod){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/method_invoke/resources/func01/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/method_invoke/resources/methods/func01/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -45,7 +45,8 @@ TEST(TestFunctionCallGroup, callMainMethod){
 	ExtPrimitiveObject* countObj = obj->getExtPrimitiveObject(&count);
 
 	CHECK(countObj->getIntValue() == 2)
-
-
 }
 
+TEST(TestFunctionCallGroup, returnvalue){
+
+}
