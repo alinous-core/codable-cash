@@ -1,0 +1,21 @@
+
+
+package test.fw;
+
+import test.fw.base.BaseClass;
+
+class SmartContract {
+	public SmartContract() {
+		this.test01();
+	}
+	
+	public int main(){
+		
+	}
+	
+	public void test01(){
+		this.count = 2;
+	}
+	
+	private int count = 0;
+}
