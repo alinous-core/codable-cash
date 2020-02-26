@@ -16,7 +16,7 @@ class UnicodeString;
 class VTableMethodEntry;
 class StackVariableAccess;
 class FunctionArguments;
-
+class AnalyzedClass;
 
 class FunctionCallExpression : public AbstractExpression {
 public:
@@ -26,6 +26,8 @@ public:
 	virtual void preAnalyze(AnalyzeContext* actx);
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
+
+	void analyze(AnalyzeContext* actx, AnalyzedClass* athisClass);
 
 	void setName(AbstractExpression* exp) noexcept;
 	void addArgument(AbstractExpression* exp) noexcept;
@@ -40,6 +42,8 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 
 private:
+	void analyzeArguments(AnalyzeContext* actx);
+
 	AbstractVmInstance* interpretVirtual(VirtualMachine* vm, FunctionArguments* args);
 	void interpretThisPointer(VirtualMachine* vm, FunctionArguments* args);
 	void interpretArguments(VirtualMachine* vm, FunctionArguments* args);

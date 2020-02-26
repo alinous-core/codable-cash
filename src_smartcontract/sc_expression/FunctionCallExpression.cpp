@@ -85,22 +85,19 @@ void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
  * needs actx->setThisClass
  */
 void FunctionCallExpression::analyze(AnalyzeContext* actx) {
-	int maxLoop = this->args.size();
-	for(int i = 0; i != maxLoop; ++i){
-		AbstractExpression* exp = this->args.get(i);
-		exp->analyze(actx);
-	}
+	analyzeArguments(actx);
 
 	AnalyzedClass* athisClass = actx->getThisClass();
 	ClassDeclare* classDec = athisClass->getClassDeclare();
 	const UnicodeString* fqn = classDec->getFullQualifiedName();
-
 
 	VTableRegistory* vreg = actx->getVtableRegistory();
 	VTableClassEntry* classEntry = vreg->getClassEntry(fqn, athisClass);
 
 	ArrayList<AnalyzedType> typeList;
 	typeList.setDeleteOnExit();
+
+	int maxLoop = this->args.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractExpression* exp = this->args.get(i);
 		AnalyzedType type = exp->getType(actx);
@@ -122,6 +119,18 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 		AnalyzeStackManager* astack = actx->getAnalyzeStackManager();
 		this->thisAccess = astack->getThisPointer();
 		this->thisAccess->analyze(actx, nullptr, this);
+	}
+}
+
+void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisClass) {
+	analyzeArguments(actx);
+}
+
+void FunctionCallExpression::analyzeArguments(AnalyzeContext* actx) {
+	int maxLoop = this->args.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		exp->analyze(actx);
 	}
 }
 
