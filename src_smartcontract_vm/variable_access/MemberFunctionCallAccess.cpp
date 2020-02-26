@@ -18,7 +18,6 @@ MemberFunctionCallAccess::MemberFunctionCallAccess(FunctionCallExpression* exp) 
 }
 
 MemberFunctionCallAccess::~MemberFunctionCallAccess() {
-	// TODO Auto-generated destructor stub
 }
 
 void MemberFunctionCallAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {

@@ -74,6 +74,11 @@ void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->args.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		exp->analyzeTypeRef(actx);
+	}
 }
 
 /**
@@ -191,6 +196,7 @@ void FunctionCallExpression::init(VirtualMachine* vm) {
 
 AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
 	FunctionArguments args;
+	interpretThisPointer(vm, &args);
 	interpretArguments(vm, &args);
 
 	if(this->methodEntry->isVirtual()){
@@ -203,7 +209,7 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
 	return args.getReturnedValue();
 }
 
-void FunctionCallExpression::interpretArguments(VirtualMachine* vm,	FunctionArguments* args) {
+void FunctionCallExpression::interpretThisPointer(VirtualMachine* vm, FunctionArguments* args) {
 	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
 
 	// this ptr
@@ -216,6 +222,10 @@ void FunctionCallExpression::interpretArguments(VirtualMachine* vm,	FunctionArgu
 
 		args->setThisPtr(classInst);
 	}
+}
+
+void FunctionCallExpression::interpretArguments(VirtualMachine* vm,	FunctionArguments* args) {
+	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
 
 	// arguments
 	int maxLoop = this->args.size();

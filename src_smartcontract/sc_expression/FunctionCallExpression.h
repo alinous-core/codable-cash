@@ -41,6 +41,7 @@ public:
 
 private:
 	AbstractVmInstance* interpretVirtual(VirtualMachine* vm, FunctionArguments* args);
+	void interpretThisPointer(VirtualMachine* vm, FunctionArguments* args);
 	void interpretArguments(VirtualMachine* vm, FunctionArguments* args);
 private:
 	AbstractExpression* name;
