@@ -13,6 +13,7 @@
 namespace alinous {
 
 class FunctionCallExpression;
+class AnalyzedType;
 
 class MemberFunctionCallAccess: public AbstractVariableInstraction {
 public:
@@ -25,6 +26,7 @@ public:
 
 private:
 	FunctionCallExpression* exp;
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

@@ -15,18 +15,24 @@ namespace alinous {
 
 MemberFunctionCallAccess::MemberFunctionCallAccess(FunctionCallExpression* exp) {
 	this->exp = exp;
+	this->atype = nullptr;
 }
 
 MemberFunctionCallAccess::~MemberFunctionCallAccess() {
+	delete this->atype;
 }
 
 void MemberFunctionCallAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
-	// FIXME analyze
+	AnalyzedType at = lastIinst->getAnalyzedType();
+	this->atype = new AnalyzedType(at);
+
+	AnalyzedClass* aclass = this->atype->getAnalyzedClass();
+
+	this->exp->analyze(actx, aclass);
 }
 
 AnalyzedType MemberFunctionCallAccess::getAnalyzedType() const noexcept {
-	// FIXME analyze
-	return AnalyzedType();
+	return *this->atype;
 }
 
 AbstractVmInstance* MemberFunctionCallAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {

@@ -88,6 +88,30 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 	analyzeArguments(actx);
 
 	AnalyzedClass* athisClass = actx->getThisClass();
+	analyzeMethodEntry(actx, athisClass);
+
+	// this ptr
+	if(!this->methodEntry->isStatic()){
+		AnalyzeStackManager* astack = actx->getAnalyzeStackManager();
+		this->thisAccess = astack->getThisPointer();
+		this->thisAccess->analyze(actx, nullptr, this);
+	}
+}
+
+void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisClass) {
+	analyzeArguments(actx);
+	analyzeMethodEntry(actx, athisClass);
+}
+
+void FunctionCallExpression::analyzeArguments(AnalyzeContext* actx) {
+	int maxLoop = this->args.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		exp->analyze(actx);
+	}
+}
+
+void FunctionCallExpression::analyzeMethodEntry(AnalyzeContext* actx, AnalyzedClass* athisClass) {
 	ClassDeclare* classDec = athisClass->getClassDeclare();
 	const UnicodeString* fqn = classDec->getFullQualifiedName();
 
@@ -113,25 +137,6 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 	}
 
 	this->callSignature = this->methodEntry->getMethod()->getCallSignature();
-
-	// this ptr
-	if(!this->methodEntry->isStatic()){
-		AnalyzeStackManager* astack = actx->getAnalyzeStackManager();
-		this->thisAccess = astack->getThisPointer();
-		this->thisAccess->analyze(actx, nullptr, this);
-	}
-}
-
-void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisClass) {
-	analyzeArguments(actx);
-}
-
-void FunctionCallExpression::analyzeArguments(AnalyzeContext* actx) {
-	int maxLoop = this->args.size();
-	for(int i = 0; i != maxLoop; ++i){
-		AbstractExpression* exp = this->args.get(i);
-		exp->analyze(actx);
-	}
 }
 
 void FunctionCallExpression::setName(AbstractExpression* exp) noexcept {

@@ -43,6 +43,7 @@ public:
 
 private:
 	void analyzeArguments(AnalyzeContext* actx);
+	void analyzeMethodEntry(AnalyzeContext* actx, AnalyzedClass* athisClass);
 
 	AbstractVmInstance* interpretVirtual(VirtualMachine* vm, FunctionArguments* args);
 	void interpretThisPointer(VirtualMachine* vm, FunctionArguments* args);
