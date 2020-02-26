@@ -17,6 +17,7 @@ class VTableMethodEntry;
 class StackVariableAccess;
 class FunctionArguments;
 class AnalyzedClass;
+class VmClassInstance;
 
 class FunctionCallExpression : public AbstractExpression {
 public:
@@ -40,6 +41,7 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+	AbstractVmInstance* interpret(VirtualMachine* vm, VmClassInstance* classInst);
 
 private:
 	void analyzeArguments(AnalyzeContext* actx);

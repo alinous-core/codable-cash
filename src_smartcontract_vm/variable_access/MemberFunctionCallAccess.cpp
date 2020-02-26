@@ -11,6 +11,9 @@
 
 #include "sc_expression/FunctionCallExpression.h"
 
+#include "instance/VmClassInstance.h"
+
+
 namespace alinous {
 
 MemberFunctionCallAccess::MemberFunctionCallAccess(FunctionCallExpression* exp) {
@@ -35,7 +38,10 @@ AnalyzedType MemberFunctionCallAccess::getAnalyzedType() const noexcept {
 }
 
 AbstractVmInstance* MemberFunctionCallAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
-	return nullptr; // FIXME interpret
+	AbstractVmInstance* inst = lastInst;
+	VmClassInstance* classInst = dynamic_cast<VmClassInstance*>(inst);
+
+	return this->exp->interpret(vm, classInst);
 }
 
 

@@ -223,7 +223,20 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
 	return args.getReturnedValue();
 }
 
+AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm, VmClassInstance* classInst) {
+	FunctionArguments args;
+	args.setThisPtr(classInst);
+	interpretArguments(vm, &args);
 
+	if(this->methodEntry->isVirtual()){
+		return interpretVirtual(vm, &args);
+	}
+
+	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
+	methodDeclare->interpret(&args, vm);
+
+	return args.getReturnedValue();
+}
 
 void FunctionCallExpression::interpretThisPointer(VirtualMachine* vm, FunctionArguments* args) {
 	MethodDeclare* methodDeclare = this->methodEntry->getMethod();

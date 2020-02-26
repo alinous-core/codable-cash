@@ -56,4 +56,13 @@ TEST(TestFunctionCallGroup, returnvalue){
 
 	bool result = util.analyze();
 	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	UnicodeString count(L"count");
+	ExtPrimitiveObject* countObj = obj->getExtPrimitiveObject(&count);
+
+	CHECK(countObj->getIntValue() == 2)
 }
