@@ -9,12 +9,12 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "sc_expression/FunctionCallExpression.h"
 
 namespace alinous {
 
-MemberFunctionCallAccess::MemberFunctionCallAccess() {
-	// TODO Auto-generated constructor stub
-
+MemberFunctionCallAccess::MemberFunctionCallAccess(FunctionCallExpression* exp) {
+	this->exp = exp;
 }
 
 MemberFunctionCallAccess::~MemberFunctionCallAccess() {

@@ -12,14 +12,19 @@
 
 namespace alinous {
 
+class FunctionCallExpression;
+
 class MemberFunctionCallAccess: public AbstractVariableInstraction {
 public:
-	MemberFunctionCallAccess();
+	MemberFunctionCallAccess(FunctionCallExpression* exp);
 	virtual ~MemberFunctionCallAccess();
 
 	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element);
 	virtual AnalyzedType getAnalyzedType() const noexcept;
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm, AbstractVmInstance* lastInst);
+
+private:
+	FunctionCallExpression* exp;
 };
 
 } /* namespace alinous */

@@ -10,6 +10,7 @@
 #include "sc_expression/AbstractExpression.h"
 #include "sc_expression/VariableIdentifier.h"
 #include "sc_expression/ArrayReferenceExpression.h"
+#include "sc_expression/FunctionCallExpression.h"
 
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedType.h"
@@ -20,6 +21,7 @@
 #include "variable_access/ArrayReferenceAccess.h"
 #include "variable_access/MemberVariableAccess.h"
 #include "variable_access/StackVariableAccess.h"
+#include "variable_access/MemberFunctionCallAccess.h"
 
 #include "sc_analyze_stack/AnalyzeStackManager.h"
 
@@ -112,7 +114,10 @@ void VariableInstractionHolder::addArrayReference(AbstractExpression* exp, Analy
 }
 
 void VariableInstractionHolder::addFunctionCallExp(AbstractExpression* exp,	AnalyzeContext* actx) noexcept {
-	// FIXME array is stack object or
+	FunctionCallExpression* fexp = dynamic_cast<FunctionCallExpression*>(exp);
+
+	MemberFunctionCallAccess* access = new MemberFunctionCallAccess(fexp);
+	this->list.addElement(access);
 }
 
 void VariableInstractionHolder::analyze(AnalyzeContext* actx, CodeElement* element) {
