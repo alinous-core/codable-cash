@@ -24,11 +24,10 @@ MemberFunctionCallAccess::~MemberFunctionCallAccess() {
 
 void MemberFunctionCallAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
 	AnalyzedType at = lastIinst->getAnalyzedType();
-	this->atype = new AnalyzedType(at);
-
-	AnalyzedClass* aclass = this->atype->getAnalyzedClass();
+	AnalyzedClass* aclass = at.getAnalyzedClass();
 
 	this->exp->analyze(actx, aclass);
+	this->atype = new AnalyzedType(this->exp->getType(actx));
 }
 
 AnalyzedType MemberFunctionCallAccess::getAnalyzedType() const noexcept {
