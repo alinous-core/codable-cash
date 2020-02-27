@@ -2122,28 +2122,39 @@ AbstractExpression* functionCallExpression() : {
 	FunctionCallExpression* exp = nullptr;
 	Token* t = nullptr;
 	VariableIdentifier* funcName = nullptr;
+	
+	AbstractExpression* ret = nullptr;
 }
 {
-	funcName=variableIdentifier()
+	(LOOKAHEAD(2)
+		(
+			ret=primitive()
+		)
+		|
+		(
+			funcName=variableIdentifier()
+
+			t="(" {
+				exp = new FunctionCallExpression();
+				exp->setName(funcName);
+				exp->setPosition(funcName);
+				exp->setPosition(t);
+				
+				ret = exp;
+			}
+			
+			functionCallExpressionArg(exp)		
+			
+			t=")" {
+				exp->setPosition(t);
+			}
 	
-	[LOOKAHEAD(2)
-		t="(" {
-			exp = new FunctionCallExpression();
-			exp->setName(funcName);
-			exp->setPosition(funcName);
-			exp->setPosition(t);
-		}
-		
-		functionCallExpressionArg(exp)		
-		
-		t=")" {
-			exp->setPosition(t);
-		}
-	]
+		)
+	)
 	{}
 	{
-		__ONERROR(exp);
-		return exp;
+		__ONERROR(ret);
+		return ret;
 	}
 }
 
