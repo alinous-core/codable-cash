@@ -139,7 +139,7 @@ void FunctionCallExpression::analyzeMethodEntry(AnalyzeContext* actx, AnalyzedCl
 	this->callSignature = this->methodEntry->getMethod()->getCallSignature();
 }
 
-void FunctionCallExpression::setName(AbstractExpression* exp) noexcept {
+void FunctionCallExpression::setName(VariableIdentifier* exp) noexcept {
 	this->name = exp;
 }
 
@@ -180,8 +180,9 @@ void FunctionCallExpression::toBinary(ByteBuffer* out) {
 
 void FunctionCallExpression::fromBinary(ByteBuffer* in) {
 	CodeElement* element = createFromBinary(in);
-	checkIsExp(element);
-	this->name = dynamic_cast<AbstractExpression*>(element);
+	checkKind(element, CodeElement::EXP_FUNCTIONCALL);
+
+	this->name = dynamic_cast<VariableIdentifier*>(element);
 
 	int maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){

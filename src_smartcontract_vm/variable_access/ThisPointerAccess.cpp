@@ -42,4 +42,8 @@ AbstractVmInstance* ThisPointerAccess::interpret(VirtualMachine* vm, AbstractVmI
 	return inst;
 }
 
+CodeElement* alinous::ThisPointerAccess::getCodeElement() const noexcept {
+	return nullptr;
+}
+
 } /* namespace alinous */

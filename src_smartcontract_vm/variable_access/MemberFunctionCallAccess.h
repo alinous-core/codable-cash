@@ -24,6 +24,7 @@ public:
 	virtual AnalyzedType getAnalyzedType() const noexcept;
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm, AbstractVmInstance* lastInst);
 
+	virtual CodeElement* getCodeElement() const noexcept;
 private:
 	FunctionCallExpression* exp;
 	AnalyzedType* atype;

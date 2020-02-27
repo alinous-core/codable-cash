@@ -14,6 +14,7 @@
 
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
 
 #include "variable_access/AbstractVariableInstraction.h"
 #include "variable_access/ExpressionAccess.h"
@@ -125,6 +126,10 @@ void VariableInstractionHolder::analyze(AnalyzeContext* actx, CodeElement* eleme
 
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
+		if(lastIinst != nullptr && checkNotVoid(actx, lastIinst)){
+			break;
+		}
+
 		AbstractVariableInstraction* inst = this->list.get(i);
 		inst->analyze(actx, lastIinst, element);
 
@@ -135,12 +140,24 @@ void VariableInstractionHolder::analyze(AnalyzeContext* actx, CodeElement* eleme
 	this->atype = new AnalyzedType(at);
 }
 
+bool VariableInstractionHolder::checkNotVoid(AnalyzeContext* actx, AbstractVariableInstraction* inst) {
+	AnalyzedType at = inst->getAnalyzedType();
+
+	if(at.isVoid()){
+		CodeElement* codeElement = inst->getCodeElement();
+		FunctionCallExpression* exp = dynamic_cast<FunctionCallExpression*>(codeElement);
+		// FIXME
+
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_NAME, codeElement, L"The '{0}' is void type and don't have members.", {});
+		return true;
+	}
+	return false;
+}
 
 
 AnalyzedType* VariableInstractionHolder::getAnalyzedType() const noexcept {
 	return this->atype;
 }
-
 
 AbstractVmInstance* VariableInstractionHolder::interpret(VirtualMachine* vm) {
 	AbstractVmInstance* lastInst = nullptr;
@@ -153,6 +170,5 @@ AbstractVmInstance* VariableInstractionHolder::interpret(VirtualMachine* vm) {
 
 	return lastInst;
 }
-
 
 } /* namespace alinous */

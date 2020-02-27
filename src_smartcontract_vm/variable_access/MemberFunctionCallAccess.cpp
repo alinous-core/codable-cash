@@ -44,5 +44,8 @@ AbstractVmInstance* MemberFunctionCallAccess::interpret(VirtualMachine* vm, Abst
 	return this->exp->interpret(vm, classInst);
 }
 
+CodeElement* MemberFunctionCallAccess::getCodeElement() const noexcept {
+	return this->exp;
+}
 
 } /* namespace alinous */

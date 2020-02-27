@@ -148,6 +148,11 @@ const UnicodeString* AnalyzedType::getSignatureName() noexcept {
 	return ret;
 }
 
+bool AnalyzedType::isVoid() const noexcept {
+	return this->type == TYPE_VOID;
+}
+
+
 bool AnalyzedType::isArray() const noexcept {
 	return this->dim > 0;
 }

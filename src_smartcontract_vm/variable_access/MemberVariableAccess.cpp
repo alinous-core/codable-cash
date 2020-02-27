@@ -80,5 +80,8 @@ bool MemberVariableAccess::hasErrorOnAnalyze() const noexcept {
 	return this->memberIndex < 0;
 }
 
+CodeElement* MemberVariableAccess::getCodeElement() const noexcept {
+	return this->valId;
+}
 
 } /* namespace alinous */

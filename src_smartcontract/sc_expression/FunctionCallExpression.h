@@ -18,6 +18,7 @@ class StackVariableAccess;
 class FunctionArguments;
 class AnalyzedClass;
 class VmClassInstance;
+class VariableIdentifier;
 
 class FunctionCallExpression : public AbstractExpression {
 public:
@@ -30,7 +31,7 @@ public:
 
 	void analyze(AnalyzeContext* actx, AnalyzedClass* athisClass);
 
-	void setName(AbstractExpression* exp) noexcept;
+	void setName(VariableIdentifier* exp) noexcept;
 	void addArgument(AbstractExpression* exp) noexcept;
 
 	virtual int binarySize() const;
@@ -51,7 +52,7 @@ private:
 	void interpretThisPointer(VirtualMachine* vm, FunctionArguments* args);
 	void interpretArguments(VirtualMachine* vm, FunctionArguments* args);
 private:
-	AbstractExpression* name;
+	VariableIdentifier* name;
 	ArrayList<AbstractExpression> args;
 
 	UnicodeString* strName;
