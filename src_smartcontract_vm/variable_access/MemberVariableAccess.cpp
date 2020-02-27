@@ -60,6 +60,7 @@ void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 	// error
 	if(element != nullptr && this->memberIndex < 0){
 		actx->addValidationError(ValidationError::CODE_CLASS_MEMBER_DOES_NOT_EXISTS, this->valId, L"The variable '{0}' does not exists.", {name});
+		this->hasError = true;
 	}
 }
 

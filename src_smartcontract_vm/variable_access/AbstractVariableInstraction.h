@@ -28,6 +28,9 @@ public:
 	virtual CodeElement* getCodeElement() const noexcept = 0;
 
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) = 0;
+
+protected:
+	bool hasError;
 };
 
 } /* namespace alinous */

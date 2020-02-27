@@ -133,11 +133,19 @@ void VariableInstractionHolder::analyze(AnalyzeContext* actx, CodeElement* eleme
 		AbstractVariableInstraction* inst = this->list.get(i);
 		inst->analyze(actx, lastIinst, element);
 
-		lastIinst = inst;
+		if(!inst->hasErrorOnAnalyze()){
+			lastIinst = inst;
+		}
+		else{
+			break;
+		}
 	}
 
-	AnalyzedType at = lastIinst->getAnalyzedType();
-	this->atype = new AnalyzedType(at);
+	if(lastIinst != nullptr){
+		AnalyzedType at = lastIinst->getAnalyzedType();
+		this->atype = new AnalyzedType(at);
+	}
+
 }
 
 bool VariableInstractionHolder::checkNotVoid(AnalyzeContext* actx, AbstractVariableInstraction* inst) {
