@@ -31,7 +31,7 @@ public:
 
 	void analyze(AnalyzeContext* actx, AnalyzedClass* athisClass);
 
-	void setName(VariableIdentifier* exp) noexcept;
+	void setName(AbstractExpression* exp) noexcept;
 	void addArgument(AbstractExpression* exp) noexcept;
 
 	virtual int binarySize() const;
@@ -52,7 +52,7 @@ private:
 	void interpretThisPointer(VirtualMachine* vm, FunctionArguments* args);
 	void interpretArguments(VirtualMachine* vm, FunctionArguments* args);
 private:
-	VariableIdentifier* name;
+	AbstractExpression* name;
 	ArrayList<AbstractExpression> args;
 
 	UnicodeString* strName;

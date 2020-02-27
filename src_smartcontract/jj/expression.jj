@@ -712,40 +712,31 @@ AbstractExpression* arrayReferenceExpression() : {
 AbstractExpression* functionCallExpression() : {
 	FunctionCallExpression* exp = nullptr;
 	Token* t = nullptr;
-	VariableIdentifier* funcName = nullptr;
-	
-	AbstractExpression* ret = nullptr;
+	AbstractExpression* left = nullptr;
 }
 {
-	(LOOKAHEAD(2)
-		(
-			ret=primitive()
-		)
-		|
-		(
-			funcName=variableIdentifier()
-
-			t="(" {
-				exp = new FunctionCallExpression();
-				exp->setName(funcName);
-				exp->setPosition(funcName);
-				exp->setPosition(t);
-				
-				ret = exp;
-			}
-			
-			functionCallExpressionArg(exp)		
-			
-			t=")" {
-				exp->setPosition(t);
-			}
+	left=primitive()
 	
-		)
-	)
+	[LOOKAHEAD(2)
+		t="(" {
+			exp = new FunctionCallExpression();
+			exp->setName(left);
+			exp->setPosition(left);
+			exp->setPosition(t);
+			
+			left = exp;
+		}
+		
+		functionCallExpressionArg(exp)		
+		
+		t=")" {
+			exp->setPosition(t);
+		}
+	]
 	{}
 	{
-		__ONERROR(ret);
-		return ret;
+		__ONERROR(left);
+		return left;
 	}
 }
 
