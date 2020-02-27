@@ -12,6 +12,7 @@ add_subdirectory(instance_ref)
 add_subdirectory(instance_ref_static)
 add_subdirectory(memory)
 add_subdirectory(stack)
+add_subdirectory(type_check)
 add_subdirectory(variable_access)
 add_subdirectory(vm)
 
