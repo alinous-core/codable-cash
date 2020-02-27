@@ -146,9 +146,9 @@ bool VariableInstractionHolder::checkNotVoid(AnalyzeContext* actx, AbstractVaria
 	if(at.isVoid()){
 		CodeElement* codeElement = inst->getCodeElement();
 		FunctionCallExpression* exp = dynamic_cast<FunctionCallExpression*>(codeElement);
-		// FIXME
+		VariableIdentifier* valId = exp->getName();
 
-		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_NAME, codeElement, L"The '{0}' is void type and don't have members.", {});
+		actx->addValidationError(ValidationError::CODE_CLASS_MEMBER_VOID, codeElement, L"The '{0}()' is void type and don't have members.", {valId->getName()});
 		return true;
 	}
 	return false;

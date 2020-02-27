@@ -33,6 +33,7 @@ public:
 	static constexpr int CODE_CLASS_MEMBER_ALREADY_EXISTS = 30;
 	static constexpr int CODE_CLASS_MEMBER_DOES_NOT_EXISTS = 31;
 	static constexpr int CODE_CLASS_MEMBER_AND_STACK_VARIABLE_DO_NOT_EXISTS = 32;
+	static constexpr int CODE_CLASS_MEMBER_VOID = 33;
 
 	static constexpr int CODE_ALLOCATION_TYPE_DOES_NOT_EXISTS = 40;
 

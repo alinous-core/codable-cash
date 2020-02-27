@@ -143,6 +143,11 @@ void FunctionCallExpression::setName(AbstractExpression* exp) noexcept {
 	this->name = exp;
 }
 
+VariableIdentifier* FunctionCallExpression::getName() const noexcept {
+	VariableIdentifier* valId = dynamic_cast<VariableIdentifier*>(this->name);
+	return valId;
+}
+
 void FunctionCallExpression::addArgument(AbstractExpression* exp) noexcept {
 	this->args.addElement(exp);
 }

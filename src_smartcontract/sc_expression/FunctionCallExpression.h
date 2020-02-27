@@ -32,6 +32,8 @@ public:
 	void analyze(AnalyzeContext* actx, AnalyzedClass* athisClass);
 
 	void setName(AbstractExpression* exp) noexcept;
+	VariableIdentifier* getName() const noexcept;
+
 	void addArgument(AbstractExpression* exp) noexcept;
 
 	virtual int binarySize() const;
