@@ -14,6 +14,7 @@ class AnalyzedTypeChecker {
 public:
 	AnalyzedTypeChecker();
 	virtual ~AnalyzedTypeChecker();
+
 };
 
 } /* namespace alinous */
