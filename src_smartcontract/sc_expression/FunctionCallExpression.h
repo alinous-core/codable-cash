@@ -16,7 +16,9 @@ class UnicodeString;
 class VTableMethodEntry;
 class StackVariableAccess;
 class FunctionArguments;
-
+class AnalyzedClass;
+class VmClassInstance;
+class VariableIdentifier;
 
 class FunctionCallExpression : public AbstractExpression {
 public:
@@ -27,7 +29,11 @@ public:
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
+	void analyze(AnalyzeContext* actx, AnalyzedClass* athisClass);
+
 	void setName(AbstractExpression* exp) noexcept;
+	VariableIdentifier* getName() const noexcept;
+
 	void addArgument(AbstractExpression* exp) noexcept;
 
 	virtual int binarySize() const;
@@ -38,9 +44,14 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+	AbstractVmInstance* interpret(VirtualMachine* vm, VmClassInstance* classInst);
 
 private:
+	void analyzeArguments(AnalyzeContext* actx);
+	void analyzeMethodEntry(AnalyzeContext* actx, AnalyzedClass* athisClass);
+
 	AbstractVmInstance* interpretVirtual(VirtualMachine* vm, FunctionArguments* args);
+	void interpretThisPointer(VirtualMachine* vm, FunctionArguments* args);
 	void interpretArguments(VirtualMachine* vm, FunctionArguments* args);
 private:
 	AbstractExpression* name;

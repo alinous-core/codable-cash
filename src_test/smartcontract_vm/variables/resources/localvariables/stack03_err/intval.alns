@@ -1,0 +1,16 @@
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		int n = 10;
+		
+		this.val = n1;
+	}
+	
+	public void main(){
+	
+	}
+	
+	private int val;
+}

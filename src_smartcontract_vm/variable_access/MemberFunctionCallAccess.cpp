@@ -9,29 +9,43 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "sc_expression/FunctionCallExpression.h"
+
+#include "instance/VmClassInstance.h"
+
 
 namespace alinous {
 
-MemberFunctionCallAccess::MemberFunctionCallAccess() {
-	// TODO Auto-generated constructor stub
-
+MemberFunctionCallAccess::MemberFunctionCallAccess(FunctionCallExpression* exp) {
+	this->exp = exp;
+	this->atype = nullptr;
 }
 
 MemberFunctionCallAccess::~MemberFunctionCallAccess() {
-	// TODO Auto-generated destructor stub
+	delete this->atype;
 }
 
 void MemberFunctionCallAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
-	// FIXME analyze
+	AnalyzedType at = lastIinst->getAnalyzedType();
+	AnalyzedClass* aclass = at.getAnalyzedClass();
+
+	this->exp->analyze(actx, aclass);
+	this->atype = new AnalyzedType(this->exp->getType(actx));
 }
 
 AnalyzedType MemberFunctionCallAccess::getAnalyzedType() const noexcept {
-	// FIXME analyze
-	return AnalyzedType();
+	return *this->atype;
 }
 
 AbstractVmInstance* MemberFunctionCallAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
-	return nullptr; // FIXME interpret
+	AbstractVmInstance* inst = lastInst;
+	VmClassInstance* classInst = dynamic_cast<VmClassInstance*>(inst);
+
+	return this->exp->interpret(vm, classInst);
+}
+
+CodeElement* MemberFunctionCallAccess::getCodeElement() const noexcept {
+	return this->exp;
 }
 
 } /* namespace alinous */

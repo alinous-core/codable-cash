@@ -36,6 +36,7 @@ private:
 	void addArrayReference(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 	void addFunctionCallExp(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 
+	bool checkNotVoid(AnalyzeContext* actx, AbstractVariableInstraction* inst);
 private:
 	ArrayList<AbstractVariableInstraction> list;
 	bool memberAccess;

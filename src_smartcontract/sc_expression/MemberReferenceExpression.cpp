@@ -25,13 +25,13 @@ void MemberReferenceExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void MemberReferenceExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	AbstractBinaryExpression::analyzeTypeRef(actx);
 }
 
 void MemberReferenceExpression::analyze(AnalyzeContext* actx) {
-	AbstractBinaryExpression::analyze(actx);
-
 	int maxLoop = this->list.size();
 	VariableInstractionHolder* holder = getVariableInstractionHolder();
+
 
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractExpression* exp = this->list.get(i);

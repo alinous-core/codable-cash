@@ -49,6 +49,8 @@ public:
 	const UnicodeString* stringName() noexcept;
 	const UnicodeString* getSignatureName() noexcept;
 
+	bool isVoid() const noexcept;
+
 	void setDim(int dim) noexcept;
 	int getDim() const noexcept;
 	bool isArray() const noexcept;

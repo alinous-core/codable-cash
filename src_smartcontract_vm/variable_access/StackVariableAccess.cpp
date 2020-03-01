@@ -51,4 +51,8 @@ AbstractVmInstance* StackVariableAccess::interpret(VirtualMachine* vm, AbstractV
 	return inst;
 }
 
+CodeElement* StackVariableAccess::getCodeElement() const noexcept {
+	return nullptr;
+}
+
 } /* namespace alinous */

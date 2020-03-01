@@ -25,6 +25,15 @@ void AbstractBinaryExpression::preAnalyze(AnalyzeContext* actx) {
 	}
 }
 
+void AbstractBinaryExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->list.get(i);
+		exp->analyzeTypeRef(actx);
+	}
+}
+
+
 void AbstractBinaryExpression::analyze(AnalyzeContext* actx) {
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){

@@ -9,6 +9,7 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "sc_expression/AbstractExpression.h"
 
 namespace alinous {
 
@@ -30,6 +31,10 @@ AnalyzedType ExpressionAccess::getAnalyzedType() const noexcept {
 AbstractVmInstance* ExpressionAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
 	// FIXME interpret
 	return nullptr;
+}
+
+CodeElement* ExpressionAccess::getCodeElement() const noexcept {
+	return this->exp;
 }
 
 } /* namespace alinous */

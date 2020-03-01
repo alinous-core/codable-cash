@@ -10,9 +10,11 @@
 #include "sc_expression/AbstractExpression.h"
 #include "sc_expression/VariableIdentifier.h"
 #include "sc_expression/ArrayReferenceExpression.h"
+#include "sc_expression/FunctionCallExpression.h"
 
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
 
 #include "variable_access/AbstractVariableInstraction.h"
 #include "variable_access/ExpressionAccess.h"
@@ -20,6 +22,7 @@
 #include "variable_access/ArrayReferenceAccess.h"
 #include "variable_access/MemberVariableAccess.h"
 #include "variable_access/StackVariableAccess.h"
+#include "variable_access/MemberFunctionCallAccess.h"
 
 #include "sc_analyze_stack/AnalyzeStackManager.h"
 
@@ -112,7 +115,10 @@ void VariableInstractionHolder::addArrayReference(AbstractExpression* exp, Analy
 }
 
 void VariableInstractionHolder::addFunctionCallExp(AbstractExpression* exp,	AnalyzeContext* actx) noexcept {
-	// FIXME array is stack object or
+	FunctionCallExpression* fexp = dynamic_cast<FunctionCallExpression*>(exp);
+
+	MemberFunctionCallAccess* access = new MemberFunctionCallAccess(fexp);
+	this->list.addElement(access);
 }
 
 void VariableInstractionHolder::analyze(AnalyzeContext* actx, CodeElement* element) {
@@ -120,22 +126,46 @@ void VariableInstractionHolder::analyze(AnalyzeContext* actx, CodeElement* eleme
 
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
+		if(lastIinst != nullptr && checkNotVoid(actx, lastIinst)){
+			break;
+		}
+
 		AbstractVariableInstraction* inst = this->list.get(i);
 		inst->analyze(actx, lastIinst, element);
 
-		lastIinst = inst;
+		if(!inst->hasErrorOnAnalyze()){
+			lastIinst = inst;
+		}
+		else{
+			break;
+		}
 	}
 
-	AnalyzedType at = lastIinst->getAnalyzedType();
-	this->atype = new AnalyzedType(at);
+	if(lastIinst != nullptr){
+		AnalyzedType at = lastIinst->getAnalyzedType();
+		this->atype = new AnalyzedType(at);
+	}
+
 }
 
+bool VariableInstractionHolder::checkNotVoid(AnalyzeContext* actx, AbstractVariableInstraction* inst) {
+	AnalyzedType at = inst->getAnalyzedType();
+
+	if(at.isVoid()){
+		CodeElement* codeElement = inst->getCodeElement();
+		FunctionCallExpression* exp = dynamic_cast<FunctionCallExpression*>(codeElement);
+		VariableIdentifier* valId = exp->getName();
+
+		actx->addValidationError(ValidationError::CODE_CLASS_MEMBER_VOID, codeElement, L"The '{0}()' is void type and don't have members.", {valId->getName()});
+		return true;
+	}
+	return false;
+}
 
 
 AnalyzedType* VariableInstractionHolder::getAnalyzedType() const noexcept {
 	return this->atype;
 }
-
 
 AbstractVmInstance* VariableInstractionHolder::interpret(VirtualMachine* vm) {
 	AbstractVmInstance* lastInst = nullptr;
@@ -148,6 +178,5 @@ AbstractVmInstance* VariableInstractionHolder::interpret(VirtualMachine* vm) {
 
 	return lastInst;
 }
-
 
 } /* namespace alinous */

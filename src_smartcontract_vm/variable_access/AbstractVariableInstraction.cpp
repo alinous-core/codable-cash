@@ -10,7 +10,7 @@
 namespace alinous {
 
 AbstractVariableInstraction::AbstractVariableInstraction() {
-
+	this->hasError = false;
 }
 
 AbstractVariableInstraction::~AbstractVariableInstraction() {
@@ -18,7 +18,7 @@ AbstractVariableInstraction::~AbstractVariableInstraction() {
 }
 
 bool AbstractVariableInstraction::hasErrorOnAnalyze() const noexcept {
-	return false;
+	return this->hasError;
 }
 
 } /* namespace alinous */

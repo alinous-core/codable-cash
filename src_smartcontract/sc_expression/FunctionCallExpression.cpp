@@ -74,28 +74,54 @@ void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->args.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		exp->analyzeTypeRef(actx);
+	}
 }
 
 /**
  * needs actx->setThisClass
  */
 void FunctionCallExpression::analyze(AnalyzeContext* actx) {
+	analyzeArguments(actx);
+
+	AnalyzedClass* athisClass = actx->getThisClass();
+	analyzeMethodEntry(actx, athisClass);
+
+	// this ptr
+	if(!this->methodEntry->isStatic()){
+		AnalyzeStackManager* astack = actx->getAnalyzeStackManager();
+		this->thisAccess = astack->getThisPointer();
+		this->thisAccess->analyze(actx, nullptr, this);
+	}
+}
+
+void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisClass) {
+	analyzeArguments(actx);
+	analyzeMethodEntry(actx, athisClass);
+}
+
+void FunctionCallExpression::analyzeArguments(AnalyzeContext* actx) {
 	int maxLoop = this->args.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractExpression* exp = this->args.get(i);
 		exp->analyze(actx);
 	}
+}
 
-	AnalyzedClass* athisClass = actx->getThisClass();
+void FunctionCallExpression::analyzeMethodEntry(AnalyzeContext* actx, AnalyzedClass* athisClass) {
 	ClassDeclare* classDec = athisClass->getClassDeclare();
 	const UnicodeString* fqn = classDec->getFullQualifiedName();
-
 
 	VTableRegistory* vreg = actx->getVtableRegistory();
 	VTableClassEntry* classEntry = vreg->getClassEntry(fqn, athisClass);
 
 	ArrayList<AnalyzedType> typeList;
 	typeList.setDeleteOnExit();
+
+	int maxLoop = this->args.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractExpression* exp = this->args.get(i);
 		AnalyzedType type = exp->getType(actx);
@@ -111,17 +137,15 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 	}
 
 	this->callSignature = this->methodEntry->getMethod()->getCallSignature();
-
-	// this ptr
-	if(!this->methodEntry->isStatic()){
-		AnalyzeStackManager* astack = actx->getAnalyzeStackManager();
-		this->thisAccess = astack->getThisPointer();
-		this->thisAccess->analyze(actx, nullptr, this);
-	}
 }
 
 void FunctionCallExpression::setName(AbstractExpression* exp) noexcept {
 	this->name = exp;
+}
+
+VariableIdentifier* FunctionCallExpression::getName() const noexcept {
+	VariableIdentifier* valId = dynamic_cast<VariableIdentifier*>(this->name);
+	return valId;
 }
 
 void FunctionCallExpression::addArgument(AbstractExpression* exp) noexcept {
@@ -161,8 +185,9 @@ void FunctionCallExpression::toBinary(ByteBuffer* out) {
 
 void FunctionCallExpression::fromBinary(ByteBuffer* in) {
 	CodeElement* element = createFromBinary(in);
-	checkIsExp(element);
-	this->name = dynamic_cast<AbstractExpression*>(element);
+	checkKind(element, CodeElement::EXP_VARIABLE_ID);
+
+	this->name = dynamic_cast<VariableIdentifier*>(element);
 
 	int maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){
@@ -191,6 +216,7 @@ void FunctionCallExpression::init(VirtualMachine* vm) {
 
 AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
 	FunctionArguments args;
+	interpretThisPointer(vm, &args);
 	interpretArguments(vm, &args);
 
 	if(this->methodEntry->isVirtual()){
@@ -203,7 +229,22 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
 	return args.getReturnedValue();
 }
 
-void FunctionCallExpression::interpretArguments(VirtualMachine* vm,	FunctionArguments* args) {
+AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm, VmClassInstance* classInst) {
+	FunctionArguments args;
+	args.setThisPtr(classInst);
+	interpretArguments(vm, &args);
+
+	if(this->methodEntry->isVirtual()){
+		return interpretVirtual(vm, &args);
+	}
+
+	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
+	methodDeclare->interpret(&args, vm);
+
+	return args.getReturnedValue();
+}
+
+void FunctionCallExpression::interpretThisPointer(VirtualMachine* vm, FunctionArguments* args) {
 	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
 
 	// this ptr
@@ -216,6 +257,10 @@ void FunctionCallExpression::interpretArguments(VirtualMachine* vm,	FunctionArgu
 
 		args->setThisPtr(classInst);
 	}
+}
+
+void FunctionCallExpression::interpretArguments(VirtualMachine* vm,	FunctionArguments* args) {
+	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
 
 	// arguments
 	int maxLoop = this->args.size();

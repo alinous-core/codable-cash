@@ -23,6 +23,9 @@ public:
 	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element);
 	virtual AnalyzedType getAnalyzedType() const noexcept;
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm, AbstractVmInstance* lastInst);
+	virtual bool hasErrorOnAnalyze() const noexcept;
+
+	virtual CodeElement* getCodeElement() const noexcept;
 private:
 	VariableIdentifier* valId;
 	int memberIndex;

@@ -77,7 +77,7 @@ void VariableIdentifier::doAnalyze(AnalyzeContext* actx) {
 	this->thisAccess = new ThisPointerAccess();
 
 	this->thisAccess->analyze(actx, nullptr, this);
-	memAccess->analyze(actx, this->thisAccess, this);
+	memAccess->analyze(actx, this->thisAccess, nullptr);
 
 	if(memAccess->hasErrorOnAnalyze()){
 		delete this->access;

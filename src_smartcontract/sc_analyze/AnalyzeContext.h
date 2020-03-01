@@ -39,6 +39,7 @@ public:
 	void addValidationError(int errorCode, CodeElement* element, const wchar_t* msg, std::initializer_list<const UnicodeString*> params) noexcept;
 
 	bool hasError() noexcept;
+	const ArrayList<ValidationError>* getErrors() const noexcept;
 
 	AnalyzedClass* getAnalyzedClass(CodeElement* clazz);
 	TypeResolver* getTypeResolver() const noexcept;

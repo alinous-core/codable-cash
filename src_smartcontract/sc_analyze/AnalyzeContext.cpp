@@ -89,6 +89,10 @@ bool alinous::AnalyzeContext::hasError() noexcept {
 	return !this->verrorList.isEmpty();
 }
 
+const ArrayList<ValidationError>* AnalyzeContext::getErrors() const noexcept {
+	return &this->verrorList;
+}
+
 AnalyzedClass* AnalyzeContext::getAnalyzedClass(CodeElement* element) {
 	ClassDeclare* dec = element->getClassDeclare();
 	if(dec == nullptr){

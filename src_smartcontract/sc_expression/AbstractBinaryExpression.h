@@ -19,6 +19,7 @@ public:
 	virtual ~AbstractBinaryExpression();
 
 	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 	virtual void init(VirtualMachine* vm);
 

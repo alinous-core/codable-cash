@@ -9,6 +9,7 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "sc_expression/ArrayReferenceExpression.h"
 
 namespace alinous {
 
@@ -29,6 +30,10 @@ AnalyzedType ArrayReferenceAccess::getAnalyzedType() const noexcept {
 AbstractVmInstance* ArrayReferenceAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
 	// FIXME interpret
 	return nullptr;
+}
+
+CodeElement* ArrayReferenceAccess::getCodeElement() const noexcept {
+	return this->arrayRefExp;
 }
 
 } /* namespace alinous */
