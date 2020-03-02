@@ -44,5 +44,8 @@ TEST(TestAnalyzedClassGroup, copyconstructor){
 	AnalyzedClass* aclass = atype->getAnalyzedClass();
 
 	AnalyzedClass newCls(*aclass);
+	AnalyzedType atype2(&newCls);
+
+	CHECK(atype2.equals(atype))
 }
 

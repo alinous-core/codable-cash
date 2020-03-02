@@ -15,6 +15,8 @@
 
 #include "base/UnicodeString.h"
 
+#include "../VmTestUtils.h"
+#include "sc_analyze/AnalyzedClass.h"
 
 using namespace alinous;
 
@@ -156,5 +158,25 @@ TEST(TestAnalyzedtypeGroup, equal_false){
 	bool res = atype.equals(&atype2);
 	CHECK(!res)
 }
+ ///////////////////////////////////////////////////
 
+TEST(TestAnalyzedtypeGroup, objectSig){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/base/resources/aclass/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+
+	UnicodeString clazz(L"test.fw.SmartContract");
+	AnalyzedType* atype = util.findClassDeclare(&clazz);
+	AnalyzedClass* aclass = atype->getAnalyzedClass();
+
+	const UnicodeString* str = atype->getSignatureName();
+	UnicodeString clazzsig(L"Ltest.fw.SmartContract;");
+	CHECK(str->equals(&clazzsig));
+}
 
