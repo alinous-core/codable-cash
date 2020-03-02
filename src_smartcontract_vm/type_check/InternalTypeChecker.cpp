@@ -55,7 +55,11 @@ int InternalTypeChecker::analyzeCompatibility(AnalyzedType* leftType, AnalyzedTy
 }
 
 int InternalTypeChecker::checkRightNull(AnalyzedType* leftType, AnalyzedType* rightType) {
-	return !leftType->isPrimitiveInteger() && !leftType->isBool();
+	if(!leftType->isPrimitiveInteger() && !leftType->isBool()){
+		return OK;
+	}
+
+	return INCOMPATIBLE;
 }
 
 int InternalTypeChecker::checkBool(AnalyzedType* leftType, AnalyzedType* rightType) {
