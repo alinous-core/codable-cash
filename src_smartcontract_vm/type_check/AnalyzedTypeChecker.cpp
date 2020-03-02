@@ -35,6 +35,8 @@ bool AnalyzedTypeChecker::checkCompatibility(AnalyzeContext* actx, AbstractExpre
 	this->right = new RightType(rightExp);
 	this->right->init(actx);
 
+	int result = this->left->checkTypeCompatibility(actx, this->right);
+
 }
 
 

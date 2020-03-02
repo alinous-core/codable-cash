@@ -20,6 +20,8 @@ public:
 	virtual ~AbstractTypeCheckTarget();
 
 	virtual void init(AnalyzeContext* actx);
+	AnalyzedType* getAnalyzedType() const noexcept;
+
 
 protected:
 	AbstractExpression* exp;

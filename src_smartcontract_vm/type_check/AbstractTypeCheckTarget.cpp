@@ -28,4 +28,8 @@ void AbstractTypeCheckTarget::init(AnalyzeContext* actx) {
 
 }
 
+AnalyzedType* AbstractTypeCheckTarget::getAnalyzedType() const noexcept {
+	return this->atype;
+}
+
 } /* namespace alinous */
