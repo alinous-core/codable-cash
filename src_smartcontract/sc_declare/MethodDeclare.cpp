@@ -69,9 +69,14 @@ void MethodDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 	TypeResolver* typeResolver = actx->getTypeResolver();
 
 	if(!isConstructor()){
-		this->atype = typeResolver->resolveType(this, this->type);
-		if(this->atype == nullptr){
-			actx->addValidationError(ValidationError::CODE_WRONG_TYPE_NAME, this, L"The type '{0}' does not exists.", {this->type->toString()});
+		if(this->type == nullptr){
+			actx->addValidationError(ValidationError::CODE_NO_RETURN_METHOD_VALUE, this, L"Return type of method '{0}()' does not exists.", {this->name});
+		}
+		else {
+			this->atype = typeResolver->resolveType(this, this->type);
+			if(this->atype == nullptr){
+				actx->addValidationError(ValidationError::CODE_WRONG_TYPE_NAME, this, L"The type '{0}' does not exists.", {this->type->toString()});
+			}
 		}
 	}
 

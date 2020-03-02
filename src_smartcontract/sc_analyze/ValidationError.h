@@ -24,6 +24,7 @@ public:
 	static constexpr int CODE_WRONG_IMPORT_FORMAT = 2;
 	static constexpr int CODE_WRONG_CLASS_NAME = 3;
 	static constexpr int CODE_WRONG_TYPE_NAME = 4;
+	static constexpr int CODE_NO_RETURN_METHOD_VALUE = 5;
 
 	static constexpr int CODE_VIRTUAL_FUNC_WITH_DIFFERENT_RETURN = 10;
 

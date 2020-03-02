@@ -1,0 +1,18 @@
+
+
+package test.fw;
+
+import test.fw.base.BaseClass;
+
+class SmartContract {
+	public SmartContract2() {
+		this.count = this.dummy;
+	}
+	
+	public int main(){
+		
+	}
+	
+
+	private int count = 0;
+}

@@ -110,3 +110,14 @@ TEST(TestTypeCheckGroup, intnlObject){
 	CHECK(InternalTypeChecker::INCOMPATIBLE == ret);
 }
 
+TEST(TestTypeCheckGroup, intnlObjectTest){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/variables/resources/typecheck/case01/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+}
+
