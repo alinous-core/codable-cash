@@ -7,10 +7,6 @@ class InheritObject extends BaseClass {
 	public SmartContract() {
 
 	}
-	
-	public int main(){
 
-	}
-	
 		
 }

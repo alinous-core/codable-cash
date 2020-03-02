@@ -6,20 +6,12 @@ import test.fw.base.BaseClass;
 
 class SmartContract extends BaseClass {
 	public SmartContract() {
-		this.count = 0;
+		this.baseObj = new InheritObject();
 	}
 	
 	public int main(){
-		this.count = 1;
+
 	}
 	
-	public void vfunc01(int arg){
-	
-	}
-	
-	public void test01(){
-	
-	}
-	
-	private int count;
+	private InheritObject baseObj;
 }
