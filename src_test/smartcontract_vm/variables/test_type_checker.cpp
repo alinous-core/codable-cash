@@ -75,6 +75,23 @@ TEST(TestTypeCheckGroup, intnl05){
 	CHECK(InternalTypeChecker::INCOMPATIBLE == ret);
 }
 
+TEST(TestTypeCheckGroup, intnl06){
+	AnalyzedType left(AnalyzedType::TYPE_STRING);
+	AnalyzedType right(AnalyzedType::TYPE_STRING);
+
+	int ret = InternalTypeChecker::analyzeCompatibility(&left, &right);
+	CHECK(InternalTypeChecker::OK == ret);
+}
+
+
+TEST(TestTypeCheckGroup, intnl07){
+	AnalyzedType left(AnalyzedType::TYPE_STRING);
+	AnalyzedType right(AnalyzedType::TYPE_INT);
+
+	int ret = InternalTypeChecker::analyzeCompatibility(&left, &right);
+	CHECK(InternalTypeChecker::INCOMPATIBLE == ret);
+}
+
 TEST(TestTypeCheckGroup, intnlDim){
 	AnalyzedType left(AnalyzedType::TYPE_INT);
 	AnalyzedType right(AnalyzedType::TYPE_INT);

@@ -24,6 +24,7 @@ public:
 private:
 	static int checkBool(AnalyzedType* leftType, AnalyzedType* rightType);
 	static int checkPrimitive(AnalyzedType* leftType, AnalyzedType* rightType);
+	static int checkString(AnalyzedType* leftType, AnalyzedType* rightType);
 };
 
 } /* namespace alinous */

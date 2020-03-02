@@ -35,6 +35,7 @@ int InternalTypeChecker::analyzeCompatibility(AnalyzedType* leftType, AnalyzedTy
 		retcode = checkPrimitive(leftType, rightType);
 		break;
 	case AnalyzedType::TYPE_STRING:
+		retcode = checkString(leftType, rightType);
 		break;
 	case AnalyzedType::TYPE_OBJECT:
 		break;
@@ -49,6 +50,15 @@ int InternalTypeChecker::analyzeCompatibility(AnalyzedType* leftType, AnalyzedTy
 int InternalTypeChecker::checkBool(AnalyzedType* leftType, AnalyzedType* rightType) {
 	uint8_t rightTypeCode = rightType->getType();
 	if(rightTypeCode == AnalyzedType::TYPE_BOOL){
+		return OK;
+	}
+
+	return INCOMPATIBLE;
+}
+
+int InternalTypeChecker::checkString(AnalyzedType* leftType, AnalyzedType* rightType) {
+	uint8_t rightTypeCode = rightType->getType();
+	if(rightTypeCode == AnalyzedType::TYPE_STRING){
 		return OK;
 	}
 
