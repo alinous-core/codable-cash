@@ -17,6 +17,7 @@
 
 #include "../VmTestUtils.h"
 #include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/AnalyzedClass.h"
 
 using namespace alinous;
 
@@ -27,7 +28,7 @@ TEST_GROUP(TestAnalyzedClassGroup) {
 
 TEST(TestAnalyzedClassGroup, copyconstructor){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/base/resources/case01/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/base/resources/aclass/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -38,7 +39,10 @@ TEST(TestAnalyzedClassGroup, copyconstructor){
 	AnalyzeContext* actx = util.sc->getAnalyzeContext();
 	CHECK(actx->getCurrentElement() == nullptr)
 
-	TypeResolver* resolver = actx->getTypeResolver();
-	//resolver->findClassType(nullptr, );
+	UnicodeString clazz(L"test.fw.SmartContract");
+	AnalyzedType* atype = util.findClassDeclare(&clazz);
+	AnalyzedClass* aclass = atype->getAnalyzedClass();
+
+	AnalyzedClass newCls(*aclass);
 }
 

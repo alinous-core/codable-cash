@@ -40,6 +40,7 @@ public:
 	AnalyzedType* getClassType(CodeElement* element) const;
 	AnalyzedType* resolveType(CodeElement* element, AbstractType* type) const;
 	AnalyzedType* findClassType(const CodeElement* element, const UnicodeString* name) const;
+
 	AnalyzedType* findBaseType(const UnicodeString* name) const;
 
 

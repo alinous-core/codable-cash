@@ -45,6 +45,8 @@ public:
 
 	const ArrayList<CompileError>* getCompileErrors() const noexcept;
 
+	CompilationUnit* getCompilationUnit(int pos);
+
 private:
 	UnicodeString* mainPackage;
 	UnicodeString* mainClass;
