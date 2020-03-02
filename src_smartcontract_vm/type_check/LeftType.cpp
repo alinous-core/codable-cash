@@ -7,15 +7,16 @@
 
 #include "type_check/LeftType.h"
 
+#include "sc_expression/AbstractExpression.h"
+
 namespace alinous {
 
-LeftType::LeftType() {
-	// TODO Auto-generated constructor stub
+LeftType::LeftType(AbstractExpression* exp) : AbstractTypeCheckTarget(exp) {
 
 }
 
 LeftType::~LeftType() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */

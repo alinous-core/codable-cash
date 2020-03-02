@@ -7,15 +7,17 @@
 
 #include "type_check/RightType.h"
 
+#include "sc_expression/AbstractExpression.h"
+
+
 namespace alinous {
 
-RightType::RightType() {
-	// TODO Auto-generated constructor stub
+RightType::RightType(AbstractExpression* exp) : AbstractTypeCheckTarget(exp) {
 
 }
 
 RightType::~RightType() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */
