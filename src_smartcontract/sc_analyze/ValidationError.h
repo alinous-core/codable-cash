@@ -40,6 +40,8 @@ public:
 
 	static constexpr int CODE_ARRAY_INDEX_MUST_BE_NUMERIC = 50;
 
+	static constexpr int CODE_TYPE_INCOMPATIBLE = 60;
+
 	//static constexpr int CODE_WRONG_TYPE_NAME = 4;
 
 

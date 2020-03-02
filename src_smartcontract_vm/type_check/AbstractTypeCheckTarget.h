@@ -13,6 +13,7 @@ namespace alinous {
 class AnalyzeContext;
 class AbstractExpression;
 class AnalyzedType;
+class UnicodeString;
 
 class AbstractTypeCheckTarget {
 public:
@@ -22,10 +23,12 @@ public:
 	virtual void init(AnalyzeContext* actx);
 	AnalyzedType* getAnalyzedType() const noexcept;
 
+	const UnicodeString* toString() noexcept;
 
 protected:
 	AbstractExpression* exp;
 	AnalyzedType* atype;
+	mutable UnicodeString* str;
 };
 
 } /* namespace alinous */

@@ -16,6 +16,10 @@
 
 #include "type_check/InternalTypeChecker.h"
 
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
+
+
 namespace alinous {
 
 AnalyzedTypeChecker::AnalyzedTypeChecker() {
@@ -40,6 +44,7 @@ bool AnalyzedTypeChecker::checkCompatibility(AnalyzeContext* actx, AbstractExpre
 	bool ret = true;
 	switch(result){
 	case InternalTypeChecker::INCOMPATIBLE:
+		actx->addValidationError(ValidationError::CODE_TYPE_INCOMPATIBLE, leftExp, L"The member '{0}' and {1} are incompatibe.", {this->left->toString(), this->right->toString()});
 		ret = false;
 		break;
 	case InternalTypeChecker::WARN_PRECISION:

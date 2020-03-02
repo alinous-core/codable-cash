@@ -11,15 +11,20 @@
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedType.h"
 
+#include "base/UnicodeString.h"
+
+
 namespace alinous {
 
 AbstractTypeCheckTarget::AbstractTypeCheckTarget(AbstractExpression* exp) {
 	this->exp = exp;
 	this->atype = nullptr;
+	this->str = nullptr;
 }
 
 AbstractTypeCheckTarget::~AbstractTypeCheckTarget() {
 	delete this->atype;
+	delete this->str;
 }
 
 void AbstractTypeCheckTarget::init(AnalyzeContext* actx) {
@@ -30,6 +35,15 @@ void AbstractTypeCheckTarget::init(AnalyzeContext* actx) {
 
 AnalyzedType* AbstractTypeCheckTarget::getAnalyzedType() const noexcept {
 	return this->atype;
+}
+
+const UnicodeString* AbstractTypeCheckTarget::toString() noexcept {
+	if(this->str == nullptr){
+		const UnicodeString* name = this->atype->stringName();
+		this->str = new UnicodeString(name);
+	}
+
+	return str;
 }
 
 } /* namespace alinous */
