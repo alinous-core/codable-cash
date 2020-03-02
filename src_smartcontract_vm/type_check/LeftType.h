@@ -13,11 +13,14 @@
 namespace alinous {
 
 class AbstractExpression;
+class RightType;
 
 class LeftType : public AbstractTypeCheckTarget {
 public:
 	explicit LeftType(AbstractExpression* exp);
 	virtual ~LeftType();
+
+	int checkTypeCompatibility(AnalyzeContext* actx, RightType* rightType);
 };
 
 } /* namespace alinous */

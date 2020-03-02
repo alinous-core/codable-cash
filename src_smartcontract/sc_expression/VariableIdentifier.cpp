@@ -120,7 +120,10 @@ void VariableIdentifier::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType VariableIdentifier::getType(AnalyzeContext* actx) {
-	return this->access->getAnalyzedType();
+	if(this->access != nullptr){
+		return this->access->getAnalyzedType();
+	}
+	return AnalyzedType();
 }
 
 void VariableIdentifier::init(VirtualMachine* vm) {

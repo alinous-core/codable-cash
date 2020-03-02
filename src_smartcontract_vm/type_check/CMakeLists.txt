@@ -3,6 +3,7 @@
 set(__src
 	AbstractTypeCheckTarget.cpp
 	AnalyzedTypeChecker.cpp
+	InternalTypeChecker.cpp
 	LeftType.cpp
 	RightType.cpp
 )

@@ -10,15 +10,20 @@
 
 namespace alinous {
 
+class AnalyzeContext;
 class AbstractExpression;
+class AnalyzedType;
 
 class AbstractTypeCheckTarget {
 public:
 	explicit AbstractTypeCheckTarget(AbstractExpression* exp);
 	virtual ~AbstractTypeCheckTarget();
 
+	virtual void init(AnalyzeContext* actx);
+
 protected:
 	AbstractExpression* exp;
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

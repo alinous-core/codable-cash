@@ -19,4 +19,8 @@ LeftType::~LeftType() {
 
 }
 
+int LeftType::checkTypeCompatibility(AnalyzeContext* actx, RightType* rightType) {
+
+}
+
 } /* namespace alinous */

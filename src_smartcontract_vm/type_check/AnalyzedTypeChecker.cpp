@@ -14,6 +14,7 @@
 
 #include "sc_expression/AbstractExpression.h"
 
+#include "type_check/InternalTypeChecker.h"
 
 namespace alinous {
 
@@ -28,9 +29,11 @@ AnalyzedTypeChecker::~AnalyzedTypeChecker() {
 }
 
 bool AnalyzedTypeChecker::checkCompatibility(AnalyzeContext* actx, AbstractExpression* leftExp, AbstractExpression* rightExp) {
-	AnalyzedType typeLeft = leftExp->getType(actx);
-	AnalyzedType typeRight = rightExp->getType(actx);
+	this->left = new LeftType(leftExp);
+	this->left->init(actx);
 
+	this->right = new RightType(rightExp);
+	this->right->init(actx);
 
 }
 

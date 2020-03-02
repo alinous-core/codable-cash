@@ -48,7 +48,7 @@ void SubstitutionStatement::analyze(AnalyzeContext* actx) {
 	this->variable->analyze(actx);
 	this->exp->analyze(actx);
 
-
+	bool result = typeChecker.checkCompatibility(actx, this->variable, this->exp);
 }
 
 void SubstitutionStatement::setVariableId(AbstractExpression* variable) noexcept {
