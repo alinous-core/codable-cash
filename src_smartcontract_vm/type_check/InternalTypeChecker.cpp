@@ -24,6 +24,10 @@ int InternalTypeChecker::analyzeCompatibility(AnalyzedType* leftType, AnalyzedTy
 		return INCOMPATIBLE;
 	}
 
+	if(rightType->isNull()){
+		return checkRightNull(leftType, rightType);
+	}
+
 	int retcode = NO_CHECK;
 	switch(leftTypeCode){
 	case AnalyzedType::TYPE_BOOL:
@@ -48,6 +52,10 @@ int InternalTypeChecker::analyzeCompatibility(AnalyzedType* leftType, AnalyzedTy
 
 	return retcode;
 
+}
+
+int InternalTypeChecker::checkRightNull(AnalyzedType* leftType, AnalyzedType* rightType) {
+	return !leftType->isPrimitiveInteger() && !leftType->isBool();
 }
 
 int InternalTypeChecker::checkBool(AnalyzedType* leftType, AnalyzedType* rightType) {

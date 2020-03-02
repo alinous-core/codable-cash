@@ -22,6 +22,8 @@ public:
 	static int analyzeCompatibility(AnalyzedType* leftType, AnalyzedType* rightType);
 
 private:
+	static int checkRightNull(AnalyzedType* leftType, AnalyzedType* rightType);
+
 	static int checkObject(AnalyzedType* leftType, AnalyzedType* rightType);
 	static int checkBool(AnalyzedType* leftType, AnalyzedType* rightType);
 	static int checkPrimitive(AnalyzedType* leftType, AnalyzedType* rightType);

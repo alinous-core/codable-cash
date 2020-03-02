@@ -52,6 +52,8 @@ public:
 
 	bool isVoid() const noexcept;
 	bool isPrimitiveInteger() const noexcept;
+	bool isNull() const noexcept;
+	bool isBool() const noexcept;
 
 	void setDim(int dim) noexcept;
 	int getDim() const noexcept;

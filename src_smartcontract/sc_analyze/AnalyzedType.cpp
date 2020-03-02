@@ -160,6 +160,14 @@ bool AnalyzedType::isArray() const noexcept {
 	return this->dim > 0;
 }
 
+bool AnalyzedType::isNull() const noexcept {
+	return this->type == TYPE_NULL;
+}
+
+bool AnalyzedType::isBool() const noexcept {
+	return this->type == TYPE_BOOL;
+}
+
 void AnalyzedType::makeObjectString() noexcept {
 	if(this->aclazz == nullptr){
 		this->str = new UnicodeString(L"null");
