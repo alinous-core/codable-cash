@@ -44,7 +44,7 @@ AnalyzedType::AnalyzedType(const AnalyzedType& obj) {
 }
 
 AnalyzedType::AnalyzedType() {
-	this->type = TYPE_NULL;
+	this->type = TYPE_NONE;
 	this->aclazz = nullptr;
 	this->str = nullptr;
 	this->dim = 0;

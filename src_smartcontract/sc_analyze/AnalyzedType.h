@@ -16,6 +16,7 @@ class UnicodeString;
 
 class AnalyzedType {
 public:
+	static const constexpr short TYPE_NONE{-1};
 	static const constexpr short TYPE_NULL{0};
 
 	static const constexpr short TYPE_BOOL{20};
