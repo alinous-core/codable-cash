@@ -19,7 +19,7 @@ const UnicodeString AnalyzedType::SIG_SHORT(L"S");
 const UnicodeString AnalyzedType::SIG_INT(L"I");
 const UnicodeString AnalyzedType::SIG_LONG(L"J");
 const UnicodeString AnalyzedType::SIG_STRING(L"LString;");
-
+const UnicodeString AnalyzedType::SIG_VOID(L"Lvoid;");
 
 
 AnalyzedType::AnalyzedType(uint8_t type) {
@@ -139,6 +139,9 @@ const UnicodeString* AnalyzedType::getSignatureName() noexcept {
 	case TYPE_STRING:
 		ret = &AnalyzedType::SIG_STRING;
 		break;
+	case TYPE_VOID:
+		ret = &AnalyzedType::SIG_VOID;
+		break;
 	case TYPE_OBJECT:
 	default:
 		ret = this->aclazz->getSignatureName();
@@ -179,7 +182,7 @@ void AnalyzedType::makeObjectString() noexcept {
 }
 
 bool AnalyzedType::equals(AnalyzedType* other) const noexcept {
-	if(this->type != other->type){
+	if(this->type != other->type || this->dim != other->dim){
 		return false;
 	}
 	if(this->type == TYPE_OBJECT){

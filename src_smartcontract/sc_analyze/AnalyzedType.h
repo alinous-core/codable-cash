@@ -36,6 +36,7 @@ public:
 	static const UnicodeString SIG_INT;
 	static const UnicodeString SIG_LONG;
 	static const UnicodeString SIG_STRING;
+	static const UnicodeString SIG_VOID;
 
 	AnalyzedType(const AnalyzedType& obj); // copy constructor
 
