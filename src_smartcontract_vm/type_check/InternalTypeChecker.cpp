@@ -68,7 +68,7 @@ int InternalTypeChecker::checkObject(AnalyzedType* leftType, AnalyzedType* right
 	AnalyzedClass* leftClass = leftType->getAnalyzedClass();
 	AnalyzedClass* rightClass = rightType->getAnalyzedClass();
 
-	bool result = leftClass->hasBaseClass(rightClass);
+	bool result = rightClass->hasBaseClass(leftClass);
 	if(!result){
 		return INCOMPATIBLE;
 	}
