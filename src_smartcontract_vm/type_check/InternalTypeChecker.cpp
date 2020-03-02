@@ -32,6 +32,7 @@ int InternalTypeChecker::analyzeCompatibility(AnalyzedType* leftType, AnalyzedTy
 	case AnalyzedType::TYPE_SHORT:
 	case AnalyzedType::TYPE_INT:
 	case AnalyzedType::TYPE_LONG:
+		retcode = checkPrimitive(leftType, rightType);
 		break;
 	case AnalyzedType::TYPE_STRING:
 		break;

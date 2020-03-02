@@ -19,6 +19,10 @@
 
 #include "type_check/AnalyzedTypeChecker.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
+#include "type_check/InternalTypeChecker.h"
+
 
 using namespace alinous;
 
@@ -29,4 +33,54 @@ TEST_GROUP(TestTypeCheckGroup) {
 
 TEST(TestTypeCheckGroup, construct){
 	AnalyzedTypeChecker checker;
+}
+
+TEST(TestTypeCheckGroup, intnl01){
+	AnalyzedType left(AnalyzedType::TYPE_INT);
+	AnalyzedType right(AnalyzedType::TYPE_INT);
+
+	int ret = InternalTypeChecker::analyzeCompatibility(&left, &right);
+	CHECK(InternalTypeChecker::OK == ret);
+}
+
+TEST(TestTypeCheckGroup, intnl02){
+	AnalyzedType left(AnalyzedType::TYPE_INT);
+	AnalyzedType right;
+
+	int ret = InternalTypeChecker::analyzeCompatibility(&left, &right);
+	CHECK(InternalTypeChecker::INCOMPATIBLE == ret);
+}
+
+TEST(TestTypeCheckGroup, intnl03){
+	AnalyzedType left;
+	AnalyzedType right;
+
+	int ret = InternalTypeChecker::analyzeCompatibility(&left, &right);
+	CHECK(InternalTypeChecker::NO_CHECK == ret);
+}
+
+TEST(TestTypeCheckGroup, intnl04){
+	AnalyzedType left(AnalyzedType::TYPE_BOOL);
+	AnalyzedType right(AnalyzedType::TYPE_BOOL);
+
+	int ret = InternalTypeChecker::analyzeCompatibility(&left, &right);
+	CHECK(InternalTypeChecker::OK == ret);
+}
+
+TEST(TestTypeCheckGroup, intnl05){
+	AnalyzedType left(AnalyzedType::TYPE_BOOL);
+	AnalyzedType right(AnalyzedType::TYPE_INT);
+
+	int ret = InternalTypeChecker::analyzeCompatibility(&left, &right);
+	CHECK(InternalTypeChecker::INCOMPATIBLE == ret);
+}
+
+TEST(TestTypeCheckGroup, intnlDim){
+	AnalyzedType left(AnalyzedType::TYPE_INT);
+	AnalyzedType right(AnalyzedType::TYPE_INT);
+
+	left.setDim(2);
+
+	int ret = InternalTypeChecker::analyzeCompatibility(&left, &right);
+	CHECK(InternalTypeChecker::INCOMPATIBLE == ret);
 }
