@@ -11,6 +11,8 @@ namespace alinous {
 
 
 int InternalTypeChecker::analyzeCompatibility(AnalyzedType* leftType, AnalyzedType* rightType) {
+	// FIXME type check
+	return 0;
 
 }
 

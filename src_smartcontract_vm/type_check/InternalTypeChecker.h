@@ -14,6 +14,10 @@ class AnalyzedType;
 
 class InternalTypeChecker {
 public:
+	static constexpr int OK{0};
+	static constexpr int WARN_PRECISION{1};
+	static constexpr int INCOMPATIBLE{2};
+
 	static int analyzeCompatibility(AnalyzedType* leftType, AnalyzedType* rightType);
 };
 

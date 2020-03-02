@@ -37,6 +37,18 @@ bool AnalyzedTypeChecker::checkCompatibility(AnalyzeContext* actx, AbstractExpre
 
 	int result = this->left->checkTypeCompatibility(actx, this->right);
 
+	bool ret = true;
+	switch(result){
+	case InternalTypeChecker::INCOMPATIBLE:
+		ret = false;
+		break;
+	case InternalTypeChecker::WARN_PRECISION:
+		break;
+	default:
+		break;
+	}
+
+	return ret;
 }
 
 
