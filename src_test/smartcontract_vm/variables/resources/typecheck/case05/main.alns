@@ -1,0 +1,16 @@
+
+
+package test.fw;
+
+
+class SmartContract {
+	public SmartContract() {
+		this.baseObj = null;
+	}
+	
+	public int main(){
+
+	}
+	
+	private int baseObj;
+}
