@@ -4,7 +4,7 @@ package test.fw;
 import test.fw.base.BaseClass;
 
 class InheritObject extends BaseClass {
-	public SmartContract() {
+	public InheritObject() {
 
 	}
 

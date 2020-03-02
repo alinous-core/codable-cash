@@ -201,4 +201,27 @@ bool AnalyzedClass::equals(AnalyzedClass* other) noexcept {
 }
 
 
+bool AnalyzedClass::hasBaseClass(AnalyzedClass* clazz) noexcept {
+	if(equals(clazz)){
+		return true;
+	}
+
+	bool result = false;
+	if(this->extends != nullptr && this->extends->hasBaseClass(clazz)){
+		return true;
+	}
+
+	int maxLoop = this->implements.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AnalyzedClass* impl = this->implements.get(i);
+
+		if(impl->hasBaseClass(clazz)){
+			return true;
+		}
+	}
+
+	return false;
+}
+
+
 } /* namespace alinous */

@@ -10,6 +10,8 @@
 #include "type_check/InternalTypeChecker.h"
 
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_declare/ClassDeclare.h"
+#include "sc_analyze/AnalyzedClass.h"
 
 namespace alinous {
 
@@ -66,7 +68,10 @@ int InternalTypeChecker::checkObject(AnalyzedType* leftType, AnalyzedType* right
 	AnalyzedClass* leftClass = leftType->getAnalyzedClass();
 	AnalyzedClass* rightClass = rightType->getAnalyzedClass();
 
-	// FIXME inheritance
+	bool result = leftClass->hasBaseClass(rightClass);
+	if(!result){
+		return INCOMPATIBLE;
+	}
 
 	return OK;
 }
