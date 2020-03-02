@@ -51,6 +51,7 @@ public:
 	const UnicodeString* getSignatureName() noexcept;
 
 	bool isVoid() const noexcept;
+	bool isPrimitiveInteger() const noexcept;
 
 	void setDim(int dim) noexcept;
 	int getDim() const noexcept;

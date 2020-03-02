@@ -152,6 +152,9 @@ bool AnalyzedType::isVoid() const noexcept {
 	return this->type == TYPE_VOID;
 }
 
+bool alinous::AnalyzedType::isPrimitiveInteger() const noexcept{
+	return this->type >= TYPE_BYTE && this->type <= TYPE_LONG;
+}
 
 bool AnalyzedType::isArray() const noexcept {
 	return this->dim > 0;
