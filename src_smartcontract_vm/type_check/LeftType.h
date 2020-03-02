@@ -8,12 +8,19 @@
 #ifndef TYPE_CHECK_LEFTTYPE_H_
 #define TYPE_CHECK_LEFTTYPE_H_
 
+#include "type_check/AbstractTypeCheckTarget.h"
+
 namespace alinous {
 
-class LeftType {
+class AbstractExpression;
+class RightType;
+
+class LeftType : public AbstractTypeCheckTarget {
 public:
-	LeftType();
+	explicit LeftType(AbstractExpression* exp);
 	virtual ~LeftType();
+
+	int checkTypeCompatibility(AnalyzeContext* actx, RightType* rightType);
 };
 
 } /* namespace alinous */

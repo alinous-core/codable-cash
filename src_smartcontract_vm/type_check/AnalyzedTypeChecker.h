@@ -10,11 +10,20 @@
 
 namespace alinous {
 
+class AnalyzeContext;
+class AbstractExpression;
+class LeftType;
+class RightType;
+
 class AnalyzedTypeChecker {
 public:
 	AnalyzedTypeChecker();
 	virtual ~AnalyzedTypeChecker();
 
+	bool checkCompatibility(AnalyzeContext* actx, AbstractExpression* leftExp, AbstractExpression* rightExp);
+private:
+	LeftType* left;
+	RightType* right;
 };
 
 } /* namespace alinous */

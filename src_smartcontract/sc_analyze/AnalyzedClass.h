@@ -52,6 +52,8 @@ public:
 	const UnicodeString* getFullQualifiedName() noexcept;
 
 	bool equals(AnalyzedClass* other) noexcept;
+
+	bool hasBaseClass(AnalyzedClass* clazz) noexcept;
 private:
 	//void bulidMethodVTable(AnalyzeContext* actx, MethodDeclare* method) noexcept;
 	//AnalyzedClass* findBaseClassOfMethod(AnalyzedClass* currentClass, MethodDeclare* method) noexcept;

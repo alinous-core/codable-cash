@@ -15,6 +15,7 @@
 
 #include "instance_gc/GcManager.h"
 
+#include "type_check/AnalyzedTypeChecker.h"
 
 namespace alinous {
 
@@ -42,8 +43,12 @@ void SubstitutionStatement::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void SubstitutionStatement::analyze(AnalyzeContext* actx) {
+	AnalyzedTypeChecker typeChecker;
+
 	this->variable->analyze(actx);
 	this->exp->analyze(actx);
+
+	bool result = typeChecker.checkCompatibility(actx, this->variable, this->exp);
 }
 
 void SubstitutionStatement::setVariableId(AbstractExpression* variable) noexcept {

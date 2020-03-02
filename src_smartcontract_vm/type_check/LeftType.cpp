@@ -6,16 +6,29 @@
  */
 
 #include "type_check/LeftType.h"
+#include "type_check/RightType.h"
+
+#include "sc_expression/AbstractExpression.h"
+
+#include "type_check/InternalTypeChecker.h"
+
+#include "sc_analyze/AnalyzedType.h"
+
 
 namespace alinous {
 
-LeftType::LeftType() {
-	// TODO Auto-generated constructor stub
+LeftType::LeftType(AbstractExpression* exp) : AbstractTypeCheckTarget(exp) {
 
 }
 
 LeftType::~LeftType() {
-	// TODO Auto-generated destructor stub
+
+}
+
+int LeftType::checkTypeCompatibility(AnalyzeContext* actx, RightType* rightType) {
+	AnalyzedType* arightType = rightType->getAnalyzedType();
+
+	return InternalTypeChecker::analyzeCompatibility(this->atype, arightType);
 }
 
 } /* namespace alinous */

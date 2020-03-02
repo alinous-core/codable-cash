@@ -16,17 +16,18 @@ class UnicodeString;
 
 class AnalyzedType {
 public:
-	static const constexpr short TYPE_NULL{0};
+	static const constexpr uint8_t TYPE_NONE{100};
+	static const constexpr uint8_t TYPE_NULL{0};
 
-	static const constexpr short TYPE_BOOL{20};
-	static const constexpr short TYPE_BYTE{21};
-	static const constexpr short TYPE_CHAR{22};
-	static const constexpr short TYPE_SHORT{23};
-	static const constexpr short TYPE_INT{24};
-	static const constexpr short TYPE_LONG{25};
-	static const constexpr short TYPE_STRING{26};
-	static const constexpr short TYPE_VOID{27};
-	static const constexpr short TYPE_OBJECT{28};
+	static const constexpr uint8_t TYPE_BOOL{20};
+	static const constexpr uint8_t TYPE_BYTE{21};
+	static const constexpr uint8_t TYPE_CHAR{22};
+	static const constexpr uint8_t TYPE_SHORT{23};
+	static const constexpr uint8_t TYPE_INT{24};
+	static const constexpr uint8_t TYPE_LONG{25};
+	static const constexpr uint8_t TYPE_STRING{26};
+	static const constexpr uint8_t TYPE_VOID{27};
+	static const constexpr uint8_t TYPE_OBJECT{28};
 
 	static const UnicodeString SIG_BOOL;
 	static const UnicodeString SIG_BYTE;
@@ -50,6 +51,9 @@ public:
 	const UnicodeString* getSignatureName() noexcept;
 
 	bool isVoid() const noexcept;
+	bool isPrimitiveInteger() const noexcept;
+	bool isNull() const noexcept;
+	bool isBool() const noexcept;
 
 	void setDim(int dim) noexcept;
 	int getDim() const noexcept;

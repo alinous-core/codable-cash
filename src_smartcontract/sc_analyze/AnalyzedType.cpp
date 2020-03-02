@@ -44,7 +44,7 @@ AnalyzedType::AnalyzedType(const AnalyzedType& obj) {
 }
 
 AnalyzedType::AnalyzedType() {
-	this->type = TYPE_NULL;
+	this->type = TYPE_NONE;
 	this->aclazz = nullptr;
 	this->str = nullptr;
 	this->dim = 0;
@@ -152,9 +152,20 @@ bool AnalyzedType::isVoid() const noexcept {
 	return this->type == TYPE_VOID;
 }
 
+bool alinous::AnalyzedType::isPrimitiveInteger() const noexcept{
+	return this->type >= TYPE_BYTE && this->type <= TYPE_LONG;
+}
 
 bool AnalyzedType::isArray() const noexcept {
 	return this->dim > 0;
+}
+
+bool AnalyzedType::isNull() const noexcept {
+	return this->type == TYPE_NULL;
+}
+
+bool AnalyzedType::isBool() const noexcept {
+	return this->type == TYPE_BOOL;
 }
 
 void AnalyzedType::makeObjectString() noexcept {

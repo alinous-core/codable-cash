@@ -8,11 +8,13 @@
 #ifndef TYPE_CHECK_RIGHTTYPE_H_
 #define TYPE_CHECK_RIGHTTYPE_H_
 
+#include "type_check/AbstractTypeCheckTarget.h"
+
 namespace alinous {
 
-class RightType {
+class RightType : public AbstractTypeCheckTarget {
 public:
-	RightType();
+	explicit RightType(AbstractExpression* exp);
 	virtual ~RightType();
 };
 

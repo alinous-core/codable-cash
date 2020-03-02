@@ -1,0 +1,17 @@
+
+
+package test.fw;
+
+import test.fw.base.BaseClass;
+
+class SmartContract extends BaseClass {
+	public SmartContract() {
+		this.baseObj = new InheritObject();
+	}
+	
+	public int main(){
+
+	}
+	
+	private InheritObject baseObj;
+}
