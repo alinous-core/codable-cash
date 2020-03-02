@@ -66,8 +66,8 @@ TEST(TestVMGroup, loadAndExecError){
 
 TEST(TestVMGroup, duplicateClassError){
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/resources/main.alns"));
-	_ST(File, sourceFile2, projectFolder->get(L"src_test/smartcontract_vm/resources/main.alns"));
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/base/resources/main.alns"));
+	_ST(File, sourceFile2, projectFolder->get(L"src_test/smartcontract_vm/base/resources/main.alns"));
 
 	SmartContract* sc = new SmartContract();
 	{
@@ -99,7 +99,7 @@ TEST(TestVMGroup, duplicateClassError){
 
 TEST(TestVMGroup, loadAndInitInstance){
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/resources/main.alns"));
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/base/resources/main.alns"));
 
 	SmartContract* sc = new SmartContract();
 	FileInputStream stream(sourceFile);
