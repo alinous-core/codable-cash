@@ -38,6 +38,7 @@ int InternalTypeChecker::analyzeCompatibility(AnalyzedType* leftType, AnalyzedTy
 		retcode = checkString(leftType, rightType);
 		break;
 	case AnalyzedType::TYPE_OBJECT:
+		retcode = checkObject(leftType, rightType);
 		break;
 	default:
 		break;
@@ -54,6 +55,20 @@ int InternalTypeChecker::checkBool(AnalyzedType* leftType, AnalyzedType* rightTy
 	}
 
 	return INCOMPATIBLE;
+}
+
+int InternalTypeChecker::checkObject(AnalyzedType* leftType, AnalyzedType* rightType) {
+	uint8_t rightTypeCode = rightType->getType();
+	if(rightTypeCode != AnalyzedType::TYPE_OBJECT){
+		return INCOMPATIBLE;
+	}
+
+	AnalyzedClass* leftClass = leftType->getAnalyzedClass();
+	AnalyzedClass* rightClass = rightType->getAnalyzedClass();
+
+	// FIXME inheritance
+
+	return OK;
 }
 
 int InternalTypeChecker::checkString(AnalyzedType* leftType, AnalyzedType* rightType) {

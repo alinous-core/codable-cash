@@ -101,3 +101,12 @@ TEST(TestTypeCheckGroup, intnlDim){
 	int ret = InternalTypeChecker::analyzeCompatibility(&left, &right);
 	CHECK(InternalTypeChecker::INCOMPATIBLE == ret);
 }
+
+TEST(TestTypeCheckGroup, intnlObject){
+	AnalyzedType left(AnalyzedType::TYPE_OBJECT);
+	AnalyzedType right(AnalyzedType::TYPE_INT);
+
+	int ret = InternalTypeChecker::analyzeCompatibility(&left, &right);
+	CHECK(InternalTypeChecker::INCOMPATIBLE == ret);
+}
+
