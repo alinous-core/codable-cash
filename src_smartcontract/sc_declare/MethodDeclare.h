@@ -56,7 +56,7 @@ public:
 	void init(VirtualMachine* vm);
 	void interpret(FunctionArguments* args, VirtualMachine* vm);
 
-	const UnicodeString* toString() noexcept;
+	const UnicodeString* toString();
 private:
 	AccessControlDeclare* ctrl;
 	AbstractType* type;

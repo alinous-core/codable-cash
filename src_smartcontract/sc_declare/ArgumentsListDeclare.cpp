@@ -17,6 +17,7 @@ namespace alinous {
 ArgumentsListDeclare::ArgumentsListDeclare() : CodeElement(CodeElement::ARGUMENTS_LIST_DECLARE) {
 	this->callSig = nullptr;
 	this->typelist = nullptr;
+	this->str = nullptr;
 }
 
 ArgumentsListDeclare::~ArgumentsListDeclare() {
@@ -27,6 +28,8 @@ ArgumentsListDeclare::~ArgumentsListDeclare() {
 		this->typelist->deleteElements();
 		delete this->typelist;
 	}
+
+	delete this->str;
 }
 
 void ArgumentsListDeclare::addArgument(ArgumentDeclare* arg) noexcept {
@@ -132,6 +135,35 @@ void ArgumentsListDeclare::fromBinary(ByteBuffer* in) {
 		ArgumentDeclare* arg = dynamic_cast<ArgumentDeclare*>(element);
 		this->list.addElement(arg);
 	}
+}
+
+const UnicodeString* ArgumentsListDeclare::toString() noexcept {
+	if(this->str == nullptr){
+		this->str = new UnicodeString(L"");
+		makeString();
+	}
+
+	return this->str;
+}
+
+void ArgumentsListDeclare::makeString() noexcept {
+	const ArrayList<ArgumentDeclare>* argList =  getArguments();
+	ArrayList<AnalyzedType>* typeList = getArgumentsAnalyzedType();
+
+	int maxLoop = argList->size();
+	for(int i = 0; i != maxLoop; ++i){
+		ArgumentDeclare* dec = argList->get(i);
+		AnalyzedType* atype = typeList->get(i);
+
+		if(i > 0){
+			this->str->append(L" ");
+		}
+
+		this->str->append(atype->stringName());
+		this->str->append(L" ");
+		this->str->append(dec->getName());
+	}
+
 }
 
 

@@ -253,7 +253,7 @@ void MethodDeclare::interpret(FunctionArguments* args, VirtualMachine* vm) {
 	block->interpret(vm);
 }
 
-const UnicodeString* MethodDeclare::toString() noexcept {
+const UnicodeString* MethodDeclare::toString() {
 	if(this->strName == nullptr){
 		this->strName = new UnicodeString(L"");
 
@@ -263,12 +263,20 @@ const UnicodeString* MethodDeclare::toString() noexcept {
 			this->strName->append(L" ");
 		}
 
+		ClassDeclare* clazzDec = getClassDeclare();
+		const UnicodeString* classFqn = clazzDec->getFullQualifiedName();
+		this->strName->append(classFqn);
+		this->strName->append(L".");
+
 		this->strName->append(this->name);
 		this->strName->append(L"(");
 
+		if(this->args != nullptr){
+			const UnicodeString* str = this->args->toString();
+			this->strName->append(str);
+		}
 
 		this->strName->append(L")");
-		// FIXME
 	}
 
 	return this->strName;

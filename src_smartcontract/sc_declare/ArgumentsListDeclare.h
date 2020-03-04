@@ -36,11 +36,18 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	const UnicodeString* toString() noexcept;
+
+private:
+	void makeString() noexcept;
 private:
 	ArrayList<ArgumentDeclare> list;
 	UnicodeString* callSig;
 
 	ArrayList<AnalyzedType>* typelist;
+
+	UnicodeString* str;
 };
 
 } /* namespace alinous */
