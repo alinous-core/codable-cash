@@ -21,8 +21,12 @@
 #include "sc_analyze/AnalyzeContext.h"
 
 #include "sc_declare_types/BoolType.h"
+#include "sc_declare_types/ObjectType.h"
 
 #include "sc_declare/ClassDeclare.h"
+
+#include "sc_declare/PackageNameDeclare.h"
+
 using namespace alinous;
 
 TEST_GROUP(TestTypeResolveGroup) {
@@ -242,7 +246,17 @@ TEST(TestTypeResolveGroup, resolveTypeInPackage){
 
 	AnalyzedClass* aclazz = aclazztype->getAnalyzedClass();
 	ClassDeclare* dec = aclazz->getClassDeclare();
+	ObjectType otype;
+	UnicodeString *clazzName = new UnicodeString(L"SmartContract");
+	otype.setName(clazzName);
 
+	PackageNameDeclare *pkg = new PackageNameDeclare();
+	pkg->addSegment(new UnicodeString(L"test"));
+	pkg->addSegment(new UnicodeString(L"fw"));
+	otype.setPackageName(pkg);
 
+	AnalyzedType* atype = resolver->testResolveType(dec, &otype); __STP(atype);
+
+	CHECK(atype != nullptr);
 }
 

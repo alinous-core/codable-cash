@@ -57,6 +57,7 @@ private:
 #ifdef __DEBUG__
 public:
 	AnalyzedType* testFindClassType(const UnicodeString* packageName, const UnicodeString* name) const;
+	AnalyzedType* testResolveType(CodeElement* element, ObjectType* type) const;
 #endif
 
 private:

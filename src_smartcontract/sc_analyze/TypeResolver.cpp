@@ -221,6 +221,10 @@ UnicodeString* TypeResolver::getClassName(const UnicodeString* name) noexcept {
 AnalyzedType* TypeResolver::testFindClassType(const UnicodeString* packageName, const UnicodeString* name) const {
 	return findClassType(packageName, name);
 }
+
+AnalyzedType* TypeResolver::testResolveType(CodeElement* element, ObjectType* type) const {
+	return resolveType(element, type);
+}
 #endif
 
 } /* namespace alinous */
