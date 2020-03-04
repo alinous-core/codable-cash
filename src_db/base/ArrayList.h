@@ -190,7 +190,7 @@ public:
 
 		int index = indexOfInsert(ptr);
 
-		#ifdef __DEBUG__
+		/*#ifdef __DEBUG__
 		if(size() == 0){
 			assert(index == 0);
 		}
@@ -208,7 +208,7 @@ public:
 			int diff = compareFunctor(before, ptr, nullptr);
 			assert(diff <= 0);
 		}
-		#endif
+		#endif*/
 
 		insertWithKeepingOrder(ptr, index);
 	}

@@ -29,6 +29,7 @@ public:
 	void buildVTables(AnalyzeContext* actx) noexcept;
 
 	HashMap<UnicodeString, AnalyzedClass>* getMap() const noexcept;
+	bool isEmpty() const noexcept;
 private:
 	void doAnalyzeClassInheritance(AnalyzedClass* cls) noexcept;
 private:

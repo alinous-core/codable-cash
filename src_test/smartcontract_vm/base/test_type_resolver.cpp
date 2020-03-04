@@ -181,3 +181,42 @@ TEST(TestTypeResolveGroup, findBaseTypeString){
 	CHECK(atype->getType() == AnalyzedType::TYPE_STRING);
 }
 
+TEST(TestTypeResolveGroup, findClassTypeError01){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/base/resources/aclass/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	AnalyzeContext* actx = util.sc->getAnalyzeContext();
+	TypeResolver* resolver = actx->getTypeResolver();
+
+	UnicodeString packageName(L"test.fw.base");
+	UnicodeString name(L"dummy");
+	AnalyzedType* atype = resolver->testFindClassType(&packageName, &name);
+
+	CHECK(atype == nullptr);
+}
+
+TEST(TestTypeResolveGroup, findClassTypeError02){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/base/resources/aclass/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	AnalyzeContext* actx = util.sc->getAnalyzeContext();
+	TypeResolver* resolver = actx->getTypeResolver();
+
+	UnicodeString packageName(L"aaaaa");
+	UnicodeString name(L"dummy");
+	AnalyzedType* atype = resolver->testFindClassType(&packageName, &name);
+
+	CHECK(atype == nullptr);
+}

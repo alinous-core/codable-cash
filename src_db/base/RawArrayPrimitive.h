@@ -113,7 +113,7 @@ public:
 
 	void remove(const int index, const int length) noexcept {
 		#ifdef __DEBUG__
-		assert(index + length <= this->numArray);
+		//assert((index + length) <= this->numArray);
 		#endif
 
 		const int copySize = (this->numArray - index - length);

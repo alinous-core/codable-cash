@@ -54,6 +54,11 @@ private:
 	AnalyzedType* findFromImports(const UnicodeString* name, ImportsDeclare* imports) const;
 	AnalyzedType* findClassType(const UnicodeString* packageName, const UnicodeString* name) const;
 
+#ifdef __DEBUG__
+public:
+	AnalyzedType* testFindClassType(const UnicodeString* packageName, const UnicodeString* name) const;
+#endif
+
 private:
 	AnalyzeContext* const ctx;
 };

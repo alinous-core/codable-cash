@@ -7,7 +7,7 @@ add_subdirectory(src_ext)
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 	message(STATUS "Debug Build")
 		
-	set(CMAKE_CXX_FLAGS "-std=c++0x -D__cplusplus=201103L -fmessage-length=0 -g -O0 -coverage")
+	set(CMAKE_CXX_FLAGS "-std=c++0x -D__cplusplus=201103L -D__DEBUG__ -fmessage-length=0 -g -O0 -coverage")
 	set(CMAKE_C_FLAGS "-g -O0 -coverage -fprofile-arcs -ftest-coverage")
 	set(CMAKE_EXE_LINKER_FLAGS="-fprofile-arcs -ftest-coverage")
 	
