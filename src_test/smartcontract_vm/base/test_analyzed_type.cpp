@@ -172,7 +172,7 @@ TEST(TestAnalyzedtypeGroup, objectSig){
 
 
 	UnicodeString clazz(L"test.fw.SmartContract");
-	AnalyzedType* atype = util.findClassDeclare(&clazz);
+	AnalyzedType* atype = util.findClassDeclare(&clazz); __STP(atype);
 	AnalyzedClass* aclass = atype->getAnalyzedClass();
 
 	const UnicodeString* str = atype->getSignatureName();

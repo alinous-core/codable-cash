@@ -40,7 +40,7 @@ TEST(TestAnalyzedClassGroup, copyconstructor){
 	CHECK(actx->getCurrentElement() == nullptr)
 
 	UnicodeString clazz(L"test.fw.SmartContract");
-	AnalyzedType* atype = util.findClassDeclare(&clazz);
+	AnalyzedType* atype = util.findClassDeclare(&clazz); __STP(atype);
 	AnalyzedClass* aclass = atype->getAnalyzedClass();
 
 	AnalyzedClass newCls(*aclass);
