@@ -44,6 +44,11 @@ TEST(TestTypeResolveGroup, resolveTypeBool){
 
 	BoolType btype;
 	AnalyzedType* atype = resolver->resolveType(nullptr, &btype); __STP(atype);
+
+	CHECK(atype->getType() == AnalyzedType::TYPE_BOOL);
 }
 
+TEST(TestTypeResolveGroup, resolveTypeError){
+
+}
 
