@@ -49,6 +49,135 @@ TEST(TestTypeResolveGroup, resolveTypeBool){
 }
 
 TEST(TestTypeResolveGroup, resolveTypeError){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/base/resources/aclass/", projectFolder);
 
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	AnalyzeContext* actx = util.sc->getAnalyzeContext();
+	TypeResolver* resolver = actx->getTypeResolver();
+
+	BoolType btype;
+	btype.setType(-1);
+	AnalyzedType* atype = resolver->resolveType(nullptr, &btype); __STP(atype);
+	CHECK(atype == nullptr);
+}
+
+TEST(TestTypeResolveGroup, findBaseTypeBool){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/base/resources/aclass/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	AnalyzeContext* actx = util.sc->getAnalyzeContext();
+	TypeResolver* resolver = actx->getTypeResolver();
+
+	UnicodeString typestr(L"boolean");
+	AnalyzedType* atype = resolver->findBaseType(&typestr);
+
+	CHECK(atype->getType() == AnalyzedType::TYPE_BOOL);
+}
+
+TEST(TestTypeResolveGroup, findBaseTypeByte){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/base/resources/aclass/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	AnalyzeContext* actx = util.sc->getAnalyzeContext();
+	TypeResolver* resolver = actx->getTypeResolver();
+
+	UnicodeString typestr(L"byte");
+	AnalyzedType* atype = resolver->findBaseType(&typestr);
+
+	CHECK(atype->getType() == AnalyzedType::TYPE_BYTE);
+}
+
+TEST(TestTypeResolveGroup, findBaseTypeShort){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/base/resources/aclass/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	AnalyzeContext* actx = util.sc->getAnalyzeContext();
+	TypeResolver* resolver = actx->getTypeResolver();
+
+	UnicodeString typestr(L"short");
+	AnalyzedType* atype = resolver->findBaseType(&typestr);
+
+	CHECK(atype->getType() == AnalyzedType::TYPE_SHORT);
+}
+
+TEST(TestTypeResolveGroup, findBaseTypeChar){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/base/resources/aclass/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	AnalyzeContext* actx = util.sc->getAnalyzeContext();
+	TypeResolver* resolver = actx->getTypeResolver();
+
+	UnicodeString typestr(L"char");
+	AnalyzedType* atype = resolver->findBaseType(&typestr);
+
+	CHECK(atype->getType() == AnalyzedType::TYPE_CHAR);
+}
+
+TEST(TestTypeResolveGroup, findBaseTypeLong){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/base/resources/aclass/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	AnalyzeContext* actx = util.sc->getAnalyzeContext();
+	TypeResolver* resolver = actx->getTypeResolver();
+
+	UnicodeString typestr(L"long");
+	AnalyzedType* atype = resolver->findBaseType(&typestr);
+
+	CHECK(atype->getType() == AnalyzedType::TYPE_LONG);
+}
+
+TEST(TestTypeResolveGroup, findBaseTypeString){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/base/resources/aclass/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	AnalyzeContext* actx = util.sc->getAnalyzeContext();
+	TypeResolver* resolver = actx->getTypeResolver();
+
+	UnicodeString typestr(L"String");
+	AnalyzedType* atype = resolver->findBaseType(&typestr);
+
+	CHECK(atype->getType() == AnalyzedType::TYPE_STRING);
 }
 
