@@ -2,7 +2,7 @@
 
 package test.fw;
 
-class SmartContract implements TestInterface {
+class SmartContract implements TestInterface, MyInterface {
 	public SmartContract() {
 		this.count = 0;
 	}
@@ -11,11 +11,16 @@ class SmartContract implements TestInterface {
 		this.count = 1;
 	}
 	
-	public void test01(){
+	public void test01() {
 	
 	}
+	
 	public void test02(){
 	
 	}
+	public void test03() {
+	
+	}
+	
 	private int count;
 }
