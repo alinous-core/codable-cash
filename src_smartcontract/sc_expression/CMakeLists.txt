@@ -5,7 +5,6 @@ set(__src
 	AbstractExpression.cpp
 	AllocationExpression.cpp
 	ArrayReferenceExpression.cpp
-	BooleanLiteral.cpp
 	CastExpression.cpp
 	ConstructorArray.cpp
 	ConstructorCall.cpp
