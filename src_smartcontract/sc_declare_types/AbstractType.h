@@ -17,7 +17,7 @@ class ByteBuffer;
 
 class AbstractType : public CodeElement {
 public:
-	AbstractType(short kind);
+	explicit AbstractType(short kind);
 	virtual ~AbstractType();
 
 	virtual const UnicodeString* toString() noexcept = 0;
