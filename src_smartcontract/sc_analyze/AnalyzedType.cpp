@@ -74,6 +74,10 @@ int AnalyzedType::getDim() const noexcept {
 const UnicodeString* AnalyzedType::stringName() noexcept {
 	if(this->str == nullptr){
 		makeStringName();
+
+		for(int i = 0; i != this->dim; ++i){
+			this->str->append(L"[]");
+		}
 	}
 	return this->str;
 }

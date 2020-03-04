@@ -136,9 +136,9 @@ StatementBlock* MethodDeclare::getBlock() const noexcept {
 
 bool MethodDeclare::isConstructor() const {
 	ClassDeclare* dec = getClassDeclare();
-	if(dec == nullptr){
-		throw new MulformattedScBinaryException(__FILE__, __LINE__);
-	}
+	//if(dec == nullptr){
+	//	throw new MulformattedScBinaryException(__FILE__, __LINE__);
+	//}
 
 	const UnicodeString* clsName = dec->getName();
 	return clsName->equals(this->name);
@@ -256,6 +256,12 @@ void MethodDeclare::interpret(FunctionArguments* args, VirtualMachine* vm) {
 const UnicodeString* MethodDeclare::toString() noexcept {
 	if(this->strName == nullptr){
 		this->strName = new UnicodeString(L"");
+
+		if(this->atype != nullptr){
+			const UnicodeString* retstr = this->atype->stringName();
+			this->strName->append(retstr);
+			this->strName->append(L" ");
+		}
 
 		this->strName->append(this->name);
 		this->strName->append(L"(");
