@@ -9,6 +9,7 @@
 #include "sc_declare/ClassDeclareBlock.h"
 #include "sc_declare/ClassImplements.h"
 #include "sc_declare/ClassExtends.h"
+#include "sc_declare/MethodDeclare.h"
 
 #include "sc/CompilationUnit.h"
 #include "sc_analyze/AnalyzeContext.h"
@@ -18,6 +19,10 @@
 #include "sc_analyze/AnalyzedClass.h"
 
 #include "base/UnicodeString.h"
+
+#include "sc_analyze_functions/VTableRegistory.h"
+#include "sc_analyze_functions/VTableMethodEntry.h"
+#include "sc_analyze_functions/VTableClassEntry.h"
 
 
 namespace alinous {
@@ -75,7 +80,6 @@ void ClassDeclare::preAnalyze(AnalyzeContext* actx) {
 	this->block->preAnalyze(actx);
 }
 
-
 void ClassDeclare::addDefaultConstructor() noexcept {
 	this->block->addDefaultConstructor(this->name);
 }
@@ -119,6 +123,51 @@ void ClassDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 
 void ClassDeclare::analyze(AnalyzeContext* actx) {
 	this->block->analyze(actx);
+
+	if(!this->interface && this->implements != nullptr){
+		checkImplementsInterfaces(actx);
+	}
+}
+
+
+void ClassDeclare::checkImplementsInterfaces(AnalyzeContext* actx) {
+	VTableRegistory* vreg = actx->getVtableRegistory();
+	const UnicodeString* fqn = getFullQualifiedName();
+	VTableClassEntry* thisEntry= vreg->getClassEntry(fqn, nullptr);
+
+	const ArrayList<AnalyzedType>* list = this->implements->getAnalyzedTypes();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AnalyzedType* at = list->get(i);
+		AnalyzedClass* cls = at->getAnalyzedClass();
+
+		checkImplementsInterface(actx, cls, vreg, thisEntry);
+	}
+}
+
+void ClassDeclare::checkImplementsInterface(AnalyzeContext* actx, AnalyzedClass* aclass, VTableRegistory* vreg, VTableClassEntry* thisEntry) {
+	ClassDeclare* ifClass = aclass->getClassDeclare();
+
+	ArrayList<MethodDeclare>* list = ifClass->getMethods();
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		MethodDeclare* method = list->get(i);
+
+		if(!isImplemented(thisEntry, method)){
+			const UnicodeString* clazzName = getFullQualifiedName();
+			const UnicodeString* methodStr = method->toString();
+
+			actx->addValidationError(ValidationError::CODE_CLASS_DOES_NOT_IMPLEMENET_METHOD, this, L"The class '{0}' does not implement '{1}'.", {clazzName, methodStr});
+		}
+	}
+}
+
+bool ClassDeclare::isImplemented(VTableClassEntry* thisEntry, MethodDeclare* method) {
+	const UnicodeString* callSig = method->getCallSignature();
+	VTableMethodEntry* entry = thisEntry->getVTableMethodEntry(callSig);
+
+	return entry != nullptr;
 }
 
 void ClassDeclare::init(VirtualMachine* vm) {

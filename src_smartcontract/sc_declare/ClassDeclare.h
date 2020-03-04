@@ -23,6 +23,9 @@ class VirtualMachine;
 class AnalyzedType;
 class MethodDeclare;
 class MemberVariableDeclare;
+class AnalyzedClass;
+class VTableRegistory;
+class VTableClassEntry;
 
 class ClassDeclare : public CodeElement {
 public:
@@ -58,6 +61,9 @@ public:
 	ArrayList<MemberVariableDeclare>* getMemberVariables() noexcept;
 
 private:
+	void checkImplementsInterfaces(AnalyzeContext* actx);
+	void checkImplementsInterface(AnalyzeContext* actx, AnalyzedClass* aclass, VTableRegistory* vreg, VTableClassEntry* thisEntry);
+	bool isImplemented(VTableClassEntry* thisEntry, MethodDeclare* method);
 	void addDefaultConstructor() noexcept;
 
 private:

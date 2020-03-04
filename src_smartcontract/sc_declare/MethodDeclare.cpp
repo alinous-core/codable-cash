@@ -39,6 +39,7 @@ MethodDeclare::MethodDeclare() : CodeElement(CodeElement::METHOD_DECLARE) {
 	this->atype = nullptr;
 	this->callSig = nullptr;
 	this->fqn = nullptr;
+	this->strName = nullptr;
 }
 
 MethodDeclare::~MethodDeclare() {
@@ -49,6 +50,8 @@ MethodDeclare::~MethodDeclare() {
 	delete this->block;
 	delete this->atype;
 	delete this->callSig;
+	delete this->fqn;
+	delete this->strName;
 }
 
 
@@ -250,5 +253,19 @@ void MethodDeclare::interpret(FunctionArguments* args, VirtualMachine* vm) {
 	block->interpret(vm);
 }
 
+const UnicodeString* MethodDeclare::toString() noexcept {
+	if(this->strName == nullptr){
+		this->strName = new UnicodeString(L"");
+
+		this->strName->append(this->name);
+		this->strName->append(L"(");
+
+
+		this->strName->append(L")");
+		// FIXME
+	}
+
+	return this->strName;
+}
 
 } /* namespace alinous */

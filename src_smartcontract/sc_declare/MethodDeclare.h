@@ -55,6 +55,8 @@ public:
 
 	void init(VirtualMachine* vm);
 	void interpret(FunctionArguments* args, VirtualMachine* vm);
+
+	const UnicodeString* toString() noexcept;
 private:
 	AccessControlDeclare* ctrl;
 	AbstractType* type;
@@ -66,6 +68,7 @@ private:
 	AnalyzedType* atype;
 	UnicodeString* callSig;
 	UnicodeString* fqn;
+	UnicodeString* strName;
 };
 
 } /* namespace alinous */
