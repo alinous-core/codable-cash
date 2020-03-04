@@ -19,7 +19,7 @@
 #include "base_io/ByteBuffer.h"
 
 #include "sc_expression/VariableIdentifier.h"
-#include "sc_expression/NumberLiteral.h"
+#include "sc_expression_literal/NumberLiteral.h"
 
 #include "instance_array/VmArrayInstanceUtils.h"
 #include "instance_ref/PrimitiveReference.h"

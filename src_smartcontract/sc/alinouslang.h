@@ -61,11 +61,11 @@
 #include "sc_expression/FunctionCallExpression.h"
 #include "sc_expression/LiteralExpression.h"
 #include "sc_expression/MemberReferenceExpression.h"
-#include "sc_expression/NumberLiteral.h"
 #include "sc_expression/ParenthesisExpression.h"
 #include "sc_expression/VariableIdentifier.h"
 
 #include "sc_expression_literal/NullLiteral.h"
+#include "sc_expression_literal/NumberLiteral.h"
 
 #include "sc_expression_arithmetic/AddExpression.h"
 #include "sc_expression_arithmetic/MultiplicativeExpression.h"

@@ -12,7 +12,6 @@ set(__src
 	FunctionCallExpression.cpp
 	LiteralExpression.cpp
 	MemberReferenceExpression.cpp
-	NumberLiteral.cpp
 	ParenthesisExpression.cpp
 	VariableIdentifier.cpp
 )
