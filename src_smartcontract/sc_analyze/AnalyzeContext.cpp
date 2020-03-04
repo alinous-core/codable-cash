@@ -95,9 +95,9 @@ const ArrayList<ValidationError>* AnalyzeContext::getErrors() const noexcept {
 
 AnalyzedClass* AnalyzeContext::getAnalyzedClass(CodeElement* element) {
 	ClassDeclare* dec = element->getClassDeclare();
-	if(dec == nullptr){
-		throw new MulformattedScBinaryException(__FILE__, __LINE__);
-	}
+	//if(dec == nullptr){ never come here
+	//	throw new MulformattedScBinaryException(__FILE__, __LINE__);
+	//}
 
 	CompilationUnit* unit = dec->getCompilationUnit();
 	PackageSpace* pkg = getPackegeSpace(unit->getPackageName());

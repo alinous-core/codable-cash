@@ -39,6 +39,7 @@ MethodDeclare::MethodDeclare() : CodeElement(CodeElement::METHOD_DECLARE) {
 	this->atype = nullptr;
 	this->callSig = nullptr;
 	this->fqn = nullptr;
+	this->strName = nullptr;
 }
 
 MethodDeclare::~MethodDeclare() {
@@ -49,6 +50,8 @@ MethodDeclare::~MethodDeclare() {
 	delete this->block;
 	delete this->atype;
 	delete this->callSig;
+	delete this->fqn;
+	delete this->strName;
 }
 
 
@@ -133,9 +136,9 @@ StatementBlock* MethodDeclare::getBlock() const noexcept {
 
 bool MethodDeclare::isConstructor() const {
 	ClassDeclare* dec = getClassDeclare();
-	if(dec == nullptr){
-		throw new MulformattedScBinaryException(__FILE__, __LINE__);
-	}
+	//if(dec == nullptr){
+	//	throw new MulformattedScBinaryException(__FILE__, __LINE__);
+	//}
 
 	const UnicodeString* clsName = dec->getName();
 	return clsName->equals(this->name);
@@ -250,5 +253,33 @@ void MethodDeclare::interpret(FunctionArguments* args, VirtualMachine* vm) {
 	block->interpret(vm);
 }
 
+const UnicodeString* MethodDeclare::toString() {
+	if(this->strName == nullptr){
+		this->strName = new UnicodeString(L"");
+
+		if(this->atype != nullptr){
+			const UnicodeString* retstr = this->atype->stringName();
+			this->strName->append(retstr);
+			this->strName->append(L" ");
+		}
+
+		ClassDeclare* clazzDec = getClassDeclare();
+		const UnicodeString* classFqn = clazzDec->getFullQualifiedName();
+		this->strName->append(classFqn);
+		this->strName->append(L".");
+
+		this->strName->append(this->name);
+		this->strName->append(L"(");
+
+		if(this->args != nullptr){
+			const UnicodeString* str = this->args->toString();
+			this->strName->append(str);
+		}
+
+		this->strName->append(L")");
+	}
+
+	return this->strName;
+}
 
 } /* namespace alinous */

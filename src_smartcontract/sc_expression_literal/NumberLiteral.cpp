@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_expression/NumberLiteral.h"
+#include "sc_expression_literal/NumberLiteral.h"
 #include "base/UnicodeString.h"
 #include "base/Integer.h"
 

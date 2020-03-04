@@ -16,6 +16,7 @@ class SmartContract;
 class VirtualMachine;
 class VmClassInstance;
 class ExtClassObject;
+class AnalyzedType;
 
 class VmTestUtils {
 public:
@@ -30,6 +31,8 @@ public:
 	bool analyze();
 	bool createInstance();
 	ExtClassObject* getMainExtObject();
+
+	AnalyzedType* findClassDeclare(const UnicodeString* classFqn);
 
 	VirtualMachine* vm;
 	SmartContract* sc;

@@ -23,6 +23,9 @@
 
 #include "sc_analyze/AnalyzeContext.h"
 
+#include "sc_analyze/TypeResolver.h"
+
+#include "sc/CompilationUnit.h"
 namespace alinous {
 
 VmTestUtils::VmTestUtils(const wchar_t* seg, const File* projectFolder) {
@@ -104,6 +107,15 @@ ExtClassObject* VmTestUtils::getMainExtObject() {
 	AbstractExtObject* extObj = this->mainInst->toClassExtObject(&name, reg);
 
 	return dynamic_cast<ExtClassObject*>(extObj);
+}
+
+AnalyzedType* VmTestUtils::findClassDeclare(const UnicodeString* classFqn) {
+	CompilationUnit* unit = this->sc->getCompilationUnit(0);
+
+	AnalyzeContext* actx = this->sc->getAnalyzeContext();
+	TypeResolver* resolver = actx->getTypeResolver();
+
+	return resolver->findClassType(unit, classFqn);
 }
 
 } /* namespace alinous */

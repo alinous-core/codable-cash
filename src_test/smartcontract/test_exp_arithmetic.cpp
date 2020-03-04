@@ -8,7 +8,7 @@
 #include "compiler/SmartContractParser.h"
 
 #include "base/StackRelease.h"
-#include "sc_expression/NullLiteral.h"
+#include "sc_expression_literal/NullLiteral.h"
 
 #include "alinous_lang/AlinousLang.h"
 

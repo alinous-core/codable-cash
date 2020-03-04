@@ -1,0 +1,9 @@
+
+package test.fw;
+
+interface TestInterface {
+	public void test01();
+	public void test02();
+	
+	public int[] test03(int arg);
+}

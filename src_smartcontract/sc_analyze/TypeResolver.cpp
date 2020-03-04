@@ -94,7 +94,7 @@ AnalyzedType* TypeResolver::resolveType(CodeElement* element, AbstractType* type
 			break;
 		}
 	default:
-		break;
+		return nullptr;
 	}
 
 	int dim = type->getDimension();
@@ -183,7 +183,7 @@ AnalyzedType* TypeResolver::findFromImports(const UnicodeString* name, ImportsDe
 
 AnalyzedType* TypeResolver::findClassType(const UnicodeString* packageName, const UnicodeString* name) const {
 	PackageSpace* space = this->ctx->getPackegeSpace(packageName);
-	if(space == nullptr){
+	if(space == nullptr || space->isEmpty()){
 		return nullptr; // error
 	}
 
@@ -216,5 +216,15 @@ UnicodeString* TypeResolver::getClassName(const UnicodeString* name) noexcept {
 
 	return name->substring(index + 1);
 }
+
+#ifdef __DEBUG__
+AnalyzedType* TypeResolver::testFindClassType(const UnicodeString* packageName, const UnicodeString* name) const {
+	return findClassType(packageName, name);
+}
+
+AnalyzedType* TypeResolver::testResolveType(CodeElement* element, ObjectType* type) const {
+	return resolveType(element, type);
+}
+#endif
 
 } /* namespace alinous */

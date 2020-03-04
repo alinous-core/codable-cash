@@ -1,0 +1,21 @@
+
+
+package test.fw;
+
+class SmartContract implements TestInterface {
+	public SmartContract() {
+		this.count = 0;
+	}
+	
+	public int main(){
+		this.count = 1;
+	}
+	
+	public void test01(){
+	
+	}
+	public void test02(){
+	
+	}
+	private int count;
+}

@@ -14,7 +14,7 @@ namespace alinous {
 
 class AbstractPrimitiveType : public AbstractType {
 public:
-	AbstractPrimitiveType(short kind);
+	explicit AbstractPrimitiveType(short kind);
 	virtual ~AbstractPrimitiveType();
 };
 

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_expression/BooleanLiteral.h"
+#include "sc_expression_literal/BooleanLiteral.h"
 #include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {

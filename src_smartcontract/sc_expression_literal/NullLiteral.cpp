@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_expression/NullLiteral.h"
+#include "sc_expression_literal/NullLiteral.h"
 #include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {

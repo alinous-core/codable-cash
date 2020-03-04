@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_expression/LiteralExpression.h"
+#include "sc_expression_literal/LiteralExpression.h"
 #include "base/UnicodeString.h"
 
 #include "sc_analyze/AnalyzedType.h"

@@ -201,5 +201,9 @@ const ArrayList<CompileError>* SmartContract::getCompileErrors() const noexcept 
 	return &this->compileErrorList;
 }
 
+CompilationUnit* SmartContract::getCompilationUnit(int pos) {
+	return this->progs.get(pos);
+}
+
 
 } /* namespace alinous */

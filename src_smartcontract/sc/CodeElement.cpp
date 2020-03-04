@@ -56,14 +56,15 @@
 #include "sc_expression/CastExpression.h"
 #include "sc_expression/ConstructorArray.h"
 #include "sc_expression/ConstructorCall.h"
-#include "sc_expression/LiteralExpression.h"
-#include "sc_expression/NumberLiteral.h"
-#include "sc_expression/BooleanLiteral.h"
-#include "sc_expression/NullLiteral.h"
 #include "sc_expression/ParenthesisExpression.h"
 #include "sc_expression/VariableIdentifier.h"
-
 #include "sc_expression/FunctionCallExpression.h"
+
+#include "sc_expression_literal/BooleanLiteral.h"
+#include "sc_expression_literal/LiteralExpression.h"
+#include "sc_expression_literal/NullLiteral.h"
+#include "sc_expression_literal/NumberLiteral.h"
+
 #include "sc_expression_bit/AndExpression.h"
 #include "sc_expression_bit/BitReverseExpression.h"
 #include "sc_expression_bit/OrExpression.h"

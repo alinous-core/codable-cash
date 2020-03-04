@@ -5,15 +5,11 @@ set(__src
 	AbstractExpression.cpp
 	AllocationExpression.cpp
 	ArrayReferenceExpression.cpp
-	BooleanLiteral.cpp
 	CastExpression.cpp
 	ConstructorArray.cpp
 	ConstructorCall.cpp
 	FunctionCallExpression.cpp
-	LiteralExpression.cpp
 	MemberReferenceExpression.cpp
-	NullLiteral.cpp
-	NumberLiteral.cpp
 	ParenthesisExpression.cpp
 	VariableIdentifier.cpp
 )

@@ -41,4 +41,8 @@ const UnicodeString* BoolType::toString() noexcept {
 	return &TYPE_NAME;
 }
 
+void BoolType::setType(short kind) noexcept {
+	this->kind = kind;
+}
+
 } /* namespace alinous */

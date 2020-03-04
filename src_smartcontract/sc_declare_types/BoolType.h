@@ -24,6 +24,9 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 	virtual const UnicodeString* toString() noexcept;
+
+	// debug
+	void setType(short kind) noexcept;
 };
 
 } /* namespace alinous */
