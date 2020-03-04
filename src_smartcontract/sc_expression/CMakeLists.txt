@@ -9,7 +9,6 @@ set(__src
 	ConstructorArray.cpp
 	ConstructorCall.cpp
 	FunctionCallExpression.cpp
-	LiteralExpression.cpp
 	MemberReferenceExpression.cpp
 	ParenthesisExpression.cpp
 	VariableIdentifier.cpp

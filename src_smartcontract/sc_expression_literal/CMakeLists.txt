@@ -2,6 +2,7 @@
 
 set(__src
 	BooleanLiteral.cpp
+	LiteralExpression.cpp
 	NullLiteral.cpp
 	NumberLiteral.cpp
 )
