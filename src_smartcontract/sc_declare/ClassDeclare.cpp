@@ -45,7 +45,10 @@ ClassDeclare::~ClassDeclare() {
 }
 
 void ClassDeclare::preAnalyze(AnalyzeContext* actx) {
-	addDefaultConstructor();
+	if(!this->interface){
+		addDefaultConstructor();
+	}
+
 
 	CompilationUnit* unit = getCompilationUnit();
 	PackageSpace* space = actx->getPackegeSpace(unit->getPackageName());
