@@ -14,20 +14,45 @@
 namespace alinous {
 
 AbstractArithmeticBinaryExpresson::AbstractArithmeticBinaryExpresson(int kind) : AbstractBinaryExpression(kind), operations(8) {
-
+	this->atype = nullptr;
 }
 
 AbstractArithmeticBinaryExpresson::~AbstractArithmeticBinaryExpresson() {
-
+	delete this->atype;
 }
 
 AnalyzedType AbstractArithmeticBinaryExpresson::getType(AnalyzeContext* actx) {
-	return this->atype;
+	return *this->atype;
 }
 
 void AbstractArithmeticBinaryExpresson::addOpe(uint8_t ope) noexcept {
 	this->operations.addElement(ope);
 }
+
+void AbstractArithmeticBinaryExpresson::analyzeTypeRef(AnalyzeContext* actx) {
+	AbstractBinaryExpression::analyzeTypeRef(actx);
+
+	uint8_t type = AnalyzedType::TYPE_BYTE;
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->list.get(i);
+		AnalyzedType at = exp->getType(actx);
+
+		if(at.isPrimitiveInteger()){
+			uint8_t t = at.getType();
+			if(type < t){
+				type = t;
+			}
+		}
+		else {
+			this->atype = new AnalyzedType(at);
+			return;
+		}
+	}
+
+	this->atype = new AnalyzedType(type);
+}
+
 
 int AbstractArithmeticBinaryExpresson::binarySize() const {
 	int total = sizeof(uint16_t);

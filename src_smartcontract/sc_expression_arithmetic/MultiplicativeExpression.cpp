@@ -20,13 +20,11 @@ void MultiplicativeExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void MultiplicativeExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	// FIXME expression : analyze type
+	AbstractArithmeticBinaryExpresson::analyzeTypeRef(actx);
 }
 
 void MultiplicativeExpression::analyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::analyze(actx);
-
-	// FIXME analyze type
 }
 
 AbstractVmInstance* MultiplicativeExpression::interpret(VirtualMachine* vm) {

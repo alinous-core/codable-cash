@@ -28,6 +28,8 @@ public:
 	virtual AnalyzedType getType(AnalyzeContext* actx);
 	void addOpe(uint8_t ope) noexcept;
 
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
@@ -35,7 +37,7 @@ protected:
 	RawArrayPrimitive<uint8_t> operations;
 
 	// analyzed
-	AnalyzedType atype;
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

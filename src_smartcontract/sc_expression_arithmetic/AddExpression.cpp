@@ -20,13 +20,11 @@ void AddExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void AddExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	// FIXME expression : analyze type
+	AbstractArithmeticBinaryExpresson::analyzeTypeRef(actx);
 }
 
 void AddExpression::analyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::analyze(actx);
-
-	// FIXME analyze type
 }
 
 
