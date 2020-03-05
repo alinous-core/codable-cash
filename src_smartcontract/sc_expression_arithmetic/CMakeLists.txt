@@ -1,6 +1,7 @@
 
 
 set(__src
+	AbstractArithmeticBinaryExpresson.cpp
 	AddExpression.cpp
 	MultiplicativeExpression.cpp
 	NegateExpression.cpp
