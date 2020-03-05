@@ -31,6 +31,10 @@ void AbstractArithmeticBinaryExpresson::addOpe(uint8_t ope) noexcept {
 
 void AbstractArithmeticBinaryExpresson::analyzeTypeRef(AnalyzeContext* actx) {
 	AbstractBinaryExpression::analyzeTypeRef(actx);
+}
+
+void AbstractArithmeticBinaryExpresson::analyze(AnalyzeContext* actx) {
+	AbstractBinaryExpression::analyze(actx);
 
 	uint8_t type = AnalyzedType::TYPE_BYTE;
 	int maxLoop = this->list.size();
@@ -52,7 +56,6 @@ void AbstractArithmeticBinaryExpresson::analyzeTypeRef(AnalyzeContext* actx) {
 
 	this->atype = new AnalyzedType(type);
 }
-
 
 int AbstractArithmeticBinaryExpresson::binarySize() const {
 	int total = sizeof(uint16_t);

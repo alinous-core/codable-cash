@@ -29,6 +29,7 @@ public:
 	void addOpe(uint8_t ope) noexcept;
 
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
