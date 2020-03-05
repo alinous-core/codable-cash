@@ -66,7 +66,7 @@ AbstractVmInstance* AddExpression::interpret32Bit(VirtualMachine* vm) {
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){
 		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
-		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(inst);
+		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
 		uint8_t op = this->operations.get(i - 1);
 		if(op == ADD){

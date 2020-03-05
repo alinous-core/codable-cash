@@ -40,10 +40,6 @@ void NumberLiteral::preAnalyze(AnalyzeContext* actx) {
 }
 
 void NumberLiteral::analyzeTypeRef(AnalyzeContext* actx) {
-}
-
-
-void NumberLiteral::analyze(AnalyzeContext* actx) {
 	if(this->str->endsWith(&this->L) || this->str->endsWith(&this->l)){
 		this->atype = AnalyzedType(AnalyzedType::TYPE_LONG);
 	}
@@ -51,6 +47,11 @@ void NumberLiteral::analyze(AnalyzeContext* actx) {
 		this->value = Integer::parseInt(this->str);
 		this->atype = AnalyzedType(AnalyzedType::TYPE_INT);
 	}
+}
+
+
+void NumberLiteral::analyze(AnalyzeContext* actx) {
+
 
 }
 
