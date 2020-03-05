@@ -35,7 +35,7 @@ public:
 	virtual bool isNull() const noexcept;
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
-private:
+protected:
 	uint8_t type;
 };
 

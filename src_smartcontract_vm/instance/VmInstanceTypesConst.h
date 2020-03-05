@@ -20,16 +20,14 @@ public:
 
 	static constexpr uint8_t INST_BIG_INT{10};
 
-
-
 	static constexpr uint8_t REF_ROOT{100};
 	static constexpr uint8_t REF_OBJ{101};
 	static constexpr uint8_t REF_BYTE{102};
 	static constexpr uint8_t REF_CHAR{103};
 	static constexpr uint8_t REF_SHORT{104};
 	static constexpr uint8_t REF_INT{105};
-	static constexpr uint8_t REF_LONG{106};
-	static constexpr uint8_t REF_BOOL{107};
+	static constexpr uint8_t REF_BOOL{106};
+	static constexpr uint8_t REF_LONG{107};
 
 	static constexpr uint8_t REF_ARRAY{150};
 };

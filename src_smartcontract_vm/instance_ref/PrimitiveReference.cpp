@@ -56,7 +56,19 @@ void PrimitiveReference::setCharValue(int16_t value) noexcept {
 }
 
 int64_t PrimitiveReference::getLongValue() const noexcept {
-	return *((int64_t*)this->data);
+	int64_t ret = 0;
+
+	switch(this->type){
+	case VmInstanceTypesConst::REF_BOOL:
+	case VmInstanceTypesConst::REF_INT:
+		ret = *((int32_t*)this->data);
+		break;
+	default:
+		ret = *((int64_t*)this->data);
+		break;
+	}
+
+	return ret;
 }
 
 void PrimitiveReference::setLongValue(int64_t value) noexcept {
