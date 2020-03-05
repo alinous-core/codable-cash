@@ -25,7 +25,22 @@ PrimitiveReference::~PrimitiveReference() {
 }
 
 int32_t PrimitiveReference::getIntValue() const noexcept {
-	return *((int32_t*)this->data);
+	int64_t ret = 0;
+
+	switch(this->type){
+	case VmInstanceTypesConst::REF_BYTE:
+		ret = *((int8_t*)this->data);
+		break;
+	case VmInstanceTypesConst::REF_SHORT:
+	case VmInstanceTypesConst::REF_CHAR:
+		ret = *((int16_t*)this->data);
+		break;
+	default:
+		ret = *((int32_t*)this->data);
+		break;
+	}
+
+	return ret;
 }
 void PrimitiveReference::setIntValue(int32_t value) noexcept {
 	*((int32_t*)this->data) = value;
@@ -40,6 +55,10 @@ void PrimitiveReference::setByteValue(int8_t value) noexcept {
 }
 
 int16_t PrimitiveReference::getShortValue() const noexcept {
+	if(this->type == VmInstanceTypesConst::REF_BYTE){
+		return *((int8_t*)this->data);
+	}
+
 	return *((int16_t*)this->data);
 }
 
@@ -48,6 +67,10 @@ void PrimitiveReference::setShortValue(int16_t value) noexcept {
 }
 
 int16_t PrimitiveReference::getCharValue() const noexcept {
+	if(this->type == VmInstanceTypesConst::REF_BYTE){
+		return *((int8_t*)this->data);
+	}
+
 	return *((int16_t*)this->data);
 }
 
@@ -59,6 +82,13 @@ int64_t PrimitiveReference::getLongValue() const noexcept {
 	int64_t ret = 0;
 
 	switch(this->type){
+	case VmInstanceTypesConst::REF_BYTE:
+		ret = *((int8_t*)this->data);
+		break;
+	case VmInstanceTypesConst::REF_SHORT:
+	case VmInstanceTypesConst::REF_CHAR:
+		ret = *((int16_t*)this->data);
+		break;
 	case VmInstanceTypesConst::REF_BOOL:
 	case VmInstanceTypesConst::REF_INT:
 		ret = *((int32_t*)this->data);

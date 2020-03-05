@@ -33,3 +33,46 @@ TEST(TestNumericRefGroup, long01){
 	delete ref;
 	delete ref2;
 }
+
+TEST(TestNumericRefGroup, long02){
+	VirtualMachine vm(1024);
+
+	int8_t val = 1;
+	PrimitiveReference* ref = PrimitiveReference::createByteReference(&vm, val);
+	PrimitiveReference* ref2 = PrimitiveReference::createIntReference(&vm, val);
+	int64_t ret = ref->getLongValue();
+
+	CHECK(ret == 1);
+
+	delete ref;
+	delete ref2;
+}
+
+TEST(TestNumericRefGroup, long03){
+	VirtualMachine vm(1024);
+
+	int16_t val = 1;
+	PrimitiveReference* ref = PrimitiveReference::createShortReference(&vm, val);
+	PrimitiveReference* ref2 = PrimitiveReference::createIntReference(&vm, val);
+	int64_t ret = ref->getLongValue();
+
+	CHECK(ret == 1);
+
+	delete ref;
+	delete ref2;
+}
+
+TEST(TestNumericRefGroup, long04){
+	VirtualMachine vm(1024);
+
+	int16_t val = 1;
+	PrimitiveReference* ref = PrimitiveReference::createCharReference(&vm, val);
+	PrimitiveReference* ref2 = PrimitiveReference::createIntReference(&vm, val);
+	int64_t ret = ref->getLongValue();
+
+	CHECK(ret == 1);
+
+	delete ref;
+	delete ref2;
+}
+
