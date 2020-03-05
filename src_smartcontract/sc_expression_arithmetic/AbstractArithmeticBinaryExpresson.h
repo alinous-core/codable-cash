@@ -26,6 +26,7 @@ public:
 	virtual ~AbstractArithmeticBinaryExpresson();
 
 	virtual AnalyzedType getType(AnalyzeContext* actx);
+	void addOpe(uint8_t ope) noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

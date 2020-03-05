@@ -29,11 +29,6 @@ void AddExpression::analyze(AnalyzeContext* actx) {
 	// FIXME analyze type
 }
 
-void AddExpression::addOpe(uint8_t ope) noexcept {
-	this->operations.addElement(ope);
-}
-
-
 
 AbstractVmInstance* AddExpression::interpret(VirtualMachine* vm) {
 	return nullptr; // FIXME expression::interpret()

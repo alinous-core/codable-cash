@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-MultiplicativeExpression::MultiplicativeExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_MUL), operations(8) {
+MultiplicativeExpression::MultiplicativeExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_MUL) {
 }
 
 MultiplicativeExpression::~MultiplicativeExpression() {
@@ -27,50 +27,6 @@ void MultiplicativeExpression::analyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::analyze(actx);
 
 	// FIXME analyze type
-}
-
-void MultiplicativeExpression::addOpe(uint8_t ope) noexcept {
-	this->operations.addElement(ope);
-}
-
-int MultiplicativeExpression::binarySize() const {
-	int total = sizeof(uint16_t);
-	total += AbstractBinaryExpression::binarySize();
-
-	total += sizeof(uint32_t);
-	int maxLoop = this->operations.size();
-	for(int i = 0; i != maxLoop; ++i){
-		total += sizeof(uint8_t);
-	}
-
-	return total;
-}
-
-void MultiplicativeExpression::toBinary(ByteBuffer* out) {
-	out->putShort(CodeElement::EXP_MUL);
-	AbstractBinaryExpression::toBinary(out);
-
-	int maxLoop = this->operations.size();
-	out->putInt(maxLoop);
-
-	for(int i = 0; i != maxLoop; ++i){
-		uint8_t op = this->operations.get(i);
-		out->put(op);
-	}
-}
-
-void MultiplicativeExpression::fromBinary(ByteBuffer* in) {
-	AbstractBinaryExpression::fromBinary(in);
-
-	int maxLoop = in->getInt();
-	for(int i = 0; i != maxLoop; ++i){
-		uint8_t op = in->get();
-		this->operations.addElement(op);
-	}
-}
-
-AnalyzedType MultiplicativeExpression::getType(AnalyzeContext* actx) {
-	return this->atype;
 }
 
 AbstractVmInstance* MultiplicativeExpression::interpret(VirtualMachine* vm) {
