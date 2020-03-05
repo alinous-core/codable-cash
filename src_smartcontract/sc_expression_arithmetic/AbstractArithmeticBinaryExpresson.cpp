@@ -38,7 +38,7 @@ void AbstractArithmeticBinaryExpresson::analyzeTypeRef(AnalyzeContext* actx) {
 		AbstractExpression* exp = this->list.get(i);
 		AnalyzedType at = exp->getType(actx);
 
-		if(at.isPrimitiveInteger()){
+		if(at.isPrimitiveInteger() && !at.isArray()){
 			uint8_t t = at.getType();
 			if(type < t){
 				type = t;
