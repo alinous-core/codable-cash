@@ -12,9 +12,9 @@
 
 namespace alinous {
 
-class AbstractArithmeticBinaryExpresson {
+class AbstractArithmeticBinaryExpresson: public AbstractBinaryExpression {
 public:
-	AbstractArithmeticBinaryExpresson();
+	explicit AbstractArithmeticBinaryExpresson(int kind);
 	virtual ~AbstractArithmeticBinaryExpresson();
 };
 

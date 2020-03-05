@@ -27,4 +27,7 @@ TEST_GROUP(TestAddGroup) {
 	TEST_TEARDOWN(){}
 };
 
+TEST(TestAddGroup, case01){
 
+
+}

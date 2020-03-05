@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-MultiplicativeExpression::MultiplicativeExpression() : AbstractBinaryExpression(CodeElement::EXP_MUL), operations(8) {
+MultiplicativeExpression::MultiplicativeExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_MUL), operations(8) {
 }
 
 MultiplicativeExpression::~MultiplicativeExpression() {

@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-AddExpression::AddExpression() : AbstractBinaryExpression(CodeElement::EXP_ADD), operations(8) {
+AddExpression::AddExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_ADD), operations(8) {
 }
 
 AddExpression::~AddExpression() {

@@ -10,13 +10,15 @@
 
 #include <cstdint>
 
-#include "sc_expression/AbstractBinaryExpression.h"
+#include "sc_expression_arithmetic/AbstractArithmeticBinaryExpresson.h"
+
 #include "base/RawArrayPrimitive.h"
 #include "sc_analyze/AnalyzedType.h"
 
+
 namespace alinous {
 
-class MultiplicativeExpression : public AbstractBinaryExpression {
+class MultiplicativeExpression : public AbstractArithmeticBinaryExpresson {
 public:
 	static const constexpr uint8_t MUL{1};
 	static const constexpr uint8_t DIV{2};

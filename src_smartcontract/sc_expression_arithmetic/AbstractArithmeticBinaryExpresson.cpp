@@ -9,13 +9,12 @@
 
 namespace alinous {
 
-AbstractArithmeticBinaryExpresson::AbstractArithmeticBinaryExpresson() {
-	// TODO Auto-generated constructor stub
+AbstractArithmeticBinaryExpresson::AbstractArithmeticBinaryExpresson(int kind) : AbstractBinaryExpression(kind) {
 
 }
 
 AbstractArithmeticBinaryExpresson::~AbstractArithmeticBinaryExpresson() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */

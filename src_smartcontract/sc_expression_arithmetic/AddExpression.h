@@ -10,13 +10,13 @@
 
 #include <cstdint>
 
-#include "sc_expression/AbstractBinaryExpression.h"
+#include "sc_expression_arithmetic/AbstractArithmeticBinaryExpresson.h"
 #include "sc_analyze/AnalyzedType.h"
 #include "base/RawArrayPrimitive.h"
 
 namespace alinous {
 
-class AddExpression: public AbstractBinaryExpression {
+class AddExpression: public AbstractArithmeticBinaryExpresson {
 public:
 	static const constexpr uint8_t ADD{1};
 	static const constexpr uint8_t SUB{2};
