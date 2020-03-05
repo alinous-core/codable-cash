@@ -36,7 +36,7 @@ void AnalyzeStackManager::popFunctionStack() noexcept {
 }
 
 void AnalyzeStackManager::addBlockStack() noexcept {
-	AnalyzeStack* stack = new AnalyzeStack(true);
+	AnalyzeStack* stack = new AnalyzeStack(false);
 	this->stack->addElement(stack);
 }
 
