@@ -61,6 +61,8 @@ AbstractVmInstance* AddExpression::interpret32Bit(VirtualMachine* vm) {
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int32_t result = pinst->getIntValue();
 
+	gc->handleFloatingObject(pinst);
+
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){
 		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
@@ -76,6 +78,7 @@ AbstractVmInstance* AddExpression::interpret32Bit(VirtualMachine* vm) {
 		gc->handleFloatingObject(opinst);
 	}
 
+	return PrimitiveReference::createIntReference(vm, result);
 }
 
 AbstractVmInstance* AddExpression::interpret64Bit(VirtualMachine* vm) {
