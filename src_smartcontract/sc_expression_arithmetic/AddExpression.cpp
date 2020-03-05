@@ -132,6 +132,30 @@ AbstractVmInstance* AddExpression::interpret32Bit(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* AddExpression::interpret64Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
+	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
+	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
+	int64_t result = pinst->getIntValue();
+
+	gc->handleFloatingObject(pinst);
+
+	int maxLoop = this->list.size();
+	for(int i = 1; i != maxLoop; ++i){
+		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
+
+		uint8_t op = this->operations.get(i - 1);
+		if(op == ADD){
+			result += opinst->getLongValue();
+		}else if(op == SUB){
+			result -= opinst->getLongValue();
+		}
+
+		gc->handleFloatingObject(opinst);
+	}
+
+	return PrimitiveReference::createLongReference(vm, result);
 }
 
 } /* namespace alinous */

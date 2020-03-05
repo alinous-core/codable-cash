@@ -59,6 +59,11 @@ int64_t PrimitiveReference::getLongValue() const noexcept {
 	return *((int64_t*)this->data);
 }
 
+void PrimitiveReference::setLongValue(int64_t value) noexcept {
+	*((int64_t*)this->data) = value;
+}
+
+
 bool PrimitiveReference::isPrimitive() const noexcept {
 	return true;
 }
@@ -120,11 +125,6 @@ AbstractExtObject* PrimitiveReference::toClassExtObject(const UnicodeString* nam
 
 	return extObj;
 }
-
-void PrimitiveReference::setLongValue(int64_t value) noexcept {
-	*((int64_t*)this->data) = value;
-}
-
 
 
 PrimitiveReference* PrimitiveReference::createBoolReference(VirtualMachine* vm,	int8_t value) {

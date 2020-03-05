@@ -46,7 +46,7 @@ AnalyzedType NullLiteral::getType(AnalyzeContext* actx) {
 }
 
 void NullLiteral::init(VirtualMachine* vm) {
-	// FIXME null literal
+
 }
 
 AbstractVmInstance* NullLiteral::interpret(VirtualMachine* vm) {

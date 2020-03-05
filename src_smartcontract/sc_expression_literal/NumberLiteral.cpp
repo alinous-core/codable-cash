@@ -19,6 +19,9 @@
 #include "instance_ref/VmRootReference.h"
 #include "instance_ref/PrimitiveReference.h"
 
+#include "base/Long.h"
+
+#include "base/StackRelease.h"
 namespace alinous {
 
 const UnicodeString NumberLiteral::l(L"l");
@@ -42,6 +45,9 @@ void NumberLiteral::preAnalyze(AnalyzeContext* actx) {
 void NumberLiteral::analyzeTypeRef(AnalyzeContext* actx) {
 	if(this->str->endsWith(&this->L) || this->str->endsWith(&this->l)){
 		this->atype = AnalyzedType(AnalyzedType::TYPE_LONG);
+
+		UnicodeString* longstr = this->str->substring(0, this->str->length() - 1); __STP(longstr);
+		this->value = Long::parseLong(longstr);
 	}
 	else{
 		this->value = Integer::parseInt(this->str);
