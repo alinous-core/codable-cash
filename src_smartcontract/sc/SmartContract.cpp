@@ -28,6 +28,8 @@
 
 #include "instance_gc/GcManager.h"
 
+#include "instance_exception/AbstructProgramException.h"
+
 #include "base_io_stream/FileInputStream.h"
 #include "base_io/File.h"
 
@@ -170,8 +172,13 @@ VmClassInstance* SmartContract::createInstance(VirtualMachine* vm) {
 	stack->addInnerReference(instRef);
 
 	// exec constructor
-	ArrayList<AbstractReference> arguments;
-	vm->interpret(defConstructor, inst, &arguments);
+	try{
+		ArrayList<AbstractReference> arguments;
+		vm->interpret(defConstructor, inst, &arguments);
+	}
+	catch(AbstructProgramException* e){
+		throw e;
+	}
 
 	return inst;
 }

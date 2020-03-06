@@ -29,6 +29,8 @@ class FunctionArguments;
 class VmRootReference;
 class AbstractReference;
 
+class AbstructProgramException;
+
 class VirtualMachine {
 public:
 	explicit VirtualMachine(uint64_t memCapacity);
@@ -64,6 +66,8 @@ public:
 
 	void initialize();
 	void destroy() noexcept;
+
+	ArrayList<AbstructProgramException>& getExceptions() noexcept;
 private:
 	SmartContract* sc;
 
@@ -77,6 +81,8 @@ private:
 
 	bool destried;
 	bool initialized;
+
+	ArrayList<AbstructProgramException> exceptions;
 };
 
 } /* namespace alinous */
