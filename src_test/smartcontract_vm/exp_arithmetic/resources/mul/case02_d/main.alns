@@ -1,0 +1,19 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		byte val0 = 3;
+		byte val1 = 2;
+		byte val2 = 5;
+		
+		this.count = val0 * val1 / val2;
+	}
+	
+	public int main(){
+
+	}
+	
+	private int count = 0;
+}
