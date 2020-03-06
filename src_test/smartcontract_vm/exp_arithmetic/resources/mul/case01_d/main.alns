@@ -1,0 +1,15 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		this.count = 3 * 2 / 5;
+	}
+	
+	public int main(){
+
+	}
+	
+	private int count = 0;
+}
