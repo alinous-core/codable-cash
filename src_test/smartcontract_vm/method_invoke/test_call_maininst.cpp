@@ -43,7 +43,7 @@ TEST(TestCallMainInstGroup, callMainMethod){
 	FileInputStream stream(sourceFile);
 
 	int length = sourceFile->length();
-	sc->addCompilationUnit(&stream, length);
+	sc->addCompilationUnit(&stream, length, projectFolder, sourceFile);
 
 	UnicodeString mainPackage(L"test.fw");
 	UnicodeString mainClass(L"SmartContract");

@@ -80,16 +80,16 @@ void VmTestUtils::scanFiles(File* folder, SmartContract* sc) {
 			scanFiles(f, sc);
 		}
 		else{
-			addCompilantUnit(f, sc);
+			addCompilantUnit(f, sc, folder);
 		}
 	}
 }
 
-void VmTestUtils::addCompilantUnit(File* file, SmartContract* sc) {
+void VmTestUtils::addCompilantUnit(File* file, SmartContract* sc, File* base) {
 	int length = file->length();
 	FileInputStream stream(file);
 
-	sc->addCompilationUnit(&stream, length);
+	sc->addCompilationUnit(&stream, length, base, file);
 }
 
 void VmTestUtils::setMain(const wchar_t* pkg, const wchar_t* clazz,	const wchar_t* method) noexcept {

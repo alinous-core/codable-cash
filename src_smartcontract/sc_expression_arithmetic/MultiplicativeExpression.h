@@ -39,6 +39,8 @@ private:
 	AbstractVmInstance* interpret32Bit(VirtualMachine* vm);
 	AbstractVmInstance* interpret64Bit(VirtualMachine* vm);
 
+	void checkZeroDiv(int64_t val) const;
+
 };
 
 } /* namespace alinous */

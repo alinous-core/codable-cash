@@ -9,6 +9,9 @@
 #include "instance_gc/GcManager.h"
 
 #include "instance_ref/PrimitiveReference.h"
+
+#include "sc_expression_arithmetic/ZeroDivisionException.h"
+
 namespace alinous {
 
 MultiplicativeExpression::MultiplicativeExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_MUL) {
@@ -71,10 +74,12 @@ AbstractVmInstance* MultiplicativeExpression::interpret8Bit(VirtualMachine* vm) 
 			result *= opinst->getByteValue();
 		}else if(op == DIV){
 			uint8_t v = opinst->getByteValue();
+			checkZeroDiv(v);
 
 			result = result / v;
 		}else if(op == MOD){
 			uint8_t v = opinst->getByteValue();
+			checkZeroDiv(v);
 
 			result = result % v;
 		}
@@ -102,13 +107,15 @@ AbstractVmInstance* MultiplicativeExpression::interpret16Bit(VirtualMachine* vm)
 		uint8_t op = this->operations.get(i - 1);
 
 		if(op == MUL){
-			result *= opinst->getByteValue();
+			result *= opinst->getShortValue();
 		}else if(op == DIV){
-			int16_t v = opinst->getByteValue();
+			int16_t v = opinst->getShortValue();
+			checkZeroDiv(v);
 
 			result = result / v;
 		}else if(op == MOD){
-			int16_t v = opinst->getByteValue();
+			int16_t v = opinst->getShortValue();
+			checkZeroDiv(v);
 
 			result = result % v;
 		}
@@ -139,10 +146,12 @@ AbstractVmInstance* MultiplicativeExpression::interpret32Bit(VirtualMachine* vm)
 			result *= opinst->getIntValue();
 		}else if(op == DIV){
 			int32_t v = opinst->getIntValue();
+			checkZeroDiv(v);
 
 			result = result / v;
 		}else if(op == MOD){
 			int32_t v = opinst->getIntValue();
+			checkZeroDiv(v);
 
 			result = result % v;
 		}
@@ -173,10 +182,12 @@ AbstractVmInstance* MultiplicativeExpression::interpret64Bit(VirtualMachine* vm)
 			result *= opinst->getLongValue();
 		}else if(op == DIV){
 			int64_t v = opinst->getLongValue();
+			checkZeroDiv(v);
 
 			result = result / v;
 		}else if(op == MOD){
 			int64_t v = opinst->getLongValue();
+			checkZeroDiv(v);
 
 			result = result % v;
 		}
@@ -185,6 +196,14 @@ AbstractVmInstance* MultiplicativeExpression::interpret64Bit(VirtualMachine* vm)
 	}
 
 	return PrimitiveReference::createLongReference(vm, result);
+}
+
+void MultiplicativeExpression::checkZeroDiv(int64_t val) const {
+	if(val == 0){
+		CompilationUnit* unit = getCompilationUnit();
+
+		throw new ZeroDivisionException(__FILE__, this->beginLine);
+	}
 }
 
 } /* namespace alinous */
