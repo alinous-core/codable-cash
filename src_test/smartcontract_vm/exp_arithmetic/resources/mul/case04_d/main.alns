@@ -4,9 +4,9 @@ package test.fw;
 
 class SmartContract {
 	public SmartContract() {
-		short val0 = 3;
-		short val1 = 2;
-		short val2 = 5;
+		long val0 = 3;
+		long val1 = 2;
+		long val2 = 5;
 		
 		this.count = val0 * val1 / val2;
 	}
