@@ -336,8 +336,14 @@ static void randomAdd(RawBitSet* bitset, LongRangeList* list){
 	uint64_t mod = 1000;
 	uint64_t mod_width = 100;
 
-	uint64_t min = 1 + (rand() % mod);
-	uint64_t max = min + (rand() % mod);
+	int r1 = rand();
+	int r2 = rand();
+
+	r1 = abs(r1);
+	r2 = abs(r2);
+
+	uint64_t min = 1 + (r1 % mod);
+	uint64_t max = min + (r2 % mod);
 
 	addRange(bitset, list, min, max);
 	list->assertList();
@@ -364,6 +370,31 @@ TEST(TestLongRangeGroup, addRamdom){
 		list.assertList();
 	}
 }
+
+static void iterateAddRandom(){
+	RawBitSet bitset(128);
+	LongRangeList list;
+
+	for(int i = 0; i != 100; ++i){
+		randomAdd(&bitset, &list);
+	}
+}
+
+TEST(TestLongRangeGroup, addRamdom2){
+	for(int i = 0; i != 100; ++i){
+		iterateAddRandom();
+	}
+}
+
+TEST(TestLongRangeGroup, addRamdomErrorCase){
+	RawBitSet bitset(128);
+	LongRangeList list;
+
+	addRange(&bitset, &list, 139, 1709);
+	addRange(&bitset, &list, 548, 1709);
+	addRange(&bitset, &list, 203, 844);
+}
+
 
 static void removeBitset(RawBitSet* bitset, uint64_t min, uint64_t max){
 	for(uint64_t i = min; i <= max; ++i){
