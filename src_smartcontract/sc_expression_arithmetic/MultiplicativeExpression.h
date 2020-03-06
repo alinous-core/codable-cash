@@ -33,6 +33,12 @@ public:
 
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 
+private:
+	AbstractVmInstance* interpret8Bit(VirtualMachine* vm);
+	AbstractVmInstance* interpret16Bit(VirtualMachine* vm);
+	AbstractVmInstance* interpret32Bit(VirtualMachine* vm);
+	AbstractVmInstance* interpret64Bit(VirtualMachine* vm);
+
 };
 
 } /* namespace alinous */
