@@ -18,6 +18,7 @@
 
 #include "base/UnicodeString.h"
 
+#include "instance_exception/ZeroDivisionException.h"
 
 using namespace alinous;
 
@@ -27,6 +28,9 @@ TEST_GROUP(TestMulGroup) {
 	TEST_TEARDOWN(){}
 };
 
+TEST(TestMulGroup, exceptions){
+	testException<ZeroDivisionException>();
+}
 TEST(TestMulGroup, case01){ // int
 
 }
