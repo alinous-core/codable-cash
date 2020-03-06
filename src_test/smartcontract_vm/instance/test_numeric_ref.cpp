@@ -13,6 +13,8 @@
 #include "base/UnicodeString.h"
 
 #include "instance_ref/PrimitiveReference.h"
+
+#include "ext_binary/ExtPrimitiveObject.h"
 using namespace alinous;
 
 TEST_GROUP(TestNumericRefGroup) {
@@ -74,5 +76,81 @@ TEST(TestNumericRefGroup, long04){
 
 	delete ref;
 	delete ref2;
+}
+
+TEST(TestNumericRefGroup, short01){
+	VirtualMachine vm(1024);
+
+	int16_t val = 1;
+	PrimitiveReference* ref = PrimitiveReference::createByteReference(&vm, val);
+	PrimitiveReference* ref2 = PrimitiveReference::createByteReference(&vm, val);
+	int64_t ret = ref->getShortValue();
+
+	CHECK(ret == 1);
+
+	delete ref;
+	delete ref2;
+}
+
+TEST(TestNumericRefGroup, char01){
+	VirtualMachine vm(1024);
+
+	int16_t val = 1;
+	PrimitiveReference* ref = PrimitiveReference::createByteReference(&vm, val);
+	PrimitiveReference* ref2 = PrimitiveReference::createByteReference(&vm, val);
+	int64_t ret = ref->getCharValue();
+
+	CHECK(ret == 1);
+
+	delete ref;
+	delete ref2;
+}
+
+TEST(TestNumericRefGroup, createBool){
+	VirtualMachine vm(1024);
+
+	int16_t val = 1;
+	int16_t val2 = 0;
+	PrimitiveReference* ref = PrimitiveReference::createBoolReference(&vm, val);
+	PrimitiveReference* ref2 = PrimitiveReference::createBoolReference(&vm, val2);
+
+	ref2->substitute(ref, &vm);
+
+	CHECK(ref2->getIntValue() == 1);
+
+	delete ref;
+	delete ref2;
+}
+
+TEST(TestNumericRefGroup, createBoolExt){
+	VirtualMachine vm(1024);
+
+	int16_t val = 1;
+	PrimitiveReference* ref = PrimitiveReference::createBoolReference(&vm, val);
+
+	UnicodeString name(L"name");
+	AbstractExtObject* ext = ref->toClassExtObject(&name, nullptr); __STP(ext);
+
+	CHECK(ext != nullptr);
+	ExtPrimitiveObject* extBool = dynamic_cast<ExtPrimitiveObject*>(ext);
+	CHECK(extBool->getBoolValue());
+
+	delete ref;
+}
+
+TEST(TestNumericRefGroup, createBoolExt2){
+	VirtualMachine vm(1024);
+
+	int16_t val = 0;
+	PrimitiveReference* ref = PrimitiveReference::createBoolReference(&vm, val);
+
+	UnicodeString name(L"name");
+	AbstractExtObject* ext = ref->toClassExtObject(&name, nullptr); __STP(ext);
+
+	CHECK(ext != nullptr);
+	ExtPrimitiveObject* extBool = dynamic_cast<ExtPrimitiveObject*>(ext);
+	CHECK(!extBool->getBoolValue());
+
+	delete ref;
 }
 
