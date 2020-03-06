@@ -372,6 +372,41 @@ TEST(TestExpressionGroup, alloc02){
 	CHECK(!parser.hasError())
 }
 
+
+TEST(TestExpressionGroup, alloc03){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/expression/alloc02.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractExpression* exp = lang->expression(); __STP(exp);
+
+	CHECK(!parser.hasError())
+}
+
+TEST(TestExpressionGroup, alloc03bin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/expression/alloc03.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractExpression* exp = lang->expression(); __STP(exp);
+
+	CHECK(!parser.hasError())
+
+	int size = exp->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+	exp->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+}
+
+
+
 TEST(TestExpressionGroup, alloc02bin){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/expression/alloc02.alns"))

@@ -62,7 +62,11 @@ void ConstructorArray::toBinary(ByteBuffer* out) {
 
 	out->putShort(CodeElement::EXP_CONSTRUCTORARRAY);
 
+	this->valId->toBinary(out);
+
 	int maxLoop = this->dims.size();
+	out->putInt(maxLoop);
+
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractExpression* exp = this->dims.get(i);
 		exp->toBinary(out);
@@ -77,9 +81,9 @@ void ConstructorArray::fromBinary(ByteBuffer* in) {
 	int maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){
 		element = createFromBinary(in);
-		checkKind(element, CodeElement::EXP_NUMBER_LITERAL);
+		checkIsExp(element);
 
-		AbstractExpression* exp = dynamic_cast<NumberLiteral*>(element);
+		AbstractExpression* exp = dynamic_cast<AbstractExpression*>(element);
 		this->dims.addElement(exp);
 	}
 }
