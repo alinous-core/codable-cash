@@ -225,3 +225,63 @@ TEST(TestMulGroup, case03_m){ // short
 
 	CHECK(count->getIntValue() == 1);
 }
+
+TEST(TestMulGroup, case04){ // long
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/exp_arithmetic/resources/mul/case04/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	UnicodeString strCount(L"count");
+	ExtPrimitiveObject* count = obj->getExtPrimitiveObject(&strCount);
+
+	CHECK(count->getIntValue() == 6);
+}
+
+TEST(TestMulGroup, case04_d){ // long
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/exp_arithmetic/resources/mul/case04_d/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	UnicodeString strCount(L"count");
+	ExtPrimitiveObject* count = obj->getExtPrimitiveObject(&strCount);
+
+	CHECK(count->getIntValue() == 1);
+}
+
+TEST(TestMulGroup, case04_m){ // long
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/exp_arithmetic/resources/mul/case04_m/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	UnicodeString strCount(L"count");
+	ExtPrimitiveObject* count = obj->getExtPrimitiveObject(&strCount);
+
+	CHECK(count->getIntValue() == 1);
+}
