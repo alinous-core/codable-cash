@@ -10,7 +10,7 @@
 
 #include "instance_ref/PrimitiveReference.h"
 
-#include "sc_expression_arithmetic/ZeroDivisionException.h"
+#include "instance_exception/ZeroDivisionException.h"
 
 namespace alinous {
 

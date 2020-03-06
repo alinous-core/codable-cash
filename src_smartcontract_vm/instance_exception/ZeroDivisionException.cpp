@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_expression_arithmetic/ZeroDivisionException.h"
+#include "instance_exception/ZeroDivisionException.h"
 
 #include "base/UnicodeString.h"
 
