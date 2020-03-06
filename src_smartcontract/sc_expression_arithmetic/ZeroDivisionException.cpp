@@ -12,7 +12,7 @@
 
 namespace alinous {
 
-const wchar_t* ZeroDivisionException::defaultMessage = L"Format of Smart Contract binary is wrong. ";
+const wchar_t* ZeroDivisionException::defaultMessage = L"Can not div/mod by zero. ";
 
 ZeroDivisionException::ZeroDivisionException(const char* srcfile, int srcline) noexcept : Exception(srcfile, srcline) {
 	this->message = new UnicodeString(defaultMessage);
