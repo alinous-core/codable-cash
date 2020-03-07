@@ -11,6 +11,9 @@
 #include "sc_analyze/ValidationError.h"
 #include "sc_analyze/AnalyzeContext.h"
 
+#include "instance_ref/PrimitiveReference.h"
+
+
 namespace alinous {
 
 NegateExpression::NegateExpression() : AbstractArithmeticExpression(CodeElement::EXP_NEGATE) {
@@ -60,7 +63,7 @@ void NegateExpression::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType NegateExpression::getType(AnalyzeContext* actx) {
-	return this->exp->getType(actx);
+	return *this->atype;
 }
 
 void NegateExpression::init(VirtualMachine* vm) {
@@ -68,7 +71,61 @@ void NegateExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* NegateExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	uint8_t type = this->atype->getType();
+
+	switch (type) {
+		case AnalyzedType::TYPE_BYTE:
+			return interpret8Bit(vm);
+		case AnalyzedType::TYPE_CHAR:
+		case AnalyzedType::TYPE_SHORT:
+			return interpret16Bit(vm);
+		case AnalyzedType::TYPE_LONG:
+			return interpret64Bit(vm);
+		default:
+			break;
+	}
+
+	return interpret32Bit(vm);
+}
+
+AbstractVmInstance* NegateExpression::interpret8Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	uint8_t val = ref->getByteValue() * -1;
+	PrimitiveReference* retValue = PrimitiveReference::createByteReference(vm, val);
+
+	return retValue;
+}
+
+AbstractVmInstance* NegateExpression::interpret16Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	uint16_t val = ref->getShortValue() * -1;
+	PrimitiveReference* retValue = PrimitiveReference::createShortReference(vm, val);
+
+	return retValue;
+}
+
+AbstractVmInstance* NegateExpression::interpret32Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	uint32_t val = ref->getIntValue() * -1;
+	PrimitiveReference* retValue = PrimitiveReference::createIntReference(vm, val);
+
+	return retValue;
+}
+
+AbstractVmInstance* NegateExpression::interpret64Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	uint64_t val = ref->getLongValue() * -1;
+	PrimitiveReference* retValue = PrimitiveReference::createLongReference(vm, val);
+
+	return retValue;
 }
 
 } /* namespace alinous */

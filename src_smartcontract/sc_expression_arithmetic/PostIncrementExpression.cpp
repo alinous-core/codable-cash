@@ -113,7 +113,7 @@ AbstractVmInstance* PostIncrementExpression::interpret16Bit(VirtualMachine* vm) 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
-	uint8_t val = ref->getShortValue();
+	uint16_t val = ref->getShortValue();
 	PrimitiveReference* lastValue = PrimitiveReference::createShortReference(vm, val);
 
 	if(this->ope == PLUS){
@@ -131,7 +131,7 @@ AbstractVmInstance* PostIncrementExpression::interpret32Bit(VirtualMachine* vm) 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
-	uint8_t val = ref->getIntValue();
+	uint32_t val = ref->getIntValue();
 	PrimitiveReference* lastValue = PrimitiveReference::createIntReference(vm, val);
 
 	if(this->ope == PLUS){
@@ -149,7 +149,7 @@ AbstractVmInstance* PostIncrementExpression::interpret64Bit(VirtualMachine* vm) 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
-	uint8_t val = ref->getLongValue();
+	uint64_t val = ref->getLongValue();
 	PrimitiveReference* lastValue = PrimitiveReference::createLongReference(vm, val);
 
 	if(this->ope == PLUS){
