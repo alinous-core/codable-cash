@@ -46,9 +46,9 @@ TEST(TestPostIncGroup, case01){
 	CHECK(count->getIntValue() == 2);
 
 	UnicodeString strLastCount(L"lastcount");
-	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strCount);
+	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strLastCount);
 
-	CHECK(count->getIntValue() == 2);
+	CHECK(lastcount->getIntValue() == 1);
 }
 
 TEST(TestPostIncGroup, case01_m){
@@ -71,9 +71,9 @@ TEST(TestPostIncGroup, case01_m){
 	CHECK(count->getIntValue() == 0);
 
 	UnicodeString strLastCount(L"lastcount");
-	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strCount);
+	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strLastCount);
 
-	CHECK(count->getIntValue() == 0);
+	CHECK(lastcount->getIntValue() == 1);
 }
 
 //////////////////////////////////
@@ -98,9 +98,9 @@ TEST(TestPostIncGroup, case02){
 	CHECK(count->getIntValue() == 2);
 
 	UnicodeString strLastCount(L"lastcount");
-	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strCount);
+	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strLastCount);
 
-	CHECK(count->getIntValue() == 2);
+	CHECK(lastcount->getIntValue() == 1);
 }
 
 TEST(TestPostIncGroup, case02_m){
@@ -123,9 +123,9 @@ TEST(TestPostIncGroup, case02_m){
 	CHECK(count->getIntValue() == 0);
 
 	UnicodeString strLastCount(L"lastcount");
-	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strCount);
+	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strLastCount);
 
-	CHECK(count->getIntValue() == 0);
+	CHECK(lastcount->getIntValue() == 1);
 }
 
 //////////////////////////////////
@@ -150,9 +150,9 @@ TEST(TestPostIncGroup, case03){
 	CHECK(count->getShortValue() == 2);
 
 	UnicodeString strLastCount(L"lastcount");
-	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strCount);
+	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strLastCount);
 
-	CHECK(count->getShortValue() == 2);
+	CHECK(lastcount->getShortValue() == 1);
 }
 
 TEST(TestPostIncGroup, case03_m){
@@ -175,9 +175,9 @@ TEST(TestPostIncGroup, case03_m){
 	CHECK(count->getShortValue() == 0);
 
 	UnicodeString strLastCount(L"lastcount");
-	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strCount);
+	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strLastCount);
 
-	CHECK(count->getShortValue() == 0);
+	CHECK(lastcount->getShortValue() == 1);
 }
 
 //////////////////////////////////
@@ -202,9 +202,9 @@ TEST(TestPostIncGroup, case04){
 	CHECK(count->getLongValue() == 2);
 
 	UnicodeString strLastCount(L"lastcount");
-	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strCount);
+	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strLastCount);
 
-	CHECK(count->getLongValue() == 2);
+	CHECK(lastcount->getLongValue() == 1);
 }
 
 TEST(TestPostIncGroup, case04_m){
@@ -227,9 +227,9 @@ TEST(TestPostIncGroup, case04_m){
 	CHECK(count->getLongValue() == 0);
 
 	UnicodeString strLastCount(L"lastcount");
-	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strCount);
+	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strLastCount);
 
-	CHECK(count->getLongValue() == 0);
+	CHECK(lastcount->getLongValue() == 1);
 }
 
 //////////////////////////////////
