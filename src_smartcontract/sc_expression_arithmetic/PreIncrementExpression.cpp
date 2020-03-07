@@ -19,16 +19,15 @@ PreIncrementExpression::~PreIncrementExpression() {
 }
 
 void PreIncrementExpression::preAnalyze(AnalyzeContext* actx) {
-	this->exp->setParent(this);
-	this->exp->preAnalyze(actx);
+	AbstractArithmeticExpression::preAnalyze(actx);
 }
 
 void alinous::PreIncrementExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	this->exp->analyzeTypeRef(actx);
+	AbstractArithmeticExpression::analyzeTypeRef(actx);
 }
 
 void PreIncrementExpression::analyze(AnalyzeContext* actx) {
-	this->exp->analyze(actx);
+	AbstractArithmeticExpression::analyze(actx);
 }
 
 void PreIncrementExpression::setOpe(int ope) noexcept {

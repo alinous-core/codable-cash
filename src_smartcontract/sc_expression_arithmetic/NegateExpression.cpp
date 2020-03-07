@@ -18,16 +18,15 @@ NegateExpression::~NegateExpression() {
 }
 
 void NegateExpression::preAnalyze(AnalyzeContext* actx) {
-	this->exp->setParent(this);
-	this->exp->preAnalyze(actx);
+	AbstractArithmeticExpression::preAnalyze(actx);
 }
 
 void NegateExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	this->exp->analyzeTypeRef(actx);
+	AbstractArithmeticExpression::analyzeTypeRef(actx);
 }
 
 void NegateExpression::analyze(AnalyzeContext* actx) {
-	this->exp->analyze(actx);
+	AbstractArithmeticExpression::analyze(actx);
 }
 
 int NegateExpression::binarySize() const {

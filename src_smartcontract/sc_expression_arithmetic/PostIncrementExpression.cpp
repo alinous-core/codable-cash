@@ -18,16 +18,15 @@ PostIncrementExpression::~PostIncrementExpression() {
 }
 
 void PostIncrementExpression::preAnalyze(AnalyzeContext* actx) {
-	this->exp->setParent(this);
-	this->exp->preAnalyze(actx);
+	AbstractArithmeticExpression::preAnalyze(actx);
 }
 
 void PostIncrementExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	this->exp->analyzeTypeRef(actx);
+	AbstractArithmeticExpression::analyzeTypeRef(actx);
 }
 
 void PostIncrementExpression::analyze(AnalyzeContext* actx) {
-	this->exp->analyze(actx);
+	AbstractArithmeticExpression::analyze(actx);
 }
 
 void PostIncrementExpression::setOpe(int ope) noexcept {
