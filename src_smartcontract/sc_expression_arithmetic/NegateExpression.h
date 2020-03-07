@@ -8,11 +8,11 @@
 #ifndef SC_EXPRESSION_ARITHMETIC_NEGATEEXPRESSION_H_
 #define SC_EXPRESSION_ARITHMETIC_NEGATEEXPRESSION_H_
 
-#include "sc_expression/AbstractExpression.h"
+#include "sc_expression_arithmetic/AbstractArithmeticExpression.h"
 
 namespace alinous {
 
-class NegateExpression : public AbstractExpression {
+class NegateExpression : public AbstractArithmeticExpression {
 public:
 	NegateExpression();
 	virtual ~NegateExpression();
@@ -20,8 +20,6 @@ public:
 	virtual void preAnalyze(AnalyzeContext* actx);
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
-
-	void setExpression(AbstractExpression* exp) noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
@@ -31,8 +29,6 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
-private:
-	AbstractExpression* exp;
 };
 
 } /* namespace alinous */

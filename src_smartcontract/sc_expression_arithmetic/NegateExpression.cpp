@@ -10,12 +10,11 @@
 
 namespace alinous {
 
-NegateExpression::NegateExpression() : AbstractExpression(CodeElement::EXP_NEGATE) {
-	this->exp = nullptr;
+NegateExpression::NegateExpression() : AbstractArithmeticExpression(CodeElement::EXP_NEGATE) {
 }
 
 NegateExpression::~NegateExpression() {
-	delete this->exp;
+
 }
 
 void NegateExpression::preAnalyze(AnalyzeContext* actx) {
@@ -30,11 +29,6 @@ void NegateExpression::analyzeTypeRef(AnalyzeContext* actx) {
 void NegateExpression::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
 }
-
-void NegateExpression::setExpression(AbstractExpression* exp) noexcept {
-	this->exp = exp;
-}
-
 
 int NegateExpression::binarySize() const {
 	checkNotNull(this->exp);

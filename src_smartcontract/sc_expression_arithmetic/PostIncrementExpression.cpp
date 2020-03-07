@@ -10,13 +10,11 @@
 
 namespace alinous {
 
-PostIncrementExpression::PostIncrementExpression() : AbstractExpression(CodeElement::EXP_POST_INC) {
-	this->exp = nullptr;
+PostIncrementExpression::PostIncrementExpression() : AbstractArithmeticExpression(CodeElement::EXP_POST_INC) {
 	this->ope = 0;
 }
 
 PostIncrementExpression::~PostIncrementExpression() {
-	delete this->exp;
 }
 
 void PostIncrementExpression::preAnalyze(AnalyzeContext* actx) {
@@ -30,10 +28,6 @@ void PostIncrementExpression::analyzeTypeRef(AnalyzeContext* actx) {
 
 void PostIncrementExpression::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
-}
-
-void PostIncrementExpression::setExpression(AbstractExpression* exp) noexcept {
-	this->exp = exp;
 }
 
 void PostIncrementExpression::setOpe(int ope) noexcept {
