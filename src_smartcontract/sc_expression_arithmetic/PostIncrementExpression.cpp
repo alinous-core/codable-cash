@@ -6,7 +6,11 @@
  */
 
 #include "sc_expression_arithmetic/PostIncrementExpression.h"
+
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
+
 
 namespace alinous {
 
@@ -27,6 +31,11 @@ void PostIncrementExpression::analyzeTypeRef(AnalyzeContext* actx) {
 
 void PostIncrementExpression::analyze(AnalyzeContext* actx) {
 	AbstractArithmeticExpression::analyze(actx);
+
+	AnalyzedType type = getType(actx);
+	if(!type.isPrimitiveInteger()){
+		actx->addValidationError(ValidationError::CODE_ARITHMETIC_NON_INTEGER, this, L"Can not use arithmetic operator to non integer value.", {});
+	}
 }
 
 void PostIncrementExpression::setOpe(int ope) noexcept {

@@ -8,6 +8,10 @@
 #include "sc_expression_arithmetic/PreIncrementExpression.h"
 #include "sc_analyze/AnalyzedType.h"
 
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
+
+
 namespace alinous {
 
 PreIncrementExpression::PreIncrementExpression() : AbstractArithmeticExpression(CodeElement::EXP_PRE_INC) {
@@ -28,6 +32,11 @@ void alinous::PreIncrementExpression::analyzeTypeRef(AnalyzeContext* actx) {
 
 void PreIncrementExpression::analyze(AnalyzeContext* actx) {
 	AbstractArithmeticExpression::analyze(actx);
+
+	AnalyzedType type = getType(actx);
+	if(!type.isPrimitiveInteger()){
+		actx->addValidationError(ValidationError::CODE_ARITHMETIC_NON_INTEGER, this, L"Can not use arithmetic operator to non integer value.", {});
+	}
 }
 
 void PreIncrementExpression::setOpe(int ope) noexcept {

@@ -8,6 +8,9 @@
 #include "sc_expression_arithmetic/NegateExpression.h"
 #include "sc_analyze/AnalyzedType.h"
 
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
+
 namespace alinous {
 
 NegateExpression::NegateExpression() : AbstractArithmeticExpression(CodeElement::EXP_NEGATE) {
@@ -27,6 +30,11 @@ void NegateExpression::analyzeTypeRef(AnalyzeContext* actx) {
 
 void NegateExpression::analyze(AnalyzeContext* actx) {
 	AbstractArithmeticExpression::analyze(actx);
+
+	AnalyzedType type = getType(actx);
+	if(!type.isPrimitiveInteger()){
+		actx->addValidationError(ValidationError::CODE_ARITHMETIC_NON_INTEGER, this, L"Can not use arithmetic operator to non integer value.", {});
+	}
 }
 
 int NegateExpression::binarySize() const {

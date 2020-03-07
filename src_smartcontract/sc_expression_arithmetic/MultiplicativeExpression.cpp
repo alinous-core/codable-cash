@@ -12,6 +12,10 @@
 
 #include "instance_exception/ZeroDivisionException.h"
 
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
+
+
 namespace alinous {
 
 MultiplicativeExpression::MultiplicativeExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_MUL) {
@@ -31,8 +35,9 @@ void MultiplicativeExpression::analyzeTypeRef(AnalyzeContext* actx) {
 void MultiplicativeExpression::analyze(AnalyzeContext* actx) {
 	AbstractArithmeticBinaryExpresson::analyze(actx);
 
-	if(!this->atype->isPrimitiveInteger()){
-
+	AnalyzedType type = getType(actx);
+	if(!type.isPrimitiveInteger()){
+		actx->addValidationError(ValidationError::CODE_ARITHMETIC_NON_INTEGER, this, L"Can not use arithmetic operator to non integer value.", {});
 	}
 }
 
