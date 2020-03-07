@@ -24,6 +24,7 @@ public:
 	void setExpression(AbstractExpression* exp) noexcept;
 protected:
 	AbstractExpression* exp;
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

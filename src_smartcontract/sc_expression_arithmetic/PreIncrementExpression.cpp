@@ -11,6 +11,7 @@
 #include "sc_analyze/ValidationError.h"
 #include "sc_analyze/AnalyzeContext.h"
 
+#include "instance_ref/PrimitiveReference.h"
 
 namespace alinous {
 
@@ -74,7 +75,62 @@ void PreIncrementExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* PreIncrementExpression::interpret(VirtualMachine* vm) {
-	return this->exp->interpret(vm);
+	uint8_t type = this->atype->getType();
+
+	switch (type) {
+		case AnalyzedType::TYPE_BYTE:
+			return interpret8Bit(vm);
+		case AnalyzedType::TYPE_CHAR:
+		case AnalyzedType::TYPE_SHORT:
+			return interpret16Bit(vm);
+		case AnalyzedType::TYPE_LONG:
+			return interpret64Bit(vm);
+		default:
+			break;
+	}
+
+	return interpret32Bit(vm);
+}
+
+AbstractVmInstance* PreIncrementExpression::interpret8Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	uint8_t val = ref->getByteValue() + 1;
+	ref->setByteValue(val);
+
+	return ref;
+
+}
+
+AbstractVmInstance* PreIncrementExpression::interpret16Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	uint8_t val = ref->getShortValue() + 1;
+	ref->setShortValue(val);
+
+	return ref;
+}
+
+AbstractVmInstance* PreIncrementExpression::interpret32Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	uint8_t val = ref->getIntValue() + 1;
+	ref->setIntValue(val);
+
+	return ref;
+}
+
+AbstractVmInstance* PreIncrementExpression::interpret64Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	uint8_t val = ref->getLongValue() + 1;
+	ref->setLongValue(val);
+
+	return ref;
 }
 
 } /* namespace alinous */

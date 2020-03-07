@@ -7,14 +7,19 @@
 
 #include "sc_expression_arithmetic/AbstractArithmeticExpression.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
+
 namespace alinous {
 
 AbstractArithmeticExpression::AbstractArithmeticExpression(int kind) : AbstractExpression(kind){
 	this->exp = nullptr;
+	this->atype = nullptr;
 }
 
 AbstractArithmeticExpression::~AbstractArithmeticExpression() {
 	delete this->exp;
+	delete this->atype;
 }
 
 void AbstractArithmeticExpression::preAnalyze(AnalyzeContext* actx) {
@@ -28,6 +33,9 @@ void AbstractArithmeticExpression::analyzeTypeRef(AnalyzeContext* actx) {
 
 void AbstractArithmeticExpression::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
+
+	AnalyzedType at = this->exp->getType(actx);
+	this->atype = new AnalyzedType(at);
 }
 
 void AbstractArithmeticExpression::setExpression(AbstractExpression* exp) noexcept {

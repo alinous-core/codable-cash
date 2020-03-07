@@ -34,5 +34,8 @@ TEST(TestPreIncGroup, case01){
 
 	bool result = util.analyze();
 	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
 }
 
