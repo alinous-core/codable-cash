@@ -4,7 +4,7 @@ package test.fw;
 
 class SmartContract {
 	public SmartContract() {
-		this.lastcount = ++this.count;
+		this.lastcount = --this.count;
 	}
 	
 	public int main(){
@@ -12,6 +12,6 @@ class SmartContract {
 	}
 	
 	private int count = 1;
-	private int lastcount = 0;
+	private int lastcount = 1;
 	
 }
