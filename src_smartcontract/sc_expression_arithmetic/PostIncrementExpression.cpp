@@ -11,6 +11,7 @@
 #include "sc_analyze/ValidationError.h"
 #include "sc_analyze/AnalyzeContext.h"
 
+#include "instance_ref/PrimitiveReference.h"
 
 namespace alinous {
 
@@ -65,7 +66,7 @@ void PostIncrementExpression::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType PostIncrementExpression::getType(AnalyzeContext* actx) {
-	return this->exp->getType(actx);
+	return *this->atype;
 }
 
 void PostIncrementExpression::init(VirtualMachine* vm) {
@@ -73,7 +74,93 @@ void PostIncrementExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* PostIncrementExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	uint8_t type = this->atype->getType();
+
+	switch (type) {
+		case AnalyzedType::TYPE_BYTE:
+			return interpret8Bit(vm);
+		case AnalyzedType::TYPE_CHAR:
+		case AnalyzedType::TYPE_SHORT:
+			return interpret16Bit(vm);
+		case AnalyzedType::TYPE_LONG:
+			return interpret64Bit(vm);
+		default:
+			break;
+	}
+
+	return interpret32Bit(vm);
+}
+
+AbstractVmInstance* PostIncrementExpression::interpret8Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	uint8_t val = ref->getByteValue();
+	PrimitiveReference* lastValue = PrimitiveReference::createByteReference(vm, val);
+
+	if(this->ope == PLUS){
+		val = val  + 1;
+	}else if(this->ope == MINUS){
+		val = val - 1;
+	}
+
+	ref->setByteValue(val);
+
+	return lastValue;
+}
+
+AbstractVmInstance* PostIncrementExpression::interpret16Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	uint8_t val = ref->getShortValue();
+	PrimitiveReference* lastValue = PrimitiveReference::createShortReference(vm, val);
+
+	if(this->ope == PLUS){
+		val = val  + 1;
+	}else if(this->ope == MINUS){
+		val = val - 1;
+	}
+
+	ref->setShortValue(val);
+
+	return lastValue;
+}
+
+AbstractVmInstance* PostIncrementExpression::interpret32Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	uint8_t val = ref->getIntValue();
+	PrimitiveReference* lastValue = PrimitiveReference::createIntReference(vm, val);
+
+	if(this->ope == PLUS){
+		val = val  + 1;
+	}else if(this->ope == MINUS){
+		val = val - 1;
+	}
+
+	ref->setIntValue(val);
+
+	return lastValue;
+}
+
+AbstractVmInstance* PostIncrementExpression::interpret64Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	uint8_t val = ref->getLongValue();
+	PrimitiveReference* lastValue = PrimitiveReference::createLongReference(vm, val);
+
+	if(this->ope == PLUS){
+		val = val  + 1;
+	}else if(this->ope == MINUS){
+		val = val - 1;
+	}
+
+	ref->setLongValue(val);
+
+	return lastValue;
 }
 
 } /* namespace alinous */
