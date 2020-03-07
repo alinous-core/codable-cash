@@ -41,6 +41,7 @@ public:
 	void setLongValue(int64_t value) noexcept;
 private:
 	void* data;
+	VmMalloc* malloc;
 };
 
 } /* namespace alinous */

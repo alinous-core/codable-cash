@@ -36,7 +36,7 @@ TEST(TestVMGroup, loadAndExec){
 	FileInputStream stream(sourceFile);
 
 	int length = sourceFile->length();
-	sc->addCompilationUnit(&stream, length);
+	sc->addCompilationUnit(&stream, length, projectFolder, sourceFile);
 
 	VirtualMachine* vm = new VirtualMachine(1024);
 	vm->loadSmartContract(sc);
@@ -54,7 +54,7 @@ TEST(TestVMGroup, loadAndExecError){
 	FileInputStream stream(sourceFile);
 
 	int length = sourceFile->length();
-	sc->addCompilationUnit(&stream, length);
+	sc->addCompilationUnit(&stream, length, projectFolder, sourceFile);
 
 	VirtualMachine* vm = new VirtualMachine(1024);
 	vm->loadSmartContract(sc);
@@ -74,13 +74,13 @@ TEST(TestVMGroup, duplicateClassError){
 		FileInputStream stream(sourceFile);
 
 		int length = sourceFile->length();
-		sc->addCompilationUnit(&stream, length);
+		sc->addCompilationUnit(&stream, length, projectFolder, sourceFile);
 	}
 	{
 		FileInputStream stream(sourceFile2);
 
 		int length = sourceFile2->length();
-		sc->addCompilationUnit(&stream, length);
+		sc->addCompilationUnit(&stream, length, projectFolder, sourceFile);
 	}
 
 	UnicodeString mainPackage(L"test.fw");
@@ -105,7 +105,7 @@ TEST(TestVMGroup, loadAndInitInstance){
 	FileInputStream stream(sourceFile);
 
 	int length = sourceFile->length();
-	sc->addCompilationUnit(&stream, length);
+	sc->addCompilationUnit(&stream, length, projectFolder, sourceFile);
 
 	UnicodeString mainPackage(L"test.fw");
 	UnicodeString mainClass(L"SmartContract");

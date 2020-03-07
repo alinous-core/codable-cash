@@ -34,6 +34,7 @@
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedType.h"
 
+#include "instance_exception/AbstructProgramException.h"
 
 namespace alinous {
 
@@ -64,6 +65,8 @@ VirtualMachine::~VirtualMachine() {
 
 	this->argsRegister = nullptr;
 	this->rootReference = nullptr;
+
+	this->exceptions.deleteElements();
 }
 
 void VirtualMachine::loadSmartContract(SmartContract* sc) {
@@ -73,7 +76,14 @@ void VirtualMachine::loadSmartContract(SmartContract* sc) {
 
 VmClassInstance* VirtualMachine::createScInstance() {
 	initialize();
-	return this->sc->createInstance(this);
+	try{
+		return this->sc->createInstance(this);
+	}
+	catch(AbstructProgramException* e){
+		this->exceptions.addElement(e);
+	}
+
+	return nullptr;
 }
 
 void VirtualMachine::interpret(const UnicodeString* method) {
@@ -217,5 +227,10 @@ void VirtualMachine::destroy() noexcept {
 
 	this->destried = true;
 }
+
+ArrayList<AbstructProgramException>& VirtualMachine::getExceptions() noexcept {
+	return this->exceptions;
+}
+
 
 } /* namespace alinous */

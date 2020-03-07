@@ -8,11 +8,12 @@
 #ifndef SC_EXPRESSION_ARITHMETIC_PREINCREMENTEXPRESSION_H_
 #define SC_EXPRESSION_ARITHMETIC_PREINCREMENTEXPRESSION_H_
 
-#include "sc_expression/AbstractExpression.h"
+#include "sc_expression_arithmetic/AbstractArithmeticExpression.h"
+
 
 namespace alinous {
 
-class PreIncrementExpression : public AbstractExpression {
+class PreIncrementExpression : public AbstractArithmeticExpression {
 public:
 	static int constexpr const PLUS{1};
 	static int constexpr const MINUS{2};
@@ -24,7 +25,6 @@ public:
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
-	void setExpression(AbstractExpression* exp) noexcept;
 	void setOpe(int ope) noexcept;
 
 	virtual int binarySize() const;
@@ -35,8 +35,13 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
 private:
-	AbstractExpression* exp;
+	AbstractVmInstance* interpret8Bit(VirtualMachine* vm);
+	AbstractVmInstance* interpret16Bit(VirtualMachine* vm);
+	AbstractVmInstance* interpret32Bit(VirtualMachine* vm);
+	AbstractVmInstance* interpret64Bit(VirtualMachine* vm);
+private:
 	int ope;
 };
 

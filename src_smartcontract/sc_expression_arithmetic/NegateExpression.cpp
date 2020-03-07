@@ -8,33 +8,37 @@
 #include "sc_expression_arithmetic/NegateExpression.h"
 #include "sc_analyze/AnalyzedType.h"
 
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
+
 namespace alinous {
 
-NegateExpression::NegateExpression() : AbstractExpression(CodeElement::EXP_NEGATE) {
-	this->exp = nullptr;
+NegateExpression::NegateExpression() : AbstractArithmeticExpression(CodeElement::EXP_NEGATE) {
 }
 
 NegateExpression::~NegateExpression() {
-	delete this->exp;
+
 }
 
 void NegateExpression::preAnalyze(AnalyzeContext* actx) {
-	this->exp->setParent(this);
-	this->exp->preAnalyze(actx);
+	AbstractArithmeticExpression::preAnalyze(actx);
 }
 
 void NegateExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	this->exp->analyzeTypeRef(actx);
+	AbstractArithmeticExpression::analyzeTypeRef(actx);
 }
 
 void NegateExpression::analyze(AnalyzeContext* actx) {
-	this->exp->analyze(actx);
-}
+	AbstractArithmeticExpression::analyze(actx);
 
-void NegateExpression::setExpression(AbstractExpression* exp) noexcept {
-	this->exp = exp;
+	AnalyzedType type = getType(actx);
+	if(!type.isPrimitiveInteger()){
+		actx->addValidationError(ValidationError::CODE_ARITHMETIC_NON_INTEGER, this, L"Can not use arithmetic operator to non integer value.", {});
+	}
 }
-
 
 int NegateExpression::binarySize() const {
 	checkNotNull(this->exp);
@@ -59,7 +63,7 @@ void NegateExpression::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType NegateExpression::getType(AnalyzeContext* actx) {
-	return this->exp->getType(actx);
+	return *this->atype;
 }
 
 void NegateExpression::init(VirtualMachine* vm) {
@@ -67,7 +71,61 @@ void NegateExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* NegateExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	uint8_t type = this->atype->getType();
+
+	switch (type) {
+		case AnalyzedType::TYPE_BYTE:
+			return interpret8Bit(vm);
+		case AnalyzedType::TYPE_CHAR:
+		case AnalyzedType::TYPE_SHORT:
+			return interpret16Bit(vm);
+		case AnalyzedType::TYPE_LONG:
+			return interpret64Bit(vm);
+		default:
+			break;
+	}
+
+	return interpret32Bit(vm);
+}
+
+AbstractVmInstance* NegateExpression::interpret8Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	int8_t val = ref->getByteValue() * -1;
+	PrimitiveReference* retValue = PrimitiveReference::createByteReference(vm, val);
+
+	return retValue;
+}
+
+AbstractVmInstance* NegateExpression::interpret16Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	int16_t val = ref->getShortValue() * -1;
+	PrimitiveReference* retValue = PrimitiveReference::createShortReference(vm, val);
+
+	return retValue;
+}
+
+AbstractVmInstance* NegateExpression::interpret32Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	int32_t val = ref->getIntValue() * -1;
+	PrimitiveReference* retValue = PrimitiveReference::createIntReference(vm, val);
+
+	return retValue;
+}
+
+AbstractVmInstance* NegateExpression::interpret64Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	int64_t val = ref->getLongValue() * -1;
+	PrimitiveReference* retValue = PrimitiveReference::createLongReference(vm, val);
+
+	return retValue;
 }
 
 } /* namespace alinous */

@@ -32,7 +32,7 @@ TEST(TestSmartContractGroup, newFile){
 	FileInputStream stream(sourceFile);
 
 	int length = sourceFile->length();
-	sc->addCompilationUnit(&stream, length);
+	sc->addCompilationUnit(&stream, length, projectFolder, sourceFile);
 
 	delete sc;
 }

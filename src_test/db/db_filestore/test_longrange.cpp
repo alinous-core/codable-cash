@@ -336,8 +336,16 @@ static void randomAdd(RawBitSet* bitset, LongRangeList* list){
 	uint64_t mod = 1000;
 	uint64_t mod_width = 100;
 
-	uint64_t min = 1 + (rand() % mod);
-	uint64_t max = min + (rand() % mod);
+	int r1 = rand();
+	int r2 = rand();
+
+	r1 = abs(r1);
+	r2 = abs(r2);
+
+	uint64_t min = 1 + (r1 % mod);
+	uint64_t max = min + (r2 % mod);
+
+	//printf("addRange(&bitset, &list, %ld, %ld);\n", min, max);
 
 	addRange(bitset, list, min, max);
 	list->assertList();
@@ -354,16 +362,96 @@ TEST(TestLongRangeGroup, addRamdom){
 	{
 		int pos = bitset.nextSetBit(0);
 		_ST(LongRangeIterator, it, list.iterator())
+		bool checked = true;
 		while(it->hasNext()){
 			uint64_t val = it->next();
-			CHECK(val == pos)
+			if(val != pos){
+				checked = false;
+				break;
+			}
 
 			pos = bitset.nextSetBit(pos + 1);
 		}
+		CHECK(checked == true);
 		CHECK(pos < 0);
 		list.assertList();
 	}
 }
+
+static void iterateAddRandom(RawBitSet* bitset, LongRangeList* list){
+	for(int i = 0; i != 100; ++i){
+		list->assertList();
+		randomAdd(bitset, list);
+	}
+}
+
+TEST(TestLongRangeGroup, addRamdom2){
+	for(int i = 0; i != 200; ++i){
+		RawBitSet bitset(128);
+		LongRangeList list;
+		//printf("--------------\n");
+
+		iterateAddRandom(&bitset, &list);
+
+		{
+			int pos = bitset.nextSetBit(0);
+			_ST(LongRangeIterator, it, list.iterator())
+			bool checked = true;
+			while(it->hasNext()){
+				uint64_t val = it->next();
+				if(val != pos){
+					checked = false;
+					break;
+				}
+
+				pos = bitset.nextSetBit(pos + 1);
+			}
+			CHECK(checked == true);
+			CHECK(pos < 0);
+			list.assertList();
+		}
+	}
+}
+
+TEST(TestLongRangeGroup, addRamdomErrorCase){
+	RawBitSet bitset(128);
+	LongRangeList list;
+
+	addRange(&bitset, &list, 458, 1395);
+	addRange(&bitset, &list, 693, 853);
+	addRange(&bitset, &list, 584, 1462);
+	addRange(&bitset, &list, 583, 750);
+	addRange(&bitset, &list, 495, 707);
+	addRange(&bitset, &list, 642, 1212);
+	addRange(&bitset, &list, 620, 1141);
+	addRange(&bitset, &list, 418, 536);
+	addRange(&bitset, &list, 325, 363);
+	addRange(&bitset, &list, 974, 988);
+	addRange(&bitset, &list, 54, 314);
+	addRange(&bitset, &list, 744, 1476);
+	addRange(&bitset, &list, 726, 964);
+	addRange(&bitset, &list, 294, 1008);
+
+
+	{
+		int pos = bitset.nextSetBit(0);
+		_ST(LongRangeIterator, it, list.iterator())
+		bool checked = true;
+		while(it->hasNext()){
+			uint64_t val = it->next();
+			if(val != pos){
+				checked = false;
+				break;
+			}
+
+			pos = bitset.nextSetBit(pos + 1);
+		}
+		CHECK(checked == true);
+		CHECK(pos < 0);
+		list.assertList();
+	}
+}
+
 
 static void removeBitset(RawBitSet* bitset, uint64_t min, uint64_t max){
 	for(uint64_t i = min; i <= max; ++i){

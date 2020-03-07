@@ -43,6 +43,8 @@ public:
 
 	static constexpr int CODE_TYPE_INCOMPATIBLE = 60;
 
+	static constexpr int CODE_ARITHMETIC_NON_INTEGER = 70;
+
 	//static constexpr int CODE_WRONG_TYPE_NAME = 4;
 
 

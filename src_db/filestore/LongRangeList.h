@@ -46,7 +46,7 @@ public:
 
 private:
 	bool needSplit(LongRangeHitStatus* minStatus, LongRangeHitStatus* maxStatus, const LongRange* range) noexcept;
-	void removeInclusion(const LongRange* range) const noexcept;
+	int removeInclusion(const LongRange* range) const noexcept;
 	void insertRange(int pos, LongRange* range) noexcept;
 	LongRangeHitStatus* hitStatus(uint64_t value, const LongRange* range, bool findHigher) const noexcept;
 private:

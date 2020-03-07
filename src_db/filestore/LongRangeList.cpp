@@ -128,10 +128,10 @@ void LongRangeList::addRange(int64_t min, int64_t max) noexcept {
 	_ST(LongRangeHitStatus, maxStatus, hitStatus(range->getMax(), range, true))
 
 	// check inclusion
-	removeInclusion(range);
+	int removedInc = removeInclusion(range);
 
 	if(minStatus->lowJoinable() && maxStatus->highJoinable()){
-		int removePos = maxStatus->getHighPos();
+		int removePos = maxStatus->getHighPos() - removedInc;
 		LongRange* rangeHigh = maxStatus->getHigh();
 		LongRange* rangeLow = minStatus->getLow();
 
@@ -166,7 +166,7 @@ void LongRangeList::addRange(int64_t min, int64_t max) noexcept {
 	}
 }
 
-void LongRangeList::removeInclusion(const LongRange* range) const noexcept {
+int LongRangeList::removeInclusion(const LongRange* range) const noexcept {
 	_ST(LongRangeHitStatus, minStatus, hitStatus(range->getMin(), range, true))
 	_ST(LongRangeHitStatus, maxStatus, hitStatus(range->getMax(), range, false))
 
@@ -178,6 +178,8 @@ void LongRangeList::removeInclusion(const LongRange* range) const noexcept {
 		LongRange* r = this->list->remove(minPos);
 		delete r;
 	}
+
+	return length;
 }
 
 

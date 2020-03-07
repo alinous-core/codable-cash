@@ -127,7 +127,7 @@ void AllocationExpression::setConstructorArray(ConstructorArray* array) noexcept
 }
 
 int AllocationExpression::binarySize() const {
-	checkNotNull(this->constructorCall);
+	//checkNotNull(this->constructorCall);
 
 	int total = sizeof(uint16_t);
 	total += sizeof(uint8_t);
@@ -136,13 +136,21 @@ int AllocationExpression::binarySize() const {
 		total += this->packageName->binarySize();
 	}
 
-	total += this->constructorCall->binarySize();
+	total += sizeof(uint8_t);
+	if(this->constructorCall != nullptr){
+		total += this->constructorCall->binarySize();
+	}
+
+	total += sizeof(uint8_t);
+	if(this->array != nullptr){
+		total += this->array->binarySize();
+	}
 
 	return total;
 }
 
 void AllocationExpression::toBinary(ByteBuffer* out) {
-	checkNotNull(this->constructorCall);
+	//checkNotNull(this->constructorCall);
 
 	out->putShort(CodeElement::EXP_ALLOCATION);
 
@@ -151,7 +159,18 @@ void AllocationExpression::toBinary(ByteBuffer* out) {
 		this->packageName->toBinary(out);
 	}
 
-	this->constructorCall->toBinary(out);
+	uint8_t bl = (this->constructorCall != nullptr) ? 1 : 0;
+	out->put(bl);
+	if(this->constructorCall != nullptr){
+		this->constructorCall->toBinary(out);
+	}
+
+	bl = (this->array != nullptr) ? 1 : 0;
+	out->put(bl);
+	if(this->array != nullptr){
+		this->array->toBinary(out);
+	}
+
 }
 
 void AllocationExpression::fromBinary(ByteBuffer* in) {
@@ -162,9 +181,19 @@ void AllocationExpression::fromBinary(ByteBuffer* in) {
 		this->packageName = dynamic_cast<PackageNameDeclare*>(element);
 	}
 
-	CodeElement* element = createFromBinary(in);
-	checkKind(element, CodeElement::EXP_CONSTRUCTORCALL);
-	this->constructorCall = dynamic_cast<ConstructorCall*>(element);
+	bl = in->get();
+	if(bl == 1){
+		CodeElement* element = createFromBinary(in);
+		checkKind(element, CodeElement::EXP_CONSTRUCTORCALL);
+		this->constructorCall = dynamic_cast<ConstructorCall*>(element);
+	}
+
+	bl = in->get();
+	if(bl == 1){
+		CodeElement* element = createFromBinary(in);
+		checkKind(element, CodeElement::EXP_CONSTRUCTORARRAY);
+		this->array = dynamic_cast<ConstructorArray*>(element);
+	}
 }
 
 AnalyzedType AllocationExpression::getType(AnalyzeContext* actx) {

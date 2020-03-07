@@ -28,8 +28,8 @@ public:
 	SmartContract();
 	virtual ~SmartContract();
 
-	void addCompilationUnit(InputStream* stream, int length);
-	void addCompilationUnit(File* file);
+	void addCompilationUnit(InputStream* stream, int length, const File* base, File* source);
+	void addCompilationUnit(File* file, const File* base);
 	void analyze(VirtualMachine* vm);
 	bool hasError() noexcept;
 

@@ -25,7 +25,7 @@ public:
 
 	bool loadAllFiles();
 	void scanFiles(File* folder, SmartContract* sc);
-	void addCompilantUnit(File* file, SmartContract* sc);
+	void addCompilantUnit(File* file, SmartContract* sc, File* base);
 
 	void setMain(const wchar_t* pkg, const wchar_t* clazz, const wchar_t* method) noexcept;
 	bool analyze();

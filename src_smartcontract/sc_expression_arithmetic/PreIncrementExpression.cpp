@@ -8,32 +8,36 @@
 #include "sc_expression_arithmetic/PreIncrementExpression.h"
 #include "sc_analyze/AnalyzedType.h"
 
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
 namespace alinous {
 
-PreIncrementExpression::PreIncrementExpression() : AbstractExpression(CodeElement::EXP_PRE_INC) {
-	this->exp = nullptr;
+PreIncrementExpression::PreIncrementExpression() : AbstractArithmeticExpression(CodeElement::EXP_PRE_INC) {
 	this->ope = 0;
 }
 
 PreIncrementExpression::~PreIncrementExpression() {
-	delete this->exp;
+
 }
 
 void PreIncrementExpression::preAnalyze(AnalyzeContext* actx) {
-	this->exp->setParent(this);
-	this->exp->preAnalyze(actx);
+	AbstractArithmeticExpression::preAnalyze(actx);
 }
 
 void alinous::PreIncrementExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	this->exp->analyzeTypeRef(actx);
+	AbstractArithmeticExpression::analyzeTypeRef(actx);
 }
 
 void PreIncrementExpression::analyze(AnalyzeContext* actx) {
-	this->exp->analyze(actx);
-}
+	AbstractArithmeticExpression::analyze(actx);
 
-void PreIncrementExpression::setExpression(AbstractExpression* exp) noexcept {
-	this->exp = exp;
+	AnalyzedType type = getType(actx);
+	if(!type.isPrimitiveInteger()){
+		actx->addValidationError(ValidationError::CODE_ARITHMETIC_NON_INTEGER, this, L"Can not use arithmetic operator to non integer value.", {});
+	}
 }
 
 void PreIncrementExpression::setOpe(int ope) noexcept {
@@ -71,7 +75,90 @@ void PreIncrementExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* PreIncrementExpression::interpret(VirtualMachine* vm) {
-	return this->exp->interpret(vm);
+	uint8_t type = this->atype->getType();
+
+	switch (type) {
+		case AnalyzedType::TYPE_BYTE:
+			return interpret8Bit(vm);
+		case AnalyzedType::TYPE_CHAR:
+		case AnalyzedType::TYPE_SHORT:
+			return interpret16Bit(vm);
+		case AnalyzedType::TYPE_LONG:
+			return interpret64Bit(vm);
+		default:
+			break;
+	}
+
+	return interpret32Bit(vm);
+}
+
+AbstractVmInstance* PreIncrementExpression::interpret8Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	int8_t val = 0;
+
+	if(this->ope == PLUS){
+		val = ref->getByteValue() + 1;
+	}else if(this->ope == MINUS){
+		val = ref->getByteValue() - 1;
+	}
+
+	ref->setByteValue(val);
+
+	return ref;
+
+}
+
+AbstractVmInstance* PreIncrementExpression::interpret16Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	int16_t val = 0;
+
+	if(this->ope == PLUS){
+		val = ref->getShortValue() + 1;
+	}else if(this->ope == MINUS){
+		val = ref->getShortValue() - 1;
+	}
+
+	ref->setShortValue(val);
+
+	return ref;
+}
+
+AbstractVmInstance* PreIncrementExpression::interpret32Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	int32_t val = 0;
+
+	if(this->ope == PLUS){
+		val = ref->getIntValue() + 1;
+	}else if(this->ope == MINUS){
+		val = ref->getIntValue() - 1;
+	}
+
+	ref->setIntValue(val);
+
+	return ref;
+}
+
+AbstractVmInstance* PreIncrementExpression::interpret64Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	uint64_t val = 0;
+
+	if(this->ope == PLUS){
+		val = ref->getLongValue() + 1;
+	}else if(this->ope == MINUS){
+		val = ref->getLongValue() - 1;
+	}
+
+	ref->setLongValue(val);
+
+	return ref;
 }
 
 } /* namespace alinous */

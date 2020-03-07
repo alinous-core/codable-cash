@@ -6,34 +6,37 @@
  */
 
 #include "sc_expression_arithmetic/PostIncrementExpression.h"
+
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
+
+#include "instance_ref/PrimitiveReference.h"
 
 namespace alinous {
 
-PostIncrementExpression::PostIncrementExpression() : AbstractExpression(CodeElement::EXP_POST_INC) {
-	this->exp = nullptr;
+PostIncrementExpression::PostIncrementExpression() : AbstractArithmeticExpression(CodeElement::EXP_POST_INC) {
 	this->ope = 0;
 }
 
 PostIncrementExpression::~PostIncrementExpression() {
-	delete this->exp;
 }
 
 void PostIncrementExpression::preAnalyze(AnalyzeContext* actx) {
-	this->exp->setParent(this);
-	this->exp->preAnalyze(actx);
+	AbstractArithmeticExpression::preAnalyze(actx);
 }
 
 void PostIncrementExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	this->exp->analyzeTypeRef(actx);
+	AbstractArithmeticExpression::analyzeTypeRef(actx);
 }
 
 void PostIncrementExpression::analyze(AnalyzeContext* actx) {
-	this->exp->analyze(actx);
-}
+	AbstractArithmeticExpression::analyze(actx);
 
-void PostIncrementExpression::setExpression(AbstractExpression* exp) noexcept {
-	this->exp = exp;
+	AnalyzedType type = getType(actx);
+	if(!type.isPrimitiveInteger()){
+		actx->addValidationError(ValidationError::CODE_ARITHMETIC_NON_INTEGER, this, L"Can not use arithmetic operator to non integer value.", {});
+	}
 }
 
 void PostIncrementExpression::setOpe(int ope) noexcept {
@@ -63,7 +66,7 @@ void PostIncrementExpression::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType PostIncrementExpression::getType(AnalyzeContext* actx) {
-	return this->exp->getType(actx);
+	return *this->atype;
 }
 
 void PostIncrementExpression::init(VirtualMachine* vm) {
@@ -71,7 +74,93 @@ void PostIncrementExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* PostIncrementExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	uint8_t type = this->atype->getType();
+
+	switch (type) {
+		case AnalyzedType::TYPE_BYTE:
+			return interpret8Bit(vm);
+		case AnalyzedType::TYPE_CHAR:
+		case AnalyzedType::TYPE_SHORT:
+			return interpret16Bit(vm);
+		case AnalyzedType::TYPE_LONG:
+			return interpret64Bit(vm);
+		default:
+			break;
+	}
+
+	return interpret32Bit(vm);
+}
+
+AbstractVmInstance* PostIncrementExpression::interpret8Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	uint8_t val = ref->getByteValue();
+	PrimitiveReference* lastValue = PrimitiveReference::createByteReference(vm, val);
+
+	if(this->ope == PLUS){
+		val = val  + 1;
+	}else if(this->ope == MINUS){
+		val = val - 1;
+	}
+
+	ref->setByteValue(val);
+
+	return lastValue;
+}
+
+AbstractVmInstance* PostIncrementExpression::interpret16Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	uint16_t val = ref->getShortValue();
+	PrimitiveReference* lastValue = PrimitiveReference::createShortReference(vm, val);
+
+	if(this->ope == PLUS){
+		val = val  + 1;
+	}else if(this->ope == MINUS){
+		val = val - 1;
+	}
+
+	ref->setShortValue(val);
+
+	return lastValue;
+}
+
+AbstractVmInstance* PostIncrementExpression::interpret32Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	uint32_t val = ref->getIntValue();
+	PrimitiveReference* lastValue = PrimitiveReference::createIntReference(vm, val);
+
+	if(this->ope == PLUS){
+		val = val  + 1;
+	}else if(this->ope == MINUS){
+		val = val - 1;
+	}
+
+	ref->setIntValue(val);
+
+	return lastValue;
+}
+
+AbstractVmInstance* PostIncrementExpression::interpret64Bit(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+	uint64_t val = ref->getLongValue();
+	PrimitiveReference* lastValue = PrimitiveReference::createLongReference(vm, val);
+
+	if(this->ope == PLUS){
+		val = val  + 1;
+	}else if(this->ope == MINUS){
+		val = val - 1;
+	}
+
+	ref->setLongValue(val);
+
+	return lastValue;
 }
 
 } /* namespace alinous */

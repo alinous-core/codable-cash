@@ -39,7 +39,7 @@ TEST(TestLocalVariablesGroup, intVariable){
 	FileInputStream stream(sourceFile);
 
 	int length = sourceFile->length();
-	sc->addCompilationUnit(&stream, length);
+	sc->addCompilationUnit(&stream, length, projectFolder, sourceFile);
 
 	UnicodeString mainPackage(L"test.fw");
 	UnicodeString mainClass(L"SmartContract");
@@ -62,7 +62,7 @@ TEST(TestLocalVariablesGroup, intaccess){
 	FileInputStream stream(sourceFile);
 
 	int length = sourceFile->length();
-	sc->addCompilationUnit(&stream, length);
+	sc->addCompilationUnit(&stream, length, projectFolder, sourceFile);
 
 	UnicodeString mainPackage(L"test.fw");
 	UnicodeString mainClass(L"SmartContract");
@@ -100,7 +100,7 @@ TEST(TestLocalVariablesGroup, intaccessWithMember){
 	FileInputStream stream(sourceFile);
 
 	int length = sourceFile->length();
-	sc->addCompilationUnit(&stream, length);
+	sc->addCompilationUnit(&stream, length, projectFolder, sourceFile);
 
 	UnicodeString mainPackage(L"test.fw");
 	UnicodeString mainClass(L"SmartContract");
@@ -138,7 +138,7 @@ TEST(TestLocalVariablesGroup, error01){
 	FileInputStream stream(sourceFile);
 
 	int length = sourceFile->length();
-	sc->addCompilationUnit(&stream, length);
+	sc->addCompilationUnit(&stream, length, projectFolder, sourceFile);
 
 	UnicodeString mainPackage(L"test.fw");
 	UnicodeString mainClass(L"SmartContract");

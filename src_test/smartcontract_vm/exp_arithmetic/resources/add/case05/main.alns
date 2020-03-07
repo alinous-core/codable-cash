@@ -1,0 +1,18 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		long a1 = 1L;
+		long a2 = 2;
+	
+		this.count = a1 + a2 - a1;
+	}
+	
+	public int main(){
+
+	}
+	
+	private long count = 0;
+}

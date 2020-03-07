@@ -28,6 +28,8 @@
 
 #include "instance_gc/GcManager.h"
 
+#include "instance_exception/AbstructProgramException.h"
+
 #include "base_io_stream/FileInputStream.h"
 #include "base_io/File.h"
 
@@ -67,7 +69,7 @@ void alinous::SmartContract::setMainMethod(const UnicodeString* mainPackage,
 	this->mainMethod = new UnicodeString(*mainMethod);
 }
 
-void SmartContract::addCompilationUnit(InputStream* stream, int length) {
+void SmartContract::addCompilationUnit(InputStream* stream, int length, const File* base, File* source) {
 	SmartContractParser parser(stream, length);
 
 	CompilationUnit* unit = parser.parse();
@@ -84,11 +86,11 @@ void SmartContract::addCompilationUnit(InputStream* stream, int length) {
 	this->progs.addElement(unit);
 }
 
-void SmartContract::addCompilationUnit(File* file) {
+void SmartContract::addCompilationUnit(File* file, const File* base) {
 	FileInputStream stream(file);
 
 	int length = file->length();
-	addCompilationUnit(&stream, length);
+	addCompilationUnit(&stream, length, base, file);
 }
 
 void SmartContract::analyze(VirtualMachine* vm) {
@@ -170,8 +172,13 @@ VmClassInstance* SmartContract::createInstance(VirtualMachine* vm) {
 	stack->addInnerReference(instRef);
 
 	// exec constructor
-	ArrayList<AbstractReference> arguments;
-	vm->interpret(defConstructor, inst, &arguments);
+	try{
+		ArrayList<AbstractReference> arguments;
+		vm->interpret(defConstructor, inst, &arguments);
+	}
+	catch(AbstructProgramException* e){
+		throw e;
+	}
 
 	return inst;
 }
