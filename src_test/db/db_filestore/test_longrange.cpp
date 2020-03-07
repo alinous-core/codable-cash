@@ -362,12 +362,17 @@ TEST(TestLongRangeGroup, addRamdom){
 	{
 		int pos = bitset.nextSetBit(0);
 		_ST(LongRangeIterator, it, list.iterator())
+		bool checked = true;
 		while(it->hasNext()){
 			uint64_t val = it->next();
-			CHECK(val == pos)
+			if(val != pos){
+				checked = false;
+				break;
+			}
 
 			pos = bitset.nextSetBit(pos + 1);
 		}
+		CHECK(checked == true);
 		CHECK(pos < 0);
 		list.assertList();
 	}
@@ -391,12 +396,17 @@ TEST(TestLongRangeGroup, addRamdom2){
 		{
 			int pos = bitset.nextSetBit(0);
 			_ST(LongRangeIterator, it, list.iterator())
+			bool checked = true;
 			while(it->hasNext()){
 				uint64_t val = it->next();
-				CHECK(val == pos)
+				if(val != pos){
+					checked = false;
+					break;
+				}
 
 				pos = bitset.nextSetBit(pos + 1);
 			}
+			CHECK(checked == true);
 			CHECK(pos < 0);
 			list.assertList();
 		}
@@ -426,12 +436,17 @@ TEST(TestLongRangeGroup, addRamdomErrorCase){
 	{
 		int pos = bitset.nextSetBit(0);
 		_ST(LongRangeIterator, it, list.iterator())
+		bool checked = true;
 		while(it->hasNext()){
 			uint64_t val = it->next();
-			CHECK(val == pos)
+			if(val != pos){
+				checked = false;
+				break;
+			}
 
 			pos = bitset.nextSetBit(pos + 1);
 		}
+		CHECK(checked == true);
 		CHECK(pos < 0);
 		list.assertList();
 	}
