@@ -345,6 +345,8 @@ static void randomAdd(RawBitSet* bitset, LongRangeList* list){
 	uint64_t min = 1 + (r1 % mod);
 	uint64_t max = min + (r2 % mod);
 
+	//printf("addRange(&bitset, &list, %ld, %ld);\n", min, max);
+
 	addRange(bitset, list, min, max);
 	list->assertList();
 }
@@ -371,18 +373,33 @@ TEST(TestLongRangeGroup, addRamdom){
 	}
 }
 
-static void iterateAddRandom(){
-	RawBitSet bitset(128);
-	LongRangeList list;
-
+static void iterateAddRandom(RawBitSet* bitset, LongRangeList* list){
 	for(int i = 0; i != 100; ++i){
-		randomAdd(&bitset, &list);
+		list->assertList();
+		randomAdd(bitset, list);
 	}
 }
 
 TEST(TestLongRangeGroup, addRamdom2){
-	for(int i = 0; i != 100; ++i){
-		iterateAddRandom();
+	for(int i = 0; i != 200; ++i){
+		RawBitSet bitset(128);
+		LongRangeList list;
+		//printf("--------------\n");
+
+		iterateAddRandom(&bitset, &list);
+
+		{
+			int pos = bitset.nextSetBit(0);
+			_ST(LongRangeIterator, it, list.iterator())
+			while(it->hasNext()){
+				uint64_t val = it->next();
+				CHECK(val == pos)
+
+				pos = bitset.nextSetBit(pos + 1);
+			}
+			CHECK(pos < 0);
+			list.assertList();
+		}
 	}
 }
 
@@ -390,9 +407,34 @@ TEST(TestLongRangeGroup, addRamdomErrorCase){
 	RawBitSet bitset(128);
 	LongRangeList list;
 
-	addRange(&bitset, &list, 139, 1709);
-	addRange(&bitset, &list, 548, 1709);
-	addRange(&bitset, &list, 203, 844);
+	addRange(&bitset, &list, 458, 1395);
+	addRange(&bitset, &list, 693, 853);
+	addRange(&bitset, &list, 584, 1462);
+	addRange(&bitset, &list, 583, 750);
+	addRange(&bitset, &list, 495, 707);
+	addRange(&bitset, &list, 642, 1212);
+	addRange(&bitset, &list, 620, 1141);
+	addRange(&bitset, &list, 418, 536);
+	addRange(&bitset, &list, 325, 363);
+	addRange(&bitset, &list, 974, 988);
+	addRange(&bitset, &list, 54, 314);
+	addRange(&bitset, &list, 744, 1476);
+	addRange(&bitset, &list, 726, 964);
+	addRange(&bitset, &list, 294, 1008);
+
+
+	{
+		int pos = bitset.nextSetBit(0);
+		_ST(LongRangeIterator, it, list.iterator())
+		while(it->hasNext()){
+			uint64_t val = it->next();
+			CHECK(val == pos)
+
+			pos = bitset.nextSetBit(pos + 1);
+		}
+		CHECK(pos < 0);
+		list.assertList();
+	}
 }
 
 
