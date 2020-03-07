@@ -92,7 +92,7 @@ AbstractVmInstance* NegateExpression::interpret8Bit(VirtualMachine* vm) {
 	AbstractVmInstance* inst = this->exp->interpret(vm);
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
-	uint8_t val = ref->getByteValue() * -1;
+	int8_t val = ref->getByteValue() * -1;
 	PrimitiveReference* retValue = PrimitiveReference::createByteReference(vm, val);
 
 	return retValue;
@@ -102,7 +102,7 @@ AbstractVmInstance* NegateExpression::interpret16Bit(VirtualMachine* vm) {
 	AbstractVmInstance* inst = this->exp->interpret(vm);
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
-	uint16_t val = ref->getShortValue() * -1;
+	int16_t val = ref->getShortValue() * -1;
 	PrimitiveReference* retValue = PrimitiveReference::createShortReference(vm, val);
 
 	return retValue;
@@ -112,7 +112,7 @@ AbstractVmInstance* NegateExpression::interpret32Bit(VirtualMachine* vm) {
 	AbstractVmInstance* inst = this->exp->interpret(vm);
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
-	uint32_t val = ref->getIntValue() * -1;
+	int32_t val = ref->getIntValue() * -1;
 	PrimitiveReference* retValue = PrimitiveReference::createIntReference(vm, val);
 
 	return retValue;
@@ -122,7 +122,7 @@ AbstractVmInstance* NegateExpression::interpret64Bit(VirtualMachine* vm) {
 	AbstractVmInstance* inst = this->exp->interpret(vm);
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
-	uint64_t val = ref->getLongValue() * -1;
+	int64_t val = ref->getLongValue() * -1;
 	PrimitiveReference* retValue = PrimitiveReference::createLongReference(vm, val);
 
 	return retValue;
