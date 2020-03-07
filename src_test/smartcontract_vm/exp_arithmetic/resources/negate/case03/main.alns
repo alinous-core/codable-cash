@@ -1,0 +1,17 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		this.lastcount = -this.count;
+	}
+	
+	public int main(){
+
+	}
+	
+	private short count = 1;
+	private short lastcount = 0;
+	
+}
