@@ -76,4 +76,57 @@ TEST(TestPostIncGroup, case01_m){
 	CHECK(count->getIntValue() == 0);
 }
 
+//////////////////////////////////
+
+TEST(TestPostIncGroup, case02){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/exp_arithmetic/resources/postinc/case02/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	UnicodeString strCount(L"count");
+	ExtPrimitiveObject* count = obj->getExtPrimitiveObject(&strCount);
+
+	CHECK(count->getIntValue() == 2);
+
+	UnicodeString strLastCount(L"lastcount");
+	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strCount);
+
+	CHECK(count->getIntValue() == 2);
+}
+
+TEST(TestPostIncGroup, case02_m){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/exp_arithmetic/resources/postinc/case02_m/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	UnicodeString strCount(L"count");
+	ExtPrimitiveObject* count = obj->getExtPrimitiveObject(&strCount);
+
+	CHECK(count->getIntValue() == 0);
+
+	UnicodeString strLastCount(L"lastcount");
+	ExtPrimitiveObject* lastcount = obj->getExtPrimitiveObject(&strCount);
+
+	CHECK(count->getIntValue() == 0);
+}
+
+//////////////////////////////////
 
