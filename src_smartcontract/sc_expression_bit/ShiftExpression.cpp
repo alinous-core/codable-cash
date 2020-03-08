@@ -11,7 +11,9 @@
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/ValidationError.h"
 
+#include "instance_gc/GcManager.h"
 
+#include "instance_ref/PrimitiveReference.h"
 namespace alinous {
 
 ShiftExpression::ShiftExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_SHIFT), operations(4) {
@@ -101,15 +103,107 @@ AbstractVmInstance* ShiftExpression::interpret(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* ShiftExpression::interpret8Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
+	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
+	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
+	int8_t result = pinst->getByteValue();
+
+	gc->handleFloatingObject(pinst);
+
+	{
+		AbstractVmInstance* oinst = this->list.get(1)->interpret(vm);
+		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
+
+		uint8_t op = this->operations.get(0);
+		if(op == RIGHT){
+			result += opinst->getIntValue();
+		}else if(op == LEFT){
+			result -= opinst->getIntValue();
+		}
+
+		gc->handleFloatingObject(opinst);
+	}
+
+	return PrimitiveReference::createIntReference(vm, result);
 }
 
 AbstractVmInstance* ShiftExpression::interpret16Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
+	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
+	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
+	int16_t result = pinst->getShortValue();
+
+	gc->handleFloatingObject(pinst);
+
+	{
+		AbstractVmInstance* oinst = this->list.get(1)->interpret(vm);
+		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
+
+		uint8_t op = this->operations.get(0);
+		if(op == RIGHT){
+			result += opinst->getShortValue();
+		}else if(op == LEFT){
+			result -= opinst->getShortValue();
+		}
+
+		gc->handleFloatingObject(opinst);
+	}
+
+	return PrimitiveReference::createShortReference(vm, result);
 }
 
 AbstractVmInstance* ShiftExpression::interpret32Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
+	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
+	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
+	int32_t result = pinst->getIntValue();
+
+	gc->handleFloatingObject(pinst);
+
+	{
+		AbstractVmInstance* oinst = this->list.get(1)->interpret(vm);
+		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
+
+		uint8_t op = this->operations.get(0);
+		if(op == RIGHT){
+			result += opinst->getIntValue();
+		}else if(op == LEFT){
+			result -= opinst->getIntValue();
+		}
+
+		gc->handleFloatingObject(opinst);
+	}
+
+	return PrimitiveReference::createIntReference(vm, result);
 }
 
 AbstractVmInstance* ShiftExpression::interpret64Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
+	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
+	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
+	int64_t result = pinst->getLongValue();
+
+	gc->handleFloatingObject(pinst);
+
+	{
+		AbstractVmInstance* oinst = this->list.get(1)->interpret(vm);
+		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
+
+		uint8_t op = this->operations.get(0);
+		if(op == RIGHT){
+			result += opinst->getLongValue();
+		}else if(op == LEFT){
+			result -= opinst->getLongValue();
+		}
+
+		gc->handleFloatingObject(opinst);
+	}
+
+	return PrimitiveReference::createLongReference(vm, result);
 }
 
 } /* namespace alinous */
