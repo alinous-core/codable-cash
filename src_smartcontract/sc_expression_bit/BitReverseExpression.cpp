@@ -6,7 +6,11 @@
  */
 
 #include "sc_expression_bit/BitReverseExpression.h"
+
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/ValidationError.h"
+
 
 namespace alinous {
 
@@ -25,11 +29,16 @@ void BitReverseExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void BitReverseExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	// FIXME expression : analyze type
+	this->exp->analyzeTypeRef(actx);
 }
 
 void BitReverseExpression::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
+
+	AnalyzedType type = getType(actx);
+	if(!type.isPrimitiveInteger()){
+		actx->addValidationError(ValidationError::CODE_ARITHMETIC_NON_INTEGER, this, L"Can not use arithmetic operator to non integer value.", {});
+	}
 }
 
 void BitReverseExpression::setExpression(AbstractExpression* exp) noexcept {
