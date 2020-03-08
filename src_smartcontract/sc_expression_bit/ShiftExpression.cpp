@@ -10,7 +10,7 @@
 
 namespace alinous {
 
-ShiftExpression::ShiftExpression() : AbstractBinaryExpression(CodeElement::EXP_SHIFT), operations(4) {
+ShiftExpression::ShiftExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_SHIFT), operations(4) {
 }
 
 ShiftExpression::~ShiftExpression() {

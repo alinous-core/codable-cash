@@ -10,11 +10,12 @@
 #include <cstdint>
 
 #include "base/RawArrayPrimitive.h"
-#include "sc_expression/AbstractBinaryExpression.h"
+#include "sc_expression_arithmetic/AbstractArithmeticBinaryExpresson.h"
+
 
 namespace alinous {
 
-class ShiftExpression : public AbstractBinaryExpression {
+class ShiftExpression : public AbstractArithmeticBinaryExpresson {
 public:
 	static const constexpr uint8_t LEFT{1};
 	static const constexpr uint8_t RIGHT{2};
