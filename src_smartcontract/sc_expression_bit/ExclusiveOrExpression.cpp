@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-ExclusiveOrExpression::ExclusiveOrExpression() : AbstractBinaryExpression(CodeElement::EXP_EX_OR) {
+ExclusiveOrExpression::ExclusiveOrExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_EX_OR) {
 }
 
 ExclusiveOrExpression::~ExclusiveOrExpression() {
@@ -46,7 +46,7 @@ void ExclusiveOrExpression::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType ExclusiveOrExpression::getType(AnalyzeContext* actx) {
-	return this->atype;
+	return *this->atype;
 }
 
 AbstractVmInstance* ExclusiveOrExpression::interpret(VirtualMachine* vm) {

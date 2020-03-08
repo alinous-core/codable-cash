@@ -8,12 +8,12 @@
 #ifndef SC_EXPRESSION_BIT_EXCLUSIVEOREXPRESSION_H_
 #define SC_EXPRESSION_BIT_EXCLUSIVEOREXPRESSION_H_
 
-#include "sc_expression/AbstractBinaryExpression.h"
-#include "sc_analyze/AnalyzedType.h"
+#include "sc_expression_arithmetic/AbstractArithmeticBinaryExpresson.h"
+
 
 namespace alinous {
 
-class ExclusiveOrExpression : public AbstractBinaryExpression {
+class ExclusiveOrExpression : public AbstractArithmeticBinaryExpresson {
 public:
 	ExclusiveOrExpression();
 	virtual ~ExclusiveOrExpression();
@@ -28,8 +28,6 @@ public:
 
 	virtual AnalyzedType getType(AnalyzeContext* actx);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
-private:
-	AnalyzedType atype;
 };
 
 } /* namespace alinous */
