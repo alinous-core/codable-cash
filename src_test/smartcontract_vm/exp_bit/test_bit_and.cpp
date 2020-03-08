@@ -106,3 +106,13 @@ TEST(TestBitAndGroup, case04){ // long
 	CHECK(count->getLongValue() == 9);
 }
 
+TEST(TestBitAndGroup, case05){ // long
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/exp_bit/resources/and/case05/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+}
