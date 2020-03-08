@@ -16,10 +16,12 @@ namespace alinous {
 
 BitReverseExpression::BitReverseExpression() : AbstractExpression(CodeElement::EXP_BIT_REV) {
 	this->exp = nullptr;
+	this->atype = nullptr;
 }
 
 BitReverseExpression::~BitReverseExpression() {
 	delete this->exp;
+	delete this->atype;
 }
 
 
@@ -34,6 +36,9 @@ void BitReverseExpression::analyzeTypeRef(AnalyzeContext* actx) {
 
 void BitReverseExpression::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
+
+	AnalyzedType at = this->exp->getType(actx);
+	this->atype = new AnalyzedType(at);
 
 	AnalyzedType type = getType(actx);
 	if(!type.isPrimitiveInteger()){
@@ -68,7 +73,7 @@ void BitReverseExpression::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType BitReverseExpression::getType(AnalyzeContext* actx) {
-	return this->exp->getType(actx);
+	return *this->atype;
 }
 
 void BitReverseExpression::init(VirtualMachine* vm) {
@@ -76,7 +81,34 @@ void BitReverseExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* BitReverseExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	uint8_t type = this->atype->getType();
+
+	switch (type) {
+		case AnalyzedType::TYPE_BYTE:
+			return interpret8Bit(vm);
+		case AnalyzedType::TYPE_CHAR:
+		case AnalyzedType::TYPE_SHORT:
+			return interpret16Bit(vm);
+		case AnalyzedType::TYPE_LONG:
+			return interpret64Bit(vm);
+		default:
+			break;
+	}
+
+	return interpret32Bit(vm);
 }
+
+AbstractVmInstance* BitReverseExpression::interpret8Bit(VirtualMachine* vm) {
+}
+
+AbstractVmInstance* BitReverseExpression::interpret16Bit(VirtualMachine* vm) {
+}
+
+AbstractVmInstance* BitReverseExpression::interpret32Bit(VirtualMachine* vm) {
+}
+
+AbstractVmInstance* BitReverseExpression::interpret64Bit(VirtualMachine* vm) {
+}
+
 
 } /* namespace alinous */

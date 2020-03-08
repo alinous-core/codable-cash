@@ -57,7 +57,33 @@ AnalyzedType AndExpression::getType(AnalyzeContext* actx) {
 }
 
 AbstractVmInstance* AndExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	uint8_t type = this->atype->getType();
+
+	switch (type) {
+		case AnalyzedType::TYPE_BYTE:
+			return interpret8Bit(vm);
+		case AnalyzedType::TYPE_CHAR:
+		case AnalyzedType::TYPE_SHORT:
+			return interpret16Bit(vm);
+		case AnalyzedType::TYPE_LONG:
+			return interpret64Bit(vm);
+		default:
+			break;
+	}
+
+	return interpret32Bit(vm);
+}
+
+AbstractVmInstance* AndExpression::interpret8Bit(VirtualMachine* vm) {
+}
+
+AbstractVmInstance* AndExpression::interpret16Bit(VirtualMachine* vm) {
+}
+
+AbstractVmInstance* AndExpression::interpret32Bit(VirtualMachine* vm) {
+}
+
+AbstractVmInstance* AndExpression::interpret64Bit(VirtualMachine* vm) {
 }
 
 } /* namespace alinous */
