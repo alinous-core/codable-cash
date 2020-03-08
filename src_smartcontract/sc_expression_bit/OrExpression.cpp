@@ -11,6 +11,11 @@
 #include "sc_analyze/ValidationError.h"
 #include "sc_analyze/AnalyzeContext.h"
 
+#include "instance_gc/GcManager.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
+
 namespace alinous {
 
 OrExpression::OrExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_OR) {
@@ -75,15 +80,91 @@ AbstractVmInstance* OrExpression::interpret(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* OrExpression::interpret8Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
+	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
+	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
+	int8_t result = pinst->getByteValue();
+
+	gc->handleFloatingObject(pinst);
+
+	int maxLoop = this->list.size();
+	for(int i = 1; i != maxLoop; ++i){
+		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
+
+		result |= opinst->getByteValue();
+
+		gc->handleFloatingObject(opinst);
+	}
+
+	return PrimitiveReference::createByteReference(vm, result);
 }
 
 AbstractVmInstance* OrExpression::interpret16Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
+	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
+	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
+	int16_t result = pinst->getShortValue();
+
+	gc->handleFloatingObject(pinst);
+
+	int maxLoop = this->list.size();
+	for(int i = 1; i != maxLoop; ++i){
+		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
+
+		result &= opinst->getShortValue();
+
+		gc->handleFloatingObject(opinst);
+	}
+
+	return PrimitiveReference::createShortReference(vm, result);
 }
 
 AbstractVmInstance* OrExpression::interpret32Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
+	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
+	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
+	int32_t result = pinst->getIntValue();
+
+	gc->handleFloatingObject(pinst);
+
+	int maxLoop = this->list.size();
+	for(int i = 1; i != maxLoop; ++i){
+		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
+
+		result |= opinst->getIntValue();
+
+		gc->handleFloatingObject(opinst);
+	}
+
+	return PrimitiveReference::createIntReference(vm, result);
 }
 
 AbstractVmInstance* OrExpression::interpret64Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
+	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
+	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
+	int64_t result = pinst->getLongValue();
+
+	gc->handleFloatingObject(pinst);
+
+	int maxLoop = this->list.size();
+	for(int i = 1; i != maxLoop; ++i){
+		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
+
+		result |= opinst->getLongValue();
+
+		gc->handleFloatingObject(opinst);
+	}
+
+	return PrimitiveReference::createLongReference(vm, result);
 }
 
 } /* namespace alinous */
