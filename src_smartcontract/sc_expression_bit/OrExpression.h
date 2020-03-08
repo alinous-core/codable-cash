@@ -8,13 +8,14 @@
 #ifndef SC_EXPRESSION_BIT_OREXPRESSION_H_
 #define SC_EXPRESSION_BIT_OREXPRESSION_H_
 
-#include "sc_expression/AbstractBinaryExpression.h"
+#include "sc_expression_arithmetic/AbstractArithmeticBinaryExpresson.h"
 #include "sc_analyze/AnalyzedType.h"
+
 
 namespace alinous {
 class AnalyzedType;
 
-class OrExpression : public AbstractBinaryExpression {
+class OrExpression : public AbstractArithmeticBinaryExpresson {
 public:
 	OrExpression();
 	virtual ~OrExpression();
@@ -29,8 +30,6 @@ public:
 
 	virtual AnalyzedType getType(AnalyzeContext* actx);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
-private:
-	AnalyzedType atype;
 };
 
 } /* namespace alinous */

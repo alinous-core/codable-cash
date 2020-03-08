@@ -10,7 +10,7 @@
 
 namespace alinous {
 
-OrExpression::OrExpression() : AbstractBinaryExpression(CodeElement::EXP_OR) {
+OrExpression::OrExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_OR) {
 }
 
 OrExpression::~OrExpression() {
@@ -47,7 +47,7 @@ void OrExpression::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType OrExpression::getType(AnalyzeContext* actx) {
-	return this->atype;
+	return *this->atype;
 }
 
 AbstractVmInstance* OrExpression::interpret(VirtualMachine* vm) {
