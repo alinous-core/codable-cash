@@ -1,0 +1,17 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		boolean val = true; // 1101
+		long val2 = 11; // 1011
+		this.count = val | val2; // 15
+	}
+	
+	public int main(){
+
+	}
+	
+	private long count = 0;
+}

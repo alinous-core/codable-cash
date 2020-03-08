@@ -115,7 +115,7 @@ AbstractVmInstance* OrExpression::interpret16Bit(VirtualMachine* vm) {
 		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
-		result &= opinst->getShortValue();
+		result |= opinst->getShortValue();
 
 		gc->handleFloatingObject(opinst);
 	}
