@@ -5,7 +5,7 @@ package test.fw;
 class SmartContract {
 	public SmartContract() {
 		long val = 0;
-		this.count = ~0;
+		this.count = ~val;
 	}
 	
 	public int main(){
