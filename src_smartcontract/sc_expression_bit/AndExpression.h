@@ -8,12 +8,12 @@
 #ifndef SC_EXPRESSION_BIT_ANDEXPRESSION_H_
 #define SC_EXPRESSION_BIT_ANDEXPRESSION_H_
 
-#include "sc_expression/AbstractBinaryExpression.h"
+#include "sc_expression_arithmetic/AbstractArithmeticBinaryExpresson.h"
 #include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
-class AndExpression : public AbstractBinaryExpression {
+class AndExpression : public AbstractArithmeticBinaryExpresson {
 public:
 	AndExpression();
 	virtual ~AndExpression();
@@ -28,8 +28,12 @@ public:
 
 	virtual AnalyzedType getType(AnalyzeContext* actx);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
 private:
-	AnalyzedType atype;
+	AbstractVmInstance* interpret8Bit(VirtualMachine* vm);
+	AbstractVmInstance* interpret16Bit(VirtualMachine* vm);
+	AbstractVmInstance* interpret32Bit(VirtualMachine* vm);
+	AbstractVmInstance* interpret64Bit(VirtualMachine* vm);
 };
 
 } /* namespace alinous */

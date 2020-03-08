@@ -6,16 +6,26 @@
  */
 
 #include "sc_expression_bit/BitReverseExpression.h"
+
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/ValidationError.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
+#include "instance_gc/GcManager.h"
+
 
 namespace alinous {
 
 BitReverseExpression::BitReverseExpression() : AbstractExpression(CodeElement::EXP_BIT_REV) {
 	this->exp = nullptr;
+	this->atype = nullptr;
 }
 
 BitReverseExpression::~BitReverseExpression() {
 	delete this->exp;
+	delete this->atype;
 }
 
 
@@ -25,11 +35,19 @@ void BitReverseExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void BitReverseExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	// FIXME expression : analyze type
+	this->exp->analyzeTypeRef(actx);
 }
 
 void BitReverseExpression::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
+
+	AnalyzedType at = this->exp->getType(actx);
+	this->atype = new AnalyzedType(at);
+
+	AnalyzedType type = getType(actx);
+	if(!type.isPrimitiveInteger()){
+		actx->addValidationError(ValidationError::CODE_ARITHMETIC_NON_INTEGER, this, L"Can not use arithmetic operator to non integer value.", {});
+	}
 }
 
 void BitReverseExpression::setExpression(AbstractExpression* exp) noexcept {
@@ -59,7 +77,7 @@ void BitReverseExpression::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType BitReverseExpression::getType(AnalyzeContext* actx) {
-	return this->exp->getType(actx);
+	return *this->atype;
 }
 
 void BitReverseExpression::init(VirtualMachine* vm) {
@@ -67,7 +85,78 @@ void BitReverseExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* BitReverseExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	uint8_t type = this->atype->getType();
+
+	switch (type) {
+		case AnalyzedType::TYPE_BYTE:
+			return interpret8Bit(vm);
+		case AnalyzedType::TYPE_CHAR:
+		case AnalyzedType::TYPE_SHORT:
+			return interpret16Bit(vm);
+		case AnalyzedType::TYPE_LONG:
+			return interpret64Bit(vm);
+		default:
+			break;
+	}
+
+	return interpret32Bit(vm);
 }
+
+AbstractVmInstance* BitReverseExpression::interpret8Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
+
+	int8_t result = pinst->getByteValue();
+	result = ~result;
+
+	gc->handleFloatingObject(pinst);
+
+	return PrimitiveReference::createByteReference(vm, result);
+}
+
+AbstractVmInstance* BitReverseExpression::interpret16Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
+
+	int16_t result = pinst->getShortValue();
+	result = ~result;
+
+	gc->handleFloatingObject(pinst);
+
+	return PrimitiveReference::createShortReference(vm, result);
+}
+
+AbstractVmInstance* BitReverseExpression::interpret32Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
+
+	int32_t result = pinst->getIntValue();
+	result = ~result;
+
+	gc->handleFloatingObject(pinst);
+
+	return PrimitiveReference::createIntReference(vm, result);
+}
+
+AbstractVmInstance* BitReverseExpression::interpret64Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
+
+	int64_t result = pinst->getLongValue();
+	result = ~result;
+
+	gc->handleFloatingObject(pinst);
+
+	return PrimitiveReference::createLongReference(vm, result);
+}
+
 
 } /* namespace alinous */

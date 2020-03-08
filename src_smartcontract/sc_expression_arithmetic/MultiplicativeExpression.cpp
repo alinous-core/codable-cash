@@ -64,7 +64,7 @@ AbstractVmInstance* MultiplicativeExpression::interpret8Bit(VirtualMachine* vm) 
 
 	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
-	int8_t result = pinst->getIntValue();
+	int8_t result = pinst->getByteValue();
 
 	gc->handleFloatingObject(pinst);
 
@@ -100,7 +100,7 @@ AbstractVmInstance* MultiplicativeExpression::interpret16Bit(VirtualMachine* vm)
 
 	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
-	int16_t result = pinst->getIntValue();
+	int16_t result = pinst->getShortValue();
 
 	gc->handleFloatingObject(pinst);
 
@@ -172,7 +172,7 @@ AbstractVmInstance* MultiplicativeExpression::interpret64Bit(VirtualMachine* vm)
 
 	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
-	int64_t result = pinst->getIntValue();
+	int64_t result = pinst->getLongValue();
 
 	gc->handleFloatingObject(pinst);
 

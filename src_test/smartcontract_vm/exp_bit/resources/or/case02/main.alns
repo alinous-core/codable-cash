@@ -1,0 +1,17 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		byte val = 13; // 1101
+		byte val2 = 11; // 1011
+		this.count = val | val2; // 15
+	}
+	
+	public int main(){
+
+	}
+	
+	private byte count = 0;
+}

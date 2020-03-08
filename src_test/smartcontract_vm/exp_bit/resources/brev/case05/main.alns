@@ -1,0 +1,16 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		boolean val = 0;
+		this.count = ~val;
+	}
+	
+	public int main(){
+
+	}
+	
+	private boolean count = 0;
+}
