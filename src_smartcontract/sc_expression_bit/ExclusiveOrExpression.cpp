@@ -114,7 +114,7 @@ AbstractVmInstance* ExclusiveOrExpression::interpret16Bit(VirtualMachine* vm) {
 		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
-		result &= opinst->getShortValue();
+		result ^= opinst->getShortValue();
 
 		gc->handleFloatingObject(opinst);
 	}
@@ -158,7 +158,7 @@ AbstractVmInstance* ExclusiveOrExpression::interpret64Bit(VirtualMachine* vm) {
 		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
-		result &= opinst->getLongValue();
+		result ^= opinst->getLongValue();
 
 		gc->handleFloatingObject(opinst);
 	}
