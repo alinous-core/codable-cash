@@ -7,6 +7,10 @@
 
 #include "sc_expression_bit/AndExpression.h"
 
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/ValidationError.h"
+
+
 namespace alinous {
 
 AndExpression::AndExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_AND) {
@@ -26,7 +30,10 @@ void AndExpression::analyzeTypeRef(AnalyzeContext* actx) {
 void AndExpression::analyze(AnalyzeContext* actx) {
 	AbstractArithmeticBinaryExpresson::analyze(actx);
 
-	// FIXME analyze type
+	AnalyzedType type = getType(actx);
+	if(!type.isPrimitiveInteger()){
+		actx->addValidationError(ValidationError::CODE_ARITHMETIC_NON_INTEGER, this, L"Can not use arithmetic operator to non integer value.", {});
+	}
 }
 
 int AndExpression::binarySize() const {

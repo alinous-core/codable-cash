@@ -6,7 +6,11 @@
  */
 
 #include "sc_expression_bit/ShiftExpression.h"
+
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/ValidationError.h"
+
 
 namespace alinous {
 
@@ -17,15 +21,20 @@ ShiftExpression::~ShiftExpression() {
 }
 
 void ShiftExpression::preAnalyze(AnalyzeContext* actx) {
-	AbstractBinaryExpression::preAnalyze(actx);
+	AbstractArithmeticBinaryExpresson::preAnalyze(actx);
 }
 
 void ShiftExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	// FIXME expression : analyze type
+	AbstractArithmeticBinaryExpresson::analyzeTypeRef(actx);
 }
 
 void ShiftExpression::analyze(AnalyzeContext* actx) {
-	AbstractBinaryExpression::analyze(actx);
+	AbstractArithmeticBinaryExpresson::analyze(actx);
+
+	AnalyzedType type = getType(actx);
+	if(!type.isPrimitiveInteger()){
+		actx->addValidationError(ValidationError::CODE_ARITHMETIC_NON_INTEGER, this, L"Can not use arithmetic operator to non integer value.", {});
+	}
 }
 
 void ShiftExpression::addOpe(uint8_t ope) noexcept {

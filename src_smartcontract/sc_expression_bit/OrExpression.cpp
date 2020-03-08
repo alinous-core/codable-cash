@@ -8,6 +8,9 @@
 #include "sc_expression_bit/OrExpression.h"
 #include "sc_analyze/AnalyzedType.h"
 
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
+
 namespace alinous {
 
 OrExpression::OrExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_OR) {
@@ -17,17 +20,20 @@ OrExpression::~OrExpression() {
 }
 
 void OrExpression::preAnalyze(AnalyzeContext* actx) {
-	AbstractBinaryExpression::preAnalyze(actx);
+	AbstractArithmeticBinaryExpresson::preAnalyze(actx);
 }
 
 void OrExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	// FIXME expression : analyze type
+	AbstractArithmeticBinaryExpresson::analyzeTypeRef(actx);
 }
 
 void OrExpression::analyze(AnalyzeContext* actx) {
-	AbstractBinaryExpression::analyze(actx);
+	AbstractArithmeticBinaryExpresson::analyze(actx);
 
-	// FIXME analyze type
+	AnalyzedType type = getType(actx);
+	if(!type.isPrimitiveInteger()){
+		actx->addValidationError(ValidationError::CODE_ARITHMETIC_NON_INTEGER, this, L"Can not use arithmetic operator to non integer value.", {});
+	}
 }
 
 int OrExpression::binarySize() const {
