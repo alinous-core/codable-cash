@@ -9,28 +9,24 @@
 
 namespace alinous {
 
-AndExpression::AndExpression() : AbstractBinaryExpression(CodeElement::EXP_AND) {
+AndExpression::AndExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_AND) {
 }
 
 AndExpression::~AndExpression() {
 }
 
 void AndExpression::preAnalyze(AnalyzeContext* actx) {
-	AbstractBinaryExpression::preAnalyze(actx);
+	AbstractArithmeticBinaryExpresson::preAnalyze(actx);
 }
 
 void AndExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	// FIXME expression : analyze type
+	AbstractArithmeticBinaryExpresson::analyzeTypeRef(actx);
 }
 
 void AndExpression::analyze(AnalyzeContext* actx) {
-	AbstractBinaryExpression::analyze(actx);
+	AbstractArithmeticBinaryExpresson::analyze(actx);
 
 	// FIXME analyze type
-}
-
-AbstractVmInstance* AndExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
 }
 
 int AndExpression::binarySize() const {
@@ -50,7 +46,11 @@ void AndExpression::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType AndExpression::getType(AnalyzeContext* actx) {
-	return this->atype;
+	return *this->atype;
+}
+
+AbstractVmInstance* AndExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME expression::interpret()
 }
 
 } /* namespace alinous */
