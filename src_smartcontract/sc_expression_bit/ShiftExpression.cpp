@@ -33,6 +33,12 @@ void ShiftExpression::analyzeTypeRef(AnalyzeContext* actx) {
 void ShiftExpression::analyze(AnalyzeContext* actx) {
 	AbstractArithmeticBinaryExpresson::analyze(actx);
 
+	AnalyzedType at = this->list.get(0)->getType(actx);
+	if(this->atype != nullptr){
+		delete this->atype;
+	}
+	this->atype = new AnalyzedType(at);
+
 	AnalyzedType type = getType(actx);
 	if(!type.isPrimitiveInteger()){
 		actx->addValidationError(ValidationError::CODE_ARITHMETIC_NON_INTEGER, this, L"Can not use arithmetic operator to non integer value.", {});
@@ -111,15 +117,16 @@ AbstractVmInstance* ShiftExpression::interpret8Bit(VirtualMachine* vm) {
 
 	gc->handleFloatingObject(pinst);
 
-	{
-		AbstractVmInstance* oinst = this->list.get(1)->interpret(vm);
+	int maxLoop = this->list.size();
+	for(int i = 1; i != maxLoop; ++i){
+		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
 		uint8_t op = this->operations.get(0);
 		if(op == RIGHT){
-			result += opinst->getIntValue();
+			result = result >> opinst->getIntValue();
 		}else if(op == LEFT){
-			result -= opinst->getIntValue();
+			result = result << opinst->getIntValue();
 		}
 
 		gc->handleFloatingObject(opinst);
@@ -137,15 +144,16 @@ AbstractVmInstance* ShiftExpression::interpret16Bit(VirtualMachine* vm) {
 
 	gc->handleFloatingObject(pinst);
 
-	{
-		AbstractVmInstance* oinst = this->list.get(1)->interpret(vm);
+	int maxLoop = this->list.size();
+	for(int i = 1; i != maxLoop; ++i){
+		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
 		uint8_t op = this->operations.get(0);
 		if(op == RIGHT){
-			result += opinst->getShortValue();
+			result = result >> opinst->getIntValue();
 		}else if(op == LEFT){
-			result -= opinst->getShortValue();
+			result = result << opinst->getIntValue();
 		}
 
 		gc->handleFloatingObject(opinst);
@@ -163,15 +171,16 @@ AbstractVmInstance* ShiftExpression::interpret32Bit(VirtualMachine* vm) {
 
 	gc->handleFloatingObject(pinst);
 
-	{
-		AbstractVmInstance* oinst = this->list.get(1)->interpret(vm);
+	int maxLoop = this->list.size();
+	for(int i = 1; i != maxLoop; ++i){
+		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
 		uint8_t op = this->operations.get(0);
 		if(op == RIGHT){
-			result += opinst->getIntValue();
+			result = result >> opinst->getIntValue();
 		}else if(op == LEFT){
-			result -= opinst->getIntValue();
+			result = result << opinst->getIntValue();
 		}
 
 		gc->handleFloatingObject(opinst);
@@ -189,15 +198,16 @@ AbstractVmInstance* ShiftExpression::interpret64Bit(VirtualMachine* vm) {
 
 	gc->handleFloatingObject(pinst);
 
-	{
-		AbstractVmInstance* oinst = this->list.get(1)->interpret(vm);
+	int maxLoop = this->list.size();
+	for(int i = 1; i != maxLoop; ++i){
+		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
 		uint8_t op = this->operations.get(0);
 		if(op == RIGHT){
-			result += opinst->getLongValue();
+			result = result >> opinst->getIntValue();
 		}else if(op == LEFT){
-			result -= opinst->getLongValue();
+			result = result << opinst->getIntValue();
 		}
 
 		gc->handleFloatingObject(opinst);
