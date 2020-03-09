@@ -1,5 +1,5 @@
 /*
- * test_misc_compare.cpp
+ * test_vm_stack.cpp
  *
  *  Created on: 2020/03/09
  *      Author: iizuka
@@ -17,23 +17,20 @@
 #include "ext_binary/ExtPrimitiveObject.h"
 
 #include "stack/VmStack.h"
+
 using namespace alinous;
 
-TEST_GROUP(TestMiscCompareGroup) {
+TEST_GROUP(TestVmStackGroup) {
 	TEST_SETUP(){}
 	TEST_TEARDOWN(){}
 };
 
-TEST(TestMiscCompareGroup, Stack){
-	VirtualMachine vm(1024 * 10);
+TEST(TestVmStackGroup, Stack){
+	VirtualMachine vm(1024);
 
 	VmStack* stack = new(&vm) VmStack(&vm);
-	VmStack* stack2 = new(&vm) VmStack(&vm);
-
-	int result = stack->valueCompare(stack2);
-	CHECK(result == 0)
+	CHECK(stack->getReferences() != nullptr);
 
 	delete stack;
-	delete stack2;
 }
 
