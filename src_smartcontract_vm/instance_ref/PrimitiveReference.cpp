@@ -104,6 +104,10 @@ int64_t PrimitiveReference::getLongValue() const noexcept {
 	return ret;
 }
 
+int PrimitiveReference::valueCompare(const AbstractVmInstance* right) const {
+	// FIXME compare
+}
+
 void PrimitiveReference::setLongValue(int64_t value) noexcept {
 	*((int64_t*)this->data) = value;
 }

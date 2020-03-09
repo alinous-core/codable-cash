@@ -48,6 +48,10 @@ bool ArrayReference::isNull() const noexcept {
 	return this->instArray == nullptr;
 }
 
+int ArrayReference::valueCompare(const AbstractVmInstance* right) const {
+	return this->instArray->valueCompare(right);
+}
+
 AbstractExtObject* ArrayReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
 	return this->instArray->toClassExtObject(name, table);
 }

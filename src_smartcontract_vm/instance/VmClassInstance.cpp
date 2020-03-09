@@ -62,6 +62,10 @@ void VmClassInstance::removeInnerRefs(GcManager* gc) noexcept {
 	}
 }
 
+int VmClassInstance::valueCompare(const AbstractVmInstance* right) const {
+	// FIXME compare
+}
+
 void VmClassInstance::init(VirtualMachine* vm) {
 	ArrayList<MemberVariableDeclare>* list = this->clazz->getMemberVariableDeclareList();
 	GcManager* gc = vm->getGc();

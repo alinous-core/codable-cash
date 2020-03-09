@@ -68,6 +68,10 @@ AbstractExtObject* VmArrayInstance::toClassExtObject(const UnicodeString* name,	
 	return obj;
 }
 
+int VmArrayInstance::valueCompare(const AbstractVmInstance* right) const {
+	// FIXME compare
+}
+
 void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReference* ref) noexcept {
 	GcManager* gc = vm->getGc();
 

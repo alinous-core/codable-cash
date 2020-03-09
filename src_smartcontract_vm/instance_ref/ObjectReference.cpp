@@ -26,8 +26,6 @@ ObjectReference* ObjectReference::createObjectReference(VmClassInstance* clazzIn
 	ObjectReference* ref = new(vm) ObjectReference(VmInstanceTypesConst::REF_OBJ);
 	ref->setInstance(clazzInst);
 
-
-
 	return ref;
 }
 
@@ -63,6 +61,10 @@ AbstractExtObject* ObjectReference::toClassExtObject(const UnicodeString* name, 
 
 bool ObjectReference::isNull() const noexcept {
 	return this->instance == nullptr;
+}
+
+int ObjectReference::valueCompare(const AbstractVmInstance* right) const {
+	return this->instance->valueCompare(right);
 }
 
 } /* namespace alinous */

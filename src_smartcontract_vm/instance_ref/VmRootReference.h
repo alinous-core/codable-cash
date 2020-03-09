@@ -30,6 +30,8 @@ public:
 	void clearInnerReferences();
 
 	PrimitiveReference* newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm);
+
+	virtual int valueCompare(const AbstractVmInstance* right) const;
 private:
 	VirtualMachine* vm;
 	VmClassInstance* mainInst;
