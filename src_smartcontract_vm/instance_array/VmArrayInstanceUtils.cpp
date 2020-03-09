@@ -20,13 +20,15 @@
 namespace alinous {
 
 bool VmArrayInstanceUtils::isArrayIndex(AnalyzedType& type) noexcept {
+	uint8_t t = type.getType();
+
 	return !type.isArray() &&
 			(
-					type.getType() == AnalyzedType::TYPE_BYTE ||
-					type.getType() == AnalyzedType::TYPE_CHAR ||
-					type.getType() == AnalyzedType::TYPE_SHORT ||
-					type.getType() == AnalyzedType::TYPE_INT ||
-					type.getType() == AnalyzedType::TYPE_LONG
+					t == AnalyzedType::TYPE_BYTE ||
+					t == AnalyzedType::TYPE_CHAR ||
+					t == AnalyzedType::TYPE_SHORT ||
+					t == AnalyzedType::TYPE_INT ||
+					t == AnalyzedType::TYPE_LONG
 			);
 }
 

@@ -69,7 +69,12 @@ AbstractExtObject* VmArrayInstance::toClassExtObject(const UnicodeString* name,	
 }
 
 int VmArrayInstance::valueCompare(AbstractVmInstance* right) {
-	// FIXME compare
+	int64_t diff = (int64_t)this - (int64_t)right;
+	if(diff == 0){
+		return 0;
+	}
+
+	return diff > 0 ? 1 : -1;
 }
 
 void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReference* ref) noexcept {
