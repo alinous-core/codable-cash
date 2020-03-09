@@ -57,7 +57,7 @@ TEST(TestVmVariableGroup, baseIsReferenceCmp){
 	VmRootReference* ref1 = new(vm) VmRootReference(vm);__STP(ref1);
 	VmRootReference* ref2 = new(vm) VmRootReference(vm);__STP(ref2);
 
-	CHECK(ref1->valueCompare(ref2));
+	CHECK(ref1->valueCompare(ref2) == 0);
 }
 
 
