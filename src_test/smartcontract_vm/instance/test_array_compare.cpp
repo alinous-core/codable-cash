@@ -27,6 +27,10 @@
 #include "instance_array/ArrayReference.h"
 
 #include "instance_array/VmArrayInstanceUtils.h"
+
+#include "instance_gc/GcManager.h"
+
+
 using namespace alinous;
 
 TEST_GROUP(TestArrayCompareGroup) {
@@ -71,6 +75,9 @@ TEST(TestArrayCompareGroup, compare02){
 
 	int diff = arrayRef->valueCompare(arrayRef);
 	CHECK(diff == 0)
+
+	GcManager* gc = vm.getGc();
+	gc->garbageCollect();
 }
 
 TEST(TestArrayCompareGroup, compare03){
@@ -96,4 +103,8 @@ TEST(TestArrayCompareGroup, compare03){
 
 	int diff = arrayRef->valueCompare(arrayRef2);
 	CHECK(diff != 0)
+
+	GcManager* gc = vm.getGc();
+	gc->garbageCollect();
 }
+
