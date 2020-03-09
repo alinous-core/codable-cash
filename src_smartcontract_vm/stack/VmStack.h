@@ -30,7 +30,7 @@ public:
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 	virtual void removeInnerRefs(GcManager* gc) noexcept;
 
-	virtual int valueCompare(const AbstractVmInstance* right);
+	virtual int valueCompare(AbstractVmInstance* right);
 
 private:
 	VMemList<AbstractReference>* stack;

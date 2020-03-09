@@ -30,7 +30,7 @@ public:
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 	virtual bool isNull() const noexcept;
-	virtual int valueCompare(const AbstractVmInstance* right);
+	virtual int valueCompare(AbstractVmInstance* right);
 private:
 	AbstractVmInstance* instance;
 };

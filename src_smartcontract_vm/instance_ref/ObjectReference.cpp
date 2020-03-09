@@ -63,7 +63,7 @@ bool ObjectReference::isNull() const noexcept {
 	return this->instance == nullptr;
 }
 
-int ObjectReference::valueCompare(const AbstractVmInstance* right) {
+int ObjectReference::valueCompare(AbstractVmInstance* right) {
 	if(isNull()){
 		return right->isNull() ? 0 : -1;
 	}
@@ -71,7 +71,7 @@ int ObjectReference::valueCompare(const AbstractVmInstance* right) {
 		return isNull() ? 0 : 1;
 	}
 
-	const ObjectReference* objRight = dynamic_cast<const ObjectReference*>(right);
+	ObjectReference* objRight = dynamic_cast<ObjectReference*>(right);
 	if(objRight == nullptr){
 		return -1;
 	}

@@ -68,7 +68,7 @@ AbstractExtObject* VmArrayInstance::toClassExtObject(const UnicodeString* name,	
 	return obj;
 }
 
-int VmArrayInstance::valueCompare(const AbstractVmInstance* right) {
+int VmArrayInstance::valueCompare(AbstractVmInstance* right) {
 	// FIXME compare
 }
 

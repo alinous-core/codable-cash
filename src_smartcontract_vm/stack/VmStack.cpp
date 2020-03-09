@@ -64,7 +64,7 @@ AbstractReference* VmStack::get(int pos) const noexcept {
 }
 
 
-int VmStack::valueCompare(const AbstractVmInstance* right) {
+int VmStack::valueCompare(AbstractVmInstance* right) {
 	return 0;
 }
 

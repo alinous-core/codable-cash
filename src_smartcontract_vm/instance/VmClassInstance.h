@@ -30,7 +30,7 @@ public:
 	virtual void removeInnerRefs(GcManager* gc) noexcept;
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* reg);
 
-	virtual int valueCompare(const AbstractVmInstance* right);
+	virtual int valueCompare(AbstractVmInstance* right);
 
 	AnalyzedClass* getAnalyzedClass() const noexcept;
 private:
