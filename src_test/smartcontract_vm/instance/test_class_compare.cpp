@@ -113,3 +113,67 @@ TEST(TestClassCompareGroup, compareObjectReference03){
 	CHECK(diff != 0);
 }
 
+TEST(TestClassCompareGroup, compareObjectReference04){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/inheritance/resources/case01/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	AnalyzedType* class1 = util.findClassDeclare(L"test.fw.base.BaseClass"); __STP(class1);
+
+	VmClassInstance* inst1 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm); __STP(inst1);
+
+	ObjectReference* ref1 = ObjectReference::createObjectReference(inst1, util.vm); __STP(ref1);
+	ObjectReference* ref2 = ObjectReference::createObjectReference(nullptr, util.vm); __STP(ref2);
+
+	int diff = ref1->valueCompare(ref2);
+	CHECK(diff != 0);
+
+	diff = ref2->valueCompare(ref1);
+	CHECK(diff != 0);
+}
+
+TEST(TestClassCompareGroup, compareObjectReference05){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/inheritance/resources/case01/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	AnalyzedType* class1 = util.findClassDeclare(L"test.fw.base.BaseClass"); __STP(class1);
+
+	ObjectReference* ref1 = ObjectReference::createObjectReference(nullptr, util.vm); __STP(ref1);
+	ObjectReference* ref2 = ObjectReference::createObjectReference(nullptr, util.vm); __STP(ref2);
+
+	int diff = ref1->valueCompare(ref2);
+	CHECK(diff == 0);
+
+	diff = ref2->valueCompare(ref1);
+	CHECK(diff == 0);
+}
+
+TEST(TestClassCompareGroup, compareObjectReference06){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/inheritance/resources/case01/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	AnalyzedType* class1 = util.findClassDeclare(L"test.fw.base.BaseClass"); __STP(class1);
+
+	VmClassInstance* inst1 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm); __STP(inst1);
+	ObjectReference* ref1 = ObjectReference::createObjectReference(inst1, util.vm); __STP(ref1);
+
+	int diff = ref1->valueCompare(inst1);
+	CHECK(diff != 0);
+}
