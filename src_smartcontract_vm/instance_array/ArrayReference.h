@@ -26,7 +26,7 @@ public:
 	virtual AbstractVmInstance* getInstance() noexcept;
 	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
 	virtual bool isNull() const noexcept;
-	virtual int valueCompare(const AbstractVmInstance* right) const;
+	virtual int valueCompare(const AbstractVmInstance* right);
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 

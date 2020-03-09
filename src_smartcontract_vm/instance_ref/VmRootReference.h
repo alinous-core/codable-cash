@@ -31,7 +31,7 @@ public:
 
 	PrimitiveReference* newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm);
 
-	virtual int valueCompare(const AbstractVmInstance* right) const;
+	virtual int valueCompare(const AbstractVmInstance* right);
 private:
 	VirtualMachine* vm;
 	VmClassInstance* mainInst;

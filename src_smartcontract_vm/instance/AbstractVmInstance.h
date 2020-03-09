@@ -33,7 +33,7 @@ public:
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 	virtual bool isReference() const noexcept;
 	virtual bool isNull() const noexcept;
-	virtual int valueCompare(const AbstractVmInstance* right) const = 0;
+	virtual int valueCompare(const AbstractVmInstance* right) = 0;
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 protected:

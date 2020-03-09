@@ -63,7 +63,7 @@ bool ObjectReference::isNull() const noexcept {
 	return this->instance == nullptr;
 }
 
-int ObjectReference::valueCompare(const AbstractVmInstance* right) const {
+int ObjectReference::valueCompare(const AbstractVmInstance* right) {
 	if(isNull()){
 		return right->isNull() ? 0 : -1;
 	}
@@ -71,7 +71,12 @@ int ObjectReference::valueCompare(const AbstractVmInstance* right) const {
 		return isNull() ? 0 : 1;
 	}
 
-	return this->instance->valueCompare(right);
+	const ObjectReference* objRight = dynamic_cast<const ObjectReference*>(right);
+	if(objRight == nullptr){
+		return -1;
+	}
+
+	return this->instance->valueCompare(objRight->getInstance());
 }
 
 } /* namespace alinous */

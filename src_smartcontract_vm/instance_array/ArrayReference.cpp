@@ -48,7 +48,7 @@ bool ArrayReference::isNull() const noexcept {
 	return this->instArray == nullptr;
 }
 
-int ArrayReference::valueCompare(const AbstractVmInstance* right) const {
+int ArrayReference::valueCompare(const AbstractVmInstance* right) {
 	return this->instArray->valueCompare(right);
 }
 

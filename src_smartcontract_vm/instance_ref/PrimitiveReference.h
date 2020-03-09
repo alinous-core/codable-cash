@@ -25,7 +25,7 @@ public:
 	static PrimitiveReference* createLongReference(VirtualMachine* vm, int64_t value);
 
 	virtual bool isPrimitive() const noexcept;
-	virtual int valueCompare(const AbstractVmInstance* right) const;
+	virtual int valueCompare(const AbstractVmInstance* right);
 
 	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
