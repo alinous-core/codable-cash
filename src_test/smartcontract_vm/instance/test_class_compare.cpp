@@ -70,3 +70,46 @@ TEST(TestClassCompareGroup, compareObjectReference01){
 	CHECK(diff == 0);
 }
 
+TEST(TestClassCompareGroup, compareObjectReference02){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/inheritance/resources/case01/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	AnalyzedType* class1 = util.findClassDeclare(L"test.fw.base.BaseClass"); __STP(class1);
+
+	VmClassInstance* inst1 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm); __STP(inst1);
+
+	ObjectReference* ref1 = ObjectReference::createObjectReference(inst1, util.vm); __STP(ref1);
+	ObjectReference* ref2 = ObjectReference::createObjectReference(inst1, util.vm); __STP(ref2);
+
+	int diff = ref1->valueCompare(ref2);
+	CHECK(diff == 0);
+}
+
+TEST(TestClassCompareGroup, compareObjectReference03){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/inheritance/resources/case01/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	AnalyzedType* class1 = util.findClassDeclare(L"test.fw.base.BaseClass"); __STP(class1);
+
+	VmClassInstance* inst1 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm); __STP(inst1);
+	VmClassInstance* inst2 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm); __STP(inst2);
+
+	ObjectReference* ref1 = ObjectReference::createObjectReference(inst1, util.vm); __STP(ref1);
+	ObjectReference* ref2 = ObjectReference::createObjectReference(inst2, util.vm); __STP(ref2);
+
+	int diff = ref1->valueCompare(ref2);
+	CHECK(diff != 0);
+}
+
