@@ -1,6 +1,7 @@
 
 set(testsrc
 	test_array_compare.cpp
+	test_array_instance.cpp
 	test_class_compare.cpp
 	test_misc_compare.cpp
 	test_numeric_ref.cpp
