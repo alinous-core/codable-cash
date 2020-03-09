@@ -15,6 +15,8 @@
 #include "instance_ref/PrimitiveReference.h"
 
 #include "ext_binary/ExtPrimitiveObject.h"
+
+#include "stack/VmStack.h"
 using namespace alinous;
 
 TEST_GROUP(TestMiscCompareGroup) {
@@ -25,8 +27,8 @@ TEST_GROUP(TestMiscCompareGroup) {
 TEST(TestMiscCompareGroup, Stack){
 	VirtualMachine vm(1024);
 
-	VmStack* stack = new(vm) VmStack();
-	VmStack* stack2 = new(vm) VmStack();
+	VmStack* stack = new(&vm) VmStack(&vm);
+	VmStack* stack2 = new(&vm) VmStack(&vm);
 
 	int result = stack->valueCompare(stack2);
 	CHECK(result == 0)
