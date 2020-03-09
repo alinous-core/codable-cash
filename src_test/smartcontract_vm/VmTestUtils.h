@@ -32,6 +32,7 @@ public:
 	bool createInstance();
 	ExtClassObject* getMainExtObject();
 
+	AnalyzedType* findClassDeclare(const wchar_t* classFqn);
 	AnalyzedType* findClassDeclare(const UnicodeString* classFqn);
 
 	VirtualMachine* vm;

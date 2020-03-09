@@ -63,7 +63,12 @@ void VmClassInstance::removeInnerRefs(GcManager* gc) noexcept {
 }
 
 int VmClassInstance::valueCompare(const AbstractVmInstance* right) const {
-	// FIXME compare
+	int64_t diff = (int64_t)this - (int64_t)right;
+	if(diff == 0){
+		return 0;
+	}
+
+	return diff > 0 ? 1 : -1;
 }
 
 void VmClassInstance::init(VirtualMachine* vm) {

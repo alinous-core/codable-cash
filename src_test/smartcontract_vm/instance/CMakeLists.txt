@@ -1,5 +1,6 @@
 
 set(testsrc
+	test_class_compare.cpp
 	test_misc_compare.cpp
 	test_numeric_ref.cpp
 	test_vm_stack.cpp

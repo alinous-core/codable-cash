@@ -64,6 +64,13 @@ bool ObjectReference::isNull() const noexcept {
 }
 
 int ObjectReference::valueCompare(const AbstractVmInstance* right) const {
+	if(isNull()){
+		return right->isNull() ? 0 : -1;
+	}
+	else if(right->isNull()){
+		return isNull() ? 0 : 1;
+	}
+
 	return this->instance->valueCompare(right);
 }
 
