@@ -22,4 +22,5 @@ class SmartContract extends BaseClass {
 	}
 	
 	private int count;
+	private BaseClass base;
 }
