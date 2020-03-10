@@ -41,6 +41,13 @@ public:
 	void setCharValue(int16_t value) noexcept;
 	int64_t getLongValue() const noexcept;
 	void setLongValue(int64_t value) noexcept;
+
+private:
+	int valueCompare8(AbstractVmInstance* right);
+	int valueCompare16(AbstractVmInstance* right);
+	int valueCompare32(AbstractVmInstance* right);
+	int valueCompare64(AbstractVmInstance* right);
+
 private:
 	void* data;
 	VmMalloc* malloc;

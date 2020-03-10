@@ -108,6 +108,19 @@ int PrimitiveReference::valueCompare(AbstractVmInstance* right) {
 	// FIXME compare
 }
 
+int PrimitiveReference::valueCompare8(AbstractVmInstance* right) {
+}
+
+int PrimitiveReference::valueCompare16(AbstractVmInstance* right) {
+}
+
+int PrimitiveReference::valueCompare32(AbstractVmInstance* right) {
+}
+
+int PrimitiveReference::valueCompare64(AbstractVmInstance* right) {
+}
+
+
 void PrimitiveReference::setLongValue(int64_t value) noexcept {
 	*((int64_t*)this->data) = value;
 }
