@@ -1,0 +1,17 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		int val = 13;
+		int val2 = 11;
+		this.result = (val == val) && (val == val2);
+	}
+	
+	public int main(){
+
+	}
+	
+	private boolean result = true;
+}
