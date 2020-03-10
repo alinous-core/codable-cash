@@ -27,8 +27,47 @@ TEST_GROUP(TestNotGroup) {
 };
 
 TEST(TestNotGroup, case01){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/exp_logical/resources/not/case01/", projectFolder);
 
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	UnicodeString strResult(L"result");
+	ExtPrimitiveObject* oresult = obj->getExtPrimitiveObject(&strResult);
+
+	bool bl = oresult->getBoolValue();
+
+	CHECK(oresult->getBoolValue() == true);
 }
 
+TEST(TestNotGroup, case02){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/exp_logical/resources/not/case02/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	UnicodeString strResult(L"result");
+	ExtPrimitiveObject* oresult = obj->getExtPrimitiveObject(&strResult);
+
+	bool bl = oresult->getBoolValue();
+
+	CHECK(oresult->getBoolValue() == false);
+}
 
 
