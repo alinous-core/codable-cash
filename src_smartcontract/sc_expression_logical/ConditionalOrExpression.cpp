@@ -21,7 +21,7 @@ void ConditionalOrExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void ConditionalOrExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	// FIXME expression : analyze type
+	AbstractBinaryExpression::analyzeTypeRef(actx);
 }
 
 void ConditionalOrExpression::analyze(AnalyzeContext* actx) {

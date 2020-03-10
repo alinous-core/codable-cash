@@ -21,7 +21,7 @@ void ConditionalAndExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void ConditionalAndExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	// FIXME expression : analyze type
+	AbstractBinaryExpression::analyzeTypeRef(actx);
 }
 
 void ConditionalAndExpression::analyze(AnalyzeContext* actx) {
