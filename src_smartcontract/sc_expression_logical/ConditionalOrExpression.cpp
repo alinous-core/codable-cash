@@ -11,6 +11,13 @@
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/ValidationError.h"
 
+#include "instance_gc/GcManager.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
+#include "vm/VirtualMachine.h"
+
+
 namespace alinous {
 
 ConditionalOrExpression::ConditionalOrExpression() : AbstractBinaryExpression(CodeElement::EXP_CND_OR) {
@@ -62,6 +69,18 @@ AnalyzedType ConditionalOrExpression::getType(AnalyzeContext* actx) {
 }
 
 AbstractVmInstance* ConditionalOrExpression::interpret(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->list.get(i);
+
+		AbstractVmInstance* inst = exp->interpret(vm);
+		PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
+
+		gc->handleFloatingObject(inst);
+	}
+
 	return nullptr; // FIXME expression::interpret()
 }
 
