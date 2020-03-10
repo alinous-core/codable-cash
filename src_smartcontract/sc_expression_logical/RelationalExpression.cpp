@@ -94,6 +94,8 @@ void RelationalExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* RelationalExpression::interpret(VirtualMachine* vm) {
+
+
 	return nullptr; // FIXME expression::interpret()
 }
 

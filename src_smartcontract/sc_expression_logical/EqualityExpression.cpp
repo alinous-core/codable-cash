@@ -47,7 +47,7 @@ void EqualityExpression::analyze(AnalyzeContext* actx) {
 	this->right->analyze(actx);
 
 	AnalyzedTypeChecker checker;
-	checker.checkCompatibility(actx, this->left, this->right);
+	checker.checkCompatibility(actx, this->left, this->right, true);
 }
 
 void EqualityExpression::setLeft(AbstractExpression* exp) noexcept {
