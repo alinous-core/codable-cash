@@ -49,9 +49,12 @@ void ObjectReference::substitute(AbstractVmInstance* rightValue, VirtualMachine*
 		this->instance = nullptr;
 	}
 
-	if(!rightValue->isNull()){
+	if(rightValue != nullptr && !rightValue->isNull()){
 		gc->addInstanceReference(this, rightValue);
 		this->instance = rightValue;
+	}
+	else {
+		this->instance = nullptr;
 	}
 }
 
