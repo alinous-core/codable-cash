@@ -6,7 +6,14 @@
  */
 
 #include "sc_expression_logical/NotExpression.h"
+
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
+#include "instance_gc/GcManager.h"
 
 namespace alinous {
 
@@ -24,11 +31,16 @@ void NotExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void NotExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	// FIXME expression : analyze type
+	this->exp->analyzeTypeRef(actx);
 }
 
 void NotExpression::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
+
+	AnalyzedType at = this->exp->getType(actx);
+	if(!at.isBool()){
+		actx->addValidationError(ValidationError::CODE_LOGICAL_EXP_NON_BOOL, this, L"Logical expression requires boolean parameter.", {});
+	}
 }
 
 void NotExpression::setExpression(AbstractExpression* exp) noexcept {
@@ -66,7 +78,15 @@ void NotExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* NotExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	PrimitiveReference* blRef =dynamic_cast<PrimitiveReference*>(inst);
+
+	bool blvalue = !(blRef->getIntValue() == 1);
+
+	GcManager* gc = vm->getGc();
+	gc->handleFloatingObject(inst);
+
+	return PrimitiveReference::createBoolReference(vm, blvalue ? 1 : 0);
 }
 
 } /* namespace alinous */
