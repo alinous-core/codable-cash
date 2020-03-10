@@ -43,10 +43,10 @@ public:
 	void setLongValue(int64_t value) noexcept;
 
 private:
-	int valueCompare8(AbstractVmInstance* right);
-	int valueCompare16(AbstractVmInstance* right);
-	int valueCompare32(AbstractVmInstance* right);
-	int valueCompare64(AbstractVmInstance* right);
+	int valueCompare8(PrimitiveReference* right);
+	int valueCompare16(PrimitiveReference* right);
+	int valueCompare32(PrimitiveReference* right);
+	int valueCompare64(PrimitiveReference* right);
 
 private:
 	void* data;
