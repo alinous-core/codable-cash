@@ -13,7 +13,9 @@
 
 #include "instance_ref/PrimitiveReference.h"
 
+#include "type_check/AnalyzedTypeChecker.h"
 
+#include "instance_gc/GcManager.h"
 namespace alinous {
 
 EqualityExpression::EqualityExpression() : AbstractExpression(CodeElement::EXP_CND_EQ) {
@@ -43,6 +45,9 @@ void EqualityExpression::analyzeTypeRef(AnalyzeContext* actx) {
 void EqualityExpression::analyze(AnalyzeContext* actx) {
 	this->left->analyze(actx);
 	this->right->analyze(actx);
+
+	AnalyzedTypeChecker checker;
+	checker.checkCompatibility(actx, this->left, this->right);
 }
 
 void EqualityExpression::setLeft(AbstractExpression* exp) noexcept {
@@ -102,7 +107,7 @@ void EqualityExpression::init(VirtualMachine* vm) {
 
 AbstractVmInstance* EqualityExpression::interpret(VirtualMachine* vm) {
 	AbstractVmInstance* leftv = this->left->interpret(vm);
-	AbstractVmInstance* rightv = this->left->interpret(vm);
+	AbstractVmInstance* rightv = this->right->interpret(vm);
 
 	int result = leftv->valueCompare(rightv);
 	bool bl = (result == 0);
@@ -110,9 +115,13 @@ AbstractVmInstance* EqualityExpression::interpret(VirtualMachine* vm) {
 		bl = !bl;
 	}
 
+	GcManager* gc = vm->getGc();
+	gc->handleFloatingObject(leftv);
+	gc->handleFloatingObject(rightv);
+
 	PrimitiveReference* ret = PrimitiveReference::createBoolReference(vm, bl ? 1 : 0);
 
-	return ret; // FIXME expression::interpret()
+	return ret;
 }
 
 } /* namespace alinous */

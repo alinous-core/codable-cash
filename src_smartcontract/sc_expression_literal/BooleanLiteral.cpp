@@ -8,6 +8,8 @@
 #include "sc_expression_literal/BooleanLiteral.h"
 #include "sc_analyze/AnalyzedType.h"
 
+#include "instance_ref/PrimitiveReference.h"
+
 namespace alinous {
 
 BooleanLiteral::BooleanLiteral() : AbstractExpression(CodeElement::EXP_BOOLEAN_LITERAL) {
@@ -54,11 +56,10 @@ AnalyzedType BooleanLiteral::getType(AnalyzeContext* actx) {
 }
 
 void BooleanLiteral::init(VirtualMachine* vm) {
-	// FIXME register const
 }
 
 AbstractVmInstance* BooleanLiteral::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	return PrimitiveReference::createBoolReference(vm, this->value ? 1 : 0);
 }
 
 } /* namespace alinous */
