@@ -77,10 +77,15 @@ AbstractVmInstance* ConditionalAndExpression::interpret(VirtualMachine* vm) {
 		AbstractVmInstance* inst = exp->interpret(vm);
 		PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
+		int32_t val = ref->getIntValue();
 		gc->handleFloatingObject(inst);
+
+		if(val < 1){
+			return PrimitiveReference::createBoolReference(vm, 0);
+		}
 	}
 
-	return nullptr; // FIXME expression::interpret()
+	return PrimitiveReference::createBoolReference(vm, 1);
 }
 
 } /* namespace alinous */
