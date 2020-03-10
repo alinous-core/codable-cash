@@ -9,12 +9,17 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "instance/AbstractVmInstance.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
+
 namespace alinous {
 
 EqualityExpression::EqualityExpression() : AbstractExpression(CodeElement::EXP_CND_EQ) {
 	this->left = nullptr;
 	this->right = nullptr;
-	this->op = 0;
+	this->op = EQ;
 }
 
 EqualityExpression::~EqualityExpression() {
@@ -96,7 +101,18 @@ void EqualityExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* EqualityExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	AbstractVmInstance* leftv = this->left->interpret(vm);
+	AbstractVmInstance* rightv = this->left->interpret(vm);
+
+	int result = leftv->valueCompare(rightv);
+	bool bl = (result == 0);
+	if(this->op == NOT_EQ){
+		bl = !bl;
+	}
+
+	PrimitiveReference* ret = PrimitiveReference::createBoolReference(vm, bl ? 1 : 0);
+
+	return ret; // FIXME expression::interpret()
 }
 
 } /* namespace alinous */
