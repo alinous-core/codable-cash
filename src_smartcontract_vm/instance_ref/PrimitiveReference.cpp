@@ -108,7 +108,7 @@ int PrimitiveReference::valueCompare(AbstractVmInstance* right) {
 	int64_t ret = 0;
 
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(right);
-	if(ref != 0){
+	if(ref == nullptr){
 		return -1;
 	}
 
@@ -120,13 +120,15 @@ int PrimitiveReference::valueCompare(AbstractVmInstance* right) {
 	case VmInstanceTypesConst::REF_SHORT:
 	case VmInstanceTypesConst::REF_CHAR:
 		return valueCompare16(ref);
+	case VmInstanceTypesConst::REF_INT:
+		return valueCompare32(ref);
 	case VmInstanceTypesConst::REF_LONG:
 		return valueCompare64(ref);
 	default:
 		break;
 	}
 
-	return valueCompare32(ref);
+	return -1;
 }
 
 int PrimitiveReference::valueCompare8(PrimitiveReference* right) {
