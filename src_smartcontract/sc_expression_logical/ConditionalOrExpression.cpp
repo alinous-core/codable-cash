@@ -6,7 +6,10 @@
  */
 
 #include "sc_expression_logical/ConditionalOrExpression.h"
+
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/ValidationError.h"
 
 namespace alinous {
 
@@ -26,6 +29,16 @@ void ConditionalOrExpression::analyzeTypeRef(AnalyzeContext* actx) {
 
 void ConditionalOrExpression::analyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::analyze(actx);
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* expression = this->list.get(i);
+		AnalyzedType at = expression->getType(actx);
+
+		if(!at.isBool()){
+			actx->addValidationError(ValidationError::CODE_LOGICAL_EXP_NON_BOOL, this, L"Logical expression requires boolean parameter.", {});
+		}
+	}
 }
 
 int ConditionalOrExpression::binarySize() const {
