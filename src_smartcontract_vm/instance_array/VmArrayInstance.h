@@ -27,6 +27,8 @@ public:
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* reg);
 
+	virtual int valueCompare(AbstractVmInstance* right);
+
 	void setReference(VirtualMachine* vm, int pos, AbstractReference* ref) noexcept;
 private:
 	VMemList<AbstractReference>* array;

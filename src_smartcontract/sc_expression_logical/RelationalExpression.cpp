@@ -5,14 +5,24 @@
  *      Author: iizuka
  */
 #include "sc_expression_logical/RelationalExpression.h"
+
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
+
+#include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "instance_ref/PrimitiveReference.h"
 
 namespace alinous {
 
 RelationalExpression::RelationalExpression() : AbstractExpression(CodeElement::EXP_CND_RELATIONAL) {
 	this->left = nullptr;
 	this->right = nullptr;
-	this->op = 0;
+	this->op = GT;
 }
 
 RelationalExpression::~RelationalExpression() {
@@ -31,6 +41,14 @@ void RelationalExpression::preAnalyze(AnalyzeContext* actx) {
 void RelationalExpression::analyze(AnalyzeContext* actx) {
 	this->left->analyze(actx);
 	this->right->analyze(actx);
+
+	AnalyzedType atL = this->left->getType(actx);
+	AnalyzedType atR = this->right->getType(actx);
+
+	if(!atL.isPrimitiveInteger() || !atR.isPrimitiveInteger()){
+		actx->addValidationError(ValidationError::CODE_LOGICAL_EXP_NON_PRIMITIVE, this, L"Relational expression requires integer parameters.", {});
+	}
+
 }
 
 void RelationalExpression::analyzeTypeRef(AnalyzeContext* actx) {
@@ -94,7 +112,40 @@ void RelationalExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* RelationalExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
+	AbstractVmInstance* leftV = releaser.registerInstance(this->left->interpret(vm));
+	AbstractVmInstance* rightV = releaser.registerInstance(this->right->interpret(vm));
+
+	PrimitiveReference* p1 = dynamic_cast<PrimitiveReference*>(leftV);
+	PrimitiveReference* p2 = dynamic_cast<PrimitiveReference*>(rightV);
+
+	int result = p1->valueCompare(p2);
+
+	PrimitiveReference* bl = nullptr;
+
+	switch(this->op){
+	case RelationalExpression::GT_EQ:
+		bl = makeBoolInst(vm, result >= 0);
+		break;
+	case RelationalExpression::LT:
+		bl = makeBoolInst(vm, result < 0);
+		break;
+	case RelationalExpression::LT_EQ:
+		bl = makeBoolInst(vm, result <= 0);
+		break;
+	case RelationalExpression::GT:
+	default:
+		bl = makeBoolInst(vm, result > 0);
+		break;
+	}
+
+	return bl;
+}
+
+PrimitiveReference* RelationalExpression::makeBoolInst(VirtualMachine* vm, bool value) const noexcept {
+	return PrimitiveReference::createBoolReference(vm, value ? 1 : 0);
 }
 
 } /* namespace alinous */

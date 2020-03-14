@@ -64,4 +64,10 @@ AbstractReference* VmStack::get(int pos) const noexcept {
 }
 
 
+int VmStack::valueCompare(AbstractVmInstance* right) {
+	return 0;
+}
+
+
+
 } /* namespace alinous */

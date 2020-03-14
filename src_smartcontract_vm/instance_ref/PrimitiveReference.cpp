@@ -104,6 +104,62 @@ int64_t PrimitiveReference::getLongValue() const noexcept {
 	return ret;
 }
 
+int PrimitiveReference::valueCompare(AbstractVmInstance* right) {
+	int64_t ret = 0;
+
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(right);
+	if(ref == nullptr){
+		return -1;
+	}
+
+	uint8_t cmpType = this->type >= ref->type ? this->type : ref->type;
+
+	switch(cmpType){
+	case VmInstanceTypesConst::REF_BYTE:
+		return valueCompare8(ref);
+	case VmInstanceTypesConst::REF_SHORT:
+	case VmInstanceTypesConst::REF_CHAR:
+		return valueCompare16(ref);
+	case VmInstanceTypesConst::REF_INT:
+		return valueCompare32(ref);
+	case VmInstanceTypesConst::REF_LONG:
+		return valueCompare64(ref);
+	default:
+		break;
+	}
+
+	return -1;
+}
+
+int PrimitiveReference::valueCompare8(PrimitiveReference* right) {
+	int8_t leftv = getByteValue();
+	int8_t rightv = right->getByteValue();
+
+	return leftv - rightv;
+}
+
+int PrimitiveReference::valueCompare16(PrimitiveReference* right) {
+	int16_t leftv = getShortValue();
+	int16_t rightv = right->getShortValue();
+
+	return leftv - rightv;
+}
+
+int PrimitiveReference::valueCompare32(PrimitiveReference* right) {
+	int32_t leftv = getIntValue();
+	int32_t rightv = right->getIntValue();
+
+	return leftv - rightv;
+}
+
+int PrimitiveReference::valueCompare64(PrimitiveReference* right) {
+	int64_t leftv = getLongValue();
+	int64_t rightv = right->getLongValue();
+
+	return leftv - rightv;
+}
+
+
 void PrimitiveReference::setLongValue(int64_t value) noexcept {
 	*((int64_t*)this->data) = value;
 }

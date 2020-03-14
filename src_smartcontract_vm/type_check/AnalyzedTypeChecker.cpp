@@ -33,6 +33,10 @@ AnalyzedTypeChecker::~AnalyzedTypeChecker() {
 }
 
 bool AnalyzedTypeChecker::checkCompatibility(AnalyzeContext* actx, AbstractExpression* leftExp, AbstractExpression* rightExp) {
+	return checkCompatibility(actx, leftExp, rightExp, false);
+}
+
+bool AnalyzedTypeChecker::checkCompatibility(AnalyzeContext* actx, AbstractExpression* leftExp, AbstractExpression* rightExp, bool compare) {
 	this->left = new LeftType(leftExp);
 	this->left->init(actx);
 
@@ -40,6 +44,9 @@ bool AnalyzedTypeChecker::checkCompatibility(AnalyzeContext* actx, AbstractExpre
 	this->right->init(actx);
 
 	int result = this->left->checkTypeCompatibility(actx, this->right);
+	if(compare && (result == InternalTypeChecker::INCOMPATIBLE || result == InternalTypeChecker::WARN_PRECISION)){
+		result = this->right->checkTypeCompatibility(actx, this->left);
+	}
 
 	bool ret = true;
 	switch(result){

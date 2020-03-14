@@ -59,5 +59,8 @@ PrimitiveReference* VmRootReference::newNumericConstReferenece(int64_t value, ui
 	return this->staticHolder->newNumericConstReferenece(value, type ,vm);
 }
 
+int VmRootReference::valueCompare(AbstractVmInstance* right) {
+	return 0;
+}
 
 } /* namespace alinous */

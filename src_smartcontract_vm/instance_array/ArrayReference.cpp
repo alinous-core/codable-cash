@@ -36,7 +36,7 @@ void ArrayReference::substitute(AbstractVmInstance* rightValue,	VirtualMachine* 
 		this->instArray = nullptr;
 	}
 
-	if(!rightValue->isNull()){
+	if(rightValue != nullptr && !rightValue->isNull()){
 		VmArrayInstance* inst = dynamic_cast<VmArrayInstance*>(rightValue);
 
 		gc->addInstanceReference(this, inst);
@@ -46,6 +46,22 @@ void ArrayReference::substitute(AbstractVmInstance* rightValue,	VirtualMachine* 
 
 bool ArrayReference::isNull() const noexcept {
 	return this->instArray == nullptr;
+}
+
+int ArrayReference::valueCompare(AbstractVmInstance* right) {
+	if(isNull()){
+		return right->isNull() ? 0 : -1;
+	}
+	else if(right->isNull()){
+		return isNull() ? 0 : 1;
+	}
+
+	ArrayReference* objRight = dynamic_cast<ArrayReference*>(right);
+	if(objRight == nullptr){
+		return -1;
+	}
+
+	return this->instArray->valueCompare(objRight->getInstance());
 }
 
 AbstractExtObject* ArrayReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {

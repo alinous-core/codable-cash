@@ -62,6 +62,15 @@ void VmClassInstance::removeInnerRefs(GcManager* gc) noexcept {
 	}
 }
 
+int VmClassInstance::valueCompare(AbstractVmInstance* right) {
+	int64_t diff = (int64_t)this - (int64_t)right;
+	if(diff == 0){
+		return 0;
+	}
+
+	return diff > 0 ? 1 : -1;
+}
+
 void VmClassInstance::init(VirtualMachine* vm) {
 	ArrayList<MemberVariableDeclare>* list = this->clazz->getMemberVariableDeclareList();
 	GcManager* gc = vm->getGc();

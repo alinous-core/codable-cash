@@ -21,6 +21,7 @@ public:
 
 	static int analyzeCompatibility(AnalyzedType* leftType, AnalyzedType* rightType);
 
+
 private:
 	static int checkRightNull(AnalyzedType* leftType, AnalyzedType* rightType);
 

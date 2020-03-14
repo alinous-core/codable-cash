@@ -51,6 +51,15 @@ TEST(TestVmVariableGroup, baseIsReference){
 	CHECK(ref->isReference() == true);
 }
 
+TEST(TestVmVariableGroup, baseIsReferenceCmp){
+	VirtualMachine* vm = new VirtualMachine(1024*1024); __STP(vm);
+
+	VmRootReference* ref1 = new(vm) VmRootReference(vm);__STP(ref1);
+	VmRootReference* ref2 = new(vm) VmRootReference(vm);__STP(ref2);
+
+	CHECK(ref1->valueCompare(ref2) == 0);
+}
+
 
 TEST(TestVmVariableGroup, primitives){
 	const File* projectFolder = this->env->getProjectRoot();

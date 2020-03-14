@@ -20,14 +20,17 @@ template <typename T, typename C> class ArrayList;
 
 class ArrayReference : public AbstractReference {
 public:
-	ArrayReference(VirtualMachine* vm);
+	explicit ArrayReference(VirtualMachine* vm);
 	virtual ~ArrayReference();
 
 	virtual AbstractVmInstance* getInstance() noexcept;
 	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
 	virtual bool isNull() const noexcept;
+	virtual int valueCompare(AbstractVmInstance* right);
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
+
+
 private:
 	VmArrayInstance* instArray;
 };

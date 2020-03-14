@@ -26,8 +26,6 @@ ObjectReference* ObjectReference::createObjectReference(VmClassInstance* clazzIn
 	ObjectReference* ref = new(vm) ObjectReference(VmInstanceTypesConst::REF_OBJ);
 	ref->setInstance(clazzInst);
 
-
-
 	return ref;
 }
 
@@ -51,9 +49,12 @@ void ObjectReference::substitute(AbstractVmInstance* rightValue, VirtualMachine*
 		this->instance = nullptr;
 	}
 
-	if(!rightValue->isNull()){
+	if(rightValue != nullptr && !rightValue->isNull()){
 		gc->addInstanceReference(this, rightValue);
 		this->instance = rightValue;
+	}
+	else {
+		this->instance = nullptr;
 	}
 }
 
@@ -63,6 +64,22 @@ AbstractExtObject* ObjectReference::toClassExtObject(const UnicodeString* name, 
 
 bool ObjectReference::isNull() const noexcept {
 	return this->instance == nullptr;
+}
+
+int ObjectReference::valueCompare(AbstractVmInstance* right) {
+	if(isNull()){
+		return right->isNull() ? 0 : -1;
+	}
+	else if(right->isNull()){
+		return isNull() ? 0 : 1;
+	}
+
+	ObjectReference* objRight = dynamic_cast<ObjectReference*>(right);
+	if(objRight == nullptr){
+		return -1;
+	}
+
+	return this->instance->valueCompare(objRight->getInstance());
 }
 
 } /* namespace alinous */

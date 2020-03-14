@@ -9,12 +9,19 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "instance/AbstractVmInstance.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
+#include "type_check/AnalyzedTypeChecker.h"
+
+#include "instance_gc/GcManager.h"
 namespace alinous {
 
 EqualityExpression::EqualityExpression() : AbstractExpression(CodeElement::EXP_CND_EQ) {
 	this->left = nullptr;
 	this->right = nullptr;
-	this->op = 0;
+	this->op = EQ;
 }
 
 EqualityExpression::~EqualityExpression() {
@@ -38,6 +45,9 @@ void EqualityExpression::analyzeTypeRef(AnalyzeContext* actx) {
 void EqualityExpression::analyze(AnalyzeContext* actx) {
 	this->left->analyze(actx);
 	this->right->analyze(actx);
+
+	AnalyzedTypeChecker checker;
+	checker.checkCompatibility(actx, this->left, this->right, true);
 }
 
 void EqualityExpression::setLeft(AbstractExpression* exp) noexcept {
@@ -96,7 +106,22 @@ void EqualityExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* EqualityExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	AbstractVmInstance* leftv = this->left->interpret(vm);
+	AbstractVmInstance* rightv = this->right->interpret(vm);
+
+	int result = leftv->valueCompare(rightv);
+	bool bl = (result == 0);
+	if(this->op == NOT_EQ){
+		bl = !bl;
+	}
+
+	GcManager* gc = vm->getGc();
+	gc->handleFloatingObject(leftv);
+	gc->handleFloatingObject(rightv);
+
+	PrimitiveReference* ret = PrimitiveReference::createBoolReference(vm, bl ? 1 : 0);
+
+	return ret;
 }
 
 } /* namespace alinous */

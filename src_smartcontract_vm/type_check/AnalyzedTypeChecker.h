@@ -21,6 +21,7 @@ public:
 	virtual ~AnalyzedTypeChecker();
 
 	bool checkCompatibility(AnalyzeContext* actx, AbstractExpression* leftExp, AbstractExpression* rightExp);
+	bool checkCompatibility(AnalyzeContext* actx, AbstractExpression* leftExp, AbstractExpression* rightExp, bool compare);
 private:
 	LeftType* left;
 	RightType* right;

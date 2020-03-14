@@ -111,6 +111,13 @@ ExtClassObject* VmTestUtils::getMainExtObject() {
 	return dynamic_cast<ExtClassObject*>(extObj);
 }
 
+AnalyzedType* VmTestUtils::findClassDeclare(const wchar_t* classFqn) {
+	UnicodeString strFqn(classFqn);
+
+	return findClassDeclare(&strFqn);
+}
+
+
 AnalyzedType* VmTestUtils::findClassDeclare(const UnicodeString* classFqn) {
 	CompilationUnit* unit = this->sc->getCompilationUnit(0);
 

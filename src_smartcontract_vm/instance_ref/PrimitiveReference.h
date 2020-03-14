@@ -25,6 +25,8 @@ public:
 	static PrimitiveReference* createLongReference(VirtualMachine* vm, int64_t value);
 
 	virtual bool isPrimitive() const noexcept;
+	virtual int valueCompare(AbstractVmInstance* right);
+
 	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 
@@ -39,6 +41,13 @@ public:
 	void setCharValue(int16_t value) noexcept;
 	int64_t getLongValue() const noexcept;
 	void setLongValue(int64_t value) noexcept;
+
+private:
+	int valueCompare8(PrimitiveReference* right);
+	int valueCompare16(PrimitiveReference* right);
+	int valueCompare32(PrimitiveReference* right);
+	int valueCompare64(PrimitiveReference* right);
+
 private:
 	void* data;
 	VmMalloc* malloc;
