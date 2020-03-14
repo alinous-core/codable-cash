@@ -7,6 +7,19 @@
 
 #include "sc_statement_ctrl/IfStatement.h"
 #include "sc_expression/AbstractExpression.h"
+
+#include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzedType.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
+
 namespace alinous {
 
 IfStatement::IfStatement() : AbstractStatement(CodeElement::STMT_IF) {
@@ -77,6 +90,10 @@ void IfStatement::analyze(AnalyzeContext* actx) {
 		this->elseStmt->analyze(actx);
 	}
 
+	AnalyzedType at = this->exp->getType(actx);
+	if(!at.isBool()){
+		actx->addValidationError(ValidationError::CODE_LOGICAL_EXP_NON_BOOL, this, L"If's expression requires boolean parameter.", {});
+	}
 }
 
 void IfStatement::setExpression(AbstractExpression* exp) noexcept {
@@ -183,7 +200,32 @@ void IfStatement::init(VirtualMachine* vm) {
 }
 
 void IfStatement::interpret(VirtualMachine* vm) {
-	// FIXME statement
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
+	AbstractVmInstance* expV = releaser.registerInstance(this->exp->interpret(vm));
+	PrimitiveReference* condition = dynamic_cast<PrimitiveReference*>(expV);
+
+	if(condition->getBoolValue()){
+		this->stmt->interpret(vm);
+		return;
+	}
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IfStatement* stmt = this->list.get(i);
+		expV = releaser.registerInstance(stmt->exp->interpret(vm));
+		condition = dynamic_cast<PrimitiveReference*>(expV);
+
+		if(condition->getBoolValue()){
+			stmt->stmt->interpret(vm);
+			return;
+		}
+	}
+
+	if(this->elseStmt != nullptr){
+		this->elseStmt->interpret(vm);
+	}
 }
 
 } /* namespace alinous */

@@ -30,6 +30,8 @@ public:
 	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 
+	bool getBoolValue() const noexcept;
+
 	int32_t getIntValue() const noexcept;
 	void setIntValue(int32_t value) noexcept;
 
