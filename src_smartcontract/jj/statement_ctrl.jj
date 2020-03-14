@@ -222,7 +222,8 @@ IfStatement* ifStatement() : {
 	
 	(LOOKAHEAD(2)
 		elseif=elseifStatement() {
-
+			ifstmt->addElseIf(elseif);
+			ifstmt->setPosition(elseif);
 		}
 	)*
 	

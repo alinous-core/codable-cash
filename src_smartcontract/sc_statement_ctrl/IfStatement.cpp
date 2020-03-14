@@ -152,12 +152,18 @@ void IfStatement::fromBinary(ByteBuffer* in) {
 
 	int maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){
+		element = createFromBinary(in);
+		checkKind(element, CodeElement::STMT_IF);
 
+		IfStatement* ifStmt = dynamic_cast<IfStatement*>(element);
+		addElseIf(ifStmt);
 	}
 
 	uint8_t bl = in->get();
 	if(bl == 1){
-
+		element = createFromBinary(in);
+		checkIsStatement(element);
+		this->stmt = dynamic_cast<AbstractStatement*>(element);
 	}
 }
 
