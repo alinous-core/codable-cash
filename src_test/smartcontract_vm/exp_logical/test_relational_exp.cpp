@@ -133,3 +133,15 @@ TEST(TestRelationalExpGroup, case04){
 	bl = getResult(obj, L"result3");
 	CHECK(bl== false);
 }
+
+TEST(TestRelationalExpGroup, case05){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/exp_logical/resources/relational/case05/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+}
+

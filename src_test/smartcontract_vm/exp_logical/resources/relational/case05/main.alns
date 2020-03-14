@@ -1,0 +1,18 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		boolean val = true;
+		this.result = val >= val;
+	}
+	
+	public int main(){
+		
+	}
+	
+	private boolean result = true;
+	private boolean result2 = true;
+	private boolean result3 = false;
+}
