@@ -103,6 +103,18 @@ TEST(TestCtrlStatementGroup, if02bin){
 	CHECK(res)
 }
 
+TEST(TestCtrlStatementGroup, if03){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement_ctrl/if3.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	IfStatement* lit = lang->ifStatement(); __STP(lit);
+
+	CHECK(!parser.hasError())
+}
+
 TEST(TestCtrlStatementGroup, break01){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement_ctrl/break01.alns"))
