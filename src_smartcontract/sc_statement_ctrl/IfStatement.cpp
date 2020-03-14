@@ -35,6 +35,8 @@ void IfStatement::analyzeTypeRef(AnalyzeContext* actx) {
 void IfStatement::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
 	this->stmt->analyze(actx);
+
+
 }
 
 
