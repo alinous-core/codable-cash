@@ -10,6 +10,8 @@
 
 #include "sc_statement/AbstractStatement.h"
 
+#include "base/ArrayList.h"
+
 namespace alinous {
 
 class AbstractExpression;
@@ -26,6 +28,7 @@ public:
 	void setExpression(AbstractExpression* exp) noexcept;
 	void setStatement(AbstractStatement* stmt) noexcept;
 
+	void addElseIf(IfStatement* elseif) noexcept;
 	void setElseStatement(AbstractStatement* elseStmt) noexcept;
 
 	virtual int binarySize() const;
@@ -37,6 +40,8 @@ public:
 private:
 	AbstractExpression* exp;
 	AbstractStatement* stmt;
+
+	ArrayList<IfStatement> list;
 
 	AbstractStatement* elseStmt;
 };

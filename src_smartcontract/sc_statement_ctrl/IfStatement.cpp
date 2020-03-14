@@ -20,6 +20,8 @@ IfStatement::~IfStatement() {
 	delete this->exp;
 	delete this->stmt;
 
+	this->list.deleteElements();
+
 	delete this->elseStmt;
 }
 
@@ -30,7 +32,16 @@ void IfStatement::preAnalyze(AnalyzeContext* actx) {
 	this->stmt->setParent(this);
 	this->stmt->preAnalyze(actx);
 
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IfStatement* stmt = this->list.get(i);
+
+		stmt->setParent(this);
+		stmt->preAnalyze(actx);
+	}
+
 	if(this->elseStmt != nullptr){
+		this->elseStmt->setParent(this);
 		this->elseStmt->preAnalyze(actx);
 	}
 }
@@ -38,6 +49,13 @@ void IfStatement::preAnalyze(AnalyzeContext* actx) {
 void IfStatement::analyzeTypeRef(AnalyzeContext* actx) {
 	this->exp->analyzeTypeRef(actx);
 	this->stmt->analyzeTypeRef(actx);
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IfStatement* stmt = this->list.get(i);
+
+		stmt->analyzeTypeRef(actx);
+	}
 
 	if(this->elseStmt != nullptr){
 		this->elseStmt->analyzeTypeRef(actx);
@@ -47,6 +65,13 @@ void IfStatement::analyzeTypeRef(AnalyzeContext* actx) {
 void IfStatement::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
 	this->stmt->analyze(actx);
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IfStatement* stmt = this->list.get(i);
+
+		stmt->analyze(actx);
+	}
 
 	if(this->elseStmt != nullptr){
 		this->elseStmt->analyze(actx);
@@ -62,6 +87,10 @@ void IfStatement::setStatement(AbstractStatement* stmt) noexcept {
 	this->stmt = stmt;
 }
 
+void IfStatement::addElseIf(IfStatement* elseif) noexcept {
+	this->list.addElement(elseif);
+}
+
 void IfStatement::setElseStatement(AbstractStatement* elseStmt) noexcept {
 	this->elseStmt = elseStmt;
 }
@@ -74,6 +103,18 @@ int IfStatement::binarySize() const {
 	total += this->exp->binarySize();
 	total += this->stmt->binarySize();
 
+	total += sizeof(uint32_t);
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; i++){
+		IfStatement* ifstmt = this->list.get(i);
+		total += ifstmt->binarySize();
+	}
+
+	total += sizeof(uint8_t);
+	if(this->elseStmt != nullptr){
+		total += this->elseStmt->binarySize();
+	}
+
 	return total;
 }
 
@@ -84,6 +125,20 @@ void IfStatement::toBinary(ByteBuffer* out) {
 	out->putShort(CodeElement::STMT_IF);
 	this->exp->toBinary(out);
 	this->stmt->toBinary(out);
+
+	int maxLoop = this->list.size();
+	out->putInt(maxLoop);
+
+	for(int i = 0; i != maxLoop; i++){
+		IfStatement* ifstmt = this->list.get(i);
+		ifstmt->toBinary(out);
+	}
+
+	bool bl = this->elseStmt != nullptr;
+	out->put(bl ? 1 : 0);
+	if(bl){
+		this->elseStmt->toBinary(out);
+	}
 }
 
 void IfStatement::fromBinary(ByteBuffer* in) {
@@ -94,11 +149,31 @@ void IfStatement::fromBinary(ByteBuffer* in) {
 	element = createFromBinary(in);
 	checkIsStatement(element);
 	this->stmt = dynamic_cast<AbstractStatement*>(element);
+
+	int maxLoop = in->getInt();
+	for(int i = 0; i != maxLoop; ++i){
+
+	}
+
+	uint8_t bl = in->get();
+	if(bl == 1){
+
+	}
 }
 
 void IfStatement::init(VirtualMachine* vm) {
 	this->exp->init(vm);
 	this->stmt->init(vm);
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IfStatement* stmt = this->list.get(i);
+		stmt->init(vm);
+	}
+
+	if(this->elseStmt != nullptr){
+		this->elseStmt->init(vm);
+	}
 }
 
 void IfStatement::interpret(VirtualMachine* vm) {
