@@ -115,6 +115,27 @@ TEST(TestCtrlStatementGroup, if03){
 	CHECK(!parser.hasError())
 }
 
+TEST(TestCtrlStatementGroup, if03bin){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement_ctrl/if3.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	IfStatement* stmt = lang->ifStatement(); __STP(stmt);
+
+	CHECK(!parser.hasError())
+
+	int size = stmt->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	stmt->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+}
+
 TEST(TestCtrlStatementGroup, break01){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/statement_ctrl/break01.alns"))

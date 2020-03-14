@@ -163,7 +163,7 @@ void IfStatement::fromBinary(ByteBuffer* in) {
 	if(bl == 1){
 		element = createFromBinary(in);
 		checkIsStatement(element);
-		this->stmt = dynamic_cast<AbstractStatement*>(element);
+		this->elseStmt = dynamic_cast<AbstractStatement*>(element);
 	}
 }
 
