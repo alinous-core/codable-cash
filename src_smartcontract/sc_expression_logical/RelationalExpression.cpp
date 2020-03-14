@@ -11,16 +11,18 @@
 #include "sc_analyze/AnalyzeContext.h"
 
 #include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
 
 #include "vm/VirtualMachine.h"
 
+#include "instance_ref/PrimitiveReference.h"
 
 namespace alinous {
 
 RelationalExpression::RelationalExpression() : AbstractExpression(CodeElement::EXP_CND_RELATIONAL) {
 	this->left = nullptr;
 	this->right = nullptr;
-	this->op = 0;
+	this->op = GT;
 }
 
 RelationalExpression::~RelationalExpression() {
@@ -111,10 +113,39 @@ void RelationalExpression::init(VirtualMachine* vm) {
 
 AbstractVmInstance* RelationalExpression::interpret(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
-	AbstractVmInstance* left = this->left->interpret(vm);
+	AbstractVmInstance* leftV = releaser.registerInstance(this->left->interpret(vm));
+	AbstractVmInstance* rightV = releaser.registerInstance(this->right->interpret(vm));
 
-	return nullptr; // FIXME expression::interpret()
+	PrimitiveReference* p1 = dynamic_cast<PrimitiveReference*>(leftV);
+	PrimitiveReference* p2 = dynamic_cast<PrimitiveReference*>(rightV);
+
+	int result = p1->valueCompare(p2);
+
+	PrimitiveReference* bl = nullptr;
+
+	switch(this->op){
+	case RelationalExpression::GT_EQ:
+		bl = makeBoolInst(vm, result >= 0);
+		break;
+	case RelationalExpression::LT:
+		bl = makeBoolInst(vm, result < 0);
+		break;
+	case RelationalExpression::LT_EQ:
+		bl = makeBoolInst(vm, result <= 0);
+		break;
+	case RelationalExpression::GT:
+	default:
+		bl = makeBoolInst(vm, result > 0);
+		break;
+	}
+
+	return bl;
+}
+
+PrimitiveReference* RelationalExpression::makeBoolInst(VirtualMachine* vm, bool value) const noexcept {
+	return PrimitiveReference::createBoolReference(vm, value ? 1 : 0);
 }
 
 } /* namespace alinous */

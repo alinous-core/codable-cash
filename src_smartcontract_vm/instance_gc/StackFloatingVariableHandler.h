@@ -20,6 +20,7 @@ public:
 	explicit StackFloatingVariableHandler(GcManager* gc);
 	virtual ~StackFloatingVariableHandler();
 
+	AbstractVmInstance* registerInstance(AbstractVmInstance* inst) noexcept;
 private:
 	GcManager* gc;
 	ArrayList<AbstractVmInstance> list;

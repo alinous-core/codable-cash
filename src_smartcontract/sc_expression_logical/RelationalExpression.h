@@ -13,6 +13,8 @@
 
 namespace alinous {
 
+class PrimitiveReference;
+
 class RelationalExpression : public AbstractExpression {
 public:
 	static const constexpr uint8_t GT{1};
@@ -39,6 +41,9 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
+private:
+	PrimitiveReference* makeBoolInst(VirtualMachine* vm, bool value) const noexcept;
 private:
 	AbstractExpression* left;
 	AbstractExpression* right;
