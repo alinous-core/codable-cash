@@ -12,11 +12,15 @@ namespace alinous {
 IfStatement::IfStatement() : AbstractStatement(CodeElement::STMT_IF) {
 	this->exp = nullptr;
 	this->stmt = nullptr;
+
+	this->elseStmt = nullptr;
 }
 
 IfStatement::~IfStatement() {
 	delete this->exp;
 	delete this->stmt;
+
+	delete this->elseStmt;
 }
 
 void IfStatement::preAnalyze(AnalyzeContext* actx) {
@@ -25,20 +29,30 @@ void IfStatement::preAnalyze(AnalyzeContext* actx) {
 
 	this->stmt->setParent(this);
 	this->stmt->preAnalyze(actx);
+
+	if(this->elseStmt != nullptr){
+		this->elseStmt->preAnalyze(actx);
+	}
 }
 
 void IfStatement::analyzeTypeRef(AnalyzeContext* actx) {
 	this->exp->analyzeTypeRef(actx);
 	this->stmt->analyzeTypeRef(actx);
+
+	if(this->elseStmt != nullptr){
+		this->elseStmt->analyzeTypeRef(actx);
+	}
 }
 
 void IfStatement::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
 	this->stmt->analyze(actx);
 
+	if(this->elseStmt != nullptr){
+		this->elseStmt->analyze(actx);
+	}
 
 }
-
 
 void IfStatement::setExpression(AbstractExpression* exp) noexcept {
 	this->exp = exp;
@@ -48,6 +62,9 @@ void IfStatement::setStatement(AbstractStatement* stmt) noexcept {
 	this->stmt = stmt;
 }
 
+void IfStatement::setElseStatement(AbstractStatement* elseStmt) noexcept {
+	this->elseStmt = elseStmt;
+}
 
 int IfStatement::binarySize() const {
 	checkNotNull(this->exp);
@@ -83,7 +100,6 @@ void IfStatement::init(VirtualMachine* vm) {
 	this->exp->init(vm);
 	this->stmt->init(vm);
 }
-
 
 void IfStatement::interpret(VirtualMachine* vm) {
 	// FIXME statement

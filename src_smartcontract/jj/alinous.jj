@@ -1405,14 +1405,15 @@ IfStatement* ifStatement() : {
 	
 	(LOOKAHEAD(2)
 		elseif=elseifStatement() {
-		
+
 		}
 	)*
 	
 	[LOOKAHEAD(2)
 		t="else" { ifstmt->setPosition(t); }
 		stmt=statement() {
-		
+			ifstmt->setElseStatement(stmt);
+			ifstmt->setPosition(stmt);
 		}
 	]
 	

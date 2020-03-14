@@ -1719,7 +1719,8 @@ ifstmt->setPosition(t);
       stmt = statement();
       }
       if (!hasError) {
-
+ifstmt->setElseStatement(stmt);
+                        ifstmt->setPosition(stmt);
       }
     } else {
       ;

@@ -26,6 +26,8 @@ public:
 	void setExpression(AbstractExpression* exp) noexcept;
 	void setStatement(AbstractStatement* stmt) noexcept;
 
+	void setElseStatement(AbstractStatement* elseStmt) noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
@@ -35,6 +37,8 @@ public:
 private:
 	AbstractExpression* exp;
 	AbstractStatement* stmt;
+
+	AbstractStatement* elseStmt;
 };
 
 } /* namespace alinous */
