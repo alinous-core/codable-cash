@@ -1702,7 +1702,8 @@ ifstmt->setStatement(stmt);
       elseif = elseifStatement();
       }
       if (!hasError) {
-
+ifstmt->addElseIf(elseif);
+                        ifstmt->setPosition(elseif);
       }
     }
     end_label_12: ;
