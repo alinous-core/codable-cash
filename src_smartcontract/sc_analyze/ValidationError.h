@@ -46,6 +46,7 @@ public:
 	static constexpr int CODE_ARITHMETIC_NON_INTEGER = 70;
 
 	static constexpr int CODE_LOGICAL_EXP_NON_BOOL = 71;
+	static constexpr int CODE_LOGICAL_EXP_NON_PRIMITIVE = 72;
 
 	//static constexpr int CODE_WRONG_TYPE_NAME = 4;
 

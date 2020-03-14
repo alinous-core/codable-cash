@@ -5,7 +5,15 @@
  *      Author: iizuka
  */
 #include "sc_expression_logical/RelationalExpression.h"
+
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
+
+#include "instance_gc/GcManager.h"
+
+#include "vm/VirtualMachine.h"
+
 
 namespace alinous {
 
@@ -31,6 +39,14 @@ void RelationalExpression::preAnalyze(AnalyzeContext* actx) {
 void RelationalExpression::analyze(AnalyzeContext* actx) {
 	this->left->analyze(actx);
 	this->right->analyze(actx);
+
+	AnalyzedType atL = this->left->getType(actx);
+	AnalyzedType atR = this->right->getType(actx);
+
+	if(!atL.isPrimitiveInteger() || !atR.isPrimitiveInteger()){
+		actx->addValidationError(ValidationError::CODE_LOGICAL_EXP_NON_PRIMITIVE, this, L"Relational expression requires integer parameters.", {});
+	}
+
 }
 
 void RelationalExpression::analyzeTypeRef(AnalyzeContext* actx) {
@@ -94,7 +110,9 @@ void RelationalExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* RelationalExpression::interpret(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
 
+	AbstractVmInstance* left = this->left->interpret(vm);
 
 	return nullptr; // FIXME expression::interpret()
 }
