@@ -103,4 +103,24 @@ TEST(TestIfStmtGroup, case04){
 	CHECK(iresult == 3)
 }
 
+TEST(TestIfStmtGroup, case05){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/stmt_ctrl/resources/if/case05/", projectFolder);
 
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+}
+
+TEST(TestIfStmtGroup, case06){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/stmt_ctrl/resources/if/case06/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+}

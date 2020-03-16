@@ -94,6 +94,16 @@ void IfStatement::analyze(AnalyzeContext* actx) {
 	if(!at.isBool()){
 		actx->addValidationError(ValidationError::CODE_LOGICAL_EXP_NON_BOOL, this, L"If's expression requires boolean parameter.", {});
 	}
+
+	maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IfStatement* stmt = this->list.get(i);
+
+		at = stmt->exp->getType(actx);
+		if(!at.isBool()){
+			actx->addValidationError(ValidationError::CODE_LOGICAL_EXP_NON_BOOL, this, L"If's expression requires boolean parameter.", {});
+		}
+	}
 }
 
 void IfStatement::setExpression(AbstractExpression* exp) noexcept {
