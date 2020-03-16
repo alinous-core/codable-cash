@@ -1,0 +1,19 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		int val = 13;
+		
+		if(val != 13){
+			this.result = 1;
+		}
+	}
+	
+	public int main(){
+
+	}
+	
+	private int result = -1;
+}
