@@ -43,3 +43,8 @@ TEST(TestStringClassGroup, base01){
 	CHECK(result)
 }
 
+TEST(TestStringClassGroup, stringInst01){
+	UnicodeString str;
+
+}
+

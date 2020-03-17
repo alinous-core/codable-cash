@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "instance/VmStringInstance.h"
+#include "instance_string/VmStringInstance.h"
 
 #include "instance/VmInstanceTypesConst.h"
 
