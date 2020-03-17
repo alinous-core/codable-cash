@@ -22,4 +22,12 @@ AbstractReservedClassDeclare::~AbstractReservedClassDeclare() {
 	delete this->members;
 }
 
+ArrayList<MethodDeclare>* AbstractReservedClassDeclare::getMethods() noexcept {
+	return this->methods;
+}
+
+ArrayList<MemberVariableDeclare>* AbstractReservedClassDeclare::getMemberVariables() noexcept {
+	return this->members;
+}
+
 } /* namespace alinous */
