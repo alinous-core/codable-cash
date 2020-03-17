@@ -15,6 +15,8 @@
 
 #include "reserved_classes_string/StringClassDeclare.h"
 
+#include "instance_string/VmString.h"
+
 using namespace alinous;
 
 TEST_GROUP(TestStringClassGroup) {
@@ -44,7 +46,10 @@ TEST(TestStringClassGroup, base01){
 }
 
 TEST(TestStringClassGroup, stringInst01){
-	UnicodeString str;
+	VirtualMachine vm(1024);
 
+	VmString* vmStr = new(&vm) VmString();
+
+	delete vmStr;
 }
 
