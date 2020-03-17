@@ -7,6 +7,9 @@
 
 #include "reserved_classes/ReservedClassRegistory.h"
 
+#include "sc_analyze/AnalyzedClass.h"
+
+
 namespace alinous {
 
 ReservedClassRegistory::ReservedClassRegistory() {
@@ -20,7 +23,11 @@ ReservedClassRegistory* ReservedClassRegistory::getInstance() {
 }
 
 ReservedClassRegistory::~ReservedClassRegistory() {
+	this->list.deleteElements();
+}
 
+const ArrayList<AnalyzedClass>* ReservedClassRegistory::getReservedClassesList() const noexcept {
+	return &this->list;
 }
 
 } /* namespace alinous */

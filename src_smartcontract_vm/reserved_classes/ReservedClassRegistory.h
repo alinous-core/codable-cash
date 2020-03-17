@@ -8,7 +8,11 @@
 #ifndef RESERVED_CLASSES_RESERVEDCLASSREGISTORY_H_
 #define RESERVED_CLASSES_RESERVEDCLASSREGISTORY_H_
 
+#include "base/ArrayList.h"
+
+
 namespace alinous {
+class AnalyzedClass;
 
 class ReservedClassRegistory {
 private:
@@ -18,6 +22,11 @@ public:
 	static ReservedClassRegistory* getInstance();
 
 	virtual ~ReservedClassRegistory();
+
+	const ArrayList<AnalyzedClass>* getReservedClassesList() const noexcept;
+
+private:
+	ArrayList<AnalyzedClass> list;
 };
 
 } /* namespace alinous */
