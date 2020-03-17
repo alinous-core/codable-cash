@@ -66,7 +66,7 @@ private:
 	bool isImplemented(VTableClassEntry* thisEntry, MethodDeclare* method);
 	void addDefaultConstructor() noexcept;
 
-private:
+protected:
 	bool interface;
 	ClassDeclareBlock* block;
 	UnicodeString* name;
