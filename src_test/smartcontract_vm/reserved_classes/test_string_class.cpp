@@ -13,12 +13,21 @@
 
 #include "../VmTestUtils.h"
 
+#include "reserved_classes_string/StringClassDeclare.h"
+
 using namespace alinous;
 
 TEST_GROUP(TestStringClassGroup) {
 	TEST_SETUP(){}
 	TEST_TEARDOWN(){}
 };
+
+TEST(TestStringClassGroup, construct){
+	StringClassDeclare dec;
+	const UnicodeString* str = dec.getName();
+
+	CHECK(str->equals(&StringClassDeclare::NAME))
+}
 
 TEST(TestStringClassGroup, base01){
 	const File* projectFolder = this->env->getProjectRoot();

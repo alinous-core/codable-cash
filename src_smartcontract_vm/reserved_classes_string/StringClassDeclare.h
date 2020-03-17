@@ -12,21 +12,22 @@
 
 namespace alinous {
 
+class UnicodeString;
+class AnalyzedClass;
+
 class StringClassDeclare : public AbstractReservedClassDeclare {
 public:
+	static UnicodeString NAME;
+
+	static AnalyzedClass* createAnalyzedClass() noexcept;
+
 	StringClassDeclare();
 	virtual ~StringClassDeclare();
 
-	void init(VirtualMachine* vm);
+	virtual const UnicodeString* getName() noexcept;
+	virtual const UnicodeString* getFullQualifiedName() noexcept;
 
-	const UnicodeString* getName() noexcept;
-	const UnicodeString* getFullQualifiedName() noexcept;
-
-	virtual int binarySize() const;
-	virtual void toBinary(ByteBuffer* out);
-	virtual void fromBinary(ByteBuffer* in);
-
-	ClassDeclare* getBaseClass() const noexcept;
+	virtual ClassDeclare* getBaseClass() const noexcept;
 };
 
 } /* namespace alinous */

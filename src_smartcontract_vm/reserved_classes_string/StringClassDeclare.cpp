@@ -7,9 +7,15 @@
 
 #include "reserved_classes_string/StringClassDeclare.h"
 
+#include "base/UnicodeString.h"
+
+#include "sc_analyze/AnalyzedClass.h"
+
 namespace alinous {
 
-StringClassDeclare::StringClassDeclare() {
+UnicodeString StringClassDeclare::NAME{L"String"};
+
+StringClassDeclare::StringClassDeclare() : AbstractReservedClassDeclare() {
 
 }
 
@@ -17,21 +23,22 @@ StringClassDeclare::~StringClassDeclare() {
 }
 
 const UnicodeString* StringClassDeclare::getName() noexcept {
+	return &NAME;
 }
 
 const UnicodeString* StringClassDeclare::getFullQualifiedName() noexcept {
+	return &NAME;
 }
 
-int StringClassDeclare::binarySize() const {
-}
+AnalyzedClass* StringClassDeclare::createAnalyzedClass() noexcept {
+	StringClassDeclare* classDec = new StringClassDeclare();
+	AnalyzedClass* aclass = new AnalyzedClass(classDec);
 
-void StringClassDeclare::toBinary(ByteBuffer* out) {
-}
-
-void StringClassDeclare::fromBinary(ByteBuffer* in) {
+	return aclass;
 }
 
 ClassDeclare* StringClassDeclare::getBaseClass() const noexcept {
+	return nullptr;
 }
 
 } /* namespace alinous */

@@ -7,6 +7,12 @@
 
 #include "reserved_classes/AbstractReservedClassDeclare.h"
 
+#include "sc_declare/MethodDeclare.h"
+#include "sc_declare/MemberVariableDeclare.h"
+
+#include "base/ArrayList.h"
+
+
 namespace alinous {
 
 AbstractReservedClassDeclare::AbstractReservedClassDeclare() : ClassDeclare() {

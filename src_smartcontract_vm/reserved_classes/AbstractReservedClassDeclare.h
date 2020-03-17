@@ -10,6 +10,7 @@
 
 #include "sc_declare/ClassDeclare.h"
 
+
 namespace alinous {
 
 class AbstractReservedClassDeclare : public ClassDeclare {
@@ -18,8 +19,8 @@ public:
 	virtual ~AbstractReservedClassDeclare();
 
 
-	ArrayList<MethodDeclare>* getMethods() noexcept;
-	ArrayList<MemberVariableDeclare>* getMemberVariables() noexcept;
+	virtual ArrayList<MethodDeclare>* getMethods() noexcept;
+	virtual ArrayList<MemberVariableDeclare>* getMemberVariables() noexcept;
 
 protected:
 	ArrayList<MethodDeclare>* methods;
