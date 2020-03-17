@@ -8,11 +8,11 @@
 #ifndef RESERVED_CLASSES_STRING_STRINGCLASSDECLARE_H_
 #define RESERVED_CLASSES_STRING_STRINGCLASSDECLARE_H_
 
-#include "sc_declare/ClassDeclare.h"
+#include "reserved_classes/AbstractReservedClassDeclare.h"
 
 namespace alinous {
 
-class StringClassDeclare : public ClassDeclare {
+class StringClassDeclare : public AbstractReservedClassDeclare {
 public:
 	StringClassDeclare();
 	virtual ~StringClassDeclare();
@@ -27,9 +27,6 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 	ClassDeclare* getBaseClass() const noexcept;
-
-	ArrayList<MethodDeclare>* getMethods() noexcept;
-	ArrayList<MemberVariableDeclare>* getMemberVariables() noexcept;
 };
 
 } /* namespace alinous */

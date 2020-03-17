@@ -34,10 +34,4 @@ void StringClassDeclare::fromBinary(ByteBuffer* in) {
 ClassDeclare* StringClassDeclare::getBaseClass() const noexcept {
 }
 
-ArrayList<MethodDeclare>* StringClassDeclare::getMethods() noexcept {
-}
-
-ArrayList<MemberVariableDeclare>* StringClassDeclare::getMemberVariables() noexcept {
-}
-
 } /* namespace alinous */
