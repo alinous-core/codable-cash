@@ -11,6 +11,8 @@
 #include <cstdint>
 #include "instance_parts/VMemList.h"
 
+#include "instance/VmAllocatee.h"
+
 namespace alinous {
 
 class VirtualMachine;
@@ -21,11 +23,11 @@ class VTableRegistory;
 
 class AbstractVmInstance {
 public:
-	explicit AbstractVmInstance(uint8_t type);
-	virtual ~AbstractVmInstance();
-
 	void* operator new(size_t size, VirtualMachine* vm);
 	void operator delete(void* p, size_t size);
+
+	explicit AbstractVmInstance(uint8_t type);
+	virtual ~AbstractVmInstance();
 
 	uint8_t getType() const noexcept;
 	int hashCode() const noexcept;
