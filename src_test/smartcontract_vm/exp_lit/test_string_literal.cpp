@@ -41,6 +41,10 @@ TEST(TestStringLiteralGroup, case01){
 	CHECK(result)
 
 	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	const UnicodeString* str = VmTestUtils::getStringMemberValue(obj, L"str");
+
+	UnicodeString ans(L"Hello World");
+	CHECK(ans.equals(str));
 }
 
 

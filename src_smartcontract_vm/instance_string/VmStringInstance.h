@@ -22,6 +22,8 @@ public:
 	virtual ~VmStringInstance();
 
 	virtual int valueCompare(AbstractVmInstance* right);
+
+	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 private:
 	VmString* value;
 	static const VmString::ValueCompare compareFunctor;

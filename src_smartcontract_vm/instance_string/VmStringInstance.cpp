@@ -10,6 +10,10 @@
 #include "instance/VmInstanceTypesConst.h"
 #include "instance_string/VmString.h"
 
+#include "base/UnicodeString.h"
+
+#include "ext_binary/ExtStringClass.h"
+
 namespace alinous {
 
 const VmString::ValueCompare VmStringInstance::compareFunctor;
@@ -28,5 +32,11 @@ int VmStringInstance::valueCompare(AbstractVmInstance* right) {
 	return compareFunctor(this->value, rightStr->value);
 }
 
+AbstractExtObject* VmStringInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
+	const wchar_t* wchar_str = this->value->towString();
+	UnicodeString str(wchar_str);
+
+	return new ExtStringClass(name, &str);
+}
 
 } /* namespace alinous */
