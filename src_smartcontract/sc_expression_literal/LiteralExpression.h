@@ -12,6 +12,7 @@
 
 namespace alinous {
 class UnicodeString;
+class ObjectReference;
 
 class LiteralExpression: public AbstractExpression {
 public:
@@ -35,6 +36,8 @@ public:
 private:
 	UnicodeString* str;
 	bool dquote;
+
+	ObjectReference* reference;
 };
 
 } /* namespace alinous */

@@ -9,15 +9,24 @@
 #include "base/UnicodeString.h"
 
 #include "sc_analyze/AnalyzedType.h"
+
+#include "instance_ref/VmRootReference.h"
+#include "instance_ref/ObjectReference.h"
+
+#include "vm/VirtualMachine.h"
+
+
 namespace alinous {
 
 LiteralExpression::LiteralExpression() : AbstractExpression(CodeElement::EXP_LITERAL){
 	this->str = nullptr;
 	this->dquote = true;
+	this->reference = nullptr;
 }
 
 LiteralExpression::~LiteralExpression() {
 	delete this->str;
+	this->reference = nullptr;
 }
 
 void LiteralExpression::preAnalyze(AnalyzeContext* actx) {
@@ -25,7 +34,7 @@ void LiteralExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void LiteralExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	// FIXME expression : analyze type
+
 }
 
 void LiteralExpression::analyze(AnalyzeContext* actx) {
@@ -65,11 +74,13 @@ AnalyzedType LiteralExpression::getType(AnalyzeContext* actx) {
 }
 
 void LiteralExpression::init(VirtualMachine* vm) {
+	VmRootReference* rootRef = vm->getVmRootReference();
+
 	// FIXME const literal
 }
 
 AbstractVmInstance* LiteralExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	return this->reference;
 }
 
 } /* namespace alinous */
