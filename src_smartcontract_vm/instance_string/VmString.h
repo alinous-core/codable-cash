@@ -25,12 +25,20 @@ public:
 	int length() const noexcept;
 	wchar_t charAt(int index) const noexcept;
 
+	const wchar_t* towString() const noexcept;
+
 private:
 	VmString* __append(wchar_t ch) noexcept;
 	void __closeString() noexcept;
 private:
 	VMemPrimitiveList<wchar_t> *buff;
 	int __hashCode;
+
+public:
+	class ValueCompare {
+	public:
+		int operator () (const VmString* const a, const VmString* const b) const;
+	};
 };
 
 } /* namespace alinous */

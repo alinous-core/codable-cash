@@ -44,6 +44,10 @@ wchar_t VmString::charAt(int index) const noexcept {
 	return this->buff->get(index);
 }
 
+const wchar_t* VmString::towString() const noexcept {
+	return this->buff->root;
+}
+
 void VmString::__closeString() noexcept {
 	this->buff->addElement(L'\0');
 	this->buff->backLast();
@@ -59,5 +63,15 @@ void VmString::__closeString() noexcept {
     }
     this->__hashCode = hash;
 }
+
+int VmString::ValueCompare::operator ()(const VmString* const a, const VmString* const b) const {
+	const wchar_t* astr = a->towString();
+	const wchar_t* bstr = b->towString();
+
+	int res = Mem::wcscmp(astr, bstr);
+
+	return res;
+}
+
 
 } /* namespace alinous */

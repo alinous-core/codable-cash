@@ -75,10 +75,12 @@ public:
 	void backLast(){
 		this->numArray--;
 	}
+
+public:
+	T* root;
 private:
 	int numArray;
 	int currentSize;
-	T* root;
 	VirtualMachine* vm;
 };
 

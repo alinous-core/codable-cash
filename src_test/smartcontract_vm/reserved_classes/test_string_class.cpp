@@ -49,7 +49,7 @@ TEST(TestStringClassGroup, base01){
 TEST(TestStringClassGroup, stringInst01){
 	VirtualMachine vm(1024);
 
-	UnicodeString str(L"");
+	UnicodeString str(L"test");
 	VmString* vmStr = new(&vm) VmString(&vm, &str);
 
 	delete vmStr;
@@ -58,9 +58,22 @@ TEST(TestStringClassGroup, stringInst01){
 TEST(TestStringClassGroup, stringInst02){
 	VirtualMachine vm(1024);
 
-	UnicodeString str(L"");
+	UnicodeString str(L"test");
 	VmStringInstance* strInst = new(&vm) VmStringInstance(&vm, &str);
 
 	delete strInst;
 }
 
+TEST(TestStringClassGroup, stringInstcmp01){
+	VirtualMachine vm(1024);
+
+	UnicodeString str(L"test");
+	VmStringInstance* strInst = new(&vm) VmStringInstance(&vm, &str);
+	VmStringInstance* strInst2 = new(&vm) VmStringInstance(&vm, &str);
+
+	int result = strInst->valueCompare(strInst2);
+	CHECK(result == 0)
+
+	delete strInst;
+	delete strInst2;
+}

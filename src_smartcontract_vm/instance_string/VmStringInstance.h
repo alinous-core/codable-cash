@@ -10,10 +10,10 @@
 
 #include "instance/AbstractVmInstance.h"
 
+#include "instance_string/VmString.h"
 
 namespace alinous {
 
-class VmString;
 class VirtualMachine;
 
 class VmStringInstance : public AbstractVmInstance {
@@ -24,6 +24,7 @@ public:
 	virtual int valueCompare(AbstractVmInstance* right);
 private:
 	VmString* value;
+	static const VmString::ValueCompare compareFunctor;
 };
 
 } /* namespace alinous */
