@@ -1,0 +1,17 @@
+
+
+package test.fw;
+
+import test.fw.base.BaseClass2;
+
+class SmartContract {
+	public SmartContract() {
+		this.base = null;
+	}
+	
+	public int main(){
+
+	}
+	
+	private BaseClass2 base;
+}
