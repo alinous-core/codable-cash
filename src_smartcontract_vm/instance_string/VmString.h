@@ -22,7 +22,15 @@ public:
 	VmString(VirtualMachine* vm, const UnicodeString* str);
 	virtual ~VmString();
 
+	int length() const noexcept;
+	wchar_t charAt(int index) const noexcept;
+
+private:
+	VmString* __append(wchar_t ch) noexcept;
+	void __closeString() noexcept;
+private:
 	VMemPrimitiveList<wchar_t> *buff;
+	int __hashCode;
 };
 
 } /* namespace alinous */

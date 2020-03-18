@@ -40,7 +40,7 @@ public:
 
 	explicit VMemPrimitiveList(VirtualMachine* vm, int defaultSize) noexcept : numArray(0),
 			currentSize(defaultSize > 4 ? defaultSize : 4) {
-		root = vm->getAlloc()->mallocPtrArray(this->currentSize * sizeof(T));
+		root = (T*)vm->getAlloc()->mallocPtrArray(this->currentSize * sizeof(T));
 		this->vm = vm;
 	}
 
@@ -48,6 +48,33 @@ public:
 		this->vm->getAlloc()->releaseArray(this->root);
 	}
 
+	void addElement(const T value) noexcept {
+		if(__builtin_expect(!(this->currentSize > this->numArray), 0)){
+			int size = this->currentSize * 2;
+
+			T* newPtr = (T*)vm->getAlloc()->mallocPtrArray(size * sizeof(T)); //new T[size];
+			//__memset(newPtr, 0, sizeof(T) * size);
+
+			Mem::memcpy(newPtr, this->root, sizeof(T) * this->currentSize);
+
+			this->vm->getAlloc()->releaseArray(this->root);
+			this->root = newPtr;
+
+			this->currentSize = size;
+		}
+
+		this->root[this->numArray++] = value;
+	}
+
+	inline T get(const int i) const noexcept {
+		return *(this->root + i);
+	}
+	inline int size() const noexcept {
+		return numArray;
+	}
+	void backLast(){
+		this->numArray--;
+	}
 private:
 	int numArray;
 	int currentSize;
