@@ -11,7 +11,7 @@
 #include "sc_analyze/AnalyzedType.h"
 
 #include "instance_ref/VmRootReference.h"
-#include "instance_ref/ObjectReference.h"
+#include "instance_string/VmStringInstance.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -75,8 +75,7 @@ AnalyzedType LiteralExpression::getType(AnalyzeContext* actx) {
 
 void LiteralExpression::init(VirtualMachine* vm) {
 	VmRootReference* rootRef = vm->getVmRootReference();
-
-	// FIXME const literal
+	this->reference = rootRef->newStringConstReferenece(this->str, vm);
 }
 
 AbstractVmInstance* LiteralExpression::interpret(VirtualMachine* vm) {

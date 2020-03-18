@@ -17,4 +17,12 @@ StringConstHolder::~StringConstHolder() {
 
 }
 
+VmStringInstance* StringConstHolder::newStringConstInstance(const UnicodeString* str, VirtualMachine* vm) {
+
+}
+
+void StringConstHolder::removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept {
+
+}
+
 } /* namespace alinous */

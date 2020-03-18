@@ -10,10 +10,18 @@
 
 namespace alinous {
 
+class VmStringInstance;
+class UnicodeString;
+class VirtualMachine;
+class VmRootReference;
+
 class StringConstHolder {
 public:
 	StringConstHolder();
 	virtual ~StringConstHolder();
+
+	VmStringInstance* newStringConstInstance(const UnicodeString* str, VirtualMachine* vm);
+	void removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept;
 };
 
 } /* namespace alinous */

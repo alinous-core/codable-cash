@@ -18,6 +18,7 @@ class VirtualMachine;
 class StaticInstanceHolder;
 class PrimitiveReference;
 class VmClassInstance;
+class VmStringInstance;
 
 class VmRootReference : public AbstractReference {
 public:
@@ -30,6 +31,7 @@ public:
 	void clearInnerReferences();
 
 	PrimitiveReference* newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm);
+	VmStringInstance* newStringConstReferenece(const UnicodeString* str, VirtualMachine* vm);
 
 	virtual int valueCompare(AbstractVmInstance* right);
 private:
