@@ -15,6 +15,7 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "base/StackRelease.h"
 
 namespace alinous {
 
@@ -75,7 +76,11 @@ AnalyzedType LiteralExpression::getType(AnalyzeContext* actx) {
 
 void LiteralExpression::init(VirtualMachine* vm) {
 	VmRootReference* rootRef = vm->getVmRootReference();
-	this->reference = rootRef->newStringConstReferenece(this->str, vm);
+
+
+	UnicodeString* invalue = this->str->substring(1, this->str->length() - 1); __STP(invalue);
+
+	this->reference = rootRef->newStringConstReferenece(invalue, vm);
 }
 
 AbstractVmInstance* LiteralExpression::interpret(VirtualMachine* vm) {
