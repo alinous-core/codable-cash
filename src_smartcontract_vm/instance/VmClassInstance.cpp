@@ -125,6 +125,4 @@ AbstractExtObject* VmClassInstance::toClassExtObject(const UnicodeString* name, 
 	return extObj;
 }
 
-
-
 } /* namespace alinous */

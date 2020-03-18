@@ -50,7 +50,7 @@ void NullLiteral::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* NullLiteral::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	return nullptr;
 }
 
 } /* namespace alinous */

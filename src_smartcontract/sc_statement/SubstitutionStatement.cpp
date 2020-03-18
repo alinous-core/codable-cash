@@ -102,7 +102,7 @@ void SubstitutionStatement::interpret(VirtualMachine* vm) {
 	AbstractReference* leftRef = dynamic_cast<AbstractReference*>(leftValue);
 	assert(leftRef->isReference());
 
-	if(rightValue->isReference()){
+	if(rightValue != nullptr && rightValue->isReference()){
 		AbstractReference* rightRef = dynamic_cast<AbstractReference*>(rightValue);
 		rightValue = rightRef->getInstance();
 	}
