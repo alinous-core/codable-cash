@@ -7,9 +7,13 @@
 
 #include "instance_string/VmString.h"
 
+#include "base/UnicodeString.h"
+
+#include "vm/VirtualMachine.h"
+
 namespace alinous {
 
-VmString::VmString() {
+VmString::VmString(VirtualMachine* vm, const UnicodeString* str) {
 
 }
 

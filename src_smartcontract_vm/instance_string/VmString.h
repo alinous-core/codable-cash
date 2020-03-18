@@ -12,9 +12,12 @@
 
 namespace alinous {
 
+class UnicodeString;
+class VirtualMachine;
+
 class VmString : public VmAllocatee {
 public:
-	VmString();
+	VmString(VirtualMachine* vm, const UnicodeString* str);
 	virtual ~VmString();
 };
 
