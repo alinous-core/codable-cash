@@ -8,6 +8,8 @@
 #ifndef INSTANCE_REF_STATIC_STRINGCONSTHOLDER_H_
 #define INSTANCE_REF_STATIC_STRINGCONSTHOLDER_H_
 
+#include "base/HashMap.h"
+
 namespace alinous {
 
 class VmStringInstance;
@@ -22,6 +24,9 @@ public:
 
 	VmStringInstance* newStringConstInstance(const UnicodeString* str, VirtualMachine* vm);
 	void removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept;
+
+private:
+	HashMap<UnicodeString, VmStringInstance> stringVariables;
 };
 
 } /* namespace alinous */
