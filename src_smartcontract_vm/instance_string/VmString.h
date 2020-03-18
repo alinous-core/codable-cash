@@ -10,6 +10,8 @@
 
 #include "instance/VmAllocatee.h"
 
+#include "instance_parts/VMemPrimitiveList.h"
+
 namespace alinous {
 
 class UnicodeString;
@@ -19,6 +21,8 @@ class VmString : public VmAllocatee {
 public:
 	VmString(VirtualMachine* vm, const UnicodeString* str);
 	virtual ~VmString();
+
+	VMemPrimitiveList<wchar_t> *buff;
 };
 
 } /* namespace alinous */
