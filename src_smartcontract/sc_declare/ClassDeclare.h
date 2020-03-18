@@ -45,20 +45,20 @@ public:
 	void setExtends(ClassExtends* extends) noexcept;
 	void setImplements(ClassImplements* implements) noexcept;
 
-	const UnicodeString* getName() noexcept;
-	const UnicodeString* getFullQualifiedName() noexcept;
+	virtual const UnicodeString* getName() noexcept;
+	virtual const UnicodeString* getFullQualifiedName() noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
 
-	ClassDeclare* getBaseClass() const noexcept;
+	virtual ClassDeclare* getBaseClass() const noexcept;
 	int getInheritIndex() const noexcept;
 	void setInheritIndex(int inheritIndex) noexcept;
 
 
-	ArrayList<MethodDeclare>* getMethods() noexcept;
-	ArrayList<MemberVariableDeclare>* getMemberVariables() noexcept;
+	virtual ArrayList<MethodDeclare>* getMethods() noexcept;
+	virtual ArrayList<MemberVariableDeclare>* getMemberVariables() noexcept;
 
 private:
 	void checkImplementsInterfaces(AnalyzeContext* actx);
@@ -66,7 +66,7 @@ private:
 	bool isImplemented(VTableClassEntry* thisEntry, MethodDeclare* method);
 	void addDefaultConstructor() noexcept;
 
-private:
+protected:
 	bool interface;
 	ClassDeclareBlock* block;
 	UnicodeString* name;

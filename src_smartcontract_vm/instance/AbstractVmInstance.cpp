@@ -20,6 +20,23 @@ AbstractVmInstance::AbstractVmInstance(uint8_t type) {
 AbstractVmInstance::~AbstractVmInstance() {
 }
 
+uint8_t AbstractVmInstance::getType() const noexcept {
+	return this->type;
+}
+
+int AbstractVmInstance::hashCode() const noexcept {
+	uint64_t addr = (uint64_t)this;
+	return (int)(addr >> 2);
+}
+
+const VMemList<AbstractReference>* AbstractVmInstance::getReferences() const noexcept {
+	return nullptr;
+}
+
+bool AbstractVmInstance::isReference() const noexcept {
+	return false;
+}
+
 void* AbstractVmInstance::operator new(size_t size, VirtualMachine* vm) {
 	VmMemoryManager* mem = vm->getMemory();
 	uint64_t mallocSize = size + sizeof(VirtualMachine*);
@@ -38,24 +55,6 @@ void AbstractVmInstance::operator delete(void* p, size_t size) {
 	VmMemoryManager* mem = (*vm)->getMemory();
 
 	mem->free((char*)ptr);
-
-}
-
-uint8_t AbstractVmInstance::getType() const noexcept {
-	return this->type;
-}
-
-int AbstractVmInstance::hashCode() const noexcept {
-	uint64_t addr = (uint64_t)this;
-	return (int)(addr >> 2);
-}
-
-const VMemList<AbstractReference>* AbstractVmInstance::getReferences() const noexcept {
-	return nullptr;
-}
-
-bool AbstractVmInstance::isReference() const noexcept {
-	return false;
 }
 
 AbstractExtObject* AbstractVmInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {

@@ -27,6 +27,10 @@ PrimitiveReference::~PrimitiveReference() {
 	}
 }
 
+bool PrimitiveReference::getBoolValue() const noexcept {
+	return getIntValue() > 0;
+}
+
 int32_t PrimitiveReference::getIntValue() const noexcept {
 	int64_t ret = 0;
 

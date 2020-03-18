@@ -1,0 +1,15 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		this.str = "Hello World";
+	}
+	
+	public int main(){
+
+	}
+	
+	private String str = null;
+}

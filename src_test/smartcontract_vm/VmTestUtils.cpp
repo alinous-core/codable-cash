@@ -20,12 +20,16 @@
 
 #include "ext_binary/AbstractExtObject.h"
 #include "ext_binary/ExtClassObject.h"
+#include "ext_binary/ExtPrimitiveObject.h"
+#include "ext_binary/ExtStringClass.h"
 
 #include "sc_analyze/AnalyzeContext.h"
 
 #include "sc_analyze/TypeResolver.h"
 
 #include "sc/CompilationUnit.h"
+
+
 namespace alinous {
 
 VmTestUtils::VmTestUtils(const wchar_t* seg, const File* projectFolder) {
@@ -126,5 +130,24 @@ AnalyzedType* VmTestUtils::findClassDeclare(const UnicodeString* classFqn) {
 
 	return resolver->findClassType(unit, classFqn);
 }
+
+bool VmTestUtils::getBoolMemberValue(ExtClassObject* obj, const wchar_t* str) {
+	UnicodeString strResult(str);
+	ExtPrimitiveObject* oresult = obj->getExtPrimitiveObject(&strResult);
+	return oresult->getBoolValue();
+}
+
+int64_t VmTestUtils::getIntMemberValue(ExtClassObject* obj,	const wchar_t* str) {
+	UnicodeString strResult(str);
+	ExtPrimitiveObject* oresult = obj->getExtPrimitiveObject(&strResult);
+	return oresult->getIntValue();
+}
+
+const UnicodeString* VmTestUtils::getStringMemberValue(ExtClassObject* obj, const wchar_t* str) {
+	UnicodeString strResult(str);
+	ExtStringClass* extObj = obj->getExtStringObject(&strResult);
+	return extObj->getValue();
+}
+
 
 } /* namespace alinous */

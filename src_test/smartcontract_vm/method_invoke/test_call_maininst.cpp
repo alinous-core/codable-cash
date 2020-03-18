@@ -75,7 +75,6 @@ TEST(TestCallMainInstGroup, callMainMethod){
 	CHECK(count == 1);
 
 	vm->destroy();
-
 }
 
 TEST(TestCallMainInstGroup, extArguments){

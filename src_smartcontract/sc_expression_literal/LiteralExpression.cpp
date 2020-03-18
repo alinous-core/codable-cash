@@ -9,15 +9,25 @@
 #include "base/UnicodeString.h"
 
 #include "sc_analyze/AnalyzedType.h"
+
+#include "instance_ref/VmRootReference.h"
+#include "instance_string/VmStringInstance.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "base/StackRelease.h"
+
 namespace alinous {
 
 LiteralExpression::LiteralExpression() : AbstractExpression(CodeElement::EXP_LITERAL){
 	this->str = nullptr;
 	this->dquote = true;
+	this->reference = nullptr;
 }
 
 LiteralExpression::~LiteralExpression() {
 	delete this->str;
+	this->reference = nullptr;
 }
 
 void LiteralExpression::preAnalyze(AnalyzeContext* actx) {
@@ -25,7 +35,7 @@ void LiteralExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void LiteralExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	// FIXME expression : analyze type
+
 }
 
 void LiteralExpression::analyze(AnalyzeContext* actx) {
@@ -65,11 +75,16 @@ AnalyzedType LiteralExpression::getType(AnalyzeContext* actx) {
 }
 
 void LiteralExpression::init(VirtualMachine* vm) {
-	// FIXME const literal
+	VmRootReference* rootRef = vm->getVmRootReference();
+
+
+	UnicodeString* invalue = this->str->substring(1, this->str->length() - 1); __STP(invalue);
+
+	this->reference = rootRef->newStringConstReferenece(invalue, vm);
 }
 
 AbstractVmInstance* LiteralExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	return this->reference;
 }
 
 } /* namespace alinous */

@@ -200,6 +200,8 @@ IfStatement* ifStatement() : {
 	AbstractExpression* exp;
 	AbstractStatement* stmt;
 	Token* t = nullptr;
+	
+	IfStatement* elseif = nullptr;
 }
 {
 	t="if" {
@@ -217,10 +219,53 @@ IfStatement* ifStatement() : {
 		ifstmt->setStatement(stmt);
 		ifstmt->setPosition(stmt);
 	}
+	
+	(LOOKAHEAD(2)
+		elseif=elseifStatement() {
+			ifstmt->addElseIf(elseif);
+			ifstmt->setPosition(elseif);
+		}
+	)*
+	
+	[LOOKAHEAD(2)
+		t="else" { ifstmt->setPosition(t); }
+		stmt=statement() {
+			ifstmt->setElseStatement(stmt);
+			ifstmt->setPosition(stmt);
+		}
+	]
+	
 	{
 		 __ONERROR(ifstmt);
 		return ifstmt;
 	}
 }
 
+IfStatement* elseifStatement() : {
+	IfStatement* ifstmt = new IfStatement();
+	AbstractExpression* exp;
+	AbstractStatement* stmt;
+	Token* t = nullptr;
+}
+{
+	t="else" {ifstmt->setPosition(t);}
+	t="if" {ifstmt->setPosition(t);}
+	t="(" {ifstmt->setPosition(t);}
+	
+	exp=expression() {
+		ifstmt->setExpression(exp);
+		ifstmt->setPosition(exp);
+	}
+		
+	t=")" {ifstmt->setPosition(t);}
+	
+	stmt=statement() {
+		ifstmt->setStatement(stmt);
+		ifstmt->setPosition(stmt);
+	}
+	{
+		 __ONERROR(ifstmt);
+		return ifstmt;
+	}
+}
 

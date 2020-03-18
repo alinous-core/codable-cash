@@ -27,6 +27,9 @@
 
 #include "base/StackRelease.h"
 
+#include "reserved_classes/ReservedClassRegistory.h"
+
+
 namespace alinous {
 
 AnalyzeContext::AnalyzeContext() {
@@ -146,6 +149,9 @@ void AnalyzeContext::analyzeClassInheritance() {
 	delete it;
 
 	// V tables
+	resigterReservedClasses(); // Reserved classes entries
+
+	// source classes
 	it = this->packageSpaces->keySet()->iterator();
 	while(it->hasNext()){
 		const UnicodeString* packageName = it->next();
@@ -164,6 +170,17 @@ void AnalyzeContext::analyzeClassInheritance() {
 		analyzeMembers(space);
 	}
 	delete it;
+}
+
+void AnalyzeContext::resigterReservedClasses() noexcept {
+	const ArrayList<AnalyzedClass>* list = ReservedClassRegistory::getInstance()->getReservedClassesList();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AnalyzedClass* cls = list->get(i);
+
+		cls->buildVtable(this);
+	}
 }
 
 void AnalyzeContext::analyzeMembers(PackageSpace* space) noexcept {
@@ -216,5 +233,6 @@ void AnalyzeContext::setTmpArrayType(AnalyzedType* tmpArrayType) noexcept {
 AnalyzedType* AnalyzeContext::getTmpArrayType() const noexcept {
 	return this->tmpArrayType;
 }
+
 
 } /* namespace alinous */

@@ -5,6 +5,7 @@ set(__src
 	ExtArrayObject.cpp
 	ExtClassObject.cpp
 	ExtPrimitiveObject.cpp
+	ExtStringClass.cpp
 )
 handle_sub(codablecashlib "${__src}" smartcontract_vm ext_binary)
 

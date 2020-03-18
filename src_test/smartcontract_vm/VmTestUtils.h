@@ -7,6 +7,7 @@
 
 #ifndef SMARTCONTRACT_VM_VMTESTUTILS_H_
 #define SMARTCONTRACT_VM_VMTESTUTILS_H_
+#include <cstdlib>
 
 namespace alinous {
 
@@ -34,6 +35,10 @@ public:
 
 	AnalyzedType* findClassDeclare(const wchar_t* classFqn);
 	AnalyzedType* findClassDeclare(const UnicodeString* classFqn);
+
+	static bool getBoolMemberValue(ExtClassObject* obj, const wchar_t* str);
+	static int64_t getIntMemberValue(ExtClassObject* obj, const wchar_t* str);
+	static const UnicodeString* getStringMemberValue(ExtClassObject* obj, const wchar_t* str);
 
 	VirtualMachine* vm;
 	SmartContract* sc;

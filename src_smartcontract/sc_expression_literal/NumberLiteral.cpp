@@ -90,7 +90,7 @@ AnalyzedType NumberLiteral::getType(AnalyzeContext* actx) {
 }
 
 void NumberLiteral::init(VirtualMachine* vm) {
-	this->referene = RefereceFactory::createNumericReference(this->value, this->atype.getType(), vm);
+	//this->referene = RefereceFactory::createNumericReference(this->value, this->atype.getType(), vm);
 
 	VmRootReference* rootRef = vm->getVmRootReference();
 	this->referene = rootRef->newNumericConstReferenece(this->value, this->atype.getType(), vm);
