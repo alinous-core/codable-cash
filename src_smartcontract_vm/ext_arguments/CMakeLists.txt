@@ -2,6 +2,7 @@
 
 set(__src
 	AbstractFunctionExtArguments.cpp
+	BoolArgument.cpp
 	NullArgument.cpp
 	NumericArgument.cpp
 	StringArgument.cpp
