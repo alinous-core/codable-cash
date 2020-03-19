@@ -16,6 +16,9 @@ class StringArgument : public AbstractFunctionExtArguments {
 public:
 	StringArgument();
 	virtual ~StringArgument();
+
+	virtual AnalyzedType getType() const noexcept;
+	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 };
 
 } /* namespace alinous */

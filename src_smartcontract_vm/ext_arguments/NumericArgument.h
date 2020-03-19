@@ -16,6 +16,9 @@ class NumericArgument : public AbstractFunctionExtArguments {
 public:
 	NumericArgument();
 	virtual ~NumericArgument();
+
+	virtual AnalyzedType getType() const noexcept;
+	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 };
 
 } /* namespace alinous */

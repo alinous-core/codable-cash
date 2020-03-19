@@ -16,14 +16,15 @@ NullArgument::NullArgument(const AnalyzedType* type) {
 }
 
 NullArgument::~NullArgument() {
-
+	delete this->atype;
 }
 
 AnalyzedType NullArgument::getType() const noexcept {
-
+	return *this->atype;
 }
 
 AbstractVmInstance* NullArgument::interpret(VirtualMachine* vm) {
+	return nullptr;
 }
 
 } /* namespace alinous */

@@ -7,15 +7,24 @@
 
 #include "ext_arguments/NumericArgument.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
+#include "vm/VirtualMachine.h"
+
 namespace alinous {
 
 NumericArgument::NumericArgument() {
-	// TODO Auto-generated constructor stub
 
 }
 
 NumericArgument::~NumericArgument() {
-	// TODO Auto-generated destructor stub
+
+}
+
+AnalyzedType NumericArgument::getType() const noexcept {
+}
+
+AbstractVmInstance* NumericArgument::interpret(VirtualMachine* vm) {
 }
 
 } /* namespace alinous */

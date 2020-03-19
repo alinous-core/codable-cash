@@ -7,15 +7,26 @@
 
 #include "ext_arguments/StringArgument.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
+#include "vm/VirtualMachine.h"
+
+
 namespace alinous {
 
 StringArgument::StringArgument() {
-	// TODO Auto-generated constructor stub
+
 
 }
 
 StringArgument::~StringArgument() {
-	// TODO Auto-generated destructor stub
+
+}
+
+AnalyzedType StringArgument::getType() const noexcept {
+}
+
+AbstractVmInstance* StringArgument::interpret(VirtualMachine* vm) {
 }
 
 } /* namespace alinous */
