@@ -11,12 +11,12 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "base/UnicodeString.h"
 
 namespace alinous {
 
-StringArgument::StringArgument() {
-
-
+StringArgument::StringArgument(const UnicodeString* str) {
+	this->value = new UnicodeString(str);
 }
 
 StringArgument::~StringArgument() {

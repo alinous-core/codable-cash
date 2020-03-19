@@ -12,13 +12,18 @@
 
 namespace alinous {
 
+class UnicodeString;
+
 class StringArgument : public AbstractFunctionExtArguments {
 public:
-	StringArgument();
+	explicit StringArgument(const UnicodeString* str);
 	virtual ~StringArgument();
 
 	virtual AnalyzedType getType() const noexcept;
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
+private:
+	UnicodeString* value;
 };
 
 } /* namespace alinous */
