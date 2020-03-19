@@ -7,15 +7,23 @@
 
 #include "ext_arguments/NullArgument.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
 namespace alinous {
 
-NullArgument::NullArgument() {
-	// TODO Auto-generated constructor stub
-
+NullArgument::NullArgument(const AnalyzedType* type) {
+	this->atype = new AnalyzedType(*type);
 }
 
 NullArgument::~NullArgument() {
-	// TODO Auto-generated destructor stub
+
+}
+
+AnalyzedType NullArgument::getType() const noexcept {
+
+}
+
+AbstractVmInstance* NullArgument::interpret(VirtualMachine* vm) {
 }
 
 } /* namespace alinous */

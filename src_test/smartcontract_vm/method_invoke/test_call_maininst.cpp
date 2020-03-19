@@ -22,9 +22,9 @@
 #include "ext_binary/ExtPrimitiveObject.h"
 
 #include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/AnalyzedType.h"
 
 #include "instance/VmClassInstance.h"
-
 
 using namespace alinous;
 
@@ -34,10 +34,14 @@ TEST_GROUP(TestCallMainInstGroup) {
 	TEST_TEARDOWN(){}
 };
 
+TEST(TestCallMainInstGroup, extArguments){
+	AnalyzedType at(AnalyzedType::TYPE_BOOL);
+	NullArgument nullArg(&at);
+}
 
 TEST(TestCallMainInstGroup, callMainMethod){
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/method_invoke/resources/callMainMethod/main.alns"));
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/method_invoke/resources/callMainMethod/case01/main.alns"));
 
 	SmartContract* sc = new SmartContract();
 	FileInputStream stream(sourceFile);
@@ -77,7 +81,6 @@ TEST(TestCallMainInstGroup, callMainMethod){
 	vm->destroy();
 }
 
-TEST(TestCallMainInstGroup, extArguments){
-	NullArgument nullArg;
-}
+TEST(TestCallMainInstGroup, callMainMethod2){
 
+}

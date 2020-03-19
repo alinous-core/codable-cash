@@ -39,6 +39,7 @@
 #include "compiler/CompileError.h"
 #include "compiler/ParseErrorHandler.h"
 
+#include "ext_arguments/AbstractFunctionExtArguments.h"
 
 namespace alinous {
 
@@ -173,7 +174,7 @@ VmClassInstance* SmartContract::createInstance(VirtualMachine* vm) {
 
 	// exec constructor
 	try{
-		ArrayList<AbstractReference> arguments;
+		ArrayList<AbstractFunctionExtArguments> arguments;
 		vm->interpret(defConstructor, inst, &arguments);
 	}
 	catch(AbstructProgramException* e){

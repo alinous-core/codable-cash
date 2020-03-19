@@ -10,10 +10,17 @@
 
 namespace alinous {
 
+class AnalyzedType;
+class AbstractVmInstance;
+class VirtualMachine;
+
 class AbstractFunctionExtArguments {
 public:
 	AbstractFunctionExtArguments();
 	virtual ~AbstractFunctionExtArguments();
+
+	virtual AnalyzedType getType() const noexcept = 0;
+	virtual AbstractVmInstance* interpret(VirtualMachine* vm) = 0;
 };
 
 } /* namespace alinous */

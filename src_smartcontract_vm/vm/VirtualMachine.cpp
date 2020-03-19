@@ -36,6 +36,9 @@
 
 #include "instance_exception/AbstructProgramException.h"
 
+#include "ext_arguments/AbstractFunctionExtArguments.h"
+
+
 namespace alinous {
 
 VirtualMachine::VirtualMachine(uint64_t memCapacity) {
@@ -87,11 +90,11 @@ VmClassInstance* VirtualMachine::createScInstance() {
 }
 
 void VirtualMachine::interpret(const UnicodeString* method) {
-	ArrayList<AbstractReference> list;
+	ArrayList<AbstractFunctionExtArguments> list;
 	interpret(method, &list);
 }
 
-void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractReference>* arguments) {
+void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractFunctionExtArguments>* arguments) {
 	VmClassInstance* _this = dynamic_cast<VmClassInstance*>(this->sc->getRootReference()->getInstance());
 	AnalyzedClass* aclass = _this->getAnalyzedClass();
 
@@ -118,7 +121,7 @@ void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractRe
 	methodDeclare->interpret(&args, this);
 }
 
-void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, ArrayList<AbstractReference>* arguments) {
+void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, ArrayList<AbstractFunctionExtArguments>* arguments) {
 	initialize();
 
 	FunctionArguments args;
