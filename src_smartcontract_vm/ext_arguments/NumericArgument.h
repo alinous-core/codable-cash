@@ -9,16 +9,21 @@
 #define EXT_ARGUMENTS_NUMERICARGUMENT_H_
 
 #include "ext_arguments/AbstractFunctionExtArguments.h"
+#include <cstdint>
 
 namespace alinous {
 
 class NumericArgument : public AbstractFunctionExtArguments {
 public:
-	NumericArgument();
+	NumericArgument(int64_t value, uint8_t atype);
 	virtual ~NumericArgument();
 
 	virtual AnalyzedType getType() const noexcept;
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
+private:
+	int64_t data;
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */
