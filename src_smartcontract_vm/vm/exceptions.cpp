@@ -29,4 +29,24 @@ VmMemoryAllocationException::VmMemoryAllocationException(const wchar_t* message,
 VmMemoryAllocationException::~VmMemoryAllocationException() {
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
+const wchar_t* VmMethodNotFoundException::defaultMessage = L"Method is not found. ";
+
+VmMethodNotFoundException::VmMethodNotFoundException(const char* srcfile, int srcline) noexcept : Exception(srcfile, srcline) {
+	this->message = new UnicodeString(defaultMessage);
+}
+VmMethodNotFoundException::VmMethodNotFoundException(Exception* cause, const char* srcfile, int srcline) noexcept : Exception(cause, srcfile, srcline) {
+	this->message = new UnicodeString(defaultMessage);
+}
+VmMethodNotFoundException::VmMethodNotFoundException(const wchar_t* message, const char* srcfile, int srcline) noexcept : Exception(message, srcfile, srcline) {
+	this->message = new UnicodeString(defaultMessage);
+	this->message->append(message);
+}
+VmMethodNotFoundException::VmMethodNotFoundException(const wchar_t* message, Exception* cause, const char* srcfile, int srcline) noexcept : Exception(message, cause, srcfile, srcline) {
+	this->message = new UnicodeString(defaultMessage);
+	this->message->append(message);
+}
+VmMethodNotFoundException::~VmMethodNotFoundException() {
+}
+
 } /* namespace alinous */

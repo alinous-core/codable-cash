@@ -26,6 +26,10 @@
 
 #include "instance/VmClassInstance.h"
 
+#include "../VmTestUtils.h"
+#include "ext_arguments/NumericArgument.h"
+
+#include "vm/exceptions.h"
 using namespace alinous;
 
 
@@ -37,6 +41,10 @@ TEST_GROUP(TestCallMainInstGroup) {
 TEST(TestCallMainInstGroup, extArguments){
 	AnalyzedType at(AnalyzedType::TYPE_BOOL);
 	NullArgument nullArg(&at);
+}
+
+TEST(TestCallMainInstGroup, testException01){
+	testException<VmMethodNotFoundException>();
 }
 
 TEST(TestCallMainInstGroup, callMainMethod){
@@ -82,5 +90,21 @@ TEST(TestCallMainInstGroup, callMainMethod){
 }
 
 TEST(TestCallMainInstGroup, callMainMethod2){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/method_invoke/resources/callMainMethod/case02/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	UnicodeString method(L"test");
+	ArrayList<AbstractFunctionExtArguments> args;
+	args.addElement(new NumericArgument(10, AnalyzedType::TYPE_INT));
+	util.vm->interpret(&method, &args);
 
 }

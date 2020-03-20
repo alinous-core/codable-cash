@@ -11,6 +11,7 @@
 #include "instance/VmInstanceTypesConst.h"
 #include "instance_gc/GcManager.h"
 
+#include "instance_string/VmStringInstance.h"
 
 namespace alinous {
 
@@ -23,6 +24,13 @@ ObjectReference::~ObjectReference() {
 }
 
 ObjectReference* ObjectReference::createObjectReference(VmClassInstance* clazzInst, VirtualMachine* vm) {
+	ObjectReference* ref = new(vm) ObjectReference(VmInstanceTypesConst::REF_OBJ);
+	ref->setInstance(clazzInst);
+
+	return ref;
+}
+
+ObjectReference* ObjectReference::createStringReference(VmStringInstance* clazzInst, VirtualMachine* vm) {
 	ObjectReference* ref = new(vm) ObjectReference(VmInstanceTypesConst::REF_OBJ);
 	ref->setInstance(clazzInst);
 

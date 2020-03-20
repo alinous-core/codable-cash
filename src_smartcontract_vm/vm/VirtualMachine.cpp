@@ -38,6 +38,7 @@
 
 #include "ext_arguments/AbstractFunctionExtArguments.h"
 
+#include "vm/exceptions.h"
 
 namespace alinous {
 
@@ -110,13 +111,34 @@ void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractFu
 	ArrayList<AnalyzedType> typeList;
 	typeList.setDeleteOnExit();
 
+	int maxLoop = arguments->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractFunctionExtArguments* extArg = arguments->get(i);
+
+		AnalyzedType at = extArg->getType();
+		typeList.addElement(new AnalyzedType(at));
+	}
+
 	MethodScore* score = calc.findMethod(method, &typeList);
+	if(score == nullptr){
+		throw new VmMethodNotFoundException(__FILE__, __LINE__);
+	}
+
 	VTableMethodEntry* methodEntry = score->getEntry();
 	MethodDeclare* methodDeclare = methodEntry->getMethod();
 
 	FunctionArguments args;
 	args.setThisPtr(_this);
 	setFunctionArguments(&args);
+
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractFunctionExtArguments* extArg = arguments->get(i);
+
+		AbstractVmInstance* inst = extArg->interpret(this);
+		AbstractReference* ref = AbstractFunctionExtArguments::toRegerence(this, inst);
+
+		args.addReference(ref);
+	}
 
 	methodDeclare->interpret(&args, this);
 }

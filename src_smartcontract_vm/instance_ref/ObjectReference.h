@@ -13,6 +13,7 @@
 namespace alinous {
 
 class AbstractVmInstance;
+class VmStringInstance;
 
 class ObjectReference : public AbstractReference {
 public:
@@ -20,6 +21,7 @@ public:
 	virtual ~ObjectReference();
 
 	static ObjectReference* createObjectReference(VmClassInstance* clazzInst, VirtualMachine* vm);
+	static ObjectReference* createStringReference(VmStringInstance* clazzInst, VirtualMachine* vm);
 
 	virtual bool isPrimitive() const noexcept;
 	virtual AbstractVmInstance* getInstance() noexcept;

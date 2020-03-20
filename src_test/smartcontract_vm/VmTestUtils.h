@@ -42,9 +42,11 @@ public:
 
 	VirtualMachine* vm;
 	SmartContract* sc;
+	VmClassInstance* mainInst;
+
 private:
 	File* folder;
-	VmClassInstance* mainInst;
+
 };
 
 } /* namespace alinous */

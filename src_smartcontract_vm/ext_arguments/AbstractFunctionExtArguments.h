@@ -13,6 +13,7 @@ namespace alinous {
 class AnalyzedType;
 class AbstractVmInstance;
 class VirtualMachine;
+class AbstractReference;
 
 class AbstractFunctionExtArguments {
 public:
@@ -21,6 +22,8 @@ public:
 
 	virtual AnalyzedType getType() const noexcept = 0;
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm) = 0;
+
+	static AbstractReference* toRegerence(VirtualMachine* vm, AbstractVmInstance* inst);
 };
 
 } /* namespace alinous */
