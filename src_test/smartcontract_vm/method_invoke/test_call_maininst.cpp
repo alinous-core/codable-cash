@@ -107,4 +107,37 @@ TEST(TestCallMainInstGroup, callMainMethod2){
 	args.addElement(new NumericArgument(10, AnalyzedType::TYPE_INT));
 	util.vm->interpret(&method, &args);
 
+	ExtClassObject* classObject = util.getMainExtObject();
+
+	int count = VmTestUtils::getIntMemberValue(classObject, L"count");
+	CHECK(count == 10)
 }
+
+TEST(TestCallMainInstGroup, callMainMethod2_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/method_invoke/resources/callMainMethod/case02/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	UnicodeString method(L"test2");
+	ArrayList<AbstractFunctionExtArguments> args;
+	args.addElement(new NumericArgument(10, AnalyzedType::TYPE_INT));
+
+	VmMethodNotFoundException* ex = nullptr;
+	try{
+		util.vm->interpret(&method, &args);
+	}catch(VmMethodNotFoundException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr);
+	delete ex;
+}
+

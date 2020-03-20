@@ -108,7 +108,7 @@ void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractFu
 
 	FunctionScoreCalc calc(classEntry);
 
-	// FIXME arguments type
+	// arguments type
 	ArrayList<AnalyzedType> typeList;
 	typeList.setDeleteOnExit();
 
