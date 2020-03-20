@@ -104,10 +104,12 @@ TEST(TestCallMainInstGroup, callMainMethod2){
 
 	UnicodeString method(L"test");
 	ArrayList<AbstractFunctionExtArguments> args;
+	args.setDeleteOnExit();
+
 	args.addElement(new NumericArgument(10, AnalyzedType::TYPE_INT));
 	util.vm->interpret(&method, &args);
 
-	ExtClassObject* classObject = util.getMainExtObject();
+	ExtClassObject* classObject = util.getMainExtObject(); __STP(classObject);
 
 	int count = VmTestUtils::getIntMemberValue(classObject, L"count");
 	CHECK(count == 10)
@@ -128,6 +130,8 @@ TEST(TestCallMainInstGroup, callMainMethod2_err){
 
 	UnicodeString method(L"test2");
 	ArrayList<AbstractFunctionExtArguments> args;
+	args.setDeleteOnExit();
+
 	args.addElement(new NumericArgument(10, AnalyzedType::TYPE_INT));
 
 	VmMethodNotFoundException* ex = nullptr;
