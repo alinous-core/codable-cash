@@ -58,7 +58,8 @@ void ReferenceStatus::removeOwner(const AbstractVmInstance* owner) noexcept {
 		break;
 	}
 
-	list->removeByObj(owner);
+	bool bl = list->removeByObj(owner);
+	assert(bl);
 }
 
 

@@ -13,6 +13,7 @@
 
 #include "vm/exceptions.h"
 
+#include "vm/VirtualMachine.h"
 namespace alinous {
 
 VmMemoryManager::VmMemoryManager(uint64_t capacity) {
