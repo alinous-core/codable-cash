@@ -16,13 +16,13 @@ FunctionArguments::FunctionArguments() {
 }
 
 FunctionArguments::~FunctionArguments() {
-	int maxLoop = this->list.size();
+/*	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractReference* ref = this->list.get(i);
 		if(!ref->isPrimitive()){
 			delete ref;
 		}
-	}
+	}*/
 }
 
 void FunctionArguments::addReference(AbstractReference* ref) noexcept {

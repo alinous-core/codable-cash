@@ -277,7 +277,7 @@ void FunctionCallExpression::interpretArguments(VirtualMachine* vm,	FunctionArgu
 			VmClassInstance* clazzInst = dynamic_cast<VmClassInstance*>(inst);
 			assert(clazzInst != nullptr);
 
-			ObjectReference* ref = ObjectReference::createObjectReference(clazzInst, vm);
+			ObjectReference* ref = ObjectReference::createObjectReference(clazzInst, vm, true);
 			args->addReference(ref);
 		}
 	}

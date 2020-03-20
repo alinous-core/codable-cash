@@ -23,16 +23,30 @@ ObjectReference::~ObjectReference() {
 
 }
 
-ObjectReference* ObjectReference::createObjectReference(VmClassInstance* clazzInst, VirtualMachine* vm) {
+ObjectReference* ObjectReference::createObjectReference(VmClassInstance* clazzInst, VirtualMachine* vm, bool doGc) {
 	ObjectReference* ref = new(vm) ObjectReference(VmInstanceTypesConst::REF_OBJ);
 	ref->setInstance(clazzInst);
 
+	if(doGc && clazzInst != nullptr){
+		GcManager* gc = vm->getGc();
+		gc->addInstanceReference(ref, clazzInst);
+	}
+
 	return ref;
+}
+
+ObjectReference* ObjectReference::createObjectReference(VmClassInstance* clazzInst, VirtualMachine* vm) {
+	return createObjectReference(clazzInst, vm, false);
 }
 
 ObjectReference* ObjectReference::createStringReference(VmStringInstance* clazzInst, VirtualMachine* vm) {
 	ObjectReference* ref = new(vm) ObjectReference(VmInstanceTypesConst::REF_OBJ);
 	ref->setInstance(clazzInst);
+
+	if(clazzInst != nullptr){
+		GcManager* gc = vm->getGc();
+		gc->addInstanceReference(ref, clazzInst);
+	}
 
 	return ref;
 }

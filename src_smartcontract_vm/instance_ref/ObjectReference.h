@@ -21,6 +21,7 @@ public:
 	virtual ~ObjectReference();
 
 	static ObjectReference* createObjectReference(VmClassInstance* clazzInst, VirtualMachine* vm);
+	static ObjectReference* createObjectReference(VmClassInstance* clazzInst, VirtualMachine* vm, bool doGc);
 	static ObjectReference* createStringReference(VmStringInstance* clazzInst, VirtualMachine* vm);
 
 	virtual bool isPrimitive() const noexcept;
