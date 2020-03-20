@@ -17,6 +17,7 @@
 
 #include "type_check/AnalyzedTypeChecker.h"
 
+#include "instance_gc/StackFloatingVariableHandler.h"
 namespace alinous {
 
 SubstitutionStatement::SubstitutionStatement() : AbstractStatement(CodeElement::STMT_SUBSTITUTION) {
@@ -99,6 +100,10 @@ void SubstitutionStatement::interpret(VirtualMachine* vm) {
 	AbstractVmInstance* leftValue = this->variable->interpret(vm);
 	AbstractVmInstance* rightValue = this->exp->interpret(vm);
 
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+	releaser.registerInstance(rightValue);
+
 	AbstractReference* leftRef = dynamic_cast<AbstractReference*>(leftValue);
 	assert(leftRef->isReference());
 
@@ -108,9 +113,6 @@ void SubstitutionStatement::interpret(VirtualMachine* vm) {
 	}
 
 	leftRef->substitute(rightValue, vm);
-
-	GcManager* gc = vm->getGc();
-	gc->handleFloatingObject(rightValue);
 }
 
 } /* namespace alinous */

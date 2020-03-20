@@ -40,6 +40,7 @@
 
 #include "vm/exceptions.h"
 
+#include "stack/StackPopper.h"
 namespace alinous {
 
 VirtualMachine::VirtualMachine(uint64_t memCapacity) {
@@ -139,6 +140,12 @@ void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractFu
 
 		args.addReference(ref);
 	}
+
+
+	// top stack
+	this->newStack();
+	StackPopper popStack(this);
+	VmStack* stack = this->topStack();
 
 	methodDeclare->interpret(&args, this);
 }

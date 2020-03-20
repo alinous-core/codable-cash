@@ -28,6 +28,10 @@ StackFloatingVariableHandler::~StackFloatingVariableHandler() {
 }
 
 AbstractVmInstance* StackFloatingVariableHandler::registerInstance(AbstractVmInstance* inst) noexcept {
+	if(inst == nullptr){
+		return nullptr;
+	}
+
 	AbstractVmInstance* regInst = inst;
 	if(regInst->isReference()){
 		AbstractReference* ref = dynamic_cast<AbstractReference*>(regInst);

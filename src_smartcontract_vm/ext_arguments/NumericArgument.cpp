@@ -42,11 +42,14 @@ AbstractVmInstance* NumericArgument::interpret(VirtualMachine* vm) {
 		ref = PrimitiveReference::createCharReference(vm, this->data);
 		break;
 	case AnalyzedType::TYPE_SHORT:
+		ref = PrimitiveReference::createShortReference(vm, this->data);
 		break;
 	case AnalyzedType::TYPE_LONG:
+		ref = PrimitiveReference::createLongReference(vm, this->data);
 		break;
 	case AnalyzedType::TYPE_INT:
 	default:
+		ref = PrimitiveReference::createIntReference(vm, this->data);
 		break;
 	}
 
