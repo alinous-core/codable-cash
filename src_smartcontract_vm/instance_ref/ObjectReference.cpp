@@ -15,7 +15,7 @@
 
 namespace alinous {
 
-ObjectReference::ObjectReference(uint8_t type) : AbstractReference(type) {
+ObjectReference::ObjectReference(AbstractVmInstance* owner, uint8_t type) : AbstractReference(owner, type) {
 	this->instance = nullptr;
 }
 
@@ -23,8 +23,8 @@ ObjectReference::~ObjectReference() {
 
 }
 
-ObjectReference* ObjectReference::createObjectReference(VmClassInstance* clazzInst, VirtualMachine* vm, bool doGc) {
-	ObjectReference* ref = new(vm) ObjectReference(VmInstanceTypesConst::REF_OBJ);
+ObjectReference* ObjectReference::createObjectReference(AbstractVmInstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm, bool doGc) {
+	ObjectReference* ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ);
 	ref->setInstance(clazzInst);
 
 	if(doGc && clazzInst != nullptr){
@@ -35,12 +35,12 @@ ObjectReference* ObjectReference::createObjectReference(VmClassInstance* clazzIn
 	return ref;
 }
 
-ObjectReference* ObjectReference::createObjectReference(VmClassInstance* clazzInst, VirtualMachine* vm) {
-	return createObjectReference(clazzInst, vm, false);
+ObjectReference* ObjectReference::createObjectReference(AbstractVmInstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm) {
+	return createObjectReference(owner, clazzInst, vm, false);
 }
 
-ObjectReference* ObjectReference::createStringReference(VmStringInstance* clazzInst, VirtualMachine* vm) {
-	ObjectReference* ref = new(vm) ObjectReference(VmInstanceTypesConst::REF_OBJ);
+ObjectReference* ObjectReference::createStringReference(AbstractVmInstance* owner, VmStringInstance* clazzInst, VirtualMachine* vm) {
+	ObjectReference* ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ);
 	ref->setInstance(clazzInst);
 
 	if(clazzInst != nullptr){

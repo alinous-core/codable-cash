@@ -14,7 +14,7 @@ namespace alinous {
 
 class PrimitiveReference : public AbstractReference {
 public:
-	explicit PrimitiveReference(uint8_t type);
+	explicit PrimitiveReference(AbstractVmInstance* owner, uint8_t type);
 	virtual ~PrimitiveReference();
 
 	static PrimitiveReference* createBoolReference(VirtualMachine* vm, int8_t value);

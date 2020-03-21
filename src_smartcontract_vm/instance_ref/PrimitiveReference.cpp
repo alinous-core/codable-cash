@@ -16,7 +16,7 @@
 
 namespace alinous {
 
-PrimitiveReference::PrimitiveReference(uint8_t type) : AbstractReference(type) {
+PrimitiveReference::PrimitiveReference(AbstractVmInstance* owner, uint8_t type) : AbstractReference(owner, type) {
 	this->data = nullptr;
 	this->malloc = nullptr;
 }
