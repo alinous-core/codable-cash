@@ -15,7 +15,7 @@ namespace alinous {
 
 class AbstractReference : public AbstractVmInstance {
 public:
-	explicit AbstractReference(uint8_t type);
+	explicit AbstractReference(AbstractVmInstance* owner, uint8_t type);
 	virtual ~AbstractReference();
 
 	virtual bool isPrimitive() const noexcept;
@@ -23,6 +23,9 @@ public:
 	virtual bool isReference() const noexcept;
 
 	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
+
+protected:
+	AbstractVmInstance* const owner;
 };
 
 } /* namespace alinous */

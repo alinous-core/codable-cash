@@ -40,7 +40,7 @@ VmArrayInstance* VmArrayInstanceUtils::buildArrayInstance(VirtualMachine* vm, in
 
 	VmArrayInstance* inst = new(vm) VmArrayInstance(vm, length);
 	for(int i = 0; i != length; ++i){
-		AbstractReference* ref = makeReference(vm, size, 0, atype);
+		AbstractReference* ref = makeReference(inst, vm, size, 0, atype);
 		inst->setReference(vm, i, ref);
 		lastRefs.addElement(ref);
 	}
@@ -76,14 +76,14 @@ void VmArrayInstanceUtils::makeDimension(VirtualMachine* vm, int maxDepth, int c
 void VmArrayInstanceUtils::setupVmArrayInstance(VirtualMachine* vm, VmArrayInstance* inst,
 		int length, const AnalyzedType* atype, ArrayList<AbstractReference>* refs, int maxDepth, int current) {
 	for(int i = 0; i != length; ++i){
-		AbstractReference* ref = makeReference(vm, maxDepth, current, atype);
+		AbstractReference* ref = makeReference(inst, vm, maxDepth, current, atype);
 		inst->setReference(vm, i, ref);
 		refs->addElement(ref);
 	}
 
 }
 
-AbstractReference* VmArrayInstanceUtils::makeReference(VirtualMachine* vm, int depth, int current, const AnalyzedType* atype) {
+AbstractReference* VmArrayInstanceUtils::makeReference(AbstractVmInstance* owner, VirtualMachine* vm, int depth, int current, const AnalyzedType* atype) {
 	if(depth - 1 <= current){
 		AnalyzedType baseType(*atype);
 		baseType.setDim(0);
@@ -92,7 +92,7 @@ AbstractReference* VmArrayInstanceUtils::makeReference(VirtualMachine* vm, int d
 		return ref;
 	}
 
-	return new(vm) ArrayReference(vm);
+	return new(vm) ArrayReference(owner, vm);
 }
 
 } /* namespace alinous */

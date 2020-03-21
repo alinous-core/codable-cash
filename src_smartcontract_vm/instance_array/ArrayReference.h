@@ -20,7 +20,7 @@ template <typename T, typename C> class ArrayList;
 
 class ArrayReference : public AbstractReference {
 public:
-	explicit ArrayReference(VirtualMachine* vm);
+	explicit ArrayReference(AbstractVmInstance* owner, VirtualMachine* vm);
 	virtual ~ArrayReference();
 
 	virtual AbstractVmInstance* getInstance() noexcept;

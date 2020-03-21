@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-AbstractReference::AbstractReference(uint8_t type) : AbstractVmInstance(type) {
+AbstractReference::AbstractReference(AbstractVmInstance* owner, uint8_t type) : AbstractVmInstance(type), owner(owner) {
 
 }
 
