@@ -23,6 +23,7 @@ public:
 	VmStringInstance(VirtualMachine* vm, const UnicodeString* str);
 	virtual ~VmStringInstance();
 
+	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
 	virtual int valueCompare(AbstractVmInstance* right);
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);

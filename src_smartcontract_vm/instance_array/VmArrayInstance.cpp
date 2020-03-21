@@ -77,6 +77,10 @@ int VmArrayInstance::valueCompare(AbstractVmInstance* right) {
 	return diff > 0 ? 1 : -1;
 }
 
+IAbstractVmInstanceSubstance* VmArrayInstance::getInstance() noexcept {
+	return this;
+}
+
 void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReference* ref) noexcept {
 	GcManager* gc = vm->getGc();
 

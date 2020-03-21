@@ -40,7 +40,8 @@ VmClassInstance::~VmClassInstance() {
 	int maxLoop = this->members.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractReference* ref = this->members.get(i);
-		if(!ref->isPrimitive()) delete ref;
+
+		delete ref;
 	}
 }
 
@@ -69,6 +70,10 @@ int VmClassInstance::valueCompare(AbstractVmInstance* right) {
 	}
 
 	return diff > 0 ? 1 : -1;
+}
+
+IAbstractVmInstanceSubstance* VmClassInstance::getInstance() noexcept {
+	return this;
 }
 
 void VmClassInstance::init(VirtualMachine* vm) {

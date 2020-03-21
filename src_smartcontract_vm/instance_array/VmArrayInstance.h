@@ -23,6 +23,8 @@ public:
 	VmArrayInstance(VirtualMachine* vm, int length);
 	virtual ~VmArrayInstance();
 
+	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
+
 	virtual void removeInnerRefs(GcManager* gc) noexcept;
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* reg);

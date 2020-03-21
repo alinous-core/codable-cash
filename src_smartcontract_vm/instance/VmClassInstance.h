@@ -27,6 +27,7 @@ public:
 
 	static VmClassInstance* createObject(AnalyzedClass* clazz, VirtualMachine* vm);
 
+	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 	virtual void removeInnerRefs(GcManager* gc) noexcept;
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* reg);

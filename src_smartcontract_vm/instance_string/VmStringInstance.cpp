@@ -32,6 +32,10 @@ int VmStringInstance::valueCompare(AbstractVmInstance* right) {
 	return compareFunctor(this->value, rightStr->value);
 }
 
+IAbstractVmInstanceSubstance* VmStringInstance::getInstance() noexcept {
+	return this;
+}
+
 AbstractExtObject* VmStringInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
 	const wchar_t* wchar_str = this->value->towString();
 	UnicodeString str(wchar_str);
