@@ -18,6 +18,9 @@
 #include "type_check/AnalyzedTypeChecker.h"
 
 #include "instance_gc/StackFloatingVariableHandler.h"
+
+#include "instance/IAbstractVmInstanceSubstance.h"
+
 namespace alinous {
 
 SubstitutionStatement::SubstitutionStatement() : AbstractStatement(CodeElement::STMT_SUBSTITUTION) {
@@ -107,12 +110,13 @@ void SubstitutionStatement::interpret(VirtualMachine* vm) {
 	AbstractReference* leftRef = dynamic_cast<AbstractReference*>(leftValue);
 	assert(leftRef->isReference());
 
-	if(rightValue != nullptr && rightValue->isReference()){
-		AbstractReference* rightRef = dynamic_cast<AbstractReference*>(rightValue);
-		rightValue = rightRef->getInstance();
+
+	IAbstractVmInstanceSubstance* sub = nullptr;
+	if(rightValue != nullptr){
+		sub = rightValue->getInstance();
 	}
 
-	leftRef->substitute(rightValue, vm);
+	leftRef->substitute(sub, vm);
 }
 
 } /* namespace alinous */

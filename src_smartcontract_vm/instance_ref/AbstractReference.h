@@ -24,7 +24,7 @@ public:
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
 	virtual bool isReference() const noexcept;
 
-	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
+	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
 
 protected:
 	AbstractVmInstance* const owner;

@@ -29,7 +29,7 @@ bool AbstractReference::isReference() const noexcept {
 	return true;
 }
 
-void AbstractReference::substitute(AbstractVmInstance* rightValue, VirtualMachine* vm) {
+void AbstractReference::substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm) {
 }
 
 

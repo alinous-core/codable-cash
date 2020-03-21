@@ -20,6 +20,7 @@ class AbstractReference;
 class GcManager;
 class AbstractExtObject;
 class VTableRegistory;
+class IAbstractVmInstanceSubstance;
 
 class AbstractVmInstance {
 public:
@@ -33,6 +34,7 @@ public:
 	int hashCode() const noexcept;
 
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
+	virtual IAbstractVmInstanceSubstance* getInstance() noexcept = 0;
 	virtual bool isReference() const noexcept;
 	virtual bool isNull() const noexcept;
 	virtual int valueCompare(AbstractVmInstance* right) = 0;

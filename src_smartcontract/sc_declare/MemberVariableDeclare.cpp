@@ -113,7 +113,7 @@ void MemberVariableDeclare::doOnAllocate(VirtualMachine* vm, AbstractReference* 
 	StackPopper popStack(vm);
 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
-	ref->substitute(inst, vm);
+	ref->substitute(inst->getInstance(), vm);
 
 	gc->handleFloatingObject(inst);
 }
