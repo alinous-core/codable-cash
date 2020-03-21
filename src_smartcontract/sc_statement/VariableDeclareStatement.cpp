@@ -156,7 +156,7 @@ void VariableDeclareStatement::interpret(VirtualMachine* vm) {
 
 	if(this->exp != nullptr){
 		AbstractVmInstance* instValue = this->exp->interpret(vm);
-		ref->substitute(instValue, vm);
+		ref->substitute(instValue != nullptr ? instValue->getInstance() : nullptr, vm);
 
 		gc->handleFloatingObject(instValue);
 	}
