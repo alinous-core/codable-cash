@@ -19,7 +19,7 @@ FunctionArguments::~FunctionArguments() {
 
 }
 
-void FunctionArguments::addSubstance(AbstractVmInstanceSubstance* ref) noexcept {
+void FunctionArguments::addSubstance(IAbstractVmInstanceSubstance* ref) noexcept {
 	this->list.addElement(ref);
 }
 
@@ -31,7 +31,7 @@ VmClassInstance* FunctionArguments::getThisPtr() const noexcept {
 	return this->_this;
 }
 
-const ArrayList<AbstractVmInstanceSubstance>* FunctionArguments::getArguments() const noexcept {
+const ArrayList<IAbstractVmInstanceSubstance>* FunctionArguments::getArguments() const noexcept {
 	return &this->list;
 }
 
