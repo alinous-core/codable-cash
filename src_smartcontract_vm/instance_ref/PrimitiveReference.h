@@ -9,10 +9,11 @@
 #define INSTANCE_REF_PRIMITIVEREFERENCE_H_
 
 #include "instance_ref/AbstractReference.h"
+#include "instance/IAbstractVmInstanceSubstance.h"
 
 namespace alinous {
 
-class PrimitiveReference : public AbstractReference {
+class PrimitiveReference : public AbstractReference, public IAbstractVmInstanceSubstance {
 public:
 	explicit PrimitiveReference(AbstractVmInstance* owner, uint8_t type);
 	virtual ~PrimitiveReference();
