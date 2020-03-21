@@ -26,7 +26,7 @@ public:
 	virtual ~VmRootReference();
 
 	void setMainInstance(VmClassInstance* mainInst) noexcept;
-	virtual AbstractVmInstance* getInstance() noexcept;
+	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
 
 	void clearInnerReferences();
 

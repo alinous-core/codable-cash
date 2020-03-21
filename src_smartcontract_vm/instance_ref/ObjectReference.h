@@ -25,7 +25,7 @@ public:
 	static ObjectReference* createStringReference(AbstractVmInstance* owner, VmStringInstance* clazzInst, VirtualMachine* vm);
 
 	virtual bool isPrimitive() const noexcept;
-	virtual AbstractVmInstance* getInstance() noexcept;
+	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
 
 	void setInstance(AbstractVmInstance* instance) noexcept;
 

@@ -50,7 +50,7 @@ void VmRootReference::setMainInstance(VmClassInstance* mainInst) noexcept {
 }
 
 
-AbstractVmInstance* VmRootReference::getInstance() noexcept {
+IAbstractVmInstanceSubstance* VmRootReference::getInstance() noexcept {
 	return this->mainInst;
 }
 

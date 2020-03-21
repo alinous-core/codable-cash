@@ -5,17 +5,16 @@
  *      Author: iizuka
  */
 
-#include <instance/IAbstractVmInstanceSubstance.h>
+#include "instance/IAbstractVmInstanceSubstance.h"
 
 namespace alinous {
 
 IAbstractVmInstanceSubstance::IAbstractVmInstanceSubstance() {
-	// TODO Auto-generated constructor stub
 
 }
 
 IAbstractVmInstanceSubstance::~IAbstractVmInstanceSubstance() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */

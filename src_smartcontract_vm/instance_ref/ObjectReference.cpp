@@ -55,7 +55,7 @@ bool ObjectReference::isPrimitive() const noexcept {
 	return false;
 }
 
-AbstractVmInstance* ObjectReference::getInstance() noexcept {
+IAbstractVmInstanceSubstance* ObjectReference::getInstance() noexcept {
 	return this->instance;
 }
 
