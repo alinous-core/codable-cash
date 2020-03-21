@@ -225,12 +225,12 @@ void ConstructorCall::interpretArguments(VirtualMachine* vm, FunctionArguments* 
 		AbstractVmInstance* inst = exp->interpret(vm);
 
 		if(inst->isReference()){
-			AbstractVmInstanceSubstance* ref = dynamic_cast<AbstractVmInstanceSubstance*>(inst);
+			AbstractReference* ref = dynamic_cast<AbstractReference*>(inst);
 			assert(ref != nullptr);
-			args->addSubstance(ref);
+			args->addSubstance(ref->getInstance());
 		}
 		else{
-			VmClassInstance* clazzInst = dynamic_cast<VmClassInstance*>(inst);
+			IAbstractVmInstanceSubstance* clazzInst = dynamic_cast<IAbstractVmInstanceSubstance*>(inst);
 			assert(clazzInst != nullptr);
 
 			args->addSubstance(clazzInst);
