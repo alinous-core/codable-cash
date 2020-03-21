@@ -8,7 +8,7 @@
 #ifndef INSTANCE_VMCLASSINSTANCE_H_
 #define INSTANCE_VMCLASSINSTANCE_H_
 
-#include "instance/AbstractVmInstance.h"
+#include "instance/AbstractVmInstanceSubstance.h"
 #include "instance/IInstanceContainer.h"
 #include "instance_parts/VMemList.h"
 
@@ -19,7 +19,7 @@ class AbstractReference;
 class VirtualMachine;
 class GcManager;
 
-class VmClassInstance : public AbstractVmInstance, public IInstanceContainer {
+class VmClassInstance : public AbstractVmInstanceSubstance, public IInstanceContainer {
 public:
 	VmClassInstance(AnalyzedClass* clazz, VirtualMachine* vm);
 	virtual ~VmClassInstance();

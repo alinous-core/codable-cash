@@ -12,13 +12,13 @@
 #include "instance/IInstanceContainer.h"
 #include "instance_parts/VMemList.h"
 
-#include "instance/AbstractVmInstance.h"
+#include "instance/AbstractVmInstanceSubstance.h"
 
 
 namespace alinous {
 class VirtualMachine;
 
-class VmArrayInstance : public AbstractVmInstance, public IInstanceContainer {
+class VmArrayInstance : public AbstractVmInstanceSubstance, public IInstanceContainer {
 public:
 	VmArrayInstance(VirtualMachine* vm, int length);
 	virtual ~VmArrayInstance();

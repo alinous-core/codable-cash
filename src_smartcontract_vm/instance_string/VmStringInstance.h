@@ -8,7 +8,7 @@
 #ifndef INSTANCE_VMSTRINGINSTANCE_H_
 #define INSTANCE_VMSTRINGINSTANCE_H_
 
-#include "instance/AbstractVmInstance.h"
+#include "instance/AbstractVmInstanceSubstance.h"
 
 #include "instance_string/VmString.h"
 
@@ -16,7 +16,7 @@ namespace alinous {
 
 class VirtualMachine;
 
-class VmStringInstance : public AbstractVmInstance {
+class VmStringInstance : public AbstractVmInstanceSubstance {
 public:
 	VmStringInstance(VirtualMachine* vm, const UnicodeString* str);
 	virtual ~VmStringInstance();

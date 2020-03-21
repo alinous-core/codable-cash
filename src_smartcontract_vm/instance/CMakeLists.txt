@@ -2,6 +2,7 @@
 
 set(__src
 	AbstractVmInstance.cpp
+	AbstractVmInstanceSubstance.cpp
 	IInstanceContainer.cpp
 	VmAllocatee.cpp
 	VmClassInstance.cpp

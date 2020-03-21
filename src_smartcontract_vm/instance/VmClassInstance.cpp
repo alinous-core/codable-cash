@@ -32,7 +32,7 @@
 namespace alinous {
 
 VmClassInstance::VmClassInstance(AnalyzedClass* clazz, VirtualMachine* vm) :
-		AbstractVmInstance(VmInstanceTypesConst::ISNT_OBJ), clazz(clazz), members(vm) {
+		AbstractVmInstanceSubstance(VmInstanceTypesConst::ISNT_OBJ), clazz(clazz), members(vm) {
 
 }
 
