@@ -16,16 +16,10 @@ FunctionArguments::FunctionArguments() {
 }
 
 FunctionArguments::~FunctionArguments() {
-/*	int maxLoop = this->list.size();
-	for(int i = 0; i != maxLoop; ++i){
-		AbstractReference* ref = this->list.get(i);
-		if(!ref->isPrimitive()){
-			delete ref;
-		}
-	}*/
+
 }
 
-void FunctionArguments::addReference(AbstractReference* ref) noexcept {
+void FunctionArguments::addSubstance(AbstractVmInstanceSubstance* ref) noexcept {
 	this->list.addElement(ref);
 }
 
@@ -37,7 +31,7 @@ VmClassInstance* FunctionArguments::getThisPtr() const noexcept {
 	return this->_this;
 }
 
-const ArrayList<AbstractReference>* FunctionArguments::getArguments() const noexcept {
+const ArrayList<AbstractVmInstanceSubstance>* FunctionArguments::getArguments() const noexcept {
 	return &this->list;
 }
 

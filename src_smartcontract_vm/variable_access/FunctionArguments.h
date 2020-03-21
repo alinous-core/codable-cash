@@ -13,7 +13,7 @@
 
 namespace alinous {
 
-class AbstractReference;
+class AbstractVmInstanceSubstance;
 class AbstractVmInstance;
 class VmClassInstance;
 
@@ -22,17 +22,17 @@ public:
 	FunctionArguments();
 	virtual ~FunctionArguments();
 
-	void addReference(AbstractReference* ref) noexcept;
+	void addSubstance(AbstractVmInstanceSubstance* ref) noexcept;
 
 	void setThisPtr(VmClassInstance* _this) noexcept;
 	VmClassInstance* getThisPtr() const noexcept;
 
-	const ArrayList<AbstractReference>* getArguments() const noexcept;
+	const ArrayList<AbstractVmInstanceSubstance>* getArguments() const noexcept;
 	AbstractVmInstance* getReturnedValue() const noexcept;
 	void setReturnedValue(AbstractVmInstance* inst) noexcept;
 
 private:
-	ArrayList<AbstractReference> list;
+	ArrayList<AbstractVmInstanceSubstance> list;
 	AbstractVmInstance* returnedValue;
 	VmClassInstance* _this;
 };

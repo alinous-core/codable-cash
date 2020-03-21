@@ -8,11 +8,13 @@
 #ifndef INSTANCE_IINSTANCECONTAINER_H_
 #define INSTANCE_IINSTANCECONTAINER_H_
 
+#include "instance/IAbstractVmInstanceSubstance.h"
+
 namespace alinous {
 
 class GcManager;
 
-class IInstanceContainer {
+class IInstanceContainer : public IAbstractVmInstanceSubstance{
 public:
 	IInstanceContainer();
 	virtual ~IInstanceContainer();

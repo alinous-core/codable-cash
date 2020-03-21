@@ -8,9 +8,10 @@
 #ifndef INSTANCE_VMCLASSINSTANCE_H_
 #define INSTANCE_VMCLASSINSTANCE_H_
 
-#include "instance/AbstractVmInstanceSubstance.h"
+#include "instance/AbstractVmInstance.h"
 #include "instance/IInstanceContainer.h"
 #include "instance_parts/VMemList.h"
+
 
 namespace alinous {
 
@@ -19,7 +20,7 @@ class AbstractReference;
 class VirtualMachine;
 class GcManager;
 
-class VmClassInstance : public AbstractVmInstanceSubstance, public IInstanceContainer {
+class VmClassInstance : public AbstractVmInstance, public IInstanceContainer {
 public:
 	VmClassInstance(AnalyzedClass* clazz, VirtualMachine* vm);
 	virtual ~VmClassInstance();
