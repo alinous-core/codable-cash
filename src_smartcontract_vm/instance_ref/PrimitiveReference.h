@@ -29,6 +29,7 @@ public:
 	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 
 	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
+
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 	virtual uint8_t getInstType() const noexcept;
 	virtual const VMemList<AbstractReference>* getInstReferences() const noexcept;

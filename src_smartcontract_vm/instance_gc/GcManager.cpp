@@ -29,14 +29,6 @@ GcManager::~GcManager() {
 	//this->removable.deleteElements();
 }
 
-void GcManager::addRefReference(AbstractVmInstance* owner, AbstractReference* refered) noexcept {
-	AbstractVmInstance* inst = refered->getInstance();
-
-	if(inst != nullptr){
-		addInstanceReference(owner, inst);
-	}
-}
-
 void GcManager::addInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept {
 	VmInstanceKey key(refered);
 
@@ -47,15 +39,6 @@ void GcManager::addInstanceReference(AbstractVmInstance* owner, AbstractVmInstan
 	}
 
 	status->addOwner(owner);
-}
-
-
-void GcManager::removeRefReference(AbstractVmInstance* owner, AbstractReference* refered) noexcept {
-	AbstractVmInstance* inst = refered->getInstance();
-
-	if(inst != nullptr){
-		removeInstanceReference(owner, inst);
-	}
 }
 
 

@@ -25,9 +25,7 @@ public:
 	GcManager();
 	virtual ~GcManager();
 
-	void addRefReference(AbstractVmInstance* owner, AbstractReference* refered) noexcept;
 	void addInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept;
-	void removeRefReference(AbstractVmInstance* owner, AbstractReference* refered) noexcept;
 	void removeInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept;
 
 	void handleFloatingObject(AbstractVmInstance* refered) noexcept;

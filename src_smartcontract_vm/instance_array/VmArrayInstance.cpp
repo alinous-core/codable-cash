@@ -32,9 +32,7 @@ VmArrayInstance::~VmArrayInstance() {
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractReference* ref = this->array->get(i);
 
-		if(ref != nullptr && !ref->isPrimitive()){
-			delete ref;
-		}
+		delete ref;
 	}
 
 	delete this->array;
