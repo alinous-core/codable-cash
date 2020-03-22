@@ -63,7 +63,7 @@ VmStringInstance* VmRootReference::newStringConstReferenece(const UnicodeString*
 	return this->staticHolder->newStringConstInstance(str, vm);
 }
 
-AbstractReference* VmRootReference::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) const {
+AbstractReference* VmRootReference::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
 	return nullptr;
 }
 

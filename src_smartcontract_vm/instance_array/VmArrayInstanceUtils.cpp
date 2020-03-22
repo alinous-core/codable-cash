@@ -83,7 +83,7 @@ void VmArrayInstanceUtils::setupVmArrayInstance(VirtualMachine* vm, VmArrayInsta
 
 }
 
-AbstractReference* VmArrayInstanceUtils::makeReference(AbstractVmInstance* owner, VirtualMachine* vm, int depth, int current, const AnalyzedType* atype) {
+AbstractReference* VmArrayInstanceUtils::makeReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm, int depth, int current, const AnalyzedType* atype) {
 	if(depth - 1 <= current){
 		AnalyzedType baseType(*atype);
 		baseType.setDim(0);

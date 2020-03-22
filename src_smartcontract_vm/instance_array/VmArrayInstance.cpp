@@ -82,9 +82,11 @@ IAbstractVmInstanceSubstance* VmArrayInstance::getInstance() noexcept {
 	return this;
 }
 
-AbstractReference* VmArrayInstance::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) const {
+AbstractReference* VmArrayInstance::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
 	ArrayReference* ref = new(vm) ArrayReference(owner, vm);
 	ref->substitute(this, vm);
+
+	return ref;
 }
 
 void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReference* ref) noexcept {

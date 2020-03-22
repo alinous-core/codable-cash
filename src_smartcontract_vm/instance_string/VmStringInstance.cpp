@@ -38,7 +38,7 @@ IAbstractVmInstanceSubstance* VmStringInstance::getInstance() noexcept {
 	return this;
 }
 
-AbstractReference* VmStringInstance::wrap(IAbstractVmInstanceSubstance* owner,	VirtualMachine* vm) const {
+AbstractReference* VmStringInstance::wrap(IAbstractVmInstanceSubstance* owner,	VirtualMachine* vm) {
 	return ObjectReference::createStringReference(owner, thus, vm);
 }
 

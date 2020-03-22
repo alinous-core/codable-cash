@@ -25,7 +25,7 @@ public:
 
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
 	virtual int valueCompare(AbstractVmInstance* right);
-	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) const;
+	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 private:
