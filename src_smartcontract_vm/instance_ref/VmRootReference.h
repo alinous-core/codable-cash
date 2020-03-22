@@ -30,6 +30,8 @@ public:
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 	virtual uint8_t getInstType() const noexcept;
+	virtual const VMemList<AbstractReference>* getInstReferences() const noexcept;
+	virtual int instHashCode() const noexcept;
 
 	void clearInnerReferences();
 

@@ -71,6 +71,14 @@ uint8_t VmRootReference::getInstType() const noexcept {
 	return getType();
 }
 
+const VMemList<AbstractReference>* VmRootReference::getInstReferences() const noexcept {
+	return getReferences();
+}
+
+int VmRootReference::instHashCode() const noexcept {
+	return hashCode();
+}
+
 int VmRootReference::valueCompare(AbstractVmInstance* right) {
 	return 0;
 }

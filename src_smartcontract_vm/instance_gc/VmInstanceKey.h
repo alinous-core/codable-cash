@@ -11,11 +11,12 @@
 namespace alinous {
 
 class AbstractVmInstance;
+class IAbstractVmInstanceSubstance;
 
 class VmInstanceKey {
 public:
 	VmInstanceKey(const VmInstanceKey& inst);
-	explicit VmInstanceKey(AbstractVmInstance* instance);
+	explicit VmInstanceKey(IAbstractVmInstanceSubstance* instance);
 	virtual ~VmInstanceKey();
 
 	int hashCode() const noexcept;
@@ -26,7 +27,7 @@ public:
 	};
 
 private:
-	AbstractVmInstance* instance;
+	IAbstractVmInstanceSubstance* instance;
 };
 
 } /* namespace alinous */

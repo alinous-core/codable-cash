@@ -85,6 +85,14 @@ uint8_t VmClassInstance::getInstType() const noexcept {
 	return getType();
 }
 
+const VMemList<AbstractReference>* VmClassInstance::getInstReferences() const noexcept {
+	return getReferences();
+}
+
+int VmClassInstance::instHashCode() const noexcept {
+	return hashCode();
+}
+
 void VmClassInstance::init(VirtualMachine* vm) {
 	ArrayList<MemberVariableDeclare>* list = this->clazz->getMemberVariableDeclareList();
 	GcManager* gc = vm->getGc();

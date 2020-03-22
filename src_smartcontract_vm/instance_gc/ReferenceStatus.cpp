@@ -46,7 +46,7 @@ void ReferenceStatus::addOwner(const IAbstractVmInstanceSubstance* owner) noexce
 
 void ReferenceStatus::removeOwner(const IAbstractVmInstanceSubstance* owner) noexcept {
 	uint8_t type = owner->getInstType();
-	ArrayList<const AbstractVmInstance>* list = nullptr;
+	ArrayList<const IAbstractVmInstanceSubstance>* list = nullptr;
 
 	switch(type){
 	case VmInstanceTypesConst::STACK:
@@ -98,7 +98,7 @@ bool ReferenceStatus::checkCyclicRemovable(GcCyclicCheckerContext* cctx) noexcep
 
 	int maxLoop = this->ownerList.size();
 	for(int i = 0; i != maxLoop; ++i){
-		const AbstractVmInstance* inst = this->ownerList.get(i);
+		const IAbstractVmInstanceSubstance* inst = this->ownerList.get(i);
 
 		bool result = checkInnerCyclicRemovable(inst, cctx);
 		if(!result){
@@ -119,8 +119,8 @@ void ReferenceStatus::deleteInstance() noexcept {
 	delete this->instance;
 }
 
-bool ReferenceStatus::checkInnerCyclicRemovable(const AbstractVmInstance* inst, GcCyclicCheckerContext* cctx) const noexcept{
-	const VMemList<AbstractReference>* list = inst->getReferences();
+bool ReferenceStatus::checkInnerCyclicRemovable(const IAbstractVmInstanceSubstance* inst, GcCyclicCheckerContext* cctx) const noexcept{
+	const VMemList<AbstractReference>* list = inst->getInstReferences();
 	if(list == nullptr){
 		return true;
 	}

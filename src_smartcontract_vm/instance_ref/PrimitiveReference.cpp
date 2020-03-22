@@ -190,6 +190,14 @@ uint8_t PrimitiveReference::getInstType() const noexcept {
 	return getType();
 }
 
+const VMemList<AbstractReference>* PrimitiveReference::getInstReferences() const noexcept {
+	return getReferences();
+}
+
+int PrimitiveReference::instHashCode() const noexcept {
+	return hashCode();
+}
+
 int PrimitiveReference::valueCompare64(PrimitiveReference* right) {
 	int64_t leftv = getLongValue();
 	int64_t rightv = right->getLongValue();

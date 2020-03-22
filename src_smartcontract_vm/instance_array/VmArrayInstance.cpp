@@ -93,6 +93,14 @@ uint8_t VmArrayInstance::getInstType() const noexcept {
 	return getType();
 }
 
+const VMemList<AbstractReference>* VmArrayInstance::getInstReferences() const noexcept {
+	return getReferences();
+}
+
+int VmArrayInstance::instHashCode() const noexcept {
+	return hashCode();
+}
+
 void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReference* ref) noexcept {
 	GcManager* gc = vm->getGc();
 

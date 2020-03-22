@@ -30,6 +30,8 @@ public:
 	virtual void removeInnerRefs(GcManager* gc) noexcept;
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* reg);
+	virtual const VMemList<AbstractReference>* getInstReferences() const noexcept;
+	virtual int instHashCode() const noexcept;
 
 	virtual int valueCompare(AbstractVmInstance* right);
 

@@ -64,6 +64,21 @@ AbstractReference* VmStack::get(int pos) const noexcept {
 	return this->stack->get(pos);
 }
 
+AbstractReference* VmStack::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
+	return this;
+}
+
+uint8_t VmStack::getInstType() const noexcept {
+	return getType();
+}
+
+const VMemList<AbstractReference>* VmStack::getInstReferences() const noexcept {
+	return getReferences();
+}
+
+int VmStack::instHashCode() const noexcept {
+	return hashCode();
+}
 
 int VmStack::valueCompare(AbstractVmInstance* right) {
 	return 0;

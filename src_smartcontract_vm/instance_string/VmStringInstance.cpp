@@ -46,6 +46,14 @@ uint8_t VmStringInstance::getInstType() const noexcept {
 	return getType();
 }
 
+const VMemList<AbstractReference>* VmStringInstance::getInstReferences() const noexcept {
+	return getReferences();
+}
+
+int VmStringInstance::instHashCode() const noexcept {
+	return hashCode();
+}
+
 AbstractExtObject* VmStringInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
 	const wchar_t* wchar_str = this->value->towString();
 	UnicodeString str(wchar_str);
