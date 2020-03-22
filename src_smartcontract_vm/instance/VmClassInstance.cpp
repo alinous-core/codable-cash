@@ -77,7 +77,7 @@ IAbstractVmInstanceSubstance* VmClassInstance::getInstance() noexcept {
 	return this;
 }
 
-AbstractReference* VmClassInstance::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) const {
+AbstractReference* VmClassInstance::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
 	return ObjectReference::createObjectReference(owner, this, vm);
 }
 

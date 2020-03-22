@@ -24,7 +24,7 @@ ArrayReference::~ArrayReference() {
 	this->instArray = nullptr;
 }
 
-AbstractVmInstance* ArrayReference::getInstance() noexcept {
+IAbstractVmInstanceSubstance* ArrayReference::getInstance() noexcept {
 	return this->instArray;
 }
 

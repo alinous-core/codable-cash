@@ -18,7 +18,7 @@ public:
 	IAbstractVmInstanceSubstance();
 	virtual ~IAbstractVmInstanceSubstance();
 
-	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) const = 0;
+	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) = 0;
 };
 
 } /* namespace alinous */

@@ -156,7 +156,7 @@ int PrimitiveReference::valueCompare32(PrimitiveReference* right) {
 	return leftv - rightv;
 }
 
-AbstractReference* PrimitiveReference::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) const {
+AbstractReference* PrimitiveReference::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
 	/*PrimitiveReference* newInst = nullptr;
 
 	switch(this->type){

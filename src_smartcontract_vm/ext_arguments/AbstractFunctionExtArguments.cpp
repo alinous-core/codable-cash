@@ -26,9 +26,9 @@ AbstractFunctionExtArguments::AbstractFunctionExtArguments() {
 AbstractFunctionExtArguments::~AbstractFunctionExtArguments() {
 }
 
-AbstractReference* AbstractFunctionExtArguments::toReference(VirtualMachine* vm, AbstractVmInstance* inst) {
+AbstractReference* AbstractFunctionExtArguments::toReference(VirtualMachine* vm, IAbstractVmInstanceSubstance* owner, AbstractVmInstance* inst) {
 	if(inst == nullptr){
-		ObjectReference* ref = ObjectReference::createStringReference(nullptr, vm);
+		ObjectReference* ref = ObjectReference::createStringReference(owner, nullptr, vm);
 		return ref;
 	}
 
@@ -40,7 +40,7 @@ AbstractReference* AbstractFunctionExtArguments::toReference(VirtualMachine* vm,
 	assert(type == VmInstanceTypesConst::INST_STRING);
 
 	VmStringInstance* strInst = dynamic_cast<VmStringInstance*>(inst);
-	return ObjectReference::createStringReference(strInst, vm);
+	return ObjectReference::createStringReference(owner, strInst, vm);
 }
 
 } /* namespace alinous */

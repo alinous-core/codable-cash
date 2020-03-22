@@ -29,7 +29,7 @@ public:
 	virtual int valueCompare(AbstractVmInstance* right);
 
 	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
-	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) const;
+	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 

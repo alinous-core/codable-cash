@@ -13,7 +13,6 @@
 
 namespace alinous {
 
-class IAbstractVmInstanceSubstance;
 
 class AbstractReference : public AbstractVmInstance {
 public:

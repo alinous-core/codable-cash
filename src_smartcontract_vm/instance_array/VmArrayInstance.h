@@ -24,6 +24,7 @@ public:
 	virtual ~VmArrayInstance();
 
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
+	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 
 	virtual void removeInnerRefs(GcManager* gc) noexcept;
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;

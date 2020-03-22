@@ -10,9 +10,10 @@
 
 #include "instance_gc/GcManager.h"
 
-#include "instance_ref/AbstractReference.h"
+#include "instance_array/ArrayReference.h"
 
 #include "ext_binary/ExtArrayObject.h"
+
 
 namespace alinous {
 
@@ -79,6 +80,11 @@ int VmArrayInstance::valueCompare(AbstractVmInstance* right) {
 
 IAbstractVmInstanceSubstance* VmArrayInstance::getInstance() noexcept {
 	return this;
+}
+
+AbstractReference* VmArrayInstance::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) const {
+	ArrayReference* ref = new(vm) ArrayReference(owner, vm);
+	ref->substitute(this, vm);
 }
 
 void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReference* ref) noexcept {

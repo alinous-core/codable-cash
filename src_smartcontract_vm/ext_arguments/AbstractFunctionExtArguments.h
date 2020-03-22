@@ -14,6 +14,7 @@ class AnalyzedType;
 class AbstractVmInstance;
 class VirtualMachine;
 class AbstractReference;
+class IAbstractVmInstanceSubstance;
 
 class AbstractFunctionExtArguments {
 public:
@@ -23,7 +24,7 @@ public:
 	virtual AnalyzedType getType() const noexcept = 0;
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm) = 0;
 
-	static AbstractReference* toReference(VirtualMachine* vm, AbstractVmInstance* inst);
+	static AbstractReference* toReference(VirtualMachine* vm, IAbstractVmInstanceSubstance* owner, AbstractVmInstance* inst);
 };
 
 } /* namespace alinous */
