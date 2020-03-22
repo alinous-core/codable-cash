@@ -11,6 +11,7 @@
 #include "instance_ref/AbstractReference.h"
 #include <cstdint>
 
+#include "instance/IAbstractVmInstanceSubstance.h"
 
 namespace alinous {
 
@@ -20,13 +21,14 @@ class PrimitiveReference;
 class VmClassInstance;
 class VmStringInstance;
 
-class VmRootReference : public AbstractReference {
+class VmRootReference : public AbstractReference, public IAbstractVmInstanceSubstance {
 public:
 	explicit VmRootReference(VirtualMachine* vm);
 	virtual ~VmRootReference();
 
 	void setMainInstance(VmClassInstance* mainInst) noexcept;
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
+	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) const;
 
 	void clearInnerReferences();
 

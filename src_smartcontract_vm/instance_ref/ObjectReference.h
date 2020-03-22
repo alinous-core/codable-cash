@@ -17,7 +17,7 @@ class VmStringInstance;
 
 class ObjectReference : public AbstractReference {
 public:
-	explicit ObjectReference(AbstractVmInstance* owner, uint8_t type);
+	explicit ObjectReference(IAbstractVmInstanceSubstance* owner, uint8_t type);
 	virtual ~ObjectReference();
 
 	static ObjectReference* createObjectReference(AbstractVmInstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm);

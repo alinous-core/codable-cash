@@ -10,10 +10,15 @@
 
 namespace alinous {
 
+class AbstractReference;
+class VirtualMachine;
+
 class IAbstractVmInstanceSubstance {
 public:
 	IAbstractVmInstanceSubstance();
 	virtual ~IAbstractVmInstanceSubstance();
+
+	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) const = 0;
 };
 
 } /* namespace alinous */

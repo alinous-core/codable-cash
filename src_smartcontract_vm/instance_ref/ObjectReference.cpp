@@ -15,7 +15,7 @@
 
 namespace alinous {
 
-ObjectReference::ObjectReference(AbstractVmInstance* owner, uint8_t type) : AbstractReference(owner, type) {
+ObjectReference::ObjectReference(IAbstractVmInstanceSubstance* owner, uint8_t type) : AbstractReference(owner, type) {
 	this->instance = nullptr;
 }
 

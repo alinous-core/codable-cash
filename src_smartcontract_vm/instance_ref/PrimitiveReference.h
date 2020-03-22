@@ -15,7 +15,7 @@ namespace alinous {
 
 class PrimitiveReference : public AbstractReference, public IAbstractVmInstanceSubstance {
 public:
-	explicit PrimitiveReference(AbstractVmInstance* owner, uint8_t type);
+	explicit PrimitiveReference(uint8_t type);
 	virtual ~PrimitiveReference();
 
 	static PrimitiveReference* createBoolReference(VirtualMachine* vm, int8_t value);
@@ -29,6 +29,8 @@ public:
 	virtual int valueCompare(AbstractVmInstance* right);
 
 	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
+	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) const;
+
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 
 	bool getBoolValue() const noexcept;

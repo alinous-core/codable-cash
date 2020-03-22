@@ -17,7 +17,7 @@ class IAbstractVmInstanceSubstance;
 
 class AbstractReference : public AbstractVmInstance {
 public:
-	explicit AbstractReference(AbstractVmInstance* owner, uint8_t type);
+	explicit AbstractReference(IAbstractVmInstanceSubstance* owner, uint8_t type);
 	virtual ~AbstractReference();
 
 	virtual bool isPrimitive() const noexcept;
@@ -27,7 +27,7 @@ public:
 	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
 
 protected:
-	AbstractVmInstance* const owner;
+	IAbstractVmInstanceSubstance* const owner;
 };
 
 } /* namespace alinous */

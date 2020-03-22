@@ -17,10 +17,11 @@ namespace alinous {
 class VirtualMachine;
 class VmArrayInstance;
 template <typename T, typename C> class ArrayList;
+class IAbstractVmInstanceSubstance;
 
 class ArrayReference : public AbstractReference {
 public:
-	explicit ArrayReference(AbstractVmInstance* owner, VirtualMachine* vm);
+	explicit ArrayReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 	virtual ~ArrayReference();
 
 	virtual AbstractVmInstance* getInstance() noexcept;

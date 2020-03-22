@@ -16,7 +16,7 @@
 
 namespace alinous {
 
-ArrayReference::ArrayReference(AbstractVmInstance* owner, VirtualMachine* vm) : AbstractReference(owner, VmInstanceTypesConst::REF_ARRAY) {
+ArrayReference::ArrayReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) : AbstractReference(owner, VmInstanceTypesConst::REF_ARRAY) {
 	this->instArray = nullptr;
 }
 

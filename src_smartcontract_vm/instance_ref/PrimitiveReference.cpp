@@ -16,7 +16,7 @@
 
 namespace alinous {
 
-PrimitiveReference::PrimitiveReference(AbstractVmInstance* owner, uint8_t type) : AbstractReference(owner, type) {
+PrimitiveReference::PrimitiveReference(uint8_t type) : AbstractReference(nullptr, type) {
 	this->data = nullptr;
 	this->malloc = nullptr;
 }
@@ -154,6 +154,34 @@ int PrimitiveReference::valueCompare32(PrimitiveReference* right) {
 	int32_t rightv = right->getIntValue();
 
 	return leftv - rightv;
+}
+
+AbstractReference* PrimitiveReference::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) const {
+	PrimitiveReference* newInst = nullptr;
+
+	switch(this->type){
+	case VmInstanceTypesConst::REF_BOOL:
+		newInst = createBoolReference(vm, getBoolValue() ? 1 : 0);
+		break;
+	case VmInstanceTypesConst::REF_BYTE:
+		newInst = createByteReference(vm, getByteValue());
+		break;
+	case VmInstanceTypesConst::REF_CHAR:
+		newInst = createCharReference(vm, getCharValue());
+		break;
+	case VmInstanceTypesConst::REF_SHORT:
+		newInst = createShortReference(vm, getShortValue());
+		break;
+	case VmInstanceTypesConst::REF_INT:
+		newInst = createIntReference(vm, getIntValue());
+		break;
+	case VmInstanceTypesConst::REF_LONG:
+	default:
+		newInst = createLongReference(vm, getLongValue());
+		break;
+	}
+
+	return newInst;
 }
 
 int PrimitiveReference::valueCompare64(PrimitiveReference* right) {
