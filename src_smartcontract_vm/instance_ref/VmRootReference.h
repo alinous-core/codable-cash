@@ -29,6 +29,7 @@ public:
 	void setMainInstance(VmClassInstance* mainInst) noexcept;
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
+	virtual uint8_t getInstType() const noexcept;
 
 	void clearInnerReferences();
 

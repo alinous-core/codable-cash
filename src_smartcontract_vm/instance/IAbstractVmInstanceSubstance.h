@@ -7,6 +7,7 @@
 
 #ifndef INSTANCE_IABSTRACTVMINSTANCESUBSTANCE_H_
 #define INSTANCE_IABSTRACTVMINSTANCESUBSTANCE_H_
+#include <cstdint>
 
 namespace alinous {
 
@@ -19,6 +20,7 @@ public:
 	virtual ~IAbstractVmInstanceSubstance();
 
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) = 0;
+	virtual uint8_t getInstType() const noexcept = 0;
 };
 
 } /* namespace alinous */

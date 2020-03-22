@@ -6,6 +6,7 @@
  */
 
 #include "instance/IAbstractVmInstanceSubstance.h"
+#include "instance/AbstractVmInstance.h"
 
 namespace alinous {
 

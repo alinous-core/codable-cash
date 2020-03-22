@@ -30,7 +30,7 @@ public:
 	explicit AbstractVmInstance(uint8_t type);
 	virtual ~AbstractVmInstance();
 
-	uint8_t getType() const noexcept;
+	virtual uint8_t getType() const noexcept;
 	int hashCode() const noexcept;
 
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;

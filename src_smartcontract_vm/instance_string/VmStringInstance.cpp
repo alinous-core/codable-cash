@@ -42,6 +42,10 @@ AbstractReference* VmStringInstance::wrap(IAbstractVmInstanceSubstance* owner,	V
 	return ObjectReference::createStringReference(owner, thus, vm);
 }
 
+uint8_t VmStringInstance::getInstType() const noexcept {
+	return getType();
+}
+
 AbstractExtObject* VmStringInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
 	const wchar_t* wchar_str = this->value->towString();
 	UnicodeString str(wchar_str);

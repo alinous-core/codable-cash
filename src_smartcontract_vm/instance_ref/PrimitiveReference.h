@@ -30,6 +30,7 @@ public:
 
 	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
+	virtual uint8_t getInstType() const noexcept;
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 

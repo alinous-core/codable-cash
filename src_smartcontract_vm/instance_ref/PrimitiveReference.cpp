@@ -186,6 +186,10 @@ AbstractReference* PrimitiveReference::wrap(IAbstractVmInstanceSubstance* owner,
 	return this;
 }
 
+uint8_t PrimitiveReference::getInstType() const noexcept {
+	return getType();
+}
+
 int PrimitiveReference::valueCompare64(PrimitiveReference* right) {
 	int64_t leftv = getLongValue();
 	int64_t rightv = right->getLongValue();

@@ -15,7 +15,7 @@
 
 namespace alinous {
 
-ReferenceStatus::ReferenceStatus(AbstractVmInstance* instance) {
+ReferenceStatus::ReferenceStatus(IAbstractVmInstanceSubstance* instance) {
 	this->instance = instance;
 }
 
@@ -23,10 +23,10 @@ ReferenceStatus::~ReferenceStatus() {
 	this->instance = nullptr;
 }
 
-void ReferenceStatus::addOwner(const AbstractVmInstance* owner) noexcept {
+void ReferenceStatus::addOwner(const IAbstractVmInstanceSubstance* owner) noexcept {
 	uint8_t type = owner->getType();
 
-	ArrayList<const AbstractVmInstance>* list = nullptr;
+	ArrayList<const IAbstractVmInstanceSubstance>* list = nullptr;
 
 	switch(type){
 	case VmInstanceTypesConst::STACK:
@@ -38,13 +38,13 @@ void ReferenceStatus::addOwner(const AbstractVmInstance* owner) noexcept {
 		break;
 	}
 
-	const AbstractVmInstance* o = list->search(owner);
+	const IAbstractVmInstanceSubstance* o = list->search(owner);
 	if(o == nullptr){
 		list->addElementWithSorted(owner);
 	}
 }
 
-void ReferenceStatus::removeOwner(const AbstractVmInstance* owner) noexcept {
+void ReferenceStatus::removeOwner(const IAbstractVmInstanceSubstance* owner) noexcept {
 	uint8_t type = owner->getType();
 	ArrayList<const AbstractVmInstance>* list = nullptr;
 

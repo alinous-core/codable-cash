@@ -67,6 +67,10 @@ AbstractReference* VmRootReference::wrap(IAbstractVmInstanceSubstance* owner, Vi
 	return nullptr;
 }
 
+uint8_t VmRootReference::getInstType() const noexcept {
+	return getType();
+}
+
 int VmRootReference::valueCompare(AbstractVmInstance* right) {
 	return 0;
 }
