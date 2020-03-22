@@ -197,7 +197,7 @@ void StatementBlock::interpretFunctionArguments(VirtualMachine* vm) {
 	for(int i = 0; i != maxLoop; ++i){
 		IAbstractVmInstanceSubstance* inst = list->get(i);
 
-		stack->addInnerReference(ref);
+		stack->addInnerReference(inst->wrap(stack, vm));
 	}
 }
 

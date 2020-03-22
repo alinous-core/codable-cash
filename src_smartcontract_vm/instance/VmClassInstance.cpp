@@ -28,6 +28,7 @@
 #include "base/ArrayList.h"
 #include "base/UnicodeString.h"
 
+#include "instance_ref/ObjectReference.h"
 
 namespace alinous {
 
@@ -74,6 +75,10 @@ int VmClassInstance::valueCompare(AbstractVmInstance* right) {
 
 IAbstractVmInstanceSubstance* VmClassInstance::getInstance() noexcept {
 	return this;
+}
+
+AbstractReference* VmClassInstance::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) const {
+	return ObjectReference::createObjectReference(owner, this, vm);
 }
 
 void VmClassInstance::init(VirtualMachine* vm) {

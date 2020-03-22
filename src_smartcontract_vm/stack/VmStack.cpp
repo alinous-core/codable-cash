@@ -33,7 +33,7 @@ void VmStack::addInnerReference(AbstractReference* ref) {
 
 	AbstractVmInstance* inst = nullptr;
 	if(ref->isPrimitive()){
-		inst = ref;
+		return;
 	}
 	else{
 		inst = ref->getInstance();

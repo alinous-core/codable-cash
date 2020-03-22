@@ -136,9 +136,8 @@ void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractFu
 		AbstractFunctionExtArguments* extArg = arguments->get(i);
 
 		AbstractVmInstance* inst = extArg->interpret(this);
-		AbstractReference* ref = AbstractFunctionExtArguments::toReference(this, inst);
 
-		args.addReference(ref);
+		args.addSubstance(inst != nullptr ? inst->getInstance() : nullptr);
 	}
 
 

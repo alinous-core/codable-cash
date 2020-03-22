@@ -8,11 +8,13 @@
 #include "instance_string/VmStringInstance.h"
 
 #include "instance/VmInstanceTypesConst.h"
+#include "instance_ref/ObjectReference.h"
 #include "instance_string/VmString.h"
 
 #include "base/UnicodeString.h"
 
 #include "ext_binary/ExtStringClass.h"
+
 
 namespace alinous {
 
@@ -34,6 +36,10 @@ int VmStringInstance::valueCompare(AbstractVmInstance* right) {
 
 IAbstractVmInstanceSubstance* VmStringInstance::getInstance() noexcept {
 	return this;
+}
+
+AbstractReference* VmStringInstance::wrap(IAbstractVmInstanceSubstance* owner,	VirtualMachine* vm) const {
+	return ObjectReference::createStringReference(owner, thus, vm);
 }
 
 AbstractExtObject* VmStringInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {

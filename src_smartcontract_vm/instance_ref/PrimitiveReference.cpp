@@ -157,7 +157,7 @@ int PrimitiveReference::valueCompare32(PrimitiveReference* right) {
 }
 
 AbstractReference* PrimitiveReference::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) const {
-	PrimitiveReference* newInst = nullptr;
+	/*PrimitiveReference* newInst = nullptr;
 
 	switch(this->type){
 	case VmInstanceTypesConst::REF_BOOL:
@@ -181,7 +181,9 @@ AbstractReference* PrimitiveReference::wrap(IAbstractVmInstanceSubstance* owner,
 		break;
 	}
 
-	return newInst;
+	return newInst;*/
+
+	return this;
 }
 
 int PrimitiveReference::valueCompare64(PrimitiveReference* right) {

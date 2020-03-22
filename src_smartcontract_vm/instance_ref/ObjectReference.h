@@ -20,9 +20,9 @@ public:
 	explicit ObjectReference(IAbstractVmInstanceSubstance* owner, uint8_t type);
 	virtual ~ObjectReference();
 
-	static ObjectReference* createObjectReference(AbstractVmInstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm);
-	static ObjectReference* createObjectReference(AbstractVmInstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm, bool doGc);
-	static ObjectReference* createStringReference(AbstractVmInstance* owner, VmStringInstance* clazzInst, VirtualMachine* vm);
+	static ObjectReference* createObjectReference(IAbstractVmInstanceSubstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm);
+	static ObjectReference* createObjectReference(IAbstractVmInstanceSubstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm, bool doGc);
+	static ObjectReference* createStringReference(IAbstractVmInstanceSubstance* owner, VmStringInstance* clazzInst, VirtualMachine* vm);
 
 	virtual bool isPrimitive() const noexcept;
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;

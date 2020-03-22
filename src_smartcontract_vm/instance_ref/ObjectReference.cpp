@@ -23,7 +23,7 @@ ObjectReference::~ObjectReference() {
 
 }
 
-ObjectReference* ObjectReference::createObjectReference(AbstractVmInstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm, bool doGc) {
+ObjectReference* ObjectReference::createObjectReference(IAbstractVmInstanceSubstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm, bool doGc) {
 	ObjectReference* ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ);
 	ref->setInstance(clazzInst);
 
@@ -35,11 +35,11 @@ ObjectReference* ObjectReference::createObjectReference(AbstractVmInstance* owne
 	return ref;
 }
 
-ObjectReference* ObjectReference::createObjectReference(AbstractVmInstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm) {
+ObjectReference* ObjectReference::createObjectReference(IAbstractVmInstanceSubstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm) {
 	return createObjectReference(owner, clazzInst, vm, false);
 }
 
-ObjectReference* ObjectReference::createStringReference(AbstractVmInstance* owner, VmStringInstance* clazzInst, VirtualMachine* vm) {
+ObjectReference* ObjectReference::createStringReference(IAbstractVmInstanceSubstance* owner, VmStringInstance* clazzInst, VirtualMachine* vm) {
 	ObjectReference* ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ);
 	ref->setInstance(clazzInst);
 
