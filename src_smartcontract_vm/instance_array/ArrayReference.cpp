@@ -50,9 +50,9 @@ bool ArrayReference::isNull() const noexcept {
 
 int ArrayReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 	if(isNull()){
-		return right->isNull() ? 0 : -1;
+		return right->instIsNull() ? 0 : -1;
 	}
-	else if(right->isNull()){
+	else if(right->instIsNull()){
 		return isNull() ? 0 : 1;
 	}
 

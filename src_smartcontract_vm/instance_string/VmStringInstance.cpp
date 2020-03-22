@@ -54,6 +54,19 @@ int VmStringInstance::instHashCode() const noexcept {
 	return hashCode();
 }
 
+bool VmStringInstance::instIsNull() const noexcept {
+	return isNull();
+}
+
+int VmStringInstance::instValueCompare(IAbstractVmInstanceSubstance* right) {
+	return valueCompare(right);
+}
+
+AbstractExtObject* VmStringInstance::instToClassExtObject(
+		const UnicodeString* name, VTableRegistory* table) {
+	return toClassExtObject(name, table);
+}
+
 AbstractExtObject* VmStringInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
 	const wchar_t* wchar_str = this->value->towString();
 	UnicodeString str(wchar_str);

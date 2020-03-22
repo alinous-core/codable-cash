@@ -14,6 +14,8 @@ namespace alinous {
 
 class AbstractReference;
 class VirtualMachine;
+class AbstractExtObject;
+class VTableRegistory;
 
 class IAbstractVmInstanceSubstance {
 public:
@@ -25,6 +27,10 @@ public:
 
 	virtual const VMemList<AbstractReference>* getInstReferences() const noexcept = 0;
 	virtual int instHashCode() const noexcept = 0;
+
+	virtual bool instIsNull() const noexcept = 0;
+	virtual int instValueCompare(IAbstractVmInstanceSubstance* right) = 0;
+	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table) = 0;
 };
 
 } /* namespace alinous */

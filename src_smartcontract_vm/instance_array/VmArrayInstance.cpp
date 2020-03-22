@@ -101,6 +101,19 @@ int VmArrayInstance::instHashCode() const noexcept {
 	return hashCode();
 }
 
+bool VmArrayInstance::instIsNull() const noexcept {
+	return isNull();
+}
+
+int VmArrayInstance::instValueCompare(IAbstractVmInstanceSubstance* right) {
+	return valueCompare(right);
+}
+
+AbstractExtObject* VmArrayInstance::instToClassExtObject(
+		const UnicodeString* name, VTableRegistory* table) {
+	return toClassExtObject(name, table);
+}
+
 void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReference* ref) noexcept {
 	GcManager* gc = vm->getGc();
 

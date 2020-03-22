@@ -80,6 +80,18 @@ int VmStack::instHashCode() const noexcept {
 	return hashCode();
 }
 
+bool VmStack::instIsNull() const noexcept {
+	return isNull();
+}
+
+int VmStack::instValueCompare(IAbstractVmInstanceSubstance* right) {
+	return valueCompare(right);
+}
+
+AbstractExtObject* VmStack::instToClassExtObject(const UnicodeString* name,	VTableRegistory* table) {
+	return toClassExtObject(name, table);
+}
+
 int VmStack::valueCompare(IAbstractVmInstanceSubstance* right) {
 	return 0;
 }

@@ -79,6 +79,18 @@ int VmRootReference::instHashCode() const noexcept {
 	return hashCode();
 }
 
+bool VmRootReference::instIsNull() const noexcept {
+	return isNull();
+}
+
+int VmRootReference::instValueCompare(IAbstractVmInstanceSubstance* right) {
+	return valueCompare(right);
+}
+
+AbstractExtObject* VmRootReference::instToClassExtObject(const UnicodeString* name, VTableRegistory* table) {
+	return toClassExtObject(name, table);
+}
+
 int VmRootReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 	return 0;
 }

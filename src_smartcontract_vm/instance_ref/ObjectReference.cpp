@@ -81,7 +81,7 @@ void ObjectReference::substitute(AbstractVmInstance* rightValue, VirtualMachine*
 }
 
 AbstractExtObject* ObjectReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
-	return this->instance->toClassExtObject(name, table);
+	return this->instance->instToClassExtObject(name, table);
 }
 
 bool ObjectReference::isNull() const noexcept {
@@ -90,9 +90,9 @@ bool ObjectReference::isNull() const noexcept {
 
 int ObjectReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 	if(isNull()){
-		return right->isNull() ? 0 : -1;
+		return right->instIsNull() ? 0 : -1;
 	}
-	else if(right->isNull()){
+	else if(right->instIsNull()){
 		return isNull() ? 0 : 1;
 	}
 
@@ -101,7 +101,7 @@ int ObjectReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 		return -1;
 	}
 
-	return this->instance->valueCompare(objRight->getInstance());
+	return this->instance->instValueCompare(objRight->getInstance());
 }
 
 } /* namespace alinous */

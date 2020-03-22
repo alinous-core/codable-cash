@@ -93,6 +93,18 @@ int VmClassInstance::instHashCode() const noexcept {
 	return hashCode();
 }
 
+bool VmClassInstance::instIsNull() const noexcept {
+	return isNull();
+}
+
+int VmClassInstance::instValueCompare(IAbstractVmInstanceSubstance* right) {
+	return valueCompare(right);
+}
+
+AbstractExtObject* VmClassInstance::instToClassExtObject(const UnicodeString* name, VTableRegistory* table) {
+	return toClassExtObject(name, table);
+}
+
 void VmClassInstance::init(VirtualMachine* vm) {
 	ArrayList<MemberVariableDeclare>* list = this->clazz->getMemberVariableDeclareList();
 	GcManager* gc = vm->getGc();

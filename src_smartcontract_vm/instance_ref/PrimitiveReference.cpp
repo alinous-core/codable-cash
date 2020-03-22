@@ -198,6 +198,18 @@ int PrimitiveReference::instHashCode() const noexcept {
 	return hashCode();
 }
 
+bool PrimitiveReference::instIsNull() const noexcept {
+	return isNull();
+}
+
+int PrimitiveReference::instValueCompare(IAbstractVmInstanceSubstance* right) {
+	return valueCompare(right);
+}
+
+AbstractExtObject* PrimitiveReference::instToClassExtObject(const UnicodeString* name, VTableRegistory* table) {
+	return instToClassExtObject(name, table);
+}
+
 int PrimitiveReference::valueCompare64(PrimitiveReference* right) {
 	int64_t leftv = getLongValue();
 	int64_t rightv = right->getLongValue();

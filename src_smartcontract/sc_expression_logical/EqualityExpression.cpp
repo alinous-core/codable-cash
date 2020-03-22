@@ -109,7 +109,7 @@ AbstractVmInstance* EqualityExpression::interpret(VirtualMachine* vm) {
 	AbstractVmInstance* leftv = this->left->interpret(vm);
 	AbstractVmInstance* rightv = this->right->interpret(vm);
 
-	int result = leftv->valueCompare(rightv);
+	int result = leftv->valueCompare(rightv->getInstance());
 	bool bl = (result == 0);
 	if(this->op == NOT_EQ){
 		bl = !bl;

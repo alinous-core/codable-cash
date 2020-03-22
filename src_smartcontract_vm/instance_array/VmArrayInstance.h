@@ -32,6 +32,10 @@ public:
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* reg);
 	virtual const VMemList<AbstractReference>* getInstReferences() const noexcept;
 	virtual int instHashCode() const noexcept;
+	virtual bool instIsNull() const noexcept;
+	virtual int instValueCompare(IAbstractVmInstanceSubstance* right);
+	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);
+
 
 	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 
