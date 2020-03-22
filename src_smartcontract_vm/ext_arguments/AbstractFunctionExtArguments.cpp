@@ -26,7 +26,7 @@ AbstractFunctionExtArguments::AbstractFunctionExtArguments() {
 AbstractFunctionExtArguments::~AbstractFunctionExtArguments() {
 }
 
-AbstractReference* AbstractFunctionExtArguments::toRegerence(VirtualMachine* vm, AbstractVmInstance* inst) {
+AbstractReference* AbstractFunctionExtArguments::toReference(VirtualMachine* vm, AbstractVmInstance* inst) {
 	if(inst == nullptr){
 		ObjectReference* ref = ObjectReference::createStringReference(nullptr, vm);
 		return ref;

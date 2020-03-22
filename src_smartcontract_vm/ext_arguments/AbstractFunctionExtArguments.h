@@ -23,7 +23,7 @@ public:
 	virtual AnalyzedType getType() const noexcept = 0;
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm) = 0;
 
-	static AbstractReference* toRegerence(VirtualMachine* vm, AbstractVmInstance* inst);
+	static AbstractReference* toReference(VirtualMachine* vm, AbstractVmInstance* inst);
 };
 
 } /* namespace alinous */
