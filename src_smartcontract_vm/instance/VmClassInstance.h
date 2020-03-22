@@ -29,6 +29,8 @@ public:
 
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
+	virtual uint8_t getInstType() const noexcept;
+
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 	virtual void removeInnerRefs(GcManager* gc) noexcept;
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* reg);

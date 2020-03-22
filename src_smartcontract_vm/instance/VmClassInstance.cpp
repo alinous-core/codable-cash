@@ -81,6 +81,10 @@ AbstractReference* VmClassInstance::wrap(IAbstractVmInstanceSubstance* owner, Vi
 	return ObjectReference::createObjectReference(owner, this, vm);
 }
 
+uint8_t VmClassInstance::getInstType() const noexcept {
+	return getType();
+}
+
 void VmClassInstance::init(VirtualMachine* vm) {
 	ArrayList<MemberVariableDeclare>* list = this->clazz->getMemberVariableDeclareList();
 	GcManager* gc = vm->getGc();

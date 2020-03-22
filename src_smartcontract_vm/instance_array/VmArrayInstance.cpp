@@ -89,6 +89,10 @@ AbstractReference* VmArrayInstance::wrap(IAbstractVmInstanceSubstance* owner, Vi
 	return ref;
 }
 
+uint8_t VmArrayInstance::getInstType() const noexcept {
+	return getType();
+}
+
 void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReference* ref) noexcept {
 	GcManager* gc = vm->getGc();
 

@@ -24,7 +24,7 @@ ReferenceStatus::~ReferenceStatus() {
 }
 
 void ReferenceStatus::addOwner(const IAbstractVmInstanceSubstance* owner) noexcept {
-	uint8_t type = owner->getType();
+	uint8_t type = owner->getInstType();
 
 	ArrayList<const IAbstractVmInstanceSubstance>* list = nullptr;
 
@@ -45,7 +45,7 @@ void ReferenceStatus::addOwner(const IAbstractVmInstanceSubstance* owner) noexce
 }
 
 void ReferenceStatus::removeOwner(const IAbstractVmInstanceSubstance* owner) noexcept {
-	uint8_t type = owner->getType();
+	uint8_t type = owner->getInstType();
 	ArrayList<const AbstractVmInstance>* list = nullptr;
 
 	switch(type){
@@ -75,7 +75,7 @@ void ReferenceStatus::releseInnerRefs(GcManager* gc) noexcept {
 }
 
 
-AbstractVmInstance* ReferenceStatus::getInstance() const noexcept {
+IAbstractVmInstanceSubstance* ReferenceStatus::getInstance() const noexcept {
 	return this->instance;
 }
 
@@ -110,7 +110,7 @@ bool ReferenceStatus::checkCyclicRemovable(GcCyclicCheckerContext* cctx) noexcep
 }
 
 void ReferenceStatus::deleteInstance() noexcept {
-	uint8_t type = this->instance->getType();
+	uint8_t type = this->instance->getInstType();
 
 	//if(type == VmInstanceTypesConst::STACK){
 	//	return;
