@@ -16,7 +16,8 @@
 
 namespace alinous {
 
-VmStack::VmStack(VirtualMachine* vm) : AbstractReference(VmInstanceTypesConst::STACK) {
+VmStack::VmStack(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm)
+				: AbstractReference(VmInstanceTypesConst::STACK), IInstanceContainer(owner) {
 	this->stack = new(vm) VMemList<AbstractReference>(vm);
 	this->vm = vm;
 }

@@ -21,7 +21,7 @@ class VmRootReference;
 
 class VmStack : public AbstractReference, public IInstanceContainer {
 public:
-	explicit VmStack(VirtualMachine* vm);
+	explicit VmStack(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 	virtual ~VmStack();
 
 	void addInnerReference(AbstractReference* ref);
