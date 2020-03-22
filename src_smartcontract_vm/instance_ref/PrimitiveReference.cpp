@@ -108,7 +108,7 @@ int64_t PrimitiveReference::getLongValue() const noexcept {
 	return ret;
 }
 
-int PrimitiveReference::valueCompare(AbstractVmInstance* right) {
+int PrimitiveReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 	int64_t ret = 0;
 
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(right);

@@ -27,15 +27,15 @@ public:
 	virtual bool isPrimitive() const noexcept;
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
 
-	void setInstance(AbstractVmInstance* instance) noexcept;
+	void setInstance(IAbstractVmInstanceSubstance* instance) noexcept;
 
-	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
+	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 	virtual bool isNull() const noexcept;
-	virtual int valueCompare(AbstractVmInstance* right);
+	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 private:
-	AbstractVmInstance* instance;
+	IAbstractVmInstanceSubstance* instance;
 };
 
 } /* namespace alinous */

@@ -24,7 +24,7 @@ public:
 	virtual ~VmStringInstance();
 
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
-	virtual int valueCompare(AbstractVmInstance* right);
+	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 	virtual uint8_t getInstType() const noexcept;
 	virtual const VMemList<AbstractReference>* getInstReferences() const noexcept;

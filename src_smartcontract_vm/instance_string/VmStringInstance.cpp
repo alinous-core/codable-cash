@@ -28,7 +28,7 @@ VmStringInstance::~VmStringInstance() {
 	delete this->value;
 }
 
-int VmStringInstance::valueCompare(AbstractVmInstance* right) {
+int VmStringInstance::valueCompare(IAbstractVmInstanceSubstance* right) {
 	VmStringInstance* rightStr = dynamic_cast<VmStringInstance*>(right);
 
 	return compareFunctor(this->value, rightStr->value);

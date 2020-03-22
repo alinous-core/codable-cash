@@ -64,7 +64,7 @@ void VmClassInstance::removeInnerRefs(GcManager* gc) noexcept {
 	}
 }
 
-int VmClassInstance::valueCompare(AbstractVmInstance* right) {
+int VmClassInstance::valueCompare(IAbstractVmInstanceSubstance* right) {
 	int64_t diff = (int64_t)this - (int64_t)right;
 	if(diff == 0){
 		return 0;

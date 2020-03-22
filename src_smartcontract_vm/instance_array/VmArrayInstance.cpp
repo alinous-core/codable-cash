@@ -69,7 +69,7 @@ AbstractExtObject* VmArrayInstance::toClassExtObject(const UnicodeString* name,	
 	return obj;
 }
 
-int VmArrayInstance::valueCompare(AbstractVmInstance* right) {
+int VmArrayInstance::valueCompare(IAbstractVmInstanceSubstance* right) {
 	int64_t diff = (int64_t)this - (int64_t)right;
 	if(diff == 0){
 		return 0;

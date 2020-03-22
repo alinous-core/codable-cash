@@ -88,7 +88,7 @@ bool ObjectReference::isNull() const noexcept {
 	return this->instance == nullptr;
 }
 
-int ObjectReference::valueCompare(AbstractVmInstance* right) {
+int ObjectReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 	if(isNull()){
 		return right->isNull() ? 0 : -1;
 	}

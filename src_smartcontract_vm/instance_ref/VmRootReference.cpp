@@ -79,7 +79,7 @@ int VmRootReference::instHashCode() const noexcept {
 	return hashCode();
 }
 
-int VmRootReference::valueCompare(AbstractVmInstance* right) {
+int VmRootReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 	return 0;
 }
 

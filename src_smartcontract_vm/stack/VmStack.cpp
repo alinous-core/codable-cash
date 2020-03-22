@@ -80,7 +80,7 @@ int VmStack::instHashCode() const noexcept {
 	return hashCode();
 }
 
-int VmStack::valueCompare(AbstractVmInstance* right) {
+int VmStack::valueCompare(IAbstractVmInstanceSubstance* right) {
 	return 0;
 }
 
