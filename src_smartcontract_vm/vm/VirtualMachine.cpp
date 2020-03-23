@@ -178,10 +178,10 @@ bool VirtualMachine::hasError() noexcept {
 void VirtualMachine::newStack() {
 	VmRootReference* root = this->sc->getRootReference();
 
-	VmStack* stack = new(this) VmStack(this);
+	VmStack* stack = new(this) VmStack(root, this);
 	this->stackManager->addStack(stack);
 
-	this->gc->addInstanceReference(root, stack);
+	this->gc->registerObject(stack);
 }
 
 void VirtualMachine::popStack() {
@@ -189,8 +189,7 @@ void VirtualMachine::popStack() {
 
 	this->stackManager->popStack();
 
-	VmRootReference* root = this->sc->getRootReference();
-	this->gc->removeInstanceReference(root, stack);
+	this->gc->removeObject(stack);
 }
 
 VmStack* VirtualMachine::topStack() const noexcept {
@@ -208,7 +207,7 @@ void VirtualMachine::clearStack() noexcept {
 		VmStack* stack = this->stackManager->top();
 		this->stackManager->popStack();
 
-		this->gc->removeInstanceReference(root, stack);
+		this->gc->removeObject(root);
 	}
 }
 

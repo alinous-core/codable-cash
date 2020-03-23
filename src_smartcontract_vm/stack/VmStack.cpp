@@ -85,6 +85,10 @@ bool VmStack::instIsPrimitive() const noexcept {
 	return false;
 }
 
+IAbstractVmInstanceSubstance* VmStack::getInstance() noexcept {
+	return this;
+}
+
 int VmStack::valueCompare(IAbstractVmInstanceSubstance* right) {
 	return 0;
 }
