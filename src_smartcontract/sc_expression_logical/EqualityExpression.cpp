@@ -116,8 +116,8 @@ AbstractVmInstance* EqualityExpression::interpret(VirtualMachine* vm) {
 	}
 
 	GcManager* gc = vm->getGc();
-	gc->handleFloatingObject(leftv);
-	gc->handleFloatingObject(rightv);
+	gc->handleFloatingObject(leftv != nullptr ? leftv->getInstance() : nullptr);
+	gc->handleFloatingObject(rightv != nullptr ? rightv->getInstance() : nullptr);
 
 	PrimitiveReference* ret = PrimitiveReference::createBoolReference(vm, bl ? 1 : 0);
 

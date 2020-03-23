@@ -91,6 +91,10 @@ AbstractExtObject* VmRootReference::instToClassExtObject(const UnicodeString* na
 	return toClassExtObject(name, table);
 }
 
+bool VmRootReference::instIsPrimitive() const noexcept {
+	return isPrimitive();
+}
+
 int VmRootReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 	return 0;
 }

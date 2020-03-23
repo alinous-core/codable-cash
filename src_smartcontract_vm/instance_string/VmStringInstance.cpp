@@ -67,6 +67,10 @@ AbstractExtObject* VmStringInstance::instToClassExtObject(
 	return toClassExtObject(name, table);
 }
 
+bool VmStringInstance::instIsPrimitive() const noexcept {
+	return false;
+}
+
 AbstractExtObject* VmStringInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
 	const wchar_t* wchar_str = this->value->towString();
 	UnicodeString str(wchar_str);

@@ -79,7 +79,7 @@ AbstractVmInstance* ConditionalOrExpression::interpret(VirtualMachine* vm) {
 		PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
 		int32_t val = ref->getIntValue();
-		gc->handleFloatingObject(inst);
+		gc->handleFloatingObject(inst != nullptr ? inst->getInstance() : nullptr);
 
 		if(val > 0){
 			return PrimitiveReference::createBoolReference(vm, 1);

@@ -29,6 +29,7 @@ public:
 	virtual uint8_t getInstType() const noexcept;
 	virtual const VMemList<AbstractReference>* getInstReferences() const noexcept;
 	virtual int instHashCode() const noexcept;
+	virtual bool instIsPrimitive() const noexcept;
 	virtual bool instIsNull() const noexcept;
 	virtual int instValueCompare(IAbstractVmInstanceSubstance* right);
 	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);

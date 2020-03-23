@@ -210,6 +210,10 @@ AbstractExtObject* PrimitiveReference::instToClassExtObject(const UnicodeString*
 	return instToClassExtObject(name, table);
 }
 
+bool PrimitiveReference::instIsPrimitive() const noexcept {
+	return isPrimitive();
+}
+
 int PrimitiveReference::valueCompare64(PrimitiveReference* right) {
 	int64_t leftv = getLongValue();
 	int64_t rightv = right->getLongValue();

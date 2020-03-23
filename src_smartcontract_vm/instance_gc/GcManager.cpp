@@ -166,6 +166,10 @@ void GcManager::handleFloatingObject(IAbstractVmInstanceSubstance* refered) noex
 	if(refered == nullptr){
 		return;
 	}
+	else if(refered->instIsPrimitive()){
+		delete refered;
+		return;
+	}
 
 	VmInstanceKey key(refered);
 	ReferenceStatus* status = this->statuses.get(&key);

@@ -12,6 +12,7 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "instance/AbstractVmInstance.h"
 namespace alinous {
 
 ExpressionStatement::ExpressionStatement() : AbstractStatement(CodeElement::STMT_EXPRESSION) {
@@ -69,7 +70,7 @@ void ExpressionStatement::interpret(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
 
 	AbstractVmInstance* retInst = this->exp->interpret(vm);
-	gc->handleFloatingObject(retInst);
+	gc->handleFloatingObject(retInst != nullptr ? retInst->getInstance() : nullptr);
 }
 
 

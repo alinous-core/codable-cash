@@ -45,7 +45,7 @@ void VmArrayInstance::removeInnerRefs(GcManager* gc) noexcept {
 		AbstractReference* ref = this->array->get(i);
 
 		// remove ref
-		gc->removeRefReference(this, ref);
+		gc->removeObject(ref);
 	}
 }
 
@@ -117,11 +117,11 @@ void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReferenc
 
 	AbstractReference* last = this->array->get(pos);
 	if(last != nullptr){
-		gc->removeRefReference(this, last);
+		gc->removeObject(last);
 	}
 
 	if(ref != nullptr){
-		gc->addRefReference(this, ref);
+		gc->addToRemoveble(ref);
 		this->array->setElement(ref, pos);
 	}
 

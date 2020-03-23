@@ -60,7 +60,7 @@ void VmClassInstance::removeInnerRefs(GcManager* gc) noexcept {
 		AbstractReference* ref = this->members.get(i);
 
 		// remove ref
-		gc->removeRefReference(this, ref);
+		gc->removeObject(ref);
 	}
 }
 
@@ -116,7 +116,7 @@ void VmClassInstance::init(VirtualMachine* vm) {
 		AbstractReference* ref = RefereceFactory::createReferenceFromDefinition(dec, vm);
 		this->members.addElement(ref);
 
-		gc->addRefReference(this, ref);
+		gc->registerObject(ref);
 	}
 
 	for(int i = 0; i != maxLoop; ++i){
