@@ -30,16 +30,7 @@ void VmStack::addInnerReference(AbstractReference* ref) {
 	GcManager* gc = vm->getGc();
 
 	this->stack->addElement(ref);
-
-	AbstractVmInstance* inst = nullptr;
-	if(ref->isPrimitive()){
-		return;
-	}
-	else{
-		inst = ref->getInstance();
-	}
-
-	gc->addInstanceReference(this, inst);
+	gc->registerObject(ref);
 }
 
 const VMemList<AbstractReference>* VmStack::getReferences() const noexcept {
