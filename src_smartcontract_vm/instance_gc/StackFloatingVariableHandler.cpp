@@ -23,12 +23,12 @@ StackFloatingVariableHandler::~StackFloatingVariableHandler() {
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractVmInstance* inst = this->list.get(i);
 
-		this->gc->handleFloatingObject(inst);
+		this->gc->handleFloatingObject(inst->getInstance());
 	}
 }
 
 AbstractVmInstance* StackFloatingVariableHandler::registerInstance(AbstractVmInstance* inst) noexcept {
-	if(inst == nullptr || inst->isNull() == nullptr){
+	if(inst == nullptr || inst->isNull()){
 		return nullptr;
 	}
 

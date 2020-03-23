@@ -43,23 +43,19 @@ PrimitiveReference* NumericConstHolder::newNumericConstReferenece(int64_t value,
 
 	referene = RefereceFactory::createNumericReference(value, type, vm);
 	VmRootReference* rootRef = vm->getVmRootReference();
-	GcManager* gc = vm->getGc();
 
-	gc->addRefReference(rootRef, referene);
 	map->put(key, referene);
 
 	return referene;
 }
 
 void NumericConstHolder::removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept {
-	GcManager* gc = vm->getGc();
-
 	Iterator<LongIntegerKey>* it = this->intVariables.keySet()->iterator();
 	while(it->hasNext()){
 		const LongIntegerKey* key = it->next();
 		PrimitiveReference* ref = this->intVariables.get(key);
 
-		gc->removeInstanceReference(rootRef, ref);
+		delete ref;
 	}
 	delete it;
 
@@ -68,7 +64,7 @@ void NumericConstHolder::removeInnerReferences(VmRootReference* rootRef, Virtual
 		const LongIntegerKey* key = it->next();
 		PrimitiveReference* ref = this->longVariables.get(key);
 
-		gc->removeInstanceReference(rootRef, ref);
+		delete ref;
 	}
 	delete it;
 }

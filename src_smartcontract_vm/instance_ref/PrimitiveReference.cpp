@@ -214,6 +214,10 @@ bool PrimitiveReference::instIsPrimitive() const noexcept {
 	return isPrimitive();
 }
 
+IAbstractVmInstanceSubstance* PrimitiveReference::getInstance() noexcept {
+	return this;
+}
+
 int PrimitiveReference::valueCompare64(PrimitiveReference* right) {
 	int64_t leftv = getLongValue();
 	int64_t rightv = right->getLongValue();

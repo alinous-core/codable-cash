@@ -25,6 +25,8 @@ public:
 	static PrimitiveReference* createIntReference(VirtualMachine* vm, int32_t value);
 	static PrimitiveReference* createLongReference(VirtualMachine* vm, int64_t value);
 
+	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
+
 	virtual bool isPrimitive() const noexcept;
 	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 
