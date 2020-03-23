@@ -29,7 +29,7 @@ ObjectReference* ObjectReference::createObjectReference(IAbstractVmInstanceSubst
 
 	if(doGc && clazzInst != nullptr){
 		GcManager* gc = vm->getGc();
-		gc->addInstanceReference(ref, clazzInst);
+		gc->registerObject(ref);
 	}
 
 	return ref;
@@ -45,7 +45,7 @@ ObjectReference* ObjectReference::createStringReference(IAbstractVmInstanceSubst
 
 	if(clazzInst != nullptr){
 		GcManager* gc = vm->getGc();
-		gc->addInstanceReference(ref, clazzInst);
+		gc->registerObject(ref);
 	}
 
 	return ref;
@@ -59,21 +59,21 @@ IAbstractVmInstanceSubstance* ObjectReference::getInstance() noexcept {
 	return this->instance;
 }
 
-void ObjectReference::setInstance(AbstractVmInstance* instance) noexcept {
+void ObjectReference::setInstance(IAbstractVmInstanceSubstance* instance) noexcept {
 	this->instance = instance;
 }
 
-void ObjectReference::substitute(AbstractVmInstance* rightValue, VirtualMachine* vm) {
+void ObjectReference::substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
 
 	if(this->instance != nullptr){
-		gc->removeInstanceReference(this, this->instance);
+		gc->removeObject(this);
 		this->instance = nullptr;
 	}
 
-	if(rightValue != nullptr && !rightValue->isNull()){
-		gc->addInstanceReference(this, rightValue);
+	if(rightValue != nullptr && !rightValue->instIsNull()){
 		this->instance = rightValue;
+		gc->registerObject(this);
 	}
 	else {
 		this->instance = nullptr;
