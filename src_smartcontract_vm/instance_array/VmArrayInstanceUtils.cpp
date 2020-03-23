@@ -88,7 +88,7 @@ AbstractReference* VmArrayInstanceUtils::makeReference(IAbstractVmInstanceSubsta
 		AnalyzedType baseType(*atype);
 		baseType.setDim(0);
 
-		AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(&baseType, vm);
+		AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(owner, &baseType, vm);
 		return ref;
 	}
 

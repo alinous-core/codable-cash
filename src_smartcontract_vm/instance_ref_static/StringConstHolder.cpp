@@ -32,6 +32,7 @@ VmStringInstance* StringConstHolder::newStringConstInstance(const UnicodeString*
 
 	if(inst == nullptr){
 		inst = new(vm) VmStringInstance(vm, str);
+
 		this->stringVariables.put(str, inst);
 	}
 
