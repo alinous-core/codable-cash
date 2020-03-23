@@ -60,8 +60,8 @@ PrimitiveReference* VmRootReference::newNumericConstReferenece(int64_t value, ui
 	return this->staticHolder->newNumericConstReferenece(value, type ,vm);
 }
 
-VmStringInstance* VmRootReference::newStringConstReferenece(const UnicodeString* str, VirtualMachine* vm) {
-	return this->staticHolder->newStringConstInstance(str, vm);
+VmStringInstance* VmRootReference::newStringConstReferenece(VmRootReference* rootRef, const UnicodeString* str, VirtualMachine* vm) {
+	return this->staticHolder->newStringConstInstance(rootRef, str, vm);
 }
 
 AbstractReference* VmRootReference::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {

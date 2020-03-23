@@ -207,7 +207,7 @@ void VirtualMachine::clearStack() noexcept {
 		VmStack* stack = this->stackManager->top();
 		this->stackManager->popStack();
 
-		this->gc->removeObject(root);
+		this->gc->removeObject(stack);
 	}
 }
 
