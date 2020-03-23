@@ -105,6 +105,10 @@ AbstractExtObject* VmClassInstance::instToClassExtObject(const UnicodeString* na
 	return toClassExtObject(name, table);
 }
 
+bool VmClassInstance::instIsPrimitive() const noexcept {
+	return false;
+}
+
 void VmClassInstance::init(VirtualMachine* vm) {
 	ArrayList<MemberVariableDeclare>* list = this->clazz->getMemberVariableDeclareList();
 	GcManager* gc = vm->getGc();

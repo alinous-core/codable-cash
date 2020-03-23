@@ -112,6 +112,10 @@ AbstractExtObject* VmArrayInstance::instToClassExtObject(
 	return toClassExtObject(name, table);
 }
 
+bool VmArrayInstance::instIsPrimitive() const noexcept {
+	return false;
+}
+
 void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReference* ref) noexcept {
 	GcManager* gc = vm->getGc();
 
@@ -121,7 +125,7 @@ void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReferenc
 	}
 
 	if(ref != nullptr){
-		gc->addToRemoveble(ref);
+		gc->registerObject(ref);
 		this->array->setElement(ref, pos);
 	}
 

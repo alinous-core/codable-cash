@@ -51,11 +51,9 @@ void VmStack::removeInnerRefs(GcManager* gc) noexcept {
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractReference* ref = this->stack->get(i);
 
-		gc->removeRefReference(this, ref);
+		gc->removeObject(ref);
 
-		if(!ref->isPrimitive()){
-			delete ref;
-		}
+		delete ref;
 	}
 }
 
@@ -90,6 +88,10 @@ int VmStack::instValueCompare(IAbstractVmInstanceSubstance* right) {
 
 AbstractExtObject* VmStack::instToClassExtObject(const UnicodeString* name,	VTableRegistory* table) {
 	return toClassExtObject(name, table);
+}
+
+bool VmStack::instIsPrimitive() const noexcept {
+	return false;
 }
 
 int VmStack::valueCompare(IAbstractVmInstanceSubstance* right) {
