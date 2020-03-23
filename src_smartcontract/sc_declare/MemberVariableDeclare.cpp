@@ -115,7 +115,7 @@ void MemberVariableDeclare::doOnAllocate(VirtualMachine* vm, AbstractReference* 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
 	ref->substitute(inst->getInstance(), vm);
 
-	gc->handleFloatingObject(inst);
+	gc->handleFloatingObject(inst->getInstance());
 }
 
 void MemberVariableDeclare::setAccessControl(AccessControlDeclare* ctrl) noexcept {

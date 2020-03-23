@@ -25,6 +25,7 @@ public:
 
 	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
 
+	IAbstractVmInstanceSubstance* getOwner() const noexcept;
 protected:
 	IAbstractVmInstanceSubstance* const owner;
 };

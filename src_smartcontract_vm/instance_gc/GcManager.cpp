@@ -29,7 +29,13 @@ GcManager::~GcManager() {
 	//this->removable.deleteElements();
 }
 
-void GcManager::addInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept {
+void GcManager::registerObject(AbstractReference* ref) {
+	if(ref->isPrimitive() || ref->isNull()){
+		return;
+	}
+	IAbstractVmInstanceSubstance* refered = ref->getInstance();
+	IAbstractVmInstanceSubstance* owner = ref->getOwner();
+
 	VmInstanceKey key(refered);
 
 	ReferenceStatus* status = this->statuses.get(&key);
@@ -41,14 +47,15 @@ void GcManager::addInstanceReference(AbstractVmInstance* owner, AbstractVmInstan
 	status->addOwner(owner);
 }
 
+void GcManager::removeObject(AbstractReference* ref) {
+	if(ref->isPrimitive() || ref->isNull()){
+		return;
+	}
 
-void GcManager::removeInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept {
 	VmInstanceKey key(refered);
 
 	ReferenceStatus* status = this->statuses.get(&key);
 	assert(status != nullptr);
-
-	status->removeOwner(owner);
 
 	if(status->isRemovable()){
 		addToRemoveble(status);
@@ -155,7 +162,7 @@ void GcManager::copyAll(HashMap<VmInstanceKey, ReferenceStatus>* checkHash) noex
 	}
 }
 
-void GcManager::handleFloatingObject(AbstractVmInstance* refered) noexcept {
+void GcManager::handleFloatingObject(IAbstractVmInstanceSubstance* refered) noexcept {
 	if(refered == nullptr){
 		return;
 	}

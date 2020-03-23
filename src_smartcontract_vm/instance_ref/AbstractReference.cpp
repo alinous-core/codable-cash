@@ -32,5 +32,10 @@ bool AbstractReference::isReference() const noexcept {
 void AbstractReference::substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm) {
 }
 
+IAbstractVmInstanceSubstance* AbstractReference::getOwner() const noexcept {
+	return this->owner;
+}
+
+
 
 } /* namespace alinous */
