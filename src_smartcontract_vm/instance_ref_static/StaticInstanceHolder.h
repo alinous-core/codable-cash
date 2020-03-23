@@ -25,7 +25,7 @@ public:
 	virtual ~StaticInstanceHolder();
 
 	PrimitiveReference* newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm);
-	VmStringInstance* newStringConstInstance(const UnicodeString* str, VirtualMachine* vm);
+	VmStringInstance* newStringConstInstance(VmRootReference* rootRef, const UnicodeString* str, VirtualMachine* vm);
 
 	void removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept;
 private:

@@ -27,8 +27,8 @@ PrimitiveReference* StaticInstanceHolder::newNumericConstReferenece(int64_t valu
 	return this->numeric->newNumericConstReferenece(value, type, vm);
 }
 
-VmStringInstance* StaticInstanceHolder::newStringConstInstance(const UnicodeString* str, VirtualMachine* vm) {
-	return this->stringConsts->newStringConstInstance(str, vm);
+VmStringInstance* StaticInstanceHolder::newStringConstInstance(VmRootReference* rootRef, const UnicodeString* str, VirtualMachine* vm) {
+	return this->stringConsts->newStringConstInstance(rootRef, str, vm);
 }
 
 void StaticInstanceHolder::removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept {
