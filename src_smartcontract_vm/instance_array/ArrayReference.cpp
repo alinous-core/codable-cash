@@ -32,15 +32,15 @@ void ArrayReference::substitute(AbstractVmInstance* rightValue,	VirtualMachine* 
 	GcManager* gc = vm->getGc();
 
 	if(this->instArray != nullptr){
-		gc->removeInstanceReference(this, this->instArray);
+		gc->removeObject(this);
 		this->instArray = nullptr;
 	}
 
 	if(rightValue != nullptr && !rightValue->isNull()){
 		VmArrayInstance* inst = dynamic_cast<VmArrayInstance*>(rightValue);
 
-		gc->addInstanceReference(this, inst);
 		this->instArray = inst;
+		gc->registerObject(this);
 	}
 }
 
