@@ -28,7 +28,7 @@ AbstractReference* RefereceFactory::createReferenceFromDefinition(IAbstractVmIns
 	// array
 	int dim = type->getDimension();
 	if(dim > 0){
-		return new(vm) ArrayReference(vm);
+		return new(vm) ArrayReference(owner, vm);
 	}
 
 	short kind = type->getKind();
@@ -53,7 +53,7 @@ AbstractReference* RefereceFactory::createReferenceFromDefinition(IAbstractVmIns
 	case CodeElement::TYPE_OBJECT:
 	case CodeElement::TYPE_STRING:
 	default:
-		ref = createObjectReferenceFromDefinition(dec, vm);
+		ref = createObjectReferenceFromDefinition(owner, dec, vm);
 		break;
 	}
 
