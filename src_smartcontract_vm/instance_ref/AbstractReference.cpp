@@ -21,10 +21,6 @@ bool AbstractReference::isPrimitive() const noexcept {
 	return false;
 }
 
-IAbstractVmInstanceSubstance* AbstractReference::getInstance() noexcept {
-	return this;
-}
-
 bool AbstractReference::isReference() const noexcept {
 	return true;
 }

@@ -20,7 +20,7 @@ public:
 	virtual ~AbstractReference();
 
 	virtual bool isPrimitive() const noexcept;
-	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
+	virtual IAbstractVmInstanceSubstance* getInstance() noexcept = 0;
 	virtual bool isReference() const noexcept;
 
 	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);

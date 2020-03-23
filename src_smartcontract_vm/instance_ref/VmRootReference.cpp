@@ -18,7 +18,7 @@
 
 namespace alinous {
 
-VmRootReference::VmRootReference(VirtualMachine* vm) : AbstractReference(VmInstanceTypesConst::REF_ROOT) {
+VmRootReference::VmRootReference(VirtualMachine* vm) : AbstractReference(this, VmInstanceTypesConst::REF_ROOT) {
 	this->vm = vm;
 	this->mainInst = nullptr;
 	this->staticHolder = new StaticInstanceHolder();
@@ -33,7 +33,8 @@ VmRootReference::~VmRootReference() {
 void VmRootReference::clearInnerReferences() {
 	if(this->mainInst != nullptr){
 		GcManager* gc = this->vm->getGc();
-		gc->removeInstanceReference(this, this->mainInst);
+
+		gc->removeObject(this);
 		this->mainInst = nullptr;
 
 		this->staticHolder->removeInnerReferences(this, this->vm);
@@ -46,7 +47,7 @@ void VmRootReference::setMainInstance(VmClassInstance* mainInst) noexcept {
 	this->mainInst = mainInst;
 
 	GcManager* gc = this->vm->getGc();
-	gc->addInstanceReference(this, this->mainInst);
+	gc->registerObject(this);
 }
 
 

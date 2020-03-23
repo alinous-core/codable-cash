@@ -15,6 +15,8 @@
 
 #include "instance_ref/AbstractReference.h"
 
+#include "instance/IAbstractVmInstanceSubstance.h"
+
 #include "base/StackRelease.h"
 #include <cassert>
 
@@ -51,6 +53,8 @@ void GcManager::removeObject(AbstractReference* ref) {
 	if(ref->isPrimitive() || ref->isNull()){
 		return;
 	}
+
+	IAbstractVmInstanceSubstance* refered = ref->getInstance();
 
 	VmInstanceKey key(refered);
 

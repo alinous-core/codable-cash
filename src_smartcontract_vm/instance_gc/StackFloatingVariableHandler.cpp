@@ -28,7 +28,7 @@ StackFloatingVariableHandler::~StackFloatingVariableHandler() {
 }
 
 AbstractVmInstance* StackFloatingVariableHandler::registerInstance(AbstractVmInstance* inst) noexcept {
-	if(inst == nullptr){
+	if(inst == nullptr || inst->isNull() == nullptr){
 		return nullptr;
 	}
 
