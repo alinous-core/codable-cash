@@ -117,7 +117,7 @@ void VmClassInstance::init(VirtualMachine* vm) {
 	for(int i = 0; i != maxLoop; ++i){
 		MemberVariableDeclare* dec = list->get(i);
 
-		AbstractReference* ref = RefereceFactory::createReferenceFromDefinition(dec, vm);
+		AbstractReference* ref = RefereceFactory::createReferenceFromDefinition(this, dec, vm);
 		this->members.addElement(ref);
 
 		gc->registerObject(ref);
