@@ -27,8 +27,8 @@ TEST_GROUP(TestMiscCompareGroup) {
 TEST(TestMiscCompareGroup, Stack){
 	VirtualMachine vm(1024 * 10);
 
-	VmStack* stack = new(&vm) VmStack(&vm);
-	VmStack* stack2 = new(&vm) VmStack(&vm);
+	VmStack* stack = new(&vm) VmStack(nullptr, &vm);
+	VmStack* stack2 = new(&vm) VmStack(nullptr, &vm);
 
 	int result = stack->valueCompare(stack2);
 	CHECK(result == 0)
