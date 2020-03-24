@@ -101,8 +101,11 @@ void GcManager::garbageCollect() {
 	while(!this->removable.isEmpty() || !this->needCheck.isEmpty()){
 		while(!this->removable.isEmpty()){
 			ReferenceStatus* status = this->removable.remove(0);
-			status->releseInnerRefs(this);
+			VmInstanceKey key(status->getInstance());
 
+			this->statuses.remove(&key);
+
+			status->releseInnerRefs(this);
 			status->deleteInstance();
 
 			delete status;
