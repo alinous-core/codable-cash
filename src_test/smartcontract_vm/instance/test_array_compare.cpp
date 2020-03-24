@@ -48,10 +48,10 @@ TEST(TestArrayCompareGroup, compare01){
 
 	VmArrayInstanceUtils::isArrayIndex(atype);
 
-	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(&atype, &vm); __STP(ref);
+	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(nullptr, &atype, &vm); __STP(ref);
 	ArrayReference* arrayRef = dynamic_cast<ArrayReference*>(ref);
 
-	int diff = arrayRef->valueCompare(arrayRef);
+	int diff = arrayRef->valueCompare(arrayRef->getInstance());
 	CHECK(diff == 0)
 }
 
@@ -65,7 +65,7 @@ TEST(TestArrayCompareGroup, compare02){
 
 	VmArrayInstanceUtils::isArrayIndex(atype);
 
-	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(&atype, &vm); __STP(ref);
+	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(nullptr, &atype, &vm); __STP(ref);
 	ArrayReference* arrayRef = dynamic_cast<ArrayReference*>(ref);
 
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
@@ -73,7 +73,7 @@ TEST(TestArrayCompareGroup, compare02){
 	arrayRef->substitute(inst, &vm);
 	arrayRef->substitute(inst, &vm);
 
-	int diff = arrayRef->valueCompare(arrayRef);
+	int diff = arrayRef->valueCompare(arrayRef->getInstance());
 	CHECK(diff == 0)
 
 	arrayRef->substitute(nullptr, &vm);
@@ -92,10 +92,10 @@ TEST(TestArrayCompareGroup, compare03){
 
 	VmArrayInstanceUtils::isArrayIndex(atype);
 
-	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(&atype, &vm); __STP(ref);
+	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(nullptr, &atype, &vm); __STP(ref);
 	ArrayReference* arrayRef = dynamic_cast<ArrayReference*>(ref);
 
-	AbstractReference* ref2 = RefereceFactory::createReferenceFromAnalyzedType(&atype, &vm); __STP(ref2);
+	AbstractReference* ref2 = RefereceFactory::createReferenceFromAnalyzedType(nullptr, &atype, &vm); __STP(ref2);
 	ArrayReference* arrayRef2 = dynamic_cast<ArrayReference*>(ref2);
 
 
@@ -103,7 +103,7 @@ TEST(TestArrayCompareGroup, compare03){
 
 	arrayRef->substitute(inst, &vm);
 
-	int diff = arrayRef->valueCompare(arrayRef2);
+	int diff = arrayRef->valueCompare(arrayRef2->getInstance());
 	CHECK(diff != 0)
 
 	arrayRef->substitute(nullptr, &vm);
@@ -123,10 +123,10 @@ TEST(TestArrayCompareGroup, compare04){
 
 	VmArrayInstanceUtils::isArrayIndex(atype);
 
-	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(&atype, &vm); __STP(ref);
+	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(nullptr, &atype, &vm); __STP(ref);
 	ArrayReference* arrayRef = dynamic_cast<ArrayReference*>(ref);
 
-	AbstractReference* ref2 = RefereceFactory::createReferenceFromAnalyzedType(&atype, &vm); __STP(ref2);
+	AbstractReference* ref2 = RefereceFactory::createReferenceFromAnalyzedType(nullptr, &atype, &vm); __STP(ref2);
 	ArrayReference* arrayRef2 = dynamic_cast<ArrayReference*>(ref2);
 
 
@@ -136,7 +136,7 @@ TEST(TestArrayCompareGroup, compare04){
 	arrayRef->substitute(inst, &vm);
 	arrayRef2->substitute(inst2, &vm);
 
-	int diff = arrayRef->valueCompare(arrayRef2);
+	int diff = arrayRef->valueCompare(arrayRef2->getInstance());
 	CHECK(diff != 0)
 
 
@@ -157,10 +157,10 @@ TEST(TestArrayCompareGroup, compare05){
 
 	VmArrayInstanceUtils::isArrayIndex(atype);
 
-	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(&atype, &vm); __STP(ref);
+	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(nullptr, &atype, &vm); __STP(ref);
 	ArrayReference* arrayRef = dynamic_cast<ArrayReference*>(ref);
 
-	AbstractReference* ref2 = RefereceFactory::createReferenceFromAnalyzedType(&atype, &vm); __STP(ref2);
+	AbstractReference* ref2 = RefereceFactory::createReferenceFromAnalyzedType(nullptr, &atype, &vm); __STP(ref2);
 	ArrayReference* arrayRef2 = dynamic_cast<ArrayReference*>(ref2);
 
 

@@ -49,7 +49,7 @@ TEST(TestClassObjectGroup, substitute01){
 
 	AnalyzedType* class1 = util.findClassDeclare(L"test.fw.base.BaseClass"); __STP(class1);
 
-	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(class1, util.vm);
+	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(nullptr, class1, util.vm);
 
 	VmClassInstance* inst1 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm);
 

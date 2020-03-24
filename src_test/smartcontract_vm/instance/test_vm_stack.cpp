@@ -28,7 +28,7 @@ TEST_GROUP(TestVmStackGroup) {
 TEST(TestVmStackGroup, Stack){
 	VirtualMachine vm(1024);
 
-	VmStack* stack = new(&vm) VmStack(&vm);
+	VmStack* stack = new(&vm) VmStack(nullptr, &vm);
 	CHECK(stack->getReferences() != nullptr);
 
 	delete stack;
