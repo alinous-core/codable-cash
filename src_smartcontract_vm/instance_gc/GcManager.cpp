@@ -61,6 +61,9 @@ void GcManager::removeObject(AbstractReference* ref) {
 	ReferenceStatus* status = this->statuses.get(&key);
 	assert(status != nullptr);
 
+	IAbstractVmInstanceSubstance* owner = ref->getOwner();
+	status->removeOwner(owner);
+
 	if(status->isRemovable()){
 		addToRemoveble(status);
 	}
