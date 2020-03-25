@@ -26,8 +26,9 @@ public:
 	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
 
 	IAbstractVmInstanceSubstance* getOwner() const noexcept;
+	void setOwner(IAbstractVmInstanceSubstance* owner) noexcept;
 protected:
-	IAbstractVmInstanceSubstance* const owner;
+	IAbstractVmInstanceSubstance* owner;
 };
 
 } /* namespace alinous */

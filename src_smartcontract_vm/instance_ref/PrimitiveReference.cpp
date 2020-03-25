@@ -382,4 +382,17 @@ size_t PrimitiveReference::getDataSize(int8_t type) noexcept {
 	return sizeof(int32_t);
 }
 
+PrimitiveReference* PrimitiveReference::copy(VirtualMachine* vm) const noexcept {
+	PrimitiveReference* ref = new(vm) PrimitiveReference(this->type);
+
+	size_t size = this->getDataSize(this->type);
+
+	ref->malloc = vm->getAlloc();
+	ref->data = this->malloc->mallocPtrArray(size);
+
+	Mem::memcpy(ref->data, this->data, size);
+
+	return ref;
+}
+
 } /* namespace alinous */

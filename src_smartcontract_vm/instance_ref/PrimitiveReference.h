@@ -66,6 +66,8 @@ public:
 		return this->data;
 	}
 
+	PrimitiveReference* copy(VirtualMachine* vm) const noexcept;
+
 private:
 	int valueCompare8(PrimitiveReference* right);
 	int valueCompare16(PrimitiveReference* right);

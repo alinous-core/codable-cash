@@ -181,7 +181,7 @@ void GcManager::handleFloatingObject(IAbstractVmInstanceSubstance* refered) noex
 	else if(refered->instIsPrimitive()){
 		PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(refered);
 
-		if(!ref->isStaticConst()){
+		if(!ref->isStaticConst() && ref->getOwner() == nullptr){
 			delete refered;
 		}
 		return;

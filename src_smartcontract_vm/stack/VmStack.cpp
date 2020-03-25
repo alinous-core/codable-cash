@@ -8,6 +8,7 @@
 #include "stack/VmStack.h"
 
 #include "instance_ref/AbstractReference.h"
+#include "instance_ref/PrimitiveReference.h"
 
 #include "instance_gc/GcManager.h"
 #include "instance/AbstractVmInstance.h"
@@ -29,7 +30,18 @@ VmStack::~VmStack() {
 void VmStack::addInnerReference(AbstractReference* ref) {
 	GcManager* gc = vm->getGc();
 
+	if(ref->isPrimitive()){
+		PrimitiveReference* pref = dynamic_cast<PrimitiveReference*>(ref);
+
+		pref = pref->copy(vm);
+		pref->setOwner(this);
+		this->stack->addElement(pref);
+
+		return;
+	}
+
 	this->stack->addElement(ref);
+
 	gc->registerObject(ref);
 }
 

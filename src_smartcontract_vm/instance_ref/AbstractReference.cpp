@@ -32,6 +32,9 @@ IAbstractVmInstanceSubstance* AbstractReference::getOwner() const noexcept {
 	return this->owner;
 }
 
+void AbstractReference::setOwner(IAbstractVmInstanceSubstance* owner) noexcept {
+	this->owner = owner;
+}
 
 
 } /* namespace alinous */
