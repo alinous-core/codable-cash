@@ -239,7 +239,7 @@ bool PrimitiveReference::isPrimitive() const noexcept {
 	return true;
 }
 
-void PrimitiveReference::substitute(AbstractVmInstance* rightValue,	VirtualMachine* vm) {
+void PrimitiveReference::substitute(IAbstractVmInstanceSubstance* rightValue,	VirtualMachine* vm) {
 	uint8_t type = getType();
 	PrimitiveReference* rightRef = dynamic_cast<PrimitiveReference*>(rightValue);
 	assert(rightRef != nullptr);

@@ -10,12 +10,15 @@
 #include "instance_ref/PrimitiveReference.h"
 #include "instance_ref/RefereceFactory.h"
 #include "instance_ref/VmRootReference.h"
+#include "instance_ref/ConstStaticPrimitive.h"
 
 #include "instance_gc/GcManager.h"
 
 #include "sc_analyze/AnalyzedType.h"
 
 #include "vm/VirtualMachine.h"
+
+#include "base/StackRelease.h"
 
 
 namespace alinous {
@@ -41,12 +44,17 @@ PrimitiveReference* NumericConstHolder::newNumericConstReferenece(int64_t value,
 		return referene;
 	}
 
-	referene = RefereceFactory::createNumericReference(value, type, vm);
-	VmRootReference* rootRef = vm->getVmRootReference();
+	referene = makeConstStaticPrimitive(value, type, vm);
 
 	map->put(key, referene);
 
 	return referene;
+}
+
+ConstStaticPrimitive* NumericConstHolder::makeConstStaticPrimitive(int64_t value, uint8_t type, VirtualMachine* vm) {
+	PrimitiveReference* referene = RefereceFactory::createNumericReference(value, type, vm); __STP(referene);
+
+	return new(vm) ConstStaticPrimitive(referene);
 }
 
 void NumericConstHolder::removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept {
@@ -68,6 +76,5 @@ void NumericConstHolder::removeInnerReferences(VmRootReference* rootRef, Virtual
 	}
 	delete it;
 }
-
 
 } /* namespace alinous */

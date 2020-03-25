@@ -28,7 +28,7 @@ IAbstractVmInstanceSubstance* ArrayReference::getInstance() noexcept {
 	return this->instArray;
 }
 
-void ArrayReference::substitute(AbstractVmInstance* rightValue,	VirtualMachine* vm) {
+void ArrayReference::substitute(IAbstractVmInstanceSubstance* rightValue,	VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
 
 	if(this->instArray != nullptr){
@@ -36,7 +36,7 @@ void ArrayReference::substitute(AbstractVmInstance* rightValue,	VirtualMachine* 
 		this->instArray = nullptr;
 	}
 
-	if(rightValue != nullptr && !rightValue->isNull()){
+	if(rightValue != nullptr && !rightValue->instIsNull()){
 		VmArrayInstance* inst = dynamic_cast<VmArrayInstance*>(rightValue);
 
 		this->instArray = inst;
