@@ -379,7 +379,7 @@ size_t PrimitiveReference::getDataSize(int8_t type) noexcept {
 		break;
 	}
 
-	return sizeof(int32_t);
+	return ret;
 }
 
 PrimitiveReference* PrimitiveReference::copy(VirtualMachine* vm) const noexcept {

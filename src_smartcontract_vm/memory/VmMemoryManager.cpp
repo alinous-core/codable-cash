@@ -64,6 +64,7 @@ char* VmMemoryManager::malloc(uint32_t cap) {
 
 	uint32_t* head = (uint32_t*)ptr;
 	*head = allocSize;
+	assert(allocSize > 0);
 
 	this->capacityUsed += allocSize;
 

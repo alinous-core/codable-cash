@@ -41,7 +41,7 @@ void* AbstractVmInstance::operator new(size_t size, VirtualMachine* vm) {
 	VmMemoryManager* mem = vm->getMemory();
 	uint64_t mallocSize = size + sizeof(VirtualMachine**);
 
-	void* p = mem->malloc(mallocSize);
+	char* p = mem->malloc(mallocSize);
 	VirtualMachine** vmp = (VirtualMachine**)p;
 	*vmp = vm;
 
@@ -49,7 +49,7 @@ void* AbstractVmInstance::operator new(size_t size, VirtualMachine* vm) {
 }
 
 void AbstractVmInstance::operator delete(void* p, size_t size) {
-	void* ptr = ((char*)p) - sizeof(VirtualMachine*);
+	char* ptr = ((char*)p) - sizeof(VirtualMachine*);
 
 	VirtualMachine** vm = (VirtualMachine**)ptr;
 	VmMemoryManager* mem = (*vm)->getMemory();
