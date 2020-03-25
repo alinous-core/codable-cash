@@ -14,11 +14,13 @@
 #include "instance_gc/GcCyclicCheckerContext.h"
 
 #include "instance_ref/AbstractReference.h"
+#include "instance_ref/PrimitiveReference.h"
 
 #include "instance/IAbstractVmInstanceSubstance.h"
 
 #include "base/StackRelease.h"
 #include <cassert>
+
 
 
 namespace alinous {
@@ -177,7 +179,11 @@ void GcManager::handleFloatingObject(IAbstractVmInstanceSubstance* refered) noex
 		return;
 	}
 	else if(refered->instIsPrimitive()){
-		delete refered;
+		PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(refered);
+
+		if(!ref->isStaticConst()){
+			delete refered;
+		}
 		return;
 	}
 
