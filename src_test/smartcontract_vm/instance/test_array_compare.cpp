@@ -183,8 +183,8 @@ TEST(TestArrayCompareGroup, compare05){
 
 	arrayRef->substitute(inst, &vm);
 
-	int diff = arrayRef->valueCompare(inst);
-	CHECK(diff == 0)
+	int diff = arrayRef2->valueCompare(inst);
+	CHECK(diff != 0)
 
 	arrayRef->substitute(nullptr, &vm);
 	arrayRef2->substitute(nullptr, &vm);
