@@ -120,6 +120,7 @@ void VmClassInstance::init(VirtualMachine* vm) {
 		MemberVariableDeclare* dec = list->get(i);
 
 		AbstractReference* ref = RefereceFactory::createReferenceFromDefinition(this, dec, vm);
+		ref->setOwner(this);
 		this->members.addElement(ref);
 
 		gc->registerObject(ref);

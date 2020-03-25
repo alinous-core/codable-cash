@@ -124,7 +124,8 @@ TEST(TestLocalVariablesGroup, intaccessWithMember){
 
 		UnicodeString strVal(L"val2");
 		ExtPrimitiveObject* val = classObj->getExtPrimitiveObject(&strVal);
-		CHECK(val->getIntValue() == 100);
+		int ival = val->getIntValue();
+		CHECK(ival == 100);
 	}
 
 	vm->destroy();

@@ -35,6 +35,9 @@ AbstractReference* RefereceFactory::createReferenceFromDefinition(IAbstractVmIns
 	AbstractReference* ref = nullptr;
 
 	switch(kind){
+	case CodeElement::TYPE_BOOL:
+		ref = PrimitiveReference::createBoolReference(vm, 0);
+		break;
 	case CodeElement::TYPE_BYTE:
 		ref = PrimitiveReference::createByteReference(vm, 0);
 		break;

@@ -33,7 +33,7 @@ void VmStack::addInnerReference(AbstractReference* ref) {
 	if(ref->isPrimitive()){
 		PrimitiveReference* pref = dynamic_cast<PrimitiveReference*>(ref);
 
-		pref = pref->copy(vm);
+		//pref = pref->copy(vm);
 		pref->setOwner(this);
 		this->stack->addElement(pref);
 
