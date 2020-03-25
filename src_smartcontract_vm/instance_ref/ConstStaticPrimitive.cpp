@@ -5,17 +5,20 @@
  *      Author: iizuka
  */
 
-#include <instance_ref/ConstStaticPrimitive.h>
+#include "instance_ref/ConstStaticPrimitive.h"
 
 namespace alinous {
 
-ConstStaticPrimitive::ConstStaticPrimitive() {
-	// TODO Auto-generated constructor stub
+ConstStaticPrimitive::ConstStaticPrimitive(PrimitiveReference* primitiveObj) : PrimitiveReference(primitiveObj->getType()) {
 
 }
 
 ConstStaticPrimitive::~ConstStaticPrimitive() {
-	// TODO Auto-generated destructor stub
+
+}
+
+bool ConstStaticPrimitive::isStaticConst() const noexcept {
+	return true;
 }
 
 } /* namespace alinous */

@@ -43,6 +43,8 @@ public:
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 
+	virtual bool isStaticConst() const noexcept;
+
 	bool getBoolValue() const noexcept;
 
 	int32_t getIntValue() const noexcept;
@@ -62,6 +64,9 @@ private:
 	int valueCompare16(PrimitiveReference* right);
 	int valueCompare32(PrimitiveReference* right);
 	int valueCompare64(PrimitiveReference* right);
+
+protected:
+	static size_t getDataSize(int8_t type) noexcept;
 
 private:
 	void* data;

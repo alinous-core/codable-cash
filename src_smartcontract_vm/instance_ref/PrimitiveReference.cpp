@@ -218,6 +218,10 @@ IAbstractVmInstanceSubstance* PrimitiveReference::getInstance() noexcept {
 	return this;
 }
 
+bool PrimitiveReference::isStaticConst() const noexcept {
+	return false;
+}
+
 int PrimitiveReference::valueCompare64(PrimitiveReference* right) {
 	int64_t leftv = getLongValue();
 	int64_t rightv = right->getLongValue();
@@ -298,7 +302,7 @@ PrimitiveReference* PrimitiveReference::createBoolReference(VirtualMachine* vm,	
 	PrimitiveReference* ref = new(vm) PrimitiveReference(VmInstanceTypesConst::REF_BOOL);
 
 	ref->malloc = vm->getAlloc();
-	ref->data = ref->malloc->mallocPtrArray(sizeof(int32_t));
+	ref->data = ref->malloc->mallocPtrArray(getDataSize(ref->type));
 	ref->setIntValue(value);
 
 	return ref;
@@ -308,7 +312,7 @@ PrimitiveReference* PrimitiveReference::createIntReference(VirtualMachine* vm, i
 	PrimitiveReference* ref = new(vm) PrimitiveReference(VmInstanceTypesConst::REF_INT);
 
 	ref->malloc = vm->getAlloc();
-	ref->data = ref->malloc->mallocPtrArray(sizeof(int32_t));
+	ref->data = ref->malloc->mallocPtrArray(getDataSize(ref->type));
 	ref->setIntValue(value);
 
 	return ref;
@@ -318,7 +322,7 @@ PrimitiveReference* PrimitiveReference::createByteReference(VirtualMachine* vm, 
 	PrimitiveReference* ref = new(vm) PrimitiveReference(VmInstanceTypesConst::REF_BYTE);
 
 	ref->malloc = vm->getAlloc();
-	ref->data = ref->malloc->mallocPtrArray(sizeof(int8_t));
+	ref->data = ref->malloc->mallocPtrArray(getDataSize(ref->type));
 	ref->setByteValue(value);
 
 	return ref;
@@ -328,7 +332,7 @@ PrimitiveReference* PrimitiveReference::createCharReference(VirtualMachine* vm,	
 	PrimitiveReference* ref = new(vm) PrimitiveReference(VmInstanceTypesConst::REF_CHAR);
 
 	ref->malloc = vm->getAlloc();
-	ref->data = ref->malloc->mallocPtrArray(sizeof(int16_t));
+	ref->data = ref->malloc->mallocPtrArray(getDataSize(ref->type));
 	ref->setCharValue(value);
 
 	return ref;
@@ -338,7 +342,7 @@ PrimitiveReference* PrimitiveReference::createShortReference(VirtualMachine* vm,
 	PrimitiveReference* ref = new(vm) PrimitiveReference(VmInstanceTypesConst::REF_SHORT);
 
 	ref->malloc = vm->getAlloc();
-	ref->data = ref->malloc->mallocPtrArray(sizeof(int16_t));
+	ref->data = ref->malloc->mallocPtrArray(getDataSize(ref->type));
 	ref->setShortValue(value);
 
 	return ref;
@@ -348,11 +352,34 @@ PrimitiveReference* PrimitiveReference::createLongReference(VirtualMachine* vm,	
 	PrimitiveReference* ref = new(vm) PrimitiveReference(VmInstanceTypesConst::REF_LONG);
 
 	ref->malloc = vm->getAlloc();
-	ref->data = ref->malloc->mallocPtrArray(sizeof(int64_t));
+	ref->data = ref->malloc->mallocPtrArray(getDataSize(ref->type));
 	ref->setLongValue(value);
 
 	return ref;
 }
 
+size_t PrimitiveReference::getDataSize(int8_t type) noexcept {
+	size_t ret = 0;
+
+	switch(type){
+	case VmInstanceTypesConst::REF_BYTE:
+		ret = sizeof(int8_t);
+		break;
+	case VmInstanceTypesConst::REF_CHAR:
+	case VmInstanceTypesConst::REF_SHORT:
+		ret = sizeof(int16_t);
+		break;
+	case VmInstanceTypesConst::REF_LONG:
+		ret = sizeof(int64_t);
+		break;
+	case VmInstanceTypesConst::REF_BOOL:
+	case VmInstanceTypesConst::REF_INT:
+	default:
+		ret = sizeof(int32_t);
+		break;
+	}
+
+	return sizeof(int32_t);
+}
 
 } /* namespace alinous */

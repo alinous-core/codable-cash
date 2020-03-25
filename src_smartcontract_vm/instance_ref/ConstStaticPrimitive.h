@@ -8,12 +8,16 @@
 #ifndef INSTANCE_REF_CONSTSTATICPRIMITIVE_H_
 #define INSTANCE_REF_CONSTSTATICPRIMITIVE_H_
 
+#include "instance_ref/PrimitiveReference.h"
+
 namespace alinous {
 
-class ConstStaticPrimitive {
+class ConstStaticPrimitive : public PrimitiveReference {
 public:
-	ConstStaticPrimitive();
+	ConstStaticPrimitive(PrimitiveReference* primitiveObj);
 	virtual ~ConstStaticPrimitive();
+
+	virtual bool isStaticConst() const noexcept;
 };
 
 } /* namespace alinous */
