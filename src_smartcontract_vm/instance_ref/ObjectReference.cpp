@@ -90,18 +90,13 @@ bool ObjectReference::isNull() const noexcept {
 
 int ObjectReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 	if(isNull()){
-		return right->instIsNull() ? 0 : -1;
+		return right == nullptr ? 0 : -1;
 	}
-	else if(right->instIsNull()){
+	else if(right == nullptr){
 		return isNull() ? 0 : 1;
 	}
 
-	ObjectReference* objRight = dynamic_cast<ObjectReference*>(right);
-	if(objRight == nullptr){
-		return -1;
-	}
-
-	return this->instance->instValueCompare(objRight->getInstance());
+	return this->instance->instValueCompare(right);
 }
 
 } /* namespace alinous */

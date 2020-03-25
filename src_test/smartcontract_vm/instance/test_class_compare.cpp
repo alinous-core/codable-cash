@@ -175,5 +175,5 @@ TEST(TestClassCompareGroup, compareObjectReference06){
 	ObjectReference* ref1 = ObjectReference::createObjectReference(nullptr, inst1, util.vm); __STP(ref1);
 
 	int diff = ref1->valueCompare(inst1);
-	CHECK(diff != 0);
+	CHECK(diff == 0);
 }
