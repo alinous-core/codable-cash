@@ -59,6 +59,13 @@ public:
 	int64_t getLongValue() const noexcept;
 	void setLongValue(int64_t value) noexcept;
 
+	VmMalloc* getMalloc() {
+		return malloc;
+	}
+	void* getData() {
+		return this->data;
+	}
+
 private:
 	int valueCompare8(PrimitiveReference* right);
 	int valueCompare16(PrimitiveReference* right);
@@ -68,7 +75,7 @@ private:
 protected:
 	static size_t getDataSize(int8_t type) noexcept;
 
-private:
+protected:
 	void* data;
 	VmMalloc* malloc;
 };
