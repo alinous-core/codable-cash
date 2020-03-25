@@ -50,18 +50,18 @@ bool ArrayReference::isNull() const noexcept {
 
 int ArrayReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 	if(isNull()){
-		return right->instIsNull() ? 0 : -1;
+		return right == nullptr ? 0 : -1;
 	}
-	else if(right->instIsNull()){
+	else if(right == nullptr){
 		return isNull() ? 0 : 1;
 	}
 
-	ArrayReference* objRight = dynamic_cast<ArrayReference*>(right);
+	VmArrayInstance* objRight = dynamic_cast<VmArrayInstance*>(right);
 	if(objRight == nullptr){
 		return -1;
 	}
 
-	return this->instArray->valueCompare(objRight->getInstance());
+	return this->instArray->valueCompare(objRight);
 }
 
 AbstractExtObject* ArrayReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {

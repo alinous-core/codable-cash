@@ -30,6 +30,7 @@
 
 #include "instance_gc/GcManager.h"
 
+#include "instance_ref/VmRootReference.h"
 
 using namespace alinous;
 
@@ -65,7 +66,9 @@ TEST(TestArrayCompareGroup, compare02){
 
 	VmArrayInstanceUtils::isArrayIndex(atype);
 
-	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(nullptr, &atype, &vm); __STP(ref);
+	VmRootReference* root = new(&vm) VmRootReference(&vm);
+
+	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(root, &atype, &vm); __STP(ref);
 	ArrayReference* arrayRef = dynamic_cast<ArrayReference*>(ref);
 
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
@@ -80,6 +83,8 @@ TEST(TestArrayCompareGroup, compare02){
 
 	GcManager* gc = vm.getGc();
 	gc->garbageCollect();
+
+	delete root;
 }
 
 TEST(TestArrayCompareGroup, compare03){
@@ -92,10 +97,12 @@ TEST(TestArrayCompareGroup, compare03){
 
 	VmArrayInstanceUtils::isArrayIndex(atype);
 
-	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(nullptr, &atype, &vm); __STP(ref);
+	VmRootReference* root = new(&vm) VmRootReference(&vm);
+
+	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(root, &atype, &vm); __STP(ref);
 	ArrayReference* arrayRef = dynamic_cast<ArrayReference*>(ref);
 
-	AbstractReference* ref2 = RefereceFactory::createReferenceFromAnalyzedType(nullptr, &atype, &vm); __STP(ref2);
+	AbstractReference* ref2 = RefereceFactory::createReferenceFromAnalyzedType(root, &atype, &vm); __STP(ref2);
 	ArrayReference* arrayRef2 = dynamic_cast<ArrayReference*>(ref2);
 
 
@@ -111,6 +118,8 @@ TEST(TestArrayCompareGroup, compare03){
 
 	GcManager* gc = vm.getGc();
 	gc->garbageCollect();
+
+	delete root;
 }
 
 TEST(TestArrayCompareGroup, compare04){
@@ -123,10 +132,12 @@ TEST(TestArrayCompareGroup, compare04){
 
 	VmArrayInstanceUtils::isArrayIndex(atype);
 
-	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(nullptr, &atype, &vm); __STP(ref);
+	VmRootReference* root = new(&vm) VmRootReference(&vm);
+
+	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(root, &atype, &vm); __STP(ref);
 	ArrayReference* arrayRef = dynamic_cast<ArrayReference*>(ref);
 
-	AbstractReference* ref2 = RefereceFactory::createReferenceFromAnalyzedType(nullptr, &atype, &vm); __STP(ref2);
+	AbstractReference* ref2 = RefereceFactory::createReferenceFromAnalyzedType(root, &atype, &vm); __STP(ref2);
 	ArrayReference* arrayRef2 = dynamic_cast<ArrayReference*>(ref2);
 
 
@@ -145,6 +156,8 @@ TEST(TestArrayCompareGroup, compare04){
 
 	GcManager* gc = vm.getGc();
 	gc->garbageCollect();
+
+	delete root;
 }
 
 TEST(TestArrayCompareGroup, compare05){
@@ -157,10 +170,12 @@ TEST(TestArrayCompareGroup, compare05){
 
 	VmArrayInstanceUtils::isArrayIndex(atype);
 
-	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(nullptr, &atype, &vm); __STP(ref);
+	VmRootReference* root = new(&vm) VmRootReference(&vm);
+
+	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(root, &atype, &vm); __STP(ref);
 	ArrayReference* arrayRef = dynamic_cast<ArrayReference*>(ref);
 
-	AbstractReference* ref2 = RefereceFactory::createReferenceFromAnalyzedType(nullptr, &atype, &vm); __STP(ref2);
+	AbstractReference* ref2 = RefereceFactory::createReferenceFromAnalyzedType(root, &atype, &vm); __STP(ref2);
 	ArrayReference* arrayRef2 = dynamic_cast<ArrayReference*>(ref2);
 
 
@@ -169,12 +184,14 @@ TEST(TestArrayCompareGroup, compare05){
 	arrayRef->substitute(inst, &vm);
 
 	int diff = arrayRef->valueCompare(inst);
-	CHECK(diff != 0)
+	CHECK(diff == 0)
 
 	arrayRef->substitute(nullptr, &vm);
 	arrayRef2->substitute(nullptr, &vm);
 
 	GcManager* gc = vm.getGc();
 	gc->garbageCollect();
+
+	delete root;
 }
 

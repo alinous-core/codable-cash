@@ -68,7 +68,9 @@ AbstractExtObject* VmArrayInstance::toClassExtObject(const UnicodeString* name,	
 }
 
 int VmArrayInstance::valueCompare(IAbstractVmInstanceSubstance* right) {
-	int64_t diff = (int64_t)this - (int64_t)right;
+	VmArrayInstance* inst = dynamic_cast<VmArrayInstance*>(right);
+
+	int64_t diff = ((int64_t)this) - ((int64_t)inst);
 	if(diff == 0){
 		return 0;
 	}

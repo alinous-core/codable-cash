@@ -23,7 +23,7 @@ StringArgument::StringArgument(const UnicodeString* str) {
 }
 
 StringArgument::~StringArgument() {
-
+	delete this->value;
 }
 
 AnalyzedType StringArgument::getType() const noexcept {
