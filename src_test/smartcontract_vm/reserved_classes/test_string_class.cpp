@@ -71,8 +71,10 @@ TEST(TestStringClassGroup, stringInstcmp01){
 	VmStringInstance* strInst = new(&vm) VmStringInstance(&vm, &str);
 	VmStringInstance* strInst2 = new(&vm) VmStringInstance(&vm, &str);
 
-	int result = strInst->valueCompare(strInst2);
+	int result = strInst->instValueCompare(strInst2);
 	CHECK(result == 0)
+
+	strInst->getInstReferences();
 
 	delete strInst;
 	delete strInst2;
