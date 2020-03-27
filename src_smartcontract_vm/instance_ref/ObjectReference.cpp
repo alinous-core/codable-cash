@@ -11,10 +11,11 @@
 #include "instance/VmInstanceTypesConst.h"
 #include "instance_gc/GcManager.h"
 
+#include "instance_string/VmStringInstance.h"
 
 namespace alinous {
 
-ObjectReference::ObjectReference(uint8_t type) : AbstractReference(type) {
+ObjectReference::ObjectReference(IAbstractVmInstanceSubstance* owner, uint8_t type) : AbstractReference(owner, type) {
 	this->instance = nullptr;
 }
 
@@ -22,9 +23,30 @@ ObjectReference::~ObjectReference() {
 
 }
 
-ObjectReference* ObjectReference::createObjectReference(VmClassInstance* clazzInst, VirtualMachine* vm) {
-	ObjectReference* ref = new(vm) ObjectReference(VmInstanceTypesConst::REF_OBJ);
+ObjectReference* ObjectReference::createObjectReference(IAbstractVmInstanceSubstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm, bool doGc) {
+	ObjectReference* ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ);
 	ref->setInstance(clazzInst);
+
+	if(doGc && clazzInst != nullptr){
+		GcManager* gc = vm->getGc();
+		gc->registerObject(ref);
+	}
+
+	return ref;
+}
+
+ObjectReference* ObjectReference::createObjectReference(IAbstractVmInstanceSubstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm) {
+	return createObjectReference(owner, clazzInst, vm, false);
+}
+
+ObjectReference* ObjectReference::createStringReference(IAbstractVmInstanceSubstance* owner, VmStringInstance* clazzInst, VirtualMachine* vm) {
+	ObjectReference* ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ);
+	ref->setInstance(clazzInst);
+
+	if(clazzInst != nullptr){
+		GcManager* gc = vm->getGc();
+		gc->registerObject(ref);
+	}
 
 	return ref;
 }
@@ -33,25 +55,25 @@ bool ObjectReference::isPrimitive() const noexcept {
 	return false;
 }
 
-AbstractVmInstance* ObjectReference::getInstance() noexcept {
+IAbstractVmInstanceSubstance* ObjectReference::getInstance() noexcept {
 	return this->instance;
 }
 
-void ObjectReference::setInstance(AbstractVmInstance* instance) noexcept {
+void ObjectReference::setInstance(IAbstractVmInstanceSubstance* instance) noexcept {
 	this->instance = instance;
 }
 
-void ObjectReference::substitute(AbstractVmInstance* rightValue, VirtualMachine* vm) {
+void ObjectReference::substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
 
 	if(this->instance != nullptr){
-		gc->removeInstanceReference(this, this->instance);
+		gc->removeObject(this);
 		this->instance = nullptr;
 	}
 
-	if(rightValue != nullptr && !rightValue->isNull()){
-		gc->addInstanceReference(this, rightValue);
+	if(rightValue != nullptr && !rightValue->instIsNull()){
 		this->instance = rightValue;
+		gc->registerObject(this);
 	}
 	else {
 		this->instance = nullptr;
@@ -59,27 +81,22 @@ void ObjectReference::substitute(AbstractVmInstance* rightValue, VirtualMachine*
 }
 
 AbstractExtObject* ObjectReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
-	return this->instance->toClassExtObject(name, table);
+	return this->instance->instToClassExtObject(name, table);
 }
 
 bool ObjectReference::isNull() const noexcept {
 	return this->instance == nullptr;
 }
 
-int ObjectReference::valueCompare(AbstractVmInstance* right) {
+int ObjectReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 	if(isNull()){
-		return right->isNull() ? 0 : -1;
+		return right == nullptr ? 0 : -1;
 	}
-	else if(right->isNull()){
+	else if(right == nullptr){
 		return isNull() ? 0 : 1;
 	}
 
-	ObjectReference* objRight = dynamic_cast<ObjectReference*>(right);
-	if(objRight == nullptr){
-		return -1;
-	}
-
-	return this->instance->valueCompare(objRight->getInstance());
+	return this->instance->instValueCompare(right);
 }
 
 } /* namespace alinous */

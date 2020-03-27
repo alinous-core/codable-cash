@@ -9,10 +9,11 @@
 #define INSTANCE_REF_PRIMITIVEREFERENCE_H_
 
 #include "instance_ref/AbstractReference.h"
+#include "instance/IAbstractVmInstanceSubstance.h"
 
 namespace alinous {
 
-class PrimitiveReference : public AbstractReference {
+class PrimitiveReference : public AbstractReference, public IAbstractVmInstanceSubstance {
 public:
 	explicit PrimitiveReference(uint8_t type);
 	virtual ~PrimitiveReference();
@@ -24,11 +25,25 @@ public:
 	static PrimitiveReference* createIntReference(VirtualMachine* vm, int32_t value);
 	static PrimitiveReference* createLongReference(VirtualMachine* vm, int64_t value);
 
-	virtual bool isPrimitive() const noexcept;
-	virtual int valueCompare(AbstractVmInstance* right);
+	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
 
-	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
+	virtual bool isPrimitive() const noexcept;
+	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
+
+	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
+
+	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
+	virtual uint8_t getInstType() const noexcept;
+	virtual const VMemList<AbstractReference>* getInstReferences() const noexcept;
+	virtual int instHashCode() const noexcept;
+	virtual bool instIsPrimitive() const noexcept;
+	virtual bool instIsNull() const noexcept;
+	virtual int instValueCompare(IAbstractVmInstanceSubstance* right);
+	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);
+
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
+
+	virtual bool isStaticConst() const noexcept;
 
 	bool getBoolValue() const noexcept;
 
@@ -44,13 +59,25 @@ public:
 	int64_t getLongValue() const noexcept;
 	void setLongValue(int64_t value) noexcept;
 
+	VmMalloc* getMalloc() {
+		return malloc;
+	}
+	void* getData() {
+		return this->data;
+	}
+
+	PrimitiveReference* copy(VirtualMachine* vm) const noexcept;
+
 private:
 	int valueCompare8(PrimitiveReference* right);
 	int valueCompare16(PrimitiveReference* right);
 	int valueCompare32(PrimitiveReference* right);
 	int valueCompare64(PrimitiveReference* right);
 
-private:
+protected:
+	static size_t getDataSize(int8_t type) noexcept;
+
+protected:
 	void* data;
 	VmMalloc* malloc;
 };

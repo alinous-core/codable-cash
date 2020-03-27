@@ -27,15 +27,19 @@ StringConstHolder::~StringConstHolder() {
 
 }
 
-VmStringInstance* StringConstHolder::newStringConstInstance(const UnicodeString* str, VirtualMachine* vm) {
-	VmStringInstance* inst = this->stringVariables.get(str);
+VmStringInstance* StringConstHolder::newStringConstInstance(VmRootReference* rootRef, const UnicodeString* str, VirtualMachine* vm) {
+	AbstractReference* ref = this->stringVariables.get(str);
 
-	if(inst == nullptr){
-		inst = new(vm) VmStringInstance(vm, str);
-		this->stringVariables.put(str, inst);
+	if(ref == nullptr){
+		VmStringInstance* inst = new(vm) VmStringInstance(vm, str);
+		ref = inst->wrap(rootRef, vm);
+
+		this->stringVariables.put(str, ref);
 	}
 
-	return inst;
+	IAbstractVmInstanceSubstance* substance = ref->getInstance();
+
+	return dynamic_cast<VmStringInstance*>(substance);
 }
 
 void StringConstHolder::removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept {
@@ -44,9 +48,10 @@ void StringConstHolder::removeInnerReferences(VmRootReference* rootRef, VirtualM
 	Iterator<UnicodeString>* it = this->stringVariables.keySet()->iterator(); __STP(it);
 	while(it->hasNext()){
 		const UnicodeString* key = it->next();
-		VmStringInstance* inst = this->stringVariables.get(key);
+		AbstractReference* ref = this->stringVariables.get(key);
 
-		gc->removeInstanceReference(rootRef, inst);
+		gc->removeObject(ref);
+		delete ref;
 	}
 
 }

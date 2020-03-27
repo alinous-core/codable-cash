@@ -18,7 +18,7 @@
 
 namespace alinous {
 
-VmRootReference::VmRootReference(VirtualMachine* vm) : AbstractReference(VmInstanceTypesConst::REF_ROOT) {
+VmRootReference::VmRootReference(VirtualMachine* vm) : AbstractReference(this, VmInstanceTypesConst::REF_ROOT) {
 	this->vm = vm;
 	this->mainInst = nullptr;
 	this->staticHolder = new StaticInstanceHolder();
@@ -33,10 +33,12 @@ VmRootReference::~VmRootReference() {
 void VmRootReference::clearInnerReferences() {
 	if(this->mainInst != nullptr){
 		GcManager* gc = this->vm->getGc();
-		gc->removeInstanceReference(this, this->mainInst);
+
+		gc->removeObject(this);
 		this->mainInst = nullptr;
 
 		this->staticHolder->removeInnerReferences(this, this->vm);
+		this->staticHolder->removeStringConst(this, this->vm);
 
 		this->mainInst = nullptr;
 	}
@@ -46,11 +48,11 @@ void VmRootReference::setMainInstance(VmClassInstance* mainInst) noexcept {
 	this->mainInst = mainInst;
 
 	GcManager* gc = this->vm->getGc();
-	gc->addInstanceReference(this, this->mainInst);
+	gc->registerObject(this);
 }
 
 
-AbstractVmInstance* VmRootReference::getInstance() noexcept {
+IAbstractVmInstanceSubstance* VmRootReference::getInstance() noexcept {
 	return this->mainInst;
 }
 
@@ -59,11 +61,43 @@ PrimitiveReference* VmRootReference::newNumericConstReferenece(int64_t value, ui
 	return this->staticHolder->newNumericConstReferenece(value, type ,vm);
 }
 
-VmStringInstance* VmRootReference::newStringConstReferenece(const UnicodeString* str, VirtualMachine* vm) {
-	return this->staticHolder->newStringConstInstance(str, vm);
+VmStringInstance* VmRootReference::newStringConstReferenece(VmRootReference* rootRef, const UnicodeString* str, VirtualMachine* vm) {
+	return this->staticHolder->newStringConstInstance(rootRef, str, vm);
 }
 
-int VmRootReference::valueCompare(AbstractVmInstance* right) {
+AbstractReference* VmRootReference::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
+	return nullptr;
+}
+
+uint8_t VmRootReference::getInstType() const noexcept {
+	return getType();
+}
+
+const VMemList<AbstractReference>* VmRootReference::getInstReferences() const noexcept {
+	return getReferences();
+}
+
+int VmRootReference::instHashCode() const noexcept {
+	return hashCode();
+}
+
+bool VmRootReference::instIsNull() const noexcept {
+	return isNull();
+}
+
+int VmRootReference::instValueCompare(IAbstractVmInstanceSubstance* right) {
+	return valueCompare(right);
+}
+
+AbstractExtObject* VmRootReference::instToClassExtObject(const UnicodeString* name, VTableRegistory* table) {
+	return toClassExtObject(name, table);
+}
+
+bool VmRootReference::instIsPrimitive() const noexcept {
+	return isPrimitive();
+}
+
+int VmRootReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 	return 0;
 }
 

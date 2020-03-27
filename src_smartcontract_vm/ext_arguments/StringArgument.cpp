@@ -7,15 +7,33 @@
 
 #include "ext_arguments/StringArgument.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "base/UnicodeString.h"
+
+#include "instance_string/VmStringInstance.h"
+
+
 namespace alinous {
 
-StringArgument::StringArgument() {
-	// TODO Auto-generated constructor stub
-
+StringArgument::StringArgument(const UnicodeString* str) {
+	this->value = new UnicodeString(str);
 }
 
 StringArgument::~StringArgument() {
-	// TODO Auto-generated destructor stub
+	delete this->value;
+}
+
+AnalyzedType StringArgument::getType() const noexcept {
+	return AnalyzedType(AnalyzedType::TYPE_STRING);
+}
+
+AbstractVmInstance* StringArgument::interpret(VirtualMachine* vm) {
+	VmStringInstance* inst = new(vm) VmStringInstance(vm, this->value);
+
+	return inst;
 }
 
 } /* namespace alinous */

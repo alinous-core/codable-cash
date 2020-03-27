@@ -8,6 +8,7 @@
 #include "stack/VmStack.h"
 
 #include "instance_ref/AbstractReference.h"
+#include "instance_ref/PrimitiveReference.h"
 
 #include "instance_gc/GcManager.h"
 #include "instance/AbstractVmInstance.h"
@@ -16,7 +17,8 @@
 
 namespace alinous {
 
-VmStack::VmStack(VirtualMachine* vm) : AbstractReference(VmInstanceTypesConst::STACK) {
+VmStack::VmStack(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm)
+				: AbstractReference(owner, VmInstanceTypesConst::STACK), IInstanceContainer() {
 	this->stack = new(vm) VMemList<AbstractReference>(vm);
 	this->vm = vm;
 }
@@ -28,17 +30,19 @@ VmStack::~VmStack() {
 void VmStack::addInnerReference(AbstractReference* ref) {
 	GcManager* gc = vm->getGc();
 
+	if(ref->isPrimitive()){
+		PrimitiveReference* pref = dynamic_cast<PrimitiveReference*>(ref);
+
+		//pref = pref->copy(vm);
+		pref->setOwner(this);
+		this->stack->addElement(pref);
+
+		return;
+	}
+
 	this->stack->addElement(ref);
 
-	AbstractVmInstance* inst = nullptr;
-	if(ref->isPrimitive()){
-		inst = ref;
-	}
-	else{
-		inst = ref->getInstance();
-	}
-
-	gc->addInstanceReference(this, inst);
+	gc->registerObject(ref);
 }
 
 const VMemList<AbstractReference>* VmStack::getReferences() const noexcept {
@@ -50,11 +54,9 @@ void VmStack::removeInnerRefs(GcManager* gc) noexcept {
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractReference* ref = this->stack->get(i);
 
-		gc->removeRefReference(this, ref);
+		gc->removeObject(ref);
 
-		if(!ref->isPrimitive()){
-			delete ref;
-		}
+		delete ref;
 	}
 }
 
@@ -63,8 +65,43 @@ AbstractReference* VmStack::get(int pos) const noexcept {
 	return this->stack->get(pos);
 }
 
+AbstractReference* VmStack::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
+	return this;
+}
 
-int VmStack::valueCompare(AbstractVmInstance* right) {
+uint8_t VmStack::getInstType() const noexcept {
+	return getType();
+}
+
+const VMemList<AbstractReference>* VmStack::getInstReferences() const noexcept {
+	return getReferences();
+}
+
+int VmStack::instHashCode() const noexcept {
+	return hashCode();
+}
+
+bool VmStack::instIsNull() const noexcept {
+	return isNull();
+}
+
+int VmStack::instValueCompare(IAbstractVmInstanceSubstance* right) {
+	return valueCompare(right);
+}
+
+AbstractExtObject* VmStack::instToClassExtObject(const UnicodeString* name,	VTableRegistory* table) {
+	return toClassExtObject(name, table);
+}
+
+bool VmStack::instIsPrimitive() const noexcept {
+	return false;
+}
+
+IAbstractVmInstanceSubstance* VmStack::getInstance() noexcept {
+	return this;
+}
+
+int VmStack::valueCompare(IAbstractVmInstanceSubstance* right) {
 	return 0;
 }
 

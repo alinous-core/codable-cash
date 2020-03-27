@@ -22,10 +22,16 @@
 #include "ext_binary/ExtPrimitiveObject.h"
 
 #include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/AnalyzedType.h"
 
 #include "instance/VmClassInstance.h"
 
+#include "../VmTestUtils.h"
+#include "ext_arguments/NumericArgument.h"
 
+#include "vm/exceptions.h"
+
+#include "ext_arguments/StringArgument.h"
 using namespace alinous;
 
 
@@ -34,10 +40,18 @@ TEST_GROUP(TestCallMainInstGroup) {
 	TEST_TEARDOWN(){}
 };
 
+TEST(TestCallMainInstGroup, extArguments){
+	AnalyzedType at(AnalyzedType::TYPE_BOOL);
+	NullArgument nullArg(&at);
+}
+
+TEST(TestCallMainInstGroup, testException01){
+	testException<VmMethodNotFoundException>();
+}
 
 TEST(TestCallMainInstGroup, callMainMethod){
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/method_invoke/resources/callMainMethod/main.alns"));
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_vm/method_invoke/resources/callMainMethod/case01/main.alns"));
 
 	SmartContract* sc = new SmartContract();
 	FileInputStream stream(sourceFile);
@@ -77,7 +91,82 @@ TEST(TestCallMainInstGroup, callMainMethod){
 	vm->destroy();
 }
 
-TEST(TestCallMainInstGroup, extArguments){
-	NullArgument nullArg;
+TEST(TestCallMainInstGroup, callMainMethod2){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/method_invoke/resources/callMainMethod/case02/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	UnicodeString method(L"test");
+	ArrayList<AbstractFunctionExtArguments> args;
+	args.setDeleteOnExit();
+
+	args.addElement(new NumericArgument(10, AnalyzedType::TYPE_INT));
+	util.vm->interpret(&method, &args);
+
+	ExtClassObject* classObject = util.getMainExtObject(); __STP(classObject);
+
+	int count = VmTestUtils::getIntMemberValue(classObject, L"count");
+	CHECK(count == 10)
 }
+
+TEST(TestCallMainInstGroup, callMainMethod2_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/method_invoke/resources/callMainMethod/case02/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	UnicodeString method(L"test2");
+	ArrayList<AbstractFunctionExtArguments> args;
+	args.setDeleteOnExit();
+
+	args.addElement(new NumericArgument(10, AnalyzedType::TYPE_INT));
+
+	VmMethodNotFoundException* ex = nullptr;
+	try{
+		util.vm->interpret(&method, &args);
+	}catch(VmMethodNotFoundException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr);
+	delete ex;
+}
+
+TEST(TestCallMainInstGroup, callMainMethod3){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/method_invoke/resources/callMainMethod/case03/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	UnicodeString method(L"test");
+	ArrayList<AbstractFunctionExtArguments> args;
+	args.setDeleteOnExit();
+
+	UnicodeString hello(L"Hello World");
+	args.addElement(new StringArgument(&hello));
+	util.vm->interpret(&method, &args);
+}
+
 

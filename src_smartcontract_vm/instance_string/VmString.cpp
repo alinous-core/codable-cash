@@ -48,6 +48,10 @@ const wchar_t* VmString::towString() const noexcept {
 	return this->buff->root;
 }
 
+int VmString::hashCode() const noexcept {
+	return this->__hashCode;
+}
+
 void VmString::__closeString() noexcept {
 	this->buff->addElement(L'\0');
 	this->buff->backLast();

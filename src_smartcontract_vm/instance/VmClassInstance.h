@@ -12,6 +12,7 @@
 #include "instance/IInstanceContainer.h"
 #include "instance_parts/VMemList.h"
 
+
 namespace alinous {
 
 class AnalyzedClass;
@@ -26,11 +27,22 @@ public:
 
 	static VmClassInstance* createObject(AnalyzedClass* clazz, VirtualMachine* vm);
 
+	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
+	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
+	virtual uint8_t getInstType() const noexcept;
+	virtual const VMemList<AbstractReference>* getInstReferences() const noexcept;
+	virtual int instHashCode() const noexcept;
+	virtual bool instIsPrimitive() const noexcept;
+	virtual bool instIsNull() const noexcept;
+	virtual int instValueCompare(IAbstractVmInstanceSubstance* right);
+	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);
+
+
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 	virtual void removeInnerRefs(GcManager* gc) noexcept;
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* reg);
 
-	virtual int valueCompare(AbstractVmInstance* right);
+	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 
 	AnalyzedClass* getAnalyzedClass() const noexcept;
 private:

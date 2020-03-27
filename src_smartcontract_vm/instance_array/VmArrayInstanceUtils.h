@@ -15,6 +15,7 @@ namespace alinous {
 class AnalyzedType;
 class VmArrayInstance;
 class VirtualMachine;
+class IAbstractVmInstanceSubstance;
 
 class VmArrayInstanceUtils {
 public:
@@ -26,7 +27,7 @@ private:
 	static void setupVmArrayInstance(VirtualMachine* vm, VmArrayInstance* inst, int length, const AnalyzedType* atype
 										, ArrayList<AbstractReference>* refs, int maxDepth, int current);
 
-	static AbstractReference* makeReference(VirtualMachine* vm, int depth, int current, const AnalyzedType* atype);
+	static AbstractReference* makeReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm, int depth, int current, const AnalyzedType* atype);
 };
 
 } /* namespace alinous */

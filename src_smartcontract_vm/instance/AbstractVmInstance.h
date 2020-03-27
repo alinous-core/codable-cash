@@ -20,6 +20,7 @@ class AbstractReference;
 class GcManager;
 class AbstractExtObject;
 class VTableRegistory;
+class IAbstractVmInstanceSubstance;
 
 class AbstractVmInstance {
 public:
@@ -29,13 +30,14 @@ public:
 	explicit AbstractVmInstance(uint8_t type);
 	virtual ~AbstractVmInstance();
 
-	uint8_t getType() const noexcept;
+	virtual uint8_t getType() const noexcept;
 	int hashCode() const noexcept;
 
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
+	virtual IAbstractVmInstanceSubstance* getInstance() noexcept = 0;
 	virtual bool isReference() const noexcept;
 	virtual bool isNull() const noexcept;
-	virtual int valueCompare(AbstractVmInstance* right) = 0;
+	virtual int valueCompare(IAbstractVmInstanceSubstance* right) = 0;
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 protected:

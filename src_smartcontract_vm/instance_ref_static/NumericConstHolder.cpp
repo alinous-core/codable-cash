@@ -10,12 +10,15 @@
 #include "instance_ref/PrimitiveReference.h"
 #include "instance_ref/RefereceFactory.h"
 #include "instance_ref/VmRootReference.h"
+#include "instance_ref/ConstStaticPrimitive.h"
 
 #include "instance_gc/GcManager.h"
 
 #include "sc_analyze/AnalyzedType.h"
 
 #include "vm/VirtualMachine.h"
+
+#include "base/StackRelease.h"
 
 
 namespace alinous {
@@ -41,25 +44,26 @@ PrimitiveReference* NumericConstHolder::newNumericConstReferenece(int64_t value,
 		return referene;
 	}
 
-	referene = RefereceFactory::createNumericReference(value, type, vm);
-	VmRootReference* rootRef = vm->getVmRootReference();
-	GcManager* gc = vm->getGc();
+	referene = makeConstStaticPrimitive(value, type, vm);
 
-	gc->addRefReference(rootRef, referene);
 	map->put(key, referene);
 
 	return referene;
 }
 
-void NumericConstHolder::removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept {
-	GcManager* gc = vm->getGc();
+ConstStaticPrimitive* NumericConstHolder::makeConstStaticPrimitive(int64_t value, uint8_t type, VirtualMachine* vm) {
+	PrimitiveReference* referene = RefereceFactory::createNumericReference(value, type, vm); __STP(referene);
 
+	return new(vm) ConstStaticPrimitive(referene);
+}
+
+void NumericConstHolder::removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept {
 	Iterator<LongIntegerKey>* it = this->intVariables.keySet()->iterator();
 	while(it->hasNext()){
 		const LongIntegerKey* key = it->next();
 		PrimitiveReference* ref = this->intVariables.get(key);
 
-		gc->removeInstanceReference(rootRef, ref);
+		delete ref;
 	}
 	delete it;
 
@@ -68,10 +72,9 @@ void NumericConstHolder::removeInnerReferences(VmRootReference* rootRef, Virtual
 		const LongIntegerKey* key = it->next();
 		PrimitiveReference* ref = this->longVariables.get(key);
 
-		gc->removeInstanceReference(rootRef, ref);
+		delete ref;
 	}
 	delete it;
 }
-
 
 } /* namespace alinous */

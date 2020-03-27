@@ -17,16 +17,17 @@ namespace alinous {
 class VirtualMachine;
 class VmArrayInstance;
 template <typename T, typename C> class ArrayList;
+class IAbstractVmInstanceSubstance;
 
 class ArrayReference : public AbstractReference {
 public:
-	explicit ArrayReference(VirtualMachine* vm);
+	explicit ArrayReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 	virtual ~ArrayReference();
 
-	virtual AbstractVmInstance* getInstance() noexcept;
-	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
+	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
+	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
 	virtual bool isNull() const noexcept;
-	virtual int valueCompare(AbstractVmInstance* right);
+	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 

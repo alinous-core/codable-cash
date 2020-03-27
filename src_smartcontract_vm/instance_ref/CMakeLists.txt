@@ -2,6 +2,7 @@
 
 set(__src
 	AbstractReference.cpp
+	ConstStaticPrimitive.cpp
 	ObjectReference.cpp
 	PrimitiveReference.cpp
 	RefereceFactory.cpp

@@ -80,7 +80,7 @@ void LiteralExpression::init(VirtualMachine* vm) {
 
 	UnicodeString* invalue = this->str->substring(1, this->str->length() - 1); __STP(invalue);
 
-	this->reference = rootRef->newStringConstReferenece(invalue, vm);
+	this->reference = rootRef->newStringConstReferenece(rootRef, invalue, vm);
 }
 
 AbstractVmInstance* LiteralExpression::interpret(VirtualMachine* vm) {

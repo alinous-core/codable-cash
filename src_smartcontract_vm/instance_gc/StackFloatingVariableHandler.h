@@ -10,10 +10,12 @@
 
 #include "base/ArrayList.h"
 
+
 namespace alinous {
 
 class GcManager;
 class AbstractVmInstance;
+class IAbstractVmInstanceSubstance;
 
 class StackFloatingVariableHandler {
 public:
@@ -23,7 +25,7 @@ public:
 	AbstractVmInstance* registerInstance(AbstractVmInstance* inst) noexcept;
 private:
 	GcManager* gc;
-	ArrayList<AbstractVmInstance> list;
+	ArrayList<IAbstractVmInstanceSubstance> list;
 };
 
 } /* namespace alinous */

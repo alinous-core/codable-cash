@@ -11,6 +11,7 @@
 #include "instance_ref/AbstractReference.h"
 #include <cstdint>
 
+#include "instance/IAbstractVmInstanceSubstance.h"
 
 namespace alinous {
 
@@ -19,21 +20,30 @@ class StaticInstanceHolder;
 class PrimitiveReference;
 class VmClassInstance;
 class VmStringInstance;
+class VmRootReference;
 
-class VmRootReference : public AbstractReference {
+class VmRootReference : public AbstractReference, public IAbstractVmInstanceSubstance {
 public:
 	explicit VmRootReference(VirtualMachine* vm);
 	virtual ~VmRootReference();
 
 	void setMainInstance(VmClassInstance* mainInst) noexcept;
-	virtual AbstractVmInstance* getInstance() noexcept;
+	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
+	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
+	virtual uint8_t getInstType() const noexcept;
+	virtual const VMemList<AbstractReference>* getInstReferences() const noexcept;
+	virtual int instHashCode() const noexcept;
+	virtual bool instIsPrimitive() const noexcept;
+	virtual bool instIsNull() const noexcept;
+	virtual int instValueCompare(IAbstractVmInstanceSubstance* right);
+	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);
 
 	void clearInnerReferences();
 
 	PrimitiveReference* newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm);
-	VmStringInstance* newStringConstReferenece(const UnicodeString* str, VirtualMachine* vm);
+	VmStringInstance* newStringConstReferenece(VmRootReference* rootRef, const UnicodeString* str, VirtualMachine* vm);
 
-	virtual int valueCompare(AbstractVmInstance* right);
+	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 private:
 	VirtualMachine* vm;
 	VmClassInstance* mainInst;

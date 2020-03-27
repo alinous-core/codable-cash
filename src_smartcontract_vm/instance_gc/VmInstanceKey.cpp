@@ -8,6 +8,7 @@
 #include "instance_gc/VmInstanceKey.h"
 
 #include "instance/AbstractVmInstance.h"
+#include "instance/IAbstractVmInstanceSubstance.h"
 
 namespace alinous {
 
@@ -16,7 +17,7 @@ VmInstanceKey::VmInstanceKey(const VmInstanceKey& inst) {
 	this->instance = inst.instance;
 }
 
-VmInstanceKey::VmInstanceKey(AbstractVmInstance* instance) {
+VmInstanceKey::VmInstanceKey(IAbstractVmInstanceSubstance* instance) {
 	this->instance = instance;
 }
 
@@ -28,7 +29,7 @@ int VmInstanceKey::ValueCompare::operator ()(const VmInstanceKey* const _this, c
 }
 
 int VmInstanceKey::hashCode() const noexcept {
-	return this->instance->hashCode();
+	return this->instance->instHashCode();
 }
 
 } /* namespace alinous */

@@ -55,6 +55,18 @@ TEST(TestStringClassGroup, stringInst01){
 	delete vmStr;
 }
 
+TEST(TestStringClassGroup, stringInst01_01){
+	VirtualMachine vm(1024);
+
+	UnicodeString str(L"");
+	VmString* vmStr = new(&vm) VmString(&vm, &str);
+
+	int hash = vmStr->hashCode();
+	CHECK(hash == 0)
+
+	delete vmStr;
+}
+
 TEST(TestStringClassGroup, stringInst02){
 	VirtualMachine vm(1024);
 
@@ -71,8 +83,10 @@ TEST(TestStringClassGroup, stringInstcmp01){
 	VmStringInstance* strInst = new(&vm) VmStringInstance(&vm, &str);
 	VmStringInstance* strInst2 = new(&vm) VmStringInstance(&vm, &str);
 
-	int result = strInst->valueCompare(strInst2);
+	int result = strInst->instValueCompare(strInst2);
 	CHECK(result == 0)
+
+	strInst->getInstReferences();
 
 	delete strInst;
 	delete strInst2;

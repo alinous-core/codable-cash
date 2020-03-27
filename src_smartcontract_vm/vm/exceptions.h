@@ -22,6 +22,16 @@ public:
 	static const wchar_t* defaultMessage;
 };
 
+class VmMethodNotFoundException : public Exception{
+public:
+	VmMethodNotFoundException(const char* srcfile, int srcline) noexcept;
+	VmMethodNotFoundException(Exception* cause, const char* srcfile, int srcline) noexcept;
+	VmMethodNotFoundException(const wchar_t* message, const char* srcfile, int srcline) noexcept;
+	VmMethodNotFoundException(const wchar_t* message, Exception* cause, const char* srcfile, int srcline) noexcept;
+	virtual ~VmMethodNotFoundException();
+	static const wchar_t* defaultMessage;
+};
+
 } /* namespace alinous */
 
 #endif /* VM_EXCEPTIONS_H_ */

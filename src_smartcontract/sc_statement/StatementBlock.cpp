@@ -187,16 +187,17 @@ void StatementBlock::interpretFunctionArguments(VirtualMachine* vm) {
 
 	if(!method->isStatic()){
 		VmClassInstance* _this = args->getThisPtr();
-		ObjectReference* ref = ObjectReference::createObjectReference(_this, vm);
+		ObjectReference* ref = ObjectReference::createObjectReference(stack, _this, vm, true);
 
 		stack->addInnerReference(ref);
 	}
 
-	const ArrayList<AbstractReference>* list = args->getArguments();
+	const ArrayList<IAbstractVmInstanceSubstance>* list = args->getArguments();
 	int maxLoop = list->size();
 	for(int i = 0; i != maxLoop; ++i){
-		AbstractReference* ref = list->get(i);
-		stack->addInnerReference(ref);
+		IAbstractVmInstanceSubstance* inst = list->get(i);
+
+		stack->addInnerReference(inst->wrap(stack, vm));
 	}
 }
 

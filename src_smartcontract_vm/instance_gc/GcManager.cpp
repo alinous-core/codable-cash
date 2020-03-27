@@ -14,9 +14,13 @@
 #include "instance_gc/GcCyclicCheckerContext.h"
 
 #include "instance_ref/AbstractReference.h"
+#include "instance_ref/PrimitiveReference.h"
+
+#include "instance/IAbstractVmInstanceSubstance.h"
 
 #include "base/StackRelease.h"
 #include <cassert>
+
 
 
 namespace alinous {
@@ -29,15 +33,13 @@ GcManager::~GcManager() {
 	//this->removable.deleteElements();
 }
 
-void GcManager::addRefReference(AbstractVmInstance* owner, AbstractReference* refered) noexcept {
-	AbstractVmInstance* inst = refered->getInstance();
-
-	if(inst != nullptr){
-		addInstanceReference(owner, inst);
+void GcManager::registerObject(AbstractReference* ref) {
+	if(ref->isPrimitive() || ref->isNull()){
+		return;
 	}
-}
+	IAbstractVmInstanceSubstance* refered = ref->getInstance();
+	IAbstractVmInstanceSubstance* owner = ref->getOwner();
 
-void GcManager::addInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept {
 	VmInstanceKey key(refered);
 
 	ReferenceStatus* status = this->statuses.get(&key);
@@ -49,22 +51,19 @@ void GcManager::addInstanceReference(AbstractVmInstance* owner, AbstractVmInstan
 	status->addOwner(owner);
 }
 
-
-void GcManager::removeRefReference(AbstractVmInstance* owner, AbstractReference* refered) noexcept {
-	AbstractVmInstance* inst = refered->getInstance();
-
-	if(inst != nullptr){
-		removeInstanceReference(owner, inst);
+void GcManager::removeObject(AbstractReference* ref) {
+	if(ref->isPrimitive() || ref->isNull()){
+		return;
 	}
-}
 
+	IAbstractVmInstanceSubstance* refered = ref->getInstance();
 
-void GcManager::removeInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept {
 	VmInstanceKey key(refered);
 
 	ReferenceStatus* status = this->statuses.get(&key);
 	assert(status != nullptr);
 
+	IAbstractVmInstanceSubstance* owner = ref->getOwner();
 	status->removeOwner(owner);
 
 	if(status->isRemovable()){
@@ -104,8 +103,11 @@ void GcManager::garbageCollect() {
 	while(!this->removable.isEmpty() || !this->needCheck.isEmpty()){
 		while(!this->removable.isEmpty()){
 			ReferenceStatus* status = this->removable.remove(0);
-			status->releseInnerRefs(this);
+			VmInstanceKey key(status->getInstance());
 
+			this->statuses.remove(&key);
+
+			status->releseInnerRefs(this);
 			status->deleteInstance();
 
 			delete status;
@@ -172,8 +174,16 @@ void GcManager::copyAll(HashMap<VmInstanceKey, ReferenceStatus>* checkHash) noex
 	}
 }
 
-void GcManager::handleFloatingObject(AbstractVmInstance* refered) noexcept {
+void GcManager::handleFloatingObject(IAbstractVmInstanceSubstance* refered) noexcept {
 	if(refered == nullptr){
+		return;
+	}
+	else if(refered->instIsPrimitive()){
+		PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(refered);
+
+		if(!ref->isStaticConst() && ref->getOwner() == nullptr){
+			delete refered;
+		}
 		return;
 	}
 

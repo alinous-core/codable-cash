@@ -8,11 +8,13 @@
 #include "instance_string/VmStringInstance.h"
 
 #include "instance/VmInstanceTypesConst.h"
+#include "instance_ref/ObjectReference.h"
 #include "instance_string/VmString.h"
 
 #include "base/UnicodeString.h"
 
 #include "ext_binary/ExtStringClass.h"
+
 
 namespace alinous {
 
@@ -26,10 +28,47 @@ VmStringInstance::~VmStringInstance() {
 	delete this->value;
 }
 
-int VmStringInstance::valueCompare(AbstractVmInstance* right) {
+int VmStringInstance::valueCompare(IAbstractVmInstanceSubstance* right) {
 	VmStringInstance* rightStr = dynamic_cast<VmStringInstance*>(right);
 
 	return compareFunctor(this->value, rightStr->value);
+}
+
+IAbstractVmInstanceSubstance* VmStringInstance::getInstance() noexcept {
+	return this;
+}
+
+AbstractReference* VmStringInstance::wrap(IAbstractVmInstanceSubstance* owner,	VirtualMachine* vm) {
+	return ObjectReference::createStringReference(owner, this, vm);
+}
+
+uint8_t VmStringInstance::getInstType() const noexcept {
+	return getType();
+}
+
+const VMemList<AbstractReference>* VmStringInstance::getInstReferences() const noexcept {
+	return getReferences();
+}
+
+int VmStringInstance::instHashCode() const noexcept {
+	return hashCode();
+}
+
+bool VmStringInstance::instIsNull() const noexcept {
+	return isNull();
+}
+
+int VmStringInstance::instValueCompare(IAbstractVmInstanceSubstance* right) {
+	return valueCompare(right);
+}
+
+AbstractExtObject* VmStringInstance::instToClassExtObject(
+		const UnicodeString* name, VTableRegistory* table) {
+	return toClassExtObject(name, table);
+}
+
+bool VmStringInstance::instIsPrimitive() const noexcept {
+	return false;
 }
 
 AbstractExtObject* VmStringInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {

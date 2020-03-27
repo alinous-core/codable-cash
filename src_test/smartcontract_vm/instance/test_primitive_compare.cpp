@@ -87,6 +87,6 @@ TEST(TestPrimitiveCompareGroup, case06){
 
 	PrimitiveReference* left = PrimitiveReference::createBoolReference(&vm, 10);  __STP(left);
 
-	int result = left->valueCompare(nullptr);
+	int result = left->instValueCompare(nullptr);
 	CHECK(result == -1);
 }

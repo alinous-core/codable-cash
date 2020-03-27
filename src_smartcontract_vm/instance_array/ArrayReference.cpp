@@ -16,7 +16,7 @@
 
 namespace alinous {
 
-ArrayReference::ArrayReference(VirtualMachine* vm) : AbstractReference(VmInstanceTypesConst::REF_ARRAY) {
+ArrayReference::ArrayReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) : AbstractReference(owner, VmInstanceTypesConst::REF_ARRAY) {
 	this->instArray = nullptr;
 }
 
@@ -24,23 +24,23 @@ ArrayReference::~ArrayReference() {
 	this->instArray = nullptr;
 }
 
-AbstractVmInstance* ArrayReference::getInstance() noexcept {
+IAbstractVmInstanceSubstance* ArrayReference::getInstance() noexcept {
 	return this->instArray;
 }
 
-void ArrayReference::substitute(AbstractVmInstance* rightValue,	VirtualMachine* vm) {
+void ArrayReference::substitute(IAbstractVmInstanceSubstance* rightValue,	VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
 
 	if(this->instArray != nullptr){
-		gc->removeInstanceReference(this, this->instArray);
+		gc->removeObject(this);
 		this->instArray = nullptr;
 	}
 
-	if(rightValue != nullptr && !rightValue->isNull()){
+	if(rightValue != nullptr && !rightValue->instIsNull()){
 		VmArrayInstance* inst = dynamic_cast<VmArrayInstance*>(rightValue);
 
-		gc->addInstanceReference(this, inst);
 		this->instArray = inst;
+		gc->registerObject(this);
 	}
 }
 
@@ -48,24 +48,24 @@ bool ArrayReference::isNull() const noexcept {
 	return this->instArray == nullptr;
 }
 
-int ArrayReference::valueCompare(AbstractVmInstance* right) {
+int ArrayReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 	if(isNull()){
-		return right->isNull() ? 0 : -1;
+		return right == nullptr ? 0 : -1;
 	}
-	else if(right->isNull()){
+	else if(right == nullptr){
 		return isNull() ? 0 : 1;
 	}
 
-	ArrayReference* objRight = dynamic_cast<ArrayReference*>(right);
+	VmArrayInstance* objRight = dynamic_cast<VmArrayInstance*>(right);
 	if(objRight == nullptr){
 		return -1;
 	}
 
-	return this->instArray->valueCompare(objRight->getInstance());
+	return this->instArray->valueCompare(objRight);
 }
 
 AbstractExtObject* ArrayReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
-	return this->instArray->toClassExtObject(name, table);
+	return this->instArray->instToClassExtObject(name, table);
 }
 
 } /* namespace alinous */

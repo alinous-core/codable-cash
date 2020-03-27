@@ -64,9 +64,9 @@ TEST(TestClassCompareGroup, compareObjectReference01){
 
 	VmClassInstance* inst1 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm); __STP(inst1);
 
-	ObjectReference* ref1 = ObjectReference::createObjectReference(inst1, util.vm); __STP(ref1);
+	ObjectReference* ref1 = ObjectReference::createObjectReference(nullptr, inst1, util.vm); __STP(ref1);
 
-	int diff = ref1->valueCompare(ref1);
+	int diff = ref1->valueCompare(ref1->getInstance());
 	CHECK(diff == 0);
 }
 
@@ -84,10 +84,10 @@ TEST(TestClassCompareGroup, compareObjectReference02){
 
 	VmClassInstance* inst1 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm); __STP(inst1);
 
-	ObjectReference* ref1 = ObjectReference::createObjectReference(inst1, util.vm); __STP(ref1);
-	ObjectReference* ref2 = ObjectReference::createObjectReference(inst1, util.vm); __STP(ref2);
+	ObjectReference* ref1 = ObjectReference::createObjectReference(nullptr, inst1, util.vm); __STP(ref1);
+	ObjectReference* ref2 = ObjectReference::createObjectReference(nullptr, inst1, util.vm); __STP(ref2);
 
-	int diff = ref1->valueCompare(ref2);
+	int diff = ref1->valueCompare(ref2->getInstance());
 	CHECK(diff == 0);
 }
 
@@ -106,10 +106,10 @@ TEST(TestClassCompareGroup, compareObjectReference03){
 	VmClassInstance* inst1 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm); __STP(inst1);
 	VmClassInstance* inst2 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm); __STP(inst2);
 
-	ObjectReference* ref1 = ObjectReference::createObjectReference(inst1, util.vm); __STP(ref1);
-	ObjectReference* ref2 = ObjectReference::createObjectReference(inst2, util.vm); __STP(ref2);
+	ObjectReference* ref1 = ObjectReference::createObjectReference(nullptr, inst1, util.vm); __STP(ref1);
+	ObjectReference* ref2 = ObjectReference::createObjectReference(nullptr, inst2, util.vm); __STP(ref2);
 
-	int diff = ref1->valueCompare(ref2);
+	int diff = ref1->valueCompare(ref2->getInstance());
 	CHECK(diff != 0);
 }
 
@@ -127,13 +127,13 @@ TEST(TestClassCompareGroup, compareObjectReference04){
 
 	VmClassInstance* inst1 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm); __STP(inst1);
 
-	ObjectReference* ref1 = ObjectReference::createObjectReference(inst1, util.vm); __STP(ref1);
-	ObjectReference* ref2 = ObjectReference::createObjectReference(nullptr, util.vm); __STP(ref2);
+	ObjectReference* ref1 = ObjectReference::createObjectReference(nullptr, inst1, util.vm); __STP(ref1);
+	ObjectReference* ref2 = ObjectReference::createObjectReference(nullptr, nullptr, util.vm); __STP(ref2);
 
-	int diff = ref1->valueCompare(ref2);
+	int diff = ref1->valueCompare(ref2->getInstance());
 	CHECK(diff != 0);
 
-	diff = ref2->valueCompare(ref1);
+	diff = ref2->valueCompare(ref1->getInstance());
 	CHECK(diff != 0);
 }
 
@@ -149,13 +149,13 @@ TEST(TestClassCompareGroup, compareObjectReference05){
 
 	AnalyzedType* class1 = util.findClassDeclare(L"test.fw.base.BaseClass"); __STP(class1);
 
-	ObjectReference* ref1 = ObjectReference::createObjectReference(nullptr, util.vm); __STP(ref1);
-	ObjectReference* ref2 = ObjectReference::createObjectReference(nullptr, util.vm); __STP(ref2);
+	ObjectReference* ref1 = ObjectReference::createObjectReference(nullptr, nullptr, util.vm); __STP(ref1);
+	ObjectReference* ref2 = ObjectReference::createObjectReference(nullptr, nullptr, util.vm); __STP(ref2);
 
-	int diff = ref1->valueCompare(ref2);
+	int diff = ref1->valueCompare(ref2->getInstance());
 	CHECK(diff == 0);
 
-	diff = ref2->valueCompare(ref1);
+	diff = ref2->valueCompare(ref1->getInstance());
 	CHECK(diff == 0);
 }
 
@@ -172,8 +172,8 @@ TEST(TestClassCompareGroup, compareObjectReference06){
 	AnalyzedType* class1 = util.findClassDeclare(L"test.fw.base.BaseClass"); __STP(class1);
 
 	VmClassInstance* inst1 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm); __STP(inst1);
-	ObjectReference* ref1 = ObjectReference::createObjectReference(inst1, util.vm); __STP(ref1);
+	ObjectReference* ref1 = ObjectReference::createObjectReference(nullptr, inst1, util.vm); __STP(ref1);
 
 	int diff = ref1->valueCompare(inst1);
-	CHECK(diff != 0);
+	CHECK(diff == 0);
 }

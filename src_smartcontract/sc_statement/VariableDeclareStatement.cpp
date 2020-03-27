@@ -151,14 +151,14 @@ void VariableDeclareStatement::interpret(VirtualMachine* vm) {
 
 	VmStack* stack = vm->topStack();
 
-	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(this->atype, vm);
+	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(stack, this->atype, vm);
 	stack->addInnerReference(ref);
 
 	if(this->exp != nullptr){
 		AbstractVmInstance* instValue = this->exp->interpret(vm);
-		ref->substitute(instValue, vm);
+		ref->substitute(instValue != nullptr ? instValue->getInstance() : nullptr, vm);
 
-		gc->handleFloatingObject(instValue);
+		gc->handleFloatingObject(instValue != nullptr ? instValue->getInstance() : nullptr);
 	}
 }
 

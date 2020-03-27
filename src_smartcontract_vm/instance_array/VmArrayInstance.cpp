@@ -10,9 +10,10 @@
 
 #include "instance_gc/GcManager.h"
 
-#include "instance_ref/AbstractReference.h"
+#include "instance_array/ArrayReference.h"
 
 #include "ext_binary/ExtArrayObject.h"
+
 
 namespace alinous {
 
@@ -31,9 +32,7 @@ VmArrayInstance::~VmArrayInstance() {
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractReference* ref = this->array->get(i);
 
-		if(ref != nullptr && !ref->isPrimitive()){
-			delete ref;
-		}
+		delete ref;
 	}
 
 	delete this->array;
@@ -46,7 +45,7 @@ void VmArrayInstance::removeInnerRefs(GcManager* gc) noexcept {
 		AbstractReference* ref = this->array->get(i);
 
 		// remove ref
-		gc->removeRefReference(this, ref);
+		gc->removeObject(ref);
 	}
 }
 
@@ -68,8 +67,10 @@ AbstractExtObject* VmArrayInstance::toClassExtObject(const UnicodeString* name,	
 	return obj;
 }
 
-int VmArrayInstance::valueCompare(AbstractVmInstance* right) {
-	int64_t diff = (int64_t)this - (int64_t)right;
+int VmArrayInstance::valueCompare(IAbstractVmInstanceSubstance* right) {
+	VmArrayInstance* inst = dynamic_cast<VmArrayInstance*>(right);
+
+	int64_t diff = ((int64_t)this) - ((int64_t)inst);
 	if(diff == 0){
 		return 0;
 	}
@@ -77,16 +78,56 @@ int VmArrayInstance::valueCompare(AbstractVmInstance* right) {
 	return diff > 0 ? 1 : -1;
 }
 
+IAbstractVmInstanceSubstance* VmArrayInstance::getInstance() noexcept {
+	return this;
+}
+
+AbstractReference* VmArrayInstance::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
+	ArrayReference* ref = new(vm) ArrayReference(owner, vm);
+	ref->substitute(this, vm);
+
+	return ref;
+}
+
+uint8_t VmArrayInstance::getInstType() const noexcept {
+	return getType();
+}
+
+const VMemList<AbstractReference>* VmArrayInstance::getInstReferences() const noexcept {
+	return getReferences();
+}
+
+int VmArrayInstance::instHashCode() const noexcept {
+	return hashCode();
+}
+
+bool VmArrayInstance::instIsNull() const noexcept {
+	return isNull();
+}
+
+int VmArrayInstance::instValueCompare(IAbstractVmInstanceSubstance* right) {
+	return valueCompare(right);
+}
+
+AbstractExtObject* VmArrayInstance::instToClassExtObject(
+		const UnicodeString* name, VTableRegistory* table) {
+	return toClassExtObject(name, table);
+}
+
+bool VmArrayInstance::instIsPrimitive() const noexcept {
+	return false;
+}
+
 void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReference* ref) noexcept {
 	GcManager* gc = vm->getGc();
 
 	AbstractReference* last = this->array->get(pos);
 	if(last != nullptr){
-		gc->removeRefReference(this, last);
+		gc->removeObject(last);
 	}
 
 	if(ref != nullptr){
-		gc->addRefReference(this, ref);
+		gc->registerObject(ref);
 		this->array->setElement(ref, pos);
 	}
 

@@ -12,7 +12,7 @@
 
 namespace alinous {
 
-class AbstractVmInstance;
+class IAbstractVmInstanceSubstance;
 class GcCyclicCheckerContext;
 class GcManager;
 
@@ -22,27 +22,27 @@ class ReferenceStatus {
 public:
 	friend class ReferenceStatusCompare;
 
-	explicit ReferenceStatus(AbstractVmInstance* instance);
+	explicit ReferenceStatus(IAbstractVmInstanceSubstance* instance);
 	virtual ~ReferenceStatus();
 
-	void addOwner(const AbstractVmInstance* owner) noexcept;
-	void removeOwner(const AbstractVmInstance* owner) noexcept;
+	void addOwner(const IAbstractVmInstanceSubstance* owner) noexcept;
+	void removeOwner(const IAbstractVmInstanceSubstance* owner) noexcept;
 	bool isRemovable() const noexcept;
 
 	void releseInnerRefs(GcManager* gc) noexcept;
 	void deleteInstance() noexcept;
 
-	AbstractVmInstance* getInstance() const noexcept;
+	IAbstractVmInstanceSubstance* getInstance() const noexcept;
 
 	void removeInstance() noexcept;
 	bool checkCyclicRemovable(GcCyclicCheckerContext* cctx) noexcept;
-	bool checkInnerCyclicRemovable(const AbstractVmInstance* inst, GcCyclicCheckerContext* cctx) const noexcept;
+	bool checkInnerCyclicRemovable(const IAbstractVmInstanceSubstance* inst, GcCyclicCheckerContext* cctx) const noexcept;
 
 private:
-	AbstractVmInstance* instance;
+	IAbstractVmInstanceSubstance* instance;
 
-	ArrayList<const AbstractVmInstance> ownerList;
-	ArrayList<const AbstractVmInstance> terminalOwnerList;
+	ArrayList<const IAbstractVmInstanceSubstance> ownerList;
+	ArrayList<const IAbstractVmInstanceSubstance> terminalOwnerList;
 
 };
 

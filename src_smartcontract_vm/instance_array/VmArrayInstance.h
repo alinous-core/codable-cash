@@ -23,11 +23,22 @@ public:
 	VmArrayInstance(VirtualMachine* vm, int length);
 	virtual ~VmArrayInstance();
 
+	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
+	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
+	virtual uint8_t getInstType() const noexcept;
+
 	virtual void removeInnerRefs(GcManager* gc) noexcept;
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* reg);
+	virtual const VMemList<AbstractReference>* getInstReferences() const noexcept;
+	virtual int instHashCode() const noexcept;
+	virtual bool instIsPrimitive() const noexcept;
+	virtual bool instIsNull() const noexcept;
+	virtual int instValueCompare(IAbstractVmInstanceSubstance* right);
+	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);
 
-	virtual int valueCompare(AbstractVmInstance* right);
+
+	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 
 	void setReference(VirtualMachine* vm, int pos, AbstractReference* ref) noexcept;
 private:

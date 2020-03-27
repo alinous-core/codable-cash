@@ -13,26 +13,29 @@
 namespace alinous {
 
 class AbstractVmInstance;
+class VmStringInstance;
 
 class ObjectReference : public AbstractReference {
 public:
-	explicit ObjectReference(uint8_t type);
+	explicit ObjectReference(IAbstractVmInstanceSubstance* owner, uint8_t type);
 	virtual ~ObjectReference();
 
-	static ObjectReference* createObjectReference(VmClassInstance* clazzInst, VirtualMachine* vm);
+	static ObjectReference* createObjectReference(IAbstractVmInstanceSubstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm);
+	static ObjectReference* createObjectReference(IAbstractVmInstanceSubstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm, bool doGc);
+	static ObjectReference* createStringReference(IAbstractVmInstanceSubstance* owner, VmStringInstance* clazzInst, VirtualMachine* vm);
 
 	virtual bool isPrimitive() const noexcept;
-	virtual AbstractVmInstance* getInstance() noexcept;
+	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
 
-	void setInstance(AbstractVmInstance* instance) noexcept;
+	void setInstance(IAbstractVmInstanceSubstance* instance) noexcept;
 
-	virtual void substitute(AbstractVmInstance* rightValue, VirtualMachine* vm);
+	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 	virtual bool isNull() const noexcept;
-	virtual int valueCompare(AbstractVmInstance* right);
+	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 private:
-	AbstractVmInstance* instance;
+	IAbstractVmInstanceSubstance* instance;
 };
 
 } /* namespace alinous */

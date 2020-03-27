@@ -12,10 +12,18 @@
 
 namespace alinous {
 
+class AnalyzedType;
+
 class NullArgument : public AbstractFunctionExtArguments {
 public:
-	NullArgument();
+	explicit NullArgument(const AnalyzedType* type);
 	virtual ~NullArgument();
+
+	virtual AnalyzedType getType() const noexcept;
+	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
+private:
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

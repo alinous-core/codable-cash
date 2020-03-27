@@ -9,7 +9,7 @@
 
 namespace alinous {
 
-IInstanceContainer::IInstanceContainer() {
+IInstanceContainer::IInstanceContainer() : IAbstractVmInstanceSubstance() {
 
 }
 

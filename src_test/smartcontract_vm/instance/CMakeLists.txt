@@ -7,7 +7,9 @@ set(testsrc
 	test_misc_compare.cpp
 	test_numeric_ref.cpp
 	test_primitive_compare.cpp
+	test_primitive.cpp
 	test_ref_factory.cpp
+	test_root_obj.cpp
 	test_vm_stack.cpp
 )
 handle_sub(testall "${testsrc}" test smartcontract_vm/instance)

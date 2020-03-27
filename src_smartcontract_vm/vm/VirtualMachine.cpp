@@ -36,6 +36,11 @@
 
 #include "instance_exception/AbstructProgramException.h"
 
+#include "ext_arguments/AbstractFunctionExtArguments.h"
+
+#include "vm/exceptions.h"
+
+#include "stack/StackPopper.h"
 namespace alinous {
 
 VirtualMachine::VirtualMachine(uint64_t memCapacity) {
@@ -87,11 +92,11 @@ VmClassInstance* VirtualMachine::createScInstance() {
 }
 
 void VirtualMachine::interpret(const UnicodeString* method) {
-	ArrayList<AbstractReference> list;
+	ArrayList<AbstractFunctionExtArguments> list;
 	interpret(method, &list);
 }
 
-void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractReference>* arguments) {
+void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractFunctionExtArguments>* arguments) {
 	VmClassInstance* _this = dynamic_cast<VmClassInstance*>(this->sc->getRootReference()->getInstance());
 	AnalyzedClass* aclass = _this->getAnalyzedClass();
 
@@ -103,11 +108,23 @@ void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractRe
 
 	FunctionScoreCalc calc(classEntry);
 
-	// FIXME arguments type
+	// arguments type
 	ArrayList<AnalyzedType> typeList;
 	typeList.setDeleteOnExit();
 
+	int maxLoop = arguments->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractFunctionExtArguments* extArg = arguments->get(i);
+
+		AnalyzedType at = extArg->getType();
+		typeList.addElement(new AnalyzedType(at));
+	}
+
 	MethodScore* score = calc.findMethod(method, &typeList);
+	if(score == nullptr){
+		throw new VmMethodNotFoundException(__FILE__, __LINE__);
+	}
+
 	VTableMethodEntry* methodEntry = score->getEntry();
 	MethodDeclare* methodDeclare = methodEntry->getMethod();
 
@@ -115,10 +132,24 @@ void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractRe
 	args.setThisPtr(_this);
 	setFunctionArguments(&args);
 
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractFunctionExtArguments* extArg = arguments->get(i);
+
+		AbstractVmInstance* inst = extArg->interpret(this);
+
+		args.addSubstance(inst != nullptr ? inst->getInstance() : nullptr);
+	}
+
+
+	// top stack
+	this->newStack();
+	StackPopper popStack(this);
+	VmStack* stack = this->topStack();
+
 	methodDeclare->interpret(&args, this);
 }
 
-void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, ArrayList<AbstractReference>* arguments) {
+void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, ArrayList<AbstractFunctionExtArguments>* arguments) {
 	initialize();
 
 	FunctionArguments args;
@@ -147,10 +178,10 @@ bool VirtualMachine::hasError() noexcept {
 void VirtualMachine::newStack() {
 	VmRootReference* root = this->sc->getRootReference();
 
-	VmStack* stack = new(this) VmStack(this);
+	VmStack* stack = new(this) VmStack(root, this);
 	this->stackManager->addStack(stack);
 
-	this->gc->addInstanceReference(root, stack);
+	this->gc->registerObject(stack);
 }
 
 void VirtualMachine::popStack() {
@@ -158,8 +189,7 @@ void VirtualMachine::popStack() {
 
 	this->stackManager->popStack();
 
-	VmRootReference* root = this->sc->getRootReference();
-	this->gc->removeInstanceReference(root, stack);
+	this->gc->removeObject(stack);
 }
 
 VmStack* VirtualMachine::topStack() const noexcept {
@@ -177,7 +207,7 @@ void VirtualMachine::clearStack() noexcept {
 		VmStack* stack = this->stackManager->top();
 		this->stackManager->popStack();
 
-		this->gc->removeInstanceReference(root, stack);
+		this->gc->removeObject(stack);
 	}
 }
 

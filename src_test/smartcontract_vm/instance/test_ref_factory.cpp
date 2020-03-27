@@ -37,7 +37,7 @@ TEST(TestRefFactoryGroup, testBool){
 	VirtualMachine vm(1024 * 10);
 	AnalyzedType atype(AnalyzedType::TYPE_BOOL);
 
-	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(&atype, &vm); __STP(ref);
+	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(nullptr, &atype, &vm); __STP(ref);
 	uint8_t t = ref->getType();
 	CHECK(t == VmInstanceTypesConst::REF_BOOL)
 }
@@ -54,7 +54,7 @@ TEST(TestRefFactoryGroup, testObject){
 
 	AnalyzedType* class1 = util.findClassDeclare(L"test.fw.base.BaseClass"); __STP(class1);
 
-	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(class1, util.vm); __STP(ref);
+	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(nullptr, class1, util.vm); __STP(ref);
 	uint8_t t = ref->getType();
 	CHECK(t == VmInstanceTypesConst::REF_OBJ)
 }
@@ -64,7 +64,7 @@ TEST(TestRefFactoryGroup, testArray){
 	AnalyzedType atype(AnalyzedType::TYPE_BOOL);
 	atype.setDim(1);
 
-	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(&atype, &vm); __STP(ref);
+	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(nullptr, &atype, &vm); __STP(ref);
 	uint8_t t = ref->getType();
 	CHECK(t == VmInstanceTypesConst::REF_ARRAY)
 }

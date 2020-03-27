@@ -28,6 +28,7 @@
 #include "base/ArrayList.h"
 #include "base/UnicodeString.h"
 
+#include "instance_ref/ObjectReference.h"
 
 namespace alinous {
 
@@ -40,7 +41,8 @@ VmClassInstance::~VmClassInstance() {
 	int maxLoop = this->members.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractReference* ref = this->members.get(i);
-		if(!ref->isPrimitive()) delete ref;
+
+		delete ref;
 	}
 }
 
@@ -58,17 +60,55 @@ void VmClassInstance::removeInnerRefs(GcManager* gc) noexcept {
 		AbstractReference* ref = this->members.get(i);
 
 		// remove ref
-		gc->removeRefReference(this, ref);
+		gc->removeObject(ref);
 	}
 }
 
-int VmClassInstance::valueCompare(AbstractVmInstance* right) {
-	int64_t diff = (int64_t)this - (int64_t)right;
+int VmClassInstance::valueCompare(IAbstractVmInstanceSubstance* right) {
+	VmClassInstance* rightPtr = dynamic_cast<VmClassInstance*>(right);
+
+	int64_t diff = (int64_t)((void*)this) - (int64_t)((void*)rightPtr);
 	if(diff == 0){
 		return 0;
 	}
 
 	return diff > 0 ? 1 : -1;
+}
+
+IAbstractVmInstanceSubstance* VmClassInstance::getInstance() noexcept {
+	return this;
+}
+
+AbstractReference* VmClassInstance::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
+	return ObjectReference::createObjectReference(owner, this, vm);
+}
+
+uint8_t VmClassInstance::getInstType() const noexcept {
+	return getType();
+}
+
+const VMemList<AbstractReference>* VmClassInstance::getInstReferences() const noexcept {
+	return getReferences();
+}
+
+int VmClassInstance::instHashCode() const noexcept {
+	return hashCode();
+}
+
+bool VmClassInstance::instIsNull() const noexcept {
+	return isNull();
+}
+
+int VmClassInstance::instValueCompare(IAbstractVmInstanceSubstance* right) {
+	return valueCompare(right);
+}
+
+AbstractExtObject* VmClassInstance::instToClassExtObject(const UnicodeString* name, VTableRegistory* table) {
+	return toClassExtObject(name, table);
+}
+
+bool VmClassInstance::instIsPrimitive() const noexcept {
+	return false;
 }
 
 void VmClassInstance::init(VirtualMachine* vm) {
@@ -79,10 +119,11 @@ void VmClassInstance::init(VirtualMachine* vm) {
 	for(int i = 0; i != maxLoop; ++i){
 		MemberVariableDeclare* dec = list->get(i);
 
-		AbstractReference* ref = RefereceFactory::createReferenceFromDefinition(dec, vm);
+		AbstractReference* ref = RefereceFactory::createReferenceFromDefinition(this, dec, vm);
+		ref->setOwner(this);
 		this->members.addElement(ref);
 
-		gc->addRefReference(this, ref);
+		gc->registerObject(ref);
 	}
 
 	for(int i = 0; i != maxLoop; ++i){

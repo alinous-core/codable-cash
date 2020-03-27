@@ -9,6 +9,7 @@
 #include "instance_gc/GcManager.h"
 
 #include "instance/AbstractVmInstance.h"
+#include "instance/IAbstractVmInstanceSubstance.h"
 
 #include "instance_ref/AbstractReference.h"
 
@@ -21,20 +22,18 @@ StackFloatingVariableHandler::StackFloatingVariableHandler(GcManager* gc) {
 StackFloatingVariableHandler::~StackFloatingVariableHandler() {
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
-		AbstractVmInstance* inst = this->list.get(i);
+		IAbstractVmInstanceSubstance* inst = this->list.get(i);
 
 		this->gc->handleFloatingObject(inst);
 	}
 }
 
 AbstractVmInstance* StackFloatingVariableHandler::registerInstance(AbstractVmInstance* inst) noexcept {
-	AbstractVmInstance* regInst = inst;
-	if(regInst->isReference()){
-		AbstractReference* ref = dynamic_cast<AbstractReference*>(regInst);
-		regInst = ref->getInstance();
+	if(inst == nullptr || inst->isNull()){
+		return nullptr;
 	}
 
-	this->list.addElement(regInst);
+	this->list.addElement(inst->getInstance());
 
 	return inst;
 }

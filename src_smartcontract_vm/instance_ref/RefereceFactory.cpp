@@ -22,19 +22,22 @@
 
 namespace alinous {
 
-AbstractReference* RefereceFactory::createReferenceFromDefinition(MemberVariableDeclare* dec, VirtualMachine* vm) {
+AbstractReference* RefereceFactory::createReferenceFromDefinition(IAbstractVmInstanceSubstance* owner, MemberVariableDeclare* dec, VirtualMachine* vm) {
 	AbstractType* type = dec->getType();
 
 	// array
 	int dim = type->getDimension();
 	if(dim > 0){
-		return new(vm) ArrayReference(vm);
+		return new(vm) ArrayReference(owner, vm);
 	}
 
 	short kind = type->getKind();
 	AbstractReference* ref = nullptr;
 
 	switch(kind){
+	case CodeElement::TYPE_BOOL:
+		ref = PrimitiveReference::createBoolReference(vm, 0);
+		break;
 	case CodeElement::TYPE_BYTE:
 		ref = PrimitiveReference::createByteReference(vm, 0);
 		break;
@@ -53,25 +56,25 @@ AbstractReference* RefereceFactory::createReferenceFromDefinition(MemberVariable
 	case CodeElement::TYPE_OBJECT:
 	case CodeElement::TYPE_STRING:
 	default:
-		ref = createObjectReferenceFromDefinition(dec, vm);
+		ref = createObjectReferenceFromDefinition(owner, dec, vm);
 		break;
 	}
 
 	return ref;
 }
 
-AbstractReference* RefereceFactory::createObjectReferenceFromDefinition(MemberVariableDeclare* dec, VirtualMachine* vm) {
-	ObjectReference* ref = new(vm) ObjectReference(VmInstanceTypesConst::REF_OBJ);
+AbstractReference* RefereceFactory::createObjectReferenceFromDefinition(IAbstractVmInstanceSubstance* owner, MemberVariableDeclare* dec, VirtualMachine* vm) {
+	ObjectReference* ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ);
 
 	return ref;
 }
 
-AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(const AnalyzedType* atype, VirtualMachine* vm) {
+AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(IAbstractVmInstanceSubstance* owner, const AnalyzedType* atype, VirtualMachine* vm) {
 	AbstractReference* ref = nullptr;
 
 	// is Array
 	if(atype->isArray()){
-		return createArrayReferenceFromAnalyzedType(atype, vm);
+		return createArrayReferenceFromAnalyzedType(owner, atype, vm);
 	}
 
 	uint8_t type = atype->getType();
@@ -97,15 +100,15 @@ AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(const Analyz
 	case AnalyzedType::TYPE_STRING:
 	case AnalyzedType::TYPE_OBJECT:
 	default:
-		ref = new(vm) ObjectReference(VmInstanceTypesConst::REF_OBJ);
+		ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ);
 		break;
 	}
 
 	return ref;
 }
 
-AbstractReference* RefereceFactory::createArrayReferenceFromAnalyzedType(const AnalyzedType* atype, VirtualMachine* vm) {
-	ArrayReference* ref = new(vm) ArrayReference(vm);
+AbstractReference* RefereceFactory::createArrayReferenceFromAnalyzedType(IAbstractVmInstanceSubstance* owner, const AnalyzedType* atype, VirtualMachine* vm) {
+	ArrayReference* ref = new(vm) ArrayReference(owner, vm);
 
 	return ref;
 }

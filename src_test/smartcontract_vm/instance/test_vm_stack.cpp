@@ -28,9 +28,24 @@ TEST_GROUP(TestVmStackGroup) {
 TEST(TestVmStackGroup, Stack){
 	VirtualMachine vm(1024);
 
-	VmStack* stack = new(&vm) VmStack(&vm);
+	VmStack* stack = new(&vm) VmStack(nullptr, &vm);
 	CHECK(stack->getReferences() != nullptr);
 
 	delete stack;
 }
 
+TEST(TestVmStackGroup, Stack02){
+	VirtualMachine vm(1024);
+
+	VmStack* stack = new(&vm) VmStack(nullptr, &vm);
+	CHECK(stack->getReferences() != nullptr);
+
+	stack->wrap(nullptr, &vm);
+	stack->instIsNull();
+	stack->getInstReferences();
+	stack->instValueCompare(nullptr);
+	stack->instIsPrimitive();
+	stack->instToClassExtObject(nullptr, nullptr);
+
+	delete stack;
+}

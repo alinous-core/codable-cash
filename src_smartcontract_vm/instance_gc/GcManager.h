@@ -19,18 +19,20 @@ class VmInstanceKey;
 class AbstractReference;
 class GcCyclicCheckerContext;
 class ReferenceStatusCompare;
+class IAbstractVmInstanceSubstance;
 
 class GcManager {
 public:
 	GcManager();
 	virtual ~GcManager();
 
-	void addRefReference(AbstractVmInstance* owner, AbstractReference* refered) noexcept;
-	void addInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept;
-	void removeRefReference(AbstractVmInstance* owner, AbstractReference* refered) noexcept;
-	void removeInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept;
+	void registerObject(AbstractReference* ref);
+	void removeObject(AbstractReference* ref);
 
-	void handleFloatingObject(AbstractVmInstance* refered) noexcept;
+	//void addInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept;
+	//void removeInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept;
+
+	void handleFloatingObject(IAbstractVmInstanceSubstance* refered) noexcept;
 
 	ReferenceStatus* getReferenceStatus(AbstractReference* ref) const noexcept;
 

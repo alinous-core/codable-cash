@@ -84,7 +84,7 @@ AbstractVmInstance* NotExpression::interpret(VirtualMachine* vm) {
 	bool blvalue = !(blRef->getIntValue() == 1);
 
 	GcManager* gc = vm->getGc();
-	gc->handleFloatingObject(inst);
+	gc->handleFloatingObject(inst != nullptr ? inst->getInstance() : nullptr);
 
 	return PrimitiveReference::createBoolReference(vm, blvalue ? 1 : 0);
 }
