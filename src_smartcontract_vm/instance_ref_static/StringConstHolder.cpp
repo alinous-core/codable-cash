@@ -32,12 +32,14 @@ VmStringInstance* StringConstHolder::newStringConstInstance(VmRootReference* roo
 
 	if(ref == nullptr){
 		VmStringInstance* inst = new(vm) VmStringInstance(vm, str);
-		AbstractReference* ref = inst->wrap(rootRef, vm);
+		ref = inst->wrap(rootRef, vm);
 
 		this->stringVariables.put(str, ref);
 	}
 
-	return dynamic_cast<VmStringInstance*>(ref->getInstance());
+	IAbstractVmInstanceSubstance* substance = ref->getInstance();
+
+	return dynamic_cast<VmStringInstance*>(substance);
 }
 
 void StringConstHolder::removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept {
@@ -48,7 +50,7 @@ void StringConstHolder::removeInnerReferences(VmRootReference* rootRef, VirtualM
 		const UnicodeString* key = it->next();
 		AbstractReference* ref = this->stringVariables.get(key);
 
-		gc->registerObject(ref);
+		gc->removeObject(ref);
 		delete ref;
 	}
 

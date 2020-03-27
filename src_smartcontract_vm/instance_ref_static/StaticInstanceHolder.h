@@ -27,6 +27,7 @@ public:
 	PrimitiveReference* newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm);
 	VmStringInstance* newStringConstInstance(VmRootReference* rootRef, const UnicodeString* str, VirtualMachine* vm);
 
+	void removeStringConst(VmRootReference* rootRef, VirtualMachine* vm) noexcept;
 	void removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept;
 private:
 	NumericConstHolder* numeric;

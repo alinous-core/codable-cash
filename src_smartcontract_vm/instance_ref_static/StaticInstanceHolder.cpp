@@ -31,10 +31,12 @@ VmStringInstance* StaticInstanceHolder::newStringConstInstance(VmRootReference* 
 	return this->stringConsts->newStringConstInstance(rootRef, str, vm);
 }
 
+void StaticInstanceHolder::removeStringConst(VmRootReference* rootRef, VirtualMachine* vm) noexcept {
+	this->stringConsts->removeInnerReferences(rootRef, vm);
+}
+
 void StaticInstanceHolder::removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept {
 	this->numeric->removeInnerReferences(rootRef, vm);
-	this->stringConsts->removeInnerReferences(rootRef, vm);
-
 }
 
 } /* namespace alinous */

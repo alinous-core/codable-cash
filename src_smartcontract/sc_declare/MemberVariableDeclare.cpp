@@ -113,9 +113,10 @@ void MemberVariableDeclare::doOnAllocate(VirtualMachine* vm, AbstractReference* 
 	StackPopper popStack(vm);
 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
-	ref->substitute(inst->getInstance(), vm);
+	IAbstractVmInstanceSubstance* sub = inst != nullptr ? inst->getInstance() : nullptr;
+	ref->substitute(sub, vm);
 
-	gc->handleFloatingObject(inst->getInstance());
+	gc->handleFloatingObject(sub);
 }
 
 void MemberVariableDeclare::setAccessControl(AccessControlDeclare* ctrl) noexcept {

@@ -38,6 +38,7 @@ void VmRootReference::clearInnerReferences() {
 		this->mainInst = nullptr;
 
 		this->staticHolder->removeInnerReferences(this, this->vm);
+		this->staticHolder->removeStringConst(this, this->vm);
 
 		this->mainInst = nullptr;
 	}
