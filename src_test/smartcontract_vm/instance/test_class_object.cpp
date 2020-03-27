@@ -29,6 +29,7 @@
 
 #include "instance_gc/GcManager.h"
 
+#include "instance_ref/VmRootReference.h"
 
 using namespace alinous;
 
@@ -47,9 +48,10 @@ TEST(TestClassObjectGroup, substitute01){
 	bool result = util.analyze();
 	CHECK(result)
 
+	VmRootReference* root = new(util.vm) VmRootReference(util.vm);
 	AnalyzedType* class1 = util.findClassDeclare(L"test.fw.base.BaseClass"); __STP(class1);
 
-	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(nullptr, class1, util.vm);
+	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(root, class1, util.vm);
 
 	VmClassInstance* inst1 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm);
 
@@ -62,6 +64,7 @@ TEST(TestClassObjectGroup, substitute01){
 
 	gc->garbageCollect();
 
+	delete root;
 }
 
 
