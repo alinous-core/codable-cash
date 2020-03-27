@@ -65,7 +65,7 @@ int ArrayReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 }
 
 AbstractExtObject* ArrayReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
-	return this->instArray->toClassExtObject(name, table);
+	return this->instArray->instToClassExtObject(name, table);
 }
 
 } /* namespace alinous */

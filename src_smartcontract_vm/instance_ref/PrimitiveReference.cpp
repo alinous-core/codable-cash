@@ -207,7 +207,7 @@ int PrimitiveReference::instValueCompare(IAbstractVmInstanceSubstance* right) {
 }
 
 AbstractExtObject* PrimitiveReference::instToClassExtObject(const UnicodeString* name, VTableRegistory* table) {
-	return instToClassExtObject(name, table);
+	return toClassExtObject(name, table);
 }
 
 bool PrimitiveReference::instIsPrimitive() const noexcept {
