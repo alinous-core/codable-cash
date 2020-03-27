@@ -54,6 +54,7 @@ TEST(TestClassObjectGroup, substitute01){
 	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(root, class1, util.vm);
 
 	VmClassInstance* inst1 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm);
+	inst1->getInstReferences();
 
 	ref->substitute(inst1, util.vm);
 	ref->substitute(inst1, util.vm);
@@ -67,4 +68,30 @@ TEST(TestClassObjectGroup, substitute01){
 	delete root;
 }
 
+TEST(TestClassObjectGroup, wrap01){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/inheritance/resources/case01/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	VmRootReference* root = new(util.vm) VmRootReference(util.vm);
+	AnalyzedType* class1 = util.findClassDeclare(L"test.fw.base.BaseClass"); __STP(class1);
+
+	VmClassInstance* inst1 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm);
+	AbstractReference* ref = inst1->wrap(root, util.vm);
+
+	GcManager* gc = util.vm->getGc();
+
+	gc->registerObject(ref);
+	gc->removeObject(ref);
+
+	gc->garbageCollect();
+
+	delete ref;
+	delete root;
+}
 
