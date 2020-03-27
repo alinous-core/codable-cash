@@ -55,6 +55,18 @@ TEST(TestStringClassGroup, stringInst01){
 	delete vmStr;
 }
 
+TEST(TestStringClassGroup, stringInst01_01){
+	VirtualMachine vm(1024);
+
+	UnicodeString str(L"");
+	VmString* vmStr = new(&vm) VmString(&vm, &str);
+
+	int hash = vmStr->hashCode();
+	CHECK(hash == 0)
+
+	delete vmStr;
+}
+
 TEST(TestStringClassGroup, stringInst02){
 	VirtualMachine vm(1024);
 
