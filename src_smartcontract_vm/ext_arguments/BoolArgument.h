@@ -14,7 +14,7 @@ namespace alinous {
 
 class BoolArgument : public AbstractFunctionExtArguments {
 public:
-	BoolArgument(bool value);
+	explicit BoolArgument(bool value);
 	virtual ~BoolArgument();
 
 	virtual AnalyzedType getType() const noexcept;
