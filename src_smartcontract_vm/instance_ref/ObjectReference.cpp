@@ -13,6 +13,7 @@
 
 #include "instance_string/VmStringInstance.h"
 
+#include "ext_binary/ExtStringClass.h"
 namespace alinous {
 
 ObjectReference::ObjectReference(IAbstractVmInstanceSubstance* owner, uint8_t type, uint8_t instanceType) : AbstractReference(owner, type) {
@@ -83,10 +84,18 @@ void ObjectReference::substitute(IAbstractVmInstanceSubstance* rightValue, Virtu
 
 AbstractExtObject* ObjectReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
 	if(this->instance == nullptr){
-
+		return createNullObject(name, table);
 	}
 
 	return this->instance->instToClassExtObject(name, table);
+}
+
+AbstractExtObject* ObjectReference::createNullObject(const UnicodeString* name, VTableRegistory* table) {
+	//if(this->instanceType == ObjectReference::STRING_INSTANCE){
+	//	return new ExtStringClass(name);
+	//}
+
+	return nullptr;
 }
 
 bool ObjectReference::isNull() const noexcept {

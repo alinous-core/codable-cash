@@ -18,6 +18,10 @@ ExtStringClass::ExtStringClass(const UnicodeString* name, const UnicodeString* v
 	this->value = new UnicodeString(value);
 }
 
+ExtStringClass::ExtStringClass(const UnicodeString* name) : AbstractExtObject(name, VmInstanceTypesConst::INST_STRING) {
+	this->value = nullptr;
+}
+
 ExtStringClass::~ExtStringClass() {
 	delete this->value;
 }

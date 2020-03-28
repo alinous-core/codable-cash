@@ -37,6 +37,10 @@ public:
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 	virtual bool isNull() const noexcept;
 	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
+
+private:
+	AbstractExtObject* createNullObject(const UnicodeString* name, VTableRegistory* table);
+
 private:
 	IAbstractVmInstanceSubstance* instance;
 	uint8_t instanceType;

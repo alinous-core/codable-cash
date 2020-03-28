@@ -16,6 +16,7 @@ class UnicodeString;
 
 class ExtStringClass : public AbstractExtObject {
 public:
+	explicit ExtStringClass(const UnicodeString* name);
 	ExtStringClass(const UnicodeString* name, const UnicodeString* value);
 	virtual ~ExtStringClass();
 

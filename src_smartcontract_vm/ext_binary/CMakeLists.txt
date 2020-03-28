@@ -4,6 +4,7 @@ set(__src
 	AbstractExtObject.cpp
 	ExtArrayObject.cpp
 	ExtClassObject.cpp
+	ExtNullPtrObject.cpp
 	ExtPrimitiveObject.cpp
 	ExtStringClass.cpp
 )
