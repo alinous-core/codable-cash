@@ -104,3 +104,19 @@ TEST(TestAllocationStmtGroup, primitiveArrayAllocation02){
 	length = arObj->getLength();
 	CHECK(length == 5)
 }
+
+TEST(TestAllocationStmtGroup, primitiveArrayAllocation04){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/variables/resources/new/new04/", projectFolder);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+}
