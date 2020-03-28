@@ -15,4 +15,8 @@ ExtNullPtrObject::ExtNullPtrObject(const UnicodeString* name, uint8_t type) : Ab
 ExtNullPtrObject::~ExtNullPtrObject() {
 }
 
+bool ExtNullPtrObject::isNull() const noexcept {
+	return true;
+}
+
 } /* namespace alinous */

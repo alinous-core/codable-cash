@@ -16,6 +16,8 @@ class ExtNullPtrObject : public AbstractExtObject {
 public:
 	ExtNullPtrObject(const UnicodeString* name, uint8_t type);
 	virtual ~ExtNullPtrObject();
+
+	virtual bool isNull() const noexcept;
 };
 
 } /* namespace alinous */
