@@ -21,6 +21,9 @@
 
 #include "instance/IAbstractVmInstanceSubstance.h"
 
+#include "sc_analyze/AnalyzeContext.h"
+
+
 namespace alinous {
 
 SubstitutionStatement::SubstitutionStatement() : AbstractStatement(CodeElement::STMT_SUBSTITUTION) {
@@ -52,7 +55,9 @@ void SubstitutionStatement::analyze(AnalyzeContext* actx) {
 	this->variable->analyze(actx);
 	this->exp->analyze(actx);
 
-	bool result = typeChecker.checkCompatibility(actx, this->variable, this->exp);
+	if(!actx->hasError()){
+		bool result = typeChecker.checkCompatibility(actx, this->variable, this->exp);
+	}
 }
 
 void SubstitutionStatement::setVariableId(AbstractExpression* variable) noexcept {

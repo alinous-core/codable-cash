@@ -149,3 +149,16 @@ TEST(TestAllocationStmtGroup, primitiveArrayAllocation06){
 	result = util.analyze();
 	CHECK(!result)
 }
+
+TEST(TestAllocationStmtGroup, primitiveArrayAllocation07){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/variables/resources/new/new07_err/", projectFolder);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(!result)
+}
