@@ -32,6 +32,8 @@
 #include "vm/exceptions.h"
 
 #include "ext_arguments/StringArgument.h"
+
+#include "ext_arguments/BoolArgument.h"
 using namespace alinous;
 
 
@@ -168,5 +170,32 @@ TEST(TestCallMainInstGroup, callMainMethod3){
 	args.addElement(new StringArgument(&hello));
 	util.vm->interpret(&method, &args);
 }
+
+TEST(TestCallMainInstGroup, callMainMethod4){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/method_invoke/resources/callMainMethod/case04/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	UnicodeString method(L"test");
+	ArrayList<AbstractFunctionExtArguments> args;
+	args.setDeleteOnExit();
+
+	args.addElement(new BoolArgument(true));
+
+	util.vm->interpret(&method, &args);
+
+	ExtClassObject* classObject = util.getMainExtObject(); __STP(classObject);
+	bool bl = VmTestUtils::getBoolMemberValue(classObject, L"count");
+	CHECK(bl == true)
+}
+
 
 
