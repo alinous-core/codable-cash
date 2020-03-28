@@ -220,7 +220,9 @@ TEST(TestCallMainInstGroup, callMainMethod5){
 	util.vm->interpret(&method, &args);
 
 	ExtClassObject* classObject = util.getMainExtObject(); __STP(classObject);
+	const UnicodeString* str = VmTestUtils::getStringMemberValue(classObject, L"str");
 
+	CHECK(str == nullptr)
 }
 
 

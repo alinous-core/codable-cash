@@ -146,6 +146,11 @@ int64_t VmTestUtils::getIntMemberValue(ExtClassObject* obj,	const wchar_t* str) 
 const UnicodeString* VmTestUtils::getStringMemberValue(ExtClassObject* obj, const wchar_t* str) {
 	UnicodeString strResult(str);
 	ExtStringClass* extObj = obj->getExtStringObject(&strResult);
+
+	if(extObj == nullptr){
+		return nullptr;
+	}
+
 	return extObj->getValue();
 }
 

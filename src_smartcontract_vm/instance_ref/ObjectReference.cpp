@@ -14,6 +14,8 @@
 #include "instance_string/VmStringInstance.h"
 
 #include "ext_binary/ExtStringClass.h"
+#include "ext_binary/ExtNullPtrObject.h"
+
 namespace alinous {
 
 ObjectReference::ObjectReference(IAbstractVmInstanceSubstance* owner, uint8_t type, uint8_t instanceType) : AbstractReference(owner, type) {
@@ -95,7 +97,9 @@ AbstractExtObject* ObjectReference::createNullObject(const UnicodeString* name, 
 	//	return new ExtStringClass(name);
 	//}
 
-	return nullptr;
+	uint8_t type = this->instanceType == ObjectReference::STRING_INSTANCE ? VmInstanceTypesConst::INST_STRING : VmInstanceTypesConst::ISNT_OBJ;
+
+	return new ExtNullPtrObject(name, type);
 }
 
 bool ObjectReference::isNull() const noexcept {

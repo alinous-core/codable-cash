@@ -41,6 +41,11 @@ ExtPrimitiveObject* ExtClassObject::getExtPrimitiveObject(const UnicodeString* n
 
 ExtClassObject* ExtClassObject::getExtClassObject(const UnicodeString* name) const noexcept {
 	AbstractExtObject* obj = this->map->get(name);
+
+	if(obj->isNull()){
+		return nullptr;
+	}
+
 	return dynamic_cast<ExtClassObject*>(obj);
 }
 
@@ -51,6 +56,11 @@ ExtArrayObject* ExtClassObject::getExtArrayObject(const UnicodeString* name) con
 
 ExtStringClass* alinous::ExtClassObject::getExtStringObject(const UnicodeString* name) const noexcept {
 	AbstractExtObject* obj = this->map->get(name);
+
+	if(obj->isNull()){
+		return nullptr;
+	}
+
 	return dynamic_cast<ExtStringClass*>(obj);
 }
 
