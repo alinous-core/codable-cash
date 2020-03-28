@@ -47,6 +47,8 @@ public:
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
 
+	AnalyzedType getAnalyzedType() const noexcept;
+
 private:
 	void doOnAllocate(VirtualMachine* vm, AbstractReference* ref);
 

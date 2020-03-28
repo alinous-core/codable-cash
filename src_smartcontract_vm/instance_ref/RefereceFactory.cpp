@@ -64,7 +64,16 @@ AbstractReference* RefereceFactory::createReferenceFromDefinition(IAbstractVmIns
 }
 
 AbstractReference* RefereceFactory::createObjectReferenceFromDefinition(IAbstractVmInstanceSubstance* owner, MemberVariableDeclare* dec, VirtualMachine* vm) {
-	ObjectReference* ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ);
+	AnalyzedType at = dec->getAnalyzedType();
+
+	uint8_t type = at.getType();
+
+	ObjectReference* ref = nullptr;
+	if(type == AnalyzedType::TYPE_STRING){
+		ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ, ObjectReference::STRING_INSTANCE);
+	}else{
+		ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ, ObjectReference::CLASS_INSTANCE);
+	}
 
 	return ref;
 }
@@ -98,9 +107,11 @@ AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(IAbstractVmI
 		ref = PrimitiveReference::createLongReference(vm, 0);
 		break;
 	case AnalyzedType::TYPE_STRING:
+		ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ, ObjectReference::STRING_INSTANCE);
+		break;
 	case AnalyzedType::TYPE_OBJECT:
 	default:
-		ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ);
+		ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ, ObjectReference::CLASS_INSTANCE);
 		break;
 	}
 

@@ -1,0 +1,16 @@
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+	}
+	
+	public int main(){
+	}
+	
+	public void test(String inStr){
+		this.str = inStr;
+	}
+	
+	private String str = "hello world";
+}
