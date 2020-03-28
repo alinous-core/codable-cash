@@ -143,6 +143,31 @@ int64_t VmTestUtils::getIntMemberValue(ExtClassObject* obj,	const wchar_t* str) 
 	return oresult->getIntValue();
 }
 
+int64_t VmTestUtils::getByteMemberValue(ExtClassObject* obj, const wchar_t* str) {
+	UnicodeString strResult(str);
+	ExtPrimitiveObject* oresult = obj->getExtPrimitiveObject(&strResult);
+	return oresult->getByteValue();
+}
+
+int64_t VmTestUtils::getShortMemberValue(ExtClassObject* obj, const wchar_t* str) {
+	UnicodeString strResult(str);
+	ExtPrimitiveObject* oresult = obj->getExtPrimitiveObject(&strResult);
+	return oresult->getShortValue();
+}
+
+int64_t VmTestUtils::getCharMemberValue(ExtClassObject* obj, const wchar_t* str) {
+	UnicodeString strResult(str);
+	ExtPrimitiveObject* oresult = obj->getExtPrimitiveObject(&strResult);
+	return oresult->getCharValue();
+}
+
+int64_t VmTestUtils::getLongMemberValue(ExtClassObject* obj, const wchar_t* str) {
+	UnicodeString strResult(str);
+	ExtPrimitiveObject* oresult = obj->getExtPrimitiveObject(&strResult);
+	return oresult->getLongValue();
+}
+
+
 const UnicodeString* VmTestUtils::getStringMemberValue(ExtClassObject* obj, const wchar_t* str) {
 	UnicodeString strResult(str);
 	ExtStringClass* extObj = obj->getExtStringObject(&strResult);
