@@ -43,6 +43,7 @@ public:
 	static int64_t getCharMemberValue(ExtClassObject* obj, const wchar_t* str);
 	static int64_t getLongMemberValue(ExtClassObject* obj, const wchar_t* str);
 	static const UnicodeString* getStringMemberValue(ExtClassObject* obj, const wchar_t* str);
+	static ExtClassObject* getObjectValue(ExtClassObject* obj, const wchar_t* str);
 
 	VirtualMachine* vm;
 	SmartContract* sc;

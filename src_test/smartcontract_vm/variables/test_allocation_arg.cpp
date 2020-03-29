@@ -35,5 +35,12 @@ TEST(TestAllocationArgGroup, intArg){
 
 	result = util.createInstance();
 	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+
+	ExtClassObject* objectA = VmTestUtils::getObjectValue(obj, L"obj");
+	int param = VmTestUtils::getIntMemberValue(objectA, L"param");
+
+	CHECK(param == 100)
 }
 
