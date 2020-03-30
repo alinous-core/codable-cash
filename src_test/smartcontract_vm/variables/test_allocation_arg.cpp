@@ -44,3 +44,26 @@ TEST(TestAllocationArgGroup, intArg){
 	CHECK(param == 100)
 }
 
+TEST(TestAllocationArgGroup, objectArg){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/variables/resources/new_arg/case02/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+
+	ExtClassObject* objectA = VmTestUtils::getObjectValue(obj, L"obj");
+	ExtClassObject* objectB = VmTestUtils::getObjectValue(objectA, L"obj");
+
+	int param = VmTestUtils::getIntMemberValue(objectB, L"param");
+
+	CHECK(param == 100)
+}
+
