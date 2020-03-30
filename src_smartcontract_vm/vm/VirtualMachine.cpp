@@ -130,7 +130,6 @@ void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractFu
 
 	FunctionArguments args;
 	args.setThisPtr(_this);
-	setFunctionArguments(&args);
 
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractFunctionExtArguments* extArg = arguments->get(i);
@@ -154,7 +153,6 @@ void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, Ar
 
 	FunctionArguments args;
 	args.setThisPtr(_this);
-	setFunctionArguments(&args);
 
 	method->interpret(&args, this);
 }
@@ -194,6 +192,10 @@ void VirtualMachine::popStack() {
 
 VmStack* VirtualMachine::topStack() const noexcept {
 	return this->stackManager->top();
+}
+
+int VirtualMachine::topStackIndex() const noexcept {
+	return this->stackManager->size() - 1;
 }
 
 VmStack* VirtualMachine::getStackAt(int pos) const noexcept {

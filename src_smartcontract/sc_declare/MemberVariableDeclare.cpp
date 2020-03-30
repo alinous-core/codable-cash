@@ -147,6 +147,11 @@ void MemberVariableDeclare::setExp(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }
 
+AnalyzedType MemberVariableDeclare::getAnalyzedType() const noexcept {
+	return *this->atype;
+}
+
+
 int MemberVariableDeclare::binarySize() const {
 	checkNotNull(this->ctrl);
 	checkNotNull(this->type);

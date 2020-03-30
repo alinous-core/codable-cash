@@ -29,4 +29,8 @@ uint8_t AbstractExtObject::getType() const noexcept {
 	return this->type;
 }
 
+bool AbstractExtObject::isNull() const noexcept {
+	return false;
+}
+
 } /* namespace alinous */

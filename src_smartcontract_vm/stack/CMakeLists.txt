@@ -1,6 +1,7 @@
 
 
 set(__src
+	MethodArgumentSetupper.cpp
 	StackPopper.cpp
 	VmStack.cpp
 	VmStackManager.cpp

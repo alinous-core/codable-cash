@@ -1,0 +1,18 @@
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		this.count = false;
+	}
+	
+	public int main(){
+	
+	}
+	
+	public void test(boolean i){
+		count = i;
+	}
+	
+	private boolean count;
+}

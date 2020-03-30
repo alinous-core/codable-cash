@@ -13,10 +13,14 @@
 
 #include "instance_string/VmStringInstance.h"
 
+#include "ext_binary/ExtStringClass.h"
+#include "ext_binary/ExtNullPtrObject.h"
+
 namespace alinous {
 
-ObjectReference::ObjectReference(IAbstractVmInstanceSubstance* owner, uint8_t type) : AbstractReference(owner, type) {
+ObjectReference::ObjectReference(IAbstractVmInstanceSubstance* owner, uint8_t type, uint8_t instanceType) : AbstractReference(owner, type) {
 	this->instance = nullptr;
+	this->instanceType = instanceType;
 }
 
 ObjectReference::~ObjectReference() {
@@ -24,7 +28,7 @@ ObjectReference::~ObjectReference() {
 }
 
 ObjectReference* ObjectReference::createObjectReference(IAbstractVmInstanceSubstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm, bool doGc) {
-	ObjectReference* ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ);
+	ObjectReference* ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ, ObjectReference::CLASS_INSTANCE);
 	ref->setInstance(clazzInst);
 
 	if(doGc && clazzInst != nullptr){
@@ -40,7 +44,7 @@ ObjectReference* ObjectReference::createObjectReference(IAbstractVmInstanceSubst
 }
 
 ObjectReference* ObjectReference::createStringReference(IAbstractVmInstanceSubstance* owner, VmStringInstance* clazzInst, VirtualMachine* vm) {
-	ObjectReference* ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ);
+	ObjectReference* ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ, ObjectReference::STRING_INSTANCE);
 	ref->setInstance(clazzInst);
 
 	if(clazzInst != nullptr){
@@ -81,7 +85,21 @@ void ObjectReference::substitute(IAbstractVmInstanceSubstance* rightValue, Virtu
 }
 
 AbstractExtObject* ObjectReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
+	if(this->instance == nullptr){
+		return createNullObject(name, table);
+	}
+
 	return this->instance->instToClassExtObject(name, table);
+}
+
+AbstractExtObject* ObjectReference::createNullObject(const UnicodeString* name, VTableRegistory* table) {
+	//if(this->instanceType == ObjectReference::STRING_INSTANCE){
+	//	return new ExtStringClass(name);
+	//}
+
+	uint8_t type = this->instanceType == ObjectReference::STRING_INSTANCE ? VmInstanceTypesConst::INST_STRING : VmInstanceTypesConst::ISNT_OBJ;
+
+	return new ExtNullPtrObject(name, type);
 }
 
 bool ObjectReference::isNull() const noexcept {

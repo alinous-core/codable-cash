@@ -46,6 +46,9 @@ MethodScore* FunctionScoreCalc::findMethod(const UnicodeString* methodName, Arra
 		if(score->isMatch()){
 			newScore(score);
 		}
+		else{
+			delete score;
+		}
 	}
 
 	return this->topScore;

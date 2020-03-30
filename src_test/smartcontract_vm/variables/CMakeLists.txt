@@ -1,5 +1,6 @@
 
 set(testsrc
+	test_allocation_arg.cpp
 	test_allocation.cpp
 	test_array_variables.cpp
 	test_init_class.cpp

@@ -17,7 +17,10 @@ class VmStringInstance;
 
 class ObjectReference : public AbstractReference {
 public:
-	explicit ObjectReference(IAbstractVmInstanceSubstance* owner, uint8_t type);
+	static constexpr uint8_t CLASS_INSTANCE {1};
+	static constexpr uint8_t STRING_INSTANCE {2};
+
+	explicit ObjectReference(IAbstractVmInstanceSubstance* owner, uint8_t type, uint8_t instanceType);
 	virtual ~ObjectReference();
 
 	static ObjectReference* createObjectReference(IAbstractVmInstanceSubstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm);
@@ -34,8 +37,13 @@ public:
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 	virtual bool isNull() const noexcept;
 	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
+
+private:
+	AbstractExtObject* createNullObject(const UnicodeString* name, VTableRegistory* table);
+
 private:
 	IAbstractVmInstanceSubstance* instance;
+	uint8_t instanceType;
 };
 
 } /* namespace alinous */

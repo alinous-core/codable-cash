@@ -38,7 +38,12 @@ public:
 
 	static bool getBoolMemberValue(ExtClassObject* obj, const wchar_t* str);
 	static int64_t getIntMemberValue(ExtClassObject* obj, const wchar_t* str);
+	static int64_t getByteMemberValue(ExtClassObject* obj, const wchar_t* str);
+	static int64_t getShortMemberValue(ExtClassObject* obj, const wchar_t* str);
+	static int64_t getCharMemberValue(ExtClassObject* obj, const wchar_t* str);
+	static int64_t getLongMemberValue(ExtClassObject* obj, const wchar_t* str);
 	static const UnicodeString* getStringMemberValue(ExtClassObject* obj, const wchar_t* str);
+	static ExtClassObject* getObjectValue(ExtClassObject* obj, const wchar_t* str);
 
 	VirtualMachine* vm;
 	SmartContract* sc;

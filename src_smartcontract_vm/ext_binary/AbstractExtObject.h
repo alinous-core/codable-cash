@@ -20,6 +20,8 @@ public:
 
 	const UnicodeString* getName() const noexcept;
 	uint8_t getType() const noexcept;
+
+	virtual bool isNull() const noexcept;
 protected:
 	uint8_t type;
 	UnicodeString* name;

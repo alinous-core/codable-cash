@@ -183,7 +183,7 @@ AbstractReference* PrimitiveReference::wrap(IAbstractVmInstanceSubstance* owner,
 
 	return newInst;*/
 
-	return this;
+	return copy(vm);
 }
 
 uint8_t PrimitiveReference::getInstType() const noexcept {

@@ -21,8 +21,8 @@
 
 namespace alinous {
 
-StackVariableAccess::StackVariableAccess(int stackPos, int pos) {
-	this->stackPos = stackPos;
+StackVariableAccess::StackVariableAccess(int stackTopDiff, int pos) {
+	this->stackTopDiff = stackTopDiff;
 	this->pos = pos;
 	this->type = nullptr;
 }
@@ -33,7 +33,9 @@ StackVariableAccess::~StackVariableAccess() {
 
 void StackVariableAccess::analyze(AnalyzeContext* actx,	AbstractVariableInstraction* lastIinst, CodeElement* element) {
 	AnalyzeStackManager* stackMgr = actx->getAnalyzeStackManager();
-	AnalyzeStack* stack = stackMgr->get(this->stackPos);
+	int stackTop = stackMgr->topIndex();
+
+	AnalyzeStack* stack = stackMgr->get(stackTop - this->stackTopDiff);
 	AnalyzedStackReference* ref = stack->get(this->pos);
 
 	const AnalyzedType* atype = ref->getType();
@@ -45,7 +47,8 @@ AnalyzedType StackVariableAccess::getAnalyzedType() const noexcept {
 }
 
 AbstractVmInstance* StackVariableAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
-	VmStack* stack = vm->getStackAt(this->stackPos);
+	int topIndex = vm->topStackIndex();
+	VmStack* stack = vm->getStackAt(topIndex - this->stackTopDiff);
 	AbstractVmInstance* inst = stack->get(this->pos);
 
 	return inst;

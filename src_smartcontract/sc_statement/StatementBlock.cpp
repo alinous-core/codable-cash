@@ -197,7 +197,14 @@ void StatementBlock::interpretFunctionArguments(VirtualMachine* vm) {
 	for(int i = 0; i != maxLoop; ++i){
 		IAbstractVmInstanceSubstance* inst = list->get(i);
 
-		stack->addInnerReference(inst->wrap(stack, vm));
+
+		if(inst != nullptr){
+			stack->addInnerReference(inst->wrap(stack, vm));
+		}
+		else{
+			ObjectReference* ref = ObjectReference::createObjectReference(stack, nullptr, vm, true);
+			stack->addInnerReference(ref);
+		}
 	}
 }
 

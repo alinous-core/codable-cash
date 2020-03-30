@@ -28,6 +28,7 @@ public:
 	void popBlockStack() noexcept;
 
 	AnalyzeStack* top() const noexcept;
+	int topIndex() const noexcept;
 	AnalyzeStack* get(int pos) const noexcept;
 
 	StackVariableAccess* findStackVariableAccess(const UnicodeString* name) const noexcept;

@@ -1,0 +1,22 @@
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+	}
+	
+	public int main(){
+	}
+	
+	public void test(byte b, short s, char c, long l){
+		this.b = b;
+		this.s = s;
+		this.c = c;
+		this.l = l;
+	}
+	
+	private byte b;
+	private short s;
+	private char c;
+	private long l;
+}
