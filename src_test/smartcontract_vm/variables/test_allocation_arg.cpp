@@ -102,6 +102,12 @@ TEST(TestAllocationArgGroup, objectArg03){ // null
 
 	result = util.createInstance();
 	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	ExtClassObject* objectA = VmTestUtils::getObjectValue(obj, L"obj");
+	ExtClassObject* objectB = VmTestUtils::getObjectValue(objectA, L"objb");
+
+	CHECK(objectB == nullptr)
 }
 
 

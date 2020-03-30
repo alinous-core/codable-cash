@@ -1,0 +1,11 @@
+
+package test.fw;
+
+class ObjectB {
+	public ObjectB(int param){
+		this.param = param;
+	}
+
+	private int param;
+	
+}
