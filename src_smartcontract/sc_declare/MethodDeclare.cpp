@@ -26,6 +26,7 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "stack/MethodArgumentSetupper.h"
 
 namespace alinous {
 
@@ -248,7 +249,9 @@ void MethodDeclare::init(VirtualMachine* vm) {
 
 void MethodDeclare::interpret(FunctionArguments* args, VirtualMachine* vm) {
 	StatementBlock* block = getBlock();
-	vm->setFunctionArguments(args);
+
+	MethodArgumentSetupper argSetup(args, vm);
+	//vm->setFunctionArguments(args);
 
 	block->interpret(vm);
 }

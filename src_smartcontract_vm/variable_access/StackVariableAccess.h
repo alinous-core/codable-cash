@@ -26,7 +26,7 @@ public:
 	virtual CodeElement* getCodeElement() const noexcept;
 
 private:
-	int stackPos;
+	int stackTopDiff;
 	int pos;
 
 private:

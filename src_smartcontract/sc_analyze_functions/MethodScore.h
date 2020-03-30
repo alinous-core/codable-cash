@@ -29,7 +29,7 @@ public:
 private:
 	bool evaluateTypeScore(AnalyzedType* base, AnalyzedType* arg) noexcept;
 
-	bool evaluateObjectTypeScore(AnalyzedType* arg) noexcept;
+	bool evaluateObjectTypeScore(AnalyzedType* base, AnalyzedType* arg) noexcept;
 	bool evaluateBoolTypeScore(AnalyzedType* arg) noexcept;
 	bool evaluateByteTypeScore(AnalyzedType* arg) noexcept;
 	bool evaluateCharTypeScore(AnalyzedType* arg) noexcept;
@@ -37,6 +37,9 @@ private:
 	bool evaluateIntTypeScore(AnalyzedType* arg) noexcept;
 	bool evaluateLongTypeScore(AnalyzedType* arg) noexcept;
 	bool evaluateStringTypeScore(AnalyzedType* arg) noexcept;
+
+private:
+	bool doEvaluateObjectTypeScore(AnalyzedType* base, AnalyzedType* arg) noexcept;
 private:
 	VTableMethodEntry* method;
 	bool match;

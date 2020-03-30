@@ -62,33 +62,41 @@ StackVariableAccess* AnalyzeStackManager::findStackVariableAccess(const UnicodeS
 	StackVariableAccess* access = nullptr;
 
 	int topStack = this->stack->size() - 1;
+	int diff = 0;
 	for(int i = topStack; i >= 0; --i){
 		AnalyzeStack* stack = this->stack->get(i);
 		int pos = stack->findStackPosOfVariable(name);
 
 		if(pos >= 0){
-			access = new StackVariableAccess(i, pos);
+			access = new StackVariableAccess(diff, pos);
 			break;
 		}
 
 		if(stack->isFunctionStack()){
 			break;
 		}
+		diff++;
 	}
 
 	return access;
+}
+
+int AnalyzeStackManager::topIndex() const noexcept {
+	return this->stack->size() - 1;
 }
 
 StackVariableAccess* AnalyzeStackManager::getThisPointer() const noexcept {
 	StackVariableAccess* access = nullptr;
 
 	int topStack = this->stack->size() - 1;
+	int diff = 0;
 	for(int i = topStack; i >= 0; --i){
 		AnalyzeStack* stack = this->stack->get(i);
 		if(stack->isFunctionStack()){
-			access = new StackVariableAccess(i, 0);
+			access = new StackVariableAccess(diff, 0);
 			break;
 		}
+		diff++;
 	}
 
 	return access;

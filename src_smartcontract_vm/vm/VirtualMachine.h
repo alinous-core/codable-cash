@@ -50,6 +50,7 @@ public:
 	void newStack();
 	void popStack();
 	VmStack* topStack() const noexcept;
+	int topStackIndex() const noexcept;
 	VmStack* getStackAt(int pos) const noexcept;
 	void clearStack() noexcept;
 

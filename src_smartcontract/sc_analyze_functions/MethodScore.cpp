@@ -13,7 +13,9 @@
 #include "sc_declare/ArgumentsListDeclare.h"
 #include "sc_declare/MethodDeclare.h"
 
+#include "sc_declare/ClassDeclare.h"
 
+#include "sc_analyze/AnalyzedClass.h"
 namespace alinous {
 
 MethodScore::MethodScore(VTableMethodEntry* method) {
@@ -59,7 +61,7 @@ bool MethodScore::evaluateTypeScore(AnalyzedType* base,	AnalyzedType* arg) noexc
 	bool res;
 	switch(tt){
 	case AnalyzedType::TYPE_OBJECT:
-		res = evaluateObjectTypeScore(arg);
+		res = evaluateObjectTypeScore(base, arg);
 		break;
 	case AnalyzedType::TYPE_BOOL:
 		res = evaluateBoolTypeScore(arg);
@@ -97,27 +99,45 @@ bool MethodScore::isMatch() const noexcept {
 	return this->match;
 }
 
-bool MethodScore::evaluateObjectTypeScore(AnalyzedType* arg) noexcept {
+bool MethodScore::evaluateObjectTypeScore(AnalyzedType* base, AnalyzedType* arg) noexcept {
 	uint8_t tt = arg->getType();
 	// FIXME
 
-	bool res;
+	bool res = false;
 	switch(tt){
 	case AnalyzedType::TYPE_OBJECT:
+		res = doEvaluateObjectTypeScore(base, arg);
+		break;
 	case AnalyzedType::TYPE_STRING:
 	case AnalyzedType::TYPE_BOOL:
-		break;
 	case AnalyzedType::TYPE_BYTE:
 	case AnalyzedType::TYPE_CHAR:
 	case AnalyzedType::TYPE_SHORT:
 	case AnalyzedType::TYPE_LONG:
-
 	case AnalyzedType::TYPE_INT:
 	default:
 		break;
 	}
 
 	return res;
+}
+
+
+
+bool MethodScore::doEvaluateObjectTypeScore(AnalyzedType* base,	AnalyzedType* arg) noexcept {
+	AnalyzedClass* baseClass = base->getAnalyzedClass();
+	AnalyzedClass* argClass = arg->getAnalyzedClass();
+
+	if(baseClass->equals(argClass)){
+		return true;
+	}
+
+	if(argClass->hasBaseClass(baseClass)){
+		this->score -= -1;
+		return true;
+	}
+
+	return false;
 }
 
 bool MethodScore::evaluateBoolTypeScore(AnalyzedType* arg) noexcept {

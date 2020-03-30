@@ -42,7 +42,7 @@ ExtPrimitiveObject* ExtClassObject::getExtPrimitiveObject(const UnicodeString* n
 ExtClassObject* ExtClassObject::getExtClassObject(const UnicodeString* name) const noexcept {
 	AbstractExtObject* obj = this->map->get(name);
 
-	if(obj->isNull()){
+	if(obj == nullptr || obj->isNull()){
 		return nullptr;
 	}
 

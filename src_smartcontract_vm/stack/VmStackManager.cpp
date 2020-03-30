@@ -32,6 +32,10 @@ VmStack* VmStackManager::top() const noexcept {
 	return this->list.get(pos);
 }
 
+int VmStackManager::size() const noexcept {
+	return this->list.size();
+}
+
 bool VmStackManager::isEmpty() const noexcept {
 	return this->list.isEmpty();
 }

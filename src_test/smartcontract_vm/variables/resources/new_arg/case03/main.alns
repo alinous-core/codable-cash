@@ -1,0 +1,22 @@
+
+
+package test.fw;
+
+import test.fw.ObjectA;
+import test.fw.ObjectB;
+
+class SmartContract {
+	public SmartContract() {
+		int param = 100;
+		ObjectB objb = new ObjectB(param);
+		
+		this.obj = new ObjectA(objb);
+	}
+	
+	public int main(){
+
+	}
+	
+	private ObjectA obj;
+}
+
