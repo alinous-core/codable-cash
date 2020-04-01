@@ -90,6 +90,10 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 	AnalyzedClass* athisClass = actx->getThisClass();
 	analyzeMethodEntry(actx, athisClass);
 
+	if(this->methodEntry == nullptr){
+		return;
+	}
+
 	// this ptr
 	if(!this->methodEntry->isStatic()){
 		AnalyzeStackManager* astack = actx->getAnalyzeStackManager();
