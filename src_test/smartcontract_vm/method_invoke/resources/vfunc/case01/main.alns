@@ -6,7 +6,7 @@ import test.fw.base.BaseClass;
 
 class SmartContract extends BaseClass {
 	public SmartContract() {
-
+		vfunc01(10);
 	}
 	
 	public int main(){

@@ -33,4 +33,12 @@ TEST(TestVFunctionCallGroup, test01){
 
 	bool result = util.analyze();
 	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	int param = VmTestUtils::getIntMemberValue(obj, L"count");
+
+	CHECK(param = 20);
 }
