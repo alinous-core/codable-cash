@@ -27,6 +27,7 @@ public:
 	virtual void analyze(AnalyzeContext* actx);
 
 	void addStatement(AbstractStatement* stmt) noexcept;
+	void setBlockState(BlockState* state) noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
@@ -36,6 +37,7 @@ public:
 	virtual void interpret(VirtualMachine* vm);
 
 private:
+	void analyzeBlockState(AnalyzeContext* actx);
 	void analyzeMethodDeclareBlock(AnalyzeContext* actx);
 	void buildFunctionArguments2AnalyzedStack(ArgumentsListDeclare* arguments, AnalyzeStack* stack) const;
 	void interpretFunctionArguments(VirtualMachine* vm);

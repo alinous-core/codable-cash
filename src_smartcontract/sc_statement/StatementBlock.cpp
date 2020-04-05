@@ -60,6 +60,10 @@ void StatementBlock::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void StatementBlock::analyze(AnalyzeContext* actx) {
+	if(this->blockState == nullptr){
+		analyzeBlockState(actx);
+	}
+
 	short parentKind = this->parent->getKind();
 	if(parentKind == CodeElement::METHOD_DECLARE){
 		analyzeMethodDeclareBlock(actx);
@@ -75,6 +79,16 @@ void StatementBlock::analyze(AnalyzeContext* actx) {
 		AbstractStatement* stmt = this->statements.get(i);
 		stmt->analyze(actx);
 	}
+}
+
+void StatementBlock::analyzeBlockState(AnalyzeContext* actx) {
+	short parentKind = this->parent->getKind();
+	if(parentKind == CodeElement::METHOD_DECLARE){
+		this->blockState = new BlockState(BlockState::BLOCK_METHOD);
+		return;
+	}
+
+	this->blockState = new BlockState(BlockState::BLOCK_NORMAL);
 }
 
 void StatementBlock::analyzeMethodDeclareBlock(AnalyzeContext* actx) {
@@ -121,6 +135,10 @@ void StatementBlock::buildFunctionArguments2AnalyzedStack(ArgumentsListDeclare* 
 
 void StatementBlock::addStatement(AbstractStatement* stmt) noexcept {
 	this->statements.addElement(stmt);
+}
+
+void StatementBlock::setBlockState(BlockState* state) noexcept {
+	this->blockState = state;
 }
 
 int StatementBlock::binarySize() const {

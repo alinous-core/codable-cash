@@ -17,4 +17,9 @@ BlockState::~BlockState() {
 
 }
 
+int BlockState::getType() const noexcept {
+	return this->type;
+}
+
+
 } /* namespace alinous */

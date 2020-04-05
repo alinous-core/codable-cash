@@ -12,6 +12,7 @@ namespace alinous {
 
 class BlockState {
 public:
+	static const constexpr int BLOCK_NORMAL{0};
 	static const constexpr int BLOCK_METHOD{1};
 	static const constexpr int BLOCK_FOR{2};
 	static const constexpr int BLOCK_WHILE{3};
@@ -19,6 +20,8 @@ public:
 
 	explicit BlockState(int type);
 	virtual ~BlockState();
+
+	int getType() const noexcept;
 
 private:
 	int type;

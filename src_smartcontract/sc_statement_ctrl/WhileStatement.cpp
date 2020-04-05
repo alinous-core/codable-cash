@@ -8,6 +8,11 @@
 #include "sc_statement_ctrl/WhileStatement.h"
 #include "sc_expression/AbstractExpression.h"
 
+#include "sc_statement/StatementBlock.h"
+
+#include "vm_ctrl/BlockState.h"
+
+
 namespace alinous {
 
 WhileStatement::WhileStatement() : AbstractStatement(CodeElement::STMT_WHILE) {
@@ -26,6 +31,11 @@ void WhileStatement::preAnalyze(AnalyzeContext* actx) {
 
 	this->stmt->setParent(this);
 	this->stmt->preAnalyze(actx);
+
+	StatementBlock* block = dynamic_cast<StatementBlock*>(this->stmt);
+	if(block != nullptr){
+		block->setBlockState(new BlockState(BlockState::BLOCK_FOR));
+	}
 }
 
 void WhileStatement::analyzeTypeRef(AnalyzeContext* actx) {
