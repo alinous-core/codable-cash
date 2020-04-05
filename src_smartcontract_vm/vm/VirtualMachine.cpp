@@ -265,6 +265,10 @@ void VirtualMachine::destroy() noexcept {
 	this->destried = true;
 }
 
+ExecControlManager* VirtualMachine::getCtrl() const noexcept {
+	return this->ctrl;
+}
+
 ArrayList<AbstructProgramException>& VirtualMachine::getExceptions() noexcept {
 	return this->exceptions;
 }

@@ -59,6 +59,8 @@ public:
 	VmMalloc* getAlloc() noexcept;
 	GcManager* getGc() noexcept;
 
+	ExecControlManager* getCtrl() const noexcept;
+
 	void setFunctionArguments(FunctionArguments* args) noexcept;
 	FunctionArguments* getFunctionArguments() const noexcept;
 
