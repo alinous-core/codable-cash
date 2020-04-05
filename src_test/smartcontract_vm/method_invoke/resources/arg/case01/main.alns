@@ -1,0 +1,19 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		test(100);
+	}
+	
+	public int main(){
+
+	}
+	
+	public void test(int i){
+		this.count = i;
+	}
+	
+	private int count;
+}

@@ -30,6 +30,9 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual void interpret(VirtualMachine* vm);
+
+private:
+	void interpretExpression(VirtualMachine* vm);
 private:
 	AbstractExpression* exp;
 };

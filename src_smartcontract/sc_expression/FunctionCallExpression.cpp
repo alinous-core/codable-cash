@@ -90,6 +90,10 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 	AnalyzedClass* athisClass = actx->getThisClass();
 	analyzeMethodEntry(actx, athisClass);
 
+	if(this->methodEntry == nullptr){
+		return;
+	}
+
 	// this ptr
 	if(!this->methodEntry->isStatic()){
 		AnalyzeStackManager* astack = actx->getAnalyzeStackManager();
@@ -268,14 +272,14 @@ void FunctionCallExpression::interpretArguments(VirtualMachine* vm,	FunctionArgu
 		AbstractExpression* exp = this->args.get(i);
 		AbstractVmInstance* inst = exp->interpret(vm);
 
-		if(inst->isReference()){
+		if(inst != nullptr && inst->isReference()){
 			AbstractReference* ref = dynamic_cast<AbstractReference*>(inst);
 			assert(ref != nullptr);
 			args->addSubstance(ref->getInstance());
 		}
 		else{
 			IAbstractVmInstanceSubstance* clazzInst = dynamic_cast<IAbstractVmInstanceSubstance*>(inst);
-			assert(clazzInst != nullptr);
+			//assert(clazzInst != nullptr);
 
 			args->addSubstance(clazzInst);
 		}

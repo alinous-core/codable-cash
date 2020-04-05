@@ -8,6 +8,11 @@
 #include "sc_statement_ctrl/ForStatement.h"
 #include "sc_expression/AbstractExpression.h"
 
+#include "sc_statement/StatementBlock.h"
+
+#include "vm_ctrl/BlockState.h"
+
+
 namespace alinous {
 
 ForStatement::ForStatement() : AbstractStatement(CodeElement::STMT_FOR) {
@@ -28,6 +33,11 @@ void ForStatement::preAnalyze(AnalyzeContext* actx) {
 	if(this->stmt != nullptr){
 		this->stmt->setParent(this);
 		this->stmt->preAnalyze(actx);
+
+		StatementBlock* block = dynamic_cast<StatementBlock*>(this->stmt);
+		if(block != nullptr){
+			block->setBlockState(new BlockState(BlockState::BLOCK_FOR));
+		}
 	}
 	if(this->initStatement != nullptr){
 		this->initStatement->setParent(this);

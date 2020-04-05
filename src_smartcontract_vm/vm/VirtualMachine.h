@@ -31,6 +31,7 @@ class AbstractReference;
 
 class AbstructProgramException;
 class AbstractFunctionExtArguments;
+class ExecControlManager;
 
 class VirtualMachine {
 public:
@@ -58,6 +59,8 @@ public:
 	VmMalloc* getAlloc() noexcept;
 	GcManager* getGc() noexcept;
 
+	ExecControlManager* getCtrl() const noexcept;
+
 	void setFunctionArguments(FunctionArguments* args) noexcept;
 	FunctionArguments* getFunctionArguments() const noexcept;
 
@@ -77,6 +80,7 @@ private:
 	VmStackManager* stackManager;
 	VmMalloc* alloc;
 	GcManager* gc;
+	ExecControlManager* ctrl;
 
 	FunctionArguments* argsRegister;
 	VmRootReference* rootReference;

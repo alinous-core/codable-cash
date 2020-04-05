@@ -101,10 +101,12 @@ bool MethodScore::isMatch() const noexcept {
 
 bool MethodScore::evaluateObjectTypeScore(AnalyzedType* base, AnalyzedType* arg) noexcept {
 	uint8_t tt = arg->getType();
-	// FIXME
 
 	bool res = false;
 	switch(tt){
+	case AnalyzedType::TYPE_NULL:
+		res = true;
+		break;
 	case AnalyzedType::TYPE_OBJECT:
 		res = doEvaluateObjectTypeScore(base, arg);
 		break;

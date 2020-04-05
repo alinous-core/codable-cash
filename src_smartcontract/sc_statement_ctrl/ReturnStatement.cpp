@@ -8,6 +8,14 @@
 #include "sc_statement_ctrl/ReturnStatement.h"
 #include "sc_expression/AbstractExpression.h"
 
+#include "vm_ctrl/ExecControlManager.h"
+#include "vm_ctrl/ReturnControl.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "variable_access/FunctionArguments.h"
+
+
 namespace alinous {
 
 ReturnStatement::ReturnStatement() : AbstractStatement(CodeElement::STMT_RETURN) {
@@ -63,7 +71,22 @@ void ReturnStatement::init(VirtualMachine* vm) {
 }
 
 void ReturnStatement::interpret(VirtualMachine* vm) {
-	// FIXME statement
+	if(this->exp != nullptr){
+		interpretExpression(vm);
+	}
+
+	ExecControlManager* ctrl = vm->getCtrl();
+	ReturnControl* retCtrl = new ReturnControl();
+
+	ctrl->setInstruction(retCtrl);
 }
+
+void ReturnStatement::interpretExpression(VirtualMachine* vm) {
+	FunctionArguments* args = vm->getFunctionArguments();
+
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	args->setReturnedValue(inst);
+}
+
 
 } /* namespace alinous */

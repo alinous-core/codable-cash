@@ -1,0 +1,15 @@
+
+package test.fw.base;
+
+class BaseClass2 {
+	
+	public BaseClass2() {
+	
+	}
+	
+	public void vfunc01(int arg){
+		count = arg;
+	}
+	
+	private int count;
+}

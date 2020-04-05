@@ -8,6 +8,11 @@
 #include "sc_statement_ctrl/DoWhileStatement.h"
 #include "sc_expression/AbstractExpression.h"
 
+#include "sc_statement/StatementBlock.h"
+
+#include "vm_ctrl/BlockState.h"
+
+
 namespace alinous {
 
 DoWhileStatement::DoWhileStatement() : AbstractStatement(CodeElement::STMT_DO_WHILE) {
@@ -26,6 +31,11 @@ void DoWhileStatement::preAnalyze(AnalyzeContext* actx) {
 
 	this->stmt->setParent(this);
 	this->stmt->preAnalyze(actx);
+
+	StatementBlock* block = dynamic_cast<StatementBlock*>(this->stmt);
+	if(block != nullptr){
+		block->setBlockState(new BlockState(BlockState::BLOCK_DO_WHILE));
+	}
 }
 
 void DoWhileStatement::analyzeTypeRef(AnalyzeContext* actx) {
