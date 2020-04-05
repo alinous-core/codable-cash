@@ -29,14 +29,17 @@
 
 #include "variable_access/FunctionArguments.h"
 
+#include "vm_ctrl/BlockState.h"
 
 namespace alinous {
 
 StatementBlock::StatementBlock() : AbstractStatement(CodeElement::STMT_BLOCK) {
+	this->blockState = nullptr;
 }
 
 StatementBlock::~StatementBlock() {
 	this->statements.deleteElements();
+	delete this->blockState;
 }
 
 void StatementBlock::preAnalyze(AnalyzeContext* actx) {

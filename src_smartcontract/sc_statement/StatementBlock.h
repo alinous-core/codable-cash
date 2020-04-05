@@ -15,6 +15,7 @@ namespace alinous {
 
 class ArgumentsListDeclare;
 class AnalyzeStack;
+class BlockState;
 
 class StatementBlock : public AbstractStatement {
 public:
@@ -40,6 +41,7 @@ private:
 	void interpretFunctionArguments(VirtualMachine* vm);
 private:
 	ArrayList<AbstractStatement> statements;
+	BlockState* blockState;
 };
 
 } /* namespace alinous */

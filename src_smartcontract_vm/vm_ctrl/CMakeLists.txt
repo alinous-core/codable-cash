@@ -2,6 +2,7 @@
 
 set(__src
 	AbstractCtrlInstruction.cpp
+	BlockState.cpp
 	ExecControlManager.cpp
 	ReturnControl.cpp
 )
