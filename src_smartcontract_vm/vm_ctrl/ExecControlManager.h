@@ -10,10 +10,17 @@
 
 namespace alinous {
 
+class AbstractCtrlInstruction;
+
 class ExecControlManager {
 public:
 	ExecControlManager();
 	virtual ~ExecControlManager();
+
+	void setInstruction(AbstractCtrlInstruction* instruction) noexcept;
+
+private:
+	AbstractCtrlInstruction* instruction;
 };
 
 } /* namespace alinous */

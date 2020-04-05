@@ -6,16 +6,22 @@
  */
 
 #include "vm_ctrl/ExecControlManager.h"
+#include "vm_ctrl/AbstractCtrlInstruction.h"
+
 
 namespace alinous {
 
 ExecControlManager::ExecControlManager() {
-	// TODO Auto-generated constructor stub
-
+	this->instruction = nullptr;
 }
 
 ExecControlManager::~ExecControlManager() {
-	// TODO Auto-generated destructor stub
+	delete this->instruction;
+}
+
+void ExecControlManager::setInstruction(AbstractCtrlInstruction* instruction) noexcept {
+	delete this->instruction;
+	this->instruction = instruction;
 }
 
 } /* namespace alinous */
