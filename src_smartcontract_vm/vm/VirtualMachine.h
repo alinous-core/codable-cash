@@ -31,6 +31,7 @@ class AbstractReference;
 
 class AbstructProgramException;
 class AbstractFunctionExtArguments;
+class ExecControlManager;
 
 class VirtualMachine {
 public:
@@ -77,6 +78,7 @@ private:
 	VmStackManager* stackManager;
 	VmMalloc* alloc;
 	GcManager* gc;
+	ExecControlManager* ctrl;
 
 	FunctionArguments* argsRegister;
 	VmRootReference* rootReference;

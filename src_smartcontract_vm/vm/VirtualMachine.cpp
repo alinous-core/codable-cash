@@ -41,6 +41,9 @@
 #include "vm/exceptions.h"
 
 #include "stack/StackPopper.h"
+
+#include "vm_ctrl/ExecControlManager.h"
+
 namespace alinous {
 
 VirtualMachine::VirtualMachine(uint64_t memCapacity) {
@@ -53,6 +56,7 @@ VirtualMachine::VirtualMachine(uint64_t memCapacity) {
 	this->destried = false;
 	this->initialized = false;
 	this->rootReference = nullptr;
+	this->ctrl = new ExecControlManager();
 }
 
 VirtualMachine::~VirtualMachine() {
@@ -67,6 +71,7 @@ VirtualMachine::~VirtualMachine() {
 
 	delete this->memory;
 	delete this->alloc;
+	delete this->ctrl;
 
 	this->argsRegister = nullptr;
 	this->rootReference = nullptr;
