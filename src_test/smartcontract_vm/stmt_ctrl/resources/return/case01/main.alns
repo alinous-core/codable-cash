@@ -1,0 +1,15 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		this.result = main();
+	}
+	
+	public int main(){
+		return 100;
+	}
+	
+	private int result = -1;
+}
