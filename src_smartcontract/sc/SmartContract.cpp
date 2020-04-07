@@ -65,7 +65,10 @@ SmartContract::~SmartContract() {
 
 void alinous::SmartContract::setMainMethod(const UnicodeString* mainPackage,
 		const UnicodeString* mainClass, const UnicodeString* mainMethod) {
-	this->mainPackage = new UnicodeString(*mainPackage);
+	if(mainPackage != nullptr){
+		this->mainPackage = new UnicodeString(*mainPackage);
+	}
+
 	this->mainClass = new UnicodeString(*mainClass);
 	this->mainMethod = new UnicodeString(*mainMethod);
 }
