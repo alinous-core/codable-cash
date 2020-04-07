@@ -20,13 +20,13 @@ ReturnControl::~ReturnControl() {
 
 }
 
-bool ReturnControl::control(ExecControlManager* ctrl, BlockState* state, CodeElement* lastElement) {
+int ReturnControl::control(ExecControlManager* ctrl, BlockState* state, CodeElement* lastElement) {
 	int type = state->getType();
 	if(type == BlockState::BLOCK_METHOD){
 		ctrl->consumeInstruction();
 	}
 
-	return true;
+	return AbstractCtrlInstruction::RET_BREAK;
 }
 
 } /* namespace alinous */

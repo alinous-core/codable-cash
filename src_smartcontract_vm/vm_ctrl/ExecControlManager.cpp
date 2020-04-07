@@ -38,15 +38,15 @@ void ExecControlManager::doConsumeInstruction() noexcept {
 	this->instruction2Consume = nullptr;
 }
 
-bool ExecControlManager::checkStatementCtrl(BlockState* state, CodeElement* lastElement) noexcept {
+int ExecControlManager::checkStatementCtrl(BlockState* state, CodeElement* lastElement) noexcept {
 	if(this->instruction != nullptr){
-		bool result = this->instruction->control(this, state, lastElement);
+		int result = this->instruction->control(this, state, lastElement);
 		doConsumeInstruction();
 
 		return result;
 	}
 
-	return false;
+	return AbstractCtrlInstruction::RET_NONE;
 }
 
 } /* namespace alinous */

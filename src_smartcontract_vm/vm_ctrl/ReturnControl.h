@@ -17,7 +17,7 @@ public:
 	ReturnControl();
 	virtual ~ReturnControl();
 
-	virtual bool control(ExecControlManager* ctrl, BlockState* state, CodeElement* lastElement);
+	virtual int control(ExecControlManager* ctrl, BlockState* state, CodeElement* lastElement);
 };
 
 } /* namespace alinous */

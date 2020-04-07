@@ -16,10 +16,14 @@ class CodeElement;
 
 class AbstractCtrlInstruction {
 public:
+	static const constexpr int RET_NONE{0};
+	static const constexpr int RET_BREAK{1};
+	static const constexpr int RET_CONTINUE{2};
+
 	AbstractCtrlInstruction();
 	virtual ~AbstractCtrlInstruction();
 
-	virtual bool control(ExecControlManager* ctrl, BlockState* state, CodeElement* lastElement) = 0;
+	virtual int control(ExecControlManager* ctrl, BlockState* state, CodeElement* lastElement) = 0;
 };
 
 } /* namespace alinous */

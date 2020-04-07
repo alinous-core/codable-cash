@@ -23,7 +23,7 @@ public:
 	void consumeInstruction() noexcept;
 	void doConsumeInstruction() noexcept;
 
-	bool checkStatementCtrl(BlockState* state, CodeElement* lastElement) noexcept;
+	int checkStatementCtrl(BlockState* state, CodeElement* lastElement) noexcept;
 
 private:
 	AbstractCtrlInstruction* instruction;
