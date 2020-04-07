@@ -21,8 +21,12 @@ ReturnControl::~ReturnControl() {
 }
 
 bool ReturnControl::control(ExecControlManager* ctrl, BlockState* state, CodeElement* lastElement) {
+	int type = state->getType();
+	if(type == BlockState::BLOCK_METHOD){
+		ctrl->consumeInstruction();
+	}
 
-	return false;
+	return true;
 }
 
 } /* namespace alinous */
