@@ -20,6 +20,7 @@ ForStatement::ForStatement() : AbstractStatement(CodeElement::STMT_FOR) {
 	this->initStatement = nullptr;
 	this->cond = nullptr;
 	this->postLoop = nullptr;
+	this->blockState = new BlockState(BlockState::BLOCK_WHILE);
 }
 
 ForStatement::~ForStatement() {
@@ -27,6 +28,7 @@ ForStatement::~ForStatement() {
 	delete this->initStatement;
 	delete this->cond;
 	delete this->postLoop;
+	delete this->blockState;
 }
 
 void ForStatement::preAnalyze(AnalyzeContext* actx) {
