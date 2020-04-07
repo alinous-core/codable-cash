@@ -11,6 +11,15 @@
 #include "sc_statement/StatementBlock.h"
 
 #include "vm_ctrl/BlockState.h"
+#include "vm_ctrl/ExecControlManager.h"
+
+#include "instance_gc/GcManager.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "vm_ctrl/AbstractCtrlInstruction.h"
 
 
 namespace alinous {
@@ -95,7 +104,32 @@ void DoWhileStatement::init(VirtualMachine* vm) {
 }
 
 void DoWhileStatement::interpret(VirtualMachine* vm) {
-	// FIXME statement
+	AbstractVmInstance* inst = nullptr;
+	PrimitiveReference* ref = nullptr;
+
+	GcManager* gc = vm->getGc();
+	ExecControlManager* ctrl = vm->getCtrl();
+
+	while(true){
+		this->stmt->interpret(vm);
+
+		// control
+		int stat = ctrl->checkStatementCtrl(this->blockState, stmt);
+		if(stat == AbstractCtrlInstruction::RET_BREAK){
+			break;
+		}
+
+		// check
+		inst = this->exp->interpret(vm);
+		ref = dynamic_cast<PrimitiveReference*>(inst);
+
+		bool exec = ref->getBoolValue();
+		gc->handleFloatingObject(ref);
+
+		if(!exec){
+			break;
+		}
+	}
 }
 
 } /* namespace alinous */
