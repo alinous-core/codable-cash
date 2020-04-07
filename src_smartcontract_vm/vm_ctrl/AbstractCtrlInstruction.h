@@ -10,10 +10,16 @@
 
 namespace alinous {
 
+class ExecControlManager;
+class BlockState;
+class CodeElement;
+
 class AbstractCtrlInstruction {
 public:
 	AbstractCtrlInstruction();
 	virtual ~AbstractCtrlInstruction();
+
+	virtual bool control(ExecControlManager* ctrl, BlockState* state, CodeElement* lastElement) = 0;
 };
 
 } /* namespace alinous */

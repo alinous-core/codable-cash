@@ -30,6 +30,7 @@
 #include "variable_access/FunctionArguments.h"
 
 #include "vm_ctrl/BlockState.h"
+#include "vm_ctrl/ExecControlManager.h"
 
 namespace alinous {
 
@@ -194,10 +195,18 @@ void StatementBlock::interpret(VirtualMachine* vm) {
 		interpretFunctionArguments(vm);
 	}
 
+
+	ExecControlManager* ctrl = vm->getCtrl();
+
 	int maxLoop = this->statements.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractStatement* stmt = this->statements.get(i);
 		stmt->interpret(vm);
+
+		// control
+		if(ctrl->checkStatementCtrl(this->blockState, stmt)){
+			break;
+		}
 	}
 }
 
