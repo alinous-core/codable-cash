@@ -20,7 +20,7 @@ ForStatement::ForStatement() : AbstractStatement(CodeElement::STMT_FOR) {
 	this->initStatement = nullptr;
 	this->cond = nullptr;
 	this->postLoop = nullptr;
-	this->blockState = new BlockState(BlockState::BLOCK_WHILE);
+	this->blockState = new BlockState(BlockState::BLOCK_FOR);
 }
 
 ForStatement::~ForStatement() {
