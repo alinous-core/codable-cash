@@ -12,6 +12,7 @@
 
 namespace alinous {
 class AbstractExpression;
+class BlockState;
 
 class WhileStatement: public AbstractStatement {
 public:
@@ -34,6 +35,8 @@ public:
 private:
 	AbstractExpression* exp;
 	AbstractStatement* stmt;
+
+	BlockState* blockState;
 };
 
 } /* namespace alinous */

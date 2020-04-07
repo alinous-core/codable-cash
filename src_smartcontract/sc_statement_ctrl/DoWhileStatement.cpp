@@ -34,7 +34,7 @@ void DoWhileStatement::preAnalyze(AnalyzeContext* actx) {
 
 	StatementBlock* block = dynamic_cast<StatementBlock*>(this->stmt);
 	if(block != nullptr){
-		block->setBlockState(new BlockState(BlockState::BLOCK_DO_WHILE));
+		block->setBlockState(new BlockState(BlockState::BLOCK_CTRL_LOOP));
 	}
 }
 
