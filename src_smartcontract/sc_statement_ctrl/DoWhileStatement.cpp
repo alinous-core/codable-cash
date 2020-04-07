@@ -18,11 +18,13 @@ namespace alinous {
 DoWhileStatement::DoWhileStatement() : AbstractStatement(CodeElement::STMT_DO_WHILE) {
 	this->exp = nullptr;
 	this->stmt = nullptr;
+	this->blockState = new BlockState(BlockState::BLOCK_DO_WHILE);
 }
 
 DoWhileStatement::~DoWhileStatement() {
 	delete this->exp;
 	delete this->stmt;
+	delete this->blockState;
 }
 
 void DoWhileStatement::preAnalyze(AnalyzeContext* actx) {
