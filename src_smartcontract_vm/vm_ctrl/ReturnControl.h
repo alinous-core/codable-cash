@@ -16,6 +16,8 @@ class ReturnControl : public AbstractCtrlInstruction {
 public:
 	ReturnControl();
 	virtual ~ReturnControl();
+
+	virtual int control(ExecControlManager* ctrl, BlockState* state, CodeElement* lastElement);
 };
 
 } /* namespace alinous */

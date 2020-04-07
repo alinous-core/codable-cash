@@ -7,6 +7,9 @@
 
 #include "vm_ctrl/ReturnControl.h"
 
+#include "vm_ctrl/ExecControlManager.h"
+#include "vm_ctrl/BlockState.h"
+
 namespace alinous {
 
 ReturnControl::ReturnControl() : AbstractCtrlInstruction() {
@@ -15,6 +18,15 @@ ReturnControl::ReturnControl() : AbstractCtrlInstruction() {
 
 ReturnControl::~ReturnControl() {
 
+}
+
+int ReturnControl::control(ExecControlManager* ctrl, BlockState* state, CodeElement* lastElement) {
+	int type = state->getType();
+	if(type == BlockState::BLOCK_METHOD){
+		ctrl->consumeInstruction();
+	}
+
+	return AbstractCtrlInstruction::RET_BREAK;
 }
 
 } /* namespace alinous */
