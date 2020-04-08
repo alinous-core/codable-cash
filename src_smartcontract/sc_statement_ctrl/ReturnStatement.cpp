@@ -81,6 +81,10 @@ void ReturnStatement::interpret(VirtualMachine* vm) {
 	ctrl->setInstruction(retCtrl);
 }
 
+bool ReturnStatement::hasCtrlStatement() const noexcept {
+	return true;
+}
+
 void ReturnStatement::interpretExpression(VirtualMachine* vm) {
 	FunctionArguments* args = vm->getFunctionArguments();
 

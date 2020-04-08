@@ -28,6 +28,7 @@ public:
 	virtual void interpret(VirtualMachine* vm) = 0;
 
 	virtual bool isExecutable();
+	virtual bool hasCtrlStatement() const noexcept = 0;
 };
 
 } /* namespace alinous */

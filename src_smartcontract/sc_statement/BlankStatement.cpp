@@ -41,4 +41,9 @@ void BlankStatement::fromBinary(ByteBuffer* in) {
 void BlankStatement::interpret(VirtualMachine* vm) {
 }
 
+bool BlankStatement::hasCtrlStatement() const noexcept {
+	return false;
+}
+
+
 } /* namespace alinous */

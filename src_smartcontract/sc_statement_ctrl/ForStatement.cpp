@@ -10,11 +10,19 @@
 
 #include "sc_statement/StatementBlock.h"
 
-#include "vm_ctrl/BlockState.h"
-
 #include "sc_analyze/AnalyzedType.h"
 #include "sc_analyze/ValidationError.h"
 #include "sc_analyze/AnalyzeContext.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "vm_ctrl/BlockState.h"
+#include "vm_ctrl/ExecControlManager.h"
+#include "vm_ctrl/AbstractCtrlInstruction.h"
+
+#include "instance_gc/GcManager.h"
 
 
 namespace alinous {
@@ -80,6 +88,10 @@ void ForStatement::analyze(AnalyzeContext* actx) {
 	}
 	if(this->initStatement != nullptr){
 		this->initStatement->analyze(actx);
+
+		short kind = this->initStatement->getKind();
+		// FIXME check kind
+
 	}
 	if(this->cond != nullptr){
 		this->cond->analyze(actx);
@@ -174,7 +186,43 @@ void ForStatement::init(VirtualMachine* vm) {
 
 
 void ForStatement::interpret(VirtualMachine* vm) {
-	// FIXME statement
+	AbstractVmInstance* inst = nullptr;
+	PrimitiveReference* ref = nullptr;
+
+	GcManager* gc = vm->getGc();
+	ExecControlManager* ctrl = vm->getCtrl();
+
+	if(this->initStatement != nullptr){
+		this->initStatement->interpret(vm);
+	}
+
+	while(true){
+		if(this->cond != nullptr){
+			inst = this->cond->interpret(vm);
+			ref = dynamic_cast<PrimitiveReference*>(inst);
+
+			bool exec = ref->getBoolValue();
+			gc->handleFloatingObject(ref);
+
+			if(!exec){
+				break;
+			}
+		}
+
+		if(this->stmt != nullptr){
+			this->stmt->interpret(vm);
+
+			int stat = ctrl->checkStatementCtrl(this->blockState, this->stmt);
+			if(stat == AbstractCtrlInstruction::RET_BREAK){
+				return;
+			}
+		}
+
+		if(this->postLoop != nullptr){
+			this->initStatement->interpret(vm);
+		}
+
+	}
 }
 
 } /* namespace alinous */

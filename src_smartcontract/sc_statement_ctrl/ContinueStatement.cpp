@@ -44,4 +44,8 @@ void ContinueStatement::init(VirtualMachine* vm) {
 void ContinueStatement::interpret(VirtualMachine* vm) {
 }
 
+bool ContinueStatement::hasCtrlStatement() const noexcept {
+	return true;
+}
+
 } /* namespace alinous */

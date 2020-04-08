@@ -162,4 +162,9 @@ void VariableDeclareStatement::interpret(VirtualMachine* vm) {
 	}
 }
 
+bool VariableDeclareStatement::hasCtrlStatement() const noexcept {
+	return false;
+}
+
+
 } /* namespace alinous */

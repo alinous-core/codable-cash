@@ -44,4 +44,8 @@ void BreakStatement::fromBinary(ByteBuffer* in) {
 void BreakStatement::interpret(VirtualMachine* vm) {
 }
 
+bool BreakStatement::hasCtrlStatement() const noexcept {
+	return true;
+}
+
 } /* namespace alinous */

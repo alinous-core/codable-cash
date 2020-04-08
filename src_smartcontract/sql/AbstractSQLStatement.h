@@ -19,6 +19,7 @@ public:
 	virtual ~AbstractSQLStatement();
 
 	virtual void init(VirtualMachine* vm);
+	virtual bool hasCtrlStatement() const noexcept;
 };
 
 } /* namespace alinous */
