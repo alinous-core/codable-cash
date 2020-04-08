@@ -27,6 +27,8 @@ IfStatement::IfStatement() : AbstractStatement(CodeElement::STMT_IF) {
 	this->stmt = nullptr;
 
 	this->elseStmt = nullptr;
+
+	this->bctrl = false;
 }
 
 IfStatement::~IfStatement() {
@@ -103,6 +105,19 @@ void IfStatement::analyze(AnalyzeContext* actx) {
 		if(!at.isBool()){
 			actx->addValidationError(ValidationError::CODE_LOGICAL_EXP_NON_BOOL, this, L"If's expression requires boolean parameter.", {});
 		}
+	}
+
+	// bctrl
+	this->bctrl = this->bctrl || this->stmt->hasCtrlStatement();
+
+	maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IfStatement* stmt = this->list.get(i);
+
+		this->bctrl = this->bctrl || stmt->hasCtrlStatement();
+	}
+	if(this->elseStmt != nullptr){
+		this->bctrl = this->bctrl || this->elseStmt->hasCtrlStatement();
 	}
 }
 
@@ -236,6 +251,10 @@ void IfStatement::interpret(VirtualMachine* vm) {
 	if(this->elseStmt != nullptr){
 		this->elseStmt->interpret(vm);
 	}
+}
+
+bool IfStatement::hasCtrlStatement() const noexcept {
+	return this->bctrl;
 }
 
 } /* namespace alinous */
