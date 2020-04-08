@@ -62,7 +62,7 @@ TEST(TestWhileStmtGroup, case02){
 	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
 	int iresult = VmTestUtils::getIntMemberValue(obj, L"result");
 
-	CHECK(iresult == 10)
+	CHECK(iresult == 2)
 }
 
 
