@@ -82,6 +82,11 @@ void StatementBlock::analyze(AnalyzeContext* actx) {
 		AbstractStatement* stmt = this->statements.get(i);
 		stmt->analyze(actx);
 	}
+
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractStatement* stmt = this->statements.get(i);
+		this->bctrl = this->bctrl || stmt->hasCtrlStatement();
+	}
 }
 
 void StatementBlock::analyzeBlockState(AnalyzeContext* actx) {
@@ -206,9 +211,11 @@ void StatementBlock::interpret(VirtualMachine* vm) {
 		stmt->interpret(vm);
 
 		// control
-		int stat = ctrl->checkStatementCtrl(this->blockState, stmt);
-		if(stat == AbstractCtrlInstruction::RET_BREAK || stat == AbstractCtrlInstruction::RET_CONTINUE){
-			break;
+		if(stmt->hasCtrlStatement()){
+			int stat = ctrl->checkStatementCtrl(this->blockState, stmt);
+			if(stat == AbstractCtrlInstruction::RET_BREAK || stat == AbstractCtrlInstruction::RET_CONTINUE){
+				break;
+			}
 		}
 	}
 }

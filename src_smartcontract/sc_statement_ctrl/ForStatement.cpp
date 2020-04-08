@@ -87,13 +87,15 @@ void ForStatement::analyze(AnalyzeContext* actx) {
 	if(this->stmt != nullptr){
 		this->stmt->analyze(actx);
 	}
+
 	if(this->initStatement != nullptr){
 		this->initStatement->analyze(actx);
 
-		short kind = this->initStatement->getKind();
-		// FIXME check kind
-
+		if(this->initStatement->hasCtrlStatement()){
+			actx->addValidationError(ValidationError::CODE_CTRL_STMT_EXHIBITED, this, L"Control statement is exhibited here.", {});
+		}
 	}
+
 	if(this->cond != nullptr){
 		this->cond->analyze(actx);
 
