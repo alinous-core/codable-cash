@@ -33,6 +33,7 @@ ForStatement::ForStatement() : AbstractStatement(CodeElement::STMT_FOR) {
 	this->cond = nullptr;
 	this->postLoop = nullptr;
 	this->blockState = new BlockState(BlockState::BLOCK_FOR);
+	this->bctrl = false;
 }
 
 ForStatement::~ForStatement() {
@@ -104,6 +105,11 @@ void ForStatement::analyze(AnalyzeContext* actx) {
 	}
 	if(this->postLoop != nullptr){
 		this->postLoop->analyze(actx);
+	}
+
+	// bctrl
+	if(this->stmt != nullptr){
+		this->bctrl = this->bctrl || this->stmt->hasCtrlStatement();
 	}
 }
 
@@ -223,6 +229,10 @@ void ForStatement::interpret(VirtualMachine* vm) {
 		}
 
 	}
+}
+
+bool ForStatement::hasCtrlStatement() const noexcept {
+	return this->bctrl;
 }
 
 } /* namespace alinous */
