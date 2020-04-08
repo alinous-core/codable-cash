@@ -37,6 +37,7 @@ namespace alinous {
 
 StatementBlock::StatementBlock() : AbstractStatement(CodeElement::STMT_BLOCK) {
 	this->blockState = nullptr;
+	this->bctrl = false;
 }
 
 StatementBlock::~StatementBlock() {
@@ -210,6 +211,10 @@ void StatementBlock::interpret(VirtualMachine* vm) {
 			break;
 		}
 	}
+}
+
+bool StatementBlock::hasCtrlStatement() const noexcept {
+	return this->bctrl;
 }
 
 void StatementBlock::interpretFunctionArguments(VirtualMachine* vm) {
