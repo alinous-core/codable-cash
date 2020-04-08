@@ -124,4 +124,9 @@ void SubstitutionStatement::interpret(VirtualMachine* vm) {
 	leftRef->substitute(sub, vm);
 }
 
+bool SubstitutionStatement::hasCtrlStatement() const noexcept {
+	return false;
+}
+
+
 } /* namespace alinous */

@@ -73,5 +73,8 @@ void ExpressionStatement::interpret(VirtualMachine* vm) {
 	gc->handleFloatingObject(retInst != nullptr ? retInst->getInstance() : nullptr);
 }
 
+bool ExpressionStatement::hasCtrlStatement() const noexcept {
+	return false;
+}
 
 } /* namespace alinous */
