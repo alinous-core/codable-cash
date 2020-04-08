@@ -21,6 +21,9 @@
 
 #include "vm_ctrl/AbstractCtrlInstruction.h"
 
+#include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
 
 namespace alinous {
 
@@ -58,6 +61,12 @@ void DoWhileStatement::analyzeTypeRef(AnalyzeContext* actx) {
 void alinous::DoWhileStatement::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
 	this->stmt->analyze(actx);
+
+	AnalyzedType atype = this->exp->getType(actx);
+	uint8_t type = atype.getType();
+	if(type != AnalyzedType::TYPE_BOOL){
+		actx->addValidationError(ValidationError::CODE_LOGICAL_EXP_NON_BOOL, this, L"Do While statement's expression requires boolean parameter.", {});
+	}
 }
 
 void DoWhileStatement::setExpression(AbstractExpression* exp) noexcept {

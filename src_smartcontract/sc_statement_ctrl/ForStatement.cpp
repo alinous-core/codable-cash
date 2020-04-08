@@ -12,6 +12,10 @@
 
 #include "vm_ctrl/BlockState.h"
 
+#include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
+
 
 namespace alinous {
 
@@ -79,6 +83,12 @@ void ForStatement::analyze(AnalyzeContext* actx) {
 	}
 	if(this->cond != nullptr){
 		this->cond->analyze(actx);
+
+		AnalyzedType atype = this->cond->getType(actx);
+		uint8_t type = atype.getType();
+		if(type != AnalyzedType::TYPE_BOOL){
+			actx->addValidationError(ValidationError::CODE_LOGICAL_EXP_NON_BOOL, this, L"For statement's expression requires boolean parameter.", {});
+		}
 	}
 	if(this->postLoop != nullptr){
 		this->postLoop->analyze(actx);
