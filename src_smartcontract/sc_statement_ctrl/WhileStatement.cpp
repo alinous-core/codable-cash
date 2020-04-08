@@ -29,6 +29,7 @@ WhileStatement::WhileStatement() : AbstractStatement(CodeElement::STMT_WHILE) {
 	this->exp = nullptr;
 	this->stmt = nullptr;
 	this->blockState = new BlockState(BlockState::BLOCK_WHILE);
+	this->bctrl = false;
 }
 
 WhileStatement::~WhileStatement() {
@@ -135,6 +136,10 @@ void WhileStatement::interpret(VirtualMachine* vm) {
 			break;
 		}
 	}
+}
+
+bool WhileStatement::hasCtrlStatement() const noexcept {
+	return this->bctrl;
 }
 
 } /* namespace alinous */

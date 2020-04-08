@@ -31,6 +31,7 @@ DoWhileStatement::DoWhileStatement() : AbstractStatement(CodeElement::STMT_DO_WH
 	this->exp = nullptr;
 	this->stmt = nullptr;
 	this->blockState = new BlockState(BlockState::BLOCK_DO_WHILE);
+	this->bctrl = false;
 }
 
 DoWhileStatement::~DoWhileStatement() {
@@ -139,6 +140,10 @@ void DoWhileStatement::interpret(VirtualMachine* vm) {
 			break;
 		}
 	}
+}
+
+bool DoWhileStatement::hasCtrlStatement() const noexcept {
+	return this->bctrl;
 }
 
 } /* namespace alinous */
