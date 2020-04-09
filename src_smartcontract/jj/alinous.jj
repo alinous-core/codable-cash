@@ -1135,27 +1135,6 @@ AbstractStatement* __substitutionStatement() : {
 			exstmt->setPosition(first);
 		}
 	}
-	/*
-	t=";" {
-		if(exp != nullptr){
-			SubstitutionStatement* sstmt = new SubstitutionStatement();
-			stmt = sstmt;
-			sstmt->setVariableId(first);
-			sstmt->setPosition(first);
-			
-			sstmt->setExpression(exp);
-			sstmt->setPosition(exp);
-		}
-		else{
-		 	ExpressionStatement* exstmt = new ExpressionStatement();
-			stmt = exstmt;
-			exstmt->setExpression(first);
-			exstmt->setPosition(first);
-		}		
-		
-		stmt->setPosition(t);
-	}*/
-	
 	{
 		__ONERROR(stmt);
 		return stmt;
@@ -1263,9 +1242,12 @@ ForStatement* forStatement() : {
 		stmt->setPosition(t);
 	}
 	
-	st=statement() {
+	st=forInnerStatement() {
 		stmt->setInit(st);
 		stmt->setPosition(st);
+	}
+	t=";" {
+		stmt->setPosition(t);
 	}
 	
 	exp=expression() {
@@ -1276,9 +1258,9 @@ ForStatement* forStatement() : {
 		stmt->setPosition(t);
 	}
 	
-	exp=expression() {
-		stmt->setPostLoop(exp);
-		stmt->setPosition(exp);
+	st=forInnerStatement() {
+		stmt->setPostLoop(st);
+		stmt->setPosition(st);
 	}	
 	
 	t=")" {
@@ -1289,6 +1271,21 @@ ForStatement* forStatement() : {
 		stmt->setPosition(st);
 	}
 	
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+AbstractStatement* forInnerStatement() : {
+	AbstractStatement* stmt = nullptr;
+}
+{
+	(LOOKAHEAD(2)
+		stmt=__substitutionStatement()
+		|
+		stmt=__variableDeclareStatement()
+	)
 	{
 		 __ONERROR(stmt);
 		return stmt;

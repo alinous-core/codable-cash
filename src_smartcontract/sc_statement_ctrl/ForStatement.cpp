@@ -127,7 +127,7 @@ void ForStatement::setCondition(AbstractExpression* cond) noexcept {
 	this->cond = cond;
 }
 
-void ForStatement::setPostLoop(AbstractExpression* postLoop) noexcept {
+void ForStatement::setPostLoop(AbstractStatement* postLoop) noexcept {
 	this->postLoop = postLoop;
 }
 
@@ -173,8 +173,8 @@ void ForStatement::fromBinary(ByteBuffer* in) {
 	this->cond = dynamic_cast<AbstractExpression*>(element);
 
 	element = createFromBinary(in);
-	checkIsExp(element);
-	this->postLoop = dynamic_cast<AbstractExpression*>(element);
+	checkIsStatement(element);
+	this->postLoop = dynamic_cast<AbstractStatement*>(element);
 }
 
 void ForStatement::init(VirtualMachine* vm) {

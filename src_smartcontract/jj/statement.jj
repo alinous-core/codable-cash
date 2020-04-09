@@ -117,27 +117,6 @@ AbstractStatement* __substitutionStatement() : {
 			exstmt->setPosition(first);
 		}
 	}
-	/*
-	t=";" {
-		if(exp != nullptr){
-			SubstitutionStatement* sstmt = new SubstitutionStatement();
-			stmt = sstmt;
-			sstmt->setVariableId(first);
-			sstmt->setPosition(first);
-			
-			sstmt->setExpression(exp);
-			sstmt->setPosition(exp);
-		}
-		else{
-		 	ExpressionStatement* exstmt = new ExpressionStatement();
-			stmt = exstmt;
-			exstmt->setExpression(first);
-			exstmt->setPosition(first);
-		}		
-		
-		stmt->setPosition(t);
-	}*/
-	
 	{
 		__ONERROR(stmt);
 		return stmt;

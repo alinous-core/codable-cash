@@ -27,7 +27,7 @@ public:
 
 	void setInit(AbstractStatement* initStatement) noexcept;
 	void setCondition(AbstractExpression* cond) noexcept;
-	void setPostLoop(AbstractExpression* postLoop) noexcept;
+	void setPostLoop(AbstractStatement* postLoop) noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
@@ -40,7 +40,7 @@ public:
 private:
 	AbstractStatement* initStatement;
 	AbstractExpression* cond;
-	AbstractExpression* postLoop;
+	AbstractStatement* postLoop;
 	AbstractStatement* stmt;
 
 	BlockState* blockState;
