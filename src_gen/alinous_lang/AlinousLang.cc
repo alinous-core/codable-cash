@@ -1218,6 +1218,23 @@ assert(false);
 
 
 AbstractStatement                 * AlinousLang::substitutionStatement() {AbstractStatement* stmt = nullptr;
+        Token* t = nullptr;
+    if (!hasError) {
+    stmt = __substitutionStatement();
+    }
+    if (!hasError) {
+    t = jj_consume_token(SEMI_COLON);
+    }
+    if (!hasError) {
+stmt->setPosition(t);
+    }
+__ONERROR(stmt);
+                return stmt;
+assert(false);
+}
+
+
+AbstractStatement                 * AlinousLang::__substitutionStatement() {AbstractStatement* stmt = nullptr;
 
         AbstractExpression* first = nullptr;
         AbstractExpression* exp = nullptr;
@@ -1234,6 +1251,15 @@ AbstractStatement                 * AlinousLang::substitutionStatement() {Abstra
       if (!hasError) {
       exp = expression();
       }
+      if (!hasError) {
+SubstitutionStatement* sstmt = new SubstitutionStatement();
+                        stmt = sstmt;
+                        sstmt->setVariableId(first);
+                        sstmt->setPosition(first);
+
+                        sstmt->setExpression(exp);
+                        sstmt->setPosition(exp);
+      }
       break;
       }
     default:
@@ -1242,26 +1268,12 @@ AbstractStatement                 * AlinousLang::substitutionStatement() {Abstra
     }
     }
     if (!hasError) {
-    t = jj_consume_token(SEMI_COLON);
-    }
-    if (!hasError) {
-if(exp != nullptr){
-                        SubstitutionStatement* sstmt = new SubstitutionStatement();
-                        stmt = sstmt;
-                        sstmt->setVariableId(first);
-                        sstmt->setPosition(first);
-
-                        sstmt->setExpression(exp);
-                        sstmt->setPosition(exp);
-                }
-                else{
+if(stmt == nullptr){
                         ExpressionStatement* exstmt = new ExpressionStatement();
                         stmt = exstmt;
                         exstmt->setExpression(first);
                         exstmt->setPosition(first);
                 }
-
-                stmt->setPosition(t);
     }
 __ONERROR(stmt);
                 return stmt;

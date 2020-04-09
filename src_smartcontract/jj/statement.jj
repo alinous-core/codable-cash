@@ -67,9 +67,6 @@ VariableDeclareStatement* __variableDeclareStatement() : {
 		}
 	]
 	
-/*	t=";" {
-		stmt->setPosition(t);
-	}*/
 	{
 		__ONERROR(stmt);
 		return stmt;
@@ -77,6 +74,21 @@ VariableDeclareStatement* __variableDeclareStatement() : {
 }
 
 AbstractStatement* substitutionStatement() : {
+	AbstractStatement* stmt = nullptr;
+	Token* t = nullptr;
+}
+{
+	stmt=__substitutionStatement()
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+AbstractStatement* __substitutionStatement() : {
 	AbstractStatement* stmt = nullptr;
 	
 	AbstractExpression* first = nullptr;
@@ -87,9 +99,25 @@ AbstractStatement* substitutionStatement() : {
 	first=expression()
 	[
 		t="="		
-		exp=expression()
+		exp=expression() {
+			SubstitutionStatement* sstmt = new SubstitutionStatement();
+			stmt = sstmt;
+			sstmt->setVariableId(first);
+			sstmt->setPosition(first);
+			
+			sstmt->setExpression(exp);
+			sstmt->setPosition(exp);
+		}
 	]
-	
+	{
+		if(stmt == nullptr){
+		 	ExpressionStatement* exstmt = new ExpressionStatement();
+			stmt = exstmt;
+			exstmt->setExpression(first);
+			exstmt->setPosition(first);
+		}
+	}
+	/*
 	t=";" {
 		if(exp != nullptr){
 			SubstitutionStatement* sstmt = new SubstitutionStatement();
@@ -108,7 +136,7 @@ AbstractStatement* substitutionStatement() : {
 		}		
 		
 		stmt->setPosition(t);
-	}
+	}*/
 	
 	{
 		__ONERROR(stmt);
