@@ -1152,7 +1152,24 @@ assert(false);
 }
 
 
-VariableDeclareStatement                        * AlinousLang::variableDeclareStatement() {VariableDeclareStatement* stmt = new VariableDeclareStatement();
+VariableDeclareStatement                        * AlinousLang::variableDeclareStatement() {VariableDeclareStatement* stmt = nullptr;
+        Token* t = nullptr;
+    if (!hasError) {
+    stmt = __variableDeclareStatement();
+    }
+    if (!hasError) {
+    t = jj_consume_token(SEMI_COLON);
+    }
+    if (!hasError) {
+stmt->setPosition(t);
+    }
+__ONERROR(stmt);
+                return stmt;
+assert(false);
+}
+
+
+VariableDeclareStatement                        * AlinousLang::__variableDeclareStatement() {VariableDeclareStatement* stmt = new VariableDeclareStatement();
         AbstractType* type = nullptr;
         VariableIdentifier* valId = nullptr;
         AbstractExpression* exp = nullptr;
@@ -1193,12 +1210,6 @@ stmt->setInitExpression(exp);
       jj_la1[22] = jj_gen;
       ;
     }
-    }
-    if (!hasError) {
-    t = jj_consume_token(SEMI_COLON);
-    }
-    if (!hasError) {
-stmt->setPosition(t);
     }
 __ONERROR(stmt);
                 return stmt;

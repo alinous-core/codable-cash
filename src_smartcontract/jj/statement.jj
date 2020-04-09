@@ -24,6 +24,22 @@ AbstractStatement* statement() : {
 }
 
 VariableDeclareStatement* variableDeclareStatement() : {
+	VariableDeclareStatement* stmt = nullptr;
+	Token* t = nullptr;
+}
+{
+	stmt=__variableDeclareStatement()
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+
+VariableDeclareStatement* __variableDeclareStatement() : {
 	VariableDeclareStatement* stmt = new VariableDeclareStatement();
 	AbstractType* type = nullptr;
 	VariableIdentifier* valId = nullptr;
@@ -51,9 +67,9 @@ VariableDeclareStatement* variableDeclareStatement() : {
 		}
 	]
 	
-	t=";" {
+/*	t=";" {
 		stmt->setPosition(t);
-	}
+	}*/
 	{
 		__ONERROR(stmt);
 		return stmt;
