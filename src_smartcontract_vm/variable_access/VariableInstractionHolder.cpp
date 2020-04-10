@@ -109,6 +109,8 @@ void VariableInstractionHolder::addArrayReference(AbstractExpression* exp, Analy
 	assert(arrayRefExp != nullptr);
 
 	// FIXME array is stack object or
+	AbstractExpression* aexp = arrayRefExp->getExp();
+
 
 	ArrayReferenceAccess* access = new ArrayReferenceAccess(arrayRefExp);
 	this->list.addElement(access);
