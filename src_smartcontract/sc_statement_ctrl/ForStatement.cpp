@@ -24,6 +24,10 @@
 
 #include "instance_gc/GcManager.h"
 
+#include "sc_analyze_stack/AnalyzeStackPopper.h"
+#include "sc_analyze_stack/AnalyzeStackManager.h"
+
+#include "stack/StackPopper.h"
 
 namespace alinous {
 
@@ -84,16 +88,16 @@ void ForStatement::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void ForStatement::analyze(AnalyzeContext* actx) {
+	AnalyzeStackManager* stackMgr = actx->getAnalyzeStackManager();
+	AnalyzeStackPopper popper(stackMgr, false);
+	stackMgr->addBlockStack();
+
 	if(this->stmt != nullptr){
 		this->stmt->analyze(actx);
 	}
 
 	if(this->initStatement != nullptr){
 		this->initStatement->analyze(actx);
-
-		if(this->initStatement->hasCtrlStatement()){
-			actx->addValidationError(ValidationError::CODE_CTRL_STMT_EXHIBITED, this, L"Control statement is exhibited here.", {});
-		}
 	}
 
 	if(this->cond != nullptr){
@@ -194,6 +198,9 @@ void ForStatement::init(VirtualMachine* vm) {
 
 
 void ForStatement::interpret(VirtualMachine* vm) {
+	vm->newStack();
+	StackPopper stackPopper(vm);
+
 	AbstractVmInstance* inst = nullptr;
 	PrimitiveReference* ref = nullptr;
 
@@ -227,7 +234,7 @@ void ForStatement::interpret(VirtualMachine* vm) {
 		}
 
 		if(this->postLoop != nullptr){
-			this->initStatement->interpret(vm);
+			this->postLoop->interpret(vm);
 		}
 
 	}
