@@ -201,5 +201,9 @@ void ClassDeclareBlock::fromBinary(ByteBuffer* in) {
 	}
 }
 
+bool ClassDeclareBlock::hasCtrlStatement() const noexcept {
+	return false;
+}
+
 
 } /* namespace alinous */

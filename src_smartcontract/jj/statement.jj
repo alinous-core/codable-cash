@@ -24,6 +24,22 @@ AbstractStatement* statement() : {
 }
 
 VariableDeclareStatement* variableDeclareStatement() : {
+	VariableDeclareStatement* stmt = nullptr;
+	Token* t = nullptr;
+}
+{
+	stmt=__variableDeclareStatement()
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+
+VariableDeclareStatement* __variableDeclareStatement() : {
 	VariableDeclareStatement* stmt = new VariableDeclareStatement();
 	AbstractType* type = nullptr;
 	VariableIdentifier* valId = nullptr;
@@ -51,9 +67,6 @@ VariableDeclareStatement* variableDeclareStatement() : {
 		}
 	]
 	
-	t=";" {
-		stmt->setPosition(t);
-	}
 	{
 		__ONERROR(stmt);
 		return stmt;
@@ -61,6 +74,21 @@ VariableDeclareStatement* variableDeclareStatement() : {
 }
 
 AbstractStatement* substitutionStatement() : {
+	AbstractStatement* stmt = nullptr;
+	Token* t = nullptr;
+}
+{
+	stmt=__substitutionStatement()
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+AbstractStatement* __substitutionStatement() : {
 	AbstractStatement* stmt = nullptr;
 	
 	AbstractExpression* first = nullptr;
@@ -71,11 +99,7 @@ AbstractStatement* substitutionStatement() : {
 	first=expression()
 	[
 		t="="		
-		exp=expression()
-	]
-	
-	t=";" {
-		if(exp != nullptr){
+		exp=expression() {
 			SubstitutionStatement* sstmt = new SubstitutionStatement();
 			stmt = sstmt;
 			sstmt->setVariableId(first);
@@ -84,16 +108,15 @@ AbstractStatement* substitutionStatement() : {
 			sstmt->setExpression(exp);
 			sstmt->setPosition(exp);
 		}
-		else{
+	]
+	{
+		if(stmt == nullptr){
 		 	ExpressionStatement* exstmt = new ExpressionStatement();
 			stmt = exstmt;
 			exstmt->setExpression(first);
 			exstmt->setPosition(first);
-		}		
-		
-		stmt->setPosition(t);
+		}
 	}
-	
 	{
 		__ONERROR(stmt);
 		return stmt;

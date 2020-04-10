@@ -7,6 +7,12 @@
 
 #include "sc_statement_ctrl/ContinueStatement.h"
 
+#include "vm_ctrl/ExecControlManager.h"
+#include "vm_ctrl/ContinueControl.h"
+
+#include "vm/VirtualMachine.h"
+
+
 namespace alinous {
 
 ContinueStatement::ContinueStatement() : AbstractStatement(CodeElement::STMT_CONTINUE) {
@@ -42,6 +48,14 @@ void ContinueStatement::init(VirtualMachine* vm) {
 }
 
 void ContinueStatement::interpret(VirtualMachine* vm) {
+	ExecControlManager* ctrl = vm->getCtrl();
+	ContinueControl* retCtrl = new ContinueControl();
+
+	ctrl->setInstruction(retCtrl);
+}
+
+bool ContinueStatement::hasCtrlStatement() const noexcept {
+	return true;
 }
 
 } /* namespace alinous */

@@ -12,6 +12,7 @@
 
 namespace alinous {
 class AbstractExpression;
+class BlockState;
 
 class DoWhileStatement: public AbstractStatement {
 public:
@@ -31,9 +32,15 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual void interpret(VirtualMachine* vm);
+
+	virtual bool hasCtrlStatement() const noexcept;
 private:
 	AbstractExpression* exp;
 	AbstractStatement* stmt;
+
+	BlockState* blockState;
+
+	bool bctrl;
 };
 
 } /* namespace alinous */

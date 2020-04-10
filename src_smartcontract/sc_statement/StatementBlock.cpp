@@ -37,6 +37,7 @@ namespace alinous {
 
 StatementBlock::StatementBlock() : AbstractStatement(CodeElement::STMT_BLOCK) {
 	this->blockState = nullptr;
+	this->bctrl = false;
 }
 
 StatementBlock::~StatementBlock() {
@@ -80,6 +81,11 @@ void StatementBlock::analyze(AnalyzeContext* actx) {
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractStatement* stmt = this->statements.get(i);
 		stmt->analyze(actx);
+	}
+
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractStatement* stmt = this->statements.get(i);
+		this->bctrl = this->bctrl || stmt->hasCtrlStatement();
 	}
 }
 
@@ -205,11 +211,17 @@ void StatementBlock::interpret(VirtualMachine* vm) {
 		stmt->interpret(vm);
 
 		// control
-		int stat = ctrl->checkStatementCtrl(this->blockState, stmt);
-		if(stat == AbstractCtrlInstruction::RET_BREAK || stat == AbstractCtrlInstruction::RET_CONTINUE){
-			break;
+		if(stmt->hasCtrlStatement()){
+			int stat = ctrl->checkStatementCtrl(this->blockState, stmt);
+			if(stat == AbstractCtrlInstruction::RET_BREAK || stat == AbstractCtrlInstruction::RET_CONTINUE){
+				break;
+			}
 		}
 	}
+}
+
+bool StatementBlock::hasCtrlStatement() const noexcept {
+	return this->bctrl;
 }
 
 void StatementBlock::interpretFunctionArguments(VirtualMachine* vm) {

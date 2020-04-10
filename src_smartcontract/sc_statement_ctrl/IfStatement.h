@@ -37,6 +37,8 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual void interpret(VirtualMachine* vm);
+
+	virtual bool hasCtrlStatement() const noexcept;
 private:
 	AbstractExpression* exp;
 	AbstractStatement* stmt;
@@ -44,6 +46,8 @@ private:
 	ArrayList<IfStatement> list;
 
 	AbstractStatement* elseStmt;
+
+	bool bctrl;
 };
 
 } /* namespace alinous */

@@ -48,6 +48,9 @@ public:
 	static constexpr int CODE_LOGICAL_EXP_NON_BOOL = 71;
 	static constexpr int CODE_LOGICAL_EXP_NON_PRIMITIVE = 72;
 
+	static constexpr int CODE_CTRL_STMT_EXHIBITED = 71;
+
+
 	//static constexpr int CODE_WRONG_TYPE_NAME = 4;
 
 

@@ -36,6 +36,7 @@ public:
 	virtual void init(VirtualMachine* vm);
 	virtual void interpret(VirtualMachine* vm);
 
+	virtual bool hasCtrlStatement() const noexcept;
 private:
 	void analyzeBlockState(AnalyzeContext* actx);
 	void analyzeMethodDeclareBlock(AnalyzeContext* actx);
@@ -44,6 +45,8 @@ private:
 private:
 	ArrayList<AbstractStatement> statements;
 	BlockState* blockState;
+
+	bool bctrl;
 };
 
 } /* namespace alinous */

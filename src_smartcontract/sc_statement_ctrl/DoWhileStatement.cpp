@@ -11,18 +11,33 @@
 #include "sc_statement/StatementBlock.h"
 
 #include "vm_ctrl/BlockState.h"
+#include "vm_ctrl/ExecControlManager.h"
 
+#include "instance_gc/GcManager.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "vm_ctrl/AbstractCtrlInstruction.h"
+
+#include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
 
 namespace alinous {
 
 DoWhileStatement::DoWhileStatement() : AbstractStatement(CodeElement::STMT_DO_WHILE) {
 	this->exp = nullptr;
 	this->stmt = nullptr;
+	this->blockState = new BlockState(BlockState::BLOCK_DO_WHILE);
+	this->bctrl = false;
 }
 
 DoWhileStatement::~DoWhileStatement() {
 	delete this->exp;
 	delete this->stmt;
+	delete this->blockState;
 }
 
 void DoWhileStatement::preAnalyze(AnalyzeContext* actx) {
@@ -34,7 +49,7 @@ void DoWhileStatement::preAnalyze(AnalyzeContext* actx) {
 
 	StatementBlock* block = dynamic_cast<StatementBlock*>(this->stmt);
 	if(block != nullptr){
-		block->setBlockState(new BlockState(BlockState::BLOCK_DO_WHILE));
+		block->setBlockState(new BlockState(BlockState::BLOCK_CTRL_LOOP));
 	}
 }
 
@@ -47,6 +62,12 @@ void DoWhileStatement::analyzeTypeRef(AnalyzeContext* actx) {
 void alinous::DoWhileStatement::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
 	this->stmt->analyze(actx);
+
+	AnalyzedType atype = this->exp->getType(actx);
+	uint8_t type = atype.getType();
+	if(type != AnalyzedType::TYPE_BOOL){
+		actx->addValidationError(ValidationError::CODE_LOGICAL_EXP_NON_BOOL, this, L"Do While statement's expression requires boolean parameter.", {});
+	}
 }
 
 void DoWhileStatement::setExpression(AbstractExpression* exp) noexcept {
@@ -93,7 +114,36 @@ void DoWhileStatement::init(VirtualMachine* vm) {
 }
 
 void DoWhileStatement::interpret(VirtualMachine* vm) {
-	// FIXME statement
+	AbstractVmInstance* inst = nullptr;
+	PrimitiveReference* ref = nullptr;
+
+	GcManager* gc = vm->getGc();
+	ExecControlManager* ctrl = vm->getCtrl();
+
+	while(true){
+		this->stmt->interpret(vm);
+
+		// control
+		int stat = ctrl->checkStatementCtrl(this->blockState, stmt);
+		if(stat == AbstractCtrlInstruction::RET_BREAK){
+			break;
+		}
+
+		// check
+		inst = this->exp->interpret(vm);
+		ref = dynamic_cast<PrimitiveReference*>(inst);
+
+		bool exec = ref->getBoolValue();
+		gc->handleFloatingObject(ref);
+
+		if(!exec){
+			break;
+		}
+	}
+}
+
+bool DoWhileStatement::hasCtrlStatement() const noexcept {
+	return this->bctrl;
 }
 
 } /* namespace alinous */

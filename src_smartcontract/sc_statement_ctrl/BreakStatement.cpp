@@ -7,6 +7,12 @@
 
 #include "sc_statement_ctrl/BreakStatement.h"
 
+#include "vm_ctrl/ExecControlManager.h"
+#include "vm_ctrl/BreakControl.h"
+
+#include "vm/VirtualMachine.h"
+
+
 namespace alinous {
 
 BreakStatement::BreakStatement() : AbstractStatement(CodeElement::STMT_BREAK) {
@@ -42,6 +48,14 @@ void BreakStatement::fromBinary(ByteBuffer* in) {
 }
 
 void BreakStatement::interpret(VirtualMachine* vm) {
+	ExecControlManager* ctrl = vm->getCtrl();
+	BreakControl* retCtrl = new BreakControl();
+
+	ctrl->setInstruction(retCtrl);
+}
+
+bool BreakStatement::hasCtrlStatement() const noexcept {
+	return true;
 }
 
 } /* namespace alinous */

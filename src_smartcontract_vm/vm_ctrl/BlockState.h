@@ -14,9 +14,11 @@ class BlockState {
 public:
 	static const constexpr int BLOCK_NORMAL{0};
 	static const constexpr int BLOCK_METHOD{1};
-	static const constexpr int BLOCK_FOR{2};
-	static const constexpr int BLOCK_WHILE{3};
-	static const constexpr int BLOCK_DO_WHILE{4};
+	static const constexpr int BLOCK_CTRL_LOOP{2};
+
+	static const constexpr int BLOCK_FOR{3};
+	static const constexpr int BLOCK_WHILE{4};
+	static const constexpr int BLOCK_DO_WHILE{5};
 
 	explicit BlockState(int type);
 	virtual ~BlockState();
