@@ -115,7 +115,10 @@ void ForStatement::analyze(AnalyzeContext* actx) {
 
 	// bctrl
 	if(this->stmt != nullptr){
-		this->bctrl = this->bctrl || this->stmt->hasCtrlStatement();
+		this->bctrl = this->bctrl || this->stmt->hasCtrlStatement()
+				|| (this->initStatement != nullptr && this->initStatement->hasCtrlStatement())
+				|| (this->cond != nullptr && this->cond->throwsException())
+				|| (this->postLoop != nullptr && this->postLoop->hasCtrlStatement());
 	}
 }
 

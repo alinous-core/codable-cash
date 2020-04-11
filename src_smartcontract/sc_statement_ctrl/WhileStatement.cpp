@@ -65,6 +65,8 @@ void WhileStatement::analyze(AnalyzeContext* actx) {
 	if(type != AnalyzedType::TYPE_BOOL){
 		actx->addValidationError(ValidationError::CODE_LOGICAL_EXP_NON_BOOL, this, L"While's expression requires boolean parameter.", {});
 	}
+
+	this->bctrl = this->bctrl || this->exp->throwsException() || this->stmt->hasCtrlStatement();
 }
 
 void WhileStatement::setExpression(AbstractExpression* exp) noexcept {

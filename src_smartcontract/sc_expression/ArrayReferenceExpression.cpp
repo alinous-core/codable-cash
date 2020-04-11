@@ -6,17 +6,33 @@
  */
 
 #include "sc_expression/ArrayReferenceExpression.h"
+
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/ValidationError.h"
+
+#include "instance_array/VmArrayInstanceUtils.h"
+
+#include "instance_gc/StackFloatingVariableHandler.h"
+#include "instance_gc/GcManager.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
 
 namespace alinous {
 
 ArrayReferenceExpression::ArrayReferenceExpression() : AbstractExpression(CodeElement::EXP_ARRAY_REF) {
 	this->exp = nullptr;
+	this->atype = nullptr;
 }
 
 ArrayReferenceExpression::~ArrayReferenceExpression() {
 	delete this->exp;
 	this->list.deleteElements();
+
+	delete this->atype;
 }
 
 void ArrayReferenceExpression::preAnalyze(AnalyzeContext* actx) {
@@ -32,7 +48,13 @@ void ArrayReferenceExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void ArrayReferenceExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	// FIXME expression : analyze type
+	this->exp->analyzeTypeRef(actx);
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* ex = this->list.get(i);
+		ex->analyzeTypeRef(actx);
+	}
 }
 
 void ArrayReferenceExpression::analyze(AnalyzeContext* actx) {
@@ -42,12 +64,40 @@ void ArrayReferenceExpression::analyze(AnalyzeContext* actx) {
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractExpression* ex = this->list.get(i);
 		ex->analyze(actx);
+
+		AnalyzedType at = ex->getType(actx);
+		bool res = VmArrayInstanceUtils::isArrayIndex(at);
+		if(!res){
+			actx->addValidationError(ValidationError::CODE_ARRAY_INDEX_MUST_BE_NUMERIC, this, L"Array index must be numeric value.", {});
+		}
 	}
+
+	if(actx->hasError()){
+		this->atype = new AnalyzedType();
+		return;
+	}
+
+	AnalyzedType at = this->exp->getType(actx);
+
+	int dim = at.getDim();
+	int reqDim = this->list.size();
+	if(dim < reqDim){
+		actx->addValidationError(ValidationError::CODE_ARRAY_INDEX_OVERFLOW, this, L"Array dimension is too greater than the variable.", {});
+		return;
+	}
+
+	at.setDim(dim - reqDim);
+	this->atype = new AnalyzedType(at);
 }
 
 void ArrayReferenceExpression::setExp(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }
+
+AbstractExpression* ArrayReferenceExpression::getExp() const noexcept {
+	return this->exp;
+}
+
 
 void ArrayReferenceExpression::addIndex(AbstractExpression* exp) noexcept {
 	this->list.addElement(exp);
@@ -100,8 +150,7 @@ void ArrayReferenceExpression::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType ArrayReferenceExpression::getType(AnalyzeContext* actx) {
-	// FIXME analyze array ref type
-	return AnalyzedType();
+	return *this->atype;
 }
 
 void ArrayReferenceExpression::init(VirtualMachine* vm) {
@@ -115,7 +164,51 @@ void ArrayReferenceExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* ArrayReferenceExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME expression::interpret()
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	if(inst == nullptr || inst->isNull()){
+		// FIXME is null
+	}
+
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
+	releaser.registerInstance(inst);
+	IAbstractVmInstanceSubstance* sub = inst->getInstance();
+	VmArrayInstance* arrayInst = dynamic_cast<VmArrayInstance*>(sub);
+
+	int maxLoop = this->list.size() - 1;
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* indexExp = this->list.get(i);
+
+		AbstractVmInstance* index = indexExp->interpret(vm);
+		releaser.registerInstance(index);
+
+		PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(index);
+		int idx = ref->getIntValue();
+
+		if(idx >= arrayInst->size()){
+			// FIXME array index bound
+		}
+
+		AbstractReference* element = arrayInst->getReference(vm, idx);
+		sub = element->getInstance();
+		arrayInst = dynamic_cast<VmArrayInstance*>(sub);
+	}
+
+	AbstractExpression* indexExp = this->list.get(maxLoop);
+	AbstractVmInstance* index = indexExp->interpret(vm);
+	releaser.registerInstance(index);
+
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(index);
+	int idx = ref->getIntValue();
+
+	if(idx >= arrayInst->size()){
+		// FIXME array index bound
+	}
+
+	AbstractReference* element = arrayInst->getReference(vm, idx);
+
+	return element;
 }
 
 } /* namespace alinous */

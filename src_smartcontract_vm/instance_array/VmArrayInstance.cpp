@@ -129,8 +129,19 @@ void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReferenc
 	if(ref != nullptr){
 		gc->registerObject(ref);
 		this->array->setElement(ref, pos);
-	}
 
+		if(ref->isPrimitive()){
+			ref->setOwner(this);
+		}
+	}
+}
+
+AbstractReference* VmArrayInstance::getReference(VirtualMachine* vm, int pos) {
+	return this->array->get(pos);
+}
+
+int VmArrayInstance::size() const noexcept {
+	return this->array->size();
 }
 
 } /* namespace alinous */

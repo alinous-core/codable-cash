@@ -32,11 +32,14 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm) = 0;
 
 	virtual bool isExecutable();
+	bool throwsException() const noexcept;
+	void setThrowsException(bool exThrow) noexcept;
 
 	VariableInstractionHolder* getVariableInstractionHolder() noexcept;
 
 private:
 	VariableInstractionHolder* valInstHolder;
+	bool exceptionThorown;
 };
 
 } /* namespace alinous */

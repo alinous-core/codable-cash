@@ -23,6 +23,7 @@ public:
 	virtual void analyze(AnalyzeContext* actx);
 
 	void setExp(AbstractExpression* exp) noexcept;
+	AbstractExpression* getExp() const noexcept;
 	void addIndex(AbstractExpression* exp) noexcept;
 
 	virtual int binarySize() const;
@@ -36,6 +37,8 @@ public:
 private:
 	AbstractExpression* exp;
 	ArrayList<AbstractExpression> list;
+
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

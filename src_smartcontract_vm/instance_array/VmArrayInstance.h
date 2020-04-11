@@ -41,6 +41,8 @@ public:
 	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 
 	void setReference(VirtualMachine* vm, int pos, AbstractReference* ref) noexcept;
+	AbstractReference* getReference(VirtualMachine* vm, int pos);
+	int size() const noexcept;
 private:
 	VMemList<AbstractReference>* array;
 	int length;

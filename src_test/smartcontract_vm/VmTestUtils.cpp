@@ -17,11 +17,13 @@
 #include "base_io_stream/FileInputStream.h"
 
 #include "instance/VmClassInstance.h"
+#include "instance_ref/PrimitiveReference.h"
 
 #include "ext_binary/AbstractExtObject.h"
 #include "ext_binary/ExtClassObject.h"
 #include "ext_binary/ExtPrimitiveObject.h"
 #include "ext_binary/ExtStringClass.h"
+#include "ext_binary/ExtArrayObject.h"
 
 #include "sc_analyze/AnalyzeContext.h"
 
@@ -185,5 +187,18 @@ const UnicodeString* VmTestUtils::getStringMemberValue(ExtClassObject* obj, cons
 	return extObj->getValue();
 }
 
+ExtArrayObject* VmTestUtils::getArrayMember(ExtClassObject* obj, const wchar_t* str) {
+	UnicodeString strResult(str);
+	ExtArrayObject* extObj = obj->getExtArrayObject(&strResult);
+
+	return extObj;
+}
+
+int64_t VmTestUtils::getArrayInt(ExtArrayObject* array, int pos) {
+	AbstractExtObject* obj = array->get(pos);
+	PrimitiveReference* primitive = dynamic_cast<PrimitiveReference*>(obj);
+
+	return primitive->getIntValue();
+}
 
 } /* namespace alinous */

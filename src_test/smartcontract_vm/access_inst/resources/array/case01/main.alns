@@ -1,0 +1,23 @@
+
+
+package test.fw;
+
+import test.fw.ObjectA;
+
+class SmartContract {
+	public SmartContract() {
+		int[] ar;
+		ar = new int[3];
+		
+		ar[1] = 10;
+		
+		this.result = ar[1];
+	}
+	
+	public int main(){
+
+	}
+	
+	private int result;
+}
+

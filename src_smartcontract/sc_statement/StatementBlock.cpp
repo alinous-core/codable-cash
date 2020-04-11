@@ -85,7 +85,10 @@ void StatementBlock::analyze(AnalyzeContext* actx) {
 
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractStatement* stmt = this->statements.get(i);
-		this->bctrl = this->bctrl || stmt->hasCtrlStatement();
+		if(stmt->hasCtrlStatement()){
+			this->bctrl = true;
+			break;
+		}
 	}
 }
 
