@@ -34,7 +34,7 @@
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedType.h"
 
-#include "instance_exception/AbstructProgramException.h"
+#include "instance_exception/AbstractProgramException.h"
 
 #include "ext_arguments/AbstractFunctionExtArguments.h"
 
@@ -89,7 +89,7 @@ VmClassInstance* VirtualMachine::createScInstance() {
 	try{
 		return this->sc->createInstance(this);
 	}
-	catch(AbstructProgramException* e){
+	catch(AbstractProgramException* e){
 		this->exceptions.addElement(e);
 	}
 
@@ -269,7 +269,7 @@ ExecControlManager* VirtualMachine::getCtrl() const noexcept {
 	return this->ctrl;
 }
 
-ArrayList<AbstructProgramException>& VirtualMachine::getExceptions() noexcept {
+ArrayList<AbstractProgramException>& VirtualMachine::getExceptions() noexcept {
 	return this->exceptions;
 }
 

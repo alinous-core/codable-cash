@@ -57,7 +57,7 @@ bool VmTestUtils::analyze() {
 
 bool VmTestUtils::createInstance() {
 	this->mainInst = vm->createScInstance();
-	ArrayList<AbstructProgramException>& exceptions = vm->getExceptions();
+	ArrayList<AbstractProgramException>& exceptions = vm->getExceptions();
 
 	return !vm->hasError() && exceptions.isEmpty();
 }

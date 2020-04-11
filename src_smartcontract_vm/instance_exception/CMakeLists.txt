@@ -1,7 +1,7 @@
 
 
 set(__src
-	AbstructProgramException.cpp
+	AbstractProgramException.cpp
 	ZeroDivisionException.cpp
 )
 handle_sub(codablecashlib "${__src}" smartcontract_vm instance_exception)

@@ -29,7 +29,7 @@ class FunctionArguments;
 class VmRootReference;
 class AbstractReference;
 
-class AbstructProgramException;
+class AbstractProgramException;
 class AbstractFunctionExtArguments;
 class ExecControlManager;
 
@@ -72,7 +72,7 @@ public:
 	void initialize();
 	void destroy() noexcept;
 
-	ArrayList<AbstructProgramException>& getExceptions() noexcept;
+	ArrayList<AbstractProgramException>& getExceptions() noexcept;
 private:
 	SmartContract* sc;
 
@@ -88,7 +88,7 @@ private:
 	bool destried;
 	bool initialized;
 
-	ArrayList<AbstructProgramException> exceptions;
+	ArrayList<AbstractProgramException> exceptions;
 };
 
 } /* namespace alinous */

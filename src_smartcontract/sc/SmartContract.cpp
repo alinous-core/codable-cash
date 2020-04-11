@@ -28,7 +28,7 @@
 
 #include "instance_gc/GcManager.h"
 
-#include "instance_exception/AbstructProgramException.h"
+#include "instance_exception/AbstractProgramException.h"
 
 #include "base_io_stream/FileInputStream.h"
 #include "base_io/File.h"
@@ -180,7 +180,7 @@ VmClassInstance* SmartContract::createInstance(VirtualMachine* vm) {
 		ArrayList<AbstractFunctionExtArguments> arguments;
 		vm->interpret(defConstructor, inst, &arguments);
 	}
-	catch(AbstructProgramException* e){
+	catch(AbstractProgramException* e){
 		throw e;
 	}
 

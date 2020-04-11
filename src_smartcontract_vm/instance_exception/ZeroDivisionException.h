@@ -8,11 +8,11 @@
 #ifndef SC_EXPRESSION_ARITHMETIC_ZERODIVISIONEXCEPTION_H_
 #define SC_EXPRESSION_ARITHMETIC_ZERODIVISIONEXCEPTION_H_
 
-#include "instance_exception/AbstructProgramException.h"
+#include "instance_exception/AbstractProgramException.h"
 
 namespace alinous {
 
-class ZeroDivisionException : public AbstructProgramException {
+class ZeroDivisionException : public AbstractProgramException {
 public:
 	ZeroDivisionException(const char* srcfile, int srcline) noexcept;
 	ZeroDivisionException(Exception* cause, const char* srcfile, int srcline) noexcept;
