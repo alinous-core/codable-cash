@@ -29,6 +29,7 @@ namespace alinous {
 SubstitutionStatement::SubstitutionStatement() : AbstractStatement(CodeElement::STMT_SUBSTITUTION) {
 	this->variable = nullptr;
 	this->exp = nullptr;
+	this->bctrl = false;
 }
 
 SubstitutionStatement::~SubstitutionStatement() {
@@ -58,6 +59,8 @@ void SubstitutionStatement::analyze(AnalyzeContext* actx) {
 	if(!actx->hasError()){
 		bool result = typeChecker.checkCompatibility(actx, this->variable, this->exp);
 	}
+
+	this->bctrl = this->variable->throwsException() || this->exp->throwsException();
 }
 
 void SubstitutionStatement::setVariableId(AbstractExpression* variable) noexcept {
@@ -125,7 +128,7 @@ void SubstitutionStatement::interpret(VirtualMachine* vm) {
 }
 
 bool SubstitutionStatement::hasCtrlStatement() const noexcept {
-	return false;
+	return this->bctrl;
 }
 
 

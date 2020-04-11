@@ -38,6 +38,7 @@ private:
 	AbstractExpression* variable;
 	AbstractExpression* exp;
 
+	bool bctrl;
 };
 
 } /* namespace alinous */
