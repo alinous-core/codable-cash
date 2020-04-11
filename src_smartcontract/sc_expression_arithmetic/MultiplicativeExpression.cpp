@@ -39,6 +39,16 @@ void MultiplicativeExpression::analyze(AnalyzeContext* actx) {
 	if(!type.isPrimitiveInteger()){
 		actx->addValidationError(ValidationError::CODE_ARITHMETIC_NON_INTEGER, this, L"Can not use arithmetic operator to non integer value.", {});
 	}
+
+	int maxLoop = this->operations.size();
+	for(int i = 1; i != maxLoop; ++i){
+		uint8_t op = this->operations.get(i);
+
+		if(op == MultiplicativeExpression::DIV || op == MultiplicativeExpression::MOD){
+			setThrowsException(true);
+			break;
+		}
+	}
 }
 
 AbstractVmInstance* MultiplicativeExpression::interpret(VirtualMachine* vm) {
