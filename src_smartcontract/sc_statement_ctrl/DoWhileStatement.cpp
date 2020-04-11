@@ -68,6 +68,10 @@ void alinous::DoWhileStatement::analyze(AnalyzeContext* actx) {
 	if(type != AnalyzedType::TYPE_BOOL){
 		actx->addValidationError(ValidationError::CODE_LOGICAL_EXP_NON_BOOL, this, L"Do While statement's expression requires boolean parameter.", {});
 	}
+
+	if(this->exp->throwsException() || this->stmt->hasCtrlStatement()){
+		this->bctrl = true;
+	}
 }
 
 void DoWhileStatement::setExpression(AbstractExpression* exp) noexcept {
