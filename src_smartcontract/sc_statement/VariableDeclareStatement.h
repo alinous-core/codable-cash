@@ -43,6 +43,7 @@ private:
 	AbstractExpression* exp;
 
 	AnalyzedType* atype;
+	bool bctrl;
 };
 
 } /* namespace alinous */

@@ -31,6 +31,7 @@ VariableDeclareStatement::VariableDeclareStatement() : AbstractStatement(CodeEle
 	this->variableId = nullptr;
 	this->exp = nullptr;
 	this->atype = nullptr;
+	this->bctrl = false;
 }
 
 VariableDeclareStatement::~VariableDeclareStatement() {
@@ -63,6 +64,7 @@ void VariableDeclareStatement::analyze(AnalyzeContext* actx) {
 
 	if(this->exp != nullptr){
 		this->exp->analyze(actx);
+		this->bctrl = this->exp->throwsException();
 	}
 
 	this->atype = resolver->resolveType(this, this->type);
@@ -163,7 +165,7 @@ void VariableDeclareStatement::interpret(VirtualMachine* vm) {
 }
 
 bool VariableDeclareStatement::hasCtrlStatement() const noexcept {
-	return false;
+	return this->bctrl;
 }
 
 
