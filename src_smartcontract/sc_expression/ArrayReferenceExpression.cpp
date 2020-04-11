@@ -156,6 +156,12 @@ void ArrayReferenceExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* ArrayReferenceExpression::interpret(VirtualMachine* vm) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	if(inst == nullptr || inst->isNull()){
+		// FIXME is null
+	}
+
+
 	return nullptr; // FIXME expression::interpret()
 }
 

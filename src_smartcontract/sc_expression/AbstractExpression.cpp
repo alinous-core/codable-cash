@@ -13,6 +13,7 @@ namespace alinous {
 
 AbstractExpression::AbstractExpression(int kind) : CodeElement(kind) {
 	this->valInstHolder = nullptr;
+	this->exceptionThorown = false;
 }
 
 AbstractExpression::~AbstractExpression() {
@@ -30,5 +31,12 @@ bool AbstractExpression::isExecutable() {
 	return true;
 }
 
+bool AbstractExpression::throwsException() const noexcept {
+	return this->exceptionThorown;
+}
+
+void AbstractExpression::setThrowsException(bool exThrow) noexcept {
+	this->exceptionThorown = exThrow;
+}
 
 } /* namespace alinous */

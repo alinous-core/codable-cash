@@ -122,6 +122,7 @@ void VariableIdentifier::fromBinary(ByteBuffer* in) {
 AnalyzedType VariableIdentifier::getType(AnalyzeContext* actx) {
 	if(this->access != nullptr){
 		return this->access->getAnalyzedType();
+
 	}
 	return AnalyzedType();
 }
