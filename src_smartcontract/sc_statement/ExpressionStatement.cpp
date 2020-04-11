@@ -17,6 +17,7 @@ namespace alinous {
 
 ExpressionStatement::ExpressionStatement() : AbstractStatement(CodeElement::STMT_EXPRESSION) {
 	this->exp = nullptr;
+	this->bctrl = false;
 }
 
 ExpressionStatement::~ExpressionStatement() {
@@ -34,6 +35,7 @@ void ExpressionStatement::preAnalyze(AnalyzeContext* actx) {
 
 void ExpressionStatement::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
+	this->bctrl = this->exp->throwsException();
 }
 
 void ExpressionStatement::setExpression(AbstractExpression* exp) noexcept {
@@ -74,7 +76,7 @@ void ExpressionStatement::interpret(VirtualMachine* vm) {
 }
 
 bool ExpressionStatement::hasCtrlStatement() const noexcept {
-	return false;
+	return this->bctrl;
 }
 
 } /* namespace alinous */

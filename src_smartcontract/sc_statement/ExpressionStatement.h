@@ -34,6 +34,8 @@ public:
 	virtual bool hasCtrlStatement() const noexcept;
 private:
 	AbstractExpression* exp;
+
+	bool bctrl;
 };
 
 } /* namespace alinous */
