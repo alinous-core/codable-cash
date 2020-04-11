@@ -110,6 +110,8 @@ void VariableInstractionHolder::addArrayReference(AbstractExpression* exp, Analy
 
 	// FIXME array is stack object or
 	AbstractExpression* aexp = arrayRefExp->getExp();
+	short elementType = aexp->getKind();
+
 
 
 	ArrayReferenceAccess* access = new ArrayReferenceAccess(arrayRefExp);

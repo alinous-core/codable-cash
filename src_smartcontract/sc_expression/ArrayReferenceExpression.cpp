@@ -6,13 +6,21 @@
  */
 
 #include "sc_expression/ArrayReferenceExpression.h"
+
 #include "sc_analyze/AnalyzedType.h"
-
 #include "sc_analyze/AnalyzeContext.h"
-
 #include "sc_analyze/ValidationError.h"
 
 #include "instance_array/VmArrayInstanceUtils.h"
+
+#include "instance_gc/StackFloatingVariableHandler.h"
+#include "instance_gc/GcManager.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
+
 namespace alinous {
 
 ArrayReferenceExpression::ArrayReferenceExpression() : AbstractExpression(CodeElement::EXP_ARRAY_REF) {
@@ -161,8 +169,46 @@ AbstractVmInstance* ArrayReferenceExpression::interpret(VirtualMachine* vm) {
 		// FIXME is null
 	}
 
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
-	return nullptr; // FIXME expression::interpret()
+	releaser.registerInstance(inst);
+	IAbstractVmInstanceSubstance* sub = inst->getInstance();
+	VmArrayInstance* arrayInst = dynamic_cast<VmArrayInstance*>(sub);
+
+	int maxLoop = this->list.size() - 1;
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* indexExp = this->list.get(i);
+
+		AbstractVmInstance* index = indexExp->interpret(vm);
+		releaser.registerInstance(index);
+
+		PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(index);
+		int idx = ref->getIntValue();
+
+		if(idx >= arrayInst->size()){
+			// FIXME array index bound
+		}
+
+		AbstractReference* element = arrayInst->getReference(vm, idx);
+		sub = element->getInstance();
+		arrayInst = dynamic_cast<VmArrayInstance*>(sub);
+	}
+
+	AbstractExpression* indexExp = this->list.get(maxLoop);
+	AbstractVmInstance* index = indexExp->interpret(vm);
+	releaser.registerInstance(index);
+
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(index);
+	int idx = ref->getIntValue();
+
+	if(idx >= arrayInst->size()){
+		// FIXME array index bound
+	}
+
+	AbstractReference* element = arrayInst->getReference(vm, idx);
+
+	return element;
 }
 
 } /* namespace alinous */
