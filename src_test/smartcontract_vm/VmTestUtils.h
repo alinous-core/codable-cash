@@ -18,6 +18,7 @@ class VirtualMachine;
 class VmClassInstance;
 class ExtClassObject;
 class AnalyzedType;
+class ExtArrayObject;
 
 class VmTestUtils {
 public:
@@ -44,6 +45,10 @@ public:
 	static int64_t getLongMemberValue(ExtClassObject* obj, const wchar_t* str);
 	static const UnicodeString* getStringMemberValue(ExtClassObject* obj, const wchar_t* str);
 	static ExtClassObject* getObjectValue(ExtClassObject* obj, const wchar_t* str);
+
+	static ExtArrayObject* getArrayMember(ExtClassObject* obj, const wchar_t* str);
+
+	static int64_t getArrayInt(ExtArrayObject* array, int pos);
 
 	VirtualMachine* vm;
 	SmartContract* sc;
