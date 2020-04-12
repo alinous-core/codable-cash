@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_statement_ctrl/TryStatement.h"
+#include "sc_statement_exception/TryStatement.h"
 
 namespace alinous {
 

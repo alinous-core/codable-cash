@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_statement_ctrl/ThrowStatement.h"
+#include "sc_statement_exception/ThrowStatement.h"
 
 namespace alinous {
 

@@ -7,8 +7,6 @@ set(__src
 	ForStatement.cpp
 	IfStatement.cpp
 	ReturnStatement.cpp
-	ThrowStatement.cpp
-	TryStatement.cpp
 	WhileStatement.cpp
 )
 
