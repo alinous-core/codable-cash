@@ -22,6 +22,8 @@ AbstractStatement* ctrlStatement() : {
 	}
 }
 
+
+
 ForStatement* forStatement() : {
 	ForStatement* stmt = new ForStatement();
 	AbstractExpression* exp = nullptr;
