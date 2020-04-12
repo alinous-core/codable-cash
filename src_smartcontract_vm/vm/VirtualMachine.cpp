@@ -43,6 +43,8 @@
 #include "stack/StackPopper.h"
 
 #include "vm_ctrl/ExecControlManager.h"
+#include "vm_ctrl/ExceptionControl.h"
+
 
 namespace alinous {
 
@@ -267,6 +269,11 @@ void VirtualMachine::destroy() noexcept {
 
 ExecControlManager* VirtualMachine::getCtrl() const noexcept {
 	return this->ctrl;
+}
+
+void VirtualMachine::throwException(AbstractProgramException* exception) noexcept {
+	ExceptionControl* exContrl = new ExceptionControl(exception);
+	this->ctrl->setInstruction(exContrl);
 }
 
 ArrayList<AbstractProgramException>& VirtualMachine::getExceptions() noexcept {

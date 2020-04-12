@@ -60,6 +60,8 @@ public:
 	GcManager* getGc() noexcept;
 
 	ExecControlManager* getCtrl() const noexcept;
+	void throwException(AbstractProgramException* exception) noexcept;
+
 
 	void setFunctionArguments(FunctionArguments* args) noexcept;
 	FunctionArguments* getFunctionArguments() const noexcept;

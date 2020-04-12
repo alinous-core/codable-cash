@@ -19,6 +19,7 @@ public:
 	static const constexpr int RET_NONE{0};
 	static const constexpr int RET_BREAK{1};
 	static const constexpr int RET_CONTINUE{2};
+	static const constexpr int RET_THROW{3};
 
 	AbstractCtrlInstruction();
 	virtual ~AbstractCtrlInstruction();
