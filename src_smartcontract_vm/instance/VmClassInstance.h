@@ -19,6 +19,7 @@ class AnalyzedClass;
 class AbstractReference;
 class VirtualMachine;
 class GcManager;
+class IVmInstanceFactory;
 
 class VmClassInstance : public AbstractVmInstance, public IInstanceContainer {
 public:
@@ -47,6 +48,7 @@ public:
 	AnalyzedClass* getAnalyzedClass() const noexcept;
 private:
 	void init(VirtualMachine* vm);
+	static IVmInstanceFactory* findFactory(AnalyzedClass* clazz) noexcept;
 
 private:
 	AnalyzedClass* const clazz;

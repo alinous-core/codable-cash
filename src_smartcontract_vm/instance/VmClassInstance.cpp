@@ -50,7 +50,7 @@ VmClassInstance::~VmClassInstance() {
 }
 
 VmClassInstance* VmClassInstance::createObject(AnalyzedClass* clazz, VirtualMachine* vm) {
-	IVmInstanceFactory* factory = clazz->getFactory();
+	IVmInstanceFactory* factory = findFactory(clazz);
 	if(factory != nullptr){
 		return factory->createInstance(clazz, vm);
 	}
@@ -59,6 +59,19 @@ VmClassInstance* VmClassInstance::createObject(AnalyzedClass* clazz, VirtualMach
 	inst->init(vm);
 
 	return inst;
+}
+
+IVmInstanceFactory* VmClassInstance::findFactory(AnalyzedClass* clazz) noexcept {
+	while(clazz != nullptr){
+		IVmInstanceFactory* factory = clazz->getFactory();
+		if(factory != nullptr){
+			return factory;
+		}
+
+		clazz = clazz->getExtends();
+	}
+
+	return nullptr;
 }
 
 void VmClassInstance::removeInnerRefs(GcManager* gc) noexcept {

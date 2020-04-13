@@ -9,6 +9,12 @@
 
 #include "sc_expression/AbstractExpression.h"
 
+#include "vm/VirtualMachine.h"
+
+#include "sc_analyze/AnalyzedType.h"
+
+#include "instance/AbstractVmInstance.h"
+
 
 namespace alinous {
 
@@ -21,12 +27,26 @@ ThrowStatement::~ThrowStatement() {
 }
 
 void ThrowStatement::preAnalyze(AnalyzeContext* actx) {
+	this->exp->preAnalyze(actx);
 }
 
 void ThrowStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	this->exp->analyzeTypeRef(actx);
 }
 
 void ThrowStatement::analyze(AnalyzeContext* actx) {
+	this->exp->analyze(actx);
+
+	AnalyzedType atype = this->exp->getType(actx);
+	if(atype.isNull()){
+
+	}
+	else if(atype.isArray()){
+
+	}
+	else if(atype.isBool() || atype.isPrimitiveInteger()){
+
+	}
 }
 
 void ThrowStatement::init(VirtualMachine* vm) {
@@ -34,6 +54,12 @@ void ThrowStatement::init(VirtualMachine* vm) {
 }
 
 void ThrowStatement::interpret(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+	ExecControlManager* ctrl = vm->getCtrl();
+
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	IAbstractVmInstanceSubstance* sub = inst->getInstance();
+
 }
 
 bool ThrowStatement::hasCtrlStatement() const noexcept {
