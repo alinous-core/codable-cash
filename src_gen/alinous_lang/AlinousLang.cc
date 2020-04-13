@@ -1459,7 +1459,8 @@ stmt->setPosition(t);
     block = statementBlock();
     }
     if (!hasError) {
-
+stmt->setBlock(block);
+                stmt->setPosition(block);
     }
 __ONERROR(stmt);
                 return stmt;
