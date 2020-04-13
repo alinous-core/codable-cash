@@ -67,7 +67,8 @@ public:
 	static const constexpr short STMT_RETURN{65};
 	static const constexpr short STMT_WHILE{66};
 	static const constexpr short STMT_TRY{67};
-	static const constexpr short STMT_THROW{68};
+	static const constexpr short STMT_TRY_CATCH{68};
+	static const constexpr short STMT_THROW{69};
 
 
 	static const constexpr short EXP_ALLOCATION{80};

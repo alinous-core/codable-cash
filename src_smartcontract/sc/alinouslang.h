@@ -51,6 +51,9 @@
 #include "sc_statement_ctrl/ReturnStatement.h"
 #include "sc_statement_ctrl/WhileStatement.h"
 
+#include "sc_statement_exception/TryStatement.h"
+#include "sc_statement_exception/CatchStatement.h"
+#include "sc_statement_exception/ThrowStatement.h"
 
 #include "sc_expression/AllocationExpression.h"
 #include "sc_expression/ArrayReferenceExpression.h"

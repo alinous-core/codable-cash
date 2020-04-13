@@ -1214,6 +1214,7 @@ AbstractStatement* ctrlStatement() : {
 }
 {
 	(
+		stmt=throwStatement() |
 		stmt=ifStatement() |
 		stmt=breakStatement() |
 		stmt=continueStatement() |
@@ -1224,6 +1225,26 @@ AbstractStatement* ctrlStatement() : {
 	)
 	{}
 	{
+		return stmt;
+	}
+}
+
+ThrowStatement* throwStatement() : {
+	ThrowStatement* stmt = new ThrowStatement();
+	AbstractExpression* exp = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="throw" {
+	
+	}
+	exp=expression()
+	{
+	
+	}
+	
+	{
+		 __ONERROR(stmt);
 		return stmt;
 	}
 }

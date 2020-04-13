@@ -16,6 +16,20 @@ class TryStatement : public AbstractStatement {
 public:
 	TryStatement();
 	virtual ~TryStatement();
+
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+
+	virtual void init(VirtualMachine* vm);
+	virtual void interpret(VirtualMachine* vm);
+
+	virtual bool hasCtrlStatement() const noexcept;
+
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

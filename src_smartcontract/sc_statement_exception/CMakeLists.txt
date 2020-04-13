@@ -6,5 +6,5 @@ set(__src
 	TryStatement.cpp
 )
 
-handle_sub(codablecashlib "${__src}" smartcontract sc_statement_ctrl)
+handle_sub(codablecashlib "${__src}" smartcontract sc_statement_exception)
 

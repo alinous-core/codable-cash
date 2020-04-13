@@ -17,4 +17,32 @@ ThrowStatement::~ThrowStatement() {
 
 }
 
+void ThrowStatement::preAnalyze(AnalyzeContext* actx) {
+}
+
+void ThrowStatement::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void ThrowStatement::analyze(AnalyzeContext* actx) {
+}
+
+void ThrowStatement::init(VirtualMachine* vm) {
+}
+
+void ThrowStatement::interpret(VirtualMachine* vm) {
+}
+
+bool ThrowStatement::hasCtrlStatement() const noexcept {
+	return true;
+}
+
+int ThrowStatement::binarySize() const {
+}
+
+void ThrowStatement::toBinary(ByteBuffer* out) {
+}
+
+void ThrowStatement::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */
