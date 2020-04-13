@@ -27,9 +27,53 @@ TryStatement* tryStatement() : {
 	TryStatement* stmt = new TryStatement();
 	StatementBlock* block = nullptr;
 	Token* t = nullptr;
+	
+	CatchStatement* catchStmt = nullptr;
 }
 {
 	t="try" {
+		stmt->setPosition(t);
+	}
+	block=statementBlock() {
+		stmt->setBlock(block);
+		stmt->setPosition(block);
+	}
+	
+	[
+		catchStmt=catchStatement() {
+			stmt->setCatchStatement(catchStmt);
+			stmt->setPosition(catchStmt);
+		}
+	]
+	
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+CatchStatement* catchStatement() : {
+	CatchStatement* stmt = new CatchStatement();
+	StatementBlock* block = nullptr;
+	Token* t = nullptr;
+	
+	VariableDeclareStatement* variableDeclare = nullptr;
+}
+{
+	t="catch" {
+		stmt->setPosition(t);
+	}
+	
+	t="(" {
+		stmt->setPosition(t);
+	}
+	
+	variableDeclare=__variableDeclareStatement() {
+		stmt->setVariableDeclare(variableDeclare);
+		stmt->setPosition(variableDeclare);
+	}
+	
+	t=")" {
 		stmt->setPosition(t);
 	}
 	block=statementBlock() {

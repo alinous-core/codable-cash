@@ -49,4 +49,8 @@ void TryStatement::setBlock(StatementBlock* block) noexcept {
 	this->block = block;
 }
 
+void TryStatement::setCatchStatement(CatchStatement* catchStmt) noexcept {
+	this->catchStmt = catchStmt;
+}
+
 } /* namespace alinous */

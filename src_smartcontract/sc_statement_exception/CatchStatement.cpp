@@ -45,4 +45,12 @@ void CatchStatement::toBinary(ByteBuffer* out) {
 void CatchStatement::fromBinary(ByteBuffer* in) {
 }
 
+void CatchStatement::setBlock(StatementBlock* block) noexcept {
+	this->block = block;
+}
+
+void CatchStatement::setVariableDeclare(VariableDeclareStatement* variableDeclare) noexcept {
+	this->variableDeclare = variableDeclare;
+}
+
 } /* namespace alinous */

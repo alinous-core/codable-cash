@@ -13,6 +13,7 @@
 namespace alinous {
 
 class StatementBlock;
+class CatchStatement;
 
 class TryStatement : public AbstractStatement {
 public:
@@ -34,9 +35,11 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 	void setBlock(StatementBlock* block) noexcept;
+	void setCatchStatement(CatchStatement* catchStmt) noexcept;
 
 private:
 	StatementBlock* block;
+	CatchStatement* catchStmt;
 };
 
 } /* namespace alinous */
