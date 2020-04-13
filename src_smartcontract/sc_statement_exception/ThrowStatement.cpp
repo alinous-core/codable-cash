@@ -27,6 +27,7 @@ ThrowStatement::~ThrowStatement() {
 }
 
 void ThrowStatement::preAnalyze(AnalyzeContext* actx) {
+	this->exp->setParent(this);
 	this->exp->preAnalyze(actx);
 }
 
