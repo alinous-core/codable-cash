@@ -10,11 +10,11 @@
 namespace alinous {
 
 ThrowStatement::ThrowStatement() : AbstractStatement(CodeElement::STMT_THROW) {
-
+	this->exp = nullptr;
 }
 
 ThrowStatement::~ThrowStatement() {
-
+	delete this->exp;
 }
 
 void ThrowStatement::preAnalyze(AnalyzeContext* actx) {

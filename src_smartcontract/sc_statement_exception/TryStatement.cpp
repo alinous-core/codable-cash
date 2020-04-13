@@ -7,14 +7,20 @@
 
 #include "sc_statement_exception/TryStatement.h"
 
+#include "sc_statement/StatementBlock.h"
+#include "sc_statement_exception/CatchStatement.h"
+
+
 namespace alinous {
 
 TryStatement::TryStatement() : AbstractStatement(CodeElement::STMT_TRY) {
-
+	this->block = nullptr;
+	this->catchStmt = nullptr;
 }
 
 TryStatement::~TryStatement() {
-
+	delete this->block;
+	delete this->catchStmt;
 }
 
 void TryStatement::preAnalyze(AnalyzeContext* actx) {

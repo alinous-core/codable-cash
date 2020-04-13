@@ -7,14 +7,20 @@
 
 #include "sc_statement_exception/CatchStatement.h"
 
+#include "sc_statement/StatementBlock.h"
+#include "sc_statement/VariableDeclareStatement.h"
+
+
 namespace alinous {
 
 CatchStatement::CatchStatement() : AbstractStatement(CodeElement::STMT_TRY_CATCH) {
-
+	this->block = nullptr;
+	this->variableDeclare = nullptr;
 }
 
 CatchStatement::~CatchStatement() {
-
+	delete this->block;
+	delete this->variableDeclare;
 }
 
 void CatchStatement::preAnalyze(AnalyzeContext* actx) {
