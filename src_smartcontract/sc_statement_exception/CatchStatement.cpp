@@ -24,12 +24,21 @@ CatchStatement::~CatchStatement() {
 }
 
 void CatchStatement::preAnalyze(AnalyzeContext* actx) {
+	this->block->setParent(this);
+	this->block->preAnalyze(actx);
+
+	this->variableDeclare->setParent(this);
+	this->variableDeclare->preAnalyze(actx);
 }
 
 void CatchStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	this->variableDeclare->analyzeTypeRef(actx);
+	this->block->analyzeTypeRef(actx);
 }
 
 void CatchStatement::analyze(AnalyzeContext* actx) {
+	this->variableDeclare->analyze(actx);
+	this->block->analyze(actx);
 }
 
 void CatchStatement::init(VirtualMachine* vm) {
