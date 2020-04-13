@@ -50,6 +50,10 @@
 #include "sc_statement_ctrl/ReturnStatement.h"
 #include "sc_statement_ctrl/WhileStatement.h"
 
+#include "sc_statement_exception/TryStatement.h"
+#include "sc_statement_exception/CatchStatement.h"
+#include "sc_statement_exception/ThrowStatement.h"
+
 #include "sc_expression/AllocationExpression.h"
 #include "sc_expression/ArrayReferenceExpression.h"
 #include "sc_expression/MemberReferenceExpression.h"
@@ -312,6 +316,16 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		break;
 	case STMT_WHILE:
 		element = new WhileStatement();
+		break;
+
+	case STMT_TRY:
+		element = new TryStatement();
+		break;
+	case STMT_TRY_CATCH:
+		element = new CatchStatement();
+		break;
+	case STMT_THROW:
+		element = new ThrowStatement();
 		break;
 
 	case EXP_ALLOCATION:
