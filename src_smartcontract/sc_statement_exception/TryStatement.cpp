@@ -43,12 +43,37 @@ bool TryStatement::hasCtrlStatement() const noexcept {
 }
 
 int TryStatement::binarySize() const {
+	checkNotNull(this->block);
+	checkNotNull(this->catchStmt);
+
+	int total = sizeof(uint16_t);
+
+	total += this->block->binarySize();
+	total += this->catchStmt->binarySize();
+
+	return total;
 }
 
 void TryStatement::toBinary(ByteBuffer* out) {
+	checkNotNull(this->block);
+	checkNotNull(this->catchStmt);
+
+	out->putShort(CodeElement::STMT_TRY);
+
+	this->block->toBinary(out);
+	this->catchStmt->toBinary(out);
 }
 
 void TryStatement::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkKind(element, CodeElement::STMT_BLOCK);
+
+	this->block = dynamic_cast<StatementBlock*>(element);
+
+	element = createFromBinary(in);
+	checkKind(element, CodeElement::STMT_TRY_CATCH);
+
+	this->catchStmt = dynamic_cast<CatchStatement*>(element);
 }
 
 void TryStatement::setBlock(StatementBlock* block) noexcept {

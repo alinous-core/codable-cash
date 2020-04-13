@@ -33,9 +33,16 @@ void CatchStatement::analyze(AnalyzeContext* actx) {
 }
 
 void CatchStatement::init(VirtualMachine* vm) {
+	if(this->block != nullptr){
+		this->block->init(vm);
+	}
+	if(this->variableDeclare != nullptr){
+		this->variableDeclare->init(vm);
+	}
 }
 
 void CatchStatement::interpret(VirtualMachine* vm) {
+
 }
 
 bool CatchStatement::hasCtrlStatement() const noexcept {
@@ -43,12 +50,37 @@ bool CatchStatement::hasCtrlStatement() const noexcept {
 }
 
 int CatchStatement::binarySize() const {
+	checkNotNull(this->variableDeclare);
+	checkNotNull(this->block);
+
+	int total = sizeof(uint16_t);
+
+	total += this->variableDeclare->binarySize();
+	total += this->block->binarySize();
+
+	return total;
 }
 
 void CatchStatement::toBinary(ByteBuffer* out) {
+	checkNotNull(this->variableDeclare);
+	checkNotNull(this->block);
+
+	out->putShort(CodeElement::STMT_TRY_CATCH);
+
+	this->variableDeclare->toBinary(out);
+	this->block->toBinary(out);
 }
 
 void CatchStatement::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkKind(element, CodeElement::STMT_VARIABLE_DECLARE);
+
+	this->variableDeclare = dynamic_cast<VariableDeclareStatement*>(element);
+
+	element = createFromBinary(in);
+	checkKind(element, CodeElement::STMT_BLOCK);
+
+	this->block = dynamic_cast<StatementBlock*>(element);
 }
 
 void CatchStatement::setBlock(StatementBlock* block) noexcept {

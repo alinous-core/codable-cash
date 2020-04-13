@@ -41,6 +41,8 @@ bool ThrowStatement::hasCtrlStatement() const noexcept {
 }
 
 int ThrowStatement::binarySize() const {
+	checkNotNull(this->exp);
+
 	int total = sizeof(uint16_t);
 
 	total += this->exp->binarySize();
