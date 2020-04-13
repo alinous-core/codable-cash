@@ -1446,6 +1446,27 @@ assert(false);
 }
 
 
+TryStatement            * AlinousLang::tryStatement() {TryStatement* stmt = new TryStatement();
+        StatementBlock* block = nullptr;
+        Token* t = nullptr;
+    if (!hasError) {
+    t = jj_consume_token(TRY);
+    }
+    if (!hasError) {
+stmt->setPosition(t);
+    }
+    if (!hasError) {
+    block = statementBlock();
+    }
+    if (!hasError) {
+
+    }
+__ONERROR(stmt);
+                return stmt;
+assert(false);
+}
+
+
 ThrowStatement              * AlinousLang::throwStatement() {ThrowStatement* stmt = new ThrowStatement();
         AbstractExpression* exp = nullptr;
         Token* t = nullptr;
@@ -1453,13 +1474,20 @@ ThrowStatement              * AlinousLang::throwStatement() {ThrowStatement* stm
     t = jj_consume_token(THROW);
     }
     if (!hasError) {
-
+stmt->setPosition(t);
     }
     if (!hasError) {
     exp = expression();
     }
     if (!hasError) {
-
+stmt->setExpression(exp);
+                stmt->setPosition(exp);
+    }
+    if (!hasError) {
+    t = jj_consume_token(SEMI_COLON);
+    }
+    if (!hasError) {
+stmt->setPosition(t);
     }
 __ONERROR(stmt);
                 return stmt;

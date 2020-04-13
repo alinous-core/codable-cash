@@ -23,6 +23,26 @@ AbstractStatement* ctrlStatement() : {
 	}
 }
 
+TryStatement* tryStatement() : {
+	TryStatement* stmt = new TryStatement();
+	StatementBlock* block = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="try" {
+		stmt->setPosition(t);
+	}
+	block=statementBlock() {
+		stmt->setBlock(block);
+		stmt->setPosition(block);
+	}
+	
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
 ThrowStatement* throwStatement() : {
 	ThrowStatement* stmt = new ThrowStatement();
 	AbstractExpression* exp = nullptr;

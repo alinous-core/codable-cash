@@ -45,4 +45,8 @@ void TryStatement::toBinary(ByteBuffer* out) {
 void TryStatement::fromBinary(ByteBuffer* in) {
 }
 
+void TryStatement::setBlock(StatementBlock* block) noexcept {
+	this->block = block;
+}
+
 } /* namespace alinous */

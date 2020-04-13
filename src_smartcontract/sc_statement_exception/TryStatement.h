@@ -12,6 +12,8 @@
 
 namespace alinous {
 
+class StatementBlock;
+
 class TryStatement : public AbstractStatement {
 public:
 	TryStatement();
@@ -30,6 +32,11 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	void setBlock(StatementBlock* block) noexcept;
+
+private:
+	StatementBlock* block;
 };
 
 } /* namespace alinous */
