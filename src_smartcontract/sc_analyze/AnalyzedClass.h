@@ -22,6 +22,7 @@ class AbstractReference;
 template <typename T, typename C> class ArrayList;
 class AnalyzeContext;
 class AnalyzedType;
+class IVmInstanceFactory;
 
 class AnalyzedClass {
 public:
@@ -54,6 +55,9 @@ public:
 	bool equals(AnalyzedClass* other) noexcept;
 
 	bool hasBaseClass(AnalyzedClass* clazz) noexcept;
+
+	void setFactory(IVmInstanceFactory* factory) noexcept;
+	IVmInstanceFactory* getFactory() const noexcept;
 private:
 	//void bulidMethodVTable(AnalyzeContext* actx, MethodDeclare* method) noexcept;
 	//AnalyzedClass* findBaseClassOfMethod(AnalyzedClass* currentClass, MethodDeclare* method) noexcept;
@@ -70,6 +74,8 @@ private:
 
 	ArrayList<MethodDeclare> constructors;
 	HashMap<UnicodeString, MethodDeclare>* methods;
+
+	IVmInstanceFactory* factory;
 
 	UnicodeString* sig;
 

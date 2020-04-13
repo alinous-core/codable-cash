@@ -7,15 +7,39 @@
 
 #include "instance_exception_class/ExceptionClassDeclare.h"
 
+#include "sc_analyze/AnalyzedClass.h"
+
+#include "base/UnicodeString.h"
+
 namespace alinous {
 
-ExceptionClassDeclare::ExceptionClassDeclare() {
-	// TODO Auto-generated constructor stub
+UnicodeString ExceptionClassDeclare::NAME{L"Exception"};
+
+ExceptionClassDeclare::ExceptionClassDeclare() : AbstractReservedClassDeclare() {
 
 }
 
 ExceptionClassDeclare::~ExceptionClassDeclare() {
-	// TODO Auto-generated destructor stub
+
+}
+
+AnalyzedClass* ExceptionClassDeclare::createAnalyzedClass() noexcept {
+	ExceptionClassDeclare* classDec = new ExceptionClassDeclare();
+	AnalyzedClass* aclass = new AnalyzedClass(classDec);
+
+	return aclass;
+}
+
+const UnicodeString* ExceptionClassDeclare::getName() noexcept {
+	return &NAME;
+}
+
+const UnicodeString* ExceptionClassDeclare::getFullQualifiedName() noexcept {
+	return &NAME;
+}
+
+ClassDeclare* ExceptionClassDeclare::getBaseClass() const noexcept {
+	return nullptr;
 }
 
 } /* namespace alinous */

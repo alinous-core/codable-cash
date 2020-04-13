@@ -11,6 +11,8 @@
 #include "vm/VirtualMachine.h"
 
 #include "sc_analyze/AnalyzedClass.h"
+#include "sc_analyze/IVmInstanceFactory.h"
+
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_analyze_functions/VTableRegistory.h"
 #include "sc_analyze_functions/VTableClassEntry.h"
@@ -30,6 +32,7 @@
 
 #include "instance_ref/ObjectReference.h"
 
+
 namespace alinous {
 
 VmClassInstance::VmClassInstance(AnalyzedClass* clazz, VirtualMachine* vm) :
@@ -47,6 +50,11 @@ VmClassInstance::~VmClassInstance() {
 }
 
 VmClassInstance* VmClassInstance::createObject(AnalyzedClass* clazz, VirtualMachine* vm) {
+	IVmInstanceFactory* factory = clazz->getFactory();
+	if(factory != nullptr){
+		return factory->createInstance(clazz, vm);
+	}
+
 	VmClassInstance* inst = new(vm) VmClassInstance(clazz, vm);
 	inst->init(vm);
 

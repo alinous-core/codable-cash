@@ -11,10 +11,15 @@
 
 #include "reserved_classes_string/StringClassDeclare.h"
 
+#include "instance_exception_class/ExceptionClassDeclare.h"
+
 namespace alinous {
 
 ReservedClassRegistory::ReservedClassRegistory() {
 	AnalyzedClass* aclass = StringClassDeclare::createAnalyzedClass();
+	this->list.addElement(aclass);
+
+	aclass = ExceptionClassDeclare::createAnalyzedClass();
 	this->list.addElement(aclass);
 }
 

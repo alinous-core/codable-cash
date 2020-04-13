@@ -25,6 +25,7 @@
 #include "sc_analyze_functions/FunctionScoreCalc.h"
 #include "sc_analyze_functions/VTableClassEntry.h"
 
+#include "sc_analyze/IVmInstanceFactory.h"
 namespace alinous {
 
 AnalyzedClass::AnalyzedClass(const AnalyzedClass& inst) {
@@ -67,6 +68,8 @@ AnalyzedClass::AnalyzedClass(const AnalyzedClass& inst) {
 		AnalyzedClass* cls = inst.implements.get(i);
 		this->implements.addElement(cls);
 	}
+
+	this->factory = nullptr;
 }
 
 AnalyzedClass::AnalyzedClass(ClassDeclare* clazz) {
@@ -75,6 +78,7 @@ AnalyzedClass::AnalyzedClass(ClassDeclare* clazz) {
 	this->methods = new HashMap<UnicodeString, MethodDeclare>();
 	this->extends = nullptr;
 	this->sig = nullptr;
+	this->factory = nullptr;
 }
 
 AnalyzedClass::~AnalyzedClass() {
@@ -82,6 +86,7 @@ AnalyzedClass::~AnalyzedClass() {
 	delete this->variables;
 	delete this->methods;
 	delete this->sig;
+	delete this->factory;
 }
 
 void AnalyzedClass::addMemberVariableDeclare(MemberVariableDeclare* member) {
@@ -223,5 +228,12 @@ bool AnalyzedClass::hasBaseClass(AnalyzedClass* clazz) noexcept {
 	return false;
 }
 
+void AnalyzedClass::setFactory(IVmInstanceFactory* factory) noexcept {
+	this->factory = factory;
+}
+
+IVmInstanceFactory* AnalyzedClass::getFactory() const noexcept {
+	return this->factory;
+}
 
 } /* namespace alinous */
