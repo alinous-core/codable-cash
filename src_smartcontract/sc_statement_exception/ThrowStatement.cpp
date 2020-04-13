@@ -45,4 +45,8 @@ void ThrowStatement::toBinary(ByteBuffer* out) {
 void ThrowStatement::fromBinary(ByteBuffer* in) {
 }
 
+void ThrowStatement::setExpression(AbstractExpression* exp) noexcept {
+	this->exp = exp;
+}
+
 } /* namespace alinous */

@@ -1236,13 +1236,16 @@ ThrowStatement* throwStatement() : {
 }
 {
 	t="throw" {
-	
+		stmt->setPosition(t);
 	}
 	exp=expression()
 	{
-	
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
 	}
-	
+	t=";" {
+		stmt->setPosition(t);
+	}	
 	{
 		 __ONERROR(stmt);
 		return stmt;

@@ -12,6 +12,8 @@
 
 namespace alinous {
 
+class AbstractExpression;
+
 class ThrowStatement : public AbstractStatement {
 public:
 	ThrowStatement();
@@ -29,6 +31,11 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	void setExpression(AbstractExpression* exp) noexcept;
+
+private:
+	AbstractExpression* exp;
 };
 
 } /* namespace alinous */
