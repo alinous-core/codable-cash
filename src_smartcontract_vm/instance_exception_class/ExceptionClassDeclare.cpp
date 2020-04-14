@@ -28,7 +28,6 @@ ExceptionClassDeclare::~ExceptionClassDeclare() {
 AnalyzedClass* ExceptionClassDeclare::createAnalyzedClass() noexcept {
 	ExceptionClassDeclare* classDec = new ExceptionClassDeclare();
 	AnalyzedClass* aclass = new AnalyzedClass(classDec);
-	aclass->setFactory(ExceptionInstanceFactory::getInstance());
 
 	return aclass;
 }
@@ -43,6 +42,10 @@ const UnicodeString* ExceptionClassDeclare::getFullQualifiedName() noexcept {
 
 ClassDeclare* ExceptionClassDeclare::getBaseClass() const noexcept {
 	return nullptr;
+}
+
+IVmInstanceFactory* ExceptionClassDeclare::getFactory() const noexcept {
+	return ExceptionInstanceFactory::getInstance();
 }
 
 } /* namespace alinous */

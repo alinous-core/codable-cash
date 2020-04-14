@@ -26,6 +26,8 @@ public:
 	virtual const UnicodeString* getFullQualifiedName() noexcept;
 
 	virtual ClassDeclare* getBaseClass() const noexcept;
+
+	virtual IVmInstanceFactory* getFactory() const noexcept;
 };
 
 } /* namespace alinous */
