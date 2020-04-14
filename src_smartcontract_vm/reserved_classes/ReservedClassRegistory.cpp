@@ -13,9 +13,13 @@
 
 #include "instance_exception_class/ExceptionClassDeclare.h"
 
+#include "sc/CompilationUnit.h"
+
 namespace alinous {
 
 ReservedClassRegistory::ReservedClassRegistory() {
+	this->unit = new CompilationUnit();
+
 	AnalyzedClass* aclass = StringClassDeclare::createAnalyzedClass();
 	aclass->setReserved(true);
 	this->list.addElement(aclass);
@@ -41,10 +45,16 @@ ReservedClassRegistory::~ReservedClassRegistory() {
 	}
 
 	this->list.deleteElements();
+
+	delete this->unit;
 }
 
 const ArrayList<AnalyzedClass>* ReservedClassRegistory::getReservedClassesList() const noexcept {
 	return &this->list;
+}
+
+CompilationUnit* ReservedClassRegistory::getUnit() const noexcept {
+	return this->unit;
 }
 
 } /* namespace alinous */

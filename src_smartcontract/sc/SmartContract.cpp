@@ -41,6 +41,7 @@
 
 #include "ext_arguments/AbstractFunctionExtArguments.h"
 
+#include "reserved_classes/ReservedClassRegistory.h"
 namespace alinous {
 
 SmartContract::SmartContract() {
@@ -98,23 +99,46 @@ void SmartContract::addCompilationUnit(File* file, const File* base) {
 }
 
 void SmartContract::analyze(VirtualMachine* vm) {
+	const ArrayList<AnalyzedClass>* list = ReservedClassRegistory::getInstance()->getReservedClassesList();
+	CompilationUnit* reservedUnit = ReservedClassRegistory::getInstance()->getUnit();
+
 	this->actx = new AnalyzeContext();
 	this->actx->setVm(vm);
+	this->actx->resigterReservedClasses();
 
+	// pre analyze
 	int maxLoop = this->progs.size();
 	for(int i = 0; i != maxLoop; ++i){
 		CompilationUnit* unit = this->progs.get(i);
 		unit->preAnalyze(this->actx);
+	}
+	maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AnalyzedClass* cls = list->get(i);
+		ClassDeclare* dec = cls->getClassDeclare();
+
+		dec->setParent(reservedUnit);
+		dec->preAnalyze(actx);
 	}
 
 	if(this->actx->hasError()){
 		return;
 	}
 
+	maxLoop = this->progs.size();
 	for(int i = 0; i != maxLoop; ++i){
 		CompilationUnit* unit = this->progs.get(i);
 		unit->analyzeType(this->actx);
 	}
+
+	maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AnalyzedClass* cls = list->get(i);
+		ClassDeclare* dec = cls->getClassDeclare();
+
+		dec->analyzeTypeRef(actx);
+	}
+
 
 	if(this->actx->hasError()){
 		return;
@@ -133,9 +157,18 @@ void SmartContract::analyze(VirtualMachine* vm) {
 		AnalyzeStackPopper popper(stackMgr, true);
 		stackMgr->addFunctionStack();
 
+		maxLoop = this->progs.size();
 		for(int i = 0; i != maxLoop; ++i){
 			CompilationUnit* unit = this->progs.get(i);
 			unit->analyze(this->actx);
+		}
+
+		maxLoop = list->size();
+		for(int i = 0; i != maxLoop; ++i){
+			AnalyzedClass* cls = list->get(i);
+			ClassDeclare* dec = cls->getClassDeclare();
+
+			dec->analyze(actx);
 		}
 	}
 

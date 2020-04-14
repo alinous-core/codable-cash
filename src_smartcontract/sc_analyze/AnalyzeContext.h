@@ -59,10 +59,12 @@ public:
 
 	void setTmpArrayType(AnalyzedType* tmpArrayType) noexcept;
 	AnalyzedType* getTmpArrayType() const noexcept;
+
+	void resigterReservedClasses() noexcept;
 private:
 	void analyzeMembers(PackageSpace* space) noexcept;
 	void analyzeMember(AnalyzedClass* cls) noexcept;
-	void resigterReservedClasses() noexcept;
+
 
 private:
 	VirtualMachine* vm;

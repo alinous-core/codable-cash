@@ -13,6 +13,7 @@
 
 namespace alinous {
 class AnalyzedClass;
+class CompilationUnit;
 
 class ReservedClassRegistory {
 private:
@@ -24,9 +25,10 @@ public:
 	virtual ~ReservedClassRegistory();
 
 	const ArrayList<AnalyzedClass>* getReservedClassesList() const noexcept;
-
+	CompilationUnit* getUnit() const noexcept;
 private:
 	ArrayList<AnalyzedClass> list;
+	CompilationUnit* unit;
 };
 
 } /* namespace alinous */

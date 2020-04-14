@@ -148,9 +148,6 @@ void AnalyzeContext::analyzeClassInheritance() {
 	}
 	delete it;
 
-	// V tables
-	resigterReservedClasses(); // Reserved classes entries
-
 	// source classes
 	it = this->packageSpaces->keySet()->iterator();
 	while(it->hasNext()){
