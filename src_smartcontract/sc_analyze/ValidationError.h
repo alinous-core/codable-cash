@@ -51,6 +51,8 @@ public:
 
 	static constexpr int CODE_CTRL_STMT_EXHIBITED = 71;
 
+	static constexpr int CODE_CATCH_STMT_REQUIRE_EXCEPTION = 80;
+
 
 	//static constexpr int CODE_WRONG_TYPE_NAME = 4;
 

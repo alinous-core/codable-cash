@@ -12,6 +12,8 @@
 #include "vm/VirtualMachine.h"
 
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
 
 #include "instance/AbstractVmInstance.h"
 
@@ -39,14 +41,8 @@ void ThrowStatement::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
 
 	AnalyzedType atype = this->exp->getType(actx);
-	if(atype.isNull()){
-
-	}
-	else if(atype.isArray()){
-
-	}
-	else if(atype.isBool() || atype.isPrimitiveInteger()){
-
+	if(atype.isNull() || atype.isArray() || atype.isBool() || atype.isPrimitiveInteger()){
+		actx->addValidationError(ValidationError::CODE_CATCH_STMT_REQUIRE_EXCEPTION, this, L"Catch statement requires exception.", {});
 	}
 }
 
