@@ -162,8 +162,7 @@ AnalyzedType* TypeResolver::findClassType(const CodeElement* element, const Unic
 		}
 
 		// base class
-		UnicodeString blankStr(L"");
-		atype = findClassType(&blankStr, name);
+		atype = findClassType((const UnicodeString*)nullptr, name);
 		return atype;
 	}
 

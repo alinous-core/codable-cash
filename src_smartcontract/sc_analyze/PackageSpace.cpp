@@ -36,7 +36,10 @@ PackageSpace::~PackageSpace() {
 	while(it->hasNext()){
 		const UnicodeString* n = it->next();
 		AnalyzedClass* cls = this->classes->get(n);
-		delete cls;
+
+		if(!cls->isReserved()){
+			delete cls;
+		}
 	}
 	delete it;
 

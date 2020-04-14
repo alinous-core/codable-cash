@@ -182,8 +182,16 @@ void AnalyzeContext::resigterReservedClasses() noexcept {
 		// vtable
 		cls->buildVtable(this);
 
-		// FIXME package spaces
+		// package spaces
+		const UnicodeString* fqn = cls->getFullQualifiedName();
+		UnicodeString* packageName = TypeResolver::getPackageName(fqn); __STP(packageName);
+		PackageSpace* space = this->packageSpaces->get(packageName);
+		if(space == nullptr){
+			space = new PackageSpace(packageName);
+			this->packageSpaces->put(packageName, space);
+		}
 
+		space->addClassDeclare(cls->getClassDeclare());
 	}
 }
 

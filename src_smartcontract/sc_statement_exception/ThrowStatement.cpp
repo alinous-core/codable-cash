@@ -44,6 +44,8 @@ void ThrowStatement::analyze(AnalyzeContext* actx) {
 	if(atype.isNull() || atype.isArray() || atype.isBool() || atype.isPrimitiveInteger()){
 		actx->addValidationError(ValidationError::CODE_CATCH_STMT_REQUIRE_EXCEPTION, this, L"Catch statement requires exception.", {});
 	}
+
+
 }
 
 void ThrowStatement::init(VirtualMachine* vm) {
