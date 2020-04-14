@@ -6,10 +6,12 @@
  */
 
 #include "instance_exception_class/ExceptionClassDeclare.h"
+#include "instance_exception_class/ExceptionInstanceFactory.h"
 
 #include "sc_analyze/AnalyzedClass.h"
 
 #include "base/UnicodeString.h"
+
 
 namespace alinous {
 
@@ -26,6 +28,7 @@ ExceptionClassDeclare::~ExceptionClassDeclare() {
 AnalyzedClass* ExceptionClassDeclare::createAnalyzedClass() noexcept {
 	ExceptionClassDeclare* classDec = new ExceptionClassDeclare();
 	AnalyzedClass* aclass = new AnalyzedClass(classDec);
+	aclass->setFactory(ExceptionInstanceFactory::getInstance());
 
 	return aclass;
 }

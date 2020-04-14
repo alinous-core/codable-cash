@@ -69,7 +69,7 @@ AnalyzedClass::AnalyzedClass(const AnalyzedClass& inst) {
 		this->implements.addElement(cls);
 	}
 
-	this->factory = nullptr;
+	this->factory = inst.factory;
 }
 
 AnalyzedClass::AnalyzedClass(ClassDeclare* clazz) {
