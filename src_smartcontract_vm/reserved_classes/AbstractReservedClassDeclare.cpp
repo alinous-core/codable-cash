@@ -39,12 +39,53 @@ ArrayList<MethodDeclare>* AbstractReservedClassDeclare::getMethods() noexcept {
 }
 
 void AbstractReservedClassDeclare::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->methods->size();
+	for(int i = 0; i != maxLoop; ++i){
+		MethodDeclare* method = this->methods->get(i);
+
+		method->setParent(this);
+		method->preAnalyze(actx);
+	}
+
+	maxLoop = this->members->size();
+	for(int i = 0; i != maxLoop; ++i){
+		MemberVariableDeclare* member = this->members->get(i);
+
+		member->setParent(this);
+		member->preAnalyze(actx);
+	}
 }
 
 void AbstractReservedClassDeclare::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->methods->size();
+	for(int i = 0; i != maxLoop; ++i){
+		MethodDeclare* method = this->methods->get(i);
+
+		method->analyzeTypeRef(actx);
+	}
+
+	maxLoop = this->members->size();
+	for(int i = 0; i != maxLoop; ++i){
+		MemberVariableDeclare* member = this->members->get(i);
+
+		member->analyzeTypeRef(actx);
+	}
 }
 
 void AbstractReservedClassDeclare::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->methods->size();
+	for(int i = 0; i != maxLoop; ++i){
+		MethodDeclare* method = this->methods->get(i);
+
+		method->analyze(actx);
+	}
+
+	maxLoop = this->members->size();
+	for(int i = 0; i != maxLoop; ++i){
+		MemberVariableDeclare* member = this->members->get(i);
+
+		member->analyze(actx);
+	}
 }
 
 ArrayList<MemberVariableDeclare>* AbstractReservedClassDeclare::getMemberVariables() noexcept {
