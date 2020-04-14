@@ -179,7 +179,11 @@ void AnalyzeContext::resigterReservedClasses() noexcept {
 	for(int i = 0; i != maxLoop; ++i){
 		AnalyzedClass* cls = list->get(i);
 
+		// vtable
 		cls->buildVtable(this);
+
+		// FIXME package spaces
+
 	}
 }
 

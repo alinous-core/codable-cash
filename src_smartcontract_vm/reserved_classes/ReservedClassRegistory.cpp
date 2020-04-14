@@ -17,9 +17,11 @@ namespace alinous {
 
 ReservedClassRegistory::ReservedClassRegistory() {
 	AnalyzedClass* aclass = StringClassDeclare::createAnalyzedClass();
+	aclass->setReserved(true);
 	this->list.addElement(aclass);
 
 	aclass = ExceptionClassDeclare::createAnalyzedClass();
+	aclass->setReserved(true);
 	this->list.addElement(aclass);
 }
 

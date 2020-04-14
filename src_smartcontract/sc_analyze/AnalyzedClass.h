@@ -58,6 +58,9 @@ public:
 
 	void setFactory(IVmInstanceFactory* factory) noexcept;
 	IVmInstanceFactory* getFactory() const noexcept;
+
+	void setReserved(bool reserved) noexcept;
+	bool isReserved() const noexcept;
 private:
 	//void bulidMethodVTable(AnalyzeContext* actx, MethodDeclare* method) noexcept;
 	//AnalyzedClass* findBaseClassOfMethod(AnalyzedClass* currentClass, MethodDeclare* method) noexcept;
@@ -78,6 +81,7 @@ private:
 	IVmInstanceFactory* factory;
 
 	UnicodeString* sig;
+	bool reserved;
 
 };
 

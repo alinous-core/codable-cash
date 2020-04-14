@@ -70,6 +70,7 @@ AnalyzedClass::AnalyzedClass(const AnalyzedClass& inst) {
 	}
 
 	this->factory = inst.factory;
+	this->reserved = inst.reserved;
 }
 
 AnalyzedClass::AnalyzedClass(ClassDeclare* clazz) {
@@ -79,6 +80,7 @@ AnalyzedClass::AnalyzedClass(ClassDeclare* clazz) {
 	this->extends = nullptr;
 	this->sig = nullptr;
 	this->factory = nullptr;
+	this->reserved = false;
 }
 
 AnalyzedClass::~AnalyzedClass() {
@@ -234,6 +236,14 @@ void AnalyzedClass::setFactory(IVmInstanceFactory* factory) noexcept {
 
 IVmInstanceFactory* AnalyzedClass::getFactory() const noexcept {
 	return this->factory;
+}
+
+void AnalyzedClass::setReserved(bool reserved) noexcept {
+	this->reserved = reserved;
+}
+
+bool AnalyzedClass::isReserved() const noexcept {
+	return this->reserved;
 }
 
 } /* namespace alinous */
