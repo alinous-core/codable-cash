@@ -51,11 +51,14 @@ VmClassInstance::~VmClassInstance() {
 
 VmClassInstance* VmClassInstance::createObject(AnalyzedClass* clazz, VirtualMachine* vm) {
 	IVmInstanceFactory* factory = findFactory(clazz);
+	VmClassInstance* inst = nullptr;
 	if(factory != nullptr){
-		return factory->createInstance(clazz, vm);
+		inst = factory->createInstance(clazz, vm);
+	}
+	else{
+		inst = new(vm) VmClassInstance(clazz, vm);
 	}
 
-	VmClassInstance* inst = new(vm) VmClassInstance(clazz, vm);
 	inst->init(vm);
 
 	return inst;
