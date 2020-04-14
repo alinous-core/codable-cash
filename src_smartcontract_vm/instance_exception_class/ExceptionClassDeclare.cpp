@@ -18,7 +18,7 @@ namespace alinous {
 UnicodeString ExceptionClassDeclare::NAME{L"Exception"};
 
 ExceptionClassDeclare::ExceptionClassDeclare() : AbstractReservedClassDeclare() {
-
+	addDefaultConstructor(&NAME);
 }
 
 ExceptionClassDeclare::~ExceptionClassDeclare() {
