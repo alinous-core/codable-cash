@@ -39,6 +39,7 @@ VmTestUtils::VmTestUtils(const wchar_t* seg, const File* projectFolder) {
 	this->vm = new VirtualMachine(1024*1024);
 	this->sc = nullptr;
 	this->mainInst = nullptr;
+	this->compile_errors = nullptr;
 }
 
 VmTestUtils::~VmTestUtils() {
