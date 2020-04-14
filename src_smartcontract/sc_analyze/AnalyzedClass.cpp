@@ -86,7 +86,7 @@ AnalyzedClass::~AnalyzedClass() {
 	delete this->variables;
 	delete this->methods;
 	delete this->sig;
-	delete this->factory;
+	this->factory = nullptr;
 }
 
 void AnalyzedClass::addMemberVariableDeclare(MemberVariableDeclare* member) {

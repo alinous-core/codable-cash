@@ -10,6 +10,15 @@
 #include "sc_statement/StatementBlock.h"
 #include "sc_statement/VariableDeclareStatement.h"
 
+#include "sc_analyze_stack/AnalyzeStackManager.h"
+#include "sc_analyze_stack/AnalyzeStackPopper.h"
+
+#include "sc_analyze/AnalyzeContext.h"
+
+#include "stack/StackPopper.h"
+
+#include "vm/VirtualMachine.h"
+
 
 namespace alinous {
 
@@ -37,6 +46,10 @@ void CatchStatement::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void CatchStatement::analyze(AnalyzeContext* actx) {
+	AnalyzeStackManager* stackMgr = actx->getAnalyzeStackManager();
+	AnalyzeStackPopper popper(stackMgr, false);
+	stackMgr->addBlockStack();
+
 	this->variableDeclare->analyze(actx);
 	this->block->analyze(actx);
 }
@@ -51,7 +64,10 @@ void CatchStatement::init(VirtualMachine* vm) {
 }
 
 void CatchStatement::interpret(VirtualMachine* vm) {
+	vm->newStack();
+	StackPopper stackPopper(vm);
 
+	this->variableDeclare->interpret(vm);
 }
 
 bool CatchStatement::hasCtrlStatement() const noexcept {

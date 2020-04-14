@@ -9,6 +9,7 @@ AbstractStatement* ctrlStatement() : {
 {
 	(
 		stmt=throwStatement() |
+		stmt=tryStatement() |
 		stmt=ifStatement() |
 		stmt=breakStatement() |
 		stmt=continueStatement() |

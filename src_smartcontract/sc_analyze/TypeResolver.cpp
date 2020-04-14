@@ -156,7 +156,15 @@ AnalyzedType* TypeResolver::findClassType(const CodeElement* element, const Unic
 
 		// find same package
 		const UnicodeString* packageName = unit->getPackageName();
-		return findClassType(packageName, name);
+		atype = findClassType(packageName, name);
+		if(atype != nullptr){
+			return atype;
+		}
+
+		// base class
+		UnicodeString blankStr(L"");
+		atype = findClassType(&blankStr, name);
+		return atype;
 	}
 
 	UnicodeString* pkg = getPackageName(name); __STP(pkg);

@@ -70,9 +70,9 @@ bool VmTestUtils::loadAllFiles() {
 	this->sc = sc;
 	this->vm->loadSmartContract(sc);
 
-	const ArrayList<CompileError>* list = this->sc->getCompileErrors();
+	compile_errors = this->sc->getCompileErrors();
 
-	return list->isEmpty();
+	return compile_errors->isEmpty();
 }
 
 void VmTestUtils::scanFiles(File* folder, SmartContract* sc) {

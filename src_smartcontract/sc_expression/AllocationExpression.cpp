@@ -75,6 +75,10 @@ void AllocationExpression::analyze(AnalyzeContext* actx) {
 	className.append(constructorName);
 
 	AnalyzedType* atype = typeResolver->findClassType(this, &className); __STP(atype);
+	if(atype == nullptr){
+		actx->addValidationError(ValidationError::CODE_ALLOCATION_TYPE_DOES_NOT_EXISTS, this, L"The class '{0}' does not exists.", {&className});
+		return;
+	}
 
 	AnalyzedThisClassStackPopper popper(actx, atype->getAnalyzedClass());
 

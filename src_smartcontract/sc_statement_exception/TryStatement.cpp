@@ -27,26 +27,40 @@ void TryStatement::preAnalyze(AnalyzeContext* actx) {
 	this->block->setParent(this);
 	this->block->preAnalyze(actx);
 
-	this->catchStmt->setParent(this);
-	this->catchStmt->preAnalyze(actx);
+	if(this->catchStmt != nullptr){
+		this->catchStmt->setParent(this);
+		this->catchStmt->preAnalyze(actx);
+	}
 }
 
 void TryStatement::analyzeTypeRef(AnalyzeContext* actx) {
 	this->block->analyzeTypeRef(actx);
-	this->catchStmt->analyzeTypeRef(actx);
+
+	if(this->catchStmt != nullptr){
+		this->catchStmt->analyzeTypeRef(actx);
+	}
 }
 
 void TryStatement::analyze(AnalyzeContext* actx) {
 	this->block->analyze(actx);
-	this->catchStmt->analyze(actx);
+
+	if(this->catchStmt != nullptr){
+		this->catchStmt->analyze(actx);
+	}
 }
 
 void TryStatement::init(VirtualMachine* vm) {
 	this->block->init(vm);
-	this->catchStmt->init(vm);
+
+	if(this->catchStmt != nullptr){
+		this->catchStmt->init(vm);
+	}
 }
 
 void TryStatement::interpret(VirtualMachine* vm) {
+	this->block->interpret(vm);
+
+	this->catchStmt->interpret(vm);
 }
 
 bool TryStatement::hasCtrlStatement() const noexcept {

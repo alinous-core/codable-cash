@@ -6,6 +6,8 @@
  */
 
 #include "instance_exception_class/ExceptionInstanceFactory.h"
+#include "instance_exception_class/VmExceptionInstance.h"
+
 
 namespace alinous {
 
@@ -23,7 +25,9 @@ ExceptionInstanceFactory* ExceptionInstanceFactory::getInstance() noexcept {
 }
 
 VmClassInstance* ExceptionInstanceFactory::createInstance(AnalyzedClass* clazz, VirtualMachine* vm) {
-	// FIXME instance
+	VmExceptionInstance* inst = new(vm) VmExceptionInstance(clazz, vm);
+
+	return inst;
 }
 
 } /* namespace alinous */

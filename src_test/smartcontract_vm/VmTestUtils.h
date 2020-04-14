@@ -9,6 +9,9 @@
 #define SMARTCONTRACT_VM_VMTESTUTILS_H_
 #include <cstdlib>
 
+#include "base/ArrayList.h"
+
+#include "compiler/CompileError.h"
 namespace alinous {
 
 class UnicodeString;
@@ -53,6 +56,7 @@ public:
 	VirtualMachine* vm;
 	SmartContract* sc;
 	VmClassInstance* mainInst;
+	const ArrayList<CompileError>* compile_errors;
 
 private:
 	File* folder;
