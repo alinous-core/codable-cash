@@ -168,5 +168,8 @@ bool VariableDeclareStatement::hasCtrlStatement() const noexcept {
 	return this->bctrl;
 }
 
+AnalyzedType VariableDeclareStatement::getType() const noexcept {
+	return *this->atype;
+}
 
 } /* namespace alinous */

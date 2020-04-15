@@ -48,7 +48,7 @@ void ThrowStatement::analyze(AnalyzeContext* actx) {
 	AnalyzedType atype = this->exp->getType(actx);
 	uint8_t t = atype.getType();
 	if(t != AnalyzedType::TYPE_OBJECT){
-		actx->addValidationError(ValidationError::CODE_CATCH_STMT_REQUIRE_EXCEPTION, this, L"Catch statement requires exception.", {});
+		actx->addValidationError(ValidationError::CODE_THROW_STMT_REQUIRE_EXCEPTION, this, L"Throw statement requires exception.", {});
 		return;
 	}
 
@@ -57,7 +57,7 @@ void ThrowStatement::analyze(AnalyzeContext* actx) {
 
 	AnalyzedClass* clazz = atype.getAnalyzedClass();
 	if(!clazz->hasBaseClass(exType->getAnalyzedClass())){
-		actx->addValidationError(ValidationError::CODE_CATCH_STMT_REQUIRE_EXCEPTION, this, L"Catch statement requires exception.", {});
+		actx->addValidationError(ValidationError::CODE_THROW_STMT_REQUIRE_EXCEPTION, this, L"Throw statement requires exception.", {});
 		return;
 	}
 

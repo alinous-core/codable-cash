@@ -13,16 +13,18 @@
 namespace alinous {
 
 class VmExceptionInstance;
+class AbstractReference;
+class ObjectReference;
 
 class ExceptionControl : public AbstractCtrlInstruction {
 public:
-	ExceptionControl(VmExceptionInstance* exception);
+	ExceptionControl(AbstractReference* exception);
 	virtual ~ExceptionControl();
 
 	virtual int control(ExecControlManager* ctrl, BlockState* state, CodeElement* lastElement);
 
 private:
-	VmExceptionInstance* exception;
+	ObjectReference* exception;
 };
 
 } /* namespace alinous */

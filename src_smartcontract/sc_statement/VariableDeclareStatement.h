@@ -28,6 +28,7 @@ public:
 	void setType(AbstractType* type) noexcept;
 	void setVariableId(VariableIdentifier* variable) noexcept;
 	void setInitExpression(AbstractExpression* exp) noexcept;
+	AnalyzedType getType() const noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
@@ -37,6 +38,7 @@ public:
 	virtual void interpret(VirtualMachine* vm);
 
 	virtual bool hasCtrlStatement() const noexcept;
+
 private:
 	AbstractType* type;
 	VariableIdentifier* variableId;

@@ -14,6 +14,7 @@ namespace alinous {
 
 class StatementBlock;
 class VariableDeclareStatement;
+class AnalyzedType;
 
 class CatchStatement : public AbstractStatement {
 public:
@@ -39,6 +40,8 @@ public:
 private:
 	StatementBlock* block;
 	VariableDeclareStatement* variableDeclare;
+
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

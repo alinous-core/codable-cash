@@ -14,10 +14,16 @@
 #include "sc_analyze_stack/AnalyzeStackPopper.h"
 
 #include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/TypeResolver.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzedClass.h"
 
 #include "stack/StackPopper.h"
 
 #include "vm/VirtualMachine.h"
+
+#include "base/StackRelease.h"
 
 
 namespace alinous {
@@ -25,11 +31,13 @@ namespace alinous {
 CatchStatement::CatchStatement() : AbstractStatement(CodeElement::STMT_TRY_CATCH) {
 	this->block = nullptr;
 	this->variableDeclare = nullptr;
+	this->atype = nullptr;
 }
 
 CatchStatement::~CatchStatement() {
 	delete this->block;
 	delete this->variableDeclare;
+	delete this->atype;
 }
 
 void CatchStatement::preAnalyze(AnalyzeContext* actx) {
@@ -52,6 +60,24 @@ void CatchStatement::analyze(AnalyzeContext* actx) {
 
 	this->variableDeclare->analyze(actx);
 	this->block->analyze(actx);
+
+	AnalyzedType at = this->variableDeclare->getType();
+	uint8_t att = at.getType();
+	if(att != AnalyzedType::TYPE_OBJECT || at.isArray()){
+		actx->addValidationError(ValidationError::CODE_CATCH_STMT_REQUIRE_EXCEPTION, this, L"Catch statement requires exception.", {});
+		return;
+	}
+
+	TypeResolver* resolver = actx->getTypeResolver();
+	UnicodeString strException(L"Exception");
+	AnalyzedType* exType = resolver->findClassType((const UnicodeString*)nullptr, &strException); __STP(exType);
+
+	AnalyzedClass* ac = at.getAnalyzedClass();
+	AnalyzedClass* exc = exType->getAnalyzedClass();
+
+	if(!ac->hasBaseClass(exc)){
+		actx->addValidationError(ValidationError::CODE_CATCH_STMT_REQUIRE_EXCEPTION, this, L"Catch statement requires exception.", {});
+	}
 }
 
 void CatchStatement::init(VirtualMachine* vm) {
@@ -67,7 +93,11 @@ void CatchStatement::interpret(VirtualMachine* vm) {
 	vm->newStack();
 	StackPopper stackPopper(vm);
 
+
+
 	this->variableDeclare->interpret(vm);
+
+
 }
 
 bool CatchStatement::hasCtrlStatement() const noexcept {

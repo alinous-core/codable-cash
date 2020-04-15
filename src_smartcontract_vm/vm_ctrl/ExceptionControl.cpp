@@ -9,14 +9,16 @@
 
 #include "instance_exception_class/VmExceptionInstance.h"
 
+#include "instance_ref/ObjectReference.h"
+
 namespace alinous {
 
-ExceptionControl::ExceptionControl(VmExceptionInstance* exception) {
-	this->exception = exception;
+ExceptionControl::ExceptionControl(AbstractReference* exception) {
+	this->exception = dynamic_cast<ObjectReference*>(exception);
 }
 
 ExceptionControl::~ExceptionControl() {
-	delete this->exception;
+
 }
 
 int ExceptionControl::control(ExecControlManager* ctrl, BlockState* state, CodeElement* lastElement) {

@@ -278,7 +278,11 @@ void VirtualMachine::throwException(VmExceptionInstance* exception, CodeElement*
 
 	exception->setCodeElement(element);
 
-	ExceptionControl* exceptionCtrl = new ExceptionControl(exception);
+	VmRootReference* rootRef = this->sc->getRootReference();
+	AbstractReference* ref = exception->wrap(rootRef, this);
+	this->gc->registerObject(ref);
+
+	ExceptionControl* exceptionCtrl = new ExceptionControl(ref);
 	ctrl->setInstruction(exceptionCtrl);
 }
 
