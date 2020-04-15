@@ -25,7 +25,9 @@
 
 #include "base/StackRelease.h"
 
+#include "instance_gc/StackFloatingVariableHandler.h"
 
+#include "instance_ref/ObjectReference.h"
 namespace alinous {
 
 CatchStatement::CatchStatement() : AbstractStatement(CodeElement::STMT_TRY_CATCH) {
@@ -78,6 +80,8 @@ void CatchStatement::analyze(AnalyzeContext* actx) {
 	if(!ac->hasBaseClass(exc)){
 		actx->addValidationError(ValidationError::CODE_CATCH_STMT_REQUIRE_EXCEPTION, this, L"Catch statement requires exception.", {});
 	}
+
+	this->atype = new AnalyzedType(at);
 }
 
 void CatchStatement::init(VirtualMachine* vm) {
@@ -92,12 +96,18 @@ void CatchStatement::init(VirtualMachine* vm) {
 void CatchStatement::interpret(VirtualMachine* vm) {
 	vm->newStack();
 	StackPopper stackPopper(vm);
+	StackFloatingVariableHandler releaser(vm->getGc());
 
+	AnalyzedClass* ac = this->atype->getAnalyzedClass();
+	ObjectReference* exInstRef = vm->catchException(ac);
+	releaser.registerInstance(exInstRef);
 
+	// FIXME todo
+	if(exInstRef != nullptr){
+		this->variableDeclare->interpret(vm);
 
-	this->variableDeclare->interpret(vm);
-
-
+		this->block->interpret(vm);
+	}
 }
 
 bool CatchStatement::hasCtrlStatement() const noexcept {

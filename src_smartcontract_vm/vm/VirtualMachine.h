@@ -36,6 +36,7 @@ class ExecControlManager;
 class Exception;
 class CodeElement;
 class AnalyzedClass;
+class ObjectReference;
 
 class VirtualMachine {
 public:
@@ -65,7 +66,7 @@ public:
 
 	ExecControlManager* getCtrl() const noexcept;
 	void throwException(VmExceptionInstance* exception, CodeElement* element) noexcept;
-	VmExceptionInstance* catchException(AnalyzedClass* exClass) noexcept;
+	ObjectReference* catchException(AnalyzedClass* exClass) noexcept;
 
 
 	void setFunctionArguments(FunctionArguments* args) noexcept;

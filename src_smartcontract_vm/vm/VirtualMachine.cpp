@@ -289,7 +289,7 @@ void VirtualMachine::throwException(VmExceptionInstance* exception, CodeElement*
 	ctrl->setInstruction(exceptionCtrl);
 }
 
-VmExceptionInstance* VirtualMachine::catchException(AnalyzedClass* exClass) noexcept {
+ObjectReference* VirtualMachine::catchException(AnalyzedClass* exClass) noexcept {
 	ExecControlManager* ctrl = this->ctrl;
 
 	ObjectReference* ref = ctrl->getException();
@@ -307,7 +307,7 @@ VmExceptionInstance* VirtualMachine::catchException(AnalyzedClass* exClass) noex
 
 	ctrl->consumeException(this);
 
-	return ex;
+	return ref;
 }
 
 ArrayList<Exception>& VirtualMachine::getExceptions() noexcept {
