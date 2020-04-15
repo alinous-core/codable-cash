@@ -2,6 +2,7 @@
 
 set(__src
 	CatchStatement.cpp
+	FinallyStatement.cpp
 	ThrowStatement.cpp
 	TryStatement.cpp
 )

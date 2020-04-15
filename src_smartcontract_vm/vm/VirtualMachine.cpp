@@ -11,9 +11,12 @@
 #include "memory/VmMemoryManager.h"
 #include "instance_parts/VmMalloc.h"
 #include "instance_gc/GcManager.h"
+
+#include "instance/IAbstractVmInstanceSubstance.h"
 #include "instance/VmClassInstance.h"
 
 #include "instance_ref/AbstractReference.h"
+#include "instance_ref/ObjectReference.h"
 
 #include "stack/VmStackManager.h"
 #include "stack/VmStack.h"
@@ -284,6 +287,27 @@ void VirtualMachine::throwException(VmExceptionInstance* exception, CodeElement*
 
 	ExceptionControl* exceptionCtrl = new ExceptionControl(ref);
 	ctrl->setInstruction(exceptionCtrl);
+}
+
+VmExceptionInstance* VirtualMachine::catchException(AnalyzedClass* exClass) noexcept {
+	ExecControlManager* ctrl = this->ctrl;
+
+	ObjectReference* ref = ctrl->getException();
+	if(ref == nullptr){
+		return nullptr;
+	}
+
+	IAbstractVmInstanceSubstance* sub = ref->getInstance();
+	VmExceptionInstance* ex = dynamic_cast<VmExceptionInstance*>(sub);
+
+	AnalyzedClass* cls = ex->getAnalyzedClass();
+	if(!cls->hasBaseClass(exClass)){
+		return nullptr;
+	}
+
+	ctrl->consumeException(this);
+
+	return ex;
 }
 
 ArrayList<Exception>& VirtualMachine::getExceptions() noexcept {

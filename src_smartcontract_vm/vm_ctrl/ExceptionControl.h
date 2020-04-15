@@ -15,6 +15,7 @@ namespace alinous {
 class VmExceptionInstance;
 class AbstractReference;
 class ObjectReference;
+class VirtualMachine;
 
 class ExceptionControl : public AbstractCtrlInstruction {
 public:
@@ -22,7 +23,9 @@ public:
 	virtual ~ExceptionControl();
 
 	virtual int control(ExecControlManager* ctrl, BlockState* state, CodeElement* lastElement);
+	virtual ObjectReference* getException() const noexcept;
 
+	void releaseException(VirtualMachine* vm);
 private:
 	ObjectReference* exception;
 };

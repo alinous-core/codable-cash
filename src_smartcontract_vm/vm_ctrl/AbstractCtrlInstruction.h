@@ -13,6 +13,7 @@ namespace alinous {
 class ExecControlManager;
 class BlockState;
 class CodeElement;
+class ObjectReference;
 
 class AbstractCtrlInstruction {
 public:
@@ -25,6 +26,7 @@ public:
 	virtual ~AbstractCtrlInstruction();
 
 	virtual int control(ExecControlManager* ctrl, BlockState* state, CodeElement* lastElement) = 0;
+	virtual ObjectReference* getException() const noexcept;
 };
 
 } /* namespace alinous */

@@ -13,6 +13,8 @@ namespace alinous {
 class AbstractCtrlInstruction;
 class BlockState;
 class CodeElement;
+class ObjectReference;
+class VirtualMachine;
 
 class ExecControlManager {
 public:
@@ -24,6 +26,9 @@ public:
 	void doConsumeInstruction() noexcept;
 
 	int checkStatementCtrl(BlockState* state, CodeElement* lastElement) noexcept;
+
+	ObjectReference* getException() const noexcept;
+	void consumeException(VirtualMachine* vm) noexcept;
 
 private:
 	AbstractCtrlInstruction* instruction;
