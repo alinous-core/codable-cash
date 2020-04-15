@@ -34,6 +34,7 @@ class AbstractFunctionExtArguments;
 class ExecControlManager;
 
 class Exception;
+class CodeElement;
 
 class VirtualMachine {
 public:
@@ -62,7 +63,7 @@ public:
 	GcManager* getGc() noexcept;
 
 	ExecControlManager* getCtrl() const noexcept;
-	void throwException(VmExceptionInstance* exception) noexcept;
+	void throwException(VmExceptionInstance* exception, CodeElement* element) noexcept;
 
 
 	void setFunctionArguments(FunctionArguments* args) noexcept;

@@ -80,7 +80,7 @@ void ThrowStatement::interpret(VirtualMachine* vm) {
 	IAbstractVmInstanceSubstance* sub = inst->getInstance();
 	VmExceptionInstance* ex = dynamic_cast<VmExceptionInstance*>(sub);
 
-
+	vm->throwException(ex, this);
 }
 
 bool ThrowStatement::hasCtrlStatement() const noexcept {

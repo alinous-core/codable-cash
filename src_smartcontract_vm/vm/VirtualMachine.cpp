@@ -34,7 +34,7 @@
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedType.h"
 
-#include "instance_exception/AbstractProgramException.h"
+#include "instance_exception_class/VmExceptionInstance.h"
 
 #include "ext_arguments/AbstractFunctionExtArguments.h"
 
@@ -46,6 +46,7 @@
 #include "vm_ctrl/ExceptionControl.h"
 
 #include "base/Exception.h"
+
 
 namespace alinous {
 
@@ -92,7 +93,7 @@ VmClassInstance* VirtualMachine::createScInstance() {
 	try{
 		return this->sc->createInstance(this);
 	}
-	catch(AbstractProgramException* e){
+	catch(Exception* e){
 		this->exceptions.addElement(e);
 	}
 
@@ -272,8 +273,13 @@ ExecControlManager* VirtualMachine::getCtrl() const noexcept {
 	return this->ctrl;
 }
 
-void VirtualMachine::throwException(VmExceptionInstance* exception) noexcept {
-	// FIXME
+void VirtualMachine::throwException(VmExceptionInstance* exception, CodeElement* element) noexcept {
+	ExecControlManager* ctrl = this->ctrl;
+
+	exception->setCodeElement(element);
+
+	ExceptionControl* exceptionCtrl = new ExceptionControl(exception);
+	ctrl->setInstruction(exceptionCtrl);
 }
 
 ArrayList<Exception>& VirtualMachine::getExceptions() noexcept {

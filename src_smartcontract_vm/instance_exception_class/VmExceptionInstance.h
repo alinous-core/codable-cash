@@ -16,6 +16,11 @@ class VmExceptionInstance : public VmClassInstance {
 public:
 	VmExceptionInstance(AnalyzedClass* clazz, VirtualMachine* vm);
 	virtual ~VmExceptionInstance();
+
+	void setCodeElement(CodeElement* element) noexcept;
+	CodeElement* getElement() const noexcept;
+private:
+	CodeElement* element;
 };
 
 } /* namespace alinous */
