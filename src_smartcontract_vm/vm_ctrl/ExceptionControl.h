@@ -12,17 +12,17 @@
 
 namespace alinous {
 
-class AbstractProgramException;
+class VmExceptionInstance;
 
 class ExceptionControl : public AbstractCtrlInstruction {
 public:
-	ExceptionControl(AbstractProgramException* exception);
+	ExceptionControl(VmExceptionInstance* exception);
 	virtual ~ExceptionControl();
 
 	virtual int control(ExecControlManager* ctrl, BlockState* state, CodeElement* lastElement);
 
 private:
-	AbstractProgramException* exception;
+	VmExceptionInstance* exception;
 };
 
 } /* namespace alinous */

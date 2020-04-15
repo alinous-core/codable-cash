@@ -45,6 +45,7 @@
 #include "vm_ctrl/ExecControlManager.h"
 #include "vm_ctrl/ExceptionControl.h"
 
+#include "base/Exception.h"
 
 namespace alinous {
 
@@ -271,12 +272,11 @@ ExecControlManager* VirtualMachine::getCtrl() const noexcept {
 	return this->ctrl;
 }
 
-void VirtualMachine::throwException(AbstractProgramException* exception) noexcept {
-	ExceptionControl* exContrl = new ExceptionControl(exception);
-	this->ctrl->setInstruction(exContrl);
+void VirtualMachine::throwException(VmExceptionInstance* exception) noexcept {
+	// FIXME
 }
 
-ArrayList<AbstractProgramException>& VirtualMachine::getExceptions() noexcept {
+ArrayList<Exception>& VirtualMachine::getExceptions() noexcept {
 	return this->exceptions;
 }
 

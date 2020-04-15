@@ -7,11 +7,11 @@
 
 #include "vm_ctrl/ExceptionControl.h"
 
-#include "instance_exception/AbstractProgramException.h"
+#include "instance_exception_class/VmExceptionInstance.h"
 
 namespace alinous {
 
-ExceptionControl::ExceptionControl(AbstractProgramException* exception) {
+ExceptionControl::ExceptionControl(VmExceptionInstance* exception) {
 	this->exception = exception;
 }
 

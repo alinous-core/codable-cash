@@ -29,9 +29,11 @@ class FunctionArguments;
 class VmRootReference;
 class AbstractReference;
 
-class AbstractProgramException;
+class VmExceptionInstance;
 class AbstractFunctionExtArguments;
 class ExecControlManager;
+
+class Exception;
 
 class VirtualMachine {
 public:
@@ -60,7 +62,7 @@ public:
 	GcManager* getGc() noexcept;
 
 	ExecControlManager* getCtrl() const noexcept;
-	void throwException(AbstractProgramException* exception) noexcept;
+	void throwException(VmExceptionInstance* exception) noexcept;
 
 
 	void setFunctionArguments(FunctionArguments* args) noexcept;
@@ -74,7 +76,7 @@ public:
 	void initialize();
 	void destroy() noexcept;
 
-	ArrayList<AbstractProgramException>& getExceptions() noexcept;
+	ArrayList<Exception>& getExceptions() noexcept;
 private:
 	SmartContract* sc;
 
@@ -90,7 +92,7 @@ private:
 	bool destried;
 	bool initialized;
 
-	ArrayList<AbstractProgramException> exceptions;
+	ArrayList<Exception> exceptions;
 };
 
 } /* namespace alinous */
