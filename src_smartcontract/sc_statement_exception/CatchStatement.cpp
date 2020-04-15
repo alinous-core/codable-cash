@@ -20,6 +20,7 @@
 #include "sc_analyze/AnalyzedClass.h"
 
 #include "stack/StackPopper.h"
+#include "stack/VmStack.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -28,6 +29,8 @@
 #include "instance_gc/StackFloatingVariableHandler.h"
 
 #include "instance_ref/ObjectReference.h"
+
+
 namespace alinous {
 
 CatchStatement::CatchStatement() : AbstractStatement(CodeElement::STMT_TRY_CATCH) {
@@ -104,7 +107,11 @@ void CatchStatement::interpret(VirtualMachine* vm) {
 
 	// FIXME todo
 	if(exInstRef != nullptr){
+		VmStack* stack = vm->topStack();
+
 		this->variableDeclare->interpret(vm);
+		AbstractReference* ref = stack->get(0);
+		ref->substitute(exInstRef->getInstance(), vm);
 
 		this->block->interpret(vm);
 	}
