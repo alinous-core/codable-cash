@@ -69,6 +69,7 @@ public:
 	static const constexpr short STMT_TRY{67};
 	static const constexpr short STMT_TRY_CATCH{68};
 	static const constexpr short STMT_THROW{69};
+	static const constexpr short STMT_FINALLY{70};
 
 
 	static const constexpr short EXP_ALLOCATION{80};
