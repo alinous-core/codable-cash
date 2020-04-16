@@ -15,9 +15,11 @@
 #include "../VmTestUtils.h"
 #include "ext_binary/ExtClassObject.h"
 #include "ext_binary/ExtPrimitiveObject.h"
+#include "ext_binary/ExtExceptionObject.h"
 
 #include "base/UnicodeString.h"
 
+#include "sc/CodeElement.h"
 
 using namespace alinous;
 
@@ -44,4 +46,9 @@ TEST(TestTryCatchGroup, case01){
 	int iresult = VmTestUtils::getIntMemberValue(obj, L"result");
 
 	CHECK(iresult == 10)
+
+	ExtExceptionObject* exception = VmTestUtils::getExtExceptionObject(obj, L"e");
+	CodeElement* codeElement = exception->getCodeElement();
+
+	CHECK(codeElement->getKind() == CodeElement::STMT_THROW)
 }

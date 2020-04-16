@@ -19,6 +19,8 @@ public:
 
 	void setCodeElement(CodeElement* element) noexcept;
 	CodeElement* getElement() const noexcept;
+
+	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* reg);
 private:
 	CodeElement* element;
 };

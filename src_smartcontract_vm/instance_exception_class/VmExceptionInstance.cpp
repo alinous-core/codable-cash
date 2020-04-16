@@ -8,6 +8,10 @@
 #include "instance_exception_class/VmExceptionInstance.h"
 
 #include "instance/VmInstanceTypesConst.h"
+
+#include "ext_binary/ExtExceptionObject.h"
+
+
 namespace alinous {
 
 VmExceptionInstance::VmExceptionInstance(AnalyzedClass* clazz, VirtualMachine* vm)
@@ -27,5 +31,11 @@ CodeElement* VmExceptionInstance::getElement() const noexcept {
 	return this->element;
 }
 
+AbstractExtObject* VmExceptionInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* reg) {
+	ExtExceptionObject* extObj = new ExtExceptionObject(name);
+	extObj->setCodeElement(getElement());
+
+	return extObj;
+}
 
 } /* namespace alinous */

@@ -12,10 +12,17 @@
 
 namespace alinous {
 
+class CodeElement;
+
 class ExtExceptionObject : public AbstractExtObject {
 public:
 	explicit ExtExceptionObject(const UnicodeString* name);
 	virtual ~ExtExceptionObject();
+
+	void setCodeElement(CodeElement* element) noexcept;
+	CodeElement* getCodeElement() const noexcept;
+private:
+	CodeElement* element;
 };
 
 } /* namespace alinous */

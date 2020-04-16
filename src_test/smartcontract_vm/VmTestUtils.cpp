@@ -195,6 +195,13 @@ ExtArrayObject* VmTestUtils::getArrayMember(ExtClassObject* obj, const wchar_t* 
 	return extObj;
 }
 
+ExtExceptionObject* VmTestUtils::getExtExceptionObject(ExtClassObject* obj,	const wchar_t* str) {
+	UnicodeString strResult(str);
+	ExtExceptionObject* extObj = obj->getExtExceptionObject(&strResult);
+
+	return extObj;
+}
+
 int64_t VmTestUtils::getArrayInt(ExtArrayObject* array, int pos) {
 	AbstractExtObject* obj = array->get(pos);
 	PrimitiveReference* primitive = dynamic_cast<PrimitiveReference*>(obj);

@@ -11,11 +11,19 @@
 namespace alinous {
 
 ExtExceptionObject::ExtExceptionObject(const UnicodeString* name) : AbstractExtObject(name, VmInstanceTypesConst::INST_EXCEPTION) {
-
+	this->element = nullptr;
 }
 
 ExtExceptionObject::~ExtExceptionObject() {
+	this->element = nullptr;
+}
 
+void ExtExceptionObject::setCodeElement(CodeElement* element) noexcept {
+	this->element = element;
+}
+
+CodeElement* ExtExceptionObject::getCodeElement() const noexcept {
+	return this->element;
 }
 
 } /* namespace alinous */
