@@ -11,6 +11,9 @@ class SmartContract {
 			this.e = e;
 			this.result = 10;
 		}
+		finally{
+		
+		}
 	}
 	
 	public int main(){

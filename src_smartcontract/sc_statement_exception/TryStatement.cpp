@@ -67,6 +67,10 @@ void TryStatement::analyze(AnalyzeContext* actx) {
 
 		catchStmt->analyze(actx);
 	}
+
+	if(this->finallyStmt != nullptr){
+		this->finallyStmt->analyze(actx);
+	}
 }
 
 void TryStatement::init(VirtualMachine* vm) {
