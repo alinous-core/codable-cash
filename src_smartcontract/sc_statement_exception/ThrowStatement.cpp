@@ -22,6 +22,7 @@
 #include "instance_exception_class/ExceptionClassDeclare.h"
 #include "instance_exception_class/VmExceptionInstance.h"
 
+#include "base/StackRelease.h"
 
 namespace alinous {
 
@@ -53,7 +54,7 @@ void ThrowStatement::analyze(AnalyzeContext* actx) {
 	}
 
 	TypeResolver* resolver = actx->getTypeResolver();
-	AnalyzedType* exType = resolver->findClassType(this, &ExceptionClassDeclare::NAME);
+	AnalyzedType* exType = resolver->findClassType(this, &ExceptionClassDeclare::NAME); __STP(exType);
 
 	AnalyzedClass* clazz = atype.getAnalyzedClass();
 	if(!clazz->hasBaseClass(exType->getAnalyzedClass())){

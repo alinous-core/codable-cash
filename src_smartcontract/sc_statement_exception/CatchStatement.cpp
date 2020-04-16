@@ -30,6 +30,7 @@
 
 #include "instance_ref/ObjectReference.h"
 
+#include "instance_exception_class/ExceptionClassDeclare.h"
 
 namespace alinous {
 
@@ -74,8 +75,7 @@ void CatchStatement::analyze(AnalyzeContext* actx) {
 	}
 
 	TypeResolver* resolver = actx->getTypeResolver();
-	UnicodeString strException(L"Exception");
-	AnalyzedType* exType = resolver->findClassType((const UnicodeString*)nullptr, &strException); __STP(exType);
+	AnalyzedType* exType = resolver->findClassType((const UnicodeString*)nullptr, &ExceptionClassDeclare::NAME); __STP(exType);
 
 	AnalyzedClass* ac = at.getAnalyzedClass();
 	AnalyzedClass* exc = exType->getAnalyzedClass();
