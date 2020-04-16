@@ -10,10 +10,13 @@
 
 #include "sc_statement/AbstractStatement.h"
 
+#include "base/ArrayList.h"
+
 namespace alinous {
 
 class StatementBlock;
 class CatchStatement;
+class FinallyStatement;
 
 class TryStatement : public AbstractStatement {
 public:
@@ -35,11 +38,12 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 	void setBlock(StatementBlock* block) noexcept;
-	void setCatchStatement(CatchStatement* catchStmt) noexcept;
+	void addCatchStatement(CatchStatement* catchStmt) noexcept;
 
 private:
 	StatementBlock* block;
-	CatchStatement* catchStmt;
+	ArrayList<CatchStatement> catchStmts;
+	FinallyStatement* finallyStmt;
 };
 
 } /* namespace alinous */

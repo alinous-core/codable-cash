@@ -9,58 +9,93 @@
 
 #include "sc_statement/StatementBlock.h"
 #include "sc_statement_exception/CatchStatement.h"
+#include "sc_statement_exception/FinallyStatement.h"
 
 
 namespace alinous {
 
 TryStatement::TryStatement() : AbstractStatement(CodeElement::STMT_TRY) {
 	this->block = nullptr;
-	this->catchStmt = nullptr;
+	this->finallyStmt = nullptr;
 }
 
 TryStatement::~TryStatement() {
 	delete this->block;
-	delete this->catchStmt;
+	this->catchStmts.deleteElements();
+	delete this->finallyStmt;
 }
 
 void TryStatement::preAnalyze(AnalyzeContext* actx) {
 	this->block->setParent(this);
 	this->block->preAnalyze(actx);
 
-	if(this->catchStmt != nullptr){
-		this->catchStmt->setParent(this);
-		this->catchStmt->preAnalyze(actx);
+	int maxLoop = this->catchStmts.size();
+	for(int i = 0; i != maxLoop; ++i){
+		CatchStatement* catchStmt = this->catchStmts.get(i);
+
+		catchStmt->setParent(this);
+		catchStmt->preAnalyze(actx);
+	}
+
+	if(this->finallyStmt != nullptr){
+		this->finallyStmt->setParent(this);
+		this->finallyStmt->preAnalyze(actx);
 	}
 }
 
 void TryStatement::analyzeTypeRef(AnalyzeContext* actx) {
 	this->block->analyzeTypeRef(actx);
 
-	if(this->catchStmt != nullptr){
-		this->catchStmt->analyzeTypeRef(actx);
+	int maxLoop = this->catchStmts.size();
+	for(int i = 0; i != maxLoop; ++i){
+		CatchStatement* catchStmt = this->catchStmts.get(i);
+
+		catchStmt->analyzeTypeRef(actx);
+	}
+
+	if(this->finallyStmt != nullptr){
+		this->finallyStmt->analyzeTypeRef(actx);
 	}
 }
 
 void TryStatement::analyze(AnalyzeContext* actx) {
 	this->block->analyze(actx);
 
-	if(this->catchStmt != nullptr){
-		this->catchStmt->analyze(actx);
+	int maxLoop = this->catchStmts.size();
+	for(int i = 0; i != maxLoop; ++i){
+		CatchStatement* catchStmt = this->catchStmts.get(i);
+
+		catchStmt->analyze(actx);
 	}
 }
 
 void TryStatement::init(VirtualMachine* vm) {
 	this->block->init(vm);
 
-	if(this->catchStmt != nullptr){
-		this->catchStmt->init(vm);
+	int maxLoop = this->catchStmts.size();
+	for(int i = 0; i != maxLoop; ++i){
+		CatchStatement* catchStmt = this->catchStmts.get(i);
+		catchStmt->init(vm);
+	}
+
+	if(this->finallyStmt != nullptr){
+		this->finallyStmt->init(vm);
 	}
 }
 
 void TryStatement::interpret(VirtualMachine* vm) {
 	this->block->interpret(vm);
 
-	this->catchStmt->interpret(vm);
+	int maxLoop = this->catchStmts.size();
+	for(int i = 0; i != maxLoop; ++i){
+		CatchStatement* catchStmt = this->catchStmts.get(i);
+
+		catchStmt->interpret(vm);
+	}
+
+	if(this->finallyStmt != nullptr){
+		this->finallyStmt->interpret(vm);
+	}
 }
 
 bool TryStatement::hasCtrlStatement() const noexcept {
@@ -69,24 +104,38 @@ bool TryStatement::hasCtrlStatement() const noexcept {
 
 int TryStatement::binarySize() const {
 	checkNotNull(this->block);
-	checkNotNull(this->catchStmt);
+
 
 	int total = sizeof(uint16_t);
 
 	total += this->block->binarySize();
-	total += this->catchStmt->binarySize();
+
+	total += sizeof(int32_t);
+	int maxLoop = this->catchStmts.size();
+	for(int i = 0; i != maxLoop; ++i){
+		CatchStatement* catchStmt = this->catchStmts.get(i);
+
+		total += catchStmt->binarySize();
+	}
+
 
 	return total;
 }
 
 void TryStatement::toBinary(ByteBuffer* out) {
 	checkNotNull(this->block);
-	checkNotNull(this->catchStmt);
 
 	out->putShort(CodeElement::STMT_TRY);
 
 	this->block->toBinary(out);
-	this->catchStmt->toBinary(out);
+
+	int maxLoop = this->catchStmts.size();
+	out->putInt(maxLoop);
+	for(int i = 0; i != maxLoop; ++i){
+		CatchStatement* catchStmt = this->catchStmts.get(i);
+
+		catchStmt->toBinary(out);
+	}
 }
 
 void TryStatement::fromBinary(ByteBuffer* in) {
@@ -95,18 +144,22 @@ void TryStatement::fromBinary(ByteBuffer* in) {
 
 	this->block = dynamic_cast<StatementBlock*>(element);
 
-	element = createFromBinary(in);
-	checkKind(element, CodeElement::STMT_TRY_CATCH);
+	int maxLoop = in->getInt();
+	for(int i = 0; i != maxLoop; ++i){
+		element = createFromBinary(in);
+		checkKind(element, CodeElement::STMT_TRY_CATCH);
 
-	this->catchStmt = dynamic_cast<CatchStatement*>(element);
+		CatchStatement* catchStmt = dynamic_cast<CatchStatement*>(element);
+		this->catchStmts.addElement(catchStmt);
+	}
 }
 
 void TryStatement::setBlock(StatementBlock* block) noexcept {
 	this->block = block;
 }
 
-void TryStatement::setCatchStatement(CatchStatement* catchStmt) noexcept {
-	this->catchStmt = catchStmt;
+void TryStatement::addCatchStatement(CatchStatement* catchStmt) noexcept {
+	this->catchStmts.addElement(catchStmt);
 }
 
 } /* namespace alinous */
