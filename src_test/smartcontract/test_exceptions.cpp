@@ -80,3 +80,22 @@ TEST(TestExceptionParseGroup, try01){
 	CHECK(res)
 }
 
+TEST(TestExceptionParseGroup, try02){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/exception/try02.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	TryStatement* stmt = lang->tryStatement(); __STP(stmt);
+	CHECK(!parser.hasError())
+
+	int size = stmt->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	stmt->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+}

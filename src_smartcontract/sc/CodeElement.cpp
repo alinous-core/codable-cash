@@ -53,6 +53,7 @@
 #include "sc_statement_exception/TryStatement.h"
 #include "sc_statement_exception/CatchStatement.h"
 #include "sc_statement_exception/ThrowStatement.h"
+#include "sc_statement_exception/FinallyStatement.h"
 
 #include "sc_expression/AllocationExpression.h"
 #include "sc_expression/ArrayReferenceExpression.h"
@@ -326,6 +327,9 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		break;
 	case STMT_THROW:
 		element = new ThrowStatement();
+		break;
+	case STMT_FINALLY:
+		element = new FinallyStatement();
 		break;
 
 	case EXP_ALLOCATION:

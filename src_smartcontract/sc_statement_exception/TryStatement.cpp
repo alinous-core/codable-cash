@@ -118,6 +118,11 @@ int TryStatement::binarySize() const {
 		total += catchStmt->binarySize();
 	}
 
+	total += sizeof(int8_t);
+	bool bl = this->finallyStmt != nullptr;
+	if(bl){
+		total += this->finallyStmt->binarySize();
+	}
 
 	return total;
 }
@@ -136,6 +141,12 @@ void TryStatement::toBinary(ByteBuffer* out) {
 
 		catchStmt->toBinary(out);
 	}
+
+	bool bl = this->finallyStmt != nullptr;
+	out->put(bl ? 1 : 0);
+	if(bl){
+		this->finallyStmt->toBinary(out);
+	}
 }
 
 void TryStatement::fromBinary(ByteBuffer* in) {
@@ -151,6 +162,14 @@ void TryStatement::fromBinary(ByteBuffer* in) {
 
 		CatchStatement* catchStmt = dynamic_cast<CatchStatement*>(element);
 		this->catchStmts.addElement(catchStmt);
+	}
+
+	int8_t bl = in->get();
+	if(bl == 1){
+		 element = createFromBinary(in);
+		 checkKind(element, CodeElement::STMT_FINALLY);
+
+		 this->finallyStmt = dynamic_cast<FinallyStatement*>(element);
 	}
 }
 
