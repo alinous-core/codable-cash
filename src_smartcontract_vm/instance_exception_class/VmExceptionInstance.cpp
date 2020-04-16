@@ -7,10 +7,11 @@
 
 #include "instance_exception_class/VmExceptionInstance.h"
 
+#include "instance/VmInstanceTypesConst.h"
 namespace alinous {
 
 VmExceptionInstance::VmExceptionInstance(AnalyzedClass* clazz, VirtualMachine* vm)
-				: VmClassInstance(clazz, vm) {
+				: VmClassInstance(VmInstanceTypesConst::INST_EXCEPTION, clazz, vm) {
 	this->element = nullptr;
 }
 

@@ -24,6 +24,7 @@ class IVmInstanceFactory;
 class VmClassInstance : public AbstractVmInstance, public IInstanceContainer {
 public:
 	VmClassInstance(AnalyzedClass* clazz, VirtualMachine* vm);
+	VmClassInstance(uint8_t type, AnalyzedClass* clazz, VirtualMachine* vm);
 	virtual ~VmClassInstance();
 
 	static VmClassInstance* createObject(AnalyzedClass* clazz, VirtualMachine* vm);

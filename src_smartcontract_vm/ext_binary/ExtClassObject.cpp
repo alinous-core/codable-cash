@@ -17,7 +17,7 @@
 
 namespace alinous {
 
-ExtClassObject::ExtClassObject(const UnicodeString* name) : AbstractExtObject(name, VmInstanceTypesConst::ISNT_OBJ) {
+ExtClassObject::ExtClassObject(const UnicodeString* name) : AbstractExtObject(name, VmInstanceTypesConst::INST_OBJ) {
 	this->list = new ArrayList<AbstractExtObject>();
 	this->map = new HashMap<UnicodeString, AbstractExtObject>();
 }

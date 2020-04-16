@@ -97,7 +97,7 @@ AbstractExtObject* ObjectReference::createNullObject(const UnicodeString* name, 
 	//	return new ExtStringClass(name);
 	//}
 
-	uint8_t type = this->instanceType == ObjectReference::STRING_INSTANCE ? VmInstanceTypesConst::INST_STRING : VmInstanceTypesConst::ISNT_OBJ;
+	uint8_t type = this->instanceType == ObjectReference::STRING_INSTANCE ? VmInstanceTypesConst::INST_STRING : VmInstanceTypesConst::INST_OBJ;
 
 	return new ExtNullPtrObject(name, type);
 }

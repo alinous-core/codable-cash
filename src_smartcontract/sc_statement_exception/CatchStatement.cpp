@@ -105,7 +105,6 @@ void CatchStatement::interpret(VirtualMachine* vm) {
 	ObjectReference* exInstRef = vm->catchException(ac);
 	releaser.registerInstance(exInstRef);
 
-	// FIXME todo
 	if(exInstRef != nullptr){
 		VmStack* stack = vm->topStack();
 
