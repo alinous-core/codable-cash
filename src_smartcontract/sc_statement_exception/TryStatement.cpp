@@ -162,4 +162,8 @@ void TryStatement::addCatchStatement(CatchStatement* catchStmt) noexcept {
 	this->catchStmts.addElement(catchStmt);
 }
 
+void TryStatement::setFinallyStatement(FinallyStatement* finallyStmt) noexcept {
+	this->finallyStmt = finallyStmt;
+}
+
 } /* namespace alinous */

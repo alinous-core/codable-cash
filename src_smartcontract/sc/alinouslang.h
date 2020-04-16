@@ -53,6 +53,7 @@
 
 #include "sc_statement_exception/TryStatement.h"
 #include "sc_statement_exception/CatchStatement.h"
+#include "sc_statement_exception/FinallyStatement.h"
 #include "sc_statement_exception/ThrowStatement.h"
 
 #include "sc_expression/AllocationExpression.h"

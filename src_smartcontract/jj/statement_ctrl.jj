@@ -30,6 +30,7 @@ TryStatement* tryStatement() : {
 	Token* t = nullptr;
 	
 	CatchStatement* catchStmt = nullptr;
+	FinallyStatement* finallyStmt = nullptr;
 }
 {
 	t="try" {
@@ -40,13 +41,39 @@ TryStatement* tryStatement() : {
 		stmt->setPosition(block);
 	}
 	
-	[
+	(
 		catchStmt=catchStatement() {
-			stmt->setCatchStatement(catchStmt);
+			stmt->addCatchStatement(catchStmt);
 			stmt->setPosition(catchStmt);
+		}
+	)*
+	
+	[
+		finallyStmt=finallyStatement() {
+			stmt->setFinallyStatement(finallyStmt);
+			stmt->setPosition(finallyStmt);
 		}
 	]
 	
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+FinallyStatement* finallyStatement() : {
+	FinallyStatement* stmt = new FinallyStatement();
+	StatementBlock* block = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="finally" {
+		stmt->setPosition(t);
+	}
+	block=statementBlock() {
+		stmt->setBlock(block);
+		stmt->setPosition(block);
+	}
 	{
 		 __ONERROR(stmt);
 		return stmt;

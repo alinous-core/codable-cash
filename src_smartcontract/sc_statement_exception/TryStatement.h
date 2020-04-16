@@ -39,7 +39,7 @@ public:
 
 	void setBlock(StatementBlock* block) noexcept;
 	void addCatchStatement(CatchStatement* catchStmt) noexcept;
-
+	void setFinallyStatement(FinallyStatement* finallyStmt) noexcept;
 private:
 	StatementBlock* block;
 	ArrayList<CatchStatement> catchStmts;
