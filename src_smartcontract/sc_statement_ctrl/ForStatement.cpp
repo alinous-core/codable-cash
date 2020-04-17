@@ -231,8 +231,8 @@ void ForStatement::interpret(VirtualMachine* vm) {
 			this->stmt->interpret(vm);
 
 			int stat = ctrl->checkStatementCtrl(this->blockState, this->stmt);
-			if(stat == AbstractCtrlInstruction::RET_BREAK){
-				return;
+			if(stat == AbstractCtrlInstruction::RET_BREAK || stat == AbstractCtrlInstruction::RET_THROW){
+				break;
 			}
 		}
 

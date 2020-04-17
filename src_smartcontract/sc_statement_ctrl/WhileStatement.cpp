@@ -134,7 +134,7 @@ void WhileStatement::interpret(VirtualMachine* vm) {
 
 		// control
 		int stat = ctrl->checkStatementCtrl(this->blockState, stmt);
-		if(stat == AbstractCtrlInstruction::RET_BREAK){
+		if(stat == AbstractCtrlInstruction::RET_BREAK || stat == AbstractCtrlInstruction::RET_THROW){
 			break;
 		}
 	}
