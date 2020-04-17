@@ -43,6 +43,10 @@ private:
 
 };
 
+class ZeroDivException {
+public:
+};
+
 } /* namespace alinous */
 
 #endif /* SC_EXPRESSION_MULTIPLICATIVEEXPRESSION_H_ */

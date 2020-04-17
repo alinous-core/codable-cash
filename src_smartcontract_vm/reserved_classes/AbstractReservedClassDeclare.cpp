@@ -15,8 +15,10 @@
 
 #include "sc_declare/AccessControlDeclare.h"
 #include "sc_declare/ArgumentsListDeclare.h"
+#include "sc_declare/ClassExtends.h"
 
 #include "sc_statement/StatementBlock.h"
+
 
 
 namespace alinous {
@@ -39,6 +41,11 @@ ArrayList<MethodDeclare>* AbstractReservedClassDeclare::getMethods() noexcept {
 }
 
 void AbstractReservedClassDeclare::preAnalyze(AnalyzeContext* actx) {
+	if(this->extends != nullptr){
+		this->extends->setParent(this);
+		this->extends->preAnalyze(actx);
+	}
+
 	int maxLoop = this->methods->size();
 	for(int i = 0; i != maxLoop; ++i){
 		MethodDeclare* method = this->methods->get(i);
@@ -57,6 +64,10 @@ void AbstractReservedClassDeclare::preAnalyze(AnalyzeContext* actx) {
 }
 
 void AbstractReservedClassDeclare::analyzeTypeRef(AnalyzeContext* actx) {
+	if(this->extends != nullptr){
+		this->extends->analyzeTypeRef(actx);
+	}
+
 	int maxLoop = this->methods->size();
 	for(int i = 0; i != maxLoop; ++i){
 		MethodDeclare* method = this->methods->get(i);

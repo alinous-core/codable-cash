@@ -28,7 +28,6 @@
 
 #include "instance_gc/GcManager.h"
 
-#include "instance_exception/AbstractProgramException.h"
 
 #include "base_io_stream/FileInputStream.h"
 #include "base_io/File.h"
@@ -42,6 +41,8 @@
 #include "ext_arguments/AbstractFunctionExtArguments.h"
 
 #include "reserved_classes/ReservedClassRegistory.h"
+
+#include "base/Exception.h"
 namespace alinous {
 
 SmartContract::SmartContract() {
@@ -213,7 +214,7 @@ VmClassInstance* SmartContract::createInstance(VirtualMachine* vm) {
 		ArrayList<AbstractFunctionExtArguments> arguments;
 		vm->interpret(defConstructor, inst, &arguments);
 	}
-	catch(AbstractProgramException* e){
+	catch(Exception* e){
 		throw e;
 	}
 
