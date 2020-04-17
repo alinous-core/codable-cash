@@ -12,6 +12,11 @@
 
 #include "base/UnicodeString.h"
 
+#include "sc_declare/MemberVariableDeclare.h"
+#include "sc_declare/AccessControlDeclare.h"
+
+#include "sc_declare_types/StringType.h"
+
 
 namespace alinous {
 
@@ -19,6 +24,13 @@ UnicodeString ExceptionClassDeclare::NAME{L"Exception"};
 
 ExceptionClassDeclare::ExceptionClassDeclare() : AbstractReservedClassDeclare() {
 	addDefaultConstructor(&NAME);
+
+	MemberVariableDeclare* message = new MemberVariableDeclare();
+	message->setAccessControl(AccessControlDeclare::PROTECTED);
+	message->setType(new StringType());
+	message->setName(new UnicodeString(L"message"));
+
+	this->members->addElement(message);
 }
 
 ExceptionClassDeclare::~ExceptionClassDeclare() {

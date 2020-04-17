@@ -52,7 +52,7 @@ ClassDeclare* ArrayOutOfBoundsExceptionClassDeclare::getBaseClass() const noexce
 	AnalyzedType* atype = this->extends->getAnalyzedType();
 	AnalyzedClass* aclass = atype->getAnalyzedClass();
 
-	return this->getClassDeclare();
+	return aclass->getClassDeclare();
 }
 
 IVmInstanceFactory* ArrayOutOfBoundsExceptionClassDeclare::getFactory() const noexcept {

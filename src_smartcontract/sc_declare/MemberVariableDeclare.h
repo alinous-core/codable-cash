@@ -34,6 +34,7 @@ public:
 	void onAllocate(VirtualMachine* vm, AbstractReference* ref);
 
 	void setAccessControl(AccessControlDeclare* ctrl) noexcept;
+	void setAccessControl(char ctrl) noexcept;
 	void setType(AbstractType* type) noexcept;
 	void setStatic(bool s) noexcept;
 	void setName(UnicodeString* name) noexcept;

@@ -123,6 +123,12 @@ void MemberVariableDeclare::setAccessControl(AccessControlDeclare* ctrl) noexcep
 	this->ctrl = ctrl;
 }
 
+void MemberVariableDeclare::setAccessControl(char ctrl) noexcept {
+	this->ctrl = new AccessControlDeclare();
+	this->ctrl->setCtrl(ctrl);
+}
+
+
 void MemberVariableDeclare::setType(AbstractType* type) noexcept {
 	this->type = type;
 }

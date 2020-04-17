@@ -52,7 +52,7 @@ ClassDeclare* NullPointerExceptionClassDeclare::getBaseClass() const noexcept {
 	AnalyzedType* atype = this->extends->getAnalyzedType();
 	AnalyzedClass* aclass = atype->getAnalyzedClass();
 
-	return this->getClassDeclare();
+	return aclass->getClassDeclare();
 }
 
 IVmInstanceFactory* NullPointerExceptionClassDeclare::getFactory() const noexcept {

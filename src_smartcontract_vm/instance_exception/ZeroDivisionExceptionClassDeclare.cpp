@@ -52,7 +52,7 @@ ClassDeclare* ZeroDivisionExceptionClassDeclare::getBaseClass() const noexcept {
 	AnalyzedType* atype = this->extends->getAnalyzedType();
 	AnalyzedClass* aclass = atype->getAnalyzedClass();
 
-	return this->getClassDeclare();
+	return aclass->getClassDeclare();
 }
 
 IVmInstanceFactory* ZeroDivisionExceptionClassDeclare::getFactory() const  noexcept{
