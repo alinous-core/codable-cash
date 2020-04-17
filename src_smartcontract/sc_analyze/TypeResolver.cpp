@@ -149,14 +149,16 @@ AnalyzedType* TypeResolver::findClassType(const CodeElement* element, const Unic
 
 		// find import section
 		ImportsDeclare* imports = unit->getImportDeclare();
-		AnalyzedType* atype = findFromImports(name, imports);
-		if(atype != nullptr){
-			return atype;
+		if(imports != nullptr){
+			AnalyzedType* atype = findFromImports(name, imports);
+			if(atype != nullptr){
+				return atype;
+			}
 		}
 
 		// find same package
 		const UnicodeString* packageName = unit->getPackageName();
-		atype = findClassType(packageName, name);
+		AnalyzedType* atype = findClassType(packageName, name);
 		if(atype != nullptr){
 			return atype;
 		}

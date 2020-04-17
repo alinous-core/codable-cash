@@ -52,19 +52,26 @@ void MultiplicativeExpression::analyze(AnalyzeContext* actx) {
 AbstractVmInstance* MultiplicativeExpression::interpret(VirtualMachine* vm) {
 	uint8_t type = this->atype->getType();
 
-	switch (type) {
-		case AnalyzedType::TYPE_BYTE:
-			return interpret8Bit(vm);
-		case AnalyzedType::TYPE_CHAR:
-		case AnalyzedType::TYPE_SHORT:
-			return interpret16Bit(vm);
-		case AnalyzedType::TYPE_LONG:
-			return interpret64Bit(vm);
-		default:
-			break;
+	try{
+		switch (type) {
+			case AnalyzedType::TYPE_BYTE:
+				return interpret8Bit(vm);
+			case AnalyzedType::TYPE_CHAR:
+			case AnalyzedType::TYPE_SHORT:
+				return interpret16Bit(vm);
+			case AnalyzedType::TYPE_LONG:
+				return interpret64Bit(vm);
+			default:
+				break;
+		}
+
+		return interpret32Bit(vm);
+	}
+	catch(ZeroDivException* e){
+		// FIXME zero div
 	}
 
-	return interpret32Bit(vm);
+	return nullptr;
 }
 
 AbstractVmInstance* MultiplicativeExpression::interpret8Bit(VirtualMachine* vm) {
@@ -76,35 +83,28 @@ AbstractVmInstance* MultiplicativeExpression::interpret8Bit(VirtualMachine* vm) 
 
 	gc->handleFloatingObject(pinst);
 
+	int maxLoop = this->list.size();
+	for(int i = 1; i != maxLoop; ++i){
+		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
-	try{
-		int maxLoop = this->list.size();
-		for(int i = 1; i != maxLoop; ++i){
-			AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
-			PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
+		uint8_t op = this->operations.get(i - 1);
 
-			uint8_t op = this->operations.get(i - 1);
+		if(op == MUL){
+			result *= opinst->getByteValue();
+		}else if(op == DIV){
+			uint8_t v = opinst->getByteValue();
+			checkZeroDiv(v);
 
-			if(op == MUL){
-				result *= opinst->getByteValue();
-			}else if(op == DIV){
-				uint8_t v = opinst->getByteValue();
-				checkZeroDiv(v);
+			result = result / v;
+		}else if(op == MOD){
+			uint8_t v = opinst->getByteValue();
+			checkZeroDiv(v);
 
-				result = result / v;
-			}else if(op == MOD){
-				uint8_t v = opinst->getByteValue();
-				checkZeroDiv(v);
-
-				result = result % v;
-			}
-
-			gc->handleFloatingObject(opinst);
+			result = result % v;
 		}
-	}
-	catch(ZeroDivException* e){
-		// FIXME zero div
-		delete e;
+
+		gc->handleFloatingObject(opinst);
 	}
 
 	return PrimitiveReference::createByteReference(vm, result);
@@ -119,34 +119,28 @@ AbstractVmInstance* MultiplicativeExpression::interpret16Bit(VirtualMachine* vm)
 
 	gc->handleFloatingObject(pinst);
 
-	try{
-		int maxLoop = this->list.size();
-		for(int i = 1; i != maxLoop; ++i){
-			AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
-			PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
+	int maxLoop = this->list.size();
+	for(int i = 1; i != maxLoop; ++i){
+		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
-			uint8_t op = this->operations.get(i - 1);
+		uint8_t op = this->operations.get(i - 1);
 
-			if(op == MUL){
-				result *= opinst->getShortValue();
-			}else if(op == DIV){
-				int16_t v = opinst->getShortValue();
-				checkZeroDiv(v);
+		if(op == MUL){
+			result *= opinst->getShortValue();
+		}else if(op == DIV){
+			int16_t v = opinst->getShortValue();
+			checkZeroDiv(v);
 
-				result = result / v;
-			}else if(op == MOD){
-				int16_t v = opinst->getShortValue();
-				checkZeroDiv(v);
+			result = result / v;
+		}else if(op == MOD){
+			int16_t v = opinst->getShortValue();
+			checkZeroDiv(v);
 
-				result = result % v;
-			}
-
-			gc->handleFloatingObject(opinst);
+			result = result % v;
 		}
-	}
-	catch(ZeroDivException* e){
-		// FIXME zero div
-		delete e;
+
+		gc->handleFloatingObject(opinst);
 	}
 
 	return PrimitiveReference::createShortReference(vm, result);
@@ -161,34 +155,28 @@ AbstractVmInstance* MultiplicativeExpression::interpret32Bit(VirtualMachine* vm)
 
 	gc->handleFloatingObject(pinst);
 
-	try{
-		int maxLoop = this->list.size();
-		for(int i = 1; i != maxLoop; ++i){
-			AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
-			PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
+	int maxLoop = this->list.size();
+	for(int i = 1; i != maxLoop; ++i){
+		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
-			uint8_t op = this->operations.get(i - 1);
+		uint8_t op = this->operations.get(i - 1);
 
-			if(op == MUL){
-				result *= opinst->getIntValue();
-			}else if(op == DIV){
-				int32_t v = opinst->getIntValue();
-				checkZeroDiv(v);
+		if(op == MUL){
+			result *= opinst->getIntValue();
+		}else if(op == DIV){
+			int32_t v = opinst->getIntValue();
+			checkZeroDiv(v);
 
-				result = result / v;
-			}else if(op == MOD){
-				int32_t v = opinst->getIntValue();
-				checkZeroDiv(v);
+			result = result / v;
+		}else if(op == MOD){
+			int32_t v = opinst->getIntValue();
+			checkZeroDiv(v);
 
-				result = result % v;
-			}
-
-			gc->handleFloatingObject(opinst);
+			result = result % v;
 		}
-	}
-	catch(ZeroDivException* e){
-		// FIXME zero div
-		delete e;
+
+		gc->handleFloatingObject(opinst);
 	}
 
 	return PrimitiveReference::createIntReference(vm, result);
@@ -203,34 +191,28 @@ AbstractVmInstance* MultiplicativeExpression::interpret64Bit(VirtualMachine* vm)
 
 	gc->handleFloatingObject(pinst);
 
-	try{
-		int maxLoop = this->list.size();
-		for(int i = 1; i != maxLoop; ++i){
-			AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
-			PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
+	int maxLoop = this->list.size();
+	for(int i = 1; i != maxLoop; ++i){
+		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
-			uint8_t op = this->operations.get(i - 1);
+		uint8_t op = this->operations.get(i - 1);
 
-			if(op == MUL){
-				result *= opinst->getLongValue();
-			}else if(op == DIV){
-				int64_t v = opinst->getLongValue();
-				checkZeroDiv(v);
+		if(op == MUL){
+			result *= opinst->getLongValue();
+		}else if(op == DIV){
+			int64_t v = opinst->getLongValue();
+			checkZeroDiv(v);
 
-				result = result / v;
-			}else if(op == MOD){
-				int64_t v = opinst->getLongValue();
-				checkZeroDiv(v);
+			result = result / v;
+		}else if(op == MOD){
+			int64_t v = opinst->getLongValue();
+			checkZeroDiv(v);
 
-				result = result % v;
-			}
-
-			gc->handleFloatingObject(opinst);
+			result = result % v;
 		}
-	}
-	catch(ZeroDivException* e){
-		// FIXME zero div
-		delete e;
+
+		gc->handleFloatingObject(opinst);
 	}
 
 	return PrimitiveReference::createLongReference(vm, result);
