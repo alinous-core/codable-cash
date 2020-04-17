@@ -10,8 +10,13 @@
 #include "base/UnicodeString.h"
 
 #include "sc_analyze/AnalyzedClass.h"
+#include "sc_analyze/AnalyzedType.h"
 
 #include "instance_exception_class/ExceptionInstanceFactory.h"
+#include "instance_exception_class/ExceptionClassDeclare.h"
+
+#include "sc_declare/ClassExtends.h"
+
 
 namespace alinous {
 
@@ -19,6 +24,9 @@ UnicodeString ArrayOutOfBoundsExceptionClassDeclare::NAME{L"ArrayOutOfBoundsExce
 
 ArrayOutOfBoundsExceptionClassDeclare::ArrayOutOfBoundsExceptionClassDeclare() : AbstractReservedClassDeclare() {
 	addDefaultConstructor(&NAME);
+
+	this->extends = new ClassExtends();
+	this->extends->setClassName(&ExceptionClassDeclare::NAME);
 }
 
 AnalyzedClass* ArrayOutOfBoundsExceptionClassDeclare::createAnalyzedClass() noexcept {
@@ -41,6 +49,10 @@ const UnicodeString* ArrayOutOfBoundsExceptionClassDeclare::getFullQualifiedName
 }
 
 ClassDeclare* ArrayOutOfBoundsExceptionClassDeclare::getBaseClass() const noexcept {
+	AnalyzedType* atype = this->extends->getAnalyzedType();
+	AnalyzedClass* aclass = atype->getAnalyzedClass();
+
+	return this->getClassDeclare();
 }
 
 IVmInstanceFactory* ArrayOutOfBoundsExceptionClassDeclare::getFactory() const noexcept {

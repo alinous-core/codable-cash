@@ -12,12 +12,15 @@
 
 namespace alinous {
 
+class UnicodeString;
+
 class ClassName : public CodeElement {
 public:
 	ClassName();
 	virtual ~ClassName();
 
 	void addStr(const char* str) noexcept;
+	void addStr(const UnicodeString* str) noexcept;
 	const UnicodeString* getName() noexcept;
 
 	virtual int binarySize() const;

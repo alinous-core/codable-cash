@@ -28,6 +28,13 @@ void ClassName::addStr(const char* str) noexcept {
 	this->fqn->append(&ustr);
 }
 
+void ClassName::addStr(const UnicodeString* str) noexcept {
+	if(this->fqn == nullptr){
+		this->fqn = new UnicodeString(L"");
+	}
+	this->fqn->append(str);
+}
+
 const UnicodeString* ClassName::getName() noexcept {
 	return this->fqn;
 }
