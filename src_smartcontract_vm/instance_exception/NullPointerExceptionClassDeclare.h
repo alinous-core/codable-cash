@@ -19,6 +19,13 @@ public:
 
 	NullPointerExceptionClassDeclare();
 	virtual ~NullPointerExceptionClassDeclare();
+
+	virtual const UnicodeString* getName() noexcept;
+	virtual const UnicodeString* getFullQualifiedName() noexcept;
+
+	virtual ClassDeclare* getBaseClass() const noexcept;
+
+	virtual IVmInstanceFactory* getFactory() const noexcept;
 };
 
 } /* namespace alinous */
