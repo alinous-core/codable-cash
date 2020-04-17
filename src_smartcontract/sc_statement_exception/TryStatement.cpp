@@ -11,18 +11,27 @@
 #include "sc_statement_exception/CatchStatement.h"
 #include "sc_statement_exception/FinallyStatement.h"
 
+#include "vm_ctrl/ExecControlManager.h"
+#include "vm_ctrl/AbstractCtrlInstruction.h"
+#include "vm_ctrl/BlockState.h"
+
+#include "vm/VirtualMachine.h"
+
 
 namespace alinous {
 
 TryStatement::TryStatement() : AbstractStatement(CodeElement::STMT_TRY) {
 	this->block = nullptr;
 	this->finallyStmt = nullptr;
+	this->bctrl = false;
+	this->blockState = new BlockState(BlockState::BLOCK_NORMAL);
 }
 
 TryStatement::~TryStatement() {
 	delete this->block;
 	this->catchStmts.deleteElements();
 	delete this->finallyStmt;
+	delete this->blockState;
 }
 
 void TryStatement::preAnalyze(AnalyzeContext* actx) {
@@ -60,17 +69,21 @@ void TryStatement::analyzeTypeRef(AnalyzeContext* actx) {
 
 void TryStatement::analyze(AnalyzeContext* actx) {
 	this->block->analyze(actx);
+	this->bctrl = this->block->hasCtrlStatement();
 
 	int maxLoop = this->catchStmts.size();
 	for(int i = 0; i != maxLoop; ++i){
 		CatchStatement* catchStmt = this->catchStmts.get(i);
 
 		catchStmt->analyze(actx);
+		this->bctrl = this->bctrl || catchStmt->hasCtrlStatement();
 	}
 
 	if(this->finallyStmt != nullptr){
 		this->finallyStmt->analyze(actx);
+		this->bctrl = this->bctrl || this->finallyStmt->hasCtrlStatement();
 	}
+
 }
 
 void TryStatement::init(VirtualMachine* vm) {
@@ -90,12 +103,21 @@ void TryStatement::init(VirtualMachine* vm) {
 void TryStatement::interpret(VirtualMachine* vm) {
 	this->block->interpret(vm);
 
-	int maxLoop = this->catchStmts.size();
-	for(int i = 0; i != maxLoop; ++i){
-		CatchStatement* catchStmt = this->catchStmts.get(i);
+	ExecControlManager* ctrl = vm->getCtrl();
+	if(ctrl->isExceptionThrown()){
+		int maxLoop = this->catchStmts.size();
+		for(int i = 0; i != maxLoop; ++i){
+			CatchStatement* catchStmt = this->catchStmts.get(i);
 
-		catchStmt->interpret(vm);
+			catchStmt->interpret(vm);
+
+			int stat = ctrl->checkStatementCtrl(this->blockState, catchStmt);
+			if(!ctrl->isExceptionThrown() || stat == AbstractCtrlInstruction::RET_BREAK || stat == AbstractCtrlInstruction::RET_CONTINUE || stat == AbstractCtrlInstruction::RET_THROW){
+				break;
+			}
+		}
 	}
+
 
 	if(this->finallyStmt != nullptr){
 		this->finallyStmt->interpret(vm);
@@ -103,7 +125,7 @@ void TryStatement::interpret(VirtualMachine* vm) {
 }
 
 bool TryStatement::hasCtrlStatement() const noexcept {
-	return true;
+	return this->bctrl;
 }
 
 int TryStatement::binarySize() const {

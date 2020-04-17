@@ -65,4 +65,11 @@ void ExecControlManager::consumeException(VirtualMachine* vm) noexcept {
 	doConsumeInstruction();
 }
 
+bool ExecControlManager::isExceptionThrown() const noexcept {
+	ExceptionControl* exInstruction = dynamic_cast<ExceptionControl*>(this->instruction);
+
+	return exInstruction != nullptr;
+}
+
+
 } /* namespace alinous */

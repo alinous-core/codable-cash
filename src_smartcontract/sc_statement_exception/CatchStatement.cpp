@@ -38,6 +38,7 @@ CatchStatement::CatchStatement() : AbstractStatement(CodeElement::STMT_TRY_CATCH
 	this->block = nullptr;
 	this->variableDeclare = nullptr;
 	this->atype = nullptr;
+	this->bctrl = false;
 }
 
 CatchStatement::~CatchStatement() {
@@ -85,6 +86,7 @@ void CatchStatement::analyze(AnalyzeContext* actx) {
 	}
 
 	this->atype = new AnalyzedType(at);
+	this->bctrl = this->block->hasCtrlStatement();
 }
 
 void CatchStatement::init(VirtualMachine* vm) {
@@ -117,7 +119,7 @@ void CatchStatement::interpret(VirtualMachine* vm) {
 }
 
 bool CatchStatement::hasCtrlStatement() const noexcept {
-	return true;
+	return this->bctrl;
 }
 
 int CatchStatement::binarySize() const {

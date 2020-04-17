@@ -28,6 +28,7 @@ public:
 	int checkStatementCtrl(BlockState* state, CodeElement* lastElement) noexcept;
 
 	ObjectReference* getException() const noexcept;
+	bool isExceptionThrown() const noexcept;
 	void consumeException(VirtualMachine* vm) noexcept;
 
 private:

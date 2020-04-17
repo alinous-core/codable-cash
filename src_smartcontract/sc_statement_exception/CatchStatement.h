@@ -42,6 +42,7 @@ private:
 	VariableDeclareStatement* variableDeclare;
 
 	AnalyzedType* atype;
+	bool bctrl;
 };
 
 } /* namespace alinous */

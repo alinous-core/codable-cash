@@ -17,6 +17,7 @@ namespace alinous {
 class StatementBlock;
 class CatchStatement;
 class FinallyStatement;
+class BlockState;
 
 class TryStatement : public AbstractStatement {
 public:
@@ -44,6 +45,9 @@ private:
 	StatementBlock* block;
 	ArrayList<CatchStatement> catchStmts;
 	FinallyStatement* finallyStmt;
+
+	BlockState* blockState;
+	bool bctrl;
 };
 
 } /* namespace alinous */
