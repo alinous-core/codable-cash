@@ -15,6 +15,7 @@ namespace alinous {
 class NullPointerExceptionClassDeclare : public AbstractReservedClassDeclare {
 public:
 	static UnicodeString NAME;
+	static AnalyzedClass* createAnalyzedClass() noexcept;
 
 	NullPointerExceptionClassDeclare();
 	virtual ~NullPointerExceptionClassDeclare();

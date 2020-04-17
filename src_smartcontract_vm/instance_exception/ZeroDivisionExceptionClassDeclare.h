@@ -15,6 +15,7 @@ namespace alinous {
 class ZeroDivisionExceptionClassDeclare : public AbstractReservedClassDeclare {
 public:
 	static UnicodeString NAME;
+	static AnalyzedClass* createAnalyzedClass() noexcept;
 
 	ZeroDivisionExceptionClassDeclare();
 	virtual ~ZeroDivisionExceptionClassDeclare();

@@ -15,6 +15,7 @@ namespace alinous {
 class ArrayOutOfBoundsExceptionClassDeclare : public AbstractReservedClassDeclare {
 public:
 	static UnicodeString NAME;
+	static AnalyzedClass* createAnalyzedClass() noexcept;
 
 	ArrayOutOfBoundsExceptionClassDeclare();
 	virtual ~ArrayOutOfBoundsExceptionClassDeclare();
