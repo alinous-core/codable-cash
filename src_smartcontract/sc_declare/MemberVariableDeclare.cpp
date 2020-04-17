@@ -113,6 +113,9 @@ void MemberVariableDeclare::doOnAllocate(VirtualMachine* vm, AbstractReference* 
 	StackPopper popStack(vm);
 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
+
+	// FIXME exception
+
 	IAbstractVmInstanceSubstance* sub = inst != nullptr ? inst->getInstance() : nullptr;
 	ref->substitute(sub, vm);
 

@@ -106,7 +106,7 @@ void EqualityExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* EqualityExpression::interpret(VirtualMachine* vm) {
-	AbstractVmInstance* leftv = this->left->interpret(vm);
+	AbstractVmInstance* leftv = this->left->interpret(vm); // FIXME exception
 	AbstractVmInstance* rightv = this->right->interpret(vm);
 
 	int result = leftv->valueCompare(rightv->getInstance());

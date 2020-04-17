@@ -135,6 +135,8 @@ void DoWhileStatement::interpret(VirtualMachine* vm) {
 
 		// check
 		inst = this->exp->interpret(vm);
+		// FIXME exception
+
 		ref = dynamic_cast<PrimitiveReference*>(inst);
 
 		bool exec = ref->getBoolValue();

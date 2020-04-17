@@ -115,6 +115,8 @@ void SubstitutionStatement::interpret(VirtualMachine* vm) {
 	StackFloatingVariableHandler releaser(gc);
 	releaser.registerInstance(rightValue);
 
+	// FIXME check exception
+
 	AbstractReference* leftRef = dynamic_cast<AbstractReference*>(leftValue);
 	assert(leftRef->isReference());
 

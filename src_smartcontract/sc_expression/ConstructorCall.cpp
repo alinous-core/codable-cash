@@ -200,7 +200,7 @@ AbstractVmInstance* ConstructorCall::interpret(VirtualMachine* vm) {
 	AnalyzedClass* clazz = this->atype->getAnalyzedClass();
 	VmClassInstance* inst = VmClassInstance::createObject(clazz, vm);
 
-	FunctionArguments args;
+	FunctionArguments args; // FIXME exception
 	interpretArguments(vm, &args, inst);
 
 

@@ -73,6 +73,8 @@ void ReturnStatement::init(VirtualMachine* vm) {
 void ReturnStatement::interpret(VirtualMachine* vm) {
 	if(this->exp != nullptr){
 		interpretExpression(vm);
+
+		// FIXME exception
 	}
 
 	ExecControlManager* ctrl = vm->getCtrl();

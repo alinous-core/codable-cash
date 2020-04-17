@@ -78,7 +78,7 @@ void NotExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* NotExpression::interpret(VirtualMachine* vm) {
-	AbstractVmInstance* inst = this->exp->interpret(vm);
+	AbstractVmInstance* inst = this->exp->interpret(vm); // FIXME exception
 	PrimitiveReference* blRef =dynamic_cast<PrimitiveReference*>(inst);
 
 	bool blvalue = !(blRef->getIntValue() == 1);

@@ -234,7 +234,7 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm, VmClassInstance* classInst) {
-	FunctionArguments args;
+	FunctionArguments args; // FIXME exception
 	args.setThisPtr(classInst);
 	interpretArguments(vm, &args);
 

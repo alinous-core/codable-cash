@@ -103,7 +103,7 @@ AbstractVmInstance* BitReverseExpression::interpret(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* BitReverseExpression::interpret8Bit(VirtualMachine* vm) {
-	GcManager* gc = vm->getGc();
+	GcManager* gc = vm->getGc(); // FIXME exception
 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);

@@ -121,6 +121,8 @@ void WhileStatement::interpret(VirtualMachine* vm) {
 
 	while(true){
 		inst = this->exp->interpret(vm);
+		// FIXME exception
+
 		ref = dynamic_cast<PrimitiveReference*>(inst);
 
 		bool exec = ref->getBoolValue();

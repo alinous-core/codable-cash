@@ -68,7 +68,7 @@ AnalyzedType ConditionalAndExpression::getType(AnalyzeContext* actx) {
 }
 
 AbstractVmInstance* ConditionalAndExpression::interpret(VirtualMachine* vm) {
-	GcManager* gc = vm->getGc();
+	GcManager* gc = vm->getGc(); // FIXME exception
 
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){

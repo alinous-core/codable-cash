@@ -77,6 +77,8 @@ AbstractVmInstance* MultiplicativeExpression::interpret(VirtualMachine* vm) {
 AbstractVmInstance* MultiplicativeExpression::interpret8Bit(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
 
+	// FIXME exception
+
 	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int8_t result = pinst->getByteValue();

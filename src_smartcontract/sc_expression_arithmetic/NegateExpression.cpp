@@ -89,7 +89,7 @@ AbstractVmInstance* NegateExpression::interpret(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* NegateExpression::interpret8Bit(VirtualMachine* vm) {
-	AbstractVmInstance* inst = this->exp->interpret(vm);
+	AbstractVmInstance* inst = this->exp->interpret(vm); // FIXME exception
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
 	int8_t val = ref->getByteValue() * -1;

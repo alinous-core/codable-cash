@@ -229,6 +229,8 @@ void IfStatement::interpret(VirtualMachine* vm) {
 	StackFloatingVariableHandler releaser(gc);
 
 	AbstractVmInstance* expV = releaser.registerInstance(this->exp->interpret(vm));
+	// FIXME exception
+
 	PrimitiveReference* condition = dynamic_cast<PrimitiveReference*>(expV);
 
 	if(condition->getBoolValue()){

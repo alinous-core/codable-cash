@@ -109,7 +109,7 @@ AbstractVmInstance* ShiftExpression::interpret(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* ShiftExpression::interpret8Bit(VirtualMachine* vm) {
-	GcManager* gc = vm->getGc();
+	GcManager* gc = vm->getGc(); // FIXME exception
 
 	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);

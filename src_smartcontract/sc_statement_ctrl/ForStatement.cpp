@@ -217,6 +217,8 @@ void ForStatement::interpret(VirtualMachine* vm) {
 	while(true){
 		if(this->cond != nullptr){
 			inst = this->cond->interpret(vm);
+			// FIXME exception
+
 			ref = dynamic_cast<PrimitiveReference*>(inst);
 
 			bool exec = ref->getBoolValue();

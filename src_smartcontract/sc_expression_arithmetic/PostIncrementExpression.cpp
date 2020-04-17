@@ -92,7 +92,7 @@ AbstractVmInstance* PostIncrementExpression::interpret(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* PostIncrementExpression::interpret8Bit(VirtualMachine* vm) {
-	AbstractVmInstance* inst = this->exp->interpret(vm);
+	AbstractVmInstance* inst = this->exp->interpret(vm); // FIXME exception
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
 	uint8_t val = ref->getByteValue();

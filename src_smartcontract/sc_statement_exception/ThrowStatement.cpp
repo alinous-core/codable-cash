@@ -73,6 +73,8 @@ void ThrowStatement::interpret(VirtualMachine* vm) {
 	ExecControlManager* ctrl = vm->getCtrl();
 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
+	// FIXME exception
+
 	if(inst == nullptr || inst->isNull()){
 		// FIXME throw nullpointerexception
 		return;
