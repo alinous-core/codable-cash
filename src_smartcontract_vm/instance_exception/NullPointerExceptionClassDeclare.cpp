@@ -5,17 +5,21 @@
  *      Author: iizuka
  */
 
-#include <instance_exception/NullPointerExceptionClassDeclare.h>
+#include "instance_exception/NullPointerExceptionClassDeclare.h"
+
+#include "base/UnicodeString.h"
+
 
 namespace alinous {
 
-NullPointerExceptionClassDeclare::NullPointerExceptionClassDeclare() {
-	// TODO Auto-generated constructor stub
+UnicodeString NullPointerExceptionClassDeclare::NAME{L"NullPointerException"};
 
+NullPointerExceptionClassDeclare::NullPointerExceptionClassDeclare() : AbstractReservedClassDeclare() {
+	addDefaultConstructor(&NAME);
 }
 
 NullPointerExceptionClassDeclare::~NullPointerExceptionClassDeclare() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */

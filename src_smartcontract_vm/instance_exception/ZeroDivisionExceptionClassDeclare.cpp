@@ -5,17 +5,21 @@
  *      Author: iizuka
  */
 
-#include <instance_exception/ZeroDivisionExceptionClassDeclare.h>
+#include "instance_exception/ZeroDivisionExceptionClassDeclare.h"
+
+#include "base/UnicodeString.h"
+
 
 namespace alinous {
 
-ZeroDivisionExceptionClassDeclare::ZeroDivisionExceptionClassDeclare() {
-	// TODO Auto-generated constructor stub
+UnicodeString ZeroDivisionExceptionClassDeclare::NAME{L"ZeroDivisionException"};
 
+ZeroDivisionExceptionClassDeclare::ZeroDivisionExceptionClassDeclare() : AbstractReservedClassDeclare() {
+	addDefaultConstructor(&NAME);
 }
 
 ZeroDivisionExceptionClassDeclare::~ZeroDivisionExceptionClassDeclare() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */

@@ -8,10 +8,14 @@
 #ifndef INSTANCE_EXCEPTION_ARRAYOUTOFBOUNDSEXCEPTIONCLASSDECLARE_H_
 #define INSTANCE_EXCEPTION_ARRAYOUTOFBOUNDSEXCEPTIONCLASSDECLARE_H_
 
+#include "reserved_classes/AbstractReservedClassDeclare.h"
+
 namespace alinous {
 
-class ArrayOutOfBoundsExceptionClassDeclare {
+class ArrayOutOfBoundsExceptionClassDeclare : public AbstractReservedClassDeclare {
 public:
+	static UnicodeString NAME;
+
 	ArrayOutOfBoundsExceptionClassDeclare();
 	virtual ~ArrayOutOfBoundsExceptionClassDeclare();
 };
