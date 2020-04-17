@@ -15,6 +15,8 @@
 
 #include "sc/CompilationUnit.h"
 
+#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
+#include "instance_exception/NullPointerExceptionClassDeclare.h"
 
 namespace alinous {
 
@@ -26,6 +28,14 @@ ReservedClassRegistory::ReservedClassRegistory() {
 	this->list.addElement(aclass);
 
 	aclass = ExceptionClassDeclare::createAnalyzedClass();
+	aclass->setReserved(true);
+	this->list.addElement(aclass);
+
+	aclass = ArrayOutOfBoundsExceptionClassDeclare::createAnalyzedClass();
+	aclass->setReserved(true);
+	this->list.addElement(aclass);
+
+	aclass = NullPointerExceptionClassDeclare::createAnalyzedClass();
 	aclass->setReserved(true);
 	this->list.addElement(aclass);
 }
