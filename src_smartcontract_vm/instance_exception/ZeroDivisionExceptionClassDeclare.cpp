@@ -55,6 +55,8 @@ void ZeroDivisionExceptionClassDeclare::throwException(VirtualMachine* vm, const
 	AnalyzedClass* aclass = ReservedClassRegistory::getInstance()->getAnalyzedClass(&NAME);
 
 	VmClassInstance* inst = factory->createInstance(aclass, vm);
+
+
 	VmExceptionInstance* exception = dynamic_cast<VmExceptionInstance*>(inst);
 
 	vm->throwException(exception, element);

@@ -185,7 +185,7 @@ void AnalyzeContext::resigterReservedClasses() noexcept {
 			this->packageSpaces->put(packageName, space);
 		}
 
-		space->addClassDeclare(cls->getClassDeclare());
+		space->addClassDeclare(cls);
 	}
 }
 

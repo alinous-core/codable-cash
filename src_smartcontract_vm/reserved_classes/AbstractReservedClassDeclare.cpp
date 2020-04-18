@@ -19,6 +19,14 @@
 
 #include "sc_statement/StatementBlock.h"
 
+#include "sc_analyze/PackageSpace.h"
+#include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/AnalyzedClass.h"
+
+#include "reserved_classes/ReservedClassRegistory.h"
+
+#include "sc/CompilationUnit.h"
 
 
 namespace alinous {
@@ -80,6 +88,19 @@ void AbstractReservedClassDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 		MemberVariableDeclare* member = this->members->get(i);
 
 		member->analyzeTypeRef(actx);
+	}
+
+	ReservedClassRegistory* reg = ReservedClassRegistory::getInstance();
+	CompilationUnit* unit = reg->getUnit();
+	PackageSpace* space = actx->getPackegeSpace(unit->getPackageName());
+
+	const UnicodeString* fqn = getFullQualifiedName();
+	AnalyzedClass* dec = space->getClass(fqn);
+
+	// set analyzed class
+	if(this->extends != nullptr){
+		AnalyzedType* cls = this->extends->getAnalyzedType();
+		dec->setExtends(cls->getAnalyzedClass());
 	}
 }
 
