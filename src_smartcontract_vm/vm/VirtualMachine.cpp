@@ -170,13 +170,7 @@ void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractFu
 	methodDeclare->interpret(&args, this);
 
 	// uncaught exception
-	ReservedClassRegistory* reg = ReservedClassRegistory::getInstance();
-	AnalyzedClass* exclass = reg->getAnalyzedClass(&ExceptionClassDeclare::NAME);
-	this->uncaughtException = catchException(exclass);
-
-	if(this->uncaughtException != nullptr){
-		this->gc->registerObject(this->uncaughtException);
-	}
+	checkUncaughtException();
 }
 
 void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, ArrayList<AbstractFunctionExtArguments>* arguments) {
@@ -188,6 +182,11 @@ void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, Ar
 	method->interpret(&args, this);
 
 	// uncaught exception
+	checkUncaughtException();
+}
+
+
+void VirtualMachine::checkUncaughtException() {
 	ReservedClassRegistory* reg = ReservedClassRegistory::getInstance();
 	AnalyzedClass* exclass = reg->getAnalyzedClass(&ExceptionClassDeclare::NAME);
 
@@ -197,6 +196,7 @@ void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, Ar
 		this->gc->registerObject(this->uncaughtException);
 	}
 }
+
 
 VmMemoryManager* VirtualMachine::getMemory() noexcept {
 	return this->memory;
@@ -363,6 +363,5 @@ ExtExceptionObject* VirtualMachine::getUncaughtException() noexcept {
 
 	return dynamic_cast<ExtExceptionObject*>(extObj);
 }
-
 
 } /* namespace alinous */

@@ -83,6 +83,10 @@ public:
 
 	ArrayList<Exception>& getExceptions() noexcept;
 	ExtExceptionObject* getUncaughtException() noexcept;
+
+private:
+	void checkUncaughtException();
+
 private:
 	SmartContract* sc;
 
