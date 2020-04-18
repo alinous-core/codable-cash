@@ -8,14 +8,16 @@
 #ifndef INSTANCE_EXCEPTION_ZERODIVISIONEXCEPTIONCLASSDECLARE_H_
 #define INSTANCE_EXCEPTION_ZERODIVISIONEXCEPTIONCLASSDECLARE_H_
 
-#include "reserved_classes/AbstractReservedClassDeclare.h"
+#include "instance_exception_class/AbstractExceptionClassDeclare.h"
+
 
 namespace alinous {
 
-class ZeroDivisionExceptionClassDeclare : public AbstractReservedClassDeclare {
+class ZeroDivisionExceptionClassDeclare : public AbstractExceptionClassDeclare {
 public:
 	static UnicodeString NAME;
 	static AnalyzedClass* createAnalyzedClass() noexcept;
+	static void throwException(VirtualMachine* vm, CodeElement* element) noexcept;
 
 	ZeroDivisionExceptionClassDeclare();
 	virtual ~ZeroDivisionExceptionClassDeclare();
@@ -26,6 +28,7 @@ public:
 	virtual ClassDeclare* getBaseClass() const noexcept;
 
 	virtual IVmInstanceFactory* getFactory() const noexcept;
+
 };
 
 } /* namespace alinous */

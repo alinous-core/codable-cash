@@ -13,6 +13,7 @@
 #include "sc_analyze/ValidationError.h"
 #include "sc_analyze/AnalyzeContext.h"
 
+#include "instance_exception/ExceptionInterrupt.h"
 
 namespace alinous {
 
@@ -52,26 +53,19 @@ void MultiplicativeExpression::analyze(AnalyzeContext* actx) {
 AbstractVmInstance* MultiplicativeExpression::interpret(VirtualMachine* vm) {
 	uint8_t type = this->atype->getType();
 
-	try{
-		switch (type) {
-			case AnalyzedType::TYPE_BYTE:
-				return interpret8Bit(vm);
-			case AnalyzedType::TYPE_CHAR:
-			case AnalyzedType::TYPE_SHORT:
-				return interpret16Bit(vm);
-			case AnalyzedType::TYPE_LONG:
-				return interpret64Bit(vm);
-			default:
-				break;
-		}
-
-		return interpret32Bit(vm);
-	}
-	catch(ZeroDivException* e){
-		// FIXME zero div
+	switch (type) {
+		case AnalyzedType::TYPE_BYTE:
+			return interpret8Bit(vm);
+		case AnalyzedType::TYPE_CHAR:
+		case AnalyzedType::TYPE_SHORT:
+			return interpret16Bit(vm);
+		case AnalyzedType::TYPE_LONG:
+			return interpret64Bit(vm);
+		default:
+			break;
 	}
 
-	return nullptr;
+	return interpret32Bit(vm);
 }
 
 AbstractVmInstance* MultiplicativeExpression::interpret8Bit(VirtualMachine* vm) {
@@ -96,12 +90,12 @@ AbstractVmInstance* MultiplicativeExpression::interpret8Bit(VirtualMachine* vm) 
 			result *= opinst->getByteValue();
 		}else if(op == DIV){
 			uint8_t v = opinst->getByteValue();
-			checkZeroDiv(v);
+			checkZeroDiv(v, vm);
 
 			result = result / v;
 		}else if(op == MOD){
 			uint8_t v = opinst->getByteValue();
-			checkZeroDiv(v);
+			checkZeroDiv(v, vm);
 
 			result = result % v;
 		}
@@ -132,12 +126,12 @@ AbstractVmInstance* MultiplicativeExpression::interpret16Bit(VirtualMachine* vm)
 			result *= opinst->getShortValue();
 		}else if(op == DIV){
 			int16_t v = opinst->getShortValue();
-			checkZeroDiv(v);
+			checkZeroDiv(v, vm);
 
 			result = result / v;
 		}else if(op == MOD){
 			int16_t v = opinst->getShortValue();
-			checkZeroDiv(v);
+			checkZeroDiv(v, vm);
 
 			result = result % v;
 		}
@@ -168,12 +162,12 @@ AbstractVmInstance* MultiplicativeExpression::interpret32Bit(VirtualMachine* vm)
 			result *= opinst->getIntValue();
 		}else if(op == DIV){
 			int32_t v = opinst->getIntValue();
-			checkZeroDiv(v);
+			checkZeroDiv(v, vm);
 
 			result = result / v;
 		}else if(op == MOD){
 			int32_t v = opinst->getIntValue();
-			checkZeroDiv(v);
+			checkZeroDiv(v, vm);
 
 			result = result % v;
 		}
@@ -204,12 +198,12 @@ AbstractVmInstance* MultiplicativeExpression::interpret64Bit(VirtualMachine* vm)
 			result *= opinst->getLongValue();
 		}else if(op == DIV){
 			int64_t v = opinst->getLongValue();
-			checkZeroDiv(v);
+			checkZeroDiv(v, vm);
 
 			result = result / v;
 		}else if(op == MOD){
 			int64_t v = opinst->getLongValue();
-			checkZeroDiv(v);
+			checkZeroDiv(v, vm);
 
 			result = result % v;
 		}
@@ -220,10 +214,11 @@ AbstractVmInstance* MultiplicativeExpression::interpret64Bit(VirtualMachine* vm)
 	return PrimitiveReference::createLongReference(vm, result);
 }
 
-void MultiplicativeExpression::checkZeroDiv(int64_t val) const {
+void MultiplicativeExpression::checkZeroDiv(int64_t val, VirtualMachine* vm) const {
 	if(val == 0){
-		CompilationUnit* unit = getCompilationUnit();
-		throw new ZeroDivException();
+
+
+		ExceptionInterrupt::interruptPoint(vm);
 	}
 }
 

@@ -14,15 +14,25 @@
 
 #include "sc_analyze/AnalyzedClass.h"
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/IVmInstanceFactory.h"
 
 #include "sc_declare/ClassExtends.h"
 
+#include "vm/VirtualMachine.h"
+
+#include "vm_ctrl/ExecControlManager.h"
+
+#include "instance/VmClassInstance.h"
+
+#include "reserved_classes/ReservedClassRegistory.h"
+
+#include "instance_exception_class/VmExceptionInstance.h"
 
 namespace alinous {
 
 UnicodeString ZeroDivisionExceptionClassDeclare::NAME{L"ZeroDivisionException"};
 
-ZeroDivisionExceptionClassDeclare::ZeroDivisionExceptionClassDeclare() : AbstractReservedClassDeclare() {
+ZeroDivisionExceptionClassDeclare::ZeroDivisionExceptionClassDeclare() : AbstractExceptionClassDeclare() {
 	addDefaultConstructor(&NAME);
 
 	this->extends = new ClassExtends();
@@ -33,7 +43,21 @@ AnalyzedClass* ZeroDivisionExceptionClassDeclare::createAnalyzedClass() noexcept
 	ZeroDivisionExceptionClassDeclare* classDec = new ZeroDivisionExceptionClassDeclare();
 	AnalyzedClass* aclass = new AnalyzedClass(classDec);
 
+	classDec->setAnalyzedClass(aclass);
+
 	return aclass;
+}
+
+void ZeroDivisionExceptionClassDeclare::throwException(VirtualMachine* vm, CodeElement* element) noexcept {
+	ExecControlManager* ctrl = vm->getCtrl();
+	IVmInstanceFactory* factory = ExceptionInstanceFactory::getInstance();
+
+	AnalyzedClass* aclass = ReservedClassRegistory::getInstance()->getAnalyzedClass(&NAME);
+
+	VmClassInstance* inst = factory->createInstance(aclass, vm);
+	VmExceptionInstance* exception = dynamic_cast<VmExceptionInstance*>(inst);
+
+	vm->throwException(exception, element);
 }
 
 ZeroDivisionExceptionClassDeclare::~ZeroDivisionExceptionClassDeclare() {
@@ -55,7 +79,7 @@ ClassDeclare* ZeroDivisionExceptionClassDeclare::getBaseClass() const noexcept {
 	return aclass->getClassDeclare();
 }
 
-IVmInstanceFactory* ZeroDivisionExceptionClassDeclare::getFactory() const  noexcept{
+IVmInstanceFactory* ZeroDivisionExceptionClassDeclare::getFactory() const noexcept {
 	return ExceptionInstanceFactory::getInstance();
 }
 

@@ -8,11 +8,11 @@
 #ifndef INSTANCE_EXCEPTION_NULLPOINTEREXCEPTIONCLASSDECLARE_H_
 #define INSTANCE_EXCEPTION_NULLPOINTEREXCEPTIONCLASSDECLARE_H_
 
-#include "reserved_classes/AbstractReservedClassDeclare.h"
+#include "instance_exception_class/AbstractExceptionClassDeclare.h"
 
 namespace alinous {
 
-class NullPointerExceptionClassDeclare : public AbstractReservedClassDeclare {
+class NullPointerExceptionClassDeclare : public AbstractExceptionClassDeclare {
 public:
 	static UnicodeString NAME;
 	static AnalyzedClass* createAnalyzedClass() noexcept;

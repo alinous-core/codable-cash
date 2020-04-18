@@ -22,7 +22,7 @@ namespace alinous {
 
 UnicodeString NullPointerExceptionClassDeclare::NAME{L"NullPointerException"};
 
-NullPointerExceptionClassDeclare::NullPointerExceptionClassDeclare() : AbstractReservedClassDeclare() {
+NullPointerExceptionClassDeclare::NullPointerExceptionClassDeclare() : AbstractExceptionClassDeclare() {
 	addDefaultConstructor(&NAME);
 
 	this->extends = new ClassExtends();

@@ -1,6 +1,7 @@
 
 
 set(__src
+	AbstractExceptionClassDeclare.cpp
 	ExceptionClassDeclare.cpp
 	ExceptionInstanceFactory.cpp
 	VmExceptionInstance.cpp

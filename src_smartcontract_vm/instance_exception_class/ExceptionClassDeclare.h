@@ -8,13 +8,13 @@
 #ifndef INSTANCE_EXCEPTION_CLASS_EXCEPTIONCLASSDECLARE_H_
 #define INSTANCE_EXCEPTION_CLASS_EXCEPTIONCLASSDECLARE_H_
 
-#include "reserved_classes/AbstractReservedClassDeclare.h"
+#include "instance_exception_class/AbstractExceptionClassDeclare.h"
 
 namespace alinous {
 
 class AnalyzedClass;
 
-class ExceptionClassDeclare : public AbstractReservedClassDeclare {
+class ExceptionClassDeclare : public AbstractExceptionClassDeclare {
 public:
 	static UnicodeString NAME;
 	static AnalyzedClass* createAnalyzedClass() noexcept;

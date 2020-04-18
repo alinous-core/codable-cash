@@ -22,7 +22,7 @@ namespace alinous {
 
 UnicodeString ExceptionClassDeclare::NAME{L"Exception"};
 
-ExceptionClassDeclare::ExceptionClassDeclare() : AbstractReservedClassDeclare() {
+ExceptionClassDeclare::ExceptionClassDeclare() : AbstractExceptionClassDeclare() {
 	addDefaultConstructor(&NAME);
 
 	MemberVariableDeclare* message = new MemberVariableDeclare();
