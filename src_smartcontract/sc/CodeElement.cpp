@@ -663,7 +663,7 @@ CompilationUnit* CodeElement::getCompilationUnit() const {
 	return dynamic_cast<CompilationUnit*>(element);
 }
 
-short CodeElement::getKind() noexcept {
+short CodeElement::getKind() const noexcept {
 	return this->kind;
 }
 

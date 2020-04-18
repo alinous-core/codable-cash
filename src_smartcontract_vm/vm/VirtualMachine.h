@@ -65,7 +65,7 @@ public:
 	GcManager* getGc() noexcept;
 
 	ExecControlManager* getCtrl() const noexcept;
-	void throwException(VmExceptionInstance* exception, CodeElement* element) noexcept;
+	void throwException(VmExceptionInstance* exception, const CodeElement* element) noexcept;
 	ObjectReference* catchException(AnalyzedClass* exClass) noexcept;
 
 

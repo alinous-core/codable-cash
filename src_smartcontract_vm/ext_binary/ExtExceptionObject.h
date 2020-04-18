@@ -19,10 +19,10 @@ public:
 	explicit ExtExceptionObject(const UnicodeString* name);
 	virtual ~ExtExceptionObject();
 
-	void setCodeElement(CodeElement* element) noexcept;
-	CodeElement* getCodeElement() const noexcept;
+	void setCodeElement(const CodeElement* element) noexcept;
+	const CodeElement* getCodeElement() const noexcept;
 private:
-	CodeElement* element;
+	const CodeElement* element;
 };
 
 } /* namespace alinous */

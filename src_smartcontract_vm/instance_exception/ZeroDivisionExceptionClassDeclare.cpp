@@ -48,7 +48,7 @@ AnalyzedClass* ZeroDivisionExceptionClassDeclare::createAnalyzedClass() noexcept
 	return aclass;
 }
 
-void ZeroDivisionExceptionClassDeclare::throwException(VirtualMachine* vm, CodeElement* element) noexcept {
+void ZeroDivisionExceptionClassDeclare::throwException(VirtualMachine* vm, const CodeElement* element) noexcept {
 	ExecControlManager* ctrl = vm->getCtrl();
 	IVmInstanceFactory* factory = ExceptionInstanceFactory::getInstance();
 

@@ -48,7 +48,7 @@ TEST(TestTryCatchGroup, case01){
 	CHECK(iresult == 10)
 
 	ExtExceptionObject* exception = VmTestUtils::getExtExceptionObject(obj, L"e");
-	CodeElement* codeElement = exception->getCodeElement();
+	const CodeElement* codeElement = exception->getCodeElement();
 
 	CHECK(codeElement->getKind() == CodeElement::STMT_THROW)
 }
@@ -86,7 +86,7 @@ TEST(TestTryCatchGroup, case03){
 	CHECK(iresult == 10)
 
 	ExtExceptionObject* exception = VmTestUtils::getExtExceptionObject(obj, L"e");
-	CodeElement* codeElement = exception->getCodeElement();
+	const CodeElement* codeElement = exception->getCodeElement();
 
 	CHECK(codeElement->getKind() == CodeElement::STMT_THROW)
 }

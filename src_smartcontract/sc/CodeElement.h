@@ -183,7 +183,7 @@ public:
 	static void checkIsJoinPart(CodeElement* element);
 	static void checkIsImport(CodeElement* element);
 
-	short getKind() noexcept;
+	short getKind() const noexcept;
 
 	void setParent(CodeElement* parent) noexcept;
 	CodeElement* getParent() const noexcept;

@@ -17,12 +17,12 @@ public:
 	VmExceptionInstance(AnalyzedClass* clazz, VirtualMachine* vm);
 	virtual ~VmExceptionInstance();
 
-	void setCodeElement(CodeElement* element) noexcept;
-	CodeElement* getElement() const noexcept;
+	void setCodeElement(const CodeElement* element) noexcept;
+	const CodeElement* getElement() const noexcept;
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* reg);
 private:
-	CodeElement* element;
+	const CodeElement* element;
 };
 
 } /* namespace alinous */

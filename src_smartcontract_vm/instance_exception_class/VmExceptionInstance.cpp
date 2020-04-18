@@ -23,11 +23,11 @@ VmExceptionInstance::~VmExceptionInstance() {
 	this->element = nullptr;
 }
 
-void VmExceptionInstance::setCodeElement(CodeElement* element) noexcept {
+void VmExceptionInstance::setCodeElement(const CodeElement* element) noexcept {
 	this->element = element;
 }
 
-CodeElement* VmExceptionInstance::getElement() const noexcept {
+const CodeElement* VmExceptionInstance::getElement() const noexcept {
 	return this->element;
 }
 

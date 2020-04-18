@@ -15,6 +15,7 @@
 
 #include "instance_exception/ExceptionInterrupt.h"
 
+#include "instance_exception/ZeroDivisionExceptionClassDeclare.h"
 namespace alinous {
 
 MultiplicativeExpression::MultiplicativeExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_MUL) {
@@ -216,7 +217,7 @@ AbstractVmInstance* MultiplicativeExpression::interpret64Bit(VirtualMachine* vm)
 
 void MultiplicativeExpression::checkZeroDiv(int64_t val, VirtualMachine* vm) const {
 	if(val == 0){
-
+		ZeroDivisionExceptionClassDeclare::throwException(vm, this);
 
 		ExceptionInterrupt::interruptPoint(vm);
 	}

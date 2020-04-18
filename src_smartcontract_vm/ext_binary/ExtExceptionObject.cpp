@@ -18,11 +18,11 @@ ExtExceptionObject::~ExtExceptionObject() {
 	this->element = nullptr;
 }
 
-void ExtExceptionObject::setCodeElement(CodeElement* element) noexcept {
+void ExtExceptionObject::setCodeElement(const CodeElement* element) noexcept {
 	this->element = element;
 }
 
-CodeElement* ExtExceptionObject::getCodeElement() const noexcept {
+const CodeElement* ExtExceptionObject::getCodeElement() const noexcept {
 	return this->element;
 }
 

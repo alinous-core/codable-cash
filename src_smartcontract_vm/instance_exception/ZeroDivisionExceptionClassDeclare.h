@@ -17,7 +17,7 @@ class ZeroDivisionExceptionClassDeclare : public AbstractExceptionClassDeclare {
 public:
 	static UnicodeString NAME;
 	static AnalyzedClass* createAnalyzedClass() noexcept;
-	static void throwException(VirtualMachine* vm, CodeElement* element) noexcept;
+	static void throwException(VirtualMachine* vm, const CodeElement* element) noexcept;
 
 	ZeroDivisionExceptionClassDeclare();
 	virtual ~ZeroDivisionExceptionClassDeclare();

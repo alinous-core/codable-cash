@@ -276,7 +276,7 @@ ExecControlManager* VirtualMachine::getCtrl() const noexcept {
 	return this->ctrl;
 }
 
-void VirtualMachine::throwException(VmExceptionInstance* exception, CodeElement* element) noexcept {
+void VirtualMachine::throwException(VmExceptionInstance* exception, const CodeElement* element) noexcept {
 	ExecControlManager* ctrl = this->ctrl;
 
 	exception->setCodeElement(element);
