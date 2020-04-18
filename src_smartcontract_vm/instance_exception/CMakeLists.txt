@@ -2,6 +2,7 @@
 
 set(__src
 	ArrayOutOfBoundsExceptionClassDeclare.cpp
+	ExceptionInterrupt.cpp
 	NullPointerExceptionClassDeclare.cpp
 	ZeroDivisionExceptionClassDeclare.cpp
 )
