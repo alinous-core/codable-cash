@@ -43,8 +43,6 @@ AnalyzedClass* ZeroDivisionExceptionClassDeclare::createAnalyzedClass() noexcept
 	ZeroDivisionExceptionClassDeclare* classDec = new ZeroDivisionExceptionClassDeclare();
 	AnalyzedClass* aclass = new AnalyzedClass(classDec);
 
-	classDec->setAnalyzedClass(aclass);
-
 	return aclass;
 }
 
@@ -52,7 +50,7 @@ void ZeroDivisionExceptionClassDeclare::throwException(VirtualMachine* vm, const
 	ExecControlManager* ctrl = vm->getCtrl();
 	IVmInstanceFactory* factory = ExceptionInstanceFactory::getInstance();
 
-	AnalyzedClass* aclass = ReservedClassRegistory::getInstance()->getAnalyzedClass(&NAME);
+	AnalyzedClass* aclass = vm->getReservedClassRegistory()->getAnalyzedClass(&NAME);
 
 	VmClassInstance* inst = factory->createInstance(aclass, vm);
 	inst->init(vm);

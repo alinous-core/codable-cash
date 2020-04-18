@@ -42,6 +42,9 @@ AbstractReservedClassDeclare::~AbstractReservedClassDeclare() {
 
 	this->members->deleteElements();
 	delete this->members;
+
+	delete this->extends;
+	this->extends = nullptr;
 }
 
 ArrayList<MethodDeclare>* AbstractReservedClassDeclare::getMethods() noexcept {
@@ -90,7 +93,7 @@ void AbstractReservedClassDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 		member->analyzeTypeRef(actx);
 	}
 
-	ReservedClassRegistory* reg = ReservedClassRegistory::getInstance();
+	ReservedClassRegistory* reg = actx->getReservedClassRegistory();
 	CompilationUnit* unit = reg->getUnit();
 	PackageSpace* space = actx->getPackegeSpace(unit->getPackageName());
 

@@ -66,6 +66,8 @@ void MemberVariableDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 
 	TypeResolver* typeResolver = actx->getTypeResolver();
 
+	assert(this->atype == nullptr);
+
 	this->atype = typeResolver->resolveType(this, this->type);
 	if(this->atype == nullptr){
 		actx->addValidationError(ValidationError::CODE_WRONG_TYPE_NAME, this, L"The type '{0}' does not exists.", {this->type->toString()});

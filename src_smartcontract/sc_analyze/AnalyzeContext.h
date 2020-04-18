@@ -26,6 +26,7 @@ class TypeResolver;
 class AnalyzedClass;
 class VTableRegistory;
 class AnalyzedType;
+class ReservedClassRegistory;
 
 class AnalyzeContext {
 public:
@@ -61,6 +62,8 @@ public:
 	AnalyzedType* getTmpArrayType() const noexcept;
 
 	void resigterReservedClasses() noexcept;
+
+	ReservedClassRegistory* getReservedClassRegistory() const noexcept;
 private:
 	void analyzeMembers(PackageSpace* space) noexcept;
 	void analyzeMember(AnalyzedClass* cls) noexcept;

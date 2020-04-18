@@ -29,6 +29,7 @@
 
 #include "reserved_classes/ReservedClassRegistory.h"
 
+#include "vm/VirtualMachine.h"
 
 namespace alinous {
 
@@ -170,7 +171,7 @@ void AnalyzeContext::analyzeClassInheritance() {
 }
 
 void AnalyzeContext::resigterReservedClasses() noexcept {
-	const ArrayList<AnalyzedClass>* list = ReservedClassRegistory::getInstance()->getReservedClassesList();
+	const ArrayList<AnalyzedClass>* list = this->vm->getReservedClassRegistory()->getReservedClassesList();
 
 	int maxLoop = list->size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -240,5 +241,8 @@ AnalyzedType* AnalyzeContext::getTmpArrayType() const noexcept {
 	return this->tmpArrayType;
 }
 
+ReservedClassRegistory* AnalyzeContext::getReservedClassRegistory() const noexcept {
+	return this->vm->getReservedClassRegistory();
+}
 
 } /* namespace alinous */

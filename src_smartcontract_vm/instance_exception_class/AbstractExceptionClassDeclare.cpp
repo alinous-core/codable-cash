@@ -11,15 +11,11 @@
 namespace alinous {
 
 AbstractExceptionClassDeclare::AbstractExceptionClassDeclare() : AbstractReservedClassDeclare() {
-	this->aclass = nullptr;
+
 }
 
 AbstractExceptionClassDeclare::~AbstractExceptionClassDeclare() {
 
-}
-
-void AbstractExceptionClassDeclare::setAnalyzedClass(AnalyzedClass* aclass) noexcept {
-	this->aclass = aclass;
 }
 
 } /* namespace alinous */

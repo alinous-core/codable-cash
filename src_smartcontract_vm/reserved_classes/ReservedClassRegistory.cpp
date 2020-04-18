@@ -55,12 +55,6 @@ void ReservedClassRegistory::addAnalyzedClass(AnalyzedClass* aclass) noexcept {
 	this->map.put(name, aclass);
 }
 
-ReservedClassRegistory* ReservedClassRegistory::getInstance() {
-	static ReservedClassRegistory inst;
-
-	return &inst;
-}
-
 ReservedClassRegistory::~ReservedClassRegistory() {
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){

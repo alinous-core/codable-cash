@@ -38,6 +38,7 @@ class CodeElement;
 class AnalyzedClass;
 class ObjectReference;
 class ExtExceptionObject;
+class ReservedClassRegistory;
 
 class VirtualMachine {
 public:
@@ -84,6 +85,7 @@ public:
 	ArrayList<Exception>& getExceptions() noexcept;
 	ExtExceptionObject* getUncaughtException() noexcept;
 
+	ReservedClassRegistory* getReservedClassRegistory() const noexcept;
 private:
 	void checkUncaughtException();
 

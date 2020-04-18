@@ -17,12 +17,8 @@ class CompilationUnit;
 class UnicodeString;
 
 class ReservedClassRegistory {
-private:
-	ReservedClassRegistory();
-
 public:
-	static ReservedClassRegistory* getInstance();
-
+	ReservedClassRegistory();
 	virtual ~ReservedClassRegistory();
 
 	const ArrayList<AnalyzedClass>* getReservedClassesList() const noexcept;

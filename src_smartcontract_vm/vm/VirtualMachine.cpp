@@ -185,9 +185,12 @@ void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, Ar
 	checkUncaughtException();
 }
 
+ReservedClassRegistory* VirtualMachine::getReservedClassRegistory() const noexcept {
+	return this->sc->getReservedClassRegistory();
+}
 
 void VirtualMachine::checkUncaughtException() {
-	ReservedClassRegistory* reg = ReservedClassRegistory::getInstance();
+	ReservedClassRegistory* reg = getReservedClassRegistory();
 	AnalyzedClass* exclass = reg->getAnalyzedClass(&ExceptionClassDeclare::NAME);
 
 	this->uncaughtException = catchException(exclass);

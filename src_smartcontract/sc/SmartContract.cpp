@@ -52,6 +52,7 @@ SmartContract::SmartContract() {
 	this->mainMethod = nullptr;
 	this->rootReference = nullptr;
 	this->initialized = false;
+	this->reservedClassRegistory = new ReservedClassRegistory();
 }
 
 SmartContract::~SmartContract() {
@@ -61,6 +62,7 @@ SmartContract::~SmartContract() {
 	delete this->mainClass;
 	delete this->mainMethod;
 	delete this->rootReference;
+	delete this->reservedClassRegistory;
 
 	this->compileErrorList.deleteElements();
 }
@@ -100,8 +102,8 @@ void SmartContract::addCompilationUnit(File* file, const File* base) {
 }
 
 void SmartContract::analyze(VirtualMachine* vm) {
-	const ArrayList<AnalyzedClass>* list = ReservedClassRegistory::getInstance()->getReservedClassesList();
-	CompilationUnit* reservedUnit = ReservedClassRegistory::getInstance()->getUnit();
+	const ArrayList<AnalyzedClass>* list = this->reservedClassRegistory->getReservedClassesList();
+	CompilationUnit* reservedUnit = this->reservedClassRegistory->getUnit();
 
 	this->actx = new AnalyzeContext();
 	this->actx->setVm(vm);
@@ -250,5 +252,8 @@ CompilationUnit* SmartContract::getCompilationUnit(int pos) {
 	return this->progs.get(pos);
 }
 
+ReservedClassRegistory* SmartContract::getReservedClassRegistory() const noexcept {
+	return this->reservedClassRegistory;
+}
 
 } /* namespace alinous */

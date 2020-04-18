@@ -18,11 +18,6 @@ class AbstractExceptionClassDeclare : public AbstractReservedClassDeclare {
 public:
 	AbstractExceptionClassDeclare();
 	virtual ~AbstractExceptionClassDeclare();
-
-	void setAnalyzedClass(AnalyzedClass* aclass) noexcept;
-
-protected:
-	AnalyzedClass* aclass;
 };
 
 } /* namespace alinous */
