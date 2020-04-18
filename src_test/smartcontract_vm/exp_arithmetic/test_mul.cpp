@@ -98,7 +98,10 @@ TEST(TestMulGroup, case01_d_error){ // int
 	CHECK(result)
 
 	result = util.createInstance();
-	CHECK(!result)
+	CHECK(result)
+
+	ExtExceptionObject* exobj = util.vm->getUncaughtException(); __STP(exobj);
+	CHECK(exobj != nullptr)
 }
 
 TEST(TestMulGroup, case02){ // byte

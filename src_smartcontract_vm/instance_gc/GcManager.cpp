@@ -42,13 +42,25 @@ void GcManager::registerObject(AbstractReference* ref) {
 
 	VmInstanceKey key(refered);
 
+	bool newObj = false;
+	int lastOwnerSize = 0;
 	ReferenceStatus* status = this->statuses.get(&key);
+
 	if(status == nullptr){
 		status = new ReferenceStatus(refered);
 		this->statuses.put(&key, status);
+		newObj = true;
+	}
+	else{
+		lastOwnerSize = status->ownerSize();
 	}
 
 	status->addOwner(owner);
+
+	// remove from removeble
+	if(!newObj && lastOwnerSize == 0){
+		removeFromRemoveble(status);
+	}
 }
 
 void GcManager::removeObject(AbstractReference* ref) {
@@ -97,6 +109,14 @@ void GcManager::removeFromNeedCheck(ReferenceStatus* status) noexcept {
 	VmInstanceKey key(status->getInstance());
 
 	this->needCheck.remove(&key);
+}
+
+void GcManager::removeFromRemoveble(ReferenceStatus* status) noexcept {
+	ReferenceStatus* st = this->removable.search(status);
+
+	if(st != nullptr){
+		this->removable.removeByObj(status);
+	}
 }
 
 void GcManager::garbageCollect() {

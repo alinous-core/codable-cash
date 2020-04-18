@@ -62,6 +62,10 @@ void ReferenceStatus::removeOwner(const IAbstractVmInstanceSubstance* owner) noe
 	assert(bl);
 }
 
+int ReferenceStatus::ownerSize() const noexcept {
+	return this->ownerList.size() + this->terminalOwnerList.size();
+}
+
 
 bool ReferenceStatus::isRemovable() const noexcept {
 	return this->ownerList.isEmpty() && this->terminalOwnerList.isEmpty();

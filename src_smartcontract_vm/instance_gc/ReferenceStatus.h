@@ -38,6 +38,7 @@ public:
 	bool checkCyclicRemovable(GcCyclicCheckerContext* cctx) noexcept;
 	bool checkInnerCyclicRemovable(const IAbstractVmInstanceSubstance* inst, GcCyclicCheckerContext* cctx) const noexcept;
 
+	int ownerSize() const noexcept;
 private:
 	IAbstractVmInstanceSubstance* instance;
 

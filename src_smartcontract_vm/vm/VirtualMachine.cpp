@@ -41,6 +41,8 @@
 
 #include "ext_arguments/AbstractFunctionExtArguments.h"
 
+#include "ext_binary/ExtExceptionObject.h"
+
 #include "vm/exceptions.h"
 
 #include "stack/StackPopper.h"
@@ -53,6 +55,10 @@
 #include "reserved_classes/ReservedClassRegistory.h"
 
 #include "instance_exception_class/ExceptionClassDeclare.h"
+
+#include "base/UnicodeString.h"
+
+
 namespace alinous {
 
 VirtualMachine::VirtualMachine(uint64_t memCapacity) {
@@ -167,6 +173,10 @@ void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractFu
 	ReservedClassRegistory* reg = ReservedClassRegistory::getInstance();
 	AnalyzedClass* exclass = reg->getAnalyzedClass(&ExceptionClassDeclare::NAME);
 	this->uncaughtException = catchException(exclass);
+
+	if(this->uncaughtException != nullptr){
+		this->gc->registerObject(this->uncaughtException);
+	}
 }
 
 void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, ArrayList<AbstractFunctionExtArguments>* arguments) {
@@ -180,7 +190,12 @@ void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, Ar
 	// uncaught exception
 	ReservedClassRegistory* reg = ReservedClassRegistory::getInstance();
 	AnalyzedClass* exclass = reg->getAnalyzedClass(&ExceptionClassDeclare::NAME);
+
 	this->uncaughtException = catchException(exclass);
+
+	if(this->uncaughtException != nullptr){
+		this->gc->registerObject(this->uncaughtException);
+	}
 }
 
 VmMemoryManager* VirtualMachine::getMemory() noexcept {
@@ -277,6 +292,12 @@ void VirtualMachine::destroy() noexcept {
 		return;
 	}
 
+	if(this->uncaughtException != nullptr){
+		this->gc->removeObject(this->uncaughtException);
+		delete this->uncaughtException;
+		this->uncaughtException = nullptr;
+	}
+
 	clearStack();
 	this->sc->getRootReference()->clearInnerReferences();
 	this->gc->garbageCollect();
@@ -326,6 +347,21 @@ ObjectReference* VirtualMachine::catchException(AnalyzedClass* exClass) noexcept
 
 ArrayList<Exception>& VirtualMachine::getExceptions() noexcept {
 	return this->exceptions;
+}
+
+ExtExceptionObject* VirtualMachine::getUncaughtException() noexcept {
+	if(this->uncaughtException == nullptr){
+		return nullptr;
+	}
+
+	VTableRegistory* vreg = this->sc->getAnalyzeContext()->getVtableRegistory();
+
+	IAbstractVmInstanceSubstance* sub = this->uncaughtException->getInstance();
+
+	UnicodeString oname(L"uncaught");
+	AbstractExtObject* extObj = sub->instToClassExtObject(&oname, vreg);
+
+	return dynamic_cast<ExtExceptionObject*>(extObj);
 }
 
 

@@ -37,6 +37,7 @@ class Exception;
 class CodeElement;
 class AnalyzedClass;
 class ObjectReference;
+class ExtExceptionObject;
 
 class VirtualMachine {
 public:
@@ -81,6 +82,7 @@ public:
 	void destroy() noexcept;
 
 	ArrayList<Exception>& getExceptions() noexcept;
+	ExtExceptionObject* getUncaughtException() noexcept;
 private:
 	SmartContract* sc;
 

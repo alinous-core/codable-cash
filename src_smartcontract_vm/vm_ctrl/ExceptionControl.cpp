@@ -37,7 +37,6 @@ void ExceptionControl::releaseException(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
 
 	gc->removeObject(this->exception);
-	delete this->exception;
 	this->exception = nullptr;
 }
 
