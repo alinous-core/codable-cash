@@ -10,19 +10,18 @@
 #include "sc_expression/AbstractExpression.h"
 
 #include "instance/AbstractVmInstance.h"
+#include "instance/IAbstractVmInstanceSubstance.h"
 
 #include "instance_ref/AbstractReference.h"
 
 #include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
 
 #include "type_check/AnalyzedTypeChecker.h"
 
-#include "instance_gc/StackFloatingVariableHandler.h"
-
-#include "instance/IAbstractVmInstanceSubstance.h"
-
 #include "sc_analyze/AnalyzeContext.h"
 
+#include "instance_exception/ExceptionInterrupt.h"
 
 namespace alinous {
 
@@ -108,8 +107,16 @@ void SubstitutionStatement::init(VirtualMachine* vm) {
 }
 
 void SubstitutionStatement::interpret(VirtualMachine* vm) {
-	AbstractVmInstance* leftValue = this->variable->interpret(vm);
-	AbstractVmInstance* rightValue = this->exp->interpret(vm);
+	AbstractVmInstance* leftValue = nullptr;
+	AbstractVmInstance* rightValue = nullptr;
+
+	try{
+		leftValue = this->variable->interpret(vm);
+		rightValue = this->exp->interpret(vm);
+	}catch(ExceptionInterrupt* e){
+		delete e;
+		return;
+	}
 
 	GcManager* gc = vm->getGc();
 	StackFloatingVariableHandler releaser(gc);

@@ -97,6 +97,7 @@ private:
 	bool initialized;
 
 	ArrayList<Exception> exceptions;
+	ObjectReference* uncaughtException;
 };
 
 } /* namespace alinous */

@@ -50,7 +50,9 @@
 
 #include "base/Exception.h"
 
+#include "reserved_classes/ReservedClassRegistory.h"
 
+#include "instance_exception_class/ExceptionClassDeclare.h"
 namespace alinous {
 
 VirtualMachine::VirtualMachine(uint64_t memCapacity) {
@@ -64,6 +66,7 @@ VirtualMachine::VirtualMachine(uint64_t memCapacity) {
 	this->initialized = false;
 	this->rootReference = nullptr;
 	this->ctrl = new ExecControlManager();
+	this->uncaughtException = nullptr;
 }
 
 VirtualMachine::~VirtualMachine() {
@@ -84,6 +87,7 @@ VirtualMachine::~VirtualMachine() {
 	this->rootReference = nullptr;
 
 	this->exceptions.deleteElements();
+	delete this->uncaughtException;
 }
 
 void VirtualMachine::loadSmartContract(SmartContract* sc) {
@@ -158,6 +162,11 @@ void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractFu
 	VmStack* stack = this->topStack();
 
 	methodDeclare->interpret(&args, this);
+
+	// uncaught exception
+	ReservedClassRegistory* reg = ReservedClassRegistory::getInstance();
+	AnalyzedClass* exclass = reg->getAnalyzedClass(&ExceptionClassDeclare::NAME);
+	this->uncaughtException = catchException(exclass);
 }
 
 void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, ArrayList<AbstractFunctionExtArguments>* arguments) {
@@ -167,6 +176,11 @@ void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, Ar
 	args.setThisPtr(_this);
 
 	method->interpret(&args, this);
+
+	// uncaught exception
+	ReservedClassRegistory* reg = ReservedClassRegistory::getInstance();
+	AnalyzedClass* exclass = reg->getAnalyzedClass(&ExceptionClassDeclare::NAME);
+	this->uncaughtException = catchException(exclass);
 }
 
 VmMemoryManager* VirtualMachine::getMemory() noexcept {

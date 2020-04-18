@@ -28,6 +28,7 @@ public:
 	virtual ~VmClassInstance();
 
 	static VmClassInstance* createObject(AnalyzedClass* clazz, VirtualMachine* vm);
+	void init(VirtualMachine* vm);
 
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
@@ -48,7 +49,6 @@ public:
 
 	AnalyzedClass* getAnalyzedClass() const noexcept;
 private:
-	void init(VirtualMachine* vm);
 	static IVmInstanceFactory* findFactory(AnalyzedClass* clazz) noexcept;
 
 private:
