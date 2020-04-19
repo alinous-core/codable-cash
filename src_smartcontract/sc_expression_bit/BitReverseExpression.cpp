@@ -15,6 +15,7 @@
 
 #include "instance_gc/GcManager.h"
 
+#include "instance_gc/StackFloatingVariableHandler.h"
 
 namespace alinous {
 
@@ -103,57 +104,61 @@ AbstractVmInstance* BitReverseExpression::interpret(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* BitReverseExpression::interpret8Bit(VirtualMachine* vm) {
-	GcManager* gc = vm->getGc(); // FIXME exception
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 
 	int8_t result = pinst->getByteValue();
 	result = ~result;
-
-	gc->handleFloatingObject(pinst);
 
 	return PrimitiveReference::createByteReference(vm, result);
 }
 
 AbstractVmInstance* BitReverseExpression::interpret16Bit(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 
 	int16_t result = pinst->getShortValue();
 	result = ~result;
-
-	gc->handleFloatingObject(pinst);
 
 	return PrimitiveReference::createShortReference(vm, result);
 }
 
 AbstractVmInstance* BitReverseExpression::interpret32Bit(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 
 	int32_t result = pinst->getIntValue();
 	result = ~result;
-
-	gc->handleFloatingObject(pinst);
 
 	return PrimitiveReference::createIntReference(vm, result);
 }
 
 AbstractVmInstance* BitReverseExpression::interpret64Bit(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 
 	int64_t result = pinst->getLongValue();
 	result = ~result;
-
-	gc->handleFloatingObject(pinst);
 
 	return PrimitiveReference::createLongReference(vm, result);
 }
