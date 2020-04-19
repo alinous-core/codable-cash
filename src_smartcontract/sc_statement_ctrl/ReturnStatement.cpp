@@ -15,6 +15,7 @@
 
 #include "variable_access/FunctionArguments.h"
 
+#include "instance_exception/ExceptionInterrupt.h"
 
 namespace alinous {
 
@@ -71,13 +72,16 @@ void ReturnStatement::init(VirtualMachine* vm) {
 }
 
 void ReturnStatement::interpret(VirtualMachine* vm) {
+	ExecControlManager* ctrl = vm->getCtrl();
+
 	if(this->exp != nullptr){
 		interpretExpression(vm);
 
-		// FIXME exception
+		if(ctrl->isExceptionThrown()){
+			return;
+		}
 	}
 
-	ExecControlManager* ctrl = vm->getCtrl();
 	ReturnControl* retCtrl = new ReturnControl();
 
 	ctrl->setInstruction(retCtrl);
@@ -88,10 +92,15 @@ bool ReturnStatement::hasCtrlStatement() const noexcept {
 }
 
 void ReturnStatement::interpretExpression(VirtualMachine* vm) {
-	FunctionArguments* args = vm->getFunctionArguments();
+	try{
+		FunctionArguments* args = vm->getFunctionArguments();
 
-	AbstractVmInstance* inst = this->exp->interpret(vm);
-	args->setReturnedValue(inst);
+		AbstractVmInstance* inst = this->exp->interpret(vm);
+		args->setReturnedValue(inst);
+	}
+	catch(ExceptionInterrupt* e){
+		delete e;
+	}
 }
 
 

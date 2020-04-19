@@ -95,7 +95,7 @@ AbstractVmInstance* NegateExpression::interpret8Bit(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
 	StackFloatingVariableHandler releaser(gc);
 
-	AbstractVmInstance* inst = this->exp->interpret(vm); // FIXME exception
+	AbstractVmInstance* inst = this->exp->interpret(vm);
 	releaser.registerInstance(inst);
 
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
