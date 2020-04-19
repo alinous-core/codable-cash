@@ -51,6 +51,9 @@ TEST(TestTryCatchGroup, case01){
 	const CodeElement* codeElement = exception->getCodeElement();
 
 	CHECK(codeElement->getKind() == CodeElement::STMT_THROW)
+
+	ExtExceptionObject* exobj = util.vm->getUncaughtException(); __STP(exobj);
+	CHECK(exobj == nullptr)
 }
 
 TEST(TestTryCatchGroup, case02){
@@ -65,6 +68,9 @@ TEST(TestTryCatchGroup, case02){
 
 	result = util.createInstance();
 	CHECK(result)
+
+	ExtExceptionObject* exobj = util.vm->getUncaughtException(); __STP(exobj);
+	CHECK(exobj == nullptr)
 }
 
 TEST(TestTryCatchGroup, case03){
@@ -89,5 +95,8 @@ TEST(TestTryCatchGroup, case03){
 	const CodeElement* codeElement = exception->getCodeElement();
 
 	CHECK(codeElement->getKind() == CodeElement::STMT_THROW)
+
+	ExtExceptionObject* exobj = util.vm->getUncaughtException(); __STP(exobj);
+	CHECK(exobj == nullptr)
 }
 

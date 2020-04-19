@@ -46,8 +46,6 @@ void CompilationUnit::analyzeType(AnalyzeContext* actx) {
 		dec->analyzeTypeRef(actx);
 	}
 
-	// FIXME analyze method Return
-
 }
 
 void CompilationUnit::analyze(AnalyzeContext* actx) {
