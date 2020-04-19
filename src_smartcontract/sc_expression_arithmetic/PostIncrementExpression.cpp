@@ -13,6 +13,10 @@
 
 #include "instance_ref/PrimitiveReference.h"
 
+#include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
+
+
 namespace alinous {
 
 PostIncrementExpression::PostIncrementExpression() : AbstractArithmeticExpression(CodeElement::EXP_POST_INC) {
@@ -92,7 +96,12 @@ AbstractVmInstance* PostIncrementExpression::interpret(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* PostIncrementExpression::interpret8Bit(VirtualMachine* vm) {
-	AbstractVmInstance* inst = this->exp->interpret(vm); // FIXME exception
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
 	uint8_t val = ref->getByteValue();
@@ -110,7 +119,12 @@ AbstractVmInstance* PostIncrementExpression::interpret8Bit(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* PostIncrementExpression::interpret16Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
 	AbstractVmInstance* inst = this->exp->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
 	uint16_t val = ref->getShortValue();
@@ -128,7 +142,12 @@ AbstractVmInstance* PostIncrementExpression::interpret16Bit(VirtualMachine* vm) 
 }
 
 AbstractVmInstance* PostIncrementExpression::interpret32Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
 	AbstractVmInstance* inst = this->exp->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
 	uint32_t val = ref->getIntValue();
@@ -146,7 +165,12 @@ AbstractVmInstance* PostIncrementExpression::interpret32Bit(VirtualMachine* vm) 
 }
 
 AbstractVmInstance* PostIncrementExpression::interpret64Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
 	AbstractVmInstance* inst = this->exp->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
 	uint64_t val = ref->getLongValue();
