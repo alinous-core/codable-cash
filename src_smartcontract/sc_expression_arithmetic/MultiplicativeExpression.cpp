@@ -28,6 +28,8 @@ MultiplicativeExpression::~MultiplicativeExpression() {
 
 void MultiplicativeExpression::preAnalyze(AnalyzeContext* actx) {
 	AbstractBinaryExpression::preAnalyze(actx);
+
+	setThrowsException(true);
 }
 
 void MultiplicativeExpression::analyzeTypeRef(AnalyzeContext* actx) {

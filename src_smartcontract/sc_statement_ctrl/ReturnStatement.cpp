@@ -77,7 +77,7 @@ void ReturnStatement::interpret(VirtualMachine* vm) {
 	if(this->exp != nullptr){
 		interpretExpression(vm);
 
-		if(ctrl->isExceptionThrown()){
+		if(this->exp->throwsException() && ctrl->isExceptionThrown()){
 			return;
 		}
 	}

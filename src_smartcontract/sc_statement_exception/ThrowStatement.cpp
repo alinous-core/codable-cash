@@ -24,6 +24,9 @@
 
 #include "base/StackRelease.h"
 
+#include "instance_gc/StackFloatingVariableHandler.h"
+
+#include "vm_ctrl/ExecControlManager.h"
 namespace alinous {
 
 ThrowStatement::ThrowStatement() : AbstractStatement(CodeElement::STMT_THROW) {
@@ -70,10 +73,16 @@ void ThrowStatement::init(VirtualMachine* vm) {
 
 void ThrowStatement::interpret(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
 	ExecControlManager* ctrl = vm->getCtrl();
 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
-	// FIXME exception
+	releaser.registerInstance(inst);
+
+	if(this->exp->throwsException() && ctrl->isExceptionThrown()){
+		return;
+	}
 
 	if(inst == nullptr || inst->isNull()){
 		// FIXME throw nullpointerexception
