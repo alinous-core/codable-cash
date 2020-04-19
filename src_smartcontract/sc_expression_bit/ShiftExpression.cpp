@@ -12,8 +12,11 @@
 #include "sc_analyze/ValidationError.h"
 
 #include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
 
 #include "instance_ref/PrimitiveReference.h"
+
+
 namespace alinous {
 
 ShiftExpression::ShiftExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_SHIFT), operations(4) {
@@ -109,17 +112,20 @@ AbstractVmInstance* ShiftExpression::interpret(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* ShiftExpression::interpret8Bit(VirtualMachine* vm) {
-	GcManager* gc = vm->getGc(); // FIXME exception
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int8_t result = pinst->getByteValue();
-
-	gc->handleFloatingObject(pinst);
 
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){
 		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		releaser.registerInstance(oinst);
+
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
 		uint8_t op = this->operations.get(0);
@@ -128,8 +134,6 @@ AbstractVmInstance* ShiftExpression::interpret8Bit(VirtualMachine* vm) {
 		}else if(op == LEFT){
 			result = result << opinst->getIntValue();
 		}
-
-		gc->handleFloatingObject(opinst);
 	}
 
 	return PrimitiveReference::createIntReference(vm, result);
@@ -137,16 +141,19 @@ AbstractVmInstance* ShiftExpression::interpret8Bit(VirtualMachine* vm) {
 
 AbstractVmInstance* ShiftExpression::interpret16Bit(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int16_t result = pinst->getShortValue();
-
-	gc->handleFloatingObject(pinst);
 
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){
 		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		releaser.registerInstance(oinst);
+
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
 		uint8_t op = this->operations.get(0);
@@ -155,8 +162,6 @@ AbstractVmInstance* ShiftExpression::interpret16Bit(VirtualMachine* vm) {
 		}else if(op == LEFT){
 			result = result << opinst->getIntValue();
 		}
-
-		gc->handleFloatingObject(opinst);
 	}
 
 	return PrimitiveReference::createShortReference(vm, result);
@@ -164,16 +169,19 @@ AbstractVmInstance* ShiftExpression::interpret16Bit(VirtualMachine* vm) {
 
 AbstractVmInstance* ShiftExpression::interpret32Bit(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int32_t result = pinst->getIntValue();
-
-	gc->handleFloatingObject(pinst);
 
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){
 		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		releaser.registerInstance(oinst);
+
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
 		uint8_t op = this->operations.get(0);
@@ -182,8 +190,6 @@ AbstractVmInstance* ShiftExpression::interpret32Bit(VirtualMachine* vm) {
 		}else if(op == LEFT){
 			result = result << opinst->getIntValue();
 		}
-
-		gc->handleFloatingObject(opinst);
 	}
 
 	return PrimitiveReference::createIntReference(vm, result);
@@ -191,16 +197,19 @@ AbstractVmInstance* ShiftExpression::interpret32Bit(VirtualMachine* vm) {
 
 AbstractVmInstance* ShiftExpression::interpret64Bit(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int64_t result = pinst->getLongValue();
-
-	gc->handleFloatingObject(pinst);
 
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){
 		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		releaser.registerInstance(oinst);
+
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
 		uint8_t op = this->operations.get(0);
@@ -209,8 +218,6 @@ AbstractVmInstance* ShiftExpression::interpret64Bit(VirtualMachine* vm) {
 		}else if(op == LEFT){
 			result = result << opinst->getIntValue();
 		}
-
-		gc->handleFloatingObject(opinst);
 	}
 
 	return PrimitiveReference::createLongReference(vm, result);
