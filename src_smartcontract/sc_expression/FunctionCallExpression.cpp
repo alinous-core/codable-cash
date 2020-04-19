@@ -37,6 +37,9 @@
 #include "instance_ref/AbstractReference.h"
 #include "instance_ref/ObjectReference.h"
 
+#include "instance_gc/StackFloatingVariableHandler.h"
+
+#include "instance_exception/ExceptionInterrupt.h"
 namespace alinous {
 
 FunctionCallExpression::FunctionCallExpression() : AbstractExpression(CodeElement::EXP_FUNCTIONCALL) {
@@ -221,7 +224,10 @@ void FunctionCallExpression::init(VirtualMachine* vm) {
 AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
 	FunctionArguments args;
 	interpretThisPointer(vm, &args);
-	interpretArguments(vm, &args);
+
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+	interpretArguments(vm, &args, &releaser);
 
 	if(this->methodEntry->isVirtual()){
 		return interpretVirtual(vm, &args);
@@ -229,14 +235,19 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
 
 	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
 	methodDeclare->interpret(&args, vm);
+
+	ExceptionInterrupt::interruptPoint(vm);
 
 	return args.getReturnedValue();
 }
 
 AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm, VmClassInstance* classInst) {
-	FunctionArguments args; // FIXME exception
+	FunctionArguments args;
 	args.setThisPtr(classInst);
-	interpretArguments(vm, &args);
+
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+	interpretArguments(vm, &args, &releaser);
 
 	if(this->methodEntry->isVirtual()){
 		return interpretVirtual(vm, &args);
@@ -244,6 +255,8 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm, VmClas
 
 	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
 	methodDeclare->interpret(&args, vm);
+
+	ExceptionInterrupt::interruptPoint(vm);
 
 	return args.getReturnedValue();
 }
@@ -263,14 +276,16 @@ void FunctionCallExpression::interpretThisPointer(VirtualMachine* vm, FunctionAr
 	}
 }
 
-void FunctionCallExpression::interpretArguments(VirtualMachine* vm,	FunctionArguments* args) {
+void FunctionCallExpression::interpretArguments(VirtualMachine* vm,	FunctionArguments* args, StackFloatingVariableHandler* releaser) {
 	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
 
 	// arguments
 	int maxLoop = this->args.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractExpression* exp = this->args.get(i);
+
 		AbstractVmInstance* inst = exp->interpret(vm);
+		releaser->registerInstance(inst);
 
 		if(inst != nullptr && inst->isReference()){
 			AbstractReference* ref = dynamic_cast<AbstractReference*>(inst);
@@ -302,6 +317,8 @@ AbstractVmInstance* FunctionCallExpression::interpretVirtual(VirtualMachine* vm,
 	MethodDeclare* methodDeclare = entry->getMethod();
 
 	methodDeclare->interpret(args, vm);
+
+	ExceptionInterrupt::interruptPoint(vm);
 
 	return args->getReturnedValue();
 }
