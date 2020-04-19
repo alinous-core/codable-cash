@@ -27,6 +27,10 @@
 #include "sc_analyze/AnalyzeContext.h"
 
 #include "instance_gc/StackFloatingVariableHandler.h"
+
+#include "instance_exception/ExceptionInterrupt.h"
+
+
 namespace alinous {
 
 DoWhileStatement::DoWhileStatement() : AbstractStatement(CodeElement::STMT_DO_WHILE) {
@@ -138,11 +142,12 @@ void DoWhileStatement::interpret(VirtualMachine* vm) {
 		}
 
 		// check
-		inst = this->exp->interpret(vm);
-		releaser.registerInstance(inst);
-
-		// exception
-		if(this->exp->throwsException() && ctrl->isExceptionThrown()){
+		try{
+			inst = this->exp->interpret(vm);
+			releaser.registerInstance(inst);
+		}
+		catch(ExceptionInterrupt* e){
+			delete e;
 			break;
 		}
 

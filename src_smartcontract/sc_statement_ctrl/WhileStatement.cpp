@@ -25,6 +25,7 @@
 
 #include "vm_ctrl/AbstractCtrlInstruction.h"
 
+#include "instance_exception/ExceptionInterrupt.h"
 
 namespace alinous {
 
@@ -125,11 +126,12 @@ void WhileStatement::interpret(VirtualMachine* vm) {
 
 	int loopCount = 0;
 	while(true){
-		inst = this->exp->interpret(vm);
-		releaser.registerInstance(inst);
-
-		// exception
-		if(this->exp->throwsException() && ctrl->isExceptionThrown()){
+		try{
+			inst = this->exp->interpret(vm);
+			releaser.registerInstance(inst);
+		}
+		catch(ExceptionInterrupt* e){
+			delete e;
 			break;
 		}
 
