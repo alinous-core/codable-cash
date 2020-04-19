@@ -12,6 +12,7 @@
 #include "sc_analyze/AnalyzeContext.h"
 
 #include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
 
 #include "instance_ref/PrimitiveReference.h"
 
@@ -80,22 +81,23 @@ AbstractVmInstance* OrExpression::interpret(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* OrExpression::interpret8Bit(VirtualMachine* vm) {
-	GcManager* gc = vm->getGc(); // FIXME exception
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int8_t result = pinst->getByteValue();
-
-	gc->handleFloatingObject(pinst);
 
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){
 		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		releaser.registerInstance(oinst);
+
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
 		result |= opinst->getByteValue();
-
-		gc->handleFloatingObject(opinst);
 	}
 
 	return PrimitiveReference::createByteReference(vm, result);
@@ -103,21 +105,22 @@ AbstractVmInstance* OrExpression::interpret8Bit(VirtualMachine* vm) {
 
 AbstractVmInstance* OrExpression::interpret16Bit(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int16_t result = pinst->getShortValue();
-
-	gc->handleFloatingObject(pinst);
 
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){
 		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		releaser.registerInstance(oinst);
+
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
 		result |= opinst->getShortValue();
-
-		gc->handleFloatingObject(opinst);
 	}
 
 	return PrimitiveReference::createShortReference(vm, result);
@@ -125,21 +128,22 @@ AbstractVmInstance* OrExpression::interpret16Bit(VirtualMachine* vm) {
 
 AbstractVmInstance* OrExpression::interpret32Bit(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int32_t result = pinst->getIntValue();
-
-	gc->handleFloatingObject(pinst);
 
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){
 		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		releaser.registerInstance(oinst);
+
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
 		result |= opinst->getIntValue();
-
-		gc->handleFloatingObject(opinst);
 	}
 
 	return PrimitiveReference::createIntReference(vm, result);
@@ -147,21 +151,22 @@ AbstractVmInstance* OrExpression::interpret32Bit(VirtualMachine* vm) {
 
 AbstractVmInstance* OrExpression::interpret64Bit(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int64_t result = pinst->getLongValue();
-
-	gc->handleFloatingObject(pinst);
 
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){
 		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		releaser.registerInstance(oinst);
+
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
 		result |= opinst->getLongValue();
-
-		gc->handleFloatingObject(opinst);
 	}
 
 	return PrimitiveReference::createLongReference(vm, result);
