@@ -234,10 +234,13 @@ void IfStatement::interpret(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
 	StackFloatingVariableHandler releaser(gc);
 
-	AbstractVmInstance* expV = releaser.registerInstance(this->exp->interpret(vm));
+	AbstractVmInstance* expV = nullptr;
 
-	// exception
-	if(this->exp->throwsException() && ctrl->isExceptionThrown()){
+	try{
+		expV = releaser.registerInstance(this->exp->interpret(vm));
+	}
+	catch(ExceptionInterrupt* e){
+		delete e;
 		return;
 	}
 

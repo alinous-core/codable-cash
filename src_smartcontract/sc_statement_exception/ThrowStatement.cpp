@@ -29,6 +29,8 @@
 #include "vm_ctrl/ExecControlManager.h"
 
 #include "instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance_exception/ExceptionInterrupt.h"
+
 namespace alinous {
 
 ThrowStatement::ThrowStatement() : AbstractStatement(CodeElement::STMT_THROW) {
@@ -79,10 +81,13 @@ void ThrowStatement::interpret(VirtualMachine* vm) {
 
 	ExecControlManager* ctrl = vm->getCtrl();
 
-	AbstractVmInstance* inst = this->exp->interpret(vm);
-	releaser.registerInstance(inst);
-
-	if(this->exp->throwsException() && ctrl->isExceptionThrown()){
+	AbstractVmInstance* inst = nullptr;
+	try{
+		inst = this->exp->interpret(vm);
+		releaser.registerInstance(inst);
+	}
+	catch(ExceptionInterrupt* e){
+		delete e;
 		return;
 	}
 
