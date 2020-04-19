@@ -17,6 +17,7 @@ class VTableMethodEntry;
 class StackVariableAccess;
 class FunctionArguments;
 class VmClassInstance;
+class StackFloatingVariableHandler;
 
 class ConstructorCall : public AbstractExpression {
 public:
@@ -40,7 +41,7 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 
 private:
-	void interpretArguments(VirtualMachine* vm, FunctionArguments* args, VmClassInstance* classInst);
+	void interpretArguments(VirtualMachine* vm, FunctionArguments* args, VmClassInstance* classInst, StackFloatingVariableHandler* releaser);
 
 private:
 	AbstractExpression* name;

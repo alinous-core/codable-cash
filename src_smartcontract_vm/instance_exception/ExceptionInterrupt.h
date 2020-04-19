@@ -12,6 +12,7 @@
 namespace alinous {
 
 class VirtualMachine;
+class VmClassInstance;
 
 class ExceptionInterrupt {
 public:
@@ -20,6 +21,7 @@ public:
 
 
 	static void interruptPoint(VirtualMachine* vm);
+	static void interruptPoint(VirtualMachine* vm, VmClassInstance* inst);
 };
 
 } /* namespace alinous */
