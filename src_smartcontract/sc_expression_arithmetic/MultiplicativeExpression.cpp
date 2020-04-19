@@ -74,13 +74,12 @@ AbstractVmInstance* MultiplicativeExpression::interpret(VirtualMachine* vm) {
 AbstractVmInstance* MultiplicativeExpression::interpret8Bit(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
 	StackFloatingVariableHandler releaser(gc);
-	// FIXME exception
 
 	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int8_t result = pinst->getByteValue();
 
-	gc->handleFloatingObject(pinst);
+	releaser.registerInstance(pinst);
 
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){
@@ -117,7 +116,7 @@ AbstractVmInstance* MultiplicativeExpression::interpret16Bit(VirtualMachine* vm)
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int16_t result = pinst->getShortValue();
 
-	gc->handleFloatingObject(pinst);
+	releaser.registerInstance(pinst);
 
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){
@@ -154,7 +153,7 @@ AbstractVmInstance* MultiplicativeExpression::interpret32Bit(VirtualMachine* vm)
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int32_t result = pinst->getIntValue();
 
-	gc->handleFloatingObject(pinst);
+	releaser.registerInstance(pinst);
 
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){
@@ -191,7 +190,7 @@ AbstractVmInstance* MultiplicativeExpression::interpret64Bit(VirtualMachine* vm)
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int64_t result = pinst->getLongValue();
 
-	gc->handleFloatingObject(pinst);
+	releaser.registerInstance(pinst);
 
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){

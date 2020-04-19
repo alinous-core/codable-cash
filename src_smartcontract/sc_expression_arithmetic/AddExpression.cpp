@@ -9,6 +9,8 @@
 #include "instance_ref/PrimitiveReference.h"
 
 #include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
+
 namespace alinous {
 
 AddExpression::AddExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_ADD) {
@@ -50,6 +52,7 @@ AbstractVmInstance* AddExpression::interpret(VirtualMachine* vm) {
 
 AbstractVmInstance* AddExpression::interpret8Bit(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	// FIXME exception
 
@@ -57,11 +60,13 @@ AbstractVmInstance* AddExpression::interpret8Bit(VirtualMachine* vm) {
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int8_t result = pinst->getByteValue();
 
-	gc->handleFloatingObject(pinst);
+	releaser.registerInstance(pinst);
 
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){
 		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		releaser.registerInstance(oinst);
+
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
 		uint8_t op = this->operations.get(i - 1);
@@ -71,8 +76,6 @@ AbstractVmInstance* AddExpression::interpret8Bit(VirtualMachine* vm) {
 		}else if(op == SUB){
 			result -= opinst->getByteValue();
 		}
-
-		gc->handleFloatingObject(opinst);
 	}
 
 	return PrimitiveReference::createByteReference(vm, result);
@@ -80,16 +83,19 @@ AbstractVmInstance* AddExpression::interpret8Bit(VirtualMachine* vm) {
 
 AbstractVmInstance* AddExpression::interpret16Bit(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int16_t result = pinst->getShortValue();
 
-	gc->handleFloatingObject(pinst);
+	releaser.registerInstance(pinst);
 
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){
 		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		releaser.registerInstance(oinst);
+
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
 		uint8_t op = this->operations.get(i - 1);
@@ -99,8 +105,6 @@ AbstractVmInstance* AddExpression::interpret16Bit(VirtualMachine* vm) {
 		}else if(op == SUB){
 			result -= opinst->getShortValue();
 		}
-
-		gc->handleFloatingObject(opinst);
 	}
 
 	return PrimitiveReference::createShortReference(vm, result);
@@ -108,16 +112,19 @@ AbstractVmInstance* AddExpression::interpret16Bit(VirtualMachine* vm) {
 
 AbstractVmInstance* AddExpression::interpret32Bit(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int32_t result = pinst->getIntValue();
 
-	gc->handleFloatingObject(pinst);
+	releaser.registerInstance(pinst);
 
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){
 		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		releaser.registerInstance(oinst);
+
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
 		uint8_t op = this->operations.get(i - 1);
@@ -126,8 +133,6 @@ AbstractVmInstance* AddExpression::interpret32Bit(VirtualMachine* vm) {
 		}else if(op == SUB){
 			result -= opinst->getIntValue();
 		}
-
-		gc->handleFloatingObject(opinst);
 	}
 
 	return PrimitiveReference::createIntReference(vm, result);
@@ -135,16 +140,19 @@ AbstractVmInstance* AddExpression::interpret32Bit(VirtualMachine* vm) {
 
 AbstractVmInstance* AddExpression::interpret64Bit(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	AbstractVmInstance* inst = this->list.get(0)->interpret(vm);
 	PrimitiveReference* pinst = dynamic_cast<PrimitiveReference*>(inst);
 	int64_t result = pinst->getLongValue();
 
-	gc->handleFloatingObject(pinst);
+	releaser.registerInstance(pinst);
 
 	int maxLoop = this->list.size();
 	for(int i = 1; i != maxLoop; ++i){
 		AbstractVmInstance* oinst = this->list.get(i)->interpret(vm);
+		releaser.registerInstance(oinst);
+
 		PrimitiveReference* opinst = dynamic_cast<PrimitiveReference*>(oinst);
 
 		uint8_t op = this->operations.get(i - 1);
@@ -153,8 +161,6 @@ AbstractVmInstance* AddExpression::interpret64Bit(VirtualMachine* vm) {
 		}else if(op == SUB){
 			result -= opinst->getLongValue();
 		}
-
-		gc->handleFloatingObject(opinst);
 	}
 
 	return PrimitiveReference::createLongReference(vm, result);
