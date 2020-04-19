@@ -86,6 +86,10 @@ public:
 	ExtExceptionObject* getUncaughtException() noexcept;
 
 	ReservedClassRegistory* getReservedClassRegistory() const noexcept;
+
+	// catch statement
+	void setCaught(bool caught) noexcept;
+	bool isCaught() const noexcept;
 private:
 	void checkUncaughtException();
 
@@ -106,6 +110,9 @@ private:
 
 	ArrayList<Exception> exceptions;
 	ObjectReference* uncaughtException;
+
+	// catch test
+	bool caught;
 };
 
 } /* namespace alinous */

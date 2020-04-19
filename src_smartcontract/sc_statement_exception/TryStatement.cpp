@@ -111,8 +111,7 @@ void TryStatement::interpret(VirtualMachine* vm) {
 
 			catchStmt->interpret(vm);
 
-			int stat = ctrl->checkStatementCtrl(this->blockState, catchStmt);
-			if(!ctrl->isExceptionThrown() || stat == AbstractCtrlInstruction::RET_BREAK || stat == AbstractCtrlInstruction::RET_CONTINUE || stat == AbstractCtrlInstruction::RET_THROW){
+			if(vm->isCaught()){
 				break;
 			}
 		}

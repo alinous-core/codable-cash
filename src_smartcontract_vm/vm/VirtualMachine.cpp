@@ -73,6 +73,7 @@ VirtualMachine::VirtualMachine(uint64_t memCapacity) {
 	this->rootReference = nullptr;
 	this->ctrl = new ExecControlManager();
 	this->uncaughtException = nullptr;
+	this->caught = false;
 }
 
 VirtualMachine::~VirtualMachine() {
@@ -366,5 +367,14 @@ ExtExceptionObject* VirtualMachine::getUncaughtException() noexcept {
 
 	return dynamic_cast<ExtExceptionObject*>(extObj);
 }
+
+void VirtualMachine::setCaught(bool caught) noexcept {
+	this->caught = caught;
+}
+
+bool VirtualMachine::isCaught() const noexcept {
+	return this->caught;
+}
+
 
 } /* namespace alinous */

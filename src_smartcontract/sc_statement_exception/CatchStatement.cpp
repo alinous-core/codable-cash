@@ -115,6 +115,11 @@ void CatchStatement::interpret(VirtualMachine* vm) {
 		ref->substitute(exInstRef->getInstance(), vm);
 
 		this->block->interpret(vm);
+
+		vm->setCaught(true);
+	}
+	else{
+		vm->setCaught(false);
 	}
 }
 
