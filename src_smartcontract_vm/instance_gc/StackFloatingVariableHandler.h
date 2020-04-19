@@ -23,6 +23,10 @@ public:
 	virtual ~StackFloatingVariableHandler();
 
 	AbstractVmInstance* registerInstance(AbstractVmInstance* inst) noexcept;
+	void release() noexcept;
+
+private:
+	void __release() noexcept;
 private:
 	GcManager* gc;
 	ArrayList<IAbstractVmInstanceSubstance> list;

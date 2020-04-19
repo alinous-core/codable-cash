@@ -20,6 +20,15 @@ StackFloatingVariableHandler::StackFloatingVariableHandler(GcManager* gc) {
 }
 
 StackFloatingVariableHandler::~StackFloatingVariableHandler() {
+	__release();
+}
+
+void StackFloatingVariableHandler::release() noexcept {
+	__release();
+	this->list.reset();
+}
+
+void StackFloatingVariableHandler::__release() noexcept {
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
 		IAbstractVmInstanceSubstance* inst = this->list.get(i);
@@ -37,5 +46,4 @@ AbstractVmInstance* StackFloatingVariableHandler::registerInstance(AbstractVmIns
 
 	return inst;
 }
-
 } /* namespace alinous */

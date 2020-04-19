@@ -14,6 +14,7 @@
 #include "vm_ctrl/ExecControlManager.h"
 
 #include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
 
 #include "instance_ref/PrimitiveReference.h"
 
@@ -25,6 +26,7 @@
 #include "sc_analyze/ValidationError.h"
 #include "sc_analyze/AnalyzeContext.h"
 
+#include "instance_gc/StackFloatingVariableHandler.h"
 namespace alinous {
 
 DoWhileStatement::DoWhileStatement() : AbstractStatement(CodeElement::STMT_DO_WHILE) {
@@ -122,8 +124,10 @@ void DoWhileStatement::interpret(VirtualMachine* vm) {
 	PrimitiveReference* ref = nullptr;
 
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 	ExecControlManager* ctrl = vm->getCtrl();
 
+	int loopCount = 0;
 	while(true){
 		this->stmt->interpret(vm);
 
@@ -135,15 +139,25 @@ void DoWhileStatement::interpret(VirtualMachine* vm) {
 
 		// check
 		inst = this->exp->interpret(vm);
-		// FIXME exception
+		releaser.registerInstance(inst);
+
+		// exception
+		if(this->exp->throwsException() && ctrl->isExceptionThrown()){
+			break;
+		}
 
 		ref = dynamic_cast<PrimitiveReference*>(inst);
-
 		bool exec = ref->getBoolValue();
-		gc->handleFloatingObject(ref);
-
 		if(!exec){
 			break;
+		}
+
+		if(loopCount == 10){
+			releaser.release();
+			loopCount = 0;
+		}
+		else{
+			loopCount++;
 		}
 	}
 }
