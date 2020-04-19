@@ -13,6 +13,9 @@
 
 #include "instance_ref/PrimitiveReference.h"
 
+#include "instance_gc/StackFloatingVariableHandler.h"
+#include "instance_gc/GcManager.h"
+
 
 namespace alinous {
 
@@ -89,7 +92,12 @@ AbstractVmInstance* NegateExpression::interpret(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* NegateExpression::interpret8Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
 	AbstractVmInstance* inst = this->exp->interpret(vm); // FIXME exception
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
 	int8_t val = ref->getByteValue() * -1;
@@ -99,7 +107,12 @@ AbstractVmInstance* NegateExpression::interpret8Bit(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* NegateExpression::interpret16Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
 	AbstractVmInstance* inst = this->exp->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
 	int16_t val = ref->getShortValue() * -1;
@@ -109,7 +122,12 @@ AbstractVmInstance* NegateExpression::interpret16Bit(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* NegateExpression::interpret32Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
 	AbstractVmInstance* inst = this->exp->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
 	int32_t val = ref->getIntValue() * -1;
@@ -119,7 +137,12 @@ AbstractVmInstance* NegateExpression::interpret32Bit(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* NegateExpression::interpret64Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
 	AbstractVmInstance* inst = this->exp->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
 	int64_t val = ref->getLongValue() * -1;
