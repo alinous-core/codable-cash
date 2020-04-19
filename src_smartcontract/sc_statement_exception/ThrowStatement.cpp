@@ -27,6 +27,8 @@
 #include "instance_gc/StackFloatingVariableHandler.h"
 
 #include "vm_ctrl/ExecControlManager.h"
+
+#include "instance_exception/NullPointerExceptionClassDeclare.h"
 namespace alinous {
 
 ThrowStatement::ThrowStatement() : AbstractStatement(CodeElement::STMT_THROW) {
@@ -85,7 +87,7 @@ void ThrowStatement::interpret(VirtualMachine* vm) {
 	}
 
 	if(inst == nullptr || inst->isNull()){
-		// FIXME throw nullpointerexception
+		NullPointerExceptionClassDeclare::throwException(vm, this);
 		return;
 	}
 

@@ -16,6 +16,7 @@ class NullPointerExceptionClassDeclare : public AbstractExceptionClassDeclare {
 public:
 	static UnicodeString NAME;
 	static AnalyzedClass* createAnalyzedClass() noexcept;
+	static void throwException(VirtualMachine* vm, const CodeElement* element) noexcept;
 
 	NullPointerExceptionClassDeclare();
 	virtual ~NullPointerExceptionClassDeclare();
