@@ -29,9 +29,16 @@ class FunctionArguments;
 class VmRootReference;
 class AbstractReference;
 
-class AbstructProgramException;
+class VmExceptionInstance;
 class AbstractFunctionExtArguments;
 class ExecControlManager;
+
+class Exception;
+class CodeElement;
+class AnalyzedClass;
+class ObjectReference;
+class ExtExceptionObject;
+class ReservedClassRegistory;
 
 class VirtualMachine {
 public:
@@ -60,6 +67,9 @@ public:
 	GcManager* getGc() noexcept;
 
 	ExecControlManager* getCtrl() const noexcept;
+	void throwException(VmExceptionInstance* exception, const CodeElement* element) noexcept;
+	ObjectReference* catchException(AnalyzedClass* exClass) noexcept;
+
 
 	void setFunctionArguments(FunctionArguments* args) noexcept;
 	FunctionArguments* getFunctionArguments() const noexcept;
@@ -72,7 +82,17 @@ public:
 	void initialize();
 	void destroy() noexcept;
 
-	ArrayList<AbstructProgramException>& getExceptions() noexcept;
+	ArrayList<Exception>& getExceptions() noexcept;
+	ExtExceptionObject* getUncaughtException() noexcept;
+
+	ReservedClassRegistory* getReservedClassRegistory() const noexcept;
+
+	// catch statement
+	void setCaught(bool caught) noexcept;
+	bool isCaught() const noexcept;
+private:
+	void checkUncaughtException();
+
 private:
 	SmartContract* sc;
 
@@ -88,7 +108,11 @@ private:
 	bool destried;
 	bool initialized;
 
-	ArrayList<AbstructProgramException> exceptions;
+	ArrayList<Exception> exceptions;
+	ObjectReference* uncaughtException;
+
+	// catch test
+	bool caught;
 };
 
 } /* namespace alinous */

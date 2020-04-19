@@ -29,6 +29,7 @@
 
 #include "reserved_classes/ReservedClassRegistory.h"
 
+#include "vm/VirtualMachine.h"
 
 namespace alinous {
 
@@ -148,9 +149,6 @@ void AnalyzeContext::analyzeClassInheritance() {
 	}
 	delete it;
 
-	// V tables
-	resigterReservedClasses(); // Reserved classes entries
-
 	// source classes
 	it = this->packageSpaces->keySet()->iterator();
 	while(it->hasNext()){
@@ -173,13 +171,22 @@ void AnalyzeContext::analyzeClassInheritance() {
 }
 
 void AnalyzeContext::resigterReservedClasses() noexcept {
-	const ArrayList<AnalyzedClass>* list = ReservedClassRegistory::getInstance()->getReservedClassesList();
+	const ArrayList<AnalyzedClass>* list = this->vm->getReservedClassRegistory()->getReservedClassesList();
 
 	int maxLoop = list->size();
 	for(int i = 0; i != maxLoop; ++i){
 		AnalyzedClass* cls = list->get(i);
 
-		cls->buildVtable(this);
+		// package spaces
+		const UnicodeString* fqn = cls->getFullQualifiedName();
+		UnicodeString* packageName = TypeResolver::getPackageName(fqn); __STP(packageName);
+		PackageSpace* space = this->packageSpaces->get(packageName);
+		if(space == nullptr){
+			space = new PackageSpace(packageName);
+			this->packageSpaces->put(packageName, space);
+		}
+
+		space->addClassDeclare(cls);
 	}
 }
 
@@ -234,5 +241,8 @@ AnalyzedType* AnalyzeContext::getTmpArrayType() const noexcept {
 	return this->tmpArrayType;
 }
 
+ReservedClassRegistory* AnalyzeContext::getReservedClassRegistory() const noexcept {
+	return this->vm->getReservedClassRegistory();
+}
 
 } /* namespace alinous */

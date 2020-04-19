@@ -34,6 +34,10 @@
 
 #include "instance_ref/ObjectReference.h"
 
+#include "instance_gc/StackFloatingVariableHandler.h"
+
+#include "instance_exception/ExceptionInterrupt.h"
+
 
 namespace alinous {
 
@@ -201,16 +205,20 @@ AbstractVmInstance* ConstructorCall::interpret(VirtualMachine* vm) {
 	VmClassInstance* inst = VmClassInstance::createObject(clazz, vm);
 
 	FunctionArguments args;
-	interpretArguments(vm, &args, inst);
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+	interpretArguments(vm, &args, inst, &releaser);
 
 
 	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
 	methodDeclare->interpret(&args, vm);
 
+	ExceptionInterrupt::interruptPoint(vm, inst);
+
 	return inst;
 }
 
-void ConstructorCall::interpretArguments(VirtualMachine* vm, FunctionArguments* args, VmClassInstance* classInst) {
+void ConstructorCall::interpretArguments(VirtualMachine* vm, FunctionArguments* args, VmClassInstance* classInst, StackFloatingVariableHandler* releaser) {
 	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
 
 	// this ptr

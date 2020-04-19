@@ -316,5 +316,8 @@ ArrayList<MemberVariableDeclare>* ClassDeclare::getMemberVariables() noexcept {
 	return this->block->getMemberVariables();
 }
 
+IVmInstanceFactory* alinous::ClassDeclare::getFactory() const noexcept {
+	return nullptr;
+}
 
 } /* namespace alinous */

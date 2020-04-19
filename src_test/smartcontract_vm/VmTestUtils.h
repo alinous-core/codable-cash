@@ -9,6 +9,13 @@
 #define SMARTCONTRACT_VM_VMTESTUTILS_H_
 #include <cstdlib>
 
+#include "base/ArrayList.h"
+
+#include "compiler/CompileError.h"
+
+#include "ext_binary/ExtExceptionObject.h"
+
+
 namespace alinous {
 
 class UnicodeString;
@@ -45,6 +52,7 @@ public:
 	static int64_t getLongMemberValue(ExtClassObject* obj, const wchar_t* str);
 	static const UnicodeString* getStringMemberValue(ExtClassObject* obj, const wchar_t* str);
 	static ExtClassObject* getObjectValue(ExtClassObject* obj, const wchar_t* str);
+	static ExtExceptionObject* getExtExceptionObject(ExtClassObject* obj, const wchar_t* str);
 
 	static ExtArrayObject* getArrayMember(ExtClassObject* obj, const wchar_t* str);
 
@@ -53,6 +61,7 @@ public:
 	VirtualMachine* vm;
 	SmartContract* sc;
 	VmClassInstance* mainInst;
+	const ArrayList<CompileError>* compile_errors;
 
 private:
 	File* folder;

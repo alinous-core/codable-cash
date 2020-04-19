@@ -9,6 +9,7 @@
 #include "ext_binary/ExtPrimitiveObject.h"
 #include "ext_binary/ExtArrayObject.h"
 #include "ext_binary/ExtStringClass.h"
+#include "ext_binary/ExtExceptionObject.h"
 
 #include "base/UnicodeString.h"
 
@@ -17,7 +18,7 @@
 
 namespace alinous {
 
-ExtClassObject::ExtClassObject(const UnicodeString* name) : AbstractExtObject(name, VmInstanceTypesConst::ISNT_OBJ) {
+ExtClassObject::ExtClassObject(const UnicodeString* name) : AbstractExtObject(name, VmInstanceTypesConst::INST_OBJ) {
 	this->list = new ArrayList<AbstractExtObject>();
 	this->map = new HashMap<UnicodeString, AbstractExtObject>();
 }
@@ -47,6 +48,16 @@ ExtClassObject* ExtClassObject::getExtClassObject(const UnicodeString* name) con
 	}
 
 	return dynamic_cast<ExtClassObject*>(obj);
+}
+
+ExtExceptionObject* ExtClassObject::getExtExceptionObject(const UnicodeString* name) const noexcept {
+	AbstractExtObject* obj = this->map->get(name);
+
+	if(obj == nullptr || obj->isNull()){
+		return nullptr;
+	}
+
+	return dynamic_cast<ExtExceptionObject*>(obj);
 }
 
 ExtArrayObject* ExtClassObject::getExtArrayObject(const UnicodeString* name) const noexcept {

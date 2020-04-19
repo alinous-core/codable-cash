@@ -27,6 +27,7 @@ add_subdirectory(smartcontract_vm/memory)
 add_subdirectory(smartcontract_vm/method_invoke)
 add_subdirectory(smartcontract_vm/reserved_classes)
 add_subdirectory(smartcontract_vm/stmt_ctrl)
+add_subdirectory(smartcontract_vm/stmt_exception)
 add_subdirectory(smartcontract_vm/variables)
 add_subdirectory(test_utils)
 

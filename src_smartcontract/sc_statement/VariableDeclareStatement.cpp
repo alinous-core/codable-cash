@@ -24,6 +24,9 @@
 #include "instance_ref/RefereceFactory.h"
 
 #include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
+
+
 namespace alinous {
 
 VariableDeclareStatement::VariableDeclareStatement() : AbstractStatement(CodeElement::STMT_VARIABLE_DECLARE) {
@@ -157,10 +160,12 @@ void VariableDeclareStatement::interpret(VirtualMachine* vm) {
 	stack->addInnerReference(ref);
 
 	if(this->exp != nullptr){
-		AbstractVmInstance* instValue = this->exp->interpret(vm);
-		ref->substitute(instValue != nullptr ? instValue->getInstance() : nullptr, vm);
+		StackFloatingVariableHandler releaser(gc);
 
-		gc->handleFloatingObject(instValue != nullptr ? instValue->getInstance() : nullptr);
+		AbstractVmInstance* instValue = this->exp->interpret(vm);
+		releaser.registerInstance(instValue);
+
+		ref->substitute(instValue != nullptr ? instValue->getInstance() : nullptr, vm);
 	}
 }
 
@@ -168,5 +173,8 @@ bool VariableDeclareStatement::hasCtrlStatement() const noexcept {
 	return this->bctrl;
 }
 
+AnalyzedType VariableDeclareStatement::getType() const noexcept {
+	return *this->atype;
+}
 
 } /* namespace alinous */

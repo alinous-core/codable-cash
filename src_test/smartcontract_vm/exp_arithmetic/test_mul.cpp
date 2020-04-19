@@ -18,8 +18,6 @@
 
 #include "base/UnicodeString.h"
 
-#include "instance_exception/ZeroDivisionException.h"
-
 using namespace alinous;
 
 
@@ -28,9 +26,6 @@ TEST_GROUP(TestMulGroup) {
 	TEST_TEARDOWN(){}
 };
 
-TEST(TestMulGroup, exceptions){
-	testException<ZeroDivisionException>();
-}
 
 TEST(TestMulGroup, case01){ // int
 	const File* projectFolder = this->env->getProjectRoot();
@@ -103,7 +98,10 @@ TEST(TestMulGroup, case01_d_error){ // int
 	CHECK(result)
 
 	result = util.createInstance();
-	CHECK(!result)
+	CHECK(result)
+
+	ExtExceptionObject* exobj = util.vm->getUncaughtException(); __STP(exobj);
+	CHECK(exobj != nullptr)
 }
 
 TEST(TestMulGroup, case02){ // byte

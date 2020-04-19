@@ -13,6 +13,9 @@
 #include "sc_analyze/AnalyzedType.h"
 #include "sc_analyze/ValidationError.h"
 
+#include "base/UnicodeString.h"
+
+
 namespace alinous {
 
 ClassExtends::ClassExtends() : CodeElement(CodeElement::CLASS_EXTENDS) {
@@ -42,6 +45,11 @@ void ClassExtends::analyzeTypeRef(AnalyzeContext* actx) {
 
 void ClassExtends::setClassName(ClassName* className) noexcept {
 	this->className = className;
+}
+
+void ClassExtends::setClassName(const UnicodeString* className) noexcept {
+	this->className = new ClassName();
+	this->className->addStr(className);
 }
 
 AnalyzedType* ClassExtends::getAnalyzedType() const noexcept {

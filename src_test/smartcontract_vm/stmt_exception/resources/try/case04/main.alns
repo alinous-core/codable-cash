@@ -1,0 +1,32 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		try{
+			try{
+				throw makeEx();
+			}
+			catch(Exception e){
+				throw e;
+			}
+		}
+		catch(Exception e){
+			this.e = e;
+			this.result = 10;
+		}
+
+	}
+	
+	public Exception makeEx() {
+		return null;
+	}
+	
+	public int main(){
+
+	}
+	
+	private int result = -1;
+	private Exception e = null;
+}

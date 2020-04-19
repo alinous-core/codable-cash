@@ -17,4 +17,9 @@ AbstractCtrlInstruction::~AbstractCtrlInstruction() {
 
 }
 
+ObjectReference* AbstractCtrlInstruction::getException() const noexcept {
+	return nullptr;
+}
+
+
 } /* namespace alinous */

@@ -16,6 +16,9 @@
 #include "type_check/AnalyzedTypeChecker.h"
 
 #include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
+
+
 namespace alinous {
 
 EqualityExpression::EqualityExpression() : AbstractExpression(CodeElement::EXP_CND_EQ) {
@@ -106,18 +109,19 @@ void EqualityExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* EqualityExpression::interpret(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
 	AbstractVmInstance* leftv = this->left->interpret(vm);
+	releaser.registerInstance(leftv);
 	AbstractVmInstance* rightv = this->right->interpret(vm);
+	releaser.registerInstance(rightv);
 
 	int result = leftv->valueCompare(rightv->getInstance());
 	bool bl = (result == 0);
 	if(this->op == NOT_EQ){
 		bl = !bl;
 	}
-
-	GcManager* gc = vm->getGc();
-	gc->handleFloatingObject(leftv != nullptr ? leftv->getInstance() : nullptr);
-	gc->handleFloatingObject(rightv != nullptr ? rightv->getInstance() : nullptr);
 
 	PrimitiveReference* ret = PrimitiveReference::createBoolReference(vm, bl ? 1 : 0);
 

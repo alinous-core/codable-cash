@@ -66,6 +66,10 @@ public:
 	static const constexpr short STMT_IF{64};
 	static const constexpr short STMT_RETURN{65};
 	static const constexpr short STMT_WHILE{66};
+	static const constexpr short STMT_TRY{67};
+	static const constexpr short STMT_TRY_CATCH{68};
+	static const constexpr short STMT_THROW{69};
+	static const constexpr short STMT_FINALLY{70};
 
 
 	static const constexpr short EXP_ALLOCATION{80};
@@ -179,7 +183,7 @@ public:
 	static void checkIsJoinPart(CodeElement* element);
 	static void checkIsImport(CodeElement* element);
 
-	short getKind() noexcept;
+	short getKind() const noexcept;
 
 	void setParent(CodeElement* parent) noexcept;
 	CodeElement* getParent() const noexcept;

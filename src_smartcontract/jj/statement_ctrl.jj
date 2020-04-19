@@ -8,6 +8,8 @@ AbstractStatement* ctrlStatement() : {
 }
 {
 	(
+		stmt=throwStatement() |
+		stmt=tryStatement() |
 		stmt=ifStatement() |
 		stmt=breakStatement() |
 		stmt=continueStatement() |
@@ -18,6 +20,120 @@ AbstractStatement* ctrlStatement() : {
 	)
 	{}
 	{
+		return stmt;
+	}
+}
+
+TryStatement* tryStatement() : {
+	TryStatement* stmt = new TryStatement();
+	StatementBlock* block = nullptr;
+	Token* t = nullptr;
+	
+	CatchStatement* catchStmt = nullptr;
+	FinallyStatement* finallyStmt = nullptr;
+}
+{
+	t="try" {
+		stmt->setPosition(t);
+	}
+	block=statementBlock() {
+		stmt->setBlock(block);
+		stmt->setPosition(block);
+	}
+	
+	(
+		catchStmt=catchStatement() {
+			stmt->addCatchStatement(catchStmt);
+			stmt->setPosition(catchStmt);
+		}
+	)*
+	
+	[
+		finallyStmt=finallyStatement() {
+			stmt->setFinallyStatement(finallyStmt);
+			stmt->setPosition(finallyStmt);
+		}
+	]
+	
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+FinallyStatement* finallyStatement() : {
+	FinallyStatement* stmt = new FinallyStatement();
+	StatementBlock* block = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="finally" {
+		stmt->setPosition(t);
+	}
+	block=statementBlock() {
+		stmt->setBlock(block);
+		stmt->setPosition(block);
+	}
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+CatchStatement* catchStatement() : {
+	CatchStatement* stmt = new CatchStatement();
+	StatementBlock* block = nullptr;
+	Token* t = nullptr;
+	
+	VariableDeclareStatement* variableDeclare = nullptr;
+}
+{
+	t="catch" {
+		stmt->setPosition(t);
+	}
+	
+	t="(" {
+		stmt->setPosition(t);
+	}
+	
+	variableDeclare=__variableDeclareStatement() {
+		stmt->setVariableDeclare(variableDeclare);
+		stmt->setPosition(variableDeclare);
+	}
+	
+	t=")" {
+		stmt->setPosition(t);
+	}
+	block=statementBlock() {
+		stmt->setBlock(block);
+		stmt->setPosition(block);
+	}
+	
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+ThrowStatement* throwStatement() : {
+	ThrowStatement* stmt = new ThrowStatement();
+	AbstractExpression* exp = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="throw" {
+		stmt->setPosition(t);
+	}
+	exp=expression()
+	{
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}	
+	{
+		 __ONERROR(stmt);
 		return stmt;
 	}
 }

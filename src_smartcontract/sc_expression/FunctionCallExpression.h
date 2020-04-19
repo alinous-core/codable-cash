@@ -19,6 +19,7 @@ class FunctionArguments;
 class AnalyzedClass;
 class VmClassInstance;
 class VariableIdentifier;
+class StackFloatingVariableHandler;
 
 class FunctionCallExpression : public AbstractExpression {
 public:
@@ -52,7 +53,7 @@ private:
 
 	AbstractVmInstance* interpretVirtual(VirtualMachine* vm, FunctionArguments* args);
 	void interpretThisPointer(VirtualMachine* vm, FunctionArguments* args);
-	void interpretArguments(VirtualMachine* vm, FunctionArguments* args);
+	void interpretArguments(VirtualMachine* vm, FunctionArguments* args, StackFloatingVariableHandler* releaser);
 private:
 	AbstractExpression* name;
 	ArrayList<AbstractExpression> args;

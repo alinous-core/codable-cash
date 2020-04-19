@@ -13,6 +13,10 @@
 
 #include "instance_ref/PrimitiveReference.h"
 
+#include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
+
+
 namespace alinous {
 
 PreIncrementExpression::PreIncrementExpression() : AbstractArithmeticExpression(CodeElement::EXP_PRE_INC) {
@@ -93,7 +97,12 @@ AbstractVmInstance* PreIncrementExpression::interpret(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* PreIncrementExpression::interpret8Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
 	AbstractVmInstance* inst = this->exp->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
 	int8_t val = 0;
@@ -111,7 +120,12 @@ AbstractVmInstance* PreIncrementExpression::interpret8Bit(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* PreIncrementExpression::interpret16Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
 	AbstractVmInstance* inst = this->exp->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
 	int16_t val = 0;
@@ -128,7 +142,12 @@ AbstractVmInstance* PreIncrementExpression::interpret16Bit(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* PreIncrementExpression::interpret32Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
 	AbstractVmInstance* inst = this->exp->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
 	int32_t val = 0;
@@ -145,7 +164,12 @@ AbstractVmInstance* PreIncrementExpression::interpret32Bit(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* PreIncrementExpression::interpret64Bit(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
 	AbstractVmInstance* inst = this->exp->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
 	uint64_t val = 0;

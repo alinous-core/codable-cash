@@ -66,6 +66,8 @@ void MemberVariableDeclare::analyzeTypeRef(AnalyzeContext* actx) {
 
 	TypeResolver* typeResolver = actx->getTypeResolver();
 
+	assert(this->atype == nullptr);
+
 	this->atype = typeResolver->resolveType(this, this->type);
 	if(this->atype == nullptr){
 		actx->addValidationError(ValidationError::CODE_WRONG_TYPE_NAME, this, L"The type '{0}' does not exists.", {this->type->toString()});
@@ -113,6 +115,9 @@ void MemberVariableDeclare::doOnAllocate(VirtualMachine* vm, AbstractReference* 
 	StackPopper popStack(vm);
 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
+
+	// FIXME exception
+
 	IAbstractVmInstanceSubstance* sub = inst != nullptr ? inst->getInstance() : nullptr;
 	ref->substitute(sub, vm);
 
@@ -122,6 +127,12 @@ void MemberVariableDeclare::doOnAllocate(VirtualMachine* vm, AbstractReference* 
 void MemberVariableDeclare::setAccessControl(AccessControlDeclare* ctrl) noexcept {
 	this->ctrl = ctrl;
 }
+
+void MemberVariableDeclare::setAccessControl(char ctrl) noexcept {
+	this->ctrl = new AccessControlDeclare();
+	this->ctrl->setCtrl(ctrl);
+}
+
 
 void MemberVariableDeclare::setType(AbstractType* type) noexcept {
 	this->type = type;

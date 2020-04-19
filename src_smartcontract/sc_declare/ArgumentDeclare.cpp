@@ -82,6 +82,7 @@ AnalyzedType* ArgumentDeclare::getAnalyzedType() const noexcept {
 void alinous::ArgumentDeclare::fromBinary(ByteBuffer* in) {
 	CodeElement* element = createFromBinary(in);
 	checkIsType(element);
+	checkNotNull(element);
 	this->type = dynamic_cast<AbstractType*>(element);
 
 	this->name = getString(in);

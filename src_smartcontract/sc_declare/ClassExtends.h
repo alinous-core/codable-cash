@@ -15,6 +15,7 @@ namespace alinous {
 class ClassName;
 class AnalyzeContext;
 class AnalyzedType;
+class UnicodeString;
 
 class ClassExtends : public CodeElement {
 public:
@@ -25,6 +26,7 @@ public:
 	void analyzeTypeRef(AnalyzeContext* actx);
 
 	void setClassName(ClassName* className) noexcept;
+	void setClassName(const UnicodeString* className) noexcept;
 
 	AnalyzedType* getAnalyzedType() const noexcept;
 

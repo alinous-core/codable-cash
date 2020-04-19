@@ -5,6 +5,7 @@ set(__src
 	BlockState.cpp
 	BreakControl.cpp
 	ContinueControl.cpp
+	ExceptionControl.cpp
 	ExecControlManager.cpp
 	ReturnControl.cpp
 )

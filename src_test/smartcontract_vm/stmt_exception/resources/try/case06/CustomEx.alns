@@ -1,0 +1,8 @@
+
+package test.fw;
+
+class CustomEx extends Exception {
+	public CustomEx() {
+	
+	}
+}

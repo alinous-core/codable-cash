@@ -1,0 +1,25 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		try{
+			throw new Exception();
+		}
+		catch(Exception e){
+			this.e = e;
+			this.result = 10;
+		}
+		finally{
+		
+		}
+	}
+	
+	public int main(){
+
+	}
+	
+	private int result = -1;
+	private Exception e = null;
+}

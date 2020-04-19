@@ -11,6 +11,10 @@
 
 #include "sc/CodeElement.h"
 
+#include "vm/VirtualMachine.h"
+
+#include "vm_ctrl/ExceptionControl.h"
+
 namespace alinous {
 
 ExecControlManager::ExecControlManager() {
@@ -48,5 +52,24 @@ int ExecControlManager::checkStatementCtrl(BlockState* state, CodeElement* lastE
 
 	return AbstractCtrlInstruction::RET_NONE;
 }
+
+ObjectReference* ExecControlManager::getException() const noexcept {
+	return this->instruction != nullptr ? this->instruction->getException() : nullptr;
+}
+
+void ExecControlManager::consumeException(VirtualMachine* vm) noexcept {
+	ExceptionControl* exInstruction = dynamic_cast<ExceptionControl*>(this->instruction);
+
+	exInstruction->releaseException(vm);
+	consumeInstruction();
+	doConsumeInstruction();
+}
+
+bool ExecControlManager::isExceptionThrown() const noexcept {
+	ExceptionControl* exInstruction = dynamic_cast<ExceptionControl*>(this->instruction);
+
+	return exInstruction != nullptr;
+}
+
 
 } /* namespace alinous */

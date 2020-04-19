@@ -5,6 +5,7 @@ set(testsrc
 	test_ctrl_statement.cpp
 	test_ddl.cpp
 	test_dml.cpp
+	test_exceptions.cpp
 	test_exp.cpp
 	test_exp_arithmetic.cpp
 	test_exp_bit.cpp

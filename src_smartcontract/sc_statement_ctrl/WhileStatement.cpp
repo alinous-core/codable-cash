@@ -19,10 +19,14 @@
 #include "instance_ref/PrimitiveReference.h"
 
 #include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
 
 #include "vm_ctrl/ExecControlManager.h"
 
 #include "vm_ctrl/AbstractCtrlInstruction.h"
+
+#include "instance_exception/ExceptionInterrupt.h"
+
 namespace alinous {
 
 WhileStatement::WhileStatement() : AbstractStatement(CodeElement::STMT_WHILE) {
@@ -117,15 +121,22 @@ void WhileStatement::interpret(VirtualMachine* vm) {
 	PrimitiveReference* ref = nullptr;
 
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 	ExecControlManager* ctrl = vm->getCtrl();
 
+	int loopCount = 0;
 	while(true){
-		inst = this->exp->interpret(vm);
+		try{
+			inst = this->exp->interpret(vm);
+			releaser.registerInstance(inst);
+		}
+		catch(ExceptionInterrupt* e){
+			delete e;
+			break;
+		}
+
 		ref = dynamic_cast<PrimitiveReference*>(inst);
-
 		bool exec = ref->getBoolValue();
-		gc->handleFloatingObject(ref);
-
 		if(!exec){
 			break;
 		}
@@ -134,8 +145,16 @@ void WhileStatement::interpret(VirtualMachine* vm) {
 
 		// control
 		int stat = ctrl->checkStatementCtrl(this->blockState, stmt);
-		if(stat == AbstractCtrlInstruction::RET_BREAK){
+		if(stat == AbstractCtrlInstruction::RET_BREAK || stat == AbstractCtrlInstruction::RET_THROW){
 			break;
+		}
+
+		if(loopCount == 10){
+			releaser.release();
+			loopCount = 0;
+		}
+		else{
+			loopCount++;
 		}
 	}
 }

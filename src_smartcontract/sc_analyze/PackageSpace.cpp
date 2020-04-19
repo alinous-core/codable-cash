@@ -36,7 +36,10 @@ PackageSpace::~PackageSpace() {
 	while(it->hasNext()){
 		const UnicodeString* n = it->next();
 		AnalyzedClass* cls = this->classes->get(n);
-		delete cls;
+
+		if(!cls->isReserved()){
+			delete cls;
+		}
 	}
 	delete it;
 
@@ -47,6 +50,10 @@ void PackageSpace::addClassDeclare(ClassDeclare* clazz) noexcept {
 	AnalyzedClass* aclazz = new AnalyzedClass(clazz);
 
 	this->classes->put(clazz->getName(), aclazz);
+}
+
+void PackageSpace::addClassDeclare(AnalyzedClass* clazz) noexcept {
+	this->classes->put(clazz->getClassDeclare()->getName(), clazz);
 }
 
 AnalyzedClass* PackageSpace::getClass(const UnicodeString* name) noexcept {

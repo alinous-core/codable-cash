@@ -11,17 +11,48 @@
 
 #include "reserved_classes_string/StringClassDeclare.h"
 
+#include "instance_exception_class/ExceptionClassDeclare.h"
+
+#include "sc/CompilationUnit.h"
+
+#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
+#include "instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance_exception/ZeroDivisionExceptionClassDeclare.h"
+
+#include "base/UnicodeString.h"
+
+
 namespace alinous {
 
 ReservedClassRegistory::ReservedClassRegistory() {
+	this->unit = new CompilationUnit();
+
 	AnalyzedClass* aclass = StringClassDeclare::createAnalyzedClass();
-	this->list.addElement(aclass);
+	addAnalyzedClass(aclass);
+
+	aclass = ExceptionClassDeclare::createAnalyzedClass();
+	addAnalyzedClass(aclass);
+
+	aclass = ArrayOutOfBoundsExceptionClassDeclare::createAnalyzedClass();
+	addAnalyzedClass(aclass);
+
+	aclass = NullPointerExceptionClassDeclare::createAnalyzedClass();
+	addAnalyzedClass(aclass);
+
+	aclass = ZeroDivisionExceptionClassDeclare::createAnalyzedClass();
+	addAnalyzedClass(aclass);
 }
 
-ReservedClassRegistory* ReservedClassRegistory::getInstance() {
-	static ReservedClassRegistory inst;
+AnalyzedClass* ReservedClassRegistory::getAnalyzedClass(const UnicodeString* fqn) const noexcept {
+	return this->map.get(fqn);
+}
 
-	return &inst;
+void ReservedClassRegistory::addAnalyzedClass(AnalyzedClass* aclass) noexcept {
+	aclass->setReserved(true);
+	this->list.addElement(aclass);
+
+	const UnicodeString* name = aclass->getFullQualifiedName();
+	this->map.put(name, aclass);
 }
 
 ReservedClassRegistory::~ReservedClassRegistory() {
@@ -34,10 +65,17 @@ ReservedClassRegistory::~ReservedClassRegistory() {
 	}
 
 	this->list.deleteElements();
+
+	delete this->unit;
 }
 
 const ArrayList<AnalyzedClass>* ReservedClassRegistory::getReservedClassesList() const noexcept {
 	return &this->list;
 }
+
+CompilationUnit* ReservedClassRegistory::getUnit() const noexcept {
+	return this->unit;
+}
+
 
 } /* namespace alinous */

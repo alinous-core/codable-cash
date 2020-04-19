@@ -18,9 +18,15 @@ public:
 	AbstractReservedClassDeclare();
 	virtual ~AbstractReservedClassDeclare();
 
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
 
 	virtual ArrayList<MethodDeclare>* getMethods() noexcept;
 	virtual ArrayList<MemberVariableDeclare>* getMemberVariables() noexcept;
+
+protected:
+	void addDefaultConstructor(const UnicodeString* className) noexcept;
 
 protected:
 	ArrayList<MethodDeclare>* methods;

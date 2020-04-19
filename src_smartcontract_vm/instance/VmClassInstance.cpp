@@ -11,6 +11,8 @@
 #include "vm/VirtualMachine.h"
 
 #include "sc_analyze/AnalyzedClass.h"
+#include "sc_analyze/IVmInstanceFactory.h"
+
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_analyze_functions/VTableRegistory.h"
 #include "sc_analyze_functions/VTableClassEntry.h"
@@ -30,11 +32,16 @@
 
 #include "instance_ref/ObjectReference.h"
 
+
 namespace alinous {
 
 VmClassInstance::VmClassInstance(AnalyzedClass* clazz, VirtualMachine* vm) :
-		AbstractVmInstance(VmInstanceTypesConst::ISNT_OBJ), clazz(clazz), members(vm) {
+		AbstractVmInstance(VmInstanceTypesConst::INST_OBJ), clazz(clazz), members(vm) {
 
+}
+
+VmClassInstance::VmClassInstance(uint8_t type, AnalyzedClass* clazz, VirtualMachine* vm) :
+		AbstractVmInstance(type), clazz(clazz), members(vm) {
 }
 
 VmClassInstance::~VmClassInstance() {
@@ -47,10 +54,31 @@ VmClassInstance::~VmClassInstance() {
 }
 
 VmClassInstance* VmClassInstance::createObject(AnalyzedClass* clazz, VirtualMachine* vm) {
-	VmClassInstance* inst = new(vm) VmClassInstance(clazz, vm);
+	IVmInstanceFactory* factory = findFactory(clazz);
+	VmClassInstance* inst = nullptr;
+	if(factory != nullptr){
+		inst = factory->createInstance(clazz, vm);
+	}
+	else{
+		inst = new(vm) VmClassInstance(clazz, vm);
+	}
+
 	inst->init(vm);
 
 	return inst;
+}
+
+IVmInstanceFactory* VmClassInstance::findFactory(AnalyzedClass* clazz) noexcept {
+	while(clazz != nullptr){
+		IVmInstanceFactory* factory = clazz->getFactory();
+		if(factory != nullptr){
+			return factory;
+		}
+
+		clazz = clazz->getExtends();
+	}
+
+	return nullptr;
 }
 
 void VmClassInstance::removeInnerRefs(GcManager* gc) noexcept {

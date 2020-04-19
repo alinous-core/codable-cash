@@ -26,6 +26,7 @@ class MemberVariableDeclare;
 class AnalyzedClass;
 class VTableRegistory;
 class VTableClassEntry;
+class IVmInstanceFactory;
 
 class ClassDeclare : public CodeElement {
 public:
@@ -34,9 +35,9 @@ public:
 
 	void setInterface(bool interface) noexcept;
 
-	void preAnalyze(AnalyzeContext* actx);
-	void analyzeTypeRef(AnalyzeContext* actx);
-	void analyze(AnalyzeContext* actx);
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
 
 	void init(VirtualMachine* vm);
 
@@ -59,6 +60,8 @@ public:
 
 	virtual ArrayList<MethodDeclare>* getMethods() noexcept;
 	virtual ArrayList<MemberVariableDeclare>* getMemberVariables() noexcept;
+
+	virtual IVmInstanceFactory* getFactory() const noexcept;
 
 private:
 	void checkImplementsInterfaces(AnalyzeContext* actx);

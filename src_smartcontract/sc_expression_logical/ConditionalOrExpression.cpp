@@ -12,6 +12,7 @@
 #include "sc_analyze/ValidationError.h"
 
 #include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
 
 #include "instance_ref/PrimitiveReference.h"
 
@@ -70,17 +71,18 @@ AnalyzedType ConditionalOrExpression::getType(AnalyzeContext* actx) {
 
 AbstractVmInstance* ConditionalOrExpression::interpret(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractExpression* exp = this->list.get(i);
 
 		AbstractVmInstance* inst = exp->interpret(vm);
+		releaser.registerInstance(inst);
+
 		PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
 
 		int32_t val = ref->getIntValue();
-		gc->handleFloatingObject(inst != nullptr ? inst->getInstance() : nullptr);
-
 		if(val > 0){
 			return PrimitiveReference::createBoolReference(vm, 1);
 		}

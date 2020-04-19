@@ -22,6 +22,8 @@ class VmRootReference;
 class VmClassInstance;
 class ExtClassObject;
 class CompileError;
+class ReservedClassRegistory;
+
 
 class SmartContract {
 public:
@@ -46,6 +48,7 @@ public:
 	const ArrayList<CompileError>* getCompileErrors() const noexcept;
 
 	CompilationUnit* getCompilationUnit(int pos);
+	ReservedClassRegistory* getReservedClassRegistory() const noexcept;
 
 private:
 	UnicodeString* mainPackage;
@@ -58,6 +61,7 @@ private:
 	bool initialized;
 
 	ArrayList<CompileError> compileErrorList;
+	ReservedClassRegistory* reservedClassRegistory;
 };
 
 } /* namespace alinous */

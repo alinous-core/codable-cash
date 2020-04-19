@@ -25,6 +25,7 @@
 #include "sc_analyze_functions/FunctionScoreCalc.h"
 #include "sc_analyze_functions/VTableClassEntry.h"
 
+#include "sc_analyze/IVmInstanceFactory.h"
 namespace alinous {
 
 AnalyzedClass::AnalyzedClass(const AnalyzedClass& inst) {
@@ -67,6 +68,9 @@ AnalyzedClass::AnalyzedClass(const AnalyzedClass& inst) {
 		AnalyzedClass* cls = inst.implements.get(i);
 		this->implements.addElement(cls);
 	}
+
+	this->factory = inst.factory;
+	this->reserved = inst.reserved;
 }
 
 AnalyzedClass::AnalyzedClass(ClassDeclare* clazz) {
@@ -75,6 +79,8 @@ AnalyzedClass::AnalyzedClass(ClassDeclare* clazz) {
 	this->methods = new HashMap<UnicodeString, MethodDeclare>();
 	this->extends = nullptr;
 	this->sig = nullptr;
+	this->factory = clazz != nullptr ? clazz->getFactory() : nullptr;
+	this->reserved = false;
 }
 
 AnalyzedClass::~AnalyzedClass() {
@@ -82,6 +88,7 @@ AnalyzedClass::~AnalyzedClass() {
 	delete this->variables;
 	delete this->methods;
 	delete this->sig;
+	this->factory = nullptr;
 }
 
 void AnalyzedClass::addMemberVariableDeclare(MemberVariableDeclare* member) {
@@ -223,5 +230,20 @@ bool AnalyzedClass::hasBaseClass(AnalyzedClass* clazz) noexcept {
 	return false;
 }
 
+void AnalyzedClass::setFactory(IVmInstanceFactory* factory) noexcept {
+	this->factory = factory;
+}
+
+IVmInstanceFactory* AnalyzedClass::getFactory() const noexcept {
+	return this->factory;
+}
+
+void AnalyzedClass::setReserved(bool reserved) noexcept {
+	this->reserved = reserved;
+}
+
+bool AnalyzedClass::isReserved() const noexcept {
+	return this->reserved;
+}
 
 } /* namespace alinous */

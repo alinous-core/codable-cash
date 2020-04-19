@@ -11,9 +11,12 @@
 #include "memory/VmMemoryManager.h"
 #include "instance_parts/VmMalloc.h"
 #include "instance_gc/GcManager.h"
+
+#include "instance/IAbstractVmInstanceSubstance.h"
 #include "instance/VmClassInstance.h"
 
 #include "instance_ref/AbstractReference.h"
+#include "instance_ref/ObjectReference.h"
 
 #include "stack/VmStackManager.h"
 #include "stack/VmStack.h"
@@ -34,15 +37,27 @@
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedType.h"
 
-#include "instance_exception/AbstructProgramException.h"
+#include "instance_exception_class/VmExceptionInstance.h"
 
 #include "ext_arguments/AbstractFunctionExtArguments.h"
+
+#include "ext_binary/ExtExceptionObject.h"
 
 #include "vm/exceptions.h"
 
 #include "stack/StackPopper.h"
 
 #include "vm_ctrl/ExecControlManager.h"
+#include "vm_ctrl/ExceptionControl.h"
+
+#include "base/Exception.h"
+
+#include "reserved_classes/ReservedClassRegistory.h"
+
+#include "instance_exception_class/ExceptionClassDeclare.h"
+
+#include "base/UnicodeString.h"
+
 
 namespace alinous {
 
@@ -57,6 +72,8 @@ VirtualMachine::VirtualMachine(uint64_t memCapacity) {
 	this->initialized = false;
 	this->rootReference = nullptr;
 	this->ctrl = new ExecControlManager();
+	this->uncaughtException = nullptr;
+	this->caught = false;
 }
 
 VirtualMachine::~VirtualMachine() {
@@ -77,6 +94,7 @@ VirtualMachine::~VirtualMachine() {
 	this->rootReference = nullptr;
 
 	this->exceptions.deleteElements();
+	delete this->uncaughtException;
 }
 
 void VirtualMachine::loadSmartContract(SmartContract* sc) {
@@ -89,7 +107,7 @@ VmClassInstance* VirtualMachine::createScInstance() {
 	try{
 		return this->sc->createInstance(this);
 	}
-	catch(AbstructProgramException* e){
+	catch(Exception* e){
 		this->exceptions.addElement(e);
 	}
 
@@ -151,6 +169,9 @@ void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractFu
 	VmStack* stack = this->topStack();
 
 	methodDeclare->interpret(&args, this);
+
+	// uncaught exception
+	checkUncaughtException();
 }
 
 void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, ArrayList<AbstractFunctionExtArguments>* arguments) {
@@ -160,7 +181,26 @@ void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, Ar
 	args.setThisPtr(_this);
 
 	method->interpret(&args, this);
+
+	// uncaught exception
+	checkUncaughtException();
 }
+
+ReservedClassRegistory* VirtualMachine::getReservedClassRegistory() const noexcept {
+	return this->sc->getReservedClassRegistory();
+}
+
+void VirtualMachine::checkUncaughtException() {
+	ReservedClassRegistory* reg = getReservedClassRegistory();
+	AnalyzedClass* exclass = reg->getAnalyzedClass(&ExceptionClassDeclare::NAME);
+
+	this->uncaughtException = catchException(exclass);
+
+	if(this->uncaughtException != nullptr){
+		this->gc->registerObject(this->uncaughtException);
+	}
+}
+
 
 VmMemoryManager* VirtualMachine::getMemory() noexcept {
 	return this->memory;
@@ -256,6 +296,12 @@ void VirtualMachine::destroy() noexcept {
 		return;
 	}
 
+	if(this->uncaughtException != nullptr){
+		this->gc->removeObject(this->uncaughtException);
+		delete this->uncaughtException;
+		this->uncaughtException = nullptr;
+	}
+
 	clearStack();
 	this->sc->getRootReference()->clearInnerReferences();
 	this->gc->garbageCollect();
@@ -269,8 +315,65 @@ ExecControlManager* VirtualMachine::getCtrl() const noexcept {
 	return this->ctrl;
 }
 
-ArrayList<AbstructProgramException>& VirtualMachine::getExceptions() noexcept {
+void VirtualMachine::throwException(VmExceptionInstance* exception, const CodeElement* element) noexcept {
+	ExecControlManager* ctrl = this->ctrl;
+
+	exception->setCodeElement(element);
+
+	VmRootReference* rootRef = this->sc->getRootReference();
+	AbstractReference* ref = exception->wrap(rootRef, this);
+	this->gc->registerObject(ref);
+
+	ExceptionControl* exceptionCtrl = new ExceptionControl(ref);
+	ctrl->setInstruction(exceptionCtrl);
+}
+
+ObjectReference* VirtualMachine::catchException(AnalyzedClass* exClass) noexcept {
+	ExecControlManager* ctrl = this->ctrl;
+
+	ObjectReference* ref = ctrl->getException();
+	if(ref == nullptr){
+		return nullptr;
+	}
+
+	IAbstractVmInstanceSubstance* sub = ref->getInstance();
+	VmExceptionInstance* ex = dynamic_cast<VmExceptionInstance*>(sub);
+
+	AnalyzedClass* cls = ex->getAnalyzedClass();
+	if(!cls->hasBaseClass(exClass)){
+		return nullptr;
+	}
+
+	ctrl->consumeException(this);
+
+	return ref;
+}
+
+ArrayList<Exception>& VirtualMachine::getExceptions() noexcept {
 	return this->exceptions;
+}
+
+ExtExceptionObject* VirtualMachine::getUncaughtException() noexcept {
+	if(this->uncaughtException == nullptr){
+		return nullptr;
+	}
+
+	VTableRegistory* vreg = this->sc->getAnalyzeContext()->getVtableRegistory();
+
+	IAbstractVmInstanceSubstance* sub = this->uncaughtException->getInstance();
+
+	UnicodeString oname(L"uncaught");
+	AbstractExtObject* extObj = sub->instToClassExtObject(&oname, vreg);
+
+	return dynamic_cast<ExtExceptionObject*>(extObj);
+}
+
+void VirtualMachine::setCaught(bool caught) noexcept {
+	this->caught = caught;
+}
+
+bool VirtualMachine::isCaught() const noexcept {
+	return this->caught;
 }
 
 

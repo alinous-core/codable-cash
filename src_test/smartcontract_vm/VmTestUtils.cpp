@@ -39,6 +39,7 @@ VmTestUtils::VmTestUtils(const wchar_t* seg, const File* projectFolder) {
 	this->vm = new VirtualMachine(1024*1024);
 	this->sc = nullptr;
 	this->mainInst = nullptr;
+	this->compile_errors = nullptr;
 }
 
 VmTestUtils::~VmTestUtils() {
@@ -57,7 +58,7 @@ bool VmTestUtils::analyze() {
 
 bool VmTestUtils::createInstance() {
 	this->mainInst = vm->createScInstance();
-	ArrayList<AbstructProgramException>& exceptions = vm->getExceptions();
+	ArrayList<Exception>& exceptions = vm->getExceptions();
 
 	return !vm->hasError() && exceptions.isEmpty();
 }
@@ -70,9 +71,9 @@ bool VmTestUtils::loadAllFiles() {
 	this->sc = sc;
 	this->vm->loadSmartContract(sc);
 
-	const ArrayList<CompileError>* list = this->sc->getCompileErrors();
+	compile_errors = this->sc->getCompileErrors();
 
-	return list->isEmpty();
+	return compile_errors->isEmpty();
 }
 
 void VmTestUtils::scanFiles(File* folder, SmartContract* sc) {
@@ -190,6 +191,13 @@ const UnicodeString* VmTestUtils::getStringMemberValue(ExtClassObject* obj, cons
 ExtArrayObject* VmTestUtils::getArrayMember(ExtClassObject* obj, const wchar_t* str) {
 	UnicodeString strResult(str);
 	ExtArrayObject* extObj = obj->getExtArrayObject(&strResult);
+
+	return extObj;
+}
+
+ExtExceptionObject* VmTestUtils::getExtExceptionObject(ExtClassObject* obj,	const wchar_t* str) {
+	UnicodeString strResult(str);
+	ExtExceptionObject* extObj = obj->getExtExceptionObject(&strResult);
 
 	return extObj;
 }

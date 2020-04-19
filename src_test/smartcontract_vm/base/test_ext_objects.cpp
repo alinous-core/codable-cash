@@ -40,7 +40,7 @@ TEST(TestExtObjects, classobjadd){
 	obj.add(intOnj);
 
 	uint8_t type = obj.getType();
-	CHECK(type == VmInstanceTypesConst::ISNT_OBJ);
+	CHECK(type == VmInstanceTypesConst::INST_OBJ);
 }
 
 TEST(TestExtObjects, constructPrimitive){

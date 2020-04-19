@@ -23,11 +23,14 @@
 #include "vm_ctrl/AbstractCtrlInstruction.h"
 
 #include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
 
 #include "sc_analyze_stack/AnalyzeStackPopper.h"
 #include "sc_analyze_stack/AnalyzeStackManager.h"
 
 #include "stack/StackPopper.h"
+
+#include "instance_exception/ExceptionInterrupt.h"
 
 namespace alinous {
 
@@ -208,20 +211,31 @@ void ForStatement::interpret(VirtualMachine* vm) {
 	PrimitiveReference* ref = nullptr;
 
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 	ExecControlManager* ctrl = vm->getCtrl();
 
 	if(this->initStatement != nullptr){
 		this->initStatement->interpret(vm);
+
+		if(ctrl->isExceptionThrown()){
+			return;
+		}
 	}
 
 	while(true){
 		if(this->cond != nullptr){
-			inst = this->cond->interpret(vm);
+			try{
+				inst = this->cond->interpret(vm);
+				releaser.registerInstance(inst);
+			}
+			catch(ExceptionInterrupt* e){
+				delete e;
+				break;
+			}
+
 			ref = dynamic_cast<PrimitiveReference*>(inst);
 
 			bool exec = ref->getBoolValue();
-			gc->handleFloatingObject(ref);
-
 			if(!exec){
 				break;
 			}
@@ -231,13 +245,17 @@ void ForStatement::interpret(VirtualMachine* vm) {
 			this->stmt->interpret(vm);
 
 			int stat = ctrl->checkStatementCtrl(this->blockState, this->stmt);
-			if(stat == AbstractCtrlInstruction::RET_BREAK){
-				return;
+			if(stat == AbstractCtrlInstruction::RET_BREAK || stat == AbstractCtrlInstruction::RET_THROW){
+				break;
 			}
 		}
 
 		if(this->postLoop != nullptr){
 			this->postLoop->interpret(vm);
+
+			if(ctrl->isExceptionThrown()){
+				break;
+			}
 		}
 
 	}

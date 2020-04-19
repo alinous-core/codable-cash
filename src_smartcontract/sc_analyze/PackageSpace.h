@@ -23,6 +23,8 @@ public:
 	virtual ~PackageSpace();
 
 	void addClassDeclare(ClassDeclare* clazz) noexcept;
+	void addClassDeclare(AnalyzedClass* clazz) noexcept;
+
 	AnalyzedClass* getClass(const UnicodeString* name) noexcept;
 
 	void analyzeClassInheritance(AnalyzeContext* actx) noexcept;
