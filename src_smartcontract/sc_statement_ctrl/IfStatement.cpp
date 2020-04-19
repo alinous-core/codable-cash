@@ -21,6 +21,9 @@
 
 #include "vm_ctrl/ExecControlManager.h"
 
+#include "instance_exception/ExceptionInterrupt.h"
+
+
 namespace alinous {
 
 IfStatement::IfStatement() : AbstractStatement(CodeElement::STMT_IF) {
@@ -248,10 +251,12 @@ void IfStatement::interpret(VirtualMachine* vm) {
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
 		IfStatement* stmt = this->list.get(i);
-		expV = releaser.registerInstance(stmt->exp->interpret(vm));
 
-		// exception
-		if(stmt->exp->throwsException() && ctrl->isExceptionThrown()){
+		try{
+			expV = releaser.registerInstance(stmt->exp->interpret(vm));
+		}
+		catch(ExceptionInterrupt* e){
+			delete e;
 			return;
 		}
 
