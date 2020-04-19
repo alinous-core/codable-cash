@@ -14,6 +14,8 @@
 #include "instance_ref/PrimitiveReference.h"
 
 #include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
+
 
 namespace alinous {
 
@@ -78,13 +80,15 @@ void NotExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* NotExpression::interpret(VirtualMachine* vm) {
-	AbstractVmInstance* inst = this->exp->interpret(vm); // FIXME exception
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+	releaser.registerInstance(inst);
+
 	PrimitiveReference* blRef =dynamic_cast<PrimitiveReference*>(inst);
 
 	bool blvalue = !(blRef->getIntValue() == 1);
-
-	GcManager* gc = vm->getGc();
-	gc->handleFloatingObject(inst != nullptr ? inst->getInstance() : nullptr);
 
 	return PrimitiveReference::createBoolReference(vm, blvalue ? 1 : 0);
 }
