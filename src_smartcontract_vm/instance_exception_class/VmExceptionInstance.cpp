@@ -11,6 +11,7 @@
 
 #include "ext_binary/ExtExceptionObject.h"
 
+#include "sc_analyze/AnalyzedClass.h"
 
 namespace alinous {
 
@@ -34,6 +35,7 @@ const CodeElement* VmExceptionInstance::getElement() const noexcept {
 AbstractExtObject* VmExceptionInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* reg) {
 	ExtExceptionObject* extObj = new ExtExceptionObject(name);
 	extObj->setCodeElement(getElement());
+	extObj->setClassName(this->clazz->getFullQualifiedName());
 
 	return extObj;
 }

@@ -8,14 +8,20 @@
 #include "ext_binary/ExtExceptionObject.h"
 
 #include "instance/VmInstanceTypesConst.h"
+
+#include "base/UnicodeString.h"
+
+
 namespace alinous {
 
 ExtExceptionObject::ExtExceptionObject(const UnicodeString* name) : AbstractExtObject(name, VmInstanceTypesConst::INST_EXCEPTION) {
 	this->element = nullptr;
+	this->className = nullptr;
 }
 
 ExtExceptionObject::~ExtExceptionObject() {
 	this->element = nullptr;
+	delete this->className;
 }
 
 void ExtExceptionObject::setCodeElement(const CodeElement* element) noexcept {
@@ -24,6 +30,14 @@ void ExtExceptionObject::setCodeElement(const CodeElement* element) noexcept {
 
 const CodeElement* ExtExceptionObject::getCodeElement() const noexcept {
 	return this->element;
+}
+
+void ExtExceptionObject::setClassName(const UnicodeString* className) noexcept {
+	this->className = new UnicodeString(className);
+}
+
+const UnicodeString* ExtExceptionObject::getClassName() const noexcept {
+	return this->className;
 }
 
 } /* namespace alinous */

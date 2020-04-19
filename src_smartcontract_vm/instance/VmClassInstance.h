@@ -51,7 +51,7 @@ public:
 private:
 	static IVmInstanceFactory* findFactory(AnalyzedClass* clazz) noexcept;
 
-private:
+protected:
 	AnalyzedClass* const clazz;
 	VMemList<AbstractReference> members;
 };

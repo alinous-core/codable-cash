@@ -21,8 +21,12 @@ public:
 
 	void setCodeElement(const CodeElement* element) noexcept;
 	const CodeElement* getCodeElement() const noexcept;
+
+	void setClassName(const UnicodeString* className) noexcept;
+	const UnicodeString* getClassName() const noexcept;
 private:
 	const CodeElement* element;
+	UnicodeString* className;
 };
 
 } /* namespace alinous */
