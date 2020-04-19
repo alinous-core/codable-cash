@@ -19,6 +19,7 @@
 
 #include "instance_ref/PrimitiveReference.h"
 
+#include "vm_ctrl/ExecControlManager.h"
 
 namespace alinous {
 
@@ -225,11 +226,17 @@ void IfStatement::init(VirtualMachine* vm) {
 }
 
 void IfStatement::interpret(VirtualMachine* vm) {
+	ExecControlManager* ctrl = vm->getCtrl();
+
 	GcManager* gc = vm->getGc();
 	StackFloatingVariableHandler releaser(gc);
 
 	AbstractVmInstance* expV = releaser.registerInstance(this->exp->interpret(vm));
-	// FIXME exception
+
+	// exception
+	if(this->exp->throwsException() && ctrl->isExceptionThrown()){
+		return;
+	}
 
 	PrimitiveReference* condition = dynamic_cast<PrimitiveReference*>(expV);
 
@@ -242,6 +249,12 @@ void IfStatement::interpret(VirtualMachine* vm) {
 	for(int i = 0; i != maxLoop; ++i){
 		IfStatement* stmt = this->list.get(i);
 		expV = releaser.registerInstance(stmt->exp->interpret(vm));
+
+		// exception
+		if(stmt->exp->throwsException() && ctrl->isExceptionThrown()){
+			return;
+		}
+
 		condition = dynamic_cast<PrimitiveReference*>(expV);
 
 		if(condition->getBoolValue()){
