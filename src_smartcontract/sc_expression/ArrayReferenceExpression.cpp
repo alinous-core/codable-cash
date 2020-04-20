@@ -20,7 +20,11 @@
 
 #include "instance_ref/PrimitiveReference.h"
 
+#include "instance_exception/NullPointerExceptionClassDeclare.h"
 
+#include "instance_exception/ExceptionInterrupt.h"
+
+#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
 namespace alinous {
 
 ArrayReferenceExpression::ArrayReferenceExpression() : AbstractExpression(CodeElement::EXP_ARRAY_REF) {
@@ -166,7 +170,8 @@ void ArrayReferenceExpression::init(VirtualMachine* vm) {
 AbstractVmInstance* ArrayReferenceExpression::interpret(VirtualMachine* vm) {
 	AbstractVmInstance* inst = this->exp->interpret(vm);
 	if(inst == nullptr || inst->isNull()){
-		// FIXME is null
+		NullPointerExceptionClassDeclare::throwException(vm, this);
+		ExceptionInterrupt::interruptPoint(vm);
 	}
 
 	GcManager* gc = vm->getGc();
@@ -187,7 +192,8 @@ AbstractVmInstance* ArrayReferenceExpression::interpret(VirtualMachine* vm) {
 		int idx = ref->getIntValue();
 
 		if(idx >= arrayInst->size()){
-			// FIXME array index bound
+			ArrayOutOfBoundsExceptionClassDeclare::throwException(vm, this);
+			ExceptionInterrupt::interruptPoint(vm);
 		}
 
 		AbstractReference* element = arrayInst->getReference(vm, idx);
@@ -203,7 +209,8 @@ AbstractVmInstance* ArrayReferenceExpression::interpret(VirtualMachine* vm) {
 	int idx = ref->getIntValue();
 
 	if(idx >= arrayInst->size()){
-		// FIXME array index bound
+		ArrayOutOfBoundsExceptionClassDeclare::throwException(vm, this);
+		ExceptionInterrupt::interruptPoint(vm);
 	}
 
 	AbstractReference* element = arrayInst->getReference(vm, idx);

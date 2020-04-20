@@ -14,9 +14,15 @@
 
 #include "instance_exception_class/ExceptionInstanceFactory.h"
 #include "instance_exception_class/ExceptionClassDeclare.h"
+#include "instance_exception_class/VmExceptionInstance.h"
 
 #include "sc_declare/ClassExtends.h"
 
+#include "vm_ctrl/ExecControlManager.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "reserved_classes/ReservedClassRegistory.h"
 
 namespace alinous {
 
@@ -34,6 +40,21 @@ AnalyzedClass* ArrayOutOfBoundsExceptionClassDeclare::createAnalyzedClass() noex
 	AnalyzedClass* aclass = new AnalyzedClass(classDec);
 
 	return aclass;
+}
+
+void ArrayOutOfBoundsExceptionClassDeclare::throwException(VirtualMachine* vm, const CodeElement* element) noexcept {
+	ExecControlManager* ctrl = vm->getCtrl();
+	IVmInstanceFactory* factory = ExceptionInstanceFactory::getInstance();
+
+	AnalyzedClass* aclass = vm->getReservedClassRegistory()->getAnalyzedClass(&NAME);
+
+	VmClassInstance* inst = factory->createInstance(aclass, vm);
+	inst->init(vm);
+
+
+	VmExceptionInstance* exception = dynamic_cast<VmExceptionInstance*>(inst);
+
+	vm->throwException(exception, element);
 }
 
 ArrayOutOfBoundsExceptionClassDeclare::~ArrayOutOfBoundsExceptionClassDeclare() {

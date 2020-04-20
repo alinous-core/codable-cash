@@ -16,6 +16,7 @@ class ArrayOutOfBoundsExceptionClassDeclare : public AbstractExceptionClassDecla
 public:
 	static UnicodeString NAME;
 	static AnalyzedClass* createAnalyzedClass() noexcept;
+	static void throwException(VirtualMachine* vm, const CodeElement* element) noexcept;
 
 	ArrayOutOfBoundsExceptionClassDeclare();
 	virtual ~ArrayOutOfBoundsExceptionClassDeclare();
