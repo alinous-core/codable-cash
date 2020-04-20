@@ -18,7 +18,9 @@
 
 #include "base/UnicodeString.h"
 
+#include "instance_exception/NullPointerExceptionClassDeclare.h"
 
+#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
 using namespace alinous;
 
 
@@ -94,6 +96,51 @@ TEST(TestArrayAccessGroup, case05){
 
 	bool result = util.analyze();
 	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* exobj = util.vm->getUncaughtException(); __STP(exobj);
+	const UnicodeString* exname = exobj->getClassName();
+
+	CHECK(exname->equals(NullPointerExceptionClassDeclare::NAME));
 }
 
+TEST(TestArrayAccessGroup, case06){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/arrayex/case02/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* exobj = util.vm->getUncaughtException(); __STP(exobj);
+	const UnicodeString* exname = exobj->getClassName();
+
+	CHECK(exname->equals(ArrayOutOfBoundsExceptionClassDeclare::NAME));
+}
+
+TEST(TestArrayAccessGroup, case07){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/arrayex/case03/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* exobj = util.vm->getUncaughtException(); __STP(exobj);
+	const UnicodeString* exname = exobj->getClassName();
+
+	CHECK(exname->equals(ArrayOutOfBoundsExceptionClassDeclare::NAME));
+}
 
