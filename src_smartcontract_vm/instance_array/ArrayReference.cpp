@@ -13,6 +13,7 @@
 
 #include "instance_gc/GcManager.h"
 
+#include "ext_binary/ExtNullPtrObject.h"
 
 namespace alinous {
 
@@ -65,7 +66,9 @@ int ArrayReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 }
 
 AbstractExtObject* ArrayReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
-	return this->instArray->instToClassExtObject(name, table);
+	return this->instArray != nullptr
+			? this->instArray->instToClassExtObject(name, table)
+			: new ExtNullPtrObject(name, VmInstanceTypesConst::INST_ARRAY);
 }
 
 } /* namespace alinous */
