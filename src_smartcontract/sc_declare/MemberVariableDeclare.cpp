@@ -33,6 +33,8 @@
 #include "instance_gc/GcManager.h"
 
 #include "sc_analyze/AnalyzedThisClassStackPopper.h"
+
+#include "instance_gc/StackFloatingVariableHandler.h"
 namespace alinous {
 
 MemberVariableDeclare::MemberVariableDeclare() : CodeElement(CodeElement::MEMBER_VARIABLE_DECLARE) {
@@ -110,18 +112,16 @@ void MemberVariableDeclare::onAllocate(VirtualMachine* vm, AbstractReference* re
 
 void MemberVariableDeclare::doOnAllocate(VirtualMachine* vm, AbstractReference* ref) {
 	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
 
 	vm->newStack();
 	StackPopper popStack(vm);
 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
-
-	// FIXME exception
+	releaser.registerInstance(inst);
 
 	IAbstractVmInstanceSubstance* sub = inst != nullptr ? inst->getInstance() : nullptr;
 	ref->substitute(sub, vm);
-
-	gc->handleFloatingObject(sub);
 }
 
 void MemberVariableDeclare::setAccessControl(AccessControlDeclare* ctrl) noexcept {
