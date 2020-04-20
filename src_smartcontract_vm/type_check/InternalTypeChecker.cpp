@@ -20,7 +20,7 @@ int InternalTypeChecker::analyzeCompatibility(AnalyzedType* leftType, AnalyzedTy
 	uint8_t leftTypeCode = leftType->getType();
 	int dim = leftType->getDim();
 
-	if(dim != rightType->getDim()){
+	if(!rightType->isNull() && dim != rightType->getDim()){
 		return INCOMPATIBLE;
 	}
 
