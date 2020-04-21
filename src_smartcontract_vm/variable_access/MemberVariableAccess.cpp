@@ -26,7 +26,8 @@
 
 namespace alinous {
 
-MemberVariableAccess::MemberVariableAccess(VariableIdentifier* valId) {
+MemberVariableAccess::MemberVariableAccess(VariableIdentifier* valId)
+				: AbstractVariableInstraction(AbstractVariableInstraction::INSTRUCTION_MEMBER_VARIABLE) {
 	this->valId = valId;
 	this->memberIndex = -1;
 	this->atype = nullptr;

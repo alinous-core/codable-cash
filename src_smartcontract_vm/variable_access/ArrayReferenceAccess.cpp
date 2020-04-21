@@ -13,7 +13,8 @@
 
 namespace alinous {
 
-ArrayReferenceAccess::ArrayReferenceAccess(ArrayReferenceExpression* arrayRefExp) {
+ArrayReferenceAccess::ArrayReferenceAccess(ArrayReferenceExpression* arrayRefExp)
+				: AbstractVariableInstraction(AbstractVariableInstraction::INSTRUCTION_ARRAY_REF){
 	this->arrayRefExp = arrayRefExp;
 }
 

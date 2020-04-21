@@ -17,7 +17,8 @@
 
 namespace alinous {
 
-ThisPointerAccess::ThisPointerAccess() {
+ThisPointerAccess::ThisPointerAccess()
+			: AbstractVariableInstraction(AbstractVariableInstraction::INSTRUCTION_THIS_POINTER) {
 	this->type = nullptr;
 }
 
