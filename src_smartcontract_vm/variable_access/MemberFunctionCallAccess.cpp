@@ -16,7 +16,8 @@
 
 namespace alinous {
 
-MemberFunctionCallAccess::MemberFunctionCallAccess(FunctionCallExpression* exp) {
+MemberFunctionCallAccess::MemberFunctionCallAccess(FunctionCallExpression* exp)
+				: AbstractVariableInstraction(AbstractVariableInstraction::INSTRUCTION_MEMBER_FUNCTION){
 	this->exp = exp;
 	this->atype = nullptr;
 }

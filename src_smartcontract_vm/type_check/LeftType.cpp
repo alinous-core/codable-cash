@@ -25,8 +25,12 @@ LeftType::~LeftType() {
 
 }
 
-int LeftType::checkTypeCompatibility(AnalyzeContext* actx, RightType* rightType) {
+int LeftType::checkTypeCompatibility(AnalyzeContext* actx, RightType* rightType, bool compare) {
 	AnalyzedType* arightType = rightType->getAnalyzedType();
+
+	if(!compare && arightType->isNull() && (this->atype->isArray() || (!this->atype->isPrimitiveInteger() && !this->atype->isBool()))){
+		return InternalTypeChecker::OK;
+	}
 
 	return InternalTypeChecker::analyzeCompatibility(this->atype, arightType);
 }

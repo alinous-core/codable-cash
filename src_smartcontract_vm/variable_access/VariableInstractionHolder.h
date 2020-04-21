@@ -20,6 +20,7 @@ class AbstractVmInstance;
 class VirtualMachine;
 class AnalyzedType;
 class CodeElement;
+class StackVariableAccess;
 
 class VariableInstractionHolder {
 public:
@@ -32,7 +33,8 @@ public:
 	AbstractVmInstance* interpret(VirtualMachine* vm);
 private:
 	void addVariableIdExp(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
-	bool handleStackVariableIdExp(VariableIdentifier* valId, AbstractExpression* exp, AnalyzeContext* actx) noexcept;
+	AbstractVariableInstraction* doAddVariableIdExp(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
+	StackVariableAccess* handleStackVariableIdExp(VariableIdentifier* valId, AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 	void addArrayReference(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 	void addFunctionCallExp(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 

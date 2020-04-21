@@ -21,7 +21,8 @@
 
 namespace alinous {
 
-StackVariableAccess::StackVariableAccess(int stackTopDiff, int pos) {
+StackVariableAccess::StackVariableAccess(int stackTopDiff, int pos)
+				: AbstractVariableInstraction(AbstractVariableInstraction::INSTRUCTION_STACK_VARIABLE){
 	this->stackTopDiff = stackTopDiff;
 	this->pos = pos;
 	this->type = nullptr;

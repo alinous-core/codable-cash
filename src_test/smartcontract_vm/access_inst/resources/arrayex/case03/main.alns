@@ -9,7 +9,7 @@ class SmartContract {
 		int[][] ar;
 		ar = new int[3][3];
 		
-		ar[1][1] = 10;
+		ar[10][1] = 10;
 		
 		this.result = ar[1][1];
 	}
@@ -19,6 +19,5 @@ class SmartContract {
 	}
 	
 	private int result;
-	private int[][] array = null;
 }
 

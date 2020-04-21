@@ -6,12 +6,11 @@ import test.fw.ObjectA;
 
 class SmartContract {
 	public SmartContract() {
-		int[][] ar;
-		ar = new int[3][3];
+		this.ar = new int[3][3];
 		
-		ar[1][1] = 10;
+		this.ar[1][1] = 10;
 		
-		this.result = ar[1][1];
+		this.result = this.ar[1][1];
 	}
 	
 	public int main(){
@@ -19,6 +18,6 @@ class SmartContract {
 	}
 	
 	private int result;
-	private int[][] array = null;
+	private int[][] ar = null;
 }
 

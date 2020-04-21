@@ -1,7 +1,7 @@
 /*
- * test_array_access.cpp
+ * test_array_instruction_access.cpp
  *
- *  Created on: 2020/04/10
+ *  Created on: 2020/04/20
  *      Author: iizuka
  */
 
@@ -24,14 +24,15 @@
 using namespace alinous;
 
 
-TEST_GROUP(TestArrayAccessGroup) {
+TEST_GROUP(TestArrayInstAccessGroup) {
 	TEST_SETUP(){}
 	TEST_TEARDOWN(){}
 };
 
-TEST(TestArrayAccessGroup, case01){
+
+TEST(TestArrayInstAccessGroup, case01){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/array/case01/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst/case01/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -47,9 +48,9 @@ TEST(TestArrayAccessGroup, case01){
 	CHECK(iresult == 10);
 }
 
-TEST(TestArrayAccessGroup, case02){
+TEST(TestArrayInstAccessGroup, case02){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/array/case02/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst/case02/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -65,9 +66,10 @@ TEST(TestArrayAccessGroup, case02){
 	CHECK(iresult == 10);
 }
 
-TEST(TestArrayAccessGroup, case03_err){
+
+TEST(TestArrayInstAccessGroup, case03_err){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/array/case03_err/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst/case03_err/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -76,9 +78,9 @@ TEST(TestArrayAccessGroup, case03_err){
 	CHECK(!result)
 }
 
-TEST(TestArrayAccessGroup, case04_err){
+TEST(TestArrayInstAccessGroup, case04_err){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/array/case04_err/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst/case04_err/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -87,9 +89,9 @@ TEST(TestArrayAccessGroup, case04_err){
 	CHECK(!result)
 }
 
-TEST(TestArrayAccessGroup, case05){
+TEST(TestArrayInstAccessGroup, case05){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/arrayex/case01/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/instex/case01/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -106,9 +108,9 @@ TEST(TestArrayAccessGroup, case05){
 	CHECK(exname->equals(NullPointerExceptionClassDeclare::NAME));
 }
 
-TEST(TestArrayAccessGroup, case06){
+TEST(TestArrayInstAccessGroup, case06){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/arrayex/case02/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/instex/case02/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -125,9 +127,9 @@ TEST(TestArrayAccessGroup, case06){
 	CHECK(exname->equals(ArrayOutOfBoundsExceptionClassDeclare::NAME));
 }
 
-TEST(TestArrayAccessGroup, case07){
+TEST(TestArrayInstAccessGroup, case07){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/arrayex/case03/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/instex/case03/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -143,4 +145,5 @@ TEST(TestArrayAccessGroup, case07){
 
 	CHECK(exname->equals(ArrayOutOfBoundsExceptionClassDeclare::NAME));
 }
+
 

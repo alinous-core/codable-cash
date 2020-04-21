@@ -24,8 +24,13 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm, AbstractVmInstance* lastInst);
 
 	virtual CodeElement* getCodeElement() const noexcept;
+
+	void setExpressionAccess(AbstractVariableInstraction* expAccess) noexcept;
 private:
 	ArrayReferenceExpression* arrayRefExp;
+
+	AbstractVariableInstraction* expAccess;
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

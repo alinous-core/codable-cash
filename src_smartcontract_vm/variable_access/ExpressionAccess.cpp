@@ -13,7 +13,8 @@
 
 namespace alinous {
 
-ExpressionAccess::ExpressionAccess(AbstractExpression* exp) {
+ExpressionAccess::ExpressionAccess(AbstractExpression* exp)
+					: AbstractVariableInstraction(AbstractVariableInstraction::INSTRUCTION_EXPRESSION){
 	this->exp = exp;
 }
 
