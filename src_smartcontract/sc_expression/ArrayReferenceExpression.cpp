@@ -49,6 +49,8 @@ void ArrayReferenceExpression::preAnalyze(AnalyzeContext* actx) {
 		ex->setParent(this);
 		ex->preAnalyze(actx);
 	}
+
+	setThrowsException(true);
 }
 
 void ArrayReferenceExpression::analyzeTypeRef(AnalyzeContext* actx) {
