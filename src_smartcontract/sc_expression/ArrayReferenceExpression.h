@@ -26,6 +26,9 @@ public:
 	AbstractExpression* getExp() const noexcept;
 	void addIndex(AbstractExpression* exp) noexcept;
 
+	int getDim() const noexcept;
+	const ArrayList<AbstractExpression>* getIndexList() const noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);

@@ -116,13 +116,13 @@ void VariableInstractionHolder::addArrayReference(AbstractExpression* exp, Analy
 	ArrayReferenceExpression* arrayRefExp = dynamic_cast<ArrayReferenceExpression*>(exp);
 	assert(arrayRefExp != nullptr);
 
-	// FIXME array is stack object or
 	AbstractExpression* aexp = arrayRefExp->getExp();
-	short elementType = aexp->getKind();
-
-
+	AbstractVariableInstraction* expAccess = doAddVariableIdExp(aexp, actx);
 
 	ArrayReferenceAccess* access = new ArrayReferenceAccess(arrayRefExp);
+	access->setExpressionAccess(expAccess);
+
+
 	this->list.addElement(access);
 }
 

@@ -107,6 +107,14 @@ void ArrayReferenceExpression::addIndex(AbstractExpression* exp) noexcept {
 	this->list.addElement(exp);
 }
 
+int ArrayReferenceExpression::getDim() const noexcept {
+	return this->list.size();
+}
+
+const ArrayList<AbstractExpression>* ArrayReferenceExpression::getIndexList() const noexcept {
+	return &this->list;
+}
+
 int ArrayReferenceExpression::binarySize() const {
 	checkNotNull(this->exp);
 
