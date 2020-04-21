@@ -32,7 +32,7 @@ TEST_GROUP(TestArrayInstAccessGroup) {
 
 TEST(TestArrayInstAccessGroup, case01){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst/case01/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst_array/case01/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -50,7 +50,7 @@ TEST(TestArrayInstAccessGroup, case01){
 
 TEST(TestArrayInstAccessGroup, case02){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst/case02/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst_array/case02/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -69,7 +69,7 @@ TEST(TestArrayInstAccessGroup, case02){
 
 TEST(TestArrayInstAccessGroup, case03_err){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst/case03_err/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst_array/case03_err/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -80,7 +80,7 @@ TEST(TestArrayInstAccessGroup, case03_err){
 
 TEST(TestArrayInstAccessGroup, case04_err){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst/case04_err/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst_array/case04_err/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -91,7 +91,7 @@ TEST(TestArrayInstAccessGroup, case04_err){
 
 TEST(TestArrayInstAccessGroup, case05){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/instex/case01/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst_arrayex/case01/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -110,7 +110,7 @@ TEST(TestArrayInstAccessGroup, case05){
 
 TEST(TestArrayInstAccessGroup, case06){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/instex/case02/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst_arrayex/case02/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -129,7 +129,7 @@ TEST(TestArrayInstAccessGroup, case06){
 
 TEST(TestArrayInstAccessGroup, case07){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/instex/case03/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst_arrayex/case03/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");

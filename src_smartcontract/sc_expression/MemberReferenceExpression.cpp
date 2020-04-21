@@ -32,11 +32,15 @@ void MemberReferenceExpression::analyze(AnalyzeContext* actx) {
 	int maxLoop = this->list.size();
 	VariableInstractionHolder* holder = getVariableInstractionHolder();
 
-
+	bool ex = false;
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractExpression* exp = this->list.get(i);
 		holder->addExpression(exp, actx);
+
+		ex = ex || exp->throwsException();
 	}
+
+	setThrowsException(ex);
 
 	holder->analyze(actx, this);
 }
