@@ -61,40 +61,15 @@ void VariableInstractionHolder::addExpression(AbstractExpression* exp, AnalyzeCo
 
 void VariableInstractionHolder::addVariableIdExp(AbstractExpression* exp, AnalyzeContext* actx) noexcept {
 	AbstractVariableInstraction* instruction = doAddVariableIdExp(exp, actx);
-	/*
-	VariableIdentifier* valId = dynamic_cast<VariableIdentifier*>(exp);
-	assert(valId != nullptr);
 
-	if(valId->isThis()){
-		if(this->list.isEmpty()){
-			ThisPointerAccess* access = new ThisPointerAccess();
-
-			this->list.addElement(access);
-			this->memberAccess = true;
-		}
-		return;
-	}
-
-	// stack or not
-	if(!this->memberAccess){
-		StackVariableAccess* access = handleStackVariableIdExp(valId, exp, actx);
-
-		if(access != nullptr){
-			this->list.addElement(access);
-			this->memberAccess = true;
-			return;
-		}
-	}
-
-	// member access
-	if(this->list.isEmpty()){
+	uint8_t type = instruction->getType();
+	if(type == AbstractVariableInstraction::INSTRUCTION_MEMBER_VARIABLE && this->list.isEmpty()){
 		ThisPointerAccess* access = new ThisPointerAccess();
 		this->list.addElement(access);
 		this->memberAccess = true;
 	}
 
-	MemberVariableAccess* access = new MemberVariableAccess(valId);
-	this->list.addElement(access);*/
+	this->list.addElement(instruction);
 }
 
 
