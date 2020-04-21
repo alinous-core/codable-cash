@@ -31,5 +31,37 @@ TEST_GROUP(TestArrayInstAccessGroup) {
 
 
 TEST(TestArrayInstAccessGroup, case01){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst/case01/", projectFolder);
 
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	int iresult = VmTestUtils::getIntMemberValue(obj, L"result");
+	CHECK(iresult == 10);
+}
+
+TEST(TestArrayInstAccessGroup, case02){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst/case02/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	int iresult = VmTestUtils::getIntMemberValue(obj, L"result");
+	CHECK(iresult == 10);
 }

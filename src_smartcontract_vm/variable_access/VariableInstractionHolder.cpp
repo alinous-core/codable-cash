@@ -91,8 +91,11 @@ AbstractVariableInstraction* VariableInstractionHolder::doAddVariableIdExp(Abstr
 		StackVariableAccess* access = handleStackVariableIdExp(valId, exp, actx);
 
 		if(access != nullptr){
-			this->list.addElement(access);
 			this->memberAccess = true;
+			ret = access;
+		}
+		else{
+			ret = new MemberVariableAccess(valId);
 		}
 	}
 	else{
