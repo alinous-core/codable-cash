@@ -15,7 +15,18 @@
 
 #include "instance_array/VmArrayInstanceUtils.h"
 
+#include "instance_gc/StackFloatingVariableHandler.h"
+#include "instance_gc/GcManager.h"
 
+#include "instance_exception/NullPointerExceptionClassDeclare.h"
+
+#include "instance_exception/ExceptionInterrupt.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
+#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
 namespace alinous {
 
 ArrayReferenceAccess::ArrayReferenceAccess(ArrayReferenceExpression* arrayRefExp)
@@ -67,8 +78,57 @@ AnalyzedType ArrayReferenceAccess::getAnalyzedType() const noexcept {
 }
 
 AbstractVmInstance* ArrayReferenceAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
-	// FIXME interpret
-	return nullptr;
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
+	AbstractVmInstance* inst = this->expAccess->interpret(vm ,lastInst);
+	if(inst == nullptr || inst->isNull()){
+		NullPointerExceptionClassDeclare::throwException(vm, this->arrayRefExp);
+		ExceptionInterrupt::interruptPoint(vm);
+	}
+
+	releaser.registerInstance(inst);
+	IAbstractVmInstanceSubstance* sub = inst->getInstance();
+	VmArrayInstance* arrayInst = dynamic_cast<VmArrayInstance*>(sub);
+
+	const ArrayList<AbstractExpression>* list = this->arrayRefExp->getIndexList();
+
+	int maxLoop = list->size() - 1;
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* indexExp = list->get(i);
+
+		AbstractVmInstance* index = indexExp->interpret(vm);
+		releaser.registerInstance(index);
+
+		PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(index);
+		int idx = ref->getIntValue();
+
+		if(idx >= arrayInst->size()){
+			ArrayOutOfBoundsExceptionClassDeclare::throwException(vm, this->arrayRefExp);
+			ExceptionInterrupt::interruptPoint(vm);
+		}
+
+		AbstractReference* element = arrayInst->getReference(vm, idx);
+		sub = element->getInstance();
+		arrayInst = dynamic_cast<VmArrayInstance*>(sub);
+	}
+
+
+	AbstractExpression* indexExp = list->get(maxLoop);
+	AbstractVmInstance* index = indexExp->interpret(vm);
+	releaser.registerInstance(index);
+
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(index);
+	int idx = ref->getIntValue();
+
+	if(idx >= arrayInst->size()){
+		ArrayOutOfBoundsExceptionClassDeclare::throwException(vm, this->arrayRefExp);
+		ExceptionInterrupt::interruptPoint(vm);
+	}
+
+	AbstractReference* element = arrayInst->getReference(vm, idx);
+
+	return element;
 }
 
 CodeElement* ArrayReferenceAccess::getCodeElement() const noexcept {
