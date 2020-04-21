@@ -65,3 +65,85 @@ TEST(TestArrayInstAccessGroup, case02){
 	int iresult = VmTestUtils::getIntMemberValue(obj, L"result");
 	CHECK(iresult == 10);
 }
+
+
+TEST(TestArrayInstAccessGroup, case03_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst/case03_err/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+}
+
+TEST(TestArrayInstAccessGroup, case04_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/inst/case04_err/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+}
+
+TEST(TestArrayInstAccessGroup, case05){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/instex/case01/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* exobj = util.vm->getUncaughtException(); __STP(exobj);
+	const UnicodeString* exname = exobj->getClassName();
+
+	CHECK(exname->equals(NullPointerExceptionClassDeclare::NAME));
+}
+
+TEST(TestArrayInstAccessGroup, case06){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/instex/case02/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* exobj = util.vm->getUncaughtException(); __STP(exobj);
+	const UnicodeString* exname = exobj->getClassName();
+
+	CHECK(exname->equals(ArrayOutOfBoundsExceptionClassDeclare::NAME));
+}
+
+TEST(TestArrayInstAccessGroup, case07){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/instex/case03/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* exobj = util.vm->getUncaughtException(); __STP(exobj);
+	const UnicodeString* exname = exobj->getClassName();
+
+	CHECK(exname->equals(ArrayOutOfBoundsExceptionClassDeclare::NAME));
+}
+
+

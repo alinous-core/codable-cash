@@ -83,7 +83,7 @@ AbstractVmInstance* ArrayReferenceAccess::interpret(VirtualMachine* vm, Abstract
 
 	AbstractVmInstance* inst = this->expAccess->interpret(vm ,lastInst);
 	if(inst == nullptr || inst->isNull()){
-		NullPointerExceptionClassDeclare::throwException(vm, this->arrayRefExp);
+		NullPointerExceptionClassDeclare::throwException(vm, getCodeElement());
 		ExceptionInterrupt::interruptPoint(vm);
 	}
 
@@ -104,7 +104,7 @@ AbstractVmInstance* ArrayReferenceAccess::interpret(VirtualMachine* vm, Abstract
 		int idx = ref->getIntValue();
 
 		if(idx >= arrayInst->size()){
-			ArrayOutOfBoundsExceptionClassDeclare::throwException(vm, this->arrayRefExp);
+			ArrayOutOfBoundsExceptionClassDeclare::throwException(vm, getCodeElement());
 			ExceptionInterrupt::interruptPoint(vm);
 		}
 
@@ -122,7 +122,7 @@ AbstractVmInstance* ArrayReferenceAccess::interpret(VirtualMachine* vm, Abstract
 	int idx = ref->getIntValue();
 
 	if(idx >= arrayInst->size()){
-		ArrayOutOfBoundsExceptionClassDeclare::throwException(vm, this->arrayRefExp);
+		ArrayOutOfBoundsExceptionClassDeclare::throwException(vm, getCodeElement());
 		ExceptionInterrupt::interruptPoint(vm);
 	}
 
