@@ -502,4 +502,3 @@ TEST(TestExpressionGroup, mamberRef2){
 
 	CHECK(!parser.hasError())
 }
-

@@ -58,8 +58,12 @@ void CastExpression::analyze(AnalyzeContext* actx) {
 
 	int result = InternalTypeChecker::analyzeCompatibility(this->atype, &at);
 	if(InternalTypeChecker::INCOMPATIBLE == result){
-		actx->addValidationError(ValidationError::CODE_CAST_TYPE_INCOMPATIBLE, this, L"Can not cast because of type incompatible.", {});
+		result = InternalTypeChecker::analyzeCompatibility(&at, this->atype);
+		if(InternalTypeChecker::INCOMPATIBLE == result){
+			actx->addValidationError(ValidationError::CODE_CAST_TYPE_INCOMPATIBLE, this, L"Can not cast because of type incompatible.", {});
+		}
 	}
+
 }
 
 void CastExpression::setType(AbstractType* type) noexcept {
@@ -120,6 +124,8 @@ AbstractVmInstance* CastExpression::interpret(VirtualMachine* vm) {
 		return interpretPrimitive(vm, p);
 	}
 
+
+
 	return inst;
 }
 
@@ -128,25 +134,27 @@ AbstractVmInstance* CastExpression::interpretPrimitive(VirtualMachine* vm, Primi
 
 	AbstractReference* ref = nullptr;
 
+	int64_t value = p->getLongValue();
+
 	switch(kind){
 	case CodeElement::TYPE_BOOL:
-		ref = PrimitiveReference::createBoolReference(vm, 0);
+		ref = PrimitiveReference::createBoolReference(vm, (int8_t)value);
 		break;
 	case CodeElement::TYPE_BYTE:
-		ref = PrimitiveReference::createByteReference(vm, 0);
+		ref = PrimitiveReference::createByteReference(vm, (int8_t)value);
 		break;
 	case CodeElement::TYPE_CHAR:
-		ref = PrimitiveReference::createCharReference(vm, 0);
+		ref = PrimitiveReference::createCharReference(vm, (int16_t)value);
 		break;
 	case CodeElement::TYPE_SHORT:
-		ref = PrimitiveReference::createShortReference(vm, 0);
+		ref = PrimitiveReference::createShortReference(vm, (int16_t)value);
 		break;
 	case CodeElement::TYPE_INT:
-		ref = PrimitiveReference::createIntReference(vm, 0);
+		ref = PrimitiveReference::createIntReference(vm, (int32_t)value);
 		break;
 	case CodeElement::TYPE_LONG:
 	default:
-		ref = PrimitiveReference::createLongReference(vm, 0);
+		ref = PrimitiveReference::createLongReference(vm, value);
 		break;
 	}
 

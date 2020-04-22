@@ -1,0 +1,19 @@
+
+
+package test.fw;
+
+import test.fw.base.BaseClass;
+import test.fw.base.BaseClass2;
+
+class SmartContract {
+	public SmartContract() {
+		BaseClass2 ref = new BaseClass2();
+		this.obj = (BaseClass)ref;
+	}
+	
+	public int main(){
+
+	}
+	
+	private BaseClass obj;
+}
