@@ -20,7 +20,7 @@ class VirtualMachine;
 
 class VmArrayInstance : public AbstractVmInstance, public IInstanceContainer {
 public:
-	VmArrayInstance(VirtualMachine* vm, int length);
+	VmArrayInstance(VirtualMachine* vm, int length, const AnalyzedType& atype);
 	virtual ~VmArrayInstance();
 
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
@@ -47,6 +47,8 @@ public:
 private:
 	VMemList<AbstractReference>* array;
 	int length;
+
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

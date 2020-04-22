@@ -18,9 +18,10 @@
 
 namespace alinous {
 
-VmArrayInstance::VmArrayInstance(VirtualMachine* vm, int length) : AbstractVmInstance(VmInstanceTypesConst::INST_ARRAY) {
+VmArrayInstance::VmArrayInstance(VirtualMachine* vm, int length, const AnalyzedType& atype) : AbstractVmInstance(VmInstanceTypesConst::INST_ARRAY) {
 	this->array = new(vm) VMemList<AbstractReference>(vm);
 	this->length = length;
+	this->atype = new AnalyzedType(atype);
 
 	for(int i = 0; i != length; ++i){
 		this->array->addElement(nullptr);
@@ -36,6 +37,7 @@ VmArrayInstance::~VmArrayInstance() {
 		delete ref;
 	}
 
+	delete this->atype;
 	delete this->array;
 }
 
@@ -142,7 +144,7 @@ AbstractReference* VmArrayInstance::getReference(VirtualMachine* vm, int pos) {
 }
 
 AnalyzedType VmArrayInstance::getRuntimeType() const noexcept {
-	// FIXME analyzed type
+	return *this->atype;
 }
 
 int VmArrayInstance::size() const noexcept {
