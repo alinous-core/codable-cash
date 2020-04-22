@@ -14,6 +14,7 @@
 
 #include "ext_binary/ExtPrimitiveObject.h"
 
+#include "sc_analyze/AnalyzedType.h"
 namespace alinous {
 
 PrimitiveReference::PrimitiveReference(uint8_t type) : AbstractReference(nullptr, type) {
@@ -188,6 +189,28 @@ AbstractReference* PrimitiveReference::wrap(IAbstractVmInstanceSubstance* owner,
 
 uint8_t PrimitiveReference::getInstType() const noexcept {
 	return getType();
+}
+
+AnalyzedType PrimitiveReference::getRuntimeType() const noexcept {
+	uint8_t type = getType();
+
+	switch(type){
+	case VmInstanceTypesConst::REF_BOOL:
+		return AnalyzedType(AnalyzedType::TYPE_BOOL);
+	case VmInstanceTypesConst::REF_BYTE:
+		return AnalyzedType(AnalyzedType::TYPE_BYTE);
+	case VmInstanceTypesConst::REF_CHAR:
+		return AnalyzedType(AnalyzedType::TYPE_CHAR);
+	case VmInstanceTypesConst::REF_SHORT:
+		return AnalyzedType(AnalyzedType::TYPE_SHORT);
+	case VmInstanceTypesConst::REF_INT:
+		return AnalyzedType(AnalyzedType::TYPE_INT);
+	case VmInstanceTypesConst::REF_LONG:
+	default:
+		break;
+	}
+
+	return AnalyzedType(AnalyzedType::TYPE_LONG);
 }
 
 const VMemList<AbstractReference>* PrimitiveReference::getInstReferences() const noexcept {

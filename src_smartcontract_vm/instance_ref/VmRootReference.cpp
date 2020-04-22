@@ -15,6 +15,7 @@
 #include "instance/VmClassInstance.h"
 #include "instance/VmInstanceTypesConst.h"
 
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -95,6 +96,10 @@ AbstractExtObject* VmRootReference::instToClassExtObject(const UnicodeString* na
 
 bool VmRootReference::instIsPrimitive() const noexcept {
 	return isPrimitive();
+}
+
+AnalyzedType VmRootReference::getRuntimeType() const noexcept {
+	return AnalyzedType();
 }
 
 int VmRootReference::valueCompare(IAbstractVmInstanceSubstance* right) {

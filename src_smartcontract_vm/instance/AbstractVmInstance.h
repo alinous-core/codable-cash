@@ -21,6 +21,7 @@ class GcManager;
 class AbstractExtObject;
 class VTableRegistory;
 class IAbstractVmInstanceSubstance;
+class AnalyzedType;
 
 class AbstractVmInstance {
 public:

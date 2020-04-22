@@ -12,6 +12,7 @@
 
 #include "sc_analyze/AnalyzedClass.h"
 #include "sc_analyze/IVmInstanceFactory.h"
+#include "sc_analyze/AnalyzedType.h"
 
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_analyze_functions/VTableRegistory.h"
@@ -169,6 +170,10 @@ const VMemList<AbstractReference>* VmClassInstance::getReferences() const noexce
 
 AnalyzedClass* VmClassInstance::getAnalyzedClass() const noexcept {
 	return this->clazz;
+}
+
+AnalyzedType VmClassInstance::getRuntimeType() const noexcept {
+	return AnalyzedType(this->clazz);
 }
 
 AbstractExtObject* VmClassInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* reg) {

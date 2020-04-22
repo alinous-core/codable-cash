@@ -36,6 +36,9 @@ TEST(TestCastExpGroup, case01){
 
 	bool result = util.analyze();
 	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
 }
 
 TEST(TestCastExpGroup, case02){
@@ -46,6 +49,9 @@ TEST(TestCastExpGroup, case02){
 	util.setMain(L"test.fw", L"SmartContract", L"main");
 
 	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
 	CHECK(result)
 }
 

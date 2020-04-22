@@ -14,6 +14,7 @@
 
 #include "ext_binary/ExtArrayObject.h"
 
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -138,6 +139,10 @@ void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReferenc
 
 AbstractReference* VmArrayInstance::getReference(VirtualMachine* vm, int pos) {
 	return this->array->get(pos);
+}
+
+AnalyzedType VmArrayInstance::getRuntimeType() const noexcept {
+	// FIXME analyzed type
 }
 
 int VmArrayInstance::size() const noexcept {
