@@ -54,6 +54,7 @@ public:
 	static constexpr int CODE_THROW_STMT_REQUIRE_EXCEPTION = 80;
 	static constexpr int CODE_CATCH_STMT_REQUIRE_EXCEPTION = 81;
 
+	static constexpr int CODE_CAST_TYPE_INCOMPATIBLE = 90;
 
 	//static constexpr int CODE_WRONG_TYPE_NAME = 4;
 

@@ -12,6 +12,7 @@
 
 namespace alinous {
 class AbstractType;
+class PrimitiveReference;
 
 class CastExpression : public AbstractExpression {
 public:
@@ -32,9 +33,14 @@ public:
 	virtual AnalyzedType getType(AnalyzeContext* actx);
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
+private:
+	AbstractVmInstance* interpretPrimitive(VirtualMachine* vm, PrimitiveReference* p);
 private:
 	AbstractType* type;
 	AbstractExpression* exp;
+
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */
