@@ -174,3 +174,25 @@ TEST(TestArrayInstanceGroup, arrayinstToExtObj){
 	delete p;
 }
 
+TEST(TestArrayInstanceGroup, arrayinstWrap){
+	VirtualMachine vm(1024 * 10);
+	VmRootReference* root = new(&vm) VmRootReference(&vm);
+
+	AnalyzedType atype(AnalyzedType::TYPE_INT);
+	atype.setDim(1);
+
+	int dims[1] = {3};
+	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
+	AbstractReference* ref = inst->wrap(root, &vm);
+
+	AnalyzedType at = inst->getRuntimeType();
+	CHECK(at.getType() == AnalyzedType::TYPE_INT);
+
+	GcManager* gc = vm.getGc();
+	gc->registerObject(ref);
+	gc->removeObject(ref);
+	gc->garbageCollect();
+
+	delete ref;
+	delete root;
+}
