@@ -18,6 +18,7 @@
 
 #include "stack/VmStack.h"
 
+#include "sc_analyze/AnalyzedType.h"
 using namespace alinous;
 
 TEST_GROUP(TestVmStackGroup) {
@@ -30,6 +31,9 @@ TEST(TestVmStackGroup, Stack){
 
 	VmStack* stack = new(&vm) VmStack(nullptr, &vm);
 	CHECK(stack->getReferences() != nullptr);
+
+	AnalyzedType at = stack->getRuntimeType();
+	CHECK(at.getType() == AnalyzedType::TYPE_NONE)
 
 	delete stack;
 }
