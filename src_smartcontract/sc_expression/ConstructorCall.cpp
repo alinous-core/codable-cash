@@ -38,7 +38,9 @@
 
 #include "instance_exception/ExceptionInterrupt.h"
 
+#include "sc/SmartContract.h"
 
+#include "instance_ref/VmRootReference.h"
 namespace alinous {
 
 ConstructorCall::ConstructorCall() : AbstractExpression(CodeElement::EXP_CONSTRUCTORCALL) {
@@ -201,11 +203,12 @@ AnalyzedType ConstructorCall::getType(AnalyzeContext* actx) {
 
 
 AbstractVmInstance* ConstructorCall::interpret(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
 	AnalyzedClass* clazz = this->atype->getAnalyzedClass();
 	VmClassInstance* inst = VmClassInstance::createObject(clazz, vm);
 
 	FunctionArguments args;
-	GcManager* gc = vm->getGc();
 	StackFloatingVariableHandler releaser(gc);
 	interpretArguments(vm, &args, inst, &releaser);
 
