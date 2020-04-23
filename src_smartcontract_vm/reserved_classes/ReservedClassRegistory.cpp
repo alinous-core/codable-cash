@@ -18,6 +18,7 @@
 #include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
 #include "instance_exception/NullPointerExceptionClassDeclare.h"
 #include "instance_exception/ZeroDivisionExceptionClassDeclare.h"
+#include "instance_exception/TypeCastExceptionClassDeclare.h"
 
 #include "base/UnicodeString.h"
 
@@ -40,6 +41,9 @@ ReservedClassRegistory::ReservedClassRegistory() {
 	addAnalyzedClass(aclass);
 
 	aclass = ZeroDivisionExceptionClassDeclare::createAnalyzedClass();
+	addAnalyzedClass(aclass);
+
+	aclass = TypeCastExceptionClassDeclare::createAnalyzedClass();
 	addAnalyzedClass(aclass);
 }
 
