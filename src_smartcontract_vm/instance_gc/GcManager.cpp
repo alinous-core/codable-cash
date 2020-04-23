@@ -21,6 +21,7 @@
 #include "base/StackRelease.h"
 #include <cassert>
 
+#include "instance/IInstanceContainer.h"
 
 
 namespace alinous {
@@ -223,6 +224,12 @@ void GcManager::handleFloatingObject(IAbstractVmInstanceSubstance* refered) noex
 	if(removableStatus != nullptr){
 		return;
 	}
+
+	IInstanceContainer* container = dynamic_cast<IInstanceContainer*>(refered);
+	if(container != nullptr){
+		container->removeInnerRefs(this);
+	}
+
 
 	delete refered;
 }

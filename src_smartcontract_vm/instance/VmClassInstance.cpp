@@ -33,6 +33,7 @@
 
 #include "instance_ref/ObjectReference.h"
 
+#include "instance_exception/ExceptionInterrupt.h"
 
 namespace alinous {
 
@@ -64,8 +65,15 @@ VmClassInstance* VmClassInstance::createObject(AnalyzedClass* clazz, VirtualMach
 		inst = new(vm) VmClassInstance(clazz, vm);
 	}
 
-	inst->init(vm);
+	try{
+		inst->init(vm);
+	}
+	catch(ExceptionInterrupt* e){
+		GcManager* gc = vm->getGc();
+		gc->handleFloatingObject(inst);
 
+		throw e;
+	}
 	return inst;
 }
 

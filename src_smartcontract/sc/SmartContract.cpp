@@ -43,6 +43,8 @@
 #include "reserved_classes/ReservedClassRegistory.h"
 
 #include "base/Exception.h"
+
+#include "instance_exception/ExceptionInterrupt.h"
 namespace alinous {
 
 SmartContract::SmartContract() {
@@ -198,15 +200,21 @@ VmClassInstance* SmartContract::createInstance(VirtualMachine* vm) {
 
 	MethodDeclare* defConstructor = clazz->getDefaultConstructor();
 
+	GcManager* gc = vm->getGc();
 	vm->newStack();
 	StackPopper popStack(vm);
 	VmStack* stack = vm->topStack();
 
 	VmClassInstance* inst = nullptr;
 
-	inst = VmClassInstance::createObject(clazz, vm);
+	try{
+		inst = VmClassInstance::createObject(clazz, vm);
+	}
+	catch(ExceptionInterrupt* e){
+		delete e;
+		return nullptr;
+	}
 
-	GcManager* gc = vm->getGc();
 
 	this->rootReference->setMainInstance(inst);
 

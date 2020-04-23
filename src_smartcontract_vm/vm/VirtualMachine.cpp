@@ -103,15 +103,19 @@ void VirtualMachine::loadSmartContract(SmartContract* sc) {
 }
 
 VmClassInstance* VirtualMachine::createScInstance() {
+	VmClassInstance* retInst = nullptr;
 	initialize();
 	try{
-		return this->sc->createInstance(this);
+		retInst = this->sc->createInstance(this);
 	}
 	catch(Exception* e){
 		this->exceptions.addElement(e);
 	}
 
-	return nullptr;
+	// uncaught exception
+	checkUncaughtException();
+
+	return retInst;
 }
 
 void VirtualMachine::interpret(const UnicodeString* method) {

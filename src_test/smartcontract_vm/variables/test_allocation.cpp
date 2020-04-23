@@ -206,4 +206,7 @@ TEST(TestAllocationStmtGroup, primitiveArrayAllocation10){
 
 	result = util.analyze();
 	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
 }
