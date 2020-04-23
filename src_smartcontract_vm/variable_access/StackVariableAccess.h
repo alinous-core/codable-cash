@@ -30,7 +30,7 @@ private:
 	int pos;
 
 private:
-	AnalyzedType* type;
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */
