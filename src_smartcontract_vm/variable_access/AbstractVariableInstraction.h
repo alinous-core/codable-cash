@@ -27,7 +27,7 @@ public:
 	static const constexpr uint8_t INSTRUCTION_THIS_POINTER{6};
 
 
-	AbstractVariableInstraction(uint8_t type);
+	explicit AbstractVariableInstraction(uint8_t type);
 	virtual ~AbstractVariableInstraction();
 
 	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) = 0;

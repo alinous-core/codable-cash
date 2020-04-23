@@ -202,7 +202,9 @@ VmClassInstance* SmartContract::createInstance(VirtualMachine* vm) {
 	StackPopper popStack(vm);
 	VmStack* stack = vm->topStack();
 
-	VmClassInstance* inst = VmClassInstance::createObject(clazz, vm);
+	VmClassInstance* inst = nullptr;
+
+	inst = VmClassInstance::createObject(clazz, vm);
 
 	GcManager* gc = vm->getGc();
 
