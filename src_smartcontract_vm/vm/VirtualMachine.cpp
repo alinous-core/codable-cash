@@ -195,6 +195,9 @@ ReservedClassRegistory* VirtualMachine::getReservedClassRegistory() const noexce
 }
 
 void VirtualMachine::checkUncaughtException() {
+	if(this->uncaughtException != nullptr){
+		return;
+	}
 	ReservedClassRegistory* reg = getReservedClassRegistory();
 	AnalyzedClass* exclass = reg->getAnalyzedClass(&ExceptionClassDeclare::NAME);
 
