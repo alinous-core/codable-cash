@@ -37,6 +37,9 @@ TEST(TestRootObjectGroup, test01) {
 
 	VmRootReference* root = new(&vm) VmRootReference(&vm); __STP(root);
 	CHECK(root->wrap(nullptr, &vm) == nullptr)
+
+	AnalyzedType at = root->getRuntimeType();
+	CHECK(at.getType() == AnalyzedType::TYPE_NONE);
 }
 
 TEST(TestRootObjectGroup, test02) {
