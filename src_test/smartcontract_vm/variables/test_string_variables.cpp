@@ -19,6 +19,9 @@
 
 #include "instance_gc/GcManager.h"
 
+#include "instance_string/VmStringInstance.h"
+
+#include "instance_ref/ObjectReference.h"
 using namespace alinous;
 
 
@@ -57,6 +60,13 @@ TEST(TestStringVariablesGroup, testFactory){
 	AnalyzedType at(AnalyzedType::TYPE_STRING);
 
 	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(root, &at, &vm);
+
+	UnicodeString str(L"hello");
+	VmStringInstance* inst = new(&vm) VmStringInstance(&vm, &str);
+	dynamic_cast<ObjectReference*>(ref)->setInstance(inst);
+
+	AnalyzedType at2 = ref->getInstance()->getRuntimeType();
+	CHECK(at2.getType() == AnalyzedType::TYPE_STRING)
 
 	GcManager* gc = vm.getGc();
 	gc->registerObject(ref);
