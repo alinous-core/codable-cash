@@ -22,6 +22,9 @@
 
 #include "sc_analyze/ValidationError.h"
 
+#include "instance_exception/ExceptionInterrupt.h"
+#include "instance_exception/TypeCastExceptionClassDeclare.h"
+
 namespace alinous {
 
 CastExpression::CastExpression() : AbstractExpression(CodeElement::EXP_CAST) {
@@ -118,13 +121,30 @@ AbstractVmInstance* CastExpression::interpret(VirtualMachine* vm) {
 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
 
+	if(inst == nullptr || inst->isNull()){
+		return nullptr;
+	}
 	if(!this->atype->isArray() && (this->atype->isPrimitiveInteger() || this->atype->isBool())){
 		releaser.registerInstance(inst);
 		PrimitiveReference* p = dynamic_cast<PrimitiveReference*>(inst);
 		return interpretPrimitive(vm, p);
 	}
+	else if(this->atype->isArray()){
+		return checkArrayType(vm, inst, &releaser);
+	}
 
 
+	return inst;
+}
+
+AbstractVmInstance* CastExpression::checkArrayType(VirtualMachine* vm, AbstractVmInstance* inst, StackFloatingVariableHandler* releaser) {
+	AnalyzedType at = inst->getInstance()->getRuntimeType();
+	if(!this->atype->equals(&at)){
+		releaser->registerInstance(inst);
+
+		TypeCastExceptionClassDeclare::throwException(vm, this);
+		ExceptionInterrupt::interruptPoint(vm);
+	}
 
 	return inst;
 }
