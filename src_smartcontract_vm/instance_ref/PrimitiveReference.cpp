@@ -326,7 +326,7 @@ PrimitiveReference* PrimitiveReference::createBoolReference(VirtualMachine* vm,	
 
 	ref->malloc = vm->getAlloc();
 	ref->data = ref->malloc->mallocPtrArray(getDataSize(ref->type));
-	ref->setIntValue(value);
+	ref->setIntValue(value > 0 ? 1 : 0);
 
 	return ref;
 }

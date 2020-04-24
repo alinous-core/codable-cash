@@ -55,4 +55,17 @@ TEST(TestCastExpGroup, case02){
 	CHECK(result)
 }
 
+TEST(TestCastExpGroup, case03){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/exp/resources/cast/case03/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+}
 

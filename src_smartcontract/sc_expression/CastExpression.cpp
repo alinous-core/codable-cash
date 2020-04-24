@@ -59,11 +59,25 @@ void CastExpression::analyze(AnalyzeContext* actx) {
 
 	this->atype = resolver->resolveType(this, this->type);
 
-	int result = InternalTypeChecker::analyzeCompatibility(this->atype, &at);
-	if(InternalTypeChecker::INCOMPATIBLE == result){
-		result = InternalTypeChecker::analyzeCompatibility(&at, this->atype);
-		if(InternalTypeChecker::INCOMPATIBLE == result){
+	if(this->atype == nullptr){
+		this->atype = new AnalyzedType();
+		actx->addValidationError(ValidationError::CODE_CAST_TYPE_NOT_EXIST, this, L"Can not cast because type does not exist.", {});
+		return;
+	}
+
+
+	if(this->atype->isBool()){
+		if(!at.isPrimitiveInteger() && !at.isBool()){
 			actx->addValidationError(ValidationError::CODE_CAST_TYPE_INCOMPATIBLE, this, L"Can not cast because of type incompatible.", {});
+		}
+	}
+	else{
+		int result = InternalTypeChecker::analyzeCompatibility(this->atype, &at);
+		if(InternalTypeChecker::INCOMPATIBLE == result){
+			result = InternalTypeChecker::analyzeCompatibility(&at, this->atype);
+			if(InternalTypeChecker::INCOMPATIBLE == result){
+				actx->addValidationError(ValidationError::CODE_CAST_TYPE_INCOMPATIBLE, this, L"Can not cast because of type incompatible.", {});
+			}
 		}
 	}
 
@@ -156,23 +170,23 @@ AbstractVmInstance* CastExpression::interpretPrimitive(VirtualMachine* vm, Primi
 
 	int64_t value = p->getLongValue();
 
-	switch(kind){
-	case CodeElement::TYPE_BOOL:
-		ref = PrimitiveReference::createBoolReference(vm, (int8_t)value);
+	switch(type){
+	case AnalyzedType::TYPE_BOOL:
+		ref = PrimitiveReference::createBoolReference(vm, (int32_t)value);
 		break;
-	case CodeElement::TYPE_BYTE:
+	case AnalyzedType::TYPE_BYTE:
 		ref = PrimitiveReference::createByteReference(vm, (int8_t)value);
 		break;
-	case CodeElement::TYPE_CHAR:
+	case AnalyzedType::TYPE_CHAR:
 		ref = PrimitiveReference::createCharReference(vm, (int16_t)value);
 		break;
-	case CodeElement::TYPE_SHORT:
+	case AnalyzedType::TYPE_SHORT:
 		ref = PrimitiveReference::createShortReference(vm, (int16_t)value);
 		break;
-	case CodeElement::TYPE_INT:
+	case AnalyzedType::TYPE_INT:
 		ref = PrimitiveReference::createIntReference(vm, (int32_t)value);
 		break;
-	case CodeElement::TYPE_LONG:
+	case AnalyzedType::TYPE_LONG:
 	default:
 		ref = PrimitiveReference::createLongReference(vm, value);
 		break;
