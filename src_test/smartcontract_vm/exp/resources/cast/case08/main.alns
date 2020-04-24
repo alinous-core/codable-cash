@@ -1,0 +1,17 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		long[] ar = new long[3];
+		
+		this.result = (int[])ar;
+	}
+	
+	public int main(){
+
+	}
+	
+	private int[] result;
+}
