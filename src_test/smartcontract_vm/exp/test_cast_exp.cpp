@@ -53,6 +53,9 @@ TEST(TestCastExpGroup, case02){
 
 	result = util.createInstance();
 	CHECK(result)
+
+	ExtExceptionObject* exobj = util.vm->getUncaughtException(); __STP(exobj);
+	CHECK(exobj == nullptr)
 }
 
 TEST(TestCastExpGroup, case03){
@@ -147,4 +150,20 @@ TEST(TestCastExpGroup, case09){
 	CHECK(result)
 }
 
+TEST(TestCastExpGroup, case10){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/exp/resources/cast/case10/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* exobj = util.vm->getUncaughtException(); __STP(exobj);
+	CHECK(exobj)
+}
 

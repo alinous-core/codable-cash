@@ -21,9 +21,11 @@
 #include "type_check/InternalTypeChecker.h"
 
 #include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzedClass.h"
 
 #include "instance_exception/ExceptionInterrupt.h"
 #include "instance_exception/TypeCastExceptionClassDeclare.h"
+
 
 namespace alinous {
 
@@ -147,6 +149,18 @@ AbstractVmInstance* CastExpression::interpret(VirtualMachine* vm) {
 		return checkArrayType(vm, inst, &releaser);
 	}
 
+	IAbstractVmInstanceSubstance* sub = inst->getInstance();
+	AnalyzedType at = sub->getRuntimeType();
+	AnalyzedClass* clazz =  at.getAnalyzedClass();
+
+	AnalyzedClass* expClazz = this->atype->getAnalyzedClass();
+
+	if(!expClazz->hasBaseClass(clazz)){
+		releaser.registerInstance(inst);
+
+		TypeCastExceptionClassDeclare::throwException(vm, this);
+		ExceptionInterrupt::interruptPoint(vm);
+	}
 
 	return inst;
 }
