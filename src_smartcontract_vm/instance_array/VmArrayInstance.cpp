@@ -14,12 +14,14 @@
 
 #include "ext_binary/ExtArrayObject.h"
 
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
-VmArrayInstance::VmArrayInstance(VirtualMachine* vm, int length) : AbstractVmInstance(VmInstanceTypesConst::INST_ARRAY) {
+VmArrayInstance::VmArrayInstance(VirtualMachine* vm, int length, const AnalyzedType& atype) : AbstractVmInstance(VmInstanceTypesConst::INST_ARRAY) {
 	this->array = new(vm) VMemList<AbstractReference>(vm);
 	this->length = length;
+	this->atype = new AnalyzedType(atype);
 
 	for(int i = 0; i != length; ++i){
 		this->array->addElement(nullptr);
@@ -35,6 +37,7 @@ VmArrayInstance::~VmArrayInstance() {
 		delete ref;
 	}
 
+	delete this->atype;
 	delete this->array;
 }
 
@@ -138,6 +141,10 @@ void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReferenc
 
 AbstractReference* VmArrayInstance::getReference(VirtualMachine* vm, int pos) {
 	return this->array->get(pos);
+}
+
+AnalyzedType VmArrayInstance::getRuntimeType() const noexcept {
+	return *this->atype;
 }
 
 int VmArrayInstance::size() const noexcept {

@@ -1,0 +1,8 @@
+
+package test.fw;
+
+class ObjectA {
+	public ObjectA(){
+		throw new Exception();
+	}
+}

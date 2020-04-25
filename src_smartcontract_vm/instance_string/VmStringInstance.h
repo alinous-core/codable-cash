@@ -27,6 +27,8 @@ public:
 	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 	virtual uint8_t getInstType() const noexcept;
+	virtual AnalyzedType getRuntimeType() const noexcept;
+
 	virtual const VMemList<AbstractReference>* getInstReferences() const noexcept;
 	virtual int instHashCode() const noexcept;
 	virtual bool instIsPrimitive() const noexcept;

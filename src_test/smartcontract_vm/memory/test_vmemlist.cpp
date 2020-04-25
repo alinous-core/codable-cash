@@ -13,6 +13,7 @@
 
 #include "instance_ref/PrimitiveReference.h"
 
+#include "instance_parts/VMemPrimitiveList.h"
 using namespace alinous;
 
 TEST_GROUP(TestVmMemList) {
@@ -74,6 +75,19 @@ TEST(TestVmMemList, testAddRefptr){
 	list->deleteElements();
 	delete list;
 
+}
+
+TEST(TestVmMemList, testPrimitive01){
+	VirtualMachine vm(1024 * 4);
+
+	VMemPrimitiveList<int>* list = new(&vm) VMemPrimitiveList<int>(&vm, 2);
+
+	int maxLoop = 10;
+	for(int i = 0; i != maxLoop; ++i){
+		list->addElement(i);
+	}
+
+	delete list;
 }
 /*
 TEST(TestVmMemList, test02){

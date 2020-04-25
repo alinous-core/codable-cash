@@ -1,0 +1,17 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		SmartContract val = null;
+		
+		this.result = (boolean)val;
+	}
+	
+	public int main(){
+
+	}
+	
+	private boolean result;
+}

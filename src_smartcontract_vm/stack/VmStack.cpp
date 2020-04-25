@@ -14,6 +14,7 @@
 #include "instance/AbstractVmInstance.h"
 #include "instance/VmInstanceTypesConst.h"
 
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -105,6 +106,8 @@ int VmStack::valueCompare(IAbstractVmInstanceSubstance* right) {
 	return 0;
 }
 
-
+AnalyzedType VmStack::getRuntimeType() const noexcept {
+	return AnalyzedType();
+}
 
 } /* namespace alinous */

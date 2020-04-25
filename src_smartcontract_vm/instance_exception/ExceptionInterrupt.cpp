@@ -13,6 +13,9 @@
 
 #include "instance/VmClassInstance.h"
 
+#include "instance_gc/GcManager.h"
+
+
 namespace alinous {
 
 ExceptionInterrupt::ExceptionInterrupt() {
@@ -33,7 +36,9 @@ void ExceptionInterrupt::interruptPoint(VirtualMachine* vm) {
 void ExceptionInterrupt::interruptPoint(VirtualMachine* vm,	VmClassInstance* inst) {
 	ExecControlManager* ctrl = vm->getCtrl();
 	if(ctrl->isExceptionThrown()){
-		delete inst;
+		GcManager* gc = vm->getGc();
+		gc->handleFloatingObject(inst);
+
 		throw new ExceptionInterrupt();
 	}
 }

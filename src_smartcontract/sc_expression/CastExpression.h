@@ -12,6 +12,8 @@
 
 namespace alinous {
 class AbstractType;
+class PrimitiveReference;
+class StackFloatingVariableHandler;
 
 class CastExpression : public AbstractExpression {
 public:
@@ -32,9 +34,16 @@ public:
 	virtual AnalyzedType getType(AnalyzeContext* actx);
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
+private:
+	AbstractVmInstance* checkArrayType(VirtualMachine* vm, AbstractVmInstance* inst, StackFloatingVariableHandler* releaser);
+
+	AbstractVmInstance* interpretPrimitive(VirtualMachine* vm, PrimitiveReference* p);
 private:
 	AbstractType* type;
 	AbstractExpression* exp;
+
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

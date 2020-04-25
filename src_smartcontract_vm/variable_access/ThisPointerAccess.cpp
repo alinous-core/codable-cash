@@ -19,21 +19,21 @@ namespace alinous {
 
 ThisPointerAccess::ThisPointerAccess()
 			: AbstractVariableInstraction(AbstractVariableInstraction::INSTRUCTION_THIS_POINTER) {
-	this->type = nullptr;
+	this->atype = nullptr;
 }
 
 ThisPointerAccess::~ThisPointerAccess() {
-	delete this->type;
+	delete this->atype;
 }
 
 void ThisPointerAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastInst, CodeElement* element) {
 	AnalyzedClass* clazz = actx->getThisClass();
 
-	this->type = new AnalyzedType(clazz);
+	this->atype = new AnalyzedType(clazz);
 }
 
 AnalyzedType ThisPointerAccess::getAnalyzedType() const noexcept {
-	return *this->type;
+	return *this->atype;
 }
 
 AbstractVmInstance* ThisPointerAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {

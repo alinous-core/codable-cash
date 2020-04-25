@@ -11,7 +11,17 @@
 
 #include "base_io_stream/FileInputStream.h"
 
+#include "sc_analyze/AnalyzedType.h"
 
+#include "instance_ref/VmRootReference.h"
+#include "instance_ref/AbstractReference.h"
+#include "instance_ref/RefereceFactory.h"
+
+#include "instance_gc/GcManager.h"
+
+#include "instance_string/VmStringInstance.h"
+
+#include "instance_ref/ObjectReference.h"
 using namespace alinous;
 
 
@@ -41,4 +51,26 @@ TEST(TestStringVariablesGroup, stringMemberVariable){
 	vm->analyze();
 	vm->createScInstance();
 	vm->destroy();
+}
+
+TEST(TestStringVariablesGroup, testFactory){
+	VirtualMachine vm(1024 * 10);
+	VmRootReference* root = new(&vm) VmRootReference(&vm); __STP(root);
+
+	AnalyzedType at(AnalyzedType::TYPE_STRING);
+
+	AbstractReference* ref = RefereceFactory::createReferenceFromAnalyzedType(root, &at, &vm);
+
+	UnicodeString str(L"hello");
+	VmStringInstance* inst = new(&vm) VmStringInstance(&vm, &str);
+	dynamic_cast<ObjectReference*>(ref)->setInstance(inst);
+
+	AnalyzedType at2 = ref->getInstance()->getRuntimeType();
+	CHECK(at2.getType() == AnalyzedType::TYPE_STRING)
+
+	GcManager* gc = vm.getGc();
+	gc->registerObject(ref);
+	gc->removeObject(ref);
+
+	gc->garbageCollect();
 }

@@ -25,11 +25,11 @@ StackVariableAccess::StackVariableAccess(int stackTopDiff, int pos)
 				: AbstractVariableInstraction(AbstractVariableInstraction::INSTRUCTION_STACK_VARIABLE){
 	this->stackTopDiff = stackTopDiff;
 	this->pos = pos;
-	this->type = nullptr;
+	this->atype = nullptr;
 }
 
 StackVariableAccess::~StackVariableAccess() {
-	delete this->type;
+	delete this->atype;
 }
 
 void StackVariableAccess::analyze(AnalyzeContext* actx,	AbstractVariableInstraction* lastIinst, CodeElement* element) {
@@ -40,11 +40,11 @@ void StackVariableAccess::analyze(AnalyzeContext* actx,	AbstractVariableInstract
 	AnalyzedStackReference* ref = stack->get(this->pos);
 
 	const AnalyzedType* atype = ref->getType();
-	this->type = new AnalyzedType(*atype);
+	this->atype = new AnalyzedType(*atype);
 }
 
 AnalyzedType StackVariableAccess::getAnalyzedType() const noexcept {
-	return *this->type;
+	return *this->atype;
 }
 
 AbstractVmInstance* StackVariableAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {

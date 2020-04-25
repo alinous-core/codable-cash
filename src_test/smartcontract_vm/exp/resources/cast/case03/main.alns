@@ -1,0 +1,27 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		int val = 100;
+		
+		this.bl = (boolean)val;
+		this.bint = (byte)val;
+		this.cint = (char)val;
+		this.sint = (short)val;
+		this.iint = (int)val;
+		this.lint = (long)val;
+	}
+	
+	public int main(){
+
+	}
+	
+	private boolean bl;
+	private byte bint;
+	private char cint;
+	private short sint;
+	private int iint;
+	private long lint;
+}

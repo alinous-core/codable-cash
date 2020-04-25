@@ -20,12 +20,13 @@ class VirtualMachine;
 
 class VmArrayInstance : public AbstractVmInstance, public IInstanceContainer {
 public:
-	VmArrayInstance(VirtualMachine* vm, int length);
+	VmArrayInstance(VirtualMachine* vm, int length, const AnalyzedType& atype);
 	virtual ~VmArrayInstance();
 
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 	virtual uint8_t getInstType() const noexcept;
+	virtual AnalyzedType getRuntimeType() const noexcept;
 
 	virtual void removeInnerRefs(GcManager* gc) noexcept;
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
@@ -46,6 +47,8 @@ public:
 private:
 	VMemList<AbstractReference>* array;
 	int length;
+
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

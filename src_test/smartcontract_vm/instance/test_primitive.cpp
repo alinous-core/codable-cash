@@ -78,3 +78,58 @@ TEST(TestPrimitiveGroup, test06){
 
 	delete extObj;
 }
+
+TEST(TestPrimitiveGroup, test07){
+	VirtualMachine vm(1024 * 10);
+
+	PrimitiveReference* left = PrimitiveReference::createIntReference(&vm, 10);  __STP(left);
+
+	AnalyzedType at = left->getRuntimeType();
+	CHECK(at.getType() == AnalyzedType::TYPE_INT);
+}
+
+TEST(TestPrimitiveGroup, test08){
+	VirtualMachine vm(1024 * 10);
+
+	PrimitiveReference* left = PrimitiveReference::createBoolReference(&vm, 10);  __STP(left);
+
+	AnalyzedType at = left->getRuntimeType();
+	CHECK(at.getType() == AnalyzedType::TYPE_BOOL);
+}
+
+TEST(TestPrimitiveGroup, test09){
+	VirtualMachine vm(1024 * 10);
+
+	PrimitiveReference* left = PrimitiveReference::createByteReference(&vm, 10);  __STP(left);
+
+	AnalyzedType at = left->getRuntimeType();
+	CHECK(at.getType() == AnalyzedType::TYPE_BYTE);
+}
+
+TEST(TestPrimitiveGroup, test10){
+	VirtualMachine vm(1024 * 10);
+
+	PrimitiveReference* left = PrimitiveReference::createCharReference(&vm, 10);  __STP(left);
+
+	AnalyzedType at = left->getRuntimeType();
+	CHECK(at.getType() == AnalyzedType::TYPE_CHAR);
+}
+
+TEST(TestPrimitiveGroup, test11){
+	VirtualMachine vm(1024 * 10);
+
+	PrimitiveReference* left = PrimitiveReference::createShortReference(&vm, 10);  __STP(left);
+
+	AnalyzedType at = left->getRuntimeType();
+	CHECK(at.getType() == AnalyzedType::TYPE_SHORT);
+}
+
+TEST(TestPrimitiveGroup, test12){
+	VirtualMachine vm(1024 * 10);
+
+	PrimitiveReference* left = PrimitiveReference::createLongReference(&vm, 10);  __STP(left);
+
+	AnalyzedType at = left->getRuntimeType();
+	CHECK(at.getType() == AnalyzedType::TYPE_LONG);
+}
+

@@ -15,6 +15,7 @@
 
 #include "ext_binary/ExtStringClass.h"
 
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
@@ -69,6 +70,10 @@ AbstractExtObject* VmStringInstance::instToClassExtObject(
 
 bool VmStringInstance::instIsPrimitive() const noexcept {
 	return false;
+}
+
+AnalyzedType VmStringInstance::getRuntimeType() const noexcept {
+	return AnalyzedType(AnalyzedType::TYPE_STRING);
 }
 
 AbstractExtObject* VmStringInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {

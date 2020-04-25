@@ -12,6 +12,7 @@
 
 #include "sc_analyze/AnalyzedClass.h"
 #include "sc_analyze/IVmInstanceFactory.h"
+#include "sc_analyze/AnalyzedType.h"
 
 #include "sc_declare/MemberVariableDeclare.h"
 #include "sc_analyze_functions/VTableRegistory.h"
@@ -32,6 +33,7 @@
 
 #include "instance_ref/ObjectReference.h"
 
+#include "instance_exception/ExceptionInterrupt.h"
 
 namespace alinous {
 
@@ -63,8 +65,15 @@ VmClassInstance* VmClassInstance::createObject(AnalyzedClass* clazz, VirtualMach
 		inst = new(vm) VmClassInstance(clazz, vm);
 	}
 
-	inst->init(vm);
+	try{
+		inst->init(vm);
+	}
+	catch(ExceptionInterrupt* e){
+		GcManager* gc = vm->getGc();
+		gc->handleFloatingObject(inst);
 
+		throw e;
+	}
 	return inst;
 }
 
@@ -169,6 +178,10 @@ const VMemList<AbstractReference>* VmClassInstance::getReferences() const noexce
 
 AnalyzedClass* VmClassInstance::getAnalyzedClass() const noexcept {
 	return this->clazz;
+}
+
+AnalyzedType VmClassInstance::getRuntimeType() const noexcept {
+	return AnalyzedType(this->clazz);
 }
 
 AbstractExtObject* VmClassInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* reg) {

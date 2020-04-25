@@ -16,6 +16,7 @@ class AbstractReference;
 class VirtualMachine;
 class AbstractExtObject;
 class VTableRegistory;
+class AnalyzedType;
 
 class IAbstractVmInstanceSubstance {
 public:
@@ -24,6 +25,8 @@ public:
 
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) = 0;
 	virtual uint8_t getInstType() const noexcept = 0;
+
+	virtual AnalyzedType getRuntimeType() const noexcept = 0;
 
 	virtual const VMemList<AbstractReference>* getInstReferences() const noexcept = 0;
 	virtual int instHashCode() const noexcept = 0;

@@ -31,6 +31,7 @@ public:
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 	virtual void removeInnerRefs(GcManager* gc) noexcept;
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
+	virtual AnalyzedType getRuntimeType() const noexcept;
 
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 	virtual uint8_t getInstType() const noexcept;

@@ -17,7 +17,7 @@ class AnalyzedType;
 
 class MemberVariableAccess: public AbstractVariableInstraction {
 public:
-	MemberVariableAccess(VariableIdentifier* valId);
+	explicit MemberVariableAccess(VariableIdentifier* valId);
 	virtual ~MemberVariableAccess();
 
 	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element);

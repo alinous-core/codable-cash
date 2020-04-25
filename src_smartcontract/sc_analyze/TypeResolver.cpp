@@ -97,8 +97,10 @@ AnalyzedType* TypeResolver::resolveType(CodeElement* element, AbstractType* type
 		return nullptr;
 	}
 
-	int dim = type->getDimension();
-	result->setDim(dim);
+	if(result != nullptr){
+		int dim = type->getDimension();
+		result->setDim(dim);
+	}
 
 	return result;
 }

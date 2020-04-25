@@ -103,15 +103,19 @@ void VirtualMachine::loadSmartContract(SmartContract* sc) {
 }
 
 VmClassInstance* VirtualMachine::createScInstance() {
+	VmClassInstance* retInst = nullptr;
 	initialize();
 	try{
-		return this->sc->createInstance(this);
+		retInst = this->sc->createInstance(this);
 	}
 	catch(Exception* e){
 		this->exceptions.addElement(e);
 	}
 
-	return nullptr;
+	// uncaught exception
+	checkUncaughtException();
+
+	return retInst;
 }
 
 void VirtualMachine::interpret(const UnicodeString* method) {
@@ -191,6 +195,9 @@ ReservedClassRegistory* VirtualMachine::getReservedClassRegistory() const noexce
 }
 
 void VirtualMachine::checkUncaughtException() {
+	if(this->uncaughtException != nullptr){
+		return;
+	}
 	ReservedClassRegistory* reg = getReservedClassRegistory();
 	AnalyzedClass* exclass = reg->getAnalyzedClass(&ExceptionClassDeclare::NAME);
 
