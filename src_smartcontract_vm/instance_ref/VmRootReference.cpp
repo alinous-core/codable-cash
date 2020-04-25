@@ -17,18 +17,23 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "instance_ref_class_static/StaticClassReferenceHolder.h"
+
+
 namespace alinous {
 
 VmRootReference::VmRootReference(VirtualMachine* vm) : AbstractReference(this, VmInstanceTypesConst::REF_ROOT) {
 	this->vm = vm;
 	this->mainInst = nullptr;
 	this->staticHolder = new StaticInstanceHolder();
+	this->classStaticHolder = new StaticClassReferenceHolder();
 }
 
 VmRootReference::~VmRootReference() {
 	clearInnerReferences();
 
 	delete this->staticHolder;
+	delete this->classStaticHolder;
 }
 
 void VmRootReference::clearInnerReferences() {

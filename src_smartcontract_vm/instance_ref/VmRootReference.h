@@ -17,6 +17,7 @@ namespace alinous {
 
 class VirtualMachine;
 class StaticInstanceHolder;
+class StaticClassReferenceHolder;
 class PrimitiveReference;
 class VmClassInstance;
 class VmStringInstance;
@@ -50,6 +51,8 @@ private:
 	VirtualMachine* vm;
 	VmClassInstance* mainInst;
 	StaticInstanceHolder* staticHolder;
+	StaticClassReferenceHolder* classStaticHolder;
+
 };
 
 } /* namespace alinous */
