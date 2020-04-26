@@ -312,10 +312,12 @@ ClassDeclareBlock* classDeclareBlock() :
 			|
 			member=memberVariableDeclare(ctrl, _static, type, t) {
 				block->addVariable(member);
+				
 			}
 		)
 		{
 		    _static = false;
+		    type = nullptr;
 		}
 	)*
 

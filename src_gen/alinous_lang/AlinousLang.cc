@@ -556,6 +556,7 @@ block->addVariable(member);
       }
       if (!hasError) {
 _static = false;
+                    type = nullptr;
       }
     }
     end_label_7: ;

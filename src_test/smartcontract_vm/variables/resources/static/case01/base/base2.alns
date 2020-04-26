@@ -1,0 +1,11 @@
+
+package test.fw.base;
+
+class BaseClass2 {
+	public int b2s01;
+	
+	public BaseClass2() {
+	
+	}
+	
+}
