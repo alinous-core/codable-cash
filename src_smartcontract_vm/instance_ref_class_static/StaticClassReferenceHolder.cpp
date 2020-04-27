@@ -9,6 +9,8 @@
 
 #include "instance_ref_class_static/StaticClassEntry.h"
 
+#include "instance_ref/VmRootReference.h"
+
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 #include "base/HashMap.h"
@@ -20,6 +22,8 @@
 
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/MemberVariableDeclare.h"
+
+#include "vm/VirtualMachine.h"
 
 
 namespace alinous {
@@ -38,6 +42,8 @@ StaticClassReferenceHolder::~StaticClassReferenceHolder() {
 
 		delete entry;
 	}
+
+	delete this->classMap;
 }
 
 void StaticClassReferenceHolder::init(VirtualMachine* vm, AnalyzeContext* actx) {
@@ -48,11 +54,11 @@ void StaticClassReferenceHolder::init(VirtualMachine* vm, AnalyzeContext* actx) 
 		const UnicodeString* key = it->next();
 		PackageSpace* space = spaces->get(key);
 
-		initPackageSpace(vm, space);
+		initPackageSpace(vm, actx, space);
 	}
 }
 
-void StaticClassReferenceHolder::initPackageSpace(VirtualMachine* vm, PackageSpace* space) {
+void StaticClassReferenceHolder::initPackageSpace(VirtualMachine* vm, AnalyzeContext* actx, PackageSpace* space) {
 	HashMap<UnicodeString, AnalyzedClass>* classes = space->getMap();
 
 	Iterator<UnicodeString>* it = classes->keySet()->iterator(); __STP(it);
@@ -60,14 +66,15 @@ void StaticClassReferenceHolder::initPackageSpace(VirtualMachine* vm, PackageSpa
 		const UnicodeString* key = it->next();
 		AnalyzedClass* aclazz = classes->get(key);
 
-		initAnalyzedClass(vm, aclazz);
+		initAnalyzedClass(vm, actx, aclazz);
 	}
 }
 
-void StaticClassReferenceHolder::initAnalyzedClass(VirtualMachine* vm, AnalyzedClass* aclass) {
+void StaticClassReferenceHolder::initAnalyzedClass(VirtualMachine* vm, AnalyzeContext* actx, AnalyzedClass* aclass) {
 	ClassDeclare* dec = aclass->getClassDeclare();
 	const UnicodeString* fqn = aclass->getFullQualifiedName();
 
+	VmRootReference* rootRef = vm->getVmRootReference();
 	StaticClassEntry* classEntry = getClassEntry(fqn, aclass);
 
 	ArrayList<MemberVariableDeclare>* list = dec->getMemberVariables();
@@ -76,7 +83,7 @@ void StaticClassReferenceHolder::initAnalyzedClass(VirtualMachine* vm, AnalyzedC
 		MemberVariableDeclare* val = list->get(i);
 
 		if(val->isStatic()){
-
+			classEntry->addReference(vm, rootRef, val);
 		}
 	}
 }

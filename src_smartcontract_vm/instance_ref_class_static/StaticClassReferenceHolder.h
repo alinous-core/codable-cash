@@ -31,8 +31,8 @@ public:
 
 private:
 	StaticClassEntry* getClassEntry(const UnicodeString* fqn, AnalyzedClass* aclass);
-	void initPackageSpace(VirtualMachine* vm, PackageSpace* space);
-	void initAnalyzedClass(VirtualMachine* vm, AnalyzedClass* aclass);
+	void initPackageSpace(VirtualMachine* vm, AnalyzeContext* actx, PackageSpace* space);
+	void initAnalyzedClass(VirtualMachine* vm, AnalyzeContext* actx, AnalyzedClass* aclass);
 private:
 	HashMap<UnicodeString, StaticClassEntry>* classMap;
 };
