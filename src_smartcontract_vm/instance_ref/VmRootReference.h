@@ -46,6 +46,8 @@ public:
 	PrimitiveReference* newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm);
 	VmStringInstance* newStringConstReferenece(VmRootReference* rootRef, const UnicodeString* str, VirtualMachine* vm);
 
+	StaticClassReferenceHolder* getStaticClassReferenceHolder() const noexcept;
+
 	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 private:
 	VirtualMachine* vm;

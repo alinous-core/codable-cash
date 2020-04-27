@@ -46,6 +46,8 @@ void VmRootReference::clearInnerReferences() {
 		this->staticHolder->removeInnerReferences(this, this->vm);
 		this->staticHolder->removeStringConst(this, this->vm);
 
+		this->classStaticHolder->removeInnerReferences(this, this->vm);
+
 		this->mainInst = nullptr;
 	}
 }
@@ -109,6 +111,10 @@ AnalyzedType VmRootReference::getRuntimeType() const noexcept {
 
 int VmRootReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 	return 0;
+}
+
+StaticClassReferenceHolder* VmRootReference::getStaticClassReferenceHolder() const noexcept {
+	return this->classStaticHolder;
 }
 
 } /* namespace alinous */

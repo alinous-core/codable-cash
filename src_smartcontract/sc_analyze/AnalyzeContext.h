@@ -64,6 +64,8 @@ public:
 	void resigterReservedClasses() noexcept;
 
 	ReservedClassRegistory* getReservedClassRegistory() const noexcept;
+
+	HashMap<UnicodeString, PackageSpace>* getPackageSpaces() const noexcept;
 private:
 	void analyzeMembers(PackageSpace* space) noexcept;
 	void analyzeMember(AnalyzedClass* cls) noexcept;

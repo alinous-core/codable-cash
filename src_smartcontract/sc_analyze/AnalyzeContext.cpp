@@ -202,6 +202,9 @@ void AnalyzeContext::analyzeMembers(PackageSpace* space) noexcept {
 	}
 }
 
+HashMap<UnicodeString, PackageSpace>* AnalyzeContext::getPackageSpaces() const noexcept {
+	return this->packageSpaces;
+}
 
 void AnalyzeContext::analyzeMember(AnalyzedClass* cls) noexcept {
 	const UnicodeString* fqn = cls->getFullQualifiedName();
