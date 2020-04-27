@@ -107,7 +107,7 @@ void StaticClassReferenceHolder::removeInnerReferences(VmRootReference* rootRef,
 		const UnicodeString* key = it->next();
 		StaticClassEntry* entry = this->classMap->get(key);
 
-		// FIXME release ref
+		entry->removeInnerReferences(vm);
 	}
 }
 

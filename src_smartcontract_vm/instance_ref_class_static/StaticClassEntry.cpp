@@ -10,6 +10,7 @@
 #include "sc_analyze/AnalyzedClass.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #include "sc_declare/MemberVariableDeclare.h"
 
@@ -17,8 +18,15 @@
 
 #include "instance_ref/RefereceFactory.h"
 #include "instance_ref/VmRootReference.h"
-
 #include "instance_ref/AbstractReference.h"
+
+#include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
+
+#include "sc_expression/AbstractExpression.h"
+
+#include "stack/StackPopper.h"
+
 
 namespace alinous {
 
@@ -30,6 +38,14 @@ StaticClassEntry::StaticClassEntry(AnalyzedClass* aclazz) {
 StaticClassEntry::~StaticClassEntry() {
 	this->aclazz = nullptr;
 
+	Iterator<UnicodeString>* it = this->members->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const UnicodeString* key = it->next();
+		AbstractReference* ref = this->members->get(key);
+
+		delete ref;
+	}
+
 	delete this->members;
 }
 
@@ -38,6 +54,37 @@ void StaticClassEntry::addReference(VirtualMachine* vm, VmRootReference* rootRef
 
 	AbstractReference* ref = RefereceFactory::createReferenceFromDefinition(rootRef, val, vm);
 	this->members->put(name, ref);
+
+	AbstractExpression* exp = val->getExp();
+	if(exp != nullptr){
+		execInitialExpression(vm, ref, exp);
+	}
+}
+
+void StaticClassEntry::execInitialExpression(VirtualMachine* vm, AbstractReference* ref, AbstractExpression* exp) {
+	GcManager* gc = vm->getGc();
+
+	vm->newStack();
+	StackPopper popStack(vm);
+
+	StackFloatingVariableHandler releaser(gc);
+
+	AbstractVmInstance* inst = exp->interpret(vm);
+	releaser.registerInstance(inst);
+
+	ref->substitute(inst != nullptr ? inst->getInstance() : nullptr, vm);
+}
+
+void StaticClassEntry::removeInnerReferences(VirtualMachine* vm) noexcept {
+	GcManager* gc = vm->getGc();
+
+	Iterator<UnicodeString>* it = this->members->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const UnicodeString* key = it->next();
+		AbstractReference* ref = this->members->get(key);
+
+		gc->removeObject(ref);
+	}
 }
 
 } /* namespace alinous */

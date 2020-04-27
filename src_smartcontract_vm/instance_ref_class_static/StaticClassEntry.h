@@ -18,6 +18,7 @@ class MemberVariableDeclare;
 class VmRootReference;
 class AbstractReference;
 class UnicodeString;
+class AbstractExpression;
 
 class StaticClassEntry {
 public:
@@ -25,6 +26,10 @@ public:
 	virtual ~StaticClassEntry();
 
 	void addReference(VirtualMachine* vm, VmRootReference* rootRef, MemberVariableDeclare* val);
+	void removeInnerReferences(VirtualMachine* vm) noexcept;
+
+private:
+	void execInitialExpression(VirtualMachine* vm, AbstractReference* ref, AbstractExpression* exp);
 private:
 	AnalyzedClass* aclazz;
 	HashMap<UnicodeString, AbstractReference>* members;

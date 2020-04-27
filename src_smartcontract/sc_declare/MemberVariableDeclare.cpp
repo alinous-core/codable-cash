@@ -160,6 +160,10 @@ void MemberVariableDeclare::setExp(AbstractExpression* exp) noexcept {
 	this->exp = exp;
 }
 
+AbstractExpression* MemberVariableDeclare::getExp() const noexcept {
+	return this->exp;
+}
+
 AnalyzedType MemberVariableDeclare::getAnalyzedType() const noexcept {
 	return *this->atype;
 }
