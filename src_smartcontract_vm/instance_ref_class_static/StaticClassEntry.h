@@ -10,10 +10,15 @@
 
 namespace alinous {
 
+class AnalyzedClass;
+
 class StaticClassEntry {
 public:
-	StaticClassEntry();
+	StaticClassEntry(AnalyzedClass* aclazz);
 	virtual ~StaticClassEntry();
+
+private:
+	AnalyzedClass* aclazz;
 };
 
 } /* namespace alinous */

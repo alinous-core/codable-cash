@@ -100,8 +100,6 @@ void MemberVariableDeclare::init(VirtualMachine* vm) {
 			this->exp->init(vm);
 		}
 	}
-
-	// FIXME handle a static member
 }
 
 void MemberVariableDeclare::onAllocate(VirtualMachine* vm, AbstractReference* ref) {
@@ -144,6 +142,10 @@ void MemberVariableDeclare::setStatic(bool s) noexcept {
 
 void MemberVariableDeclare::setName(UnicodeString* name) noexcept {
 	this->name = name;
+}
+
+bool MemberVariableDeclare::isStatic() const noexcept {
+	return this->_static;
 }
 
 const UnicodeString* MemberVariableDeclare::getName() noexcept {

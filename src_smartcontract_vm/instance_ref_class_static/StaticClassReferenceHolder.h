@@ -19,6 +19,7 @@ class StaticClassEntry;
 class VirtualMachine;
 class VmRootReference;
 class PackageSpace;
+class AnalyzedClass;
 
 class StaticClassReferenceHolder {
 public:
@@ -29,7 +30,9 @@ public:
 	void removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept;
 
 private:
+	StaticClassEntry* getClassEntry(const UnicodeString* fqn, AnalyzedClass* aclass);
 	void initPackageSpace(VirtualMachine* vm, PackageSpace* space);
+	void initAnalyzedClass(VirtualMachine* vm, AnalyzedClass* aclass);
 private:
 	HashMap<UnicodeString, StaticClassEntry>* classMap;
 };

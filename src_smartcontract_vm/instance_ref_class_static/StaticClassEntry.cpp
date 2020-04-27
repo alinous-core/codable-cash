@@ -5,17 +5,19 @@
  *      Author: iizuka
  */
 
-#include <instance_ref_class_static/StaticClassEntry.h>
+#include "instance_ref_class_static/StaticClassEntry.h"
+
+#include "sc_analyze/AnalyzedClass.h"
+
 
 namespace alinous {
 
-StaticClassEntry::StaticClassEntry() {
-	// TODO Auto-generated constructor stub
-
+StaticClassEntry::StaticClassEntry(AnalyzedClass* aclazz) {
+	this->aclazz = aclazz;
 }
 
 StaticClassEntry::~StaticClassEntry() {
-	// TODO Auto-generated destructor stub
+	this->aclazz = nullptr;
 }
 
 } /* namespace alinous */

@@ -12,9 +12,15 @@
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 #include "base/HashMap.h"
+#include "base/ArrayList.h"
 
 #include "sc_analyze/PackageSpace.h"
 #include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/AnalyzedClass.h"
+
+#include "sc_declare/ClassDeclare.h"
+#include "sc_declare/MemberVariableDeclare.h"
+
 
 namespace alinous {
 
@@ -54,7 +60,36 @@ void StaticClassReferenceHolder::initPackageSpace(VirtualMachine* vm, PackageSpa
 		const UnicodeString* key = it->next();
 		AnalyzedClass* aclazz = classes->get(key);
 
+		initAnalyzedClass(vm, aclazz);
 	}
+}
+
+void StaticClassReferenceHolder::initAnalyzedClass(VirtualMachine* vm, AnalyzedClass* aclass) {
+	ClassDeclare* dec = aclass->getClassDeclare();
+	const UnicodeString* fqn = aclass->getFullQualifiedName();
+
+	StaticClassEntry* classEntry = getClassEntry(fqn, aclass);
+
+	ArrayList<MemberVariableDeclare>* list = dec->getMemberVariables();
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		MemberVariableDeclare* val = list->get(i);
+
+		if(val->isStatic()){
+
+		}
+	}
+}
+
+StaticClassEntry* StaticClassReferenceHolder::getClassEntry(const UnicodeString* fqn, AnalyzedClass* aclass) {
+	StaticClassEntry* entry = this->classMap->get(fqn);
+
+	if(entry == nullptr){
+		entry = new StaticClassEntry(aclass);
+		this->classMap->put(fqn, entry);
+	}
+
+	return entry;
 }
 
 
@@ -68,4 +103,5 @@ void StaticClassReferenceHolder::removeInnerReferences(VmRootReference* rootRef,
 		// FIXME release ref
 	}
 }
+
 } /* namespace alinous */

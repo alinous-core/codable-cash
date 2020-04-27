@@ -39,6 +39,8 @@ public:
 	void setStatic(bool s) noexcept;
 	void setName(UnicodeString* name) noexcept;
 
+	bool isStatic() const noexcept;
+
 	const UnicodeString* getName() noexcept;
 	AbstractType* getType() noexcept;
 
