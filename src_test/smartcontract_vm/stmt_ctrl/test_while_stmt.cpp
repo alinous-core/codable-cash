@@ -114,5 +114,20 @@ TEST(TestWhileStmtGroup, case05){
 	CHECK(iresult == 20)
 }
 
+TEST(TestWhileStmtGroup, case06){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/stmt_ctrl/resources/while/case06/", projectFolder);
 
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* exobj = util.vm->getUncaughtException(); __STP(exobj);
+	CHECK(exobj != nullptr)
+}
 
