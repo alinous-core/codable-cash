@@ -95,15 +95,13 @@ void MemberVariableDeclare::analyze(AnalyzeContext* actx) {
 }
 
 void MemberVariableDeclare::init(VirtualMachine* vm) {
-	if(!this->_static){
-		if(this->exp != nullptr){
-			this->exp->init(vm);
-		}
+	if(this->exp != nullptr){
+		this->exp->init(vm);
 	}
 }
 
 void MemberVariableDeclare::onAllocate(VirtualMachine* vm, AbstractReference* ref) {
-	if(this->exp != nullptr){
+	if(!this->_static && this->exp != nullptr){
 		doOnAllocate(vm, ref);
 	}
 }

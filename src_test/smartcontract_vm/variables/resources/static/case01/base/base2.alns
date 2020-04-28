@@ -2,7 +2,7 @@
 package test.fw.base;
 
 class BaseClass2 {
-	public int b2s01;
+	public static int b2s01 = 1;
 	
 	public BaseClass2() {
 	
