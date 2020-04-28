@@ -9,6 +9,7 @@
 #define INSTANCE_REF_CLASS_STATIC_STATICCLASSENTRY_H_
 
 #include "base/HashMap.h"
+#include "base/ArrayList.h"
 
 namespace alinous {
 
@@ -28,12 +29,15 @@ public:
 	void addReference(VirtualMachine* vm, VmRootReference* rootRef, MemberVariableDeclare* val);
 	void removeInnerReferences(VirtualMachine* vm) noexcept;
 
+	void initParentClasses(HashMap<UnicodeString, StaticClassEntry>* classesMap);
 private:
 	void execInitialExpression(VirtualMachine* vm, AbstractReference* ref, AbstractExpression* exp);
 private:
 	AnalyzedClass* aclazz;
 	HashMap<UnicodeString, AbstractReference>* members;
 
+	StaticClassEntry* parent;
+	ArrayList<StaticClassEntry> interfaces;
 };
 
 } /* namespace alinous */

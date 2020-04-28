@@ -33,6 +33,7 @@ namespace alinous {
 StaticClassEntry::StaticClassEntry(AnalyzedClass* aclazz) {
 	this->aclazz = aclazz;
 	this->members = new HashMap<UnicodeString, AbstractReference>();
+	this->parent = nullptr;
 }
 
 StaticClassEntry::~StaticClassEntry() {
@@ -47,6 +48,7 @@ StaticClassEntry::~StaticClassEntry() {
 	}
 
 	delete this->members;
+	this->parent = nullptr;
 }
 
 void StaticClassEntry::addReference(VirtualMachine* vm, VmRootReference* rootRef, MemberVariableDeclare* val) {
@@ -74,6 +76,27 @@ void StaticClassEntry::execInitialExpression(VirtualMachine* vm, AbstractReferen
 
 	ref->substitute(inst != nullptr ? inst->getInstance() : nullptr, vm);
 }
+
+void StaticClassEntry::initParentClasses(HashMap<UnicodeString, StaticClassEntry>* classesMap) {
+	AnalyzedClass* parent = this->aclazz->getExtends();
+	if(parent != nullptr){
+		const UnicodeString* fqn = parent->getFullQualifiedName();
+		StaticClassEntry* ent = classesMap->get(fqn);
+
+		this->parent = ent;
+	}
+
+	const ArrayList<AnalyzedClass>* iflist = this->aclazz->getImplements();
+	int maxLoop = iflist->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AnalyzedClass* ifclazz = iflist->get(i);
+		const UnicodeString* fqn = ifclazz->getFullQualifiedName();
+		StaticClassEntry* ent = classesMap->get(fqn);
+
+		this->interfaces.addElement(ent);
+	}
+}
+
 
 void StaticClassEntry::removeInnerReferences(VirtualMachine* vm) noexcept {
 	GcManager* gc = vm->getGc();

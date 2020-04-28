@@ -56,6 +56,18 @@ void StaticClassReferenceHolder::init(VirtualMachine* vm, AnalyzeContext* actx) 
 
 		initPackageSpace(vm, actx, space);
 	}
+
+	setupIneritClass(vm, actx);
+}
+
+void StaticClassReferenceHolder::setupIneritClass(VirtualMachine* vm, AnalyzeContext* actx) {
+	Iterator<UnicodeString>* it = this->classMap->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const UnicodeString* key = it->next();
+		StaticClassEntry* entry = this->classMap->get(key);
+
+		entry->initParentClasses(this->classMap);
+	}
 }
 
 void StaticClassReferenceHolder::initPackageSpace(VirtualMachine* vm, AnalyzeContext* actx, PackageSpace* space) {

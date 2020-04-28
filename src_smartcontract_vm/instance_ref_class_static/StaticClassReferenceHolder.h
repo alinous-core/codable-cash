@@ -30,6 +30,7 @@ public:
 	void removeInnerReferences(VmRootReference* rootRef, VirtualMachine* vm) noexcept;
 
 private:
+	void setupIneritClass(VirtualMachine* vm, AnalyzeContext* actx);
 	StaticClassEntry* getClassEntry(const UnicodeString* fqn, AnalyzedClass* aclass);
 	void initPackageSpace(VirtualMachine* vm, AnalyzeContext* actx, PackageSpace* space);
 	void initAnalyzedClass(VirtualMachine* vm, AnalyzeContext* actx, AnalyzedClass* aclass);

@@ -244,7 +244,9 @@ void MethodDeclare::fromBinary(ByteBuffer* in) {
 }
 
 void MethodDeclare::init(VirtualMachine* vm) {
-	this->block->init(vm);
+	if(this->block != nullptr){
+		this->block->init(vm);
+	}
 }
 
 void MethodDeclare::interpret(FunctionArguments* args, VirtualMachine* vm) {
