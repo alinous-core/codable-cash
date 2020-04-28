@@ -25,6 +25,8 @@ ExpressionAccess::~ExpressionAccess() {
 
 void ExpressionAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
 	this->exp->analyze(actx);
+	AnalyzedType at = this->exp->getType(actx);
+	this->atype = new AnalyzedType(at);
 }
 
 AnalyzedType ExpressionAccess::getAnalyzedType() const noexcept {
@@ -32,10 +34,9 @@ AnalyzedType ExpressionAccess::getAnalyzedType() const noexcept {
 }
 
 AbstractVmInstance* ExpressionAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
+	AbstractVmInstance* inst = this->exp->interpret(vm);
 
-
-	// FIXME interpret
-	return nullptr;
+	return inst;
 }
 
 CodeElement* ExpressionAccess::getCodeElement() const noexcept {

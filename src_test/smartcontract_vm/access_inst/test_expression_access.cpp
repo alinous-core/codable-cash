@@ -18,6 +18,7 @@
 
 #include "base/UnicodeString.h"
 
+#include "variable_access/ExpressionAccess.h"
 using namespace alinous;
 
 
@@ -26,6 +27,37 @@ TEST_GROUP(TestExpressionAccessGroup) {
 	TEST_TEARDOWN(){}
 };
 
-TEST(TestExpressionAccessGroup, case01){
+TEST(TestExpressionAccessGroup, getCodeElement){
+	ExpressionAccess ac(nullptr);
 
+	CHECK(ac.getCodeElement() == nullptr)
+}
+
+TEST(TestExpressionAccessGroup, case01){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/exp/case01/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	int iresult = VmTestUtils::getIntMemberValue(obj, L"count");
+	CHECK(iresult == 10);
+}
+
+TEST(TestExpressionAccessGroup, case02_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/exp/case02_err/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
 }
