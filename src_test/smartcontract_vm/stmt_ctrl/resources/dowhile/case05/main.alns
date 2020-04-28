@@ -1,0 +1,21 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		int i = 0;
+		
+		do {
+			this.result++;
+			i++;
+		}
+		while(i != 20);
+	}
+	
+	public int main(){
+
+	}
+	
+	private int result = 0;
+}
