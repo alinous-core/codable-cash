@@ -30,6 +30,8 @@ private:
 	VariableIdentifier* valId;
 	int memberIndex;
 	AnalyzedType* atype;
+
+	CodeElement* element;
 };
 
 } /* namespace alinous */

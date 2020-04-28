@@ -23,7 +23,9 @@
 #include "instance_ref/AbstractReference.h"
 #include "instance_parts/VMemList.h"
 
+#include "instance_exception/NullPointerExceptionClassDeclare.h"
 
+#include "instance_exception/ExceptionInterrupt.h"
 namespace alinous {
 
 MemberVariableAccess::MemberVariableAccess(VariableIdentifier* valId)
@@ -31,6 +33,7 @@ MemberVariableAccess::MemberVariableAccess(VariableIdentifier* valId)
 	this->valId = valId;
 	this->memberIndex = -1;
 	this->atype = nullptr;
+	this->element = nullptr;
 }
 
 MemberVariableAccess::~MemberVariableAccess() {
@@ -38,6 +41,8 @@ MemberVariableAccess::~MemberVariableAccess() {
 }
 
 void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
+	this->element = element;
+
 	TypeResolver* typeResolver = actx->getTypeResolver();
 
 	AnalyzedType atype = lastIinst->getAnalyzedType();
@@ -70,7 +75,12 @@ AnalyzedType MemberVariableAccess::getAnalyzedType() const noexcept {
 }
 
 AbstractVmInstance* MemberVariableAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
-	VmClassInstance* clazzInst = dynamic_cast<VmClassInstance*>(lastInst);
+	if(lastInst == nullptr || lastInst->isNull()){
+		NullPointerExceptionClassDeclare::throwException(vm, this->element);
+		ExceptionInterrupt::interruptPoint(vm);
+	}
+
+	VmClassInstance* clazzInst = dynamic_cast<VmClassInstance*>(lastInst->getInstance());
 
 	const VMemList<AbstractReference>* list = clazzInst->getReferences();
 	AbstractReference* ref = list->get(this->memberIndex);
