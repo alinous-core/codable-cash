@@ -26,6 +26,8 @@ public:
 	virtual CodeElement* getCodeElement() const noexcept;
 private:
 	AbstractExpression* exp;
+
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */
