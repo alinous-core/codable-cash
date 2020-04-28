@@ -1,0 +1,25 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		int val = 13;
+		
+		if(countInt()){
+			
+		}
+		else if(val == 0){
+		
+		}
+	}
+	
+	public boolean countInt(){
+		throw new Exception();
+	}
+	
+	public int main(){
+
+	}
+
+}
