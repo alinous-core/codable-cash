@@ -80,6 +80,11 @@ void AllocationExpression::analyze(AnalyzeContext* actx) {
 		return;
 	}
 
+	if(atype->isInterface()){
+		actx->addValidationError(ValidationError::CODE_ALLOCATION_TYPE_IS_INTERFACE, this, L"The class '{0}' is interface.", {&className});
+		return;
+	}
+
 	AnalyzedThisClassStackPopper popper(actx, atype->getAnalyzedClass());
 
 	this->constructorCall->analyze(actx);

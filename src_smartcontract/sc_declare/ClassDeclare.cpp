@@ -265,6 +265,10 @@ void ClassDeclare::setInterface(bool interface) noexcept {
 	this->interface = interface;
 }
 
+bool ClassDeclare::isInterface() const noexcept {
+	return this->interface;
+}
+
 void ClassDeclare::fromBinary(ByteBuffer* in) {
 	this->name = getString(in);
 

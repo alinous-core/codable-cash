@@ -56,6 +56,8 @@ public:
 	bool isNull() const noexcept;
 	bool isBool() const noexcept;
 
+	bool isInterface() const noexcept;
+
 	void setDim(int dim) noexcept;
 	int getDim() const noexcept;
 	bool isArray() const noexcept;
