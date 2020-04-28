@@ -250,4 +250,8 @@ bool AnalyzedClass::isReserved() const noexcept {
 	return this->reserved;
 }
 
+bool AnalyzedClass::isInterface() const noexcept {
+	return this->clazz->isInterface();
+}
+
 } /* namespace alinous */

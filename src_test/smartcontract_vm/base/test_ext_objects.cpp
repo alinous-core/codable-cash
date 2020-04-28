@@ -14,8 +14,10 @@
 
 #include "ext_binary/ExtClassObject.h"
 #include "ext_binary/ExtPrimitiveObject.h"
+#include "ext_binary/ExtStringClass.h"
 
 #include "instance/VmInstanceTypesConst.h"
+
 
 using namespace alinous;
 
@@ -136,4 +138,18 @@ TEST(TestExtObjects, longPrimitive){
 
 	uint8_t type = obj->getType();
 	CHECK(type == VmInstanceTypesConst::REF_LONG);
+}
+
+TEST(TestExtObjects, string01){
+	UnicodeString name(L"name");
+	ExtStringClass extstr(&name);
+}
+
+TEST(TestExtObjects, classObj01){
+	UnicodeString name(L"name");
+	ExtClassObject obj(&name);
+
+	UnicodeString exname(L"dummyEx");
+	ExtExceptionObject* exobj = obj.getExtExceptionObject(&exname);
+	CHECK(exobj == nullptr);
 }

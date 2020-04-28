@@ -1,0 +1,25 @@
+
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		int i = 0;
+		
+		do {
+			this.result++;
+			i++;
+		}
+		while(countInt());
+	}
+	
+	public int main(){
+
+	}
+	
+	public boolean countInt(){
+		throw new Exception();
+	}
+	
+	private int result = 0;
+}

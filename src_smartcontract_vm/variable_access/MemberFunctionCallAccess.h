@@ -28,6 +28,8 @@ public:
 private:
 	FunctionCallExpression* exp;
 	AnalyzedType* atype;
+
+	CodeElement* element;
 };
 
 } /* namespace alinous */

@@ -16,7 +16,7 @@ class AbstractExpression;
 
 class ExpressionAccess: public AbstractVariableInstraction {
 public:
-	ExpressionAccess(AbstractExpression* exp);
+	explicit ExpressionAccess(AbstractExpression* exp);
 	virtual ~ExpressionAccess();
 
 	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element);
@@ -26,6 +26,8 @@ public:
 	virtual CodeElement* getCodeElement() const noexcept;
 private:
 	AbstractExpression* exp;
+
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */

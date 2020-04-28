@@ -88,6 +88,8 @@ void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
  * needs actx->setThisClass
  */
 void FunctionCallExpression::analyze(AnalyzeContext* actx) {
+	setThrowsException(true);
+
 	analyzeArguments(actx);
 
 	AnalyzedClass* athisClass = actx->getThisClass();
@@ -106,6 +108,8 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 }
 
 void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisClass) {
+	setThrowsException(true);
+
 	analyzeArguments(actx);
 	analyzeMethodEntry(actx, athisClass);
 }

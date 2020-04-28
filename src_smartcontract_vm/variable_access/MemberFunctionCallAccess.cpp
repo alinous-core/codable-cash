@@ -13,6 +13,9 @@
 
 #include "instance/VmClassInstance.h"
 
+#include "instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance_exception/ExceptionInterrupt.h"
+
 
 namespace alinous {
 
@@ -20,6 +23,7 @@ MemberFunctionCallAccess::MemberFunctionCallAccess(FunctionCallExpression* exp)
 				: AbstractVariableInstraction(AbstractVariableInstraction::INSTRUCTION_MEMBER_FUNCTION){
 	this->exp = exp;
 	this->atype = nullptr;
+	this->element = nullptr;
 }
 
 MemberFunctionCallAccess::~MemberFunctionCallAccess() {
@@ -27,6 +31,8 @@ MemberFunctionCallAccess::~MemberFunctionCallAccess() {
 }
 
 void MemberFunctionCallAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
+	this->element = nullptr;
+
 	AnalyzedType at = lastIinst->getAnalyzedType();
 	AnalyzedClass* aclass = at.getAnalyzedClass();
 
@@ -39,6 +45,11 @@ AnalyzedType MemberFunctionCallAccess::getAnalyzedType() const noexcept {
 }
 
 AbstractVmInstance* MemberFunctionCallAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
+	if(lastInst == nullptr || lastInst->isNull()){
+		NullPointerExceptionClassDeclare::throwException(vm, this->element);
+		ExceptionInterrupt::interruptPoint(vm);
+	}
+
 	AbstractVmInstance* inst = lastInst;
 	VmClassInstance* classInst = dynamic_cast<VmClassInstance*>(inst);
 

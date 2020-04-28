@@ -1,0 +1,8 @@
+
+package test.fw.base;
+
+interface StInf {
+	public static int TYPE_INT = 1;
+
+	public void test();
+}

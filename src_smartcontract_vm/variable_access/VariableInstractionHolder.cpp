@@ -26,6 +26,12 @@
 
 #include "sc_analyze_stack/AnalyzeStackManager.h"
 
+#include "instance_gc/GcManager.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "instance_gc/StackFloatingVariableHandler.h"
+
 
 namespace alinous {
 
@@ -183,12 +189,20 @@ AnalyzedType* VariableInstractionHolder::getAnalyzedType() const noexcept {
 }
 
 AbstractVmInstance* VariableInstractionHolder::interpret(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
 	AbstractVmInstance* lastInst = nullptr;
 
 	int maxLoop = this->list.size();
+	int lastLoop = maxLoop - 1;
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractVariableInstraction* inst = this->list.get(i);
 		lastInst = inst->interpret(vm, lastInst);
+
+		if(i != lastLoop){
+			releaser.registerInstance(lastInst);
+		}
 	}
 
 	return lastInst;

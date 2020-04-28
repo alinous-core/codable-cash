@@ -175,6 +175,10 @@ bool AnalyzedType::isBool() const noexcept {
 	return this->type == TYPE_BOOL;
 }
 
+bool AnalyzedType::isInterface() const noexcept {
+	return this->aclazz != nullptr && this->aclazz->isInterface();
+}
+
 void AnalyzedType::makeObjectString() noexcept {
 	if(this->aclazz == nullptr){
 		this->str = new UnicodeString(L"null");

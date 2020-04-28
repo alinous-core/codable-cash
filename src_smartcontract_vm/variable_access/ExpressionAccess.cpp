@@ -16,22 +16,27 @@ namespace alinous {
 ExpressionAccess::ExpressionAccess(AbstractExpression* exp)
 					: AbstractVariableInstraction(AbstractVariableInstraction::INSTRUCTION_EXPRESSION){
 	this->exp = exp;
+	this->atype = nullptr;
 }
 
 ExpressionAccess::~ExpressionAccess() {
+	delete this->atype;
 }
 
 void ExpressionAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
-	// FIXME
+	this->exp->analyze(actx);
+	AnalyzedType at = this->exp->getType(actx);
+	this->atype = new AnalyzedType(at);
 }
 
 AnalyzedType ExpressionAccess::getAnalyzedType() const noexcept {
-	return AnalyzedType(); // FIXME
+	return *this->atype;
 }
 
 AbstractVmInstance* ExpressionAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
-	// FIXME interpret
-	return nullptr;
+	AbstractVmInstance* inst = this->exp->interpret(vm);
+
+	return inst;
 }
 
 CodeElement* ExpressionAccess::getCodeElement() const noexcept {

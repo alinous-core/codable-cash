@@ -62,6 +62,8 @@ public:
 
 	void setReserved(bool reserved) noexcept;
 	bool isReserved() const noexcept;
+
+	bool isInterface() const noexcept;
 private:
 	//void bulidMethodVTable(AnalyzeContext* actx, MethodDeclare* method) noexcept;
 	//AnalyzedClass* findBaseClassOfMethod(AnalyzedClass* currentClass, MethodDeclare* method) noexcept;

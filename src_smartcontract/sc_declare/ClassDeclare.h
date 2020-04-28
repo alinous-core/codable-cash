@@ -34,6 +34,7 @@ public:
 	virtual ~ClassDeclare();
 
 	void setInterface(bool interface) noexcept;
+	bool isInterface() const noexcept;
 
 	virtual void preAnalyze(AnalyzeContext* actx);
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
