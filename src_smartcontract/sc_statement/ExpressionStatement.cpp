@@ -13,6 +13,8 @@
 #include "vm/VirtualMachine.h"
 
 #include "instance/AbstractVmInstance.h"
+
+#include "instance_exception/ExceptionInterrupt.h"
 namespace alinous {
 
 ExpressionStatement::ExpressionStatement() : AbstractStatement(CodeElement::STMT_EXPRESSION) {
@@ -71,8 +73,14 @@ void ExpressionStatement::init(VirtualMachine* vm) {
 void ExpressionStatement::interpret(VirtualMachine* vm) {
 	GcManager* gc = vm->getGc();
 
-	AbstractVmInstance* retInst = this->exp->interpret(vm);
-	gc->handleFloatingObject(retInst != nullptr ? retInst->getInstance() : nullptr);
+	AbstractVmInstance* retInst = nullptr;
+	try{
+		retInst = this->exp->interpret(vm);
+		gc->handleFloatingObject(retInst != nullptr ? retInst->getInstance() : nullptr);
+	}
+	catch(ExceptionInterrupt* e){
+		delete e;
+	}
 }
 
 bool ExpressionStatement::hasCtrlStatement() const noexcept {

@@ -26,6 +26,7 @@
 #include "instance_gc/GcManager.h"
 #include "instance_gc/StackFloatingVariableHandler.h"
 
+#include "instance_exception/ExceptionInterrupt.h"
 
 namespace alinous {
 
@@ -162,8 +163,15 @@ void VariableDeclareStatement::interpret(VirtualMachine* vm) {
 	if(this->exp != nullptr){
 		StackFloatingVariableHandler releaser(gc);
 
-		AbstractVmInstance* instValue = this->exp->interpret(vm);
-		releaser.registerInstance(instValue);
+		AbstractVmInstance* instValue = nullptr;
+		try{
+			instValue = this->exp->interpret(vm);
+			releaser.registerInstance(instValue);
+		}
+		catch(ExceptionInterrupt* e){
+			delete e;
+			return;
+		}
 
 		ref->substitute(instValue != nullptr ? instValue->getInstance() : nullptr, vm);
 	}
