@@ -121,6 +121,10 @@ void AnalyzedClass::addImplements(AnalyzedClass* clazz) noexcept {
 	this->implements.addElement(clazz);
 }
 
+const ArrayList<AnalyzedClass>* AnalyzedClass::getImplements() const noexcept {
+	return &this->implements;
+}
+
 MethodDeclare* AnalyzedClass::getDefaultConstructor() noexcept {
 	int maxLoop = this->constructors.size();
 	for(int i = 0; i != maxLoop; ++i){

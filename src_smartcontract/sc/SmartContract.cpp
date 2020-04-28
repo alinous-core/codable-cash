@@ -45,6 +45,10 @@
 #include "base/Exception.h"
 
 #include "instance_exception/ExceptionInterrupt.h"
+
+#include "instance_ref_class_static/StaticClassReferenceHolder.h"
+
+
 namespace alinous {
 
 SmartContract::SmartContract() {
@@ -246,6 +250,9 @@ void SmartContract::initialize(VirtualMachine* vm) {
 		CompilationUnit* unit = this->progs.get(i);
 		unit->init(vm);
 	}
+
+	StaticClassReferenceHolder* staticClassHolder = this->rootReference->getStaticClassReferenceHolder();
+	staticClassHolder->init(vm, actx);
 
 	this->initialized = true;
 }

@@ -95,17 +95,13 @@ void MemberVariableDeclare::analyze(AnalyzeContext* actx) {
 }
 
 void MemberVariableDeclare::init(VirtualMachine* vm) {
-	if(!this->_static){
-		if(this->exp != nullptr){
-			this->exp->init(vm);
-		}
+	if(this->exp != nullptr){
+		this->exp->init(vm);
 	}
-
-	// FIXME handle a static member
 }
 
 void MemberVariableDeclare::onAllocate(VirtualMachine* vm, AbstractReference* ref) {
-	if(this->exp != nullptr){
+	if(!this->_static && this->exp != nullptr){
 		doOnAllocate(vm, ref);
 	}
 }
@@ -146,6 +142,10 @@ void MemberVariableDeclare::setName(UnicodeString* name) noexcept {
 	this->name = name;
 }
 
+bool MemberVariableDeclare::isStatic() const noexcept {
+	return this->_static;
+}
+
 const UnicodeString* MemberVariableDeclare::getName() noexcept {
 	return this->name;
 }
@@ -156,6 +156,10 @@ AbstractType* MemberVariableDeclare::getType() noexcept {
 
 void MemberVariableDeclare::setExp(AbstractExpression* exp) noexcept {
 	this->exp = exp;
+}
+
+AbstractExpression* MemberVariableDeclare::getExp() const noexcept {
+	return this->exp;
 }
 
 AnalyzedType MemberVariableDeclare::getAnalyzedType() const noexcept {

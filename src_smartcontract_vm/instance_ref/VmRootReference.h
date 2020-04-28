@@ -17,6 +17,7 @@ namespace alinous {
 
 class VirtualMachine;
 class StaticInstanceHolder;
+class StaticClassReferenceHolder;
 class PrimitiveReference;
 class VmClassInstance;
 class VmStringInstance;
@@ -45,11 +46,15 @@ public:
 	PrimitiveReference* newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm);
 	VmStringInstance* newStringConstReferenece(VmRootReference* rootRef, const UnicodeString* str, VirtualMachine* vm);
 
+	StaticClassReferenceHolder* getStaticClassReferenceHolder() const noexcept;
+
 	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 private:
 	VirtualMachine* vm;
 	VmClassInstance* mainInst;
 	StaticInstanceHolder* staticHolder;
+	StaticClassReferenceHolder* classStaticHolder;
+
 };
 
 } /* namespace alinous */

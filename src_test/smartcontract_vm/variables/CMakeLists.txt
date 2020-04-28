@@ -5,6 +5,7 @@ set(testsrc
 	test_array_variables.cpp
 	test_init_class.cpp
 	test_local_variavle.cpp
+	test_static_variables.cpp
 	test_string_variables.cpp
 	test_type_checker.cpp
 	test_variables.cpp

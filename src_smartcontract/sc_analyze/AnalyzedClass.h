@@ -37,6 +37,7 @@ public:
 	void setExtends(AnalyzedClass* clazz) noexcept;
 	AnalyzedClass* getExtends() const noexcept;
 	void addImplements(AnalyzedClass* clazz) noexcept;
+	const ArrayList<AnalyzedClass>* getImplements() const noexcept;
 
 	MethodDeclare* getDefaultConstructor() noexcept;
 	MethodDeclare* findMethod(const UnicodeString* name, ArrayList<AnalyzedType>* argumentTypeList) noexcept;

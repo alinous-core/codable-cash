@@ -39,10 +39,13 @@ public:
 	void setStatic(bool s) noexcept;
 	void setName(UnicodeString* name) noexcept;
 
+	bool isStatic() const noexcept;
+
 	const UnicodeString* getName() noexcept;
 	AbstractType* getType() noexcept;
 
 	void setExp(AbstractExpression* exp) noexcept;
+	AbstractExpression* getExp() const noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
