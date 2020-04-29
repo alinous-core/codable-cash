@@ -15,6 +15,7 @@
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedType.h"
 #include "sc_analyze/ValidationError.h"
+#include "sc_analyze/TypeResolver.h"
 
 #include "variable_access/AbstractVariableInstraction.h"
 #include "variable_access/ExpressionAccess.h"
@@ -23,14 +24,16 @@
 #include "variable_access/MemberVariableAccess.h"
 #include "variable_access/StackVariableAccess.h"
 #include "variable_access/MemberFunctionCallAccess.h"
+#include "variable_access/ClassTypeAccess.h"
 
 #include "sc_analyze_stack/AnalyzeStackManager.h"
 
 #include "instance_gc/GcManager.h"
+#include "instance_gc/StackFloatingVariableHandler.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_gc/StackFloatingVariableHandler.h"
+#include "base/StackRelease.h"
 
 
 namespace alinous {
@@ -101,7 +104,7 @@ AbstractVariableInstraction* VariableInstractionHolder::doAddVariableIdExp(Abstr
 			ret = access;
 		}
 		else{
-			ret = new MemberVariableAccess(valId);
+			ret = detectNonStackInstruction(valId, actx);
 		}
 	}
 	else{
@@ -111,6 +114,19 @@ AbstractVariableInstraction* VariableInstractionHolder::doAddVariableIdExp(Abstr
 	return ret;
 }
 
+AbstractVariableInstraction* VariableInstractionHolder::detectNonStackInstruction(VariableIdentifier* valId, AnalyzeContext* actx) noexcept {
+	TypeResolver* resolver = actx->getTypeResolver();
+
+	const UnicodeString* idName = valId->getName();
+	AnalyzedType* atp = resolver->findClassType(valId, idName); __STP(atp);
+
+	if(atp != nullptr){
+		return new ClassTypeAccess(atp);
+	}
+
+	this->memberAccess = true;
+	return new MemberVariableAccess(valId);
+}
 
 StackVariableAccess* VariableInstractionHolder::handleStackVariableIdExp(VariableIdentifier* valId, AbstractExpression* exp, AnalyzeContext* actx) noexcept {
 	AnalyzeStackManager* stManager = actx->getAnalyzeStackManager();

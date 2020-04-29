@@ -14,7 +14,7 @@ namespace alinous {
 
 class ClassTypeAccess : public AbstractVariableInstraction {
 public:
-	ClassTypeAccess();
+	ClassTypeAccess(const AnalyzedType* atype);
 	virtual ~ClassTypeAccess();
 
 	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element);
@@ -22,6 +22,10 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm, AbstractVmInstance* lastInst);
 
 	virtual CodeElement* getCodeElement() const noexcept;
+
+private:
+	CodeElement* element;
+	AnalyzedType* atype;
 };
 
 } /* namespace alinous */
