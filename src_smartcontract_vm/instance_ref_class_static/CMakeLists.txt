@@ -1,6 +1,7 @@
 
 
 set(__src
+	ClassTypeReference.cpp
 	StaticClassEntry.cpp
 	StaticClassReferenceHolder.cpp
 )
