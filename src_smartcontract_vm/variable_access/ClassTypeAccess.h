@@ -8,12 +8,20 @@
 #ifndef VARIABLE_ACCESS_CLASSTYPEACCESS_H_
 #define VARIABLE_ACCESS_CLASSTYPEACCESS_H_
 
+#include "variable_access/AbstractVariableInstraction.h"
+
 namespace alinous {
 
-class ClassTypeAccess {
+class ClassTypeAccess : public AbstractVariableInstraction {
 public:
 	ClassTypeAccess();
 	virtual ~ClassTypeAccess();
+
+	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element);
+	virtual AnalyzedType getAnalyzedType() const noexcept;
+	virtual AbstractVmInstance* interpret(VirtualMachine* vm, AbstractVmInstance* lastInst);
+
+	virtual CodeElement* getCodeElement() const noexcept;
 };
 
 } /* namespace alinous */
