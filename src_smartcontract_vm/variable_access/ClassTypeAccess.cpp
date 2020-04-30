@@ -12,6 +12,13 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "instance_ref_class_static/ClassTypeReference.h"
+
+#include "sc/SmartContract.h"
+
+#include "instance_ref/VmRootReference.h"
+
+
 namespace alinous {
 
 ClassTypeAccess::ClassTypeAccess(const AnalyzedType* atype)
@@ -33,7 +40,12 @@ AnalyzedType ClassTypeAccess::getAnalyzedType() const noexcept {
 }
 
 AbstractVmInstance* ClassTypeAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
+	SmartContract* sc = vm->getSmartContract();
+	VmRootReference* root = sc->getRootReference();
 
+	ClassTypeReference* ref = new(vm) ClassTypeReference(root, vm, this->atype);
+
+	return ref;
 }
 
 CodeElement* ClassTypeAccess::getCodeElement() const noexcept {

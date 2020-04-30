@@ -76,6 +76,7 @@ AnalyzedClass::AnalyzedClass(const AnalyzedClass& inst) {
 AnalyzedClass::AnalyzedClass(ClassDeclare* clazz) {
 	this->clazz = clazz;
 	this->variables = new HashMap<UnicodeString, MemberVariableDeclare>();
+	this->staticVariables = new HashMap<UnicodeString, MemberVariableDeclare>();
 	this->methods = new HashMap<UnicodeString, MethodDeclare>();
 	this->extends = nullptr;
 	this->sig = nullptr;
@@ -86,6 +87,7 @@ AnalyzedClass::AnalyzedClass(ClassDeclare* clazz) {
 AnalyzedClass::~AnalyzedClass() {
 	this->clazz = nullptr;
 	delete this->variables;
+	delete this->staticVariables;
 	delete this->methods;
 	delete this->sig;
 	this->factory = nullptr;
@@ -94,6 +96,10 @@ AnalyzedClass::~AnalyzedClass() {
 void AnalyzedClass::addMemberVariableDeclare(MemberVariableDeclare* member) {
 	this->variables->put(member->getName(), member);
 	this->variablesList.addElement(member);
+}
+
+void AnalyzedClass::addStaticMemberVariableDeclare(MemberVariableDeclare* member) noexcept {
+	this->staticVariables->put(member->getName(), member);
 }
 
 void AnalyzedClass::addMemberMethodDeclare(MethodDeclare* method) {

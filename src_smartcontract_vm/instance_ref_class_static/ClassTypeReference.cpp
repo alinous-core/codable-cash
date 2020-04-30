@@ -31,4 +31,9 @@ IAbstractVmInstanceSubstance* ClassTypeReference::getInstance() noexcept {
 	return nullptr;
 }
 
+int ClassTypeReference::valueCompare(IAbstractVmInstanceSubstance* right) {
+	return 0;
+}
+
+
 } /* namespace alinous */

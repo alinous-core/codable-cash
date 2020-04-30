@@ -20,7 +20,7 @@ public:
 	virtual ~ClassTypeReference();
 
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
-
+	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 private:
 	AnalyzedType* atype;
 };

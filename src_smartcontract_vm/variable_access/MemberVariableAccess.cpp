@@ -24,8 +24,12 @@
 #include "instance_parts/VMemList.h"
 
 #include "instance_exception/NullPointerExceptionClassDeclare.h"
-
 #include "instance_exception/ExceptionInterrupt.h"
+
+#include "variable_access/AbstractVariableInstraction.h"
+#include "variable_access/ClassTypeAccess.h"
+
+
 namespace alinous {
 
 MemberVariableAccess::MemberVariableAccess(VariableIdentifier* valId)
@@ -42,6 +46,12 @@ MemberVariableAccess::~MemberVariableAccess() {
 
 void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
 	this->element = element;
+
+	uint8_t instType = lastIinst->getType();
+	if(instType == AbstractVariableInstraction::INSTRUCTION_CLASS_TYPE){
+		analyzeStaticWithClassType(actx, lastIinst);
+		return;
+	}
 
 	TypeResolver* typeResolver = actx->getTypeResolver();
 
@@ -68,6 +78,16 @@ void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 		actx->addValidationError(ValidationError::CODE_CLASS_MEMBER_DOES_NOT_EXISTS, this->valId, L"The variable '{0}' does not exists.", {name});
 		this->hasError = true;
 	}
+}
+
+void MemberVariableAccess::analyzeStaticWithClassType(AnalyzeContext* actx,	AbstractVariableInstraction* lastIinst) {
+	ClassTypeAccess* classType = dynamic_cast<ClassTypeAccess*>(lastIinst);
+	const UnicodeString* name = this->valId->getName();
+
+	AnalyzedType at = classType->getAnalyzedType();
+	AnalyzedClass* clazz = at.getAnalyzedClass();
+
+	// FIXME index and atype
 }
 
 AnalyzedType MemberVariableAccess::getAnalyzedType() const noexcept {

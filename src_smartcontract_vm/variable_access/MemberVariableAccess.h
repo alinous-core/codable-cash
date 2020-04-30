@@ -26,6 +26,10 @@ public:
 	virtual bool hasErrorOnAnalyze() const noexcept;
 
 	virtual CodeElement* getCodeElement() const noexcept;
+
+private:
+	void analyzeStaticWithClassType(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
+
 private:
 	VariableIdentifier* valId;
 	int memberIndex;

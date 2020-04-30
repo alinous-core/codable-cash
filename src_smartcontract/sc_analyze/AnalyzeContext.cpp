@@ -21,6 +21,7 @@
 #include "sc_analyze_variables/MemberVariableEntry.h"
 
 #include "sc_declare/ClassDeclare.h"
+#include "sc_declare/MemberVariableDeclare.h"
 
 #include "sc/CompilationUnit.h"
 #include "sc/exceptions.h"
@@ -30,6 +31,7 @@
 #include "reserved_classes/ReservedClassRegistory.h"
 
 #include "vm/VirtualMachine.h"
+
 
 namespace alinous {
 
@@ -218,7 +220,13 @@ void AnalyzeContext::analyzeMember(AnalyzedClass* cls) noexcept {
 		MemberVariableEntry* entry = list->get(i);
 		MemberVariableDeclare* dec = entry->getMemberVariableDeclare();
 
-		cls->addMemberVariableDeclare(dec);
+		if(!dec->isStatic()){
+			cls->addMemberVariableDeclare(dec);
+		}
+		else{
+			// add static members
+			cls->addStaticMemberVariableDeclare(dec);
+		}
 	}
 }
 
