@@ -88,6 +88,7 @@ void MemberVariableAccess::analyzeStaticWithClassType(AnalyzeContext* actx,	Abst
 	AnalyzedClass* clazz = at.getAnalyzedClass();
 
 	// FIXME index and atype
+	this->atype = new AnalyzedType(at);
 }
 
 AnalyzedType MemberVariableAccess::getAnalyzedType() const noexcept {
