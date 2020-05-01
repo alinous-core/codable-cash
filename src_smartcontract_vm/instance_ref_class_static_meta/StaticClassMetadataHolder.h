@@ -24,7 +24,10 @@ public:
 	virtual ~StaticClassMetadataHolder();
 
 	void addClass(AnalyzedClass* clazz) noexcept;
+	void analyzeInheritance() noexcept;
+
 	StaticVariableMetadata* findVariableMetadata(const UnicodeString* classFqn, const UnicodeString* name) const noexcept;
+	StaticClassMetadata* getClassMetadata(const UnicodeString* fqn) const noexcept;
 
 private:
 	StaticClassMetadata* newStaticClassMetadata(AnalyzedClass* clazz) noexcept;

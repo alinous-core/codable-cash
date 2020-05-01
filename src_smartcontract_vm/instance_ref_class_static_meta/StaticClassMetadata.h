@@ -9,11 +9,15 @@
 #define INSTANCE_REF_CLASS_STATIC_META_STATICCLASSMETADATA_H_
 
 #include "base/HashMap.h"
+#include "base/ArrayList.h"
+
 
 namespace alinous {
 
 class AnalyzedClass;
 class StaticVariableMetadata;
+class StaticClassMetadata;
+class StaticClassMetadataHolder;
 class UnicodeString;
 
 class StaticClassMetadata {
@@ -22,12 +26,15 @@ public:
 	virtual ~StaticClassMetadata();
 
 	void init() noexcept;
+	void initInheritance(StaticClassMetadataHolder* holder) noexcept;
 	StaticVariableMetadata* findStaticVariableMetadata(const UnicodeString* name) const noexcept;
 
 private:
 	AnalyzedClass* clazz;
 	HashMap<UnicodeString, StaticVariableMetadata>* map;
 
+	StaticClassMetadata* extClass;
+	ArrayList<StaticClassMetadata> extends;
 };
 
 } /* namespace alinous */

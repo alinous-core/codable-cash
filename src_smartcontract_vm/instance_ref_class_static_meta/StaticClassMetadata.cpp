@@ -7,10 +7,12 @@
 
 #include "instance_ref_class_static_meta/StaticClassMetadata.h"
 #include "instance_ref_class_static_meta/StaticVariableMetadata.h"
+#include "instance_ref_class_static_meta/StaticClassMetadataHolder.h"
 
 #include "sc_declare/ClassDeclare.h"
-#include "sc_analyze/AnalyzedClass.h"
 #include "sc_declare/MemberVariableDeclare.h"
+
+#include "sc_analyze/AnalyzedClass.h"
 
 #include "base/ArrayList.h"
 #include "base/UnicodeString.h"
@@ -22,6 +24,7 @@ namespace alinous {
 StaticClassMetadata::StaticClassMetadata(AnalyzedClass* clazz) {
 	this->clazz = clazz;
 	this->map = new HashMap<UnicodeString, StaticVariableMetadata>();
+	this->extClass = nullptr;
 }
 
 StaticClassMetadata::~StaticClassMetadata() {
@@ -36,6 +39,7 @@ StaticClassMetadata::~StaticClassMetadata() {
 	}
 
 	delete this->map;
+	this->extClass = nullptr;
 }
 
 void StaticClassMetadata::init() noexcept {
@@ -56,6 +60,26 @@ void StaticClassMetadata::init() noexcept {
 		}
 	}
 }
+
+void StaticClassMetadata::initInheritance(StaticClassMetadataHolder* holder) noexcept {
+	AnalyzedClass* extClass = this->clazz->getExtends();
+	if(extClass !=  nullptr){
+		const UnicodeString* fqn = extClass->getFullQualifiedName();
+		this->extClass = holder->getClassMetadata(fqn);
+	}
+
+	const ArrayList<AnalyzedClass>* list = this->clazz->getImplements();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AnalyzedClass* cls = list->get(i);
+		const UnicodeString* fqn = cls->getFullQualifiedName();
+
+		StaticClassMetadata* meta = holder->getClassMetadata(fqn);
+		this->extends.addElement(meta);
+	}
+}
+
 
 StaticVariableMetadata* StaticClassMetadata::findStaticVariableMetadata(const UnicodeString* name) const noexcept {
 	StaticVariableMetadata* meta = this->map->get(name);

@@ -49,6 +49,20 @@ StaticVariableMetadata* StaticClassMetadataHolder::findVariableMetadata(const Un
 	return valMeta;
 }
 
+void StaticClassMetadataHolder::analyzeInheritance() noexcept {
+	Iterator<UnicodeString>* it = this->classMap->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const UnicodeString* key = it->next();
+		StaticClassMetadata* meta = this->classMap->get(key);
+
+		meta->initInheritance(this);
+	}
+}
+
+StaticClassMetadata* StaticClassMetadataHolder::getClassMetadata(const UnicodeString* fqn) const noexcept {
+	return this->classMap->get(fqn);
+}
+
 StaticClassMetadata* StaticClassMetadataHolder::newStaticClassMetadata(AnalyzedClass* clazz) noexcept {
 	const UnicodeString* fqn = clazz->getFullQualifiedName();
 	StaticClassMetadata* meta = new StaticClassMetadata(clazz);
