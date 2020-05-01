@@ -71,6 +71,15 @@ AnalyzedClass::AnalyzedClass(const AnalyzedClass& inst) {
 
 	this->factory = inst.factory;
 	this->reserved = inst.reserved;
+
+	this->staticVariables = new HashMap<UnicodeString, MemberVariableDeclare>();
+	it = inst.staticVariables->keySet()->iterator();
+	while(it->hasNext()){
+		const UnicodeString* name = it->next();
+		MemberVariableDeclare* dec = inst.staticVariables->get(name);
+
+		this->staticVariables->put(name, dec);
+	}
 }
 
 AnalyzedClass::AnalyzedClass(ClassDeclare* clazz) {
