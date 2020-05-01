@@ -16,6 +16,7 @@ namespace alinous {
 class UnicodeString;
 class StaticClassMetadata;
 class AnalyzedClass;
+class StaticVariableMetadata;
 
 class StaticClassMetadataHolder {
 public:
@@ -23,6 +24,7 @@ public:
 	virtual ~StaticClassMetadataHolder();
 
 	void addClass(AnalyzedClass* clazz) noexcept;
+	StaticVariableMetadata* findVariableMetadata(const UnicodeString* classFqn, const UnicodeString* name) const noexcept;
 
 private:
 	StaticClassMetadata* newStaticClassMetadata(AnalyzedClass* clazz) noexcept;

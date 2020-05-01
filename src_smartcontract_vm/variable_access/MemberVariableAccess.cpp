@@ -29,6 +29,7 @@
 #include "variable_access/AbstractVariableInstraction.h"
 #include "variable_access/ClassTypeAccess.h"
 
+#include "instance_ref_class_static_meta/StaticClassMetadataHolder.h"
 
 namespace alinous {
 
@@ -88,7 +89,12 @@ void MemberVariableAccess::analyzeStaticWithClassType(AnalyzeContext* actx,	Abst
 	AnalyzedClass* clazz = at.getAnalyzedClass();
 
 	// FIXME index and atype
-	this->atype = new AnalyzedType(at);
+	StaticClassMetadataHolder* staticHolder = actx->getStaticVariableHolder();
+
+	const UnicodeString* fqn = clazz->getFullQualifiedName();
+	StaticVariableMetadata* meta = staticHolder->findVariableMetadata(fqn, name);
+
+	//this->atype = new AnalyzedType(at);
 }
 
 AnalyzedType MemberVariableAccess::getAnalyzedType() const noexcept {

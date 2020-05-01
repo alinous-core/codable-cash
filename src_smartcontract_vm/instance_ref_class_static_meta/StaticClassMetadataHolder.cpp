@@ -38,6 +38,17 @@ void StaticClassMetadataHolder::addClass(AnalyzedClass* clazz) noexcept {
 	classMeta->init();
 }
 
+StaticVariableMetadata* StaticClassMetadataHolder::findVariableMetadata(const UnicodeString* classFqn, const UnicodeString* name) const noexcept {
+	StaticClassMetadata* classMeta = this->classMap->get(classFqn);
+	StaticVariableMetadata* valMeta = nullptr;
+
+	if(classMeta != nullptr){
+		valMeta = classMeta->findStaticVariableMetadata(name);
+	}
+
+	return valMeta;
+}
+
 StaticClassMetadata* StaticClassMetadataHolder::newStaticClassMetadata(AnalyzedClass* clazz) noexcept {
 	const UnicodeString* fqn = clazz->getFullQualifiedName();
 	StaticClassMetadata* meta = new StaticClassMetadata(clazz);

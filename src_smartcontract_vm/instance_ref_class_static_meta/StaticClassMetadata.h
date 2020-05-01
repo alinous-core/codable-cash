@@ -22,6 +22,8 @@ public:
 	virtual ~StaticClassMetadata();
 
 	void init() noexcept;
+	StaticVariableMetadata* findStaticVariableMetadata(const UnicodeString* name) const noexcept;
+
 private:
 	AnalyzedClass* clazz;
 	HashMap<UnicodeString, StaticVariableMetadata>* map;

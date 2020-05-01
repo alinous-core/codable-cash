@@ -57,4 +57,13 @@ void StaticClassMetadata::init() noexcept {
 	}
 }
 
+StaticVariableMetadata* StaticClassMetadata::findStaticVariableMetadata(const UnicodeString* name) const noexcept {
+	StaticVariableMetadata* meta = this->map->get(name);
+
+	// FIXME supre class
+
+	return meta;
+}
+
+
 } /* namespace alinous */
