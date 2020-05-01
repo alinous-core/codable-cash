@@ -9,12 +9,13 @@
 
 namespace alinous {
 
-StaticVariableMetadata::StaticVariableMetadata() {
-
+StaticVariableMetadata::StaticVariableMetadata(int index, MemberVariableDeclare* val) {
+	this->index = index;
+	this->val = val;
 }
 
 StaticVariableMetadata::~StaticVariableMetadata() {
-
+	this->val = nullptr;
 }
 
 } /* namespace alinous */

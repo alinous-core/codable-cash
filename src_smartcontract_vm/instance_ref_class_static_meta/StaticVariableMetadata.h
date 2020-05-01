@@ -10,10 +10,16 @@
 
 namespace alinous {
 
+class MemberVariableDeclare;
+
 class StaticVariableMetadata {
 public:
-	StaticVariableMetadata();
+	StaticVariableMetadata(int index, MemberVariableDeclare* val);
 	virtual ~StaticVariableMetadata();
+
+private:
+	int index;
+	MemberVariableDeclare* val;
 };
 
 } /* namespace alinous */

@@ -8,10 +8,13 @@
 #ifndef INSTANCE_REF_CLASS_STATIC_META_STATICCLASSMETADATA_H_
 #define INSTANCE_REF_CLASS_STATIC_META_STATICCLASSMETADATA_H_
 
+#include "base/HashMap.h"
+
 namespace alinous {
 
 class AnalyzedClass;
 class StaticVariableMetadata;
+class UnicodeString;
 
 class StaticClassMetadata {
 public:
@@ -21,7 +24,7 @@ public:
 	void init() noexcept;
 private:
 	AnalyzedClass* clazz;
-
+	HashMap<UnicodeString, StaticVariableMetadata>* map;
 
 };
 
