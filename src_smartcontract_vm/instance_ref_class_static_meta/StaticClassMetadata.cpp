@@ -6,6 +6,7 @@
  */
 
 #include "instance_ref_class_static_meta/StaticClassMetadata.h"
+#include "instance_ref_class_static_meta/StaticVariableMetadata.h"
 
 #include "sc_declare/ClassDeclare.h"
 #include "sc_analyze/AnalyzedClass.h"
@@ -13,6 +14,7 @@
 
 #include "base/ArrayList.h"
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 
 namespace alinous {
@@ -24,6 +26,15 @@ StaticClassMetadata::StaticClassMetadata(AnalyzedClass* clazz) {
 
 StaticClassMetadata::~StaticClassMetadata() {
 	this->clazz = nullptr;
+
+	Iterator<UnicodeString>* it = this->map->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const UnicodeString* key = it->next();
+		StaticVariableMetadata* meta = this->map->get(key);
+
+		delete meta;
+	}
+
 	delete this->map;
 }
 
@@ -38,9 +49,9 @@ void StaticClassMetadata::init() noexcept {
 
 		if(val->isStatic()){
 			const UnicodeString* name = val->getName();
+			StaticVariableMetadata* valmeta = new StaticVariableMetadata(indexCount, val);
 
-			// FIXME
-
+			this->map->put(name, valmeta);
 			indexCount++;
 		}
 	}

@@ -56,6 +56,7 @@ void StaticClassEntry::addReference(VirtualMachine* vm, VmRootReference* rootRef
 
 	AbstractReference* ref = RefereceFactory::createReferenceFromDefinition(rootRef, val, vm);
 	this->members->put(name, ref);
+	this->list.addElement(ref);
 
 	AbstractExpression* exp = val->getExp();
 	if(exp != nullptr){

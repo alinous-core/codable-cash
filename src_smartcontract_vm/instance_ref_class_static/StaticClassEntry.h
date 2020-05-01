@@ -35,6 +35,7 @@ private:
 private:
 	AnalyzedClass* aclazz;
 	HashMap<UnicodeString, AbstractReference>* members;
+	ArrayList<AbstractReference> list;
 
 	StaticClassEntry* parent;
 	ArrayList<StaticClassEntry> interfaces;
