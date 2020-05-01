@@ -25,6 +25,7 @@ StaticClassMetadata::StaticClassMetadata(AnalyzedClass* clazz) {
 	this->clazz = clazz;
 	this->map = new HashMap<UnicodeString, StaticVariableMetadata>();
 	this->extClass = nullptr;
+	this->classEntry = nullptr;
 }
 
 StaticClassMetadata::~StaticClassMetadata() {
@@ -100,5 +101,8 @@ StaticVariableMetadata* StaticClassMetadata::findStaticVariableMetadata(const Un
 	return meta;
 }
 
+void StaticClassMetadata::setClassEntry(StaticClassEntry* classEntry) noexcept {
+	this->classEntry = classEntry;
+}
 
 } /* namespace alinous */

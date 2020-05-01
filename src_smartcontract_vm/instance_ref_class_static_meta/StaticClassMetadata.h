@@ -19,6 +19,7 @@ class StaticVariableMetadata;
 class StaticClassMetadata;
 class StaticClassMetadataHolder;
 class UnicodeString;
+class StaticClassEntry;
 
 class StaticClassMetadata {
 public:
@@ -29,12 +30,15 @@ public:
 	void initInheritance(StaticClassMetadataHolder* holder) noexcept;
 	StaticVariableMetadata* findStaticVariableMetadata(const UnicodeString* name) const noexcept;
 
+	void setClassEntry(StaticClassEntry* classEntry) noexcept;
 private:
 	AnalyzedClass* clazz;
 	HashMap<UnicodeString, StaticVariableMetadata>* map;
 
 	StaticClassMetadata* extClass;
 	ArrayList<StaticClassMetadata> extends;
+
+	StaticClassEntry* classEntry;
 };
 
 } /* namespace alinous */
