@@ -14,6 +14,7 @@ namespace alinous {
 
 class VariableIdentifier;
 class AnalyzedType;
+class StaticVariableMetadata;
 
 class MemberVariableAccess: public AbstractVariableInstraction {
 public:
@@ -33,6 +34,7 @@ private:
 private:
 	VariableIdentifier* valId;
 	int memberIndex;
+	StaticVariableMetadata* meta;
 	AnalyzedType* atype;
 
 	CodeElement* element;

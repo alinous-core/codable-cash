@@ -30,6 +30,8 @@
 #include "variable_access/ClassTypeAccess.h"
 
 #include "instance_ref_class_static_meta/StaticClassMetadataHolder.h"
+#include "instance_ref_class_static_meta/StaticVariableMetadata.h"
+
 
 namespace alinous {
 
@@ -39,6 +41,7 @@ MemberVariableAccess::MemberVariableAccess(VariableIdentifier* valId)
 	this->memberIndex = -1;
 	this->atype = nullptr;
 	this->element = nullptr;
+	this->meta = nullptr;
 }
 
 MemberVariableAccess::~MemberVariableAccess() {
@@ -88,13 +91,21 @@ void MemberVariableAccess::analyzeStaticWithClassType(AnalyzeContext* actx,	Abst
 	AnalyzedType at = classType->getAnalyzedType();
 	AnalyzedClass* clazz = at.getAnalyzedClass();
 
-	// FIXME index and atype
+	// index and atype
 	StaticClassMetadataHolder* staticHolder = actx->getStaticVariableHolder();
 
 	const UnicodeString* fqn = clazz->getFullQualifiedName();
-	StaticVariableMetadata* meta = staticHolder->findVariableMetadata(fqn, name);
+	this->meta = staticHolder->findVariableMetadata(fqn, name);
+	if(meta == nullptr){
+		actx->addValidationError(ValidationError::CODE_CLASS_MEMBER_DOES_NOT_EXISTS, this->valId, L"The variable '{0}' does not exists.", {name});
+		this->hasError = true;
+		this->atype = new AnalyzedType();
 
-	//this->atype = new AnalyzedType(at);
+		return;
+	}
+
+	AnalyzedType metaAt = this->meta->getAnalyzedType();
+	this->atype = new AnalyzedType(metaAt);
 }
 
 AnalyzedType MemberVariableAccess::getAnalyzedType() const noexcept {
@@ -116,7 +127,7 @@ AbstractVmInstance* MemberVariableAccess::interpret(VirtualMachine* vm, Abstract
 }
 
 bool MemberVariableAccess::hasErrorOnAnalyze() const noexcept {
-	return this->memberIndex < 0;
+	return this->memberIndex < 0 && this->meta == nullptr;
 }
 
 CodeElement* MemberVariableAccess::getCodeElement() const noexcept {

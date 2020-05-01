@@ -11,12 +11,14 @@
 namespace alinous {
 
 class MemberVariableDeclare;
+class AnalyzedType;
 
 class StaticVariableMetadata {
 public:
 	StaticVariableMetadata(int index, MemberVariableDeclare* val);
 	virtual ~StaticVariableMetadata();
 
+	AnalyzedType getAnalyzedType() const noexcept;
 private:
 	int index;
 	MemberVariableDeclare* val;
