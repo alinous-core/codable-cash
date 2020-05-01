@@ -32,6 +32,7 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "instance_ref_class_static_meta/StaticClassMetadataHolder.h"
 
 namespace alinous {
 
@@ -44,6 +45,7 @@ AnalyzeContext::AnalyzeContext() {
 	this->vtableReg = new VTableRegistory();
 	this->current = nullptr;
 	this->tmpArrayType = nullptr;
+	this->staticVariablesHolder = new StaticClassMetadataHolder();
 }
 
 AnalyzeContext::~AnalyzeContext() {
@@ -65,6 +67,7 @@ AnalyzeContext::~AnalyzeContext() {
 	delete this->vtableReg;
 
 	delete this->thisClasses;
+	delete this->staticVariablesHolder;
 }
 
 void AnalyzeContext::setVm(VirtualMachine* vm) noexcept {
@@ -208,6 +211,28 @@ HashMap<UnicodeString, PackageSpace>* AnalyzeContext::getPackageSpaces() const n
 	return this->packageSpaces;
 }
 
+void AnalyzeContext::analyzeStaticVariables() noexcept {
+	Iterator<UnicodeString>* it = this->packageSpaces->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const UnicodeString* packageName = it->next();
+		PackageSpace* space = this->packageSpaces->get(packageName);
+
+		analyzePackage4StaticVariables(space);
+	}
+}
+
+void AnalyzeContext::analyzePackage4StaticVariables(PackageSpace* space) noexcept {
+	HashMap<UnicodeString, AnalyzedClass>* map = space->getMap();
+
+	Iterator<UnicodeString>* it = map->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const UnicodeString* key = it->next();
+		AnalyzedClass* clazz = map->get(key);
+
+		this->staticVariablesHolder->addClass(clazz);
+	}
+}
+
 void AnalyzeContext::analyzeMember(AnalyzedClass* cls) noexcept {
 	const UnicodeString* fqn = cls->getFullQualifiedName();
 	VTableClassEntry* classEntry = this->vtableReg->getClassEntry(fqn, cls);
@@ -254,6 +279,10 @@ AnalyzedType* AnalyzeContext::getTmpArrayType() const noexcept {
 
 ReservedClassRegistory* AnalyzeContext::getReservedClassRegistory() const noexcept {
 	return this->vm->getReservedClassRegistory();
+}
+
+StaticClassMetadataHolder* AnalyzeContext::getStaticVariableHolder() const noexcept {
+	return this->staticVariablesHolder;
 }
 
 } /* namespace alinous */

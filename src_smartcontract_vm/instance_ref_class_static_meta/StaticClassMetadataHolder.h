@@ -15,12 +15,17 @@ namespace alinous {
 
 class UnicodeString;
 class StaticClassMetadata;
+class AnalyzedClass;
 
 class StaticClassMetadataHolder {
 public:
 	StaticClassMetadataHolder();
 	virtual ~StaticClassMetadataHolder();
 
+	void addClass(AnalyzedClass* clazz) noexcept;
+
+private:
+	StaticClassMetadata* newStaticClassMetadata(AnalyzedClass* clazz) noexcept;
 private:
 	HashMap<UnicodeString, StaticClassMetadata>* classMap;
 };

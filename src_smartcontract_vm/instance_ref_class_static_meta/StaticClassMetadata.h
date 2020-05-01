@@ -10,10 +10,19 @@
 
 namespace alinous {
 
+class AnalyzedClass;
+class StaticVariableMetadata;
+
 class StaticClassMetadata {
 public:
-	StaticClassMetadata();
+	explicit StaticClassMetadata(AnalyzedClass* clazz);
 	virtual ~StaticClassMetadata();
+
+	void init() noexcept;
+private:
+	AnalyzedClass* clazz;
+
+
 };
 
 } /* namespace alinous */

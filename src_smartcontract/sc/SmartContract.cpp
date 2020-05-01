@@ -153,6 +153,9 @@ void SmartContract::analyze(VirtualMachine* vm) {
 		return;
 	}
 
+	// static meta data
+	this->actx->analyzeStaticVariables();
+
 	// inheritance
 	this->actx->analyzeClassInheritance();
 

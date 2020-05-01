@@ -9,13 +9,16 @@
 
 namespace alinous {
 
-StaticClassMetadata::StaticClassMetadata() {
-	// TODO Auto-generated constructor stub
-
+StaticClassMetadata::StaticClassMetadata(AnalyzedClass* clazz) {
+	this->clazz = clazz;
 }
 
 StaticClassMetadata::~StaticClassMetadata() {
-	// TODO Auto-generated destructor stub
+	this->clazz = nullptr;
+}
+
+void StaticClassMetadata::init() noexcept {
+
 }
 
 } /* namespace alinous */
