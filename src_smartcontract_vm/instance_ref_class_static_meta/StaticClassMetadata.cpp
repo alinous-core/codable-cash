@@ -84,7 +84,18 @@ void StaticClassMetadata::initInheritance(StaticClassMetadataHolder* holder) noe
 StaticVariableMetadata* StaticClassMetadata::findStaticVariableMetadata(const UnicodeString* name) const noexcept {
 	StaticVariableMetadata* meta = this->map->get(name);
 
-	// FIXME supre class
+	if(meta == nullptr && this->extClass != nullptr){
+		meta = this->extClass->findStaticVariableMetadata(name);
+	}
+
+	if(meta == nullptr){
+		int maxLoop = this->extends.size();
+		for(int i = 0; i != maxLoop && meta != nullptr; ++i){
+			StaticClassMetadata* cls = this->extends.get(i);
+
+			meta = cls->findStaticVariableMetadata(name);
+		}
+	}
 
 	return meta;
 }
