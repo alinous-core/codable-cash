@@ -9,6 +9,9 @@
 
 #include "variable_access/VariableInstractionHolder.h"
 
+#include "sc_declare/MethodDeclare.h"
+#include "sc_declare/MemberVariableDeclare.h"
+
 namespace alinous {
 
 AbstractExpression::AbstractExpression(int kind) : CodeElement(kind) {
@@ -18,6 +21,27 @@ AbstractExpression::AbstractExpression(int kind) : CodeElement(kind) {
 
 AbstractExpression::~AbstractExpression() {
 	delete this->valInstHolder;
+}
+
+bool AbstractExpression::isStaticMode() noexcept {
+	CodeElement* element = this;
+
+	while(element != nullptr){
+		short elementKind = element->getKind();
+
+		if(elementKind == CodeElement::METHOD_DECLARE){
+			MethodDeclare* method = dynamic_cast<MethodDeclare*>(element);
+			return method->isStatic();
+		}
+		else if(elementKind == CodeElement::MEMBER_VARIABLE_DECLARE){
+			MemberVariableDeclare* member = dynamic_cast<MemberVariableDeclare*>(element);
+			return member->isStatic();
+		}
+
+		element = getParent();
+	}
+
+	return false;
 }
 
 VariableInstractionHolder* AbstractExpression::getVariableInstractionHolder() noexcept {
