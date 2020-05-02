@@ -14,6 +14,7 @@ namespace alinous {
 class UnicodeString;
 class AbstractVariableInstraction;
 class ThisPointerAccess;
+class StaticVariableMetadata;
 
 class VariableIdentifier: public AbstractExpression {
 public:
@@ -48,6 +49,7 @@ private:
 	bool executable;
 	AbstractVariableInstraction* access;
 	ThisPointerAccess* thisAccess;
+	StaticVariableMetadata* staticMetadata;
 };
 
 } /* namespace alinous */
