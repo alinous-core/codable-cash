@@ -46,4 +46,14 @@ const UnicodeString* NameSegments::toString() noexcept {
 	return this->str;
 }
 
+int NameSegments::length() const noexcept {
+	return this->list->size();
+}
+
+void NameSegments::removeTop() noexcept {
+	int topIndex = this->list->size() - 1;
+
+	delete this->list->remove(topIndex);
+}
+
 } /* namespace alinous */

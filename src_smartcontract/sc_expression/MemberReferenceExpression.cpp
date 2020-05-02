@@ -8,15 +8,16 @@
 #include "sc_expression/MemberReferenceExpression.h"
 
 #include "sc_expression/AbstractExpression.h"
+#include "sc_expression/VariableIdentifier.h"
 
 #include "sc_analyze/AnalyzedType.h"
 #include "sc_analyze/NameSegments.h"
+#include "sc_analyze/TypeResolver.h"
+#include "sc_analyze/AnalyzeContext.h"
 
 #include "variable_access/VariableInstractionHolder.h"
 
 #include "base/UnicodeString.h"
-
-#include "sc_expression/VariableIdentifier.h"
 
 
 namespace alinous {
@@ -55,11 +56,13 @@ void MemberReferenceExpression::analyze(AnalyzeContext* actx) {
 }
 
 int MemberReferenceExpression::packageLookAhead(AnalyzeContext* actx) {
+	TypeResolver* resolver = actx->getTypeResolver();
+	VariableInstractionHolder* holder = getVariableInstractionHolder();
+
 	int lookahead = 0;
 
 	NameSegments segments;
 
-	int matchLength = 0;
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractExpression* exp = this->list.get(i);
@@ -76,6 +79,21 @@ int MemberReferenceExpression::packageLookAhead(AnalyzeContext* actx) {
 	}
 
 	// longest match
+	while(segments.length() > 1){
+		const UnicodeString* fqn = segments.toString();
+		AnalyzedType* at = resolver->findClassType(this, fqn);
+
+		if(at != nullptr){
+			holder->addFirstClassIdentifier(at);
+			delete at;
+			// FIXME
+
+			lookahead = segments.length();
+			break;
+		}
+
+		segments.removeTop();
+	}
 
 	return lookahead;
 }

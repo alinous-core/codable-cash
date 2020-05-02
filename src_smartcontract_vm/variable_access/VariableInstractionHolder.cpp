@@ -48,6 +48,13 @@ VariableInstractionHolder::~VariableInstractionHolder() {
 	delete this->atype;
 }
 
+void VariableInstractionHolder::addFirstClassIdentifier(const AnalyzedType* atp) noexcept {
+	this->memberAccess = true;
+	ClassTypeAccess* access = new ClassTypeAccess(atp);
+
+	this->list.addElement(access);
+}
+
 void VariableInstractionHolder::addExpression(AbstractExpression* exp, AnalyzeContext* actx) noexcept {
 	short kind = exp->getKind();
 
@@ -121,6 +128,7 @@ AbstractVariableInstraction* VariableInstractionHolder::detectNonStackInstructio
 	AnalyzedType* atp = resolver->findClassType(valId, idName); __STP(atp);
 
 	if(atp != nullptr){
+		this->memberAccess = true;
 		return new ClassTypeAccess(atp);
 	}
 

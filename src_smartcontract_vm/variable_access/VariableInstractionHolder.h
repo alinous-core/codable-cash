@@ -27,6 +27,7 @@ public:
 	VariableInstractionHolder();
 	virtual ~VariableInstractionHolder();
 
+	void addFirstClassIdentifier(const AnalyzedType* atp) noexcept;
 	void addExpression(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 	void analyze(AnalyzeContext* actx, CodeElement* element);
 	AnalyzedType* getAnalyzedType() const noexcept;

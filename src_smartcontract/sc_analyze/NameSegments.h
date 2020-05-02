@@ -21,6 +21,9 @@ public:
 
 	void addSegment(const UnicodeString* seg) noexcept;
 	const UnicodeString* toString() noexcept;
+
+	int length() const noexcept;
+	void removeTop() noexcept;
 private:
 	ArrayList<UnicodeString>* list;
 
