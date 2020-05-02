@@ -86,7 +86,6 @@ int MemberReferenceExpression::packageLookAhead(AnalyzeContext* actx) {
 		if(at != nullptr){
 			holder->addFirstClassIdentifier(at);
 			delete at;
-			// FIXME
 
 			lookahead = segments.length();
 			break;
