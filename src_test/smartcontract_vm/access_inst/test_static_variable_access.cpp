@@ -18,6 +18,8 @@
 
 #include "base/UnicodeString.h"
 
+#include "sc_analyze/AnalyzedType.h"
+#include "variable_access/ClassTypeAccess.h"
 
 using namespace alinous;
 
@@ -26,6 +28,12 @@ TEST_GROUP(TestStaticVariableAccessGroup) {
 	TEST_SETUP(){}
 	TEST_TEARDOWN(){}
 };
+
+TEST(TestStaticVariableAccessGroup, getElement){
+	AnalyzedType at;
+	ClassTypeAccess ac(&at);
+	CHECK(ac.getCodeElement() == nullptr)
+}
 
 TEST(TestStaticVariableAccessGroup, case01){
 	const File* projectFolder = this->env->getProjectRoot();
@@ -39,6 +47,21 @@ TEST(TestStaticVariableAccessGroup, case01){
 
 	result = util.createInstance();
 	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	int iresult = VmTestUtils::getIntMemberValue(obj, L"count");
+	CHECK(iresult == 1);
 }
 
+TEST(TestStaticVariableAccessGroup, case02_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/staticv/case02_err/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+
+}
 
