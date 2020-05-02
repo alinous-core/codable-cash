@@ -31,6 +31,9 @@
 
 #include "instance_ref_class_static_meta/StaticClassMetadataHolder.h"
 #include "instance_ref_class_static_meta/StaticVariableMetadata.h"
+#include "instance_ref_class_static_meta/StaticClassMetadata.h"
+
+#include "instance_ref_class_static/StaticClassEntry.h"
 
 
 namespace alinous {
@@ -113,6 +116,10 @@ AnalyzedType MemberVariableAccess::getAnalyzedType() const noexcept {
 }
 
 AbstractVmInstance* MemberVariableAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
+	if(this->meta != nullptr){
+		return interpretStaticWithClassType(vm, lastInst);
+	}
+
 	if(lastInst == nullptr || lastInst->isNull()){
 		NullPointerExceptionClassDeclare::throwException(vm, this->element);
 		ExceptionInterrupt::interruptPoint(vm);
@@ -132,6 +139,16 @@ bool MemberVariableAccess::hasErrorOnAnalyze() const noexcept {
 
 CodeElement* MemberVariableAccess::getCodeElement() const noexcept {
 	return this->valId;
+}
+
+AbstractVmInstance* MemberVariableAccess::interpretStaticWithClassType(VirtualMachine* vm, AbstractVmInstance* lastInst) {
+	int index = this->meta->getIndex();
+	StaticClassMetadata* classMeta = this->meta->getParent();
+	StaticClassEntry* entry = classMeta->getStaticClassEntry();
+
+	AbstractReference* ref = entry->getReferenceByIndex(index);
+
+	return ref;
 }
 
 } /* namespace alinous */

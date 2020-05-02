@@ -31,6 +31,7 @@ public:
 	StaticVariableMetadata* findStaticVariableMetadata(const UnicodeString* name) const noexcept;
 
 	void setClassEntry(StaticClassEntry* classEntry) noexcept;
+	StaticClassEntry* getStaticClassEntry() const noexcept;
 private:
 	AnalyzedClass* clazz;
 	HashMap<UnicodeString, StaticVariableMetadata>* map;

@@ -13,9 +13,10 @@
 
 namespace alinous {
 
-StaticVariableMetadata::StaticVariableMetadata(int index, MemberVariableDeclare* val) {
+StaticVariableMetadata::StaticVariableMetadata(int index, MemberVariableDeclare* val, StaticClassMetadata* parent) {
 	this->index = index;
 	this->val = val;
+	this->parent = parent;
 }
 
 StaticVariableMetadata::~StaticVariableMetadata() {
@@ -24,6 +25,14 @@ StaticVariableMetadata::~StaticVariableMetadata() {
 
 AnalyzedType StaticVariableMetadata::getAnalyzedType() const noexcept {
 	return this->val->getAnalyzedType();
+}
+
+int StaticVariableMetadata::getIndex() const noexcept {
+	return this->index;
+}
+
+StaticClassMetadata* StaticVariableMetadata::getParent() const noexcept {
+	return this->parent;
 }
 
 } /* namespace alinous */

@@ -30,7 +30,7 @@ public:
 
 private:
 	void analyzeStaticWithClassType(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
-
+	AbstractVmInstance* interpretStaticWithClassType(VirtualMachine* vm, AbstractVmInstance* lastInst);
 private:
 	VariableIdentifier* valId;
 	int memberIndex;

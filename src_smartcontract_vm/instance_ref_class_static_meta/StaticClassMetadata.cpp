@@ -54,7 +54,7 @@ void StaticClassMetadata::init() noexcept {
 
 		if(val->isStatic()){
 			const UnicodeString* name = val->getName();
-			StaticVariableMetadata* valmeta = new StaticVariableMetadata(indexCount, val);
+			StaticVariableMetadata* valmeta = new StaticVariableMetadata(indexCount, val, this);
 
 			this->map->put(name, valmeta);
 			indexCount++;
@@ -103,6 +103,10 @@ StaticVariableMetadata* StaticClassMetadata::findStaticVariableMetadata(const Un
 
 void StaticClassMetadata::setClassEntry(StaticClassEntry* classEntry) noexcept {
 	this->classEntry = classEntry;
+}
+
+StaticClassEntry* StaticClassMetadata::getStaticClassEntry() const noexcept {
+	return this->classEntry;
 }
 
 } /* namespace alinous */
