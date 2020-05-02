@@ -27,6 +27,7 @@ class AnalyzedClass;
 class VTableRegistory;
 class AnalyzedType;
 class ReservedClassRegistory;
+class StaticClassMetadataHolder;
 
 class AnalyzeContext {
 public:
@@ -66,10 +67,13 @@ public:
 	ReservedClassRegistory* getReservedClassRegistory() const noexcept;
 
 	HashMap<UnicodeString, PackageSpace>* getPackageSpaces() const noexcept;
+
+	StaticClassMetadataHolder* getStaticVariableHolder() const noexcept;
+	void analyzeStaticVariables() noexcept;
 private:
 	void analyzeMembers(PackageSpace* space) noexcept;
 	void analyzeMember(AnalyzedClass* cls) noexcept;
-
+	void analyzePackage4StaticVariables(PackageSpace* space) noexcept;
 
 private:
 	VirtualMachine* vm;
@@ -79,6 +83,7 @@ private:
 	TypeResolver* typeResolver;
 	ArrayList<AnalyzedClass>* thisClasses;
 	VTableRegistory* vtableReg;
+	StaticClassMetadataHolder* staticVariablesHolder;
 
 	CodeElement* current;
 	AnalyzedType* tmpArrayType;

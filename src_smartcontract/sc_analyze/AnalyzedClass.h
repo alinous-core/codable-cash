@@ -32,6 +32,8 @@ public:
 
 	void addMemberVariableDeclare(MemberVariableDeclare* member);
 	ArrayList<MemberVariableDeclare>* getMemberVariableDeclareList() noexcept;
+	void addStaticMemberVariableDeclare(MemberVariableDeclare* member) noexcept;
+
 	void addMemberMethodDeclare(MethodDeclare* method);
 
 	void setExtends(AnalyzedClass* clazz) noexcept;
@@ -77,6 +79,8 @@ private:
 
 	HashMap<UnicodeString, MemberVariableDeclare>* variables;
 	ArrayList<MemberVariableDeclare> variablesList;
+
+	HashMap<UnicodeString, MemberVariableDeclare>* staticVariables;
 
 	ArrayList<MethodDeclare> constructors;
 	HashMap<UnicodeString, MethodDeclare>* methods;

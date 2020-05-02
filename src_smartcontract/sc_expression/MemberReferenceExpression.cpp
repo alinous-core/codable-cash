@@ -8,9 +8,17 @@
 #include "sc_expression/MemberReferenceExpression.h"
 
 #include "sc_expression/AbstractExpression.h"
+#include "sc_expression/VariableIdentifier.h"
+
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/NameSegments.h"
+#include "sc_analyze/TypeResolver.h"
+#include "sc_analyze/AnalyzeContext.h"
 
 #include "variable_access/VariableInstractionHolder.h"
+
+#include "base/UnicodeString.h"
+
 
 namespace alinous {
 
@@ -32,8 +40,10 @@ void MemberReferenceExpression::analyze(AnalyzeContext* actx) {
 	int maxLoop = this->list.size();
 	VariableInstractionHolder* holder = getVariableInstractionHolder();
 
+	int begin = packageLookAhead(actx);
+
 	bool ex = false;
-	for(int i = 0; i != maxLoop; ++i){
+	for(int i = begin; i != maxLoop; ++i){
 		AbstractExpression* exp = this->list.get(i);
 		holder->addExpression(exp, actx);
 
@@ -43,6 +53,48 @@ void MemberReferenceExpression::analyze(AnalyzeContext* actx) {
 	setThrowsException(ex);
 
 	holder->analyze(actx, this);
+}
+
+int MemberReferenceExpression::packageLookAhead(AnalyzeContext* actx) {
+	TypeResolver* resolver = actx->getTypeResolver();
+	VariableInstractionHolder* holder = getVariableInstractionHolder();
+
+	int lookahead = 0;
+
+	NameSegments segments;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->list.get(i);
+
+		if(exp->getKind() == CodeElement::EXP_VARIABLE_ID){
+			VariableIdentifier* valId = dynamic_cast<VariableIdentifier*>(exp);
+			const UnicodeString* seg = valId->getName();
+
+			segments.addSegment(seg);
+		}
+		else{
+			break;
+		}
+	}
+
+	// longest match
+	while(segments.length() > 1){
+		const UnicodeString* fqn = segments.toString();
+		AnalyzedType* at = resolver->findClassType(this, fqn);
+
+		if(at != nullptr){
+			holder->addFirstClassIdentifier(at);
+			delete at;
+
+			lookahead = segments.length();
+			break;
+		}
+
+		segments.removeTop();
+	}
+
+	return lookahead;
 }
 
 int MemberReferenceExpression::binarySize() const {
@@ -74,5 +126,6 @@ AbstractVmInstance* MemberReferenceExpression::interpret(VirtualMachine* vm) {
 
 	return holder->interpret(vm);
 }
+
 
 } /* namespace alinous */

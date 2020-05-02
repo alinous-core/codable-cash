@@ -3,6 +3,7 @@
 set(__src
 	AbstractVariableInstraction.cpp
 	ArrayReferenceAccess.cpp
+	ClassTypeAccess.cpp
 	ExpressionAccess.cpp
 	FunctionArguments.cpp
 	MemberFunctionCallAccess.cpp

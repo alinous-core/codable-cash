@@ -25,6 +25,7 @@ public:
 	static const constexpr uint8_t INSTRUCTION_MEMBER_VARIABLE{4};
 	static const constexpr uint8_t INSTRUCTION_STACK_VARIABLE{5};
 	static const constexpr uint8_t INSTRUCTION_THIS_POINTER{6};
+	static const constexpr uint8_t INSTRUCTION_CLASS_TYPE{7};
 
 
 	explicit AbstractVariableInstraction(uint8_t type);

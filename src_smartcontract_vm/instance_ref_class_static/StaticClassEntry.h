@@ -30,11 +30,14 @@ public:
 	void removeInnerReferences(VirtualMachine* vm) noexcept;
 
 	void initParentClasses(HashMap<UnicodeString, StaticClassEntry>* classesMap);
+
+	AbstractReference* getReferenceByIndex(int index) const noexcept;
 private:
 	void execInitialExpression(VirtualMachine* vm, AbstractReference* ref, AbstractExpression* exp);
 private:
 	AnalyzedClass* aclazz;
 	HashMap<UnicodeString, AbstractReference>* members;
+	ArrayList<AbstractReference> list;
 
 	StaticClassEntry* parent;
 	ArrayList<StaticClassEntry> interfaces;

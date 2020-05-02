@@ -6,7 +6,6 @@
  */
 
 #include "instance_ref_class_static/StaticClassReferenceHolder.h"
-
 #include "instance_ref_class_static/StaticClassEntry.h"
 
 #include "instance_ref/VmRootReference.h"
@@ -24,6 +23,9 @@
 #include "sc_declare/MemberVariableDeclare.h"
 
 #include "vm/VirtualMachine.h"
+
+#include "instance_ref_class_static_meta/StaticClassMetadataHolder.h"
+#include "instance_ref_class_static_meta/StaticClassMetadata.h"
 
 
 namespace alinous {
@@ -98,6 +100,13 @@ void StaticClassReferenceHolder::initAnalyzedClass(VirtualMachine* vm, AnalyzeCo
 			classEntry->addReference(vm, rootRef, val);
 		}
 	}
+
+	// meta data
+	StaticClassMetadataHolder* holder = actx->getStaticVariableHolder();
+	StaticClassMetadata* classMeta = holder->getClassMetadata(fqn);
+	assert(classMeta != nullptr);
+
+	classMeta->setClassEntry(classEntry);
 }
 
 StaticClassEntry* StaticClassReferenceHolder::getClassEntry(const UnicodeString* fqn, AnalyzedClass* aclass) {

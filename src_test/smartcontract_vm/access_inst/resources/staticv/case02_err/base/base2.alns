@@ -1,0 +1,16 @@
+
+package test.fw.base;
+
+class BaseClass2 implements StInf {
+	public static int b2s01 = 1;
+	
+	public BaseClass2() {
+	
+	}
+	
+	public void test() {
+	
+	}
+	
+	public int intvalue = 10;	
+}

@@ -31,6 +31,8 @@ public:
 	static constexpr uint8_t REF_LONG{107};
 
 	static constexpr uint8_t REF_ARRAY{150};
+
+	static constexpr uint8_t REF_CLASS_TYPE{200};
 };
 
 } /* namespace alinous */

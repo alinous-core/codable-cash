@@ -24,8 +24,18 @@
 #include "instance_parts/VMemList.h"
 
 #include "instance_exception/NullPointerExceptionClassDeclare.h"
-
 #include "instance_exception/ExceptionInterrupt.h"
+
+#include "variable_access/AbstractVariableInstraction.h"
+#include "variable_access/ClassTypeAccess.h"
+
+#include "instance_ref_class_static_meta/StaticClassMetadataHolder.h"
+#include "instance_ref_class_static_meta/StaticVariableMetadata.h"
+#include "instance_ref_class_static_meta/StaticClassMetadata.h"
+
+#include "instance_ref_class_static/StaticClassEntry.h"
+
+
 namespace alinous {
 
 MemberVariableAccess::MemberVariableAccess(VariableIdentifier* valId)
@@ -34,6 +44,7 @@ MemberVariableAccess::MemberVariableAccess(VariableIdentifier* valId)
 	this->memberIndex = -1;
 	this->atype = nullptr;
 	this->element = nullptr;
+	this->meta = nullptr;
 }
 
 MemberVariableAccess::~MemberVariableAccess() {
@@ -42,6 +53,12 @@ MemberVariableAccess::~MemberVariableAccess() {
 
 void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
 	this->element = element;
+
+	uint8_t instType = lastIinst->getType();
+	if(instType == AbstractVariableInstraction::INSTRUCTION_CLASS_TYPE){
+		analyzeStaticWithClassType(actx, lastIinst);
+		return;
+	}
 
 	TypeResolver* typeResolver = actx->getTypeResolver();
 
@@ -70,11 +87,39 @@ void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 	}
 }
 
+void MemberVariableAccess::analyzeStaticWithClassType(AnalyzeContext* actx,	AbstractVariableInstraction* lastIinst) {
+	ClassTypeAccess* classType = dynamic_cast<ClassTypeAccess*>(lastIinst);
+	const UnicodeString* name = this->valId->getName();
+
+	AnalyzedType at = classType->getAnalyzedType();
+	AnalyzedClass* clazz = at.getAnalyzedClass();
+
+	// index and atype
+	StaticClassMetadataHolder* staticHolder = actx->getStaticVariableHolder();
+
+	const UnicodeString* fqn = clazz->getFullQualifiedName();
+	this->meta = staticHolder->findVariableMetadata(fqn, name);
+	if(meta == nullptr){
+		actx->addValidationError(ValidationError::CODE_CLASS_MEMBER_DOES_NOT_EXISTS, this->valId, L"The variable '{0}' does not exists.", {name});
+		this->hasError = true;
+		this->atype = new AnalyzedType();
+
+		return;
+	}
+
+	AnalyzedType metaAt = this->meta->getAnalyzedType();
+	this->atype = new AnalyzedType(metaAt);
+}
+
 AnalyzedType MemberVariableAccess::getAnalyzedType() const noexcept {
 	return *this->atype;
 }
 
 AbstractVmInstance* MemberVariableAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
+	if(this->meta != nullptr){
+		return interpretStaticWithClassType(vm, lastInst);
+	}
+
 	if(lastInst == nullptr || lastInst->isNull()){
 		NullPointerExceptionClassDeclare::throwException(vm, this->element);
 		ExceptionInterrupt::interruptPoint(vm);
@@ -89,11 +134,21 @@ AbstractVmInstance* MemberVariableAccess::interpret(VirtualMachine* vm, Abstract
 }
 
 bool MemberVariableAccess::hasErrorOnAnalyze() const noexcept {
-	return this->memberIndex < 0;
+	return this->memberIndex < 0 && this->meta == nullptr;
 }
 
 CodeElement* MemberVariableAccess::getCodeElement() const noexcept {
 	return this->valId;
+}
+
+AbstractVmInstance* MemberVariableAccess::interpretStaticWithClassType(VirtualMachine* vm, AbstractVmInstance* lastInst) {
+	int index = this->meta->getIndex();
+	StaticClassMetadata* classMeta = this->meta->getParent();
+	StaticClassEntry* entry = classMeta->getStaticClassEntry();
+
+	AbstractReference* ref = entry->getReferenceByIndex(index);
+
+	return ref;
 }
 
 } /* namespace alinous */

@@ -55,12 +55,21 @@ void StaticClassEntry::addReference(VirtualMachine* vm, VmRootReference* rootRef
 	const UnicodeString* name = val->getName();
 
 	AbstractReference* ref = RefereceFactory::createReferenceFromDefinition(rootRef, val, vm);
+	if(ref->isPrimitive()){
+		ref->setOwner(rootRef);
+	}
+
 	this->members->put(name, ref);
+	this->list.addElement(ref);
 
 	AbstractExpression* exp = val->getExp();
 	if(exp != nullptr){
 		execInitialExpression(vm, ref, exp);
 	}
+}
+
+AbstractReference* StaticClassEntry::getReferenceByIndex(int index) const noexcept {
+	return this->list.get(index);
 }
 
 void StaticClassEntry::execInitialExpression(VirtualMachine* vm, AbstractReference* ref, AbstractExpression* exp) {

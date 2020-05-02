@@ -21,13 +21,18 @@
 #include "instance_ref/AbstractReference.h"
 
 #include "sc_analyze/AnalyzedClass.h"
+#include "sc_analyze/ValidationError.h"
 
 #include "sc_analyze_functions/VTableRegistory.h"
 #include "sc_analyze_functions/VTableClassEntry.h"
 
 #include "sc_analyze_variables/MemberVariableTable.h"
 
-#include "sc_analyze/ValidationError.h"
+#include "instance_ref_class_static_meta/StaticVariableMetadata.h"
+#include "instance_ref_class_static_meta/StaticClassMetadataHolder.h"
+#include "instance_ref_class_static/StaticClassEntry.h"
+#include "instance_ref_class_static_meta/StaticClassMetadata.h"
+
 
 namespace alinous {
 
@@ -38,12 +43,14 @@ VariableIdentifier::VariableIdentifier() : AbstractExpression(CodeElement::EXP_V
 	this->thisAccess = nullptr;
 	this->access = nullptr;
 	this->executable = false;
+	this->staticMetadata = nullptr;
 }
 
 VariableIdentifier::~VariableIdentifier() {
 	delete this->name;
 	delete this->thisAccess;
 	delete this->access;
+	this->staticMetadata = nullptr;
 }
 
 void VariableIdentifier::preAnalyze(AnalyzeContext* actx) {
@@ -86,8 +93,15 @@ void VariableIdentifier::doAnalyze(AnalyzeContext* actx) {
 		this->access = nullptr;
 		this->thisAccess = nullptr;
 
-		actx->addValidationError(ValidationError::CODE_CLASS_MEMBER_AND_STACK_VARIABLE_DO_NOT_EXISTS, this, L"Variable for the identifier '{0}' does not exists.", {this->name});
-		return;
+		// static access
+		StaticClassMetadataHolder* staticMetaHolder = actx->getStaticVariableHolder();
+		AnalyzedClass* thisClazz = actx->getThisClass();
+		const UnicodeString* fqn = thisClazz->getFullQualifiedName();
+
+		this->staticMetadata = staticMetaHolder->findVariableMetadata(fqn, this->name);
+		if(this->staticMetadata == nullptr){
+			actx->addValidationError(ValidationError::CODE_CLASS_MEMBER_AND_STACK_VARIABLE_DO_NOT_EXISTS, this, L"Variable for the identifier '{0}' does not exists.", {this->name});
+		}
 	}
 }
 
@@ -95,7 +109,7 @@ void VariableIdentifier::setName(UnicodeString* name) noexcept {
 	this->name = name;
 }
 
-const UnicodeString* alinous::VariableIdentifier::getName() const noexcept {
+const UnicodeString* VariableIdentifier::getName() const noexcept {
 	return this->name;
 }
 
@@ -122,8 +136,11 @@ void VariableIdentifier::fromBinary(ByteBuffer* in) {
 AnalyzedType VariableIdentifier::getType(AnalyzeContext* actx) {
 	if(this->access != nullptr){
 		return this->access->getAnalyzedType();
-
 	}
+	else if(this->staticMetadata != nullptr){
+		return this->staticMetadata->getAnalyzedType();
+	}
+
 	return AnalyzedType();
 }
 
@@ -135,6 +152,15 @@ AbstractVmInstance* VariableIdentifier::interpret(VirtualMachine* vm) {
 
 	if(this->thisAccess != nullptr){
 		lastInst = this->thisAccess->interpret(vm, nullptr);
+	}
+	else if(this->staticMetadata != nullptr){
+		int index = this->staticMetadata->getIndex();
+		StaticClassMetadata* classMeta = this->staticMetadata->getParent();
+		StaticClassEntry* entry = classMeta->getStaticClassEntry();
+
+		AbstractReference* ref = entry->getReferenceByIndex(index);
+
+		return ref;
 	}
 
 	AbstractVmInstance* instOrRef = this->access->interpret(vm, lastInst);

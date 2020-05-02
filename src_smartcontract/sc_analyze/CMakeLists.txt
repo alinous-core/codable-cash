@@ -6,6 +6,7 @@ set(__src
 	AnalyzedThisClassStackPopper.cpp
 	AnalyzedType.cpp
 	IVmInstanceFactory.cpp
+	NameSegments.cpp
 	PackageSpace.cpp
 	TypeResolver.cpp
 	ValidationError.cpp

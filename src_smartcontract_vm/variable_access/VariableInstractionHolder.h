@@ -27,11 +27,13 @@ public:
 	VariableInstractionHolder();
 	virtual ~VariableInstractionHolder();
 
+	void addFirstClassIdentifier(const AnalyzedType* atp) noexcept;
 	void addExpression(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 	void analyze(AnalyzeContext* actx, CodeElement* element);
 	AnalyzedType* getAnalyzedType() const noexcept;
 	AbstractVmInstance* interpret(VirtualMachine* vm);
 private:
+	AbstractVariableInstraction* detectNonStackInstruction(VariableIdentifier* valId, AnalyzeContext* actx) noexcept;
 	void addVariableIdExp(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 	AbstractVariableInstraction* doAddVariableIdExp(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 	StackVariableAccess* handleStackVariableIdExp(VariableIdentifier* valId, AbstractExpression* exp, AnalyzeContext* actx) noexcept;

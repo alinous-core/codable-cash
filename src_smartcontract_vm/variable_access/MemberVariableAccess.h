@@ -14,6 +14,7 @@ namespace alinous {
 
 class VariableIdentifier;
 class AnalyzedType;
+class StaticVariableMetadata;
 
 class MemberVariableAccess: public AbstractVariableInstraction {
 public:
@@ -26,9 +27,14 @@ public:
 	virtual bool hasErrorOnAnalyze() const noexcept;
 
 	virtual CodeElement* getCodeElement() const noexcept;
+
+private:
+	void analyzeStaticWithClassType(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
+	AbstractVmInstance* interpretStaticWithClassType(VirtualMachine* vm, AbstractVmInstance* lastInst);
 private:
 	VariableIdentifier* valId;
 	int memberIndex;
+	StaticVariableMetadata* meta;
 	AnalyzedType* atype;
 
 	CodeElement* element;
