@@ -219,6 +219,8 @@ void AnalyzeContext::analyzeStaticVariables() noexcept {
 
 		analyzePackage4StaticVariables(space);
 	}
+
+	this->staticVariablesHolder->analyzeInheritance();
 }
 
 void AnalyzeContext::analyzePackage4StaticVariables(PackageSpace* space) noexcept {
@@ -231,8 +233,6 @@ void AnalyzeContext::analyzePackage4StaticVariables(PackageSpace* space) noexcep
 
 		this->staticVariablesHolder->addClass(clazz);
 	}
-
-	this->staticVariablesHolder->analyzeInheritance();
 }
 
 void AnalyzeContext::analyzeMember(AnalyzedClass* cls) noexcept {

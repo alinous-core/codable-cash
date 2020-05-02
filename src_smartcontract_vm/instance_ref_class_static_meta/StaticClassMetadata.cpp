@@ -77,7 +77,7 @@ void StaticClassMetadata::initInheritance(StaticClassMetadataHolder* holder) noe
 		const UnicodeString* fqn = cls->getFullQualifiedName();
 
 		StaticClassMetadata* meta = holder->getClassMetadata(fqn);
-		this->extends.addElement(meta);
+		this->implements.addElement(meta);
 	}
 }
 
@@ -90,9 +90,9 @@ StaticVariableMetadata* StaticClassMetadata::findStaticVariableMetadata(const Un
 	}
 
 	if(meta == nullptr){
-		int maxLoop = this->extends.size();
-		for(int i = 0; i != maxLoop && meta != nullptr; ++i){
-			StaticClassMetadata* cls = this->extends.get(i);
+		int maxLoop = this->implements.size();
+		for(int i = 0; i != maxLoop && meta == nullptr; ++i){
+			StaticClassMetadata* cls = this->implements.get(i);
 
 			meta = cls->findStaticVariableMetadata(name);
 		}

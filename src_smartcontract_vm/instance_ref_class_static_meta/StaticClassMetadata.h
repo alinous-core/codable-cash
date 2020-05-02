@@ -37,7 +37,7 @@ private:
 	HashMap<UnicodeString, StaticVariableMetadata>* map;
 
 	StaticClassMetadata* extClass;
-	ArrayList<StaticClassMetadata> extends;
+	ArrayList<StaticClassMetadata> implements;
 
 	StaticClassEntry* classEntry;
 };
