@@ -36,6 +36,14 @@ TEST(TestStaticVariablesGroup, ClassTypeReferenceMisc){
 	AnalyzedType at(AnalyzedType::TYPE_STRING);
 
 	ClassTypeReference classRef(root, &vm, &at);
+
+	CHECK(classRef.instValueCompare(nullptr) == 0);
+	CHECK(classRef.wrap(nullptr, &vm) == 0);
+	CHECK(classRef.getRuntimeType().equals(&at));
+	CHECK(classRef.getInstType() == classRef.getInstType());
+	CHECK(classRef.getInstReferences() == nullptr);
+	CHECK(!classRef.instIsNull());
+	CHECK(classRef.instToClassExtObject(nullptr, nullptr) == nullptr);
 }
 
 TEST(TestStaticVariablesGroup, case01){
