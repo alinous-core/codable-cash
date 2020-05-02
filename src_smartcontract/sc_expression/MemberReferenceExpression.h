@@ -28,6 +28,9 @@ public:
 
 	virtual AnalyzedType getType(AnalyzeContext* actx);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
+private:
+	int packageLookAhead(AnalyzeContext* actx);
 };
 
 } /* namespace alinous */

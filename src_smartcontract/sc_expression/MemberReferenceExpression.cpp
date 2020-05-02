@@ -8,9 +8,16 @@
 #include "sc_expression/MemberReferenceExpression.h"
 
 #include "sc_expression/AbstractExpression.h"
+
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/NameSegments.h"
 
 #include "variable_access/VariableInstractionHolder.h"
+
+#include "base/UnicodeString.h"
+
+#include "sc_expression/VariableIdentifier.h"
+
 
 namespace alinous {
 
@@ -32,8 +39,10 @@ void MemberReferenceExpression::analyze(AnalyzeContext* actx) {
 	int maxLoop = this->list.size();
 	VariableInstractionHolder* holder = getVariableInstractionHolder();
 
+	int begin = packageLookAhead(actx);
+
 	bool ex = false;
-	for(int i = 0; i != maxLoop; ++i){
+	for(int i = begin; i != maxLoop; ++i){
 		AbstractExpression* exp = this->list.get(i);
 		holder->addExpression(exp, actx);
 
@@ -43,6 +52,32 @@ void MemberReferenceExpression::analyze(AnalyzeContext* actx) {
 	setThrowsException(ex);
 
 	holder->analyze(actx, this);
+}
+
+int MemberReferenceExpression::packageLookAhead(AnalyzeContext* actx) {
+	int lookahead = 0;
+
+	NameSegments segments;
+
+	int matchLength = 0;
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->list.get(i);
+
+		if(exp->getKind() == CodeElement::EXP_VARIABLE_ID){
+			VariableIdentifier* valId = dynamic_cast<VariableIdentifier*>(exp);
+			const UnicodeString* seg = valId->getName();
+
+			segments.addSegment(seg);
+		}
+		else{
+			break;
+		}
+	}
+
+	// longest match
+
+	return lookahead;
 }
 
 int MemberReferenceExpression::binarySize() const {
@@ -74,5 +109,6 @@ AbstractVmInstance* MemberReferenceExpression::interpret(VirtualMachine* vm) {
 
 	return holder->interpret(vm);
 }
+
 
 } /* namespace alinous */
