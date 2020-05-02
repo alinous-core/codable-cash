@@ -16,6 +16,11 @@
 
 #include "../VmTestUtils.h"
 
+#include "sc_analyze/AnalyzedType.h"
+#include "instance_ref_class_static/ClassTypeReference.h"
+
+#include "instance_ref/VmRootReference.h"
+
 using namespace alinous;
 
 
@@ -23,6 +28,15 @@ TEST_GROUP(TestStaticVariablesGroup) {
 	TEST_SETUP(){}
 	TEST_TEARDOWN(){}
 };
+
+TEST(TestStaticVariablesGroup, ClassTypeReferenceMisc){
+	VirtualMachine vm(1024 * 10);
+	VmRootReference* root = new(&vm) VmRootReference(&vm); __STP(root);
+
+	AnalyzedType at(AnalyzedType::TYPE_STRING);
+
+	ClassTypeReference classRef(root, &vm, &at);
+}
 
 TEST(TestStaticVariablesGroup, case01){
 	const File* projectFolder = this->env->getProjectRoot();

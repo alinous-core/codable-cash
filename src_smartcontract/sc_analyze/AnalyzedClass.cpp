@@ -80,6 +80,7 @@ AnalyzedClass::AnalyzedClass(const AnalyzedClass& inst) {
 
 		this->staticVariables->put(name, dec);
 	}
+	delete it;
 }
 
 AnalyzedClass::AnalyzedClass(ClassDeclare* clazz) {

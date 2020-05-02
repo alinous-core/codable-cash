@@ -28,12 +28,47 @@ ClassTypeReference::~ClassTypeReference() {
 }
 
 IAbstractVmInstanceSubstance* ClassTypeReference::getInstance() noexcept {
-	return nullptr;
+	return this;
 }
 
 int ClassTypeReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 	return 0;
 }
 
+AbstractReference* ClassTypeReference::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
+	return nullptr;
+}
+
+uint8_t ClassTypeReference::getInstType() const noexcept {
+	return getType();
+}
+
+AnalyzedType ClassTypeReference::getRuntimeType() const noexcept {
+	return *this->atype;
+}
+
+const VMemList<AbstractReference>* ClassTypeReference::getInstReferences() const noexcept {
+	return nullptr;
+}
+
+int ClassTypeReference::instHashCode() const noexcept {
+	return 0;
+}
+
+bool ClassTypeReference::instIsPrimitive() const noexcept {
+	return isPrimitive();
+}
+
+bool ClassTypeReference::instIsNull() const noexcept {
+	return isNull();
+}
+
+int ClassTypeReference::instValueCompare(IAbstractVmInstanceSubstance* right) {
+	return valueCompare(right);
+}
+
+AbstractExtObject* ClassTypeReference::instToClassExtObject(const UnicodeString* name, VTableRegistory* table) {
+	return nullptr;
+}
 
 } /* namespace alinous */
