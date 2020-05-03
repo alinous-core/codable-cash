@@ -12,6 +12,9 @@
 #include "sc_declare/MethodDeclare.h"
 #include "sc_declare/MemberVariableDeclare.h"
 
+#include "sc_expression/ConstructorCall.h"
+
+
 namespace alinous {
 
 AbstractExpression::AbstractExpression(int kind) : CodeElement(kind) {
@@ -24,6 +27,7 @@ AbstractExpression::~AbstractExpression() {
 }
 
 bool AbstractExpression::isStaticMode() noexcept {
+	bool mode = false;
 	CodeElement* element = this;
 
 	while(element != nullptr){
@@ -31,17 +35,19 @@ bool AbstractExpression::isStaticMode() noexcept {
 
 		if(elementKind == CodeElement::METHOD_DECLARE){
 			MethodDeclare* method = dynamic_cast<MethodDeclare*>(element);
-			return method->isStatic();
+			mode = method->isStatic();
+			break;
 		}
 		else if(elementKind == CodeElement::MEMBER_VARIABLE_DECLARE){
 			MemberVariableDeclare* member = dynamic_cast<MemberVariableDeclare*>(element);
-			return member->isStatic();
+			mode = member->isStatic();
+			break;
 		}
 
 		element = element->getParent();
 	}
 
-	return false;
+	return mode;
 }
 
 VariableInstractionHolder* AbstractExpression::getVariableInstractionHolder() noexcept {
