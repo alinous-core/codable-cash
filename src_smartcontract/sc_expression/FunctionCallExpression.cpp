@@ -11,6 +11,7 @@
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedClass.h"
 #include "sc_analyze/ValidationError.h"
+#include "sc_analyze/TypeResolver.h"
 
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/MethodDeclare.h"
@@ -27,6 +28,7 @@
 #include "variable_access/FunctionArguments.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #include "sc/SmartContract.h"
 
@@ -40,6 +42,8 @@
 #include "instance_gc/StackFloatingVariableHandler.h"
 
 #include "instance_exception/ExceptionInterrupt.h"
+
+
 namespace alinous {
 
 FunctionCallExpression::FunctionCallExpression() : AbstractExpression(CodeElement::EXP_FUNCTIONCALL) {
@@ -121,15 +125,21 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisC
 	staticMode = isStaticMode();
 
 	uint8_t instType = lastInst->getType();
-	if(instType == AbstractVariableInstraction::INSTRUCTION_CLASS_TYPE){
-		if(staticMode && !methodDeclare->isStatic()){
+	if(instType == AbstractVariableInstraction::INSTRUCTION_CLASS_TYPE && !methodDeclare->isStatic()){
+		if(staticMode){
 			// error
 			actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_CALL_NOSTATIC, actx->getCurrentElement(), L"The method can't invoke non-static method '{0}()'.", {this->strName});
 			return;
 		}
 
+		TypeResolver* resolver = actx->getTypeResolver();
+
+		AnalyzedType* thisType = resolver->getClassType(this); __STP(thisType);
+		AnalyzedClass* thisClass = thisType->getAnalyzedClass();
+
 		AnalyzedType at = lastInst->getAnalyzedType();
-		if(!athisClass->hasBaseClass(at.getAnalyzedClass())){
+		AnalyzedClass* sprcifiedClass = at.getAnalyzedClass();
+		if(!thisClass->hasBaseClass(sprcifiedClass)){
 			actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_INCOMPATIBLE_THIS, actx->getCurrentElement(), L"The method can't invoke non-static method '{0}()'.", {this->strName});
 			return;
 		}
