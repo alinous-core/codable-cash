@@ -38,7 +38,7 @@ bool AbstractExpression::isStaticMode() noexcept {
 			return member->isStatic();
 		}
 
-		element = getParent();
+		element = element->getParent();
 	}
 
 	return false;

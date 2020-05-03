@@ -1,7 +1,9 @@
 
 package test.fw;
 
-class SmartContract {
+import test.fw.BaseClass;
+
+class SmartContract extends BaseClass {
 	public SmartContract() {
 		this.count = getCount();
 	}
@@ -11,7 +13,7 @@ class SmartContract {
 	}
 	
 	public static int getCount() {
-		return main();
+		return 1;
 	}
 	
 	private int count;

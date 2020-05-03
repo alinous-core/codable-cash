@@ -123,6 +123,8 @@ void FunctionCallExpression::analyzeArguments(AnalyzeContext* actx) {
 }
 
 void FunctionCallExpression::analyzeMethodEntry(AnalyzeContext* actx, AnalyzedClass* athisClass) {
+	bool staticMode = isStaticMode();
+
 	ClassDeclare* classDec = athisClass->getClassDeclare();
 	const UnicodeString* fqn = classDec->getFullQualifiedName();
 
@@ -144,6 +146,12 @@ void FunctionCallExpression::analyzeMethodEntry(AnalyzeContext* actx, AnalyzedCl
 	if(this->methodEntry == nullptr){
 		// has no functions to call
 		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_NAME, actx->getCurrentElement(), L"The method '{0}()' does not exists.", {this->strName});
+		return;
+	}
+
+	// check static
+	if(staticMode && !this->methodEntry->isStatic()){
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_CALL_NOSTATIC, actx->getCurrentElement(), L"The method '{0}()' can't invoke non-static method.", {this->strName});
 		return;
 	}
 

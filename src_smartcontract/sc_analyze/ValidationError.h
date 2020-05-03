@@ -27,9 +27,11 @@ public:
 	static constexpr int CODE_NO_RETURN_METHOD_VALUE = 5;
 
 	static constexpr int CODE_VIRTUAL_FUNC_WITH_DIFFERENT_RETURN = 10;
+	static constexpr int CODE_VIRTUAL_FUNC_WITH_DIFFERENT_STATIC = 11;
 
 	static constexpr int CODE_WRONG_FUNC_CALL_NAME = 20;
 	static constexpr int CODE_WRONG_FUNC_CALL_AMBIGOUS = 21;
+	static constexpr int CODE_WRONG_FUNC_CALL_CANT_CALL_NOSTATIC = 22;
 
 	static constexpr int CODE_CLASS_MEMBER_ALREADY_EXISTS = 30;
 	static constexpr int CODE_CLASS_MEMBER_DOES_NOT_EXISTS = 31;
