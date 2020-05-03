@@ -109,7 +109,7 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 	}
 }
 
-void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisClass, AbstractVariableInstraction* lastIinst) {
+void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisClass, AbstractVariableInstraction* lastInst) {
 	bool staticMode = false;
 
 	setThrowsException(true);
@@ -117,7 +117,23 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisC
 	analyzeArguments(actx);
 	analyzeMethodEntry(actx, athisClass, staticMode);
 
+	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
+	staticMode = isStaticMode();
 
+	uint8_t instType = lastInst->getType();
+	if(instType == AbstractVariableInstraction::INSTRUCTION_CLASS_TYPE){
+		if(staticMode && !methodDeclare->isStatic()){
+			// error
+			actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_CALL_NOSTATIC, actx->getCurrentElement(), L"The method can't invoke non-static method '{0}()'.", {this->strName});
+			return;
+		}
+
+		AnalyzedType at = lastInst->getAnalyzedType();
+		if(!athisClass->hasBaseClass(at.getAnalyzedClass())){
+			actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_INCOMPATIBLE_THIS, actx->getCurrentElement(), L"The method can't invoke non-static method '{0}()'.", {this->strName});
+			return;
+		}
+	}
 }
 
 void FunctionCallExpression::analyzeArguments(AnalyzeContext* actx) {
@@ -155,7 +171,7 @@ void FunctionCallExpression::analyzeMethodEntry(AnalyzeContext* actx, AnalyzedCl
 
 	// check static
 	if(staticMode && !this->methodEntry->isStatic()){
-		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_CALL_NOSTATIC, actx->getCurrentElement(), L"The method '{0}()' can't invoke non-static method.", {this->strName});
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_CALL_NOSTATIC, actx->getCurrentElement(), L"The method can't invoke non-static method.'{0}()' ", {this->strName});
 		return;
 	}
 

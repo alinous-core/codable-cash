@@ -1,0 +1,14 @@
+
+
+package test.fw;
+
+class BaseClass {
+	public BaseClass(){
+	}
+	
+	public int getCount() {
+		return 10;
+	}
+	
+
+}

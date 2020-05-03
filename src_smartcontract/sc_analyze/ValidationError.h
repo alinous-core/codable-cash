@@ -32,6 +32,7 @@ public:
 	static constexpr int CODE_WRONG_FUNC_CALL_NAME = 20;
 	static constexpr int CODE_WRONG_FUNC_CALL_AMBIGOUS = 21;
 	static constexpr int CODE_WRONG_FUNC_CALL_CANT_CALL_NOSTATIC = 22;
+	static constexpr int CODE_WRONG_FUNC_CALL_CANT_INCOMPATIBLE_THIS = 23;
 
 	static constexpr int CODE_CLASS_MEMBER_ALREADY_EXISTS = 30;
 	static constexpr int CODE_CLASS_MEMBER_DOES_NOT_EXISTS = 31;
