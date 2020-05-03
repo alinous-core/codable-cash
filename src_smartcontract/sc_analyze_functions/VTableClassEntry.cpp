@@ -159,6 +159,13 @@ void VTableClassEntry::buildMethodSelf(ClassDeclare* clazz,	AnalyzeContext* actx
 		const UnicodeString* sigStr = method->getCallSignature();
 		AnalyzedType* retType = method->getReturnedType();
 
+		// debug
+		/*UnicodeString test(L"getCount");
+		if(method->getName()->equals(&test)){
+			int i = 0;
+			i++;
+		}*/
+
 		MethodDeclare* superMethod = getSuperClassMethod(method);
 		if(superMethod == nullptr){
 			addMethodEntry(method);
