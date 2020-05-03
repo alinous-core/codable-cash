@@ -141,3 +141,23 @@ TEST(TestStaticMethodAccessGroup, case07){
 
 	CHECK(param == 1);
 }
+
+TEST(TestStaticMethodAccessGroup, case08){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/access_inst/resources/staticm/case08/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	int param = VmTestUtils::getIntMemberValue(obj, L"count");
+
+	CHECK(param == 1);
+}
+
