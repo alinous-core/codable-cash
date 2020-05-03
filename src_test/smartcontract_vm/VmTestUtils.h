@@ -41,6 +41,8 @@ public:
 	bool createInstance();
 	ExtClassObject* getMainExtObject();
 
+	bool hasAnalyzeError(int errorType);
+
 	AnalyzedType* findClassDeclare(const wchar_t* classFqn);
 	AnalyzedType* findClassDeclare(const UnicodeString* classFqn);
 

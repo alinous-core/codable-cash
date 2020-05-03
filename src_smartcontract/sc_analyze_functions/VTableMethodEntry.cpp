@@ -28,7 +28,7 @@ MethodDeclare* VTableMethodEntry::getMethod() const noexcept {
 }
 
 bool VTableMethodEntry::isVirtual() const noexcept {
-	return this->type == METHOD_VIRTUAL || this->type == METHOD_VIRTUAL_SUPER;
+	return (this->type == METHOD_VIRTUAL || this->type == METHOD_VIRTUAL_SUPER) && !isStatic();
 }
 
 bool VTableMethodEntry::isStatic() const noexcept {

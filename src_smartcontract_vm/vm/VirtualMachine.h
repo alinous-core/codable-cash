@@ -48,6 +48,7 @@ public:
 	void loadSmartContract(SmartContract* sc);
 	void analyze();
 	bool hasError() noexcept;
+	bool hasAnalyzeError(int code) noexcept;
 
 	VmClassInstance* createScInstance();
 

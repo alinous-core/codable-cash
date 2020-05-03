@@ -11,6 +11,7 @@
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedClass.h"
 #include "sc_analyze/ValidationError.h"
+#include "sc_analyze/TypeResolver.h"
 
 #include "sc_declare/ClassDeclare.h"
 #include "sc_declare/MethodDeclare.h"
@@ -27,6 +28,7 @@
 #include "variable_access/FunctionArguments.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #include "sc/SmartContract.h"
 
@@ -40,6 +42,8 @@
 #include "instance_gc/StackFloatingVariableHandler.h"
 
 #include "instance_exception/ExceptionInterrupt.h"
+
+
 namespace alinous {
 
 FunctionCallExpression::FunctionCallExpression() : AbstractExpression(CodeElement::EXP_FUNCTIONCALL) {
@@ -74,6 +78,8 @@ void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
 
 	const UnicodeString* str = valId->getName();
 	this->strName = new UnicodeString(str);
+
+	setThrowsException(true);
 }
 
 void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
@@ -88,30 +94,56 @@ void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
  * needs actx->setThisClass
  */
 void FunctionCallExpression::analyze(AnalyzeContext* actx) {
-	setThrowsException(true);
+	bool staticMode = isStaticMode();
 
 	analyzeArguments(actx);
 
 	AnalyzedClass* athisClass = actx->getThisClass();
-	analyzeMethodEntry(actx, athisClass);
+	analyzeMethodEntry(actx, athisClass, staticMode);
 
 	if(this->methodEntry == nullptr){
 		return;
 	}
 
 	// this ptr
-	if(!this->methodEntry->isStatic()){
+	if(!staticMode && !this->methodEntry->isStatic()){
 		AnalyzeStackManager* astack = actx->getAnalyzeStackManager();
 		this->thisAccess = astack->getThisPointer();
 		this->thisAccess->analyze(actx, nullptr, this);
 	}
 }
 
-void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisClass) {
+void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisClass, AbstractVariableInstraction* lastInst) {
+	bool staticMode = false;
+
 	setThrowsException(true);
 
 	analyzeArguments(actx);
-	analyzeMethodEntry(actx, athisClass);
+	analyzeMethodEntry(actx, athisClass, staticMode);
+
+	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
+	staticMode = isStaticMode();
+
+	uint8_t instType = lastInst->getType();
+	if(instType == AbstractVariableInstraction::INSTRUCTION_CLASS_TYPE && !methodDeclare->isStatic()){
+		if(staticMode){
+			// error
+			actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_CALL_NOSTATIC, actx->getCurrentElement(), L"The method can't invoke non-static method '{0}()'.", {this->strName});
+			return;
+		}
+
+		TypeResolver* resolver = actx->getTypeResolver();
+
+		AnalyzedType* thisType = resolver->getClassType(this); __STP(thisType);
+		AnalyzedClass* thisClass = thisType->getAnalyzedClass();
+
+		AnalyzedType at = lastInst->getAnalyzedType();
+		AnalyzedClass* sprcifiedClass = at.getAnalyzedClass();
+		if(!thisClass->hasBaseClass(sprcifiedClass)){
+			actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_INCOMPATIBLE_THIS, actx->getCurrentElement(), L"The method can't invoke non-static method '{0}()'.", {this->strName});
+			return;
+		}
+	}
 }
 
 void FunctionCallExpression::analyzeArguments(AnalyzeContext* actx) {
@@ -122,7 +154,7 @@ void FunctionCallExpression::analyzeArguments(AnalyzeContext* actx) {
 	}
 }
 
-void FunctionCallExpression::analyzeMethodEntry(AnalyzeContext* actx, AnalyzedClass* athisClass) {
+void FunctionCallExpression::analyzeMethodEntry(AnalyzeContext* actx, AnalyzedClass* athisClass, bool staticMode) {
 	ClassDeclare* classDec = athisClass->getClassDeclare();
 	const UnicodeString* fqn = classDec->getFullQualifiedName();
 
@@ -144,6 +176,12 @@ void FunctionCallExpression::analyzeMethodEntry(AnalyzeContext* actx, AnalyzedCl
 	if(this->methodEntry == nullptr){
 		// has no functions to call
 		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_NAME, actx->getCurrentElement(), L"The method '{0}()' does not exists.", {this->strName});
+		return;
+	}
+
+	// check static
+	if(staticMode && !this->methodEntry->isStatic()){
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_CALL_NOSTATIC, actx->getCurrentElement(), L"The method can't invoke non-static method.'{0}()' ", {this->strName});
 		return;
 	}
 
@@ -246,6 +284,11 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm, VmClassInstance* classInst) {
+	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
+	if(methodDeclare->isStatic()){
+		return interpretStatic(vm, classInst, methodDeclare);
+	}
+
 	FunctionArguments args;
 	args.setThisPtr(classInst);
 
@@ -257,7 +300,20 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm, VmClas
 		return interpretVirtual(vm, &args);
 	}
 
-	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
+	methodDeclare->interpret(&args, vm);
+
+	ExceptionInterrupt::interruptPoint(vm);
+
+	return args.getReturnedValue();
+}
+
+AbstractVmInstance* FunctionCallExpression::interpretStatic(VirtualMachine* vm,	VmClassInstance* classInst, MethodDeclare* methodDeclare) {
+	FunctionArguments args;
+
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+	interpretArguments(vm, &args, &releaser);
+
 	methodDeclare->interpret(&args, vm);
 
 	ExceptionInterrupt::interruptPoint(vm);
@@ -268,7 +324,6 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm, VmClas
 void FunctionCallExpression::interpretThisPointer(VirtualMachine* vm, FunctionArguments* args) {
 	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
 
-	// this ptr
 	if(!methodDeclare->isStatic()){
 		AbstractVmInstance* inst = this->thisAccess->interpret(vm, nullptr);
 		ObjectReference* classRef = dynamic_cast<ObjectReference*>(inst);

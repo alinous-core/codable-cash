@@ -133,12 +133,6 @@ void VTableClassEntry::dobuildMethodSuperClass(ClassDeclare* clazz,	AnalyzeConte
 			continue;
 		}
 
-		AnalyzedType* retTypeSuper = superMethod->getReturnedType();
-		if(!retType->equals(retTypeSuper)){
-			actx->addValidationError(ValidationError::CODE_VIRTUAL_FUNC_WITH_DIFFERENT_RETURN, method, L"The method '{0}()' has supuer class method with different return type.", {method->getName()});
-			continue;
-		}
-
 		addSuperVirtualMethodImplEntry(method);
 	}
 }
@@ -165,9 +159,21 @@ void VTableClassEntry::buildMethodSelf(ClassDeclare* clazz,	AnalyzeContext* actx
 		const UnicodeString* sigStr = method->getCallSignature();
 		AnalyzedType* retType = method->getReturnedType();
 
+		// debug
+		/*UnicodeString test(L"getCount");
+		if(method->getName()->equals(&test)){
+			int i = 0;
+			i++;
+		}*/
+
 		MethodDeclare* superMethod = getSuperClassMethod(method);
 		if(superMethod == nullptr){
 			addMethodEntry(method);
+			continue;
+		}
+
+		if(superMethod->isStatic() != method->isStatic()){
+			actx->addValidationError(ValidationError::CODE_VIRTUAL_FUNC_WITH_DIFFERENT_STATIC, method, L"The method '{0}()' has supuer class method with different static type.", {method->getName()});
 			continue;
 		}
 
@@ -183,14 +189,26 @@ void VTableClassEntry::buildMethodSelf(ClassDeclare* clazz,	AnalyzeContext* actx
 
 
 void VTableClassEntry::addMethodEntry(MethodDeclare* method) {
-	VTableMethodEntry* entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_NORMAL);
-	this->methods.put(method->getCallSignature(), entry);
+	const UnicodeString* sig = method->getCallSignature();
+	VTableMethodEntry*  entry = this->methods.get(sig);
+
+	if(entry == nullptr){
+		entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_NORMAL);
+		this->methods.put(sig, entry);
+	}
+
 	addMethodNameEntry(entry);
 }
 
 void VTableClassEntry::addVirtualMethodImplEntry(MethodDeclare* method) {
-	VTableMethodEntry* entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_VIRTUAL);
-	this->methods.put(method->getCallSignature(), entry);
+	const UnicodeString* sig = method->getCallSignature();
+	VTableMethodEntry*  entry = this->methods.get(sig);
+
+	if(entry == nullptr){
+		entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_VIRTUAL);
+		this->methods.put(sig, entry);
+	}
+
 	addMethodNameEntry(entry);
 }
 

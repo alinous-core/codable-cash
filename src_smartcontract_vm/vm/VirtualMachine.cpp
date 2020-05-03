@@ -36,6 +36,7 @@
 #include "sc_analyze/AnalyzedClass.h"
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
 
 #include "instance_exception_class/VmExceptionInstance.h"
 
@@ -223,6 +224,23 @@ void VirtualMachine::analyze() {
 
 bool VirtualMachine::hasError() noexcept {
 	return this->sc->hasError();
+}
+
+bool VirtualMachine::hasAnalyzeError(int code) noexcept {
+	AnalyzeContext* actx = this->sc->getAnalyzeContext();
+	const ArrayList<ValidationError>* list = actx->getErrors();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		ValidationError* err = list->get(i);
+
+		int cd = err->getErrorCode();
+		if(cd == code){
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void VirtualMachine::newStack() {

@@ -36,7 +36,7 @@ void MemberFunctionCallAccess::analyze(AnalyzeContext* actx, AbstractVariableIns
 	AnalyzedType at = lastIinst->getAnalyzedType();
 	AnalyzedClass* aclass = at.getAnalyzedClass();
 
-	this->exp->analyze(actx, aclass);
+	this->exp->analyze(actx, aclass, lastIinst);
 	this->atype = new AnalyzedType(this->exp->getType(actx));
 }
 

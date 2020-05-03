@@ -32,6 +32,9 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm) = 0;
 
 	virtual bool isExecutable();
+
+	bool isStaticMode() noexcept;
+
 	bool throwsException() const noexcept;
 	void setThrowsException(bool exThrow) noexcept;
 

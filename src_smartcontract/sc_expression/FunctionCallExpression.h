@@ -20,6 +20,8 @@ class AnalyzedClass;
 class VmClassInstance;
 class VariableIdentifier;
 class StackFloatingVariableHandler;
+class AbstractVariableInstraction;
+class MethodDeclare;
 
 class FunctionCallExpression : public AbstractExpression {
 public:
@@ -30,7 +32,7 @@ public:
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 
-	void analyze(AnalyzeContext* actx, AnalyzedClass* athisClass);
+	void analyze(AnalyzeContext* actx, AnalyzedClass* athisClass, AbstractVariableInstraction* lastIinst);
 
 	void setName(AbstractExpression* exp) noexcept;
 	VariableIdentifier* getName() const noexcept;
@@ -49,8 +51,9 @@ public:
 
 private:
 	void analyzeArguments(AnalyzeContext* actx);
-	void analyzeMethodEntry(AnalyzeContext* actx, AnalyzedClass* athisClass);
+	void analyzeMethodEntry(AnalyzeContext* actx, AnalyzedClass* athisClass, bool staticMode);
 
+	AbstractVmInstance* interpretStatic(VirtualMachine* vm, VmClassInstance* classInst, MethodDeclare* methodDeclare);
 	AbstractVmInstance* interpretVirtual(VirtualMachine* vm, FunctionArguments* args);
 	void interpretThisPointer(VirtualMachine* vm, FunctionArguments* args);
 	void interpretArguments(VirtualMachine* vm, FunctionArguments* args, StackFloatingVariableHandler* releaser);

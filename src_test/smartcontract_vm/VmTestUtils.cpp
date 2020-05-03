@@ -56,6 +56,13 @@ bool VmTestUtils::analyze() {
 	return !vm->hasError();
 }
 
+/**
+ * check ValidationError
+ */
+bool VmTestUtils::hasAnalyzeError(int errorType) {
+	return this->vm->hasAnalyzeError(errorType);
+}
+
 bool VmTestUtils::createInstance() {
 	this->mainInst = vm->createScInstance();
 	ArrayList<Exception>& exceptions = vm->getExceptions();
