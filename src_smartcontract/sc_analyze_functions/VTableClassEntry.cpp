@@ -133,17 +133,6 @@ void VTableClassEntry::dobuildMethodSuperClass(ClassDeclare* clazz,	AnalyzeConte
 			continue;
 		}
 
-		if(superMethod->isStatic() != method->isStatic()){
-			actx->addValidationError(ValidationError::CODE_VIRTUAL_FUNC_WITH_DIFFERENT_STATIC, method, L"The method '{0}()' has supuer class method with different static type.", {method->getName()});
-			continue;
-		}
-
-		AnalyzedType* retTypeSuper = superMethod->getReturnedType();
-		if(!retType->equals(retTypeSuper)){
-			actx->addValidationError(ValidationError::CODE_VIRTUAL_FUNC_WITH_DIFFERENT_RETURN, method, L"The method '{0}()' has supuer class method with different return type.", {method->getName()});
-			continue;
-		}
-
 		addSuperVirtualMethodImplEntry(method);
 	}
 }
@@ -173,6 +162,11 @@ void VTableClassEntry::buildMethodSelf(ClassDeclare* clazz,	AnalyzeContext* actx
 		MethodDeclare* superMethod = getSuperClassMethod(method);
 		if(superMethod == nullptr){
 			addMethodEntry(method);
+			continue;
+		}
+
+		if(superMethod->isStatic() != method->isStatic()){
+			actx->addValidationError(ValidationError::CODE_VIRTUAL_FUNC_WITH_DIFFERENT_STATIC, method, L"The method '{0}()' has supuer class method with different static type.", {method->getName()});
 			continue;
 		}
 

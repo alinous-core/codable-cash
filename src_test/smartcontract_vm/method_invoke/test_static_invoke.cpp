@@ -57,3 +57,16 @@ TEST(TestStaticInvokeGroup, case02_err){
 	CHECK(util.hasAnalyzeError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_CALL_NOSTATIC));
 }
 
+TEST(TestStaticInvokeGroup, case03_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/method_invoke/resources/static/case03_err/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+
+	CHECK(util.hasAnalyzeError(ValidationError::CODE_VIRTUAL_FUNC_WITH_DIFFERENT_STATIC));
+}
+
