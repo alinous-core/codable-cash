@@ -74,6 +74,8 @@ void FunctionCallExpression::preAnalyze(AnalyzeContext* actx) {
 
 	const UnicodeString* str = valId->getName();
 	this->strName = new UnicodeString(str);
+
+	setThrowsException(true);
 }
 
 void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
@@ -88,30 +90,35 @@ void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
  * needs actx->setThisClass
  */
 void FunctionCallExpression::analyze(AnalyzeContext* actx) {
-	setThrowsException(true);
+	bool staticMode = isStaticMode();
 
 	analyzeArguments(actx);
 
 	AnalyzedClass* athisClass = actx->getThisClass();
-	analyzeMethodEntry(actx, athisClass);
+	analyzeMethodEntry(actx, athisClass, staticMode);
 
 	if(this->methodEntry == nullptr){
 		return;
 	}
 
 	// this ptr
-	if(!this->methodEntry->isStatic()){
+	if(!staticMode && !this->methodEntry->isStatic()){
 		AnalyzeStackManager* astack = actx->getAnalyzeStackManager();
 		this->thisAccess = astack->getThisPointer();
 		this->thisAccess->analyze(actx, nullptr, this);
 	}
 }
 
-void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisClass) {
+void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisClass, AbstractVariableInstraction* lastIinst) {
+	bool staticMode = false;
+	if(lastIinst == nullptr){
+		// FIXME static mode
+	}
+
 	setThrowsException(true);
 
 	analyzeArguments(actx);
-	analyzeMethodEntry(actx, athisClass);
+	analyzeMethodEntry(actx, athisClass, staticMode);
 }
 
 void FunctionCallExpression::analyzeArguments(AnalyzeContext* actx) {
@@ -122,9 +129,7 @@ void FunctionCallExpression::analyzeArguments(AnalyzeContext* actx) {
 	}
 }
 
-void FunctionCallExpression::analyzeMethodEntry(AnalyzeContext* actx, AnalyzedClass* athisClass) {
-	bool staticMode = isStaticMode();
-
+void FunctionCallExpression::analyzeMethodEntry(AnalyzeContext* actx, AnalyzedClass* athisClass, bool staticMode) {
 	ClassDeclare* classDec = athisClass->getClassDeclare();
 	const UnicodeString* fqn = classDec->getFullQualifiedName();
 

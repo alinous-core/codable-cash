@@ -194,7 +194,7 @@ void VTableClassEntry::addMethodEntry(MethodDeclare* method) {
 
 	if(entry == nullptr){
 		entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_NORMAL);
-		this->methods.put(method->getCallSignature(), entry);
+		this->methods.put(sig, entry);
 	}
 
 	addMethodNameEntry(entry);

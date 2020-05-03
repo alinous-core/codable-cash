@@ -91,7 +91,12 @@ void TestExecutor::execTest(TestParams* params) noexcept {
 		}
 
 		if(params->isV()){
-			printf("Testing Test Group : %ls\n", grp->getName()->towString());
+			UnicodeString* str = grp->getName();
+			assert(str != nullptr);
+			const wchar_t* wstr = str->towString();
+			assert(wstr != nullptr);
+
+			printf("Testing Test Group : %ls\n", wstr);
 		}
 
 		grp->execute(params);
