@@ -1,0 +1,24 @@
+
+package test.fw;
+
+import test.fw.BaseClass;
+
+class SmartContract {
+	public SmartContract() {
+		this.count = stget();
+	}
+	
+	public static int stget() {
+		return this.getCount();
+	}
+	
+	public int getCount() {
+		return 2;
+	}
+	
+	public int main(){
+		return 1;
+	}
+	
+	private int count;
+}
