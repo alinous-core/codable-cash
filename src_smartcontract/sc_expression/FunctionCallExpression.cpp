@@ -111,9 +111,6 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 
 void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisClass, AbstractVariableInstraction* lastIinst) {
 	bool staticMode = false;
-	if(lastIinst == nullptr){
-		// FIXME static mode
-	}
 
 	setThrowsException(true);
 
