@@ -116,6 +116,8 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisC
 
 	analyzeArguments(actx);
 	analyzeMethodEntry(actx, athisClass, staticMode);
+
+
 }
 
 void FunctionCallExpression::analyzeArguments(AnalyzeContext* actx) {
@@ -256,6 +258,11 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm, VmClassInstance* classInst) {
+	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
+	if(methodDeclare->isStatic()){
+		return interpretStatic(vm, classInst, methodDeclare);
+	}
+
 	FunctionArguments args;
 	args.setThisPtr(classInst);
 
@@ -267,7 +274,20 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm, VmClas
 		return interpretVirtual(vm, &args);
 	}
 
-	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
+	methodDeclare->interpret(&args, vm);
+
+	ExceptionInterrupt::interruptPoint(vm);
+
+	return args.getReturnedValue();
+}
+
+AbstractVmInstance* FunctionCallExpression::interpretStatic(VirtualMachine* vm,	VmClassInstance* classInst, MethodDeclare* methodDeclare) {
+	FunctionArguments args;
+
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+	interpretArguments(vm, &args, &releaser);
+
 	methodDeclare->interpret(&args, vm);
 
 	ExceptionInterrupt::interruptPoint(vm);
@@ -278,7 +298,6 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm, VmClas
 void FunctionCallExpression::interpretThisPointer(VirtualMachine* vm, FunctionArguments* args) {
 	MethodDeclare* methodDeclare = this->methodEntry->getMethod();
 
-	// this ptr
 	if(!methodDeclare->isStatic()){
 		AbstractVmInstance* inst = this->thisAccess->interpret(vm, nullptr);
 		ObjectReference* classRef = dynamic_cast<ObjectReference*>(inst);

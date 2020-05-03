@@ -21,6 +21,7 @@ class VmClassInstance;
 class VariableIdentifier;
 class StackFloatingVariableHandler;
 class AbstractVariableInstraction;
+class MethodDeclare;
 
 class FunctionCallExpression : public AbstractExpression {
 public:
@@ -52,6 +53,7 @@ private:
 	void analyzeArguments(AnalyzeContext* actx);
 	void analyzeMethodEntry(AnalyzeContext* actx, AnalyzedClass* athisClass, bool staticMode);
 
+	AbstractVmInstance* interpretStatic(VirtualMachine* vm, VmClassInstance* classInst, MethodDeclare* methodDeclare);
 	AbstractVmInstance* interpretVirtual(VirtualMachine* vm, FunctionArguments* args);
 	void interpretThisPointer(VirtualMachine* vm, FunctionArguments* args);
 	void interpretArguments(VirtualMachine* vm, FunctionArguments* args, StackFloatingVariableHandler* releaser);
