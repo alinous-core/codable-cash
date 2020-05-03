@@ -182,14 +182,26 @@ void VTableClassEntry::buildMethodSelf(ClassDeclare* clazz,	AnalyzeContext* actx
 
 
 void VTableClassEntry::addMethodEntry(MethodDeclare* method) {
-	VTableMethodEntry* entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_NORMAL);
-	this->methods.put(method->getCallSignature(), entry);
+	const UnicodeString* sig = method->getCallSignature();
+	VTableMethodEntry*  entry = this->methods.get(sig);
+
+	if(entry == nullptr){
+		entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_NORMAL);
+		this->methods.put(method->getCallSignature(), entry);
+	}
+
 	addMethodNameEntry(entry);
 }
 
 void VTableClassEntry::addVirtualMethodImplEntry(MethodDeclare* method) {
-	VTableMethodEntry* entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_VIRTUAL);
-	this->methods.put(method->getCallSignature(), entry);
+	const UnicodeString* sig = method->getCallSignature();
+	VTableMethodEntry*  entry = this->methods.get(sig);
+
+	if(entry == nullptr){
+		entry = new VTableMethodEntry(method, VTableMethodEntry::METHOD_VIRTUAL);
+		this->methods.put(sig, entry);
+	}
+
 	addMethodNameEntry(entry);
 }
 
