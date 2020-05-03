@@ -949,7 +949,7 @@ VariableIdentifier* variableIdentifier() : {
 	Token* t = nullptr;
 }
 {
-	(t=<IDENTIFIER> | t="this") {
+	(t=<IDENTIFIER> | t="this" | t="super") {
 		valId->setName(_STR(t));
 	}
 	{
