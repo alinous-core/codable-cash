@@ -52,6 +52,7 @@ FunctionCallExpression::FunctionCallExpression() : AbstractExpression(CodeElemen
 	this->methodEntry = nullptr;
 	this->thisAccess = nullptr;
 	this->callSignature = nullptr;
+	this->noVirtual = false;
 }
 
 FunctionCallExpression::~FunctionCallExpression() {
@@ -198,6 +199,10 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisC
 			return;
 		}
 	}
+
+	if(instType == AbstractVariableInstraction::INSTRUCTION_CLASS_TYPE){
+		this->noVirtual = true;
+	}
 }
 
 void FunctionCallExpression::analyzeArguments(AnalyzeContext* actx) {
@@ -326,7 +331,7 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
 	StackFloatingVariableHandler releaser(gc);
 	interpretArguments(vm, &args, &releaser);
 
-	if(this->methodEntry->isVirtual()){
+	if(!this->noVirtual && this->methodEntry->isVirtual()){
 		return interpretVirtual(vm, &args);
 	}
 
@@ -351,7 +356,7 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm, VmClas
 	StackFloatingVariableHandler releaser(gc);
 	interpretArguments(vm, &args, &releaser);
 
-	if(this->methodEntry->isVirtual()){
+	if(!this->noVirtual && this->methodEntry->isVirtual()){
 		return interpretVirtual(vm, &args);
 	}
 
