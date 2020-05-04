@@ -159,15 +159,18 @@ void FunctionCallExpression::analyzeSuperConstructorEntry(AnalyzeContext* actx) 
 		return;
 	}
 
-	// FIXME
-
 	this->callSignature = this->methodEntry->getMethod()->getCallSignature();
+
+	// this ptr
+	if(!staticMode && !this->methodEntry->isStatic()){
+		AnalyzeStackManager* astack = actx->getAnalyzeStackManager();
+		this->thisAccess = astack->getThisPointer();
+		this->thisAccess->analyze(actx, nullptr, this);
+	}
 }
 
 void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisClass, AbstractVariableInstraction* lastInst) {
 	bool staticMode = false;
-
-	setThrowsException(true);
 
 	analyzeArguments(actx);
 	analyzeMethodEntry(actx, athisClass, staticMode);
