@@ -69,21 +69,19 @@ void StatementBlock::preAnalyze(AnalyzeContext* actx) {
 void StatementBlock::adjustDecalutConstructorCall(AnalyzeContext* actx) {
 	ClassDeclare* clazzDec = getClassDeclare();
 	ClassExtends* ext = clazzDec->getExtends();
-	if(ext == nullptr){
-		return;
-	}
 
 	int maxLoop = this->statements.size();
-
-	if(maxLoop == 0 || (maxLoop > 0 && !this->statements.get(0)->hasConstructor())){
-		addConstructor(actx);
+	if(ext != nullptr){
+		if(maxLoop == 0 || (maxLoop > 0 && !this->statements.get(0)->hasConstructor())){
+			addConstructor(actx);
+		}
 	}
 
 	for(int i = 1; i < maxLoop; ++i){
 		AbstractStatement* stmt = this->statements.get(i);
 
 		if(stmt->hasConstructor()){
-			actx->addValidationError(ValidationError::CODE_CONSTRUCTOR_MUST_BE_FIRST_STMT, actx->getCurrentElement()
+			actx->addValidationError(ValidationError::CODE_CONSTRUCTOR_MUST_BE_FIRST_STMT, stmt
 					, L"The super class constructor must be at the first of constructor.", {});
 			break;
 		}
