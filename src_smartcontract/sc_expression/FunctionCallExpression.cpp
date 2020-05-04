@@ -146,6 +146,11 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisC
 	}
 }
 
+void FunctionCallExpression::analyzeSuperConstructorEntry(AnalyzeContext* actx, AnalyzedClass* athisClass, bool staticMode) {
+
+
+}
+
 void FunctionCallExpression::analyzeArguments(AnalyzeContext* actx) {
 	int maxLoop = this->args.size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -187,6 +192,7 @@ void FunctionCallExpression::analyzeMethodEntry(AnalyzeContext* actx, AnalyzedCl
 
 	this->callSignature = this->methodEntry->getMethod()->getCallSignature();
 }
+
 
 void FunctionCallExpression::setName(AbstractExpression* exp) noexcept {
 	this->name = exp;

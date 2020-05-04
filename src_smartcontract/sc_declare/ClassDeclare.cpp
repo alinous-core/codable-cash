@@ -257,6 +257,10 @@ void ClassDeclare::setExtends(ClassExtends* extends) noexcept {
 	this->extends = extends;
 }
 
+ClassExtends* ClassDeclare::getExtends() const noexcept {
+	return this->extends;
+}
+
 void ClassDeclare::setImplements(ClassImplements* implements) noexcept {
 	this->implements = implements;
 }

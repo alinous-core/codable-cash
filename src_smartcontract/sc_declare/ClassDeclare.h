@@ -47,6 +47,8 @@ public:
 	void setExtends(ClassExtends* extends) noexcept;
 	void setImplements(ClassImplements* implements) noexcept;
 
+	ClassExtends* getExtends() const noexcept;
+
 	virtual const UnicodeString* getName() noexcept;
 	virtual const UnicodeString* getFullQualifiedName() noexcept;
 

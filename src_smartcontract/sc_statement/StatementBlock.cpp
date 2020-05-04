@@ -9,11 +9,13 @@
 
 #include "sc_declare/MethodDeclare.h"
 #include "sc_declare/ArgumentsListDeclare.h"
+#include "sc_declare/ArgumentDeclare.h"
+#include "sc_declare/ClassExtends.h"
+#include "sc_declare/ClassDeclare.h"
 
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/TypeResolver.h"
 #include "sc_analyze/AnalyzedType.h"
-#include "sc_declare/ArgumentDeclare.h"
 
 #include "sc_analyze_stack/AnalyzeStackManager.h"
 #include "sc_analyze_stack/AnalyzeStackPopper.h"
@@ -65,6 +67,12 @@ void StatementBlock::preAnalyze(AnalyzeContext* actx) {
 }
 
 void StatementBlock::adjustDecalutConstructorCall(AnalyzeContext* actx) {
+	ClassDeclare* clazzDec = getClassDeclare();
+	ClassExtends* ext = clazzDec->getExtends();
+	if(ext == nullptr){
+		return;
+	}
+
 	int maxLoop = this->statements.size();
 
 	if(maxLoop == 0 || (maxLoop > 0 && !this->statements.get(0)->hasConstructor())){
