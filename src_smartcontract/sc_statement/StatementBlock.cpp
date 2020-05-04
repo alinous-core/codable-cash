@@ -19,6 +19,7 @@
 #include "sc_analyze_stack/AnalyzeStackPopper.h"
 #include "sc_analyze_stack/AnalyzedStackReference.h"
 #include "sc_analyze_stack/AnalyzeStack.h"
+#include "sc_analyze/ValidationError.h"
 
 #include "base/StackRelease.h"
 
@@ -33,16 +34,25 @@
 #include "vm_ctrl/ExecControlManager.h"
 
 #include "vm_ctrl/AbstractCtrlInstruction.h"
+
+#include "sc_statement/ExpressionStatement.h"
+
+#include "sc_expression/FunctionCallExpression.h"
+#include "sc_expression/VariableIdentifier.h"
+
+
 namespace alinous {
 
 StatementBlock::StatementBlock() : AbstractStatement(CodeElement::STMT_BLOCK) {
 	this->blockState = nullptr;
 	this->bctrl = false;
+	this->autoConstructor = nullptr;
 }
 
 StatementBlock::~StatementBlock() {
 	this->statements.deleteElements();
 	delete this->blockState;
+	delete this->autoConstructor;
 }
 
 void StatementBlock::preAnalyze(AnalyzeContext* actx) {
@@ -57,7 +67,7 @@ void StatementBlock::preAnalyze(AnalyzeContext* actx) {
 void StatementBlock::adjustDecalutConstructorCall(AnalyzeContext* actx) {
 	int maxLoop = this->statements.size();
 
-	if(maxLoop > 0 && !this->statements.get(0)->hasConstructor()){
+	if(maxLoop == 0 || (maxLoop > 0 && !this->statements.get(0)->hasConstructor())){
 		addConstructor(actx);
 	}
 
@@ -65,20 +75,37 @@ void StatementBlock::adjustDecalutConstructorCall(AnalyzeContext* actx) {
 		AbstractStatement* stmt = this->statements.get(i);
 
 		if(stmt->hasConstructor()){
-
+			actx->addValidationError(ValidationError::CODE_CONSTRUCTOR_MUST_BE_FIRST_STMT, actx->getCurrentElement()
+					, L"The super class constructor must be at the first of constructor.", {});
 			break;
 		}
 	}
-
-	// FIXME
 }
 
 void StatementBlock::addConstructor(AnalyzeContext* actx) {
+	this->autoConstructor = new ExpressionStatement();
+	this->autoConstructor->setPosition(this);
+	this->autoConstructor->setParent(this);
 
+	FunctionCallExpression* call = new FunctionCallExpression();
+	call->setPosition(this);
 
+	VariableIdentifier* valId = new VariableIdentifier();
+	UnicodeString* name = new UnicodeString(VariableIdentifier::__SUPER);
+	valId->setName(name);
+
+	call->setName(valId);
+
+	this->autoConstructor->setExpression(call);
+
+	this->autoConstructor->preAnalyze(actx);
 }
 
 void StatementBlock::analyzeTypeRef(AnalyzeContext* actx) {
+	if(this->autoConstructor != nullptr){
+		this->autoConstructor->analyzeTypeRef(actx);
+	}
+
 	int maxLoop = this->statements.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractStatement* stmt = this->statements.get(i);
@@ -145,6 +172,10 @@ void StatementBlock::analyzeMethodDeclareBlock(AnalyzeContext* actx) {
 
 	ArgumentsListDeclare* arguments = method->getArguments();
 	buildFunctionArguments2AnalyzedStack(arguments, stack);
+
+	if(this->autoConstructor != nullptr){
+		this->autoConstructor->analyze(actx);
+	}
 
 	int maxLoop = this->statements.size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -231,6 +262,15 @@ void StatementBlock::interpret(VirtualMachine* vm) {
 
 
 	ExecControlManager* ctrl = vm->getCtrl();
+
+	if(this->autoConstructor != nullptr){
+		this->autoConstructor->interpret(vm);
+
+		int stat = ctrl->checkStatementCtrl(this->blockState, this->autoConstructor);
+		if(stat == AbstractCtrlInstruction::RET_BREAK || stat == AbstractCtrlInstruction::RET_CONTINUE || stat == AbstractCtrlInstruction::RET_THROW){
+			return;
+		}
+	}
 
 	int maxLoop = this->statements.size();
 	for(int i = 0; i != maxLoop; ++i){

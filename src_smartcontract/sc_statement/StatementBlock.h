@@ -9,6 +9,7 @@
 #define SC_STATEMENT_STATEMENTBLOCK_H_
 
 #include "sc_statement/AbstractStatement.h"
+
 #include "base/ArrayList.h"
 
 namespace alinous {
@@ -16,6 +17,7 @@ namespace alinous {
 class ArgumentsListDeclare;
 class AnalyzeStack;
 class BlockState;
+class ExpressionStatement;
 
 class StatementBlock : public AbstractStatement {
 public:
@@ -49,6 +51,8 @@ private:
 private:
 	ArrayList<AbstractStatement> statements;
 	BlockState* blockState;
+
+	ExpressionStatement* autoConstructor;
 
 	bool bctrl;
 };
