@@ -94,6 +94,11 @@ void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
  * needs actx->setThisClass
  */
 void FunctionCallExpression::analyze(AnalyzeContext* actx) {
+	if(isSuperConstructorCall()){
+		analyzeSuperConstructorEntry(actx);
+		return;
+	}
+
 	bool staticMode = isStaticMode();
 
 	analyzeArguments(actx);
@@ -111,6 +116,52 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 		this->thisAccess = astack->getThisPointer();
 		this->thisAccess->analyze(actx, nullptr, this);
 	}
+}
+
+void FunctionCallExpression::analyzeSuperConstructorEntry(AnalyzeContext* actx) {
+	bool staticMode = isStaticMode();
+	if(staticMode){
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_CALL_NOSTATIC, this, L"The static method can't use super class constructor.", {});
+		return;
+	}
+
+	analyzeArguments(actx);
+
+	AnalyzedClass* athisClass = actx->getThisClass();
+
+	AnalyzedClass* superClass = athisClass->getExtends();
+	if(superClass == nullptr){
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_USE_SUPER_CONSTRUCTOR, this, L"the class don't have super class.", {});
+		return;
+	}
+
+	const UnicodeString* name = superClass->getClassDeclare()->getName();
+	const UnicodeString* fqn = superClass->getFullQualifiedName();
+
+	ArrayList<AnalyzedType> typeList;
+	typeList.setDeleteOnExit();
+
+	int maxLoop = this->args.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		AnalyzedType type = exp->getType(actx);
+		typeList.addElement(new AnalyzedType(type));
+	}
+
+	VTableRegistory* vreg = actx->getVtableRegistory();
+	VTableClassEntry* classEntry = vreg->getClassEntry(fqn, superClass);
+
+	actx->setCurrentElement(this);
+	this->methodEntry = classEntry->findEntry(actx, name, &typeList);
+	if(this->methodEntry == nullptr){
+		// has no functions to call
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_NAME, actx->getCurrentElement(), L"The method '{0}()' does not exists.", {this->strName});
+		return;
+	}
+
+	// FIXME
+
+	this->callSignature = this->methodEntry->getMethod()->getCallSignature();
 }
 
 void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisClass, AbstractVariableInstraction* lastInst) {
@@ -144,11 +195,6 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisC
 			return;
 		}
 	}
-}
-
-void FunctionCallExpression::analyzeSuperConstructorEntry(AnalyzeContext* actx, AnalyzedClass* athisClass, bool staticMode) {
-
-
 }
 
 void FunctionCallExpression::analyzeArguments(AnalyzeContext* actx) {
