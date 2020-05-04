@@ -95,7 +95,7 @@ bool ExpressionStatement::hasConstructor() const noexcept {
 	short kind = this->exp->getKind();
 	if(CodeElement::EXP_FUNCTIONCALL == kind){
 		FunctionCallExpression* funcCall = dynamic_cast<FunctionCallExpression*>(this->exp);
-
+		return funcCall->isSuperConstructorCall();
 	}
 
 	return false;

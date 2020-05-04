@@ -37,6 +37,7 @@
 namespace alinous {
 
 const UnicodeString VariableIdentifier::__THIS(L"this");
+const UnicodeString VariableIdentifier::__SUPER(L"super");
 
 VariableIdentifier::VariableIdentifier() : AbstractExpression(CodeElement::EXP_VARIABLE_ID) {
 	this->name = nullptr;
@@ -172,5 +173,8 @@ bool VariableIdentifier::isThis() const noexcept {
 	return __THIS.equals(this->name);
 }
 
+bool VariableIdentifier::isSuper() const noexcept {
+	return __SUPER.equals(this->name);
+}
 
 } /* namespace alinous */

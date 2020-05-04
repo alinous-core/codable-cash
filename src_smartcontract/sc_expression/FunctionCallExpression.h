@@ -49,6 +49,7 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 	AbstractVmInstance* interpret(VirtualMachine* vm, VmClassInstance* classInst);
 
+	bool isSuperConstructorCall() const noexcept;
 private:
 	void analyzeArguments(AnalyzeContext* actx);
 	void analyzeMethodEntry(AnalyzeContext* actx, AnalyzedClass* athisClass, bool staticMode);

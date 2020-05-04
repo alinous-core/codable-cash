@@ -382,4 +382,10 @@ AbstractVmInstance* FunctionCallExpression::interpretVirtual(VirtualMachine* vm,
 	return args->getReturnedValue();
 }
 
+bool FunctionCallExpression::isSuperConstructorCall() const noexcept {
+	VariableIdentifier* valId = dynamic_cast<VariableIdentifier*>(this->name);
+
+	return valId != nullptr ? valId->isSuper() : false;
+}
+
 } /* namespace alinous */
