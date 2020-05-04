@@ -19,5 +19,9 @@ bool AbstractStatement::isExecutable() {
 	return true;
 }
 
+bool AbstractStatement::hasConstructor() const noexcept {
+	return false;
+}
+
 
 } /* namespace alinous */

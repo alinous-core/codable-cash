@@ -37,11 +37,15 @@ public:
 	virtual void interpret(VirtualMachine* vm);
 
 	virtual bool hasCtrlStatement() const noexcept;
+
+	void adjustDecalutConstructorCall(AnalyzeContext* actx);
 private:
 	void analyzeBlockState(AnalyzeContext* actx);
 	void analyzeMethodDeclareBlock(AnalyzeContext* actx);
 	void buildFunctionArguments2AnalyzedStack(ArgumentsListDeclare* arguments, AnalyzeStack* stack) const;
 	void interpretFunctionArguments(VirtualMachine* vm);
+
+	void addConstructor(AnalyzeContext* actx);
 private:
 	ArrayList<AbstractStatement> statements;
 	BlockState* blockState;

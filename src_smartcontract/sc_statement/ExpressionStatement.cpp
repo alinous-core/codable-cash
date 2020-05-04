@@ -6,7 +6,9 @@
  */
 
 #include "sc_statement/ExpressionStatement.h"
+
 #include "sc_expression/AbstractExpression.h"
+#include "sc_expression/FunctionCallExpression.h"
 
 #include "instance_gc/GcManager.h"
 
@@ -15,6 +17,8 @@
 #include "instance/AbstractVmInstance.h"
 
 #include "instance_exception/ExceptionInterrupt.h"
+
+
 namespace alinous {
 
 ExpressionStatement::ExpressionStatement() : AbstractStatement(CodeElement::STMT_EXPRESSION) {
@@ -85,6 +89,16 @@ void ExpressionStatement::interpret(VirtualMachine* vm) {
 
 bool ExpressionStatement::hasCtrlStatement() const noexcept {
 	return this->bctrl;
+}
+
+bool ExpressionStatement::hasConstructor() const noexcept {
+	short kind = this->exp->getKind();
+	if(CodeElement::EXP_FUNCTIONCALL == kind){
+		FunctionCallExpression* funcCall = dynamic_cast<FunctionCallExpression*>(this->exp);
+
+	}
+
+	return false;
 }
 
 } /* namespace alinous */

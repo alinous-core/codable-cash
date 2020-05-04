@@ -54,6 +54,30 @@ void StatementBlock::preAnalyze(AnalyzeContext* actx) {
 	}
 }
 
+void StatementBlock::adjustDecalutConstructorCall(AnalyzeContext* actx) {
+	int maxLoop = this->statements.size();
+
+	if(maxLoop > 0 && !this->statements.get(0)->hasConstructor()){
+		addConstructor(actx);
+	}
+
+	for(int i = 1; i < maxLoop; ++i){
+		AbstractStatement* stmt = this->statements.get(i);
+
+		if(stmt->hasConstructor()){
+
+			break;
+		}
+	}
+
+	// FIXME
+}
+
+void StatementBlock::addConstructor(AnalyzeContext* actx) {
+
+
+}
+
 void StatementBlock::analyzeTypeRef(AnalyzeContext* actx) {
 	int maxLoop = this->statements.size();
 	for(int i = 0; i != maxLoop; ++i){

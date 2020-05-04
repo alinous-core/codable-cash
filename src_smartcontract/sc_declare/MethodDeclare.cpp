@@ -65,6 +65,10 @@ void MethodDeclare::preAnalyze(AnalyzeContext* actx) {
 
 	if(this->block != nullptr){
 		this->block->setParent(this);
+
+		if(isConstructor()){
+			this->block->adjustDecalutConstructorCall(actx);
+		}
 		this->block->preAnalyze(actx);
 	}
 }
