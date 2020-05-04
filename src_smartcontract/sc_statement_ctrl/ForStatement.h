@@ -37,6 +37,7 @@ public:
 	virtual void interpret(VirtualMachine* vm);
 
 	virtual bool hasCtrlStatement() const noexcept;
+	virtual bool hasConstructor() const noexcept;
 private:
 	AbstractStatement* initStatement;
 	AbstractExpression* cond;

@@ -171,4 +171,8 @@ bool DoWhileStatement::hasCtrlStatement() const noexcept {
 	return this->bctrl;
 }
 
+bool DoWhileStatement::hasConstructor() const noexcept {
+	return this->stmt->hasConstructor();
+}
+
 } /* namespace alinous */

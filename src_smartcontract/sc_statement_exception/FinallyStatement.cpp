@@ -74,4 +74,8 @@ void FinallyStatement::setBlock(StatementBlock* block) noexcept {
 	this->block = block;
 }
 
+bool FinallyStatement::hasConstructor() const noexcept {
+	return this->block->hasConstructor();
+}
+
 } /* namespace alinous */

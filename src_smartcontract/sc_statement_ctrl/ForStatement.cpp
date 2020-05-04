@@ -265,4 +265,16 @@ bool ForStatement::hasCtrlStatement() const noexcept {
 	return this->bctrl;
 }
 
+bool ForStatement::hasConstructor() const noexcept {
+	bool ret = this->stmt->hasConstructor();
+
+	if(this->initStatement != nullptr){
+		ret = ret || this->initStatement->hasConstructor();
+	}
+	if(this->postLoop != nullptr){
+		ret = ret || this->postLoop->hasConstructor();
+	}
+	return ret;
+}
+
 } /* namespace alinous */

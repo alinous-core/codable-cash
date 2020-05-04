@@ -169,4 +169,10 @@ void CatchStatement::setVariableDeclare(VariableDeclareStatement* variableDeclar
 	this->variableDeclare = variableDeclare;
 }
 
+bool CatchStatement::hasConstructor() const noexcept {
+	bool ret = this->block->hasConstructor();
+
+	return ret;
+}
+
 } /* namespace alinous */

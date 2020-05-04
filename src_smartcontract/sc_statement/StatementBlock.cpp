@@ -297,6 +297,20 @@ bool StatementBlock::hasCtrlStatement() const noexcept {
 	return this->bctrl;
 }
 
+
+bool StatementBlock::hasConstructor() const noexcept {
+	bool ret = false;
+
+	int maxLoop = this->statements.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractStatement* stmt = this->statements.get(i);
+
+		ret = ret || stmt->hasConstructor();
+	}
+
+	return ret;
+}
+
 void StatementBlock::interpretFunctionArguments(VirtualMachine* vm) {
 	MethodDeclare* method = dynamic_cast<MethodDeclare*>(this->parent);
 	FunctionArguments* args = vm->getFunctionArguments();
