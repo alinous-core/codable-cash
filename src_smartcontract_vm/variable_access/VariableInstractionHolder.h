@@ -34,6 +34,7 @@ public:
 	AbstractVmInstance* interpret(VirtualMachine* vm);
 private:
 	AbstractVariableInstraction* detectNonStackInstruction(VariableIdentifier* valId, AnalyzeContext* actx) noexcept;
+	AbstractVariableInstraction* handleSuper(VariableIdentifier* valId, AnalyzeContext* actx) noexcept;
 	void addVariableIdExp(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 	AbstractVariableInstraction* doAddVariableIdExp(AbstractExpression* exp, AnalyzeContext* actx) noexcept;
 	StackVariableAccess* handleStackVariableIdExp(VariableIdentifier* valId, AbstractExpression* exp, AnalyzeContext* actx) noexcept;

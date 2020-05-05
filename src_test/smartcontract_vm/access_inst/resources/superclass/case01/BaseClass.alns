@@ -1,0 +1,15 @@
+
+package test.fw.base;
+
+
+class BaseClass implements Ifclass {
+	public BaseClass(){
+		this.count = 10;
+	}
+
+	public void test() {
+	
+	}
+
+	private int count;
+}

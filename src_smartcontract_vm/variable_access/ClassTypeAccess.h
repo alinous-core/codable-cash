@@ -12,9 +12,12 @@
 
 namespace alinous {
 
+class VariableIdentifier;
+
 class ClassTypeAccess : public AbstractVariableInstraction {
 public:
 	explicit ClassTypeAccess(const AnalyzedType* atype);
+	ClassTypeAccess(VariableIdentifier* superId);
 	virtual ~ClassTypeAccess();
 
 	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element);
@@ -24,8 +27,13 @@ public:
 	virtual CodeElement* getCodeElement() const noexcept;
 
 private:
+	void analyzeSuperId(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element);
+
+private:
 	CodeElement* element;
 	AnalyzedType* atype;
+
+	VariableIdentifier* superId;
 };
 
 } /* namespace alinous */
