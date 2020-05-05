@@ -17,7 +17,7 @@ class VariableIdentifier;
 class ClassTypeAccess : public AbstractVariableInstraction {
 public:
 	explicit ClassTypeAccess(const AnalyzedType* atype);
-	ClassTypeAccess(VariableIdentifier* superId);
+	explicit ClassTypeAccess(VariableIdentifier* superId);
 	virtual ~ClassTypeAccess();
 
 	virtual void analyze(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element);

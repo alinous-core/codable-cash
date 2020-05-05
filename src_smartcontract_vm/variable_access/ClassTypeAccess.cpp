@@ -25,7 +25,9 @@
 
 #include "base/StackRelease.h"
 
+#include "instance/VmClassInstance.h"
 
+#include "variable_access/FunctionArguments.h"
 namespace alinous {
 
 ClassTypeAccess::ClassTypeAccess(const AnalyzedType* atype)
@@ -77,6 +79,13 @@ AnalyzedType ClassTypeAccess::getAnalyzedType() const noexcept {
 }
 
 AbstractVmInstance* ClassTypeAccess::interpret(VirtualMachine* vm, AbstractVmInstance* lastInst) {
+	if(this->superId != nullptr){
+		FunctionArguments* args = vm->getFunctionArguments();
+		VmClassInstance* inst = args->getThisPtr();
+
+		return inst;
+	}
+
 	SmartContract* sc = vm->getSmartContract();
 	VmRootReference* root = sc->getRootReference();
 

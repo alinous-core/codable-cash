@@ -4,5 +4,4 @@ package test.fw.base;
 
 interface Ifclass {
 	public void test();
-;
 }

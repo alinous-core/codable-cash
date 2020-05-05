@@ -141,8 +141,9 @@ AbstractVariableInstraction* VariableInstractionHolder::detectNonStackInstructio
 }
 
 AbstractVariableInstraction* VariableInstractionHolder::handleSuper(VariableIdentifier* valId, AnalyzeContext* actx) noexcept {
-	ClassDeclare* classDeclare = valId->getClassDeclare();
+	ClassTypeAccess* inst = new ClassTypeAccess(valId);
 
+	return inst;
 }
 
 StackVariableAccess* VariableInstractionHolder::handleStackVariableIdExp(VariableIdentifier* valId, AbstractExpression* exp, AnalyzeContext* actx) noexcept {

@@ -1,6 +1,7 @@
 
 package test.fw.base;
 
+import test.fw.base.Ifclass;
 
 class BaseClass implements Ifclass {
 	public BaseClass(){
@@ -8,7 +9,7 @@ class BaseClass implements Ifclass {
 	}
 
 	public void test() {
-	
+		this.count = 20;
 	}
 
 	private int count;
