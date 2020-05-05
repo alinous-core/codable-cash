@@ -71,7 +71,7 @@ void ClassTypeAccess::analyzeSuperId(AnalyzeContext* actx, AbstractVariableInstr
 		return;
 	}
 
-	this->atype = new AnalyzedType(new AnalyzedClass(*superClazz));
+	this->atype = new AnalyzedType(superClazz);
 }
 
 AnalyzedType ClassTypeAccess::getAnalyzedType() const noexcept {
