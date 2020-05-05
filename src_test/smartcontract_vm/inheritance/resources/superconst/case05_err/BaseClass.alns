@@ -1,0 +1,13 @@
+
+package test.fw.base;
+
+
+class BaseClass {
+	public BaseClass(){
+		super();
+		count = 10;
+	}
+
+
+	private int count;
+}

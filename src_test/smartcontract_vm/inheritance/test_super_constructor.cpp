@@ -92,5 +92,20 @@ TEST(TestSuperConstructorGroup, case04_err){
 	CHECK(!result)
 
 	CHECK(util.vm->hasAnalyzeError(ValidationError::CODE_CONSTRUCTOR_MUST_BE_FIRST_STMT));
+}
+
+TEST(TestSuperConstructorGroup, case05_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/inheritance/resources/superconst/case05_err/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+
+	CHECK(util.vm->hasAnalyzeError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_CALL_NOSTATIC));
+	CHECK(util.vm->hasAnalyzeError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_USE_SUPER_CONSTRUCTOR));
+	CHECK(util.vm->hasAnalyzeError(ValidationError::CODE_WRONG_FUNC_CALL_NAME));
 
 }
