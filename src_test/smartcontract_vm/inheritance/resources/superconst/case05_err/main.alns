@@ -15,10 +15,10 @@ class SmartContract extends BaseClass {
 	}
 	
 	public int main(){
-
+		super();
 	}
 	
-
+	public int a = super();
 	
 
 }

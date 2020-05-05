@@ -126,6 +126,11 @@ void FunctionCallExpression::analyzeSuperConstructorEntry(AnalyzeContext* actx) 
 		return;
 	}
 
+	if(!isOnConstructor()){
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_USE_SUPER_CONSTRUCTOR, this, L"The non-constructor method can't use super class constructor.", {});
+		return;
+	}
+
 	analyzeArguments(actx);
 
 	AnalyzedClass* athisClass = actx->getThisClass();
@@ -168,6 +173,22 @@ void FunctionCallExpression::analyzeSuperConstructorEntry(AnalyzeContext* actx) 
 		this->thisAccess = astack->getThisPointer();
 		this->thisAccess->analyze(actx, nullptr, this);
 	}
+}
+
+bool FunctionCallExpression::isOnConstructor() const noexcept {
+	const CodeElement* element = this;
+
+	while(element != nullptr){
+		short kind = element->getKind();
+		if(kind == CodeElement::METHOD_DECLARE){
+			const MethodDeclare* method = dynamic_cast<const MethodDeclare*>(element);
+			return method->isConstructor();
+		}
+
+		element = element->getParent();
+	}
+
+	return false;
 }
 
 void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisClass, AbstractVariableInstraction* lastInst) {

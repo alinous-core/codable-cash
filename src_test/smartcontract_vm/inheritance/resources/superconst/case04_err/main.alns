@@ -11,10 +11,9 @@ class SmartContract extends BaseClass {
 	}
 	
 	public int main(){
-
+		
 	}
 	
 
-	
 
 }
