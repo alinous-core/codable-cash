@@ -122,6 +122,10 @@ AbstractVariableInstraction* VariableInstractionHolder::doAddVariableIdExp(Abstr
 }
 
 AbstractVariableInstraction* VariableInstractionHolder::detectNonStackInstruction(VariableIdentifier* valId, AnalyzeContext* actx) noexcept {
+	if(valId->isSuper()){
+		return handleSuper(valId, actx);
+	}
+
 	TypeResolver* resolver = actx->getTypeResolver();
 
 	const UnicodeString* idName = valId->getName();
@@ -134,6 +138,12 @@ AbstractVariableInstraction* VariableInstractionHolder::detectNonStackInstructio
 
 	this->memberAccess = true;
 	return new MemberVariableAccess(valId);
+}
+
+AbstractVariableInstraction* VariableInstractionHolder::handleSuper(VariableIdentifier* valId, AnalyzeContext* actx) noexcept {
+	ClassTypeAccess* inst = new ClassTypeAccess(valId);
+
+	return inst;
 }
 
 StackVariableAccess* VariableInstractionHolder::handleStackVariableIdExp(VariableIdentifier* valId, AbstractExpression* exp, AnalyzeContext* actx) noexcept {

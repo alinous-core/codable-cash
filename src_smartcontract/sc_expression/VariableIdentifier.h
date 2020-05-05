@@ -19,6 +19,7 @@ class StaticVariableMetadata;
 class VariableIdentifier: public AbstractExpression {
 public:
 	static const UnicodeString __THIS;
+	static const UnicodeString __SUPER;
 
 	VariableIdentifier();
 	virtual ~VariableIdentifier();
@@ -40,6 +41,7 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 
 	bool isThis() const noexcept;
+	bool isSuper() const noexcept;
 
 private:
 	void doAnalyze(AnalyzeContext* actx);

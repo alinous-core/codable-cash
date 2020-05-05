@@ -37,6 +37,7 @@ public:
 	void setBlock(StatementBlock* block) noexcept;
 	void setVariableDeclare(VariableDeclareStatement* variableDeclare) noexcept;
 
+	virtual bool hasConstructor() const noexcept;
 private:
 	StatementBlock* block;
 	VariableDeclareStatement* variableDeclare;

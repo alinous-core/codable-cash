@@ -33,6 +33,8 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 	void setBlock(StatementBlock* block) noexcept;
+
+	virtual bool hasConstructor() const noexcept;
 private:
 	StatementBlock* block;
 };

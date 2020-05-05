@@ -52,6 +52,7 @@ FunctionCallExpression::FunctionCallExpression() : AbstractExpression(CodeElemen
 	this->methodEntry = nullptr;
 	this->thisAccess = nullptr;
 	this->callSignature = nullptr;
+	this->noVirtual = false;
 }
 
 FunctionCallExpression::~FunctionCallExpression() {
@@ -94,6 +95,11 @@ void FunctionCallExpression::analyzeTypeRef(AnalyzeContext* actx) {
  * needs actx->setThisClass
  */
 void FunctionCallExpression::analyze(AnalyzeContext* actx) {
+	if(isSuperConstructorCall()){
+		analyzeSuperConstructorEntry(actx);
+		return;
+	}
+
 	bool staticMode = isStaticMode();
 
 	analyzeArguments(actx);
@@ -113,10 +119,80 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx) {
 	}
 }
 
+void FunctionCallExpression::analyzeSuperConstructorEntry(AnalyzeContext* actx) {
+	bool staticMode = isStaticMode();
+	if(staticMode){
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_CALL_NOSTATIC, this, L"The static method can't use super class constructor.", {});
+		return;
+	}
+
+	if(!isOnConstructor()){
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_USE_SUPER_CONSTRUCTOR, this, L"The non-constructor method can't use super class constructor.", {});
+		return;
+	}
+
+	analyzeArguments(actx);
+
+	AnalyzedClass* athisClass = actx->getThisClass();
+
+	AnalyzedClass* superClass = athisClass->getExtends();
+	if(superClass == nullptr){
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_USE_SUPER_CONSTRUCTOR, this, L"the class don't have super class.", {});
+		return;
+	}
+
+	const UnicodeString* name = superClass->getClassDeclare()->getName();
+	const UnicodeString* fqn = superClass->getFullQualifiedName();
+
+	ArrayList<AnalyzedType> typeList;
+	typeList.setDeleteOnExit();
+
+	int maxLoop = this->args.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->args.get(i);
+		AnalyzedType type = exp->getType(actx);
+		typeList.addElement(new AnalyzedType(type));
+	}
+
+	VTableRegistory* vreg = actx->getVtableRegistory();
+	VTableClassEntry* classEntry = vreg->getClassEntry(fqn, superClass);
+
+	actx->setCurrentElement(this);
+	this->methodEntry = classEntry->findEntry(actx, name, &typeList);
+	if(this->methodEntry == nullptr){
+		// has no functions to call
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_NAME, actx->getCurrentElement(), L"The method '{0}()' does not exists.", {this->strName});
+		return;
+	}
+
+	this->callSignature = this->methodEntry->getMethod()->getCallSignature();
+
+	// this ptr
+	if(!staticMode && !this->methodEntry->isStatic()){
+		AnalyzeStackManager* astack = actx->getAnalyzeStackManager();
+		this->thisAccess = astack->getThisPointer();
+		this->thisAccess->analyze(actx, nullptr, this);
+	}
+}
+
+bool FunctionCallExpression::isOnConstructor() const noexcept {
+	const CodeElement* element = this;
+
+	while(element != nullptr){
+		short kind = element->getKind();
+		if(kind == CodeElement::METHOD_DECLARE){
+			const MethodDeclare* method = dynamic_cast<const MethodDeclare*>(element);
+			return method->isConstructor();
+		}
+
+		element = element->getParent();
+	}
+
+	return false;
+}
+
 void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisClass, AbstractVariableInstraction* lastInst) {
 	bool staticMode = false;
-
-	setThrowsException(true);
 
 	analyzeArguments(actx);
 	analyzeMethodEntry(actx, athisClass, staticMode);
@@ -143,6 +219,10 @@ void FunctionCallExpression::analyze(AnalyzeContext* actx, AnalyzedClass* athisC
 			actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_CANT_INCOMPATIBLE_THIS, actx->getCurrentElement(), L"The method can't invoke non-static method '{0}()'.", {this->strName});
 			return;
 		}
+	}
+
+	if(instType == AbstractVariableInstraction::INSTRUCTION_CLASS_TYPE){
+		this->noVirtual = true;
 	}
 }
 
@@ -187,6 +267,7 @@ void FunctionCallExpression::analyzeMethodEntry(AnalyzeContext* actx, AnalyzedCl
 
 	this->callSignature = this->methodEntry->getMethod()->getCallSignature();
 }
+
 
 void FunctionCallExpression::setName(AbstractExpression* exp) noexcept {
 	this->name = exp;
@@ -271,7 +352,7 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm) {
 	StackFloatingVariableHandler releaser(gc);
 	interpretArguments(vm, &args, &releaser);
 
-	if(this->methodEntry->isVirtual()){
+	if(!this->noVirtual && this->methodEntry->isVirtual()){
 		return interpretVirtual(vm, &args);
 	}
 
@@ -296,7 +377,7 @@ AbstractVmInstance* FunctionCallExpression::interpret(VirtualMachine* vm, VmClas
 	StackFloatingVariableHandler releaser(gc);
 	interpretArguments(vm, &args, &releaser);
 
-	if(this->methodEntry->isVirtual()){
+	if(!this->noVirtual && this->methodEntry->isVirtual()){
 		return interpretVirtual(vm, &args);
 	}
 
@@ -380,6 +461,12 @@ AbstractVmInstance* FunctionCallExpression::interpretVirtual(VirtualMachine* vm,
 	ExceptionInterrupt::interruptPoint(vm);
 
 	return args->getReturnedValue();
+}
+
+bool FunctionCallExpression::isSuperConstructorCall() const noexcept {
+	VariableIdentifier* valId = dynamic_cast<VariableIdentifier*>(this->name);
+
+	return valId != nullptr ? valId->isSuper() : false;
 }
 
 } /* namespace alinous */

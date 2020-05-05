@@ -876,7 +876,10 @@ TableIdentifier               * tableIdentifier();
     xsp = jj_scanpos;
     if (jj_scan_token(183)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(90)) return true;
+    if (jj_scan_token(90)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(87)) return true;
+    }
     }
     return false;
   }

@@ -1,0 +1,24 @@
+
+
+package test.fw;
+
+import test.fw.base.BaseClass;
+
+class SmartContract extends BaseClass {
+	public SmartContract() {
+		super(10);
+		this.count = 10;
+	}
+	
+	public static void test(){
+		super();
+	}
+	
+	public int main(){
+		super();
+	}
+	
+	public int a = super();
+	
+
+}

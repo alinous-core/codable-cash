@@ -206,6 +206,23 @@ void TryStatement::addCatchStatement(CatchStatement* catchStmt) noexcept {
 	this->catchStmts.addElement(catchStmt);
 }
 
+bool TryStatement::hasConstructor() const noexcept {
+	bool ret = this->block->hasConstructor();
+
+	int maxLoop = this->catchStmts.size();
+	for(int i = 0; i != maxLoop; ++i){
+		CatchStatement* catchStmt = this->catchStmts.get(i);
+
+		ret = ret || catchStmt->hasConstructor();
+	}
+
+	if(this->finallyStmt != nullptr){
+		ret = ret || this->finallyStmt->hasConstructor();
+	}
+
+	return ret;
+}
+
 void TryStatement::setFinallyStatement(FinallyStatement* finallyStmt) noexcept {
 	this->finallyStmt = finallyStmt;
 }

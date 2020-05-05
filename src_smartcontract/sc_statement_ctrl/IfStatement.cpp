@@ -280,4 +280,21 @@ bool IfStatement::hasCtrlStatement() const noexcept {
 	return this->bctrl;
 }
 
+bool IfStatement::hasConstructor() const noexcept {
+	bool ret = this->stmt->hasConstructor();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IfStatement* stmt = this->list.get(i);
+
+		ret = ret || stmt->hasConstructor();
+	}
+
+	if(this->elseStmt != nullptr){
+		ret = ret || this->elseStmt->hasConstructor();
+	}
+
+	return ret;
+}
+
 } /* namespace alinous */

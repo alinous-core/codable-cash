@@ -1,0 +1,12 @@
+
+package test.fw.base;
+
+
+class BaseClass {
+	public BaseClass(){
+		this.count = 10;
+	}
+
+
+	private int count;
+}

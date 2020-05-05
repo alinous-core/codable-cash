@@ -1,0 +1,17 @@
+
+package test.fw.base;
+
+import test.fw.base.Ifclass;
+
+class BaseClass implements Ifclass {
+	public BaseClass(){
+		this.count = 10;
+	}
+
+	public void test() {
+		this.count = NEW_VALUE;
+	}
+
+	private int count;
+	public static int NEW_VALUE = 20;
+}

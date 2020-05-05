@@ -1,0 +1,12 @@
+
+package test.fw.base;
+
+
+class BaseClass {
+	public BaseClass(){
+		throw new Exception();
+	}
+
+
+	private int count;
+}

@@ -163,4 +163,8 @@ bool WhileStatement::hasCtrlStatement() const noexcept {
 	return this->bctrl;
 }
 
+bool WhileStatement::hasConstructor() const noexcept {
+	return this->stmt->hasConstructor();
+}
+
 } /* namespace alinous */

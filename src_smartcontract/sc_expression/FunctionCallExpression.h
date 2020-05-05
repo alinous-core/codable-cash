@@ -49,9 +49,12 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 	AbstractVmInstance* interpret(VirtualMachine* vm, VmClassInstance* classInst);
 
+	bool isSuperConstructorCall() const noexcept;
 private:
 	void analyzeArguments(AnalyzeContext* actx);
 	void analyzeMethodEntry(AnalyzeContext* actx, AnalyzedClass* athisClass, bool staticMode);
+	void analyzeSuperConstructorEntry(AnalyzeContext* actx);
+	bool isOnConstructor() const noexcept;
 
 	AbstractVmInstance* interpretStatic(VirtualMachine* vm, VmClassInstance* classInst, MethodDeclare* methodDeclare);
 	AbstractVmInstance* interpretVirtual(VirtualMachine* vm, FunctionArguments* args);
@@ -66,6 +69,7 @@ private:
 	const UnicodeString* callSignature;
 
 	StackVariableAccess* thisAccess;
+	bool noVirtual;
 };
 
 } /* namespace alinous */

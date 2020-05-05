@@ -29,6 +29,8 @@ public:
 
 	virtual bool isExecutable();
 	virtual bool hasCtrlStatement() const noexcept = 0;
+
+	virtual bool hasConstructor() const noexcept;
 };
 
 } /* namespace alinous */
