@@ -9,8 +9,9 @@ class BaseClass implements Ifclass {
 	}
 
 	public void test() {
-		this.count = 20;
+		this.count = NEW_VALUE;
 	}
 
 	private int count;
+	public static int NEW_VALUE = 20;
 }
