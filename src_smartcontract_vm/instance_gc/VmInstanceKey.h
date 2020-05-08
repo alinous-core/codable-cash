@@ -16,7 +16,7 @@ class IAbstractVmInstanceSubstance;
 class VmInstanceKey {
 public:
 	VmInstanceKey(const VmInstanceKey& inst);
-	explicit VmInstanceKey(IAbstractVmInstanceSubstance* instance);
+	explicit VmInstanceKey(const IAbstractVmInstanceSubstance* instance);
 	virtual ~VmInstanceKey();
 
 	int hashCode() const noexcept;
@@ -27,7 +27,7 @@ public:
 	};
 
 private:
-	IAbstractVmInstanceSubstance* instance;
+	const IAbstractVmInstanceSubstance* instance;
 };
 
 } /* namespace alinous */

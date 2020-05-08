@@ -97,7 +97,9 @@ void VmClassInstance::removeInnerRefs(GcManager* gc) noexcept {
 		AbstractReference* ref = this->members.get(i);
 
 		// remove ref
-		gc->removeObject(ref);
+		if(!ref->isPrimitive()){
+			ref->substitute(nullptr, gc);
+		}
 	}
 }
 

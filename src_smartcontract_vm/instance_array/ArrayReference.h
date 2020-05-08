@@ -25,7 +25,7 @@ public:
 	virtual ~ArrayReference();
 
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
-	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
+	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc);
 	virtual bool isNull() const noexcept;
 	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 

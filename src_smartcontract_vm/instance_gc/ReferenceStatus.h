@@ -34,9 +34,7 @@ public:
 
 	IAbstractVmInstanceSubstance* getInstance() const noexcept;
 
-	void removeInstance() noexcept;
-	bool checkCyclicRemovable(GcCyclicCheckerContext* cctx) noexcept;
-	bool checkInnerCyclicRemovable(const IAbstractVmInstanceSubstance* inst, GcCyclicCheckerContext* cctx) const noexcept;
+	bool checkCyclicRemovable(GcCyclicCheckerContext* cctx, GcManager* gc) noexcept;
 
 	int ownerSize() const noexcept;
 private:

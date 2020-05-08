@@ -32,7 +32,7 @@ public:
 
 	void setInstance(IAbstractVmInstanceSubstance* instance) noexcept;
 
-	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
+	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc);
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 	virtual bool isNull() const noexcept;

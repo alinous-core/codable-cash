@@ -1,0 +1,16 @@
+
+
+package test.fw;
+
+
+class SmartContract {
+	public SmartContract() {
+		this.objA = new ObjectA(this);
+	}
+	
+	public int main(){
+
+	}
+	
+	private ObjectA objA;
+}

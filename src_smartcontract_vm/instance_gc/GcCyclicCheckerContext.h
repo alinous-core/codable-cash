@@ -23,7 +23,7 @@ public:
 	bool hasStatus(const ReferenceStatus* inst) noexcept;
 	const ArrayList<ReferenceStatus>* getOwnerList() const noexcept;
 
-	GcManager* getGC() const noexcept;
+	//GcManager* getGC() const noexcept;
 private:
 	ArrayList<ReferenceStatus> ownerList;
 	GcManager* gc;

@@ -131,7 +131,7 @@ void SubstitutionStatement::interpret(VirtualMachine* vm) {
 		sub = rightValue->getInstance();
 	}
 
-	leftRef->substitute(sub, vm);
+	leftRef->substitute(sub, vm->getGc());
 }
 
 bool SubstitutionStatement::hasCtrlStatement() const noexcept {

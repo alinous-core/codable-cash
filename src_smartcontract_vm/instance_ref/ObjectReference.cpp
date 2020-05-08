@@ -67,9 +67,7 @@ void ObjectReference::setInstance(IAbstractVmInstanceSubstance* instance) noexce
 	this->instance = instance;
 }
 
-void ObjectReference::substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm) {
-	GcManager* gc = vm->getGc();
-
+void ObjectReference::substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc) {
 	if(this->instance != nullptr){
 		gc->removeObject(this);
 		this->instance = nullptr;

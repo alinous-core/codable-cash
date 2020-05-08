@@ -73,15 +73,15 @@ TEST(TestArrayCompareGroup, compare02){
 
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 
-	arrayRef->substitute(inst, &vm);
-	arrayRef->substitute(inst, &vm);
+	GcManager* gc = vm.getGc();
+	arrayRef->substitute(inst, gc);
+	arrayRef->substitute(inst, gc);
 
 	int diff = arrayRef->valueCompare(arrayRef->getInstance());
 	CHECK(diff == 0)
 
-	arrayRef->substitute(nullptr, &vm);
+	arrayRef->substitute(nullptr, gc);
 
-	GcManager* gc = vm.getGc();
 	gc->garbageCollect();
 
 	delete root;
@@ -108,15 +108,15 @@ TEST(TestArrayCompareGroup, compare03){
 
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 
-	arrayRef->substitute(inst, &vm);
+	GcManager* gc = vm.getGc();
+	arrayRef->substitute(inst, gc);
 
 	int diff = arrayRef->valueCompare(arrayRef2->getInstance());
 	CHECK(diff != 0)
 
-	arrayRef->substitute(nullptr, &vm);
-	arrayRef2->substitute(nullptr, &vm);
+	arrayRef->substitute(nullptr, gc);
+	arrayRef2->substitute(nullptr, gc);
 
-	GcManager* gc = vm.getGc();
 	gc->garbageCollect();
 
 	delete root;
@@ -144,17 +144,17 @@ TEST(TestArrayCompareGroup, compare04){
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 	VmArrayInstance* inst2 = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 
-	arrayRef->substitute(inst, &vm);
-	arrayRef2->substitute(inst2, &vm);
+	GcManager* gc = vm.getGc();
+	arrayRef->substitute(inst, gc);
+	arrayRef2->substitute(inst2, gc);
 
 	int diff = arrayRef->valueCompare(arrayRef2->getInstance());
 	CHECK(diff != 0)
 
 
-	arrayRef->substitute(nullptr, &vm);
-	arrayRef2->substitute(nullptr, &vm);
+	arrayRef->substitute(nullptr, gc);
+	arrayRef2->substitute(nullptr, gc);
 
-	GcManager* gc = vm.getGc();
 	gc->garbageCollect();
 
 	delete root;
@@ -181,15 +181,15 @@ TEST(TestArrayCompareGroup, compare05){
 
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 
-	arrayRef->substitute(inst, &vm);
+	GcManager* gc = vm.getGc();
+	arrayRef->substitute(inst, gc);
 
 	int diff = arrayRef2->valueCompare(inst);
 	CHECK(diff != 0)
 
-	arrayRef->substitute(nullptr, &vm);
-	arrayRef2->substitute(nullptr, &vm);
+	arrayRef->substitute(nullptr, gc);
+	arrayRef2->substitute(nullptr, gc);
 
-	GcManager* gc = vm.getGc();
 	gc->garbageCollect();
 
 	delete root;

@@ -17,7 +17,7 @@ VmInstanceKey::VmInstanceKey(const VmInstanceKey& inst) {
 	this->instance = inst.instance;
 }
 
-VmInstanceKey::VmInstanceKey(IAbstractVmInstanceSubstance* instance) {
+VmInstanceKey::VmInstanceKey(const IAbstractVmInstanceSubstance* instance) {
 	this->instance = instance;
 }
 

@@ -56,9 +56,9 @@ TEST(TestClassObjectGroup, substitute01){
 	VmClassInstance* inst1 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm);
 	inst1->getInstReferences();
 
-	ref->substitute(inst1, util.vm);
-	ref->substitute(inst1, util.vm);
-	ref->substitute(nullptr, util.vm);
+	ref->substitute(inst1, util.vm->getGc());
+	ref->substitute(inst1, util.vm->getGc());
+	ref->substitute(nullptr, util.vm->getGc());
 
 	GcManager* gc = util.vm->getGc();
 	delete ref;

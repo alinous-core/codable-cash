@@ -30,7 +30,7 @@ public:
 	virtual bool isPrimitive() const noexcept;
 	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 
-	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
+	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc);
 
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 	virtual uint8_t getInstType() const noexcept;

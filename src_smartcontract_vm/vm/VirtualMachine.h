@@ -70,7 +70,7 @@ public:
 	ExecControlManager* getCtrl() const noexcept;
 	void throwException(VmExceptionInstance* exception, const CodeElement* element) noexcept;
 	ObjectReference* catchException(AnalyzedClass* exClass) noexcept;
-
+	void releaseMainInstance() noexcept;
 
 	void setFunctionArguments(FunctionArguments* args) noexcept;
 	FunctionArguments* getFunctionArguments() const noexcept;

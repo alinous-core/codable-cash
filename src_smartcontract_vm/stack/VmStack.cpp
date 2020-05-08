@@ -55,7 +55,9 @@ void VmStack::removeInnerRefs(GcManager* gc) noexcept {
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractReference* ref = this->stack->get(i);
 
-		gc->removeObject(ref);
+		if(!ref->isPrimitive()){
+			ref->substitute(nullptr, gc);
+		}
 
 		delete ref;
 	}

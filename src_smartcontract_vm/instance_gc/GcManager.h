@@ -29,12 +29,9 @@ public:
 	void registerObject(AbstractReference* ref);
 	void removeObject(AbstractReference* ref);
 
-	//void addInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept;
-	//void removeInstanceReference(AbstractVmInstance* owner, AbstractVmInstance* refered) noexcept;
-
 	void handleFloatingObject(IAbstractVmInstanceSubstance* refered) noexcept;
 
-	ReferenceStatus* getReferenceStatus(AbstractReference* ref) const noexcept;
+	ReferenceStatus* getReferenceStatus(const IAbstractVmInstanceSubstance* ref) const noexcept;
 
 	void garbageCollect();
 private:

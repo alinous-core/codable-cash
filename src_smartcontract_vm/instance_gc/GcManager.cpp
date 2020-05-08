@@ -127,6 +127,7 @@ void GcManager::garbageCollect() {
 			VmInstanceKey key(status->getInstance());
 
 			this->statuses.remove(&key);
+			this->needCheck.remove(&key);
 
 			status->releseInnerRefs(this);
 			status->deleteInstance();
@@ -138,8 +139,8 @@ void GcManager::garbageCollect() {
 	}
 }
 
-ReferenceStatus* GcManager::getReferenceStatus(AbstractReference* ref) const noexcept {
-	VmInstanceKey key(ref->getInstance());
+ReferenceStatus* GcManager::getReferenceStatus(const IAbstractVmInstanceSubstance* ref) const noexcept {
+	VmInstanceKey key(ref);
 	ReferenceStatus* status = this->statuses.get(&key);
 
 	return status;
@@ -156,15 +157,19 @@ void GcManager::checkCycric() noexcept {
 	Iterator<VmInstanceKey>* it = checkHash.keySet()->iterator(); __STP(it);
 	while(it->hasNext()){
 		const VmInstanceKey* key = it->next();
-		ReferenceStatus* status = this->needCheck.get(key);
+		ReferenceStatus* status = checkHash.get(key);
 
 		GcCyclicCheckerContext* context = new GcCyclicCheckerContext(this);
-		list.addElement(context);
 
-		bool result = status->checkCyclicRemovable(context);
+		bool result = status->checkCyclicRemovable(context, this);
 		if(!result){
-			return;
+			delete context;
+			removeFromNeedCheck(status);
+			continue;
 		}
+
+		list.addElement(context);
+		removeFromNeedCheck(status);
 	}
 
 	int maxLoop = list.size();
@@ -180,7 +185,8 @@ void GcManager::removeGcCyclicCheckerContext(GcCyclicCheckerContext* cctx) noexc
 	int maxLoop = list->size();
 	for(int i = 0; i != maxLoop; ++i){
 		ReferenceStatus* stat = list->get(i);
-		addToRemoveble(stat);
+
+		stat->releseInnerRefs(this);
 	}
 }
 
@@ -211,17 +217,6 @@ void GcManager::handleFloatingObject(IAbstractVmInstanceSubstance* refered) noex
 	VmInstanceKey key(refered);
 	ReferenceStatus* status = this->statuses.get(&key);
 	if(status != nullptr){
-		return;
-	}
-
-	ReferenceStatus* needCheckStatus = this->needCheck.get(&key);
-	if(needCheckStatus != nullptr){
-		return;
-	}
-
-	ReferenceStatus tmp(refered);
-	ReferenceStatus* removableStatus = this->removable.search(&tmp);
-	if(removableStatus != nullptr){
 		return;
 	}
 

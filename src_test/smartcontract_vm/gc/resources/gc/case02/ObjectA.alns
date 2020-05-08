@@ -1,0 +1,11 @@
+
+
+package test.fw;
+
+class ObjectA {
+	public ObjectA(SmartContract c) {
+		this.contract = c;
+	}
+	
+	public SmartContract contract;
+}

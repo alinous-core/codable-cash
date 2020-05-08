@@ -33,9 +33,9 @@ bool GcCyclicCheckerContext::hasStatus(const ReferenceStatus* inst) noexcept {
 	return stat != nullptr;
 }
 
-GcManager* GcCyclicCheckerContext::getGC() const noexcept {
+/*GcManager* GcCyclicCheckerContext::getGC() const noexcept {
 	return this->gc;
-}
+}*/
 
 const ArrayList<ReferenceStatus>* alinous::GcCyclicCheckerContext::getOwnerList() const noexcept {
 	return &this->ownerList;

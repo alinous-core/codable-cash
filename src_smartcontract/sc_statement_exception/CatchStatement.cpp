@@ -112,7 +112,7 @@ void CatchStatement::interpret(VirtualMachine* vm) {
 
 		this->variableDeclare->interpret(vm);
 		AbstractReference* ref = stack->get(0);
-		ref->substitute(exInstRef->getInstance(), vm);
+		ref->substitute(exInstRef->getInstance(), vm->getGc());
 
 		this->block->interpret(vm);
 
