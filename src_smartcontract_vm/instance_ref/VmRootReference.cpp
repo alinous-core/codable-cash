@@ -37,31 +37,38 @@ VmRootReference::~VmRootReference() {
 }
 
 void VmRootReference::clearInnerReferences() {
-	if(this->mainInst != nullptr){
+	if(this->classStaticHolder != nullptr){
 		GcManager* gc = this->vm->getGc();
 
-		gc->removeObject(this);
-		this->mainInst = nullptr;
+		releaseMainInstance(gc);
 
 		this->staticHolder->removeInnerReferences(this, this->vm);
 		this->staticHolder->removeStringConst(this, this->vm);
 
 		this->classStaticHolder->removeInnerReferences(this, this->vm);
+		delete this->classStaticHolder;
+		this->classStaticHolder = nullptr;
+	}
+}
 
+void VmRootReference::releaseMainInstance(GcManager* gc) {
+	if(this->mainInst != nullptr){
+		gc->removeObject(this->mainInst);
+		delete this->mainInst;
 		this->mainInst = nullptr;
 	}
 }
 
 void VmRootReference::setMainInstance(VmClassInstance* mainInst) noexcept {
-	this->mainInst = mainInst;
+	this->mainInst = mainInst->wrap(this, this->vm);
 
 	GcManager* gc = this->vm->getGc();
-	gc->registerObject(this);
+	gc->registerObject(this->mainInst);
 }
 
 
 IAbstractVmInstanceSubstance* VmRootReference::getInstance() noexcept {
-	return this->mainInst;
+	return this->mainInst->getInstance();
 }
 
 

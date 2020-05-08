@@ -42,6 +42,7 @@ public:
 	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);
 
 	void clearInnerReferences();
+	void releaseMainInstance(GcManager* gc);
 
 	PrimitiveReference* newNumericConstReferenece(int64_t value, uint8_t type, VirtualMachine* vm);
 	VmStringInstance* newStringConstReferenece(VmRootReference* rootRef, const UnicodeString* str, VirtualMachine* vm);
@@ -51,7 +52,7 @@ public:
 	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 private:
 	VirtualMachine* vm;
-	VmClassInstance* mainInst;
+	AbstractReference* mainInst;
 	StaticInstanceHolder* staticHolder;
 	StaticClassReferenceHolder* classStaticHolder;
 

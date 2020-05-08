@@ -198,6 +198,10 @@ void SmartContract::clearRootReference(VirtualMachine* vm) noexcept {
 	delete this->rootReference;
 	this->rootReference = nullptr;
 }
+void SmartContract::releaseMainInstance(GcManager* gc) noexcept {
+	this->rootReference->releaseMainInstance(gc);
+}
+
 
 VmClassInstance* SmartContract::createInstance(VirtualMachine* vm) {
 	initialize(vm);
@@ -225,7 +229,7 @@ VmClassInstance* SmartContract::createInstance(VirtualMachine* vm) {
 
 	this->rootReference->setMainInstance(inst);
 
-	ObjectReference* instRef = ObjectReference::createObjectReference(stack, inst, vm, true);
+	ObjectReference* instRef = ObjectReference::createObjectReference(stack, inst, vm, false);
 	stack->addInnerReference(instRef);
 
 	// exec constructor

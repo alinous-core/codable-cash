@@ -23,7 +23,7 @@ class VmClassInstance;
 class ExtClassObject;
 class CompileError;
 class ReservedClassRegistory;
-
+class GcManager;
 
 class SmartContract {
 public:
@@ -39,6 +39,7 @@ public:
 
 	VmRootReference* getRootReference() const noexcept;
 	void clearRootReference(VirtualMachine* vm) noexcept;
+	void releaseMainInstance(GcManager* gc) noexcept;
 
 	VmClassInstance* createInstance(VirtualMachine* vm);
 	void initialize(VirtualMachine* vm);
