@@ -29,9 +29,7 @@ IAbstractVmInstanceSubstance* ArrayReference::getInstance() noexcept {
 	return this->instArray;
 }
 
-void ArrayReference::substitute(IAbstractVmInstanceSubstance* rightValue,	VirtualMachine* vm) {
-	GcManager* gc = vm->getGc();
-
+void ArrayReference::substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc) {
 	if(this->instArray != nullptr){
 		gc->removeObject(this);
 		this->instArray = nullptr;

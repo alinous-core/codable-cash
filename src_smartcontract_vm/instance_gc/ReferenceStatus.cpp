@@ -83,19 +83,14 @@ IAbstractVmInstanceSubstance* ReferenceStatus::getInstance() const noexcept {
 	return this->instance;
 }
 
-void ReferenceStatus::removeInstance() noexcept {
-	if(this->instance != nullptr){
-		delete this->instance;
+bool ReferenceStatus::checkCyclicRemovable(GcCyclicCheckerContext* cctx, GcManager* gc) noexcept {
+	if(!this->terminalOwnerList.isEmpty()){
+		return false;
 	}
-}
 
-bool ReferenceStatus::checkCyclicRemovable(GcCyclicCheckerContext* cctx) noexcept {
 	bool alreadyDone = cctx->hasStatus(this);
 	if(alreadyDone){
 		return true;
-	}
-	if(!this->terminalOwnerList.isEmpty()){
-		return false;
 	}
 
 	cctx->addInstance(this);
@@ -104,7 +99,9 @@ bool ReferenceStatus::checkCyclicRemovable(GcCyclicCheckerContext* cctx) noexcep
 	for(int i = 0; i != maxLoop; ++i){
 		const IAbstractVmInstanceSubstance* inst = this->ownerList.get(i);
 
-		bool result = checkInnerCyclicRemovable(inst, cctx);
+		//bool result = checkInnerCyclicRemovable(inst, cctx);
+		ReferenceStatus* stat = gc->getReferenceStatus(inst);
+		bool result = stat->checkCyclicRemovable(cctx, gc);
 		if(!result){
 			return false;
 		}
@@ -121,28 +118,6 @@ void ReferenceStatus::deleteInstance() noexcept {
 	//}
 
 	delete this->instance;
-}
-
-bool ReferenceStatus::checkInnerCyclicRemovable(const IAbstractVmInstanceSubstance* inst, GcCyclicCheckerContext* cctx) const noexcept{
-	const VMemList<AbstractReference>* list = inst->getInstReferences();
-	if(list == nullptr){
-		return true;
-	}
-
-	GcManager* gc = cctx->getGC();
-
-	int maxLoop = list->size();
-	for(int i = 0; i != maxLoop; ++i){
-		AbstractReference* ref = list->get(i);
-		ReferenceStatus* stat = gc->getReferenceStatus(ref);
-
-		bool result = stat->checkCyclicRemovable(cctx);
-		if(!result){
-			return false;
-		}
-	}
-
-	return true;
 }
 
 

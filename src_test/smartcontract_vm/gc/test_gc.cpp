@@ -14,6 +14,7 @@
 #include "../VmTestUtils.h"
 #include "ext_binary/ExtClassObject.h"
 
+#include "instance_gc/GcManager.h"
 using namespace alinous;
 
 TEST_GROUP(TestGcGroup) {
@@ -33,6 +34,29 @@ TEST(TestGcGroup, case01){
 
 	result = util.createInstance();
 	CHECK(result)
+
+	util.vm->releaseMainInstance();
+	GcManager* gc = util.vm->getGc();
+	gc->garbageCollect();
+
+	util.vm->destroy();
+}
+
+TEST(TestGcGroup, case02){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/gc/resources/gc/case02/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	GcManager* gc = util.vm->getGc();
+	gc->garbageCollect();
 
 	util.vm->destroy();
 }

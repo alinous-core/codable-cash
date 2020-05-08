@@ -195,6 +195,7 @@ ReservedClassRegistory* VirtualMachine::getReservedClassRegistory() const noexce
 	return this->sc->getReservedClassRegistory();
 }
 
+
 void VirtualMachine::checkUncaughtException() {
 	if(this->uncaughtException != nullptr){
 		return;
@@ -334,6 +335,9 @@ void VirtualMachine::destroy() noexcept {
 	this->sc->clearRootReference(this);
 
 	this->destried = true;
+}
+void VirtualMachine::releaseMainInstance() noexcept {
+	this->sc->releaseMainInstance(this->gc);
 }
 
 ExecControlManager* VirtualMachine::getCtrl() const noexcept {

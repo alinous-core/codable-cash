@@ -117,7 +117,7 @@ void MemberVariableDeclare::doOnAllocate(VirtualMachine* vm, AbstractReference* 
 	releaser.registerInstance(inst);
 
 	IAbstractVmInstanceSubstance* sub = inst != nullptr ? inst->getInstance() : nullptr;
-	ref->substitute(sub, vm);
+	ref->substitute(sub, vm->getGc());
 }
 
 void MemberVariableDeclare::setAccessControl(AccessControlDeclare* ctrl) noexcept {

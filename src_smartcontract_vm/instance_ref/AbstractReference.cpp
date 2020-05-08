@@ -25,7 +25,7 @@ bool AbstractReference::isReference() const noexcept {
 	return true;
 }
 
-void AbstractReference::substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm) {
+void AbstractReference::substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc) {
 }
 
 IAbstractVmInstanceSubstance* AbstractReference::getOwner() const noexcept {
