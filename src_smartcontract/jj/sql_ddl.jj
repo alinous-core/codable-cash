@@ -51,26 +51,41 @@ DdlColumnDescriptor* ddlColumnDescriptor() :
 {
 	DdlColumnDescriptor* desc = new DdlColumnDescriptor();
 	ColumnTypeDescriptor* typeDesc = nullptr;
+	AbstractSQLExpression* val = nullptr;
 	Token* t = nullptr;
 }
 {
 	t=<IDENTIFIER> {
-	
+		desc->setName(_STR(t));
+		desc->setPosition(t);
 	}
 	typeDesc=columnTypeDescriptor() {
-	
+		desc->setColumnType(typeDesc);
+		desc->setPosition(typeDesc);
 	}
 	[
-		t=<SQL_NOT> t=<_NULL>
+		t=<SQL_NOT> {
+			desc->setPosition(t);
+		}
+		t=<_NULL> {
+			desc->setNotNull(true);
+			desc->setPosition(t);
+		}
 	]
 	[
-		t=<UNIQUE>
+		t=<UNIQUE> {
+			desc->setUnique(true);
+			desc->setPosition(t);
+		}
 	]
 	[
 		t=<SQL_DEFAULT> {
-		
+			desc->setPosition(t);
 		}
-		
+		(val=sqlLiteral() | val=sqlBooleanLiteral()) {
+			desc->setDefaultValue(val);
+			desc->setPosition(val);
+		}		
 	]
 	{
 		__ONERROR(desc);
