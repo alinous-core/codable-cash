@@ -1,7 +1,9 @@
 
 
 set(__src
+	ColumnTypeDescriptor.cpp
 	CreateTableStatement.cpp
+	DdlColumnDescriptor.cpp
 	DropTableStatement.cpp
 )
 

@@ -2731,6 +2731,36 @@ CreateTableStatement* createTableStatement() : {
 	}	
 }
 
+ColumnTypeDescriptor* columnTypeDescriptor() :
+{
+	ColumnTypeDescriptor* typeDesc = new ColumnTypeDescriptor();
+	AbstractSQLExpression* val = nullptr;
+	Token* t1 = nullptr;
+	Token* t2 = nullptr;
+}
+{
+	(t1=<IDENTIFIER> | t1=<TRIGGER> | t1=<BOOL>) {
+		typeDesc->setPosition(t1);
+	}
+	[
+		t2=<L_PARENTHESIS> {
+			typeDesc->setPosition(t2);
+		}
+		
+		(val=sqlLiteral() | val=sqlBooleanLiteral()){
+			
+		}
+		
+		t2=<R_PARENTHESIS> {
+			typeDesc->setPosition(t2);
+		}
+	]
+	{
+		__ONERROR(typeDesc);
+		return typeDesc;
+	}	
+}
+
 DropTableStatement* dropTableStatement() : {
 	DropTableStatement* stmt = new DropTableStatement();
 	Token* t = null;
