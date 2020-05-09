@@ -7,14 +7,17 @@
 
 #include "engine/CodableDatabase.h"
 
+#include "transaction/CdbTransactionManager.h"
 
 
 namespace codablecash {
 
 CodableDatabase::CodableDatabase() {
+	this->trxManager = new CdbTransactionManager();
 }
 
 CodableDatabase::~CodableDatabase() {
+	delete this->trxManager;
 
 }
 

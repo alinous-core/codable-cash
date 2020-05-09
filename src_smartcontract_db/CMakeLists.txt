@@ -3,7 +3,7 @@ set(__dirsrc "")
 
 # import source codes
 add_subdirectory(engine)
-
+add_subdirectory(transaction)
 
 
 message(STATUS "src_smartcontract_db : ${__dirsrc}")

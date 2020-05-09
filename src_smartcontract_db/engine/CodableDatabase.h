@@ -9,11 +9,16 @@
 #define ENGINE_CODABLEDATABASE_H_
 
 namespace codablecash {
+class CdbTransactionManager;
+
 
 class CodableDatabase {
 public:
 	CodableDatabase();
 	virtual ~CodableDatabase();
+
+private:
+	CdbTransactionManager* trxManager;
 };
 
 } /* namespace alinous */
