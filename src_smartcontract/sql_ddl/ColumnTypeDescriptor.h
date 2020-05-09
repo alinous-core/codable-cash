@@ -12,6 +12,9 @@
 
 namespace alinous {
 
+class UnicodeString;
+class AbstractSQLExpression;
+
 class ColumnTypeDescriptor : public AbstractSQLPart {
 public:
 	ColumnTypeDescriptor();
@@ -20,6 +23,13 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	void setTypeName(UnicodeString* typeName) noexcept;
+	void setLength(AbstractSQLExpression* length) noexcept;
+private:
+	UnicodeString* typeName;
+	AbstractSQLExpression* length;
+
 };
 
 } /* namespace alinous */

@@ -301,10 +301,9 @@ TOKEN [IGNORE_CASE] :
 	<ADJUST_SET: "ADJUST_SET">	|
 	
 	<BOOL: "BOOL">		|
-	
 	<_NULL: "NULL">		|
 	
-	<FUNCTION: "FUNCTION">	|
+	// <FUNCTION: "FUNCTION">	|
 
 	<USE: "USE" >  |
 	<REGION: "REGION"> |
@@ -2731,6 +2730,37 @@ CreateTableStatement* createTableStatement() : {
 	}	
 }
 
+DdlColumnDescriptor* ddlColumnDescriptor() :
+{
+	DdlColumnDescriptor* desc = new DdlColumnDescriptor();
+	ColumnTypeDescriptor* typeDesc = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=<IDENTIFIER> {
+	
+	}
+	typeDesc=columnTypeDescriptor() {
+	
+	}
+	[
+		t=<SQL_NOT> t=<_NULL>
+	]
+	[
+		t=<UNIQUE>
+	]
+	[
+		t=<SQL_DEFAULT> {
+		
+		}
+		
+	]
+	{
+		__ONERROR(desc);
+		return desc;
+	}	
+}
+
 ColumnTypeDescriptor* columnTypeDescriptor() :
 {
 	ColumnTypeDescriptor* typeDesc = new ColumnTypeDescriptor();
@@ -2739,7 +2769,8 @@ ColumnTypeDescriptor* columnTypeDescriptor() :
 	Token* t2 = nullptr;
 }
 {
-	(t1=<IDENTIFIER> | t1=<TRIGGER> | t1=<BOOL>) {
+	(t1=<IDENTIFIER> | t1=<BOOL>) {
+		typeDesc->setTypeName(_STR(t1));
 		typeDesc->setPosition(t1);
 	}
 	[
@@ -2748,7 +2779,8 @@ ColumnTypeDescriptor* columnTypeDescriptor() :
 		}
 		
 		(val=sqlLiteral() | val=sqlBooleanLiteral()){
-			
+			typeDesc->setLength(val);
+			typeDesc->setPosition(val);
 		}
 		
 		t2=<R_PARENTHESIS> {

@@ -9,13 +9,22 @@
 
 namespace alinous {
 
-DdlColumnDescriptor::DdlColumnDescriptor() {
+DdlColumnDescriptor::DdlColumnDescriptor() : AbstractSQLPart(CodeElement::DDL_COLMUN_DESC)  {
 	// TODO Auto-generated constructor stub
 
 }
 
 DdlColumnDescriptor::~DdlColumnDescriptor() {
 	// TODO Auto-generated destructor stub
+}
+
+int DdlColumnDescriptor::binarySize() const {
+}
+
+void DdlColumnDescriptor::toBinary(ByteBuffer* out) {
+}
+
+void DdlColumnDescriptor::fromBinary(ByteBuffer* in) {
 }
 
 } /* namespace alinous */

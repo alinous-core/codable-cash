@@ -92,6 +92,7 @@
 #include "sql_ddl/CreateTableStatement.h"
 #include "sql_ddl/DropTableStatement.h"
 #include "sql_ddl/ColumnTypeDescriptor.h"
+#include "sql_ddl/DdlColumnDescriptor.h"
 
 #include "sql_dml/BeginStatement.h"
 #include "sql_dml/CommitStatement.h"
