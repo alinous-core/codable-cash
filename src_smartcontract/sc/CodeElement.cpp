@@ -90,6 +90,8 @@
 
 #include "sql_ddl/CreateTableStatement.h"
 #include "sql_ddl/DropTableStatement.h"
+#include "sql_ddl/DdlColumnDescriptor.h"
+#include "sql_ddl/ColumnTypeDescriptor.h"
 
 #include "sql_dml/BeginStatement.h"
 #include "sql_dml/CommitStatement.h"
@@ -426,6 +428,12 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		break;
 	case DDL_DROP_TABLE:
 		element = new DropTableStatement();
+		break;
+	case DDL_COLMUN_DESC:
+		element = new DdlColumnDescriptor();
+		break;
+	case DDL_TYPE_DESC:
+		element = new ColumnTypeDescriptor();
 		break;
 
 	case DML_STMT_BEGIN:
