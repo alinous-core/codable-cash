@@ -11,8 +11,12 @@
 
 #include "base/ArrayList.h"
 
-namespace alinous {
+namespace codablecash {
+class CodableDatabase;
+}
+using namespace codablecash;
 
+namespace alinous {
 class UnicodeString;
 
 class VmInstanceStack;
@@ -114,6 +118,9 @@ private:
 
 	// catch test
 	bool caught;
+
+	// database engine
+	CodableDatabase* db;
 };
 
 } /* namespace alinous */

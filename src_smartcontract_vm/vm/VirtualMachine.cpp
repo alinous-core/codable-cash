@@ -59,6 +59,7 @@
 
 #include "base/UnicodeString.h"
 
+#include "engine/CodableDatabase.h"
 
 namespace alinous {
 
@@ -75,6 +76,7 @@ VirtualMachine::VirtualMachine(uint64_t memCapacity) {
 	this->ctrl = new ExecControlManager();
 	this->uncaughtException = nullptr;
 	this->caught = false;
+	this->db = new CodableDatabase();
 }
 
 VirtualMachine::~VirtualMachine() {
@@ -96,6 +98,8 @@ VirtualMachine::~VirtualMachine() {
 
 	this->exceptions.deleteElements();
 	delete this->uncaughtException;
+
+	delete this->db;
 }
 
 void VirtualMachine::loadSmartContract(SmartContract* sc) {
