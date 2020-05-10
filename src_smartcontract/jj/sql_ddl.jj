@@ -29,6 +29,10 @@ CreateTableStatement* createTableStatement() : {
 	t=<TABLE>{
 		stmt->setPosition(t);
 	}
+	t=<IDENTIFIER> {
+		stmt->setName(_STR(t));
+		stmt->setPosition(t);
+	}
 	t=<L_PARENTHESIS> {
 		stmt->setPosition(t);
 	}
@@ -138,7 +142,7 @@ ColumnTypeDescriptor* columnTypeDescriptor() :
 	Token* t2 = nullptr;
 }
 {
-	(t1=<IDENTIFIER> | t1=<BOOL>) {
+	(t1=<IDENTIFIER> | t1=<BOOL> | t1=<INT>) {
 		typeDesc->setTypeName(_STR(t1));
 		typeDesc->setPosition(t1);
 	}

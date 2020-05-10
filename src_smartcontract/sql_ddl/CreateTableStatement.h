@@ -32,9 +32,11 @@ public:
 
 	virtual void interpret(VirtualMachine* vm);
 
+	void setName(UnicodeString* name) noexcept;
 	void addColumn(DdlColumnDescriptor* col) noexcept;
 	void addPrimaryKey(UnicodeString* key) noexcept;
 private:
+	UnicodeString* name;
 	ArrayList<DdlColumnDescriptor>* list;
 	ArrayList<UnicodeString>* primaryKeys;
 };

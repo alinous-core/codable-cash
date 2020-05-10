@@ -52,6 +52,8 @@ void DdlColumnDescriptor::toBinary(ByteBuffer* out) {
 	checkNotNull(this->name);
 	checkNotNull(this->typeDesc);
 
+	out->putShort(CodeElement::DDL_COLMUN_DESC);
+
 	putString(out, this->name);
 	this->typeDesc->toBinary(out);
 
