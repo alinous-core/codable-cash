@@ -9,16 +9,21 @@
 
 #include "sql_ddl/DdlColumnDescriptor.h"
 
+#include "base/UnicodeString.h"
 
 namespace alinous {
 
 CreateTableStatement::CreateTableStatement() : AbstractSQLStatement(CodeElement::DDL_CREATE_TABLE) {
 	this->list = new ArrayList<DdlColumnDescriptor>();
+	this->primaryKeys = new ArrayList<UnicodeString>();
 }
 
 CreateTableStatement::~CreateTableStatement() {
 	this->list->deleteElements();
 	delete this->list;
+
+	this->primaryKeys->deleteElements();
+	delete this->primaryKeys;
 }
 
 void CreateTableStatement::preAnalyze(AnalyzeContext* actx) {
@@ -51,6 +56,10 @@ void CreateTableStatement::interpret(VirtualMachine* vm) {
 
 void CreateTableStatement::addColumn(DdlColumnDescriptor* col) noexcept {
 	this->list->addElement(col);
+}
+
+void CreateTableStatement::addPrimaryKey(UnicodeString* key) noexcept {
+	this->primaryKeys->addElement(key);
 }
 
 } /* namespace alinous */

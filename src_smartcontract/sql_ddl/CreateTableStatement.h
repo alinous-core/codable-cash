@@ -33,9 +33,10 @@ public:
 	virtual void interpret(VirtualMachine* vm);
 
 	void addColumn(DdlColumnDescriptor* col) noexcept;
-
+	void addPrimaryKey(UnicodeString* key) noexcept;
 private:
 	ArrayList<DdlColumnDescriptor>* list;
+	ArrayList<UnicodeString>* primaryKeys;
 };
 
 } /* namespace alinous */

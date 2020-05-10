@@ -2739,6 +2739,7 @@ CreateTableStatement* createTableStatement() : {
 		t=<KEY> {stmt->setPosition(t);}
 		
 		t=<IDENTIFIER> {
+			stmt->addPrimaryKey(_STR(t));
 			stmt->setPosition(t);
 		}
 		
@@ -2747,6 +2748,7 @@ CreateTableStatement* createTableStatement() : {
 				stmt->setPosition(t);
 			}
 			t=<IDENTIFIER> {
+				stmt->addPrimaryKey(_STR(t));
 				stmt->setPosition(t);
 			}
 		)*

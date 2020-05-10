@@ -3902,7 +3902,8 @@ stmt->setPosition(t);
       t = jj_consume_token(IDENTIFIER);
       }
       if (!hasError) {
-stmt->setPosition(t);
+stmt->addPrimaryKey(_STR(t));
+                        stmt->setPosition(t);
       }
       if (!hasError) {
       while (!hasError) {
@@ -3925,7 +3926,8 @@ stmt->setPosition(t);
         t = jj_consume_token(IDENTIFIER);
         }
         if (!hasError) {
-stmt->setPosition(t);
+stmt->addPrimaryKey(_STR(t));
+                                stmt->setPosition(t);
         }
       }
       end_label_29: ;
