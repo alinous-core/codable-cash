@@ -30,12 +30,62 @@ DdlColumnDescriptor::~DdlColumnDescriptor() {
 }
 
 int DdlColumnDescriptor::binarySize() const {
+	checkNotNull(this->name);
+	checkNotNull(this->typeDesc);
+
+	int total = sizeof(uint16_t);
+	total += stringSize(this->name);
+	total += this->typeDesc->binarySize();
+
+	total += sizeof(int8_t); // notNull
+	total += sizeof(int8_t); // unique
+
+	total += sizeof(int8_t);
+	if(this->defaultValue != nullptr){
+		total += this->defaultValue->binarySize();
+	}
+
+	return total;
 }
 
 void DdlColumnDescriptor::toBinary(ByteBuffer* out) {
+	checkNotNull(this->name);
+	checkNotNull(this->typeDesc);
+
+	putString(out, this->name);
+	this->typeDesc->toBinary(out);
+
+	out->put(this->notNull ? 1 : 0);
+	out->put(this->unique ? 1 : 0);
+
+	bool bl = this->defaultValue != nullptr;
+	out->put(bl ? 1 : 0);
+	if(bl){
+		this->defaultValue->toBinary(out);
+	}
 }
 
 void DdlColumnDescriptor::fromBinary(ByteBuffer* in) {
+	this->name = getString(in);
+
+	CodeElement* element = createFromBinary(in);
+	checkKind(element, CodeElement::DDL_TYPE_DESC);
+	this->typeDesc = dynamic_cast<ColumnTypeDescriptor*>(element);
+
+	int8_t bl = in->get();
+	this->notNull = bl > 0;
+
+	bl = in->get();
+	this->unique = bl > 0;
+
+	bl = in->get();
+	if(bl > 0){
+		element = createFromBinary(in);
+		checkIsSQLExp(element);
+
+		this->defaultValue = dynamic_cast<AbstractSQLExpression*>(element);
+	}
+
 }
 
 void DdlColumnDescriptor::setName(UnicodeString* name) noexcept {
