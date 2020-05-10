@@ -44,7 +44,7 @@ CreateTableStatement* createTableStatement() : {
 			stmt->setPosition(desc);
 		}
 		
-		(
+		(LOOKAHEAD(2)
 			t="," {
 				stmt->setPosition(t);
 			}
@@ -56,8 +56,13 @@ CreateTableStatement* createTableStatement() : {
 	]
 	
 	[
+		[t=","]
 		t=<PRIMARY> {stmt->setPosition(t);}
 		t=<KEY> {stmt->setPosition(t);}
+		
+		t=<L_PARENTHESIS> {
+			stmt->setPosition(t);
+		}
 		
 		t=<IDENTIFIER> {
 			stmt->addPrimaryKey(_STR(t));
@@ -73,6 +78,10 @@ CreateTableStatement* createTableStatement() : {
 				stmt->setPosition(t);
 			}
 		)*
+		
+		t=<R_PARENTHESIS> {
+			stmt->setPosition(t);
+		}
 	]
 	
 	t=<R_PARENTHESIS> {

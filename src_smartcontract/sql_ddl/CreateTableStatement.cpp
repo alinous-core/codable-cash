@@ -53,6 +53,13 @@ int CreateTableStatement::binarySize() const {
 		total += col->binarySize();
 	}
 
+	total += sizeof(int32_t);
+	maxLoop = this->primaryKeys->size();
+	for(int i = 0; i != maxLoop; ++i){
+		UnicodeString* key = this->primaryKeys->get(i);
+		total += stringSize(key);
+	}
+
 	return total;
 }
 
@@ -69,6 +76,13 @@ void CreateTableStatement::toBinary(ByteBuffer* out) {
 		DdlColumnDescriptor* col = this->list->get(i);
 		col->toBinary(out);
 	}
+
+	maxLoop = this->primaryKeys->size();
+	out->putInt(maxLoop);
+	for(int i = 0; i != maxLoop; ++i){
+		UnicodeString* key = this->primaryKeys->get(i);
+		putString(out, key);
+	}
 }
 
 void CreateTableStatement::fromBinary(ByteBuffer* in) {
@@ -80,6 +94,12 @@ void CreateTableStatement::fromBinary(ByteBuffer* in) {
 
 		DdlColumnDescriptor* col = dynamic_cast<DdlColumnDescriptor*>(element);
 		this->list->addElement(col);
+	}
+
+	maxLoop = in->getInt();
+	for(int i = 0; i != maxLoop; ++i){
+		UnicodeString* key = getString(in);
+		this->primaryKeys->addElement(key);
 	}
 }
 

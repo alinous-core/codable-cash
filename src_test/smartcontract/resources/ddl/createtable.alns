@@ -1,5 +1,6 @@
 create table test_table (
 	id varchar(255) not null unique DEFAULT '',
-	num int
-
+	num int,
+	
+	PRIMARY KEY(id)
 );
