@@ -19,6 +19,7 @@ AbstractSQLStatement* ddlStatement() : {
 
 CreateTableStatement* createTableStatement() : {
 	CreateTableStatement* stmt = new CreateTableStatement();
+	DdlColumnDescriptor* desc = nullptr;
 	Token* t = null;
 }
 {
@@ -28,13 +29,47 @@ CreateTableStatement* createTableStatement() : {
 	t=<TABLE>{
 		stmt->setPosition(t);
 	}
-	<L_PARENTHESIS> {
-	
+	t=<L_PARENTHESIS> {
 		stmt->setPosition(t);
 	}
 	
+	[
+		// columns
+		desc=ddlColumnDescriptor() {
+			stmt->addColumn(desc);
+			stmt->setPosition(desc);
+		}
+		
+		(
+			t="," {
+				stmt->setPosition(t);
+			}
+			desc=ddlColumnDescriptor() {
+				stmt->addColumn(desc);
+				stmt->setPosition(desc);
+			}
+		)*
+	]
 	
-	<R_PARENTHESIS> {
+	[
+		t=<PRIMARY> {stmt->setPosition(t);}
+		t=<KEY> {stmt->setPosition(t);}
+		
+		t=<IDENTIFIER> {
+			stmt->setPosition(t);
+		}
+		
+		(
+			t="," {
+				stmt->setPosition(t);
+			}
+			t=<IDENTIFIER> {
+				stmt->setPosition(t);
+			}
+		)*
+	]
+	
+	t=<R_PARENTHESIS> {
 		stmt->setPosition(t);
 	}
 	
