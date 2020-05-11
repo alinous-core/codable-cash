@@ -184,6 +184,9 @@ void VirtualMachine::interpret(const UnicodeString* method,	ArrayList<AbstractFu
 }
 
 void VirtualMachine::interpret(MethodDeclare* method, VmClassInstance* _this, ArrayList<AbstractFunctionExtArguments>* arguments) {
+	ERROR_POINT(L"VirtualMachine::interpret");
+	CAUSE_ERROR_BY_THROW(L"VirtualMachine::interpret", new Exception(__FILE__, __LINE__));
+
 	initialize();
 
 	FunctionArguments args;
@@ -235,17 +238,20 @@ bool VirtualMachine::hasAnalyzeError(int code) noexcept {
 	AnalyzeContext* actx = this->sc->getAnalyzeContext();
 	const ArrayList<ValidationError>* list = actx->getErrors();
 
+	bool ret = false;
+
 	int maxLoop = list->size();
 	for(int i = 0; i != maxLoop; ++i){
 		ValidationError* err = list->get(i);
 
 		int cd = err->getErrorCode();
 		if(cd == code){
-			return true;
+			ret = true;
+			break;
 		}
 	}
 
-	return false;
+	return ret;
 }
 
 void VirtualMachine::newStack() {

@@ -233,8 +233,14 @@ VmClassInstance* SmartContract::createInstance(VirtualMachine* vm) {
 	stack->addInnerReference(instRef);
 
 	// exec constructor
-	ArrayList<AbstractFunctionExtArguments> arguments;
-	vm->interpret(defConstructor, inst, &arguments);
+	try{
+		ArrayList<AbstractFunctionExtArguments> arguments;
+		vm->interpret(defConstructor, inst, &arguments);
+	}
+	catch(Exception* e){
+		throw e;
+	}
+
 
 	return inst;
 }
