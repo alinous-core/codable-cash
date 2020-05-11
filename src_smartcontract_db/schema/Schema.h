@@ -11,6 +11,7 @@
 namespace alinous {
 class UnicodeString;
 class File;
+
 }  // namespace alinous
 using namespace alinous;
 
@@ -19,11 +20,13 @@ namespace codablecash {
 class Schema {
 public:
 	static const UnicodeString PUBLIC;
+	static const UnicodeString SCHEMA_FILE;
 
 	Schema();
 	virtual ~Schema();
 
 	static void createSchema(const UnicodeString* name, File* baseDir);
+
 };
 
 } /* namespace alinous */

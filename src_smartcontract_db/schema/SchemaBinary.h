@@ -12,6 +12,7 @@
 
 namespace alinous {
 class UnicodeString;
+class ByteBuffer;
 }
 using namespace alinous;
 
@@ -23,6 +24,13 @@ public:
 	virtual ~SchemaBinary();
 
 	void addSchemaName(const UnicodeString* name) noexcept;
+
+	int binarySize() const noexcept;
+	void toBinary(ByteBuffer* out) const;
+private:
+	int stringSize(UnicodeString* str) const noexcept;
+	void putString(ByteBuffer* out, UnicodeString* str) const noexcept;
+	UnicodeString* getString(ByteBuffer* in) const noexcept;
 private:
 	ArrayList<UnicodeString> list;
 };
