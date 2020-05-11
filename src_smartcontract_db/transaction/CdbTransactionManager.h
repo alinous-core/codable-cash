@@ -10,10 +10,18 @@
 
 namespace codablecash {
 
+class CdbTransaction;
+class CodableDatabase;
+
 class CdbTransactionManager {
 public:
-	CdbTransactionManager();
+	explicit CdbTransactionManager(CodableDatabase* db);
 	virtual ~CdbTransactionManager();
+
+	CdbTransaction* newTransaction();
+
+private:
+	CodableDatabase* db;
 };
 
 } /* namespace codablecash */

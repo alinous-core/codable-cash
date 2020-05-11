@@ -17,7 +17,7 @@
 namespace codablecash {
 
 CodableDatabase::CodableDatabase() {
-	this->trxManager = new CdbTransactionManager();
+	this->trxManager = new CdbTransactionManager(this);
 	this->schema = nullptr;
 }
 
