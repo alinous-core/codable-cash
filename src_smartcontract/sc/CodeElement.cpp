@@ -660,7 +660,7 @@ CodeElement* CodeElement::getParent() const noexcept {
 
 CompilationUnit* CodeElement::getCompilationUnit() const {
 	CodeElement* element = this->parent;
-	while(element->kind != CodeElement::COMPILANT_UNIT && element != nullptr){
+	while(element != nullptr && element->kind != CodeElement::COMPILANT_UNIT){
 		element = element->getParent();
 	}
 
