@@ -52,6 +52,13 @@ void SchemaBinary::toBinary(ByteBuffer* out) const {
 	}
 }
 
+void SchemaBinary::fromBinary(ByteBuffer* in) {
+	int maxLoop = in->getInt();
+	for(int i = 0; i != maxLoop; ++i){
+		UnicodeString* name = getString(in);
+		this->list.addElement(name);
+	}
+}
 
 int SchemaBinary::stringSize(UnicodeString* str) const noexcept {
 	return sizeof(uint32_t) + str->length() * sizeof(uint16_t);

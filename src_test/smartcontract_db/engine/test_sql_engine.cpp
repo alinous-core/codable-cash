@@ -31,8 +31,27 @@ TEST(TestDbEngineGroup, construct){
 
 TEST(TestDbEngineGroup, createDb01){
 	File testCaseFolder = this->env->testCaseDir();
+	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
 	CodableDatabase db;
 
-	db.createDatabase(&testCaseFolder);
+	db.createDatabase(dbDir);
+}
 
+TEST(TestDbEngineGroup, createDb02){
+	File testCaseFolder = this->env->testCaseDir();
+	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
+	CodableDatabase db;
+
+	db.createDatabase(dbDir);
+
+	db.loadDatabase(dbDir);
+}
+
+TEST(TestDbEngineGroup, createDbLoadError01){
+	File testCaseFolder = this->env->testCaseDir();
+	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
+	CodableDatabase db;
+
+	bool result = db.loadDatabase(dbDir);
+	CHECK(!result)
 }

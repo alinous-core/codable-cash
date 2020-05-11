@@ -18,11 +18,12 @@ namespace codablecash {
 
 CodableDatabase::CodableDatabase() {
 	this->trxManager = new CdbTransactionManager();
+	this->schema = nullptr;
 }
 
 CodableDatabase::~CodableDatabase() {
 	delete this->trxManager;
-
+	delete this->schema;
 }
 
 void CodableDatabase::createDatabase(File* dbdir) {
@@ -32,6 +33,17 @@ void CodableDatabase::createDatabase(File* dbdir) {
 
 	// schema
 	Schema::createSchema(&Schema::PUBLIC, dbdir);
+}
+
+bool CodableDatabase::loadDatabase(File* dbdir) {
+	if(!dbdir->exists() || !dbdir->isDirectory()){
+		return false;
+	}
+
+	this->schema = new Schema();
+	this->schema->loadSchema(dbdir);
+
+	return true;
 }
 
 } /* namespace alinous */

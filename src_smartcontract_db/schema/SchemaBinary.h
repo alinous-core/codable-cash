@@ -27,6 +27,7 @@ public:
 
 	int binarySize() const noexcept;
 	void toBinary(ByteBuffer* out) const;
+	void fromBinary(ByteBuffer* in);
 private:
 	int stringSize(UnicodeString* str) const noexcept;
 	void putString(ByteBuffer* out, UnicodeString* str) const noexcept;

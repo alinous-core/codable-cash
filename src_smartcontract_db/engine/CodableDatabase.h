@@ -16,6 +16,7 @@ using namespace alinous;
 
 namespace codablecash {
 class CdbTransactionManager;
+class Schema;
 
 class CodableDatabase {
 public:
@@ -23,8 +24,10 @@ public:
 	virtual ~CodableDatabase();
 
 	void createDatabase(File* dbdir);
+	bool loadDatabase(File* dbdir);
 private:
 	CdbTransactionManager* trxManager;
+	Schema* schema;
 };
 
 } /* namespace alinous */

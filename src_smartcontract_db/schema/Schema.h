@@ -17,6 +17,8 @@ using namespace alinous;
 
 namespace codablecash {
 
+class SchemaBinary;
+
 class Schema {
 public:
 	static const UnicodeString PUBLIC;
@@ -26,7 +28,10 @@ public:
 	virtual ~Schema();
 
 	static void createSchema(const UnicodeString* name, File* baseDir);
+	void loadSchema(File* baseDir);
 
+private:
+	SchemaBinary* binary;
 };
 
 } /* namespace alinous */
