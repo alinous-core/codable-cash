@@ -12,6 +12,7 @@
 
 #include "engine/CodableDatabase.h"
 
+#include "engine/CdbException.h"
 using namespace codablecash;
 
 
@@ -55,3 +56,8 @@ TEST(TestDbEngineGroup, createDbLoadError01){
 	bool result = db.loadDatabase(dbDir);
 	CHECK(!result)
 }
+
+TEST(TestDbEngineGroup, testEx){
+	testException<CdbException>();
+}
+
