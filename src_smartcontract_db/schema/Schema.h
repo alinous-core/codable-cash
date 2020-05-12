@@ -28,7 +28,7 @@ public:
 	virtual ~Schema();
 
 	static void createSchema(const UnicodeString* name, File* baseDir);
-	void loadSchema(File* baseDir);
+	void loadSchema(const File* baseDir);
 
 private:
 	SchemaBinary* binary;

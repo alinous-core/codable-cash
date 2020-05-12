@@ -56,7 +56,7 @@ void Schema::createSchema(const UnicodeString* name, File* baseDir) {
 	outStream->close();
 }
 
-void Schema::loadSchema(File* baseDir) {
+void Schema::loadSchema(const File* baseDir) {
 	File* schemaBin = baseDir->get(&Schema::SCHEMA_FILE); __STP(schemaBin);
 
 	int size = schemaBin->length();
