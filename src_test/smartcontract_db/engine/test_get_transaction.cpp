@@ -58,3 +58,14 @@ TEST(TestGetTransactionGroup, case02_err){
 	delete ex;
 }
 
+TEST(TestGetTransactionGroup, case03){
+	File testCaseFolder = this->env->testCaseDir();
+	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
+	CodableDatabase db;
+
+	db.createDatabase(dbDir);
+	db.loadDatabase(dbDir);
+
+	CdbTransaction* trx = db.newTransaction(); __STP(trx);
+}
+

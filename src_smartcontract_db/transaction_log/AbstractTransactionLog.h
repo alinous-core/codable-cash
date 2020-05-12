@@ -14,6 +14,7 @@ class AbstractTransactionLog {
 public:
 	AbstractTransactionLog();
 	virtual ~AbstractTransactionLog();
+
 };
 
 } /* namespace codablecash */

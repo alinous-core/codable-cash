@@ -5,7 +5,7 @@ set(__dirsrc "")
 add_subdirectory(engine)
 add_subdirectory(schema)
 add_subdirectory(transaction)
-
+add_subdirectory(transaction_log)
 
 message(STATUS "src_smartcontract_db : ${__dirsrc}")
 

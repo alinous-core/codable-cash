@@ -12,15 +12,23 @@
 namespace codablecash {
 
 class CdbTransactionManager;
+class AbstractTransactionLog;
+class CreateTableLog;
 
 class CdbTransaction {
 public:
 	CdbTransaction(CdbTransactionManager* trxManager, uint64_t transactionId);
 	virtual ~CdbTransaction();
 
+	void commit();
+	void rollback();
+
+	void createTable(CreateTableLog* cmd);
 private:
 	CdbTransactionManager* trxManager;
 	uint64_t transactionId;
+
+
 };
 
 } /* namespace codablecash */

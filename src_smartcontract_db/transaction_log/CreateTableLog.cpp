@@ -10,12 +10,11 @@
 namespace codablecash {
 
 CreateTableLog::CreateTableLog() {
-	// TODO Auto-generated constructor stub
 
 }
 
 CreateTableLog::~CreateTableLog() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */

@@ -8,9 +8,11 @@
 #ifndef TRANSACTION_LOG_CREATETABLELOG_H_
 #define TRANSACTION_LOG_CREATETABLELOG_H_
 
+#include "transaction_log/AbstractDdlLog.h"
+
 namespace codablecash {
 
-class CreateTableLog {
+class CreateTableLog : public AbstractDdlLog {
 public:
 	CreateTableLog();
 	virtual ~CreateTableLog();

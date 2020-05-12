@@ -10,12 +10,10 @@
 namespace codablecash {
 
 AbstractTransactionLog::AbstractTransactionLog() {
-	// TODO Auto-generated constructor stub
 
 }
 
 AbstractTransactionLog::~AbstractTransactionLog() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace codablecash */

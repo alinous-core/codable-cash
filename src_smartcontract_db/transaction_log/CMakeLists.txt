@@ -1,6 +1,7 @@
 
 
 set(__src
+	AbstractDdlLog.cpp
 	AbstractTransactionLog.cpp
 	CreateTableLog.cpp
 )
