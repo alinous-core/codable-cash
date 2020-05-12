@@ -6,6 +6,7 @@
  */
 
 #include "engine/CodableDatabase.h"
+#include "engine/CdbException.h"
 
 #include "transaction/CdbTransactionManager.h"
 
@@ -14,6 +15,7 @@
 #include "schema/Schema.h"
 
 #include "transaction/CdbTransaction.h"
+
 
 namespace codablecash {
 
@@ -67,6 +69,9 @@ CdbTransaction* CodableDatabase::newTransaction() {
 }
 
 void CodableDatabase::checkDatabaseLoaded() const {
+	if(this->loadedFile == nullptr){
+		throw new CdbException(__FILE__, __LINE__);
+	}
 }
 
 } /* namespace alinous */

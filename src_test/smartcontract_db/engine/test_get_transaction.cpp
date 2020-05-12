@@ -14,6 +14,7 @@
 
 #include "transaction/CdbTransaction.h"
 
+#include "engine/CdbException.h"
 using namespace codablecash;
 using namespace alinous;
 
@@ -39,4 +40,21 @@ TEST(TestGetTransactionGroup, case01){
 	CHECK(trx != nullptr);
 }
 
+TEST(TestGetTransactionGroup, case02_err){
+	File testCaseFolder = this->env->testCaseDir();
+	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
+	CodableDatabase db;
+
+	db.createDatabase(dbDir);
+
+	CdbException* ex = nullptr;
+	try{
+		CdbTransaction* trx = db.newTransaction();
+	}catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr)
+	delete ex;
+}
 
