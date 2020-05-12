@@ -7,13 +7,28 @@
 
 #ifndef TRANSACTION_LOG_ABSTRACTTRANSACTIONLOG_H_
 #define TRANSACTION_LOG_ABSTRACTTRANSACTIONLOG_H_
+#include <cstdint>
+
+namespace alinous {
+class ByteBuffer;
+}
+using namespace alinous;
 
 namespace codablecash {
 
 class AbstractTransactionLog {
 public:
-	AbstractTransactionLog();
+	static const constexpr uint8_t TRX_CREATE_TABLE{0};
+
+	explicit AbstractTransactionLog(uint8_t type);
 	virtual ~AbstractTransactionLog();
+
+	virtual int binarySize() const noexcept = 0;
+	virtual void toBinary(ByteBuffer* out) const = 0;
+	virtual void fromBinary(ByteBuffer* in) = 0;
+
+protected:
+	uint8_t type;
 
 };
 

@@ -9,7 +9,7 @@
 
 namespace codablecash {
 
-AbstractDdlLog::AbstractDdlLog() {
+AbstractDdlLog::AbstractDdlLog(uint8_t type) : AbstractTransactionLog(type) {
 
 }
 

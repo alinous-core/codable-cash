@@ -14,7 +14,7 @@ namespace codablecash {
 
 class AbstractDdlLog : public AbstractTransactionLog {
 public:
-	AbstractDdlLog();
+	explicit AbstractDdlLog(uint8_t type);
 	virtual ~AbstractDdlLog();
 };
 

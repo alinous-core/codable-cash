@@ -9,12 +9,21 @@
 
 namespace codablecash {
 
-CreateTableLog::CreateTableLog() {
+CreateTableLog::CreateTableLog() : AbstractDdlLog(AbstractTransactionLog::TRX_CREATE_TABLE) {
 
 }
 
 CreateTableLog::~CreateTableLog() {
 
+}
+
+int CreateTableLog::binarySize() const noexcept {
+}
+
+void CreateTableLog::toBinary(ByteBuffer* out) const {
+}
+
+void CreateTableLog::fromBinary(ByteBuffer* in) {
 }
 
 } /* namespace codablecash */

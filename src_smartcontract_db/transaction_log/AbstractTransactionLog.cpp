@@ -9,8 +9,8 @@
 
 namespace codablecash {
 
-AbstractTransactionLog::AbstractTransactionLog() {
-
+AbstractTransactionLog::AbstractTransactionLog(uint8_t type) {
+	this->type = type;
 }
 
 AbstractTransactionLog::~AbstractTransactionLog() {

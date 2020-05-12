@@ -16,6 +16,10 @@ class CreateTableLog : public AbstractDdlLog {
 public:
 	CreateTableLog();
 	virtual ~CreateTableLog();
+
+	virtual int binarySize() const noexcept;
+	virtual void toBinary(ByteBuffer* out) const;
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace codablecash */
