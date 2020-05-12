@@ -7,6 +7,7 @@
 
 #include "transaction_log/TransactionLogFactory.h"
 #include "transaction_log/AbstractTransactionLog.h"
+#include "transaction_log/CreateTableLog.h"
 
 #include "base_io/ByteBuffer.h"
 
@@ -20,6 +21,9 @@ AbstractTransactionLog* TransactionLogFactory::createFromBinary(ByteBuffer* in) 
 	AbstractTransactionLog* ret = nullptr;
 
 	switch(type){
+	case AbstractTransactionLog::TRX_CREATE_TABLE:
+		ret = new CreateTableLog();
+		break;
 	default:
 		throw new CdbException(L"Transaction log type is wrong.", __FILE__, __LINE__);
 	}
