@@ -19,7 +19,7 @@ CdbTransaction::CdbTransaction(CdbTransactionManager* trxManager, uint64_t trans
 CdbTransaction::~CdbTransaction() {
 	this->trxManager = nullptr;
 }
-
+/*
 void CdbTransaction::commit() {
 
 }
@@ -30,6 +30,6 @@ void CdbTransaction::rollback() {
 
 void CdbTransaction::createTable(CreateTableLog* cmd) {
 	commit();
-}
+}*/
 
 } /* namespace codablecash */
