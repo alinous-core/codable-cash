@@ -11,8 +11,9 @@
 
 namespace codablecash {
 
-CdbTransaction::CdbTransaction(CdbTransactionManager* trxManager) {
+CdbTransaction::CdbTransaction(CdbTransactionManager* trxManager, uint64_t transactionId) {
 	this->trxManager = trxManager;
+	this->transactionId = transactionId;
 }
 
 CdbTransaction::~CdbTransaction() {

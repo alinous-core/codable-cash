@@ -15,7 +15,8 @@
 namespace codablecash {
 
 SchemaBinary::SchemaBinary() {
-
+	this->maxTransactionId = 0;
+	this->maxObjectId = 0;
 }
 
 SchemaBinary::~SchemaBinary() {
@@ -29,8 +30,9 @@ void SchemaBinary::addSchemaName(const UnicodeString* name) noexcept {
 int SchemaBinary::binarySize() const noexcept {
 	int total = 0;
 
-	total += sizeof(uint32_t);
+	total += sizeof(uint64_t) * 2;
 
+	total += sizeof(uint32_t);
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
 		UnicodeString* name = this->list.get(i);
@@ -42,6 +44,9 @@ int SchemaBinary::binarySize() const noexcept {
 }
 
 void SchemaBinary::toBinary(ByteBuffer* out) const {
+	out->putLong(this->maxTransactionId);
+	out->putLong(this->maxObjectId);
+
 	int maxLoop = this->list.size();
 	out->putInt(maxLoop);
 
@@ -53,6 +58,9 @@ void SchemaBinary::toBinary(ByteBuffer* out) const {
 }
 
 void SchemaBinary::fromBinary(ByteBuffer* in) {
+	this->maxTransactionId = in->getLong();
+	this->maxObjectId = in->getLong();
+
 	int maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){
 		UnicodeString* name = getString(in);
@@ -72,6 +80,11 @@ void SchemaBinary::putString(ByteBuffer* out, UnicodeString* str) const noexcept
 		wchar_t ch = str->get(i);
 		out->putChar(ch);
 	}
+}
+
+uint64_t SchemaBinary::newTransactionId() noexcept {
+	this->maxTransactionId++;
+	return this->maxTransactionId;
 }
 
 UnicodeString* SchemaBinary::getString(ByteBuffer* in) const noexcept {

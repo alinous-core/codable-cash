@@ -59,7 +59,14 @@ void CodableDatabase::closeDatabase() noexcept {
 }
 
 CdbTransaction* CodableDatabase::newTransaction() {
-	return this->trxManager->newTransaction();
+	checkDatabaseLoaded();
+
+	uint64_t transactionId = this->schema->newTransactionId();
+
+	return this->trxManager->newTransaction(transactionId);
+}
+
+void CodableDatabase::checkDatabaseLoaded() const {
 }
 
 } /* namespace alinous */

@@ -29,6 +29,10 @@ public:
 	void closeDatabase() noexcept;
 
 	CdbTransaction* newTransaction();
+
+private:
+	void checkDatabaseLoaded() const;
+
 private:
 	CdbTransactionManager* trxManager;
 	Schema* schema;

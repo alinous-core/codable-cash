@@ -7,6 +7,7 @@
 
 #ifndef SCHEMA_SCHEMA_H_
 #define SCHEMA_SCHEMA_H_
+#include <cstdint>
 
 namespace alinous {
 class UnicodeString;
@@ -30,6 +31,7 @@ public:
 	static void createSchema(const UnicodeString* name, File* baseDir);
 	void loadSchema(const File* baseDir);
 
+	uint64_t newTransactionId();
 private:
 	SchemaBinary* binary;
 };

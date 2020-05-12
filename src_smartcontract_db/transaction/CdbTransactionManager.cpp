@@ -20,8 +20,9 @@ CdbTransactionManager::~CdbTransactionManager() {
 	this->db = nullptr;
 }
 
-CdbTransaction* CdbTransactionManager::newTransaction() {
-	CdbTransaction* trx = new CdbTransaction(this);
+CdbTransaction* CdbTransactionManager::newTransaction(uint64_t transactionId) {
+
+	CdbTransaction* trx = new CdbTransaction(this, transactionId);
 
 	return trx;
 }

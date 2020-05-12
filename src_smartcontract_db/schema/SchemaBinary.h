@@ -9,6 +9,7 @@
 #define SCHEMA_SCHEMABINARY_H_
 
 #include "base/ArrayList.h"
+#include <cstdint>
 
 namespace alinous {
 class UnicodeString;
@@ -28,12 +29,16 @@ public:
 	int binarySize() const noexcept;
 	void toBinary(ByteBuffer* out) const;
 	void fromBinary(ByteBuffer* in);
+
+	uint64_t newTransactionId() noexcept;
 private:
 	int stringSize(UnicodeString* str) const noexcept;
 	void putString(ByteBuffer* out, UnicodeString* str) const noexcept;
 	UnicodeString* getString(ByteBuffer* in) const noexcept;
 private:
 	ArrayList<UnicodeString> list;
+	uint64_t maxTransactionId;
+	uint64_t maxObjectId;
 };
 
 } /* namespace codablecash */

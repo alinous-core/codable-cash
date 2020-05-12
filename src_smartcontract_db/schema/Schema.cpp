@@ -76,4 +76,8 @@ void Schema::loadSchema(const File* baseDir) {
 	this->binary->fromBinary(buff);
 }
 
+uint64_t Schema::newTransactionId() {
+	return this->binary->newTransactionId();
+}
+
 } /* namespace alinous */

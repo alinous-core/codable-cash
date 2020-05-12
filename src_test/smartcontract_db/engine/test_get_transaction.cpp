@@ -37,7 +37,6 @@ TEST(TestGetTransactionGroup, case01){
 
 	CdbTransaction* trx = db.newTransaction(); __STP(trx);
 	CHECK(trx != nullptr);
-
 }
 
 

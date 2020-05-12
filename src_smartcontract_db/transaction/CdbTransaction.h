@@ -7,6 +7,7 @@
 
 #ifndef TRANSACTION_CDBTRANSACTION_H_
 #define TRANSACTION_CDBTRANSACTION_H_
+#include <cstdint>
 
 namespace codablecash {
 
@@ -14,11 +15,12 @@ class CdbTransactionManager;
 
 class CdbTransaction {
 public:
-	explicit CdbTransaction(CdbTransactionManager* trxManager);
+	CdbTransaction(CdbTransactionManager* trxManager, uint64_t transactionId);
 	virtual ~CdbTransaction();
 
 private:
 	CdbTransactionManager* trxManager;
+	uint64_t transactionId;
 };
 
 } /* namespace codablecash */

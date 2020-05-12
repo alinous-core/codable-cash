@@ -7,6 +7,7 @@
 
 #ifndef TRANSACTION_CDBTRANSACTIONMANAGER_H_
 #define TRANSACTION_CDBTRANSACTIONMANAGER_H_
+#include <cstdint>
 
 namespace codablecash {
 
@@ -18,7 +19,7 @@ public:
 	explicit CdbTransactionManager(CodableDatabase* db);
 	virtual ~CdbTransactionManager();
 
-	CdbTransaction* newTransaction();
+	CdbTransaction* newTransaction(uint64_t transactionId);
 
 private:
 	CodableDatabase* db;
