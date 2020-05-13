@@ -49,6 +49,8 @@ TEST(TestCreateTableGroup, case01){
 	CdbTable* table = new CdbTable(0);
 
 
+	cmd->setTable(table);
+
 	// FIXME create table
 	trx->createTable(cmd);
 

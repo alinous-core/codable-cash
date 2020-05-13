@@ -26,6 +26,13 @@ CdbTable::~CdbTable() {
 	delete this->oid;
 }
 
+
+void CdbTable::addColumn(const UnicodeString* name, uint8_t type, int length,
+		bool notnull, bool unique, const UnicodeString* defaultValue) noexcept {
+
+
+}
+
 void CdbTable::addColumn(CdbTableColumn* col) noexcept {
 	this->columns->addElement(col);
 	const CdbOid* o = col->getOid();
