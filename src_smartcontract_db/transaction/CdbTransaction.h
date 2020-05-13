@@ -20,10 +20,10 @@ public:
 	CdbTransaction(CdbTransactionManager* trxManager, uint64_t transactionId);
 	virtual ~CdbTransaction();
 
-	//void commit();
+	void commit();
 	//void rollback();
 
-	//void createTable(CreateTableLog* cmd);
+	void createTable(CreateTableLog* cmd);
 private:
 	CdbTransactionManager* trxManager;
 	uint64_t transactionId;

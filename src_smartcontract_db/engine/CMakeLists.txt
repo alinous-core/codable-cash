@@ -1,6 +1,7 @@
 
 
 set(__src
+	CdbBinaryObject.cpp
 	CdbException.cpp
 	CdbOid.cpp
 	CodableDatabase.cpp
