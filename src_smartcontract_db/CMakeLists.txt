@@ -4,6 +4,7 @@ set(__dirsrc "")
 # import source codes
 add_subdirectory(engine)
 add_subdirectory(schema)
+add_subdirectory(table)
 add_subdirectory(transaction)
 add_subdirectory(transaction_log)
 
