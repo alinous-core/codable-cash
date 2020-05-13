@@ -7,13 +7,20 @@
 
 #ifndef TABLE_CDBTABLECOLUMN_H_
 #define TABLE_CDBTABLECOLUMN_H_
+#include <cstdint>
 
 namespace codablecash {
 
+class CdbOid;
+
 class CdbTableColumn {
 public:
-	CdbTableColumn();
+	explicit CdbTableColumn(uint64_t oid);
 	virtual ~CdbTableColumn();
+
+	const CdbOid* getOid() const noexcept;
+private:
+	CdbOid* oid;
 };
 
 } /* namespace codablecash */

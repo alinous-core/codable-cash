@@ -7,15 +7,21 @@
 
 #include "table/CdbTableColumn.h"
 
+#include "engine/CdbOid.h"
+
+
 namespace codablecash {
 
-CdbTableColumn::CdbTableColumn() {
-	// TODO Auto-generated constructor stub
-
+CdbTableColumn::CdbTableColumn(uint64_t oid) {
+	this->oid = new CdbOid(oid);
 }
 
 CdbTableColumn::~CdbTableColumn() {
-	// TODO Auto-generated destructor stub
+	delete this->oid;
+}
+
+const CdbOid* CdbTableColumn::getOid() const noexcept {
+	return this->oid;
 }
 
 } /* namespace codablecash */

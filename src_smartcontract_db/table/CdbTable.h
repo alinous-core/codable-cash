@@ -8,12 +8,28 @@
 #ifndef TABLE_CDBTABLE_H_
 #define TABLE_CDBTABLE_H_
 
+#include <cstdint>
+
+#include "base/ArrayList.h"
+#include "base/HashMap.h"
+
+using namespace alinous;
+
 namespace codablecash {
+
+class CdbTableColumn;
+class CdbOid;
 
 class CdbTable {
 public:
-	CdbTable();
+	explicit CdbTable(uint64_t oid);
 	virtual ~CdbTable();
+
+	void addColumn(CdbTableColumn* col) noexcept;
+private:
+	CdbOid* oid;
+	ArrayList<CdbTableColumn>* columns;
+	HashMap<CdbOid, CdbTableColumn>* columnMap;
 };
 
 } /* namespace codablecash */
