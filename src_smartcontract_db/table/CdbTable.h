@@ -30,6 +30,7 @@ private:
 	CdbOid* oid;
 	ArrayList<CdbTableColumn>* columns;
 	HashMap<CdbOid, CdbTableColumn>* columnMap;
+
 };
 
 } /* namespace codablecash */

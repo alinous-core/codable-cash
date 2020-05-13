@@ -17,6 +17,12 @@ public:
 	explicit CdbOid(uint64_t oid);
 	virtual ~CdbOid();
 
+	int hashCode() const;
+
+	class ValueCompare {
+	public:
+		int operator() (const CdbOid* const _this, const  CdbOid* const object) const noexcept;
+	};
 private:
 	uint64_t oid;
 };

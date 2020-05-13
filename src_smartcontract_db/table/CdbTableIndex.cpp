@@ -5,17 +5,39 @@
  *      Author: iizuka
  */
 
-#include <table/CdbTableIndex.h>
+#include "table/CdbTableIndex.h"
+#include "table/CdbTableColumn.h"
+
+#include "engine/CdbOid.h"
+
 
 namespace codablecash {
 
-CdbTableIndex::CdbTableIndex() {
-	// TODO Auto-generated constructor stub
-
+CdbTableIndex::CdbTableIndex(uint64_t oid) {
+	this->oid = new CdbOid(oid);
+	this->columns = new ArrayList<CdbTableColumn>();
+	this->columnMap = new HashMap<CdbOid, CdbTableColumn>();
+	this->primary = false;
 }
 
 CdbTableIndex::~CdbTableIndex() {
-	// TODO Auto-generated destructor stub
+	delete this->oid;
+	delete this->columns;
+	delete this->columnMap;
+}
+
+void CdbTableIndex::addColumn(CdbTableColumn* col) noexcept {
+	this->columns->addElement(col);
+	const CdbOid* o = col->getOid();
+	this->columnMap->put(o, col);
+}
+
+void CdbTableIndex::setPrimaryKey(bool bl) {
+	this->primary = bl;
+}
+
+bool CdbTableIndex::isPrimaryKey() const noexcept {
+	return this->primary;
 }
 
 } /* namespace codablecash */

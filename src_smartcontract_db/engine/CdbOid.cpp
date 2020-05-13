@@ -17,4 +17,12 @@ CdbOid::~CdbOid() {
 
 }
 
+int CdbOid::hashCode() const {
+	return (int)this->oid;
+}
+
+int CdbOid::ValueCompare::operator ()(const CdbOid* const _this, const CdbOid* const object) const noexcept {
+	return ((int)_this->oid) - ((int)object->oid);
+}
+
 } /* namespace codablecash */

@@ -28,6 +28,8 @@ CdbTable::~CdbTable() {
 
 void CdbTable::addColumn(CdbTableColumn* col) noexcept {
 	this->columns->addElement(col);
+	const CdbOid* o = col->getOid();
+	this->columnMap->put(o, col);
 }
 
 } /* namespace codablecash */
