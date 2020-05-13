@@ -68,34 +68,9 @@ void SchemaBinary::fromBinary(ByteBuffer* in) {
 	}
 }
 
-int SchemaBinary::stringSize(UnicodeString* str) const noexcept {
-	return sizeof(uint32_t) + str->length() * sizeof(uint16_t);
-}
-
-void SchemaBinary::putString(ByteBuffer* out, UnicodeString* str) const noexcept {
-	uint32_t maxLoop = str->length();
-	out->putInt(maxLoop);
-
-	for(int i = 0; i != maxLoop; ++i){
-		wchar_t ch = str->get(i);
-		out->putChar(ch);
-	}
-}
-
 uint64_t SchemaBinary::newTransactionId() noexcept {
 	this->maxTransactionId++;
 	return this->maxTransactionId;
-}
-
-UnicodeString* SchemaBinary::getString(ByteBuffer* in) const noexcept {
-	UnicodeString* ret = new UnicodeString(L"");
-	uint32_t maxLoop = in->getInt();
-	for(int i = 0; i != maxLoop; ++i){
-		wchar_t ch = in->getChar();
-		ret->append(ch);
-	}
-
-	return ret;
 }
 
 } /* namespace codablecash */

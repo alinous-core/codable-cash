@@ -12,6 +12,8 @@
 #include "base/ArrayList.h"
 #include "base/HashMap.h"
 
+#include "engine/CdbBinaryObject.h"
+
 using namespace alinous;
 
 namespace codablecash {
@@ -19,7 +21,7 @@ namespace codablecash {
 class CdbOid;
 class CdbTableColumn;
 
-class CdbTableIndex {
+class CdbTableIndex : public CdbBinaryObject {
 public:
 	explicit CdbTableIndex(uint64_t oid);
 	virtual ~CdbTableIndex();

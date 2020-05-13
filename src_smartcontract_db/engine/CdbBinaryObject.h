@@ -8,6 +8,8 @@
 #ifndef ENGINE_CDBBINARYOBJECT_H_
 #define ENGINE_CDBBINARYOBJECT_H_
 
+#include <cstdint>
+
 namespace alinous {
 class UnicodeString;
 class ByteBuffer;
@@ -25,6 +27,8 @@ protected:
 	int stringSize(UnicodeString* str) const noexcept;
 	void putString(ByteBuffer* out, UnicodeString* str) const noexcept;
 	UnicodeString* getString(ByteBuffer* in) const noexcept;
+
+	void checkNotNull(CdbBinaryObject* object) const;
 };
 
 } /* namespace codablecash */

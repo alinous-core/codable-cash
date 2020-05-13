@@ -11,6 +11,8 @@
 #include "base/ArrayList.h"
 #include <cstdint>
 
+#include "engine/CdbBinaryObject.h"
+
 namespace alinous {
 class UnicodeString;
 class ByteBuffer;
@@ -19,7 +21,7 @@ using namespace alinous;
 
 namespace codablecash {
 
-class SchemaBinary {
+class SchemaBinary : public CdbBinaryObject {
 public:
 	SchemaBinary();
 	virtual ~SchemaBinary();
@@ -32,13 +34,10 @@ public:
 
 	uint64_t newTransactionId() noexcept;
 private:
-	int stringSize(UnicodeString* str) const noexcept;
-	void putString(ByteBuffer* out, UnicodeString* str) const noexcept;
-	UnicodeString* getString(ByteBuffer* in) const noexcept;
-private:
 	ArrayList<UnicodeString> list;
 	uint64_t maxTransactionId;
 	uint64_t maxObjectId;
+
 };
 
 } /* namespace codablecash */

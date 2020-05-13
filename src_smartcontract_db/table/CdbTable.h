@@ -13,6 +13,8 @@
 #include "base/ArrayList.h"
 #include "base/HashMap.h"
 
+#include "engine/CdbBinaryObject.h"
+
 using namespace alinous;
 
 namespace codablecash {
@@ -20,7 +22,7 @@ namespace codablecash {
 class CdbTableColumn;
 class CdbOid;
 
-class CdbTable {
+class CdbTable : public CdbBinaryObject {
 public:
 	explicit CdbTable(uint64_t oid);
 	virtual ~CdbTable();

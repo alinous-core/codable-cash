@@ -9,6 +9,8 @@
 #define TRANSACTION_LOG_ABSTRACTTRANSACTIONLOG_H_
 #include <cstdint>
 
+#include "engine/CdbBinaryObject.h"
+
 namespace alinous {
 class ByteBuffer;
 }
@@ -16,7 +18,7 @@ using namespace alinous;
 
 namespace codablecash {
 
-class AbstractTransactionLog {
+class AbstractTransactionLog : public CdbBinaryObject {
 public:
 	static const constexpr uint8_t TRX_CREATE_TABLE{0};
 
