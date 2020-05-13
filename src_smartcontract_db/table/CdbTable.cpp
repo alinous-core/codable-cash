@@ -1,4 +1,4 @@
-/*
+/*>s
  * CdbTable.cpp
  *
  *  Created on: 2020/05/13
@@ -9,6 +9,9 @@
 #include "table/CdbTableColumn.h"
 
 #include "engine/CdbOid.h"
+
+#include "base/UnicodeString.h"
+
 
 namespace codablecash {
 
@@ -26,11 +29,27 @@ CdbTable::~CdbTable() {
 	delete this->oid;
 }
 
+void CdbTable::addColumn(uint8_t oid, const wchar_t* name,
+		uint8_t type, int length, bool notnull, bool unique, const wchar_t* defaultValue) noexcept {
+	UnicodeString strName(name);
+	UnicodeString* strDefaultValue = nullptr;
 
-void CdbTable::addColumn(const UnicodeString* name, uint8_t type, int length,
+	if(defaultValue != nullptr){
+		strDefaultValue = new UnicodeString(defaultValue);
+	}
+
+	addColumn(oid, &strName, type, length, notnull, unique, strDefaultValue);
+}
+
+void CdbTable::addColumn(uint8_t oid, const UnicodeString* name, uint8_t type, int length,
 		bool notnull, bool unique, const UnicodeString* defaultValue) noexcept {
+	CdbTableColumn* col = new CdbTableColumn(oid);
+	col->setName(name);
+	col->setType(type, length);
+	col->setAttributes(notnull, unique);
+	col->setDefaultValue(defaultValue);
 
-
+	addColumn(col);
 }
 
 void CdbTable::addColumn(CdbTableColumn* col) noexcept {

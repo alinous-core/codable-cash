@@ -22,6 +22,8 @@
 #include "transaction/CdbTransaction.h"
 
 #include "table/CdbTable.h"
+#include "table/CdbTableColumn.h"
+
 using namespace codablecash;
 
 
@@ -47,7 +49,8 @@ TEST(TestCreateTableGroup, case01){
 
 	CreateTableLog* cmd = new CreateTableLog();
 	CdbTable* table = new CdbTable(0);
-
+	table->addColumn(0, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
+	table->addColumn(0, L"name", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, L"");
 
 	cmd->setTable(table);
 

@@ -48,7 +48,9 @@ void CdbTableColumn::setAttributes(bool notnull, bool unique) noexcept {
 }
 
 void CdbTableColumn::setDefaultValue(const UnicodeString* defaultValue) noexcept {
-	this->defaultValue = new UnicodeString(defaultValue);
+	if(defaultValue != nullptr){
+		this->defaultValue = new UnicodeString(defaultValue);
+	}
 }
 
 

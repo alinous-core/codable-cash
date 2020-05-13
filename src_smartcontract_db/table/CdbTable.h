@@ -27,7 +27,8 @@ public:
 	explicit CdbTable(uint64_t oid);
 	virtual ~CdbTable();
 
-	void addColumn(const UnicodeString* name, uint8_t type, int length, bool notnull, bool unique, const UnicodeString* defaultValue) noexcept;
+	void addColumn(uint8_t oid, const wchar_t* name, uint8_t type, int length, bool notnull, bool unique, const wchar_t* defaultValue) noexcept;
+	void addColumn(uint8_t oid, const UnicodeString* name, uint8_t type, int length, bool notnull, bool unique, const UnicodeString* defaultValue) noexcept;
 	void addColumn(CdbTableColumn* col) noexcept;
 private:
 	CdbOid* oid;
