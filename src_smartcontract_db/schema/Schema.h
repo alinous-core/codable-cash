@@ -31,9 +31,13 @@ public:
 	static void createSchema(const UnicodeString* name, File* baseDir);
 	void loadSchema(const File* baseDir);
 
+	void save();
+
 	uint64_t newTransactionId();
+	uint64_t newSchemaObjectId() noexcept;
 private:
 	SchemaBinary* binary;
+	File* schemaBin;
 };
 
 } /* namespace alinous */

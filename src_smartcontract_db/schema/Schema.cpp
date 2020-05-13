@@ -25,10 +25,12 @@ const UnicodeString Schema::SCHEMA_FILE(L"schema.bin");
 
 Schema::Schema() {
 	this->binary = nullptr;
+	this->schemaBin = nullptr;
 }
 
 Schema::~Schema() {
 	delete this->binary;
+	delete this->schemaBin;
 }
 
 void Schema::createSchema(const UnicodeString* name, File* baseDir) {
@@ -56,8 +58,25 @@ void Schema::createSchema(const UnicodeString* name, File* baseDir) {
 	outStream->close();
 }
 
+void Schema::save() {
+	FileOutputStream* outStream = new FileOutputStream(schemaBin); __STP(outStream);
+	outStream->open(false);
+
+	int size = this->binary->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	this->binary->toBinary(buff);
+
+	const uint8_t* barray = buff->array();
+	outStream->write((const char*)barray, size);
+	outStream->flush();
+
+	outStream->close();
+}
+
+
 void Schema::loadSchema(const File* baseDir) {
-	File* schemaBin = baseDir->get(&Schema::SCHEMA_FILE); __STP(schemaBin);
+	this->schemaBin = baseDir->get(&Schema::SCHEMA_FILE);
 
 	int size = schemaBin->length();
 	char* b = new char[size]{};
@@ -75,9 +94,12 @@ void Schema::loadSchema(const File* baseDir) {
 	this->binary = new SchemaBinary();
 	this->binary->fromBinary(buff);
 }
-
 uint64_t Schema::newTransactionId() {
 	return this->binary->newTransactionId();
+}
+
+uint64_t Schema::newSchemaObjectId() noexcept {
+	return this->binary->newSchemaObjectId();
 }
 
 } /* namespace alinous */

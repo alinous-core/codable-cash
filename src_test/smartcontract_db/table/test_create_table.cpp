@@ -21,6 +21,7 @@
 
 #include "transaction/CdbTransaction.h"
 
+#include "table/CdbTable.h"
 using namespace codablecash;
 
 
@@ -45,7 +46,10 @@ TEST(TestCreateTableGroup, case01){
 	CHECK(trx != nullptr);
 
 	CreateTableLog* cmd = new CreateTableLog();
+	CdbTable* table = new CdbTable(0);
 
 	// FIXME create table
 	trx->createTable(cmd);
+
+	trx->commit();
 }

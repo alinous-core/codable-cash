@@ -31,6 +31,8 @@ void CdbTransaction::rollback() {
 
 void CdbTransaction::createTable(CreateTableLog* cmd) {
 	commit();
+
+
 }
 
 } /* namespace codablecash */

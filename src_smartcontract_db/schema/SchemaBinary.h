@@ -33,10 +33,12 @@ public:
 	void fromBinary(ByteBuffer* in);
 
 	uint64_t newTransactionId() noexcept;
+	uint64_t newSchemaObjectId() noexcept;
 private:
 	ArrayList<UnicodeString> list;
 	uint64_t maxTransactionId;
 	uint64_t maxObjectId;
+	uint64_t maxSchemaObjectId;
 
 };
 
