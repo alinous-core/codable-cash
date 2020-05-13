@@ -55,7 +55,7 @@ static bool checkBinary(ByteBuffer* buff){
 }
 
 TEST(TestLogBinaryGroup, checkError){
-	ByteBuffer* buff = ByteBuffer::allocateWithEndian(10, true);
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(10, true); __STP(buff);
 	buff->put(100);
 	buff->position(0);
 
