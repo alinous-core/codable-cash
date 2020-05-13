@@ -23,6 +23,8 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	virtual void fromBinary(ByteBuffer* in);
 
+	virtual void commit(CdbTransactionManager* trxManager);
+
 	void setTable(CdbTable* table) noexcept;
 private:
 	CdbTable* table;

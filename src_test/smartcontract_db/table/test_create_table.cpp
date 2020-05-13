@@ -48,6 +48,7 @@ TEST(TestCreateTableGroup, case01){
 	CreateTableLog* cmd = new CreateTableLog();
 	CdbTable* table = new CdbTable(0);
 
+
 	// FIXME create table
 	trx->createTable(cmd);
 

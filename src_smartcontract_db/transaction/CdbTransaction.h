@@ -9,6 +9,10 @@
 #define TRANSACTION_CDBTRANSACTION_H_
 #include <cstdint>
 
+#include "base/ArrayList.h"
+
+using namespace alinous;
+
 namespace codablecash {
 
 class CdbTransactionManager;
@@ -21,14 +25,14 @@ public:
 	virtual ~CdbTransaction();
 
 	void commit();
-	//void rollback();
+	void rollback();
 
 	void createTable(CreateTableLog* cmd);
 private:
 	CdbTransactionManager* trxManager;
 	uint64_t transactionId;
 
-
+	ArrayList<AbstractTransactionLog> cmdList;
 };
 
 } /* namespace codablecash */

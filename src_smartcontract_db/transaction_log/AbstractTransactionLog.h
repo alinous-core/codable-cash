@@ -18,6 +18,8 @@ using namespace alinous;
 
 namespace codablecash {
 
+class CdbTransactionManager;
+
 class AbstractTransactionLog : public CdbBinaryObject {
 public:
 	static const constexpr uint8_t TRX_CREATE_TABLE{0};
@@ -29,6 +31,7 @@ public:
 	virtual void toBinary(ByteBuffer* out) const = 0;
 	virtual void fromBinary(ByteBuffer* in) = 0;
 
+	virtual void commit(CdbTransactionManager* trxManager) = 0;
 protected:
 	uint8_t type;
 

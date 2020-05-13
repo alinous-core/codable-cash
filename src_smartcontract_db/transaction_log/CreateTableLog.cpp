@@ -35,6 +35,11 @@ void CreateTableLog::fromBinary(ByteBuffer* in) {
 
 }
 
+void CreateTableLog::commit(CdbTransactionManager* trxManager) {
+
+}
+
+
 void CreateTableLog::setTable(CdbTable* table) noexcept {
 	this->table = table;
 }
