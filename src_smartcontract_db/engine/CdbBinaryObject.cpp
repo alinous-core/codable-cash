@@ -51,4 +51,10 @@ void CdbBinaryObject::checkNotNull(CdbBinaryObject* object) const {
 	}
 }
 
+void CdbBinaryObject::checkNotNull(UnicodeString* object) const {
+	if(object == nullptr){
+		throw new CdbException(L"Null pointer is not allowed.", __FILE__, __LINE__);
+	}
+}
+
 } /* namespace codablecash */

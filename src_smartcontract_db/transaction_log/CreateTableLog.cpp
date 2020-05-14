@@ -10,6 +10,7 @@
 #include "base_io/ByteBuffer.h"
 
 #include "table/CdbTable.h"
+#include "table/TableObjectFactory.h"
 
 #include "transaction/SchemaObjectIdPublisher.h"
 #include "transaction/CdbTransactionManager.h"
@@ -42,7 +43,10 @@ void CreateTableLog::toBinary(ByteBuffer* out) const {
 }
 
 void CreateTableLog::fromBinary(ByteBuffer* in) {
+	CdbBinaryObject* obj = TableObjectFactory::createFromBinary(in, CdbTable::CDB_OBJ_TYPE);
 
+	this->table = dynamic_cast<CdbTable*>(obj);
+	this->table->fromBinary(in);
 }
 
 void CreateTableLog::commit(CdbTransactionManager* trxManager) {

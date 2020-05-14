@@ -100,7 +100,7 @@ int CdbTable::binarySize() const {
 void CdbTable::toBinary(ByteBuffer* out) const {
 	out->put(CdbTable::CDB_OBJ_TYPE);
 
-	out->put(this->oid->getOid());
+	out->putLong(this->oid->getOid());
 
 	int maxLoop = this->columns->size();
 	out->putInt(maxLoop);
@@ -115,7 +115,11 @@ void CdbTable::toBinary(ByteBuffer* out) const {
 void CdbTable::fromBinary(ByteBuffer* in) {
 	int maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){
+		CdbBinaryObject* obj = TableObjectFactory::createFromBinary(in, CdbTableColumn::CDB_OBJ_TYPE);
+		CdbTableColumn* col = dynamic_cast<CdbTableColumn*>(obj);
+		col->fromBinary(in);
 
+		addColumn(col);
 	}
 }
 

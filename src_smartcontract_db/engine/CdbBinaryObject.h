@@ -29,6 +29,7 @@ protected:
 	UnicodeString* getString(ByteBuffer* in) const noexcept;
 
 	void checkNotNull(CdbBinaryObject* object) const;
+	void checkNotNull(UnicodeString* object) const;
 };
 
 } /* namespace codablecash */
