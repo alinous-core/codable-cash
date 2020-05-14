@@ -47,6 +47,8 @@ bool CodableDatabase::loadDatabase(const File* dbdir) {
 	}
 
 	this->schema = new Schema();
+	this->schema->addSchemaUpdateListner(this->trxManager);
+
 	this->schema->loadSchema(dbdir);
 
 	this->loadedFile = new File(*dbdir);

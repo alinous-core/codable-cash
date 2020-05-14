@@ -9,6 +9,8 @@
 #define SCHEMA_SCHEMA_H_
 #include <cstdint>
 
+#include "base/ArrayList.h"
+
 namespace alinous {
 class UnicodeString;
 class File;
@@ -19,6 +21,7 @@ using namespace alinous;
 namespace codablecash {
 
 class SchemaBinary;
+class ISchemaUptateListner;
 
 class Schema {
 public:
@@ -28,6 +31,8 @@ public:
 	Schema();
 	virtual ~Schema();
 
+	void addSchemaUpdateListner(ISchemaUptateListner* listner) noexcept;
+
 	static void createSchema(const UnicodeString* name, File* baseDir);
 	void loadSchema(const File* baseDir);
 
@@ -35,9 +40,15 @@ public:
 
 	uint64_t newTransactionId();
 	uint64_t newSchemaObjectId() noexcept;
+
+private:
+	void fireSchemaLoaded() noexcept;
+
 private:
 	SchemaBinary* binary;
 	File* schemaBin;
+
+	ArrayList<ISchemaUptateListner> listners;
 };
 
 } /* namespace alinous */

@@ -1,6 +1,7 @@
 
 
 set(__src
+	ISchemaUptateListner.cpp
 	Schema.cpp
 	SchemaBinary.cpp
 )

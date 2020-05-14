@@ -7,6 +7,7 @@
 
 #include "schema/Schema.h"
 #include "schema/SchemaBinary.h"
+#include "schema/ISchemaUptateListner.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
@@ -16,6 +17,7 @@
 
 #include "base_io_stream/FileOutputStream.h"
 #include "base_io_stream/FileInputStream.h"
+
 
 namespace codablecash {
 
@@ -31,6 +33,10 @@ Schema::Schema() {
 Schema::~Schema() {
 	delete this->binary;
 	delete this->schemaBin;
+}
+
+void Schema::addSchemaUpdateListner(ISchemaUptateListner* listner) noexcept {
+	this->listners.addElement(listner);
 }
 
 void Schema::createSchema(const UnicodeString* name, File* baseDir) {
@@ -93,13 +99,24 @@ void Schema::loadSchema(const File* baseDir) {
 
 	this->binary = new SchemaBinary();
 	this->binary->fromBinary(buff);
+
+	fireSchemaLoaded();
 }
+
 uint64_t Schema::newTransactionId() {
 	return this->binary->newTransactionId();
 }
 
 uint64_t Schema::newSchemaObjectId() noexcept {
 	return this->binary->newSchemaObjectId();
+}
+
+void Schema::fireSchemaLoaded() noexcept {
+	int maxLoop = this->listners.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ISchemaUptateListner* l = this->listners.get(i);
+		l->schemaLoaded(this);
+	}
 }
 
 } /* namespace alinous */

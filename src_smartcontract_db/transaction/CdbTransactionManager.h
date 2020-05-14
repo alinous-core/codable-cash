@@ -9,16 +9,20 @@
 #define TRANSACTION_CDBTRANSACTIONMANAGER_H_
 #include <cstdint>
 
+#include "schema/ISchemaUptateListner.h"
+
 namespace codablecash {
 
 class CdbTransaction;
 class CodableDatabase;
 class SchemaObjectIdPublisher;
 
-class CdbTransactionManager {
+class CdbTransactionManager : public ISchemaUptateListner {
 public:
 	explicit CdbTransactionManager(CodableDatabase* db);
 	virtual ~CdbTransactionManager();
+
+	virtual void schemaLoaded(Schema* sc) noexcept;
 
 	CdbTransaction* newTransaction(uint64_t transactionId);
 

@@ -16,13 +16,17 @@ namespace codablecash {
 
 CdbTransactionManager::CdbTransactionManager(CodableDatabase* db) {
 	this->db = db;
-	Schema* sc = db->getSchema();
-	this->schemaIdPublisher = new SchemaObjectIdPublisher(sc);
+	this->schemaIdPublisher = nullptr;
 }
 
 CdbTransactionManager::~CdbTransactionManager() {
 	this->db = nullptr;
 	delete this->schemaIdPublisher;
+}
+
+void CdbTransactionManager::schemaLoaded(Schema* sc) noexcept {
+	delete this->schemaIdPublisher;
+	this->schemaIdPublisher = new SchemaObjectIdPublisher(sc);
 }
 
 CdbTransaction* CdbTransactionManager::newTransaction(uint64_t transactionId) {
