@@ -19,6 +19,7 @@ using namespace alinous;
 namespace codablecash {
 
 class CdbOid;
+class SchemaObjectIdPublisher;
 
 class CdbTableColumn : public CdbBinaryObject {
 public:
@@ -35,6 +36,9 @@ public:
 	void setType(uint8_t type, int length) noexcept;
 	void setAttributes(bool notnull, bool unique) noexcept;
 	void setDefaultValue(const UnicodeString* defaultValue) noexcept;
+
+	void assignNewOid(SchemaObjectIdPublisher* publisher);
+	void setOid(uint64_t oid) noexcept;
 private:
 	CdbOid* oid;
 

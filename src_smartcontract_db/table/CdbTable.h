@@ -21,6 +21,7 @@ namespace codablecash {
 
 class CdbTableColumn;
 class CdbOid;
+class SchemaObjectIdPublisher;
 
 class CdbTable : public CdbBinaryObject {
 public:
@@ -30,6 +31,9 @@ public:
 	void addColumn(uint8_t oid, const wchar_t* name, uint8_t type, int length, bool notnull, bool unique, const wchar_t* defaultValue) noexcept;
 	void addColumn(uint8_t oid, const UnicodeString* name, uint8_t type, int length, bool notnull, bool unique, const UnicodeString* defaultValue) noexcept;
 	void addColumn(CdbTableColumn* col) noexcept;
+
+	void assignNewOid(SchemaObjectIdPublisher* publisher);
+	void setOid(uint64_t oid) noexcept;
 private:
 	CdbOid* oid;
 	ArrayList<CdbTableColumn>* columns;

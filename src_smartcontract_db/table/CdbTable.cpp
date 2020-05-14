@@ -12,6 +12,7 @@
 
 #include "base/UnicodeString.h"
 
+#include "transaction/SchemaObjectIdPublisher.h"
 
 namespace codablecash {
 
@@ -56,6 +57,23 @@ void CdbTable::addColumn(CdbTableColumn* col) noexcept {
 	this->columns->addElement(col);
 	const CdbOid* o = col->getOid();
 	this->columnMap->put(o, col);
+}
+
+void CdbTable::assignNewOid(SchemaObjectIdPublisher* publisher) {
+	uint64_t oid = publisher->newOid();
+	setOid(oid);
+
+	int maxLoop = this->columns->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableColumn* col = this->columns->get(i);
+
+		col->assignNewOid(publisher);
+	}
+}
+
+void CdbTable::setOid(uint64_t oid) noexcept {
+	delete this->oid;
+	this->oid = new CdbOid(oid);
 }
 
 } /* namespace codablecash */

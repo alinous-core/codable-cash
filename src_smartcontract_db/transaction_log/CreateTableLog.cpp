@@ -28,6 +28,7 @@ int CreateTableLog::binarySize() const noexcept {
 }
 
 void CreateTableLog::toBinary(ByteBuffer* out) const {
+
 	out->put(AbstractTransactionLog::TRX_CREATE_TABLE);
 }
 
@@ -37,6 +38,8 @@ void CreateTableLog::fromBinary(ByteBuffer* in) {
 
 void CreateTableLog::commit(CdbTransactionManager* trxManager) {
 
+
+	// FIXME create table
 }
 
 

@@ -13,6 +13,7 @@ namespace codablecash {
 
 class CdbTransaction;
 class CodableDatabase;
+class SchemaObjectIdPublisher;
 
 class CdbTransactionManager {
 public:
@@ -23,6 +24,7 @@ public:
 
 private:
 	CodableDatabase* db;
+	SchemaObjectIdPublisher* schemaIdPublisher;
 };
 
 } /* namespace codablecash */

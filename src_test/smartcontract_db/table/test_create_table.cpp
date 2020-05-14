@@ -54,7 +54,6 @@ TEST(TestCreateTableGroup, case01){
 
 	cmd->setTable(table);
 
-	// FIXME create table
 	trx->createTable(cmd);
 
 	trx->commit();

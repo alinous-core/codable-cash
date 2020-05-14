@@ -11,6 +11,8 @@
 
 #include "base/UnicodeString.h"
 
+#include "transaction/SchemaObjectIdPublisher.h"
+
 namespace codablecash {
 
 CdbTableColumn::CdbTableColumn(uint64_t oid) {
@@ -53,5 +55,14 @@ void CdbTableColumn::setDefaultValue(const UnicodeString* defaultValue) noexcept
 	}
 }
 
+void CdbTableColumn::assignNewOid(SchemaObjectIdPublisher* publisher) {
+	uint64_t oid = publisher->newOid();
+	setOid(oid);
+}
+
+void CdbTableColumn::setOid(uint64_t oid) noexcept {
+	delete this->oid;
+	this->oid = new CdbOid(oid);
+}
 
 } /* namespace codablecash */
