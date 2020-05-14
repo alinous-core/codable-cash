@@ -20,6 +20,9 @@
 
 #include "base_io/ByteBuffer.h"
 
+#include "table/CdbTable.h"
+#include "table/CdbTableColumn.h"
+
 
 using namespace codablecash;
 
@@ -72,6 +75,10 @@ TEST(TestLogBinaryGroup, checkError){
 
 TEST(TestLogBinaryGroup, createtable){
 	CreateTableLog log;
+	CdbTable* table = new CdbTable(0);
+	table->addColumn(0, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
+	table->addColumn(0, L"name", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, L"");
+	log.setTable(table);
 
 	int size = log.binarySize();
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);

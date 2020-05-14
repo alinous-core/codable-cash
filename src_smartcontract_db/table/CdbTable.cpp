@@ -12,7 +12,11 @@
 
 #include "base/UnicodeString.h"
 
+#include "base_io/ByteBuffer.h"
+
 #include "transaction/SchemaObjectIdPublisher.h"
+
+#include "table/TableObjectFactory.h"
 
 namespace codablecash {
 
@@ -74,6 +78,45 @@ void CdbTable::assignNewOid(SchemaObjectIdPublisher* publisher) {
 void CdbTable::setOid(uint64_t oid) noexcept {
 	delete this->oid;
 	this->oid = new CdbOid(oid);
+}
+
+
+int CdbTable::binarySize() const {
+	int total = sizeof(uint8_t);
+
+	total += sizeof(uint64_t); // oid
+
+	int maxLoop = this->columns->size();
+	total += sizeof(int32_t);
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableColumn* col = this->columns->get(i);
+
+		total += col->binarySize();
+	}
+
+	return total;
+}
+
+void CdbTable::toBinary(ByteBuffer* out) const {
+	out->put(CdbTable::CDB_OBJ_TYPE);
+
+	out->put(this->oid->getOid());
+
+	int maxLoop = this->columns->size();
+	out->putInt(maxLoop);
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableColumn* col = this->columns->get(i);
+
+		col->toBinary(out);
+	}
+
+}
+
+void CdbTable::fromBinary(ByteBuffer* in) {
+	int maxLoop = in->getInt();
+	for(int i = 0; i != maxLoop; ++i){
+
+	}
 }
 
 } /* namespace codablecash */

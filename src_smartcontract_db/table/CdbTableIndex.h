@@ -23,6 +23,8 @@ class CdbTableColumn;
 
 class CdbTableIndex : public CdbBinaryObject {
 public:
+	static const constexpr uint8_t CDB_OBJ_TYPE{3};
+
 	explicit CdbTableIndex(uint64_t oid);
 	virtual ~CdbTableIndex();
 

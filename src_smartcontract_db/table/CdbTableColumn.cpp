@@ -65,4 +65,15 @@ void CdbTableColumn::setOid(uint64_t oid) noexcept {
 	this->oid = new CdbOid(oid);
 }
 
+
+int CdbTableColumn::binarySize() const {
+}
+
+void CdbTableColumn::toBinary(ByteBuffer* out) const {
+}
+
+void CdbTableColumn::fromBinary(ByteBuffer* in) {
+}
+
+
 } /* namespace codablecash */

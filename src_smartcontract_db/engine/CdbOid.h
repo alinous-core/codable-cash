@@ -19,6 +19,10 @@ public:
 
 	int hashCode() const;
 
+	uint64_t getOid() const noexcept {
+		return oid;
+	}
+
 	class ValueCompare {
 	public:
 		int operator() (const CdbOid* const _this, const  CdbOid* const object) const noexcept;

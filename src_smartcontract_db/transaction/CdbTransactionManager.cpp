@@ -32,4 +32,8 @@ CdbTransaction* CdbTransactionManager::newTransaction(uint64_t transactionId) {
 	return trx;
 }
 
+SchemaObjectIdPublisher* CdbTransactionManager::getSchemaObjectIdPublisher() const noexcept {
+	return this->schemaIdPublisher;
+}
+
 } /* namespace codablecash */

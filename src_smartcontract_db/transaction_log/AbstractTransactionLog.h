@@ -27,7 +27,7 @@ public:
 	explicit AbstractTransactionLog(uint8_t type);
 	virtual ~AbstractTransactionLog();
 
-	virtual int binarySize() const noexcept = 0;
+	virtual int binarySize() const = 0;
 	virtual void toBinary(ByteBuffer* out) const = 0;
 	virtual void fromBinary(ByteBuffer* in) = 0;
 

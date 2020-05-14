@@ -15,6 +15,9 @@
 
 #include "engine/CdbBinaryObject.h"
 
+namespace alinous {
+class ByteBuffer;
+}
 using namespace alinous;
 
 namespace codablecash {
@@ -25,6 +28,8 @@ class SchemaObjectIdPublisher;
 
 class CdbTable : public CdbBinaryObject {
 public:
+	static const constexpr uint8_t CDB_OBJ_TYPE{1};
+
 	explicit CdbTable(uint64_t oid);
 	virtual ~CdbTable();
 
@@ -34,6 +39,10 @@ public:
 
 	void assignNewOid(SchemaObjectIdPublisher* publisher);
 	void setOid(uint64_t oid) noexcept;
+
+	int binarySize() const;
+	void toBinary(ByteBuffer* out) const;
+	void fromBinary(ByteBuffer* in);
 private:
 	CdbOid* oid;
 	ArrayList<CdbTableColumn>* columns;

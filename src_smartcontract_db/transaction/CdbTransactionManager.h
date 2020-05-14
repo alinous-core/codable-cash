@@ -22,6 +22,7 @@ public:
 
 	CdbTransaction* newTransaction(uint64_t transactionId);
 
+	SchemaObjectIdPublisher* getSchemaObjectIdPublisher() const noexcept;
 private:
 	CodableDatabase* db;
 	SchemaObjectIdPublisher* schemaIdPublisher;

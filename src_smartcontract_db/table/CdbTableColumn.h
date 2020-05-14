@@ -13,6 +13,7 @@
 
 namespace alinous {
 class UnicodeString;
+class ByteBuffer;
 }
 using namespace alinous;
 
@@ -23,6 +24,8 @@ class SchemaObjectIdPublisher;
 
 class CdbTableColumn : public CdbBinaryObject {
 public:
+	static const constexpr uint8_t CDB_OBJ_TYPE{2};
+
 	static const constexpr uint8_t COLUMN_TYPE_VARCHAR{1};
 	static const constexpr uint8_t COLUMN_TYPE_TEXT{2};
 	static const constexpr uint8_t COLUMN_TYPE_INT{3};
@@ -39,6 +42,10 @@ public:
 
 	void assignNewOid(SchemaObjectIdPublisher* publisher);
 	void setOid(uint64_t oid) noexcept;
+
+	int binarySize() const;
+	void toBinary(ByteBuffer* out) const;
+	void fromBinary(ByteBuffer* in);
 private:
 	CdbOid* oid;
 
