@@ -97,6 +97,10 @@ CdbTableColumn* CdbTable::getColumn(const UnicodeString* name) noexcept {
 	return retcol;
 }
 
+CdbTableColumn* CdbTable::findColumnByOid(const CdbOid* oid) const noexcept {
+	return this->columnMap->get(oid);
+}
+
 void CdbTable::assignNewOid(SchemaObjectIdPublisher* publisher) {
 	uint64_t oid = publisher->newOid();
 	setOid(oid);

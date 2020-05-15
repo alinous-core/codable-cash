@@ -19,6 +19,7 @@ using namespace alinous;
 namespace codablecash {
 
 class CdbOid;
+class CdbTable;
 class CdbTableColumn;
 class SchemaObjectIdPublisher;
 
@@ -42,6 +43,9 @@ public:
 	void setPrimaryKey(bool bl);
 	bool isPrimaryKey() const noexcept;
 
+	int binarySize() const;
+	void toBinary(ByteBuffer* out) const;
+	void fromBinary(ByteBuffer* in, CdbTable* table);
 private:
 	CdbOid* oid;
 	bool primary;

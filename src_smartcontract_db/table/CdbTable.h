@@ -42,6 +42,8 @@ public:
 	CdbTableColumn* getColumn(const wchar_t* name) noexcept;
 	CdbTableColumn* getColumn(const UnicodeString* name) noexcept;
 
+	CdbTableColumn* findColumnByOid(const CdbOid* oid) const noexcept;
+
 	void assignNewOid(SchemaObjectIdPublisher* publisher);
 	void setOid(uint64_t oid) noexcept;
 
