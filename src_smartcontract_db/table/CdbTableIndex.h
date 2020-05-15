@@ -31,11 +31,17 @@ public:
 
 	void assignNewOid(SchemaObjectIdPublisher* publisher);
 	void setOid(uint64_t oid) noexcept;
+	const CdbOid* getOid() const noexcept {
+		return oid;
+	}
+
+	bool hasColumnOid(const CdbOid* colOid) const noexcept;
 
 	void addColumn(CdbTableColumn* col) noexcept;
 
 	void setPrimaryKey(bool bl);
 	bool isPrimaryKey() const noexcept;
+
 private:
 	CdbOid* oid;
 	bool primary;

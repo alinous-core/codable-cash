@@ -17,6 +17,10 @@ CdbOid::~CdbOid() {
 
 }
 
+bool CdbOid::equals(const CdbOid* other) const noexcept {
+	return this->oid == other->oid;
+}
+
 int CdbOid::hashCode() const {
 	return (int)this->oid;
 }

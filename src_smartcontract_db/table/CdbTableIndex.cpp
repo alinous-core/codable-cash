@@ -43,6 +43,12 @@ void CdbTableIndex::addColumn(CdbTableColumn* col) noexcept {
 	this->columnMap->put(o, col);
 }
 
+
+bool CdbTableIndex::hasColumnOid(const CdbOid* colOid) const noexcept {
+	return this->columnMap->get(colOid) != nullptr;
+}
+
+
 void CdbTableIndex::setPrimaryKey(bool bl) {
 	this->primary = bl;
 }

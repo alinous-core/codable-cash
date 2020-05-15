@@ -25,6 +25,7 @@
 
 #include "table/TableObjectFactory.h"
 
+#include "table/CdbTableIndex.h"
 using namespace codablecash;
 
 
@@ -76,11 +77,24 @@ TEST(TestLogBinaryGroup, checkError){
 
 TEST(TestLogBinaryGroup, createtable){
 	CreateTableLog log;
-	CdbTable* table = new CdbTable(0);
+	CdbTable* table = new CdbTable(1);
 	table->setName(new UnicodeString(L"test_table"));
-	table->addColumn(0, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
-	table->addColumn(0, L"name", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, L"");
+	table->addColumn(2, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
+	table->addColumn(3, L"name", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, L"");
+
+	table->setPrimaryKey(L"id");
+
 	log.setTable(table);
+
+	CdbTableColumn* colId = table->getColumn(L"id");
+	CHECK(colId != nullptr);
+
+	CdbTableIndex* idx = table->getIndexByColumnOid(colId->getOid());
+	CHECK(idx->isPrimaryKey());
+
+	colId = table->getColumn(L"name");
+	idx = table->getIndexByColumnOid(colId->getOid());
+	CHECK(idx == nullptr);
 
 	int size = log.binarySize();
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
@@ -92,9 +106,9 @@ TEST(TestLogBinaryGroup, createtable){
 
 TEST(TestLogBinaryGroup, createtable_error){
 	CreateTableLog log;
-	CdbTable* table = new CdbTable(0);
-	table->addColumn(0, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
-	table->addColumn(0, L"name", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, L"");
+	CdbTable* table = new CdbTable(1);
+	table->addColumn(2, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
+	table->addColumn(3, L"name", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, L"");
 	log.setTable(table);
 
 	CdbException* ex = nullptr;

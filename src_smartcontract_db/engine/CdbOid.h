@@ -23,6 +23,8 @@ public:
 		return oid;
 	}
 
+	bool equals(const CdbOid* other) const noexcept;
+
 	class ValueCompare {
 	public:
 		int operator() (const CdbOid* const _this, const  CdbOid* const object) const noexcept;

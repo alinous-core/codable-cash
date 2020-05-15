@@ -52,6 +52,7 @@ public:
 	void setPrimaryKeys(ArrayList<const UnicodeString>* cols);
 
 	void addIndex(CdbTableIndex* index);
+	CdbTableIndex* getIndexByColumnOid(const CdbOid* oid) const noexcept;
 
 	int binarySize() const;
 	void toBinary(ByteBuffer* out) const;

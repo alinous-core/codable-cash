@@ -170,6 +170,22 @@ void CdbTable::addIndex(CdbTableIndex* index) {
 	this->indexes->addElement(index);
 }
 
+CdbTableIndex* CdbTable::getIndexByColumnOid(const CdbOid* oid) const noexcept {
+	CdbTableIndex* ret = nullptr;
+
+	int maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		if(idx->hasColumnOid(oid)){
+			ret = idx;
+			break;
+		}
+	}
+
+	return ret;
+}
+
 int CdbTable::binarySize() const {
 	checkNotNull(this->name);
 
