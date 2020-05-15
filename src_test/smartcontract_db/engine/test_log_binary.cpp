@@ -23,6 +23,7 @@
 #include "table/CdbTable.h"
 #include "table/CdbTableColumn.h"
 
+#include "table/TableObjectFactory.h"
 
 using namespace codablecash;
 
@@ -99,6 +100,23 @@ TEST(TestLogBinaryGroup, createtable_error){
 	CdbException* ex = nullptr;
 	try{
 		int size = log.binarySize();
+	}catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr)
+	delete ex;
+}
+
+TEST(TestLogBinaryGroup, faactory_error01){
+	int size = 10;
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+	buff->put(100);
+	buff->position(0);
+
+	CdbException* ex = nullptr;
+	try{
+		TableObjectFactory::createFromBinary(buff, 10);
 	}catch(CdbException* e){
 		ex = e;
 	}
