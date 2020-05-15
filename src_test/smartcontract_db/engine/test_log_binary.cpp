@@ -76,6 +76,7 @@ TEST(TestLogBinaryGroup, checkError){
 TEST(TestLogBinaryGroup, createtable){
 	CreateTableLog log;
 	CdbTable* table = new CdbTable(0);
+	table->setName(new UnicodeString(L"test_table"));
 	table->addColumn(0, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
 	table->addColumn(0, L"name", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, L"");
 	log.setTable(table);
@@ -88,4 +89,21 @@ TEST(TestLogBinaryGroup, createtable){
 	CHECK(res)
 }
 
+TEST(TestLogBinaryGroup, createtable_error){
+	CreateTableLog log;
+	CdbTable* table = new CdbTable(0);
+	table->addColumn(0, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
+	table->addColumn(0, L"name", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, L"");
+	log.setTable(table);
+
+	CdbException* ex = nullptr;
+	try{
+		int size = log.binarySize();
+	}catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr)
+	delete ex;
+}
 
