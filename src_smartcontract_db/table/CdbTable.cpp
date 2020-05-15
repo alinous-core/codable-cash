@@ -207,6 +207,14 @@ int CdbTable::binarySize() const {
 		total += col->binarySize();
 	}
 
+	maxLoop = this->indexes->size();
+	total += sizeof(int32_t);
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		total += idx->binarySize();
+	}
+
 	return total;
 }
 
@@ -227,6 +235,13 @@ void CdbTable::toBinary(ByteBuffer* out) const {
 		col->toBinary(out);
 	}
 
+	maxLoop = this->indexes->size();
+	out->putInt(maxLoop);
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		idx->toBinary(out);
+	}
 }
 
 void CdbTable::fromBinary(ByteBuffer* in) {
@@ -239,6 +254,15 @@ void CdbTable::fromBinary(ByteBuffer* in) {
 		col->fromBinary(in);
 
 		addColumn(col);
+	}
+
+	maxLoop = in->getInt();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbBinaryObject* obj = TableObjectFactory::createFromBinary(in, CdbTableIndex::CDB_OBJ_TYPE);
+		CdbTableIndex* idx = dynamic_cast<CdbTableIndex*>(obj);
+
+		idx->fromBinary(in, this);
+		addIndex(idx);
 	}
 }
 

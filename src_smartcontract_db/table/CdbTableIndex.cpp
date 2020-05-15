@@ -65,6 +65,8 @@ int CdbTableIndex::binarySize() const {
 	int total = sizeof(uint8_t);
 	total += sizeof(uint64_t); // oid
 
+	total += sizeof(uint8_t); // primary
+
 	int maxLoop = this->columns->size();
 	total += sizeof(int32_t);
 
@@ -74,8 +76,10 @@ int CdbTableIndex::binarySize() const {
 }
 
 void CdbTableIndex::toBinary(ByteBuffer* out) const {
-	out->put(CdbTableColumn::CDB_OBJ_TYPE);
+	out->put(CdbTableIndex::CDB_OBJ_TYPE);
 	out->putLong(this->oid->getOid());
+
+	out->put(this->primary ? 1 : 0);// primary
 
 	int maxLoop = this->columns->size();
 	out->putInt(maxLoop);
@@ -89,6 +93,8 @@ void CdbTableIndex::toBinary(ByteBuffer* out) const {
 }
 
 void CdbTableIndex::fromBinary(ByteBuffer* in, CdbTable* table) {
+	this->primary = in->get() > 0;
+
 	int maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){
 		uint64_t id = in->getLong();
