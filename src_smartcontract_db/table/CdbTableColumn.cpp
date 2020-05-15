@@ -42,6 +42,10 @@ void CdbTableColumn::setName(const UnicodeString* name) noexcept {
 	this->name = new UnicodeString(name);
 }
 
+const UnicodeString* CdbTableColumn::getName() const noexcept {
+	return this->name;
+}
+
 void CdbTableColumn::setType(uint8_t type, int length) noexcept {
 	this->type = type;
 	this->length = length;

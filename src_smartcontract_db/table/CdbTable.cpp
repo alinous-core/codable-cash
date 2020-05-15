@@ -9,16 +9,19 @@
 #include "table/CdbTableColumn.h"
 
 #include "engine/CdbOid.h"
+#include "engine/CdbException.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #include "base_io/ByteBuffer.h"
 
 #include "transaction/SchemaObjectIdPublisher.h"
 
 #include "table/TableObjectFactory.h"
+#include "table/CdbTableIndex.h"
 
-#include "base/StackRelease.h"
+
 namespace codablecash {
 
 CdbTable::CdbTable(uint64_t oid) {
@@ -26,6 +29,7 @@ CdbTable::CdbTable(uint64_t oid) {
 	this->columnMap = new HashMap<CdbOid, CdbTableColumn>();
 	this->oid = new CdbOid(oid);
 	this->name = nullptr;
+	this->indexes = new ArrayList<CdbTableIndex>();
 }
 
 CdbTable::~CdbTable() {
@@ -35,6 +39,9 @@ CdbTable::~CdbTable() {
 	delete this->columns;
 	delete this->oid;
 	delete this->name;
+
+	this->indexes->deleteElements();
+	delete this->indexes;
 }
 
 void CdbTable::addColumn(uint8_t oid, const wchar_t* name,
@@ -68,6 +75,28 @@ void CdbTable::addColumn(CdbTableColumn* col) noexcept {
 	this->columnMap->put(o, col);
 }
 
+CdbTableColumn* CdbTable::getColumn(const wchar_t* name) noexcept {
+	UnicodeString str(name);
+	return getColumn(&str);
+}
+
+CdbTableColumn* CdbTable::getColumn(const UnicodeString* name) noexcept {
+	CdbTableColumn* retcol = nullptr;
+
+	int maxLoop = this->columns->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableColumn* col = this->columns->get(i);
+
+		const UnicodeString* colname = col->getName();
+		if(colname->equals(name)){
+			retcol = col;
+			break;
+		}
+	}
+
+	return retcol;
+}
+
 void CdbTable::assignNewOid(SchemaObjectIdPublisher* publisher) {
 	uint64_t oid = publisher->newOid();
 	setOid(oid);
@@ -78,6 +107,13 @@ void CdbTable::assignNewOid(SchemaObjectIdPublisher* publisher) {
 
 		col->assignNewOid(publisher);
 	}
+
+	maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		idx->assignNewOid(publisher);
+	}
 }
 
 void CdbTable::setOid(uint64_t oid) noexcept {
@@ -87,6 +123,51 @@ void CdbTable::setOid(uint64_t oid) noexcept {
 
 void CdbTable::setName(UnicodeString* name) noexcept {
 	this->name = name;
+}
+
+
+void CdbTable::setPrimaryKey(const wchar_t* col) {
+	UnicodeString str(col);
+	setPrimaryKey(&str);
+}
+
+void CdbTable::setPrimaryKey(const UnicodeString* colstr) {
+	ArrayList<const UnicodeString> cols;
+	cols.addElement(colstr);
+
+	setPrimaryKeys(&cols);
+}
+
+void CdbTable::setPrimaryKeys(ArrayList<const UnicodeString>* cols) {
+	ArrayList<CdbTableColumn> list;
+
+	int maxLoop = cols->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const UnicodeString* c = cols->get(i);
+		CdbTableColumn* col = getColumn(c);
+
+		if(col == nullptr){
+			throw new CdbException(L"Column for primary key does not exists.", __FILE__, __LINE__);
+		}
+
+		list.addElement(col);
+	}
+
+	CdbTableIndex* index = new CdbTableIndex(0);
+	addIndex(index);
+
+	index->setPrimaryKey(true);
+
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableColumn* col = list.get(i);
+
+		index->addColumn(col);
+	}
+}
+
+
+void CdbTable::addIndex(CdbTableIndex* index) {
+	this->indexes->addElement(index);
 }
 
 int CdbTable::binarySize() const {

@@ -10,6 +10,7 @@
 
 #include "engine/CdbOid.h"
 
+#include "transaction/SchemaObjectIdPublisher.h"
 
 namespace codablecash {
 
@@ -24,6 +25,16 @@ CdbTableIndex::~CdbTableIndex() {
 	delete this->oid;
 	delete this->columns;
 	delete this->columnMap;
+}
+
+void CdbTableIndex::assignNewOid(SchemaObjectIdPublisher* publisher) {
+	uint64_t oid = publisher->newOid();
+	setOid(oid);
+}
+
+void CdbTableIndex::setOid(uint64_t oid) noexcept {
+	delete this->oid;
+	this->oid = new CdbOid(oid);
 }
 
 void CdbTableIndex::addColumn(CdbTableColumn* col) noexcept {

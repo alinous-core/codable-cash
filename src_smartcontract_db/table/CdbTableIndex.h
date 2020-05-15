@@ -20,6 +20,7 @@ namespace codablecash {
 
 class CdbOid;
 class CdbTableColumn;
+class SchemaObjectIdPublisher;
 
 class CdbTableIndex : public CdbBinaryObject {
 public:
@@ -27,6 +28,9 @@ public:
 
 	explicit CdbTableIndex(uint64_t oid);
 	virtual ~CdbTableIndex();
+
+	void assignNewOid(SchemaObjectIdPublisher* publisher);
+	void setOid(uint64_t oid) noexcept;
 
 	void addColumn(CdbTableColumn* col) noexcept;
 

@@ -54,6 +54,8 @@ TEST(TestCreateTableGroup, case01){
 	table->addColumn(0, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
 	table->addColumn(0, L"name", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, L"");
 
+	table->setPrimaryKey(L"id");
+
 	cmd->setTable(table);
 
 	trx->createTable(cmd);

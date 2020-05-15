@@ -36,6 +36,7 @@ public:
 	const CdbOid* getOid() const noexcept;
 
 	void setName(const UnicodeString* name) noexcept;
+	const UnicodeString* getName() const noexcept;
 	void setType(uint8_t type, int length) noexcept;
 	void setAttributes(bool notnull, bool unique) noexcept;
 	void setDefaultValue(const UnicodeString* defaultValue) noexcept;
