@@ -125,3 +125,20 @@ TEST(TestLogBinaryGroup, faactory_error01){
 	delete ex;
 }
 
+TEST(TestLogBinaryGroup, faactory_error02){
+	int size = 10;
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+	buff->put(100);
+	buff->position(0);
+
+	CdbException* ex = nullptr;
+	try{
+		TableObjectFactory::createFromBinary(buff, 100);
+	}catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr)
+	delete ex;
+}
+
