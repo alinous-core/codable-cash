@@ -17,6 +17,7 @@
 
 namespace alinous {
 class ByteBuffer;
+class UnicodeString;
 }
 using namespace alinous;
 
@@ -40,11 +41,15 @@ public:
 	void assignNewOid(SchemaObjectIdPublisher* publisher);
 	void setOid(uint64_t oid) noexcept;
 
+	void setName(UnicodeString* name) noexcept;
+
 	int binarySize() const;
 	void toBinary(ByteBuffer* out) const;
 	void fromBinary(ByteBuffer* in);
 private:
 	CdbOid* oid;
+
+	UnicodeString* name;
 	ArrayList<CdbTableColumn>* columns;
 	HashMap<CdbOid, CdbTableColumn>* columnMap;
 

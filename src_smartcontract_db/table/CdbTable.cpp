@@ -24,6 +24,7 @@ CdbTable::CdbTable(uint64_t oid) {
 	this->columns = new ArrayList<CdbTableColumn>();
 	this->columnMap = new HashMap<CdbOid, CdbTableColumn>();
 	this->oid = new CdbOid(oid);
+	this->name = nullptr;
 }
 
 CdbTable::~CdbTable() {
@@ -32,6 +33,7 @@ CdbTable::~CdbTable() {
 	this->columns->deleteElements();
 	delete this->columns;
 	delete this->oid;
+	delete this->name;
 }
 
 void CdbTable::addColumn(uint8_t oid, const wchar_t* name,
@@ -80,11 +82,18 @@ void CdbTable::setOid(uint64_t oid) noexcept {
 	this->oid = new CdbOid(oid);
 }
 
+void CdbTable::setName(UnicodeString* name) noexcept {
+	this->name = name;
+}
 
 int CdbTable::binarySize() const {
+	checkNotNull(this->name);
+
 	int total = sizeof(uint8_t);
 
 	total += sizeof(uint64_t); // oid
+
+	total += stringSize(this->name);
 
 	int maxLoop = this->columns->size();
 	total += sizeof(int32_t);
@@ -98,9 +107,13 @@ int CdbTable::binarySize() const {
 }
 
 void CdbTable::toBinary(ByteBuffer* out) const {
+	checkNotNull(this->name);
+
 	out->put(CdbTable::CDB_OBJ_TYPE);
 
 	out->putLong(this->oid->getOid());
+
+	putString(out, this->name);
 
 	int maxLoop = this->columns->size();
 	out->putInt(maxLoop);
@@ -113,6 +126,8 @@ void CdbTable::toBinary(ByteBuffer* out) const {
 }
 
 void CdbTable::fromBinary(ByteBuffer* in) {
+	this->name = getString(in);
+
 	int maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){
 		CdbBinaryObject* obj = TableObjectFactory::createFromBinary(in, CdbTableColumn::CDB_OBJ_TYPE);

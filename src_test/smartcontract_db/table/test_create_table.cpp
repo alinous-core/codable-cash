@@ -49,6 +49,8 @@ TEST(TestCreateTableGroup, case01){
 
 	CreateTableLog* cmd = new CreateTableLog();
 	CdbTable* table = new CdbTable(0);
+	table->setName(new UnicodeString(L"test_table"));
+
 	table->addColumn(0, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
 	table->addColumn(0, L"name", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, L"");
 
