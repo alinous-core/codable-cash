@@ -18,6 +18,7 @@
 
 #include "table/TableObjectFactory.h"
 
+#include "base/StackRelease.h"
 namespace codablecash {
 
 CdbTable::CdbTable(uint64_t oid) {
@@ -42,7 +43,9 @@ void CdbTable::addColumn(uint8_t oid, const wchar_t* name,
 	UnicodeString* strDefaultValue = nullptr;
 
 	if(defaultValue != nullptr){
-		strDefaultValue = new UnicodeString(defaultValue);
+		strDefaultValue = new UnicodeString(defaultValue); __STP(strDefaultValue);
+		addColumn(oid, &strName, type, length, notnull, unique, strDefaultValue);
+		return;
 	}
 
 	addColumn(oid, &strName, type, length, notnull, unique, strDefaultValue);
