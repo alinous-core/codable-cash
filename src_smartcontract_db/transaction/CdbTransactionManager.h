@@ -22,7 +22,7 @@ public:
 	explicit CdbTransactionManager(CodableDatabase* db);
 	virtual ~CdbTransactionManager();
 
-	virtual void schemaLoaded(Schema* sc) noexcept;
+	virtual void schemaLoaded(Schema* sc);
 
 	CdbTransaction* newTransaction(uint64_t transactionId);
 

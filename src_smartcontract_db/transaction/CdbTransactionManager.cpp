@@ -24,7 +24,7 @@ CdbTransactionManager::~CdbTransactionManager() {
 	delete this->schemaIdPublisher;
 }
 
-void CdbTransactionManager::schemaLoaded(Schema* sc) noexcept {
+void CdbTransactionManager::schemaLoaded(Schema* sc) {
 	delete this->schemaIdPublisher;
 	this->schemaIdPublisher = new SchemaObjectIdPublisher(sc);
 }

@@ -5,6 +5,7 @@ set(__dirsrc "")
 add_subdirectory(engine)
 add_subdirectory(schema)
 add_subdirectory(table)
+add_subdirectory(table_store)
 add_subdirectory(transaction)
 add_subdirectory(transaction_log)
 

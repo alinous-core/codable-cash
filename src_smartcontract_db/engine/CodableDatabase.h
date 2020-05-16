@@ -18,6 +18,7 @@ namespace codablecash {
 class CdbTransactionManager;
 class Schema;
 class CdbTransaction;
+class CdbStorageManager;
 
 class CodableDatabase {
 public:
@@ -37,6 +38,8 @@ private:
 private:
 	CdbTransactionManager* trxManager;
 	Schema* schema;
+	CdbStorageManager* store;
+
 	File* loadedFile;
 };
 

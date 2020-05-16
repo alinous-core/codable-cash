@@ -16,6 +16,7 @@
 
 #include "transaction/CdbTransaction.h"
 
+#include "table_store/CdbStorageManager.h"
 
 namespace codablecash {
 
@@ -23,6 +24,7 @@ CodableDatabase::CodableDatabase() {
 	this->trxManager = new CdbTransactionManager(this);
 	this->schema = nullptr;
 	this->loadedFile = nullptr;
+	this->store = nullptr;
 }
 
 CodableDatabase::~CodableDatabase() {
@@ -30,6 +32,7 @@ CodableDatabase::~CodableDatabase() {
 
 	delete this->trxManager;
 	delete this->schema;
+	delete this->store;
 }
 
 void CodableDatabase::createDatabase(File* dbdir) {
@@ -46,10 +49,14 @@ bool CodableDatabase::loadDatabase(const File* dbdir) {
 		return false;
 	}
 
+	this->store = new CdbStorageManager();
+
 	this->schema = new Schema();
 	this->schema->addSchemaUpdateListner(this->trxManager);
+	this->schema->addSchemaUpdateListner(this->store);
 
 	this->schema->loadSchema(dbdir);
+
 
 	this->loadedFile = new File(*dbdir);
 
