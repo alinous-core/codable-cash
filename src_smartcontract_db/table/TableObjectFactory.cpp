@@ -10,6 +10,8 @@
 #include "table/CdbTableColumn.h"
 #include "table/CdbTableIndex.h"
 
+#include "schema/Schema.h"
+
 #include "engine/CdbBinaryObject.h"
 #include "engine/CdbException.h"
 
@@ -39,6 +41,10 @@ CdbBinaryObject* TableObjectFactory::createFromBinary(ByteBuffer* in, uint8_t ex
 	case CdbTableIndex::CDB_OBJ_TYPE:
 		oid = in->getLong();
 		obj = new CdbTableIndex(oid);
+		break;
+	case Schema::CDB_OBJ_TYPE:
+		oid = in->getLong();
+		obj = new Schema(oid);
 		break;
 	default:
 		throw new CdbException(L"Wrong binary format with wrong object type.", __FILE__, __LINE__);

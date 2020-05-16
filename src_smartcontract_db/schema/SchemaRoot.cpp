@@ -6,11 +6,13 @@
  */
 
 #include "schema/SchemaRoot.h"
+#include "schema/Schema.h"
 
 #include "base/UnicodeString.h"
 
 #include "base_io/ByteBuffer.h"
 
+#include "table/TableObjectFactory.h"
 
 namespace codablecash {
 
@@ -25,10 +27,15 @@ SchemaRoot::~SchemaRoot() {
 }
 
 void SchemaRoot::addSchemaName(const UnicodeString* name) noexcept {
-	this->list.addElement(new UnicodeString(name));
+	this->maxSchemaObjectId++;
+
+	Schema* schema = new Schema(this->maxSchemaObjectId);
+	schema->setName(new UnicodeString(name));
+
+	this->list.addElement(schema);
 }
 
-int SchemaRoot::binarySize() const noexcept {
+int SchemaRoot::binarySize() const {
 	int total = 0;
 
 	total += sizeof(uint64_t) * 3;
@@ -36,9 +43,9 @@ int SchemaRoot::binarySize() const noexcept {
 	total += sizeof(uint32_t);
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
-		UnicodeString* name = this->list.get(i);
+		Schema* schema = this->list.get(i);
 
-		total += stringSize(name);
+		total += schema->binarySize();
 	}
 
 	return total;
@@ -53,9 +60,9 @@ void SchemaRoot::toBinary(ByteBuffer* out) const {
 	out->putInt(maxLoop);
 
 	for(int i = 0; i != maxLoop; ++i){
-		UnicodeString* name = this->list.get(i);
+		Schema* schema = this->list.get(i);
 
-		putString(out, name);
+		schema->toBinary(out);
 	}
 }
 
@@ -66,8 +73,12 @@ void SchemaRoot::fromBinary(ByteBuffer* in) {
 
 	int maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){
-		UnicodeString* name = getString(in);
-		this->list.addElement(name);
+		CdbBinaryObject* obj = TableObjectFactory::createFromBinary(in, Schema::CDB_OBJ_TYPE);
+		Schema* schema = dynamic_cast<Schema*>(obj);
+
+		schema->fromBinary(in);
+
+		this->list.addElement(schema);
 	}
 }
 

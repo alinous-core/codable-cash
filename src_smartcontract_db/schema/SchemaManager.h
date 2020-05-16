@@ -48,7 +48,7 @@ private:
 	void fireSchemaLoaded() noexcept;
 
 private:
-	SchemaRoot* binary;
+	SchemaRoot* root;
 	File* schemaBin;
 
 	ArrayList<ISchemaUptateListner> listners;

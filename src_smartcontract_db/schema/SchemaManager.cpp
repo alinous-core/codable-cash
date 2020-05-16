@@ -26,12 +26,12 @@ const UnicodeString SchemaManager::SCHEMA_FILE(L"schema.bin");
 
 
 SchemaManager::SchemaManager() {
-	this->binary = nullptr;
+	this->root = nullptr;
 	this->schemaBin = nullptr;
 }
 
 SchemaManager::~SchemaManager() {
-	delete this->binary;
+	delete this->root;
 	delete this->schemaBin;
 }
 
@@ -40,9 +40,9 @@ void SchemaManager::addSchemaUpdateListner(ISchemaUptateListner* listner) noexce
 }
 
 void SchemaManager::createSchema(const UnicodeString* name, File* baseDir) {
-	SchemaRoot binary;
+	SchemaRoot root;
 
-	binary.addSchemaName(&SchemaManager::PUBLIC);
+	root.addSchemaName(&SchemaManager::PUBLIC);
 	File* scdir = baseDir->get(&SchemaManager::PUBLIC); __STP(scdir);
 
 	scdir->mkdirs();
@@ -52,10 +52,10 @@ void SchemaManager::createSchema(const UnicodeString* name, File* baseDir) {
 	FileOutputStream* outStream = new FileOutputStream(schemaBin); __STP(outStream);
 	outStream->open(false);
 
-	int size = binary.binarySize();
+	int size = root.binarySize();
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
 
-	binary.toBinary(buff);
+	root.toBinary(buff);
 
 	const uint8_t* barray = buff->array();
 	outStream->write((const char*)barray, size);
@@ -68,10 +68,10 @@ void SchemaManager::save() {
 	FileOutputStream* outStream = new FileOutputStream(schemaBin); __STP(outStream);
 	outStream->open(false);
 
-	int size = this->binary->binarySize();
+	int size = this->root->binarySize();
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
 
-	this->binary->toBinary(buff);
+	this->root->toBinary(buff);
 
 	const uint8_t* barray = buff->array();
 	outStream->write((const char*)barray, size);
@@ -97,18 +97,18 @@ void SchemaManager::loadSchema(const File* baseDir) {
 
 	ByteBuffer* buff = ByteBuffer::wrapWithEndian((const uint8_t*)b, size, true); __STP(buff);
 
-	this->binary = new SchemaRoot();
-	this->binary->fromBinary(buff);
+	this->root = new SchemaRoot();
+	this->root->fromBinary(buff);
 
 	fireSchemaLoaded();
 }
 
 uint64_t SchemaManager::newTransactionId() {
-	return this->binary->newTransactionId();
+	return this->root->newTransactionId();
 }
 
 uint64_t SchemaManager::newSchemaObjectId() noexcept {
-	return this->binary->newSchemaObjectId();
+	return this->root->newSchemaObjectId();
 }
 
 void SchemaManager::createTable(CdbTable* table) {

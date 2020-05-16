@@ -2,6 +2,7 @@
 
 set(__src
 	ISchemaUptateListner.cpp
+	Schema.cpp
 	SchemaManager.cpp
 	SchemaRoot.cpp
 )
