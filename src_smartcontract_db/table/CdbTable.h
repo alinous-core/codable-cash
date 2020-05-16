@@ -48,6 +48,9 @@ public:
 	void setOid(uint64_t oid) noexcept;
 
 	void setName(UnicodeString* name) noexcept;
+	const UnicodeString* getName() const noexcept {
+		return this->name;
+	}
 
 	void setPrimaryKey(const wchar_t* col);
 	void setPrimaryKey(const UnicodeString* colstr);
@@ -59,6 +62,7 @@ public:
 	int binarySize() const;
 	void toBinary(ByteBuffer* out) const;
 	void fromBinary(ByteBuffer* in);
+
 private:
 	CdbOid* oid;
 

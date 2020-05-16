@@ -30,10 +30,13 @@ public:
 	explicit CdbTableIndex(uint64_t oid);
 	virtual ~CdbTableIndex();
 
+	static UnicodeString* createPrimaryKeyIndexName(CdbTableIndex* index, CdbTable* table) noexcept;
+	void setName(UnicodeString* name) noexcept;
+
 	void assignNewOid(SchemaObjectIdPublisher* publisher);
 	void setOid(uint64_t oid) noexcept;
 	const CdbOid* getOid() const noexcept {
-		return oid;
+		return this->oid;
 	}
 
 	bool hasColumnOid(const CdbOid* colOid) const noexcept;
@@ -46,8 +49,15 @@ public:
 	int binarySize() const;
 	void toBinary(ByteBuffer* out) const;
 	void fromBinary(ByteBuffer* in, CdbTable* table);
+
+	const ArrayList<CdbTableColumn>* getColumns() const noexcept {
+		return this->columns;
+	}
+
 private:
 	CdbOid* oid;
+
+	UnicodeString* name;
 	bool primary;
 
 	ArrayList<CdbTableColumn>* columns;

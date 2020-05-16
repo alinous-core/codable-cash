@@ -15,6 +15,7 @@
 
 #include "base_io/ByteBuffer.h"
 
+#include "base/UnicodeString.h"
 
 namespace codablecash {
 
@@ -23,12 +24,37 @@ CdbTableIndex::CdbTableIndex(uint64_t oid) {
 	this->columns = new ArrayList<CdbTableColumn>();
 	this->columnMap = new HashMap<CdbOid, CdbTableColumn>();
 	this->primary = false;
+	this->name = nullptr;
 }
 
 CdbTableIndex::~CdbTableIndex() {
 	delete this->oid;
 	delete this->columns;
 	delete this->columnMap;
+	delete this->name;
+}
+
+UnicodeString* CdbTableIndex::createPrimaryKeyIndexName(CdbTableIndex* index, CdbTable* table) noexcept {
+	UnicodeString* newName = new UnicodeString(L"idx_");
+
+	const UnicodeString* tableName = table->getName();
+	newName->append(tableName);
+
+	const ArrayList<CdbTableColumn>* list = index->getColumns();
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableColumn* col = list->get(i);
+		const UnicodeString*  colName = col->getName();
+
+		newName->append(L"_");
+		newName->append(colName);
+	}
+
+	return newName;
+}
+
+void CdbTableIndex::setName(UnicodeString* name) noexcept {
+	this->name = name;
 }
 
 void CdbTableIndex::assignNewOid(SchemaObjectIdPublisher* publisher) {
