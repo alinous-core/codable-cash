@@ -122,6 +122,27 @@ TEST(TestLogBinaryGroup, createtable_error){
 	delete ex;
 }
 
+TEST(TestLogBinaryGroup, createtable_primarykey_error){
+	CreateTableLog log;
+	CdbTable* table = new CdbTable(1);
+	table->setName(new UnicodeString(L"test_table"));
+	table->addColumn(2, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
+	table->addColumn(3, L"name", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, L"");
+
+	log.setTable(table);
+
+	CdbException* ex = nullptr;
+	try{
+		table->setPrimaryKey(L"id2");
+	}catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr)
+	delete ex;
+
+}
+
 TEST(TestLogBinaryGroup, faactory_error01){
 	int size = 10;
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);

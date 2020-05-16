@@ -23,5 +23,8 @@ uint64_t SchemaObjectIdPublisher::newOid() {
 	return this->schema->newSchemaObjectId();
 }
 
+void SchemaObjectIdPublisher::saveSchema() {
+	this->schema->save();
+}
 
 } /* namespace codablecash */

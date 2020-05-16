@@ -118,6 +118,8 @@ void CdbTable::assignNewOid(SchemaObjectIdPublisher* publisher) {
 
 		idx->assignNewOid(publisher);
 	}
+
+	publisher->saveSchema();
 }
 
 void CdbTable::setOid(uint64_t oid) noexcept {

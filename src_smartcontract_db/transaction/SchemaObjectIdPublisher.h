@@ -18,6 +18,7 @@ public:
 	virtual ~SchemaObjectIdPublisher();
 
 	uint64_t newOid();
+	void saveSchema();
 private:
 	Schema* schema;
 };
