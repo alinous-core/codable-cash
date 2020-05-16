@@ -76,8 +76,8 @@ void CodableDatabase::checkDatabaseLoaded() const {
 	}
 }
 
-Schema* CodableDatabase::getSchema() const noexcept {
+/*Schema* CodableDatabase::getSchema() const noexcept {
 	return this->schema;
-}
+}*/
 
 } /* namespace alinous */
