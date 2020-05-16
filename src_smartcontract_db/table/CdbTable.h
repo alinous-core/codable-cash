@@ -66,6 +66,7 @@ public:
 private:
 	CdbOid* oid;
 
+	UnicodeString* schemaName;
 	UnicodeString* name;
 	ArrayList<CdbTableColumn>* columns;
 	HashMap<CdbOid, CdbTableColumn>* columnMap;

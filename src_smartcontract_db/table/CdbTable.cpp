@@ -21,6 +21,7 @@
 #include "table/TableObjectFactory.h"
 #include "table/CdbTableIndex.h"
 
+#include "schema/Schema.h"
 
 namespace codablecash {
 
@@ -28,6 +29,7 @@ CdbTable::CdbTable(uint64_t oid) {
 	this->columns = new ArrayList<CdbTableColumn>();
 	this->columnMap = new HashMap<CdbOid, CdbTableColumn>();
 	this->oid = new CdbOid(oid);
+	this->schemaName = new UnicodeString(&Schema::PUBLIC);
 	this->name = nullptr;
 	this->indexes = new ArrayList<CdbTableIndex>();
 }
@@ -195,12 +197,14 @@ CdbTableIndex* CdbTable::getIndexByColumnOid(const CdbOid* oid) const noexcept {
 }
 
 int CdbTable::binarySize() const {
+	checkNotNull(this->schemaName);
 	checkNotNull(this->name);
 
 	int total = sizeof(uint8_t);
 
 	total += sizeof(uint64_t); // oid
 
+	total += stringSize(this->schemaName);
 	total += stringSize(this->name);
 
 	int maxLoop = this->columns->size();
@@ -223,12 +227,14 @@ int CdbTable::binarySize() const {
 }
 
 void CdbTable::toBinary(ByteBuffer* out) const {
+	checkNotNull(this->schemaName);
 	checkNotNull(this->name);
 
 	out->put(CdbTable::CDB_OBJ_TYPE);
 
 	out->putLong(this->oid->getOid());
 
+	putString(out, this->schemaName);
 	putString(out, this->name);
 
 	int maxLoop = this->columns->size();
@@ -249,6 +255,7 @@ void CdbTable::toBinary(ByteBuffer* out) const {
 }
 
 void CdbTable::fromBinary(ByteBuffer* in) {
+	this->schemaName = getString(in);
 	this->name = getString(in);
 
 	int maxLoop = in->getInt();
