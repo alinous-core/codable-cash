@@ -11,11 +11,17 @@
 
 #include "schema/ISchemaUptateListner.h"
 
+#include "base/ArrayList.h"
+
+using namespace alinous;
+
 namespace codablecash {
 
 class CdbTransaction;
 class CodableDatabase;
 class SchemaObjectIdPublisher;
+class CreateTableLog;
+class AbstractTransactionLog;
 
 class CdbTransactionManager : public ISchemaUptateListner {
 public:
@@ -27,9 +33,14 @@ public:
 	CdbTransaction* newTransaction(uint64_t transactionId);
 
 	SchemaObjectIdPublisher* getSchemaObjectIdPublisher() const noexcept;
+
+	void commitCreateTable(CreateTableLog* cmd);
 private:
 	CodableDatabase* db;
+	Schema* schema;
 	SchemaObjectIdPublisher* schemaIdPublisher;
+
+	ArrayList<AbstractTransactionLog>* committedCommands;
 };
 
 } /* namespace codablecash */

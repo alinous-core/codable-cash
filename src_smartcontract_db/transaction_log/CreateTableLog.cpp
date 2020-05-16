@@ -54,6 +54,8 @@ void CreateTableLog::commit(CdbTransactionManager* trxManager) {
 	this->table->assignNewOid(publisher);
 
 	// FIXME create table
+
+	trxManager->commitCreateTable(this);
 }
 
 

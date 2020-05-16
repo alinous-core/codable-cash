@@ -11,6 +11,7 @@
 #include "base/Exception.h"
 
 namespace codablecash {
+class AbstractTransactionLog;
 
 using namespace alinous;
 
@@ -21,7 +22,16 @@ public:
 	CdbException(const wchar_t* message, const char* srcfile, int srcline) noexcept;
 	CdbException(const wchar_t* message, Exception* cause, const char* srcfile, int srcline) noexcept;
 	virtual ~CdbException();
+
+	void setCmd(AbstractTransactionLog* cmd) noexcept {
+		this->cmd = cmd;
+	}
+
 	static const wchar_t* defaultMessage;
+
+
+private:
+	AbstractTransactionLog* cmd;
 };
 
 } /* namespace codablecash */

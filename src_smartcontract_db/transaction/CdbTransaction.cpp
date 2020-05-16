@@ -30,11 +30,14 @@ CdbTransaction::~CdbTransaction() {
 
 void CdbTransaction::commit() {
 	while(!this->cmdList.isEmpty()){
+		AbstractTransactionLog* cmd = nullptr;
+
 		try{
-			AbstractTransactionLog* cmd = this->cmdList.remove(0); __STP(cmd);
+			cmd = this->cmdList.remove(0);
 			cmd->commit(this->trxManager);
 		}
 		catch(CdbException* e){
+			e->setCmd(cmd);
 			rollback();
 			throw e;
 		}
