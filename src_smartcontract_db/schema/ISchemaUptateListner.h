@@ -10,14 +10,14 @@
 
 namespace codablecash {
 
-class Schema;
+class SchemaManager;
 
 class ISchemaUptateListner {
 public:
 	ISchemaUptateListner();
 	virtual ~ISchemaUptateListner();
 
-	virtual void schemaLoaded(Schema* sc) = 0;
+	virtual void schemaLoaded(SchemaManager* sc) = 0;
 };
 
 } /* namespace codablecash */

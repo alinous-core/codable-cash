@@ -16,7 +16,7 @@ using namespace alinous;
 
 namespace codablecash {
 class CdbTransactionManager;
-class Schema;
+class SchemaManager;
 class CdbTransaction;
 class CdbStorageManager;
 
@@ -37,7 +37,7 @@ private:
 
 private:
 	CdbTransactionManager* trxManager;
-	Schema* schema;
+	SchemaManager* schema;
 	CdbStorageManager* store;
 
 	File* loadedFile;

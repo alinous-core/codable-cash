@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#ifndef SCHEMA_SCHEMA_H_
-#define SCHEMA_SCHEMA_H_
+#ifndef SCHEMA_SCHEMAMANAGER_H_
+#define SCHEMA_SCHEMAMANAGER_H_
 #include <cstdint>
 
 #include "base/ArrayList.h"
@@ -20,16 +20,17 @@ using namespace alinous;
 
 namespace codablecash {
 
-class SchemaBinary;
+class SchemaRoot;
 class ISchemaUptateListner;
+class CdbTable;
 
-class Schema {
+class SchemaManager {
 public:
 	static const UnicodeString PUBLIC;
 	static const UnicodeString SCHEMA_FILE;
 
-	Schema();
-	virtual ~Schema();
+	SchemaManager();
+	virtual ~SchemaManager();
 
 	void addSchemaUpdateListner(ISchemaUptateListner* listner) noexcept;
 
@@ -41,11 +42,13 @@ public:
 	uint64_t newTransactionId();
 	uint64_t newSchemaObjectId() noexcept;
 
+	void createTable(CdbTable* table);
+
 private:
 	void fireSchemaLoaded() noexcept;
 
 private:
-	SchemaBinary* binary;
+	SchemaRoot* binary;
 	File* schemaBin;
 
 	ArrayList<ISchemaUptateListner> listners;
@@ -53,4 +56,4 @@ private:
 
 } /* namespace alinous */
 
-#endif /* SCHEMA_SCHEMA_H_ */
+#endif /* SCHEMA_SCHEMAMANAGER_H_ */

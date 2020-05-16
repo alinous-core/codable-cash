@@ -7,11 +7,11 @@
 
 #include "transaction/SchemaObjectIdPublisher.h"
 
-#include "schema/Schema.h"
+#include "schema/SchemaManager.h"
 
 namespace codablecash {
 
-SchemaObjectIdPublisher::SchemaObjectIdPublisher(Schema* schema) {
+SchemaObjectIdPublisher::SchemaObjectIdPublisher(SchemaManager* schema) {
 	this->schema = schema;
 }
 

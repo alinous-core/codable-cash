@@ -28,7 +28,7 @@ public:
 	explicit CdbTransactionManager(CodableDatabase* db);
 	virtual ~CdbTransactionManager();
 
-	virtual void schemaLoaded(Schema* sc);
+	virtual void schemaLoaded(SchemaManager* sc);
 
 	CdbTransaction* newTransaction(uint64_t transactionId);
 
@@ -37,7 +37,7 @@ public:
 	void commitCreateTable(CreateTableLog* cmd);
 private:
 	CodableDatabase* db;
-	Schema* schema;
+	SchemaManager* schema;
 	SchemaObjectIdPublisher* schemaIdPublisher;
 
 	ArrayList<AbstractTransactionLog>* committedCommands;

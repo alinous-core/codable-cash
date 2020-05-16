@@ -10,17 +10,17 @@
 #include <cstdint>
 
 namespace codablecash {
-class Schema;
+class SchemaManager;
 
 class SchemaObjectIdPublisher {
 public:
-	explicit SchemaObjectIdPublisher(Schema* schema);
+	explicit SchemaObjectIdPublisher(SchemaManager* schema);
 	virtual ~SchemaObjectIdPublisher();
 
 	uint64_t newOid();
 	void saveSchema();
 private:
-	Schema* schema;
+	SchemaManager* schema;
 };
 
 } /* namespace codablecash */

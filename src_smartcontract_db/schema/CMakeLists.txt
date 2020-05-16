@@ -2,8 +2,8 @@
 
 set(__src
 	ISchemaUptateListner.cpp
-	Schema.cpp
-	SchemaBinary.cpp
+	SchemaManager.cpp
+	SchemaRoot.cpp
 )
 handle_sub(codablecashlib "${__src}" smartcontract_db schema)
 

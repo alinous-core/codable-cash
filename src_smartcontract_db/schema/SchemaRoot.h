@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#ifndef SCHEMA_SCHEMABINARY_H_
-#define SCHEMA_SCHEMABINARY_H_
+#ifndef SCHEMA_SCHEMAROOT_H_
+#define SCHEMA_SCHEMAROOT_H_
 
 #include "base/ArrayList.h"
 #include <cstdint>
@@ -21,10 +21,10 @@ using namespace alinous;
 
 namespace codablecash {
 
-class SchemaBinary : public CdbBinaryObject {
+class SchemaRoot : public CdbBinaryObject {
 public:
-	SchemaBinary();
-	virtual ~SchemaBinary();
+	SchemaRoot();
+	virtual ~SchemaRoot();
 
 	void addSchemaName(const UnicodeString* name) noexcept;
 
@@ -44,4 +44,4 @@ private:
 
 } /* namespace codablecash */
 
-#endif /* SCHEMA_SCHEMABINARY_H_ */
+#endif /* SCHEMA_SCHEMAROOT_H_ */

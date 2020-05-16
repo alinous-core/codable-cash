@@ -12,17 +12,17 @@
 
 namespace codablecash {
 
-class Schema;
+class SchemaManager;
 
 class CdbStorageManager : public ISchemaUptateListner {
 public:
 	CdbStorageManager();
 	virtual ~CdbStorageManager();
 
-	virtual void schemaLoaded(Schema* sc);
+	virtual void schemaLoaded(SchemaManager* sc);
 
 private:
-	Schema* schema;
+	SchemaManager* schema;
 };
 
 } /* namespace codablecash */

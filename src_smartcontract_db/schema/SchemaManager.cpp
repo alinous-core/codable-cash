@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "schema/Schema.h"
-#include "schema/SchemaBinary.h"
+#include "schema/SchemaManager.h"
+#include "schema/SchemaRoot.h"
 #include "schema/ISchemaUptateListner.h"
 
 #include "base/UnicodeString.h"
@@ -21,33 +21,33 @@
 
 namespace codablecash {
 
-const UnicodeString Schema::PUBLIC(L"public");
-const UnicodeString Schema::SCHEMA_FILE(L"schema.bin");
+const UnicodeString SchemaManager::PUBLIC(L"public");
+const UnicodeString SchemaManager::SCHEMA_FILE(L"schema.bin");
 
 
-Schema::Schema() {
+SchemaManager::SchemaManager() {
 	this->binary = nullptr;
 	this->schemaBin = nullptr;
 }
 
-Schema::~Schema() {
+SchemaManager::~SchemaManager() {
 	delete this->binary;
 	delete this->schemaBin;
 }
 
-void Schema::addSchemaUpdateListner(ISchemaUptateListner* listner) noexcept {
+void SchemaManager::addSchemaUpdateListner(ISchemaUptateListner* listner) noexcept {
 	this->listners.addElement(listner);
 }
 
-void Schema::createSchema(const UnicodeString* name, File* baseDir) {
-	SchemaBinary binary;
+void SchemaManager::createSchema(const UnicodeString* name, File* baseDir) {
+	SchemaRoot binary;
 
-	binary.addSchemaName(&Schema::PUBLIC);
-	File* scdir = baseDir->get(&Schema::PUBLIC); __STP(scdir);
+	binary.addSchemaName(&SchemaManager::PUBLIC);
+	File* scdir = baseDir->get(&SchemaManager::PUBLIC); __STP(scdir);
 
 	scdir->mkdirs();
 
-	File* schemaBin = baseDir->get(&Schema::SCHEMA_FILE); __STP(schemaBin);
+	File* schemaBin = baseDir->get(&SchemaManager::SCHEMA_FILE); __STP(schemaBin);
 
 	FileOutputStream* outStream = new FileOutputStream(schemaBin); __STP(outStream);
 	outStream->open(false);
@@ -64,7 +64,7 @@ void Schema::createSchema(const UnicodeString* name, File* baseDir) {
 	outStream->close();
 }
 
-void Schema::save() {
+void SchemaManager::save() {
 	FileOutputStream* outStream = new FileOutputStream(schemaBin); __STP(outStream);
 	outStream->open(false);
 
@@ -81,8 +81,8 @@ void Schema::save() {
 }
 
 
-void Schema::loadSchema(const File* baseDir) {
-	this->schemaBin = baseDir->get(&Schema::SCHEMA_FILE);
+void SchemaManager::loadSchema(const File* baseDir) {
+	this->schemaBin = baseDir->get(&SchemaManager::SCHEMA_FILE);
 
 	int size = schemaBin->length();
 	char* b = new char[size]{};
@@ -97,21 +97,25 @@ void Schema::loadSchema(const File* baseDir) {
 
 	ByteBuffer* buff = ByteBuffer::wrapWithEndian((const uint8_t*)b, size, true); __STP(buff);
 
-	this->binary = new SchemaBinary();
+	this->binary = new SchemaRoot();
 	this->binary->fromBinary(buff);
 
 	fireSchemaLoaded();
 }
 
-uint64_t Schema::newTransactionId() {
+uint64_t SchemaManager::newTransactionId() {
 	return this->binary->newTransactionId();
 }
 
-uint64_t Schema::newSchemaObjectId() noexcept {
+uint64_t SchemaManager::newSchemaObjectId() noexcept {
 	return this->binary->newSchemaObjectId();
 }
 
-void Schema::fireSchemaLoaded() noexcept {
+void SchemaManager::createTable(CdbTable* table) {
+
+}
+
+void SchemaManager::fireSchemaLoaded() noexcept {
 	int maxLoop = this->listners.size();
 	for(int i = 0; i != maxLoop; ++i){
 		ISchemaUptateListner* l = this->listners.get(i);

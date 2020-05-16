@@ -21,7 +21,7 @@
 #include "table/TableObjectFactory.h"
 #include "table/CdbTableIndex.h"
 
-#include "schema/Schema.h"
+#include "schema/SchemaManager.h"
 
 namespace codablecash {
 
@@ -29,7 +29,7 @@ CdbTable::CdbTable(uint64_t oid) {
 	this->columns = new ArrayList<CdbTableColumn>();
 	this->columnMap = new HashMap<CdbOid, CdbTableColumn>();
 	this->oid = new CdbOid(oid);
-	this->schemaName = new UnicodeString(&Schema::PUBLIC);
+	this->schemaName = new UnicodeString(&SchemaManager::PUBLIC);
 	this->name = nullptr;
 	this->indexes = new ArrayList<CdbTableIndex>();
 }

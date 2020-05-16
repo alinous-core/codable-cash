@@ -12,7 +12,7 @@
 
 #include "base_io/File.h"
 
-#include "schema/Schema.h"
+#include "schema/SchemaManager.h"
 
 #include "transaction/CdbTransaction.h"
 
@@ -41,7 +41,7 @@ void CodableDatabase::createDatabase(File* dbdir) {
 	dbdir->mkdirs();
 
 	// schema
-	Schema::createSchema(&Schema::PUBLIC, dbdir);
+	SchemaManager::createSchema(&SchemaManager::PUBLIC, dbdir);
 }
 
 bool CodableDatabase::loadDatabase(const File* dbdir) {
@@ -51,7 +51,7 @@ bool CodableDatabase::loadDatabase(const File* dbdir) {
 
 	this->store = new CdbStorageManager();
 
-	this->schema = new Schema();
+	this->schema = new SchemaManager();
 	this->schema->addSchemaUpdateListner(this->trxManager);
 	this->schema->addSchemaUpdateListner(this->store);
 

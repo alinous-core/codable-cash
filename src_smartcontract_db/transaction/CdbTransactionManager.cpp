@@ -33,7 +33,7 @@ CdbTransactionManager::~CdbTransactionManager() {
 	delete this->committedCommands;
 }
 
-void CdbTransactionManager::schemaLoaded(Schema* sc) {
+void CdbTransactionManager::schemaLoaded(SchemaManager* sc) {
 	delete this->schemaIdPublisher;
 	this->schemaIdPublisher = new SchemaObjectIdPublisher(sc);
 
@@ -51,6 +51,7 @@ SchemaObjectIdPublisher* CdbTransactionManager::getSchemaObjectIdPublisher() con
 }
 
 void CdbTransactionManager::commitCreateTable(CreateTableLog* cmd) {
+
 
 	this->committedCommands->addElement(cmd);
 }

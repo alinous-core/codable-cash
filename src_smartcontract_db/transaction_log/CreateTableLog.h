@@ -26,6 +26,10 @@ public:
 	virtual void commit(CdbTransactionManager* trxManager);
 
 	void setTable(CdbTable* table) noexcept;
+	CdbTable* getTable() const {
+		return table;
+	}
+
 private:
 	CdbTable* table;
 };

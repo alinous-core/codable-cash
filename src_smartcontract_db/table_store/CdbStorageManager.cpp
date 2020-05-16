@@ -7,7 +7,7 @@
 
 #include "table_store/CdbStorageManager.h"
 
-#include "schema/Schema.h"
+#include "schema/SchemaManager.h"
 
 
 namespace codablecash {
@@ -20,7 +20,7 @@ CdbStorageManager::~CdbStorageManager() {
 	this->schema = nullptr;
 }
 
-void CdbStorageManager::schemaLoaded(Schema* sc) {
+void CdbStorageManager::schemaLoaded(SchemaManager* sc) {
 	this->schema = sc;
 
 }

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "schema/SchemaBinary.h"
+#include "schema/SchemaRoot.h"
 
 #include "base/UnicodeString.h"
 
@@ -14,21 +14,21 @@
 
 namespace codablecash {
 
-SchemaBinary::SchemaBinary() {
+SchemaRoot::SchemaRoot() {
 	this->maxTransactionId = 0;
 	this->maxObjectId = 0;
 	this->maxSchemaObjectId = 0;
 }
 
-SchemaBinary::~SchemaBinary() {
+SchemaRoot::~SchemaRoot() {
 	this->list.deleteElements();
 }
 
-void SchemaBinary::addSchemaName(const UnicodeString* name) noexcept {
+void SchemaRoot::addSchemaName(const UnicodeString* name) noexcept {
 	this->list.addElement(new UnicodeString(name));
 }
 
-int SchemaBinary::binarySize() const noexcept {
+int SchemaRoot::binarySize() const noexcept {
 	int total = 0;
 
 	total += sizeof(uint64_t) * 3;
@@ -44,7 +44,7 @@ int SchemaBinary::binarySize() const noexcept {
 	return total;
 }
 
-void SchemaBinary::toBinary(ByteBuffer* out) const {
+void SchemaRoot::toBinary(ByteBuffer* out) const {
 	out->putLong(this->maxTransactionId);
 	out->putLong(this->maxObjectId);
 	out->putLong(this->maxSchemaObjectId);
@@ -59,7 +59,7 @@ void SchemaBinary::toBinary(ByteBuffer* out) const {
 	}
 }
 
-void SchemaBinary::fromBinary(ByteBuffer* in) {
+void SchemaRoot::fromBinary(ByteBuffer* in) {
 	this->maxTransactionId = in->getLong();
 	this->maxObjectId = in->getLong();
 	this->maxSchemaObjectId = in->getLong();
@@ -71,12 +71,12 @@ void SchemaBinary::fromBinary(ByteBuffer* in) {
 	}
 }
 
-uint64_t SchemaBinary::newTransactionId() noexcept {
+uint64_t SchemaRoot::newTransactionId() noexcept {
 	this->maxTransactionId++;
 	return this->maxTransactionId;
 }
 
-uint64_t SchemaBinary::newSchemaObjectId() noexcept {
+uint64_t SchemaRoot::newSchemaObjectId() noexcept {
 	this->maxSchemaObjectId++;
 	return this->maxSchemaObjectId;
 }
