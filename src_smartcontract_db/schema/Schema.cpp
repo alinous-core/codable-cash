@@ -25,12 +25,12 @@ Schema::~Schema() {
 	delete this->name;
 	delete this->oid;
 }
-
+/*
 void Schema::setOid(uint64_t oid) noexcept {
 	delete this->oid;
 	this->oid = new CdbOid(oid);
 }
-
+*/
 void Schema::setName(UnicodeString* name) noexcept {
 	this->name = name;
 }

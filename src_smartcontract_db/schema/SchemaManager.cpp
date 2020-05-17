@@ -112,7 +112,10 @@ uint64_t SchemaManager::newSchemaObjectId() noexcept {
 }
 
 void SchemaManager::createTable(CdbTable* table) {
+	fireOnCreateTable(table);
 
+	this->root->createTable(table);
+	save();
 }
 
 void SchemaManager::fireSchemaLoaded() noexcept {
@@ -121,6 +124,15 @@ void SchemaManager::fireSchemaLoaded() noexcept {
 		ISchemaUptateListner* l = this->listners.get(i);
 		l->schemaLoaded(this);
 	}
+}
+
+void SchemaManager::fireOnCreateTable(CdbTable* table) {
+	int maxLoop = this->listners.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ISchemaUptateListner* l = this->listners.get(i);
+		l->onCreateTable(this, table);
+	}
+
 }
 
 } /* namespace alinous */

@@ -92,4 +92,8 @@ uint64_t SchemaRoot::newSchemaObjectId() noexcept {
 	return this->maxSchemaObjectId;
 }
 
+void SchemaRoot::createTable(CdbTable* table) {
+
+}
+
 } /* namespace codablecash */

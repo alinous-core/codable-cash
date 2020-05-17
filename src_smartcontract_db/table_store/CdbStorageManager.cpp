@@ -22,7 +22,11 @@ CdbStorageManager::~CdbStorageManager() {
 
 void CdbStorageManager::schemaLoaded(SchemaManager* sc) {
 	this->schema = sc;
-
 }
+
+void codablecash::CdbStorageManager::onCreateTable(SchemaManager* mgr, CdbTable* table) {
+	// FIXME create storage
+}
+
 
 } /* namespace codablecash */

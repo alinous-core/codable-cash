@@ -14,6 +14,7 @@
 
 #include "engine/CodableDatabase.h"
 
+#include "schema/SchemaManager.h"
 
 namespace codablecash {
 
@@ -40,6 +41,11 @@ void CdbTransactionManager::schemaLoaded(SchemaManager* sc) {
 	this->schema = sc;
 }
 
+void CdbTransactionManager::onCreateTable(SchemaManager* mgr, CdbTable* table) {
+	// do nothing
+}
+
+
 CdbTransaction* CdbTransactionManager::newTransaction(uint64_t transactionId) {
 	CdbTransaction* trx = new CdbTransaction(this, transactionId);
 
@@ -51,7 +57,8 @@ SchemaObjectIdPublisher* CdbTransactionManager::getSchemaObjectIdPublisher() con
 }
 
 void CdbTransactionManager::commitCreateTable(CreateTableLog* cmd) {
-
+	CdbTable* table = cmd->getTable();
+	schema->createTable(table);
 
 	this->committedCommands->addElement(cmd);
 }

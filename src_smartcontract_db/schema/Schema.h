@@ -26,7 +26,7 @@ public:
 	Schema(uint64_t oid);
 	virtual ~Schema();
 
-	void setOid(uint64_t oid) noexcept;
+	//void setOid(uint64_t oid) noexcept;
 	void setName(UnicodeString* name) noexcept;
 
 	int binarySize() const;

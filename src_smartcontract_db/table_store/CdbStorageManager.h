@@ -20,6 +20,7 @@ public:
 	virtual ~CdbStorageManager();
 
 	virtual void schemaLoaded(SchemaManager* sc);
+	virtual void onCreateTable(SchemaManager* mgr, CdbTable* table);
 
 private:
 	SchemaManager* schema;

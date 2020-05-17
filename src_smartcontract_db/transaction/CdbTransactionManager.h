@@ -29,6 +29,7 @@ public:
 	virtual ~CdbTransactionManager();
 
 	virtual void schemaLoaded(SchemaManager* sc);
+	virtual void onCreateTable(SchemaManager* mgr, CdbTable* table);
 
 	CdbTransaction* newTransaction(uint64_t transactionId);
 
