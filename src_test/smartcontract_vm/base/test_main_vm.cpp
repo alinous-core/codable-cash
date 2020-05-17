@@ -53,6 +53,34 @@ TEST(TestVMGroup, clearStack){
 	delete vm;
 }
 
+TEST(TestVMGroup, createInstanceErrorException){
+	ErrorPointManager* errmgr = ErrorPointManager::getInstance();
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/parser/hello.alns"))
+
+	SmartContract* sc = new SmartContract();
+	FileInputStream stream(sourceFile);
+
+	int length = sourceFile->length();
+	sc->addCompilationUnit(&stream, length, projectFolder, sourceFile);
+
+	VirtualMachine* vm = new VirtualMachine(1024 * 10);
+	vm->loadSmartContract(sc);
+
+	//UnicodeString mainPackage(L"");
+	UnicodeString mainClass(L"HelloWorld");
+	UnicodeString mainMethod(L"main");
+	sc->setMainMethod(nullptr, &mainClass, &mainMethod);
+
+	vm->analyze();
+
+	errmgr->activatePoint(L"VirtualMachine::interpret", L"VirtualMachine::interpret", 1);
+	vm->createScInstance();
+
+	delete vm;
+}
+
 TEST(TestVMGroup, loadAndExec){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/parser/hello.alns"))

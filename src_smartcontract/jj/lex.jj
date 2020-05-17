@@ -283,10 +283,9 @@ TOKEN [IGNORE_CASE] :
 	<ADJUST_SET: "ADJUST_SET">	|
 	
 	<BOOL: "BOOL">		|
-	
 	<_NULL: "NULL">		|
 	
-	<FUNCTION: "FUNCTION">	|
+	// <FUNCTION: "FUNCTION">	|
 
 	<USE: "USE" >  |
 	<REGION: "REGION"> |

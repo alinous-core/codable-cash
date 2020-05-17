@@ -141,6 +141,42 @@ TEST(TestClassFwGroup, exceptions08){
 	delete ex;
 }
 
+TEST(TestClassFwGroup, exceptions09){
+	CompilationUnit element;
+
+	Exception* ex = nullptr;
+	try{
+		CodeElement::checkIsImport(&element);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+
+	delete ex;
+}
+
+TEST(TestClassFwGroup, exceptions10){
+	CompilationUnit element;
+
+	Exception* ex = nullptr;
+	try{
+		element.getCompilationUnit();
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+
+	delete ex;
+}
+
+TEST(TestClassFwGroup, isExecutable){
+	CompilationUnit element;
+
+	CHECK(element.isExecutable() == false)
+}
+
 TEST(TestClassFwGroup, construct){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/classfw/class.alns"))

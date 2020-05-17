@@ -129,6 +129,7 @@ include_directories(${PROJECT_SOURCE_DIR}/src_db/)
 include_directories(${PROJECT_SOURCE_DIR}/src_gen/)
 include_directories(${PROJECT_SOURCE_DIR}/src_ext/)
 include_directories(${PROJECT_SOURCE_DIR}/src_smartcontract/)
+include_directories(${PROJECT_SOURCE_DIR}/src_smartcontract_db/)
 include_directories(${PROJECT_SOURCE_DIR}/src_smartcontract_vm/)
 include_directories(${PROJECT_SOURCE_DIR}/src_test/)
 
@@ -137,10 +138,11 @@ add_subdirectory(src_blockchain)
 add_subdirectory(src_db)
 add_subdirectory(src_gen)
 add_subdirectory(src_smartcontract)
+add_subdirectory(src_smartcontract_db)
 add_subdirectory(src_smartcontract_vm)
 
 
-add_library(codablecashlib STATIC ${top_src} ${top_src_blockchain} ${top_src_db} ${top_src_gen} ${top_src_smartcontract} ${top_src_smartcontract_vm})
+add_library(codablecashlib STATIC ${top_src} ${top_src_blockchain} ${top_src_db} ${top_src_gen} ${top_src_smartcontract} ${top_src_smartcontract_db} ${top_src_smartcontract_vm})
 target_link_libraries(codablecashlib extlib pthread gmp)
 
 add_executable(codablecash ${srcmain})

@@ -241,6 +241,7 @@ VmClassInstance* SmartContract::createInstance(VirtualMachine* vm) {
 		throw e;
 	}
 
+
 	return inst;
 }
 

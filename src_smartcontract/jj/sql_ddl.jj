@@ -19,6 +19,7 @@ AbstractSQLStatement* ddlStatement() : {
 
 CreateTableStatement* createTableStatement() : {
 	CreateTableStatement* stmt = new CreateTableStatement();
+	DdlColumnDescriptor* desc = nullptr;
 	Token* t = null;
 }
 {
@@ -28,13 +29,62 @@ CreateTableStatement* createTableStatement() : {
 	t=<TABLE>{
 		stmt->setPosition(t);
 	}
-	<L_PARENTHESIS> {
-	
+	t=<IDENTIFIER> {
+		stmt->setName(_STR(t));
+		stmt->setPosition(t);
+	}
+	t=<L_PARENTHESIS> {
 		stmt->setPosition(t);
 	}
 	
+	[
+		// columns
+		desc=ddlColumnDescriptor() {
+			stmt->addColumn(desc);
+			stmt->setPosition(desc);
+		}
+		
+		(LOOKAHEAD(2)
+			t="," {
+				stmt->setPosition(t);
+			}
+			desc=ddlColumnDescriptor() {
+				stmt->addColumn(desc);
+				stmt->setPosition(desc);
+			}
+		)*
+	]
 	
-	<R_PARENTHESIS> {
+	[
+		[t=","]
+		t=<PRIMARY> {stmt->setPosition(t);}
+		t=<KEY> {stmt->setPosition(t);}
+		
+		t=<L_PARENTHESIS> {
+			stmt->setPosition(t);
+		}
+		
+		t=<IDENTIFIER> {
+			stmt->addPrimaryKey(_STR(t));
+			stmt->setPosition(t);
+		}
+		
+		(
+			t="," {
+				stmt->setPosition(t);
+			}
+			t=<IDENTIFIER> {
+				stmt->addPrimaryKey(_STR(t));
+				stmt->setPosition(t);
+			}
+		)*
+		
+		t=<R_PARENTHESIS> {
+			stmt->setPosition(t);
+		}
+	]
+	
+	t=<R_PARENTHESIS> {
 		stmt->setPosition(t);
 	}
 	
@@ -44,6 +94,84 @@ CreateTableStatement* createTableStatement() : {
 	{
 		__ONERROR(stmt);
 		return stmt;
+	}	
+}
+
+DdlColumnDescriptor* ddlColumnDescriptor() :
+{
+	DdlColumnDescriptor* desc = new DdlColumnDescriptor();
+	ColumnTypeDescriptor* typeDesc = nullptr;
+	AbstractSQLExpression* val = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=<IDENTIFIER> {
+		desc->setName(_STR(t));
+		desc->setPosition(t);
+	}
+	typeDesc=columnTypeDescriptor() {
+		desc->setColumnType(typeDesc);
+		desc->setPosition(typeDesc);
+	}
+	[
+		t=<SQL_NOT> {
+			desc->setPosition(t);
+		}
+		t=<_NULL> {
+			desc->setNotNull(true);
+			desc->setPosition(t);
+		}
+	]
+	[
+		t=<UNIQUE> {
+			desc->setUnique(true);
+			desc->setPosition(t);
+		}
+	]
+	[
+		t=<SQL_DEFAULT> {
+			desc->setPosition(t);
+		}
+		(val=sqlLiteral() | val=sqlBooleanLiteral()) {
+			desc->setDefaultValue(val);
+			desc->setPosition(val);
+		}		
+	]
+	{
+		__ONERROR(desc);
+		return desc;
+	}	
+}
+
+ColumnTypeDescriptor* columnTypeDescriptor() :
+{
+	ColumnTypeDescriptor* typeDesc = new ColumnTypeDescriptor();
+	AbstractSQLExpression* val = nullptr;
+	Token* t1 = nullptr;
+	Token* t2 = nullptr;
+}
+{
+	(t1=<IDENTIFIER> | t1=<BOOL> | t1=<INT>) {
+		typeDesc->setTypeName(_STR(t1));
+		typeDesc->setPosition(t1);
+	}
+	[
+		t2=<L_PARENTHESIS> {
+			typeDesc->setPosition(t2);
+		}
+		
+		(val=sqlLiteral() | val=sqlBooleanLiteral()){
+			typeDesc->setLength(val);
+			typeDesc->setPosition(val);
+		}
+		
+		t2=<R_PARENTHESIS> {
+			typeDesc->setPosition(t2);
+		}
+	]
+	{
+		__ONERROR(typeDesc);
+		return typeDesc;
 	}	
 }
 

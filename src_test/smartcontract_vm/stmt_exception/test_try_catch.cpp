@@ -24,6 +24,8 @@
 #include "instance_exception/NullPointerExceptionClassDeclare.h"
 
 #include "instance_exception_class/ExceptionClassDeclare.h"
+
+#include "vm_ctrl/BreakControl.h"
 using namespace alinous;
 
 
@@ -215,5 +217,11 @@ TEST(TestTryCatchGroup, case07){
 
 	ExtExceptionObject* exobj = util.vm->getUncaughtException(); __STP(exobj);
 	CHECK(exobj == nullptr)
+}
+
+TEST(TestTryCatchGroup, test){
+	BreakControl ctrl;
+
+	CHECK(ctrl.getException() == nullptr);
 }
 
