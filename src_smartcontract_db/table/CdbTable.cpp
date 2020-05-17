@@ -51,7 +51,6 @@ CdbTable::CdbTable(const CdbTable& inst) {
 			addIndex(new CdbTableIndex(*idx));
 		}
 	}
-	// FIXME copy constructor
 }
 
 

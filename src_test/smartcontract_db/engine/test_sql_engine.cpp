@@ -13,6 +13,8 @@
 #include "engine/CodableDatabase.h"
 
 #include "engine/CdbException.h"
+
+#include "engine/CdbOid.h"
 using namespace codablecash;
 
 
@@ -59,5 +61,14 @@ TEST(TestDbEngineGroup, createDbLoadError01){
 
 TEST(TestDbEngineGroup, testEx){
 	testException<CdbException>();
+}
+
+TEST(TestDbEngineGroup, testOid){
+	CdbOid oid1(1);
+	CdbOid oid2(2);
+	CdbOid oid3(1);
+
+	CHECK(!oid1.equals(&oid2));
+	CHECK(oid1.equals(&oid3))
 }
 
