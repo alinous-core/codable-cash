@@ -7,11 +7,13 @@
 
 #ifndef SCHEMA_SCHEMAROOT_H_
 #define SCHEMA_SCHEMAROOT_H_
-
-#include "base/ArrayList.h"
 #include <cstdint>
 
+#include "base/ArrayList.h"
+#include "base/HashMap.h"
+
 #include "engine/CdbBinaryObject.h"
+
 
 namespace alinous {
 class UnicodeString;
@@ -31,6 +33,9 @@ public:
 
 	void addSchemaName(const UnicodeString* name) noexcept;
 
+	void addSchema(Schema* schema) noexcept;
+	Schema* getSchema(const UnicodeString* name) const noexcept;
+
 	int binarySize() const;
 	void toBinary(ByteBuffer* out) const;
 	void fromBinary(ByteBuffer* in);
@@ -38,10 +43,10 @@ public:
 	uint64_t newTransactionId() noexcept;
 	uint64_t newSchemaObjectId() noexcept;
 
-	void createTable(CdbTable* table);
+	void createTable(const CdbTable* table);
 private:
 	ArrayList<Schema> list;
-
+	HashMap<UnicodeString, Schema> map;
 
 	uint64_t maxTransactionId;
 	uint64_t maxObjectId;

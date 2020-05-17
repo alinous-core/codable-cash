@@ -7,9 +7,11 @@
 
 #ifndef SCHEMA_SCHEMA_H_
 #define SCHEMA_SCHEMA_H_
+#include <cstdint>
 
 #include "engine/CdbBinaryObject.h"
-#include <cstdint>
+#include "base/ArrayList.h"
+#include "base/HashMap.h"
 
 namespace alinous {
 class ByteBuffer;
@@ -19,6 +21,7 @@ using namespace alinous;
 namespace codablecash {
 
 class CdbOid;
+class CdbTable;
 
 class Schema : public CdbBinaryObject {
 public:
@@ -28,6 +31,11 @@ public:
 
 	//void setOid(uint64_t oid) noexcept;
 	void setName(UnicodeString* name) noexcept;
+	const UnicodeString* getName() const noexcept {
+		return name;
+	}
+
+	void addTable(CdbTable* table) noexcept;
 
 	int binarySize() const;
 	void toBinary(ByteBuffer* out) const;
@@ -35,8 +43,11 @@ public:
 
 private:
 	CdbOid* oid;
-
 	UnicodeString* name;
+
+	ArrayList<CdbTable>* tables;
+	HashMap<UnicodeString, CdbTable> nameTableMap;
+	HashMap<CdbOid, CdbTable> oidTableMap;
 };
 
 } /* namespace codablecash */

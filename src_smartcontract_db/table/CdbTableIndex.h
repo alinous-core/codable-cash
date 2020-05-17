@@ -27,6 +27,7 @@ class CdbTableIndex : public CdbBinaryObject {
 public:
 	static const constexpr uint8_t CDB_OBJ_TYPE{3};
 
+	CdbTableIndex(const CdbTableIndex& inst);
 	explicit CdbTableIndex(uint64_t oid);
 	virtual ~CdbTableIndex();
 
@@ -41,7 +42,7 @@ public:
 
 	bool hasColumnOid(const CdbOid* colOid) const noexcept;
 
-	void addColumn(CdbTableColumn* col) noexcept;
+	void addColumn(const CdbTableColumn* col) noexcept;
 
 	void setPrimaryKey(bool bl);
 	bool isPrimaryKey() const noexcept;

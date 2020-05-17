@@ -13,17 +13,22 @@
 
 #include "engine/CdbOid.h"
 
+#include "table/CdbTable.h"
 
 namespace codablecash {
 
 Schema::Schema(uint64_t oid) {
 	this->name = nullptr;
 	this->oid = new CdbOid(oid);
+	this->tables = new ArrayList<CdbTable>();
 }
 
 Schema::~Schema() {
 	delete this->name;
 	delete this->oid;
+
+	this->tables->deleteElements();
+	delete this->tables;
 }
 /*
 void Schema::setOid(uint64_t oid) noexcept {
@@ -33,6 +38,12 @@ void Schema::setOid(uint64_t oid) noexcept {
 */
 void Schema::setName(UnicodeString* name) noexcept {
 	this->name = name;
+}
+
+void Schema::addTable(CdbTable* table) noexcept {
+	this->tables->addElement(table);
+	this->nameTableMap.put(table->getName(), table);
+	this->oidTableMap.put(table->getOid(), table);
 }
 
 int Schema::binarySize() const {

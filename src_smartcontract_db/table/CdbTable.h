@@ -32,8 +32,14 @@ class CdbTable : public CdbBinaryObject {
 public:
 	static const constexpr uint8_t CDB_OBJ_TYPE{1};
 
+	CdbTable(const CdbTable& inst);
+
 	explicit CdbTable(uint64_t oid);
 	virtual ~CdbTable();
+
+	const CdbOid* getOid() const noexcept {
+		return this->oid;
+	}
 
 	void addColumn(uint8_t oid, const wchar_t* name, uint8_t type, int length, bool notnull, bool unique, const wchar_t* defaultValue) noexcept;
 	void addColumn(uint8_t oid, const UnicodeString* name, uint8_t type, int length, bool notnull, bool unique, const UnicodeString* defaultValue) noexcept;
@@ -50,6 +56,10 @@ public:
 	void setName(UnicodeString* name) noexcept;
 	const UnicodeString* getName() const noexcept {
 		return this->name;
+	}
+
+	const UnicodeString* getSchemaName() const noexcept {
+		return this->schemaName;
 	}
 
 	void setPrimaryKey(const wchar_t* col);

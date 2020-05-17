@@ -9,6 +9,10 @@
 
 namespace codablecash {
 
+CdbOid::CdbOid(const CdbOid& inst) {
+	this->oid = inst.oid;
+}
+
 CdbOid::CdbOid(uint64_t oid) {
 	this->oid = oid;
 }

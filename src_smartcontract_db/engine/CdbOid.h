@@ -14,6 +14,7 @@ namespace codablecash {
 
 class CdbOid {
 public:
+	CdbOid(const CdbOid& inst);
 	explicit CdbOid(uint64_t oid);
 	virtual ~CdbOid();
 

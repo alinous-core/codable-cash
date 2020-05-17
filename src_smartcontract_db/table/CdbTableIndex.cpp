@@ -19,6 +19,24 @@
 
 namespace codablecash {
 
+CdbTableIndex::CdbTableIndex(const CdbTableIndex& inst) {
+	this->oid = new CdbOid(*inst.oid);
+
+	this->columns = new ArrayList<CdbTableColumn>();
+	this->columnMap = new HashMap<CdbOid, CdbTableColumn>();
+	{
+		int maxLoop = inst.columns->size();
+		for(int i = 0; i != maxLoop; ++i){
+			CdbTableColumn* col = inst.columns->get(i);
+
+			addColumn(col);
+		}
+	}
+
+	this->primary = inst.primary;
+	this->name = new UnicodeString(inst.name);
+}
+
 CdbTableIndex::CdbTableIndex(uint64_t oid) {
 	this->oid = new CdbOid(oid);
 	this->columns = new ArrayList<CdbTableColumn>();
@@ -29,8 +47,11 @@ CdbTableIndex::CdbTableIndex(uint64_t oid) {
 
 CdbTableIndex::~CdbTableIndex() {
 	delete this->oid;
+
+	this->columns->deleteElements();
 	delete this->columns;
 	delete this->columnMap;
+
 	delete this->name;
 }
 
@@ -67,10 +88,11 @@ void CdbTableIndex::setOid(uint64_t oid) noexcept {
 	this->oid = new CdbOid(oid);
 }
 
-void CdbTableIndex::addColumn(CdbTableColumn* col) noexcept {
-	this->columns->addElement(col);
-	const CdbOid* o = col->getOid();
-	this->columnMap->put(o, col);
+void CdbTableIndex::addColumn(const CdbTableColumn* col) noexcept {
+	CdbTableColumn* newColumn = new CdbTableColumn(*col);
+	this->columns->addElement(newColumn);
+	const CdbOid* o = newColumn->getOid();
+	this->columnMap->put(o, newColumn);
 }
 
 

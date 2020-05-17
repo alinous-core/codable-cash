@@ -112,9 +112,9 @@ uint64_t SchemaManager::newSchemaObjectId() noexcept {
 }
 
 void SchemaManager::createTable(CdbTable* table) {
+	this->root->createTable(table);
 	fireOnCreateTable(table);
 
-	this->root->createTable(table);
 	save();
 }
 

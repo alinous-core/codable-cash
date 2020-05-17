@@ -25,6 +25,36 @@
 
 namespace codablecash {
 
+CdbTable::CdbTable(const CdbTable& inst) {
+	this->oid = new CdbOid(*inst.oid);
+
+	this->schemaName = new UnicodeString(inst.schemaName);
+	this->name = new UnicodeString(inst.name);
+
+	this->columns = new ArrayList<CdbTableColumn>();
+	this->columnMap = new HashMap<CdbOid, CdbTableColumn>();
+	{
+		int maxLoop = inst.columns->size();
+		for(int i = 0; i != maxLoop; ++i){
+			CdbTableColumn* col = inst.columns->get(i);
+
+			addColumn(new CdbTableColumn(*col));
+		}
+	}
+
+	this->indexes = new ArrayList<CdbTableIndex>();
+	{
+		int maxLoop = inst.indexes->size();
+		for(int i = 0; i != maxLoop; ++i){
+			CdbTableIndex* idx = inst.indexes->get(i);
+
+			addIndex(new CdbTableIndex(*idx));
+		}
+	}
+	// FIXME copy constructor
+}
+
+
 CdbTable::CdbTable(uint64_t oid) {
 	this->columns = new ArrayList<CdbTableColumn>();
 	this->columnMap = new HashMap<CdbOid, CdbTableColumn>();
@@ -41,6 +71,7 @@ CdbTable::~CdbTable() {
 	delete this->columns;
 	delete this->oid;
 	delete this->name;
+	delete this->schemaName;
 
 	this->indexes->deleteElements();
 	delete this->indexes;
@@ -161,7 +192,7 @@ void CdbTable::setPrimaryKeys(ArrayList<const UnicodeString>* cols) {
 		list.addElement(col);
 	}
 
-	CdbTableIndex* index = new CdbTableIndex(0);
+	CdbTableIndex* index = new CdbTableIndex((uint64_t)0);
 	addIndex(index);
 
 	for(int i = 0; i != maxLoop; ++i){
@@ -255,6 +286,7 @@ void CdbTable::toBinary(ByteBuffer* out) const {
 }
 
 void CdbTable::fromBinary(ByteBuffer* in) {
+	delete this->schemaName;
 	this->schemaName = getString(in);
 	this->name = getString(in);
 

@@ -30,6 +30,7 @@ public:
 	static const constexpr uint8_t COLUMN_TYPE_TEXT{2};
 	static const constexpr uint8_t COLUMN_TYPE_INT{3};
 
+	CdbTableColumn(const CdbTableColumn& inst);
 	explicit CdbTableColumn(uint64_t oid);
 	virtual ~CdbTableColumn();
 

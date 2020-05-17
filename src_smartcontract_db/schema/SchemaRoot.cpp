@@ -13,6 +13,7 @@
 #include "base_io/ByteBuffer.h"
 
 #include "table/TableObjectFactory.h"
+#include "table/CdbTable.h"
 
 namespace codablecash {
 
@@ -32,7 +33,16 @@ void SchemaRoot::addSchemaName(const UnicodeString* name) noexcept {
 	Schema* schema = new Schema(this->maxSchemaObjectId);
 	schema->setName(new UnicodeString(name));
 
+	addSchema(schema);
+}
+
+Schema* SchemaRoot::getSchema(const UnicodeString* name) const noexcept{
+	return this->map.get(name);
+}
+
+void SchemaRoot::addSchema(Schema* schema) noexcept {
 	this->list.addElement(schema);
+	this->map.put(schema->getName(), schema);
 }
 
 int SchemaRoot::binarySize() const {
@@ -78,7 +88,7 @@ void SchemaRoot::fromBinary(ByteBuffer* in) {
 
 		schema->fromBinary(in);
 
-		this->list.addElement(schema);
+		addSchema(schema);
 	}
 }
 
@@ -92,8 +102,13 @@ uint64_t SchemaRoot::newSchemaObjectId() noexcept {
 	return this->maxSchemaObjectId;
 }
 
-void SchemaRoot::createTable(CdbTable* table) {
+void SchemaRoot::createTable(const CdbTable* table) {
+	const UnicodeString* schemaName = table->getSchemaName();
+	Schema* sc = getSchema(schemaName);
 
+	CdbTable* newTable = new CdbTable(*table);
+
+	sc->addTable(newTable);
 }
 
 } /* namespace codablecash */

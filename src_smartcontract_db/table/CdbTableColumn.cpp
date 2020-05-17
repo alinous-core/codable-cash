@@ -18,6 +18,22 @@
 
 namespace codablecash {
 
+
+CdbTableColumn::CdbTableColumn(const CdbTableColumn& inst) {
+	this->oid = new CdbOid(*inst.oid);
+	this->name = new UnicodeString(inst.name);
+	this->type = inst.type;
+	this->length = inst.length;
+	this->notnull = inst.notnull;
+	this->unique = inst.unique;
+	if(inst.defaultValue != nullptr){
+		this->defaultValue = new UnicodeString(inst.defaultValue);
+	}else{
+		this->defaultValue = nullptr;
+	}
+}
+
+
 CdbTableColumn::CdbTableColumn(uint64_t oid) {
 	this->oid = new CdbOid(oid);
 	this->name = nullptr;
