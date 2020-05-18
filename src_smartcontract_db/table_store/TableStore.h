@@ -10,10 +10,15 @@
 
 namespace codablecash {
 
+class RecordStore;
+
 class TableStore {
 public:
 	TableStore();
 	virtual ~TableStore();
+
+private:
+	RecordStore* recordStore;
 };
 
 } /* namespace codablecash */

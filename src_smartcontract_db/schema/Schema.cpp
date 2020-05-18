@@ -41,6 +41,8 @@ void Schema::setName(UnicodeString* name) noexcept {
 }
 
 void Schema::addTable(CdbTable* table) noexcept {
+	table->setSchema(this);
+
 	this->tables->addElement(table);
 	this->nameTableMap.put(table->getName(), table);
 	this->oidTableMap.put(table->getOid(), table);

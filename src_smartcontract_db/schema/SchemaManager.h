@@ -44,6 +44,10 @@ public:
 
 	void createTable(CdbTable* table);
 
+	const File* getDatabaseBaseDir() const noexcept {
+		return databaseBaseDir;
+	}
+
 private:
 	void fireSchemaLoaded() noexcept;
 	void fireOnCreateTable(CdbTable* table);
@@ -51,6 +55,7 @@ private:
 private:
 	SchemaRoot* root;
 	File* schemaBin;
+	File* databaseBaseDir;
 
 	ArrayList<ISchemaUptateListner> listners;
 };

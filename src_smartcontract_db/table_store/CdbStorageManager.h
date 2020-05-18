@@ -10,9 +10,19 @@
 
 #include "schema/ISchemaUptateListner.h"
 
+#include "base/HashMap.h"
+
+namespace alinous {
+class DiskCacheManager;
+class UnicodeString;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class SchemaManager;
+class TableStore;
+class CdbOid;
 
 class CdbStorageManager : public ISchemaUptateListner {
 public:
@@ -23,7 +33,10 @@ public:
 	virtual void onCreateTable(SchemaManager* mgr, CdbTable* table);
 
 private:
-	SchemaManager* schema;
+	SchemaManager* schemaManager;
+	DiskCacheManager* cacheManager;
+
+	HashMap<CdbOid, TableStore>* tableStoreMap;
 };
 
 } /* namespace codablecash */

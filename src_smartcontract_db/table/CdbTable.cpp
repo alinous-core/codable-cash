@@ -51,6 +51,7 @@ CdbTable::CdbTable(const CdbTable& inst) {
 			addIndex(new CdbTableIndex(*idx));
 		}
 	}
+	this->parent = nullptr;
 }
 
 
@@ -61,6 +62,7 @@ CdbTable::CdbTable(uint64_t oid) {
 	this->schemaName = new UnicodeString(&SchemaManager::PUBLIC);
 	this->name = nullptr;
 	this->indexes = new ArrayList<CdbTableIndex>();
+	this->parent = nullptr;
 }
 
 CdbTable::~CdbTable() {
@@ -74,6 +76,12 @@ CdbTable::~CdbTable() {
 
 	this->indexes->deleteElements();
 	delete this->indexes;
+
+	this->schemaName = nullptr;
+}
+void CdbTable::setSchemaName(UnicodeString* schemaName) noexcept {
+	delete this->schemaName;
+	this->schemaName = schemaName;
 }
 
 void CdbTable::addColumn(uint8_t oid, const wchar_t* name,
@@ -306,6 +314,14 @@ void CdbTable::fromBinary(ByteBuffer* in) {
 		idx->fromBinary(in, this);
 		addIndex(idx);
 	}
+}
+
+void CdbTable::setSchema(Schema* schema) noexcept {
+	this->parent = schema;
+}
+
+const Schema* CdbTable::getSchema() const noexcept {
+	return this->parent;
 }
 
 } /* namespace codablecash */

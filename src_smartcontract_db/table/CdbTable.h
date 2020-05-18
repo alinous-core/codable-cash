@@ -27,6 +27,7 @@ class CdbTableColumn;
 class CdbOid;
 class SchemaObjectIdPublisher;
 class CdbTableIndex;
+class Schema;
 
 class CdbTable : public CdbBinaryObject {
 public:
@@ -61,6 +62,7 @@ public:
 	const UnicodeString* getSchemaName() const noexcept {
 		return this->schemaName;
 	}
+	void setSchemaName(UnicodeString* schemaName) noexcept;
 
 	void setPrimaryKey(const wchar_t* col);
 	void setPrimaryKey(const UnicodeString* colstr);
@@ -73,6 +75,9 @@ public:
 	void toBinary(ByteBuffer* out) const;
 	void fromBinary(ByteBuffer* in);
 
+	void setSchema(Schema* schema) noexcept;
+	const Schema* getSchema() const noexcept;
+
 private:
 	CdbOid* oid;
 
@@ -82,6 +87,8 @@ private:
 	HashMap<CdbOid, CdbTableColumn>* columnMap;
 
 	ArrayList<CdbTableIndex>* indexes;
+
+	Schema* parent;
 
 };
 

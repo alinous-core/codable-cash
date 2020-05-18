@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include <table_store/RecordStore.h>
+#include "table_store/RecordStore.h"
 
 namespace codablecash {
 

@@ -28,11 +28,13 @@ const UnicodeString SchemaManager::SCHEMA_FILE(L"schema.bin");
 SchemaManager::SchemaManager() {
 	this->root = nullptr;
 	this->schemaBin = nullptr;
+	this->databaseBaseDir = nullptr;
 }
 
 SchemaManager::~SchemaManager() {
 	delete this->root;
 	delete this->schemaBin;
+	delete this->databaseBaseDir;
 }
 
 void SchemaManager::addSchemaUpdateListner(ISchemaUptateListner* listner) noexcept {
@@ -82,6 +84,7 @@ void SchemaManager::save() {
 
 
 void SchemaManager::loadSchema(const File* baseDir) {
+	this->databaseBaseDir = new File(*baseDir);
 	this->schemaBin = baseDir->get(&SchemaManager::SCHEMA_FILE);
 
 	int size = schemaBin->length();

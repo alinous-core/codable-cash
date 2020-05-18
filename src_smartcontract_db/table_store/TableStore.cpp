@@ -6,16 +6,17 @@
  */
 
 #include "table_store/TableStore.h"
+#include "table_store/RecordStore.h"
 
 namespace codablecash {
 
 TableStore::TableStore() {
-	// TODO Auto-generated constructor stub
+	this->recordStore = new RecordStore();
 
 }
 
 TableStore::~TableStore() {
-	// TODO Auto-generated destructor stub
+	delete this->recordStore;
 }
 
 } /* namespace codablecash */

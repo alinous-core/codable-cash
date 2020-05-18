@@ -15,6 +15,9 @@
 #include "table/TableObjectFactory.h"
 #include "table/CdbTable.h"
 
+#include "engine/CdbException.h"
+
+
 namespace codablecash {
 
 SchemaRoot::SchemaRoot() {
@@ -105,6 +108,9 @@ uint64_t SchemaRoot::newSchemaObjectId() noexcept {
 void SchemaRoot::createTable(const CdbTable* table) {
 	const UnicodeString* schemaName = table->getSchemaName();
 	Schema* sc = getSchema(schemaName);
+	if(sc == nullptr){
+		throw new CdbException(L"Schema does not exists.", __FILE__, __LINE__);
+	}
 
 	CdbTable* newTable = new CdbTable(*table);
 
