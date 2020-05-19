@@ -7,6 +7,7 @@
 
 #include "table_store/TableStore.h"
 #include "table_store/RecordStore.h"
+#include "table_store/IndexStore.h"
 
 #include "base_io/File.h"
 
@@ -17,6 +18,8 @@
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
+#include "engine/CdbOid.h"
+
 
 namespace codablecash {
 
@@ -25,6 +28,7 @@ TableStore::TableStore(const File* baseDir, const CdbTable* table) {
 	this->table = table;
 
 	this->recordStore = nullptr;
+	this->indexStores = new HashMap<CdbOid, IndexStore>();
 }
 
 TableStore::~TableStore() {
@@ -44,13 +48,49 @@ void TableStore::createTable() {
 	const UnicodeString* tableName = this->table->getName();
 
 	File* schemaDir = this->baseDir->get(schemaName); __STP(schemaDir);
-	File* tableDir = schemaDir->get(tableName);
+	File* tableDir = schemaDir->get(tableName); __STP(tableDir);
 
 	tableDir->deleteDir();
 	tableDir->mkdirs();
+
+	const ArrayList<CdbTableIndex>* list = this->table->getIndexes();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const CdbTableIndex* index = list->get(i);
+
+	}
 }
 
 void TableStore::loadTable() {
+	const Schema* schema = this->table->getSchema();
+	const UnicodeString* schemaName = schema->getName();
+	const UnicodeString* tableName = this->table->getName();
+
+	File* schemaDir = this->baseDir->get(schemaName); __STP(schemaDir);
+	File* tableDir = schemaDir->get(tableName); __STP(tableDir);
+
+	this->recordStore = new RecordStore(tableDir, this->table);
+
+	const ArrayList<CdbTableIndex>* list = this->table->getIndexes();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const CdbTableIndex* index = list->get(i);
+
+		IndexStore* store = new IndexStore(tableDir, this->table, index);
+		this->indexStores->put(store->getIndexOid(), store);
+	}
+
+	// load
+	this->recordStore->load();
+
+	Iterator<CdbOid>* it = this->indexStores->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const CdbOid* oid = it->next();
+		IndexStore* store = this->indexStores->get(oid);
+		store->load();
+	}
 }
 
 

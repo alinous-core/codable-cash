@@ -78,6 +78,8 @@ public:
 	void setSchema(Schema* schema) noexcept;
 	const Schema* getSchema() const noexcept;
 
+	const ArrayList<CdbTableIndex>* getIndexes() const noexcept;
+
 private:
 	CdbOid* oid;
 

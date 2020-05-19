@@ -6,16 +6,25 @@
  */
 
 #include "table_store/RecordStore.h"
+#include "table/CdbTable.h"
+
+#include "base_io/File.h"
+
 
 namespace codablecash {
 
-RecordStore::RecordStore() {
-	// TODO Auto-generated constructor stub
-
+RecordStore::RecordStore(const File* tableDir, const CdbTable* table) {
+	this->tableDir = new File(*tableDir);
+	this->table = table;
 }
 
 RecordStore::~RecordStore() {
-	// TODO Auto-generated destructor stub
+	delete this->tableDir;
+	this->table =nullptr;
+}
+
+void RecordStore::load() {
+
 }
 
 } /* namespace codablecash */

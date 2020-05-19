@@ -324,4 +324,8 @@ const Schema* CdbTable::getSchema() const noexcept {
 	return this->parent;
 }
 
+const ArrayList<CdbTableIndex>* CdbTable::getIndexes() const noexcept {
+	return this->indexes;
+}
+
 } /* namespace codablecash */

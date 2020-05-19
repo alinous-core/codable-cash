@@ -8,10 +8,11 @@
 #ifndef TABLE_STORE_TABLESTORE_H_
 #define TABLE_STORE_TABLESTORE_H_
 
+#include "base/HashMap.h"
+
 namespace alinous {
 class File;
 }
-
 using namespace alinous;
 
 namespace codablecash {
@@ -19,6 +20,7 @@ namespace codablecash {
 class CdbTable;
 class RecordStore;
 class CdbOid;
+class IndexStore;
 
 class TableStore {
 public:
@@ -34,7 +36,7 @@ private:
 	const CdbTable* table;
 
 	RecordStore* recordStore;
-
+	HashMap<CdbOid, IndexStore>* indexStores;
 };
 
 } /* namespace codablecash */
