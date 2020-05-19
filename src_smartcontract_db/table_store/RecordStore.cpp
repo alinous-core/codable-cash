@@ -24,7 +24,7 @@ RecordStore::~RecordStore() {
 }
 
 void RecordStore::createStore(const File* tableDir, const CdbTable* table) {
-
+	// FIXME
 }
 
 void RecordStore::load() {
