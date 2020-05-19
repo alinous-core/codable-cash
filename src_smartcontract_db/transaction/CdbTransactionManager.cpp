@@ -41,7 +41,7 @@ void CdbTransactionManager::schemaLoaded(SchemaManager* sc) {
 	this->schema = sc;
 }
 
-void CdbTransactionManager::onCreateTable(SchemaManager* mgr, CdbTable* table) {
+void CdbTransactionManager::onCreateTable(SchemaManager* mgr, const CdbTable* table) {
 	// do nothing
 }
 

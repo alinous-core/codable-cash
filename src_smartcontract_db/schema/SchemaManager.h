@@ -50,7 +50,7 @@ public:
 
 private:
 	void fireSchemaLoaded() noexcept;
-	void fireOnCreateTable(CdbTable* table);
+	void fireOnCreateTable(const CdbTable* table);
 
 private:
 	SchemaRoot* root;

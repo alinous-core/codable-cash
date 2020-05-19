@@ -105,7 +105,7 @@ uint64_t SchemaRoot::newSchemaObjectId() noexcept {
 	return this->maxSchemaObjectId;
 }
 
-void SchemaRoot::createTable(const CdbTable* table) {
+const CdbTable* SchemaRoot::createTable(const CdbTable* table) {
 	const UnicodeString* schemaName = table->getSchemaName();
 	Schema* sc = getSchema(schemaName);
 	if(sc == nullptr){
@@ -115,6 +115,8 @@ void SchemaRoot::createTable(const CdbTable* table) {
 	CdbTable* newTable = new CdbTable(*table);
 
 	sc->addTable(newTable);
+
+	return newTable;
 }
 
 } /* namespace codablecash */

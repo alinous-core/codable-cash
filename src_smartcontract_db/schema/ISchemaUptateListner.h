@@ -19,7 +19,7 @@ public:
 	virtual ~ISchemaUptateListner();
 
 	virtual void schemaLoaded(SchemaManager* sc) = 0;
-	virtual void onCreateTable(SchemaManager* mgr, CdbTable* table) = 0;
+	virtual void onCreateTable(SchemaManager* mgr, const CdbTable* table) = 0;
 };
 
 } /* namespace codablecash */

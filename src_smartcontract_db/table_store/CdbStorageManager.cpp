@@ -37,11 +37,14 @@ void CdbStorageManager::schemaLoaded(SchemaManager* sc) {
 	this->schemaManager = sc;
 }
 
-void CdbStorageManager::onCreateTable(SchemaManager* mgr, CdbTable* table) {
-	const Schema* schema = table->getSchema();
+void CdbStorageManager::onCreateTable(SchemaManager* mgr, const CdbTable* table) {
 	const File* baseDir = mgr->getDatabaseBaseDir();
 
-	// FIXME create storage
+	TableStore* store = new TableStore(baseDir, table);
+	store->createTable();
+	store->loadTable();
+
+	this->tableStoreMap->put(store->getOid(), store);
 }
 
 

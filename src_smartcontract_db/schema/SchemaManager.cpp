@@ -115,8 +115,8 @@ uint64_t SchemaManager::newSchemaObjectId() noexcept {
 }
 
 void SchemaManager::createTable(CdbTable* table) {
-	this->root->createTable(table);
-	fireOnCreateTable(table);
+	const CdbTable* newTable = this->root->createTable(table);
+	fireOnCreateTable(newTable);
 
 	save();
 }
@@ -129,7 +129,7 @@ void SchemaManager::fireSchemaLoaded() noexcept {
 	}
 }
 
-void SchemaManager::fireOnCreateTable(CdbTable* table) {
+void SchemaManager::fireOnCreateTable(const CdbTable* table) {
 	int maxLoop = this->listners.size();
 	for(int i = 0; i != maxLoop; ++i){
 		ISchemaUptateListner* l = this->listners.get(i);
