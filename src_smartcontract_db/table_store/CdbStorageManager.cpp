@@ -13,10 +13,12 @@
 #include "random_access_file/DiskCacheManager.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #include "table/CdbTable.h"
 
 #include "engine/CdbOid.h"
+
 
 namespace codablecash {
 
@@ -29,6 +31,14 @@ CdbStorageManager::CdbStorageManager() {
 CdbStorageManager::~CdbStorageManager() {
 	this->schemaManager = nullptr;
 	delete this->cacheManager;
+
+	Iterator<CdbOid> *it = this->tableStoreMap->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const CdbOid* oid = it->next();
+		TableStore* tableStore = this->tableStoreMap->get(oid);
+
+		delete tableStore;
+	}
 
 	delete this->tableStoreMap;
 }

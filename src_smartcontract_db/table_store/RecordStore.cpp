@@ -23,6 +23,10 @@ RecordStore::~RecordStore() {
 	this->table =nullptr;
 }
 
+void RecordStore::createStore(const File* tableDir, const CdbTable* table) {
+
+}
+
 void RecordStore::load() {
 
 }

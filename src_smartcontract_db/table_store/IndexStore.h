@@ -24,6 +24,7 @@ public:
 	IndexStore(const File* tableDir, const CdbTable* table, const CdbTableIndex* index);
 	virtual ~IndexStore();
 
+	static void createStore(const File* tableDir, const CdbTable* table, const CdbTableIndex* index);
 	void load();
 
 	const CdbOid* getIndexOid() const noexcept;

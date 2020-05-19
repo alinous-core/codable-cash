@@ -27,6 +27,9 @@ IndexStore::~IndexStore() {
 	this->index = nullptr;
 }
 
+void IndexStore::createStore(const File* tableDir, const CdbTable* table, const CdbTableIndex* index) {
+}
+
 void IndexStore::load() {
 }
 

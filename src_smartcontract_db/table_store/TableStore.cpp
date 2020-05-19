@@ -36,6 +36,15 @@ TableStore::~TableStore() {
 
 	delete this->recordStore;
 	this->table = nullptr;
+
+	Iterator<CdbOid>* it = this->indexStores->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const CdbOid* oid = it->next();
+		IndexStore* store = this->indexStores->get(oid);
+
+		delete store;
+	}
+	delete this->indexStores;
 }
 
 const CdbOid* TableStore::getOid() const noexcept {
@@ -53,12 +62,15 @@ void TableStore::createTable() {
 	tableDir->deleteDir();
 	tableDir->mkdirs();
 
+	RecordStore::createStore(tableDir, this->table);
+
 	const ArrayList<CdbTableIndex>* list = this->table->getIndexes();
 
 	int maxLoop = list->size();
 	for(int i = 0; i != maxLoop; ++i){
 		const CdbTableIndex* index = list->get(i);
 
+		IndexStore::createStore(tableDir, this->table, index);
 	}
 }
 

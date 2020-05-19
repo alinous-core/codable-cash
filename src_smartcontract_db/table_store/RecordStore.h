@@ -22,6 +22,8 @@ public:
 	RecordStore(const File* tableDir, const CdbTable* table);
 	virtual ~RecordStore();
 
+	static void createStore(const File* tableDir, const CdbTable* table);
+
 	void load();
 private:
 	File* tableDir;
