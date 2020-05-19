@@ -107,7 +107,10 @@ void SchemaManager::loadSchema(const File* baseDir) {
 }
 
 uint64_t SchemaManager::newTransactionId() {
-	return this->root->newTransactionId();
+	uint64_t trxId = this->root->newTransactionId();
+	save();
+
+	return trxId;
 }
 
 uint64_t SchemaManager::newSchemaObjectId() noexcept {
