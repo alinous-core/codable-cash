@@ -17,4 +17,19 @@ CdbLongValue::~CdbLongValue() {
 
 }
 
+int CdbLongValue::compareTo(const AbstractBtreeKey* key) const noexcept {
+}
+
+AbstractBtreeKey* CdbLongValue::clone() const noexcept {
+}
+
+int CdbLongValue::binarySize() const {
+}
+
+void CdbLongValue::toBinary(ByteBuffer* out) const {
+}
+
+void CdbLongValue::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace codablecash */

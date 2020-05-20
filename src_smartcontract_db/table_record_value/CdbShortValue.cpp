@@ -17,4 +17,19 @@ CdbShortValue::~CdbShortValue() {
 
 }
 
+int CdbShortValue::compareTo(const AbstractBtreeKey* key) const noexcept {
+}
+
+AbstractBtreeKey* CdbShortValue::clone() const noexcept {
+}
+
+int CdbShortValue::binarySize() const {
+}
+
+void CdbShortValue::toBinary(ByteBuffer* out) const {
+}
+
+void CdbShortValue::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace codablecash */

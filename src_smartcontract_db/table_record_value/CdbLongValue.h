@@ -9,6 +9,7 @@
 #define TABLE_RECORD_VALUE_CDBLONGVALUE_H_
 
 #include "table_record_value/AbstractCdbValue.h"
+#include <cstdlib>
 
 namespace codablecash {
 
@@ -16,6 +17,16 @@ class CdbLongValue : public AbstractCdbValue {
 public:
 	CdbLongValue();
 	virtual ~CdbLongValue();
+
+	virtual int compareTo(const AbstractBtreeKey* key) const noexcept;
+	virtual AbstractBtreeKey* clone()  const noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+	virtual void fromBinary(ByteBuffer* in);
+
+private:
+	int64_t value;
 };
 
 } /* namespace codablecash */
