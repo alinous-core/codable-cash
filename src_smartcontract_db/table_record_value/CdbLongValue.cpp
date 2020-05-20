@@ -25,6 +25,9 @@ int CdbLongValue::compareTo(const AbstractBtreeKey* key) const noexcept {
 	if(key->isInfinity()){
 		return -1;
 	}
+
+	const CdbLongValue* inst = dynamic_cast<const CdbLongValue*>(key);
+	return this->value - inst->value;
 }
 
 AbstractBtreeKey* CdbLongValue::clone() const noexcept {

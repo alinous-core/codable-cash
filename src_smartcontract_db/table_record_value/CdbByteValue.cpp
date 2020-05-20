@@ -25,6 +25,9 @@ int CdbByteValue::compareTo(const AbstractBtreeKey* key) const noexcept {
 	if(key->isInfinity()){
 		return -1;
 	}
+
+	const CdbByteValue* inst = dynamic_cast<const CdbByteValue*>(key);
+	return this->value - inst->value;
 }
 
 AbstractBtreeKey* CdbByteValue::clone() const noexcept {

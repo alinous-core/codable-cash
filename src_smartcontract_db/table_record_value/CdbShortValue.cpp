@@ -26,6 +26,8 @@ int CdbShortValue::compareTo(const AbstractBtreeKey* key) const noexcept {
 		return -1;
 	}
 
+	const CdbShortValue* inst = dynamic_cast<const CdbShortValue*>(key);
+	return this->value - inst->value;
 }
 
 AbstractBtreeKey* CdbShortValue::clone() const noexcept {
