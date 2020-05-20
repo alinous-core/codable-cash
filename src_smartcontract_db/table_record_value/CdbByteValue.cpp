@@ -7,6 +7,9 @@
 
 #include "table_record_value/CdbByteValue.h"
 
+#include "base_io/ByteBuffer.h"
+
+
 namespace codablecash {
 
 CdbByteValue::CdbByteValue(const CdbByteValue& inst) : AbstractCdbValue(AbstractCdbValue::TYPE_BYTE) {
@@ -41,9 +44,12 @@ int CdbByteValue::binarySize() const {
 }
 
 void CdbByteValue::toBinary(ByteBuffer* out) const {
+	out->put(this->type);
+	out->put(this->value);
 }
 
 void CdbByteValue::fromBinary(ByteBuffer* in) {
+	this->value = in->get();
 }
 
 } /* namespace codablecash */
