@@ -5,17 +5,16 @@
  *      Author: iizuka
  */
 
-#include <table_record_value/CdbIntValue.h>
+#include "table_record_value/CdbIntValue.h"
 
 namespace codablecash {
 
-CdbIntValue::CdbIntValue() {
-	// TODO Auto-generated constructor stub
+CdbIntValue::CdbIntValue() : AbstractCdbValue(AbstractCdbValue::TYPE_INT) {
 
 }
 
 CdbIntValue::~CdbIntValue() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */

@@ -8,9 +8,11 @@
 #ifndef TABLE_RECORD_VALUE_CDBLONGVALUE_H_
 #define TABLE_RECORD_VALUE_CDBLONGVALUE_H_
 
+#include "table_record_value/AbstractCdbValue.h"
+
 namespace codablecash {
 
-class CdbLongValue {
+class CdbLongValue : public AbstractCdbValue {
 public:
 	CdbLongValue();
 	virtual ~CdbLongValue();

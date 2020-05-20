@@ -5,17 +5,16 @@
  *      Author: iizuka
  */
 
-#include <table_record_value/CdbLongValue.h>
+#include "table_record_value/CdbLongValue.h"
 
 namespace codablecash {
 
-CdbLongValue::CdbLongValue() {
-	// TODO Auto-generated constructor stub
+CdbLongValue::CdbLongValue() : AbstractCdbValue(AbstractCdbValue::TYPE_LONG) {
 
 }
 
 CdbLongValue::~CdbLongValue() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */

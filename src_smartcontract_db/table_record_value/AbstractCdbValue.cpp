@@ -9,13 +9,12 @@
 
 namespace codablecash {
 
-AbstractCdbValue::AbstractCdbValue() {
-	// TODO Auto-generated constructor stub
-
+AbstractCdbValue::AbstractCdbValue(uint8_t type) {
+	this->type = type;
 }
 
 AbstractCdbValue::~AbstractCdbValue() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */

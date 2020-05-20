@@ -5,17 +5,16 @@
  *      Author: iizuka
  */
 
-#include <table_record_value/CdbShortValue.h>
+#include "table_record_value/CdbShortValue.h"
 
 namespace codablecash {
 
-CdbShortValue::CdbShortValue() {
-	// TODO Auto-generated constructor stub
+CdbShortValue::CdbShortValue() : AbstractCdbValue(AbstractCdbValue::TYPE_SHORT) {
 
 }
 
 CdbShortValue::~CdbShortValue() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */
