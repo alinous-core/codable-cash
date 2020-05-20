@@ -18,9 +18,6 @@ public:
 	CdbIntValue();
 	virtual ~CdbIntValue();
 
-	virtual int compareTo(const AbstractBtreeKey* key) const noexcept;
-	virtual AbstractBtreeKey* clone()  const noexcept;
-
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
 	virtual void fromBinary(ByteBuffer* in);

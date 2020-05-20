@@ -10,13 +10,13 @@
 
 #include <cstdint>
 
-#include "btree/AbstractBtreeKey.h"
+#include "filestore_block/IBlockObject.h"
 
 using namespace alinous;
 
 namespace codablecash {
 
-class AbstractCdbValue : public AbstractBtreeKey {
+class AbstractCdbValue : public IBlockObject {
 public:
 	static const constexpr uint8_t TYPE_BYTE{1};
 	static const constexpr uint8_t TYPE_SHORT{2};
@@ -26,8 +26,6 @@ public:
 
 	explicit AbstractCdbValue(uint8_t type);
 	virtual ~AbstractCdbValue();
-
-	virtual bool isInfinity() const;
 
 	virtual void fromBinary(ByteBuffer* in) = 0;
 protected:

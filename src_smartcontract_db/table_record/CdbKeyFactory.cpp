@@ -20,7 +20,6 @@ CdbKeyFactory::~CdbKeyFactory() {
 }
 
 AbstractBtreeKey* CdbKeyFactory::fromBinary(uint32_t keyType, ByteBuffer* in) const {
-	// FIXME key
 
 	return BtreeKeyFactory::fromBinary(keyType, in);
 }

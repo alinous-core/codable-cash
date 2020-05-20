@@ -8,7 +8,7 @@
 #include "table_record_value/CdbStringValue.h"
 
 #include "base_io/ByteBuffer.h"
-
+#include "base/UnicodeString.h"
 
 namespace codablecash {
 
@@ -23,7 +23,7 @@ CdbStringValue::CdbStringValue() : AbstractCdbValue(AbstractCdbValue::TYPE_STRIN
 CdbStringValue::~CdbStringValue() {
 	delete this->value;
 }
-
+/*
 int CdbStringValue::compareTo(const AbstractBtreeKey* key) const noexcept {
 	if(key->isInfinity()){
 		return -1;
@@ -36,7 +36,7 @@ int CdbStringValue::compareTo(const AbstractBtreeKey* key) const noexcept {
 
 AbstractBtreeKey* CdbStringValue::clone() const noexcept {
 	return new CdbStringValue(*this);
-}
+}*/
 
 int CdbStringValue::binarySize() const {
 	int total = sizeof(int8_t);

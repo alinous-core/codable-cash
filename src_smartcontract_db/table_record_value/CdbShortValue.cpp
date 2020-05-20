@@ -24,19 +24,6 @@ CdbShortValue::~CdbShortValue() {
 
 }
 
-int CdbShortValue::compareTo(const AbstractBtreeKey* key) const noexcept {
-	if(key->isInfinity()){
-		return -1;
-	}
-
-	const CdbShortValue* inst = dynamic_cast<const CdbShortValue*>(key);
-	return this->value - inst->value;
-}
-
-AbstractBtreeKey* CdbShortValue::clone() const noexcept {
-	return new CdbShortValue(*this);
-}
-
 int CdbShortValue::binarySize() const {
 	int total = sizeof(int8_t);
 	total += sizeof(int16_t);

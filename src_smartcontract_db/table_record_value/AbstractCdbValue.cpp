@@ -17,8 +17,4 @@ AbstractCdbValue::~AbstractCdbValue() {
 
 }
 
-bool AbstractCdbValue::isInfinity() const {
-	return false;
-}
-
 } /* namespace codablecash */
