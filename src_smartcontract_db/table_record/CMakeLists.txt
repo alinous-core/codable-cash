@@ -1,6 +1,7 @@
 
 
 set(__src
+	CdbDataFactory.cpp
 	CdbKeyFactory.cpp
 	CdbRecord.cpp
 	RecordVersionEntry.cpp
