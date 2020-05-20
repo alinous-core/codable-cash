@@ -9,8 +9,12 @@
 
 namespace codablecash {
 
-CdbLongValue::CdbLongValue() : AbstractCdbValue(AbstractCdbValue::TYPE_LONG) {
+CdbLongValue::CdbLongValue(const CdbLongValue& inst) : AbstractCdbValue(AbstractCdbValue::TYPE_LONG) {
+	this->value = inst.value;
+}
 
+CdbLongValue::CdbLongValue() : AbstractCdbValue(AbstractCdbValue::TYPE_LONG) {
+	this->value = 0;
 }
 
 CdbLongValue::~CdbLongValue() {
@@ -18,12 +22,19 @@ CdbLongValue::~CdbLongValue() {
 }
 
 int CdbLongValue::compareTo(const AbstractBtreeKey* key) const noexcept {
+	if(key->isInfinity()){
+		return -1;
+	}
 }
 
 AbstractBtreeKey* CdbLongValue::clone() const noexcept {
+	return new CdbLongValue(*this);
 }
 
 int CdbLongValue::binarySize() const {
+	int total = sizeof(int8_t);
+	total += sizeof(int64_t);
+	return total;
 }
 
 void CdbLongValue::toBinary(ByteBuffer* out) const {

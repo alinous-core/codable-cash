@@ -15,6 +15,7 @@ namespace codablecash {
 
 class CdbLongValue : public AbstractCdbValue {
 public:
+	CdbLongValue(const CdbLongValue& inst);
 	CdbLongValue();
 	virtual ~CdbLongValue();
 

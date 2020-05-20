@@ -9,8 +9,12 @@
 
 namespace codablecash {
 
-CdbByteValue::CdbByteValue() : AbstractCdbValue(AbstractCdbValue::TYPE_BYTE) {
+CdbByteValue::CdbByteValue(const CdbByteValue& inst) : AbstractCdbValue(AbstractCdbValue::TYPE_BYTE) {
+	this->value = inst.value;
+}
 
+CdbByteValue::CdbByteValue() : AbstractCdbValue(AbstractCdbValue::TYPE_BYTE) {
+	this->value = 0;
 }
 
 CdbByteValue::~CdbByteValue() {
@@ -18,12 +22,19 @@ CdbByteValue::~CdbByteValue() {
 }
 
 int CdbByteValue::compareTo(const AbstractBtreeKey* key) const noexcept {
+	if(key->isInfinity()){
+		return -1;
+	}
 }
 
 AbstractBtreeKey* CdbByteValue::clone() const noexcept {
+	return new CdbByteValue(*this);
 }
 
 int CdbByteValue::binarySize() const {
+	int total = sizeof(int8_t);
+	total += sizeof(int8_t);
+	return total;
 }
 
 void CdbByteValue::toBinary(ByteBuffer* out) const {
