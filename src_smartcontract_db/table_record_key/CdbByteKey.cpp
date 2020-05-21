@@ -9,13 +9,12 @@
 
 namespace codablecash {
 
-CdbByteKey::CdbByteKey() {
-	// TODO Auto-generated constructor stub
+CdbByteKey::CdbByteKey()  : AbstractCdbKey(AbstractCdbKey::TYPE_BYTE) {
 
 }
 
 CdbByteKey::~CdbByteKey() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */

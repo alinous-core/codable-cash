@@ -8,12 +8,21 @@
 #ifndef TABLE_RECORD_KEY_CDBINTKEY_H_
 #define TABLE_RECORD_KEY_CDBINTKEY_H_
 
+#include "table_record_key/AbstractCdbKey.h"
+
 namespace codablecash {
 
-class CdbIntKey {
+class CdbIntKey : public AbstractCdbKey {
 public:
 	CdbIntKey();
 	virtual ~CdbIntKey();
+
+	virtual AbstractBtreeKey* clone()  const noexcept;
+	virtual int compareTo(const AbstractBtreeKey* key) const noexcept;
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace codablecash */

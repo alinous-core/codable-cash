@@ -9,13 +9,16 @@
 
 namespace codablecash {
 
-AbstractCdbKey::AbstractCdbKey() {
-	// TODO Auto-generated constructor stub
-
+AbstractCdbKey::AbstractCdbKey(uint32_t type) {
+	this->type = type;
 }
 
 AbstractCdbKey::~AbstractCdbKey() {
-	// TODO Auto-generated destructor stub
+
+}
+
+bool AbstractCdbKey::isInfinity() const {
+	return false;
 }
 
 } /* namespace codablecash */
