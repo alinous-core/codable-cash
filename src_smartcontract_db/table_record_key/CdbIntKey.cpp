@@ -7,6 +7,9 @@
 
 #include "table_record_key/CdbIntKey.h"
 
+#include "base_io/ByteBuffer.h"
+
+
 namespace codablecash {
 
 CdbIntKey::CdbIntKey(const CdbIntKey& inst) : AbstractCdbKey(AbstractCdbKey::TYPE_INT) {
@@ -39,9 +42,12 @@ int CdbIntKey::binarySize() const {
 }
 
 void CdbIntKey::toBinary(ByteBuffer* out) const {
+	out->putInt(this->type);
+	out->putInt(this->value);
 }
 
 void CdbIntKey::fromBinary(ByteBuffer* in) {
+	this->value = in->getInt();
 }
 
 } /* namespace codablecash */
