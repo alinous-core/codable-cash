@@ -24,6 +24,7 @@ public:
 	CdbStringValue(const CdbStringValue& inst);
 
 	CdbStringValue();
+	CdbStringValue(const UnicodeString* str);
 	virtual ~CdbStringValue();
 
 	virtual int binarySize() const;
@@ -33,6 +34,10 @@ public:
 	static int stringSize(UnicodeString* str) noexcept;
 	static void putString(ByteBuffer* out, UnicodeString* str) noexcept;
 	static UnicodeString* getString(ByteBuffer* in) noexcept;
+
+	const UnicodeString* getValue() const noexcept {
+		return this->value;
+	}
 private:
 	UnicodeString* value;
 };
