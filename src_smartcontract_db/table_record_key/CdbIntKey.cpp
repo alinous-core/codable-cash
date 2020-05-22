@@ -9,6 +9,10 @@
 
 namespace codablecash {
 
+CdbIntKey::CdbIntKey(const CdbIntKey& inst) : AbstractCdbKey(AbstractCdbKey::TYPE_INT) {
+	this->value = inst.value;
+}
+
 CdbIntKey::CdbIntKey() : AbstractCdbKey(AbstractCdbKey::TYPE_INT) {
 	this->value = 0;
 }
@@ -18,6 +22,7 @@ CdbIntKey::~CdbIntKey() {
 }
 
 AbstractBtreeKey* CdbIntKey::clone() const noexcept {
+	return new CdbIntKey(*this);
 }
 
 int CdbIntKey::compareTo(const AbstractBtreeKey* key) const noexcept {

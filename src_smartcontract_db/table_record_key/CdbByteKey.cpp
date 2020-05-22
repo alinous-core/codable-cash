@@ -9,7 +9,11 @@
 
 namespace codablecash {
 
-CdbByteKey::CdbByteKey()  : AbstractCdbKey(AbstractCdbKey::TYPE_BYTE) {
+CdbByteKey::CdbByteKey(const CdbByteKey& inst) : AbstractCdbKey(AbstractCdbKey::TYPE_BYTE) {
+	this->value = inst.value;
+}
+
+CdbByteKey::CdbByteKey() : AbstractCdbKey(AbstractCdbKey::TYPE_BYTE) {
 	this->value = 0;
 }
 
@@ -18,6 +22,7 @@ CdbByteKey::~CdbByteKey() {
 }
 
 AbstractBtreeKey* CdbByteKey::clone() const noexcept {
+	return new CdbByteKey(*this);
 }
 
 int CdbByteKey::compareTo(const AbstractBtreeKey* key) const noexcept {

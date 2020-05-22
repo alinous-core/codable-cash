@@ -14,6 +14,7 @@ namespace codablecash {
 
 class CdbShortKey : public AbstractCdbKey {
 public:
+	CdbShortKey(const CdbShortKey& inst);
 	CdbShortKey();
 	virtual ~CdbShortKey();
 

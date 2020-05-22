@@ -14,6 +14,7 @@ namespace codablecash {
 
 class CdbLongKey : public AbstractCdbKey {
 public:
+	CdbLongKey(const CdbLongKey& inst);
 	CdbLongKey();
 	virtual ~CdbLongKey();
 

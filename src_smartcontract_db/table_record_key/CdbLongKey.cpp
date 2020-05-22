@@ -9,6 +9,10 @@
 
 namespace codablecash {
 
+CdbLongKey::CdbLongKey(const CdbLongKey& inst) : AbstractCdbKey(AbstractCdbKey::TYPE_LONG) {
+	this->value = inst.value;
+}
+
 CdbLongKey::CdbLongKey() : AbstractCdbKey(AbstractCdbKey::TYPE_LONG) {
 	this->value = 0;
 }
@@ -18,6 +22,7 @@ CdbLongKey::~CdbLongKey() {
 }
 
 AbstractBtreeKey* CdbLongKey::clone() const noexcept {
+	return new CdbLongKey(*this);
 }
 
 int CdbLongKey::compareTo(const AbstractBtreeKey* key) const noexcept {
