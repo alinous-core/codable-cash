@@ -13,6 +13,8 @@
 
 namespace codablecash {
 
+UnicodeString::ValueCompare CdbStringKey::cmp;
+
 CdbStringKey::CdbStringKey(const CdbStringKey& inst) : AbstractCdbKey(AbstractCdbKey::TYPE_STRING) {
 	this->value = new UnicodeString(inst.value);
 }
