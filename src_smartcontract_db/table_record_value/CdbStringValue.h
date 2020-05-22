@@ -30,14 +30,11 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	virtual void fromBinary(ByteBuffer* in);
 
-private:
-	int stringSize(UnicodeString* str) const noexcept;
-	void putString(ByteBuffer* out, UnicodeString* str) const noexcept;
-	UnicodeString* getString(ByteBuffer* in) const noexcept;
+	static int stringSize(UnicodeString* str) noexcept;
+	static void putString(ByteBuffer* out, UnicodeString* str) noexcept;
+	static UnicodeString* getString(ByteBuffer* in) noexcept;
 private:
 	UnicodeString* value;
-
-	//static UnicodeString::ValueCompare cmp;
 };
 
 } /* namespace codablecash */

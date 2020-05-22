@@ -23,20 +23,6 @@ CdbStringValue::CdbStringValue() : AbstractCdbValue(AbstractCdbValue::TYPE_STRIN
 CdbStringValue::~CdbStringValue() {
 	delete this->value;
 }
-/*
-int CdbStringValue::compareTo(const AbstractBtreeKey* key) const noexcept {
-	if(key->isInfinity()){
-		return -1;
-	}
-
-	const CdbStringValue* strkey = dynamic_cast<const CdbStringValue*>(key);
-
-	return CdbStringValue::cmp(this->value, strkey->value);
-}
-
-AbstractBtreeKey* CdbStringValue::clone() const noexcept {
-	return new CdbStringValue(*this);
-}*/
 
 int CdbStringValue::binarySize() const {
 	int total = sizeof(int8_t);
@@ -56,11 +42,11 @@ void CdbStringValue::fromBinary(ByteBuffer* in) {
 	this->value = getString(in);
 }
 
-int CdbStringValue::stringSize(UnicodeString* str) const noexcept {
+int CdbStringValue::stringSize(UnicodeString* str) noexcept {
 	return sizeof(uint32_t) + str->length() * sizeof(uint16_t);
 }
 
-void CdbStringValue::putString(ByteBuffer* out, UnicodeString* str) const noexcept {
+void CdbStringValue::putString(ByteBuffer* out, UnicodeString* str) noexcept {
 	uint32_t maxLoop = str->length();
 	out->putInt(maxLoop);
 
@@ -70,7 +56,7 @@ void CdbStringValue::putString(ByteBuffer* out, UnicodeString* str) const noexce
 	}
 }
 
-UnicodeString* CdbStringValue::getString(ByteBuffer* in) const noexcept {
+UnicodeString* CdbStringValue::getString(ByteBuffer* in) noexcept {
 	UnicodeString* ret = new UnicodeString(L"");
 	uint32_t maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){

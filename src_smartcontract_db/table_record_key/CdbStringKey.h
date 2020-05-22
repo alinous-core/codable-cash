@@ -15,6 +15,7 @@ namespace codablecash {
 
 class CdbStringKey : public AbstractCdbKey {
 public:
+	CdbStringKey(const CdbStringKey& inst);
 	CdbStringKey();
 	virtual ~CdbStringKey();
 
@@ -26,6 +27,7 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 private:
+	UnicodeString* value;
 	static UnicodeString::ValueCompare cmp;
 };
 
