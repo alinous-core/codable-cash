@@ -17,14 +17,19 @@
 #include "engine/CdbException.h"
 #include "engine/CdbBinaryObject.h"
 
-#include "table_record_key/CdbByteKey.h"
-
 #include "base_io/ByteBuffer.h"
 
 #include "table_record/CdbKeyFactory.h"
 #include <cstdint>
 
 #include "btreekey/InfinityKey.h"
+
+#include "table_record_key/CdbByteKey.h"
+#include "table_record_key/CdbShortKey.h"
+#include "table_record_key/CdbIntKey.h"
+#include "table_record_key/CdbLongKey.h"
+
+#include "table_record_key/CdbStringKey.h"
 
 using namespace codablecash;
 using namespace alinous;
@@ -61,4 +66,104 @@ TEST(TestCdbKeyValuesGroup, CdbByteKey){
 	CHECK(cmpResult < 0);
 }
 
+TEST(TestCdbKeyValuesGroup, CdbShortKey){
+	CdbShortKey key;
+	CdbShortKey* key2 = dynamic_cast<CdbShortKey*>(key.clone()); __STP(key2);
+
+	CHECK(key.compareTo(key2) == 0)
+
+	int size = key.binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+	key.toBinary(buff);
+
+	buff->position(0);
+
+	CdbKeyFactory factory;
+
+	uint32_t type = buff->getInt();
+	AbstractBtreeKey* retKey = factory.fromBinary(type, buff);__STP(retKey);
+
+	int cmpResult = retKey->compareTo(key2);
+	CHECK(cmpResult == 0);
+
+	InfinityKey inf;
+	cmpResult = retKey->compareTo(&inf);
+	CHECK(cmpResult < 0);
+}
+
+TEST(TestCdbKeyValuesGroup, CdbIntKey){
+	CdbIntKey key;
+	CdbIntKey* key2 = dynamic_cast<CdbIntKey*>(key.clone()); __STP(key2);
+
+	CHECK(key.compareTo(key2) == 0)
+
+	int size = key.binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+	key.toBinary(buff);
+
+	buff->position(0);
+
+	CdbKeyFactory factory;
+
+	uint32_t type = buff->getInt();
+	AbstractBtreeKey* retKey = factory.fromBinary(type, buff);__STP(retKey);
+
+	int cmpResult = retKey->compareTo(key2);
+	CHECK(cmpResult == 0);
+
+	InfinityKey inf;
+	cmpResult = retKey->compareTo(&inf);
+	CHECK(cmpResult < 0);
+}
+
+TEST(TestCdbKeyValuesGroup, CdbLongKey){
+	CdbLongKey key;
+	CdbLongKey* key2 = dynamic_cast<CdbLongKey*>(key.clone()); __STP(key2);
+
+	CHECK(key.compareTo(key2) == 0)
+
+	int size = key.binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+	key.toBinary(buff);
+
+	buff->position(0);
+
+	CdbKeyFactory factory;
+
+	uint32_t type = buff->getInt();
+	AbstractBtreeKey* retKey = factory.fromBinary(type, buff);__STP(retKey);
+
+	int cmpResult = retKey->compareTo(key2);
+	CHECK(cmpResult == 0);
+
+	InfinityKey inf;
+	cmpResult = retKey->compareTo(&inf);
+	CHECK(cmpResult < 0);
+}
+
+TEST(TestCdbKeyValuesGroup, CdbStringKey){
+	UnicodeString hello(L"hello");
+	CdbStringKey key(&hello);
+	CdbStringKey* key2 = dynamic_cast<CdbStringKey*>(key.clone()); __STP(key2);
+
+	CHECK(key.compareTo(key2) == 0)
+
+	int size = key.binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+	key.toBinary(buff);
+
+	buff->position(0);
+
+	CdbKeyFactory factory;
+
+	uint32_t type = buff->getInt();
+	AbstractBtreeKey* retKey = factory.fromBinary(type, buff);__STP(retKey);
+
+	int cmpResult = retKey->compareTo(key2);
+	CHECK(cmpResult == 0);
+
+	InfinityKey inf;
+	cmpResult = retKey->compareTo(&inf);
+	CHECK(cmpResult < 0);
+}
 

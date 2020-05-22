@@ -17,6 +17,7 @@ class CdbStringKey : public AbstractCdbKey {
 public:
 	CdbStringKey(const CdbStringKey& inst);
 	CdbStringKey();
+	explicit CdbStringKey(const UnicodeString* str);
 	virtual ~CdbStringKey();
 
 	virtual AbstractBtreeKey* clone()  const noexcept;

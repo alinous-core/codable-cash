@@ -19,6 +19,10 @@ CdbStringKey::CdbStringKey(const CdbStringKey& inst) : AbstractCdbKey(AbstractCd
 	this->value = new UnicodeString(inst.value);
 }
 
+CdbStringKey::CdbStringKey(const UnicodeString* str) : AbstractCdbKey(AbstractCdbKey::TYPE_STRING) {
+	this->value = new UnicodeString(str);
+}
+
 CdbStringKey::CdbStringKey() : AbstractCdbKey(AbstractCdbKey::TYPE_STRING) {
 	this->value = nullptr;
 }
