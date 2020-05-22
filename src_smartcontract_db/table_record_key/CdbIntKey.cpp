@@ -26,6 +26,12 @@ AbstractBtreeKey* CdbIntKey::clone() const noexcept {
 }
 
 int CdbIntKey::compareTo(const AbstractBtreeKey* key) const noexcept {
+	if(key->isInfinity()){
+		return -1;
+	}
+
+	const CdbIntKey* cdbkey = dynamic_cast<const CdbIntKey*>(key);
+	return this->value - cdbkey->value;
 }
 
 int CdbIntKey::binarySize() const {
