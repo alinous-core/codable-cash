@@ -39,7 +39,7 @@ public:
 	void create(DiskCacheManager* cacheManager, BtreeConfig* config);
 
 	void open(int numDataBuffer, int numNodeBuffer, DiskCacheManager* cacheManager);
-	void close();
+	void close() noexcept;
 	void sync(bool syncDisk);
 
 	BtreeHeaderBlock* loadHeader();

@@ -11,6 +11,7 @@
 namespace alinous {
 class DiskCacheManager;
 class File;
+class Btree;
 }
 using namespace alinous;
 
@@ -23,13 +24,16 @@ public:
 	RecordStore(DiskCacheManager* cacheManager, const File* tableDir, const CdbTable* table);
 	virtual ~RecordStore();
 
-	static void createStore(const File* tableDir, const CdbTable* table);
+	static void createStore(const File* tableDir, const CdbTable* table, DiskCacheManager* cacheManager);
 
 	void load();
+	void close() noexcept;
 private:
 	DiskCacheManager* cacheManager;
 	File* tableDir;
 	const CdbTable* table;
+
+	Btree* btree;
 };
 
 } /* namespace codablecash */

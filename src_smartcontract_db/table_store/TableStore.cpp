@@ -66,7 +66,7 @@ void TableStore::createTable() {
 	tableDir->deleteDir();
 	tableDir->mkdirs();
 
-	RecordStore::createStore(tableDir, this->table);
+	RecordStore::createStore(tableDir, this->table, this->cacheManager);
 
 	const ArrayList<CdbTableIndex>* list = this->table->getIndexes();
 

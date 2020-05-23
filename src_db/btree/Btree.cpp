@@ -71,7 +71,7 @@ void Btree::open(const BtreeOpenConfig* config) {
 	}
 }
 
-void Btree::close() {
+void Btree::close() noexcept {
 	this->store->close();
 }
 

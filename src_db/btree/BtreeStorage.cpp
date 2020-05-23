@@ -176,7 +176,7 @@ BtreeHeaderBlock* BtreeStorage::loadHeader() {
 	return header;
 }
 
-void BtreeStorage::close() {
+void BtreeStorage::close() noexcept {
 	this->store->close();
 	this->cache->clear();
 }
