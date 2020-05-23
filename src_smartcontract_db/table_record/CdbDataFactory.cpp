@@ -60,4 +60,8 @@ IBlockObject* CdbDataFactory::makeDataFromBinary(ByteBuffer* in) {
 	return value;
 }
 
+CdbDataFactory* CdbDataFactory::copy() const noexcept {
+	return new CdbDataFactory();
+}
+
 } /* namespace codablecash */

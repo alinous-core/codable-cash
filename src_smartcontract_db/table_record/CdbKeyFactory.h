@@ -23,6 +23,8 @@ public:
 	virtual ~CdbKeyFactory();
 
 	virtual AbstractBtreeKey* fromBinary(uint32_t keyType, ByteBuffer* in) const;
+
+	CdbKeyFactory* copy() const noexcept;
 };
 
 } /* namespace codablecash */

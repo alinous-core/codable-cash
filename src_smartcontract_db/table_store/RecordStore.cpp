@@ -15,11 +15,13 @@
 #include "random_access_file/DiskCacheManager.h"
 
 #include "btree/Btree.h"
+#include "btree/BtreeConfig.h"
 
 #include "base/UnicodeString.h"
 
 #include "table_record/CdbDataFactory.h"
 #include "table_record/CdbKeyFactory.h"
+
 
 namespace codablecash {
 
@@ -39,13 +41,15 @@ RecordStore::~RecordStore() {
 void RecordStore::createStore(const File* tableDir, const CdbTable* table, DiskCacheManager* cacheManager) {
 	const UnicodeString* name = table->getName();
 
-	Btree btree(tableDir, name, cacheManager, &CdbStorageManager::keyFactory, &CdbStorageManager::dataFactory);
+	Btree btree(tableDir, name, cacheManager, CdbStorageManager::keyFactory.copy(), CdbStorageManager::dataFactory.copy());
 
-	// FIXME
+	BtreeConfig config;
+	btree.create(&config);
 }
 
 void RecordStore::load() {
 
+	// FIXME
 }
 
 void RecordStore::close() noexcept {
