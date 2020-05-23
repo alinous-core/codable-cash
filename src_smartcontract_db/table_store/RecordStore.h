@@ -34,6 +34,7 @@ private:
 	const CdbTable* table;
 
 	Btree* btree;
+	bool opened;
 };
 
 } /* namespace codablecash */

@@ -30,9 +30,12 @@ RecordStore::RecordStore(DiskCacheManager* cacheManager, const File* tableDir, c
 	this->table = table;
 	this->cacheManager = cacheManager;
 	this->btree = nullptr;
+	this->opened = false;
 }
 
 RecordStore::~RecordStore() {
+	close();
+
 	delete this->tableDir;
 	this->table =nullptr;
 	this->cacheManager = nullptr;
@@ -45,6 +48,7 @@ void RecordStore::createStore(const File* tableDir, const CdbTable* table, DiskC
 
 	BtreeConfig config;
 	btree.create(&config);
+
 }
 
 void RecordStore::load() {
@@ -53,11 +57,15 @@ void RecordStore::load() {
 
 	BtreeOpenConfig opconf;
 	this->btree->open(&opconf);
+	this->opened = true;
 }
 
 void RecordStore::close() noexcept {
 	if(this->btree != nullptr){
-		this->btree->close();
+		if(this->opened){
+			this->opened = false;
+			this->btree->close();
+		}
 
 		delete this->btree;
 		this->btree = nullptr;

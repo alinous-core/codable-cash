@@ -36,8 +36,6 @@ CdbStorageManager::CdbStorageManager() {
 CdbStorageManager::~CdbStorageManager() {
 	this->schemaManager = nullptr;
 
-	delete this->cacheManager;
-
 	Iterator<CdbOid> *it = this->tableStoreMap->keySet()->iterator(); __STP(it);
 	while(it->hasNext()){
 		const CdbOid* oid = it->next();
@@ -47,6 +45,7 @@ CdbStorageManager::~CdbStorageManager() {
 	}
 
 	delete this->tableStoreMap;
+	delete this->cacheManager;
 }
 
 void CdbStorageManager::schemaLoaded(SchemaManager* sc) {
