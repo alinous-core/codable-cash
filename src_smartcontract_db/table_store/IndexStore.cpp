@@ -51,6 +51,12 @@ void IndexStore::createStore(const File* tableDir, const CdbTable* table, const 
 }
 
 void IndexStore::load() {
+	const UnicodeString* name = this->index->getName();
+	this->btree = new Btree(this->tableDir, name, this->cacheManager, CdbStorageManager::keyFactory.copy(), CdbStorageManager::dataFactory.copy());
+
+	BtreeOpenConfig opconf;
+	this->btree->open(&opconf);
+	this->opened = true;
 }
 
 void IndexStore::close() noexcept {
