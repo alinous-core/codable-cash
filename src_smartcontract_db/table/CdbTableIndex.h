@@ -55,6 +55,10 @@ public:
 		return this->columns;
 	}
 
+	const UnicodeString* getName() const noexcept {
+		return this->name;
+	}
+
 private:
 	CdbOid* oid;
 

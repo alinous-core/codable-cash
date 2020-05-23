@@ -10,6 +10,8 @@
 
 namespace alinous {
 class File;
+class Btree;
+class DiskCacheManager;
 }
 using namespace alinous;
 
@@ -21,17 +23,23 @@ class CdbOid;
 
 class IndexStore {
 public:
-	IndexStore(const File* tableDir, const CdbTable* table, const CdbTableIndex* index);
+	IndexStore(DiskCacheManager* cacheManager, const File* tableDir, const CdbTable* table, const CdbTableIndex* index);
 	virtual ~IndexStore();
 
-	static void createStore(const File* tableDir, const CdbTable* table, const CdbTableIndex* index);
+	static void createStore(const File* tableDir, const CdbTable* table, const CdbTableIndex* index, DiskCacheManager* cacheManager);
 	void load();
+	void close() noexcept;
 
 	const CdbOid* getIndexOid() const noexcept;
 private:
+	DiskCacheManager* cacheManager;
+
 	File* tableDir;
 	const CdbTable* table;
 	const CdbTableIndex* index;
+
+	Btree* btree;
+	bool opened;
 };
 
 } /* namespace codablecash */

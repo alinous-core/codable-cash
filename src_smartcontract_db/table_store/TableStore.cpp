@@ -74,7 +74,7 @@ void TableStore::createTable() {
 	for(int i = 0; i != maxLoop; ++i){
 		const CdbTableIndex* index = list->get(i);
 
-		IndexStore::createStore(tableDir, this->table, index);
+		IndexStore::createStore(tableDir, this->table, index, this->cacheManager);
 	}
 }
 
@@ -94,7 +94,7 @@ void TableStore::loadTable() {
 	for(int i = 0; i != maxLoop; ++i){
 		const CdbTableIndex* index = list->get(i);
 
-		IndexStore* store = new IndexStore(tableDir, this->table, index);
+		IndexStore* store = new IndexStore(this->cacheManager, tableDir, this->table, index);
 		this->indexStores->put(store->getIndexOid(), store);
 	}
 
