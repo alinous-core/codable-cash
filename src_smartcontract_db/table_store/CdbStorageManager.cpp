@@ -30,6 +30,7 @@ CdbStorageManager::CdbStorageManager() {
 
 CdbStorageManager::~CdbStorageManager() {
 	this->schemaManager = nullptr;
+
 	delete this->cacheManager;
 
 	Iterator<CdbOid> *it = this->tableStoreMap->keySet()->iterator(); __STP(it);
