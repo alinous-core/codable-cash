@@ -19,8 +19,13 @@
 
 #include "engine/CdbOid.h"
 
+#include "table_record/CdbDataFactory.h"
+#include "table_record/CdbKeyFactory.h"
 
 namespace codablecash {
+
+CdbKeyFactory CdbStorageManager::keyFactory;
+CdbDataFactory CdbStorageManager::dataFactory;
 
 CdbStorageManager::CdbStorageManager() {
 	this->schemaManager = nullptr;

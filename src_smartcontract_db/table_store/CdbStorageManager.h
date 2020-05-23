@@ -23,6 +23,8 @@ namespace codablecash {
 class SchemaManager;
 class TableStore;
 class CdbOid;
+class CdbKeyFactory;
+class CdbDataFactory;
 
 class CdbStorageManager : public ISchemaUptateListner {
 public:
@@ -32,6 +34,9 @@ public:
 	virtual void schemaLoaded(SchemaManager* sc);
 	virtual void onCreateTable(SchemaManager* mgr, const CdbTable* table);
 
+public:
+	static CdbKeyFactory keyFactory;
+	static CdbDataFactory dataFactory;
 private:
 	SchemaManager* schemaManager;
 	DiskCacheManager* cacheManager;
