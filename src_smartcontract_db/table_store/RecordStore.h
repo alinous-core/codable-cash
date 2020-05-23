@@ -9,6 +9,7 @@
 #define TABLE_STORE_RECORDSTORE_H_
 
 namespace alinous {
+class DiskCacheManager;
 class File;
 }
 using namespace alinous;
@@ -19,13 +20,14 @@ class CdbTable;
 
 class RecordStore {
 public:
-	RecordStore(const File* tableDir, const CdbTable* table);
+	RecordStore(DiskCacheManager* cacheManager, const File* tableDir, const CdbTable* table);
 	virtual ~RecordStore();
 
 	static void createStore(const File* tableDir, const CdbTable* table);
 
 	void load();
 private:
+	DiskCacheManager* cacheManager;
 	File* tableDir;
 	const CdbTable* table;
 };

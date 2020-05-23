@@ -10,17 +10,20 @@
 
 #include "base_io/File.h"
 
+#include "random_access_file/DiskCacheManager.h"
 
 namespace codablecash {
 
-RecordStore::RecordStore(const File* tableDir, const CdbTable* table) {
+RecordStore::RecordStore(DiskCacheManager* cacheManager, const File* tableDir, const CdbTable* table) {
 	this->tableDir = new File(*tableDir);
 	this->table = table;
+	this->cacheManager = cacheManager;
 }
 
 RecordStore::~RecordStore() {
 	delete this->tableDir;
 	this->table =nullptr;
+	this->cacheManager = nullptr;
 }
 
 void RecordStore::createStore(const File* tableDir, const CdbTable* table) {

@@ -50,7 +50,7 @@ void CdbStorageManager::schemaLoaded(SchemaManager* sc) {
 void CdbStorageManager::onCreateTable(SchemaManager* mgr, const CdbTable* table) {
 	const File* baseDir = mgr->getDatabaseBaseDir();
 
-	TableStore* store = new TableStore(baseDir, table);
+	TableStore* store = new TableStore(this->cacheManager, baseDir, table);
 	store->createTable();
 	store->loadTable();
 

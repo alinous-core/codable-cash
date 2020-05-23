@@ -12,6 +12,7 @@
 
 namespace alinous {
 class File;
+class DiskCacheManager;
 }
 using namespace alinous;
 
@@ -24,7 +25,7 @@ class IndexStore;
 
 class TableStore {
 public:
-	TableStore(const File* baseDir, const CdbTable* table);
+	TableStore(DiskCacheManager* cacheManager, const File* baseDir, const CdbTable* table);
 	virtual ~TableStore();
 
 	const CdbOid* getOid() const noexcept;
@@ -32,6 +33,8 @@ public:
 	void createTable();
 	void loadTable();
 private:
+	DiskCacheManager* cacheManager;
+
 	File* baseDir;
 	const CdbTable* table;
 

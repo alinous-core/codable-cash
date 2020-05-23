@@ -23,12 +23,14 @@
 
 namespace codablecash {
 
-TableStore::TableStore(const File* baseDir, const CdbTable* table) {
+TableStore::TableStore(DiskCacheManager* cacheManager, const File* baseDir, const CdbTable* table) {
 	this->baseDir = new File(*baseDir);
 	this->table = table;
 
 	this->recordStore = nullptr;
 	this->indexStores = new HashMap<CdbOid, IndexStore>();
+
+	this->cacheManager = cacheManager;
 }
 
 TableStore::~TableStore() {
@@ -45,6 +47,8 @@ TableStore::~TableStore() {
 		delete store;
 	}
 	delete this->indexStores;
+
+	this->cacheManager = nullptr;
 }
 
 const CdbOid* TableStore::getOid() const noexcept {
@@ -82,7 +86,7 @@ void TableStore::loadTable() {
 	File* schemaDir = this->baseDir->get(schemaName); __STP(schemaDir);
 	File* tableDir = schemaDir->get(tableName); __STP(tableDir);
 
-	this->recordStore = new RecordStore(tableDir, this->table);
+	this->recordStore = new RecordStore(this->cacheManager ,tableDir, this->table);
 
 	const ArrayList<CdbTableIndex>* list = this->table->getIndexes();
 
