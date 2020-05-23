@@ -120,4 +120,21 @@ TEST(TestCdbValuesGroup, CdbString){
 	CHECK(value2.getValue()->equals(bv->getValue()));
 }
 
+TEST(TestCdbValuesGroup, dataFactoryError){
+	int size = 10;
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+	buff->put(100);
+	buff->position(0);
+
+	CdbDataFactory factory;
+	CdbException* ex = nullptr;
+	try{
+		factory.makeDataFromBinary(buff);
+	}catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr)
+	delete ex;
+}
 
