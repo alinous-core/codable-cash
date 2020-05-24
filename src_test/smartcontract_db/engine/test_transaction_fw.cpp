@@ -15,6 +15,7 @@
 #include "ext_binary/ExtClassObject.h"
 
 #include "../../smartcontract_vm/VmTestUtils.h"
+#include "vm_trx/VmTransactionHandlerException.h"
 
 using namespace alinous;
 
@@ -23,6 +24,9 @@ TEST_GROUP(TestTransactionFwGroup) {
 	TEST_TEARDOWN(){}
 };
 
+TEST(TestTransactionFwGroup, caseException){
+	testException<VmTransactionHandlerException>();
+}
 
 TEST(TestTransactionFwGroup, case01){
 	const File* projectFolder = this->env->getProjectRoot();

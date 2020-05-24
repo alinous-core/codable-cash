@@ -25,7 +25,9 @@ public:
 	void commit();
 	void rollback();
 
+	void reset() noexcept;
 private:
+	void doCommit();
 	void doRollback();
 
 private:
