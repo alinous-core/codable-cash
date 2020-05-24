@@ -38,6 +38,7 @@ void BeginStatement::fromBinary(ByteBuffer* in) {
 }
 
 void BeginStatement::interpret(VirtualMachine* vm) {
+
 	// FIXME SQL statement
 }
 

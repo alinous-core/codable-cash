@@ -44,6 +44,8 @@ class ObjectReference;
 class ExtExceptionObject;
 class ReservedClassRegistory;
 
+class VmTransactionHandler;
+
 class VirtualMachine {
 public:
 	explicit VirtualMachine(uint64_t memCapacity);
@@ -121,6 +123,7 @@ private:
 
 	// database engine
 	CodableDatabase* db;
+	VmTransactionHandler* trxHandler;
 };
 
 } /* namespace alinous */

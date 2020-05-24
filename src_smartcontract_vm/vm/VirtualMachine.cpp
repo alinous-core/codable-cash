@@ -61,6 +61,8 @@
 
 #include "engine/CodableDatabase.h"
 
+#include "vm_trx/VmTransactionHandler.h"
+
 namespace alinous {
 
 VirtualMachine::VirtualMachine(uint64_t memCapacity) {
@@ -77,6 +79,7 @@ VirtualMachine::VirtualMachine(uint64_t memCapacity) {
 	this->uncaughtException = nullptr;
 	this->caught = false;
 	this->db = new CodableDatabase();
+	this->trxHandler = new VmTransactionHandler(this->db);
 }
 
 VirtualMachine::~VirtualMachine() {
@@ -99,6 +102,7 @@ VirtualMachine::~VirtualMachine() {
 	this->exceptions.deleteElements();
 	delete this->uncaughtException;
 
+	delete this->trxHandler;
 	delete this->db;
 }
 
