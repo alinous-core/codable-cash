@@ -13,6 +13,8 @@
 
 #include "base/Exception.h"
 
+#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+
 namespace alinous {
 
 CommitStatement::CommitStatement() : AbstractSQLStatement(CodeElement::DML_STMT_COMMIT) {
@@ -50,9 +52,9 @@ void CommitStatement::interpret(VirtualMachine* vm) {
 		handler->commit();
 	}
 	catch(Exception* e){
+		DatabaseExceptionClassDeclare::throwException(e->getMessage(), vm, this);
 		delete e;
 	}
-	// FIXME SQL statement
 }
 
 } /* namespace alinous */

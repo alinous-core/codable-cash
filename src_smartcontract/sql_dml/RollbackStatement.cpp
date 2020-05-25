@@ -7,6 +7,15 @@
 
 #include "sql_dml/RollbackStatement.h"
 
+#include "vm_trx/VmTransactionHandler.h"
+
+#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "base/Exception.h"
+
+
 namespace alinous {
 
 RollbackStatement::RollbackStatement() : AbstractSQLStatement(CodeElement::DML_STMT_ROLLBACK) {
@@ -38,7 +47,15 @@ void RollbackStatement::fromBinary(ByteBuffer* in) {
 }
 
 void RollbackStatement::interpret(VirtualMachine* vm) {
-	// FIXME SQL statement
+	VmTransactionHandler* handler = vm->getTransactionHandler();
+
+	try{
+		handler->rollback();
+	}
+	catch(Exception* e){
+		DatabaseExceptionClassDeclare::throwException(e->getMessage(), vm, this);
+		delete e;
+	}
 }
 
 } /* namespace alinous */

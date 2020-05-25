@@ -13,15 +13,19 @@
 
 #include "sc_analyze/AnalyzedClass.h"
 
+#include "base/UnicodeString.h"
+
 namespace alinous {
 
 VmExceptionInstance::VmExceptionInstance(AnalyzedClass* clazz, VirtualMachine* vm)
 				: VmClassInstance(VmInstanceTypesConst::INST_EXCEPTION, clazz, vm) {
 	this->element = nullptr;
+	this->message = nullptr;
 }
 
 VmExceptionInstance::~VmExceptionInstance() {
 	this->element = nullptr;
+	delete this->message;
 }
 
 void VmExceptionInstance::setCodeElement(const CodeElement* element) noexcept {
@@ -30,6 +34,10 @@ void VmExceptionInstance::setCodeElement(const CodeElement* element) noexcept {
 
 const CodeElement* VmExceptionInstance::getElement() const noexcept {
 	return this->element;
+}
+
+void VmExceptionInstance::setMessage(const UnicodeString* message) noexcept {
+	this->message = new UnicodeString(message);
 }
 
 AbstractExtObject* VmExceptionInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* reg) {
