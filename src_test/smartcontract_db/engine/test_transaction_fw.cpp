@@ -20,8 +20,12 @@
 using namespace alinous;
 
 TEST_GROUP(TestTransactionFwGroup) {
-	TEST_SETUP(){}
-	TEST_TEARDOWN(){}
+	TEST_SETUP(){
+		env->setup();
+	}
+	TEST_TEARDOWN(){
+		env->teardown();
+	}
 };
 
 TEST(TestTransactionFwGroup, caseException){
@@ -30,7 +34,7 @@ TEST(TestTransactionFwGroup, caseException){
 
 TEST(TestTransactionFwGroup, case01){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_db/engine/resources/trx/case01/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_db/engine/resources/trx/case01/", projectFolder, this->env);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");

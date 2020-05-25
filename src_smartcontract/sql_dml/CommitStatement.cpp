@@ -7,6 +7,12 @@
 
 #include "sql_dml/CommitStatement.h"
 
+#include "vm/VirtualMachine.h"
+
+#include "vm_trx/VmTransactionHandler.h"
+
+#include "base/Exception.h"
+
 namespace alinous {
 
 CommitStatement::CommitStatement() : AbstractSQLStatement(CodeElement::DML_STMT_COMMIT) {
@@ -38,6 +44,14 @@ void CommitStatement::fromBinary(ByteBuffer* in) {
 }
 
 void CommitStatement::interpret(VirtualMachine* vm) {
+	VmTransactionHandler* handler = vm->getTransactionHandler();
+
+	try{
+		handler->commit();
+	}
+	catch(Exception* e){
+		delete e;
+	}
 	// FIXME SQL statement
 }
 

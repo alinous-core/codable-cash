@@ -22,6 +22,7 @@ VmTransactionHandler::VmTransactionHandler(CodableDatabase* db) {
 }
 
 VmTransactionHandler::~VmTransactionHandler() {
+	reset();
 	this->db = nullptr;
 }
 

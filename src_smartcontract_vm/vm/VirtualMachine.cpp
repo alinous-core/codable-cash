@@ -111,6 +111,10 @@ void VirtualMachine::loadSmartContract(SmartContract* sc) {
 	this->stackManager = new VmStackManager();
 }
 
+void VirtualMachine::loadDatabase(const File* dbdir) {
+	this->db->loadDatabase(dbdir);
+}
+
 VmClassInstance* VirtualMachine::createScInstance() {
 	VmClassInstance* retInst = nullptr;
 	initialize();
@@ -206,6 +210,9 @@ ReservedClassRegistory* VirtualMachine::getReservedClassRegistory() const noexce
 	return this->sc->getReservedClassRegistory();
 }
 
+VmTransactionHandler* VirtualMachine::getTransactionHandler() const noexcept {
+	return this->trxHandler;
+}
 
 void VirtualMachine::checkUncaughtException() {
 	if(this->uncaughtException != nullptr){
