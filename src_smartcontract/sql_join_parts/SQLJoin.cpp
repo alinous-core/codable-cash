@@ -7,6 +7,8 @@
 #include "sql_join_parts/SQLJoin.h"
 #include "sql_join_parts/SQLJoinPart.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
 namespace alinous {
 
 SQLJoin::SQLJoin() : AbstractJoinPart(CodeElement::SQL_EXP_JOIN) {
@@ -71,5 +73,60 @@ void SQLJoin::fromBinary(ByteBuffer* in) {
 		this->list.addElement(part);
 	}
 }
+
+void SQLJoin::preAnalyze(AnalyzeContext* actx) {
+	this->first->setParent(this);
+	this->first->preAnalyze(actx);
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SQLJoinPart* part = this->list.get(i);
+
+		part->setParent(this);
+		part->preAnalyze(actx);
+	}
+}
+
+void SQLJoin::analyzeTypeRef(AnalyzeContext* actx) {
+	this->first->analyzeTypeRef(actx);
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SQLJoinPart* part = this->list.get(i);
+
+		part->analyzeTypeRef(actx);
+	}
+}
+
+void SQLJoin::analyze(AnalyzeContext* actx) {
+	this->first->analyze(actx);
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SQLJoinPart* part = this->list.get(i);
+
+		part->analyze(actx);
+	}
+}
+
+AnalyzedType SQLJoin::getType(AnalyzeContext* actx) {
+	return AnalyzedType();
+}
+
+void SQLJoin::init(VirtualMachine* vm) {
+	this->first->init(vm);
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SQLJoinPart* part = this->list.get(i);
+
+		part->init(vm);
+	}
+}
+
+AbstractVmInstance* SQLJoin::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME SQLJoin
+}
+
 
 } /* namespace alinous */
