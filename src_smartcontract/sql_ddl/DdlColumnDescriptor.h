@@ -30,6 +30,31 @@ public:
 	void setNotNull(bool notNull) noexcept;
 	void setUnique(bool unique) noexcept;
 	void setDefaultValue(AbstractSQLExpression* defaultValue) noexcept;
+
+	ColumnTypeDescriptor* getColumnTypeDescriptor() const noexcept {
+		return this->typeDesc;
+	}
+
+	const AbstractSQLExpression* getDefaultValue() const  noexcept{
+		return defaultValue;
+	}
+
+	bool isNotNull() const noexcept {
+		return notNull;
+	}
+
+	const ColumnTypeDescriptor* getTypeDesc() const noexcept {
+		return typeDesc;
+	}
+
+	bool isUnique() const noexcept {
+		return unique;
+	}
+
+	const UnicodeString* getName() const noexcept {
+		return name;
+	}
+
 private:
 	UnicodeString* name;
 	ColumnTypeDescriptor* typeDesc;

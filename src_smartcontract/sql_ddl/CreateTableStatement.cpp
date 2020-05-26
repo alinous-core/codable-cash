@@ -22,13 +22,18 @@
 
 #include "vm_trx/VmTransactionHandler.h"
 
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/ValidationError.h"
+
+#include "sql_ddl/ColumnTypeDescriptor.h"
+
+
 namespace alinous {
 
 CreateTableStatement::CreateTableStatement() : AbstractSQLStatement(CodeElement::DDL_CREATE_TABLE) {
 	this->name = nullptr;
 	this->list = new ArrayList<DdlColumnDescriptor>();
 	this->primaryKeys = new ArrayList<UnicodeString>();
-	this->analyzedTable = nullptr;
 }
 
 CreateTableStatement::~CreateTableStatement() {
@@ -39,25 +44,39 @@ CreateTableStatement::~CreateTableStatement() {
 
 	this->primaryKeys->deleteElements();
 	delete this->primaryKeys;
-
-	delete this->analyzedTable;
 }
 
 void CreateTableStatement::preAnalyze(AnalyzeContext* actx) {
+
 }
 
 void CreateTableStatement::analyzeTypeRef(AnalyzeContext* actx) {
+
 }
 
 
 void CreateTableStatement::analyze(AnalyzeContext* actx) {
+	if(this->primaryKeys->isEmpty()){
+		actx->addValidationError(ValidationError::DB_NO_PRIMARY_KEY, this, L"Primary key is required.", {});
+	}
 
+	int maxLoop = this->list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		DdlColumnDescriptor* colDesc = this->list->get(i);
+		ColumnTypeDescriptor* typeDesc = colDesc->getColumnTypeDescriptor();
+
+		uint8_t type = typeDesc->toCdbValueType();
+		if(type == 0){
+			const UnicodeString* tname = typeDesc->getTypeName();
+			actx->addValidationError(ValidationError::DB_TYPE_NOT_EXISTS, this, L"The type {0} does not exists.", {tname});
+		}
+	}
 }
 
 void CreateTableStatement::interpret(VirtualMachine* vm) {
 	CreateTableLog* cmd = new CreateTableLog();
 
-	CdbTable* table = new CdbTable(*this->analyzedTable);
+	CdbTable* table = createTable(vm);
 	cmd->setTable(table);
 
 	VmTransactionHandler* handler = vm->getTransactionHandler();
@@ -68,9 +87,26 @@ void CreateTableStatement::interpret(VirtualMachine* vm) {
 		DatabaseExceptionClassDeclare::throwException(e->getMessage(), vm, this);
 		delete e;
 	}
+}
 
-	// FIXME SQL statement
+CdbTable* CreateTableStatement::createTable(VirtualMachine* vm) {
+	CdbTable* table = new CdbTable(0);
 
+	table->setName(new UnicodeString(this->name));
+
+	int maxLoop = this->list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		DdlColumnDescriptor* colDesc = this->list->get(i);
+		ColumnTypeDescriptor* typeDesc = colDesc->getColumnTypeDescriptor();
+
+		uint8_t type = typeDesc->toCdbValueType();
+		const UnicodeString* name = colDesc->getName();
+
+		// FIXME SQL statement
+
+	}
+
+	return table;
 }
 
 int CreateTableStatement::binarySize() const {

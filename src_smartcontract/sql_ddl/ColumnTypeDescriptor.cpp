@@ -11,8 +11,19 @@
 
 #include "base/UnicodeString.h"
 
+#include "table_record_value/AbstractCdbValue.h"
+
+using namespace codablecash;
 
 namespace alinous {
+
+const UnicodeString ColumnTypeDescriptor::TYPE_BYTE(L"byte");
+const UnicodeString ColumnTypeDescriptor::TYPE_SHORT(L"short");
+const UnicodeString ColumnTypeDescriptor::TYPE_INT(L"int");
+const UnicodeString ColumnTypeDescriptor::TYPE_LONG(L"long");
+const UnicodeString ColumnTypeDescriptor::TYPE_VARCHAR(L"varchar");
+const UnicodeString ColumnTypeDescriptor::TYPE_TEXT(L"text");
+
 
 ColumnTypeDescriptor::ColumnTypeDescriptor() : AbstractSQLPart(CodeElement::DDL_TYPE_DESC) {
 	this->typeName = nullptr;
@@ -72,6 +83,29 @@ void ColumnTypeDescriptor::setTypeName(UnicodeString* typeName) noexcept {
 
 void ColumnTypeDescriptor::setLength(AbstractSQLExpression* length) noexcept {
 	this->length = length;
+}
+
+uint8_t ColumnTypeDescriptor::toCdbValueType() const noexcept {
+	UnicodeString* lowStr = this->typeName->toLowerCase();
+	uint8_t ret = 0;
+
+	if(lowStr->equals(&ColumnTypeDescriptor::TYPE_BYTE)){
+		ret = AbstractCdbValue::TYPE_BYTE;
+	}
+	else if(lowStr->equals(&ColumnTypeDescriptor::TYPE_SHORT)){
+		ret = AbstractCdbValue::TYPE_SHORT;
+	}
+	else if(lowStr->equals(&ColumnTypeDescriptor::TYPE_INT)){
+		ret = AbstractCdbValue::TYPE_INT;
+	}
+	else if(lowStr->equals(&ColumnTypeDescriptor::TYPE_LONG)){
+		ret = AbstractCdbValue::TYPE_LONG;
+	}
+	else if(lowStr->equals(&ColumnTypeDescriptor::TYPE_VARCHAR) && lowStr->equals(&ColumnTypeDescriptor::TYPE_TEXT)){
+		ret = AbstractCdbValue::TYPE_STRING;
+	}
+
+	return ret;
 }
 
 } /* namespace alinous */

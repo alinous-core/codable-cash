@@ -39,12 +39,13 @@ public:
 	void setName(UnicodeString* name) noexcept;
 	void addColumn(DdlColumnDescriptor* col) noexcept;
 	void addPrimaryKey(UnicodeString* key) noexcept;
+
+private:
+	CdbTable* createTable(VirtualMachine* vm);
 private:
 	UnicodeString* name;
 	ArrayList<DdlColumnDescriptor>* list;
 	ArrayList<UnicodeString>* primaryKeys;
-
-	CdbTable* analyzedTable;
 };
 
 } /* namespace alinous */

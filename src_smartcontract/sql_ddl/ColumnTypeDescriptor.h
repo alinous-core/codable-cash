@@ -17,6 +17,13 @@ class AbstractSQLExpression;
 
 class ColumnTypeDescriptor : public AbstractSQLPart {
 public:
+	static const UnicodeString TYPE_BYTE;
+	static const UnicodeString TYPE_SHORT;
+	static const UnicodeString TYPE_INT;
+	static const UnicodeString TYPE_LONG;
+	static const UnicodeString TYPE_VARCHAR;
+	static const UnicodeString TYPE_TEXT;
+
 	ColumnTypeDescriptor();
 	virtual ~ColumnTypeDescriptor();
 
@@ -26,6 +33,12 @@ public:
 
 	void setTypeName(UnicodeString* typeName) noexcept;
 	void setLength(AbstractSQLExpression* length) noexcept;
+
+	uint8_t toCdbValueType() const noexcept;
+
+	const UnicodeString* getTypeName() const noexcept {
+		return this->typeName;
+	}
 private:
 	UnicodeString* typeName;
 	AbstractSQLExpression* length;
