@@ -8,6 +8,7 @@
 #include "sql_expression/SQLPlaceHolder.h"
 #include "sc_expression/AbstractExpression.h"
 
+#include "sc_analyze/AnalyzedType.h"
 namespace alinous {
 
 SQLPlaceHolder::SQLPlaceHolder() : AbstractSQLExpression(CodeElement::SQL_EXP_PLACE_HOLDER) {
@@ -43,5 +44,31 @@ void SQLPlaceHolder::fromBinary(ByteBuffer* in) {
 	checkIsExp(element);
 	this->exp = dynamic_cast<AbstractExpression*>(element);
 }
+
+void SQLPlaceHolder::preAnalyze(AnalyzeContext* actx) {
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+}
+
+void SQLPlaceHolder::analyzeTypeRef(AnalyzeContext* actx) {
+	this->exp->analyzeTypeRef(actx);
+}
+
+void SQLPlaceHolder::analyze(AnalyzeContext* actx) {
+	this->exp->analyze(actx);
+}
+
+AnalyzedType SQLPlaceHolder::getType(AnalyzeContext* actx) {
+	return this->exp->getType(actx);
+}
+
+void SQLPlaceHolder::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
+AbstractVmInstance* SQLPlaceHolder::interpret(VirtualMachine* vm) {
+	return this->exp->interpret(vm);
+}
+
 
 } /* namespace alinous */
