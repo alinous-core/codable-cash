@@ -6,10 +6,21 @@
  */
 
 #include "sql_ddl/CreateTableStatement.h"
-
 #include "sql_ddl/DdlColumnDescriptor.h"
 
 #include "base/UnicodeString.h"
+
+#include "table/CdbTable.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "transaction_log/CreateTableLog.h"
+
+#include "base/Exception.h"
+
+#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+
+#include "vm_trx/VmTransactionHandler.h"
 
 namespace alinous {
 
@@ -17,6 +28,7 @@ CreateTableStatement::CreateTableStatement() : AbstractSQLStatement(CodeElement:
 	this->name = nullptr;
 	this->list = new ArrayList<DdlColumnDescriptor>();
 	this->primaryKeys = new ArrayList<UnicodeString>();
+	this->analyzedTable = nullptr;
 }
 
 CreateTableStatement::~CreateTableStatement() {
@@ -27,6 +39,8 @@ CreateTableStatement::~CreateTableStatement() {
 
 	this->primaryKeys->deleteElements();
 	delete this->primaryKeys;
+
+	delete this->analyzedTable;
 }
 
 void CreateTableStatement::preAnalyze(AnalyzeContext* actx) {
@@ -37,6 +51,26 @@ void CreateTableStatement::analyzeTypeRef(AnalyzeContext* actx) {
 
 
 void CreateTableStatement::analyze(AnalyzeContext* actx) {
+
+}
+
+void CreateTableStatement::interpret(VirtualMachine* vm) {
+	CreateTableLog* cmd = new CreateTableLog();
+
+	CdbTable* table = new CdbTable(*this->analyzedTable);
+	cmd->setTable(table);
+
+	VmTransactionHandler* handler = vm->getTransactionHandler();
+	try{
+		handler->createTable(cmd);
+	}
+	catch(Exception* e){
+		DatabaseExceptionClassDeclare::throwException(e->getMessage(), vm, this);
+		delete e;
+	}
+
+	// FIXME SQL statement
+
 }
 
 int CreateTableStatement::binarySize() const {
@@ -101,10 +135,6 @@ void CreateTableStatement::fromBinary(ByteBuffer* in) {
 		UnicodeString* key = getString(in);
 		this->primaryKeys->addElement(key);
 	}
-}
-
-void CreateTableStatement::interpret(VirtualMachine* vm) {
-	// FIXME SQL statement
 }
 
 void CreateTableStatement::addColumn(DdlColumnDescriptor* col) noexcept {

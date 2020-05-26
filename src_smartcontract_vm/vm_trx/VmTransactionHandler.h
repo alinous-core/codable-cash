@@ -11,6 +11,7 @@
 namespace codablecash {
 class CodableDatabase;
 class CdbTransaction;
+class CreateTableLog;
 }
 using namespace codablecash;
 
@@ -24,6 +25,8 @@ public:
 	void begin();
 	void commit();
 	void rollback();
+
+	void createTable(CreateTableLog* cmd);
 
 	void reset() noexcept;
 private:

@@ -12,6 +12,10 @@
 
 #include "base/ArrayList.h"
 
+namespace codablecash {
+class CdbTable;
+}
+using namespace codablecash;
 
 namespace alinous {
 
@@ -39,6 +43,8 @@ private:
 	UnicodeString* name;
 	ArrayList<DdlColumnDescriptor>* list;
 	ArrayList<UnicodeString>* primaryKeys;
+
+	CdbTable* analyzedTable;
 };
 
 } /* namespace alinous */

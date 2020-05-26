@@ -61,6 +61,18 @@ void VmTransactionHandler::doCommit() {
 	this->trx->commit();
 }
 
+void VmTransactionHandler::createTable(CreateTableLog* cmd) {
+	if(this->trx == nullptr){
+		begin();
+	}
+	else{
+		commit();
+	}
+
+	this->trx->createTable(cmd);
+	commit();
+}
+
 void VmTransactionHandler::doRollback() {
 	StackTransactionReset resetter(this);
 
