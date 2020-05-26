@@ -7,6 +7,7 @@
 
 #include "sql_expression/SQLOrExpression.h"
 
+#include "sc_analyze/AnalyzedType.h"
 namespace alinous {
 
 SQLOrExpression::SQLOrExpression() : AbstractSQLBinaryExpression(CodeElement::SQL_EXP_OR) {
@@ -33,6 +34,10 @@ void SQLOrExpression::fromBinary(ByteBuffer* in) {
 
 AbstractVmInstance* SQLOrExpression::interpret(VirtualMachine* vm) {
 	return nullptr; // FIXME SQLOrExpression
+}
+
+AnalyzedType SQLOrExpression::getType(AnalyzeContext* actx) {
+	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 
 } /* namespace alinous */
