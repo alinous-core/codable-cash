@@ -7,6 +7,8 @@
 
 #include "sql_expression/AbstractSQLBinaryExpression.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
 namespace alinous {
 
 AbstractSQLBinaryExpression::AbstractSQLBinaryExpression(int kind) : AbstractSQLExpression(kind) {
@@ -52,5 +54,49 @@ void AbstractSQLBinaryExpression::fromBinary(ByteBuffer* in) {
 		this->operands.addElement(exp);
 	}
 }
+
+
+void AbstractSQLBinaryExpression::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->setParent(this);
+		exp->preAnalyze(actx);
+	}
+}
+
+void AbstractSQLBinaryExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->analyzeTypeRef(actx);
+	}
+}
+
+void AbstractSQLBinaryExpression::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->analyze(actx);
+	}
+}
+
+AnalyzedType AbstractSQLBinaryExpression::getType(AnalyzeContext* actx) {
+	// FIXME AbstractSQLBinaryExpression
+	return AnalyzedType();
+}
+
+void AbstractSQLBinaryExpression::init(VirtualMachine* vm) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->init(vm);
+	}
+}
+
 
 } /* namespace alinous */
