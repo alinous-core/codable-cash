@@ -7,6 +7,7 @@
 
 #include "sql_expression/SQLEqualityExpression.h"
 
+#include "sc_analyze/AnalyzedType.h"
 namespace alinous {
 
 SQLEqualityExpression::SQLEqualityExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_EQUALITY) {
@@ -65,5 +66,37 @@ void SQLEqualityExpression::fromBinary(ByteBuffer* in) {
 
 	this->op = in->get();
 }
+
+void SQLEqualityExpression::preAnalyze(AnalyzeContext* actx) {
+	this->left->setParent(this);
+	this->left->preAnalyze(actx);
+
+	this->right->setParent(this);
+	this->right->preAnalyze(actx);
+}
+
+void SQLEqualityExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	this->left->analyzeTypeRef(actx);
+	this->right->analyzeTypeRef(actx);
+}
+
+void SQLEqualityExpression::analyze(AnalyzeContext* actx) {
+	this->left->analyze(actx);
+	this->right->analyze(actx);
+}
+
+AnalyzedType SQLEqualityExpression::getType(AnalyzeContext* actx) {
+	return AnalyzedType(AnalyzedType::TYPE_BOOL);
+}
+
+void SQLEqualityExpression::init(VirtualMachine* vm) {
+	this->left->init(vm);
+	this->right->init(vm);
+}
+
+AbstractVmInstance* SQLEqualityExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME SQLEqualityExpression
+}
+
 
 } /* namespace alinous */

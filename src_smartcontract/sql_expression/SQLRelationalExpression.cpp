@@ -91,6 +91,8 @@ AnalyzedType SQLRelationalExpression::getType(AnalyzeContext* actx) {
 }
 
 void SQLRelationalExpression::init(VirtualMachine* vm) {
+	this->left->init(vm);
+	this->right->init(vm);
 }
 
 AbstractVmInstance* SQLRelationalExpression::interpret(VirtualMachine* vm) {
