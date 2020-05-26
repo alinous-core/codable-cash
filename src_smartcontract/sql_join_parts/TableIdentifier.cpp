@@ -8,6 +8,7 @@
 #include "sql_join_parts/TableIdentifier.h"
 #include "base/UnicodeString.h"
 
+#include "sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 
