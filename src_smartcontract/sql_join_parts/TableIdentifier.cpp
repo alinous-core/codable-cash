@@ -65,4 +65,25 @@ void TableIdentifier::fromBinary(ByteBuffer* in) {
 	this->tableName = getString(in);
 }
 
+void TableIdentifier::preAnalyze(AnalyzeContext* actx) {
+}
+
+void TableIdentifier::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void TableIdentifier::analyze(AnalyzeContext* actx) {
+}
+
+AnalyzedType TableIdentifier::getType(AnalyzeContext* actx) {
+	return AnalyzedType();
+}
+
+void TableIdentifier::init(VirtualMachine* vm) {
+}
+
+AbstractVmInstance* TableIdentifier::interpret(VirtualMachine* vm) {
+	return nullptr;
+}
+
+
 } /* namespace alinous */
