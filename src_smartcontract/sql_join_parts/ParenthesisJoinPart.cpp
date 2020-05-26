@@ -7,6 +7,9 @@
 
 #include "sql_join_parts/ParenthesisJoinPart.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
+
 namespace alinous {
 
 ParenthesisJoinPart::ParenthesisJoinPart() : AbstractJoinPart(CodeElement::SQL_EXP_PARENTHESIS_JOIN_PART) {
@@ -42,5 +45,31 @@ void ParenthesisJoinPart::fromBinary(ByteBuffer* in) {
 	checkIsJoinPart(element);
 	this->part = dynamic_cast<AbstractJoinPart*>(element);
 }
+
+void ParenthesisJoinPart::preAnalyze(AnalyzeContext* actx) {
+	this->part->setParent(this);
+	this->part->preAnalyze(actx);
+}
+
+void ParenthesisJoinPart::analyzeTypeRef(AnalyzeContext* actx) {
+	this->part->analyzeTypeRef(actx);
+}
+
+void ParenthesisJoinPart::analyze(AnalyzeContext* actx) {
+	this->part->analyze(actx);
+}
+
+AnalyzedType ParenthesisJoinPart::getType(AnalyzeContext* actx) {
+	return this->part->getType(actx);
+}
+
+void ParenthesisJoinPart::init(VirtualMachine* vm) {
+	this->part->init(vm);
+}
+
+AbstractVmInstance* ParenthesisJoinPart::interpret(VirtualMachine* vm) {
+	return this->part->interpret(vm);
+}
+
 
 } /* namespace alinous */
