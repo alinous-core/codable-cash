@@ -7,6 +7,7 @@
 
 #include "sql_expression/SQLBetweenExpression.h"
 
+#include "sc_analyze/AnalyzedType.h"
 namespace alinous {
 
 SQLBetweenExpression::SQLBetweenExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_BETWEEN) {
@@ -70,5 +71,43 @@ void SQLBetweenExpression::fromBinary(ByteBuffer* in) {
 	checkIsSQLExp(element);
 	this->end = dynamic_cast<AbstractSQLExpression*>(element);
 }
+
+void SQLBetweenExpression::preAnalyze(AnalyzeContext* actx) {
+	this->left->setParent(this);
+	this->left->preAnalyze(actx);
+
+	this->start->setParent(this);
+	this->start->preAnalyze(actx);
+
+	this->end->setParent(this);
+	this->end->preAnalyze(actx);
+}
+
+void SQLBetweenExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	this->left->analyzeTypeRef(actx);
+	this->start->analyzeTypeRef(actx);
+	this->end->analyzeTypeRef(actx);
+}
+
+void SQLBetweenExpression::analyze(AnalyzeContext* actx) {
+	this->left->analyze(actx);
+	this->start->analyze(actx);
+	this->end->analyze(actx);
+}
+
+AnalyzedType SQLBetweenExpression::getType(AnalyzeContext* actx) {
+	return AnalyzedType(AnalyzedType::TYPE_BOOL);
+}
+
+void SQLBetweenExpression::init(VirtualMachine* vm) {
+	this->left->init(vm);
+	this->start->init(vm);
+	this->end->init(vm);
+}
+
+AbstractVmInstance* SQLBetweenExpression::interpret(VirtualMachine* vm) {
+	return nullptr;
+}
+
 
 } /* namespace alinous */
