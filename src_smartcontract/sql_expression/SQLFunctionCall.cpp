@@ -8,6 +8,8 @@
 #include "sql_expression/SQLFunctionCall.h"
 #include "sc_expression/VariableIdentifier.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
 namespace alinous {
 
 SQLFunctionCall::SQLFunctionCall() : AbstractSQLExpression(CodeElement::SQL_EXP_FUNCTION_CALL) {
@@ -72,5 +74,52 @@ void SQLFunctionCall::fromBinary(ByteBuffer* in) {
 		this->arguments.addElement(exp);
 	}
 }
+
+void SQLFunctionCall::preAnalyze(AnalyzeContext* actx) {
+	this->name->setParent(this);
+	this->name->preAnalyze(actx);
+
+	int maxLoop = this->arguments.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->arguments.get(i);
+
+		exp->setParent(this);
+		exp->preAnalyze(actx);
+	}
+}
+
+void SQLFunctionCall::analyzeTypeRef(AnalyzeContext* actx) {
+	this->name->analyzeTypeRef(actx);
+
+	int maxLoop = this->arguments.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->arguments.get(i);
+
+		exp->analyzeTypeRef(actx);
+	}
+}
+
+void SQLFunctionCall::analyze(AnalyzeContext* actx) {
+}
+
+AnalyzedType SQLFunctionCall::getType(AnalyzeContext* actx) {
+	return AnalyzedType();
+}
+
+void alinous::SQLFunctionCall::init(VirtualMachine* vm) {
+	this->name->init(vm);
+
+	int maxLoop = this->arguments.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->arguments.get(i);
+
+		exp->init(vm);
+	}
+}
+
+AbstractVmInstance* SQLFunctionCall::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME SQLFunctionCall
+}
+
 
 } /* namespace alinous */
