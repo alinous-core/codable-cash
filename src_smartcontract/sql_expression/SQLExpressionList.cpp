@@ -7,6 +7,9 @@
 
 #include "sql_expression/SQLExpressionList.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
+
 namespace alinous {
 
 SQLExpressionList::SQLExpressionList() : AbstractSQLExpression(CodeElement::SQL_EXP_EXP_LIST) {
@@ -55,5 +58,51 @@ void SQLExpressionList::fromBinary(ByteBuffer* in) {
 		this->list.addElement(exp);
 	}
 }
+
+void SQLExpressionList::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->list.get(i);
+
+		exp->setParent(this);
+		exp->preAnalyze(actx);
+	}
+}
+
+void SQLExpressionList::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->list.get(i);
+
+		exp->analyzeTypeRef(actx);
+	}
+}
+
+void SQLExpressionList::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->list.get(i);
+
+		exp->analyze(actx);
+	}
+}
+
+AnalyzedType SQLExpressionList::getType(AnalyzeContext* actx) {
+	return AnalyzedType();
+}
+
+void SQLExpressionList::init(VirtualMachine* vm) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->list.get(i);
+
+		exp->init(vm);
+	}
+}
+
+AbstractVmInstance* SQLExpressionList::interpret(VirtualMachine* vm) {
+	return nullptr;
+}
+
 
 } /* namespace alinous */
