@@ -15,17 +15,23 @@
 #include "ext_binary/ExtPrimitiveObject.h"
 
 #include "sc_analyze/AnalyzedType.h"
+
+#include "base/UnicodeString.h"
+#include "base/Long.h"
+
 namespace alinous {
 
 PrimitiveReference::PrimitiveReference(uint8_t type) : AbstractReference(nullptr, type) {
 	this->data = nullptr;
 	this->malloc = nullptr;
+	this->str = nullptr;
 }
 
 PrimitiveReference::~PrimitiveReference() {
 	if(this->data != nullptr){
 		this->malloc->releaseArray(this->data);
 	}
+	delete this->str;
 }
 
 bool PrimitiveReference::getBoolValue() const noexcept {
@@ -416,6 +422,25 @@ PrimitiveReference* PrimitiveReference::copy(VirtualMachine* vm) const noexcept 
 	Mem::memcpy(ref->data, this->data, size);
 
 	return ref;
+}
+
+const UnicodeString* PrimitiveReference::toString() noexcept {
+	if(this->type == VmInstanceTypesConst::REF_BOOL){
+		delete this->str;
+		this->str = new UnicodeString(L"");
+
+		int32_t value = getIntValue();
+		if(value > 0){
+			this->str->append(L"true");
+		}else{
+			this->str->append(L"false");
+		}
+	}
+
+	int64_t value = getLongValue();
+	delete this->str, this->str = Long::toString(value, 10);
+
+	return this->str;
 }
 
 } /* namespace alinous */
