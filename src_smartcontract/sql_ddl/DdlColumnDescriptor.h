@@ -15,6 +15,7 @@ namespace alinous {
 class UnicodeString;
 class ColumnTypeDescriptor;
 class AbstractSQLExpression;
+class AnalyzeContext;
 
 class DdlColumnDescriptor : public AbstractSQLPart {
 public:
@@ -24,6 +25,8 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	void analyze(AnalyzeContext* actx);
 
 	void setName(UnicodeString* name) noexcept;
 	void setColumnType(ColumnTypeDescriptor* typeDesc) noexcept;

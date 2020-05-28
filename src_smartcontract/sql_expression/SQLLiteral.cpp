@@ -16,16 +16,20 @@
 
 #include "instance_string/VmStringInstance.h"
 
+#include "base/StackRelease.h"
+
 namespace alinous {
 
 SQLLiteral::SQLLiteral() : AbstractSQLExpression(CodeElement::SQL_EXP_LITERAL) {
 	this->value = nullptr;
 	this->type = TYPE_STRING;
 	this->longv = 0;
+	this->stringValue = nullptr;
 }
 
 SQLLiteral::~SQLLiteral() {
 	delete this->value;
+	delete this->stringValue;
 }
 
 void SQLLiteral::setValue(UnicodeString* value, uint8_t type) noexcept {
@@ -65,7 +69,10 @@ void SQLLiteral::analyzeTypeRef(AnalyzeContext* actx) {
 void SQLLiteral::analyze(AnalyzeContext* actx) {
 	if(this->type == SQLLiteral::TYPE_NUMBER){
 		this->longv = Long::parseLong(this->value);
+		return;
 	}
+
+	this->stringValue = this->value->substring(1, this->value->length() - 1);
 }
 
 AnalyzedType SQLLiteral::getType(AnalyzeContext* actx) {
@@ -77,6 +84,7 @@ AnalyzedType SQLLiteral::getType(AnalyzeContext* actx) {
 }
 
 void SQLLiteral::init(VirtualMachine* vm) {
+
 }
 
 AbstractVmInstance* SQLLiteral::interpret(VirtualMachine* vm) {
@@ -84,7 +92,7 @@ AbstractVmInstance* SQLLiteral::interpret(VirtualMachine* vm) {
 		return PrimitiveReference::createLongReference(vm, this->longv);
 	}
 
-	VmStringInstance* inst = new(vm) VmStringInstance(vm, this->value);
+	VmStringInstance* inst = new(vm) VmStringInstance(vm, this->stringValue);
 	return inst;
 }
 

@@ -77,6 +77,12 @@ void ColumnTypeDescriptor::fromBinary(ByteBuffer* in) {
 	}
 }
 
+void ColumnTypeDescriptor::analyze(AnalyzeContext* actx) {
+	if(this->length != nullptr){
+		this->length->analyze(actx);
+	}
+}
+
 void ColumnTypeDescriptor::setTypeName(UnicodeString* typeName) noexcept {
 	this->typeName = typeName;
 }

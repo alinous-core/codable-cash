@@ -9,6 +9,8 @@
 #include "sql_ddl/DdlColumnDescriptor.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
+#include "base/Exception.h"
 
 #include "table/CdbTable.h"
 
@@ -16,7 +18,7 @@
 
 #include "transaction_log/CreateTableLog.h"
 
-#include "base/Exception.h"
+
 
 #include "transaction_exception/DatabaseExceptionClassDeclare.h"
 
@@ -24,6 +26,7 @@
 
 #include "sc_analyze/AnalyzeContext.h"
 #include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzedType.h"
 
 #include "sql_ddl/ColumnTypeDescriptor.h"
 
@@ -31,11 +34,10 @@
 
 #include "instance_ref/PrimitiveReference.h"
 
-#include "sc_analyze/AnalyzedType.h"
 
 #include "instance_gc/StackFloatingVariableHandler.h"
 
-#include "base/StackRelease.h"
+
 namespace alinous {
 
 CreateTableStatement::CreateTableStatement() : AbstractSQLStatement(CodeElement::DDL_CREATE_TABLE) {
@@ -64,6 +66,14 @@ void CreateTableStatement::analyzeTypeRef(AnalyzeContext* actx) {
 
 
 void CreateTableStatement::analyze(AnalyzeContext* actx) {
+	{
+		int maxLoop = this->list->size();
+		for(int i = 0; i != maxLoop; ++i){
+			DdlColumnDescriptor* colDesc = this->list->get(i);
+			colDesc->analyze(actx);
+		}
+	}
+
 	if(this->primaryKeys->isEmpty()){
 		actx->addValidationError(ValidationError::DB_NO_PRIMARY_KEY, this, L"Primary key is required.", {});
 	}
@@ -131,16 +141,18 @@ CdbTable* CreateTableStatement::createTable(VirtualMachine* vm) {
 			PrimitiveReference* l = dynamic_cast<PrimitiveReference*>(inst);
 		}
 
-		UnicodeString* defaultValue = nullptr;
+		const UnicodeString* defaultValue = nullptr;
 		AbstractSQLExpression* defExp = colDesc->getDefaultValue();
 		if(defExp != nullptr){
-			AbstractVmInstance* inst = lengthExp->interpret(vm);
+			AbstractVmInstance* inst = defExp->interpret(vm);
+			releaser.registerInstance(inst);
+
+			if(inst != nullptr){
+				defaultValue = inst->toString();
+			}
 		}
 
 		table->addColumn(0, name,type, length, colDesc->isNotNull(), colDesc->isUnique(), defaultValue);
-
-		// FIXME SQL statement
-
 	}
 
 	__tableRelease.cancel();

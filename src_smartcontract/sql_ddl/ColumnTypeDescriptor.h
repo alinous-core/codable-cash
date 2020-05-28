@@ -14,6 +14,7 @@ namespace alinous {
 
 class UnicodeString;
 class AbstractSQLExpression;
+class AnalyzeContext;
 
 class ColumnTypeDescriptor : public AbstractSQLPart {
 public:
@@ -30,6 +31,8 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	void analyze(AnalyzeContext* actx);
 
 	void setTypeName(UnicodeString* typeName) noexcept;
 	void setLength(AbstractSQLExpression* length) noexcept;

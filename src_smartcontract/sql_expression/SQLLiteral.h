@@ -40,6 +40,7 @@ private:
 	uint8_t type;
 
 	int64_t longv;
+	UnicodeString* stringValue;
 };
 
 } /* namespace alinous */
