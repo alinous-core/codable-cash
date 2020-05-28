@@ -35,6 +35,8 @@ public:
 	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc);
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
+	virtual const UnicodeString* toString() noexcept;
+
 	virtual bool isNull() const noexcept;
 	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 

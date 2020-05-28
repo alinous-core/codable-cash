@@ -7,7 +7,11 @@
 
 #include "instance_ref/AbstractReference.h"
 
+#include "base/UnicodeString.h"
+
 namespace alinous {
+
+const UnicodeString AbstractReference::NULL_STR(L"null");
 
 AbstractReference::AbstractReference(IAbstractVmInstanceSubstance* owner, uint8_t type) : AbstractVmInstance(type), owner(owner) {
 
@@ -37,7 +41,7 @@ void AbstractReference::setOwner(IAbstractVmInstanceSubstance* owner) noexcept {
 }
 
 const UnicodeString* AbstractReference::toString() noexcept {
-	return nullptr;
+	return &NULL_STR;
 }
 
 } /* namespace alinous */

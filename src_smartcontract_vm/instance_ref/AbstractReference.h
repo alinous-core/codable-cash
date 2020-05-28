@@ -16,6 +16,8 @@ namespace alinous {
 
 class AbstractReference : public AbstractVmInstance {
 public:
+	static const UnicodeString NULL_STR;
+
 	explicit AbstractReference(IAbstractVmInstanceSubstance* owner, uint8_t type);
 	virtual ~AbstractReference();
 

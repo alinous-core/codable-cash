@@ -16,6 +16,7 @@
 #include "ext_binary/ExtStringClass.h"
 #include "ext_binary/ExtNullPtrObject.h"
 
+#include "instance/AbstractVmInstance.h"
 namespace alinous {
 
 ObjectReference::ObjectReference(IAbstractVmInstanceSubstance* owner, uint8_t type, uint8_t instanceType) : AbstractReference(owner, type) {
@@ -88,6 +89,12 @@ AbstractExtObject* ObjectReference::toClassExtObject(const UnicodeString* name, 
 	}
 
 	return this->instance->instToClassExtObject(name, table);
+}
+
+const UnicodeString* ObjectReference::toString() noexcept {
+	AbstractVmInstance* inst = dynamic_cast<AbstractVmInstance*>(this->instance);
+
+	return (isNull() || inst == nullptr) ? AbstractReference::toString() : inst->toString();
 }
 
 AbstractExtObject* ObjectReference::createNullObject(const UnicodeString* name, VTableRegistory* table) {
