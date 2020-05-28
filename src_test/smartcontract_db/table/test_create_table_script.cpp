@@ -19,6 +19,7 @@
 
 #include "transaction_exception/DatabaseExceptionClassDeclare.h"
 
+#include "sc_analyze/ValidationError.h"
 using namespace alinous;
 
 TEST_GROUP(TestCreateTableScriptGroup) {
@@ -46,3 +47,69 @@ TEST(TestCreateTableScriptGroup, case01) {
 	result = util.createInstance();
 	CHECK(result)
 }
+
+TEST(TestCreateTableScriptGroup, case02_err) {
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/table/resources/create/case02_err/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(!result)
+
+	CHECK(util.vm->hasAnalyzeError(ValidationError::DB_TYPE_NOT_EXISTS));
+}
+
+TEST(TestCreateTableScriptGroup, case03_err) {
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/table/resources/create/case03_err/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(!result)
+
+	CHECK(util.vm->hasAnalyzeError(ValidationError::DB_NO_PRIMARY_KEY));
+}
+
+TEST(TestCreateTableScriptGroup, case04_err) {
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/table/resources/create/case04_err/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(!result)
+
+	CHECK(util.vm->hasAnalyzeError(ValidationError::DB_LENGTH_IS_NOT_INTEGER));
+}
+
+TEST(TestCreateTableScriptGroup, case05_err) {
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/table/resources/create/case01/", projectFolder);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* ex = util.vm->getUncaughtException(); __STP(ex);
+	CHECK(ex != nullptr);
+
+}
+
