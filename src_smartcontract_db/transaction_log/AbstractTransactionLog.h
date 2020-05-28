@@ -22,7 +22,9 @@ class CdbTransactionManager;
 
 class AbstractTransactionLog : public CdbBinaryObject {
 public:
-	static const constexpr uint8_t TRX_CREATE_TABLE{0};
+	static const constexpr uint8_t TRX_CREATE_TABLE{1};
+
+	static const constexpr uint8_t TRX_INSERT{10};
 
 	explicit AbstractTransactionLog(uint8_t type);
 	virtual ~AbstractTransactionLog();
