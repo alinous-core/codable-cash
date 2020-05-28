@@ -35,8 +35,8 @@ public:
 		return this->typeDesc;
 	}
 
-	const AbstractSQLExpression* getDefaultValue() const  noexcept{
-		return defaultValue;
+	AbstractSQLExpression* getDefaultValue() const  noexcept{
+		return this->defaultValue;
 	}
 
 	bool isNotNull() const noexcept {

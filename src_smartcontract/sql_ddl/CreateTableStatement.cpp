@@ -27,7 +27,15 @@
 
 #include "sql_ddl/ColumnTypeDescriptor.h"
 
+#include "sql/AbstractSQLExpression.h"
 
+#include "instance_ref/PrimitiveReference.h"
+
+#include "sc_analyze/AnalyzedType.h"
+
+#include "instance_gc/StackFloatingVariableHandler.h"
+
+#include "base/StackRelease.h"
 namespace alinous {
 
 CreateTableStatement::CreateTableStatement() : AbstractSQLStatement(CodeElement::DDL_CREATE_TABLE) {
@@ -70,6 +78,16 @@ void CreateTableStatement::analyze(AnalyzeContext* actx) {
 			const UnicodeString* tname = typeDesc->getTypeName();
 			actx->addValidationError(ValidationError::DB_TYPE_NOT_EXISTS, this, L"The type {0} does not exists.", {tname});
 		}
+
+		AbstractSQLExpression* lengthExp = typeDesc->getLengthExp();
+		if(lengthExp != nullptr){
+			AnalyzedType at = lengthExp->getType(actx);
+			if(!at.isPrimitiveInteger()){
+				const UnicodeString* tname = typeDesc->getTypeName();
+				actx->addValidationError(ValidationError::DB_LENGTH_IS_NOT_INTEGER, this, L"The type {0}'s length must be integer value.", {tname});
+			}
+		}
+
 	}
 }
 
@@ -90,7 +108,10 @@ void CreateTableStatement::interpret(VirtualMachine* vm) {
 }
 
 CdbTable* CreateTableStatement::createTable(VirtualMachine* vm) {
+	StackFloatingVariableHandler releaser(vm->getGc());
+
 	CdbTable* table = new CdbTable(0);
+	StackRelease<CdbTable> __tableRelease(table);
 
 	table->setName(new UnicodeString(this->name));
 
@@ -102,9 +123,27 @@ CdbTable* CreateTableStatement::createTable(VirtualMachine* vm) {
 		uint8_t type = typeDesc->toCdbValueType();
 		const UnicodeString* name = colDesc->getName();
 
+		AbstractSQLExpression* lengthExp = typeDesc->getLengthExp();
+		int length = 0;
+		if(lengthExp != nullptr){
+			AbstractVmInstance* inst = lengthExp->interpret(vm);
+			releaser.registerInstance(inst);
+			PrimitiveReference* l = dynamic_cast<PrimitiveReference*>(inst);
+		}
+
+		UnicodeString* defaultValue = nullptr;
+		AbstractSQLExpression* defExp = colDesc->getDefaultValue();
+		if(defExp != nullptr){
+			AbstractVmInstance* inst = lengthExp->interpret(vm);
+		}
+
+		table->addColumn(0, name,type, length, colDesc->isNotNull(), colDesc->isUnique(), defaultValue);
+
 		// FIXME SQL statement
 
 	}
+
+	__tableRelease.cancel();
 
 	return table;
 }

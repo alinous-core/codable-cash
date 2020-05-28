@@ -41,7 +41,7 @@ public:
 	virtual bool instIsNull() const noexcept;
 	virtual int instValueCompare(IAbstractVmInstanceSubstance* right);
 	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);
-
+	virtual const UnicodeString* toString() noexcept;
 
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 	virtual void removeInnerRefs(GcManager* gc) noexcept;

@@ -77,6 +77,11 @@ VmClassInstance* VmClassInstance::createObject(AnalyzedClass* clazz, VirtualMach
 	return inst;
 }
 
+const UnicodeString* VmClassInstance::toString() noexcept {
+	// FIXME VmClassInstance::toString()
+	return nullptr;
+}
+
 IVmInstanceFactory* VmClassInstance::findFactory(AnalyzedClass* clazz) noexcept {
 	while(clazz != nullptr){
 		IVmInstanceFactory* factory = clazz->getFactory();

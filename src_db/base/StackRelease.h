@@ -23,6 +23,9 @@ public:
 			delete ptr;
 		}
 	}
+	void cancel() noexcept {
+		this->ptr = nullptr;
+	}
 private:
 	T* ptr;
 };

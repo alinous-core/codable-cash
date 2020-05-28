@@ -16,6 +16,8 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "base/UnicodeString.h"
+
 namespace alinous {
 
 VmArrayInstance::VmArrayInstance(VirtualMachine* vm, int length, const AnalyzedType& atype) : AbstractVmInstance(VmInstanceTypesConst::INST_ARRAY) {
@@ -27,6 +29,7 @@ VmArrayInstance::VmArrayInstance(VirtualMachine* vm, int length, const AnalyzedT
 		this->array->addElement(nullptr);
 	}
 
+	this->str = nullptr;
 }
 
 VmArrayInstance::~VmArrayInstance() {
@@ -39,6 +42,7 @@ VmArrayInstance::~VmArrayInstance() {
 
 	delete this->atype;
 	delete this->array;
+	delete this->str;
 }
 
 void VmArrayInstance::removeInnerRefs(GcManager* gc) noexcept {
@@ -147,6 +151,30 @@ AbstractReference* VmArrayInstance::getReference(VirtualMachine* vm, int pos) {
 
 AnalyzedType VmArrayInstance::getRuntimeType() const noexcept {
 	return *this->atype;
+}
+
+const UnicodeString* VmArrayInstance::toString() noexcept {
+	delete this->str;
+	this->str = new UnicodeString(L"");
+
+	int maxLoop = this->array->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractReference* ref = this->array->get(i);
+
+		if(i > 0){
+			this->str->append(L", ");
+		}
+
+		if(ref == nullptr){
+			this->str->append(L", ");
+		}
+		else {
+			const UnicodeString* s = ref->toString();
+			this->str->append(s);
+		}
+	}
+
+	return this->str;
 }
 
 int VmArrayInstance::size() const noexcept {

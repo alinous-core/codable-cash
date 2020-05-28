@@ -23,6 +23,7 @@ public:
 	void setMessage(const UnicodeString* message) noexcept;
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* reg);
+	virtual const UnicodeString* toString() noexcept;
 private:
 	const CodeElement* element;
 	UnicodeString* message;

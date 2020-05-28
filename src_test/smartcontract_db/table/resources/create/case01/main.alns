@@ -5,7 +5,10 @@ package test.fw;
 
 class SmartContract {
 	public SmartContract() {
-
+		CREATE TABLE test_t (
+			id int not null unique DEFAULT '',
+			PRIMARY KEY(id)
+		);
 	}
 	
 	public int main(){

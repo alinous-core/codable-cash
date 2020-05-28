@@ -48,4 +48,8 @@ AbstractExtObject* VmExceptionInstance::toClassExtObject(const UnicodeString* na
 	return extObj;
 }
 
+const UnicodeString* VmExceptionInstance::toString() noexcept {
+	return this->message;
+}
+
 } /* namespace alinous */

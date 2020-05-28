@@ -36,5 +36,8 @@ void AbstractReference::setOwner(IAbstractVmInstanceSubstance* owner) noexcept {
 	this->owner = owner;
 }
 
+const UnicodeString* AbstractReference::toString() noexcept {
+	return nullptr;
+}
 
 } /* namespace alinous */

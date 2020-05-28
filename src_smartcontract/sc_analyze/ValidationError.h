@@ -67,6 +67,7 @@ public:
 
 	static constexpr int DB_TYPE_NOT_EXISTS = 1001;
 	static constexpr int DB_NO_PRIMARY_KEY = 1002;
+	static constexpr int DB_LENGTH_IS_NOT_INTEGER = 1002;
 
 	//static constexpr int CODE_WRONG_TYPE_NAME = 4;
 

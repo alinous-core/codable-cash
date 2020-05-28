@@ -39,6 +39,10 @@ public:
 	const UnicodeString* getTypeName() const noexcept {
 		return this->typeName;
 	}
+
+	AbstractSQLExpression* getLengthExp() const noexcept {
+		return this->length;
+	}
 private:
 	UnicodeString* typeName;
 	AbstractSQLExpression* length;

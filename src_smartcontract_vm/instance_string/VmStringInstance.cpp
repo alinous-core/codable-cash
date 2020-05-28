@@ -23,10 +23,12 @@ const VmString::ValueCompare VmStringInstance::compareFunctor;
 
 VmStringInstance::VmStringInstance(VirtualMachine* vm, const UnicodeString* str) : AbstractVmInstance(VmInstanceTypesConst::INST_STRING) {
 	this->value = new(vm) VmString(vm, str);
+	this->str = nullptr;
 }
 
 VmStringInstance::~VmStringInstance() {
 	delete this->value;
+	delete this->str;
 }
 
 int VmStringInstance::valueCompare(IAbstractVmInstanceSubstance* right) {
@@ -81,6 +83,13 @@ AbstractExtObject* VmStringInstance::toClassExtObject(const UnicodeString* name,
 	UnicodeString str(wchar_str);
 
 	return new ExtStringClass(name, &str);
+}
+
+const UnicodeString* VmStringInstance::toString() noexcept {
+	delete this->str;
+	this->str = new UnicodeString(this->value->towString());
+
+	return this->str;
 }
 
 } /* namespace alinous */
