@@ -10,8 +10,10 @@
 #include "sql/AbstractSQLExpression.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #include "table_record_value/AbstractCdbValue.h"
+
 
 using namespace codablecash;
 
@@ -92,7 +94,7 @@ void ColumnTypeDescriptor::setLength(AbstractSQLExpression* length) noexcept {
 }
 
 uint8_t ColumnTypeDescriptor::toCdbValueType() const noexcept {
-	UnicodeString* lowStr = this->typeName->toLowerCase();
+	UnicodeString* lowStr = this->typeName->toLowerCase(); __STP(lowStr);
 	uint8_t ret = 0;
 
 	if(lowStr->equals(&ColumnTypeDescriptor::TYPE_BYTE)){
