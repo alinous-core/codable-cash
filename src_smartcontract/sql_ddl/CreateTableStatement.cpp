@@ -139,6 +139,8 @@ CdbTable* CreateTableStatement::createTable(VirtualMachine* vm) {
 			AbstractVmInstance* inst = lengthExp->interpret(vm);
 			releaser.registerInstance(inst);
 			PrimitiveReference* l = dynamic_cast<PrimitiveReference*>(inst);
+
+			length = l->getIntValue();
 		}
 
 		const UnicodeString* defaultValue = nullptr;

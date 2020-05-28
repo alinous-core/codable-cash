@@ -91,6 +91,8 @@ void DdlColumnDescriptor::fromBinary(ByteBuffer* in) {
 }
 
 void DdlColumnDescriptor::analyze(AnalyzeContext* actx) {
+	this->typeDesc->analyze(actx);
+
 	if(this->defaultValue != nullptr){
 		this->defaultValue->analyze(actx);
 	}

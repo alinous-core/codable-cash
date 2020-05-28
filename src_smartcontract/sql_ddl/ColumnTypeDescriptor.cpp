@@ -107,7 +107,7 @@ uint8_t ColumnTypeDescriptor::toCdbValueType() const noexcept {
 	else if(lowStr->equals(&ColumnTypeDescriptor::TYPE_LONG)){
 		ret = AbstractCdbValue::TYPE_LONG;
 	}
-	else if(lowStr->equals(&ColumnTypeDescriptor::TYPE_VARCHAR) && lowStr->equals(&ColumnTypeDescriptor::TYPE_TEXT)){
+	else if(lowStr->equals(&ColumnTypeDescriptor::TYPE_VARCHAR) || lowStr->equals(&ColumnTypeDescriptor::TYPE_TEXT)){
 		ret = AbstractCdbValue::TYPE_STRING;
 	}
 
