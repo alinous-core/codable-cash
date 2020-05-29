@@ -32,6 +32,8 @@ public:
 
 	void createTable();
 	void loadTable();
+
+
 private:
 	DiskCacheManager* cacheManager;
 

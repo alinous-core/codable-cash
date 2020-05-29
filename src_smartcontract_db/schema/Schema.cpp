@@ -68,6 +68,10 @@ void Schema::toBinary(ByteBuffer* out) const {
 	putString(out, this->name);
 }
 
+CdbTable* Schema::getCdbTableByName(const UnicodeString* tableName) const noexcept {
+	return this->nameTableMap.get(tableName);
+}
+
 void Schema::fromBinary(ByteBuffer* in) {
 	this->name = getString(in);
 }

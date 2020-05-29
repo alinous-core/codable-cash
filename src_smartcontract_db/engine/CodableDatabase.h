@@ -30,7 +30,8 @@ public:
 	void closeDatabase() noexcept;
 
 	CdbTransaction* newTransaction();
-	//Schema* getSchema() const noexcept;
+
+	CdbStorageManager* getStorageManager() const noexcept;
 
 private:
 	void checkDatabaseLoaded() const;

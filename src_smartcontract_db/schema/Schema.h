@@ -36,6 +36,7 @@ public:
 	}
 
 	void addTable(CdbTable* table) noexcept;
+	CdbTable* getCdbTableByName(const UnicodeString* tableName) const noexcept;
 
 	int binarySize() const;
 	void toBinary(ByteBuffer* out) const;

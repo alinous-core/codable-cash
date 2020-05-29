@@ -35,6 +35,8 @@ public:
 	virtual void schemaLoaded(SchemaManager* sc);
 	virtual void onCreateTable(SchemaManager* mgr, const CdbTable* table);
 
+	TableStore* getTableStore(const CdbOid* oid) noexcept;
+
 public:
 	static CdbKeyFactory keyFactory;
 	static CdbDataFactory dataFactory;

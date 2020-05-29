@@ -62,5 +62,8 @@ void CdbStorageManager::onCreateTable(SchemaManager* mgr, const CdbTable* table)
 	this->tableStoreMap->put(store->getOid(), store);
 }
 
+TableStore* CdbStorageManager::getTableStore(const CdbOid* oid) noexcept {
+	return this->tableStoreMap->get(oid);
+}
 
 } /* namespace codablecash */

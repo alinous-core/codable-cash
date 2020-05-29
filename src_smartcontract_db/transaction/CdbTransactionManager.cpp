@@ -18,8 +18,13 @@
 #include "engine/CdbException.h"
 
 #include "schema/SchemaManager.h"
+#include "schema/Schema.h"
 
 #include "table_record/CdbTableIdentifier.h"
+
+#include "table/CdbTable.h"
+
+#include "table_store/CdbStorageManager.h"
 
 
 namespace codablecash {
@@ -85,8 +90,17 @@ void CdbTransactionManager::commitInsert(InsertLog* cmd) {
 
 	Schema* schema = this->schemaManager->getSchema(schemaName);
 	if(schema == nullptr){
-		throw new CdbException(L"", __FILE__, __LINE__);
+		throw new CdbException(L"Schema to INSERT TABLE does not exists.", __FILE__, __LINE__);
 	}
+
+	CdbTable* table = schema->getCdbTableByName(tableName);
+	const CdbOid* oid = table->getOid();
+
+	CdbStorageManager* storeManager = this->db->getStorageManager();
+	TableStore* store = storeManager->getTableStore(oid);
+
+	assert(store != nullptr);
+
 
 
 
