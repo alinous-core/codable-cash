@@ -51,6 +51,8 @@ IBlockObject* CdbDataFactory::makeDataFromBinary(ByteBuffer* in) {
 	case AbstractCdbValue::TYPE_STRING:
 		value = new CdbStringValue();
 		break;
+	case 0:
+		return nullptr;
 	default:
 		throw new CdbException(__FILE__, __LINE__);
 	}
