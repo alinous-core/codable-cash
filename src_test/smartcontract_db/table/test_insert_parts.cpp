@@ -76,6 +76,7 @@ TEST(TestInsertPartGroup, testBinary01){
 
 	CdbTableIdentifier* tableId = new CdbTableIdentifier();
 	tableId->setTable(new UnicodeString(L"test_table"));
+	log.setTable(tableId);
 
 	CdbRecord* record = new CdbRecord();
 	record->addValue(new CdbIntValue(1));
