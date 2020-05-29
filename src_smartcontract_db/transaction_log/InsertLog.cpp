@@ -12,6 +12,9 @@
 #include "table_record/CdbRecord.h"
 #include "table_record/CdbTableIdentifier.h"
 
+#include "transaction/CdbTransactionManager.h"
+
+
 namespace codablecash {
 
 InsertLog::InsertLog() : AbstractTransactionLog(AbstractTransactionLog::TRX_INSERT) {
@@ -70,6 +73,8 @@ void InsertLog::fromBinary(ByteBuffer* in) {
 }
 
 void InsertLog::commit(CdbTransactionManager* trxManager) {
+
+	trxManager->commitInsert(this);
 }
 
 void InsertLog::addRecord(CdbRecord* record) noexcept {

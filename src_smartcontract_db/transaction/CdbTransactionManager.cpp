@@ -11,10 +11,12 @@
 
 #include "transaction_log/AbstractTransactionLog.h"
 #include "transaction_log/CreateTableLog.h"
+#include "transaction_log/InsertLog.h"
 
 #include "engine/CodableDatabase.h"
 
 #include "schema/SchemaManager.h"
+
 
 namespace codablecash {
 
@@ -59,6 +61,12 @@ SchemaObjectIdPublisher* CdbTransactionManager::getSchemaObjectIdPublisher() con
 void CdbTransactionManager::commitCreateTable(CreateTableLog* cmd) {
 	CdbTable* table = cmd->getTable();
 	schema->createTable(table);
+
+	this->committedCommands->addElement(cmd);
+}
+
+void CdbTransactionManager::commitInsert(InsertLog* cmd) {
+
 
 	this->committedCommands->addElement(cmd);
 }

@@ -18,6 +18,8 @@ namespace codablecash {
 class CdbTransactionManager;
 class AbstractTransactionLog;
 class CreateTableLog;
+class InsertLog;
+
 
 class CdbTransaction {
 public:
@@ -28,6 +30,8 @@ public:
 	void rollback();
 
 	void createTable(CreateTableLog* cmd);
+
+	void insert(InsertLog* cmd) noexcept;
 private:
 	CdbTransactionManager* trxManager;
 	uint64_t transactionId;

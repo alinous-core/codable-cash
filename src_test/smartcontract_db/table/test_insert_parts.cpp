@@ -56,29 +56,6 @@ TEST_GROUP(TestInsertPartGroup) {
 	}
 };
 
-static void initDb(CodableDatabase& db, File* dbDir) {
-	db.createDatabase(dbDir);
-	db.loadDatabase(dbDir);
-
-	CdbTransaction* trx = db.newTransaction(); __STP(trx);
-
-	CreateTableLog* cmd = new CreateTableLog();
-	CdbTable* table = new CdbTable(0);
-
-	UnicodeString* testSchema = new UnicodeString(L"public");
-	table->setSchemaName(testSchema);
-	table->setName(new UnicodeString(L"test_table"));
-
-	table->addColumn(0, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
-	table->addColumn(0, L"name", CdbTableColumn::COLUMN_TYPE_TEXT, 0, true, true, L"");
-	table->setPrimaryKey(L"id");
-
-	cmd->setTable(table);
-
-	trx->createTable(cmd);
-	trx->commit();
-}
-
 static bool checkBinary(ByteBuffer* buff){
 	int lastSize = buff->capacity();
 
@@ -122,6 +99,29 @@ TEST(TestInsertPartGroup, testBinary01){
 	CHECK(res)
 }
 
+static void initDb(CodableDatabase& db, File* dbDir) {
+	db.createDatabase(dbDir);
+	db.loadDatabase(dbDir);
+
+	CdbTransaction* trx = db.newTransaction(); __STP(trx);
+
+	CreateTableLog* cmd = new CreateTableLog();
+	CdbTable* table = new CdbTable(0);
+
+	UnicodeString* testSchema = new UnicodeString(L"public");
+	table->setSchemaName(testSchema);
+	table->setName(new UnicodeString(L"test_table"));
+
+	table->addColumn(0, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
+	table->addColumn(0, L"name", CdbTableColumn::COLUMN_TYPE_TEXT, 0, true, true, L"");
+	table->setPrimaryKey(L"id");
+
+	cmd->setTable(table);
+
+	trx->createTable(cmd);
+	trx->commit();
+}
+
 TEST(TestInsertPartGroup, case01){
 	File testCaseFolder = this->env->testCaseDir();
 	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
@@ -129,5 +129,20 @@ TEST(TestInsertPartGroup, case01){
 
 	initDb(db, dbDir);
 
+	InsertLog* log = new InsertLog();
+
+	CdbTableIdentifier* tableId = new CdbTableIdentifier();
+	tableId->setTable(new UnicodeString(L"test_table"));
+	log->setTable(tableId);
+
+	CdbRecord* record = new CdbRecord();
+	record->addValue(new CdbIntValue(1));
+	record->addValue(new CdbStringValue(L"hello"));
+
+	log->addRecord(record);
+
+	CdbTransaction* trx = db.newTransaction(); __STP(trx);
+	trx->insert(log);
+	trx->commit();
 }
 

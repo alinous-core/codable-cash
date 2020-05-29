@@ -10,6 +10,7 @@
 
 #include "transaction_log/AbstractTransactionLog.h"
 #include "transaction_log/CreateTableLog.h"
+#include "transaction_log/InsertLog.h"
 
 #include "base/StackRelease.h"
 
@@ -49,10 +50,13 @@ void CdbTransaction::rollback() {
 	this->cmdList.reset();
 }
 
-
 void CdbTransaction::createTable(CreateTableLog* cmd) {
 	commit();
 
+	this->cmdList.addElement(cmd);
+}
+
+void CdbTransaction::insert(InsertLog* cmd) noexcept {
 	this->cmdList.addElement(cmd);
 }
 
