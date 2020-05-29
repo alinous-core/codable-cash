@@ -27,6 +27,8 @@
 
 #include "transaction_log/CreateTableLog.h"
 #include "transaction_log/InsertLog.h"
+#include "transaction_log/TransactionLogFactory.h"
+#include "transaction_log/AbstractTransactionLog.h"
 
 #include "table/CdbTable.h"
 #include "table/CdbTableColumn.h"
@@ -37,7 +39,13 @@
 #include "table_record_value/CdbIntValue.h"
 #include "table_record_value/CdbStringValue.h"
 
+#include "base_io/ByteBuffer.h"
+
+#include "base/StackRelease.h"
+
+
 using namespace alinous;
+using namespace codablecash;
 
 TEST_GROUP(TestInsertPartGroup) {
 	TEST_SETUP(){
@@ -71,6 +79,27 @@ static void initDb(CodableDatabase& db, File* dbDir) {
 	trx->commit();
 }
 
+static bool checkBinary(ByteBuffer* buff){
+	int lastSize = buff->capacity();
+
+	buff->position(0);
+	AbstractTransactionLog* element = TransactionLogFactory::createFromBinary(buff); __STP(element);
+
+	int size = element->binarySize();
+	if(lastSize != size){
+		return false;
+	}
+
+	ByteBuffer* buff2 = ByteBuffer::allocateWithEndian(size, true); __STP(buff2);
+	element->toBinary(buff2);
+
+	if(buff2->position() != size){
+		return false;
+	}
+
+	return Mem::memcmp(buff->array(), buff2->array(), size) == 0;
+}
+
 TEST(TestInsertPartGroup, testBinary01){
 	InsertLog log;
 
@@ -84,6 +113,13 @@ TEST(TestInsertPartGroup, testBinary01){
 	record->addValue(nullptr);
 
 	log.addRecord(record);
+
+	int size = log.binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+	log.toBinary(buff);
+
+	bool res = checkBinary(buff);
+	CHECK(res)
 }
 
 TEST(TestInsertPartGroup, case01){
