@@ -136,6 +136,10 @@ void SchemaManager::fireSchemaLoaded() noexcept {
 	}
 }
 
+Schema* SchemaManager::getSchema(const UnicodeString* name) const noexcept {
+	return this->root->getSchema(name);
+}
+
 void SchemaManager::fireOnCreateTable(const CdbTable* table) {
 	int maxLoop = this->listners.size();
 	for(int i = 0; i != maxLoop; ++i){

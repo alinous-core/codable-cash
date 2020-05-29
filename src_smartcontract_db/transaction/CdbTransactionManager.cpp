@@ -15,8 +15,11 @@
 #include "transaction_log/InsertLog.h"
 
 #include "engine/CodableDatabase.h"
+#include "engine/CdbException.h"
 
 #include "schema/SchemaManager.h"
+
+#include "table_record/CdbTableIdentifier.h"
 
 
 namespace codablecash {
@@ -25,14 +28,14 @@ CdbTransactionManager::CdbTransactionManager(CodableDatabase* db) {
 	this->db = db;
 	this->schemaIdPublisher = nullptr;
 	this->recordObjectIdPublisher = nullptr;
-	this->schema = nullptr;
+	this->schemaManager = nullptr;
 	this->committedCommands = new ArrayList<AbstractTransactionLog>();
 }
 
 CdbTransactionManager::~CdbTransactionManager() {
 	this->db = nullptr;
 	delete this->schemaIdPublisher;
-	this->schema = nullptr;
+	this->schemaManager = nullptr;
 
 	delete this->recordObjectIdPublisher;
 	this->recordObjectIdPublisher = nullptr;
@@ -46,7 +49,7 @@ void CdbTransactionManager::schemaLoaded(SchemaManager* sc) {
 	this->schemaIdPublisher = new SchemaObjectIdPublisher(sc);
 	this->recordObjectIdPublisher = new RecordObjectIdPublisher(sc);
 
-	this->schema = sc;
+	this->schemaManager = sc;
 }
 
 void CdbTransactionManager::onCreateTable(SchemaManager* mgr, const CdbTable* table) {
@@ -70,12 +73,21 @@ RecordObjectIdPublisher* CdbTransactionManager::getRecordObjectIdPublisher() con
 
 void CdbTransactionManager::commitCreateTable(CreateTableLog* cmd) {
 	CdbTable* table = cmd->getTable();
-	schema->createTable(table);
+	this->schemaManager->createTable(table);
 
 	this->committedCommands->addElement(cmd);
 }
 
 void CdbTransactionManager::commitInsert(InsertLog* cmd) {
+	CdbTableIdentifier* tableIdentifier = cmd->getCdbTableIdentifier();
+	const UnicodeString* schemaName = tableIdentifier->getSchema();
+	const UnicodeString* tableName = tableIdentifier->getTable();
+
+	Schema* schema = this->schemaManager->getSchema(schemaName);
+	if(schema == nullptr){
+		throw new CdbException(L"", __FILE__, __LINE__);
+	}
+
 
 
 	this->committedCommands->addElement(cmd);

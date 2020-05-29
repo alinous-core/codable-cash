@@ -21,6 +21,7 @@ using namespace alinous;
 namespace codablecash {
 
 class SchemaRoot;
+class Schema;
 class ISchemaUptateListner;
 class CdbTable;
 
@@ -36,7 +37,6 @@ public:
 
 	static void createSchema(const UnicodeString* name, File* baseDir);
 	void loadSchema(const File* baseDir);
-
 	void save();
 
 	uint64_t newTransactionId();
@@ -44,6 +44,8 @@ public:
 	uint64_t newRecordObjectId() noexcept;
 
 	void createTable(CdbTable* table);
+
+	Schema* getSchema(const UnicodeString* name) const noexcept;
 
 	const File* getDatabaseBaseDir() const noexcept {
 		return databaseBaseDir;

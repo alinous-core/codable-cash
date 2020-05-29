@@ -30,6 +30,9 @@ public:
 
 	void addRecord(CdbRecord* record) noexcept;
 	void setTable(CdbTableIdentifier* table) noexcept;
+	CdbTableIdentifier* getCdbTableIdentifier() const noexcept {
+		return this->table;
+	}
 private:
 	CdbTableIdentifier* table;
 	ArrayList<CdbRecord> records;

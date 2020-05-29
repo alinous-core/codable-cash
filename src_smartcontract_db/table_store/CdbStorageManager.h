@@ -29,6 +29,7 @@ class CdbDataFactory;
 class CdbStorageManager : public ISchemaUptateListner {
 public:
 	CdbStorageManager();
+
 	virtual ~CdbStorageManager();
 
 	virtual void schemaLoaded(SchemaManager* sc);

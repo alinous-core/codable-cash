@@ -43,7 +43,7 @@ public:
 	void commitInsert(InsertLog* cmd);
 private:
 	CodableDatabase* db;
-	SchemaManager* schema;
+	SchemaManager* schemaManager;
 	SchemaObjectIdPublisher* schemaIdPublisher;
 	RecordObjectIdPublisher* recordObjectIdPublisher;
 
