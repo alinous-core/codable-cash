@@ -105,6 +105,11 @@ uint64_t SchemaRoot::newSchemaObjectId() noexcept {
 	return this->maxSchemaObjectId;
 }
 
+uint64_t SchemaRoot::newRecordObjectId() noexcept {
+	this->maxObjectId++;
+	return this->maxObjectId;
+}
+
 const CdbTable* SchemaRoot::createTable(const CdbTable* table) {
 	const UnicodeString* schemaName = table->getSchemaName();
 	Schema* sc = getSchema(schemaName);

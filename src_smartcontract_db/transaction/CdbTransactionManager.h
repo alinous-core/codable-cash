@@ -20,6 +20,7 @@ namespace codablecash {
 class CdbTransaction;
 class CodableDatabase;
 class SchemaObjectIdPublisher;
+class RecordObjectIdPublisher;
 class CreateTableLog;
 class AbstractTransactionLog;
 class InsertLog;
@@ -35,6 +36,7 @@ public:
 	CdbTransaction* newTransaction(uint64_t transactionId);
 
 	SchemaObjectIdPublisher* getSchemaObjectIdPublisher() const noexcept;
+	RecordObjectIdPublisher* getRecordObjectIdPublisher() const noexcept;
 
 	void commitCreateTable(CreateTableLog* cmd);
 
@@ -43,6 +45,7 @@ private:
 	CodableDatabase* db;
 	SchemaManager* schema;
 	SchemaObjectIdPublisher* schemaIdPublisher;
+	RecordObjectIdPublisher* recordObjectIdPublisher;
 
 	ArrayList<AbstractTransactionLog>* committedCommands;
 };

@@ -8,6 +8,7 @@
 #include "transaction/CdbTransactionManager.h"
 #include "transaction/CdbTransaction.h"
 #include "transaction/SchemaObjectIdPublisher.h"
+#include "transaction/RecordObjectIdPublisher.h"
 
 #include "transaction_log/AbstractTransactionLog.h"
 #include "transaction_log/CreateTableLog.h"
@@ -23,6 +24,7 @@ namespace codablecash {
 CdbTransactionManager::CdbTransactionManager(CodableDatabase* db) {
 	this->db = db;
 	this->schemaIdPublisher = nullptr;
+	this->recordObjectIdPublisher = nullptr;
 	this->schema = nullptr;
 	this->committedCommands = new ArrayList<AbstractTransactionLog>();
 }
@@ -31,6 +33,9 @@ CdbTransactionManager::~CdbTransactionManager() {
 	this->db = nullptr;
 	delete this->schemaIdPublisher;
 	this->schema = nullptr;
+
+	delete this->recordObjectIdPublisher;
+	this->recordObjectIdPublisher = nullptr;
 
 	this->committedCommands->deleteElements();
 	delete this->committedCommands;
@@ -56,6 +61,10 @@ CdbTransaction* CdbTransactionManager::newTransaction(uint64_t transactionId) {
 
 SchemaObjectIdPublisher* CdbTransactionManager::getSchemaObjectIdPublisher() const noexcept {
 	return this->schemaIdPublisher;
+}
+
+RecordObjectIdPublisher* CdbTransactionManager::getRecordObjectIdPublisher() const noexcept {
+	return this->recordObjectIdPublisher;
 }
 
 void CdbTransactionManager::commitCreateTable(CreateTableLog* cmd) {

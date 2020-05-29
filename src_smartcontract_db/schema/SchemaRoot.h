@@ -42,6 +42,7 @@ public:
 
 	uint64_t newTransactionId() noexcept;
 	uint64_t newSchemaObjectId() noexcept;
+	uint64_t newRecordObjectId() noexcept;
 
 	const CdbTable* createTable(const CdbTable* table);
 private:

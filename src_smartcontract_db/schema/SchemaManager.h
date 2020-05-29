@@ -41,6 +41,7 @@ public:
 
 	uint64_t newTransactionId();
 	uint64_t newSchemaObjectId() noexcept;
+	uint64_t newRecordObjectId() noexcept;
 
 	void createTable(CdbTable* table);
 
