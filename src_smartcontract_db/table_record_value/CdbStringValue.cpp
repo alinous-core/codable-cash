@@ -20,6 +20,10 @@ CdbStringValue::CdbStringValue() : AbstractCdbValue(AbstractCdbValue::TYPE_STRIN
 	this->value = nullptr;
 }
 
+CdbStringValue::CdbStringValue(const wchar_t* str) : AbstractCdbValue(AbstractCdbValue::TYPE_STRING) {
+	this->value = new UnicodeString(str);
+}
+
 CdbStringValue::CdbStringValue(const UnicodeString* str) : AbstractCdbValue(AbstractCdbValue::TYPE_STRING) {
 	this->value = new UnicodeString(str);
 }

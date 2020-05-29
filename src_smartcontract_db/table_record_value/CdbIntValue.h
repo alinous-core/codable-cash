@@ -16,6 +16,7 @@ class CdbIntValue : public AbstractCdbValue {
 public:
 	CdbIntValue(const CdbIntValue& inst);
 	CdbIntValue();
+	explicit CdbIntValue(int32_t value);
 	virtual ~CdbIntValue();
 
 	virtual int binarySize() const;

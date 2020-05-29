@@ -26,9 +26,16 @@
 #include "transaction/CdbTransaction.h"
 
 #include "transaction_log/CreateTableLog.h"
+#include "transaction_log/InsertLog.h"
 
 #include "table/CdbTable.h"
 #include "table/CdbTableColumn.h"
+
+#include "table_record/CdbTableIdentifier.h"
+#include "table_record/CdbRecord.h"
+
+#include "table_record_value/CdbIntValue.h"
+#include "table_record_value/CdbStringValue.h"
 
 using namespace alinous;
 
@@ -62,6 +69,20 @@ static void initDb(CodableDatabase& db, File* dbDir) {
 
 	trx->createTable(cmd);
 	trx->commit();
+}
+
+TEST(TestInsertPartGroup, testBinary01){
+	InsertLog log;
+
+	CdbTableIdentifier* tableId = new CdbTableIdentifier();
+	tableId->setTable(new UnicodeString(L"test_table"));
+
+	CdbRecord* record = new CdbRecord();
+	record->addValue(new CdbIntValue(1));
+	record->addValue(new CdbStringValue(L"hello"));
+	record->addValue(nullptr);
+
+	log.addRecord(record);
 }
 
 TEST(TestInsertPartGroup, case01){

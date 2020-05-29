@@ -24,7 +24,8 @@ public:
 	CdbStringValue(const CdbStringValue& inst);
 
 	CdbStringValue();
-	CdbStringValue(const UnicodeString* str);
+	explicit CdbStringValue(const wchar_t* str);
+	explicit CdbStringValue(const UnicodeString* str);
 	virtual ~CdbStringValue();
 
 	virtual int binarySize() const;

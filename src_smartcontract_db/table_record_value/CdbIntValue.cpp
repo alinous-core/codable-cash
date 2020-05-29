@@ -20,6 +20,10 @@ CdbIntValue::CdbIntValue() : AbstractCdbValue(AbstractCdbValue::TYPE_INT) {
 	this->value = 0;
 }
 
+CdbIntValue::CdbIntValue(int32_t value) : AbstractCdbValue(AbstractCdbValue::TYPE_INT) {
+	this->value = value;
+}
+
 CdbIntValue::~CdbIntValue() {
 
 }
