@@ -13,6 +13,7 @@
 #include "table_record/CdbTableIdentifier.h"
 
 #include "transaction/CdbTransactionManager.h"
+#include "transaction/RecordObjectIdPublisher.h"
 
 
 namespace codablecash {
@@ -73,6 +74,15 @@ void InsertLog::fromBinary(ByteBuffer* in) {
 }
 
 void InsertLog::commit(CdbTransactionManager* trxManager) {
+	RecordObjectIdPublisher* publisher = trxManager->getRecordObjectIdPublisher();
+
+	int maxLoop = this->records.size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbRecord* rec = this->records.get(i);
+		uint64_t oid = publisher->newOid();
+
+		rec->setOid(oid);
+	}
 
 	trxManager->commitInsert(this);
 }

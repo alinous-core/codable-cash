@@ -44,6 +44,7 @@ CdbTransactionManager::~CdbTransactionManager() {
 void CdbTransactionManager::schemaLoaded(SchemaManager* sc) {
 	delete this->schemaIdPublisher;
 	this->schemaIdPublisher = new SchemaObjectIdPublisher(sc);
+	this->recordObjectIdPublisher = new RecordObjectIdPublisher(sc);
 
 	this->schema = sc;
 }

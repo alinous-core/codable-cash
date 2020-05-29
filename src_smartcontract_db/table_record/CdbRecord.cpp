@@ -17,7 +17,7 @@
 namespace codablecash {
 
 CdbRecord::CdbRecord() {
-
+	this->oid = 0;
 }
 
 CdbRecord::~CdbRecord() {
@@ -62,6 +62,10 @@ void CdbRecord::toBinary(ByteBuffer* out) const {
 			value->toBinary(out);
 		}
 	}
+}
+
+void CdbRecord::setOid(uint64_t oid) noexcept {
+	this->oid = oid;
 }
 
 CdbRecord* CdbRecord::fromBinary(ByteBuffer* in) {

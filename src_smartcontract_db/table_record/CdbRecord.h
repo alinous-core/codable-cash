@@ -9,6 +9,7 @@
 #define TABLE_RECORD_CDBRECORD_H_
 
 #include "base/ArrayList.h"
+#include <cstdint>
 
 namespace alinous {
 class ByteBuffer;
@@ -24,6 +25,8 @@ public:
 	CdbRecord();
 	virtual ~CdbRecord();
 
+	void setOid(uint64_t oid) noexcept;
+
 	void addValue(AbstractCdbValue* value) noexcept;
 
 	int binarySize() const;
@@ -31,6 +34,7 @@ public:
 	static CdbRecord* fromBinary(ByteBuffer* in);
 
 private:
+	uint64_t oid;
 	ArrayList<AbstractCdbValue> list;
 };
 
