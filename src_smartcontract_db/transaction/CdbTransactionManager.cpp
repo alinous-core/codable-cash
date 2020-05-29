@@ -25,6 +25,7 @@
 #include "table/CdbTable.h"
 
 #include "table_store/CdbStorageManager.h"
+#include "table_store/TableStore.h"
 
 
 namespace codablecash {
@@ -101,8 +102,14 @@ void CdbTransactionManager::commitInsert(InsertLog* cmd) {
 
 	assert(store != nullptr);
 
+	const ArrayList<CdbRecord>* records = cmd->getRecords();
 
+	int maxLoop = records->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbRecord* rec = records->get(i);
 
+		store->insert(rec);
+	}
 
 	this->committedCommands->addElement(cmd);
 }

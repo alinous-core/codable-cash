@@ -22,6 +22,7 @@ class CdbTable;
 class RecordStore;
 class CdbOid;
 class IndexStore;
+class CdbRecord;
 
 class TableStore {
 public:
@@ -33,6 +34,10 @@ public:
 	void createTable();
 	void loadTable();
 
+	void insert(CdbRecord* rec);
+
+private:
+	void validateRecord(CdbRecord* rec);
 
 private:
 	DiskCacheManager* cacheManager;

@@ -109,5 +109,13 @@ void TableStore::loadTable() {
 	}
 }
 
+void TableStore::insert(CdbRecord* rec) {
+	validateRecord(rec);
+}
+
+void TableStore::validateRecord(CdbRecord* rec) {
+
+
+}
 
 } /* namespace codablecash */

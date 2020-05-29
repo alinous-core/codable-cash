@@ -84,6 +84,8 @@ void InsertLog::commit(CdbTransactionManager* trxManager) {
 		rec->setOid(oid);
 	}
 
+	publisher->saveSchema();
+
 	trxManager->commitInsert(this);
 }
 
@@ -94,5 +96,10 @@ void InsertLog::addRecord(CdbRecord* record) noexcept {
 void InsertLog::setTable(CdbTableIdentifier* table) noexcept {
 	this->table = table;
 }
+
+const ArrayList<CdbRecord>* InsertLog::getRecords() const noexcept {
+	return &this->records;
+}
+
 
 } /* namespace codablecash */

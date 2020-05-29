@@ -33,6 +33,8 @@ public:
 	CdbTableIdentifier* getCdbTableIdentifier() const noexcept {
 		return this->table;
 	}
+
+	const ArrayList<CdbRecord>* getRecords() const noexcept;
 private:
 	CdbTableIdentifier* table;
 	ArrayList<CdbRecord> records;
