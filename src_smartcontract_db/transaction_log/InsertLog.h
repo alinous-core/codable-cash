@@ -10,9 +10,12 @@
 
 #include "transaction_log/AbstractTransactionLog.h"
 
+#include "base/ArrayList.h"
+
 namespace codablecash {
 
 class CdbRecord;
+class CdbTableIdentifier;
 
 class InsertLog : public AbstractTransactionLog {
 public:
@@ -25,8 +28,11 @@ public:
 
 	virtual void commit(CdbTransactionManager* trxManager);
 
+	void addRecord(CdbRecord* record) noexcept;
+	void setTable(CdbTableIdentifier* table) noexcept;
 private:
-	CdbRecord* record;
+	CdbTableIdentifier* table;
+	ArrayList<CdbRecord> records;
 };
 
 } /* namespace codablecash */
