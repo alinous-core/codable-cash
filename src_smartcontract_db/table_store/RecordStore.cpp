@@ -21,7 +21,9 @@
 
 #include "table_record/CdbDataFactory.h"
 #include "table_record/CdbKeyFactory.h"
+#include "table_record/CdbRecord.h"
 
+#include "table_record_key/CdbLongKey.h"
 
 namespace codablecash {
 
@@ -73,7 +75,9 @@ void RecordStore::close() noexcept {
 }
 
 void RecordStore::insert(const CdbRecord* rec) {
+	CdbLongKey key(rec->getOid());
 
+	this->btree->insert(&key, rec);
 }
 
 } /* namespace codablecash */

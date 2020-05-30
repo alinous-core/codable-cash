@@ -16,6 +16,7 @@ class CdbLongKey : public AbstractCdbKey {
 public:
 	CdbLongKey(const CdbLongKey& inst);
 	CdbLongKey();
+	explicit CdbLongKey(int64_t value);
 	virtual ~CdbLongKey();
 
 	virtual AbstractBtreeKey* clone()  const noexcept;

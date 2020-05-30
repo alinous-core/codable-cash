@@ -19,6 +19,11 @@ CdbLongKey::CdbLongKey() : AbstractCdbKey(AbstractCdbKey::TYPE_LONG) {
 	this->value = 0;
 }
 
+CdbLongKey::CdbLongKey(int64_t value) : AbstractCdbKey(AbstractCdbKey::TYPE_LONG) {
+	this->value = value;
+}
+
+
 CdbLongKey::~CdbLongKey() {
 
 }

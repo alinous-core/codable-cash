@@ -16,7 +16,7 @@
 
 namespace codablecash {
 
-CdbRecord::CdbRecord() {
+CdbRecord::CdbRecord() : AbstractCdbValue(AbstractCdbValue::TYPE_RECORD) {
 	this->oid = 0;
 }
 
@@ -29,7 +29,7 @@ void CdbRecord::addValue(AbstractCdbValue* value) noexcept {
 }
 
 int CdbRecord::binarySize() const {
-	int total = 0;
+	int total = sizeof(int8_t);
 
 	total += sizeof(this->oid);
 
@@ -51,6 +51,8 @@ int CdbRecord::binarySize() const {
 }
 
 void CdbRecord::toBinary(ByteBuffer* out) const {
+	out->put(this->type);
+
 	out->putLong(this->oid);
 
 	int maxLoop = this->list.size();
@@ -72,9 +74,11 @@ void CdbRecord::setOid(uint64_t oid) noexcept {
 	this->oid = oid;
 }
 
-CdbRecord* CdbRecord::fromBinary(ByteBuffer* in) {
+CdbRecord* CdbRecord::createFromBinary(ByteBuffer* in) {
 	CdbDataFactory factory;
 	CdbRecord* record = new CdbRecord();
+
+	in->get(); // type
 
 	uint64_t oid = in->getLong();
 	record->setOid(oid);
@@ -88,6 +92,21 @@ CdbRecord* CdbRecord::fromBinary(ByteBuffer* in) {
 	}
 
 	return record;
+}
+
+void CdbRecord::fromBinary(ByteBuffer* in) {
+	CdbDataFactory factory;
+
+	uint64_t oid = in->getLong();
+	setOid(oid);
+
+	int maxLoop = in->getInt();
+	for(int i = 0; i != maxLoop; ++i){
+		IBlockObject* blockObj = factory.makeDataFromBinary(in);
+		AbstractCdbValue* value = dynamic_cast<AbstractCdbValue*>(blockObj);
+
+		addValue(value);
+	}
 }
 
 const ArrayList<AbstractCdbValue>* CdbRecord::getValues() const noexcept {

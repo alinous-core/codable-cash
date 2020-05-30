@@ -20,6 +20,7 @@
 #include "table_record_value/CdbLongValue.h"
 #include "table_record_value/CdbStringValue.h"
 
+#include "table_record/CdbRecord.h"
 
 namespace codablecash {
 
@@ -50,6 +51,9 @@ IBlockObject* CdbDataFactory::makeDataFromBinary(ByteBuffer* in) {
 		break;
 	case AbstractCdbValue::TYPE_STRING:
 		value = new CdbStringValue();
+		break;
+	case AbstractCdbValue::TYPE_RECORD:
+		value = new CdbRecord();
 		break;
 	case 0:
 		return nullptr;

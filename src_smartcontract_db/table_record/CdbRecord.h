@@ -11,6 +11,8 @@
 #include "base/ArrayList.h"
 #include <cstdint>
 
+#include "table_record_value/AbstractCdbValue.h"
+
 namespace alinous {
 class ByteBuffer;
 }
@@ -20,18 +22,23 @@ namespace codablecash {
 
 class AbstractCdbValue;
 
-class CdbRecord {
+class CdbRecord : public AbstractCdbValue {
 public:
 	CdbRecord();
 	virtual ~CdbRecord();
 
 	void setOid(uint64_t oid) noexcept;
+	uint64_t getOid() const noexcept {
+		return oid;
+	}
 
 	void addValue(AbstractCdbValue* value) noexcept;
 
-	int binarySize() const;
-	void toBinary(ByteBuffer* out) const;
-	static CdbRecord* fromBinary(ByteBuffer* in);
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+	virtual void fromBinary(ByteBuffer* in);
+
+	static CdbRecord* createFromBinary(ByteBuffer* in);
 
 	const ArrayList<AbstractCdbValue>* getValues() const noexcept;
 

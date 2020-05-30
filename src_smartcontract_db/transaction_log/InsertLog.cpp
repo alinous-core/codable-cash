@@ -68,7 +68,7 @@ void InsertLog::fromBinary(ByteBuffer* in) {
 
 	int maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){
-		CdbRecord* rec = CdbRecord::fromBinary(in);
+		CdbRecord* rec = CdbRecord::createFromBinary(in);
 		addRecord(rec);
 	}
 }

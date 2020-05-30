@@ -19,11 +19,11 @@ namespace codablecash {
 
 class AbstractCdbKey : public AbstractBtreeKey {
 public:
-	static const constexpr uint32_t TYPE_BYTE{1};
-	static const constexpr uint32_t TYPE_SHORT{2};
-	static const constexpr uint32_t TYPE_INT{3};
-	static const constexpr uint32_t TYPE_LONG{4};
-	static const constexpr uint32_t TYPE_STRING{5};
+	static const constexpr uint32_t TYPE_BYTE{11};
+	static const constexpr uint32_t TYPE_SHORT{12};
+	static const constexpr uint32_t TYPE_INT{13};
+	static const constexpr uint32_t TYPE_LONG{14};
+	static const constexpr uint32_t TYPE_STRING{15};
 
 	explicit AbstractCdbKey(uint32_t type);
 	virtual ~AbstractCdbKey();
