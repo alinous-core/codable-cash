@@ -20,6 +20,7 @@ namespace codablecash {
 class CdbTable;
 class CdbTableIndex;
 class CdbOid;
+class CdbRecord;
 
 class IndexStore {
 public:
@@ -31,6 +32,8 @@ public:
 	void close() noexcept;
 
 	const CdbOid* getIndexOid() const noexcept;
+
+	void insert(const CdbRecord* rec);
 private:
 	DiskCacheManager* cacheManager;
 

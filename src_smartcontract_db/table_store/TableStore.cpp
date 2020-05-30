@@ -113,8 +113,16 @@ void TableStore::loadTable() {
 	}
 }
 
-void TableStore::insert(CdbRecord* rec) {
+void TableStore::insert(const CdbRecord* rec) {
+	this->recordStore->insert(rec);
 
+	Iterator<CdbOid>* it = this->indexStores->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const CdbOid* oid = it->next();
+		IndexStore* store = this->indexStores->get(oid);
+
+		store->insert(rec);
+	}
 }
 
 void TableStore::validateRecord(CdbRecord* rec) {

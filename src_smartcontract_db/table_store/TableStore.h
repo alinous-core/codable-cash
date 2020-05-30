@@ -36,7 +36,7 @@ public:
 	void createTable();
 	void loadTable();
 
-	void insert(CdbRecord* rec);
+	void insert(const CdbRecord* rec);
 	void validateRecord(CdbRecord* rec);
 
 private:

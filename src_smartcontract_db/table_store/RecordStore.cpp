@@ -72,4 +72,8 @@ void RecordStore::close() noexcept {
 	}
 }
 
+void RecordStore::insert(const CdbRecord* rec) {
+
+}
+
 } /* namespace codablecash */

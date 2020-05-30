@@ -19,6 +19,7 @@
 
 #include "table_record/CdbKeyFactory.h"
 #include "table_record/CdbDataFactory.h"
+#include "table_record/CdbRecord.h"
 
 
 namespace codablecash {
@@ -73,6 +74,9 @@ void IndexStore::close() noexcept {
 
 const CdbOid* IndexStore::getIndexOid() const noexcept {
 	return this->index->getOid();
+}
+
+void IndexStore::insert(const CdbRecord* rec) {
 }
 
 } /* namespace codablecash */

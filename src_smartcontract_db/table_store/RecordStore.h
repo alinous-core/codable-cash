@@ -18,6 +18,7 @@ using namespace alinous;
 namespace codablecash {
 
 class CdbTable;
+class CdbRecord;
 
 class RecordStore {
 public:
@@ -28,6 +29,8 @@ public:
 
 	void load();
 	void close() noexcept;
+
+	void insert(const CdbRecord* rec);
 private:
 	DiskCacheManager* cacheManager;
 	File* tableDir;
