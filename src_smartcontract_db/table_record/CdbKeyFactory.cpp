@@ -46,6 +46,8 @@ AbstractBtreeKey* CdbKeyFactory::fromBinary(uint32_t keyType, ByteBuffer* in) co
 	case AbstractCdbKey::TYPE_STRING:
 		retKey = new CdbStringKey();
 		break;
+	case 0:
+		return nullptr;
 	default:
 		break;
 	}

@@ -5,6 +5,7 @@ set(__src
 	CdbByteKey.cpp
 	CdbIntKey.cpp
 	CdbLongKey.cpp
+	CdbRecordKey.cpp
 	CdbShortKey.cpp
 	CdbStringKey.cpp
 )
