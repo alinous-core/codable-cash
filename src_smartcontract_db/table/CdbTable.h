@@ -50,6 +50,7 @@ public:
 	CdbTableColumn* getColumn(const UnicodeString* name) noexcept;
 
 	CdbTableColumn* findColumnByOid(const CdbOid* oid) const noexcept;
+	const ArrayList<CdbTableColumn>* getColumns() const noexcept;
 
 	void assignNewOid(SchemaObjectIdPublisher* publisher);
 	void setOid(uint64_t oid) noexcept;

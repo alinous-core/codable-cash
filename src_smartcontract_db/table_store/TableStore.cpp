@@ -19,6 +19,10 @@
 #include "base/StackRelease.h"
 
 #include "engine/CdbOid.h"
+#include "engine/CdbException.h"
+
+#include "table_record_value/AbstractCdbValue.h"
+#include "table_record/CdbRecord.h"
 
 
 namespace codablecash {
@@ -110,10 +114,19 @@ void TableStore::loadTable() {
 }
 
 void TableStore::insert(CdbRecord* rec) {
-	validateRecord(rec);
+
 }
 
 void TableStore::validateRecord(CdbRecord* rec) {
+	const ArrayList<CdbTableColumn>* metaData = this->table->getColumns();
+	const ArrayList<AbstractCdbValue>* values = rec->getValues();
+
+	int metaSize = metaData->size();
+	int valueSize = values->size();
+
+	if(metaSize != valueSize){
+		throw new CdbException(L"Record's column size is wrong", __FILE__, __LINE__);
+	}
 
 
 }

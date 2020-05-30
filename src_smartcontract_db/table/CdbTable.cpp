@@ -141,6 +141,11 @@ CdbTableColumn* CdbTable::findColumnByOid(const CdbOid* oid) const noexcept {
 	return this->columnMap->get(oid);
 }
 
+const ArrayList<CdbTableColumn>* CdbTable::getColumns() const noexcept {
+	return this->columns;
+}
+
+
 void CdbTable::assignNewOid(SchemaObjectIdPublisher* publisher) {
 	uint64_t oid = publisher->newOid();
 	setOid(oid);

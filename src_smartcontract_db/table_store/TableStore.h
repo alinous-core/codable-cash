@@ -35,9 +35,8 @@ public:
 	void loadTable();
 
 	void insert(CdbRecord* rec);
-
-private:
 	void validateRecord(CdbRecord* rec);
+
 
 private:
 	DiskCacheManager* cacheManager;

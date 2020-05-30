@@ -33,6 +33,8 @@ public:
 	void toBinary(ByteBuffer* out) const;
 	static CdbRecord* fromBinary(ByteBuffer* in);
 
+	const ArrayList<AbstractCdbValue>* getValues() const noexcept;
+
 private:
 	uint64_t oid;
 	ArrayList<AbstractCdbValue> list;

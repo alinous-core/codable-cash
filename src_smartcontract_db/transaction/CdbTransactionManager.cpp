@@ -107,6 +107,12 @@ void CdbTransactionManager::commitInsert(InsertLog* cmd) {
 	int maxLoop = records->size();
 	for(int i = 0; i != maxLoop; ++i){
 		CdbRecord* rec = records->get(i);
+		store->validateRecord(rec);
+	}
+
+
+	for(int i = 0; i != maxLoop; ++i){
+		CdbRecord* rec = records->get(i);
 
 		store->insert(rec);
 	}

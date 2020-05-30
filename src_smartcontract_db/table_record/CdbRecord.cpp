@@ -90,4 +90,8 @@ CdbRecord* CdbRecord::fromBinary(ByteBuffer* in) {
 	return record;
 }
 
+const ArrayList<AbstractCdbValue>* CdbRecord::getValues() const noexcept {
+	return &this->list;
+}
+
 } /* namespace codablecash */
