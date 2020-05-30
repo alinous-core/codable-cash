@@ -23,6 +23,8 @@ class RecordStore;
 class CdbOid;
 class IndexStore;
 class CdbRecord;
+class AbstractCdbValue;
+class CdbTableColumn;
 
 class TableStore {
 public:
@@ -37,7 +39,8 @@ public:
 	void insert(CdbRecord* rec);
 	void validateRecord(CdbRecord* rec);
 
-
+private:
+	void validateRecordColumnValue(CdbTableColumn* meta, AbstractCdbValue* value);
 private:
 	DiskCacheManager* cacheManager;
 

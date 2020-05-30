@@ -128,6 +128,17 @@ void TableStore::validateRecord(CdbRecord* rec) {
 		throw new CdbException(L"Record's column size is wrong", __FILE__, __LINE__);
 	}
 
+	for(int i = 0; i != metaSize; ++i){
+		CdbTableColumn* meta = metaData->get(i);
+		AbstractCdbValue* value = values->get(i);
+
+		validateRecordColumnValue(meta, value);
+	}
+
+}
+
+void TableStore::validateRecordColumnValue(CdbTableColumn* meta, AbstractCdbValue* value) {
+
 
 }
 
