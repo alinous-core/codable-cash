@@ -160,8 +160,8 @@ void CdbTableIndex::adjustIndexColumnPosition(const CdbTable* table) noexcept {
 	for(int i = 0; i != maxLoop; ++i){
 		CdbTableColumn* col = this->columns->get(i);
 
-		const CdbOid* oid = col->getOid();
-		CdbTableColumn* tcol = table->findColumnByOid(oid);
+		const UnicodeString* name = col->getName();
+		CdbTableColumn* tcol = table->getColumn(name);
 
 		int position = tcol->getPosition();
 		col->setPosition(position);

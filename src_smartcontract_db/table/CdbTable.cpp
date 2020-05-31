@@ -123,7 +123,7 @@ CdbTableColumn* CdbTable::getColumn(const wchar_t* name) noexcept {
 	return getColumn(&str);
 }
 
-CdbTableColumn* CdbTable::getColumn(const UnicodeString* name) noexcept {
+CdbTableColumn* CdbTable::getColumn(const UnicodeString* name) const noexcept {
 	CdbTableColumn* retcol = nullptr;
 
 	int maxLoop = this->columns->size();
