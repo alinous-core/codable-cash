@@ -77,6 +77,7 @@ const CdbOid* IndexStore::getIndexOid() const noexcept {
 }
 
 void IndexStore::insert(const CdbRecord* rec) {
+
 }
 
 } /* namespace codablecash */

@@ -59,6 +59,8 @@ public:
 		return this->name;
 	}
 
+	void adjustIndexColumnPosition(const CdbTable* table) noexcept;
+
 private:
 	CdbOid* oid;
 

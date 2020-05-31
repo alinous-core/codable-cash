@@ -81,6 +81,7 @@ public:
 
 	const ArrayList<CdbTableIndex>* getIndexes() const noexcept;
 
+	void adjustIndexColumnPosition() noexcept;
 private:
 	CdbOid* oid;
 
