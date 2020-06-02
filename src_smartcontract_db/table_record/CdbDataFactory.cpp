@@ -19,6 +19,7 @@
 #include "table_record_value/CdbIntValue.h"
 #include "table_record_value/CdbLongValue.h"
 #include "table_record_value/CdbStringValue.h"
+#include "table_record_value/CdbOidValueList.h"
 
 #include "table_record/CdbRecord.h"
 
@@ -54,6 +55,9 @@ IBlockObject* CdbDataFactory::makeDataFromBinary(ByteBuffer* in) {
 		break;
 	case AbstractCdbValue::TYPE_RECORD:
 		value = new CdbRecord();
+		break;
+	case AbstractCdbValue::TYPE_OID_LIST:
+		value = new CdbOidValueList();
 		break;
 	case 0:
 		return nullptr;
