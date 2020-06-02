@@ -21,6 +21,7 @@
 #include "table_record/CdbDataFactory.h"
 #include "table_record/CdbRecord.h"
 
+#include "table_record_key/CdbRecordKey.h"
 
 namespace codablecash {
 
@@ -77,6 +78,8 @@ const CdbOid* IndexStore::getIndexOid() const noexcept {
 }
 
 void IndexStore::insert(const CdbRecord* rec) {
+	// FIXME CdbRecordKey* key = new CdbRecordKey();
+
 
 }
 

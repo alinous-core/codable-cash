@@ -25,6 +25,7 @@ public:
 	static const constexpr uint8_t TYPE_STRING{5};
 
 	static const constexpr uint8_t TYPE_RECORD{6};
+	static const constexpr uint8_t TYPE_OID_LIST{7};
 
 	explicit AbstractCdbValue(uint8_t type);
 	virtual ~AbstractCdbValue();
