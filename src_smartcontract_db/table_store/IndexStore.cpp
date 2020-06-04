@@ -82,7 +82,6 @@ const CdbOid* IndexStore::getIndexOid() const noexcept {
 void IndexStore::insert(const CdbRecord* rec) {
 	CdbRecordKey* key = new CdbRecordKey();
 
-
 	const ArrayList<CdbTableColumn>* list = this->index->getColumns();
 
 	int maxLoop = list->size();
@@ -91,8 +90,12 @@ void IndexStore::insert(const CdbRecord* rec) {
 		int pos = col->getPosition();
 		const AbstractCdbValue* value = rec->get(pos);
 
-		//key->addKey(new AbstractCdbValue(*value));
+		key->addKey(value->toKey());
 	}
+
+	// FIXME check
+
+	//this->btree->insert(key, rec);
 }
 
 } /* namespace codablecash */

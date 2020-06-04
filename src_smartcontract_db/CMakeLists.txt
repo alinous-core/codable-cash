@@ -3,6 +3,8 @@ set(__dirsrc "")
 
 # import source codes
 add_subdirectory(engine)
+add_subdirectory(scan)
+add_subdirectory(scan_condition)
 add_subdirectory(schema)
 add_subdirectory(table)
 add_subdirectory(table_record)
