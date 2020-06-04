@@ -16,6 +16,8 @@ using namespace alinous;
 
 namespace codablecash {
 
+class AbstractCdbKey;
+
 class AbstractCdbValue : public IBlockObject {
 public:
 	static const constexpr uint8_t TYPE_BYTE{1};
@@ -31,6 +33,9 @@ public:
 	virtual ~AbstractCdbValue();
 
 	virtual void fromBinary(ByteBuffer* in) = 0;
+
+	virtual AbstractCdbKey* toKey() const noexcept = 0;
+
 protected:
 	uint8_t type;
 };

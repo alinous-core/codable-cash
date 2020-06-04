@@ -9,6 +9,7 @@
 
 #include "base_io/ByteBuffer.h"
 
+#include "table_record_key/CdbIntKey.h"
 
 namespace codablecash {
 
@@ -41,6 +42,10 @@ void CdbIntValue::toBinary(ByteBuffer* out) const {
 
 void CdbIntValue::fromBinary(ByteBuffer* in) {
 	this->value = in->getInt();
+}
+
+AbstractCdbKey* CdbIntValue::toKey() const noexcept {
+	return new CdbIntKey(this->value);
 }
 
 } /* namespace codablecash */

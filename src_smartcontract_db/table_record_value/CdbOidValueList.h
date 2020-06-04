@@ -26,6 +26,8 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 	void addOid(CdbOid* oid) noexcept;
+
+	virtual AbstractCdbKey* toKey() const noexcept;
 private:
 	ArrayList<CdbOid> list;
 };

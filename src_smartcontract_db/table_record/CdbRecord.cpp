@@ -10,9 +10,12 @@
 
 #include "table_record_value/AbstractCdbValue.h"
 
+#include "table_record_key/CdbRecordKey.h"
+
 #include "base_io/ByteBuffer.h"
 
 #include "filestore_block/IBlockObject.h"
+
 
 namespace codablecash {
 
@@ -111,6 +114,24 @@ void CdbRecord::fromBinary(ByteBuffer* in) {
 
 const ArrayList<AbstractCdbValue>* CdbRecord::getValues() const noexcept {
 	return &this->list;
+}
+
+AbstractCdbKey* CdbRecord::toKey() const noexcept {
+	CdbRecordKey* key = new CdbRecordKey();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractCdbValue* value = this->list.get(i);
+
+		AbstractCdbKey* k = (value == nullptr) ? nullptr : value->toKey();
+		key->addKey(k);
+	}
+
+	return key;
+}
+
+const AbstractCdbValue* CdbRecord::get(int pos) const noexcept {
+	return this->list.get(pos);
 }
 
 } /* namespace codablecash */

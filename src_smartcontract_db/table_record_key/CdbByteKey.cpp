@@ -15,6 +15,10 @@ CdbByteKey::CdbByteKey(const CdbByteKey& inst) : AbstractCdbKey(AbstractCdbKey::
 	this->value = inst.value;
 }
 
+CdbByteKey::CdbByteKey(int8_t value) : AbstractCdbKey(AbstractCdbKey::TYPE_BYTE) {
+	this->value = value;
+}
+
 CdbByteKey::CdbByteKey() : AbstractCdbKey(AbstractCdbKey::TYPE_BYTE) {
 	this->value = 0;
 }

@@ -16,6 +16,7 @@ class CdbByteKey : public AbstractCdbKey {
 public:
 	CdbByteKey(const CdbByteKey& inst);
 	CdbByteKey();
+	explicit CdbByteKey(int8_t value);
 	virtual ~CdbByteKey();
 
 	virtual AbstractBtreeKey* clone()  const noexcept;

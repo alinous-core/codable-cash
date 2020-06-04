@@ -61,6 +61,7 @@ public:
 
 	void adjustIndexColumnPosition(const CdbTable* table) noexcept;
 
+
 private:
 	CdbOid* oid;
 

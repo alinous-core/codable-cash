@@ -15,6 +15,10 @@ CdbShortKey::CdbShortKey(const CdbShortKey& inst) : AbstractCdbKey(AbstractCdbKe
 	this->value = inst.value;
 }
 
+CdbShortKey::CdbShortKey(int16_t value) : AbstractCdbKey(AbstractCdbKey::TYPE_SHORT) {
+	this->value = value;
+}
+
 CdbShortKey::CdbShortKey() : AbstractCdbKey(AbstractCdbKey::TYPE_SHORT) {
 	this->value = 0;
 }

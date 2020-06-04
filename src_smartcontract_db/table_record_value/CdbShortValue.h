@@ -22,6 +22,8 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	virtual void fromBinary(ByteBuffer* in);
 
+	virtual AbstractCdbKey* toKey() const noexcept;
+
 	int16_t getValue() const noexcept {
 		return this->value;
 	}

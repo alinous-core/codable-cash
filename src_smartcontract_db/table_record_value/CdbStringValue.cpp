@@ -10,6 +10,8 @@
 #include "base_io/ByteBuffer.h"
 #include "base/UnicodeString.h"
 
+#include "table_record_key/CdbStringKey.h"
+
 namespace codablecash {
 
 CdbStringValue::CdbStringValue(const CdbStringValue& inst) : AbstractCdbValue(AbstractCdbValue::TYPE_STRING) {
@@ -62,6 +64,10 @@ void CdbStringValue::putString(ByteBuffer* out, UnicodeString* str) noexcept {
 		wchar_t ch = str->get(i);
 		out->putChar(ch);
 	}
+}
+
+AbstractCdbKey* CdbStringValue::toKey() const noexcept {
+	return new CdbStringKey(this->value);
 }
 
 UnicodeString* CdbStringValue::getString(ByteBuffer* in) noexcept {

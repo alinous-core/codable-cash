@@ -9,6 +9,7 @@
 
 #include "table/CdbTable.h"
 #include "table/CdbTableIndex.h"
+#include "table/CdbTableColumn.h"
 
 #include "base_io/File.h"
 
@@ -22,6 +23,7 @@
 #include "table_record/CdbRecord.h"
 
 #include "table_record_key/CdbRecordKey.h"
+
 
 namespace codablecash {
 
@@ -78,9 +80,19 @@ const CdbOid* IndexStore::getIndexOid() const noexcept {
 }
 
 void IndexStore::insert(const CdbRecord* rec) {
-	// FIXME CdbRecordKey* key = new CdbRecordKey();
+	CdbRecordKey* key = new CdbRecordKey();
 
 
+	const ArrayList<CdbTableColumn>* list = this->index->getColumns();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableColumn* col = list->get(i);
+		int pos = col->getPosition();
+		const AbstractCdbValue* value = rec->get(pos);
+
+		//key->addKey(new AbstractCdbValue(*value));
+	}
 }
 
 } /* namespace codablecash */

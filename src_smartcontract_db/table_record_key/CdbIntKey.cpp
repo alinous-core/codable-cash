@@ -20,6 +20,10 @@ CdbIntKey::CdbIntKey() : AbstractCdbKey(AbstractCdbKey::TYPE_INT) {
 	this->value = 0;
 }
 
+CdbIntKey::CdbIntKey(int32_t value) : AbstractCdbKey(AbstractCdbKey::TYPE_INT) {
+	this->value = value;
+}
+
 CdbIntKey::~CdbIntKey() {
 
 }

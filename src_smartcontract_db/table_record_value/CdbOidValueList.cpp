@@ -59,4 +59,8 @@ void CdbOidValueList::addOid(CdbOid* oid) noexcept {
 	this->list.addElement(oid);
 }
 
+AbstractCdbKey* CdbOidValueList::toKey() const noexcept {
+	return nullptr;
+}
+
 } /* namespace codablecash */

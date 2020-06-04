@@ -26,6 +26,8 @@ public:
 	int8_t getValue() const noexcept {
 		return this->value;
 	}
+
+	virtual AbstractCdbKey* toKey() const noexcept;
 private:
 	int8_t value;
 };

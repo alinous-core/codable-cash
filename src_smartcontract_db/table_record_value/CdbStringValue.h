@@ -32,6 +32,8 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	virtual void fromBinary(ByteBuffer* in);
 
+	virtual AbstractCdbKey* toKey() const noexcept;
+
 	static int stringSize(UnicodeString* str) noexcept;
 	static void putString(ByteBuffer* out, UnicodeString* str) noexcept;
 	static UnicodeString* getString(ByteBuffer* in) noexcept;
