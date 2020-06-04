@@ -10,12 +10,11 @@
 namespace codablecash {
 
 AbstractRecordScanner::AbstractRecordScanner() {
-	// TODO Auto-generated constructor stub
 
 }
 
 AbstractRecordScanner::~AbstractRecordScanner() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */

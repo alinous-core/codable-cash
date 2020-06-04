@@ -8,12 +8,22 @@
 #ifndef SCAN_INDEXSCANNER_H_
 #define SCAN_INDEXSCANNER_H_
 
+#include "scan/AbstractRecordScanner.h"
+
 namespace codablecash {
 
-class IndexScanner {
+class AbstractCdbKey;
+
+class IndexScanner : public AbstractRecordScanner {
 public:
-	IndexScanner();
+	IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq);
 	virtual ~IndexScanner();
+
+private:
+	AbstractCdbKey* begin;
+	bool beginEq;
+	AbstractCdbKey* end;
+	bool endEq;
 };
 
 } /* namespace codablecash */

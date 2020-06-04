@@ -7,15 +7,21 @@
 
 #include "scan/IndexScanner.h"
 
+#include "table_record_key/AbstractCdbKey.h"
+
 namespace codablecash {
 
-IndexScanner::IndexScanner() {
-	// TODO Auto-generated constructor stub
+IndexScanner::IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq) {
+	this->begin = begin;
+	this->beginEq = beginEq;
+	this->end = end;
+	this->endEq = endEq;
 
 }
 
 IndexScanner::~IndexScanner() {
-	// TODO Auto-generated destructor stub
+	delete this->begin;
+	delete this->end;
 }
 
 } /* namespace codablecash */

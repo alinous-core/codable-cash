@@ -10,10 +10,12 @@
 
 namespace codablecash {
 
+
 class AbstractRecordScanner {
 public:
 	AbstractRecordScanner();
 	virtual ~AbstractRecordScanner();
+
 };
 
 } /* namespace codablecash */
