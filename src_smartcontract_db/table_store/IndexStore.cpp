@@ -23,7 +23,9 @@
 #include "table_record/CdbRecord.h"
 
 #include "table_record_key/CdbRecordKey.h"
+#include "table_record_key/AbstractCdbKey.h"
 
+#include "scan/IndexScanner.h"
 
 namespace codablecash {
 
@@ -95,7 +97,16 @@ void IndexStore::insert(const CdbRecord* rec) {
 
 	// FIXME check
 
+
 	//this->btree->insert(key, rec);
+}
+
+IndexScanner* IndexStore::startScan(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq) {
+	return new IndexScanner(begin, beginEq, end, endEq, this);
+}
+
+Btree* IndexStore::getBtree() const noexcept {
+	return this->btree;
 }
 
 } /* namespace codablecash */

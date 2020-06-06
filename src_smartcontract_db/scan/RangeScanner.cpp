@@ -9,6 +9,8 @@
 
 #include "table_record_key/AbstractCdbKey.h"
 
+#include "btree/AbstractBtreeKey.h"
+
 namespace codablecash {
 
 RangeScanner::RangeScanner(const AbstractCdbKey* begin, bool beginEq, const AbstractCdbKey* end, bool endEq) {

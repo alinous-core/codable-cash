@@ -13,13 +13,16 @@
 namespace codablecash {
 
 class AbstractCdbKey;
+class IndexStore;
 
 class IndexScanner : public RangeScanner {
 public:
-	IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq);
+	IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq, IndexStore* store);
 	virtual ~IndexScanner();
 
-
+	void start();
+private:
+	IndexStore* store;
 };
 
 } /* namespace codablecash */

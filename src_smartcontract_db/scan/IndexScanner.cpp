@@ -11,12 +11,16 @@
 
 namespace codablecash {
 
-IndexScanner::IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq)
+IndexScanner::IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq, IndexStore* store)
 			: RangeScanner(begin, beginEq, end, endEq) {
-
+	this->store = store;
 }
 
 IndexScanner::~IndexScanner() {
+
+}
+
+void IndexScanner::start() {
 
 }
 

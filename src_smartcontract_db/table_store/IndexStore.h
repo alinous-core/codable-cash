@@ -21,6 +21,8 @@ class CdbTable;
 class CdbTableIndex;
 class CdbOid;
 class CdbRecord;
+class IndexScanner;
+class AbstractCdbKey;
 
 class IndexStore {
 public:
@@ -34,6 +36,9 @@ public:
 	const CdbOid* getIndexOid() const noexcept;
 
 	void insert(const CdbRecord* rec);
+	IndexScanner* startScan(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq);
+
+	Btree* getBtree() const noexcept;
 private:
 	DiskCacheManager* cacheManager;
 

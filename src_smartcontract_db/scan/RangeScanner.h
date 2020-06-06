@@ -10,9 +10,16 @@
 
 #include "scan/AbstractRecordScanner.h"
 
+namespace alinous {
+class AbstractBtreeKey;
+
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class AbstractCdbKey;
+
 
 class RangeScanner : public AbstractRecordScanner {
 public:
@@ -20,9 +27,9 @@ public:
 	virtual ~RangeScanner();
 
 private:
-	AbstractCdbKey* begin;
+	AbstractBtreeKey* begin;
 	bool beginEq;
-	AbstractCdbKey* end;
+	AbstractBtreeKey* end;
 	bool endEq;
 };
 
