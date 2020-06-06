@@ -11,17 +11,13 @@
 
 namespace codablecash {
 
-IndexScanner::IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq) {
-	this->begin = begin;
-	this->beginEq = beginEq;
-	this->end = end;
-	this->endEq = endEq;
+IndexScanner::IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq)
+			: RangeScanner(begin, beginEq, end, endEq) {
 
 }
 
 IndexScanner::~IndexScanner() {
-	delete this->begin;
-	delete this->end;
+
 }
 
 } /* namespace codablecash */
