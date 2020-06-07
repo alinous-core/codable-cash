@@ -25,4 +25,8 @@ RangeScanner::~RangeScanner() {
 	delete this->end;
 }
 
+AbstractBtreeKey* RangeScanner::getFirstScanKey() const noexcept {
+	return this->begin;
+}
+
 } /* namespace codablecash */

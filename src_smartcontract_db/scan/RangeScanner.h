@@ -26,6 +26,7 @@ public:
 	RangeScanner(const AbstractCdbKey* begin, bool beginEq, const AbstractCdbKey* end, bool endEq);
 	virtual ~RangeScanner();
 
+	AbstractBtreeKey* getFirstScanKey() const noexcept;
 private:
 	AbstractBtreeKey* begin;
 	bool beginEq;

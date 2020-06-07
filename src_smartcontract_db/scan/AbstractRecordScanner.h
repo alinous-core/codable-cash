@@ -16,6 +16,8 @@ public:
 	AbstractRecordScanner();
 	virtual ~AbstractRecordScanner();
 
+	virtual void start() = 0;
+
 };
 
 } /* namespace codablecash */

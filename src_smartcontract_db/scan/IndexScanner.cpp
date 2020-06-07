@@ -9,19 +9,31 @@
 
 #include "table_record_key/AbstractCdbKey.h"
 
+#include "table_store/IndexStore.h"
+
+#include "btree/Btree.h"
+#include "btree/BtreeScanner.h"
+
+
 namespace codablecash {
 
 IndexScanner::IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq, IndexStore* store)
 			: RangeScanner(begin, beginEq, end, endEq) {
 	this->store = store;
+	this->scanner = nullptr;
 }
 
 IndexScanner::~IndexScanner() {
+	delete this->scanner;
 
 }
 
 void IndexScanner::start() {
+	Btree* btree = this->store->getBtree();
+	this->scanner = btree->getScanner();
 
+	AbstractBtreeKey* first = getFirstScanKey();
+	this->scanner->begin(first);
 }
 
 } /* namespace codablecash */

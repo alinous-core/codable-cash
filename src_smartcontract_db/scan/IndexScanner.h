@@ -10,19 +10,28 @@
 
 #include "scan/RangeScanner.h"
 
+namespace alinous {
+class BtreeScanner;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class AbstractCdbKey;
 class IndexStore;
+
 
 class IndexScanner : public RangeScanner {
 public:
 	IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq, IndexStore* store);
 	virtual ~IndexScanner();
 
-	void start();
+	virtual void start();
+	virtual bool hasNext();
+
 private:
 	IndexStore* store;
+	BtreeScanner* scanner;
 };
 
 } /* namespace codablecash */
