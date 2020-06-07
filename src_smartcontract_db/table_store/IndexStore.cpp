@@ -95,6 +95,11 @@ void IndexStore::insert(const CdbRecord* rec) {
 		key->addKey(value->toKey());
 	}
 
+	IBlockObject* record = this->btree->findByKey(key);
+	if(record != nullptr){
+
+	}
+
 	// FIXME check
 
 

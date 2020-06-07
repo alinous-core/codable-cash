@@ -27,7 +27,7 @@ public:
 	virtual ~IndexScanner();
 
 	virtual void start();
-	virtual bool hasNext();
+	//virtual bool hasNext();
 
 private:
 	IndexStore* store;
