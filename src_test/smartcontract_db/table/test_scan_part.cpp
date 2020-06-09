@@ -80,12 +80,39 @@ static void initDb(CodableDatabase& db, File* dbDir) {
 	trx->commit();
 }
 
+static void insertRecord(CdbTransaction* trx, int id, const wchar_t* name) {
+	InsertLog* log = new InsertLog();
+
+	CdbTableIdentifier* tableId = new CdbTableIdentifier();
+	tableId->setTable(new UnicodeString(L"test_table"));
+	log->setTable(tableId);
+
+	CdbRecord* record = new CdbRecord();
+	record->addValue(new CdbIntValue(1));
+	record->addValue(new CdbStringValue(name));
+
+	log->addRecord(record);
+
+	trx->insert(log);
+}
+
 TEST(TestScanPartGroup, case01){
 	File testCaseFolder = this->env->testCaseDir();
 	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
 	CodableDatabase db;
 
 	initDb(db, dbDir);
+
+	{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+		insertRecord(trx, 1, L"tanaka");
+		insertRecord(trx, 2, L"yamada");
+		insertRecord(trx, 3, L"yamamoto");
+
+		trx->commit();
+	}
+
+
 }
 
 
