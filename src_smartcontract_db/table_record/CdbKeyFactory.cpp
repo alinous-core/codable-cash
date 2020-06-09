@@ -16,6 +16,8 @@
 #include "table_record_key/CdbIntKey.h"
 #include "table_record_key/CdbLongKey.h"
 #include "table_record_key/CdbStringKey.h"
+#include "table_record_key/CdbRecordKey.h"
+
 
 namespace codablecash {
 
@@ -45,6 +47,9 @@ AbstractBtreeKey* CdbKeyFactory::fromBinary(uint32_t keyType, ByteBuffer* in) co
 		break;
 	case AbstractCdbKey::TYPE_STRING:
 		retKey = new CdbStringKey();
+		break;
+	case AbstractCdbKey::TYPE_RECORD_KEY:
+		retKey = new CdbRecordKey();
 		break;
 	case 0:
 		return nullptr;

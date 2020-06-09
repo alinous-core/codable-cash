@@ -91,6 +91,8 @@ void CdbRecordKey::toBinary(ByteBuffer* out) const {
 	out->putInt(this->type);
 
 	int maxLoop = this->list.size();
+	out->putInt(maxLoop);
+
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractCdbKey* key = this->list.get(i);
 

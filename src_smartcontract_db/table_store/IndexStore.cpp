@@ -11,6 +11,8 @@
 #include "table/CdbTableIndex.h"
 #include "table/CdbTableColumn.h"
 
+#include "base/StackRelease.h"
+
 #include "base_io/File.h"
 
 #include "btree/Btree.h"
@@ -26,6 +28,9 @@
 #include "table_record_key/AbstractCdbKey.h"
 
 #include "scan/IndexScanner.h"
+
+#include "table_record_value/CdbOidValueList.h"
+
 
 namespace codablecash {
 
@@ -82,7 +87,7 @@ const CdbOid* IndexStore::getIndexOid() const noexcept {
 }
 
 void IndexStore::insert(const CdbRecord* rec) {
-	CdbRecordKey* key = new CdbRecordKey();
+	CdbRecordKey* key = new CdbRecordKey(); __STP(key);
 
 	const ArrayList<CdbTableColumn>* list = this->index->getColumns();
 
@@ -95,15 +100,23 @@ void IndexStore::insert(const CdbRecord* rec) {
 		key->addKey(value->toKey());
 	}
 
+
+	CdbOidValueList* oidList = nullptr;
 	IBlockObject* record = this->btree->findByKey(key);
 	if(record != nullptr){
-
+		oidList = dynamic_cast<CdbOidValueList*>(record);
+		assert(oidList != nullptr);
+	}
+	else{
+		oidList = new CdbOidValueList();
 	}
 
+	StackRelease<CdbOidValueList> __oidListRelease(oidList);
+
+	this->btree->insert(key, oidList);
+
+
 	// FIXME check
-
-
-	//this->btree->insert(key, rec);
 }
 
 IndexScanner* IndexStore::startScan(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq) {
