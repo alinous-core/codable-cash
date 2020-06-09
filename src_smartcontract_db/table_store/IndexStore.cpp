@@ -31,6 +31,7 @@
 
 #include "table_record_value/CdbOidValueList.h"
 
+#include "engine/CdbOid.h"
 
 namespace codablecash {
 
@@ -112,11 +113,10 @@ void IndexStore::insert(const CdbRecord* rec) {
 	}
 
 	StackRelease<CdbOidValueList> __oidListRelease(oidList);
+	uint64_t newOid = rec->getOid();
+	oidList->addOid(new CdbOid(newOid));
 
 	this->btree->insert(key, oidList);
-
-
-	// FIXME check
 }
 
 IndexScanner* IndexStore::startScan(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq) {
