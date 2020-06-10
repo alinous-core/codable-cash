@@ -60,4 +60,8 @@ void CdbTransaction::insert(InsertLog* cmd) noexcept {
 	this->cmdList.addElement(cmd);
 }
 
+TableTransactionScanner* CdbTransaction::getTableTransactionScanner() {
+
+}
+
 } /* namespace codablecash */

@@ -14,6 +14,9 @@ class AbstractTransactionScanner {
 public:
 	AbstractTransactionScanner();
 	virtual ~AbstractTransactionScanner();
+
+private:
+
 };
 
 } /* namespace codablecash */

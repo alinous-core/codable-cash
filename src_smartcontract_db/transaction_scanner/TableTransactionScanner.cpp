@@ -5,16 +5,16 @@
  *      Author: iizuka
  */
 
-#include <transaction_scanner/TableTransactionScan.h>
+#include "transaction_scanner/TableTransactionScanner.h"
 
 namespace codablecash {
 
-TableTransactionScan::TableTransactionScan() {
+TableTransactionScanner::TableTransactionScanner() {
 	// TODO Auto-generated constructor stub
 
 }
 
-TableTransactionScan::~TableTransactionScan() {
+TableTransactionScanner::~TableTransactionScanner() {
 	// TODO Auto-generated destructor stub
 }
 
