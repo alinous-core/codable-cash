@@ -20,7 +20,8 @@ class AbstractTransactionLog;
 class CreateTableLog;
 class InsertLog;
 class TableTransactionScanner;
-
+class AbstractScanCondition;
+class CdbTableIdentifier;
 
 class CdbTransaction {
 public:
@@ -34,7 +35,7 @@ public:
 
 	void insert(InsertLog* cmd) noexcept;
 
-	TableTransactionScanner* getTableTransactionScanner();
+	TableTransactionScanner* getTableTransactionScanner(CdbTableIdentifier* tableId, AbstractScanCondition* condition);
 private:
 	CdbTransactionManager* trxManager;
 	uint64_t transactionId;

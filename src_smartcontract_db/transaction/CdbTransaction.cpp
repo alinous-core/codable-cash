@@ -16,6 +16,13 @@
 
 #include "engine/CdbException.h"
 
+#include "table_record/CdbTableIdentifier.h"
+
+#include "schema/Schema.h"
+
+#include "table/CdbTable.h"
+
+#include "table_store/CdbStorageManager.h"
 
 namespace codablecash {
 
@@ -60,7 +67,17 @@ void CdbTransaction::insert(InsertLog* cmd) noexcept {
 	this->cmdList.addElement(cmd);
 }
 
-TableTransactionScanner* CdbTransaction::getTableTransactionScanner() {
+TableTransactionScanner* CdbTransaction::getTableTransactionScanner(CdbTableIdentifier* tableId, AbstractScanCondition* condition) {
+	const UnicodeString* schemaName = tableId->getSchema();
+	const UnicodeString* tableName = tableId->getTable();
+
+	Schema* schema = this->trxManager->getSchema(schemaName);
+	CdbTable* table = schema->getCdbTableByName(tableName);
+
+	const CdbOid* oid = table->getOid();
+	CdbStorageManager* store = this->trxManager->getStorageManager();
+
+	TableStore* tableStore = store->getTableStore(oid);
 
 }
 

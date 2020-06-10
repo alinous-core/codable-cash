@@ -120,4 +120,12 @@ void CdbTransactionManager::commitInsert(InsertLog* cmd) {
 	this->committedCommands->addElement(cmd);
 }
 
+Schema* CdbTransactionManager::getSchema(const UnicodeString* name) const noexcept {
+	return this->schemaManager->getSchema(name);
+}
+
+CdbStorageManager* CdbTransactionManager::getStorageManager() const noexcept {
+	return this->db->getStorageManager();
+}
+
 } /* namespace codablecash */

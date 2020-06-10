@@ -24,6 +24,8 @@ class RecordObjectIdPublisher;
 class CreateTableLog;
 class AbstractTransactionLog;
 class InsertLog;
+class Schema;
+class CdbStorageManager;
 
 class CdbTransactionManager : public ISchemaUptateListner {
 public:
@@ -41,6 +43,11 @@ public:
 	void commitCreateTable(CreateTableLog* cmd);
 
 	void commitInsert(InsertLog* cmd);
+
+	Schema* getSchema(const UnicodeString* name) const noexcept;
+
+	CdbStorageManager* getStorageManager() const noexcept;
+
 private:
 	CodableDatabase* db;
 	SchemaManager* schemaManager;
