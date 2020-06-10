@@ -32,6 +32,8 @@ public:
 	void createTable(CreateTableLog* cmd);
 
 	void insert(InsertLog* cmd) noexcept;
+
+
 private:
 	CdbTransactionManager* trxManager;
 	uint64_t transactionId;

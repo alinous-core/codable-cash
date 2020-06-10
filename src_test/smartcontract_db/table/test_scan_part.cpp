@@ -89,6 +89,7 @@ static void insertRecord(CdbTransaction* trx, int id, const wchar_t* name) {
 
 	CdbRecord* record = new CdbRecord();
 	record->addValue(new CdbIntValue(1));
+
 	record->addValue(new CdbStringValue(name));
 
 	log->addRecord(record);
@@ -112,6 +113,10 @@ TEST(TestScanPartGroup, case01){
 		trx->commit();
 	}
 
+
+	{
+
+	}
 
 }
 
