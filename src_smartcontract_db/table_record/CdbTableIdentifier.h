@@ -21,6 +21,7 @@ namespace codablecash {
 class CdbTableIdentifier : public CdbBinaryObject {
 public:
 	CdbTableIdentifier();
+	CdbTableIdentifier(const wchar_t* scheme, const wchar_t* table);
 	virtual ~CdbTableIdentifier();
 
 	const UnicodeString* getSchema() const noexcept {

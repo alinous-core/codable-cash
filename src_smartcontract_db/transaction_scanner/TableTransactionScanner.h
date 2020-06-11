@@ -19,6 +19,8 @@ public:
 	TableTransactionScanner(CdbTransaction* trx, TableStore* tableStore);
 	virtual ~TableTransactionScanner();
 
+	void start();
+
 private:
 	TableStore* tableStore;
 };

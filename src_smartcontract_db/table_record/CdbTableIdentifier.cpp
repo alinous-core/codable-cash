@@ -21,6 +21,12 @@ CdbTableIdentifier::CdbTableIdentifier() {
 	this->table = nullptr;
 }
 
+codablecash::CdbTableIdentifier::CdbTableIdentifier(const wchar_t* scheme, const wchar_t* table) {
+	this->schema = new UnicodeString(scheme);
+	this->table = new UnicodeString(table);
+}
+
+
 CdbTableIdentifier::~CdbTableIdentifier() {
 	delete this->schema;
 	delete this->table;

@@ -24,6 +24,7 @@
 
 #include "table_store/CdbStorageManager.h"
 
+#include "transaction_scanner/TableTransactionScanner.h"
 namespace codablecash {
 
 CdbTransaction::CdbTransaction(CdbTransactionManager* trxManager, uint64_t transactionId) {
@@ -69,7 +70,7 @@ void CdbTransaction::insert(InsertLog* cmd) noexcept {
 	this->cmdList.addElement(cmd);
 }
 
-TableTransactionScanner* CdbTransaction::getTableTransactionScanner(CdbTableIdentifier* tableId, AbstractScanCondition* condition) {
+TableTransactionScanner* CdbTransaction::getTableTransactionScanner(const CdbTableIdentifier* tableId, AbstractScanCondition* condition) {
 	const UnicodeString* schemaName = tableId->getSchema();
 	const UnicodeString* tableName = tableId->getTable();
 
@@ -81,7 +82,9 @@ TableTransactionScanner* CdbTransaction::getTableTransactionScanner(CdbTableIden
 
 	TableStore* tableStore = store->getTableStore(oid);
 
+	TableTransactionScanner* scanner = new TableTransactionScanner(this, tableStore);
 
+	return scanner;
 }
 
 } /* namespace codablecash */

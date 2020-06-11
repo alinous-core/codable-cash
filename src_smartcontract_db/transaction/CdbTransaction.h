@@ -35,7 +35,7 @@ public:
 
 	void insert(InsertLog* cmd) noexcept;
 
-	TableTransactionScanner* getTableTransactionScanner(CdbTableIdentifier* tableId, AbstractScanCondition* condition);
+	TableTransactionScanner* getTableTransactionScanner(const CdbTableIdentifier* tableId, AbstractScanCondition* condition);
 private:
 	CdbTransactionManager* trxManager;
 	uint64_t transactionId;

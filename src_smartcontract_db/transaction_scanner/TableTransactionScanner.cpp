@@ -20,4 +20,8 @@ TableTransactionScanner::~TableTransactionScanner() {
 	this->tableStore = nullptr;
 }
 
+void TableTransactionScanner::start() {
+
+}
+
 } /* namespace codablecash */

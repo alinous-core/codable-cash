@@ -44,6 +44,7 @@
 
 #include "base/StackRelease.h"
 
+#include "transaction_scanner/TableTransactionScanner.h"
 
 using namespace alinous;
 using namespace codablecash;
@@ -115,6 +116,11 @@ TEST(TestScanPartGroup, case01){
 
 
 	{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+
+		CdbTableIdentifier tableId(L"public", L"test_table");
+		TableTransactionScanner* scanner = trx->getTableTransactionScanner(&tableId, nullptr); __STP(scanner);
+
 
 	}
 
