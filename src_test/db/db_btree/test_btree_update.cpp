@@ -75,7 +75,7 @@ TEST(TestBTreeUpdateGroup, case01){
 		addKeyValue(1, 10, &btree);
 
 		ULongKey lkey(1);
-		IBlockObject* data = btree.findByKey(&lkey);
+		IBlockObject* data = btree.findByKey(&lkey); __STP(data);
 		TempValue* tvalue = dynamic_cast<TempValue*>(data);
 
 		CHECK(tvalue->getValue() == 10)

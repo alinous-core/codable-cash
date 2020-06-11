@@ -20,7 +20,7 @@ public:
 	virtual ~RecordScanner();
 
 	virtual void start();
-
+	virtual void shutdown();
 private:
 	TableStore* tableStore;
 };

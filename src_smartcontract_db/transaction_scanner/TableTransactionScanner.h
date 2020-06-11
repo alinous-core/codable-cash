@@ -20,8 +20,9 @@ public:
 	TableTransactionScanner(CdbTransaction* trx, TableStore* tableStore);
 	virtual ~TableTransactionScanner();
 
-	void start();
+	virtual void start();
 
+	virtual void shutdown();
 private:
 	TableStore* tableStore;
 	RecordScanner* internalScanner;

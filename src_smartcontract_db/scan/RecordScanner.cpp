@@ -20,4 +20,7 @@ RecordScanner::~RecordScanner() {
 void RecordScanner::start() {
 }
 
+void RecordScanner::shutdown() {
+}
+
 } /* namespace codablecash */

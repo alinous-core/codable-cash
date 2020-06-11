@@ -20,14 +20,23 @@ TableTransactionScanner::TableTransactionScanner(CdbTransaction* trx, TableStore
 }
 
 TableTransactionScanner::~TableTransactionScanner() {
+	shutdown();
+
 	this->tableStore = nullptr;
-	delete this->internalScanner;
 }
 
 void TableTransactionScanner::start() {
 	this->internalScanner = new RecordScanner(this->tableStore);
 	this->internalScanner->start();
 
+}
+
+void TableTransactionScanner::shutdown() {
+	if(this->internalScanner != nullptr){
+		this->internalScanner->shutdown();
+		delete this->internalScanner;
+		this->internalScanner = nullptr;
+	}
 }
 
 } /* namespace codablecash */

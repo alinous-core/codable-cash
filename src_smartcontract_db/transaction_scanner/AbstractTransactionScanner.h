@@ -17,6 +17,9 @@ public:
 	explicit AbstractTransactionScanner(CdbTransaction* trx);
 	virtual ~AbstractTransactionScanner();
 
+	virtual void start() = 0;
+	virtual void shutdown() = 0;
+
 protected:
 	CdbTransaction* trx;
 };
