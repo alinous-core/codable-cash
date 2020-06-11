@@ -27,6 +27,8 @@ public:
 	virtual ~IndexScanner();
 
 	virtual void start();
+	virtual void shutdown() noexcept;
+
 	//virtual bool hasNext();
 
 private:

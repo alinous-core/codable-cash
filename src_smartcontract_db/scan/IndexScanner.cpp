@@ -24,8 +24,7 @@ IndexScanner::IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* 
 }
 
 IndexScanner::~IndexScanner() {
-	delete this->scanner;
-
+	shutdown();
 }
 
 void IndexScanner::start() {
@@ -34,6 +33,13 @@ void IndexScanner::start() {
 
 	AbstractBtreeKey* first = getFirstScanKey();
 	this->scanner->begin(first);
+}
+
+void IndexScanner::shutdown() noexcept {
+	if(this->scanner != nullptr){
+		delete this->scanner;
+		this->scanner = nullptr;
+	}
 }
 
 } /* namespace codablecash */

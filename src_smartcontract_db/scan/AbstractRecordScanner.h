@@ -17,6 +17,7 @@ public:
 	virtual ~AbstractRecordScanner();
 
 	virtual void start() = 0;
+	virtual void shutdown() noexcept = 0;
 
 };
 
