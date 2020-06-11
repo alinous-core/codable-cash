@@ -8,12 +8,21 @@
 #ifndef SCAN_RECORDSCANNER_H_
 #define SCAN_RECORDSCANNER_H_
 
+#include "scan/AbstractRecordScanner.h"
+
 namespace codablecash {
 
-class RecordScanner {
+class TableStore;
+
+class RecordScanner : public AbstractRecordScanner {
 public:
-	RecordScanner();
+	RecordScanner(TableStore* tableStore);
 	virtual ~RecordScanner();
+
+	virtual void start();
+
+private:
+	TableStore* tableStore;
 };
 
 } /* namespace codablecash */

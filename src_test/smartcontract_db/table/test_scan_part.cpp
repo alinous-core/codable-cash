@@ -120,7 +120,7 @@ TEST(TestScanPartGroup, case01){
 
 		CdbTableIdentifier tableId(L"public", L"test_table");
 		TableTransactionScanner* scanner = trx->getTableTransactionScanner(&tableId, nullptr); __STP(scanner);
-
+		scanner->start();
 
 	}
 

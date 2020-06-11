@@ -13,6 +13,7 @@
 namespace codablecash {
 
 class TableStore;
+class RecordScanner;
 
 class TableTransactionScanner : public AbstractTransactionScanner {
 public:
@@ -23,6 +24,7 @@ public:
 
 private:
 	TableStore* tableStore;
+	RecordScanner* internalScanner;
 };
 
 } /* namespace codablecash */

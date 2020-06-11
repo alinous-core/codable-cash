@@ -9,13 +9,15 @@
 
 namespace codablecash {
 
-RecordScanner::RecordScanner() {
-	// TODO Auto-generated constructor stub
-
+RecordScanner::RecordScanner(TableStore* tableStore) {
+	this->tableStore = tableStore;
 }
 
 RecordScanner::~RecordScanner() {
-	// TODO Auto-generated destructor stub
+	this->tableStore = nullptr;
+}
+
+void RecordScanner::start() {
 }
 
 } /* namespace codablecash */
