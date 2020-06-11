@@ -64,6 +64,8 @@ void CdbTransaction::createTable(CreateTableLog* cmd) {
 }
 
 void CdbTransaction::insert(InsertLog* cmd) noexcept {
+
+
 	this->cmdList.addElement(cmd);
 }
 
@@ -78,6 +80,7 @@ TableTransactionScanner* CdbTransaction::getTableTransactionScanner(CdbTableIden
 	CdbStorageManager* store = this->trxManager->getStorageManager();
 
 	TableStore* tableStore = store->getTableStore(oid);
+
 
 }
 

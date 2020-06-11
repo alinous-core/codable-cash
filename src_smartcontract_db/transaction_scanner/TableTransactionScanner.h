@@ -12,10 +12,15 @@
 
 namespace codablecash {
 
+class TableStore;
+
 class TableTransactionScanner : public AbstractTransactionScanner {
 public:
-	TableTransactionScanner();
+	TableTransactionScanner(CdbTransaction* trx, TableStore* tableStore);
 	virtual ~TableTransactionScanner();
+
+private:
+	TableStore* tableStore;
 };
 
 } /* namespace codablecash */

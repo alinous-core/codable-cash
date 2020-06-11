@@ -10,13 +10,15 @@
 
 namespace codablecash {
 
+class CdbTransaction;
+
 class AbstractTransactionScanner {
 public:
-	AbstractTransactionScanner();
+	explicit AbstractTransactionScanner(CdbTransaction* trx);
 	virtual ~AbstractTransactionScanner();
 
-private:
-
+protected:
+	CdbTransaction* trx;
 };
 
 } /* namespace codablecash */

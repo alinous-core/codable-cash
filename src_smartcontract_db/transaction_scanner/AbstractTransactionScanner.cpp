@@ -7,15 +7,16 @@
 
 #include "transaction_scanner/AbstractTransactionScanner.h"
 
+#include "transaction/CdbTransaction.h"
+
 namespace codablecash {
 
-AbstractTransactionScanner::AbstractTransactionScanner() {
-	// TODO Auto-generated constructor stub
-
+AbstractTransactionScanner::AbstractTransactionScanner(CdbTransaction* trx) {
+	this->trx = trx;
 }
 
 AbstractTransactionScanner::~AbstractTransactionScanner() {
-	// TODO Auto-generated destructor stub
+	this->trx = nullptr;
 }
 
 } /* namespace codablecash */
