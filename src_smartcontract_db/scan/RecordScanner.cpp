@@ -43,10 +43,13 @@ void RecordScanner::shutdown() noexcept {
 }
 
 bool RecordScanner::hasNext() {
+	return this->scanner->hasNext();
 
 }
 
 const CdbRecord* RecordScanner::next() {
+	const IBlockObject* obj = this->scanner->next();
+	return dynamic_cast<const CdbRecord*>(obj);
 }
 
 } /* namespace codablecash */
