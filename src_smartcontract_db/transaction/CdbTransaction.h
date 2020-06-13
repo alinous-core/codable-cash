@@ -22,6 +22,7 @@ class InsertLog;
 class TableTransactionScanner;
 class AbstractScanCondition;
 class CdbTableIdentifier;
+class TransactionUpdateCache;
 
 class CdbTransaction {
 public:
@@ -33,14 +34,17 @@ public:
 
 	void createTable(CreateTableLog* cmd);
 
-	void insert(InsertLog* cmd) noexcept;
+	void insert(InsertLog* cmd);
 
 	TableTransactionScanner* getTableTransactionScanner(const CdbTableIdentifier* tableId, AbstractScanCondition* condition);
+
+	TransactionUpdateCache* getUpdateCache() const noexcept;
 private:
 	CdbTransactionManager* trxManager;
 	uint64_t transactionId;
 
 	ArrayList<AbstractTransactionLog> cmdList;
+	TransactionUpdateCache* updateCache;
 };
 
 } /* namespace codablecash */

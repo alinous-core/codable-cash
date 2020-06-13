@@ -25,16 +25,21 @@
 #include "table_store/CdbStorageManager.h"
 
 #include "transaction_scanner/TableTransactionScanner.h"
+
+#include "transaction_update_cache/TransactionUpdateCache.h"
+
 namespace codablecash {
 
 CdbTransaction::CdbTransaction(CdbTransactionManager* trxManager, uint64_t transactionId) {
 	this->trxManager = trxManager;
 	this->transactionId = transactionId;
+	this->updateCache = new TransactionUpdateCache();
 }
 
 CdbTransaction::~CdbTransaction() {
 	this->trxManager = nullptr;
 	this->cmdList.deleteElements();
+	delete this->updateCache;
 }
 
 void CdbTransaction::commit() {
@@ -64,9 +69,8 @@ void CdbTransaction::createTable(CreateTableLog* cmd) {
 	this->cmdList.addElement(cmd);
 }
 
-void CdbTransaction::insert(InsertLog* cmd) noexcept {
-
-
+void CdbTransaction::insert(InsertLog* cmd) {
+	this->updateCache->updateInsert(cmd);
 	this->cmdList.addElement(cmd);
 }
 
@@ -85,6 +89,10 @@ TableTransactionScanner* CdbTransaction::getTableTransactionScanner(const CdbTab
 	TableTransactionScanner* scanner = new TableTransactionScanner(this, tableStore);
 
 	return scanner;
+}
+
+TransactionUpdateCache* CdbTransaction::getUpdateCache() const noexcept {
+	return this->updateCache;
 }
 
 } /* namespace codablecash */
