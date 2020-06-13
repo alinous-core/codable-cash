@@ -30,7 +30,7 @@ public:
 	virtual void shutdown() noexcept;
 
 	virtual bool hasNext();
-
+	virtual const CdbRecord* next();
 private:
 	IndexStore* store;
 	BtreeScanner* scanner;

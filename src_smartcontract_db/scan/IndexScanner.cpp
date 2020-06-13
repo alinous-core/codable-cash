@@ -14,6 +14,7 @@
 #include "btree/Btree.h"
 #include "btree/BtreeScanner.h"
 
+#include "table_record/CdbRecord.h"
 
 namespace codablecash {
 
@@ -44,6 +45,9 @@ void IndexScanner::shutdown() noexcept {
 
 bool IndexScanner::hasNext() {
 
+}
+
+const CdbRecord* IndexScanner::next() {
 }
 
 } /* namespace codablecash */

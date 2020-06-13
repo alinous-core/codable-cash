@@ -10,6 +10,7 @@
 
 namespace codablecash {
 
+class CdbRecord;
 
 class AbstractRecordScanner {
 public:
@@ -19,6 +20,7 @@ public:
 	virtual void start() = 0;
 	virtual void shutdown() noexcept = 0;
 	virtual bool hasNext() = 0;
+	virtual const CdbRecord* next() = 0;
 };
 
 } /* namespace codablecash */

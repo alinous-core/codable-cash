@@ -27,6 +27,7 @@ public:
 	virtual void shutdown() noexcept;
 
 	virtual bool hasNext();
+	virtual const CdbRecord* next();
 private:
 	TableStore* tableStore;
 	BtreeScanner* scanner;

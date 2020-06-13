@@ -13,6 +13,8 @@
 #include "table_store/TableStore.h"
 #include "table_store/RecordStore.h"
 
+#include "table_record/CdbRecord.h"
+
 using namespace alinous;
 
 namespace codablecash {
@@ -41,6 +43,10 @@ void RecordScanner::shutdown() noexcept {
 }
 
 bool RecordScanner::hasNext() {
+
+}
+
+const CdbRecord* RecordScanner::next() {
 }
 
 } /* namespace codablecash */
