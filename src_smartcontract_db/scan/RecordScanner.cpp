@@ -32,6 +32,8 @@ void RecordScanner::start() {
 	RecordStore* recStore = this->tableStore->getRecordStore();
 
 	Btree* btree = recStore->getBtree();
+
+	this->scanner = btree->getScanner();
 	this->scanner->begin();
 }
 

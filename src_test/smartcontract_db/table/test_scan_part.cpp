@@ -122,6 +122,9 @@ TEST(TestScanPartGroup, case01){
 		TableTransactionScanner* scanner = trx->getTableTransactionScanner(&tableId, nullptr); __STP(scanner);
 		scanner->start();
 
+		while(scanner->hasNext()){
+			const CdbRecord* rec = scanner->next();
+		}
 	}
 
 }
