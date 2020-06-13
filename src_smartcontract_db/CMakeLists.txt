@@ -14,6 +14,7 @@ add_subdirectory(table_store)
 add_subdirectory(transaction)
 add_subdirectory(transaction_exception)
 add_subdirectory(transaction_log)
+add_subdirectory(transaction_scan_result)
 add_subdirectory(transaction_scanner)
 
 message(STATUS "src_smartcontract_db : ${__dirsrc}")
