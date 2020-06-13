@@ -31,6 +31,14 @@ void TableTransactionScanner::start() {
 
 }
 
+bool TableTransactionScanner::hasNext() {
+	return this->internalScanner->hasNext();
+}
+
+CdbRecord* TableTransactionScanner::next() {
+
+}
+
 void TableTransactionScanner::shutdown() {
 	if(this->internalScanner != nullptr){
 		this->internalScanner->shutdown();

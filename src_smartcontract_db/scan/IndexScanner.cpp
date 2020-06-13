@@ -16,6 +16,8 @@
 
 #include "table_record/CdbRecord.h"
 
+#include "table_record_value/CdbOidValueList.h"
+
 namespace codablecash {
 
 IndexScanner::IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq, IndexStore* store)
@@ -44,10 +46,13 @@ void IndexScanner::shutdown() noexcept {
 }
 
 bool IndexScanner::hasNext() {
-
+	return this->scanner->hasNext();
 }
 
 const CdbRecord* IndexScanner::next() {
+	const IBlockObject* obj = this->scanner->next();
+	const CdbOidValueList* oidList = dynamic_cast<const CdbOidValueList*>(obj);
+	return nullptr; // FIXME index
 }
 
 } /* namespace codablecash */

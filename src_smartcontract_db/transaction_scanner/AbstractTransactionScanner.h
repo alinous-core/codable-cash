@@ -11,6 +11,7 @@
 namespace codablecash {
 
 class CdbTransaction;
+class CdbRecord;
 
 class AbstractTransactionScanner {
 public:
@@ -18,6 +19,9 @@ public:
 	virtual ~AbstractTransactionScanner();
 
 	virtual void start() = 0;
+	virtual bool hasNext() = 0;
+	virtual CdbRecord* next() = 0;
+
 	virtual void shutdown() = 0;
 
 protected:

@@ -21,6 +21,8 @@ public:
 	virtual ~TableTransactionScanner();
 
 	virtual void start();
+	virtual bool hasNext();
+	virtual CdbRecord* next();
 
 	virtual void shutdown();
 private:
