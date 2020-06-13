@@ -43,6 +43,7 @@ public:
 		return this->recordStore;
 	}
 
+	const CdbTable* getTable() const noexcept;
 private:
 	void validateRecordColumnValue(CdbTableColumn* meta, AbstractCdbValue* value);
 private:

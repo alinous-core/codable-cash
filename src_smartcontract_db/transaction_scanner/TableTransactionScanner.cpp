@@ -11,10 +11,12 @@
 
 #include "scan/RecordScanner.h"
 
+#include "table_store/TableStore.h"
+
 namespace codablecash {
 
 TableTransactionScanner::TableTransactionScanner(CdbTransaction* trx, TableStore* tableStore)
-	: AbstractTransactionScanner(trx) {
+	: AbstractTransactionScanner(trx, tableStore->getTable()) {
 	this->tableStore = tableStore;
 	this->internalScanner = nullptr;
 	this->nextRecord = nullptr;

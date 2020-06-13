@@ -23,6 +23,7 @@ class TableTransactionScanner;
 class AbstractScanCondition;
 class CdbTableIdentifier;
 class TransactionUpdateCache;
+class CdbTable;
 
 class CdbTransaction {
 public:
@@ -39,6 +40,9 @@ public:
 	TableTransactionScanner* getTableTransactionScanner(const CdbTableIdentifier* tableId, AbstractScanCondition* condition);
 
 	TransactionUpdateCache* getUpdateCache() const noexcept;
+
+private:
+	CdbTable* getTableFromIdentifier(const CdbTableIdentifier* tableId) const noexcept;
 private:
 	CdbTransactionManager* trxManager;
 	uint64_t transactionId;

@@ -70,16 +70,14 @@ void CdbTransaction::createTable(CreateTableLog* cmd) {
 }
 
 void CdbTransaction::insert(InsertLog* cmd) {
-	this->updateCache->updateInsert(cmd);
+	CdbTable* table = getTableFromIdentifier(cmd->getCdbTableIdentifier());
+
+	this->updateCache->updateInsert(cmd, table);
 	this->cmdList.addElement(cmd);
 }
 
 TableTransactionScanner* CdbTransaction::getTableTransactionScanner(const CdbTableIdentifier* tableId, AbstractScanCondition* condition) {
-	const UnicodeString* schemaName = tableId->getSchema();
-	const UnicodeString* tableName = tableId->getTable();
-
-	Schema* schema = this->trxManager->getSchema(schemaName);
-	CdbTable* table = schema->getCdbTableByName(tableName);
+	CdbTable* table = getTableFromIdentifier(tableId);
 
 	const CdbOid* oid = table->getOid();
 	CdbStorageManager* store = this->trxManager->getStorageManager();
@@ -93,6 +91,16 @@ TableTransactionScanner* CdbTransaction::getTableTransactionScanner(const CdbTab
 
 TransactionUpdateCache* CdbTransaction::getUpdateCache() const noexcept {
 	return this->updateCache;
+}
+
+CdbTable* CdbTransaction::getTableFromIdentifier(const CdbTableIdentifier* tableId) const noexcept {
+	const UnicodeString* schemaName = tableId->getSchema();
+	const UnicodeString* tableName = tableId->getTable();
+
+	Schema* schema = this->trxManager->getSchema(schemaName);
+	CdbTable* table = schema->getCdbTableByName(tableName);
+
+	return table;
 }
 
 } /* namespace codablecash */

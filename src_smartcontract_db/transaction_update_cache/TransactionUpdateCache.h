@@ -8,28 +8,35 @@
 #ifndef TRANSACTION_UPDATE_CACHE_TRANSACTIONUPDATECACHE_H_
 #define TRANSACTION_UPDATE_CACHE_TRANSACTIONUPDATECACHE_H_
 
-#include "base/ArrayList.h"
+#include "base/HashMap.h"
 
 using namespace alinous;
 
 namespace codablecash {
 
+class CdbOid;
+class CdbTable;
 class InsertLog;
 class CdbRecord;
 class InsertRecordsCacheCursor;
+class TransactionTableUpdateCache;
 
 class TransactionUpdateCache {
 public:
 	TransactionUpdateCache();
 	virtual ~TransactionUpdateCache();
 
-	void updateInsert(InsertLog* cmd);
+	void updateInsert(InsertLog* cmd, const CdbTable* table);
 
 	void reset() noexcept;
 
-	InsertRecordsCacheCursor* newCursor() const noexcept;
+	InsertRecordsCacheCursor* newCursor(const CdbTable* table) noexcept;
+
 private:
-	ArrayList<CdbRecord>* insertedRecords;
+	TransactionTableUpdateCache* getTransactionTableUpdateCache(const CdbTable* table) noexcept;
+
+private:
+	HashMap<CdbOid, TransactionTableUpdateCache>* tableCashes;
 };
 
 } /* namespace codablecash */

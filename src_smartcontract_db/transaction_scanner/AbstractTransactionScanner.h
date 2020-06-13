@@ -12,11 +12,12 @@ namespace codablecash {
 
 class CdbTransaction;
 class CdbRecord;
+class CdbTable;
 class InsertRecordsCacheCursor;
 
 class AbstractTransactionScanner {
 public:
-	explicit AbstractTransactionScanner(CdbTransaction* trx);
+	AbstractTransactionScanner(CdbTransaction* trx, const CdbTable* table);
 	virtual ~AbstractTransactionScanner();
 
 	virtual void start() = 0;
@@ -31,6 +32,7 @@ public:
 	const CdbRecord* checkUpdated(const CdbRecord* record) const noexcept;
 protected:
 	CdbTransaction* trx;
+	const CdbTable* table;
 	InsertRecordsCacheCursor* cacheCursor;
 };
 

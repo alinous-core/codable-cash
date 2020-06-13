@@ -30,6 +30,10 @@ void TransactionTableUpdateCache::reset() noexcept {
 	this->insertedRecords->reset();
 }
 
+void TransactionTableUpdateCache::addRecord(CdbRecord* newRecord) noexcept {
+	this->insertedRecords->addElement(newRecord);
+}
+
 InsertRecordsCacheCursor* TransactionTableUpdateCache::newCursor() const noexcept {
 	return new InsertRecordsCacheCursor(this->insertedRecords);
 }

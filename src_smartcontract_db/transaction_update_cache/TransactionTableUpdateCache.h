@@ -23,6 +23,7 @@ public:
 	explicit TransactionTableUpdateCache(const CdbTable* table);
 	virtual ~TransactionTableUpdateCache();
 
+	void addRecord(CdbRecord* newRecord) noexcept;
 	void reset() noexcept;
 	InsertRecordsCacheCursor* newCursor() const noexcept;
 

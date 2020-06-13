@@ -12,14 +12,16 @@
 #include "transaction_update_cache/InsertRecordsCacheCursor.h"
 #include "transaction_update_cache/TransactionUpdateCache.h"
 
+#include "table/CdbTable.h"
 
 namespace codablecash {
 
-AbstractTransactionScanner::AbstractTransactionScanner(CdbTransaction* trx) {
+AbstractTransactionScanner::AbstractTransactionScanner(CdbTransaction* trx, const CdbTable* table) {
 	this->trx = trx;
+	this->table = table;
 
 	TransactionUpdateCache* cache = this->trx->getUpdateCache();
-	this->cacheCursor = cache->newCursor();
+	this->cacheCursor = cache->newCursor(table);
 }
 
 AbstractTransactionScanner::~AbstractTransactionScanner() {

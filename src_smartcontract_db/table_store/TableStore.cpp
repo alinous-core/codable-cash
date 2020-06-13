@@ -59,6 +59,10 @@ const CdbOid* TableStore::getOid() const noexcept {
 	return this->table->getOid();
 }
 
+const CdbTable* TableStore::getTable() const noexcept {
+	return this->table;
+}
+
 void TableStore::createTable() {
 	const Schema* schema = this->table->getSchema();
 	const UnicodeString* schemaName = schema->getName();
