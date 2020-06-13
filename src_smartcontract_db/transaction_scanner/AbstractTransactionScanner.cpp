@@ -9,18 +9,30 @@
 
 #include "transaction/CdbTransaction.h"
 
+#include "transaction_update_cache/InsertRecordsCacheCursor.h"
+#include "transaction_update_cache/TransactionUpdateCache.h"
+
+
 namespace codablecash {
 
 AbstractTransactionScanner::AbstractTransactionScanner(CdbTransaction* trx) {
 	this->trx = trx;
-	this->trx->getUpdateCache();
+
+	TransactionUpdateCache* cache = this->trx->getUpdateCache();
+	this->cacheCursor = cache->newCursor();
 }
 
 AbstractTransactionScanner::~AbstractTransactionScanner() {
 	this->trx = nullptr;
+	delete this->cacheCursor;
 }
 
 bool AbstractTransactionScanner::hasInsertedRecord() const noexcept {
+	return this->cacheCursor->hasNext();
+}
+
+const CdbRecord* AbstractTransactionScanner::nextInsertedRecord() noexcept {
+	return this->cacheCursor->next();
 }
 
 } /* namespace codablecash */

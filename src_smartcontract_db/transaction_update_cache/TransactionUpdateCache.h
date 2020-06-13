@@ -16,6 +16,7 @@ namespace codablecash {
 
 class InsertLog;
 class CdbRecord;
+class InsertRecordsCacheCursor;
 
 class TransactionUpdateCache {
 public:
@@ -26,7 +27,7 @@ public:
 
 	void reset() noexcept;
 
-
+	InsertRecordsCacheCursor* newCursor() const noexcept;
 private:
 	ArrayList<CdbRecord>* insertedRecords;
 };

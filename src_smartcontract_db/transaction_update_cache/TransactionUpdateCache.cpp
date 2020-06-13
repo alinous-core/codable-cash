@@ -6,10 +6,12 @@
  */
 
 #include "transaction_update_cache/TransactionUpdateCache.h"
+#include "transaction_update_cache/InsertRecordsCacheCursor.h"
 
 #include "table_record/CdbRecord.h"
 
 #include "transaction_log/InsertLog.h"
+
 
 namespace codablecash {
 
@@ -37,6 +39,12 @@ void TransactionUpdateCache::updateInsert(InsertLog* cmd) {
 void TransactionUpdateCache::reset() noexcept {
 	this->insertedRecords->deleteElements();
 	this->insertedRecords->reset();
+}
+
+
+
+InsertRecordsCacheCursor* TransactionUpdateCache::newCursor() const noexcept {
+	return new InsertRecordsCacheCursor(this->insertedRecords);
 }
 
 

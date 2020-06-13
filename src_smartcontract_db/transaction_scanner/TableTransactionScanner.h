@@ -22,7 +22,7 @@ public:
 
 	virtual void start();
 	virtual bool hasNext();
-	virtual CdbRecord* next();
+	virtual const CdbRecord* next();
 
 	virtual void shutdown();
 private:

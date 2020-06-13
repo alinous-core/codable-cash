@@ -35,7 +35,7 @@ bool TableTransactionScanner::hasNext() {
 	return this->internalScanner->hasNext();
 }
 
-CdbRecord* TableTransactionScanner::next() {
+const CdbRecord* TableTransactionScanner::next() {
 
 }
 
