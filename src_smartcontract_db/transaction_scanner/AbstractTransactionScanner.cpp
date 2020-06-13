@@ -35,4 +35,9 @@ const CdbRecord* AbstractTransactionScanner::nextInsertedRecord() noexcept {
 	return this->cacheCursor->next();
 }
 
+const CdbRecord* AbstractTransactionScanner::checkUpdated(const CdbRecord* record) const noexcept {
+	// FIXME updated
+	return record;
+}
+
 } /* namespace codablecash */

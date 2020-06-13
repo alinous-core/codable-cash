@@ -28,6 +28,9 @@ public:
 private:
 	TableStore* tableStore;
 	RecordScanner* internalScanner;
+
+	const CdbRecord* nextRecord;
+	bool scanedStore;
 };
 
 } /* namespace codablecash */

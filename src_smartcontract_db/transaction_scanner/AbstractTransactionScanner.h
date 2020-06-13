@@ -27,6 +27,8 @@ public:
 
 	bool hasInsertedRecord() const noexcept;
 	const CdbRecord* nextInsertedRecord() noexcept;
+
+	const CdbRecord* checkUpdated(const CdbRecord* record) const noexcept;
 protected:
 	CdbTransaction* trx;
 	InsertRecordsCacheCursor* cacheCursor;

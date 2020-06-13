@@ -17,6 +17,8 @@ TableTransactionScanner::TableTransactionScanner(CdbTransaction* trx, TableStore
 	: AbstractTransactionScanner(trx) {
 	this->tableStore = tableStore;
 	this->internalScanner = nullptr;
+	this->nextRecord = nullptr;
+	this->scanedStore = false;
 }
 
 TableTransactionScanner::~TableTransactionScanner() {
@@ -32,11 +34,28 @@ void TableTransactionScanner::start() {
 }
 
 bool TableTransactionScanner::hasNext() {
-	return this->internalScanner->hasNext();
+	if(!this->scanedStore && this->internalScanner->hasNext()){
+		// check updated
+
+		this->nextRecord = this->internalScanner->next();
+		this->nextRecord = checkUpdated(this->nextRecord);
+
+		return true;
+	}
+	else if(!this->scanedStore){
+		this->scanedStore = true;
+	}
+
+	if(hasInsertedRecord()){
+		this->nextRecord = nextInsertedRecord();
+		return true;
+	}
+
+	return false;
 }
 
 const CdbRecord* TableTransactionScanner::next() {
-
+	return this->nextRecord;
 }
 
 void TableTransactionScanner::shutdown() {
