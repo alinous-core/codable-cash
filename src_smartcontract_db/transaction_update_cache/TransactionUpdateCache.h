@@ -25,6 +25,8 @@ public:
 	void updateInsert(InsertLog* cmd);
 
 	void reset() noexcept;
+
+
 private:
 	ArrayList<CdbRecord>* insertedRecords;
 };

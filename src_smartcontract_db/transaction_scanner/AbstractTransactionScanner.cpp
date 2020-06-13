@@ -13,10 +13,14 @@ namespace codablecash {
 
 AbstractTransactionScanner::AbstractTransactionScanner(CdbTransaction* trx) {
 	this->trx = trx;
+	this->trx->getUpdateCache();
 }
 
 AbstractTransactionScanner::~AbstractTransactionScanner() {
 	this->trx = nullptr;
+}
+
+bool AbstractTransactionScanner::hasInsertedRecord() const noexcept {
 }
 
 } /* namespace codablecash */

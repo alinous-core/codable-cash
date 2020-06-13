@@ -12,6 +12,7 @@ namespace codablecash {
 
 class CdbTransaction;
 class CdbRecord;
+class TransactionUpdateCache;
 
 class AbstractTransactionScanner {
 public:
@@ -24,8 +25,11 @@ public:
 
 	virtual void shutdown() = 0;
 
+	bool hasInsertedRecord() const noexcept;
+
 protected:
 	CdbTransaction* trx;
+	TransactionUpdateCache* cache;
 };
 
 } /* namespace codablecash */
