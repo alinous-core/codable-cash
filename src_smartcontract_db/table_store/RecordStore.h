@@ -31,6 +31,10 @@ public:
 	void close() noexcept;
 
 	void insert(const CdbRecord* rec);
+
+	Btree* getBtree() const noexcept {
+		return this->btree;
+	}
 private:
 	DiskCacheManager* cacheManager;
 	File* tableDir;

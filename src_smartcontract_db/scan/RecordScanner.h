@@ -10,8 +10,12 @@
 
 #include "scan/AbstractRecordScanner.h"
 
-namespace codablecash {
+namespace alinous {
+class BtreeScanner;
+}
+using namespace alinous;
 
+namespace codablecash {
 class TableStore;
 
 class RecordScanner : public AbstractRecordScanner {
@@ -21,8 +25,11 @@ public:
 
 	virtual void start();
 	virtual void shutdown() noexcept;
+
+	virtual bool hasNext();
 private:
 	TableStore* tableStore;
+	BtreeScanner* scanner;
 };
 
 } /* namespace codablecash */

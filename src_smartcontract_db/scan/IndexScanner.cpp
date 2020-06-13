@@ -42,4 +42,8 @@ void IndexScanner::shutdown() noexcept {
 	}
 }
 
+bool IndexScanner::hasNext() {
+
+}
+
 } /* namespace codablecash */

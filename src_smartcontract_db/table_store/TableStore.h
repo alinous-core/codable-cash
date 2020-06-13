@@ -39,6 +39,10 @@ public:
 	void insert(const CdbRecord* rec);
 	void validateRecord(CdbRecord* rec);
 
+	RecordStore* getRecordStore() const noexcept {
+		return this->recordStore;
+	}
+
 private:
 	void validateRecordColumnValue(CdbTableColumn* meta, AbstractCdbValue* value);
 private:

@@ -18,7 +18,7 @@ public:
 
 	virtual void start() = 0;
 	virtual void shutdown() noexcept = 0;
-
+	virtual bool hasNext() = 0;
 };
 
 } /* namespace codablecash */

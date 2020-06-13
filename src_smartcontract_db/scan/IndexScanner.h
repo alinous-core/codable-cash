@@ -29,7 +29,7 @@ public:
 	virtual void start();
 	virtual void shutdown() noexcept;
 
-	//virtual bool hasNext();
+	virtual bool hasNext();
 
 private:
 	IndexStore* store;
