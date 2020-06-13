@@ -13,6 +13,14 @@
 
 namespace codablecash {
 
+CdbOidValueList::CdbOidValueList(const CdbOidValueList& inst) : AbstractCdbValue(AbstractCdbValue::TYPE_OID_LIST) {
+	int maxLoop = inst.list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbOid* oid = inst.list.get(i);
+		addOid(new CdbOid(*oid));
+	}
+}
+
 CdbOidValueList::CdbOidValueList() : AbstractCdbValue(AbstractCdbValue::TYPE_OID_LIST) {
 
 }
@@ -57,6 +65,10 @@ void CdbOidValueList::fromBinary(ByteBuffer* in) {
 
 void CdbOidValueList::addOid(CdbOid* oid) noexcept {
 	this->list.addElement(oid);
+}
+
+AbstractCdbValue* CdbOidValueList::copy() const noexcept {
+	return new CdbOidValueList(*this);
 }
 
 AbstractCdbKey* CdbOidValueList::toKey() const noexcept {

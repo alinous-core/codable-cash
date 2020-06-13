@@ -19,6 +19,18 @@
 
 namespace codablecash {
 
+
+CdbRecord::CdbRecord(const CdbRecord& inst) : AbstractCdbValue(AbstractCdbValue::TYPE_RECORD) {
+	this->oid = inst.oid;
+
+	int maxLoop = inst.list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractCdbValue* v = inst.list.get(i);
+
+		addValue(v->copy());
+	}
+}
+
 CdbRecord::CdbRecord() : AbstractCdbValue(AbstractCdbValue::TYPE_RECORD) {
 	this->oid = 0;
 }
@@ -128,6 +140,10 @@ AbstractCdbKey* CdbRecord::toKey() const noexcept {
 	}
 
 	return key;
+}
+
+AbstractCdbValue* CdbRecord::copy() const noexcept {
+	return new CdbRecord(*this);
 }
 
 const AbstractCdbValue* CdbRecord::get(int pos) const noexcept {

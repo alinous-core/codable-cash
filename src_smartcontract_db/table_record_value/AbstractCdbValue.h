@@ -34,6 +34,7 @@ public:
 
 	virtual void fromBinary(ByteBuffer* in) = 0;
 
+	virtual AbstractCdbValue* copy() const noexcept = 0;
 	virtual AbstractCdbKey* toKey() const noexcept = 0;
 
 protected:

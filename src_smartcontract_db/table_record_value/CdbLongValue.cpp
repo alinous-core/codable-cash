@@ -44,4 +44,8 @@ AbstractCdbKey* CdbLongValue::toKey() const noexcept {
 	return new CdbLongKey(this->value);
 }
 
+AbstractCdbValue* CdbLongValue::copy() const noexcept {
+	return new CdbLongValue(*this);
+}
+
 } /* namespace codablecash */

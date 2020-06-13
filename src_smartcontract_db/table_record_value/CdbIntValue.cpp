@@ -48,4 +48,8 @@ AbstractCdbKey* CdbIntValue::toKey() const noexcept {
 	return new CdbIntKey(this->value);
 }
 
+AbstractCdbValue* CdbIntValue::copy() const noexcept {
+	return new CdbIntValue(*this);
+}
+
 } /* namespace codablecash */

@@ -70,6 +70,10 @@ AbstractCdbKey* CdbStringValue::toKey() const noexcept {
 	return new CdbStringKey(this->value);
 }
 
+AbstractCdbValue* CdbStringValue::copy() const noexcept {
+	return new CdbStringValue(*this);
+}
+
 UnicodeString* CdbStringValue::getString(ByteBuffer* in) noexcept {
 	UnicodeString* ret = new UnicodeString(L"");
 	uint32_t maxLoop = in->getInt();

@@ -28,7 +28,9 @@ void TransactionUpdateCache::updateInsert(InsertLog* cmd) {
 	int maxLoop = list->size();
 	for(int i = 0; i != maxLoop; ++i){
 		CdbRecord* record = list->get(i);
-		this->insertedRecords->addElement(record);
+
+		CdbRecord* newRecord = dynamic_cast<CdbRecord*>(record->copy());
+		this->insertedRecords->addElement(newRecord);
 	}
 }
 

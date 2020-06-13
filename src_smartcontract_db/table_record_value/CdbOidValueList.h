@@ -18,6 +18,7 @@ class CdbOid;
 
 class CdbOidValueList : public AbstractCdbValue {
 public:
+	CdbOidValueList(const CdbOidValueList& inst);
 	CdbOidValueList();
 	virtual ~CdbOidValueList();
 
@@ -27,6 +28,7 @@ public:
 
 	void addOid(CdbOid* oid) noexcept;
 
+	virtual AbstractCdbValue* copy() const noexcept;
 	virtual AbstractCdbKey* toKey() const noexcept;
 private:
 	ArrayList<CdbOid> list;

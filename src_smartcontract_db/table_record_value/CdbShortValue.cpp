@@ -40,6 +40,10 @@ void CdbShortValue::fromBinary(ByteBuffer* in) {
 	this->value = in->getShort();
 }
 
+AbstractCdbValue* CdbShortValue::copy() const noexcept {
+	return new CdbShortValue(*this);
+}
+
 AbstractCdbKey* CdbShortValue::toKey() const noexcept {
 	return new CdbShortKey(this->value);
 }
