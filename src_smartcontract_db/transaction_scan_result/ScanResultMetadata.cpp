@@ -22,3 +22,4 @@ ScanResultMetadata::~ScanResultMetadata() {
 }
 
 } /* namespace codablecash */
+
