@@ -5,17 +5,20 @@
  *      Author: iizuka
  */
 
-#include <transaction_scan_result/ScanResultMetadata.h>
+#include "transaction_scan_result/ScanResultMetadata.h"
+#include "transaction_scan_result/ScanResultFieldMetadata.h"
+
+#include "base/UnicodeString.h"
+
 
 namespace codablecash {
 
 ScanResultMetadata::ScanResultMetadata() {
-	// TODO Auto-generated constructor stub
-
+	this->map = new HashMap<UnicodeString, ScanResultFieldMetadata>();
 }
 
 ScanResultMetadata::~ScanResultMetadata() {
-	// TODO Auto-generated destructor stub
+	delete this->map;
 }
 
 } /* namespace codablecash */
