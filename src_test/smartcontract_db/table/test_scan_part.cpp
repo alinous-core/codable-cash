@@ -47,6 +47,8 @@
 #include "transaction_scanner/TableTransactionScanner.h"
 
 #include "table_record_key/AbstractCdbKey.h"
+
+#include "scan_condition/RootScanCondition.h"
 using namespace alinous;
 using namespace codablecash;
 
@@ -203,4 +205,6 @@ TEST(TestScanPartGroup, trxcacheScan){
 	CHECK(eq);
 }
 
-
+TEST(TestScanPartGroup, rootScanCondition){
+	RootScanCondition cnd;
+}

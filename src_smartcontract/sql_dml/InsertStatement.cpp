@@ -14,6 +14,8 @@
 #include "vm_trx/VmTransactionHandler.h"
 
 #include "vm/VirtualMachine.h"
+
+#include "transaction_log/InsertLog.h"
 namespace alinous {
 
 InsertStatement::InsertStatement() : AbstractSQLStatement(CodeElement::DML_STMT_INSERT) {
@@ -53,7 +55,7 @@ void InsertStatement::analyze(AnalyzeContext* actx) {
 void InsertStatement::interpret(VirtualMachine* vm) {
 	VmTransactionHandler* trxHandler = vm->getTransactionHandler();
 
-
+	//InsertLog* cmd = new InsertLog();
 
 	// FIXME SQL statement
 }
