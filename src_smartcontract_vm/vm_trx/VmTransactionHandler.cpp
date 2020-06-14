@@ -79,4 +79,19 @@ void VmTransactionHandler::doRollback() {
 	this->trx->rollback();
 }
 
+void VmTransactionHandler::insert(InsertLog* cmd) {
+	bool autoTrx = false;
+	if(this->trx == nullptr){
+		begin();
+		autoTrx = true;
+	}
+
+	this->trx->insert(cmd);
+
+	if(autoTrx){
+		commit();
+		autoTrx = false;
+	}
+}
+
 } /* namespace alinous */

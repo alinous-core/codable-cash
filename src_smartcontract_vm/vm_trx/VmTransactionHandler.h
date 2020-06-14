@@ -12,6 +12,7 @@ namespace codablecash {
 class CodableDatabase;
 class CdbTransaction;
 class CreateTableLog;
+class InsertLog;
 }
 using namespace codablecash;
 
@@ -27,6 +28,8 @@ public:
 	void rollback();
 
 	void createTable(CreateTableLog* cmd);
+
+	void insert(InsertLog* cmd);
 
 	void reset() noexcept;
 private:

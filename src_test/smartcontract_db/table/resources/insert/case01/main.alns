@@ -12,6 +12,7 @@ class SmartContract {
 			PRIMARY KEY(id)
 		);
 		
+		
 		INSERT INTO test_t(
 			id,
 			str_value,
