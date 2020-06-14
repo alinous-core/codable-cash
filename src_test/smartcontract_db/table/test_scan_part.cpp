@@ -46,6 +46,7 @@
 
 #include "transaction_scanner/TableTransactionScanner.h"
 
+#include "table_record_key/AbstractCdbKey.h"
 using namespace alinous;
 using namespace codablecash;
 
@@ -81,7 +82,7 @@ static void initDb(CodableDatabase& db, File* dbDir) {
 	trx->commit();
 }
 
-static void insertRecord(CdbTransaction* trx, int id, const wchar_t* name) {
+static void insertRecord(CdbTransaction* trx, int id, const wchar_t* name, ArrayList<CdbRecord>* list) {
 	InsertLog* log = new InsertLog();
 
 	CdbTableIdentifier* tableId = new CdbTableIdentifier();
@@ -95,7 +96,35 @@ static void insertRecord(CdbTransaction* trx, int id, const wchar_t* name) {
 
 	log->addRecord(record);
 
+	if(list != nullptr){
+		list->addElement((CdbRecord*)record->copy());
+	}
+
+
 	trx->insert(log);
+}
+
+static bool listequals(ArrayList<CdbRecord>& list, ArrayList<CdbRecord>& listout){
+	int maxLoop = list.size();
+
+	if(maxLoop != listout.size()){
+		return false;
+	}
+
+	for(int i = 0; i != maxLoop; ++i){
+		CdbRecord* lRecord = list.get(i);
+		CdbRecord* rRecord = listout.get(i);
+
+		AbstractCdbKey* lkey = lRecord->toKey(); __STP(lkey);
+		AbstractCdbKey* rkey = lRecord->toKey(); __STP(rkey);
+
+		int result = lkey->compareTo(rkey);
+		if(result != 0){
+			return false;
+		}
+	}
+
+	return true;
 }
 
 TEST(TestScanPartGroup, case01){
@@ -103,13 +132,16 @@ TEST(TestScanPartGroup, case01){
 	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
 	CodableDatabase db;
 
+	ArrayList<CdbRecord> list; list.setDeleteOnExit();
+	ArrayList<CdbRecord> listout; listout.setDeleteOnExit();
+
 	initDb(db, dbDir);
 
 	{
 		CdbTransaction* trx = db.newTransaction(); __STP(trx);
-		insertRecord(trx, 1, L"tanaka");
-		insertRecord(trx, 2, L"yamada");
-		insertRecord(trx, 3, L"yamamoto");
+		insertRecord(trx, 1, L"tanaka", &list);
+		insertRecord(trx, 2, L"yamada", &list);
+		insertRecord(trx, 3, L"yamamoto", &list);
 
 		trx->commit();
 	}
@@ -124,9 +156,12 @@ TEST(TestScanPartGroup, case01){
 
 		while(scanner->hasNext()){
 			const CdbRecord* rec = scanner->next();
+			listout.addElement((CdbRecord*)rec->copy());
 		}
 	}
 
+	bool eq = listequals(list, listout);
+	CHECK(eq);
 }
 
 
