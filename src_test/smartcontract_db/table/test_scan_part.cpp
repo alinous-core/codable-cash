@@ -164,4 +164,43 @@ TEST(TestScanPartGroup, case01){
 	CHECK(eq);
 }
 
+TEST(TestScanPartGroup, trxcacheScan){
+	File testCaseFolder = this->env->testCaseDir();
+	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
+	CodableDatabase db;
+
+	ArrayList<CdbRecord> list; list.setDeleteOnExit();
+	ArrayList<CdbRecord> listout; listout.setDeleteOnExit();
+
+	initDb(db, dbDir);
+
+	{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+		insertRecord(trx, 1, L"tanaka", &list);
+
+
+		trx->commit();
+	}
+
+
+	{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+
+		insertRecord(trx, 2, L"yamada", &list);
+		insertRecord(trx, 3, L"yamamoto", &list);
+
+		CdbTableIdentifier tableId(L"public", L"test_table");
+		TableTransactionScanner* scanner = trx->getTableTransactionScanner(&tableId, nullptr); __STP(scanner);
+		scanner->start();
+
+		while(scanner->hasNext()){
+			const CdbRecord* rec = scanner->next();
+			listout.addElement((CdbRecord*)rec->copy());
+		}
+	}
+
+	bool eq = listequals(list, listout);
+	CHECK(eq);
+}
+
 
