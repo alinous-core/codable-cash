@@ -22,6 +22,10 @@ public:
 
 	virtual ~Exception();
 
+	const UnicodeString* getMessage() const noexcept {
+		return this->message;
+	}
+
 protected:
 	UnicodeString* message;
 	Exception* cause;

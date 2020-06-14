@@ -19,7 +19,7 @@ void AbstractSQLStatement::init(VirtualMachine* vm) {
 }
 
 bool AbstractSQLStatement::hasCtrlStatement() const noexcept {
-	return false;
+	return true;
 }
 
 } /* namespace alinous */

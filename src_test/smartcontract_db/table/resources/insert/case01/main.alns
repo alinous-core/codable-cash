@@ -1,0 +1,32 @@
+
+
+package test.fw;
+
+
+class SmartContract {
+	public SmartContract() {
+		CREATE TABLE test_t (
+			id int not null unique,
+			str_value VARCHAR(255) not null unique DEFAULT '',
+			int_value int not null unique DEFAULT 0,
+			PRIMARY KEY(id)
+		);
+		
+		
+		INSERT INTO test_t(
+			id,
+			str_value,
+			int_value
+		)
+		VALUES(
+			1,
+			'test',
+			100
+		);
+		
+	}
+	
+	public int main(){
+
+	}
+}

@@ -155,5 +155,17 @@ void CdbTableIndex::fromBinary(ByteBuffer* in, CdbTable* table) {
 	}
 }
 
+void CdbTableIndex::adjustIndexColumnPosition(const CdbTable* table) noexcept {
+	int maxLoop = this->columns->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableColumn* col = this->columns->get(i);
+
+		const UnicodeString* name = col->getName();
+		CdbTableColumn* tcol = table->getColumn(name);
+
+		int position = tcol->getPosition();
+		col->setPosition(position);
+	}
+}
 
 } /* namespace codablecash */

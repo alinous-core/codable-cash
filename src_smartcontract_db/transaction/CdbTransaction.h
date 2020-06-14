@@ -18,6 +18,12 @@ namespace codablecash {
 class CdbTransactionManager;
 class AbstractTransactionLog;
 class CreateTableLog;
+class InsertLog;
+class TableTransactionScanner;
+class AbstractScanCondition;
+class CdbTableIdentifier;
+class TransactionUpdateCache;
+class CdbTable;
 
 class CdbTransaction {
 public:
@@ -28,11 +34,21 @@ public:
 	void rollback();
 
 	void createTable(CreateTableLog* cmd);
+
+	void insert(InsertLog* cmd);
+
+	TableTransactionScanner* getTableTransactionScanner(const CdbTableIdentifier* tableId, AbstractScanCondition* condition);
+
+	TransactionUpdateCache* getUpdateCache() const noexcept;
+
+private:
+	CdbTable* getTableFromIdentifier(const CdbTableIdentifier* tableId) const noexcept;
 private:
 	CdbTransactionManager* trxManager;
 	uint64_t transactionId;
 
 	ArrayList<AbstractTransactionLog> cmdList;
+	TransactionUpdateCache* updateCache;
 };
 
 } /* namespace codablecash */

@@ -31,15 +31,37 @@
 
 #include "sc/CompilationUnit.h"
 
+#include "engine/CodableDatabase.h"
 
 namespace alinous {
 
 VmTestUtils::VmTestUtils(const wchar_t* seg, const File* projectFolder) {
+	init(seg, projectFolder);
+}
+
+VmTestUtils::VmTestUtils(const wchar_t* seg, const File* projectFolder,	TestEnv* env) {
+	init(seg, projectFolder);
+	initdb(seg, projectFolder, env);
+}
+
+void VmTestUtils::init(const wchar_t* seg, const File* projectFolder) noexcept {
 	this->folder = projectFolder->get(seg);
 	this->vm = new VirtualMachine(1024*1024);
 	this->sc = nullptr;
 	this->mainInst = nullptr;
 	this->compile_errors = nullptr;
+}
+
+void VmTestUtils::initdb(const wchar_t* seg, const File* projectFolder,	TestEnv* env) {
+	File testCaseFolder = env->testCaseDir();
+	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
+	{
+		CodableDatabase db;
+
+		db.createDatabase(dbDir);
+	}
+
+	this->vm->loadDatabase(dbDir);
 }
 
 VmTestUtils::~VmTestUtils() {

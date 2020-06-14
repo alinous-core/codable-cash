@@ -77,6 +77,10 @@ CdbTransaction* CodableDatabase::newTransaction() {
 	return this->trxManager->newTransaction(transactionId);
 }
 
+CdbStorageManager* CodableDatabase::getStorageManager() const noexcept {
+	return this->store;
+}
+
 void CodableDatabase::checkDatabaseLoaded() const {
 	if(this->loadedFile == nullptr){
 		throw new CdbException(__FILE__, __LINE__);

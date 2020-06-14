@@ -55,6 +55,13 @@ public:
 		return this->columns;
 	}
 
+	const UnicodeString* getName() const noexcept {
+		return this->name;
+	}
+
+	void adjustIndexColumnPosition(const CdbTable* table) noexcept;
+
+
 private:
 	CdbOid* oid;
 

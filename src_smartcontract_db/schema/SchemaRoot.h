@@ -42,8 +42,9 @@ public:
 
 	uint64_t newTransactionId() noexcept;
 	uint64_t newSchemaObjectId() noexcept;
+	uint64_t newRecordObjectId() noexcept;
 
-	void createTable(const CdbTable* table);
+	const CdbTable* createTable(const CdbTable* table);
 private:
 	ArrayList<Schema> list;
 	HashMap<UnicodeString, Schema> map;

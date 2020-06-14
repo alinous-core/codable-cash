@@ -54,4 +54,10 @@ void SQLAdditiveExpression::fromBinary(ByteBuffer* in) {
 	}
 }
 
+AbstractVmInstance* SQLAdditiveExpression::interpret(VirtualMachine* vm) {
+	// FIXME SQLAdditiveExpression
+	return nullptr;
+}
+
+
 } /* namespace alinous */

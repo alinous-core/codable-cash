@@ -8,6 +8,7 @@
 #include "sql_join_parts/SQLJoinPart.h"
 #include "sql_join_parts/TableIdentifier.h"
 
+#include "sc_analyze/AnalyzedType.h"
 namespace alinous {
 
 SQLJoinPart::SQLJoinPart() : AbstractJoinPart(CodeElement::SQL_EXP_JOIN_PART) {
@@ -75,5 +76,43 @@ void SQLJoinPart::fromBinary(ByteBuffer* in) {
 		this->exp = dynamic_cast<AbstractSQLExpression*>(element);
 	}
 }
+
+void SQLJoinPart::preAnalyze(AnalyzeContext* actx) {
+	this->table->setParent(this);
+	this->table->preAnalyze(actx);
+
+	if(this->exp != nullptr){
+		this->exp->setParent(this);
+		this->exp->preAnalyze(actx);
+	}
+}
+
+void SQLJoinPart::analyzeTypeRef(AnalyzeContext* actx) {
+	this->table->analyzeTypeRef(actx);
+
+	if(this->exp != nullptr){
+		this->exp->analyzeTypeRef(actx);
+	}
+}
+
+void SQLJoinPart::analyze(AnalyzeContext* actx) {
+	this->table->analyze(actx);
+
+	if(this->exp != nullptr){
+		this->exp->analyze(actx);
+	}
+}
+
+AnalyzedType SQLJoinPart::getType(AnalyzeContext* actx) {
+	return AnalyzedType();
+}
+
+void SQLJoinPart::init(VirtualMachine* vm) {
+}
+
+AbstractVmInstance* SQLJoinPart::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME SQLJoinPart
+}
+
 
 } /* namespace alinous */

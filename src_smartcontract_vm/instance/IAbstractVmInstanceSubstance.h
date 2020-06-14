@@ -17,6 +17,7 @@ class VirtualMachine;
 class AbstractExtObject;
 class VTableRegistory;
 class AnalyzedType;
+class UnicodeString;
 
 class IAbstractVmInstanceSubstance {
 public:

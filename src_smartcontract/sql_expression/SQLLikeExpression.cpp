@@ -8,6 +8,7 @@
 #include "sql_expression/SQLLikeExpression.h"
 #include "sql_expression/SQLLiteral.h"
 
+#include "sc_analyze/AnalyzedType.h"
 namespace alinous {
 
 SQLLikeExpression::SQLLikeExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_LIKE) {
@@ -80,5 +81,53 @@ void SQLLikeExpression::fromBinary(ByteBuffer* in) {
 		this->escape = dynamic_cast<SQLLiteral*>(element);
 	}
 }
+
+void SQLLikeExpression::preAnalyze(AnalyzeContext* actx) {
+	this->left->setParent(this);
+	this->left->preAnalyze(actx);
+
+	this->right->setParent(this);
+	this->right->preAnalyze(actx);
+
+	if(this->escape != nullptr){
+		this->escape->preAnalyze(actx);
+	}
+}
+
+void SQLLikeExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	this->left->analyzeTypeRef(actx);
+	this->right->analyzeTypeRef(actx);
+
+	if(this->escape != nullptr){
+		this->escape->analyzeTypeRef(actx);
+	}
+}
+
+void SQLLikeExpression::analyze(AnalyzeContext* actx) {
+	this->left->analyze(actx);
+	this->right->analyze(actx);
+
+	if(this->escape != nullptr){
+		this->escape->analyze(actx);
+	}
+}
+
+AnalyzedType SQLLikeExpression::getType(AnalyzeContext* actx) {
+	return AnalyzedType(AnalyzedType::TYPE_BOOL);
+}
+
+void SQLLikeExpression::init(VirtualMachine* vm) {
+	this->left->init(vm);
+	this->right->init(vm);
+
+	if(this->escape != nullptr){
+		this->escape->init(vm);
+	}
+}
+
+AbstractVmInstance* SQLLikeExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME SQLLikeExpression
+}
+
 
 } /* namespace alinous */

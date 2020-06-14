@@ -11,6 +11,11 @@
 #include "sql_expression/SQLExpressionList.h"
 #include "sql_join_parts/TableIdentifier.h"
 
+#include "vm_trx/VmTransactionHandler.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "transaction_log/InsertLog.h"
 namespace alinous {
 
 InsertStatement::InsertStatement() : AbstractSQLStatement(CodeElement::DML_STMT_INSERT) {
@@ -26,14 +31,33 @@ InsertStatement::~InsertStatement() {
 }
 
 void InsertStatement::preAnalyze(AnalyzeContext* actx) {
+	this->tableId->setParent(this);
+	this->tableId->preAnalyze(actx);
 
+	if(this->columns != nullptr){
+		this->columns->setParent(this);
+	}
+
+	this->expList->setParent(this);
+	this->expList->preAnalyze(actx);
 }
 
 void InsertStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	this->tableId->analyzeTypeRef(actx);
+	this->expList->analyzeTypeRef(actx);
 }
 
 void InsertStatement::analyze(AnalyzeContext* actx) {
+	this->tableId->analyze(actx);
+	this->expList->analyze(actx);
+}
 
+void InsertStatement::interpret(VirtualMachine* vm) {
+	VmTransactionHandler* trxHandler = vm->getTransactionHandler();
+
+	//InsertLog* cmd = new InsertLog();
+
+	// FIXME SQL statement
 }
 
 void InsertStatement::setTable(TableIdentifier* tableId) noexcept {
@@ -95,10 +119,6 @@ void InsertStatement::fromBinary(ByteBuffer* in) {
 	element = createFromBinary(in);
 	checkKind(element, CodeElement::SQL_EXP_EXP_LIST);
 	this->expList = dynamic_cast<SQLExpressionList*>(element);
-}
-
-void InsertStatement::interpret(VirtualMachine* vm) {
-	// FIXME SQL statement
 }
 
 } /* namespace alinous */

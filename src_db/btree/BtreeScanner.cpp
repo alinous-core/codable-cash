@@ -33,7 +33,7 @@ void BtreeScanner::begin() {
 }
 
 void BtreeScanner::begin(const AbstractBtreeKey* key) {
-	this->key = key->clone();
+	this->key = key != nullptr ? key->clone() : nullptr;
 }
 
 bool BtreeScanner::hasNext() {

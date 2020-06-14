@@ -37,6 +37,7 @@ public:
 
 	virtual int instValueCompare(IAbstractVmInstanceSubstance* right);
 	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);
+
 private:
 	AnalyzedType* atype;
 };

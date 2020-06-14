@@ -7,6 +7,7 @@
 
 #include "sql_expression/SQLParenthesisExpression.h"
 
+#include "sc_analyze/AnalyzedType.h"
 namespace alinous {
 
 SQLParenthesisExpression::SQLParenthesisExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_PARENTHESIS) {
@@ -42,5 +43,31 @@ void SQLParenthesisExpression::fromBinary(ByteBuffer* in) {
 	checkIsSQLExp(element);
 	this->exp = dynamic_cast<AbstractSQLExpression*>(element);
 }
+
+void SQLParenthesisExpression::preAnalyze(AnalyzeContext* actx) {
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+}
+
+void SQLParenthesisExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	this->exp->analyzeTypeRef(actx);
+}
+
+void SQLParenthesisExpression::analyze(AnalyzeContext* actx) {
+	this->exp->analyze(actx);
+}
+
+AnalyzedType SQLParenthesisExpression::getType(AnalyzeContext* actx) {
+	return this->exp->getType(actx);
+}
+
+void SQLParenthesisExpression::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
+AbstractVmInstance* SQLParenthesisExpression::interpret(VirtualMachine* vm) {
+	return this->exp->interpret(vm);
+}
+
 
 } /* namespace alinous */

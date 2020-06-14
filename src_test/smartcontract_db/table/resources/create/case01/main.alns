@@ -1,0 +1,22 @@
+
+
+package test.fw;
+
+
+class SmartContract {
+	public SmartContract() {
+		CREATE TABLE test_t (
+			id int not null unique,
+			str_value VARCHAR(255) not null unique DEFAULT '',
+			byte_value byte not null unique DEFAULT 0,
+			short_value short not null unique DEFAULT 0,
+			int_value int not null unique DEFAULT 0,
+			long_value long not null unique DEFAULT 0,
+			PRIMARY KEY(id)
+		);
+	}
+	
+	public int main(){
+
+	}
+}

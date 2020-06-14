@@ -7,6 +7,14 @@
 
 #include "sql_dml/BeginStatement.h"
 
+#include "vm_trx/VmTransactionHandler.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "base/Exception.h"
+
+#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+
 namespace alinous {
 
 BeginStatement::BeginStatement() : AbstractSQLStatement(CodeElement::DML_STMT_BEGIN) {
@@ -38,7 +46,15 @@ void BeginStatement::fromBinary(ByteBuffer* in) {
 }
 
 void BeginStatement::interpret(VirtualMachine* vm) {
-	// FIXME SQL statement
+	VmTransactionHandler* handler = vm->getTransactionHandler();
+
+	try{
+		handler->begin();
+	}
+	catch(Exception* e){
+		DatabaseExceptionClassDeclare::throwException(e->getMessage(), vm, this);
+		delete e;
+	}
 }
 
 } /* namespace alinous */

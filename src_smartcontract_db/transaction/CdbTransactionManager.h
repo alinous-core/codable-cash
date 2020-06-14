@@ -20,8 +20,12 @@ namespace codablecash {
 class CdbTransaction;
 class CodableDatabase;
 class SchemaObjectIdPublisher;
+class RecordObjectIdPublisher;
 class CreateTableLog;
 class AbstractTransactionLog;
+class InsertLog;
+class Schema;
+class CdbStorageManager;
 
 class CdbTransactionManager : public ISchemaUptateListner {
 public:
@@ -29,17 +33,26 @@ public:
 	virtual ~CdbTransactionManager();
 
 	virtual void schemaLoaded(SchemaManager* sc);
-	virtual void onCreateTable(SchemaManager* mgr, CdbTable* table);
+	virtual void onCreateTable(SchemaManager* mgr, const CdbTable* table);
 
 	CdbTransaction* newTransaction(uint64_t transactionId);
 
 	SchemaObjectIdPublisher* getSchemaObjectIdPublisher() const noexcept;
+	RecordObjectIdPublisher* getRecordObjectIdPublisher() const noexcept;
 
 	void commitCreateTable(CreateTableLog* cmd);
+
+	void commitInsert(InsertLog* cmd);
+
+	Schema* getSchema(const UnicodeString* name) const noexcept;
+
+	CdbStorageManager* getStorageManager() const noexcept;
+
 private:
 	CodableDatabase* db;
-	SchemaManager* schema;
+	SchemaManager* schemaManager;
 	SchemaObjectIdPublisher* schemaIdPublisher;
+	RecordObjectIdPublisher* recordObjectIdPublisher;
 
 	ArrayList<AbstractTransactionLog>* committedCommands;
 };

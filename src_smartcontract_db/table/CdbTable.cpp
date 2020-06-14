@@ -51,6 +51,7 @@ CdbTable::CdbTable(const CdbTable& inst) {
 			addIndex(new CdbTableIndex(*idx));
 		}
 	}
+	this->parent = nullptr;
 }
 
 
@@ -61,6 +62,7 @@ CdbTable::CdbTable(uint64_t oid) {
 	this->schemaName = new UnicodeString(&SchemaManager::PUBLIC);
 	this->name = nullptr;
 	this->indexes = new ArrayList<CdbTableIndex>();
+	this->parent = nullptr;
 }
 
 CdbTable::~CdbTable() {
@@ -74,6 +76,12 @@ CdbTable::~CdbTable() {
 
 	this->indexes->deleteElements();
 	delete this->indexes;
+
+	this->schemaName = nullptr;
+}
+void CdbTable::setSchemaName(UnicodeString* schemaName) noexcept {
+	delete this->schemaName;
+	this->schemaName = schemaName;
 }
 
 void CdbTable::addColumn(uint8_t oid, const wchar_t* name,
@@ -102,6 +110,9 @@ void CdbTable::addColumn(uint8_t oid, const UnicodeString* name, uint8_t type, i
 }
 
 void CdbTable::addColumn(CdbTableColumn* col) noexcept {
+	int position = this->columns->size();
+	col->setPosition(position);
+
 	this->columns->addElement(col);
 	const CdbOid* o = col->getOid();
 	this->columnMap->put(o, col);
@@ -112,7 +123,7 @@ CdbTableColumn* CdbTable::getColumn(const wchar_t* name) noexcept {
 	return getColumn(&str);
 }
 
-CdbTableColumn* CdbTable::getColumn(const UnicodeString* name) noexcept {
+CdbTableColumn* CdbTable::getColumn(const UnicodeString* name) const noexcept {
 	CdbTableColumn* retcol = nullptr;
 
 	int maxLoop = this->columns->size();
@@ -132,6 +143,11 @@ CdbTableColumn* CdbTable::getColumn(const UnicodeString* name) noexcept {
 CdbTableColumn* CdbTable::findColumnByOid(const CdbOid* oid) const noexcept {
 	return this->columnMap->get(oid);
 }
+
+const ArrayList<CdbTableColumn>* CdbTable::getColumns() const noexcept {
+	return this->columns;
+}
+
 
 void CdbTable::assignNewOid(SchemaObjectIdPublisher* publisher) {
 	uint64_t oid = publisher->newOid();
@@ -203,11 +219,15 @@ void CdbTable::setPrimaryKeys(ArrayList<const UnicodeString>* cols) {
 	UnicodeString* indexName = CdbTableIndex::createPrimaryKeyIndexName(index, this);
 	index->setName(indexName);
 	index->setPrimaryKey(true);
+
+	adjustIndexColumnPosition();
 }
 
 
 void CdbTable::addIndex(CdbTableIndex* index) {
 	this->indexes->addElement(index);
+
+	adjustIndexColumnPosition();
 }
 
 CdbTableIndex* CdbTable::getIndexByColumnOid(const CdbOid* oid) const noexcept {
@@ -306,6 +326,36 @@ void CdbTable::fromBinary(ByteBuffer* in) {
 		idx->fromBinary(in, this);
 		addIndex(idx);
 	}
+
+	adjustIndexColumnPosition();
+}
+
+void CdbTable::setSchema(Schema* schema) noexcept {
+	this->parent = schema;
+}
+
+const Schema* CdbTable::getSchema() const noexcept {
+	return this->parent;
+}
+
+const ArrayList<CdbTableIndex>* CdbTable::getIndexes() const noexcept {
+	return this->indexes;
+}
+
+void CdbTable::adjustIndexColumnPosition() noexcept {
+	int maxLoop = this->columns->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableColumn* col = this->columns->get(i);
+		col->setPosition(i);
+	}
+
+	maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* index = this->indexes->get(i);
+
+		index->adjustIndexColumnPosition(this);
+	}
+
 }
 
 } /* namespace codablecash */

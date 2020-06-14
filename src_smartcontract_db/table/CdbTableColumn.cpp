@@ -31,6 +31,7 @@ CdbTableColumn::CdbTableColumn(const CdbTableColumn& inst) {
 	}else{
 		this->defaultValue = nullptr;
 	}
+	this->position = inst.position;
 }
 
 
@@ -42,6 +43,7 @@ CdbTableColumn::CdbTableColumn(uint64_t oid) {
 	this->notnull = false;
 	this->unique = false;
 	this->defaultValue = nullptr;
+	this->position = 0;
 }
 
 CdbTableColumn::~CdbTableColumn() {
@@ -146,5 +148,12 @@ void CdbTableColumn::fromBinary(ByteBuffer* in) {
 	}
 }
 
+int CdbTableColumn::getPosition() const noexcept {
+	return this->position;
+}
+
+void CdbTableColumn::setPosition(int position) noexcept {
+	this->position = position;
+}
 
 } /* namespace codablecash */

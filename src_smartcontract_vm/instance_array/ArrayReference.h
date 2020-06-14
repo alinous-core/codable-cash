@@ -30,7 +30,7 @@ public:
 	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
-
+	virtual const UnicodeString* toString() noexcept;
 
 private:
 	VmArrayInstance* instArray;

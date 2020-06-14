@@ -19,9 +19,9 @@
 #include "instance_exception/NullPointerExceptionClassDeclare.h"
 #include "instance_exception/ZeroDivisionExceptionClassDeclare.h"
 #include "instance_exception/TypeCastExceptionClassDeclare.h"
+#include "transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "base/UnicodeString.h"
-
 
 namespace alinous {
 
@@ -44,6 +44,9 @@ ReservedClassRegistory::ReservedClassRegistory() {
 	addAnalyzedClass(aclass);
 
 	aclass = TypeCastExceptionClassDeclare::createAnalyzedClass();
+	addAnalyzedClass(aclass);
+
+	aclass = DatabaseExceptionClassDeclare::createAnalyzedClass();
 	addAnalyzedClass(aclass);
 }
 

@@ -6,17 +6,30 @@
  */
 
 #include "sql_expression/SQLLiteral.h"
+
 #include "base/UnicodeString.h"
+#include "base/Long.h"
+
+#include "sc_analyze/AnalyzedType.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
+#include "instance_string/VmStringInstance.h"
+
+#include "base/StackRelease.h"
 
 namespace alinous {
 
 SQLLiteral::SQLLiteral() : AbstractSQLExpression(CodeElement::SQL_EXP_LITERAL) {
 	this->value = nullptr;
 	this->type = TYPE_STRING;
+	this->longv = 0;
+	this->stringValue = nullptr;
 }
 
 SQLLiteral::~SQLLiteral() {
 	delete this->value;
+	delete this->stringValue;
 }
 
 void SQLLiteral::setValue(UnicodeString* value, uint8_t type) noexcept {
@@ -46,5 +59,42 @@ void SQLLiteral::fromBinary(ByteBuffer* in) {
 	this->value = getString(in);
 	this->type = in->get();
 }
+
+void SQLLiteral::preAnalyze(AnalyzeContext* actx) {
+}
+
+void SQLLiteral::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void SQLLiteral::analyze(AnalyzeContext* actx) {
+	if(this->type == SQLLiteral::TYPE_NUMBER){
+		this->longv = Long::parseLong(this->value);
+		return;
+	}
+
+	this->stringValue = this->value->substring(1, this->value->length() - 1);
+}
+
+AnalyzedType SQLLiteral::getType(AnalyzeContext* actx) {
+	if(this->type == SQLLiteral::TYPE_NUMBER){
+		return AnalyzedType(AnalyzedType::TYPE_LONG);
+	}
+
+	return AnalyzedType(AnalyzedType::TYPE_STRING);
+}
+
+void SQLLiteral::init(VirtualMachine* vm) {
+
+}
+
+AbstractVmInstance* SQLLiteral::interpret(VirtualMachine* vm) {
+	if(this->type == SQLLiteral::TYPE_NUMBER){
+		return PrimitiveReference::createLongReference(vm, this->longv);
+	}
+
+	VmStringInstance* inst = new(vm) VmStringInstance(vm, this->stringValue);
+	return inst;
+}
+
 
 } /* namespace alinous */

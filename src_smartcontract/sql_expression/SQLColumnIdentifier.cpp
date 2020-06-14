@@ -8,6 +8,9 @@
 #include "sql_expression/SQLColumnIdentifier.h"
 #include "base/UnicodeString.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
+#include "sc_analyze/AnalyzeContext.h"
 namespace alinous {
 
 SQLColumnIdentifier::SQLColumnIdentifier() : AbstractSQLExpression(CodeElement::SQL_EXP_COLUMN_ID){
@@ -82,5 +85,26 @@ void SQLColumnIdentifier::fromBinary(ByteBuffer* in) {
 	}
 	this->columnName = getString(in);
 }
+
+void SQLColumnIdentifier::preAnalyze(AnalyzeContext* actx) {
+}
+
+void SQLColumnIdentifier::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void SQLColumnIdentifier::analyze(AnalyzeContext* actx) {
+}
+
+AnalyzedType SQLColumnIdentifier::getType(AnalyzeContext* actx) {
+	return AnalyzedType();
+}
+
+void SQLColumnIdentifier::init(VirtualMachine* vm) {
+}
+
+AbstractVmInstance* SQLColumnIdentifier::interpret(VirtualMachine* vm) {
+	return nullptr;
+}
+
 
 } /* namespace alinous */

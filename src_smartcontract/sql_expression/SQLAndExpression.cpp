@@ -31,4 +31,10 @@ void SQLAndExpression::fromBinary(ByteBuffer* in) {
 	AbstractSQLBinaryExpression::fromBinary(in);
 }
 
+AbstractVmInstance* SQLAndExpression::interpret(VirtualMachine* vm) {
+	// FIXME SQLAndExpression
+	return nullptr;
+}
+
+
 } /* namespace alinous */

@@ -7,6 +7,8 @@
 
 #include "sql_expression/SQLRelationalExpression.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
 namespace alinous {
 
 SQLRelationalExpression::SQLRelationalExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_RELATIONAL) {
@@ -65,5 +67,37 @@ void SQLRelationalExpression::fromBinary(ByteBuffer* in) {
 
 	this->op = in->get();
 }
+
+void SQLRelationalExpression::preAnalyze(AnalyzeContext* actx) {
+	this->left->setParent(this);
+	this->left->preAnalyze(actx);
+
+	this->right->setParent(this);
+	this->right->preAnalyze(actx);
+}
+
+void SQLRelationalExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	this->left->analyzeTypeRef(actx);
+	this->right->analyzeTypeRef(actx);
+}
+
+void SQLRelationalExpression::analyze(AnalyzeContext* actx) {
+	this->left->analyze(actx);
+	this->right->analyze(actx);
+}
+
+AnalyzedType SQLRelationalExpression::getType(AnalyzeContext* actx) {
+	return AnalyzedType(AnalyzedType::TYPE_BOOL);
+}
+
+void SQLRelationalExpression::init(VirtualMachine* vm) {
+	this->left->init(vm);
+	this->right->init(vm);
+}
+
+AbstractVmInstance* SQLRelationalExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME SQLRelationalExpression
+}
+
 
 } /* namespace alinous */

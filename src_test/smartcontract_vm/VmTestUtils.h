@@ -15,6 +15,7 @@
 
 #include "ext_binary/ExtExceptionObject.h"
 
+#include "../test_utils/TestEnv.h"
 
 namespace alinous {
 
@@ -30,8 +31,13 @@ class ExtArrayObject;
 class VmTestUtils {
 public:
 	VmTestUtils(const wchar_t* seg, const File* projectFolder);
+	VmTestUtils(const wchar_t* seg, const File* projectFolder, TestEnv* env);
 	virtual ~VmTestUtils();
 
+private:
+	void init(const wchar_t* seg, const File* projectFolder) noexcept;
+	void initdb(const wchar_t* seg, const File* projectFolder, TestEnv* env);
+public:
 	bool loadAllFiles();
 	void scanFiles(File* folder, SmartContract* sc);
 	void addCompilantUnit(File* file, SmartContract* sc, File* base);

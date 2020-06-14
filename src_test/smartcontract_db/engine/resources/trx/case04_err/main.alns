@@ -1,0 +1,14 @@
+
+
+package test.fw;
+
+
+class SmartContract {
+	public SmartContract() {
+		COMMIT;	
+	}
+	
+	public int main(){
+
+	}
+}

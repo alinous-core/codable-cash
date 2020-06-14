@@ -20,9 +20,14 @@ public:
 	void setCodeElement(const CodeElement* element) noexcept;
 	const CodeElement* getElement() const noexcept;
 
+	void setMessage(const UnicodeString* message) noexcept;
+
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* reg);
+	virtual const UnicodeString* toString() noexcept;
 private:
 	const CodeElement* element;
+	UnicodeString* message;
+
 };
 
 } /* namespace alinous */

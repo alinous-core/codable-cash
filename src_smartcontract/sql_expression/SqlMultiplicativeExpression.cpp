@@ -54,4 +54,9 @@ void SqlMultiplicativeExpression::fromBinary(ByteBuffer* in) {
 	}
 }
 
+AbstractVmInstance* SqlMultiplicativeExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME SqlMultiplicativeExpression
+}
+
+
 } /* namespace alinous */

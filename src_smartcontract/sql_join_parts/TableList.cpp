@@ -8,6 +8,7 @@
 #include "sql_join_parts/TableList.h"
 #include "sql_join_parts/TableIdentifier.h"
 
+#include "sc_analyze/AnalyzedType.h"
 namespace alinous {
 
 TableList::TableList() : AbstractJoinPart(CodeElement::SQL_EXP_TABLE_LIST) {
@@ -57,5 +58,51 @@ void TableList::fromBinary(ByteBuffer* in) {
 		this->list.addElement(tableId);
 	}
 }
+
+void TableList::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractJoinPart* tableId = this->list.get(i);
+
+		tableId->setParent(this);
+		tableId->preAnalyze(actx);
+	}
+}
+
+void TableList::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractJoinPart* tableId = this->list.get(i);
+
+		tableId->analyzeTypeRef(actx);
+	}
+}
+
+void TableList::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractJoinPart* tableId = this->list.get(i);
+
+		tableId->analyze(actx);
+	}
+}
+
+AnalyzedType TableList::getType(AnalyzeContext* actx) {
+	return AnalyzedType();
+}
+
+void TableList::init(VirtualMachine* vm) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractJoinPart* tableId = this->list.get(i);
+
+		tableId->init(vm);
+	}
+}
+
+AbstractVmInstance* TableList::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME TableList
+}
+
 
 } /* namespace alinous */

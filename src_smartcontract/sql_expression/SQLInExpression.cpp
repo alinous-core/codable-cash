@@ -8,6 +8,7 @@
 #include "sql_expression/SQLInExpression.h"
 #include "sql_expression/SQLExpressionList.h"
 
+#include "sc_analyze/AnalyzedType.h"
 namespace alinous {
 
 SQLInExpression::SQLInExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_IN) {
@@ -57,5 +58,37 @@ void SQLInExpression::fromBinary(ByteBuffer* in) {
 	checkKind(element, CodeElement::SQL_EXP_EXP_LIST);
 	this->list = dynamic_cast<SQLExpressionList*>(element);
 }
+
+void SQLInExpression::preAnalyze(AnalyzeContext* actx) {
+	this->left->setParent(this);
+	this->left->preAnalyze(actx);
+
+	this->list->setParent(this);
+	this->list->preAnalyze(actx);
+}
+
+void SQLInExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	this->left->analyzeTypeRef(actx);
+	this->list->analyzeTypeRef(actx);
+}
+
+void SQLInExpression::analyze(AnalyzeContext* actx) {
+	this->left->analyze(actx);
+	this->list->analyze(actx);
+}
+
+AnalyzedType SQLInExpression::getType(AnalyzeContext* actx) {
+	return AnalyzedType(AnalyzedType::TYPE_BOOL);
+}
+
+void SQLInExpression::init(VirtualMachine* vm) {
+	this->left->init(vm);
+	this->list->init(vm);
+}
+
+AbstractVmInstance* SQLInExpression::interpret(VirtualMachine* vm) {
+	return nullptr; // FIXME AbstractVmInstance
+}
+
 
 } /* namespace alinous */

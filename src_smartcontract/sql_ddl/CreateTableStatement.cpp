@@ -6,10 +6,37 @@
  */
 
 #include "sql_ddl/CreateTableStatement.h"
-
 #include "sql_ddl/DdlColumnDescriptor.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
+#include "base/Exception.h"
+
+#include "table/CdbTable.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "transaction_log/CreateTableLog.h"
+
+
+
+#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+
+#include "vm_trx/VmTransactionHandler.h"
+
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzedType.h"
+
+#include "sql_ddl/ColumnTypeDescriptor.h"
+
+#include "sql/AbstractSQLExpression.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
+
+#include "instance_gc/StackFloatingVariableHandler.h"
+
 
 namespace alinous {
 
@@ -30,13 +57,110 @@ CreateTableStatement::~CreateTableStatement() {
 }
 
 void CreateTableStatement::preAnalyze(AnalyzeContext* actx) {
+
 }
 
 void CreateTableStatement::analyzeTypeRef(AnalyzeContext* actx) {
+
 }
 
 
 void CreateTableStatement::analyze(AnalyzeContext* actx) {
+	{
+		int maxLoop = this->list->size();
+		for(int i = 0; i != maxLoop; ++i){
+			DdlColumnDescriptor* colDesc = this->list->get(i);
+			colDesc->analyze(actx);
+		}
+	}
+
+	if(this->primaryKeys->isEmpty()){
+		actx->addValidationError(ValidationError::DB_NO_PRIMARY_KEY, this, L"Primary key is required.", {});
+	}
+
+	int maxLoop = this->list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		DdlColumnDescriptor* colDesc = this->list->get(i);
+		ColumnTypeDescriptor* typeDesc = colDesc->getColumnTypeDescriptor();
+
+		uint8_t type = typeDesc->toCdbValueType();
+		if(type == 0){
+			const UnicodeString* tname = typeDesc->getTypeName();
+			actx->addValidationError(ValidationError::DB_TYPE_NOT_EXISTS, this, L"The type {0} does not exists.", {tname});
+		}
+
+		AbstractSQLExpression* lengthExp = typeDesc->getLengthExp();
+		if(lengthExp != nullptr){
+			AnalyzedType at = lengthExp->getType(actx);
+			if(!at.isPrimitiveInteger()){
+				const UnicodeString* tname = typeDesc->getTypeName();
+				actx->addValidationError(ValidationError::DB_LENGTH_IS_NOT_INTEGER, this, L"The type {0}'s length must be integer value.", {tname});
+			}
+		}
+
+	}
+}
+
+void CreateTableStatement::interpret(VirtualMachine* vm) {
+	CreateTableLog* cmd = new CreateTableLog();
+
+	CdbTable* table = createTable(vm);
+	cmd->setTable(table);
+
+	VmTransactionHandler* handler = vm->getTransactionHandler();
+	try{
+		handler->createTable(cmd);
+	}
+	catch(Exception* e){
+		DatabaseExceptionClassDeclare::throwException(e->getMessage(), vm, this);
+		delete e;
+		delete cmd;
+	}
+}
+
+CdbTable* CreateTableStatement::createTable(VirtualMachine* vm) {
+	StackFloatingVariableHandler releaser(vm->getGc());
+
+	CdbTable* table = new CdbTable(0);
+	StackRelease<CdbTable> __tableRelease(table);
+
+	table->setName(new UnicodeString(this->name));
+
+	int maxLoop = this->list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		DdlColumnDescriptor* colDesc = this->list->get(i);
+		ColumnTypeDescriptor* typeDesc = colDesc->getColumnTypeDescriptor();
+
+		uint8_t type = typeDesc->toCdbValueType();
+		const UnicodeString* name = colDesc->getName();
+
+		AbstractSQLExpression* lengthExp = typeDesc->getLengthExp();
+		int length = 0;
+		if(lengthExp != nullptr){
+			AbstractVmInstance* inst = lengthExp->interpret(vm);
+			releaser.registerInstance(inst);
+			PrimitiveReference* l = dynamic_cast<PrimitiveReference*>(inst);
+
+			length = l->getIntValue();
+		}
+
+		const UnicodeString* defaultValue = nullptr;
+		AbstractSQLExpression* defExp = colDesc->getDefaultValue();
+		if(defExp != nullptr){
+			AbstractVmInstance* inst = defExp->interpret(vm);
+			releaser.registerInstance(inst);
+
+			if(inst != nullptr){
+				defaultValue = inst->toString();
+			}
+		}
+
+		table->addColumn(0, name,type, length, colDesc->isNotNull(), colDesc->isUnique(), defaultValue);
+	}
+
+	__tableRelease.cancel();
+
+	return table;
 }
 
 int CreateTableStatement::binarySize() const {
@@ -101,10 +225,6 @@ void CreateTableStatement::fromBinary(ByteBuffer* in) {
 		UnicodeString* key = getString(in);
 		this->primaryKeys->addElement(key);
 	}
-}
-
-void CreateTableStatement::interpret(VirtualMachine* vm) {
-	// FIXME SQL statement
 }
 
 void CreateTableStatement::addColumn(DdlColumnDescriptor* col) noexcept {

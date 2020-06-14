@@ -41,6 +41,8 @@ void Schema::setName(UnicodeString* name) noexcept {
 }
 
 void Schema::addTable(CdbTable* table) noexcept {
+	table->setSchema(this);
+
 	this->tables->addElement(table);
 	this->nameTableMap.put(table->getName(), table);
 	this->oidTableMap.put(table->getOid(), table);
@@ -64,6 +66,10 @@ void Schema::toBinary(ByteBuffer* out) const {
 	out->putLong(this->oid->getOid());
 
 	putString(out, this->name);
+}
+
+CdbTable* Schema::getCdbTableByName(const UnicodeString* tableName) const noexcept {
+	return this->nameTableMap.get(tableName);
 }
 
 void Schema::fromBinary(ByteBuffer* in) {

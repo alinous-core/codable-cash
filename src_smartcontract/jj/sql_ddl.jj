@@ -151,7 +151,7 @@ ColumnTypeDescriptor* columnTypeDescriptor() :
 	Token* t2 = nullptr;
 }
 {
-	(t1=<IDENTIFIER> | t1=<BOOL> | t1=<INT>) {
+	(t1=<IDENTIFIER> | t1=<INT> | t1=<BYTE> | t1=<SHORT> | t1=<LONG>) {
 		typeDesc->setTypeName(_STR(t1));
 		typeDesc->setPosition(t1);
 	}

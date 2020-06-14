@@ -28,11 +28,13 @@ const UnicodeString SchemaManager::SCHEMA_FILE(L"schema.bin");
 SchemaManager::SchemaManager() {
 	this->root = nullptr;
 	this->schemaBin = nullptr;
+	this->databaseBaseDir = nullptr;
 }
 
 SchemaManager::~SchemaManager() {
 	delete this->root;
 	delete this->schemaBin;
+	delete this->databaseBaseDir;
 }
 
 void SchemaManager::addSchemaUpdateListner(ISchemaUptateListner* listner) noexcept {
@@ -82,6 +84,7 @@ void SchemaManager::save() {
 
 
 void SchemaManager::loadSchema(const File* baseDir) {
+	this->databaseBaseDir = new File(*baseDir);
 	this->schemaBin = baseDir->get(&SchemaManager::SCHEMA_FILE);
 
 	int size = schemaBin->length();
@@ -104,16 +107,23 @@ void SchemaManager::loadSchema(const File* baseDir) {
 }
 
 uint64_t SchemaManager::newTransactionId() {
-	return this->root->newTransactionId();
+	uint64_t trxId = this->root->newTransactionId();
+	save();
+
+	return trxId;
 }
 
 uint64_t SchemaManager::newSchemaObjectId() noexcept {
 	return this->root->newSchemaObjectId();
 }
 
+uint64_t SchemaManager::newRecordObjectId() noexcept {
+	return this->root->newRecordObjectId();
+}
+
 void SchemaManager::createTable(CdbTable* table) {
-	this->root->createTable(table);
-	fireOnCreateTable(table);
+	const CdbTable* newTable = this->root->createTable(table);
+	fireOnCreateTable(newTable);
 
 	save();
 }
@@ -126,7 +136,11 @@ void SchemaManager::fireSchemaLoaded() noexcept {
 	}
 }
 
-void SchemaManager::fireOnCreateTable(CdbTable* table) {
+Schema* SchemaManager::getSchema(const UnicodeString* name) const noexcept {
+	return this->root->getSchema(name);
+}
+
+void SchemaManager::fireOnCreateTable(const CdbTable* table) {
 	int maxLoop = this->listners.size();
 	for(int i = 0; i != maxLoop; ++i){
 		ISchemaUptateListner* l = this->listners.get(i);

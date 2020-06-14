@@ -61,6 +61,8 @@
 
 #include "engine/CodableDatabase.h"
 
+#include "vm_trx/VmTransactionHandler.h"
+
 namespace alinous {
 
 VirtualMachine::VirtualMachine(uint64_t memCapacity) {
@@ -77,6 +79,7 @@ VirtualMachine::VirtualMachine(uint64_t memCapacity) {
 	this->uncaughtException = nullptr;
 	this->caught = false;
 	this->db = new CodableDatabase();
+	this->trxHandler = new VmTransactionHandler(this->db);
 }
 
 VirtualMachine::~VirtualMachine() {
@@ -99,12 +102,17 @@ VirtualMachine::~VirtualMachine() {
 	this->exceptions.deleteElements();
 	delete this->uncaughtException;
 
+	delete this->trxHandler;
 	delete this->db;
 }
 
 void VirtualMachine::loadSmartContract(SmartContract* sc) {
 	this->sc = sc;
 	this->stackManager = new VmStackManager();
+}
+
+void VirtualMachine::loadDatabase(const File* dbdir) {
+	this->db->loadDatabase(dbdir);
 }
 
 VmClassInstance* VirtualMachine::createScInstance() {
@@ -202,6 +210,9 @@ ReservedClassRegistory* VirtualMachine::getReservedClassRegistory() const noexce
 	return this->sc->getReservedClassRegistory();
 }
 
+VmTransactionHandler* VirtualMachine::getTransactionHandler() const noexcept {
+	return this->trxHandler;
+}
 
 void VirtualMachine::checkUncaughtException() {
 	if(this->uncaughtException != nullptr){

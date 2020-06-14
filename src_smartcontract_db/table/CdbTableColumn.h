@@ -48,6 +48,9 @@ public:
 	int binarySize() const;
 	void toBinary(ByteBuffer* out) const;
 	void fromBinary(ByteBuffer* in);
+
+	int getPosition() const noexcept;
+	void setPosition(int position) noexcept;
 private:
 	CdbOid* oid;
 
@@ -57,6 +60,8 @@ private:
 	bool notnull;
 	bool unique;
 	UnicodeString* defaultValue;
+
+	int position;
 };
 
 } /* namespace codablecash */

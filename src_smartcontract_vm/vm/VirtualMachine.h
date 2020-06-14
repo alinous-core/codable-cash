@@ -44,6 +44,9 @@ class ObjectReference;
 class ExtExceptionObject;
 class ReservedClassRegistory;
 
+class VmTransactionHandler;
+class File;
+
 class VirtualMachine {
 public:
 	explicit VirtualMachine(uint64_t memCapacity);
@@ -95,6 +98,10 @@ public:
 	// catch statement
 	void setCaught(bool caught) noexcept;
 	bool isCaught() const noexcept;
+
+	// database and transaction
+	VmTransactionHandler* getTransactionHandler() const noexcept;
+	void loadDatabase(const File* dbdir);
 private:
 	void checkUncaughtException();
 
@@ -121,6 +128,7 @@ private:
 
 	// database engine
 	CodableDatabase* db;
+	VmTransactionHandler* trxHandler;
 };
 
 } /* namespace alinous */

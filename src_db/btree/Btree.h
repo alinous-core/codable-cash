@@ -38,7 +38,7 @@ public:
 	void create(BtreeConfig* config);
 
 	void open(const BtreeOpenConfig* config);
-	void close();
+	void close() noexcept;
 
 	void insert(const AbstractBtreeKey* key, const IBlockObject* data);
 	BtreeScanner* getScanner();

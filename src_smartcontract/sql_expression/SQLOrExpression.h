@@ -20,6 +20,9 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+	virtual AnalyzedType getType(AnalyzeContext* actx);
 };
 
 } /* namespace alinous */

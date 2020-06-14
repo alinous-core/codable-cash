@@ -38,6 +38,8 @@ public:
 	virtual int instValueCompare(IAbstractVmInstanceSubstance* right);
 	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);
 
+	virtual const UnicodeString* toString() noexcept;
+
 
 	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
 
@@ -49,6 +51,8 @@ private:
 	int length;
 
 	AnalyzedType* atype;
+
+	UnicodeString* str;
 };
 
 } /* namespace alinous */

@@ -71,7 +71,7 @@ void Btree::open(const BtreeOpenConfig* config) {
 	}
 }
 
-void Btree::close() {
+void Btree::close() noexcept {
 	this->store->close();
 }
 
@@ -81,6 +81,8 @@ void Btree::insert(const AbstractBtreeKey* key, const IBlockObject* data) {
 	NodeCursor cursor(rootNode, this->store, this->config->nodeNumber);
 	cursor.insert(key, data);
 }
+
+
 
 BtreeScanner* Btree::getScanner() {
 	NodeHandle* rootNode = this->store->loadRoot();

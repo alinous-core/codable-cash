@@ -15,6 +15,7 @@ namespace alinous {
 class UnicodeString;
 class ColumnTypeDescriptor;
 class AbstractSQLExpression;
+class AnalyzeContext;
 
 class DdlColumnDescriptor : public AbstractSQLPart {
 public:
@@ -25,11 +26,38 @@ public:
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
 
+	void analyze(AnalyzeContext* actx);
+
 	void setName(UnicodeString* name) noexcept;
 	void setColumnType(ColumnTypeDescriptor* typeDesc) noexcept;
 	void setNotNull(bool notNull) noexcept;
 	void setUnique(bool unique) noexcept;
 	void setDefaultValue(AbstractSQLExpression* defaultValue) noexcept;
+
+	ColumnTypeDescriptor* getColumnTypeDescriptor() const noexcept {
+		return this->typeDesc;
+	}
+
+	AbstractSQLExpression* getDefaultValue() const  noexcept{
+		return this->defaultValue;
+	}
+
+	bool isNotNull() const noexcept {
+		return notNull;
+	}
+
+	const ColumnTypeDescriptor* getTypeDesc() const noexcept {
+		return typeDesc;
+	}
+
+	bool isUnique() const noexcept {
+		return unique;
+	}
+
+	const UnicodeString* getName() const noexcept {
+		return name;
+	}
+
 private:
 	UnicodeString* name;
 	ColumnTypeDescriptor* typeDesc;

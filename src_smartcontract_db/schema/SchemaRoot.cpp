@@ -15,6 +15,9 @@
 #include "table/TableObjectFactory.h"
 #include "table/CdbTable.h"
 
+#include "engine/CdbException.h"
+
+
 namespace codablecash {
 
 SchemaRoot::SchemaRoot() {
@@ -102,13 +105,23 @@ uint64_t SchemaRoot::newSchemaObjectId() noexcept {
 	return this->maxSchemaObjectId;
 }
 
-void SchemaRoot::createTable(const CdbTable* table) {
+uint64_t SchemaRoot::newRecordObjectId() noexcept {
+	this->maxObjectId++;
+	return this->maxObjectId;
+}
+
+const CdbTable* SchemaRoot::createTable(const CdbTable* table) {
 	const UnicodeString* schemaName = table->getSchemaName();
 	Schema* sc = getSchema(schemaName);
+	if(sc == nullptr){
+		throw new CdbException(L"Schema does not exists.", __FILE__, __LINE__);
+	}
 
 	CdbTable* newTable = new CdbTable(*table);
 
 	sc->addTable(newTable);
+
+	return newTable;
 }
 
 } /* namespace codablecash */

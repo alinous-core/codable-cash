@@ -23,6 +23,7 @@ add_subdirectory(type_check)
 add_subdirectory(variable_access)
 add_subdirectory(vm)
 add_subdirectory(vm_ctrl)
+add_subdirectory(vm_trx)
 
 
 message(STATUS "src_smartcontract_vm : ${__dirsrc}")
