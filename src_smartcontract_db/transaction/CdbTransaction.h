@@ -41,6 +41,8 @@ public:
 
 	TransactionUpdateCache* getUpdateCache() const noexcept;
 
+	uint64_t getSchemaObjectVersionId() const noexcept;
+
 private:
 	CdbTable* getTableFromIdentifier(const CdbTableIdentifier* tableId) const noexcept;
 private:

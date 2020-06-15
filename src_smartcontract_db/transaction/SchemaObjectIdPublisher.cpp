@@ -27,4 +27,8 @@ void SchemaObjectIdPublisher::saveSchema() {
 	this->schema->save();
 }
 
+uint64_t SchemaObjectIdPublisher::getSchemaObjectVersionId() const noexcept {
+	return this->schema->getSchemaObjectVersionId();
+}
+
 } /* namespace codablecash */

@@ -37,6 +37,8 @@ private:
 	TableIdentifier* tableId;
 	SQLColumnsList* columns;
 	SQLExpressionList* expList;
+
+
 };
 
 } /* namespace alinous */

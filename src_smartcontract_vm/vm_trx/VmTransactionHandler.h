@@ -8,6 +8,8 @@
 #ifndef VM_TRX_VMTRANSACTIONHANDLER_H_
 #define VM_TRX_VMTRANSACTIONHANDLER_H_
 
+#include <cstdint>
+
 namespace codablecash {
 class CodableDatabase;
 class CdbTransaction;
@@ -32,6 +34,8 @@ public:
 	void insert(InsertLog* cmd);
 
 	void reset() noexcept;
+
+	uint64_t getSchemaObjectVersionId() const noexcept;
 private:
 	void doCommit();
 	void doRollback();

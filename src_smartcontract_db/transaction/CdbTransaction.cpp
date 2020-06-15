@@ -7,6 +7,7 @@
 
 #include "transaction/CdbTransaction.h"
 #include "transaction/CdbTransactionManager.h"
+#include "transaction/SchemaObjectIdPublisher.h"
 
 #include "transaction_log/AbstractTransactionLog.h"
 #include "transaction_log/CreateTableLog.h"
@@ -27,6 +28,7 @@
 #include "transaction_scanner/TableTransactionScanner.h"
 
 #include "transaction_update_cache/TransactionUpdateCache.h"
+
 
 namespace codablecash {
 
@@ -91,6 +93,12 @@ TableTransactionScanner* CdbTransaction::getTableTransactionScanner(const CdbTab
 
 TransactionUpdateCache* CdbTransaction::getUpdateCache() const noexcept {
 	return this->updateCache;
+}
+
+uint64_t CdbTransaction::getSchemaObjectVersionId() const noexcept {
+	SchemaObjectIdPublisher* schemaIdPublisher = this->trxManager->getSchemaObjectIdPublisher();
+
+	return schemaIdPublisher->getSchemaObjectVersionId();
 }
 
 CdbTable* CdbTransaction::getTableFromIdentifier(const CdbTableIdentifier* tableId) const noexcept {

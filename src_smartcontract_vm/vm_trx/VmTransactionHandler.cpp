@@ -94,4 +94,9 @@ void VmTransactionHandler::insert(InsertLog* cmd) {
 	}
 }
 
+uint64_t VmTransactionHandler::getSchemaObjectVersionId() const noexcept {
+	return this->trx->getSchemaObjectVersionId();
+}
+
+
 } /* namespace alinous */
