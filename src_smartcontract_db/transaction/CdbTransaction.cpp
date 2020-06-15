@@ -95,12 +95,6 @@ TransactionUpdateCache* CdbTransaction::getUpdateCache() const noexcept {
 	return this->updateCache;
 }
 
-uint64_t CdbTransaction::getSchemaObjectVersionId() const noexcept {
-	SchemaObjectIdPublisher* schemaIdPublisher = this->trxManager->getSchemaObjectIdPublisher();
-
-	return schemaIdPublisher->getSchemaObjectVersionId();
-}
-
 CdbTable* CdbTransaction::getTableFromIdentifier(const CdbTableIdentifier* tableId) const noexcept {
 	const UnicodeString* schemaName = tableId->getSchema();
 	const UnicodeString* tableName = tableId->getTable();

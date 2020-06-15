@@ -20,6 +20,7 @@ public:
 	virtual ~SQLColumnsList();
 
 	void addColumn(SQLColumnIdentifier* colId) noexcept;
+	int numColumns() const noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

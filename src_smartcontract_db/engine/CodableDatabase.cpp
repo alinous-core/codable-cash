@@ -9,14 +9,15 @@
 #include "engine/CdbException.h"
 
 #include "transaction/CdbTransactionManager.h"
+#include "transaction/SchemaObjectIdPublisher.h"
+#include "transaction/CdbTransaction.h"
 
 #include "base_io/File.h"
 
 #include "schema/SchemaManager.h"
 
-#include "transaction/CdbTransaction.h"
-
 #include "table_store/CdbStorageManager.h"
+
 
 namespace codablecash {
 
@@ -79,6 +80,12 @@ CdbTransaction* CodableDatabase::newTransaction() {
 
 CdbStorageManager* CodableDatabase::getStorageManager() const noexcept {
 	return this->store;
+}
+
+uint64_t CodableDatabase::getSchemaObjectVersionId() const noexcept {
+	SchemaObjectIdPublisher* schemaIdPublisher = this->trxManager->getSchemaObjectIdPublisher();
+
+	return schemaIdPublisher->getSchemaObjectVersionId();
 }
 
 void CodableDatabase::checkDatabaseLoaded() const {

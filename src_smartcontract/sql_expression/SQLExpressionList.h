@@ -19,6 +19,7 @@ public:
 	virtual ~SQLExpressionList();
 
 	void addExpression(AbstractSQLExpression* exp) noexcept;
+	int numExpressions() const noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

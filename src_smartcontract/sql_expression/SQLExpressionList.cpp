@@ -100,6 +100,13 @@ void SQLExpressionList::init(VirtualMachine* vm) {
 	}
 }
 
+
+
+int SQLExpressionList::numExpressions() const noexcept {
+	return this->list.size();
+}
+
+
 AbstractVmInstance* SQLExpressionList::interpret(VirtualMachine* vm) {
 	return nullptr;
 }

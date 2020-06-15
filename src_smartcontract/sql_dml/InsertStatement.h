@@ -38,7 +38,7 @@ private:
 	SQLColumnsList* columns;
 	SQLExpressionList* expList;
 
-
+	uint64_t schemaVersion;
 };
 
 } /* namespace alinous */

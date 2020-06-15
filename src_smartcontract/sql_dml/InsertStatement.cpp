@@ -16,12 +16,17 @@
 #include "vm/VirtualMachine.h"
 
 #include "transaction_log/InsertLog.h"
+
+#include "sc_analyze/ValidationError.h"
+
+#include "sc_analyze/AnalyzeContext.h"
 namespace alinous {
 
 InsertStatement::InsertStatement() : AbstractSQLStatement(CodeElement::DML_STMT_INSERT) {
 	this->tableId = nullptr;
 	this->columns = nullptr;
 	this->expList = nullptr;
+	this->schemaVersion = 0;
 }
 
 InsertStatement::~InsertStatement() {
@@ -50,12 +55,26 @@ void InsertStatement::analyzeTypeRef(AnalyzeContext* actx) {
 void InsertStatement::analyze(AnalyzeContext* actx) {
 	this->tableId->analyze(actx);
 	this->expList->analyze(actx);
+
+	int expSize = this->expList->numExpressions();
+	int colSize = this->columns->numColumns();
+	if(expSize != colSize){
+		actx->addValidationError(ValidationError::SQL_INSERT_VALUES_NUMBERS, this, L"Number of columns and values must be same.", {});
+	}
 }
 
 void InsertStatement::interpret(VirtualMachine* vm) {
 	VmTransactionHandler* trxHandler = vm->getTransactionHandler();
 
-	//InsertLog* cmd = new InsertLog();
+	uint64_t currentVersion = trxHandler->getSchemaObjectVersionId();
+	if(currentVersion > this->schemaVersion){
+
+		this->schemaVersion = currentVersion;
+	}
+
+	InsertLog* cmd = new InsertLog();
+
+	delete cmd;
 
 	// FIXME SQL statement
 }
