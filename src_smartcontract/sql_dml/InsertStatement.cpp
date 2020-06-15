@@ -18,8 +18,10 @@
 #include "transaction_log/InsertLog.h"
 
 #include "sc_analyze/ValidationError.h"
-
 #include "sc_analyze/AnalyzeContext.h"
+
+#include "sc_analyze_sql/AnalyzedInsertColumnList.h"
+
 namespace alinous {
 
 InsertStatement::InsertStatement() : AbstractSQLStatement(CodeElement::DML_STMT_INSERT) {
@@ -27,12 +29,14 @@ InsertStatement::InsertStatement() : AbstractSQLStatement(CodeElement::DML_STMT_
 	this->columns = nullptr;
 	this->expList = nullptr;
 	this->schemaVersion = 0;
+	this->analyzedColumns = nullptr;
 }
 
 InsertStatement::~InsertStatement() {
 	delete this->tableId;
 	delete this->columns;
 	delete this->expList;
+	delete this->analyzedColumns;
 }
 
 void InsertStatement::preAnalyze(AnalyzeContext* actx) {
@@ -61,6 +65,8 @@ void InsertStatement::analyze(AnalyzeContext* actx) {
 	if(expSize != colSize){
 		actx->addValidationError(ValidationError::SQL_INSERT_VALUES_NUMBERS, this, L"Number of columns and values must be same.", {});
 	}
+
+
 }
 
 void InsertStatement::interpret(VirtualMachine* vm) {

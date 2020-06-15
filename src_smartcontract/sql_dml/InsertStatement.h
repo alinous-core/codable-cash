@@ -14,6 +14,7 @@ namespace alinous {
 class TableIdentifier;
 class SQLColumnsList;
 class SQLExpressionList;
+class AnalyzedInsertColumnList;
 
 class InsertStatement : public AbstractSQLStatement {
 public:
@@ -39,6 +40,7 @@ private:
 	SQLExpressionList* expList;
 
 	uint64_t schemaVersion;
+	AnalyzedInsertColumnList* analyzedColumns;
 };
 
 } /* namespace alinous */
