@@ -21,12 +21,20 @@
 #include "sc_analyze/AnalyzeContext.h"
 
 #include "sc_analyze_sql/AnalyzedInsertColumnList.h"
+#include "sc_analyze_sql/AnalyzedInsertColumn.h"
 
 #include "schema/SchemaManager.h"
 
 #include "sql_expression/SQLColumnIdentifier.h"
 
 #include "table/CdbTable.h"
+
+#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+
+#include "base/UnicodeString.h"
+
+#include "vm_ctrl/ExecControlManager.h"
+
 
 namespace alinous {
 
@@ -80,11 +88,14 @@ void InsertStatement::init(VirtualMachine* vm) {
 
 void InsertStatement::interpret(VirtualMachine* vm) {
 	VmTransactionHandler* trxHandler = vm->getTransactionHandler();
+	ExecControlManager* execCtrl = vm->getCtrl();
 
 	uint64_t currentVersion = trxHandler->getSchemaObjectVersionId();
 	if(currentVersion > this->schemaVersion){
-		updateSchemaInfo(trxHandler);
-
+		updateSchemaInfo(vm, trxHandler);
+		if(execCtrl->isExceptionThrown()){
+			return;
+		}
 
 		this->schemaVersion = currentVersion;
 	}
@@ -96,7 +107,7 @@ void InsertStatement::interpret(VirtualMachine* vm) {
 	// FIXME SQL statement
 }
 
-void InsertStatement::updateSchemaInfo(VmTransactionHandler* trxHandler) {
+void InsertStatement::updateSchemaInfo(VirtualMachine* vm, VmTransactionHandler* trxHandler) {
 	delete this->analyzedColumns;
 	this->analyzedColumns = new AnalyzedInsertColumnList();
 
@@ -116,6 +127,14 @@ void InsertStatement::updateSchemaInfo(VmTransactionHandler* trxHandler) {
 		const UnicodeString* colName = colId->getColumnName();
 
 		CdbTableColumn* col = table->getColumn(colName);
+		if(col == nullptr){
+			UnicodeString errMsg(L"");
+			DatabaseExceptionClassDeclare::throwException(&errMsg, vm, this);
+			return;
+		}
+
+		AnalyzedInsertColumn* acol = new AnalyzedInsertColumn(col);
+		this->analyzedColumns->addAnalyzedInsertColumn(acol);
 	}
 }
 

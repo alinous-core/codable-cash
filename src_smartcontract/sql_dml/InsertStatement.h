@@ -38,7 +38,7 @@ public:
 	void init(VirtualMachine* vm);
 
 private:
-	void updateSchemaInfo(VmTransactionHandler* trxHandler);
+	void updateSchemaInfo(VirtualMachine* vm, VmTransactionHandler* trxHandler);
 private:
 	TableIdentifier* tableId;
 	SQLColumnsList* columns;

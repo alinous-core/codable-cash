@@ -20,6 +20,7 @@ public:
 	AnalyzedInsertColumnList();
 	virtual ~AnalyzedInsertColumnList();
 
+	void addAnalyzedInsertColumn(AnalyzedInsertColumn* col) noexcept;
 private:
 	ArrayList<AnalyzedInsertColumn> list;
 };

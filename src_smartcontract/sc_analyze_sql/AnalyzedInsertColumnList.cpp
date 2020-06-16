@@ -18,4 +18,8 @@ AnalyzedInsertColumnList::~AnalyzedInsertColumnList() {
 	this->list.deleteElements();
 }
 
+void AnalyzedInsertColumnList::addAnalyzedInsertColumn(AnalyzedInsertColumn* col) noexcept {
+	this->list.addElement(col);
+}
+
 } /* namespace alinous */
