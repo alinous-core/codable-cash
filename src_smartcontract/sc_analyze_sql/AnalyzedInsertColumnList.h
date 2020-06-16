@@ -21,6 +21,9 @@ public:
 	virtual ~AnalyzedInsertColumnList();
 
 	void addAnalyzedInsertColumn(AnalyzedInsertColumn* col) noexcept;
+
+	int size() const noexcept;
+	AnalyzedInsertColumn* get(int i) const noexcept;
 private:
 	ArrayList<AnalyzedInsertColumn> list;
 };

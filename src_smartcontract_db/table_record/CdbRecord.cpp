@@ -39,6 +39,12 @@ CdbRecord::~CdbRecord() {
 	this->list.deleteElements();
 }
 
+void CdbRecord::initNullColumns(int num) noexcept {
+	for(int i = 0; i != num; ++i){
+		addValue(nullptr);
+	}
+}
+
 void CdbRecord::addValue(AbstractCdbValue* value) noexcept {
 	this->list.addElement(value);
 }

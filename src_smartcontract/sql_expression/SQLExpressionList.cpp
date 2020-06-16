@@ -23,6 +23,10 @@ void SQLExpressionList::addExpression(AbstractSQLExpression* exp) noexcept {
 	this->list.addElement(exp);
 }
 
+AbstractSQLExpression* SQLExpressionList::getExpression(int i) const noexcept {
+	return this->list.get(i);
+}
+
 int SQLExpressionList::binarySize() const {
 	int total = sizeof(uint16_t);
 
@@ -100,12 +104,9 @@ void SQLExpressionList::init(VirtualMachine* vm) {
 	}
 }
 
-
-
 int SQLExpressionList::numExpressions() const noexcept {
 	return this->list.size();
 }
-
 
 AbstractVmInstance* SQLExpressionList::interpret(VirtualMachine* vm) {
 	return nullptr;

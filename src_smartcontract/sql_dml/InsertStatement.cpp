@@ -35,6 +35,14 @@
 
 #include "vm_ctrl/ExecControlManager.h"
 
+#include "table_record/CdbRecord.h"
+#include "table_record/CdbTableIdentifier.h"
+
+#include "instance_gc/StackFloatingVariableHandler.h"
+#include "instance_gc/GcManager.h"
+
+#include "sql/AbstractSQLExpression.h"
+
 
 namespace alinous {
 
@@ -44,6 +52,7 @@ InsertStatement::InsertStatement() : AbstractSQLStatement(CodeElement::DML_STMT_
 	this->expList = nullptr;
 	this->schemaVersion = 0;
 	this->analyzedColumns = nullptr;
+	this->tableIdentifier = nullptr;
 }
 
 InsertStatement::~InsertStatement() {
@@ -51,6 +60,7 @@ InsertStatement::~InsertStatement() {
 	delete this->columns;
 	delete this->expList;
 	delete this->analyzedColumns;
+	delete this->tableIdentifier;
 }
 
 void InsertStatement::preAnalyze(AnalyzeContext* actx) {
@@ -87,6 +97,9 @@ void InsertStatement::init(VirtualMachine* vm) {
 }
 
 void InsertStatement::interpret(VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
 	VmTransactionHandler* trxHandler = vm->getTransactionHandler();
 	ExecControlManager* execCtrl = vm->getCtrl();
 
@@ -100,7 +113,23 @@ void InsertStatement::interpret(VirtualMachine* vm) {
 		this->schemaVersion = currentVersion;
 	}
 
+	// make record
+	CdbRecord* record = new CdbRecord();
+
+	int colSize = this->analyzedColumns->size();
+	record->initNullColumns(colSize);
+
+	for(int i = 0; i != colSize; ++i){
+		AnalyzedInsertColumn* col = this->analyzedColumns->get(i);
+		int pos = col->getPosition();
+
+		AbstractSQLExpression* exp = this->expList->getExpression(i);
+		AbstractVmInstance* inst = exp->interpret(vm);
+		releaser.registerInstance(inst);
+	}
+
 	InsertLog* cmd = new InsertLog();
+	cmd->addRecord(record);
 
 	delete cmd;
 
@@ -111,11 +140,17 @@ void InsertStatement::updateSchemaInfo(VirtualMachine* vm, VmTransactionHandler*
 	delete this->analyzedColumns;
 	this->analyzedColumns = new AnalyzedInsertColumnList();
 
+	delete this->tableIdentifier;
+	this->tableIdentifier = new CdbTableIdentifier();
+
 	const UnicodeString* schema = this->tableId->getSchema();
 	const UnicodeString* tableName = this->tableId->getTableName();
 	if(schema == nullptr){
 		schema = &SchemaManager::PUBLIC;
 	}
+
+	this->tableIdentifier->setSchema(new UnicodeString(schema));
+	this->tableIdentifier->setTable(new UnicodeString(tableName));
 
 	CdbTable* table = trxHandler->getTable(schema, tableName);
 
@@ -128,7 +163,7 @@ void InsertStatement::updateSchemaInfo(VirtualMachine* vm, VmTransactionHandler*
 
 		CdbTableColumn* col = table->getColumn(colName);
 		if(col == nullptr){
-			UnicodeString errMsg(L"");
+			UnicodeString errMsg(L"Column does not exists.");
 			DatabaseExceptionClassDeclare::throwException(&errMsg, vm, this);
 			return;
 		}

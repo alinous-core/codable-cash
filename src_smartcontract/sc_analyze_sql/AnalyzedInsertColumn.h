@@ -20,6 +20,7 @@ public:
 	explicit AnalyzedInsertColumn(const CdbTableColumn* column);
 	virtual ~AnalyzedInsertColumn();
 
+	int getPosition() const noexcept;
 private:
 	CdbTableColumn* column;
 };

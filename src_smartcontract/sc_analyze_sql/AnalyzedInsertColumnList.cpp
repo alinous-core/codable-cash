@@ -22,4 +22,13 @@ void AnalyzedInsertColumnList::addAnalyzedInsertColumn(AnalyzedInsertColumn* col
 	this->list.addElement(col);
 }
 
+int AnalyzedInsertColumnList::size() const noexcept {
+	return this->list.size();
+}
+
+AnalyzedInsertColumn* AnalyzedInsertColumnList::get(int i) const noexcept {
+	return this->list.get(i);
+}
+
+
 } /* namespace alinous */

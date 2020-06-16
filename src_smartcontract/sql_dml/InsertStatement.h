@@ -10,6 +10,11 @@
 
 #include "sql/AbstractSQLStatement.h"
 
+namespace codablecash {
+class CdbTableIdentifier;
+}
+using namespace codablecash;
+
 namespace alinous {
 class TableIdentifier;
 class SQLColumnsList;
@@ -46,6 +51,7 @@ private:
 
 	uint64_t schemaVersion;
 	AnalyzedInsertColumnList* analyzedColumns;
+	CdbTableIdentifier* tableIdentifier;
 };
 
 } /* namespace alinous */

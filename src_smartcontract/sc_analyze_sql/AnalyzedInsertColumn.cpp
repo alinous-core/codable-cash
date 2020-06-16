@@ -20,4 +20,9 @@ AnalyzedInsertColumn::~AnalyzedInsertColumn() {
 	delete this->column;
 }
 
+int AnalyzedInsertColumn::getPosition() const noexcept {
+	return this->column->getPosition();
+}
+
+
 } /* namespace alinous */

@@ -20,6 +20,7 @@ public:
 
 	void addExpression(AbstractSQLExpression* exp) noexcept;
 	int numExpressions() const noexcept;
+	AbstractSQLExpression* getExpression(int i) const noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
