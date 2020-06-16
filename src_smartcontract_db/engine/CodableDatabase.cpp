@@ -82,6 +82,10 @@ CdbStorageManager* CodableDatabase::getStorageManager() const noexcept {
 	return this->store;
 }
 
+SchemaManager* CodableDatabase::getSchemaManager() const noexcept {
+	return this->schema;
+}
+
 uint64_t CodableDatabase::getSchemaObjectVersionId() const noexcept {
 	SchemaObjectIdPublisher* schemaIdPublisher = this->trxManager->getSchemaObjectIdPublisher();
 

@@ -15,6 +15,7 @@ class TableIdentifier;
 class SQLColumnsList;
 class SQLExpressionList;
 class AnalyzedInsertColumnList;
+class VmTransactionHandler;
 
 class InsertStatement : public AbstractSQLStatement {
 public:
@@ -34,6 +35,10 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 	virtual void interpret(VirtualMachine* vm);
+	void init(VirtualMachine* vm);
+
+private:
+	void updateSchemaInfo(VmTransactionHandler* trxHandler);
 private:
 	TableIdentifier* tableId;
 	SQLColumnsList* columns;

@@ -6,16 +6,16 @@
  */
 
 #include "sc_analyze_sql/AnalyzedInsertColumnList.h"
+#include "sc_analyze_sql/AnalyzedInsertColumn.h"
 
 namespace alinous {
 
 AnalyzedInsertColumnList::AnalyzedInsertColumnList() {
-	// TODO Auto-generated constructor stub
 
 }
 
 AnalyzedInsertColumnList::~AnalyzedInsertColumnList() {
-	// TODO Auto-generated destructor stub
+	this->list.deleteElements();
 }
 
 } /* namespace alinous */

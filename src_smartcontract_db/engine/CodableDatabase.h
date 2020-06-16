@@ -34,6 +34,7 @@ public:
 	CdbTransaction* newTransaction();
 
 	CdbStorageManager* getStorageManager() const noexcept;
+	SchemaManager* getSchemaManager() const noexcept;
 
 	uint64_t getSchemaObjectVersionId() const noexcept;
 private:

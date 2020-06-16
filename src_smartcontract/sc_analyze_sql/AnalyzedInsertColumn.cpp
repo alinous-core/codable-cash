@@ -7,15 +7,17 @@
 
 #include "sc_analyze_sql/AnalyzedInsertColumn.h"
 
+#include "table/CdbTableColumn.h"
+
+
 namespace alinous {
 
-AnalyzedInsertColumn::AnalyzedInsertColumn() {
-	// TODO Auto-generated constructor stub
-
+AnalyzedInsertColumn::AnalyzedInsertColumn(const CdbTableColumn* column) {
+	this->column = new CdbTableColumn(*column);
 }
 
 AnalyzedInsertColumn::~AnalyzedInsertColumn() {
-	// TODO Auto-generated destructor stub
+	delete this->column;
 }
 
 } /* namespace alinous */

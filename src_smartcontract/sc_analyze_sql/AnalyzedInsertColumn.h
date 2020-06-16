@@ -8,12 +8,20 @@
 #ifndef SC_ANALYZE_SQL_ANALYZEDINSERTCOLUMN_H_
 #define SC_ANALYZE_SQL_ANALYZEDINSERTCOLUMN_H_
 
+namespace codablecash {
+class CdbTableColumn;
+}
+using namespace codablecash;
+
 namespace alinous {
 
 class AnalyzedInsertColumn {
 public:
-	AnalyzedInsertColumn();
+	explicit AnalyzedInsertColumn(const CdbTableColumn* column);
 	virtual ~AnalyzedInsertColumn();
+
+private:
+	CdbTableColumn* column;
 };
 
 } /* namespace alinous */

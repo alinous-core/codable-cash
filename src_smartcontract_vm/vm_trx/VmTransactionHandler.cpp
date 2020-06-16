@@ -13,6 +13,12 @@
 
 #include "transaction/CdbTransaction.h"
 
+#include "base/UnicodeString.h"
+
+#include "table/CdbTable.h"
+
+#include "schema/SchemaManager.h"
+#include "schema/Schema.h"
 
 namespace alinous {
 
@@ -97,6 +103,18 @@ void VmTransactionHandler::insert(InsertLog* cmd) {
 uint64_t VmTransactionHandler::getSchemaObjectVersionId() const noexcept {
 	return this->db->getSchemaObjectVersionId();
 }
+
+CdbTable* VmTransactionHandler::getTable(const UnicodeString* schema, const UnicodeString* tableName) const noexcept {
+	SchemaManager* scManager = this->db->getSchemaManager();
+	Schema* schemaObj = scManager->getSchema(schema);
+
+	if(schemaObj == nullptr){
+		return nullptr;
+	}
+
+	return schemaObj->getCdbTableByName(tableName);
+}
+
 
 
 } /* namespace alinous */

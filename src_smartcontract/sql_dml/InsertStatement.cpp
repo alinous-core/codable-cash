@@ -22,6 +22,12 @@
 
 #include "sc_analyze_sql/AnalyzedInsertColumnList.h"
 
+#include "schema/SchemaManager.h"
+
+#include "sql_expression/SQLColumnIdentifier.h"
+
+#include "table/CdbTable.h"
+
 namespace alinous {
 
 InsertStatement::InsertStatement() : AbstractSQLStatement(CodeElement::DML_STMT_INSERT) {
@@ -65,8 +71,11 @@ void InsertStatement::analyze(AnalyzeContext* actx) {
 	if(expSize != colSize){
 		actx->addValidationError(ValidationError::SQL_INSERT_VALUES_NUMBERS, this, L"Number of columns and values must be same.", {});
 	}
+}
 
-
+void InsertStatement::init(VirtualMachine* vm) {
+	this->tableId->init(vm);
+	this->expList->init(vm);
 }
 
 void InsertStatement::interpret(VirtualMachine* vm) {
@@ -74,6 +83,8 @@ void InsertStatement::interpret(VirtualMachine* vm) {
 
 	uint64_t currentVersion = trxHandler->getSchemaObjectVersionId();
 	if(currentVersion > this->schemaVersion){
+		updateSchemaInfo(trxHandler);
+
 
 		this->schemaVersion = currentVersion;
 	}
@@ -83,6 +94,29 @@ void InsertStatement::interpret(VirtualMachine* vm) {
 	delete cmd;
 
 	// FIXME SQL statement
+}
+
+void InsertStatement::updateSchemaInfo(VmTransactionHandler* trxHandler) {
+	delete this->analyzedColumns;
+	this->analyzedColumns = new AnalyzedInsertColumnList();
+
+	const UnicodeString* schema = this->tableId->getSchema();
+	const UnicodeString* tableName = this->tableId->getTableName();
+	if(schema == nullptr){
+		schema = &SchemaManager::PUBLIC;
+	}
+
+	CdbTable* table = trxHandler->getTable(schema, tableName);
+
+	const ArrayList<SQLColumnIdentifier>* list = this->columns->getList();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		SQLColumnIdentifier* colId = list->get(i);
+		const UnicodeString* colName = colId->getColumnName();
+
+		CdbTableColumn* col = table->getColumn(colName);
+	}
 }
 
 void InsertStatement::setTable(TableIdentifier* tableId) noexcept {
