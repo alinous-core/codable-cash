@@ -57,6 +57,21 @@ AbstractCdbValue* VmInstanceValueConverter::toCdbValue(IAbstractVmInstanceSubsta
 	return value;
 }
 
+AbstractCdbValue* VmInstanceValueConverter::fromStringToCdbValue(VmStringInstance* strInst, uint8_t targetCdbColumnType) {
+	AbstractCdbValue* value = nullptr;
+
+	switch(targetCdbColumnType){
+	case VmInstanceTypesConst::INST_STRING:
+		value = new CdbStringValue(strInst->toString());
+		break;
+	default:
+		throw new CdbException(L"Column type and value don't have compatibility.", __FILE__, __LINE__);
+		break;
+	}
+
+	return value;
+}
+
 AbstractCdbValue* VmInstanceValueConverter::fromPrimitiveToCdbValue(PrimitiveReference* pref, uint8_t targetCdbColumnType) {
 	AbstractCdbValue* value = nullptr;
 
