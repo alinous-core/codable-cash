@@ -16,6 +16,11 @@
 
 namespace codablecash {
 
+codablecash::CdbTableIdentifier::CdbTableIdentifier(const CdbTableIdentifier& inst) {
+	this->schema = new UnicodeString(inst.schema);
+	this->table = new UnicodeString(inst.table);
+}
+
 CdbTableIdentifier::CdbTableIdentifier() {
 	this->schema = new UnicodeString(&SchemaManager::PUBLIC);
 	this->table = nullptr;

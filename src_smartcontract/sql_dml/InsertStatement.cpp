@@ -129,10 +129,10 @@ void InsertStatement::interpret(VirtualMachine* vm) {
 	}
 
 	InsertLog* cmd = new InsertLog();
+	cmd->setTable(new CdbTableIdentifier(*this->tableIdentifier));
 	cmd->addRecord(record);
 
-	delete cmd;
-
+	trxHandler->insert(cmd);
 	// FIXME SQL statement
 }
 

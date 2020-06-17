@@ -27,7 +27,7 @@ CdbRecord::CdbRecord(const CdbRecord& inst) : AbstractCdbValue(AbstractCdbValue:
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractCdbValue* v = inst.list.get(i);
 
-		addValue(v->copy());
+		addValue(v != nullptr ? v->copy() : nullptr);
 	}
 }
 
