@@ -17,6 +17,10 @@ CdbByteValue::CdbByteValue(const CdbByteValue& inst) : AbstractCdbValue(Abstract
 	this->value = inst.value;
 }
 
+CdbByteValue::CdbByteValue(int8_t value) : AbstractCdbValue(AbstractCdbValue::TYPE_BYTE) {
+	this->value = value;
+}
+
 CdbByteValue::CdbByteValue() : AbstractCdbValue(AbstractCdbValue::TYPE_BYTE) {
 	this->value = 0;
 }

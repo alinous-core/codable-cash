@@ -43,6 +43,9 @@
 
 #include "sql/AbstractSQLExpression.h"
 
+#include "instance/IAbstractVmInstanceSubstance.h"
+#include "instance/AbstractVmInstance.h"
+
 
 namespace alinous {
 
@@ -126,6 +129,10 @@ void InsertStatement::interpret(VirtualMachine* vm) {
 		AbstractSQLExpression* exp = this->expList->getExpression(i);
 		AbstractVmInstance* inst = exp->interpret(vm);
 		releaser.registerInstance(inst);
+
+		IAbstractVmInstanceSubstance* substance = inst != nullptr ? inst->getInstance() : nullptr;
+
+		// FIXME SQL statement
 	}
 
 	InsertLog* cmd = new InsertLog();
@@ -133,7 +140,6 @@ void InsertStatement::interpret(VirtualMachine* vm) {
 	cmd->addRecord(record);
 
 	trxHandler->insert(cmd);
-	// FIXME SQL statement
 }
 
 void InsertStatement::updateSchemaInfo(VirtualMachine* vm, VmTransactionHandler* trxHandler) {
