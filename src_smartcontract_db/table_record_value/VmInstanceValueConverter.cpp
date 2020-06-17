@@ -20,6 +20,7 @@
 
 #include "instance_string/VmStringInstance.h"
 
+#include "engine/CdbException.h"
 
 namespace codablecash {
 
@@ -49,7 +50,7 @@ AbstractCdbValue* VmInstanceValueConverter::toCdbValue(IAbstractVmInstanceSubsta
 		value = fromPrimitiveToCdbValue(pref, targetCdbColumnType);
 		break;
 	default:
-		// FIXME toCdbValue()
+		throw new CdbException(L"Column type and value don't have compatibility.", __FILE__, __LINE__);
 		break;
 	}
 
@@ -60,7 +61,22 @@ AbstractCdbValue* VmInstanceValueConverter::fromPrimitiveToCdbValue(PrimitiveRef
 	AbstractCdbValue* value = nullptr;
 
 	switch(targetCdbColumnType){
+	case VmInstanceTypesConst::REF_BOOL:
+	case VmInstanceTypesConst::REF_BYTE:
+		value = new CdbByteValue(pref->getByteValue());
+		break;
+	case VmInstanceTypesConst::REF_CHAR:
+	case VmInstanceTypesConst::REF_SHORT:
+		value = new CdbShortValue(pref->getShortValue());
+		break;
+	case VmInstanceTypesConst::REF_INT:
+		value = new CdbIntValue(pref->getIntValue());
+		break;
+	case VmInstanceTypesConst::REF_LONG:
+		value = new CdbLongValue(pref->getLongValue());
+		break;
 	default:
+		throw new CdbException(L"Column type and value don't have compatibility.", __FILE__, __LINE__);
 		break;
 	}
 
