@@ -29,6 +29,7 @@ public:
 	static const constexpr uint8_t COLUMN_TYPE_VARCHAR{1};
 	static const constexpr uint8_t COLUMN_TYPE_TEXT{2};
 	static const constexpr uint8_t COLUMN_TYPE_INT{3};
+	static const constexpr uint8_t COLUMN_TYPE_LONG{4};
 
 	CdbTableColumn(const CdbTableColumn& inst);
 	explicit CdbTableColumn(uint64_t oid);
@@ -51,6 +52,11 @@ public:
 
 	int getPosition() const noexcept;
 	void setPosition(int position) noexcept;
+
+	uint8_t getType() const noexcept {
+		return this->type;
+	}
+
 private:
 	CdbOid* oid;
 

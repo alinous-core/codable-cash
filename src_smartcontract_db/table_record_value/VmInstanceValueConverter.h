@@ -7,9 +7,11 @@
 
 #ifndef TABLE_RECORD_VALUE_VMINSTANCEVALUECONVERTER_H_
 #define TABLE_RECORD_VALUE_VMINSTANCEVALUECONVERTER_H_
+#include <cstdint>
 
 namespace alinous {
 class IAbstractVmInstanceSubstance;
+class PrimitiveReference;
 }
 using namespace alinous;
 
@@ -19,7 +21,10 @@ class AbstractCdbValue;
 
 class VmInstanceValueConverter {
 public:
-	static AbstractCdbValue* toCdbValue(IAbstractVmInstanceSubstance* substance);
+	static AbstractCdbValue* toCdbValue(IAbstractVmInstanceSubstance* substance, uint8_t targetCdbColumnType);
+
+private:
+	static AbstractCdbValue* fromPrimitiveToCdbValue(PrimitiveReference* pref, uint8_t targetCdbColumnType);
 };
 
 } /* namespace codablecash */

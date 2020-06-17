@@ -7,6 +7,7 @@
 
 #ifndef SC_ANALYZE_SQL_ANALYZEDINSERTCOLUMN_H_
 #define SC_ANALYZE_SQL_ANALYZEDINSERTCOLUMN_H_
+#include <cstdint>
 
 namespace codablecash {
 class CdbTableColumn;
@@ -21,6 +22,8 @@ public:
 	virtual ~AnalyzedInsertColumn();
 
 	int getPosition() const noexcept;
+
+	uint8_t getCdbColumnType() const noexcept;
 private:
 	CdbTableColumn* column;
 };

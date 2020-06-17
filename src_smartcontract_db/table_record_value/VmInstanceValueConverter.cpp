@@ -23,7 +23,7 @@
 
 namespace codablecash {
 
-AbstractCdbValue* VmInstanceValueConverter::toCdbValue(IAbstractVmInstanceSubstance* substance) {
+AbstractCdbValue* VmInstanceValueConverter::toCdbValue(IAbstractVmInstanceSubstance* substance, uint8_t targetCdbColumnType) {
 	if(substance == nullptr){
 		return nullptr;
 	}
@@ -41,24 +41,26 @@ AbstractCdbValue* VmInstanceValueConverter::toCdbValue(IAbstractVmInstanceSubsta
 		break;
 	case VmInstanceTypesConst::REF_BOOL:
 	case VmInstanceTypesConst::REF_BYTE:
-		pref = dynamic_cast<PrimitiveReference*>(substance);
-		value = new CdbByteValue(pref->getByteValue());
-		break;
 	case VmInstanceTypesConst::REF_CHAR:
 	case VmInstanceTypesConst::REF_SHORT:
-		pref = dynamic_cast<PrimitiveReference*>(substance);
-		value = new CdbShortValue(pref->getShortValue());
-		break;
 	case VmInstanceTypesConst::REF_INT:
-		pref = dynamic_cast<PrimitiveReference*>(substance);
-		value = new CdbIntValue(pref->getIntValue());
-		break;
 	case VmInstanceTypesConst::REF_LONG:
 		pref = dynamic_cast<PrimitiveReference*>(substance);
-		value = new CdbLongValue(pref->getLongValue());
+		value = fromPrimitiveToCdbValue(pref, targetCdbColumnType);
 		break;
 	default:
 		// FIXME toCdbValue()
+		break;
+	}
+
+	return value;
+}
+
+AbstractCdbValue* VmInstanceValueConverter::fromPrimitiveToCdbValue(PrimitiveReference* pref, uint8_t targetCdbColumnType) {
+	AbstractCdbValue* value = nullptr;
+
+	switch(targetCdbColumnType){
+	default:
 		break;
 	}
 

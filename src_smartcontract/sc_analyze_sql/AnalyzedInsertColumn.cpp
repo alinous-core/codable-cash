@@ -24,5 +24,8 @@ int AnalyzedInsertColumn::getPosition() const noexcept {
 	return this->column->getPosition();
 }
 
+uint8_t AnalyzedInsertColumn::getCdbColumnType() const noexcept {
+	return this->column->getType();
+}
 
 } /* namespace alinous */

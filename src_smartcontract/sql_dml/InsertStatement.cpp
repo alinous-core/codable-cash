@@ -132,6 +132,7 @@ void InsertStatement::interpret(VirtualMachine* vm) {
 
 		IAbstractVmInstanceSubstance* substance = inst != nullptr ? inst->getInstance() : nullptr;
 
+		uint8_t targetCdbColumnType = col->getCdbColumnType();
 		// FIXME SQL statement
 	}
 
