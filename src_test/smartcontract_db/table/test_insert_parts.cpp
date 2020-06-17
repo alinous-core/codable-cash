@@ -112,8 +112,8 @@ static void initDb(CodableDatabase& db, File* dbDir) {
 	table->setSchemaName(testSchema);
 	table->setName(new UnicodeString(L"test_table"));
 
-	table->addColumn(0, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
-	table->addColumn(0, L"name", CdbTableColumn::COLUMN_TYPE_TEXT, 0, true, true, L"");
+	table->addColumn(0, L"id", AbstractCdbValue::TYPE_INT, 0, true, true, nullptr);
+	table->addColumn(0, L"name", AbstractCdbValue::TYPE_STRING, 0, true, true, L"");
 	table->setPrimaryKey(L"id");
 
 	cmd->setTable(table);

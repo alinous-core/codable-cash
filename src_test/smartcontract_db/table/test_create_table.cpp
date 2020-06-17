@@ -24,6 +24,7 @@
 #include "table/CdbTable.h"
 #include "table/CdbTableColumn.h"
 
+#include "table_record_value/AbstractCdbValue.h"
 using namespace codablecash;
 
 
@@ -52,8 +53,8 @@ TEST(TestCreateTableGroup, case01){
 	table->setName(new UnicodeString(L"test_table"));
 
 
-	table->addColumn(0, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
-	table->addColumn(0, L"name", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, L"");
+	table->addColumn(0, L"id", AbstractCdbValue::TYPE_INT, 0, true, true, nullptr);
+	table->addColumn(0, L"name", AbstractCdbValue::TYPE_INT, 0, true, true, L"");
 
 	table->setPrimaryKey(L"id");
 
@@ -83,8 +84,8 @@ TEST(TestCreateTableGroup, noSchemeError){
 	table->setName(new UnicodeString(L"test_table"));
 
 
-	table->addColumn(0, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
-	table->addColumn(0, L"name", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, L"");
+	table->addColumn(0, L"id", AbstractCdbValue::TYPE_INT, 0, true, true, nullptr);
+	table->addColumn(0, L"name", AbstractCdbValue::TYPE_INT, 0, true, true, L"");
 
 	table->setPrimaryKey(L"id");
 
