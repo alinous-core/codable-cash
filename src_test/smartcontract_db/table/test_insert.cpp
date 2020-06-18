@@ -72,7 +72,7 @@ TEST(TestInsertGroup, case03_err) {
 	result = util.createInstance();
 	CHECK(result)
 
-	ExtExceptionObject* ex = util.vm->getUncaughtException();
+	ExtExceptionObject* ex = util.vm->getUncaughtException(); __STP(ex);
 	const UnicodeString* exName = ex->getClassName();
 	bool bl = exName->equals(&DatabaseExceptionClassDeclare::NAME);
 	CHECK(bl)
@@ -93,7 +93,7 @@ TEST(TestInsertGroup, case04_err) {
 	result = util.createInstance();
 	CHECK(result)
 
-	ExtExceptionObject* ex = util.vm->getUncaughtException();
+	ExtExceptionObject* ex = util.vm->getUncaughtException(); __STP(ex);
 	const UnicodeString* exName = ex->getClassName();
 	bool bl = exName->equals(&DatabaseExceptionClassDeclare::NAME);
 	CHECK(bl)
