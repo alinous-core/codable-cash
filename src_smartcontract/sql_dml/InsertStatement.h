@@ -22,6 +22,7 @@ class SQLColumnsList;
 class SQLExpressionList;
 class AnalyzedInsertColumnList;
 class VmTransactionHandler;
+class VirtualMachine;
 
 class InsertStatement : public AbstractSQLStatement {
 public:
@@ -46,6 +47,7 @@ public:
 private:
 	void updateSchemaInfo(VirtualMachine* vm, VmTransactionHandler* trxHandler);
 	void updateSchemaInfoWithNoColumnSpec(CdbTable* table, VirtualMachine* vm, VmTransactionHandler* trxHandler);
+
 private:
 	TableIdentifier* tableId;
 	SQLColumnsList* columns;

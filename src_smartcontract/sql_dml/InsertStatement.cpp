@@ -204,10 +204,11 @@ void InsertStatement::updateSchemaInfoWithNoColumnSpec(CdbTable* table, VirtualM
 	table->getColumns()->size();
 
 	for(int i = 0; i != maxLoop; ++i){
+		CdbTableColumn* col = table->getColumn(i);
 
-
+		AnalyzedInsertColumn* acol = new AnalyzedInsertColumn(col);
+		this->analyzedColumns->addAnalyzedInsertColumn(acol);
 	}
-	// FIXME SQL statement
 }
 
 void InsertStatement::setTable(TableIdentifier* tableId) noexcept {

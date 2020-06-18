@@ -48,6 +48,7 @@ public:
 
 	CdbTableColumn* getColumn(const wchar_t* name) noexcept;
 	CdbTableColumn* getColumn(const UnicodeString* name) const noexcept;
+	CdbTableColumn* getColumn(int index) const noexcept;
 
 	CdbTableColumn* findColumnByOid(const CdbOid* oid) const noexcept;
 	const ArrayList<CdbTableColumn>* getColumns() const noexcept;

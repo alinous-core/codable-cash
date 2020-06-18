@@ -140,6 +140,10 @@ CdbTableColumn* CdbTable::getColumn(const UnicodeString* name) const noexcept {
 	return retcol;
 }
 
+CdbTableColumn* CdbTable::getColumn(int index) const noexcept {
+	return this->columns->get(index);
+}
+
 CdbTableColumn* CdbTable::findColumnByOid(const CdbOid* oid) const noexcept {
 	return this->columnMap->get(oid);
 }
