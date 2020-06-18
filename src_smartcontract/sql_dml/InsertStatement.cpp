@@ -201,7 +201,13 @@ void InsertStatement::updateSchemaInfo(VirtualMachine* vm, VmTransactionHandler*
 
 void InsertStatement::updateSchemaInfoWithNoColumnSpec(CdbTable* table, VirtualMachine* vm, VmTransactionHandler* trxHandler) {
 	int maxLoop = this->expList->numExpressions();
-	table->getColumns()->size();
+	int tableColSize = table->getColumns()->size();
+
+	if(tableColSize < maxLoop){
+		UnicodeString errMsg(L"Column number is too many.");
+		DatabaseExceptionClassDeclare::throwException(&errMsg, vm, this);
+		return;
+	}
 
 	for(int i = 0; i != maxLoop; ++i){
 		CdbTableColumn* col = table->getColumn(i);

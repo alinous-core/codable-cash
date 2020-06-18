@@ -584,7 +584,8 @@ bool UnicodeString::equals(const UnicodeString& str) const noexcept {
 bool UnicodeString::equals(const UnicodeString* str) const noexcept
 {
 	int hash = str->hashCode();
-	if(hash != this->hashCode()){
+	int _this_hash = this->hashCode();
+	if(hash != _this_hash){
 		return false;
 	}
 

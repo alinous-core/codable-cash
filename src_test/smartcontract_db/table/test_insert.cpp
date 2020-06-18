@@ -10,7 +10,9 @@
 #include "base/StackRelease.h"
 
 #include "../../smartcontract_vm/VmTestUtils.h"
+#include "vm/VirtualMachine.h"
 
+#include "transaction_exception/DatabaseExceptionClassDeclare.h"
 using namespace alinous;
 //using namespace codablecash;
 
@@ -55,3 +57,44 @@ TEST(TestInsertGroup, case02) {
 	CHECK(result)
 }
 
+TEST(TestInsertGroup, case03_err) {
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/table/resources/insert/case03_err/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* ex = util.vm->getUncaughtException();
+	const UnicodeString* exName = ex->getClassName();
+	bool bl = exName->equals(&DatabaseExceptionClassDeclare::NAME);
+	CHECK(bl)
+}
+
+TEST(TestInsertGroup, case04_err) {
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/table/resources/insert/case04_err/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* ex = util.vm->getUncaughtException();
+	const UnicodeString* exName = ex->getClassName();
+	bool bl = exName->equals(&DatabaseExceptionClassDeclare::NAME);
+	CHECK(bl)
+}
