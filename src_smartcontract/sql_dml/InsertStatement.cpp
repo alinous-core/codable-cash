@@ -46,6 +46,10 @@
 #include "instance/IAbstractVmInstanceSubstance.h"
 #include "instance/AbstractVmInstance.h"
 
+#include "table_record_value/AbstractCdbValue.h"
+#include "table_record_value/VmInstanceValueConverter.h"
+
+using namespace codablecash;
 
 namespace alinous {
 
@@ -87,11 +91,14 @@ void InsertStatement::analyze(AnalyzeContext* actx) {
 	this->tableId->analyze(actx);
 	this->expList->analyze(actx);
 
-	int expSize = this->expList->numExpressions();
-	int colSize = this->columns->numColumns();
-	if(expSize != colSize){
-		actx->addValidationError(ValidationError::SQL_INSERT_VALUES_NUMBERS, this, L"Number of columns and values must be same.", {});
+	if(this->columns != nullptr){
+		int expSize = this->expList->numExpressions();
+		int colSize = this->columns->numColumns();
+		if(expSize != colSize){
+			actx->addValidationError(ValidationError::SQL_INSERT_VALUES_NUMBERS, this, L"Number of columns and values must be same.", {});
+		}
 	}
+
 }
 
 void InsertStatement::init(VirtualMachine* vm) {
@@ -133,7 +140,9 @@ void InsertStatement::interpret(VirtualMachine* vm) {
 		IAbstractVmInstanceSubstance* substance = inst != nullptr ? inst->getInstance() : nullptr;
 
 		uint8_t targetCdbColumnType = col->getCdbColumnType();
-		// FIXME SQL statement
+
+		AbstractCdbValue* value = VmInstanceValueConverter::toCdbValue(substance, targetCdbColumnType);
+		record->setValue(value, pos);
 	}
 
 	InsertLog* cmd = new InsertLog();
@@ -160,6 +169,16 @@ void InsertStatement::updateSchemaInfo(VirtualMachine* vm, VmTransactionHandler*
 	this->tableIdentifier->setTable(new UnicodeString(tableName));
 
 	CdbTable* table = trxHandler->getTable(schema, tableName);
+	if(table == nullptr){
+		UnicodeString errMsg(L"Table does not exists.");
+		DatabaseExceptionClassDeclare::throwException(&errMsg, vm, this);
+		return;
+	}
+
+	if(this->columns == nullptr){
+		updateSchemaInfoWithNoColumnSpec(table, vm, trxHandler);
+		return;
+	}
 
 	const ArrayList<SQLColumnIdentifier>* list = this->columns->getList();
 
@@ -178,6 +197,17 @@ void InsertStatement::updateSchemaInfo(VirtualMachine* vm, VmTransactionHandler*
 		AnalyzedInsertColumn* acol = new AnalyzedInsertColumn(col);
 		this->analyzedColumns->addAnalyzedInsertColumn(acol);
 	}
+}
+
+void InsertStatement::updateSchemaInfoWithNoColumnSpec(CdbTable* table, VirtualMachine* vm, VmTransactionHandler* trxHandler) {
+	int maxLoop = this->expList->numExpressions();
+	table->getColumns()->size();
+
+	for(int i = 0; i != maxLoop; ++i){
+
+
+	}
+	// FIXME SQL statement
 }
 
 void InsertStatement::setTable(TableIdentifier* tableId) noexcept {

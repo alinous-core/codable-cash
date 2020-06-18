@@ -49,6 +49,11 @@ void CdbRecord::addValue(AbstractCdbValue* value) noexcept {
 	this->list.addElement(value);
 }
 
+void CdbRecord::setValue(AbstractCdbValue* value, int i) noexcept {
+	delete this->list.get(i);
+	this->list.setElement(value, i);
+}
+
 int CdbRecord::binarySize() const {
 	int total = sizeof(int8_t);
 

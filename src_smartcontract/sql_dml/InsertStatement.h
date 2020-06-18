@@ -12,6 +12,7 @@
 
 namespace codablecash {
 class CdbTableIdentifier;
+class CdbTable;
 }
 using namespace codablecash;
 
@@ -44,6 +45,7 @@ public:
 
 private:
 	void updateSchemaInfo(VirtualMachine* vm, VmTransactionHandler* trxHandler);
+	void updateSchemaInfoWithNoColumnSpec(CdbTable* table, VirtualMachine* vm, VmTransactionHandler* trxHandler);
 private:
 	TableIdentifier* tableId;
 	SQLColumnsList* columns;
