@@ -40,7 +40,6 @@ public:
 	TableTransactionScanner* getTableTransactionScanner(const CdbTableIdentifier* tableId, AbstractScanCondition* condition);
 
 	TransactionUpdateCache* getUpdateCache() const noexcept;
-
 private:
 	CdbTable* getTableFromIdentifier(const CdbTableIdentifier* tableId) const noexcept;
 private:

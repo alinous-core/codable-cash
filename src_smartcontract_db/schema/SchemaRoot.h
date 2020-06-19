@@ -44,6 +44,8 @@ public:
 	uint64_t newSchemaObjectId() noexcept;
 	uint64_t newRecordObjectId() noexcept;
 
+	uint64_t getSchemaObjectVersionId() const noexcept;
+
 	const CdbTable* createTable(const CdbTable* table);
 private:
 	ArrayList<Schema> list;

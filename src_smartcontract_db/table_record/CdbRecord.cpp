@@ -27,7 +27,7 @@ CdbRecord::CdbRecord(const CdbRecord& inst) : AbstractCdbValue(AbstractCdbValue:
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractCdbValue* v = inst.list.get(i);
 
-		addValue(v->copy());
+		addValue(v != nullptr ? v->copy() : nullptr);
 	}
 }
 
@@ -39,8 +39,19 @@ CdbRecord::~CdbRecord() {
 	this->list.deleteElements();
 }
 
+void CdbRecord::initNullColumns(int num) noexcept {
+	for(int i = 0; i != num; ++i){
+		addValue(nullptr);
+	}
+}
+
 void CdbRecord::addValue(AbstractCdbValue* value) noexcept {
 	this->list.addElement(value);
+}
+
+void CdbRecord::setValue(AbstractCdbValue* value, int i) noexcept {
+	delete this->list.get(i);
+	this->list.setElement(value, i);
 }
 
 int CdbRecord::binarySize() const {

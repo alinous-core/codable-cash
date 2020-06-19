@@ -19,6 +19,8 @@ public:
 
 	uint64_t newOid();
 	void saveSchema();
+
+	uint64_t getSchemaObjectVersionId() const noexcept;
 private:
 	SchemaManager* schema;
 };

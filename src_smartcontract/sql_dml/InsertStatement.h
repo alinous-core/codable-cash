@@ -10,10 +10,19 @@
 
 #include "sql/AbstractSQLStatement.h"
 
+namespace codablecash {
+class CdbTableIdentifier;
+class CdbTable;
+}
+using namespace codablecash;
+
 namespace alinous {
 class TableIdentifier;
 class SQLColumnsList;
 class SQLExpressionList;
+class AnalyzedInsertColumnList;
+class VmTransactionHandler;
+class VirtualMachine;
 
 class InsertStatement : public AbstractSQLStatement {
 public:
@@ -33,10 +42,20 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 	virtual void interpret(VirtualMachine* vm);
+	void init(VirtualMachine* vm);
+
+private:
+	void updateSchemaInfo(VirtualMachine* vm, VmTransactionHandler* trxHandler);
+	void updateSchemaInfoWithNoColumnSpec(CdbTable* table, VirtualMachine* vm, VmTransactionHandler* trxHandler);
+
 private:
 	TableIdentifier* tableId;
 	SQLColumnsList* columns;
 	SQLExpressionList* expList;
+
+	uint64_t schemaVersion;
+	AnalyzedInsertColumnList* analyzedColumns;
+	CdbTableIdentifier* tableIdentifier;
 };
 
 } /* namespace alinous */

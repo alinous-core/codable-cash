@@ -20,10 +20,16 @@ public:
 	virtual ~SQLColumnsList();
 
 	void addColumn(SQLColumnIdentifier* colId) noexcept;
+	int numColumns() const noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	const ArrayList<SQLColumnIdentifier>* getList() const {
+		return &this->list;
+	}
+
 private:
 	ArrayList<SQLColumnIdentifier> list;
 };

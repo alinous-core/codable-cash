@@ -7,6 +7,7 @@
 
 #include "transaction/CdbTransaction.h"
 #include "transaction/CdbTransactionManager.h"
+#include "transaction/SchemaObjectIdPublisher.h"
 
 #include "transaction_log/AbstractTransactionLog.h"
 #include "transaction_log/CreateTableLog.h"
@@ -27,6 +28,7 @@
 #include "transaction_scanner/TableTransactionScanner.h"
 
 #include "transaction_update_cache/TransactionUpdateCache.h"
+
 
 namespace codablecash {
 

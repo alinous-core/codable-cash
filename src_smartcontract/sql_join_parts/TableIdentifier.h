@@ -32,6 +32,15 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
+	const UnicodeString* getSchema() const noexcept {
+		return schema;
+	}
+
+	const UnicodeString* getTableName() const noexcept {
+		return tableName;
+	}
+
 private:
 	UnicodeString* schema;
 	UnicodeString* tableName;

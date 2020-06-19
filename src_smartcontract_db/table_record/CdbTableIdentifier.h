@@ -20,6 +20,7 @@ namespace codablecash {
 
 class CdbTableIdentifier : public CdbBinaryObject {
 public:
+	CdbTableIdentifier(const CdbTableIdentifier& inst);
 	CdbTableIdentifier();
 	CdbTableIdentifier(const wchar_t* scheme, const wchar_t* table);
 	virtual ~CdbTableIdentifier();
@@ -37,6 +38,8 @@ public:
 	int binarySize() const;
 	void toBinary(ByteBuffer* out) const;
 	static CdbTableIdentifier* fromBinary(ByteBuffer* in);
+
+
 private:
 	UnicodeString* schema;
 	UnicodeString* table;

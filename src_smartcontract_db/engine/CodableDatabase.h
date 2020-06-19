@@ -8,6 +8,8 @@
 #ifndef ENGINE_CODABLEDATABASE_H_
 #define ENGINE_CODABLEDATABASE_H_
 
+#include <cstdint>
+
 namespace alinous {
 class File;
 class UnicodeString;
@@ -32,7 +34,9 @@ public:
 	CdbTransaction* newTransaction();
 
 	CdbStorageManager* getStorageManager() const noexcept;
+	SchemaManager* getSchemaManager() const noexcept;
 
+	uint64_t getSchemaObjectVersionId() const noexcept;
 private:
 	void checkDatabaseLoaded() const;
 

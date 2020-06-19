@@ -26,10 +26,6 @@ class CdbTableColumn : public CdbBinaryObject {
 public:
 	static const constexpr uint8_t CDB_OBJ_TYPE{2};
 
-	static const constexpr uint8_t COLUMN_TYPE_VARCHAR{1};
-	static const constexpr uint8_t COLUMN_TYPE_TEXT{2};
-	static const constexpr uint8_t COLUMN_TYPE_INT{3};
-
 	CdbTableColumn(const CdbTableColumn& inst);
 	explicit CdbTableColumn(uint64_t oid);
 	virtual ~CdbTableColumn();
@@ -51,6 +47,11 @@ public:
 
 	int getPosition() const noexcept;
 	void setPosition(int position) noexcept;
+
+	uint8_t getType() const noexcept {
+		return this->type;
+	}
+
 private:
 	CdbOid* oid;
 

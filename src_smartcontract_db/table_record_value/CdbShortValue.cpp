@@ -17,6 +17,10 @@ CdbShortValue::CdbShortValue(const CdbShortValue& inst) : AbstractCdbValue(Abstr
 	this->value = inst.value;
 }
 
+CdbShortValue::CdbShortValue(int16_t value) : AbstractCdbValue(AbstractCdbValue::TYPE_SHORT) {
+	this->value = value;
+}
+
 CdbShortValue::CdbShortValue() : AbstractCdbValue(AbstractCdbValue::TYPE_SHORT) {
 	this->value = 0;
 }

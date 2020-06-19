@@ -22,6 +22,8 @@ public:
 	void setTableName(UnicodeString* tableName) noexcept;
 	void setColumnName(UnicodeString* columnName) noexcept;
 
+
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
@@ -33,6 +35,19 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
+	const UnicodeString* getColumnName() const noexcept {
+		return columnName;
+	}
+
+	const UnicodeString* getSchema() const noexcept {
+		return schema;
+	}
+
+	const UnicodeString* getTableName() const noexcept {
+		return tableName;
+	}
+
 private:
 	UnicodeString* schema;
 	UnicodeString* tableName;

@@ -33,7 +33,9 @@ public:
 		return oid;
 	}
 
+	void initNullColumns(int num) noexcept;
 	void addValue(AbstractCdbValue* value) noexcept;
+	void setValue(AbstractCdbValue* value, int i) noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;

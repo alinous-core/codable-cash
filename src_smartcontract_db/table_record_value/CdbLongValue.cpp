@@ -17,6 +17,10 @@ CdbLongValue::CdbLongValue(const CdbLongValue& inst) : AbstractCdbValue(Abstract
 	this->value = inst.value;
 }
 
+CdbLongValue::CdbLongValue(int64_t value) : AbstractCdbValue(AbstractCdbValue::TYPE_LONG) {
+	this->value = value;
+}
+
 CdbLongValue::CdbLongValue() : AbstractCdbValue(AbstractCdbValue::TYPE_LONG) {
 	this->value = 0;
 }

@@ -69,6 +69,8 @@ public:
 	static constexpr int DB_NO_PRIMARY_KEY = 1002;
 	static constexpr int DB_LENGTH_IS_NOT_INTEGER = 1002;
 
+	static constexpr int SQL_INSERT_VALUES_NUMBERS = 1100;
+
 	//static constexpr int CODE_WRONG_TYPE_NAME = 4;
 
 

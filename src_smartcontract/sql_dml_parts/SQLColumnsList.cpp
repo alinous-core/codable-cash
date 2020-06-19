@@ -35,6 +35,10 @@ int SQLColumnsList::binarySize() const {
 	return total;
 }
 
+int SQLColumnsList::numColumns() const noexcept {
+	return this->list.size();
+}
+
 void SQLColumnsList::toBinary(ByteBuffer* out) {
 	out->putShort(CodeElement::SQL_PART_COLUMN_LIST);
 

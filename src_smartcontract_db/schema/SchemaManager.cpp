@@ -121,6 +121,10 @@ uint64_t SchemaManager::newRecordObjectId() noexcept {
 	return this->root->newRecordObjectId();
 }
 
+uint64_t SchemaManager::getSchemaObjectVersionId() const noexcept {
+	return this->root->getSchemaObjectVersionId();
+}
+
 void SchemaManager::createTable(CdbTable* table) {
 	const CdbTable* newTable = this->root->createTable(table);
 	fireOnCreateTable(newTable);

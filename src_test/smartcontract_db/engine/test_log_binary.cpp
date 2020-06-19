@@ -26,6 +26,9 @@
 #include "table/TableObjectFactory.h"
 
 #include "table/CdbTableIndex.h"
+
+#include "table_record_value/AbstractCdbValue.h"
+
 using namespace codablecash;
 
 
@@ -79,8 +82,8 @@ TEST(TestLogBinaryGroup, createtable){
 	CreateTableLog log;
 	CdbTable* table = new CdbTable(1);
 	table->setName(new UnicodeString(L"test_table"));
-	table->addColumn(2, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
-	table->addColumn(3, L"name", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, L"");
+	table->addColumn(2, L"id", AbstractCdbValue::TYPE_INT, 0, true, true, nullptr);
+	table->addColumn(3, L"name", AbstractCdbValue::TYPE_INT, 0, true, true, L"");
 
 	table->setPrimaryKey(L"id");
 
@@ -107,8 +110,8 @@ TEST(TestLogBinaryGroup, createtable){
 TEST(TestLogBinaryGroup, createtable_error){
 	CreateTableLog log;
 	CdbTable* table = new CdbTable(1);
-	table->addColumn(2, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
-	table->addColumn(3, L"name", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, L"");
+	table->addColumn(2, L"id", AbstractCdbValue::TYPE_INT, 0, true, true, nullptr);
+	table->addColumn(3, L"name", AbstractCdbValue::TYPE_INT, 0, true, true, L"");
 	log.setTable(table);
 
 	CdbException* ex = nullptr;
@@ -126,8 +129,8 @@ TEST(TestLogBinaryGroup, createtable_primarykey_error){
 	CreateTableLog log;
 	CdbTable* table = new CdbTable(1);
 	table->setName(new UnicodeString(L"test_table"));
-	table->addColumn(2, L"id", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, nullptr);
-	table->addColumn(3, L"name", CdbTableColumn::COLUMN_TYPE_INT, 0, true, true, L"");
+	table->addColumn(2, L"id", AbstractCdbValue::TYPE_INT, 0, true, true, nullptr);
+	table->addColumn(3, L"name", AbstractCdbValue::TYPE_INT, 0, true, true, L"");
 
 	log.setTable(table);
 
