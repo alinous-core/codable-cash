@@ -119,3 +119,16 @@ TEST(TestInsertGroup, case05_err) {
 	bool bl = exName->equals(&DatabaseExceptionClassDeclare::NAME);
 	CHECK(bl)
 }
+
+TEST(TestInsertGroup, case06_err) {
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/table/resources/insert/case06_err/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(!result)
+}
