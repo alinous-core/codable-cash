@@ -205,6 +205,7 @@ void InsertStatement::updateSchemaInfoWithNoColumnSpec(CdbTable* table, VirtualM
 
 	if(tableColSize < maxLoop){
 		UnicodeString errMsg(L"Column number is too many.");
+
 		DatabaseExceptionClassDeclare::throwException(&errMsg, vm, this);
 		return;
 	}
