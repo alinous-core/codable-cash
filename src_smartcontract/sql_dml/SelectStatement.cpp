@@ -13,6 +13,8 @@
 #include "sql_dml_parts/SQLLimitOffset.h"
 #include "sql_dml_parts/SQLSelectTargetList.h"
 
+#include "base/UnicodeString.h"
+
 namespace alinous {
 
 SelectStatement::SelectStatement() : AbstractSQLStatement(CodeElement::DML_STMT_SELECT) {
@@ -22,6 +24,7 @@ SelectStatement::SelectStatement() : AbstractSQLStatement(CodeElement::DML_STMT_
 	this->groupBy = nullptr;
 	this->orderBy = nullptr;
 	this->limitOffset = nullptr;
+	this->intoVar = nullptr;
 }
 
 SelectStatement::~SelectStatement() {
@@ -31,6 +34,7 @@ SelectStatement::~SelectStatement() {
 	delete this->groupBy;
 	delete this->orderBy;
 	delete this->limitOffset;
+	delete this->intoVar;
 }
 
 void SelectStatement::preAnalyze(AnalyzeContext* actx) {
@@ -66,6 +70,10 @@ void SelectStatement::setOrderBy(SQLOrderBy* orderBy) noexcept {
 
 void SelectStatement::setLimitOffset(SQLLimitOffset* limitOffset) noexcept {
 	this->limitOffset = limitOffset;
+}
+
+void SelectStatement::setintoVar(UnicodeString* intoVar) noexcept {
+	this->intoVar = intoVar;
 }
 
 int SelectStatement::binarySize() const {
