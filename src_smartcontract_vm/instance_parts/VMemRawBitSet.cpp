@@ -17,6 +17,8 @@
 
 namespace alinous {
 
+constexpr const uint64_t VMemRawBitSet::TWO_N_ARRAY[64];
+
 VMemRawBitSet::VMemRawBitSet(VirtualMachine* vm, uint32_t nbits) noexcept {
 	this->bits = new(vm) VMemBitsetArray(vm, ((nbits >> OFFSET) + ((nbits & RIGHT_BITS) > 0)) ? 1 : 0 );
 	this->_needClear = false;
@@ -129,7 +131,10 @@ VMemRawBitSet::VMemBitsetArray::VMemBitsetArray(VirtualMachine* vm, int numBits)
 	//this->buff = new uint64_t[numBits]{};
 	this->buff = (uint64_t*)alloc->mallocPtrArray(sizeof(uint64_t) * numBits);
 	Mem::memset(this->buff, 0, sizeof(uint64_t) * numBits);
+}
 
+VMemRawBitSet::VMemBitsetArray::~VMemBitsetArray() {
+	this->alloc->releaseArray(this->buff);
 }
 
 void* VMemRawBitSet::VMemBitsetArray::operator new(size_t size,	VirtualMachine* vm) {

@@ -29,9 +29,7 @@ public:
 		uint64_t* buff;
 		VMemBitsetArray(const VMemBitsetArray& base) = delete;
 		VMemBitsetArray(VirtualMachine* vm, int numBits);
-		~VMemBitsetArray() noexcept {
-			delete [] buff;
-		}
+		~VMemBitsetArray() noexcept;
 
 		void* operator new(size_t size, VirtualMachine* vm);
 		void operator delete(void* p, size_t size);
