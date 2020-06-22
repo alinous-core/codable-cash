@@ -7,6 +7,10 @@
 
 #include "test_utils/t_macros.h"
 
+#include "vm/VirtualMachine.h"
+
+#include "instance_dom/DomVariableInstance.h"
+
 using namespace alinous;
 
 TEST_GROUP(TestDomBaseGroup) {
@@ -16,3 +20,10 @@ TEST_GROUP(TestDomBaseGroup) {
 	}
 };
 
+TEST(TestDomBaseGroup, case01){
+	VirtualMachine vm(1024 * 10);
+
+	DomVariableInstance* dom = new(&vm) DomVariableInstance(&vm);
+
+	delete dom;
+}
