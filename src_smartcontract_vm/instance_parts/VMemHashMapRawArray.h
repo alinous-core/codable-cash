@@ -13,7 +13,27 @@ namespace alinous {
 template <typename K,typename V>
 class VMemHashMapInternalElement {
 public:
+	VMemHashMapInternalElement(const VMemHashMapInternalElement& inst) = default;
+	VMemHashMapInternalElement(const K* k, V* v)  : key(k), value(v){}
+	~VMemHashMapInternalElement(){
+	}
 
+	int hashCode() const  {
+		const K* keyPtr = this->key;
+
+		return keyPtr->hashCode();
+	}
+	class ValueCompare {
+	public:
+		int operator() (const VMemHashMapInternalElement<K, V>* const a, const VMemHashMapInternalElement<K, V>* const b) const  {
+			typename K::ValueCompare cmp;
+
+			return cmp(a->key, b->key);
+		}
+	};
+
+	const K* key;
+	V* value;
 };
 
 
