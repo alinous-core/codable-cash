@@ -11,6 +11,8 @@
 
 #include "instance_dom/DomVariableInstance.h"
 
+#include "instance_parts/VMemHashmap.h"
+
 using namespace alinous;
 
 TEST_GROUP(TestVmHashGroup) {
@@ -21,5 +23,6 @@ TEST_GROUP(TestVmHashGroup) {
 };
 
 TEST(TestVmHashGroup, case01){
+
 
 }

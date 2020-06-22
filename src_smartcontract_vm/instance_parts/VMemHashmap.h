@@ -8,6 +8,9 @@
 #ifndef INSTANCE_PARTS_VMEMHASHMAP_H_
 #define INSTANCE_PARTS_VMEMHASHMAP_H_
 
+#include "VMemHashMapRawArray.h"
+#include "VMemHashMapKeySet.h"
+
 namespace alinous {
 
 class VMemHashmap {
