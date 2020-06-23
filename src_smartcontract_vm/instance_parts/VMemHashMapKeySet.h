@@ -21,7 +21,7 @@ template <typename K, typename V>
 class VMemHashMapKeySet {
 public:
 	VMemHashMapKeySet(const VMemHashMapKeySet& inst) = delete;
-	VMemHashMapKeySet(VirtualMachine* vm) : vm(vm) {
+	explicit VMemHashMapKeySet(VirtualMachine* vm) : vm(vm) {
 		this->list = new(vm) VMemHashMapRawArray<K, V>(vm);
 		this->nullElement = nullptr;
 	}
