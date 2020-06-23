@@ -13,10 +13,19 @@
 
 namespace alinous {
 
+template <typename K, typename V>
 class VMemHashmap {
 public:
-	VMemHashmap(){}
-	virtual ~VMemHashmap(){}
+	VMemHashmap(const VMemHashmap& base) = delete;
+	VMemHashmap(VirtualMachine* vm){
+		this->hashMapKeySet = new VMemHashMapKeySet<K, V>();
+	}
+	virtual ~VMemHashmap(){
+		delete this->hashMapKeySet;
+	}
+
+protected:
+	VMemHashMapKeySet<K, V>* hashMapKeySet;
 };
 
 } /* namespace alinous */

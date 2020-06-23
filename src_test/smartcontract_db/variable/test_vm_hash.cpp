@@ -23,6 +23,7 @@ TEST_GROUP(TestVmHashGroup) {
 };
 
 TEST(TestVmHashGroup, case01){
+	VirtualMachine vm(1024 * 10);
 
-
+	VMemHashmap<UnicodeString, UnicodeString> m(&vm);
 }
