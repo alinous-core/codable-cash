@@ -127,9 +127,50 @@ public:
 	public:
 		int hashCode;
 		int index;
+		VMemList<VMemHashMapInternalElement<K, V>, typename VMemHashMapInternalElement<K, V>::ValueCompare>** arrays;
+		const VMemRawBitSet* bitset;
+		Iterator(VMemList<VMemHashMapInternalElement<K, V>, typename VMemHashMapInternalElement<K, V>::ValueCompare>** ptr, VMemRawBitSet* bitset)
+			: hashCode(0), index(0), arrays(ptr), bitset(bitset) {}
 
+		bool hasNext() const {
+			VMemList<VMemHashMapInternalElement<K, V>, typename VMemHashMapInternalElement<K, V>::ValueCompare>* current = arrays[hashCode];
+			if(current->size() == index){
+				const int nextHash = hashCode + 1;
+				if(nextHash == MAX_HASH){
+					return false;
+				}
 
+				int next = bitset->nextSetBit(nextHash);
+				if(next < 0){
+					return false;
+				}
+				return true;
+			}
+
+			return true;
+		}
+		VMemHashMapInternalElement<K, V>* next() throw() {
+			const VMemList<VMemHashMapInternalElement<K, V>, typename VMemHashMapInternalElement<K, V>::ValueCompare>* current = arrays[hashCode];
+			if(current->size() == index){
+				const int nextHash = hashCode + 1;
+				int next = bitset->nextSetBit(nextHash);
+
+				if(nextHash == MAX_HASH || next < 0){
+					return nullptr;
+				}
+
+				index = 0;
+				hashCode = next;
+			}
+
+			current = arrays[hashCode];
+			return current->get(index++);
+		}
 	};
+
+	Iterator iterator() {
+		return Iterator(arrays, &bitset);
+	}
 
 private:
 	int getHash(const VMemHashMapInternalElement<K, V>* ptr) const noexcept {
