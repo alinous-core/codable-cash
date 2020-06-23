@@ -18,9 +18,11 @@ class VMemHashMapInternalElement;
 template <typename K, typename V>
 class VMemHashMapKeySet {
 public:
-	VMemHashMapKeySet(const VMemHashMapKeySet& inst) = default;
+	VMemHashMapKeySet(const VMemHashMapKeySet& inst) = delete;
 	VMemHashMapKeySet(){}
-	virtual ~VMemHashMapKeySet(){}
+	virtual ~VMemHashMapKeySet(){
+
+	}
 
 
 private:
