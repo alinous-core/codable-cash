@@ -21,12 +21,25 @@ template <typename K, typename V>
 class VMemHashMapKeySet {
 public:
 	VMemHashMapKeySet(const VMemHashMapKeySet& inst) = delete;
-	VMemHashMapKeySet(VirtualMachine* vm){
+	VMemHashMapKeySet(VirtualMachine* vm) : vm(vm) {
 		this->list = new(vm) VMemHashMapRawArray<K, V>(vm);
 		this->nullElement = nullptr;
 	}
 	virtual ~VMemHashMapKeySet(){
+		typename VMemHashMapRawArray<K, V>::Iterator it = this->list->iterator();
+		while(it.hasNext()){
+			VMemHashMapInternalElement<K, V>* element = it.next();
 
+			if(element->key != nullptr){
+				delete element->key;
+			}
+			delete element;
+		}
+
+		delete this->list;
+		if(this->nullElement != nullptr){
+			delete this->nullElement;
+		}
 	}
 
 	void* operator new(size_t size, VirtualMachine* vm){
@@ -48,9 +61,101 @@ public:
 		mem->free((char*)ptr);
 	}
 
+	V* addElement(const K *key, V* value) noexcept {
+		if(key == nullptr){
+			if(this->nullElement != nullptr){
+				V* last = this->nullElement->value;
+
+				this->nullElement->value = value;
+				return last;
+			}
+
+			this->nullElement = new(this->vm) VMemHashMapInternalElement<K,V>(nullptr, value);
+
+			return nullptr;
+		}
+
+		VMemHashMapInternalElement<K,V> tmp(key, value);
+		VMemHashMapInternalElement<K,V>* obj = this->list->search(&tmp);
+
+		if(obj != nullptr){
+			V* last = obj->value;
+			obj->value = value;
+
+			return last;
+		}
+
+		K *newKey = new K(*key); // FIXME hash copy
+		obj = new(this->vm) VMemHashMapInternalElement<K,V>(newKey, value);
+
+		this->list->addElement(obj);
+
+		return nullptr;
+	}
+
+	V* getValue(const K* key) const noexcept {
+		if(key == nullptr){
+			V* val = this->nullElement == nullptr ? nullptr : this->nullElement->value;
+			return val;
+		}
+
+		VMemHashMapInternalElement<K,V> tmp(key, nullptr);
+		VMemHashMapInternalElement<K,V>* obj = this->list->search(&tmp);
+		if(obj == nullptr){
+			return nullptr;
+		}
+
+		return obj->value;
+	}
+
+	void clear() noexcept {
+		if(this->nullElement != nullptr){
+			delete this->nullElement;
+			this->nullElement = nullptr;
+		}
+
+		auto it = this->list->iterator();
+		while(it.hasNext()){
+			VMemHashMapInternalElement<K,V>* obj = it.next();
+			delete obj->key;
+			delete obj;
+		}
+
+		this->list->reset();
+	}
+
+	void remove(K* o) noexcept {
+		if(o == nullptr){
+			if(this->nullElement != nullptr){
+				delete this->nullElement;
+				this->nullElement = nullptr;
+			}
+
+			return;
+		}
+
+		VMemHashMapInternalElement<K,V> tmp(o, nullptr);
+		VMemHashMapInternalElement<K,V>* removObj = this->list->search(&tmp);
+		if(removObj == nullptr){
+			return;
+		}
+
+		this->list->removeByObj(removObj);
+
+		delete removObj->key;
+		delete removObj;
+
+		return;
+	}
+
+	int size() const noexcept {
+		return this->nullElement == nullptr ? this->list->size() : this->list->size() + 1;
+	}
+
 private:
 	VMemHashMapRawArray<K, V>* list;
 	VMemHashMapInternalElement<K, V>* nullElement;
+	VirtualMachine* vm;
 };
 
 } /* namespace alinous */
