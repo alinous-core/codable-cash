@@ -152,6 +152,42 @@ public:
 		return this->nullElement == nullptr ? this->list->size() : this->list->size() + 1;
 	}
 
+	class HashMapKeySetIterator : public Iterator<K> {
+		HashMapKeySetIterator(VMemHashMapRawArray<K, V>* list, VMemHashMapInternalElement<K, V>* nullelement) : Iterator<K>(),
+			internalIt(list->iterator()), outputNull(false), nullElement(nullelement)
+		{
+		}
+		virtual ~HashMapKeySetIterator() noexcept {
+		}
+
+		virtual bool hasNext() throw() {
+			if(this->outputNull == false && this->nullElement != nullptr){
+				return true;
+			}
+			return this->internalIt.hasNext();
+		}
+		virtual const K* next() throw() {
+			if(this->outputNull == false){
+				this->outputNull = true;
+
+				if(this->nullElement != nullptr){
+					return this->nullElement->key;
+				}
+			}
+
+			VMemHashMapInternalElement<K, V>* obj = this->internalIt.next();
+			if(obj == nullptr){
+				return nullptr;
+			}
+			return obj->key;
+		}
+
+	private:
+		typename VMemHashMapRawArray<K, V>::Iterator internalIt;
+		bool outputNull;
+		VMemHashMapInternalElement<K, V>* nullElement;
+	};
+
 private:
 	VMemHashMapRawArray<K, V>* list;
 	VMemHashMapInternalElement<K, V>* nullElement;
