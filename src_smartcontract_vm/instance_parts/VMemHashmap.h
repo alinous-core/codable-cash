@@ -22,7 +22,7 @@ class VMemHashmap {
 public:
 	VMemHashmap(const VMemHashmap& base) = delete;
 	explicit VMemHashmap(VirtualMachine* vm){
-		this->hashMapKeySet = new(vm) VMemHashMapKeySet<K, V>();
+		this->hashMapKeySet = new(vm) VMemHashMapKeySet<K, V>(vm);
 	}
 	virtual ~VMemHashmap(){
 		delete this->hashMapKeySet;

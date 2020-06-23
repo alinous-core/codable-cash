@@ -76,7 +76,7 @@ public:
 
 	VMemHashMapRawArray(const VMemHashMapRawArray& base) = delete;
 	explicit VMemHashMapRawArray(VirtualMachine* vm)  :
-		bitset(MAX_HASH / 8), numElements(0), vm(vm)
+		bitset(vm, MAX_HASH / 8), numElements(0), vm(vm)
 	{
 		VmMalloc* alloc = vm->getAlloc();
 		// this->arrays = new ArrayList<HashMapInternalElement<K, V>, typename HashMapInternalElement<K, V>::ValueCompare>*[MAX_HASH];
@@ -86,7 +86,7 @@ public:
 
 		for(int i = 0; i != MAX_HASH; ++ i){
 			VMemList<VMemHashMapInternalElement<K, V>, typename VMemHashMapInternalElement<K, V>::ValueCompare> *ar
-				= new VMemList<HashMapInternalElement<K, V>, typename VMemHashMapInternalElement<K, V>::ValueCompare>(4);
+				= new(vm) VMemList<VMemHashMapInternalElement<K, V>, typename VMemHashMapInternalElement<K, V>::ValueCompare>(vm, 4);
 			this->arrays[i] = ar;
 		}
 	}
