@@ -54,7 +54,7 @@ public:
 	VirtualMachine* vm;
 
 	VMemHashMapRawArray(const VMemHashMapRawArray& base) = delete;
-	VMemHashMapRawArray(VirtualMachine* vm)  :
+	explicit VMemHashMapRawArray(VirtualMachine* vm)  :
 		bitset(MAX_HASH / 8), numElements(0), vm(vm)
 	{
 		VmMalloc* alloc = vm->getAlloc();
@@ -114,6 +114,22 @@ public:
 		int hashcode = getHash(value);
 		return arrays[hashcode]->search(value);
 	}
+
+	void reset() noexcept {
+		for(int i = 0; i != MAX_HASH; i++){
+			arrays[i]->reset();
+		}
+		bitset.clear();
+		numElements = 0;
+	}
+
+	class Iterator {
+	public:
+		int hashCode;
+		int index;
+
+
+	};
 
 private:
 	int getHash(const VMemHashMapInternalElement<K, V>* ptr) const noexcept {

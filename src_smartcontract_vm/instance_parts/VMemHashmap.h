@@ -17,7 +17,7 @@ template <typename K, typename V>
 class VMemHashmap {
 public:
 	VMemHashmap(const VMemHashmap& base) = delete;
-	VMemHashmap(VirtualMachine* vm){
+	explicit VMemHashmap(VirtualMachine* vm){
 		this->hashMapKeySet = new VMemHashMapKeySet<K, V>();
 	}
 	virtual ~VMemHashmap(){

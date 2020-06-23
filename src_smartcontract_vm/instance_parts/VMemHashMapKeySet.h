@@ -22,6 +22,7 @@ public:
 	VMemHashMapKeySet(){}
 	virtual ~VMemHashMapKeySet(){}
 
+
 private:
 	VMemHashMapRawArray<K, V>* list;
 	VMemHashMapInternalElement<K, V>* nullElement;
