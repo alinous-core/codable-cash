@@ -20,6 +20,9 @@
 #include "base/UnicodeString.h"
 #include "base/Iterator.h"
 
+#include "instance_ref/PrimitiveReference.h"
+
+
 using namespace alinous;
 
 TEST_GROUP(TestVmHashGroup) {
@@ -134,6 +137,29 @@ TEST(TestVmHashGroup, keySet){
 TEST(TestVmHashGroup, keySet02){
 	VirtualMachine* vm = new VirtualMachine(1024 * 1024); __STP(vm);
 
-	VMemHashmap<VmStringInstance, VmStringInstance>* map = new(vm) VMemHashmap<VmStringInstance, VmStringInstance>(vm);
+	VMemHashmap<PrimitiveReference, VmStringInstance>* map = new(vm) VMemHashmap<PrimitiveReference, VmStringInstance>(vm);
 
+	for(int i = 0; i != 1000; ++i){
+		PrimitiveReference* key = PrimitiveReference::createIntReference(vm, i);
+
+		UnicodeString valuestr(L"value");
+		valuestr.append(i);
+
+		VmStringInstance* value = new(vm) VmStringInstance(vm, &valuestr);
+
+		map->put(key, value);
+	}
+
+	VMemHashMapKeySet<PrimitiveReference, VmStringInstance>* keyset = map->keySet();
+	Iterator<PrimitiveReference> *it = keyset->iterator();
+
+	while(it->hasNext()){
+		const PrimitiveReference* key = it->next();
+		VmStringInstance* value = map->get(key);
+
+		delete value;
+	}
+
+	delete it;
+	delete map;
 }
