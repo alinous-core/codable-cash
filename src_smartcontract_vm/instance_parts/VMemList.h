@@ -195,6 +195,170 @@ public:
 
 		return true;
 	}
+
+	void addElementWithSorted(T* ptr) {
+		if(!this->sorted && size() > 1){
+			sort();
+		}
+
+		int index = indexOfInsert(ptr);
+
+		insertWithKeepingOrder(ptr, index);
+	}
+
+	T* search(const T* value) noexcept
+	{
+		if(this->numArray == 0){
+			return 0;
+		}
+
+		if(!this->sorted){
+			this->sort();
+		}
+		int begin = 0;
+		int end = this->numArray - 1;
+		int mid = (begin + end) / 2;
+
+		const ElementType* const _root = this->root;
+		while(begin <= end) {
+			mid = (begin + end) / 2;
+
+			if(compareFunctor(_root[mid], value) == 0){
+				return _root[mid];
+			}
+			else if((compareFunctor)(_root[mid], value) < 0){ // this->root[mid] < value
+				begin = mid + 1;
+			}
+			else{ // this->root[mid] > value
+				end = mid - 1;
+			}
+		}
+
+		return nullptr;
+	}
+
+	void sort() noexcept
+	{
+		int length = this->numArray;
+
+		int middle = (length) / 2;
+
+		for (int i = middle; i >= 0; i--) {
+		    downheap(i, length - 1);
+		}
+
+		for (int i = length - 1; i > 0; i--) {
+		    swap(0, i);
+		    downheap(0, i - 1);
+		}
+		this->sorted = true;
+	}
+
+
+private:
+	int indexOfInsert(const T* value) const noexcept
+	{
+		if(this->numArray < 4){
+			return indexOfInsertByLoop(value);
+		}
+
+		int begin = 0;
+		int end = this->numArray - 1;
+		int mid = (begin + end) / 2;
+
+		const ElementType* const _root = this->root;
+		while(begin <= end) {
+			mid = (begin + end) / 2;
+
+			int result = compareFunctor(_root[mid], value);
+			if(result < 0){
+				begin = mid + 1;
+			}
+			else if(result > 0){
+				end = mid - 1;
+			}
+			else {
+				return mid;
+			}
+		}
+
+		if(end < 0){
+			return 0;
+		}
+		else if(begin >= this->numArray){
+			return this->numArray;
+		}
+
+		return begin;
+	}
+
+	int indexOfInsertByLoop(const T* value) const noexcept
+	{
+		const ElementType* const _root = this->root;
+		int maxLoop = this->numArray;
+		for(int i = 0; i != maxLoop; ++i){
+			if(compareFunctor(value, _root[i]) <= 0){
+				return i;
+			}
+		}
+
+		return maxLoop;
+	}
+
+	void insertWithKeepingOrder(T* ptr, int index)
+	{
+		if(__builtin_expect(this->currentSize == this->numArray, 0)){
+			realloc();
+		}
+
+		for(int i = this->numArray; i != index; i--){
+			*(this->root + i)= *(this->root + i - 1);
+		}
+
+
+		this->root[index] = ptr;
+
+		this->numArray++;
+		this->cursor++;
+	}
+
+	void downheap(int rootDefault, int leaf) const throw()
+	{
+		int root = rootDefault;
+		int left = (root + 1) * 2 - 1;;
+		int right = left + 1;
+		const T* leafMax  = nullptr;
+		const T* rootValue = nullptr;
+		const ElementType* const _root = this->root;
+
+		while (left <= leaf) {
+			if(right <= leaf){ // The tree has right
+				left = compareFunctor(_root[left], _root[right]) < 0 ? right : left;
+			}
+
+			leafMax = _root[left];
+			rootValue = _root[root];
+
+			if(compareFunctor(leafMax, rootValue) < 0){
+				return;
+			}
+
+			swap(root, left);
+			//debugPrint("swap() :");
+
+			// next status
+			root = left;
+			left = (root + 1) * 2 - 1;
+			right = left + 1;
+		}
+	}
+	void swap(const int i, const int j) const throw()
+	{
+		T* tmp = root[i];
+		root[i] = root[j];
+		root[j] = tmp;
+	}
+
 private:
 	int numArray;
 	int currentSize;

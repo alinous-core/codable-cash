@@ -26,6 +26,12 @@ VmStringInstance::VmStringInstance(VirtualMachine* vm, const UnicodeString* str)
 	this->str = nullptr;
 }
 
+VmStringInstance* VmStringInstance::copy(VirtualMachine* vm) const {
+	UnicodeString str(this->value->towString());
+
+	return new(vm) VmStringInstance(vm, &str);
+}
+
 VmStringInstance::~VmStringInstance() {
 	delete this->value;
 	delete this->str;
@@ -91,5 +97,11 @@ const UnicodeString* VmStringInstance::toString() noexcept {
 
 	return this->str;
 }
+
+int VmStringInstance::ValueCompare::operator ()(
+		const VmStringInstance* const _this, const VmStringInstance* const object) const noexcept {
+	return VmStringInstance::compareFunctor(_this->value, object->value);
+}
+
 
 } /* namespace alinous */

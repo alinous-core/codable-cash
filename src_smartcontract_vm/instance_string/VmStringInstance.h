@@ -20,6 +20,7 @@ class VirtualMachine;
 
 class VmStringInstance : public AbstractVmInstance, public IAbstractVmInstanceSubstance {
 public:
+	VmStringInstance(const VmStringInstance& inst) = delete;
 	VmStringInstance(VirtualMachine* vm, const UnicodeString* str);
 	virtual ~VmStringInstance();
 
@@ -39,6 +40,13 @@ public:
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 	virtual const UnicodeString* toString() noexcept;
+
+	VmStringInstance* copy(VirtualMachine* vm) const;
+
+	class ValueCompare {
+	public:
+		int operator() (const VmStringInstance* const _this, const  VmStringInstance* const object) const noexcept;
+	};
 private:
 	VmString* value;
 	static const VmString::ValueCompare compareFunctor;

@@ -85,7 +85,7 @@ public:
 			return last;
 		}
 
-		K *newKey = new K(*key); // FIXME hash copy
+		K *newKey = key->copy(vm);
 		obj = new(this->vm) VMemHashMapInternalElement<K,V>(newKey, value);
 
 		this->list->addElement(obj);

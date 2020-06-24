@@ -47,6 +47,38 @@ public:
 		mem->free((char*)ptr);
 	}
 
+	void clear() {
+		this->hashMapKeySet->clear();
+	}
+
+	V* put(const K* key, V* value) noexcept {
+		return this->hashMapKeySet->addElement(key, value);
+	}
+	V* put(const K& key, V* value) noexcept {
+		return this->hashMapKeySet->addElement(&key, value);
+	}
+
+	V* get(const K* key) const noexcept {
+		return this->hashMapKeySet->getValue(key);
+	}
+	V* get(const K& key) const noexcept {
+		return this->hashMapKeySet->getValue(&key);
+	}
+	void remove(K* key) {
+		this->hashMapKeySet->remove(key);
+	}
+
+	VMemHashMapKeySet<K, V>* keySet() const noexcept {
+		return this->hashMapKeySet;
+	}
+
+	int size() const noexcept {
+		return this->hashMapKeySet->size();
+	}
+
+	bool isEmpty() const noexcept {
+		return size() == 0;
+	}
 protected:
 	VMemHashMapKeySet<K, V>* hashMapKeySet;
 };
