@@ -26,6 +26,10 @@ VmStringInstance::VmStringInstance(VirtualMachine* vm, const UnicodeString* str)
 	this->str = nullptr;
 }
 
+int VmStringInstance::hashCode() const noexcept {
+	return this->value->hashCode();
+}
+
 VmStringInstance* VmStringInstance::copy(VirtualMachine* vm) const {
 	UnicodeString str(this->value->towString());
 

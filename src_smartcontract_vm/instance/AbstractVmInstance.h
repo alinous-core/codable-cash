@@ -32,7 +32,7 @@ public:
 	virtual ~AbstractVmInstance();
 
 	virtual uint8_t getType() const noexcept;
-	int hashCode() const noexcept;
+	virtual int hashCode() const noexcept;
 
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept = 0;

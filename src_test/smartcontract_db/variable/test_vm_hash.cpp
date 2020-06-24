@@ -50,3 +50,24 @@ TEST(TestVmHashGroup, put01){
 
 	delete map;
 }
+
+TEST(TestVmHashGroup, put02){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+	UnicodeString strkey(L"key");
+	UnicodeString str(L"Hello World");
+	UnicodeString str2(L"Hello World 2");
+
+	VmStringInstance* key = new(vm) VmStringInstance(vm, &strkey); __STP(key);
+	VmStringInstance* value = new(vm) VmStringInstance(vm, &str); __STP(value);
+	VmStringInstance* value2 = new(vm) VmStringInstance(vm, &str2); __STP(value2);
+
+	VMemHashmap<VmStringInstance, VmStringInstance>* map = new(vm) VMemHashmap<VmStringInstance, VmStringInstance>(vm);
+
+	VmStringInstance* last = map->put(key, value);
+	CHECK(last == nullptr);
+
+	last = map->put(key, value2);
+	CHECK(last != nullptr);
+
+	delete map;
+}
