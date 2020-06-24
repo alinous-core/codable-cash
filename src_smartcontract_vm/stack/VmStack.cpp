@@ -88,7 +88,7 @@ bool VmStack::instIsNull() const noexcept {
 	return isNull();
 }
 
-int VmStack::instValueCompare(IAbstractVmInstanceSubstance* right) {
+int VmStack::instValueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
 	return valueCompare(right);
 }
 
@@ -104,7 +104,7 @@ IAbstractVmInstanceSubstance* VmStack::getInstance() noexcept {
 	return this;
 }
 
-int VmStack::valueCompare(IAbstractVmInstanceSubstance* right) {
+int VmStack::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
 	return 0;
 }
 

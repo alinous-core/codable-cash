@@ -28,7 +28,7 @@ public:
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
 
 	virtual bool isPrimitive() const noexcept;
-	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
+	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 
 	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc);
 
@@ -40,7 +40,7 @@ public:
 	virtual int instHashCode() const noexcept;
 	virtual bool instIsPrimitive() const noexcept;
 	virtual bool instIsNull() const noexcept;
-	virtual int instValueCompare(IAbstractVmInstanceSubstance* right);
+	virtual int instValueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
@@ -71,11 +71,16 @@ public:
 
 	PrimitiveReference* copy(VirtualMachine* vm) const noexcept;
 
+	class ValueCompare {
+	public:
+		int operator() (const PrimitiveReference* const _this, const  PrimitiveReference* const object) noexcept;
+	};
+
 private:
-	int valueCompare8(PrimitiveReference* right);
-	int valueCompare16(PrimitiveReference* right);
-	int valueCompare32(PrimitiveReference* right);
-	int valueCompare64(PrimitiveReference* right);
+	int valueCompare8(const PrimitiveReference* right) const noexcept;
+	int valueCompare16(const PrimitiveReference* right) const noexcept;
+	int valueCompare32(const PrimitiveReference* right) const noexcept;
+	int valueCompare64(const PrimitiveReference* right) const noexcept;
 
 protected:
 	static size_t getDataSize(int8_t type) noexcept;

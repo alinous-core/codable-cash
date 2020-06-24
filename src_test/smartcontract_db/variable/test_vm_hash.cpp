@@ -12,12 +12,13 @@
 #include "instance_dom/DomVariableInstance.h"
 
 #include "instance_parts/VMemHashmap.h"
+#include "instance_parts/VMemHashMapKeySet.h"
 
 #include "instance_string/VmStringInstance.h"
 
 #include "base/StackRelease.h"
 #include "base/UnicodeString.h"
-
+#include "base/Iterator.h"
 
 using namespace alinous;
 
@@ -97,4 +98,42 @@ TEST(TestVmHashGroup, put03){
 	CHECK(str2eq->valueCompare(value2) == 0)
 
 	delete map;
+}
+
+TEST(TestVmHashGroup, keySet){
+	VirtualMachine* vm = new VirtualMachine(1024 * 1024); __STP(vm);
+
+	VMemHashmap<VmStringInstance, VmStringInstance>* map = new(vm) VMemHashmap<VmStringInstance, VmStringInstance>(vm);
+
+	for(int i = 0; i != 1000; ++i){
+		UnicodeString keystr(L"key");
+		keystr.append(i);
+
+		UnicodeString valuestr(L"value");
+		valuestr.append(i);
+
+		VmStringInstance* key = new(vm) VmStringInstance(vm, &keystr); __STP(key);
+		VmStringInstance* value = new(vm) VmStringInstance(vm, &valuestr);
+
+		map->put(key, value);
+	}
+
+	VMemHashMapKeySet<VmStringInstance, VmStringInstance>* keyset = map->keySet();
+	Iterator<VmStringInstance> *it = keyset->iterator();
+	while(it->hasNext()){
+		const VmStringInstance* key = it->next();
+		VmStringInstance* value = map->get(key);
+
+		delete value;
+	}
+
+	delete it;
+	delete map;
+}
+
+TEST(TestVmHashGroup, keySet02){
+	VirtualMachine* vm = new VirtualMachine(1024 * 1024); __STP(vm);
+
+	VMemHashmap<VmStringInstance, VmStringInstance>* map = new(vm) VMemHashmap<VmStringInstance, VmStringInstance>(vm);
+
 }

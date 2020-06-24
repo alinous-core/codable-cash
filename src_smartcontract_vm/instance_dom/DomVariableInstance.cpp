@@ -76,7 +76,7 @@ bool DomVariableInstance::instIsNull() const noexcept {
 	return isNull();
 }
 
-int DomVariableInstance::instValueCompare(IAbstractVmInstanceSubstance* right) {
+int DomVariableInstance::instValueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
 	return valueCompare(right);
 }
 
@@ -88,8 +88,8 @@ const UnicodeString* DomVariableInstance::toString() noexcept {
 	return nullptr;
 }
 
-int DomVariableInstance::valueCompare(IAbstractVmInstanceSubstance* right) {
-	DomVariableInstance* inst = dynamic_cast<DomVariableInstance*>(right);
+int DomVariableInstance::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
+	const DomVariableInstance* inst = dynamic_cast<const DomVariableInstance*>(right);
 
 	int64_t diff = ((int64_t)this) - ((int64_t)inst);
 	if(diff == 0){

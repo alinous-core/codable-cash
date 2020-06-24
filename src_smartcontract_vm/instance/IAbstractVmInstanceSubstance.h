@@ -34,7 +34,7 @@ public:
 	virtual bool instIsPrimitive() const noexcept = 0;
 	virtual bool instIsNull() const noexcept = 0;
 
-	virtual int instValueCompare(IAbstractVmInstanceSubstance* right) = 0;
+	virtual int instValueCompare(const IAbstractVmInstanceSubstance* right) const noexcept = 0;
 	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table) = 0;
 };
 

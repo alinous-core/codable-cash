@@ -108,8 +108,8 @@ void VmClassInstance::removeInnerRefs(GcManager* gc) noexcept {
 	}
 }
 
-int VmClassInstance::valueCompare(IAbstractVmInstanceSubstance* right) {
-	VmClassInstance* rightPtr = dynamic_cast<VmClassInstance*>(right);
+int VmClassInstance::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
+	const VmClassInstance* rightPtr = dynamic_cast<const VmClassInstance*>(right);
 
 	int64_t diff = (int64_t)((void*)this) - (int64_t)((void*)rightPtr);
 	if(diff == 0){
@@ -143,7 +143,7 @@ bool VmClassInstance::instIsNull() const noexcept {
 	return isNull();
 }
 
-int VmClassInstance::instValueCompare(IAbstractVmInstanceSubstance* right) {
+int VmClassInstance::instValueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
 	return valueCompare(right);
 }
 

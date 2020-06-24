@@ -41,8 +41,8 @@ VmStringInstance::~VmStringInstance() {
 	delete this->str;
 }
 
-int VmStringInstance::valueCompare(IAbstractVmInstanceSubstance* right) {
-	VmStringInstance* rightStr = dynamic_cast<VmStringInstance*>(right);
+int VmStringInstance::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
+	const VmStringInstance* rightStr = dynamic_cast<const VmStringInstance*>(right);
 
 	return compareFunctor(this->value, rightStr->value);
 }
@@ -71,7 +71,7 @@ bool VmStringInstance::instIsNull() const noexcept {
 	return isNull();
 }
 
-int VmStringInstance::instValueCompare(IAbstractVmInstanceSubstance* right) {
+int VmStringInstance::instValueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
 	return valueCompare(right);
 }
 

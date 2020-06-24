@@ -153,6 +153,7 @@ public:
 	}
 
 	class HashMapKeySetIterator : public Iterator<K> {
+	public:
 		HashMapKeySetIterator(VMemHashMapRawArray<K, V>* list, VMemHashMapInternalElement<K, V>* nullelement) : Iterator<K>(),
 			internalIt(list->iterator()), outputNull(false), nullElement(nullelement)
 		{
@@ -160,13 +161,32 @@ public:
 		virtual ~HashMapKeySetIterator() noexcept {
 		}
 
-		virtual bool hasNext() throw() {
+		void* operator new(size_t size, VirtualMachine* vm){
+			VmMemoryManager* mem = vm->getMemory();
+			uint64_t mallocSize = size + sizeof(VirtualMachine*);
+
+			void* p = mem->malloc(mallocSize);
+			VirtualMachine** vmp = (VirtualMachine**)p;
+			*vmp = vm;
+
+			return ((char*)p) + sizeof(VirtualMachine*);
+		}
+		void operator delete(void* p, size_t size){
+			void* ptr = ((char*)p) - sizeof(VirtualMachine*);
+
+			VirtualMachine** vm = (VirtualMachine**)ptr;
+			VmMemoryManager* mem = (*vm)->getMemory();
+
+			mem->free((char*)ptr);
+		}
+
+		virtual bool hasNext() {
 			if(this->outputNull == false && this->nullElement != nullptr){
 				return true;
 			}
 			return this->internalIt.hasNext();
 		}
-		virtual const K* next() throw() {
+		virtual const K* next() {
 			if(this->outputNull == false){
 				this->outputNull = true;
 
@@ -181,13 +201,20 @@ public:
 			}
 			return obj->key;
 		}
+		virtual void remove(){
 
+		}
 	private:
 		typename VMemHashMapRawArray<K, V>::Iterator internalIt;
 		bool outputNull;
 		VMemHashMapInternalElement<K, V>* nullElement;
 	};
 
+	Iterator<K>* iterator() noexcept {
+		HashMapKeySetIterator* iterator = new(vm) HashMapKeySetIterator(this->list, this->nullElement);
+
+		return iterator;
+	}
 private:
 	VMemHashMapRawArray<K, V>* list;
 	VMemHashMapInternalElement<K, V>* nullElement;

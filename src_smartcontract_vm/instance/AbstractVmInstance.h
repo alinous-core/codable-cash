@@ -38,7 +38,7 @@ public:
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept = 0;
 	virtual bool isReference() const noexcept;
 	virtual bool isNull() const noexcept;
-	virtual int valueCompare(IAbstractVmInstanceSubstance* right) = 0;
+	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept = 0;
 	virtual const UnicodeString* toString() noexcept = 0;
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);

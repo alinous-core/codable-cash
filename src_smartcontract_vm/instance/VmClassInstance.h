@@ -39,7 +39,7 @@ public:
 	virtual int instHashCode() const noexcept;
 	virtual bool instIsPrimitive() const noexcept;
 	virtual bool instIsNull() const noexcept;
-	virtual int instValueCompare(IAbstractVmInstanceSubstance* right);
+	virtual int instValueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);
 	virtual const UnicodeString* toString() noexcept;
 
@@ -47,7 +47,7 @@ public:
 	virtual void removeInnerRefs(GcManager* gc) noexcept;
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* reg);
 
-	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
+	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 
 	AnalyzedClass* getAnalyzedClass() const noexcept;
 

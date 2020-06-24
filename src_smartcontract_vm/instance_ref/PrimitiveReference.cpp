@@ -115,10 +115,10 @@ int64_t PrimitiveReference::getLongValue() const noexcept {
 	return ret;
 }
 
-int PrimitiveReference::valueCompare(IAbstractVmInstanceSubstance* right) {
+int PrimitiveReference::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
 	int64_t ret = 0;
 
-	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(right);
+	const PrimitiveReference* ref = dynamic_cast<const PrimitiveReference*>(right);
 	if(ref == nullptr){
 		return -1;
 	}
@@ -142,21 +142,21 @@ int PrimitiveReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 	return -1;
 }
 
-int PrimitiveReference::valueCompare8(PrimitiveReference* right) {
+int PrimitiveReference::valueCompare8(const PrimitiveReference* right) const noexcept {
 	int8_t leftv = getByteValue();
 	int8_t rightv = right->getByteValue();
 
 	return leftv - rightv;
 }
 
-int PrimitiveReference::valueCompare16(PrimitiveReference* right) {
+int PrimitiveReference::valueCompare16(const PrimitiveReference* right) const noexcept {
 	int16_t leftv = getShortValue();
 	int16_t rightv = right->getShortValue();
 
 	return leftv - rightv;
 }
 
-int PrimitiveReference::valueCompare32(PrimitiveReference* right) {
+int PrimitiveReference::valueCompare32(const PrimitiveReference* right) const noexcept {
 	int32_t leftv = getIntValue();
 	int32_t rightv = right->getIntValue();
 
@@ -231,7 +231,7 @@ bool PrimitiveReference::instIsNull() const noexcept {
 	return isNull();
 }
 
-int PrimitiveReference::instValueCompare(IAbstractVmInstanceSubstance* right) {
+int PrimitiveReference::instValueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
 	return valueCompare(right);
 }
 
@@ -251,7 +251,7 @@ bool PrimitiveReference::isStaticConst() const noexcept {
 	return false;
 }
 
-int PrimitiveReference::valueCompare64(PrimitiveReference* right) {
+int PrimitiveReference::valueCompare64(const PrimitiveReference* right) const noexcept {
 	int64_t leftv = getLongValue();
 	int64_t rightv = right->getLongValue();
 
@@ -442,5 +442,12 @@ const UnicodeString* PrimitiveReference::toString() noexcept {
 
 	return this->str;
 }
+
+int PrimitiveReference::ValueCompare::operator ()(
+		const PrimitiveReference* const _this,
+		const PrimitiveReference* const object) noexcept {
+	return _this->valueCompare(object);
+}
+
 
 } /* namespace alinous */

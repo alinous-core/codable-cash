@@ -39,10 +39,10 @@ public:
 	virtual int instHashCode() const noexcept;
 	virtual bool instIsPrimitive() const noexcept;
 	virtual bool instIsNull() const noexcept;
-	virtual int instValueCompare(IAbstractVmInstanceSubstance* right);
+	virtual int instValueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);
 
-	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
+	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 
 private:
 	VMemList<AbstractReference>* stack;

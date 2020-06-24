@@ -13,8 +13,6 @@
 
 #include "vm/VirtualMachine.h"
 
-
-
 namespace alinous {
 
 DomVariableReference::DomVariableReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm)
@@ -37,7 +35,7 @@ bool DomVariableReference::isNull() const noexcept {
 	return this->inst == nullptr;
 }
 
-int DomVariableReference::valueCompare(IAbstractVmInstanceSubstance* right) {
+int DomVariableReference::valueCompare(const IAbstractVmInstanceSubstance* right) {
 	if(isNull()){
 		return right == nullptr ? 0 : -1;
 	}
@@ -45,7 +43,7 @@ int DomVariableReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 		return isNull() ? 0 : 1;
 	}
 
-	DomVariableInstance* objRight = dynamic_cast<DomVariableInstance*>(right);
+	const DomVariableInstance* objRight = dynamic_cast<const DomVariableInstance*>(right);
 	if(objRight == nullptr){
 		return -1;
 	}
