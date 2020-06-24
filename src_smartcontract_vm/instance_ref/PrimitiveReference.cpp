@@ -387,6 +387,12 @@ PrimitiveReference* PrimitiveReference::createLongReference(VirtualMachine* vm,	
 	return ref;
 }
 
+int PrimitiveReference::hashCode() const noexcept {
+	int64_t lvalue = getLongValue();
+
+	return (int)lvalue;
+}
+
 size_t PrimitiveReference::getDataSize(int8_t type) noexcept {
 	size_t ret = 0;
 

@@ -130,6 +130,11 @@ TEST(TestVmHashGroup, keySet){
 		delete value;
 	}
 
+	it->next();
+	it->remove(); // does not work
+
+	map->clear();
+
 	delete it;
 	delete map;
 }
@@ -184,6 +189,8 @@ TEST(TestVmHashGroup, keySetWithNull){
 	VmStringInstance* value = new(vm) VmStringInstance(vm, &valuestr);
 	map->put(nullptr, value);
 
+	map->put(nullptr, nullptr);
+
 	VMemHashMapKeySet<PrimitiveReference, VmStringInstance>* keyset = map->keySet();
 	Iterator<PrimitiveReference> *it = keyset->iterator();
 
@@ -193,8 +200,6 @@ TEST(TestVmHashGroup, keySetWithNull){
 
 		delete value;
 	}
-
-	map->clear();
 
 	delete it;
 	delete map;
@@ -209,10 +214,69 @@ TEST(TestVmHashGroup, keySetWithNull02){
 	VmStringInstance* value = new(vm) VmStringInstance(vm, &valuestr);
 	map->put(nullptr, value);
 
+	{
+		PrimitiveReference* key = PrimitiveReference::createIntReference(vm, 100); __STP(key);
+		VmStringInstance* getInst = map->get(key);
+		CHECK(getInst == nullptr)
+	}
+
 	VmStringInstance* last = map->put(nullptr, nullptr);
 	delete last;
 
 	map->clear();
+
+	delete map;
+}
+
+TEST(TestVmHashGroup, remove01){
+	VirtualMachine* vm = new VirtualMachine(1024 * 1024); __STP(vm);
+
+	VMemHashmap<PrimitiveReference, VmStringInstance>* map = new(vm) VMemHashmap<PrimitiveReference, VmStringInstance>(vm);
+
+	{
+		UnicodeString str(L"value");
+		VmStringInstance* value = new(vm) VmStringInstance(vm, &str); __STP(value);
+
+		PrimitiveReference* key = PrimitiveReference::createIntReference(vm, 10); __STP(key);
+		PrimitiveReference* keyx = PrimitiveReference::createIntReference(vm, 11); __STP(keyx);
+
+		map->put(key, value);
+		map->remove(keyx);
+		map->remove(key);
+
+		map->remove(nullptr);
+	}
+
+	delete map;
+}
+
+TEST(TestVmHashGroup, remove02){
+	VirtualMachine* vm = new VirtualMachine(1024 * 1024); __STP(vm);
+
+	VMemHashmap<PrimitiveReference, VmStringInstance>* map = new(vm) VMemHashmap<PrimitiveReference, VmStringInstance>(vm);
+	{
+		UnicodeString str(L"value");
+		VmStringInstance* value = new(vm) VmStringInstance(vm, &str); __STP(value);
+		map->put(nullptr, value);
+		map->remove(nullptr);
+	}
+
+	delete map;
+}
+
+TEST(TestVmHashGroup, remove03){
+	VirtualMachine* vm = new VirtualMachine(1024 * 1024); __STP(vm);
+
+	VMemHashmap<PrimitiveReference, VmStringInstance>* map = new(vm) VMemHashmap<PrimitiveReference, VmStringInstance>(vm);
+	{
+		PrimitiveReference* key = PrimitiveReference::createIntReference(vm, 10); __STP(key);
+
+		UnicodeString str(L"value");
+		VmStringInstance* value = new(vm) VmStringInstance(vm, &str); __STP(value);
+
+		map->put(key, value);
+		map->remove(key);
+	}
 
 	delete map;
 }

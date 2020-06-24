@@ -29,6 +29,7 @@ public:
 
 	virtual bool isPrimitive() const noexcept;
 	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
+	virtual int hashCode() const noexcept;
 
 	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc);
 
@@ -70,6 +71,7 @@ public:
 	}
 
 	PrimitiveReference* copy(VirtualMachine* vm) const noexcept;
+
 
 	class ValueCompare {
 	public:
