@@ -21,6 +21,8 @@
 
 #include "instance_ref/AbstractReference.h"
 
+#include "ext_binary/ExtDomObject.h"
+
 namespace alinous {
 
 DomVariableInstance::DomVariableInstance(VirtualMachine* vm) : AbstractVmInstance(VmInstanceTypesConst::INST_DOM) {
@@ -86,6 +88,9 @@ const VMemList<AbstractReference>* DomVariableInstance::getReferences() const no
 }
 
 AbstractExtObject* DomVariableInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* reg) {
+	ExtDomObject* exobj = new ExtDomObject(name);
+
+	return exobj;
 }
 
 const VMemList<AbstractReference>* DomVariableInstance::getInstReferences() const noexcept {
