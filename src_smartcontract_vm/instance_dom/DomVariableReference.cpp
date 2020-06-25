@@ -13,6 +13,8 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "instance_gc/GcManager.h"
+
 namespace alinous {
 
 DomVariableReference::DomVariableReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm)
@@ -29,6 +31,18 @@ IAbstractVmInstanceSubstance* DomVariableReference::getInstance() noexcept {
 }
 
 void DomVariableReference::substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc) {
+	if(this->inst != nullptr){
+		gc->removeObject(this);
+		this->inst = nullptr;
+	}
+
+	if(rightValue != nullptr && !rightValue->instIsNull()){
+		this->inst = dynamic_cast<DomVariableInstance*>(rightValue);
+		gc->registerObject(this);
+	}
+	else {
+		this->inst = nullptr;
+	}
 }
 
 bool DomVariableReference::isNull() const noexcept {
