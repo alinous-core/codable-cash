@@ -26,10 +26,12 @@ namespace alinous {
 DomVariableInstance::DomVariableInstance(VirtualMachine* vm) : AbstractVmInstance(VmInstanceTypesConst::INST_DOM) {
 	this->valueRef = nullptr;
 	this->properties = new(vm) VMemHashmap<VmStringInstance, AbstractReference>(vm);
+	this->list = nullptr;
 }
 
 DomVariableInstance::~DomVariableInstance() {
 	delete this->properties;
+	delete this->list;
 }
 
 void DomVariableInstance::removeInnerRefs(GcManager* gc) noexcept {
@@ -54,7 +56,10 @@ IAbstractVmInstanceSubstance* DomVariableInstance::getInstance() noexcept {
 }
 
 AbstractReference* DomVariableInstance::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
+	DomVariableReference* ref = new(vm) DomVariableReference(owner, vm);
+	ref->substitute(this, vm->getGc());
 
+	return ref;
 }
 
 uint8_t DomVariableInstance::getInstType() const noexcept {
@@ -62,18 +67,33 @@ uint8_t DomVariableInstance::getInstType() const noexcept {
 }
 
 AnalyzedType DomVariableInstance::getRuntimeType() const noexcept {
+	return AnalyzedType(AnalyzedType::TYPE_DOM);
 }
 
 const VMemList<AbstractReference>* DomVariableInstance::getReferences() const noexcept {
+	if(this->list == nullptr){
+
+		Iterator<VmStringInstance>* it = this->properties->keySet()->iterator(); __STP(it);
+		while(it->hasNext()){
+			const VmStringInstance* key = it->next();
+			AbstractReference* ref = this->properties->get(key);
+
+			this->list->addElement(ref);
+		}
+	}
+
+	return this->list;
 }
 
 AbstractExtObject* DomVariableInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* reg) {
 }
 
 const VMemList<AbstractReference>* DomVariableInstance::getInstReferences() const noexcept {
+	return getReferences();
 }
 
 int DomVariableInstance::instHashCode() const noexcept {
+	return hashCode();
 }
 
 bool DomVariableInstance::instIsPrimitive() const noexcept {

@@ -29,6 +29,8 @@ public:
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 	virtual const UnicodeString* toString() noexcept;
 
+	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
+
 private:
 	DomVariableInstance* inst;
 };

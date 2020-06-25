@@ -52,10 +52,22 @@ int DomVariableReference::valueCompare(const IAbstractVmInstanceSubstance* right
 }
 
 AbstractExtObject* DomVariableReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
-	// FIXME
+	return isNull() ? nullptr : this->inst->toClassExtObject(name, table);
 }
 
 const UnicodeString* DomVariableReference::toString() noexcept {
+	return isNull() ? &AbstractReference::NULL_STR : toString();
+}
+
+int DomVariableReference::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
+	if(isNull()){
+		return right == nullptr ? 0 : -1;
+	}
+	else if(right == nullptr){
+		return isNull() ? 0 : 1;
+	}
+
+	return this->inst->instValueCompare(right);
 }
 
 } /* namespace alinous */

@@ -48,6 +48,8 @@ public:
 private:
 	AbstractReference* valueRef;
 	VMemHashmap<VmStringInstance, AbstractReference>* properties;
+
+	mutable VMemList<AbstractReference>* list;
 };
 
 } /* namespace alinous */
