@@ -151,7 +151,9 @@ public:
 	inline int indexOfPtr(const T* ptr){
 		int maxLoop = this->size();
 		for(int i = 0; i != maxLoop; ++i){
-			if(ptr == get(i)){
+			T* other = get(i);
+
+			if((compareFunctor)(ptr, other) == 0){
 				return i;
 			}
 		}

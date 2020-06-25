@@ -128,7 +128,39 @@ TEST(TestVmMemListSort, removeObjFalse){
 }
 
 TEST(TestVmMemListSort, removeObjTrue){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
+	{
+		VMemList<Integer, Integer::ValueCompare>* ar = new(vm) VMemList<Integer, Integer::ValueCompare>(vm, 8);
+		__STP(ar);
+
+		int maxLoop = 10;
+		for(int i = 0; i != 10; ++i){
+			Integer* pInt = new Integer(maxLoop - i);
+			ar->addElement(pInt);
+		}
+
+		ar->addElementWithSorted(new Integer(11));
+		ar->addElementWithSorted(new Integer(0));
+		ar->addElementWithSorted(new Integer(5));
+		ar->addElementWithSorted(new Integer(-1));
+		ar->addElementWithSorted(new Integer(-1));
+		ar->addElementWithSorted(new Integer(100));
+		ar->addElementWithSorted(new Integer(100));
+
+		ar->addElementWithSorted(new Integer(100));
+
+		ar->addElementWithSorted(new Integer(200));
+
+		Integer val(11);
+		bool result = ar->removeByObj(&val);
+		CHECK(result == true)
+
+		CHECK(ar->size() == (maxLoop + 8));
+
+		isSorted(ar);
+		releaseInternalObjects(ar);
+	}
 }
 
 
