@@ -38,7 +38,7 @@ public:
 	virtual const UnicodeString* toString() noexcept;
 
 	virtual bool isNull() const noexcept;
-	virtual int valueCompare(IAbstractVmInstanceSubstance* right);
+	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 
 private:
 	AbstractExtObject* createNullObject(const UnicodeString* name, VTableRegistory* table);

@@ -40,6 +40,15 @@ SelectStatement* selectStatement() : {
 		stmt->setList(expList);
 		stmt->setPosition(expList);
 	}
+	[
+		t=<INTO> {
+			stmt->setPosition(t);
+		}
+		t=<IDENTIFIER> {
+			stmt->setintoVar(_STR(t));
+			stmt->setPosition(t);
+		}
+	]
 	from=sqlFrom() {
 		stmt->setFrom(from);
 		stmt->setPosition(from);

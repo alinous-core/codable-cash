@@ -100,7 +100,7 @@ bool VmRootReference::instIsNull() const noexcept {
 	return isNull();
 }
 
-int VmRootReference::instValueCompare(IAbstractVmInstanceSubstance* right) {
+int VmRootReference::instValueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
 	return valueCompare(right);
 }
 
@@ -116,7 +116,7 @@ AnalyzedType VmRootReference::getRuntimeType() const noexcept {
 	return AnalyzedType();
 }
 
-int VmRootReference::valueCompare(IAbstractVmInstanceSubstance* right) {
+int VmRootReference::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
 	return 0;
 }
 

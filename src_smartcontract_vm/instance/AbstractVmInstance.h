@@ -32,13 +32,13 @@ public:
 	virtual ~AbstractVmInstance();
 
 	virtual uint8_t getType() const noexcept;
-	int hashCode() const noexcept;
+	virtual int hashCode() const noexcept;
 
 	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept = 0;
 	virtual bool isReference() const noexcept;
 	virtual bool isNull() const noexcept;
-	virtual int valueCompare(IAbstractVmInstanceSubstance* right) = 0;
+	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept = 0;
 	virtual const UnicodeString* toString() noexcept = 0;
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);

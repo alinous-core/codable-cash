@@ -26,13 +26,23 @@ VmStringInstance::VmStringInstance(VirtualMachine* vm, const UnicodeString* str)
 	this->str = nullptr;
 }
 
+int VmStringInstance::hashCode() const noexcept {
+	return this->value->hashCode();
+}
+
+VmStringInstance* VmStringInstance::copy(VirtualMachine* vm) const {
+	UnicodeString str(this->value->towString());
+
+	return new(vm) VmStringInstance(vm, &str);
+}
+
 VmStringInstance::~VmStringInstance() {
 	delete this->value;
 	delete this->str;
 }
 
-int VmStringInstance::valueCompare(IAbstractVmInstanceSubstance* right) {
-	VmStringInstance* rightStr = dynamic_cast<VmStringInstance*>(right);
+int VmStringInstance::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
+	const VmStringInstance* rightStr = dynamic_cast<const VmStringInstance*>(right);
 
 	return compareFunctor(this->value, rightStr->value);
 }
@@ -61,7 +71,7 @@ bool VmStringInstance::instIsNull() const noexcept {
 	return isNull();
 }
 
-int VmStringInstance::instValueCompare(IAbstractVmInstanceSubstance* right) {
+int VmStringInstance::instValueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
 	return valueCompare(right);
 }
 
@@ -91,5 +101,11 @@ const UnicodeString* VmStringInstance::toString() noexcept {
 
 	return this->str;
 }
+
+int VmStringInstance::ValueCompare::operator ()(
+		const VmStringInstance* const _this, const VmStringInstance* const object) const noexcept {
+	return VmStringInstance::compareFunctor(_this->value, object->value);
+}
+
 
 } /* namespace alinous */

@@ -76,8 +76,8 @@ AbstractExtObject* VmArrayInstance::toClassExtObject(const UnicodeString* name,	
 	return obj;
 }
 
-int VmArrayInstance::valueCompare(IAbstractVmInstanceSubstance* right) {
-	VmArrayInstance* inst = dynamic_cast<VmArrayInstance*>(right);
+int VmArrayInstance::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
+	const VmArrayInstance* inst = dynamic_cast<const VmArrayInstance*>(right);
 
 	int64_t diff = ((int64_t)this) - ((int64_t)inst);
 	if(diff == 0){
@@ -114,7 +114,7 @@ bool VmArrayInstance::instIsNull() const noexcept {
 	return isNull();
 }
 
-int VmArrayInstance::instValueCompare(IAbstractVmInstanceSubstance* right) {
+int VmArrayInstance::instValueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
 	return valueCompare(right);
 }
 

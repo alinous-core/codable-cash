@@ -1,40 +1,34 @@
 /*
- * VmStack.h
+ * DomVariableInstance.h
  *
- *  Created on: 2019/06/30
+ *  Created on: 2020/06/22
  *      Author: iizuka
  */
 
-#ifndef STACK_VMSTACK_H_
-#define STACK_VMSTACK_H_
+#ifndef INSTANCE_DOM_DOMVARIABLEINSTANCE_H_
+#define INSTANCE_DOM_DOMVARIABLEINSTANCE_H_
 
-#include "instance_ref/AbstractReference.h"
+#include "instance/AbstractVmInstance.h"
 #include "instance/IInstanceContainer.h"
-
-#include "instance_parts/VMemList.h"
 
 namespace alinous {
 
 class AbstractReference;
-class VirtualMachine;
-class VmRootReference;
+class DomVariableReference;
 
-class VmStack : public AbstractReference, public IInstanceContainer {
+class DomVariableInstance : public AbstractVmInstance, public IInstanceContainer {
 public:
-	explicit VmStack(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
-	virtual ~VmStack();
+	explicit DomVariableInstance(VirtualMachine* vm);
+	virtual ~DomVariableInstance();
 
-	void addInnerReference(AbstractReference* ref);
-
-	AbstractReference* get(int pos) const noexcept;
-
-	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
-	virtual void removeInnerRefs(GcManager* gc) noexcept;
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
-	virtual AnalyzedType getRuntimeType() const noexcept;
-
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 	virtual uint8_t getInstType() const noexcept;
+	virtual AnalyzedType getRuntimeType() const noexcept;
+
+	virtual void removeInnerRefs(GcManager* gc) noexcept;
+	virtual const VMemList<AbstractReference>* getReferences() const noexcept;
+	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* reg);
 	virtual const VMemList<AbstractReference>* getInstReferences() const noexcept;
 	virtual int instHashCode() const noexcept;
 	virtual bool instIsPrimitive() const noexcept;
@@ -42,13 +36,16 @@ public:
 	virtual int instValueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);
 
+	virtual const UnicodeString* toString() noexcept;
+
+
 	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 
 private:
-	VMemList<AbstractReference>* stack;
-	VirtualMachine* vm;
+	AbstractReference* valueRef;
+	VMemList<AbstractReference>* properties;
 };
 
 } /* namespace alinous */
 
-#endif /* STACK_VMSTACK_H_ */
+#endif /* INSTANCE_DOM_DOMVARIABLEINSTANCE_H_ */

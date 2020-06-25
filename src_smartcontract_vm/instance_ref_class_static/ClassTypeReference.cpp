@@ -31,7 +31,7 @@ IAbstractVmInstanceSubstance* ClassTypeReference::getInstance() noexcept {
 	return this;
 }
 
-int ClassTypeReference::valueCompare(IAbstractVmInstanceSubstance* right) {
+int ClassTypeReference::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
 	return 0;
 }
 
@@ -63,7 +63,7 @@ bool ClassTypeReference::instIsNull() const noexcept {
 	return isNull();
 }
 
-int ClassTypeReference::instValueCompare(IAbstractVmInstanceSubstance* right) {
+int ClassTypeReference::instValueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
 	return valueCompare(right);
 }
 

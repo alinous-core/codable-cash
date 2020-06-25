@@ -47,7 +47,7 @@ bool ArrayReference::isNull() const noexcept {
 	return this->instArray == nullptr;
 }
 
-int ArrayReference::valueCompare(IAbstractVmInstanceSubstance* right) {
+int ArrayReference::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
 	if(isNull()){
 		return right == nullptr ? 0 : -1;
 	}
@@ -55,7 +55,7 @@ int ArrayReference::valueCompare(IAbstractVmInstanceSubstance* right) {
 		return isNull() ? 0 : 1;
 	}
 
-	VmArrayInstance* objRight = dynamic_cast<VmArrayInstance*>(right);
+	const VmArrayInstance* objRight = dynamic_cast<const VmArrayInstance*>(right);
 	if(objRight == nullptr){
 		return -1;
 	}

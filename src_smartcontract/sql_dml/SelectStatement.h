@@ -34,6 +34,8 @@ public:
 	void setOrderBy(SQLOrderBy* orderBy) noexcept;
 	void setLimitOffset(SQLLimitOffset* limitOffset) noexcept;
 
+	void setintoVar(UnicodeString* intoVar) noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
@@ -46,6 +48,8 @@ private:
 	SQLGroupBy* groupBy;
 	SQLOrderBy* orderBy;
 	SQLLimitOffset* limitOffset;
+
+	UnicodeString* intoVar;
 };
 
 } /* namespace alinous */
