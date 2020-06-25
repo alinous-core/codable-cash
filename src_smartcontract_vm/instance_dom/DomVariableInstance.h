@@ -11,6 +11,10 @@
 #include "instance/AbstractVmInstance.h"
 #include "instance/IInstanceContainer.h"
 
+#include "instance_parts/VMemHashmap.h"
+
+#include "instance_string/VmStringInstance.h"
+
 namespace alinous {
 
 class AbstractReference;
@@ -43,7 +47,7 @@ public:
 
 private:
 	AbstractReference* valueRef;
-	VMemList<AbstractReference>* properties;
+	VMemHashmap<VmStringInstance, AbstractReference>* properties;
 };
 
 } /* namespace alinous */

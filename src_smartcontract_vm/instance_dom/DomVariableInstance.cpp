@@ -25,7 +25,7 @@ namespace alinous {
 
 DomVariableInstance::DomVariableInstance(VirtualMachine* vm) : AbstractVmInstance(VmInstanceTypesConst::INST_DOM) {
 	this->valueRef = nullptr;
-	this->properties = new(vm) VMemList<AbstractReference>(vm);
+	this->properties = new(vm) VMemHashmap<VmStringInstance, AbstractReference>(vm);
 }
 
 DomVariableInstance::~DomVariableInstance() {
@@ -38,7 +38,15 @@ void DomVariableInstance::removeInnerRefs(GcManager* gc) noexcept {
 		this->valueRef = nullptr;
 	}
 
+	Iterator<VmStringInstance>* it = this->properties->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const VmStringInstance* key = it->next();
+		AbstractReference* ref = this->properties->get(key);
 
+		gc->removeObject(ref);
+	}
+
+	this->properties->clear();
 }
 
 IAbstractVmInstanceSubstance* DomVariableInstance::getInstance() noexcept {
