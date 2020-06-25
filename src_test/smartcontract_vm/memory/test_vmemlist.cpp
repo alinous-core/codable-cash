@@ -89,18 +89,4 @@ TEST(TestVmMemList, testPrimitive01){
 
 	delete list;
 }
-/*
-TEST(TestVmMemList, test02){
-	ArrayList<dummyInt> ar;
-
-	ar.addElement(new dummyInt(1));
-
-	CHECK(ar.size() == 1);
-
-	int size = ar.size();
-	for(int i = 0; i != size; ++i){
-		dummyInt* ptr = ar.get(i);
-		delete ptr;
-	}
-}*/
 
