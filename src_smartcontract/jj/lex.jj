@@ -153,6 +153,7 @@ TOKEN :
 | < INT: "int" >
 | < LONG: "long" >
 | < STRING: "String" >
+| < VAR: "var" >
 | < CASE: "case" >
 | < CATCH: "catch" >
 | < _CONST: "const" >

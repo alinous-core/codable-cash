@@ -35,6 +35,7 @@
 #include "sc_declare_types/StringType.h"
 #include "sc_declare_types/VoidType.h"
 #include "sc_declare_types/ObjectType.h"
+#include "sc_declare_types/DomType.h"
 
 #include "sc_statement/StatementBlock.h"
 #include "sc_statement/VariableDeclareStatement.h"
@@ -140,6 +141,7 @@
 #include "base/UnicodeString.h"
 
 #include "sc/exceptions.h"
+
 
 
 namespace alinous {
@@ -281,6 +283,9 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		break;
 	case TYPE_OBJECT:
 		element = new ObjectType();
+		break;
+	case TYPE_DOM:
+		element = new DomType();
 		break;
 
 	case STMT_BLOCK:

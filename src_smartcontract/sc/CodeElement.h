@@ -52,6 +52,7 @@ public:
 	static const constexpr short TYPE_STRING{26};
 	static const constexpr short TYPE_VOID{27};
 	static const constexpr short TYPE_OBJECT{28};
+	static const constexpr short TYPE_DOM{29};
 
 	static const constexpr short STMT_BLOCK{50};
 	static const constexpr short STMT_VARIABLE_DECLARE{51};

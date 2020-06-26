@@ -22,6 +22,8 @@ AbstractType* typeDeclare() : {
 		|
 		dec=voidType()
 		|
+		dec=domType()
+		|
 		dec=objectType()
 	)
 	(
@@ -180,4 +182,20 @@ VoidType* voidType() : {
 		return dec;
 	}
 }
+
+DomType* domType() : {
+	DomType* dec = new DomType();
+	Token* t=nullptr;
+}
+{
+	t="var" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+
 
