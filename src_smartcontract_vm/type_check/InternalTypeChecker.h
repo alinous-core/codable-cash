@@ -25,6 +25,7 @@ public:
 private:
 	static int checkRightNull(AnalyzedType* leftType, AnalyzedType* rightType);
 
+	static int checkDomObject(AnalyzedType* leftType, AnalyzedType* rightType);
 	static int checkObject(AnalyzedType* leftType, AnalyzedType* rightType);
 	static int checkBool(AnalyzedType* leftType, AnalyzedType* rightType);
 	static int checkPrimitive(AnalyzedType* leftType, AnalyzedType* rightType);

@@ -46,6 +46,9 @@ int InternalTypeChecker::analyzeCompatibility(AnalyzedType* leftType, AnalyzedTy
 	case AnalyzedType::TYPE_OBJECT:
 		retcode = checkObject(leftType, rightType);
 		break;
+	case AnalyzedType::TYPE_DOM:
+		retcode = checkDomObject(leftType, rightType);
+		break;
 	default:
 		break;
 	}
@@ -53,6 +56,13 @@ int InternalTypeChecker::analyzeCompatibility(AnalyzedType* leftType, AnalyzedTy
 	return retcode;
 
 }
+
+int InternalTypeChecker::checkDomObject(AnalyzedType* leftType,	AnalyzedType* rightType) {
+	uint8_t rightTypeCode = rightType->getType();
+
+	return OK;
+}
+
 
 int InternalTypeChecker::checkRightNull(AnalyzedType* leftType, AnalyzedType* rightType) {
 	if(!leftType->isPrimitiveInteger() && !leftType->isBool()){

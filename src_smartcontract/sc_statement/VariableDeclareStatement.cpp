@@ -28,7 +28,11 @@
 
 #include "instance_exception/ExceptionInterrupt.h"
 
+#include "type_check/AnalyzedTypeChecker.h"
 
+#include "sc_analyze/ValidationError.h"
+
+#include "type_check/InternalTypeChecker.h"
 namespace alinous {
 
 VariableDeclareStatement::VariableDeclareStatement() : AbstractStatement(CodeElement::STMT_VARIABLE_DECLARE) {
@@ -74,6 +78,7 @@ void VariableDeclareStatement::analyze(AnalyzeContext* actx) {
 
 	this->atype = resolver->resolveType(this, this->type);
 	if(this->atype == nullptr){
+		actx->addValidationError(ValidationError::CODE_TYPE_DOES_NOT_EXISTS, this, L"Declared type does not exists.", {});
 
 		return;
 	}
@@ -85,7 +90,13 @@ void VariableDeclareStatement::analyze(AnalyzeContext* actx) {
 	stack->addVariableDeclare(ref);
 
 	if(this->exp != nullptr){
-		// FIXME compatibility
+		AnalyzedTypeChecker checker;
+		AnalyzedType exAt = this->exp->getType(actx);
+		int result = checker.checkCompatibility(actx, this->atype, &exAt);
+
+		if(result == InternalTypeChecker::INCOMPATIBLE){
+			actx->addValidationError(ValidationError::CODE_TYPE_INCOMPATIBLE, this, L"Initial variable is incompatible with variable declare .", {});
+		}
 	}
 }
 
