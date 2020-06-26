@@ -28,6 +28,7 @@
 
 #include "instance_exception/ExceptionInterrupt.h"
 
+
 namespace alinous {
 
 VariableDeclareStatement::VariableDeclareStatement() : AbstractStatement(CodeElement::STMT_VARIABLE_DECLARE) {
@@ -72,12 +73,20 @@ void VariableDeclareStatement::analyze(AnalyzeContext* actx) {
 	}
 
 	this->atype = resolver->resolveType(this, this->type);
-	AnalyzeStack* stack = stackManager->top();
+	if(this->atype == nullptr){
 
+		return;
+	}
+
+	AnalyzeStack* stack = stackManager->top();
 
 	const UnicodeString* strName = this->variableId->getName();
 	AnalyzedStackReference* ref = new AnalyzedStackReference(strName, this->atype);
 	stack->addVariableDeclare(ref);
+
+	if(this->exp != nullptr){
+		// FIXME compatibility
+	}
 }
 
 void VariableDeclareStatement::setType(AbstractType* type) noexcept {

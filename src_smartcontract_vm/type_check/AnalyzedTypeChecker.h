@@ -14,6 +14,7 @@ class AnalyzeContext;
 class AbstractExpression;
 class LeftType;
 class RightType;
+class AnalyzedType;
 
 class AnalyzedTypeChecker {
 public:
@@ -22,6 +23,8 @@ public:
 
 	bool checkCompatibility(AnalyzeContext* actx, AbstractExpression* leftExp, AbstractExpression* rightExp);
 	bool checkCompatibility(AnalyzeContext* actx, AbstractExpression* leftExp, AbstractExpression* rightExp, bool compare);
+
+	int checkCompatibility(AnalyzeContext* actx, AnalyzedType* leftType, AnalyzedType* rightType);
 private:
 	LeftType* left;
 	RightType* right;

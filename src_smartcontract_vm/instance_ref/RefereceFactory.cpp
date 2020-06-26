@@ -19,6 +19,7 @@
 
 #include "instance_array/ArrayReference.h"
 
+#include "instance_dom/DomVariableReference.h"
 
 namespace alinous {
 
@@ -108,6 +109,9 @@ AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(IAbstractVmI
 		break;
 	case AnalyzedType::TYPE_STRING:
 		ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ, ObjectReference::STRING_INSTANCE);
+		break;
+	case AnalyzedType::TYPE_DOM:
+		ref = new(vm) DomVariableReference(owner, vm);
 		break;
 	case AnalyzedType::TYPE_OBJECT:
 	default:
