@@ -17,6 +17,7 @@ using namespace alinous;
 TEST_GROUP(TestDomVariableGroup) {
 	TEST_SETUP(){
 	}
+
 	TEST_TEARDOWN(){
 	}
 };
