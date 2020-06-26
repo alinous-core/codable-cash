@@ -23,7 +23,6 @@ public:
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
 	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 
-
 	//
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 	virtual uint8_t getInstType() const noexcept;

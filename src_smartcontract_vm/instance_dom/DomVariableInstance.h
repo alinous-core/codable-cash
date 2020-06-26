@@ -40,7 +40,7 @@ public:
 	virtual int instValueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);
 
-	virtual const UnicodeString* toString() noexcept;
+	virtual const UnicodeString* toString() const noexcept;
 
 
 	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;

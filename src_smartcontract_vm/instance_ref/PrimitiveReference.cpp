@@ -57,6 +57,8 @@ int32_t PrimitiveReference::getIntValue() const noexcept {
 	return ret;
 }
 void PrimitiveReference::setIntValue(int32_t value) noexcept {
+	delete this->str, this->str = nullptr;
+
 	*((int32_t*)this->data) = value;
 }
 
@@ -65,6 +67,8 @@ int8_t PrimitiveReference::getByteValue() const noexcept {
 }
 
 void PrimitiveReference::setByteValue(int8_t value) noexcept {
+	delete this->str, this->str = nullptr;
+
 	*((int8_t*)this->data) = value;
 }
 
@@ -77,6 +81,8 @@ int16_t PrimitiveReference::getShortValue() const noexcept {
 }
 
 void PrimitiveReference::setShortValue(int16_t value) noexcept {
+	delete this->str, this->str = nullptr;
+
 	*((int16_t*)this->data) = value;
 }
 
@@ -89,6 +95,8 @@ int16_t PrimitiveReference::getCharValue() const noexcept {
 }
 
 void PrimitiveReference::setCharValue(int16_t value) noexcept {
+	delete this->str, this->str = nullptr;
+
 	*((int16_t*)this->data) = value;
 }
 
@@ -260,6 +268,8 @@ int PrimitiveReference::valueCompare64(const PrimitiveReference* right) const no
 
 
 void PrimitiveReference::setLongValue(int64_t value) noexcept {
+	delete this->str, this->str = nullptr;
+
 	*((int64_t*)this->data) = value;
 }
 
@@ -269,6 +279,8 @@ bool PrimitiveReference::isPrimitive() const noexcept {
 }
 
 void PrimitiveReference::substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc) {
+	delete this->str, this->str = nullptr;
+
 	uint8_t type = getType();
 	PrimitiveReference* rightRef = dynamic_cast<PrimitiveReference*>(rightValue);
 	assert(rightRef != nullptr);
@@ -430,7 +442,7 @@ PrimitiveReference* PrimitiveReference::copy(VirtualMachine* vm) const noexcept 
 	return ref;
 }
 
-const UnicodeString* PrimitiveReference::toString() noexcept {
+const UnicodeString* PrimitiveReference::toString() const noexcept {
 	if(this->type == VmInstanceTypesConst::REF_BOOL){
 		delete this->str;
 		this->str = new UnicodeString(L"");

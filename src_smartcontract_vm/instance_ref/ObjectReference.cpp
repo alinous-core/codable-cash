@@ -91,7 +91,7 @@ AbstractExtObject* ObjectReference::toClassExtObject(const UnicodeString* name, 
 	return this->instance->instToClassExtObject(name, table);
 }
 
-const UnicodeString* ObjectReference::toString() noexcept {
+const UnicodeString* ObjectReference::toString() const noexcept {
 	AbstractVmInstance* inst = dynamic_cast<AbstractVmInstance*>(this->instance);
 
 	return (isNull() || inst == nullptr) ? AbstractReference::toString() : inst->toString();

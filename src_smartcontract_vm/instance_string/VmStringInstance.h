@@ -40,7 +40,7 @@ public:
 
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
-	virtual const UnicodeString* toString() noexcept;
+	virtual const UnicodeString* toString() const noexcept;
 
 	VmStringInstance* copy(VirtualMachine* vm) const;
 
@@ -52,7 +52,7 @@ private:
 	VmString* value;
 	static const VmString::ValueCompare compareFunctor;
 
-	UnicodeString* str;
+	mutable UnicodeString* str;
 };
 
 } /* namespace alinous */

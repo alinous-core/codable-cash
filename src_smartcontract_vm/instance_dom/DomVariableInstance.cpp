@@ -88,9 +88,20 @@ const VMemList<AbstractReference>* DomVariableInstance::getReferences() const no
 }
 
 AbstractExtObject* DomVariableInstance::toClassExtObject(const UnicodeString* name, VTableRegistory* reg) {
-	ExtDomObject* exobj = new ExtDomObject(name);
+	ExtDomObject* domExobj = new ExtDomObject(name);
 
-	return exobj;
+	Iterator<VmStringInstance>* it = this->properties->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const VmStringInstance* key = it->next();
+		AbstractReference* ref = this->properties->get(key);
+
+		const UnicodeString* keyStr = key->toString();
+		AbstractExtObject* exobj = ref->toClassExtObject(keyStr, reg);
+
+		domExobj->put(keyStr, exobj);
+	}
+
+	return domExobj;
 }
 
 const VMemList<AbstractReference>* DomVariableInstance::getInstReferences() const noexcept {
@@ -117,7 +128,7 @@ AbstractExtObject* DomVariableInstance::instToClassExtObject(const UnicodeString
 	return toClassExtObject(name, table);
 }
 
-const UnicodeString* DomVariableInstance::toString() noexcept {
+const UnicodeString* DomVariableInstance::toString() const noexcept {
 	return nullptr;
 }
 

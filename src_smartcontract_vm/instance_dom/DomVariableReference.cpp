@@ -69,7 +69,7 @@ AbstractExtObject* DomVariableReference::toClassExtObject(const UnicodeString* n
 	return isNull() ? nullptr : this->inst->toClassExtObject(name, table);
 }
 
-const UnicodeString* DomVariableReference::toString() noexcept {
+const UnicodeString* DomVariableReference::toString() const noexcept {
 	return isNull() ? &AbstractReference::NULL_STR : toString();
 }
 

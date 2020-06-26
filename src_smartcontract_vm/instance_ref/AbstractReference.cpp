@@ -40,7 +40,7 @@ void AbstractReference::setOwner(IAbstractVmInstanceSubstance* owner) noexcept {
 	this->owner = owner;
 }
 
-const UnicodeString* AbstractReference::toString() noexcept {
+const UnicodeString* AbstractReference::toString() const noexcept {
 	return &NULL_STR;
 }
 

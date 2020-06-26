@@ -77,7 +77,7 @@ VmClassInstance* VmClassInstance::createObject(AnalyzedClass* clazz, VirtualMach
 	return inst;
 }
 
-const UnicodeString* VmClassInstance::toString() noexcept {
+const UnicodeString* VmClassInstance::toString() const noexcept {
 	// FIXME VmClassInstance::toString()
 	return nullptr;
 }

@@ -69,7 +69,7 @@ AbstractExtObject* ArrayReference::toClassExtObject(const UnicodeString* name, V
 			: new ExtNullPtrObject(name, VmInstanceTypesConst::INST_ARRAY);
 }
 
-const UnicodeString* ArrayReference::toString() noexcept {
+const UnicodeString* ArrayReference::toString() const noexcept {
 	return isNull() ? AbstractReference::toString() : this->instArray->toString();
 }
 

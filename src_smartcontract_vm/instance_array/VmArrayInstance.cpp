@@ -153,7 +153,7 @@ AnalyzedType VmArrayInstance::getRuntimeType() const noexcept {
 	return *this->atype;
 }
 
-const UnicodeString* VmArrayInstance::toString() noexcept {
+const UnicodeString* VmArrayInstance::toString() const noexcept {
 	delete this->str;
 	this->str = new UnicodeString(L"");
 

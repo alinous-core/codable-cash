@@ -45,7 +45,7 @@ public:
 	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
-	virtual const UnicodeString* toString() noexcept;
+	virtual const UnicodeString* toString() const noexcept;
 
 	virtual bool isStaticConst() const noexcept;
 
@@ -91,7 +91,7 @@ protected:
 	void* data;
 	VmMalloc* malloc;
 
-	UnicodeString* str;
+	mutable UnicodeString* str;
 };
 
 } /* namespace alinous */

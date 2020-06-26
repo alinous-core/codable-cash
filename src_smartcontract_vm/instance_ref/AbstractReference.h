@@ -30,7 +30,7 @@ public:
 	IAbstractVmInstanceSubstance* getOwner() const noexcept;
 	void setOwner(IAbstractVmInstanceSubstance* owner) noexcept;
 
-	virtual const UnicodeString* toString() noexcept;
+	virtual const UnicodeString* toString() const noexcept;
 protected:
 	IAbstractVmInstanceSubstance* owner;
 };
