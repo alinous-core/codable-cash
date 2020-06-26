@@ -153,8 +153,12 @@ TEST(TestVmMemListSort, removeObjTrue){
 		ar->addElementWithSorted(new Integer(200));
 
 		Integer val(11);
+		Integer* last = ar->search(&val);
+
 		bool result = ar->removeByObj(&val);
 		CHECK(result == true)
+
+		delete last;
 
 		CHECK(ar->size() == (maxLoop + 8));
 
