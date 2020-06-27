@@ -33,6 +33,7 @@ public:
 
 	static constexpr uint8_t REF_ARRAY{150};
 	static constexpr uint8_t REF_DOM{151};
+	static constexpr uint8_t REF_DOM_RUNTIME{152};
 
 	static constexpr uint8_t REF_CLASS_TYPE{200};
 };

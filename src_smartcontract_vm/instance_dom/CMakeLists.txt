@@ -1,6 +1,7 @@
 
 
 set(__src
+	DomRuntimeReference.cpp
 	DomVariableInstance.cpp
 	DomVariableReference.cpp
 )
