@@ -19,6 +19,7 @@ namespace alinous {
 
 class AbstractReference;
 class DomVariableReference;
+class DomRuntimeReference;
 
 class DomVariableInstance : public AbstractVmInstance, public IInstanceContainer {
 public:
@@ -47,7 +48,7 @@ public:
 
 private:
 	AbstractReference* valueRef;
-	VMemHashmap<VmStringInstance, AbstractReference>* properties;
+	VMemHashmap<VmStringInstance, DomRuntimeReference>* properties;
 
 	mutable VMemList<AbstractReference>* list;
 };

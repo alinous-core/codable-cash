@@ -16,6 +16,7 @@ class IAbstractVmInstanceSubstance;
 class VirtualMachine;
 
 class DomRuntimeReference : public AbstractReference {
+public:
 	DomRuntimeReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 	virtual ~DomRuntimeReference();
 

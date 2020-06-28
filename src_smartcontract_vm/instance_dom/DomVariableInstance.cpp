@@ -7,6 +7,7 @@
 
 #include "instance_dom/DomVariableInstance.h"
 #include "instance_dom/DomVariableReference.h"
+#include "instance_dom/DomRuntimeReference.h"
 
 #include "instance/VmInstanceTypesConst.h"
 
@@ -23,11 +24,12 @@
 
 #include "ext_binary/ExtDomObject.h"
 
+
 namespace alinous {
 
 DomVariableInstance::DomVariableInstance(VirtualMachine* vm) : AbstractVmInstance(VmInstanceTypesConst::INST_DOM) {
 	this->valueRef = nullptr;
-	this->properties = new(vm) VMemHashmap<VmStringInstance, AbstractReference>(vm);
+	this->properties = new(vm) VMemHashmap<VmStringInstance, DomRuntimeReference>(vm);
 	this->list = nullptr;
 }
 
@@ -45,7 +47,7 @@ void DomVariableInstance::removeInnerRefs(GcManager* gc) noexcept {
 	Iterator<VmStringInstance>* it = this->properties->keySet()->iterator(); __STP(it);
 	while(it->hasNext()){
 		const VmStringInstance* key = it->next();
-		AbstractReference* ref = this->properties->get(key);
+		DomRuntimeReference* ref = this->properties->get(key);
 
 		gc->removeObject(ref);
 	}
@@ -78,7 +80,7 @@ const VMemList<AbstractReference>* DomVariableInstance::getReferences() const no
 		Iterator<VmStringInstance>* it = this->properties->keySet()->iterator(); __STP(it);
 		while(it->hasNext()){
 			const VmStringInstance* key = it->next();
-			AbstractReference* ref = this->properties->get(key);
+			DomRuntimeReference* ref = this->properties->get(key);
 
 			this->list->addElement(ref);
 		}
@@ -93,7 +95,7 @@ AbstractExtObject* DomVariableInstance::toClassExtObject(const UnicodeString* na
 	Iterator<VmStringInstance>* it = this->properties->keySet()->iterator(); __STP(it);
 	while(it->hasNext()){
 		const VmStringInstance* key = it->next();
-		AbstractReference* ref = this->properties->get(key);
+		DomRuntimeReference* ref = this->properties->get(key);
 
 		const UnicodeString* keyStr = key->toString();
 		AbstractExtObject* exobj = ref->toClassExtObject(keyStr, reg);
