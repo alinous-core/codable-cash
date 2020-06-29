@@ -90,6 +90,10 @@
 #include "sc_expression_logical/NotExpression.h"
 #include "sc_expression_logical/RelationalExpression.h"
 
+#include "sc_expression_json/JsonInitializerExpression.h"
+#include "sc_expression_json/JsonArrayExpression.h"
+#include "sc_expression_json/JsonKeyValuePairExpression.h"
+
 #include "sql_ddl/CreateTableStatement.h"
 #include "sql_ddl/DropTableStatement.h"
 #include "sql_ddl/ColumnTypeDescriptor.h"

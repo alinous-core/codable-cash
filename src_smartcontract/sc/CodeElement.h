@@ -106,6 +106,11 @@ public:
 	static const constexpr short EXP_CND_RELATIONAL{133};
 	static const constexpr short EXP_CND_NOT{134};
 
+	static const constexpr short EXP_JSON_INITIALIZER{135};
+	static const constexpr short EXP_JSON_ARRAY{136};
+	static const constexpr short EXP_JSON_VALUE_PAIR{137};
+
+
 	static const constexpr short DDL_CREATE_TABLE{150};
 	static const constexpr short DDL_DROP_TABLE{151};
 	static const constexpr short DDL_TYPE_DESC{152};

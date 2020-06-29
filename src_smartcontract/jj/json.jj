@@ -1,0 +1,107 @@
+
+/******************************************************************************************
+* JSON INIT statement start
+*/
+
+AbstractJsonExpression* jsonElement() : {
+	AbstractJsonExpression* jsonExp = nullptr;
+}
+{
+	(
+		jsonExp=jsonInitializerExpression()
+		|
+		jsonExp=jsonArrayExpression()
+		|
+		jsonExp=jsonKeyValuePair()
+		
+	)
+	{
+		 __ONERROR(jsonExp);
+		return jsonExp;
+	}
+}
+
+JsonInitializerExpression* jsonInitializerExpression() :
+{
+	JsonInitializerExpression* jsonExp = new JsonInitializerExpression();
+	Token* t = nullptr;
+}
+{
+	t="{" {
+		jsonExp->setPosition(t);
+	}
+	
+	t="}" {
+		jsonExp->setPosition(t);
+	}
+	{
+		 __ONERROR(jsonExp);
+		return jsonExp;
+	}
+}
+
+JsonArrayExpression* jsonArrayExpression() :
+{
+	JsonArrayExpression* jsonExp = new JsonArrayExpression();
+	AbstractJsonExpression* element = nullptr;
+	Token* t = nullptr;
+	
+	AbstractExpression* exp = nullptr;
+}
+{
+	t="[" {
+		jsonExp->setPosition(t);
+	}
+	
+	(
+		exp=expression() {
+			jsonExp->setPosition(exp);
+		}
+	)*
+	
+	t="]" {
+		jsonExp->setPosition(t);
+	}
+	{
+		 __ONERROR(jsonExp);
+		return jsonExp;
+	}
+}
+
+JsonKeyValuePairExpression* jsonKeyValuePair() :
+{
+	JsonKeyValuePairExpression* pair = new JsonKeyValuePairExpression();
+	Token* t = nullptr;
+	AbstractExpression* exp = nullptr;
+	LiteralExpression* lit = nullptr;
+	AbstractJsonExpression* jsonExp = nullptr;
+}
+{
+	(
+		lit=literalExpression() {
+			pair->setPosition(lit);
+		
+		}
+		|
+		t=<IDENTIFIER>{
+			pair->setPosition(t);
+			
+		}
+	)
+	t=":" {
+		pair->setPosition(t);
+	}
+	(LOOKAHEAD(2)
+		exp=expression() {
+			pair->setPosition(exp);
+		}
+		|
+		jsonExp=jsonElement() {
+			pair->setPosition(jsonExp);
+		}
+	)
+	{
+		 __ONERROR(pair);
+		return pair;
+	}
+}

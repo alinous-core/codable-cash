@@ -89,6 +89,10 @@
 #include "sc_expression_logical/RelationalExpression.h"
 #include "sc_expression_logical/NotExpression.h"
 
+#include "sc_expression_json/JsonInitializerExpression.h"
+#include "sc_expression_json/JsonArrayExpression.h"
+#include "sc_expression_json/JsonKeyValuePairExpression.h"
+
 #include "sql_ddl/CreateTableStatement.h"
 #include "sql_ddl/DropTableStatement.h"
 #include "sql_ddl/DdlColumnDescriptor.h"
@@ -141,7 +145,6 @@
 #include "base/UnicodeString.h"
 
 #include "sc/exceptions.h"
-
 
 
 namespace alinous {
@@ -426,6 +429,16 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		break;
 	case EXP_CND_NOT:
 		element = new NotExpression();
+		break;
+
+	case EXP_JSON_INITIALIZER:
+		element = new JsonInitializerExpression();
+		break;
+	case EXP_JSON_VALUE_PAIR:
+		element = new JsonKeyValuePairExpression();
+		break;
+	case EXP_JSON_ARRAY:
+		element = new JsonArrayExpression();
 		break;
 
 	case DDL_CREATE_TABLE:
