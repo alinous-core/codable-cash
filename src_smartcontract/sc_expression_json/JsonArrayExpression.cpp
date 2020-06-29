@@ -75,12 +75,42 @@ AbstractVmInstance* JsonArrayExpression::interpret(VirtualMachine* vm) {
 }
 
 int JsonArrayExpression::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	int maxLoop = this->elements->size();
+	total += sizeof(int32_t);
+
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->elements->get(i);
+
+		total += exp->binarySize();
+	}
+
+	return total;
 }
 
 void JsonArrayExpression::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::EXP_JSON_ARRAY);
+
+	int maxLoop = this->elements->size();
+	out->putInt(maxLoop);
+
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->elements->get(i);
+
+		exp->toBinary(out);
+	}
 }
 
 void JsonArrayExpression::fromBinary(ByteBuffer* in) {
+	int maxLoop = in->getInt();
+	for(int i = 0; i != maxLoop; ++i){
+		CodeElement* element = CodeElement::createFromBinary(in);
+		checkIsExp(element);
+
+		AbstractExpression* exp = dynamic_cast<AbstractExpression*>(element);
+		addElement(exp);
+	}
 }
 
 } /* namespace alinous */
