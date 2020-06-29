@@ -648,6 +648,13 @@ void CodeElement::checkIsExp(CodeElement* element) {
 	}
 }
 
+void CodeElement::checkIsJsonExp(CodeElement* element) {
+	if(!(element->kind >= EXP_JSON_INITIALIZER && element->kind < DDL_CREATE_TABLE)){
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
+	}
+}
+
+
 void CodeElement::checkIsSQLExp(CodeElement* element) {
 	if(!(element->kind >= SQL_EXP_ADDITIVE && element->kind < SQL_PART_COLUMN_LIST)){
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);

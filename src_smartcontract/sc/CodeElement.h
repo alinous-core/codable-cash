@@ -187,6 +187,7 @@ public:
 	static void checkIsType(CodeElement* element);
 	static void checkIsStatement(CodeElement* element);
 	static void checkIsExp(CodeElement* element);
+	static void checkIsJsonExp(CodeElement* element);
 	static void checkIsSQLExp(CodeElement* element);
 	static void checkIsJoinPart(CodeElement* element);
 	static void checkIsImport(CodeElement* element);
