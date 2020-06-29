@@ -12,6 +12,8 @@
 
 namespace alinous {
 
+class LiteralExpression;
+
 class JsonKeyValuePairExpression : public AbstractJsonExpression {
 public:
 	JsonKeyValuePairExpression();
@@ -28,6 +30,13 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	void setName(UnicodeString* name) noexcept;
+	void setName(LiteralExpression* name) noexcept;
+	void setValue(AbstractExpression* value) noexcept;
+private:
+	UnicodeString* name;
+	AbstractExpression* value;
 };
 
 } /* namespace alinous */

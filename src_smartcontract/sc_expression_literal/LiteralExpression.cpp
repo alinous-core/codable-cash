@@ -47,6 +47,12 @@ void LiteralExpression::setString(UnicodeString* str, bool dquote) noexcept {
 	this->dquote = dquote;
 }
 
+UnicodeString* LiteralExpression::getStringBody() const noexcept {
+	UnicodeString* invalue = this->str->substring(1, this->str->length() - 1);
+	return invalue;
+}
+
+
 int LiteralExpression::binarySize() const {
 	checkNotNull(this->str);
 

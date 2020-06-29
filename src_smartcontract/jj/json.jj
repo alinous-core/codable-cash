@@ -80,12 +80,12 @@ JsonKeyValuePairExpression* jsonKeyValuePair() :
 	(
 		lit=literalExpression() {
 			pair->setPosition(lit);
-		
+			pair->setName(lit);
 		}
 		|
 		t=<IDENTIFIER>{
 			pair->setPosition(t);
-			
+			pair->setName(_STR(t));
 		}
 	)
 	t=":" {
@@ -94,10 +94,12 @@ JsonKeyValuePairExpression* jsonKeyValuePair() :
 	(LOOKAHEAD(2)
 		exp=expression() {
 			pair->setPosition(exp);
+			pair->setValue(exp);
 		}
 		|
 		jsonExp=jsonElement() {
 			pair->setPosition(jsonExp);
+			pair->setValue(jsonExp);
 		}
 	)
 	{
