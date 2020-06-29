@@ -17,26 +17,55 @@
 namespace alinous {
 
 JsonInitializerExpression::JsonInitializerExpression() : AbstractJsonExpression(CodeElement::EXP_JSON_INITIALIZER) {
-
+	this->elements = new ArrayList<AbstractJsonExpression>();
 }
 
 JsonInitializerExpression::~JsonInitializerExpression() {
+	delete this->elements;
+}
 
+void JsonInitializerExpression::addElement(AbstractJsonExpression* element) noexcept {
+	this->elements->addElement(element);
 }
 
 void JsonInitializerExpression::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->elements->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractJsonExpression* exp = this->elements->get(i);
+
+		exp->setParent(this);
+		exp->preAnalyze(actx);
+	}
 }
 
 void JsonInitializerExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->elements->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractJsonExpression* exp = this->elements->get(i);
+
+		exp->analyzeTypeRef(actx);
+	}
 }
 
 void JsonInitializerExpression::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->elements->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractJsonExpression* exp = this->elements->get(i);
+
+		exp->analyze(actx);
+	}
 }
 
 AnalyzedType JsonInitializerExpression::getType(AnalyzeContext* actx) {
 }
 
 void JsonInitializerExpression::init(VirtualMachine* vm) {
+	int maxLoop = this->elements->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractJsonExpression* exp = this->elements->get(i);
+
+		exp->init(vm);
+	}
 }
 
 AbstractVmInstance* JsonInitializerExpression::interpret(VirtualMachine* vm) {

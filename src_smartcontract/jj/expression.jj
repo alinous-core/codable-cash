@@ -689,7 +689,7 @@ AbstractExpression* arrayReferenceExpression() : {
 }
 {
 	left=functionCallExpression() 
-	(
+	(LOOKAHEAD(2)
 		t="[" {
 			if(exp == nullptr){
 				exp = new ArrayReferenceExpression();

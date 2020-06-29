@@ -2320,7 +2320,7 @@ AbstractExpression* arrayReferenceExpression() : {
 }
 {
 	left=functionCallExpression() 
-	(
+	(LOOKAHEAD(2)
 		t="[" {
 			if(exp == nullptr){
 				exp = new ArrayReferenceExpression();
@@ -4496,11 +4496,19 @@ JsonInitializerExpression* jsonInitializerExpression() :
 {
 	JsonInitializerExpression* jsonExp = new JsonInitializerExpression();
 	Token* t = nullptr;
+	AbstractJsonExpression* element = nullptr;
 }
 {
 	t="{" {
 		jsonExp->setPosition(t);
 	}
+	
+	(
+		element=jsonElement() {
+			jsonExp->setPosition(element);
+			jsonExp->addElement(element);
+		}
+	)*
 	
 	t="}" {
 		jsonExp->setPosition(t);
