@@ -4527,6 +4527,7 @@ JsonArrayExpression* jsonArrayExpression() :
 	(
 		exp=expression() {
 			jsonExp->setPosition(exp);
+			jsonExp->addElement(exp);
 		}
 	)*
 	

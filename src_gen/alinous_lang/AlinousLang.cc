@@ -6907,6 +6907,7 @@ jsonExp->setPosition(t);
       }
       if (!hasError) {
 jsonExp->setPosition(exp);
+                        jsonExp->addElement(exp);
       }
     }
     end_label_41: ;

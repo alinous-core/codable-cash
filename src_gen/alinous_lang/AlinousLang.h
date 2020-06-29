@@ -433,18 +433,18 @@ JsonKeyValuePairExpression                          * jsonKeyValuePair();
     return false;
   }
 
+ inline bool jj_3_24()
+ {
+    if (jj_done) return true;
+    if (jj_3R_57()) return true;
+    return false;
+  }
+
  inline bool jj_3R_45()
  {
     if (jj_done) return true;
     if (jj_3R_46()) return true;
     if (jj_scan_token(SEMI_COLON)) return true;
-    return false;
-  }
-
- inline bool jj_3_24()
- {
-    if (jj_done) return true;
-    if (jj_3R_57()) return true;
     return false;
   }
 

@@ -10,12 +10,16 @@
 
 #include "sc_expression_json/AbstractJsonExpression.h"
 
+#include "base/ArrayList.h"
+
 namespace alinous {
 
 class JsonArrayExpression : public AbstractJsonExpression {
 public:
 	JsonArrayExpression();
 	virtual ~JsonArrayExpression();
+
+	void addElement(AbstractExpression* element) noexcept;
 
 	virtual void preAnalyze(AnalyzeContext* actx);
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
@@ -28,6 +32,9 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+private:
+	ArrayList<AbstractExpression>* elements;
 };
 
 } /* namespace alinous */
