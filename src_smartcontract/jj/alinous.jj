@@ -4503,13 +4503,21 @@ JsonInitializerExpression* jsonInitializerExpression() :
 		jsonExp->setPosition(t);
 	}
 	
-	(
+	[
 		element=jsonElement() {
 			jsonExp->setPosition(element);
 			jsonExp->addElement(element);
 		}
-	)*
-	
+		(
+			t="," {
+				jsonExp->setPosition(t);
+			}
+			element=jsonElement() {
+				jsonExp->setPosition(element);
+				jsonExp->addElement(element);
+			}
+		)*
+	]
 	t="}" {
 		jsonExp->setPosition(t);
 	}

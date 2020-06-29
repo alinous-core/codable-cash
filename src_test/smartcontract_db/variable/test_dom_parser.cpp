@@ -110,3 +110,27 @@ TEST(TestDomParserGroup, valueArray01){
 	CHECK(AnalyzedType::TYPE_DOM_ARRAY == at.getType())
 }
 
+TEST(TestDomParserGroup, init01){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/variable/resources/json/init01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	JsonInitializerExpression* exp = lang->jsonInitializerExpression(); __STP(exp);
+
+	CHECK(!parser.hasError())
+
+	int size = exp->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	exp->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+
+	AnalyzedType at = exp->getType(nullptr);
+	CHECK(AnalyzedType::TYPE_DOM == at.getType())
+}
+
