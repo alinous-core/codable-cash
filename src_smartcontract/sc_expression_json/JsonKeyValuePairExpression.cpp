@@ -94,7 +94,7 @@ void JsonKeyValuePairExpression::fromBinary(ByteBuffer* in) {
 	CodeElement* element = CodeElement::createFromBinary(in);
 	checkIsExp(element);
 
-	this->value = dynamic_cast<AbstractExpression*>(value);
+	this->value = dynamic_cast<AbstractExpression*>(element);
 }
 
 } /* namespace alinous */
