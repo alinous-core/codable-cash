@@ -57,6 +57,7 @@ void JsonInitializerExpression::analyze(AnalyzeContext* actx) {
 }
 
 AnalyzedType JsonInitializerExpression::getType(AnalyzeContext* actx) {
+	return AnalyzedType(AnalyzedType::TYPE_DOM);
 }
 
 void JsonInitializerExpression::init(VirtualMachine* vm) {
@@ -72,6 +73,7 @@ AbstractVmInstance* JsonInitializerExpression::interpret(VirtualMachine* vm) {
 }
 
 int JsonInitializerExpression::binarySize() const {
+
 }
 
 void JsonInitializerExpression::toBinary(ByteBuffer* out) {

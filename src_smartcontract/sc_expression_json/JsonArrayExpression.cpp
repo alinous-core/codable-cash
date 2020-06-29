@@ -59,6 +59,7 @@ void JsonArrayExpression::analyze(AnalyzeContext* actx) {
 }
 
 AnalyzedType JsonArrayExpression::getType(AnalyzeContext* actx) {
+	return AnalyzedType(AnalyzedType::TYPE_DOM_ARRAY);
 }
 
 void JsonArrayExpression::init(VirtualMachine* vm) {

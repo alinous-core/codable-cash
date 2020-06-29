@@ -41,8 +41,7 @@ void JsonKeyValuePairExpression::setName(LiteralExpression* name) noexcept {
 }
 
 void JsonKeyValuePairExpression::setValue(AbstractExpression* value) noexcept {
-	this->value->setParent(this);
-
+	this->value = value;
 }
 
 void JsonKeyValuePairExpression::preAnalyze(AnalyzeContext* actx) {
@@ -59,9 +58,11 @@ void JsonKeyValuePairExpression::analyze(AnalyzeContext* actx) {
 }
 
 AnalyzedType JsonKeyValuePairExpression::getType(AnalyzeContext* actx) {
+	return AnalyzedType(AnalyzedType::TYPE_DOM_VALUE_PAIR);
 }
 
 void JsonKeyValuePairExpression::init(VirtualMachine* vm) {
+	this->value->init(vm);
 }
 
 AbstractVmInstance* JsonKeyValuePairExpression::interpret(VirtualMachine* vm) {

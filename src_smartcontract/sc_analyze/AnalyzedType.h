@@ -29,6 +29,8 @@ public:
 	static const constexpr uint8_t TYPE_VOID{27};
 	static const constexpr uint8_t TYPE_OBJECT{28};
 	static const constexpr uint8_t TYPE_DOM{29};
+	static const constexpr uint8_t TYPE_DOM_ARRAY{30};
+	static const constexpr uint8_t TYPE_DOM_VALUE_PAIR{31};
 
 	static const UnicodeString SIG_BOOL;
 	static const UnicodeString SIG_BYTE;
