@@ -9,6 +9,7 @@
 #include "compiler/SmartContractParser.h"
 
 #include "alinous_lang/AlinousLang.h"
+#include "sc_analyze/AnalyzedType.h"
 
 using namespace alinous;
 
@@ -59,6 +60,9 @@ TEST(TestDomParserGroup, valuePair01){
 
 	bool res = checkBinary(buff);
 	CHECK(res)
+
+	AnalyzedType at = exp->getType(nullptr);
+	CHECK(AnalyzedType::TYPE_DOM_VALUE_PAIR == at.getType())
 }
 
 TEST(TestDomParserGroup, valuePair02){
@@ -80,5 +84,29 @@ TEST(TestDomParserGroup, valuePair02){
 
 	bool res = checkBinary(buff);
 	CHECK(res)
+}
+
+TEST(TestDomParserGroup, valueArray01){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/variable/resources/json/array01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	JsonArrayExpression* exp = lang->jsonArrayExpression(); __STP(exp);
+
+	CHECK(!parser.hasError())
+
+	int size = exp->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	exp->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+
+	AnalyzedType at = exp->getType(nullptr);
+	CHECK(AnalyzedType::TYPE_DOM_ARRAY == at.getType())
 }
 

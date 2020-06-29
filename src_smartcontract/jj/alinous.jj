@@ -4532,12 +4532,21 @@ JsonArrayExpression* jsonArrayExpression() :
 		jsonExp->setPosition(t);
 	}
 	
-	(
+	[
 		exp=expression() {
 			jsonExp->setPosition(exp);
 			jsonExp->addElement(exp);
 		}
-	)*
+		(
+			t="," {
+				jsonExp->setPosition(t);
+			}
+			exp=expression() {
+				jsonExp->setPosition(exp);
+				jsonExp->addElement(exp);
+			}
+		)*
+	]
 	
 	t="]" {
 		jsonExp->setPosition(t);
