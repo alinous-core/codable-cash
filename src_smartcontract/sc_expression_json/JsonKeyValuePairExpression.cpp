@@ -69,12 +69,32 @@ AbstractVmInstance* JsonKeyValuePairExpression::interpret(VirtualMachine* vm) {
 }
 
 int JsonKeyValuePairExpression::binarySize() const {
+	checkNotNull(this->name);
+	checkNotNull(this->value);
+
+	int total = sizeof(uint16_t);
+	total += stringSize(this->name);
+	total += this->value->binarySize();
+
+	return total;
 }
 
 void JsonKeyValuePairExpression::toBinary(ByteBuffer* out) {
+	checkNotNull(this->name);
+	checkNotNull(this->value);
+
+	out->putShort(CodeElement::EXP_JSON_VALUE_PAIR);
+	putString(out, this->name);
+	this->value->toBinary(out);
 }
 
 void JsonKeyValuePairExpression::fromBinary(ByteBuffer* in) {
+	this->name = getString(in);
+
+	CodeElement* element = CodeElement::createFromBinary(in);
+	checkIsExp(element);
+
+	this->value = dynamic_cast<AbstractExpression*>(value);
 }
 
 } /* namespace alinous */
