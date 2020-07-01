@@ -8,12 +8,14 @@
 #ifndef INSTANCE_DOM_DOMVARIABLEINSTANCE_H_
 #define INSTANCE_DOM_DOMVARIABLEINSTANCE_H_
 
-#include "instance/AbstractVmInstance.h"
+#include "instance_dom/AbstractDomInstance.h"
+
 #include "instance/IInstanceContainer.h"
 
 #include "instance_parts/VMemHashmap.h"
 
 #include "instance_string/VmStringInstance.h"
+
 
 namespace alinous {
 
@@ -21,7 +23,7 @@ class AbstractReference;
 class DomVariableReference;
 class DomRuntimeReference;
 
-class DomVariableInstance : public AbstractVmInstance, public IInstanceContainer {
+class DomVariableInstance : public AbstractDomInstance, public IInstanceContainer {
 public:
 	explicit DomVariableInstance(VirtualMachine* vm);
 	virtual ~DomVariableInstance();

@@ -27,7 +27,7 @@
 
 namespace alinous {
 
-DomVariableInstance::DomVariableInstance(VirtualMachine* vm) : AbstractVmInstance(VmInstanceTypesConst::INST_DOM) {
+DomVariableInstance::DomVariableInstance(VirtualMachine* vm) : AbstractDomInstance(vm, VmInstanceTypesConst::INST_DOM) {
 	this->valueRef = nullptr;
 	this->properties = new(vm) VMemHashmap<VmStringInstance, DomRuntimeReference>(vm);
 	this->list = nullptr;

@@ -1,6 +1,7 @@
 
 
 set(__src
+	AbstractDomInstance.cpp
 	DomRuntimeReference.cpp
 	DomVariableInstance.cpp
 	DomVariableReference.cpp
