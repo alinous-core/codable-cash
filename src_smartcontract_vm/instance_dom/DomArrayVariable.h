@@ -17,6 +17,7 @@
 namespace alinous {
 
 class VirtualMachine;
+class UnicodeString;
 
 class DomArrayVariable : public AbstractDomInstance, public IInstanceContainer {
 public:
@@ -44,6 +45,7 @@ public:
 
 private:
 	VMemList<AbstractReference>* array;
+	mutable UnicodeString* str;
 };
 
 } /* namespace alinous */

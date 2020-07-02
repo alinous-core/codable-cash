@@ -20,4 +20,8 @@ ExtDomArrayObject::~ExtDomArrayObject() {
 	delete this->list;
 }
 
+void ExtDomArrayObject::add(AbstractExtObject* obj) noexcept {
+	this->list->addElement(obj);
+}
+
 } /* namespace alinous */

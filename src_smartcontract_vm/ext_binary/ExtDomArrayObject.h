@@ -19,6 +19,7 @@ public:
 	ExtDomArrayObject();
 	virtual ~ExtDomArrayObject();
 
+	void add(AbstractExtObject* obj) noexcept;
 private:
 	ArrayList<AbstractExtObject>* list;
 };

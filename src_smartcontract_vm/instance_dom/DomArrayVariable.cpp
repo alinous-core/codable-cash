@@ -16,15 +16,22 @@
 
 #include "instance_gc/GcManager.h"
 
+#include "ext_binary/ExtDomArrayObject.h"
+
+#include "base/UnicodeString.h"
+
 namespace alinous {
 
 DomArrayVariable::DomArrayVariable(VirtualMachine* vm) : AbstractDomInstance(vm, VmInstanceTypesConst::INST_DOM_ARRAY) {
 	this->array = new(vm) VMemList<AbstractReference>(vm);
+	this->str = nullptr;
 }
 
 DomArrayVariable::~DomArrayVariable() {
 	this->array->deleteElements();
 	delete this->array;
+
+	delete this->str;
 }
 
 IAbstractVmInstanceSubstance* DomArrayVariable::getInstance() noexcept {
@@ -63,7 +70,17 @@ const VMemList<AbstractReference>* DomArrayVariable::getReferences() const noexc
 }
 
 AbstractExtObject* DomArrayVariable::toClassExtObject(const UnicodeString* name, VTableRegistory* reg) {
+	ExtDomArrayObject* exobj = new ExtDomArrayObject();
 
+	int maxLoop = this->array->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractReference* ref = this->array->get(i);
+
+		AbstractExtObject* obj = ref->toClassExtObject(name, reg);
+		exobj->add(obj);
+	}
+
+	return exobj;
 }
 
 const VMemList<AbstractReference>* DomArrayVariable::getInstReferences() const noexcept {
@@ -91,6 +108,30 @@ AbstractExtObject* DomArrayVariable::instToClassExtObject(const UnicodeString* n
 }
 
 const UnicodeString* DomArrayVariable::toString() const noexcept {
+	if(this->str == nullptr){
+		this->str = new UnicodeString(L"[");
+
+		int maxLoop = this->array->size();
+		for(int i = 0; i != maxLoop; ++i){
+			AbstractReference* ref = this->array->get(i);
+
+			if(i != 0){
+				this->str->append(L", ");
+			}
+
+			if(ref != nullptr && !ref->isNull()){
+				const UnicodeString* refstr = ref->toString();
+				this->str->append(refstr);
+			}
+			else {
+				this->str->append(&AbstractReference::NULL_STR);
+			}
+		}
+
+		this->str->append(L"]");
+	}
+
+	return this->str;
 }
 
 int DomArrayVariable::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
