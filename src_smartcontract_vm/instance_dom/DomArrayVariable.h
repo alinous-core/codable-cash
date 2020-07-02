@@ -12,6 +12,8 @@
 
 #include "instance/IInstanceContainer.h"
 
+#include "instance_parts/VMemList.h"
+
 namespace alinous {
 
 class VirtualMachine;
@@ -38,8 +40,10 @@ public:
 
 	virtual const UnicodeString* toString() const noexcept;
 
-
 	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
+
+private:
+	VMemList<AbstractReference>* array;
 };
 
 } /* namespace alinous */

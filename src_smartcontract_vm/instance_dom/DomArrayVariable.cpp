@@ -6,19 +6,24 @@
  */
 
 #include "instance_dom/DomArrayVariable.h"
+#include "instance_dom/DomVariableReference.h"
 
 #include "instance/VmInstanceTypesConst.h"
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "instance_ref/AbstractReference.h"
+
+
 namespace alinous {
 
 DomArrayVariable::DomArrayVariable(VirtualMachine* vm) : AbstractDomInstance(vm, VmInstanceTypesConst::INST_DOM_ARRAY) {
-
+	this->array = new(vm) VMemList<AbstractReference>(vm);
 }
 
 DomArrayVariable::~DomArrayVariable() {
-
+	this->array->deleteElements();
+	delete this->array;
 }
 
 IAbstractVmInstanceSubstance* DomArrayVariable::getInstance() noexcept {
@@ -26,6 +31,10 @@ IAbstractVmInstanceSubstance* DomArrayVariable::getInstance() noexcept {
 }
 
 AbstractReference* DomArrayVariable::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
+	DomVariableReference* ref = new(vm) DomVariableReference(owner, vm);
+	ref->substitute(this, vm->getGc());
+
+	return ref;
 }
 
 uint8_t DomArrayVariable::getInstType() const noexcept {
@@ -40,9 +49,11 @@ void DomArrayVariable::removeInnerRefs(GcManager* gc) noexcept {
 }
 
 const VMemList<AbstractReference>* DomArrayVariable::getReferences() const noexcept {
+	return this->array;
 }
 
 AbstractExtObject* DomArrayVariable::toClassExtObject(const UnicodeString* name, VTableRegistory* reg) {
+
 }
 
 const VMemList<AbstractReference>* DomArrayVariable::getInstReferences() const noexcept {
@@ -66,13 +77,21 @@ int DomArrayVariable::instValueCompare(const IAbstractVmInstanceSubstance* right
 }
 
 AbstractExtObject* DomArrayVariable::instToClassExtObject(const UnicodeString* name, VTableRegistory* table) {
+	return toClassExtObject(name, table);
 }
 
 const UnicodeString* DomArrayVariable::toString() const noexcept {
 }
 
 int DomArrayVariable::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
+	const DomArrayVariable* inst = dynamic_cast<const DomArrayVariable*>(right);
 
+	int64_t diff = ((int64_t)this) - ((int64_t)inst);
+	if(diff == 0){
+		return 0;
+	}
+
+	return diff > 0 ? 1 : -1;
 }
 
 } /* namespace alinous */
