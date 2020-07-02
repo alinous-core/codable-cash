@@ -8,12 +8,19 @@
 #ifndef EXT_BINARY_EXTDOMARRAYOBJECT_H_
 #define EXT_BINARY_EXTDOMARRAYOBJECT_H_
 
+#include "ext_binary/AbstractExtObject.h"
+
+#include "base/ArrayList.h"
+
 namespace alinous {
 
-class ExtDomArrayObject {
+class ExtDomArrayObject : public AbstractExtObject {
 public:
 	ExtDomArrayObject();
 	virtual ~ExtDomArrayObject();
+
+private:
+	ArrayList<AbstractExtObject>* list;
 };
 
 } /* namespace alinous */

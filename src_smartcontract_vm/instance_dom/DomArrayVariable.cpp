@@ -14,6 +14,7 @@
 
 #include "instance_ref/AbstractReference.h"
 
+#include "instance_gc/GcManager.h"
 
 namespace alinous {
 
@@ -46,6 +47,15 @@ AnalyzedType DomArrayVariable::getRuntimeType() const noexcept {
 }
 
 void DomArrayVariable::removeInnerRefs(GcManager* gc) noexcept {
+	int maxLoop = this->array->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractReference* ref = this->array->get(i);
+
+		gc->removeObject(ref);
+	}
+
+	this->array->deleteElements();
+	this->array->reset();
 }
 
 const VMemList<AbstractReference>* DomArrayVariable::getReferences() const noexcept {
