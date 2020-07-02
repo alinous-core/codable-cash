@@ -50,6 +50,7 @@ void DomVariableInstance::removeInnerRefs(GcManager* gc) noexcept {
 		DomRuntimeReference* ref = this->properties->get(key);
 
 		gc->removeObject(ref);
+		delete ref;
 	}
 
 	this->properties->clear();
