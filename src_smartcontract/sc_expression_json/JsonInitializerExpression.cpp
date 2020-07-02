@@ -29,6 +29,7 @@ JsonInitializerExpression::JsonInitializerExpression() : AbstractJsonExpression(
 }
 
 JsonInitializerExpression::~JsonInitializerExpression() {
+	this->elements->deleteElements();
 	delete this->elements;
 }
 
