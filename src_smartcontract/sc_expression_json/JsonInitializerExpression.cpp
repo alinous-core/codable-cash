@@ -17,7 +17,11 @@
 
 #include "instance_dom/DomVariableInstance.h"
 
+#include "instance_gc/StackFloatingVariableHandler.h"
 
+#include "instance_dom/DomRuntimeReference.h"
+
+#include "instance_string/VmStringInstance.h"
 namespace alinous {
 
 JsonInitializerExpression::JsonInitializerExpression() : AbstractJsonExpression(CodeElement::EXP_JSON_INITIALIZER) {
@@ -74,13 +78,26 @@ void JsonInitializerExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* JsonInitializerExpression::interpret(VirtualMachine* vm) {
+	StackFloatingVariableHandler releaser(vm->getGc());
+
 	DomVariableInstance* inst = new(vm) DomVariableInstance(vm);
 
 	int maxLoop = this->elements->size();
 	for(int i = 0; i != maxLoop; ++i){
 		JsonKeyValuePairExpression* exp = this->elements->get(i);
 
-		// FIXME
+		const UnicodeString* name = exp->getName();
+
+		AbstractVmInstance* valueInst = exp->interpret(vm);
+		releaser.registerInstance(valueInst);
+
+		DomRuntimeReference* rr = new(vm) DomRuntimeReference(inst, vm);
+		releaser.registerInstance(rr);
+
+		VmStringInstance* vmstr = new(vm) VmStringInstance(vm, name);
+		releaser.registerInstance(vmstr);
+
+		inst->putProperty(vm, vmstr, rr);
 	}
 
 	return inst;

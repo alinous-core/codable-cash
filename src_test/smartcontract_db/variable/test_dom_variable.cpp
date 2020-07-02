@@ -33,4 +33,7 @@ TEST(TestDomVariableGroup, testLocalDec01){
 
 	result = util.analyze();
 	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
 }

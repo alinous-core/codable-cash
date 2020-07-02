@@ -34,6 +34,8 @@ public:
 	void setName(UnicodeString* name) noexcept;
 	void setName(LiteralExpression* name) noexcept;
 	void setValue(AbstractExpression* value) noexcept;
+
+	const UnicodeString* getName() const noexcept;
 private:
 	UnicodeString* name;
 	AbstractExpression* value;

@@ -145,5 +145,17 @@ int DomVariableInstance::valueCompare(const IAbstractVmInstanceSubstance* right)
 	return diff > 0 ? 1 : -1;
 }
 
+void DomVariableInstance::putProperty(VirtualMachine* vm, VmStringInstance* key, DomRuntimeReference* rr) noexcept {
+	GcManager* gc = vm->getGc();
+
+	rr->setOwner(this);
+	gc->registerObject(rr);
+
+	DomRuntimeReference* lastrr = this->properties->put(key, rr);
+	if(lastrr != nullptr){
+		gc->removeObject(lastrr);
+		delete lastrr;
+	}
+}
 
 } /* namespace alinous */

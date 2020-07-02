@@ -5,7 +5,7 @@ package test.fw;
 
 class SmartContract {
 	public SmartContract() {
-		var dom = {};
+		var dom = {"id" : "test01"};
 	}
 	
 	public int main(){

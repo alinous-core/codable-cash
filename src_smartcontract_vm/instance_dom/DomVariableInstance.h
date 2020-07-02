@@ -45,9 +45,9 @@ public:
 
 	virtual const UnicodeString* toString() const noexcept;
 
-
 	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 
+	void putProperty(VirtualMachine* vm, VmStringInstance* key, DomRuntimeReference* rr) noexcept;
 private:
 	AbstractReference* valueRef;
 	VMemHashmap<VmStringInstance, DomRuntimeReference>* properties;

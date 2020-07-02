@@ -66,6 +66,7 @@ void JsonKeyValuePairExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* JsonKeyValuePairExpression::interpret(VirtualMachine* vm) {
+	return this->value->interpret(vm);
 }
 
 int JsonKeyValuePairExpression::binarySize() const {
@@ -95,6 +96,10 @@ void JsonKeyValuePairExpression::fromBinary(ByteBuffer* in) {
 	checkIsExp(element);
 
 	this->value = dynamic_cast<AbstractExpression*>(element);
+}
+
+const UnicodeString* JsonKeyValuePairExpression::getName() const noexcept {
+	return this->name;
 }
 
 } /* namespace alinous */
