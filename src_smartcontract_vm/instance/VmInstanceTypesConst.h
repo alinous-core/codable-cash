@@ -18,6 +18,7 @@ public:
 	static constexpr uint8_t INST_STRING{3};
 	static constexpr uint8_t INST_ARRAY{4};
 	static constexpr uint8_t INST_DOM{5};
+	static constexpr uint8_t INST_DOM_ARRAY{6};
 
 	static constexpr uint8_t INST_EXCEPTION{10};
 	static constexpr uint8_t INST_BIG_INT{11};
