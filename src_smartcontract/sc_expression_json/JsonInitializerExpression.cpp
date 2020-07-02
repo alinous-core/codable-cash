@@ -6,6 +6,7 @@
  */
 
 #include "sc_expression_json/JsonInitializerExpression.h"
+#include "sc_expression_json/JsonKeyValuePairExpression.h"
 
 #include "sc_analyze/AnalyzedType.h"
 #include "sc_analyze/AnalyzeContext.h"
@@ -14,24 +15,27 @@
 
 #include "base_io/ByteBuffer.h"
 
+#include "instance_dom/DomVariableInstance.h"
+
+
 namespace alinous {
 
 JsonInitializerExpression::JsonInitializerExpression() : AbstractJsonExpression(CodeElement::EXP_JSON_INITIALIZER) {
-	this->elements = new ArrayList<AbstractJsonExpression>();
+	this->elements = new ArrayList<JsonKeyValuePairExpression>();
 }
 
 JsonInitializerExpression::~JsonInitializerExpression() {
 	delete this->elements;
 }
 
-void JsonInitializerExpression::addElement(AbstractJsonExpression* element) noexcept {
+void JsonInitializerExpression::addElement(JsonKeyValuePairExpression* element) noexcept {
 	this->elements->addElement(element);
 }
 
 void JsonInitializerExpression::preAnalyze(AnalyzeContext* actx) {
 	int maxLoop = this->elements->size();
 	for(int i = 0; i != maxLoop; ++i){
-		AbstractJsonExpression* exp = this->elements->get(i);
+		JsonKeyValuePairExpression* exp = this->elements->get(i);
 
 		exp->setParent(this);
 		exp->preAnalyze(actx);
@@ -41,7 +45,7 @@ void JsonInitializerExpression::preAnalyze(AnalyzeContext* actx) {
 void JsonInitializerExpression::analyzeTypeRef(AnalyzeContext* actx) {
 	int maxLoop = this->elements->size();
 	for(int i = 0; i != maxLoop; ++i){
-		AbstractJsonExpression* exp = this->elements->get(i);
+		JsonKeyValuePairExpression* exp = this->elements->get(i);
 
 		exp->analyzeTypeRef(actx);
 	}
@@ -50,7 +54,7 @@ void JsonInitializerExpression::analyzeTypeRef(AnalyzeContext* actx) {
 void JsonInitializerExpression::analyze(AnalyzeContext* actx) {
 	int maxLoop = this->elements->size();
 	for(int i = 0; i != maxLoop; ++i){
-		AbstractJsonExpression* exp = this->elements->get(i);
+		JsonKeyValuePairExpression* exp = this->elements->get(i);
 
 		exp->analyze(actx);
 	}
@@ -63,13 +67,23 @@ AnalyzedType JsonInitializerExpression::getType(AnalyzeContext* actx) {
 void JsonInitializerExpression::init(VirtualMachine* vm) {
 	int maxLoop = this->elements->size();
 	for(int i = 0; i != maxLoop; ++i){
-		AbstractJsonExpression* exp = this->elements->get(i);
+		JsonKeyValuePairExpression* exp = this->elements->get(i);
 
 		exp->init(vm);
 	}
 }
 
 AbstractVmInstance* JsonInitializerExpression::interpret(VirtualMachine* vm) {
+	DomVariableInstance* inst = new(vm) DomVariableInstance(vm);
+
+	int maxLoop = this->elements->size();
+	for(int i = 0; i != maxLoop; ++i){
+		JsonKeyValuePairExpression* exp = this->elements->get(i);
+
+		// FIXME
+	}
+
+	return inst;
 }
 
 int JsonInitializerExpression::binarySize() const {
@@ -106,7 +120,7 @@ void JsonInitializerExpression::fromBinary(ByteBuffer* in) {
 		CodeElement* element = CodeElement::createFromBinary(in);
 		checkIsJsonExp(element);
 
-		AbstractJsonExpression* exp = dynamic_cast<AbstractJsonExpression*>(element);
+		JsonKeyValuePairExpression* exp = dynamic_cast<JsonKeyValuePairExpression*>(element);
 		addElement(exp);
 	}
 }

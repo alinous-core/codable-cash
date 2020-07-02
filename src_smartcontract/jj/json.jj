@@ -25,7 +25,7 @@ JsonInitializerExpression* jsonInitializerExpression() :
 {
 	JsonInitializerExpression* jsonExp = new JsonInitializerExpression();
 	Token* t = nullptr;
-	AbstractJsonExpression* element = nullptr;
+	JsonKeyValuePairExpression* element = nullptr;
 }
 {
 	t="{" {
@@ -33,7 +33,7 @@ JsonInitializerExpression* jsonInitializerExpression() :
 	}
 	
 	[
-		element=jsonElement() {
+		element=jsonKeyValuePair() {
 			jsonExp->setPosition(element);
 			jsonExp->addElement(element);
 		}
@@ -41,7 +41,7 @@ JsonInitializerExpression* jsonInitializerExpression() :
 			t="," {
 				jsonExp->setPosition(t);
 			}
-			element=jsonElement() {
+			element=jsonKeyValuePair() {
 				jsonExp->setPosition(element);
 				jsonExp->addElement(element);
 			}

@@ -14,12 +14,14 @@
 
 namespace alinous {
 
+class JsonKeyValuePairExpression;
+
 class JsonInitializerExpression : public AbstractJsonExpression {
 public:
 	JsonInitializerExpression();
 	virtual ~JsonInitializerExpression();
 
-	void addElement(AbstractJsonExpression* element) noexcept;
+	void addElement(JsonKeyValuePairExpression* element) noexcept;
 
 	virtual void preAnalyze(AnalyzeContext* actx);
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
@@ -34,7 +36,7 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 private:
-	ArrayList<AbstractJsonExpression>* elements;
+	ArrayList<JsonKeyValuePairExpression>* elements;
 };
 
 } /* namespace alinous */
