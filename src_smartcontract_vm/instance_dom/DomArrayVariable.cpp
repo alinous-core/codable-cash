@@ -58,10 +58,11 @@ AnalyzedType DomArrayVariable::getRuntimeType() const noexcept {
 void DomArrayVariable::removeInnerRefs(GcManager* gc) noexcept {
 	int maxLoop = this->array->size();
 	for(int i = 0; i != maxLoop; ++i){
-		AbstractReference* ref = this->array->get(i);
+		DomRuntimeReference* refref = this->array->get(i);
+	//	AbstractReference* ref = refref->getInnerReference();
 
-		gc->removeObject(ref);
-		ref->resetOnGc();
+		gc->removeObject(refref);
+		refref->resetOnGc();
 	}
 
 	this->array->deleteElements();
@@ -148,17 +149,16 @@ int DomArrayVariable::valueCompare(const IAbstractVmInstanceSubstance* right) co
 	return diff > 0 ? 1 : -1;
 }
 
-void DomArrayVariable::add(VirtualMachine* vm, AbstractReference* ref) {
+void DomArrayVariable::add(VirtualMachine* vm, IAbstractVmInstanceSubstance* inst) {
 	DomRuntimeReference* rr = new(vm) DomRuntimeReference(this, vm);
 
-	if(ref == nullptr){
+	if(inst == nullptr){
 		this->array->addElement(rr);
 		return;
 	}
 
 	GcManager* gc = vm->getGc();
-	IAbstractVmInstanceSubstance* sub = ref->getInstance();
-	rr->substitute(sub, vm);
+	rr->substitute(inst, vm);
 
 	this->array->addElement(rr);
 }

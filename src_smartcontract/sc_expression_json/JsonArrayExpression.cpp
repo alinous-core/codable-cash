@@ -75,6 +75,20 @@ void JsonArrayExpression::init(VirtualMachine* vm) {
 AbstractVmInstance* JsonArrayExpression::interpret(VirtualMachine* vm) {
 	DomArrayVariable* arrayInst = new(vm) DomArrayVariable(vm);
 
+	int maxLoop = this->elements->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* exp = this->elements->get(i);
+
+		AbstractVmInstance* inst = exp->interpret(vm);
+
+		if(inst != nullptr && !inst->isNull()){
+			IAbstractVmInstanceSubstance* sub = inst->getInstance();
+			arrayInst->add(vm, sub);
+		}
+		else{
+			arrayInst->add(vm, nullptr);
+		}
+	}
 
 	return arrayInst;
 }

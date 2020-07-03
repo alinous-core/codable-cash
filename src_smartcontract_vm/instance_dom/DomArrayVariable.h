@@ -44,7 +44,7 @@ public:
 
 	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 
-	void add(VirtualMachine* vm, AbstractReference* ref);
+	void add(VirtualMachine* vm, IAbstractVmInstanceSubstance* inst);
 private:
 	VMemList<DomRuntimeReference>* array;
 	mutable UnicodeString* str;

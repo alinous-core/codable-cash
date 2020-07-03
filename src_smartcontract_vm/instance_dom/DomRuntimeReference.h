@@ -20,6 +20,8 @@ public:
 	DomRuntimeReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 	virtual ~DomRuntimeReference();
 
+	virtual bool isPrimitive() const noexcept;
+
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
 	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
 	virtual void resetOnGc() noexcept;
@@ -30,6 +32,9 @@ public:
 
 	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 
+	//AbstractReference* getInnerReference() const noexcept {
+	//	return this->reference;
+	//}
 private:
 	AbstractReference* reference;
 };

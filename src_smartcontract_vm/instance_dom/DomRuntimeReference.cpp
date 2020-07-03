@@ -26,6 +26,10 @@ DomRuntimeReference::~DomRuntimeReference() {
 	delete this->reference;
 }
 
+bool DomRuntimeReference::isPrimitive() const noexcept {
+	return this->reference == nullptr ? false : this->reference->isPrimitive();
+}
+
 IAbstractVmInstanceSubstance* DomRuntimeReference::getInstance() noexcept {
 	return this->reference == nullptr ? nullptr : this->reference->getInstance();
 }
@@ -34,14 +38,14 @@ void DomRuntimeReference::substitute(IAbstractVmInstanceSubstance* rightValue, V
 	GcManager* gc = vm->getGc();
 
 	if(this->reference != nullptr && !this->reference->isNull()){
-		gc->removeObject(this->reference);
+		gc->removeObject(this);
 		delete this->reference;
 		this->reference = nullptr;
 	}
 
 	if(rightValue != nullptr && !rightValue->instIsNull()){
 		this->reference = rightValue->wrap(this->owner, vm);
-		gc->registerObject(this->reference);
+		gc->registerObject(this);
 	}
 	else {
 		this->reference = nullptr;
@@ -53,8 +57,12 @@ bool DomRuntimeReference::isNull() const noexcept {
 }
 
 void DomRuntimeReference::resetOnGc() noexcept {
-	delete this->reference;
-	this->reference = nullptr;
+	if(this->reference != nullptr){
+		this->reference->resetOnGc();
+
+		delete this->reference;
+		this->reference = nullptr;
+	}
 }
 
 int DomRuntimeReference::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
