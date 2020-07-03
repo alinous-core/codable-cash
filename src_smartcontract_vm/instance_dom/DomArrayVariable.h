@@ -18,6 +18,7 @@ namespace alinous {
 
 class VirtualMachine;
 class UnicodeString;
+class DomRuntimeReference;
 
 class DomArrayVariable : public AbstractDomInstance, public IInstanceContainer {
 public:
@@ -43,8 +44,9 @@ public:
 
 	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 
+	void add(VirtualMachine* vm, AbstractReference* ref);
 private:
-	VMemList<AbstractReference>* array;
+	VMemList<DomRuntimeReference>* array;
 	mutable UnicodeString* str;
 };
 

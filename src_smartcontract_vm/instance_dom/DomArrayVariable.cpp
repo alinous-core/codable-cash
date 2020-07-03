@@ -20,10 +20,12 @@
 
 #include "base/UnicodeString.h"
 
+#include "instance_dom/DomRuntimeReference.h"
+
 namespace alinous {
 
 DomArrayVariable::DomArrayVariable(VirtualMachine* vm) : AbstractDomInstance(vm, VmInstanceTypesConst::INST_DOM_ARRAY) {
-	this->array = new(vm) VMemList<AbstractReference>(vm);
+	this->array = new(vm) VMemList<DomRuntimeReference>(vm);
 	this->str = nullptr;
 }
 
@@ -40,7 +42,7 @@ IAbstractVmInstanceSubstance* DomArrayVariable::getInstance() noexcept {
 
 AbstractReference* DomArrayVariable::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
 	DomVariableReference* ref = new(vm) DomVariableReference(owner, vm);
-	ref->substitute(this, vm->getGc());
+	ref->substitute(this, vm);
 
 	return ref;
 }
@@ -59,6 +61,7 @@ void DomArrayVariable::removeInnerRefs(GcManager* gc) noexcept {
 		AbstractReference* ref = this->array->get(i);
 
 		gc->removeObject(ref);
+		ref->resetOnGc();
 	}
 
 	this->array->deleteElements();
@@ -66,7 +69,7 @@ void DomArrayVariable::removeInnerRefs(GcManager* gc) noexcept {
 }
 
 const VMemList<AbstractReference>* DomArrayVariable::getReferences() const noexcept {
-	return this->array;
+	return dynamic_cast<const VMemList<AbstractReference>*>(this->array);
 }
 
 AbstractExtObject* DomArrayVariable::toClassExtObject(const UnicodeString* name, VTableRegistory* reg) {
@@ -74,7 +77,7 @@ AbstractExtObject* DomArrayVariable::toClassExtObject(const UnicodeString* name,
 
 	int maxLoop = this->array->size();
 	for(int i = 0; i != maxLoop; ++i){
-		AbstractReference* ref = this->array->get(i);
+		DomRuntimeReference* ref = this->array->get(i);
 
 		AbstractExtObject* obj = ref->toClassExtObject(name, reg);
 		exobj->add(obj);
@@ -113,7 +116,7 @@ const UnicodeString* DomArrayVariable::toString() const noexcept {
 
 		int maxLoop = this->array->size();
 		for(int i = 0; i != maxLoop; ++i){
-			AbstractReference* ref = this->array->get(i);
+			DomRuntimeReference* ref = this->array->get(i);
 
 			if(i != 0){
 				this->str->append(L", ");
@@ -143,6 +146,21 @@ int DomArrayVariable::valueCompare(const IAbstractVmInstanceSubstance* right) co
 	}
 
 	return diff > 0 ? 1 : -1;
+}
+
+void DomArrayVariable::add(VirtualMachine* vm, AbstractReference* ref) {
+	DomRuntimeReference* rr = new(vm) DomRuntimeReference(this, vm);
+
+	if(ref == nullptr){
+		this->array->addElement(rr);
+		return;
+	}
+
+	GcManager* gc = vm->getGc();
+	IAbstractVmInstanceSubstance* sub = ref->getInstance();
+	rr->substitute(sub, vm);
+
+	this->array->addElement(rr);
 }
 
 } /* namespace alinous */

@@ -74,13 +74,13 @@ TEST(TestArrayCompareGroup, compare02){
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 
 	GcManager* gc = vm.getGc();
-	arrayRef->substitute(inst, gc);
-	arrayRef->substitute(inst, gc);
+	arrayRef->substitute(inst, &vm);
+	arrayRef->substitute(inst, &vm);
 
 	int diff = arrayRef->valueCompare(arrayRef->getInstance());
 	CHECK(diff == 0)
 
-	arrayRef->substitute(nullptr, gc);
+	arrayRef->substitute(nullptr, &vm);
 
 	gc->garbageCollect();
 
@@ -109,13 +109,13 @@ TEST(TestArrayCompareGroup, compare03){
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 
 	GcManager* gc = vm.getGc();
-	arrayRef->substitute(inst, gc);
+	arrayRef->substitute(inst, &vm);
 
 	int diff = arrayRef->valueCompare(arrayRef2->getInstance());
 	CHECK(diff != 0)
 
-	arrayRef->substitute(nullptr, gc);
-	arrayRef2->substitute(nullptr, gc);
+	arrayRef->substitute(nullptr, &vm);
+	arrayRef2->substitute(nullptr, &vm);
 
 	gc->garbageCollect();
 
@@ -145,15 +145,15 @@ TEST(TestArrayCompareGroup, compare04){
 	VmArrayInstance* inst2 = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 
 	GcManager* gc = vm.getGc();
-	arrayRef->substitute(inst, gc);
-	arrayRef2->substitute(inst2, gc);
+	arrayRef->substitute(inst, &vm);
+	arrayRef2->substitute(inst2, &vm);
 
 	int diff = arrayRef->valueCompare(arrayRef2->getInstance());
 	CHECK(diff != 0)
 
 
-	arrayRef->substitute(nullptr, gc);
-	arrayRef2->substitute(nullptr, gc);
+	arrayRef->substitute(nullptr, &vm);
+	arrayRef2->substitute(nullptr, &vm);
 
 	gc->garbageCollect();
 
@@ -182,13 +182,13 @@ TEST(TestArrayCompareGroup, compare05){
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 
 	GcManager* gc = vm.getGc();
-	arrayRef->substitute(inst, gc);
+	arrayRef->substitute(inst, &vm);
 
 	int diff = arrayRef2->valueCompare(inst);
 	CHECK(diff != 0)
 
-	arrayRef->substitute(nullptr, gc);
-	arrayRef2->substitute(nullptr, gc);
+	arrayRef->substitute(nullptr, &vm);
+	arrayRef2->substitute(nullptr, &vm);
 
 	gc->garbageCollect();
 

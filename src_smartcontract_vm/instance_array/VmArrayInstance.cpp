@@ -53,7 +53,9 @@ void VmArrayInstance::removeInnerRefs(GcManager* gc) noexcept {
 
 		// remove ref
 		if(!ref->isPrimitive()){
-			ref->substitute(nullptr, gc);
+			// ref->substitute(nullptr, gc);
+			gc->removeObject(ref);
+			ref->resetOnGc();
 		}
 	}
 }
@@ -93,7 +95,7 @@ IAbstractVmInstanceSubstance* VmArrayInstance::getInstance() noexcept {
 
 AbstractReference* VmArrayInstance::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
 	ArrayReference* ref = new(vm) ArrayReference(owner, vm);
-	ref->substitute(this, vm->getGc());
+	ref->substitute(this, vm);
 
 	return ref;
 }

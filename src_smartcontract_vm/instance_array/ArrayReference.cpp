@@ -29,7 +29,9 @@ IAbstractVmInstanceSubstance* ArrayReference::getInstance() noexcept {
 	return this->instArray;
 }
 
-void ArrayReference::substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc) {
+void ArrayReference::substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
 	if(this->instArray != nullptr){
 		gc->removeObject(this);
 		this->instArray = nullptr;
@@ -67,6 +69,10 @@ AbstractExtObject* ArrayReference::toClassExtObject(const UnicodeString* name, V
 	return this->instArray != nullptr
 			? this->instArray->instToClassExtObject(name, table)
 			: new ExtNullPtrObject(name, VmInstanceTypesConst::INST_ARRAY);
+}
+
+void ArrayReference::resetOnGc() noexcept {
+	this->instArray = nullptr;
 }
 
 const UnicodeString* ArrayReference::toString() const noexcept {

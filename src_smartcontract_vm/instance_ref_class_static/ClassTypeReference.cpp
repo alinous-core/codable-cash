@@ -67,6 +67,9 @@ int ClassTypeReference::instValueCompare(const IAbstractVmInstanceSubstance* rig
 	return valueCompare(right);
 }
 
+void ClassTypeReference::resetOnGc() noexcept {
+}
+
 AbstractExtObject* ClassTypeReference::instToClassExtObject(const UnicodeString* name, VTableRegistory* table) {
 	return nullptr;
 }

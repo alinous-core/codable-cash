@@ -14,6 +14,7 @@
 
 #include "ext_binary/ExtNullPtrObject.h"
 
+#include "instance_gc/GcManager.h"
 namespace alinous {
 
 DomRuntimeReference::DomRuntimeReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm)
@@ -22,18 +23,38 @@ DomRuntimeReference::DomRuntimeReference(IAbstractVmInstanceSubstance* owner, Vi
 }
 
 DomRuntimeReference::~DomRuntimeReference() {
+	delete this->reference;
 }
 
 IAbstractVmInstanceSubstance* DomRuntimeReference::getInstance() noexcept {
 	return this->reference == nullptr ? nullptr : this->reference->getInstance();
 }
 
-void DomRuntimeReference::substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc) {
+void DomRuntimeReference::substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
 
+	if(this->reference != nullptr && !this->reference->isNull()){
+		gc->removeObject(this->reference);
+		delete this->reference;
+		this->reference = nullptr;
+	}
+
+	if(rightValue != nullptr && !rightValue->instIsNull()){
+		this->reference = rightValue->wrap(this->owner, vm);
+		gc->registerObject(this->reference);
+	}
+	else {
+		this->reference = nullptr;
+	}
 }
 
 bool DomRuntimeReference::isNull() const noexcept {
 	return this->reference == nullptr ? true : this->reference->isNull();
+}
+
+void DomRuntimeReference::resetOnGc() noexcept {
+	delete this->reference;
+	this->reference = nullptr;
 }
 
 int DomRuntimeReference::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {

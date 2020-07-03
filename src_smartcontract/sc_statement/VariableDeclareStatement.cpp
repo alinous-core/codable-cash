@@ -193,7 +193,7 @@ void VariableDeclareStatement::interpret(VirtualMachine* vm) {
 			return;
 		}
 
-		ref->substitute(instValue != nullptr ? instValue->getInstance() : nullptr, gc);
+		ref->substitute(instValue != nullptr ? instValue->getInstance() : nullptr, vm);
 	}
 }
 

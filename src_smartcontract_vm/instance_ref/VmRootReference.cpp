@@ -124,4 +124,8 @@ StaticClassReferenceHolder* VmRootReference::getStaticClassReferenceHolder() con
 	return this->classStaticHolder;
 }
 
+void VmRootReference::resetOnGc() noexcept {
+}
+
+
 } /* namespace alinous */

@@ -25,6 +25,7 @@ public:
 
 	//
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
+	virtual void resetOnGc() noexcept;
 	virtual uint8_t getInstType() const noexcept;
 
 	virtual AnalyzedType getRuntimeType() const noexcept;

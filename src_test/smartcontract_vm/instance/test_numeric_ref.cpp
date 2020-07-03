@@ -114,7 +114,7 @@ TEST(TestNumericRefGroup, createBool){
 	PrimitiveReference* ref = PrimitiveReference::createBoolReference(&vm, val);
 	PrimitiveReference* ref2 = PrimitiveReference::createBoolReference(&vm, val2);
 
-	ref2->substitute(ref, vm.getGc());
+	ref2->substitute(ref, &vm);
 
 	CHECK(ref2->getIntValue() == 1);
 

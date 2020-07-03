@@ -44,6 +44,8 @@ public:
 
 	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 
+	virtual void resetOnGc() noexcept;
+
 private:
 	VMemList<AbstractReference>* stack;
 	VirtualMachine* vm;

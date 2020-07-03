@@ -68,7 +68,9 @@ void ObjectReference::setInstance(IAbstractVmInstanceSubstance* instance) noexce
 	this->instance = instance;
 }
 
-void ObjectReference::substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc) {
+void ObjectReference::substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
 	if(this->instance != nullptr){
 		gc->removeObject(this);
 		this->instance = nullptr;
@@ -95,6 +97,10 @@ const UnicodeString* ObjectReference::toString() const noexcept {
 	AbstractVmInstance* inst = dynamic_cast<AbstractVmInstance*>(this->instance);
 
 	return (isNull() || inst == nullptr) ? AbstractReference::toString() : inst->toString();
+}
+
+void ObjectReference::resetOnGc() noexcept {
+	this->instance = nullptr;
 }
 
 AbstractExtObject* ObjectReference::createNullObject(const UnicodeString* name, VTableRegistory* table) {

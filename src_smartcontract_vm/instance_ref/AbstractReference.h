@@ -25,7 +25,8 @@ public:
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept = 0;
 	virtual bool isReference() const noexcept;
 
-	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc);
+	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
+	virtual void resetOnGc() noexcept = 0;
 
 	IAbstractVmInstanceSubstance* getOwner() const noexcept;
 	void setOwner(IAbstractVmInstanceSubstance* owner) noexcept;

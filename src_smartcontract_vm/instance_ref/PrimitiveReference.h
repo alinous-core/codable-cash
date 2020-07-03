@@ -31,7 +31,8 @@ public:
 	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 	virtual int hashCode() const noexcept;
 
-	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc);
+	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
+	virtual void resetOnGc() noexcept;
 
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 	virtual uint8_t getInstType() const noexcept;

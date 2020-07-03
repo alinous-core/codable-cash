@@ -8,9 +8,6 @@ AbstractExpression* expression() : {
 }
 {
 	(
-		LOOKAHEAD(3)
-		exp=jsonInitializerExpression()
-		|
 		exp=conditionalOrExpression()
 	)
 	{
@@ -772,6 +769,8 @@ AbstractExpression* primitive() : {
 }
 {
 	(
+		exp=jsonInitializerExpression() |
+		exp=jsonArrayExpression() |
 		exp=parenthesisExpression() |
 		exp=allocationExpression() |
 		exp=literal() |

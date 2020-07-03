@@ -37,7 +37,7 @@ TEST(TestDomVariableGroup, testLocalDec01){
 	result = util.createInstance();
 	CHECK(result)
 }
-/*
+
 TEST(TestDomVariableGroup, testLocalDec02){
 	const File* projectFolder = this->env->getProjectRoot();
 	VmTestUtils util(L"src_test/smartcontract_db/variable/resources/local/case02/", projectFolder, this->env);
@@ -52,4 +52,4 @@ TEST(TestDomVariableGroup, testLocalDec02){
 
 	result = util.createInstance();
 	CHECK(result)
-}*/
+}

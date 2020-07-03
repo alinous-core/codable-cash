@@ -103,7 +103,8 @@ void VmClassInstance::removeInnerRefs(GcManager* gc) noexcept {
 
 		// remove ref
 		if(!ref->isPrimitive()){
-			ref->substitute(nullptr, gc);
+			gc->removeObject(ref);
+			ref->resetOnGc();
 		}
 	}
 }

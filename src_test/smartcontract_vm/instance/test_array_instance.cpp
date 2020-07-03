@@ -96,7 +96,7 @@ TEST(TestArrayInstanceGroup, arrayCompareError){
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 
 	AbstractReference* ref = new(&vm) ArrayReference(root, &vm);
-	ref->substitute(inst, vm.getGc());
+	ref->substitute(inst, &vm);
 
 	int32_t val = 1;
 	PrimitiveReference* p = PrimitiveReference::createIntReference(&vm, val);
@@ -125,7 +125,7 @@ TEST(TestArrayInstanceGroup, arrayCompareError2){
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 
 	AbstractReference* ref = new(&vm) ArrayReference(root, &vm);
-	ref->substitute(inst, vm.getGc());
+	ref->substitute(inst, &vm);
 
 
 	int32_t val = 1;
@@ -155,7 +155,7 @@ TEST(TestArrayInstanceGroup, arrayinstToExtObj){
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 
 	AbstractReference* ref = new(&vm) ArrayReference(root, &vm);
-	ref->substitute(inst, vm.getGc());
+	ref->substitute(inst, &vm);
 
 
 	int32_t val = 1;

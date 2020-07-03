@@ -278,7 +278,9 @@ bool PrimitiveReference::isPrimitive() const noexcept {
 	return true;
 }
 
-void PrimitiveReference::substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc) {
+void PrimitiveReference::substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
 	delete this->str, this->str = nullptr;
 
 	uint8_t type = getType();
@@ -307,6 +309,9 @@ void PrimitiveReference::substitute(IAbstractVmInstanceSubstance* rightValue, Gc
 		break;
 	}
 
+}
+
+void PrimitiveReference::resetOnGc() noexcept {
 }
 
 AbstractExtObject* PrimitiveReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
@@ -404,7 +409,6 @@ int PrimitiveReference::hashCode() const noexcept {
 
 	return (int)lvalue;
 }
-
 size_t PrimitiveReference::getDataSize(int8_t type) noexcept {
 	size_t ret = 0;
 

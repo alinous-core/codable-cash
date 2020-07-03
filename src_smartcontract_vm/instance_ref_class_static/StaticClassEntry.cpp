@@ -83,7 +83,7 @@ void StaticClassEntry::execInitialExpression(VirtualMachine* vm, AbstractReferen
 	AbstractVmInstance* inst = exp->interpret(vm);
 	releaser.registerInstance(inst);
 
-	ref->substitute(inst != nullptr ? inst->getInstance() : nullptr, gc);
+	ref->substitute(inst != nullptr ? inst->getInstance() : nullptr, vm);
 }
 
 void StaticClassEntry::initParentClasses(HashMap<UnicodeString, StaticClassEntry>* classesMap) {

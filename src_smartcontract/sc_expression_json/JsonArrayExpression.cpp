@@ -14,6 +14,7 @@
 
 #include "base_io/ByteBuffer.h"
 
+#include "instance_dom/DomArrayVariable.h"
 
 namespace alinous {
 
@@ -72,6 +73,10 @@ void JsonArrayExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* JsonArrayExpression::interpret(VirtualMachine* vm) {
+	DomArrayVariable* arrayInst = new(vm) DomArrayVariable(vm);
+
+
+	return arrayInst;
 }
 
 int JsonArrayExpression::binarySize() const {

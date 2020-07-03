@@ -50,6 +50,8 @@ void DomVariableInstance::removeInnerRefs(GcManager* gc) noexcept {
 		DomRuntimeReference* ref = this->properties->get(key);
 
 		gc->removeObject(ref);
+		ref->resetOnGc();
+
 		delete ref;
 	}
 
@@ -62,7 +64,7 @@ IAbstractVmInstanceSubstance* DomVariableInstance::getInstance() noexcept {
 
 AbstractReference* DomVariableInstance::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
 	DomVariableReference* ref = new(vm) DomVariableReference(owner, vm);
-	ref->substitute(this, vm->getGc());
+	ref->substitute(this, vm);
 
 	return ref;
 }

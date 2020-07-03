@@ -67,7 +67,7 @@ void VmArrayInstanceUtils::makeDimension(VirtualMachine* vm, int maxDepth, int c
 		at.setDim(maxDepth - current);
 
 		VmArrayInstance* inst = new(vm) VmArrayInstance(vm, length, at);
-		ref->substitute(inst, vm->getGc());
+		ref->substitute(inst, vm);
 
 		setupVmArrayInstance(vm, inst, length, atype, &refs, maxDepth, current);
 	}

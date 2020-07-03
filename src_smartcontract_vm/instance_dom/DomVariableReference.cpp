@@ -30,7 +30,9 @@ IAbstractVmInstanceSubstance* DomVariableReference::getInstance() noexcept {
 	return this->inst;
 }
 
-void DomVariableReference::substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc) {
+void DomVariableReference::substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
 	if(this->inst != nullptr){
 		gc->removeObject(this);
 		this->inst = nullptr;
@@ -71,6 +73,10 @@ AbstractExtObject* DomVariableReference::toClassExtObject(const UnicodeString* n
 
 const UnicodeString* DomVariableReference::toString() const noexcept {
 	return isNull() ? &AbstractReference::NULL_STR : toString();
+}
+
+void DomVariableReference::resetOnGc() noexcept {
+	this->inst = nullptr;
 }
 
 int DomVariableReference::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {
