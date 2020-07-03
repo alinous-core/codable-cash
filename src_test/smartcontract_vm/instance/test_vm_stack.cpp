@@ -51,7 +51,7 @@ TEST(TestVmStackGroup, Stack02){
 	stack->instIsPrimitive();
 	stack->instToClassExtObject(nullptr, nullptr);
 
-	stack->removeInnerRefs(vm.getGc());
+	stack->resetOnGc();
 
 	delete stack;
 }
