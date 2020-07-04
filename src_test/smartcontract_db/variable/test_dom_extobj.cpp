@@ -10,6 +10,7 @@
 
 #include "ext_binary/ExtDomObject.h"
 #include "ext_binary/ExtStringClass.h"
+#include "ext_binary/ExtDomArrayObject.h"
 
 using namespace alinous;
 
@@ -31,6 +32,25 @@ TEST(TestDomExtObjGroup, case01){
 	obj.put(&namestr, strObj);
 
 	AbstractExtObject* prop = obj.get(&namestr);
+	ExtStringClass* propstr = dynamic_cast<ExtStringClass*>(prop);
+
+	const UnicodeString* str = propstr->getValue();
+	CHECK(str->equals(&value));
+}
+
+TEST(TestDomExtObjGroup, case02){
+	UnicodeString name(L"domar");
+	ExtDomArrayObject obj(&name);
+
+	UnicodeString namestr(L"str");
+	UnicodeString value(L"hello");
+	ExtStringClass* strObj = new ExtStringClass(&namestr, &value);
+
+	obj.add(strObj);
+
+	CHECK(obj.size() == 1)
+
+	AbstractExtObject* prop = obj.get(0);
 	ExtStringClass* propstr = dynamic_cast<ExtStringClass*>(prop);
 
 	const UnicodeString* str = propstr->getValue();

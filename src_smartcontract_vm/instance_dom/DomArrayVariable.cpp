@@ -74,7 +74,7 @@ const VMemList<AbstractReference>* DomArrayVariable::getReferences() const noexc
 }
 
 AbstractExtObject* DomArrayVariable::toClassExtObject(const UnicodeString* name, VTableRegistory* reg) {
-	ExtDomArrayObject* exobj = new ExtDomArrayObject();
+	ExtDomArrayObject* exobj = new ExtDomArrayObject(name);
 
 	int maxLoop = this->array->size();
 	for(int i = 0; i != maxLoop; ++i){

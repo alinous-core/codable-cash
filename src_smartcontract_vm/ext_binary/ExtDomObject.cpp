@@ -32,6 +32,7 @@ ExtDomObject::~ExtDomObject() {
 }
 
 void ExtDomObject::put(const UnicodeString* name, AbstractExtObject* value) noexcept {
+	value->setName(name);
 	this->properties->put(name, value);
 }
 

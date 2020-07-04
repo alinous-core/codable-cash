@@ -11,7 +11,7 @@
 
 namespace alinous {
 
-ExtDomArrayObject::ExtDomArrayObject() : AbstractExtObject(name, VmInstanceTypesConst::INST_DOM_ARRAY) {
+ExtDomArrayObject::ExtDomArrayObject(const UnicodeString* name) : AbstractExtObject(name, VmInstanceTypesConst::INST_DOM_ARRAY) {
 	this->list = new ArrayList<AbstractExtObject>();
 }
 
@@ -22,6 +22,14 @@ ExtDomArrayObject::~ExtDomArrayObject() {
 
 void ExtDomArrayObject::add(AbstractExtObject* obj) noexcept {
 	this->list->addElement(obj);
+}
+
+AbstractExtObject* ExtDomArrayObject::get(int pos) const noexcept {
+	return this->list->get(pos);
+}
+
+int ExtDomArrayObject::size() const noexcept {
+	return this->list->size();
 }
 
 } /* namespace alinous */

@@ -16,10 +16,12 @@ namespace alinous {
 
 class ExtDomArrayObject : public AbstractExtObject {
 public:
-	ExtDomArrayObject();
+	explicit ExtDomArrayObject(const UnicodeString* name);
 	virtual ~ExtDomArrayObject();
 
 	void add(AbstractExtObject* obj) noexcept;
+	AbstractExtObject* get(int pos) const noexcept;
+	int size() const noexcept;
 private:
 	ArrayList<AbstractExtObject>* list;
 };
