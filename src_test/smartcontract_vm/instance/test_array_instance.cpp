@@ -176,6 +176,8 @@ TEST(TestArrayInstanceGroup, arrayinstToExtObj){
 
 TEST(TestArrayInstanceGroup, arrayinstWrap){
 	VirtualMachine vm(1024 * 10);
+	GcManager* gc = vm.getGc();
+
 	VmRootReference* root = new(&vm) VmRootReference(&vm);
 
 	AnalyzedType atype(AnalyzedType::TYPE_INT);
@@ -184,12 +186,101 @@ TEST(TestArrayInstanceGroup, arrayinstWrap){
 	int dims[1] = {3};
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 	AbstractReference* ref = inst->wrap(root, &vm);
+	gc->registerObject(ref);
 
 	AnalyzedType at = inst->getRuntimeType();
 	CHECK(at.getType() == AnalyzedType::TYPE_INT);
 
+	gc->removeObject(ref);
+	gc->garbageCollect();
+
+	delete ref;
+	delete root;
+}
+
+TEST(TestArrayInstanceGroup, arrayinstWrapToStrong){
+	VirtualMachine vm(1024 * 10);
 	GcManager* gc = vm.getGc();
+
+	VmRootReference* root = new(&vm) VmRootReference(&vm);
+
+	AnalyzedType atype(AnalyzedType::TYPE_INT);
+	atype.setDim(1);
+
+	int dims[1] = {3};
+	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
+	AbstractReference* ref = inst->wrap(root, &vm);
 	gc->registerObject(ref);
+
+	const UnicodeString* str = ref->toString();
+	UnicodeString ans(L"0, 0, 0");
+
+	CHECK(ans.equals(str))
+
+	AnalyzedType at = inst->getRuntimeType();
+	CHECK(at.getType() == AnalyzedType::TYPE_INT);
+
+	gc->removeObject(ref);
+	gc->garbageCollect();
+
+	delete ref;
+	delete root;
+}
+
+TEST(TestArrayInstanceGroup, arrayinstWrapToStrong02){
+	VirtualMachine vm(1024 * 10);
+	GcManager* gc = vm.getGc();
+
+	VmRootReference* root = new(&vm) VmRootReference(&vm);
+
+	AnalyzedType atype(AnalyzedType::TYPE_INT);
+	atype.setDim(1);
+
+	int dims[1] = {3};
+	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
+	AbstractReference* ref = inst->wrap(root, &vm);
+	gc->registerObject(ref);
+
+	ref->substitute(nullptr, &vm);
+
+	const UnicodeString* str = ref->toString();
+
+	CHECK(AbstractReference::NULL_STR.equals(str))
+
+	AnalyzedType at = inst->getRuntimeType();
+	CHECK(at.getType() == AnalyzedType::TYPE_INT);
+
+	gc->removeObject(ref);
+	gc->garbageCollect();
+
+	delete ref;
+	delete root;
+}
+
+TEST(TestArrayInstanceGroup, arrayinstWrapToStrong03){
+	VirtualMachine vm(1024 * 10);
+	GcManager* gc = vm.getGc();
+
+	VmRootReference* root = new(&vm) VmRootReference(&vm);
+
+	AnalyzedType atype(AnalyzedType::TYPE_INT);
+	atype.setDim(1);
+
+	int dims[1] = {3};
+	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
+	AbstractReference* ref = inst->wrap(root, &vm);
+	gc->registerObject(ref);
+
+	inst->setReference(&vm, 1, nullptr);
+
+	const UnicodeString* str = ref->toString();
+	UnicodeString ans(L"0, null, 0");
+
+	CHECK(ans.equals(str))
+
+	AnalyzedType at = inst->getRuntimeType();
+	CHECK(at.getType() == AnalyzedType::TYPE_INT);
+
 	gc->removeObject(ref);
 	gc->garbageCollect();
 

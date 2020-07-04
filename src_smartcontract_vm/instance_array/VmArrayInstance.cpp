@@ -51,6 +51,10 @@ void VmArrayInstance::removeInnerRefs(GcManager* gc) noexcept {
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractReference* ref = this->array->get(i);
 
+		if(ref == nullptr){
+			continue;
+		}
+
 		// remove ref
 		if(!ref->isPrimitive()){
 			// ref->substitute(nullptr, gc);
@@ -145,6 +149,9 @@ void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReferenc
 			ref->setOwner(this);
 		}
 	}
+	else{
+		this->array->setElement(nullptr, pos);
+	}
 }
 
 AbstractReference* VmArrayInstance::getReference(VirtualMachine* vm, int pos) {
@@ -168,7 +175,7 @@ const UnicodeString* VmArrayInstance::toString() const noexcept {
 		}
 
 		if(ref == nullptr){
-			this->str->append(L", ");
+			this->str->append(L"null");
 		}
 		else {
 			const UnicodeString* s = ref->toString();
