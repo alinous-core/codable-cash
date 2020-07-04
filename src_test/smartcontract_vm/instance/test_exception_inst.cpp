@@ -24,10 +24,10 @@ TEST(TestExceptionInsttGroup, meg01){
 	VirtualMachine* vm = new VirtualMachine(1024*100); __STP(vm);
 
 	{
-		ExceptionClassDeclare* dec = new ExceptionClassDeclare();
+		ExceptionClassDeclare* dec = new ExceptionClassDeclare(); __STP(dec);
 
 		AnalyzedClass* clazz = new AnalyzedClass(dec); __STP(clazz);
-		VmExceptionInstance* inst = new(vm) VmExceptionInstance(clazz, vm);
+		VmExceptionInstance* inst = new(vm) VmExceptionInstance(clazz, vm); __STP(inst);
 
 		UnicodeString message(L"Hello");
 		inst->setMessage(&message);
