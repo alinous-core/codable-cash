@@ -302,6 +302,7 @@ void VirtualMachine::clearStack() noexcept {
 		this->stackManager->popStack();
 
 		this->gc->removeObject(stack);
+		stack->resetOnGc();
 	}
 }
 

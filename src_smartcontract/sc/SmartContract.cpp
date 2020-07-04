@@ -195,6 +195,7 @@ VmRootReference* SmartContract::getRootReference() const noexcept {
 }
 
 void SmartContract::clearRootReference(VirtualMachine* vm) noexcept {
+	this->rootReference->resetOnGc();
 	delete this->rootReference;
 	this->rootReference = nullptr;
 }
