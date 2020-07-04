@@ -95,3 +95,68 @@ TEST(TestClassObjectGroup, wrap01){
 	delete root;
 }
 
+TEST(TestClassObjectGroup, wrapToString01){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/inheritance/resources/case01/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	VmRootReference* root = new(util.vm) VmRootReference(util.vm);
+	AnalyzedType* class1 = util.findClassDeclare(L"test.fw.base.BaseClass"); __STP(class1);
+
+	VmClassInstance* inst1 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm);
+	AbstractReference* ref = inst1->wrap(root, util.vm);
+
+	const UnicodeString* str = ref->toString();
+
+	UnicodeString clazzName(L"test.fw.base.BaseClass");
+	CHECK(str->equals(clazzName))
+
+	GcManager* gc = util.vm->getGc();
+
+	gc->registerObject(ref);
+	gc->removeObject(ref);
+
+	gc->garbageCollect();
+
+	delete ref;
+	delete root;
+}
+
+TEST(TestClassObjectGroup, wrapToString02){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/inheritance/resources/case01/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	GcManager* gc = util.vm->getGc();
+
+	VmRootReference* root = new(util.vm) VmRootReference(util.vm);
+	AnalyzedType* class1 = util.findClassDeclare(L"test.fw.base.BaseClass"); __STP(class1);
+
+	VmClassInstance* inst1 = VmClassInstance::createObject(class1->getAnalyzedClass(), util.vm);
+	AbstractReference* ref = inst1->wrap(root, util.vm);
+	gc->registerObject(ref);
+
+	ref->substitute(nullptr, util.vm);
+
+	const UnicodeString* str = ref->toString();
+
+	UnicodeString clazzName(L"null");
+	CHECK(str->equals(clazzName))
+
+	gc->removeObject(ref);
+
+	gc->garbageCollect();
+
+	delete ref;
+	delete root;
+}

@@ -78,8 +78,7 @@ VmClassInstance* VmClassInstance::createObject(AnalyzedClass* clazz, VirtualMach
 }
 
 const UnicodeString* VmClassInstance::toString() const noexcept {
-	// FIXME VmClassInstance::toString()
-	return nullptr;
+	return this->clazz->getFullQualifiedName();
 }
 
 IVmInstanceFactory* VmClassInstance::findFactory(AnalyzedClass* clazz) noexcept {
