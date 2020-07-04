@@ -1,6 +1,7 @@
 
 set(testsrc
 	test_dom_base.cpp
+	test_dom_extobj.cpp
 	test_dom_parser.cpp
 	test_dom_variable.cpp
 	test_vm_bitset.cpp
