@@ -49,18 +49,38 @@ int InternalTypeChecker::analyzeCompatibility(AnalyzedType* leftType, AnalyzedTy
 	case AnalyzedType::TYPE_DOM:
 		retcode = checkDomObject(leftType, rightType);
 		break;
+	case AnalyzedType::TYPE_DOM_VALUE:
+		retcode = checkDomValue(leftType, rightType);
+		break;
 	default:
 		break;
 	}
 
 	return retcode;
+}
 
+
+int InternalTypeChecker::checkDomValue(AnalyzedType* leftType, AnalyzedType* rightType) {
+	uint8_t rightTypeCode = rightType->getType();
+
+	if(rightTypeCode == AnalyzedType::TYPE_DOM ||
+			rightTypeCode == AnalyzedType::TYPE_DOM_ARRAY ||
+			rightTypeCode == AnalyzedType::TYPE_DOM_VALUE ||
+			rightTypeCode == AnalyzedType::TYPE_STRING || rightType->isNull() || rightType->isBool() || rightType->isPrimitiveInteger()){
+		return OK;
+	}
+
+	return INCOMPATIBLE;
 }
 
 int InternalTypeChecker::checkDomObject(AnalyzedType* leftType,	AnalyzedType* rightType) {
 	uint8_t rightTypeCode = rightType->getType();
 
-	return OK;
+	if(rightTypeCode == AnalyzedType::TYPE_DOM || rightTypeCode == AnalyzedType::TYPE_DOM_ARRAY){
+		return OK;
+	}
+
+	return INCOMPATIBLE;
 }
 
 

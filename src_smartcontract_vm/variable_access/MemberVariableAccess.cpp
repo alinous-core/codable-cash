@@ -60,11 +60,15 @@ void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 		return;
 	}
 
-	TypeResolver* typeResolver = actx->getTypeResolver();
-
 	AnalyzedType atype = lastIinst->getAnalyzedType();
+	if(atype.getType() == AnalyzedType::TYPE_DOM){
+		analyzeDomType(actx, lastIinst);
+		return;
+	}
+
 	AnalyzedClass* clazz = atype.getAnalyzedClass();
 
+	TypeResolver* typeResolver = actx->getTypeResolver();
 	const UnicodeString* name = this->valId->getName();
 
 	ArrayList<MemberVariableDeclare>* list = clazz->getMemberVariableDeclareList();
@@ -85,6 +89,11 @@ void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 		actx->addValidationError(ValidationError::CODE_CLASS_MEMBER_DOES_NOT_EXISTS, this->valId, L"The variable '{0}' does not exists.", {name});
 		this->hasError = true;
 	}
+}
+
+
+void MemberVariableAccess::analyzeDomType(AnalyzeContext* actx,	AbstractVariableInstraction* lastIinst) {
+	this->atype = new AnalyzedType(AnalyzedType::TYPE_DOM_VALUE);
 }
 
 void MemberVariableAccess::analyzeStaticWithClassType(AnalyzeContext* actx,	AbstractVariableInstraction* lastIinst) {
@@ -134,6 +143,10 @@ AbstractVmInstance* MemberVariableAccess::interpret(VirtualMachine* vm, Abstract
 }
 
 bool MemberVariableAccess::hasErrorOnAnalyze() const noexcept {
+	if(this->atype != nullptr && this->atype->getType() == AnalyzedType::TYPE_DOM_VALUE){
+		return false;
+	}
+
 	return this->memberIndex < 0 && this->meta == nullptr;
 }
 

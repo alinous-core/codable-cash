@@ -56,3 +56,5 @@ TEST(TestDomExtObjGroup, case02){
 	const UnicodeString* str = propstr->getValue();
 	CHECK(str->equals(&value));
 }
+
+
