@@ -133,3 +133,31 @@ TEST(TestPrimitiveGroup, test12){
 	CHECK(at.getType() == AnalyzedType::TYPE_LONG);
 }
 
+TEST(TestPrimitiveGroup, test13){
+	VirtualMachine vm(1024 * 10);
+
+	PrimitiveReference* left = PrimitiveReference::createBoolReference(&vm, 0);  __STP(left);
+
+	AnalyzedType at = left->getRuntimeType();
+	CHECK(at.getType() == AnalyzedType::TYPE_BOOL);
+
+	UnicodeString t(L"false");
+	const UnicodeString* str = left->toString();
+
+	CHECK(t.equals(str));
+}
+
+TEST(TestPrimitiveGroup, test14){
+	VirtualMachine vm(1024 * 10);
+
+	PrimitiveReference* left = PrimitiveReference::createBoolReference(&vm, 1);  __STP(left);
+
+	AnalyzedType at = left->getRuntimeType();
+	CHECK(at.getType() == AnalyzedType::TYPE_BOOL);
+
+	UnicodeString t(L"true");
+	const UnicodeString* str = left->toString();
+
+	CHECK(t.equals(str));
+}
+

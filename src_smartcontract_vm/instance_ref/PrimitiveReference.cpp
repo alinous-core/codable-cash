@@ -460,6 +460,8 @@ const UnicodeString* PrimitiveReference::toString() const noexcept {
 		}else{
 			this->str->append(L"false");
 		}
+
+		return this->str;
 	}
 
 	int64_t value = getLongValue();
