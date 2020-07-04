@@ -21,6 +21,9 @@ public:
 	const CodeElement* getElement() const noexcept;
 
 	void setMessage(const UnicodeString* message) noexcept;
+	const UnicodeString* getMessage() const noexcept {
+		return this->message;
+	}
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* reg);
 	virtual const UnicodeString* toString() noexcept;
