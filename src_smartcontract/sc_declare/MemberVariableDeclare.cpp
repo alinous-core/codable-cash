@@ -16,6 +16,7 @@
 #include "sc_analyze/TypeResolver.h"
 #include "sc_analyze/AnalyzedType.h"
 #include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzedThisClassStackPopper.h"
 
 #include "sc_expression/AbstractExpression.h"
 
@@ -32,9 +33,11 @@
 
 #include "instance_gc/GcManager.h"
 
-#include "sc_analyze/AnalyzedThisClassStackPopper.h"
-
 #include "instance_gc/StackFloatingVariableHandler.h"
+
+#include "type_check/AnalyzedTypeChecker.h"
+#include "type_check/InternalTypeChecker.h"
+
 namespace alinous {
 
 MemberVariableDeclare::MemberVariableDeclare() : CodeElement(CodeElement::MEMBER_VARIABLE_DECLARE) {
@@ -91,6 +94,14 @@ void MemberVariableDeclare::analyze(AnalyzeContext* actx) {
 		AnalyzedThisClassStackPopper thispopper(actx, aclass);
 
 		this->exp->analyze(actx);
+
+		AnalyzedTypeChecker checker;
+		AnalyzedType exAt = this->exp->getType(actx);
+		int result = checker.checkCompatibility(actx, this->atype, &exAt);
+
+		if(result == InternalTypeChecker::INCOMPATIBLE){
+			actx->addValidationError(ValidationError::CODE_TYPE_INCOMPATIBLE, this, L"Initial variable is incompatible with variable declare .", {});
+		}
 	}
 }
 

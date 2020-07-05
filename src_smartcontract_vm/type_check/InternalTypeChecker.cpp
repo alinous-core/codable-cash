@@ -85,7 +85,7 @@ int InternalTypeChecker::checkDomObject(AnalyzedType* leftType,	AnalyzedType* ri
 
 
 int InternalTypeChecker::checkRightNull(AnalyzedType* leftType, AnalyzedType* rightType) {
-	if(!leftType->isPrimitiveInteger() && !leftType->isBool()){
+	if((!leftType->isPrimitiveInteger() && !leftType->isBool()) || leftType->isArray()){
 		return OK;
 	}
 
