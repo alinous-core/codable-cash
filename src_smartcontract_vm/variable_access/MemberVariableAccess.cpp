@@ -35,6 +35,13 @@
 
 #include "instance_ref_class_static/StaticClassEntry.h"
 
+#include "instance_dom/DomVariableInstance.h"
+
+#include "instance_string/VmStringInstance.h"
+
+#include "instance_gc/StackFloatingVariableHandler.h"
+
+#include "instance_dom/DomRuntimeReference.h"
 
 namespace alinous {
 
@@ -134,12 +141,38 @@ AbstractVmInstance* MemberVariableAccess::interpret(VirtualMachine* vm, Abstract
 		ExceptionInterrupt::interruptPoint(vm);
 	}
 
+	if(this->atype != nullptr && this->atype->getType() == AnalyzedType::TYPE_DOM_VALUE){
+		return interpretDomType(vm, lastInst);
+	}
+
 	VmClassInstance* clazzInst = dynamic_cast<VmClassInstance*>(lastInst->getInstance());
 
 	const VMemList<AbstractReference>* list = clazzInst->getReferences();
 	AbstractReference* ref = list->get(this->memberIndex);
 
 	return ref;
+}
+
+AbstractVmInstance* MemberVariableAccess::interpretDomType(VirtualMachine* vm, AbstractVmInstance* lastInst) {
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
+	IAbstractVmInstanceSubstance* inst = lastInst->getInstance();
+	DomVariableInstance* dom = dynamic_cast<DomVariableInstance*>(inst);
+
+	assert(dom != nullptr);
+
+	const UnicodeString* name = this->valId->getName();
+	VmStringInstance* key = new(vm) VmStringInstance(vm, name);
+	releaser.registerInstance(key);
+
+	DomRuntimeReference* rr = dom->getProperty(vm, key);
+	if(lastInst == nullptr){
+		NullPointerExceptionClassDeclare::throwException(vm, this->element);
+		ExceptionInterrupt::interruptPoint(vm);
+	}
+
+	return rr;
 }
 
 bool MemberVariableAccess::hasErrorOnAnalyze() const noexcept {

@@ -161,4 +161,8 @@ void DomVariableInstance::putProperty(VirtualMachine* vm, VmStringInstance* key,
 	}
 }
 
+DomRuntimeReference* DomVariableInstance::getProperty(VirtualMachine* vm, const VmStringInstance* key) noexcept {
+	return this->properties->get(key);
+}
+
 } /* namespace alinous */
