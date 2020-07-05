@@ -120,7 +120,7 @@ int InternalTypeChecker::checkObject(AnalyzedType* leftType, AnalyzedType* right
 
 int InternalTypeChecker::checkString(AnalyzedType* leftType, AnalyzedType* rightType) {
 	uint8_t rightTypeCode = rightType->getType();
-	if(rightTypeCode == AnalyzedType::TYPE_STRING){
+	if(rightTypeCode == AnalyzedType::TYPE_STRING || rightTypeCode == AnalyzedType::TYPE_DOM_VALUE){
 		return OK;
 	}
 
@@ -130,6 +130,10 @@ int InternalTypeChecker::checkString(AnalyzedType* leftType, AnalyzedType* right
 int InternalTypeChecker::checkPrimitive(AnalyzedType* leftType,	AnalyzedType* rightType) {
 	uint8_t leftTypeCode = leftType->getType();
 	uint8_t rightTypeCode = rightType->getType();
+
+	if(rightTypeCode == AnalyzedType::TYPE_DOM_VALUE){
+		return OK;
+	}
 
 	if(!rightType->isPrimitiveInteger()){
 		return INCOMPATIBLE;

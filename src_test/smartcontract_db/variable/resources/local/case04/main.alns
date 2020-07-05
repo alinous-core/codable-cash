@@ -8,9 +8,13 @@ class SmartContract {
 		var dom = {"id" : "test01"};
 		
 		dom.id = 100;
+		
+		this.result = dom.id;
 	}
 	
 	public int main(){
 
 	}
+	
+	private int result = 0;
 }
