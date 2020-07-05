@@ -12,6 +12,9 @@
 #include "../../smartcontract_vm/VmTestUtils.h"
 #include "vm/VirtualMachine.h"
 
+#include "ext_binary/ExtPrimitiveObject.h"
+#include "ext_binary/ExtClassObject.h"
+
 using namespace alinous;
 
 TEST_GROUP(TestDomVariableGroup) {
@@ -82,8 +85,15 @@ TEST(TestDomVariableGroup, testLocalDec04){
 	result = util.analyze();
 	CHECK(result)
 
-	//result = util.createInstance();
-	//CHECK(result)
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	UnicodeString strCount(L"result");
+	ExtPrimitiveObject* count = obj->getExtPrimitiveObject(&strCount);
+
+	int num = count->getIntValue();
+	CHECK(num == 100);
 }
 
 
