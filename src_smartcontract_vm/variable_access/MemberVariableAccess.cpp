@@ -167,7 +167,7 @@ AbstractVmInstance* MemberVariableAccess::interpretDomType(VirtualMachine* vm, A
 	releaser.registerInstance(key);
 
 	DomRuntimeReference* rr = dom->getProperty(vm, key);
-	if(lastInst == nullptr){
+	if(rr == nullptr){
 		NullPointerExceptionClassDeclare::throwException(vm, this->element);
 		ExceptionInterrupt::interruptPoint(vm);
 	}
