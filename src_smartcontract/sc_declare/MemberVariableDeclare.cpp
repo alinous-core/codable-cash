@@ -117,6 +117,7 @@ void MemberVariableDeclare::doOnAllocate(VirtualMachine* vm, AbstractReference* 
 	releaser.registerInstance(inst);
 
 	IAbstractVmInstanceSubstance* sub = inst != nullptr ? inst->getInstance() : nullptr;
+	vm->setLastElement(this);
 	ref->substitute(sub, vm);
 }
 

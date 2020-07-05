@@ -19,6 +19,9 @@
 #include "base/UnicodeString.h"
 #include "base/Long.h"
 
+#include "instance_exception/TypeCastExceptionClassDeclare.h"
+
+#include "instance_exception/ExceptionInterrupt.h"
 namespace alinous {
 
 PrimitiveReference::PrimitiveReference(uint8_t type) : AbstractReference(nullptr, type) {
@@ -288,7 +291,10 @@ void PrimitiveReference::substitute(IAbstractVmInstanceSubstance* rightValue, Vi
 
 	uint8_t type = getType();
 	PrimitiveReference* rightRef = dynamic_cast<PrimitiveReference*>(rightValue);
-	assert(rightRef != nullptr);
+	if(rightRef == nullptr){
+		TypeCastExceptionClassDeclare::throwException(vm, vm->getLastElement());
+		ExceptionInterrupt::interruptPoint(vm);
+	}
 
 	switch(type){
 	case VmInstanceTypesConst::REF_BOOL:

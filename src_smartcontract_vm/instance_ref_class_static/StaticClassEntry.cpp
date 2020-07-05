@@ -83,6 +83,7 @@ void StaticClassEntry::execInitialExpression(VirtualMachine* vm, AbstractReferen
 	AbstractVmInstance* inst = exp->interpret(vm);
 	releaser.registerInstance(inst);
 
+	vm->setLastElement(exp);
 	ref->substitute(inst != nullptr ? inst->getInstance() : nullptr, vm);
 }
 

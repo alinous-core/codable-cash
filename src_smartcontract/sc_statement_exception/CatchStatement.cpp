@@ -112,6 +112,8 @@ void CatchStatement::interpret(VirtualMachine* vm) {
 
 		this->variableDeclare->interpret(vm);
 		AbstractReference* ref = stack->get(0);
+
+		vm->setLastElement(this);
 		ref->substitute(exInstRef->getInstance(), vm);
 
 		this->block->interpret(vm);

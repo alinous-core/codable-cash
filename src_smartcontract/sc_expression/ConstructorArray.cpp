@@ -162,6 +162,7 @@ AbstractVmInstance* ConstructorArray::interpret(VirtualMachine* vm) {
 		arrayDim[i] = d;
 	}
 
+	vm->setLastElement(this);
 	return VmArrayInstanceUtils::buildArrayInstance(vm, arrayDim, dim, this->atype);
 }
 
