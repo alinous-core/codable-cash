@@ -1,0 +1,16 @@
+
+
+package test.fw;
+
+
+class SmartContract {
+	public SmartContract() {
+		var dom = {"id" : "test01"};
+		
+		dom.id = new Exception();
+	}
+	
+	public int main(){
+
+	}
+}

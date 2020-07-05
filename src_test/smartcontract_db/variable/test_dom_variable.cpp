@@ -18,6 +18,8 @@
 #include "instance_exception/NullPointerExceptionClassDeclare.h"
 
 #include "instance_exception/TypeCastExceptionClassDeclare.h"
+
+#include "sc_analyze/ValidationError.h"
 using namespace alinous;
 
 TEST_GROUP(TestDomVariableGroup) {
@@ -142,5 +144,33 @@ TEST(TestDomVariableGroup, testLocalDec06_err){
 }
 
 TEST(TestDomVariableGroup, testLocalDec07_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/variable/resources/local/case07_err/", projectFolder, this->env);
 
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(!result)
+
+	bool bl = util.vm->hasAnalyzeError(ValidationError::CODE_TYPE_INCOMPATIBLE);
+	CHECK(bl)
+}
+
+TEST(TestDomVariableGroup, testLocalDec08_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/variable/resources/local/case08_err/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(!result)
+
+	bool bl = util.vm->hasAnalyzeError(ValidationError::CODE_TYPE_INCOMPATIBLE);
+	CHECK(bl)
 }
