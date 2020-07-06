@@ -54,6 +54,9 @@ AbstractReference* RefereceFactory::createReferenceFromDefinition(IAbstractVmIns
 	case CodeElement::TYPE_LONG:
 		ref = PrimitiveReference::createLongReference(vm, 0);
 		break;
+	case AnalyzedType::TYPE_DOM:
+		ref = new(vm) DomVariableReference(owner, vm);
+		break;
 	case CodeElement::TYPE_OBJECT:
 	case CodeElement::TYPE_STRING:
 	default:

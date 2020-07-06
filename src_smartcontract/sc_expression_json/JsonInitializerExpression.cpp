@@ -95,6 +95,8 @@ AbstractVmInstance* JsonInitializerExpression::interpret(VirtualMachine* vm) {
 		DomRuntimeReference* rr = new(vm) DomRuntimeReference(inst, vm);
 		releaser.registerInstance(rr);
 
+		rr->substitute(valueInst != nullptr ? valueInst->getInstance() : nullptr, vm);
+
 		VmStringInstance* vmstr = new(vm) VmStringInstance(vm, name);
 		releaser.registerInstance(vmstr);
 

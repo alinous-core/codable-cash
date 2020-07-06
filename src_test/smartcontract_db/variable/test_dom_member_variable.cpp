@@ -20,6 +20,8 @@
 #include "instance_exception/TypeCastExceptionClassDeclare.h"
 
 #include "sc_analyze/ValidationError.h"
+
+#include "ext_binary/ExtStringClass.h"
 using namespace alinous;
 
 TEST_GROUP(TestDomMemberVariableGroup) {
@@ -45,3 +47,29 @@ TEST(TestDomMemberVariableGroup, case01){
 	result = util.createInstance();
 	CHECK(result)
 }
+
+TEST(TestDomMemberVariableGroup, case02){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/variable/resources/member/case02/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	UnicodeString strCount(L"str");
+	ExtStringClass* strObj = obj->getExtStringObject(&strCount);
+
+	const UnicodeString* str = strObj->getValue();
+	UnicodeString ans(L"test01");
+	CHECK(ans.equals(str));
+}
+
+
