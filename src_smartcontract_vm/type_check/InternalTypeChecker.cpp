@@ -76,7 +76,8 @@ int InternalTypeChecker::checkDomValue(AnalyzedType* leftType, AnalyzedType* rig
 int InternalTypeChecker::checkDomObject(AnalyzedType* leftType,	AnalyzedType* rightType) {
 	uint8_t rightTypeCode = rightType->getType();
 
-	if(rightTypeCode == AnalyzedType::TYPE_DOM || rightTypeCode == AnalyzedType::TYPE_DOM_ARRAY){
+	if(rightTypeCode == AnalyzedType::TYPE_DOM || rightTypeCode == AnalyzedType::TYPE_DOM_ARRAY
+			|| rightTypeCode == AnalyzedType::TYPE_DOM_VALUE){
 		return OK;
 	}
 

@@ -1,0 +1,18 @@
+
+
+package test.fw;
+
+
+class SmartContract {
+	public SmartContract() {
+		this.inner = value.inner;
+	}
+	
+	public int main(){
+
+	}
+	
+	private var value = {"id" : "test01", "inner" : {inid : "hello"}};
+	
+	private var inner;
+}

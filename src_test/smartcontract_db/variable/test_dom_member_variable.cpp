@@ -72,5 +72,20 @@ TEST(TestDomMemberVariableGroup, case02){
 	CHECK(ans.equals(str));
 }
 
+TEST(TestDomMemberVariableGroup, case03){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/variable/resources/member/case03/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	//result = util.createInstance();
+	//CHECK(result)
+}
 
 

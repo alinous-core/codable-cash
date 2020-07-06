@@ -951,7 +951,7 @@ VariableIdentifier* variableIdentifier() : {
 	Token* t = nullptr;
 }
 {
-	(t=<IDENTIFIER> | t="this" | t="super") {
+	t=identifierName() {
 		valId->setName(_STR(t));
 	}
 	{
@@ -959,6 +959,25 @@ VariableIdentifier* variableIdentifier() : {
 		return valId;
 	}
 }
+
+Token* identifierName() : {
+	Token* t = nullptr;
+}
+{
+	(t=<IDENTIFIER> | t="this" | t="super" | t=<INNER> | t=<OUTER>
+		| t=<FULL> | t=<JOIN> | t=<VALUES> | t=<CROSS> | t=<GROUP>
+		| t=<BY> | t=<HAVING> | t=<ORDER> | t=<ASC> | t=<DESC>
+		| t=<LIMIT> | t=<OFFSET> | t=<ON> | t=<AS> | t=<DISTINCT>
+		| t=<SHARE> | t=<NOWAIT> | t=<OF> | t=<IN> | t=<BETWEEN>
+		| t=<CREATE> | t=<DROP> | t=<TABLE> | t=<SQL_DEFAULT> | t=<ADD>
+		| t=<RENAME> | t=<COLUMN> | t=<TO> | t=<PRIMARY> | t=<KEY>
+		| t=<UNIQUE> | t=<CHECK> | t=<RETURNS> | t=<SETOF> | t=<LANGUAGE>
+		| t=<REPLACE> | t=<INDEX> | t=<USING> )
+	{
+		return t;
+	}
+}
+
 
 VariableIdentifier* typeIdentifier() : {
 	VariableIdentifier* valId = new VariableIdentifier();

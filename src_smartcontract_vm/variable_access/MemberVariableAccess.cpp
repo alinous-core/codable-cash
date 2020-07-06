@@ -68,7 +68,7 @@ void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 	}
 
 	AnalyzedType atype = lastIinst->getAnalyzedType();
-	if(atype.getType() == AnalyzedType::TYPE_DOM){
+	if(atype.getType() == AnalyzedType::TYPE_DOM || atype.getType() == AnalyzedType::TYPE_DOM_VALUE){
 		analyzeDomType(actx, lastIinst);
 		return;
 	}

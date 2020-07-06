@@ -298,11 +298,11 @@ ClassDeclareBlock* classDeclareBlock() :
 					}
 				]
 			
-				t=< IDENTIFIER >
+				t=identifierName()
 			)
 			|
 			(
-				t=< IDENTIFIER > // constructor
+				t=identifierName() // constructor
 			)	
 		)
 
