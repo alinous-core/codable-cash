@@ -51,22 +51,6 @@ bool DomVariableReference::isNull() const noexcept {
 	return this->inst == nullptr;
 }
 
-int DomVariableReference::valueCompare(const IAbstractVmInstanceSubstance* right) {
-	if(isNull()){
-		return right == nullptr ? 0 : -1;
-	}
-	else if(right == nullptr){
-		return isNull() ? 0 : 1;
-	}
-
-	const DomVariableInstance* objRight = dynamic_cast<const DomVariableInstance*>(right);
-	if(objRight == nullptr){
-		return -1;
-	}
-
-	return this->inst->valueCompare(objRight);
-}
-
 AbstractExtObject* DomVariableReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
 	return isNull() ? nullptr : this->inst->toClassExtObject(name, table);
 }
@@ -86,6 +70,13 @@ int DomVariableReference::valueCompare(const IAbstractVmInstanceSubstance* right
 	else if(right == nullptr){
 		return isNull() ? 0 : 1;
 	}
+
+	const DomVariableInstance* objRight = dynamic_cast<const DomVariableInstance*>(right);
+	if(objRight == nullptr){
+		return -1;
+	}
+
+	return this->inst->valueCompare(objRight);
 
 	return this->inst->instValueCompare(right);
 }
