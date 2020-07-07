@@ -70,3 +70,30 @@ TEST(TestInitClass, initClassObject){
 	int val = count->getIntValue();
 	CHECK(val == 5);
 }
+
+TEST(TestInitClass, initExtClassObject){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/variables/resources/initclass/init02/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+
+	ExtClassObject* obj2 = dynamic_cast<ExtClassObject*>(obj->copy()); __STP(obj2);
+
+	UnicodeString strObj(L"obj");
+	ExtClassObject* innerObj = obj2->getExtClassObject(&strObj);
+
+	UnicodeString strCount(L"count");
+	ExtPrimitiveObject* count = innerObj->getExtPrimitiveObject(&strCount);
+
+	int val = count->getIntValue();
+	CHECK(val == 5);
+}
