@@ -27,7 +27,7 @@ ExtExceptionObject::~ExtExceptionObject() {
 AbstractExtObject* ExtExceptionObject::copy() const noexcept {
 	ExtExceptionObject* newObj = new ExtExceptionObject(this->name);
 	newObj->element = this->element;
-	newObj->className = new UnicodeString(this->className);
+	newObj->className = this->className == nullptr ? nullptr : new UnicodeString(this->className);
 
 	return newObj;
 }
