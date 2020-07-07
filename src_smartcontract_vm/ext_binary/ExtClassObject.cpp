@@ -10,6 +10,7 @@
 #include "ext_binary/ExtArrayObject.h"
 #include "ext_binary/ExtStringClass.h"
 #include "ext_binary/ExtExceptionObject.h"
+#include "ext_binary/ExtDomObject.h"
 
 #include "base/UnicodeString.h"
 
@@ -73,6 +74,25 @@ ExtStringClass* alinous::ExtClassObject::getExtStringObject(const UnicodeString*
 	}
 
 	return dynamic_cast<ExtStringClass*>(obj);
+}
+
+ExtDomObject* ExtClassObject::getExtDomObject(const UnicodeString* name) const noexcept {
+	AbstractExtObject* obj = this->map->get(name);
+
+	return obj->isNull() ? nullptr : dynamic_cast<ExtDomObject*>(obj);
+}
+
+AbstractExtObject* ExtClassObject::copy() const noexcept {
+	ExtClassObject* newObj = new ExtClassObject(this->name);
+
+	int maxLoop = this->list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExtObject* obj = this->list->get(i);
+
+		newObj->add(obj == nullptr ? nullptr : obj->copy());
+	}
+
+	return newObj;
 }
 
 } /* namespace alinous */

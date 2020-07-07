@@ -40,4 +40,18 @@ AbstractExtObject* ExtDomObject::get(const UnicodeString* name) const noexcept {
 	return this->properties->get(name);
 }
 
+AbstractExtObject* ExtDomObject::copy() const noexcept {
+	ExtDomObject* newObj = new ExtDomObject(getName());
+
+	Iterator<UnicodeString>* it = this->properties->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const UnicodeString* key = it->next();
+		AbstractExtObject* exobj  = this->properties->get(key);
+
+		newObj->put(key, exobj->copy());
+	}
+
+	return newObj;
+}
+
 } /* namespace alinous */

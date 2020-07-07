@@ -21,6 +21,8 @@ public:
 
 	void put(const UnicodeString* name, AbstractExtObject* value) noexcept;
 	AbstractExtObject* get(const UnicodeString* name) const noexcept;
+
+	virtual AbstractExtObject* copy() const noexcept;
 private:
 	HashMap<UnicodeString, AbstractExtObject>* properties;
 };

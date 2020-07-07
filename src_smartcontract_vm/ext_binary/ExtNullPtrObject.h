@@ -18,6 +18,7 @@ public:
 	virtual ~ExtNullPtrObject();
 
 	virtual bool isNull() const noexcept;
+	virtual AbstractExtObject* copy() const noexcept;
 };
 
 } /* namespace alinous */

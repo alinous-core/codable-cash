@@ -21,6 +21,7 @@ public:
 	virtual ~ExtStringClass();
 
 	const UnicodeString* getValue() const noexcept;
+	virtual AbstractExtObject* copy() const noexcept;
 private:
 	UnicodeString* value;
 };

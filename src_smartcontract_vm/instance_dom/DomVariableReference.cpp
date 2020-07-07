@@ -77,8 +77,6 @@ int DomVariableReference::valueCompare(const IAbstractVmInstanceSubstance* right
 	}
 
 	return this->inst->valueCompare(objRight);
-
-	return this->inst->instValueCompare(right);
 }
 
 } /* namespace alinous */

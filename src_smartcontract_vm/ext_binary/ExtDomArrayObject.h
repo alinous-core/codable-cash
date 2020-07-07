@@ -22,6 +22,8 @@ public:
 	void add(AbstractExtObject* obj) noexcept;
 	AbstractExtObject* get(int pos) const noexcept;
 	int size() const noexcept;
+
+	virtual AbstractExtObject* copy() const noexcept;
 private:
 	ArrayList<AbstractExtObject>* list;
 };

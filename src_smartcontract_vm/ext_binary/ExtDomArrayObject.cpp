@@ -32,4 +32,17 @@ int ExtDomArrayObject::size() const noexcept {
 	return this->list->size();
 }
 
+AbstractExtObject* ExtDomArrayObject::copy() const noexcept {
+	ExtDomArrayObject* newObj = new ExtDomArrayObject(getName());
+
+	int maxLoop = this->list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExtObject* obj = this->list->get(i);
+
+		newObj->add(obj == nullptr ? nullptr : obj->copy());
+	}
+
+	return newObj;
+}
+
 } /* namespace alinous */

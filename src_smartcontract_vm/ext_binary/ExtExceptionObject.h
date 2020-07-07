@@ -24,6 +24,8 @@ public:
 
 	void setClassName(const UnicodeString* className) noexcept;
 	const UnicodeString* getClassName() const noexcept;
+
+	virtual AbstractExtObject* copy() const noexcept;
 private:
 	const CodeElement* element;
 	UnicodeString* className;

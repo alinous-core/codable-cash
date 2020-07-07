@@ -31,4 +31,17 @@ AbstractExtObject* ExtArrayObject::get(int i) const noexcept {
 	return this->array.get(i);
 }
 
+AbstractExtObject* ExtArrayObject::copy() const noexcept {
+	ExtArrayObject* newObj = new ExtArrayObject(getName(), this->length);
+
+	int maxLoop = this->array.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExtObject* obj = this->array.get(i);
+
+		newObj->addInnerElement(obj == nullptr ? nullptr : obj->copy());
+	}
+
+	return newObj;
+}
+
 } /* namespace alinous */

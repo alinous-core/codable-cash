@@ -38,6 +38,8 @@ public:
 	void setCharValue(int16_t value) noexcept;
 	int64_t getLongValue() const noexcept;
 	void setLongValue(int64_t value) noexcept;
+
+	virtual AbstractExtObject* copy() const noexcept;
 private:
 	uint8_t data[8];
 };

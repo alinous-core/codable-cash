@@ -14,14 +14,15 @@
 
 #include "ext_binary/ExtPrimitiveObject.h"
 #include "ext_binary/ExtClassObject.h"
+#include "ext_binary/ExtStringClass.h"
+#include "ext_binary/ExtDomObject.h"
 
 #include "instance_exception/NullPointerExceptionClassDeclare.h"
-
 #include "instance_exception/TypeCastExceptionClassDeclare.h"
 
 #include "sc_analyze/ValidationError.h"
 
-#include "ext_binary/ExtStringClass.h"
+
 using namespace alinous;
 
 TEST_GROUP(TestDomMemberVariableGroup) {
@@ -84,8 +85,20 @@ TEST(TestDomMemberVariableGroup, case03){
 	result = util.analyze();
 	CHECK(result)
 
-	//result = util.createInstance();
-	//CHECK(result)
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	UnicodeString ans(L"inner");
+	ExtDomObject* dom = obj->getExtDomObject(&ans);
+	CHECK(dom != nullptr)
+
+	UnicodeString inidstr(L"inid");
+	ExtStringClass* inid = dynamic_cast<ExtStringClass*>(dom->get(&inidstr));
+
+	const UnicodeString* v = inid->getValue();
+
+	CHECK(v->equals(UnicodeString(L"hello")))
 }
 
 

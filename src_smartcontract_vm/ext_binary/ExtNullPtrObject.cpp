@@ -19,4 +19,8 @@ bool ExtNullPtrObject::isNull() const noexcept {
 	return true;
 }
 
+AbstractExtObject* ExtNullPtrObject::copy() const noexcept {
+	return new ExtNullPtrObject(this->name, this->type);
+}
+
 } /* namespace alinous */
