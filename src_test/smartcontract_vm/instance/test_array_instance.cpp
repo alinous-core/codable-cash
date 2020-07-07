@@ -29,6 +29,7 @@
 #include "instance_ref/PrimitiveReference.h"
 #include "instance_ref/VmRootReference.h"
 
+#include "ext_binary/ExtArrayObject.h"
 using namespace alinous;
 
 TEST_GROUP(TestArrayInstanceGroup) {
@@ -164,6 +165,40 @@ TEST(TestArrayInstanceGroup, arrayinstToExtObj){
 	UnicodeString str(L"name");
 	VTableRegistory* table = nullptr;
 	AbstractExtObject* obj = ref->toClassExtObject(&str, table); __STP(obj);
+
+	GcManager* gc = vm.getGc();
+	gc->removeObject(ref);
+	gc->garbageCollect();
+
+	delete ref;
+	delete root;
+	delete p;
+}
+
+TEST(TestArrayInstanceGroup, arrayinstToExtObj02){
+	VirtualMachine vm(1024 * 10);
+
+	VmRootReference* root = new(&vm) VmRootReference(&vm);
+
+	AnalyzedType atype(AnalyzedType::TYPE_INT);
+	atype.setDim(1);
+
+	int dims[1] = {3};
+	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
+
+	AbstractReference* ref = new(&vm) ArrayReference(root, &vm);
+	ref->substitute(inst, &vm);
+
+
+	int32_t val = 1;
+	PrimitiveReference* p = PrimitiveReference::createIntReference(&vm, val);
+
+	UnicodeString str(L"name");
+	VTableRegistory* table = nullptr;
+	AbstractExtObject* obj = ref->toClassExtObject(&str, table); __STP(obj);
+
+	ExtArrayObject* exArray = dynamic_cast<ExtArrayObject*>(obj->copy()); __STP(exArray);
+	CHECK(exArray != nullptr)
 
 	GcManager* gc = vm.getGc();
 	gc->removeObject(ref);
