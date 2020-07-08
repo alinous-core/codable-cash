@@ -57,6 +57,35 @@ TEST(TestDomArrayGroup, case01){
 		int value = pr->getIntValue();
 		CHECK(value == i);
 	}
+}
 
+
+TEST(TestDomArrayGroup, case02){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/variable/resources/local_array/case01/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	UnicodeString ans(L"result");
+	ExtDomArrayObject* domArray = obj->getExtDomArrayObject(&ans);
+
+	int maxLoop = domArray->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExtObject* element = domArray->get(i);
+		ExtPrimitiveObject* pr = dynamic_cast<ExtPrimitiveObject*>(element);
+
+		int value = pr->getIntValue();
+		CHECK(value == i);
+	}
 }
 
