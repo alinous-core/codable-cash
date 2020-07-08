@@ -92,15 +92,10 @@ AbstractVmInstance* JsonInitializerExpression::interpret(VirtualMachine* vm) {
 		AbstractVmInstance* valueInst = exp->interpret(vm);
 		releaser.registerInstance(valueInst);
 
-		DomRuntimeReference* rr = new(vm) DomRuntimeReference(inst, vm);
-		releaser.registerInstance(rr);
-
-		rr->substitute(valueInst != nullptr ? valueInst->getInstance() : nullptr, vm);
-
 		VmStringInstance* vmstr = new(vm) VmStringInstance(vm, name);
 		releaser.registerInstance(vmstr);
 
-		inst->putProperty(vm, vmstr, rr);
+		inst->putProperty(vm, vmstr, valueInst != nullptr ? valueInst->getInstance() : nullptr);
 	}
 
 	return inst;

@@ -28,9 +28,8 @@
 namespace alinous {
 
 DomVariableInstance::DomVariableInstance(VirtualMachine* vm) : AbstractDomInstance(vm, VmInstanceTypesConst::INST_DOM) {
-	this->valueRef = nullptr;
 	this->properties = new(vm) VMemHashmap<VmStringInstance, DomRuntimeReference>(vm);
-	this->list = nullptr;
+	this->list = new(vm) VMemList<AbstractReference>(vm);
 }
 
 DomVariableInstance::~DomVariableInstance() {
@@ -39,11 +38,6 @@ DomVariableInstance::~DomVariableInstance() {
 }
 
 void DomVariableInstance::removeInnerRefs(GcManager* gc) noexcept {
-	if(this->valueRef != nullptr){
-		gc->removeObject(this->valueRef);
-		this->valueRef = nullptr;
-	}
-
 	Iterator<VmStringInstance>* it = this->properties->keySet()->iterator(); __STP(it);
 	while(it->hasNext()){
 		const VmStringInstance* key = it->next();
@@ -78,16 +72,16 @@ AnalyzedType DomVariableInstance::getRuntimeType() const noexcept {
 }
 
 const VMemList<AbstractReference>* DomVariableInstance::getReferences() const noexcept {
-	if(this->list == nullptr){
+	this->list->reset();
 
-		Iterator<VmStringInstance>* it = this->properties->keySet()->iterator(); __STP(it);
-		while(it->hasNext()){
-			const VmStringInstance* key = it->next();
-			DomRuntimeReference* ref = this->properties->get(key);
+	Iterator<VmStringInstance>* it = this->properties->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const VmStringInstance* key = it->next();
+		DomRuntimeReference* ref = this->properties->get(key);
 
-			this->list->addElement(ref);
-		}
+		this->list->addElement(ref);
 	}
+
 
 	return this->list;
 }
@@ -148,10 +142,12 @@ int DomVariableInstance::valueCompare(const IAbstractVmInstanceSubstance* right)
 	return diff > 0 ? 1 : -1;
 }
 
-void DomVariableInstance::putProperty(VirtualMachine* vm, VmStringInstance* key, DomRuntimeReference* rr) noexcept {
+void DomVariableInstance::putProperty(VirtualMachine* vm, const VmStringInstance* key, IAbstractVmInstanceSubstance* substance) noexcept {
 	GcManager* gc = vm->getGc();
 
-	rr->setOwner(this);
+	DomRuntimeReference* rr = new(vm) DomRuntimeReference(this, vm);
+	rr->substitute(substance, vm);
+
 	gc->registerObject(rr);
 
 	DomRuntimeReference* lastrr = this->properties->put(key, rr);

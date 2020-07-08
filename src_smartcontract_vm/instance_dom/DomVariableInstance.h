@@ -45,10 +45,9 @@ public:
 
 	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 
-	void putProperty(VirtualMachine* vm, VmStringInstance* key, DomRuntimeReference* rr) noexcept;
+	void putProperty(VirtualMachine* vm, const VmStringInstance* key, IAbstractVmInstanceSubstance* substance) noexcept;
 	DomRuntimeReference* getProperty(VirtualMachine* vm, const VmStringInstance* key) noexcept;
 private:
-	AbstractReference* valueRef;
 	VMemHashmap<VmStringInstance, DomRuntimeReference>* properties;
 
 	mutable VMemList<AbstractReference>* list;
