@@ -38,6 +38,26 @@ TEST(TestDomExtObjGroup, case01){
 	CHECK(str->equals(&value));
 }
 
+TEST(TestDomExtObjGroup, case01withCopy){
+	UnicodeString name(L"dom");
+	ExtDomObject obj(&name);
+
+	UnicodeString namestr(L"str");
+	UnicodeString value(L"hello");
+	ExtStringClass* strObj = new ExtStringClass(&namestr, &value);
+
+	obj.put(&namestr, strObj);
+
+	ExtDomObject* obj2 = dynamic_cast<ExtDomObject*>(obj.copy()); __STP(obj2);
+
+
+	AbstractExtObject* prop = obj2->get(&namestr);
+	ExtStringClass* propstr = dynamic_cast<ExtStringClass*>(prop);
+
+	const UnicodeString* str = propstr->getValue();
+	CHECK(str->equals(&value));
+}
+
 TEST(TestDomExtObjGroup, case02){
 	UnicodeString name(L"domar");
 	ExtDomArrayObject obj(&name);
