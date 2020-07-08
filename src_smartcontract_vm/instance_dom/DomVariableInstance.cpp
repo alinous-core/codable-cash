@@ -24,17 +24,20 @@
 
 #include "ext_binary/ExtDomObject.h"
 
+#include "instance_string/VmStringInstance.h"
 
 namespace alinous {
 
 DomVariableInstance::DomVariableInstance(VirtualMachine* vm) : AbstractDomInstance(vm, VmInstanceTypesConst::INST_DOM) {
 	this->properties = new(vm) VMemHashmap<VmStringInstance, DomRuntimeReference>(vm);
 	this->list = new(vm) VMemList<AbstractReference>(vm);
+	this->str = nullptr;
 }
 
 DomVariableInstance::~DomVariableInstance() {
 	delete this->properties;
 	delete this->list;
+	delete this->str;
 }
 
 void DomVariableInstance::removeInnerRefs(GcManager* gc) noexcept {
@@ -128,7 +131,42 @@ AbstractExtObject* DomVariableInstance::instToClassExtObject(const UnicodeString
 }
 
 const UnicodeString* DomVariableInstance::toString() const noexcept {
-	return nullptr;
+	delete this->str;
+	this->str = new UnicodeString(L"{");
+
+	bool first = true;
+	Iterator<VmStringInstance>* it = this->properties->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const VmStringInstance* vmstr = it->next();
+		AbstractReference* ref = this->properties->get(vmstr);
+
+		if(first){
+			first = false;
+		}else{
+			this->str->append(L", ");
+		}
+
+		const UnicodeString* key = vmstr->toString();
+		this->str->append(key);
+
+		this->str->append(L" : ");
+
+		const UnicodeString* refstr = ref != nullptr ? ref->toString() : &AbstractReference::NULL_STR;
+
+		if(ref != nullptr && !ref->isDom() && !ref->isPrimitive()){
+			this->str->append(L"\"");
+		}
+
+		this->str->append(refstr);
+
+		if(ref != nullptr && !ref->isDom() && !ref->isPrimitive()){
+			this->str->append(L"\"");
+		}
+	}
+
+	this->str->append(L"}");
+
+	return this->str;
 }
 
 int DomVariableInstance::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {

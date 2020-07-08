@@ -34,6 +34,7 @@ public:
 	ReferenceStatus* getReferenceStatus(const IAbstractVmInstanceSubstance* ref) const noexcept;
 
 	void garbageCollect();
+	bool isEmpty() const noexcept;
 private:
 	void addToRemoveble(ReferenceStatus* status) noexcept;
 	void addToNeedCheck(ReferenceStatus* status) noexcept;

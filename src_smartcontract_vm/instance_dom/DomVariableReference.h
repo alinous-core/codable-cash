@@ -25,6 +25,7 @@ public:
 	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
 	virtual void resetOnGc() noexcept;
 	virtual bool isNull() const noexcept;
+	virtual bool isDom() const noexcept;
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
 	virtual const UnicodeString* toString() const noexcept;

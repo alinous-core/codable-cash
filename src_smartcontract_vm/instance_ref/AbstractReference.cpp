@@ -29,6 +29,11 @@ bool AbstractReference::isReference() const noexcept {
 	return true;
 }
 
+bool AbstractReference::isDom() const noexcept {
+	return false;
+}
+
+
 void AbstractReference::substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm) {
 }
 

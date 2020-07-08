@@ -58,11 +58,15 @@ AbstractExtObject* DomVariableReference::toClassExtObject(const UnicodeString* n
 }
 
 const UnicodeString* DomVariableReference::toString() const noexcept {
-	return isNull() ? &AbstractReference::NULL_STR : toString();
+	return isNull() ? &AbstractReference::NULL_STR : this->inst->toString();
 }
 
 void DomVariableReference::resetOnGc() noexcept {
 	this->inst = nullptr;
+}
+
+bool DomVariableReference::isDom() const noexcept {
+	return true;
 }
 
 int DomVariableReference::valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept {

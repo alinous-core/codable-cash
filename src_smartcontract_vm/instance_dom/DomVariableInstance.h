@@ -51,6 +51,7 @@ private:
 	VMemHashmap<VmStringInstance, DomRuntimeReference>* properties;
 
 	mutable VMemList<AbstractReference>* list;
+	mutable UnicodeString* str;
 };
 
 } /* namespace alinous */

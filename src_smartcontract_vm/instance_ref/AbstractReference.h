@@ -24,6 +24,7 @@ public:
 	virtual bool isPrimitive() const noexcept;
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept = 0;
 	virtual bool isReference() const noexcept;
+	virtual bool isDom() const noexcept;
 
 	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
 	virtual void resetOnGc() noexcept = 0;

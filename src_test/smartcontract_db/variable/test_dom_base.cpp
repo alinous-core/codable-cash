@@ -117,5 +117,45 @@ TEST(TestDomBaseGroup, case05){
 		gc->removeObject(ref);
 
 		gc->garbageCollect();
+
+		CHECK(gc->isEmpty());
 	}
+}
+
+TEST(TestDomBaseGroup, case06){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+	GcManager* gc = vm->getGc();
+
+	{
+		VmRootReference* root = new(vm) VmRootReference(vm); __STP(root);
+		UnicodeString prop(L"prop");
+		UnicodeString prop2(L"prop2");
+		UnicodeString value(L"value");
+		UnicodeString value2(L"value2");
+
+		DomVariableInstance* dom = new(vm) DomVariableInstance(vm);
+		VmStringInstance* vmstr = new(vm) VmStringInstance(vm, &prop); __STP(vmstr);
+		VmStringInstance* vmstr2 = new(vm) VmStringInstance(vm, &prop2); __STP(vmstr2);
+
+		VmStringInstance* vmvalue = new(vm) VmStringInstance(vm, &value);
+		VmStringInstance* vmvalue2 = new(vm) VmStringInstance(vm, &value2);
+
+		dom->putProperty(vm, vmstr, vmvalue);
+		dom->putProperty(vm, vmstr2, vmvalue2);
+
+		AbstractReference* ref = dom->wrap(root, vm); __STP(ref);
+
+		const UnicodeString* tostr = ref->toString();
+
+		UnicodeString pattern(L"{prop2 : \"value2\", prop : \"value\"}");
+		UnicodeString pattern2(L"{prop : \"value\", prop2 : \"value2\"}");
+
+		CHECK(tostr->equals(pattern) || tostr->equals(pattern2));
+
+		gc->removeObject(ref);
+		gc->garbageCollect();
+
+		CHECK(gc->isEmpty());
+	}
+
 }

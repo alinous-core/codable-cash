@@ -229,5 +229,9 @@ void GcManager::handleFloatingObject(IAbstractVmInstanceSubstance* refered) noex
 	delete refered;
 }
 
+bool GcManager::isEmpty() const noexcept {
+	return this->statuses.isEmpty();
+}
+
 
 } /* namespace alinous */
