@@ -10,8 +10,6 @@
 
 #include "instance_dom/AbstractDomInstance.h"
 
-#include "instance/IInstanceContainer.h"
-
 #include "instance_parts/VMemHashmap.h"
 
 #include "instance_string/VmStringInstance.h"
@@ -23,7 +21,7 @@ class AbstractReference;
 class DomVariableReference;
 class DomRuntimeReference;
 
-class DomVariableInstance : public AbstractDomInstance, public IInstanceContainer {
+class DomVariableInstance : public AbstractDomInstance {
 public:
 	explicit DomVariableInstance(VirtualMachine* vm);
 	virtual ~DomVariableInstance();

@@ -15,6 +15,8 @@
 
 #include "instance_gc/GcManager.h"
 
+#include "instance_dom/AbstractDomInstance.h"
+
 namespace alinous {
 
 DomVariableReference::DomVariableReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm)
@@ -39,7 +41,7 @@ void DomVariableReference::substitute(IAbstractVmInstanceSubstance* rightValue, 
 	}
 
 	if(rightValue != nullptr && !rightValue->instIsNull()){
-		this->inst = dynamic_cast<DomVariableInstance*>(rightValue);
+		this->inst = dynamic_cast<AbstractDomInstance*>(rightValue);
 		gc->registerObject(this);
 	}
 	else {

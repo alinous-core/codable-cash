@@ -9,12 +9,13 @@
 #define INSTANCE_DOM_ABSTRACTDOMINSTANCE_H_
 
 #include "instance/AbstractVmInstance.h"
+#include "instance/IInstanceContainer.h"
 
 namespace alinous {
 
 class VirtualMachine;
 
-class AbstractDomInstance : public AbstractVmInstance {
+class AbstractDomInstance : public AbstractVmInstance, public IInstanceContainer {
 public:
 	AbstractDomInstance(VirtualMachine* vm, uint8_t type);
 	virtual ~AbstractDomInstance();

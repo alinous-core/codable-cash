@@ -11,6 +11,7 @@
 #include "ext_binary/ExtStringClass.h"
 #include "ext_binary/ExtExceptionObject.h"
 #include "ext_binary/ExtDomObject.h"
+#include "ext_binary/ExtDomArrayObject.h"
 
 #include "base/UnicodeString.h"
 
@@ -33,7 +34,7 @@ ExtClassObject::~ExtClassObject() {
 
 void ExtClassObject::add(AbstractExtObject* obj) noexcept {
 	this->list->addElement(obj);
-	this->map->put(obj->getName(), obj);
+	this->map->put(obj == nullptr ? nullptr : obj->getName(), obj);
 }
 
 ExtPrimitiveObject* ExtClassObject::getExtPrimitiveObject(const UnicodeString* name) const noexcept {
@@ -80,6 +81,12 @@ ExtDomObject* ExtClassObject::getExtDomObject(const UnicodeString* name) const n
 	AbstractExtObject* obj = this->map->get(name);
 
 	return obj->isNull() ? nullptr : dynamic_cast<ExtDomObject*>(obj);
+}
+
+ExtDomArrayObject* ExtClassObject::getExtDomArrayObject(const UnicodeString* name) const noexcept {
+	AbstractExtObject* obj = this->map->get(name);
+
+	return (obj == nullptr || obj->isNull()) ? nullptr : dynamic_cast<ExtDomArrayObject*>(obj);
 }
 
 AbstractExtObject* ExtClassObject::copy() const noexcept {

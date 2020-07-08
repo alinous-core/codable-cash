@@ -20,7 +20,7 @@ class VirtualMachine;
 class UnicodeString;
 class DomRuntimeReference;
 
-class DomArrayVariable : public AbstractDomInstance, public IInstanceContainer {
+class DomArrayVariable : public AbstractDomInstance {
 public:
 	explicit DomArrayVariable(VirtualMachine* vm);
 	virtual ~DomArrayVariable();

@@ -14,7 +14,7 @@ namespace alinous {
 
 class IAbstractVmInstanceSubstance;
 class VirtualMachine;
-class DomVariableInstance;
+class AbstractDomInstance;
 
 class DomVariableReference : public AbstractReference {
 public:
@@ -32,7 +32,7 @@ public:
 	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 
 private:
-	DomVariableInstance* inst;
+	AbstractDomInstance* inst;
 };
 
 } /* namespace alinous */
