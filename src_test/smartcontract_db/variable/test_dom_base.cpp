@@ -157,5 +157,49 @@ TEST(TestDomBaseGroup, case06){
 
 		CHECK(gc->isEmpty());
 	}
-
 }
+
+TEST(TestDomBaseGroup, case07){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+	GcManager* gc = vm->getGc();
+
+	{
+		VmRootReference* root = new(vm) VmRootReference(vm); __STP(root);
+		DomVariableInstance* dom = new(vm) DomVariableInstance(vm);
+
+		AbstractReference* ref = dom->wrap(root, vm); __STP(ref);
+
+		int result = dom->instValueCompare(nullptr);
+		CHECK(result != -1)
+
+		result = dom->instValueCompare(dom);
+		CHECK(result == 0)
+
+		gc->removeObject(ref);
+		gc->garbageCollect();
+
+		CHECK(gc->isEmpty());
+	}
+}
+
+TEST(TestDomBaseGroup, case08){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+	GcManager* gc = vm->getGc();
+
+	{
+		VmRootReference* root = new(vm) VmRootReference(vm); __STP(root);
+		DomVariableInstance* dom = new(vm) DomVariableInstance(vm);
+
+		AbstractReference* ref = dom->wrap(root, vm); __STP(ref);
+
+		UnicodeString str(L"name");
+		VTableRegistory* table = nullptr;
+		dom->instToClassExtObject(&str, table);
+
+		gc->removeObject(ref);
+		gc->garbageCollect();
+
+		CHECK(gc->isEmpty());
+	}
+}
+
