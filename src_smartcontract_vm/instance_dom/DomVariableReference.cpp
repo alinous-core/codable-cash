@@ -77,7 +77,7 @@ int DomVariableReference::valueCompare(const IAbstractVmInstanceSubstance* right
 		return isNull() ? 0 : 1;
 	}
 
-	const DomVariableInstance* objRight = dynamic_cast<const DomVariableInstance*>(right);
+	const AbstractDomInstance* objRight = dynamic_cast<const AbstractDomInstance*>(right);
 	if(objRight == nullptr){
 		return -1;
 	}

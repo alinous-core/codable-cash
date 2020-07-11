@@ -130,3 +130,31 @@ TEST(TestDomArrayBaseGroup, case04){
 		gc->garbageCollect();
 	}
 }
+
+TEST(TestDomArrayBaseGroup, case05){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+	GcManager* gc = vm->getGc();
+
+	{
+		VmRootReference* root = new(vm) VmRootReference(vm); __STP(root);
+
+		DomArrayVariable* val = new(vm) DomArrayVariable(vm);
+		AbstractReference* ref = val->wrap(root, vm);
+		gc->registerObject(ref);
+
+		DomArrayVariable* val2 = new(vm) DomArrayVariable(vm);
+		AbstractReference* ref2 = val2->wrap(root, vm);
+		gc->registerObject(ref2);
+
+
+		CHECK(val->instValueCompare(val) == 0)
+		CHECK(val->instValueCompare(val2) != 0)
+
+		CHECK(ref->valueCompare(ref->getInstance()) == 0);
+		CHECK(ref->valueCompare(ref2->getInstance()) != 0);
+
+		gc->removeObject(ref);
+		gc->removeObject(ref2);
+		gc->garbageCollect();
+	}
+}
