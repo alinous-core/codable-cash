@@ -21,6 +21,9 @@
 #include "instance_string/VmStringInstance.h"
 
 #include "instance_dom/DomRuntimeReference.h"
+
+#include "ext_binary/AbstractExtObject.h"
+
 using namespace alinous;
 
 TEST_GROUP(TestDomBaseGroup) {
@@ -194,7 +197,7 @@ TEST(TestDomBaseGroup, case08){
 
 		UnicodeString str(L"name");
 		VTableRegistory* table = nullptr;
-		dom->instToClassExtObject(&str, table);
+		AbstractExtObject* ext = dom->instToClassExtObject(&str, table); __STP(ext);
 
 		gc->removeObject(ref);
 		gc->garbageCollect();
