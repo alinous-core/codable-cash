@@ -48,6 +48,7 @@ public:
 private:
 	VMemList<DomRuntimeReference>* array;
 	mutable UnicodeString* str;
+	mutable VMemList<AbstractReference> list;
 };
 
 } /* namespace alinous */

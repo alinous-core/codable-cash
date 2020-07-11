@@ -42,6 +42,9 @@ TEST(TestDomArrayBaseGroup, case01){
 		AnalyzedType at = val->getRuntimeType();
 
 		CHECK(at.getType() == AnalyzedType::TYPE_DOM_ARRAY);
+
+		const VMemList<AbstractReference>* list = val->getInstReferences();
+		CHECK(list->size() == 0);
 	}
 }
 

@@ -24,7 +24,7 @@
 
 namespace alinous {
 
-DomArrayVariable::DomArrayVariable(VirtualMachine* vm) : AbstractDomInstance(vm, VmInstanceTypesConst::INST_DOM_ARRAY) {
+DomArrayVariable::DomArrayVariable(VirtualMachine* vm) : AbstractDomInstance(vm, VmInstanceTypesConst::INST_DOM_ARRAY), list(vm, 1) {
 	this->array = new(vm) VMemList<DomRuntimeReference>(vm);
 	this->str = nullptr;
 }
@@ -70,7 +70,16 @@ void DomArrayVariable::removeInnerRefs(GcManager* gc) noexcept {
 }
 
 const VMemList<AbstractReference>* DomArrayVariable::getReferences() const noexcept {
-	return dynamic_cast<const VMemList<AbstractReference>*>(this->array);
+	this->list.reset();
+
+	int maxLoop = this->array->size();
+	for(int i = 0; i != maxLoop; ++i){
+		DomRuntimeReference* ref = this->array->get(i);
+
+		this->list.addElement(ref);
+	}
+
+	return &this->list;
 }
 
 AbstractExtObject* DomArrayVariable::toClassExtObject(const UnicodeString* name, VTableRegistory* reg) {
