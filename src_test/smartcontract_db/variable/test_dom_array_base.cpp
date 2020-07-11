@@ -25,6 +25,7 @@
 #include "instance_dom/DomRuntimeReference.h"
 #include "instance_dom/DomArrayVariable.h"
 
+#include "ext_binary/AbstractExtObject.h"
 
 using namespace alinous;
 
@@ -96,6 +97,36 @@ TEST(TestDomArrayBaseGroup, case03){
 
 		gc->removeObject(ref);
 
+		gc->garbageCollect();
+	}
+}
+
+TEST(TestDomArrayBaseGroup, case04){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+	GcManager* gc = vm->getGc();
+
+	{
+		VmRootReference* root = new(vm) VmRootReference(vm); __STP(root);
+
+		DomArrayVariable* val = new(vm) DomArrayVariable(vm);
+		AbstractReference* ref = val->wrap(root, vm);
+
+		gc->registerObject(ref);
+
+		PrimitiveReference* pr = PrimitiveReference::createIntReference(vm ,1);
+		val->add(vm, pr);
+		PrimitiveReference* pr2 = PrimitiveReference::createIntReference(vm ,2);
+		val->add(vm, pr2);
+		val->add(vm, nullptr);
+
+
+		UnicodeString str(L"name");
+		VTableRegistory* table = nullptr;
+		AbstractExtObject* ext = val->instToClassExtObject(&str, table); __STP(ext);
+
+		CHECK(ext != nullptr)
+
+		gc->removeObject(ref);
 		gc->garbageCollect();
 	}
 }
