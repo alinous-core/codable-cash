@@ -14,6 +14,7 @@
 
 #include "instance_ref/VmRootReference.h"
 #include "instance_ref/AbstractReference.h"
+#include "instance_ref/PrimitiveReference.h"
 
 #include "instance_gc/GcManager.h"
 
@@ -23,6 +24,7 @@
 
 #include "instance_dom/DomRuntimeReference.h"
 #include "instance_dom/DomArrayVariable.h"
+
 
 using namespace alinous;
 
@@ -42,9 +44,58 @@ TEST(TestDomArrayBaseGroup, case01){
 		AnalyzedType at = val->getRuntimeType();
 
 		CHECK(at.getType() == AnalyzedType::TYPE_DOM_ARRAY);
-
-		const VMemList<AbstractReference>* list = val->getInstReferences();
-		CHECK(list->size() == 0);
 	}
 }
 
+TEST(TestDomArrayBaseGroup, case02){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+	GcManager* gc = vm->getGc();
+
+	{
+		VmRootReference* root = new(vm) VmRootReference(vm); __STP(root);
+
+		DomArrayVariable* val = new(vm) DomArrayVariable(vm);
+		AbstractReference* ref = val->wrap(root, vm);
+
+		gc->registerObject(ref);
+
+		PrimitiveReference* pr = PrimitiveReference::createIntReference(vm ,1);
+		val->add(vm, pr);
+
+		const VMemList<AbstractReference>* list = val->getInstReferences();
+		CHECK(list->size() == 1);
+
+		gc->removeObject(ref);
+
+		gc->garbageCollect();
+	}
+}
+
+TEST(TestDomArrayBaseGroup, case03){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+	GcManager* gc = vm->getGc();
+
+	{
+		VmRootReference* root = new(vm) VmRootReference(vm); __STP(root);
+
+		DomArrayVariable* val = new(vm) DomArrayVariable(vm);
+		AbstractReference* ref = val->wrap(root, vm);
+
+		gc->registerObject(ref);
+
+		PrimitiveReference* pr = PrimitiveReference::createIntReference(vm ,1);
+		val->add(vm, pr);
+		PrimitiveReference* pr2 = PrimitiveReference::createIntReference(vm ,2);
+		val->add(vm, pr2);
+
+		val->add(vm, nullptr);
+
+		const UnicodeString* str = ref->toString();
+		UnicodeString ans(L"[1, 2, null]");
+		CHECK(ans.equals(str));
+
+		gc->removeObject(ref);
+
+		gc->garbageCollect();
+	}
+}
