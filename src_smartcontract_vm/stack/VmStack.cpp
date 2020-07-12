@@ -63,9 +63,8 @@ void VmStack::removeInnerRefs(GcManager* gc) noexcept {
 		delete ref;
 	}
 
-
+	this->stack->reset();
 }
-
 
 AbstractReference* VmStack::get(int pos) const noexcept {
 	return this->stack->get(pos);
