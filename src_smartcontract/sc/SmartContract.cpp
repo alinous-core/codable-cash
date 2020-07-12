@@ -230,7 +230,7 @@ VmClassInstance* SmartContract::createInstance(VirtualMachine* vm) {
 
 	this->rootReference->setMainInstance(inst);
 
-	ObjectReference* instRef = ObjectReference::createObjectReference(stack, inst, vm, false);
+	ObjectReference* instRef = ObjectReference::createObjectReference(stack, inst, vm);
 	stack->addInnerReference(instRef);
 
 	// exec constructor

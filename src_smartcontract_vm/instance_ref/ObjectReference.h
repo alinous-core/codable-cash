@@ -24,9 +24,7 @@ public:
 	virtual ~ObjectReference();
 
 	static ObjectReference* createObjectReference(IAbstractVmInstanceSubstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm);
-	static ObjectReference* createObjectReference(IAbstractVmInstanceSubstance* owner, VmClassInstance* clazzInst, VirtualMachine* vm, bool doGc);
 	static ObjectReference* createStringReference(IAbstractVmInstanceSubstance* owner, VmStringInstance* clazzInst, VirtualMachine* vm);
-	static ObjectReference* createStringReference(IAbstractVmInstanceSubstance* owner, VmStringInstance* clazzInst, VirtualMachine* vm, bool doGc);
 
 	virtual bool isPrimitive() const noexcept;
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;

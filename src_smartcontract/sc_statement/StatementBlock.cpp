@@ -318,7 +318,7 @@ void StatementBlock::interpretFunctionArguments(VirtualMachine* vm) {
 
 	if(!method->isStatic()){
 		VmClassInstance* _this = args->getThisPtr();
-		ObjectReference* ref = ObjectReference::createObjectReference(stack, _this, vm, false);
+		ObjectReference* ref = ObjectReference::createObjectReference(stack, _this, vm);
 
 		stack->addInnerReference(ref);
 	}
@@ -333,7 +333,7 @@ void StatementBlock::interpretFunctionArguments(VirtualMachine* vm) {
 			stack->addInnerReference(inst->wrap(stack, vm));
 		}
 		else{
-			ObjectReference* ref = ObjectReference::createObjectReference(stack, nullptr, vm, false);
+			ObjectReference* ref = ObjectReference::createObjectReference(stack, nullptr, vm);
 			stack->addInnerReference(ref);
 		}
 	}
