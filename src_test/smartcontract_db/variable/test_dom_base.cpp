@@ -50,6 +50,7 @@ TEST(TestDomBaseGroup, case02){
 
 		DomVariableInstance* dom = new(vm) DomVariableInstance(vm);
 		AbstractReference* ref = dom->wrap(root, vm); __STP(ref);
+		gc->registerObject(ref);
 
 		gc->removeObject(ref);
 
@@ -66,6 +67,7 @@ TEST(TestDomBaseGroup, case03){
 
 		DomVariableInstance* dom = new(vm) DomVariableInstance(vm);
 		AbstractReference* ref = dom->wrap(root, vm); __STP(ref);
+		gc->registerObject(ref);
 
 		AnalyzedType at = dom->getRuntimeType();
 		CHECK(at.getType() == AnalyzedType::TYPE_DOM)
@@ -90,6 +92,7 @@ TEST(TestDomBaseGroup, case04){
 		dom->putProperty(vm, vmstr, nullptr);
 
 		AbstractReference* ref = dom->wrap(root, vm); __STP(ref);
+		gc->registerObject(ref);
 
 		const VMemList<AbstractReference>* list = dom->getInstReferences();
 
@@ -114,6 +117,7 @@ TEST(TestDomBaseGroup, case05){
 		dom->putProperty(vm, vmstr, nullptr);
 
 		AbstractReference* ref = dom->wrap(root, vm); __STP(ref);
+		gc->registerObject(ref);
 
 		const VMemList<AbstractReference>* list = dom->getInstReferences();
 
@@ -147,6 +151,7 @@ TEST(TestDomBaseGroup, case06){
 		dom->putProperty(vm, vmstr2, vmvalue2);
 
 		AbstractReference* ref = dom->wrap(root, vm); __STP(ref);
+		gc->registerObject(ref);
 
 		const UnicodeString* tostr = ref->toString();
 
@@ -171,6 +176,7 @@ TEST(TestDomBaseGroup, case07){
 		DomVariableInstance* dom = new(vm) DomVariableInstance(vm);
 
 		AbstractReference* ref = dom->wrap(root, vm); __STP(ref);
+		gc->registerObject(ref);
 
 		int result = dom->instValueCompare(nullptr);
 		CHECK(result != -1)
@@ -194,6 +200,7 @@ TEST(TestDomBaseGroup, case08){
 		DomVariableInstance* dom = new(vm) DomVariableInstance(vm);
 
 		AbstractReference* ref = dom->wrap(root, vm); __STP(ref);
+		gc->registerObject(ref);
 
 		UnicodeString str(L"name");
 		VTableRegistory* table = nullptr;
