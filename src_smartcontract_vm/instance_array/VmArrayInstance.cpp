@@ -98,8 +98,7 @@ IAbstractVmInstanceSubstance* VmArrayInstance::getInstance() noexcept {
 }
 
 AbstractReference* VmArrayInstance::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
-	ArrayReference* ref = new(vm) ArrayReference(owner, vm);
-	ref->substitute(this, vm);
+	ArrayReference* ref = new(vm) ArrayReference(owner, vm, this);
 
 	return ref;
 }

@@ -21,6 +21,12 @@ ArrayReference::ArrayReference(IAbstractVmInstanceSubstance* owner, VirtualMachi
 	this->instArray = nullptr;
 }
 
+
+ArrayReference::ArrayReference(IAbstractVmInstanceSubstance* owner,	VirtualMachine* vm, VmArrayInstance* instArray)
+					: AbstractReference(owner, VmInstanceTypesConst::REF_ARRAY){
+	this->instArray = instArray;
+}
+
 ArrayReference::~ArrayReference() {
 	this->instArray = nullptr;
 }

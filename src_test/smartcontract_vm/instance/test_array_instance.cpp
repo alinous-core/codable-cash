@@ -231,6 +231,7 @@ TEST(TestArrayInstanceGroup, arrayinstWrap){
 	int dims[1] = {3};
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 	AbstractReference* ref = inst->wrap(root, &vm);
+	gc->registerObject(ref);
 
 	AnalyzedType at = inst->getRuntimeType();
 	CHECK(at.getType() == AnalyzedType::TYPE_INT);
@@ -256,6 +257,7 @@ TEST(TestArrayInstanceGroup, arrayinstWrapToStrong){
 	int dims[1] = {3};
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 	AbstractReference* ref = inst->wrap(root, &vm);
+	gc->registerObject(ref);
 
 	const UnicodeString* str = ref->toString();
 	UnicodeString ans(L"0, 0, 0");
@@ -286,6 +288,7 @@ TEST(TestArrayInstanceGroup, arrayinstWrapToStrong02){
 	int dims[1] = {3};
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 	AbstractReference* ref = inst->wrap(root, &vm);
+	gc->registerObject(ref);
 
 	ref->substitute(nullptr, &vm);
 
@@ -317,6 +320,7 @@ TEST(TestArrayInstanceGroup, arrayinstWrapToStrong03){
 	int dims[1] = {3};
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 	AbstractReference* ref = inst->wrap(root, &vm);
+	gc->registerObject(ref);
 
 	inst->setReference(&vm, 1, nullptr);
 

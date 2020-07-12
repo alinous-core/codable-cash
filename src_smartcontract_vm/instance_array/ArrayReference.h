@@ -21,7 +21,8 @@ class IAbstractVmInstanceSubstance;
 
 class ArrayReference : public AbstractReference {
 public:
-	explicit ArrayReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
+	ArrayReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
+	ArrayReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm, VmArrayInstance* instArray);
 	virtual ~ArrayReference();
 
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
