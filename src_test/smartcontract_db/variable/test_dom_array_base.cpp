@@ -143,11 +143,11 @@ TEST(TestDomArrayBaseGroup, case05){
 		VmRootReference* root = new(vm) VmRootReference(vm); __STP(root);
 
 		DomArrayVariable* val = new(vm) DomArrayVariable(vm);
-		AbstractReference* ref = val->wrap(root, vm);
+		AbstractReference* ref = val->wrap(root, vm); __STP(ref);
 		gc->registerObject(ref);
 
 		DomArrayVariable* val2 = new(vm) DomArrayVariable(vm);
-		AbstractReference* ref2 = val2->wrap(root, vm);
+		AbstractReference* ref2 = val2->wrap(root, vm); __STP(ref2);
 		gc->registerObject(ref2);
 
 
@@ -173,11 +173,42 @@ TEST(TestDomArrayBaseGroup, case06){
 		VmRootReference* root = new(vm) VmRootReference(vm); __STP(root);
 
 		DomArrayVariable* val = new(vm) DomArrayVariable(vm);
+		AbstractReference* ref = val->wrap(root, vm); __STP(ref);
+		gc->registerObject(ref);
+
+		PrimitiveReference* pref = PrimitiveReference::createIntReference(vm, 0); __STP(pref);
+		gc->registerObject(pref);
+
+		DomVariableReference* ref2 = new(vm) DomVariableReference(root, vm, nullptr); __STP(ref2);
+
+		CHECK(ref->valueCompare(pref) != 0);
+		CHECK(ref->valueCompare(nullptr) != 0);
+		CHECK(ref2->valueCompare(val) != 0);
+
+		gc->removeObject(ref);
+		gc->removeObject(pref);
+
+		gc->garbageCollect();
+
+		CHECK(gc->isEmpty());
+	}
+}
+
+TEST(TestDomArrayBaseGroup, substitute){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+	GcManager* gc = vm->getGc();
+
+	{
+		VmRootReference* root = new(vm) VmRootReference(vm); __STP(root);
+
+		DomArrayVariable* val = new(vm) DomArrayVariable(vm);
 		AbstractReference* ref = val->wrap(root, vm);
 		gc->registerObject(ref);
 
 		DomVariableReference* domref = new(vm) DomVariableReference(root, vm, nullptr);
 		gc->registerObject(domref);
+
+		CHECK(domref->isDom());
 
 		domref->substitute(val, vm);
 		domref->substitute(nullptr, vm);
