@@ -186,8 +186,6 @@ void DomVariableInstance::putProperty(VirtualMachine* vm, const VmStringInstance
 	DomRuntimeReference* rr = new(vm) DomRuntimeReference(this, vm);
 	rr->substitute(substance, vm);
 
-	gc->registerObject(rr);
-
 	DomRuntimeReference* lastrr = this->properties->put(key, rr);
 	if(lastrr != nullptr){
 		gc->removeObject(lastrr);

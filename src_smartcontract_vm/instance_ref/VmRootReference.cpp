@@ -54,7 +54,7 @@ void VmRootReference::clearInnerReferences() {
 void VmRootReference::releaseMainInstance(GcManager* gc) {
 	if(this->mainInst != nullptr){
 		gc->removeObject(this->mainInst);
-		delete this->mainInst;
+		//delete this->mainInst;
 		this->mainInst = nullptr;
 	}
 }

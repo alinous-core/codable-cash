@@ -27,6 +27,7 @@
 
 #include "ext_binary/AbstractExtObject.h"
 
+#include "instance_dom/DomVariableReference.h"
 using namespace alinous;
 
 TEST_GROUP(TestDomArrayBaseGroup) {
@@ -58,8 +59,6 @@ TEST(TestDomArrayBaseGroup, case02){
 		DomArrayVariable* val = new(vm) DomArrayVariable(vm);
 		AbstractReference* ref = val->wrap(root, vm);
 
-		gc->registerObject(ref);
-
 		PrimitiveReference* pr = PrimitiveReference::createIntReference(vm ,1);
 		val->add(vm, pr);
 
@@ -69,6 +68,8 @@ TEST(TestDomArrayBaseGroup, case02){
 		gc->removeObject(ref);
 
 		gc->garbageCollect();
+
+		CHECK(gc->isEmpty());
 	}
 }
 
@@ -81,8 +82,6 @@ TEST(TestDomArrayBaseGroup, case03){
 
 		DomArrayVariable* val = new(vm) DomArrayVariable(vm);
 		AbstractReference* ref = val->wrap(root, vm);
-
-		gc->registerObject(ref);
 
 		PrimitiveReference* pr = PrimitiveReference::createIntReference(vm ,1);
 		val->add(vm, pr);
@@ -98,6 +97,8 @@ TEST(TestDomArrayBaseGroup, case03){
 		gc->removeObject(ref);
 
 		gc->garbageCollect();
+
+		CHECK(gc->isEmpty());
 	}
 }
 
@@ -110,8 +111,6 @@ TEST(TestDomArrayBaseGroup, case04){
 
 		DomArrayVariable* val = new(vm) DomArrayVariable(vm);
 		AbstractReference* ref = val->wrap(root, vm);
-
-		gc->registerObject(ref);
 
 		PrimitiveReference* pr = PrimitiveReference::createIntReference(vm ,1);
 		val->add(vm, pr);
@@ -128,6 +127,8 @@ TEST(TestDomArrayBaseGroup, case04){
 
 		gc->removeObject(ref);
 		gc->garbageCollect();
+
+		CHECK(gc->isEmpty());
 	}
 }
 
@@ -140,11 +141,9 @@ TEST(TestDomArrayBaseGroup, case05){
 
 		DomArrayVariable* val = new(vm) DomArrayVariable(vm);
 		AbstractReference* ref = val->wrap(root, vm);
-		gc->registerObject(ref);
 
 		DomArrayVariable* val2 = new(vm) DomArrayVariable(vm);
 		AbstractReference* ref2 = val2->wrap(root, vm);
-		gc->registerObject(ref2);
 
 
 		CHECK(val->instValueCompare(val) == 0)
@@ -156,5 +155,31 @@ TEST(TestDomArrayBaseGroup, case05){
 		gc->removeObject(ref);
 		gc->removeObject(ref2);
 		gc->garbageCollect();
+
+		CHECK(gc->isEmpty());
 	}
 }
+
+TEST(TestDomArrayBaseGroup, case06){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+	GcManager* gc = vm->getGc();
+
+	{
+		VmRootReference* root = new(vm) VmRootReference(vm); __STP(root);
+
+		DomArrayVariable* val = new(vm) DomArrayVariable(vm);
+		AbstractReference* ref = val->wrap(root, vm);
+
+		DomVariableReference* domref = new(vm) DomVariableReference(root, vm);
+		gc->registerObject(domref);
+
+		domref->substitute(val, vm);
+		domref->substitute(nullptr, vm);
+
+		gc->removeObject(ref);
+		gc->garbageCollect();
+
+		CHECK(gc->isEmpty());
+	}
+}
+

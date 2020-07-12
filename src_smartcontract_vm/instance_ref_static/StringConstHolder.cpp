@@ -31,8 +31,11 @@ VmStringInstance* StringConstHolder::newStringConstInstance(VmRootReference* roo
 	AbstractReference* ref = this->stringVariables.get(str);
 
 	if(ref == nullptr){
+		GcManager* gc = vm->getGc();
+
 		VmStringInstance* inst = new(vm) VmStringInstance(vm, str);
 		ref = inst->wrap(rootRef, vm);
+		gc->registerObject(ref);
 
 		this->stringVariables.put(str, ref);
 	}

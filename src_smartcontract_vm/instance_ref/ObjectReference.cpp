@@ -45,10 +45,14 @@ ObjectReference* ObjectReference::createObjectReference(IAbstractVmInstanceSubst
 }
 
 ObjectReference* ObjectReference::createStringReference(IAbstractVmInstanceSubstance* owner, VmStringInstance* clazzInst, VirtualMachine* vm) {
+	return createStringReference(owner, clazzInst, vm, false);
+}
+
+ObjectReference* ObjectReference::createStringReference(IAbstractVmInstanceSubstance* owner, VmStringInstance* clazzInst, VirtualMachine* vm, bool doGc) {
 	ObjectReference* ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ, ObjectReference::STRING_INSTANCE);
 	ref->setInstance(clazzInst);
 
-	if(clazzInst != nullptr){
+	if(doGc && clazzInst != nullptr){
 		GcManager* gc = vm->getGc();
 		gc->registerObject(ref);
 	}

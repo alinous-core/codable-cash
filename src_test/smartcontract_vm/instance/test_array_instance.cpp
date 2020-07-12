@@ -58,6 +58,7 @@ TEST(TestArrayInstanceGroup, testSet){
 
 	gc->garbageCollect();
 
+	CHECK(gc->isEmpty());
 }
 
 TEST(TestArrayInstanceGroup, testInst){
@@ -83,6 +84,7 @@ TEST(TestArrayInstanceGroup, testInst){
 
 	gc->garbageCollect();
 
+	CHECK(gc->isEmpty());
 }
 
 TEST(TestArrayInstanceGroup, arrayCompareError){
@@ -108,6 +110,8 @@ TEST(TestArrayInstanceGroup, arrayCompareError){
 	GcManager* gc = vm.getGc();
 	gc->removeObject(ref);
 	gc->garbageCollect();
+
+	CHECK(gc->isEmpty());
 
 	delete ref;
 	delete root;
@@ -139,6 +143,8 @@ TEST(TestArrayInstanceGroup, arrayCompareError2){
 	gc->removeObject(ref);
 	gc->garbageCollect();
 
+	CHECK(gc->isEmpty());
+
 	delete ref;
 	delete root;
 	delete p;
@@ -169,6 +175,8 @@ TEST(TestArrayInstanceGroup, arrayinstToExtObj){
 	GcManager* gc = vm.getGc();
 	gc->removeObject(ref);
 	gc->garbageCollect();
+
+	CHECK(gc->isEmpty());
 
 	delete ref;
 	delete root;
@@ -204,6 +212,8 @@ TEST(TestArrayInstanceGroup, arrayinstToExtObj02){
 	gc->removeObject(ref);
 	gc->garbageCollect();
 
+	CHECK(gc->isEmpty());
+
 	delete ref;
 	delete root;
 	delete p;
@@ -221,13 +231,14 @@ TEST(TestArrayInstanceGroup, arrayinstWrap){
 	int dims[1] = {3};
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 	AbstractReference* ref = inst->wrap(root, &vm);
-	gc->registerObject(ref);
 
 	AnalyzedType at = inst->getRuntimeType();
 	CHECK(at.getType() == AnalyzedType::TYPE_INT);
 
 	gc->removeObject(ref);
 	gc->garbageCollect();
+
+	CHECK(gc->isEmpty());
 
 	delete ref;
 	delete root;
@@ -245,7 +256,6 @@ TEST(TestArrayInstanceGroup, arrayinstWrapToStrong){
 	int dims[1] = {3};
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 	AbstractReference* ref = inst->wrap(root, &vm);
-	gc->registerObject(ref);
 
 	const UnicodeString* str = ref->toString();
 	UnicodeString ans(L"0, 0, 0");
@@ -257,6 +267,8 @@ TEST(TestArrayInstanceGroup, arrayinstWrapToStrong){
 
 	gc->removeObject(ref);
 	gc->garbageCollect();
+
+	CHECK(gc->isEmpty());
 
 	delete ref;
 	delete root;
@@ -274,7 +286,6 @@ TEST(TestArrayInstanceGroup, arrayinstWrapToStrong02){
 	int dims[1] = {3};
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 	AbstractReference* ref = inst->wrap(root, &vm);
-	gc->registerObject(ref);
 
 	ref->substitute(nullptr, &vm);
 
@@ -287,6 +298,8 @@ TEST(TestArrayInstanceGroup, arrayinstWrapToStrong02){
 
 	gc->removeObject(ref);
 	gc->garbageCollect();
+
+	CHECK(gc->isEmpty());
 
 	delete ref;
 	delete root;
@@ -304,7 +317,6 @@ TEST(TestArrayInstanceGroup, arrayinstWrapToStrong03){
 	int dims[1] = {3};
 	VmArrayInstance* inst = VmArrayInstanceUtils::buildArrayInstance(&vm, dims, 1, &atype);
 	AbstractReference* ref = inst->wrap(root, &vm);
-	gc->registerObject(ref);
 
 	inst->setReference(&vm, 1, nullptr);
 
@@ -318,6 +330,8 @@ TEST(TestArrayInstanceGroup, arrayinstWrapToStrong03){
 
 	gc->removeObject(ref);
 	gc->garbageCollect();
+
+	CHECK(gc->isEmpty());
 
 	delete ref;
 	delete root;

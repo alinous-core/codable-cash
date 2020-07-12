@@ -38,10 +38,11 @@ void ReferenceStatus::addOwner(const IAbstractVmInstanceSubstance* owner) noexce
 		break;
 	}
 
-	const IAbstractVmInstanceSubstance* o = list->search(owner);
-	if(o == nullptr){
-		list->addElementWithSorted(owner);
-	}
+	//const IAbstractVmInstanceSubstance* o = list->search(owner);
+	//if(o == nullptr){
+	//	list->addElementWithSorted(owner);
+	//}
+	list->addElementWithSorted(owner);
 }
 
 void ReferenceStatus::removeOwner(const IAbstractVmInstanceSubstance* owner) noexcept {
@@ -74,7 +75,7 @@ bool ReferenceStatus::isRemovable() const noexcept {
 void ReferenceStatus::releseInnerRefs(GcManager* gc) noexcept {
 	IInstanceContainer* container = dynamic_cast<IInstanceContainer*>(this->instance);
 	if(container != nullptr){
-		((IInstanceContainer*)container)->removeInnerRefs(gc);
+		container->removeInnerRefs(gc);
 	}
 }
 

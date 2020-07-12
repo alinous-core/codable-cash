@@ -62,6 +62,8 @@ void VmStack::removeInnerRefs(GcManager* gc) noexcept {
 
 		delete ref;
 	}
+
+
 }
 
 
@@ -114,6 +116,7 @@ AnalyzedType VmStack::getRuntimeType() const noexcept {
 }
 
 void VmStack::resetOnGc() noexcept {
+	this->stack->reset();
 }
 
 } /* namespace alinous */
