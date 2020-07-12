@@ -19,9 +19,9 @@
 
 namespace alinous {
 
-DomVariableReference::DomVariableReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm)
+DomVariableReference::DomVariableReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm, AbstractDomInstance* inst)
 			: AbstractReference(owner, VmInstanceTypesConst::REF_DOM) {
-	this->inst = nullptr;
+	this->inst = inst;
 }
 
 DomVariableReference::~DomVariableReference() {

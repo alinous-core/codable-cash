@@ -58,6 +58,7 @@ TEST(TestDomArrayBaseGroup, case02){
 
 		DomArrayVariable* val = new(vm) DomArrayVariable(vm);
 		AbstractReference* ref = val->wrap(root, vm);
+		gc->registerObject(ref);
 
 		PrimitiveReference* pr = PrimitiveReference::createIntReference(vm ,1);
 		val->add(vm, pr);
@@ -82,6 +83,7 @@ TEST(TestDomArrayBaseGroup, case03){
 
 		DomArrayVariable* val = new(vm) DomArrayVariable(vm);
 		AbstractReference* ref = val->wrap(root, vm);
+		gc->registerObject(ref);
 
 		PrimitiveReference* pr = PrimitiveReference::createIntReference(vm ,1);
 		val->add(vm, pr);
@@ -111,6 +113,7 @@ TEST(TestDomArrayBaseGroup, case04){
 
 		DomArrayVariable* val = new(vm) DomArrayVariable(vm);
 		AbstractReference* ref = val->wrap(root, vm);
+		gc->registerObject(ref);
 
 		PrimitiveReference* pr = PrimitiveReference::createIntReference(vm ,1);
 		val->add(vm, pr);
@@ -141,9 +144,11 @@ TEST(TestDomArrayBaseGroup, case05){
 
 		DomArrayVariable* val = new(vm) DomArrayVariable(vm);
 		AbstractReference* ref = val->wrap(root, vm);
+		gc->registerObject(ref);
 
 		DomArrayVariable* val2 = new(vm) DomArrayVariable(vm);
 		AbstractReference* ref2 = val2->wrap(root, vm);
+		gc->registerObject(ref2);
 
 
 		CHECK(val->instValueCompare(val) == 0)
@@ -169,14 +174,16 @@ TEST(TestDomArrayBaseGroup, case06){
 
 		DomArrayVariable* val = new(vm) DomArrayVariable(vm);
 		AbstractReference* ref = val->wrap(root, vm);
+		gc->registerObject(ref);
 
-		DomVariableReference* domref = new(vm) DomVariableReference(root, vm);
+		DomVariableReference* domref = new(vm) DomVariableReference(root, vm, nullptr);
 		gc->registerObject(domref);
 
 		domref->substitute(val, vm);
 		domref->substitute(nullptr, vm);
 
 		gc->removeObject(ref);
+		gc->removeObject(domref);
 		gc->garbageCollect();
 
 		CHECK(gc->isEmpty());

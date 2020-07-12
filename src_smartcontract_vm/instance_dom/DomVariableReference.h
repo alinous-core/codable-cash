@@ -18,7 +18,7 @@ class AbstractDomInstance;
 
 class DomVariableReference : public AbstractReference {
 public:
-	DomVariableReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
+	DomVariableReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm, AbstractDomInstance* inst);
 	virtual ~DomVariableReference();
 
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;

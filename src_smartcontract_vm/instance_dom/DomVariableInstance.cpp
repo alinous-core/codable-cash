@@ -60,8 +60,7 @@ IAbstractVmInstanceSubstance* DomVariableInstance::getInstance() noexcept {
 }
 
 AbstractReference* DomVariableInstance::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
-	DomVariableReference* ref = new(vm) DomVariableReference(owner, vm);
-	ref->substitute(this, vm);
+	DomVariableReference* ref = new(vm) DomVariableReference(owner, vm, this);
 
 	return ref;
 }
