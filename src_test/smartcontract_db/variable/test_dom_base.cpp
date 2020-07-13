@@ -213,3 +213,37 @@ TEST(TestDomBaseGroup, case08){
 	}
 }
 
+TEST(TestDomBaseGroup, case09){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+	GcManager* gc = vm->getGc();
+
+	{
+		VmRootReference* root = new(vm) VmRootReference(vm); __STP(root);
+
+		DomRuntimeReference* refref = new(vm) DomRuntimeReference(root, vm); __STP(refref);
+		gc->registerObject(refref);
+
+		DomVariableInstance* dom = new(vm) DomVariableInstance(vm);
+
+		int result = refref->valueCompare(nullptr);
+		CHECK(result == 0)
+
+		result = refref->valueCompare(dom);
+		CHECK(result != 0)
+
+		refref->substitute(dom, vm);
+
+		result = refref->valueCompare(nullptr);
+		CHECK(result != 0)
+
+		result = refref->valueCompare(dom);
+		CHECK(result == 0)
+
+		gc->removeObject(refref);
+		gc->garbageCollect();
+
+		CHECK(gc->isEmpty());
+	}
+}
+
+
