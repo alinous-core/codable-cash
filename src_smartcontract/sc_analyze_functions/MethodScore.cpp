@@ -63,6 +63,9 @@ bool MethodScore::evaluateTypeScore(AnalyzedType* base,	AnalyzedType* arg) noexc
 	case AnalyzedType::TYPE_OBJECT:
 		res = evaluateObjectTypeScore(base, arg);
 		break;
+	case AnalyzedType::TYPE_DOM:
+		res = evaluateDomObjectTypeScore(base, arg);
+		break;
 	case AnalyzedType::TYPE_BOOL:
 		res = evaluateBoolTypeScore(arg);
 		break;
@@ -124,7 +127,16 @@ bool MethodScore::evaluateObjectTypeScore(AnalyzedType* base, AnalyzedType* arg)
 	return res;
 }
 
+bool MethodScore::evaluateDomObjectTypeScore(AnalyzedType* base, AnalyzedType* arg) noexcept {
+	uint8_t tt = arg->getType();
 
+	bool res = false;
+	if(tt == AnalyzedType::TYPE_NULL || tt == AnalyzedType::TYPE_DOM){
+		res = true;
+	}
+
+	return res;
+}
 
 bool MethodScore::doEvaluateObjectTypeScore(AnalyzedType* base,	AnalyzedType* arg) noexcept {
 	AnalyzedClass* baseClass = base->getAnalyzedClass();
