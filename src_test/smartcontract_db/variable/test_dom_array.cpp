@@ -148,5 +148,12 @@ TEST(TestDomArrayGroup, case05_err){
 	result = util.analyze();
 	CHECK(result)
 
+	result = util.createInstance();
+	CHECK(result)
 
+	ExtExceptionObject* ex = util.vm->getUncaughtException(); __STP(ex);
+	CHECK(ex != nullptr);
+
+	const UnicodeString* name = ex->getClassName();
+	CHECK(name->equals(NullPointerExceptionClassDeclare::NAME));
 }
