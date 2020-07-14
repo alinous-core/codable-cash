@@ -37,6 +37,10 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
+private:
+	void analyzeDomArray(AnalyzeContext* actx);
+
 private:
 	AbstractExpression* exp;
 	ArrayList<AbstractExpression> list;

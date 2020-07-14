@@ -84,6 +84,10 @@ void ArrayReferenceExpression::analyze(AnalyzeContext* actx) {
 	}
 
 	AnalyzedType at = this->exp->getType(actx);
+	if(at.getType() == AnalyzedType::TYPE_DOM){
+		analyzeDomArray(actx);
+		return;
+	}
 
 	int dim = at.getDim();
 	int reqDim = this->list.size();
@@ -94,6 +98,10 @@ void ArrayReferenceExpression::analyze(AnalyzeContext* actx) {
 
 	at.setDim(dim - reqDim);
 	this->atype = new AnalyzedType(at);
+}
+
+void ArrayReferenceExpression::analyzeDomArray(AnalyzeContext* actx) {
+	this->atype = new AnalyzedType(AnalyzedType::TYPE_DOM_VALUE);
 }
 
 void ArrayReferenceExpression::setExp(AbstractExpression* exp) noexcept {
