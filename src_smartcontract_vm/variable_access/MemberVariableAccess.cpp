@@ -35,13 +35,16 @@
 
 #include "instance_ref_class_static/StaticClassEntry.h"
 
-#include "instance_dom/DomVariableInstance.h"
+#include "instance_ref/PrimitiveReference.h"
 
 #include "instance_string/VmStringInstance.h"
 
 #include "instance_gc/StackFloatingVariableHandler.h"
 
+#include "instance_dom/DomVariableInstance.h"
 #include "instance_dom/DomRuntimeReference.h"
+#include "instance_dom/DomArrayVariable.h"
+
 
 namespace alinous {
 
@@ -158,6 +161,12 @@ AbstractVmInstance* MemberVariableAccess::interpretDomType(VirtualMachine* vm, A
 	StackFloatingVariableHandler releaser(gc);
 
 	IAbstractVmInstanceSubstance* inst = lastInst->getInstance();
+
+	AnalyzedType at = inst->getRuntimeType();
+	if(at.getType() == AnalyzedType::TYPE_DOM_ARRAY){
+		return interpretDomArrayType(vm, lastInst);
+	}
+
 	DomVariableInstance* dom = dynamic_cast<DomVariableInstance*>(inst);
 
 	assert(dom != nullptr);
@@ -173,6 +182,21 @@ AbstractVmInstance* MemberVariableAccess::interpretDomType(VirtualMachine* vm, A
 	}
 
 	return rr;
+}
+
+AbstractVmInstance* MemberVariableAccess::interpretDomArrayType(VirtualMachine* vm, AbstractVmInstance* lastInst) {
+	const UnicodeString* name = this->valId->getName();
+	if(!name->equals(&DomArrayVariable::LENGTH)){
+		NullPointerExceptionClassDeclare::throwException(vm, this->element);
+		ExceptionInterrupt::interruptPoint(vm);
+	}
+
+	IAbstractVmInstanceSubstance* inst = lastInst->getInstance();
+	DomArrayVariable* dom = dynamic_cast<DomArrayVariable*>(inst);
+
+	int size = dom->size();
+
+	return PrimitiveReference::createIntReference(vm, size);
 }
 
 bool MemberVariableAccess::hasErrorOnAnalyze() const noexcept {

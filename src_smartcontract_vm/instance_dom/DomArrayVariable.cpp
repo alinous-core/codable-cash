@@ -24,6 +24,8 @@
 
 namespace alinous {
 
+const UnicodeString DomArrayVariable::LENGTH(L"length");
+
 DomArrayVariable::DomArrayVariable(VirtualMachine* vm) : AbstractDomInstance(vm, VmInstanceTypesConst::INST_DOM_ARRAY), list(vm, 1) {
 	this->array = new(vm) VMemList<DomRuntimeReference>(vm);
 	this->str = nullptr;
@@ -169,6 +171,11 @@ void DomArrayVariable::add(VirtualMachine* vm, IAbstractVmInstanceSubstance* ins
 	rr->substitute(inst, vm);
 
 	this->array->addElement(rr);
+}
+
+
+int DomArrayVariable::size() const noexcept {
+	return this->array->size();
 }
 
 } /* namespace alinous */

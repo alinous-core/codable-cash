@@ -22,6 +22,8 @@ class DomRuntimeReference;
 
 class DomArrayVariable : public AbstractDomInstance {
 public:
+	static const UnicodeString LENGTH;
+
 	explicit DomArrayVariable(VirtualMachine* vm);
 	virtual ~DomArrayVariable();
 
@@ -45,6 +47,7 @@ public:
 	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 
 	void add(VirtualMachine* vm, IAbstractVmInstanceSubstance* inst);
+	int size() const noexcept;
 private:
 	VMemList<DomRuntimeReference>* array;
 	mutable UnicodeString* str;
