@@ -48,6 +48,7 @@ public:
 
 	void add(VirtualMachine* vm, IAbstractVmInstanceSubstance* inst);
 	int size() const noexcept;
+	DomRuntimeReference* get(int i) const noexcept;
 private:
 	VMemList<DomRuntimeReference>* array;
 	mutable UnicodeString* str;

@@ -40,6 +40,7 @@ public:
 
 private:
 	void analyzeDomArray(AnalyzeContext* actx);
+	AbstractVmInstance* interpretDomArray(VirtualMachine* vm, AbstractVmInstance* inst);
 
 private:
 	AbstractExpression* exp;

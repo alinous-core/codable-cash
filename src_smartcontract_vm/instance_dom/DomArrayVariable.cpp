@@ -178,4 +178,8 @@ int DomArrayVariable::size() const noexcept {
 	return this->array->size();
 }
 
+DomRuntimeReference* DomArrayVariable::get(int i) const noexcept {
+	return this->array->get(i);
+}
+
 } /* namespace alinous */

@@ -169,5 +169,15 @@ TEST(TestDomArrayGroup, case06){
 
 	result = util.analyze();
 	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	UnicodeString ans(L"count");
+
+	ExtPrimitiveObject* count = obj->getExtPrimitiveObject(&ans);
+	int n = count->getIntValue();
+	CHECK(n == 1);
 }
 

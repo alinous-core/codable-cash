@@ -7,12 +7,12 @@ class SmartContract {
 	public SmartContract() {
 		var dom = [0, 1, 2, 3, 4];
 		
-		this.result = dom[1];
+		this.count = dom[1];
 	}
 	
 	public int main(){
 
 	}
 	
-	private int result = 0;
+	private int count = 0;
 }

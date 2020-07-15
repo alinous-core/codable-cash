@@ -21,10 +21,16 @@
 #include "instance_ref/PrimitiveReference.h"
 
 #include "instance_exception/NullPointerExceptionClassDeclare.h"
-
 #include "instance_exception/ExceptionInterrupt.h"
-
 #include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
+#include "instance_exception/TypeCastExceptionClassDeclare.h"
+
+#include "instance_dom/DomArrayVariable.h"
+#include "instance_dom/DomRuntimeReference.h"
+
+#include "instance/IAbstractVmInstanceSubstance.h"
+
+
 namespace alinous {
 
 ArrayReferenceExpression::ArrayReferenceExpression() : AbstractExpression(CodeElement::EXP_ARRAY_REF) {
@@ -192,6 +198,10 @@ AbstractVmInstance* ArrayReferenceExpression::interpret(VirtualMachine* vm) {
 		ExceptionInterrupt::interruptPoint(vm);
 	}
 
+	if(this->atype->getType() == AnalyzedType::TYPE_DOM_VALUE){
+		return interpretDomArray(vm, inst);
+	}
+
 	GcManager* gc = vm->getGc();
 	StackFloatingVariableHandler releaser(gc);
 
@@ -234,6 +244,60 @@ AbstractVmInstance* ArrayReferenceExpression::interpret(VirtualMachine* vm) {
 	AbstractReference* element = arrayInst->getReference(vm, idx);
 
 	return element;
+}
+
+AbstractVmInstance* ArrayReferenceExpression::interpretDomArray(VirtualMachine* vm, AbstractVmInstance* inst) {
+	IAbstractVmInstanceSubstance* sub = inst->getInstance();
+	DomArrayVariable* domArray = dynamic_cast<DomArrayVariable*>(sub);
+
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
+	int maxLoop = this->list.size() - 1;
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* indexExp = this->list.get(i);
+
+		AbstractVmInstance* index = indexExp->interpret(vm);
+		releaser.registerInstance(index);
+
+		PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(index);
+		int idx = ref->getIntValue();
+
+		if(idx >= domArray->size()){
+			ArrayOutOfBoundsExceptionClassDeclare::throwException(vm, this);
+			ExceptionInterrupt::interruptPoint(vm);
+		}
+
+		DomRuntimeReference* rr = domArray->get(idx);
+		if(rr->isNull()){
+			NullPointerExceptionClassDeclare::throwException(vm, this);
+			ExceptionInterrupt::interruptPoint(vm);
+		}
+
+		IAbstractVmInstanceSubstance* elementInst = rr->getInstance();
+		domArray = dynamic_cast<DomArrayVariable*>(sub);
+
+		if(domArray == nullptr){
+			TypeCastExceptionClassDeclare::throwException(vm, this);
+			ExceptionInterrupt::interruptPoint(vm);
+		}
+	}
+
+	AbstractExpression* indexExp = this->list.get(maxLoop);
+	AbstractVmInstance* index = indexExp->interpret(vm);
+	releaser.registerInstance(index);
+
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(index);
+	int idx = ref->getIntValue();
+
+	if(idx >= domArray->size()){
+		ArrayOutOfBoundsExceptionClassDeclare::throwException(vm, this);
+		ExceptionInterrupt::interruptPoint(vm);
+	}
+
+	DomRuntimeReference* rr = domArray->get(idx);
+
+	return rr;
 }
 
 } /* namespace alinous */
