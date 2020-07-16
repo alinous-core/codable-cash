@@ -275,7 +275,7 @@ AbstractVmInstance* ArrayReferenceExpression::interpretDomArray(VirtualMachine* 
 		}
 
 		IAbstractVmInstanceSubstance* elementInst = rr->getInstance();
-		domArray = dynamic_cast<DomArrayVariable*>(sub);
+		domArray = dynamic_cast<DomArrayVariable*>(elementInst);
 
 		if(domArray == nullptr){
 			TypeCastExceptionClassDeclare::throwException(vm, this);
