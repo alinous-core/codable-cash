@@ -21,6 +21,8 @@
 #include "ext_binary/ExtPrimitiveObject.h"
 
 #include "instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
+
 using namespace alinous;
 
 TEST_GROUP(TestDomArrayGroup) {
@@ -202,4 +204,26 @@ TEST(TestDomArrayGroup, case07){
 	ExtPrimitiveObject* count = obj->getExtPrimitiveObject(&ans);
 	int n = count->getIntValue();
 	CHECK(n == 4);
+}
+
+TEST(TestDomArrayGroup, case08_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/variable/resources/local_array/case08_err/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* ex = util.vm->getUncaughtException(); __STP(ex);
+	CHECK(ex != nullptr);
+
+	const UnicodeString* name = ex->getClassName();
+	CHECK(name->equals(ArrayOutOfBoundsExceptionClassDeclare::NAME));
 }
