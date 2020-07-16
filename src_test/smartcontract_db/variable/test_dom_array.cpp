@@ -227,3 +227,25 @@ TEST(TestDomArrayGroup, case08_err){
 	const UnicodeString* name = ex->getClassName();
 	CHECK(name->equals(ArrayOutOfBoundsExceptionClassDeclare::NAME));
 }
+
+TEST(TestDomArrayGroup, case09_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/variable/resources/local_array/case09_err/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* ex = util.vm->getUncaughtException(); __STP(ex);
+	CHECK(ex != nullptr);
+
+	const UnicodeString* name = ex->getClassName();
+	CHECK(name->equals(ArrayOutOfBoundsExceptionClassDeclare::NAME));
+}
