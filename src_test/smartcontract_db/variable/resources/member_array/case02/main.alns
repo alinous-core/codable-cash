@@ -12,5 +12,5 @@ class SmartContract {
 
 	}
 	private var dom = [0, 1, 2, 3, 4];
-	private int result = -1;
+	private var result = [];
 }

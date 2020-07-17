@@ -87,8 +87,7 @@ void ArrayReferenceAccess::analyzeDimensions(AnalyzeContext* actx,	AbstractVaria
 }
 
 void ArrayReferenceAccess::analyzeDomArray(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
-	AnalyzedType at = this->expAccess->getAnalyzedType();
-	this->atype = new AnalyzedType(at);
+	this->atype = new AnalyzedType(AnalyzedType::TYPE_DOM_VALUE);
 }
 
 AnalyzedType ArrayReferenceAccess::getAnalyzedType() const noexcept {
