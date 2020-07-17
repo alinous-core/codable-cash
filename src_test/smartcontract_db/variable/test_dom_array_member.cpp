@@ -18,6 +18,8 @@
 #include "ext_binary/ExtPrimitiveObject.h"
 #include "ext_binary/ExtClassObject.h"
 
+#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
+
 using namespace alinous;
 
 TEST_GROUP(TestDomArrayMemberGroup) {
@@ -96,4 +98,48 @@ TEST(TestDomArrayMemberGroup, case03){
 	ExtPrimitiveObject* count = obj->getExtPrimitiveObject(&ans);
 	int n = count->getIntValue();
 	CHECK(n == 3);
+}
+
+TEST(TestDomArrayMemberGroup, case04_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/variable/resources/member_array/case04_err/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* ex = util.vm->getUncaughtException(); __STP(ex);
+	CHECK(ex != nullptr);
+
+	const UnicodeString* name = ex->getClassName();
+	CHECK(name->equals(ArrayOutOfBoundsExceptionClassDeclare::NAME));
+}
+
+TEST(TestDomArrayMemberGroup, case05_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/variable/resources/member_array/case05_err/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* ex = util.vm->getUncaughtException(); __STP(ex);
+	CHECK(ex != nullptr);
+
+	const UnicodeString* name = ex->getClassName();
+	CHECK(name->equals(ArrayOutOfBoundsExceptionClassDeclare::NAME));
 }
