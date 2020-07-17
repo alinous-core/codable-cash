@@ -51,3 +51,7 @@ TEST(TestDomArrayMemberGroup, case01){
 	int n = count->getIntValue();
 	CHECK(n == 1);
 }
+
+TEST(TestDomArrayMemberGroup, case02){
+
+}
