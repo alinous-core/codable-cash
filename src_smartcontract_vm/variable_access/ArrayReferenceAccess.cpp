@@ -49,6 +49,11 @@ void ArrayReferenceAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 	int previousDim = at.getDim();
 	dim = previousDim - dim;
 
+	if(at.getType() == AnalyzedType::TYPE_DOM || at.getType() == AnalyzedType::TYPE_DOM_VALUE){
+		analyzeDomArray(actx, lastIinst, element);
+		return;
+	}
+
 	if(dim < 0){
 		actx->addValidationError(ValidationError::CODE_ARRAY_INDEX_OVERFLOW, element, L"Array dimension is too greater than the variable.", {});
 		this->atype = new AnalyzedType();
@@ -58,6 +63,10 @@ void ArrayReferenceAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 	at.setDim(dim);
 	this->atype = new AnalyzedType(at);
 
+	analyzeDimensions(actx, lastIinst, element);
+}
+
+void ArrayReferenceAccess::analyzeDimensions(AnalyzeContext* actx,	AbstractVariableInstraction* lastIinst, CodeElement* element) {
 	const ArrayList<AbstractExpression>* list = this->arrayRefExp->getIndexList();
 
 	int maxLoop = list->size();
@@ -71,6 +80,11 @@ void ArrayReferenceAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 			actx->addValidationError(ValidationError::CODE_ARRAY_INDEX_MUST_BE_NUMERIC, element, L"Array index must be numeric value.", {});
 		}
 	}
+}
+
+void ArrayReferenceAccess::analyzeDomArray(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
+	AnalyzedType at = this->expAccess->getAnalyzedType();
+	this->atype = new AnalyzedType(at);
 }
 
 AnalyzedType ArrayReferenceAccess::getAnalyzedType() const noexcept {

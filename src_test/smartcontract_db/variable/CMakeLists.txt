@@ -1,6 +1,7 @@
 
 set(testsrc
 	test_dom_array_base.cpp
+	test_dom_array_member.cpp
 	test_dom_array.cpp
 	test_dom_base.cpp
 	test_dom_extobj.cpp

@@ -90,7 +90,7 @@ void ArrayReferenceExpression::analyze(AnalyzeContext* actx) {
 	}
 
 	AnalyzedType at = this->exp->getType(actx);
-	if(at.getType() == AnalyzedType::TYPE_DOM){
+	if(at.getType() == AnalyzedType::TYPE_DOM || at.getType() == AnalyzedType::TYPE_DOM_VALUE){
 		analyzeDomArray(actx);
 		return;
 	}
