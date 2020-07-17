@@ -294,3 +294,27 @@ TEST(TestDomArrayGroup, case11_err){
 	const UnicodeString* name = ex->getClassName();
 	CHECK(name->equals(TypeCastExceptionClassDeclare::NAME));
 }
+
+TEST(TestDomArrayGroup, case12_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/variable/resources/local_array/case12_err/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* ex = util.vm->getUncaughtException(); __STP(ex);
+	CHECK(ex != nullptr);
+
+	const UnicodeString* name = ex->getClassName();
+	CHECK(name->equals(TypeCastExceptionClassDeclare::NAME));
+}
+
+

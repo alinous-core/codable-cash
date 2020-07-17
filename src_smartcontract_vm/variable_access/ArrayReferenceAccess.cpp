@@ -27,6 +27,10 @@
 #include "instance_ref/PrimitiveReference.h"
 
 #include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
+
+#include "instance_exception/TypeCastExceptionClassDeclare.h"
+
+#include "instance_dom/DomArrayVariable.h"
 namespace alinous {
 
 ArrayReferenceAccess::ArrayReferenceAccess(ArrayReferenceExpression* arrayRefExp)
@@ -100,8 +104,13 @@ AbstractVmInstance* ArrayReferenceAccess::interpret(VirtualMachine* vm, Abstract
 		NullPointerExceptionClassDeclare::throwException(vm, getCodeElement());
 		ExceptionInterrupt::interruptPoint(vm);
 	}
-
 	releaser.registerInstance(inst);
+
+	uint8_t t = this->atype->getType();
+	if(t == AnalyzedType::TYPE_DOM || t == AnalyzedType::TYPE_DOM_VALUE){
+		return interpretDomArray(vm, lastInst, inst);
+	}
+
 	IAbstractVmInstanceSubstance* sub = inst->getInstance();
 	VmArrayInstance* arrayInst = dynamic_cast<VmArrayInstance*>(sub);
 
@@ -144,6 +153,21 @@ AbstractVmInstance* ArrayReferenceAccess::interpret(VirtualMachine* vm, Abstract
 
 	return element;
 }
+
+AbstractVmInstance* ArrayReferenceAccess::interpretDomArray(VirtualMachine* vm, AbstractVmInstance* lastInst, AbstractVmInstance* inst) {
+	IAbstractVmInstanceSubstance* sub = inst->getInstance();
+	DomArrayVariable* domArray = dynamic_cast<DomArrayVariable*>(sub);
+	if(domArray == nullptr){
+		TypeCastExceptionClassDeclare::throwException(vm, this->arrayRefExp);
+		ExceptionInterrupt::interruptPoint(vm);
+	}
+
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
+	const ArrayList<AbstractExpression>* list = this->arrayRefExp->getIndexList();
+}
+
 
 CodeElement* ArrayReferenceAccess::getCodeElement() const noexcept {
 	return this->arrayRefExp;

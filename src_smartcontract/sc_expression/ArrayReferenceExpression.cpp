@@ -249,6 +249,10 @@ AbstractVmInstance* ArrayReferenceExpression::interpret(VirtualMachine* vm) {
 AbstractVmInstance* ArrayReferenceExpression::interpretDomArray(VirtualMachine* vm, AbstractVmInstance* inst) {
 	IAbstractVmInstanceSubstance* sub = inst->getInstance();
 	DomArrayVariable* domArray = dynamic_cast<DomArrayVariable*>(sub);
+	if(domArray == nullptr){
+		TypeCastExceptionClassDeclare::throwException(vm, this);
+		ExceptionInterrupt::interruptPoint(vm);
+	}
 
 	GcManager* gc = vm->getGc();
 	StackFloatingVariableHandler releaser(gc);

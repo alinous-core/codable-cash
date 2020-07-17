@@ -31,6 +31,7 @@ private:
 	void analyzeDimensions(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element);
 
 	void analyzeDomArray(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element);
+	AbstractVmInstance* interpretDomArray(VirtualMachine* vm, AbstractVmInstance* lastInst, AbstractVmInstance* inst);
 
 private:
 	ArrayReferenceExpression* arrayRefExp;
