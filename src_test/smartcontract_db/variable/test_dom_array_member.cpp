@@ -74,3 +74,26 @@ TEST(TestDomArrayMemberGroup, case02){
 	int n = count->getIntValue();
 	CHECK(n == 5);
 }
+
+TEST(TestDomArrayMemberGroup, case03){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/variable/resources/member_array/case03/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	UnicodeString ans(L"result");
+
+	ExtPrimitiveObject* count = obj->getExtPrimitiveObject(&ans);
+	int n = count->getIntValue();
+	CHECK(n == 3);
+}
