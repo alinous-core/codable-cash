@@ -19,18 +19,18 @@
 #include "instance_gc/GcManager.h"
 
 #include "instance_exception/NullPointerExceptionClassDeclare.h"
-
 #include "instance_exception/ExceptionInterrupt.h"
+#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
+#include "instance_exception/TypeCastExceptionClassDeclare.h"
 
 #include "vm/VirtualMachine.h"
 
 #include "instance_ref/PrimitiveReference.h"
 
-#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
-
-#include "instance_exception/TypeCastExceptionClassDeclare.h"
-
 #include "instance_dom/DomArrayVariable.h"
+#include "instance_dom/DomRuntimeReference.h"
+
+
 namespace alinous {
 
 ArrayReferenceAccess::ArrayReferenceAccess(ArrayReferenceExpression* arrayRefExp)
@@ -166,6 +166,52 @@ AbstractVmInstance* ArrayReferenceAccess::interpretDomArray(VirtualMachine* vm, 
 	StackFloatingVariableHandler releaser(gc);
 
 	const ArrayList<AbstractExpression>* list = this->arrayRefExp->getIndexList();
+
+	int maxLoop = list->size() - 1;
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* indexExp = list->get(i);
+
+		AbstractVmInstance* index = indexExp->interpret(vm);
+		releaser.registerInstance(index);
+
+		PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(index);
+		int idx = ref->getIntValue();
+
+		if(idx >= domArray->size()){
+			ArrayOutOfBoundsExceptionClassDeclare::throwException(vm, this->arrayRefExp);
+			ExceptionInterrupt::interruptPoint(vm);
+		}
+
+		DomRuntimeReference* rr = domArray->get(idx);
+		if(rr->isNull()){
+			NullPointerExceptionClassDeclare::throwException(vm, this->arrayRefExp);
+			ExceptionInterrupt::interruptPoint(vm);
+		}
+
+		IAbstractVmInstanceSubstance* elementInst = rr->getInstance();
+		domArray = dynamic_cast<DomArrayVariable*>(elementInst);
+
+		if(domArray == nullptr){
+			TypeCastExceptionClassDeclare::throwException(vm, this->arrayRefExp);
+			ExceptionInterrupt::interruptPoint(vm);
+		}
+	}
+
+	AbstractExpression* indexExp = list->get(maxLoop);
+	AbstractVmInstance* index = indexExp->interpret(vm);
+	releaser.registerInstance(index);
+
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(index);
+	int idx = ref->getIntValue();
+
+	if(idx >= domArray->size()){
+		ArrayOutOfBoundsExceptionClassDeclare::throwException(vm, this->arrayRefExp);
+		ExceptionInterrupt::interruptPoint(vm);
+	}
+
+	DomRuntimeReference* rr = domArray->get(idx);
+
+	return rr;
 }
 
 

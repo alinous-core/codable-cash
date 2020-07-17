@@ -15,6 +15,8 @@
 
 #include "sc_analyze/ValidationError.h"
 
+#include "ext_binary/ExtPrimitiveObject.h"
+#include "ext_binary/ExtClassObject.h"
 
 using namespace alinous;
 
@@ -41,4 +43,11 @@ TEST(TestDomArrayMemberGroup, case01){
 
 	result = util.createInstance();
 	CHECK(result)
+
+	ExtClassObject* obj = util.getMainExtObject(); __STP(obj);
+	UnicodeString ans(L"result");
+
+	ExtPrimitiveObject* count = obj->getExtPrimitiveObject(&ans);
+	int n = count->getIntValue();
+	CHECK(n == 1);
 }
