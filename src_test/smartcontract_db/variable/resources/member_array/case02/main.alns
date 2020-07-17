@@ -5,12 +5,12 @@ package test.fw;
 
 class SmartContract {
 	public SmartContract() {
-		result = this.dom[1];
+		result = this.dom.length;
 	}
 	
 	public int main(){
 
 	}
 	private var dom = [0, 1, 2, 3, 4];
-	private var result = [];
+	private int result = -1;
 }
