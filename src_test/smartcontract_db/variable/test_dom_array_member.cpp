@@ -19,6 +19,8 @@
 #include "ext_binary/ExtClassObject.h"
 
 #include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
+#include "instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance_exception/TypeCastExceptionClassDeclare.h"
 
 using namespace alinous;
 
@@ -143,3 +145,70 @@ TEST(TestDomArrayMemberGroup, case05_err){
 	const UnicodeString* name = ex->getClassName();
 	CHECK(name->equals(ArrayOutOfBoundsExceptionClassDeclare::NAME));
 }
+
+TEST(TestDomArrayMemberGroup, case06_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/variable/resources/member_array/case06_err/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* ex = util.vm->getUncaughtException(); __STP(ex);
+	CHECK(ex != nullptr);
+
+	const UnicodeString* name = ex->getClassName();
+	CHECK(name->equals(NullPointerExceptionClassDeclare::NAME));
+}
+
+TEST(TestDomArrayMemberGroup, case07_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/variable/resources/member_array/case07_err/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* ex = util.vm->getUncaughtException(); __STP(ex);
+	CHECK(ex != nullptr);
+
+	const UnicodeString* name = ex->getClassName();
+	CHECK(name->equals(TypeCastExceptionClassDeclare::NAME));
+}
+
+TEST(TestDomArrayMemberGroup, case08_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/variable/resources/member_array/case08_err/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+
+	ExtExceptionObject* ex = util.vm->getUncaughtException(); __STP(ex);
+	CHECK(ex != nullptr);
+
+	const UnicodeString* name = ex->getClassName();
+	CHECK(name->equals(TypeCastExceptionClassDeclare::NAME));
+}
+

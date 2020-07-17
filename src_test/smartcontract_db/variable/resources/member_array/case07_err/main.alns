@@ -1,0 +1,16 @@
+
+
+package test.fw;
+
+
+class SmartContract {
+	public SmartContract() {
+		result = this.dom[1][0];
+	}
+	
+	public int main(){
+
+	}
+	private var dom = [[1, 2], {test_id : "test"}];
+	private int result = -1;
+}
