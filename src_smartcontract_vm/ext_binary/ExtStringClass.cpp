@@ -30,4 +30,9 @@ const UnicodeString* ExtStringClass::getValue() const noexcept {
 	return this->value;
 }
 
+AbstractExtObject* ExtStringClass::copy() const noexcept {
+	return new ExtStringClass(getName(), getValue());
+}
+
+
 } /* namespace alinous */

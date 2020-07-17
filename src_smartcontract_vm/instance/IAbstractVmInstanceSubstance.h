@@ -18,6 +18,7 @@ class AbstractExtObject;
 class VTableRegistory;
 class AnalyzedType;
 class UnicodeString;
+class GcManager;
 
 class IAbstractVmInstanceSubstance {
 public:

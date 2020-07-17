@@ -35,6 +35,7 @@
 #include "sc_declare_types/StringType.h"
 #include "sc_declare_types/VoidType.h"
 #include "sc_declare_types/ObjectType.h"
+#include "sc_declare_types/DomType.h"
 
 #include "sc_statement/StatementBlock.h"
 #include "sc_statement/VariableDeclareStatement.h"
@@ -87,6 +88,10 @@
 #include "sc_expression_logical/EqualityExpression.h"
 #include "sc_expression_logical/RelationalExpression.h"
 #include "sc_expression_logical/NotExpression.h"
+
+#include "sc_expression_json/JsonInitializerExpression.h"
+#include "sc_expression_json/JsonArrayExpression.h"
+#include "sc_expression_json/JsonKeyValuePairExpression.h"
 
 #include "sql_ddl/CreateTableStatement.h"
 #include "sql_ddl/DropTableStatement.h"
@@ -282,6 +287,9 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 	case TYPE_OBJECT:
 		element = new ObjectType();
 		break;
+	case TYPE_DOM:
+		element = new DomType();
+		break;
 
 	case STMT_BLOCK:
 		element = new StatementBlock();
@@ -421,6 +429,16 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		break;
 	case EXP_CND_NOT:
 		element = new NotExpression();
+		break;
+
+	case EXP_JSON_INITIALIZER:
+		element = new JsonInitializerExpression();
+		break;
+	case EXP_JSON_VALUE_PAIR:
+		element = new JsonKeyValuePairExpression();
+		break;
+	case EXP_JSON_ARRAY:
+		element = new JsonArrayExpression();
 		break;
 
 	case DDL_CREATE_TABLE:
@@ -629,6 +647,13 @@ void CodeElement::checkIsExp(CodeElement* element) {
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
+
+void CodeElement::checkIsJsonExp(CodeElement* element) {
+	if(!(element->kind >= EXP_JSON_INITIALIZER && element->kind < DDL_CREATE_TABLE)){
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
+	}
+}
+
 
 void CodeElement::checkIsSQLExp(CodeElement* element) {
 	if(!(element->kind >= SQL_EXP_ADDITIVE && element->kind < SQL_PART_COLUMN_LIST)){

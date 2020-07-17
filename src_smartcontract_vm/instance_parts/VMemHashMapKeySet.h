@@ -7,8 +7,11 @@
 
 #ifndef INSTANCE_PARTS_VMEMHASHMAPKEYSET_H_
 #define INSTANCE_PARTS_VMEMHASHMAPKEYSET_H_
-#include "vm/VirtualMachine.h"
 #include <cstddef>
+
+#include "vm/VirtualMachine.h"
+
+#include "base/Iterator.h"
 
 namespace alinous {
 

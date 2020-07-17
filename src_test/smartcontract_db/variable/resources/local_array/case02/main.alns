@@ -1,0 +1,18 @@
+
+
+package test.fw;
+
+
+class SmartContract {
+	public SmartContract() {
+		var dom = {id: [0, 1, 2, 3, 4]};
+		
+		this.result = dom.id;
+	}
+	
+	public int main(){
+
+	}
+	
+	private var result = [];
+}

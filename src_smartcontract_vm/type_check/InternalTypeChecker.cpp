@@ -46,16 +46,47 @@ int InternalTypeChecker::analyzeCompatibility(AnalyzedType* leftType, AnalyzedTy
 	case AnalyzedType::TYPE_OBJECT:
 		retcode = checkObject(leftType, rightType);
 		break;
+	case AnalyzedType::TYPE_DOM:
+		retcode = checkDomObject(leftType, rightType);
+		break;
+	case AnalyzedType::TYPE_DOM_VALUE:
+		retcode = checkDomValue(leftType, rightType);
+		break;
 	default:
 		break;
 	}
 
 	return retcode;
-
 }
 
+
+int InternalTypeChecker::checkDomValue(AnalyzedType* leftType, AnalyzedType* rightType) {
+	uint8_t rightTypeCode = rightType->getType();
+
+	if(rightTypeCode == AnalyzedType::TYPE_DOM ||
+			rightTypeCode == AnalyzedType::TYPE_DOM_ARRAY ||
+			rightTypeCode == AnalyzedType::TYPE_DOM_VALUE ||
+			rightTypeCode == AnalyzedType::TYPE_STRING || rightType->isNull() || rightType->isBool() || rightType->isPrimitiveInteger()){
+		return OK;
+	}
+
+	return INCOMPATIBLE;
+}
+
+int InternalTypeChecker::checkDomObject(AnalyzedType* leftType,	AnalyzedType* rightType) {
+	uint8_t rightTypeCode = rightType->getType();
+
+	if(rightTypeCode == AnalyzedType::TYPE_DOM || rightTypeCode == AnalyzedType::TYPE_DOM_ARRAY
+			|| rightTypeCode == AnalyzedType::TYPE_DOM_VALUE){
+		return OK;
+	}
+
+	return INCOMPATIBLE;
+}
+
+
 int InternalTypeChecker::checkRightNull(AnalyzedType* leftType, AnalyzedType* rightType) {
-	if(!leftType->isPrimitiveInteger() && !leftType->isBool()){
+	if((!leftType->isPrimitiveInteger() && !leftType->isBool()) || leftType->isArray()){
 		return OK;
 	}
 
@@ -90,7 +121,7 @@ int InternalTypeChecker::checkObject(AnalyzedType* leftType, AnalyzedType* right
 
 int InternalTypeChecker::checkString(AnalyzedType* leftType, AnalyzedType* rightType) {
 	uint8_t rightTypeCode = rightType->getType();
-	if(rightTypeCode == AnalyzedType::TYPE_STRING){
+	if(rightTypeCode == AnalyzedType::TYPE_STRING || rightTypeCode == AnalyzedType::TYPE_DOM_VALUE){
 		return OK;
 	}
 
@@ -100,6 +131,10 @@ int InternalTypeChecker::checkString(AnalyzedType* leftType, AnalyzedType* right
 int InternalTypeChecker::checkPrimitive(AnalyzedType* leftType,	AnalyzedType* rightType) {
 	uint8_t leftTypeCode = leftType->getType();
 	uint8_t rightTypeCode = rightType->getType();
+
+	if(rightTypeCode == AnalyzedType::TYPE_DOM_VALUE){
+		return OK;
+	}
 
 	if(!rightType->isPrimitiveInteger()){
 		return INCOMPATIBLE;

@@ -1,0 +1,18 @@
+
+
+package test.fw;
+
+
+class SmartContract {
+	public SmartContract() {
+		var dom = {"id" : "test01"};
+		
+		value = dom;
+	}
+	
+	public int main(){
+
+	}
+	
+	private var value;
+}

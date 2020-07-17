@@ -19,9 +19,12 @@ public:
 	virtual ~AbstractExtObject();
 
 	const UnicodeString* getName() const noexcept;
+	void setName(const UnicodeString* name) noexcept;
 	uint8_t getType() const noexcept;
 
 	virtual bool isNull() const noexcept;
+
+	virtual AbstractExtObject* copy() const noexcept = 0;
 protected:
 	uint8_t type;
 	UnicodeString* name;

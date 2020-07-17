@@ -51,5 +51,7 @@ TEST(TestVmStackGroup, Stack02){
 	stack->instIsPrimitive();
 	stack->instToClassExtObject(nullptr, nullptr);
 
+	stack->resetOnGc();
+
 	delete stack;
 }

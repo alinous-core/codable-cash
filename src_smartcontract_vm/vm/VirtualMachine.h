@@ -99,9 +99,19 @@ public:
 	void setCaught(bool caught) noexcept;
 	bool isCaught() const noexcept;
 
+
+
 	// database and transaction
 	VmTransactionHandler* getTransactionHandler() const noexcept;
 	void loadDatabase(const File* dbdir);
+
+	const CodeElement* getLastElement() const noexcept {
+		return lastElement;
+	}
+	void setLastElement(const CodeElement* lastElement) {
+		this->lastElement = lastElement;
+	}
+
 private:
 	void checkUncaughtException();
 
@@ -122,6 +132,8 @@ private:
 
 	ArrayList<Exception> exceptions;
 	ObjectReference* uncaughtException;
+
+	const CodeElement* lastElement;
 
 	// catch test
 	bool caught;

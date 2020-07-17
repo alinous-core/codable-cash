@@ -7,13 +7,13 @@ import test.fw.base.BaseClass2;
 
 class SmartContract {
 	public SmartContract() {
-		BaseClass ref = new BaseClass2();
-		this.obj = (BaseClass2)ref;
+		BaseClass2 ref = new BaseClass();
+		this.obj = (BaseClass)ref;
 	}
 	
 	public int main(){
 
 	}
 	
-	private BaseClass2 obj;
+	private BaseClass obj;
 }

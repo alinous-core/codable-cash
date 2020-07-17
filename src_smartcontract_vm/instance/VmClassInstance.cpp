@@ -77,9 +77,8 @@ VmClassInstance* VmClassInstance::createObject(AnalyzedClass* clazz, VirtualMach
 	return inst;
 }
 
-const UnicodeString* VmClassInstance::toString() noexcept {
-	// FIXME VmClassInstance::toString()
-	return nullptr;
+const UnicodeString* VmClassInstance::toString() const noexcept {
+	return this->clazz->getFullQualifiedName();
 }
 
 IVmInstanceFactory* VmClassInstance::findFactory(AnalyzedClass* clazz) noexcept {
@@ -103,7 +102,8 @@ void VmClassInstance::removeInnerRefs(GcManager* gc) noexcept {
 
 		// remove ref
 		if(!ref->isPrimitive()){
-			ref->substitute(nullptr, gc);
+			gc->removeObject(ref);
+			ref->resetOnGc();
 		}
 	}
 }

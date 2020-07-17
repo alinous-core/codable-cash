@@ -28,6 +28,11 @@ public:
 	static const constexpr uint8_t TYPE_STRING{26};
 	static const constexpr uint8_t TYPE_VOID{27};
 	static const constexpr uint8_t TYPE_OBJECT{28};
+	static const constexpr uint8_t TYPE_DOM{29};
+	static const constexpr uint8_t TYPE_DOM_ARRAY{30};
+	static const constexpr uint8_t TYPE_DOM_VALUE_PAIR{31};
+	static const constexpr uint8_t TYPE_DOM_VALUE{32};
+
 
 	static const UnicodeString SIG_BOOL;
 	static const UnicodeString SIG_BYTE;
@@ -37,6 +42,7 @@ public:
 	static const UnicodeString SIG_LONG;
 	static const UnicodeString SIG_STRING;
 	static const UnicodeString SIG_VOID;
+	static const UnicodeString SIG_VAR;
 
 	AnalyzedType(const AnalyzedType& obj); // copy constructor
 

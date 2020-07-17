@@ -21,16 +21,18 @@ class IAbstractVmInstanceSubstance;
 
 class ArrayReference : public AbstractReference {
 public:
-	explicit ArrayReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
+	ArrayReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
+	ArrayReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm, VmArrayInstance* instArray);
 	virtual ~ArrayReference();
 
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
-	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc);
+	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
+	virtual void resetOnGc() noexcept;
 	virtual bool isNull() const noexcept;
 	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
-	virtual const UnicodeString* toString() noexcept;
+	virtual const UnicodeString* toString() const noexcept;
 
 private:
 	VmArrayInstance* instArray;

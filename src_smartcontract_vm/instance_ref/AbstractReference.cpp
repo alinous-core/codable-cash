@@ -29,7 +29,12 @@ bool AbstractReference::isReference() const noexcept {
 	return true;
 }
 
-void AbstractReference::substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc) {
+bool AbstractReference::isDom() const noexcept {
+	return false;
+}
+
+
+void AbstractReference::substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm) {
 }
 
 IAbstractVmInstanceSubstance* AbstractReference::getOwner() const noexcept {
@@ -40,7 +45,7 @@ void AbstractReference::setOwner(IAbstractVmInstanceSubstance* owner) noexcept {
 	this->owner = owner;
 }
 
-const UnicodeString* AbstractReference::toString() noexcept {
+const UnicodeString* AbstractReference::toString() const noexcept {
 	return &NULL_STR;
 }
 

@@ -19,6 +19,9 @@
 #include "base/UnicodeString.h"
 #include "base/Long.h"
 
+#include "instance_exception/TypeCastExceptionClassDeclare.h"
+
+#include "instance_exception/ExceptionInterrupt.h"
 namespace alinous {
 
 PrimitiveReference::PrimitiveReference(uint8_t type) : AbstractReference(nullptr, type) {
@@ -57,6 +60,8 @@ int32_t PrimitiveReference::getIntValue() const noexcept {
 	return ret;
 }
 void PrimitiveReference::setIntValue(int32_t value) noexcept {
+	delete this->str, this->str = nullptr;
+
 	*((int32_t*)this->data) = value;
 }
 
@@ -65,6 +70,8 @@ int8_t PrimitiveReference::getByteValue() const noexcept {
 }
 
 void PrimitiveReference::setByteValue(int8_t value) noexcept {
+	delete this->str, this->str = nullptr;
+
 	*((int8_t*)this->data) = value;
 }
 
@@ -77,6 +84,8 @@ int16_t PrimitiveReference::getShortValue() const noexcept {
 }
 
 void PrimitiveReference::setShortValue(int16_t value) noexcept {
+	delete this->str, this->str = nullptr;
+
 	*((int16_t*)this->data) = value;
 }
 
@@ -89,6 +98,8 @@ int16_t PrimitiveReference::getCharValue() const noexcept {
 }
 
 void PrimitiveReference::setCharValue(int16_t value) noexcept {
+	delete this->str, this->str = nullptr;
+
 	*((int16_t*)this->data) = value;
 }
 
@@ -190,7 +201,10 @@ AbstractReference* PrimitiveReference::wrap(IAbstractVmInstanceSubstance* owner,
 
 	return newInst;*/
 
-	return copy(vm);
+	PrimitiveReference* newInst = copy(vm);
+	newInst->setOwner(owner);
+
+	return newInst;
 }
 
 uint8_t PrimitiveReference::getInstType() const noexcept {
@@ -260,6 +274,8 @@ int PrimitiveReference::valueCompare64(const PrimitiveReference* right) const no
 
 
 void PrimitiveReference::setLongValue(int64_t value) noexcept {
+	delete this->str, this->str = nullptr;
+
 	*((int64_t*)this->data) = value;
 }
 
@@ -268,10 +284,17 @@ bool PrimitiveReference::isPrimitive() const noexcept {
 	return true;
 }
 
-void PrimitiveReference::substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc) {
+void PrimitiveReference::substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
+	delete this->str, this->str = nullptr;
+
 	uint8_t type = getType();
 	PrimitiveReference* rightRef = dynamic_cast<PrimitiveReference*>(rightValue);
-	assert(rightRef != nullptr);
+	if(rightRef == nullptr){
+		TypeCastExceptionClassDeclare::throwException(vm, vm->getLastElement());
+		ExceptionInterrupt::interruptPoint(vm);
+	}
 
 	switch(type){
 	case VmInstanceTypesConst::REF_BOOL:
@@ -295,6 +318,9 @@ void PrimitiveReference::substitute(IAbstractVmInstanceSubstance* rightValue, Gc
 		break;
 	}
 
+}
+
+void PrimitiveReference::resetOnGc() noexcept {
 }
 
 AbstractExtObject* PrimitiveReference::toClassExtObject(const UnicodeString* name, VTableRegistory* table) {
@@ -392,7 +418,6 @@ int PrimitiveReference::hashCode() const noexcept {
 
 	return (int)lvalue;
 }
-
 size_t PrimitiveReference::getDataSize(int8_t type) noexcept {
 	size_t ret = 0;
 
@@ -430,7 +455,7 @@ PrimitiveReference* PrimitiveReference::copy(VirtualMachine* vm) const noexcept 
 	return ref;
 }
 
-const UnicodeString* PrimitiveReference::toString() noexcept {
+const UnicodeString* PrimitiveReference::toString() const noexcept {
 	if(this->type == VmInstanceTypesConst::REF_BOOL){
 		delete this->str;
 		this->str = new UnicodeString(L"");
@@ -441,6 +466,8 @@ const UnicodeString* PrimitiveReference::toString() noexcept {
 		}else{
 			this->str->append(L"false");
 		}
+
+		return this->str;
 	}
 
 	int64_t value = getLongValue();

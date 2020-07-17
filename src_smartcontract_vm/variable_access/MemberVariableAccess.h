@@ -31,6 +31,9 @@ public:
 private:
 	void analyzeStaticWithClassType(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
 	AbstractVmInstance* interpretStaticWithClassType(VirtualMachine* vm, AbstractVmInstance* lastInst);
+	void analyzeDomType(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst);
+	AbstractVmInstance* interpretDomType(VirtualMachine* vm, AbstractVmInstance* lastInst);
+	AbstractVmInstance* interpretDomArrayType(VirtualMachine* vm, AbstractVmInstance* lastInst);
 private:
 	VariableIdentifier* valId;
 	int memberIndex;

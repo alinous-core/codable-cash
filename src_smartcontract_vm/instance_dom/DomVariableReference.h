@@ -14,23 +14,26 @@ namespace alinous {
 
 class IAbstractVmInstanceSubstance;
 class VirtualMachine;
-class DomVariableInstance;
+class AbstractDomInstance;
 
 class DomVariableReference : public AbstractReference {
 public:
-	DomVariableReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
+	DomVariableReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm, AbstractDomInstance* inst);
 	virtual ~DomVariableReference();
 
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept;
-	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc);
+	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
+	virtual void resetOnGc() noexcept;
 	virtual bool isNull() const noexcept;
-	virtual int valueCompare(const IAbstractVmInstanceSubstance* right);
+	virtual bool isDom() const noexcept;
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
-	virtual const UnicodeString* toString() noexcept;
+	virtual const UnicodeString* toString() const noexcept;
+
+	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 
 private:
-	DomVariableInstance* inst;
+	AbstractDomInstance* inst;
 };
 
 } /* namespace alinous */

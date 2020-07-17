@@ -24,6 +24,14 @@ ExtExceptionObject::~ExtExceptionObject() {
 	delete this->className;
 }
 
+AbstractExtObject* ExtExceptionObject::copy() const noexcept {
+	ExtExceptionObject* newObj = new ExtExceptionObject(this->name);
+	newObj->element = this->element;
+	newObj->className = this->className == nullptr ? nullptr : new UnicodeString(this->className);
+
+	return newObj;
+}
+
 void ExtExceptionObject::setCodeElement(const CodeElement* element) noexcept {
 	this->element = element;
 }

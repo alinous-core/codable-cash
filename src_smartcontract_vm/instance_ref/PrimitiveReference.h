@@ -31,7 +31,8 @@ public:
 	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 	virtual int hashCode() const noexcept;
 
-	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc);
+	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
+	virtual void resetOnGc() noexcept;
 
 	virtual AbstractReference* wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm);
 	virtual uint8_t getInstType() const noexcept;
@@ -45,7 +46,7 @@ public:
 	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);
 
 	virtual AbstractExtObject* toClassExtObject(const UnicodeString* name, VTableRegistory* table);
-	virtual const UnicodeString* toString() noexcept;
+	virtual const UnicodeString* toString() const noexcept;
 
 	virtual bool isStaticConst() const noexcept;
 
@@ -91,7 +92,7 @@ protected:
 	void* data;
 	VmMalloc* malloc;
 
-	UnicodeString* str;
+	mutable UnicodeString* str;
 };
 
 } /* namespace alinous */

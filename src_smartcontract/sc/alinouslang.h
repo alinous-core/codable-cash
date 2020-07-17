@@ -36,6 +36,7 @@
 #include "sc_declare_types/StringType.h"
 #include "sc_declare_types/VoidType.h"
 #include "sc_declare_types/ObjectType.h"
+#include "sc_declare_types/DomType.h"
 
 #include "sc_statement/ExpressionStatement.h"
 #include "sc_statement/StatementBlock.h"
@@ -88,6 +89,10 @@
 #include "sc_expression_logical/EqualityExpression.h"
 #include "sc_expression_logical/NotExpression.h"
 #include "sc_expression_logical/RelationalExpression.h"
+
+#include "sc_expression_json/JsonInitializerExpression.h"
+#include "sc_expression_json/JsonArrayExpression.h"
+#include "sc_expression_json/JsonKeyValuePairExpression.h"
 
 #include "sql_ddl/CreateTableStatement.h"
 #include "sql_ddl/DropTableStatement.h"

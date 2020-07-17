@@ -10,6 +10,8 @@
 #include "ext_binary/ExtArrayObject.h"
 #include "ext_binary/ExtStringClass.h"
 #include "ext_binary/ExtExceptionObject.h"
+#include "ext_binary/ExtDomObject.h"
+#include "ext_binary/ExtDomArrayObject.h"
 
 #include "base/UnicodeString.h"
 
@@ -32,7 +34,7 @@ ExtClassObject::~ExtClassObject() {
 
 void ExtClassObject::add(AbstractExtObject* obj) noexcept {
 	this->list->addElement(obj);
-	this->map->put(obj->getName(), obj);
+	this->map->put(obj == nullptr ? nullptr : obj->getName(), obj);
 }
 
 ExtPrimitiveObject* ExtClassObject::getExtPrimitiveObject(const UnicodeString* name) const noexcept {
@@ -73,6 +75,31 @@ ExtStringClass* alinous::ExtClassObject::getExtStringObject(const UnicodeString*
 	}
 
 	return dynamic_cast<ExtStringClass*>(obj);
+}
+
+ExtDomObject* ExtClassObject::getExtDomObject(const UnicodeString* name) const noexcept {
+	AbstractExtObject* obj = this->map->get(name);
+
+	return obj->isNull() ? nullptr : dynamic_cast<ExtDomObject*>(obj);
+}
+
+ExtDomArrayObject* ExtClassObject::getExtDomArrayObject(const UnicodeString* name) const noexcept {
+	AbstractExtObject* obj = this->map->get(name);
+
+	return (obj == nullptr || obj->isNull()) ? nullptr : dynamic_cast<ExtDomArrayObject*>(obj);
+}
+
+AbstractExtObject* ExtClassObject::copy() const noexcept {
+	ExtClassObject* newObj = new ExtClassObject(this->name);
+
+	int maxLoop = this->list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExtObject* obj = this->list->get(i);
+
+		newObj->add(obj == nullptr ? nullptr : obj->copy());
+	}
+
+	return newObj;
 }
 
 } /* namespace alinous */

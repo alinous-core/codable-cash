@@ -24,13 +24,15 @@ public:
 	virtual bool isPrimitive() const noexcept;
 	virtual IAbstractVmInstanceSubstance* getInstance() noexcept = 0;
 	virtual bool isReference() const noexcept;
+	virtual bool isDom() const noexcept;
 
-	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc);
+	virtual void substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm);
+	virtual void resetOnGc() noexcept = 0;
 
 	IAbstractVmInstanceSubstance* getOwner() const noexcept;
 	void setOwner(IAbstractVmInstanceSubstance* owner) noexcept;
 
-	virtual const UnicodeString* toString() noexcept;
+	virtual const UnicodeString* toString() const noexcept;
 protected:
 	IAbstractVmInstanceSubstance* owner;
 };

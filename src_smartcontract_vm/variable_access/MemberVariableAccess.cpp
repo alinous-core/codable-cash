@@ -35,6 +35,16 @@
 
 #include "instance_ref_class_static/StaticClassEntry.h"
 
+#include "instance_ref/PrimitiveReference.h"
+
+#include "instance_string/VmStringInstance.h"
+
+#include "instance_gc/StackFloatingVariableHandler.h"
+
+#include "instance_dom/DomVariableInstance.h"
+#include "instance_dom/DomRuntimeReference.h"
+#include "instance_dom/DomArrayVariable.h"
+
 
 namespace alinous {
 
@@ -60,11 +70,15 @@ void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 		return;
 	}
 
-	TypeResolver* typeResolver = actx->getTypeResolver();
-
 	AnalyzedType atype = lastIinst->getAnalyzedType();
+	if(atype.getType() == AnalyzedType::TYPE_DOM || atype.getType() == AnalyzedType::TYPE_DOM_VALUE){
+		analyzeDomType(actx, lastIinst);
+		return;
+	}
+
 	AnalyzedClass* clazz = atype.getAnalyzedClass();
 
+	TypeResolver* typeResolver = actx->getTypeResolver();
 	const UnicodeString* name = this->valId->getName();
 
 	ArrayList<MemberVariableDeclare>* list = clazz->getMemberVariableDeclareList();
@@ -85,6 +99,11 @@ void MemberVariableAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 		actx->addValidationError(ValidationError::CODE_CLASS_MEMBER_DOES_NOT_EXISTS, this->valId, L"The variable '{0}' does not exists.", {name});
 		this->hasError = true;
 	}
+}
+
+
+void MemberVariableAccess::analyzeDomType(AnalyzeContext* actx,	AbstractVariableInstraction* lastIinst) {
+	this->atype = new AnalyzedType(AnalyzedType::TYPE_DOM_VALUE);
 }
 
 void MemberVariableAccess::analyzeStaticWithClassType(AnalyzeContext* actx,	AbstractVariableInstraction* lastIinst) {
@@ -125,6 +144,10 @@ AbstractVmInstance* MemberVariableAccess::interpret(VirtualMachine* vm, Abstract
 		ExceptionInterrupt::interruptPoint(vm);
 	}
 
+	if(this->atype != nullptr && this->atype->getType() == AnalyzedType::TYPE_DOM_VALUE){
+		return interpretDomType(vm, lastInst);
+	}
+
 	VmClassInstance* clazzInst = dynamic_cast<VmClassInstance*>(lastInst->getInstance());
 
 	const VMemList<AbstractReference>* list = clazzInst->getReferences();
@@ -133,7 +156,54 @@ AbstractVmInstance* MemberVariableAccess::interpret(VirtualMachine* vm, Abstract
 	return ref;
 }
 
+AbstractVmInstance* MemberVariableAccess::interpretDomType(VirtualMachine* vm, AbstractVmInstance* lastInst) {
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
+	IAbstractVmInstanceSubstance* inst = lastInst->getInstance();
+
+	AnalyzedType at = inst->getRuntimeType();
+	if(at.getType() == AnalyzedType::TYPE_DOM_ARRAY){
+		return interpretDomArrayType(vm, lastInst);
+	}
+
+	DomVariableInstance* dom = dynamic_cast<DomVariableInstance*>(inst);
+
+	assert(dom != nullptr);
+
+	const UnicodeString* name = this->valId->getName();
+	VmStringInstance* key = new(vm) VmStringInstance(vm, name);
+	releaser.registerInstance(key);
+
+	DomRuntimeReference* rr = dom->getProperty(vm, key);
+	if(rr == nullptr){
+		NullPointerExceptionClassDeclare::throwException(vm, this->element);
+		ExceptionInterrupt::interruptPoint(vm);
+	}
+
+	return rr;
+}
+
+AbstractVmInstance* MemberVariableAccess::interpretDomArrayType(VirtualMachine* vm, AbstractVmInstance* lastInst) {
+	const UnicodeString* name = this->valId->getName();
+	if(!name->equals(&DomArrayVariable::LENGTH)){
+		NullPointerExceptionClassDeclare::throwException(vm, this->element);
+		ExceptionInterrupt::interruptPoint(vm);
+	}
+
+	IAbstractVmInstanceSubstance* inst = lastInst->getInstance();
+	DomArrayVariable* dom = dynamic_cast<DomArrayVariable*>(inst);
+
+	int size = dom->size();
+
+	return PrimitiveReference::createIntReference(vm, size);
+}
+
 bool MemberVariableAccess::hasErrorOnAnalyze() const noexcept {
+	if(this->atype != nullptr && this->atype->getType() == AnalyzedType::TYPE_DOM_VALUE){
+		return false;
+	}
+
 	return this->memberIndex < 0 && this->meta == nullptr;
 }
 

@@ -52,6 +52,7 @@ public:
 	static const constexpr short TYPE_STRING{26};
 	static const constexpr short TYPE_VOID{27};
 	static const constexpr short TYPE_OBJECT{28};
+	static const constexpr short TYPE_DOM{29};
 
 	static const constexpr short STMT_BLOCK{50};
 	static const constexpr short STMT_VARIABLE_DECLARE{51};
@@ -104,6 +105,11 @@ public:
 	static const constexpr short EXP_CND_EQ{132};
 	static const constexpr short EXP_CND_RELATIONAL{133};
 	static const constexpr short EXP_CND_NOT{134};
+
+	static const constexpr short EXP_JSON_INITIALIZER{135};
+	static const constexpr short EXP_JSON_ARRAY{136};
+	static const constexpr short EXP_JSON_VALUE_PAIR{137};
+
 
 	static const constexpr short DDL_CREATE_TABLE{150};
 	static const constexpr short DDL_DROP_TABLE{151};
@@ -181,6 +187,7 @@ public:
 	static void checkIsType(CodeElement* element);
 	static void checkIsStatement(CodeElement* element);
 	static void checkIsExp(CodeElement* element);
+	static void checkIsJsonExp(CodeElement* element);
 	static void checkIsSQLExp(CodeElement* element);
 	static void checkIsJoinPart(CodeElement* element);
 	static void checkIsImport(CodeElement* element);

@@ -61,13 +61,11 @@ void VmArrayInstanceUtils::makeDimension(VirtualMachine* vm, int maxDepth, int c
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractReference* ref = lastRefs->get(i);
 
-		ArrayReference* arrayReference = dynamic_cast<ArrayReference*>(ref);
-
 		AnalyzedType at(*atype);
 		at.setDim(maxDepth - current);
 
 		VmArrayInstance* inst = new(vm) VmArrayInstance(vm, length, at);
-		ref->substitute(inst, vm->getGc());
+		ref->substitute(inst, vm);
 
 		setupVmArrayInstance(vm, inst, length, atype, &refs, maxDepth, current);
 	}

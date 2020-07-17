@@ -51,9 +51,15 @@ void VmArrayInstance::removeInnerRefs(GcManager* gc) noexcept {
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractReference* ref = this->array->get(i);
 
+		if(ref == nullptr){
+			continue;
+		}
+
 		// remove ref
 		if(!ref->isPrimitive()){
-			ref->substitute(nullptr, gc);
+			// ref->substitute(nullptr, gc);
+			gc->removeObject(ref);
+			ref->resetOnGc();
 		}
 	}
 }
@@ -92,8 +98,7 @@ IAbstractVmInstanceSubstance* VmArrayInstance::getInstance() noexcept {
 }
 
 AbstractReference* VmArrayInstance::wrap(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm) {
-	ArrayReference* ref = new(vm) ArrayReference(owner, vm);
-	ref->substitute(this, vm->getGc());
+	ArrayReference* ref = new(vm) ArrayReference(owner, vm, this);
 
 	return ref;
 }
@@ -143,6 +148,9 @@ void VmArrayInstance::setReference(VirtualMachine* vm, int pos, AbstractReferenc
 			ref->setOwner(this);
 		}
 	}
+	else{
+		this->array->setElement(nullptr, pos);
+	}
 }
 
 AbstractReference* VmArrayInstance::getReference(VirtualMachine* vm, int pos) {
@@ -153,7 +161,7 @@ AnalyzedType VmArrayInstance::getRuntimeType() const noexcept {
 	return *this->atype;
 }
 
-const UnicodeString* VmArrayInstance::toString() noexcept {
+const UnicodeString* VmArrayInstance::toString() const noexcept {
 	delete this->str;
 	this->str = new UnicodeString(L"");
 
@@ -166,7 +174,7 @@ const UnicodeString* VmArrayInstance::toString() noexcept {
 		}
 
 		if(ref == nullptr){
-			this->str->append(L", ");
+			this->str->append(L"null");
 		}
 		else {
 			const UnicodeString* s = ref->toString();

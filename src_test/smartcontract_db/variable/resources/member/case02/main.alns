@@ -1,0 +1,17 @@
+
+
+package test.fw;
+
+
+class SmartContract {
+	public SmartContract() {
+		str = value.id;
+	}
+	
+	public int main(){
+
+	}
+	
+	private var value = {"id" : "test01"};
+	private String str = null;
+}

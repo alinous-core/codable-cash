@@ -6,6 +6,7 @@ set(__src
 	BoolType.cpp
 	ByteType.cpp
 	CharType.cpp
+	DomType.cpp
 	IntType.cpp
 	LongType.cpp
 	ObjectType.cpp

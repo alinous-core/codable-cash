@@ -1,0 +1,16 @@
+
+
+package test.fw;
+
+
+class SmartContract {
+	public SmartContract() {
+		result = this.dom.length;
+	}
+	
+	public int main(){
+
+	}
+	private var dom = [0, 1, 2, 3, 4];
+	private int result = -1;
+}

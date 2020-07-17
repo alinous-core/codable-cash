@@ -54,7 +54,7 @@ void VmRootReference::clearInnerReferences() {
 void VmRootReference::releaseMainInstance(GcManager* gc) {
 	if(this->mainInst != nullptr){
 		gc->removeObject(this->mainInst);
-		delete this->mainInst;
+		//delete this->mainInst;
 		this->mainInst = nullptr;
 	}
 }
@@ -123,5 +123,9 @@ int VmRootReference::valueCompare(const IAbstractVmInstanceSubstance* right) con
 StaticClassReferenceHolder* VmRootReference::getStaticClassReferenceHolder() const noexcept {
 	return this->classStaticHolder;
 }
+
+void VmRootReference::resetOnGc() noexcept {
+}
+
 
 } /* namespace alinous */

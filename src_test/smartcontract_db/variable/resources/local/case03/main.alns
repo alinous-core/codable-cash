@@ -1,0 +1,14 @@
+
+
+package test.fw;
+
+
+class SmartContract {
+	public SmartContract() {
+		var dom = [null];
+	}
+	
+	public int main(){
+
+	}
+}

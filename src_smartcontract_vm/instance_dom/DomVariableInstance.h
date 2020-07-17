@@ -8,15 +8,20 @@
 #ifndef INSTANCE_DOM_DOMVARIABLEINSTANCE_H_
 #define INSTANCE_DOM_DOMVARIABLEINSTANCE_H_
 
-#include "instance/AbstractVmInstance.h"
-#include "instance/IInstanceContainer.h"
+#include "instance_dom/AbstractDomInstance.h"
+
+#include "instance_parts/VMemHashmap.h"
+
+#include "instance_string/VmStringInstance.h"
+
 
 namespace alinous {
 
 class AbstractReference;
 class DomVariableReference;
+class DomRuntimeReference;
 
-class DomVariableInstance : public AbstractVmInstance, public IInstanceContainer {
+class DomVariableInstance : public AbstractDomInstance {
 public:
 	explicit DomVariableInstance(VirtualMachine* vm);
 	virtual ~DomVariableInstance();
@@ -36,14 +41,17 @@ public:
 	virtual int instValueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 	virtual AbstractExtObject* instToClassExtObject(const UnicodeString* name, VTableRegistory* table);
 
-	virtual const UnicodeString* toString() noexcept;
-
+	virtual const UnicodeString* toString() const noexcept;
 
 	virtual int valueCompare(const IAbstractVmInstanceSubstance* right) const noexcept;
 
+	void putProperty(VirtualMachine* vm, const VmStringInstance* key, IAbstractVmInstanceSubstance* substance) noexcept;
+	DomRuntimeReference* getProperty(VirtualMachine* vm, const VmStringInstance* key) noexcept;
 private:
-	AbstractReference* valueRef;
-	VMemList<AbstractReference>* properties;
+	VMemHashmap<VmStringInstance, DomRuntimeReference>* properties;
+
+	mutable VMemList<AbstractReference>* list;
+	mutable UnicodeString* str;
 };
 
 } /* namespace alinous */

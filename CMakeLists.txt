@@ -193,7 +193,7 @@ add_custom_target(valgrind
 add_custom_target(valgrindp
 	COMMAND valgrind --leak-check=full
 		--xml=yes --xml-file=testall.%p.valgrind.xml
-		./testall -g TestStaticInvokeGroup -t case02_err
+		./testall -g TestDomMemberVariableGroup
 	
 	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 	)

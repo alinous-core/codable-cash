@@ -21,6 +21,12 @@ ArrayReference::ArrayReference(IAbstractVmInstanceSubstance* owner, VirtualMachi
 	this->instArray = nullptr;
 }
 
+
+ArrayReference::ArrayReference(IAbstractVmInstanceSubstance* owner,	VirtualMachine* vm, VmArrayInstance* instArray)
+					: AbstractReference(owner, VmInstanceTypesConst::REF_ARRAY){
+	this->instArray = instArray;
+}
+
 ArrayReference::~ArrayReference() {
 	this->instArray = nullptr;
 }
@@ -29,7 +35,9 @@ IAbstractVmInstanceSubstance* ArrayReference::getInstance() noexcept {
 	return this->instArray;
 }
 
-void ArrayReference::substitute(IAbstractVmInstanceSubstance* rightValue, GcManager* gc) {
+void ArrayReference::substitute(IAbstractVmInstanceSubstance* rightValue, VirtualMachine* vm) {
+	GcManager* gc = vm->getGc();
+
 	if(this->instArray != nullptr){
 		gc->removeObject(this);
 		this->instArray = nullptr;
@@ -69,7 +77,11 @@ AbstractExtObject* ArrayReference::toClassExtObject(const UnicodeString* name, V
 			: new ExtNullPtrObject(name, VmInstanceTypesConst::INST_ARRAY);
 }
 
-const UnicodeString* ArrayReference::toString() noexcept {
+void ArrayReference::resetOnGc() noexcept {
+	this->instArray = nullptr;
+}
+
+const UnicodeString* ArrayReference::toString() const noexcept {
 	return isNull() ? AbstractReference::toString() : this->instArray->toString();
 }
 

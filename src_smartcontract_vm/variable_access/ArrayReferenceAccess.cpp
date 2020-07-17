@@ -19,14 +19,18 @@
 #include "instance_gc/GcManager.h"
 
 #include "instance_exception/NullPointerExceptionClassDeclare.h"
-
 #include "instance_exception/ExceptionInterrupt.h"
+#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
+#include "instance_exception/TypeCastExceptionClassDeclare.h"
 
 #include "vm/VirtualMachine.h"
 
 #include "instance_ref/PrimitiveReference.h"
 
-#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
+#include "instance_dom/DomArrayVariable.h"
+#include "instance_dom/DomRuntimeReference.h"
+
+
 namespace alinous {
 
 ArrayReferenceAccess::ArrayReferenceAccess(ArrayReferenceExpression* arrayRefExp)
@@ -49,6 +53,11 @@ void ArrayReferenceAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 	int previousDim = at.getDim();
 	dim = previousDim - dim;
 
+	if(at.getType() == AnalyzedType::TYPE_DOM || at.getType() == AnalyzedType::TYPE_DOM_VALUE){
+		analyzeDomArray(actx, lastIinst, element);
+		return;
+	}
+
 	if(dim < 0){
 		actx->addValidationError(ValidationError::CODE_ARRAY_INDEX_OVERFLOW, element, L"Array dimension is too greater than the variable.", {});
 		this->atype = new AnalyzedType();
@@ -58,6 +67,10 @@ void ArrayReferenceAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 	at.setDim(dim);
 	this->atype = new AnalyzedType(at);
 
+	analyzeDimensions(actx, lastIinst, element);
+}
+
+void ArrayReferenceAccess::analyzeDimensions(AnalyzeContext* actx,	AbstractVariableInstraction* lastIinst, CodeElement* element) {
 	const ArrayList<AbstractExpression>* list = this->arrayRefExp->getIndexList();
 
 	int maxLoop = list->size();
@@ -73,6 +86,10 @@ void ArrayReferenceAccess::analyze(AnalyzeContext* actx, AbstractVariableInstrac
 	}
 }
 
+void ArrayReferenceAccess::analyzeDomArray(AnalyzeContext* actx, AbstractVariableInstraction* lastIinst, CodeElement* element) {
+	this->atype = new AnalyzedType(AnalyzedType::TYPE_DOM_VALUE);
+}
+
 AnalyzedType ArrayReferenceAccess::getAnalyzedType() const noexcept {
 	return *this->atype;
 }
@@ -86,8 +103,13 @@ AbstractVmInstance* ArrayReferenceAccess::interpret(VirtualMachine* vm, Abstract
 		NullPointerExceptionClassDeclare::throwException(vm, getCodeElement());
 		ExceptionInterrupt::interruptPoint(vm);
 	}
-
 	releaser.registerInstance(inst);
+
+	uint8_t t = this->atype->getType();
+	if(t == AnalyzedType::TYPE_DOM || t == AnalyzedType::TYPE_DOM_VALUE){
+		return interpretDomArray(vm, lastInst, inst);
+	}
+
 	IAbstractVmInstanceSubstance* sub = inst->getInstance();
 	VmArrayInstance* arrayInst = dynamic_cast<VmArrayInstance*>(sub);
 
@@ -130,6 +152,67 @@ AbstractVmInstance* ArrayReferenceAccess::interpret(VirtualMachine* vm, Abstract
 
 	return element;
 }
+
+AbstractVmInstance* ArrayReferenceAccess::interpretDomArray(VirtualMachine* vm, AbstractVmInstance* lastInst, AbstractVmInstance* inst) {
+	IAbstractVmInstanceSubstance* sub = inst->getInstance();
+	DomArrayVariable* domArray = dynamic_cast<DomArrayVariable*>(sub);
+	if(domArray == nullptr){
+		TypeCastExceptionClassDeclare::throwException(vm, this->arrayRefExp);
+		ExceptionInterrupt::interruptPoint(vm);
+	}
+
+	GcManager* gc = vm->getGc();
+	StackFloatingVariableHandler releaser(gc);
+
+	const ArrayList<AbstractExpression>* list = this->arrayRefExp->getIndexList();
+
+	int maxLoop = list->size() - 1;
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractExpression* indexExp = list->get(i);
+
+		AbstractVmInstance* index = indexExp->interpret(vm);
+		releaser.registerInstance(index);
+
+		PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(index);
+		int idx = ref->getIntValue();
+
+		if(idx >= domArray->size()){
+			ArrayOutOfBoundsExceptionClassDeclare::throwException(vm, this->arrayRefExp);
+			ExceptionInterrupt::interruptPoint(vm);
+		}
+
+		DomRuntimeReference* rr = domArray->get(idx);
+		if(rr->isNull()){
+			NullPointerExceptionClassDeclare::throwException(vm, this->arrayRefExp);
+			ExceptionInterrupt::interruptPoint(vm);
+		}
+
+		IAbstractVmInstanceSubstance* elementInst = rr->getInstance();
+		domArray = dynamic_cast<DomArrayVariable*>(elementInst);
+
+		if(domArray == nullptr){
+			TypeCastExceptionClassDeclare::throwException(vm, this->arrayRefExp);
+			ExceptionInterrupt::interruptPoint(vm);
+		}
+	}
+
+	AbstractExpression* indexExp = list->get(maxLoop);
+	AbstractVmInstance* index = indexExp->interpret(vm);
+	releaser.registerInstance(index);
+
+	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(index);
+	int idx = ref->getIntValue();
+
+	if(idx >= domArray->size()){
+		ArrayOutOfBoundsExceptionClassDeclare::throwException(vm, this->arrayRefExp);
+		ExceptionInterrupt::interruptPoint(vm);
+	}
+
+	DomRuntimeReference* rr = domArray->get(idx);
+
+	return rr;
+}
+
 
 CodeElement* ArrayReferenceAccess::getCodeElement() const noexcept {
 	return this->arrayRefExp;

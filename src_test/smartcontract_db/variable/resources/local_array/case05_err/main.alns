@@ -1,0 +1,20 @@
+
+
+package test.fw;
+
+
+class SmartContract {
+	public SmartContract() {
+		test(null);
+	}
+	
+	private void test(var dom){
+		count = dom.length;
+	}
+	
+	public int main(){
+
+	}
+	
+	private int count = 0;
+}

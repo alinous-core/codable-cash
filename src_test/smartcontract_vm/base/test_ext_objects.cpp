@@ -15,9 +15,11 @@
 #include "ext_binary/ExtClassObject.h"
 #include "ext_binary/ExtPrimitiveObject.h"
 #include "ext_binary/ExtStringClass.h"
+#include "ext_binary/ExtNullPtrObject.h"
 
 #include "instance/VmInstanceTypesConst.h"
 
+#include "ext_binary/ExtExceptionObject.h"
 
 using namespace alinous;
 
@@ -152,4 +154,20 @@ TEST(TestExtObjects, classObj01){
 	UnicodeString exname(L"dummyEx");
 	ExtExceptionObject* exobj = obj.getExtExceptionObject(&exname);
 	CHECK(exobj == nullptr);
+}
+
+TEST(TestExtObjects, extExceptionCopy){
+	UnicodeString name(L"name");
+	ExtExceptionObject exobj(&name);
+
+	ExtExceptionObject* exobj2 = dynamic_cast<ExtExceptionObject*>(exobj.copy()); __STP(exobj2);
+	CHECK(exobj2 != nullptr)
+}
+
+TEST(TestExtObjects, nullObj01){
+	UnicodeString name(L"name");
+	ExtNullPtrObject obj(&name, 0);
+
+	ExtNullPtrObject* obj1 = dynamic_cast<ExtNullPtrObject*>(obj.copy()); __STP(obj1);
+	CHECK(obj1 != nullptr)
 }

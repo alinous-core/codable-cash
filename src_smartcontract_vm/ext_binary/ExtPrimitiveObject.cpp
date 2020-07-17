@@ -23,6 +23,14 @@ ExtPrimitiveObject::~ExtPrimitiveObject() {
 
 }
 
+AbstractExtObject* ExtPrimitiveObject::copy() const noexcept {
+	ExtPrimitiveObject* obj = new ExtPrimitiveObject(this->name, this->type);
+
+	Mem::memcpy(obj->data, this->data, sizeof(this->data));
+
+	return obj;
+}
+
 
 ExtPrimitiveObject* ExtPrimitiveObject::createBoolObject(const UnicodeString* name, int8_t value) noexcept {
 	ExtPrimitiveObject* obj = new ExtPrimitiveObject(name, VmInstanceTypesConst::REF_BOOL);

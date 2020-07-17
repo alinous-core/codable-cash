@@ -49,6 +49,7 @@ public:
 	static constexpr int CODE_ARRAY_INDEX_OVERFLOW = 51;
 
 	static constexpr int CODE_TYPE_INCOMPATIBLE = 60;
+	static constexpr int CODE_TYPE_DOES_NOT_EXISTS = 61;
 
 	static constexpr int CODE_ARITHMETIC_NON_INTEGER = 70;
 

@@ -63,5 +63,10 @@ bool AnalyzedTypeChecker::checkCompatibility(AnalyzeContext* actx, AbstractExpre
 	return ret;
 }
 
+int AnalyzedTypeChecker::checkCompatibility(AnalyzeContext* actx, AnalyzedType* leftType, AnalyzedType* rightType) {
+	int result = InternalTypeChecker::analyzeCompatibility(leftType, rightType);
+
+	return result;
+}
 
 } /* namespace alinous */

@@ -47,7 +47,7 @@ void MemberReferenceExpression::analyze(AnalyzeContext* actx) {
 		AbstractExpression* exp = this->list.get(i);
 		holder->addExpression(exp, actx);
 
-		ex = ex || exp->throwsException();
+		ex = (ex || exp->throwsException());
 	}
 
 	setThrowsException(ex);

@@ -56,13 +56,15 @@ void VmStack::removeInnerRefs(GcManager* gc) noexcept {
 		AbstractReference* ref = this->stack->get(i);
 
 		if(!ref->isPrimitive()){
-			ref->substitute(nullptr, gc);
+			gc->removeObject(ref);
+			ref->resetOnGc();
 		}
 
 		delete ref;
 	}
-}
 
+	this->stack->reset();
+}
 
 AbstractReference* VmStack::get(int pos) const noexcept {
 	return this->stack->get(pos);
@@ -110,6 +112,10 @@ int VmStack::valueCompare(const IAbstractVmInstanceSubstance* right) const noexc
 
 AnalyzedType VmStack::getRuntimeType() const noexcept {
 	return AnalyzedType();
+}
+
+void VmStack::resetOnGc() noexcept {
+	this->stack->reset();
 }
 
 } /* namespace alinous */

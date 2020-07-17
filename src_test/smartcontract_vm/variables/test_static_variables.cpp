@@ -44,6 +44,8 @@ TEST(TestStaticVariablesGroup, ClassTypeReferenceMisc){
 	CHECK(classRef.getInstReferences() == nullptr);
 	CHECK(!classRef.instIsNull());
 	CHECK(classRef.instToClassExtObject(nullptr, nullptr) == nullptr);
+
+	classRef.resetOnGc();
 }
 
 TEST(TestStaticVariablesGroup, case01){

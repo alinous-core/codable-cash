@@ -330,6 +330,10 @@ void FunctionCallExpression::fromBinary(ByteBuffer* in) {
 }
 
 AnalyzedType FunctionCallExpression::getType(AnalyzeContext* actx) {
+	if(this->methodEntry == nullptr){
+		return AnalyzedType(AnalyzedType::TYPE_NONE);
+	}
+
 	MethodDeclare* method = this->methodEntry->getMethod();
 
 	// analyze function type

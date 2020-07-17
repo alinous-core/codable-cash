@@ -20,7 +20,7 @@ const UnicodeString AnalyzedType::SIG_INT(L"I");
 const UnicodeString AnalyzedType::SIG_LONG(L"J");
 const UnicodeString AnalyzedType::SIG_STRING(L"LString;");
 const UnicodeString AnalyzedType::SIG_VOID(L"Lvoid;");
-
+const UnicodeString AnalyzedType::SIG_VAR(L"Lvar;");
 
 AnalyzedType::AnalyzedType(uint8_t type) {
 	this->type = type;
@@ -145,6 +145,9 @@ const UnicodeString* AnalyzedType::getSignatureName() noexcept {
 		break;
 	case TYPE_VOID:
 		ret = &AnalyzedType::SIG_VOID;
+		break;
+	case TYPE_DOM:
+		ret = &AnalyzedType::SIG_VAR;
 		break;
 	case TYPE_OBJECT:
 	default:

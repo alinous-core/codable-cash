@@ -20,6 +20,8 @@ class ExtPrimitiveObject;
 class ExtArrayObject;
 class ExtStringClass;
 class ExtExceptionObject;
+class ExtDomObject;
+class ExtDomArrayObject;
 
 class ExtClassObject : public AbstractExtObject {
 public:
@@ -32,6 +34,10 @@ public:
 	ExtArrayObject* getExtArrayObject(const UnicodeString* name) const noexcept;
 	ExtStringClass* getExtStringObject(const UnicodeString* name)const noexcept;
 	ExtExceptionObject* getExtExceptionObject(const UnicodeString* name)const noexcept;
+	ExtDomObject* getExtDomObject(const UnicodeString* name) const noexcept;
+	ExtDomArrayObject* getExtDomArrayObject(const UnicodeString* name) const noexcept;
+
+	virtual AbstractExtObject* copy() const noexcept;
 private:
 	ArrayList<AbstractExtObject>* list;
 	HashMap<UnicodeString, AbstractExtObject>* map;

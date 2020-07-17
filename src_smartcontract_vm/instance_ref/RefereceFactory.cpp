@@ -19,6 +19,7 @@
 
 #include "instance_array/ArrayReference.h"
 
+#include "instance_dom/DomRuntimeReference.h"
 
 namespace alinous {
 
@@ -52,6 +53,9 @@ AbstractReference* RefereceFactory::createReferenceFromDefinition(IAbstractVmIns
 		break;
 	case CodeElement::TYPE_LONG:
 		ref = PrimitiveReference::createLongReference(vm, 0);
+		break;
+	case AnalyzedType::TYPE_DOM:
+		ref = new(vm) DomRuntimeReference(owner, vm);
 		break;
 	case CodeElement::TYPE_OBJECT:
 	case CodeElement::TYPE_STRING:
@@ -108,6 +112,9 @@ AbstractReference* RefereceFactory::createReferenceFromAnalyzedType(IAbstractVmI
 		break;
 	case AnalyzedType::TYPE_STRING:
 		ref = new(vm) ObjectReference(owner, VmInstanceTypesConst::REF_OBJ, ObjectReference::STRING_INSTANCE);
+		break;
+	case AnalyzedType::TYPE_DOM:
+		ref = new(vm) DomRuntimeReference(owner, vm);
 		break;
 	case AnalyzedType::TYPE_OBJECT:
 	default:

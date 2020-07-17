@@ -30,6 +30,7 @@ private:
 	bool evaluateTypeScore(AnalyzedType* base, AnalyzedType* arg) noexcept;
 
 	bool evaluateObjectTypeScore(AnalyzedType* base, AnalyzedType* arg) noexcept;
+	bool evaluateDomObjectTypeScore(AnalyzedType* base, AnalyzedType* arg) noexcept;
 	bool evaluateBoolTypeScore(AnalyzedType* arg) noexcept;
 	bool evaluateByteTypeScore(AnalyzedType* arg) noexcept;
 	bool evaluateCharTypeScore(AnalyzedType* arg) noexcept;

@@ -95,7 +95,7 @@ AbstractExtObject* VmStringInstance::toClassExtObject(const UnicodeString* name,
 	return new ExtStringClass(name, &str);
 }
 
-const UnicodeString* VmStringInstance::toString() noexcept {
+const UnicodeString* VmStringInstance::toString() const noexcept {
 	delete this->str;
 	this->str = new UnicodeString(this->value->towString());
 

@@ -171,6 +171,7 @@ TOKEN :
 | < INT: "int" >
 | < LONG: "long" >
 | < STRING: "String" >
+| < VAR: "var" >
 | < CASE: "case" >
 | < CATCH: "catch" >
 | < _CONST: "const" >
@@ -646,11 +647,11 @@ ClassDeclareBlock* classDeclareBlock() :
 					}
 				]
 			
-				t=< IDENTIFIER >
+				t=identifierName()
 			)
 			|
 			(
-				t=< IDENTIFIER > // constructor
+				t=identifierName() // constructor
 			)	
 		)
 
@@ -858,6 +859,8 @@ AbstractType* typeDeclare() : {
 		|
 		dec=voidType()
 		|
+		dec=domType()
+		|
 		dec=objectType()
 	)
 	(
@@ -1017,6 +1020,22 @@ VoidType* voidType() : {
 	}
 }
 
+DomType* domType() : {
+	DomType* dec = new DomType();
+	Token* t=nullptr;
+}
+{
+	t="var" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+
+
 
 /******************************************************************************************
 * Alinous Language Statements Starts
@@ -1027,7 +1046,7 @@ AbstractStatement* statement() : {
 }
 {
 	(
-		stmt=statementBlock() |
+		LOOKAHEAD(3) stmt=statementBlock() |
 		LOOKAHEAD(2) stmt=substitutionStatement() |
 		stmt=variableDeclareStatement() |
 		//stmt=expressionStatement() |
@@ -2298,7 +2317,7 @@ AbstractExpression* arrayReferenceExpression() : {
 }
 {
 	left=functionCallExpression() 
-	(
+	(LOOKAHEAD(2)
 		t="[" {
 			if(exp == nullptr){
 				exp = new ArrayReferenceExpression();
@@ -2381,6 +2400,8 @@ AbstractExpression* primitive() : {
 }
 {
 	(
+		exp=jsonInitializerExpression() |
+		exp=jsonArrayExpression() |
 		exp=parenthesisExpression() |
 		exp=allocationExpression() |
 		exp=literal() |
@@ -2561,7 +2582,7 @@ VariableIdentifier* variableIdentifier() : {
 	Token* t = nullptr;
 }
 {
-	(t=<IDENTIFIER> | t="this" | t="super") {
+	t=identifierName() {
 		valId->setName(_STR(t));
 	}
 	{
@@ -2569,6 +2590,25 @@ VariableIdentifier* variableIdentifier() : {
 		return valId;
 	}
 }
+
+Token* identifierName() : {
+	Token* t = nullptr;
+}
+{
+	(t=<IDENTIFIER> | t="this" | t="super" | t=<INNER> | t=<OUTER>
+		| t=<FULL> | t=<JOIN> | t=<VALUES> | t=<CROSS> | t=<GROUP>
+		| t=<BY> | t=<HAVING> | t=<ORDER> | t=<ASC> | t=<DESC>
+		| t=<LIMIT> | t=<OFFSET> | t=<ON> | t=<AS> | t=<DISTINCT>
+		| t=<SHARE> | t=<NOWAIT> | t=<OF> | t=<IN> | t=<BETWEEN>
+		| t=<CREATE> | t=<DROP> | t=<TABLE> | t=<SQL_DEFAULT> | t=<ADD>
+		| t=<RENAME> | t=<COLUMN> | t=<TO> | t=<PRIMARY> | t=<KEY>
+		| t=<UNIQUE> | t=<CHECK> | t=<RETURNS> | t=<SETOF> | t=<LANGUAGE>
+		| t=<REPLACE> | t=<INDEX> | t=<USING> )
+	{
+		return t;
+	}
+}
+
 
 VariableIdentifier* typeIdentifier() : {
 	VariableIdentifier* valId = new VariableIdentifier();
@@ -4445,5 +4485,140 @@ TableIdentifier* tableIdentifier() : {
 	{
 		__ONERROR(exp);
 		return exp;
+	}
+}
+
+/******************************************************************************************
+* JSON INIT statement start
+*/
+
+AbstractJsonExpression* jsonElement() : {
+	AbstractJsonExpression* jsonExp = nullptr;
+}
+{
+	(
+		jsonExp=jsonInitializerExpression()
+		|
+		jsonExp=jsonArrayExpression()
+		|
+		jsonExp=jsonKeyValuePair()
+		
+	)
+	{
+		 __ONERROR(jsonExp);
+		return jsonExp;
+	}
+}
+
+JsonInitializerExpression* jsonInitializerExpression() :
+{
+	JsonInitializerExpression* jsonExp = new JsonInitializerExpression();
+	Token* t = nullptr;
+	JsonKeyValuePairExpression* element = nullptr;
+}
+{
+	t="{" {
+		jsonExp->setPosition(t);
+	}
+	
+	[
+		element=jsonKeyValuePair() {
+			jsonExp->setPosition(element);
+			jsonExp->addElement(element);
+		}
+		(
+			t="," {
+				jsonExp->setPosition(t);
+			}
+			element=jsonKeyValuePair() {
+				jsonExp->setPosition(element);
+				jsonExp->addElement(element);
+			}
+		)*
+	]
+	t="}" {
+		jsonExp->setPosition(t);
+	}
+	{
+		 __ONERROR(jsonExp);
+		return jsonExp;
+	}
+}
+
+JsonArrayExpression* jsonArrayExpression() :
+{
+	JsonArrayExpression* jsonExp = new JsonArrayExpression();
+	AbstractJsonExpression* element = nullptr;
+	Token* t = nullptr;
+	
+	AbstractExpression* exp = nullptr;
+}
+{
+	t="[" {
+		jsonExp->setPosition(t);
+	}
+	
+	[
+		exp=expression() {
+			jsonExp->setPosition(exp);
+			jsonExp->addElement(exp);
+		}
+		(
+			t="," {
+				jsonExp->setPosition(t);
+			}
+			exp=expression() {
+				jsonExp->setPosition(exp);
+				jsonExp->addElement(exp);
+			}
+		)*
+	]
+	
+	t="]" {
+		jsonExp->setPosition(t);
+	}
+	{
+		 __ONERROR(jsonExp);
+		return jsonExp;
+	}
+}
+
+JsonKeyValuePairExpression* jsonKeyValuePair() :
+{
+	JsonKeyValuePairExpression* pair = new JsonKeyValuePairExpression();
+	Token* t = nullptr;
+	AbstractExpression* exp = nullptr;
+	LiteralExpression* lit = nullptr;
+	AbstractJsonExpression* jsonExp = nullptr;
+}
+{
+	(
+		lit=literalExpression() {
+			pair->setPosition(lit);
+			pair->setName(lit);
+		}
+		|
+		t=<IDENTIFIER>{
+			pair->setPosition(t);
+			pair->setName(_STR(t));
+		}
+	)
+	t=":" {
+		pair->setPosition(t);
+	}
+	(LOOKAHEAD(2)
+		exp=expression() {
+			pair->setPosition(exp);
+			pair->setValue(exp);
+		}
+		|
+		jsonExp=jsonElement() {
+			pair->setPosition(jsonExp);
+			pair->setValue(jsonExp);
+		}
+	)
+	{
+		 __ONERROR(pair);
+		return pair;
 	}
 }

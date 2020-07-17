@@ -1,0 +1,18 @@
+
+
+package test.fw;
+
+
+class SmartContract {
+	public SmartContract() {
+		var dom = [[1, 2], [3, 4]];
+		
+		this.count = dom[2][1];
+	}
+	
+	public int main(){
+
+	}
+	
+	private int count = 0;
+}

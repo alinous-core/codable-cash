@@ -29,6 +29,11 @@ uint8_t AbstractExtObject::getType() const noexcept {
 	return this->type;
 }
 
+void AbstractExtObject::setName(const UnicodeString* name) noexcept {
+	delete this->name;
+	this->name = new UnicodeString(name);
+}
+
 bool AbstractExtObject::isNull() const noexcept {
 	return false;
 }

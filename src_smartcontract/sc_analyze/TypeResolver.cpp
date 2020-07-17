@@ -93,6 +93,9 @@ AnalyzedType* TypeResolver::resolveType(CodeElement* element, AbstractType* type
 			result = resolveType(element, otype);
 			break;
 		}
+	case CodeElement::TYPE_DOM:
+		result = new AnalyzedType(AnalyzedType::TYPE_DOM);
+		break;
 	default:
 		return nullptr;
 	}
