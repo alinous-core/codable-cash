@@ -10,6 +10,11 @@
 
 #include "sql/AbstractSQLStatement.h"
 
+namespace codablecash {
+class SelectScanPlanner;
+}
+using namespace codablecash;
+
 namespace alinous {
 class SQLSelectTargetList;
 class SQLFrom;
@@ -52,6 +57,7 @@ private:
 	UnicodeString* intoVar;
 
 	uint64_t lastSchemaVersion;
+	SelectScanPlanner* planner;
 };
 
 } /* namespace alinous */

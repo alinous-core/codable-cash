@@ -23,8 +23,12 @@
 #include "sc_analyze/AnalyzedType.h"
 
 #include "vm/VirtualMachine.h"
+#include "vm/VmSelectPlannerSetter.h"
 
 #include "vm_trx/VmTransactionHandler.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
 
 namespace alinous {
 
@@ -37,6 +41,7 @@ SelectStatement::SelectStatement() : AbstractSQLStatement(CodeElement::DML_STMT_
 	this->limitOffset = nullptr;
 	this->intoVar = nullptr;
 	this->lastSchemaVersion = 0;
+	this->planner = nullptr;
 }
 
 SelectStatement::~SelectStatement() {
@@ -47,6 +52,7 @@ SelectStatement::~SelectStatement() {
 	delete this->orderBy;
 	delete this->limitOffset;
 	delete this->intoVar;
+	delete this->planner;
 }
 
 void SelectStatement::preAnalyze(AnalyzeContext* actx) {
@@ -198,6 +204,10 @@ void SelectStatement::interpret(VirtualMachine* vm) {
 
 	uint64_t currentVer = trxHandler->getSchemaObjectVersionId();
 	if(currentVer > this->lastSchemaVersion){
+		delete this->planner;
+		this->planner = new SelectScanPlanner();
+
+		VmSelectPlannerSetter setter(vm, this->planner);
 
 		this->lastSchemaVersion = currentVer;
 	}
