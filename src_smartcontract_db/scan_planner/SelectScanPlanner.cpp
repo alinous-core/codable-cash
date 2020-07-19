@@ -7,15 +7,18 @@
 
 #include "scan_planner/SelectScanPlanner.h"
 
+#include "scan_planner/ConditionsHolder.h"
+
+
 namespace codablecash {
 
 SelectScanPlanner::SelectScanPlanner() {
-	// TODO Auto-generated constructor stub
+	this->conditions = new ConditionsHolder();
 
 }
 
 SelectScanPlanner::~SelectScanPlanner() {
-	// TODO Auto-generated destructor stub
+	delete this->conditions;
 }
 
 } /* namespace codablecash */

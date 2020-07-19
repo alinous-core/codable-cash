@@ -10,10 +10,15 @@
 
 namespace codablecash {
 
+class ConditionsHolder;
+
 class SelectScanPlanner {
 public:
 	SelectScanPlanner();
 	virtual ~SelectScanPlanner();
+
+private:
+	ConditionsHolder* conditions;
 };
 
 } /* namespace codablecash */
