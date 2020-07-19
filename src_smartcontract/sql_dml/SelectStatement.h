@@ -45,6 +45,7 @@ public:
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
 
+	virtual void init(VirtualMachine* vm);
 	virtual void interpret(VirtualMachine* vm);
 private:
 	SQLSelectTargetList* list;

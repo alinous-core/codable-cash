@@ -56,14 +56,27 @@ SelectStatement::~SelectStatement() {
 }
 
 void SelectStatement::preAnalyze(AnalyzeContext* actx) {
+	if(this->list != nullptr){
+		list->setParent(this);
+	}
 
+	if(this->where != nullptr){
+		this->where->setParent(this);
+		this->where->preAnalyze(actx);
+	}
 }
 
 void SelectStatement::analyzeTypeRef(AnalyzeContext* actx) {
-
+	if(this->where != nullptr){
+		this->where->analyzeTypeRef(actx);
+	}
 }
 
 void SelectStatement::analyze(AnalyzeContext* actx) {
+	if(this->where != nullptr){
+		this->where->analyze(actx);
+	}
+
 	AnalyzeStackManager* stackManager = actx->getAnalyzeStackManager();
 	AnalyzeStack* stack = stackManager->top();
 
@@ -196,6 +209,12 @@ void SelectStatement::fromBinary(ByteBuffer* in) {
 		 element = createFromBinary(in);
 		 checkKind(element, CodeElement::SQL_PART_LIMIT_OFFSET);
 		 this->limitOffset = dynamic_cast<SQLLimitOffset*>(element);
+	}
+}
+
+void SelectStatement::init(VirtualMachine* vm) {
+	if(this->where != nullptr){
+		this->where->init(vm);
 	}
 }
 

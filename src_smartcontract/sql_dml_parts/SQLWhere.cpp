@@ -22,6 +22,29 @@ void alinous::SQLWhere::setExpression(AbstractSQLExpression* exp) noexcept {
 	this->exp = exp;
 }
 
+void SQLWhere::preAnalyze(AnalyzeContext* actx) {
+	this->exp->setParent(this);
+	this->exp->preAnalyze(actx);
+}
+
+void SQLWhere::analyzeTypeRef(AnalyzeContext* actx) {
+	this->exp->analyzeTypeRef(actx);
+}
+
+void SQLWhere::analyze(AnalyzeContext* actx) {
+	this->exp->analyze(actx);
+}
+
+void SQLWhere::init(VirtualMachine* vm) {
+	this->exp->init(vm);
+}
+
+AbstractVmInstance* SQLWhere::interpret(VirtualMachine* vm) {
+	this->exp->interpret(vm);
+
+	return nullptr;
+}
+
 int SQLWhere::binarySize() const {
 	checkNotNull(this->exp);
 
