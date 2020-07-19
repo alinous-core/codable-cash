@@ -50,6 +50,8 @@ private:
 	SQLLimitOffset* limitOffset;
 
 	UnicodeString* intoVar;
+
+	uint64_t lastSchemaVersion;
 };
 
 } /* namespace alinous */

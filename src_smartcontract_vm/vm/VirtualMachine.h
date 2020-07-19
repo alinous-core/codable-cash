@@ -13,6 +13,7 @@
 
 namespace codablecash {
 class CodableDatabase;
+class SelectScanPlanner;
 }
 using namespace codablecash;
 
@@ -112,6 +113,9 @@ public:
 		this->lastElement = lastElement;
 	}
 
+	void setSelectPlanner(SelectScanPlanner* planner) noexcept;
+	void popSelectPlanner() noexcept;
+	SelectScanPlanner* getSelectPlanner() const noexcept;
 private:
 	void checkUncaughtException();
 
@@ -141,6 +145,8 @@ private:
 	// database engine
 	CodableDatabase* db;
 	VmTransactionHandler* trxHandler;
+
+	ArrayList<SelectScanPlanner> selectPlannerList;
 };
 
 } /* namespace alinous */

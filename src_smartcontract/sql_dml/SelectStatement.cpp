@@ -15,6 +15,17 @@
 
 #include "base/UnicodeString.h"
 
+#include "sc_analyze_stack/AnalyzeStack.h"
+#include "sc_analyze_stack/AnalyzeStackManager.h"
+#include "sc_analyze_stack/AnalyzedStackReference.h"
+
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/AnalyzedType.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "vm_trx/VmTransactionHandler.h"
+
 namespace alinous {
 
 SelectStatement::SelectStatement() : AbstractSQLStatement(CodeElement::DML_STMT_SELECT) {
@@ -25,6 +36,7 @@ SelectStatement::SelectStatement() : AbstractSQLStatement(CodeElement::DML_STMT_
 	this->orderBy = nullptr;
 	this->limitOffset = nullptr;
 	this->intoVar = nullptr;
+	this->lastSchemaVersion = 0;
 }
 
 SelectStatement::~SelectStatement() {
@@ -42,10 +54,17 @@ void SelectStatement::preAnalyze(AnalyzeContext* actx) {
 }
 
 void SelectStatement::analyzeTypeRef(AnalyzeContext* actx) {
+
 }
 
 void SelectStatement::analyze(AnalyzeContext* actx) {
+	AnalyzeStackManager* stackManager = actx->getAnalyzeStackManager();
+	AnalyzeStack* stack = stackManager->top();
 
+	//this->intoVar
+	AnalyzedType at(AnalyzedType::TYPE_DOM);
+	AnalyzedStackReference* ref = new AnalyzedStackReference(this->intoVar, &at);
+	stack->addVariableDeclare(ref);
 }
 
 void SelectStatement::setList(SQLSelectTargetList* list) noexcept {
@@ -175,6 +194,14 @@ void SelectStatement::fromBinary(ByteBuffer* in) {
 }
 
 void SelectStatement::interpret(VirtualMachine* vm) {
+	VmTransactionHandler* trxHandler = vm->getTransactionHandler();
+
+	uint64_t currentVer = trxHandler->getSchemaObjectVersionId();
+	if(currentVer > this->lastSchemaVersion){
+
+		this->lastSchemaVersion = currentVer;
+	}
+
 	// FIXME SQL statement
 }
 
