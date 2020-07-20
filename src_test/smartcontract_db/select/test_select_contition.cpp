@@ -53,5 +53,9 @@ TEST(TestSelectConditionGroup, case01){
 
 		SelectScanPlanner* planner = new SelectScanPlanner(); __STP(planner);
 		VmSelectPlannerSetter setter(vm, planner);
+
+		where->init(vm);
+
+		where->interpret(vm);
 	}
 }

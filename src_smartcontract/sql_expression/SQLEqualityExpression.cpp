@@ -8,6 +8,11 @@
 #include "sql_expression/SQLEqualityExpression.h"
 
 #include "sc_analyze/AnalyzedType.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
 namespace alinous {
 
 SQLEqualityExpression::SQLEqualityExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_EQUALITY) {
@@ -95,7 +100,14 @@ void SQLEqualityExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLEqualityExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME SQLEqualityExpression
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	// FIXME SQLEqualityExpression
+
+	this->left->interpret(vm);
+	this->right->interpret(vm);
+
+	return nullptr;
 }
 
 
