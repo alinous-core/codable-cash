@@ -7,6 +7,8 @@
 
 #include "scan_planner/ConditionsHolder.h"
 
+#include "scan_condition/RootScanCondition.h"
+
 namespace codablecash {
 
 ConditionsHolder::ConditionsHolder() {
@@ -16,6 +18,10 @@ ConditionsHolder::ConditionsHolder() {
 
 ConditionsHolder::~ConditionsHolder() {
 	delete this->root;
+}
+
+void ConditionsHolder::processExpression(AbstractSQLExpression* sqlExpression) {
+
 }
 
 } /* namespace codablecash */

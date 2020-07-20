@@ -1,6 +1,7 @@
 
 
 set(__src
+	ConditionFactory.cpp
 	ConditionsHolder.cpp
 	SelectScanPlanner.cpp	
 )

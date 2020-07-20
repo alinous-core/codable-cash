@@ -8,6 +8,11 @@
 #ifndef SCAN_PLANNER_CONDITIONSHOLDER_H_
 #define SCAN_PLANNER_CONDITIONSHOLDER_H_
 
+namespace alinous {
+class AbstractSQLExpression;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class RootScanCondition;
@@ -17,6 +22,7 @@ public:
 	ConditionsHolder();
 	virtual ~ConditionsHolder();
 
+	void processExpression(AbstractSQLExpression* sqlExpression);
 private:
 	RootScanCondition* root;
 };

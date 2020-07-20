@@ -102,7 +102,7 @@ void SQLEqualityExpression::init(VirtualMachine* vm) {
 AbstractVmInstance* SQLEqualityExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 
-	// FIXME SQLEqualityExpression
+	planner->processExpression(this);
 
 	this->left->interpret(vm);
 	this->right->interpret(vm);

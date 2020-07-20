@@ -21,4 +21,8 @@ SelectScanPlanner::~SelectScanPlanner() {
 	delete this->conditions;
 }
 
+void SelectScanPlanner::processExpression(AbstractSQLExpression* sqlExpression) {
+	this->conditions->processExpression(sqlExpression);
+}
+
 } /* namespace codablecash */
