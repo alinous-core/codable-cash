@@ -16,13 +16,14 @@ using namespace alinous;
 namespace codablecash {
 
 class ConditionsHolder;
+class AbstractScanCondition;
 
 class SelectScanPlanner {
 public:
 	SelectScanPlanner();
 	virtual ~SelectScanPlanner();
 
-	void processExpression(AbstractSQLExpression* sqlExpression);
+	void processExpression(AbstractScanCondition* sqlExpression);
 private:
 	ConditionsHolder* conditions;
 };

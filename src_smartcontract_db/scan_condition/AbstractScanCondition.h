@@ -15,6 +15,8 @@ public:
 	explicit AbstractScanCondition(short type);
 	virtual ~AbstractScanCondition();
 
+	virtual bool isContainer() const noexcept;
+
 private:
 	short type;
 };

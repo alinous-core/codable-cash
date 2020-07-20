@@ -17,4 +17,8 @@ AbstractScanCondition::~AbstractScanCondition() {
 
 }
 
+bool AbstractScanCondition::isContainer() const noexcept {
+	return false;
+}
+
 } /* namespace codablecash */

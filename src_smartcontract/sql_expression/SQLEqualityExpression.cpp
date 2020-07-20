@@ -13,6 +13,9 @@
 
 #include "scan_planner/SelectScanPlanner.h"
 
+#include "scan_condition/AbstractScanCondition.h"
+
+#include "scan_planner/ConditionFactory.h"
 namespace alinous {
 
 SQLEqualityExpression::SQLEqualityExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_EQUALITY) {
@@ -102,10 +105,13 @@ void SQLEqualityExpression::init(VirtualMachine* vm) {
 AbstractVmInstance* SQLEqualityExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 
-	planner->processExpression(this);
+	AbstractScanCondition* cond = ConditionFactory::createScanCondition(getKind());
+	planner->processExpression(cond);
 
 	this->left->interpret(vm);
 	this->right->interpret(vm);
+
+
 
 	return nullptr;
 }
