@@ -12,8 +12,11 @@ namespace codablecash {
 
 class AbstractScanCondition {
 public:
-	AbstractScanCondition();
+	explicit AbstractScanCondition(short type);
 	virtual ~AbstractScanCondition();
+
+private:
+	short type;
 };
 
 } /* namespace codablecash */

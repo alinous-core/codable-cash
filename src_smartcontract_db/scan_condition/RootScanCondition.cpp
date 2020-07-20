@@ -9,7 +9,7 @@
 
 namespace codablecash {
 
-RootScanCondition::RootScanCondition() {
+RootScanCondition::RootScanCondition() : AbstractScanCondition(0) {
 
 }
 

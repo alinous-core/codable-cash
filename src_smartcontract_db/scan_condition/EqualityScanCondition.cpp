@@ -7,15 +7,15 @@
 
 #include "scan_condition/EqualityScanCondition.h"
 
+#include "sc/CodeElement.h"
 namespace alinous {
 
-EqualityScanCondition::EqualityScanCondition() {
-	// TODO Auto-generated constructor stub
+EqualityScanCondition::EqualityScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_EQUALITY) {
 
 }
 
 EqualityScanCondition::~EqualityScanCondition() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */

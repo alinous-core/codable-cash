@@ -9,13 +9,12 @@
 
 namespace codablecash {
 
-AbstractScanCondition::AbstractScanCondition() {
-	// TODO Auto-generated constructor stub
-
+AbstractScanCondition::AbstractScanCondition(short type) {
+	this->type = type;
 }
 
 AbstractScanCondition::~AbstractScanCondition() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */

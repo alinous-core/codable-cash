@@ -14,7 +14,7 @@ class AbstractScanCondition;
 
 class ConditionFactory {
 public:
-	static AbstractScanCondition* createScanCondition();
+	static AbstractScanCondition* createScanCondition(short type);
 };
 
 } /* namespace codablecash */
