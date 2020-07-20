@@ -8,15 +8,22 @@
 #include "scan_planner/ConditionFactory.h"
 
 #include "scan_condition/AbstractScanCondition.h"
+#include "scan_condition/EqualityScanCondition.h"
 
 #include "engine/CdbException.h"
 
+#include "sc/CodeElement.h"
+
+
 namespace codablecash {
 
-AbstractScanCondition* codablecash::ConditionFactory::createScanCondition(short type) {
+AbstractScanCondition* ConditionFactory::createScanCondition(short type) {
 	AbstractScanCondition* ret = nullptr;
 
 	switch(type){
+	case CodeElement::SQL_EXP_EQUALITY:
+		ret = new EqualityScanCondition();
+		break;
 	default:
 		throw new CdbException(__FILE__, __LINE__);
 	}
