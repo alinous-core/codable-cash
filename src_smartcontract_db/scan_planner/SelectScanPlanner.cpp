@@ -25,4 +25,12 @@ void SelectScanPlanner::processExpression(AbstractScanCondition* cond) {
 	this->conditions->processExpression(cond);
 }
 
+void SelectScanPlanner::pushParam(AbstractScanConditionParameter* param) noexcept {
+	this->conditions->pushParam(param);
+}
+
+AbstractScanConditionParameter* SelectScanPlanner::popParam() noexcept {
+	return this->conditions->popParam();
+}
+
 } /* namespace codablecash */

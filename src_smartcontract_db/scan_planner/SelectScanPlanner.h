@@ -17,6 +17,7 @@ namespace codablecash {
 
 class ConditionsHolder;
 class AbstractScanCondition;
+class AbstractScanConditionParameter;
 
 class SelectScanPlanner {
 public:
@@ -24,6 +25,9 @@ public:
 	virtual ~SelectScanPlanner();
 
 	void processExpression(AbstractScanCondition* sqlExpression);
+
+	void pushParam(AbstractScanConditionParameter* param) noexcept;
+	AbstractScanConditionParameter* popParam() noexcept;
 private:
 	ConditionsHolder* conditions;
 };

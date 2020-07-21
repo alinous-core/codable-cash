@@ -9,8 +9,15 @@
 #include "base/UnicodeString.h"
 
 #include "sc_analyze/AnalyzedType.h"
-
 #include "sc_analyze/AnalyzeContext.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "scan_condition_params/ColumnIdentifierScanParam.h"
+
+#include "vm/VirtualMachine.h"
+
+
 namespace alinous {
 
 SQLColumnIdentifier::SQLColumnIdentifier() : AbstractSQLExpression(CodeElement::SQL_EXP_COLUMN_ID){
@@ -103,6 +110,11 @@ void SQLColumnIdentifier::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLColumnIdentifier::interpret(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	ColumnIdentifierScanParam* param = new ColumnIdentifierScanParam(this);
+	planner->pushParam(param);
+
 	return nullptr;
 }
 

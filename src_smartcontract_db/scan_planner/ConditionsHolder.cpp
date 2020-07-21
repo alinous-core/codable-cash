@@ -11,6 +11,7 @@
 
 #include "sql/AbstractSQLExpression.h"
 
+#include "scan_condition_params/AbstractScanConditionParameter.h"
 namespace codablecash {
 
 ConditionsHolder::ConditionsHolder() {
@@ -20,6 +21,7 @@ ConditionsHolder::ConditionsHolder() {
 
 ConditionsHolder::~ConditionsHolder() {
 	delete this->root;
+	this->paramStack.deleteElements();
 }
 
 void ConditionsHolder::processExpression(AbstractScanCondition* cond) {
@@ -41,5 +43,22 @@ void ConditionsHolder::pop() noexcept {
 	this->stack.remove(index);
 }
 
+void ConditionsHolder::pushParam(AbstractScanConditionParameter* param) noexcept {
+	this->paramStack.addElement(param);
+}
+
+AbstractScanConditionParameter* ConditionsHolder::topParam() const noexcept {
+	int index = this->paramStack.size() - 1;
+	return this->paramStack.get(index);
+}
+
+AbstractScanConditionParameter* ConditionsHolder::popParam() noexcept {
+	int index = this->paramStack.size() - 1;
+	AbstractScanConditionParameter* ret = topParam();
+
+	this->paramStack.remove(index);
+
+	return ret;
+}
 
 } /* namespace codablecash */

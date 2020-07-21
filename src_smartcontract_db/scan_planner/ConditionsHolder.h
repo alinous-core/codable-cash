@@ -19,6 +19,7 @@ namespace codablecash {
 
 class RootScanCondition;
 class AbstractScanCondition;
+class AbstractScanConditionParameter;
 
 class ConditionsHolder {
 public:
@@ -30,10 +31,16 @@ public:
 	void push(AbstractScanCondition* cond) noexcept;
 	AbstractScanCondition* top() const noexcept;
 	void pop() noexcept;
+
+	void pushParam(AbstractScanConditionParameter* param) noexcept;
+	AbstractScanConditionParameter* topParam() const noexcept;
+	AbstractScanConditionParameter* popParam() noexcept;
+
 private:
 	RootScanCondition* root;
 
 	ArrayList<AbstractScanCondition> stack;
+	ArrayList<AbstractScanConditionParameter> paramStack;
 
 };
 

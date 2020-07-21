@@ -10,12 +10,11 @@
 namespace codablecash {
 
 AbstractScanConditionParameter::AbstractScanConditionParameter() {
-	// TODO Auto-generated constructor stub
 
 }
 
 AbstractScanConditionParameter::~AbstractScanConditionParameter() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */
