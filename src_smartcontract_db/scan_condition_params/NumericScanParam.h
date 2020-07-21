@@ -11,11 +11,9 @@
 
 #include "scan_condition_params/AbstractScanConditionParameter.h"
 
-#include "scan_condition/IValueProvider.h"
-
 namespace codablecash {
 
-class NumericScanParam : public AbstractScanConditionParameter, public IValueProvider {
+class NumericScanParam : public AbstractScanConditionParameter {
 public:
 	NumericScanParam(int64_t longv);
 	virtual ~NumericScanParam();

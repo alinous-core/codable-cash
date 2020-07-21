@@ -10,9 +10,11 @@
 
 #include "scan_condition/AbstractScanConditionElement.h"
 
+#include "scan_condition/IValueProvider.h"
+
 namespace codablecash {
 
-class AbstractScanConditionParameter : public AbstractScanConditionElement {
+class AbstractScanConditionParameter : public AbstractScanConditionElement, public IValueProvider {
 public:
 	AbstractScanConditionParameter();
 	virtual ~AbstractScanConditionParameter();

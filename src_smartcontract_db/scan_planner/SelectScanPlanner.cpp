@@ -25,11 +25,11 @@ void SelectScanPlanner::processExpression(AbstractScanCondition* cond) {
 	this->conditions->processExpression(cond);
 }
 
-void SelectScanPlanner::pushParam(AbstractScanConditionParameter* param) noexcept {
+void SelectScanPlanner::pushParam(AbstractScanConditionElement* param) noexcept {
 	this->conditions->pushParam(param);
 }
 
-AbstractScanConditionParameter* SelectScanPlanner::popParam() noexcept {
+AbstractScanConditionElement* SelectScanPlanner::popParam() noexcept {
 	return this->conditions->popParam();
 }
 

@@ -47,18 +47,18 @@ void ConditionsHolder::pop() noexcept {
 	this->stack.remove(index);
 }
 
-void ConditionsHolder::pushParam(AbstractScanConditionParameter* param) noexcept {
+void ConditionsHolder::pushParam(AbstractScanConditionElement* param) noexcept {
 	this->paramStack.addElement(param);
 }
 
-AbstractScanConditionParameter* ConditionsHolder::topParam() const noexcept {
+AbstractScanConditionElement* ConditionsHolder::topParam() const noexcept {
 	int index = this->paramStack.size() - 1;
 	return this->paramStack.get(index);
 }
 
-AbstractScanConditionParameter* ConditionsHolder::popParam() noexcept {
+AbstractScanConditionElement* ConditionsHolder::popParam() noexcept {
 	int index = this->paramStack.size() - 1;
-	AbstractScanConditionParameter* ret = topParam();
+	AbstractScanConditionElement* ret = topParam();
 
 	this->paramStack.remove(index);
 
