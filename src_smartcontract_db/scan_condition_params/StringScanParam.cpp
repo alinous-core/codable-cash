@@ -5,17 +5,19 @@
  *      Author: iizuka
  */
 
-#include <scan_condition_params/StringScanParam.h>
+#include "scan_condition_params/StringScanParam.h"
+
+#include "base/UnicodeString.h"
+
 
 namespace codablecash {
 
-StringScanParam::StringScanParam() {
-	// TODO Auto-generated constructor stub
-
+StringScanParam::StringScanParam(const UnicodeString* str) {
+	this->value = new UnicodeString(str);
 }
 
 StringScanParam::~StringScanParam() {
-	// TODO Auto-generated destructor stub
+	delete this->value;
 }
 
 } /* namespace codablecash */

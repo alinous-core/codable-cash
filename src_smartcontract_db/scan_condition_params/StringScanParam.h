@@ -10,12 +10,20 @@
 
 #include "scan_condition_params/AbstractScanConditionParameter.h"
 
+namespace alinous {
+class UnicodeString;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class StringScanParam : public AbstractScanConditionParameter {
 public:
-	StringScanParam();
+	StringScanParam(const UnicodeString* str);
 	virtual ~StringScanParam();
+
+private:
+	UnicodeString* value;
 };
 
 } /* namespace codablecash */

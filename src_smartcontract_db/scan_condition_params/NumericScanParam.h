@@ -7,15 +7,20 @@
 
 #ifndef SCAN_CONDITION_PARAMS_NUMERICSCANPARAM_H_
 #define SCAN_CONDITION_PARAMS_NUMERICSCANPARAM_H_
+#include <cstdlib>
 
 #include "scan_condition_params/AbstractScanConditionParameter.h"
+
 
 namespace codablecash {
 
 class NumericScanParam : public AbstractScanConditionParameter {
 public:
-	NumericScanParam();
+	NumericScanParam(int64_t longv);
 	virtual ~NumericScanParam();
+
+private:
+	int64_t value;
 };
 
 } /* namespace codablecash */

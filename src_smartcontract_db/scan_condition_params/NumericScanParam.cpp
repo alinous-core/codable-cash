@@ -9,13 +9,12 @@
 
 namespace codablecash {
 
-NumericScanParam::NumericScanParam() {
-	// TODO Auto-generated constructor stub
-
+NumericScanParam::NumericScanParam(int64_t longv) {
+	this->value = longv;
 }
 
 NumericScanParam::~NumericScanParam() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */
