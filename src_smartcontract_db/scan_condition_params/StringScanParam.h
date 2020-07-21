@@ -10,6 +10,8 @@
 
 #include "scan_condition_params/AbstractScanConditionParameter.h"
 
+#include "scan_condition/IValueProvider.h"
+
 namespace alinous {
 class UnicodeString;
 }
@@ -17,7 +19,7 @@ using namespace alinous;
 
 namespace codablecash {
 
-class StringScanParam : public AbstractScanConditionParameter {
+class StringScanParam : public AbstractScanConditionParameter, public IValueProvider {
 public:
 	StringScanParam(const UnicodeString* str);
 	virtual ~StringScanParam();

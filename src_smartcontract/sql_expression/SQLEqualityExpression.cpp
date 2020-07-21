@@ -15,7 +15,7 @@
 #include "scan_planner/ConditionStackPopper.h"
 
 #include "scan_condition/AbstractScanCondition.h"
-#include "scan_condition/EqualityScanCondition.h"
+#include "scan_condition_exp/EqualityScanCondition.h"
 
 
 namespace alinous {
@@ -113,6 +113,8 @@ AbstractVmInstance* SQLEqualityExpression::interpret(VirtualMachine* vm) {
 
 	this->left->interpret(vm);
 	this->right->interpret(vm);
+
+
 
 	// FIXME set equality params
 

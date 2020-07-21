@@ -18,6 +18,9 @@ class EqualityScanCondition : public AbstractScanCondition {
 public:
 	EqualityScanCondition();
 	virtual ~EqualityScanCondition();
+
+private:
+
 };
 
 } /* namespace alinous */

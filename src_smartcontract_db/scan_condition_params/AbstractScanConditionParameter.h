@@ -8,9 +8,11 @@
 #ifndef SCAN_CONDITION_PARAMS_ABSTRACTSCANCONDITIONPARAMETER_H_
 #define SCAN_CONDITION_PARAMS_ABSTRACTSCANCONDITIONPARAMETER_H_
 
+#include "scan_condition/AbstractScanConditionElement.h"
+
 namespace codablecash {
 
-class AbstractScanConditionParameter {
+class AbstractScanConditionParameter : public AbstractScanConditionElement {
 public:
 	AbstractScanConditionParameter();
 	virtual ~AbstractScanConditionParameter();

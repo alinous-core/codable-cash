@@ -10,6 +10,8 @@
 
 #include "scan_condition_params/AbstractScanConditionParameter.h"
 
+#include "scan_condition/IValueProvider.h"
+
 namespace alinous {
 class SQLColumnIdentifier;
 }
@@ -19,7 +21,7 @@ namespace codablecash {
 
 class CdbTableColumn;
 
-class ColumnIdentifierScanParam : public AbstractScanConditionParameter {
+class ColumnIdentifierScanParam : public AbstractScanConditionParameter, public IValueProvider {
 public:
 	explicit ColumnIdentifierScanParam(SQLColumnIdentifier* sqlColId);
 	virtual ~ColumnIdentifierScanParam();

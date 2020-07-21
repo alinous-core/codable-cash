@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_condition/EqualityScanCondition.h"
+#include "scan_condition_exp/EqualityScanCondition.h"
 
 #include "sc/CodeElement.h"
 namespace alinous {
