@@ -5,16 +5,16 @@
  *      Author: iizuka
  */
 
-#include "scan_condition_element/AbstractScanConditionElement.h"
+#include "scan_condition_params/AbstractScanConditionParameter.h"
 
 namespace codablecash {
 
-AbstractScanConditionElement::AbstractScanConditionElement() {
+AbstractScanConditionParameter::AbstractScanConditionParameter() {
 	// TODO Auto-generated constructor stub
 
 }
 
-AbstractScanConditionElement::~AbstractScanConditionElement() {
+AbstractScanConditionParameter::~AbstractScanConditionParameter() {
 	// TODO Auto-generated destructor stub
 }
 

@@ -6,7 +6,6 @@
  */
 
 #include "scan_planner/ConditionsHolder.h"
-#include "scan_planner/ConditionFactory.h"
 
 #include "scan_condition/RootScanCondition.h"
 

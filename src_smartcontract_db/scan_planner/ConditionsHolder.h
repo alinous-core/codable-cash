@@ -34,6 +34,7 @@ private:
 	RootScanCondition* root;
 
 	ArrayList<AbstractScanCondition> stack;
+
 };
 
 } /* namespace codablecash */
