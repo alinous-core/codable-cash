@@ -445,4 +445,8 @@ SelectScanPlanner* VirtualMachine::getSelectPlanner() const noexcept {
 	return this->selectPlannerList.get(lastIndex);
 }
 
+bool VirtualMachine::isSelectPlanning() const noexcept {
+	return !this->selectPlannerList.isEmpty();
+}
+
 } /* namespace alinous */

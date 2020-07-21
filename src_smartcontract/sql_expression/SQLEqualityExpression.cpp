@@ -111,6 +111,8 @@ AbstractVmInstance* SQLEqualityExpression::interpret(VirtualMachine* vm) {
 	this->left->interpret(vm);
 	this->right->interpret(vm);
 
+
+
 	return nullptr;
 }
 

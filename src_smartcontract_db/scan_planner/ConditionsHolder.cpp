@@ -25,6 +25,9 @@ ConditionsHolder::~ConditionsHolder() {
 }
 
 void ConditionsHolder::processExpression(AbstractScanCondition* cond) {
+	AbstractScanCondition* parentCond = top();
+	parentCond->addCondition(cond);
+
 	push(cond);
 }
 

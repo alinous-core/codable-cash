@@ -88,6 +88,11 @@ void SQLLiteral::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLLiteral::interpret(VirtualMachine* vm) {
+	if(vm->isSelectPlanning()){
+		interpretOnPlanning(vm);
+		return nullptr;
+	}
+
 	if(this->type == SQLLiteral::TYPE_NUMBER){
 		return PrimitiveReference::createLongReference(vm, this->longv);
 	}
@@ -96,5 +101,15 @@ AbstractVmInstance* SQLLiteral::interpret(VirtualMachine* vm) {
 	return inst;
 }
 
+void SQLLiteral::interpretOnPlanning(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	if(this->type == SQLLiteral::TYPE_NUMBER){
+
+	}
+	else{
+
+	}
+}
 
 } /* namespace alinous */

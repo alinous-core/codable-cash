@@ -16,6 +16,10 @@ class RootScanCondition : public AbstractScanCondition {
 public:
 	RootScanCondition();
 	virtual ~RootScanCondition();
+
+	virtual void addCondition(AbstractScanCondition* cond);
+private:
+	AbstractScanCondition* cond;
 };
 
 } /* namespace codablecash */
