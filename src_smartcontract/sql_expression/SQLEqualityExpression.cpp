@@ -12,9 +12,11 @@
 #include "vm/VirtualMachine.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionStackPopper.h"
 
 #include "scan_condition/AbstractScanCondition.h"
 #include "scan_condition/EqualityScanCondition.h"
+
 
 namespace alinous {
 
@@ -107,11 +109,12 @@ AbstractVmInstance* SQLEqualityExpression::interpret(VirtualMachine* vm) {
 
 	EqualityScanCondition* cond = new EqualityScanCondition();
 	planner->processExpression(cond);
+	ConditionStackPopper popper(planner);
 
 	this->left->interpret(vm);
 	this->right->interpret(vm);
 
-
+	// FIXME set equality params
 
 	return nullptr;
 }

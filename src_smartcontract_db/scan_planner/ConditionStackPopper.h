@@ -10,10 +10,16 @@
 
 namespace codablecash {
 
+class SelectScanPlanner;
+class ConditionsHolder;
+
 class ConditionStackPopper {
 public:
-	ConditionStackPopper();
+	ConditionStackPopper(SelectScanPlanner* planner);
 	virtual ~ConditionStackPopper();
+
+private:
+	ConditionsHolder* conditions;
 };
 
 } /* namespace codablecash */

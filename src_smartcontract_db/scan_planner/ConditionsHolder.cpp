@@ -12,6 +12,7 @@
 #include "sql/AbstractSQLExpression.h"
 
 #include "scan_condition_params/AbstractScanConditionParameter.h"
+
 namespace codablecash {
 
 ConditionsHolder::ConditionsHolder() {

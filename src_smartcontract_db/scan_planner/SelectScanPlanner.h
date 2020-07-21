@@ -28,6 +28,11 @@ public:
 
 	void pushParam(AbstractScanConditionParameter* param) noexcept;
 	AbstractScanConditionParameter* popParam() noexcept;
+
+	ConditionsHolder* getConditions() const noexcept {
+		return this->conditions;
+	}
+
 private:
 	ConditionsHolder* conditions;
 };
