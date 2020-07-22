@@ -115,8 +115,11 @@ AbstractVmInstance* SQLEqualityExpression::interpret(VirtualMachine* vm) {
 	this->right->interpret(vm);
 
 
+	AbstractScanConditionElement* l = planner->popParam();
+	AbstractScanConditionElement* r = planner->popParam();
 
-	// FIXME set equality params
+	cond->setLeft(l);
+	cond->setRight(r);
 
 	return nullptr;
 }

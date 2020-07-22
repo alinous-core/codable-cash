@@ -10,19 +10,22 @@
 
 #include "scan_condition/AbstractScanCondition.h"
 
-using codablecash::AbstractScanCondition;
+namespace codablecash {
 
-namespace alinous {
+class IValueProvider;
 
 class EqualityScanCondition : public AbstractScanCondition {
 public:
 	EqualityScanCondition();
 	virtual ~EqualityScanCondition();
 
+	void setLeft(AbstractScanConditionElement* element);
+	void setRight(AbstractScanConditionElement* element);
 private:
-
+	IValueProvider* left;
+	IValueProvider* right;
 };
 
-} /* namespace alinous */
+} /* namespace codablecash */
 
 #endif /* SCAN_CONDITION_EQUALITYSCANCONDITION_H_ */
