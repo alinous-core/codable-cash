@@ -1,5 +1,6 @@
 
 set(testsrc
+	test_condition_misc.cpp
 	test_select_contition.cpp
 	test_select01.cpp
 )
