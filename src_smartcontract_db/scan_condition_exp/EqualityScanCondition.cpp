@@ -23,7 +23,8 @@ EqualityScanCondition::EqualityScanCondition() : AbstractScanCondition(CodeEleme
 }
 
 EqualityScanCondition::~EqualityScanCondition() {
-
+	delete this->left;
+	delete this->right;
 }
 
 void EqualityScanCondition::setLeft(AbstractScanConditionElement* element) {

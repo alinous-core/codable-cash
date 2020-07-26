@@ -115,10 +115,13 @@ AbstractVmInstance* SQLEqualityExpression::interpret(VirtualMachine* vm) {
 	this->right->interpret(vm);
 
 
-	AbstractScanConditionElement* l = planner->popParam();
-	AbstractScanConditionElement* r = planner->popParam();
+	AbstractScanConditionElement* l = nullptr;
+	AbstractScanConditionElement* r = nullptr;
 
+	l = planner->popParam();
 	cond->setLeft(l);
+
+	r = planner->popParam();
 	cond->setRight(r);
 
 	return nullptr;
