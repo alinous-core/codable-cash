@@ -2,6 +2,7 @@
 
 set(__src
 	AbstractScanConditionParameter.cpp
+	BooleanScanParam.cpp
 	ColumnIdentifierScanParam.cpp
 	NumericScanParam.cpp
 	StringScanParam.cpp

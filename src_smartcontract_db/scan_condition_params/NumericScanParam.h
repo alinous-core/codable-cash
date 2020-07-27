@@ -15,7 +15,7 @@ namespace codablecash {
 
 class NumericScanParam : public AbstractScanConditionParameter {
 public:
-	NumericScanParam(int64_t longv);
+	explicit NumericScanParam(int64_t longv);
 	virtual ~NumericScanParam();
 
 private:

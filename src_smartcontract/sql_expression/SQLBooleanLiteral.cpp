@@ -10,6 +10,11 @@
 #include "sc_analyze/AnalyzedType.h"
 
 #include "instance_ref/PrimitiveReference.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "scan_condition_params/BooleanScanParam.h"
+
 namespace alinous {
 
 SQLBooleanLiteral::SQLBooleanLiteral() : AbstractSQLExpression(CodeElement::SQL_EXP_BOOL_LITERAL) {
@@ -57,8 +62,20 @@ void SQLBooleanLiteral::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLBooleanLiteral::interpret(VirtualMachine* vm) {
+	if(vm->isSelectPlanning()){
+		interpretOnPlanning(vm);
+		return nullptr;
+	}
+
 	return PrimitiveReference::createBoolReference(vm, this->value ? 1 : 0);
 }
 
+void SQLBooleanLiteral::interpretOnPlanning(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	BooleanScanParam* param = new BooleanScanParam(this->value);
+
+	planner->pushParam(param);
+}
 
 } /* namespace alinous */
