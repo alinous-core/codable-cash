@@ -13,6 +13,14 @@
 
 #include "engine/CdbException.h"
 
+#include "sql_expression/SQLBooleanLiteral.h"
+
+#include "sc_analyze/AnalyzedType.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "instance/AbstractVmInstance.h"
+
 using namespace alinous;
 using namespace codablecash;
 
@@ -51,4 +59,23 @@ TEST(TestConditionMiscGroup, eq02){
 
 	CHECK(ex != nullptr);
 	delete ex;
+}
+
+
+TEST(TestConditionMiscGroup, bool01){
+	SQLBooleanLiteral bl;
+	AnalyzedType at = bl.getType(nullptr);
+
+	CHECK(at.getType() == AnalyzedType::TYPE_BOOL);
+}
+
+TEST(TestConditionMiscGroup, bool02){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+	{
+		SQLBooleanLiteral bl;
+
+		AbstractVmInstance* inst = bl.interpret(vm);
+
+		delete inst;
+	}
 }
