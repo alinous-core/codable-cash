@@ -20,7 +20,7 @@ class AbstractVmInstance;
 
 class AbstractSQLExpression: public CodeElement, public ISQLElement {
 public:
-	AbstractSQLExpression(int kind);
+	explicit AbstractSQLExpression(int kind);
 	virtual ~AbstractSQLExpression();
 
 	virtual void preAnalyze(AnalyzeContext* actx) = 0;
