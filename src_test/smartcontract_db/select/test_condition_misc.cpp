@@ -14,12 +14,19 @@
 #include "engine/CdbException.h"
 
 #include "sql_expression/SQLBooleanLiteral.h"
+#include "sql_expression/SQLEqualityExpression.h"
+#include "sql_expression/SQLRelationalExpression.h"
+#include "sql_expression/SQLNotExpression.h"
+#include "sql_expression/SQLInExpression.h"
+#include "sql_expression/SQLExpressionList.h"
+#include "sql_expression/SQLLikeExpression.h"
 
 #include "sc_analyze/AnalyzedType.h"
 
 #include "vm/VirtualMachine.h"
 
 #include "instance/AbstractVmInstance.h"
+
 
 using namespace alinous;
 using namespace codablecash;
@@ -61,6 +68,45 @@ TEST(TestConditionMiscGroup, eq02){
 	delete ex;
 }
 
+TEST(TestConditionMiscGroup, sqleq01){
+	SQLEqualityExpression eq;
+
+	AnalyzedType at = eq.getType(nullptr);
+
+	CHECK(at.getType() == AnalyzedType::TYPE_BOOL);
+}
+
+TEST(TestConditionMiscGroup, sqlRelation01){
+	SQLRelationalExpression eq;
+
+	AnalyzedType at = eq.getType(nullptr);
+
+	CHECK(at.getType() == AnalyzedType::TYPE_BOOL);
+}
+
+TEST(TestConditionMiscGroup, sqlNot01){
+	SQLNotExpression eq;
+
+	AnalyzedType at = eq.getType(nullptr);
+
+	CHECK(at.getType() == AnalyzedType::TYPE_BOOL);
+}
+
+TEST(TestConditionMiscGroup, sqlIn01){
+	SQLInExpression eq;
+
+	AnalyzedType at = eq.getType(nullptr);
+
+	CHECK(at.getType() == AnalyzedType::TYPE_BOOL);
+}
+
+TEST(TestConditionMiscGroup, sqlLike01){
+	SQLLikeExpression eq;
+
+	AnalyzedType at = eq.getType(nullptr);
+
+	CHECK(at.getType() == AnalyzedType::TYPE_BOOL);
+}
 
 TEST(TestConditionMiscGroup, bool01){
 	SQLBooleanLiteral bl;
@@ -79,3 +125,12 @@ TEST(TestConditionMiscGroup, bool02){
 		delete inst;
 	}
 }
+
+TEST(TestConditionMiscGroup, SQLExpressionList){
+	SQLExpressionList eq;
+
+	AnalyzedType at = eq.getType(nullptr);
+
+	CHECK(at.getType() == AnalyzedType::TYPE_NONE);
+}
+
