@@ -9,6 +9,7 @@
 #define SCAN_CONDITION_EXP_RELATIONALSCANCONDITION_H_
 
 #include "scan_condition/AbstractScanCondition.h"
+#include <cstdint>
 
 namespace codablecash {
 
@@ -21,9 +22,12 @@ public:
 
 	void setLeft(AbstractScanConditionElement* element);
 	void setRight(AbstractScanConditionElement* element);
+	void setOp(uint8_t op) noexcept;
 private:
 	IValueProvider* left;
 	IValueProvider* right;
+
+	uint8_t op;
 };
 
 } /* namespace codablecash */

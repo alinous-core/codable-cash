@@ -119,6 +119,8 @@ AbstractVmInstance* SQLRelationalExpression::interpret(VirtualMachine* vm) {
 	AbstractScanConditionElement* l = nullptr;
 	AbstractScanConditionElement* r = nullptr;
 
+	cond->setOp(this->op);
+
 	l = planner->popParam();
 	cond->setLeft(l);
 

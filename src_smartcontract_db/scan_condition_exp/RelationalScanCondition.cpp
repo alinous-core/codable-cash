@@ -20,6 +20,7 @@ namespace codablecash {
 RelationalScanCondition::RelationalScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_RELATIONAL) {
 	this->left = nullptr;
 	this->right = nullptr;
+	this->op = 0;
 }
 
 RelationalScanCondition::~RelationalScanCondition() {
@@ -43,5 +44,8 @@ void RelationalScanCondition::setRight(AbstractScanConditionElement* element) {
 	}
 }
 
+void RelationalScanCondition::setOp(uint8_t op) noexcept {
+	this->op = op;
+}
 
 } /* namespace codablecash */
