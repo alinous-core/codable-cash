@@ -27,6 +27,7 @@
 
 #include "instance/AbstractVmInstance.h"
 
+#include "scan_condition_exp/RelationalScanCondition.h"
 
 using namespace alinous;
 using namespace codablecash;
@@ -55,6 +56,36 @@ TEST(TestConditionMiscGroup, eq01){
 
 TEST(TestConditionMiscGroup, eq02){
 	EqualityScanCondition eq;
+
+	CdbException* ex = nullptr;
+	try{
+		eq.setRight(nullptr);
+	}
+	catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr);
+	delete ex;
+}
+
+TEST(TestConditionMiscGroup, rel01){
+	RelationalScanCondition eq;
+
+	CdbException* ex = nullptr;
+	try{
+		eq.setLeft(nullptr);
+	}
+	catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr);
+	delete ex;
+}
+
+TEST(TestConditionMiscGroup, rel02){
+	RelationalScanCondition eq;
 
 	CdbException* ex = nullptr;
 	try{

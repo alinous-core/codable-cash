@@ -9,6 +9,16 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "vm/VirtualMachine.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionStackPopper.h"
+
+#include "scan_condition_exp/RelationalScanCondition.h"
+
+
+using namespace codablecash;
+
 namespace alinous {
 
 SQLRelationalExpression::SQLRelationalExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_RELATIONAL) {
@@ -96,7 +106,26 @@ void SQLRelationalExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLRelationalExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME SQLRelationalExpression
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	RelationalScanCondition* cond = new RelationalScanCondition();
+	planner->processExpression(cond);
+	ConditionStackPopper popper(planner);
+
+	this->left->interpret(vm);
+	this->right->interpret(vm);
+
+
+	AbstractScanConditionElement* l = nullptr;
+	AbstractScanConditionElement* r = nullptr;
+
+	l = planner->popParam();
+	cond->setLeft(l);
+
+	r = planner->popParam();
+	cond->setRight(r);
+
+	return nullptr;
 }
 
 
