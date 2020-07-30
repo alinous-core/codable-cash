@@ -29,6 +29,7 @@
 
 #include "scan_condition_exp/RelationalScanCondition.h"
 
+#include "sc_analyze/AnalyzeContext.h"
 using namespace alinous;
 using namespace codablecash;
 
@@ -121,6 +122,24 @@ TEST(TestConditionMiscGroup, sqlNot01){
 	AnalyzedType at = eq.getType(nullptr);
 
 	CHECK(at.getType() == AnalyzedType::TYPE_BOOL);
+}
+
+TEST(TestConditionMiscGroup, sqlNot02){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+
+	{
+		SQLNotExpression nt;
+		SQLExpressionList* list = new SQLExpressionList();
+
+		nt.setExpression(list);
+
+		AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
+		actx->setVm(vm);
+
+		nt.analyze(actx);
+
+		CHECK(actx->hasError());
+	}
 }
 
 TEST(TestConditionMiscGroup, sqlIn01){
