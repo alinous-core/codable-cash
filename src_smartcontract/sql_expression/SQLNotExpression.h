@@ -32,8 +32,6 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 
 private:
-	void interpretOnPlanning(VirtualMachine* vm);
-private:
 	AbstractSQLExpression* exp;
 };
 

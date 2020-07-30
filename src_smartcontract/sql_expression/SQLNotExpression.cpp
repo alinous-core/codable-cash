@@ -86,23 +86,6 @@ void SQLNotExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLNotExpression::interpret(VirtualMachine* vm) {
-	if(vm->isSelectPlanning()){
-		interpretOnPlanning(vm);
-		return nullptr;
-	}
-
-	StackFloatingVariableHandler releaser(vm->getGc());
-
-	AbstractVmInstance* inst = this->exp->interpret(vm);
-	releaser.registerInstance(inst);
-
-	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
-	bool bl = ref->getBoolValue();
-
-	return PrimitiveReference::createBoolReference(vm, bl ? 0 : 1);
-}
-
-void SQLNotExpression::interpretOnPlanning(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 
 	NotScanCondition* cond = new NotScanCondition();
@@ -110,6 +93,8 @@ void SQLNotExpression::interpretOnPlanning(VirtualMachine* vm) {
 	ConditionStackPopper popper(planner);
 
 	this->exp->interpret(vm);
+
+	return nullptr;
 }
 
 } /* namespace alinous */
