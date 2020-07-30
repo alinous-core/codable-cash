@@ -8,6 +8,10 @@
 #include "sql_dml_parts/SQLWhere.h"
 #include "sql/AbstractSQLExpression.h"
 
+#include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
+
 namespace alinous {
 
 SQLWhere::SQLWhere() : AbstractSQLPart(CodeElement::SQL_PART_WHERE) {
@@ -33,6 +37,11 @@ void SQLWhere::analyzeTypeRef(AnalyzeContext* actx) {
 
 void SQLWhere::analyze(AnalyzeContext* actx) {
 	this->exp->analyze(actx);
+
+	AnalyzedType at = this->exp->getType(actx);
+	if(at.getType() != AnalyzedType::TYPE_BOOL){
+		actx->addValidationError(ValidationError::CODE_LOGICAL_EXP_NON_BOOL, this, L"Not expression requires boolean value.", {});
+	}
 }
 
 void SQLWhere::init(VirtualMachine* vm) {
