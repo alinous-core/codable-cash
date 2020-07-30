@@ -8,6 +8,8 @@
 #include "sql_expression/SQLNotExpression.h"
 
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
 
 #include "instance_gc/StackFloatingVariableHandler.h"
 
@@ -15,8 +17,11 @@
 
 #include "instance_ref/PrimitiveReference.h"
 
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionStackPopper.h"
+
+#include "scan_condition_logical/NotScanCondition.h"
+
 
 namespace alinous {
 
@@ -81,6 +86,11 @@ void SQLNotExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLNotExpression::interpret(VirtualMachine* vm) {
+	if(vm->isSelectPlanning()){
+		interpretOnPlanning(vm);
+		return nullptr;
+	}
+
 	StackFloatingVariableHandler releaser(vm->getGc());
 
 	AbstractVmInstance* inst = this->exp->interpret(vm);
@@ -92,5 +102,14 @@ AbstractVmInstance* SQLNotExpression::interpret(VirtualMachine* vm) {
 	return PrimitiveReference::createBoolReference(vm, bl ? 0 : 1);
 }
 
+void SQLNotExpression::interpretOnPlanning(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	NotScanCondition* cond = new NotScanCondition();
+	planner->processExpression(cond);
+	ConditionStackPopper popper(planner);
+
+	this->exp->interpret(vm);
+}
 
 } /* namespace alinous */
