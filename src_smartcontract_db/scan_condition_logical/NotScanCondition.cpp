@@ -18,7 +18,7 @@ NotScanCondition::NotScanCondition() : AbstractScanCondition(CodeElement::SQL_EX
 }
 
 NotScanCondition::~NotScanCondition() {
-
+	delete this->cond;
 }
 
 bool NotScanCondition::isContainer() const noexcept {

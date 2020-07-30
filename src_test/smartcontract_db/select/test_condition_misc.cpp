@@ -27,11 +27,13 @@
 
 #include "scan_condition_exp/RelationalScanCondition.h"
 #include "scan_condition_exp/EqualityScanCondition.h"
+#include "scan_condition_exp/ParenthesisScanCondition.h"
 
 #include "sc_analyze/AnalyzeContext.h"
 
 #include "scan_condition_logical/NotScanCondition.h"
 #include "scan_condition/RootScanCondition.h"
+
 
 using namespace alinous;
 using namespace codablecash;
@@ -195,6 +197,12 @@ TEST(TestConditionMiscGroup, NotScan){
 
 TEST(TestConditionMiscGroup, RootScanCondition){
 	RootScanCondition cond;
+
+	CHECK(cond.isContainer());
+}
+
+TEST(TestConditionMiscGroup, ParenthesisScanCondition){
+	ParenthesisScanCondition cond;
 
 	CHECK(cond.isContainer());
 }

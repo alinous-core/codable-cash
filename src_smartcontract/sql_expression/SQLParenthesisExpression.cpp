@@ -8,6 +8,18 @@
 #include "sql_expression/SQLParenthesisExpression.h"
 
 #include "sc_analyze/AnalyzedType.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionStackPopper.h"
+
+#include "scan_condition_exp/ParenthesisScanCondition.h"
+
+#include "vm/VirtualMachine.h"
+
+using codablecash::ConditionStackPopper;
+using codablecash::ParenthesisScanCondition;
+using codablecash::SelectScanPlanner;
+
 namespace alinous {
 
 SQLParenthesisExpression::SQLParenthesisExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_PARENTHESIS) {
@@ -66,7 +78,15 @@ void SQLParenthesisExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLParenthesisExpression::interpret(VirtualMachine* vm) {
-	return this->exp->interpret(vm);
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	ParenthesisScanCondition* cond = new ParenthesisScanCondition();
+	planner->processExpression(cond);
+	ConditionStackPopper popper(planner);
+
+	this->exp->interpret(vm);
+
+	return nullptr;
 }
 
 
