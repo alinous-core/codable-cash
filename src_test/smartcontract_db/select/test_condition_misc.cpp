@@ -9,8 +9,6 @@
 
 #include "base/StackRelease.h"
 
-#include "scan_condition_exp/EqualityScanCondition.h"
-
 #include "engine/CdbException.h"
 
 #include "sql_expression/SQLBooleanLiteral.h"
@@ -28,8 +26,13 @@
 #include "instance/AbstractVmInstance.h"
 
 #include "scan_condition_exp/RelationalScanCondition.h"
+#include "scan_condition_exp/EqualityScanCondition.h"
 
 #include "sc_analyze/AnalyzeContext.h"
+
+#include "scan_condition_logical/NotScanCondition.h"
+#include "scan_condition/RootScanCondition.h"
+
 using namespace alinous;
 using namespace codablecash;
 
@@ -182,5 +185,17 @@ TEST(TestConditionMiscGroup, SQLExpressionList){
 	AnalyzedType at = eq.getType(nullptr);
 
 	CHECK(at.getType() == AnalyzedType::TYPE_NONE);
+}
+
+TEST(TestConditionMiscGroup, NotScan){
+	NotScanCondition notCond;
+
+	CHECK(notCond.isContainer());
+}
+
+TEST(TestConditionMiscGroup, RootScanCondition){
+	RootScanCondition cond;
+
+	CHECK(cond.isContainer());
 }
 

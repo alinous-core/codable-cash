@@ -8,7 +8,9 @@
 #include "scan_planner/SelectScanPlanner.h"
 
 #include "scan_planner/ConditionsHolder.h"
+#include <cassert>
 
+#include "scan_condition/AbstractScanCondition.h"
 
 namespace codablecash {
 

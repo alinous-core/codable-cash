@@ -18,6 +18,7 @@ public:
 	virtual ~RootScanCondition();
 
 	virtual void addCondition(AbstractScanCondition* cond);
+	virtual bool isContainer() const noexcept { return true; };
 private:
 	AbstractScanCondition* cond;
 };
