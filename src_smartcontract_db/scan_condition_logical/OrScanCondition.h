@@ -9,6 +9,9 @@
 #define SCAN_CONDITION_LOGICAL_ORSCANCONDITION_H_
 
 #include "scan_condition/AbstractScanCondition.h"
+#include "base/ArrayList.h"
+
+using namespace alinous;
 
 namespace codablecash {
 
@@ -16,6 +19,12 @@ class OrScanCondition : public AbstractScanCondition {
 public:
 	OrScanCondition();
 	virtual ~OrScanCondition();
+
+	virtual bool isContainer() const noexcept {return true;};
+	virtual void addCondition(AbstractScanCondition* cond);
+
+private:
+	ArrayList<AbstractScanCondition> list;
 };
 
 } /* namespace codablecash */

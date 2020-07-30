@@ -19,7 +19,11 @@ OrScanCondition::OrScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_
 }
 
 OrScanCondition::~OrScanCondition() {
+	this->list.deleteElements();
+}
 
+void OrScanCondition::addCondition(AbstractScanCondition* cond) {
+	this->list.addElement(cond);
 }
 
 } /* namespace codablecash */

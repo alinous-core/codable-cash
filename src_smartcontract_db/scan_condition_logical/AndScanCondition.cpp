@@ -19,7 +19,11 @@ AndScanCondition::AndScanCondition() : AbstractScanCondition(CodeElement::SQL_EX
 }
 
 AndScanCondition::~AndScanCondition() {
+	this->list.deleteElements();
+}
 
+void AndScanCondition::addCondition(AbstractScanCondition* cond) {
+	this->list.addElement(cond);
 }
 
 } /* namespace codablecash */
