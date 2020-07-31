@@ -7,6 +7,7 @@
 
 #include "sql_expression/SQLAdditiveExpression.h"
 
+#include "sc_analyze/AnalyzedType.h"
 namespace alinous {
 
 SQLAdditiveExpression::SQLAdditiveExpression() : AbstractSQLBinaryExpression(CodeElement::SQL_EXP_ADDITIVE), operations(4) {
@@ -53,6 +54,47 @@ void SQLAdditiveExpression::fromBinary(ByteBuffer* in) {
 		this->operations.addElement(op);
 	}
 }
+
+void SQLAdditiveExpression::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->operations.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->setParent(this);
+		exp->preAnalyze(actx);
+	}
+}
+
+void SQLAdditiveExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->operations.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->analyzeTypeRef(actx);
+	}
+}
+
+void SQLAdditiveExpression::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->operations.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->analyze(actx);
+	}
+}
+
+AnalyzedType SQLAdditiveExpression::getType(AnalyzeContext* actx) {
+	return AnalyzedType(AnalyzedType::TYPE_LONG);
+}
+
+void SQLAdditiveExpression::init(VirtualMachine* vm) {
+	int maxLoop = this->operations.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+		exp->init(vm);
+	}
+}
+
 
 AbstractVmInstance* SQLAdditiveExpression::interpret(VirtualMachine* vm) {
 	// FIXME SQLAdditiveExpression
