@@ -8,12 +8,22 @@
 #ifndef SCAN_CONDITION_ARITHMETIC_ADDITIVESCANCONDITION_H_
 #define SCAN_CONDITION_ARITHMETIC_ADDITIVESCANCONDITION_H_
 
+#include "base/ArrayList.h"
+
+#include "scan_condition/AbstractScanCondition.h"
+#include "scan_condition/IValueProvider.h"
+
+using namespace alinous;
+
 namespace codablecash {
 
-class AdditiveScanCondition {
+class AdditiveScanCondition : public AbstractScanCondition, public IValueProvider{
 public:
 	AdditiveScanCondition();
 	virtual ~AdditiveScanCondition();
+
+private:
+	ArrayList<IValueProvider> list;
 };
 
 } /* namespace codablecash */

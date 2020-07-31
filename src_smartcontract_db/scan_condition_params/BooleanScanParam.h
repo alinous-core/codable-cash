@@ -12,7 +12,7 @@
 
 namespace codablecash {
 
-class BooleanScanParam : public AbstractScanConditionParameter {
+class BooleanScanParam : public AbstractScanConditionParameter, public IValueProvider {
 public:
 	explicit BooleanScanParam(bool value);
 	virtual ~BooleanScanParam();

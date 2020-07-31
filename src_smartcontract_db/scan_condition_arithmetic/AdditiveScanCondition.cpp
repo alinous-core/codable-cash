@@ -5,17 +5,18 @@
  *      Author: iizuka
  */
 
-#include <scan_condition_arithmetic/AdditiveScanCondition.h>
+#include "scan_condition_arithmetic/AdditiveScanCondition.h"
+
+#include "sc/CodeElement.h"
 
 namespace codablecash {
 
-AdditiveScanCondition::AdditiveScanCondition() {
-	// TODO Auto-generated constructor stub
+AdditiveScanCondition::AdditiveScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_ADDITIVE){
 
 }
 
 AdditiveScanCondition::~AdditiveScanCondition() {
-	// TODO Auto-generated destructor stub
+	this->list.deleteElements();
 }
 
 } /* namespace codablecash */
