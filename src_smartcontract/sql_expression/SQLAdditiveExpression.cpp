@@ -56,7 +56,7 @@ void SQLAdditiveExpression::fromBinary(ByteBuffer* in) {
 }
 
 void SQLAdditiveExpression::preAnalyze(AnalyzeContext* actx) {
-	int maxLoop = this->operations.size();
+	int maxLoop = this->operands.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractSQLExpression* exp = this->operands.get(i);
 
@@ -66,7 +66,7 @@ void SQLAdditiveExpression::preAnalyze(AnalyzeContext* actx) {
 }
 
 void SQLAdditiveExpression::analyzeTypeRef(AnalyzeContext* actx) {
-	int maxLoop = this->operations.size();
+	int maxLoop = this->operands.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractSQLExpression* exp = this->operands.get(i);
 
@@ -75,7 +75,7 @@ void SQLAdditiveExpression::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void SQLAdditiveExpression::analyze(AnalyzeContext* actx) {
-	int maxLoop = this->operations.size();
+	int maxLoop = this->operands.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractSQLExpression* exp = this->operands.get(i);
 
