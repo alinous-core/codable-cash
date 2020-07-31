@@ -84,11 +84,6 @@ void AbstractSQLBinaryExpression::analyze(AnalyzeContext* actx) {
 	}
 }
 
-AnalyzedType AbstractSQLBinaryExpression::getType(AnalyzeContext* actx) {
-	// FIXME AbstractSQLBinaryExpression
-	return AnalyzedType();
-}
-
 void AbstractSQLBinaryExpression::init(VirtualMachine* vm) {
 	int maxLoop = this->operands.size();
 	for(int i = 0; i != maxLoop; ++i){
