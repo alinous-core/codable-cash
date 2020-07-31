@@ -8,6 +8,15 @@
 #include "sql_expression/SQLOrExpression.h"
 
 #include "sc_analyze/AnalyzedType.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionStackPopper.h"
+
+#include "scan_condition_logical/OrScanCondition.h"
+
+
 namespace alinous {
 
 SQLOrExpression::SQLOrExpression() : AbstractSQLBinaryExpression(CodeElement::SQL_EXP_OR) {
@@ -70,7 +79,20 @@ void SQLOrExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLOrExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME SQLOrExpression
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	OrScanCondition* cond = new OrScanCondition();
+	planner->processExpression(cond);
+	ConditionStackPopper popper(planner);
+
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->interpret(vm);
+	}
+
+	return nullptr;
 }
 
 AnalyzedType SQLOrExpression::getType(AnalyzeContext* actx) {
