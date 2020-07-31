@@ -100,6 +100,12 @@ void SQLFunctionCall::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void SQLFunctionCall::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->arguments.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->arguments.get(i);
+
+		exp->analyze(actx);
+	}
 }
 
 AnalyzedType SQLFunctionCall::getType(AnalyzeContext* actx) {
