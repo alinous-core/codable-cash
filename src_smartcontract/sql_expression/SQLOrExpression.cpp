@@ -32,6 +32,43 @@ void SQLOrExpression::fromBinary(ByteBuffer* in) {
 	AbstractSQLBinaryExpression::fromBinary(in);
 }
 
+void SQLOrExpression::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->setParent(this);
+		exp->preAnalyze(actx);
+	}
+}
+
+void SQLOrExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->analyzeTypeRef(actx);
+	}
+}
+
+void SQLOrExpression::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->analyze(actx);
+	}
+}
+
+void SQLOrExpression::init(VirtualMachine* vm) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->init(vm);
+	}
+}
+
 AbstractVmInstance* SQLOrExpression::interpret(VirtualMachine* vm) {
 	return nullptr; // FIXME SQLOrExpression
 }
