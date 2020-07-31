@@ -8,6 +8,17 @@
 #include "sql_expression/SQLAdditiveExpression.h"
 
 #include "sc_analyze/AnalyzedType.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionStackPopper.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "scan_condition_logical/AndScanCondition.h"
+
+
+using namespace codablecash;
+
 namespace alinous {
 
 SQLAdditiveExpression::SQLAdditiveExpression() : AbstractSQLBinaryExpression(CodeElement::SQL_EXP_ADDITIVE), operations(4) {
@@ -54,7 +65,7 @@ void SQLAdditiveExpression::fromBinary(ByteBuffer* in) {
 		this->operations.addElement(op);
 	}
 }
-
+/*
 void SQLAdditiveExpression::preAnalyze(AnalyzeContext* actx) {
 	int maxLoop = this->operands.size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -82,21 +93,22 @@ void SQLAdditiveExpression::analyze(AnalyzeContext* actx) {
 		exp->analyze(actx);
 	}
 }
-
+*/
 AnalyzedType SQLAdditiveExpression::getType(AnalyzeContext* actx) {
 	return AnalyzedType(AnalyzedType::TYPE_LONG);
 }
-
+/*
 void SQLAdditiveExpression::init(VirtualMachine* vm) {
 	int maxLoop = this->operations.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractSQLExpression* exp = this->operands.get(i);
 		exp->init(vm);
 	}
-}
+}*/
 
 
 AbstractVmInstance* SQLAdditiveExpression::interpret(VirtualMachine* vm) {
+
 	// FIXME SQLAdditiveExpression
 	return nullptr;
 }

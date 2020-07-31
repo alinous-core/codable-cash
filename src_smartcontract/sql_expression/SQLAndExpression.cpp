@@ -9,6 +9,15 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "scan_condition_logical/AndScanCondition.h"
+
+#include "scan_planner/ConditionStackPopper.h"
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "vm/VirtualMachine.h"
+
+using namespace codablecash;
+
 namespace alinous {
 
 SQLAndExpression::SQLAndExpression() : AbstractSQLBinaryExpression(CodeElement::SQL_EXP_AND) {
@@ -32,7 +41,7 @@ void SQLAndExpression::toBinary(ByteBuffer* out) {
 void SQLAndExpression::fromBinary(ByteBuffer* in) {
 	AbstractSQLBinaryExpression::fromBinary(in);
 }
-
+/*
 void SQLAndExpression::preAnalyze(AnalyzeContext* actx) {
 	int maxLoop = this->operands.size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -59,12 +68,12 @@ void SQLAndExpression::analyze(AnalyzeContext* actx) {
 
 		exp->analyze(actx);
 	}
-}
+}*/
 
 AnalyzedType SQLAndExpression::getType(AnalyzeContext* actx) {
 	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
-
+/*
 void SQLAndExpression::init(VirtualMachine* vm) {
 	int maxLoop = this->operands.size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -72,10 +81,22 @@ void SQLAndExpression::init(VirtualMachine* vm) {
 
 		exp->init(vm);
 	}
-}
+}*/
 
 AbstractVmInstance* SQLAndExpression::interpret(VirtualMachine* vm) {
-	// FIXME SQLAndExpression
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	AndScanCondition* cond = new AndScanCondition();
+	planner->processExpression(cond);
+	ConditionStackPopper popper(planner);
+
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->interpret(vm);
+	}
+
 	return nullptr;
 }
 
