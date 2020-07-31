@@ -7,6 +7,7 @@
 
 #include "sql_expression/SqlMultiplicativeExpression.h"
 
+#include "sc_analyze/AnalyzedType.h"
 namespace alinous {
 
 SqlMultiplicativeExpression::SqlMultiplicativeExpression() : AbstractSQLBinaryExpression(CodeElement::SQL_EXP_MULTIPLICATIVE), operations(4) {
@@ -51,6 +52,47 @@ void SqlMultiplicativeExpression::fromBinary(ByteBuffer* in) {
 	for(int i = 0; i != maxLoop; ++i){
 		uint8_t op = in->get();
 		this->operations.addElement(op);
+	}
+}
+
+void SqlMultiplicativeExpression::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->setParent(this);
+		exp->preAnalyze(actx);
+	}
+}
+
+void SqlMultiplicativeExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->analyzeTypeRef(actx);
+	}
+}
+
+void SqlMultiplicativeExpression::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->analyze(actx);
+	}
+}
+
+AnalyzedType SqlMultiplicativeExpression::getType(AnalyzeContext* actx) {
+	return AnalyzedType(AnalyzedType::TYPE_LONG);
+}
+
+void SqlMultiplicativeExpression::init(VirtualMachine* vm) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->init(vm);
 	}
 }
 

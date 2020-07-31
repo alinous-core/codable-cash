@@ -28,7 +28,6 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
-	virtual AnalyzedType getType(AnalyzeContext* actx);
 };
 
 } /* namespace alinous */
