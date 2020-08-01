@@ -121,11 +121,11 @@ AbstractVmInstance* SQLEqualityExpression::interpret(VirtualMachine* vm) {
 	IValueProvider* val = nullptr;
 
 	element = planner->pop();
-	val = ScanConditionCast::toIValueProvider(element, vm);
+	val = ScanConditionCast::toIValueProvider(element, vm, this);
 	cond->setLeft(val);
 
 	element = planner->pop();
-	val = ScanConditionCast::toIValueProvider(element, vm);
+	val = ScanConditionCast::toIValueProvider(element, vm, this);
 	cond->setRight(val);
 
 	return nullptr;

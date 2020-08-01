@@ -67,7 +67,7 @@ AbstractVmInstance* SQLWhere::interpret(VirtualMachine* vm) {
 
 	AbstractScanConditionElement* element = cholder->pop();
 
-	AbstractScanCondition* cond = ScanConditionCast::toAbstractScanCondition(element, vm);
+	AbstractScanCondition* cond = ScanConditionCast::toAbstractScanCondition(element, vm, this);
 	root->addCondition(cond);
 
 	return nullptr;

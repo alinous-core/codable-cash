@@ -10,6 +10,7 @@
 
 namespace alinous {
 class VirtualMachine;
+class CodeElement;
 }
 using namespace alinous;
 
@@ -21,8 +22,8 @@ class IValueProvider;
 
 class ScanConditionCast {
 public:
-	static AbstractScanCondition* toAbstractScanCondition(AbstractScanConditionElement* element, VirtualMachine* vm);
-	static IValueProvider* toIValueProvider(AbstractScanConditionElement* element, VirtualMachine* vm);
+	static AbstractScanCondition* toAbstractScanCondition(AbstractScanConditionElement* condElement, VirtualMachine* vm, const CodeElement* element);
+	static IValueProvider* toIValueProvider(AbstractScanConditionElement* condElement, VirtualMachine* vm, const CodeElement* element);
 };
 
 } /* namespace codablecash */

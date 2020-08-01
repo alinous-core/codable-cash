@@ -13,27 +13,34 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "instance_exception/TypeCastExceptionClassDeclare.h"
+#include "instance_exception/ExceptionInterrupt.h"
 
 namespace codablecash {
 
 
-AbstractScanCondition* ScanConditionCast::toAbstractScanCondition(AbstractScanConditionElement* element, VirtualMachine* vm) {
-	AbstractScanCondition* scanCond = dynamic_cast<AbstractScanCondition*>(element);
+AbstractScanCondition* ScanConditionCast::toAbstractScanCondition(AbstractScanConditionElement* condElement, VirtualMachine* vm, const CodeElement* element) {
+	AbstractScanCondition* scanCond = dynamic_cast<AbstractScanCondition*>(condElement);
 
 	if(scanCond == nullptr){
-		delete element;
+		delete condElement;
 
+		TypeCastExceptionClassDeclare::throwException(vm, element);
+		ExceptionInterrupt::interruptPoint(vm);
 	}
 
 	return scanCond;
 
 }
 
-IValueProvider* codablecash::ScanConditionCast::toIValueProvider(AbstractScanConditionElement* element, VirtualMachine* vm) {
-	IValueProvider* val = dynamic_cast<IValueProvider*>(element);
+IValueProvider* ScanConditionCast::toIValueProvider(AbstractScanConditionElement* condElement, VirtualMachine* vm, const CodeElement* element) {
+	IValueProvider* val = dynamic_cast<IValueProvider*>(condElement);
 
 	if(val == nullptr){
-		delete element;
+		delete condElement;
+
+		TypeCastExceptionClassDeclare::throwException(vm, element);
+		ExceptionInterrupt::interruptPoint(vm);
 	}
 
 	return val;
