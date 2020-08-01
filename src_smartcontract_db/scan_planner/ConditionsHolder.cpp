@@ -17,10 +17,10 @@ namespace codablecash {
 
 ConditionsHolder::ConditionsHolder() {
 	this->root = new RootScanCondition();
-	push(this->root);
 }
 
 ConditionsHolder::~ConditionsHolder() {
+	this->stack.deleteElements();
 	delete this->root;
 }
 
@@ -38,6 +38,8 @@ AbstractScanConditionElement* ConditionsHolder::pop() noexcept {
 	return this->stack.remove(index);
 }
 
-
+RootScanCondition* ConditionsHolder::getRoot() const noexcept {
+	return this->root;
+}
 
 } /* namespace codablecash */

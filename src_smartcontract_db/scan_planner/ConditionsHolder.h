@@ -30,6 +30,7 @@ public:
 	AbstractScanConditionElement* top() const noexcept;
 	AbstractScanConditionElement* pop() noexcept;
 
+	RootScanCondition* getRoot() const noexcept;
 private:
 	RootScanCondition* root;
 

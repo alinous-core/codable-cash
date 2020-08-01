@@ -12,6 +12,16 @@
 #include "sc_analyze/ValidationError.h"
 #include "sc_analyze/AnalyzeContext.h"
 
+#include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolder.h"
+
+#include "scan_condition/RootScanCondition.h"
+#include "scan_condition/ScanConditionCast.h"
+
+#include "vm/VirtualMachine.h"
+
+using namespace codablecash;
+
 namespace alinous {
 
 SQLWhere::SQLWhere() : AbstractSQLPart(CodeElement::SQL_PART_WHERE) {
@@ -50,6 +60,15 @@ void SQLWhere::init(VirtualMachine* vm) {
 
 AbstractVmInstance* SQLWhere::interpret(VirtualMachine* vm) {
 	this->exp->interpret(vm);
+
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolder* cholder = planner->getConditions();
+	RootScanCondition* root = cholder->getRoot();
+
+	AbstractScanConditionElement* element = cholder->pop();
+
+	AbstractScanCondition* cond = ScanConditionCast::toAbstractScanCondition(element, vm);
+	root->addCondition(cond);
 
 	return nullptr;
 }

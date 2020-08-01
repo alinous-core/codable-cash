@@ -29,10 +29,6 @@ EqualityScanCondition::~EqualityScanCondition() {
 
 void EqualityScanCondition::setLeft(IValueProvider* element) {
 	this->left = element;
-	if(this->left == nullptr){
-		delete element;
-		throw new CdbException(L"The left element is not value provider", __FILE__, __LINE__);
-	}
 }
 
 void EqualityScanCondition::setRight(IValueProvider* element) {
