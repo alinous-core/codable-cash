@@ -15,6 +15,7 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "scan_condition/ScanConditionCast.h"
 using codablecash::ParenthesisScanCondition;
 using codablecash::SelectScanPlanner;
 
@@ -83,8 +84,10 @@ AbstractVmInstance* SQLParenthesisExpression::interpret(VirtualMachine* vm) {
 
 	this->exp->interpret(vm);
 
+	AbstractScanConditionElement* element = planner->pop();
+	AbstractScanCondition* inner = ScanConditionCast::toAbstractScanCondition(element, vm, this);
 
-	// FIXME add
+	cond->addCondition(inner);
 
 
 	return nullptr;
