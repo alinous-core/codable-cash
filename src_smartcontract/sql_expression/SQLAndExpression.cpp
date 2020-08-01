@@ -9,7 +9,7 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
-#include "scan_condition_arithmetic/AdditiveScanCondition.h"
+#include "scan_condition_logical/AndScanCondition.h"
 
 #include "scan_planner/SelectScanPlanner.h"
 
@@ -87,7 +87,7 @@ void SQLAndExpression::init(VirtualMachine* vm) {
 AbstractVmInstance* SQLAndExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 
-	AdditiveScanCondition* cond = new AdditiveScanCondition();
+	AndScanCondition* cond = new AndScanCondition();
 	planner->push(cond);
 
 	int maxLoop = this->operands.size();
