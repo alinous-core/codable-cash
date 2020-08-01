@@ -19,8 +19,8 @@ public:
 	EqualityScanCondition();
 	virtual ~EqualityScanCondition();
 
-	void setLeft(AbstractScanConditionElement* element);
-	void setRight(AbstractScanConditionElement* element);
+	void setLeft(IValueProvider* element);
+	void setRight(IValueProvider* element);
 private:
 	IValueProvider* left;
 	IValueProvider* right;

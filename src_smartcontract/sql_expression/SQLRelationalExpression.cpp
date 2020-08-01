@@ -15,6 +15,7 @@
 
 #include "scan_condition_exp/RelationalScanCondition.h"
 
+#include "scan_condition/ScanConditionCast.h"
 
 using namespace codablecash;
 
@@ -114,16 +115,18 @@ AbstractVmInstance* SQLRelationalExpression::interpret(VirtualMachine* vm) {
 	this->right->interpret(vm);
 
 
-	AbstractScanConditionElement* l = nullptr;
-	AbstractScanConditionElement* r = nullptr;
+	AbstractScanConditionElement* element = nullptr;
+	IValueProvider* val = nullptr;
 
 	cond->setOp(this->op);
 
-	l = planner->pop();
-	cond->setLeft(l);
+	element = planner->pop();
+	val = ScanConditionCast::toIValueProvider(element, vm);
+	cond->setLeft(val);
 
-	r = planner->pop();
-	cond->setRight(r);
+	element = planner->pop();
+	val = ScanConditionCast::toIValueProvider(element, vm);
+	cond->setRight(val);
 
 	return nullptr;
 }

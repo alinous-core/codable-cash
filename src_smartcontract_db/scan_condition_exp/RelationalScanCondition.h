@@ -20,8 +20,8 @@ public:
 	RelationalScanCondition();
 	virtual ~RelationalScanCondition();
 
-	void setLeft(AbstractScanConditionElement* element);
-	void setRight(AbstractScanConditionElement* element);
+	void setLeft(IValueProvider* element);
+	void setRight(IValueProvider* element);
 	void setOp(uint8_t op) noexcept;
 private:
 	IValueProvider* left;

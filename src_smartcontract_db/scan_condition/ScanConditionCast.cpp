@@ -9,14 +9,19 @@
 
 #include "scan_condition/AbstractScanCondition.h"
 #include "scan_condition/AbstractScanConditionElement.h"
+#include "scan_condition/IValueProvider.h"
+
+#include "vm/VirtualMachine.h"
+
 
 namespace codablecash {
 
 
-AbstractScanCondition* ScanConditionCast::toAbstractScanCondition(AbstractScanConditionElement* element) {
+AbstractScanCondition* ScanConditionCast::toAbstractScanCondition(AbstractScanConditionElement* element, VirtualMachine* vm) {
 	AbstractScanCondition* scanCond = dynamic_cast<AbstractScanCondition*>(element);
 
 	if(scanCond == nullptr){
+		delete element;
 
 	}
 
@@ -24,5 +29,14 @@ AbstractScanCondition* ScanConditionCast::toAbstractScanCondition(AbstractScanCo
 
 }
 
+IValueProvider* codablecash::ScanConditionCast::toIValueProvider(AbstractScanConditionElement* element, VirtualMachine* vm) {
+	IValueProvider* val = dynamic_cast<IValueProvider*>(element);
+
+	if(val == nullptr){
+		delete element;
+	}
+
+	return val;
+}
 
 } /* namespace codablecash */

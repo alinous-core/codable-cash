@@ -16,7 +16,11 @@
 #include "scan_condition/AbstractScanCondition.h"
 #include "scan_condition_exp/EqualityScanCondition.h"
 
+#include "scan_condition/IValueProvider.h"
 
+using namespace codablecash;
+
+#include "scan_condition/ScanConditionCast.h"
 namespace alinous {
 
 SQLEqualityExpression::SQLEqualityExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_EQUALITY) {
@@ -113,14 +117,16 @@ AbstractVmInstance* SQLEqualityExpression::interpret(VirtualMachine* vm) {
 	this->right->interpret(vm);
 
 
-	AbstractScanConditionElement* l = nullptr;
-	AbstractScanConditionElement* r = nullptr;
+	AbstractScanConditionElement* element = nullptr;
+	IValueProvider* val = nullptr;
 
-	l = planner->pop();
-	cond->setLeft(l);
+	element = planner->pop();
+	val = ScanConditionCast::toIValueProvider(element, vm);
+	cond->setLeft(val);
 
-	r = planner->pop();
-	cond->setRight(r);
+	element = planner->pop();
+	val = ScanConditionCast::toIValueProvider(element, vm);
+	cond->setRight(val);
 
 	return nullptr;
 }
