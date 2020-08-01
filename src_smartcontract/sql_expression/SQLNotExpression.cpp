@@ -21,6 +21,9 @@
 
 #include "scan_condition_logical/NotScanCondition.h"
 
+#include "scan_condition/ScanConditionCast.h"
+
+using namespace alinous;
 
 namespace alinous {
 
@@ -93,8 +96,10 @@ AbstractVmInstance* SQLNotExpression::interpret(VirtualMachine* vm) {
 
 	this->exp->interpret(vm);
 
-	// FIXME add
-	//cond->addCondition();
+	AbstractScanConditionElement* element = planner->pop();
+	AbstractScanCondition* inner = ScanConditionCast::toAbstractScanCondition(element, vm, this);
+
+	cond->addCondition(inner);
 
 	return nullptr;
 }

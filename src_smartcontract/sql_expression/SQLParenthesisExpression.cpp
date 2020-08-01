@@ -83,7 +83,9 @@ AbstractVmInstance* SQLParenthesisExpression::interpret(VirtualMachine* vm) {
 
 	this->exp->interpret(vm);
 
+
 	// FIXME add
+
 
 	return nullptr;
 }
