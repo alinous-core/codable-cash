@@ -15,6 +15,7 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "scan_condition/ScanConditionCast.h"
 
 using namespace codablecash;
 
@@ -95,7 +96,10 @@ AbstractVmInstance* SQLAndExpression::interpret(VirtualMachine* vm) {
 
 		exp->interpret(vm);
 
-		// FIXME add
+		AbstractScanConditionElement* element = planner->pop();
+		AbstractScanCondition* inner = ScanConditionCast::toAbstractScanCondition(element, vm, this);
+
+		cond->addCondition(inner);
 	}
 
 	return nullptr;

@@ -15,6 +15,7 @@
 
 #include "scan_condition_logical/OrScanCondition.h"
 
+#include "scan_condition/ScanConditionCast.h"
 
 namespace alinous {
 
@@ -89,7 +90,10 @@ AbstractVmInstance* SQLOrExpression::interpret(VirtualMachine* vm) {
 
 		exp->interpret(vm);
 
-		// FIXME add
+		AbstractScanConditionElement* element = planner->pop();
+		AbstractScanCondition* inner = ScanConditionCast::toAbstractScanCondition(element, vm, this);
+
+		cond->addCondition(inner);
 	}
 
 	return nullptr;
