@@ -36,7 +36,27 @@ TEST_GROUP(TestSelectArithmeticConditionGroup) {
 TEST(TestSelectArithmeticConditionGroup, add01){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/resources/conditions/logic/where01.alns"))
 	{
+		SmartContractParser parser(sourceFile);
+		AlinousLang* lang = parser.getDebugAlinousLang();
 
+		SQLWhere* where = lang->sqlWhere(); __STP(where);
+		CHECK(!parser.hasError())
+
+		AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
+		actx->setVm(vm);
+
+		where->preAnalyze(actx);
+		where->analyzeTypeRef(actx);
+		where->analyze(actx);
+
+		SelectScanPlanner* planner = new SelectScanPlanner(); __STP(planner);
+		VmSelectPlannerSetter setter(vm, planner);
+
+		where->init(vm);
+
+		where->interpret(vm);
 	}
 }

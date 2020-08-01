@@ -10,13 +10,11 @@
 #include "sc_analyze/AnalyzedType.h"
 
 #include "scan_planner/SelectScanPlanner.h"
-#include "scan_planner/ConditionStackPopper.h"
 
 #include "scan_condition_exp/ParenthesisScanCondition.h"
 
 #include "vm/VirtualMachine.h"
 
-using codablecash::ConditionStackPopper;
 using codablecash::ParenthesisScanCondition;
 using codablecash::SelectScanPlanner;
 
@@ -81,10 +79,11 @@ AbstractVmInstance* SQLParenthesisExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 
 	ParenthesisScanCondition* cond = new ParenthesisScanCondition();
-	planner->processExpression(cond);
-	ConditionStackPopper popper(planner);
+	planner->push(cond);
 
 	this->exp->interpret(vm);
+
+	// FIXME add
 
 	return nullptr;
 }

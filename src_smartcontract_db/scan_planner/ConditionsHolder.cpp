@@ -22,47 +22,22 @@ ConditionsHolder::ConditionsHolder() {
 
 ConditionsHolder::~ConditionsHolder() {
 	delete this->root;
-	this->paramStack.deleteElements();
 }
 
-void ConditionsHolder::processExpression(AbstractScanCondition* cond) {
-	AbstractScanCondition* parentCond = top();
-	parentCond->addCondition(cond);
-
-	push(cond);
-}
-
-
-void ConditionsHolder::push(AbstractScanCondition* cond) noexcept {
+void ConditionsHolder::push(AbstractScanConditionElement* cond) noexcept {
 	this->stack.addElement(cond);
 }
 
-AbstractScanCondition* ConditionsHolder::top() const noexcept {
+AbstractScanConditionElement* ConditionsHolder::top() const noexcept {
 	int index = this->stack.size() - 1;
 	return this->stack.get(index);
 }
 
-void ConditionsHolder::pop() noexcept {
+AbstractScanConditionElement* ConditionsHolder::pop() noexcept {
 	int index = this->stack.size() - 1;
-	this->stack.remove(index);
+	return this->stack.remove(index);
 }
 
-void ConditionsHolder::pushParam(AbstractScanConditionElement* param) noexcept {
-	this->paramStack.addElement(param);
-}
 
-AbstractScanConditionElement* ConditionsHolder::topParam() const noexcept {
-	int index = this->paramStack.size() - 1;
-	return this->paramStack.get(index);
-}
-
-AbstractScanConditionElement* ConditionsHolder::popParam() noexcept {
-	int index = this->paramStack.size() - 1;
-	AbstractScanConditionElement* ret = topParam();
-
-	this->paramStack.remove(index);
-
-	return ret;
-}
 
 } /* namespace codablecash */

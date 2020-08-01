@@ -24,10 +24,9 @@ public:
 	SelectScanPlanner();
 	virtual ~SelectScanPlanner();
 
-	void processExpression(AbstractScanCondition* sqlExpression);
-
-	void pushParam(AbstractScanConditionElement* param) noexcept;
-	AbstractScanConditionElement* popParam() noexcept;
+	void push(AbstractScanConditionElement* cond) noexcept;
+	AbstractScanConditionElement* top() const noexcept;
+	AbstractScanConditionElement* pop() noexcept;
 
 	ConditionsHolder* getConditions() const noexcept {
 		return this->conditions;

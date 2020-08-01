@@ -10,12 +10,12 @@
 #include "sc_analyze/AnalyzedType.h"
 
 #include "scan_planner/SelectScanPlanner.h"
-#include "scan_planner/ConditionStackPopper.h"
 
 #include "vm/VirtualMachine.h"
 
 #include "scan_condition_logical/AndScanCondition.h"
 
+#include "scan_condition/AbstractScanConditionElement.h"
 
 using namespace codablecash;
 
@@ -108,7 +108,23 @@ void SQLAdditiveExpression::init(VirtualMachine* vm) {
 
 
 AbstractVmInstance* SQLAdditiveExpression::interpret(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
 
+	AndScanCondition* cond = new AndScanCondition();
+
+	planner->push(cond);
+
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->interpret(vm);
+
+		AbstractScanConditionElement* l = planner->pop();
+
+
+
+	}
 	// FIXME SQLAdditiveExpression
 	return nullptr;
 }

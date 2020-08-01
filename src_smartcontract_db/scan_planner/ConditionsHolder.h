@@ -26,22 +26,14 @@ public:
 	ConditionsHolder();
 	virtual ~ConditionsHolder();
 
-	void processExpression(AbstractScanCondition* cond);
-
-	void push(AbstractScanCondition* cond) noexcept;
-	AbstractScanCondition* top() const noexcept;
-	void pop() noexcept;
-
-	void pushParam(AbstractScanConditionElement* param) noexcept;
-	AbstractScanConditionElement* topParam() const noexcept;
-	AbstractScanConditionElement* popParam() noexcept;
+	void push(AbstractScanConditionElement* cond) noexcept;
+	AbstractScanConditionElement* top() const noexcept;
+	AbstractScanConditionElement* pop() noexcept;
 
 private:
 	RootScanCondition* root;
 
-	ArrayList<AbstractScanCondition> stack;
-	ArrayList<AbstractScanConditionElement> paramStack;
-
+	ArrayList<AbstractScanConditionElement> stack;
 };
 
 } /* namespace codablecash */

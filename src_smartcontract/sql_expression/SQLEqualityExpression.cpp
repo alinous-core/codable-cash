@@ -12,7 +12,6 @@
 #include "vm/VirtualMachine.h"
 
 #include "scan_planner/SelectScanPlanner.h"
-#include "scan_planner/ConditionStackPopper.h"
 
 #include "scan_condition/AbstractScanCondition.h"
 #include "scan_condition_exp/EqualityScanCondition.h"
@@ -108,8 +107,7 @@ AbstractVmInstance* SQLEqualityExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 
 	EqualityScanCondition* cond = new EqualityScanCondition();
-	planner->processExpression(cond);
-	ConditionStackPopper popper(planner);
+	planner->push(cond);
 
 	this->left->interpret(vm);
 	this->right->interpret(vm);
@@ -118,10 +116,10 @@ AbstractVmInstance* SQLEqualityExpression::interpret(VirtualMachine* vm) {
 	AbstractScanConditionElement* l = nullptr;
 	AbstractScanConditionElement* r = nullptr;
 
-	l = planner->popParam();
+	l = planner->pop();
 	cond->setLeft(l);
 
-	r = planner->popParam();
+	r = planner->pop();
 	cond->setRight(r);
 
 	return nullptr;

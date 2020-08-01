@@ -23,16 +23,16 @@ SelectScanPlanner::~SelectScanPlanner() {
 	delete this->conditions;
 }
 
-void SelectScanPlanner::processExpression(AbstractScanCondition* cond) {
-	this->conditions->processExpression(cond);
+void SelectScanPlanner::push(AbstractScanConditionElement* cond) noexcept {
+	this->conditions->push(cond);
 }
 
-void SelectScanPlanner::pushParam(AbstractScanConditionElement* param) noexcept {
-	this->conditions->pushParam(param);
+AbstractScanConditionElement* SelectScanPlanner::top() const noexcept {
+	return this->conditions->top();
 }
 
-AbstractScanConditionElement* SelectScanPlanner::popParam() noexcept {
-	return this->conditions->popParam();
+AbstractScanConditionElement* SelectScanPlanner::pop() noexcept{
+	return this->conditions->pop();
 }
 
 } /* namespace codablecash */

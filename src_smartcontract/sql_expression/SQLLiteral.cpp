@@ -119,7 +119,7 @@ void SQLLiteral::interpretOnPlanning(VirtualMachine* vm) {
 		param = new StringScanParam(this->stringValue);
 	}
 
-	planner->pushParam(param);
+	planner->push(param);
 }
 
 } /* namespace alinous */

@@ -75,7 +75,7 @@ void SQLBooleanLiteral::interpretOnPlanning(VirtualMachine* vm) {
 
 	BooleanScanParam* param = new BooleanScanParam(this->value);
 
-	planner->pushParam(param);
+	planner->push(param);
 }
 
 } /* namespace alinous */

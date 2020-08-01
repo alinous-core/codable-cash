@@ -12,7 +12,6 @@
 #include "vm/VirtualMachine.h"
 
 #include "scan_planner/SelectScanPlanner.h"
-#include "scan_planner/ConditionStackPopper.h"
 
 #include "scan_condition_logical/OrScanCondition.h"
 
@@ -82,14 +81,15 @@ AbstractVmInstance* SQLOrExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 
 	OrScanCondition* cond = new OrScanCondition();
-	planner->processExpression(cond);
-	ConditionStackPopper popper(planner);
+	planner->push(cond);
 
 	int maxLoop = this->operands.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractSQLExpression* exp = this->operands.get(i);
 
 		exp->interpret(vm);
+
+		// FIXME add
 	}
 
 	return nullptr;

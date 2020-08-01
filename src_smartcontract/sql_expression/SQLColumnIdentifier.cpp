@@ -113,7 +113,7 @@ AbstractVmInstance* SQLColumnIdentifier::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 
 	ColumnIdentifierScanParam* param = new ColumnIdentifierScanParam(this);
-	planner->pushParam(param);
+	planner->push(param);
 
 	return nullptr;
 }

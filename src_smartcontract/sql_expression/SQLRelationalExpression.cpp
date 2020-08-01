@@ -12,7 +12,6 @@
 #include "vm/VirtualMachine.h"
 
 #include "scan_planner/SelectScanPlanner.h"
-#include "scan_planner/ConditionStackPopper.h"
 
 #include "scan_condition_exp/RelationalScanCondition.h"
 
@@ -109,8 +108,7 @@ AbstractVmInstance* SQLRelationalExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 
 	RelationalScanCondition* cond = new RelationalScanCondition();
-	planner->processExpression(cond);
-	ConditionStackPopper popper(planner);
+	planner->push(cond);
 
 	this->left->interpret(vm);
 	this->right->interpret(vm);
@@ -121,10 +119,10 @@ AbstractVmInstance* SQLRelationalExpression::interpret(VirtualMachine* vm) {
 
 	cond->setOp(this->op);
 
-	l = planner->popParam();
+	l = planner->pop();
 	cond->setLeft(l);
 
-	r = planner->popParam();
+	r = planner->pop();
 	cond->setRight(r);
 
 	return nullptr;

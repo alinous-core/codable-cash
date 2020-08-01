@@ -18,7 +18,6 @@
 #include "instance_ref/PrimitiveReference.h"
 
 #include "scan_planner/SelectScanPlanner.h"
-#include "scan_planner/ConditionStackPopper.h"
 
 #include "scan_condition_logical/NotScanCondition.h"
 
@@ -89,10 +88,13 @@ AbstractVmInstance* SQLNotExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 
 	NotScanCondition* cond = new NotScanCondition();
-	planner->processExpression(cond);
-	ConditionStackPopper popper(planner);
+
+	planner->push(cond);
 
 	this->exp->interpret(vm);
+
+	// FIXME add
+	//cond->addCondition();
 
 	return nullptr;
 }
