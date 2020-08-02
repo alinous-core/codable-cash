@@ -22,4 +22,8 @@ void RootScanCondition::addCondition(AbstractScanCondition* cond) {
 	this->cond = cond;
 }
 
+const UnicodeString* RootScanCondition::toStringCode() {
+	return this->cond->toStringCode();
+}
+
 } /* namespace codablecash */

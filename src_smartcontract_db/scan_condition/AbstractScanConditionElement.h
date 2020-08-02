@@ -8,12 +8,19 @@
 #ifndef SCAN_CONDITION_ABSTRACTSCANCONDITIONELEMENT_H_
 #define SCAN_CONDITION_ABSTRACTSCANCONDITIONELEMENT_H_
 
+namespace alinous {
+class UnicodeString;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class AbstractScanConditionElement {
 public:
 	AbstractScanConditionElement();
 	virtual ~AbstractScanConditionElement();
+
+	virtual const UnicodeString* toStringCode() noexcept = 0;
 };
 
 } /* namespace codablecash */
