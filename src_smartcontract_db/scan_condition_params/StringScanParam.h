@@ -22,8 +22,11 @@ public:
 	StringScanParam(const UnicodeString* str);
 	virtual ~StringScanParam();
 
+	virtual const UnicodeString* toStringCode() noexcept;
 private:
 	UnicodeString* value;
+
+	UnicodeString* str;
 };
 
 } /* namespace codablecash */
