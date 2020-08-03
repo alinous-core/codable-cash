@@ -22,6 +22,9 @@
 #include "sc_analyze/AnalyzeContext.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolder.h"
+
+#include "scan_condition/RootScanCondition.h"
 
 
 using namespace alinous;
@@ -58,6 +61,13 @@ TEST(TestSelectLogicConditionGroup, and01){
 		where->init(vm);
 
 		where->interpret(vm);
+
+		ConditionsHolder* holder = planner->getConditions();
+		RootScanCondition* root = holder->getRoot();
+		const UnicodeString* str = root->toStringCode();
+
+		UnicodeString sql(L"id = 'test' AND id2 = 100");
+		CHECK(sql.equals(str));
 	}
 }
 
@@ -86,6 +96,13 @@ TEST(TestSelectLogicConditionGroup, or01){
 		where->init(vm);
 
 		where->interpret(vm);
+
+		ConditionsHolder* holder = planner->getConditions();
+		RootScanCondition* root = holder->getRoot();
+		const UnicodeString* str = root->toStringCode();
+
+		UnicodeString sql(L"id = 'test' OR id2 = 100");
+		CHECK(sql.equals(str));
 	}
 }
 
