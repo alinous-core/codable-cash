@@ -22,7 +22,7 @@ void RootScanCondition::addCondition(AbstractScanCondition* cond) {
 	this->cond = cond;
 }
 
-const UnicodeString* RootScanCondition::toStringCode() {
+const UnicodeString* RootScanCondition::toStringCode() noexcept {
 	return this->cond->toStringCode();
 }
 

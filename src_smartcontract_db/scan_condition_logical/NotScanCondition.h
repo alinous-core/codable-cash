@@ -20,8 +20,14 @@ public:
 	virtual bool isContainer() const noexcept;
 	virtual void addCondition(AbstractScanCondition* cond);
 
+	virtual const UnicodeString* toStringCode() noexcept;
+
+private:
+	void resetStr() noexcept;
+
 private:
 	AbstractScanCondition* cond;
+	UnicodeString* str;
 };
 
 } /* namespace codablecash */
