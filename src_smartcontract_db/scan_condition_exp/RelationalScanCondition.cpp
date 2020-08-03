@@ -53,7 +53,7 @@ const UnicodeString* RelationalScanCondition::toStringCode() noexcept {
 		resetStr();
 		this->str = new UnicodeString(L"");
 
-		AbstractScanCondition* cond = dynamic_cast<AbstractScanCondition*>(this->left);
+		AbstractScanConditionElement* cond = dynamic_cast<AbstractScanConditionElement*>(this->left);
 		this->str->append(cond->toStringCode());
 
 		if(this->op == SQLRelationalExpression::GT){
@@ -69,7 +69,7 @@ const UnicodeString* RelationalScanCondition::toStringCode() noexcept {
 			this->str->append(L" <= ");
 		}
 
-		cond = dynamic_cast<AbstractScanCondition*>(this->right);
+		cond = dynamic_cast<AbstractScanConditionElement*>(this->right);
 		this->str->append(cond->toStringCode());
 	}
 

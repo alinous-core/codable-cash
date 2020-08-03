@@ -40,7 +40,7 @@ const UnicodeString* ParenthesisScanCondition::toStringCode() noexcept {
 		this->str->append(L")");
 	}
 
-	return toStringCode();
+	return this->str;
 }
 
 void ParenthesisScanCondition::resetStr() noexcept {

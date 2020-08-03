@@ -122,11 +122,11 @@ AbstractVmInstance* SQLRelationalExpression::interpret(VirtualMachine* vm) {
 
 	element = planner->pop();
 	val = ScanConditionCast::toIValueProvider(element, vm, this);
-	cond->setLeft(val);
+	cond->setRight(val);
 
 	element = planner->pop();
 	val = ScanConditionCast::toIValueProvider(element, vm, this);
-	cond->setRight(val);
+	cond->setLeft(val);
 
 	return nullptr;
 }

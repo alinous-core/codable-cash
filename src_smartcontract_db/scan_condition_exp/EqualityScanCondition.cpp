@@ -46,12 +46,12 @@ const UnicodeString* EqualityScanCondition::toStringCode() noexcept {
 
 		this->str = new UnicodeString(L"");
 
-		AbstractScanCondition* cond = dynamic_cast<AbstractScanCondition*>(this->left);
+		AbstractScanConditionElement* cond = dynamic_cast<AbstractScanConditionElement*>(this->left);
 		this->str->append(cond->toStringCode());
 
 		this->str->append(L" = ");
 
-		cond = dynamic_cast<AbstractScanCondition*>(this->right);
+		cond = dynamic_cast<AbstractScanConditionElement*>(this->right);
 		this->str->append(cond->toStringCode());
 	}
 

@@ -20,8 +20,11 @@
 #include "compiler/SmartContractParser.h"
 
 #include "alinous_lang/AlinousLang.h"
-#include "scan_planner/SelectScanPlanner.h"
 
+#include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolder.h"
+
+#include "scan_condition/RootScanCondition.h"
 
 using namespace alinous;
 
@@ -57,6 +60,13 @@ TEST(TestSelectConditionGroup, case01){
 		where->init(vm);
 
 		where->interpret(vm);
+
+		ConditionsHolder* holder = planner->getConditions();
+		RootScanCondition* root = holder->getRoot();
+		const UnicodeString* str = root->toStringCode();
+
+		UnicodeString sql(L"id = 'test'");
+		CHECK(sql.equals(str));
 	}
 }
 
@@ -85,6 +95,13 @@ TEST(TestSelectConditionGroup, case02){
 		where->init(vm);
 
 		where->interpret(vm);
+
+		ConditionsHolder* holder = planner->getConditions();
+		RootScanCondition* root = holder->getRoot();
+		const UnicodeString* str = root->toStringCode();
+
+		UnicodeString sql(L"id = 100");
+		CHECK(sql.equals(str));
 	}
 }
 
@@ -114,6 +131,13 @@ TEST(TestSelectConditionGroup, case03){
 		where->init(vm);
 
 		where->interpret(vm);
+
+		ConditionsHolder* holder = planner->getConditions();
+		RootScanCondition* root = holder->getRoot();
+		const UnicodeString* str = root->toStringCode();
+
+		UnicodeString sql(L"id = true");
+		CHECK(sql.equals(str));
 	}
 }
 
@@ -143,6 +167,13 @@ TEST(TestSelectConditionGroup, case04){
 		where->init(vm);
 
 		where->interpret(vm);
+
+		ConditionsHolder* holder = planner->getConditions();
+		RootScanCondition* root = holder->getRoot();
+		const UnicodeString* str = root->toStringCode();
+
+		UnicodeString sql(L"id >= 10");
+		CHECK(sql.equals(str));
 	}
 }
 
@@ -172,6 +203,13 @@ TEST(TestSelectConditionGroup, case05_not){
 		where->init(vm);
 
 		where->interpret(vm);
+
+		ConditionsHolder* holder = planner->getConditions();
+		RootScanCondition* root = holder->getRoot();
+		const UnicodeString* str = root->toStringCode();
+
+		UnicodeString sql(L"NOT id = 'test'");
+		CHECK(sql.equals(str));
 	}
 }
 
@@ -201,5 +239,12 @@ TEST(TestSelectConditionGroup, case05_parenthesis){
 		where->init(vm);
 
 		where->interpret(vm);
+
+		ConditionsHolder* holder = planner->getConditions();
+		RootScanCondition* root = holder->getRoot();
+		const UnicodeString* str = root->toStringCode();
+
+		UnicodeString sql(L"(id = 'test')");
+		CHECK(sql.equals(str));
 	}
 }
