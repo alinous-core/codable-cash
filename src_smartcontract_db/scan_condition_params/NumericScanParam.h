@@ -18,8 +18,11 @@ public:
 	explicit NumericScanParam(int64_t longv);
 	virtual ~NumericScanParam();
 
+	virtual const UnicodeString* toStringCode() noexcept;
 private:
 	int64_t value;
+
+	UnicodeString* str;
 };
 
 } /* namespace codablecash */
