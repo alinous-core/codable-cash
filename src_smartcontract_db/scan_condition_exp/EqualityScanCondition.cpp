@@ -20,19 +20,46 @@ namespace codablecash {
 EqualityScanCondition::EqualityScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_EQUALITY) {
 	this->left = nullptr;
 	this->right = nullptr;
+	this->str = nullptr;
 }
 
 EqualityScanCondition::~EqualityScanCondition() {
 	delete this->left;
 	delete this->right;
+	resetStr();
 }
 
 void EqualityScanCondition::setLeft(IValueProvider* element) {
 	this->left = element;
+	resetStr();
 }
 
 void EqualityScanCondition::setRight(IValueProvider* element) {
 	this->right = element;
+	resetStr();
+}
+
+const UnicodeString* EqualityScanCondition::toStringCode() noexcept {
+	if(this->str != nullptr){
+		resetStr();
+
+		this->str = new UnicodeString(L"");
+
+		AbstractScanCondition* cond = dynamic_cast<AbstractScanCondition*>(this->left);
+		this->str->append(cond->toStringCode());
+
+		this->str->append(L" = ");
+
+		cond = dynamic_cast<AbstractScanCondition*>(this->right);
+		this->str->append(cond->toStringCode());
+	}
+
+	return this->str;
+}
+
+void EqualityScanCondition::resetStr() noexcept {
+	delete this->str;
+	this->str = nullptr;
 }
 
 } /* namespace codablecash */

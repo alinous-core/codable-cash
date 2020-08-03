@@ -21,9 +21,16 @@ public:
 
 	void setLeft(IValueProvider* element);
 	void setRight(IValueProvider* element);
+
+	virtual const UnicodeString* toStringCode() noexcept;
+
+private:
+	void resetStr() noexcept;
 private:
 	IValueProvider* left;
 	IValueProvider* right;
+
+	UnicodeString* str;
 };
 
 } /* namespace codablecash */
