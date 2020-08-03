@@ -9,6 +9,7 @@
 
 #include "sc/CodeElement.h"
 
+#include "base/UnicodeString.h"
 
 using namespace alinous;
 
@@ -49,7 +50,7 @@ const UnicodeString* AndScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
-void AndScanCondition::resetStr() {
+void AndScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
 		this->str = nullptr;

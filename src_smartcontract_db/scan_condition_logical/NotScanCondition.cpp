@@ -9,6 +9,8 @@
 
 #include "sc/CodeElement.h"
 
+#include "base/UnicodeString.h"
+
 using namespace alinous;
 
 namespace codablecash {

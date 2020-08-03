@@ -13,6 +13,7 @@
 
 #include "engine/CdbException.h"
 
+#include "base/UnicodeString.h"
 using namespace alinous;
 
 namespace codablecash {
