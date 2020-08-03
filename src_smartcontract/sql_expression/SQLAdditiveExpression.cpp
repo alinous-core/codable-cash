@@ -13,9 +13,11 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_condition_logical/AndScanCondition.h"
+#include "scan_condition_arithmetic/AdditiveScanCondition.h"
 
 #include "scan_condition/AbstractScanConditionElement.h"
+
+#include "scan_condition/ScanConditionCast.h"
 
 using namespace codablecash;
 
@@ -110,7 +112,7 @@ void SQLAdditiveExpression::init(VirtualMachine* vm) {
 AbstractVmInstance* SQLAdditiveExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 
-	AndScanCondition* cond = new AndScanCondition();
+	AdditiveScanCondition* cond = new AdditiveScanCondition();
 
 	planner->push(cond);
 
@@ -121,9 +123,16 @@ AbstractVmInstance* SQLAdditiveExpression::interpret(VirtualMachine* vm) {
 		exp->interpret(vm);
 
 		AbstractScanConditionElement* l = planner->pop();
+		IValueProvider* vp = ScanConditionCast::toIValueProvider(l, vm, this);
 
+		cond->addOperand(vp);
+	}
 
+	maxLoop = this->operations.size();
+	for(int i = 0; i != maxLoop; ++i){
+		uint8_t op = this->operations.get(i);
 
+		cond->addOperator(op);
 	}
 	// FIXME SQLAdditiveExpression
 	return nullptr;

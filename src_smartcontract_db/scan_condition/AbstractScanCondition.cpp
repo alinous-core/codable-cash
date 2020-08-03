@@ -23,8 +23,4 @@ bool AbstractScanCondition::isContainer() const noexcept {
 	return false;
 }
 
-void AbstractScanCondition::addCondition(AbstractScanCondition* cond) {
-	throw new CdbException(L"addCondition() is not supported.", __FILE__, __LINE__);
-}
-
 } /* namespace codablecash */
