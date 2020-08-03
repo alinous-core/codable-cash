@@ -40,7 +40,7 @@ void EqualityScanCondition::setRight(IValueProvider* element) {
 }
 
 const UnicodeString* EqualityScanCondition::toStringCode() noexcept {
-	if(this->str != nullptr){
+	if(this->str == nullptr){
 		resetStr();
 
 		this->str = new UnicodeString(L"");
@@ -58,8 +58,10 @@ const UnicodeString* EqualityScanCondition::toStringCode() noexcept {
 }
 
 void EqualityScanCondition::resetStr() noexcept {
-	delete this->str;
-	this->str = nullptr;
+	if(this->str != nullptr){
+		delete this->str;
+		this->str = nullptr;
+	}
 }
 
 } /* namespace codablecash */
