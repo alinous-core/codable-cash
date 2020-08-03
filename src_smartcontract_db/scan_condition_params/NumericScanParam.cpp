@@ -7,9 +7,10 @@
 
 #include "scan_condition_params/NumericScanParam.h"
 
-using alinous::Long;
-
+#include "base/UnicodeString.h"
 #include "base/Long.h"
+
+using namespace alinous;
 
 namespace codablecash {
 

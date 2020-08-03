@@ -7,6 +7,12 @@
 
 #include "scan_condition_params/ColumnIdentifierScanParam.h"
 
+#include "base/UnicodeString.h"
+
+#include "table/CdbTableColumn.h"
+
+#include "sql_expression/SQLColumnIdentifier.h"
+
 namespace codablecash {
 
 ColumnIdentifierScanParam::ColumnIdentifierScanParam(SQLColumnIdentifier* sqlColId) : sqlColId(sqlColId){
