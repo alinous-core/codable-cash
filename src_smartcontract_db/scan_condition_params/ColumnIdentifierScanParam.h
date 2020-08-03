@@ -24,9 +24,12 @@ public:
 	explicit ColumnIdentifierScanParam(SQLColumnIdentifier* sqlColId);
 	virtual ~ColumnIdentifierScanParam();
 
+	virtual const UnicodeString* toStringCode() noexcept;
 private:
 	const SQLColumnIdentifier* sqlColId;
 	CdbTableColumn* cdbColumn;
+
+	UnicodeString* str;
 };
 
 } /* namespace codablecash */
