@@ -31,14 +31,17 @@ RelationalScanCondition::RelationalScanCondition() : AbstractScanCondition(CodeE
 RelationalScanCondition::~RelationalScanCondition() {
 	delete this->left;
 	delete this->right;
+	resetStr();
 }
 
 void RelationalScanCondition::setLeft(IValueProvider* element) {
 	this->left = element;
+	resetStr();
 }
 
 void RelationalScanCondition::setRight(IValueProvider* element) {
 	this->right = element;
+	resetStr();
 }
 
 void RelationalScanCondition::setOp(uint8_t op) noexcept {
