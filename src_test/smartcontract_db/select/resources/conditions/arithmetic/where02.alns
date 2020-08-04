@@ -1,1 +1,1 @@
-WHERE id = 10 * 20 / 5 % 10
+WHERE public.test_table.id = 10 * 20 / 5 % 10

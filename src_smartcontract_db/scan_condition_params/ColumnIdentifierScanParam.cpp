@@ -33,13 +33,13 @@ const UnicodeString* ColumnIdentifierScanParam::toStringCode() noexcept {
 		const UnicodeString* s = nullptr;
 		s = this->sqlColId->getSchema();
 		if(s != nullptr){
-			this->str->append(L".");
 			this->str->append(s);
+			this->str->append(L".");
 		}
 		s = this->sqlColId->getTableName();
 		if(s != nullptr){
-			this->str->append(L".");
 			this->str->append(s);
+			this->str->append(L".");
 		}
 
 		s = this->sqlColId->getColumnName();

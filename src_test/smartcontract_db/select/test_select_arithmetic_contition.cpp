@@ -102,7 +102,7 @@ TEST(TestSelectArithmeticConditionGroup, add02){
 		RootScanCondition* root = holder->getRoot();
 		const UnicodeString* str = root->toStringCode();
 
-		UnicodeString sql(L"id = 10 * 20 / 5 % 10");
+		UnicodeString sql(L"public.test_table.id = 10 * 20 / 5 % 10");
 		CHECK(sql.equals(str));
 	}
 }
