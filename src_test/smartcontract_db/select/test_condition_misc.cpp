@@ -32,6 +32,9 @@
 #include "sc_analyze/AnalyzeContext.h"
 
 #include "scan_condition_logical/NotScanCondition.h"
+#include "scan_condition_logical/AndScanCondition.h"
+#include "scan_condition_logical/OrScanCondition.h"
+
 #include "scan_condition/RootScanCondition.h"
 
 
@@ -147,3 +150,12 @@ TEST(TestConditionMiscGroup, ParenthesisScanCondition){
 	CHECK(cond.isContainer());
 }
 
+TEST(TestConditionMiscGroup, AndScanCondition01){
+	AndScanCondition cond;
+	CHECK(cond.isContainer());
+}
+
+TEST(TestConditionMiscGroup, OrScanCondition01){
+	OrScanCondition cond;
+	CHECK(cond.isContainer());
+}
