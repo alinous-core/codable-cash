@@ -18,6 +18,7 @@ namespace codablecash {
 IsNullScanCondition::IsNullScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_IS_NULL) {
 	this->cond = nullptr;
 	this->str = nullptr;
+	this->notnull = false;
 }
 
 IsNullScanCondition::~IsNullScanCondition() {
@@ -30,10 +31,28 @@ void IsNullScanCondition::setCondition(IValueProvider* cond) noexcept {
 	resetStr();
 }
 
+void IsNullScanCondition::setIsNull(bool notnull) noexcept {
+	this->notnull = notnull;
+}
+
 const UnicodeString* IsNullScanCondition::toStringCode() noexcept {
 	if(this->str == nullptr){
+		resetStr();
+		this->str = new UnicodeString(L"");
 
+		AbstractScanConditionElement* element = dynamic_cast<AbstractScanConditionElement*>(this->cond);
+		this->str->append(element->toStringCode());
+
+		this->str = new UnicodeString(L" IS ");
+
+		if(this->notnull){
+			this->str = new UnicodeString(L" NOT ");
+		}
+
+		this->str = new UnicodeString(L" NULL");
 	}
+
+	return this->str;
 }
 
 void IsNullScanCondition::resetStr() noexcept {

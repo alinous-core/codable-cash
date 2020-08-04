@@ -99,6 +99,7 @@ AbstractVmInstance* SQLIsNullExpression::interpret(VirtualMachine* vm) {
 	IValueProvider* inner = ScanConditionCast::toIValueProvider(element, vm, this);
 
 	cond->setCondition(inner);
+	cond->setIsNull(this->notnull);
 
 	return nullptr;
 }

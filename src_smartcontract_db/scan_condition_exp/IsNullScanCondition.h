@@ -20,6 +20,7 @@ public:
 	virtual ~IsNullScanCondition();
 
 	void setCondition(IValueProvider* cond) noexcept;
+	void setIsNull(bool notnull) noexcept;
 
 	virtual const UnicodeString* toStringCode() noexcept;
 
@@ -28,6 +29,7 @@ private:
 
 private:
 	IValueProvider* cond;
+	bool notnull;
 
 	UnicodeString* str;
 };
