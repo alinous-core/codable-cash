@@ -43,13 +43,13 @@ const UnicodeString* IsNullScanCondition::toStringCode() noexcept {
 		AbstractScanConditionElement* element = dynamic_cast<AbstractScanConditionElement*>(this->cond);
 		this->str->append(element->toStringCode());
 
-		this->str = new UnicodeString(L" IS ");
+		this->str->append(L" IS");
 
 		if(this->notnull){
-			this->str = new UnicodeString(L" NOT ");
+			this->str->append(L" NOT");
 		}
 
-		this->str = new UnicodeString(L" NULL");
+		this->str->append(L" NULL");
 	}
 
 	return this->str;
