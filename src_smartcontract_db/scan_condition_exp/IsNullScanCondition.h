@@ -1,0 +1,37 @@
+/*
+ * IsNullScanCondition.h
+ *
+ *  Created on: 2020/08/04
+ *      Author: iizuka
+ */
+
+#ifndef SCAN_CONDITION_EXP_ISNULLSCANCONDITION_H_
+#define SCAN_CONDITION_EXP_ISNULLSCANCONDITION_H_
+
+#include "scan_condition/AbstractScanCondition.h"
+
+namespace codablecash {
+
+class IValueProvider;
+
+class IsNullScanCondition : public AbstractScanCondition {
+public:
+	IsNullScanCondition();
+	virtual ~IsNullScanCondition();
+
+	void setCondition(IValueProvider* cond) noexcept;
+
+	virtual const UnicodeString* toStringCode() noexcept;
+
+private:
+	void resetStr() noexcept;
+
+private:
+	IValueProvider* cond;
+
+	UnicodeString* str;
+};
+
+} /* namespace codablecash */
+
+#endif /* SCAN_CONDITION_EXP_ISNULLSCANCONDITION_H_ */

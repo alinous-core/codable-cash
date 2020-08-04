@@ -2,6 +2,7 @@
 
 set(__src
 	EqualityScanCondition.cpp
+	IsNullScanCondition.cpp
 	ParenthesisScanCondition.cpp
 	RelationalScanCondition.cpp
 )
