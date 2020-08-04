@@ -159,3 +159,5 @@ TEST(TestConditionMiscGroup, OrScanCondition01){
 	OrScanCondition cond;
 	CHECK(cond.isContainer());
 }
+
+

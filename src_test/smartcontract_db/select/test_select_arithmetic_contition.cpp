@@ -106,3 +106,24 @@ TEST(TestSelectArithmeticConditionGroup, add02){
 		CHECK(sql.equals(str));
 	}
 }
+
+TEST(TestSelectArithmeticConditionGroup, SQLAdditiveExpression01){
+	SQLAdditiveExpression exp;
+	AnalyzedType at = exp.getType(nullptr);
+	CHECK(at.getType() == AnalyzedType::TYPE_LONG);
+}
+
+TEST(TestSelectArithmeticConditionGroup, SqlMultiplicativeExpression01){
+	SqlMultiplicativeExpression exp;
+	AnalyzedType at = exp.getType(nullptr);
+	CHECK(at.getType() == AnalyzedType::TYPE_LONG);
+}
+
+TEST(TestSelectArithmeticConditionGroup, SQLColumnIdentifier01){
+	SQLColumnIdentifier exp;
+	AnalyzedType at = exp.getType(nullptr);
+	CHECK(at.getType() == AnalyzedType::TYPE_NONE);
+}
+
+
+
