@@ -134,7 +134,7 @@ AbstractVmInstance* SQLAdditiveExpression::interpret(VirtualMachine* vm) {
 
 		cond->addOperator(op);
 	}
-	// FIXME SQLAdditiveExpression
+
 	return nullptr;
 }
 
