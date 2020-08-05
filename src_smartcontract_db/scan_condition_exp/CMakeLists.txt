@@ -1,6 +1,7 @@
 
 
 set(__src
+	BetweenScanCondition.cpp
 	EqualityScanCondition.cpp
 	IsNullScanCondition.cpp
 	ParenthesisScanCondition.cpp
