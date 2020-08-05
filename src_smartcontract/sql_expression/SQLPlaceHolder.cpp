@@ -9,6 +9,13 @@
 #include "sc_expression/AbstractExpression.h"
 
 #include "sc_analyze/AnalyzedType.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "scan_condition_params/PlaceHolderScanCondition.h"
+using codablecash::SelectScanPlanner;
 namespace alinous {
 
 SQLPlaceHolder::SQLPlaceHolder() : AbstractSQLExpression(CodeElement::SQL_EXP_PLACE_HOLDER) {
@@ -59,7 +66,8 @@ void SQLPlaceHolder::analyze(AnalyzeContext* actx) {
 }
 
 AnalyzedType SQLPlaceHolder::getType(AnalyzeContext* actx) {
-	return this->exp->getType(actx);
+	//return this->exp->getType(actx);
+	return AnalyzedType();
 }
 
 void SQLPlaceHolder::init(VirtualMachine* vm) {
@@ -67,7 +75,12 @@ void SQLPlaceHolder::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLPlaceHolder::interpret(VirtualMachine* vm) {
-	return this->exp->interpret(vm);
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	PlaceHolderScanCondition* cond = new PlaceHolderScanCondition(this->exp);
+	planner->push(cond);
+
+	return nullptr;
 }
 
 

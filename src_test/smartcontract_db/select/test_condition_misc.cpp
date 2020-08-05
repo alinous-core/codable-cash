@@ -37,6 +37,7 @@
 
 #include "scan_condition/RootScanCondition.h"
 
+#include "sql_expression/SQLPlaceHolder.h"
 
 using namespace alinous;
 using namespace codablecash;
@@ -126,6 +127,14 @@ TEST(TestConditionMiscGroup, bool02){
 
 TEST(TestConditionMiscGroup, SQLExpressionList){
 	SQLExpressionList eq;
+
+	AnalyzedType at = eq.getType(nullptr);
+
+	CHECK(at.getType() == AnalyzedType::TYPE_NONE);
+}
+
+TEST(TestConditionMiscGroup, SQLPlaceHolder){
+	SQLPlaceHolder eq;
 
 	AnalyzedType at = eq.getType(nullptr);
 

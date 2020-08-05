@@ -34,6 +34,11 @@ public:
 
 	void init(VirtualMachine* vm);
 	AbstractVmInstance* interpret(VirtualMachine* vm);
+
+	AbstractSQLExpression* getExp() const {
+		return exp;
+	}
+
 private:
 	AbstractSQLExpression* exp;
 };

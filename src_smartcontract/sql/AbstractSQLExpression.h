@@ -32,6 +32,9 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm) = 0;
 
 	virtual bool isExecutable();
+	void setExecutable(bool executable) noexcept;
+private:
+	bool executable;
 };
 
 } /* namespace alinous */
