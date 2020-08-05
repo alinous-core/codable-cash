@@ -3,7 +3,9 @@
 set(__src
 	BetweenScanCondition.cpp
 	EqualityScanCondition.cpp
+	ExpressionListScanCondition.cpp
 	FunctionCallScanCondition.cpp
+	InExpressionScanCondition
 	IsNullScanCondition.cpp
 	LikeScanCondition.cpp
 	ParenthesisScanCondition.cpp
