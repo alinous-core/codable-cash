@@ -16,6 +16,14 @@ class LikeScanCondition : public AbstractScanCondition {
 public:
 	LikeScanCondition();
 	virtual ~LikeScanCondition();
+
+	virtual const UnicodeString* toStringCode() noexcept;
+
+private:
+	void resetStr() noexcept;
+
+private:
+	UnicodeString* str;
 };
 
 } /* namespace codablecash */
