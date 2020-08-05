@@ -8,6 +8,15 @@
 #include "sql_expression/SQLBetweenExpression.h"
 
 #include "sc_analyze/AnalyzedType.h"
+
+#include "scan_condition_exp/BetweenScanCondition.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
+using codablecash::BetweenScanCondition;
+
 namespace alinous {
 
 SQLBetweenExpression::SQLBetweenExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_BETWEEN) {
@@ -106,6 +115,11 @@ void SQLBetweenExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLBetweenExpression::interpret(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	BetweenScanCondition* cond = new BetweenScanCondition();
+	planner->push(cond);
+
 	return nullptr;
 }
 
