@@ -41,7 +41,7 @@ TEST(TestSelectArithmeticConditionGroup, add01){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/resources/conditions/arithmetic/where01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select_condition/resources/conditions/arithmetic/where01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -76,7 +76,7 @@ TEST(TestSelectArithmeticConditionGroup, add02){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/resources/conditions/arithmetic/where02.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select_condition/resources/conditions/arithmetic/where02.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();

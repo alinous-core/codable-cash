@@ -39,7 +39,7 @@ TEST(TestSelectConditionGroup, case01){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/resources/conditions/grp01/where01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select_condition/resources/conditions/grp01/where01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -74,7 +74,7 @@ TEST(TestSelectConditionGroup, case02){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/resources/conditions/grp01/where02.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select_condition/resources/conditions/grp01/where02.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -109,7 +109,7 @@ TEST(TestSelectConditionGroup, case03){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/resources/conditions/grp01/where03.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select_condition/resources/conditions/grp01/where03.alns"))
 
 	{
 		SmartContractParser parser(sourceFile);
@@ -145,7 +145,7 @@ TEST(TestSelectConditionGroup, case04){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/resources/conditions/grp01/where04.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select_condition/resources/conditions/grp01/where04.alns"))
 
 	{
 		SmartContractParser parser(sourceFile);
@@ -181,7 +181,7 @@ TEST(TestSelectConditionGroup, case05){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/resources/conditions/grp01/where05.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select_condition/resources/conditions/grp01/where05.alns"))
 
 	{
 		SmartContractParser parser(sourceFile);
@@ -217,7 +217,7 @@ TEST(TestSelectConditionGroup, case06){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/resources/conditions/grp01/where06.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select_condition/resources/conditions/grp01/where06.alns"))
 
 	{
 		SmartContractParser parser(sourceFile);
@@ -253,7 +253,7 @@ TEST(TestSelectConditionGroup, case07){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/resources/conditions/grp01/where07.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select_condition/resources/conditions/grp01/where07.alns"))
 
 	{
 		SmartContractParser parser(sourceFile);
@@ -289,7 +289,7 @@ TEST(TestSelectConditionGroup, case05_not){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/resources/conditions/grp02/where01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select_condition/resources/conditions/grp02/where01.alns"))
 
 	{
 		SmartContractParser parser(sourceFile);
@@ -325,7 +325,7 @@ TEST(TestSelectConditionGroup, case05_parenthesis){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/resources/conditions/grp02/where02.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select_condition/resources/conditions/grp02/where02.alns"))
 
 	{
 		SmartContractParser parser(sourceFile);

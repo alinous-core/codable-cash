@@ -41,7 +41,7 @@ TEST(TestSelectConditionGroup02, IsNull01){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/resources/conditions/grp03/where01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select_condition/resources/conditions/grp03/where01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -76,7 +76,7 @@ TEST(TestSelectConditionGroup02, IsNull02){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/resources/conditions/grp03/where02.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select_condition/resources/conditions/grp03/where02.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -111,7 +111,7 @@ TEST(TestSelectConditionGroup02, PlaceHolder01){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/resources/conditions/grp03/where03.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select_condition/resources/conditions/grp03/where03.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
