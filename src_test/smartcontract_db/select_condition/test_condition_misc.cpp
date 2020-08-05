@@ -18,6 +18,8 @@
 #include "sql_expression/SQLInExpression.h"
 #include "sql_expression/SQLExpressionList.h"
 #include "sql_expression/SQLLikeExpression.h"
+#include "sql_expression/SQLPlaceHolder.h"
+#include "sql_expression/SQLFunctionCall.h"
 
 #include "sc_analyze/AnalyzedType.h"
 
@@ -36,8 +38,6 @@
 #include "scan_condition_logical/OrScanCondition.h"
 
 #include "scan_condition/RootScanCondition.h"
-
-#include "sql_expression/SQLPlaceHolder.h"
 
 using namespace alinous;
 using namespace codablecash;
@@ -135,6 +135,14 @@ TEST(TestConditionMiscGroup, SQLExpressionList){
 
 TEST(TestConditionMiscGroup, SQLPlaceHolder){
 	SQLPlaceHolder eq;
+
+	AnalyzedType at = eq.getType(nullptr);
+
+	CHECK(at.getType() == AnalyzedType::TYPE_NONE);
+}
+
+TEST(TestConditionMiscGroup, SQLFunctionCall){
+	SQLFunctionCall eq;
 
 	AnalyzedType at = eq.getType(nullptr);
 
