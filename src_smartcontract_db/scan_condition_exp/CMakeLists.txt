@@ -4,6 +4,7 @@ set(__src
 	BetweenScanCondition.cpp
 	EqualityScanCondition.cpp
 	IsNullScanCondition.cpp
+	LikeScanCondition.cpp
 	ParenthesisScanCondition.cpp
 	RelationalScanCondition.cpp
 )
