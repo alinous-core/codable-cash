@@ -529,7 +529,7 @@ void sqlFunctionCallArguments(SQLFunctionCall* exp) : {
 		}
 		
 		(
-			"," {
+			t="," {
 				exp->setPosition(t);
 			}
 			ex=sqlExpression() {

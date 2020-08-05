@@ -12,11 +12,13 @@
 
 #include "base/ArrayList.h"
 
+#include "scan_condition/IValueProvider.h"
+
 namespace codablecash {
 
 class IValueProvider;
 
-class FunctionCallScanCondition : public AbstractScanCondition {
+class FunctionCallScanCondition : public AbstractScanCondition, public IValueProvider {
 public:
 	FunctionCallScanCondition();
 	virtual ~FunctionCallScanCondition();

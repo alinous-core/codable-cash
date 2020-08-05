@@ -6672,7 +6672,7 @@ exp->addArgument(ex);
           goto end_label_37;
         }
         if (!hasError) {
-        jj_consume_token(COMMA);
+        t = jj_consume_token(COMMA);
         }
         if (!hasError) {
 exp->setPosition(t);
