@@ -9,6 +9,15 @@
 #include "sql_expression/SQLLiteral.h"
 
 #include "sc_analyze/AnalyzedType.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "scan_condition_exp/LikeScanCondition.h"
+
+#include "scan_condition/ScanConditionCast.h"
+
 namespace alinous {
 
 SQLLikeExpression::SQLLikeExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_LIKE) {
@@ -126,7 +135,32 @@ void SQLLikeExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLLikeExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME SQLLikeExpression
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	LikeScanCondition* cond = new LikeScanCondition();
+	planner->push(cond);
+
+	AbstractScanConditionElement* element = nullptr;
+	IValueProvider* val = nullptr;
+
+	this->left->interpret(vm);
+	element = planner->pop();
+	val = ScanConditionCast::toIValueProvider(element, vm, this);
+	cond->setLeft(val);
+
+	this->right->interpret(vm);
+	element = planner->pop();
+	val = ScanConditionCast::toIValueProvider(element, vm, this);
+	cond->setRight(val);
+
+	if(this->escape != nullptr){
+		this->escape->interpret(vm);
+		element = planner->pop();
+		val = ScanConditionCast::toIValueProvider(element, vm, this);
+		cond->setEscape(val);
+	}
+
+	return nullptr;
 }
 
 
