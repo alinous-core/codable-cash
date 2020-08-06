@@ -39,6 +39,7 @@
 
 #include "scan_condition/RootScanCondition.h"
 
+#include "scan_condition_arithmetic/AdditiveScanCondition.h"
 using namespace alinous;
 using namespace codablecash;
 
@@ -175,6 +176,11 @@ TEST(TestConditionMiscGroup, AndScanCondition01){
 TEST(TestConditionMiscGroup, OrScanCondition01){
 	OrScanCondition cond;
 	CHECK(cond.isContainer());
+}
+
+TEST(TestConditionMiscGroup, AdditiveScanCondition01){
+	AdditiveScanCondition cond;
+	CHECK(!cond.isContainer());
 }
 
 
