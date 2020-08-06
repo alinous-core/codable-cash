@@ -33,6 +33,7 @@
 #include "table_record_value/CdbShortValue.h"
 #include "table_record_value/CdbLongValue.h"
 
+#include "table_record/CdbKeyFactory.h"
 using namespace alinous;
 using namespace codablecash;
 
@@ -98,5 +99,13 @@ TEST(TestInsertPartTypesGroup, case01){
 	trx->insert(log);
 	trx->commit();
 }
+
+TEST(TestInsertPartTypesGroup, factory01){
+	CdbKeyFactory factory;
+
+	AbstractBtreeKey* key = factory.fromBinary(0, nullptr);
+	CHECK(key == nullptr);
+}
+
 
 
