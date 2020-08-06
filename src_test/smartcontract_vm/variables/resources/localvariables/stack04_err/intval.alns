@@ -1,0 +1,14 @@
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+		int2 n = 10;
+	}
+	
+	public void main(){
+	
+	}
+	
+	private int val;
+}
