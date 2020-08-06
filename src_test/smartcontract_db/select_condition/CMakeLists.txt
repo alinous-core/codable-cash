@@ -1,5 +1,6 @@
 
 set(testsrc
+	test_cast_err.cpp
 	test_condition_misc.cpp
 	test_select_arithmetic_contition.cpp
 	test_select_contition.cpp

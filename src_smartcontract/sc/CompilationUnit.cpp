@@ -86,6 +86,10 @@ void CompilationUnit::addClassDeclare(ClassDeclare* clazz) {
 	this->classes.addElement(clazz);
 }
 
+ClassDeclare* CompilationUnit::getClassDeclare(int pos) const noexcept {
+	return this->classes.get(pos);
+}
+
 ImportsDeclare* CompilationUnit::getImportDeclare() const noexcept {
 	return this->imports;
 }
