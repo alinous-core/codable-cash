@@ -168,7 +168,7 @@ TEST(TestCdbKeyValuesGroup, CdbStringKey){
 }
 
 TEST(TestCdbKeyValuesGroup, CdbRecordKey01){
-	CdbRecordKey* key = new CdbRecordKey();
+	CdbRecordKey* key = new CdbRecordKey(); __STP(key);
 	key->addKey(nullptr);
 
 	CdbRecordKey* key2 = dynamic_cast<CdbRecordKey*>(key->clone()); __STP(key2);
@@ -192,5 +192,15 @@ TEST(TestCdbKeyValuesGroup, CdbRecordKey01){
 	InfinityKey inf;
 	cmpResult = retKey->compareTo(&inf);
 	CHECK(cmpResult < 0);
+}
+
+TEST(TestCdbKeyValuesGroup, CdbRecordKey02){
+	CdbRecordKey* key = new CdbRecordKey(); __STP(key);
+	key->addKey(new CdbIntKey(1));
+
+	CdbRecordKey* key2 = new CdbRecordKey(); __STP(key2);
+	key2->addKey(new CdbIntKey(2));
+
+	CHECK(key->compareTo(key2) < 0)
 }
 
