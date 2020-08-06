@@ -39,6 +39,10 @@
 #include "table_record_key/CdbLongKey.h"
 
 #include "table_record_key/CdbShortKey.h"
+
+#include "table_record_value/CdbOidValueList.h"
+
+#include "engine/CdbOid.h"
 using namespace alinous;
 using namespace codablecash;
 
@@ -135,3 +139,23 @@ TEST(TestInsertPartTypesGroup, toKey03){
 	CdbLongKey* key = dynamic_cast<CdbLongKey*>(k);
 	CHECK(key->getValue() == 1);
 }
+
+TEST(TestInsertPartTypesGroup, CdbOidValueList01){
+	CdbOidValueList list;
+	CdbOid* oid = new CdbOid(1);
+
+	list.addOid(oid);
+
+	CdbOidValueList* list2 = dynamic_cast<CdbOidValueList*>(list.copy()); __STP(list2);
+
+	int maxLoop = list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbOid* o1 = list.get(i);
+		CdbOid* o2 = list2->get(i);
+
+		CHECK(o1->equals(o2))
+	}
+
+}
+
+

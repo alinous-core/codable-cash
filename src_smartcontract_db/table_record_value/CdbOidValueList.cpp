@@ -67,6 +67,14 @@ void CdbOidValueList::addOid(CdbOid* oid) noexcept {
 	this->list.addElement(oid);
 }
 
+int CdbOidValueList::size() const noexcept {
+	return this->list.size();
+}
+
+CdbOid* CdbOidValueList::get(int i) const noexcept {
+	return this->list.get(i);
+}
+
 AbstractCdbValue* CdbOidValueList::copy() const noexcept {
 	return new CdbOidValueList(*this);
 }
