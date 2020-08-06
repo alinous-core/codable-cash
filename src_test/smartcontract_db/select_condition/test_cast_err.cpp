@@ -23,6 +23,8 @@
 
 #include "instance_exception/ExceptionInterrupt.h"
 
+#include "vm/VirtualMachine.h"
+
 using namespace codablecash;
 
 TEST_GROUP(TestScanConditionCastErrorGroup) {
@@ -56,6 +58,7 @@ TEST(TestScanConditionCastErrorGroup, case01){
 	}
 	catch(ExceptionInterrupt* e){
 		ex = e;
+		util.vm->checkUncaughtException();
 	}
 
 	CHECK(ex != nullptr)
@@ -86,6 +89,7 @@ TEST(TestScanConditionCastErrorGroup, case02){
 	}
 	catch(ExceptionInterrupt* e){
 		ex = e;
+		util.vm->checkUncaughtException();
 	}
 
 	CHECK(ex != nullptr)
@@ -116,6 +120,7 @@ TEST(TestScanConditionCastErrorGroup, case03){
 	}
 	catch(ExceptionInterrupt* e){
 		ex = e;
+		util.vm->checkUncaughtException();
 	}
 
 	CHECK(ex != nullptr)

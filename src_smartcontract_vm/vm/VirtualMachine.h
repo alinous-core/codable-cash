@@ -117,7 +117,7 @@ public:
 	void popSelectPlanner() noexcept;
 	SelectScanPlanner* getSelectPlanner() const noexcept;
 	bool isSelectPlanning() const noexcept;
-private:
+
 	void checkUncaughtException();
 
 private:
