@@ -40,6 +40,8 @@
 #include "scan_condition/RootScanCondition.h"
 
 #include "scan_condition_arithmetic/AdditiveScanCondition.h"
+
+#include "scan_planner/SelectScanPlanner.h"
 using namespace alinous;
 using namespace codablecash;
 
@@ -183,4 +185,12 @@ TEST(TestConditionMiscGroup, AdditiveScanCondition01){
 	CHECK(!cond.isContainer());
 }
 
+TEST(TestConditionMiscGroup, SelectPlanner01){
+	SelectScanPlanner planner;
+	RootScanCondition* cond = new RootScanCondition();
+
+	planner.push(cond);
+	AbstractScanConditionElement* cond2 = planner.top();
+	CHECK(cond == cond2);
+}
 
