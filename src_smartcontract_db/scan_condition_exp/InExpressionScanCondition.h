@@ -16,6 +16,15 @@ class InExpressionScanCondition : public AbstractScanCondition {
 public:
 	InExpressionScanCondition();
 	virtual ~InExpressionScanCondition();
+
+	virtual const UnicodeString* toStringCode() noexcept;
+
+private:
+	void resetStr() noexcept;
+
+private:
+
+	UnicodeString* str;
 };
 
 } /* namespace codablecash */

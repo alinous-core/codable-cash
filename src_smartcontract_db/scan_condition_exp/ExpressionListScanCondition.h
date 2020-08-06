@@ -16,6 +16,15 @@ class ExpressionListScanCondition : public AbstractScanCondition {
 public:
 	ExpressionListScanCondition();
 	virtual ~ExpressionListScanCondition();
+
+	virtual const UnicodeString* toStringCode() noexcept;
+
+private:
+	void resetStr() noexcept;
+
+private:
+
+	UnicodeString* str;
 };
 
 } /* namespace codablecash */
