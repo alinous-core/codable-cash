@@ -26,6 +26,9 @@
 #include "instance_exception_class/ExceptionClassDeclare.h"
 
 #include "vm_ctrl/BreakControl.h"
+
+#include "sc_declare/ClassDeclareBlock.h"
+
 using namespace alinous;
 
 
@@ -223,5 +226,11 @@ TEST(TestTryCatchGroup, test){
 	BreakControl ctrl;
 
 	CHECK(ctrl.getException() == nullptr);
+}
+
+TEST(TestTryCatchGroup, test02){
+	ClassDeclareBlock block;
+
+	CHECK(!block.hasCtrlStatement())
 }
 
