@@ -171,6 +171,21 @@ TEST(TestClassFwGroup, exceptions10){
 	delete ex;
 }
 
+TEST(TestClassFwGroup, exceptions11){
+	CompilationUnit element;
+
+	Exception* ex = nullptr;
+	try{
+		CodeElement::checkIsJsonExp(&element);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+
+	delete ex;
+}
+
 TEST(TestClassFwGroup, isExecutable){
 	CompilationUnit element;
 
