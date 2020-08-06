@@ -47,9 +47,10 @@ const UnicodeString* InExpressionScanCondition::toStringCode() noexcept {
 
 		AbstractScanConditionElement* el = dynamic_cast<AbstractScanConditionElement*>(left);
 		this->str->append(el->toStringCode());
-		this->str->append(L" IN ");
+		this->str->append(L" IN (");
 
 		this->str->append(this->list->toStringCode());
+		this->str->append(L")");
 	}
 
 	return this->str;
