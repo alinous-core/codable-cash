@@ -10,7 +10,11 @@
 
 #include "scan_condition/AbstractScanCondition.h"
 
+#include "base/ArrayList.h"
+
 namespace codablecash {
+
+class IValueProvider;
 
 class ExpressionListScanCondition : public AbstractScanCondition {
 public:
@@ -19,10 +23,12 @@ public:
 
 	virtual const UnicodeString* toStringCode() noexcept;
 
+	void addElement(IValueProvider* val) noexcept;
 private:
 	void resetStr() noexcept;
 
 private:
+	ArrayList<IValueProvider> list;
 
 	UnicodeString* str;
 };
