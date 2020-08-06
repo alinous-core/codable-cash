@@ -42,7 +42,14 @@ void InExpressionScanCondition::setList(ExpressionListScanCondition* list) noexc
 
 const UnicodeString* InExpressionScanCondition::toStringCode() noexcept {
 	if(this->str == nullptr){
+		resetStr();
+		this->str = new UnicodeString(L"");
 
+		AbstractScanConditionElement* el = dynamic_cast<AbstractScanConditionElement*>(left);
+		this->str->append(el->toStringCode());
+		this->str->append(L" IN ");
+
+		this->str->append(this->list->toStringCode());
 	}
 
 	return this->str;
