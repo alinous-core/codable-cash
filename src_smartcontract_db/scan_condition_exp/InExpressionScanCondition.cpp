@@ -11,14 +11,33 @@
 
 #include "base/UnicodeString.h"
 
+#include "scan_condition/IValueProvider.h"
+
+#include "scan_condition_exp/ExpressionListScanCondition.h"
+
 namespace codablecash {
 
 InExpressionScanCondition::InExpressionScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_IN) {
+	this->left = nullptr;
+	this->list = nullptr;
+
 	this->str = nullptr;
 }
 
 InExpressionScanCondition::~InExpressionScanCondition() {
+	delete this->left;
+	delete this->list;
+	resetStr();
+}
 
+void InExpressionScanCondition::setLeft(IValueProvider* cond) noexcept {
+	this->left = cond;
+	resetStr();
+}
+
+void InExpressionScanCondition::setList(ExpressionListScanCondition* list) noexcept {
+	this->list = list;
+	resetStr();
 }
 
 const UnicodeString* InExpressionScanCondition::toStringCode() noexcept {

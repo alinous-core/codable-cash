@@ -12,6 +12,9 @@
 
 namespace codablecash {
 
+class IValueProvider;
+class ExpressionListScanCondition;
+
 class InExpressionScanCondition : public AbstractScanCondition {
 public:
 	InExpressionScanCondition();
@@ -19,10 +22,14 @@ public:
 
 	virtual const UnicodeString* toStringCode() noexcept;
 
+	void setLeft(IValueProvider* cond) noexcept;
+	void setList(ExpressionListScanCondition* list) noexcept;
 private:
 	void resetStr() noexcept;
 
 private:
+	IValueProvider* left;
+	ExpressionListScanCondition* list;
 
 	UnicodeString* str;
 };
