@@ -11,6 +11,8 @@
 #include "scan_condition/AbstractScanConditionElement.h"
 #include "scan_condition/IValueProvider.h"
 
+#include "scan_condition_exp/ExpressionListScanCondition.h"
+
 #include "vm/VirtualMachine.h"
 
 #include "instance_exception/TypeCastExceptionClassDeclare.h"
@@ -45,5 +47,19 @@ IValueProvider* ScanConditionCast::toIValueProvider(AbstractScanConditionElement
 
 	return val;
 }
+
+ExpressionListScanCondition* ScanConditionCast::toExpressionList(AbstractScanConditionElement* condElement, VirtualMachine* vm, const CodeElement* element) {
+	ExpressionListScanCondition* val = dynamic_cast<ExpressionListScanCondition*>(condElement);
+
+	if(val == nullptr){
+		delete condElement;
+
+		TypeCastExceptionClassDeclare::throwException(vm, element);
+		ExceptionInterrupt::interruptPoint(vm);
+	}
+
+	return val;
+}
+
 
 } /* namespace codablecash */

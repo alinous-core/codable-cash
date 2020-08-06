@@ -19,11 +19,13 @@ namespace codablecash {
 class AbstractScanCondition;
 class AbstractScanConditionElement;
 class IValueProvider;
+class ExpressionListScanCondition;
 
 class ScanConditionCast {
 public:
 	static AbstractScanCondition* toAbstractScanCondition(AbstractScanConditionElement* condElement, VirtualMachine* vm, const CodeElement* element);
 	static IValueProvider* toIValueProvider(AbstractScanConditionElement* condElement, VirtualMachine* vm, const CodeElement* element);
+	static ExpressionListScanCondition* toExpressionList(AbstractScanConditionElement* condElement, VirtualMachine* vm, const CodeElement* element);
 };
 
 } /* namespace codablecash */

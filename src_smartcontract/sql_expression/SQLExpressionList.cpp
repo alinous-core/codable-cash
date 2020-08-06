@@ -9,7 +9,14 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "vm/VirtualMachine.h"
 
+#include "scan_condition_exp/ExpressionListScanCondition.h"
+#include "scan_condition/IValueProvider.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "scan_condition/ScanConditionCast.h"
 namespace alinous {
 
 SQLExpressionList::SQLExpressionList() : AbstractSQLExpression(CodeElement::SQL_EXP_EXP_LIST) {
@@ -109,6 +116,25 @@ int SQLExpressionList::numExpressions() const noexcept {
 }
 
 AbstractVmInstance* SQLExpressionList::interpret(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	ExpressionListScanCondition* cond = new ExpressionListScanCondition();
+	planner->push(cond);
+
+	AbstractScanConditionElement* element = nullptr;
+	IValueProvider* val = nullptr;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->list.get(i);
+
+		exp->interpret(vm);
+		element = planner->pop();
+		val = ScanConditionCast::toIValueProvider(element, vm, this);
+
+		cond->addElement(val);
+	}
+
 	return nullptr;
 }
 
