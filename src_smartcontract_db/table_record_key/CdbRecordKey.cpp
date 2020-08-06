@@ -56,7 +56,8 @@ int CdbRecordKey::compareTo(const AbstractBtreeKey* key) const noexcept {
 		AbstractCdbKey* l = this->list.get(i);
 		AbstractCdbKey* r = right->list.get(i);
 
-		result = l->compareTo(r);
+		result = l != nullptr ? l->compareTo(r) : l - r;
+
 		if(result == 0){
 			continue;
 		}

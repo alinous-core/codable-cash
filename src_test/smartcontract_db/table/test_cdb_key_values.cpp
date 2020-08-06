@@ -28,8 +28,8 @@
 #include "table_record_key/CdbShortKey.h"
 #include "table_record_key/CdbIntKey.h"
 #include "table_record_key/CdbLongKey.h"
-
 #include "table_record_key/CdbStringKey.h"
+#include "table_record_key/CdbRecordKey.h"
 
 using namespace codablecash;
 using namespace alinous;
@@ -151,6 +151,33 @@ TEST(TestCdbKeyValuesGroup, CdbStringKey){
 	int size = key.binarySize();
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
 	key.toBinary(buff);
+
+	buff->position(0);
+
+	CdbKeyFactory factory;
+
+	uint32_t type = buff->getInt();
+	AbstractBtreeKey* retKey = factory.fromBinary(type, buff);__STP(retKey);
+
+	int cmpResult = retKey->compareTo(key2);
+	CHECK(cmpResult == 0);
+
+	InfinityKey inf;
+	cmpResult = retKey->compareTo(&inf);
+	CHECK(cmpResult < 0);
+}
+
+TEST(TestCdbKeyValuesGroup, CdbRecordKey01){
+	CdbRecordKey* key = new CdbRecordKey();
+	key->addKey(nullptr);
+
+	CdbRecordKey* key2 = dynamic_cast<CdbRecordKey*>(key->clone()); __STP(key2);
+
+	CHECK(key->compareTo(key2) == 0)
+
+	int size = key->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+	key->toBinary(buff);
 
 	buff->position(0);
 
