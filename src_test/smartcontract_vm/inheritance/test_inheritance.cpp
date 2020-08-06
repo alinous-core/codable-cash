@@ -12,6 +12,7 @@
 #include "base_io_stream/FileInputStream.h"
 
 #include "../VmTestUtils.h"
+#include "sc_analyze/ValidationError.h"
 
 using namespace alinous;
 
@@ -32,3 +33,15 @@ TEST(TestInheritanceGroup, inheritance){
 
 }
 
+TEST(TestInheritanceGroup, inheritance_err){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/inheritance/resources/case02_err/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+
+	CHECK(util.vm->hasAnalyzeError(ValidationError::CODE_WRONG_CLASS_NAME))
+}
