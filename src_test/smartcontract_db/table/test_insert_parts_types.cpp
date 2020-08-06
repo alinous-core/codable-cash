@@ -155,7 +155,13 @@ TEST(TestInsertPartTypesGroup, CdbOidValueList01){
 
 		CHECK(o1->equals(o2))
 	}
+}
 
+TEST(TestInsertPartTypesGroup, toKey04){
+	CdbOidValueList val;
+	AbstractCdbKey* k = val.toKey();
+
+	CHECK(k == nullptr);
 }
 
 
