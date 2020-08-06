@@ -32,8 +32,13 @@
 #include "table_record_value/CdbByteValue.h"
 #include "table_record_value/CdbShortValue.h"
 #include "table_record_value/CdbLongValue.h"
-
 #include "table_record/CdbKeyFactory.h"
+
+#include "table_record_key/AbstractCdbKey.h"
+#include "table_record_key/CdbByteKey.h"
+#include "table_record_key/CdbLongKey.h"
+
+#include "table_record_key/CdbShortKey.h"
 using namespace alinous;
 using namespace codablecash;
 
@@ -107,5 +112,26 @@ TEST(TestInsertPartTypesGroup, factory01){
 	CHECK(key == nullptr);
 }
 
+TEST(TestInsertPartTypesGroup, toKey01){
+	CdbByteValue val(1);
+	AbstractCdbKey* k = val.toKey(); __STP(k);
 
+	CdbByteKey* key = dynamic_cast<CdbByteKey*>(k);
+	CHECK(key->getValue() == 1);
+}
 
+TEST(TestInsertPartTypesGroup, toKey02){
+	CdbShortValue val(1);
+	AbstractCdbKey* k = val.toKey(); __STP(k);
+
+	CdbShortKey* key = dynamic_cast<CdbShortKey*>(k);
+	CHECK(key->getValue() == 1);
+}
+
+TEST(TestInsertPartTypesGroup, toKey03){
+	CdbLongValue val(1);
+	AbstractCdbKey* k = val.toKey(); __STP(k);
+
+	CdbLongKey* key = dynamic_cast<CdbLongKey*>(k);
+	CHECK(key->getValue() == 1);
+}

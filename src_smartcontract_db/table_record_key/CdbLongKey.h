@@ -26,6 +26,10 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	virtual void fromBinary(ByteBuffer* in);
 
+	int64_t getValue() const noexcept {
+		return value;
+	}
+
 private:
 	int64_t value;
 };
