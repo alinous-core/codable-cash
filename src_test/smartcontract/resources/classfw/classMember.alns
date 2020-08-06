@@ -4,7 +4,7 @@ package test.fw;
 class HelloWorld {
 	public boolean valbool;
 	public byte valbyte;
-	public int val;
+	public int val = 0;
 	public static char valchar;
 	public short valshort;
 	public long vallong;
