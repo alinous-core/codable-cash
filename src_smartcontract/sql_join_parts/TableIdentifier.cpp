@@ -10,6 +10,10 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "vm/VirtualMachine.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
 namespace alinous {
 
 TableIdentifier::TableIdentifier() : AbstractJoinPart(CodeElement::SQL_EXP_TABLE_ID) {
@@ -83,6 +87,9 @@ void TableIdentifier::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* TableIdentifier::interpret(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	TablesHolder* tables = planner->getTablesHolder();
+
 	return nullptr;
 }
 

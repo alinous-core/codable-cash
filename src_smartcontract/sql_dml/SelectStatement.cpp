@@ -29,6 +29,7 @@
 
 #include "scan_planner/SelectScanPlanner.h"
 
+#include "sql/AbstractJoinPart.h"
 
 namespace alinous {
 
@@ -60,6 +61,10 @@ void SelectStatement::preAnalyze(AnalyzeContext* actx) {
 		list->setParent(this);
 	}
 
+	this->from->setParent(this);
+	AbstractJoinPart* tablePart = this->from->getTablePart();
+	tablePart->preAnalyze(actx);
+
 	if(this->where != nullptr){
 		this->where->setParent(this);
 		this->where->preAnalyze(actx);
@@ -67,12 +72,18 @@ void SelectStatement::preAnalyze(AnalyzeContext* actx) {
 }
 
 void SelectStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	AbstractJoinPart* tablePart = this->from->getTablePart();
+	tablePart->analyzeTypeRef(actx);
+
 	if(this->where != nullptr){
 		this->where->analyzeTypeRef(actx);
 	}
 }
 
 void SelectStatement::analyze(AnalyzeContext* actx) {
+	AbstractJoinPart* tablePart = this->from->getTablePart();
+	tablePart->analyze(actx);
+
 	if(this->where != nullptr){
 		this->where->analyze(actx);
 	}
@@ -213,6 +224,9 @@ void SelectStatement::fromBinary(ByteBuffer* in) {
 }
 
 void SelectStatement::init(VirtualMachine* vm) {
+	AbstractJoinPart* tablePart = this->from->getTablePart();
+	tablePart->init(vm);
+
 	if(this->where != nullptr){
 		this->where->init(vm);
 	}
@@ -236,6 +250,7 @@ void SelectStatement::buildPlanner(VirtualMachine* vm, uint64_t currentVer) {
 	VmSelectPlannerSetter setter(vm, this->planner);
 
 	AbstractJoinPart* tablePart = this->from->getTablePart();
+	tablePart->interpret(vm);
 
 	if(this->where != nullptr){
 		where->interpret(vm);

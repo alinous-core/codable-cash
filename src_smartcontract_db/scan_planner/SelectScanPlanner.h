@@ -25,14 +25,16 @@ public:
 	SelectScanPlanner();
 	virtual ~SelectScanPlanner();
 
-
-
 	void push(AbstractScanConditionElement* cond) noexcept;
 	AbstractScanConditionElement* top() const noexcept;
 	AbstractScanConditionElement* pop() noexcept;
 
 	ConditionsHolder* getConditions() const noexcept {
 		return this->conditions;
+	}
+
+	TablesHolder* getTablesHolder() const noexcept {
+		return tablesHolder;
 	}
 
 private:
