@@ -18,11 +18,14 @@ namespace codablecash {
 class ConditionsHolder;
 class AbstractScanCondition;
 class AbstractScanConditionElement;
+class TablesHolder;
 
 class SelectScanPlanner {
 public:
 	SelectScanPlanner();
 	virtual ~SelectScanPlanner();
+
+
 
 	void push(AbstractScanConditionElement* cond) noexcept;
 	AbstractScanConditionElement* top() const noexcept;
@@ -34,6 +37,8 @@ public:
 
 private:
 	ConditionsHolder* conditions;
+
+	TablesHolder* tablesHolder;
 };
 
 } /* namespace codablecash */

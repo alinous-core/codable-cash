@@ -235,6 +235,8 @@ void SelectStatement::buildPlanner(VirtualMachine* vm, uint64_t currentVer) {
 
 	VmSelectPlannerSetter setter(vm, this->planner);
 
+	AbstractJoinPart* tablePart = this->from->getTablePart();
+
 	if(this->where != nullptr){
 		where->interpret(vm);
 	}

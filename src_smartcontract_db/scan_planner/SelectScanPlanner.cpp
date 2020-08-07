@@ -5,22 +5,25 @@
  *      Author: iizuka
  */
 
-#include "scan_planner/SelectScanPlanner.h"
-
-#include "scan_planner/ConditionsHolder.h"
 #include <cassert>
 
+#include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolder.h"
+#include "scan_planner/TablesHolder.h"
+
 #include "scan_condition/AbstractScanCondition.h"
+
 
 namespace codablecash {
 
 SelectScanPlanner::SelectScanPlanner() {
 	this->conditions = new ConditionsHolder();
-
+	this->tablesHolder = new TablesHolder();
 }
 
 SelectScanPlanner::~SelectScanPlanner() {
 	delete this->conditions;
+	delete this->tablesHolder;
 }
 
 void SelectScanPlanner::push(AbstractScanConditionElement* cond) noexcept {
