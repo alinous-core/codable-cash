@@ -9,6 +9,7 @@
 #define SQL_DML_SELECTSTATEMENT_H_
 
 #include "sql/AbstractSQLStatement.h"
+#include <cstdint>
 
 namespace codablecash {
 class SelectScanPlanner;
@@ -47,6 +48,10 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual void interpret(VirtualMachine* vm);
+
+private:
+	void buildPlanner(VirtualMachine* vm, uint64_t currentVer);
+
 private:
 	SQLSelectTargetList* list;
 	SQLFrom* from;

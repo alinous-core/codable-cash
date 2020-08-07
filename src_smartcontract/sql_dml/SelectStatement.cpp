@@ -223,15 +223,23 @@ void SelectStatement::interpret(VirtualMachine* vm) {
 
 	uint64_t currentVer = trxHandler->getSchemaObjectVersionId();
 	if(currentVer > this->lastSchemaVersion){
-		delete this->planner;
-		this->planner = new SelectScanPlanner();
-
-		VmSelectPlannerSetter setter(vm, this->planner);
-
-		this->lastSchemaVersion = currentVer;
+		buildPlanner(vm, currentVer);
 	}
 
 	// FIXME SQL statement
+}
+
+void SelectStatement::buildPlanner(VirtualMachine* vm, uint64_t currentVer) {
+	delete this->planner;
+	this->planner = new SelectScanPlanner();
+
+	VmSelectPlannerSetter setter(vm, this->planner);
+
+	if(this->where != nullptr){
+		where->interpret(vm);
+	}
+
+	this->lastSchemaVersion = currentVer;
 }
 
 } /* namespace alinous */
