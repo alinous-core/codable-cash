@@ -20,6 +20,7 @@ public:
 
 	void setSchema(UnicodeString* schema) noexcept;
 	void setTableName(UnicodeString* tableName) noexcept;
+	void setAlias(UnicodeString* alias) noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
@@ -44,6 +45,7 @@ public:
 private:
 	UnicodeString* schema;
 	UnicodeString* tableName;
+	UnicodeString* alias;
 };
 
 } /* namespace alinous */

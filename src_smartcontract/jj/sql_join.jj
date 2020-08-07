@@ -289,6 +289,16 @@ TableIdentifier* tableIdentifier() : {
 			exp->setTableName(_STR(t1));
 		}
 	}
+	[
+		t=<AS> {
+			exp->setPosition(t);
+		}
+		t=<IDENTIFIER> {
+			exp->setPosition(t);
+			exp->setAlias(_STR(t));
+		}
+	]
+	
 	{
 		__ONERROR(exp);
 		return exp;
