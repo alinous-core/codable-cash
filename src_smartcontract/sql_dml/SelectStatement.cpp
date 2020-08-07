@@ -34,6 +34,7 @@
 
 #include "scan_table/AbstractScanTableTarget.h"
 
+#include "instance_exception/ExceptionInterrupt.h"
 
 namespace alinous {
 
@@ -241,7 +242,13 @@ void SelectStatement::interpret(VirtualMachine* vm) {
 
 	uint64_t currentVer = trxHandler->getSchemaObjectVersionId();
 	if(currentVer > this->lastSchemaVersion){
-		buildPlanner(vm, currentVer);
+		try{
+			buildPlanner(vm, currentVer);
+		}
+		catch(ExceptionInterrupt* e){
+			delete e;
+			return;
+		}
 	}
 
 	// FIXME SQL statement

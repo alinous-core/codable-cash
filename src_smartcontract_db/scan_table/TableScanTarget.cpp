@@ -10,12 +10,10 @@
 namespace codablecash {
 
 TableScanTarget::TableScanTarget() {
-	// TODO Auto-generated constructor stub
 
 }
 
 TableScanTarget::~TableScanTarget() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace codablecash */
