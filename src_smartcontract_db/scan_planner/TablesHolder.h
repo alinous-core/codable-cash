@@ -7,13 +7,29 @@
 
 #ifndef SCAN_PLANNER_TABLESHOLDER_H_
 #define SCAN_PLANNER_TABLESHOLDER_H_
+#include "base/ArrayList.h"
+
+using namespace alinous;
 
 namespace codablecash {
+
+class AbstractScanTableTarget;
 
 class TablesHolder {
 public:
 	TablesHolder();
 	virtual ~TablesHolder();
+
+	void addScanTarget(AbstractScanTableTarget* target) noexcept;
+
+	void push(AbstractScanTableTarget* target) noexcept;
+	AbstractScanTableTarget* pop() noexcept;
+	bool isEmpty() const noexcept;
+
+private:
+	ArrayList<AbstractScanTableTarget> list;
+
+	ArrayList<AbstractScanTableTarget> stack;
 };
 
 } /* namespace codablecash */

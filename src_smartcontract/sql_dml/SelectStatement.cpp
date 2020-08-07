@@ -28,8 +28,12 @@
 #include "vm_trx/VmTransactionHandler.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/TablesHolder.h"
 
 #include "sql/AbstractJoinPart.h"
+
+#include "scan_table/AbstractScanTableTarget.h"
+
 
 namespace alinous {
 
@@ -251,6 +255,11 @@ void SelectStatement::buildPlanner(VirtualMachine* vm, uint64_t currentVer) {
 
 	AbstractJoinPart* tablePart = this->from->getTablePart();
 	tablePart->interpret(vm);
+	TablesHolder* tableHolder = this->planner->getTablesHolder();
+	if(!tableHolder->isEmpty()){
+		AbstractScanTableTarget* target = tableHolder->pop();
+		tableHolder->addScanTarget(target);
+	}
 
 	if(this->where != nullptr){
 		where->interpret(vm);

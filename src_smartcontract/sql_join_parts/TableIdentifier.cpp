@@ -13,6 +13,10 @@
 #include "vm/VirtualMachine.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/TablesHolder.h"
+
+#include "scan_table/TableScanTarget.h"
+
 
 namespace alinous {
 
@@ -110,6 +114,10 @@ void TableIdentifier::init(VirtualMachine* vm) {
 AbstractVmInstance* TableIdentifier::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 	TablesHolder* tables = planner->getTablesHolder();
+
+	TableScanTarget* target = new TableScanTarget();
+
+	tables->push(target);
 
 	return nullptr;
 }
