@@ -9,6 +9,9 @@
 #define SCAN_PLANNER_TABLESHOLDER_H_
 #include "base/ArrayList.h"
 
+namespace alinous {
+class UnicodeString;
+}
 using namespace alinous;
 
 namespace codablecash {
@@ -26,10 +29,13 @@ public:
 	AbstractScanTableTarget* pop() noexcept;
 	bool isEmpty() const noexcept;
 
+	const UnicodeString* toString() noexcept;
 private:
 	ArrayList<AbstractScanTableTarget> list;
 
 	ArrayList<AbstractScanTableTarget> stack;
+
+	UnicodeString* str;
 };
 
 } /* namespace codablecash */

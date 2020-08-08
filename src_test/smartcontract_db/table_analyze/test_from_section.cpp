@@ -20,7 +20,7 @@
 #include "sc_analyze/AnalyzeContext.h"
 
 #include "scan_planner/SelectScanPlanner.h"
-
+#include "scan_planner/TablesHolder.h"
 
 TEST_GROUP(TestFromSectionGroup) {
 	TEST_SETUP(){
@@ -57,6 +57,6 @@ TEST(TestFromSectionGroup, list01){
 		part->init(vm);
 		part->interpret(vm);
 
-
+		TablesHolder* tholder = planner->getTablesHolder();
 	}
 }

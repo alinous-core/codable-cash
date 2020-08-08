@@ -8,12 +8,19 @@
 #ifndef SCAN_TABLE_ABSTRACTSCANTABLETARGET_H_
 #define SCAN_TABLE_ABSTRACTSCANTABLETARGET_H_
 
+namespace alinous {
+class UnicodeString;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class AbstractScanTableTarget {
 public:
 	AbstractScanTableTarget();
 	virtual ~AbstractScanTableTarget();
+
+	virtual const UnicodeString* toString() noexcept = 0;
 };
 
 } /* namespace codablecash */

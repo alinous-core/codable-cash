@@ -19,6 +19,8 @@ public:
 	TableScanTarget();
 	virtual ~TableScanTarget();
 
+	virtual const UnicodeString* toString() noexcept;
+
 private:
 
 };

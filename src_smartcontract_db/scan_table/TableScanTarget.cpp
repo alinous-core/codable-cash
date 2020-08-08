@@ -16,4 +16,8 @@ TableScanTarget::TableScanTarget() {
 TableScanTarget::~TableScanTarget() {
 }
 
+const UnicodeString* TableScanTarget::toString() noexcept {
+
+}
+
 } /* namespace codablecash */
