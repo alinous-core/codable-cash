@@ -116,6 +116,9 @@ AbstractVmInstance* TableIdentifier::interpret(VirtualMachine* vm) {
 	TablesHolder* tables = planner->getTablesHolder();
 
 	TableScanTarget* target = new TableScanTarget();
+	target->setSchema(this->schema);
+	target->setTableName(this->tableName);
+	target->setAlias(this->alias);
 
 	tables->push(target);
 

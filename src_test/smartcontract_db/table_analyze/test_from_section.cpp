@@ -58,5 +58,9 @@ TEST(TestFromSectionGroup, list01){
 		part->interpret(vm);
 
 		TablesHolder* tholder = planner->getTablesHolder();
+		const UnicodeString* str = tholder->toString();
+
+		UnicodeString ans(L"table1 AS t1, public.table2, table3");
+		CHECK(ans.equals(str))
 	}
 }

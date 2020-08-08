@@ -269,14 +269,14 @@ TableIdentifier* tableIdentifier() : {
 	Token* t2 = nullptr;
 }
 {
-	t1=<IDENTIFIER> {
+	t1=sqlIdentifierName() {
 		exp->setPosition(t1);
 	}
 	[
 		t="." {
 			exp->setPosition(t);
 		}
-		t2=<IDENTIFIER> {
+		t2=sqlIdentifierName() {
 			exp->setPosition(t2);
 		}
 	]
@@ -293,7 +293,7 @@ TableIdentifier* tableIdentifier() : {
 		t=<AS> {
 			exp->setPosition(t);
 		}
-		t=<IDENTIFIER> {
+		t=sqlIdentifierName() {
 			exp->setPosition(t);
 			exp->setAlias(_STR(t));
 		}

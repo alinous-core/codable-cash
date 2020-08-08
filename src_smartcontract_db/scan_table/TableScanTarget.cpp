@@ -28,15 +28,21 @@ TableScanTarget::~TableScanTarget() {
 }
 
 void TableScanTarget::setSchema(const UnicodeString* schema) noexcept {
-	this->schema = new UnicodeString(schema);
+	if(schema != nullptr){
+		this->schema = new UnicodeString(schema);
+	}
 }
 
 void TableScanTarget::setTableName(const UnicodeString* tableName) noexcept {
-	this->tableName = new UnicodeString(tableName);
+	if(tableName != nullptr){
+		this->tableName = new UnicodeString(tableName);
+	}
 }
 
 void TableScanTarget::setAlias(const UnicodeString* alias)noexcept {
-	this->alias = new UnicodeString(alias);
+	if(alias != nullptr){
+		this->alias = new UnicodeString(alias);
+	}
 }
 
 const UnicodeString* TableScanTarget::toString() noexcept {
