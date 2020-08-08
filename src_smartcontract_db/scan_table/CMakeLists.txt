@@ -2,6 +2,7 @@
 
 set(__src
 	AbstractScanTableTarget.cpp
+	CrossJoinScanTarget.cpp
 	InnerJoinScanTarget.cpp
 	LeftOuterJoinTarget.cpp
 	TableScanTarget.cpp

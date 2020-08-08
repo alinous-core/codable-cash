@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include <scan_table/CrossJoinScanTarget.h>
+#include "scan_table/CrossJoinScanTarget.h"
 
 namespace codablecash {
 
