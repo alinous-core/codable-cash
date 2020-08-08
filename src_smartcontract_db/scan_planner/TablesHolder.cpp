@@ -33,7 +33,7 @@ void TablesHolder::push(AbstractScanTableTarget* target) noexcept {
 
 AbstractScanTableTarget* TablesHolder::pop() noexcept {
 	int idx = this->stack.size() - 1;
-	return this->stack.get(idx);
+	return this->stack.remove(idx);
 }
 
 bool TablesHolder::isEmpty() const noexcept {

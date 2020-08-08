@@ -10,8 +10,6 @@
 
 #include "scan_table/AbstractScanTableTarget.h"
 
-
-
 namespace codablecash {
 
 class TableScanTarget : public AbstractScanTableTarget {
@@ -19,10 +17,18 @@ public:
 	TableScanTarget();
 	virtual ~TableScanTarget();
 
+	void setSchema(const UnicodeString* schema) noexcept;
+	void setTableName(const UnicodeString* tableName) noexcept;
+	void setAlias(const UnicodeString* alias) noexcept;
+
 	virtual const UnicodeString* toString() noexcept;
 
 private:
+	UnicodeString* schema;
+	UnicodeString* tableName;
+	UnicodeString* alias;
 
+	UnicodeString* str;
 };
 
 } /* namespace codablecash */
