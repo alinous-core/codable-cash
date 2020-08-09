@@ -18,6 +18,8 @@
 
 #include "scan_table/AbstractJoinScanTarget.h"
 #include "scan_table/LeftOuterJoinTarget.h"
+#include "scan_table/InnerJoinScanTarget.h"
+#include "scan_table/CrossJoinScanTarget.h"
 
 namespace alinous {
 
@@ -162,7 +164,6 @@ AbstractVmInstance* SQLJoin::interpret(VirtualMachine* vm) {
 }
 
 AbstractJoinScanTarget* SQLJoin::newScanTarget(AbstractScanTableTarget* left, AbstractScanTableTarget* right, uint8_t joinType) {
-
 	AbstractJoinScanTarget* join = nullptr;
 	switch(joinType){
 	case SQLJoinPart::LEFT_OUTER_JOIN:
@@ -176,8 +177,15 @@ AbstractJoinScanTarget* SQLJoin::newScanTarget(AbstractScanTableTarget* left, Ab
 		join->setRight(left);
 		break;
 	case SQLJoinPart::INNER_JOIN:
+		join = new InnerJoinScanTarget();
+		join->setLeft(left);
+		join->setRight(right);
 		break;
 	case SQLJoinPart::CROSS_JOIN:
+		join = new CrossJoinScanTarget();
+		join->setLeft(left);
+		join->setRight(right);
+		break;
 		break;
 	default:
 		throw new CdbException(L"wrong join type", __FILE__, __LINE__);

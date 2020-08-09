@@ -10,12 +10,15 @@
 namespace codablecash {
 
 InnerJoinScanTarget::InnerJoinScanTarget() {
-	// TODO Auto-generated constructor stub
 
 }
 
 InnerJoinScanTarget::~InnerJoinScanTarget() {
-	// TODO Auto-generated destructor stub
+
 }
+
+const UnicodeString* InnerJoinScanTarget::toString() noexcept {
+}
+
 
 } /* namespace codablecash */

@@ -16,6 +16,8 @@ class InnerJoinScanTarget : public AbstractJoinScanTarget {
 public:
 	InnerJoinScanTarget();
 	virtual ~InnerJoinScanTarget();
+
+	virtual const UnicodeString* toString() noexcept;
 };
 
 } /* namespace codablecash */

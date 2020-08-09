@@ -16,6 +16,8 @@ class CrossJoinScanTarget : public AbstractJoinScanTarget {
 public:
 	CrossJoinScanTarget();
 	virtual ~CrossJoinScanTarget();
+
+	virtual const UnicodeString* toString() noexcept;
 };
 
 } /* namespace codablecash */

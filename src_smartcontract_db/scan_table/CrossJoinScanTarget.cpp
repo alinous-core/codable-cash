@@ -10,12 +10,14 @@
 namespace codablecash {
 
 CrossJoinScanTarget::CrossJoinScanTarget() {
-	// TODO Auto-generated constructor stub
 
 }
 
 CrossJoinScanTarget::~CrossJoinScanTarget() {
-	// TODO Auto-generated destructor stub
+
+}
+
+const UnicodeString* CrossJoinScanTarget::toString() noexcept {
 }
 
 } /* namespace codablecash */
