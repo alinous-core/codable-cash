@@ -10,6 +10,11 @@
 
 #include "scan_table/AbstractScanTableTarget.h"
 
+namespace alinous{
+class UnicodeString;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class AbstractJoinScanTarget : public AbstractScanTableTarget {
@@ -19,9 +24,15 @@ public:
 
 	void setLeft(AbstractScanTableTarget* left) noexcept;
 	void setRight(AbstractScanTableTarget* right) noexcept;
+
+protected:
+	void resetStr() noexcept;
+
 protected:
 	AbstractScanTableTarget* left;
 	AbstractScanTableTarget* right;
+
+	UnicodeString* str;
 };
 
 } /* namespace codablecash */
