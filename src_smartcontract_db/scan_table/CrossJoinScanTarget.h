@@ -8,9 +8,11 @@
 #ifndef SCAN_TABLE_CROSSJOINSCANTARGET_H_
 #define SCAN_TABLE_CROSSJOINSCANTARGET_H_
 
+#include "scan_table/AbstractJoinScanTarget.h"
+
 namespace codablecash {
 
-class CrossJoinScanTarget {
+class CrossJoinScanTarget : public AbstractJoinScanTarget {
 public:
 	CrossJoinScanTarget();
 	virtual ~CrossJoinScanTarget();

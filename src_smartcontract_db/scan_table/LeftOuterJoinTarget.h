@@ -16,6 +16,8 @@ class LeftOuterJoinTarget : public AbstractScanTableTarget {
 public:
 	LeftOuterJoinTarget();
 	virtual ~LeftOuterJoinTarget();
+
+
 };
 
 } /* namespace codablecash */

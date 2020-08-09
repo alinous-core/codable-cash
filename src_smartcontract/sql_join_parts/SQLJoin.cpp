@@ -9,6 +9,11 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "vm/VirtualMachine.h"
+
+#include "scan_planner/TablesHolder.h"
+#include "scan_planner/SelectScanPlanner.h"
+
 namespace alinous {
 
 SQLJoin::SQLJoin() : AbstractJoinPart(CodeElement::SQL_EXP_JOIN) {
@@ -125,6 +130,15 @@ void SQLJoin::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLJoin::interpret(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	TablesHolder* tableHolder = planner->getTablesHolder();
+
+	AbstractJoinPart* lastPart = this->first;
+
+	lastPart->interpret(vm);
+	AbstractScanTableTarget* target = tableHolder->pop();
+
+
 	return nullptr; // FIXME SQLJoin
 }
 
