@@ -6,6 +6,7 @@ set(__src
 	CrossJoinScanTarget.cpp
 	InnerJoinScanTarget.cpp
 	LeftOuterJoinTarget.cpp
+	ParenthesisScanTarget.cpp
 	TableScanTarget.cpp
 )
 handle_sub(codablecashlib "${__src}" smartcontract_db scan_table)

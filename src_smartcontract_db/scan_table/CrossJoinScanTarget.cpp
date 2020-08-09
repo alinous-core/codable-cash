@@ -7,6 +7,8 @@
 
 #include "scan_table/CrossJoinScanTarget.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 CrossJoinScanTarget::CrossJoinScanTarget() {
