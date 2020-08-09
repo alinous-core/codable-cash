@@ -45,8 +45,6 @@ public:
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 
-
-
 private:
 	uint8_t joinType;
 	AbstractJoinPart* table;

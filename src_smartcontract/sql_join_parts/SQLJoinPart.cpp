@@ -111,9 +111,9 @@ void SQLJoinPart::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLJoinPart::interpret(VirtualMachine* vm) {
+	this->table->interpret(vm);
 
-
-	return nullptr; // FIXME SQLJoinPart
+	return nullptr;
 }
 
 
