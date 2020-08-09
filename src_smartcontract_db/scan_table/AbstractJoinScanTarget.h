@@ -17,6 +17,8 @@ public:
 	AbstractJoinScanTarget();
 	virtual ~AbstractJoinScanTarget();
 
+	void setLeft(AbstractScanTableTarget* left) noexcept;
+	void setRight(AbstractScanTableTarget* right) noexcept;
 protected:
 	AbstractScanTableTarget* left;
 	AbstractScanTableTarget* right;

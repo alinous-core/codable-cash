@@ -10,12 +10,21 @@
 namespace codablecash {
 
 AbstractJoinScanTarget::AbstractJoinScanTarget() {
-	// TODO Auto-generated constructor stub
-
+	this->left = nullptr;
+	this->right = nullptr;
 }
 
 AbstractJoinScanTarget::~AbstractJoinScanTarget() {
-	// TODO Auto-generated destructor stub
+	delete this->left;
+	delete this->right;
+}
+
+void AbstractJoinScanTarget::setLeft(AbstractScanTableTarget* left) noexcept {
+	this->left = left;
+}
+
+void AbstractJoinScanTarget::setRight(AbstractScanTableTarget* right) noexcept {
+	this->right = right;
 }
 
 } /* namespace codablecash */
