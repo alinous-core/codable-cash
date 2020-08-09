@@ -9,11 +9,14 @@
 
 #include "base/UnicodeString.h"
 
+#include "scan_condition/AbstractScanCondition.h"
+
 namespace codablecash {
 
 AbstractJoinScanTarget::AbstractJoinScanTarget() {
 	this->left = nullptr;
 	this->right = nullptr;
+	this->cond = nullptr;
 
 	this->str = nullptr;
 }
@@ -21,6 +24,7 @@ AbstractJoinScanTarget::AbstractJoinScanTarget() {
 AbstractJoinScanTarget::~AbstractJoinScanTarget() {
 	delete this->left;
 	delete this->right;
+	delete this->cond;
 
 	resetStr();
 }
@@ -32,6 +36,11 @@ void AbstractJoinScanTarget::setLeft(AbstractScanTableTarget* left) noexcept {
 
 void AbstractJoinScanTarget::setRight(AbstractScanTableTarget* right) noexcept {
 	this->right = right;
+	resetStr();
+}
+
+void AbstractJoinScanTarget::setCondition(AbstractScanCondition* cond) noexcept {
+	this->cond = cond;
 	resetStr();
 }
 

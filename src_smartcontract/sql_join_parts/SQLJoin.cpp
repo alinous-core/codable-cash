@@ -155,6 +155,8 @@ AbstractVmInstance* SQLJoin::interpret(VirtualMachine* vm) {
 		uint8_t joinType = part->getJoinType();
 		lastTarget = SQLJoin::newScanTarget(lastTarget, target, joinType);
 
+
+
 		if(i == 0){
 			tableHolder->push(target);
 		}
@@ -188,8 +190,10 @@ AbstractJoinScanTarget* SQLJoin::newScanTarget(AbstractScanTableTarget* left, Ab
 		break;
 		break;
 	default:
+		delete right;
 		throw new CdbException(L"wrong join type", __FILE__, __LINE__);
 	}
+
 
 	return join;
 }

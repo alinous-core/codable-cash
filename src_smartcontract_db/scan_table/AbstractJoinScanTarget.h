@@ -17,20 +17,25 @@ using namespace alinous;
 
 namespace codablecash {
 
+class AbstractScanCondition;
+
 class AbstractJoinScanTarget : public AbstractScanTableTarget {
 public:
 	AbstractJoinScanTarget();
 	virtual ~AbstractJoinScanTarget();
 
-	void setLeft(AbstractScanTableTarget* left) noexcept;
-	void setRight(AbstractScanTableTarget* right) noexcept;
+	virtual void setLeft(AbstractScanTableTarget* left) noexcept;
+	virtual void setRight(AbstractScanTableTarget* right) noexcept;
 
+	void setCondition(AbstractScanCondition* cond) noexcept;
 protected:
 	void resetStr() noexcept;
 
 protected:
 	AbstractScanTableTarget* left;
 	AbstractScanTableTarget* right;
+
+	AbstractScanCondition* cond;
 
 	UnicodeString* str;
 };

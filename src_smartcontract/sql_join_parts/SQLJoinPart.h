@@ -45,6 +45,10 @@ public:
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 
+	AbstractSQLExpression* getExp() const noexcept {
+		return exp;
+	}
+
 private:
 	uint8_t joinType;
 	AbstractJoinPart* table;
