@@ -14,6 +14,11 @@
 #include "scan_planner/TablesHolder.h"
 #include "scan_planner/SelectScanPlanner.h"
 
+#include "engine/CdbException.h"
+
+#include "scan_table/AbstractJoinScanTarget.h"
+#include "scan_table/LeftOuterJoinTarget.h"
+
 namespace alinous {
 
 SQLJoin::SQLJoin() : AbstractJoinPart(CodeElement::SQL_EXP_JOIN) {
@@ -136,11 +141,49 @@ AbstractVmInstance* SQLJoin::interpret(VirtualMachine* vm) {
 	AbstractJoinPart* lastPart = this->first;
 
 	lastPart->interpret(vm);
-	AbstractScanTableTarget* target = tableHolder->pop();
+	AbstractScanTableTarget* lastTarget = tableHolder->pop();
 
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SQLJoinPart* part = this->list.get(i);
+
+		part->interpret(vm);
+		AbstractScanTableTarget* target = tableHolder->pop();
+
+		uint8_t joinType = part->getJoinType();
+		lastTarget = SQLJoin::newScanTarget(lastTarget, target, joinType);
+
+		if(i == 0){
+			tableHolder->push(target);
+		}
+	}
 
 	return nullptr; // FIXME SQLJoin
 }
 
+AbstractJoinScanTarget* SQLJoin::newScanTarget(AbstractScanTableTarget* left, AbstractScanTableTarget* right, uint8_t joinType) {
+
+	AbstractJoinScanTarget* join = nullptr;
+	switch(joinType){
+	case SQLJoinPart::LEFT_OUTER_JOIN:
+		join = new LeftOuterJoinTarget();
+		join->setLeft(left);
+		join->setRight(right);
+		break;
+	case SQLJoinPart::RIGHT_OUTER_JOIN:
+		join = new LeftOuterJoinTarget();
+		join->setLeft(right);
+		join->setRight(left);
+		break;
+	case SQLJoinPart::INNER_JOIN:
+		break;
+	case SQLJoinPart::CROSS_JOIN:
+		break;
+	default:
+		throw new CdbException(L"wrong join type", __FILE__, __LINE__);
+	}
+
+	return join;
+}
 
 } /* namespace alinous */

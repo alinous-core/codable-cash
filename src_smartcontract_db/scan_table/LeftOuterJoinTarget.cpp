@@ -17,4 +17,8 @@ LeftOuterJoinTarget::~LeftOuterJoinTarget() {
 
 }
 
+const UnicodeString* LeftOuterJoinTarget::toString() noexcept {
+}
+
+
 } /* namespace codablecash */

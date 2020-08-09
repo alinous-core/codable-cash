@@ -17,7 +17,7 @@ public:
 	LeftOuterJoinTarget();
 	virtual ~LeftOuterJoinTarget();
 
-
+	virtual const UnicodeString* toString() noexcept;
 };
 
 } /* namespace codablecash */
