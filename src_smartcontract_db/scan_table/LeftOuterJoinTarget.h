@@ -8,11 +8,11 @@
 #ifndef SCAN_TABLE_LEFTOUTERJOINTARGET_H_
 #define SCAN_TABLE_LEFTOUTERJOINTARGET_H_
 
-#include "scan_table/AbstractScanTableTarget.h"
+#include "scan_table/AbstractJoinScanTarget.h"
 
 namespace codablecash {
 
-class LeftOuterJoinTarget : public AbstractScanTableTarget {
+class LeftOuterJoinTarget : public AbstractJoinScanTarget {
 public:
 	LeftOuterJoinTarget();
 	virtual ~LeftOuterJoinTarget();

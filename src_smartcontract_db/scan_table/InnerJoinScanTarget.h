@@ -8,11 +8,11 @@
 #ifndef SCAN_TABLE_INNERJOINSCANTARGET_H_
 #define SCAN_TABLE_INNERJOINSCANTARGET_H_
 
-#include "scan_table/AbstractScanTableTarget.h"
+#include "scan_table/AbstractJoinScanTarget.h"
 
 namespace codablecash {
 
-class InnerJoinScanTarget : public AbstractScanTableTarget {
+class InnerJoinScanTarget : public AbstractJoinScanTarget {
 public:
 	InnerJoinScanTarget();
 	virtual ~InnerJoinScanTarget();
