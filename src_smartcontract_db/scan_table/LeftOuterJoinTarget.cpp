@@ -30,6 +30,7 @@ const UnicodeString* LeftOuterJoinTarget::toString() noexcept {
 
 		this->str->append(this->right->toString());
 
+		addConditionString();
 	}
 
 	return this->str;
