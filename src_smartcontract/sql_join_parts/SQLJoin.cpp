@@ -13,6 +13,7 @@
 
 #include "scan_planner/TablesHolder.h"
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolder.h"
 
 #include "engine/CdbException.h"
 
@@ -20,6 +21,10 @@
 #include "scan_table/LeftOuterJoinTarget.h"
 #include "scan_table/InnerJoinScanTarget.h"
 #include "scan_table/CrossJoinScanTarget.h"
+
+#include "scan_condition/AbstractScanConditionElement.h"
+#include "scan_condition/ScanConditionCast.h"
+
 
 namespace alinous {
 
@@ -154,6 +159,11 @@ AbstractVmInstance* SQLJoin::interpret(VirtualMachine* vm) {
 		AbstractScanTableTarget* target = tableHolder->pop();
 		currentJoin->setRight(target);
 
+		AbstractSQLExpression* exp = part->getExp();
+		if(exp != nullptr){
+			handleOnCondition(vm, planner, currentJoin, exp);
+		}
+
 		if(lastJoin != nullptr){
 			lastJoin->setLeft(currentJoin);
 		}
@@ -169,6 +179,17 @@ AbstractVmInstance* SQLJoin::interpret(VirtualMachine* vm) {
 
 
 	return nullptr; // FIXME SQLJoin
+}
+
+void SQLJoin::handleOnCondition(VirtualMachine* vm, SelectScanPlanner* planner,
+		AbstractJoinScanTarget* currentJoin, AbstractSQLExpression* exp) {
+	exp->interpret(vm);
+
+	ConditionsHolder* cholder = planner->getConditions();
+	AbstractScanConditionElement* element = cholder->pop();
+
+	AbstractScanCondition* cond = ScanConditionCast::toAbstractScanCondition(element, vm, this);
+	currentJoin->setCondition(cond);
 }
 
 AbstractJoinScanTarget* SQLJoin::newScanTarget(uint8_t joinType) {
