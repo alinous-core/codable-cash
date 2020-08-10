@@ -43,7 +43,7 @@ public:
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 
-	static AbstractJoinScanTarget* newScanTarget(AbstractScanTableTarget* left, AbstractScanTableTarget* right, uint8_t joinType);
+	static AbstractJoinScanTarget* newScanTarget(uint8_t joinType);
 private:
 	AbstractJoinPart* first;
 	ArrayList<SQLJoinPart> list;

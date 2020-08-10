@@ -140,57 +140,50 @@ AbstractVmInstance* SQLJoin::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 	TablesHolder* tableHolder = planner->getTablesHolder();
 
-	AbstractJoinPart* lastPart = this->first;
+	AbstractJoinScanTarget* lastJoin = nullptr;
 
-	lastPart->interpret(vm);
-	AbstractScanTableTarget* lastTarget = tableHolder->pop();
-
-	int maxLoop = this->list.size();
-	for(int i = 0; i != maxLoop; ++i){
+	int maxIndex = this->list.size() - 1;
+	for(int i = maxIndex; i >= 0; --i){
 		SQLJoinPart* part = this->list.get(i);
+
+		uint8_t joinType = part->getJoinType();
+		AbstractJoinScanTarget* currentJoin = newScanTarget(joinType);
+		tableHolder->push(currentJoin);
 
 		part->interpret(vm);
 		AbstractScanTableTarget* target = tableHolder->pop();
+		currentJoin->setRight(target);
 
-		uint8_t joinType = part->getJoinType();
-		lastTarget = SQLJoin::newScanTarget(lastTarget, target, joinType);
-
-
-
-		if(i == 0){
-			tableHolder->push(target);
+		if(lastJoin != nullptr){
+			lastJoin->setLeft(currentJoin);
 		}
+		lastJoin = currentJoin;
+		tableHolder->pop();
 	}
+
+	this->first->interpret(vm);
+	AbstractScanTableTarget* firstTarget = tableHolder->pop();
+	lastJoin->setLeft(firstTarget);
 
 	return nullptr; // FIXME SQLJoin
 }
 
-AbstractJoinScanTarget* SQLJoin::newScanTarget(AbstractScanTableTarget* left, AbstractScanTableTarget* right, uint8_t joinType) {
+AbstractJoinScanTarget* SQLJoin::newScanTarget(uint8_t joinType) {
 	AbstractJoinScanTarget* join = nullptr;
 	switch(joinType){
 	case SQLJoinPart::LEFT_OUTER_JOIN:
 		join = new LeftOuterJoinTarget();
-		join->setLeft(left);
-		join->setRight(right);
 		break;
 	case SQLJoinPart::RIGHT_OUTER_JOIN:
 		join = new LeftOuterJoinTarget();
-		join->setLeft(right);
-		join->setRight(left);
 		break;
 	case SQLJoinPart::INNER_JOIN:
 		join = new InnerJoinScanTarget();
-		join->setLeft(left);
-		join->setRight(right);
 		break;
 	case SQLJoinPart::CROSS_JOIN:
 		join = new CrossJoinScanTarget();
-		join->setLeft(left);
-		join->setRight(right);
-		break;
 		break;
 	default:
-		delete right;
 		throw new CdbException(L"wrong join type", __FILE__, __LINE__);
 	}
 
