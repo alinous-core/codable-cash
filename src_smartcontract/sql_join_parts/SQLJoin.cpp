@@ -161,9 +161,12 @@ AbstractVmInstance* SQLJoin::interpret(VirtualMachine* vm) {
 		tableHolder->pop();
 	}
 
+	tableHolder->push(lastJoin);
+
 	this->first->interpret(vm);
 	AbstractScanTableTarget* firstTarget = tableHolder->pop();
 	lastJoin->setLeft(firstTarget);
+
 
 	return nullptr; // FIXME SQLJoin
 }
