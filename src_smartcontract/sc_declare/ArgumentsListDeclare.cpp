@@ -156,7 +156,7 @@ void ArgumentsListDeclare::makeString() noexcept {
 		AnalyzedType* atype = typeList->get(i);
 
 		if(i > 0){
-			this->str->append(L" ");
+			this->str->append(L", ");
 		}
 
 		this->str->append(atype->stringName());

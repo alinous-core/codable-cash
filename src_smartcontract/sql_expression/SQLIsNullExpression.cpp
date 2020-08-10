@@ -11,6 +11,13 @@
 
 #include "instance_ref/PrimitiveReference.h"
 
+#include "scan_condition_exp/IsNullScanCondition.h"
+
+#include "scan_condition/ScanConditionCast.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "vm/VirtualMachine.h"
 
 namespace alinous {
 
@@ -80,14 +87,21 @@ void SQLIsNullExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLIsNullExpression::interpret(VirtualMachine* vm) {
-	AbstractVmInstance* inst = this->exp->interpret(vm);
+	SelectScanPlanner* planner = vm->getSelectPlanner();
 
-	bool bl = (inst == nullptr) || inst->isNull();
-	if(notnull){
-		return PrimitiveReference::createBoolReference(vm, bl ? 0 : 1);
-	}
+	IsNullScanCondition* cond = new IsNullScanCondition();
 
-	return PrimitiveReference::createBoolReference(vm, bl ? 1 : 0);
+	planner->push(cond);
+
+	this->exp->interpret(vm);
+
+	AbstractScanConditionElement* element = planner->pop();
+	IValueProvider* inner = ScanConditionCast::toIValueProvider(element, vm, this);
+
+	cond->setCondition(inner);
+	cond->setIsNull(this->notnull);
+
+	return nullptr;
 }
 
 

@@ -7,6 +7,20 @@
 
 #include "sql_expression/SQLAdditiveExpression.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "scan_condition_arithmetic/AdditiveScanCondition.h"
+
+#include "scan_condition/AbstractScanConditionElement.h"
+
+#include "scan_condition/ScanConditionCast.h"
+
+using namespace codablecash;
+
 namespace alinous {
 
 SQLAdditiveExpression::SQLAdditiveExpression() : AbstractSQLBinaryExpression(CodeElement::SQL_EXP_ADDITIVE), operations(4) {
@@ -53,9 +67,74 @@ void SQLAdditiveExpression::fromBinary(ByteBuffer* in) {
 		this->operations.addElement(op);
 	}
 }
+/*
+void SQLAdditiveExpression::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->setParent(this);
+		exp->preAnalyze(actx);
+	}
+}
+
+void SQLAdditiveExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->analyzeTypeRef(actx);
+	}
+}
+
+void SQLAdditiveExpression::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->analyze(actx);
+	}
+}
+*/
+AnalyzedType SQLAdditiveExpression::getType(AnalyzeContext* actx) {
+	return AnalyzedType(AnalyzedType::TYPE_LONG);
+}
+/*
+void SQLAdditiveExpression::init(VirtualMachine* vm) {
+	int maxLoop = this->operations.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+		exp->init(vm);
+	}
+}*/
+
 
 AbstractVmInstance* SQLAdditiveExpression::interpret(VirtualMachine* vm) {
-	// FIXME SQLAdditiveExpression
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	AdditiveScanCondition* cond = new AdditiveScanCondition();
+
+	planner->push(cond);
+
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->interpret(vm);
+
+		AbstractScanConditionElement* l = planner->pop();
+		IValueProvider* vp = ScanConditionCast::toIValueProvider(l, vm, this);
+
+		cond->addOperand(vp);
+	}
+
+	maxLoop = this->operations.size();
+	for(int i = 0; i != maxLoop; ++i){
+		uint8_t op = this->operations.get(i);
+
+		cond->addOperator(op);
+	}
+
 	return nullptr;
 }
 

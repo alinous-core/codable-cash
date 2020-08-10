@@ -10,16 +10,26 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "vm/VirtualMachine.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/TablesHolder.h"
+
+#include "scan_table/TableScanTarget.h"
+
+
 namespace alinous {
 
 TableIdentifier::TableIdentifier() : AbstractJoinPart(CodeElement::SQL_EXP_TABLE_ID) {
 	this->schema = nullptr;
 	this->tableName =nullptr;
+	this->alias = nullptr;
 }
 
 TableIdentifier::~TableIdentifier() {
 	delete this->schema;
 	delete this->tableName;
+	delete this->alias;
 }
 
 void TableIdentifier::setSchema(UnicodeString* schema) noexcept {
@@ -28,6 +38,10 @@ void TableIdentifier::setSchema(UnicodeString* schema) noexcept {
 
 void TableIdentifier::setTableName(UnicodeString* tableName) noexcept {
 	this->tableName = tableName;
+}
+
+void TableIdentifier::setAlias(UnicodeString* alias) noexcept {
+	this->alias = alias;
 }
 
 int TableIdentifier::binarySize() const {
@@ -42,6 +56,11 @@ int TableIdentifier::binarySize() const {
 
 	total += stringSize(this->tableName);
 
+	total += sizeof(uint8_t);
+	if(this->alias != nullptr){
+		total += stringSize(this->alias);
+	}
+
 	return total;
 }
 
@@ -55,6 +74,11 @@ void TableIdentifier::toBinary(ByteBuffer* out) {
 		putString(out, this->schema);
 	}
 	putString(out, this->tableName);
+
+	out->put(this->alias != nullptr ? 1 : 0);
+	if(this->alias != nullptr){
+		putString(out, this->alias);
+	}
 }
 
 void TableIdentifier::fromBinary(ByteBuffer* in) {
@@ -64,6 +88,11 @@ void TableIdentifier::fromBinary(ByteBuffer* in) {
 	}
 
 	this->tableName = getString(in);
+
+	bl = in->get();
+	if(bl == 1){
+		this->alias = getString(in);
+	}
 }
 
 void TableIdentifier::preAnalyze(AnalyzeContext* actx) {
@@ -83,6 +112,16 @@ void TableIdentifier::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* TableIdentifier::interpret(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	TablesHolder* tables = planner->getTablesHolder();
+
+	TableScanTarget* target = new TableScanTarget();
+	target->setSchema(this->schema);
+	target->setTableName(this->tableName);
+	target->setAlias(this->alias);
+
+	tables->push(target);
+
 	return nullptr;
 }
 

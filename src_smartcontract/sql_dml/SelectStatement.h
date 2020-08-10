@@ -9,6 +9,12 @@
 #define SQL_DML_SELECTSTATEMENT_H_
 
 #include "sql/AbstractSQLStatement.h"
+#include <cstdint>
+
+namespace codablecash {
+class SelectScanPlanner;
+}
+using namespace codablecash;
 
 namespace alinous {
 class SQLSelectTargetList;
@@ -40,7 +46,12 @@ public:
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
 
+	virtual void init(VirtualMachine* vm);
 	virtual void interpret(VirtualMachine* vm);
+
+private:
+	void buildPlanner(VirtualMachine* vm, uint64_t currentVer);
+
 private:
 	SQLSelectTargetList* list;
 	SQLFrom* from;
@@ -50,6 +61,9 @@ private:
 	SQLLimitOffset* limitOffset;
 
 	UnicodeString* intoVar;
+
+	uint64_t lastSchemaVersion;
+	SelectScanPlanner* planner;
 };
 
 } /* namespace alinous */

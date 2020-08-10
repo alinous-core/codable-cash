@@ -10,14 +10,18 @@
 namespace alinous {
 
 AbstractSQLExpression::AbstractSQLExpression(int kind) : CodeElement(kind) {
+	this->executable = true;
 }
 
 AbstractSQLExpression::~AbstractSQLExpression() {
 }
 
 bool AbstractSQLExpression::isExecutable() {
-	return true;
+	return this->executable;
 }
 
+void AbstractSQLExpression::setExecutable(bool executable) noexcept {
+	this->executable = executable;
+}
 
 } /* namespace alinous */

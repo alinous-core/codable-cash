@@ -43,7 +43,11 @@
 
 #include "base/StackRelease.h"
 
+#include "table_record_value/CdbByteValue.h"
 
+#include "table_record_value/CdbShortValue.h"
+
+#include "table_record_value/CdbLongValue.h"
 using namespace alinous;
 using namespace codablecash;
 
@@ -88,6 +92,30 @@ TEST(TestInsertPartGroup, testBinary01){
 	record->addValue(new CdbIntValue(1));
 	record->addValue(new CdbStringValue(L"hello"));
 	record->addValue(nullptr);
+
+	log.addRecord(record);
+
+	int size = log.binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+	log.toBinary(buff);
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+}
+
+TEST(TestInsertPartGroup, testBinary02){
+	InsertLog log;
+
+	CdbTableIdentifier* tableId = new CdbTableIdentifier();
+	tableId->setTable(new UnicodeString(L"test_table"));
+	log.setTable(tableId);
+
+	CdbRecord* record = new CdbRecord();
+	record->addValue(new CdbIntValue(1));
+	record->addValue(new CdbStringValue(L"hello"));
+	record->addValue(new CdbByteValue(2));
+	record->addValue(new CdbShortValue(3));
+	record->addValue(new CdbLongValue(4));
 
 	log.addRecord(record);
 

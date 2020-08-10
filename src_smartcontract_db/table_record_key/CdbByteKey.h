@@ -26,6 +26,10 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	virtual void fromBinary(ByteBuffer* in);
 
+	int8_t getValue() const noexcept {
+		return value;
+	}
+
 private:
 	int8_t value;
 };

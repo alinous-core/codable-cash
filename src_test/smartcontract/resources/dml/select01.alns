@@ -1,5 +1,5 @@
 SELECT col1, col2
-FROM table1
+FROM table1 as T1
 WHERE
 	col3 = 3
 GROUP BY col1, col2

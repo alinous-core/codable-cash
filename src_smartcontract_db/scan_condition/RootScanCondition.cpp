@@ -9,12 +9,21 @@
 
 namespace codablecash {
 
-RootScanCondition::RootScanCondition() {
-
+RootScanCondition::RootScanCondition() : AbstractScanCondition(0) {
+	this->cond = nullptr;
 }
 
 RootScanCondition::~RootScanCondition() {
+	delete this->cond;
+}
 
+void RootScanCondition::addCondition(AbstractScanCondition* cond) {
+	delete this->cond;
+	this->cond = cond;
+}
+
+const UnicodeString* RootScanCondition::toStringCode() noexcept {
+	return this->cond->toStringCode();
 }
 
 } /* namespace codablecash */

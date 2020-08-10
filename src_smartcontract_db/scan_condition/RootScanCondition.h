@@ -16,6 +16,13 @@ class RootScanCondition : public AbstractScanCondition {
 public:
 	RootScanCondition();
 	virtual ~RootScanCondition();
+
+	virtual void addCondition(AbstractScanCondition* cond);
+	virtual bool isContainer() const noexcept { return true; };
+
+	virtual const UnicodeString* toStringCode() noexcept;
+private:
+	AbstractScanCondition* cond;
 };
 
 } /* namespace codablecash */

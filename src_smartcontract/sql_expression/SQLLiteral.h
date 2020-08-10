@@ -35,6 +35,9 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
+private:
+	void interpretOnPlanning(VirtualMachine* vm);
 private:
 	UnicodeString* value;
 	uint8_t type;

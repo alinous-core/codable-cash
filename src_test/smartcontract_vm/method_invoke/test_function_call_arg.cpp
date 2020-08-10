@@ -17,6 +17,7 @@
 #include "ext_binary/ExtClassObject.h"
 #include "ext_binary/ExtPrimitiveObject.h"
 
+#include "sc_analyze/ValidationError.h"
 using namespace alinous;
 
 TEST_GROUP(TestFunctionCallArgGroup) {
@@ -73,3 +74,44 @@ TEST(TestFunctionCallArgGroup, arg02_error){
 	bool result = util.analyze();
 	CHECK(!result)
 }
+
+TEST(TestFunctionCallArgGroup, arg03_error){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/method_invoke/resources/arg/case03_error/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+
+	CHECK(util.vm->hasAnalyzeError(ValidationError::CODE_WRONG_TYPE_NAME))
+}
+
+TEST(TestFunctionCallArgGroup, arg04_error){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/method_invoke/resources/arg/case04_error/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+
+	CHECK(util.vm->hasAnalyzeError(ValidationError::CODE_WRONG_TYPE_NAME))
+}
+
+TEST(TestFunctionCallArgGroup, arg05_error){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/method_invoke/resources/arg/case05_error/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+
+	CHECK(util.vm->hasAnalyzeError(ValidationError::CODE_WRONG_TYPE_NAME))
+}
+
+

@@ -20,7 +20,7 @@ class AbstractVmInstance;
 
 class AbstractSQLExpression: public CodeElement, public ISQLElement {
 public:
-	AbstractSQLExpression(int kind);
+	explicit AbstractSQLExpression(int kind);
 	virtual ~AbstractSQLExpression();
 
 	virtual void preAnalyze(AnalyzeContext* actx) = 0;
@@ -32,6 +32,9 @@ public:
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm) = 0;
 
 	virtual bool isExecutable();
+	void setExecutable(bool executable) noexcept;
+private:
+	bool executable;
 };
 
 } /* namespace alinous */

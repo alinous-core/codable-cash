@@ -18,6 +18,13 @@
 
 #include "base/StackRelease.h"
 
+#include "scan_condition_params/AbstractScanConditionParameter.h"
+#include "scan_condition_params/NumericScanParam.h"
+#include "scan_condition_params/StringScanParam.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
+
 namespace alinous {
 
 SQLLiteral::SQLLiteral() : AbstractSQLExpression(CodeElement::SQL_EXP_LITERAL) {
@@ -88,6 +95,11 @@ void SQLLiteral::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLLiteral::interpret(VirtualMachine* vm) {
+	if(vm->isSelectPlanning()){
+		interpretOnPlanning(vm);
+		return nullptr;
+	}
+
 	if(this->type == SQLLiteral::TYPE_NUMBER){
 		return PrimitiveReference::createLongReference(vm, this->longv);
 	}
@@ -96,5 +108,18 @@ AbstractVmInstance* SQLLiteral::interpret(VirtualMachine* vm) {
 	return inst;
 }
 
+void SQLLiteral::interpretOnPlanning(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	AbstractScanConditionParameter* param = nullptr;
+	if(this->type == SQLLiteral::TYPE_NUMBER){
+		param = new NumericScanParam(this->longv);
+	}
+	else{
+		param = new StringScanParam(this->stringValue);
+	}
+
+	planner->push(param);
+}
 
 } /* namespace alinous */

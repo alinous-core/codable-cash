@@ -26,6 +26,10 @@ public:
 	virtual ~SQLJoinPart();
 
 	void setJoinType(uint8_t joinType) noexcept;
+	uint8_t getJoinType() const noexcept {
+		return joinType;
+	}
+
 	void setTable(AbstractJoinPart* table) noexcept;
 	void setExpression(AbstractSQLExpression* exp) noexcept;
 
@@ -40,6 +44,11 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
+	AbstractSQLExpression* getExp() const noexcept {
+		return exp;
+	}
+
 private:
 	uint8_t joinType;
 	AbstractJoinPart* table;

@@ -33,6 +33,7 @@ public:
 	void setPackage(PackageDeclare* package);
 	void setImports(ImportsDeclare* imports) noexcept;
 	void addClassDeclare(ClassDeclare* clazz);
+	ClassDeclare* getClassDeclare(int pos) const noexcept;
 
 	const UnicodeString* getPackageName() noexcept;
 

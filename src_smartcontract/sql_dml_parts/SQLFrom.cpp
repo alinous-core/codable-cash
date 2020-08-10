@@ -23,6 +23,10 @@ void SQLFrom::setTable(AbstractJoinPart* tableId) noexcept {
 	this->tableId = tableId;
 }
 
+AbstractJoinPart* alinous::SQLFrom::getTablePart() const noexcept {
+	return this->tableId;
+}
+
 int SQLFrom::binarySize() const {
 	checkNotNull(this->tableId);
 

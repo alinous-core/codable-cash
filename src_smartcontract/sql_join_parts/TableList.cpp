@@ -9,6 +9,13 @@
 #include "sql_join_parts/TableIdentifier.h"
 
 #include "sc_analyze/AnalyzedType.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/TablesHolder.h"
+
+#include "scan_table/AbstractScanTableTarget.h"
 namespace alinous {
 
 TableList::TableList() : AbstractJoinPart(CodeElement::SQL_EXP_TABLE_LIST) {
@@ -101,7 +108,20 @@ void TableList::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* TableList::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME TableList
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	TablesHolder* tableHolder = planner->getTablesHolder();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractJoinPart* tableId = this->list.get(i);
+
+		tableId->interpret(vm);
+
+		AbstractScanTableTarget* target = tableHolder->pop();
+		tableHolder->addScanTarget(target);
+	}
+
+	return nullptr;
 }
 
 

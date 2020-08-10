@@ -23,6 +23,7 @@
 
 #include "type_check/InternalTypeChecker.h"
 
+#include "sc_analyze/ValidationError.h"
 
 using namespace alinous;
 
@@ -174,6 +175,30 @@ TEST(TestTypeCheckGroup, intnlObjectTest06){
 
 	bool result = util.analyze();
 	CHECK(result)
+}
 
+TEST(TestTypeCheckGroup, memberVariable_error01){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/variables/resources/typecheck/case07_err/", projectFolder);
 
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+
+	CHECK(util.vm->hasAnalyzeError(ValidationError::CODE_WRONG_TYPE_NAME));
+}
+
+TEST(TestTypeCheckGroup, memberVariable_error02){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/variables/resources/typecheck/case08_err/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+
+	CHECK(util.vm->hasAnalyzeError(ValidationError::CODE_WRONG_TYPE_NAME));
 }

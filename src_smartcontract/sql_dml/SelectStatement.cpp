@@ -15,6 +15,27 @@
 
 #include "base/UnicodeString.h"
 
+#include "sc_analyze_stack/AnalyzeStack.h"
+#include "sc_analyze_stack/AnalyzeStackManager.h"
+#include "sc_analyze_stack/AnalyzedStackReference.h"
+
+#include "sc_analyze/AnalyzeContext.h"
+#include "sc_analyze/AnalyzedType.h"
+
+#include "vm/VirtualMachine.h"
+#include "vm/VmSelectPlannerSetter.h"
+
+#include "vm_trx/VmTransactionHandler.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/TablesHolder.h"
+
+#include "sql/AbstractJoinPart.h"
+
+#include "scan_table/AbstractScanTableTarget.h"
+
+#include "instance_exception/ExceptionInterrupt.h"
+
 namespace alinous {
 
 SelectStatement::SelectStatement() : AbstractSQLStatement(CodeElement::DML_STMT_SELECT) {
@@ -25,6 +46,8 @@ SelectStatement::SelectStatement() : AbstractSQLStatement(CodeElement::DML_STMT_
 	this->orderBy = nullptr;
 	this->limitOffset = nullptr;
 	this->intoVar = nullptr;
+	this->lastSchemaVersion = 0;
+	this->planner = nullptr;
 }
 
 SelectStatement::~SelectStatement() {
@@ -35,17 +58,48 @@ SelectStatement::~SelectStatement() {
 	delete this->orderBy;
 	delete this->limitOffset;
 	delete this->intoVar;
+	delete this->planner;
 }
 
 void SelectStatement::preAnalyze(AnalyzeContext* actx) {
+	if(this->list != nullptr){
+		list->setParent(this);
+	}
 
+	this->from->setParent(this);
+	AbstractJoinPart* tablePart = this->from->getTablePart();
+	tablePart->preAnalyze(actx);
+
+	if(this->where != nullptr){
+		this->where->setParent(this);
+		this->where->preAnalyze(actx);
+	}
 }
 
 void SelectStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	AbstractJoinPart* tablePart = this->from->getTablePart();
+	tablePart->analyzeTypeRef(actx);
+
+	if(this->where != nullptr){
+		this->where->analyzeTypeRef(actx);
+	}
 }
 
 void SelectStatement::analyze(AnalyzeContext* actx) {
+	AbstractJoinPart* tablePart = this->from->getTablePart();
+	tablePart->analyze(actx);
 
+	if(this->where != nullptr){
+		this->where->analyze(actx);
+	}
+
+	AnalyzeStackManager* stackManager = actx->getAnalyzeStackManager();
+	AnalyzeStack* stack = stackManager->top();
+
+	//this->intoVar
+	AnalyzedType at(AnalyzedType::TYPE_DOM);
+	AnalyzedStackReference* ref = new AnalyzedStackReference(this->intoVar, &at);
+	stack->addVariableDeclare(ref);
 }
 
 void SelectStatement::setList(SQLSelectTargetList* list) noexcept {
@@ -174,8 +228,51 @@ void SelectStatement::fromBinary(ByteBuffer* in) {
 	}
 }
 
+void SelectStatement::init(VirtualMachine* vm) {
+	AbstractJoinPart* tablePart = this->from->getTablePart();
+	tablePart->init(vm);
+
+	if(this->where != nullptr){
+		this->where->init(vm);
+	}
+}
+
 void SelectStatement::interpret(VirtualMachine* vm) {
+	VmTransactionHandler* trxHandler = vm->getTransactionHandler();
+
+	uint64_t currentVer = trxHandler->getSchemaObjectVersionId();
+	if(currentVer > this->lastSchemaVersion){
+		try{
+			buildPlanner(vm, currentVer);
+		}
+		catch(ExceptionInterrupt* e){
+			delete e;
+			return;
+		}
+	}
+
 	// FIXME SQL statement
+}
+
+void SelectStatement::buildPlanner(VirtualMachine* vm, uint64_t currentVer) {
+	delete this->planner;
+	this->planner = new SelectScanPlanner();
+
+	VmSelectPlannerSetter setter(vm, this->planner);
+
+	AbstractJoinPart* tablePart = this->from->getTablePart();
+	tablePart->interpret(vm);
+	TablesHolder* tableHolder = this->planner->getTablesHolder();
+	if(!tableHolder->isEmpty()){
+		AbstractScanTableTarget* target = tableHolder->pop();
+		tableHolder->addScanTarget(target);
+	}
+
+	if(this->where != nullptr){
+		where->interpret(vm);
+	}
+
+	this->lastSchemaVersion = currentVer;
 }
 
 } /* namespace alinous */

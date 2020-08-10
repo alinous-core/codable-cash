@@ -7,6 +7,23 @@
 
 #include "sql_expression/SqlMultiplicativeExpression.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "scan_condition_arithmetic/MultiplicativeScanCondition.h"
+#include "scan_condition/AbstractScanConditionElement.h"
+#include "scan_condition/IValueProvider.h"
+#include "scan_condition/ScanConditionCast.h"
+
+#include "vm/VirtualMachine.h"
+
+
+using codablecash::AbstractScanConditionElement;
+using codablecash::IValueProvider;
+using codablecash::ScanConditionCast;
+using codablecash::SelectScanPlanner;
+
 namespace alinous {
 
 SqlMultiplicativeExpression::SqlMultiplicativeExpression() : AbstractSQLBinaryExpression(CodeElement::SQL_EXP_MULTIPLICATIVE), operations(4) {
@@ -54,8 +71,74 @@ void SqlMultiplicativeExpression::fromBinary(ByteBuffer* in) {
 	}
 }
 
+void SqlMultiplicativeExpression::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->setParent(this);
+		exp->preAnalyze(actx);
+	}
+}
+
+void SqlMultiplicativeExpression::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->analyzeTypeRef(actx);
+	}
+}
+
+void SqlMultiplicativeExpression::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->analyze(actx);
+	}
+}
+
+AnalyzedType SqlMultiplicativeExpression::getType(AnalyzeContext* actx) {
+	return AnalyzedType(AnalyzedType::TYPE_LONG);
+}
+
+void SqlMultiplicativeExpression::init(VirtualMachine* vm) {
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->init(vm);
+	}
+}
+
 AbstractVmInstance* SqlMultiplicativeExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME SqlMultiplicativeExpression
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	MultiplicativeScanCondition* cond = new MultiplicativeScanCondition();
+
+	planner->push(cond);
+
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->interpret(vm);
+
+		AbstractScanConditionElement* l = planner->pop();
+		IValueProvider* vp = ScanConditionCast::toIValueProvider(l, vm, this);
+
+		cond->addOperand(vp);
+	}
+
+	maxLoop = this->operations.size();
+	for(int i = 0; i != maxLoop; ++i){
+		uint8_t op = this->operations.get(i);
+
+		cond->addOperator(op);
+	}
+
+	return nullptr;
 }
 
 

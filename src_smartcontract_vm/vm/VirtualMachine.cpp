@@ -63,6 +63,8 @@
 
 #include "vm_trx/VmTransactionHandler.h"
 
+#include "scan_planner/SelectScanPlanner.h"
+
 namespace alinous {
 
 VirtualMachine::VirtualMachine(uint64_t memCapacity) {
@@ -428,5 +430,23 @@ bool VirtualMachine::isCaught() const noexcept {
 	return this->caught;
 }
 
+void VirtualMachine::setSelectPlanner(SelectScanPlanner* planner) noexcept {
+	this->selectPlannerList.addElement(planner);
+}
+
+
+void VirtualMachine::popSelectPlanner() noexcept {
+	int lastIndex = this->selectPlannerList.size() - 1;
+	this->selectPlannerList.remove(lastIndex);
+}
+
+SelectScanPlanner* VirtualMachine::getSelectPlanner() const noexcept {
+	int lastIndex = this->selectPlannerList.size() - 1;
+	return this->selectPlannerList.get(lastIndex);
+}
+
+bool VirtualMachine::isSelectPlanning() const noexcept {
+	return !this->selectPlannerList.isEmpty();
+}
 
 } /* namespace alinous */

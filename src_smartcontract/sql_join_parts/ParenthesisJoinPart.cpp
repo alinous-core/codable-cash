@@ -9,7 +9,13 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "vm/VirtualMachine.h"
 
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "scan_planner/TablesHolder.h"
+
+#include "scan_table/ParenthesisScanTarget.h"
 namespace alinous {
 
 ParenthesisJoinPart::ParenthesisJoinPart() : AbstractJoinPart(CodeElement::SQL_EXP_PARENTHESIS_JOIN_PART) {
@@ -68,7 +74,18 @@ void ParenthesisJoinPart::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* ParenthesisJoinPart::interpret(VirtualMachine* vm) {
-	return this->part->interpret(vm);
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	TablesHolder* tableHolder = planner->getTablesHolder();
+
+	ParenthesisScanTarget* target = new ParenthesisScanTarget();
+	tableHolder->push(target);
+
+	this->part->interpret(vm);
+	AbstractScanTableTarget* inner = tableHolder->pop();
+
+	target->setInner(inner);
+
+	return nullptr;
 }
 
 

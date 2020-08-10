@@ -25,7 +25,6 @@ public:
 	static AbstractCdbValue* toCdbValue(IAbstractVmInstanceSubstance* substance, uint8_t targetCdbColumnType);
 
 private:
-	static AbstractCdbValue* fromStringToCdbValue(VmStringInstance* strInst, uint8_t targetCdbColumnType);
 	static AbstractCdbValue* fromPrimitiveToCdbValue(PrimitiveReference* pref, uint8_t targetCdbColumnType);
 };
 

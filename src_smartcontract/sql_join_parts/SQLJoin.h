@@ -13,6 +13,11 @@
 
 #include "base/ArrayList.h"
 
+namespace codablecash {
+class AbstractJoinScanTarget;
+class AbstractScanTableTarget;
+}
+using namespace codablecash;
 
 namespace alinous {
 
@@ -38,6 +43,7 @@ public:
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 
+	static AbstractJoinScanTarget* newScanTarget(AbstractScanTableTarget* left, AbstractScanTableTarget* right, uint8_t joinType);
 private:
 	AbstractJoinPart* first;
 	ArrayList<SQLJoinPart> list;

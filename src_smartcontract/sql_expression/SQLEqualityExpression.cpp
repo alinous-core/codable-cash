@@ -8,6 +8,19 @@
 #include "sql_expression/SQLEqualityExpression.h"
 
 #include "sc_analyze/AnalyzedType.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "scan_condition/AbstractScanCondition.h"
+#include "scan_condition_exp/EqualityScanCondition.h"
+
+#include "scan_condition/IValueProvider.h"
+
+using namespace codablecash;
+
+#include "scan_condition/ScanConditionCast.h"
 namespace alinous {
 
 SQLEqualityExpression::SQLEqualityExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_EQUALITY) {
@@ -95,7 +108,27 @@ void SQLEqualityExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLEqualityExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME SQLEqualityExpression
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	EqualityScanCondition* cond = new EqualityScanCondition();
+	planner->push(cond);
+
+	this->left->interpret(vm);
+	this->right->interpret(vm);
+
+
+	AbstractScanConditionElement* element = nullptr;
+	IValueProvider* val = nullptr;
+
+	element = planner->pop();
+	val = ScanConditionCast::toIValueProvider(element, vm, this);
+	cond->setRight(val);
+
+	element = planner->pop();
+	val = ScanConditionCast::toIValueProvider(element, vm, this);
+	cond->setLeft(val);
+
+	return nullptr;
 }
 
 

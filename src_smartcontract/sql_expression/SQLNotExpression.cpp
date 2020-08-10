@@ -8,6 +8,8 @@
 #include "sql_expression/SQLNotExpression.h"
 
 #include "sc_analyze/AnalyzedType.h"
+#include "sc_analyze/ValidationError.h"
+#include "sc_analyze/AnalyzeContext.h"
 
 #include "instance_gc/StackFloatingVariableHandler.h"
 
@@ -15,8 +17,13 @@
 
 #include "instance_ref/PrimitiveReference.h"
 
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "scan_condition_logical/NotScanCondition.h"
+
+#include "scan_condition/ScanConditionCast.h"
+
+using namespace alinous;
 
 namespace alinous {
 
@@ -81,16 +88,20 @@ void SQLNotExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLNotExpression::interpret(VirtualMachine* vm) {
-	StackFloatingVariableHandler releaser(vm->getGc());
+	SelectScanPlanner* planner = vm->getSelectPlanner();
 
-	AbstractVmInstance* inst = this->exp->interpret(vm);
-	releaser.registerInstance(inst);
+	NotScanCondition* cond = new NotScanCondition();
 
-	PrimitiveReference* ref = dynamic_cast<PrimitiveReference*>(inst);
-	bool bl = ref->getBoolValue();
+	planner->push(cond);
 
-	return PrimitiveReference::createBoolReference(vm, bl ? 0 : 1);
+	this->exp->interpret(vm);
+
+	AbstractScanConditionElement* element = planner->pop();
+	AbstractScanCondition* inner = ScanConditionCast::toAbstractScanCondition(element, vm, this);
+
+	cond->addCondition(inner);
+
+	return nullptr;
 }
-
 
 } /* namespace alinous */

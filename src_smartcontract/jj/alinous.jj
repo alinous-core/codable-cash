@@ -3999,7 +3999,7 @@ void sqlFunctionCallArguments(SQLFunctionCall* exp) : {
 		}
 		
 		(
-			"," {
+			t="," {
 				exp->setPosition(t);
 			}
 			ex=sqlExpression() {
@@ -4121,21 +4121,21 @@ SQLColumnIdentifier* sqlColumnIdentifier() : {
 	Token* t3 = nullptr;
 }
 {
-	t1=<IDENTIFIER> {
+	t1=sqlIdentifierName() {
 		exp->setPosition(t1);
 	}
 	[
 		t="." {
 			exp->setPosition(t);
 		}
-		t2=<IDENTIFIER> {
+		t2=sqlIdentifierName() {
 			exp->setPosition(t2);
 		}
 		[
 			t="." {
 				exp->setPosition(t);
 			}
-			t3=<IDENTIFIER> {
+			t3=sqlIdentifierName() {
 				exp->setPosition(t3);
 			}
 		]
@@ -4159,6 +4159,26 @@ SQLColumnIdentifier* sqlColumnIdentifier() : {
 		return exp;
 	}
 }
+
+Token* sqlIdentifierName() : {
+	Token* t = nullptr;
+}
+{
+	(t=<IDENTIFIER> | t="this" | t="super" | t=<INNER> | t=<OUTER>
+		| t=<FULL> | t=<JOIN> | t=<VALUES> | t=<CROSS> | t=<GROUP>
+		| t=<BY> | t=<HAVING> | t=<ORDER> | t=<ASC> | t=<DESC>
+		| t=<LIMIT> | t=<OFFSET> | t=<ON> | t=<AS> | t=<DISTINCT>
+		| t=<SHARE> | t=<NOWAIT> | t=<OF> | t=<IN> | t=<BETWEEN>
+		| t=<CREATE> | t=<DROP> | t=<TABLE> | t=<SQL_DEFAULT> | t=<ADD>
+		| t=<RENAME> | t=<COLUMN> | t=<TO> | t=<PRIMARY> | t=<KEY>
+		| t=<UNIQUE> | t=<CHECK> | t=<RETURNS> | t=<SETOF> | t=<LANGUAGE>
+		| t=<REPLACE> | t=<INDEX> | t=<USING>
+		| t="public" | t="protected" | t="private" )
+	{
+		return t;
+	}
+}
+
 
 /******************************************************************************************
 * SQL Language Expressions Special Part Starts
@@ -4462,14 +4482,14 @@ TableIdentifier* tableIdentifier() : {
 	Token* t2 = nullptr;
 }
 {
-	t1=<IDENTIFIER> {
+	t1=sqlIdentifierName() {
 		exp->setPosition(t1);
 	}
 	[
 		t="." {
 			exp->setPosition(t);
 		}
-		t2=<IDENTIFIER> {
+		t2=sqlIdentifierName() {
 			exp->setPosition(t2);
 		}
 	]
@@ -4482,6 +4502,16 @@ TableIdentifier* tableIdentifier() : {
 			exp->setTableName(_STR(t1));
 		}
 	}
+	[
+		t=<AS> {
+			exp->setPosition(t);
+		}
+		t=sqlIdentifierName() {
+			exp->setPosition(t);
+			exp->setAlias(_STR(t));
+		}
+	]
+	
 	{
 		__ONERROR(exp);
 		return exp;

@@ -25,6 +25,10 @@ public:
 	void setRight(AbstractSQLExpression* exp) noexcept;
 	void setOp(uint8_t op) noexcept;
 
+	AbstractSQLExpression* getRight() const noexcept {
+		return right;
+	}
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
@@ -36,6 +40,8 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+
+
 private:
 	AbstractSQLExpression* left;
 	AbstractSQLExpression* right;

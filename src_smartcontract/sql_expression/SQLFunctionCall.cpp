@@ -10,6 +10,17 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
+#include "vm/VirtualMachine.h"
+
+#include "scan_condition_exp/FunctionCallScanCondition.h"
+
+#include "scan_condition/ScanConditionCast.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "base/UnicodeString.h"
+
+
 namespace alinous {
 
 SQLFunctionCall::SQLFunctionCall() : AbstractSQLExpression(CodeElement::SQL_EXP_FUNCTION_CALL) {
@@ -100,6 +111,12 @@ void SQLFunctionCall::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void SQLFunctionCall::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->arguments.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->arguments.get(i);
+
+		exp->analyze(actx);
+	}
 }
 
 AnalyzedType SQLFunctionCall::getType(AnalyzeContext* actx) {
@@ -118,7 +135,29 @@ void alinous::SQLFunctionCall::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLFunctionCall::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME SQLFunctionCall
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	FunctionCallScanCondition* cond = new FunctionCallScanCondition();
+	planner->push(cond);
+
+	const UnicodeString* n = this->name->getName();
+	cond->setName(new UnicodeString(n));
+
+	AbstractScanConditionElement* element = nullptr;
+	IValueProvider* val = nullptr;
+
+	int maxLoop = this->arguments.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->arguments.get(i);
+
+		exp->interpret(vm);
+
+		element = planner->pop();
+		val = ScanConditionCast::toIValueProvider(element, vm, this);
+		cond->addArgument(val);
+	}
+
+	return nullptr;
 }
 
 

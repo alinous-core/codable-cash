@@ -1,0 +1,1 @@
+WHERE id LIKE '%test%' ESCAPE '%'

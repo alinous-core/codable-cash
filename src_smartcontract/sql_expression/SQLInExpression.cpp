@@ -9,6 +9,17 @@
 #include "sql_expression/SQLExpressionList.h"
 
 #include "sc_analyze/AnalyzedType.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "scan_condition_exp/InExpressionScanCondition.h"
+
+#include "scan_condition/ScanConditionCast.h"
+
+using codablecash::ScanConditionCast;
+
 namespace alinous {
 
 SQLInExpression::SQLInExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_IN) {
@@ -87,7 +98,27 @@ void SQLInExpression::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLInExpression::interpret(VirtualMachine* vm) {
-	return nullptr; // FIXME AbstractVmInstance
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	InExpressionScanCondition* cond = new InExpressionScanCondition();
+	planner->push(cond);
+
+	AbstractScanConditionElement* element = nullptr;
+	IValueProvider* val = nullptr;
+
+	this->left->interpret(vm);
+	element = planner->pop();
+	val = ScanConditionCast::toIValueProvider(element, vm, this);
+
+	cond->setLeft(val);
+
+	this->list->interpret(vm);
+	element = planner->pop();
+	ExpressionListScanCondition* l = ScanConditionCast::toExpressionList(element, vm, this);
+
+	cond->setList(l);
+
+	return nullptr;
 }
 
 
