@@ -14,6 +14,8 @@
 
 #include "TempValue.h"
 
+#include "btree/BtreeConfig.h"
+
 using namespace alinous;
 
 TEST_GROUP(TestBTreeMemoryGroup) {
@@ -24,9 +26,10 @@ TEST_GROUP(TestBTreeMemoryGroup) {
 };
 
 TEST(TestBTreeMemoryGroup, constract){
+	BtreeConfig* config = new BtreeConfig();
 	BtreeKeyFactory* factory = new BtreeKeyFactory();
 	TmpValueFactory* dfactory = new TmpValueFactory();
 
-	BTreeOnMemory btree(factory, dfactory);
+	BTreeOnMemory btree(config, factory, dfactory);
 }
 

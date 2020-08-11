@@ -10,15 +10,18 @@
 #include "btreekey/BtreeKeyFactory.h"
 
 #include "btree/AbstractBtreeDataFactory.h"
+#include "btree/BtreeConfig.h"
 
 namespace alinous {
 
-BTreeOnMemory::BTreeOnMemory(BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory) {
+BTreeOnMemory::BTreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory) {
+	this->config = config;
 	this->factory = factory;
 	this->dfactory = dfactory;
 }
 
 BTreeOnMemory::~BTreeOnMemory() {
+	delete this->config;
 	delete this->factory;
 	delete this->dfactory;
 }

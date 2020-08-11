@@ -12,15 +12,17 @@ namespace alinous {
 
 class BtreeKeyFactory;
 class AbstractBtreeDataFactory;
+class BtreeConfig;
 
 class BTreeOnMemory {
 public:
-	BTreeOnMemory(BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory);
+	BTreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory);
 	virtual ~BTreeOnMemory();
 
 private:
 	BtreeKeyFactory* factory;
 	AbstractBtreeDataFactory* dfactory;
+	BtreeConfig* config;
 };
 
 } /* namespace alinous */
