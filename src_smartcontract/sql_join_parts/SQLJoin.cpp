@@ -144,6 +144,39 @@ void SQLJoin::init(VirtualMachine* vm) {
 AbstractVmInstance* SQLJoin::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 	TablesHolder* tableHolder = planner->getTablesHolder();
+/*
+	int maxLoop = this->list.size();
+	int lastLoop = maxLoop - 1;
+	AbstractJoinScanTarget* lastJoin = nullptr;
+	AbstractScanTableTarget* target = nullptr;
+
+	AbstractJoinScanTarget* firstJoin = nullptr;
+
+	for(int i = 0; i != maxLoop; ++i){
+		SQLJoinPart* part = this->list.get(i);
+
+		uint8_t joinType = part->getJoinType();
+		AbstractJoinScanTarget* currentJoin = newScanTarget(joinType);
+
+		if(lastJoin != nullptr){
+			lastJoin->setRight(currentJoin);
+
+			part->interpret(vm); // push
+			target = tableHolder->pop();
+			currentJoin->setLeft(target);
+		}
+		else{
+			this->first->interpret(vm); // push
+			target = tableHolder->pop();
+			currentJoin->setLeft(target);
+		}
+
+		lastJoin = currentJoin;
+	}
+
+	target = tableHolder->pop();
+	lastJoin->setRight(target);
+*/
 
 	AbstractJoinScanTarget* lastJoin = nullptr;
 
@@ -155,9 +188,9 @@ AbstractVmInstance* SQLJoin::interpret(VirtualMachine* vm) {
 		AbstractJoinScanTarget* currentJoin = newScanTarget(joinType);
 		tableHolder->push(currentJoin);
 
-		part->interpret(vm);
+		part->interpret(vm); // push
 		AbstractScanTableTarget* target = tableHolder->pop();
-		currentJoin->setRight(target);
+
 
 		AbstractSQLExpression* exp = part->getExp();
 		if(exp != nullptr){
@@ -165,7 +198,12 @@ AbstractVmInstance* SQLJoin::interpret(VirtualMachine* vm) {
 		}
 
 		if(lastJoin != nullptr){
-			lastJoin->setLeft(currentJoin);
+			lastJoin->setLeft(target);
+			currentJoin->setRight(lastJoin);
+
+		}
+		else{
+			currentJoin->setRight(target);
 		}
 		lastJoin = currentJoin;
 		tableHolder->pop();

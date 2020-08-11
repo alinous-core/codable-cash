@@ -103,7 +103,46 @@ TEST(TestFromSectionGroup, join01){
 		}
 		const UnicodeString* str = tableHolder->toString();
 
-		UnicodeString ans(L"table1 LEFT JOIN table2 ON table1.id = table12.id");
+		UnicodeString ans(L"table1 LEFT JOIN table2 ON table1.id = table2.id");
 		CHECK(ans.equals(str))
+	}
+}
+
+TEST(TestFromSectionGroup, join02){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_analyze/resources/from/join02.alns"))
+	{
+		SmartContractParser parser(sourceFile);
+		AlinousLang* lang = parser.getDebugAlinousLang();
+
+		SQLFrom* from = lang->sqlFrom(); __STP(from);
+		CHECK(!parser.hasError())
+
+		AbstractJoinPart* part = from->getTablePart();
+
+		AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
+		actx->setVm(vm);
+
+		part->preAnalyze(actx);
+		part->analyzeTypeRef(actx);
+		part->analyze(actx);
+
+		SelectScanPlanner* planner = new SelectScanPlanner(); __STP(planner);
+		VmSelectPlannerSetter setter(vm, planner);
+
+		part->init(vm);
+		part->interpret(vm);
+
+		TablesHolder* tableHolder = planner->getTablesHolder();
+		if(!tableHolder->isEmpty()){
+			AbstractScanTableTarget* target = tableHolder->pop();
+			tableHolder->addScanTarget(target);
+		}
+		const UnicodeString* str = tableHolder->toString();
+
+		UnicodeString ans(L"table1 LEFT JOIN table2 ON table1.id = table2.id");
+		//CHECK(ans.equals(str))
 	}
 }
