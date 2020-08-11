@@ -33,4 +33,9 @@ MemoryTreeNode::~MemoryTreeNode() {
 	delete this->children;
 }
 
+bool MemoryTreeNode::isData() const noexcept {
+	return false;
+}
+
+
 } /* namespace alinous */

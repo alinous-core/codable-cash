@@ -13,6 +13,7 @@
 #include "btree/AbstractBtreeDataFactory.h"
 #include "btree/BtreeConfig.h"
 
+#include "btree_memory/MemoryTreeNode.h"
 
 namespace alinous {
 
@@ -22,9 +23,12 @@ BTreeOnMemory::BTreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory, Abst
 	this->dfactory = dfactory;
 
 	InfinityKey* infinityKey = new InfinityKey();
+	this->rootNode = new MemoryTreeNode(true, config->nodeNumber, infinityKey, true);
 }
 
 BTreeOnMemory::~BTreeOnMemory() {
+	delete this->rootNode;
+
 	delete this->config;
 	delete this->factory;
 	delete this->dfactory;

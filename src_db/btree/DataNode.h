@@ -23,7 +23,7 @@ public:
 	explicit DataNode(AbstractBtreeKey* key);
 	virtual ~DataNode();
 
-	virtual bool isData() const { return true; }
+	virtual bool isData() const noexcept { return true; }
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
 	static DataNode* fromBinary(ByteBuffer* in, BtreeKeyFactory* factory);

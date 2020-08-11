@@ -22,6 +22,7 @@ public:
 	MemoryTreeNode(bool isroot, int numChildren, AbstractBtreeKey* key, bool reaf);
 	virtual ~MemoryTreeNode();
 
+	virtual bool isData() const noexcept;
 private:
 	bool root;
 	bool leaf;

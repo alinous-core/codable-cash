@@ -15,6 +15,7 @@ class AbstractBtreeDataFactory;
 class BtreeConfig;
 class AbstractBtreeKey;
 class IBlockObject;
+class MemoryTreeNode;
 
 class BTreeOnMemory {
 public:
@@ -27,6 +28,8 @@ private:
 	BtreeKeyFactory* factory;
 	AbstractBtreeDataFactory* dfactory;
 	BtreeConfig* config;
+
+	MemoryTreeNode* rootNode;
 };
 
 } /* namespace alinous */
