@@ -10,7 +10,7 @@
 #include "btree/AbstractTreeNode.h"
 namespace alinous {
 
-MemoryTreeNode::MemoryTreeNode(int numChildren, AbstractBtreeKey* key, bool reaf) : AbstractTreeNode(key) {
+MemoryTreeNode::MemoryTreeNode(int numChildren, AbstractBtreeKey* key, bool leaf) : AbstractTreeNode(key) {
 	this->root = false;
 	this->leaf = leaf;
 	this->children = new ArrayList<AbstractTreeNode>(numChildren);
@@ -19,7 +19,7 @@ MemoryTreeNode::MemoryTreeNode(int numChildren, AbstractBtreeKey* key, bool reaf
 	}
 }
 
-MemoryTreeNode::MemoryTreeNode(bool isroot, int numChildren, AbstractBtreeKey* key, bool reaf) : AbstractTreeNode(key) {
+MemoryTreeNode::MemoryTreeNode(bool isroot, int numChildren, AbstractBtreeKey* key, bool leaf) : AbstractTreeNode(key) {
 	this->root = isroot;
 	this->leaf = leaf;
 	this->children = new ArrayList<AbstractTreeNode>(numChildren);

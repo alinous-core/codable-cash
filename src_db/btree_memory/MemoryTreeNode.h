@@ -18,8 +18,8 @@ class AbstractBtreeKey;
 
 class MemoryTreeNode : public AbstractTreeNode {
 public:
-	MemoryTreeNode(int numChildren, AbstractBtreeKey* key, bool reaf);
-	MemoryTreeNode(bool isroot, int numChildren, AbstractBtreeKey* key, bool reaf);
+	MemoryTreeNode(int numChildren, AbstractBtreeKey* key, bool leaf);
+	MemoryTreeNode(bool isroot, int numChildren, AbstractBtreeKey* key, bool leaf);
 	virtual ~MemoryTreeNode();
 
 	virtual bool isData() const noexcept;
