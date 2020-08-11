@@ -20,6 +20,7 @@ class NodeHandle;
 
 class BTreeOnMemory {
 public:
+	BTreeOnMemory() = delete;
 	BTreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory);
 	virtual ~BTreeOnMemory();
 
