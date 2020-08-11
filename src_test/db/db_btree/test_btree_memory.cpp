@@ -8,6 +8,12 @@
 
 #include "test_utils/t_macros.h"
 
+#include "btreekey/BtreeKeyFactory.h"
+
+#include "btree_memory/BTreeOnMemory.h"
+
+#include "TempValue.h"
+
 using namespace alinous;
 
 TEST_GROUP(TestBTreeMemoryGroup) {
@@ -18,6 +24,9 @@ TEST_GROUP(TestBTreeMemoryGroup) {
 };
 
 TEST(TestBTreeMemoryGroup, constract){
-	// FIXME test
+	BtreeKeyFactory* factory = new BtreeKeyFactory();
+	TmpValueFactory* dfactory = new TmpValueFactory();
+
+	BTreeOnMemory btree(factory, dfactory);
 }
 
