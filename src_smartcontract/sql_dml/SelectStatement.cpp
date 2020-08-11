@@ -260,6 +260,7 @@ void SelectStatement::buildPlanner(VirtualMachine* vm, uint64_t currentVer) {
 
 	VmSelectPlannerSetter setter(vm, this->planner);
 
+	// From part
 	AbstractJoinPart* tablePart = this->from->getTablePart();
 	tablePart->interpret(vm);
 	TablesHolder* tableHolder = this->planner->getTablesHolder();
