@@ -1,0 +1,3 @@
+FROM table1 RIGHT JOIN table2
+ON
+	table1.id = table2.id

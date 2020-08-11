@@ -16,11 +16,13 @@
 namespace codablecash {
 class AbstractJoinScanTarget;
 class AbstractScanTableTarget;
+class SelectScanPlanner;
 }
 using namespace codablecash;
 
 namespace alinous {
 
+class AbstractSQLExpression;
 class SQLJoinPart;
 
 class SQLJoin : public AbstractJoinPart {
@@ -43,7 +45,11 @@ public:
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 
-	static AbstractJoinScanTarget* newScanTarget(AbstractScanTableTarget* left, AbstractScanTableTarget* right, uint8_t joinType);
+	static AbstractJoinScanTarget* newScanTarget(uint8_t joinType);
+
+private:
+	void handleOnCondition(VirtualMachine* vm, SelectScanPlanner* planner, AbstractJoinScanTarget* currentJoin, AbstractSQLExpression* exp);
+
 private:
 	AbstractJoinPart* first;
 	ArrayList<SQLJoinPart> list;

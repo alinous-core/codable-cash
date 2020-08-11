@@ -13,6 +13,7 @@
 
 #include "scan_planner/TablesHolder.h"
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolder.h"
 
 #include "engine/CdbException.h"
 
@@ -20,6 +21,11 @@
 #include "scan_table/LeftOuterJoinTarget.h"
 #include "scan_table/InnerJoinScanTarget.h"
 #include "scan_table/CrossJoinScanTarget.h"
+#include "scan_table/RightOuterJoinScanTarget.h"
+
+#include "scan_condition/AbstractScanConditionElement.h"
+#include "scan_condition/ScanConditionCast.h"
+
 
 namespace alinous {
 
@@ -140,57 +146,71 @@ AbstractVmInstance* SQLJoin::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 	TablesHolder* tableHolder = planner->getTablesHolder();
 
-	AbstractJoinPart* lastPart = this->first;
-
-	lastPart->interpret(vm);
-	AbstractScanTableTarget* lastTarget = tableHolder->pop();
+	AbstractJoinScanTarget* lastJoin = nullptr;
+	AbstractScanTableTarget* target = nullptr;
 
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
 		SQLJoinPart* part = this->list.get(i);
 
-		part->interpret(vm);
-		AbstractScanTableTarget* target = tableHolder->pop();
-
 		uint8_t joinType = part->getJoinType();
-		lastTarget = SQLJoin::newScanTarget(lastTarget, target, joinType);
+		AbstractJoinScanTarget* currentJoin = newScanTarget(joinType);
+		tableHolder->push(currentJoin);
 
-
-
-		if(i == 0){
-			tableHolder->push(target);
+		if(lastJoin != nullptr){
+			currentJoin->setLeft(lastJoin);
 		}
+		else{
+			this->first->interpret(vm); // push
+			target = tableHolder->pop();
+			currentJoin->setLeft(target);
+		}
+
+		part->interpret(vm); // push
+		target = tableHolder->pop();
+		currentJoin->setRight(target);
+
+		AbstractSQLExpression* exp = part->getExp();
+		if(exp != nullptr){
+			handleOnCondition(vm, planner, currentJoin, exp);
+		}
+
+		lastJoin = currentJoin;
+		tableHolder->pop();
 	}
 
-	return nullptr; // FIXME SQLJoin
+	tableHolder->push(lastJoin);
+
+	return nullptr;
 }
 
-AbstractJoinScanTarget* SQLJoin::newScanTarget(AbstractScanTableTarget* left, AbstractScanTableTarget* right, uint8_t joinType) {
+void SQLJoin::handleOnCondition(VirtualMachine* vm, SelectScanPlanner* planner,
+		AbstractJoinScanTarget* currentJoin, AbstractSQLExpression* exp) {
+	exp->interpret(vm);
+
+	ConditionsHolder* cholder = planner->getConditions();
+	AbstractScanConditionElement* element = cholder->pop();
+
+	AbstractScanCondition* cond = ScanConditionCast::toAbstractScanCondition(element, vm, this);
+	currentJoin->setCondition(cond);
+}
+
+AbstractJoinScanTarget* SQLJoin::newScanTarget(uint8_t joinType) {
 	AbstractJoinScanTarget* join = nullptr;
 	switch(joinType){
 	case SQLJoinPart::LEFT_OUTER_JOIN:
 		join = new LeftOuterJoinTarget();
-		join->setLeft(left);
-		join->setRight(right);
 		break;
 	case SQLJoinPart::RIGHT_OUTER_JOIN:
-		join = new LeftOuterJoinTarget();
-		join->setLeft(right);
-		join->setRight(left);
+		join = new RightOuterJoinScanTarget();
 		break;
 	case SQLJoinPart::INNER_JOIN:
 		join = new InnerJoinScanTarget();
-		join->setLeft(left);
-		join->setRight(right);
 		break;
 	case SQLJoinPart::CROSS_JOIN:
 		join = new CrossJoinScanTarget();
-		join->setLeft(left);
-		join->setRight(right);
-		break;
 		break;
 	default:
-		delete right;
 		throw new CdbException(L"wrong join type", __FILE__, __LINE__);
 	}
 

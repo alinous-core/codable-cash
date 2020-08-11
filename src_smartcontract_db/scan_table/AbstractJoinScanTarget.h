@@ -28,8 +28,10 @@ public:
 	virtual void setRight(AbstractScanTableTarget* right) noexcept;
 
 	void setCondition(AbstractScanCondition* cond) noexcept;
+
 protected:
 	void resetStr() noexcept;
+	void addConditionString() noexcept;
 
 protected:
 	AbstractScanTableTarget* left;

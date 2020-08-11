@@ -39,6 +39,8 @@ const UnicodeString* RightOuterJoinScanTarget::toString() noexcept {
 		this->str->append(L" RIGHT JOIN ");
 
 		this->str->append(this->left->toString());
+
+		addConditionString();
 	}
 
 	return this->str;

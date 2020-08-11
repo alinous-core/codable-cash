@@ -51,5 +51,11 @@ void AbstractJoinScanTarget::resetStr() noexcept {
 	}
 }
 
+void AbstractJoinScanTarget::addConditionString() noexcept {
+	if(this->cond != nullptr){
+		this->str->append(L" ON ");
+		this->str->append(this->cond->toStringCode());
+	}
+}
 
 } /* namespace codablecash */

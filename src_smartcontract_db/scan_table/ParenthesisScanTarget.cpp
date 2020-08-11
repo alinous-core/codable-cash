@@ -16,7 +16,7 @@ ParenthesisScanTarget::ParenthesisScanTarget() {
 }
 
 ParenthesisScanTarget::~ParenthesisScanTarget() {
-
+	delete this->inner;
 }
 
 const UnicodeString* ParenthesisScanTarget::toString() noexcept {
