@@ -142,7 +142,7 @@ TEST(TestFromSectionGroup, join02){
 		}
 		const UnicodeString* str = tableHolder->toString();
 
-		UnicodeString ans(L"table1 LEFT JOIN table2 ON table1.id = table2.id");
-		//CHECK(ans.equals(str))
+		UnicodeString ans(L"table1 LEFT JOIN table2 ON table1.id = table2.id INNER JOIN table3 ON table3.id = table2.id");
+		CHECK(ans.equals(str))
 	}
 }

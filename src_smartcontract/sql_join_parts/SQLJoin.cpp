@@ -144,26 +144,20 @@ void SQLJoin::init(VirtualMachine* vm) {
 AbstractVmInstance* SQLJoin::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 	TablesHolder* tableHolder = planner->getTablesHolder();
-/*
-	int maxLoop = this->list.size();
-	int lastLoop = maxLoop - 1;
+
 	AbstractJoinScanTarget* lastJoin = nullptr;
 	AbstractScanTableTarget* target = nullptr;
 
-	AbstractJoinScanTarget* firstJoin = nullptr;
-
+	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
 		SQLJoinPart* part = this->list.get(i);
 
 		uint8_t joinType = part->getJoinType();
 		AbstractJoinScanTarget* currentJoin = newScanTarget(joinType);
+		tableHolder->push(currentJoin);
 
 		if(lastJoin != nullptr){
-			lastJoin->setRight(currentJoin);
-
-			part->interpret(vm); // push
-			target = tableHolder->pop();
-			currentJoin->setLeft(target);
+			currentJoin->setLeft(lastJoin);
 		}
 		else{
 			this->first->interpret(vm); // push
@@ -171,52 +165,22 @@ AbstractVmInstance* SQLJoin::interpret(VirtualMachine* vm) {
 			currentJoin->setLeft(target);
 		}
 
-		lastJoin = currentJoin;
-	}
-
-	target = tableHolder->pop();
-	lastJoin->setRight(target);
-*/
-
-	AbstractJoinScanTarget* lastJoin = nullptr;
-
-	int maxIndex = this->list.size() - 1;
-	for(int i = maxIndex; i >= 0; --i){
-		SQLJoinPart* part = this->list.get(i);
-
-		uint8_t joinType = part->getJoinType();
-		AbstractJoinScanTarget* currentJoin = newScanTarget(joinType);
-		tableHolder->push(currentJoin);
-
 		part->interpret(vm); // push
-		AbstractScanTableTarget* target = tableHolder->pop();
-
+		target = tableHolder->pop();
+		currentJoin->setRight(target);
 
 		AbstractSQLExpression* exp = part->getExp();
 		if(exp != nullptr){
 			handleOnCondition(vm, planner, currentJoin, exp);
 		}
 
-		if(lastJoin != nullptr){
-			lastJoin->setLeft(target);
-			currentJoin->setRight(lastJoin);
-
-		}
-		else{
-			currentJoin->setRight(target);
-		}
 		lastJoin = currentJoin;
 		tableHolder->pop();
 	}
 
 	tableHolder->push(lastJoin);
 
-	this->first->interpret(vm);
-	AbstractScanTableTarget* firstTarget = tableHolder->pop();
-	lastJoin->setLeft(firstTarget);
-
-
-	return nullptr; // FIXME SQLJoin
+	return nullptr;
 }
 
 void SQLJoin::handleOnCondition(VirtualMachine* vm, SelectScanPlanner* planner,
