@@ -22,6 +22,8 @@
 #include "scan_planner/SelectScanPlanner.h"
 #include "scan_planner/TablesHolder.h"
 
+#include "engine/CdbException.h"
+
 TEST_GROUP(TestFromSectionGroup) {
 	TEST_SETUP(){
 	}
@@ -264,3 +266,17 @@ TEST(TestFromSectionGroup, join05){
 		CHECK(ans.equals(str))
 	}
 }
+
+TEST(TestFromSectionGroup, error01){
+	CdbException* ex = nullptr;
+	try{
+		SQLJoin::newScanTarget(100);
+	}
+	catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr)
+	delete ex;
+}
+
