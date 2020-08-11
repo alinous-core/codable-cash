@@ -16,8 +16,9 @@
 #include "btree/NodeCursor.h"
 #include "btree/NodePosition.h"
 #include "btree/BtreeScanner.h"
-#include "btree/NodeCacheRef.h"
 #include "btree/NodeHandle.h"
+
+#include "btree_cache/NodeCacheRef.h"
 
 #include "btreekey/ULongKey.h"
 #include "btreekey/InfinityKey.h"

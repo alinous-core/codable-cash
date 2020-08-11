@@ -5,7 +5,8 @@
  *      Author: iizuka
  */
 
-#include "btree/NodeCacheRef.h"
+#include "btree_cache/NodeCacheRef.h"
+
 #include "btree/AbstractTreeNode.h"
 
 namespace alinous {

@@ -6,9 +6,10 @@
  */
 
 #include "btree/NodeHandle.h"
-#include "btree/NodeCacheRef.h"
 #include "btree/TreeNode.h"
 #include "btree/DataNode.h"
+
+#include "btree_cache/NodeCacheRef.h"
 
 namespace alinous {
 

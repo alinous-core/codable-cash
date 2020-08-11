@@ -10,11 +10,12 @@
 #include "btree/AbstractTreeNode.h"
 #include "btree/AbstractBtreeKey.h"
 #include "btree/BtreeStorage.h"
-#include "btree/NodeCacheRef.h"
 #include "btree/TreeNode.h"
 #include "btree/DataNode.h"
 #include "btree/exceptions.h"
 #include "btree/AbstractBtreeDataFactory.h"
+
+#include "btree_cache/NodeCacheRef.h"
 
 #include "base/StackRelease.h"
 

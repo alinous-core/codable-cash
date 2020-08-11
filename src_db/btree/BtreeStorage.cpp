@@ -10,9 +10,10 @@
 #include "btree/TreeNode.h"
 #include "btree/DataNode.h"
 #include "btree/BtreeConfig.h"
-#include "btree/NodeCache.h"
 #include "btree/NodeHandle.h"
 #include "btree/AbstractBtreeDataFactory.h"
+
+#include "btree_cache/NodeCache.h"
 
 #include "btreekey/InfinityKey.h"
 

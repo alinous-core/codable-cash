@@ -5,10 +5,12 @@
  *      Author: iizuka
  */
 
-#include "btree/NodeCache.h"
+#include "btree_cache/NodeCache.h"
+#include "btree_cache/NodeCacheRef.h"
+
 #include "btree/AbstractTreeNode.h"
 #include "btree/AbstractBtreeKey.h"
-#include "btree/NodeCacheRef.h"
+
 
 #include "base_thread/StackUnlocker.h"
 
