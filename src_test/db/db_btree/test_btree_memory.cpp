@@ -9,12 +9,14 @@
 #include "test_utils/t_macros.h"
 
 #include "btreekey/BtreeKeyFactory.h"
+#include "btreekey/ULongKey.h"
 
 #include "btree_memory/BTreeOnMemory.h"
 
 #include "TempValue.h"
 
 #include "btree/BtreeConfig.h"
+
 
 using namespace alinous;
 
@@ -31,5 +33,12 @@ TEST(TestBTreeMemoryGroup, constract){
 	TmpValueFactory* dfactory = new TmpValueFactory();
 
 	BTreeOnMemory btree(config, factory, dfactory);
+}
+
+static void addKeyValue(uint64_t key, uint64_t value, BTreeOnMemory* btree){
+	ULongKey lkey(key);
+	TempValue tvalue(value);
+
+	btree->insert(&lkey, &tvalue);
 }
 

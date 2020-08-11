@@ -13,11 +13,15 @@ namespace alinous {
 class BtreeKeyFactory;
 class AbstractBtreeDataFactory;
 class BtreeConfig;
+class AbstractBtreeKey;
+class IBlockObject;
 
 class BTreeOnMemory {
 public:
 	BTreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory);
 	virtual ~BTreeOnMemory();
+
+	void insert(const AbstractBtreeKey* key, const IBlockObject* data);
 
 private:
 	BtreeKeyFactory* factory;
