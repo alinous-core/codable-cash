@@ -21,6 +21,7 @@
 #include "scan_table/LeftOuterJoinTarget.h"
 #include "scan_table/InnerJoinScanTarget.h"
 #include "scan_table/CrossJoinScanTarget.h"
+#include "scan_table/RightOuterJoinScanTarget.h"
 
 #include "scan_condition/AbstractScanConditionElement.h"
 #include "scan_condition/ScanConditionCast.h"
@@ -201,7 +202,7 @@ AbstractJoinScanTarget* SQLJoin::newScanTarget(uint8_t joinType) {
 		join = new LeftOuterJoinTarget();
 		break;
 	case SQLJoinPart::RIGHT_OUTER_JOIN:
-		join = new LeftOuterJoinTarget();
+		join = new RightOuterJoinScanTarget();
 		break;
 	case SQLJoinPart::INNER_JOIN:
 		join = new InnerJoinScanTarget();
