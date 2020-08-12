@@ -8,6 +8,9 @@
 #include "btree_memory/MemoryTreeNode.h"
 
 #include "btree/AbstractTreeNode.h"
+
+#include "btree_memory/MemoryDataNode.h"
+
 namespace alinous {
 
 MemoryTreeNode::MemoryTreeNode(int numChildren, AbstractBtreeKey* key, bool leaf) : AbstractMemoryTreeNode(key) {
@@ -39,5 +42,8 @@ bool MemoryTreeNode::isFull(int nodeNumber) const noexcept {
 	return this->children->size() >= nodeNumber;
 }
 
+void MemoryTreeNode::addData(MemoryDataNode* dnode) noexcept {
+	// FIXME addData
+}
 
 } /* namespace alinous */

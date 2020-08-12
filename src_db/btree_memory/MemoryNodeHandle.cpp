@@ -70,4 +70,9 @@ bool MemoryNodeHandle::isFull(int nodeNumber) const noexcept {
 	return node->isFull(nodeNumber);
 }
 
+void MemoryNodeHandle::addData(MemoryDataNode* dnode) noexcept {
+	MemoryTreeNode* node = dynamic_cast<MemoryTreeNode*>(this->node);
+	node->addData(dnode);
+}
+
 } /* namespace alinous */

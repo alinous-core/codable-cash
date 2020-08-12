@@ -12,6 +12,7 @@ namespace alinous {
 
 class AbstractMemoryTreeNode;
 class AbstractBtreeKey;
+class MemoryDataNode;
 
 class MemoryNodeHandle {
 public:
@@ -23,6 +24,7 @@ public:
 	MemoryNodeHandle* getNextChild(const AbstractBtreeKey* key);
 	AbstractMemoryTreeNode* hasKey(const AbstractBtreeKey* key) const noexcept;
 	bool isFull(int nodeNumber) const noexcept;
+	void addData(MemoryDataNode* dnode) noexcept;
 private:
 	AbstractMemoryTreeNode* node;
 };

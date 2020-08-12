@@ -16,6 +16,7 @@
 namespace alinous {
 
 class AbstractBtreeKey;
+class MemoryDataNode;
 
 class MemoryTreeNode : public AbstractMemoryTreeNode {
 public:
@@ -30,6 +31,7 @@ public:
 		return children;
 	}
 	bool isFull(int nodeNumber) const noexcept;
+	void addData(MemoryDataNode* dnode) noexcept;
 private:
 	bool root;
 	bool leaf;
