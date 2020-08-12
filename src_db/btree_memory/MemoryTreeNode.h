@@ -25,6 +25,11 @@ public:
 
 	virtual bool isData() const noexcept;
 	bool isLeaf() const noexcept;
+
+	ArrayList<AbstractMemoryTreeNode>* getChildren() const noexcept {
+		return children;
+	}
+
 private:
 	bool root;
 	bool leaf;
