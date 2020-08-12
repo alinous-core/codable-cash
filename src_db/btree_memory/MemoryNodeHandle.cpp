@@ -65,4 +65,9 @@ AbstractMemoryTreeNode* MemoryNodeHandle::hasKey(const AbstractBtreeKey* key) co
 	return ret;
 }
 
+bool MemoryNodeHandle::isFull(int nodeNumber) const noexcept {
+	MemoryTreeNode* node = dynamic_cast<MemoryTreeNode*>(this->node);
+	return node->isFull(nodeNumber);
+}
+
 } /* namespace alinous */

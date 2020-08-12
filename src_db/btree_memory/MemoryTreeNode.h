@@ -29,7 +29,7 @@ public:
 	ArrayList<AbstractMemoryTreeNode>* getChildren() const noexcept {
 		return children;
 	}
-
+	bool isFull(int nodeNumber) const noexcept;
 private:
 	bool root;
 	bool leaf;

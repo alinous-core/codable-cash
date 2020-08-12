@@ -47,6 +47,11 @@ void MemoryNodeCursor::insert(const AbstractBtreeKey* key, IBlockObject* data) {
 	}
 
 	// 2. Add key, then check whether the node is full or not
+	if(current->isFull(this->nodeNumber)){
+		// FIXME split node
+		return;
+	}
+
 
 	// simply add data
 }

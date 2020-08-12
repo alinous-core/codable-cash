@@ -35,4 +35,9 @@ bool MemoryTreeNode::isLeaf() const noexcept {
 	return this->leaf;
 }
 
+bool MemoryTreeNode::isFull(int nodeNumber) const noexcept {
+	return this->children->size() >= nodeNumber;
+}
+
+
 } /* namespace alinous */

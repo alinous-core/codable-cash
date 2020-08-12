@@ -17,7 +17,7 @@ class IBlockObject;
 
 class MemoryDataNode : public AbstractMemoryTreeNode {
 public:
-	MemoryDataNode(AbstractBtreeKey* key);
+	explicit MemoryDataNode(AbstractBtreeKey* key);
 	virtual ~MemoryDataNode();
 
 	virtual bool isData() const noexcept { return true; }
