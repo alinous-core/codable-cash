@@ -13,11 +13,18 @@
 namespace alinous {
 
 class AbstractBtreeKey;
+class IBlockObject;
 
 class MemoryDataNode : public AbstractMemoryTreeNode {
 public:
 	MemoryDataNode(AbstractBtreeKey* key);
 	virtual ~MemoryDataNode();
+
+	virtual bool isData() const noexcept { return true; }
+
+	void setData(IBlockObject* data) noexcept;
+private:
+	IBlockObject* data;
 };
 
 } /* namespace alinous */

@@ -14,18 +14,12 @@ MemoryTreeNode::MemoryTreeNode(int numChildren, AbstractBtreeKey* key, bool leaf
 	this->root = false;
 	this->leaf = leaf;
 	this->children = new ArrayList<AbstractMemoryTreeNode>(numChildren);
-	for(int i = 0; i != numChildren; ++i){
-		this->children->addElement(nullptr);
-	}
 }
 
 MemoryTreeNode::MemoryTreeNode(bool isroot, int numChildren, AbstractBtreeKey* key, bool leaf) : AbstractMemoryTreeNode(key) {
 	this->root = isroot;
 	this->leaf = leaf;
 	this->children = new ArrayList<AbstractMemoryTreeNode>(numChildren);
-	for(int i = 0; i != numChildren; ++i){
-		this->children->addElement(nullptr);
-	}
 }
 
 MemoryTreeNode::~MemoryTreeNode() {

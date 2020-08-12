@@ -21,6 +21,7 @@ public:
 	bool isLeaf() const noexcept;
 
 	MemoryNodeHandle* getNextChild(const AbstractBtreeKey* key);
+	AbstractMemoryTreeNode* hasKey(const AbstractBtreeKey* key) const noexcept;
 private:
 	AbstractMemoryTreeNode* node;
 };

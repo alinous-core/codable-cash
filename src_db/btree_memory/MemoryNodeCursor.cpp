@@ -37,7 +37,12 @@ void MemoryNodeCursor::insert(const AbstractBtreeKey* key,	const IBlockObject* d
 		push(current);
 	}
 
+	// 1. already has key
+	AbstractMemoryTreeNode* node = current->hasKey(key);
 
+	// 2. Add key, then check whether the node is full or not
+
+	// simply add data
 }
 
 MemoryNodeHandle* MemoryNodeCursor::pop() noexcept {

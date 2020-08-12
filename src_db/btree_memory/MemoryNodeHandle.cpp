@@ -46,4 +46,23 @@ MemoryNodeHandle* MemoryNodeHandle::getNextChild(const AbstractBtreeKey* key) {
 	return ret;
 }
 
+AbstractMemoryTreeNode* MemoryNodeHandle::hasKey(const AbstractBtreeKey* key) const noexcept {
+	MemoryTreeNode* node = dynamic_cast<MemoryTreeNode*>(this->node);
+	ArrayList<AbstractMemoryTreeNode>* list = node->getChildren();
+
+	AbstractMemoryTreeNode* ret = nullptr;
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractMemoryTreeNode* node = list->get(i);
+
+		if(key->compareTo(node->getKey()) <= 0){
+			ret = node;
+			break;
+		}
+	}
+
+	return ret;
+}
+
 } /* namespace alinous */
