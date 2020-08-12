@@ -37,5 +37,8 @@ bool MemoryTreeNode::isData() const noexcept {
 	return false;
 }
 
+bool MemoryTreeNode::isLeaf() const noexcept {
+	return this->leaf;
+}
 
 } /* namespace alinous */

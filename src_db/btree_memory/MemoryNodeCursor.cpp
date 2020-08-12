@@ -30,7 +30,11 @@ MemoryNodeCursor::~MemoryNodeCursor() {
 }
 
 void MemoryNodeCursor::insert(const AbstractBtreeKey* key,	const IBlockObject* data) {
+	MemoryNodeHandle* current = top();
 
+	while(!current->isLeaf()){
+
+	}
 }
 
 MemoryNodeHandle* MemoryNodeCursor::pop() noexcept {

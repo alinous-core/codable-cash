@@ -23,6 +23,7 @@ public:
 	virtual ~MemoryTreeNode();
 
 	virtual bool isData() const noexcept;
+	bool isLeaf() const noexcept;
 private:
 	bool root;
 	bool leaf;

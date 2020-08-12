@@ -6,6 +6,7 @@
  */
 
 #include "btree_memory/MemoryNodeHandle.h"
+#include "btree_memory/MemoryTreeNode.h"
 
 namespace alinous {
 
@@ -15,6 +16,10 @@ MemoryNodeHandle::MemoryNodeHandle(AbstractTreeNode* node) {
 
 MemoryNodeHandle::~MemoryNodeHandle() {
 	this->node = nullptr;
+}
+
+bool MemoryNodeHandle::isLeaf() const noexcept {
+	return dynamic_cast<MemoryTreeNode*>(this->node)->isLeaf();
 }
 
 } /* namespace alinous */

@@ -17,6 +17,7 @@ public:
 	explicit MemoryNodeHandle(AbstractTreeNode* node);
 	virtual ~MemoryNodeHandle();
 
+	bool isLeaf() const noexcept;
 private:
 	AbstractTreeNode* node;
 };
