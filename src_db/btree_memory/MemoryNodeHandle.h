@@ -10,19 +10,19 @@
 
 namespace alinous {
 
-class AbstractTreeNode;
+class AbstractMemoryTreeNode;
 class AbstractBtreeKey;
 
 class MemoryNodeHandle {
 public:
-	explicit MemoryNodeHandle(AbstractTreeNode* node);
+	explicit MemoryNodeHandle(AbstractMemoryTreeNode* node);
 	virtual ~MemoryNodeHandle();
 
 	bool isLeaf() const noexcept;
 
 	MemoryNodeHandle* getNextChild(const AbstractBtreeKey* key);
 private:
-	AbstractTreeNode* node;
+	AbstractMemoryTreeNode* node;
 };
 
 } /* namespace alinous */

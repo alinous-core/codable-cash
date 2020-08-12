@@ -8,15 +8,16 @@
 #ifndef BTREE_MEMORY_MEMORYTREENODE_H_
 #define BTREE_MEMORY_MEMORYTREENODE_H_
 
-#include "btree/AbstractTreeNode.h"
+#include "btree_memory/AbstractMemoryTreeNode.h"
 
 #include "base/ArrayList.h"
+
 
 namespace alinous {
 
 class AbstractBtreeKey;
 
-class MemoryTreeNode : public AbstractTreeNode {
+class MemoryTreeNode : public AbstractMemoryTreeNode {
 public:
 	MemoryTreeNode(int numChildren, AbstractBtreeKey* key, bool leaf);
 	MemoryTreeNode(bool isroot, int numChildren, AbstractBtreeKey* key, bool leaf);
@@ -27,7 +28,7 @@ public:
 private:
 	bool root;
 	bool leaf;
-	ArrayList<AbstractTreeNode>* children;
+	ArrayList<AbstractMemoryTreeNode>* children;
 };
 
 } /* namespace alinous */

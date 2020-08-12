@@ -10,7 +10,7 @@
 
 namespace alinous {
 
-MemoryNodeHandle::MemoryNodeHandle(AbstractTreeNode* node) {
+MemoryNodeHandle::MemoryNodeHandle(AbstractMemoryTreeNode* node) {
 	this->node = node;
 }
 
