@@ -14,6 +14,7 @@
 #include "btree/BtreeConfig.h"
 
 #include "btree_memory/MemoryTreeNode.h"
+#include "btree_memory/MemoryNodeHandle.h"
 
 namespace alinous {
 
@@ -35,6 +36,7 @@ BTreeOnMemory::~BTreeOnMemory() {
 }
 
 void BTreeOnMemory::insert(const AbstractBtreeKey* key,	const IBlockObject* data) {
+	MemoryNodeHandle* rootNode = new MemoryNodeHandle(this->rootNode);
 }
 
 } /* namespace alinous */

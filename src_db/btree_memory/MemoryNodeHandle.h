@@ -10,10 +10,15 @@
 
 namespace alinous {
 
+class AbstractTreeNode;
+
 class MemoryNodeHandle {
 public:
-	MemoryNodeHandle();
+	explicit MemoryNodeHandle(AbstractTreeNode* node);
 	virtual ~MemoryNodeHandle();
+
+private:
+	AbstractTreeNode* node;
 };
 
 } /* namespace alinous */

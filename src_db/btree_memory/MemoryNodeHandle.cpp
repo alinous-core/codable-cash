@@ -5,17 +5,16 @@
  *      Author: iizuka
  */
 
-#include <btree_memory/MemoryNodeHandle.h>
+#include "btree_memory/MemoryNodeHandle.h"
 
 namespace alinous {
 
-MemoryNodeHandle::MemoryNodeHandle() {
-	// TODO Auto-generated constructor stub
-
+MemoryNodeHandle::MemoryNodeHandle(AbstractTreeNode* node) {
+	this->node = node;
 }
 
 MemoryNodeHandle::~MemoryNodeHandle() {
-	// TODO Auto-generated destructor stub
+	this->node = nullptr;
 }
 
 } /* namespace alinous */
