@@ -24,7 +24,7 @@ public:
 	MemoryNodeHandle* getNextChild(const AbstractBtreeKey* key);
 	AbstractMemoryTreeNode* hasKey(const AbstractBtreeKey* key) const noexcept;
 	bool isFull(int nodeNumber) const noexcept;
-	void addData(MemoryDataNode* dnode) noexcept;
+	void addNode(AbstractMemoryTreeNode* anode) noexcept;
 private:
 	AbstractMemoryTreeNode* node;
 };

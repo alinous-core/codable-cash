@@ -31,7 +31,7 @@ public:
 		return children;
 	}
 	bool isFull(int nodeNumber) const noexcept;
-	void addData(MemoryDataNode* dnode) noexcept;
+	void addNode(AbstractMemoryTreeNode* dnode) noexcept;
 private:
 	bool root;
 	bool leaf;

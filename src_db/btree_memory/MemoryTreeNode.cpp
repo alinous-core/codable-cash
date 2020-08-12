@@ -42,7 +42,7 @@ bool MemoryTreeNode::isFull(int nodeNumber) const noexcept {
 	return this->children->size() >= nodeNumber;
 }
 
-void MemoryTreeNode::addData(MemoryDataNode* dnode) noexcept {
+void MemoryTreeNode::addNode(AbstractMemoryTreeNode* dnode) noexcept {
 	// FIXME addData
 }
 

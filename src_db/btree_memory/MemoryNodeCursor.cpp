@@ -55,7 +55,7 @@ void MemoryNodeCursor::insert(const AbstractBtreeKey* key, IBlockObject* data) {
 
 	// simply add data
 	MemoryDataNode* dnode = new MemoryDataNode(key->clone());
-	current->addData(dnode);
+	current->addNode(dnode);
 }
 
 MemoryNodeHandle* MemoryNodeCursor::pop() noexcept {
