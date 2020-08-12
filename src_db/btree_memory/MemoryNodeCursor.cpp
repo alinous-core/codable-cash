@@ -34,6 +34,7 @@ void MemoryNodeCursor::insert(const AbstractBtreeKey* key,	const IBlockObject* d
 
 	while(!current->isLeaf()){
 		current = current->getNextChild(key);
+		push(current);
 	}
 
 

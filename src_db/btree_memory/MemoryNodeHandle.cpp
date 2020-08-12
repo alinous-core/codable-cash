@@ -38,12 +38,12 @@ MemoryNodeHandle* MemoryNodeHandle::getNextChild(const AbstractBtreeKey* key) {
 		AbstractMemoryTreeNode* node = list->get(i);
 
 		if(key->compareTo(node->getKey()) <= 0){
+			ret = new MemoryNodeHandle(node);
 			break;
 		}
 	}
 
-
-	// FIXME getNextChild()
+	return ret;
 }
 
 } /* namespace alinous */
