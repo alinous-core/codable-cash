@@ -7,6 +7,7 @@
 
 #include "btree_memory/MemoryNodeCursor.h"
 #include "btree_memory/MemoryNodeHandle.h"
+#include "btree_memory/MemoryDataNode.h"
 
 #include "btree/AbstractBtreeKey.h"
 
@@ -29,7 +30,7 @@ MemoryNodeCursor::~MemoryNodeCursor() {
 	}
 }
 
-void MemoryNodeCursor::insert(const AbstractBtreeKey* key,	const IBlockObject* data) {
+void MemoryNodeCursor::insert(const AbstractBtreeKey* key, IBlockObject* data) {
 	MemoryNodeHandle* current = top();
 
 	while(!current->isLeaf()){
@@ -39,6 +40,11 @@ void MemoryNodeCursor::insert(const AbstractBtreeKey* key,	const IBlockObject* d
 
 	// 1. already has key
 	AbstractMemoryTreeNode* node = current->hasKey(key);
+	if(node != nullptr){
+		MemoryDataNode* dnode = dynamic_cast<MemoryDataNode*>(node);
+		dnode->setData(data);
+		return;
+	}
 
 	// 2. Add key, then check whether the node is full or not
 

@@ -22,7 +22,7 @@ public:
 	MemoryNodeCursor(MemoryNodeHandle* rootNode, int nodeNumber);
 	virtual ~MemoryNodeCursor();
 
-	void insert(const AbstractBtreeKey* key, const IBlockObject* data);
+	void insert(const AbstractBtreeKey* key, IBlockObject* data);
 
 	MemoryNodeHandle* pop() noexcept;
 	void push(MemoryNodeHandle* node) noexcept;
