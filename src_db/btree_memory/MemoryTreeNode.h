@@ -32,6 +32,10 @@ public:
 	}
 	bool isFull(int nodeNumber) const noexcept;
 	void addNode(AbstractMemoryTreeNode* dnode) noexcept;
+
+private:
+	void internalAddNode(int index, AbstractMemoryTreeNode* node) noexcept;
+
 private:
 	bool root;
 	bool leaf;

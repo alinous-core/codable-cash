@@ -6,10 +6,12 @@
  */
 
 #include "btree_memory/MemoryTreeNode.h"
+#include "btree_memory/MemoryDataNode.h"
+#include "btree_memory/AbstractMemoryTreeNode.h"
 
 #include "btree/AbstractTreeNode.h"
 
-#include "btree_memory/MemoryDataNode.h"
+#include "btree/AbstractBtreeKey.h"
 
 namespace alinous {
 
@@ -43,7 +45,31 @@ bool MemoryTreeNode::isFull(int nodeNumber) const noexcept {
 }
 
 void MemoryTreeNode::addNode(AbstractMemoryTreeNode* dnode) noexcept {
-	// FIXME addData
+	AbstractBtreeKey* newKey = dnode->getKey();
+
+	int maxLoop = this->children->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractMemoryTreeNode* n = this->children->get(i);
+
+		if(n->getKey()->compareTo(newKey) > 0){
+			internalAddNode(i, dnode);
+			return;
+		}
+	}
+
+	this->children->addElement(dnode);
 }
+
+void alinous::MemoryTreeNode::internalAddNode(int index, AbstractMemoryTreeNode* node) noexcept {
+	this->children->addElement(nullptr);
+
+	int first = this->children->size() - 1;
+	for(int i = first; i > index; --i){
+		AbstractMemoryTreeNode* f = this->children->get(i - 1);
+		this->children->setElement(f, i);
+	}
+	this->children->setElement(node, index);
+}
+
 
 } /* namespace alinous */
