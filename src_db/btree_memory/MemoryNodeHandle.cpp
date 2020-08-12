@@ -22,4 +22,10 @@ bool MemoryNodeHandle::isLeaf() const noexcept {
 	return dynamic_cast<MemoryTreeNode*>(this->node)->isLeaf();
 }
 
+MemoryNodeHandle* MemoryNodeHandle::getNextChild(const AbstractBtreeKey* key) {
+
+
+	// FIXME getNextChild()
+}
+
 } /* namespace alinous */

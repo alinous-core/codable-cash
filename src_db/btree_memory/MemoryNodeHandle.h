@@ -11,6 +11,7 @@
 namespace alinous {
 
 class AbstractTreeNode;
+class AbstractBtreeKey;
 
 class MemoryNodeHandle {
 public:
@@ -18,6 +19,8 @@ public:
 	virtual ~MemoryNodeHandle();
 
 	bool isLeaf() const noexcept;
+
+	MemoryNodeHandle* getNextChild(const AbstractBtreeKey* key);
 private:
 	AbstractTreeNode* node;
 };

@@ -1,5 +1,6 @@
 
 set(__src
+	AbstractMemoryTreeNode.cpp
 	BTreeOnMemory.cpp
 	MemoryNodeCursor.cpp
 	MemoryNodeHandle.cpp

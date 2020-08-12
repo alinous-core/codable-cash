@@ -33,8 +33,10 @@ void MemoryNodeCursor::insert(const AbstractBtreeKey* key,	const IBlockObject* d
 	MemoryNodeHandle* current = top();
 
 	while(!current->isLeaf()){
-
+		current = current->getNextChild(key);
 	}
+
+
 }
 
 MemoryNodeHandle* MemoryNodeCursor::pop() noexcept {
