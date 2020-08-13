@@ -24,6 +24,7 @@ namespace alinous {
 MemoryNodeCursor::MemoryNodeCursor(MemoryNodeHandle* rootNode, int nodeNumber, BTreeOnMemory* btree) {
 	this->nodestack = new ArrayList<MemoryNodeHandle>();
 	this->nodeNumber = nodeNumber;
+	this->btree = btree;
 
 	push(rootNode);
 }
