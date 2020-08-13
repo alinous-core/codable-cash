@@ -35,6 +35,8 @@ MemoryNodeCursor::~MemoryNodeCursor() {
 		MemoryNodeHandle* n = this->nodestack->get(i);
 		delete n;
 	}
+
+	delete this->nodestack;
 }
 
 void MemoryNodeCursor::insert(const AbstractBtreeKey* key, IBlockObject* data) {
