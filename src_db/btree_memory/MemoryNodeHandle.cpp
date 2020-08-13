@@ -99,7 +99,7 @@ AbstractMemoryTreeNode* MemoryNodeHandle::hasKey(const AbstractBtreeKey* key) co
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractMemoryTreeNode* node = list->get(i);
 
-		if(key->compareTo(node->getKey()) <= 0){
+		if(key->compareTo(node->getKey()) == 0){
 			ret = node;
 			break;
 		}
