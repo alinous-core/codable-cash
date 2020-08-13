@@ -195,6 +195,22 @@ AbstractBtreeKey* MemoryNodeCursor::setupTwoLists(
 }
 
 IBlockObject* MemoryNodeCursor::gotoFirst() noexcept {
+	MemoryNodeHandle* current = top();
+
+	while(!current->isLeaf()){
+		AbstractMemoryTreeNode* n = current->nextNode();
+
+		current = new MemoryNodeHandle(n);
+		push(current);
+	}
+
+	AbstractMemoryTreeNode* node = current->nextNode();
+	push(new MemoryNodeHandle(node));
+
+	MemoryDataNode* dataNode = dynamic_cast<MemoryDataNode*>(node);
+	IBlockObject* obj = dataNode->getData();
+
+	return obj;
 }
 
 IBlockObject* MemoryNodeCursor::gotoKey(const AbstractBtreeKey* key) noexcept {
