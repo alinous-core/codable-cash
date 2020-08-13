@@ -23,7 +23,7 @@ class BTreeOnMemory {
 public:
 	BTreeOnMemory(const BTreeOnMemory& inst) = delete;
 	BTreeOnMemory() = delete;
-	BTreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory);
+	BTreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory);
 	virtual ~BTreeOnMemory();
 
 	MemoryBtreeScanner* getScanner();
@@ -36,7 +36,6 @@ private:
 
 private:
 	BtreeKeyFactory* factory;
-	AbstractBtreeDataFactory* dfactory;
 	BtreeConfig* config;
 
 	MemoryTreeNode* rootNode;

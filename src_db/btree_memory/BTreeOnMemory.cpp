@@ -20,10 +20,9 @@
 
 namespace alinous {
 
-BTreeOnMemory::BTreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory) {
+BTreeOnMemory::BTreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory) {
 	this->config = config;
 	this->factory = factory;
-	this->dfactory = dfactory;
 
 	InfinityKey* infinityKey = new InfinityKey();
 	this->rootNode = new MemoryTreeNode(true, config->nodeNumber, infinityKey, true);
@@ -34,7 +33,6 @@ BTreeOnMemory::~BTreeOnMemory() {
 
 	delete this->config;
 	delete this->factory;
-	delete this->dfactory;
 }
 
 MemoryBtreeScanner* BTreeOnMemory::getScanner() {
