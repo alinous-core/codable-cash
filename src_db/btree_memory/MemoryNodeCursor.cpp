@@ -75,6 +75,9 @@ void MemoryNodeCursor::splitLeafNode(const AbstractBtreeKey* key, IBlockObject* 
 	AbstractBtreeKey* newKey = setupTwoLists(list, dataNode, &list1, &list2);
 	StackRelease<AbstractBtreeKey> __st_newkey(newKey);
 
+	// new Node
+
+
 }
 
 AbstractBtreeKey* MemoryNodeCursor::setupTwoLists(
