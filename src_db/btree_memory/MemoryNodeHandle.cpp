@@ -28,6 +28,10 @@ bool MemoryNodeHandle::isLeaf() const noexcept {
 	return dynamic_cast<MemoryTreeNode*>(this->node)->isLeaf();
 }
 
+bool MemoryNodeHandle::isRoot() const noexcept {
+	return dynamic_cast<MemoryTreeNode*>(this->node)->isRoot();
+}
+
 MemoryNodeHandle* MemoryNodeHandle::getNextChild(const AbstractBtreeKey* key) {
 	MemoryTreeNode* node = dynamic_cast<MemoryTreeNode*>(this->node);
 	ArrayList<AbstractMemoryTreeNode>* list = node->getChildren();

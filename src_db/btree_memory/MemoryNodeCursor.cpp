@@ -8,12 +8,15 @@
 #include "btree_memory/MemoryNodeCursor.h"
 #include "btree_memory/MemoryNodeHandle.h"
 #include "btree_memory/MemoryDataNode.h"
+#include "btree_memory/MemoryTreeNode.h"
 
 #include "btree/AbstractBtreeKey.h"
 
 #include "filestore_block/IBlockObject.h"
 
 #include "base/StackRelease.h"
+
+
 namespace alinous {
 
 MemoryNodeCursor::MemoryNodeCursor(MemoryNodeHandle* rootNode, int nodeNumber) {
@@ -66,7 +69,7 @@ void MemoryNodeCursor::splitLeafNode(const AbstractBtreeKey* key, IBlockObject* 
 	MemoryDataNode* dataNode = new MemoryDataNode(key->clone());
 	dataNode->setData(data);
 
-	// FIXME split node
+	// split node
 	ArrayList<AbstractMemoryTreeNode>* list = current->getInnerNodes();
 
 	ArrayList<AbstractMemoryTreeNode> list1(this->nodeNumber);
@@ -76,7 +79,14 @@ void MemoryNodeCursor::splitLeafNode(const AbstractBtreeKey* key, IBlockObject* 
 	StackRelease<AbstractBtreeKey> __st_newkey(newKey);
 
 	// new Node
+	MemoryTreeNode* newNode = new MemoryTreeNode(this->nodeNumber, newKey->clone(), true);
+	newNode->updateInnerNodes(&list1);
 
+	//FIXME update current
+	bool isroot = current->isRoot();
+
+
+	// add to parent node
 
 }
 

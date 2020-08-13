@@ -22,6 +22,7 @@ public:
 	virtual ~MemoryNodeHandle();
 
 	bool isLeaf() const noexcept;
+	bool isRoot() const noexcept;
 
 	MemoryNodeHandle* getNextChild(const AbstractBtreeKey* key);
 	AbstractMemoryTreeNode* hasKey(const AbstractBtreeKey* key) const noexcept;

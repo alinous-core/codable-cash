@@ -26,12 +26,14 @@ public:
 
 	virtual bool isData() const noexcept;
 	bool isLeaf() const noexcept;
+	bool isRoot() const noexcept {return this->root;};
 
 	ArrayList<AbstractMemoryTreeNode>* getChildren() const noexcept {
 		return children;
 	}
 	bool isFull(int nodeNumber) const noexcept;
 	void addNode(AbstractMemoryTreeNode* dnode) noexcept;
+	void updateInnerNodes(ArrayList<AbstractMemoryTreeNode>* list) noexcept;
 
 private:
 	void internalAddNode(int index, AbstractMemoryTreeNode* node) noexcept;
