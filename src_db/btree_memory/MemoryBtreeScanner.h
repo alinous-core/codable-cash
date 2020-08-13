@@ -16,7 +16,7 @@ class IBlockObject;
 
 class MemoryBtreeScanner {
 public:
-	MemoryBtreeScanner(MemoryNodeCursor* cursor);
+	explicit MemoryBtreeScanner(MemoryNodeCursor* cursor);
 	virtual ~MemoryBtreeScanner();
 
 	void begin();
