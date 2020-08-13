@@ -16,6 +16,7 @@ class AbstractMemoryTreeNode;
 class MemoryNodeHandle;
 class AbstractBtreeKey;
 class IBlockObject;
+class MemoryTreeNode;
 
 class MemoryNodeCursor {
 public:
@@ -33,7 +34,8 @@ private:
 	void splitLeafNode(const AbstractBtreeKey* key, IBlockObject* data);
 	AbstractBtreeKey* setupTwoLists(ArrayList<AbstractMemoryTreeNode>* list, AbstractMemoryTreeNode* node,
 			ArrayList<AbstractMemoryTreeNode>* list1, ArrayList<AbstractMemoryTreeNode>* list2);
-
+	void createNewRoot(MemoryTreeNode* newNode);
+	void addToParent(MemoryTreeNode* newNode);
 private:
 	ArrayList<MemoryNodeHandle>* nodestack;
 	int nodeNumber; // max inner nodes number in a node

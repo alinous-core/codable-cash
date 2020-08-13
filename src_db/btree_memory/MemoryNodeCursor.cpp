@@ -82,13 +82,24 @@ void MemoryNodeCursor::splitLeafNode(const AbstractBtreeKey* key, IBlockObject* 
 	MemoryTreeNode* newNode = new MemoryTreeNode(this->nodeNumber, newKey->clone(), true);
 	newNode->updateInnerNodes(&list1);
 
-	//FIXME update current
+	// update current
 	bool isroot = current->isRoot();
 	current->setRoot(false);
 	current->updateInnerNodes(&list2);
 
 	// add to parent node
+	if(isroot){
+		createNewRoot(newNode);
+	}
+	else{
+		addToParent(newNode);
+	}
+}
 
+void MemoryNodeCursor::createNewRoot(MemoryTreeNode* newNode) {
+}
+
+void MemoryNodeCursor::addToParent(MemoryTreeNode* newNode) {
 }
 
 AbstractBtreeKey* MemoryNodeCursor::setupTwoLists(
