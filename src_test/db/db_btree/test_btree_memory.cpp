@@ -58,10 +58,16 @@ TEST(TestBTreeMemoryGroup, add01){
 		addKeyValue(6, 6, &btree);
 		addKeyValue(3, 3, &btree);
 
+		addKeyValue(6, 6, &btree);
+
+		addKeyValue(2, 2, &btree);
+		addKeyValue(100, 100, &btree);
+
+		answers.addElement(2);
 		answers.addElement(3);
 		answers.addElement(6);
 		answers.addElement(10);
-
+		answers.addElement(100);
 	}
 
 	{
@@ -70,6 +76,24 @@ TEST(TestBTreeMemoryGroup, add01){
 
 		scanner->begin();
 		int i = 0;
+		while(scanner->hasNext()){
+			const IBlockObject* obj = scanner->next();
+			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
+			uint64_t v = tmp->getValue();
+
+			uint64_t a = answers.get(i++);
+			CHECK(v == a)
+		}
+	}
+
+	{
+		ULongKey lkey(7);
+
+		MemoryBtreeScanner* scanner = btree.getScanner();
+		StackRelease<MemoryBtreeScanner> __st_scanner(scanner);
+
+		scanner->begin(&lkey);
+		int i = 3;
 		while(scanner->hasNext()){
 			const IBlockObject* obj = scanner->next();
 			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);

@@ -42,6 +42,10 @@ public:
 		return this->node;
 	}
 
+	void incPos() noexcept{
+		this->pos++;
+	}
+
 private:
 	AbstractMemoryTreeNode* node;
 	int pos;

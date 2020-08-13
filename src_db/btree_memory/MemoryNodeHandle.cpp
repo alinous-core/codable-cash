@@ -45,6 +45,7 @@ MemoryNodeHandle* MemoryNodeHandle::getNextChild(const AbstractBtreeKey* key) {
 	int maxLoop = list->size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractMemoryTreeNode* node = list->get(i);
+		this->pos = i;
 
 		if(key->compareTo(node->getKey()) <= 0){
 			ret = new MemoryNodeHandle(node);
@@ -52,6 +53,7 @@ MemoryNodeHandle* MemoryNodeHandle::getNextChild(const AbstractBtreeKey* key) {
 		}
 	}
 
+	// this->pos++; // not necessary, because always hit.
 	return ret;
 }
 
@@ -59,16 +61,20 @@ MemoryNodeHandle* MemoryNodeHandle::gotoEqMoreThanKey(const AbstractBtreeKey* ke
 	MemoryTreeNode* node = dynamic_cast<MemoryTreeNode*>(this->node);
 	ArrayList<AbstractMemoryTreeNode>* list = node->getChildren();
 
+	MemoryNodeHandle* ret = nullptr;
+
 	int maxLoop = list->size();
 	for(int i = 0; i != maxLoop; ++i){
 		this->pos = i;
 		AbstractMemoryTreeNode* n = list->get(i);
 		if(key->compareTo(n->getKey()) <= 0){
-			return new MemoryNodeHandle(n);
+			ret = new MemoryNodeHandle(n);
+			break;
 		}
 	}
 
-	return nullptr;
+	// this->pos++; // not necessary, because always hit.
+	return ret;
 }
 
 bool MemoryNodeHandle::hasNext() const noexcept {

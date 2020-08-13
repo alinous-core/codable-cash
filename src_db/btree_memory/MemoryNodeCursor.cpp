@@ -227,6 +227,8 @@ IBlockObject* MemoryNodeCursor::gotoKey(const AbstractBtreeKey* key) noexcept {
 
 	push(next);
 
+	current->incPos();
+
 	AbstractMemoryTreeNode* node = next->getNode();
 	MemoryDataNode* dataNode = dynamic_cast<MemoryDataNode*>(node);
 	IBlockObject* obj = dataNode->getData();
@@ -272,6 +274,7 @@ MemoryNodeHandle* MemoryNodeCursor::gotoLeaf(const AbstractBtreeKey* key) {
 
 	while(!current->isLeaf()){
 		MemoryNodeHandle* nextNode = current->getNextChild(key);
+		current->incPos();
 
 		push(nextNode);
 		current = nextNode;
