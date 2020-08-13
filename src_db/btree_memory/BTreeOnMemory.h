@@ -25,10 +25,11 @@ public:
 	BTreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory);
 	virtual ~BTreeOnMemory();
 
-	void insert(const AbstractBtreeKey* key, const IBlockObject* data);
+	void insert(const AbstractBtreeKey* key, IBlockObject* data);
 
+	void setRoot(MemoryTreeNode* rootNode) noexcept;
 private:
-	NodeHandle* getRootHandle() const noexcept;
+	//NodeHandle* getRootHandle() const noexcept;
 
 private:
 	BtreeKeyFactory* factory;

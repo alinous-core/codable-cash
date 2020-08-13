@@ -9,6 +9,7 @@
 #include "btree_memory/MemoryNodeHandle.h"
 #include "btree_memory/MemoryDataNode.h"
 #include "btree_memory/MemoryTreeNode.h"
+#include "btree_memory/BTreeOnMemory.h"
 
 #include "btree/AbstractBtreeKey.h"
 
@@ -16,10 +17,11 @@
 
 #include "base/StackRelease.h"
 
+#include "btreekey/InfinityKey.h"
 
 namespace alinous {
 
-MemoryNodeCursor::MemoryNodeCursor(MemoryNodeHandle* rootNode, int nodeNumber) {
+MemoryNodeCursor::MemoryNodeCursor(MemoryNodeHandle* rootNode, int nodeNumber, BTreeOnMemory* btree) {
 	this->nodestack = new ArrayList<MemoryNodeHandle>();
 	this->nodeNumber = nodeNumber;
 
@@ -97,6 +99,13 @@ void MemoryNodeCursor::splitLeafNode(const AbstractBtreeKey* key, IBlockObject* 
 }
 
 void MemoryNodeCursor::createNewRoot(MemoryTreeNode* newNode) {
+	MemoryNodeHandle* current = top();
+
+	MemoryTreeNode* rootNode = new MemoryTreeNode(true, this->nodeNumber, new InfinityKey(), false);
+	rootNode->addNode(newNode);
+	rootNode->addNode(current->getNode());
+
+	this->btree->setRoot(rootNode);
 }
 
 void MemoryNodeCursor::addToParent(MemoryTreeNode* newNode) {

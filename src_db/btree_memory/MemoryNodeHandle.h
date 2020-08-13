@@ -32,6 +32,11 @@ public:
 	void updateInnerNodes(const ArrayList<AbstractMemoryTreeNode>* list) noexcept;
 
 	ArrayList<AbstractMemoryTreeNode>* getInnerNodes() const noexcept;
+
+	AbstractMemoryTreeNode* getNode() const noexcept {
+		return this->node;
+	}
+
 private:
 	AbstractMemoryTreeNode* node;
 };

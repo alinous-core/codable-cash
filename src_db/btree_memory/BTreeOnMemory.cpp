@@ -36,11 +36,16 @@ BTreeOnMemory::~BTreeOnMemory() {
 	delete this->dfactory;
 }
 
-void BTreeOnMemory::insert(const AbstractBtreeKey* key,	const IBlockObject* data) {
+void BTreeOnMemory::insert(const AbstractBtreeKey* key,	IBlockObject* data) {
 	MemoryNodeHandle* rootNode = new MemoryNodeHandle(this->rootNode);
 
-	MemoryNodeCursor cursor(rootNode, this->config->nodeNumber);
+	MemoryNodeCursor cursor(rootNode, this->config->nodeNumber, this);
+	cursor.insert(key, data);
 
+}
+
+void BTreeOnMemory::setRoot(MemoryTreeNode* rootNode) noexcept {
+	this->rootNode = rootNode;
 }
 
 } /* namespace alinous */

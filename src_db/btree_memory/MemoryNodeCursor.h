@@ -17,11 +17,12 @@ class MemoryNodeHandle;
 class AbstractBtreeKey;
 class IBlockObject;
 class MemoryTreeNode;
+class BTreeOnMemory;
 
 class MemoryNodeCursor {
 public:
 	MemoryNodeCursor(const MemoryNodeCursor& inst) = delete;
-	MemoryNodeCursor(MemoryNodeHandle* rootNode, int nodeNumber);
+	MemoryNodeCursor(MemoryNodeHandle* rootNode, int nodeNumber, BTreeOnMemory* btree);
 	virtual ~MemoryNodeCursor();
 
 	void insert(const AbstractBtreeKey* key, IBlockObject* data);
@@ -39,6 +40,8 @@ private:
 private:
 	ArrayList<MemoryNodeHandle>* nodestack;
 	int nodeNumber; // max inner nodes number in a node
+
+	BTreeOnMemory* btree;
 };
 
 } /* namespace alinous */
