@@ -121,7 +121,33 @@ void MemoryNodeCursor::addToParent(MemoryTreeNode* newNode) {
 }
 
 void MemoryNodeCursor::splitTreeNode(MemoryTreeNode* node) {
+	MemoryNodeHandle* current = top();
 
+	// split
+	ArrayList<AbstractMemoryTreeNode>* list = current->getInnerNodes();
+
+	ArrayList<AbstractMemoryTreeNode> list1(this->nodeNumber);
+	ArrayList<AbstractMemoryTreeNode> list2(this->nodeNumber);
+
+	AbstractBtreeKey* newKey = setupTwoLists(list, node, &list1, &list2);
+	StackRelease<AbstractBtreeKey> __st_newkey(newKey);
+
+	// new Node
+	MemoryTreeNode* newNode = new MemoryTreeNode(this->nodeNumber, newKey->clone(), false);
+	newNode->updateInnerNodes(&list1);
+
+	// update current
+	bool isroot = current->isRoot();
+	current->setRoot(false);
+	current->updateInnerNodes(&list2);
+
+	// add to parent node
+	if(isroot){
+		createNewRoot(newNode);
+	}
+	else{
+		addToParent(newNode);
+	}
 }
 
 AbstractBtreeKey* MemoryNodeCursor::setupTwoLists(
