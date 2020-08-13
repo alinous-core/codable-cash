@@ -7,11 +7,12 @@
 
 #include "test_utils/t_macros.h"
 
-#include "btree/NodeCache.h"
+#include "btree_cache/NodeCache.h"
+#include "btree_cache/NodeCacheRef.h"
+
 #include "btreekey/ULongKey.h"
 
 #include "btree/TreeNode.h"
-#include "btree/NodeCacheRef.h"
 
 #include "test_utils/TestBreak.h"
 #include "base_thread/AbstractThreadRunner.h"
