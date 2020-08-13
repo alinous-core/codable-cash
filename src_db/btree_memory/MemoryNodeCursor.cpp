@@ -198,7 +198,21 @@ IBlockObject* MemoryNodeCursor::gotoFirst() noexcept {
 }
 
 IBlockObject* MemoryNodeCursor::gotoKey(const AbstractBtreeKey* key) noexcept {
+	gotoLeaf(key);
 
+	MemoryNodeHandle* current = top();
+
+	MemoryNodeHandle* next = current->gotoEqMoreThanKey(key); __STP(next);
+	if(next == nullptr){
+		return nullptr;
+	}
+
+	//push(next);
+
+	AbstractMemoryTreeNode* node = next->getNode();
+	IBlockObject* obj = dynamic_cast<IBlockObject*>(node);
+
+	return obj;
 }
 
 IBlockObject* MemoryNodeCursor::getNext() noexcept {

@@ -26,6 +26,8 @@ public:
 	void setRoot(bool isroot) noexcept;
 
 	MemoryNodeHandle* getNextChild(const AbstractBtreeKey* key);
+	MemoryNodeHandle* gotoEqMoreThanKey(const AbstractBtreeKey* key);
+
 	AbstractMemoryTreeNode* hasKey(const AbstractBtreeKey* key) const noexcept;
 	bool isFull(int nodeNumber) const noexcept;
 	void addNode(AbstractMemoryTreeNode* anode) noexcept;
@@ -39,6 +41,7 @@ public:
 
 private:
 	AbstractMemoryTreeNode* node;
+	int pos;
 };
 
 } /* namespace alinous */

@@ -18,6 +18,7 @@ namespace alinous {
 
 MemoryNodeHandle::MemoryNodeHandle(AbstractMemoryTreeNode* node) {
 	this->node = node;
+	this->pos = 0;
 }
 
 MemoryNodeHandle::~MemoryNodeHandle() {
@@ -52,6 +53,22 @@ MemoryNodeHandle* MemoryNodeHandle::getNextChild(const AbstractBtreeKey* key) {
 	}
 
 	return ret;
+}
+
+MemoryNodeHandle* MemoryNodeHandle::gotoEqMoreThanKey(const AbstractBtreeKey* key) {
+	MemoryTreeNode* node = dynamic_cast<MemoryTreeNode*>(this->node);
+	ArrayList<AbstractMemoryTreeNode>* list = node->getChildren();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		this->pos = i;
+		AbstractMemoryTreeNode* n = list->get(i);
+		if(key->compareTo(n->getKey()) <= 0){
+			return new MemoryNodeHandle(n);
+		}
+	}
+
+	return nullptr;
 }
 
 AbstractMemoryTreeNode* MemoryNodeHandle::hasKey(const AbstractBtreeKey* key) const noexcept {
