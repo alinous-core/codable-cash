@@ -19,6 +19,11 @@ public:
 	MemoryBtreeScanner(MemoryNodeCursor* cursor);
 	virtual ~MemoryBtreeScanner();
 
+	void begin();
+	void begin(const AbstractBtreeKey* key);
+	bool hasNext();
+	const IBlockObject* next();
+
 private:
 	MemoryNodeCursor* cursor;
 	IBlockObject* nextObj;

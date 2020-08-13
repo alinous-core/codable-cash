@@ -27,6 +27,10 @@ public:
 
 	void insert(const AbstractBtreeKey* key, IBlockObject* data);
 
+	IBlockObject* gotoFirst() noexcept;
+	IBlockObject* gotoKey(const AbstractBtreeKey* key) noexcept;
+	IBlockObject* getNext() noexcept;
+
 	MemoryNodeHandle* pop() noexcept;
 	void push(MemoryNodeHandle* node) noexcept;
 	MemoryNodeHandle* top() noexcept;

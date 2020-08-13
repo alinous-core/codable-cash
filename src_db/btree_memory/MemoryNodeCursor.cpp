@@ -194,6 +194,17 @@ AbstractBtreeKey* MemoryNodeCursor::setupTwoLists(
 	return allList.get(list1Size - 1)->getKey()->clone();
 }
 
+IBlockObject* MemoryNodeCursor::gotoFirst() noexcept {
+}
+
+IBlockObject* MemoryNodeCursor::gotoKey(const AbstractBtreeKey* key) noexcept {
+
+}
+
+IBlockObject* MemoryNodeCursor::getNext() noexcept {
+}
+
+
 MemoryNodeHandle* MemoryNodeCursor::pop() noexcept {
 	int index = this->nodestack->size() - 1;
 	MemoryNodeHandle* node = this->nodestack->get(index);
