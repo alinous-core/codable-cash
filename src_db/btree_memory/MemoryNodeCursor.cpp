@@ -204,14 +204,26 @@ IBlockObject* MemoryNodeCursor::gotoKey(const AbstractBtreeKey* key) noexcept {
 IBlockObject* MemoryNodeCursor::getNext() noexcept {
 }
 
+MemoryNodeHandle* MemoryNodeCursor::gotoLeaf(const AbstractBtreeKey* key) {
+	MemoryNodeHandle* current = top();
 
-MemoryNodeHandle* MemoryNodeCursor::pop() noexcept {
+	while(!current->isLeaf()){
+		MemoryNodeHandle* nextNode = current->getNextChild(key);
+
+		push(nextNode);
+		current = nextNode;
+	}
+
+	return current;
+}
+
+void MemoryNodeCursor::pop() noexcept {
 	int index = this->nodestack->size() - 1;
-	MemoryNodeHandle* node = this->nodestack->get(index);
+	MemoryNodeHandle* nodeHandle = this->nodestack->get(index);
 
 	this->nodestack->remove(index);
 
-	return node;
+	delete nodeHandle;
 }
 
 void MemoryNodeCursor::push(MemoryNodeHandle* node) noexcept {
