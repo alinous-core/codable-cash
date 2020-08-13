@@ -2,6 +2,7 @@
 set(__src
 	AbstractMemoryTreeNode.cpp
 	BTreeOnMemory.cpp
+	MemoryBtreeScanner.cpp
 	MemoryDataNode.cpp
 	MemoryNodeCursor.cpp
 	MemoryNodeHandle.cpp

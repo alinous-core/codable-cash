@@ -17,6 +17,7 @@ class AbstractBtreeKey;
 class IBlockObject;
 class MemoryTreeNode;
 class NodeHandle;
+class MemoryBtreeScanner;
 
 class BTreeOnMemory {
 public:
@@ -24,6 +25,8 @@ public:
 	BTreeOnMemory() = delete;
 	BTreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory);
 	virtual ~BTreeOnMemory();
+
+	MemoryBtreeScanner* getScanner();
 
 	void insert(const AbstractBtreeKey* key, IBlockObject* data);
 
