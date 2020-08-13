@@ -71,6 +71,24 @@ MemoryNodeHandle* MemoryNodeHandle::gotoEqMoreThanKey(const AbstractBtreeKey* ke
 	return nullptr;
 }
 
+bool MemoryNodeHandle::hasNext() const noexcept {
+	MemoryTreeNode* node = dynamic_cast<MemoryTreeNode*>(this->node);
+	ArrayList<AbstractMemoryTreeNode>* list = node->getChildren();
+
+	return list->size() > this->pos;
+}
+
+AbstractMemoryTreeNode* MemoryNodeHandle::nextNode() noexcept {
+	MemoryTreeNode* node = dynamic_cast<MemoryTreeNode*>(this->node);
+	ArrayList<AbstractMemoryTreeNode>* list = node->getChildren();
+
+	if(list->size() - 1 < this->pos){
+		return nullptr;
+	}
+
+	return list->get(this->pos++);
+}
+
 AbstractMemoryTreeNode* MemoryNodeHandle::hasKey(const AbstractBtreeKey* key) const noexcept {
 	MemoryTreeNode* node = dynamic_cast<MemoryTreeNode*>(this->node);
 	ArrayList<AbstractMemoryTreeNode>* list = node->getChildren();

@@ -26,7 +26,10 @@ public:
 	void setRoot(bool isroot) noexcept;
 
 	MemoryNodeHandle* getNextChild(const AbstractBtreeKey* key);
+
 	MemoryNodeHandle* gotoEqMoreThanKey(const AbstractBtreeKey* key);
+	bool hasNext() const noexcept;
+	AbstractMemoryTreeNode* nextNode() noexcept;
 
 	AbstractMemoryTreeNode* hasKey(const AbstractBtreeKey* key) const noexcept;
 	bool isFull(int nodeNumber) const noexcept;
