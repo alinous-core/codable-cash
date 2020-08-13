@@ -81,6 +81,43 @@ AbstractBtreeKey* MemoryNodeCursor::setupTwoLists(
 		ArrayList<AbstractMemoryTreeNode>* list, AbstractMemoryTreeNode* node,
 		ArrayList<AbstractMemoryTreeNode>* list1,
 		ArrayList<AbstractMemoryTreeNode>* list2) {
+	ArrayList<AbstractMemoryTreeNode> allList(list->size() + 1);
+
+	AbstractBtreeKey* key = node->getKey();
+	bool done = false;
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractMemoryTreeNode* nh = list->get(i);
+
+		if(!done){
+			AbstractBtreeKey* nhKey = nh->getKey();
+			if(nhKey->compareTo(key) > 0){
+				done = true;
+				allList.addElement(node);
+			}
+		}
+
+		allList.addElement(nh);
+	}
+
+	if(!done){
+		allList.addElement(node);
+	}
+
+	int total = allList.size();
+	int list1Size = total / 2;
+
+	int i = 0;
+	for(; i != list1Size; ++i){
+		AbstractMemoryTreeNode* n = allList.get(i);
+		list1->addElement(n);
+	}
+	for(; i != total; ++i){
+		AbstractMemoryTreeNode* n = allList.get(i);
+		list2->addElement(n);
+	}
+
+	return allList.get(list1Size - 1)->getKey()->clone();
 }
 
 MemoryNodeHandle* MemoryNodeCursor::pop() noexcept {
