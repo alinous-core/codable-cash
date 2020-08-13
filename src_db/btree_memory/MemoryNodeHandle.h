@@ -23,11 +23,13 @@ public:
 
 	bool isLeaf() const noexcept;
 	bool isRoot() const noexcept;
+	void setRoot(bool isroot) noexcept;
 
 	MemoryNodeHandle* getNextChild(const AbstractBtreeKey* key);
 	AbstractMemoryTreeNode* hasKey(const AbstractBtreeKey* key) const noexcept;
 	bool isFull(int nodeNumber) const noexcept;
 	void addNode(AbstractMemoryTreeNode* anode) noexcept;
+	void updateInnerNodes(const ArrayList<AbstractMemoryTreeNode>* list) noexcept;
 
 	ArrayList<AbstractMemoryTreeNode>* getInnerNodes() const noexcept;
 private:

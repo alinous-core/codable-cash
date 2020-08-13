@@ -32,6 +32,10 @@ bool MemoryNodeHandle::isRoot() const noexcept {
 	return dynamic_cast<MemoryTreeNode*>(this->node)->isRoot();
 }
 
+void MemoryNodeHandle::setRoot(bool isroot) noexcept {
+	dynamic_cast<MemoryTreeNode*>(this->node)->setRoot(isroot);
+}
+
 MemoryNodeHandle* MemoryNodeHandle::getNextChild(const AbstractBtreeKey* key) {
 	MemoryTreeNode* node = dynamic_cast<MemoryTreeNode*>(this->node);
 	ArrayList<AbstractMemoryTreeNode>* list = node->getChildren();
@@ -83,5 +87,10 @@ ArrayList<AbstractMemoryTreeNode>* MemoryNodeHandle::getInnerNodes() const noexc
 	MemoryTreeNode* node = dynamic_cast<MemoryTreeNode*>(this->node);
 	return node->getChildren();
 }
+
+void MemoryNodeHandle::updateInnerNodes(const ArrayList<AbstractMemoryTreeNode>* list) noexcept {
+	dynamic_cast<MemoryTreeNode*>(this->node)->updateInnerNodes(list);
+}
+
 
 } /* namespace alinous */

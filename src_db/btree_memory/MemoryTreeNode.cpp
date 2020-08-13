@@ -71,7 +71,7 @@ void alinous::MemoryTreeNode::internalAddNode(int index, AbstractMemoryTreeNode*
 	this->children->setElement(node, index);
 }
 
-void MemoryTreeNode::updateInnerNodes(ArrayList<AbstractMemoryTreeNode>* list) noexcept {
+void MemoryTreeNode::updateInnerNodes(const ArrayList<AbstractMemoryTreeNode>* list) noexcept {
 	this->children->reset();
 
 	int maxLoop = list->size();
@@ -80,7 +80,6 @@ void MemoryTreeNode::updateInnerNodes(ArrayList<AbstractMemoryTreeNode>* list) n
 		this->children->addElement(node);
 	}
 }
-
 
 
 } /* namespace alinous */

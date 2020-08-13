@@ -84,7 +84,8 @@ void MemoryNodeCursor::splitLeafNode(const AbstractBtreeKey* key, IBlockObject* 
 
 	//FIXME update current
 	bool isroot = current->isRoot();
-
+	current->setRoot(false);
+	current->updateInnerNodes(&list2);
 
 	// add to parent node
 
