@@ -37,6 +37,7 @@ private:
 			ArrayList<AbstractMemoryTreeNode>* list1, ArrayList<AbstractMemoryTreeNode>* list2);
 	void createNewRoot(MemoryTreeNode* newNode);
 	void addToParent(MemoryTreeNode* newNode);
+	void splitTreeNode(MemoryTreeNode* node);
 private:
 	ArrayList<MemoryNodeHandle>* nodestack;
 	int nodeNumber; // max inner nodes number in a node

@@ -109,6 +109,19 @@ void MemoryNodeCursor::createNewRoot(MemoryTreeNode* newNode) {
 }
 
 void MemoryNodeCursor::addToParent(MemoryTreeNode* newNode) {
+	pop();
+	MemoryNodeHandle* current = top();
+
+	if(current->isFull(this->nodeNumber)){
+		splitTreeNode(newNode);
+	}
+	else{
+		current->addNode(newNode);
+	}
+}
+
+void MemoryNodeCursor::splitTreeNode(MemoryTreeNode* node) {
+
 }
 
 AbstractBtreeKey* MemoryNodeCursor::setupTwoLists(
