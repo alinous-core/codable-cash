@@ -13,6 +13,7 @@
 
 #include "filestore_block/IBlockObject.h"
 
+#include "base/StackRelease.h"
 namespace alinous {
 
 MemoryNodeCursor::MemoryNodeCursor(MemoryNodeHandle* rootNode, int nodeNumber) {
@@ -48,14 +49,38 @@ void MemoryNodeCursor::insert(const AbstractBtreeKey* key, IBlockObject* data) {
 
 	// 2. Add key, then check whether the node is full or not
 	if(current->isFull(this->nodeNumber)){
-		// FIXME split node
+		splitLeafNode(key, data);
 		return;
 	}
 
 
 	// simply add data
 	MemoryDataNode* dnode = new MemoryDataNode(key->clone());
+	dnode->setData(data);
 	current->addNode(dnode);
+}
+
+void MemoryNodeCursor::splitLeafNode(const AbstractBtreeKey* key, IBlockObject* data) {
+	MemoryNodeHandle* current = top();
+
+	MemoryDataNode* dataNode = new MemoryDataNode(key->clone());
+	dataNode->setData(data);
+
+	// FIXME split node
+	ArrayList<AbstractMemoryTreeNode>* list = current->getInnerNodes();
+
+	ArrayList<AbstractMemoryTreeNode> list1(this->nodeNumber);
+	ArrayList<AbstractMemoryTreeNode> list2(this->nodeNumber);
+
+	AbstractBtreeKey* newKey = setupTwoLists(list, dataNode, &list1, &list2);
+	StackRelease<AbstractBtreeKey> __st_newkey(newKey);
+
+}
+
+AbstractBtreeKey* MemoryNodeCursor::setupTwoLists(
+		ArrayList<AbstractMemoryTreeNode>* list, AbstractMemoryTreeNode* node,
+		ArrayList<AbstractMemoryTreeNode>* list1,
+		ArrayList<AbstractMemoryTreeNode>* list2) {
 }
 
 MemoryNodeHandle* MemoryNodeCursor::pop() noexcept {

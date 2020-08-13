@@ -12,6 +12,7 @@
 
 namespace alinous {
 
+class AbstractMemoryTreeNode;
 class MemoryNodeHandle;
 class AbstractBtreeKey;
 class IBlockObject;
@@ -27,6 +28,11 @@ public:
 	MemoryNodeHandle* pop() noexcept;
 	void push(MemoryNodeHandle* node) noexcept;
 	MemoryNodeHandle* top() noexcept;
+
+private:
+	void splitLeafNode(const AbstractBtreeKey* key, IBlockObject* data);
+	AbstractBtreeKey* setupTwoLists(ArrayList<AbstractMemoryTreeNode>* list, AbstractMemoryTreeNode* node,
+			ArrayList<AbstractMemoryTreeNode>* list1, ArrayList<AbstractMemoryTreeNode>* list2);
 
 private:
 	ArrayList<MemoryNodeHandle>* nodestack;

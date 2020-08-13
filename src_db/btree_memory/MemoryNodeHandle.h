@@ -8,6 +8,8 @@
 #ifndef BTREE_MEMORY_MEMORYNODEHANDLE_H_
 #define BTREE_MEMORY_MEMORYNODEHANDLE_H_
 
+#include "base/ArrayList.h"
+
 namespace alinous {
 
 class AbstractMemoryTreeNode;
@@ -25,6 +27,8 @@ public:
 	AbstractMemoryTreeNode* hasKey(const AbstractBtreeKey* key) const noexcept;
 	bool isFull(int nodeNumber) const noexcept;
 	void addNode(AbstractMemoryTreeNode* anode) noexcept;
+
+	ArrayList<AbstractMemoryTreeNode>* getInnerNodes() const noexcept;
 private:
 	AbstractMemoryTreeNode* node;
 };

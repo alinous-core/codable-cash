@@ -75,4 +75,9 @@ void MemoryNodeHandle::addNode(AbstractMemoryTreeNode* anode) noexcept {
 	node->addNode(anode);
 }
 
+ArrayList<AbstractMemoryTreeNode>* MemoryNodeHandle::getInnerNodes() const noexcept {
+	MemoryTreeNode* node = dynamic_cast<MemoryTreeNode*>(this->node);
+	return node->getChildren();
+}
+
 } /* namespace alinous */
