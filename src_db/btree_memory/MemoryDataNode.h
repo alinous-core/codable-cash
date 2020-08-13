@@ -23,6 +23,11 @@ public:
 	virtual bool isData() const noexcept { return true; }
 
 	void setData(IBlockObject* data) noexcept;
+
+	IBlockObject* getData() const noexcept {
+		return data;
+	}
+
 private:
 	IBlockObject* data;
 };
