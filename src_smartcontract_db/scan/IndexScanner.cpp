@@ -46,6 +46,8 @@ void IndexScanner::shutdown() noexcept {
 }
 
 bool IndexScanner::hasNext() {
+
+
 	return this->scanner->hasNext();
 }
 

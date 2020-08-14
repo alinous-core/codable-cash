@@ -19,7 +19,8 @@ namespace codablecash {
 
 class AbstractCdbKey;
 class IndexStore;
-
+class CdbOidValueList;
+class CdbOidValueListCursor;
 
 class IndexScanner : public RangeScanner {
 public:
@@ -34,6 +35,7 @@ public:
 private:
 	IndexStore* store;
 	BtreeScanner* scanner;
+	CdbOidValueListCursor* cursor;
 };
 
 } /* namespace codablecash */
