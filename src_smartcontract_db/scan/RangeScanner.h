@@ -27,6 +27,9 @@ public:
 	virtual ~RangeScanner();
 
 	AbstractBtreeKey* getFirstScanKey() const noexcept;
+
+	bool checkLower();
+
 private:
 	AbstractBtreeKey* begin;
 	bool beginEq;

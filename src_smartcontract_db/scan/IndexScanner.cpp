@@ -52,25 +52,28 @@ void IndexScanner::shutdown() noexcept {
 }
 
 bool IndexScanner::hasNext() {
-	if(this->cursor != nullptr && this->cursor->hasNext()){
-		this->nextObj = this->cursor->next();
-		return true;
-	}
 
-	if(this->scanner->hasNext()){
-		delete this->cursor;
-		const IBlockObject* obj = this->scanner->next();
-		const CdbOidValueList* list = dynamic_cast<const CdbOidValueList*>(obj);
+	return __hasNext();
+}
 
-		this->cursor = new CdbOidValueListCursor(list);
+bool IndexScanner::__hasNext() {
+	while(this->cursor == nullptr || !this->cursor->hasNext()){
+		if(this->scanner->hasNext()){
+			delete this->cursor;
+			const IBlockObject* obj = this->scanner->next();
+			const CdbOidValueList* list = dynamic_cast<const CdbOidValueList*>(obj);
 
-		if(this->cursor->hasNext()){
-			this->nextObj = this->cursor->next();
-			return true;
+			this->cursor = new CdbOidValueListCursor(list);
+			this->cursor->hasNext(); // load next
+		}
+		else{
+			return false;
 		}
 	}
 
-	return false;
+	this->nextObj = this->cursor->next();
+
+	return true;
 }
 
 const CdbOid* IndexScanner::next() {

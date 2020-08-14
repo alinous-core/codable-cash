@@ -23,6 +23,9 @@ CdbOidValueListCursor::~CdbOidValueListCursor() {
 }
 
 bool CdbOidValueListCursor::hasNext() noexcept {
+	if(this->obj != nullptr){
+		return true;
+	}
 	if(this->pos >= this->maxCount){
 		return false;
 	}
@@ -31,8 +34,11 @@ bool CdbOidValueListCursor::hasNext() noexcept {
 	return true;
 }
 
-const CdbOid* CdbOidValueListCursor::next() const noexcept {
-	return this->next();
+const CdbOid* CdbOidValueListCursor::next() noexcept {
+	const CdbOid* ret = this->obj;
+	this->obj = nullptr;
+
+	return ret;
 }
 
 } /* namespace codablecash */

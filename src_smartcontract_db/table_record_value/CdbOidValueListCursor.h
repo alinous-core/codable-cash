@@ -19,13 +19,14 @@ public:
 	virtual ~CdbOidValueListCursor();
 
 	bool hasNext() noexcept;
-	const CdbOid* next() const noexcept;
+	const CdbOid* next() noexcept;
 
 private:
 	const CdbOidValueList* list;
 	int pos;
 	int maxCount;
-	const CdbOid* obj;
+
+	CdbOid* obj;
 };
 
 } /* namespace codablecash */

@@ -34,6 +34,8 @@ public:
 	bool hasNext();
 	const CdbOid* next();
 private:
+	bool __hasNext();
+private:
 	IndexStore* store;
 	BtreeScanner* scanner;
 	CdbOidValueListCursor* cursor;

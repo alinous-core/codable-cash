@@ -37,6 +37,7 @@ public:
 	void insert(const AbstractBtreeKey* key, const IBlockObject* data);
 	IBlockObject* gotoFirst();
 	IBlockObject* getNext();
+	const AbstractBtreeKey* getCurrentKey();
 
 	IBlockObject* gotoKey(const AbstractBtreeKey* key);
 	NodePosition* gotoLeaf(const AbstractBtreeKey* key);

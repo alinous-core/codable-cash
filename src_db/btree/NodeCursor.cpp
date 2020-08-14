@@ -375,6 +375,12 @@ IBlockObject* NodeCursor::getNext() {
 	return this->store->loadData(datafpos);
 }
 
+const AbstractBtreeKey* NodeCursor::getCurrentKey() {
+	NodePosition* current = top();
+	return current->getKey();
+}
+
+
 void NodeCursor::checkIsDataNode(NodeHandle* nodeHandle, const char* srcfile, int srcline) {
 	if(!nodeHandle->isData()){
 		throw new NodeStructureException(srcfile, srcline);
