@@ -17,6 +17,7 @@
 #include "table_record/CdbRecord.h"
 
 #include "table_record_value/CdbOidValueList.h"
+#include "table_record_value/CdbOidValueListCursor.h"
 
 namespace codablecash {
 
@@ -24,6 +25,8 @@ IndexScanner::IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* 
 			: RangeScanner(begin, beginEq, end, endEq) {
 	this->store = store;
 	this->scanner = nullptr;
+	this->cursor = nullptr;
+	this->nextObj = nullptr;
 }
 
 IndexScanner::~IndexScanner() {
@@ -42,20 +45,36 @@ void IndexScanner::shutdown() noexcept {
 	if(this->scanner != nullptr){
 		delete this->scanner;
 		this->scanner = nullptr;
+		delete this->cursor;
+		this->cursor = nullptr;
+		this->nextObj = nullptr;
 	}
 }
 
 bool IndexScanner::hasNext() {
+	if(this->cursor != nullptr && this->cursor->hasNext()){
+		this->nextObj = this->cursor->next();
+		return true;
+	}
+
+	if(this->scanner->hasNext()){
+		delete this->cursor;
+		const IBlockObject* obj = this->scanner->next();
+		const CdbOidValueList* list = dynamic_cast<const CdbOidValueList*>(obj);
 
 
-	return this->scanner->hasNext();
+
+		if(this->cursor->hasNext()){
+			this->nextObj = this->cursor->next();
+			return true;
+		}
+	}
+
+	return false;
 }
 
-const CdbRecord* IndexScanner::next() {
-	const IBlockObject* obj = this->scanner->next();
-	const CdbOidValueList* oidList = dynamic_cast<const CdbOidValueList*>(obj);
-
-	return nullptr; // FIXME index
+const CdbOid* IndexScanner::next() {
+	return this->nextObj; // FIXME index
 }
 
 } /* namespace codablecash */

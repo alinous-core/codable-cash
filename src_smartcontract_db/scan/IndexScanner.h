@@ -21,21 +21,24 @@ class AbstractCdbKey;
 class IndexStore;
 class CdbOidValueList;
 class CdbOidValueListCursor;
+class CdbOid;
 
 class IndexScanner : public RangeScanner {
 public:
 	IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq, IndexStore* store);
 	virtual ~IndexScanner();
 
-	virtual void start();
-	virtual void shutdown() noexcept;
+	void start();
+	void shutdown() noexcept;
 
-	virtual bool hasNext();
-	virtual const CdbRecord* next();
+	bool hasNext();
+	const CdbOid* next();
 private:
 	IndexStore* store;
 	BtreeScanner* scanner;
 	CdbOidValueListCursor* cursor;
+
+	const CdbOid* nextObj;
 };
 
 } /* namespace codablecash */

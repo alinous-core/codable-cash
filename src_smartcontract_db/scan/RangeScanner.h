@@ -21,7 +21,7 @@ namespace codablecash {
 class AbstractCdbKey;
 
 
-class RangeScanner : public AbstractRecordScanner {
+class RangeScanner {
 public:
 	RangeScanner(const AbstractCdbKey* begin, bool beginEq, const AbstractCdbKey* end, bool endEq);
 	virtual ~RangeScanner();
