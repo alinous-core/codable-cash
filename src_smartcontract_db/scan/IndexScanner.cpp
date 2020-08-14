@@ -62,7 +62,7 @@ bool IndexScanner::hasNext() {
 		const IBlockObject* obj = this->scanner->next();
 		const CdbOidValueList* list = dynamic_cast<const CdbOidValueList*>(obj);
 
-
+		this->cursor = new CdbOidValueListCursor(list);
 
 		if(this->cursor->hasNext()){
 			this->nextObj = this->cursor->next();
@@ -74,7 +74,7 @@ bool IndexScanner::hasNext() {
 }
 
 const CdbOid* IndexScanner::next() {
-	return this->nextObj; // FIXME index
+	return this->nextObj;
 }
 
 } /* namespace codablecash */
