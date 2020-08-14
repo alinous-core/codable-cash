@@ -218,11 +218,17 @@ TEST(TestBTreeGroup, add01){
 		int i = 0;
 		while(scanner->hasNext()){
 			const IBlockObject* obj = scanner->next();
+			const AbstractBtreeKey* k = scanner->nextKey();
+
 			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
 			uint64_t v = tmp->getValue();
 
+			const ULongKey* lk = dynamic_cast<const ULongKey*>(k);
+			uint64_t kv = lk->getValue();
+
 			uint64_t a = answers.get(i++);
 			CHECK(v == a)
+			CHECK(kv == a)
 		}
 	}
 	{
