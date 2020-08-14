@@ -6,6 +6,7 @@ set(__src
 	CdbIntValue.cpp
 	CdbLongValue.cpp
 	CdbOidValueList.cpp
+	CdbOidValueListCursor.cpp
 	CdbShortValue.cpp
 	CdbStringValue.cpp
 	VmInstanceValueConverter.cpp

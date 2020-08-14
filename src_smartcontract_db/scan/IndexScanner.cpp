@@ -52,6 +52,7 @@ bool IndexScanner::hasNext() {
 const CdbRecord* IndexScanner::next() {
 	const IBlockObject* obj = this->scanner->next();
 	const CdbOidValueList* oidList = dynamic_cast<const CdbOidValueList*>(obj);
+
 	return nullptr; // FIXME index
 }
 
