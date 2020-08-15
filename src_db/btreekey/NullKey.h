@@ -1,28 +1,28 @@
 /*
- * InfinityKey.h
+ * NullKey.h
  *
- *  Created on: 2018/12/23
+ *  Created on: 2020/08/15
  *      Author: iizuka
  */
 
-#ifndef BTREE_INFINITYKEY_H_
-#define BTREE_INFINITYKEY_H_
+#ifndef BTREEKEY_NULLKEY_H_
+#define BTREEKEY_NULLKEY_H_
 
 #include "btree/AbstractBtreeKey.h"
 
 namespace alinous {
 
-class InfinityKey: public AbstractBtreeKey {
+class NullKey : public AbstractBtreeKey {
 public:
-	InfinityKey();
-	virtual ~InfinityKey();
+	NullKey();
+	virtual ~NullKey();
 
 	virtual bool isInfinity() const;
 	virtual bool isNull() const;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
-	static InfinityKey* fromBinary(ByteBuffer* in);
+	static NullKey* fromBinary(ByteBuffer* in);
 
 	virtual int compareTo(const AbstractBtreeKey* key) const noexcept;
 	virtual AbstractBtreeKey* clone() const noexcept;
@@ -30,4 +30,4 @@ public:
 
 } /* namespace alinous */
 
-#endif /* BTREE_INFINITYKEY_H_ */
+#endif /* BTREEKEY_NULLKEY_H_ */
