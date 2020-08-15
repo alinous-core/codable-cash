@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#ifndef SCAN_RANGESCANNER_H_
-#define SCAN_RANGESCANNER_H_
+#ifndef SCAN_RANGECHECKER_H_
+#define SCAN_RANGECHECKER_H_
 
 #include "scan/AbstractRecordScanner.h"
 
@@ -21,14 +21,15 @@ namespace codablecash {
 class AbstractCdbKey;
 
 
-class RangeScanner {
+class RangeChecker {
 public:
-	RangeScanner(const AbstractCdbKey* begin, bool beginEq, const AbstractCdbKey* end, bool endEq);
-	virtual ~RangeScanner();
+	RangeChecker(const AbstractCdbKey* begin, bool beginEq, const AbstractCdbKey* end, bool endEq);
+	virtual ~RangeChecker();
 
 	AbstractBtreeKey* getFirstScanKey() const noexcept;
 
-	bool checkLower();
+	bool checkLower(const AbstractCdbKey* key) const noexcept;
+	bool checkUpper(const AbstractCdbKey* key) const noexcept;
 
 private:
 	AbstractBtreeKey* begin;
@@ -39,4 +40,4 @@ private:
 
 } /* namespace codablecash */
 
-#endif /* SCAN_RANGESCANNER_H_ */
+#endif /* SCAN_RANGECHECKER_H_ */

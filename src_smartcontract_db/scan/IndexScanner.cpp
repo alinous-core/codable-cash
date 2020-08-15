@@ -22,7 +22,7 @@
 namespace codablecash {
 
 IndexScanner::IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq, IndexStore* store)
-			: RangeScanner(begin, beginEq, end, endEq) {
+			: RangeChecker(begin, beginEq, end, endEq) {
 	this->store = store;
 	this->scanner = nullptr;
 	this->cursor = nullptr;

@@ -8,7 +8,7 @@
 #ifndef SCAN_INDEXSCANNER_H_
 #define SCAN_INDEXSCANNER_H_
 
-#include "scan/RangeScanner.h"
+#include "scan/RangeChecker.h"
 
 namespace alinous {
 class BtreeScanner;
@@ -23,7 +23,7 @@ class CdbOidValueList;
 class CdbOidValueListCursor;
 class CdbOid;
 
-class IndexScanner : public RangeScanner {
+class IndexScanner : public RangeChecker {
 public:
 	IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq, IndexStore* store);
 	virtual ~IndexScanner();
