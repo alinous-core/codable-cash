@@ -21,6 +21,7 @@ public:
 	virtual ~FeeIndexKey();
 
 	virtual bool isInfinity() const { return false; }
+	virtual bool isNull() const { return false; }
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;

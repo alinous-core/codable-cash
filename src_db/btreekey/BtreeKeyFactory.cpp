@@ -11,7 +11,6 @@
 #include "btreekey/ULongKey.h"
 #include "btreekey/exceptions.h"
 
-
 namespace alinous {
 
 BtreeKeyFactory::BtreeKeyFactory() {

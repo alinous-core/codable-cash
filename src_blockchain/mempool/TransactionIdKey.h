@@ -25,6 +25,8 @@ public:
 	virtual ~TransactionIdKey();
 
 	virtual bool isInfinity() const;
+	virtual bool isNull() const { return false; }
+
 	virtual int compareTo(const AbstractBtreeKey* key) const noexcept;
 	virtual AbstractBtreeKey* clone()  const noexcept;
 
