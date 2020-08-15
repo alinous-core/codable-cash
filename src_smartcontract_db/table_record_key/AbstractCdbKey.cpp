@@ -21,4 +21,8 @@ bool AbstractCdbKey::isInfinity() const {
 	return false;
 }
 
+bool AbstractCdbKey::isNull() const {
+	return false;
+}
+
 } /* namespace codablecash */
