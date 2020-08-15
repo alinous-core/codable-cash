@@ -54,6 +54,9 @@ TEST(TestBTreeGroup, infinityKey){
 	CHECK(key.compareTo(key2) == 0)
 	CHECK(key.compareTo(&ulkey) > 0)
 
+	CHECK(!key.isNull());
+	CHECK(!ulkey.isNull());
+
 	delete key2;
 }
 
@@ -64,6 +67,7 @@ TEST(TestBTreeGroup, nullkey){
 
 	CHECK(key.compareTo(key2) == 0)
 	CHECK(key.compareTo(&ulkey) < 0)
+	CHECK(ulkey.compareTo(&key) > 0)
 
 	delete key2;
 }
