@@ -60,5 +60,7 @@ TEST(TestIndexScannerGroup, case01){
 
 	initDb(db, dbDir);
 
+
+
 	// FIXME TestIndexScannerGroup
 }

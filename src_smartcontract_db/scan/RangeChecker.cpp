@@ -30,12 +30,20 @@ AbstractBtreeKey* RangeChecker::getFirstScanKey() const noexcept {
 }
 
 bool RangeChecker::checkLower(const AbstractCdbKey* key) const noexcept {
+	if(this->begin == nullptr){
+		return true;
+	}
+
 	int result = this->begin->compareTo(key);
 
 	return this->beginEq ? result >= 0 : result > 0;
 }
 
 bool RangeChecker::checkUpper(const AbstractCdbKey* key) const noexcept {
+	if(this->end == nullptr){
+		return true;
+	}
+
 	int result = this->end->compareTo(key);
 
 	return this->endEq ? result <= 0 : result < 0;
