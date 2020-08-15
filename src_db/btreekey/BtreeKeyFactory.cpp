@@ -5,10 +5,12 @@
  *      Author: iizuka
  */
 
-#include <btreekey/BtreeKeyFactory.h>
+#include "btreekey/BtreeKeyFactory.h"
+#include "btreekey/NullKey.h"
 #include "btreekey/InfinityKey.h"
 #include "btreekey/ULongKey.h"
 #include "btreekey/exceptions.h"
+
 
 namespace alinous {
 
@@ -20,6 +22,8 @@ BtreeKeyFactory::~BtreeKeyFactory() {
 
 AbstractBtreeKey* BtreeKeyFactory::fromBinary(uint32_t keyType, ByteBuffer* in) const {
 	switch(keyType){
+	case BtreeKeyFactory::NULL_KEY:
+		return NullKey::fromBinary(in);
 	case BtreeKeyFactory::INFINITY_KEY:
 		return InfinityKey::fromBinary(in);
 	case BtreeKeyFactory::ULONG_KEY:
