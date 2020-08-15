@@ -6,7 +6,7 @@
  */
 
 
-#include <btreekey/BtreeKeyFactory.h>
+#include "btreekey/BtreeKeyFactory.h"
 #include "test_utils/t_macros.h"
 
 #include "btreekey/exceptions.h"
