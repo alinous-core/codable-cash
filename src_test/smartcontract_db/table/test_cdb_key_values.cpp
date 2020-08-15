@@ -31,6 +31,7 @@
 #include "table_record_key/CdbStringKey.h"
 #include "table_record_key/CdbRecordKey.h"
 
+#include "btreekey/NullKey.h"
 using namespace codablecash;
 using namespace alinous;
 
@@ -64,6 +65,10 @@ TEST(TestCdbKeyValuesGroup, CdbByteKey){
 	InfinityKey inf;
 	cmpResult = retKey->compareTo(&inf);
 	CHECK(cmpResult < 0);
+
+	NullKey nullkey;
+	cmpResult = retKey->compareTo(&nullkey);
+	CHECK(cmpResult > 0);
 }
 
 TEST(TestCdbKeyValuesGroup, CdbShortKey){
@@ -89,6 +94,10 @@ TEST(TestCdbKeyValuesGroup, CdbShortKey){
 	InfinityKey inf;
 	cmpResult = retKey->compareTo(&inf);
 	CHECK(cmpResult < 0);
+
+	NullKey nullkey;
+	cmpResult = retKey->compareTo(&nullkey);
+	CHECK(cmpResult > 0);
 }
 
 TEST(TestCdbKeyValuesGroup, CdbIntKey){
@@ -114,6 +123,10 @@ TEST(TestCdbKeyValuesGroup, CdbIntKey){
 	InfinityKey inf;
 	cmpResult = retKey->compareTo(&inf);
 	CHECK(cmpResult < 0);
+
+	NullKey nullkey;
+	cmpResult = retKey->compareTo(&nullkey);
+	CHECK(cmpResult > 0);
 }
 
 TEST(TestCdbKeyValuesGroup, CdbLongKey){
@@ -139,6 +152,10 @@ TEST(TestCdbKeyValuesGroup, CdbLongKey){
 	InfinityKey inf;
 	cmpResult = retKey->compareTo(&inf);
 	CHECK(cmpResult < 0);
+
+	NullKey nullkey;
+	cmpResult = retKey->compareTo(&nullkey);
+	CHECK(cmpResult > 0);
 }
 
 TEST(TestCdbKeyValuesGroup, CdbStringKey){
@@ -165,6 +182,10 @@ TEST(TestCdbKeyValuesGroup, CdbStringKey){
 	InfinityKey inf;
 	cmpResult = retKey->compareTo(&inf);
 	CHECK(cmpResult < 0);
+
+	NullKey nullkey;
+	cmpResult = retKey->compareTo(&nullkey);
+	CHECK(cmpResult > 0);
 }
 
 TEST(TestCdbKeyValuesGroup, CdbRecordKey01){
@@ -192,6 +213,10 @@ TEST(TestCdbKeyValuesGroup, CdbRecordKey01){
 	InfinityKey inf;
 	cmpResult = retKey->compareTo(&inf);
 	CHECK(cmpResult < 0);
+
+	NullKey nullkey;
+	cmpResult = retKey->compareTo(&nullkey);
+	CHECK(cmpResult > 0);
 }
 
 TEST(TestCdbKeyValuesGroup, CdbRecordKey02){

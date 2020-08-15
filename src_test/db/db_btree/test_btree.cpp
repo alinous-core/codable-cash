@@ -33,6 +33,7 @@
 
 #include <stdlib.h>
 
+#include "btreekey/NullKey.h"
 
 using namespace alinous;
 
@@ -52,6 +53,17 @@ TEST(TestBTreeGroup, infinityKey){
 
 	CHECK(key.compareTo(key2) == 0)
 	CHECK(key.compareTo(&ulkey) > 0)
+
+	delete key2;
+}
+
+TEST(TestBTreeGroup, nullkey){
+	NullKey key;
+	NullKey* key2 = dynamic_cast<NullKey*>(key.clone());
+	ULongKey ulkey(100);
+
+	CHECK(key.compareTo(key2) == 0)
+	CHECK(key.compareTo(&ulkey) < 0)
 
 	delete key2;
 }
