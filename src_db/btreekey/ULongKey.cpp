@@ -38,6 +38,9 @@ int ULongKey::compareTo(const AbstractBtreeKey* key) const noexcept {
 	if(key->isInfinity()){
 		return -1;
 	}
+	else if(key->isNull()){
+		return 1;
+	}
 
 	const ULongKey* ulkey = dynamic_cast<const ULongKey*>(key);
 

@@ -48,6 +48,9 @@ int FeeIndexKey::compareTo(const AbstractBtreeKey* key) const noexcept {
 	if(key->isInfinity()){
 		return -1;
 	}
+	else if(key->isNull()){
+		return 1;
+	}
 
 	const FeeIndexKey* ulkey = dynamic_cast<const FeeIndexKey*>(key);
 
