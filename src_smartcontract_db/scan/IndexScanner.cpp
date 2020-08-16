@@ -52,7 +52,6 @@ void IndexScanner::shutdown() noexcept {
 }
 
 bool IndexScanner::hasNext() {
-
 	return __hasNext();
 }
 
@@ -60,6 +59,15 @@ bool IndexScanner::__hasNext() {
 	while(this->cursor == nullptr || !this->cursor->hasNext()){
 		if(this->scanner->hasNext()){
 			delete this->cursor;
+
+			const AbstractBtreeKey* key = this->scanner->nextKey();
+			if(!checkLower(key)){
+				continue;
+			}
+			if(!checkUpper(key)){
+				return false;
+			}
+
 			const IBlockObject* obj = this->scanner->next();
 			const CdbOidValueList* list = dynamic_cast<const CdbOidValueList*>(obj);
 

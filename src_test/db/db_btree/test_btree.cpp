@@ -233,8 +233,9 @@ TEST(TestBTreeGroup, add01){
 		scanner->begin();
 		int i = 0;
 		while(scanner->hasNext()){
-			const IBlockObject* obj = scanner->next();
 			const AbstractBtreeKey* k = scanner->nextKey();
+			const IBlockObject* obj = scanner->next();
+
 
 			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
 			uint64_t v = tmp->getValue();
@@ -279,8 +280,9 @@ TEST(TestBTreeGroup, add01){
 		scanner->begin(&lkey);
 		int i = 2;
 		while(scanner->hasNext()){
-			const IBlockObject* obj = scanner->next();
 			const AbstractBtreeKey* k = scanner->nextKey();
+			const IBlockObject* obj = scanner->next();
+
 
 			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
 			uint64_t v = tmp->getValue();

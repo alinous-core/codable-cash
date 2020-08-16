@@ -29,7 +29,7 @@ AbstractBtreeKey* RangeChecker::getFirstScanKey() const noexcept {
 	return this->begin;
 }
 
-bool RangeChecker::checkLower(const AbstractCdbKey* key) const noexcept {
+bool RangeChecker::checkLower(const AbstractBtreeKey* key) const noexcept {
 	if(this->begin == nullptr){
 		return true;
 	}
@@ -39,7 +39,7 @@ bool RangeChecker::checkLower(const AbstractCdbKey* key) const noexcept {
 	return this->beginEq ? result >= 0 : result > 0;
 }
 
-bool RangeChecker::checkUpper(const AbstractCdbKey* key) const noexcept {
+bool RangeChecker::checkUpper(const AbstractBtreeKey* key) const noexcept {
 	if(this->end == nullptr){
 		return true;
 	}
