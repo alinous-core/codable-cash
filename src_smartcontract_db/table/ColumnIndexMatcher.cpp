@@ -11,10 +11,14 @@ namespace codablecash {
 
 ColumnIndexMatcher::ColumnIndexMatcher(CdbTableIndex* idx) {
 	this->idx = idx;
+	this->length = 0;
 }
 
 ColumnIndexMatcher::~ColumnIndexMatcher() {
 	this->idx = nullptr;
+}
+
+void ColumnIndexMatcher::doMatch(const ArrayList<CdbOid>* oidlist) noexcept {
 }
 
 } /* namespace codablecash */
