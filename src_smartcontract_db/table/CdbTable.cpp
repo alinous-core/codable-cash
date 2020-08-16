@@ -260,7 +260,12 @@ CdbTableIndex* CdbTable::getIndexByColumnOids(const ArrayList<CdbOid>* oidlist) 
 	for(int i = 0; i != maxLoop; ++i){
 		CdbTableIndex* idx = this->indexes->get(i);
 
-		// FIXME match
+		ColumnIndexMatcher* current = new ColumnIndexMatcher(idx);
+		int length = current->getLength();
+		if(length != 0 && (matcher == nullptr || matcher->getLength() < length)){
+			delete matcher;
+			matcher = current;
+		}
 	}
 
 	return matcher != nullptr ? matcher->getIdx(): nullptr;

@@ -109,6 +109,13 @@ IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* table
 
 }
 
+IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* tableId, ArrayList<CdbOid>* columnOidList) {
+	CdbTable* table = getTableFromIdentifier(tableId);
+
+	CdbTableIndex* index = table->getIndexByColumnOids(columnOidList);
+
+}
+
 CdbTable* CdbTransaction::getTableFromIdentifier(const CdbTableIdentifier* tableId) const {
 	const UnicodeString* schemaName = tableId->getSchema();
 	const UnicodeString* tableName = tableId->getTable();
