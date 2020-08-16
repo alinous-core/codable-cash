@@ -24,6 +24,7 @@ class AbstractScanCondition;
 class CdbTableIdentifier;
 class TransactionUpdateCache;
 class CdbTable;
+class IndexScanner;
 
 class CdbTransaction {
 public:
@@ -38,10 +39,11 @@ public:
 	void insert(InsertLog* cmd);
 
 	TableTransactionScanner* getTableTransactionScanner(const CdbTableIdentifier* tableId, AbstractScanCondition* condition);
+	IndexScanner* getRawIndexScanner(const CdbTableIdentifier* tableId, const UnicodeString* column);
 
 	TransactionUpdateCache* getUpdateCache() const noexcept;
 private:
-	CdbTable* getTableFromIdentifier(const CdbTableIdentifier* tableId) const noexcept;
+	CdbTable* getTableFromIdentifier(const CdbTableIdentifier* tableId) const;
 private:
 	CdbTransactionManager* trxManager;
 	uint64_t transactionId;

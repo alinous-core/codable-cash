@@ -154,4 +154,8 @@ void TableStore::validateRecordColumnValue(CdbTableColumn* meta, AbstractCdbValu
 
 }
 
+IndexStore* TableStore::getIndexStore(const CdbOid* oid) const noexcept {
+	return this->indexStores->get(oid);
+}
+
 } /* namespace codablecash */

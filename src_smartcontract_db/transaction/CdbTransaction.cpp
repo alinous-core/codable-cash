@@ -95,11 +95,26 @@ TransactionUpdateCache* CdbTransaction::getUpdateCache() const noexcept {
 	return this->updateCache;
 }
 
-CdbTable* CdbTransaction::getTableFromIdentifier(const CdbTableIdentifier* tableId) const noexcept {
+IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* tableId, const UnicodeString* column) {
+	CdbTable* table = getTableFromIdentifier(tableId);
+
+	const CdbOid* oid = table->getOid();
+	CdbStorageManager* store = this->trxManager->getStorageManager();
+
+	TableStore* tableStore = store->getTableStore(oid);
+
+
+}
+
+CdbTable* CdbTransaction::getTableFromIdentifier(const CdbTableIdentifier* tableId) const {
 	const UnicodeString* schemaName = tableId->getSchema();
 	const UnicodeString* tableName = tableId->getTable();
 
 	Schema* schema = this->trxManager->getSchema(schemaName);
+	if(schema == nullptr){
+		throw new CdbException(L"Schema does not exists", __FILE__, __LINE__);
+	}
+
 	CdbTable* table = schema->getCdbTableByName(tableName);
 
 	return table;
