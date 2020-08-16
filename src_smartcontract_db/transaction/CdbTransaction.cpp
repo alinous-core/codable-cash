@@ -95,7 +95,7 @@ TransactionUpdateCache* CdbTransaction::getUpdateCache() const noexcept {
 	return this->updateCache;
 }
 
-IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* tableId, const UnicodeString* column) {
+IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* tableId, ArrayList<const UnicodeString>* columnlist) {
 	CdbTable* table = getTableFromIdentifier(tableId);
 
 	const CdbOid* oid = table->getOid();
@@ -103,6 +103,9 @@ IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* table
 
 	TableStore* tableStore = store->getTableStore(oid);
 
+
+
+	// FIXME get index
 
 }
 

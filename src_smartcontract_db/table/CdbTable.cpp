@@ -20,8 +20,10 @@
 
 #include "table/TableObjectFactory.h"
 #include "table/CdbTableIndex.h"
+#include "table/ColumnIndexMatcher.h"
 
 #include "schema/SchemaManager.h"
+
 
 namespace codablecash {
 
@@ -248,6 +250,20 @@ CdbTableIndex* CdbTable::getIndexByColumnOid(const CdbOid* oid) const noexcept {
 	}
 
 	return ret;
+}
+
+
+CdbTableIndex* CdbTable::getIndexByColumnOids(const ArrayList<CdbOid>* oidlist) const noexcept {
+	ColumnIndexMatcher* matcher = nullptr;
+
+	int maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		// FIXME match
+	}
+
+	return matcher != nullptr ? matcher->getIdx(): nullptr;
 }
 
 int CdbTable::binarySize() const {

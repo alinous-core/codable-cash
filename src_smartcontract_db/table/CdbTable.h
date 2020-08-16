@@ -72,6 +72,7 @@ public:
 
 	void addIndex(CdbTableIndex* index);
 	CdbTableIndex* getIndexByColumnOid(const CdbOid* oid) const noexcept;
+	CdbTableIndex* getIndexByColumnOids(const ArrayList<CdbOid>* oidlist) const noexcept;
 
 	int binarySize() const;
 	void toBinary(ByteBuffer* out) const;

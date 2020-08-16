@@ -36,7 +36,7 @@ public:
 	const CdbOid* getIndexOid() const noexcept;
 
 	void insert(const CdbRecord* rec);
-	IndexScanner* startScan(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq);
+	IndexScanner* getScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq);
 
 	Btree* getBtree() const noexcept;
 private:

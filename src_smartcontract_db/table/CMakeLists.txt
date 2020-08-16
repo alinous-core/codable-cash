@@ -2,6 +2,7 @@
 
 set(__src
 	CdbTable.cpp
+	ColumnIndexMatcher.cpp
 	CdbTableColumn.cpp
 	CdbTableIndex.cpp
 	TableObjectFactory.cpp
