@@ -56,7 +56,7 @@ void initDb(CodableDatabase& db, File* dbDir) {
 	table->setName(new UnicodeString(L"test_table"));
 
 	table->addColumn(0, L"id", AbstractCdbValue::TYPE_INT, 0, true, true, nullptr);
-	table->addColumn(0, L"name", AbstractCdbValue::TYPE_STRING, 0, true, true, L"");
+	table->addColumn(0, L"name", AbstractCdbValue::TYPE_STRING, 0, true, false, L"");
 	table->setPrimaryKey(L"id");
 
 	cmd->setTable(table);
@@ -178,6 +178,74 @@ TEST(TestIndexScannerGroup, case02_err){
 
 		UnicodeString colName(L"id");
 		CdbTableIdentifier tableId(L"public", L"test_table2");
+
+		IndexScanner* scanner = trx->getRawIndexScanner(&tableId, &colName, nullptr, false, nullptr, false); __STP(scanner);
+	}
+	catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr)
+	delete ex;
+}
+
+TEST(TestIndexScannerGroup, case03_err){
+	File testCaseFolder = this->env->testCaseDir();
+	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
+	CodableDatabase db;
+
+	initDb(db, dbDir);
+
+	ArrayList<CdbRecord> list; list.setDeleteOnExit();
+	{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+		insertRecord(trx, 1, L"tanaka", &list);
+		insertRecord(trx, 2, L"yamada", &list);
+		insertRecord(trx, 3, L"yamamoto", &list);
+
+		trx->commit();
+	}
+
+	CdbException* ex = nullptr;
+	try{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+
+		UnicodeString colName(L"name");
+		CdbTableIdentifier tableId(L"public", L"test_table");
+
+		IndexScanner* scanner = trx->getRawIndexScanner(&tableId, &colName, nullptr, false, nullptr, false); __STP(scanner);
+	}
+	catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr)
+	delete ex;
+}
+
+TEST(TestIndexScannerGroup, case04_err){
+	File testCaseFolder = this->env->testCaseDir();
+	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
+	CodableDatabase db;
+
+	initDb(db, dbDir);
+
+	ArrayList<CdbRecord> list; list.setDeleteOnExit();
+	{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+		insertRecord(trx, 1, L"tanaka", &list);
+		insertRecord(trx, 2, L"yamada", &list);
+		insertRecord(trx, 3, L"yamamoto", &list);
+
+		trx->commit();
+	}
+
+	CdbException* ex = nullptr;
+	try{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+
+		UnicodeString colName(L"aaaaa");
+		CdbTableIdentifier tableId(L"public", L"test_table");
 
 		IndexScanner* scanner = trx->getRawIndexScanner(&tableId, &colName, nullptr, false, nullptr, false); __STP(scanner);
 	}
