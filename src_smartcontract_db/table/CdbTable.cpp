@@ -24,6 +24,8 @@
 
 #include "schema/SchemaManager.h"
 
+using alinous::StackRelease;
+
 
 namespace codablecash {
 
@@ -263,13 +265,17 @@ CdbTableIndex* CdbTable::getIndexByColumnOids(const ArrayList<const CdbOid>* oid
 	for(int i = 0; i != maxLoop; ++i){
 		CdbTableIndex* idx = this->indexes->get(i);
 
+
 		ColumnIndexMatcher* current = new ColumnIndexMatcher(idx);
+		StackRelease<ColumnIndexMatcher> st_current(current);
+
 		current->doMatch(oidlist);
 
 		int length = current->getLength();
 		if(length != 0 && (matcher == nullptr || matcher->getLength() < length)){
 			delete matcher;
 			matcher = current;
+			st_current.cancel();
 		}
 	}
 
