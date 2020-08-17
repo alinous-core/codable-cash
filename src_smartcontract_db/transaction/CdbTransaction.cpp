@@ -166,6 +166,9 @@ CdbTable* CdbTransaction::getTableFromIdentifier(const CdbTableIdentifier* table
 	}
 
 	CdbTable* table = schema->getCdbTableByName(tableName);
+	if(table == nullptr){
+		throw new CdbException(L"Table does not exists", __FILE__, __LINE__);
+	}
 
 	return table;
 }

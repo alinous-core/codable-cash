@@ -155,5 +155,39 @@ TEST(TestIndexScannerGroup, case01_err){
 	delete ex;
 }
 
+TEST(TestIndexScannerGroup, case02_err){
+	File testCaseFolder = this->env->testCaseDir();
+	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
+	CodableDatabase db;
+
+	initDb(db, dbDir);
+
+	ArrayList<CdbRecord> list; list.setDeleteOnExit();
+	{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+		insertRecord(trx, 1, L"tanaka", &list);
+		insertRecord(trx, 2, L"yamada", &list);
+		insertRecord(trx, 3, L"yamamoto", &list);
+
+		trx->commit();
+	}
+
+	CdbException* ex = nullptr;
+	try{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+
+		UnicodeString colName(L"id");
+		CdbTableIdentifier tableId(L"public", L"test_table2");
+
+		IndexScanner* scanner = trx->getRawIndexScanner(&tableId, &colName, nullptr, false, nullptr, false); __STP(scanner);
+	}
+	catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr)
+	delete ex;
+}
+
 // FIXME TestIndexScannerGroup
 
