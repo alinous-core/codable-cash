@@ -110,6 +110,12 @@ TEST(TestIndexScannerGroup, case01){
 
 		IndexScanner* scanner = trx->getRawIndexScanner(&tableId, &colName, nullptr, false, nullptr, false); __STP(scanner);
 
+		scanner->start();
+
+		while(scanner->hasNext()){
+			const CdbOid* oid = scanner->next();
+		}
+
 	}
 
 	// FIXME TestIndexScannerGroup
