@@ -41,6 +41,9 @@ public:
 	void insert(InsertLog* cmd);
 
 	TableTransactionScanner* getTableTransactionScanner(const CdbTableIdentifier* tableId, AbstractScanCondition* condition);
+
+	IndexScanner* getRawIndexScanner(const CdbTableIdentifier* tableId, const UnicodeString* columnName,
+					AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq);
 	IndexScanner* getRawIndexScanner(const CdbTableIdentifier* tableId, const ArrayList<const UnicodeString>* columnlist,
 					AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq);
 	IndexScanner* getRawIndexScanner(const CdbTableIdentifier* tableId, const ArrayList<const CdbOid>* columnOidList,

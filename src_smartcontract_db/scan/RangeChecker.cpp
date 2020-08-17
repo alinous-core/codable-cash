@@ -14,9 +14,9 @@
 namespace codablecash {
 
 RangeChecker::RangeChecker(const AbstractCdbKey* begin, bool beginEq, const AbstractCdbKey* end, bool endEq) {
-	this->begin = begin->clone();
+	this->begin = begin != nullptr ? begin->clone() : nullptr;
 	this->beginEq = beginEq;
-	this->end = end->clone();
+	this->end = end != nullptr ? end->clone() : nullptr;
 	this->endEq = endEq;
 }
 

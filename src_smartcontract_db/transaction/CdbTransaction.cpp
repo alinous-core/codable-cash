@@ -14,6 +14,7 @@
 #include "transaction_log/InsertLog.h"
 
 #include "base/StackRelease.h"
+#include "base/UnicodeString.h"
 
 #include "engine/CdbException.h"
 #include "engine/CdbOid.h"
@@ -34,6 +35,7 @@
 #include "transaction_update_cache/TransactionUpdateCache.h"
 
 #include "table/CdbTableColumn.h"
+
 
 namespace codablecash {
 
@@ -98,6 +100,14 @@ TableTransactionScanner* CdbTransaction::getTableTransactionScanner(const CdbTab
 
 TransactionUpdateCache* CdbTransaction::getUpdateCache() const noexcept {
 	return this->updateCache;
+}
+
+IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* tableId, const UnicodeString* columnName,
+				AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq) {
+	ArrayList<const UnicodeString> list;
+	list.addElement(columnName);
+
+	return getRawIndexScanner(tableId, &list, begin, beginEq, end, endEq);
 }
 
 IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* tableId, const ArrayList<const UnicodeString>* columnlist,

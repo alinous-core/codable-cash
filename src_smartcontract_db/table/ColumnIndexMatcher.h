@@ -22,7 +22,7 @@ public:
 	explicit ColumnIndexMatcher(CdbTableIndex* idx);
 	virtual ~ColumnIndexMatcher();
 
-	void doMatch(const ArrayList<CdbOid>* oidlist) noexcept;
+	void doMatch(const ArrayList<const CdbOid>* oidlist) noexcept;
 
 	CdbTableIndex* getIdx() const noexcept {
 		return idx;

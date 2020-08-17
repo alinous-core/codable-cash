@@ -25,6 +25,8 @@
 #include "table_record_value/CdbIntValue.h"
 #include "table_record_value/CdbStringValue.h"
 
+#include "scan/IndexScanner.h"
+
 using namespace codablecash;
 
 static void initDb(CodableDatabase& db, File* dbDir);
@@ -98,6 +100,16 @@ TEST(TestIndexScannerGroup, case01){
 		insertRecord(trx, 3, L"yamamoto", &list);
 
 		trx->commit();
+	}
+
+	{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+
+		UnicodeString colName(L"id");
+		CdbTableIdentifier tableId(L"public", L"test_table");
+
+		IndexScanner* scanner = trx->getRawIndexScanner(&tableId, &colName, nullptr, false, nullptr, false); __STP(scanner);
+
 	}
 
 	// FIXME TestIndexScannerGroup

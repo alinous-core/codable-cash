@@ -171,6 +171,9 @@ void CdbTable::assignNewOid(SchemaObjectIdPublisher* publisher) {
 		CdbTableIndex* idx = this->indexes->get(i);
 
 		idx->assignNewOid(publisher);
+
+		// assign to column
+		idx->syncColumnOid(this);
 	}
 
 	publisher->saveSchema();
@@ -261,6 +264,8 @@ CdbTableIndex* CdbTable::getIndexByColumnOids(const ArrayList<const CdbOid>* oid
 		CdbTableIndex* idx = this->indexes->get(i);
 
 		ColumnIndexMatcher* current = new ColumnIndexMatcher(idx);
+		current->doMatch(oidlist);
+
 		int length = current->getLength();
 		if(length != 0 && (matcher == nullptr || matcher->getLength() < length)){
 			delete matcher;
@@ -268,7 +273,10 @@ CdbTableIndex* CdbTable::getIndexByColumnOids(const ArrayList<const CdbOid>* oid
 		}
 	}
 
-	return matcher != nullptr ? matcher->getIdx(): nullptr;
+	CdbTableIndex* ret = matcher != nullptr ? matcher->getIdx(): nullptr;
+	delete matcher;
+
+	return ret;
 }
 
 int CdbTable::binarySize() const {

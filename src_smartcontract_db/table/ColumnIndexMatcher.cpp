@@ -22,12 +22,12 @@ ColumnIndexMatcher::~ColumnIndexMatcher() {
 	this->idx = nullptr;
 }
 
-void ColumnIndexMatcher::doMatch(const ArrayList<CdbOid>* columnOidlist) noexcept {
+void ColumnIndexMatcher::doMatch(const ArrayList<const CdbOid>* columnOidlist) noexcept {
 	const ArrayList<CdbTableColumn>* idxColumnList = this->idx->getColumns();
 
 	int maxLoop = idxColumnList->size() < columnOidlist->size() ? idxColumnList->size() : columnOidlist->size();
 	for(int i = 0; i != maxLoop; ++i){
-		CdbOid* targetOid = columnOidlist->get(i);
+		const CdbOid* targetOid = columnOidlist->get(i);
 		CdbTableColumn* indexColumn = idxColumnList->get(i);
 
 		if(targetOid->equals(indexColumn->getOid())){
