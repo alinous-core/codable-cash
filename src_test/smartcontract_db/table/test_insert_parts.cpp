@@ -44,14 +44,18 @@
 #include "base/StackRelease.h"
 
 #include "table_record_value/CdbByteValue.h"
-
 #include "table_record_value/CdbShortValue.h"
-
 #include "table_record_value/CdbLongValue.h"
 
 #include "engine/CdbException.h"
 
 #include "transaction/CdbTransactionManager.h"
+
+#include "table_store/CdbStorageManager.h"
+
+#include "schema/Schema.h"
+
+#include "table_store/TableStore.h"
 using namespace alinous;
 using namespace codablecash;
 
@@ -201,6 +205,48 @@ TEST(TestInsertPartGroup, case02_err){
 
 		CdbTransactionManager* mgr = trx->getTrxManager();
 		mgr->commitInsert(log);
+	}
+	catch(CdbException* e){
+		ex = e;
+		delete log;
+	}
+
+	CHECK(ex != nullptr)
+	delete ex;
+}
+
+TEST(TestInsertPartGroup, case03_err){
+	File testCaseFolder = this->env->testCaseDir();
+	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
+	CodableDatabase db;
+
+	initDb(db, dbDir);
+
+	InsertLog* log = new InsertLog();
+
+	CdbTableIdentifier* tableId = new CdbTableIdentifier();
+	tableId->setTable(new UnicodeString(L"test_table"));
+	log->setTable(tableId);
+
+	CdbRecord* record = new CdbRecord();
+	record->addValue(new CdbIntValue(1));
+	record->addValue(new CdbStringValue(L"hello"));
+	record->addValue(new CdbStringValue(L"hello2"));
+
+	log->addRecord(record);
+
+	CdbException* ex = nullptr;
+	try{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+
+		CdbTransactionManager* mgr = trx->getTrxManager();
+		CdbStorageManager* storeMgr = mgr->getStorageManager();
+
+		Schema* sc = mgr->getSchema(tableId->getSchema());
+		CdbTable* table = sc->getCdbTableByName(tableId->getTable());
+
+		TableStore* store = storeMgr->getTableStore(table->getOid());
+		store->validateRecord(record); // validation error
 	}
 	catch(CdbException* e){
 		ex = e;
