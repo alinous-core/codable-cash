@@ -8,6 +8,7 @@
 #include "test_utils/t_macros.h"
 
 #include "engine/CodableDatabase.h"
+#include "engine/CdbException.h"
 
 #include "transaction/CdbTransaction.h"
 #include "transaction_log/CreateTableLog.h"
@@ -26,6 +27,7 @@
 #include "table_record_value/CdbStringValue.h"
 
 #include "scan/IndexScanner.h"
+
 
 using namespace codablecash;
 
@@ -117,6 +119,41 @@ TEST(TestIndexScannerGroup, case01){
 		}
 
 	}
-
-	// FIXME TestIndexScannerGroup
 }
+
+TEST(TestIndexScannerGroup, case01_err){
+	File testCaseFolder = this->env->testCaseDir();
+	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
+	CodableDatabase db;
+
+	initDb(db, dbDir);
+
+	ArrayList<CdbRecord> list; list.setDeleteOnExit();
+	{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+		insertRecord(trx, 1, L"tanaka", &list);
+		insertRecord(trx, 2, L"yamada", &list);
+		insertRecord(trx, 3, L"yamamoto", &list);
+
+		trx->commit();
+	}
+
+	CdbException* ex = nullptr;
+	try{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+
+		UnicodeString colName(L"id");
+		CdbTableIdentifier tableId(L"public2", L"test_table");
+
+		IndexScanner* scanner = trx->getRawIndexScanner(&tableId, &colName, nullptr, false, nullptr, false); __STP(scanner);
+	}
+	catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr)
+	delete ex;
+}
+
+// FIXME TestIndexScannerGroup
+
