@@ -48,6 +48,10 @@
 #include "table_record_value/CdbShortValue.h"
 
 #include "table_record_value/CdbLongValue.h"
+
+#include "engine/CdbException.h"
+
+#include "transaction/CdbTransactionManager.h"
 using namespace alinous;
 using namespace codablecash;
 
@@ -174,3 +178,35 @@ TEST(TestInsertPartGroup, case01){
 	trx->commit();
 }
 
+TEST(TestInsertPartGroup, case02_err){
+	File testCaseFolder = this->env->testCaseDir();
+	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
+	CodableDatabase db;
+
+	initDb(db, dbDir);
+
+	InsertLog* log = new InsertLog();
+	CdbTableIdentifier* tableId = new CdbTableIdentifier(L"wrongschema", L"test_table");
+	log->setTable(tableId);
+
+	CdbRecord* record = new CdbRecord();
+	record->addValue(new CdbIntValue(1));
+	record->addValue(new CdbStringValue(L"hello"));
+
+	log->addRecord(record);
+
+	CdbException* ex = nullptr;
+	try{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+
+		CdbTransactionManager* mgr = trx->getTrxManager();
+		mgr->commitInsert(log);
+	}
+	catch(CdbException* e){
+		ex = e;
+		delete log;
+	}
+
+	CHECK(ex != nullptr)
+	delete ex;
+}

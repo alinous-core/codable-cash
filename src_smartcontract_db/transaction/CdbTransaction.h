@@ -50,6 +50,11 @@ public:
 					AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq);
 
 	TransactionUpdateCache* getUpdateCache() const noexcept;
+
+	CdbTransactionManager* getTrxManager() const noexcept {
+		return trxManager;
+	}
+
 private:
 	CdbTable* getTableFromIdentifier(const CdbTableIdentifier* tableId) const;
 private:
