@@ -16,6 +16,7 @@
 #include "base/StackRelease.h"
 
 #include "engine/CdbException.h"
+#include "engine/CdbOid.h"
 
 #include "table_record/CdbTableIdentifier.h"
 
@@ -32,6 +33,7 @@
 
 #include "transaction_update_cache/TransactionUpdateCache.h"
 
+#include "table/CdbTableColumn.h"
 
 namespace codablecash {
 
@@ -98,21 +100,29 @@ TransactionUpdateCache* CdbTransaction::getUpdateCache() const noexcept {
 	return this->updateCache;
 }
 
-IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* tableId, ArrayList<const UnicodeString>* columnlist) {
+IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* tableId, const ArrayList<const UnicodeString>* columnlist,
+		AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq) {
 	CdbTable* table = getTableFromIdentifier(tableId);
 
-	const CdbOid* oid = table->getOid();
-	CdbStorageManager* store = this->trxManager->getStorageManager();
+	ArrayList<const CdbOid> columnOidList;
 
-	TableStore* tableStore = store->getTableStore(oid);
+	int maxLoop = columnlist->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const UnicodeString* name = columnlist->get(i);
 
+		CdbTableColumn* col = table->getColumn(name);
+		if(col == nullptr){
+			throw new CdbException(L"Column does not exists", __FILE__, __LINE__);
+		}
 
+		const CdbOid* colOid = col->getOid();
+		columnOidList.addElement(colOid);
+	}
 
-	// FIXME get index
-
+	return getRawIndexScanner(tableId, &columnOidList, begin, beginEq, end, endEq);
 }
 
-IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* tableId, ArrayList<CdbOid>* columnOidList,
+IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* tableId, const ArrayList<const CdbOid>* columnOidList,
 		AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq) {
 	CdbTable* table = getTableFromIdentifier(tableId);
 
@@ -130,7 +140,10 @@ IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* table
 	IndexStore* indexStore = tableStore->getIndexStore(index->getOid());
 	assert(indexStore != nullptr);
 
-	indexStore->getScanner(begin, beginEq, end, endEq);
+	IndexScanner* scanner = indexStore->getScanner(begin, beginEq, end, endEq);
+	assert(scanner != nullptr);
+
+	return scanner;
 }
 
 CdbTable* CdbTransaction::getTableFromIdentifier(const CdbTableIdentifier* tableId) const {

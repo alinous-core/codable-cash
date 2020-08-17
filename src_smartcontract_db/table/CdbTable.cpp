@@ -253,7 +253,7 @@ CdbTableIndex* CdbTable::getIndexByColumnOid(const CdbOid* oid) const noexcept {
 }
 
 
-CdbTableIndex* CdbTable::getIndexByColumnOids(const ArrayList<CdbOid>* oidlist) const noexcept {
+CdbTableIndex* CdbTable::getIndexByColumnOids(const ArrayList<const CdbOid>* oidlist) const noexcept {
 	ColumnIndexMatcher* matcher = nullptr;
 
 	int maxLoop = this->indexes->size();
