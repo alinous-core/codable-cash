@@ -22,8 +22,11 @@
 #include "schema/Schema.h"
 
 #include "table/CdbTable.h"
+#include "table/CdbTableIndex.h"
 
 #include "table_store/CdbStorageManager.h"
+#include "table_store/TableStore.h"
+#include "table_store/IndexStore.h"
 
 #include "transaction_scanner/TableTransactionScanner.h"
 
@@ -109,11 +112,25 @@ IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* table
 
 }
 
-IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* tableId, ArrayList<CdbOid>* columnOidList) {
+IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* tableId, ArrayList<CdbOid>* columnOidList,
+		AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq) {
 	CdbTable* table = getTableFromIdentifier(tableId);
 
 	CdbTableIndex* index = table->getIndexByColumnOids(columnOidList);
+	if(index == nullptr){
+		throw new CdbException(L"Index does not exists", __FILE__, __LINE__);
+	}
 
+	CdbStorageManager* store = this->trxManager->getStorageManager();
+
+	const CdbOid* tableoid = table->getOid();
+	TableStore* tableStore = store->getTableStore(tableoid);
+	assert(tableStore != nullptr);
+
+	IndexStore* indexStore = tableStore->getIndexStore(index->getOid());
+	assert(indexStore != nullptr);
+
+	indexStore->getScanner(begin, beginEq, end, endEq);
 }
 
 CdbTable* CdbTransaction::getTableFromIdentifier(const CdbTableIdentifier* tableId) const {
