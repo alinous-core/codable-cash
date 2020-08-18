@@ -42,8 +42,8 @@ bool IndexRecordScanner::hasNext() {
 const CdbRecord* IndexRecordScanner::next() {
 	const CdbOid* recordOid = this->indexScanner->next();
 
-
-
+	const CdbRecord* Record = this->tableStore->findRecord(recordOid);
+	return Record;
 }
 
 } /* namespace codablecash */

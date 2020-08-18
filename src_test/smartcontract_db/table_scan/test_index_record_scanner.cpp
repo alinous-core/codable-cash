@@ -105,11 +105,18 @@ TEST(TestIndexRecordScannerGroup, case01){
 		insertRecord(trx, 1, L"tanaka", &list);
 		insertRecord(trx, 2, L"yamada", &list);
 		insertRecord(trx, 3, L"yamamoto", &list);
+		insertRecord(trx, 4, L"iizuka", &list);
+		insertRecord(trx, 5, L"sato", &list);
+		insertRecord(trx, 6, L"fujita", &list);
+		insertRecord(trx, 7, L"inoue", &list);
 
 		trx->commit();
 	}
 
+
 	{
+		ArrayList<const CdbRecord> listout;
+
 		CdbTransaction* trx = db.newTransaction(); __STP(trx);
 
 		UnicodeString colName(L"id");
@@ -121,7 +128,28 @@ TEST(TestIndexRecordScannerGroup, case01){
 		end->addKey(new CdbIntKey(6));
 
 		IndexRecordScanner* scanner = trx->getIndexRecordScanner(&tableId, &colName, begin, true, end, true); __STP(scanner);
+		scanner->start();
 
+		while(scanner->hasNext()){
+			const CdbRecord* record = scanner->next();
+
+			listout.addElement(record);
+		}
+
+		int maxLoop = listout.size();
+		CHECK(maxLoop == 4);
+
+		int offset = 2;
+		for(int i = 0; i != maxLoop; ++i){
+			const CdbRecord* record = listout.get(i);
+			const CdbRecord* lastrecord = list.get(i + offset);
+
+			AbstractCdbKey* lkey = record->toKey(); __STP(lkey);
+			AbstractCdbKey* rkey = lastrecord->toKey(); __STP(rkey);
+
+			int diff = lkey->compareTo(rkey);
+			CHECK(diff == 0);
+		}
 	}
 }
 
