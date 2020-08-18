@@ -28,8 +28,8 @@ public:
 
 	AbstractBtreeKey* getFirstScanKey() const noexcept;
 
-	bool checkLower(const CdbRecordKey* key) const noexcept;
-	bool checkUpper(const CdbRecordKey* key) const noexcept;
+	bool checkLowerBound(const CdbRecordKey* key) const noexcept;
+	bool checkUpperBound(const CdbRecordKey* key) const noexcept;
 
 private:
 	CdbRecordKey* begin;

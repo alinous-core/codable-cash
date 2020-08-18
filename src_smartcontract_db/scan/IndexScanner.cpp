@@ -60,13 +60,14 @@ bool IndexScanner::__hasNext() {
 	while(this->cursor == nullptr || !this->cursor->hasNext()){
 		if(this->scanner->hasNext()){
 			delete this->cursor;
+			this->cursor = nullptr;
 
 			const AbstractBtreeKey* key = this->scanner->nextKey();
 			const CdbRecordKey* recordKey = dynamic_cast<const CdbRecordKey*>(key);
-			if(!checkLower(recordKey)){
+			if(!checkLowerBound(recordKey)){
 				continue;
 			}
-			if(!checkUpper(recordKey)){
+			if(!checkUpperBound(recordKey)){
 				return false;
 			}
 

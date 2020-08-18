@@ -31,24 +31,24 @@ AbstractBtreeKey* RangeChecker::getFirstScanKey() const noexcept {
 	return this->begin;
 }
 
-bool RangeChecker::checkLower(const CdbRecordKey* key) const noexcept {
+bool RangeChecker::checkLowerBound(const CdbRecordKey* key) const noexcept {
 	if(this->begin == nullptr){
 		return true;
 	}
 
 	int result = this->begin->compareTo(key);
 
-	return this->beginEq ? result >= 0 : result > 0;
+	return this->beginEq ? result <= 0 : result < 0;
 }
 
-bool RangeChecker::checkUpper(const CdbRecordKey* key) const noexcept {
+bool RangeChecker::checkUpperBound(const CdbRecordKey* key) const noexcept {
 	if(this->end == nullptr){
 		return true;
 	}
 
 	int result = this->end->compareTo(key);
 
-	return this->endEq ? result <= 0 : result < 0;
+	return this->endEq ? result >= 0 : result > 0;
 }
 
 

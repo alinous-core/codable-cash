@@ -75,7 +75,7 @@ void insertRecord(CdbTransaction* trx, int id, const wchar_t* name, ArrayList<Cd
 	log->setTable(tableId);
 
 	CdbRecord* record = new CdbRecord();
-	record->addValue(new CdbIntValue(1));
+	record->addValue(new CdbIntValue(id));
 
 	record->addValue(new CdbStringValue(name));
 
