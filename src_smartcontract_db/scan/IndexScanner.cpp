@@ -22,7 +22,7 @@
 #include "table_record_key/CdbRecordKey.h"
 namespace codablecash {
 
-IndexScanner::IndexScanner(CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq, IndexStore* store)
+IndexScanner::IndexScanner(const CdbRecordKey* begin, bool beginEq, const CdbRecordKey* end, bool endEq, IndexStore* store)
 			: RangeChecker(begin, beginEq, end, endEq) {
 	this->store = store;
 	this->scanner = nullptr;

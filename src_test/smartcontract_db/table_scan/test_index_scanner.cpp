@@ -30,6 +30,7 @@
 
 #include "table_record_key/CdbIntKey.h"
 
+#include "table_record_key/CdbRecordKey.h"
 using namespace codablecash;
 
 static void initDb(CodableDatabase& db, File* dbDir);
@@ -285,10 +286,12 @@ TEST(TestIndexScannerGroup, case05){
 		UnicodeString colName(L"id");
 		CdbTableIdentifier tableId(L"public", L"test_table");
 
-		CdbIntKey begin(3);
-		CdbIntKey end(6);
+		CdbRecordKey* begin = new CdbRecordKey();
+		begin->addKey(new CdbIntKey(3));
+		CdbRecordKey* end = new CdbRecordKey();
+		end->addKey(new CdbIntKey(6));
 
-		IndexScanner* scanner = trx->getRawIndexScanner(&tableId, &colName, &begin, true, &end, true); __STP(scanner);
+		IndexScanner* scanner = trx->getRawIndexScanner(&tableId, &colName, begin, true, end, true); __STP(scanner);
 
 		scanner->start();
 

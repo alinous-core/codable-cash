@@ -36,6 +36,7 @@
 
 #include "table/CdbTableColumn.h"
 
+#include "table_record_key/CdbRecordKey.h"
 
 namespace codablecash {
 
@@ -103,7 +104,7 @@ TransactionUpdateCache* CdbTransaction::getUpdateCache() const noexcept {
 }
 
 IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* tableId, const UnicodeString* columnName,
-				AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq) {
+		CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq) {
 	ArrayList<const UnicodeString> list;
 	list.addElement(columnName);
 
@@ -111,7 +112,7 @@ IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* table
 }
 
 IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* tableId, const ArrayList<const UnicodeString>* columnlist,
-		AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq) {
+		CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq) {
 	CdbTable* table = getTableFromIdentifier(tableId);
 
 	ArrayList<const CdbOid> columnOidList;
@@ -133,7 +134,7 @@ IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* table
 }
 
 IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* tableId, const ArrayList<const CdbOid>* columnOidList,
-		AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq) {
+		CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq) {
 	CdbTable* table = getTableFromIdentifier(tableId);
 
 	CdbTableIndex* index = table->getIndexByColumnOids(columnOidList);

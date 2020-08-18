@@ -23,6 +23,7 @@ class CdbOid;
 class CdbRecord;
 class IndexScanner;
 class AbstractCdbKey;
+class CdbRecordKey;
 
 class IndexStore {
 public:
@@ -36,7 +37,7 @@ public:
 	const CdbOid* getIndexOid() const noexcept;
 
 	void insert(const CdbRecord* rec);
-	IndexScanner* getScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq);
+	IndexScanner* getScanner(CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq);
 
 	Btree* getBtree() const noexcept;
 private:

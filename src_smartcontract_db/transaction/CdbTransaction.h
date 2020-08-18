@@ -27,6 +27,7 @@ class CdbTable;
 class IndexScanner;
 class CdbOid;
 class AbstractCdbKey;
+class CdbRecordKey;
 
 class CdbTransaction {
 public:
@@ -43,11 +44,11 @@ public:
 	TableTransactionScanner* getTableTransactionScanner(const CdbTableIdentifier* tableId, AbstractScanCondition* condition);
 
 	IndexScanner* getRawIndexScanner(const CdbTableIdentifier* tableId, const UnicodeString* columnName,
-					AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq);
+			CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq);
 	IndexScanner* getRawIndexScanner(const CdbTableIdentifier* tableId, const ArrayList<const UnicodeString>* columnlist,
-					AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq);
+			CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq);
 	IndexScanner* getRawIndexScanner(const CdbTableIdentifier* tableId, const ArrayList<const CdbOid>* columnOidList,
-					AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq);
+			CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq);
 
 	TransactionUpdateCache* getUpdateCache() const noexcept;
 
