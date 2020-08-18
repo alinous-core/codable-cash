@@ -115,7 +115,7 @@ TEST(TestIndexRecordScannerGroup, case01){
 
 
 	{
-		ArrayList<const CdbRecord> listout;
+		ArrayList<CdbRecord> listout; listout.setDeleteOnExit();
 
 		CdbTransaction* trx = db.newTransaction(); __STP(trx);
 
@@ -133,7 +133,7 @@ TEST(TestIndexRecordScannerGroup, case01){
 		while(scanner->hasNext()){
 			const CdbRecord* record = scanner->next();
 
-			listout.addElement(record);
+			listout.addElement(dynamic_cast<CdbRecord*>(record->copy()));
 		}
 
 		int maxLoop = listout.size();

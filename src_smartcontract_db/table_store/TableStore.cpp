@@ -163,7 +163,7 @@ IndexStore* TableStore::getIndexStore(const CdbOid* oid) const noexcept {
 	return this->indexStores->get(oid);
 }
 
-const CdbRecord* TableStore::findRecord(const CdbOid* recordOid) {
+CdbRecord* TableStore::findRecord(const CdbOid* recordOid) {
 	CdbLongKey key(recordOid->getOid());
 
 	Btree* btree = this->recordStore->getBtree();

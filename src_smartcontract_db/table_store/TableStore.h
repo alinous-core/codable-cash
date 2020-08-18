@@ -47,7 +47,7 @@ public:
 
 	IndexStore* getIndexStore(const CdbOid* oid) const noexcept;
 
-	const CdbRecord* findRecord(const CdbOid* recordOid);
+	CdbRecord* findRecord(const CdbOid* recordOid);
 
 private:
 	void validateRecordColumnValue(CdbTableColumn* meta, AbstractCdbValue* value);

@@ -29,6 +29,7 @@ private:
 	IndexScanner* indexScanner;
 	TableStore* tableStore;
 
+	CdbRecord* record;
 };
 
 } /* namespace codablecash */

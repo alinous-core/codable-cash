@@ -10,16 +10,18 @@
 
 #include "table_store/TableStore.h"
 
+#include "table_record/CdbRecord.h"
+
 namespace codablecash {
 
 IndexRecordScanner::IndexRecordScanner(IndexScanner* indexScanner, TableStore* tableStore) {
 	this->indexScanner = indexScanner;
 	this->tableStore = tableStore;
+	this->record = nullptr;
 }
 
 IndexRecordScanner::~IndexRecordScanner() {
 	shutdown();
-
 }
 
 void IndexRecordScanner::start() {
@@ -29,9 +31,13 @@ void IndexRecordScanner::start() {
 void IndexRecordScanner::shutdown() noexcept {
 	if(this->indexScanner != nullptr){
 		this->indexScanner->shutdown();
+		delete this->indexScanner;
 		this->indexScanner = nullptr;
 
 		this->tableStore = nullptr;
+
+		delete this->record;
+		this->record = nullptr;
 	}
 }
 
@@ -42,8 +48,11 @@ bool IndexRecordScanner::hasNext() {
 const CdbRecord* IndexRecordScanner::next() {
 	const CdbOid* recordOid = this->indexScanner->next();
 
-	const CdbRecord* Record = this->tableStore->findRecord(recordOid);
-	return Record;
+	delete this->record;
+	this->record = nullptr;
+	this->record = this->tableStore->findRecord(recordOid);
+
+	return record;
 }
 
 } /* namespace codablecash */
