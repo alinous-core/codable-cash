@@ -2,6 +2,7 @@
 
 set(__src
 	AbstractRecordScanner.cpp
+	IndexRecordScanner.cpp
 	IndexScanner.cpp
 	RangeChecker.cpp
 	RecordScanner.cpp
