@@ -116,10 +116,13 @@ TEST(TestIndexScannerGroup, case01){
 
 		scanner->start();
 
+		int count = 0;
 		while(scanner->hasNext()){
 			const CdbOid* oid = scanner->next();
+			count++;
 		}
 
+		CHECK(count == 3)
 	}
 }
 
@@ -295,12 +298,58 @@ TEST(TestIndexScannerGroup, case05){
 
 		scanner->start();
 
+		int count = 0;
 		while(scanner->hasNext()){
 			const CdbOid* oid = scanner->next();
+			count++;
 		}
 
+		CHECK(count == 4);
 	}
 }
 
-// FIXME TestIndexScannerGroup
+TEST(TestIndexScannerGroup, case06){
+	File testCaseFolder = this->env->testCaseDir();
+	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
+	CodableDatabase db;
 
+	initDb(db, dbDir);
+
+	ArrayList<CdbRecord> list; list.setDeleteOnExit();
+	{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+		insertRecord(trx, 1, L"tanaka", &list);
+		insertRecord(trx, 2, L"yamada", &list);
+		insertRecord(trx, 3, L"yamamoto", &list);
+		insertRecord(trx, 4, L"iizuka", &list);
+		insertRecord(trx, 5, L"sato", &list);
+		insertRecord(trx, 6, L"fujita", &list);
+		insertRecord(trx, 7, L"inoue", &list);
+
+		trx->commit();
+	}
+
+	{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+
+		UnicodeString colName(L"id");
+		CdbTableIdentifier tableId(L"public", L"test_table");
+
+		CdbRecordKey* begin = new CdbRecordKey();
+		begin->addKey(new CdbIntKey(3));
+		CdbRecordKey* end = new CdbRecordKey();
+		end->addKey(new CdbIntKey(6));
+
+		IndexScanner* scanner = trx->getRawIndexScanner(&tableId, &colName, begin, false, end, false); __STP(scanner);
+
+		scanner->start();
+
+		int count = 0;
+		while(scanner->hasNext()){
+			const CdbOid* oid = scanner->next();
+			count++;
+		}
+
+		CHECK(count == 2);
+	}
+}
