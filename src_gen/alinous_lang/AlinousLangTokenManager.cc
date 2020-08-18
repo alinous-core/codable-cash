@@ -460,18 +460,6 @@ jjstrLiteralChars_193,
 };
 
 /** Lexer state names. */
-static const JJChar lexStateNames_arr_0[] = 
-{0x44, 0x45, 0x46, 0x41, 0x55, 0x4c, 0x54, 0};
-static const JJChar lexStateNames_arr_1[] = 
-{0x43, 0x4f, 0x4d, 0x4d, 0};
-static const JJChar lexStateNames_arr_2[] = 
-{0x4c, 0x5f, 0x43, 0x4f, 0x4d, 0x4d, 0};
-static const JJString lexStateNames[] = {
-lexStateNames_arr_0, 
-lexStateNames_arr_1, 
-lexStateNames_arr_2, 
-};
-
 /** Lex State array. */
 static const int jjnewLexState[] = {
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
@@ -3203,6 +3191,7 @@ Token * AlinousLangTokenManager::getNextToken(){
      errorHandler->lexicalError(EOFSeen, curLexState, error_line, error_column, error_after, curChar, this);
    }
   }
+  return nullptr;
 }
 
 
