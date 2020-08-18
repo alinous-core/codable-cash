@@ -6,25 +6,37 @@
  */
 
 #include "scan/IndexRecordScanner.h"
+#include "scan/IndexScanner.h"
+
+#include "table_store/TableStore.h"
 
 namespace codablecash {
 
-IndexRecordScanner::IndexRecordScanner() {
-	// TODO Auto-generated constructor stub
-
+IndexRecordScanner::IndexRecordScanner(IndexScanner* indexScanner, TableStore* tableStore) {
+	this->indexScanner = indexScanner;
+	this->tableStore = tableStore;
 }
 
 IndexRecordScanner::~IndexRecordScanner() {
-	// TODO Auto-generated destructor stub
+	shutdown();
+
 }
 
 void IndexRecordScanner::start() {
+	this->indexScanner->start();
 }
 
 void IndexRecordScanner::shutdown() noexcept {
+	if(this->indexScanner != nullptr){
+		this->indexScanner->shutdown();
+		this->indexScanner = nullptr;
+
+		this->tableStore = nullptr;
+	}
 }
 
 bool IndexRecordScanner::hasNext() {
+	return this->indexScanner->hasNext();
 }
 
 const CdbRecord* IndexRecordScanner::next() {

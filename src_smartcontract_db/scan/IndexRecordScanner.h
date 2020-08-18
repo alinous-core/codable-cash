@@ -12,15 +12,23 @@
 
 namespace codablecash {
 
+class IndexScanner;
+class TableStore;
+
 class IndexRecordScanner : public AbstractRecordScanner {
 public:
-	IndexRecordScanner();
+	IndexRecordScanner(IndexScanner* indexScanner, TableStore* tableStore);
 	virtual ~IndexRecordScanner();
 
 	virtual void start();
 	virtual void shutdown() noexcept;
 	virtual bool hasNext();
 	virtual const CdbRecord* next();
+
+private:
+	IndexScanner* indexScanner;
+	TableStore* tableStore;
+
 };
 
 } /* namespace codablecash */
