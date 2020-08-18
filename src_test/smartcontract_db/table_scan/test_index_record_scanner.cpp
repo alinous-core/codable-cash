@@ -8,6 +8,7 @@
 #include "test_utils/t_macros.h"
 
 #include "engine/CodableDatabase.h"
+#include "engine/CdbOid.h"
 
 #include "base_io/File.h"
 
@@ -32,6 +33,9 @@
 #include "base/StackRelease.h"
 
 #include "scan/IndexRecordScanner.h"
+
+#include "table_store/TableStore.h"
+
 using namespace codablecash;
 
 
@@ -153,3 +157,44 @@ TEST(TestIndexRecordScannerGroup, case01){
 	}
 }
 
+TEST(TestIndexRecordScannerGroup, findnull){
+	File testCaseFolder = this->env->testCaseDir();
+	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
+	CodableDatabase db;
+
+	initDb(db, dbDir);
+	ArrayList<CdbRecord> list; list.setDeleteOnExit();
+	{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+		insertRecord(trx, 1, L"tanaka", &list);
+		insertRecord(trx, 2, L"yamada", &list);
+		insertRecord(trx, 3, L"yamamoto", &list);
+		insertRecord(trx, 4, L"iizuka", &list);
+		insertRecord(trx, 5, L"sato", &list);
+		insertRecord(trx, 6, L"fujita", &list);
+		insertRecord(trx, 7, L"inoue", &list);
+
+		trx->commit();
+	}
+
+	{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+
+		UnicodeString colName(L"id");
+		CdbTableIdentifier tableId(L"public", L"test_table");
+
+		CdbRecordKey* begin = new CdbRecordKey(); __STP(begin);
+		begin->addKey(new CdbIntKey(3));
+		CdbRecordKey* end = new CdbRecordKey(); __STP(end);
+		end->addKey(new CdbIntKey(6));
+
+		IndexRecordScanner* scanner = trx->getIndexRecordScanner(&tableId, &colName, begin, true, end, true); __STP(scanner);
+
+		TableStore* store = scanner->getTableStore();
+
+		CdbOid tmoOid(10000);
+		CdbRecord* record = store->findRecord(&tmoOid);
+
+		CHECK(record == nullptr);
+	}
+}

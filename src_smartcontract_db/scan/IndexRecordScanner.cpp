@@ -55,4 +55,8 @@ const CdbRecord* IndexRecordScanner::next() {
 	return record;
 }
 
+TableStore* IndexRecordScanner::getTableStore() const noexcept {
+	return this->tableStore;
+}
+
 } /* namespace codablecash */

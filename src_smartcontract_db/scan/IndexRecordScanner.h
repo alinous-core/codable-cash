@@ -25,6 +25,8 @@ public:
 	virtual bool hasNext();
 	virtual const CdbRecord* next();
 
+	TableStore* getTableStore() const noexcept;
+
 private:
 	IndexScanner* indexScanner;
 	TableStore* tableStore;
