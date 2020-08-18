@@ -19,9 +19,10 @@
 #include "table_record_value/CdbOidValueList.h"
 #include "table_record_value/CdbOidValueListCursor.h"
 
+#include "table_record_key/CdbRecordKey.h"
 namespace codablecash {
 
-IndexScanner::IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq, IndexStore* store)
+IndexScanner::IndexScanner(CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq, IndexStore* store)
 			: RangeChecker(begin, beginEq, end, endEq) {
 	this->store = store;
 	this->scanner = nullptr;
@@ -61,10 +62,11 @@ bool IndexScanner::__hasNext() {
 			delete this->cursor;
 
 			const AbstractBtreeKey* key = this->scanner->nextKey();
-			if(!checkLower(key)){
+			const CdbRecordKey* recordKey = dynamic_cast<const CdbRecordKey*>(key);
+			if(!checkLower(recordKey)){
 				continue;
 			}
-			if(!checkUpper(key)){
+			if(!checkUpper(recordKey)){
 				return false;
 			}
 

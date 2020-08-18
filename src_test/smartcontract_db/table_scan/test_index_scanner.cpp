@@ -28,6 +28,7 @@
 
 #include "scan/IndexScanner.h"
 
+#include "table_record_key/CdbIntKey.h"
 
 using namespace codablecash;
 
@@ -257,7 +258,46 @@ TEST(TestIndexScannerGroup, case04_err){
 	delete ex;
 }
 
+TEST(TestIndexScannerGroup, case05){
+	File testCaseFolder = this->env->testCaseDir();
+	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
+	CodableDatabase db;
 
+	initDb(db, dbDir);
+
+	ArrayList<CdbRecord> list; list.setDeleteOnExit();
+	{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+		insertRecord(trx, 1, L"tanaka", &list);
+		insertRecord(trx, 2, L"yamada", &list);
+		insertRecord(trx, 3, L"yamamoto", &list);
+		insertRecord(trx, 4, L"iizuka", &list);
+		insertRecord(trx, 5, L"sato", &list);
+		insertRecord(trx, 6, L"fujita", &list);
+		insertRecord(trx, 7, L"inoue", &list);
+
+		trx->commit();
+	}
+
+	{
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+
+		UnicodeString colName(L"id");
+		CdbTableIdentifier tableId(L"public", L"test_table");
+
+		CdbIntKey begin(3);
+		CdbIntKey end(6);
+
+		IndexScanner* scanner = trx->getRawIndexScanner(&tableId, &colName, &begin, true, &end, true); __STP(scanner);
+
+		scanner->start();
+
+		while(scanner->hasNext()){
+			const CdbOid* oid = scanner->next();
+		}
+
+	}
+}
 
 // FIXME TestIndexScannerGroup
 

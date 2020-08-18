@@ -25,7 +25,7 @@ class CdbOid;
 
 class IndexScanner : public RangeChecker {
 public:
-	IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq, IndexStore* store);
+	IndexScanner(CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq, IndexStore* store);
 	virtual ~IndexScanner();
 
 	void start();

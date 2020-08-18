@@ -18,23 +18,23 @@ using namespace alinous;
 
 namespace codablecash {
 
-class AbstractCdbKey;
+class CdbRecordKey;
 
 
 class RangeChecker {
 public:
-	RangeChecker(const AbstractCdbKey* begin, bool beginEq, const AbstractCdbKey* end, bool endEq);
+	RangeChecker(const CdbRecordKey* begin, bool beginEq, const CdbRecordKey* end, bool endEq);
 	virtual ~RangeChecker();
 
 	AbstractBtreeKey* getFirstScanKey() const noexcept;
 
-	bool checkLower(const AbstractBtreeKey* key) const noexcept;
-	bool checkUpper(const AbstractBtreeKey* key) const noexcept;
+	bool checkLower(const CdbRecordKey* key) const noexcept;
+	bool checkUpper(const CdbRecordKey* key) const noexcept;
 
 private:
-	AbstractBtreeKey* begin;
+	CdbRecordKey* begin;
 	bool beginEq;
-	AbstractBtreeKey* end;
+	CdbRecordKey* end;
 	bool endEq;
 };
 
