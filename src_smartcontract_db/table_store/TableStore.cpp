@@ -22,7 +22,12 @@
 #include "engine/CdbException.h"
 
 #include "table_record_value/AbstractCdbValue.h"
+
 #include "table_record/CdbRecord.h"
+
+#include "table_record_key/CdbLongKey.h"
+
+#include "btree/Btree.h"
 
 
 namespace codablecash {
@@ -157,5 +162,22 @@ void TableStore::validateRecordColumnValue(CdbTableColumn* meta, AbstractCdbValu
 IndexStore* TableStore::getIndexStore(const CdbOid* oid) const noexcept {
 	return this->indexStores->get(oid);
 }
+
+const CdbRecord* TableStore::findRecord(const CdbOid* recordOid) {
+	CdbLongKey key(recordOid->getOid());
+
+	Btree* btree = this->recordStore->getBtree();
+
+	IBlockObject* obj = btree->findByKey(&key);
+	if(obj == nullptr){
+		return nullptr;
+	}
+
+	CdbRecord* record = dynamic_cast<CdbRecord*>(obj);
+	assert(record != nullptr);
+
+	return record;
+}
+
 
 } /* namespace codablecash */

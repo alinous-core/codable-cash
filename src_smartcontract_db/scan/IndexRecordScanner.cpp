@@ -43,6 +43,7 @@ const CdbRecord* IndexRecordScanner::next() {
 	const CdbOid* recordOid = this->indexScanner->next();
 
 
+
 }
 
 } /* namespace codablecash */
