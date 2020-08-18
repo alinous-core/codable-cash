@@ -289,9 +289,9 @@ TEST(TestIndexScannerGroup, case05){
 		UnicodeString colName(L"id");
 		CdbTableIdentifier tableId(L"public", L"test_table");
 
-		CdbRecordKey* begin = new CdbRecordKey();
+		CdbRecordKey* begin = new CdbRecordKey(); __STP(begin);
 		begin->addKey(new CdbIntKey(3));
-		CdbRecordKey* end = new CdbRecordKey();
+		CdbRecordKey* end = new CdbRecordKey(); __STP(end);
 		end->addKey(new CdbIntKey(6));
 
 		IndexScanner* scanner = trx->getRawIndexScanner(&tableId, &colName, begin, true, end, true); __STP(scanner);
@@ -335,9 +335,9 @@ TEST(TestIndexScannerGroup, case06){
 		UnicodeString colName(L"id");
 		CdbTableIdentifier tableId(L"public", L"test_table");
 
-		CdbRecordKey* begin = new CdbRecordKey();
+		CdbRecordKey* begin = new CdbRecordKey(); __STP(begin);
 		begin->addKey(new CdbIntKey(3));
-		CdbRecordKey* end = new CdbRecordKey();
+		CdbRecordKey* end = new CdbRecordKey(); __STP(end);
 		end->addKey(new CdbIntKey(6));
 
 		IndexScanner* scanner = trx->getRawIndexScanner(&tableId, &colName, begin, false, end, false); __STP(scanner);
