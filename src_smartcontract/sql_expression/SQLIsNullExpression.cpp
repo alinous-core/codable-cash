@@ -104,5 +104,10 @@ AbstractVmInstance* SQLIsNullExpression::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
+void SQLIsNullExpression::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	// FIXME onSelectTarget();
+}
 
 } /* namespace alinous */
