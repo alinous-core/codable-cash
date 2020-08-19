@@ -103,4 +103,10 @@ AnalyzedType SQLOrExpression::getType(AnalyzeContext* actx) {
 	return AnalyzedType(AnalyzedType::TYPE_BOOL);
 }
 
+void SQLOrExpression::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	// FIXME onSelectTarget();
+}
+
 } /* namespace alinous */
