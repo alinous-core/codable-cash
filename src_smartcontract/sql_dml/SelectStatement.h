@@ -49,6 +49,7 @@ public:
 	virtual void init(VirtualMachine* vm);
 	virtual void interpret(VirtualMachine* vm);
 
+	SQLSelectTargetList* getSQLSelectTargetList() const noexcept;
 private:
 	void buildPlanner(VirtualMachine* vm, uint64_t currentVer);
 

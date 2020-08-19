@@ -8,6 +8,11 @@
 #include "sql_dml_parts/SQLSelectTargetList.h"
 #include "sql_dml_parts/SQLSelectTarget.h"
 
+#include "sc_analyze/AnalyzeContext.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "instance/AbstractVmInstance.h"
 namespace alinous {
 
 SQLSelectTargetList::SQLSelectTargetList() : AbstractSQLPart(CodeElement::SQL_PART_SELECT_TARGET_LIST) {
@@ -56,5 +61,43 @@ void SQLSelectTargetList::fromBinary(ByteBuffer* in) {
 		this->list.addElement(target);
 	}
 }
+
+void SQLSelectTargetList::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SQLSelectTarget* target = this->list.get(i);
+
+		target->setParent(this);
+	}
+}
+
+void SQLSelectTargetList::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SQLSelectTarget* target = this->list.get(i);
+
+	}
+}
+
+void SQLSelectTargetList::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SQLSelectTarget* target = this->list.get(i);
+
+	}
+}
+
+void SQLSelectTargetList::init(VirtualMachine* vm) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SQLSelectTarget* target = this->list.get(i);
+
+	}
+}
+
+AbstractVmInstance* SQLSelectTargetList::interpret(VirtualMachine* vm) {
+
+}
+
 
 } /* namespace alinous */
