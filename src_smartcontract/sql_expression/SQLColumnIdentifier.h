@@ -33,6 +33,7 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+	virtual void onSelectTarget(VirtualMachine* vm);
 
 	const UnicodeString* getColumnName() const noexcept {
 		return columnName;

@@ -118,5 +118,10 @@ AbstractVmInstance* SQLColumnIdentifier::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
+void SQLColumnIdentifier::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	// FIXME onSelectTarget();
+}
 
 } /* namespace alinous */
