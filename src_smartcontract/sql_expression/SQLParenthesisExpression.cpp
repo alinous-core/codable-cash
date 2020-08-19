@@ -93,5 +93,10 @@ AbstractVmInstance* SQLParenthesisExpression::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
+void SQLParenthesisExpression::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	// FIXME onSelectTarget();
+}
 
 } /* namespace alinous */

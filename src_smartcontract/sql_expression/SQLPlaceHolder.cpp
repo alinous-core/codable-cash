@@ -83,5 +83,12 @@ AbstractVmInstance* SQLPlaceHolder::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
+void SQLPlaceHolder::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	// FIXME onSelectTarget();
+}
+
+
 
 } /* namespace alinous */
