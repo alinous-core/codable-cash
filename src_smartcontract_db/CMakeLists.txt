@@ -4,6 +4,7 @@ set(__dirsrc "")
 # import source codes
 add_subdirectory(engine)
 add_subdirectory(scan)
+add_subdirectory(scan_columns)
 add_subdirectory(scan_condition)
 add_subdirectory(scan_condition_arithmetic)
 add_subdirectory(scan_condition_exp)
