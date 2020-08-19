@@ -5,17 +5,16 @@
  *      Author: iizuka
  */
 
-#include <scan_columns/ScanColumn.h>
+#include "scan_columns/ScanColumn.h"
 
 namespace codablecash {
 
 ScanColumn::ScanColumn() {
-	// TODO Auto-generated constructor stub
 
 }
 
 ScanColumn::~ScanColumn() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */
