@@ -40,7 +40,7 @@ public:
 
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
-
+	virtual void onSelectTarget(VirtualMachine* vm);
 
 private:
 	AbstractSQLExpression* left;
