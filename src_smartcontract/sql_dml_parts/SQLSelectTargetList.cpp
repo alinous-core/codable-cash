@@ -92,7 +92,7 @@ void SQLSelectTargetList::init(VirtualMachine* vm) {
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
 		SQLSelectTarget* target = this->list.get(i);
-
+		target->init(vm);
 	}
 }
 

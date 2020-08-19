@@ -42,15 +42,29 @@ void SQLSelectTarget::preAnalyze(AnalyzeContext* actx) {
 }
 
 void SQLSelectTarget::analyzeTypeRef(AnalyzeContext* actx) {
+	if(this->exp != nullptr){
+		this->exp->analyzeTypeRef(actx);
+	}
 }
 
 void SQLSelectTarget::analyze(AnalyzeContext* actx) {
+	if(this->exp != nullptr){
+		this->exp->analyze(actx);
+	}
 }
 
 void SQLSelectTarget::init(VirtualMachine* vm) {
+	if(this->exp != nullptr){
+		this->exp->init(vm);
+	}
 }
 
 AbstractVmInstance* SQLSelectTarget::interpret(VirtualMachine* vm) {
+	if(this->wildcard){
+
+	}
+
+	// FIXME SQLSelectTarget::interpret()
 }
 
 int SQLSelectTarget::binarySize() const {
