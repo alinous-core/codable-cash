@@ -122,4 +122,11 @@ void SQLLiteral::interpretOnPlanning(VirtualMachine* vm) {
 	planner->push(param);
 }
 
+void SQLLiteral::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	// FIXME onSelectTarget();
+}
+
+
 } /* namespace alinous */

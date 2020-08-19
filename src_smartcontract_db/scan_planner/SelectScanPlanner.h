@@ -19,6 +19,7 @@ class ConditionsHolder;
 class AbstractScanCondition;
 class AbstractScanConditionElement;
 class TablesHolder;
+class ScanColumnHolder;
 
 class SelectScanPlanner {
 public:
@@ -38,6 +39,7 @@ public:
 	}
 
 private:
+	ScanColumnHolder* columnHolder;
 	ConditionsHolder* conditions;
 
 	TablesHolder* tablesHolder;
