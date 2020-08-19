@@ -34,6 +34,25 @@ void SQLSelectTarget::setAsName(UnicodeString* asName) noexcept {
 	this->asName = asName;
 }
 
+void SQLSelectTarget::preAnalyze(AnalyzeContext* actx) {
+	if(this->exp != nullptr){
+		this->exp->setParent(this);
+		this->exp->preAnalyze(actx);
+	}
+}
+
+void SQLSelectTarget::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void SQLSelectTarget::analyze(AnalyzeContext* actx) {
+}
+
+void SQLSelectTarget::init(VirtualMachine* vm) {
+}
+
+AbstractVmInstance* SQLSelectTarget::interpret(VirtualMachine* vm) {
+}
+
 int SQLSelectTarget::binarySize() const {
 	int total = sizeof(uint16_t);
 

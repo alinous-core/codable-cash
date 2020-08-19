@@ -68,6 +68,7 @@ void SQLSelectTargetList::preAnalyze(AnalyzeContext* actx) {
 		SQLSelectTarget* target = this->list.get(i);
 
 		target->setParent(this);
+		target->preAnalyze(actx);
 	}
 }
 
@@ -75,7 +76,7 @@ void SQLSelectTargetList::analyzeTypeRef(AnalyzeContext* actx) {
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
 		SQLSelectTarget* target = this->list.get(i);
-
+		target->analyzeTypeRef(actx);
 	}
 }
 
@@ -83,7 +84,7 @@ void SQLSelectTargetList::analyze(AnalyzeContext* actx) {
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
 		SQLSelectTarget* target = this->list.get(i);
-
+		target->analyze(actx);
 	}
 }
 

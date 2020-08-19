@@ -12,6 +12,9 @@
 namespace alinous {
 class AbstractSQLExpression;
 class UnicodeString;
+class AnalyzeContext;
+class VirtualMachine;
+class AbstractVmInstance;
 
 class SQLSelectTarget : public AbstractSQLPart {
 public:
@@ -21,6 +24,13 @@ public:
 	void setWildcard(bool wildcard) noexcept;
 	void setExpression(AbstractSQLExpression* exp) noexcept;
 	void setAsName(UnicodeString* asName)noexcept;
+
+	void preAnalyze(AnalyzeContext* actx);
+	void analyzeTypeRef(AnalyzeContext* actx);
+	void analyze(AnalyzeContext* actx);
+
+	void init(VirtualMachine* vm);
+	AbstractVmInstance* interpret(VirtualMachine* vm);
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
