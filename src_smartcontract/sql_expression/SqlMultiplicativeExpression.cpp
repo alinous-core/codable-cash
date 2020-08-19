@@ -141,5 +141,10 @@ AbstractVmInstance* SqlMultiplicativeExpression::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
+void SqlMultiplicativeExpression::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	// FIXME onSelectTarget();
+}
 
 } /* namespace alinous */
