@@ -160,5 +160,10 @@ AbstractVmInstance* SQLFunctionCall::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
+void SQLFunctionCall::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	// FIXME onSelectTarget();
+}
 
 } /* namespace alinous */
