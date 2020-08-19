@@ -24,6 +24,7 @@ public:
 	virtual AnalyzedType getType(AnalyzeContext* actx);
 
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+	virtual void onSelectTarget(VirtualMachine* vm);
 };
 
 } /* namespace alinous */

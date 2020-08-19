@@ -105,5 +105,10 @@ AbstractVmInstance* SQLAndExpression::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
+void SQLAndExpression::onSelectTarget(VirtualMachine* vm) {
+
+	// FIXME onSelectTarget();
+
+}
 
 } /* namespace alinous */
