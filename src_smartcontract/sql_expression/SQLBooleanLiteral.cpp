@@ -78,4 +78,10 @@ void SQLBooleanLiteral::interpretOnPlanning(VirtualMachine* vm) {
 	planner->push(param);
 }
 
+void SQLBooleanLiteral::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	// FIXME onSelectTarget();
+}
+
 } /* namespace alinous */
