@@ -104,4 +104,10 @@ AbstractVmInstance* SQLNotExpression::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
+void SQLNotExpression::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	// FIXME onSelectTarget();
+}
+
 } /* namespace alinous */
