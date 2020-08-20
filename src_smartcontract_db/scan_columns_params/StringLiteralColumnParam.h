@@ -8,12 +8,22 @@
 #ifndef SCAN_COLUMNS_PARAMS_STRINGLITERALCOLUMNPARAM_H_
 #define SCAN_COLUMNS_PARAMS_STRINGLITERALCOLUMNPARAM_H_
 
+#include "scan_columns_params/AbstractColumnParam.h"
+
+namespace alinous {
+class UnicodeString;
+}
+using namespace alinous;
+
 namespace codablecash {
 
-class StringLiteralColumnParam {
+class StringLiteralColumnParam : public AbstractColumnParam {
 public:
-	StringLiteralColumnParam();
+	explicit StringLiteralColumnParam(const UnicodeString* str);
 	virtual ~StringLiteralColumnParam();
+
+private:
+	UnicodeString* value;
 };
 
 } /* namespace codablecash */

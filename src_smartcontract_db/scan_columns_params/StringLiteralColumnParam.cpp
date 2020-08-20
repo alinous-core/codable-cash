@@ -7,14 +7,16 @@
 
 #include "scan_columns_params/StringLiteralColumnParam.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
-StringLiteralColumnParam::StringLiteralColumnParam() {
-
+StringLiteralColumnParam::StringLiteralColumnParam(const UnicodeString* str) {
+	this->value = new UnicodeString(str);
 }
 
 StringLiteralColumnParam::~StringLiteralColumnParam() {
-
+	delete this->value;
 }
 
 } /* namespace codablecash */
