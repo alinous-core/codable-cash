@@ -139,8 +139,6 @@ void SQLLiteral::onSelectTarget(VirtualMachine* vm) {
 	}
 
 	colHolder->push(param);
-
-	// FIXME onSelectTarget();
 }
 
 
