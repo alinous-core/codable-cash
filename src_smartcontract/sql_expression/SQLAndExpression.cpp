@@ -19,6 +19,8 @@
 
 #include "scan_columns/ScanColumnHolder.h"
 
+#include "scan_columns_logical/AndLogicalScanColumn.h"
+
 using namespace codablecash;
 
 namespace alinous {
@@ -111,8 +113,18 @@ void SQLAndExpression::onSelectTarget(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 	ScanColumnHolder* colHolder = planner->getColumnHolder();
 
-	// FIXME onSelectTarget();
+	AndLogicalScanColumn* cond = new AndLogicalScanColumn();
+	colHolder->push(cond);
 
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->onSelectTarget(vm);
+
+		AbstractScanColumns* col = colHolder->pop();
+		cond->addCondition(col);
+	}
 }
 
 } /* namespace alinous */
