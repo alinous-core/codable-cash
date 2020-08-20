@@ -8,12 +8,25 @@
 #ifndef SCAN_COLUMNS_SCANCOLUMNHOLDER_H_
 #define SCAN_COLUMNS_SCANCOLUMNHOLDER_H_
 
+#include "base/ArrayList.h"
+
+using alinous::ArrayList;
+
 namespace codablecash {
+
+class AbstractScanColumns;
 
 class ScanColumnHolder {
 public:
 	ScanColumnHolder();
 	virtual ~ScanColumnHolder();
+
+	void push(AbstractScanColumns* column) noexcept;
+//	AbstractScanColumns* top() const noexcept;
+	AbstractScanColumns* pop() noexcept;
+
+private:
+	ArrayList<AbstractScanColumns> stack;
 };
 
 } /* namespace codablecash */

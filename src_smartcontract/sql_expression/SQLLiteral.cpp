@@ -23,7 +23,7 @@
 #include "scan_condition_params/StringScanParam.h"
 
 #include "scan_planner/SelectScanPlanner.h"
-
+#include "scan_columns/ScanColumnHolder.h"
 
 namespace alinous {
 
@@ -124,7 +124,7 @@ void SQLLiteral::interpretOnPlanning(VirtualMachine* vm) {
 
 void SQLLiteral::onSelectTarget(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
-
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
 	// FIXME onSelectTarget();
 }
 

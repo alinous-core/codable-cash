@@ -38,6 +38,10 @@ public:
 		return tablesHolder;
 	}
 
+	ScanColumnHolder* getColumnHolder() const noexcept {
+		return columnHolder;
+	}
+
 private:
 	ScanColumnHolder* columnHolder;
 	ConditionsHolder* conditions;
