@@ -5,16 +5,16 @@
  *      Author: iizuka
  */
 
-#include "scan_columns_exp/FunctionCallScanTarget.h"
+#include "scan_columns_exp/FunctionCallScanColumnTarget.h"
 
 namespace codablecash {
 
-FunctionCallScanTarget::FunctionCallScanTarget() {
+FunctionCallScanColumnTarget::FunctionCallScanColumnTarget() {
 	// TODO Auto-generated constructor stub
 
 }
 
-FunctionCallScanTarget::~FunctionCallScanTarget() {
+FunctionCallScanColumnTarget::~FunctionCallScanColumnTarget() {
 	// TODO Auto-generated destructor stub
 }
 
