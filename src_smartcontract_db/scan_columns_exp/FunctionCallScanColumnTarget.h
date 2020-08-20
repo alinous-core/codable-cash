@@ -10,12 +10,22 @@
 
 #include "scan_columns_exp/AbstractExpressionScanColumnTarget.h"
 
+#include "base/ArrayList.h"
+
 namespace codablecash {
 
 class FunctionCallScanColumnTarget : public AbstractExpressionScanColumnTarget {
 public:
 	FunctionCallScanColumnTarget();
 	virtual ~FunctionCallScanColumnTarget();
+
+	void setName(const UnicodeString* name) noexcept;
+
+	void addArgument(AbstractScanColumns* arg) noexcept;
+
+private:
+	UnicodeString* name;
+	ArrayList<AbstractScanColumns> arguments;
 };
 
 } /* namespace codablecash */

@@ -7,15 +7,26 @@
 
 #include "scan_columns_exp/FunctionCallScanColumnTarget.h"
 
+#include "base/UnicodeString.h"
+
+
 namespace codablecash {
 
 FunctionCallScanColumnTarget::FunctionCallScanColumnTarget() {
-	// TODO Auto-generated constructor stub
-
+	this->name = nullptr;
 }
 
 FunctionCallScanColumnTarget::~FunctionCallScanColumnTarget() {
-	// TODO Auto-generated destructor stub
+	delete this->name;
+	this->arguments.deleteElements();
+}
+
+void FunctionCallScanColumnTarget::setName(const UnicodeString* name) noexcept {
+	this->name = new UnicodeString(name);
+}
+
+void FunctionCallScanColumnTarget::addArgument(AbstractScanColumns* arg) noexcept {
+	this->arguments.addElement(arg);
 }
 
 } /* namespace codablecash */
