@@ -19,7 +19,7 @@
 
 #include "scan_columns/ScanColumnHolder.h"
 
-#include "scan_columns_logical/AndLogicalScanColumn.h"
+#include "scan_columns_logical/AndLogicalScanColumnTarget.h"
 
 using namespace codablecash;
 
@@ -113,7 +113,7 @@ void SQLAndExpression::onSelectTarget(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
 	ScanColumnHolder* colHolder = planner->getColumnHolder();
 
-	AndLogicalScanColumn* cond = new AndLogicalScanColumn();
+	AndLogicalScanColumnTarget* cond = new AndLogicalScanColumnTarget();
 	colHolder->push(cond);
 
 	int maxLoop = this->operands.size();

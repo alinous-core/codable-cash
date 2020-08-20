@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#ifndef SCAN_COLUMNS_LOGICAL_ANDLOGICALSCANCOLUMN_H_
-#define SCAN_COLUMNS_LOGICAL_ANDLOGICALSCANCOLUMN_H_
+#ifndef SCAN_COLUMNS_LOGICAL_ANDLOGICALSCANCOLUMNTARGET_H_
+#define SCAN_COLUMNS_LOGICAL_ANDLOGICALSCANCOLUMNTARGET_H_
 
 #include "scan_columns/AbstractScanColumns.h"
 
@@ -17,10 +17,10 @@ using namespace alinous;
 
 namespace codablecash {
 
-class AndLogicalScanColumn : public AbstractScanColumns {
+class AndLogicalScanColumnTarget : public AbstractScanColumns {
 public:
-	AndLogicalScanColumn();
-	virtual ~AndLogicalScanColumn();
+	AndLogicalScanColumnTarget();
+	virtual ~AndLogicalScanColumnTarget();
 
 	void addCondition(AbstractScanColumns* cond) noexcept;
 
@@ -30,4 +30,4 @@ private:
 
 } /* namespace codablecash */
 
-#endif /* SCAN_COLUMNS_LOGICAL_ANDLOGICALSCANCOLUMN_H_ */
+#endif /* SCAN_COLUMNS_LOGICAL_ANDLOGICALSCANCOLUMNTARGET_H_ */
