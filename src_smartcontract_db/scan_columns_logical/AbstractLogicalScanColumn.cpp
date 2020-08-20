@@ -5,17 +5,16 @@
  *      Author: iizuka
  */
 
-#include <scan_columns_logical/AbstractLogicalScanColumn.h>
+#include "scan_columns_logical/AbstractLogicalScanColumn.h"
 
 namespace codablecash {
 
 AbstractLogicalScanColumn::AbstractLogicalScanColumn() {
-	// TODO Auto-generated constructor stub
 
 }
 
 AbstractLogicalScanColumn::~AbstractLogicalScanColumn() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */
