@@ -3,7 +3,6 @@
 set(__src
 	AbstractScanColumns.cpp
 	AllScanColumns.cpp
-	ExpressionScanColumn.cpp
 	ScanColumn.cpp
 	ScanColumnHolder.cpp
 )
