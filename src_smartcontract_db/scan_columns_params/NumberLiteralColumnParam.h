@@ -8,12 +8,18 @@
 #ifndef SCAN_COLUMNS_PARAMS_NUMBERLITERALCOLUMNPARAM_H_
 #define SCAN_COLUMNS_PARAMS_NUMBERLITERALCOLUMNPARAM_H_
 
+#include "scan_columns_params/AbstractColumnParam.h"
+#include <cstdlib>
+
 namespace codablecash {
 
-class NumberLiteralColumnParam {
+class NumberLiteralColumnParam : public AbstractColumnParam {
 public:
-	NumberLiteralColumnParam();
+	explicit NumberLiteralColumnParam(int64_t longv);
 	virtual ~NumberLiteralColumnParam();
+
+private:
+	int64_t longv;
 };
 
 } /* namespace codablecash */

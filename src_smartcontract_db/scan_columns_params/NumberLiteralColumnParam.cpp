@@ -5,17 +5,16 @@
  *      Author: iizuka
  */
 
-#include <scan_columns_params/NumberLiteralColumnParam.h>
+#include "scan_columns_params/NumberLiteralColumnParam.h"
 
 namespace codablecash {
 
-NumberLiteralColumnParam::NumberLiteralColumnParam() {
-	// TODO Auto-generated constructor stub
-
+NumberLiteralColumnParam::NumberLiteralColumnParam(int64_t longv) {
+	this->longv = longv;
 }
 
 NumberLiteralColumnParam::~NumberLiteralColumnParam() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */
