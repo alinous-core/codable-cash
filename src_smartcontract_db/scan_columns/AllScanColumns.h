@@ -16,6 +16,8 @@ class AllScanColumns : public AbstractScanColumnsTarget {
 public:
 	AllScanColumns();
 	virtual ~AllScanColumns();
+
+	virtual const UnicodeString* toStringCode() noexcept;
 };
 
 } /* namespace codablecash */

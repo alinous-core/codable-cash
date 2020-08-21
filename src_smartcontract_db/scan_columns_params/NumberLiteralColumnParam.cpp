@@ -7,6 +7,8 @@
 
 #include "scan_columns_params/NumberLiteralColumnParam.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 NumberLiteralColumnParam::NumberLiteralColumnParam(int64_t longv) {

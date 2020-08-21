@@ -7,6 +7,8 @@
 
 #include "scan_columns_params/BooleanLiteralColumnParam.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 BooleanLiteralColumnParam::BooleanLiteralColumnParam(bool value) {
