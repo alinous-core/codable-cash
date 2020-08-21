@@ -8,6 +8,7 @@
 #include "scan_columns_params/NumberLiteralColumnParam.h"
 
 #include "base/UnicodeString.h"
+#include "base/Long.h"
 
 namespace codablecash {
 
@@ -20,9 +21,8 @@ NumberLiteralColumnParam::~NumberLiteralColumnParam() {
 }
 
 const UnicodeString* NumberLiteralColumnParam::toStringCode() noexcept {
-	// FIXME toStringCode()
 	if(this->str == nullptr){
-		this->str = new UnicodeString(L"");
+		this->str = Long::toString(this->longv, 10);
 	}
 
 	return this->str;

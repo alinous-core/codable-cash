@@ -20,9 +20,10 @@ StringLiteralColumnParam::~StringLiteralColumnParam() {
 }
 
 const UnicodeString* StringLiteralColumnParam::toStringCode() noexcept {
-	// FIXME toStringCode()
 	if(this->str == nullptr){
-		this->str = new UnicodeString(L"");
+		this->str = new UnicodeString(L"'");
+		this->str->append(this->value);
+		this->str->append(L"'");
 	}
 
 	return this->str;
