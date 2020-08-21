@@ -9,6 +9,8 @@
 
 #include "base/UnicodeString.h"
 
+#include "sql_expression/SqlMultiplicativeExpression.h"
+
 namespace codablecash {
 
 MultiplicativeExpressionScanColumnTarget::MultiplicativeExpressionScanColumnTarget() : operations(2) {
