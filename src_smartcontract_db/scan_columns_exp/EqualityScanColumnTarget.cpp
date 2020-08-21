@@ -30,9 +30,14 @@ void EqualityScanColumnTarget::setRight(AbstractScanColumnsTarget* element) noex
 }
 
 const UnicodeString* EqualityScanColumnTarget::toStringCode() noexcept {
-	// FIXME toStringCode()
 	if(this->str == nullptr){
 		this->str = new UnicodeString(L"");
+
+		this->str->append(this->left->toStringCode());
+
+		this->str->append(L" = ");
+
+		this->str->append(this->right->toStringCode());
 	}
 
 	return this->str;
