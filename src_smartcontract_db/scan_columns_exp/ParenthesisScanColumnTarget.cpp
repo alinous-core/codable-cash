@@ -24,9 +24,14 @@ void ParenthesisScanColumnTarget::setInnser(AbstractScanColumnsTarget* cond) noe
 }
 
 const UnicodeString* ParenthesisScanColumnTarget::toStringCode() noexcept {
-	// FIXME toStringCode()
 	if(this->str == nullptr){
 		this->str = new UnicodeString(L"");
+
+		this->str = new UnicodeString(L"(");
+
+		this->str->append(this->cond->toStringCode());
+
+		this->str->append(L")");
 	}
 
 	return this->str;
