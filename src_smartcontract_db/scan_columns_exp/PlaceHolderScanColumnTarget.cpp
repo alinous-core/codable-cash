@@ -7,6 +7,8 @@
 
 #include "scan_columns_exp/PlaceHolderScanColumnTarget.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 PlaceHolderScanColumnTarget::PlaceHolderScanColumnTarget(AbstractExpression* exp) {

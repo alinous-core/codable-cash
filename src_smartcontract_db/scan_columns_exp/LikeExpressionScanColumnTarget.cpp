@@ -7,6 +7,8 @@
 
 #include "scan_columns_exp/LikeExpressionScanColumnTarget.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 LikeExpressionScanColumnTarget::LikeExpressionScanColumnTarget() {

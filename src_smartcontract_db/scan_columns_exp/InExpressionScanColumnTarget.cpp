@@ -12,6 +12,8 @@
 #include "instance_exception/TypeCastExceptionClassDeclare.h"
 #include "instance_exception/ExceptionInterrupt.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 InExpressionScanColumnTarget::InExpressionScanColumnTarget() {

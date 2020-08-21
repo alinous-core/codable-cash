@@ -7,6 +7,8 @@
 
 #include "scan_columns_exp/EqualityScanColumnTarget.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 EqualityScanColumnTarget::EqualityScanColumnTarget() {

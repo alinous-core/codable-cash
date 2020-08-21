@@ -7,6 +7,8 @@
 
 #include "scan_columns_exp/IsNullScanColumnTarget.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 IsNullScanColumnTarget::IsNullScanColumnTarget() {
@@ -26,7 +28,7 @@ void IsNullScanColumnTarget::setIsNull(bool notnull) noexcept {
 	this->notnull = notnull;
 }
 
-const UnicodeString* IsNullScanColumnTarget::toStringCode() {
+const UnicodeString* IsNullScanColumnTarget::toStringCode() noexcept {
 	// FIXME toStringCode()
 	if(this->str == nullptr){
 		this->str = new UnicodeString(L"");

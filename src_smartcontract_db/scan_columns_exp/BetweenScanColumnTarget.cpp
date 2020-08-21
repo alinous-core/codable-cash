@@ -7,6 +7,8 @@
 
 #include "scan_columns_exp/BetweenScanColumnTarget.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 BetweenScanColumnTarget::BetweenScanColumnTarget() {

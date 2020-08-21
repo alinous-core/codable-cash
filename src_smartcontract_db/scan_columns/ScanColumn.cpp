@@ -7,6 +7,8 @@
 
 #include "scan_columns/ScanColumn.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 ScanColumn::ScanColumn(const SQLColumnIdentifier* sqlColumnId) {
@@ -15,6 +17,15 @@ ScanColumn::ScanColumn(const SQLColumnIdentifier* sqlColumnId) {
 
 ScanColumn::~ScanColumn() {
 	this->sqlColumnId = nullptr;
+}
+
+const UnicodeString* ScanColumn::toStringCode() noexcept {
+	// FIXME toStringCode()
+	if(this->str == nullptr){
+		this->str = new UnicodeString(L"");
+	}
+
+	return this->str;
 }
 
 } /* namespace codablecash */

@@ -22,6 +22,8 @@ public:
 	explicit ScanColumn(const SQLColumnIdentifier* sqlColumnId);
 	virtual ~ScanColumn();
 
+	virtual const UnicodeString* toStringCode() noexcept;
+
 private:
 	const SQLColumnIdentifier* sqlColumnId;
 };

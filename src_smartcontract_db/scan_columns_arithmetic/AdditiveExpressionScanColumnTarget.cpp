@@ -7,6 +7,8 @@
 
 #include "scan_columns_arithmetic/AdditiveExpressionScanColumnTarget.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 AdditiveExpressionScanColumnTarget::AdditiveExpressionScanColumnTarget() : operations(2) {
@@ -26,7 +28,7 @@ void AdditiveExpressionScanColumnTarget::addOperator(uint8_t op) noexcept {
 	this->operations.addElement(op);
 }
 
-const UnicodeString* AdditiveExpressionScanColumnTarget::toStringCode() {
+const UnicodeString* AdditiveExpressionScanColumnTarget::toStringCode() noexcept {
 	// FIXME toStringCode()
 	if(this->str == nullptr){
 		this->str = new UnicodeString(L"");

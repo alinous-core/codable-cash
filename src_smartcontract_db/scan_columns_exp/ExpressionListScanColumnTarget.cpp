@@ -7,6 +7,8 @@
 
 #include "scan_columns_exp/ExpressionListScanColumnTarget.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 ExpressionListScanColumnTarget::ExpressionListScanColumnTarget() {

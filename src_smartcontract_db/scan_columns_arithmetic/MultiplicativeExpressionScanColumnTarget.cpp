@@ -27,7 +27,7 @@ void MultiplicativeExpressionScanColumnTarget::addOperator(uint8_t op) noexcept 
 	this->operations.addElement(op);
 }
 
-const UnicodeString* MultiplicativeExpressionScanColumnTarget::toStringCode() {
+const UnicodeString* MultiplicativeExpressionScanColumnTarget::toStringCode() noexcept {
 	// FIXME toStringCode()
 	if(this->str == nullptr){
 		this->str = new UnicodeString(L"");

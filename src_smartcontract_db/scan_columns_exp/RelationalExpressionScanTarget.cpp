@@ -7,6 +7,8 @@
 
 #include "scan_columns_exp/RelationalExpressionScanTarget.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 RelationalExpressionScanTarget::RelationalExpressionScanTarget() {

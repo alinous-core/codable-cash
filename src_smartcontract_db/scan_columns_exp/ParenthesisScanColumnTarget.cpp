@@ -7,6 +7,8 @@
 
 #include "scan_columns_exp/ParenthesisScanColumnTarget.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 ParenthesisScanColumnTarget::ParenthesisScanColumnTarget() {
