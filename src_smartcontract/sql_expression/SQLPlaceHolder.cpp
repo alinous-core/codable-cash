@@ -15,6 +15,10 @@
 #include "vm/VirtualMachine.h"
 
 #include "scan_condition_params/PlaceHolderScanCondition.h"
+
+#include "scan_columns/ScanColumnHolder.h"
+
+#include "scan_columns_exp/PlaceHolderScanColumnTarget.h"
 using codablecash::SelectScanPlanner;
 namespace alinous {
 
@@ -85,8 +89,10 @@ AbstractVmInstance* SQLPlaceHolder::interpret(VirtualMachine* vm) {
 
 void SQLPlaceHolder::onSelectTarget(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
 
-	// FIXME onSelectTarget();
+	PlaceHolderScanColumnTarget* cond = new PlaceHolderScanColumnTarget(this->exp);
+	colHolder->push(cond);
 }
 
 

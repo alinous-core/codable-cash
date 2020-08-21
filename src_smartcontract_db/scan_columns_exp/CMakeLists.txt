@@ -7,6 +7,7 @@ set(__src
 	FunctionCallScanColumnTarget.cpp
 	IsNullScanColumnTarget.cpp
 	ParenthesisScanColumnTarget.cpp
+	PlaceHolderScanColumnTarget.cpp
 )
 handle_sub(codablecashlib "${__src}" smartcontract_db scan_columns_exp)
 
