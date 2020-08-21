@@ -21,5 +21,13 @@ void OrScanColumnTarget::addCondition(AbstractScanColumnsTarget* cond) noexcept 
 	this->list.addElement(cond);
 }
 
+const UnicodeString* OrScanColumnTarget::toStringCode() noexcept {
+	// FIXME toStringCode()
+	if(this->str == nullptr){
+		this->str = new UnicodeString(L"");
+	}
+
+	return this->str;
+}
 
 } /* namespace codablecash */

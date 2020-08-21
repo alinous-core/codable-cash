@@ -18,6 +18,9 @@ public:
 	virtual ~NotScanColumnTarget();
 
 	void setCond(AbstractScanColumnsTarget* cond) noexcept;
+
+	virtual const UnicodeString* toStringCode() noexcept;
+
 private:
 	AbstractScanColumnsTarget* cond;
 };

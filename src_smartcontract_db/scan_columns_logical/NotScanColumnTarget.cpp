@@ -21,4 +21,13 @@ void NotScanColumnTarget::setCond(AbstractScanColumnsTarget* cond) noexcept {
 	this->cond = cond;
 }
 
+const UnicodeString* NotScanColumnTarget::toStringCode() noexcept {
+	// FIXME toStringCode()
+	if(this->str == nullptr){
+		this->str = new UnicodeString(L"");
+	}
+
+	return this->str;
+}
+
 } /* namespace codablecash */

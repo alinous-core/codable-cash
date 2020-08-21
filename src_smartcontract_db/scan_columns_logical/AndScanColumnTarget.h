@@ -24,6 +24,8 @@ public:
 
 	void addCondition(AbstractScanColumnsTarget* cond) noexcept;
 
+	virtual const UnicodeString* toStringCode() noexcept;
+
 private:
 	ArrayList<AbstractScanColumnsTarget> list;
 };
