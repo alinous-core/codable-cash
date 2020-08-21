@@ -29,9 +29,18 @@ void IsNullScanColumnTarget::setIsNull(bool notnull) noexcept {
 }
 
 const UnicodeString* IsNullScanColumnTarget::toStringCode() noexcept {
-	// FIXME toStringCode()
 	if(this->str == nullptr){
 		this->str = new UnicodeString(L"");
+
+		this->str->append(this->cond->toStringCode());
+
+		this->str->append(L" IS");
+
+		if(this->notnull){
+			this->str->append(L" NOT");
+		}
+
+		this->str->append(L" NULL");
 	}
 
 	return this->str;
