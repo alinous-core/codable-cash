@@ -7,6 +7,8 @@
 
 #include "scan_columns_arithmetic/MultiplicativeExpressionScanColumnTarget.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 MultiplicativeExpressionScanColumnTarget::MultiplicativeExpressionScanColumnTarget() : operations(2) {
@@ -23,6 +25,15 @@ void MultiplicativeExpressionScanColumnTarget::addOperand(AbstractScanColumnsTar
 
 void MultiplicativeExpressionScanColumnTarget::addOperator(uint8_t op) noexcept {
 	this->operations.addElement(op);
+}
+
+const UnicodeString* MultiplicativeExpressionScanColumnTarget::toStringCode() {
+	// FIXME toStringCode()
+	if(this->str == nullptr){
+		this->str = new UnicodeString(L"");
+	}
+
+	return this->str;
 }
 
 } /* namespace codablecash */

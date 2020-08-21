@@ -24,6 +24,8 @@ public:
 	void addOperand(AbstractScanColumnsTarget* vp) noexcept;
 	void addOperator(uint8_t op) noexcept;
 
+	virtual const UnicodeString* toStringCode() noexcept;
+
 private:
 	ArrayList<AbstractScanColumnsTarget> list;
 	RawArrayPrimitive<uint8_t> operations;

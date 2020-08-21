@@ -22,6 +22,8 @@ public:
 
 	void setAsName(const UnicodeString* asName) noexcept;
 
+	virtual const UnicodeString* toStringCode() noexcept = 0;
+
 protected:
 	void resetStr() noexcept;
 
