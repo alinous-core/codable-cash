@@ -9,12 +9,12 @@
 
 namespace codablecash {
 
-ScanColumn::ScanColumn() {
-
+ScanColumn::ScanColumn(const SQLColumnIdentifier* sqlColumnId) {
+	this->sqlColumnId = sqlColumnId;
 }
 
 ScanColumn::~ScanColumn() {
-
+	this->sqlColumnId = nullptr;
 }
 
 } /* namespace codablecash */

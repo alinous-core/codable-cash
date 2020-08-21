@@ -10,12 +10,20 @@
 
 #include "scan_columns/AbstractScanColumns.h"
 
+namespace alinous {
+class SQLColumnIdentifier;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class ScanColumn : public AbstractScanColumns {
 public:
-	ScanColumn();
+	explicit ScanColumn(const SQLColumnIdentifier* sqlColumnId);
 	virtual ~ScanColumn();
+
+private:
+	const SQLColumnIdentifier* sqlColumnId;
 };
 
 } /* namespace codablecash */

@@ -38,7 +38,7 @@ TEST(TestScanColumnsPartGroup, case01){
 }
 
 TEST(TestScanColumnsPartGroup, case02){
-	ScanColumn col;
+	ScanColumn col(nullptr);
 	const UnicodeString t(L"t");
 
 	col.setAsName(&t);
