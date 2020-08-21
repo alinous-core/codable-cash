@@ -22,6 +22,8 @@ public:
 	void setRight(AbstractScanColumnsTarget* element) noexcept;
 	void setOp(uint8_t op) noexcept;
 
+	virtual const UnicodeString* toStringCode() noexcept;
+
 private:
 	AbstractScanColumnsTarget* left;
 	AbstractScanColumnsTarget* right;

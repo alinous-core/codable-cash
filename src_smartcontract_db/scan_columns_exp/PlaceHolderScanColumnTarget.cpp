@@ -17,4 +17,13 @@ PlaceHolderScanColumnTarget::~PlaceHolderScanColumnTarget() {
 	this->exp = nullptr;
 }
 
+const UnicodeString* PlaceHolderScanColumnTarget::toStringCode() noexcept {
+	// FIXME toStringCode()
+	if(this->str == nullptr){
+		this->str = new UnicodeString(L"");
+	}
+
+	return this->str;
+}
+
 } /* namespace codablecash */

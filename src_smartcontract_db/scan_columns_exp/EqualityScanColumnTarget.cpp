@@ -27,5 +27,13 @@ void EqualityScanColumnTarget::setRight(AbstractScanColumnsTarget* element) noex
 	this->right = element;
 }
 
+const UnicodeString* EqualityScanColumnTarget::toStringCode() noexcept {
+	// FIXME toStringCode()
+	if(this->str == nullptr){
+		this->str = new UnicodeString(L"");
+	}
+
+	return this->str;
+}
 
 } /* namespace codablecash */

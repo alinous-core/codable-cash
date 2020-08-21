@@ -26,4 +26,13 @@ void IsNullScanColumnTarget::setIsNull(bool notnull) noexcept {
 	this->notnull = notnull;
 }
 
+const UnicodeString* IsNullScanColumnTarget::toStringCode() {
+	// FIXME toStringCode()
+	if(this->str == nullptr){
+		this->str = new UnicodeString(L"");
+	}
+
+	return this->str;
+}
+
 } /* namespace codablecash */

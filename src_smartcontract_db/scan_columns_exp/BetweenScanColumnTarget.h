@@ -21,6 +21,8 @@ public:
 	void setStart(AbstractScanColumnsTarget* start) noexcept;
 	void setEnd(AbstractScanColumnsTarget* end) noexcept;
 
+	virtual const UnicodeString* toStringCode() noexcept;
+
 private:
 	AbstractScanColumnsTarget* left;
 	AbstractScanColumnsTarget* start;

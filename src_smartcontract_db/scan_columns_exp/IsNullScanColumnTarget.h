@@ -20,6 +20,8 @@ public:
 	void setCondition(AbstractScanColumnsTarget* cond) noexcept;
 	void setIsNull(bool notnull) noexcept;
 
+	virtual const UnicodeString* toStringCode() noexcept;
+
 private:
 	AbstractScanColumnsTarget* cond;
 	bool notnull;

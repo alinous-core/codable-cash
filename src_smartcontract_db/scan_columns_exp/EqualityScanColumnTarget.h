@@ -20,6 +20,8 @@ public:
 	void setLeft(AbstractScanColumnsTarget* element) noexcept;
 	void setRight(AbstractScanColumnsTarget* element) noexcept;
 
+	virtual const UnicodeString* toStringCode() noexcept;
+
 private:
 	AbstractScanColumnsTarget* left;
 	AbstractScanColumnsTarget* right;

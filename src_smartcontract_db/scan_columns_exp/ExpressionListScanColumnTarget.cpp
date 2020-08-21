@@ -21,4 +21,13 @@ void ExpressionListScanColumnTarget::addElement(AbstractScanColumnsTarget* val) 
 	this->list.addElement(val);
 }
 
+const UnicodeString* ExpressionListScanColumnTarget::toStringCode() noexcept {
+	// FIXME toStringCode()
+	if(this->str == nullptr){
+		this->str = new UnicodeString(L"");
+	}
+
+	return this->str;
+}
+
 } /* namespace codablecash */

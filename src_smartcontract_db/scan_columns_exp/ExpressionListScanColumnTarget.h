@@ -20,6 +20,9 @@ public:
 	virtual ~ExpressionListScanColumnTarget();
 
 	void addElement(AbstractScanColumnsTarget* val) noexcept;
+
+	virtual const UnicodeString* toStringCode() noexcept;
+
 private:
 	ArrayList<AbstractScanColumnsTarget> list;
 };

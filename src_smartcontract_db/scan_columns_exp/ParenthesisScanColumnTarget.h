@@ -18,6 +18,9 @@ public:
 	virtual ~ParenthesisScanColumnTarget();
 
 	void setInnser(AbstractScanColumnsTarget* cond) noexcept;
+
+	virtual const UnicodeString* toStringCode() noexcept;
+
 private:
 	AbstractScanColumnsTarget* cond;
 };

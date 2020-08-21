@@ -45,5 +45,13 @@ ExpressionListScanColumnTarget* InExpressionScanColumnTarget::castToExpressionLi
 	return val;
 }
 
+const UnicodeString* InExpressionScanColumnTarget::toStringCode() noexcept {
+	// FIXME toStringCode()
+	if(this->str == nullptr){
+		this->str = new UnicodeString(L"");
+	}
+
+	return this->str;
+}
 
 } /* namespace codablecash */

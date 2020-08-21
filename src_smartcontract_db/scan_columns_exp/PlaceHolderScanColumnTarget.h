@@ -22,6 +22,8 @@ public:
 	explicit PlaceHolderScanColumnTarget(AbstractExpression* exp);
 	virtual ~PlaceHolderScanColumnTarget();
 
+	virtual const UnicodeString* toStringCode() noexcept;
+
 private:
 	AbstractExpression* exp;
 };

@@ -23,6 +23,8 @@ public:
 
 	void addArgument(AbstractScanColumnsTarget* arg) noexcept;
 
+	virtual const UnicodeString* toStringCode() noexcept;
+
 private:
 	UnicodeString* name;
 	ArrayList<AbstractScanColumnsTarget> arguments;

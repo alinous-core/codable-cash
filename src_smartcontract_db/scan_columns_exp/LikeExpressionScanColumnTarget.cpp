@@ -33,5 +33,13 @@ void LikeExpressionScanColumnTarget::setEscape(AbstractScanColumnsTarget* escape
 	this->escape = escape;
 }
 
+const UnicodeString* LikeExpressionScanColumnTarget::toStringCode() noexcept {
+	// FIXME toStringCode()
+	if(this->str == nullptr){
+		this->str = new UnicodeString(L"");
+	}
+
+	return this->str;
+}
 
 } /* namespace codablecash */

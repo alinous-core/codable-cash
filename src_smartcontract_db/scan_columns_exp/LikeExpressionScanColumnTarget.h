@@ -21,6 +21,8 @@ public:
 	void setRight(AbstractScanColumnsTarget* right) noexcept;
 	void setEscape(AbstractScanColumnsTarget* escape) noexcept;
 
+	virtual const UnicodeString* toStringCode() noexcept;
+
 private:
 	AbstractScanColumnsTarget* left;
 	AbstractScanColumnsTarget* right;

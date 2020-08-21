@@ -21,4 +21,13 @@ void ParenthesisScanColumnTarget::setInnser(AbstractScanColumnsTarget* cond) noe
 	this->cond = cond;
 }
 
+const UnicodeString* ParenthesisScanColumnTarget::toStringCode() noexcept {
+	// FIXME toStringCode()
+	if(this->str == nullptr){
+		this->str = new UnicodeString(L"");
+	}
+
+	return this->str;
+}
+
 } /* namespace codablecash */

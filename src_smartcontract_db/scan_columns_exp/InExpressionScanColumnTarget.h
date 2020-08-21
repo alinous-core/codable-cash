@@ -30,6 +30,8 @@ public:
 
 	static ExpressionListScanColumnTarget* castToExpressionListScanColumnTarget(AbstractScanColumnsTarget* col, VirtualMachine* vm, const CodeElement* element);
 
+	virtual const UnicodeString* toStringCode() noexcept;
+
 private:
 	AbstractScanColumnsTarget* left;
 	ExpressionListScanColumnTarget* list;
