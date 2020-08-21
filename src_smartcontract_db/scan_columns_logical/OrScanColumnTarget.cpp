@@ -7,6 +7,8 @@
 
 #include "scan_columns_logical/OrScanColumnTarget.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 OrScanColumnTarget::OrScanColumnTarget() {

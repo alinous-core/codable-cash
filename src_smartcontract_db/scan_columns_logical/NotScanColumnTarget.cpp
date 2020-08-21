@@ -7,6 +7,8 @@
 
 #include "scan_columns_logical/NotScanColumnTarget.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 NotScanColumnTarget::NotScanColumnTarget() {

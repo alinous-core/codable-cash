@@ -7,6 +7,8 @@
 
 #include "scan_columns_logical/AndScanColumnTarget.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 AndScanColumnTarget::AndScanColumnTarget() {
