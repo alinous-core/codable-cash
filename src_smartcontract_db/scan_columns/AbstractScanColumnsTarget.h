@@ -21,8 +21,14 @@ public:
 	virtual ~AbstractScanColumnsTarget();
 
 	void setAsName(const UnicodeString* asName) noexcept;
-private:
+
+protected:
+	void resetStr() noexcept;
+
+protected:
 	UnicodeString* asName;
+
+	UnicodeString* str;
 };
 
 } /* namespace codablecash */

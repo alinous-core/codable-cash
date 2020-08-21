@@ -13,15 +13,24 @@ namespace codablecash {
 
 AbstractScanColumnsTarget::AbstractScanColumnsTarget() {
 	this->asName = nullptr;
+	this->str = nullptr;
 }
 
 AbstractScanColumnsTarget::~AbstractScanColumnsTarget() {
 	delete this->asName;
+	resetStr();
 }
 
 void AbstractScanColumnsTarget::setAsName(const UnicodeString* asName) noexcept {
 	delete this->asName;
 	this->asName = new UnicodeString(asName);
+}
+
+void AbstractScanColumnsTarget::resetStr() noexcept {
+	if(this->str != nullptr){
+		delete this->str;
+		this->str = nullptr;
+	}
 }
 
 } /* namespace codablecash */
