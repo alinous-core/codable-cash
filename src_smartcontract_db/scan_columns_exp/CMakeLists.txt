@@ -4,6 +4,7 @@ set(__src
 	AbstractExpressionScanColumnTarget.cpp
 	BetweenScanColumnTarget.cpp
 	EqualityScanColumnTarget.cpp
+	ExpressionListScanColumnTarget.cpp
 	FunctionCallScanColumnTarget.cpp
 	IsNullScanColumnTarget.cpp
 	LikeExpressionScanColumnTarget.cpp
