@@ -9,6 +9,8 @@
 
 #include "base/UnicodeString.h"
 
+#include "sql_expression/SQLRelationalExpression.h"
+
 namespace codablecash {
 
 RelationalExpressionScanTarget::RelationalExpressionScanTarget() {
@@ -35,9 +37,25 @@ void RelationalExpressionScanTarget::setOp(uint8_t op) noexcept {
 }
 
 const UnicodeString* RelationalExpressionScanTarget::toStringCode() noexcept {
-	// FIXME toStringCode()
 	if(this->str == nullptr){
 		this->str = new UnicodeString(L"");
+
+		this->str->append(this->left->toStringCode());
+
+		if(this->op == SQLRelationalExpression::GT){
+			this->str->append(L" > ");
+		}
+		else if(this->op == SQLRelationalExpression::GT_EQ){
+			this->str->append(L" >= ");
+		}
+		else if(this->op == SQLRelationalExpression::LT){
+			this->str->append(L" < ");
+		}
+		else if(this->op == SQLRelationalExpression::LT_EQ){
+			this->str->append(L" <= ");
+		}
+
+		this->str->append(this->right->toStringCode());
 	}
 
 	return this->str;

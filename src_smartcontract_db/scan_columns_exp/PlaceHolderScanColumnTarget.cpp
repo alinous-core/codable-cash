@@ -20,9 +20,10 @@ PlaceHolderScanColumnTarget::~PlaceHolderScanColumnTarget() {
 }
 
 const UnicodeString* PlaceHolderScanColumnTarget::toStringCode() noexcept {
-	// FIXME toStringCode()
 	if(this->str == nullptr){
 		this->str = new UnicodeString(L"");
+
+		this->str = new UnicodeString(L"${}");
 	}
 
 	return this->str;
