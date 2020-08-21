@@ -28,9 +28,30 @@ void MultiplicativeExpressionScanColumnTarget::addOperator(uint8_t op) noexcept 
 }
 
 const UnicodeString* MultiplicativeExpressionScanColumnTarget::toStringCode() noexcept {
-	// FIXME toStringCode()
 	if(this->str == nullptr){
 		this->str = new UnicodeString(L"");
+
+		int maxLoop = this->list.size();
+		for(int i = 0; i != maxLoop; ++i){
+			if(i > 0){
+				int pos = i - 1;
+				uint8_t op = this->operations.get(pos);
+
+				if(op == SqlMultiplicativeExpression::MUL){
+					this->str->append(L" * ");
+				}
+				else if(op == SqlMultiplicativeExpression::DIV){
+					this->str->append(L" / ");
+				}
+				else if(op == SqlMultiplicativeExpression::MOD){
+					this->str->append(L" % ");
+				}
+			}
+
+			AbstractScanColumnsTarget* vp = this->list.get(i);
+
+			this->str->append(vp->toStringCode());
+		}
 	}
 
 	return this->str;
