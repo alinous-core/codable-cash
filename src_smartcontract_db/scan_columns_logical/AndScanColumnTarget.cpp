@@ -24,9 +24,19 @@ void AndScanColumnTarget::addCondition(AbstractScanColumnsTarget* cond) noexcept
 }
 
 const UnicodeString* AndScanColumnTarget::toStringCode() noexcept {
-	// FIXME toStringCode()
 	if(this->str == nullptr){
 		this->str = new UnicodeString(L"");
+
+		int maxLoop = this->list.size();
+		for(int i = 0; i != maxLoop; ++i){
+			AbstractScanColumnsTarget* cond = this->list.get(i);
+
+			if(i != 0){
+				this->str->append(L" AND ");
+			}
+
+			this->str->append(cond->toStringCode());
+		}
 	}
 
 	return this->str;
