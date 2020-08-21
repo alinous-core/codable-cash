@@ -18,6 +18,10 @@
 
 #include "scan_condition/ScanConditionCast.h"
 
+#include "scan_columns/ScanColumnHolder.h"
+
+#include "scan_columns_exp/InExpressionScanColumnTarget.h"
+
 using codablecash::ScanConditionCast;
 
 namespace alinous {
@@ -123,8 +127,19 @@ AbstractVmInstance* SQLInExpression::interpret(VirtualMachine* vm) {
 
 void SQLInExpression::onSelectTarget(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
 
-	// FIXME onSelectTarget();
+	InExpressionScanColumnTarget* cond = new InExpressionScanColumnTarget();
+	colHolder->push(cond);
+
+	this->left->onSelectTarget(vm);
+	AbstractScanColumns* col = colHolder->pop();
+	cond->setLeft(col);
+
+	this->list->onSelectTarget(vm);
+	col = colHolder->pop();
+	ExpressionListScanColumnTarget* list = InExpressionScanColumnTarget::castToExpressionListScanColumnTarget(col, vm, this);
+	cond->setList(list);
 }
 
 
