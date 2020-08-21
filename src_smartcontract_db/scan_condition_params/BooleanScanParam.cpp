@@ -12,7 +12,7 @@
 namespace codablecash {
 
 const UnicodeString BooleanScanParam::TRUE(L"true");
-const UnicodeString BooleanScanParam::FALSE(L"true");
+const UnicodeString BooleanScanParam::FALSE(L"false");
 
 BooleanScanParam::BooleanScanParam(bool value) {
 	this->value = value;

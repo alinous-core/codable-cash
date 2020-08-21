@@ -14,6 +14,9 @@ namespace codablecash {
 
 class BooleanLiteralColumnParam: public AbstractColumnParam {
 public:
+	static const UnicodeString TRUE;
+	static const UnicodeString FALSE;
+
 	explicit BooleanLiteralColumnParam(bool value);
 	virtual ~BooleanLiteralColumnParam();
 

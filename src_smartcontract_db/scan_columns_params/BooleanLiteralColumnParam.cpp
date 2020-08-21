@@ -11,6 +11,9 @@
 
 namespace codablecash {
 
+const UnicodeString BooleanLiteralColumnParam::TRUE(L"true");
+const UnicodeString BooleanLiteralColumnParam::FALSE(L"false");
+
 BooleanLiteralColumnParam::BooleanLiteralColumnParam(bool value) {
 	this->value = value;
 }
@@ -20,12 +23,7 @@ BooleanLiteralColumnParam::~BooleanLiteralColumnParam() {
 }
 
 const UnicodeString* BooleanLiteralColumnParam::toStringCode() noexcept {
-	// FIXME toStringCode()
-	if(this->str == nullptr){
-		this->str = new UnicodeString(L"");
-	}
-
-	return this->str;
+	return this->value ? &TRUE: &FALSE;;
 }
 
 } /* namespace codablecash */
