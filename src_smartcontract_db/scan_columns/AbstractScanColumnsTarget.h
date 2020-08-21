@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#ifndef SCAN_COLUMNS_ABSTRACTSCANCOLUMNS_H_
-#define SCAN_COLUMNS_ABSTRACTSCANCOLUMNS_H_
+#ifndef SCAN_COLUMNS_ABSTRACTSCANCOLUMNSTARGET_H_
+#define SCAN_COLUMNS_ABSTRACTSCANCOLUMNSTARGET_H_
 
 namespace alinous {
 class UnicodeString;
@@ -15,10 +15,10 @@ using namespace alinous;
 
 namespace codablecash {
 
-class AbstractScanColumns {
+class AbstractScanColumnsTarget {
 public:
-	AbstractScanColumns();
-	virtual ~AbstractScanColumns();
+	AbstractScanColumnsTarget();
+	virtual ~AbstractScanColumnsTarget();
 
 	void setAsName(const UnicodeString* asName) noexcept;
 private:
@@ -27,4 +27,4 @@ private:
 
 } /* namespace codablecash */
 
-#endif /* SCAN_COLUMNS_ABSTRACTSCANCOLUMNS_H_ */
+#endif /* SCAN_COLUMNS_ABSTRACTSCANCOLUMNSTARGET_H_ */

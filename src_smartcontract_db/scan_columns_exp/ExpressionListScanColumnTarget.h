@@ -19,9 +19,9 @@ public:
 	ExpressionListScanColumnTarget();
 	virtual ~ExpressionListScanColumnTarget();
 
-	void addElement(AbstractScanColumns* val) noexcept;
+	void addElement(AbstractScanColumnsTarget* val) noexcept;
 private:
-	ArrayList<AbstractScanColumns> list;
+	ArrayList<AbstractScanColumnsTarget> list;
 };
 
 } /* namespace codablecash */

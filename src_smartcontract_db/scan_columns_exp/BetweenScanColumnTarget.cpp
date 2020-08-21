@@ -21,15 +21,15 @@ BetweenScanColumnTarget::~BetweenScanColumnTarget() {
 	delete this->end;
 }
 
-void BetweenScanColumnTarget::setLeft(AbstractScanColumns* left) noexcept {
+void BetweenScanColumnTarget::setLeft(AbstractScanColumnsTarget* left) noexcept {
 	this->left = left;
 }
 
-void BetweenScanColumnTarget::setStart(AbstractScanColumns* start) noexcept {
+void BetweenScanColumnTarget::setStart(AbstractScanColumnsTarget* start) noexcept {
 	this->start = start;
 }
 
-void BetweenScanColumnTarget::setEnd(AbstractScanColumns* end) noexcept {
+void BetweenScanColumnTarget::setEnd(AbstractScanColumnsTarget* end) noexcept {
 	this->end = end;
 }
 

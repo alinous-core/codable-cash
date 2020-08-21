@@ -21,15 +21,15 @@ LikeExpressionScanColumnTarget::~LikeExpressionScanColumnTarget() {
 	delete this->escape;
 }
 
-void LikeExpressionScanColumnTarget::setLeft(AbstractScanColumns* left) noexcept {
+void LikeExpressionScanColumnTarget::setLeft(AbstractScanColumnsTarget* left) noexcept {
 	this->left = left;
 }
 
-void LikeExpressionScanColumnTarget::setRight(AbstractScanColumns* right) noexcept {
+void LikeExpressionScanColumnTarget::setRight(AbstractScanColumnsTarget* right) noexcept {
 	this->right = right;
 }
 
-void LikeExpressionScanColumnTarget::setEscape(AbstractScanColumns* escape) noexcept {
+void LikeExpressionScanColumnTarget::setEscape(AbstractScanColumnsTarget* escape) noexcept {
 	this->escape = escape;
 }
 

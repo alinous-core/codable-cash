@@ -8,7 +8,7 @@
 #ifndef SCAN_COLUMNS_SCANCOLUMN_H_
 #define SCAN_COLUMNS_SCANCOLUMN_H_
 
-#include "scan_columns/AbstractScanColumns.h"
+#include "scan_columns/AbstractScanColumnsTarget.h"
 
 namespace alinous {
 class SQLColumnIdentifier;
@@ -17,7 +17,7 @@ using namespace alinous;
 
 namespace codablecash {
 
-class ScanColumn : public AbstractScanColumns {
+class ScanColumn : public AbstractScanColumnsTarget {
 public:
 	explicit ScanColumn(const SQLColumnIdentifier* sqlColumnId);
 	virtual ~ScanColumn();

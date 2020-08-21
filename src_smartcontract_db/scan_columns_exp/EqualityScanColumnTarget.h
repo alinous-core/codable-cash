@@ -17,12 +17,12 @@ public:
 	EqualityScanColumnTarget();
 	virtual ~EqualityScanColumnTarget();
 
-	void setLeft(AbstractScanColumns* element) noexcept;
-	void setRight(AbstractScanColumns* element) noexcept;
+	void setLeft(AbstractScanColumnsTarget* element) noexcept;
+	void setRight(AbstractScanColumnsTarget* element) noexcept;
 
 private:
-	AbstractScanColumns* left;
-	AbstractScanColumns* right;
+	AbstractScanColumnsTarget* left;
+	AbstractScanColumnsTarget* right;
 };
 
 } /* namespace codablecash */

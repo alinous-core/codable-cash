@@ -17,7 +17,7 @@ OrScanColumnTarget::~OrScanColumnTarget() {
 	this->list.deleteElements();
 }
 
-void OrScanColumnTarget::addCondition(AbstractScanColumns* cond) noexcept {
+void OrScanColumnTarget::addCondition(AbstractScanColumnsTarget* cond) noexcept {
 	this->list.addElement(cond);
 }
 

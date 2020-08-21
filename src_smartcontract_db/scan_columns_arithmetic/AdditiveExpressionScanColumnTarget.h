@@ -24,11 +24,11 @@ public:
 	AdditiveExpressionScanColumnTarget();
 	virtual ~AdditiveExpressionScanColumnTarget();
 
-	void addOperand(AbstractScanColumns* vp) noexcept;
+	void addOperand(AbstractScanColumnsTarget* vp) noexcept;
 	void addOperator(uint8_t op) noexcept;
 
 private:
-	ArrayList<AbstractScanColumns> list;
+	ArrayList<AbstractScanColumnsTarget> list;
 	RawArrayPrimitive<uint8_t> operations;
 
 };

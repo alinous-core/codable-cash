@@ -17,9 +17,9 @@ public:
 	ParenthesisScanColumnTarget();
 	virtual ~ParenthesisScanColumnTarget();
 
-	void setInnser(AbstractScanColumns* cond) noexcept;
+	void setInnser(AbstractScanColumnsTarget* cond) noexcept;
 private:
-	AbstractScanColumns* cond;
+	AbstractScanColumnsTarget* cond;
 };
 
 } /* namespace codablecash */

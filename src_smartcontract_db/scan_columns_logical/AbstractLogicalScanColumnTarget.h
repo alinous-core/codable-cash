@@ -8,11 +8,11 @@
 #ifndef SCAN_COLUMNS_LOGICAL_ABSTRACTLOGICALSCANCOLUMNTARGET_H_
 #define SCAN_COLUMNS_LOGICAL_ABSTRACTLOGICALSCANCOLUMNTARGET_H_
 
-#include "scan_columns/AbstractScanColumns.h"
+#include "scan_columns/AbstractScanColumnsTarget.h"
 
 namespace codablecash {
 
-class AbstractLogicalScanColumnTarget : public AbstractScanColumns {
+class AbstractLogicalScanColumnTarget : public AbstractScanColumnsTarget {
 public:
 	AbstractLogicalScanColumnTarget();
 	virtual ~AbstractLogicalScanColumnTarget();

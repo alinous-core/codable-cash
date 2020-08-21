@@ -175,7 +175,7 @@ void SQLLikeExpression::onSelectTarget(VirtualMachine* vm) {
 	colHolder->push(cond);
 
 	this->left->onSelectTarget(vm);
-	AbstractScanColumns* col = colHolder->pop();
+	AbstractScanColumnsTarget* col = colHolder->pop();
 	cond->setLeft(col);
 
 	this->right->onSelectTarget(vm);

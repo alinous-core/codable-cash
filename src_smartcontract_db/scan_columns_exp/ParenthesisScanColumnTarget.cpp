@@ -17,7 +17,7 @@ ParenthesisScanColumnTarget::~ParenthesisScanColumnTarget() {
 	delete this->cond;
 }
 
-void ParenthesisScanColumnTarget::setInnser(AbstractScanColumns* cond) noexcept {
+void ParenthesisScanColumnTarget::setInnser(AbstractScanColumnsTarget* cond) noexcept {
 	this->cond = cond;
 }
 

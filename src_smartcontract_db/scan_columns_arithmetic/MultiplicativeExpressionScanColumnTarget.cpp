@@ -17,7 +17,7 @@ MultiplicativeExpressionScanColumnTarget::~MultiplicativeExpressionScanColumnTar
 	this->list.deleteElements();
 }
 
-void MultiplicativeExpressionScanColumnTarget::addOperand(AbstractScanColumns* vp) noexcept {
+void MultiplicativeExpressionScanColumnTarget::addOperand(AbstractScanColumnsTarget* vp) noexcept {
 	this->list.addElement(vp);
 }
 

@@ -21,11 +21,11 @@ public:
 
 	void setName(const UnicodeString* name) noexcept;
 
-	void addArgument(AbstractScanColumns* arg) noexcept;
+	void addArgument(AbstractScanColumnsTarget* arg) noexcept;
 
 private:
 	UnicodeString* name;
-	ArrayList<AbstractScanColumns> arguments;
+	ArrayList<AbstractScanColumnsTarget> arguments;
 };
 
 } /* namespace codablecash */

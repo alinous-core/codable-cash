@@ -17,7 +17,7 @@ ExpressionListScanColumnTarget::~ExpressionListScanColumnTarget() {
 	this->list.deleteElements();
 }
 
-void ExpressionListScanColumnTarget::addElement(AbstractScanColumns* val) noexcept {
+void ExpressionListScanColumnTarget::addElement(AbstractScanColumnsTarget* val) noexcept {
 	this->list.addElement(val);
 }
 

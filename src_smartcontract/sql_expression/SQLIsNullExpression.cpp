@@ -117,7 +117,7 @@ void SQLIsNullExpression::onSelectTarget(VirtualMachine* vm) {
 
 	this->exp->onSelectTarget(vm);
 
-	AbstractScanColumns* col = colHolder->pop();
+	AbstractScanColumnsTarget* col = colHolder->pop();
 	cond->setCondition(col);
 	cond->setIsNull(this->notnull);
 }

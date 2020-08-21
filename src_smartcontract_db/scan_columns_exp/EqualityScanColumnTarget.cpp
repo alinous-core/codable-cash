@@ -19,11 +19,11 @@ EqualityScanColumnTarget::~EqualityScanColumnTarget() {
 	delete this->right;
 }
 
-void EqualityScanColumnTarget::setLeft(AbstractScanColumns* element) noexcept {
+void EqualityScanColumnTarget::setLeft(AbstractScanColumnsTarget* element) noexcept {
 	this->left = element;
 }
 
-void EqualityScanColumnTarget::setRight(AbstractScanColumns* element) noexcept {
+void EqualityScanColumnTarget::setRight(AbstractScanColumnsTarget* element) noexcept {
 	this->right = element;
 }
 

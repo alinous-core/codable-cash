@@ -107,7 +107,7 @@ void SQLParenthesisExpression::onSelectTarget(VirtualMachine* vm) {
 
 	this->exp->onSelectTarget(vm);
 
-	AbstractScanColumns* col = colHolder->pop();
+	AbstractScanColumnsTarget* col = colHolder->pop();
 	cond->setInnser(col);
 }
 

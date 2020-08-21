@@ -8,11 +8,11 @@
 #ifndef SCAN_COLUMNS_PARAMS_ABSTRACTCOLUMNPARAM_H_
 #define SCAN_COLUMNS_PARAMS_ABSTRACTCOLUMNPARAM_H_
 
-#include "scan_columns/AbstractScanColumns.h"
+#include "scan_columns/AbstractScanColumnsTarget.h"
 
 namespace codablecash {
 
-class AbstractColumnParam : public AbstractScanColumns {
+class AbstractColumnParam : public AbstractScanColumnsTarget {
 public:
 	AbstractColumnParam();
 	virtual ~AbstractColumnParam();

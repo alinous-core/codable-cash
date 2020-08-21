@@ -6,7 +6,7 @@
  */
 
 #include "scan_columns/ScanColumnHolder.h"
-#include "scan_columns/AbstractScanColumns.h"
+#include "scan_columns/AbstractScanColumnsTarget.h"
 
 namespace codablecash {
 
@@ -18,7 +18,7 @@ ScanColumnHolder::~ScanColumnHolder() {
 
 }
 
-void ScanColumnHolder::push(AbstractScanColumns* column) noexcept {
+void ScanColumnHolder::push(AbstractScanColumnsTarget* column) noexcept {
 	this->stack.addElement(column);
 }
 
@@ -27,7 +27,7 @@ void ScanColumnHolder::push(AbstractScanColumns* column) noexcept {
 	return this->stack.get(index);
 }*/
 
-AbstractScanColumns* ScanColumnHolder::pop() noexcept {
+AbstractScanColumnsTarget* ScanColumnHolder::pop() noexcept {
 	int index = this->stack.size() - 1;
 
 	return this->stack.remove(index);

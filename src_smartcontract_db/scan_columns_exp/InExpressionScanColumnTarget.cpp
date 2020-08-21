@@ -24,7 +24,7 @@ InExpressionScanColumnTarget::~InExpressionScanColumnTarget() {
 	delete this->list;
 }
 
-void InExpressionScanColumnTarget::setLeft(AbstractScanColumns* cond) noexcept {
+void InExpressionScanColumnTarget::setLeft(AbstractScanColumnsTarget* cond) noexcept {
 	this->left = cond;
 }
 
@@ -32,7 +32,7 @@ void InExpressionScanColumnTarget::setList(ExpressionListScanColumnTarget* list)
 	this->list = list;
 }
 
-ExpressionListScanColumnTarget* InExpressionScanColumnTarget::castToExpressionListScanColumnTarget(AbstractScanColumns* col, VirtualMachine* vm, const CodeElement* element) {
+ExpressionListScanColumnTarget* InExpressionScanColumnTarget::castToExpressionListScanColumnTarget(AbstractScanColumnsTarget* col, VirtualMachine* vm, const CodeElement* element) {
 	ExpressionListScanColumnTarget* val = dynamic_cast<ExpressionListScanColumnTarget*>(col);
 
 	if(val == nullptr){

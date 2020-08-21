@@ -20,11 +20,11 @@ RelationalExpressionScanTarget::~RelationalExpressionScanTarget() {
 	delete this->right;
 }
 
-void RelationalExpressionScanTarget::setLeft(AbstractScanColumns* element) noexcept {
+void RelationalExpressionScanTarget::setLeft(AbstractScanColumnsTarget* element) noexcept {
 	this->left = element;
 }
 
-void RelationalExpressionScanTarget::setRight(AbstractScanColumns* element) noexcept {
+void RelationalExpressionScanTarget::setRight(AbstractScanColumnsTarget* element) noexcept {
 	this->right = element;
 }
 

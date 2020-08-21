@@ -18,7 +18,7 @@ AdditiveExpressionScanColumnTarget::~AdditiveExpressionScanColumnTarget() {
 
 }
 
-void AdditiveExpressionScanColumnTarget::addOperand(AbstractScanColumns* vp) noexcept {
+void AdditiveExpressionScanColumnTarget::addOperand(AbstractScanColumnsTarget* vp) noexcept {
 	this->list.addElement(vp);
 }
 

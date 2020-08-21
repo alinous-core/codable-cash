@@ -18,7 +18,7 @@ IsNullScanColumnTarget::~IsNullScanColumnTarget() {
 	delete this->cond;
 }
 
-void IsNullScanColumnTarget::setCondition(AbstractScanColumns* cond) noexcept {
+void IsNullScanColumnTarget::setCondition(AbstractScanColumnsTarget* cond) noexcept {
 	this->cond = cond;
 }
 

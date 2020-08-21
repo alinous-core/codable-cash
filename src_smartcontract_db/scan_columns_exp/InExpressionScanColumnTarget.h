@@ -25,13 +25,13 @@ public:
 	InExpressionScanColumnTarget();
 	virtual ~InExpressionScanColumnTarget();
 
-	void setLeft(AbstractScanColumns* cond) noexcept;
+	void setLeft(AbstractScanColumnsTarget* cond) noexcept;
 	void setList(ExpressionListScanColumnTarget* list) noexcept;
 
-	static ExpressionListScanColumnTarget* castToExpressionListScanColumnTarget(AbstractScanColumns* col, VirtualMachine* vm, const CodeElement* element);
+	static ExpressionListScanColumnTarget* castToExpressionListScanColumnTarget(AbstractScanColumnsTarget* col, VirtualMachine* vm, const CodeElement* element);
 
 private:
-	AbstractScanColumns* left;
+	AbstractScanColumnsTarget* left;
 	ExpressionListScanColumnTarget* list;
 };
 

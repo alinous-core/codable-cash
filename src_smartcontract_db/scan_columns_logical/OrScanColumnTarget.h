@@ -19,10 +19,10 @@ public:
 	OrScanColumnTarget();
 	virtual ~OrScanColumnTarget();
 
-	void addCondition(AbstractScanColumns* cond) noexcept;
+	void addCondition(AbstractScanColumnsTarget* cond) noexcept;
 
 private:
-	ArrayList<AbstractScanColumns> list;
+	ArrayList<AbstractScanColumnsTarget> list;
 };
 
 } /* namespace codablecash */

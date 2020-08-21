@@ -17,11 +17,11 @@ public:
 	IsNullScanColumnTarget();
 	virtual ~IsNullScanColumnTarget();
 
-	void setCondition(AbstractScanColumns* cond) noexcept;
+	void setCondition(AbstractScanColumnsTarget* cond) noexcept;
 	void setIsNull(bool notnull) noexcept;
 
 private:
-	AbstractScanColumns* cond;
+	AbstractScanColumnsTarget* cond;
 	bool notnull;
 
 };

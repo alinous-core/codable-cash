@@ -17,14 +17,14 @@ public:
 	BetweenScanColumnTarget();
 	virtual ~BetweenScanColumnTarget();
 
-	void setLeft(AbstractScanColumns* left) noexcept;
-	void setStart(AbstractScanColumns* start) noexcept;
-	void setEnd(AbstractScanColumns* end) noexcept;
+	void setLeft(AbstractScanColumnsTarget* left) noexcept;
+	void setStart(AbstractScanColumnsTarget* start) noexcept;
+	void setEnd(AbstractScanColumnsTarget* end) noexcept;
 
 private:
-	AbstractScanColumns* left;
-	AbstractScanColumns* start;
-	AbstractScanColumns* end;
+	AbstractScanColumnsTarget* left;
+	AbstractScanColumnsTarget* start;
+	AbstractScanColumnsTarget* end;
 };
 
 } /* namespace codablecash */

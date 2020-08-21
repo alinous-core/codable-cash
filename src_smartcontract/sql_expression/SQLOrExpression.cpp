@@ -120,7 +120,7 @@ void SQLOrExpression::onSelectTarget(VirtualMachine* vm) {
 
 		exp->onSelectTarget(vm);
 
-		AbstractScanColumns* col = colHolder->pop();
+		AbstractScanColumnsTarget* col = colHolder->pop();
 		cond->addCondition(col);
 	}
 }

@@ -17,9 +17,9 @@ public:
 	NotScanColumnTarget();
 	virtual ~NotScanColumnTarget();
 
-	void setCond(AbstractScanColumns* cond) noexcept;
+	void setCond(AbstractScanColumnsTarget* cond) noexcept;
 private:
-	AbstractScanColumns* cond;
+	AbstractScanColumnsTarget* cond;
 };
 
 } /* namespace codablecash */

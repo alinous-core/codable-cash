@@ -25,7 +25,7 @@ void FunctionCallScanColumnTarget::setName(const UnicodeString* name) noexcept {
 	this->name = new UnicodeString(name);
 }
 
-void FunctionCallScanColumnTarget::addArgument(AbstractScanColumns* arg) noexcept {
+void FunctionCallScanColumnTarget::addArgument(AbstractScanColumnsTarget* arg) noexcept {
 	this->arguments.addElement(arg);
 }
 

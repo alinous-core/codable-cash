@@ -158,7 +158,7 @@ void SQLBetweenExpression::onSelectTarget(VirtualMachine* vm) {
 	this->start->onSelectTarget(vm);
 	this->end->onSelectTarget(vm);
 
-	AbstractScanColumns* col = nullptr;
+	AbstractScanColumnsTarget* col = nullptr;
 
 	col = colHolder->pop();
 	cond->setEnd(col);

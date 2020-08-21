@@ -5,21 +5,21 @@
  *      Author: iizuka
  */
 
-#include "scan_columns/AbstractScanColumns.h"
+#include "scan_columns/AbstractScanColumnsTarget.h"
 
 #include "base/UnicodeString.h"
 
 namespace codablecash {
 
-AbstractScanColumns::AbstractScanColumns() {
+AbstractScanColumnsTarget::AbstractScanColumnsTarget() {
 	this->asName = nullptr;
 }
 
-AbstractScanColumns::~AbstractScanColumns() {
+AbstractScanColumnsTarget::~AbstractScanColumnsTarget() {
 	delete this->asName;
 }
 
-void AbstractScanColumns::setAsName(const UnicodeString* asName) noexcept {
+void AbstractScanColumnsTarget::setAsName(const UnicodeString* asName) noexcept {
 	delete this->asName;
 	this->asName = new UnicodeString(asName);
 }

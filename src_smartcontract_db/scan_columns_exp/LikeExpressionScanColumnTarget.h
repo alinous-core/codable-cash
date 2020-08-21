@@ -17,14 +17,14 @@ public:
 	LikeExpressionScanColumnTarget();
 	virtual ~LikeExpressionScanColumnTarget();
 
-	void setLeft(AbstractScanColumns* left) noexcept;
-	void setRight(AbstractScanColumns* right) noexcept;
-	void setEscape(AbstractScanColumns* escape) noexcept;
+	void setLeft(AbstractScanColumnsTarget* left) noexcept;
+	void setRight(AbstractScanColumnsTarget* right) noexcept;
+	void setEscape(AbstractScanColumnsTarget* escape) noexcept;
 
 private:
-	AbstractScanColumns* left;
-	AbstractScanColumns* right;
-	AbstractScanColumns* escape;
+	AbstractScanColumnsTarget* left;
+	AbstractScanColumnsTarget* right;
+	AbstractScanColumnsTarget* escape;
 };
 
 } /* namespace codablecash */

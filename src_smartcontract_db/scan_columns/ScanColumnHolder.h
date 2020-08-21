@@ -14,19 +14,19 @@ using alinous::ArrayList;
 
 namespace codablecash {
 
-class AbstractScanColumns;
+class AbstractScanColumnsTarget;
 
 class ScanColumnHolder {
 public:
 	ScanColumnHolder();
 	virtual ~ScanColumnHolder();
 
-	void push(AbstractScanColumns* column) noexcept;
+	void push(AbstractScanColumnsTarget* column) noexcept;
 //	AbstractScanColumns* top() const noexcept;
-	AbstractScanColumns* pop() noexcept;
+	AbstractScanColumnsTarget* pop() noexcept;
 
 private:
-	ArrayList<AbstractScanColumns> stack;
+	ArrayList<AbstractScanColumnsTarget> stack;
 };
 
 } /* namespace codablecash */

@@ -17,7 +17,7 @@ NotScanColumnTarget::~NotScanColumnTarget() {
 	delete this->cond;
 }
 
-void NotScanColumnTarget::setCond(AbstractScanColumns* cond) noexcept {
+void NotScanColumnTarget::setCond(AbstractScanColumnsTarget* cond) noexcept {
 	this->cond = cond;
 }
 

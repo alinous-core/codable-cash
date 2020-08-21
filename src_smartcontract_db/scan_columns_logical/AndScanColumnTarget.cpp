@@ -17,7 +17,7 @@ AndScanColumnTarget::~AndScanColumnTarget() {
 	this->list.deleteElements();
 }
 
-void AndScanColumnTarget::addCondition(AbstractScanColumns* cond) noexcept {
+void AndScanColumnTarget::addCondition(AbstractScanColumnsTarget* cond) noexcept {
 	this->list.addElement(cond);
 }
 
