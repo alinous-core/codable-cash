@@ -24,9 +24,19 @@ void ExpressionListScanColumnTarget::addElement(AbstractScanColumnsTarget* val) 
 }
 
 const UnicodeString* ExpressionListScanColumnTarget::toStringCode() noexcept {
-	// FIXME toStringCode()
 	if(this->str == nullptr){
 		this->str = new UnicodeString(L"");
+
+		int maxLoop = this->list.size();
+		for(int i = 0; i != maxLoop; ++i){
+			AbstractScanColumnsTarget* vp = this->list.get(i);
+
+			if(i > 0){
+				this->str->append(L", ");
+			}
+
+			this->str->append(vp->toStringCode());
+		}
 	}
 
 	return this->str;
