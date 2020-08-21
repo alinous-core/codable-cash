@@ -9,6 +9,8 @@
 
 #include "base/UnicodeString.h"
 
+#include "sql_expression/SQLColumnIdentifier.h"
+
 namespace codablecash {
 
 ScanColumn::ScanColumn(const SQLColumnIdentifier* sqlColumnId) {
@@ -20,9 +22,23 @@ ScanColumn::~ScanColumn() {
 }
 
 const UnicodeString* ScanColumn::toStringCode() noexcept {
-	// FIXME toStringCode()
 	if(this->str == nullptr){
 		this->str = new UnicodeString(L"");
+
+		const UnicodeString* s = nullptr;
+		s = this->sqlColumnId->getSchema();
+		if(s != nullptr){
+			this->str->append(s);
+			this->str->append(L".");
+		}
+		s = this->sqlColumnId->getTableName();
+		if(s != nullptr){
+			this->str->append(s);
+			this->str->append(L".");
+		}
+
+		s = this->sqlColumnId->getColumnName();
+		this->str->append(s);
 	}
 
 	return this->str;
