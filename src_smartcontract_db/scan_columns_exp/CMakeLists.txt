@@ -5,6 +5,7 @@ set(__src
 	BetweenScanColumnTarget.cpp
 	EqualityScanColumnTarget.cpp
 	FunctionCallScanColumnTarget.cpp
+	IsNullScanColumnTarget.cpp
 )
 handle_sub(codablecashlib "${__src}" smartcontract_db scan_columns_exp)
 
