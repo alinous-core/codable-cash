@@ -17,6 +17,10 @@
 
 #include "scan_condition/ScanConditionCast.h"
 
+#include "scan_columns/ScanColumnHolder.h"
+
+#include "scan_columns_exp/RelationalExpressionScanTarget.h"
+
 using namespace codablecash;
 
 namespace alinous {
@@ -133,8 +137,19 @@ AbstractVmInstance* SQLRelationalExpression::interpret(VirtualMachine* vm) {
 
 void SQLRelationalExpression::onSelectTarget(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
 
-	// FIXME onSelectTarget();
+	RelationalExpressionScanTarget* cond = new RelationalExpressionScanTarget();
+	colHolder->push(cond);
+
+	this->left->onSelectTarget(vm);
+	this->right->onSelectTarget(vm);
+
+	AbstractScanColumns* col = colHolder->pop();
+	cond->setRight(col);
+
+	col = colHolder->pop();
+	cond->setLeft(col);
 }
 
 } /* namespace alinous */
