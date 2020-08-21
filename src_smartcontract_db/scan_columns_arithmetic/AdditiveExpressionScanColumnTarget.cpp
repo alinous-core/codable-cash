@@ -9,6 +9,8 @@
 
 #include "base/UnicodeString.h"
 
+#include "sql_expression/SQLAdditiveExpression.h"
+
 namespace codablecash {
 
 AdditiveExpressionScanColumnTarget::AdditiveExpressionScanColumnTarget() : operations(2) {
@@ -29,9 +31,27 @@ void AdditiveExpressionScanColumnTarget::addOperator(uint8_t op) noexcept {
 }
 
 const UnicodeString* AdditiveExpressionScanColumnTarget::toStringCode() noexcept {
-	// FIXME toStringCode()
 	if(this->str == nullptr){
 		this->str = new UnicodeString(L"");
+
+		int maxLoop = this->list.size();
+		for(int i = 0; i != maxLoop; ++i){
+			if(i > 0){
+				int pos = i - 1;
+				uint8_t op = this->operations.get(pos);
+
+				if(op == SQLAdditiveExpression::ADD){
+					this->str->append(L" + ");
+				}
+				else if(op == SQLAdditiveExpression::SUB){
+					this->str->append(L" - ");
+				}
+			}
+
+			AbstractScanColumnsTarget* vp = this->list.get(i);
+
+			this->str->append(vp->toStringCode());
+		}
 	}
 
 	return this->str;
