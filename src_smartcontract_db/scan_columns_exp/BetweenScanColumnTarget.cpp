@@ -36,9 +36,18 @@ void BetweenScanColumnTarget::setEnd(AbstractScanColumnsTarget* end) noexcept {
 }
 
 const UnicodeString* BetweenScanColumnTarget::toStringCode() noexcept {
-	// FIXME toStringCode()
 	if(this->str == nullptr){
 		this->str = new UnicodeString(L"");
+
+		this->str->append(this->left->toStringCode());
+
+		this->str->append(L" BETWEEN ");
+
+		this->str->append(this->start->toStringCode());
+
+		this->str->append(L" AND ");
+
+		this->str->append(this->end->toStringCode());
 	}
 
 	return this->str;
