@@ -18,6 +18,10 @@
 
 #include "scan_condition/ScanConditionCast.h"
 
+#include "scan_columns/ScanColumnHolder.h"
+
+#include "scan_columns_exp/LikeExpressionScanColumnTarget.h"
+
 namespace alinous {
 
 SQLLikeExpression::SQLLikeExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_LIKE) {
@@ -165,8 +169,24 @@ AbstractVmInstance* SQLLikeExpression::interpret(VirtualMachine* vm) {
 
 void SQLLikeExpression::onSelectTarget(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
 
-	// FIXME onSelectTarget();
+	LikeExpressionScanColumnTarget* cond = new LikeExpressionScanColumnTarget();
+	colHolder->push(cond);
+
+	this->left->onSelectTarget(vm);
+	AbstractScanColumns* col = colHolder->pop();
+	cond->setLeft(col);
+
+	this->right->onSelectTarget(vm);
+	col = colHolder->pop();
+	cond->setRight(col);
+
+	if(this->escape != nullptr){
+		this->escape->onSelectTarget(vm);
+		col = colHolder->pop();
+		cond->setEscape(col);
+	}
 }
 
 } /* namespace alinous */

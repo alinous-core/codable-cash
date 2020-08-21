@@ -6,6 +6,7 @@ set(__src
 	EqualityScanColumnTarget.cpp
 	FunctionCallScanColumnTarget.cpp
 	IsNullScanColumnTarget.cpp
+	LikeExpressionScanColumnTarget.cpp
 	ParenthesisScanColumnTarget.cpp
 	PlaceHolderScanColumnTarget.cpp
 	RelationalExpressionScanTarget.cpp
