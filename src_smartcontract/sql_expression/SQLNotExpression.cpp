@@ -23,6 +23,9 @@
 
 #include "scan_condition/ScanConditionCast.h"
 
+#include "scan_columns/ScanColumnHolder.h"
+
+#include "scan_columns_logical/NotScanColumnTarget.h"
 using namespace alinous;
 
 namespace alinous {
@@ -106,8 +109,15 @@ AbstractVmInstance* SQLNotExpression::interpret(VirtualMachine* vm) {
 
 void SQLNotExpression::onSelectTarget(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
 
-	// FIXME onSelectTarget();
+	NotScanColumnTarget* cond = new NotScanColumnTarget();
+	colHolder->push(cond);
+
+	this->exp->onSelectTarget(vm);
+
+	AbstractScanColumns* col = colHolder->pop();
+	cond->setCond(cond);
 }
 
 } /* namespace alinous */
