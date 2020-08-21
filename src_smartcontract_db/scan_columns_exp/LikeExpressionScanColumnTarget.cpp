@@ -36,9 +36,19 @@ void LikeExpressionScanColumnTarget::setEscape(AbstractScanColumnsTarget* escape
 }
 
 const UnicodeString* LikeExpressionScanColumnTarget::toStringCode() noexcept {
-	// FIXME toStringCode()
 	if(this->str == nullptr){
 		this->str = new UnicodeString(L"");
+
+		this->str->append(this->left->toStringCode());
+
+		this->str->append(L" LIKE ");
+
+		this->str->append(this->right->toStringCode());
+
+		if(this->escape != nullptr){
+			this->str->append(L" ESCAPE ");
+			this->str->append(this->escape->toStringCode());
+		}
 	}
 
 	return this->str;
