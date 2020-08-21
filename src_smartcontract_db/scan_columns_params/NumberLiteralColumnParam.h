@@ -18,6 +18,8 @@ public:
 	explicit NumberLiteralColumnParam(int64_t longv);
 	virtual ~NumberLiteralColumnParam();
 
+	virtual const UnicodeString* toStringCode() noexcept;
+
 private:
 	int64_t longv;
 };

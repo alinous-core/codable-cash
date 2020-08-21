@@ -17,6 +17,8 @@ public:
 	explicit BooleanLiteralColumnParam(bool value);
 	virtual ~BooleanLiteralColumnParam();
 
+	virtual const UnicodeString* toStringCode() noexcept;
+
 private:
 	bool value;
 };

@@ -22,6 +22,8 @@ public:
 	explicit StringLiteralColumnParam(const UnicodeString* str);
 	virtual ~StringLiteralColumnParam();
 
+	virtual const UnicodeString* toStringCode() noexcept;
+
 private:
 	UnicodeString* value;
 };
