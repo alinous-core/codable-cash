@@ -48,9 +48,14 @@ ExpressionListScanColumnTarget* InExpressionScanColumnTarget::castToExpressionLi
 }
 
 const UnicodeString* InExpressionScanColumnTarget::toStringCode() noexcept {
-	// FIXME toStringCode()
 	if(this->str == nullptr){
 		this->str = new UnicodeString(L"");
+
+		this->str->append(this->left->toStringCode());
+		this->str->append(L" IN (");
+
+		this->str->append(this->list->toStringCode());
+		this->str->append(L")");
 	}
 
 	return this->str;
