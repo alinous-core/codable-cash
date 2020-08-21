@@ -2,6 +2,7 @@
 
 set(__src
 	AbstractColumnParam.cpp
+	BooleanLiteralColumnParam.cpp
 	NumberLiteralColumnParam.cpp
 	StringLiteralColumnParam.cpp
 )
