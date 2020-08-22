@@ -12,6 +12,7 @@
 
 #include "base/StackRelease.h"
 #include "alinous_lang/AlinousLang.h"
+#include "sql_expression/SQLWildCard.h"
 
 static bool checkBinary(ByteBuffer* buff){
 	int lastSize = buff->capacity();
@@ -587,5 +588,14 @@ TEST(TestSQLExpressionGroup, wildcard01){
 
 	bool res = checkBinary(buff);
 	CHECK(res)
+}
+
+TEST(TestSQLExpressionGroup, wildcard02){
+	SQLWildCard exp;
+
+	AnalyzedType atype = exp.getType(nullptr);
+	AnalyzedType none;
+
+	CHECK(atype.getType() == none.getType());
 }
 
