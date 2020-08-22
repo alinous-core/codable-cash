@@ -8,11 +8,11 @@
 #ifndef SCAN_COLUMNS_LOGICAL_NOTSCANCOLUMNTARGET_H_
 #define SCAN_COLUMNS_LOGICAL_NOTSCANCOLUMNTARGET_H_
 
-#include "scan_columns_exp/AbstractExpressionScanColumnTarget.h"
+#include "scan_columns_logical/AbstractLogicalScanColumnTarget.h"
 
 namespace codablecash {
 
-class NotScanColumnTarget : public AbstractExpressionScanColumnTarget {
+class NotScanColumnTarget : public AbstractLogicalScanColumnTarget {
 public:
 	NotScanColumnTarget();
 	virtual ~NotScanColumnTarget();

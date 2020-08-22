@@ -117,7 +117,7 @@ void SQLNotExpression::onSelectTarget(VirtualMachine* vm) {
 	this->exp->onSelectTarget(vm);
 
 	AbstractScanColumnsTarget* col = colHolder->pop();
-	cond->setCond(cond);
+	cond->setCond(col);
 }
 
 } /* namespace alinous */

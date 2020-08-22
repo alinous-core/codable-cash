@@ -1,0 +1,1 @@
+SELECT col1 < 100 OR col2 <= 200 FROM table_1;
