@@ -15,22 +15,22 @@ ScanColumnHolder::ScanColumnHolder() {
 }
 
 ScanColumnHolder::~ScanColumnHolder() {
-
+	this->stack.deleteElements();
+	this->list.deleteElements();
 }
 
 void ScanColumnHolder::push(AbstractScanColumnsTarget* column) noexcept {
 	this->stack.addElement(column);
 }
 
-/*AbstractScanColumns* ScanColumnHolder::top() const noexcept {
-	int index = this->stack.size() - 1;
-	return this->stack.get(index);
-}*/
-
 AbstractScanColumnsTarget* ScanColumnHolder::pop() noexcept {
 	int index = this->stack.size() - 1;
 
 	return this->stack.remove(index);
+}
+
+void ScanColumnHolder::addColumn(AbstractScanColumnsTarget* col) noexcept {
+	this->list.addElement(col);
 }
 
 } /* namespace codablecash */

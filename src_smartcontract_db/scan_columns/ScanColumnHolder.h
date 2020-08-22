@@ -22,11 +22,13 @@ public:
 	virtual ~ScanColumnHolder();
 
 	void push(AbstractScanColumnsTarget* column) noexcept;
-//	AbstractScanColumns* top() const noexcept;
 	AbstractScanColumnsTarget* pop() noexcept;
 
+	void addColumn(AbstractScanColumnsTarget* col) noexcept;
 private:
 	ArrayList<AbstractScanColumnsTarget> stack;
+
+	ArrayList<AbstractScanColumnsTarget> list;
 };
 
 } /* namespace codablecash */

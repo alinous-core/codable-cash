@@ -284,7 +284,7 @@ void SelectStatement::buildPlanner(VirtualMachine* vm, uint64_t currentVer) {
 	}
 
 	if(this->where != nullptr){
-		where->interpret(vm);
+		this->where->interpret(vm);
 	}
 
 	this->lastSchemaVersion = currentVer;

@@ -16,6 +16,8 @@
 
 #include "scan_planner/SelectScanPlanner.h"
 
+#include "scan_columns/ScanColumnHolder.h"
+
 namespace alinous {
 
 SQLSelectTargetList::SQLSelectTargetList() : AbstractSQLPart(CodeElement::SQL_PART_SELECT_TARGET_LIST) {
@@ -101,10 +103,16 @@ void SQLSelectTargetList::init(VirtualMachine* vm) {
 
 AbstractVmInstance* SQLSelectTargetList::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
 
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
+		SQLSelectTarget* target = this->list.get(i);
 
+		target->interpret(vm);
+
+		AbstractScanColumnsTarget* col = colHolder->pop();
+		colHolder->addColumn(col);
 	}
 
 	return nullptr;

@@ -15,6 +15,7 @@
 #include "scan_columns/ScanColumn.h"
 
 #include "vm/VirtualMachine.h"
+#include "vm/VmSelectPlannerSetter.h"
 
 #include "compiler/SmartContractParser.h"
 
@@ -23,6 +24,10 @@
 #include "sql_dml_parts/SQLSelectTargetList.h"
 
 #include "sc_analyze/AnalyzeContext.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
+
 using namespace codablecash;
 
 TEST_GROUP(TestScanColumnsPartGroup) {
@@ -66,6 +71,12 @@ TEST(TestScanColumnsPartGroup, select01){
 		selectList->analyze(actx);
 
 
+		SelectScanPlanner* planner = new SelectScanPlanner(); __STP(planner);
+		VmSelectPlannerSetter setter(vm, planner);
+
+		selectList->init(vm);
+
+		selectList->interpret(vm);
 
 		// FIXME testing now
 	}
