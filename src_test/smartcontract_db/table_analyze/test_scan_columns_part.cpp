@@ -338,4 +338,3 @@ TEST(TestScanColumnsPartGroup, relational02){
 	}
 }
 
-// FIXME testing now
