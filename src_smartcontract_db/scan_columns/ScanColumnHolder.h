@@ -10,7 +10,12 @@
 
 #include "base/ArrayList.h"
 
-using alinous::ArrayList;
+
+namespace alinous {
+class UnicodeString;
+}
+using namespace alinous;
+
 
 namespace codablecash {
 
@@ -25,6 +30,8 @@ public:
 	AbstractScanColumnsTarget* pop() noexcept;
 
 	void addColumn(AbstractScanColumnsTarget* col) noexcept;
+
+	UnicodeString* toCodeString() noexcept;
 private:
 	ArrayList<AbstractScanColumnsTarget> stack;
 

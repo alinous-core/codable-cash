@@ -8,6 +8,8 @@
 #include "scan_columns/ScanColumnHolder.h"
 #include "scan_columns/AbstractScanColumnsTarget.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 ScanColumnHolder::ScanColumnHolder() {
@@ -31,6 +33,23 @@ AbstractScanColumnsTarget* ScanColumnHolder::pop() noexcept {
 
 void ScanColumnHolder::addColumn(AbstractScanColumnsTarget* col) noexcept {
 	this->list.addElement(col);
+}
+
+UnicodeString* ScanColumnHolder::toCodeString() noexcept {
+	UnicodeString* str = new UnicodeString(L"");
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanColumnsTarget* col = this->list.get(i);
+
+		if(i != 0){
+			str->append(L", ");
+		}
+
+		str->append(col->toStringCode());
+	}
+
+	return str;
 }
 
 } /* namespace codablecash */

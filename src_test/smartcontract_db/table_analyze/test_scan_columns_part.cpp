@@ -27,6 +27,7 @@
 
 #include "scan_planner/SelectScanPlanner.h"
 
+#include "scan_columns/ScanColumnHolder.h"
 
 using namespace codablecash;
 
@@ -75,9 +76,14 @@ TEST(TestScanColumnsPartGroup, select01){
 		VmSelectPlannerSetter setter(vm, planner);
 
 		selectList->init(vm);
-
 		selectList->interpret(vm);
 
-		// FIXME testing now
+		ScanColumnHolder* holder = planner->getColumnHolder();
+		UnicodeString* str = holder->toCodeString(); __STP(str);
+
+		UnicodeString ans(L"*");
+		CHECK(str->equals(ans));
 	}
 }
+
+// FIXME testing now
