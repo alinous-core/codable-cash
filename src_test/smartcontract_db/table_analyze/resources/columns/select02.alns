@@ -1,0 +1,1 @@
+SELECT *, public.table1.col1 FROM table_1;
