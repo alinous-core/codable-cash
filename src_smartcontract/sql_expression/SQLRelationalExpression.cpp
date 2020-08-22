@@ -145,6 +145,8 @@ void SQLRelationalExpression::onSelectTarget(VirtualMachine* vm) {
 	this->left->onSelectTarget(vm);
 	this->right->onSelectTarget(vm);
 
+	cond->setOp(this->op);
+
 	AbstractScanColumnsTarget* col = colHolder->pop();
 	cond->setRight(col);
 
