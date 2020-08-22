@@ -254,6 +254,42 @@ TEST(TestScanColumnsExpPartGroup, placeholder01){
 	}
 }
 
+TEST(TestScanColumnsExpPartGroup, in01){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_analyze/resources/columns_exp/select10.alns"))
+	{
+		SmartContractParser parser(sourceFile);
+		AlinousLang* lang = parser.getDebugAlinousLang();
+
+		SelectStatement* stmt = lang->selectStatement(); __STP(stmt);
+		CHECK(!parser.hasError())
+
+		SQLSelectTargetList* selectList = stmt->getSQLSelectTargetList();
+
+		AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
+		actx->setVm(vm);
+
+		selectList->preAnalyze(actx);
+		selectList->analyzeTypeRef(actx);
+		selectList->analyze(actx);
+
+
+		SelectScanPlanner* planner = new SelectScanPlanner(); __STP(planner);
+		VmSelectPlannerSetter setter(vm, planner);
+
+		selectList->init(vm);
+		selectList->interpret(vm);
+
+		ScanColumnHolder* holder = planner->getColumnHolder();
+		UnicodeString* str = holder->toCodeString(); __STP(str);
+
+		UnicodeString ans(L"col1 IN (1, 2, 3)");
+		CHECK(str->equals(ans));
+	}
+}
+
 
 // FIXME testing now
 
