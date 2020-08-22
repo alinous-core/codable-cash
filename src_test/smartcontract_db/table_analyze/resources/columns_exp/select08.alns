@@ -1,0 +1,1 @@
+SELECT col1 LIKE '%test%' ESCAPE '%' FROM table_1;
