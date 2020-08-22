@@ -65,6 +65,8 @@ TEST(TestScanColumnsPartGroup, select01){
 		selectList->analyzeTypeRef(actx);
 		selectList->analyze(actx);
 
+
+
 		// FIXME testing now
 	}
 }

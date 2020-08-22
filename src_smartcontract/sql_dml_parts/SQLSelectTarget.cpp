@@ -9,6 +9,17 @@
 #include "base/UnicodeString.h"
 #include "sql/AbstractSQLExpression.h"
 
+#include "scan_planner/TablesHolder.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "scan_columns/AllScanColumns.h"
+#include "scan_columns/ScanColumnHolder.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
+using namespace codablecash;
+
 namespace alinous {
 
 SQLSelectTarget::SQLSelectTarget() : AbstractSQLPart(CodeElement::SQL_PART_SELECT_TARGET) {
@@ -61,10 +72,17 @@ void SQLSelectTarget::init(VirtualMachine* vm) {
 
 AbstractVmInstance* SQLSelectTarget::interpret(VirtualMachine* vm) {
 	if(this->wildcard){
+		SelectScanPlanner* planner = vm->getSelectPlanner();
+		ScanColumnHolder* colHolder = planner->getColumnHolder();
 
+		AllScanColumns* col = new AllScanColumns();
+		colHolder->push(col);
+
+		return nullptr;
 	}
 
-	// FIXME SQLSelectTarget::interpret()
+	this->exp->onSelectTarget(vm);
+	return nullptr;
 }
 
 int SQLSelectTarget::binarySize() const {
@@ -108,6 +126,8 @@ void SQLSelectTarget::fromBinary(ByteBuffer* in) {
 		CodeElement* element = createFromBinary(in);
 		checkIsSQLExp(element);
 		this->exp = dynamic_cast<AbstractSQLExpression*>(element);
+
+		checkNotNull(this->exp);
 	}
 
 	bl = in->get();

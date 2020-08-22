@@ -13,6 +13,9 @@
 #include "vm/VirtualMachine.h"
 
 #include "instance/AbstractVmInstance.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
 namespace alinous {
 
 SQLSelectTargetList::SQLSelectTargetList() : AbstractSQLPart(CodeElement::SQL_PART_SELECT_TARGET_LIST) {
@@ -97,7 +100,14 @@ void SQLSelectTargetList::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLSelectTargetList::interpret(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
 
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+
+	}
+
+	return nullptr;
 }
 
 
