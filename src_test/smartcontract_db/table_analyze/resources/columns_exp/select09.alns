@@ -1,0 +1,1 @@
+SELECT func01(${id}) FROM table_1;
