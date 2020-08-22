@@ -568,3 +568,24 @@ TEST(TestSQLExpressionGroup, rational01bin){
 	CHECK(res)
 }
 
+TEST(TestSQLExpressionGroup, wildcard01){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/sqlexp/wildcard01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractSQLExpression* exp = lang->sqlExpression(); __STP(exp);
+
+	CHECK(!parser.hasError())
+
+	int size = exp->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	exp->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+}
+

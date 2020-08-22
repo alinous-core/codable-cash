@@ -328,5 +328,3 @@ TEST(TestScanColumnsExpPartGroup, in_cast_error){
 
 	}
 }
-// FIXME testing now
-
