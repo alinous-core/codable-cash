@@ -14,6 +14,7 @@
 
 #include "base/UnicodeString.h"
 
+#include "engine/CdbException.h"
 namespace codablecash {
 
 InExpressionScanColumnTarget::InExpressionScanColumnTarget() {
@@ -40,8 +41,7 @@ ExpressionListScanColumnTarget* InExpressionScanColumnTarget::castToExpressionLi
 	if(val == nullptr){
 		delete col;
 
-		TypeCastExceptionClassDeclare::throwException(vm, element);
-		ExceptionInterrupt::interruptPoint(vm);
+		throw new CdbException(__FILE__, __LINE__);
 	}
 
 	return val;
