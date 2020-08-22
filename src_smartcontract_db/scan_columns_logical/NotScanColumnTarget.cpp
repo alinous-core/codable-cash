@@ -27,7 +27,7 @@ const UnicodeString* NotScanColumnTarget::toStringCode() noexcept {
 	if(this->str == nullptr){
 		this->str = new UnicodeString(L"");
 
-		this->str = new UnicodeString(L"NOT ");
+		this->str->append(L"NOT ");
 		this->str->append(this->cond->toStringCode());
 	}
 

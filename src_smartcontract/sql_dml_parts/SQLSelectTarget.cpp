@@ -40,8 +40,6 @@ void SQLSelectTarget::setWildcard(bool wildcard) noexcept {
 void SQLSelectTarget::setExpression(AbstractSQLExpression* exp) noexcept {
 	if(exp->getKind() == CodeElement::SQL_EXP_WILDCARD){
 		setWildcard(true);
-		delete exp;
-		return;
 	}
 
 	this->exp = exp;
@@ -96,7 +94,7 @@ int SQLSelectTarget::binarySize() const {
 
 	total += sizeof(uint8_t);
 	total += sizeof(uint8_t);
-	if(this->exp != nullptr){
+	if(this->exp != nullptr && !this->wildcard){
 		total += this->exp->binarySize();
 	}
 
@@ -112,8 +110,8 @@ void SQLSelectTarget::toBinary(ByteBuffer* out) {
 	out->putShort(CodeElement::SQL_PART_SELECT_TARGET);
 
 	out->put(this->wildcard ? 1 : 0);
-	out->put(this->exp != nullptr ? 1 : 0);
-	if(this->exp != nullptr){
+	out->put((this->exp != nullptr  && !this->wildcard) ? 1 : 0);
+	if(this->exp != nullptr && !this->wildcard){
 		this->exp->toBinary(out);
 	}
 
