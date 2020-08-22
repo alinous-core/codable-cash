@@ -38,6 +38,12 @@ void SQLSelectTarget::setWildcard(bool wildcard) noexcept {
 }
 
 void SQLSelectTarget::setExpression(AbstractSQLExpression* exp) noexcept {
+	if(exp->getKind() == CodeElement::SQL_EXP_WILDCARD){
+		setWildcard(true);
+		delete exp;
+		return;
+	}
+
 	this->exp = exp;
 }
 
