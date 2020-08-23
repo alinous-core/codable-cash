@@ -13,12 +13,13 @@
 namespace codablecash {
 
 AbstractJoinExecutor::AbstractJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right) {
-
-
+	this->left = left;
+	this->right = right;
 }
 
 AbstractJoinExecutor::~AbstractJoinExecutor() {
-	// TODO Auto-generated destructor stub
+	delete this->left;
+	delete this->right;
 }
 
 } /* namespace codablecash */
