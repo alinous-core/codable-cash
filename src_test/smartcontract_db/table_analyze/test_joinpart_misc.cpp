@@ -17,6 +17,8 @@
 #include "sc_analyze/AnalyzedType.h"
 
 #include "sql_join_parts/ParenthesisJoinPart.h"
+
+#include "engine/CdbException.h"
 using namespace alinous;
 //using namespace codablecash;
 
@@ -63,4 +65,19 @@ TEST(TestJoinPartMiscGroup, ParenthesisJoinPart01){
 
 	CHECK(at.getType() == AnalyzedType::TYPE_NONE)
 }
+
+TEST(TestJoinPartMiscGroup, JoinPartException01){
+	ParenthesisJoinPart part;
+
+	CdbException* ex = nullptr;
+	try{
+		part.onSelectTarget(nullptr);
+	}catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr);
+	delete ex;
+}
+
 
