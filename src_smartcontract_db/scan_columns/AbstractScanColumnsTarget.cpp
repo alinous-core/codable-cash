@@ -23,7 +23,12 @@ AbstractScanColumnsTarget::~AbstractScanColumnsTarget() {
 
 void AbstractScanColumnsTarget::setAsName(const UnicodeString* asName) noexcept {
 	delete this->asName;
-	this->asName = new UnicodeString(asName);
+	this->asName = nullptr;
+
+	if(asName != nullptr){
+		this->asName = new UnicodeString(asName);
+	}
+
 }
 
 void AbstractScanColumnsTarget::resetStr() noexcept {

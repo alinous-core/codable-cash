@@ -17,6 +17,7 @@
 #include "scan_planner/SelectScanPlanner.h"
 
 #include "scan_columns/ScanColumnHolder.h"
+#include "scan_columns/AbstractScanColumnsTarget.h"
 
 namespace alinous {
 
@@ -113,6 +114,9 @@ AbstractVmInstance* SQLSelectTargetList::interpret(VirtualMachine* vm) {
 
 		AbstractScanColumnsTarget* col = colHolder->pop();
 		colHolder->addColumn(col);
+
+		const UnicodeString* asName = target->getAsName();
+		col->setAsName(asName);
 	}
 
 	return nullptr;

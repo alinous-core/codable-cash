@@ -75,10 +75,10 @@ void SQLSelectTarget::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLSelectTarget::interpret(VirtualMachine* vm) {
-	if(this->wildcard){
-		SelectScanPlanner* planner = vm->getSelectPlanner();
-		ScanColumnHolder* colHolder = planner->getColumnHolder();
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
 
+	if(this->wildcard){
 		AllScanColumns* col = new AllScanColumns();
 		colHolder->push(col);
 
@@ -86,6 +86,7 @@ AbstractVmInstance* SQLSelectTarget::interpret(VirtualMachine* vm) {
 	}
 
 	this->exp->onSelectTarget(vm);
+
 	return nullptr;
 }
 
