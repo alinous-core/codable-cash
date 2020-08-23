@@ -10,6 +10,9 @@
 
 namespace codablecash {
 
+class IJoinLeftSource;
+class IJoinRightSource;
+
 class AbstractJoinExecutor {
 public:
 	AbstractJoinExecutor();
