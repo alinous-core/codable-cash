@@ -5,12 +5,15 @@
  *      Author: iizuka
  */
 
-#include <transaction_scanner_join/AbstractJoinExecutor.h>
+#include "transaction_scanner_join/AbstractJoinExecutor.h"
+
+#include "transaction_scanner_join/IJoinLeftSource.h"
+#include "transaction_scanner_join/IJoinRightSource.h"
 
 namespace codablecash {
 
-AbstractJoinExecutor::AbstractJoinExecutor() {
-	// TODO Auto-generated constructor stub
+AbstractJoinExecutor::AbstractJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right) {
+
 
 }
 

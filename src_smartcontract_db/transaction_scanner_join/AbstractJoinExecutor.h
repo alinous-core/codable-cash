@@ -15,8 +15,12 @@ class IJoinRightSource;
 
 class AbstractJoinExecutor {
 public:
-	AbstractJoinExecutor();
+	AbstractJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right);
 	virtual ~AbstractJoinExecutor();
+
+protected:
+	IJoinLeftSource* left;
+	IJoinRightSource* right;
 };
 
 } /* namespace codablecash */

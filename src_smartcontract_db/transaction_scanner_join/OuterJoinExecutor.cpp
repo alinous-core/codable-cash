@@ -5,17 +5,17 @@
  *      Author: iizuka
  */
 
-#include <transaction_scanner_join/OuterJoinExecutor.h>
+#include "transaction_scanner_join/OuterJoinExecutor.h"
 
 namespace codablecash {
 
-OuterJoinExecutor::OuterJoinExecutor() {
-	// TODO Auto-generated constructor stub
+OuterJoinExecutor::OuterJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right)
+					: AbstractJoinExecutor(left, right){
 
 }
 
 OuterJoinExecutor::~OuterJoinExecutor() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */

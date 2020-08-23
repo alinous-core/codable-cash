@@ -14,7 +14,7 @@ namespace codablecash {
 
 class OuterJoinExecutor : AbstractJoinExecutor {
 public:
-	OuterJoinExecutor();
+	OuterJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right);
 	virtual ~OuterJoinExecutor();
 };
 
