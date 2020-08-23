@@ -118,11 +118,6 @@ SQLSelectTarget* sqlSelectTarget() : {
 }
 {
 	(
-		t="*" {
-			stmt->setWildcard(true);
-			stmt->setPosition(t);
-		}
-		|
 		(
 			exp=sqlExpression() {
 				stmt->setExpression(exp);

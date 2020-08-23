@@ -32,6 +32,8 @@ public:
 	AbstractMemoryTreeNode* nextNode() noexcept;
 
 	AbstractMemoryTreeNode* hasKey(const AbstractBtreeKey* key) const noexcept;
+	const AbstractBtreeKey* getKey() const noexcept;
+
 	bool isFull(int nodeNumber) const noexcept;
 	void addNode(AbstractMemoryTreeNode* anode) noexcept;
 	void updateInnerNodes(const ArrayList<AbstractMemoryTreeNode>* list) noexcept;

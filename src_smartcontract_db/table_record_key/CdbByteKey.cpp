@@ -35,6 +35,9 @@ int CdbByteKey::compareTo(const AbstractBtreeKey* key) const noexcept {
 	if(key->isInfinity()){
 		return -1;
 	}
+	else if(key->isNull()){
+		return 1;
+	}
 
 	const CdbByteKey* cdbkey = dynamic_cast<const CdbByteKey*>(key);
 	return this->value - cdbkey->value;

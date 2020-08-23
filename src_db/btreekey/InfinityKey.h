@@ -18,6 +18,7 @@ public:
 	virtual ~InfinityKey();
 
 	virtual bool isInfinity() const;
+	virtual bool isNull() const;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;

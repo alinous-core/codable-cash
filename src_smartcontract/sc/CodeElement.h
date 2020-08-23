@@ -147,6 +147,7 @@ public:
 	static const constexpr short SQL_EXP_JOIN_PART{200};
 	static const constexpr short SQL_EXP_TABLE_LIST{201};
 	static const constexpr short SQL_EXP_PARENTHESIS_JOIN_PART{202};
+	static const constexpr short SQL_EXP_WILDCARD{203};
 
 	static const constexpr short SQL_PART_COLUMN_LIST{220};
 	static const constexpr short SQL_PART_FROM{221};

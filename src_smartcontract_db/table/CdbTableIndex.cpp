@@ -83,6 +83,17 @@ void CdbTableIndex::assignNewOid(SchemaObjectIdPublisher* publisher) {
 	setOid(oid);
 }
 
+void CdbTableIndex::syncColumnOid(const CdbTable* table) {
+	int maxLoop = this->columns->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableColumn* idxcol = this->columns->get(i);
+		const UnicodeString* name = idxcol->getName();
+
+		CdbTableColumn* tablecol = table->getColumn(name);
+		idxcol->setOid(tablecol->getOid()->getOid());
+	}
+}
+
 void CdbTableIndex::setOid(uint64_t oid) noexcept {
 	delete this->oid;
 	this->oid = new CdbOid(oid);

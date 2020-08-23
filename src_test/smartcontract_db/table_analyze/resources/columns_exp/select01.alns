@@ -1,0 +1,1 @@
+SELECT NOT (col1 = 100) FROM table_1;

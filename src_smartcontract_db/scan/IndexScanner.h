@@ -8,7 +8,7 @@
 #ifndef SCAN_INDEXSCANNER_H_
 #define SCAN_INDEXSCANNER_H_
 
-#include "scan/RangeScanner.h"
+#include "scan/RangeChecker.h"
 
 namespace alinous {
 class BtreeScanner;
@@ -19,21 +19,28 @@ namespace codablecash {
 
 class AbstractCdbKey;
 class IndexStore;
+class CdbOidValueList;
+class CdbOidValueListCursor;
+class CdbOid;
 
-
-class IndexScanner : public RangeScanner {
+class IndexScanner : public RangeChecker {
 public:
-	IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq, IndexStore* store);
+	IndexScanner(const CdbRecordKey* begin, bool beginEq, const CdbRecordKey* end, bool endEq, IndexStore* store);
 	virtual ~IndexScanner();
 
-	virtual void start();
-	virtual void shutdown() noexcept;
+	void start();
+	void shutdown() noexcept;
 
-	virtual bool hasNext();
-	virtual const CdbRecord* next();
+	bool hasNext();
+	const CdbOid* next();
+private:
+	bool __hasNext();
 private:
 	IndexStore* store;
 	BtreeScanner* scanner;
+	CdbOidValueListCursor* cursor;
+
+	const CdbOid* nextObj;
 };
 
 } /* namespace codablecash */

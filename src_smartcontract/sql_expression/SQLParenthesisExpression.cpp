@@ -16,6 +16,11 @@
 #include "vm/VirtualMachine.h"
 
 #include "scan_condition/ScanConditionCast.h"
+
+#include "scan_columns/ScanColumnHolder.h"
+
+#include "scan_columns_exp/ParenthesisScanColumnTarget.h"
+
 using codablecash::ParenthesisScanCondition;
 using codablecash::SelectScanPlanner;
 
@@ -93,5 +98,17 @@ AbstractVmInstance* SQLParenthesisExpression::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
+void SQLParenthesisExpression::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
+
+	ParenthesisScanColumnTarget* cond = new ParenthesisScanColumnTarget();
+	colHolder->push(cond);
+
+	this->exp->onSelectTarget(vm);
+
+	AbstractScanColumnsTarget* col = colHolder->pop();
+	cond->setInnser(col);
+}
 
 } /* namespace alinous */

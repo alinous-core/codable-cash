@@ -20,6 +20,9 @@
 
 #include "base/UnicodeString.h"
 
+#include "scan_columns/ScanColumnHolder.h"
+
+#include "scan_columns_exp/FunctionCallScanColumnTarget.h"
 
 namespace alinous {
 
@@ -160,5 +163,25 @@ AbstractVmInstance* SQLFunctionCall::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
+void SQLFunctionCall::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
+
+	FunctionCallScanColumnTarget* cond = new FunctionCallScanColumnTarget();
+	colHolder->push(cond);
+
+	const UnicodeString* n = this->name->getName();
+	cond->setName(n);
+
+	int maxLoop = this->arguments.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->arguments.get(i);
+
+		exp->onSelectTarget(vm);
+
+		AbstractScanColumnsTarget* col = colHolder->pop();
+		cond->addArgument(col);
+	}
+}
 
 } /* namespace alinous */

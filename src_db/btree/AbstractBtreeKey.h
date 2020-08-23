@@ -18,6 +18,8 @@ public:
 	virtual ~AbstractBtreeKey();
 
 	virtual bool isInfinity() const = 0;
+	virtual bool isNull() const = 0;
+
 	virtual int compareTo(const AbstractBtreeKey* key) const noexcept = 0;
 	virtual AbstractBtreeKey* clone()  const noexcept = 0;
 };

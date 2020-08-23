@@ -23,6 +23,7 @@ public:
 	void begin(const AbstractBtreeKey* key);
 	bool hasNext();
 	const IBlockObject* next();
+	const AbstractBtreeKey* nextKey();
 
 private:
 	MemoryNodeCursor* cursor;

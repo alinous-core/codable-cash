@@ -16,6 +16,8 @@ class AbstractJoinPart : public AbstractSQLExpression {
 public:
 	explicit AbstractJoinPart(int kind);
 	virtual ~AbstractJoinPart();
+
+	virtual void onSelectTarget(VirtualMachine* vm);
 };
 
 } /* namespace alinous */

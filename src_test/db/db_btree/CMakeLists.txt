@@ -6,5 +6,6 @@ set(testsrc
 	test_btree.cpp
 	test_cache.cpp
 	test_key_format.cpp
+	test_nullkey.cpp
 )
 handle_sub(testall "${testsrc}" test db/db_btree)

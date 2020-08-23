@@ -34,6 +34,9 @@ int TransactionIdKey::compareTo(const AbstractBtreeKey* key) const noexcept {
 	if(key->isInfinity()){
 		return -1;
 	}
+	else if(key->isNull()){
+		return 1;
+	}
 
 	const TransactionIdKey* key2 = dynamic_cast<const TransactionIdKey*>(key);
 

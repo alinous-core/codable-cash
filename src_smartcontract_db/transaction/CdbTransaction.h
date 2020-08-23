@@ -24,6 +24,13 @@ class AbstractScanCondition;
 class CdbTableIdentifier;
 class TransactionUpdateCache;
 class CdbTable;
+class IndexScanner;
+class CdbOid;
+class AbstractCdbKey;
+class CdbRecordKey;
+class IndexRecordScanner;
+class TableStore;
+class IndexStore;
 
 class CdbTransaction {
 public:
@@ -39,9 +46,32 @@ public:
 
 	TableTransactionScanner* getTableTransactionScanner(const CdbTableIdentifier* tableId, AbstractScanCondition* condition);
 
+	IndexScanner* getRawIndexScanner(const CdbTableIdentifier* tableId, const UnicodeString* columnName,
+			CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq);
+	IndexScanner* getRawIndexScanner(const CdbTableIdentifier* tableId, const ArrayList<const UnicodeString>* columnlist,
+			CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq);
+	IndexScanner* getRawIndexScanner(const CdbTableIdentifier* tableId, const ArrayList<const CdbOid>* columnOidList,
+			CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq);
+
+	IndexRecordScanner* getIndexRecordScanner(const CdbTableIdentifier* tableId, const UnicodeString* columnName,
+			CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq);
+	IndexRecordScanner* getIndexRecordScanner(const CdbTableIdentifier* tableId, const ArrayList<const UnicodeString>* columnlist,
+			CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq);
+	IndexRecordScanner* getIndexRecordScanner(const CdbTableIdentifier* tableId, const ArrayList<const CdbOid>* columnOidList,
+			CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq);
+
 	TransactionUpdateCache* getUpdateCache() const noexcept;
+
+	CdbTransactionManager* getTrxManager() const noexcept {
+		return trxManager;
+	}
+
 private:
-	CdbTable* getTableFromIdentifier(const CdbTableIdentifier* tableId) const noexcept;
+	CdbTable* getTableFromIdentifier(const CdbTableIdentifier* tableId) const;
+	TableStore* getTableStoreFromIdentifier(const CdbTableIdentifier* tableId) const;
+	IndexStore* getIndexStoreFromIdentifier(const CdbTableIdentifier* tableId, const ArrayList<const CdbOid>* columnOidList) const;
+
+	void convertColumnName2OidList(const CdbTable* table, const ArrayList<const UnicodeString>* columnlist, ArrayList<const CdbOid>* columnOidList) const;
 private:
 	CdbTransactionManager* trxManager;
 	uint64_t transactionId;

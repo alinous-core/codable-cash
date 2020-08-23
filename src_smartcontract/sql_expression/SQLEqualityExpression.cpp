@@ -18,9 +18,14 @@
 
 #include "scan_condition/IValueProvider.h"
 
-using namespace codablecash;
+#include "scan_columns/ScanColumnHolder.h"
+
+#include "scan_columns_exp/EqualityScanColumnTarget.h"
 
 #include "scan_condition/ScanConditionCast.h"
+
+using namespace codablecash;
+
 namespace alinous {
 
 SQLEqualityExpression::SQLEqualityExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_EQUALITY) {
@@ -131,5 +136,21 @@ AbstractVmInstance* SQLEqualityExpression::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
+void SQLEqualityExpression::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
+
+	EqualityScanColumnTarget* cond = new EqualityScanColumnTarget();
+	colHolder->push(cond);
+
+	this->left->onSelectTarget(vm);
+	this->right->onSelectTarget(vm);
+
+	AbstractScanColumnsTarget* col = colHolder->pop();
+	cond->setRight(col);
+
+	col = colHolder->pop();
+	cond->setLeft(col);
+}
 
 } /* namespace alinous */

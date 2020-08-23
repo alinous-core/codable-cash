@@ -123,8 +123,10 @@
 #include "sql_expression/SQLOrExpression.h"
 #include "sql_expression/SQLParenthesisExpression.h"
 #include "sql_expression/SQLRelationalExpression.h"
-#include "sql_join_parts/TableIdentifier.h"
 #include "sql_expression/SQLPlaceHolder.h"
+#include "sql_expression/SQLWildCard.h"
+
+#include "sql_join_parts/TableIdentifier.h"
 #include "sql_join_parts/SQLJoin.h"
 #include "sql_join_parts/SQLJoinPart.h"
 #include "sql_join_parts/TableList.h"
@@ -544,6 +546,9 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		break;
 	case SQL_EXP_PARENTHESIS_JOIN_PART:
 		element = new ParenthesisJoinPart();
+		break;
+	case SQL_EXP_WILDCARD:
+		element = new SQLWildCard();
 		break;
 
 	case SQL_PART_COLUMN_LIST:

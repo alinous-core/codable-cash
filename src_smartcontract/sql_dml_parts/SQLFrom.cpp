@@ -23,7 +23,7 @@ void SQLFrom::setTable(AbstractJoinPart* tableId) noexcept {
 	this->tableId = tableId;
 }
 
-AbstractJoinPart* alinous::SQLFrom::getTablePart() const noexcept {
+AbstractJoinPart* SQLFrom::getTablePart() const noexcept {
 	return this->tableId;
 }
 

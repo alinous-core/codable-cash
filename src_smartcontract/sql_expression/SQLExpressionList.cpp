@@ -17,6 +17,11 @@
 #include "scan_planner/SelectScanPlanner.h"
 
 #include "scan_condition/ScanConditionCast.h"
+
+#include "scan_columns/ScanColumnHolder.h"
+
+#include "scan_columns_exp/ExpressionListScanColumnTarget.h"
+
 namespace alinous {
 
 SQLExpressionList::SQLExpressionList() : AbstractSQLExpression(CodeElement::SQL_EXP_EXP_LIST) {
@@ -138,5 +143,22 @@ AbstractVmInstance* SQLExpressionList::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
+void SQLExpressionList::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
+
+	ExpressionListScanColumnTarget* cond = new ExpressionListScanColumnTarget();
+	colHolder->push(cond);
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->list.get(i);
+
+		exp->onSelectTarget(vm);
+
+		AbstractScanColumnsTarget* col = colHolder->pop();
+		cond->addElement(col);
+	}
+}
 
 } /* namespace alinous */

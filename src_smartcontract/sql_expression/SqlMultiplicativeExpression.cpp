@@ -18,6 +18,9 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "scan_columns/ScanColumnHolder.h"
+
+#include "scan_columns_arithmetic/MultiplicativeExpressionScanColumnTarget.h"
 
 using codablecash::AbstractScanConditionElement;
 using codablecash::IValueProvider;
@@ -141,5 +144,29 @@ AbstractVmInstance* SqlMultiplicativeExpression::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
+void SqlMultiplicativeExpression::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
+
+	MultiplicativeExpressionScanColumnTarget* cond = new MultiplicativeExpressionScanColumnTarget();
+	colHolder->push(cond);
+
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->onSelectTarget(vm);
+
+		AbstractScanColumnsTarget* col = colHolder->pop();
+		cond->addOperand(col);
+	}
+
+	maxLoop = this->operations.size();
+	for(int i = 0; i != maxLoop; ++i){
+		uint8_t op = this->operations.get(i);
+
+		cond->addOperator(op);
+	}
+}
 
 } /* namespace alinous */

@@ -63,7 +63,8 @@ SelectStatement::~SelectStatement() {
 
 void SelectStatement::preAnalyze(AnalyzeContext* actx) {
 	if(this->list != nullptr){
-		list->setParent(this);
+		this->list->setParent(this);
+		this->list->preAnalyze(actx);
 	}
 
 	this->from->setParent(this);
@@ -77,6 +78,10 @@ void SelectStatement::preAnalyze(AnalyzeContext* actx) {
 }
 
 void SelectStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	if(this->list != nullptr){
+		this->list->analyzeTypeRef(actx);
+	}
+
 	AbstractJoinPart* tablePart = this->from->getTablePart();
 	tablePart->analyzeTypeRef(actx);
 
@@ -86,6 +91,10 @@ void SelectStatement::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void SelectStatement::analyze(AnalyzeContext* actx) {
+	if(this->list != nullptr){
+		this->list->analyze(actx);
+	}
+
 	AbstractJoinPart* tablePart = this->from->getTablePart();
 	tablePart->analyze(actx);
 
@@ -229,6 +238,8 @@ void SelectStatement::fromBinary(ByteBuffer* in) {
 }
 
 void SelectStatement::init(VirtualMachine* vm) {
+	this->list->init(vm);
+
 	AbstractJoinPart* tablePart = this->from->getTablePart();
 	tablePart->init(vm);
 
@@ -260,6 +271,9 @@ void SelectStatement::buildPlanner(VirtualMachine* vm, uint64_t currentVer) {
 
 	VmSelectPlannerSetter setter(vm, this->planner);
 
+	// analyze column
+	this->list->interpret(vm);
+
 	// From part
 	AbstractJoinPart* tablePart = this->from->getTablePart();
 	tablePart->interpret(vm);
@@ -270,10 +284,14 @@ void SelectStatement::buildPlanner(VirtualMachine* vm, uint64_t currentVer) {
 	}
 
 	if(this->where != nullptr){
-		where->interpret(vm);
+		this->where->interpret(vm);
 	}
 
 	this->lastSchemaVersion = currentVer;
+}
+
+SQLSelectTargetList* SelectStatement::getSQLSelectTargetList() const noexcept {
+	return this->list;
 }
 
 } /* namespace alinous */

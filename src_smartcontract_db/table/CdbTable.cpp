@@ -20,8 +20,12 @@
 
 #include "table/TableObjectFactory.h"
 #include "table/CdbTableIndex.h"
+#include "table/ColumnIndexMatcher.h"
 
 #include "schema/SchemaManager.h"
+
+using alinous::StackRelease;
+
 
 namespace codablecash {
 
@@ -169,6 +173,9 @@ void CdbTable::assignNewOid(SchemaObjectIdPublisher* publisher) {
 		CdbTableIndex* idx = this->indexes->get(i);
 
 		idx->assignNewOid(publisher);
+
+		// assign to column
+		idx->syncColumnOid(this);
 	}
 
 	publisher->saveSchema();
@@ -246,6 +253,34 @@ CdbTableIndex* CdbTable::getIndexByColumnOid(const CdbOid* oid) const noexcept {
 			break;
 		}
 	}
+
+	return ret;
+}
+
+
+CdbTableIndex* CdbTable::getIndexByColumnOids(const ArrayList<const CdbOid>* oidlist) const noexcept {
+	ColumnIndexMatcher* matcher = nullptr;
+
+	int maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+
+		ColumnIndexMatcher* current = new ColumnIndexMatcher(idx);
+		StackRelease<ColumnIndexMatcher> st_current(current);
+
+		current->doMatch(oidlist);
+
+		int length = current->getLength();
+		if(length != 0 && (matcher == nullptr || matcher->getLength() < length)){
+			delete matcher;
+			matcher = current;
+			st_current.cancel();
+		}
+	}
+
+	CdbTableIndex* ret = matcher != nullptr ? matcher->getIdx(): nullptr;
+	delete matcher;
 
 	return ret;
 }

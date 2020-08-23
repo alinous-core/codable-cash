@@ -33,6 +33,7 @@
 
 #include <stdlib.h>
 
+#include "btreekey/NullKey.h"
 
 using namespace alinous;
 
@@ -52,6 +53,21 @@ TEST(TestBTreeGroup, infinityKey){
 
 	CHECK(key.compareTo(key2) == 0)
 	CHECK(key.compareTo(&ulkey) > 0)
+
+	CHECK(!key.isNull());
+	CHECK(!ulkey.isNull());
+
+	delete key2;
+}
+
+TEST(TestBTreeGroup, nullkey){
+	NullKey key;
+	NullKey* key2 = dynamic_cast<NullKey*>(key.clone());
+	ULongKey ulkey(100);
+
+	CHECK(key.compareTo(key2) == 0)
+	CHECK(key.compareTo(&ulkey) < 0)
+	CHECK(ulkey.compareTo(&key) > 0)
 
 	delete key2;
 }
@@ -217,12 +233,19 @@ TEST(TestBTreeGroup, add01){
 		scanner->begin();
 		int i = 0;
 		while(scanner->hasNext()){
+			const AbstractBtreeKey* k = scanner->nextKey();
 			const IBlockObject* obj = scanner->next();
+
+
 			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
 			uint64_t v = tmp->getValue();
 
+			const ULongKey* lk = dynamic_cast<const ULongKey*>(k);
+			uint64_t kv = lk->getValue();
+
 			uint64_t a = answers.get(i++);
 			CHECK(v == a)
+			CHECK(kv == a)
 		}
 	}
 	{
@@ -235,11 +258,17 @@ TEST(TestBTreeGroup, add01){
 		int i = 3;
 		while(scanner->hasNext()){
 			const IBlockObject* obj = scanner->next();
+			const AbstractBtreeKey* k = scanner->nextKey();
+
 			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
 			uint64_t v = tmp->getValue();
 
+			const ULongKey* lk = dynamic_cast<const ULongKey*>(k);
+			uint64_t kv = lk->getValue();
+
 			uint64_t a = answers.get(i++);
 			CHECK(v == a)
+			CHECK(kv == a)
 		}
 	}
 	{
@@ -251,12 +280,19 @@ TEST(TestBTreeGroup, add01){
 		scanner->begin(&lkey);
 		int i = 2;
 		while(scanner->hasNext()){
+			const AbstractBtreeKey* k = scanner->nextKey();
 			const IBlockObject* obj = scanner->next();
+
+
 			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
 			uint64_t v = tmp->getValue();
 
+			const ULongKey* lk = dynamic_cast<const ULongKey*>(k);
+			uint64_t kv = lk->getValue();
+
 			uint64_t a = answers.get(i++);
 			CHECK(v == a)
+			CHECK(kv == a)
 		}
 	}
 	{
@@ -354,11 +390,17 @@ TEST(TestBTreeGroup, add02){
 		int i = 0;
 		while(scanner->hasNext()){
 			const IBlockObject* obj = scanner->next();
+			const AbstractBtreeKey* k = scanner->nextKey();
+
 			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
 			uint64_t v = tmp->getValue();
 
+			const ULongKey* lk = dynamic_cast<const ULongKey*>(k);
+			uint64_t kv = lk->getValue();
+
 			uint64_t a = answers.get(i++);
 			CHECK(v == a)
+			CHECK(kv == a)
 		}
 	}
 

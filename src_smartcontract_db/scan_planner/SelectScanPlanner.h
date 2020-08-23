@@ -19,6 +19,7 @@ class ConditionsHolder;
 class AbstractScanCondition;
 class AbstractScanConditionElement;
 class TablesHolder;
+class ScanColumnHolder;
 
 class SelectScanPlanner {
 public:
@@ -37,7 +38,12 @@ public:
 		return tablesHolder;
 	}
 
+	ScanColumnHolder* getColumnHolder() const noexcept {
+		return columnHolder;
+	}
+
 private:
+	ScanColumnHolder* columnHolder;
 	ConditionsHolder* conditions;
 
 	TablesHolder* tablesHolder;

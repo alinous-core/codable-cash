@@ -12,6 +12,7 @@
 
 #include "base/StackRelease.h"
 #include "alinous_lang/AlinousLang.h"
+#include "sql_expression/SQLWildCard.h"
 
 static bool checkBinary(ByteBuffer* buff){
 	int lastSize = buff->capacity();
@@ -566,5 +567,35 @@ TEST(TestSQLExpressionGroup, rational01bin){
 
 	bool res = checkBinary(buff);
 	CHECK(res)
+}
+
+TEST(TestSQLExpressionGroup, wildcard01){
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract/resources/sqlexp/wildcard01.alns"))
+
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractSQLExpression* exp = lang->sqlExpression(); __STP(exp);
+
+	CHECK(!parser.hasError())
+
+	int size = exp->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	exp->toBinary(buff);
+	CHECK(buff->position() == size)
+
+	bool res = checkBinary(buff);
+	CHECK(res)
+}
+
+TEST(TestSQLExpressionGroup, wildcard02){
+	SQLWildCard exp;
+
+	AnalyzedType atype = exp.getType(nullptr);
+	AnalyzedType none;
+
+	CHECK(atype.getType() == none.getType());
 }
 

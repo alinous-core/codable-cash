@@ -35,6 +35,8 @@ public:
 	void setName(UnicodeString* name) noexcept;
 
 	void assignNewOid(SchemaObjectIdPublisher* publisher);
+	void syncColumnOid(const CdbTable* table);
+
 	void setOid(uint64_t oid) noexcept;
 	const CdbOid* getOid() const noexcept {
 		return this->oid;
@@ -60,7 +62,6 @@ public:
 	}
 
 	void adjustIndexColumnPosition(const CdbTable* table) noexcept;
-
 
 private:
 	CdbOid* oid;

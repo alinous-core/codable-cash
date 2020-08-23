@@ -17,6 +17,10 @@
 
 #include "scan_condition/ScanConditionCast.h"
 
+#include "scan_columns/ScanColumnHolder.h"
+
+#include "scan_columns_logical/OrScanColumnTarget.h"
+
 namespace alinous {
 
 SQLOrExpression::SQLOrExpression() : AbstractSQLBinaryExpression(CodeElement::SQL_EXP_OR) {
@@ -101,6 +105,24 @@ AbstractVmInstance* SQLOrExpression::interpret(VirtualMachine* vm) {
 
 AnalyzedType SQLOrExpression::getType(AnalyzeContext* actx) {
 	return AnalyzedType(AnalyzedType::TYPE_BOOL);
+}
+
+void SQLOrExpression::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
+
+	OrScanColumnTarget* cond = new OrScanColumnTarget();
+	colHolder->push(cond);
+
+	int maxLoop = this->operands.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractSQLExpression* exp = this->operands.get(i);
+
+		exp->onSelectTarget(vm);
+
+		AbstractScanColumnsTarget* col = colHolder->pop();
+		cond->addCondition(col);
+	}
 }
 
 } /* namespace alinous */

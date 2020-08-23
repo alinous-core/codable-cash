@@ -137,6 +137,7 @@
 #include "sql_expression/SQLParenthesisExpression.h"
 #include "sql_expression/SQLRelationalExpression.h"
 #include "sql_expression/SQLPlaceHolder.h"
+#include "sql_expression/SQLWildCard.h"
 
 #include "sql_join_parts/ParenthesisJoinPart.h"
 #include "sql_join_parts/SQLJoin.h"

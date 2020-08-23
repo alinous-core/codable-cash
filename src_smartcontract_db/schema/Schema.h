@@ -26,7 +26,7 @@ class CdbTable;
 class Schema : public CdbBinaryObject {
 public:
 	static const constexpr uint8_t CDB_OBJ_TYPE{4};
-	Schema(uint64_t oid);
+	explicit Schema(uint64_t oid);
 	virtual ~Schema();
 
 	//void setOid(uint64_t oid) noexcept;

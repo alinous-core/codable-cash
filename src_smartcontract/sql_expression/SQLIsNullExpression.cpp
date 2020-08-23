@@ -19,6 +19,10 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "scan_columns/ScanColumnHolder.h"
+
+#include "scan_columns_exp/IsNullScanColumnTarget.h"
+
 namespace alinous {
 
 SQLIsNullExpression::SQLIsNullExpression() : AbstractSQLExpression(CodeElement::SQL_EXP_IS_NULL) {
@@ -104,5 +108,18 @@ AbstractVmInstance* SQLIsNullExpression::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
+void SQLIsNullExpression::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
+
+	IsNullScanColumnTarget* cond = new IsNullScanColumnTarget();
+	colHolder->push(cond);
+
+	this->exp->onSelectTarget(vm);
+
+	AbstractScanColumnsTarget* col = colHolder->pop();
+	cond->setCondition(col);
+	cond->setIsNull(this->notnull);
+}
 
 } /* namespace alinous */

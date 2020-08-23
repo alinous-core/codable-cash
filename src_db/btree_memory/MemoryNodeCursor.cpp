@@ -269,6 +269,11 @@ IBlockObject* MemoryNodeCursor::getNext() noexcept {
 	return obj;
 }
 
+const AbstractBtreeKey* MemoryNodeCursor::getCurrentKey() {
+	MemoryNodeHandle* current = top();
+	return current->getKey();
+}
+
 MemoryNodeHandle* MemoryNodeCursor::gotoLeaf(const AbstractBtreeKey* key) {
 	MemoryNodeHandle* current = top();
 

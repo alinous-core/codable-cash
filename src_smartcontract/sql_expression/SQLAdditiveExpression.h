@@ -31,6 +31,7 @@ public:
 	virtual AnalyzedType getType(AnalyzeContext* actx);
 
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
+	virtual void onSelectTarget(VirtualMachine* vm);
 private:
 	RawArrayPrimitive<uint8_t> operations;
 };

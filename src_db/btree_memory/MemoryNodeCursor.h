@@ -30,6 +30,7 @@ public:
 	IBlockObject* gotoFirst() noexcept;
 	IBlockObject* gotoKey(const AbstractBtreeKey* key) noexcept;
 	IBlockObject* getNext() noexcept;
+	const AbstractBtreeKey* getCurrentKey();
 
 	void pop() noexcept;
 	void push(MemoryNodeHandle* node) noexcept;

@@ -44,6 +44,11 @@ public:
 	}
 
 	const CdbTable* getTable() const noexcept;
+
+	IndexStore* getIndexStore(const CdbOid* oid) const noexcept;
+
+	CdbRecord* findRecord(const CdbOid* recordOid);
+
 private:
 	void validateRecordColumnValue(CdbTableColumn* meta, AbstractCdbValue* value);
 private:

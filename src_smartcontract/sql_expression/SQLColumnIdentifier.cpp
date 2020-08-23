@@ -17,6 +17,8 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "scan_columns/ScanColumnHolder.h"
+#include "scan_columns/ScanColumn.h"
 
 namespace alinous {
 
@@ -118,5 +120,12 @@ AbstractVmInstance* SQLColumnIdentifier::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
+void SQLColumnIdentifier::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
+
+	ScanColumn* col = new ScanColumn(this);
+	colHolder->push(col);
+}
 
 } /* namespace alinous */

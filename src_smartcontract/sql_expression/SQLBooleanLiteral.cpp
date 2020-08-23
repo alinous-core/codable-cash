@@ -15,6 +15,10 @@
 
 #include "scan_condition_params/BooleanScanParam.h"
 
+#include "scan_columns/ScanColumnHolder.h"
+
+#include "scan_columns_params/BooleanLiteralColumnParam.h"
+
 namespace alinous {
 
 SQLBooleanLiteral::SQLBooleanLiteral() : AbstractSQLExpression(CodeElement::SQL_EXP_BOOL_LITERAL) {
@@ -76,6 +80,14 @@ void SQLBooleanLiteral::interpretOnPlanning(VirtualMachine* vm) {
 	BooleanScanParam* param = new BooleanScanParam(this->value);
 
 	planner->push(param);
+}
+
+void SQLBooleanLiteral::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
+
+	BooleanLiteralColumnParam* param = new BooleanLiteralColumnParam(this->value);
+	colHolder->push(param);
 }
 
 } /* namespace alinous */

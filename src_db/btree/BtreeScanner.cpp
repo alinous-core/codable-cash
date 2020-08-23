@@ -62,6 +62,9 @@ const IBlockObject* BtreeScanner::next() {
 	return this->nextObj;
 }
 
+const AbstractBtreeKey* BtreeScanner::nextKey() {
+	return this->cursor->getCurrentKey();
+}
+
+
 } /* namespace alinous */
-
-

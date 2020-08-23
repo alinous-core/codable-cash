@@ -3044,11 +3044,6 @@ SQLSelectTarget* sqlSelectTarget() : {
 }
 {
 	(
-		t="*" {
-			stmt->setWildcard(true);
-			stmt->setPosition(t);
-		}
-		|
 		(
 			exp=sqlExpression() {
 				stmt->setExpression(exp);
@@ -3948,6 +3943,7 @@ AbstractSQLExpression* sqlPrimitiveExpression() : {
 }
 {
 	(
+		exp=sqlWildCard() |
 		exp=sqlParenthesisExpression() |
 		exp=sqlLiteral() |
 		exp=sqlBooleanLiteral() |
@@ -3957,6 +3953,20 @@ AbstractSQLExpression* sqlPrimitiveExpression() : {
 	)
 	{}
 	{
+		return exp;
+	}
+}
+
+SQLWildCard* sqlWildCard() : {
+	SQLWildCard* exp = new SQLWildCard();
+	Token* t = nullptr;
+}
+{
+	t="*" {
+		exp->setPosition(t);
+	}
+	{
+		__ONERROR(exp);
 		return exp;
 	}
 }

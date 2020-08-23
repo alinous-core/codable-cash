@@ -24,6 +24,10 @@
 
 #include "scan_planner/SelectScanPlanner.h"
 
+#include "scan_columns/ScanColumnHolder.h"
+
+#include "scan_columns_params/NumberLiteralColumnParam.h"
+#include "scan_columns_params/StringLiteralColumnParam.h"
 
 namespace alinous {
 
@@ -121,5 +125,21 @@ void SQLLiteral::interpretOnPlanning(VirtualMachine* vm) {
 
 	planner->push(param);
 }
+
+void SQLLiteral::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
+
+	AbstractColumnParam* param = nullptr;
+	if(this->type == SQLLiteral::TYPE_NUMBER){
+		param = new NumberLiteralColumnParam(this->longv);
+	}
+	else{
+		param = new StringLiteralColumnParam(this->stringValue);
+	}
+
+	colHolder->push(param);
+}
+
 
 } /* namespace alinous */

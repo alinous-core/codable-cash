@@ -31,6 +31,7 @@ public:
 	virtual ~AbstractCdbKey();
 
 	virtual bool isInfinity() const;
+	virtual bool isNull() const;
 	virtual void fromBinary(ByteBuffer* in) = 0;
 
 protected:

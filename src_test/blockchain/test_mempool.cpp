@@ -26,6 +26,7 @@
 #include "mempool_idx/FeeIndexKey.h"
 
 #include "btreekey/InfinityKey.h"
+#include "btreekey/NullKey.h"
 
 using namespace alinous;
 using namespace codablecash;
@@ -55,6 +56,10 @@ TEST(TestMempoolGroup, TransactionIdKey){
 
 	int res = key.compareTo(&infkey);
 	CHECK(res < 0)
+
+	NullKey nullkey;
+	res = key.compareTo(&nullkey);
+	CHECK(res > 0)
 }
 
 TEST(TestMempoolGroup, FeeIndexKey){
@@ -63,6 +68,14 @@ TEST(TestMempoolGroup, FeeIndexKey){
 
 	int res = key.compareTo(&infkey);
 	CHECK(res < 0)
+}
+
+TEST(TestMempoolGroup, FeeIndexKeyNull){
+	FeeIndexKey key(10);
+	NullKey nullkey;
+
+	int res = key.compareTo(&nullkey);
+	CHECK(res > 0)
 }
 
 TEST(TestMempoolGroup, FeeTransactionsListValueIndexof){

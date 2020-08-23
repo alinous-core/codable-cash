@@ -17,13 +17,17 @@
 #include "table_record/CdbRecord.h"
 
 #include "table_record_value/CdbOidValueList.h"
+#include "table_record_value/CdbOidValueListCursor.h"
 
+#include "table_record_key/CdbRecordKey.h"
 namespace codablecash {
 
-IndexScanner::IndexScanner(AbstractCdbKey* begin, bool beginEq, AbstractCdbKey* end, bool endEq, IndexStore* store)
-			: RangeScanner(begin, beginEq, end, endEq) {
+IndexScanner::IndexScanner(const CdbRecordKey* begin, bool beginEq, const CdbRecordKey* end, bool endEq, IndexStore* store)
+			: RangeChecker(begin, beginEq, end, endEq) {
 	this->store = store;
 	this->scanner = nullptr;
+	this->cursor = nullptr;
+	this->nextObj = nullptr;
 }
 
 IndexScanner::~IndexScanner() {
@@ -42,17 +46,49 @@ void IndexScanner::shutdown() noexcept {
 	if(this->scanner != nullptr){
 		delete this->scanner;
 		this->scanner = nullptr;
+		delete this->cursor;
+		this->cursor = nullptr;
+		this->nextObj = nullptr;
 	}
 }
 
 bool IndexScanner::hasNext() {
-	return this->scanner->hasNext();
+	return __hasNext();
 }
 
-const CdbRecord* IndexScanner::next() {
-	const IBlockObject* obj = this->scanner->next();
-	const CdbOidValueList* oidList = dynamic_cast<const CdbOidValueList*>(obj);
-	return nullptr; // FIXME index
+bool IndexScanner::__hasNext() {
+	while(this->cursor == nullptr || !this->cursor->hasNext()){
+		if(this->scanner->hasNext()){
+			delete this->cursor;
+			this->cursor = nullptr;
+
+			const AbstractBtreeKey* key = this->scanner->nextKey();
+			const CdbRecordKey* recordKey = dynamic_cast<const CdbRecordKey*>(key);
+			if(!checkLowerBound(recordKey)){
+				continue;
+			}
+			if(!checkUpperBound(recordKey)){
+				return false;
+			}
+
+			const IBlockObject* obj = this->scanner->next();
+			const CdbOidValueList* list = dynamic_cast<const CdbOidValueList*>(obj);
+
+			this->cursor = new CdbOidValueListCursor(list);
+			this->cursor->hasNext(); // load next
+		}
+		else{
+			return false;
+		}
+	}
+
+	this->nextObj = this->cursor->next();
+
+	return true;
+}
+
+const CdbOid* IndexScanner::next() {
+	return this->nextObj;
 }
 
 } /* namespace codablecash */

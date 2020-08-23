@@ -16,6 +16,10 @@
 #include "scan_planner/SelectScanPlanner.h"
 
 #include "scan_condition/ScanConditionCast.h"
+
+#include "scan_columns_exp/BetweenScanColumnTarget.h"
+
+#include "scan_columns/ScanColumnHolder.h"
 using codablecash::BetweenScanCondition;
 
 namespace alinous {
@@ -143,5 +147,27 @@ AbstractVmInstance* SQLBetweenExpression::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
+void SQLBetweenExpression::onSelectTarget(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
+
+	BetweenScanColumnTarget* cond = new BetweenScanColumnTarget();
+	colHolder->push(cond);
+
+	this->left->onSelectTarget(vm);
+	this->start->onSelectTarget(vm);
+	this->end->onSelectTarget(vm);
+
+	AbstractScanColumnsTarget* col = nullptr;
+
+	col = colHolder->pop();
+	cond->setEnd(col);
+
+	col = colHolder->pop();
+	cond->setStart(col);
+
+	col = colHolder->pop();
+	cond->setLeft(col);
+}
 
 } /* namespace alinous */

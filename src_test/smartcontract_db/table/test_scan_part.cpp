@@ -92,7 +92,7 @@ static void insertRecord(CdbTransaction* trx, int id, const wchar_t* name, Array
 	log->setTable(tableId);
 
 	CdbRecord* record = new CdbRecord();
-	record->addValue(new CdbIntValue(1));
+	record->addValue(new CdbIntValue(id));
 
 	record->addValue(new CdbStringValue(name));
 
@@ -118,7 +118,7 @@ static bool listequals(ArrayList<CdbRecord>& list, ArrayList<CdbRecord>& listout
 		CdbRecord* rRecord = listout.get(i);
 
 		AbstractCdbKey* lkey = lRecord->toKey(); __STP(lkey);
-		AbstractCdbKey* rkey = lRecord->toKey(); __STP(rkey);
+		AbstractCdbKey* rkey = rRecord->toKey(); __STP(rkey);
 
 		int result = lkey->compareTo(rkey);
 		if(result != 0){

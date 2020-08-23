@@ -13,17 +13,20 @@
 
 #include "scan_condition/AbstractScanCondition.h"
 
+#include "scan_columns/ScanColumnHolder.h"
 
 namespace codablecash {
 
 SelectScanPlanner::SelectScanPlanner() {
 	this->conditions = new ConditionsHolder();
 	this->tablesHolder = new TablesHolder();
+	this->columnHolder = new ScanColumnHolder();
 }
 
 SelectScanPlanner::~SelectScanPlanner() {
 	delete this->conditions;
 	delete this->tablesHolder;
+	delete this->columnHolder;
 }
 
 void SelectScanPlanner::push(AbstractScanConditionElement* cond) noexcept {

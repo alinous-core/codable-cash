@@ -8,6 +8,17 @@
 #include "sql_dml_parts/SQLSelectTargetList.h"
 #include "sql_dml_parts/SQLSelectTarget.h"
 
+#include "sc_analyze/AnalyzeContext.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "instance/AbstractVmInstance.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "scan_columns/ScanColumnHolder.h"
+#include "scan_columns/AbstractScanColumnsTarget.h"
+
 namespace alinous {
 
 SQLSelectTargetList::SQLSelectTargetList() : AbstractSQLPart(CodeElement::SQL_PART_SELECT_TARGET_LIST) {
@@ -56,5 +67,60 @@ void SQLSelectTargetList::fromBinary(ByteBuffer* in) {
 		this->list.addElement(target);
 	}
 }
+
+void SQLSelectTargetList::preAnalyze(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SQLSelectTarget* target = this->list.get(i);
+
+		target->setParent(this);
+		target->preAnalyze(actx);
+	}
+}
+
+void SQLSelectTargetList::analyzeTypeRef(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SQLSelectTarget* target = this->list.get(i);
+		target->analyzeTypeRef(actx);
+	}
+}
+
+void SQLSelectTargetList::analyze(AnalyzeContext* actx) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SQLSelectTarget* target = this->list.get(i);
+		target->analyze(actx);
+	}
+}
+
+void SQLSelectTargetList::init(VirtualMachine* vm) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SQLSelectTarget* target = this->list.get(i);
+		target->init(vm);
+	}
+}
+
+AbstractVmInstance* SQLSelectTargetList::interpret(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ScanColumnHolder* colHolder = planner->getColumnHolder();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SQLSelectTarget* target = this->list.get(i);
+
+		target->interpret(vm);
+
+		AbstractScanColumnsTarget* col = colHolder->pop();
+		colHolder->addColumn(col);
+
+		const UnicodeString* asName = target->getAsName();
+		col->setAsName(asName);
+	}
+
+	return nullptr;
+}
+
 
 } /* namespace alinous */

@@ -356,3 +356,27 @@ TEST(TestSelectConditionGroup, case05_parenthesis){
 		CHECK(sql.equals(str));
 	}
 }
+
+TEST(TestSelectConditionGroup, case06_where_err){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select_condition/resources/conditions/grp02/where03.alns"))
+
+	{
+		SmartContractParser parser(sourceFile);
+		AlinousLang* lang = parser.getDebugAlinousLang();
+
+		SQLWhere* where = lang->sqlWhere(); __STP(where);
+		CHECK(!parser.hasError())
+
+		AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
+		actx->setVm(vm);
+
+		where->preAnalyze(actx);
+		where->analyzeTypeRef(actx);
+		where->analyze(actx);
+
+		CHECK(actx->hasError())
+	}
+}

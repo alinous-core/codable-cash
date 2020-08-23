@@ -91,11 +91,17 @@ TEST(TestBTreeMemoryGroup, add01){
 		int i = 0;
 		while(scanner->hasNext()){
 			const IBlockObject* obj = scanner->next();
+			const AbstractBtreeKey* k = scanner->nextKey();
+
 			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
 			uint64_t v = tmp->getValue();
 
+			const ULongKey* lk = dynamic_cast<const ULongKey*>(k);
+			uint64_t kv = lk->getValue();
+
 			uint64_t a = answers.get(i++);
 			CHECK(v == a)
+			CHECK(kv == a)
 		}
 	}
 
@@ -109,11 +115,17 @@ TEST(TestBTreeMemoryGroup, add01){
 		int i = 3;
 		while(scanner->hasNext()){
 			const IBlockObject* obj = scanner->next();
+			const AbstractBtreeKey* k = scanner->nextKey();
+
 			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
 			uint64_t v = tmp->getValue();
 
+			const ULongKey* lk = dynamic_cast<const ULongKey*>(k);
+			uint64_t kv = lk->getValue();
+
 			uint64_t a = answers.get(i++);
 			CHECK(v == a)
+			CHECK(kv == a)
 		}
 	}
 
@@ -127,11 +139,17 @@ TEST(TestBTreeMemoryGroup, add01){
 		int i = 2;
 		while(scanner->hasNext()){
 			const IBlockObject* obj = scanner->next();
+			const AbstractBtreeKey* k = scanner->nextKey();
+
 			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
 			uint64_t v = tmp->getValue();
 
+			const ULongKey* lk = dynamic_cast<const ULongKey*>(k);
+			uint64_t kv = lk->getValue();
+
 			uint64_t a = answers.get(i++);
 			CHECK(v == a)
+			CHECK(kv == a)
 		}
 	}
 
@@ -195,11 +213,17 @@ TEST(TestBTreeMemoryGroup, add02){
 		int i = 0;
 		while(scanner->hasNext()){
 			const IBlockObject* obj = scanner->next();
+			const AbstractBtreeKey* k = scanner->nextKey();
+
 			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
 			uint64_t v = tmp->getValue();
 
+			const ULongKey* lk = dynamic_cast<const ULongKey*>(k);
+			uint64_t kv = lk->getValue();
+
 			uint64_t a = answers.get(i++);
 			CHECK(v == a)
+			CHECK(kv == a)
 		}
 
 		CHECK(i == answers.size())
@@ -255,11 +279,17 @@ TEST(TestBTreeMemoryGroup, add03){
 		int i = 0;
 		while(scanner->hasNext()){
 			const IBlockObject* obj = scanner->next();
+			const AbstractBtreeKey* k = scanner->nextKey();
+
 			const TempValue* tmp = dynamic_cast<const TempValue*>(obj);
 			uint64_t v = tmp->getValue();
 
+			const ULongKey* lk = dynamic_cast<const ULongKey*>(k);
+			uint64_t kv = lk->getValue();
+
 			uint64_t a = answers.get(i++);
 			CHECK(v == a)
+			CHECK(kv == a)
 		}
 
 		CHECK(i == answers.size())
