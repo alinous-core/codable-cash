@@ -16,9 +16,12 @@
 #include "scan_columns/AllScanColumns.h"
 
 #include "vm/VirtualMachine.h"
+
+#include "scan_condition_params/WildCardScanParam.h"
 using codablecash::AllScanColumns;
 using codablecash::ScanColumnHolder;
 using codablecash::SelectScanPlanner;
+
 namespace alinous {
 
 SQLWildCard::SQLWildCard() : AbstractSQLExpression(CodeElement::SQL_EXP_WILDCARD) {
@@ -59,6 +62,11 @@ void SQLWildCard::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLWildCard::interpret(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	WildCardScanParam* param = new WildCardScanParam();
+	planner->push(param);
+
 	return nullptr;
 }
 
