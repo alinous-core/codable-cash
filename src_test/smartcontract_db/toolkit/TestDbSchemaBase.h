@@ -11,6 +11,7 @@
 
 namespace alinous {
 class TestEnv;
+class File;
 }
 using namespace alinous;
 
@@ -24,9 +25,19 @@ public:
 	explicit TestDbSchemaBase(TestEnv* env);
 	virtual ~TestDbSchemaBase();
 
+	CodableDatabase* getDb() const noexcept {
+		return db;
+	}
+
+	void initDb();
+protected:
+	void createDb();
+
 protected:
 	CodableDatabase* db;
 	TestEnv* env;
+
+	File* dbDir;
 };
 
 } /* namespace codablecash */
