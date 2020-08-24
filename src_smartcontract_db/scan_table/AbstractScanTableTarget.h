@@ -10,10 +10,14 @@
 
 namespace alinous {
 class UnicodeString;
+class VirtualMachine;
 }
 using namespace alinous;
 
 namespace codablecash {
+
+class IJoinLeftSource;
+class IJoinRightSource;
 
 class AbstractScanTableTarget {
 public:
@@ -21,6 +25,9 @@ public:
 	virtual ~AbstractScanTableTarget();
 
 	virtual const UnicodeString* toString() noexcept = 0;
+
+	virtual IJoinLeftSource* getLeftSource(VirtualMachine* vm) = 0;
+	virtual IJoinLeftSource* getRightSource(VirtualMachine* vm) = 0;
 };
 
 } /* namespace codablecash */

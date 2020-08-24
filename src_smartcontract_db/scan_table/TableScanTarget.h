@@ -10,6 +10,11 @@
 
 #include "scan_table/AbstractScanTableTarget.h"
 
+namespace alinous {
+class VirtualMachine;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class TableScanTarget : public AbstractScanTableTarget {
@@ -22,6 +27,10 @@ public:
 	void setAlias(const UnicodeString* alias) noexcept;
 
 	virtual const UnicodeString* toString() noexcept;
+
+	virtual IJoinLeftSource* getLeftSource(VirtualMachine* vm);
+	virtual IJoinLeftSource* getRightSource(VirtualMachine* vm);
+
 
 private:
 	UnicodeString* schema;
