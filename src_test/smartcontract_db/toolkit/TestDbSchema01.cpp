@@ -7,15 +7,16 @@
 
 #include "TestDbSchema01.h"
 
+#include "engine/CodableDatabase.h"
+
 namespace codablecash {
 
-TestDbSchema01::TestDbSchema01() {
-	// TODO Auto-generated constructor stub
+TestDbSchema01::TestDbSchema01(TestEnv* env) : TestDbSchemaBase(env) {
 
 }
 
 TestDbSchema01::~TestDbSchema01() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */
