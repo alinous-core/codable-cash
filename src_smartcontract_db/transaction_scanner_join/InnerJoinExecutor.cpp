@@ -9,8 +9,8 @@
 
 namespace codablecash {
 
-InnerJoinExecutor::InnerJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right)
-		: AbstractJoinExecutor(left, right){
+InnerJoinExecutor::InnerJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right, ScanResultFieldMetadata* metadata)
+		: AbstractJoinExecutor(left, right, metadata){
 
 }
 

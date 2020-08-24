@@ -14,7 +14,7 @@ namespace codablecash {
 
 class InnerJoinExecutor : AbstractJoinExecutor {
 public:
-	InnerJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right);
+	InnerJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right, ScanResultFieldMetadata* metadata);
 	virtual ~InnerJoinExecutor();
 };
 
