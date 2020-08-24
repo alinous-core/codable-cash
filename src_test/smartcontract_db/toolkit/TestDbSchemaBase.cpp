@@ -27,12 +27,20 @@ TestDbSchemaBase::~TestDbSchemaBase() {
 	delete this->vm;
 }
 
+void TestDbSchemaBase::init() {
+	init(1024 * 10);
+}
+
 void TestDbSchemaBase::init(uint64_t memCapacity) {
 	this->vm = new VirtualMachine(memCapacity);
 
 	createDb();
 
 	this->vm->loadDatabase(this->dbDir);
+}
+
+CodableDatabase* TestDbSchemaBase::getDatabase() const noexcept {
+	return this->vm->getDb();
 }
 
 void TestDbSchemaBase::createDb() {

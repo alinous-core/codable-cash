@@ -120,6 +120,10 @@ public:
 
 	void checkUncaughtException();
 
+	CodableDatabase* getDb() const noexcept {
+		return db;
+	}
+
 private:
 	SmartContract* sc;
 
