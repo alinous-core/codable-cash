@@ -36,4 +36,13 @@ void ParenthesisScanTarget::setInner(AbstractScanTableTarget* inner) noexcept {
 	this->inner = inner;
 }
 
+IJoinLeftSource* ParenthesisScanTarget::getLeftSource(VirtualMachine* vm) {
+	return this->inner->getLeftSource(vm);
+}
+
+IJoinLeftSource* ParenthesisScanTarget::getRightSource(VirtualMachine* vm) {
+	return this->inner->getRightSource(vm);
+}
+
+
 } /* namespace codablecash */

@@ -10,12 +10,14 @@
 
 #include "transaction_scanner/AbstractTransactionScanner.h"
 
+#include "transaction_scanner_join/IJoinLeftSource.h"
+
 namespace codablecash {
 
 class TableStore;
 class RecordScanner;
 
-class TableTransactionScanner : public AbstractTransactionScanner {
+class TableTransactionScanner : public AbstractTransactionScanner, public IJoinLeftSource {
 public:
 	TableTransactionScanner(CdbTransaction* trx, TableStore* tableStore);
 	virtual ~TableTransactionScanner();

@@ -29,6 +29,7 @@ private:
 	CdbTableColumn* column;
 
 	UnicodeString* asName;
+	bool use;
 };
 
 } /* namespace codablecash */

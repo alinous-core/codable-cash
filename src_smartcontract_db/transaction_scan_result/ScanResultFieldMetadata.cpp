@@ -21,6 +21,7 @@ ScanResultFieldMetadata::ScanResultFieldMetadata() {
 	this->table = nullptr;
 	this->column = nullptr;
 	this->asName = nullptr;
+	this->use = true;
 }
 
 ScanResultFieldMetadata::~ScanResultFieldMetadata() {
