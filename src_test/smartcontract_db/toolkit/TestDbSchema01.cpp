@@ -139,6 +139,28 @@ void TestDbSchema01::insertRecord1(CdbTransaction* trx, int id,	const wchar_t* n
 void TestDbSchema01::insertData2() {
 	CdbTransaction* trx = getDatabase()->newTransaction(); __STP(trx);
 
+	insertRecord2(trx, 11, L"tanaka@tanaka.com", &list2);
+	insertRecord2(trx, 11, L"yamada@yamada.com", &list2);
+}
+
+void TestDbSchema01::insertRecord2(CdbTransaction* trx, int email_id, const wchar_t* email, ArrayList<CdbRecord>* list) {
+	InsertLog* log = new InsertLog();
+
+	CdbTableIdentifier* tableId = new CdbTableIdentifier();
+	tableId->setTable(new UnicodeString(L"emails"));
+	log->setTable(tableId);
+
+	CdbRecord* record = new CdbRecord();
+	record->addValue(new CdbIntValue(email_id));
+	record->addValue(new CdbStringValue(email));
+
+	log->addRecord(record);
+
+	if(list != nullptr){
+		list->addElement((CdbRecord*)record->copy());
+	}
+
+	trx->insert(log);
 }
 
 } /* namespace codablecash */

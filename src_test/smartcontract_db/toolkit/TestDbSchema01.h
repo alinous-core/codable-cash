@@ -35,6 +35,7 @@ private:
 	void insertRecord1(CdbTransaction* trx, int id, const wchar_t* name, int email_id, ArrayList<CdbRecord>* list);
 
 	void insertData2();
+	void insertRecord2(CdbTransaction* trx, int email_id, const wchar_t* email, ArrayList<CdbRecord>* list);
 
 private:
 	ArrayList<CdbRecord> list1;
