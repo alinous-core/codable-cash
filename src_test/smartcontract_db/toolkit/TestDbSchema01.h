@@ -9,8 +9,12 @@
 #define SMARTCONTRACT_DB_TOOLKIT_TESTDBSCHEMA01_H_
 
 #include "TestDbSchemaBase.h"
+#include "base/ArrayList.h"
 
 namespace codablecash {
+
+class CdbRecord;
+class CdbTransaction;
 
 class TestDbSchema01 : public TestDbSchemaBase {
 public:
@@ -25,6 +29,15 @@ private:
 	void createTestTable2();
 
 	void insertData();
+
+	void insertData1();
+	void insertRecord1(CdbTransaction* trx, int id, const wchar_t* name, int email_id, ArrayList<CdbRecord>* list);
+
+	void insertData2();
+
+private:
+	ArrayList<CdbRecord> list1;
+	ArrayList<CdbRecord> list2;
 };
 
 } /* namespace codablecash */
