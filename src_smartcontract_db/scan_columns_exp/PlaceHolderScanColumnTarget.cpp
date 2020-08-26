@@ -21,8 +21,6 @@ PlaceHolderScanColumnTarget::~PlaceHolderScanColumnTarget() {
 
 const UnicodeString* PlaceHolderScanColumnTarget::toStringCode() noexcept {
 	if(this->str == nullptr){
-		this->str = new UnicodeString(L"");
-
 		this->str = new UnicodeString(L"${}");
 	}
 
