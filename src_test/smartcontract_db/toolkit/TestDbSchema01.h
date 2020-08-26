@@ -21,6 +21,7 @@ public:
 	explicit TestDbSchema01(TestEnv* env);
 	virtual ~TestDbSchema01();
 
+	virtual void init();
 	virtual void init(uint64_t memCapacity);
 
 private:

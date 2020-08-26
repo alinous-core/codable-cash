@@ -37,6 +37,11 @@ TestDbSchema01::~TestDbSchema01() {
 	this->list2.deleteElements();
 }
 
+
+void TestDbSchema01::init() {
+	TestDbSchemaBase::init();
+}
+
 void TestDbSchema01::init(uint64_t memCapacity) {
 	TestDbSchemaBase::init(memCapacity);
 	createTable();

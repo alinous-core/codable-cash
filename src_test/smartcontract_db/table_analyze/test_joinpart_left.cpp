@@ -24,5 +24,6 @@ TEST_GROUP(TestJoinPartLeftGroup) {
 TEST(TestJoinPartLeftGroup, case01){
 	TestDbSchema01 schem(this->env);
 
+	schem.init();
 
 }
