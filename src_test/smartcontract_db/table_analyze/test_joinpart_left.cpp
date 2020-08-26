@@ -9,6 +9,9 @@
 
 #include "base/StackRelease.h"
 
+#include "../toolkit/TestDbSchema01.h"
+
+using namespace codablecash;
 
 TEST_GROUP(TestJoinPartLeftGroup) {
 	TEST_SETUP(){
@@ -19,5 +22,7 @@ TEST_GROUP(TestJoinPartLeftGroup) {
 
 
 TEST(TestJoinPartLeftGroup, case01){
+	TestDbSchema01 schem(this->env);
+
 
 }
