@@ -13,6 +13,8 @@
 #include "compiler/SmartContractParser.h"
 #include "alinous_lang/AlinousLang.h"
 
+#include "sc_analyze/AnalyzeContext.h"
+
 using namespace codablecash;
 
 TEST_GROUP(TestJoinPartLeftGroup) {
@@ -30,11 +32,15 @@ TEST(TestJoinPartLeftGroup, case01){
 	TestDbSchema01 schem(this->env);
 	schem.init();
 
+	VirtualMachine* vm = schem.getVm();
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
 
 		SelectStatement* stmt = lang->selectStatement(); __STP(stmt);
 		CHECK(!parser.hasError())
+
+		AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
+		actx->setVm(vm);
 	}
 }
