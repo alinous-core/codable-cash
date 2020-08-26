@@ -27,8 +27,8 @@ public:
 	explicit TestDbSchemaBase(TestEnv* env);
 	virtual ~TestDbSchemaBase();
 
-	void init();
-	void init(uint64_t memCapacity);
+	virtual void init();
+	virtual void init(uint64_t memCapacity);
 
 	CodableDatabase* getDatabase() const noexcept;
 protected:
