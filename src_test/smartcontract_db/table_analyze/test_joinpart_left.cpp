@@ -10,6 +10,8 @@
 #include "base/StackRelease.h"
 
 #include "../toolkit/TestDbSchema01.h"
+#include "compiler/SmartContractParser.h"
+#include "alinous_lang/AlinousLang.h"
 
 using namespace codablecash;
 
@@ -22,8 +24,17 @@ TEST_GROUP(TestJoinPartLeftGroup) {
 
 
 TEST(TestJoinPartLeftGroup, case01){
-	TestDbSchema01 schem(this->env);
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_analyze/resources/joinleft/case01/select01.alns"))
 
+	TestDbSchema01 schem(this->env);
 	schem.init();
 
+	{
+		SmartContractParser parser(sourceFile);
+		AlinousLang* lang = parser.getDebugAlinousLang();
+
+		SelectStatement* stmt = lang->selectStatement(); __STP(stmt);
+		CHECK(!parser.hasError())
+	}
 }
