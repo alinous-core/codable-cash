@@ -15,6 +15,10 @@
 
 #include "sc_analyze/AnalyzeContext.h"
 
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "vm/VmSelectPlannerSetter.h"
+
 using namespace codablecash;
 
 TEST_GROUP(TestJoinPartLeftGroup) {
@@ -42,5 +46,15 @@ TEST(TestJoinPartLeftGroup, case01){
 
 		AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
 		actx->setVm(vm);
+
+		stmt->preAnalyze(actx);
+		stmt->analyzeTypeRef(actx);
+		stmt->analyze(actx);
+
+		SelectScanPlanner* planner = new SelectScanPlanner(); __STP(planner);
+		VmSelectPlannerSetter setter(vm, planner);
+
+		stmt->init(vm);
+		stmt->interpret(vm);
 	}
 }

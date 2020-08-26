@@ -106,9 +106,11 @@ void SelectStatement::analyze(AnalyzeContext* actx) {
 	AnalyzeStack* stack = stackManager->top();
 
 	//this->intoVar
-	AnalyzedType at(AnalyzedType::TYPE_DOM);
-	AnalyzedStackReference* ref = new AnalyzedStackReference(this->intoVar, &at);
-	stack->addVariableDeclare(ref);
+	if(this->intoVar != nullptr){
+		AnalyzedType at(AnalyzedType::TYPE_DOM);
+		AnalyzedStackReference* ref = new AnalyzedStackReference(this->intoVar, &at);
+		stack->addVariableDeclare(ref);
+	}
 }
 
 void SelectStatement::setList(SQLSelectTargetList* list) noexcept {
