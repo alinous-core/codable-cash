@@ -132,6 +132,8 @@ void TestDbSchema01::insertRecord1(CdbTransaction* trx, int id,	const wchar_t* n
 }
 
 void TestDbSchema01::insertData2() {
+	CdbTransaction* trx = getDatabase()->newTransaction(); __STP(trx);
+
 }
 
 } /* namespace codablecash */
