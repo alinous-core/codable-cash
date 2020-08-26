@@ -10,6 +10,7 @@
 
 namespace alinous {
 class AbstractSQLExpression;
+class VirtualMachine;
 }
 using namespace alinous;
 
@@ -41,6 +42,17 @@ public:
 	ScanColumnHolder* getColumnHolder() const noexcept {
 		return columnHolder;
 	}
+
+	void plan(VirtualMachine* vm);
+	void executeQuery(VirtualMachine* vm);
+
+private:
+	void resolveTable(VirtualMachine* vm);
+	void resolveColumn(VirtualMachine* vm);
+
+	void analyzeConditions(VirtualMachine* vm);
+
+	void buildScannerFactories(VirtualMachine* vm);
 
 private:
 	ScanColumnHolder* columnHolder;

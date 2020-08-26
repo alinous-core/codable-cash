@@ -264,6 +264,8 @@ void SelectStatement::interpret(VirtualMachine* vm) {
 		}
 	}
 
+	this->planner->executeQuery(vm);
+
 	// FIXME SQL statement
 }
 
@@ -288,6 +290,8 @@ void SelectStatement::buildPlanner(VirtualMachine* vm, uint64_t currentVer) {
 	if(this->where != nullptr){
 		this->where->interpret(vm);
 	}
+
+	this->planner->plan(vm);
 
 	this->lastSchemaVersion = currentVer;
 }
