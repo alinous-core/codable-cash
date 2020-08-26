@@ -21,6 +21,9 @@ public:
 
 private:
 	void createTable();
+	void createTestTable1();
+	void createTestTable2();
+
 	void insertData();
 };
 
