@@ -10,10 +10,15 @@
 
 namespace codablecash {
 
+class ScanTargetNameResolver;
+
 class AnalyzedScanPlan {
 public:
 	AnalyzedScanPlan();
 	virtual ~AnalyzedScanPlan();
+
+private:
+	ScanTargetNameResolver* scanTargetNameResolver;
 };
 
 } /* namespace codablecash */

@@ -6,16 +6,17 @@
  */
 
 #include "scan_planner_analyze/AnalyzedScanPlan.h"
+#include "scan_planner_analyze/ScanTargetNameResolver.h"
 
 namespace codablecash {
 
 AnalyzedScanPlan::AnalyzedScanPlan() {
-	// TODO Auto-generated constructor stub
+	this->scanTargetNameResolver = new ScanTargetNameResolver();
 
 }
 
 AnalyzedScanPlan::~AnalyzedScanPlan() {
-	// TODO Auto-generated destructor stub
+	delete this->scanTargetNameResolver;
 }
 
 } /* namespace codablecash */

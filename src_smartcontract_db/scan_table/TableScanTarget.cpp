@@ -9,6 +9,8 @@
 
 #include "base/UnicodeString.h"
 
+#include "scan_planner/SelectScanPlanner.h"
+
 namespace codablecash {
 
 TableScanTarget::TableScanTarget() {
@@ -65,6 +67,9 @@ const UnicodeString* TableScanTarget::toString() noexcept {
 }
 
 void TableScanTarget::resolveTable(VirtualMachine* vm,	SelectScanPlanner* planner) {
+	AnalyzedScanPlan* plan = planner->getPlan();
+
+
 	// FIXME resolveTable
 }
 

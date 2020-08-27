@@ -47,6 +47,10 @@ public:
 	void makeplan(VirtualMachine* vm);
 	void executeQuery(VirtualMachine* vm);
 
+	AnalyzedScanPlan* getPlan() const noexcept {
+		return plan;
+	}
+
 private:
 	void resolveTable(VirtualMachine* vm);
 	void resolveColumn(VirtualMachine* vm);
