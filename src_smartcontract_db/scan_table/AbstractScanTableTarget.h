@@ -25,9 +25,6 @@ public:
 	virtual ~AbstractScanTableTarget();
 
 	virtual const UnicodeString* toString() noexcept = 0;
-
-	virtual IJoinLeftSource* getLeftSource(VirtualMachine* vm) = 0;
-	virtual IJoinLeftSource* getRightSource(VirtualMachine* vm) = 0;
 };
 
 } /* namespace codablecash */

@@ -53,9 +53,11 @@ void SelectScanPlanner::plan(VirtualMachine* vm) {
 }
 
 void SelectScanPlanner::resolveTable(VirtualMachine* vm) {
+	this->tablesHolder->resolveTable(vm, this);
 }
 
 void SelectScanPlanner::resolveColumn(VirtualMachine* vm) {
+
 }
 
 void SelectScanPlanner::analyzeConditions(VirtualMachine* vm) {

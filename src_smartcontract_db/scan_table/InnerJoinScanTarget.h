@@ -18,9 +18,6 @@ public:
 	virtual ~InnerJoinScanTarget();
 
 	virtual const UnicodeString* toString() noexcept;
-
-	virtual IJoinLeftSource* getLeftSource(VirtualMachine* vm);
-	virtual IJoinLeftSource* getRightSource(VirtualMachine* vm);
 };
 
 } /* namespace codablecash */

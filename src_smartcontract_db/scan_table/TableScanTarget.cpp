@@ -64,13 +64,5 @@ const UnicodeString* TableScanTarget::toString() noexcept {
 	return this->str;
 }
 
-IJoinLeftSource* TableScanTarget::getLeftSource(VirtualMachine* vm) {
-	// FIXME getLeftSource
-}
-
-IJoinLeftSource* TableScanTarget::getRightSource(VirtualMachine* vm) {
-	// FIXME getRightSource
-}
-
 
 } /* namespace codablecash */

@@ -36,12 +36,4 @@ const UnicodeString* LeftOuterJoinTarget::toString() noexcept {
 	return this->str;
 }
 
-IJoinLeftSource* LeftOuterJoinTarget::getLeftSource(VirtualMachine* vm) {
-	// FIXME getLeftSource
-}
-
-IJoinLeftSource* LeftOuterJoinTarget::getRightSource(VirtualMachine* vm) {
-	// FIXME getRightSource
-}
-
 } /* namespace codablecash */

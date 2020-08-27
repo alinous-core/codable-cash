@@ -11,12 +11,14 @@
 
 namespace alinous {
 class UnicodeString;
+class VirtualMachine;
 }
 using namespace alinous;
 
 namespace codablecash {
 
 class AbstractScanTableTarget;
+class SelectScanPlanner;
 
 class TablesHolder {
 public:
@@ -30,6 +32,8 @@ public:
 	bool isEmpty() const noexcept;
 
 	const UnicodeString* toString() noexcept;
+
+	void resolveTable(VirtualMachine* vm, SelectScanPlanner* planner);
 private:
 	ArrayList<AbstractScanTableTarget> list;
 

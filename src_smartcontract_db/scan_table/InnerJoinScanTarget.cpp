@@ -36,11 +36,5 @@ const UnicodeString* InnerJoinScanTarget::toString() noexcept {
 	return this->str;
 }
 
-IJoinLeftSource* InnerJoinScanTarget::getLeftSource(VirtualMachine* vm) {
-}
-
-IJoinLeftSource* InnerJoinScanTarget::getRightSource(VirtualMachine* vm) {
-}
-
 
 } /* namespace codablecash */

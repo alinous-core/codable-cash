@@ -28,10 +28,6 @@ public:
 
 	virtual const UnicodeString* toString() noexcept;
 
-	virtual IJoinLeftSource* getLeftSource(VirtualMachine* vm);
-	virtual IJoinLeftSource* getRightSource(VirtualMachine* vm);
-
-
 private:
 	UnicodeString* schema;
 	UnicodeString* tableName;

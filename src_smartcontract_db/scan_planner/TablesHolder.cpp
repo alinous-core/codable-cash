@@ -58,4 +58,14 @@ const UnicodeString* TablesHolder::toString() noexcept {
 	return this->str;
 }
 
+void TablesHolder::resolveTable(VirtualMachine* vm,	SelectScanPlanner* planner) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanTableTarget* target = this->list.get(i);
+
+
+	}
+}
+
+
 } /* namespace codablecash */
