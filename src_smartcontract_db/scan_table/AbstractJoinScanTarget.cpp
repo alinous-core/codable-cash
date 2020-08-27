@@ -59,9 +59,8 @@ void AbstractJoinScanTarget::addConditionString() noexcept {
 }
 
 void AbstractJoinScanTarget::resolveTable(VirtualMachine* vm, SelectScanPlanner* planner) {
-
-
-	// FIXME resolveTable
+	this->left->resolveTable(vm, planner);
+	this->right->resolveTable(vm, planner);
 }
 
 

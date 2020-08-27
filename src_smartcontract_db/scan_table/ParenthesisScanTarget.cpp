@@ -9,6 +9,9 @@
 
 #include "base/UnicodeString.h"
 
+#include "scan_planner_analyze/AnalyzedScanPlan.h"
+#include "scan_planner_analyze/ScanTargetNameResolver.h"
+
 namespace codablecash {
 
 ParenthesisScanTarget::ParenthesisScanTarget() {

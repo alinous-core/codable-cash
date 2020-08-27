@@ -102,7 +102,6 @@ void TableScanTarget::resolveTable(VirtualMachine* vm, SelectScanPlanner* planne
 	if(this->alias != nullptr){
 		resolver->add(this->alias, this);
 	}
-	// FIXME resolveTable
 }
 
 } /* namespace codablecash */
