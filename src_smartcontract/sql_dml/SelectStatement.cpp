@@ -101,12 +101,11 @@ void SelectStatement::analyze(AnalyzeContext* actx) {
 	if(this->where != nullptr){
 		this->where->analyze(actx);
 	}
-
-	AnalyzeStackManager* stackManager = actx->getAnalyzeStackManager();
-	AnalyzeStack* stack = stackManager->top();
-
 	//this->intoVar
 	if(this->intoVar != nullptr){
+		AnalyzeStackManager* stackManager = actx->getAnalyzeStackManager();
+		AnalyzeStack* stack = stackManager->top();
+
 		AnalyzedType at(AnalyzedType::TYPE_DOM);
 		AnalyzedStackReference* ref = new AnalyzedStackReference(this->intoVar, &at);
 		stack->addVariableDeclare(ref);
