@@ -11,6 +11,8 @@
 #include "scan_planner/ConditionsHolder.h"
 #include "scan_planner/TablesHolder.h"
 
+#include "scan_planner_analyze/AnalyzedScanPlan.h"
+
 #include "scan_condition/AbstractScanCondition.h"
 
 #include "scan_columns/ScanColumnHolder.h"
@@ -23,12 +25,14 @@ SelectScanPlanner::SelectScanPlanner() {
 	this->conditions = new ConditionsHolder();
 	this->tablesHolder = new TablesHolder();
 	this->columnHolder = new ScanColumnHolder();
+	this->plan = nullptr;
 }
 
 SelectScanPlanner::~SelectScanPlanner() {
 	delete this->conditions;
 	delete this->tablesHolder;
 	delete this->columnHolder;
+	delete this->plan;
 }
 
 void SelectScanPlanner::push(AbstractScanConditionElement* cond) noexcept {
@@ -43,7 +47,10 @@ AbstractScanConditionElement* SelectScanPlanner::pop() noexcept{
 	return this->conditions->pop();
 }
 
-void SelectScanPlanner::plan(VirtualMachine* vm) {
+void SelectScanPlanner::makeplan(VirtualMachine* vm) {
+	delete this->plan;
+	this->plan = new AnalyzedScanPlan();
+
 	resolveTable(vm);
 	resolveColumn(vm);
 

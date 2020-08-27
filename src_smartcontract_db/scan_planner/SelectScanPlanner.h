@@ -21,6 +21,7 @@ class AbstractScanCondition;
 class AbstractScanConditionElement;
 class TablesHolder;
 class ScanColumnHolder;
+class AnalyzedScanPlan;
 
 class SelectScanPlanner {
 public:
@@ -43,7 +44,7 @@ public:
 		return columnHolder;
 	}
 
-	void plan(VirtualMachine* vm);
+	void makeplan(VirtualMachine* vm);
 	void executeQuery(VirtualMachine* vm);
 
 private:
@@ -59,6 +60,8 @@ private:
 	ConditionsHolder* conditions;
 
 	TablesHolder* tablesHolder;
+
+	AnalyzedScanPlan* plan;
 };
 
 } /* namespace codablecash */

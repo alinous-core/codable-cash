@@ -63,7 +63,7 @@ void TablesHolder::resolveTable(VirtualMachine* vm,	SelectScanPlanner* planner) 
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractScanTableTarget* target = this->list.get(i);
 
-
+		target->resolveTable(vm, planner);
 	}
 }
 

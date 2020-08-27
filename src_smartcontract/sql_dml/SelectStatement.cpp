@@ -291,7 +291,7 @@ void SelectStatement::buildPlanner(VirtualMachine* vm, uint64_t currentVer) {
 		this->where->interpret(vm);
 	}
 
-	this->planner->plan(vm);
+	this->planner->makeplan(vm);
 
 	this->lastSchemaVersion = currentVer;
 }
