@@ -11,6 +11,19 @@
 
 #include "scan_planner/SelectScanPlanner.h"
 
+#include "vm/VirtualMachine.h"
+
+#include "schema/SchemaManager.h"
+#include "schema/Schema.h"
+
+#include "table/CdbTable.h"
+
+#include "engine/CodableDatabase.h"
+#include "engine/CdbException.h"
+
+#include "scan_planner_analyze/ScanTargetNameResolver.h"
+#include "scan_planner_analyze/AnalyzedScanPlan.h"
+
 namespace codablecash {
 
 TableScanTarget::TableScanTarget() {
@@ -19,6 +32,8 @@ TableScanTarget::TableScanTarget() {
 	this->alias = nullptr;
 
 	this->str = nullptr;
+
+	this->table = nullptr;
 }
 
 TableScanTarget::~TableScanTarget() {
@@ -66,10 +81,27 @@ const UnicodeString* TableScanTarget::toString() noexcept {
 	return this->str;
 }
 
-void TableScanTarget::resolveTable(VirtualMachine* vm,	SelectScanPlanner* planner) {
+void TableScanTarget::resolveTable(VirtualMachine* vm, SelectScanPlanner* planner) {
 	AnalyzedScanPlan* plan = planner->getPlan();
 
+	CodableDatabase* db = vm->getDb();
+	SchemaManager* schemaManager = db->getSchemaManager();
 
+	const UnicodeString* scName = this->schema != nullptr ? this->schema : &SchemaManager::PUBLIC;
+	this->table = schemaManager->getTable(scName, this->tableName);
+
+
+	ScanTargetNameResolver* resolver = plan->getScanTargetNameResolver();
+
+	UnicodeString tableFqn(scName);
+	tableFqn.append(L".");
+	tableFqn.append(this->tableName);
+
+	resolver->add(&tableFqn, this);
+
+	if(this->alias != nullptr){
+		resolver->add(this->alias, this);
+	}
 	// FIXME resolveTable
 }
 

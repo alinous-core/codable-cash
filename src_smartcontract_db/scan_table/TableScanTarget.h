@@ -17,6 +17,8 @@ using namespace alinous;
 
 namespace codablecash {
 
+class CdbTable;
+
 class TableScanTarget : public AbstractScanTableTarget {
 public:
 	TableScanTarget();
@@ -36,6 +38,8 @@ private:
 	UnicodeString* alias;
 
 	UnicodeString* str;
+
+	const CdbTable* table;
 };
 
 } /* namespace codablecash */

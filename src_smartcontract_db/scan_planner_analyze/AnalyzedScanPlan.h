@@ -17,6 +17,10 @@ public:
 	AnalyzedScanPlan();
 	virtual ~AnalyzedScanPlan();
 
+	ScanTargetNameResolver* getScanTargetNameResolver() const noexcept {
+		return scanTargetNameResolver;
+	}
+
 private:
 	ScanTargetNameResolver* scanTargetNameResolver;
 };
