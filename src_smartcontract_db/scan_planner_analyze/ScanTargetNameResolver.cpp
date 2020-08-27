@@ -7,15 +7,33 @@
 
 #include "scan_planner_analyze/ScanTargetNameResolver.h"
 
+#include "base/UnicodeString.h"
+
+#include "scan_table/AbstractScanTableTarget.h"
+
+#include "engine/CdbException.h"
+
 namespace codablecash {
 
 ScanTargetNameResolver::ScanTargetNameResolver() {
-	// TODO Auto-generated constructor stub
 
 }
 
 ScanTargetNameResolver::~ScanTargetNameResolver() {
-	// TODO Auto-generated destructor stub
+
+}
+
+void ScanTargetNameResolver::add(const UnicodeString* tableFqn,	AbstractScanTableTarget* target) {
+	AbstractScanTableTarget* last = get(tableFqn);
+	if(last != nullptr){
+		throw new CdbException(L"table name already defined", __FILE__, __LINE__);
+	}
+
+	this->map.put(tableFqn, target);
+}
+
+AbstractScanTableTarget* ScanTargetNameResolver::get(const UnicodeString* tableFqn) const noexcept {
+	return this->map.get(tableFqn);
 }
 
 } /* namespace codablecash */
