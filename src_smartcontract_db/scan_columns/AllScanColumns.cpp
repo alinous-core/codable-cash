@@ -27,4 +27,9 @@ const UnicodeString* AllScanColumns::toStringCode() noexcept {
 	return this->str;
 }
 
+void AllScanColumns::resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) {
+	// FIXME resolveColumns
+}
+
+
 } /* namespace codablecash */

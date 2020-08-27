@@ -16,6 +16,8 @@ class AbstractColumnParam : public AbstractScanColumnsTarget {
 public:
 	AbstractColumnParam();
 	virtual ~AbstractColumnParam();
+
+	virtual void resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner){}
 };
 
 } /* namespace codablecash */

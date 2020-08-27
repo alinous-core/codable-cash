@@ -44,4 +44,9 @@ const UnicodeString* ScanColumn::toStringCode() noexcept {
 	return this->str;
 }
 
+void codablecash::ScanColumn::resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) {
+	// FIXME resolveColumns
+}
+
+
 } /* namespace codablecash */

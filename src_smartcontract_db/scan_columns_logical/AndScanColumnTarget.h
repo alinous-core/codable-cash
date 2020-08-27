@@ -8,7 +8,7 @@
 #ifndef SCAN_COLUMNS_LOGICAL_ANDSCANCOLUMNTARGET_H_
 #define SCAN_COLUMNS_LOGICAL_ANDSCANCOLUMNTARGET_H_
 
-#include "scan_columns/AbstractScanColumnsTarget.h"
+#include "scan_columns_logical/AbstractLogicalScanColumnTarget.h"
 
 #include "base/ArrayList.h"
 
@@ -17,7 +17,7 @@ using namespace alinous;
 
 namespace codablecash {
 
-class AndScanColumnTarget : public AbstractScanColumnsTarget {
+class AndScanColumnTarget : public AbstractLogicalScanColumnTarget {
 public:
 	AndScanColumnTarget();
 	virtual ~AndScanColumnTarget();
