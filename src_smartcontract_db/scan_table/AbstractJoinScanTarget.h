@@ -29,6 +29,8 @@ public:
 
 	void setCondition(AbstractScanCondition* cond) noexcept;
 
+	virtual void resolveTable(VirtualMachine* vm, SelectScanPlanner* planner);
+
 protected:
 	void resetStr() noexcept;
 	void addConditionString() noexcept;

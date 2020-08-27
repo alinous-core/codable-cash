@@ -64,5 +64,8 @@ const UnicodeString* TableScanTarget::toString() noexcept {
 	return this->str;
 }
 
+void TableScanTarget::resolveTable(VirtualMachine* vm,	SelectScanPlanner* planner) {
+	// FIXME resolveTable
+}
 
 } /* namespace codablecash */

@@ -36,5 +36,4 @@ const UnicodeString* CrossJoinScanTarget::toString() noexcept {
 	return this->str;
 }
 
-
 } /* namespace codablecash */

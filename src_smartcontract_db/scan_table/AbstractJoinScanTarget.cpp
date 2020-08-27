@@ -58,4 +58,9 @@ void AbstractJoinScanTarget::addConditionString() noexcept {
 	}
 }
 
+void AbstractJoinScanTarget::resolveTable(VirtualMachine* vm, SelectScanPlanner* planner) {
+	// FIXME resolveTable
+}
+
+
 } /* namespace codablecash */

@@ -36,4 +36,8 @@ void ParenthesisScanTarget::setInner(AbstractScanTableTarget* inner) noexcept {
 	this->inner = inner;
 }
 
+void ParenthesisScanTarget::resolveTable(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->inner->resolveTable(vm, planner);
+}
+
 } /* namespace codablecash */

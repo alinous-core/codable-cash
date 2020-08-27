@@ -18,6 +18,7 @@ namespace codablecash {
 
 class IJoinLeftSource;
 class IJoinRightSource;
+class SelectScanPlanner;
 
 class AbstractScanTableTarget {
 public:
@@ -25,6 +26,8 @@ public:
 	virtual ~AbstractScanTableTarget();
 
 	virtual const UnicodeString* toString() noexcept = 0;
+
+	virtual void resolveTable(VirtualMachine* vm, SelectScanPlanner* planner) = 0;
 };
 
 } /* namespace codablecash */

@@ -28,6 +28,8 @@ public:
 
 	virtual const UnicodeString* toString() noexcept;
 
+	virtual void resolveTable(VirtualMachine* vm, SelectScanPlanner* planner);
+
 private:
 	UnicodeString* schema;
 	UnicodeString* tableName;

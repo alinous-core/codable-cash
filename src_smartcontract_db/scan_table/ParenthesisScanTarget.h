@@ -21,6 +21,8 @@ public:
 
 	void setInner(AbstractScanTableTarget* inner) noexcept;
 
+	virtual void resolveTable(VirtualMachine* vm, SelectScanPlanner* planner);
+
 private:
 	AbstractScanTableTarget* inner;
 };
