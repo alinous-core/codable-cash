@@ -11,6 +11,7 @@
 namespace codablecash {
 
 class ScanTargetNameResolver;
+class ScanColumnNameResolver;
 
 class AnalyzedScanPlan {
 public:
@@ -20,9 +21,13 @@ public:
 	ScanTargetNameResolver* getScanTargetNameResolver() const noexcept {
 		return scanTargetNameResolver;
 	}
+	ScanColumnNameResolver* getScanColumnNameResolver() const noexcept {
+		return scanColumnNameResolver;
+	}
 
 private:
 	ScanTargetNameResolver* scanTargetNameResolver;
+	ScanColumnNameResolver* scanColumnNameResolver;
 };
 
 } /* namespace codablecash */

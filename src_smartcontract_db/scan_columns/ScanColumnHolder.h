@@ -13,6 +13,7 @@
 
 namespace alinous {
 class UnicodeString;
+class VirtualMachine;
 }
 using namespace alinous;
 
@@ -20,6 +21,7 @@ using namespace alinous;
 namespace codablecash {
 
 class AbstractScanColumnsTarget;
+class SelectScanPlanner;
 
 class ScanColumnHolder {
 public:
@@ -30,6 +32,8 @@ public:
 	AbstractScanColumnsTarget* pop() noexcept;
 
 	void addColumn(AbstractScanColumnsTarget* col) noexcept;
+
+	void resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner);
 
 	UnicodeString* toCodeString() noexcept;
 private:

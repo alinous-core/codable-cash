@@ -35,6 +35,16 @@ void ScanColumnHolder::addColumn(AbstractScanColumnsTarget* col) noexcept {
 	this->list.addElement(col);
 }
 
+void ScanColumnHolder::resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanColumnsTarget* col = this->list.get(i);
+
+		// FIXME
+	}
+}
+
+
 UnicodeString* ScanColumnHolder::toCodeString() noexcept {
 	UnicodeString* str = new UnicodeString(L"");
 
