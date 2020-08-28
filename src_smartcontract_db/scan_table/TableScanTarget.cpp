@@ -104,4 +104,9 @@ void TableScanTarget::resolveTable(VirtualMachine* vm, SelectScanPlanner* planne
 	}
 }
 
+AbstractScannerFactory* TableScanTarget::getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) {
+	// FIXME getScanFactory
+	return nullptr;
+}
+
 } /* namespace codablecash */

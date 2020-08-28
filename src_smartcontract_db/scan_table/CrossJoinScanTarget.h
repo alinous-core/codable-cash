@@ -18,6 +18,8 @@ public:
 	virtual ~CrossJoinScanTarget();
 
 	virtual const UnicodeString* toString() noexcept;
+
+	virtual AbstractScannerFactory* getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner);
 };
 
 } /* namespace codablecash */

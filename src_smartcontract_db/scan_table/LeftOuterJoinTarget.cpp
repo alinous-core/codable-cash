@@ -36,4 +36,10 @@ const UnicodeString* LeftOuterJoinTarget::toString() noexcept {
 	return this->str;
 }
 
+AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) {
+	// FIXME getScanFactory
+	return nullptr;
+}
+
+
 } /* namespace codablecash */

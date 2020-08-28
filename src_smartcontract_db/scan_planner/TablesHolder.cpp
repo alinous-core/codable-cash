@@ -67,5 +67,17 @@ void TablesHolder::resolveTable(VirtualMachine* vm,	SelectScanPlanner* planner) 
 	}
 }
 
+void TablesHolder::buildScannerFactories(VirtualMachine* vm, SelectScanPlanner* planner) {
+	int maxLoop = this->list.size();
+	if(maxLoop == 1){
+
+		return;
+	}
+
+	// FIXME TablesHolder::buildScannerFactories
+
+}
+
+
 
 } /* namespace codablecash */

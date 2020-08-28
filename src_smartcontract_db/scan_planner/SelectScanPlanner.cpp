@@ -71,6 +71,7 @@ void SelectScanPlanner::analyzeConditions(VirtualMachine* vm) {
 }
 
 void SelectScanPlanner::buildScannerFactories(VirtualMachine* vm) {
+	this->tablesHolder->buildScannerFactories(vm, this);
 }
 
 void SelectScanPlanner::executeQuery(VirtualMachine* vm) {

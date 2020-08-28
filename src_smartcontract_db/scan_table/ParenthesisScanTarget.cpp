@@ -43,4 +43,9 @@ void ParenthesisScanTarget::resolveTable(VirtualMachine* vm, SelectScanPlanner* 
 	this->inner->resolveTable(vm, planner);
 }
 
+AbstractScannerFactory* ParenthesisScanTarget::getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) {
+	return this->inner->getScanFactory(vm, planner);
+}
+
+
 } /* namespace codablecash */

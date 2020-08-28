@@ -36,4 +36,10 @@ const UnicodeString* CrossJoinScanTarget::toString() noexcept {
 	return this->str;
 }
 
+AbstractScannerFactory* CrossJoinScanTarget::getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) {
+	// FIXME CrossJoinScanTarget::getScanFactory
+	return nullptr;
+}
+
+
 } /* namespace codablecash */

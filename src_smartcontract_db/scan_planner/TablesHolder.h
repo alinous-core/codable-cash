@@ -34,6 +34,7 @@ public:
 	const UnicodeString* toString() noexcept;
 
 	void resolveTable(VirtualMachine* vm, SelectScanPlanner* planner);
+	void buildScannerFactories(VirtualMachine* vm, SelectScanPlanner* planner);
 private:
 	ArrayList<AbstractScanTableTarget> list;
 
