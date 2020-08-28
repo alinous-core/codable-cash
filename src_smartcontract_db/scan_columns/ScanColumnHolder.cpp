@@ -40,7 +40,7 @@ void ScanColumnHolder::resolveColumns(VirtualMachine* vm, SelectScanPlanner* pla
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractScanColumnsTarget* col = this->list.get(i);
 
-		// FIXME
+		col->resolveColumns(vm, planner);
 	}
 }
 

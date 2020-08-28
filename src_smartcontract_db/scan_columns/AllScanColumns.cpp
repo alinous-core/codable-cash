@@ -28,6 +28,8 @@ const UnicodeString* AllScanColumns::toStringCode() noexcept {
 }
 
 void AllScanColumns::resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) {
+
+
 	// FIXME resolveColumns
 }
 
