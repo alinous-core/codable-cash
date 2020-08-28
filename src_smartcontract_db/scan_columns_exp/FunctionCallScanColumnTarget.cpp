@@ -53,4 +53,13 @@ const UnicodeString* FunctionCallScanColumnTarget::toStringCode() noexcept {
 	return this->str;
 }
 
+void FunctionCallScanColumnTarget::resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) {
+	int maxLoop = this->arguments.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanColumnsTarget* value = this->arguments.get(i);
+
+		value->resolveColumns(vm, planner);
+	}
+}
+
 } /* namespace codablecash */
