@@ -27,4 +27,8 @@ const UnicodeString* PlaceHolderScanColumnTarget::toStringCode() noexcept {
 	return this->str;
 }
 
+void PlaceHolderScanColumnTarget::resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) {
+}
+
+
 } /* namespace codablecash */
