@@ -61,4 +61,10 @@ const UnicodeString* InExpressionScanColumnTarget::toStringCode() noexcept {
 	return this->str;
 }
 
+void InExpressionScanColumnTarget::resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->left->resolveColumns(vm, planner);
+	this->list->resolveColumns(vm, planner);
+}
+
+
 } /* namespace codablecash */
