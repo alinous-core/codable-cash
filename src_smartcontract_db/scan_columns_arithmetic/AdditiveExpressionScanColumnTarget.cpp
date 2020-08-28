@@ -57,4 +57,13 @@ const UnicodeString* AdditiveExpressionScanColumnTarget::toStringCode() noexcept
 	return this->str;
 }
 
+void AdditiveExpressionScanColumnTarget::resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanColumnsTarget* vp = this->list.get(i);
+		vp->resolveColumns(vm, planner);
+	}
+}
+
+
 } /* namespace codablecash */
