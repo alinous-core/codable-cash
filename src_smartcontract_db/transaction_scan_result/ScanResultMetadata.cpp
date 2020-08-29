@@ -13,12 +13,33 @@
 
 namespace codablecash {
 
-ScanResultMetadata::ScanResultMetadata() {
-	this->map = new HashMap<UnicodeString, ScanResultFieldMetadata>();
+
+ScanResultMetadata::ScanResultMetadata(const ScanResultMetadata& inst) {
+	this->list = new ArrayList<ScanResultFieldMetadata>();
+
+	int maxLoop = inst.list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		ScanResultFieldMetadata* fld = inst.list->get(i);
+
+		addField(fld);
+	}
 }
 
+ScanResultMetadata::ScanResultMetadata() {
+	this->list = new ArrayList<ScanResultFieldMetadata>();
+}
+
+
 ScanResultMetadata::~ScanResultMetadata() {
-	delete this->map;
+	this->list->deleteElements();
+	delete this->list;
+}
+
+void ScanResultMetadata::addField(const ScanResultFieldMetadata* fld) noexcept {
+	ScanResultFieldMetadata* newFld = new ScanResultFieldMetadata(*fld);
+	newFld->setPosition(this->list->size());
+
+	this->list->addElement(newFld);
 }
 
 } /* namespace codablecash */

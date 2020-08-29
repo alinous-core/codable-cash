@@ -20,13 +20,16 @@ class CdbTableColumn;
 
 class ScanResultFieldMetadata {
 public:
+	ScanResultFieldMetadata(const ScanResultFieldMetadata& inst);
+
 	ScanResultFieldMetadata();
 	virtual ~ScanResultFieldMetadata();
 
+	void setPosition(int pos) noexcept;
 private:
 	int position;
-	CdbTable* table;
-	CdbTableColumn* column;
+	const CdbTable* table;
+	const CdbTableColumn* column;
 
 	UnicodeString* asName;
 	bool use;
