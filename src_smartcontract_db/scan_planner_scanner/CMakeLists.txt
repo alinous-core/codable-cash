@@ -1,6 +1,7 @@
 
 
 set(__src
+	AbstractJoinScannerFactory.cpp
 	AbstractScannerFactory.cpp
 	TableScannerFactory.cpp
 )
