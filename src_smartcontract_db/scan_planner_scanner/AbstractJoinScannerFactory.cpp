@@ -7,9 +7,11 @@
 
 #include "scan_planner_scanner/AbstractJoinScannerFactory.h"
 
+
 namespace codablecash {
 
-AbstractJoinScannerFactory::AbstractJoinScannerFactory() {
+AbstractJoinScannerFactory::AbstractJoinScannerFactory(const ScanResultMetadata* metadata)
+					: AbstractScannerFactory(metadata) {
 
 }
 

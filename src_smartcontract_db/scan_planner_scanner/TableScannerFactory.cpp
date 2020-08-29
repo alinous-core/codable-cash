@@ -9,7 +9,8 @@
 
 namespace codablecash {
 
-TableScannerFactory::TableScannerFactory() {
+TableScannerFactory::TableScannerFactory(const ScanResultMetadata* metadata)
+				: AbstractScannerFactory(metadata){
 
 }
 

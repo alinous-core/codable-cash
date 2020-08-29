@@ -14,8 +14,9 @@ namespace codablecash {
 
 class AbstractJoinScannerFactory : public AbstractScannerFactory {
 public:
-	AbstractJoinScannerFactory();
+	explicit AbstractJoinScannerFactory(const ScanResultMetadata* metadata);
 	virtual ~AbstractJoinScannerFactory();
+
 };
 
 } /* namespace codablecash */

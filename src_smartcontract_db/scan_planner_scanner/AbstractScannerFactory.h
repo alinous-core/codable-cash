@@ -19,15 +19,20 @@ namespace codablecash {
 class IJoinLeftSource;
 class IJoinRightSource;
 class SelectScanPlanner;
+class ScanResultMetadata;
 
 class AbstractScannerFactory {
 public:
-	AbstractScannerFactory();
+	explicit AbstractScannerFactory(const ScanResultMetadata* metadata);
 	virtual ~AbstractScannerFactory();
 
 
 	virtual IJoinLeftSource* createScannerAsLeftSource(VirtualMachine* vm, SelectScanPlanner* planner) = 0;
 	virtual IJoinRightSource* createScannerAsRightSource(VirtualMachine* vm, SelectScanPlanner* planner) = 0;
+
+
+protected:
+	ScanResultMetadata* metadata;
 };
 
 } /* namespace codablecash */

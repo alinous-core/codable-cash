@@ -9,13 +9,12 @@
 
 namespace codablecash {
 
-InnerJoinScannerFactory::InnerJoinScannerFactory() {
-	// TODO Auto-generated constructor stub
+InnerJoinScannerFactory::InnerJoinScannerFactory(const ScanResultMetadata* metadata)
+			: AbstractJoinScannerFactory(metadata){
 
 }
 
 InnerJoinScannerFactory::~InnerJoinScannerFactory() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace codablecash */

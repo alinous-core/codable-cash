@@ -14,7 +14,7 @@ namespace codablecash {
 
 class TableScannerFactory : public AbstractScannerFactory {
 public:
-	TableScannerFactory();
+	explicit TableScannerFactory(const ScanResultMetadata* metadata);
 	virtual ~TableScannerFactory();
 };
 

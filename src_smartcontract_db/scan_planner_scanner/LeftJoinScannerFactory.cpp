@@ -9,7 +9,8 @@
 
 namespace codablecash {
 
-LeftJoinScannerFactory::LeftJoinScannerFactory() {
+LeftJoinScannerFactory::LeftJoinScannerFactory(const ScanResultMetadata* metadata)
+				: AbstractJoinScannerFactory(metadata){
 
 }
 
