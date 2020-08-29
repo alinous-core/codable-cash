@@ -8,13 +8,15 @@
 #ifndef TRANSACTION_SCANNER_JOIN_ABSTRACTJOINEXECUTOR_H_
 #define TRANSACTION_SCANNER_JOIN_ABSTRACTJOINEXECUTOR_H_
 
+#include "transaction_scanner_join/IJoinLeftSource.h"
+
 namespace codablecash {
 
 class IJoinLeftSource;
 class IJoinRightSource;
 class ScanResultFieldMetadata;
 
-class AbstractJoinExecutor {
+class AbstractJoinExecutor : public IJoinLeftSource {
 public:
 	AbstractJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right, ScanResultFieldMetadata* metadata);
 	virtual ~AbstractJoinExecutor();

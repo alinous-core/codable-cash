@@ -8,9 +8,11 @@
 #ifndef SCAN_PLANNER_SCANNER_INNERJOINSCANNERFACTORY_H_
 #define SCAN_PLANNER_SCANNER_INNERJOINSCANNERFACTORY_H_
 
+#include "scan_planner_scanner/AbstractJoinScannerFactory.h"
+
 namespace codablecash {
 
-class InnerJoinScannerFactory {
+class InnerJoinScannerFactory : public AbstractJoinScannerFactory {
 public:
 	InnerJoinScannerFactory();
 	virtual ~InnerJoinScannerFactory();
