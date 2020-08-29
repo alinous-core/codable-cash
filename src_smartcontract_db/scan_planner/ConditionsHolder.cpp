@@ -42,4 +42,8 @@ RootScanCondition* ConditionsHolder::getRoot() const noexcept {
 	return this->root;
 }
 
+void ConditionsHolder::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+
+}
+
 } /* namespace codablecash */

@@ -68,6 +68,7 @@ void SelectScanPlanner::resolveColumn(VirtualMachine* vm) {
 }
 
 void SelectScanPlanner::analyzeConditions(VirtualMachine* vm) {
+	this->conditions->analyzeConditions(vm, this);
 }
 
 void SelectScanPlanner::buildScannerFactories(VirtualMachine* vm) {

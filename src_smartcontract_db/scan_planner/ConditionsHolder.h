@@ -12,6 +12,7 @@
 
 namespace alinous {
 class AbstractSQLExpression;
+class VirtualMachine;
 }
 using namespace alinous;
 
@@ -20,6 +21,7 @@ namespace codablecash {
 class RootScanCondition;
 class AbstractScanCondition;
 class AbstractScanConditionElement;
+class SelectScanPlanner;
 
 class ConditionsHolder {
 public:
@@ -31,6 +33,8 @@ public:
 	AbstractScanConditionElement* pop() noexcept;
 
 	RootScanCondition* getRoot() const noexcept;
+
+	void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
 private:
 	RootScanCondition* root;
 
