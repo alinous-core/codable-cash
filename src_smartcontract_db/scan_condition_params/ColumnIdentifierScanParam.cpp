@@ -50,4 +50,9 @@ const UnicodeString* ColumnIdentifierScanParam::toStringCode() noexcept {
 }
 
 
+void codablecash::ColumnIdentifierScanParam::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	// FIXME analyzeConditions
+}
+
+
 } /* namespace codablecash */

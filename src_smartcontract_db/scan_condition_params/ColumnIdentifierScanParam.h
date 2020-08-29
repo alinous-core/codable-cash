@@ -25,6 +25,8 @@ public:
 	virtual ~ColumnIdentifierScanParam();
 
 	virtual const UnicodeString* toStringCode() noexcept;
+
+	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
 private:
 	const SQLColumnIdentifier* sqlColId;
 	CdbTableColumn* cdbColumn;

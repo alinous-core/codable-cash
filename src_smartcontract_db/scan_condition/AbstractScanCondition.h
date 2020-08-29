@@ -18,6 +18,8 @@ public:
 	virtual ~AbstractScanCondition();
 
 	virtual bool isContainer() const noexcept;
+
+	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner){};
 private:
 	short type;
 };

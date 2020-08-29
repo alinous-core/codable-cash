@@ -24,6 +24,7 @@ public:
 	virtual const UnicodeString* toStringCode() noexcept;
 
 	void addElement(IValueProvider* val) noexcept;
+
 private:
 	void resetStr() noexcept;
 

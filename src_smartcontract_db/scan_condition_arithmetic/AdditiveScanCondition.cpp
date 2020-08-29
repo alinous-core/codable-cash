@@ -71,4 +71,5 @@ void AdditiveScanCondition::resetStr() noexcept {
 	}
 }
 
+
 } /* namespace codablecash */
