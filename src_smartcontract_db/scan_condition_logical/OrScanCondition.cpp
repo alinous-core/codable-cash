@@ -57,4 +57,14 @@ void OrScanCondition::resetStr() noexcept {
 	}
 }
 
+void OrScanCondition::analyzeConditions(VirtualMachine* vm,	SelectScanPlanner* planner) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cond = this->list.get(i);
+
+		cond->analyzeConditions(vm, planner);
+	}
+}
+
+
 } /* namespace codablecash */

@@ -24,6 +24,7 @@ public:
 	virtual void addCondition(AbstractScanCondition* cond);
 
 	virtual const UnicodeString* toStringCode() noexcept;
+	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
 
 private:
 	void resetStr() noexcept;
