@@ -75,6 +75,7 @@ void SelectScanPlanner::buildScannerFactories(VirtualMachine* vm) {
 }
 
 void SelectScanPlanner::executeQuery(VirtualMachine* vm) {
+	AbstractScannerFactory* scanFactory = this->plan->getScanFactory();
 }
 
 } /* namespace codablecash */
