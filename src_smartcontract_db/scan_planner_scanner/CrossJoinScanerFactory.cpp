@@ -17,4 +17,13 @@ CrossJoinScanerFactory::~CrossJoinScanerFactory() {
 
 }
 
+IJoinLeftSource* CrossJoinScanerFactory::createScannerAsLeftSource(VirtualMachine* vm, SelectScanPlanner* planner) {
+	// FIXME createScannerAsLeftSource
+	return nullptr;
+}
+
+IJoinRightSource* CrossJoinScanerFactory::createScannerAsRightSource(VirtualMachine* vm, SelectScanPlanner* planner) {
+	return nullptr;
+}
+
 } /* namespace codablecash */

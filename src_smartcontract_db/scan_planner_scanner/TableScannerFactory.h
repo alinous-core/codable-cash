@@ -8,9 +8,11 @@
 #ifndef SCAN_PLANNER_SCANNER_TABLESCANNERFACTORY_H_
 #define SCAN_PLANNER_SCANNER_TABLESCANNERFACTORY_H_
 
+#include "scan_planner_scanner/AbstractScannerFactory.h"
+
 namespace codablecash {
 
-class TableScannerFactory {
+class TableScannerFactory : public AbstractScannerFactory {
 public:
 	TableScannerFactory();
 	virtual ~TableScannerFactory();

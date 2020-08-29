@@ -16,6 +16,9 @@ class CrossJoinScanerFactory : public AbstractJoinScannerFactory {
 public:
 	CrossJoinScanerFactory();
 	virtual ~CrossJoinScanerFactory();
+
+	virtual IJoinLeftSource* createScannerAsLeftSource(VirtualMachine* vm, SelectScanPlanner* planner);
+	virtual IJoinRightSource* createScannerAsRightSource(VirtualMachine* vm, SelectScanPlanner* planner);
 };
 
 } /* namespace codablecash */
