@@ -24,7 +24,7 @@ public:
 	virtual ~AbstractScanConditionElement();
 
 	virtual const UnicodeString* toStringCode() noexcept = 0;
-//	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) = 0;
+	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) = 0;
 };
 
 } /* namespace codablecash */

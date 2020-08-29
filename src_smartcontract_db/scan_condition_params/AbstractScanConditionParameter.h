@@ -18,6 +18,8 @@ class AbstractScanConditionParameter : public AbstractScanConditionElement, publ
 public:
 	AbstractScanConditionParameter();
 	virtual ~AbstractScanConditionParameter();
+
+	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner){}
 };
 
 } /* namespace codablecash */
