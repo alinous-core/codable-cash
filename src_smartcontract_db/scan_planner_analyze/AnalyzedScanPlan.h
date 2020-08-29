@@ -12,6 +12,7 @@ namespace codablecash {
 
 class ScanTargetNameResolver;
 class ScanColumnNameResolver;
+class AbstractScannerFactory;
 
 class AnalyzedScanPlan {
 public:
@@ -28,6 +29,9 @@ public:
 private:
 	ScanTargetNameResolver* scanTargetNameResolver;
 	ScanColumnNameResolver* scanColumnNameResolver;
+
+	AbstractScannerFactory* scanFactory;
+
 };
 
 } /* namespace codablecash */

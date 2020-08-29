@@ -11,6 +11,7 @@
 
 #include "base/UnicodeString.h"
 
+#include "scan_planner/SelectScanPlanner.h"
 namespace codablecash {
 
 TablesHolder::TablesHolder() {
@@ -68,16 +69,23 @@ void TablesHolder::resolveTable(VirtualMachine* vm,	SelectScanPlanner* planner) 
 }
 
 void TablesHolder::buildScannerFactories(VirtualMachine* vm, SelectScanPlanner* planner) {
+	AbstractScannerFactory* factory = buildScanFactory(vm, planner);
+
+	AnalyzedScanPlan* plan = planner->getPlan();
+}
+
+AbstractScannerFactory* TablesHolder::buildScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) {
 	int maxLoop = this->list.size();
 	if(maxLoop == 1){
+		AbstractScanTableTarget* target = this->list.get(0);
 
-		return;
+		AbstractScannerFactory* factory = target->getScanFactory(vm, planner);
+		return factory;
 	}
 
 	// FIXME TablesHolder::buildScannerFactories
 
+
 }
-
-
 
 } /* namespace codablecash */

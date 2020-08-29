@@ -11,6 +11,8 @@
 
 #include "sql_expression/SQLColumnIdentifier.h"
 
+#include "vm/VirtualMachine.h"
+
 namespace codablecash {
 
 ScanColumn::ScanColumn(const SQLColumnIdentifier* sqlColumnId) {
@@ -44,7 +46,9 @@ const UnicodeString* ScanColumn::toStringCode() noexcept {
 	return this->str;
 }
 
-void codablecash::ScanColumn::resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) {
+void ScanColumn::resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) {
+	CodableDatabase* db = vm->getDb();
+
 	// FIXME resolveColumns
 }
 

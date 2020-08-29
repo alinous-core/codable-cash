@@ -19,6 +19,7 @@ namespace codablecash {
 
 class AbstractScanTableTarget;
 class SelectScanPlanner;
+class AbstractScannerFactory;
 
 class TablesHolder {
 public:
@@ -35,6 +36,10 @@ public:
 
 	void resolveTable(VirtualMachine* vm, SelectScanPlanner* planner);
 	void buildScannerFactories(VirtualMachine* vm, SelectScanPlanner* planner);
+
+private:
+	AbstractScannerFactory* buildScanFactory(VirtualMachine* vm, SelectScanPlanner* planner);
+
 private:
 	ArrayList<AbstractScanTableTarget> list;
 
