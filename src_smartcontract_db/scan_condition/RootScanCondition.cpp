@@ -26,4 +26,11 @@ const UnicodeString* RootScanCondition::toStringCode() noexcept {
 	return this->cond->toStringCode();
 }
 
+void RootScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	if(this->cond != nullptr){
+		this->cond->analyzeConditions(vm, planner);
+	}
+}
+
+
 } /* namespace codablecash */

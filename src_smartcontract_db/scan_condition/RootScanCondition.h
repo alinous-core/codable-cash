@@ -21,6 +21,9 @@ public:
 	virtual bool isContainer() const noexcept { return true; };
 
 	virtual const UnicodeString* toStringCode() noexcept;
+
+	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
+
 private:
 	AbstractScanCondition* cond;
 };
