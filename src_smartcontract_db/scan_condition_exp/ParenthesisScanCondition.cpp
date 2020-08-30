@@ -50,4 +50,9 @@ void ParenthesisScanCondition::resetStr() noexcept {
 	}
 }
 
+void ParenthesisScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->cond->analyzeConditions(vm, planner);
+}
+
+
 } /* namespace codablecash */
