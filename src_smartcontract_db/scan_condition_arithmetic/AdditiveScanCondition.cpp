@@ -64,6 +64,15 @@ const UnicodeString* AdditiveScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+void AdditiveScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* vp = this->list.get(i);
+
+		vp->analyzeConditions(vm, planner);
+	}
+}
+
 void AdditiveScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
