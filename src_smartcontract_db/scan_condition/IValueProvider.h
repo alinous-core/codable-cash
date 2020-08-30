@@ -8,12 +8,21 @@
 #ifndef SCAN_CONDITION_IVALUEPROVIDER_H_
 #define SCAN_CONDITION_IVALUEPROVIDER_H_
 
+namespace alinous {
+class VirtualMachine;
+}
+using namespace alinous;
+
 namespace codablecash {
+
+class SelectScanPlanner;
 
 class IValueProvider {
 public:
 	IValueProvider();
 	virtual ~IValueProvider();
+
+	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner){};
 };
 
 } /* namespace codablecash */

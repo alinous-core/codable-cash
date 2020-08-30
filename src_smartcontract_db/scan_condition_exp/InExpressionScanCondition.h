@@ -24,6 +24,9 @@ public:
 
 	void setLeft(IValueProvider* cond) noexcept;
 	void setList(ExpressionListScanCondition* list) noexcept;
+
+	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
+
 private:
 	void resetStr() noexcept;
 

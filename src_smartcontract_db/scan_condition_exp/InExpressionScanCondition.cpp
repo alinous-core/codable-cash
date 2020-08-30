@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include <scan_condition_exp/InExpressionScanCondition.h>
+#include "scan_condition_exp/InExpressionScanCondition.h"
 
 #include "sc/CodeElement.h"
 
@@ -62,5 +62,10 @@ void InExpressionScanCondition::resetStr() noexcept {
 		this->str = nullptr;
 	}
 }
+
+void InExpressionScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->left->analyzeConditions(vm, planner);
+}
+
 
 } /* namespace codablecash */
