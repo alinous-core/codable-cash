@@ -21,6 +21,8 @@ namespace codablecash {
 
 class CdbOid;
 class SchemaObjectIdPublisher;
+class ScanResultFieldMetadata;
+class CdbTable;
 
 class CdbTableColumn : public CdbBinaryObject {
 public:
@@ -51,6 +53,8 @@ public:
 	uint8_t getType() const noexcept {
 		return this->type;
 	}
+
+	ScanResultFieldMetadata* getFieldMetadata(const CdbTable* table) const noexcept;
 
 private:
 	CdbOid* oid;

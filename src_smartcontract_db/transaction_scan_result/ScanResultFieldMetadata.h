@@ -22,7 +22,7 @@ class ScanResultFieldMetadata {
 public:
 	ScanResultFieldMetadata(const ScanResultFieldMetadata& inst);
 
-	ScanResultFieldMetadata();
+	ScanResultFieldMetadata(const CdbTable* table, const CdbTableColumn* column);
 	virtual ~ScanResultFieldMetadata();
 
 	void setPosition(int pos) noexcept;

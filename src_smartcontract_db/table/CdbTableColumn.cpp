@@ -15,6 +15,7 @@
 
 #include "base_io/ByteBuffer.h"
 
+#include "transaction_scan_result/ScanResultFieldMetadata.h"
 
 namespace codablecash {
 
@@ -155,5 +156,12 @@ int CdbTableColumn::getPosition() const noexcept {
 void CdbTableColumn::setPosition(int position) noexcept {
 	this->position = position;
 }
+
+ScanResultFieldMetadata* CdbTableColumn::getFieldMetadata(const CdbTable* table) const noexcept {
+	ScanResultFieldMetadata* fld = new ScanResultFieldMetadata(table, this);
+
+	return fld;
+}
+
 
 } /* namespace codablecash */

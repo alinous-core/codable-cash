@@ -24,11 +24,11 @@ ScanResultFieldMetadata::ScanResultFieldMetadata(const ScanResultFieldMetadata& 
 	this->use = inst.use;
 }
 
-ScanResultFieldMetadata::ScanResultFieldMetadata() {
+ScanResultFieldMetadata::ScanResultFieldMetadata(const CdbTable* table, const CdbTableColumn* column) {
 	this->position = -1;
 
-	this->table = nullptr;
-	this->column = nullptr;
+	this->table = table;
+	this->column = column;
 	this->asName = nullptr;
 	this->use = true;
 }
