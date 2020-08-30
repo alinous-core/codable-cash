@@ -18,6 +18,8 @@ using namespace alinous;
 namespace codablecash {
 
 class CdbTableColumn;
+class ScanTargetNameResolver;
+class AbstractScanTableTarget;
 
 class ColumnIdentifierScanParam : public AbstractScanConditionParameter {
 public:
@@ -27,8 +29,13 @@ public:
 	virtual const UnicodeString* toStringCode() noexcept;
 
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
+
+private:
+	bool resolveAlias(const UnicodeString* tableAlias, ScanTargetNameResolver* aliasResolver);
 private:
 	const SQLColumnIdentifier* sqlColId;
+
+	AbstractScanTableTarget* target;
 	CdbTableColumn* cdbColumn;
 
 	UnicodeString* str;

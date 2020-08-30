@@ -60,6 +60,7 @@ public:
 	const UnicodeString* getName() const noexcept {
 		return this->name;
 	}
+	const UnicodeString* getTableFqn() noexcept;
 
 	const UnicodeString* getSchemaName() const noexcept {
 		return this->schemaName;
@@ -96,6 +97,7 @@ private:
 
 	Schema* parent;
 
+	UnicodeString* fqn;
 };
 
 } /* namespace codablecash */

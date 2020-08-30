@@ -61,6 +61,10 @@ void AbstractJoinScanTarget::addConditionString() noexcept {
 void AbstractJoinScanTarget::resolveTable(VirtualMachine* vm, SelectScanPlanner* planner) {
 	this->left->resolveTable(vm, planner);
 	this->right->resolveTable(vm, planner);
+
+	if(this->cond != nullptr){
+		this->cond->analyzeConditions(vm, planner);
+	}
 }
 
 
