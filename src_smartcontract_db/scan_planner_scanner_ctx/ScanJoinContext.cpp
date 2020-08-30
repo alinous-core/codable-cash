@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "transaction_scanner_join/ScanJoinContext.h"
+#include "scan_planner_scanner_ctx/ScanJoinContext.h"
 
 namespace codablecash {
 

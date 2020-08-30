@@ -9,7 +9,8 @@
 
 #include "transaction_scanner_join/IJoinLeftSource.h"
 #include "transaction_scanner_join/IJoinRightSource.h"
-#include "transaction_scanner_join/ScanJoinContext.h"
+
+#include "scan_planner_scanner_ctx/ScanJoinContext.h"
 
 #include "transaction_scan_result/ScanResultFieldMetadata.h"
 
