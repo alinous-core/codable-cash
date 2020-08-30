@@ -57,4 +57,14 @@ void ExpressionListScanCondition::resetStr() noexcept {
 	}
 }
 
+void ExpressionListScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* vp = this->list.get(i);
+
+		vp->analyzeConditions(vm, planner);
+	}
+}
+
+
 } /* namespace codablecash */

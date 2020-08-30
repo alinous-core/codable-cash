@@ -25,6 +25,8 @@ public:
 
 	void addElement(IValueProvider* val) noexcept;
 
+	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
+
 private:
 	void resetStr() noexcept;
 
