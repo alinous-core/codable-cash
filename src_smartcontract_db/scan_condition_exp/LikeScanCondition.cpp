@@ -77,4 +77,11 @@ void LikeScanCondition::resetStr() noexcept {
 	}
 }
 
+void LikeScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->left->analyzeConditions(vm, planner);
+	this->right->analyzeConditions(vm, planner);
+	this->escape->analyzeConditions(vm, planner);
+}
+
+
 } /* namespace codablecash */
