@@ -30,6 +30,12 @@ public:
 
 	void addField(const ScanResultFieldMetadata* fld) noexcept;
 
+	void join(const ScanResultMetadata* other) noexcept;
+
+	const ArrayList<ScanResultFieldMetadata>* getList() const noexcept {
+		return list;
+	}
+
 private:
 	ArrayList<ScanResultFieldMetadata> *list;
 };

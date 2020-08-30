@@ -11,6 +11,8 @@
 
 #include "scan_condition/AbstractScanCondition.h"
 
+#include "transaction_scan_result/ScanResultMetadata.h"
+
 namespace codablecash {
 
 AbstractJoinScanTarget::AbstractJoinScanTarget() {
@@ -65,6 +67,12 @@ void AbstractJoinScanTarget::resolveTable(VirtualMachine* vm, SelectScanPlanner*
 	if(this->cond != nullptr){
 		this->cond->analyzeConditions(vm, planner);
 	}
+
+	const ScanResultMetadata* lmetadata = this->left->getMetadata();
+	this->metadata = new ScanResultMetadata(*lmetadata);
+
+	lmetadata = this->right->getMetadata();
+	this->metadata->join(lmetadata);
 }
 
 

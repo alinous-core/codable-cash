@@ -42,5 +42,16 @@ void ScanResultMetadata::addField(const ScanResultFieldMetadata* fld) noexcept {
 	this->list->addElement(newFld);
 }
 
+void ScanResultMetadata::join(const ScanResultMetadata* other) noexcept {
+	const ArrayList<ScanResultFieldMetadata>* columns = other->getList();
+
+	int maxLoop = columns->size();
+	for(int i = 0; i != maxLoop; ++i){
+		ScanResultFieldMetadata* fld = columns->get(i);
+
+		addField(fld);
+	}
+}
+
 } /* namespace codablecash */
 
