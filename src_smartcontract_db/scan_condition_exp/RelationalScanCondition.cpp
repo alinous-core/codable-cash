@@ -83,4 +83,9 @@ void RelationalScanCondition::resetStr() noexcept {
 	}
 }
 
+void RelationalScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->left->analyzeConditions(vm, planner);
+	this->right->analyzeConditions(vm, planner);
+}
+
 } /* namespace codablecash */
