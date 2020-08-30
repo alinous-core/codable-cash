@@ -28,6 +28,8 @@ public:
 	void setName(UnicodeString* name) noexcept;
 	void addArgument(IValueProvider* arg) noexcept;
 
+	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
+
 private:
 	void resetStr() noexcept;
 

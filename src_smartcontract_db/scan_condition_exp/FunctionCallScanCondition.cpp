@@ -72,4 +72,14 @@ void FunctionCallScanCondition::resetStr() noexcept {
 	}
 }
 
+void FunctionCallScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	int maxLoop = this->arguments.size();
+
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* value = this->arguments.get(i);
+
+		value->analyzeConditions(vm, planner);
+	}
+}
+
 } /* namespace codablecash */
