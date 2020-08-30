@@ -29,7 +29,7 @@ public:
 	void addOperand(IValueProvider* vp) noexcept;
 	void addOperator(uint8_t op) noexcept;
 
-	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner){};
+	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
 
 private:
 	void resetStr() noexcept;
