@@ -77,5 +77,12 @@ void BetweenScanCondition::resetStr() noexcept {
 	}
 }
 
+void BetweenScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->left->analyzeConditions(vm, planner);
+	this->start->analyzeConditions(vm, planner);
+	this->end->analyzeConditions(vm, planner);
+
+}
+
 
 } /* namespace codablecash */
