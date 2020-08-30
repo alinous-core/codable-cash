@@ -65,4 +65,9 @@ void EqualityScanCondition::resetStr() noexcept {
 	}
 }
 
+void EqualityScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->left->analyzeConditions(vm, planner);
+	this->right->analyzeConditions(vm, planner);
+}
+
 } /* namespace codablecash */
