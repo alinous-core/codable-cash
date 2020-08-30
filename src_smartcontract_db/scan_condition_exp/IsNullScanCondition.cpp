@@ -62,4 +62,9 @@ void IsNullScanCondition::resetStr() noexcept {
 	}
 }
 
+void IsNullScanCondition::analyzeConditions(VirtualMachine* vm,	SelectScanPlanner* planner) {
+	this->cond->analyzeConditions(vm, planner);
+}
+
+
 } /* namespace codablecash */
