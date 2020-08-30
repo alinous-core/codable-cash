@@ -102,6 +102,8 @@ void TableScanTarget::resolveTable(VirtualMachine* vm, SelectScanPlanner* planne
 	if(this->alias != nullptr){
 		resolver->add(this->alias, this);
 	}
+
+	this->metadata = this->table->getMetadata();
 }
 
 AbstractScannerFactory* TableScanTarget::getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) {

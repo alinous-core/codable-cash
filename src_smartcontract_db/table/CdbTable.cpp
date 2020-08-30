@@ -24,6 +24,7 @@
 
 #include "schema/SchemaManager.h"
 
+#include "transaction_scan_result/ScanResultMetadata.h"
 using alinous::StackRelease;
 
 
@@ -411,5 +412,14 @@ void CdbTable::adjustIndexColumnPosition() noexcept {
 	}
 
 }
+
+ScanResultMetadata* CdbTable::getMetadata() const noexcept {
+	ScanResultMetadata* metadata = new ScanResultMetadata();
+
+	// FIXME metadata
+
+	return metadata;
+}
+
 
 } /* namespace codablecash */

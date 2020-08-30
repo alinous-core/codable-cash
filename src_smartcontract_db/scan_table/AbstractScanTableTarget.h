@@ -18,6 +18,7 @@ namespace codablecash {
 
 class SelectScanPlanner;
 class AbstractScannerFactory;
+class ScanResultMetadata;
 
 class AbstractScanTableTarget {
 public:
@@ -28,6 +29,13 @@ public:
 
 	virtual void resolveTable(VirtualMachine* vm, SelectScanPlanner* planner) = 0;
 	virtual AbstractScannerFactory* getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) = 0;
+
+	const ScanResultMetadata* getMetadata() const noexcept {
+		return metadata;
+	}
+
+protected:
+	ScanResultMetadata* metadata;
 };
 
 } /* namespace codablecash */
