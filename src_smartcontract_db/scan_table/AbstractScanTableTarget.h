@@ -8,6 +8,8 @@
 #ifndef SCAN_TABLE_ABSTRACTSCANTABLETARGET_H_
 #define SCAN_TABLE_ABSTRACTSCANTABLETARGET_H_
 
+#include "base/ArrayList.h"
+
 namespace alinous {
 class UnicodeString;
 class VirtualMachine;
@@ -28,7 +30,9 @@ public:
 	virtual const UnicodeString* toString() noexcept = 0;
 
 	virtual void resolveTable(VirtualMachine* vm, SelectScanPlanner* planner) = 0;
+	virtual void collectScanTargets(VirtualMachine* vm, SelectScanPlanner* planner, ArrayList<AbstractScanTableTarget>* list) = 0;
 	virtual AbstractScannerFactory* getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) = 0;
+
 
 	const ScanResultMetadata* getMetadata() const noexcept {
 		return metadata;

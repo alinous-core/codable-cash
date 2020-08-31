@@ -84,7 +84,7 @@ AbstractScannerFactory* TablesHolder::buildScanFactory(VirtualMachine* vm, Selec
 	}
 
 	// FIXME TablesHolder::buildScannerFactories
-
+	// SELECT * FROM table1, table2, table3
 
 }
 

@@ -37,6 +37,7 @@ const UnicodeString* LeftOuterJoinTarget::toString() noexcept {
 }
 
 AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) {
+
 	// FIXME getScanFactory
 	return nullptr;
 }
