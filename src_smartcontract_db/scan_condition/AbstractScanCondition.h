@@ -12,6 +12,8 @@
 
 namespace codablecash {
 
+class JoinCandidateHolder;
+
 class AbstractScanCondition : public AbstractScanConditionElement {
 public:
 	explicit AbstractScanCondition(short type);
@@ -21,7 +23,7 @@ public:
 
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner){};
 
-	virtual void collectJoinCandidate(VirtualMachine* vm, SelectScanPlanner* planner){};
+	virtual void collectJoinCandidate(VirtualMachine* vm, SelectScanPlanner* planner, int joinType, JoinCandidateHolder* jholder) {};
 
 private:
 	short type;

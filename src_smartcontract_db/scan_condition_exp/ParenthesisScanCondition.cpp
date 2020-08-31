@@ -43,6 +43,12 @@ const UnicodeString* ParenthesisScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+void ParenthesisScanCondition::collectJoinCandidate(VirtualMachine* vm,
+		SelectScanPlanner* planner, int joinType,
+		JoinCandidateHolder* jholder) {
+	this->cond->collectJoinCandidate(vm, planner, joinType, jholder);
+}
+
 void ParenthesisScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
