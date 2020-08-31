@@ -79,7 +79,7 @@ const UnicodeString* FunctionCallScanCondition::toStringCode() noexcept {
 }
 
 AbstractScanCondition* FunctionCallScanCondition::cloneCondition() const noexcept {
-	return dynamic_cast<FunctionCallScanCondition*>(clone);
+	return dynamic_cast<FunctionCallScanCondition*>(clone());
 }
 
 void FunctionCallScanCondition::resetStr() noexcept {

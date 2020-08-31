@@ -103,7 +103,7 @@ IValueProvider* MultiplicativeScanCondition::clone() const noexcept {
 }
 
 AbstractScanCondition* MultiplicativeScanCondition::cloneCondition() const noexcept {
-	return dynamic_cast<MultiplicativeScanCondition*>(clone);
+	return dynamic_cast<MultiplicativeScanCondition*>(clone());
 }
 
 } /* namespace codablecash */

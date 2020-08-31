@@ -76,6 +76,16 @@ const UnicodeString* RelationalScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+AbstractScanCondition* RelationalScanCondition::cloneCondition() const noexcept {
+	RelationalScanCondition* cond = new RelationalScanCondition();
+
+	cond->setLeft(this->left->clone());
+	cond->setRight(this->right->clone());
+	cond->setOp(this->op);
+
+	return cond;
+}
+
 void RelationalScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
