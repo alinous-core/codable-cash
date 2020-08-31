@@ -14,6 +14,11 @@ using namespace alinous;
 
 namespace codablecash {
 
+NumericScanParam::NumericScanParam(const NumericScanParam& inst) {
+	this->value = inst.value;
+	this->str = nullptr;
+}
+
 NumericScanParam::NumericScanParam(int64_t longv) {
 	this->value = longv;
 	this->str = nullptr;
@@ -30,6 +35,10 @@ const UnicodeString* NumericScanParam::toStringCode() noexcept {
 	}
 
 	return this->str;
+}
+
+AbstractScanConditionParameter* NumericScanParam::clone() const noexcept {
+	return new NumericScanParam(*this);
 }
 
 } /* namespace codablecash */
