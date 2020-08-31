@@ -31,6 +31,12 @@
 
 namespace codablecash {
 
+ColumnIdentifierScanParam::ColumnIdentifierScanParam(const ColumnIdentifierScanParam& inst) : sqlColId(inst.sqlColId) {
+	this->cdbColumn = inst.cdbColumn;
+	this->str = nullptr;
+	this->target = inst.target;
+}
+
 ColumnIdentifierScanParam::ColumnIdentifierScanParam(SQLColumnIdentifier* sqlColId) : sqlColId(sqlColId){
 	this->cdbColumn = nullptr;
 	this->str = nullptr;
@@ -92,6 +98,10 @@ void ColumnIdentifierScanParam::analyzeConditions(VirtualMachine* vm, SelectScan
 	this->cdbColumn = table->getColumn(colName);
 
 	this->target = aliasResolver->get(table->getTableFqn());
+}
+
+AbstractScanConditionParameter* ColumnIdentifierScanParam::clone() const noexcept {
+	return new ColumnIdentifierScanParam(*this);
 }
 
 bool ColumnIdentifierScanParam::resolveAlias(const UnicodeString* tableAlias, ScanTargetNameResolver* aliasResolver) {

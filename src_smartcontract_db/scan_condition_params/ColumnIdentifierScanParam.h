@@ -23,12 +23,15 @@ class AbstractScanTableTarget;
 
 class ColumnIdentifierScanParam : public AbstractScanConditionParameter {
 public:
+	ColumnIdentifierScanParam(const ColumnIdentifierScanParam& inst);
 	explicit ColumnIdentifierScanParam(SQLColumnIdentifier* sqlColId);
 	virtual ~ColumnIdentifierScanParam();
 
 	virtual const UnicodeString* toStringCode() noexcept;
 
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
+
+	virtual AbstractScanConditionParameter* clone() const noexcept;
 
 private:
 	bool resolveAlias(const UnicodeString* tableAlias, ScanTargetNameResolver* aliasResolver);
