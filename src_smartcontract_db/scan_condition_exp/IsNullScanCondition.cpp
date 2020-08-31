@@ -55,6 +55,15 @@ const UnicodeString* IsNullScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+AbstractScanCondition* IsNullScanCondition::cloneCondition() const noexcept {
+	IsNullScanCondition* cond = new IsNullScanCondition();
+
+	cond->setCondition(this->cond->clone());
+	cond->setIsNull(this->notnull);
+
+	return cond;
+}
+
 void IsNullScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
