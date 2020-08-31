@@ -10,6 +10,7 @@
 #include "base/UnicodeString.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolder.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -18,8 +19,9 @@
 #include "scan_planner_scanner_ctx/JoinCandidateHolder.h"
 
 #include "scan_condition/AbstractScanCondition.h"
-
 #include "scan_condition/RootScanCondition.h"
+
+
 namespace codablecash {
 
 LeftOuterJoinTarget::LeftOuterJoinTarget() {
