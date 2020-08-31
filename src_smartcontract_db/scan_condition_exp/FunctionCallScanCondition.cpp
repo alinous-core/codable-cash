@@ -78,6 +78,10 @@ const UnicodeString* FunctionCallScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+AbstractScanCondition* FunctionCallScanCondition::cloneCondition() const noexcept {
+	return dynamic_cast<FunctionCallScanCondition*>(clone);
+}
+
 void FunctionCallScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
