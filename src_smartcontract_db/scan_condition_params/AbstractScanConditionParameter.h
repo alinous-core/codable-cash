@@ -20,6 +20,7 @@ public:
 	virtual ~AbstractScanConditionParameter();
 
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner){}
+	virtual AbstractScanConditionParameter* clone() const noexcept = 0;
 };
 
 } /* namespace codablecash */
