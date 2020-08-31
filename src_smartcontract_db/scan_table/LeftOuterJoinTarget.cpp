@@ -8,6 +8,7 @@
 #include "scan_table/LeftOuterJoinTarget.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #include "scan_planner/SelectScanPlanner.h"
 #include "scan_planner/ConditionsHolder.h"
@@ -20,7 +21,6 @@
 
 #include "scan_condition/AbstractScanCondition.h"
 #include "scan_condition/RootScanCondition.h"
-
 
 namespace codablecash {
 
@@ -53,7 +53,7 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 	ConditionsHolder* holder = planner->getConditions();
 
 
-	ScanJoinContextHolder* contextHolder = new ScanJoinContextHolder();
+	ScanJoinContextHolder* contextHolder = new ScanJoinContextHolder(); __STP(contextHolder);
 
 	ArrayList<AbstractScanTableTarget> list;
 	this->collectScanTargets(vm, planner, &list);
