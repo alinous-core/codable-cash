@@ -12,6 +12,11 @@
 
 namespace codablecash {
 
+StringScanParam::StringScanParam(const StringScanParam& inst) {
+	this->value = new UnicodeString(inst.value);
+	this->str = nullptr;
+}
+
 StringScanParam::StringScanParam(const UnicodeString* str) {
 	this->value = new UnicodeString(str);
 	this->str = nullptr;
@@ -31,6 +36,10 @@ const UnicodeString* StringScanParam::toStringCode() noexcept {
 	}
 
 	return this->str;
+}
+
+AbstractScanConditionParameter* StringScanParam::clone() const noexcept {
+	return new StringScanParam(*this);
 }
 
 } /* namespace codablecash */

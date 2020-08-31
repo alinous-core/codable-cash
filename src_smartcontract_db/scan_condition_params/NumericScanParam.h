@@ -20,7 +20,6 @@ public:
 	virtual ~NumericScanParam();
 
 	virtual const UnicodeString* toStringCode() noexcept;
-
 	virtual AbstractScanConditionParameter* clone() const noexcept;
 
 private:
