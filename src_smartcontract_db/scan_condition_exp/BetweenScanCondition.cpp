@@ -70,6 +70,16 @@ const UnicodeString* BetweenScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+AbstractScanCondition* BetweenScanCondition::cloneCondition() const noexcept {
+	BetweenScanCondition* cond = new BetweenScanCondition();
+
+	cond->setLeft(this->left->clone());
+	cond->setStart(this->start->clone());
+	cond->setEnd(this->end->clone());
+
+	return cond;
+}
+
 void BetweenScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
