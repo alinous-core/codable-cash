@@ -50,6 +50,19 @@ const UnicodeString* OrScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+AbstractScanCondition* OrScanCondition::cloneCondition() const noexcept {
+	OrScanCondition* cond = new OrScanCondition();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cnd = this->list.get(i);
+
+		cond->addCondition(cnd->cloneCondition());
+	}
+
+	return cond;
+}
+
 void OrScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
