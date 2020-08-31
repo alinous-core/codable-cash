@@ -58,6 +58,15 @@ const UnicodeString* EqualityScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+AbstractScanCondition* EqualityScanCondition::cloneCondition() const noexcept {
+	EqualityScanCondition* cond = new EqualityScanCondition();
+
+	cond->setLeft(this->left->clone());
+	cond->setRight(this->right->clone());
+
+	return cond;
+}
+
 void EqualityScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
