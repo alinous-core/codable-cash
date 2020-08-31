@@ -56,6 +56,15 @@ const UnicodeString* InExpressionScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+AbstractScanCondition* InExpressionScanCondition::cloneCondition() const noexcept {
+	InExpressionScanCondition* cond = new InExpressionScanCondition();
+
+	cond->setLeft(this->left->clone());
+	cond->setList(dynamic_cast<ExpressionListScanCondition*>(this->list->cloneCondition()));
+
+	return cond;
+}
+
 void InExpressionScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;

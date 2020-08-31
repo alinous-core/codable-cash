@@ -26,6 +26,7 @@ public:
 	void setList(ExpressionListScanCondition* list) noexcept;
 
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
+	virtual AbstractScanCondition* cloneCondition() const noexcept;
 
 private:
 	void resetStr() noexcept;
