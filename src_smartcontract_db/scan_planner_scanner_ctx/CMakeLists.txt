@@ -1,6 +1,10 @@
 
 
 set(__src
+	AbstractJoinCandidate.cpp
+	JoinCandidate.cpp
+	JoinCandidateHolder.cpp
+	JoinMuntipleCandidate.cpp
 	ScanJoinContext.cpp
 	ScanJoinContextHolder.cpp
 )

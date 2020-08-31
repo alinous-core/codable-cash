@@ -9,6 +9,12 @@
 
 #include "base/UnicodeString.h"
 
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "scan_planner_scanner_ctx/ScanJoinContextHolder.h"
+
 namespace codablecash {
 
 LeftOuterJoinTarget::LeftOuterJoinTarget() {
@@ -37,6 +43,17 @@ const UnicodeString* LeftOuterJoinTarget::toString() noexcept {
 }
 
 AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) {
+	ConditionsHolder* holder = planner->getConditions();
+
+	ScanJoinContextHolder* contextHolder = new ScanJoinContextHolder();
+
+	ArrayList<AbstractScanTableTarget> list;
+	this->collectScanTargets(vm, planner, &list);
+
+
+	if(this->cond != nullptr){
+
+	}
 
 	// FIXME getScanFactory
 	return nullptr;

@@ -20,6 +20,9 @@ public:
 	virtual bool isContainer() const noexcept;
 
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner){};
+
+	virtual void collectJoinCandidate(VirtualMachine* vm, SelectScanPlanner* planner){};
+
 private:
 	short type;
 };

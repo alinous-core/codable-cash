@@ -23,6 +23,8 @@ public:
 
 private:
 	ArrayList<ScanJoinContext> list;
+
+
 };
 
 } /* namespace codablecash */
