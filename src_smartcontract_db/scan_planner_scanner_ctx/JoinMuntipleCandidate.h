@@ -14,7 +14,7 @@ namespace codablecash {
 
 class JoinMuntipleCandidate : public AbstractJoinCandidate {
 public:
-	JoinMuntipleCandidate();
+	explicit JoinMuntipleCandidate(int joinType);
 	virtual ~JoinMuntipleCandidate();
 };
 

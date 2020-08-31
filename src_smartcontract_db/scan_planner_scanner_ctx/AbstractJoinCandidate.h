@@ -12,8 +12,14 @@ namespace codablecash {
 
 class AbstractJoinCandidate {
 public:
-	AbstractJoinCandidate();
+	static const constexpr int LEFT_OUTER{1};
+	static const constexpr int INNER{2};
+
+	explicit AbstractJoinCandidate(int joinType);
 	virtual ~AbstractJoinCandidate();
+
+protected:
+	int joinType;
 };
 
 } /* namespace codablecash */

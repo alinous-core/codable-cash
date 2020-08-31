@@ -5,17 +5,15 @@
  *      Author: iizuka
  */
 
-#include <scan_planner_scanner_ctx/JoinMuntipleCandidate.h>
+#include "scan_planner_scanner_ctx/JoinMuntipleCandidate.h"
 
 namespace codablecash {
 
-JoinMuntipleCandidate::JoinMuntipleCandidate() {
-	// TODO Auto-generated constructor stub
-
+JoinMuntipleCandidate::JoinMuntipleCandidate(int joinType) : AbstractJoinCandidate(joinType) {
 }
 
 JoinMuntipleCandidate::~JoinMuntipleCandidate() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */

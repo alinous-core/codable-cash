@@ -9,13 +9,12 @@
 
 namespace codablecash {
 
-JoinCandidate::JoinCandidate() {
-	// TODO Auto-generated constructor stub
+JoinCandidate::JoinCandidate(int joinType) : AbstractJoinCandidate(joinType) {
 
 }
 
 JoinCandidate::~JoinCandidate() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */

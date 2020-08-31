@@ -5,17 +5,16 @@
  *      Author: iizuka
  */
 
-#include <scan_planner_scanner_ctx/AbstractJoinCandidate.h>
+#include "scan_planner_scanner_ctx/AbstractJoinCandidate.h"
 
 namespace codablecash {
 
-AbstractJoinCandidate::AbstractJoinCandidate() {
-	// TODO Auto-generated constructor stub
-
+AbstractJoinCandidate::AbstractJoinCandidate(int joinType) {
+	this->joinType = joinType;
 }
 
 AbstractJoinCandidate::~AbstractJoinCandidate() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */
