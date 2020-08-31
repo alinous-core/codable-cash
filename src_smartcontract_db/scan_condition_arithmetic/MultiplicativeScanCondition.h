@@ -30,6 +30,7 @@ public:
 	void addOperator(uint8_t op) noexcept;
 
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
+	virtual IValueProvider* clone() const noexcept;
 
 private:
 	void resetStr() noexcept;

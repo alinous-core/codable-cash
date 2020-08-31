@@ -82,5 +82,24 @@ void MultiplicativeScanCondition::analyzeConditions(VirtualMachine* vm, SelectSc
 	}
 }
 
+IValueProvider* MultiplicativeScanCondition::clone() const noexcept {
+	MultiplicativeScanCondition* cond = new MultiplicativeScanCondition();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* vp = this->list.get(i);
+
+		cond->addOperand(vp);
+	}
+
+	maxLoop = this->operations.size();
+	for(int i = 0; i != maxLoop; ++i){
+		uint8_t op = this->operations.get(i);
+
+		cond->addOperator(op);
+	}
+
+	return cond;
+}
 
 } /* namespace codablecash */
