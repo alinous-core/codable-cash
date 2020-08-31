@@ -32,5 +32,12 @@ void RootScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner*
 	}
 }
 
+AbstractScanCondition* RootScanCondition::cloneCondition() const noexcept {
+	RootScanCondition* cond = new RootScanCondition();
+
+	cond->addCondition(this->cond->cloneCondition());
+
+	return cond;
+}
 
 } /* namespace codablecash */
