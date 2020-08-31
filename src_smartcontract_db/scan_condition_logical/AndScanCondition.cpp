@@ -50,6 +50,19 @@ const UnicodeString* AndScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+AbstractScanCondition* AndScanCondition::cloneCondition() const noexcept {
+	AndScanCondition* cond = new AndScanCondition();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cnd = this->list.get(i);
+
+		cond->addCondition(cnd->cloneCondition());
+	}
+
+	return cond;
+}
+
 void AndScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
