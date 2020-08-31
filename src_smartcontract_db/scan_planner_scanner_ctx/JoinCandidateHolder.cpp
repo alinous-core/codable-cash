@@ -6,16 +6,16 @@
  */
 
 #include "scan_planner_scanner_ctx/JoinCandidateHolder.h"
+#include "scan_planner_scanner_ctx/AbstractJoinCandidate.h"
 
 namespace codablecash {
 
 JoinCandidateHolder::JoinCandidateHolder() {
-	// TODO Auto-generated constructor stub
 
 }
 
 JoinCandidateHolder::~JoinCandidateHolder() {
-	// TODO Auto-generated destructor stub
+	this->stack.deleteElements();
 }
 
 } /* namespace codablecash */

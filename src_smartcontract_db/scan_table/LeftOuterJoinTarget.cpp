@@ -14,6 +14,10 @@
 #include "vm/VirtualMachine.h"
 
 #include "scan_planner_scanner_ctx/ScanJoinContextHolder.h"
+#include "scan_planner_scanner_ctx/AbstractJoinCandidate.h"
+#include "scan_planner_scanner_ctx/JoinCandidateHolder.h"
+
+#include "scan_condition/AbstractScanCondition.h"
 
 namespace codablecash {
 
@@ -51,8 +55,9 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 	this->collectScanTargets(vm, planner, &list);
 
 
+	JoinCandidateHolder joinCandidates;
 	if(this->cond != nullptr){
-
+		this->cond->collectJoinCandidate(vm, planner, AbstractJoinCandidate::LEFT_OUTER, &joinCandidates);
 	}
 
 	// FIXME getScanFactory

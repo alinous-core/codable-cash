@@ -8,7 +8,13 @@
 #ifndef SCAN_PLANNER_SCANNER_CTX_JOINCANDIDATEHOLDER_H_
 #define SCAN_PLANNER_SCANNER_CTX_JOINCANDIDATEHOLDER_H_
 
+#include "base/ArrayList.h"
+
+using alinous::ArrayList;
+
 namespace codablecash {
+
+class AbstractJoinCandidate;
 
 class JoinCandidateHolder {
 public:
@@ -16,6 +22,7 @@ public:
 	virtual ~JoinCandidateHolder();
 
 private:
+	ArrayList<AbstractJoinCandidate> stack;
 
 };
 

@@ -69,6 +69,13 @@ void AndScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* 
 void AndScanCondition::collectJoinCandidate(VirtualMachine* vm,
 		SelectScanPlanner* planner, int joinType,
 		JoinCandidateHolder* jholder) {
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cond = this->list.get(i);
+
+
+	}
 	// FIXME collectJoinCandidate
 }
 
