@@ -19,10 +19,12 @@ namespace codablecash {
 
 class PlaceHolderScanCondition : public AbstractScanConditionParameter {
 public:
+	PlaceHolderScanCondition(const PlaceHolderScanCondition& inst);
 	explicit PlaceHolderScanCondition(AbstractExpression* exp);
 	virtual ~PlaceHolderScanCondition();
 
 	virtual const UnicodeString* toStringCode() noexcept;
+	virtual AbstractScanConditionParameter* clone() const noexcept;
 
 private:
 	void resetStr() noexcept;
