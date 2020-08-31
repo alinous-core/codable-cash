@@ -58,6 +58,7 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 	JoinCandidateHolder joinCandidates;
 	if(this->cond != nullptr){
 		this->cond->collectJoinCandidate(vm, planner, AbstractJoinCandidate::LEFT_OUTER, &joinCandidates);
+
 	}
 
 	// FIXME getScanFactory

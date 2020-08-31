@@ -21,9 +21,12 @@ public:
 	JoinCandidateHolder();
 	virtual ~JoinCandidateHolder();
 
+	bool isEmpty() const noexcept;
+	void push(AbstractJoinCandidate* candidate) noexcept;
+	AbstractJoinCandidate* pop() noexcept;
+
 private:
 	ArrayList<AbstractJoinCandidate> stack;
-
 };
 
 } /* namespace codablecash */

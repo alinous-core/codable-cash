@@ -18,4 +18,17 @@ JoinCandidateHolder::~JoinCandidateHolder() {
 	this->stack.deleteElements();
 }
 
+bool JoinCandidateHolder::isEmpty() const noexcept {
+	return this->stack.isEmpty();
+}
+
+void JoinCandidateHolder::push(AbstractJoinCandidate* candidate) noexcept {
+	this->stack.addElement(candidate);
+}
+
+AbstractJoinCandidate* JoinCandidateHolder::pop() noexcept {
+	int index = this->stack.size() - 1;
+	return this->stack.remove(index);
+}
+
 } /* namespace codablecash */
