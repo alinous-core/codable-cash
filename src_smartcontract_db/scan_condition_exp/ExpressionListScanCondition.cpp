@@ -50,6 +50,19 @@ const UnicodeString* ExpressionListScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+AbstractScanCondition* ExpressionListScanCondition::cloneCondition() const noexcept {
+	ExpressionListScanCondition* cond = new ExpressionListScanCondition();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* vp = this->list.get(i);
+
+		cond->addElement(vp->clone());
+	}
+
+	return cond;
+}
+
 void ExpressionListScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
