@@ -31,6 +31,8 @@ public:
 
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
 	virtual IValueProvider* clone() const noexcept;
+	virtual AbstractScanCondition* cloneCondition() const noexcept;
+
 private:
 	void resetStr() noexcept;
 

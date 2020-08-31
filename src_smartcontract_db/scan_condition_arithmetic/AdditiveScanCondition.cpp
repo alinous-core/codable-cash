@@ -73,6 +73,10 @@ void AdditiveScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlan
 	}
 }
 
+AbstractScanCondition* AdditiveScanCondition::cloneCondition() const noexcept {
+	return dynamic_cast<AdditiveScanCondition*>(clone);
+}
+
 void AdditiveScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;

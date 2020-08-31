@@ -24,6 +24,7 @@ public:
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner){};
 
 	virtual void collectJoinCandidate(VirtualMachine* vm, SelectScanPlanner* planner, int joinType, JoinCandidateHolder* jholder) {};
+	virtual AbstractScanCondition* cloneCondition() const noexcept = 0;
 
 private:
 	short type;
