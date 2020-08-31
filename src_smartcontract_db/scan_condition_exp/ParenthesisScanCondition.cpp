@@ -49,6 +49,14 @@ void ParenthesisScanCondition::collectJoinCandidate(VirtualMachine* vm,
 	this->cond->collectJoinCandidate(vm, planner, joinType, jholder);
 }
 
+AbstractScanCondition* ParenthesisScanCondition::cloneCondition() const noexcept {
+	ParenthesisScanCondition* cond = new ParenthesisScanCondition();
+
+	cond->addCondition(this->cond->cloneCondition());
+
+	return cond;
+}
+
 void ParenthesisScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
