@@ -69,6 +69,10 @@ TEST(TestSelectConditionGroup02, IsNull01){
 
 		UnicodeString sql(L"id IS NULL");
 		CHECK(sql.equals(str));
+
+		AbstractScanCondition* copy = root->cloneCondition();
+		str = copy->toStringCode();
+		CHECK(sql.equals(str));
 	}
 }
 
@@ -214,6 +218,10 @@ TEST(TestSelectConditionGroup02, Like01){
 
 		UnicodeString sql(L"id LIKE '%test%' ESCAPE '%'");
 		CHECK(sql.equals(str));
+
+		AbstractScanCondition* copy = root->cloneCondition();
+		str = copy->toStringCode();
+		CHECK(sql.equals(str));
 	}
 }
 
@@ -248,6 +256,10 @@ TEST(TestSelectConditionGroup02, FuncCall01){
 		const UnicodeString* str = root->toStringCode();
 
 		UnicodeString sql(L"id = func01(1, 2, 3)");
+		CHECK(sql.equals(str));
+
+		AbstractScanCondition* copy = root->cloneCondition();
+		str = copy->toStringCode();
 		CHECK(sql.equals(str));
 	}
 }
@@ -284,6 +296,10 @@ TEST(TestSelectConditionGroup02, FuncCall02){
 
 		UnicodeString sql(L"id = func01(*)");
 		CHECK(sql.equals(str));
+
+		AbstractScanCondition* copy = root->cloneCondition();
+		str = copy->toStringCode();
+		CHECK(sql.equals(str));
 	}
 }
 
@@ -318,6 +334,10 @@ TEST(TestSelectConditionGroup02, InExp01){
 		const UnicodeString* str = root->toStringCode();
 
 		UnicodeString sql(L"id IN (1, 2, 3)");
+		CHECK(sql.equals(str));
+
+		AbstractScanCondition* copy = root->cloneCondition();
+		str = copy->toStringCode();
 		CHECK(sql.equals(str));
 	}
 }
