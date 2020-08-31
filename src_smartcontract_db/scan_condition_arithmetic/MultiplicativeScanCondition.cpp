@@ -89,7 +89,7 @@ IValueProvider* MultiplicativeScanCondition::clone() const noexcept {
 	for(int i = 0; i != maxLoop; ++i){
 		IValueProvider* vp = this->list.get(i);
 
-		cond->addOperand(vp);
+		cond->addOperand(vp->clone());
 	}
 
 	maxLoop = this->operations.size();
