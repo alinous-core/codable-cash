@@ -25,7 +25,7 @@ const UnicodeString* WildCardScanParam::toStringCode() noexcept {
 	return &WILDCARD;
 }
 
-AbstractScanConditionParameter* WildCardScanParam::clone() const noexcept {
+IValueProvider* WildCardScanParam::clone() const noexcept {
 	return new WildCardScanParam();
 }
 

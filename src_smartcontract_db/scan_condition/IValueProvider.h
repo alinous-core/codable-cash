@@ -23,6 +23,7 @@ public:
 	virtual ~IValueProvider();
 
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner){};
+	virtual IValueProvider* clone() const noexcept = 0;
 };
 
 } /* namespace codablecash */

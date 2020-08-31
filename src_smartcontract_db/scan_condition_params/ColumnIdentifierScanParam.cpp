@@ -100,7 +100,7 @@ void ColumnIdentifierScanParam::analyzeConditions(VirtualMachine* vm, SelectScan
 	this->target = aliasResolver->get(table->getTableFqn());
 }
 
-AbstractScanConditionParameter* ColumnIdentifierScanParam::clone() const noexcept {
+IValueProvider* ColumnIdentifierScanParam::clone() const noexcept {
 	return new ColumnIdentifierScanParam(*this);
 }
 

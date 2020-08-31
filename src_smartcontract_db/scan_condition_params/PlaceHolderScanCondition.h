@@ -24,7 +24,7 @@ public:
 	virtual ~PlaceHolderScanCondition();
 
 	virtual const UnicodeString* toStringCode() noexcept;
-	virtual AbstractScanConditionParameter* clone() const noexcept;
+	virtual IValueProvider* clone() const noexcept;
 
 private:
 	void resetStr() noexcept;

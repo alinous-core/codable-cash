@@ -27,7 +27,7 @@ public:
 	virtual ~BooleanScanParam();
 
 	virtual const UnicodeString* toStringCode() noexcept;
-	virtual AbstractScanConditionParameter* clone() const noexcept;
+	virtual IValueProvider* clone() const noexcept;
 
 private:
 	bool value;

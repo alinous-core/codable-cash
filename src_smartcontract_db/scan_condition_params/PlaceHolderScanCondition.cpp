@@ -42,7 +42,7 @@ void PlaceHolderScanCondition::resetStr() noexcept {
 	}
 }
 
-AbstractScanConditionParameter* PlaceHolderScanCondition::clone() const noexcept {
+IValueProvider* PlaceHolderScanCondition::clone() const noexcept {
 	return new PlaceHolderScanCondition(*this);
 }
 

@@ -37,7 +37,7 @@ const UnicodeString* NumericScanParam::toStringCode() noexcept {
 	return this->str;
 }
 
-AbstractScanConditionParameter* NumericScanParam::clone() const noexcept {
+IValueProvider* NumericScanParam::clone() const noexcept {
 	return new NumericScanParam(*this);
 }
 

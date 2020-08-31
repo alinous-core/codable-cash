@@ -38,7 +38,7 @@ const UnicodeString* StringScanParam::toStringCode() noexcept {
 	return this->str;
 }
 
-AbstractScanConditionParameter* StringScanParam::clone() const noexcept {
+IValueProvider* StringScanParam::clone() const noexcept {
 	return new StringScanParam(*this);
 }
 

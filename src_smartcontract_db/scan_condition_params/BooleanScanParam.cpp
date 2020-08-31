@@ -31,7 +31,7 @@ const UnicodeString* BooleanScanParam::toStringCode() noexcept {
 	return this->value ? &TRUE: &FALSE;
 }
 
-AbstractScanConditionParameter* BooleanScanParam::clone() const noexcept {
+IValueProvider* BooleanScanParam::clone() const noexcept {
 	return new BooleanScanParam(*this);
 }
 
