@@ -66,5 +66,11 @@ void AndScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* 
 	}
 }
 
+void AndScanCondition::collectJoinCandidate(VirtualMachine* vm,
+		SelectScanPlanner* planner, int joinType,
+		JoinCandidateHolder* jholder) {
+	// FIXME collectJoinCandidate
+}
+
 
 } /* namespace codablecash */

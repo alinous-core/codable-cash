@@ -66,5 +66,10 @@ void OrScanCondition::analyzeConditions(VirtualMachine* vm,	SelectScanPlanner* p
 	}
 }
 
+void OrScanCondition::collectJoinCandidate(VirtualMachine* vm,
+		SelectScanPlanner* planner, int joinType,
+		JoinCandidateHolder* jholder) {
+
+}
 
 } /* namespace codablecash */

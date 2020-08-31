@@ -26,6 +26,7 @@ public:
 	virtual const UnicodeString* toStringCode() noexcept;
 
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
+	virtual void collectJoinCandidate(VirtualMachine* vm, SelectScanPlanner* planner, int joinType, JoinCandidateHolder* jholder);
 
 private:
 	void resetStr() noexcept;
