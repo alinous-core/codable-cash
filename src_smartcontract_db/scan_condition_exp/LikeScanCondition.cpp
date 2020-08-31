@@ -70,6 +70,19 @@ const UnicodeString* LikeScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+AbstractScanCondition* LikeScanCondition::cloneCondition() const noexcept {
+	LikeScanCondition* cond = new LikeScanCondition();
+
+	cond->setLeft(this->left->clone());
+	cond->setRight(this->right->clone());
+
+	if(this->escape != nullptr){
+		cond->setEscape(this->escape->clone());
+	}
+
+	return cond;
+}
+
 void LikeScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
