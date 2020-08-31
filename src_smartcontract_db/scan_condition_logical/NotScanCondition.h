@@ -21,6 +21,7 @@ public:
 	virtual void addCondition(AbstractScanCondition* cond);
 
 	virtual const UnicodeString* toStringCode() noexcept;
+	virtual AbstractScanCondition* cloneCondition() const noexcept;
 
 private:
 	void resetStr() noexcept;

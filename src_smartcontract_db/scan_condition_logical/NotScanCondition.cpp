@@ -36,6 +36,14 @@ void NotScanCondition::addCondition(AbstractScanCondition* cond) {
 	resetStr();
 }
 
+AbstractScanCondition* NotScanCondition::cloneCondition() const noexcept {
+	NotScanCondition* cond = new NotScanCondition();
+
+	cond->addCondition(this->cond->cloneCondition());
+
+	return cond;
+}
+
 const UnicodeString* NotScanCondition::toStringCode() noexcept {
 	if(this->str == nullptr){
 		resetStr();
