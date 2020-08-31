@@ -15,6 +15,19 @@
 
 namespace codablecash {
 
+FunctionCallScanCondition::FunctionCallScanCondition(const FunctionCallScanCondition& inst) : AbstractScanCondition(CodeElement::SQL_EXP_FUNCTION_CALL) {
+	this->name = new UnicodeString(inst.name);
+
+	int maxLoop = inst.arguments.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* value = inst.arguments.get(i);
+
+		this->arguments.addElement(value->clone());
+	}
+
+	this->str = nullptr;
+}
+
 FunctionCallScanCondition::FunctionCallScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_FUNCTION_CALL) {
 	this->name = nullptr;
 
@@ -80,6 +93,10 @@ void FunctionCallScanCondition::analyzeConditions(VirtualMachine* vm, SelectScan
 
 		value->analyzeConditions(vm, planner);
 	}
+}
+
+IValueProvider* FunctionCallScanCondition::clone() const noexcept {
+	return new FunctionCallScanCondition(*this);
 }
 
 } /* namespace codablecash */
