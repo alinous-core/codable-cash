@@ -106,6 +106,10 @@ void TableScanTarget::resolveTable(VirtualMachine* vm, SelectScanPlanner* planne
 	this->metadata = this->table->getMetadata();
 }
 
+void TableScanTarget::collectScanTargets(VirtualMachine* vm, SelectScanPlanner* planner, ArrayList<AbstractScanTableTarget>* list) {
+	list->addElement(this);
+}
+
 AbstractScannerFactory* TableScanTarget::getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) {
 
 

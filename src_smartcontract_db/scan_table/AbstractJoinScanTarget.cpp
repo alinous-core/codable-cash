@@ -75,5 +75,13 @@ void AbstractJoinScanTarget::resolveTable(VirtualMachine* vm, SelectScanPlanner*
 	this->metadata->join(lmetadata);
 }
 
+void AbstractJoinScanTarget::collectScanTargets(VirtualMachine* vm, SelectScanPlanner* planner, ArrayList<AbstractScanTableTarget>* list) {
+	list->addElement(this);
+
+	this->left->collectScanTargets(vm, planner, list);
+	this->right->collectScanTargets(vm, planner, list);
+}
+
+
 
 } /* namespace codablecash */

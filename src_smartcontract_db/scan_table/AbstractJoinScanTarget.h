@@ -29,6 +29,7 @@ public:
 
 	void setCondition(AbstractScanCondition* cond) noexcept;
 
+	virtual void collectScanTargets(VirtualMachine* vm, SelectScanPlanner* planner, ArrayList<AbstractScanTableTarget>* list);
 	virtual void resolveTable(VirtualMachine* vm, SelectScanPlanner* planner);
 
 protected:
