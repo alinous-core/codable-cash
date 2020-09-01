@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_planner_scanner_ctx/ScanJoinContextHolder.h"
+#include "scan_planner_scanner_ctx_join/ScanJoinContextHolder.h"
 
 #include "scan_planner_scanner_ctx/ScanJoinContext.h"
 

@@ -15,7 +15,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_planner_scanner_ctx/ScanJoinContextHolder.h"
+#include "scan_planner_scanner_ctx_join/ScanJoinContextHolder.h"
 #include "scan_planner_scanner_ctx/AbstractJoinCandidate.h"
 #include "scan_planner_scanner_ctx/JoinCandidateHolder.h"
 
