@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "scan_planner_scanner_ctx/JoinCandidateHolder.h"
-#include "scan_planner_scanner_ctx/AbstractJoinCandidate.h"
+#include "scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
+#include "scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
 
 namespace codablecash {
 

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_planner_scanner_ctx/JoinMuntipleCandidate.h"
+#include "scan_planner_scanner_ctx_join/JoinMuntipleCandidate.h"
 
 namespace codablecash {
 
