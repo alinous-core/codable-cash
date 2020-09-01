@@ -2,6 +2,7 @@
 
 set(__src
 	AbstractJoinCandidate.cpp
+	JoinBranchCandidate.cpp
 	JoinCandidate.cpp
 	JoinCandidateHolder.cpp
 	JoinMuntipleCandidate.cpp
