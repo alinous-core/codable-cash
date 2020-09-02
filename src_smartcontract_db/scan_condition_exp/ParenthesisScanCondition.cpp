@@ -57,6 +57,16 @@ AbstractScanCondition* ParenthesisScanCondition::cloneCondition() const noexcept
 	return cond;
 }
 
+void ParenthesisScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	this->cond->detectFilterConditions(vm, planner, detector);
+
+	if(!detector->isEmpty()){
+		delete detector->pop();
+		detector->push(cloneCondition());
+	}
+}
+
 void ParenthesisScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
