@@ -75,6 +75,14 @@ AbstractScanCondition* EqualityScanCondition::cloneCondition() const noexcept {
 	return cond;
 }
 
+void EqualityScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	if(this->left->isFilterable(vm, planner, detector) &&
+			this->right->isFilterable(vm, planner, detector)){
+		detector->push(cloneCondition());
+	}
+}
+
 void EqualityScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
