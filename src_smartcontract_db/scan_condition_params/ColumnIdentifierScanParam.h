@@ -32,6 +32,7 @@ public:
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
 
 	virtual IValueProvider* clone() const noexcept;
+	virtual bool isColumn() const noexcept;
 
 private:
 	bool resolveAlias(const UnicodeString* tableAlias, ScanTargetNameResolver* aliasResolver);

@@ -17,4 +17,9 @@ IValueProvider::~IValueProvider() {
 
 }
 
+bool IValueProvider::isColumn() const noexcept {
+	return false;
+}
+
+
 } /* namespace codablecash */
