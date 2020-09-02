@@ -97,7 +97,7 @@ bool AdditiveScanCondition::isFilterable(VirtualMachine* vm,
 void AdditiveScanCondition::detectFilterConditions(VirtualMachine* vm,
 		SelectScanPlanner* planner, FilterConditionDitector* detector) {
 	if(isFilterable(vm, planner, detector)){
-
+		detector->push(this->cloneCondition());
 	}
 }
 
