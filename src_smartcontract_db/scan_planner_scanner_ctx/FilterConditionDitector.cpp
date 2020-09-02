@@ -22,6 +22,8 @@ FilterConditionDitector::FilterConditionDitector(VirtualMachine* vm, SelectScanP
 }
 
 FilterConditionDitector::~FilterConditionDitector() {
+	this->stack.deleteElements();
+
 	this->vm = nullptr;
 	this->planner = nullptr;
 }
@@ -49,6 +51,19 @@ bool FilterConditionDitector::hasTarget(AbstractScanTableTarget* target) const n
 	}
 
 	return result;
+}
+
+bool FilterConditionDitector::isEmpty() const noexcept {
+	return this->stack.isEmpty();
+}
+
+void FilterConditionDitector::push(AbstractScanCondition* cond) noexcept {
+	this->stack.addElement(cond);
+}
+
+AbstractScanCondition* FilterConditionDitector::pop() noexcept {
+	int index = this->stack.size() - 1;
+	return this->stack.remove(index);
 }
 
 } /* namespace codablecash */

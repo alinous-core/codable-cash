@@ -19,6 +19,7 @@ namespace codablecash {
 
 class SelectScanPlanner;
 class AbstractScanTableTarget;
+class AbstractScanCondition;
 
 class FilterConditionDitector {
 public:
@@ -27,7 +28,14 @@ public:
 
 	void detect(AbstractScanTableTarget* target);
 	bool hasTarget(AbstractScanTableTarget* target) const noexcept;
+
+	bool isEmpty() const noexcept;
+	void push(AbstractScanCondition* cond) noexcept;
+	AbstractScanCondition* pop() noexcept;
+
 private:
+	ArrayList<AbstractScanCondition> stack;
+
 	VirtualMachine* vm;
 	SelectScanPlanner* planner;
 	ArrayList<AbstractScanTableTarget> list;

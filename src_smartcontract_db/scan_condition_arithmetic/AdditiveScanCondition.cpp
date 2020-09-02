@@ -94,6 +94,13 @@ bool AdditiveScanCondition::isFilterable(VirtualMachine* vm,
 	return result;
 }
 
+void AdditiveScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	if(isFilterable(vm, planner, detector)){
+
+	}
+}
+
 void AdditiveScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
