@@ -28,6 +28,7 @@
 
 #include "scan_table/AbstractScanTableTarget.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
 
 namespace codablecash {
 
