@@ -14,13 +14,13 @@
 namespace codablecash {
 
 JoinCandidate::JoinCandidate(int joinType, ColumnIdentifierScanParam* left, ColumnIdentifierScanParam* right) : AbstractJoinCandidate(joinType) {
-	this->left = left;
-	this->right = right;
+	this->left = dynamic_cast<ColumnIdentifierScanParam*>(left->clone());
+	this->right = dynamic_cast<ColumnIdentifierScanParam*>(right->clone());
 }
 
 JoinCandidate::~JoinCandidate() {
-	this->left = nullptr;
-	this->right = nullptr;
+	delete this->left;
+	delete this->right;
 }
 
 const AbstractScanTableTarget* JoinCandidate::getLeftTarget() const noexcept {
