@@ -26,6 +26,7 @@ public:
 	virtual ~FilterConditionDitector();
 
 	void detect(AbstractScanTableTarget* target);
+	bool hasTarget(AbstractScanTableTarget* target) const noexcept;
 private:
 	VirtualMachine* vm;
 	SelectScanPlanner* planner;

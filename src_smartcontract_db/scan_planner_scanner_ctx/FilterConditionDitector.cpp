@@ -35,4 +35,20 @@ void FilterConditionDitector::detect(AbstractScanTableTarget* target) {
 
 }
 
+bool FilterConditionDitector::hasTarget(AbstractScanTableTarget* target) const noexcept {
+	bool result = false;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanTableTarget* t = this->list.get(i);
+
+		if(t == target){
+			result = true;
+			break;
+		}
+	}
+
+	return result;
+}
+
 } /* namespace codablecash */

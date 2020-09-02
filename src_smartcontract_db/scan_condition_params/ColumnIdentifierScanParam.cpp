@@ -108,6 +108,11 @@ bool ColumnIdentifierScanParam::isColumn() const noexcept {
 	return true;
 }
 
+bool ColumnIdentifierScanParam::isFilterable(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept {
+
+}
+
 bool ColumnIdentifierScanParam::resolveAlias(const UnicodeString* tableAlias, ScanTargetNameResolver* aliasResolver) {
 	this->target = aliasResolver->get(tableAlias);
 	if(this->target != nullptr){

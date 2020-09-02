@@ -30,6 +30,7 @@ public:
 	virtual const UnicodeString* toStringCode() noexcept;
 
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
+	virtual bool isFilterable(VirtualMachine* vm, SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept;
 
 	virtual IValueProvider* clone() const noexcept;
 	virtual bool isColumn() const noexcept;
