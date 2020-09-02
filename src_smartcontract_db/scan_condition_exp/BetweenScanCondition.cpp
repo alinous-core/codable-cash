@@ -13,6 +13,8 @@
 
 #include "base/UnicodeString.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+
 using namespace alinous;
 
 namespace codablecash {

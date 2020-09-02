@@ -63,6 +63,11 @@ AbstractScanCondition* OrScanCondition::cloneCondition() const noexcept {
 	return cond;
 }
 
+void OrScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+
+}
+
 void OrScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
@@ -82,7 +87,7 @@ void OrScanCondition::analyzeConditions(VirtualMachine* vm,	SelectScanPlanner* p
 void OrScanCondition::collectJoinCandidate(VirtualMachine* vm,
 		SelectScanPlanner* planner, int joinType,
 		JoinCandidateHolder* jholder) {
-
+	// FIXME
 }
 
 } /* namespace codablecash */

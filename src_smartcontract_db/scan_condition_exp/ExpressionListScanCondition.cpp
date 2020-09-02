@@ -13,6 +13,8 @@
 
 #include "scan_condition/IValueProvider.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+
 namespace codablecash {
 
 ExpressionListScanCondition::ExpressionListScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_EXP_LIST) {

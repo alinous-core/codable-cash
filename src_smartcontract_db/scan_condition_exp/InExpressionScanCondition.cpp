@@ -15,6 +15,8 @@
 
 #include "scan_condition_exp/ExpressionListScanCondition.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+
 namespace codablecash {
 
 InExpressionScanCondition::InExpressionScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_IN) {

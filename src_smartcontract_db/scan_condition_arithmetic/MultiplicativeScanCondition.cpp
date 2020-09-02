@@ -12,6 +12,9 @@
 #include "base/UnicodeString.h"
 
 #include "sql_expression/SqlMultiplicativeExpression.h"
+
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+
 namespace codablecash {
 
 MultiplicativeScanCondition::MultiplicativeScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_MULTIPLICATIVE), operations(2){

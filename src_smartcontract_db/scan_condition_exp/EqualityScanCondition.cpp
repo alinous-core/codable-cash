@@ -21,6 +21,7 @@
 
 #include "scan_condition_params/ColumnIdentifierScanParam.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
 
 using namespace alinous;
 

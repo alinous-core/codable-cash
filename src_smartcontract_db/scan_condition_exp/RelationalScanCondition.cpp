@@ -17,6 +17,8 @@
 
 #include "sql_expression/SQLRelationalExpression.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+
 using namespace alinous;
 
 namespace codablecash {
@@ -84,6 +86,14 @@ AbstractScanCondition* RelationalScanCondition::cloneCondition() const noexcept 
 	cond->setOp(this->op);
 
 	return cond;
+}
+
+void RelationalScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	if(this->left->isFilterable(vm, planner, detector) &&
+			this->right->isFilterable(vm, planner, detector)){
+		detector->push(cloneCondition());
+	}
 }
 
 void RelationalScanCondition::resetStr() noexcept {

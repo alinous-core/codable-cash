@@ -63,6 +63,11 @@ AbstractScanCondition* AndScanCondition::cloneCondition() const noexcept {
 	return cond;
 }
 
+void AndScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	// FIXME
+}
+
 void AndScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;

@@ -13,6 +13,7 @@
 
 #include "sql_expression/SQLAdditiveExpression.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
 namespace codablecash {
 
 AdditiveScanCondition::AdditiveScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_ADDITIVE), operations(2) {

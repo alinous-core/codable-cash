@@ -13,6 +13,8 @@
 
 #include "scan_condition/IValueProvider.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+
 namespace codablecash {
 
 IsNullScanCondition::IsNullScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_IS_NULL) {
