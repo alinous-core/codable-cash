@@ -20,6 +20,8 @@ public:
 	virtual ~AbstractScanConditionParameter();
 
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner){}
+	virtual bool isFilterable(VirtualMachine* vm, SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept;
+
 	virtual IValueProvider* clone() const noexcept = 0;
 };
 

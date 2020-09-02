@@ -54,7 +54,6 @@ const UnicodeString* LeftOuterJoinTarget::toString() noexcept {
 AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) {
 	ConditionsHolder* holder = planner->getConditions();
 
-
 	ScanJoinContextHolder* contextHolder = new ScanJoinContextHolder(); __STP(contextHolder);
 
 	JoinCandidateHolder joinCandidates(this->left, this->right);

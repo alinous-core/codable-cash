@@ -16,6 +16,7 @@ using namespace alinous;
 namespace codablecash {
 
 class SelectScanPlanner;
+class FilterConditionDitector;
 
 class IValueProvider {
 public:
@@ -25,6 +26,7 @@ public:
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner){};
 	virtual IValueProvider* clone() const noexcept = 0;
 	virtual bool isColumn() const noexcept;
+	virtual bool isFilterable(VirtualMachine* vm, SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept = 0;
 
 };
 

@@ -12,6 +12,8 @@
 #include "scan_planner/ConditionsHolder.h"
 #include "scan_planner/SelectScanPlanner.h"
 
+#include "scan_condition/RootScanCondition.h"
+
 namespace codablecash {
 
 FilterConditionDitector::FilterConditionDitector(VirtualMachine* vm, SelectScanPlanner* planner) {
@@ -29,6 +31,7 @@ void FilterConditionDitector::detect(AbstractScanTableTarget* target) {
 
 	target->collectScanTargets(this->vm, this->planner, &this->list);
 
+	RootScanCondition* root = holder->getRoot();
 
 }
 
