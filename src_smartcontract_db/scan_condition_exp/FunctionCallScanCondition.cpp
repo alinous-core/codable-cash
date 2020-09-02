@@ -99,6 +99,23 @@ void FunctionCallScanCondition::analyzeConditions(VirtualMachine* vm, SelectScan
 	}
 }
 
+bool FunctionCallScanCondition::isFilterable(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept {
+	bool result = true;
+
+	int maxLoop = this->arguments.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* vp = this->arguments.get(i);
+
+		if(!vp->isFilterable(vm, planner, detector)){
+			result = false;
+			break;
+		}
+	}
+
+	return result;
+}
+
 IValueProvider* FunctionCallScanCondition::clone() const noexcept {
 	return new FunctionCallScanCondition(*this);
 }
