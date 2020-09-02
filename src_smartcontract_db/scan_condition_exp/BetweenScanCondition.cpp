@@ -80,6 +80,15 @@ AbstractScanCondition* BetweenScanCondition::cloneCondition() const noexcept {
 	return cond;
 }
 
+void BetweenScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	if(this->left->isFilterable(vm, planner, detector) &&
+			this->start->isFilterable(vm, planner, detector) &&
+			this->end->isFilterable(vm, planner, detector)){
+		detector->push(cloneCondition());
+	}
+}
+
 void BetweenScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
