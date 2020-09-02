@@ -11,6 +11,8 @@
 
 #include "base/UnicodeString.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+
 using namespace alinous;
 
 namespace codablecash {
@@ -65,7 +67,35 @@ AbstractScanCondition* OrScanCondition::cloneCondition() const noexcept {
 
 void OrScanCondition::detectFilterConditions(VirtualMachine* vm,
 		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	bool allavailable = true;
+	ArrayList<AbstractScanCondition> scanList;
 
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cond = this->list.get(i);
+
+		cond->detectFilterConditions(vm, planner, detector);
+		if(detector->isEmpty()){
+			allavailable = false;
+			break;
+		}
+
+		scanList.addElement(detector->pop());
+	}
+
+	if(!allavailable){
+		scanList.deleteElements();
+		return;
+	}
+
+	OrScanCondition* newOr = new OrScanCondition();
+
+	maxLoop = scanList.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cond = scanList.get(i);
+
+		newOr->addCondition(cond);
+	}
 }
 
 void OrScanCondition::resetStr() noexcept {
@@ -85,8 +115,7 @@ void OrScanCondition::analyzeConditions(VirtualMachine* vm,	SelectScanPlanner* p
 }
 
 void OrScanCondition::collectJoinCandidate(VirtualMachine* vm,
-		SelectScanPlanner* planner, int joinType,
-		JoinCandidateHolder* jholder) {
+		SelectScanPlanner* planner, int joinType, JoinCandidateHolder* jholder) {
 	// FIXME
 }
 
