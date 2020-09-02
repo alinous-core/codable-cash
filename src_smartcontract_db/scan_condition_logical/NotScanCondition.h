@@ -23,6 +23,8 @@ public:
 	virtual const UnicodeString* toStringCode() noexcept;
 	virtual AbstractScanCondition* cloneCondition() const noexcept;
 
+	virtual void detectFilterConditions(VirtualMachine* vm, SelectScanPlanner* planner, FilterConditionDitector* detector);
+
 private:
 	void resetStr() noexcept;
 

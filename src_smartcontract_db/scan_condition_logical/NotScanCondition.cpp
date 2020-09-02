@@ -55,6 +55,16 @@ const UnicodeString* NotScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+void NotScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	this->cond->detectFilterConditions(vm, planner, detector);
+
+	if(!detector->isEmpty()){
+		delete detector->pop();
+		detector->push(cloneCondition());
+	}
+}
+
 void NotScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
