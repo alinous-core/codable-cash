@@ -77,6 +77,23 @@ AbstractScanCondition* AdditiveScanCondition::cloneCondition() const noexcept {
 	return dynamic_cast<AdditiveScanCondition*>(clone());
 }
 
+bool AdditiveScanCondition::isFilterable(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept {
+	bool result = true;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* vp = this->list.get(i);
+
+		if(!vp->isFilterable(vm, planner, detector)){
+			result = false;
+			break;
+		}
+	}
+
+	return result;
+}
+
 void AdditiveScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
