@@ -5,17 +5,17 @@
  *      Author: iizuka
  */
 
-#include "scan_planner_scanner_ctx_join/ScanJoinCandidatesHolder.h"
+#include "scan_planner_scanner_ctx/ScanJoinContextHolder.h"
 
 #include "scan_planner_scanner_ctx/ScanJoinContext.h"
 
 namespace codablecash {
 
-ScanJoinCandidatesHolder::ScanJoinCandidatesHolder() {
+ScanJoinContextHolder::ScanJoinContextHolder() {
 
 }
 
-ScanJoinCandidatesHolder::~ScanJoinCandidatesHolder() {
+ScanJoinContextHolder::~ScanJoinContextHolder() {
 	this->list.deleteElements();
 }
 

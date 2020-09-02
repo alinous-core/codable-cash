@@ -16,10 +16,10 @@ namespace codablecash {
 
 class ScanJoinContext;
 
-class ScanJoinCandidatesHolder {
+class ScanJoinContextHolder {
 public:
-	ScanJoinCandidatesHolder();
-	virtual ~ScanJoinCandidatesHolder();
+	ScanJoinContextHolder();
+	virtual ~ScanJoinContextHolder();
 
 private:
 	ArrayList<ScanJoinContext> list;

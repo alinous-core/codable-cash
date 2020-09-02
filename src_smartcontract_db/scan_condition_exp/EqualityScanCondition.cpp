@@ -79,4 +79,11 @@ void EqualityScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlan
 	this->right->analyzeConditions(vm, planner);
 }
 
+void EqualityScanCondition::collectJoinCandidate(VirtualMachine* vm, SelectScanPlanner* planner, int joinType,
+							JoinCandidateHolder* jholder) {
+	// FIXME EqualityScanCondition::collectJoinCandidate
+
+
+}
+
 } /* namespace codablecash */

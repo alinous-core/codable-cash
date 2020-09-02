@@ -27,6 +27,8 @@ public:
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
 	virtual AbstractScanCondition* cloneCondition() const noexcept;
 
+	virtual void collectJoinCandidate(VirtualMachine* vm, SelectScanPlanner* planner, int joinType, JoinCandidateHolder* jholder);
+
 private:
 	void resetStr() noexcept;
 private:

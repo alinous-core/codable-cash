@@ -15,7 +15,8 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_planner_scanner_ctx_join/ScanJoinCandidatesHolder.h"
+#include "scan_planner_scanner_ctx/ScanJoinContextHolder.h"
+
 #include "scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
 #include "scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
 
@@ -53,7 +54,7 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 	ConditionsHolder* holder = planner->getConditions();
 
 
-	ScanJoinCandidatesHolder* contextHolder = new ScanJoinCandidatesHolder(); __STP(contextHolder);
+	ScanJoinContextHolder* contextHolder = new ScanJoinContextHolder(); __STP(contextHolder);
 
 	ArrayList<AbstractScanTableTarget> list;
 	this->collectScanTargets(vm, planner, &list);

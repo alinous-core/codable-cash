@@ -35,6 +35,7 @@ public:
 
 private:
 	bool resolveAlias(const UnicodeString* tableAlias, ScanTargetNameResolver* aliasResolver);
+
 private:
 	const SQLColumnIdentifier* sqlColId;
 
