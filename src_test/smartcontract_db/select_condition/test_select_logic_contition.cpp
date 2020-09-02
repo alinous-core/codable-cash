@@ -69,7 +69,7 @@ TEST(TestSelectLogicConditionGroup, and01){
 		UnicodeString sql(L"id = 'test' AND id2 = 100");
 		CHECK(sql.equals(str));
 
-		AbstractScanCondition* copy = root->cloneCondition();
+		AbstractScanCondition* copy = root->cloneCondition();__STP(copy);
 		str = copy->toStringCode();
 		CHECK(sql.equals(str));
 	}
@@ -108,7 +108,7 @@ TEST(TestSelectLogicConditionGroup, or01){
 		UnicodeString sql(L"id = 'test' OR id2 = 100");
 		CHECK(sql.equals(str));
 
-		AbstractScanCondition* copy = root->cloneCondition();
+		AbstractScanCondition* copy = root->cloneCondition();__STP(copy);
 		str = copy->toStringCode();
 		CHECK(sql.equals(str));
 	}

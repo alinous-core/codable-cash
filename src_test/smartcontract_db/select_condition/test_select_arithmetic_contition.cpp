@@ -70,7 +70,7 @@ TEST(TestSelectArithmeticConditionGroup, add01){
 		UnicodeString sql(L"id = 1 + 2 - 3");
 		CHECK(sql.equals(str));
 
-		AbstractScanCondition* copy = root->cloneCondition();
+		AbstractScanCondition* copy = root->cloneCondition(); __STP(copy);
 		str = copy->toStringCode();
 		CHECK(sql.equals(str));
 	}
@@ -109,7 +109,7 @@ TEST(TestSelectArithmeticConditionGroup, add02){
 		UnicodeString sql(L"public.test_table.id = 10 * 20 / 5 % 10");
 		CHECK(sql.equals(str));
 
-		AbstractScanCondition* copy = root->cloneCondition();
+		AbstractScanCondition* copy = root->cloneCondition(); __STP(copy);
 		str = copy->toStringCode();
 		CHECK(sql.equals(str));
 	}
