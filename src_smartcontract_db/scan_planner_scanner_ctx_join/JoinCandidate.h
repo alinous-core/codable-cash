@@ -14,11 +14,15 @@ namespace codablecash {
 
 class AbstractJoinScanTarget;
 class ColumnIdentifierScanParam;
+class AbstractScanTableTarget;
 
 class JoinCandidate : public AbstractJoinCandidate {
 public:
 	explicit JoinCandidate(int joinType, ColumnIdentifierScanParam* left, ColumnIdentifierScanParam* right);
 	virtual ~JoinCandidate();
+
+	const AbstractScanTableTarget* getLeftTarget() const noexcept;
+	const AbstractScanTableTarget* getRightTarget() const noexcept;
 
 private:
 	ColumnIdentifierScanParam* left;

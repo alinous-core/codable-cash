@@ -75,6 +75,10 @@ void AbstractJoinScanTarget::resolveTable(VirtualMachine* vm, SelectScanPlanner*
 	this->metadata->join(lmetadata);
 }
 
+bool AbstractJoinScanTarget::hasTarget(const AbstractScanTableTarget* target) const noexcept {
+	return this == target || this->left->hasTarget(target) || this->right->hasTarget(target);
+}
+
 void AbstractJoinScanTarget::collectScanTargets(VirtualMachine* vm, SelectScanPlanner* planner, ArrayList<AbstractScanTableTarget>* list) {
 	list->addElement(this);
 

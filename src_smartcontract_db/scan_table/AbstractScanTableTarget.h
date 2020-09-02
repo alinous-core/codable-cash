@@ -32,7 +32,7 @@ public:
 	virtual void resolveTable(VirtualMachine* vm, SelectScanPlanner* planner) = 0;
 	virtual void collectScanTargets(VirtualMachine* vm, SelectScanPlanner* planner, ArrayList<AbstractScanTableTarget>* list) = 0;
 	virtual AbstractScannerFactory* getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) = 0;
-
+	virtual bool hasTarget(const AbstractScanTableTarget* target) const noexcept = 0;
 
 	const ScanResultMetadata* getMetadata() const noexcept {
 		return metadata;

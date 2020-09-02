@@ -33,6 +33,8 @@ public:
 	virtual void resolveTable(VirtualMachine* vm, SelectScanPlanner* planner);
 	virtual void collectScanTargets(VirtualMachine* vm, SelectScanPlanner* planner, ArrayList<AbstractScanTableTarget>* list);
 	virtual AbstractScannerFactory* getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner);
+	virtual bool hasTarget(const AbstractScanTableTarget* target) const noexcept;
+
 private:
 	UnicodeString* schema;
 	UnicodeString* tableName;

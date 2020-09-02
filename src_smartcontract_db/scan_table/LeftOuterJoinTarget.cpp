@@ -65,7 +65,7 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 		this->cond->collectJoinCandidate(vm, planner, AbstractJoinCandidate::LEFT_OUTER, &joinCandidates);
 		while(!joinCandidates.isEmpty()){
 			AbstractJoinCandidate* candidate = joinCandidates.pop();
-
+			joinCandidates.addJoinCandidate(candidate);
 		}
 	}
 

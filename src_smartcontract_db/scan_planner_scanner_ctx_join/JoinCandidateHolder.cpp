@@ -9,6 +9,7 @@
 #include "scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
 #include "scan_planner_scanner_ctx_join/JoinCandidate.h"
 
+#include "scan_table/AbstractScanTableTarget.h"
 
 namespace codablecash {
 
@@ -40,8 +41,11 @@ AbstractJoinCandidate* JoinCandidateHolder::pop() noexcept {
 }
 
 bool JoinCandidateHolder::isJoinCondition(JoinCandidate* candidate) const noexcept {
+	const AbstractScanTableTarget* leftTarget = candidate->getLeftTarget();
+	const AbstractScanTableTarget* rightTarget = candidate->getRightTarget();
 
-
+	return (this->left->hasTarget(leftTarget) && this->right->hasTarget(rightTarget))
+			|| (this->left->hasTarget(rightTarget) && this->right->hasTarget(leftTarget));
 }
 
 void JoinCandidateHolder::addJoinCandidate(AbstractJoinCandidate* candidate) noexcept {

@@ -117,4 +117,8 @@ AbstractScannerFactory* TableScanTarget::getScanFactory(VirtualMachine* vm, Sele
 	return nullptr;
 }
 
+bool TableScanTarget::hasTarget(const AbstractScanTableTarget* target) const noexcept {
+	return target == this;
+}
+
 } /* namespace codablecash */
