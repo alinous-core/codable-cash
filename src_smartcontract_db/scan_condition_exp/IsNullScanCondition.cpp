@@ -64,6 +64,13 @@ AbstractScanCondition* IsNullScanCondition::cloneCondition() const noexcept {
 	return cond;
 }
 
+void IsNullScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	if(this->cond->isFilterable(vm, planner, detector)){
+		detector->push(cloneCondition());
+	}
+}
+
 void IsNullScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
