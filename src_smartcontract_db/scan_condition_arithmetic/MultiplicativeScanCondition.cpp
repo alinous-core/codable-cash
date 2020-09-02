@@ -82,6 +82,23 @@ void MultiplicativeScanCondition::analyzeConditions(VirtualMachine* vm, SelectSc
 	}
 }
 
+bool MultiplicativeScanCondition::isFilterable(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept {
+	bool result = true;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* vp = this->list.get(i);
+
+		if(!vp->isFilterable(vm, planner, detector)){
+			result = false;
+			break;
+		}
+	}
+
+	return result;
+}
+
 IValueProvider* MultiplicativeScanCondition::clone() const noexcept {
 	MultiplicativeScanCondition* cond = new MultiplicativeScanCondition();
 
