@@ -10,12 +10,12 @@
 namespace codablecash {
 
 ScanJoinContext::ScanJoinContext() {
-	// TODO Auto-generated constructor stub
+
 
 }
 
 ScanJoinContext::~ScanJoinContext() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */

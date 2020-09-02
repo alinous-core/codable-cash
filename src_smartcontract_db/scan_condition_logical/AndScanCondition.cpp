@@ -11,6 +11,9 @@
 
 #include "base/UnicodeString.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+
+#include "scan_condition/AbstractScanCondition.h"
 using namespace alinous;
 
 namespace codablecash {
@@ -65,7 +68,32 @@ AbstractScanCondition* AndScanCondition::cloneCondition() const noexcept {
 
 void AndScanCondition::detectFilterConditions(VirtualMachine* vm,
 		SelectScanPlanner* planner, FilterConditionDitector* detector) {
-	// FIXME
+	ArrayList<AbstractScanCondition> scanList;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cnd = this->list.get(i);
+
+		cnd->detectFilterConditions(vm, planner, detector);
+		if(!detector->isEmpty()){
+			scanList.addElement(detector->pop());
+		}
+	}
+
+	maxLoop = scanList.size();
+	if(maxLoop > 1){
+		AndScanCondition* newAnd = new AndScanCondition();
+		for(int i = 0; i != maxLoop; ++i){
+			AbstractScanCondition* cnd = scanList.get(i);
+
+			newAnd->addCondition(cnd);
+		}
+
+		detector->push(newAnd);
+	}
+	else if(maxLoop == 1){
+		detector->push(scanList.get(0));
+	}
 }
 
 void AndScanCondition::resetStr() noexcept {
