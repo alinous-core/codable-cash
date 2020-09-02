@@ -26,9 +26,13 @@ public:
 	void addElement(IValueProvider* val) noexcept;
 
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
+	virtual void detectFilterConditions(VirtualMachine* vm, SelectScanPlanner* planner, FilterConditionDitector* detector);
+
 	virtual AbstractScanCondition* cloneCondition() const noexcept;
 
 private:
+	bool isFilterable(VirtualMachine* vm, SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept;
+
 	void resetStr() noexcept;
 
 private:
