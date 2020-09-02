@@ -63,6 +63,10 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 	JoinCandidateHolder joinCandidates(this->left, this->right);
 	if(this->cond != nullptr){
 		this->cond->collectJoinCandidate(vm, planner, AbstractJoinCandidate::LEFT_OUTER, &joinCandidates);
+		while(!joinCandidates.isEmpty()){
+			AbstractJoinCandidate* candidate = joinCandidates.pop();
+
+		}
 	}
 
 	RootScanCondition* root = holder->getRoot();

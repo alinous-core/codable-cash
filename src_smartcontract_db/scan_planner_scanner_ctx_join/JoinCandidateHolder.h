@@ -28,7 +28,7 @@ public:
 	AbstractJoinCandidate* pop() noexcept;
 
 	bool isJoinCondition(JoinCandidate* candidate) const noexcept;
-	void addJoinCandidate(JoinCandidate* candidate) noexcept;
+	void addJoinCandidate(AbstractJoinCandidate* candidate) noexcept;
 
 private:
 	ArrayList<AbstractJoinCandidate> stack;

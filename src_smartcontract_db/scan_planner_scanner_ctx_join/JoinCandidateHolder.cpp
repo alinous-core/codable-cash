@@ -44,8 +44,15 @@ bool JoinCandidateHolder::isJoinCondition(JoinCandidate* candidate) const noexce
 
 }
 
-void JoinCandidateHolder::addJoinCandidate(JoinCandidate* candidate) noexcept {
+void JoinCandidateHolder::addJoinCandidate(AbstractJoinCandidate* candidate) noexcept {
 	int joinType = candidate->getJoinType();
+
+	if(joinType == AbstractJoinCandidate::LEFT_OUTER){
+		this->leftOuterJoin.addElement(candidate);
+	}
+	else{
+		this->innerJoin.addElement(candidate);
+	}
 }
 
 } /* namespace codablecash */

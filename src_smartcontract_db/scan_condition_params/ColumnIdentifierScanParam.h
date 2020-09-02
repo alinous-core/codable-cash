@@ -34,6 +34,10 @@ public:
 	virtual IValueProvider* clone() const noexcept;
 	virtual bool isColumn() const noexcept;
 
+	const AbstractScanTableTarget* getTarget() const noexcept {
+		return target;
+	}
+
 private:
 	bool resolveAlias(const UnicodeString* tableAlias, ScanTargetNameResolver* aliasResolver);
 
