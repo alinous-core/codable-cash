@@ -15,10 +15,11 @@ using alinous::ArrayList;
 namespace codablecash {
 
 class AbstractJoinCandidate;
+class AbstractScanTableTarget;
 
 class JoinCandidateHolder {
 public:
-	JoinCandidateHolder();
+	JoinCandidateHolder(const AbstractScanTableTarget* left, const AbstractScanTableTarget* right);
 	virtual ~JoinCandidateHolder();
 
 	bool isEmpty() const noexcept;
@@ -27,6 +28,9 @@ public:
 
 private:
 	ArrayList<AbstractJoinCandidate> stack;
+
+	const AbstractScanTableTarget* left;
+	const AbstractScanTableTarget* right;
 };
 
 } /* namespace codablecash */

@@ -10,12 +10,16 @@
 
 namespace codablecash {
 
-JoinCandidateHolder::JoinCandidateHolder() {
-
+JoinCandidateHolder::JoinCandidateHolder(const AbstractScanTableTarget* left, const AbstractScanTableTarget* right) {
+	this->left = left;
+	this->right = right;
 }
 
 JoinCandidateHolder::~JoinCandidateHolder() {
 	this->stack.deleteElements();
+
+	this->left = nullptr;
+	this->right = nullptr;
 }
 
 bool JoinCandidateHolder::isEmpty() const noexcept {

@@ -60,7 +60,7 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 	this->collectScanTargets(vm, planner, &list);
 
 
-	JoinCandidateHolder joinCandidates;
+	JoinCandidateHolder joinCandidates(this->left, this->right);
 	if(this->cond != nullptr){
 		this->cond->collectJoinCandidate(vm, planner, AbstractJoinCandidate::LEFT_OUTER, &joinCandidates);
 	}
