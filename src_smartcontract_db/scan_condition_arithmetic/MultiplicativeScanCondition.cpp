@@ -66,6 +66,13 @@ void MultiplicativeScanCondition::addOperator(uint8_t op) noexcept {
 	resetStr();
 }
 
+void MultiplicativeScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	if(isFilterable(vm, planner, detector)){
+		detector->push(cloneCondition());
+	}
+}
+
 void MultiplicativeScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
