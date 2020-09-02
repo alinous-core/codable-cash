@@ -65,6 +65,21 @@ AbstractScanCondition* InExpressionScanCondition::cloneCondition() const noexcep
 	return cond;
 }
 
+void InExpressionScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	bool leftFilterable = this->left->isFilterable(vm, planner, detector);
+
+	if(leftFilterable){
+		this->list->detectFilterConditions(vm, planner, detector);
+		if(!detector->isEmpty()){
+			delete detector->pop();
+
+			detector->push(cloneCondition());
+		}
+	}
+
+}
+
 void InExpressionScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;

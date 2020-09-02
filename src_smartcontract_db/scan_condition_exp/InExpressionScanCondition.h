@@ -26,6 +26,8 @@ public:
 	void setList(ExpressionListScanCondition* list) noexcept;
 
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
+	virtual void detectFilterConditions(VirtualMachine* vm, SelectScanPlanner* planner, FilterConditionDitector* detector);
+
 	virtual AbstractScanCondition* cloneCondition() const noexcept;
 
 private:
