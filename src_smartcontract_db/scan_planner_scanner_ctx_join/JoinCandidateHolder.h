@@ -16,6 +16,7 @@ namespace codablecash {
 
 class AbstractJoinCandidate;
 class AbstractScanTableTarget;
+class JoinCandidate;
 
 class JoinCandidateHolder {
 public:
@@ -26,8 +27,14 @@ public:
 	void push(AbstractJoinCandidate* candidate) noexcept;
 	AbstractJoinCandidate* pop() noexcept;
 
+	bool isJoinCondition(JoinCandidate* candidate) const noexcept;
+	void addJoinCandidate(JoinCandidate* candidate) noexcept;
+
 private:
 	ArrayList<AbstractJoinCandidate> stack;
+
+	ArrayList<AbstractJoinCandidate> leftOuterJoin;
+	ArrayList<AbstractJoinCandidate> innerJoin;
 
 	const AbstractScanTableTarget* left;
 	const AbstractScanTableTarget* right;

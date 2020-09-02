@@ -13,12 +13,16 @@
 namespace codablecash {
 
 class AbstractJoinScanTarget;
+class ColumnIdentifierScanParam;
 
 class JoinCandidate : public AbstractJoinCandidate {
 public:
-	explicit JoinCandidate(int joinType);
+	explicit JoinCandidate(int joinType, ColumnIdentifierScanParam* left, ColumnIdentifierScanParam* right);
 	virtual ~JoinCandidate();
 
+private:
+	ColumnIdentifierScanParam* left;
+	ColumnIdentifierScanParam* right;
 };
 
 } /* namespace codablecash */

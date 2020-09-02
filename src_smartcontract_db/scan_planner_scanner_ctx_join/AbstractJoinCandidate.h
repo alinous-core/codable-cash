@@ -18,6 +18,10 @@ public:
 	explicit AbstractJoinCandidate(int joinType);
 	virtual ~AbstractJoinCandidate();
 
+	int getJoinType() const noexcept {
+		return joinType;
+	}
+
 protected:
 	int joinType;
 };

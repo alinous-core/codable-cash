@@ -9,12 +9,14 @@
 
 namespace codablecash {
 
-JoinCandidate::JoinCandidate(int joinType) : AbstractJoinCandidate(joinType) {
-
+JoinCandidate::JoinCandidate(int joinType, ColumnIdentifierScanParam* left, ColumnIdentifierScanParam* right) : AbstractJoinCandidate(joinType) {
+	this->left = left;
+	this->right = right;
 }
 
 JoinCandidate::~JoinCandidate() {
-
+	this->left = nullptr;
+	this->right = nullptr;
 }
 
 } /* namespace codablecash */

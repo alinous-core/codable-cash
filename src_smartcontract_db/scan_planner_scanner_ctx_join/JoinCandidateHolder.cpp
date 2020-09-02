@@ -7,6 +7,8 @@
 
 #include "scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
 #include "scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
+#include "scan_planner_scanner_ctx_join/JoinCandidate.h"
+
 
 namespace codablecash {
 
@@ -17,6 +19,8 @@ JoinCandidateHolder::JoinCandidateHolder(const AbstractScanTableTarget* left, co
 
 JoinCandidateHolder::~JoinCandidateHolder() {
 	this->stack.deleteElements();
+	this->leftOuterJoin.deleteElements();
+	this->innerJoin.deleteElements();
 
 	this->left = nullptr;
 	this->right = nullptr;
@@ -33,6 +37,15 @@ void JoinCandidateHolder::push(AbstractJoinCandidate* candidate) noexcept {
 AbstractJoinCandidate* JoinCandidateHolder::pop() noexcept {
 	int index = this->stack.size() - 1;
 	return this->stack.remove(index);
+}
+
+bool JoinCandidateHolder::isJoinCondition(JoinCandidate* candidate) const noexcept {
+
+
+}
+
+void JoinCandidateHolder::addJoinCandidate(JoinCandidate* candidate) noexcept {
+	int joinType = candidate->getJoinType();
 }
 
 } /* namespace codablecash */

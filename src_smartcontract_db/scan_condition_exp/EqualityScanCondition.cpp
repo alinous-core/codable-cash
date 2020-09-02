@@ -14,6 +14,14 @@
 #include "engine/CdbException.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
+
+#include "scan_planner_scanner_ctx_join/JoinCandidate.h"
+#include "scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
+
+#include "scan_condition_params/ColumnIdentifierScanParam.h"
+
+
 using namespace alinous;
 
 namespace codablecash {
@@ -85,8 +93,13 @@ void EqualityScanCondition::collectJoinCandidate(VirtualMachine* vm, SelectScanP
 		return;
 	}
 
+	JoinCandidate* candidate = new JoinCandidate(joinType, dynamic_cast<ColumnIdentifierScanParam*>(this->left)
+				, dynamic_cast<ColumnIdentifierScanParam*>(this->right));
+	StackRelease<JoinCandidate> st_candidate(candidate);
 
-	// FIXME EqualityScanCondition::collectJoinCandidate
+	if(jholder->isJoinCondition(candidate)){
+		jholder->push(st_candidate.move());
+	}
 }
 
 } /* namespace codablecash */
