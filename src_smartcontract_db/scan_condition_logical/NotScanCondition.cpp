@@ -62,8 +62,12 @@ void NotScanCondition::detectFilterConditions(VirtualMachine* vm,
 	this->cond->detectFilterConditions(vm, planner, detector);
 
 	if(!detector->isEmpty()){
-		delete detector->pop();
-		detector->push(cloneCondition());
+		AbstractScanCondition* inner = detector->pop();
+
+		NotScanCondition* newNot = new NotScanCondition();
+		newNot->addCondition(inner);
+
+		detector->push(newNot);
 	}
 }
 

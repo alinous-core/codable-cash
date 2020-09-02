@@ -64,8 +64,12 @@ void ParenthesisScanCondition::detectFilterConditions(VirtualMachine* vm,
 	this->cond->detectFilterConditions(vm, planner, detector);
 
 	if(!detector->isEmpty()){
-		delete detector->pop();
-		detector->push(cloneCondition());
+		AbstractScanCondition* inner = detector->pop();
+
+		ParenthesisScanCondition* newP = new ParenthesisScanCondition();
+		newP->addCondition(inner);
+
+		detector->push(newP);
 	}
 }
 
