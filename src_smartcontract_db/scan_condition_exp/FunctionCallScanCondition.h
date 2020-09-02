@@ -31,6 +31,7 @@ public:
 
 	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
 	virtual bool isFilterable(VirtualMachine* vm, SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept;
+	virtual void detectFilterConditions(VirtualMachine* vm, SelectScanPlanner* planner, FilterConditionDitector* detector);
 
 	virtual IValueProvider* clone() const noexcept;
 	virtual AbstractScanCondition* cloneCondition() const noexcept;
