@@ -83,6 +83,15 @@ AbstractScanCondition* LikeScanCondition::cloneCondition() const noexcept {
 	return cond;
 }
 
+void LikeScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	if(this->left->isFilterable(vm, planner, detector) &&
+			this->right->isFilterable(vm, planner, detector) &&
+			(this->escape == nullptr || this->escape->isFilterable(vm, planner, detector))){
+		detector->push(cloneCondition());
+	}
+}
+
 void LikeScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
@@ -93,7 +102,10 @@ void LikeScanCondition::resetStr() noexcept {
 void LikeScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
 	this->left->analyzeConditions(vm, planner);
 	this->right->analyzeConditions(vm, planner);
-	this->escape->analyzeConditions(vm, planner);
+
+	if(this->escape != nullptr){
+		this->escape->analyzeConditions(vm, planner);
+	}
 }
 
 
