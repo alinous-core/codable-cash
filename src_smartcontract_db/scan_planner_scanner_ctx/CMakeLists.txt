@@ -1,6 +1,7 @@
 
 
 set(__src
+	FilterConditionDitector.cpp
 	ScanJoinContext.cpp
 	ScanJoinContextHolder.cpp
 )

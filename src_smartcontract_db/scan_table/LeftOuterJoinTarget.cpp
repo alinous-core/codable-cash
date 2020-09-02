@@ -56,10 +56,6 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 
 	ScanJoinContextHolder* contextHolder = new ScanJoinContextHolder(); __STP(contextHolder);
 
-	ArrayList<AbstractScanTableTarget> list;
-	this->collectScanTargets(vm, planner, &list);
-
-
 	JoinCandidateHolder joinCandidates(this->left, this->right);
 	if(this->cond != nullptr){
 		this->cond->collectJoinCandidate(vm, planner, AbstractJoinCandidate::LEFT_OUTER, &joinCandidates);
@@ -70,6 +66,9 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 	}
 
 	RootScanCondition* root = holder->getRoot();
+
+	ArrayList<AbstractScanTableTarget> list;
+	this->collectScanTargets(vm, planner, &list);
 
 	// FIXME getScanFactory
 	return nullptr;
