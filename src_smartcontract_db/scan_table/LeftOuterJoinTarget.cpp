@@ -23,6 +23,7 @@
 #include "scan_condition/AbstractScanCondition.h"
 #include "scan_condition/RootScanCondition.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
 namespace codablecash {
 
 LeftOuterJoinTarget::LeftOuterJoinTarget() {
@@ -66,9 +67,16 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 	}
 
 	RootScanCondition* root = holder->getRoot();
+	if(root != nullptr){
+		root->collectJoinCandidate(vm, planner, AbstractJoinCandidate::INNER, &joinCandidates);
+		while(!joinCandidates.isEmpty()){
+			AbstractJoinCandidate* candidate = joinCandidates.pop();
+			joinCandidates.addJoinCandidate(candidate);
+		}
+	}
 
-	ArrayList<AbstractScanTableTarget> list;
-	this->collectScanTargets(vm, planner, &list);
+	FilterConditionDitector filterDetector(vm, planner);
+	filterDetector.detect(this);
 
 	// FIXME getScanFactory
 	return nullptr;
