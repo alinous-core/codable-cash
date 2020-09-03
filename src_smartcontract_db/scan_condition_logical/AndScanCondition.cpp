@@ -123,6 +123,9 @@ void AndScanCondition::collectJoinCandidate(VirtualMachine* vm,
 
 	JoinCandidateStackMarker marker(jholder->getStack());
 
+	ArrayList<AbstractJoinCandidate> operandList;
+	operandList.setDeleteOnExit();
+
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractScanCondition* cond = this->list.get(i);
@@ -131,10 +134,22 @@ void AndScanCondition::collectJoinCandidate(VirtualMachine* vm,
 		if(!jholder->isEmpty()){
 			AbstractJoinCandidate* c = jholder->pop();
 
-			delete c;
+			operandList.addElement(c);
+		}
+	}
+
+	int listSize = operandList.size();
+	if(listSize > 0){
+		if(listSize == 1){
+			const AbstractJoinCandidate* c = operandList.get(0);
+
+		}
+		else{
+
 		}
 
 	}
+
 	// FIXME collectJoinCandidate
 }
 

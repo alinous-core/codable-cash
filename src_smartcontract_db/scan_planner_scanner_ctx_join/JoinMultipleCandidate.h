@@ -20,6 +20,7 @@ class JoinCandidate;
 
 class JoinMultipleCandidate : public AbstractJoinCandidateCollection {
 public:
+	JoinMultipleCandidate(const JoinMultipleCandidate& inst);
 	explicit JoinMultipleCandidate(int joinType);
 	virtual ~JoinMultipleCandidate();
 

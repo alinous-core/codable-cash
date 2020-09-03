@@ -11,6 +11,15 @@
 
 namespace codablecash {
 
+codablecash::JoinMultipleCandidate::JoinMultipleCandidate(const JoinMultipleCandidate& inst) : AbstractJoinCandidateCollection(joinType) {
+	int maxLoop = inst.list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		const JoinCandidate* candidate = inst.list.get(i);
+
+		this->list.addElement(new JoinCandidate(*candidate));
+	}
+}
+
 JoinMultipleCandidate::JoinMultipleCandidate(int joinType) : AbstractJoinCandidateCollection(joinType) {
 }
 
