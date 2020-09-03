@@ -30,6 +30,13 @@ AbstractJoinCandidate* JoinOrCandidate::multiply(const AbstractJoinCandidate* ot
 		const JoinOrCandidate* orCandidate = dynamic_cast<const JoinOrCandidate*>(other);
 		return multiplyOr(orCandidate);
 	}
+
+	JoinOrCandidate* newCond = new JoinOrCandidate(this->joinType);
+	const AbstractJoinCandidateCollection* col = dynamic_cast<const AbstractJoinCandidateCollection*>(other);
+
+	multiply(this, col, newCond);
+
+	return newCond;
 }
 
 AbstractJoinCandidate* JoinOrCandidate::multiplyOr(const JoinOrCandidate* other) const noexcept {
