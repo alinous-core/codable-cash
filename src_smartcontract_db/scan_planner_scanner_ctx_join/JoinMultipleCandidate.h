@@ -8,7 +8,7 @@
 #ifndef SCAN_PLANNER_SCANNER_CTX_JOINMUNTIPLECANDIDATE_H_
 #define SCAN_PLANNER_SCANNER_CTX_JOINMUNTIPLECANDIDATE_H_
 
-#include "scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
+#include "scan_planner_scanner_ctx_join/AbstractJoinCandidateCollection.h"
 
 #include "base/ArrayList.h"
 
@@ -18,7 +18,7 @@ namespace codablecash {
 
 class JoinCandidate;
 
-class JoinMultipleCandidate : public AbstractJoinCandidate {
+class JoinMultipleCandidate : public AbstractJoinCandidateCollection {
 public:
 	explicit JoinMultipleCandidate(int joinType);
 	virtual ~JoinMultipleCandidate();

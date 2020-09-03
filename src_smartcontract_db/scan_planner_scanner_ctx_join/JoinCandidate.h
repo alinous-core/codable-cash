@@ -8,7 +8,7 @@
 #ifndef SCAN_PLANNER_SCANNER_CTX_JOINCANDIDATE_H_
 #define SCAN_PLANNER_SCANNER_CTX_JOINCANDIDATE_H_
 
-#include "scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
+#include "scan_planner_scanner_ctx_join/AbstractJoinCandidateCollection.h"
 
 namespace codablecash {
 
@@ -16,7 +16,7 @@ class AbstractJoinScanTarget;
 class ColumnIdentifierScanParam;
 class AbstractScanTableTarget;
 
-class JoinCandidate : public AbstractJoinCandidate {
+class JoinCandidate : public AbstractJoinCandidateCollection {
 public:
 	JoinCandidate(const JoinCandidate& inst);
 	explicit JoinCandidate(int joinType, ColumnIdentifierScanParam* left, ColumnIdentifierScanParam* right);

@@ -2,6 +2,7 @@
 
 set(__src
 	AbstractJoinCandidate.cpp
+	AbstractJoinCandidateCollection.cpp
 	JoinCandidate.cpp
 	JoinCandidateHolder.cpp
 	JoinCandidateStack.cpp

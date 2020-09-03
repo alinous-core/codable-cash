@@ -16,13 +16,13 @@
 
 namespace codablecash {
 
-JoinCandidate::JoinCandidate(const JoinCandidate& inst) : AbstractJoinCandidate(inst.joinType) {
+JoinCandidate::JoinCandidate(const JoinCandidate& inst) : AbstractJoinCandidateCollection(inst.joinType) {
 	this->left = dynamic_cast<ColumnIdentifierScanParam*>(inst.left->clone());
 	this->right = dynamic_cast<ColumnIdentifierScanParam*>(inst.right->clone());
 }
 
 
-JoinCandidate::JoinCandidate(int joinType, ColumnIdentifierScanParam* left, ColumnIdentifierScanParam* right) : AbstractJoinCandidate(joinType) {
+JoinCandidate::JoinCandidate(int joinType, ColumnIdentifierScanParam* left, ColumnIdentifierScanParam* right) : AbstractJoinCandidateCollection(joinType) {
 	this->left = dynamic_cast<ColumnIdentifierScanParam*>(left->clone());
 	this->right = dynamic_cast<ColumnIdentifierScanParam*>(right->clone());
 }

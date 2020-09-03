@@ -10,7 +10,7 @@
 
 namespace codablecash {
 
-JoinMultipleCandidate::JoinMultipleCandidate(int joinType) : AbstractJoinCandidate(joinType) {
+JoinMultipleCandidate::JoinMultipleCandidate(int joinType) : AbstractJoinCandidateCollection(joinType) {
 }
 
 JoinMultipleCandidate::~JoinMultipleCandidate() {
