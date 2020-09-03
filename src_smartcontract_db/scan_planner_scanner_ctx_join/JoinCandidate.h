@@ -18,6 +18,7 @@ class AbstractScanTableTarget;
 
 class JoinCandidate : public AbstractJoinCandidate {
 public:
+	JoinCandidate(const JoinCandidate& inst);
 	explicit JoinCandidate(int joinType, ColumnIdentifierScanParam* left, ColumnIdentifierScanParam* right);
 	virtual ~JoinCandidate();
 
