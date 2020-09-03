@@ -17,6 +17,7 @@
 
 #include "scan_planner_scanner_ctx_join/JoinCandidateStackMarker.h"
 #include "scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
+#include "scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
 
 using namespace alinous;
 
@@ -126,6 +127,12 @@ void AndScanCondition::collectJoinCandidate(VirtualMachine* vm,
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractScanCondition* cond = this->list.get(i);
 
+		cond->collectJoinCandidate(vm, planner, joinType, jholder);
+		if(!jholder->isEmpty()){
+			AbstractJoinCandidate* c = jholder->pop();
+
+			delete c;
+		}
 
 	}
 	// FIXME collectJoinCandidate
