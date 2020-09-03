@@ -24,4 +24,8 @@ AbstractJoinCandidate::CandidateType JoinMultipleCandidate::getCandidateType() c
 AbstractJoinCandidate* JoinMultipleCandidate::multiply(const AbstractJoinCandidate* other) const noexcept {
 }
 
+void codablecash::JoinMultipleCandidate::mul(const JoinCandidate* candidate) noexcept {
+}
+
+
 } /* namespace codablecash */

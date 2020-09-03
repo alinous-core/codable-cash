@@ -26,6 +26,7 @@ public:
 	virtual AbstractJoinCandidate* multiply(const AbstractJoinCandidate* other) const noexcept;
 	virtual AbstractJoinCandidate::CandidateType getCandidateType() const noexcept;
 
+	void mul(const JoinCandidate* candidate) noexcept;
 private:
 	ArrayList<JoinCandidate> list;
 };

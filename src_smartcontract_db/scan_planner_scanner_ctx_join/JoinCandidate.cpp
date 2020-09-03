@@ -11,6 +11,9 @@
 
 #include "scan_condition_params/ColumnIdentifierScanParam.h"
 
+#include "scan_planner_scanner_ctx_join/JoinOrCandidate.h"
+#include "scan_planner_scanner_ctx_join/JoinMultipleCandidate.h"
+
 namespace codablecash {
 
 JoinCandidate::JoinCandidate(int joinType, ColumnIdentifierScanParam* left, ColumnIdentifierScanParam* right) : AbstractJoinCandidate(joinType) {
@@ -36,6 +39,16 @@ JoinCandidate::CandidateType JoinCandidate::getCandidateType() const noexcept {
 }
 
 AbstractJoinCandidate* JoinCandidate::multiply(const AbstractJoinCandidate* other) const noexcept {
+	JoinCandidate::CandidateType candidateType = other->getCandidateType();
+
+	if(candidateType == JoinCandidate::CandidateType::OR){
+		const JoinOrCandidate* orCandidate = dynamic_cast<const JoinOrCandidate*>(other);
+		return orCandidate->multiply(this);
+	}
+
+	JoinMultipleCandidate* candidate = new JoinMultipleCandidate(this->joinType);
+
+
 }
 
 } /* namespace codablecash */
