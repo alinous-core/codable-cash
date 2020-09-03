@@ -31,5 +31,11 @@ const AbstractScanTableTarget* JoinCandidate::getRightTarget() const noexcept {
 	return this->right->getTarget();
 }
 
+JoinCandidate::CandidateType JoinCandidate::getCandidateType() const noexcept {
+	return JoinCandidate::CandidateType::EQUALS;
+}
+
+AbstractJoinCandidate* JoinCandidate::multiply(const AbstractJoinCandidate* other) const noexcept {
+}
 
 } /* namespace codablecash */

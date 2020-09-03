@@ -10,14 +10,24 @@
 
 #include "scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
 
+#include "base/ArrayList.h"
+
+using namespace alinous;
+
 namespace codablecash {
+
+class JoinCandidate;
 
 class JoinMultipleCandidate : public AbstractJoinCandidate {
 public:
 	explicit JoinMultipleCandidate(int joinType);
 	virtual ~JoinMultipleCandidate();
 
+	virtual AbstractJoinCandidate* multiply(const AbstractJoinCandidate* other) const noexcept;
+	virtual AbstractJoinCandidate::CandidateType getCandidateType() const noexcept;
 
+private:
+	ArrayList<JoinCandidate> list;
 };
 
 } /* namespace codablecash */

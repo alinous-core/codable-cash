@@ -6,6 +6,7 @@
  */
 
 #include "scan_planner_scanner_ctx_join/JoinOrCandidate.h"
+#include "scan_planner_scanner_ctx_join/JoinCandidate.h"
 
 namespace codablecash {
 
@@ -14,7 +15,14 @@ JoinOrCandidate::JoinOrCandidate(int joinType) : AbstractJoinCandidate(joinType)
 }
 
 JoinOrCandidate::~JoinOrCandidate() {
+	this->list.deleteElements();
+}
 
+AbstractJoinCandidate::CandidateType JoinOrCandidate::getCandidateType() const noexcept {
+	return AbstractJoinCandidate::CandidateType::OR;
+}
+
+AbstractJoinCandidate* JoinOrCandidate::multiply(const AbstractJoinCandidate* other) const noexcept {
 }
 
 } /* namespace codablecash */

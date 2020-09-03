@@ -15,12 +15,21 @@ public:
 	static const constexpr int LEFT_OUTER{1};
 	static const constexpr int INNER{2};
 
+	enum CandidateType{
+		EQUALS,
+		AND,
+		OR
+	};
+
 	explicit AbstractJoinCandidate(int joinType);
 	virtual ~AbstractJoinCandidate();
 
 	int getJoinType() const noexcept {
 		return joinType;
 	}
+
+	virtual CandidateType getCandidateType() const noexcept = 0;
+	virtual AbstractJoinCandidate* multiply(const AbstractJoinCandidate* other) const noexcept = 0;
 
 protected:
 	int joinType;
