@@ -8,6 +8,7 @@
 #include "scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
 #include "scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
 #include "scan_planner_scanner_ctx_join/JoinCandidate.h"
+#include "scan_planner_scanner_ctx_join/JoinCandidateStack.h"
 
 #include "scan_table/AbstractScanTableTarget.h"
 
@@ -16,28 +17,30 @@ namespace codablecash {
 JoinCandidateHolder::JoinCandidateHolder(const AbstractScanTableTarget* left, const AbstractScanTableTarget* right) {
 	this->left = left;
 	this->right = right;
+
+	this->stack = new JoinCandidateStack();
 }
 
 JoinCandidateHolder::~JoinCandidateHolder() {
-	this->stack.deleteElements();
 	this->leftOuterJoin.deleteElements();
 	this->innerJoin.deleteElements();
 
 	this->left = nullptr;
 	this->right = nullptr;
+
+	delete this->stack;
 }
 
 bool JoinCandidateHolder::isEmpty() const noexcept {
-	return this->stack.isEmpty();
+	return this->stack->isEmpty();
 }
 
 void JoinCandidateHolder::push(AbstractJoinCandidate* candidate) noexcept {
-	this->stack.addElement(candidate);
+	this->stack->push(candidate);
 }
 
 AbstractJoinCandidate* JoinCandidateHolder::pop() noexcept {
-	int index = this->stack.size() - 1;
-	return this->stack.remove(index);
+	return this->stack->pop();
 }
 
 bool JoinCandidateHolder::isJoinCondition(JoinCandidate* candidate) const noexcept {

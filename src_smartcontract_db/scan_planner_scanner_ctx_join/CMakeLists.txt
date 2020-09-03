@@ -6,6 +6,7 @@ set(__src
 	JoinCandidate.cpp
 	JoinCandidateHolder.cpp
 	JoinCandidateStack.cpp
+	JoinCandidateStackMarker.cpp
 	JoinMuntipleCandidate.cpp
 )
 handle_sub(codablecashlib "${__src}" smartcontract_db scan_planner_scanner_ctx_join)
