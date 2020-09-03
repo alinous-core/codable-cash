@@ -28,6 +28,7 @@ public:
 	virtual AbstractJoinCandidate::CandidateType getCandidateType() const noexcept;
 	virtual int size() const noexcept;
 	virtual const JoinCandidate* get(int i) const noexcept;
+	virtual AbstractJoinCandidate* copy() const noexcept;
 
 	void mul(const JoinCandidate* candidate) noexcept;
 private:

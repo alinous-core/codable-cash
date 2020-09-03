@@ -30,7 +30,7 @@ public:
 
 	virtual CandidateType getCandidateType() const noexcept = 0;
 	virtual AbstractJoinCandidate* multiply(const AbstractJoinCandidate* other) const noexcept = 0;
-
+	virtual AbstractJoinCandidate* copy() const noexcept = 0;
 protected:
 	int joinType;
 };

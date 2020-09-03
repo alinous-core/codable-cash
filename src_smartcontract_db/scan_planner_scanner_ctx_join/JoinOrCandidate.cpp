@@ -11,6 +11,16 @@
 
 namespace codablecash {
 
+JoinOrCandidate::JoinOrCandidate(const JoinOrCandidate& inst) : AbstractJoinCandidate(inst.joinType) {
+	int maxLoop = inst.list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractJoinCandidateCollection* col = inst.list.get(i);
+		AbstractJoinCandidateCollection* newCol = dynamic_cast<AbstractJoinCandidateCollection*>(col->copy());
+
+		this->list.addElement(newCol);
+	}
+}
+
 JoinOrCandidate::JoinOrCandidate(int joinType) : AbstractJoinCandidate(joinType) {
 
 }
@@ -64,6 +74,10 @@ void JoinOrCandidate::multiply(const JoinOrCandidate* other,
 
 		newCond->list.addElement(newCollection);
 	}
+}
+
+AbstractJoinCandidate* JoinOrCandidate::copy() const noexcept {
+	return new JoinOrCandidate(*this);
 }
 
 

@@ -20,11 +20,13 @@ class AbstractJoinCandidateCollection;
 
 class JoinOrCandidate : public AbstractJoinCandidate {
 public:
+	JoinOrCandidate(const JoinOrCandidate& inst);
 	explicit JoinOrCandidate(int joinType);
 	virtual ~JoinOrCandidate();
 
 	virtual AbstractJoinCandidate::CandidateType getCandidateType() const noexcept;
 	virtual AbstractJoinCandidate* multiply(const AbstractJoinCandidate* other) const noexcept;
+	virtual AbstractJoinCandidate* copy() const noexcept;
 
 private:
 	AbstractJoinCandidate* multiplyOr(const JoinOrCandidate* other) const noexcept;

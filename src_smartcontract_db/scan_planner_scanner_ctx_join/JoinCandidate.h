@@ -29,6 +29,7 @@ public:
 	virtual AbstractJoinCandidate* multiply(const AbstractJoinCandidate* other) const noexcept;
 	virtual int size() const noexcept;
 	virtual const JoinCandidate* get(int i) const noexcept;
+	virtual AbstractJoinCandidate* copy() const noexcept;
 
 private:
 	ColumnIdentifierScanParam* left;

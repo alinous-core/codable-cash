@@ -68,6 +68,10 @@ const JoinCandidate* JoinMultipleCandidate::get(int i) const noexcept {
 	return this->list.get(i);
 }
 
+AbstractJoinCandidate* JoinMultipleCandidate::copy() const noexcept {
+	return new JoinMultipleCandidate(*this);
+}
+
 void codablecash::JoinMultipleCandidate::mul(const JoinCandidate* candidate) noexcept {
 	this->list.addElement(new JoinCandidate(*candidate));
 }

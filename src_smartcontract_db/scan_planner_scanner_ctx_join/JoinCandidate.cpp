@@ -73,4 +73,9 @@ const JoinCandidate* JoinCandidate::get(int i) const noexcept {
 	return this;
 }
 
+AbstractJoinCandidate* JoinCandidate::copy() const noexcept {
+	return new JoinCandidate(*this);
+}
+
+
 } /* namespace codablecash */
