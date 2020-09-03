@@ -19,6 +19,7 @@
 #include "scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
 #include "scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
 
+#include "scan_planner_scanner_ctx_join/JoinMultipleCandidate.h"
 using namespace alinous;
 
 namespace codablecash {
@@ -142,15 +143,24 @@ void AndScanCondition::collectJoinCandidate(VirtualMachine* vm,
 	if(listSize > 0){
 		if(listSize == 1){
 			const AbstractJoinCandidate* c = operandList.get(0);
-
+			jholder->push(c->copy());
 		}
 		else{
+			AbstractJoinCandidate* multi = new JoinMultipleCandidate(joinType);
 
+			for(int i = 0; i != listSize; ++i){
+				AbstractJoinCandidate* c = operandList.get(i);
+
+				AbstractJoinCandidate* newmulti = multi->multiply(c);
+
+				delete multi;
+				multi = newmulti;
+			}
+
+			jholder->push(multi);
 		}
 
 	}
-
-	// FIXME collectJoinCandidate
 }
 
 
