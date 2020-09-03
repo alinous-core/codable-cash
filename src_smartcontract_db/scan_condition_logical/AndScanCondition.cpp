@@ -14,6 +14,10 @@
 #include "scan_planner_scanner_ctx/FilterConditionDitector.h"
 
 #include "scan_condition/AbstractScanCondition.h"
+
+#include "scan_planner_scanner_ctx_join/JoinCandidateStackMarker.h"
+#include "scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
+
 using namespace alinous;
 
 namespace codablecash {
@@ -115,6 +119,8 @@ void AndScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* 
 void AndScanCondition::collectJoinCandidate(VirtualMachine* vm,
 		SelectScanPlanner* planner, int joinType,
 		JoinCandidateHolder* jholder) {
+
+	JoinCandidateStackMarker marker(jholder->getStack());
 
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){

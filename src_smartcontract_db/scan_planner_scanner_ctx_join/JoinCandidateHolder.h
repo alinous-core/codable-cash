@@ -27,6 +27,9 @@ public:
 	bool isEmpty() const noexcept;
 	void push(AbstractJoinCandidate* candidate) noexcept;
 	AbstractJoinCandidate* pop() noexcept;
+	JoinCandidateStack* getStack() const noexcept {
+		return stack;
+	}
 
 	bool isJoinCondition(JoinCandidate* candidate) const noexcept;
 	void addJoinCandidate(AbstractJoinCandidate* candidate) noexcept;

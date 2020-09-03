@@ -13,6 +13,9 @@
 
 #include "scan_planner_scanner_ctx/FilterConditionDitector.h"
 
+#include "scan_planner_scanner_ctx_join/JoinCandidateStackMarker.h"
+#include "scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
+
 using namespace alinous;
 
 namespace codablecash {
@@ -116,6 +119,10 @@ void OrScanCondition::analyzeConditions(VirtualMachine* vm,	SelectScanPlanner* p
 
 void OrScanCondition::collectJoinCandidate(VirtualMachine* vm,
 		SelectScanPlanner* planner, int joinType, JoinCandidateHolder* jholder) {
+
+	JoinCandidateStackMarker marker(jholder->getStack());
+
+
 	// FIXME
 }
 

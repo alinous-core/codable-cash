@@ -18,10 +18,12 @@
 
 #include "scan_planner_scanner_ctx_join/JoinCandidate.h"
 #include "scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
+#include "scan_planner_scanner_ctx_join/JoinCandidateStackMarker.h"
 
 #include "scan_condition_params/ColumnIdentifierScanParam.h"
 
 #include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+
 
 using namespace alinous;
 
@@ -101,6 +103,8 @@ void EqualityScanCondition::collectJoinCandidate(VirtualMachine* vm, SelectScanP
 	if(!(this->left->isColumn() && this->right->isColumn())){
 		return;
 	}
+
+	JoinCandidateStackMarker marker(jholder->getStack());
 
 	JoinCandidate* candidate = new JoinCandidate(joinType, dynamic_cast<ColumnIdentifierScanParam*>(this->left)
 				, dynamic_cast<ColumnIdentifierScanParam*>(this->right));
