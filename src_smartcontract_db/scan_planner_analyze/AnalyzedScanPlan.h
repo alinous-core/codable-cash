@@ -22,6 +22,7 @@ public:
 	ScanTargetNameResolver* getScanTargetNameResolver() const noexcept {
 		return scanTargetNameResolver;
 	}
+
 	ScanColumnNameResolver* getScanColumnNameResolver() const noexcept {
 		return scanColumnNameResolver;
 	}
@@ -29,6 +30,8 @@ public:
 	AbstractScannerFactory* getScanFactory() const noexcept {
 		return scanFactory;
 	}
+	void setScanFactory(AbstractScannerFactory* scanFactory) noexcept;
+
 
 private:
 	ScanTargetNameResolver* scanTargetNameResolver;

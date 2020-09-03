@@ -39,6 +39,8 @@ private:
 	VirtualMachine* vm;
 	SelectScanPlanner* planner;
 	ArrayList<AbstractScanTableTarget> list;
+
+	AbstractScanCondition* cond;
 };
 
 } /* namespace codablecash */

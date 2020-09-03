@@ -39,6 +39,7 @@ public:
 
 private:
 	AbstractScannerFactory* buildScanFactory(VirtualMachine* vm, SelectScanPlanner* planner);
+	AbstractScanTableTarget* buildOuterJoinTarget();
 
 private:
 	ArrayList<AbstractScanTableTarget> list;

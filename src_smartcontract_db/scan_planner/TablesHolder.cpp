@@ -12,6 +12,9 @@
 #include "base/UnicodeString.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+
+#include "scan_planner_analyze/AnalyzedScanPlan.h"
+
 namespace codablecash {
 
 TablesHolder::TablesHolder() {
@@ -72,6 +75,8 @@ void TablesHolder::buildScannerFactories(VirtualMachine* vm, SelectScanPlanner* 
 	AbstractScannerFactory* factory = buildScanFactory(vm, planner);
 
 	AnalyzedScanPlan* plan = planner->getPlan();
+	plan->setScanFactory(factory);
+
 }
 
 AbstractScannerFactory* TablesHolder::buildScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) {
@@ -83,9 +88,18 @@ AbstractScannerFactory* TablesHolder::buildScanFactory(VirtualMachine* vm, Selec
 		return factory;
 	}
 
-	// FIXME TablesHolder::buildScannerFactories
 	// SELECT * FROM table1, table2, table3
+	AbstractScanTableTarget* target = buildOuterJoinTarget();
+	AbstractScannerFactory* factory = target->getScanFactory(vm, planner);
 
+	return factory;
+}
+
+AbstractScanTableTarget* TablesHolder::buildOuterJoinTarget() {
+
+	return nullptr;
+
+	// FIXME TablesHolder::buildScannerFactories
 }
 
 } /* namespace codablecash */

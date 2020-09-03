@@ -25,4 +25,9 @@ AnalyzedScanPlan::~AnalyzedScanPlan() {
 	delete this->scanFactory;
 }
 
+void codablecash::AnalyzedScanPlan::setScanFactory(AbstractScannerFactory* scanFactory) noexcept {
+	this->scanFactory = scanFactory;
+}
+
+
 } /* namespace codablecash */

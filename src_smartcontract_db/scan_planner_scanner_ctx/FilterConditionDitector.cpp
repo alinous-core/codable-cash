@@ -19,6 +19,7 @@ namespace codablecash {
 FilterConditionDitector::FilterConditionDitector(VirtualMachine* vm, SelectScanPlanner* planner) {
 	this->vm = vm;
 	this->planner = planner;
+	this->cond = nullptr;
 }
 
 FilterConditionDitector::~FilterConditionDitector() {
@@ -26,6 +27,8 @@ FilterConditionDitector::~FilterConditionDitector() {
 
 	this->vm = nullptr;
 	this->planner = nullptr;
+
+	delete this->cond;
 }
 
 void FilterConditionDitector::detect(AbstractScanTableTarget* target) {
@@ -34,6 +37,10 @@ void FilterConditionDitector::detect(AbstractScanTableTarget* target) {
 	target->collectScanTargets(this->vm, this->planner, &this->list);
 
 	RootScanCondition* root = holder->getRoot();
+	root->detectFilterConditions(this->vm, this->planner, this);
+	if(!isEmpty()){
+		this->cond = pop();
+	}
 
 }
 
