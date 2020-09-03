@@ -6,7 +6,7 @@
  */
 
 #include "scan_planner_scanner_ctx_join/JoinOrCandidate.h"
-#include "scan_planner_scanner_ctx_join/JoinMultipleCandidate.h"
+#include "scan_planner_scanner_ctx_join/AbstractJoinCandidateCollection.h"
 
 namespace codablecash {
 

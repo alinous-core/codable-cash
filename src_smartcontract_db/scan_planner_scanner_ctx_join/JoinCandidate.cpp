@@ -54,7 +54,23 @@ AbstractJoinCandidate* JoinCandidate::multiply(const AbstractJoinCandidate* othe
 
 	JoinMultipleCandidate* candidate = new JoinMultipleCandidate(this->joinType);
 
+	const AbstractJoinCandidateCollection* col = dynamic_cast<const AbstractJoinCandidateCollection*>(other);
 
+	int maxLoop = col->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const JoinCandidate* c = col->get(i);
+		candidate->mul(c);
+	}
+
+	return candidate;
+}
+
+int JoinCandidate::size() const noexcept {
+	return 1;
+}
+
+const JoinCandidate* JoinCandidate::get(int i) const noexcept {
+	return this;
 }
 
 } /* namespace codablecash */

@@ -16,7 +16,7 @@ using alinous::ArrayList;
 
 namespace codablecash {
 
-class JoinMultipleCandidate;
+class AbstractJoinCandidateCollection;
 
 class JoinOrCandidate : public AbstractJoinCandidate {
 public:
@@ -27,7 +27,7 @@ public:
 	virtual AbstractJoinCandidate* multiply(const AbstractJoinCandidate* other) const noexcept;
 
 private:
-	ArrayList<JoinMultipleCandidate> list;
+	ArrayList<AbstractJoinCandidateCollection> list;
 };
 
 } /* namespace codablecash */

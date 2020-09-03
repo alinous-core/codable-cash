@@ -12,10 +12,15 @@
 
 namespace codablecash {
 
+class JoinCandidate;
+
 class AbstractJoinCandidateCollection : public AbstractJoinCandidate {
 public:
 	AbstractJoinCandidateCollection(int joinType);
 	virtual ~AbstractJoinCandidateCollection();
+
+	virtual int size() const noexcept = 0;
+	virtual const JoinCandidate* get(int i) const noexcept = 0;
 };
 
 } /* namespace codablecash */
