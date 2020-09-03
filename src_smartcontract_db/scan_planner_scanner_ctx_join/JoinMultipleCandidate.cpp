@@ -7,6 +7,7 @@
 
 #include "scan_planner_scanner_ctx_join/JoinMultipleCandidate.h"
 #include "scan_planner_scanner_ctx_join/JoinCandidate.h"
+#include "scan_planner_scanner_ctx_join/JoinOrCandidate.h"
 
 namespace codablecash {
 
@@ -22,6 +23,32 @@ AbstractJoinCandidate::CandidateType JoinMultipleCandidate::getCandidateType() c
 }
 
 AbstractJoinCandidate* JoinMultipleCandidate::multiply(const AbstractJoinCandidate* other) const noexcept {
+	JoinCandidate::CandidateType candidateType = other->getCandidateType();
+
+	if(candidateType == JoinCandidate::CandidateType::OR){
+		const JoinOrCandidate* orCandidate = dynamic_cast<const JoinOrCandidate*>(other);
+		return orCandidate->multiply(this);
+	}
+
+	JoinMultipleCandidate* candidate = new JoinMultipleCandidate(this->joinType);
+
+	// copy self
+	int maxLoop = size();
+	for(int i = 0; i != maxLoop; ++i){
+		const JoinCandidate* c = get(i);
+		candidate->mul(c);
+	}
+
+	// other
+	const AbstractJoinCandidateCollection* col = dynamic_cast<const AbstractJoinCandidateCollection*>(other);
+
+	maxLoop = col->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const JoinCandidate* c = col->get(i);
+		candidate->mul(c);
+	}
+
+	return candidate;
 }
 
 int JoinMultipleCandidate::size() const noexcept {
