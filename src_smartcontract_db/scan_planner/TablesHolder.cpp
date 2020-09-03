@@ -8,12 +8,14 @@
 #include "scan_planner/TablesHolder.h"
 
 #include "scan_table/AbstractScanTableTarget.h"
+#include "scan_table/CrossJoinScanTarget.h"
 
 #include "base/UnicodeString.h"
 
 #include "scan_planner/SelectScanPlanner.h"
 
 #include "scan_planner_analyze/AnalyzedScanPlan.h"
+
 
 namespace codablecash {
 
@@ -96,8 +98,20 @@ AbstractScannerFactory* TablesHolder::buildScanFactory(VirtualMachine* vm, Selec
 }
 
 AbstractScanTableTarget* TablesHolder::buildOuterJoinTarget() {
+	AbstractScanTableTarget* target = this->list.get(0);
 
-	return nullptr;
+	int maxLoop = this->list.size();
+	for(int i = 1; i != maxLoop; ++i){
+		AbstractScanTableTarget* targetRight = this->list.get(i);
+
+		CrossJoinScanTarget* crossJoin = new CrossJoinScanTarget();
+		crossJoin->setLeft(target);
+		crossJoin->setRight(targetRight);
+
+		target = crossJoin;
+	}
+
+	return target;
 
 	// FIXME TablesHolder::buildScannerFactories
 }
