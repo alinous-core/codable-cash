@@ -28,9 +28,14 @@ public:
 	virtual AbstractJoinCandidate* multiply(const AbstractJoinCandidate* other) const noexcept;
 	virtual AbstractJoinCandidate* copy() const noexcept;
 
+	void add(const AbstractJoinCandidate* candidate) noexcept;
+
 private:
 	AbstractJoinCandidate* multiplyOr(const JoinOrCandidate* other) const noexcept;
 	void multiply(const JoinOrCandidate* other, const AbstractJoinCandidateCollection* col, JoinOrCandidate* newCond) const noexcept;
+
+	void addOr(const JoinOrCandidate* candidate) noexcept;
+
 private:
 	ArrayList<AbstractJoinCandidateCollection> list;
 };

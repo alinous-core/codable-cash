@@ -76,9 +76,28 @@ void JoinOrCandidate::multiply(const JoinOrCandidate* other,
 	}
 }
 
+void JoinOrCandidate::add(const AbstractJoinCandidate* candidate) noexcept {
+	JoinCandidate::CandidateType candidateType = candidate->getCandidateType();
+
+	if(candidateType == JoinCandidate::CandidateType::OR){
+		addOr(dynamic_cast<const JoinOrCandidate*>(candidate));
+		return;
+	}
+
+	AbstractJoinCandidateCollection* col = dynamic_cast<AbstractJoinCandidateCollection*>(candidate->copy());
+	this->list.addElement(col);
+}
+
+void JoinOrCandidate::addOr(const JoinOrCandidate* candidate) noexcept {
+	int maxLoop = candidate->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractJoinCandidateCollection* col = candidate->list.get(i);
+
+		this->list.addElement(col);
+	}
+}
+
 AbstractJoinCandidate* JoinOrCandidate::copy() const noexcept {
 	return new JoinOrCandidate(*this);
 }
-
-
 } /* namespace codablecash */

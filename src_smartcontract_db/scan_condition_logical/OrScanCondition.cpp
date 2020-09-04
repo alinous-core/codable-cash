@@ -15,6 +15,8 @@
 
 #include "scan_planner_scanner_ctx_join/JoinCandidateStackMarker.h"
 #include "scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
+#include "scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
+#include "scan_planner_scanner_ctx_join/JoinOrCandidate.h"
 
 using namespace alinous;
 
@@ -122,8 +124,35 @@ void OrScanCondition::collectJoinCandidate(VirtualMachine* vm,
 
 	JoinCandidateStackMarker marker(jholder->getStack());
 
+	ArrayList<AbstractJoinCandidate> operandList;
+	operandList.setDeleteOnExit();
 
-	// FIXME
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cond = this->list.get(i);
+
+		cond->collectJoinCandidate(vm, planner, joinType, jholder);
+
+		if(!jholder->isEmpty()){
+			AbstractJoinCandidate* c = jholder->pop();
+
+			operandList.addElement(c);
+		}
+		else{
+			return;
+		}
+	}
+
+	JoinOrCandidate* candidate = new JoinOrCandidate(joinType);
+
+	int listSize = operandList.size();
+	for(int i = 0; i != listSize; ++i){
+		AbstractJoinCandidate* c = operandList.get(i);
+
+		candidate->add(c);
+	}
+
+	jholder->push(candidate);
 }
 
 } /* namespace codablecash */
