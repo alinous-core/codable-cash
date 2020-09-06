@@ -39,6 +39,14 @@ AbstractScanConditionElement* ConditionsHolderStack::pop() noexcept {
 	return this->stack.remove(index);
 }
 
+int ConditionsHolderStack::size() const noexcept {
+	return this->stack.size();
+}
+
+AbstractScanConditionElement* codablecash::ConditionsHolderStack::get(int index) const noexcept {
+	return this->stack.get(index);
+}
+
 void ConditionsHolderStack::mark() noexcept {
 	int index = this->stack.size();
 	this->markStack.addElement(index);

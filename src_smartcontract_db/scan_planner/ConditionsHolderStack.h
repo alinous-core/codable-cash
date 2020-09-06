@@ -27,6 +27,9 @@ public:
 	void push(AbstractScanConditionElement* candidate) noexcept;
 	AbstractScanConditionElement* pop() noexcept;
 
+	int size() const noexcept;
+	AbstractScanConditionElement* get(int index) const noexcept;
+
 	void mark() noexcept;
 	void unmark() noexcept;
 
