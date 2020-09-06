@@ -17,7 +17,12 @@ public:
 	explicit AbstractJoinScannerFactory(const ScanResultMetadata* metadata);
 	virtual ~AbstractJoinScannerFactory();
 
+	void setLeft(AbstractScannerFactory* factory) noexcept;
+	void setRight(AbstractScannerFactory* factory) noexcept;
 
+private:
+	AbstractScannerFactory* leftFactory;
+	AbstractScannerFactory* rightFactory;
 
 };
 
