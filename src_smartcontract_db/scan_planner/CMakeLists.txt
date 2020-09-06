@@ -3,6 +3,7 @@
 set(__src
 	ConditionsHolder.cpp
 	ConditionsHolderStack.cpp
+	ConditionsHolderStackMarker.cpp
 	SelectScanPlanner.cpp
 	TablesHolder.cpp
 )
