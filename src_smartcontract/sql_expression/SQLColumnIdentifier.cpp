@@ -12,6 +12,7 @@
 #include "sc_analyze/AnalyzeContext.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolderStackMarker.h"
 
 #include "scan_condition_params/ColumnIdentifierScanParam.h"
 
@@ -19,6 +20,7 @@
 
 #include "scan_columns/ScanColumnHolder.h"
 #include "scan_columns/ScanColumn.h"
+
 
 namespace alinous {
 
@@ -113,6 +115,7 @@ void SQLColumnIdentifier::init(VirtualMachine* vm) {
 
 AbstractVmInstance* SQLColumnIdentifier::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	ColumnIdentifierScanParam* param = new ColumnIdentifierScanParam(this);
 	planner->push(param);

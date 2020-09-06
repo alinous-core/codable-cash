@@ -16,12 +16,14 @@
 #include "scan_condition/ScanConditionCast.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolderStackMarker.h"
 
 #include "vm/VirtualMachine.h"
 
 #include "scan_columns/ScanColumnHolder.h"
 
 #include "scan_columns_exp/IsNullScanColumnTarget.h"
+
 
 namespace alinous {
 
@@ -92,6 +94,7 @@ void SQLIsNullExpression::init(VirtualMachine* vm) {
 
 AbstractVmInstance* SQLIsNullExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	IsNullScanCondition* cond = new IsNullScanCondition();
 

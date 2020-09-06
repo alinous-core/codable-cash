@@ -12,12 +12,14 @@
 #include "instance_ref/PrimitiveReference.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolderStackMarker.h"
 
 #include "scan_condition_params/BooleanScanParam.h"
 
 #include "scan_columns/ScanColumnHolder.h"
 
 #include "scan_columns_params/BooleanLiteralColumnParam.h"
+
 
 namespace alinous {
 
@@ -76,6 +78,7 @@ AbstractVmInstance* SQLBooleanLiteral::interpret(VirtualMachine* vm) {
 
 void SQLBooleanLiteral::interpretOnPlanning(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	BooleanScanParam* param = new BooleanScanParam(this->value);
 

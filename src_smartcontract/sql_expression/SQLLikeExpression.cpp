@@ -13,6 +13,7 @@
 #include "vm/VirtualMachine.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolderStackMarker.h"
 
 #include "scan_condition_exp/LikeScanCondition.h"
 
@@ -21,6 +22,7 @@
 #include "scan_columns/ScanColumnHolder.h"
 
 #include "scan_columns_exp/LikeExpressionScanColumnTarget.h"
+
 
 namespace alinous {
 
@@ -140,6 +142,7 @@ void SQLLikeExpression::init(VirtualMachine* vm) {
 
 AbstractVmInstance* SQLLikeExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	LikeScanCondition* cond = new LikeScanCondition();
 	planner->push(cond);

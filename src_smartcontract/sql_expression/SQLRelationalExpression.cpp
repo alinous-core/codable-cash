@@ -12,6 +12,7 @@
 #include "vm/VirtualMachine.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolderStackMarker.h"
 
 #include "scan_condition_exp/RelationalScanCondition.h"
 
@@ -20,6 +21,7 @@
 #include "scan_columns/ScanColumnHolder.h"
 
 #include "scan_columns_exp/RelationalExpressionScanTarget.h"
+
 
 using namespace codablecash;
 
@@ -111,6 +113,7 @@ void SQLRelationalExpression::init(VirtualMachine* vm) {
 
 AbstractVmInstance* SQLRelationalExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	RelationalScanCondition* cond = new RelationalScanCondition();
 	planner->push(cond);

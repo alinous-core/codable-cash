@@ -10,6 +10,7 @@
 #include "sc_analyze/AnalyzedType.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolderStackMarker.h"
 
 #include "scan_condition_arithmetic/MultiplicativeScanCondition.h"
 #include "scan_condition/AbstractScanConditionElement.h"
@@ -117,6 +118,7 @@ void SqlMultiplicativeExpression::init(VirtualMachine* vm) {
 
 AbstractVmInstance* SqlMultiplicativeExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	MultiplicativeScanCondition* cond = new MultiplicativeScanCondition();
 

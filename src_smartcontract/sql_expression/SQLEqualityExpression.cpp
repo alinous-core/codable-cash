@@ -12,6 +12,7 @@
 #include "vm/VirtualMachine.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolderStackMarker.h"
 
 #include "scan_condition/AbstractScanCondition.h"
 #include "scan_condition_exp/EqualityScanCondition.h"
@@ -23,6 +24,7 @@
 #include "scan_columns_exp/EqualityScanColumnTarget.h"
 
 #include "scan_condition/ScanConditionCast.h"
+
 
 using namespace codablecash;
 
@@ -114,6 +116,7 @@ void SQLEqualityExpression::init(VirtualMachine* vm) {
 
 AbstractVmInstance* SQLEqualityExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	EqualityScanCondition* cond = new EqualityScanCondition();
 	planner->push(cond);

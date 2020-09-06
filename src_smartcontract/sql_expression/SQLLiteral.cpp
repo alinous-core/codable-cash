@@ -23,11 +23,13 @@
 #include "scan_condition_params/StringScanParam.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolderStackMarker.h"
 
 #include "scan_columns/ScanColumnHolder.h"
 
 #include "scan_columns_params/NumberLiteralColumnParam.h"
 #include "scan_columns_params/StringLiteralColumnParam.h"
+
 
 namespace alinous {
 
@@ -114,6 +116,7 @@ AbstractVmInstance* SQLLiteral::interpret(VirtualMachine* vm) {
 
 void SQLLiteral::interpretOnPlanning(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	AbstractScanConditionParameter* param = nullptr;
 	if(this->type == SQLLiteral::TYPE_NUMBER){

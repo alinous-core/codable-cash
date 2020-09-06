@@ -15,12 +15,14 @@
 #include "scan_condition/IValueProvider.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolderStackMarker.h"
 
 #include "scan_condition/ScanConditionCast.h"
 
 #include "scan_columns/ScanColumnHolder.h"
 
 #include "scan_columns_exp/ExpressionListScanColumnTarget.h"
+
 
 namespace alinous {
 
@@ -122,6 +124,7 @@ int SQLExpressionList::numExpressions() const noexcept {
 
 AbstractVmInstance* SQLExpressionList::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	ExpressionListScanCondition* cond = new ExpressionListScanCondition();
 	planner->push(cond);

@@ -17,12 +17,14 @@
 #include "scan_condition/ScanConditionCast.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolderStackMarker.h"
 
 #include "base/UnicodeString.h"
 
 #include "scan_columns/ScanColumnHolder.h"
 
 #include "scan_columns_exp/FunctionCallScanColumnTarget.h"
+
 
 namespace alinous {
 
@@ -139,6 +141,7 @@ void alinous::SQLFunctionCall::init(VirtualMachine* vm) {
 
 AbstractVmInstance* SQLFunctionCall::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	FunctionCallScanCondition* cond = new FunctionCallScanCondition();
 	planner->push(cond);

@@ -13,6 +13,7 @@
 #include "vm/VirtualMachine.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolderStackMarker.h"
 
 #include "scan_condition_exp/InExpressionScanCondition.h"
 
@@ -21,6 +22,7 @@
 #include "scan_columns/ScanColumnHolder.h"
 
 #include "scan_columns_exp/InExpressionScanColumnTarget.h"
+
 
 using codablecash::ScanConditionCast;
 
@@ -103,6 +105,7 @@ void SQLInExpression::init(VirtualMachine* vm) {
 
 AbstractVmInstance* SQLInExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	InExpressionScanCondition* cond = new InExpressionScanCondition();
 	planner->push(cond);
