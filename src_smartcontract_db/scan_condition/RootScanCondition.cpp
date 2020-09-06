@@ -34,7 +34,9 @@ void RootScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner*
 
 void RootScanCondition::detectFilterConditions(VirtualMachine* vm,
 		SelectScanPlanner* planner, FilterConditionDitector* detector) {
-	this->cond->detectFilterConditions(vm, planner, detector);
+	if(this->cond != nullptr){
+		this->cond->detectFilterConditions(vm, planner, detector);
+	}
 }
 
 AbstractScanCondition* RootScanCondition::cloneCondition() const noexcept {

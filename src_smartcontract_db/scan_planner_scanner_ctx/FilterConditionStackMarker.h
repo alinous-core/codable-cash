@@ -10,10 +10,15 @@
 
 namespace codablecash {
 
+class FilterConditionStack;
+
 class FilterConditionStackMarker {
 public:
-	FilterConditionStackMarker();
+	explicit FilterConditionStackMarker(FilterConditionStack* stack);
 	virtual ~FilterConditionStackMarker();
+
+private:
+	FilterConditionStack* stack;
 };
 
 } /* namespace codablecash */

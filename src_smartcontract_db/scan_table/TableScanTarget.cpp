@@ -118,7 +118,7 @@ AbstractScannerFactory* TableScanTarget::getScanFactory(VirtualMachine* vm, Sele
 	RootScanCondition* root = holder->getRoot();
 
 	FilterConditionDitector filterDetector(vm, planner);
-	//filterDetector.detect(this);
+	filterDetector.detect(this);
 
 	// FIXME getScanFactory
 	return nullptr;

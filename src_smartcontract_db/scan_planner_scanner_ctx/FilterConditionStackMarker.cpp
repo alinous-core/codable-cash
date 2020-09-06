@@ -7,15 +7,17 @@
 
 #include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionStack.h"
+
 namespace codablecash {
 
-FilterConditionStackMarker::FilterConditionStackMarker() {
-	// TODO Auto-generated constructor stub
-
+FilterConditionStackMarker::FilterConditionStackMarker(FilterConditionStack* stack) {
+	this->stack = stack;
+	stack->mark();
 }
 
 FilterConditionStackMarker::~FilterConditionStackMarker() {
-	// TODO Auto-generated destructor stub
+	this->stack->unmark();
 }
 
 } /* namespace codablecash */

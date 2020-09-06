@@ -6,6 +6,7 @@
  */
 
 #include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_planner_scanner_ctx/FilterConditionStack.h"
 
 #include "scan_table/AbstractScanTableTarget.h"
 
@@ -20,10 +21,11 @@ FilterConditionDitector::FilterConditionDitector(VirtualMachine* vm, SelectScanP
 	this->vm = vm;
 	this->planner = planner;
 	this->cond = nullptr;
+	this->stack = new FilterConditionStack();
 }
 
 FilterConditionDitector::~FilterConditionDitector() {
-	this->stack.deleteElements();
+	delete this->stack;
 
 	this->vm = nullptr;
 	this->planner = nullptr;
@@ -61,16 +63,15 @@ bool FilterConditionDitector::hasTarget(AbstractScanTableTarget* target) const n
 }
 
 bool FilterConditionDitector::isEmpty() const noexcept {
-	return this->stack.isEmpty();
+	return this->stack->isEmpty();
 }
 
 void FilterConditionDitector::push(AbstractScanCondition* cond) noexcept {
-	this->stack.addElement(cond);
+	this->stack->push(cond);
 }
 
 AbstractScanCondition* FilterConditionDitector::pop() noexcept {
-	int index = this->stack.size() - 1;
-	return this->stack.remove(index);
+	return this->stack->pop();
 }
 
 } /* namespace codablecash */
