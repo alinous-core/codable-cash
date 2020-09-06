@@ -33,6 +33,8 @@ public:
 	void push(AbstractScanCondition* cond) noexcept;
 	AbstractScanCondition* pop() noexcept;
 
+
+
 private:
 	ArrayList<AbstractScanCondition> stack;
 
