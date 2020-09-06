@@ -22,6 +22,7 @@ class AbstractScanConditionElement;
 class TablesHolder;
 class ScanColumnHolder;
 class AnalyzedScanPlan;
+class ConditionsHolderStack;
 
 class SelectScanPlanner {
 public:
@@ -35,6 +36,7 @@ public:
 	ConditionsHolder* getConditions() const noexcept {
 		return this->conditions;
 	}
+	ConditionsHolderStack* getConditionsStack() const noexcept;
 
 	TablesHolder* getTablesHolder() const noexcept {
 		return tablesHolder;

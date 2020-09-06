@@ -31,9 +31,14 @@ public:
 	AbstractScanConditionElement* top() const noexcept;
 	AbstractScanConditionElement* pop() noexcept;
 
+	ConditionsHolderStack* getStack() const noexcept {
+		return stack;
+	}
+
 	RootScanCondition* getRoot() const noexcept;
 
 	void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
+
 private:
 	RootScanCondition* root;
 

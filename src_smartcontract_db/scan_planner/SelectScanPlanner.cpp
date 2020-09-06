@@ -10,6 +10,7 @@
 #include "scan_planner/SelectScanPlanner.h"
 #include "scan_planner/ConditionsHolder.h"
 #include "scan_planner/TablesHolder.h"
+#include "scan_planner/ConditionsHolderStack.h"
 
 #include "scan_planner_analyze/AnalyzedScanPlan.h"
 
@@ -18,6 +19,7 @@
 #include "scan_columns/ScanColumnHolder.h"
 
 #include "vm/VirtualMachine.h"
+
 
 namespace codablecash {
 
@@ -46,6 +48,8 @@ AbstractScanConditionElement* SelectScanPlanner::top() const noexcept {
 AbstractScanConditionElement* SelectScanPlanner::pop() noexcept{
 	return this->conditions->pop();
 }
+
+
 
 void SelectScanPlanner::makeplan(VirtualMachine* vm) {
 	delete this->plan;
@@ -78,5 +82,10 @@ void SelectScanPlanner::buildScannerFactories(VirtualMachine* vm) {
 void SelectScanPlanner::executeQuery(VirtualMachine* vm) {
 	AbstractScannerFactory* scanFactory = this->plan->getScanFactory();
 }
+
+ConditionsHolderStack* SelectScanPlanner::getConditionsStack() const noexcept {
+	return this->conditions->getStack();
+}
+
 
 } /* namespace codablecash */
