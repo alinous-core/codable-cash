@@ -16,6 +16,7 @@
 #include "scan_condition_exp/ExpressionListScanCondition.h"
 
 #include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
 
 namespace codablecash {
 
@@ -69,6 +70,8 @@ AbstractScanCondition* InExpressionScanCondition::cloneCondition() const noexcep
 
 void InExpressionScanCondition::detectFilterConditions(VirtualMachine* vm,
 		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
 	bool leftFilterable = this->left->isFilterable(vm, planner, detector);
 
 	if(leftFilterable){

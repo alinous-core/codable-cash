@@ -12,6 +12,7 @@
 #include "base/UnicodeString.h"
 
 #include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
 
 #include "scan_planner_scanner_ctx_join/JoinCandidateStackMarker.h"
 #include "scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
@@ -72,6 +73,8 @@ AbstractScanCondition* OrScanCondition::cloneCondition() const noexcept {
 
 void OrScanCondition::detectFilterConditions(VirtualMachine* vm,
 		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
 	bool allavailable = true;
 	ArrayList<AbstractScanCondition> scanList;
 

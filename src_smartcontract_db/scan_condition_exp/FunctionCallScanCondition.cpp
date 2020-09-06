@@ -14,6 +14,7 @@
 #include "scan_condition/IValueProvider.h"
 
 #include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
 
 namespace codablecash {
 
@@ -86,6 +87,8 @@ AbstractScanCondition* FunctionCallScanCondition::cloneCondition() const noexcep
 
 void FunctionCallScanCondition::detectFilterConditions(VirtualMachine* vm,
 		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
 	if(isFilterable(vm, planner, detector)){
 		detector->push(cloneCondition());
 	}

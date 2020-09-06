@@ -14,6 +14,7 @@
 #include "base/UnicodeString.h"
 
 #include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
 
 using namespace alinous;
 
@@ -84,6 +85,8 @@ AbstractScanCondition* BetweenScanCondition::cloneCondition() const noexcept {
 
 void BetweenScanCondition::detectFilterConditions(VirtualMachine* vm,
 		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
 	if(this->left->isFilterable(vm, planner, detector) &&
 			this->start->isFilterable(vm, planner, detector) &&
 			this->end->isFilterable(vm, planner, detector)){

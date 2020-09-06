@@ -20,6 +20,8 @@
 #include "scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
 
 #include "scan_planner_scanner_ctx_join/JoinMultipleCandidate.h"
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
+
 using namespace alinous;
 
 namespace codablecash {
@@ -74,6 +76,8 @@ AbstractScanCondition* AndScanCondition::cloneCondition() const noexcept {
 
 void AndScanCondition::detectFilterConditions(VirtualMachine* vm,
 		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
 	ArrayList<AbstractScanCondition> scanList;
 
 	int maxLoop = this->list.size();

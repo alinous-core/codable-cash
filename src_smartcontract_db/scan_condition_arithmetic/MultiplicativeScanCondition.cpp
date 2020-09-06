@@ -14,6 +14,7 @@
 #include "sql_expression/SqlMultiplicativeExpression.h"
 
 #include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
 
 namespace codablecash {
 
@@ -94,6 +95,8 @@ void MultiplicativeScanCondition::analyzeConditions(VirtualMachine* vm, SelectSc
 
 bool MultiplicativeScanCondition::isFilterable(VirtualMachine* vm,
 		SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept {
+	FilterConditionStackMarker marker(detector->getStack());
+
 	bool result = true;
 
 	int maxLoop = this->list.size();

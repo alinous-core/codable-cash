@@ -12,6 +12,7 @@
 #include "base/UnicodeString.h"
 
 #include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
 
 using namespace alinous;
 
@@ -59,6 +60,8 @@ const UnicodeString* NotScanCondition::toStringCode() noexcept {
 
 void NotScanCondition::detectFilterConditions(VirtualMachine* vm,
 		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
 	this->cond->detectFilterConditions(vm, planner, detector);
 
 	if(!detector->isEmpty()){

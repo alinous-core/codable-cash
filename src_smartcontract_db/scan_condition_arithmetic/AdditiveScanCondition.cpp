@@ -14,6 +14,8 @@
 #include "sql_expression/SQLAdditiveExpression.h"
 
 #include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
+
 namespace codablecash {
 
 AdditiveScanCondition::AdditiveScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_ADDITIVE), operations(2) {
@@ -97,6 +99,8 @@ bool AdditiveScanCondition::isFilterable(VirtualMachine* vm,
 
 void AdditiveScanCondition::detectFilterConditions(VirtualMachine* vm,
 		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
 	if(isFilterable(vm, planner, detector)){
 		detector->push(cloneCondition());
 	}

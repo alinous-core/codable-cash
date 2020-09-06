@@ -23,7 +23,7 @@
 #include "scan_condition_params/ColumnIdentifierScanParam.h"
 
 #include "scan_planner_scanner_ctx/FilterConditionDitector.h"
-
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
 
 using namespace alinous;
 
@@ -80,6 +80,8 @@ AbstractScanCondition* EqualityScanCondition::cloneCondition() const noexcept {
 
 void EqualityScanCondition::detectFilterConditions(VirtualMachine* vm,
 		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
 	if(this->left->isFilterable(vm, planner, detector) &&
 			this->right->isFilterable(vm, planner, detector)){
 		detector->push(cloneCondition());

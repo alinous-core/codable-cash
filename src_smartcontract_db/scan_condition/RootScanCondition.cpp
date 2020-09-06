@@ -7,6 +7,9 @@
 
 #include "scan_condition/RootScanCondition.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+
 namespace codablecash {
 
 RootScanCondition::RootScanCondition() : AbstractScanCondition(0) {
@@ -34,6 +37,8 @@ void RootScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner*
 
 void RootScanCondition::detectFilterConditions(VirtualMachine* vm,
 		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
 	if(this->cond != nullptr){
 		this->cond->detectFilterConditions(vm, planner, detector);
 	}
