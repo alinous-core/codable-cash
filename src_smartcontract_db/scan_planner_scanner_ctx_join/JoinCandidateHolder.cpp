@@ -62,4 +62,9 @@ void JoinCandidateHolder::addJoinCandidate(AbstractJoinCandidate* candidate) noe
 	}
 }
 
+bool JoinCandidateHolder::isInnerJoin() const noexcept {
+	return !this->innerJoin.isEmpty();
+}
+
+
 } /* namespace codablecash */

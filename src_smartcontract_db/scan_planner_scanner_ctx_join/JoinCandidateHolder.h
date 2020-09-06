@@ -34,6 +34,8 @@ public:
 	bool isJoinCondition(JoinCandidate* candidate) const noexcept;
 	void addJoinCandidate(AbstractJoinCandidate* candidate) noexcept;
 
+	bool isInnerJoin() const noexcept;
+
 private:
 	JoinCandidateStack* stack;
 

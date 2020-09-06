@@ -17,4 +17,12 @@ InnerJoinScannerFactory::InnerJoinScannerFactory(const ScanResultMetadata* metad
 InnerJoinScannerFactory::~InnerJoinScannerFactory() {
 }
 
+IJoinLeftSource* InnerJoinScannerFactory::createScannerAsLeftSource(
+		VirtualMachine* vm, SelectScanPlanner* planner) {
+}
+
+IJoinRightSource* InnerJoinScannerFactory::createScannerAsRightSource(
+		VirtualMachine* vm, SelectScanPlanner* planner) {
+}
+
 } /* namespace codablecash */

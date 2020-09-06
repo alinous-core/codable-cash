@@ -16,6 +16,9 @@ class InnerJoinScannerFactory : public AbstractJoinScannerFactory {
 public:
 	InnerJoinScannerFactory(const ScanResultMetadata* metadata);
 	virtual ~InnerJoinScannerFactory();
+
+	virtual IJoinLeftSource* createScannerAsLeftSource(VirtualMachine* vm, SelectScanPlanner* planner);
+	virtual IJoinRightSource* createScannerAsRightSource(VirtualMachine* vm, SelectScanPlanner* planner);
 };
 
 } /* namespace codablecash */

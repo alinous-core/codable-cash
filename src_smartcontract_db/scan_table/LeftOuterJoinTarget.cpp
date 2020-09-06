@@ -24,6 +24,10 @@
 #include "scan_condition/RootScanCondition.h"
 
 #include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+
+#include "scan_planner_scanner/InnerJoinScannerFactory.h"
+#include "scan_planner_scanner/LeftJoinScannerFactory.h"
+
 namespace codablecash {
 
 LeftOuterJoinTarget::LeftOuterJoinTarget() {
@@ -76,6 +80,18 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 
 	FilterConditionDitector filterDetector(vm, planner);
 	filterDetector.detect(this);
+
+	AbstractScannerFactory* joinFactory = nullptr;
+	if(joinCandidates.isInnerJoin()){
+		joinFactory = new InnerJoinScannerFactory(this->metadata);
+	}
+	else{
+		joinFactory = new LeftJoinScannerFactory(this->metadata);
+	}
+
+
+	AbstractScannerFactory* leftFactory = this->left->getScanFactory(vm, planner);
+	AbstractScannerFactory* rightFactory = this->right->getScanFactory(vm, planner);
 
 	// FIXME getScanFactory
 	return nullptr;

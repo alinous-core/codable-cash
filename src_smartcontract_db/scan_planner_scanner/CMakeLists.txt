@@ -5,6 +5,7 @@ set(__src
 	AbstractScannerFactory.cpp
 	CrossJoinScanerFactory.cpp
 	InnerJoinScannerFactory.cpp
+	LeftJoinScannerFactory.cpp
 	TableScannerFactory.cpp
 )
 handle_sub(codablecashlib "${__src}" smartcontract_db scan_planner_scanner)

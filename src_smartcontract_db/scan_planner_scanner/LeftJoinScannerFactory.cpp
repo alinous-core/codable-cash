@@ -18,4 +18,13 @@ LeftJoinScannerFactory::~LeftJoinScannerFactory() {
 
 }
 
+IJoinLeftSource* LeftJoinScannerFactory::createScannerAsLeftSource(
+		VirtualMachine* vm, SelectScanPlanner* planner) {
+}
+
+IJoinRightSource* LeftJoinScannerFactory::createScannerAsRightSource(
+		VirtualMachine* vm, SelectScanPlanner* planner) {
+}
+
+
 } /* namespace codablecash */
