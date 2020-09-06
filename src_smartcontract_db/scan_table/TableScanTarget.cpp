@@ -10,6 +10,7 @@
 #include "base/UnicodeString.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolder.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -24,6 +25,7 @@
 #include "scan_planner_analyze/ScanTargetNameResolver.h"
 #include "scan_planner_analyze/AnalyzedScanPlan.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
 namespace codablecash {
 
 TableScanTarget::TableScanTarget() {
@@ -111,7 +113,12 @@ void TableScanTarget::collectScanTargets(VirtualMachine* vm, SelectScanPlanner* 
 }
 
 AbstractScannerFactory* TableScanTarget::getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) {
+	ConditionsHolder* holder = planner->getConditions();
 
+	RootScanCondition* root = holder->getRoot();
+
+	FilterConditionDitector filterDetector(vm, planner);
+	filterDetector.detect(this);
 
 	// FIXME getScanFactory
 	return nullptr;

@@ -2,6 +2,8 @@
 
 set(__src
 	FilterConditionDitector.cpp
+	FilterConditionStack.cpp
+	FilterConditionStackMarker.cpp
 	ScanJoinContext.cpp
 	ScanJoinContextHolder.cpp
 )
