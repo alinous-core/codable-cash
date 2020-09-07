@@ -26,6 +26,9 @@
 #include "scan_planner_analyze/AnalyzedScanPlan.h"
 
 #include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+
+#include "scan_planner_scanner_ctx_index/TableIndexDetector.h"
+
 namespace codablecash {
 
 TableScanTarget::TableScanTarget() {
@@ -119,6 +122,8 @@ AbstractScannerFactory* TableScanTarget::getScanFactory(VirtualMachine* vm, Sele
 
 	FilterConditionDitector filterDetector(vm, planner);
 	filterDetector.detect(this);
+
+	TableIndexDetector indexDetextor(vm, planner);
 
 	// FIXME getScanFactory
 	return nullptr;
