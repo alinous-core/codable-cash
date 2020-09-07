@@ -16,11 +16,14 @@ using namespace alinous;
 namespace codablecash {
 
 class SelectScanPlanner;
+class AbstractScanCondition;
 
 class TableIndexDetector {
 public:
 	TableIndexDetector(VirtualMachine* vm, SelectScanPlanner* planner);
 	virtual ~TableIndexDetector();
+
+	void detect(AbstractScanCondition* cond);
 
 private:
 	VirtualMachine* vm;

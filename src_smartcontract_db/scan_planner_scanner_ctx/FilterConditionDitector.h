@@ -37,6 +37,9 @@ public:
 		return stack;
 	}
 
+	AbstractScanCondition* getCondition() const noexcept {
+		return this->cond;
+	}
 private:
 	FilterConditionStack* stack;
 
