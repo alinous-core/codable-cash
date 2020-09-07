@@ -21,4 +21,11 @@ AbstractIndexCandidate::IndexType OrIndexCandidate::getCandidateType() const noe
 	return AbstractIndexCandidate::IndexType::OR;
 }
 
+AbstractIndexCandidate* OrIndexCandidate::multiply(
+		const AbstractIndexCandidate* other) const {
+}
+
+AbstractIndexCandidate* OrIndexCandidate::copy() const {
+}
+
 } /* namespace codablecash */

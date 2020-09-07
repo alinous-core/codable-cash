@@ -22,6 +22,8 @@ public:
 	virtual ~AbstractIndexCandidate();
 
 	virtual AbstractIndexCandidate::IndexType getCandidateType() const noexcept = 0;
+	virtual AbstractIndexCandidate* multiply(const AbstractIndexCandidate* other) const noexcept = 0;
+	virtual AbstractIndexCandidate* copy() const noexcept = 0;
 };
 
 } /* namespace codablecash */

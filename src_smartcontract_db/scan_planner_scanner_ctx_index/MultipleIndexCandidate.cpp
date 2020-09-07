@@ -21,4 +21,10 @@ AbstractIndexCandidate::IndexType MultipleIndexCandidate::getCandidateType() con
 	return AbstractIndexCandidate::IndexType::AND;
 }
 
+AbstractIndexCandidate* MultipleIndexCandidate::multiply(const AbstractIndexCandidate* other) const noexcept {
+}
+
+AbstractIndexCandidate* MultipleIndexCandidate::copy() const noexcept {
+}
+
 } /* namespace codablecash */
