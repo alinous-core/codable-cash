@@ -106,6 +106,10 @@ void AdditiveScanCondition::detectFilterConditions(VirtualMachine* vm,
 	}
 }
 
+void AdditiveScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner,
+		TableIndexDetector* detector) {
+}
+
 void AdditiveScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;

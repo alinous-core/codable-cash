@@ -24,6 +24,7 @@ public:
 	virtual AbstractScanCondition* cloneCondition() const noexcept;
 
 	virtual void detectFilterConditions(VirtualMachine* vm, SelectScanPlanner* planner, FilterConditionDitector* detector);
+	virtual void detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner, TableIndexDetector* detector);
 
 private:
 	void resetStr() noexcept;

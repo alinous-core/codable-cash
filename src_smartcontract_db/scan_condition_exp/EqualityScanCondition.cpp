@@ -88,6 +88,12 @@ void EqualityScanCondition::detectFilterConditions(VirtualMachine* vm,
 	}
 }
 
+void EqualityScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner,
+		TableIndexDetector* detector) {
+	// FIXME detectIndexCondition
+}
+
+
 void EqualityScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;

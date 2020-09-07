@@ -76,6 +76,11 @@ void IsNullScanCondition::detectFilterConditions(VirtualMachine* vm,
 	}
 }
 
+void IsNullScanCondition::detectIndexCondition(VirtualMachine* vm,
+		SelectScanPlanner* planner, TableIndexDetector* detector) {
+	// FIXME detectIndexCondition
+}
+
 void IsNullScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;

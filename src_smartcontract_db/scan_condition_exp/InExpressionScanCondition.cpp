@@ -82,8 +82,13 @@ void InExpressionScanCondition::detectFilterConditions(VirtualMachine* vm,
 			detector->push(cloneCondition());
 		}
 	}
-
 }
+
+void InExpressionScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner,
+		TableIndexDetector* detector) {
+	// FIXME detectIndexCondition
+}
+
 
 void InExpressionScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){

@@ -14,6 +14,7 @@ namespace codablecash {
 
 class JoinCandidateHolder;
 class FilterConditionDitector;
+class TableIndexDetector;
 
 class AbstractScanCondition : public AbstractScanConditionElement {
 public:
@@ -26,6 +27,7 @@ public:
 
 	virtual void collectJoinCandidate(VirtualMachine* vm, SelectScanPlanner* planner, int joinType, JoinCandidateHolder* jholder) {};
 	virtual void detectFilterConditions(VirtualMachine* vm, SelectScanPlanner* planner, FilterConditionDitector* detector) = 0;
+	virtual void detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner, TableIndexDetector* detector) = 0;
 
 	virtual AbstractScanCondition* cloneCondition() const noexcept = 0;
 

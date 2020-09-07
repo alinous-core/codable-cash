@@ -75,6 +75,12 @@ void ExpressionListScanCondition::detectFilterConditions(VirtualMachine* vm,
 	}
 }
 
+void codablecash::ExpressionListScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner,
+		TableIndexDetector* detector) {
+	// FIXME detectIndexCondition
+}
+
+
 bool ExpressionListScanCondition::isFilterable(VirtualMachine* vm,
 		SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept {
 	bool result = true;

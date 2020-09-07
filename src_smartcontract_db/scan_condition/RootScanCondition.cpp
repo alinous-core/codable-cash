@@ -44,6 +44,10 @@ void RootScanCondition::detectFilterConditions(VirtualMachine* vm,
 	}
 }
 
+void codablecash::RootScanCondition::detectIndexCondition(VirtualMachine* vm,
+		SelectScanPlanner* planner, TableIndexDetector* detector) {
+}
+
 AbstractScanCondition* RootScanCondition::cloneCondition() const noexcept {
 	RootScanCondition* cond = new RootScanCondition();
 

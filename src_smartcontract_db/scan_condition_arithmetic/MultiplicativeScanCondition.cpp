@@ -77,6 +77,10 @@ void MultiplicativeScanCondition::detectFilterConditions(VirtualMachine* vm,
 	}
 }
 
+void MultiplicativeScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner,
+		TableIndexDetector* detector) {
+}
+
 void MultiplicativeScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;

@@ -74,6 +74,9 @@ void NotScanCondition::detectFilterConditions(VirtualMachine* vm,
 	}
 }
 
+void NotScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner, TableIndexDetector* detector) {
+}
+
 void NotScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;

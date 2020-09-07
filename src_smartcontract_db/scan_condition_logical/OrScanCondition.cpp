@@ -106,6 +106,12 @@ void OrScanCondition::detectFilterConditions(VirtualMachine* vm,
 	}
 }
 
+void OrScanCondition::detectIndexCondition(VirtualMachine* vm,
+		SelectScanPlanner* planner, TableIndexDetector* detector) {
+	// FIXME detectIndexCondition
+}
+
+
 void OrScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;

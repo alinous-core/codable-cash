@@ -94,6 +94,11 @@ void FunctionCallScanCondition::detectFilterConditions(VirtualMachine* vm,
 	}
 }
 
+void FunctionCallScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner,
+		TableIndexDetector* detector) {
+}
+
+
 void FunctionCallScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;

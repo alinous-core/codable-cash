@@ -76,6 +76,12 @@ void ParenthesisScanCondition::detectFilterConditions(VirtualMachine* vm,
 	}
 }
 
+void ParenthesisScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner,
+		TableIndexDetector* detector) {
+	this->cond->detectIndexCondition(vm, planner, detector);
+}
+
+
 void ParenthesisScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;

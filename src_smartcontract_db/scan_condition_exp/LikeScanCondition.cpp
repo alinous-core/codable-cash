@@ -97,6 +97,10 @@ void LikeScanCondition::detectFilterConditions(VirtualMachine* vm,
 	}
 }
 
+void LikeScanCondition::detectIndexCondition(VirtualMachine* vm,
+		SelectScanPlanner* planner, TableIndexDetector* detector) {
+}
+
 void LikeScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;

@@ -99,6 +99,11 @@ void RelationalScanCondition::detectFilterConditions(VirtualMachine* vm,
 	}
 }
 
+void RelationalScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner,
+		TableIndexDetector* detector) {
+	// FIXME detectIndexCondition
+}
+
 void RelationalScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;

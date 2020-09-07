@@ -94,6 +94,12 @@ void BetweenScanCondition::detectFilterConditions(VirtualMachine* vm,
 	}
 }
 
+void BetweenScanCondition::detectIndexCondition(VirtualMachine* vm,
+		SelectScanPlanner* planner, TableIndexDetector* detector) {
+	// FIXME detectIndexCondition
+}
+
+
 void BetweenScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
