@@ -18,6 +18,7 @@ namespace codablecash {
 
 class MultipleIndexCandidate: public AbstractIndexCandidateCollection {
 public:
+	MultipleIndexCandidate(const MultipleIndexCandidate& inst);
 	MultipleIndexCandidate();
 	virtual ~MultipleIndexCandidate();
 

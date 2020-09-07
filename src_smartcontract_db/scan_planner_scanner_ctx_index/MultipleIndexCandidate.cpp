@@ -11,6 +11,14 @@
 
 namespace codablecash {
 
+MultipleIndexCandidate::MultipleIndexCandidate(const MultipleIndexCandidate& inst) {
+	int maxLoop = inst.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IndexCandidate* idx = this->list.get(i);
+		mul(idx);
+	}
+}
+
 MultipleIndexCandidate::MultipleIndexCandidate() {
 
 }
@@ -27,6 +35,7 @@ AbstractIndexCandidate* MultipleIndexCandidate::multiply(const AbstractIndexCand
 }
 
 AbstractIndexCandidate* MultipleIndexCandidate::copy() const noexcept {
+	return new MultipleIndexCandidate(*this);
 }
 
 int MultipleIndexCandidate::size() const noexcept {
