@@ -12,8 +12,16 @@ namespace codablecash {
 
 class AbstractIndexCandidate {
 public:
+	enum IndexType{
+		EQUALS,
+		AND,
+		OR
+	};
+
 	AbstractIndexCandidate();
 	virtual ~AbstractIndexCandidate();
+
+	virtual AbstractIndexCandidate::IndexType getCandidateType() const noexcept = 0;
 };
 
 } /* namespace codablecash */

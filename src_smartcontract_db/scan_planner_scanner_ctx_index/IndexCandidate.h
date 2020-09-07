@@ -16,6 +16,8 @@ class IndexCandidate: public AbstractIndexCandidateCollection {
 public:
 	IndexCandidate();
 	virtual ~IndexCandidate();
+
+	virtual AbstractIndexCandidate::IndexType getCandidateType() const noexcept;
 };
 
 } /* namespace codablecash */

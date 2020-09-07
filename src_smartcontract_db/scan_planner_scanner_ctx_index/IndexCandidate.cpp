@@ -5,17 +5,20 @@
  *      Author: iizuka
  */
 
-#include <scan_planner_scanner_ctx_index/IndexCandidate.h>
+#include "scan_planner_scanner_ctx_index/IndexCandidate.h"
 
 namespace codablecash {
 
 IndexCandidate::IndexCandidate() {
-	// TODO Auto-generated constructor stub
 
 }
 
 IndexCandidate::~IndexCandidate() {
-	// TODO Auto-generated destructor stub
+
+}
+
+AbstractIndexCandidate::IndexType IndexCandidate::getCandidateType() const noexcept {
+	return AbstractIndexCandidate::IndexType::EQUALS;
 }
 
 } /* namespace codablecash */
