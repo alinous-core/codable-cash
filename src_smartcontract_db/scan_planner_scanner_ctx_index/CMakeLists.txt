@@ -6,6 +6,7 @@ set(__src
 	MultipleIndexCandidate.cpp
 	OrIndexCandidate.cpp
 	TableIndexDetector.cpp
+	TableIndexDetectorStack.cpp
 )
 handle_sub(codablecashlib "${__src}" smartcontract_db scan_planner_scanner_ctx_index)
 
