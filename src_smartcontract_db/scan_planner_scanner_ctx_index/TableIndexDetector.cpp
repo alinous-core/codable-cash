@@ -22,7 +22,9 @@ TableIndexDetector::~TableIndexDetector() {
 }
 
 void TableIndexDetector::detect(AbstractScanCondition* cond) {
+	if(cond != nullptr){
 
+	}
 }
 
 } /* namespace codablecash */
