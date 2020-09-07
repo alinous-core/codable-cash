@@ -32,7 +32,47 @@ AbstractIndexCandidate::IndexType OrIndexCandidate::getCandidateType() const noe
 }
 
 AbstractIndexCandidate* OrIndexCandidate::multiply(const AbstractIndexCandidate* other) const noexcept {
+	AbstractIndexCandidate::IndexType candidateType = other->getCandidateType();
+
+	if(candidateType == AbstractIndexCandidate::IndexType::OR){
+		const OrIndexCandidate* orCandidate = dynamic_cast<const OrIndexCandidate*>(other);
+		return multiplyOr(orCandidate);
+	}
+
+	OrIndexCandidate* newCond = new OrIndexCandidate();
+	const AbstractIndexCandidateCollection* col = dynamic_cast<const AbstractIndexCandidateCollection*>(other);
+
+	multiply(this, col, newCond);
+
+	return newCond;
 }
+
+AbstractIndexCandidate* OrIndexCandidate::multiplyOr(const OrIndexCandidate* other) const noexcept {
+	OrIndexCandidate* newCond = new OrIndexCandidate();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractIndexCandidateCollection* col = this->list.get(i);
+
+		multiply(other, col, newCond);
+	}
+
+	return newCond;
+}
+
+void OrIndexCandidate::multiply(const OrIndexCandidate* other,
+		const AbstractIndexCandidateCollection* col, OrIndexCandidate* newCond) const noexcept {
+	int maxLoop = other->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractIndexCandidateCollection* c = other->list.get(i);
+
+		AbstractIndexCandidate* newC = c->multiply(col);
+		AbstractIndexCandidateCollection* newCollection = dynamic_cast<AbstractIndexCandidateCollection*>(newC);
+
+		newCond->list.addElement(newCollection);
+	}
+}
+
 
 AbstractIndexCandidate* OrIndexCandidate::copy() const noexcept {
 	return new OrIndexCandidate(*this);
@@ -41,5 +81,4 @@ AbstractIndexCandidate* OrIndexCandidate::copy() const noexcept {
 void OrIndexCandidate::add(const AbstractIndexCandidateCollection* candidate) noexcept {
 	this->list.addElement(dynamic_cast<AbstractIndexCandidateCollection*>(candidate->copy()));
 }
-
 } /* namespace codablecash */

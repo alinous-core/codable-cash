@@ -31,6 +31,10 @@ public:
 	void add(const AbstractIndexCandidateCollection* candidate) noexcept;
 
 private:
+	AbstractIndexCandidate* multiplyOr(const OrIndexCandidate* other) const noexcept;
+	void multiply(const OrIndexCandidate* other, const AbstractIndexCandidateCollection* col, OrIndexCandidate* newCond) const noexcept;
+
+private:
 	ArrayList<AbstractIndexCandidateCollection> list;
 };
 
