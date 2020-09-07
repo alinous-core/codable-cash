@@ -10,12 +10,11 @@
 namespace codablecash {
 
 AbstractIndexCandidate::AbstractIndexCandidate() {
-	// TODO Auto-generated constructor stub
 
 }
 
 AbstractIndexCandidate::~AbstractIndexCandidate() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */

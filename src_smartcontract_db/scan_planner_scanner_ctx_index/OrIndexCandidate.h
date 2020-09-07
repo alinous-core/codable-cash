@@ -10,16 +10,28 @@
 
 #include "scan_planner_scanner_ctx_index/AbstractIndexCandidate.h"
 
+#include "base/ArrayList.h"
+
+using alinous::ArrayList;
+
 namespace codablecash {
+
+class AbstractIndexCandidateCollection;
 
 class OrIndexCandidate : public AbstractIndexCandidate {
 public:
+	OrIndexCandidate(const OrIndexCandidate& inst);
 	OrIndexCandidate();
 	virtual ~OrIndexCandidate();
 
 	virtual AbstractIndexCandidate::IndexType getCandidateType() const noexcept;
 	virtual AbstractIndexCandidate* multiply(const AbstractIndexCandidate* other) const noexcept;
 	virtual AbstractIndexCandidate* copy() const noexcept;
+
+	void add(const AbstractIndexCandidateCollection* candidate) noexcept;
+
+private:
+	ArrayList<AbstractIndexCandidateCollection> list;
 };
 
 } /* namespace codablecash */

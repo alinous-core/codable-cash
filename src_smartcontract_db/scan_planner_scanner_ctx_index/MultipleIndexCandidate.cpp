@@ -14,7 +14,7 @@ namespace codablecash {
 MultipleIndexCandidate::MultipleIndexCandidate(const MultipleIndexCandidate& inst) {
 	int maxLoop = inst.size();
 	for(int i = 0; i != maxLoop; ++i){
-		IndexCandidate* idx = this->list.get(i);
+		IndexCandidate* idx = inst.list.get(i);
 		mul(idx);
 	}
 }
