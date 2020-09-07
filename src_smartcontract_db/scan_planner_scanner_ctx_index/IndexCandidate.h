@@ -14,12 +14,16 @@ namespace codablecash {
 
 class IndexCandidate: public AbstractIndexCandidateCollection {
 public:
+	IndexCandidate(const IndexCandidate& inst);
 	IndexCandidate();
 	virtual ~IndexCandidate();
 
 	virtual AbstractIndexCandidate::IndexType getCandidateType() const noexcept;
 	virtual AbstractIndexCandidate* multiply(const AbstractIndexCandidate* other) const noexcept;
 	virtual AbstractIndexCandidate* copy() const noexcept;
+
+	virtual int size() const noexcept;
+	virtual const IndexCandidate* get(int i) const noexcept;
 };
 
 } /* namespace codablecash */
