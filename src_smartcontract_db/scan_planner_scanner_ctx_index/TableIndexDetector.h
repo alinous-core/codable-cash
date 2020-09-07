@@ -17,6 +17,8 @@ namespace codablecash {
 
 class SelectScanPlanner;
 class AbstractScanCondition;
+class TableIndexDetectorStack;
+class AbstractIndexCandidate;
 
 class TableIndexDetector {
 public:
@@ -25,9 +27,14 @@ public:
 
 	void detect(AbstractScanCondition* cond);
 
+	void push(AbstractIndexCandidate* candidate) noexcept;
+	AbstractIndexCandidate* pop() noexcept;
+
 private:
 	VirtualMachine* vm;
 	SelectScanPlanner* planner;
+
+	TableIndexDetectorStack* stack;
 
 };
 
