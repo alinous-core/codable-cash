@@ -6,8 +6,8 @@
  */
 
 #include "scan_planner_scanner_ctx_index/MultipleIndexCandidate.h"
-
 #include "scan_planner_scanner_ctx_index/IndexCandidate.h"
+#include "scan_planner_scanner_ctx_index/OrIndexCandidate.h"
 
 namespace codablecash {
 
@@ -32,6 +32,32 @@ AbstractIndexCandidate::IndexType MultipleIndexCandidate::getCandidateType() con
 }
 
 AbstractIndexCandidate* MultipleIndexCandidate::multiply(const AbstractIndexCandidate* other) const noexcept {
+	AbstractIndexCandidate::IndexType candidateType = other->getCandidateType();
+
+	if(candidateType == AbstractIndexCandidate::IndexType::OR){
+		const OrIndexCandidate* orCandidate = dynamic_cast<const OrIndexCandidate*>(other);
+		return orCandidate->multiply(this);
+	}
+
+	MultipleIndexCandidate* candidate = new MultipleIndexCandidate();
+
+	// copy self
+	int maxLoop = size();
+	for(int i = 0; i != maxLoop; ++i){
+		const IndexCandidate* c = get(i);
+		candidate->mul(c);
+	}
+
+	// other
+	const AbstractIndexCandidateCollection* col = dynamic_cast<const AbstractIndexCandidateCollection*>(other);
+
+	maxLoop = col->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const IndexCandidate* c = col->get(i);
+		candidate->mul(c);
+	}
+
+	return candidate;
 }
 
 AbstractIndexCandidate* MultipleIndexCandidate::copy() const noexcept {
