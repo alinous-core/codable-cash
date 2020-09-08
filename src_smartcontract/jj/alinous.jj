@@ -2760,6 +2760,53 @@ AlterTableStatement* alterTableStatement() : {
 		stmt->setPosition(tableId);
 	}
 	
+	(
+		(
+			t=<ADD>{
+				stmt->setPosition(t);
+			}
+			(
+				(
+					t=<INDEX>{
+						stmt->setPosition(t);
+					}
+				)
+				|
+				(
+					[t=<COLUMN>{
+						stmt->setPosition(t);
+					}]
+					t=<IDENTIFIER>{
+					
+					}			
+				)
+			)
+		)
+		|
+		(
+			t=<DROP>{
+				stmt->setPosition(t);
+			}
+			(
+				(
+					t=<INDEX>{
+						stmt->setPosition(t);
+					}
+				)
+				|
+				(
+					[t=<COLUMN>{
+						stmt->setPosition(t);
+					}]
+					t=<IDENTIFIER>{
+					
+					}				
+				)
+			)
+		)
+
+	)
+	
 	t=";" {
 		stmt->setPosition(t);
 	}	
