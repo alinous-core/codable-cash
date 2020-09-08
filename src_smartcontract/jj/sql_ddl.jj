@@ -9,10 +9,30 @@ AbstractSQLStatement* ddlStatement() : {
 {
 	(
 		stmt=createTableStatement() |
-		stmt=dropTableStatement()
+		stmt=dropTableStatement() |
+		stmt=alterTableStatement()
 	)
 	{}
 	{
+		return stmt;
+	}
+}
+
+AlterTableStatement* alterTableStatement() : {
+	AlterTableStatement* stmt = new AlterTableStatement();
+	Token* t = null;	
+}
+{
+	t=<ALTER>{
+		stmt->setPosition(t);
+	}
+	
+	t=<TABLE>{
+		stmt->setPosition(t);
+	}
+	
+	{
+		__ONERROR(stmt);
 		return stmt;
 	}
 }
