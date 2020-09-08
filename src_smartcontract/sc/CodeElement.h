@@ -116,14 +116,19 @@ public:
 	static const constexpr short DDL_TYPE_DESC{152};
 	static const constexpr short DDL_COLMUN_DESC{153};
 	static const constexpr short DDL_ALTER_TABLE{154};
+	static const constexpr short DDL_ALTER_ADD_INDEX{155};
+	static const constexpr short DDL_ALTER_ADD_COLUMN{156};
+	static const constexpr short DDL_ALTER_DROP_INDEX{157};
+	static const constexpr short DDL_ALTER_DROP_COLUMN{158};
 
-	static const constexpr short DML_STMT_BEGIN{160};
-	static const constexpr short DML_STMT_COMMIT{161};
-	static const constexpr short DML_STMT_DELETE{162};
-	static const constexpr short DML_STMT_INSERT{163};
-	static const constexpr short DML_STMT_ROLLBACK{164};
-	static const constexpr short DML_STMT_SELECT{165};
-	static const constexpr short DML_STMT_UPDATE{166};
+
+	static const constexpr short DML_STMT_BEGIN{170};
+	static const constexpr short DML_STMT_COMMIT{171};
+	static const constexpr short DML_STMT_DELETE{172};
+	static const constexpr short DML_STMT_INSERT{173};
+	static const constexpr short DML_STMT_ROLLBACK{174};
+	static const constexpr short DML_STMT_SELECT{175};
+	static const constexpr short DML_STMT_UPDATE{176};
 
 	static const constexpr short SQL_EXP_ADDITIVE{180};
 	static const constexpr short SQL_EXP_AND{181};

@@ -5,17 +5,16 @@
  *      Author: iizuka
  */
 
-#include <sql_ddl_alter/AlterDropColumnCommand.h>
+#include "sql_ddl_alter/AlterDropColumnCommand.h"
 
-namespace codablecash {
+namespace alinous {
 
-AlterDropColumnCommand::AlterDropColumnCommand() {
-	// TODO Auto-generated constructor stub
+AlterDropColumnCommand::AlterDropColumnCommand(short kind) : AbstractAlterDdlCommand(kind) {
 
 }
 
 AlterDropColumnCommand::~AlterDropColumnCommand() {
-	// TODO Auto-generated destructor stub
+
 }
 
-} /* namespace codablecash */
+} /* namespace alinous */

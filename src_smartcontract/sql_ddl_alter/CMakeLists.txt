@@ -2,7 +2,7 @@
 
 set(__src
 	AbstractAlterDdlCommand.cpp
-	AlterAddIndexCommand.cpp
+	AlterAddColumnCommand.cpp
 	AlterAddIndexCommand.cpp
 	AlterDropColumnCommand.cpp
 	AlterDropIndexCommand.cpp		

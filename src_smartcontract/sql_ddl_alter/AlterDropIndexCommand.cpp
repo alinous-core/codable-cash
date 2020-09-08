@@ -7,9 +7,9 @@
 
 #include "sql_ddl_alter/AlterDropIndexCommand.h"
 
-namespace codablecash {
+namespace alinous {
 
-AlterDropIndexCommand::AlterDropIndexCommand() {
+AlterDropIndexCommand::AlterDropIndexCommand(short kind) : AbstractAlterDdlCommand(kind) {
 
 }
 
@@ -17,4 +17,4 @@ AlterDropIndexCommand::~AlterDropIndexCommand() {
 
 }
 
-} /* namespace codablecash */
+} /* namespace alinous */

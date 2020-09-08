@@ -7,9 +7,9 @@
 
 #include "sql_ddl_alter/AbstractAlterDdlCommand.h"
 
-namespace codablecash {
+namespace alinous {
 
-AbstractAlterDdlCommand::AbstractAlterDdlCommand() {
+AbstractAlterDdlCommand::AbstractAlterDdlCommand(short kind) : CodeElement(kind) {
 
 }
 
@@ -17,4 +17,4 @@ AbstractAlterDdlCommand::~AbstractAlterDdlCommand() {
 
 }
 
-} /* namespace codablecash */
+} /* namespace alinous */

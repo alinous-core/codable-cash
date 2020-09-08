@@ -8,14 +8,16 @@
 #ifndef SQL_DDL_ALTER_ALTERADDCOLUMNCOMMAND_H_
 #define SQL_DDL_ALTER_ALTERADDCOLUMNCOMMAND_H_
 
-namespace codablecash {
+#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
 
-class AlterAddColumnCommand {
+namespace alinous {
+
+class AlterAddColumnCommand : public AbstractAlterDdlCommand {
 public:
-	AlterAddColumnCommand();
+	explicit AlterAddColumnCommand(short kind);
 	virtual ~AlterAddColumnCommand();
 };
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 #endif /* SQL_DDL_ALTER_ALTERADDCOLUMNCOMMAND_H_ */

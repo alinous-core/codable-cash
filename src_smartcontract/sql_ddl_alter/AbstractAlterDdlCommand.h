@@ -8,14 +8,16 @@
 #ifndef SQL_DDL_ALTER_ABSTRACTALTERDDLCOMMAND_H_
 #define SQL_DDL_ALTER_ABSTRACTALTERDDLCOMMAND_H_
 
-namespace codablecash {
+#include "sc/CodeElement.h"
 
-class AbstractAlterDdlCommand {
+namespace alinous {
+
+class AbstractAlterDdlCommand : public CodeElement {
 public:
-	AbstractAlterDdlCommand();
+	explicit AbstractAlterDdlCommand(short kind);
 	virtual ~AbstractAlterDdlCommand();
 };
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 #endif /* SQL_DDL_ALTER_ABSTRACTALTERDDLCOMMAND_H_ */

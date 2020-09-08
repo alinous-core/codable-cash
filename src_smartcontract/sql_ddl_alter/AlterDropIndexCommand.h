@@ -8,14 +8,16 @@
 #ifndef SQL_DDL_ALTER_ALTERDROPINDEXCOMMAND_H_
 #define SQL_DDL_ALTER_ALTERDROPINDEXCOMMAND_H_
 
-namespace codablecash {
+#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
 
-class AlterDropIndexCommand {
+namespace alinous {
+
+class AlterDropIndexCommand : public AbstractAlterDdlCommand {
 public:
-	AlterDropIndexCommand();
+	explicit AlterDropIndexCommand(short kind);
 	virtual ~AlterDropIndexCommand();
 };
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 #endif /* SQL_DDL_ALTER_ALTERDROPINDEXCOMMAND_H_ */

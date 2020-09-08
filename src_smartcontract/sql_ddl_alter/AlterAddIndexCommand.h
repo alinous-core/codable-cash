@@ -8,14 +8,16 @@
 #ifndef SQL_DDL_ALTER_ALTERADDINDEXCOMMAND_H_
 #define SQL_DDL_ALTER_ALTERADDINDEXCOMMAND_H_
 
-namespace codablecash {
+#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
 
-class AlterAddIndexCommand {
+namespace alinous {
+
+class AlterAddIndexCommand : public AbstractAlterDdlCommand {
 public:
-	AlterAddIndexCommand();
+	explicit AlterAddIndexCommand(short kind);
 	virtual ~AlterAddIndexCommand();
 };
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 #endif /* SQL_DDL_ALTER_ALTERADDINDEXCOMMAND_H_ */

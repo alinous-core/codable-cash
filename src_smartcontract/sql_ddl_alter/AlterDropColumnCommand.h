@@ -8,14 +8,16 @@
 #ifndef SQL_DDL_ALTER_ALTERDROPCOLUMNCOMMAND_H_
 #define SQL_DDL_ALTER_ALTERDROPCOLUMNCOMMAND_H_
 
-namespace codablecash {
+#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
 
-class AlterDropColumnCommand {
+namespace alinous {
+
+class AlterDropColumnCommand : public AbstractAlterDdlCommand {
 public:
-	AlterDropColumnCommand();
+	explicit AlterDropColumnCommand(short kind);
 	virtual ~AlterDropColumnCommand();
 };
 
-} /* namespace codablecash */
+} /* namespace alinous */
 
 #endif /* SQL_DDL_ALTER_ALTERDROPCOLUMNCOMMAND_H_ */
