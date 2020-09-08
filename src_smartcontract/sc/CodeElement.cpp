@@ -97,6 +97,7 @@
 #include "sql_ddl/DropTableStatement.h"
 #include "sql_ddl/DdlColumnDescriptor.h"
 #include "sql_ddl/ColumnTypeDescriptor.h"
+#include "sql_ddl/AlterTableStatement.h"
 
 #include "sql_dml/BeginStatement.h"
 #include "sql_dml/CommitStatement.h"
@@ -454,6 +455,9 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		break;
 	case DDL_TYPE_DESC:
 		element = new ColumnTypeDescriptor();
+		break;
+	case DDL_ALTER_TABLE:
+		element = new AlterTableStatement();
 		break;
 
 	case DML_STMT_BEGIN:

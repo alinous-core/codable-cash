@@ -115,6 +115,7 @@ public:
 	static const constexpr short DDL_DROP_TABLE{151};
 	static const constexpr short DDL_TYPE_DESC{152};
 	static const constexpr short DDL_COLMUN_DESC{153};
+	static const constexpr short DDL_ALTER_TABLE{154};
 
 	static const constexpr short DML_STMT_BEGIN{160};
 	static const constexpr short DML_STMT_COMMIT{161};
