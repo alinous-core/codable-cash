@@ -9,12 +9,21 @@
 
 namespace alinous {
 
-AlterAddIndexCommand::AlterAddIndexCommand(short kind) : AbstractAlterDdlCommand(kind) {
+AlterAddIndexCommand::AlterAddIndexCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_ADD_INDEX) {
 
 }
 
 AlterAddIndexCommand::~AlterAddIndexCommand() {
 
+}
+
+int AlterAddIndexCommand::binarySize() const {
+}
+
+void AlterAddIndexCommand::toBinary(ByteBuffer* out) {
+}
+
+void AlterAddIndexCommand::fromBinary(ByteBuffer* in) {
 }
 
 } /* namespace alinous */

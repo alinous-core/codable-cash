@@ -9,12 +9,21 @@
 
 namespace alinous {
 
-AlterDropIndexCommand::AlterDropIndexCommand(short kind) : AbstractAlterDdlCommand(kind) {
+AlterDropIndexCommand::AlterDropIndexCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_DROP_INDEX) {
 
 }
 
 AlterDropIndexCommand::~AlterDropIndexCommand() {
 
+}
+
+int AlterDropIndexCommand::binarySize() const {
+}
+
+void AlterDropIndexCommand::toBinary(ByteBuffer* out) {
+}
+
+void AlterDropIndexCommand::fromBinary(ByteBuffer* in) {
 }
 
 } /* namespace alinous */

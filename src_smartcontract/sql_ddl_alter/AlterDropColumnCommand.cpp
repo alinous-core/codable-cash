@@ -9,12 +9,21 @@
 
 namespace alinous {
 
-AlterDropColumnCommand::AlterDropColumnCommand(short kind) : AbstractAlterDdlCommand(kind) {
+AlterDropColumnCommand::AlterDropColumnCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_DROP_COLUMN) {
 
 }
 
 AlterDropColumnCommand::~AlterDropColumnCommand() {
 
+}
+
+int AlterDropColumnCommand::binarySize() const {
+}
+
+void AlterDropColumnCommand::toBinary(ByteBuffer* out) {
+}
+
+void AlterDropColumnCommand::fromBinary(ByteBuffer* in) {
 }
 
 } /* namespace alinous */

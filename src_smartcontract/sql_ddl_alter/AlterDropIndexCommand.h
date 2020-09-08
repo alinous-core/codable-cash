@@ -14,8 +14,12 @@ namespace alinous {
 
 class AlterDropIndexCommand : public AbstractAlterDdlCommand {
 public:
-	explicit AlterDropIndexCommand(short kind);
+	explicit AlterDropIndexCommand();
 	virtual ~AlterDropIndexCommand();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */

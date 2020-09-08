@@ -99,6 +99,11 @@
 #include "sql_ddl/ColumnTypeDescriptor.h"
 #include "sql_ddl/AlterTableStatement.h"
 
+#include "sql_ddl_alter/AlterAddColumnCommand.h"
+#include "sql_ddl_alter/AlterAddIndexCommand.h"
+#include "sql_ddl_alter/AlterDropColumnCommand.h"
+#include "sql_ddl_alter/AlterDropIndexCommand.h"
+
 #include "sql_dml/BeginStatement.h"
 #include "sql_dml/CommitStatement.h"
 #include "sql_dml/DeleteStatement.h"
@@ -458,6 +463,19 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		break;
 	case DDL_ALTER_TABLE:
 		element = new AlterTableStatement();
+		break;
+
+	case DDL_ALTER_ADD_INDEX:
+		element = new AlterAddIndexCommand();
+		break;
+	case DDL_ALTER_ADD_COLUMN:
+		element = new AlterAddColumnCommand();
+		break;
+	case DDL_ALTER_DROP_INDEX:
+		element = new AlterDropIndexCommand();
+		break;
+	case DDL_ALTER_DROP_COLUMN:
+		element = new AlterDropColumnCommand();
 		break;
 
 	case DML_STMT_BEGIN:

@@ -2744,7 +2744,8 @@ AbstractSQLStatement* ddlStatement() : {
 AlterTableStatement* alterTableStatement() : {
 	AlterTableStatement* stmt = new AlterTableStatement();
 	TableIdentifier* tableId = nullptr;
-	Token* t = null;	
+	AbstractAlterDdlCommand* cmd = nullptr;
+	Token* t = null;
 }
 {
 	t=<ALTER>{
@@ -2762,25 +2763,9 @@ AlterTableStatement* alterTableStatement() : {
 	
 	(
 		(
-			t=<ADD>{
-				stmt->setPosition(t);
+			cmd=addAlterCommands() {
+				stmt->setPosition(cmd);
 			}
-			(
-				(
-					t=<INDEX>{
-						stmt->setPosition(t);
-					}
-				)
-				|
-				(
-					[t=<COLUMN>{
-						stmt->setPosition(t);
-					}]
-					t=<IDENTIFIER>{
-					
-					}			
-				)
-			)
 		)
 		|
 		(
@@ -2815,6 +2800,79 @@ AlterTableStatement* alterTableStatement() : {
 		return stmt;
 	}
 }
+
+AbstractAlterDdlCommand* addAlterCommands() : {
+	AbstractAlterDdlCommand* cmd = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=<ADD>
+	(
+		(
+			cmd=alterAddIndexCommand() {
+				cmd->setPosition(t);
+			}
+		)
+		|
+		(
+			[t=<COLUMN>{
+				cmd->setPosition(t);
+			}]
+			t=<IDENTIFIER>{
+			
+			}			
+		)
+	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterAddIndexCommand* alterAddIndexCommand() : {
+	AlterAddIndexCommand* cmd = new AlterAddIndexCommand();
+	Token* t = nullptr;
+}
+{
+	[
+		t=<UNIQUE>{
+			cmd->setPosition(t);
+		}
+	]
+
+	t=<INDEX>{
+		cmd->setPosition(t);
+	}
+	t=<IDENTIFIER>{
+		cmd->setPosition(t);
+	}
+	t="(" {
+		cmd->setPosition(t);
+	}
+	
+	t=<IDENTIFIER> {
+		cmd->setPosition(t);
+	}
+	(
+		t="," {
+			cmd->setPosition(t);
+		}
+		t=<IDENTIFIER> {
+			cmd->setPosition(t);
+		}
+	)*
+	
+	
+	t=")" {
+		cmd->setPosition(t);
+	}
+
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
 
 CreateTableStatement* createTableStatement() : {
 	CreateTableStatement* stmt = new CreateTableStatement();

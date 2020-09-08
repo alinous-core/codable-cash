@@ -100,6 +100,11 @@
 #include "sql_ddl/DdlColumnDescriptor.h"
 #include "sql_ddl/AlterTableStatement.h"
 
+#include "sql_ddl_alter/AlterAddColumnCommand.h"
+#include "sql_ddl_alter/AlterAddIndexCommand.h"
+#include "sql_ddl_alter/AlterDropColumnCommand.h"
+#include "sql_ddl_alter/AlterDropIndexCommand.h"
+
 #include "sql_dml/BeginStatement.h"
 #include "sql_dml/CommitStatement.h"
 #include "sql_dml/DeleteStatement.h"
