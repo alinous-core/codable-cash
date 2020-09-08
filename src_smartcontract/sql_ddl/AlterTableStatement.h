@@ -13,6 +13,7 @@
 namespace alinous {
 
 class TableIdentifier;
+class AbstractAlterDdlCommand;
 
 class AlterTableStatement : public AbstractSQLStatement {
 public:
@@ -20,6 +21,7 @@ public:
 	virtual ~AlterTableStatement();
 
 	void setTableId(TableIdentifier* tableId) noexcept;
+	void setCommand(AbstractAlterDdlCommand* cmd) noexcept;
 
 	virtual void preAnalyze(AnalyzeContext* actx);
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
@@ -33,6 +35,7 @@ public:
 
 private:
 	TableIdentifier* tableId;
+	AbstractAlterDdlCommand* cmd;
 };
 
 } /* namespace alinous */
