@@ -12,10 +12,14 @@
 
 namespace alinous {
 
+class TableIdentifier;
+
 class AlterTableStatement : public AbstractSQLStatement {
 public:
 	AlterTableStatement();
 	virtual ~AlterTableStatement();
+
+	void setTableId(TableIdentifier* tableId) noexcept;
 
 	virtual void preAnalyze(AnalyzeContext* actx);
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
@@ -27,6 +31,8 @@ public:
 
 	virtual void interpret(VirtualMachine* vm);
 
+private:
+	TableIdentifier* tableId;
 };
 
 } /* namespace alinous */

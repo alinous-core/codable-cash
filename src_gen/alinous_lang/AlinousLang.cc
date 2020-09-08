@@ -4390,6 +4390,7 @@ assert(false);
 
 
 AlterTableStatement                   * AlinousLang::alterTableStatement() {AlterTableStatement* stmt = new AlterTableStatement();
+        TableIdentifier* tableId = nullptr;
         Token* t = null;
     if (!hasError) {
     t = jj_consume_token(ALTER);
@@ -4399,6 +4400,19 @@ stmt->setPosition(t);
     }
     if (!hasError) {
     t = jj_consume_token(TABLE);
+    }
+    if (!hasError) {
+stmt->setPosition(t);
+    }
+    if (!hasError) {
+    tableId = tableIdentifier();
+    }
+    if (!hasError) {
+stmt->setTableId(tableId);
+                stmt->setPosition(tableId);
+    }
+    if (!hasError) {
+    t = jj_consume_token(SEMI_COLON);
     }
     if (!hasError) {
 stmt->setPosition(t);

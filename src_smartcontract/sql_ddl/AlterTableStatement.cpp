@@ -17,6 +17,10 @@ AlterTableStatement::~AlterTableStatement() {
 
 }
 
+void AlterTableStatement::setTableId(TableIdentifier* tableId) noexcept {
+	this->tableId = tableId;
+}
+
 void AlterTableStatement::preAnalyze(AnalyzeContext* actx) {
 }
 

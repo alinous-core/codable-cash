@@ -20,6 +20,7 @@ AbstractSQLStatement* ddlStatement() : {
 
 AlterTableStatement* alterTableStatement() : {
 	AlterTableStatement* stmt = new AlterTableStatement();
+	TableIdentifier* tableId = nullptr;
 	Token* t = null;	
 }
 {
@@ -31,6 +32,14 @@ AlterTableStatement* alterTableStatement() : {
 		stmt->setPosition(t);
 	}
 	
+	tableId=tableIdentifier() {
+		stmt->setTableId(tableId);
+		stmt->setPosition(tableId);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
+	}	
 	{
 		__ONERROR(stmt);
 		return stmt;
