@@ -24,15 +24,23 @@ void AlterDropColumnCommand::setName(UnicodeString* name) noexcept {
 }
 
 int AlterDropColumnCommand::binarySize() const {
+	checkNotNull(this->name);
+
 	int total = sizeof(uint16_t);
+	total += stringSize(this->name);
 
 	return total;
 }
 
 void AlterDropColumnCommand::toBinary(ByteBuffer* out) {
+	checkNotNull(this->name);
+
+	out->putShort(CodeElement::DDL_ALTER_DROP_COLUMN);
+	putString(out, this->name);
 }
 
 void AlterDropColumnCommand::fromBinary(ByteBuffer* in) {
+	this->name = getString(in);
 }
 
 } /* namespace alinous */
