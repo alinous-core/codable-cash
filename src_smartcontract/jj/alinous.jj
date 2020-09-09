@@ -271,6 +271,7 @@ TOKEN [IGNORE_CASE] :
 	<SQL_DEFAULT: "DEFAULT">	|
 	<ADD: "ADD">	|
 	<RENAME: "RENAME">	|
+	<MODIFY: "MODIFY">	|
 	<COLUMN: "COLUMN">	|
 	<TO: "TO">	|
 	<PRIMARY: "PRIMARY">	|
@@ -2783,7 +2784,28 @@ AbstractAlterDdlCommand* alterCommands() : {
 		cmd=addAlterCommands()
 		|
 		cmd=dropAlterCommands()
+		|
+		cmd=alterModifyCommand()
 	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterModifyCommand* alterModifyCommand() : {
+	AlterModifyCommand* cmd = new AlterModifyCommand();
+	DdlColumnDescriptor* desc = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=<MODIFY>{
+		cmd->setPosition(t);
+	}
+	desc=ddlColumnDescriptor() {
+		cmd->setPosition(desc);
+		cmd->setColumnDescriptor(desc);
+	}
 	{
 		__ONERROR(cmd);
 		return cmd;

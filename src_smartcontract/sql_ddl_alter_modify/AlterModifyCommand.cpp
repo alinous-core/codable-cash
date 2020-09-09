@@ -7,14 +7,20 @@
 
 #include "sql_ddl_alter_modify/AlterModifyCommand.h"
 
+#include "sql_ddl/DdlColumnDescriptor.h"
+
 namespace alinous {
 
 AlterModifyCommand::AlterModifyCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_MODIFY) {
-
+	this->columnDescriptor = nullptr;
 }
 
 AlterModifyCommand::~AlterModifyCommand() {
+	delete this->columnDescriptor;
+}
 
+void AlterModifyCommand::setColumnDescriptor(DdlColumnDescriptor* columnDescriptor) noexcept {
+	this->columnDescriptor = columnDescriptor;
 }
 
 int AlterModifyCommand::binarySize() const {

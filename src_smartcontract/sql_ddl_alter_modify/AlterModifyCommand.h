@@ -12,14 +12,22 @@
 
 namespace alinous {
 
+class DdlColumnDescriptor;
+
 class AlterModifyCommand : public AbstractAlterDdlCommand {
 public:
 	AlterModifyCommand();
 	virtual ~AlterModifyCommand();
 
+	void setColumnDescriptor(DdlColumnDescriptor* columnDescriptor) noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+private:
+	DdlColumnDescriptor* columnDescriptor;
+
 };
 
 } /* namespace alinous */
