@@ -4788,9 +4788,11 @@ assert(false);
 }
 
 
-AlterAddColumnCommand                     * AlinousLang::alterAddColumnCommand(Token* t) {AlterAddColumnCommand* cmd = new AlterAddColumnCommand();
+AlterAddColumnCommand                     * AlinousLang::alterAddColumnCommand(Token* __t) {AlterAddColumnCommand* cmd = new AlterAddColumnCommand();
         DdlColumnDescriptor* desc = nullptr;
-        cmd->setPosition(t);
+        cmd->setPosition(__t);
+
+        Token* t = nullptr;
     if (!hasError) {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case COLUMN:{

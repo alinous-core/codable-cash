@@ -283,10 +283,12 @@ AlterAddPrimaryKeyCommand* alterAddPrimaryKeyCommand(Token* t) : {
 	}
 }
 
-AlterAddColumnCommand* alterAddColumnCommand(Token* t) : {
+AlterAddColumnCommand* alterAddColumnCommand(Token* __t) : {
 	AlterAddColumnCommand* cmd = new AlterAddColumnCommand();
 	DdlColumnDescriptor* desc = nullptr;
-	cmd->setPosition(t);
+	cmd->setPosition(__t);
+	
+	Token* t = nullptr;
 }
 {
 	[t=<COLUMN>{
