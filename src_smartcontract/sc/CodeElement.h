@@ -203,6 +203,7 @@ public:
 	static void checkIsSQLExp(CodeElement* element);
 	static void checkIsJoinPart(CodeElement* element);
 	static void checkIsImport(CodeElement* element);
+	static void checkIsAlterCommand(CodeElement* element);
 
 	short getKind() const noexcept;
 

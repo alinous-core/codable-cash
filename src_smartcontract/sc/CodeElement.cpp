@@ -731,6 +731,12 @@ void CodeElement::checkIsImport(CodeElement* element) {
 	}
 }
 
+void CodeElement::checkIsAlterCommand(CodeElement* element) {
+	if(!(element->kind >= DDL_ALTER_ADD_INDEX && element->kind < DML_STMT_BEGIN)){
+		delete element;
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
+	}
+}
 
 void CodeElement::setParent(CodeElement* parent) noexcept {
 	this->parent = parent;

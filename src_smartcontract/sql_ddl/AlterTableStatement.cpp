@@ -64,11 +64,11 @@ void AlterTableStatement::toBinary(ByteBuffer* out) {
 
 void AlterTableStatement::fromBinary(ByteBuffer* in) {
 	CodeElement* element = createFromBinary(in);
-
+	checkKind(element, CodeElement::SQL_EXP_TABLE_ID);
 	this->tableId = dynamic_cast<TableIdentifier*>(element);
-	// FIXME error check
 
 	element = createFromBinary(in);
+	checkIsAlterCommand(element);
 	this->cmd =dynamic_cast<AbstractAlterDdlCommand*>(element);
 
 }
