@@ -4413,36 +4413,11 @@ stmt->setPosition(tableId);
                 stmt->setTableId(tableId);
     }
     if (!hasError) {
-    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case ADD:{
-      if (!hasError) {
-      if (!hasError) {
-      cmd = addAlterCommands();
-      }
-      if (!hasError) {
-stmt->setPosition(cmd);
-                                stmt->setCommand(cmd);
-      }
-      }
-      break;
-      }
-    case DROP:{
-      if (!hasError) {
-      if (!hasError) {
-      cmd = dropAlterCommands();
-      }
-      if (!hasError) {
-stmt->setPosition(cmd);
-                                stmt->setCommand(cmd);
-      }
-      }
-      break;
-      }
-    default:
-      jj_la1[63] = jj_gen;
-      jj_consume_token(-1);
-      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+    cmd = alterCommands();
     }
+    if (!hasError) {
+stmt->setPosition(cmd);
+                stmt->setCommand(cmd);
     }
     if (!hasError) {
     t = jj_consume_token(SEMI_COLON);
@@ -4452,6 +4427,33 @@ stmt->setPosition(t);
     }
 __ONERROR(stmt);
                 return stmt;
+assert(false);
+}
+
+
+AbstractAlterDdlCommand                       * AlinousLang::alterCommands() {AbstractAlterDdlCommand* cmd = nullptr;
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case ADD:{
+      if (!hasError) {
+      cmd = addAlterCommands();
+      }
+      break;
+      }
+    case DROP:{
+      if (!hasError) {
+      cmd = dropAlterCommands();
+      }
+      break;
+      }
+    default:
+      jj_la1[63] = jj_gen;
+      jj_consume_token(-1);
+      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+    }
+    }
+__ONERROR(cmd);
+                return cmd;
 assert(false);
 }
 

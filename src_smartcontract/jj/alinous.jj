@@ -2761,22 +2761,10 @@ AlterTableStatement* alterTableStatement() : {
 		stmt->setTableId(tableId);
 	}
 	
-	(
-		(
-			cmd=addAlterCommands() {
-				stmt->setPosition(cmd);
-				stmt->setCommand(cmd);
-			}
-		)
-		|
-		(
-			cmd=dropAlterCommands() {
-				stmt->setPosition(cmd);
-				stmt->setCommand(cmd);		
-			}
-		)
-
-	)
+	cmd=alterCommands() {
+		stmt->setPosition(cmd);
+		stmt->setCommand(cmd);
+	}
 	
 	t=";" {
 		stmt->setPosition(t);
@@ -2784,6 +2772,21 @@ AlterTableStatement* alterTableStatement() : {
 	{
 		__ONERROR(stmt);
 		return stmt;
+	}
+}
+
+AbstractAlterDdlCommand* alterCommands() : {
+	AbstractAlterDdlCommand* cmd = nullptr;
+}
+{
+	(
+		cmd=addAlterCommands()
+		|
+		cmd=dropAlterCommands()
+	)
+	{
+		__ONERROR(cmd);
+		return cmd;
 	}
 }
 
