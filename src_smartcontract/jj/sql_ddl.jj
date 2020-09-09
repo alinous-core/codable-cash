@@ -47,25 +47,10 @@ AlterTableStatement* alterTableStatement() : {
 		)
 		|
 		(
-			t=<DROP>{
-				stmt->setPosition(t);
+			cmd=dropAlterCommands() {
+				stmt->setPosition(cmd);
+				stmt->setCommand(cmd);		
 			}
-			(
-				(
-					t=<INDEX>{
-						stmt->setPosition(t);
-					}
-				)
-				|
-				(
-					[t=<COLUMN>{
-						stmt->setPosition(t);
-					}]
-					t=<IDENTIFIER>{
-					
-					}				
-				)
-			)
 		)
 
 	)
@@ -79,8 +64,47 @@ AlterTableStatement* alterTableStatement() : {
 	}
 }
 
+AbstractAlterDdlCommand* dropAlterCommands() : {
+	AbstractAlterDdlCommand* cmd = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=<DROP>{
+		cmd->setPosition(t);
+	}
+	(
+		(
+			t=<INDEX>{
+				cmd->setPosition(t);
+			}
+		)
+		|
+		(
+			cmd=alterDropColumnCommand(t)
+		)
+	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
 
-
+AlterDropColumnCommand* alterDropColumnCommand(Token* t) : {
+	AlterDropColumnCommand* cmd = new AlterDropColumnCommand();
+}
+{
+	[t=<COLUMN>{
+		cmd->setPosition(t);
+	}]
+	t=<IDENTIFIER>{
+		cmd->setPosition(t);
+		cmd->setName(_STR(t));
+	}
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
 
 AbstractAlterDdlCommand* addAlterCommands() : {
 	AbstractAlterDdlCommand* cmd = nullptr;
@@ -89,17 +113,9 @@ AbstractAlterDdlCommand* addAlterCommands() : {
 {
 	t=<ADD>
 	(
-		(
-			cmd=alterAddIndexCommand(t) {
-				cmd->setPosition(t);
-			}
-		)
+		cmd=alterAddIndexCommand(t)
 		|
-		(
-			cmd=alterAddColumnCommand(t) {
-				cmd->setPosition(t);
-			}
-		)
+		cmd=alterAddColumnCommand(t)
 	)
 	{
 		__ONERROR(cmd);

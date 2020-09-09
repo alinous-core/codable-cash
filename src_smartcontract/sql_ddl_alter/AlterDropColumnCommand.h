@@ -17,9 +17,14 @@ public:
 	explicit AlterDropColumnCommand();
 	virtual ~AlterDropColumnCommand();
 
+	void setName(UnicodeString* name) noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+private:
+	UnicodeString* name;
 };
 
 } /* namespace alinous */

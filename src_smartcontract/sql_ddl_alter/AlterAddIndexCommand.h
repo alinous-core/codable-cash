@@ -18,7 +18,7 @@ class UnicodeString;
 
 class AlterAddIndexCommand : public AbstractAlterDdlCommand {
 public:
-	explicit AlterAddIndexCommand();
+	AlterAddIndexCommand();
 	virtual ~AlterAddIndexCommand();
 
 	void setName(UnicodeString* name) noexcept;
