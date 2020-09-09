@@ -34,14 +34,15 @@ AlterTableStatement* alterTableStatement() : {
 	}
 	
 	tableId=tableIdentifier() {
-		stmt->setTableId(tableId);
 		stmt->setPosition(tableId);
+		stmt->setTableId(tableId);
 	}
 	
 	(
 		(
 			cmd=addAlterCommands() {
 				stmt->setPosition(cmd);
+				stmt->setCommand(cmd);
 			}
 		)
 		|
@@ -140,6 +141,7 @@ AlterAddIndexCommand* alterAddIndexCommand() : {
 	}
 	t=<IDENTIFIER>{
 		cmd->setPosition(t);
+		cmd->setName(_STR(t));
 	}
 	t="(" {
 		cmd->setPosition(t);
@@ -147,6 +149,7 @@ AlterAddIndexCommand* alterAddIndexCommand() : {
 	
 	t=<IDENTIFIER> {
 		cmd->setPosition(t);
+		cmd->addColumn(_STR(t));
 	}
 	(
 		t="," {
@@ -154,6 +157,7 @@ AlterAddIndexCommand* alterAddIndexCommand() : {
 		}
 		t=<IDENTIFIER> {
 			cmd->setPosition(t);
+			cmd->addColumn(_STR(t));
 		}
 	)*
 	

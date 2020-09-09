@@ -10,16 +10,27 @@
 
 #include "sql_ddl_alter/AbstractAlterDdlCommand.h"
 
+#include "base/ArrayList.h"
+
 namespace alinous {
+
+class UnicodeString;
 
 class AlterAddIndexCommand : public AbstractAlterDdlCommand {
 public:
 	explicit AlterAddIndexCommand();
 	virtual ~AlterAddIndexCommand();
 
+	void setName(UnicodeString* name) noexcept;
+	void addColumn(UnicodeString* colName) noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+private:
+	UnicodeString* name;
+	ArrayList<UnicodeString> list;
 };
 
 } /* namespace alinous */

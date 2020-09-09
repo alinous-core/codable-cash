@@ -7,14 +7,25 @@
 
 #include "sql_ddl_alter/AlterAddIndexCommand.h"
 
+#include "base/UnicodeString.h"
+
 namespace alinous {
 
 AlterAddIndexCommand::AlterAddIndexCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_ADD_INDEX) {
-
+	this->name = nullptr;
 }
 
 AlterAddIndexCommand::~AlterAddIndexCommand() {
+	delete this->name;
+	this->list.deleteElements();
+}
 
+void AlterAddIndexCommand::setName(UnicodeString* name) noexcept {
+	this->name = name;
+}
+
+void AlterAddIndexCommand::addColumn(UnicodeString* colName) noexcept {
+	this->list.addElement(colName);
 }
 
 int AlterAddIndexCommand::binarySize() const {
