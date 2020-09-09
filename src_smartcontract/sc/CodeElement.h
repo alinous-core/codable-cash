@@ -120,6 +120,11 @@ public:
 	static const constexpr short DDL_ALTER_ADD_COLUMN{156};
 	static const constexpr short DDL_ALTER_DROP_INDEX{157};
 	static const constexpr short DDL_ALTER_DROP_COLUMN{158};
+	static const constexpr short DDL_ALTER_ADD_PRIMARY_KEY{159};
+	static const constexpr short DDL_ALTER_DROP_PRIMARY_KEY{160};
+	static const constexpr short DDL_ALTER_MODIFY{161};
+	static const constexpr short DDL_ALTER_RENAME_COLUMN{162};
+	static const constexpr short DDL_ALTER_RENAME_TABLE{163};
 
 
 	static const constexpr short DML_STMT_BEGIN{170};
