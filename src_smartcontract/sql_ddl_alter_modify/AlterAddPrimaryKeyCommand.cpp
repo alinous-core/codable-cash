@@ -25,15 +25,35 @@ void AlterAddPrimaryKeyCommand::addColumn(UnicodeString* column) noexcept {
 int AlterAddPrimaryKeyCommand::binarySize() const {
 	int total = sizeof(uint16_t);
 
+	int maxLoop = this->list.size();
+	total += sizeof(int32_t);
+
+	for(int i = 0; i != maxLoop; ++i){
+		UnicodeString* col = this->list.get(i);
+		total += stringSize(col);
+	}
 
 	return total;
 }
 
 void AlterAddPrimaryKeyCommand::toBinary(ByteBuffer* out) {
 	out->putShort(CodeElement::DDL_ALTER_ADD_PRIMARY_KEY);
+
+	int maxLoop = this->list.size();
+	out->putInt(maxLoop);
+
+	for(int i = 0; i != maxLoop; ++i){
+		UnicodeString* col = this->list.get(i);
+		putString(out, col);
+	}
 }
 
 void AlterAddPrimaryKeyCommand::fromBinary(ByteBuffer* in) {
+	int maxLoop =in->getInt();
+	for(int i = 0; i != maxLoop; ++i){
+		UnicodeString* col = getString(in);
+		addColumn(col);
+	}
 }
 
 
