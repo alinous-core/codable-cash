@@ -17,9 +17,16 @@ public:
 	AlterRenameColumnCommand();
 	virtual ~AlterRenameColumnCommand();
 
+	void setLastName(UnicodeString* name) noexcept;
+	void setNewName(UnicodeString* name) noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+private:
+	UnicodeString* lastName;
+	UnicodeString* newName;
 };
 
 } /* namespace alinous */

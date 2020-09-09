@@ -62,7 +62,49 @@ AbstractAlterDdlCommand* alterCommands() : {
 		cmd=dropAlterCommands()
 		|
 		cmd=alterModifyCommand()
+		|
+		cmd=alterRenameCommands()
 	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AbstractAlterDdlCommand* alterRenameCommands() : {
+	AbstractAlterDdlCommand* cmd = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=<RENAME>
+	(
+		cmd=alterRenameColumnCommand(t)
+	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterRenameColumnCommand* alterRenameColumnCommand(Token* t) : {
+	AlterRenameColumnCommand* cmd = new AlterRenameColumnCommand();
+	cmd->setPosition(t);
+}
+{
+	t=<IDENTIFIER>{
+		cmd->setPosition(t);
+		cmd->setLastName(_STR(t));
+	}
+	
+	t=<TO>{
+		cmd->setPosition(t);
+	}
+	
+	t=<IDENTIFIER>{
+		cmd->setPosition(t);
+		cmd->setNewName(_STR(t));
+	}
+	
 	{
 		__ONERROR(cmd);
 		return cmd;
@@ -93,9 +135,7 @@ AbstractAlterDdlCommand* dropAlterCommands() : {
 	Token* t = nullptr;
 }
 {
-	t=<DROP>{
-		cmd->setPosition(t);
-	}
+	t=<DROP>
 	(
 		cmd=alterDropIndexCommand(t)
 		|
