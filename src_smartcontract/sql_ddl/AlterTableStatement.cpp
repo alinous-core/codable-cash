@@ -41,12 +41,36 @@ void AlterTableStatement::analyze(AnalyzeContext* actx) {
 }
 
 int AlterTableStatement::binarySize() const {
+	checkNotNull(this->tableId);
+	checkNotNull(this->cmd);
+
+	int total = sizeof(uint16_t);
+
+	total += this->tableId->binarySize();
+	total += this->cmd->binarySize();
+
+	return total;
 }
 
 void AlterTableStatement::toBinary(ByteBuffer* out) {
+	checkNotNull(this->tableId);
+	checkNotNull(this->cmd);
+
+	out->putShort(CodeElement::DDL_ALTER_TABLE);
+
+	this->tableId->toBinary(out);
+	this->cmd->toBinary(out);
 }
 
 void AlterTableStatement::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+
+	this->tableId = dynamic_cast<TableIdentifier*>(element);
+	// FIXME error check
+
+	element = createFromBinary(in);
+	this->cmd =dynamic_cast<AbstractAlterDdlCommand*>(element);
+
 }
 
 void AlterTableStatement::interpret(VirtualMachine* vm) {
