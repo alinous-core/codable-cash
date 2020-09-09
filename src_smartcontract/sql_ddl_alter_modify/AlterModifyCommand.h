@@ -8,9 +8,11 @@
 #ifndef SQL_DDL_ALTER_MODIFY_ALTERMODIFYCOMMAND_H_
 #define SQL_DDL_ALTER_MODIFY_ALTERMODIFYCOMMAND_H_
 
+#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
+
 namespace alinous {
 
-class AlterModifyCommand {
+class AlterModifyCommand : public AbstractAlterDdlCommand {
 public:
 	AlterModifyCommand();
 	virtual ~AlterModifyCommand();

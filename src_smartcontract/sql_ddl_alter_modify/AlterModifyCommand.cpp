@@ -9,13 +9,12 @@
 
 namespace alinous {
 
-AlterModifyCommand::AlterModifyCommand() {
-	// TODO Auto-generated constructor stub
+AlterModifyCommand::AlterModifyCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_MODIFY) {
 
 }
 
 AlterModifyCommand::~AlterModifyCommand() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */
