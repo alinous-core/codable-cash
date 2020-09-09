@@ -19,10 +19,13 @@ InnerJoinScannerFactory::~InnerJoinScannerFactory() {
 
 IJoinLeftSource* InnerJoinScannerFactory::createScannerAsLeftSource(
 		VirtualMachine* vm, SelectScanPlanner* planner) {
+	// FIXME createScannerAsLeftSource
+	return nullptr;
 }
 
 IJoinRightSource* InnerJoinScannerFactory::createScannerAsRightSource(
 		VirtualMachine* vm, SelectScanPlanner* planner) {
+	return nullptr;
 }
 
 } /* namespace codablecash */

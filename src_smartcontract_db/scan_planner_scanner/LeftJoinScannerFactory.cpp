@@ -20,10 +20,13 @@ LeftJoinScannerFactory::~LeftJoinScannerFactory() {
 
 IJoinLeftSource* LeftJoinScannerFactory::createScannerAsLeftSource(
 		VirtualMachine* vm, SelectScanPlanner* planner) {
+	// FIXME createScannerAsLeftSource
+	return nullptr;
 }
 
 IJoinRightSource* LeftJoinScannerFactory::createScannerAsRightSource(
 		VirtualMachine* vm, SelectScanPlanner* planner) {
+	return nullptr;
 }
 
 
