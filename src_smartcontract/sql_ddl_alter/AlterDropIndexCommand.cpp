@@ -24,15 +24,23 @@ void AlterDropIndexCommand::setName(UnicodeString* name) noexcept {
 }
 
 int AlterDropIndexCommand::binarySize() const {
+	checkNotNull(this->name);
+
 	int total = sizeof(uint16_t);
+	total += stringSize(this->name);
 
 	return total;
 }
 
 void AlterDropIndexCommand::toBinary(ByteBuffer* out) {
+	checkNotNull(this->name);
+
+	out->putShort(CodeElement::DDL_ALTER_DROP_INDEX);
+	putString(out, this->name);
 }
 
 void AlterDropIndexCommand::fromBinary(ByteBuffer* in) {
+	this->name = getString(in);
 }
 
 } /* namespace alinous */
