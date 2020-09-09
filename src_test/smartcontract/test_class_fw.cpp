@@ -186,6 +186,21 @@ TEST(TestClassFwGroup, exceptions11){
 	delete ex;
 }
 
+TEST(TestClassFwGroup, exceptions12){
+	CompilationUnit* element = new CompilationUnit();
+
+	Exception* ex = nullptr;
+	try{
+		CodeElement::checkIsAlterCommand(element);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+
+	delete ex;
+}
+
 TEST(TestClassFwGroup, isExecutable){
 	CompilationUnit* element = new CompilationUnit(); __STP(element);
 
