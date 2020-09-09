@@ -24,16 +24,26 @@ void AlterModifyCommand::setColumnDescriptor(DdlColumnDescriptor* columnDescript
 }
 
 int AlterModifyCommand::binarySize() const {
+	checkNotNull(this->columnDescriptor);
+
 	int total = sizeof(uint16_t);
+	total += this->columnDescriptor->binarySize();
 
 	return total;
 }
 
 void AlterModifyCommand::toBinary(ByteBuffer* out) {
+	checkNotNull(this->columnDescriptor);
+
 	out->putShort(CodeElement::DDL_ALTER_MODIFY);
+	this->columnDescriptor->toBinary(out);
 }
 
 void AlterModifyCommand::fromBinary(ByteBuffer* in) {
+	CodeElement* element = createFromBinary(in);
+	checkKind(element, CodeElement::DDL_COLMUN_DESC);
+
+	this->columnDescriptor = dynamic_cast<DdlColumnDescriptor*>(element);
 }
 
 } /* namespace alinous */
