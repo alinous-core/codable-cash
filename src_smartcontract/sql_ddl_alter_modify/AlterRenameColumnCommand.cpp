@@ -30,16 +30,28 @@ void AlterRenameColumnCommand::setNewName(UnicodeString* name) noexcept {
 }
 
 int AlterRenameColumnCommand::binarySize() const {
+	checkNotNull(this->lastName);
+	checkNotNull(this->newName);
+
 	int total = sizeof(uint16_t);
+	total += stringSize(this->lastName);
+	total += stringSize(this->newName);
 
 	return total;
 }
 
 void AlterRenameColumnCommand::toBinary(ByteBuffer* out) {
+	checkNotNull(this->lastName);
+	checkNotNull(this->newName);
+
 	out->putShort(CodeElement::DDL_ALTER_RENAME_COLUMN);
+	putString(out, this->lastName);
+	putString(out, this->newName);
 }
 
 void AlterRenameColumnCommand::fromBinary(ByteBuffer* in) {
+	this->lastName = getString(in);
+	this->newName = getString(in);
 }
 
 } /* namespace alinous */
