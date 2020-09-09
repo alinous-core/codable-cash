@@ -8,9 +8,11 @@
 #ifndef SQL_DDL_ALTER_MODIFY_ALTERDROPPRIMARYKEYCOMMAND_H_
 #define SQL_DDL_ALTER_MODIFY_ALTERDROPPRIMARYKEYCOMMAND_H_
 
+#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
+
 namespace alinous {
 
-class AlterDropPrimaryKeyCommand {
+class AlterDropPrimaryKeyCommand : public AbstractAlterDdlCommand {
 public:
 	AlterDropPrimaryKeyCommand();
 	virtual ~AlterDropPrimaryKeyCommand();

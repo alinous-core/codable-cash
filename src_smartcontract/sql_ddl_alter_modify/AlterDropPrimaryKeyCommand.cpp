@@ -9,13 +9,12 @@
 
 namespace alinous {
 
-AlterDropPrimaryKeyCommand::AlterDropPrimaryKeyCommand() {
-	// TODO Auto-generated constructor stub
+AlterDropPrimaryKeyCommand::AlterDropPrimaryKeyCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_DROP_PRIMARY_KEY) {
 
 }
 
 AlterDropPrimaryKeyCommand::~AlterDropPrimaryKeyCommand() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */
