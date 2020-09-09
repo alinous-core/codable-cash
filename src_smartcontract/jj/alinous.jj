@@ -2802,6 +2802,9 @@ AlterTableStatement* alterTableStatement() : {
 	}
 }
 
+
+
+
 AbstractAlterDdlCommand* addAlterCommands() : {
 	AbstractAlterDdlCommand* cmd = nullptr;
 	Token* t = nullptr;
@@ -2810,13 +2813,13 @@ AbstractAlterDdlCommand* addAlterCommands() : {
 	t=<ADD>
 	(
 		(
-			cmd=alterAddIndexCommand() {
+			cmd=alterAddIndexCommand(t) {
 				cmd->setPosition(t);
 			}
 		)
 		|
 		(
-			cmd=alterAddColumnCommand() {
+			cmd=alterAddColumnCommand(t) {
 				cmd->setPosition(t);
 			}
 		)
@@ -2827,10 +2830,10 @@ AbstractAlterDdlCommand* addAlterCommands() : {
 	}
 }
 
-AlterAddColumnCommand* alterAddColumnCommand() : {
+AlterAddColumnCommand* alterAddColumnCommand(Token* t) : {
 	AlterAddColumnCommand* cmd = new AlterAddColumnCommand();
 	DdlColumnDescriptor* desc = nullptr;
-	Token* t = nullptr;
+	cmd->setPosition(t);
 }
 {
 	[t=<COLUMN>{
@@ -2848,9 +2851,9 @@ AlterAddColumnCommand* alterAddColumnCommand() : {
 	}
 }
 
-AlterAddIndexCommand* alterAddIndexCommand() : {
+AlterAddIndexCommand* alterAddIndexCommand(Token* t) : {
 	AlterAddIndexCommand* cmd = new AlterAddIndexCommand();
-	Token* t = nullptr;
+	cmd->setPosition(t);
 }
 {
 	[

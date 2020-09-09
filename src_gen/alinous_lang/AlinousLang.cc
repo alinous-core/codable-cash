@@ -4513,7 +4513,7 @@ AbstractAlterDdlCommand                       * AlinousLang::addAlterCommands() 
     case INDEX:{
       if (!hasError) {
       if (!hasError) {
-      cmd = alterAddIndexCommand();
+      cmd = alterAddIndexCommand(t);
       }
       if (!hasError) {
 cmd->setPosition(t);
@@ -4525,7 +4525,7 @@ cmd->setPosition(t);
     case IDENTIFIER:{
       if (!hasError) {
       if (!hasError) {
-      cmd = alterAddColumnCommand();
+      cmd = alterAddColumnCommand(t);
       }
       if (!hasError) {
 cmd->setPosition(t);
@@ -4545,9 +4545,9 @@ assert(false);
 }
 
 
-AlterAddColumnCommand                     * AlinousLang::alterAddColumnCommand() {AlterAddColumnCommand* cmd = new AlterAddColumnCommand();
+AlterAddColumnCommand                     * AlinousLang::alterAddColumnCommand(Token* t) {AlterAddColumnCommand* cmd = new AlterAddColumnCommand();
         DdlColumnDescriptor* desc = nullptr;
-        Token* t = nullptr;
+        cmd->setPosition(t);
     if (!hasError) {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case COLUMN:{
@@ -4577,8 +4577,8 @@ assert(false);
 }
 
 
-AlterAddIndexCommand                    * AlinousLang::alterAddIndexCommand() {AlterAddIndexCommand* cmd = new AlterAddIndexCommand();
-        Token* t = nullptr;
+AlterAddIndexCommand                    * AlinousLang::alterAddIndexCommand(Token* t) {AlterAddIndexCommand* cmd = new AlterAddIndexCommand();
+        cmd->setPosition(t);
     if (!hasError) {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case UNIQUE:{
