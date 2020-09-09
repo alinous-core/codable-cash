@@ -25,10 +25,12 @@ void AlterAddPrimaryKeyCommand::addColumn(UnicodeString* column) noexcept {
 int AlterAddPrimaryKeyCommand::binarySize() const {
 	int total = sizeof(uint16_t);
 
+
 	return total;
 }
 
 void AlterAddPrimaryKeyCommand::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::DDL_ALTER_ADD_PRIMARY_KEY);
 }
 
 void AlterAddPrimaryKeyCommand::fromBinary(ByteBuffer* in) {

@@ -30,6 +30,7 @@ int AlterModifyCommand::binarySize() const {
 }
 
 void AlterModifyCommand::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::DDL_ALTER_MODIFY);
 }
 
 void AlterModifyCommand::fromBinary(ByteBuffer* in) {

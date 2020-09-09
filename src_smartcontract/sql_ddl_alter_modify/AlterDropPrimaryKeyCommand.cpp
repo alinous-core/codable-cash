@@ -24,6 +24,7 @@ int AlterDropPrimaryKeyCommand::binarySize() const {
 }
 
 void AlterDropPrimaryKeyCommand::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::DDL_ALTER_DROP_PRIMARY_KEY);
 }
 
 void AlterDropPrimaryKeyCommand::fromBinary(ByteBuffer* in) {

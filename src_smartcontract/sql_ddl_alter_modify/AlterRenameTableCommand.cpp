@@ -24,15 +24,23 @@ void AlterRenameTableCommand::setNewName(UnicodeString* name) noexcept {
 }
 
 int AlterRenameTableCommand::binarySize() const {
+	checkNotNull(this->newName);
+
 	int total = sizeof(uint16_t);
+	total += stringSize(this->newName);
 
 	return total;
 }
 
 void AlterRenameTableCommand::toBinary(ByteBuffer* out) {
+	checkNotNull(this->newName);
+
+	out->putShort(CodeElement::DDL_ALTER_RENAME_TABLE);
+	putString(out, this->newName);
 }
 
 void AlterRenameTableCommand::fromBinary(ByteBuffer* in) {
+	this->newName = getString(in);
 }
 
 } /* namespace alinous */

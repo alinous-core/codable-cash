@@ -36,6 +36,7 @@ int AlterRenameColumnCommand::binarySize() const {
 }
 
 void AlterRenameColumnCommand::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::DDL_ALTER_RENAME_COLUMN);
 }
 
 void AlterRenameColumnCommand::fromBinary(ByteBuffer* in) {
