@@ -658,6 +658,7 @@ void CodeElement::checkKind(CodeElement* element, short kind) {
 
 void CodeElement::checkIsType(CodeElement* element) {
 	if(!(element->kind >= TYPE_BOOL && element->kind < STMT_BLOCK)){
+		delete element;
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
@@ -665,18 +666,21 @@ void CodeElement::checkIsType(CodeElement* element) {
 void CodeElement::checkIsStatement(CodeElement* element) {
 	if(!((element->kind >= STMT_BLOCK && element->kind < EXP_ALLOCATION) ||
 			(element->kind >= DDL_CREATE_TABLE && element->kind < SQL_EXP_ADDITIVE))){
+		delete element;
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
 
 void CodeElement::checkIsExp(CodeElement* element) {
 	if(!(element->kind >= EXP_ALLOCATION && element->kind < DDL_CREATE_TABLE)){
+		delete element;
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
 
 void CodeElement::checkIsJsonExp(CodeElement* element) {
 	if(!(element->kind >= EXP_JSON_INITIALIZER && element->kind < DDL_CREATE_TABLE)){
+		delete element;
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
@@ -684,6 +688,7 @@ void CodeElement::checkIsJsonExp(CodeElement* element) {
 
 void CodeElement::checkIsSQLExp(CodeElement* element) {
 	if(!(element->kind >= SQL_EXP_ADDITIVE && element->kind < SQL_PART_COLUMN_LIST)){
+		delete element;
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
@@ -691,12 +696,14 @@ void CodeElement::checkIsSQLExp(CodeElement* element) {
 void CodeElement::checkIsJoinPart(CodeElement* element) {
 	if(!(element->kind == SQL_EXP_PARENTHESIS_JOIN_PART || element->kind == SQL_EXP_JOIN || element->kind == SQL_EXP_JOIN_PART ||
 			element->kind == SQL_EXP_TABLE_ID || element->kind == SQL_EXP_TABLE_LIST)){
+		delete element;
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
 
 void CodeElement::checkIsImport(CodeElement* element) {
 	if(!(element->kind == IMPORT_DECLARE)){
+		delete element;
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
