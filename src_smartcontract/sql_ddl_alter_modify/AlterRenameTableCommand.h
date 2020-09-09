@@ -12,14 +12,21 @@
 
 namespace alinous {
 
+class UnicodeString;
+
 class AlterRenameTableCommand : public AbstractAlterDdlCommand {
 public:
 	AlterRenameTableCommand();
 	virtual ~AlterRenameTableCommand();
 
+	void setNewName(UnicodeString* name) noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+private:
+	UnicodeString* newName;
 };
 
 } /* namespace alinous */

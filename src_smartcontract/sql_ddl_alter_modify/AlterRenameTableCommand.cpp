@@ -7,14 +7,20 @@
 
 #include "sql_ddl_alter_modify/AlterRenameTableCommand.h"
 
+#include "base/UnicodeString.h"
+
 namespace alinous {
 
 AlterRenameTableCommand::AlterRenameTableCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_RENAME_TABLE) {
-
+	this->newName = nullptr;
 }
 
 AlterRenameTableCommand::~AlterRenameTableCommand() {
+	delete this->newName;
+}
 
+void AlterRenameTableCommand::setNewName(UnicodeString* name) noexcept {
+	this->newName = name;
 }
 
 int AlterRenameTableCommand::binarySize() const {

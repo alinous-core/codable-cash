@@ -79,7 +79,27 @@ AbstractAlterDdlCommand* alterRenameCommands() : {
 	t=<RENAME>
 	(
 		cmd=alterRenameColumnCommand(t)
+		|
+		cmd=alterRenameTableCommand(t)
 	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterRenameTableCommand* alterRenameTableCommand(Token* t) : {
+	AlterRenameTableCommand* cmd = new AlterRenameTableCommand();
+	cmd->setPosition(t);
+}
+{
+	t=<TO>{
+		cmd->setPosition(t);
+	}
+	t=<IDENTIFIER>{
+		cmd->setPosition(t);
+		cmd->setNewName(_STR(t));
+	}
 	{
 		__ONERROR(cmd);
 		return cmd;
