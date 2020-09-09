@@ -21,6 +21,28 @@ TEST_GROUP(TestAlterParseGroup) {
 	TEST_TEARDOWN(){
 	}
 };
+static bool checkBinary(ByteBuffer* buff);
+
+bool checkBinary(ByteBuffer* buff){
+	int lastSize = buff->capacity();
+
+	buff->position(0);
+	CodeElement* element = CodeElement::createFromBinary(buff); __STP(element);
+
+	int size = element->binarySize();
+	if(lastSize != size){
+		return false;
+	}
+
+	ByteBuffer* buff2 = ByteBuffer::allocateWithEndian(size, true); __STP(buff2);
+	element->toBinary(buff2);
+
+	if(buff2->position() != size){
+		return false;
+	}
+
+	return Mem::memcmp(buff->array(), buff2->array(), size) == 0;
+}
 
 TEST(TestAlterParseGroup, AlterAddColumnCommand01){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
@@ -33,5 +55,14 @@ TEST(TestAlterParseGroup, AlterAddColumnCommand01){
 
 		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
 		CHECK(!parser.hasError())
+
+		int size = stmt->binarySize();
+		ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+		stmt->toBinary(buff);
+		CHECK(buff->position() == size)
+
+		bool res = checkBinary(buff);
+		CHECK(res)
 	}
 }
