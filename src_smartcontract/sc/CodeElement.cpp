@@ -652,6 +652,7 @@ void CodeElement::checkNotNull(void* ptr) {
 
 void CodeElement::checkKind(CodeElement* element, short kind) {
 	if(element->kind != kind){
+		delete element;
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
