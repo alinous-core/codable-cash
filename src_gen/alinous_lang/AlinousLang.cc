@@ -4409,8 +4409,8 @@ stmt->setPosition(t);
     tableId = tableIdentifier();
     }
     if (!hasError) {
-stmt->setTableId(tableId);
-                stmt->setPosition(tableId);
+stmt->setPosition(tableId);
+                stmt->setTableId(tableId);
     }
     if (!hasError) {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
@@ -4421,6 +4421,7 @@ stmt->setTableId(tableId);
       }
       if (!hasError) {
 stmt->setPosition(cmd);
+                                stmt->setCommand(cmd);
       }
       }
       break;
@@ -4605,6 +4606,7 @@ cmd->setPosition(t);
     }
     if (!hasError) {
 cmd->setPosition(t);
+                cmd->setName(_STR(t));
     }
     if (!hasError) {
     t = jj_consume_token(L_PARENTHESIS);
@@ -4617,6 +4619,7 @@ cmd->setPosition(t);
     }
     if (!hasError) {
 cmd->setPosition(t);
+                cmd->addColumn(_STR(t));
     }
     if (!hasError) {
     while (!hasError) {
@@ -4640,6 +4643,7 @@ cmd->setPosition(t);
       }
       if (!hasError) {
 cmd->setPosition(t);
+                        cmd->addColumn(_STR(t));
       }
     }
     end_label_28: ;
