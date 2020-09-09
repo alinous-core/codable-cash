@@ -484,6 +484,22 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		element = new AlterDropColumnCommand();
 		break;
 
+	case DDL_ALTER_ADD_PRIMARY_KEY:
+		element = new AlterAddPrimaryKeyCommand();
+		break;
+	case DDL_ALTER_DROP_PRIMARY_KEY:
+		element = new AlterDropPrimaryKeyCommand();
+		break;
+	case DDL_ALTER_MODIFY:
+		element = new AlterModifyCommand();
+		break;
+	case DDL_ALTER_RENAME_COLUMN:
+		element = new AlterRenameColumnCommand();
+		break;
+	case DDL_ALTER_RENAME_TABLE:
+		element = new AlterRenameTableCommand();
+		break;
+
 	case DML_STMT_BEGIN:
 		element = new BeginStatement();
 		break;

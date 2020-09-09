@@ -16,4 +16,17 @@ AlterAddPrimaryKeyCommand::~AlterAddPrimaryKeyCommand() {
 
 }
 
+int AlterAddPrimaryKeyCommand::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void AlterAddPrimaryKeyCommand::toBinary(ByteBuffer* out) {
+}
+
+void AlterAddPrimaryKeyCommand::fromBinary(ByteBuffer* in) {
+}
+
+
 } /* namespace alinous */

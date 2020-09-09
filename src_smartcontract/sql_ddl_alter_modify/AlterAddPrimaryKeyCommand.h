@@ -16,6 +16,10 @@ class AlterAddPrimaryKeyCommand : public AbstractAlterDdlCommand {
 public:
 	AlterAddPrimaryKeyCommand();
 	virtual ~AlterAddPrimaryKeyCommand();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */
