@@ -9,13 +9,12 @@
 
 namespace alinous {
 
-AlterRenameColumnCommand::AlterRenameColumnCommand() {
-	// TODO Auto-generated constructor stub
+AlterRenameColumnCommand::AlterRenameColumnCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_RENAME_COLUMN) {
 
 }
 
 AlterRenameColumnCommand::~AlterRenameColumnCommand() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */

@@ -8,9 +8,11 @@
 #ifndef SQL_DDL_ALTER_MODIFY_ALTERRENAMECOLUMNCOMMAND_H_
 #define SQL_DDL_ALTER_MODIFY_ALTERRENAMECOLUMNCOMMAND_H_
 
+#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
+
 namespace alinous {
 
-class AlterRenameColumnCommand {
+class AlterRenameColumnCommand : public AbstractAlterDdlCommand {
 public:
 	AlterRenameColumnCommand();
 	virtual ~AlterRenameColumnCommand();
