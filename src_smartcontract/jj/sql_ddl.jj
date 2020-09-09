@@ -151,7 +151,51 @@ AbstractAlterDdlCommand* addAlterCommands() : {
 		cmd=alterAddIndexCommand(t)
 		|
 		cmd=alterAddColumnCommand(t)
+		|
+		cmd=alterAddPrimaryKeyCommand(t)
 	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterAddPrimaryKeyCommand* alterAddPrimaryKeyCommand(Token* t) : {
+	AlterAddPrimaryKeyCommand* cmd = new AlterAddPrimaryKeyCommand();
+	
+	cmd->setPosition(t);
+}
+{
+	t=<PRIMARY>{
+		cmd->setPosition(t);
+	}
+	t=<KEY>{
+		cmd->setPosition(t);
+	}
+	
+	t="(" {
+		cmd->setPosition(t);
+	}
+	
+	t=<IDENTIFIER> {
+		cmd->setPosition(t);
+		cmd->addColumn(_STR(t));
+	}
+	(
+		t="," {
+			cmd->setPosition(t);
+		}
+		t=<IDENTIFIER> {
+			cmd->setPosition(t);
+			cmd->addColumn(_STR(t));
+		}
+	)*
+	
+	
+	t=")" {
+		cmd->setPosition(t);
+	}
+	
 	{
 		__ONERROR(cmd);
 		return cmd;
