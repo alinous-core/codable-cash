@@ -9,13 +9,12 @@
 
 namespace alinous {
 
-AlterRenameTableCommand::AlterRenameTableCommand() {
-	// TODO Auto-generated constructor stub
+AlterRenameTableCommand::AlterRenameTableCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_RENAME_TABLE) {
 
 }
 
 AlterRenameTableCommand::~AlterRenameTableCommand() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace alinous */
