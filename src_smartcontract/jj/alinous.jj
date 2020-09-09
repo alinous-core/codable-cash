@@ -2802,7 +2802,26 @@ AbstractAlterDdlCommand* dropAlterCommands() : {
 		cmd=alterDropIndexCommand(t)
 		|
 		cmd=alterDropColumnCommand(t)
+		|
+		cmd=alterDropPrimaryKeyCommand(t)
 	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterDropPrimaryKeyCommand* alterDropPrimaryKeyCommand(Token* t) : {
+	AlterDropPrimaryKeyCommand* cmd = new AlterDropPrimaryKeyCommand();
+	cmd->setPosition(t);
+}
+{
+	t=<PRIMARY>{
+		cmd->setPosition(t);
+	}
+	t=<KEY>{
+		cmd->setPosition(t);
+	}
 	{
 		__ONERROR(cmd);
 		return cmd;
