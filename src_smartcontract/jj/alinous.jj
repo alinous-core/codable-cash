@@ -2815,14 +2815,32 @@ AbstractAlterDdlCommand* addAlterCommands() : {
 		)
 		|
 		(
-			[t=<COLUMN>{
+			cmd=alterAddColumnCommand() {
 				cmd->setPosition(t);
-			}]
-			t=<IDENTIFIER>{
-			
-			}			
+			}
 		)
 	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterAddColumnCommand* alterAddColumnCommand() : {
+	AlterAddColumnCommand* cmd = new AlterAddColumnCommand();
+	DdlColumnDescriptor* desc = nullptr;
+	Token* t = nullptr;
+}
+{
+	[t=<COLUMN>{
+		cmd->setPosition(t);
+	}]
+	
+	desc=ddlColumnDescriptor() {
+		cmd->setPosition(desc);
+		cmd->setColumnDescriptor(desc);
+	}
+	
 	{
 		__ONERROR(cmd);
 		return cmd;
