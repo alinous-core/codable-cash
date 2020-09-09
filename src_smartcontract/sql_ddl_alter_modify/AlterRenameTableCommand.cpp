@@ -17,4 +17,16 @@ AlterRenameTableCommand::~AlterRenameTableCommand() {
 
 }
 
+int AlterRenameTableCommand::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void AlterRenameTableCommand::toBinary(ByteBuffer* out) {
+}
+
+void AlterRenameTableCommand::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

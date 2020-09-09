@@ -17,4 +17,16 @@ AlterModifyCommand::~AlterModifyCommand() {
 
 }
 
+int AlterModifyCommand::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void AlterModifyCommand::toBinary(ByteBuffer* out) {
+}
+
+void AlterModifyCommand::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

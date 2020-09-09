@@ -17,4 +17,16 @@ AlterRenameColumnCommand::~AlterRenameColumnCommand() {
 
 }
 
+int AlterRenameColumnCommand::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void AlterRenameColumnCommand::toBinary(ByteBuffer* out) {
+}
+
+void AlterRenameColumnCommand::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

@@ -17,4 +17,16 @@ AlterDropPrimaryKeyCommand::~AlterDropPrimaryKeyCommand() {
 
 }
 
+int AlterDropPrimaryKeyCommand::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void AlterDropPrimaryKeyCommand::toBinary(ByteBuffer* out) {
+}
+
+void AlterDropPrimaryKeyCommand::fromBinary(ByteBuffer* in) {
+}
+
 } /* namespace alinous */

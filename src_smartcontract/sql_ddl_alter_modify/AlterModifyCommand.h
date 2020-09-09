@@ -16,6 +16,10 @@ class AlterModifyCommand : public AbstractAlterDdlCommand {
 public:
 	AlterModifyCommand();
 	virtual ~AlterModifyCommand();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out);
+	virtual void fromBinary(ByteBuffer* in);
 };
 
 } /* namespace alinous */
