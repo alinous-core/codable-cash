@@ -12,14 +12,21 @@
 
 namespace alinous {
 
+class UnicodeString;
+
 class AlterDropIndexCommand : public AbstractAlterDdlCommand {
 public:
 	explicit AlterDropIndexCommand();
 	virtual ~AlterDropIndexCommand();
 
+	void setName(UnicodeString* name) noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+private:
+	UnicodeString* name;
 };
 
 } /* namespace alinous */

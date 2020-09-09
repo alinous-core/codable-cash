@@ -73,16 +73,28 @@ AbstractAlterDdlCommand* dropAlterCommands() : {
 		cmd->setPosition(t);
 	}
 	(
-		(
-			t=<INDEX>{
-				cmd->setPosition(t);
-			}
-		)
+		cmd=alterDropIndexCommand(t)
 		|
-		(
-			cmd=alterDropColumnCommand(t)
-		)
+		cmd=alterDropColumnCommand(t)
 	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterDropIndexCommand* alterDropIndexCommand(Token* t) : {
+	AlterDropIndexCommand* cmd = new AlterDropIndexCommand();
+	cmd->setPosition(t);
+}
+{
+	t=<INDEX>{
+		cmd->setPosition(t);
+	}
+	t=<IDENTIFIER> {
+		cmd->setPosition(t);
+		cmd->setName(_STR(t));
+	}
 	{
 		__ONERROR(cmd);
 		return cmd;
@@ -91,6 +103,7 @@ AbstractAlterDdlCommand* dropAlterCommands() : {
 
 AlterDropColumnCommand* alterDropColumnCommand(Token* t) : {
 	AlterDropColumnCommand* cmd = new AlterDropColumnCommand();
+	cmd->setPosition(t);
 }
 {
 	[t=<COLUMN>{

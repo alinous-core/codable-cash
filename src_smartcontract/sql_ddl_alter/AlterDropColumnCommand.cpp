@@ -24,6 +24,9 @@ void AlterDropColumnCommand::setName(UnicodeString* name) noexcept {
 }
 
 int AlterDropColumnCommand::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
 }
 
 void AlterDropColumnCommand::toBinary(ByteBuffer* out) {

@@ -4468,21 +4468,14 @@ cmd->setPosition(t);
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case INDEX:{
       if (!hasError) {
-      if (!hasError) {
-      t = jj_consume_token(INDEX);
-      }
-      if (!hasError) {
-cmd->setPosition(t);
-      }
+      cmd = alterDropIndexCommand(t);
       }
       break;
       }
     case COLUMN:
     case IDENTIFIER:{
       if (!hasError) {
-      if (!hasError) {
       cmd = alterDropColumnCommand(t);
-      }
       }
       break;
       }
@@ -4498,7 +4491,29 @@ assert(false);
 }
 
 
+AlterDropIndexCommand                     * AlinousLang::alterDropIndexCommand(Token* t) {AlterDropIndexCommand* cmd = new AlterDropIndexCommand();
+        cmd->setPosition(t);
+    if (!hasError) {
+    t = jj_consume_token(INDEX);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+    }
+    if (!hasError) {
+    t = jj_consume_token(IDENTIFIER);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+                cmd->setName(_STR(t));
+    }
+__ONERROR(cmd);
+                return cmd;
+assert(false);
+}
+
+
 AlterDropColumnCommand                      * AlinousLang::alterDropColumnCommand(Token* t) {AlterDropColumnCommand* cmd = new AlterDropColumnCommand();
+        cmd->setPosition(t);
     if (!hasError) {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case COLUMN:{

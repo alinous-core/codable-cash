@@ -24,6 +24,9 @@ void AlterAddColumnCommand::setColumnDescriptor(DdlColumnDescriptor* columnDescr
 }
 
 int AlterAddColumnCommand::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
 }
 
 void AlterAddColumnCommand::toBinary(ByteBuffer* out) {

@@ -29,6 +29,9 @@ void AlterAddIndexCommand::addColumn(UnicodeString* colName) noexcept {
 }
 
 int AlterAddIndexCommand::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
 }
 
 void AlterAddIndexCommand::toBinary(ByteBuffer* out) {
