@@ -33,6 +33,10 @@ public:
 
 	virtual void interpret(VirtualMachine* vm);
 
+	AbstractAlterDdlCommand* getCmd() const noexcept {
+		return cmd;
+	}
+
 private:
 	TableIdentifier* tableId;
 	AbstractAlterDdlCommand* cmd;

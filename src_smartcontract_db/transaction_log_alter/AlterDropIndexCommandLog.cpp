@@ -24,7 +24,7 @@ void AlterDropIndexCommandLog::setCommand(AlterDropIndexCommand* command) noexce
 }
 
 int AlterDropIndexCommandLog::binarySize() const {
-	int total = sizeof(uint16_t);
+	int total = sizeof(uint8_t);
 
 	return total;
 }

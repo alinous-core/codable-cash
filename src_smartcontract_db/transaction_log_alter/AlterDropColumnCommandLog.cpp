@@ -24,7 +24,7 @@ void AlterDropColumnCommandLog::setCommand(AlterDropColumnCommand* command) noex
 }
 
 int AlterDropColumnCommandLog::binarySize() const {
-	int total = sizeof(uint16_t);
+	int total = sizeof(uint8_t);
 
 	return total;
 }

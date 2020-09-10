@@ -36,10 +36,10 @@ AbstractTransactionLog* TransactionLogFactory::createFromBinary(ByteBuffer* in) 
 		break;
 
 	case AbstractTransactionLog::TRX_ALTER_ADD_INDEX:
-		ret = new AlterAddColumnCommandLog();
+		ret = new AlterAddIndexCommandLog();
 		break;
 	case AbstractTransactionLog::TRX_ALTER_ADD_COLUMN:
-		ret = new AlterAddIndexCommandLog();
+		ret = new AlterAddColumnCommandLog();
 		break;
 	case AbstractTransactionLog::TRX_ALTER_DROP_INDEX:
 		ret = new AlterDropIndexCommandLog();

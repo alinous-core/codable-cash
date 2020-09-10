@@ -9,6 +9,8 @@
 
 #include "sql_ddl_alter/AlterAddColumnCommand.h"
 
+#include "sc/CodeElement.h"
+
 namespace codablecash {
 
 AlterAddColumnCommandLog::AlterAddColumnCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_ADD_COLUMN) {
@@ -24,16 +26,26 @@ void AlterAddColumnCommandLog::setCommand(AlterAddColumnCommand* command) noexce
 }
 
 int AlterAddColumnCommandLog::binarySize() const {
-	int total = sizeof(uint16_t);
+	CodeElement::checkNotNull(this->command);
+
+	int total = sizeof(uint8_t);
+	total += this->command->binarySize();
 
 	return total;
 }
 
 void AlterAddColumnCommandLog::toBinary(ByteBuffer* out) const {
+	CodeElement::checkNotNull(this->command);
+
+	out->put(AbstractTransactionLog::TRX_ALTER_ADD_COLUMN);
+	this->command->toBinary(out);
 }
 
 void AlterAddColumnCommandLog::fromBinary(ByteBuffer* in) {
+	CodeElement* element = CodeElement::createFromBinary(in);
+	CodeElement::checkIsAlterCommand(element);
 
+	this->command = dynamic_cast<AlterAddColumnCommand*>(element);
 }
 
 void AlterAddColumnCommandLog::commit(CdbTransactionManager* trxManager) {

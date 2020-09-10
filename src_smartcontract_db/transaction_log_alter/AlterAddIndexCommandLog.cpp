@@ -24,7 +24,7 @@ void AlterAddIndexCommandLog::setCommand(AlterAddIndexCommand* command) noexcept
 }
 
 int AlterAddIndexCommandLog::binarySize() const {
-	int total = sizeof(uint16_t);
+	int total = sizeof(uint8_t);
 
 	return total;
 }

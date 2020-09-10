@@ -24,7 +24,7 @@ void AlterAddPrimaryKeyCommandLog::setCommand(AlterAddPrimaryKeyCommand* command
 }
 
 int AlterAddPrimaryKeyCommandLog::binarySize() const {
-	int total = sizeof(uint16_t);
+	int total = sizeof(uint8_t);
 
 	return total;
 }

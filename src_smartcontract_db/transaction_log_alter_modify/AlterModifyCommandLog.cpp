@@ -24,7 +24,7 @@ void AlterModifyCommandLog::setCommand(AlterModifyCommand* command) noexcept {
 }
 
 int AlterModifyCommandLog::binarySize() const {
-	int total = sizeof(uint16_t);
+	int total = sizeof(uint8_t);
 
 	return total;
 }
