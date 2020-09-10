@@ -24,15 +24,26 @@ void AlterModifyCommandLog::setCommand(AlterModifyCommand* command) noexcept {
 }
 
 int AlterModifyCommandLog::binarySize() const {
+	CodeElement::checkNotNull(this->command);
+
 	int total = sizeof(uint8_t);
+	total += this->command->binarySize();
 
 	return total;
 }
 
 void AlterModifyCommandLog::toBinary(ByteBuffer* out) const {
+	CodeElement::checkNotNull(this->command);
+
+	out->put(AbstractTransactionLog::TRX_ALTER_MODIFY);
+	this->command->toBinary(out);
 }
 
 void AlterModifyCommandLog::fromBinary(ByteBuffer* in) {
+	CodeElement* element = CodeElement::createFromBinary(in);
+	CodeElement::checkKind(element, CodeElement::DDL_ALTER_MODIFY);
+
+	this->command = dynamic_cast<AlterModifyCommand*>(element);
 }
 
 void AlterModifyCommandLog::commit(CdbTransactionManager* trxManager) {
