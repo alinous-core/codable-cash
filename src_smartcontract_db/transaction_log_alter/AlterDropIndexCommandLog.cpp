@@ -24,15 +24,26 @@ void AlterDropIndexCommandLog::setCommand(AlterDropIndexCommand* command) noexce
 }
 
 int AlterDropIndexCommandLog::binarySize() const {
+	CodeElement::checkNotNull(this->command);
+
 	int total = sizeof(uint8_t);
+	total += this->command->binarySize();
 
 	return total;
 }
 
 void AlterDropIndexCommandLog::toBinary(ByteBuffer* out) const {
+	CodeElement::checkNotNull(this->command);
+
+	out->put(AbstractTransactionLog::TRX_ALTER_DROP_INDEX);
+	this->command->toBinary(out);
 }
 
 void AlterDropIndexCommandLog::fromBinary(ByteBuffer* in) {
+	CodeElement* element = CodeElement::createFromBinary(in);
+	CodeElement::checkKind(element, CodeElement::DDL_ALTER_DROP_INDEX);
+
+	this->command = dynamic_cast<AlterDropIndexCommand*>(element);
 }
 
 void AlterDropIndexCommandLog::commit(CdbTransactionManager* trxManager) {
