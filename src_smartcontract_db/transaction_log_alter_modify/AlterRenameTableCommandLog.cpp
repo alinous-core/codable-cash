@@ -24,15 +24,26 @@ void AlterRenameTableCommandLog::setCommand(AlterRenameTableCommand* command) no
 }
 
 int AlterRenameTableCommandLog::binarySize() const {
-	int total = sizeof(uint8_t);
+	CodeElement::checkNotNull(this->command);
 
-	return total;
+	int total = sizeof(uint8_t);
+	total += this->command->binarySize();
+
+	return total;;
 }
 
 void AlterRenameTableCommandLog::toBinary(ByteBuffer* out) const {
+	CodeElement::checkNotNull(this->command);
+
+	out->put(AbstractTransactionLog::TRX_ALTER_RENAME_TABLE);
+	this->command->toBinary(out);
 }
 
 void AlterRenameTableCommandLog::fromBinary(ByteBuffer* in) {
+	CodeElement* element = CodeElement::createFromBinary(in);
+	CodeElement::checkKind(element, CodeElement::DDL_ALTER_RENAME_TABLE);
+
+	this->command = dynamic_cast<AlterRenameTableCommand*>(element);
 }
 
 void AlterRenameTableCommandLog::commit(CdbTransactionManager* trxManager) {
