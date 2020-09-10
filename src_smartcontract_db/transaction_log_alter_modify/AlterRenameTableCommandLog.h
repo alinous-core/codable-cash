@@ -16,6 +16,12 @@ class AlterRenameTableCommandLog : public AbstractDdlLog {
 public:
 	AlterRenameTableCommandLog();
 	virtual ~AlterRenameTableCommandLog();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+	virtual void fromBinary(ByteBuffer* in);
+
+	virtual void commit(CdbTransactionManager* trxManager);
 };
 
 } /* namespace codablecash */

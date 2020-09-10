@@ -17,4 +17,19 @@ AlterAddPrimaryKeyCommandLog::~AlterAddPrimaryKeyCommandLog() {
 
 }
 
+int AlterAddPrimaryKeyCommandLog::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void AlterAddPrimaryKeyCommandLog::toBinary(ByteBuffer* out) const {
+}
+
+void AlterAddPrimaryKeyCommandLog::fromBinary(ByteBuffer* in) {
+}
+
+void AlterAddPrimaryKeyCommandLog::commit(CdbTransactionManager* trxManager) {
+}
+
 } /* namespace codablecash */

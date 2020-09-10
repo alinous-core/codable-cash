@@ -17,4 +17,19 @@ AlterRenameTableCommandLog::~AlterRenameTableCommandLog() {
 
 }
 
+int AlterRenameTableCommandLog::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void AlterRenameTableCommandLog::toBinary(ByteBuffer* out) const {
+}
+
+void AlterRenameTableCommandLog::fromBinary(ByteBuffer* in) {
+}
+
+void AlterRenameTableCommandLog::commit(CdbTransactionManager* trxManager) {
+}
+
 } /* namespace codablecash */

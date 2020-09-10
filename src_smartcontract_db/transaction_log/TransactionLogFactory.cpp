@@ -14,6 +14,15 @@
 
 #include "engine/CdbException.h"
 
+#include "transaction_log_alter/AlterAddColumnCommandLog.h"
+#include "transaction_log_alter/AlterAddIndexCommandLog.h"
+#include "transaction_log_alter/AlterDropIndexCommandLog.h"
+#include "transaction_log_alter/AlterDropColumnCommandLog.h"
+#include "transaction_log_alter_modify/AlterAddPrimaryKeyCommandLog.h"
+#include "transaction_log_alter_modify/AlterDropPrimaryKeyCommandLog.h"
+#include "transaction_log_alter_modify/AlterModifyCommandLog.h"
+#include "transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
+#include "transaction_log_alter_modify/AlterRenameTableCommandLog.h"
 
 namespace codablecash {
 
@@ -25,10 +34,39 @@ AbstractTransactionLog* TransactionLogFactory::createFromBinary(ByteBuffer* in) 
 	case AbstractTransactionLog::TRX_CREATE_TABLE:
 		ret = new CreateTableLog();
 		break;
+
+	case AbstractTransactionLog::TRX_ALTER_ADD_INDEX:
+		ret = new AlterAddColumnCommandLog();
+		break;
+	case AbstractTransactionLog::TRX_ALTER_ADD_COLUMN:
+		ret = new AlterAddIndexCommandLog();
+		break;
+	case AbstractTransactionLog::TRX_ALTER_DROP_INDEX:
+		ret = new AlterDropIndexCommandLog();
+		break;
+	case AbstractTransactionLog::TRX_ALTER_DROP_COLUMN:
+		ret = new AlterDropColumnCommandLog();
+		break;
+	case AbstractTransactionLog::TRX_ALTER_ADD_PRIMARY_KEY:
+		ret = new AlterAddPrimaryKeyCommandLog();
+		break;
+	case AbstractTransactionLog::TRX_ALTER_DROP_PRIMARY_KEY:
+		ret = new AlterDropPrimaryKeyCommandLog();
+		break;
+	case AbstractTransactionLog::TRX_ALTER_MODIFY:
+		ret = new AlterModifyCommandLog();
+		break;
+	case AbstractTransactionLog::TRX_ALTER_RENAME_COLUMN:
+		ret = new AlterRenameColumnCommandLog();
+		break;
+	case AbstractTransactionLog::TRX_ALTER_RENAME_TABLE:
+		ret = new AlterRenameTableCommandLog();
+		break;
+
 	case AbstractTransactionLog::TRX_INSERT:
 		ret = new InsertLog();
 		break;
-		// FIXME TransactionLogFactory::createFromBinary
+
 	default:
 		throw new CdbException(L"Transaction log type is wrong.", __FILE__, __LINE__);
 	}

@@ -16,6 +16,12 @@ class AlterAddPrimaryKeyCommandLog : public AbstractDdlLog {
 public:
 	AlterAddPrimaryKeyCommandLog();
 	virtual ~AlterAddPrimaryKeyCommandLog();
+
+	virtual int binarySize() const;
+	virtual void toBinary(ByteBuffer* out) const;
+	virtual void fromBinary(ByteBuffer* in);
+
+	virtual void commit(CdbTransactionManager* trxManager);
 };
 
 } /* namespace codablecash */

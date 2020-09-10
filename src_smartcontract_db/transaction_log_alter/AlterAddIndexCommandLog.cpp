@@ -17,4 +17,19 @@ AlterAddIndexCommandLog::~AlterAddIndexCommandLog() {
 
 }
 
+int AlterAddIndexCommandLog::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void AlterAddIndexCommandLog::toBinary(ByteBuffer* out) const {
+}
+
+void AlterAddIndexCommandLog::fromBinary(ByteBuffer* in) {
+}
+
+void AlterAddIndexCommandLog::commit(CdbTransactionManager* trxManager) {
+}
+
 } /* namespace codablecash */
