@@ -20,10 +20,11 @@
 
 #include "transaction_log_alter/AlterAddColumnCommandLog.h"
 #include "transaction_log_alter/AlterAddIndexCommandLog.h"
+#include "transaction_log_alter/AlterDropColumnCommandLog.h"
 
 #include "sql_ddl_alter/AlterAddColumnCommand.h"
 #include "sql_ddl_alter/AlterAddIndexCommand.h"
-
+#include "sql_ddl_alter/AlterDropColumnCommand.h"
 
 TEST_GROUP(TestAlterLogBinaryGroup) {
 	TEST_SETUP(){
@@ -112,3 +113,34 @@ TEST(TestAlterLogBinaryGroup, AlterAddIndexCommandLog01){
 		CHECK(res)
 	}
 }
+
+TEST(TestAlterLogBinaryGroup, AlterDropColumnCommand01){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/parse/alterDropColumnCommand01.alns"))
+	{
+		SmartContractParser parser(sourceFile);
+		AlinousLang* lang = parser.getDebugAlinousLang();
+
+		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
+		CHECK(!parser.hasError())
+
+		AbstractAlterDdlCommand* cmd = stmt->getCmd();
+		stmt->setCommand(nullptr);
+
+		AlterDropColumnCommandLog log;
+		log.setCommand(dynamic_cast<AlterDropColumnCommand*>(cmd));
+
+		int size = log.binarySize();
+		ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+		log.toBinary(buff);
+		CHECK(buff->position() == size)
+
+		bool res = checkBinary(buff);
+		CHECK(res)
+	}
+}
+
+
