@@ -24,15 +24,26 @@ void AlterRenameColumnCommandLog::setCommand(AlterRenameColumnCommand* command) 
 }
 
 int AlterRenameColumnCommandLog::binarySize() const {
+	CodeElement::checkNotNull(this->command);
+
 	int total = sizeof(uint8_t);
+	total += this->command->binarySize();
 
 	return total;
 }
 
 void AlterRenameColumnCommandLog::toBinary(ByteBuffer* out) const {
+	CodeElement::checkNotNull(this->command);
+
+	out->put(AbstractTransactionLog::TRX_ALTER_RENAME_COLUMN);
+	this->command->toBinary(out);
 }
 
 void AlterRenameColumnCommandLog::fromBinary(ByteBuffer* in) {
+	CodeElement* element = CodeElement::createFromBinary(in);
+	CodeElement::checkKind(element, CodeElement::DDL_ALTER_RENAME_COLUMN);
+
+	this->command = dynamic_cast<AlterRenameColumnCommand*>(element);
 }
 
 void AlterRenameColumnCommandLog::commit(CdbTransactionManager* trxManager) {
