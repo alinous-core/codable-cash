@@ -43,7 +43,7 @@ void AlterAddColumnCommandLog::toBinary(ByteBuffer* out) const {
 
 void AlterAddColumnCommandLog::fromBinary(ByteBuffer* in) {
 	CodeElement* element = CodeElement::createFromBinary(in);
-	CodeElement::checkIsAlterCommand(element);
+	CodeElement::checkKind(element, CodeElement::DDL_ALTER_ADD_COLUMN);
 
 	this->command = dynamic_cast<AlterAddColumnCommand*>(element);
 }

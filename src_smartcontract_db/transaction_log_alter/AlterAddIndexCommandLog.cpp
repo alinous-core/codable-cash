@@ -24,15 +24,26 @@ void AlterAddIndexCommandLog::setCommand(AlterAddIndexCommand* command) noexcept
 }
 
 int AlterAddIndexCommandLog::binarySize() const {
+	CodeElement::checkNotNull(this->command);
+
 	int total = sizeof(uint8_t);
+	total += this->command->binarySize();
 
 	return total;
 }
 
 void AlterAddIndexCommandLog::toBinary(ByteBuffer* out) const {
+	CodeElement::checkNotNull(this->command);
+
+	out->put(AbstractTransactionLog::TRX_ALTER_ADD_INDEX);
+	this->command->toBinary(out);
 }
 
 void AlterAddIndexCommandLog::fromBinary(ByteBuffer* in) {
+	CodeElement* element = CodeElement::createFromBinary(in);
+	CodeElement::checkKind(element, CodeElement::DDL_ALTER_ADD_INDEX);
+
+	this->command = dynamic_cast<AlterAddIndexCommand*>(element);
 }
 
 void AlterAddIndexCommandLog::commit(CdbTransactionManager* trxManager) {
