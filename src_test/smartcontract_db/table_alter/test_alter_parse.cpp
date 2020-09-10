@@ -113,3 +113,26 @@ TEST(TestAlterParseGroup, AlterDropColumnCommand01){
 	}
 }
 
+TEST(TestAlterParseGroup, AlterDropIndexCommand01){
+	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/parse/alterDropIndexCommand01.alns"))
+	{
+		SmartContractParser parser(sourceFile);
+		AlinousLang* lang = parser.getDebugAlinousLang();
+
+		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
+		CHECK(!parser.hasError())
+
+		int size = stmt->binarySize();
+		ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+		stmt->toBinary(buff);
+		CHECK(buff->position() == size)
+
+		bool res = checkBinary(buff);
+		CHECK(res)
+	}
+
+}
