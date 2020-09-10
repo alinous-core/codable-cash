@@ -12,7 +12,7 @@
 
 namespace codablecash {
 
-class AlterAddColumnCommandLog: public AbstractDdlLog {
+class AlterAddColumnCommandLog : public AbstractDdlLog {
 public:
 	AlterAddColumnCommandLog();
 	virtual ~AlterAddColumnCommandLog();

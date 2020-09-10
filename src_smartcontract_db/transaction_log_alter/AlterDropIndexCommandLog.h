@@ -8,9 +8,11 @@
 #ifndef TRANSACTION_LOG_ALTER_ALTERDROPINDEXCOMMANDLOG_H_
 #define TRANSACTION_LOG_ALTER_ALTERDROPINDEXCOMMANDLOG_H_
 
+#include "transaction_log/AbstractDdlLog.h"
+
 namespace codablecash {
 
-class AlterDropIndexCommandLog {
+class AlterDropIndexCommandLog : public AbstractDdlLog {
 public:
 	AlterDropIndexCommandLog();
 	virtual ~AlterDropIndexCommandLog();

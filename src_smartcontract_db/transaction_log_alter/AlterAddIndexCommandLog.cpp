@@ -9,13 +9,12 @@
 
 namespace codablecash {
 
-AlterAddIndexCommandLog::AlterAddIndexCommandLog() {
-	// TODO Auto-generated constructor stub
+AlterAddIndexCommandLog::AlterAddIndexCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_ADD_INDEX) {
 
 }
 
 AlterAddIndexCommandLog::~AlterAddIndexCommandLog() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */

@@ -5,17 +5,16 @@
  *      Author: iizuka
  */
 
-#include <transaction_log_alter/AlterDropColumnCommandLog.h>
+#include "transaction_log_alter/AlterDropColumnCommandLog.h"
 
 namespace codablecash {
 
-AlterDropColumnCommandLog::AlterDropColumnCommandLog() {
-	// TODO Auto-generated constructor stub
+AlterDropColumnCommandLog::AlterDropColumnCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_DROP_COLUMN) {
 
 }
 
 AlterDropColumnCommandLog::~AlterDropColumnCommandLog() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */
