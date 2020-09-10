@@ -9,13 +9,12 @@
 
 namespace codablecash {
 
-AlterRenameTableCommandLog::AlterRenameTableCommandLog() {
-	// TODO Auto-generated constructor stub
+AlterRenameTableCommandLog::AlterRenameTableCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_RENAME_TABLE) {
 
 }
 
 AlterRenameTableCommandLog::~AlterRenameTableCommandLog() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */

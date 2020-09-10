@@ -8,9 +8,11 @@
 #ifndef TRANSACTION_LOG_ALTER_MODIFY_ALTERDROPPRIMARYKEYCOMMANDLOG_H_
 #define TRANSACTION_LOG_ALTER_MODIFY_ALTERDROPPRIMARYKEYCOMMANDLOG_H_
 
+#include "transaction_log/AbstractDdlLog.h"
+
 namespace codablecash {
 
-class AlterDropPrimaryKeyCommandLog {
+class AlterDropPrimaryKeyCommandLog : public AbstractDdlLog {
 public:
 	AlterDropPrimaryKeyCommandLog();
 	virtual ~AlterDropPrimaryKeyCommandLog();

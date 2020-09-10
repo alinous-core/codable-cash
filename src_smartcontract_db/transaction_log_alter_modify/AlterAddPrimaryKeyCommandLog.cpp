@@ -9,13 +9,12 @@
 
 namespace codablecash {
 
-AlterAddPrimaryKeyCommandLog::AlterAddPrimaryKeyCommandLog() {
-	// TODO Auto-generated constructor stub
+AlterAddPrimaryKeyCommandLog::AlterAddPrimaryKeyCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_ADD_PRIMARY_KEY){
 
 }
 
 AlterAddPrimaryKeyCommandLog::~AlterAddPrimaryKeyCommandLog() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */
