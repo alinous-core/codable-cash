@@ -28,6 +28,7 @@ AbstractTransactionLog* TransactionLogFactory::createFromBinary(ByteBuffer* in) 
 	case AbstractTransactionLog::TRX_INSERT:
 		ret = new InsertLog();
 		break;
+		// FIXME TransactionLogFactory::createFromBinary
 	default:
 		throw new CdbException(L"Transaction log type is wrong.", __FILE__, __LINE__);
 	}
