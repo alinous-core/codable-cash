@@ -7,14 +7,20 @@
 
 #include "transaction_log_alter_modify/AlterRenameTableCommandLog.h"
 
+#include "sql_ddl_alter_modify/AlterRenameTableCommand.h"
+
 namespace codablecash {
 
 AlterRenameTableCommandLog::AlterRenameTableCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_RENAME_TABLE) {
-
+	this->command = nullptr;
 }
 
 AlterRenameTableCommandLog::~AlterRenameTableCommandLog() {
+	delete this->command;
+}
 
+void AlterRenameTableCommandLog::setCommand(AlterRenameTableCommand* command) noexcept {
+	this->command = command;
 }
 
 int AlterRenameTableCommandLog::binarySize() const {

@@ -10,6 +10,11 @@
 
 #include "transaction_log/AbstractDdlLog.h"
 
+namespace alinous {
+class AlterAddPrimaryKeyCommand;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class AlterAddPrimaryKeyCommandLog : public AbstractDdlLog {
@@ -17,11 +22,16 @@ public:
 	AlterAddPrimaryKeyCommandLog();
 	virtual ~AlterAddPrimaryKeyCommandLog();
 
+	void setCommand(AlterAddPrimaryKeyCommand* command) noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
 	virtual void fromBinary(ByteBuffer* in);
 
 	virtual void commit(CdbTransactionManager* trxManager);
+
+private:
+	AlterAddPrimaryKeyCommand* command;
 };
 
 } /* namespace codablecash */

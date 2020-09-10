@@ -7,14 +7,20 @@
 
 #include "transaction_log_alter_modify/AlterAddPrimaryKeyCommandLog.h"
 
+#include "sql_ddl_alter_modify/AlterAddPrimaryKeyCommand.h"
+
 namespace codablecash {
 
 AlterAddPrimaryKeyCommandLog::AlterAddPrimaryKeyCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_ADD_PRIMARY_KEY){
-
+	this->command = nullptr;
 }
 
 AlterAddPrimaryKeyCommandLog::~AlterAddPrimaryKeyCommandLog() {
+	delete this->command;
+}
 
+void AlterAddPrimaryKeyCommandLog::setCommand(AlterAddPrimaryKeyCommand* command) noexcept {
+	this->command = command;
 }
 
 int AlterAddPrimaryKeyCommandLog::binarySize() const {

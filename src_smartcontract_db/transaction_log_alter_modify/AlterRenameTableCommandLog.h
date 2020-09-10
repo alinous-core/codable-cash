@@ -10,6 +10,11 @@
 
 #include "transaction_log/AbstractDdlLog.h"
 
+namespace alinous {
+class AlterRenameTableCommand;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class AlterRenameTableCommandLog : public AbstractDdlLog {
@@ -17,11 +22,16 @@ public:
 	AlterRenameTableCommandLog();
 	virtual ~AlterRenameTableCommandLog();
 
+	void setCommand(AlterRenameTableCommand* command) noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
 	virtual void fromBinary(ByteBuffer* in);
 
 	virtual void commit(CdbTransactionManager* trxManager);
+
+private:
+	AlterRenameTableCommand* command;
 };
 
 } /* namespace codablecash */
