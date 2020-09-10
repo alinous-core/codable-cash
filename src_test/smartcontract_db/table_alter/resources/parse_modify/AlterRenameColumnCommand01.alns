@@ -1,0 +1,1 @@
+ALTER TABLE table1 RENAME col1 TO col2;
