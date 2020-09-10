@@ -10,6 +10,11 @@
 
 #include "transaction_log/AbstractDdlLog.h"
 
+namespace alinous {
+class AlterDropIndexCommand;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class AlterDropIndexCommandLog : public AbstractDdlLog {
@@ -17,11 +22,16 @@ public:
 	AlterDropIndexCommandLog();
 	virtual ~AlterDropIndexCommandLog();
 
+	void setCommand(AlterDropIndexCommand* command) noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
 	virtual void fromBinary(ByteBuffer* in);
 
 	virtual void commit(CdbTransactionManager* trxManager);
+
+private:
+	AlterDropIndexCommand* command;
 };
 
 } /* namespace codablecash */

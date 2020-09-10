@@ -7,14 +7,20 @@
 
 #include "transaction_log_alter/AlterDropIndexCommandLog.h"
 
+#include "sql_ddl_alter/AlterDropIndexCommand.h"
+
 namespace codablecash {
 
 AlterDropIndexCommandLog::AlterDropIndexCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_DROP_INDEX) {
-
+	this->command = nullptr;
 }
 
 AlterDropIndexCommandLog::~AlterDropIndexCommandLog() {
+	delete this->command;
+}
 
+void AlterDropIndexCommandLog::setCommand(AlterDropIndexCommand* command) noexcept {
+	this->command = command;
 }
 
 int AlterDropIndexCommandLog::binarySize() const {

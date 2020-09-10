@@ -7,14 +7,20 @@
 
 #include "transaction_log_alter/AlterAddIndexCommandLog.h"
 
+#include "sql_ddl_alter/AlterAddIndexCommand.h"
+
 namespace codablecash {
 
 AlterAddIndexCommandLog::AlterAddIndexCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_ADD_INDEX) {
-
+	this->command = nullptr;
 }
 
 AlterAddIndexCommandLog::~AlterAddIndexCommandLog() {
+	delete this->command;
+}
 
+void AlterAddIndexCommandLog::setCommand(AlterAddIndexCommand* command) noexcept {
+	this->command = command;
 }
 
 int AlterAddIndexCommandLog::binarySize() const {

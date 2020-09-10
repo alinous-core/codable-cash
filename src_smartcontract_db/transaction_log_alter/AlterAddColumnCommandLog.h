@@ -10,6 +10,11 @@
 
 #include "transaction_log/AbstractDdlLog.h"
 
+namespace alinous {
+class AlterAddColumnCommand;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class AlterAddColumnCommandLog : public AbstractDdlLog {
@@ -17,11 +22,16 @@ public:
 	AlterAddColumnCommandLog();
 	virtual ~AlterAddColumnCommandLog();
 
+	void setCommand(AlterAddColumnCommand* command) noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
 	virtual void fromBinary(ByteBuffer* in);
 
 	virtual void commit(CdbTransactionManager* trxManager);
+
+private:
+	AlterAddColumnCommand* command;
 };
 
 } /* namespace codablecash */
