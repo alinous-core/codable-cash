@@ -61,4 +61,10 @@ const UnicodeString* RelationalExpressionScanTarget::toStringCode() noexcept {
 	return this->str;
 }
 
+void RelationalExpressionScanTarget::resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->left->resolveColumns(vm, planner);
+	this->right->resolveColumns(vm, planner);
+}
+
+
 } /* namespace codablecash */

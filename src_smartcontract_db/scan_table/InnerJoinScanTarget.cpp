@@ -36,11 +36,9 @@ const UnicodeString* InnerJoinScanTarget::toString() noexcept {
 	return this->str;
 }
 
-IJoinLeftSource* InnerJoinScanTarget::getLeftSource(VirtualMachine* vm) {
+AbstractScannerFactory* InnerJoinScanTarget::getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) {
+	// FIXME getScanFactory
+	return nullptr;
 }
-
-IJoinLeftSource* InnerJoinScanTarget::getRightSource(VirtualMachine* vm) {
-}
-
 
 } /* namespace codablecash */

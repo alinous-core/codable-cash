@@ -10,10 +10,13 @@
 
 namespace alinous {
 class UnicodeString;
+class VirtualMachine;
 }
 using namespace alinous;
 
 namespace codablecash {
+
+class SelectScanPlanner;
 
 class AbstractScanConditionElement {
 public:
@@ -21,6 +24,7 @@ public:
 	virtual ~AbstractScanConditionElement();
 
 	virtual const UnicodeString* toStringCode() noexcept = 0;
+	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) = 0;
 };
 
 } /* namespace codablecash */

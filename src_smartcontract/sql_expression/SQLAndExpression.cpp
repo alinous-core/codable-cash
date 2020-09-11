@@ -12,6 +12,7 @@
 #include "scan_condition_logical/AndScanCondition.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolderStackMarker.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -20,6 +21,7 @@
 #include "scan_columns/ScanColumnHolder.h"
 
 #include "scan_columns_logical/AndScanColumnTarget.h"
+
 
 using namespace codablecash;
 
@@ -90,6 +92,7 @@ void SQLAndExpression::init(VirtualMachine* vm) {
 
 AbstractVmInstance* SQLAndExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	AndScanCondition* cond = new AndScanCondition();
 	planner->push(cond);

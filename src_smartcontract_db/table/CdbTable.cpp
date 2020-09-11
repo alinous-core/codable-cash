@@ -24,8 +24,11 @@
 
 #include "schema/SchemaManager.h"
 
-using alinous::StackRelease;
+#include "transaction_scan_result/ScanResultMetadata.h"
 
+#include "transaction_scan_result/ScanResultFieldMetadata.h"
+
+using namespace alinous;
 
 namespace codablecash {
 
@@ -56,6 +59,8 @@ CdbTable::CdbTable(const CdbTable& inst) {
 		}
 	}
 	this->parent = nullptr;
+
+	this->fqn = nullptr;
 }
 
 
@@ -67,6 +72,7 @@ CdbTable::CdbTable(uint64_t oid) {
 	this->name = nullptr;
 	this->indexes = new ArrayList<CdbTableIndex>();
 	this->parent = nullptr;
+	this->fqn = nullptr;
 }
 
 CdbTable::~CdbTable() {
@@ -82,6 +88,7 @@ CdbTable::~CdbTable() {
 	delete this->indexes;
 
 	this->schemaName = nullptr;
+	delete this->fqn;
 }
 void CdbTable::setSchemaName(UnicodeString* schemaName) noexcept {
 	delete this->schemaName;
@@ -377,6 +384,17 @@ const Schema* CdbTable::getSchema() const noexcept {
 	return this->parent;
 }
 
+const UnicodeString* CdbTable::getTableFqn() noexcept {
+	if(this->fqn == nullptr){
+		this->fqn = new UnicodeString(this->schemaName);
+		this->fqn->append(L".");
+		this->fqn->append(this->name);
+	}
+
+	return this->fqn;
+}
+
+
 const ArrayList<CdbTableIndex>* CdbTable::getIndexes() const noexcept {
 	return this->indexes;
 }
@@ -396,5 +414,20 @@ void CdbTable::adjustIndexColumnPosition() noexcept {
 	}
 
 }
+
+ScanResultMetadata* CdbTable::getMetadata() const noexcept {
+	ScanResultMetadata* metadata = new ScanResultMetadata();
+
+	int maxLoop = this->columns->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableColumn* col = this->columns->get(i);
+
+		ScanResultFieldMetadata* fld = col->getFieldMetadata(this); __STP(fld);
+		metadata->addField(fld);
+	}
+
+	return metadata;
+}
+
 
 } /* namespace codablecash */

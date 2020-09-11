@@ -11,6 +11,9 @@
 
 #include "base/UnicodeString.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
+
 using namespace alinous;
 
 namespace codablecash {
@@ -36,6 +39,14 @@ void NotScanCondition::addCondition(AbstractScanCondition* cond) {
 	resetStr();
 }
 
+AbstractScanCondition* NotScanCondition::cloneCondition() const noexcept {
+	NotScanCondition* cond = new NotScanCondition();
+
+	cond->addCondition(this->cond->cloneCondition());
+
+	return cond;
+}
+
 const UnicodeString* NotScanCondition::toStringCode() noexcept {
 	if(this->str == nullptr){
 		resetStr();
@@ -45,6 +56,25 @@ const UnicodeString* NotScanCondition::toStringCode() noexcept {
 	}
 
 	return this->str;
+}
+
+void NotScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
+	this->cond->detectFilterConditions(vm, planner, detector);
+
+	if(!detector->isEmpty()){
+		AbstractScanCondition* inner = detector->pop();
+
+		NotScanCondition* newNot = new NotScanCondition();
+		newNot->addCondition(inner);
+
+		detector->push(newNot);
+	}
+}
+
+void NotScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner, TableIndexDetector* detector) {
 }
 
 void NotScanCondition::resetStr() noexcept {

@@ -8,8 +8,14 @@
 #include "scan_planner/TablesHolder.h"
 
 #include "scan_table/AbstractScanTableTarget.h"
+#include "scan_table/CrossJoinScanTarget.h"
 
 #include "base/UnicodeString.h"
+
+#include "scan_planner/SelectScanPlanner.h"
+
+#include "scan_planner_analyze/AnalyzedScanPlan.h"
+
 
 namespace codablecash {
 
@@ -56,6 +62,58 @@ const UnicodeString* TablesHolder::toString() noexcept {
 	}
 
 	return this->str;
+}
+
+void TablesHolder::resolveTable(VirtualMachine* vm,	SelectScanPlanner* planner) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanTableTarget* target = this->list.get(i);
+
+		target->resolveTable(vm, planner);
+	}
+}
+
+void TablesHolder::buildScannerFactories(VirtualMachine* vm, SelectScanPlanner* planner) {
+	AbstractScannerFactory* factory = buildScanFactory(vm, planner);
+
+	AnalyzedScanPlan* plan = planner->getPlan();
+	plan->setScanFactory(factory);
+
+}
+
+AbstractScannerFactory* TablesHolder::buildScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) {
+	int maxLoop = this->list.size();
+	if(maxLoop == 1){
+		AbstractScanTableTarget* target = this->list.get(0);
+
+		AbstractScannerFactory* factory = target->getScanFactory(vm, planner);
+		return factory;
+	}
+
+	// SELECT * FROM table1, table2, table3
+	AbstractScanTableTarget* target = buildOuterJoinTarget();
+	AbstractScannerFactory* factory = target->getScanFactory(vm, planner);
+
+	return factory;
+}
+
+AbstractScanTableTarget* TablesHolder::buildOuterJoinTarget() {
+	AbstractScanTableTarget* target = this->list.get(0);
+
+	int maxLoop = this->list.size();
+	for(int i = 1; i != maxLoop; ++i){
+		AbstractScanTableTarget* targetRight = this->list.get(i);
+
+		CrossJoinScanTarget* crossJoin = new CrossJoinScanTarget();
+		crossJoin->setLeft(target);
+		crossJoin->setRight(targetRight);
+
+		target = crossJoin;
+	}
+
+	return target;
+
+	// FIXME TablesHolder::buildScannerFactories
 }
 
 } /* namespace codablecash */

@@ -14,12 +14,15 @@
 #include "vm/VirtualMachine.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolderStackMarker.h"
 
 #include "scan_condition/ScanConditionCast.h"
 
 #include "scan_columns_exp/BetweenScanColumnTarget.h"
 
 #include "scan_columns/ScanColumnHolder.h"
+
+
 using codablecash::BetweenScanCondition;
 
 namespace alinous {
@@ -121,6 +124,7 @@ void SQLBetweenExpression::init(VirtualMachine* vm) {
 
 AbstractVmInstance* SQLBetweenExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	BetweenScanCondition* cond = new BetweenScanCondition();
 	planner->push(cond);

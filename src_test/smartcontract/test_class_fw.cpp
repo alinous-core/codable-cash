@@ -22,11 +22,11 @@ TEST(TestClassFwGroup, exceptions){
 }
 
 TEST(TestClassFwGroup, exceptions01){
-	CompilationUnit element;
+	CompilationUnit* element = new CompilationUnit();
 
 	Exception* ex = nullptr;
 	try{
-		CodeElement::checkIsStatement(&element);
+		CodeElement::checkIsStatement(element);
 	}
 	catch(Exception* e){
 		ex = e;
@@ -37,11 +37,11 @@ TEST(TestClassFwGroup, exceptions01){
 }
 
 TEST(TestClassFwGroup, exceptions02){
-	CompilationUnit element;
+	CompilationUnit* element = new CompilationUnit();
 
 	Exception* ex = nullptr;
 	try{
-		CodeElement::checkIsType(&element);
+		CodeElement::checkIsType(element);
 	}
 	catch(Exception* e){
 		ex = e;
@@ -65,11 +65,11 @@ TEST(TestClassFwGroup, exceptions03){
 }
 
 TEST(TestClassFwGroup, exceptions04){
-	CompilationUnit element;
+	CompilationUnit* element = new CompilationUnit();
 
 	Exception* ex = nullptr;
 	try{
-		CodeElement::checkKind(&element, CodeElement::ARGUMENTS_LIST_DECLARE);
+		CodeElement::checkKind(element, CodeElement::ARGUMENTS_LIST_DECLARE);
 	}
 	catch(Exception* e){
 		ex = e;
@@ -97,11 +97,11 @@ TEST(TestClassFwGroup, exceptions05){
 }
 
 TEST(TestClassFwGroup, exceptions06){
-	CompilationUnit element;
+	CompilationUnit* element = new CompilationUnit();
 
 	Exception* ex = nullptr;
 	try{
-		CodeElement::checkIsExp(&element);
+		CodeElement::checkIsExp(element);
 	}
 	catch(Exception* e){
 		ex = e;
@@ -112,11 +112,11 @@ TEST(TestClassFwGroup, exceptions06){
 }
 
 TEST(TestClassFwGroup, exceptions07){
-	CompilationUnit element;
+	CompilationUnit* element = new CompilationUnit();
 
 	Exception* ex = nullptr;
 	try{
-		CodeElement::checkIsSQLExp(&element);
+		CodeElement::checkIsSQLExp(element);
 	}
 	catch(Exception* e){
 		ex = e;
@@ -127,11 +127,11 @@ TEST(TestClassFwGroup, exceptions07){
 }
 
 TEST(TestClassFwGroup, exceptions08){
-	CompilationUnit element;
+	CompilationUnit* element = new CompilationUnit();
 
 	Exception* ex = nullptr;
 	try{
-		CodeElement::checkIsJoinPart(&element);
+		CodeElement::checkIsJoinPart(element);
 	}
 	catch(Exception* e){
 		ex = e;
@@ -142,11 +142,11 @@ TEST(TestClassFwGroup, exceptions08){
 }
 
 TEST(TestClassFwGroup, exceptions09){
-	CompilationUnit element;
+	CompilationUnit* element = new CompilationUnit();
 
 	Exception* ex = nullptr;
 	try{
-		CodeElement::checkIsImport(&element);
+		CodeElement::checkIsImport(element);
 	}
 	catch(Exception* e){
 		ex = e;
@@ -172,11 +172,26 @@ TEST(TestClassFwGroup, exceptions10){
 }
 
 TEST(TestClassFwGroup, exceptions11){
-	CompilationUnit element;
+	CompilationUnit* element = new CompilationUnit();
 
 	Exception* ex = nullptr;
 	try{
-		CodeElement::checkIsJsonExp(&element);
+		CodeElement::checkIsJsonExp(element);
+	}
+	catch(Exception* e){
+		ex = e;
+	}
+	CHECK(ex != nullptr)
+
+	delete ex;
+}
+
+TEST(TestClassFwGroup, exceptions12){
+	CompilationUnit* element = new CompilationUnit();
+
+	Exception* ex = nullptr;
+	try{
+		CodeElement::checkIsAlterCommand(element);
 	}
 	catch(Exception* e){
 		ex = e;
@@ -187,9 +202,9 @@ TEST(TestClassFwGroup, exceptions11){
 }
 
 TEST(TestClassFwGroup, isExecutable){
-	CompilationUnit element;
+	CompilationUnit* element = new CompilationUnit(); __STP(element);
 
-	CHECK(element.isExecutable() == false)
+	CHECK(element->isExecutable() == false)
 }
 
 TEST(TestClassFwGroup, construct){

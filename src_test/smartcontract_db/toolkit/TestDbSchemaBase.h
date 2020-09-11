@@ -7,11 +7,13 @@
 
 #ifndef SMARTCONTRACT_DB_TOOLKIT_TESTDBSCHEMABASE_H_
 #define SMARTCONTRACT_DB_TOOLKIT_TESTDBSCHEMABASE_H_
+#include <cstdint>
 
 
 namespace alinous {
 class TestEnv;
 class File;
+class VirtualMachine;
 }
 using namespace alinous;
 
@@ -25,16 +27,18 @@ public:
 	explicit TestDbSchemaBase(TestEnv* env);
 	virtual ~TestDbSchemaBase();
 
-	CodableDatabase* getDb() const noexcept {
-		return db;
-	}
+	virtual void init();
+	virtual void init(uint64_t memCapacity);
 
-	void initDb();
+	CodableDatabase* getDatabase() const noexcept;
+	VirtualMachine* getVm() const noexcept {
+		return this->vm;
+	}
 protected:
 	void createDb();
 
 protected:
-	CodableDatabase* db;
+	VirtualMachine* vm;
 	TestEnv* env;
 
 	File* dbDir;

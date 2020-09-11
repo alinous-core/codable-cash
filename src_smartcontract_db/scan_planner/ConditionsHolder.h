@@ -8,10 +8,9 @@
 #ifndef SCAN_PLANNER_CONDITIONSHOLDER_H_
 #define SCAN_PLANNER_CONDITIONSHOLDER_H_
 
-#include "base/ArrayList.h"
-
 namespace alinous {
 class AbstractSQLExpression;
+class VirtualMachine;
 }
 using namespace alinous;
 
@@ -20,6 +19,8 @@ namespace codablecash {
 class RootScanCondition;
 class AbstractScanCondition;
 class AbstractScanConditionElement;
+class SelectScanPlanner;
+class ConditionsHolderStack;
 
 class ConditionsHolder {
 public:
@@ -30,11 +31,18 @@ public:
 	AbstractScanConditionElement* top() const noexcept;
 	AbstractScanConditionElement* pop() noexcept;
 
+	ConditionsHolderStack* getStack() const noexcept {
+		return stack;
+	}
+
 	RootScanCondition* getRoot() const noexcept;
+
+	void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
+
 private:
 	RootScanCondition* root;
 
-	ArrayList<AbstractScanConditionElement> stack;
+	ConditionsHolderStack* stack;
 };
 
 } /* namespace codablecash */

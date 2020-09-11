@@ -98,6 +98,18 @@
 #include "sql_ddl/DropTableStatement.h"
 #include "sql_ddl/ColumnTypeDescriptor.h"
 #include "sql_ddl/DdlColumnDescriptor.h"
+#include "sql_ddl/AlterTableStatement.h"
+
+#include "sql_ddl_alter/AlterAddColumnCommand.h"
+#include "sql_ddl_alter/AlterAddIndexCommand.h"
+#include "sql_ddl_alter/AlterDropColumnCommand.h"
+#include "sql_ddl_alter/AlterDropIndexCommand.h"
+
+#include "sql_ddl_alter_modify/AlterAddPrimaryKeyCommand.h"
+#include "sql_ddl_alter_modify/AlterDropPrimaryKeyCommand.h"
+#include "sql_ddl_alter_modify/AlterModifyCommand.h"
+#include "sql_ddl_alter_modify/AlterRenameColumnCommand.h"
+#include "sql_ddl_alter_modify/AlterRenameTableCommand.h"
 
 #include "sql_dml/BeginStatement.h"
 #include "sql_dml/CommitStatement.h"

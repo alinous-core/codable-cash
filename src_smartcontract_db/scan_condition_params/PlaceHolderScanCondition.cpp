@@ -11,6 +11,11 @@
 
 namespace codablecash {
 
+PlaceHolderScanCondition::PlaceHolderScanCondition(const PlaceHolderScanCondition& inst) {
+	this->exp = inst.exp;
+	this->str = nullptr;
+}
+
 PlaceHolderScanCondition::PlaceHolderScanCondition(AbstractExpression* exp) {
 	this->exp = exp;
 	this->str = nullptr;
@@ -35,6 +40,10 @@ void PlaceHolderScanCondition::resetStr() noexcept {
 		delete this->str;
 		this->str = nullptr;
 	}
+}
+
+IValueProvider* PlaceHolderScanCondition::clone() const noexcept {
+	return new PlaceHolderScanCondition(*this);
 }
 
 } /* namespace codablecash */

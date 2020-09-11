@@ -8,12 +8,26 @@
 #ifndef SCAN_CONDITION_IVALUEPROVIDER_H_
 #define SCAN_CONDITION_IVALUEPROVIDER_H_
 
+namespace alinous {
+class VirtualMachine;
+}
+using namespace alinous;
+
 namespace codablecash {
+
+class SelectScanPlanner;
+class FilterConditionDitector;
 
 class IValueProvider {
 public:
 	IValueProvider();
 	virtual ~IValueProvider();
+
+	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner){};
+	virtual IValueProvider* clone() const noexcept = 0;
+	virtual bool isColumn() const noexcept;
+	virtual bool isFilterable(VirtualMachine* vm, SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept = 0;
+
 };
 
 } /* namespace codablecash */

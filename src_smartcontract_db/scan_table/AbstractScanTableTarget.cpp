@@ -7,14 +7,16 @@
 
 #include "scan_table/AbstractScanTableTarget.h"
 
+#include "transaction_scan_result/ScanResultMetadata.h"
+
 namespace codablecash {
 
 AbstractScanTableTarget::AbstractScanTableTarget() {
-
+	this->metadata = nullptr;
 }
 
 AbstractScanTableTarget::~AbstractScanTableTarget() {
-
+	delete this->metadata;
 }
 
 } /* namespace codablecash */

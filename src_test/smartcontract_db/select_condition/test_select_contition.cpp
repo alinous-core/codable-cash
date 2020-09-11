@@ -67,6 +67,10 @@ TEST(TestSelectConditionGroup, case01){
 
 		UnicodeString sql(L"id = 'test'");
 		CHECK(sql.equals(str));
+
+		AbstractScanCondition* copy = root->cloneCondition(); __STP(copy);
+		str = copy->toStringCode();
+		CHECK(sql.equals(str));
 	}
 }
 
@@ -101,6 +105,10 @@ TEST(TestSelectConditionGroup, case02){
 		const UnicodeString* str = root->toStringCode();
 
 		UnicodeString sql(L"id = 100");
+		CHECK(sql.equals(str));
+
+		AbstractScanCondition* copy = root->cloneCondition(); __STP(copy);
+		str = copy->toStringCode();
 		CHECK(sql.equals(str));
 	}
 }
@@ -138,6 +146,10 @@ TEST(TestSelectConditionGroup, case03){
 
 		UnicodeString sql(L"id = true");
 		CHECK(sql.equals(str));
+
+		AbstractScanCondition* copy = root->cloneCondition(); __STP(copy);
+		str = copy->toStringCode();
+		CHECK(sql.equals(str));
 	}
 }
 
@@ -173,6 +185,10 @@ TEST(TestSelectConditionGroup, case04){
 		const UnicodeString* str = root->toStringCode();
 
 		UnicodeString sql(L"id >= 10");
+		CHECK(sql.equals(str));
+
+		AbstractScanCondition* copy = root->cloneCondition(); __STP(copy);
+		str = copy->toStringCode();
 		CHECK(sql.equals(str));
 	}
 }
@@ -210,6 +226,10 @@ TEST(TestSelectConditionGroup, case05){
 
 		UnicodeString sql(L"id <= 10");
 		CHECK(sql.equals(str));
+
+		AbstractScanCondition* copy = root->cloneCondition(); __STP(copy);
+		str = copy->toStringCode();
+		CHECK(sql.equals(str));
 	}
 }
 
@@ -245,6 +265,10 @@ TEST(TestSelectConditionGroup, case06){
 		const UnicodeString* str = root->toStringCode();
 
 		UnicodeString sql(L"id > 10");
+		CHECK(sql.equals(str));
+
+		AbstractScanCondition* copy = root->cloneCondition(); __STP(copy);
+		str = copy->toStringCode();
 		CHECK(sql.equals(str));
 	}
 }
@@ -282,6 +306,10 @@ TEST(TestSelectConditionGroup, case07){
 
 		UnicodeString sql(L"id < 10");
 		CHECK(sql.equals(str));
+
+		AbstractScanCondition* copy = root->cloneCondition(); __STP(copy);
+		str = copy->toStringCode();
+		CHECK(sql.equals(str));
 	}
 }
 
@@ -318,6 +346,10 @@ TEST(TestSelectConditionGroup, case05_not){
 
 		UnicodeString sql(L"NOT id = 'test'");
 		CHECK(sql.equals(str));
+
+		AbstractScanCondition* copy = root->cloneCondition(); __STP(copy);
+		str = copy->toStringCode();
+		CHECK(sql.equals(str));
 	}
 }
 
@@ -353,6 +385,10 @@ TEST(TestSelectConditionGroup, case05_parenthesis){
 		const UnicodeString* str = root->toStringCode();
 
 		UnicodeString sql(L"(id = 'test')");
+		CHECK(sql.equals(str));
+
+		AbstractScanCondition* copy = root->cloneCondition(); __STP(copy);
+		str = copy->toStringCode();
 		CHECK(sql.equals(str));
 	}
 }

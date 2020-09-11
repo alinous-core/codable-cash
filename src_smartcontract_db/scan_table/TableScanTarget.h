@@ -17,6 +17,8 @@ using namespace alinous;
 
 namespace codablecash {
 
+class CdbTable;
+
 class TableScanTarget : public AbstractScanTableTarget {
 public:
 	TableScanTarget();
@@ -28,9 +30,10 @@ public:
 
 	virtual const UnicodeString* toString() noexcept;
 
-	virtual IJoinLeftSource* getLeftSource(VirtualMachine* vm);
-	virtual IJoinLeftSource* getRightSource(VirtualMachine* vm);
-
+	virtual void resolveTable(VirtualMachine* vm, SelectScanPlanner* planner);
+	virtual void collectScanTargets(VirtualMachine* vm, SelectScanPlanner* planner, ArrayList<AbstractScanTableTarget>* list);
+	virtual AbstractScannerFactory* getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner);
+	virtual bool hasTarget(const AbstractScanTableTarget* target) const noexcept;
 
 private:
 	UnicodeString* schema;
@@ -38,6 +41,8 @@ private:
 	UnicodeString* alias;
 
 	UnicodeString* str;
+
+	const CdbTable* table;
 };
 
 } /* namespace codablecash */

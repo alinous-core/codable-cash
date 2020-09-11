@@ -18,6 +18,8 @@ public:
 	virtual ~AllScanColumns();
 
 	virtual const UnicodeString* toStringCode() noexcept;
+
+	virtual void resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner);
 };
 
 } /* namespace codablecash */

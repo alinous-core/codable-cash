@@ -34,4 +34,9 @@ const UnicodeString* NotScanColumnTarget::toStringCode() noexcept {
 	return this->str;
 }
 
+void NotScanColumnTarget::resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->cond->resolveColumns(vm, planner);
+}
+
+
 } /* namespace codablecash */

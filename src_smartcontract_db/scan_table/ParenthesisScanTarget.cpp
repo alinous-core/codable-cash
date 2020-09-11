@@ -9,6 +9,9 @@
 
 #include "base/UnicodeString.h"
 
+#include "scan_planner_analyze/AnalyzedScanPlan.h"
+#include "scan_planner_analyze/ScanTargetNameResolver.h"
+
 namespace codablecash {
 
 ParenthesisScanTarget::ParenthesisScanTarget() {
@@ -36,12 +39,12 @@ void ParenthesisScanTarget::setInner(AbstractScanTableTarget* inner) noexcept {
 	this->inner = inner;
 }
 
-IJoinLeftSource* ParenthesisScanTarget::getLeftSource(VirtualMachine* vm) {
-	return this->inner->getLeftSource(vm);
+void ParenthesisScanTarget::resolveTable(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->inner->resolveTable(vm, planner);
 }
 
-IJoinLeftSource* ParenthesisScanTarget::getRightSource(VirtualMachine* vm) {
-	return this->inner->getRightSource(vm);
+AbstractScannerFactory* ParenthesisScanTarget::getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) {
+	return this->inner->getScanFactory(vm, planner);
 }
 
 

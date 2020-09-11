@@ -18,6 +18,7 @@
 #include "instance_ref/PrimitiveReference.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolderStackMarker.h"
 
 #include "scan_condition_logical/NotScanCondition.h"
 
@@ -26,6 +27,8 @@
 #include "scan_columns/ScanColumnHolder.h"
 
 #include "scan_columns_logical/NotScanColumnTarget.h"
+
+
 using namespace alinous;
 
 namespace alinous {
@@ -92,6 +95,7 @@ void SQLNotExpression::init(VirtualMachine* vm) {
 
 AbstractVmInstance* SQLNotExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	NotScanCondition* cond = new NotScanCondition();
 

@@ -54,4 +54,13 @@ const UnicodeString* LikeExpressionScanColumnTarget::toStringCode() noexcept {
 	return this->str;
 }
 
+void LikeExpressionScanColumnTarget::resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->left->resolveColumns(vm, planner);
+	this->right->resolveColumns(vm, planner);
+
+	if(this->escape != nullptr){
+		this->escape->resolveColumns(vm, planner);
+	}
+}
+
 } /* namespace codablecash */

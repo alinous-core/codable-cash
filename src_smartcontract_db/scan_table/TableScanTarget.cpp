@@ -9,6 +9,26 @@
 
 #include "base/UnicodeString.h"
 
+#include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolder.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "schema/SchemaManager.h"
+#include "schema/Schema.h"
+
+#include "table/CdbTable.h"
+
+#include "engine/CodableDatabase.h"
+#include "engine/CdbException.h"
+
+#include "scan_planner_analyze/ScanTargetNameResolver.h"
+#include "scan_planner_analyze/AnalyzedScanPlan.h"
+
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+
+#include "scan_planner_scanner_ctx_index/TableIndexDetector.h"
+
 namespace codablecash {
 
 TableScanTarget::TableScanTarget() {
@@ -17,6 +37,8 @@ TableScanTarget::TableScanTarget() {
 	this->alias = nullptr;
 
 	this->str = nullptr;
+
+	this->table = nullptr;
 }
 
 TableScanTarget::~TableScanTarget() {
@@ -64,13 +86,52 @@ const UnicodeString* TableScanTarget::toString() noexcept {
 	return this->str;
 }
 
-IJoinLeftSource* TableScanTarget::getLeftSource(VirtualMachine* vm) {
-	// FIXME getLeftSource
+void TableScanTarget::resolveTable(VirtualMachine* vm, SelectScanPlanner* planner) {
+	AnalyzedScanPlan* plan = planner->getPlan();
+
+	CodableDatabase* db = vm->getDb();
+	SchemaManager* schemaManager = db->getSchemaManager();
+
+	const UnicodeString* scName = this->schema != nullptr ? this->schema : &SchemaManager::PUBLIC;
+	this->table = schemaManager->getTable(scName, this->tableName);
+
+
+	ScanTargetNameResolver* resolver = plan->getScanTargetNameResolver();
+
+	UnicodeString tableFqn(scName);
+	tableFqn.append(L".");
+	tableFqn.append(this->tableName);
+
+	resolver->add(&tableFqn, this);
+
+	if(this->alias != nullptr){
+		resolver->add(this->alias, this);
+	}
+
+	this->metadata = this->table->getMetadata();
 }
 
-IJoinLeftSource* TableScanTarget::getRightSource(VirtualMachine* vm) {
-	// FIXME getRightSource
+void TableScanTarget::collectScanTargets(VirtualMachine* vm, SelectScanPlanner* planner, ArrayList<AbstractScanTableTarget>* list) {
+	list->addElement(this);
 }
 
+AbstractScannerFactory* TableScanTarget::getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) {
+	ConditionsHolder* holder = planner->getConditions();
+
+	RootScanCondition* root = holder->getRoot();
+
+	FilterConditionDitector filterDetector(vm, planner);
+	filterDetector.detect(this);
+
+	TableIndexDetector indexDetextor(vm, planner);
+	indexDetextor.detect(filterDetector.getCondition());
+
+	// FIXME getScanFactory
+	return nullptr;
+}
+
+bool TableScanTarget::hasTarget(const AbstractScanTableTarget* target) const noexcept {
+	return target == this;
+}
 
 } /* namespace codablecash */

@@ -17,6 +17,9 @@
 
 #include "sql_expression/SQLRelationalExpression.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
+
 using namespace alinous;
 
 namespace codablecash {
@@ -76,11 +79,41 @@ const UnicodeString* RelationalScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+AbstractScanCondition* RelationalScanCondition::cloneCondition() const noexcept {
+	RelationalScanCondition* cond = new RelationalScanCondition();
+
+	cond->setLeft(this->left->clone());
+	cond->setRight(this->right->clone());
+	cond->setOp(this->op);
+
+	return cond;
+}
+
+void RelationalScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
+	if(this->left->isFilterable(vm, planner, detector) &&
+			this->right->isFilterable(vm, planner, detector)){
+		detector->push(cloneCondition());
+	}
+}
+
+void RelationalScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner,
+		TableIndexDetector* detector) {
+	// FIXME detectIndexCondition
+}
+
 void RelationalScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
 		this->str = nullptr;
 	}
+}
+
+void RelationalScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->left->analyzeConditions(vm, planner);
+	this->right->analyzeConditions(vm, planner);
 }
 
 } /* namespace codablecash */

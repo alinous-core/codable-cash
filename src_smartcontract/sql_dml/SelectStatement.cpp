@@ -101,14 +101,15 @@ void SelectStatement::analyze(AnalyzeContext* actx) {
 	if(this->where != nullptr){
 		this->where->analyze(actx);
 	}
-
-	AnalyzeStackManager* stackManager = actx->getAnalyzeStackManager();
-	AnalyzeStack* stack = stackManager->top();
-
 	//this->intoVar
-	AnalyzedType at(AnalyzedType::TYPE_DOM);
-	AnalyzedStackReference* ref = new AnalyzedStackReference(this->intoVar, &at);
-	stack->addVariableDeclare(ref);
+	if(this->intoVar != nullptr){
+		AnalyzeStackManager* stackManager = actx->getAnalyzeStackManager();
+		AnalyzeStack* stack = stackManager->top();
+
+		AnalyzedType at(AnalyzedType::TYPE_DOM);
+		AnalyzedStackReference* ref = new AnalyzedStackReference(this->intoVar, &at);
+		stack->addVariableDeclare(ref);
+	}
 }
 
 void SelectStatement::setList(SQLSelectTargetList* list) noexcept {
@@ -262,6 +263,8 @@ void SelectStatement::interpret(VirtualMachine* vm) {
 		}
 	}
 
+	this->planner->executeQuery(vm);
+
 	// FIXME SQL statement
 }
 
@@ -286,6 +289,8 @@ void SelectStatement::buildPlanner(VirtualMachine* vm, uint64_t currentVer) {
 	if(this->where != nullptr){
 		this->where->interpret(vm);
 	}
+
+	this->planner->makeplan(vm);
 
 	this->lastSchemaVersion = currentVer;
 }

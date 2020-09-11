@@ -11,6 +11,14 @@
 
 #include "base/UnicodeString.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
+
+#include "scan_planner_scanner_ctx_join/JoinCandidateStackMarker.h"
+#include "scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
+#include "scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
+#include "scan_planner_scanner_ctx_join/JoinOrCandidate.h"
+
 using namespace alinous;
 
 namespace codablecash {
@@ -50,11 +58,110 @@ const UnicodeString* OrScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+AbstractScanCondition* OrScanCondition::cloneCondition() const noexcept {
+	OrScanCondition* cond = new OrScanCondition();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cnd = this->list.get(i);
+
+		cond->addCondition(cnd->cloneCondition());
+	}
+
+	return cond;
+}
+
+void OrScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
+	bool allavailable = true;
+	ArrayList<AbstractScanCondition> scanList;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cond = this->list.get(i);
+
+		cond->detectFilterConditions(vm, planner, detector);
+		if(detector->isEmpty()){
+			allavailable = false;
+			break;
+		}
+
+		scanList.addElement(detector->pop());
+	}
+
+	if(!allavailable){
+		scanList.deleteElements();
+		return;
+	}
+
+	OrScanCondition* newOr = new OrScanCondition();
+
+	maxLoop = scanList.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cond = scanList.get(i);
+
+		newOr->addCondition(cond);
+	}
+}
+
+void OrScanCondition::detectIndexCondition(VirtualMachine* vm,
+		SelectScanPlanner* planner, TableIndexDetector* detector) {
+	// FIXME detectIndexCondition
+}
+
+
 void OrScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
 		this->str = nullptr;
 	}
+}
+
+void OrScanCondition::analyzeConditions(VirtualMachine* vm,	SelectScanPlanner* planner) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cond = this->list.get(i);
+
+		cond->analyzeConditions(vm, planner);
+	}
+}
+
+void OrScanCondition::collectJoinCandidate(VirtualMachine* vm,
+		SelectScanPlanner* planner, int joinType, JoinCandidateHolder* jholder) {
+
+	JoinCandidateStackMarker marker(jholder->getStack());
+
+	ArrayList<AbstractJoinCandidate> operandList;
+	operandList.setDeleteOnExit();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cond = this->list.get(i);
+
+		cond->collectJoinCandidate(vm, planner, joinType, jholder);
+
+		if(!jholder->isEmpty()){
+			AbstractJoinCandidate* c = jholder->pop();
+
+			operandList.addElement(c);
+		}
+		else{
+			return;
+		}
+	}
+
+	JoinOrCandidate* candidate = new JoinOrCandidate(joinType);
+
+	int listSize = operandList.size();
+	for(int i = 0; i != listSize; ++i){
+		AbstractJoinCandidate* c = operandList.get(i);
+
+		candidate->add(c);
+	}
+
+	jholder->push(candidate);
 }
 
 } /* namespace codablecash */

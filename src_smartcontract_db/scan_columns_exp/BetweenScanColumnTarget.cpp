@@ -53,4 +53,11 @@ const UnicodeString* BetweenScanColumnTarget::toStringCode() noexcept {
 	return this->str;
 }
 
+void BetweenScanColumnTarget::resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->left->resolveColumns(vm, planner);
+	this->start->resolveColumns(vm, planner);
+	this->end->resolveColumns(vm, planner);
+}
+
+
 } /* namespace codablecash */

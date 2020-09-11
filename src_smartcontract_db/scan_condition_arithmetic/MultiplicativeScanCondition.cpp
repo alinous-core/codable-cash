@@ -12,6 +12,10 @@
 #include "base/UnicodeString.h"
 
 #include "sql_expression/SqlMultiplicativeExpression.h"
+
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
+
 namespace codablecash {
 
 MultiplicativeScanCondition::MultiplicativeScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_MULTIPLICATIVE), operations(2){
@@ -66,11 +70,74 @@ void MultiplicativeScanCondition::addOperator(uint8_t op) noexcept {
 	resetStr();
 }
 
+void MultiplicativeScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	if(isFilterable(vm, planner, detector)){
+		detector->push(cloneCondition());
+	}
+}
+
+void MultiplicativeScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner,
+		TableIndexDetector* detector) {
+}
+
 void MultiplicativeScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
 		this->str = nullptr;
 	}
+}
+
+void MultiplicativeScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* vp = this->list.get(i);
+
+		vp->analyzeConditions(vm, planner);
+	}
+}
+
+bool MultiplicativeScanCondition::isFilterable(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept {
+	FilterConditionStackMarker marker(detector->getStack());
+
+	bool result = true;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* vp = this->list.get(i);
+
+		if(!vp->isFilterable(vm, planner, detector)){
+			result = false;
+			break;
+		}
+	}
+
+	return result;
+}
+
+IValueProvider* MultiplicativeScanCondition::clone() const noexcept {
+	MultiplicativeScanCondition* cond = new MultiplicativeScanCondition();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* vp = this->list.get(i);
+
+		cond->addOperand(vp->clone());
+	}
+
+	maxLoop = this->operations.size();
+	for(int i = 0; i != maxLoop; ++i){
+		uint8_t op = this->operations.get(i);
+
+		cond->addOperator(op);
+	}
+
+	return cond;
+}
+
+AbstractScanCondition* MultiplicativeScanCondition::cloneCondition() const noexcept {
+	return dynamic_cast<MultiplicativeScanCondition*>(clone());
 }
 
 } /* namespace codablecash */

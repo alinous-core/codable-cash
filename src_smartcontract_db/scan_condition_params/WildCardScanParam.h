@@ -20,6 +20,7 @@ public:
 	virtual ~WildCardScanParam();
 
 	virtual const UnicodeString* toStringCode() noexcept;
+	virtual IValueProvider* clone() const noexcept;
 };
 
 } /* namespace codablecash */

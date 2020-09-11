@@ -10,14 +10,15 @@
 #include "sc_analyze/AnalyzedType.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolderStackMarker.h"
 
 #include "scan_columns/ScanColumnHolder.h"
-
 #include "scan_columns/AllScanColumns.h"
 
 #include "vm/VirtualMachine.h"
 
 #include "scan_condition_params/WildCardScanParam.h"
+
 using codablecash::AllScanColumns;
 using codablecash::ScanColumnHolder;
 using codablecash::SelectScanPlanner;
@@ -63,6 +64,7 @@ void SQLWildCard::init(VirtualMachine* vm) {
 
 AbstractVmInstance* SQLWildCard::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	WildCardScanParam* param = new WildCardScanParam();
 	planner->push(param);

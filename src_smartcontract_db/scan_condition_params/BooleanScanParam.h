@@ -22,10 +22,12 @@ public:
 	static const UnicodeString TRUE;
 	static const UnicodeString FALSE;
 
+	BooleanScanParam(const BooleanScanParam& inst);
 	explicit BooleanScanParam(bool value);
 	virtual ~BooleanScanParam();
 
 	virtual const UnicodeString* toStringCode() noexcept;
+	virtual IValueProvider* clone() const noexcept;
 
 private:
 	bool value;

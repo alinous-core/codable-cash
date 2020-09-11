@@ -1,6 +1,7 @@
 
 
 set(__src
+	AlterTableStatement.cpp
 	ColumnTypeDescriptor.cpp
 	CreateTableStatement.cpp
 	DdlColumnDescriptor.cpp

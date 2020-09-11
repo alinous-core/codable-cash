@@ -1,7 +1,6 @@
 
 set(testsrc
 	test_from_section.cpp
-	test_joinpart_misc.cpp
 	test_scan_columns_exp_part.cpp
 	test_scan_columns_part.cpp
 )

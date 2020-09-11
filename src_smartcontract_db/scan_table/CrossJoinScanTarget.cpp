@@ -36,12 +36,9 @@ const UnicodeString* CrossJoinScanTarget::toString() noexcept {
 	return this->str;
 }
 
-IJoinLeftSource* codablecash::CrossJoinScanTarget::getLeftSource(VirtualMachine* vm) {
-	// FIXME getLeftSource
-}
-
-IJoinLeftSource* codablecash::CrossJoinScanTarget::getRightSource(VirtualMachine* vm) {
-	// FIXME getRightSource
+AbstractScannerFactory* CrossJoinScanTarget::getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) {
+	// FIXME CrossJoinScanTarget::getScanFactory
+	return nullptr;
 }
 
 

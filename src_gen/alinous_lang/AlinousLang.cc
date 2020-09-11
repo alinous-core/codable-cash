@@ -3,19 +3,19 @@
 #include "TokenMgrError.h"
 namespace alinouslang {
   unsigned int jj_la1_0[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x600000,0x200000,0x400000,0x0,0x0,0x0,0x0,0x0,0x200000,0x400000,0x400000,0xd340200,0x0,0x0,0x0,0x0,0xd140200,0x80000000,0x40000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xa000000,0x30800000,0x30800000,0x8000000,0x5000000,0x5000000,0x5000000,0x0,0x0,0x140200,0x0,0x0,0xd140200,0x140200,0x0,0x0,0xd140200,0x0,0x0,0x140200,0x0,0x140000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x180200,0x0,0x0,0x180200,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x400000,0x400000,0xa000000,0xa000000,0x30800000,0x30800000,0x980200,0x0,0x0,0x980200,0x180200,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x140000,0x0,0x140000,0x0,0xd140200,0x140000,0x140000,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x600000,0x200000,0x400000,0x0,0x0,0x0,0x0,0x0,0x200000,0x400000,0x400000,0xd340200,0x0,0x0,0x0,0x0,0xd140200,0x80000000,0x40000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xa000000,0x30800000,0x30800000,0x8000000,0x5000000,0x5000000,0x5000000,0x0,0x0,0x140200,0x0,0x0,0xd140200,0x140200,0x0,0x0,0xd140200,0x0,0x0,0x140200,0x0,0x140000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x180200,0x0,0x0,0x180200,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x400000,0x400000,0xa000000,0xa000000,0x30800000,0x30800000,0x980200,0x0,0x0,0x980200,0x180200,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x140000,0x0,0x140000,0x0,0xd140200,0x140000,0x140000,};
   unsigned int jj_la1_1[] = {
-0x1000000,0x6000000,0x800000,0x80,0x6000000,0x0,0x0,0x100,0x80,0x0,0x0,0x0,0x4,0x800,0x0,0x0,0x100,0xe0000000,0xe0000000,0x10,0xf0000000,0x0,0x0,0xf0080814,0x10000000,0x0,0x0,0xe0000000,0x80814,0x0,0x0,0x2,0x0,0x1,0x6000,0x6000,0x78000,0x78000,0x200000,0x200000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80000,0x814,0x80,0x100,0x80814,0x814,0xe0000000,0x100,0x80814,0x0,0xe0000000,0x0,0x0,0x0,0x0,0x0,0x100,0x100,0x100,0x0,0x0,0x0,0x0,0x40000000,0x0,0x4,0x0,0x0,0x0,0x0,0x0,0x100,0x0,0x0,0x0,0x0,0x0,0x100,0x4,0x100,0x0,0x0,0x0,0x0,0x0,0x0,0x78000,0x78000,0x4000,0x4000,0x0,0x0,0x0,0x0,0x4,0x40,0x100,0x44,0x0,0x0,0x80,0x80,0x0,0x100,0x100,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x4,0x80,0x0,0x810,0x100,0x0,0x100,0x80814,0x0,0x810,};
+0x1000000,0x6000000,0x800000,0x80,0x6000000,0x0,0x0,0x100,0x80,0x0,0x0,0x0,0x4,0x800,0x0,0x0,0x100,0xe0000000,0xe0000000,0x10,0xf0000000,0x0,0x0,0xf0080814,0x10000000,0x0,0x0,0xe0000000,0x80814,0x0,0x0,0x2,0x0,0x1,0x6000,0x6000,0x78000,0x78000,0x200000,0x200000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80000,0x814,0x80,0x100,0x80814,0x814,0xe0000000,0x100,0x80814,0x0,0xe0000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x100,0x0,0x0,0x100,0x0,0x100,0x100,0x100,0x0,0x0,0x0,0x0,0x40000000,0x0,0x4,0x0,0x0,0x0,0x0,0x0,0x100,0x0,0x0,0x0,0x0,0x0,0x100,0x4,0x100,0x0,0x0,0x0,0x0,0x0,0x0,0x78000,0x78000,0x4000,0x4000,0x0,0x0,0x0,0x0,0x4,0x40,0x100,0x44,0x0,0x0,0x80,0x80,0x0,0x100,0x100,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x4,0x80,0x0,0x810,0x100,0x0,0x100,0x80814,0x0,0x810,};
   unsigned int jj_la1_2[] = {
-0x0,0x0,0x0,0x0,0x0,0x800,0x10000,0x0,0x0,0x380000,0x800000,0x9000000,0x0,0x0,0x0,0x380000,0x0,0x8000001f,0x8000001f,0x0,0xd040a31f,0x0,0x0,0xd944a31f,0x5040a300,0x40,0x1000,0x8000001f,0x9040000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x9040000,0x0,0x0,0x9040000,0x9040000,0xf,0x0,0x9040000,0x9000000,0xf,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x7,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x9380000,0x0,0x9380000,0x0,0x0,0x0,0x0,0x9380000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x9380000,0x0,0x0,0x0,0x0,0x0,0x0,0x9040000,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x800,0x10000,0x0,0x0,0x380000,0x800000,0x9000000,0x0,0x0,0x0,0x380000,0x0,0x8000001f,0x8000001f,0x0,0xd040a31f,0x0,0x0,0xd944a31f,0x5040a300,0x40,0x1000,0x8000001f,0x9040000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x9040000,0x0,0x0,0x9040000,0x9040000,0xf,0x0,0x9040000,0x9000000,0xf,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x7,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x9380000,0x0,0x9380000,0x0,0x0,0x0,0x0,0x9380000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x9380000,0x0,0x0,0x0,0x0,0x0,0x0,0x9040000,0x0,0x0,};
   unsigned int jj_la1_3[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xff7c0000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xf1,0x0,0x0,0xff7c00fd,0x1,0x0,0x0,0x0,0xff7c000c,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xff7c000c,0x0,0x0,0xff7c000c,0xff7c000c,0x0,0x0,0xff7c000c,0xff7c0000,0x0,0xc,0xc,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xc,0x0,0x0,0xc,0x0,0xf0,0x100,0x400,0x2000000,0x10000000,0x0,0x0,0x8000000,0x80000000,0x0,0x400,0x0,0x0,0x0,0x400,0x0,0x4000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xc,0xff7c0000,0x0,0xff7c000c,0x0,0xc,0x0,0x0,0xff7c0000,0x0,0x0,0x458000,0x458000,0x0,0x80000,0x0,0x80000,0x0,0x0,0xff7c0000,0x0,0x0,0x0,0x0,0x0,0x0,0xff7c000c,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xff7c0000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xf1,0x0,0x0,0xff7c00fd,0x1,0x0,0x0,0x0,0xff7c000c,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xff7c000c,0x0,0x0,0xff7c000c,0xff7c000c,0x0,0x0,0xff7c000c,0xff7c0000,0x0,0xc,0xc,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xc,0x0,0x0,0xc,0x0,0xf0,0x100,0x400,0x2000000,0x10000000,0x0,0x0,0x8000000,0x80000000,0x0,0x400,0x0,0x0,0x0,0x400,0x0,0x4000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xc,0xff7c0000,0x0,0xff7c000c,0x0,0xc,0x0,0x0,0xff7c0000,0x0,0x0,0x458000,0x458000,0x0,0x80000,0x0,0x80000,0x0,0x0,0xff7c0000,0x0,0x0,0x0,0x0,0x0,0x0,0xff7c000c,0x0,0x0,};
   unsigned int jj_la1_4[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xfffec3fb,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xf800,0x0,0x0,0xfffefbfb,0x0,0x0,0x0,0x0,0xfffec3fb,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xfffec3fb,0x0,0x0,0xfffec3fb,0xfffec3fb,0x0,0x0,0xfffec3fb,0xfffec3fb,0x0,0x0,0x0,0x0,0xc000,0x0,0x0,0x0,0x800000,0x4,0x2000000,0x0,0x40000,0x0,0x0,0x0,0x3800,0x0,0x0,0x0,0x0,0x0,0x8,0x0,0x0,0x1,0x0,0x0,0x0,0x0,0x0,0x4,0x0,0x4,0x200,0x100,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xfffec3fb,0x0,0xfffec3ff,0x0,0x0,0x0,0x0,0xfffec3fb,0x0,0x0,0x0,0x0,0x2,0x0,0x2,0x0,0x2,0x2,0xfffec3fb,0x0,0x8,0x0,0x0,0x0,0x0,0xfffec3fb,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xffdec3fb,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1f800,0x0,0x0,0xffdffbfb,0x0,0x0,0x0,0x0,0xffdec3fb,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xffdec3fb,0x0,0x0,0xffdec3fb,0xffdec3fb,0x0,0x0,0xffdec3fb,0xffdec3fb,0x0,0x0,0x0,0x0,0x1c000,0x388000,0x800000,0x1400000,0x400000,0x5400000,0x0,0x400000,0x4000000,0x0,0x0,0x0,0x0,0x1000000,0x4,0x4000000,0x0,0x40000,0x0,0x0,0x0,0x3800,0x0,0x0,0x0,0x0,0x0,0x8,0x0,0x0,0x1,0x0,0x0,0x0,0x0,0x0,0x4,0x0,0x4,0x200,0x100,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xffdec3fb,0x0,0xffdec3ff,0x0,0x0,0x0,0x0,0xffdec3fb,0x0,0x0,0x0,0x0,0x2,0x0,0x2,0x0,0x2,0x2,0xffdec3fb,0x0,0x8,0x0,0x0,0x0,0x0,0xffdec3fb,0x0,0x0,};
   unsigned int jj_la1_5[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x800001,0x0,0x0,0x0,0x0,0x0,0x800000,0x800000,0x0,0x800000,0x0,0x0,0x808001,0x0,0x0,0x0,0x800000,0x808001,0x0,0x0,0x0,0x40000000,0x0,0x0,0x0,0x0,0x0,0x80000000,0x80000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x808001,0x0,0x0,0x808001,0x808001,0x800000,0x0,0x808001,0x800001,0x800000,0x8000,0x0,0x0,0x0,0x800000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x800000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x800001,0x0,0x800001,0x0,0x0,0x0,0x0,0x800001,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x800001,0x0,0x0,0x800000,0x0,0x800000,0x0,0x808001,0x800000,0x800000,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1000003,0x0,0x0,0x0,0x0,0x0,0x1000000,0x1000000,0x0,0x1000000,0x0,0x0,0x1010003,0x0,0x0,0x0,0x1000000,0x1010003,0x0,0x0,0x0,0x80000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1010003,0x0,0x0,0x1010003,0x1010003,0x1000000,0x0,0x1010003,0x1000003,0x1000000,0x10000,0x0,0x0,0x0,0x0,0x1000000,0x1000001,0x0,0x1000001,0x0,0x0,0x0,0x0,0x1000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1000003,0x0,0x1000003,0x0,0x0,0x0,0x0,0x1000003,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1000003,0x0,0x0,0x1000000,0x0,0x1000000,0x0,0x1010003,0x1000000,0x1000000,};
   unsigned int jj_la1_6[] = {
-0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x0,0x0,0x0,0x0,0x1,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x0,0x0,0x0,0x0,0x1,0x0,0x0,0x0,0x1,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x0,0x0,};
+0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x0,0x0,0x0,0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x1,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x0,0x0,0x0,0x2,0x0,0x0,0x0,0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x4,0x4,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x0,};
 
   /** Constructor with user supplied TokenManager. */
 
@@ -1180,7 +1180,8 @@ AbstractStatement
         break;
         }
       case CREATE:
-      case DROP:{
+      case DROP:
+      case ALTER:{
         if (!hasError) {
         stmt = ddlStatement();
         }
@@ -1434,6 +1435,7 @@ block->setPosition(t);
       case ROLLBACK:
       case CREATE:
       case DROP:
+      case ALTER:
       case TABLE:
       case SQL_DEFAULT:
       case ADD:
@@ -1452,7 +1454,7 @@ block->setPosition(t);
       case USING:
       case _NULL:
       case IDENTIFIER:
-      case 192:{
+      case 193:{
         ;
         break;
         }
@@ -1972,7 +1974,7 @@ stmt->setPosition(t);
     case USING:
     case _NULL:
     case IDENTIFIER:
-    case 192:{
+    case 193:{
       if (!hasError) {
       exp = expression();
       }
@@ -2336,7 +2338,7 @@ AbstractExpression                  * AlinousLang::exclusiveOrExpression() {Toke
     if (!hasError) {
     while (!hasError) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case 190:{
+      case 191:{
         ;
         break;
         }
@@ -2345,7 +2347,7 @@ AbstractExpression                  * AlinousLang::exclusiveOrExpression() {Toke
         goto end_label_17;
       }
       if (!hasError) {
-      t = jj_consume_token(190);
+      t = jj_consume_token(191);
       }
       if (!hasError) {
 if(exp == nullptr){
@@ -2615,7 +2617,7 @@ AbstractExpression                  * AlinousLang::shiftExpression() {Token* t =
     while (!hasError) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case RSIGNEDSHIFT:
-      case 191:{
+      case 192:{
         ;
         break;
         }
@@ -2625,9 +2627,9 @@ AbstractExpression                  * AlinousLang::shiftExpression() {Token* t =
       }
       if (!hasError) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case 191:{
+      case 192:{
         if (!hasError) {
-        t = jj_consume_token(191);
+        t = jj_consume_token(192);
         }
         if (!hasError) {
 if(exp == nullptr){
@@ -3022,9 +3024,9 @@ AbstractExpression                  * AlinousLang::bitReverseExpression() {Token
         AbstractExpression* right = nullptr;
     if (!hasError) {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case 192:{
+    case 193:{
       if (!hasError) {
-      t = jj_consume_token(192);
+      t = jj_consume_token(193);
       }
       if (!hasError) {
 exp = new BitReverseExpression();
@@ -3407,7 +3409,7 @@ void AlinousLang::functionCallExpressionArg(FunctionCallExpression* exp) {Abstra
     case USING:
     case _NULL:
     case IDENTIFIER:
-    case 192:{
+    case 193:{
       if (!hasError) {
       arg = expression();
       }
@@ -3779,7 +3781,7 @@ void AlinousLang::constructorCallExpressionArg(ConstructorCall* exp) {AbstractEx
     case USING:
     case _NULL:
     case IDENTIFIER:
-    case 192:{
+    case 193:{
       if (!hasError) {
       arg = expression();
       }
@@ -4367,6 +4369,12 @@ AbstractSQLStatement
       }
       break;
       }
+    case ALTER:{
+      if (!hasError) {
+      stmt = alterTableStatement();
+      }
+      break;
+      }
     default:
       jj_la1[62] = jj_gen;
       jj_consume_token(-1);
@@ -4377,6 +4385,522 @@ AbstractSQLStatement
 
     }
 return stmt;
+assert(false);
+}
+
+
+AlterTableStatement                   * AlinousLang::alterTableStatement() {AlterTableStatement* stmt = new AlterTableStatement();
+        TableIdentifier* tableId = nullptr;
+        AbstractAlterDdlCommand* cmd = nullptr;
+        Token* t = null;
+    if (!hasError) {
+    t = jj_consume_token(ALTER);
+    }
+    if (!hasError) {
+stmt->setPosition(t);
+    }
+    if (!hasError) {
+    t = jj_consume_token(TABLE);
+    }
+    if (!hasError) {
+stmt->setPosition(t);
+    }
+    if (!hasError) {
+    tableId = tableIdentifier();
+    }
+    if (!hasError) {
+stmt->setPosition(tableId);
+                stmt->setTableId(tableId);
+    }
+    if (!hasError) {
+    cmd = alterCommands();
+    }
+    if (!hasError) {
+stmt->setPosition(cmd);
+                stmt->setCommand(cmd);
+    }
+    if (!hasError) {
+    t = jj_consume_token(SEMI_COLON);
+    }
+    if (!hasError) {
+stmt->setPosition(t);
+    }
+__ONERROR(stmt);
+                return stmt;
+assert(false);
+}
+
+
+AbstractAlterDdlCommand                       * AlinousLang::alterCommands() {AbstractAlterDdlCommand* cmd = nullptr;
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case ADD:{
+      if (!hasError) {
+      cmd = addAlterCommands();
+      }
+      break;
+      }
+    case DROP:{
+      if (!hasError) {
+      cmd = dropAlterCommands();
+      }
+      break;
+      }
+    case MODIFY:{
+      if (!hasError) {
+      cmd = alterModifyCommand();
+      }
+      break;
+      }
+    case RENAME:{
+      if (!hasError) {
+      cmd = alterRenameCommands();
+      }
+      break;
+      }
+    default:
+      jj_la1[63] = jj_gen;
+      jj_consume_token(-1);
+      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+    }
+    }
+__ONERROR(cmd);
+                return cmd;
+assert(false);
+}
+
+
+AbstractAlterDdlCommand                       * AlinousLang::alterRenameCommands() {AbstractAlterDdlCommand* cmd = nullptr;
+        Token* t = nullptr;
+    if (!hasError) {
+    t = jj_consume_token(RENAME);
+    }
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case IDENTIFIER:{
+      if (!hasError) {
+      cmd = alterRenameColumnCommand(t);
+      }
+      break;
+      }
+    case TO:{
+      if (!hasError) {
+      cmd = alterRenameTableCommand(t);
+      }
+      break;
+      }
+    default:
+      jj_la1[64] = jj_gen;
+      jj_consume_token(-1);
+      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+    }
+    }
+__ONERROR(cmd);
+                return cmd;
+assert(false);
+}
+
+
+AlterRenameTableCommand                       * AlinousLang::alterRenameTableCommand(Token* t) {AlterRenameTableCommand* cmd = new AlterRenameTableCommand();
+        cmd->setPosition(t);
+    if (!hasError) {
+    t = jj_consume_token(TO);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+    }
+    if (!hasError) {
+    t = jj_consume_token(IDENTIFIER);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+                cmd->setNewName(_STR(t));
+    }
+__ONERROR(cmd);
+                return cmd;
+assert(false);
+}
+
+
+AlterRenameColumnCommand                        * AlinousLang::alterRenameColumnCommand(Token* t) {AlterRenameColumnCommand* cmd = new AlterRenameColumnCommand();
+        cmd->setPosition(t);
+    if (!hasError) {
+    t = jj_consume_token(IDENTIFIER);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+                cmd->setLastName(_STR(t));
+    }
+    if (!hasError) {
+    t = jj_consume_token(TO);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+    }
+    if (!hasError) {
+    t = jj_consume_token(IDENTIFIER);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+                cmd->setNewName(_STR(t));
+    }
+__ONERROR(cmd);
+                return cmd;
+assert(false);
+}
+
+
+AlterModifyCommand                  * AlinousLang::alterModifyCommand() {AlterModifyCommand* cmd = new AlterModifyCommand();
+        DdlColumnDescriptor* desc = nullptr;
+        Token* t = nullptr;
+    if (!hasError) {
+    t = jj_consume_token(MODIFY);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+    }
+    if (!hasError) {
+    desc = ddlColumnDescriptor();
+    }
+    if (!hasError) {
+cmd->setPosition(desc);
+                cmd->setColumnDescriptor(desc);
+    }
+__ONERROR(cmd);
+                return cmd;
+assert(false);
+}
+
+
+AbstractAlterDdlCommand                       * AlinousLang::dropAlterCommands() {AbstractAlterDdlCommand* cmd = nullptr;
+        Token* t = nullptr;
+    if (!hasError) {
+    t = jj_consume_token(DROP);
+    }
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case INDEX:{
+      if (!hasError) {
+      cmd = alterDropIndexCommand(t);
+      }
+      break;
+      }
+    case COLUMN:
+    case IDENTIFIER:{
+      if (!hasError) {
+      cmd = alterDropColumnCommand(t);
+      }
+      break;
+      }
+    case PRIMARY:{
+      if (!hasError) {
+      cmd = alterDropPrimaryKeyCommand(t);
+      }
+      break;
+      }
+    default:
+      jj_la1[65] = jj_gen;
+      jj_consume_token(-1);
+      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+    }
+    }
+__ONERROR(cmd);
+                return cmd;
+assert(false);
+}
+
+
+AlterDropPrimaryKeyCommand                          * AlinousLang::alterDropPrimaryKeyCommand(Token* t) {AlterDropPrimaryKeyCommand* cmd = new AlterDropPrimaryKeyCommand();
+        cmd->setPosition(t);
+    if (!hasError) {
+    t = jj_consume_token(PRIMARY);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+    }
+    if (!hasError) {
+    t = jj_consume_token(KEY);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+    }
+__ONERROR(cmd);
+                return cmd;
+assert(false);
+}
+
+
+AlterDropIndexCommand                     * AlinousLang::alterDropIndexCommand(Token* t) {AlterDropIndexCommand* cmd = new AlterDropIndexCommand();
+        cmd->setPosition(t);
+    if (!hasError) {
+    t = jj_consume_token(INDEX);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+    }
+    if (!hasError) {
+    t = jj_consume_token(IDENTIFIER);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+                cmd->setName(_STR(t));
+    }
+__ONERROR(cmd);
+                return cmd;
+assert(false);
+}
+
+
+AlterDropColumnCommand                      * AlinousLang::alterDropColumnCommand(Token* t) {AlterDropColumnCommand* cmd = new AlterDropColumnCommand();
+        cmd->setPosition(t);
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case COLUMN:{
+      if (!hasError) {
+      t = jj_consume_token(COLUMN);
+      }
+      if (!hasError) {
+cmd->setPosition(t);
+      }
+      break;
+      }
+    default:
+      jj_la1[66] = jj_gen;
+      ;
+    }
+    }
+    if (!hasError) {
+    t = jj_consume_token(IDENTIFIER);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+                cmd->setName(_STR(t));
+    }
+__ONERROR(cmd);
+                return cmd;
+assert(false);
+}
+
+
+AbstractAlterDdlCommand                       * AlinousLang::addAlterCommands() {AbstractAlterDdlCommand* cmd = nullptr;
+        Token* t = nullptr;
+    if (!hasError) {
+    t = jj_consume_token(ADD);
+    }
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case UNIQUE:
+    case INDEX:{
+      if (!hasError) {
+      cmd = alterAddIndexCommand(t);
+      }
+      break;
+      }
+    case COLUMN:
+    case IDENTIFIER:{
+      if (!hasError) {
+      cmd = alterAddColumnCommand(t);
+      }
+      break;
+      }
+    case PRIMARY:{
+      if (!hasError) {
+      cmd = alterAddPrimaryKeyCommand(t);
+      }
+      break;
+      }
+    default:
+      jj_la1[67] = jj_gen;
+      jj_consume_token(-1);
+      errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
+    }
+    }
+__ONERROR(cmd);
+                return cmd;
+assert(false);
+}
+
+
+AlterAddPrimaryKeyCommand                         * AlinousLang::alterAddPrimaryKeyCommand(Token* t) {AlterAddPrimaryKeyCommand* cmd = new AlterAddPrimaryKeyCommand();
+
+        cmd->setPosition(t);
+    if (!hasError) {
+    t = jj_consume_token(PRIMARY);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+    }
+    if (!hasError) {
+    t = jj_consume_token(KEY);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+    }
+    if (!hasError) {
+    t = jj_consume_token(L_PARENTHESIS);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+    }
+    if (!hasError) {
+    t = jj_consume_token(IDENTIFIER);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+                cmd->addColumn(_STR(t));
+    }
+    if (!hasError) {
+    while (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case COMMA:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[68] = jj_gen;
+        goto end_label_28;
+      }
+      if (!hasError) {
+      t = jj_consume_token(COMMA);
+      }
+      if (!hasError) {
+cmd->setPosition(t);
+      }
+      if (!hasError) {
+      t = jj_consume_token(IDENTIFIER);
+      }
+      if (!hasError) {
+cmd->setPosition(t);
+                        cmd->addColumn(_STR(t));
+      }
+    }
+    end_label_28: ;
+    }
+    if (!hasError) {
+    t = jj_consume_token(R_PARENTHESIS);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+    }
+__ONERROR(cmd);
+                return cmd;
+assert(false);
+}
+
+
+AlterAddColumnCommand                     * AlinousLang::alterAddColumnCommand(Token* __t) {AlterAddColumnCommand* cmd = new AlterAddColumnCommand();
+        DdlColumnDescriptor* desc = nullptr;
+        cmd->setPosition(__t);
+
+        Token* t = nullptr;
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case COLUMN:{
+      if (!hasError) {
+      t = jj_consume_token(COLUMN);
+      }
+      if (!hasError) {
+cmd->setPosition(t);
+      }
+      break;
+      }
+    default:
+      jj_la1[69] = jj_gen;
+      ;
+    }
+    }
+    if (!hasError) {
+    desc = ddlColumnDescriptor();
+    }
+    if (!hasError) {
+cmd->setPosition(desc);
+                cmd->setColumnDescriptor(desc);
+    }
+__ONERROR(cmd);
+                return cmd;
+assert(false);
+}
+
+
+AlterAddIndexCommand                    * AlinousLang::alterAddIndexCommand(Token* t) {AlterAddIndexCommand* cmd = new AlterAddIndexCommand();
+        cmd->setPosition(t);
+    if (!hasError) {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case UNIQUE:{
+      if (!hasError) {
+      t = jj_consume_token(UNIQUE);
+      }
+      if (!hasError) {
+cmd->setPosition(t);
+      }
+      break;
+      }
+    default:
+      jj_la1[70] = jj_gen;
+      ;
+    }
+    }
+    if (!hasError) {
+    t = jj_consume_token(INDEX);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+    }
+    if (!hasError) {
+    t = jj_consume_token(IDENTIFIER);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+                cmd->setName(_STR(t));
+    }
+    if (!hasError) {
+    t = jj_consume_token(L_PARENTHESIS);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+    }
+    if (!hasError) {
+    t = jj_consume_token(IDENTIFIER);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+                cmd->addColumn(_STR(t));
+    }
+    if (!hasError) {
+    while (!hasError) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case COMMA:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[71] = jj_gen;
+        goto end_label_29;
+      }
+      if (!hasError) {
+      t = jj_consume_token(COMMA);
+      }
+      if (!hasError) {
+cmd->setPosition(t);
+      }
+      if (!hasError) {
+      t = jj_consume_token(IDENTIFIER);
+      }
+      if (!hasError) {
+cmd->setPosition(t);
+                        cmd->addColumn(_STR(t));
+      }
+    }
+    end_label_29: ;
+    }
+    if (!hasError) {
+    t = jj_consume_token(R_PARENTHESIS);
+    }
+    if (!hasError) {
+cmd->setPosition(t);
+    }
+__ONERROR(cmd);
+                return cmd;
 assert(false);
 }
 
@@ -4425,7 +4949,7 @@ stmt->addColumn(desc);
         if (jj_2_18(2)) {
           ;
         } else {
-          goto end_label_28;
+          goto end_label_30;
         }
         if (!hasError) {
         t = jj_consume_token(COMMA);
@@ -4441,12 +4965,12 @@ stmt->addColumn(desc);
                                 stmt->setPosition(desc);
         }
       }
-      end_label_28: ;
+      end_label_30: ;
       }
       break;
       }
     default:
-      jj_la1[63] = jj_gen;
+      jj_la1[72] = jj_gen;
       ;
     }
     }
@@ -4463,7 +4987,7 @@ stmt->addColumn(desc);
         break;
         }
       default:
-        jj_la1[64] = jj_gen;
+        jj_la1[73] = jj_gen;
         ;
       }
       }
@@ -4500,8 +5024,8 @@ stmt->addPrimaryKey(_STR(t));
           break;
           }
         default:
-          jj_la1[65] = jj_gen;
-          goto end_label_29;
+          jj_la1[74] = jj_gen;
+          goto end_label_31;
         }
         if (!hasError) {
         t = jj_consume_token(COMMA);
@@ -4517,7 +5041,7 @@ stmt->addPrimaryKey(_STR(t));
                                 stmt->setPosition(t);
         }
       }
-      end_label_29: ;
+      end_label_31: ;
       }
       if (!hasError) {
       t = jj_consume_token(R_PARENTHESIS);
@@ -4528,7 +5052,7 @@ stmt->setPosition(t);
       break;
       }
     default:
-      jj_la1[66] = jj_gen;
+      jj_la1[75] = jj_gen;
       ;
     }
     }
@@ -4587,7 +5111,7 @@ desc->setNotNull(true);
       break;
       }
     default:
-      jj_la1[67] = jj_gen;
+      jj_la1[76] = jj_gen;
       ;
     }
     }
@@ -4604,7 +5128,7 @@ desc->setUnique(true);
       break;
       }
     default:
-      jj_la1[68] = jj_gen;
+      jj_la1[77] = jj_gen;
       ;
     }
     }
@@ -4635,7 +5159,7 @@ desc->setPosition(t);
         break;
         }
       default:
-        jj_la1[69] = jj_gen;
+        jj_la1[78] = jj_gen;
         jj_consume_token(-1);
         errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
       }
@@ -4647,7 +5171,7 @@ desc->setDefaultValue(val);
       break;
       }
     default:
-      jj_la1[70] = jj_gen;
+      jj_la1[79] = jj_gen;
       ;
     }
     }
@@ -4694,7 +5218,7 @@ ColumnTypeDescriptor                    * AlinousLang::columnTypeDescriptor() {C
       break;
       }
     default:
-      jj_la1[71] = jj_gen;
+      jj_la1[80] = jj_gen;
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
     }
@@ -4730,7 +5254,7 @@ typeDesc->setPosition(t2);
         break;
         }
       default:
-        jj_la1[72] = jj_gen;
+        jj_la1[81] = jj_gen;
         jj_consume_token(-1);
         errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
       }
@@ -4748,7 +5272,7 @@ typeDesc->setPosition(t2);
       break;
       }
     default:
-      jj_la1[73] = jj_gen;
+      jj_la1[82] = jj_gen;
       ;
     }
     }
@@ -4839,7 +5363,7 @@ AbstractSQLStatement
       break;
       }
     default:
-      jj_la1[74] = jj_gen;
+      jj_la1[83] = jj_gen;
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
     }
@@ -4892,7 +5416,7 @@ stmt->setintoVar(_STR(t));
       break;
       }
     default:
-      jj_la1[75] = jj_gen;
+      jj_la1[84] = jj_gen;
       ;
     }
     }
@@ -4916,7 +5440,7 @@ stmt->setWhere(where);
       break;
       }
     default:
-      jj_la1[76] = jj_gen;
+      jj_la1[85] = jj_gen;
       ;
     }
     }
@@ -4933,7 +5457,7 @@ stmt->setGroupBy(groupBy);
       break;
       }
     default:
-      jj_la1[77] = jj_gen;
+      jj_la1[86] = jj_gen;
       ;
     }
     }
@@ -4950,7 +5474,7 @@ stmt->setOrderBy(orderBy);
       break;
       }
     default:
-      jj_la1[78] = jj_gen;
+      jj_la1[87] = jj_gen;
       ;
     }
     }
@@ -4991,8 +5515,8 @@ stmt->addTarget(target);
         break;
         }
       default:
-        jj_la1[79] = jj_gen;
-        goto end_label_30;
+        jj_la1[88] = jj_gen;
+        goto end_label_32;
       }
       if (!hasError) {
       t = jj_consume_token(COMMA);
@@ -5008,7 +5532,7 @@ stmt->addTarget(target);
                         stmt->setPosition(target);
       }
     }
-    end_label_30: ;
+    end_label_32: ;
     }
     if (!hasError) {
 
@@ -5050,7 +5574,7 @@ stmt->setAsName(_STR(t));
       break;
       }
     default:
-      jj_la1[80] = jj_gen;
+      jj_la1[89] = jj_gen;
       ;
     }
     }
@@ -5101,7 +5625,7 @@ stmt->setHaving(having);
       break;
       }
     default:
-      jj_la1[81] = jj_gen;
+      jj_la1[90] = jj_gen;
       ;
     }
     }
@@ -5186,7 +5710,7 @@ stmt->setLimit(exp);
       break;
       }
     default:
-      jj_la1[82] = jj_gen;
+      jj_la1[91] = jj_gen;
       ;
     }
     }
@@ -5209,7 +5733,7 @@ stmt->setOffset(exp);
       break;
       }
     default:
-      jj_la1[83] = jj_gen;
+      jj_la1[92] = jj_gen;
       ;
     }
     }
@@ -5260,7 +5784,7 @@ stmt->setWhere(where);
       break;
       }
     default:
-      jj_la1[84] = jj_gen;
+      jj_la1[93] = jj_gen;
       ;
     }
     }
@@ -5300,8 +5824,8 @@ stmt->addPair(pair);
         break;
         }
       default:
-        jj_la1[85] = jj_gen;
-        goto end_label_31;
+        jj_la1[94] = jj_gen;
+        goto end_label_33;
       }
       if (!hasError) {
       t = jj_consume_token(COMMA);
@@ -5317,7 +5841,7 @@ stmt->addPair(pair);
                         stmt->setPosition(pair);
       }
     }
-    end_label_31: ;
+    end_label_33: ;
     }
     if (!hasError) {
 
@@ -5407,7 +5931,7 @@ stmt->setPosition(t);
       break;
       }
     default:
-      jj_la1[86] = jj_gen;
+      jj_la1[95] = jj_gen;
       ;
     }
     }
@@ -5466,8 +5990,8 @@ stmt->addColumn(colId);
         break;
         }
       default:
-        jj_la1[87] = jj_gen;
-        goto end_label_32;
+        jj_la1[96] = jj_gen;
+        goto end_label_34;
       }
       if (!hasError) {
       t = jj_consume_token(COMMA);
@@ -5483,7 +6007,7 @@ stmt->addColumn(colId);
                         stmt->setPosition(colId);
       }
     }
-    end_label_32: ;
+    end_label_34: ;
     }
     if (!hasError) {
 
@@ -5524,7 +6048,7 @@ stmt->setWhere(where);
       break;
       }
     default:
-      jj_la1[88] = jj_gen;
+      jj_la1[97] = jj_gen;
       ;
     }
     }
@@ -5671,7 +6195,7 @@ AbstractSQLExpression                     * AlinousLang::sqlOrExpression() {SQLO
       if (jj_2_19(2)) {
         ;
       } else {
-        goto end_label_33;
+        goto end_label_35;
       }
       if (!hasError) {
       t = jj_consume_token(OR);
@@ -5694,7 +6218,7 @@ exp->addOperand(right);
                         exp->setPosition(right);
       }
     }
-    end_label_33: ;
+    end_label_35: ;
     }
     if (!hasError) {
 
@@ -5717,7 +6241,7 @@ AbstractSQLExpression                     * AlinousLang::sqlAndExpression() {SQL
       if (jj_2_20(2)) {
         ;
       } else {
-        goto end_label_34;
+        goto end_label_36;
       }
       if (!hasError) {
       t = jj_consume_token(SQLAND);
@@ -5740,7 +6264,7 @@ exp->addOperand(right);
                         exp->setPosition(right);
       }
     }
-    end_label_34: ;
+    end_label_36: ;
     }
     if (!hasError) {
 
@@ -5769,7 +6293,7 @@ exp = new SQLNotExpression();
       break;
       }
     default:
-      jj_la1[89] = jj_gen;
+      jj_la1[98] = jj_gen;
       ;
     }
     }
@@ -5837,7 +6361,7 @@ exp->setEscape(right);
         break;
         }
       default:
-        jj_la1[90] = jj_gen;
+        jj_la1[99] = jj_gen;
         ;
       }
       }
@@ -5887,7 +6411,7 @@ exp->setNotNull(true);
         break;
         }
       default:
-        jj_la1[91] = jj_gen;
+        jj_la1[100] = jj_gen;
         ;
       }
       }
@@ -5954,7 +6478,7 @@ exp->setEnd(right);
       break;
       }
     default:
-      jj_la1[92] = jj_gen;
+      jj_la1[101] = jj_gen;
       ;
     }
     }
@@ -6009,7 +6533,7 @@ exp->setPosition(t);
       break;
       }
     default:
-      jj_la1[93] = jj_gen;
+      jj_la1[102] = jj_gen;
       ;
     }
     }
@@ -6098,7 +6622,7 @@ exp = new SQLRelationalExpression();
         break;
         }
       default:
-        jj_la1[94] = jj_gen;
+        jj_la1[103] = jj_gen;
         jj_consume_token(-1);
         errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
       }
@@ -6113,7 +6637,7 @@ exp->setRight(right);
       break;
       }
     default:
-      jj_la1[95] = jj_gen;
+      jj_la1[104] = jj_gen;
       ;
     }
     }
@@ -6137,7 +6661,7 @@ AbstractSQLExpression                     * AlinousLang::sqlEqualityExpression()
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case EQUALS:
     case CMP_NOTEQUALS:
-    case 193:{
+    case 194:{
       if (!hasError) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case EQUALS:{
@@ -6155,9 +6679,9 @@ exp = new SQLEqualityExpression();
         }
         break;
         }
-      case 193:{
+      case 194:{
         if (!hasError) {
-        t = jj_consume_token(193);
+        t = jj_consume_token(194);
         }
         if (!hasError) {
 exp = new SQLEqualityExpression();
@@ -6186,7 +6710,7 @@ exp = new SQLEqualityExpression();
         break;
         }
       default:
-        jj_la1[96] = jj_gen;
+        jj_la1[105] = jj_gen;
         jj_consume_token(-1);
         errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
       }
@@ -6201,7 +6725,7 @@ exp->setRight(right);
       break;
       }
     default:
-      jj_la1[97] = jj_gen;
+      jj_la1[106] = jj_gen;
       ;
     }
     }
@@ -6230,8 +6754,8 @@ AbstractSQLExpression                     * AlinousLang::sqlAdditiveExpression()
         break;
         }
       default:
-        jj_la1[98] = jj_gen;
-        goto end_label_35;
+        jj_la1[107] = jj_gen;
+        goto end_label_37;
       }
       if (!hasError) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
@@ -6268,7 +6792,7 @@ if(exp == nullptr){
         break;
         }
       default:
-        jj_la1[99] = jj_gen;
+        jj_la1[108] = jj_gen;
         jj_consume_token(-1);
         errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
       }
@@ -6281,7 +6805,7 @@ exp->addOperand(right);
                         exp->setPosition(right);
       }
     }
-    end_label_35: ;
+    end_label_37: ;
     }
     if (!hasError) {
 
@@ -6309,8 +6833,8 @@ AbstractSQLExpression                     * AlinousLang::sqlMultiplicativeExpres
         break;
         }
       default:
-        jj_la1[100] = jj_gen;
-        goto end_label_36;
+        jj_la1[109] = jj_gen;
+        goto end_label_38;
       }
       if (!hasError) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
@@ -6363,7 +6887,7 @@ if(exp == nullptr){
         break;
         }
       default:
-        jj_la1[101] = jj_gen;
+        jj_la1[110] = jj_gen;
         jj_consume_token(-1);
         errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
       }
@@ -6376,7 +6900,7 @@ exp->addOperand(right);
                         exp->setPosition(right);
       }
     }
-    end_label_36: ;
+    end_label_38: ;
     }
     if (!hasError) {
 
@@ -6418,7 +6942,7 @@ AbstractSQLExpression                     * AlinousLang::sqlPrimitiveExpression(
       break;
       }
     default:
-      jj_la1[102] = jj_gen;
+      jj_la1[111] = jj_gen;
       if (jj_2_23(2)) {
         if (!hasError) {
         exp = sqlFunctionCall();
@@ -6483,7 +7007,7 @@ AbstractSQLExpression                     * AlinousLang::sqlPrimitiveExpression(
           break;
           }
         default:
-          jj_la1[103] = jj_gen;
+          jj_la1[112] = jj_gen;
           jj_consume_token(-1);
           errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
         }
@@ -6617,8 +7141,8 @@ exp->addArgument(ex);
           break;
           }
         default:
-          jj_la1[104] = jj_gen;
-          goto end_label_37;
+          jj_la1[113] = jj_gen;
+          goto end_label_39;
         }
         if (!hasError) {
         t = jj_consume_token(COMMA);
@@ -6634,12 +7158,12 @@ exp->addArgument(ex);
                                 exp->setPosition(ex);
         }
       }
-      end_label_37: ;
+      end_label_39: ;
       }
       break;
       }
     default:
-      jj_la1[105] = jj_gen;
+      jj_la1[114] = jj_gen;
       ;
     }
     }
@@ -6742,7 +7266,7 @@ exp->setValue(_STR(t), SQLLiteral::TYPE_STRING);
       break;
       }
     default:
-      jj_la1[106] = jj_gen;
+      jj_la1[115] = jj_gen;
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
     }
@@ -6781,7 +7305,7 @@ exp->setValue(false);
       break;
       }
     default:
-      jj_la1[107] = jj_gen;
+      jj_la1[116] = jj_gen;
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
     }
@@ -6839,14 +7363,14 @@ exp->setPosition(t3);
         break;
         }
       default:
-        jj_la1[108] = jj_gen;
+        jj_la1[117] = jj_gen;
         ;
       }
       }
       break;
       }
     default:
-      jj_la1[109] = jj_gen;
+      jj_la1[118] = jj_gen;
       ;
     }
     }
@@ -7150,7 +7674,7 @@ Token     * AlinousLang::sqlIdentifierName() {Token* t = nullptr;
       break;
       }
     default:
-      jj_la1[110] = jj_gen;
+      jj_la1[119] = jj_gen;
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
     }
@@ -7179,8 +7703,8 @@ exp->addExpression(ex);
         break;
         }
       default:
-        jj_la1[111] = jj_gen;
-        goto end_label_38;
+        jj_la1[120] = jj_gen;
+        goto end_label_40;
       }
       if (!hasError) {
       t = jj_consume_token(COMMA);
@@ -7196,7 +7720,7 @@ exp->addExpression(ex);
                         exp->setPosition(ex);
       }
     }
-    end_label_38: ;
+    end_label_40: ;
     }
     if (!hasError) {
 
@@ -7223,8 +7747,8 @@ AbstractJoinPart
         break;
         }
       default:
-        jj_la1[112] = jj_gen;
-        goto end_label_39;
+        jj_la1[121] = jj_gen;
+        goto end_label_41;
       }
       if (!hasError) {
       t = jj_consume_token(COMMA);
@@ -7248,7 +7772,7 @@ tablelist->addTable(table);
                         tablelist->setPosition(table);
       }
     }
-    end_label_39: ;
+    end_label_41: ;
     }
     if (!hasError) {
 
@@ -7276,8 +7800,8 @@ AbstractJoinPart                * AlinousLang::join() {AbstractJoinPart* left = 
         break;
         }
       default:
-        jj_la1[113] = jj_gen;
-        goto end_label_40;
+        jj_la1[122] = jj_gen;
+        goto end_label_42;
       }
       if (!hasError) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
@@ -7306,7 +7830,7 @@ AbstractJoinPart                * AlinousLang::join() {AbstractJoinPart* left = 
         break;
         }
       default:
-        jj_la1[114] = jj_gen;
+        jj_la1[123] = jj_gen;
         jj_consume_token(-1);
         errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
       }
@@ -7323,7 +7847,7 @@ if(joinBody == nullptr){
                         joinBody->addJoinPart(right);
       }
     }
-    end_label_40: ;
+    end_label_42: ;
     }
 __ONERROR(left);
                 return left;
@@ -7374,7 +7898,7 @@ join->setExpression(exp);
       break;
       }
     default:
-      jj_la1[115] = jj_gen;
+      jj_la1[124] = jj_gen;
       ;
     }
     }
@@ -7410,7 +7934,7 @@ join->setPosition(t);
       break;
       }
     default:
-      jj_la1[116] = jj_gen;
+      jj_la1[125] = jj_gen;
       ;
     }
     }
@@ -7446,7 +7970,7 @@ join->setExpression(exp);
       break;
       }
     default:
-      jj_la1[117] = jj_gen;
+      jj_la1[126] = jj_gen;
       ;
     }
     }
@@ -7482,7 +8006,7 @@ join->setPosition(t);
       break;
       }
     default:
-      jj_la1[118] = jj_gen;
+      jj_la1[127] = jj_gen;
       ;
     }
     }
@@ -7518,7 +8042,7 @@ join->setExpression(exp);
       break;
       }
     default:
-      jj_la1[119] = jj_gen;
+      jj_la1[128] = jj_gen;
       ;
     }
     }
@@ -7574,7 +8098,7 @@ join->setExpression(exp);
       break;
       }
     default:
-      jj_la1[120] = jj_gen;
+      jj_la1[129] = jj_gen;
       ;
     }
     }
@@ -7648,7 +8172,7 @@ AbstractJoinPart                * AlinousLang::joinTarget() {AbstractJoinPart* t
       break;
       }
     default:
-      jj_la1[121] = jj_gen;
+      jj_la1[130] = jj_gen;
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
     }
@@ -7717,7 +8241,7 @@ exp->setPosition(t2);
       break;
       }
     default:
-      jj_la1[122] = jj_gen;
+      jj_la1[131] = jj_gen;
       ;
     }
     }
@@ -7749,7 +8273,7 @@ exp->setPosition(t);
       break;
       }
     default:
-      jj_la1[123] = jj_gen;
+      jj_la1[132] = jj_gen;
       ;
     }
     }
@@ -7784,7 +8308,7 @@ AbstractJsonExpression
       break;
       }
     default:
-      jj_la1[124] = jj_gen;
+      jj_la1[133] = jj_gen;
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
     }
@@ -7824,8 +8348,8 @@ jsonExp->setPosition(element);
           break;
           }
         default:
-          jj_la1[125] = jj_gen;
-          goto end_label_41;
+          jj_la1[134] = jj_gen;
+          goto end_label_43;
         }
         if (!hasError) {
         t = jj_consume_token(COMMA);
@@ -7841,12 +8365,12 @@ jsonExp->setPosition(element);
                                 jsonExp->addElement(element);
         }
       }
-      end_label_41: ;
+      end_label_43: ;
       }
       break;
       }
     default:
-      jj_la1[126] = jj_gen;
+      jj_la1[135] = jj_gen;
       ;
     }
     }
@@ -7932,7 +8456,7 @@ jsonExp->setPosition(t);
     case USING:
     case _NULL:
     case IDENTIFIER:
-    case 192:{
+    case 193:{
       if (!hasError) {
       exp = expression();
       }
@@ -7948,8 +8472,8 @@ jsonExp->setPosition(exp);
           break;
           }
         default:
-          jj_la1[127] = jj_gen;
-          goto end_label_42;
+          jj_la1[136] = jj_gen;
+          goto end_label_44;
         }
         if (!hasError) {
         t = jj_consume_token(COMMA);
@@ -7965,12 +8489,12 @@ jsonExp->setPosition(exp);
                                 jsonExp->addElement(exp);
         }
       }
-      end_label_42: ;
+      end_label_44: ;
       }
       break;
       }
     default:
-      jj_la1[128] = jj_gen;
+      jj_la1[137] = jj_gen;
       ;
     }
     }
@@ -8015,7 +8539,7 @@ pair->setPosition(t);
       break;
       }
     default:
-      jj_la1[129] = jj_gen;
+      jj_la1[138] = jj_gen;
       jj_consume_token(-1);
       errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
     }
@@ -8052,7 +8576,7 @@ pair->setPosition(jsonExp);
         break;
         }
       default:
-        jj_la1[130] = jj_gen;
+        jj_la1[139] = jj_gen;
         jj_consume_token(-1);
         errorHandler->handleParseError(token, getToken(1), __FUNCTION__, this), hasError = true;
       }
@@ -8091,7 +8615,7 @@ void AlinousLang::ReInit(TokenManager* tokenManager){
     trace = false;
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 131; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 140; i++) jj_la1[i] = -1;
   }
 
 

@@ -42,4 +42,13 @@ const UnicodeString* OrScanColumnTarget::toStringCode() noexcept {
 	return this->str;
 }
 
+void OrScanColumnTarget::resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanColumnsTarget* cond = this->list.get(i);
+
+		cond->resolveColumns(vm, planner);
+	}
+}
+
 } /* namespace codablecash */

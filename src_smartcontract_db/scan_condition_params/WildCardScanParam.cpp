@@ -25,4 +25,8 @@ const UnicodeString* WildCardScanParam::toStringCode() noexcept {
 	return &WILDCARD;
 }
 
+IValueProvider* WildCardScanParam::clone() const noexcept {
+	return new WildCardScanParam();
+}
+
 } /* namespace codablecash */

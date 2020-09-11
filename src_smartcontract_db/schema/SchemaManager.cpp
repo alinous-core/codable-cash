@@ -8,6 +8,7 @@
 #include "schema/SchemaManager.h"
 #include "schema/SchemaRoot.h"
 #include "schema/ISchemaUptateListner.h"
+#include "schema/Schema.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
@@ -18,6 +19,9 @@
 #include "base_io_stream/FileOutputStream.h"
 #include "base_io_stream/FileInputStream.h"
 
+#include "engine/CdbException.h"
+
+#include "table/CdbTable.h"
 
 namespace codablecash {
 
@@ -143,6 +147,21 @@ void SchemaManager::fireSchemaLoaded() noexcept {
 Schema* SchemaManager::getSchema(const UnicodeString* name) const noexcept {
 	return this->root->getSchema(name);
 }
+
+CdbTable* SchemaManager::getTable(const UnicodeString* schema, const UnicodeString* name) const {
+	Schema* sc = getSchema(schema);
+	if(sc == nullptr){
+		throw new CdbException(L"schema does not exists.", __FILE__, __LINE__);
+	}
+
+	CdbTable* table = sc->getCdbTableByName(name);
+	if(table == nullptr){
+		throw new CdbException(L"schema does not exists.", __FILE__, __LINE__);
+	}
+
+	return table;
+}
+
 
 void SchemaManager::fireOnCreateTable(const CdbTable* table) {
 	int maxLoop = this->listners.size();

@@ -21,8 +21,8 @@ public:
 
 	void setInner(AbstractScanTableTarget* inner) noexcept;
 
-	virtual IJoinLeftSource* getLeftSource(VirtualMachine* vm);
-	virtual IJoinLeftSource* getRightSource(VirtualMachine* vm);
+	virtual void resolveTable(VirtualMachine* vm, SelectScanPlanner* planner);
+	virtual AbstractScannerFactory* getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner);
 private:
 	AbstractScanTableTarget* inner;
 };

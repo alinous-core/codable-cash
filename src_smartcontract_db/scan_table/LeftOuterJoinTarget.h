@@ -18,9 +18,7 @@ public:
 	virtual ~LeftOuterJoinTarget();
 
 	virtual const UnicodeString* toString() noexcept;
-
-	virtual IJoinLeftSource* getLeftSource(VirtualMachine* vm);
-	virtual IJoinLeftSource* getRightSource(VirtualMachine* vm);
+	virtual AbstractScannerFactory* getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner);
 };
 
 } /* namespace codablecash */

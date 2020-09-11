@@ -20,6 +20,7 @@ class IValueProvider;
 
 class FunctionCallScanCondition : public AbstractScanCondition, public IValueProvider {
 public:
+	FunctionCallScanCondition(const FunctionCallScanCondition& inst);
 	FunctionCallScanCondition();
 	virtual ~FunctionCallScanCondition();
 
@@ -27,6 +28,15 @@ public:
 
 	void setName(UnicodeString* name) noexcept;
 	void addArgument(IValueProvider* arg) noexcept;
+
+	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
+	virtual bool isFilterable(VirtualMachine* vm, SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept;
+	virtual void detectFilterConditions(VirtualMachine* vm, SelectScanPlanner* planner, FilterConditionDitector* detector);
+	virtual void detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner, TableIndexDetector* detector);
+
+
+	virtual IValueProvider* clone() const noexcept;
+	virtual AbstractScanCondition* cloneCondition() const noexcept;
 
 private:
 	void resetStr() noexcept;

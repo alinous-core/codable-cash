@@ -9,13 +9,350 @@ AbstractSQLStatement* ddlStatement() : {
 {
 	(
 		stmt=createTableStatement() |
-		stmt=dropTableStatement()
+		stmt=dropTableStatement() |
+		stmt=alterTableStatement()
 	)
 	{}
 	{
 		return stmt;
 	}
 }
+
+AlterTableStatement* alterTableStatement() : {
+	AlterTableStatement* stmt = new AlterTableStatement();
+	TableIdentifier* tableId = nullptr;
+	AbstractAlterDdlCommand* cmd = nullptr;
+	Token* t = null;
+}
+{
+	t=<ALTER>{
+		stmt->setPosition(t);
+	}
+	
+	t=<TABLE>{
+		stmt->setPosition(t);
+	}
+	
+	tableId=tableIdentifier() {
+		stmt->setPosition(tableId);
+		stmt->setTableId(tableId);
+	}
+	
+	cmd=alterCommands() {
+		stmt->setPosition(cmd);
+		stmt->setCommand(cmd);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
+	}	
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+AbstractAlterDdlCommand* alterCommands() : {
+	AbstractAlterDdlCommand* cmd = nullptr;
+}
+{
+	(
+		cmd=addAlterCommands()
+		|
+		cmd=dropAlterCommands()
+		|
+		cmd=alterModifyCommand()
+		|
+		cmd=alterRenameCommands()
+	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AbstractAlterDdlCommand* alterRenameCommands() : {
+	AbstractAlterDdlCommand* cmd = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=<RENAME>
+	(
+		cmd=alterRenameColumnCommand(t)
+		|
+		cmd=alterRenameTableCommand(t)
+	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterRenameTableCommand* alterRenameTableCommand(Token* t) : {
+	AlterRenameTableCommand* cmd = new AlterRenameTableCommand();
+	cmd->setPosition(t);
+}
+{
+	t=<TO>{
+		cmd->setPosition(t);
+	}
+	t=<IDENTIFIER>{
+		cmd->setPosition(t);
+		cmd->setNewName(_STR(t));
+	}
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterRenameColumnCommand* alterRenameColumnCommand(Token* t) : {
+	AlterRenameColumnCommand* cmd = new AlterRenameColumnCommand();
+	cmd->setPosition(t);
+}
+{
+	t=<IDENTIFIER>{
+		cmd->setPosition(t);
+		cmd->setLastName(_STR(t));
+	}
+	
+	t=<TO>{
+		cmd->setPosition(t);
+	}
+	
+	t=<IDENTIFIER>{
+		cmd->setPosition(t);
+		cmd->setNewName(_STR(t));
+	}
+	
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterModifyCommand* alterModifyCommand() : {
+	AlterModifyCommand* cmd = new AlterModifyCommand();
+	DdlColumnDescriptor* desc = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=<MODIFY>{
+		cmd->setPosition(t);
+	}
+	desc=ddlColumnDescriptor() {
+		cmd->setPosition(desc);
+		cmd->setColumnDescriptor(desc);
+	}
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AbstractAlterDdlCommand* dropAlterCommands() : {
+	AbstractAlterDdlCommand* cmd = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=<DROP>
+	(
+		cmd=alterDropIndexCommand(t)
+		|
+		cmd=alterDropColumnCommand(t)
+		|
+		cmd=alterDropPrimaryKeyCommand(t)
+	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterDropPrimaryKeyCommand* alterDropPrimaryKeyCommand(Token* t) : {
+	AlterDropPrimaryKeyCommand* cmd = new AlterDropPrimaryKeyCommand();
+	cmd->setPosition(t);
+}
+{
+	t=<PRIMARY>{
+		cmd->setPosition(t);
+	}
+	t=<KEY>{
+		cmd->setPosition(t);
+	}
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterDropIndexCommand* alterDropIndexCommand(Token* t) : {
+	AlterDropIndexCommand* cmd = new AlterDropIndexCommand();
+	cmd->setPosition(t);
+}
+{
+	t=<INDEX>{
+		cmd->setPosition(t);
+	}
+	t=<IDENTIFIER> {
+		cmd->setPosition(t);
+		cmd->setName(_STR(t));
+	}
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterDropColumnCommand* alterDropColumnCommand(Token* t) : {
+	AlterDropColumnCommand* cmd = new AlterDropColumnCommand();
+	cmd->setPosition(t);
+}
+{
+	[t=<COLUMN>{
+		cmd->setPosition(t);
+	}]
+	t=<IDENTIFIER>{
+		cmd->setPosition(t);
+		cmd->setName(_STR(t));
+	}
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AbstractAlterDdlCommand* addAlterCommands() : {
+	AbstractAlterDdlCommand* cmd = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=<ADD>
+	(
+		cmd=alterAddIndexCommand(t)
+		|
+		cmd=alterAddColumnCommand(t)
+		|
+		cmd=alterAddPrimaryKeyCommand(t)
+	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterAddPrimaryKeyCommand* alterAddPrimaryKeyCommand(Token* t) : {
+	AlterAddPrimaryKeyCommand* cmd = new AlterAddPrimaryKeyCommand();
+	
+	cmd->setPosition(t);
+}
+{
+	t=<PRIMARY>{
+		cmd->setPosition(t);
+	}
+	t=<KEY>{
+		cmd->setPosition(t);
+	}
+	
+	t="(" {
+		cmd->setPosition(t);
+	}
+	
+	t=<IDENTIFIER> {
+		cmd->setPosition(t);
+		cmd->addColumn(_STR(t));
+	}
+	(
+		t="," {
+			cmd->setPosition(t);
+		}
+		t=<IDENTIFIER> {
+			cmd->setPosition(t);
+			cmd->addColumn(_STR(t));
+		}
+	)*
+	
+	
+	t=")" {
+		cmd->setPosition(t);
+	}
+	
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterAddColumnCommand* alterAddColumnCommand(Token* __t) : {
+	AlterAddColumnCommand* cmd = new AlterAddColumnCommand();
+	DdlColumnDescriptor* desc = nullptr;
+	cmd->setPosition(__t);
+	
+	Token* t = nullptr;
+}
+{
+	[t=<COLUMN>{
+		cmd->setPosition(t);
+	}]
+	
+	desc=ddlColumnDescriptor() {
+		cmd->setPosition(desc);
+		cmd->setColumnDescriptor(desc);
+	}
+	
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterAddIndexCommand* alterAddIndexCommand(Token* t) : {
+	AlterAddIndexCommand* cmd = new AlterAddIndexCommand();
+	cmd->setPosition(t);
+}
+{
+	[
+		t=<UNIQUE>{
+			cmd->setPosition(t);
+		}
+	]
+
+	t=<INDEX>{
+		cmd->setPosition(t);
+	}
+	t=<IDENTIFIER>{
+		cmd->setPosition(t);
+		cmd->setName(_STR(t));
+	}
+	t="(" {
+		cmd->setPosition(t);
+	}
+	
+	t=<IDENTIFIER> {
+		cmd->setPosition(t);
+		cmd->addColumn(_STR(t));
+	}
+	(
+		t="," {
+			cmd->setPosition(t);
+		}
+		t=<IDENTIFIER> {
+			cmd->setPosition(t);
+			cmd->addColumn(_STR(t));
+		}
+	)*
+	
+	
+	t=")" {
+		cmd->setPosition(t);
+	}
+
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
 
 CreateTableStatement* createTableStatement() : {
 	CreateTableStatement* stmt = new CreateTableStatement();

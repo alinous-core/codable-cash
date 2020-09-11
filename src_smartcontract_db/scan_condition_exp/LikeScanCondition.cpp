@@ -13,6 +13,9 @@
 
 #include "scan_condition/IValueProvider.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
+
 using namespace alinous;
 
 namespace codablecash {
@@ -70,11 +73,49 @@ const UnicodeString* LikeScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+AbstractScanCondition* LikeScanCondition::cloneCondition() const noexcept {
+	LikeScanCondition* cond = new LikeScanCondition();
+
+	cond->setLeft(this->left->clone());
+	cond->setRight(this->right->clone());
+
+	if(this->escape != nullptr){
+		cond->setEscape(this->escape->clone());
+	}
+
+	return cond;
+}
+
+void LikeScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
+	if(this->left->isFilterable(vm, planner, detector) &&
+			this->right->isFilterable(vm, planner, detector) &&
+			(this->escape == nullptr || this->escape->isFilterable(vm, planner, detector))){
+		detector->push(cloneCondition());
+	}
+}
+
+void LikeScanCondition::detectIndexCondition(VirtualMachine* vm,
+		SelectScanPlanner* planner, TableIndexDetector* detector) {
+}
+
 void LikeScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
 		this->str = nullptr;
 	}
 }
+
+void LikeScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->left->analyzeConditions(vm, planner);
+	this->right->analyzeConditions(vm, planner);
+
+	if(this->escape != nullptr){
+		this->escape->analyzeConditions(vm, planner);
+	}
+}
+
 
 } /* namespace codablecash */

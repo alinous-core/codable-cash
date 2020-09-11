@@ -28,6 +28,7 @@ class CdbOid;
 class SchemaObjectIdPublisher;
 class CdbTableIndex;
 class Schema;
+class ScanResultMetadata;
 
 class CdbTable : public CdbBinaryObject {
 public:
@@ -60,6 +61,7 @@ public:
 	const UnicodeString* getName() const noexcept {
 		return this->name;
 	}
+	const UnicodeString* getTableFqn() noexcept;
 
 	const UnicodeString* getSchemaName() const noexcept {
 		return this->schemaName;
@@ -84,6 +86,8 @@ public:
 	const ArrayList<CdbTableIndex>* getIndexes() const noexcept;
 
 	void adjustIndexColumnPosition() noexcept;
+
+	ScanResultMetadata* getMetadata() const noexcept;
 private:
 	CdbOid* oid;
 
@@ -96,6 +100,7 @@ private:
 
 	Schema* parent;
 
+	UnicodeString* fqn;
 };
 
 } /* namespace codablecash */

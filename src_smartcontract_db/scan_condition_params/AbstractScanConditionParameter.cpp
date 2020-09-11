@@ -17,4 +17,10 @@ AbstractScanConditionParameter::~AbstractScanConditionParameter() {
 
 }
 
+bool AbstractScanConditionParameter::isFilterable(VirtualMachine* vm, SelectScanPlanner* planner,
+		FilterConditionDitector* detector) const noexcept {
+	return true;
+}
+
+
 } /* namespace codablecash */

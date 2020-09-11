@@ -12,6 +12,7 @@
 #include "vm/VirtualMachine.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolderStackMarker.h"
 
 #include "scan_condition_logical/OrScanCondition.h"
 
@@ -20,6 +21,7 @@
 #include "scan_columns/ScanColumnHolder.h"
 
 #include "scan_columns_logical/OrScanColumnTarget.h"
+
 
 namespace alinous {
 
@@ -84,6 +86,7 @@ void SQLOrExpression::init(VirtualMachine* vm) {
 
 AbstractVmInstance* SQLOrExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	OrScanCondition* cond = new OrScanCondition();
 	planner->push(cond);

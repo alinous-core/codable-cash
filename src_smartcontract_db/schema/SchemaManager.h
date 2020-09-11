@@ -48,6 +48,7 @@ public:
 	void createTable(CdbTable* table);
 
 	Schema* getSchema(const UnicodeString* name) const noexcept;
+	CdbTable* getTable(const UnicodeString* schema, const UnicodeString* name) const;
 
 	const File* getDatabaseBaseDir() const noexcept {
 		return databaseBaseDir;

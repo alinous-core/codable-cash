@@ -15,10 +15,13 @@ namespace codablecash {
 
 class NumericScanParam : public AbstractScanConditionParameter {
 public:
+	NumericScanParam(const NumericScanParam& inst);
 	explicit NumericScanParam(int64_t longv);
 	virtual ~NumericScanParam();
 
 	virtual const UnicodeString* toStringCode() noexcept;
+	virtual IValueProvider* clone() const noexcept;
+
 private:
 	int64_t value;
 

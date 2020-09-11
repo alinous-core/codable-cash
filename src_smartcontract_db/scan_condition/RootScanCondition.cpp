@@ -7,6 +7,9 @@
 
 #include "scan_condition/RootScanCondition.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+
 namespace codablecash {
 
 RootScanCondition::RootScanCondition() : AbstractScanCondition(0) {
@@ -24,6 +27,33 @@ void RootScanCondition::addCondition(AbstractScanCondition* cond) {
 
 const UnicodeString* RootScanCondition::toStringCode() noexcept {
 	return this->cond->toStringCode();
+}
+
+void RootScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	if(this->cond != nullptr){
+		this->cond->analyzeConditions(vm, planner);
+	}
+}
+
+void RootScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
+	if(this->cond != nullptr){
+		this->cond->detectFilterConditions(vm, planner, detector);
+	}
+}
+
+void codablecash::RootScanCondition::detectIndexCondition(VirtualMachine* vm,
+		SelectScanPlanner* planner, TableIndexDetector* detector) {
+}
+
+AbstractScanCondition* RootScanCondition::cloneCondition() const noexcept {
+	RootScanCondition* cond = new RootScanCondition();
+
+	cond->addCondition(this->cond->cloneCondition());
+
+	return cond;
 }
 
 } /* namespace codablecash */

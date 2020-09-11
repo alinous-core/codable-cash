@@ -8,7 +8,8 @@
 #ifndef TRANSACTION_SCAN_RESULT_SCANRESULTMETADATA_H_
 #define TRANSACTION_SCAN_RESULT_SCANRESULTMETADATA_H_
 
-#include "base/HashMap.h"
+#include "base/ArrayList.h"
+
 
 namespace alinous {
 class UnicodeString;
@@ -23,12 +24,20 @@ class ScanResultFieldMetadata;
 
 class ScanResultMetadata {
 public:
+	ScanResultMetadata(const ScanResultMetadata& inst);
 	ScanResultMetadata();
 	virtual ~ScanResultMetadata();
 
-private:
-	HashMap<UnicodeString, ScanResultFieldMetadata>* map;
+	void addField(const ScanResultFieldMetadata* fld) noexcept;
 
+	void join(const ScanResultMetadata* other) noexcept;
+
+	const ArrayList<ScanResultFieldMetadata>* getList() const noexcept {
+		return list;
+	}
+
+private:
+	ArrayList<ScanResultFieldMetadata> *list;
 };
 
 } /* namespace codablecash */

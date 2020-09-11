@@ -13,6 +13,9 @@
 
 #include "sql_expression/SQLAdditiveExpression.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
+
 namespace codablecash {
 
 AdditiveScanCondition::AdditiveScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_ADDITIVE), operations(2) {
@@ -64,11 +67,75 @@ const UnicodeString* AdditiveScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+void AdditiveScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* vp = this->list.get(i);
+
+		vp->analyzeConditions(vm, planner);
+	}
+}
+
+AbstractScanCondition* AdditiveScanCondition::cloneCondition() const noexcept {
+	return dynamic_cast<AdditiveScanCondition*>(clone());
+}
+
+bool AdditiveScanCondition::isFilterable(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept {
+	bool result = true;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* vp = this->list.get(i);
+
+		if(!vp->isFilterable(vm, planner, detector)){
+			result = false;
+			break;
+		}
+	}
+
+	return result;
+}
+
+void AdditiveScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
+	if(isFilterable(vm, planner, detector)){
+		detector->push(cloneCondition());
+	}
+}
+
+void AdditiveScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner,
+		TableIndexDetector* detector) {
+}
+
 void AdditiveScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
 		this->str = nullptr;
 	}
 }
+
+IValueProvider* AdditiveScanCondition::clone() const noexcept {
+	AdditiveScanCondition* cond = new AdditiveScanCondition();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* vp = this->list.get(i);
+
+		cond->addOperand(vp->clone());
+	}
+
+	maxLoop = this->operations.size();
+	for(int i = 0; i != maxLoop; ++i){
+		uint8_t op = this->operations.get(i);
+
+		cond->addOperator(op);
+	}
+
+	return cond;
+}
+
 
 } /* namespace codablecash */

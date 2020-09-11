@@ -97,6 +97,18 @@
 #include "sql_ddl/DropTableStatement.h"
 #include "sql_ddl/DdlColumnDescriptor.h"
 #include "sql_ddl/ColumnTypeDescriptor.h"
+#include "sql_ddl/AlterTableStatement.h"
+
+#include "sql_ddl_alter/AlterAddColumnCommand.h"
+#include "sql_ddl_alter/AlterAddIndexCommand.h"
+#include "sql_ddl_alter/AlterDropColumnCommand.h"
+#include "sql_ddl_alter/AlterDropIndexCommand.h"
+
+#include "sql_ddl_alter_modify/AlterAddPrimaryKeyCommand.h"
+#include "sql_ddl_alter_modify/AlterDropPrimaryKeyCommand.h"
+#include "sql_ddl_alter_modify/AlterModifyCommand.h"
+#include "sql_ddl_alter_modify/AlterRenameColumnCommand.h"
+#include "sql_ddl_alter_modify/AlterRenameTableCommand.h"
 
 #include "sql_dml/BeginStatement.h"
 #include "sql_dml/CommitStatement.h"
@@ -455,6 +467,38 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 	case DDL_TYPE_DESC:
 		element = new ColumnTypeDescriptor();
 		break;
+	case DDL_ALTER_TABLE:
+		element = new AlterTableStatement();
+		break;
+
+	case DDL_ALTER_ADD_INDEX:
+		element = new AlterAddIndexCommand();
+		break;
+	case DDL_ALTER_ADD_COLUMN:
+		element = new AlterAddColumnCommand();
+		break;
+	case DDL_ALTER_DROP_INDEX:
+		element = new AlterDropIndexCommand();
+		break;
+	case DDL_ALTER_DROP_COLUMN:
+		element = new AlterDropColumnCommand();
+		break;
+
+	case DDL_ALTER_ADD_PRIMARY_KEY:
+		element = new AlterAddPrimaryKeyCommand();
+		break;
+	case DDL_ALTER_DROP_PRIMARY_KEY:
+		element = new AlterDropPrimaryKeyCommand();
+		break;
+	case DDL_ALTER_MODIFY:
+		element = new AlterModifyCommand();
+		break;
+	case DDL_ALTER_RENAME_COLUMN:
+		element = new AlterRenameColumnCommand();
+		break;
+	case DDL_ALTER_RENAME_TABLE:
+		element = new AlterRenameTableCommand();
+		break;
 
 	case DML_STMT_BEGIN:
 		element = new BeginStatement();
@@ -630,12 +674,14 @@ void CodeElement::checkNotNull(void* ptr) {
 
 void CodeElement::checkKind(CodeElement* element, short kind) {
 	if(element->kind != kind){
+		delete element;
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
 
 void CodeElement::checkIsType(CodeElement* element) {
 	if(!(element->kind >= TYPE_BOOL && element->kind < STMT_BLOCK)){
+		delete element;
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
@@ -643,18 +689,21 @@ void CodeElement::checkIsType(CodeElement* element) {
 void CodeElement::checkIsStatement(CodeElement* element) {
 	if(!((element->kind >= STMT_BLOCK && element->kind < EXP_ALLOCATION) ||
 			(element->kind >= DDL_CREATE_TABLE && element->kind < SQL_EXP_ADDITIVE))){
+		delete element;
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
 
 void CodeElement::checkIsExp(CodeElement* element) {
 	if(!(element->kind >= EXP_ALLOCATION && element->kind < DDL_CREATE_TABLE)){
+		delete element;
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
 
 void CodeElement::checkIsJsonExp(CodeElement* element) {
 	if(!(element->kind >= EXP_JSON_INITIALIZER && element->kind < DDL_CREATE_TABLE)){
+		delete element;
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
@@ -662,6 +711,7 @@ void CodeElement::checkIsJsonExp(CodeElement* element) {
 
 void CodeElement::checkIsSQLExp(CodeElement* element) {
 	if(!(element->kind >= SQL_EXP_ADDITIVE && element->kind < SQL_PART_COLUMN_LIST)){
+		delete element;
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
@@ -669,16 +719,24 @@ void CodeElement::checkIsSQLExp(CodeElement* element) {
 void CodeElement::checkIsJoinPart(CodeElement* element) {
 	if(!(element->kind == SQL_EXP_PARENTHESIS_JOIN_PART || element->kind == SQL_EXP_JOIN || element->kind == SQL_EXP_JOIN_PART ||
 			element->kind == SQL_EXP_TABLE_ID || element->kind == SQL_EXP_TABLE_LIST)){
+		delete element;
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
 
 void CodeElement::checkIsImport(CodeElement* element) {
 	if(!(element->kind == IMPORT_DECLARE)){
+		delete element;
 		throw new MulformattedScBinaryException(__FILE__, __LINE__);
 	}
 }
 
+void CodeElement::checkIsAlterCommand(CodeElement* element) {
+	if(!(element->kind >= DDL_ALTER_ADD_INDEX && element->kind < DML_STMT_BEGIN)){
+		delete element;
+		throw new MulformattedScBinaryException(__FILE__, __LINE__);
+	}
+}
 
 void CodeElement::setParent(CodeElement* parent) noexcept {
 	this->parent = parent;

@@ -26,6 +26,12 @@ public:
 	void cancel() noexcept {
 		this->ptr = nullptr;
 	}
+	T* move() noexcept {
+		T* ret = this->ptr;
+		cancel();
+
+		return ret;
+	}
 private:
 	T* ptr;
 };

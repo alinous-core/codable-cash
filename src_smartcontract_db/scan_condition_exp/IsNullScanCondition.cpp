@@ -13,6 +13,9 @@
 
 #include "scan_condition/IValueProvider.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
+
 namespace codablecash {
 
 IsNullScanCondition::IsNullScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_IS_NULL) {
@@ -55,11 +58,39 @@ const UnicodeString* IsNullScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+AbstractScanCondition* IsNullScanCondition::cloneCondition() const noexcept {
+	IsNullScanCondition* cond = new IsNullScanCondition();
+
+	cond->setCondition(this->cond->clone());
+	cond->setIsNull(this->notnull);
+
+	return cond;
+}
+
+void IsNullScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
+	if(this->cond->isFilterable(vm, planner, detector)){
+		detector->push(cloneCondition());
+	}
+}
+
+void IsNullScanCondition::detectIndexCondition(VirtualMachine* vm,
+		SelectScanPlanner* planner, TableIndexDetector* detector) {
+	// FIXME detectIndexCondition
+}
+
 void IsNullScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
 		this->str = nullptr;
 	}
 }
+
+void IsNullScanCondition::analyzeConditions(VirtualMachine* vm,	SelectScanPlanner* planner) {
+	this->cond->analyzeConditions(vm, planner);
+}
+
 
 } /* namespace codablecash */

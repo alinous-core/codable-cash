@@ -13,6 +13,9 @@
 
 #include "scan_condition/IValueProvider.h"
 
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
+
 namespace codablecash {
 
 ExpressionListScanCondition::ExpressionListScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_EXP_LIST) {
@@ -50,11 +53,66 @@ const UnicodeString* ExpressionListScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+AbstractScanCondition* ExpressionListScanCondition::cloneCondition() const noexcept {
+	ExpressionListScanCondition* cond = new ExpressionListScanCondition();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* vp = this->list.get(i);
+
+		cond->addElement(vp->clone());
+	}
+
+	return cond;
+}
+
+void ExpressionListScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
+	if(isFilterable(vm, planner, detector)){
+		detector->push(cloneCondition());
+	}
+}
+
+void codablecash::ExpressionListScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner,
+		TableIndexDetector* detector) {
+	// FIXME detectIndexCondition
+}
+
+
+bool ExpressionListScanCondition::isFilterable(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept {
+	bool result = true;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* vp = this->list.get(i);
+
+		if(!vp->isFilterable(vm, planner, detector)){
+			result = false;
+			break;
+		}
+	}
+
+	return result;
+}
+
 void ExpressionListScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
 		this->str = nullptr;
 	}
 }
+
+void ExpressionListScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IValueProvider* vp = this->list.get(i);
+
+		vp->analyzeConditions(vm, planner);
+	}
+}
+
 
 } /* namespace codablecash */

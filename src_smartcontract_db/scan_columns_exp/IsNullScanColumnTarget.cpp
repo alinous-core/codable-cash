@@ -46,4 +46,8 @@ const UnicodeString* IsNullScanColumnTarget::toStringCode() noexcept {
 	return this->str;
 }
 
+void IsNullScanColumnTarget::resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->cond->resolveColumns(vm, planner);
+}
+
 } /* namespace codablecash */

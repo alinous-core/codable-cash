@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include <scan_condition_exp/InExpressionScanCondition.h>
+#include "scan_condition_exp/InExpressionScanCondition.h"
 
 #include "sc/CodeElement.h"
 
@@ -14,6 +14,9 @@
 #include "scan_condition/IValueProvider.h"
 
 #include "scan_condition_exp/ExpressionListScanCondition.h"
+
+#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
 
 namespace codablecash {
 
@@ -56,11 +59,47 @@ const UnicodeString* InExpressionScanCondition::toStringCode() noexcept {
 	return this->str;
 }
 
+AbstractScanCondition* InExpressionScanCondition::cloneCondition() const noexcept {
+	InExpressionScanCondition* cond = new InExpressionScanCondition();
+
+	cond->setLeft(this->left->clone());
+	cond->setList(dynamic_cast<ExpressionListScanCondition*>(this->list->cloneCondition()));
+
+	return cond;
+}
+
+void InExpressionScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
+	bool leftFilterable = this->left->isFilterable(vm, planner, detector);
+
+	if(leftFilterable){
+		this->list->detectFilterConditions(vm, planner, detector);
+		if(!detector->isEmpty()){
+			delete detector->pop();
+
+			detector->push(cloneCondition());
+		}
+	}
+}
+
+void InExpressionScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner,
+		TableIndexDetector* detector) {
+	// FIXME detectIndexCondition
+}
+
+
 void InExpressionScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
 		this->str = nullptr;
 	}
 }
+
+void InExpressionScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->left->analyzeConditions(vm, planner);
+}
+
 
 } /* namespace codablecash */

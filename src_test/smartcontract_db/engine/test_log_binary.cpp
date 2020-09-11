@@ -64,7 +64,7 @@ static bool checkBinary(ByteBuffer* buff){
 
 TEST(TestLogBinaryGroup, checkError){
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(10, true); __STP(buff);
-	buff->put(100);
+	buff->put(-1);
 	buff->position(0);
 
 	CdbException* ex = nullptr;

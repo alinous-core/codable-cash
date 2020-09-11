@@ -22,6 +22,8 @@ public:
 
 	virtual const UnicodeString* toStringCode() noexcept;
 
+	virtual void resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner);
+
 private:
 	AbstractScanColumnsTarget* cond;
 	bool notnull;

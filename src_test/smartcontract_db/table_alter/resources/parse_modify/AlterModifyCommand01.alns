@@ -1,0 +1,1 @@
+ALTER TABLE table1 MODIFY col1 int not null unique DEFAULT 0;

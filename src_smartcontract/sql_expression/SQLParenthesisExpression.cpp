@@ -10,6 +10,7 @@
 #include "sc_analyze/AnalyzedType.h"
 
 #include "scan_planner/SelectScanPlanner.h"
+#include "scan_planner/ConditionsHolderStackMarker.h"
 
 #include "scan_condition_exp/ParenthesisScanCondition.h"
 
@@ -20,6 +21,7 @@
 #include "scan_columns/ScanColumnHolder.h"
 
 #include "scan_columns_exp/ParenthesisScanColumnTarget.h"
+
 
 using codablecash::ParenthesisScanCondition;
 using codablecash::SelectScanPlanner;
@@ -83,6 +85,7 @@ void SQLParenthesisExpression::init(VirtualMachine* vm) {
 
 AbstractVmInstance* SQLParenthesisExpression::interpret(VirtualMachine* vm) {
 	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	ParenthesisScanCondition* cond = new ParenthesisScanCondition();
 	planner->push(cond);

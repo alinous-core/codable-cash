@@ -10,10 +10,13 @@
 
 namespace alinous {
 class UnicodeString;
+class VirtualMachine;
 }
 using namespace alinous;
 
 namespace codablecash {
+
+class SelectScanPlanner;
 
 class AbstractScanColumnsTarget {
 public:
@@ -24,6 +27,7 @@ public:
 
 	virtual const UnicodeString* toStringCode() noexcept = 0;
 
+	virtual void resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) = 0;
 protected:
 	void resetStr() noexcept;
 

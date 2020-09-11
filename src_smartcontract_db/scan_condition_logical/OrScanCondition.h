@@ -24,6 +24,12 @@ public:
 	virtual void addCondition(AbstractScanCondition* cond);
 
 	virtual const UnicodeString* toStringCode() noexcept;
+	virtual void analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner);
+	virtual void collectJoinCandidate(VirtualMachine* vm, SelectScanPlanner* planner, int joinType, JoinCandidateHolder* jholder);
+	virtual void detectFilterConditions(VirtualMachine* vm, SelectScanPlanner* planner, FilterConditionDitector* detector);
+	virtual void detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner, TableIndexDetector* detector);
+
+	virtual AbstractScanCondition* cloneCondition() const noexcept;
 
 private:
 	void resetStr() noexcept;

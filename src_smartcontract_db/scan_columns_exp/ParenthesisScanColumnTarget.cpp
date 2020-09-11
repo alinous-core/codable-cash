@@ -35,4 +35,8 @@ const UnicodeString* ParenthesisScanColumnTarget::toStringCode() noexcept {
 	return this->str;
 }
 
+void ParenthesisScanColumnTarget::resolveColumns(VirtualMachine* vm, SelectScanPlanner* planner) {
+	this->cond->resolveColumns(vm, planner);
+}
+
 } /* namespace codablecash */
