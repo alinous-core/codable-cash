@@ -10,12 +10,11 @@
 namespace codablecash {
 
 DatabaseLevelLock::DatabaseLevelLock() {
-	// TODO Auto-generated constructor stub
 
 }
 
 DatabaseLevelLock::~DatabaseLevelLock() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */

@@ -8,9 +8,11 @@
 #ifndef ENGINE_LOCK_DATABASELEVELLOCK_H_
 #define ENGINE_LOCK_DATABASELEVELLOCK_H_
 
+#include "engine_lock/AbstractDatabaseLock.h"
+
 namespace codablecash {
 
-class DatabaseLevelLock {
+class DatabaseLevelLock : public AbstractDatabaseLock {
 public:
 	DatabaseLevelLock();
 	virtual ~DatabaseLevelLock();
