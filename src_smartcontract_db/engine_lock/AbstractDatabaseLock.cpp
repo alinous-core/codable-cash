@@ -52,7 +52,10 @@ WriteLockHandle* AbstractDatabaseLock::writeLock() {
 	CdbOid oid(threadId);
 	WriteLockHandle* handle = this->writeHandles.get(&oid);
 	if(handle == nullptr){
+		this->gate->close();
 
+		handle = new WriteLockHandle(&oid, this);
+		this->writeHandles.put(&oid, handle);
 	}
 
 	handle->incRef();
