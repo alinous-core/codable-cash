@@ -3,6 +3,7 @@ set(__dirsrc "")
 
 # import source codes
 add_subdirectory(engine)
+add_subdirectory(engine_lock)
 add_subdirectory(scan)
 add_subdirectory(scan_columns)
 add_subdirectory(scan_columns_arithmetic)
