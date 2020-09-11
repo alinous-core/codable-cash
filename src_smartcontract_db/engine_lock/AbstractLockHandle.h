@@ -18,9 +18,11 @@ public:
 	AbstractLockHandle(const CdbOid* threadId, AbstractDatabaseLock* lock);
 	virtual ~AbstractLockHandle();
 
-private:
+	void incRef() noexcept;
+protected:
 	CdbOid* threadId;
 	AbstractDatabaseLock* lock;
+	int ref;
 };
 
 } /* namespace codablecash */

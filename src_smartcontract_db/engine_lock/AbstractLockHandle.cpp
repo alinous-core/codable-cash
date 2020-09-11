@@ -16,11 +16,16 @@ namespace codablecash {
 AbstractLockHandle::AbstractLockHandle(const CdbOid* threadId, AbstractDatabaseLock* lock) {
 	this->threadId = new CdbOid(*threadId);
 	this->lock = lock;
+	this->ref = 0;
 }
 
 AbstractLockHandle::~AbstractLockHandle() {
 	delete this->threadId;
 	this->lock = nullptr;
+}
+
+void AbstractLockHandle::incRef() noexcept {
+	this->ref++;
 }
 
 } /* namespace codablecash */

@@ -32,11 +32,32 @@ ReadLockHandle* AbstractDatabaseLock::readLock() {
 	uint64_t threadId = (uint64_t)thread->getId();
 
 	CdbOid oid(threadId);
+	ReadLockHandle* handle = this->readHandles.get(&oid);
+	if(handle == nullptr){
+		this->gate->enter();
 
+		handle = new ReadLockHandle(&oid, this);
+		this->readHandles.put(&oid, handle);
+	}
 
+	handle->incRef();
+
+	return handle;
 }
 
 WriteLockHandle* AbstractDatabaseLock::writeLock() {
+	SysThread* thread = SysThread::getCurrentThread();
+	uint64_t threadId = (uint64_t)thread->getId();
+
+	CdbOid oid(threadId);
+	WriteLockHandle* handle = this->writeHandles.get(&oid);
+	if(handle == nullptr){
+
+	}
+
+	handle->incRef();
+
+	return handle;
 }
 
 } /* namespace codablecash */

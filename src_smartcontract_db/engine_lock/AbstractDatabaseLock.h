@@ -33,7 +33,8 @@ public:
 private:
 	ConcurrentGate* gate;
 
-	HashMap<CdbOid, ReadLockHandle> map;
+	HashMap<CdbOid, ReadLockHandle> readHandles;
+	HashMap<CdbOid, WriteLockHandle> writeHandles;
 };
 
 } /* namespace codablecash */
