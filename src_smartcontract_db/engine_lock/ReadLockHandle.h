@@ -8,11 +8,13 @@
 #ifndef ENGINE_LOCK_READLOCKHANDLE_H_
 #define ENGINE_LOCK_READLOCKHANDLE_H_
 
+#include "engine_lock/AbstractLockHandle.h"
+
 namespace codablecash {
 
-class ReadLockHandle {
+class ReadLockHandle : public AbstractLockHandle {
 public:
-	ReadLockHandle();
+	ReadLockHandle(const CdbOid* threadId, AbstractDatabaseLock* lock);
 	virtual ~ReadLockHandle();
 };
 

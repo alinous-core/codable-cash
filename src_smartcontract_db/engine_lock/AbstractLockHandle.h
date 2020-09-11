@@ -11,14 +11,16 @@
 namespace codablecash {
 
 class CdbOid;
+class AbstractDatabaseLock;
 
 class AbstractLockHandle {
 public:
-	explicit AbstractLockHandle(const CdbOid* threadId);
+	AbstractLockHandle(const CdbOid* threadId, AbstractDatabaseLock* lock);
 	virtual ~AbstractLockHandle();
 
 private:
 	CdbOid* threadId;
+	AbstractDatabaseLock* lock;
 };
 
 } /* namespace codablecash */
