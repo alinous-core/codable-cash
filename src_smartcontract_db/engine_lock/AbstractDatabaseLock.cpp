@@ -6,8 +6,8 @@
  */
 
 #include "engine_lock/AbstractDatabaseLock.h"
-#include "engine_lock/ReadLock.h"
-#include "engine_lock/WriteLock.h"
+#include "engine_lock/ReadLockHandle.h"
+#include "engine_lock/WriteLockHandle.h"
 
 #include "engine/CdbOid.h"
 
@@ -27,11 +27,16 @@ AbstractDatabaseLock::~AbstractDatabaseLock() {
 	delete this->gate;
 }
 
-ReadLock* AbstractDatabaseLock::readLock() {
+ReadLockHandle* AbstractDatabaseLock::readLock() {
 	SysThread* thread = SysThread::getCurrentThread();
+	uint64_t threadId = (uint64_t)thread->getId();
+
+	CdbOid oid(threadId);
+
+
 }
 
-WriteLock* AbstractDatabaseLock::writeLock() {
+WriteLockHandle* AbstractDatabaseLock::writeLock() {
 }
 
 } /* namespace codablecash */

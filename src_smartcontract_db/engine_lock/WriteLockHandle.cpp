@@ -5,16 +5,16 @@
  *      Author: iizuka
  */
 
-#include "engine_lock/WriteLock.h"
+#include "engine_lock/WriteLockHandle.h"
 
 namespace codablecash {
 
-WriteLock::WriteLock() {
+WriteLockHandle::WriteLockHandle() {
 	// TODO Auto-generated constructor stub
 
 }
 
-WriteLock::~WriteLock() {
+WriteLockHandle::~WriteLockHandle() {
 	// TODO Auto-generated destructor stub
 }
 

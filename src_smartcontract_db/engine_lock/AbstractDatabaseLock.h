@@ -19,21 +19,21 @@ using namespace alinous;
 namespace codablecash {
 
 class CdbOid;
-class ReadLock;
-class WriteLock;
+class ReadLockHandle;
+class WriteLockHandle;
 
 class AbstractDatabaseLock {
 public:
 	AbstractDatabaseLock();
 	virtual ~AbstractDatabaseLock();
 
-	ReadLock* readLock();
+	ReadLockHandle* readLock();
 
-	WriteLock* writeLock();
+	WriteLockHandle* writeLock();
 private:
 	ConcurrentGate* gate;
 
-	HashMap<CdbOid, ReadLock> map;
+	HashMap<CdbOid, ReadLockHandle> map;
 };
 
 } /* namespace codablecash */

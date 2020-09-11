@@ -5,16 +5,16 @@
  *      Author: iizuka
  */
 
-#include "engine_lock/ReadLock.h"
+#include "engine_lock/ReadLockHandle.h"
 
 namespace codablecash {
 
-ReadLock::ReadLock() {
+ReadLockHandle::ReadLockHandle() {
 	// TODO Auto-generated constructor stub
 
 }
 
-ReadLock::~ReadLock() {
+ReadLockHandle::~ReadLockHandle() {
 	// TODO Auto-generated destructor stub
 }
 
