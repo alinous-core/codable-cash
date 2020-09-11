@@ -8,11 +8,13 @@
 #ifndef ENGINE_LOCK_WRITELOCKHANDLE_H_
 #define ENGINE_LOCK_WRITELOCKHANDLE_H_
 
+#include "engine_lock/AbstractLockHandle.h"
+
 namespace codablecash {
 
-class WriteLockHandle {
+class WriteLockHandle : public AbstractLockHandle {
 public:
-	WriteLockHandle();
+	WriteLockHandle(const CdbOid* threadId, AbstractDatabaseLock* lock);
 	virtual ~WriteLockHandle();
 };
 

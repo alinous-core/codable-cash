@@ -9,13 +9,12 @@
 
 namespace codablecash {
 
-WriteLockHandle::WriteLockHandle() {
-	// TODO Auto-generated constructor stub
+WriteLockHandle::WriteLockHandle(const CdbOid* threadId, AbstractDatabaseLock* lock) : AbstractLockHandle(threadId, lock) {
 
 }
 
 WriteLockHandle::~WriteLockHandle() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */
