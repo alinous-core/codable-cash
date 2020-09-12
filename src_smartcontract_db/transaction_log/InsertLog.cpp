@@ -15,7 +15,11 @@
 #include "transaction/CdbTransactionManager.h"
 #include "transaction/RecordObjectIdPublisher.h"
 
+#include "base/StackRelease.h"
 
+#include "engine_lock/WriteLockHandle.h"
+
+#include "engine_lock/ReadLockHandle.h"
 namespace codablecash {
 
 InsertLog::InsertLog() : AbstractTransactionLog(AbstractTransactionLog::TRX_INSERT) {
@@ -74,19 +78,26 @@ void InsertLog::fromBinary(ByteBuffer* in) {
 }
 
 void InsertLog::commit(CdbTransactionManager* trxManager) {
-	RecordObjectIdPublisher* publisher = trxManager->getRecordObjectIdPublisher();
+	{
+		WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
 
-	int maxLoop = this->records.size();
-	for(int i = 0; i != maxLoop; ++i){
-		CdbRecord* rec = this->records.get(i);
-		uint64_t oid = publisher->newOid();
+		RecordObjectIdPublisher* publisher = trxManager->getRecordObjectIdPublisher();
 
-		rec->setOid(oid);
+		int maxLoop = this->records.size();
+		for(int i = 0; i != maxLoop; ++i){
+			CdbRecord* rec = this->records.get(i);
+			uint64_t oid = publisher->newOid();
+
+			rec->setOid(oid);
+		}
+
+		publisher->saveSchema();
 	}
 
-	publisher->saveSchema();
-
-	trxManager->commitInsert(this);
+	{
+		ReadLockHandle* lockH = trxManager->databaseReadLock(); __STP(lockH);
+		trxManager->commitInsert(this);
+	}
 }
 
 void InsertLog::addRecord(CdbRecord* record) noexcept {

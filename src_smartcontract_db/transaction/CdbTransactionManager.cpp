@@ -100,6 +100,8 @@ void CdbTransactionManager::commitInsert(InsertLog* cmd) {
 	CdbStorageManager* storeManager = this->db->getStorageManager();
 	TableStore* store = storeManager->getTableStore(oid);
 
+	// FIXME table level lock
+
 	assert(store != nullptr);
 
 	const ArrayList<CdbRecord>* records = cmd->getRecords();
