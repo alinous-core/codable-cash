@@ -7,6 +7,8 @@
 
 #include "engine_lock/WriteLockHandle.h"
 
+#include "engine_lock/AbstractDatabaseLock.h"
+
 namespace codablecash {
 
 WriteLockHandle::WriteLockHandle(const CdbOid* threadId, AbstractDatabaseLock* lock) : AbstractLockHandle(threadId, lock) {
@@ -14,7 +16,10 @@ WriteLockHandle::WriteLockHandle(const CdbOid* threadId, AbstractDatabaseLock* l
 }
 
 WriteLockHandle::~WriteLockHandle() {
-
+	this->ref--;
+	if(this->ref == 0){
+		this->lock->writeUnlock(this);
+	}
 }
 
 } /* namespace codablecash */

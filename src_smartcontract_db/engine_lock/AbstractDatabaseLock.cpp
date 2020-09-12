@@ -63,4 +63,11 @@ WriteLockHandle* AbstractDatabaseLock::writeLock() {
 	return handle;
 }
 
+void AbstractDatabaseLock::readUnlock(const ReadLockHandle* handle) noexcept {
+
+}
+
+void AbstractDatabaseLock::writeUnlock(const WriteLockHandle* handle) noexcept {
+}
+
 } /* namespace codablecash */

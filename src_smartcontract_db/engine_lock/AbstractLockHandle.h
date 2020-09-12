@@ -19,6 +19,11 @@ public:
 	virtual ~AbstractLockHandle();
 
 	void incRef() noexcept;
+
+	const CdbOid* getThreadId() const noexcept {
+		return threadId;
+	}
+
 protected:
 	CdbOid* threadId;
 	AbstractDatabaseLock* lock;

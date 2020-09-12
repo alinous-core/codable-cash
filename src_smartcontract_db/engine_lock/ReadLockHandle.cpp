@@ -6,6 +6,7 @@
  */
 
 #include "engine_lock/ReadLockHandle.h"
+#include "engine_lock/AbstractDatabaseLock.h"
 
 namespace codablecash {
 
@@ -14,7 +15,10 @@ ReadLockHandle::ReadLockHandle(const CdbOid* threadId, AbstractDatabaseLock* loc
 }
 
 ReadLockHandle::~ReadLockHandle() {
-
+	this->ref--;
+	if(this->ref == 0){
+		this->lock->readUnlock(this);
+	}
 }
 
 } /* namespace codablecash */

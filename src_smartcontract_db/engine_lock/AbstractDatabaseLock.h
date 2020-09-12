@@ -24,12 +24,20 @@ class WriteLockHandle;
 
 class AbstractDatabaseLock {
 public:
+	friend class ReadLockHandle;
+	friend class WriteLockHandle;
+
 	AbstractDatabaseLock();
 	virtual ~AbstractDatabaseLock();
 
 	ReadLockHandle* readLock();
 
 	WriteLockHandle* writeLock();
+
+private:
+	void readUnlock(const ReadLockHandle* handle) noexcept;
+	void writeUnlock(const WriteLockHandle* handle) noexcept;
+
 private:
 	ConcurrentGate* gate;
 
