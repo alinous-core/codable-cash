@@ -13,6 +13,7 @@
 
 namespace alinous {
 class ConcurrentGate;
+class SysMutex;
 }
 using namespace alinous;
 
@@ -43,6 +44,7 @@ private:
 
 	HashMap<CdbOid, ReadLockHandle> readHandles;
 	HashMap<CdbOid, WriteLockHandle> writeHandles;
+	SysMutex* hashMutex;
 };
 
 } /* namespace codablecash */
