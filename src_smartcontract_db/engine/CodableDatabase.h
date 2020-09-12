@@ -21,6 +21,9 @@ class CdbTransactionManager;
 class SchemaManager;
 class CdbTransaction;
 class CdbStorageManager;
+class ReadLockHandle;
+class WriteLockHandle;
+class DatabaseLevelLock;
 
 class CodableDatabase {
 public:
@@ -37,6 +40,9 @@ public:
 	SchemaManager* getSchemaManager() const noexcept;
 
 	uint64_t getSchemaObjectVersionId() const noexcept;
+
+	ReadLockHandle* databaseReadLock();
+	WriteLockHandle* databaseWriteLock();
 private:
 	void checkDatabaseLoaded() const;
 
@@ -44,6 +50,8 @@ private:
 	CdbTransactionManager* trxManager;
 	SchemaManager* schema;
 	CdbStorageManager* store;
+
+	DatabaseLevelLock* dbLevelLock;
 
 	File* loadedFile;
 };

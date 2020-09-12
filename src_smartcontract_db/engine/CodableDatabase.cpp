@@ -18,6 +18,7 @@
 
 #include "table_store/CdbStorageManager.h"
 
+#include "engine_lock/DatabaseLevelLock.h"
 
 namespace codablecash {
 
@@ -26,6 +27,7 @@ CodableDatabase::CodableDatabase() {
 	this->schema = nullptr;
 	this->loadedFile = nullptr;
 	this->store = nullptr;
+	this->dbLevelLock = new DatabaseLevelLock();
 }
 
 CodableDatabase::~CodableDatabase() {
@@ -34,6 +36,7 @@ CodableDatabase::~CodableDatabase() {
 	delete this->trxManager;
 	delete this->schema;
 	delete this->store;
+	delete this->dbLevelLock;
 }
 
 void CodableDatabase::createDatabase(File* dbdir) {
@@ -101,5 +104,13 @@ void CodableDatabase::checkDatabaseLoaded() const {
 /*Schema* CodableDatabase::getSchema() const noexcept {
 	return this->schema;
 }*/
+
+ReadLockHandle* CodableDatabase::databaseReadLock() {
+	return this->dbLevelLock->readLock();
+}
+
+WriteLockHandle* CodableDatabase::databaseWriteLock() {
+	return this->dbLevelLock->writeLock();
+}
 
 } /* namespace alinous */

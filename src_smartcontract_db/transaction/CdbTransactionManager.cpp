@@ -128,4 +128,13 @@ CdbStorageManager* CdbTransactionManager::getStorageManager() const noexcept {
 	return this->db->getStorageManager();
 }
 
+ReadLockHandle* CdbTransactionManager::databaseReadLock() {
+	return this->db->databaseReadLock();
+}
+
+WriteLockHandle* CdbTransactionManager::databaseWriteLock() {
+	return this->db->databaseWriteLock();
+}
+
+
 } /* namespace codablecash */

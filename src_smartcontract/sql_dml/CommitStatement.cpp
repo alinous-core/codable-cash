@@ -18,6 +18,7 @@
 namespace alinous {
 
 CommitStatement::CommitStatement() : AbstractSQLStatement(CodeElement::DML_STMT_COMMIT) {
+
 }
 
 CommitStatement::~CommitStatement() {
