@@ -85,6 +85,8 @@ void AbstractDatabaseLock::readUnlock(const ReadLockHandle* handle) noexcept {
 	this->hashMutex->lock();
 	this->readHandles.remove(key);
 	this->hashMutex->unlock();
+
+	this->gate->exit();
 }
 
 void AbstractDatabaseLock::writeUnlock(const WriteLockHandle* handle) noexcept {
@@ -93,6 +95,8 @@ void AbstractDatabaseLock::writeUnlock(const WriteLockHandle* handle) noexcept {
 	this->hashMutex->lock();
 	this->writeHandles.remove(key);
 	this->hashMutex->unlock();
+
+	this->gate->open();
 }
 
 } /* namespace codablecash */
