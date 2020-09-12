@@ -100,6 +100,8 @@ void CdbTransactionManager::commitInsert(InsertLog* cmd) {
 	CdbStorageManager* storeManager = this->db->getStorageManager();
 	TableStore* store = storeManager->getTableStore(oid);
 
+	// FIXME table level lock
+
 	assert(store != nullptr);
 
 	const ArrayList<CdbRecord>* records = cmd->getRecords();
@@ -127,5 +129,14 @@ Schema* CdbTransactionManager::getSchema(const UnicodeString* name) const noexce
 CdbStorageManager* CdbTransactionManager::getStorageManager() const noexcept {
 	return this->db->getStorageManager();
 }
+
+ReadLockHandle* CdbTransactionManager::databaseReadLock() {
+	return this->db->databaseReadLock();
+}
+
+WriteLockHandle* CdbTransactionManager::databaseWriteLock() {
+	return this->db->databaseWriteLock();
+}
+
 
 } /* namespace codablecash */

@@ -26,6 +26,8 @@ class AbstractTransactionLog;
 class InsertLog;
 class Schema;
 class CdbStorageManager;
+class ReadLockHandle;
+class WriteLockHandle;
 
 class CdbTransactionManager : public ISchemaUptateListner {
 public:
@@ -47,6 +49,9 @@ public:
 	Schema* getSchema(const UnicodeString* name) const noexcept;
 
 	CdbStorageManager* getStorageManager() const noexcept;
+
+	ReadLockHandle* databaseReadLock();
+	WriteLockHandle* databaseWriteLock();
 
 private:
 	CodableDatabase* db;

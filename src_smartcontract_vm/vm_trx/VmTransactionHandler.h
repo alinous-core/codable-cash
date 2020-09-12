@@ -41,6 +41,8 @@ public:
 	uint64_t getSchemaObjectVersionId() const noexcept;
 	CdbTable* getTable(const UnicodeString* schema, const UnicodeString* tableName) const noexcept;
 
+
+
 private:
 	void doCommit();
 	void doRollback();

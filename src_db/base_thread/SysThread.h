@@ -25,6 +25,11 @@ public:
 	void join() const noexcept;
 
 	bool equals(const SysThread* other) const noexcept;
+
+	THREAD_ID getId() const noexcept {
+		return id;
+	}
+
 private:
 	THREAD_ID id;
 	UnicodeString* name;

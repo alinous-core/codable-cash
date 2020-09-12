@@ -15,6 +15,9 @@
 #include "transaction/SchemaObjectIdPublisher.h"
 #include "transaction/CdbTransactionManager.h"
 
+#include "base/StackRelease.h"
+
+#include "engine_lock/WriteLockHandle.h"
 
 namespace codablecash {
 
@@ -50,6 +53,8 @@ void CreateTableLog::fromBinary(ByteBuffer* in) {
 }
 
 void CreateTableLog::commit(CdbTransactionManager* trxManager) {
+	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+
 	SchemaObjectIdPublisher* publisher= trxManager->getSchemaObjectIdPublisher();
 	this->table->assignNewOid(publisher);
 
