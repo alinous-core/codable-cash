@@ -68,6 +68,9 @@ void AbstractDatabaseLock::readUnlock(const ReadLockHandle* handle) noexcept {
 }
 
 void AbstractDatabaseLock::writeUnlock(const WriteLockHandle* handle) noexcept {
+	const CdbOid* key = handle->getThreadId();
+
+	this->writeHandles.remove(key);
 }
 
 } /* namespace codablecash */

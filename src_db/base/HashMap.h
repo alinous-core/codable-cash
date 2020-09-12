@@ -45,7 +45,7 @@ public:
 	V* get(const K& key) const noexcept {
 		return this->hashMapKeySet->getValue(&key);
 	}
-	void remove(K* key) {
+	void remove(const K* key) {
 		this->hashMapKeySet->remove(key);
 	}
 

@@ -108,7 +108,7 @@ public:
 		this->list->reset();
 	}
 
-	void remove(K* o) noexcept {
+	void remove(const K* o) noexcept {
 		if(o == nullptr){
 			if(this->nullElement != nullptr){
 				delete this->nullElement;
