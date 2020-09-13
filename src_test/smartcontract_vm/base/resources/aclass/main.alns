@@ -3,8 +3,9 @@
 package test.fw;
 
 import test.fw.base.BaseClass;
+import test.fw.base.TestInterface;
 
-class SmartContract extends BaseClass {
+class SmartContract extends BaseClass implements TestInterface {
 	public SmartContract() {
 		this.count = 0;
 	}
@@ -20,6 +21,10 @@ class SmartContract extends BaseClass {
 	public void test01(){
 	
 	}
+	public void test02(){
 	
+	}
 	private int count;
+	
+	public static int ST_INT = 0;
 }

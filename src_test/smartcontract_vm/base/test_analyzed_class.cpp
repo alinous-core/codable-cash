@@ -26,7 +26,7 @@ TEST_GROUP(TestAnalyzedClassGroup) {
 	TEST_TEARDOWN(){}
 };
 
-TEST(TestAnalyzedClassGroup, copyconstructor){
+TEST(TestAnalyzedClassGroup, copyconstructor01){
 	const File* projectFolder = this->env->getProjectRoot();
 	VmTestUtils util(L"src_test/smartcontract_vm/base/resources/aclass/", projectFolder);
 
@@ -47,4 +47,27 @@ TEST(TestAnalyzedClassGroup, copyconstructor){
 
 	CHECK(atype2.equals(atype))
 }
+/*
+TEST(TestAnalyzedClassGroup, copyconstructor02){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/base/resources/aclass/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	AnalyzeContext* actx = util.sc->getAnalyzeContext();
+
+	UnicodeString clazz(L"test.fw.SmartContract");
+	AnalyzedType* atype = util.findClassDeclare(&clazz); __STP(atype);
+	AnalyzedClass* aclass = atype->getAnalyzedClass();
+
+	AnalyzedClass newCls(*aclass);
+	AnalyzedType atype2(&newCls);
+
+	CHECK(atype2.equals(atype))
+}
+*/
 

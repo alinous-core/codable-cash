@@ -142,17 +142,20 @@ const ArrayList<AnalyzedClass>* AnalyzedClass::getImplements() const noexcept {
 }
 
 MethodDeclare* AnalyzedClass::getDefaultConstructor() noexcept {
+	MethodDeclare* ret = nullptr;
+
 	int maxLoop = this->constructors.size();
 	for(int i = 0; i != maxLoop; ++i){
 		MethodDeclare* m = this->constructors.get(i);
 		ArgumentsListDeclare* args = m->getArguments();
 		int num = args->getSize();
 		if(num == 0){
-			return m;
+			ret = m;
+			break;
 		}
 	}
 
-	return nullptr;
+	return ret;
 }
 
 MethodDeclare* AnalyzedClass::findMethod(const UnicodeString* name, ArrayList<AnalyzedType>* argumentTypeList) noexcept {
