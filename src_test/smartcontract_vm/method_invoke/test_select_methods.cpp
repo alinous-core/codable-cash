@@ -84,3 +84,15 @@ TEST(TestSelectMethodGroup, case05){
 	CHECK(result)
 }
 
+TEST(TestSelectMethodGroup, case06){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/method_invoke/resources/select/case06/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+
+	CHECK(util.hasAnalyzeError(ValidationError::CODE_WRONG_FUNC_CALL_NAME));
+}

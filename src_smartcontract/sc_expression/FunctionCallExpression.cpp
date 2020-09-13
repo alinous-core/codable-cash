@@ -255,7 +255,7 @@ void FunctionCallExpression::analyzeMethodEntry(AnalyzeContext* actx, AnalyzedCl
 	this->methodEntry = classEntry->findEntry(actx, this->strName, &typeList);
 	if(this->methodEntry == nullptr){
 		// has no functions to call
-		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_NAME, actx->getCurrentElement(), L"The method '{0}()' does not exists.", {this->strName});
+		actx->addValidationError(ValidationError::CODE_WRONG_FUNC_CALL_NAME, actx->getCurrentElement(), L"The method '{0}()' does not exists or argument type is wrong.", {this->strName});
 		return;
 	}
 
