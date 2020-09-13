@@ -38,3 +38,38 @@ TEST(TestSelectMethodGroup, case01){
 	CHECK(util.hasAnalyzeError(ValidationError::CODE_WRONG_FUNC_CALL_AMBIGOUS));
 }
 
+TEST(TestSelectMethodGroup, case02){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/method_invoke/resources/select/case02/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+
+	CHECK(util.hasAnalyzeError(ValidationError::CODE_WRONG_FUNC_CALL_AMBIGOUS));
+}
+
+TEST(TestSelectMethodGroup, case03){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/method_invoke/resources/select/case03/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+}
+
+TEST(TestSelectMethodGroup, case04){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/method_invoke/resources/select/case04/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+}
+
