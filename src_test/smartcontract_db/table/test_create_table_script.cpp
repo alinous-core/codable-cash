@@ -48,6 +48,22 @@ TEST(TestCreateTableScriptGroup, case01) {
 	CHECK(result)
 }
 
+TEST(TestCreateTableScriptGroup, case01_2) {
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_db/table/resources/create/case01_2/", projectFolder, this->env);
+
+	bool result = util.loadAllFiles();
+	CHECK(result)
+
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	result = util.analyze();
+	CHECK(result)
+
+	result = util.createInstance();
+	CHECK(result)
+}
+
 TEST(TestCreateTableScriptGroup, case02_err) {
 	const File* projectFolder = this->env->getProjectRoot();
 	VmTestUtils util(L"src_test/smartcontract_db/table/resources/create/case02_err/", projectFolder, this->env);

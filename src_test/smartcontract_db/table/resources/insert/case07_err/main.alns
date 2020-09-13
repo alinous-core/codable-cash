@@ -5,19 +5,25 @@ package test.fw;
 
 class SmartContract {
 	public SmartContract() {
-		BEGIN;
-	
 		CREATE TABLE test_t (
 			id int not null unique,
 			str_value VARCHAR(255) not null unique DEFAULT '',
-			byte_value byte not null unique DEFAULT 0,
-			short_value short not null unique DEFAULT 0,
 			int_value int not null unique DEFAULT 0,
-			long_value long not null unique DEFAULT 0,
 			PRIMARY KEY(id)
 		);
 		
-		COMMIT;
+		
+		INSERT INTO aaa.test_t2(
+			id,
+			str_value,
+			int_value
+		)
+		VALUES(
+			1,
+			'test',
+			100
+		);
+		
 	}
 	
 	public int main(){

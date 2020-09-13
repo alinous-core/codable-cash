@@ -68,15 +68,23 @@ void VmTransactionHandler::doCommit() {
 }
 
 void VmTransactionHandler::createTable(CreateTableLog* cmd) {
+	bool hasTrx = false;
+
 	if(this->trx == nullptr){
 		begin();
 	}
 	else{
 		commit();
+		begin();
+		hasTrx = true;
 	}
 
 	this->trx->createTable(cmd);
 	commit();
+
+	if(hasTrx){
+		begin();
+	}
 }
 
 void VmTransactionHandler::doRollback() {
