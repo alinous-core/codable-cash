@@ -1,0 +1,21 @@
+
+package test.fw;
+
+class SmartContract {
+	public SmartContract() {
+	}
+	
+	public int main(){
+		long v = 1;
+		test01(v);
+	}
+	
+	public void test01(int arg0){
+
+	}
+	
+	public void test01(byte arg0){
+		
+	}
+
+}
