@@ -1,0 +1,33 @@
+
+
+package test.fw;
+
+import test.fw.base.BaseClass;
+import test.fw.base.BaseClass2;
+
+class SmartContract extends BaseClass {
+	public SmartContract() {
+
+	}
+	
+	public int main(){
+		test01(this);
+	}
+	
+	public void vfunc01(int arg){
+	
+	}
+	
+	public void test01(byte obj){
+	
+	}
+	
+	public void test01(BaseClass obj){
+	
+	}
+	
+	public void test01(BaseClass2 obj){
+	
+	}
+
+}

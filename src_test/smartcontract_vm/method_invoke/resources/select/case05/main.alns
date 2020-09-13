@@ -1,0 +1,59 @@
+
+
+package test.fw;
+
+import test.fw.base.BaseClass;
+import test.fw.base.BaseClass2;
+
+class SmartContract extends BaseClass {
+	public SmartContract() {
+
+	}
+	
+	public int main(){
+		char value = 1;
+		test01(value);
+	}
+	
+	public void vfunc01(int arg){
+	
+	}
+	
+	public void test01(boolean obj){
+	
+	}
+	
+	public void test01(byte obj){
+	
+	}
+	
+	public void test01(short obj){
+	
+	}
+	
+	public void test01(char obj){
+	
+	}
+
+	public void test01(int obj){
+	
+	}
+	
+	public void test01(long obj){
+	
+	}
+	
+	public void test01(String obj){
+	
+	}
+	
+	
+	public void test01(BaseClass obj){
+	
+	}
+	
+	public void test01(BaseClass2 obj){
+	
+	}
+
+}

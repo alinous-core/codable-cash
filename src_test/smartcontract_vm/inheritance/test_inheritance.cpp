@@ -58,3 +58,16 @@ TEST(TestInheritanceGroup, inheritance_err02){
 
 	CHECK(util.vm->hasAnalyzeError(ValidationError::CODE_WRONG_IMPORT_FORMAT))
 }
+
+TEST(TestInheritanceGroup, inheritance_err03){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/inheritance/resources/case04_err/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(!result)
+
+	CHECK(util.vm->hasAnalyzeError(ValidationError::CODE_CLASS_MEMBER_ALREADY_EXISTS))
+}
