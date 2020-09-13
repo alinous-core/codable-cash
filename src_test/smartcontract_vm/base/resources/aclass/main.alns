@@ -3,7 +3,7 @@
 package test.fw;
 
 import test.fw.base.BaseClass;
-import test.fw.base.TestInterface;
+import test.fw.TestInterface;
 
 class SmartContract extends BaseClass implements TestInterface {
 	public SmartContract() {

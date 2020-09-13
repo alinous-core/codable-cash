@@ -47,7 +47,7 @@ TEST(TestAnalyzedClassGroup, copyconstructor01){
 
 	CHECK(atype2.equals(atype))
 }
-/*
+
 TEST(TestAnalyzedClassGroup, copyconstructor02){
 	const File* projectFolder = this->env->getProjectRoot();
 	VmTestUtils util(L"src_test/smartcontract_vm/base/resources/aclass/", projectFolder);
@@ -68,6 +68,13 @@ TEST(TestAnalyzedClassGroup, copyconstructor02){
 	AnalyzedType atype2(&newCls);
 
 	CHECK(atype2.equals(atype))
+
+	UnicodeString ifFqn(L"test.fw.TestInterface");
+	AnalyzedType* ifAtype = util.findClassDeclare(&ifFqn); __STP(ifAtype);
+	AnalyzedClass* ifclass = ifAtype->getAnalyzedClass();
+
+	result = atype2.getAnalyzedClass()->hasBaseClass(ifclass);
+	CHECK(result)
 }
-*/
+
 
