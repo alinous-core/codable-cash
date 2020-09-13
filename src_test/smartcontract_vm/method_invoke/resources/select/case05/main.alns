@@ -43,6 +43,11 @@ class SmartContract extends BaseClass {
 	
 	}
 	
+	public void test01(String obj){
+	
+	}
+	
+	
 	public void test01(BaseClass obj){
 	
 	}
