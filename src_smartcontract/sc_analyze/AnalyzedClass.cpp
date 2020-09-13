@@ -90,7 +90,7 @@ AnalyzedClass::AnalyzedClass(ClassDeclare* clazz) {
 	this->methods = new HashMap<UnicodeString, MethodDeclare>();
 	this->extends = nullptr;
 	this->sig = nullptr;
-	this->factory = clazz != nullptr ? clazz->getFactory() : nullptr;
+	setFactory(clazz != nullptr ? clazz->getFactory() : nullptr);
 	this->reserved = false;
 }
 
