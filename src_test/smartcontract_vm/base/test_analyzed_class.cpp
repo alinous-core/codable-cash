@@ -78,3 +78,66 @@ TEST(TestAnalyzedClassGroup, copyconstructor02){
 }
 
 
+TEST(TestAnalyzedClassGroup, findmethod01){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/base/resources/aclass/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	AnalyzeContext* actx = util.sc->getAnalyzeContext();
+
+	UnicodeString clazz(L"test.fw.SmartContract");
+	AnalyzedType* atype = util.findClassDeclare(&clazz); __STP(atype);
+	AnalyzedClass* aclass = atype->getAnalyzedClass();
+
+	AnalyzedClass newCls(*aclass);
+	AnalyzedType atype2(&newCls);
+
+	CHECK(atype2.equals(atype))
+
+	UnicodeString ifFqn(L"test.fw.TestInterface");
+	AnalyzedType* ifAtype = util.findClassDeclare(&ifFqn); __STP(ifAtype);
+	AnalyzedClass* ifclass = ifAtype->getAnalyzedClass();
+
+	ArrayList<AnalyzedType> argumentTypeList;
+	argumentTypeList.setDeleteOnExit();
+	argumentTypeList.addElement(new AnalyzedType(AnalyzedType::TYPE_BYTE));
+
+	UnicodeString methodName(L"test01");
+	MethodDeclare* dec = ifclass->findMethod(&methodName, &argumentTypeList);
+	CHECK(dec == nullptr)
+}
+
+TEST(TestAnalyzedClassGroup, findmethod02){
+	const File* projectFolder = this->env->getProjectRoot();
+	VmTestUtils util(L"src_test/smartcontract_vm/base/resources/aclass/", projectFolder);
+
+	util.loadAllFiles();
+	util.setMain(L"test.fw", L"SmartContract", L"main");
+
+	bool result = util.analyze();
+	CHECK(result)
+
+	AnalyzeContext* actx = util.sc->getAnalyzeContext();
+
+	UnicodeString clazz(L"test.fw.SmartContract");
+	AnalyzedType* atype = util.findClassDeclare(&clazz); __STP(atype);
+	AnalyzedClass* aclass = atype->getAnalyzedClass();
+
+	AnalyzedClass newCls(*aclass);
+	AnalyzedType atype2(&newCls);
+
+	CHECK(atype2.equals(atype))
+
+	ArrayList<AnalyzedType> argumentTypeList;
+	argumentTypeList.setDeleteOnExit();
+	argumentTypeList.addElement(new AnalyzedType(AnalyzedType::TYPE_BYTE));
+
+	UnicodeString methodName(L"vfunc01");
+	MethodDeclare* dec = aclass->findMethod(&methodName, &argumentTypeList);
+	CHECK(dec == nullptr)
+}
