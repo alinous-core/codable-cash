@@ -15,6 +15,7 @@
 #include "base_thread/SysThread.h"
 #include "base_thread/SysMutex.h"
 
+#include "base/StackRelease.h"
 using namespace alinous;
 
 namespace codablecash {
@@ -30,7 +31,7 @@ AbstractDatabaseLock::~AbstractDatabaseLock() {
 }
 
 ReadLockHandle* AbstractDatabaseLock::readLock() {
-	SysThread* thread = SysThread::getCurrentThread();
+	SysThread* thread = SysThread::getCurrentThread(); __STP(thread);
 	uint64_t threadId = (uint64_t)thread->getId();
 
 	CdbOid oid(threadId);
@@ -55,7 +56,7 @@ ReadLockHandle* AbstractDatabaseLock::readLock() {
 }
 
 WriteLockHandle* AbstractDatabaseLock::writeLock() {
-	SysThread* thread = SysThread::getCurrentThread();
+	SysThread* thread = SysThread::getCurrentThread(); __STP(thread);
 	uint64_t threadId = (uint64_t)thread->getId();
 
 	CdbOid oid(threadId);
