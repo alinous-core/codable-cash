@@ -14,6 +14,7 @@ namespace alinous {
 
 class AlterDropPrimaryKeyCommand : public AbstractAlterDdlCommand {
 public:
+	AlterDropPrimaryKeyCommand(const AlterDropPrimaryKeyCommand& inst);
 	AlterDropPrimaryKeyCommand();
 	virtual ~AlterDropPrimaryKeyCommand();
 

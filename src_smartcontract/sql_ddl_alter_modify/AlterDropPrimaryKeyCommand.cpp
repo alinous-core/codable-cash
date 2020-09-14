@@ -11,6 +11,10 @@
 
 namespace alinous {
 
+alinous::AlterDropPrimaryKeyCommand::AlterDropPrimaryKeyCommand(const AlterDropPrimaryKeyCommand& inst)
+	: AbstractAlterDdlCommand(CodeElement::DDL_ALTER_DROP_PRIMARY_KEY) {
+}
+
 AlterDropPrimaryKeyCommand::AlterDropPrimaryKeyCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_DROP_PRIMARY_KEY) {
 
 }
@@ -34,7 +38,7 @@ void AlterDropPrimaryKeyCommand::fromBinary(ByteBuffer* in) {
 
 AbstractDdlLog* AlterDropPrimaryKeyCommand::getCommandLog() {
 	AlterDropPrimaryKeyCommandLog* log = new AlterDropPrimaryKeyCommandLog();
-	log->setCommand(this);
+	log->setCommand(new AlterDropPrimaryKeyCommand(*this));
 
 	return log;
 }
