@@ -9,6 +9,8 @@
 
 #include "sql_ddl/DdlColumnDescriptor.h"
 
+#include "transaction_log_alter/AlterAddColumnCommandLog.h"
+
 namespace alinous {
 
 AlterAddColumnCommand::AlterAddColumnCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_ADD_COLUMN) {
@@ -44,6 +46,13 @@ void AlterAddColumnCommand::fromBinary(ByteBuffer* in) {
 	checkKind(element, CodeElement::DDL_COLMUN_DESC);
 
 	this->columnDescriptor = dynamic_cast<DdlColumnDescriptor*>(element);
+}
+
+AbstractDdlLog* AlterAddColumnCommand::getCommandLog() {
+	AlterAddColumnCommandLog* log = new AlterAddColumnCommandLog();
+	log->setCommand(this);
+
+	return log;
 }
 
 } /* namespace alinous */

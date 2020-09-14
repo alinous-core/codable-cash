@@ -10,12 +10,19 @@
 
 #include "sc/CodeElement.h"
 
+namespace codablecash {
+class AbstractDdlLog;
+}
+using namespace codablecash;
+
 namespace alinous {
 
 class AbstractAlterDdlCommand : public CodeElement {
 public:
 	explicit AbstractAlterDdlCommand(short kind);
 	virtual ~AbstractAlterDdlCommand();
+
+	virtual AbstractDdlLog* getCommandLog() = 0;
 };
 
 } /* namespace alinous */
