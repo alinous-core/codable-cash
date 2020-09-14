@@ -9,7 +9,15 @@
 
 #include "base/UnicodeString.h"
 
+#include "transaction_log_alter_modify/AlterRenameTableCommandLog.h"
+
 namespace alinous {
+
+AlterRenameTableCommand::AlterRenameTableCommand(const AlterRenameTableCommand& inst)
+				: AbstractAlterDdlCommand(CodeElement::DDL_ALTER_RENAME_TABLE){
+	this->newName = new UnicodeString(inst.newName);
+}
+
 
 AlterRenameTableCommand::AlterRenameTableCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_RENAME_TABLE) {
 	this->newName = nullptr;
@@ -44,6 +52,10 @@ void AlterRenameTableCommand::fromBinary(ByteBuffer* in) {
 }
 
 AbstractDdlLog* AlterRenameTableCommand::getCommandLog() {
+	AlterRenameTableCommandLog* log = new AlterRenameTableCommandLog();
+	log->setCommand(new AlterRenameTableCommand(*this));
+
+	return log;
 }
 
 } /* namespace alinous */

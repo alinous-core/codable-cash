@@ -16,6 +16,7 @@ class UnicodeString;
 
 class AlterRenameTableCommand : public AbstractAlterDdlCommand {
 public:
+	AlterRenameTableCommand(const AlterRenameTableCommand& inst);
 	AlterRenameTableCommand();
 	virtual ~AlterRenameTableCommand();
 
