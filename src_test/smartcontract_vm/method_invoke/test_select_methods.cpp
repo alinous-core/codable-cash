@@ -81,7 +81,7 @@ TEST(TestSelectMethodGroup, case05){
 	util.setMain(L"test.fw", L"SmartContract", L"main");
 
 	bool result = util.analyze();
-	CHECK(result)
+	CHECK(!result)
 }
 
 TEST(TestSelectMethodGroup, case06){
