@@ -16,6 +16,7 @@ class DdlColumnDescriptor;
 
 class AlterModifyCommand : public AbstractAlterDdlCommand {
 public:
+	AlterModifyCommand(const AlterModifyCommand& inst);
 	AlterModifyCommand();
 	virtual ~AlterModifyCommand();
 

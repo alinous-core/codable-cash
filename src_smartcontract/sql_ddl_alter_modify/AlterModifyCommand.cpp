@@ -13,6 +13,11 @@
 
 namespace alinous {
 
+AlterModifyCommand::AlterModifyCommand(const AlterModifyCommand& inst) : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_MODIFY) {
+	this->columnDescriptor = copyColumnDescriptor(inst.columnDescriptor);
+}
+
+
 AlterModifyCommand::AlterModifyCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_MODIFY) {
 	this->columnDescriptor = nullptr;
 }
@@ -50,7 +55,7 @@ void AlterModifyCommand::fromBinary(ByteBuffer* in) {
 
 AbstractDdlLog* AlterModifyCommand::getCommandLog() {
 	AlterModifyCommandLog* log = new AlterModifyCommandLog();
-	log->setCommand(this);
+	log->setCommand(new AlterModifyCommand(*this));
 
 	return log;
 }
