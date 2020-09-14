@@ -16,7 +16,8 @@ class UnicodeString;
 
 class AlterDropIndexCommand : public AbstractAlterDdlCommand {
 public:
-	explicit AlterDropIndexCommand();
+	AlterDropIndexCommand(const AlterDropIndexCommand& inst);
+	AlterDropIndexCommand();
 	virtual ~AlterDropIndexCommand();
 
 	void setName(UnicodeString* name) noexcept;
