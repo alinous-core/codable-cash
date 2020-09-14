@@ -70,4 +70,7 @@ void AlterAddIndexCommand::fromBinary(ByteBuffer* in) {
 	}
 }
 
+AbstractDdlLog* AlterAddIndexCommand::getCommandLog() {
+}
+
 } /* namespace alinous */

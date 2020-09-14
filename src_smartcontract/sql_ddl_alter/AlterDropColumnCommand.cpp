@@ -43,4 +43,7 @@ void AlterDropColumnCommand::fromBinary(ByteBuffer* in) {
 	this->name = getString(in);
 }
 
+AbstractDdlLog* AlterDropColumnCommand::getCommandLog() {
+}
+
 } /* namespace alinous */

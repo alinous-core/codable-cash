@@ -43,4 +43,8 @@ void AlterDropIndexCommand::fromBinary(ByteBuffer* in) {
 	this->name = getString(in);
 }
 
+AbstractDdlLog* AlterDropIndexCommand::getCommandLog() {
+}
+
+
 } /* namespace alinous */
