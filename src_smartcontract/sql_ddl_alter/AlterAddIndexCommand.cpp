@@ -9,7 +9,21 @@
 
 #include "base/UnicodeString.h"
 
+#include "transaction_log_alter/AlterAddIndexCommandLog.h"
+
 namespace alinous {
+
+AlterAddIndexCommand::AlterAddIndexCommand(const AlterAddIndexCommand& inst)
+				: AbstractAlterDdlCommand(CodeElement::DDL_ALTER_ADD_INDEX) {
+	this->name = new UnicodeString(inst.name);
+
+	int maxLoop = inst.list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		const UnicodeString* col = inst.list.get(i);
+
+		addColumn(new UnicodeString(col));
+	}
+}
 
 AlterAddIndexCommand::AlterAddIndexCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_ADD_INDEX) {
 	this->name = nullptr;
@@ -71,6 +85,10 @@ void AlterAddIndexCommand::fromBinary(ByteBuffer* in) {
 }
 
 AbstractDdlLog* AlterAddIndexCommand::getCommandLog() {
+	AlterAddIndexCommandLog* log = new AlterAddIndexCommandLog();
+	log->setCommand(new AlterAddIndexCommand(*this));
+
+	return log;
 }
 
 } /* namespace alinous */

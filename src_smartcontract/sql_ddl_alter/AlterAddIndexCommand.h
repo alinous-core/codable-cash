@@ -18,6 +18,7 @@ class UnicodeString;
 
 class AlterAddIndexCommand : public AbstractAlterDdlCommand {
 public:
+	AlterAddIndexCommand(const AlterAddIndexCommand& inst);
 	AlterAddIndexCommand();
 	virtual ~AlterAddIndexCommand();
 
