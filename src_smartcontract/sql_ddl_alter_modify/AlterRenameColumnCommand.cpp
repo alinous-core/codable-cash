@@ -54,4 +54,8 @@ void AlterRenameColumnCommand::fromBinary(ByteBuffer* in) {
 	this->newName = getString(in);
 }
 
+AbstractDdlLog* AlterRenameColumnCommand::getCommandLog() {
+}
+
+
 } /* namespace alinous */

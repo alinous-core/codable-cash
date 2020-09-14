@@ -56,5 +56,8 @@ void AlterAddPrimaryKeyCommand::fromBinary(ByteBuffer* in) {
 	}
 }
 
+AbstractDdlLog* AlterAddPrimaryKeyCommand::getCommandLog() {
+}
+
 
 } /* namespace alinous */

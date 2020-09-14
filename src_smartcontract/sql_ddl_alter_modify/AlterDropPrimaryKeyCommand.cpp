@@ -30,4 +30,8 @@ void AlterDropPrimaryKeyCommand::toBinary(ByteBuffer* out) {
 void AlterDropPrimaryKeyCommand::fromBinary(ByteBuffer* in) {
 }
 
+AbstractDdlLog* AlterDropPrimaryKeyCommand::getCommandLog() {
+}
+
+
 } /* namespace alinous */

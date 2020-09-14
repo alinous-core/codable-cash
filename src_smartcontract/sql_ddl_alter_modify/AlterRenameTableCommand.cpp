@@ -43,4 +43,7 @@ void AlterRenameTableCommand::fromBinary(ByteBuffer* in) {
 	this->newName = getString(in);
 }
 
+AbstractDdlLog* AlterRenameTableCommand::getCommandLog() {
+}
+
 } /* namespace alinous */

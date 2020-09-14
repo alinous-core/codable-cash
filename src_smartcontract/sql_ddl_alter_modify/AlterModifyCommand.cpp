@@ -46,4 +46,8 @@ void AlterModifyCommand::fromBinary(ByteBuffer* in) {
 	this->columnDescriptor = dynamic_cast<DdlColumnDescriptor*>(element);
 }
 
+AbstractDdlLog* AlterModifyCommand::getCommandLog() {
+}
+
+
 } /* namespace alinous */
