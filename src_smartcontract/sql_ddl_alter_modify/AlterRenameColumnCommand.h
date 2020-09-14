@@ -14,6 +14,7 @@ namespace alinous {
 
 class AlterRenameColumnCommand : public AbstractAlterDdlCommand {
 public:
+	AlterRenameColumnCommand(const AlterRenameColumnCommand& inst);
 	AlterRenameColumnCommand();
 	virtual ~AlterRenameColumnCommand();
 
