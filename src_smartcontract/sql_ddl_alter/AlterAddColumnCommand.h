@@ -16,7 +16,8 @@ class DdlColumnDescriptor;
 
 class AlterAddColumnCommand : public AbstractAlterDdlCommand {
 public:
-	explicit AlterAddColumnCommand();
+	AlterAddColumnCommand(const AlterAddColumnCommand& inst);
+	AlterAddColumnCommand();
 	virtual ~AlterAddColumnCommand();
 
 	void setColumnDescriptor(DdlColumnDescriptor* columnDescriptor) noexcept;

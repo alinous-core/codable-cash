@@ -13,6 +13,11 @@
 
 namespace alinous {
 
+AlterAddColumnCommand::AlterAddColumnCommand(const AlterAddColumnCommand& inst)
+				: AbstractAlterDdlCommand(CodeElement::DDL_ALTER_ADD_COLUMN) {
+	this->columnDescriptor = copyColumnDescriptor(inst.columnDescriptor);
+}
+
 AlterAddColumnCommand::AlterAddColumnCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_ADD_COLUMN) {
 	this->columnDescriptor = nullptr;
 }
@@ -50,7 +55,7 @@ void AlterAddColumnCommand::fromBinary(ByteBuffer* in) {
 
 AbstractDdlLog* AlterAddColumnCommand::getCommandLog() {
 	AlterAddColumnCommandLog* log = new AlterAddColumnCommandLog();
-	log->setCommand(this);
+	log->setCommand(new AlterAddColumnCommand(*this));
 
 	return log;
 }
