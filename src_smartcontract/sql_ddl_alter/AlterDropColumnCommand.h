@@ -14,7 +14,8 @@ namespace alinous {
 
 class AlterDropColumnCommand : public AbstractAlterDdlCommand {
 public:
-	explicit AlterDropColumnCommand();
+	AlterDropColumnCommand(const AlterDropColumnCommand& inst);
+	AlterDropColumnCommand();
 	virtual ~AlterDropColumnCommand();
 
 	void setName(UnicodeString* name) noexcept;
