@@ -9,7 +9,20 @@
 
 #include "base/UnicodeString.h"
 
+#include "transaction_log_alter_modify/AlterAddPrimaryKeyCommandLog.h"
+
 namespace alinous {
+
+alinous::AlterAddPrimaryKeyCommand::AlterAddPrimaryKeyCommand(const AlterAddPrimaryKeyCommand& inst)
+		: AbstractAlterDdlCommand(CodeElement::DDL_ALTER_ADD_PRIMARY_KEY) {
+	int maxLoop = inst.list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		const UnicodeString* col = inst.list.get(i);
+
+		this->list.addElement(new UnicodeString(col));
+	}
+}
+
 
 AlterAddPrimaryKeyCommand::AlterAddPrimaryKeyCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_ADD_PRIMARY_KEY){
 }
@@ -57,6 +70,10 @@ void AlterAddPrimaryKeyCommand::fromBinary(ByteBuffer* in) {
 }
 
 AbstractDdlLog* AlterAddPrimaryKeyCommand::getCommandLog() {
+	AlterAddPrimaryKeyCommandLog* log = new AlterAddPrimaryKeyCommandLog();
+	log->setCommand(new AlterAddPrimaryKeyCommand(*this));
+
+	return log;
 }
 
 

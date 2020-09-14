@@ -18,6 +18,7 @@ class UnicodeString;
 
 class AlterAddPrimaryKeyCommand : public AbstractAlterDdlCommand {
 public:
+	AlterAddPrimaryKeyCommand(const AlterAddPrimaryKeyCommand& inst);
 	AlterAddPrimaryKeyCommand();
 	virtual ~AlterAddPrimaryKeyCommand();
 

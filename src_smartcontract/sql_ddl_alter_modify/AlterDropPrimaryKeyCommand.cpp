@@ -7,6 +7,8 @@
 
 #include "sql_ddl_alter_modify/AlterDropPrimaryKeyCommand.h"
 
+#include "transaction_log_alter_modify/AlterDropPrimaryKeyCommandLog.h"
+
 namespace alinous {
 
 AlterDropPrimaryKeyCommand::AlterDropPrimaryKeyCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_DROP_PRIMARY_KEY) {
@@ -31,6 +33,10 @@ void AlterDropPrimaryKeyCommand::fromBinary(ByteBuffer* in) {
 }
 
 AbstractDdlLog* AlterDropPrimaryKeyCommand::getCommandLog() {
+	AlterDropPrimaryKeyCommandLog* log = new AlterDropPrimaryKeyCommandLog();
+	log->setCommand(this);
+
+	return log;
 }
 
 

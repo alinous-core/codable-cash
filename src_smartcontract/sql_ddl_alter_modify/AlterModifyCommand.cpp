@@ -9,6 +9,8 @@
 
 #include "sql_ddl/DdlColumnDescriptor.h"
 
+#include "transaction_log_alter_modify/AlterModifyCommandLog.h"
+
 namespace alinous {
 
 AlterModifyCommand::AlterModifyCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_MODIFY) {
@@ -47,6 +49,10 @@ void AlterModifyCommand::fromBinary(ByteBuffer* in) {
 }
 
 AbstractDdlLog* AlterModifyCommand::getCommandLog() {
+	AlterModifyCommandLog* log = new AlterModifyCommandLog();
+	log->setCommand(this);
+
+	return log;
 }
 
 
