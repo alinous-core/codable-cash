@@ -11,7 +11,7 @@
 
 namespace codablecash {
 
-AlterDropColumnCommandLog::AlterDropColumnCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_DROP_COLUMN) {
+AlterDropColumnCommandLog::AlterDropColumnCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_DROP_COLUMN) {
 	this->command = nullptr;
 }
 

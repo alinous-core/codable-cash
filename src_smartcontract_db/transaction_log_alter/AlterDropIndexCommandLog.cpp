@@ -11,7 +11,7 @@
 
 namespace codablecash {
 
-AlterDropIndexCommandLog::AlterDropIndexCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_DROP_INDEX) {
+AlterDropIndexCommandLog::AlterDropIndexCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_DROP_INDEX) {
 	this->command = nullptr;
 }
 

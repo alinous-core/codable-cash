@@ -13,7 +13,7 @@
 
 namespace codablecash {
 
-AlterAddColumnCommandLog::AlterAddColumnCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_ADD_COLUMN) {
+AlterAddColumnCommandLog::AlterAddColumnCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_ADD_COLUMN) {
 	this->command = nullptr;
 }
 

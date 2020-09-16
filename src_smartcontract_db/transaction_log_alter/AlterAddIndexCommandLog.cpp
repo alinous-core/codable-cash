@@ -11,7 +11,7 @@
 
 namespace codablecash {
 
-AlterAddIndexCommandLog::AlterAddIndexCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_ADD_INDEX) {
+AlterAddIndexCommandLog::AlterAddIndexCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_ADD_INDEX) {
 	this->command = nullptr;
 }
 
