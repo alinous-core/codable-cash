@@ -11,7 +11,7 @@
 
 namespace codablecash {
 
-AlterRenameColumnCommandLog::AlterRenameColumnCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_RENAME_COLUMN) {
+AlterRenameColumnCommandLog::AlterRenameColumnCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_RENAME_COLUMN) {
 	this->command = nullptr;
 }
 

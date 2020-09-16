@@ -17,7 +17,7 @@
 
 namespace codablecash {
 
-AlterModifyCommandLog::AlterModifyCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_MODIFY) {
+AlterModifyCommandLog::AlterModifyCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_MODIFY) {
 	this->command = nullptr;
 }
 

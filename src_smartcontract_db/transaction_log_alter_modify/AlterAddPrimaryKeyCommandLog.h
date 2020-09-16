@@ -8,7 +8,7 @@
 #ifndef TRANSACTION_LOG_ALTER_MODIFY_ALTERADDPRIMARYKEYCOMMANDLOG_H_
 #define TRANSACTION_LOG_ALTER_MODIFY_ALTERADDPRIMARYKEYCOMMANDLOG_H_
 
-#include "transaction_log/AbstractDdlLog.h"
+#include "transaction_log_alter/AbstractAlterCommandLog.h"
 
 namespace alinous {
 class AlterAddPrimaryKeyCommand;
@@ -17,7 +17,7 @@ using namespace alinous;
 
 namespace codablecash {
 
-class AlterAddPrimaryKeyCommandLog : public AbstractDdlLog {
+class AlterAddPrimaryKeyCommandLog : public AbstractAlterCommandLog {
 public:
 	AlterAddPrimaryKeyCommandLog();
 	virtual ~AlterAddPrimaryKeyCommandLog();

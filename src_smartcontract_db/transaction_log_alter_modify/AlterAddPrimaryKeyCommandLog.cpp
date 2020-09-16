@@ -11,7 +11,7 @@
 
 namespace codablecash {
 
-AlterAddPrimaryKeyCommandLog::AlterAddPrimaryKeyCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_ADD_PRIMARY_KEY){
+AlterAddPrimaryKeyCommandLog::AlterAddPrimaryKeyCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_ADD_PRIMARY_KEY){
 	this->command = nullptr;
 }
 

@@ -8,7 +8,7 @@
 #ifndef TRANSACTION_LOG_ALTER_MODIFY_ALTERMODIFYCOMMANDLOG_H_
 #define TRANSACTION_LOG_ALTER_MODIFY_ALTERMODIFYCOMMANDLOG_H_
 
-#include "transaction_log/AbstractDdlLog.h"
+#include "transaction_log_alter/AbstractAlterCommandLog.h"
 
 namespace alinous {
 class AlterModifyCommand;
@@ -17,7 +17,7 @@ using namespace alinous;
 
 namespace codablecash {
 
-class AlterModifyCommandLog : public AbstractDdlLog {
+class AlterModifyCommandLog : public AbstractAlterCommandLog {
 public:
 	AlterModifyCommandLog();
 	virtual ~AlterModifyCommandLog();

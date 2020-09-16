@@ -11,7 +11,7 @@
 
 namespace codablecash {
 
-AlterRenameTableCommandLog::AlterRenameTableCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_RENAME_TABLE) {
+AlterRenameTableCommandLog::AlterRenameTableCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_RENAME_TABLE) {
 	this->command = nullptr;
 }
 
