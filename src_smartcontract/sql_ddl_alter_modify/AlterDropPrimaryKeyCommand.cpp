@@ -36,7 +36,7 @@ void AlterDropPrimaryKeyCommand::toBinary(ByteBuffer* out) {
 void AlterDropPrimaryKeyCommand::fromBinary(ByteBuffer* in) {
 }
 
-AbstractDdlLog* AlterDropPrimaryKeyCommand::getCommandLog() {
+AbstractAlterCommandLog* AlterDropPrimaryKeyCommand::getCommandLog() {
 	AlterDropPrimaryKeyCommandLog* log = new AlterDropPrimaryKeyCommandLog();
 	log->setCommand(new AlterDropPrimaryKeyCommand(*this));
 

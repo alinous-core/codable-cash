@@ -19,6 +19,8 @@
 
 #include "base/Exception.h"
 
+#include "transaction_log_alter/AbstractAlterCommandLog.h"
+
 namespace alinous {
 
 AlterTableStatement::AlterTableStatement() : AbstractSQLStatement(CodeElement::DDL_ALTER_TABLE) {
@@ -83,7 +85,7 @@ void AlterTableStatement::fromBinary(ByteBuffer* in) {
 }
 
 void AlterTableStatement::interpret(VirtualMachine* vm) {
-	AbstractDdlLog* log = this->cmd->getCommandLog();
+	AbstractAlterCommandLog* log = this->cmd->getCommandLog();
 
 	VmTransactionHandler* handler = vm->getTransactionHandler();
 	try{

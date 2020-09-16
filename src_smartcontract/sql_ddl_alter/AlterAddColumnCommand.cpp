@@ -53,7 +53,7 @@ void AlterAddColumnCommand::fromBinary(ByteBuffer* in) {
 	this->columnDescriptor = dynamic_cast<DdlColumnDescriptor*>(element);
 }
 
-AbstractDdlLog* AlterAddColumnCommand::getCommandLog() {
+AbstractAlterCommandLog* AlterAddColumnCommand::getCommandLog() {
 	AlterAddColumnCommandLog* log = new AlterAddColumnCommandLog();
 	log->setCommand(new AlterAddColumnCommand(*this));
 

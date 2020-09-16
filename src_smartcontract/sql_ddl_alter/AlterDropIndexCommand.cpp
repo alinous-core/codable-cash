@@ -50,7 +50,7 @@ void AlterDropIndexCommand::fromBinary(ByteBuffer* in) {
 	this->name = getString(in);
 }
 
-AbstractDdlLog* AlterDropIndexCommand::getCommandLog() {
+AbstractAlterCommandLog* AlterDropIndexCommand::getCommandLog() {
 	AlterDropIndexCommandLog* log = new AlterDropIndexCommandLog();
 	log->setCommand(new AlterDropIndexCommand(*this));
 

@@ -84,7 +84,7 @@ void AlterAddIndexCommand::fromBinary(ByteBuffer* in) {
 	}
 }
 
-AbstractDdlLog* AlterAddIndexCommand::getCommandLog() {
+AbstractAlterCommandLog* AlterAddIndexCommand::getCommandLog() {
 	AlterAddIndexCommandLog* log = new AlterAddIndexCommandLog();
 	log->setCommand(new AlterAddIndexCommand(*this));
 

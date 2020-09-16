@@ -62,7 +62,7 @@ void AlterRenameColumnCommand::fromBinary(ByteBuffer* in) {
 	this->newName = getString(in);
 }
 
-AbstractDdlLog* AlterRenameColumnCommand::getCommandLog() {
+AbstractAlterCommandLog* AlterRenameColumnCommand::getCommandLog() {
 	AlterRenameColumnCommandLog* log = new AlterRenameColumnCommandLog();
 	log->setCommand(new AlterRenameColumnCommand(*this));
 

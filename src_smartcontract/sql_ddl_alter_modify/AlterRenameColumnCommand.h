@@ -25,7 +25,7 @@ public:
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
 
-	virtual AbstractDdlLog* getCommandLog();
+	virtual AbstractAlterCommandLog* getCommandLog();
 
 private:
 	UnicodeString* lastName;

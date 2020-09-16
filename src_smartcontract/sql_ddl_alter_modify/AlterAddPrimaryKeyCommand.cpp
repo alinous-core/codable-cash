@@ -69,7 +69,7 @@ void AlterAddPrimaryKeyCommand::fromBinary(ByteBuffer* in) {
 	}
 }
 
-AbstractDdlLog* AlterAddPrimaryKeyCommand::getCommandLog() {
+AbstractAlterCommandLog* AlterAddPrimaryKeyCommand::getCommandLog() {
 	AlterAddPrimaryKeyCommandLog* log = new AlterAddPrimaryKeyCommandLog();
 	log->setCommand(new AlterAddPrimaryKeyCommand(*this));
 

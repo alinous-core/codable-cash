@@ -11,7 +11,7 @@
 #include "sc/CodeElement.h"
 
 namespace codablecash {
-class AbstractDdlLog;
+class AbstractAlterCommandLog;
 }
 using namespace codablecash;
 
@@ -24,7 +24,7 @@ public:
 	explicit AbstractAlterDdlCommand(short kind);
 	virtual ~AbstractAlterDdlCommand();
 
-	virtual AbstractDdlLog* getCommandLog() = 0;
+	virtual AbstractAlterCommandLog* getCommandLog() = 0;
 
 protected:
 	DdlColumnDescriptor* copyColumnDescriptor(DdlColumnDescriptor* columnDescriptor) const;

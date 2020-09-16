@@ -49,7 +49,7 @@ void AlterDropColumnCommand::fromBinary(ByteBuffer* in) {
 	this->name = getString(in);
 }
 
-AbstractDdlLog* AlterDropColumnCommand::getCommandLog() {
+AbstractAlterCommandLog* AlterDropColumnCommand::getCommandLog() {
 	AlterDropColumnCommandLog* log = new AlterDropColumnCommandLog();
 	log->setCommand(new AlterDropColumnCommand(*this));
 

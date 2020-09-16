@@ -51,7 +51,7 @@ void AlterRenameTableCommand::fromBinary(ByteBuffer* in) {
 	this->newName = getString(in);
 }
 
-AbstractDdlLog* AlterRenameTableCommand::getCommandLog() {
+AbstractAlterCommandLog* AlterRenameTableCommand::getCommandLog() {
 	AlterRenameTableCommandLog* log = new AlterRenameTableCommandLog();
 	log->setCommand(new AlterRenameTableCommand(*this));
 
