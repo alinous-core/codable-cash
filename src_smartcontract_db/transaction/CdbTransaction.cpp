@@ -80,6 +80,12 @@ void CdbTransaction::createTable(CreateTableLog* cmd) {
 	this->cmdList.addElement(cmd);
 }
 
+void CdbTransaction::alterTable(AbstractDdlLog* cmd) {
+	commit();
+
+	this->cmdList.addElement(cmd);
+}
+
 void CdbTransaction::insert(InsertLog* cmd) {
 	CdbTable* table = getTableFromIdentifier(cmd->getCdbTableIdentifier());
 

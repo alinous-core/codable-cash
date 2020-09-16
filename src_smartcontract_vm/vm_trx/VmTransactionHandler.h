@@ -16,6 +16,7 @@ class CdbTransaction;
 class CreateTableLog;
 class InsertLog;
 class CdbTable;
+class AbstractDdlLog;
 }
 using namespace codablecash;
 
@@ -33,6 +34,7 @@ public:
 	void rollback();
 
 	void createTable(CreateTableLog* cmd);
+	void alterTable(AbstractDdlLog* cmd);
 
 	void insert(InsertLog* cmd);
 
@@ -40,8 +42,6 @@ public:
 
 	uint64_t getSchemaObjectVersionId() const noexcept;
 	CdbTable* getTable(const UnicodeString* schema, const UnicodeString* tableName) const noexcept;
-
-
 
 private:
 	void doCommit();

@@ -87,6 +87,25 @@ void VmTransactionHandler::createTable(CreateTableLog* cmd) {
 	}
 }
 
+void VmTransactionHandler::alterTable(AbstractDdlLog* cmd) {
+	bool hasTrx = false;
+
+	if(this->trx == nullptr){
+		begin();
+	}
+	else{
+		commit();
+		begin();
+		hasTrx = true;
+	}
+
+	commit();
+
+	if(hasTrx){
+		begin();
+	}
+}
+
 void VmTransactionHandler::doRollback() {
 	StackTransactionReset resetter(this);
 

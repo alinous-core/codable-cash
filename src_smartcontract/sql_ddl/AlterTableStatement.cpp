@@ -11,6 +11,14 @@
 
 #include "sql_ddl_alter/AlterAddColumnCommand.h"
 
+#include "vm_trx/VmTransactionHandler.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+
+#include "base/Exception.h"
+
 namespace alinous {
 
 AlterTableStatement::AlterTableStatement() : AbstractSQLStatement(CodeElement::DDL_ALTER_TABLE) {
@@ -38,6 +46,7 @@ void AlterTableStatement::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void AlterTableStatement::analyze(AnalyzeContext* actx) {
+
 }
 
 int AlterTableStatement::binarySize() const {
@@ -74,6 +83,17 @@ void AlterTableStatement::fromBinary(ByteBuffer* in) {
 }
 
 void AlterTableStatement::interpret(VirtualMachine* vm) {
+	AbstractDdlLog* log = this->cmd->getCommandLog();
+
+	VmTransactionHandler* handler = vm->getTransactionHandler();
+	try{
+
+	}
+	catch(Exception* e){
+		DatabaseExceptionClassDeclare::throwException(e->getMessage(), vm, this);
+		delete e;
+		delete cmd;
+	}
 }
 
 } /* namespace alinous */
