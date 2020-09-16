@@ -43,6 +43,7 @@ public:
 	RecordObjectIdPublisher* getRecordObjectIdPublisher() const noexcept;
 
 	void commitCreateTable(CreateTableLog* cmd);
+	// void commitAlterTable(AbstractDdlLog* cmd);
 
 	void commitInsert(InsertLog* cmd);
 

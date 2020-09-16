@@ -9,6 +9,12 @@
 
 #include "sql_ddl_alter_modify/AlterModifyCommand.h"
 
+#include "engine_lock/WriteLockHandle.h"
+
+#include "base/StackRelease.h"
+
+#include "transaction/CdbTransactionManager.h"
+
 namespace codablecash {
 
 AlterModifyCommandLog::AlterModifyCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_MODIFY) {
@@ -47,6 +53,10 @@ void AlterModifyCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterModifyCommandLog::commit(CdbTransactionManager* trxManager) {
+	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+
+
+
 	// TODO implement AlterModifyCommandLog::commit
 
 }

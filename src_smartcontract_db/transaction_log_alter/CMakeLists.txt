@@ -1,6 +1,7 @@
 
 
 set(__src
+	AbstractAlterCommandLog.cpp
 	AlterAddColumnCommandLog.cpp
 	AlterAddIndexCommandLog.cpp
 	AlterDropColumnCommandLog.cpp

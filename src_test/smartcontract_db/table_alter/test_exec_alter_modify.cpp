@@ -52,6 +52,4 @@ TEST(TestExecAlterMofdifyGroup, case01){
 
 		stmt->interpret(vm);
 	}
-
-	// FIXME test
 }
