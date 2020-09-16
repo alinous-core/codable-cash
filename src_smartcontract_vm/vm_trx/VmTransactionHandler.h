@@ -16,7 +16,7 @@ class CdbTransaction;
 class CreateTableLog;
 class InsertLog;
 class CdbTable;
-class AbstractDdlLog;
+class AbstractAlterCommandLog;
 }
 using namespace codablecash;
 
@@ -34,7 +34,7 @@ public:
 	void rollback();
 
 	void createTable(CreateTableLog* cmd);
-	void alterTable(AbstractDdlLog* cmd);
+	void alterTable(AbstractAlterCommandLog* cmd);
 
 	void insert(InsertLog* cmd);
 

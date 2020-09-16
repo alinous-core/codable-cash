@@ -31,7 +31,7 @@ class CdbRecordKey;
 class IndexRecordScanner;
 class TableStore;
 class IndexStore;
-class AbstractDdlLog;
+class AbstractAlterCommandLog;
 
 class CdbTransaction {
 public:
@@ -42,7 +42,7 @@ public:
 	void rollback();
 
 	void createTable(CreateTableLog* cmd);
-	void alterTable(AbstractDdlLog* cmd);
+	void alterTable(AbstractAlterCommandLog* cmd);
 
 	void insert(InsertLog* cmd);
 

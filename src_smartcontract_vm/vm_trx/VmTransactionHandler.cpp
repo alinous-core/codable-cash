@@ -87,7 +87,7 @@ void VmTransactionHandler::createTable(CreateTableLog* cmd) {
 	}
 }
 
-void VmTransactionHandler::alterTable(AbstractDdlLog* cmd) {
+void VmTransactionHandler::alterTable(AbstractAlterCommandLog* cmd) {
 	bool hasTrx = false;
 
 	if(this->trx == nullptr){
