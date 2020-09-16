@@ -99,6 +99,7 @@ void VmTransactionHandler::alterTable(AbstractDdlLog* cmd) {
 		hasTrx = true;
 	}
 
+	this->trx->alterTable(cmd);
 	commit();
 
 	if(hasTrx){

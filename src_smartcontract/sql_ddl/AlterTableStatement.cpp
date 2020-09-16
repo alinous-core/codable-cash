@@ -87,7 +87,7 @@ void AlterTableStatement::interpret(VirtualMachine* vm) {
 
 	VmTransactionHandler* handler = vm->getTransactionHandler();
 	try{
-
+		handler->alterTable(log);
 	}
 	catch(Exception* e){
 		DatabaseExceptionClassDeclare::throwException(e->getMessage(), vm, this);

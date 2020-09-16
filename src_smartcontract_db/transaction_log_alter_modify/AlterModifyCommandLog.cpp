@@ -47,6 +47,8 @@ void AlterModifyCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterModifyCommandLog::commit(CdbTransactionManager* trxManager) {
+	// TODO implement AlterModifyCommandLog::commit
+
 }
 
 } /* namespace codablecash */
