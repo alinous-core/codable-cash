@@ -28,6 +28,7 @@ class Schema;
 class CdbStorageManager;
 class ReadLockHandle;
 class WriteLockHandle;
+class AbstractAlterCommandLog;
 
 class CdbTransactionManager : public ISchemaUptateListner {
 public:
@@ -43,7 +44,7 @@ public:
 	RecordObjectIdPublisher* getRecordObjectIdPublisher() const noexcept;
 
 	void commitCreateTable(CreateTableLog* cmd);
-	// void commitAlterTable(AbstractDdlLog* cmd);
+	void commitAlterTable(AbstractAlterCommandLog* cmd);
 
 	void commitInsert(InsertLog* cmd);
 

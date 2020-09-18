@@ -55,10 +55,7 @@ void AlterModifyCommandLog::fromBinary(ByteBuffer* in) {
 void AlterModifyCommandLog::commit(CdbTransactionManager* trxManager) {
 	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
 
-
-
-	// TODO implement AlterModifyCommandLog::commit
-
+	trxManager->commitAlterTable(this);
 }
 
 } /* namespace codablecash */

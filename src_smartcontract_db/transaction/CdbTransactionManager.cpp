@@ -84,6 +84,10 @@ void CdbTransactionManager::commitCreateTable(CreateTableLog* cmd) {
 	this->committedCommands->addElement(cmd);
 }
 
+void CdbTransactionManager::commitAlterTable(AbstractAlterCommandLog* cmd) {
+	// TODO: commit alter
+}
+
 void CdbTransactionManager::commitInsert(InsertLog* cmd) {
 	CdbTableIdentifier* tableIdentifier = cmd->getCdbTableIdentifier();
 	const UnicodeString* schemaName = tableIdentifier->getSchema();
