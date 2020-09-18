@@ -24,6 +24,17 @@ class SchemaRoot;
 class Schema;
 class ISchemaUptateListner;
 class CdbTable;
+class AbstractAlterCommandLog;
+
+class AlterAddColumnCommandLog;
+class AlterAddIndexCommandLog;
+class AlterDropIndexCommandLog;
+class AlterAddPrimaryKeyCommandLog;
+class AlterDropPrimaryKeyCommandLog;
+class AlterDropColumnCommandLog;
+class AlterModifyCommandLog;
+class AlterRenameColumnCommandLog;
+class AlterRenameTableCommandLog;
 
 class SchemaManager {
 public:
@@ -53,6 +64,16 @@ public:
 	const File* getDatabaseBaseDir() const noexcept {
 		return databaseBaseDir;
 	}
+
+	void handleAlterTableAddIndex(const AlterAddColumnCommandLog* cmd);
+	void handleAlterTableAddColumn(const AlterAddIndexCommandLog* cmd);
+	void handleAlterTableDropIndex(const AlterDropIndexCommandLog* cmd);
+	void handleAlterTableDropColumn(const AlterDropColumnCommandLog* cmd);
+	void handleAlterTableAddPrimaryKey(const AlterAddPrimaryKeyCommandLog* cmd);
+	void handleAlterTableDropPrimaryKey(const AlterDropPrimaryKeyCommandLog* cmd);
+	void handleAlterTableModify(const AlterModifyCommandLog* cmd);
+	void handleAlterTableRenameColumn(const AlterRenameColumnCommandLog* cmd);
+	void handleAlterTableRenameTable(const AlterRenameTableCommandLog* cmd);
 
 private:
 	void fireSchemaLoaded() noexcept;

@@ -28,6 +28,15 @@
 #include "table_store/TableStore.h"
 
 #include "transaction_log_alter/AbstractAlterCommandLog.h"
+#include "transaction_log_alter/AlterAddColumnCommandLog.h"
+#include "transaction_log_alter/AlterAddIndexCommandLog.h"
+#include "transaction_log_alter/AlterDropIndexCommandLog.h"
+#include "transaction_log_alter/AlterDropColumnCommandLog.h"
+#include "transaction_log_alter_modify/AlterAddPrimaryKeyCommandLog.h"
+#include "transaction_log_alter_modify/AlterDropPrimaryKeyCommandLog.h"
+#include "transaction_log_alter_modify/AlterModifyCommandLog.h"
+#include "transaction_log_alter_modify/AlterRenameTableCommandLog.h"
+#include "transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
 
 namespace codablecash {
 
@@ -98,6 +107,9 @@ void CdbTransactionManager::commitAlterTable(AbstractAlterCommandLog* cmd) {
 	case AbstractAlterCommandLog::TRX_ALTER_DROP_INDEX:
 		handleAlterTableDropIndex(cmd);
 		break;
+	case AbstractAlterCommandLog::TRX_ALTER_DROP_COLUMN:
+		handleAlterTableDropColumn(cmd);
+		break;
 	case AbstractAlterCommandLog::TRX_ALTER_ADD_PRIMARY_KEY:
 		handleAlterTableAddPrimaryKey(cmd);
 		break;
@@ -121,27 +133,48 @@ void CdbTransactionManager::commitAlterTable(AbstractAlterCommandLog* cmd) {
 }
 
 void CdbTransactionManager::handleAlterTableAddIndex(AbstractAlterCommandLog* cmd) {
+	AlterAddColumnCommandLog* cmdlog = dynamic_cast<AlterAddColumnCommandLog*>(cmd);
+	this->schemaManager->handleAlterTableAddIndex(cmdlog);
 }
 
 void CdbTransactionManager::handleAlterTableAddColumn(AbstractAlterCommandLog* cmd) {
+	AlterAddIndexCommandLog* cmdlog = dynamic_cast<AlterAddIndexCommandLog*>(cmd);
+	this->schemaManager->handleAlterTableAddColumn(cmdlog);
 }
 
 void CdbTransactionManager::handleAlterTableDropIndex(AbstractAlterCommandLog* cmd) {
+	AlterDropIndexCommandLog* cmdlog = dynamic_cast<AlterDropIndexCommandLog*>(cmd);
+	this->schemaManager->handleAlterTableDropIndex(cmdlog);
+}
+
+void CdbTransactionManager::handleAlterTableDropColumn(AbstractAlterCommandLog* cmd) {
+	AlterDropColumnCommandLog* cmdlog = dynamic_cast<AlterDropColumnCommandLog*>(cmd);
+	this->schemaManager->handleAlterTableDropColumn(cmdlog);
 }
 
 void CdbTransactionManager::handleAlterTableAddPrimaryKey(AbstractAlterCommandLog* cmd) {
+	AlterAddPrimaryKeyCommandLog* cmdlog = dynamic_cast<AlterAddPrimaryKeyCommandLog*>(cmd);
+	this->schemaManager->handleAlterTableAddPrimaryKey(cmdlog);
 }
 
 void CdbTransactionManager::handleAlterTableDropPrimaryKey(AbstractAlterCommandLog* cmd) {
+	AlterDropPrimaryKeyCommandLog* cmdlog = dynamic_cast<AlterDropPrimaryKeyCommandLog*>(cmd);
+	this->schemaManager->handleAlterTableDropPrimaryKey(cmdlog);
 }
 
 void CdbTransactionManager::handleAlterTableModify(AbstractAlterCommandLog* cmd) {
+	AlterModifyCommandLog* cmdlog = dynamic_cast<AlterModifyCommandLog*>(cmd);
+	this->schemaManager->handleAlterTableModify(cmdlog);
 }
 
 void CdbTransactionManager::handleAlterTableRenameColumn(AbstractAlterCommandLog* cmd) {
+	AlterRenameColumnCommandLog* cmdlog = dynamic_cast<AlterRenameColumnCommandLog*>(cmd);
+	this->schemaManager->handleAlterTableRenameColumn(cmdlog);
 }
 
 void CdbTransactionManager::handleAlterTableRenameTable(AbstractAlterCommandLog* cmd) {
+	AlterRenameTableCommandLog* cmdlog = dynamic_cast<AlterRenameTableCommandLog*>(cmd);
+	this->schemaManager->handleAlterTableRenameTable(cmdlog);
 }
 
 void CdbTransactionManager::commitInsert(InsertLog* cmd) {

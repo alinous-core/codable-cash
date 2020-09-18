@@ -136,6 +136,34 @@ void SchemaManager::createTable(CdbTable* table) {
 	save();
 }
 
+void SchemaManager::handleAlterTableAddIndex(const AlterAddColumnCommandLog* cmd) {
+}
+
+void SchemaManager::handleAlterTableAddColumn(const AlterAddIndexCommandLog* cmd) {
+}
+
+void SchemaManager::handleAlterTableDropIndex(const AlterDropIndexCommandLog* cmd) {
+}
+
+void SchemaManager::handleAlterTableDropColumn(const AlterDropColumnCommandLog* cmd) {
+}
+
+void SchemaManager::handleAlterTableAddPrimaryKey(const AlterAddPrimaryKeyCommandLog* cmd) {
+}
+
+void SchemaManager::handleAlterTableDropPrimaryKey(const AlterDropPrimaryKeyCommandLog* cmd) {
+}
+
+void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
+}
+
+void SchemaManager::handleAlterTableRenameColumn(const AlterRenameColumnCommandLog* cmd) {
+}
+
+void SchemaManager::handleAlterTableRenameTable(const AlterRenameTableCommandLog* cmd) {
+}
+
+
 void SchemaManager::fireSchemaLoaded() noexcept {
 	int maxLoop = this->listners.size();
 	for(int i = 0; i != maxLoop; ++i){

@@ -59,6 +59,7 @@ private:
 	void handleAlterTableAddIndex(AbstractAlterCommandLog* cmd);
 	void handleAlterTableAddColumn(AbstractAlterCommandLog* cmd);
 	void handleAlterTableDropIndex(AbstractAlterCommandLog* cmd);
+	void handleAlterTableDropColumn(AbstractAlterCommandLog* cmd);
 	void handleAlterTableAddPrimaryKey(AbstractAlterCommandLog* cmd);
 	void handleAlterTableDropPrimaryKey(AbstractAlterCommandLog* cmd);
 	void handleAlterTableModify(AbstractAlterCommandLog* cmd);
