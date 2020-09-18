@@ -56,6 +56,16 @@ public:
 	WriteLockHandle* databaseWriteLock();
 
 private:
+	void handleAlterTableAddIndex(AbstractAlterCommandLog* cmd);
+	void handleAlterTableAddColumn(AbstractAlterCommandLog* cmd);
+	void handleAlterTableDropIndex(AbstractAlterCommandLog* cmd);
+	void handleAlterTableAddPrimaryKey(AbstractAlterCommandLog* cmd);
+	void handleAlterTableDropPrimaryKey(AbstractAlterCommandLog* cmd);
+	void handleAlterTableModify(AbstractAlterCommandLog* cmd);
+	void handleAlterTableRenameColumn(AbstractAlterCommandLog* cmd);
+	void handleAlterTableRenameTable(AbstractAlterCommandLog* cmd);
+
+private:
 	CodableDatabase* db;
 	SchemaManager* schemaManager;
 	SchemaObjectIdPublisher* schemaIdPublisher;

@@ -44,6 +44,11 @@ public:
 	virtual void fromBinary(ByteBuffer* in) = 0;
 
 	virtual void commit(CdbTransactionManager* trxManager) = 0;
+
+	uint8_t getType() const noexcept {
+		return type;
+	}
+
 protected:
 	uint8_t type;
 

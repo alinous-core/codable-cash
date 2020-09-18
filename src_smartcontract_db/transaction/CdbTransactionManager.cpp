@@ -27,6 +27,7 @@
 #include "table_store/CdbStorageManager.h"
 #include "table_store/TableStore.h"
 
+#include "transaction_log_alter/AbstractAlterCommandLog.h"
 
 namespace codablecash {
 
@@ -85,7 +86,62 @@ void CdbTransactionManager::commitCreateTable(CreateTableLog* cmd) {
 }
 
 void CdbTransactionManager::commitAlterTable(AbstractAlterCommandLog* cmd) {
-	// TODO: commit alter
+	uint8_t type = cmd->getType();
+
+	switch(type){
+	case AbstractAlterCommandLog::TRX_ALTER_ADD_INDEX:
+		handleAlterTableAddIndex(cmd);
+		break;
+	case AbstractAlterCommandLog::TRX_ALTER_ADD_COLUMN:
+		handleAlterTableAddColumn(cmd);
+		break;
+	case AbstractAlterCommandLog::TRX_ALTER_DROP_INDEX:
+		handleAlterTableDropIndex(cmd);
+		break;
+	case AbstractAlterCommandLog::TRX_ALTER_ADD_PRIMARY_KEY:
+		handleAlterTableAddPrimaryKey(cmd);
+		break;
+	case AbstractAlterCommandLog::TRX_ALTER_DROP_PRIMARY_KEY:
+		handleAlterTableDropPrimaryKey(cmd);
+		break;
+	case AbstractAlterCommandLog::TRX_ALTER_MODIFY:
+		handleAlterTableModify(cmd);
+		break;
+	case AbstractAlterCommandLog::TRX_ALTER_RENAME_COLUMN:
+		handleAlterTableRenameColumn(cmd);
+		break;
+	case AbstractAlterCommandLog::TRX_ALTER_RENAME_TABLE:
+		handleAlterTableRenameTable(cmd);
+		break;
+	default:
+		throw new CdbException(L"unknown command type.", __FILE__, __LINE__);
+	}
+
+	this->committedCommands->addElement(cmd);
+}
+
+void CdbTransactionManager::handleAlterTableAddIndex(AbstractAlterCommandLog* cmd) {
+}
+
+void CdbTransactionManager::handleAlterTableAddColumn(AbstractAlterCommandLog* cmd) {
+}
+
+void CdbTransactionManager::handleAlterTableDropIndex(AbstractAlterCommandLog* cmd) {
+}
+
+void CdbTransactionManager::handleAlterTableAddPrimaryKey(AbstractAlterCommandLog* cmd) {
+}
+
+void CdbTransactionManager::handleAlterTableDropPrimaryKey(AbstractAlterCommandLog* cmd) {
+}
+
+void CdbTransactionManager::handleAlterTableModify(AbstractAlterCommandLog* cmd) {
+}
+
+void CdbTransactionManager::handleAlterTableRenameColumn(AbstractAlterCommandLog* cmd) {
+}
+
+void CdbTransactionManager::handleAlterTableRenameTable(AbstractAlterCommandLog* cmd) {
 }
 
 void CdbTransactionManager::commitInsert(InsertLog* cmd) {
@@ -141,6 +197,5 @@ ReadLockHandle* CdbTransactionManager::databaseReadLock() {
 WriteLockHandle* CdbTransactionManager::databaseWriteLock() {
 	return this->db->databaseWriteLock();
 }
-
 
 } /* namespace codablecash */
