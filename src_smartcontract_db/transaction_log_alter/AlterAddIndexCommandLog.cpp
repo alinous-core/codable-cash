@@ -9,6 +9,11 @@
 
 #include "sql_ddl_alter/AlterAddIndexCommand.h"
 
+#include "transaction/CdbTransactionManager.h"
+
+#include "engine_lock/WriteLockHandle.h"
+
+#include "base/StackRelease.h"
 namespace codablecash {
 
 AlterAddIndexCommandLog::AlterAddIndexCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_ADD_INDEX) {
@@ -47,6 +52,9 @@ void AlterAddIndexCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterAddIndexCommandLog::commit(CdbTransactionManager* trxManager) {
+	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+
+	trxManager->commitAlterTable(this);
 }
 
 } /* namespace codablecash */
