@@ -79,6 +79,7 @@ private:
 	void fireSchemaLoaded() noexcept;
 	void fireOnCreateTable(const CdbTable* table);
 
+	CdbTable* findTableFromCommand(const AbstractAlterCommandLog* cmdlog);
 private:
 	SchemaRoot* root;
 	File* schemaBin;

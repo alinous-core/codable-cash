@@ -26,6 +26,19 @@
 #include "sql_ddl_alter_modify/AlterModifyCommand.h"
 
 #include "transaction_log_alter_modify/AlterModifyCommandLog.h"
+
+#include "sql_join_parts/TableIdentifier.h"
+
+#include "transaction_log_alter/AlterAddColumnCommandLog.h"
+#include "transaction_log_alter/AlterAddIndexCommandLog.h"
+#include "transaction_log_alter/AlterDropIndexCommandLog.h"
+#include "transaction_log_alter/AlterDropColumnCommandLog.h"
+#include "transaction_log_alter_modify/AlterAddPrimaryKeyCommandLog.h"
+#include "transaction_log_alter_modify/AlterDropPrimaryKeyCommandLog.h"
+#include "transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
+#include "transaction_log_alter_modify/AlterRenameTableCommandLog.h"
+
+
 namespace codablecash {
 
 const UnicodeString SchemaManager::PUBLIC(L"public");
@@ -140,26 +153,33 @@ void SchemaManager::createTable(CdbTable* table) {
 }
 
 void SchemaManager::handleAlterTableAddIndex(const AlterAddColumnCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
 }
 
 void SchemaManager::handleAlterTableAddColumn(const AlterAddIndexCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
 }
 
 void SchemaManager::handleAlterTableDropIndex(const AlterDropIndexCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
 }
 
 void SchemaManager::handleAlterTableDropColumn(const AlterDropColumnCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
 }
 
 void SchemaManager::handleAlterTableAddPrimaryKey(const AlterAddPrimaryKeyCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
 }
 
 void SchemaManager::handleAlterTableDropPrimaryKey(const AlterDropPrimaryKeyCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
 }
 
 void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
+
 	const AlterModifyCommand* modifyCommand = cmd->getCommand();
-	const TableIdentifier* tableId = cmd->getTableId();
 
 }
 
@@ -176,6 +196,17 @@ void SchemaManager::fireSchemaLoaded() noexcept {
 		ISchemaUptateListner* l = this->listners.get(i);
 		l->schemaLoaded(this);
 	}
+}
+
+CdbTable* SchemaManager::findTableFromCommand(const AbstractAlterCommandLog* cmdlog) {
+	const TableIdentifier* tableId = cmdlog->getTableId();
+
+	const UnicodeString* schema = tableId->getSchema();
+	const UnicodeString* tableName = tableId->getTableName();
+
+	CdbTable* table = getTable(schema, tableName);
+
+	return table;
 }
 
 Schema* SchemaManager::getSchema(const UnicodeString* name) const noexcept {
