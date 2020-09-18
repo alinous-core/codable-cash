@@ -11,6 +11,12 @@
 
 #include "sc/CodeElement.h"
 
+#include "transaction/CdbTransactionManager.h"
+
+#include "engine_lock/WriteLockHandle.h"
+
+#include "base/StackRelease.h"
+
 namespace codablecash {
 
 AlterAddColumnCommandLog::AlterAddColumnCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_ADD_COLUMN) {
@@ -49,6 +55,9 @@ void AlterAddColumnCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterAddColumnCommandLog::commit(CdbTransactionManager* trxManager) {
+	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+
+	trxManager->commitAlterTable(this);
 }
 
 
