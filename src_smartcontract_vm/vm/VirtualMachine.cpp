@@ -449,4 +449,9 @@ bool VirtualMachine::isSelectPlanning() const noexcept {
 	return !this->selectPlannerList.isEmpty();
 }
 
+const UnicodeString* VirtualMachine::getCurrentSchema() const noexcept {
+	return this->trxHandler->getCurrentSchema();
+}
+
+
 } /* namespace alinous */

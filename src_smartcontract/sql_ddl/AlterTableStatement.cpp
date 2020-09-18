@@ -18,8 +18,10 @@
 #include "transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "base/Exception.h"
+#include "base/UnicodeString.h"
 
 #include "transaction_log_alter/AbstractAlterCommandLog.h"
+
 
 namespace alinous {
 
@@ -86,7 +88,13 @@ void AlterTableStatement::fromBinary(ByteBuffer* in) {
 
 void AlterTableStatement::interpret(VirtualMachine* vm) {
 	AbstractAlterCommandLog* log = this->cmd->getCommandLog();
-	log->setTableIdentifier(this->tableId);
+
+	TableIdentifier* table = new TableIdentifier(*this->tableId);
+	if(table->getSchema() == nullptr){
+		table->setSchema(new UnicodeString(vm->getCurrentSchema()));
+	}
+
+	log->setTableIdentifier(table);
 
 	VmTransactionHandler* handler = vm->getTransactionHandler();
 	try{

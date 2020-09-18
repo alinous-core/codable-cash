@@ -43,6 +43,10 @@ public:
 	uint64_t getSchemaObjectVersionId() const noexcept;
 	CdbTable* getTable(const UnicodeString* schema, const UnicodeString* tableName) const noexcept;
 
+	const UnicodeString* getCurrentSchema() const noexcept {
+		return currentSchema;
+	}
+
 private:
 	void doCommit();
 	void doRollback();
@@ -50,6 +54,8 @@ private:
 private:
 	CodableDatabase* db;
 	CdbTransaction* trx;
+
+	UnicodeString* currentSchema;
 };
 
 } /* namespace alinous */

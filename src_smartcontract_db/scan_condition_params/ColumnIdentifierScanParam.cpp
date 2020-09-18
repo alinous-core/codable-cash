@@ -92,7 +92,7 @@ void ColumnIdentifierScanParam::analyzeConditions(VirtualMachine* vm, SelectScan
 	}
 
 	if(schemaName == nullptr){
-		schemaName = &SchemaManager::PUBLIC;
+		schemaName = vm->getCurrentSchema();
 	}
 
 	CdbTable* table = scMgr->getTable(schemaName, tableName);

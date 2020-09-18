@@ -124,6 +124,8 @@ public:
 		return db;
 	}
 
+	const UnicodeString* getCurrentSchema() const noexcept;
+
 private:
 	SmartContract* sc;
 
