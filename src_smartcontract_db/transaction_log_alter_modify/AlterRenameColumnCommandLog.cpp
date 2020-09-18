@@ -9,6 +9,12 @@
 
 #include "sql_ddl_alter_modify/AlterRenameColumnCommand.h"
 
+#include "engine_lock/WriteLockHandle.h"
+
+#include "base/StackRelease.h"
+
+#include "transaction/CdbTransactionManager.h"
+
 namespace codablecash {
 
 AlterRenameColumnCommandLog::AlterRenameColumnCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_RENAME_COLUMN) {
@@ -47,6 +53,9 @@ void AlterRenameColumnCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterRenameColumnCommandLog::commit(CdbTransactionManager* trxManager) {
+	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+
+	trxManager->commitAlterTable(this);
 }
 
 } /* namespace codablecash */
