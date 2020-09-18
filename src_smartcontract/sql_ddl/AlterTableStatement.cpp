@@ -19,6 +19,7 @@
 
 #include "base/Exception.h"
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #include "transaction_log_alter/AbstractAlterCommandLog.h"
 
@@ -89,7 +90,7 @@ void AlterTableStatement::fromBinary(ByteBuffer* in) {
 void AlterTableStatement::interpret(VirtualMachine* vm) {
 	AbstractAlterCommandLog* log = this->cmd->getCommandLog();
 
-	TableIdentifier* table = new TableIdentifier(*this->tableId);
+	TableIdentifier* table = new TableIdentifier(*this->tableId); __STP(table);
 	if(table->getSchema() == nullptr){
 		table->setSchema(new UnicodeString(vm->getCurrentSchema()));
 	}
