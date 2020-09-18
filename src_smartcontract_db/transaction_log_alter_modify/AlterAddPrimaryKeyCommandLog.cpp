@@ -9,6 +9,12 @@
 
 #include "sql_ddl_alter_modify/AlterAddPrimaryKeyCommand.h"
 
+#include "transaction/CdbTransactionManager.h"
+
+#include "engine_lock/WriteLockHandle.h"
+
+#include "base/StackRelease.h"
+
 namespace codablecash {
 
 AlterAddPrimaryKeyCommandLog::AlterAddPrimaryKeyCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_ADD_PRIMARY_KEY){
@@ -47,6 +53,9 @@ void AlterAddPrimaryKeyCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterAddPrimaryKeyCommandLog::commit(CdbTransactionManager* trxManager) {
+	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+
+	trxManager->commitAlterTable(this);
 }
 
 } /* namespace codablecash */
