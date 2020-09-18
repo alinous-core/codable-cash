@@ -18,6 +18,7 @@ using namespace codablecash;
 namespace alinous {
 
 class DdlColumnDescriptor;
+class TableIdentifier;
 
 class AbstractAlterDdlCommand : public CodeElement {
 public:
@@ -28,6 +29,7 @@ public:
 
 protected:
 	DdlColumnDescriptor* copyColumnDescriptor(DdlColumnDescriptor* columnDescriptor) const;
+
 };
 
 } /* namespace alinous */

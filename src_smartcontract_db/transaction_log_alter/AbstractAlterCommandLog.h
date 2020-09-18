@@ -10,12 +10,25 @@
 
 #include "transaction_log/AbstractDdlLog.h"
 
+namespace alinous {
+class TableIdentifier;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class AbstractAlterCommandLog : public AbstractDdlLog {
 public:
 	explicit AbstractAlterCommandLog(uint8_t type);
 	virtual ~AbstractAlterCommandLog();
+
+	void setTableIdentifier(const TableIdentifier* tableId) noexcept;
+	const TableIdentifier* getTableId() const noexcept {
+		return tableId;
+	}
+
+protected:
+	TableIdentifier* tableId;
 };
 
 } /* namespace codablecash */

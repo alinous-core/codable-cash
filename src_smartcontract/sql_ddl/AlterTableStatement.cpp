@@ -86,6 +86,7 @@ void AlterTableStatement::fromBinary(ByteBuffer* in) {
 
 void AlterTableStatement::interpret(VirtualMachine* vm) {
 	AbstractAlterCommandLog* log = this->cmd->getCommandLog();
+	log->setTableIdentifier(this->tableId);
 
 	VmTransactionHandler* handler = vm->getTransactionHandler();
 	try{

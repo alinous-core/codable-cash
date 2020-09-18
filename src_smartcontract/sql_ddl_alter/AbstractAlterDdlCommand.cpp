@@ -13,6 +13,7 @@
 
 #include "base_io/ByteBuffer.h"
 
+
 namespace alinous {
 
 AbstractAlterDdlCommand::AbstractAlterDdlCommand(short kind) : CodeElement(kind) {

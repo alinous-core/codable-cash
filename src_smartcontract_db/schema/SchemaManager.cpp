@@ -23,6 +23,9 @@
 
 #include "table/CdbTable.h"
 
+#include "sql_ddl_alter_modify/AlterModifyCommand.h"
+
+#include "transaction_log_alter_modify/AlterModifyCommandLog.h"
 namespace codablecash {
 
 const UnicodeString SchemaManager::PUBLIC(L"public");
@@ -155,6 +158,9 @@ void SchemaManager::handleAlterTableDropPrimaryKey(const AlterDropPrimaryKeyComm
 }
 
 void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
+	const AlterModifyCommand* modifyCommand = cmd->getCommand();
+	const TableIdentifier* tableId = cmd->getTableId();
+
 }
 
 void SchemaManager::handleAlterTableRenameColumn(const AlterRenameColumnCommandLog* cmd) {
