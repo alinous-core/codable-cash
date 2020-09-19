@@ -32,6 +32,8 @@ int AlterAddIndexCommandLog::binarySize() const {
 	CodeElement::checkNotNull(this->command);
 
 	int total = sizeof(uint8_t);
+
+	total += AbstractAlterCommandLog::binarySize();
 	total += this->command->binarySize();
 
 	return total;
@@ -41,10 +43,14 @@ void AlterAddIndexCommandLog::toBinary(ByteBuffer* out) const {
 	CodeElement::checkNotNull(this->command);
 
 	out->put(AbstractTransactionLog::TRX_ALTER_ADD_INDEX);
+
+	AbstractAlterCommandLog::toBinary(out);
 	this->command->toBinary(out);
 }
 
 void AlterAddIndexCommandLog::fromBinary(ByteBuffer* in) {
+	AbstractAlterCommandLog::fromBinary(in);
+
 	CodeElement* element = CodeElement::createFromBinary(in);
 	CodeElement::checkKind(element, CodeElement::DDL_ALTER_ADD_INDEX);
 
