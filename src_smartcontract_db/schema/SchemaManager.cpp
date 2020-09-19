@@ -22,6 +22,7 @@
 #include "engine/CdbException.h"
 
 #include "table/CdbTable.h"
+#include "table/CdbTableColumn.h"
 
 #include "sql_ddl_alter_modify/AlterModifyCommand.h"
 
@@ -38,6 +39,7 @@
 #include "transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
 #include "transaction_log_alter_modify/AlterRenameTableCommandLog.h"
 
+#include "sql_ddl/DdlColumnDescriptor.h"
 
 namespace codablecash {
 
@@ -181,6 +183,16 @@ void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
 
 	const AlterModifyCommand* modifyCommand = cmd->getCommand();
 
+	const DdlColumnDescriptor* newdesc = modifyCommand->getColumnDescriptor();
+
+	const CdbTableColumn* col = table->getColumn(newdesc->getName());
+	if(col == nullptr){
+		throw new CdbException(L"Column does not exists.", __FILE__, __LINE__);
+	}
+
+	uint8_t lastType = col->getType();
+
+	// TODO implement now
 }
 
 void SchemaManager::handleAlterTableRenameColumn(const AlterRenameColumnCommandLog* cmd) {

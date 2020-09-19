@@ -21,6 +21,9 @@ public:
 	virtual ~AlterModifyCommand();
 
 	void setColumnDescriptor(DdlColumnDescriptor* columnDescriptor) noexcept;
+	const DdlColumnDescriptor* getColumnDescriptor() const noexcept {
+		return columnDescriptor;
+	}
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
