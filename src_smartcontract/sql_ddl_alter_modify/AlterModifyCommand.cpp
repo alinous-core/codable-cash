@@ -30,6 +30,8 @@
 #include "base/UnicodeString.h"
 
 #include "instance_string/VmStringInstance.h"
+
+#include "instance_exception/TypeCastExceptionClassDeclare.h"
 namespace alinous {
 
 AlterModifyCommand::AlterModifyCommand(const AlterModifyCommand& inst) : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_MODIFY) {
@@ -148,28 +150,33 @@ void AlterModifyCommand::analyze(AnalyzeContext* actx) {
 }
 
 void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log) {
+	AlterModifyCommandLog* modifyLog = dynamic_cast<AlterModifyCommandLog*>(log);
+
 	AbstractSQLExpression* defaultValue = this->columnDescriptor->getDefaultValue();
+	if(defaultValue != nullptr){
+		StackFloatingVariableHandler releaser(vm->getGc());
 
-	StackFloatingVariableHandler releaser(vm->getGc());
+		AbstractVmInstance* inst = defaultValue->interpret(vm);
+		releaser.registerInstance(inst);
 
-	AbstractVmInstance* inst = defaultValue->interpret(vm);
-	IAbstractVmInstanceSubstance* sub = inst->getInstance();
+		IAbstractVmInstanceSubstance* sub = inst->getInstance();
 
-	uint8_t instType = sub->getInstType();
-	if(sub->instIsPrimitive()){
-		PrimitiveReference* pr = dynamic_cast<PrimitiveReference*>(sub);
-		const UnicodeString* str = pr->toString();
+		uint8_t instType = sub->getInstType();
+		if(sub->instIsPrimitive()){
+			PrimitiveReference* pr = dynamic_cast<PrimitiveReference*>(sub);
+			const UnicodeString* str = pr->toString();
 
-		//this->strDefaultValue = new UnicodeString(str);
-	}
-	else if(VmInstanceTypesConst::INST_STRING == instType){
-		VmStringInstance* strInst = dynamic_cast<VmStringInstance*>(sub);
-		const UnicodeString* str = strInst->toString();
+			modifyLog->setDefaultStr(new UnicodeString(str));
+		}
+		else if(VmInstanceTypesConst::INST_STRING == instType){
+			VmStringInstance* strInst = dynamic_cast<VmStringInstance*>(sub);
+			const UnicodeString* str = strInst->toString();
 
-		//this->strDefaultValue = new UnicodeString(str);
-	}
-	else{
-
+			modifyLog->setDefaultStr(new UnicodeString(str));
+		}
+		else{
+			TypeCastExceptionClassDeclare::throwException(vm, this);
+		}
 	}
 }
 

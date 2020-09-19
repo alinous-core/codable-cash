@@ -23,6 +23,7 @@ public:
 	virtual ~AlterModifyCommandLog();
 
 	void setCommand(AlterModifyCommand* command) noexcept;
+	void setDefaultStr(UnicodeString* defaultValueStr) noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
@@ -38,6 +39,8 @@ public:
 
 private:
 	AlterModifyCommand* command;
+
+	UnicodeString* defaultValueStr;
 };
 
 } /* namespace codablecash */

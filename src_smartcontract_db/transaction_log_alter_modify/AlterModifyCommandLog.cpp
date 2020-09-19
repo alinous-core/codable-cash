@@ -15,18 +15,26 @@
 
 #include "transaction/CdbTransactionManager.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 AlterModifyCommandLog::AlterModifyCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_MODIFY) {
 	this->command = nullptr;
+	this->defaultValueStr = nullptr;
 }
 
 AlterModifyCommandLog::~AlterModifyCommandLog() {
 	delete this->command;
+	delete this->defaultValueStr;
 }
 
 void AlterModifyCommandLog::setCommand(AlterModifyCommand* command) noexcept {
 	this->command = command;
+}
+
+void AlterModifyCommandLog::setDefaultStr(UnicodeString* defaultValueStr) noexcept {
+	this->defaultValueStr = defaultValueStr;
 }
 
 int AlterModifyCommandLog::binarySize() const {
@@ -59,6 +67,7 @@ void AlterModifyCommandLog::commit(CdbTransactionManager* trxManager) {
 }
 
 void AlterModifyCommandLog::initCommandParam(VirtualMachine* vm) {
+	this->command->interpret(vm, this);
 }
 
 } /* namespace codablecash */
