@@ -57,6 +57,7 @@ int AlterModifyCommand::binarySize() const {
 	checkNotNull(this->columnDescriptor);
 
 	int total = sizeof(uint16_t);
+
 	total += this->columnDescriptor->binarySize();
 
 	return total;

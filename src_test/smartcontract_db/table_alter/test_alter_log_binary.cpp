@@ -28,6 +28,7 @@
 #include "sql_ddl_alter/AlterDropColumnCommand.h"
 #include "sql_ddl_alter/AlterDropIndexCommand.h"
 
+#include "sql_join_parts/TableIdentifier.h"
 TEST_GROUP(TestAlterLogBinaryGroup) {
 	TEST_SETUP(){
 	}
@@ -66,6 +67,8 @@ TEST(TestAlterLogBinaryGroup, AlterAddColumnCommand01){
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
+		TableIdentifier tableId;
+		tableId.setTableName(new UnicodeString(L"table1"));
 
 		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
 		CHECK(!parser.hasError())
@@ -75,6 +78,7 @@ TEST(TestAlterLogBinaryGroup, AlterAddColumnCommand01){
 
 		AlterAddColumnCommandLog log;
 		log.setCommand(dynamic_cast<AlterAddColumnCommand*>(cmd));
+		log.setTableIdentifier(&tableId);
 
 		int size = log.binarySize();
 		ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
@@ -96,6 +100,9 @@ TEST(TestAlterLogBinaryGroup, AlterAddIndexCommandLog01){
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
 
+		TableIdentifier tableId;
+		tableId.setTableName(new UnicodeString(L"table1"));
+
 		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
 		CHECK(!parser.hasError())
 
@@ -104,6 +111,7 @@ TEST(TestAlterLogBinaryGroup, AlterAddIndexCommandLog01){
 
 		AlterAddIndexCommandLog log;
 		log.setCommand(dynamic_cast<AlterAddIndexCommand*>(cmd));
+		log.setTableIdentifier(&tableId);
 
 		int size = log.binarySize();
 		ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
@@ -125,6 +133,9 @@ TEST(TestAlterLogBinaryGroup, AlterDropColumnCommand01){
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
 
+		TableIdentifier tableId;
+		tableId.setTableName(new UnicodeString(L"table1"));
+
 		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
 		CHECK(!parser.hasError())
 
@@ -133,6 +144,7 @@ TEST(TestAlterLogBinaryGroup, AlterDropColumnCommand01){
 
 		AlterDropColumnCommandLog log;
 		log.setCommand(dynamic_cast<AlterDropColumnCommand*>(cmd));
+		log.setTableIdentifier(&tableId);
 
 		int size = log.binarySize();
 		ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
@@ -154,6 +166,9 @@ TEST(TestAlterLogBinaryGroup, AlterDropIndexCommand01){
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
 
+		TableIdentifier tableId;
+		tableId.setTableName(new UnicodeString(L"table1"));
+
 		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
 		CHECK(!parser.hasError())
 
@@ -162,6 +177,7 @@ TEST(TestAlterLogBinaryGroup, AlterDropIndexCommand01){
 
 		AlterDropIndexCommandLog log;
 		log.setCommand(dynamic_cast<AlterDropIndexCommand*>(cmd));
+		log.setTableIdentifier(&tableId);
 
 		int size = log.binarySize();
 		ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);

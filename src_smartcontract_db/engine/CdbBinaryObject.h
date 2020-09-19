@@ -13,6 +13,7 @@
 namespace alinous {
 class UnicodeString;
 class ByteBuffer;
+class TableIdentifier;
 }
 using namespace alinous;
 
@@ -30,6 +31,7 @@ protected:
 
 	void checkNotNull(CdbBinaryObject* object) const;
 	void checkNotNull(UnicodeString* object) const;
+	void checkNotNull(TableIdentifier* object) const;
 };
 
 } /* namespace codablecash */

@@ -23,5 +23,25 @@ void AbstractAlterCommandLog::setTableIdentifier(const TableIdentifier* tableId)
 	this->tableId = new TableIdentifier(*tableId);
 }
 
+int AbstractAlterCommandLog::binarySize() const {
+	checkNotNull(this->tableId);
+
+	return this->tableId->binarySize();
+}
+
+void AbstractAlterCommandLog::toBinary(ByteBuffer* out) const {
+	checkNotNull(this->tableId);
+
+	this->tableId->toBinary(out);
+}
+
+void AbstractAlterCommandLog::fromBinary(ByteBuffer* in) {
+	CodeElement* element = CodeElement::createFromBinary(in);
+
+	CodeElement::checkNotNull(element);
+	CodeElement::checkKind(element, CodeElement::SQL_EXP_TABLE_ID);
+
+	this->tableId = dynamic_cast<TableIdentifier*>(element);
+}
 
 } /* namespace codablecash */

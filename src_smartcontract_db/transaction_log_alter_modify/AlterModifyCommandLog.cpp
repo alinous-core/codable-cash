@@ -42,6 +42,8 @@ int AlterModifyCommandLog::binarySize() const {
 	CodeElement::checkNotNull(this->command);
 
 	int total = sizeof(uint8_t);
+
+	total += AbstractAlterCommandLog::binarySize();
 	total += this->command->binarySize();
 
 	bool isnotnull = this->defaultValueStr != nullptr;
@@ -60,6 +62,8 @@ void AlterModifyCommandLog::toBinary(ByteBuffer* out) const {
 	CodeElement::checkNotNull(this->command);
 
 	out->put(AbstractTransactionLog::TRX_ALTER_MODIFY);
+
+	AbstractAlterCommandLog::toBinary(out);
 	this->command->toBinary(out);
 
 	bool isnotnull = this->defaultValueStr != nullptr;
@@ -73,6 +77,8 @@ void AlterModifyCommandLog::toBinary(ByteBuffer* out) const {
 }
 
 void AlterModifyCommandLog::fromBinary(ByteBuffer* in) {
+	AbstractAlterCommandLog::fromBinary(in);
+
 	CodeElement* element = CodeElement::createFromBinary(in);
 	CodeElement::checkKind(element, CodeElement::DDL_ALTER_MODIFY);
 
