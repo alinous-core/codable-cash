@@ -193,7 +193,9 @@ void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
 		throw new CdbException(L"Column does not exists.", __FILE__, __LINE__);
 	}
 
-	ColumnModifyContext* context = col->createModifyContextwithChange(modifyCommand); __STP(context);
+	const UnicodeString* defaultStr = cmd->getDefaultValueStr();
+
+	ColumnModifyContext* context = col->createModifyContextwithChange(modifyCommand, defaultStr); __STP(context);
 
 
 	// TODO implement now

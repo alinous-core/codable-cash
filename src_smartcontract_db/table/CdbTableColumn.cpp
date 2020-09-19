@@ -171,7 +171,7 @@ ScanResultFieldMetadata* CdbTableColumn::getFieldMetadata(const CdbTable* table)
 	return fld;
 }
 
-ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterModifyCommand* cmd) {
+ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterModifyCommand* cmd, const UnicodeString* defaultStr) {
 	ColumnModifyContext* ctx = new ColumnModifyContext();
 	const DdlColumnDescriptor* newdesc = cmd->getColumnDescriptor();
 
@@ -201,6 +201,23 @@ ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterMo
 
 	ColumnTypeDescriptor* typeDesc = newdesc->getColumnTypeDescriptor();
 	uint8_t cdbType = typeDesc->toCdbValueType();
+	int64_t length = cmd->getLengthValue();
+
+	if(this->type != cdbType || length != length){
+		ctx->setTypeChanged(true);
+		ctx->setCdbType(cdbType);
+		ctx->setLength(length);
+
+		this->type = cdbType;
+		this->length = length;
+	}
+
+	if((this->defaultValue != nullptr && defaultStr == nullptr) ||
+			(this->defaultValue == nullptr && defaultStr != nullptr) ||
+			!this->defaultValue->equals(defaultStr)){
+
+
+	}
 
 
 	return ctx;

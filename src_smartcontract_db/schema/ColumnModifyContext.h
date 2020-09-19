@@ -7,6 +7,7 @@
 
 #ifndef SCHEMA_COLUMNMODIFYCONTEXT_H_
 #define SCHEMA_COLUMNMODIFYCONTEXT_H_
+#include <cstdint>
 
 namespace codablecash {
 
@@ -33,10 +34,39 @@ public:
 	void setNotNullChange(NotNullChage notNullChange) noexcept {
 		this->notNullChange = notNullChange;
 	}
+
+	uint8_t getCdbType() const {
+		return cdbType;
+	}
+
+	void setCdbType(uint8_t cdbType) {
+		this->cdbType = cdbType;
+	}
+
+	int64_t getLength() const {
+		return length;
+	}
+
+	void setLength(int64_t length) {
+		this->length = length;
+	}
+
+	bool isTypeChanged() const {
+		return typeChanged;
+	}
+
+	void setTypeChanged(bool typeChanged) {
+		this->typeChanged = typeChanged;
+	}
+
 private:
 	UniqueChage uniqueChange;
-	bool typeChanged;
 	NotNullChage notNullChange;
+
+	bool typeChanged;
+	uint8_t cdbType;
+	int64_t length;
+
 };
 
 } /* namespace codablecash */

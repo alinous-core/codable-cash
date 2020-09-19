@@ -37,6 +37,10 @@ public:
 		return command;
 	}
 
+	const UnicodeString* getDefaultValueStr() const noexcept {
+		return defaultValueStr;
+	}
+
 private:
 	AlterModifyCommand* command;
 

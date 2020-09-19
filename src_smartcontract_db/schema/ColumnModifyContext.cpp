@@ -13,6 +13,8 @@ ColumnModifyContext::ColumnModifyContext() {
 	this->uniqueChange = UniqueChage::UNIQUE_NONE;
 	this->typeChanged = false;
 	this->notNullChange = NotNullChage::NOTNULL_NONE;
+
+	this->cdbType = 0;
 }
 
 ColumnModifyContext::~ColumnModifyContext() {
