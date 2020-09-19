@@ -34,11 +34,6 @@ public:
 		return command;
 	}
 
-	virtual void preAnalyze(AnalyzeContext* actx);
-	virtual void analyzeTypeRef(AnalyzeContext* actx);
-	virtual void analyze(AnalyzeContext* actx);
-	virtual void interpret(VirtualMachine* vm);
-
 private:
 	AlterModifyCommand* command;
 };

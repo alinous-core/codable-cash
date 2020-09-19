@@ -56,4 +56,16 @@ AbstractAlterCommandLog* AlterDropColumnCommand::getCommandLog() {
 	return log;
 }
 
+void AlterDropColumnCommand::preAnalyze(AnalyzeContext* actx) {
+}
+
+void AlterDropColumnCommand::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void AlterDropColumnCommand::analyze(AnalyzeContext* actx) {
+}
+
+void AlterDropColumnCommand::interpret(VirtualMachine* vm) {
+}
+
 } /* namespace alinous */

@@ -58,17 +58,4 @@ void AlterRenameTableCommandLog::commit(CdbTransactionManager* trxManager) {
 	trxManager->commitAlterTable(this);
 }
 
-void AlterRenameTableCommandLog::preAnalyze(AnalyzeContext* actx) {
-}
-
-void AlterRenameTableCommandLog::analyzeTypeRef(AnalyzeContext* actx) {
-}
-
-void AlterRenameTableCommandLog::analyze(AnalyzeContext* actx) {
-}
-
-void AlterRenameTableCommandLog::interpret(VirtualMachine* vm) {
-}
-
-
 } /* namespace codablecash */

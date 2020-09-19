@@ -58,17 +58,6 @@ void AlterAddPrimaryKeyCommandLog::commit(CdbTransactionManager* trxManager) {
 	trxManager->commitAlterTable(this);
 }
 
-void AlterAddPrimaryKeyCommandLog::preAnalyze(AnalyzeContext* actx) {
-}
-
-void AlterAddPrimaryKeyCommandLog::analyzeTypeRef(AnalyzeContext* actx) {
-}
-
-void AlterAddPrimaryKeyCommandLog::analyze(AnalyzeContext* actx) {
-}
-
-void AlterAddPrimaryKeyCommandLog::interpret(VirtualMachine* vm) {
-}
 
 
 } /* namespace codablecash */

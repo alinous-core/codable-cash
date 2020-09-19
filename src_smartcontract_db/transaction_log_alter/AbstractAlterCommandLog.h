@@ -29,11 +29,6 @@ public:
 		return tableId;
 	}
 
-	virtual void preAnalyze(AnalyzeContext* actx) = 0;
-	virtual void analyzeTypeRef(AnalyzeContext* actx) = 0;
-	virtual void analyze(AnalyzeContext* actx) = 0;
-	virtual void interpret(VirtualMachine* vm) = 0;
-
 protected:
 	TableIdentifier* tableId;
 };

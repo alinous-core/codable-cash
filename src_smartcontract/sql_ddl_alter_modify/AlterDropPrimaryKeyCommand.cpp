@@ -11,7 +11,7 @@
 
 namespace alinous {
 
-alinous::AlterDropPrimaryKeyCommand::AlterDropPrimaryKeyCommand(const AlterDropPrimaryKeyCommand& inst)
+AlterDropPrimaryKeyCommand::AlterDropPrimaryKeyCommand(const AlterDropPrimaryKeyCommand& inst)
 	: AbstractAlterDdlCommand(CodeElement::DDL_ALTER_DROP_PRIMARY_KEY) {
 }
 
@@ -42,6 +42,19 @@ AbstractAlterCommandLog* AlterDropPrimaryKeyCommand::getCommandLog() {
 
 	return log;
 }
+
+void AlterDropPrimaryKeyCommand::preAnalyze(AnalyzeContext* actx) {
+}
+
+void AlterDropPrimaryKeyCommand::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void AlterDropPrimaryKeyCommand::analyze(AnalyzeContext* actx) {
+}
+
+void AlterDropPrimaryKeyCommand::interpret(VirtualMachine* vm) {
+}
+
 
 
 } /* namespace alinous */

@@ -61,6 +61,18 @@ AbstractAlterCommandLog* AlterModifyCommand::getCommandLog() {
 	return log;
 }
 
+void AlterModifyCommand::preAnalyze(AnalyzeContext* actx) {
+}
+
+void AlterModifyCommand::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void AlterModifyCommand::analyze(AnalyzeContext* actx) {
+}
+
+void AlterModifyCommand::interpret(VirtualMachine* vm) {
+}
+
 void AlterModifyCommand::interpretType(VirtualMachine* vm) {
 	const ColumnTypeDescriptor* typeDesc = this->columnDescriptor->getTypeDesc();
 

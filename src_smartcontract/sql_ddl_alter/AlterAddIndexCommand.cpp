@@ -91,4 +91,16 @@ AbstractAlterCommandLog* AlterAddIndexCommand::getCommandLog() {
 	return log;
 }
 
+void AlterAddIndexCommand::preAnalyze(AnalyzeContext* actx) {
+}
+
+void AlterAddIndexCommand::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void AlterAddIndexCommand::analyze(AnalyzeContext* actx) {
+}
+
+void AlterAddIndexCommand::interpret(VirtualMachine* vm) {
+}
+
 } /* namespace alinous */

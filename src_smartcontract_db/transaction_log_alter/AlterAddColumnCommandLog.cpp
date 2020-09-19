@@ -60,16 +60,4 @@ void AlterAddColumnCommandLog::commit(CdbTransactionManager* trxManager) {
 	trxManager->commitAlterTable(this);
 }
 
-void AlterAddColumnCommandLog::preAnalyze(AnalyzeContext* actx) {
-}
-
-void AlterAddColumnCommandLog::analyzeTypeRef(AnalyzeContext* actx) {
-}
-
-void AlterAddColumnCommandLog::analyze(AnalyzeContext* actx) {
-}
-
-void AlterAddColumnCommandLog::interpret(VirtualMachine* vm) {
-}
-
 } /* namespace codablecash */

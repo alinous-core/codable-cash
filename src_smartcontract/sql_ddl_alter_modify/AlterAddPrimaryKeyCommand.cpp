@@ -13,7 +13,7 @@
 
 namespace alinous {
 
-alinous::AlterAddPrimaryKeyCommand::AlterAddPrimaryKeyCommand(const AlterAddPrimaryKeyCommand& inst)
+AlterAddPrimaryKeyCommand::AlterAddPrimaryKeyCommand(const AlterAddPrimaryKeyCommand& inst)
 		: AbstractAlterDdlCommand(CodeElement::DDL_ALTER_ADD_PRIMARY_KEY) {
 	int maxLoop = inst.list.size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -75,6 +75,19 @@ AbstractAlterCommandLog* AlterAddPrimaryKeyCommand::getCommandLog() {
 
 	return log;
 }
+
+void AlterAddPrimaryKeyCommand::preAnalyze(AnalyzeContext* actx) {
+}
+
+void AlterAddPrimaryKeyCommand::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void AlterAddPrimaryKeyCommand::analyze(AnalyzeContext* actx) {
+}
+
+void AlterAddPrimaryKeyCommand::interpret(VirtualMachine* vm) {
+}
+
 
 
 } /* namespace alinous */

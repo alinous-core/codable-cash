@@ -23,6 +23,11 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 	virtual AbstractAlterCommandLog* getCommandLog();
+
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+	virtual void interpret(VirtualMachine* vm);
 };
 
 } /* namespace alinous */

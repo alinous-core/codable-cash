@@ -19,6 +19,8 @@ namespace alinous {
 
 class DdlColumnDescriptor;
 class TableIdentifier;
+class AnalyzeContext;
+class VirtualMachine;
 
 class AbstractAlterDdlCommand : public CodeElement {
 public:
@@ -26,6 +28,12 @@ public:
 	virtual ~AbstractAlterDdlCommand();
 
 	virtual AbstractAlterCommandLog* getCommandLog() = 0;
+
+
+	virtual void preAnalyze(AnalyzeContext* actx) = 0;
+	virtual void analyzeTypeRef(AnalyzeContext* actx) = 0;
+	virtual void analyze(AnalyzeContext* actx) = 0;
+	virtual void interpret(VirtualMachine* vm) = 0;
 
 protected:
 	DdlColumnDescriptor* copyColumnDescriptor(DdlColumnDescriptor* columnDescriptor) const;

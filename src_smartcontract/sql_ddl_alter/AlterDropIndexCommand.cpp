@@ -57,5 +57,16 @@ AbstractAlterCommandLog* AlterDropIndexCommand::getCommandLog() {
 	return log;
 }
 
+void alinous::AlterDropIndexCommand::preAnalyze(AnalyzeContext* actx) {
+}
+
+void alinous::AlterDropIndexCommand::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void alinous::AlterDropIndexCommand::analyze(AnalyzeContext* actx) {
+}
+
+void alinous::AlterDropIndexCommand::interpret(VirtualMachine* vm) {
+}
 
 } /* namespace alinous */

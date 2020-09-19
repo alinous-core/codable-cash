@@ -58,4 +58,17 @@ AbstractAlterCommandLog* AlterRenameTableCommand::getCommandLog() {
 	return log;
 }
 
+void AlterRenameTableCommand::preAnalyze(AnalyzeContext* actx) {
+}
+
+void AlterRenameTableCommand::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void AlterRenameTableCommand::analyze(AnalyzeContext* actx) {
+}
+
+void AlterRenameTableCommand::interpret(VirtualMachine* vm) {
+}
+
+
 } /* namespace alinous */
