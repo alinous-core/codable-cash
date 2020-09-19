@@ -58,4 +58,7 @@ void AlterRenameTableCommandLog::commit(CdbTransactionManager* trxManager) {
 	trxManager->commitAlterTable(this);
 }
 
+void AlterRenameTableCommandLog::initCommandParam(VirtualMachine* vm) {
+}
+
 } /* namespace codablecash */

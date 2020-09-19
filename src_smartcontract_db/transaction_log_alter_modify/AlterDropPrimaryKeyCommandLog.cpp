@@ -58,4 +58,7 @@ void AlterDropPrimaryKeyCommandLog::commit(CdbTransactionManager* trxManager) {
 	trxManager->commitAlterTable(this);
 }
 
+void AlterDropPrimaryKeyCommandLog::initCommandParam(VirtualMachine* vm) {
+}
+
 } /* namespace codablecash */

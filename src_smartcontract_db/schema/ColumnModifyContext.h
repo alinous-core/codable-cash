@@ -30,7 +30,9 @@ public:
 	void setUniqueChange(UniqueChage uniqueChange) noexcept {
 		this->uniqueChange = uniqueChange;
 	}
-
+	void setNotNullChange(NotNullChage notNullChange) noexcept {
+		this->notNullChange = notNullChange;
+	}
 private:
 	UniqueChage uniqueChange;
 	bool typeChanged;

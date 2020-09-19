@@ -30,6 +30,8 @@ public:
 
 	virtual void commit(CdbTransactionManager* trxManager);
 
+	virtual void initCommandParam(VirtualMachine* vm);
+
 private:
 	AlterRenameColumnCommand* command;
 };

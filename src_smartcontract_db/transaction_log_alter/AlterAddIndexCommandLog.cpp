@@ -57,5 +57,7 @@ void AlterAddIndexCommandLog::commit(CdbTransactionManager* trxManager) {
 	trxManager->commitAlterTable(this);
 }
 
+void AlterAddIndexCommandLog::initCommandParam(VirtualMachine* vm) {
+}
 
 } /* namespace codablecash */

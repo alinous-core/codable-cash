@@ -19,6 +19,17 @@
 
 #include "sql_expression/SQLLiteral.h"
 
+#include "instance/AbstractVmInstance.h"
+#include "instance/IAbstractVmInstanceSubstance.h"
+#include "instance/VmInstanceTypesConst.h"
+
+#include "instance_gc/StackFloatingVariableHandler.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
+#include "base/UnicodeString.h"
+
+#include "instance_string/VmStringInstance.h"
 namespace alinous {
 
 AlterModifyCommand::AlterModifyCommand(const AlterModifyCommand& inst) : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_MODIFY) {
@@ -137,10 +148,30 @@ void AlterModifyCommand::analyze(AnalyzeContext* actx) {
 }
 
 void AlterModifyCommand::interpret(VirtualMachine* vm) {
+	AbstractSQLExpression* defaultValue = this->columnDescriptor->getDefaultValue();
 
+	StackFloatingVariableHandler releaser(vm->getGc());
+
+	AbstractVmInstance* inst = defaultValue->interpret(vm);
+	IAbstractVmInstanceSubstance* sub = inst->getInstance();
+
+	uint8_t instType = sub->getInstType();
+	if(sub->instIsPrimitive()){
+		PrimitiveReference* pr = dynamic_cast<PrimitiveReference*>(sub);
+		const UnicodeString* str = pr->toString();
+
+		this->strDefaultValue = new UnicodeString(str);
+	}
+	else if(VmInstanceTypesConst::INST_STRING == instType){
+		VmStringInstance* strInst = dynamic_cast<VmStringInstance*>(sub);
+		const UnicodeString* str = strInst->toString();
+
+		this->strDefaultValue = new UnicodeString(str);
+	}
+	else{
+
+	}
 }
-
-
 
 
 } /* namespace alinous */

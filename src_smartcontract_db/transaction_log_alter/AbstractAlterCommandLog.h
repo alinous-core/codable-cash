@@ -29,6 +29,8 @@ public:
 		return tableId;
 	}
 
+	virtual void initCommandParam(VirtualMachine* vm) = 0;
+
 protected:
 	TableIdentifier* tableId;
 };

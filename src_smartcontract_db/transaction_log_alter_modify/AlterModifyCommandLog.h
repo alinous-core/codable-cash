@@ -30,6 +30,8 @@ public:
 
 	virtual void commit(CdbTransactionManager* trxManager);
 
+	virtual void initCommandParam(VirtualMachine* vm);
+
 	const AlterModifyCommand* getCommand() const noexcept {
 		return command;
 	}

@@ -195,11 +195,6 @@ void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
 
 	ColumnModifyContext* context = col->createModifyContextwithChange(modifyCommand); __STP(context);
 
-	col->setAttributes(newdesc->isUnique(), newdesc->isNotNull());
-
-	ColumnTypeDescriptor* typeDesc = newdesc->getColumnTypeDescriptor();
-	col->setType(typeDesc->toCdbValueType(), modifyCommand->getLengthValue());
-
 
 	// TODO implement now
 }

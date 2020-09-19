@@ -22,6 +22,7 @@
 #include "sql_ddl_alter_modify/AlterModifyCommand.h"
 
 #include "sql_ddl/DdlColumnDescriptor.h"
+#include "sql_ddl/ColumnTypeDescriptor.h"
 
 namespace codablecash {
 
@@ -185,6 +186,21 @@ ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterMo
 
 		this->unique = nextUnique;
 	}
+
+	bool nextNotnull = newdesc->isNotNull();
+	if(nextNotnull != this->notnull){
+		if(nextNotnull){
+			ctx->setNotNullChange(ColumnModifyContext::NotNullChage::TO_NOT_NULL);
+		}
+		else {
+			ctx->setNotNullChange(ColumnModifyContext::NotNullChage::RELEASE_NOT_NULL);
+		}
+
+		this->notnull = nextNotnull;
+	}
+
+	ColumnTypeDescriptor* typeDesc = newdesc->getColumnTypeDescriptor();
+	uint8_t cdbType = typeDesc->toCdbValueType();
 
 
 	return ctx;

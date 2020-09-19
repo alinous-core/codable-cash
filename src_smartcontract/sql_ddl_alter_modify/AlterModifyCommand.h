@@ -41,9 +41,17 @@ public:
 		return this->longValue;
 	}
 
+	const UnicodeString* getStrDefaultValue() const noexcept {
+		return strDefaultValue;
+	}
+
+private:
+
+
 private:
 	DdlColumnDescriptor* columnDescriptor;
 	int64_t longValue;
+	UnicodeString* strDefaultValue;
 
 };
 
