@@ -118,6 +118,18 @@ void CdbTable::addColumn(uint8_t oid, const UnicodeString* name, uint8_t type, i
 	col->setDefaultValue(defaultValue);
 
 	addColumn(col);
+
+	// TODO unique index
+	if(unique){
+		CdbTableIndex* index = new CdbTableIndex((uint64_t)0);
+		index->addColumn(col);
+
+		UnicodeString* indexName = CdbTableIndex::createUniqueKeyIndexName(index, this, name);
+		index->setName(indexName);
+
+		addIndex(index);
+	}
+
 }
 
 void CdbTable::addColumn(CdbTableColumn* col) noexcept {
@@ -212,6 +224,7 @@ void CdbTable::setPrimaryKey(const UnicodeString* colstr) {
 
 void CdbTable::setPrimaryKeys(ArrayList<const UnicodeString>* cols) {
 	ArrayList<CdbTableColumn> list;
+	ArrayList<const CdbOid> oidlist;
 
 	int maxLoop = cols->size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -223,6 +236,15 @@ void CdbTable::setPrimaryKeys(ArrayList<const UnicodeString>* cols) {
 		}
 
 		list.addElement(col);
+
+		const CdbOid* oid = col->getOid();
+		oidlist.addElement(oid);
+	}
+
+	CdbTableIndex* prevIndex = getIndexByColumnOids(&oidlist);
+	if(prevIndex != nullptr){
+		prevIndex->setPrimaryKey(true);
+		return;
 	}
 
 	CdbTableIndex* index = new CdbTableIndex((uint64_t)0);
