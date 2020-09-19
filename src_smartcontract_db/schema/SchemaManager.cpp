@@ -194,7 +194,11 @@ void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
 	col->setAttributes(newdesc->isUnique(), newdesc->isNotNull());
 
 	ColumnTypeDescriptor* typeDesc = newdesc->getColumnTypeDescriptor();
-	//col->setType(typeDesc->toCdbValueType(), );
+	col->setType(typeDesc->toCdbValueType(), modifyCommand->getLengthValue());
+
+
+
+	newdesc->getDefaultValue();
 
 	// TODO implement now
 }

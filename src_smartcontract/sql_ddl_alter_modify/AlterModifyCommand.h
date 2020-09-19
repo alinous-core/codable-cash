@@ -37,6 +37,10 @@ public:
 	virtual void analyze(AnalyzeContext* actx);
 	virtual void interpret(VirtualMachine* vm);
 
+	int64_t getLengthValue() const noexcept {
+		return this->longValue;
+	}
+
 private:
 	DdlColumnDescriptor* columnDescriptor;
 	int64_t longValue;

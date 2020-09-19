@@ -78,6 +78,12 @@ void AlterModifyCommand::preAnalyze(AnalyzeContext* actx) {
 		length->setParent(this);
 		length->preAnalyze(actx);
 	}
+
+	AbstractSQLExpression* defaultValue = this->columnDescriptor->getDefaultValue();
+	if(defaultValue != nullptr){
+		defaultValue->setParent(this);
+		defaultValue->preAnalyze(actx);
+	}
 }
 
 void AlterModifyCommand::analyzeTypeRef(AnalyzeContext* actx) {
@@ -86,6 +92,11 @@ void AlterModifyCommand::analyzeTypeRef(AnalyzeContext* actx) {
 
 	if(length != nullptr){
 		length->analyzeTypeRef(actx);
+	}
+
+	AbstractSQLExpression* defaultValue = this->columnDescriptor->getDefaultValue();
+	if(defaultValue != nullptr){
+		defaultValue->analyzeTypeRef(actx);
 	}
 }
 
@@ -115,6 +126,13 @@ void AlterModifyCommand::analyze(AnalyzeContext* actx) {
 			const UnicodeString* tname = typeDesc->getTypeName();
 			actx->addValidationError(ValidationError::DB_LENGTH_IS_NOT_CORRECT_INTEGER, this, L"The type {0}'s length must be greater than 0.", {tname});
 		}
+
+
+	}
+
+	AbstractSQLExpression* defaultValue = this->columnDescriptor->getDefaultValue();
+	if(defaultValue != nullptr){
+		defaultValue->analyze(actx);
 	}
 }
 
