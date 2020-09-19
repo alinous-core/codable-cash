@@ -100,7 +100,7 @@ void AlterAddIndexCommand::analyzeTypeRef(AnalyzeContext* actx) {
 void AlterAddIndexCommand::analyze(AnalyzeContext* actx) {
 }
 
-void AlterAddIndexCommand::interpret(VirtualMachine* vm) {
+void AlterAddIndexCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log) {
 }
 
 } /* namespace alinous */

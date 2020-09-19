@@ -67,7 +67,7 @@ void AlterRenameTableCommand::analyzeTypeRef(AnalyzeContext* actx) {
 void AlterRenameTableCommand::analyze(AnalyzeContext* actx) {
 }
 
-void AlterRenameTableCommand::interpret(VirtualMachine* vm) {
+void AlterRenameTableCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log) {
 }
 
 

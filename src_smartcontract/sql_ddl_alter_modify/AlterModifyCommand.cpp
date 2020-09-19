@@ -147,7 +147,7 @@ void AlterModifyCommand::analyze(AnalyzeContext* actx) {
 	}
 }
 
-void AlterModifyCommand::interpret(VirtualMachine* vm) {
+void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log) {
 	AbstractSQLExpression* defaultValue = this->columnDescriptor->getDefaultValue();
 
 	StackFloatingVariableHandler releaser(vm->getGc());
@@ -160,13 +160,13 @@ void AlterModifyCommand::interpret(VirtualMachine* vm) {
 		PrimitiveReference* pr = dynamic_cast<PrimitiveReference*>(sub);
 		const UnicodeString* str = pr->toString();
 
-		this->strDefaultValue = new UnicodeString(str);
+		//this->strDefaultValue = new UnicodeString(str);
 	}
 	else if(VmInstanceTypesConst::INST_STRING == instType){
 		VmStringInstance* strInst = dynamic_cast<VmStringInstance*>(sub);
 		const UnicodeString* str = strInst->toString();
 
-		this->strDefaultValue = new UnicodeString(str);
+		//this->strDefaultValue = new UnicodeString(str);
 	}
 	else{
 

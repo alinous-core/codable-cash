@@ -29,7 +29,7 @@ public:
 	virtual void preAnalyze(AnalyzeContext* actx);
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
-	virtual void interpret(VirtualMachine* vm);
+	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log);
 
 private:
 	UnicodeString* name;

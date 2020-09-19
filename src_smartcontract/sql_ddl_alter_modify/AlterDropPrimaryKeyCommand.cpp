@@ -52,7 +52,7 @@ void AlterDropPrimaryKeyCommand::analyzeTypeRef(AnalyzeContext* actx) {
 void AlterDropPrimaryKeyCommand::analyze(AnalyzeContext* actx) {
 }
 
-void AlterDropPrimaryKeyCommand::interpret(VirtualMachine* vm) {
+void AlterDropPrimaryKeyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log) {
 }
 
 
