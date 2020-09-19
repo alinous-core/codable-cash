@@ -23,6 +23,7 @@
 
 #include "transaction_log_alter/AbstractAlterCommandLog.h"
 
+#include "sql_ddl_alter_modify/AlterModifyCommand.h"
 
 namespace alinous {
 
@@ -89,6 +90,11 @@ void AlterTableStatement::fromBinary(ByteBuffer* in) {
 
 void AlterTableStatement::interpret(VirtualMachine* vm) {
 	AbstractAlterCommandLog* log = this->cmd->getCommandLog();
+
+	if(this->cmd->getKind() == CodeElement::DDL_ALTER_MODIFY){
+		AlterModifyCommand* modifyCommand = dynamic_cast<AlterModifyCommand*>(this->cmd);
+		modifyCommand->interpretType(vm);
+	}
 
 	TableIdentifier* table = new TableIdentifier(*this->tableId); __STP(table);
 	if(table->getSchema() == nullptr){

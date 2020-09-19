@@ -13,6 +13,7 @@
 namespace alinous {
 
 class DdlColumnDescriptor;
+class VirtualMachine;
 
 class AlterModifyCommand : public AbstractAlterDdlCommand {
 public:
@@ -30,6 +31,10 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 	virtual AbstractAlterCommandLog* getCommandLog();
+
+
+
+	void interpretType(VirtualMachine* vm);
 
 private:
 	DdlColumnDescriptor* columnDescriptor;

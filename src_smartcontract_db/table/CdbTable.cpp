@@ -119,7 +119,7 @@ void CdbTable::addColumn(uint8_t oid, const UnicodeString* name, uint8_t type, i
 
 	addColumn(col);
 
-	// TODO unique index
+	// unique index
 	if(unique){
 		CdbTableIndex* index = new CdbTableIndex((uint64_t)0);
 		index->addColumn(col);

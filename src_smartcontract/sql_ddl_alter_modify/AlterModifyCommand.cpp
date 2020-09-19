@@ -11,6 +11,7 @@
 
 #include "transaction_log_alter_modify/AlterModifyCommandLog.h"
 
+#include "sql_ddl/ColumnTypeDescriptor.h"
 namespace alinous {
 
 AlterModifyCommand::AlterModifyCommand(const AlterModifyCommand& inst) : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_MODIFY) {
@@ -59,6 +60,13 @@ AbstractAlterCommandLog* AlterModifyCommand::getCommandLog() {
 
 	return log;
 }
+
+void AlterModifyCommand::interpretType(VirtualMachine* vm) {
+	const ColumnTypeDescriptor* typeDesc = this->columnDescriptor->getTypeDesc();
+
+	typeDesc->getLengthExp();
+}
+
 
 
 } /* namespace alinous */

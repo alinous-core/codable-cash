@@ -57,4 +57,17 @@ void AlterAddIndexCommandLog::commit(CdbTransactionManager* trxManager) {
 	trxManager->commitAlterTable(this);
 }
 
+void AlterAddIndexCommandLog::preAnalyze(AnalyzeContext* actx) {
+}
+
+void AlterAddIndexCommandLog::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void AlterAddIndexCommandLog::analyze(AnalyzeContext* actx) {
+}
+
+void AlterAddIndexCommandLog::interpret(VirtualMachine* vm) {
+}
+
+
 } /* namespace codablecash */

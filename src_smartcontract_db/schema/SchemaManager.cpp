@@ -41,6 +41,7 @@
 
 #include "sql_ddl/DdlColumnDescriptor.h"
 
+#include "sql_ddl/ColumnTypeDescriptor.h"
 namespace codablecash {
 
 const UnicodeString SchemaManager::PUBLIC(L"public");
@@ -185,12 +186,15 @@ void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
 
 	const DdlColumnDescriptor* newdesc = modifyCommand->getColumnDescriptor();
 
-	const CdbTableColumn* col = table->getColumn(newdesc->getName());
+	CdbTableColumn* col = table->getColumn(newdesc->getName());
 	if(col == nullptr){
 		throw new CdbException(L"Column does not exists.", __FILE__, __LINE__);
 	}
 
-	uint8_t lastType = col->getType();
+	col->setAttributes(newdesc->isUnique(), newdesc->isNotNull());
+
+	ColumnTypeDescriptor* typeDesc = newdesc->getColumnTypeDescriptor();
+	//col->setType(typeDesc->toCdbValueType(), );
 
 	// TODO implement now
 }

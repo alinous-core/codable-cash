@@ -12,6 +12,8 @@
 
 namespace alinous {
 class TableIdentifier;
+class VirtualMachine;
+class AnalyzeContext;
 }
 using namespace alinous;
 
@@ -26,6 +28,11 @@ public:
 	const TableIdentifier* getTableId() const noexcept {
 		return tableId;
 	}
+
+	virtual void preAnalyze(AnalyzeContext* actx) = 0;
+	virtual void analyzeTypeRef(AnalyzeContext* actx) = 0;
+	virtual void analyze(AnalyzeContext* actx) = 0;
+	virtual void interpret(VirtualMachine* vm) = 0;
 
 protected:
 	TableIdentifier* tableId;
