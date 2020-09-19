@@ -37,10 +37,9 @@ public:
 	virtual void analyze(AnalyzeContext* actx);
 	virtual void interpret(VirtualMachine* vm);
 
-	void interpretType(VirtualMachine* vm);
-
 private:
 	DdlColumnDescriptor* columnDescriptor;
+	int64_t longValue;
 
 };
 

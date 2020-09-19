@@ -46,13 +46,16 @@ void AlterTableStatement::setCommand(AbstractAlterDdlCommand* cmd) noexcept {
 }
 
 void AlterTableStatement::preAnalyze(AnalyzeContext* actx) {
+	this->cmd->setParent(this);
+	this->cmd->preAnalyze(actx);
 }
 
 void AlterTableStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	this->cmd->analyzeTypeRef(actx);
 }
 
 void AlterTableStatement::analyze(AnalyzeContext* actx) {
-
+	this->cmd->analyze(actx);
 }
 
 int AlterTableStatement::binarySize() const {
@@ -90,11 +93,6 @@ void AlterTableStatement::fromBinary(ByteBuffer* in) {
 
 void AlterTableStatement::interpret(VirtualMachine* vm) {
 	AbstractAlterCommandLog* log = this->cmd->getCommandLog();
-
-	if(this->cmd->getKind() == CodeElement::DDL_ALTER_MODIFY){
-		AlterModifyCommand* modifyCommand = dynamic_cast<AlterModifyCommand*>(this->cmd);
-		modifyCommand->interpretType(vm);
-	}
 
 	TableIdentifier* table = new TableIdentifier(*this->tableId); __STP(table);
 	if(table->getSchema() == nullptr){

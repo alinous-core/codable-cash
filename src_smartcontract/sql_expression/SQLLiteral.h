@@ -23,6 +23,9 @@ public:
 	virtual ~SQLLiteral();
 
 	void setValue(UnicodeString* value, uint8_t type) noexcept;
+	uint8_t getLiteralType() const noexcept {
+		return this->type;
+	}
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
@@ -36,6 +39,10 @@ public:
 	virtual void init(VirtualMachine* vm);
 	virtual AbstractVmInstance* interpret(VirtualMachine* vm);
 	virtual void onSelectTarget(VirtualMachine* vm);
+
+	int64_t getLongv() const noexcept {
+		return longv;
+	}
 
 private:
 	void interpretOnPlanning(VirtualMachine* vm);
