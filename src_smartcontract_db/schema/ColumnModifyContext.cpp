@@ -7,6 +7,8 @@
 
 #include "schema/ColumnModifyContext.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 ColumnModifyContext::ColumnModifyContext() {
@@ -15,10 +17,17 @@ ColumnModifyContext::ColumnModifyContext() {
 	this->notNullChange = NotNullChage::NOTNULL_NONE;
 
 	this->cdbType = 0;
+	this->length = 0;
+	this->defalutValueStr = nullptr;
 }
 
 ColumnModifyContext::~ColumnModifyContext() {
+	delete this->defalutValueStr;
+}
 
+
+void ColumnModifyContext::setDefaultValue(const UnicodeString* defalutValueStr) noexcept {
+	this->defalutValueStr = defalutValueStr != nullptr ? new UnicodeString(defalutValueStr) : nullptr;
 }
 
 } /* namespace codablecash */

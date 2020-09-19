@@ -85,6 +85,7 @@ void CdbTableColumn::setAttributes(bool notnull, bool unique) noexcept {
 
 void CdbTableColumn::setDefaultValue(const UnicodeString* defaultValue) noexcept {
 	if(defaultValue != nullptr){
+		delete this->defaultValue;
 		this->defaultValue = new UnicodeString(defaultValue);
 	}
 }
@@ -215,8 +216,8 @@ ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterMo
 	if((this->defaultValue != nullptr && defaultStr == nullptr) ||
 			(this->defaultValue == nullptr && defaultStr != nullptr) ||
 			!this->defaultValue->equals(defaultStr)){
-
-
+		ctx->setDefaultValue(defaultStr);
+		setDefaultValue(defaultStr);
 	}
 
 

@@ -9,6 +9,11 @@
 #define SCHEMA_COLUMNMODIFYCONTEXT_H_
 #include <cstdint>
 
+namespace alinous {
+class UnicodeString;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class ColumnModifyContext {
@@ -35,28 +40,33 @@ public:
 		this->notNullChange = notNullChange;
 	}
 
-	uint8_t getCdbType() const {
+	uint8_t getCdbType() const noexcept {
 		return cdbType;
 	}
 
-	void setCdbType(uint8_t cdbType) {
+	void setCdbType(uint8_t cdbType) noexcept {
 		this->cdbType = cdbType;
 	}
 
-	int64_t getLength() const {
+	int64_t getLength() const noexcept {
 		return length;
 	}
 
-	void setLength(int64_t length) {
+	void setLength(int64_t length) noexcept {
 		this->length = length;
 	}
 
-	bool isTypeChanged() const {
+	bool isTypeChanged() const noexcept {
 		return typeChanged;
 	}
 
-	void setTypeChanged(bool typeChanged) {
+	void setTypeChanged(bool typeChanged) noexcept {
 		this->typeChanged = typeChanged;
+	}
+
+	void setDefaultValue(const UnicodeString* defalutValueStr) noexcept;
+	const UnicodeString* getDefalutValueStr() const noexcept {
+		return defalutValueStr;
 	}
 
 private:
@@ -66,7 +76,7 @@ private:
 	bool typeChanged;
 	uint8_t cdbType;
 	int64_t length;
-
+	UnicodeString* defalutValueStr;
 };
 
 } /* namespace codablecash */
