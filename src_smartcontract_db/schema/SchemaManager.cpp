@@ -159,26 +159,50 @@ void SchemaManager::createTable(CdbTable* table) {
 
 void SchemaManager::handleAlterTableAddIndex(const AlterAddColumnCommandLog* cmd) {
 	CdbTable* table = findTableFromCommand(cmd);
+
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
 }
 
 void SchemaManager::handleAlterTableAddColumn(const AlterAddIndexCommandLog* cmd) {
 	CdbTable* table = findTableFromCommand(cmd);
+
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
 }
 
 void SchemaManager::handleAlterTableDropIndex(const AlterDropIndexCommandLog* cmd) {
 	CdbTable* table = findTableFromCommand(cmd);
+
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
 }
 
 void SchemaManager::handleAlterTableDropColumn(const AlterDropColumnCommandLog* cmd) {
 	CdbTable* table = findTableFromCommand(cmd);
+
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
 }
 
 void SchemaManager::handleAlterTableAddPrimaryKey(const AlterAddPrimaryKeyCommandLog* cmd) {
 	CdbTable* table = findTableFromCommand(cmd);
+
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
 }
 
 void SchemaManager::handleAlterTableDropPrimaryKey(const AlterDropPrimaryKeyCommandLog* cmd) {
 	CdbTable* table = findTableFromCommand(cmd);
+
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
 }
 
 void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
@@ -198,13 +222,27 @@ void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
 	ColumnModifyContext* context = col->createModifyContextwithChange(modifyCommand, defaultStr); __STP(context);
 
 
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
+
 	// TODO implement now
 }
 
 void SchemaManager::handleAlterTableRenameColumn(const AlterRenameColumnCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
+
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
 }
 
 void SchemaManager::handleAlterTableRenameTable(const AlterRenameTableCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
+
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
 }
 
 
