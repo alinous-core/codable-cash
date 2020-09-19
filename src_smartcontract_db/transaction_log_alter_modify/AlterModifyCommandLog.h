@@ -37,6 +37,8 @@ public:
 		return command;
 	}
 
+	void setLength(int64_t length) noexcept;
+
 	const UnicodeString* getDefaultValueStr() const noexcept {
 		return defaultValueStr;
 	}
@@ -44,7 +46,9 @@ public:
 private:
 	AlterModifyCommand* command;
 
+	int64_t length;
 	UnicodeString* defaultValueStr;
+
 };
 
 } /* namespace codablecash */

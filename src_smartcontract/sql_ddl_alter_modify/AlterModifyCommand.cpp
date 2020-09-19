@@ -78,6 +78,8 @@ void AlterModifyCommand::fromBinary(ByteBuffer* in) {
 
 AbstractAlterCommandLog* AlterModifyCommand::getCommandLog() {
 	AlterModifyCommandLog* log = new AlterModifyCommandLog();
+
+	log->setLength(this->longValue);
 	log->setCommand(new AlterModifyCommand(*this));
 
 	return log;
