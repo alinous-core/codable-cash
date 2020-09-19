@@ -17,7 +17,14 @@
 
 #include "transaction_scan_result/ScanResultFieldMetadata.h"
 
+#include "schema/ColumnModifyContext.h"
+
+#include "sql_ddl_alter_modify/AlterModifyCommand.h"
+
+#include "sql_ddl/DdlColumnDescriptor.h"
+
 namespace codablecash {
+
 
 
 CdbTableColumn::CdbTableColumn(const CdbTableColumn& inst) {
@@ -163,5 +170,24 @@ ScanResultFieldMetadata* CdbTableColumn::getFieldMetadata(const CdbTable* table)
 	return fld;
 }
 
+ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterModifyCommand* cmd) {
+	ColumnModifyContext* ctx = new ColumnModifyContext();
+	const DdlColumnDescriptor* newdesc = cmd->getColumnDescriptor();
+
+	bool nextUnique = newdesc->isUnique();
+	if(nextUnique != this->unique){
+		if(nextUnique){
+			ctx->setUniqueChange(ColumnModifyContext::UniqueChage::TO_UNIQUE);
+		}
+		else {
+			ctx->setUniqueChange(ColumnModifyContext::UniqueChage::TO_NOT_UNIQUE);
+		}
+
+		this->unique = nextUnique;
+	}
+
+
+	return ctx;
+}
 
 } /* namespace codablecash */

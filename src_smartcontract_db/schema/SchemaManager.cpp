@@ -9,6 +9,7 @@
 #include "schema/SchemaRoot.h"
 #include "schema/ISchemaUptateListner.h"
 #include "schema/Schema.h"
+#include "schema/ColumnModifyContext.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
@@ -40,8 +41,9 @@
 #include "transaction_log_alter_modify/AlterRenameTableCommandLog.h"
 
 #include "sql_ddl/DdlColumnDescriptor.h"
-
 #include "sql_ddl/ColumnTypeDescriptor.h"
+
+
 namespace codablecash {
 
 const UnicodeString SchemaManager::PUBLIC(L"public");
@@ -191,14 +193,13 @@ void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
 		throw new CdbException(L"Column does not exists.", __FILE__, __LINE__);
 	}
 
+	ColumnModifyContext* context = col->createModifyContextwithChange(modifyCommand); __STP(context);
+
 	col->setAttributes(newdesc->isUnique(), newdesc->isNotNull());
 
 	ColumnTypeDescriptor* typeDesc = newdesc->getColumnTypeDescriptor();
 	col->setType(typeDesc->toCdbValueType(), modifyCommand->getLengthValue());
 
-
-
-	newdesc->getDefaultValue();
 
 	// TODO implement now
 }

@@ -23,6 +23,13 @@ public:
 	ColumnModifyContext();
 	virtual ~ColumnModifyContext();
 
+	UniqueChage getUniqueChange() const noexcept {
+		return uniqueChange;
+	}
+
+	void setUniqueChange(UniqueChage uniqueChange) noexcept {
+		this->uniqueChange = uniqueChange;
+	}
 
 private:
 	UniqueChage uniqueChange;

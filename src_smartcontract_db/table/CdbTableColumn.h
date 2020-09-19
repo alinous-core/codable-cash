@@ -14,6 +14,7 @@
 namespace alinous {
 class UnicodeString;
 class ByteBuffer;
+class AlterModifyCommand;
 }
 using namespace alinous;
 
@@ -23,6 +24,7 @@ class CdbOid;
 class SchemaObjectIdPublisher;
 class ScanResultFieldMetadata;
 class CdbTable;
+class ColumnModifyContext;
 
 class CdbTableColumn : public CdbBinaryObject {
 public:
@@ -55,6 +57,8 @@ public:
 	}
 
 	ScanResultFieldMetadata* getFieldMetadata(const CdbTable* table) const noexcept;
+
+	ColumnModifyContext* createModifyContextwithChange(const AlterModifyCommand* cmd);
 
 private:
 	CdbOid* oid;
