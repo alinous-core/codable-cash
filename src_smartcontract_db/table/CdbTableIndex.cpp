@@ -77,7 +77,7 @@ UnicodeString* CdbTableIndex::createPrimaryKeyIndexName(CdbTableIndex* index, Cd
 }
 
 UnicodeString* CdbTableIndex::createUniqueKeyIndexName(CdbTableIndex* index, CdbTable* table, const UnicodeString* colName) noexcept {
-	UnicodeString* newName = new UnicodeString(L"idx_");
+	UnicodeString* newName = new UnicodeString(L"idx_unique_");
 
 	const UnicodeString* tableName = table->getName();
 	newName->append(tableName);
@@ -150,7 +150,7 @@ int CdbTableIndex::binarySize() const {
 	int total = sizeof(uint8_t);
 	total += sizeof(uint64_t); // oid
 
-	total += sizeof(uint8_t); // primary
+	total += sizeof(uint8_t) * 2; // primary unique
 
 	int maxLoop = this->columns->size();
 	total += sizeof(int32_t);
@@ -165,6 +165,7 @@ void CdbTableIndex::toBinary(ByteBuffer* out) const {
 	out->putLong(this->oid->getOid());
 
 	out->put(this->primary ? 1 : 0);// primary
+	out->put(this->unique ? 1 : 0);// unique
 
 	int maxLoop = this->columns->size();
 	out->putInt(maxLoop);
@@ -179,6 +180,7 @@ void CdbTableIndex::toBinary(ByteBuffer* out) const {
 
 void CdbTableIndex::fromBinary(ByteBuffer* in, CdbTable* table) {
 	this->primary = in->get() > 0;
+	this->unique = in->get() > 0;
 
 	int maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){

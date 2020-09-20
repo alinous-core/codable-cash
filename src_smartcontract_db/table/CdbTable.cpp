@@ -126,6 +126,7 @@ void CdbTable::addColumn(uint8_t oid, const UnicodeString* name, uint8_t type, i
 
 		UnicodeString* indexName = CdbTableIndex::createUniqueKeyIndexName(index, this, name);
 		index->setName(indexName);
+		index->setUnique(true);
 
 		addIndex(index);
 	}
