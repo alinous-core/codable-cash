@@ -62,6 +62,10 @@ void CdbStorageManager::onCreateTable(SchemaManager* mgr, const CdbTable* table)
 	this->tableStoreMap->put(store->getOid(), store);
 }
 
+void CdbStorageManager::onAlterModify(SchemaManager* mgr, const CdbTable* table, const ColumnModifyContext* ctx) {
+	// TODO : onAlterModify()
+}
+
 TableStore* CdbStorageManager::getTableStore(const CdbOid* oid) noexcept {
 	return this->tableStoreMap->get(oid);
 }

@@ -72,6 +72,10 @@ void CdbTransactionManager::onCreateTable(SchemaManager* mgr, const CdbTable* ta
 	// do nothing
 }
 
+void CdbTransactionManager::onAlterModify(SchemaManager* mgr,
+		const CdbTable* table, const ColumnModifyContext* ctx) {
+	// do nothing
+}
 
 CdbTransaction* CdbTransactionManager::newTransaction(uint64_t transactionId) {
 	CdbTransaction* trx = new CdbTransaction(this, transactionId);

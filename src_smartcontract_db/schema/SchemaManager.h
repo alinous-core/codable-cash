@@ -35,6 +35,7 @@ class AlterDropColumnCommandLog;
 class AlterModifyCommandLog;
 class AlterRenameColumnCommandLog;
 class AlterRenameTableCommandLog;
+class ColumnModifyContext;
 
 class SchemaManager {
 public:
@@ -78,6 +79,7 @@ public:
 private:
 	void fireSchemaLoaded() noexcept;
 	void fireOnCreateTable(const CdbTable* table);
+	void fireOnAlterModify(const CdbTable* table, const ColumnModifyContext* ctx);
 
 	CdbTable* findTableFromCommand(const AbstractAlterCommandLog* cmdlog);
 private:

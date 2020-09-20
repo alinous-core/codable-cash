@@ -221,6 +221,7 @@ void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
 
 	ColumnModifyContext* context = col->createModifyContextwithChange(modifyCommand, defaultStr); __STP(context);
 
+	fireOnAlterModify(table, context);
 
 	// upgrade
 	this->root->upgradeSchemaObjectVersionId();
@@ -291,6 +292,14 @@ void SchemaManager::fireOnCreateTable(const CdbTable* table) {
 		l->onCreateTable(this, table);
 	}
 
+}
+
+void SchemaManager::fireOnAlterModify(const CdbTable* table, const ColumnModifyContext* ctx) {
+	int maxLoop = this->listners.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ISchemaUptateListner* l = this->listners.get(i);
+		l->onAlterModify(this, table, ctx);
+	}
 }
 
 } /* namespace alinous */
