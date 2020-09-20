@@ -21,12 +21,14 @@ ColumnModifyContext::ColumnModifyContext() {
 	this->defalutValueStr = nullptr;
 
 	this->column = nullptr;
+	this->newIndex = nullptr;
 }
 
 ColumnModifyContext::~ColumnModifyContext() {
 	delete this->defalutValueStr;
 
 	this->column = nullptr;
+	this->newIndex = nullptr;
 }
 
 

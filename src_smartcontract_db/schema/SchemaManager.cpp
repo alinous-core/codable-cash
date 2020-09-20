@@ -232,7 +232,7 @@ void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
 	save();
 }
 
-void SchemaManager::handleUniqueIndexOnModify(CdbTable* table, const ColumnModifyContext* ctx) {
+void SchemaManager::handleUniqueIndexOnModify(CdbTable* table, ColumnModifyContext* ctx) {
 	ColumnModifyContext::UniqueChage change = ctx->getUniqueChange();
 
 	if(change == ColumnModifyContext::UniqueChage::TO_NOT_UNIQUE){
@@ -243,28 +243,38 @@ void SchemaManager::handleUniqueIndexOnModify(CdbTable* table, const ColumnModif
 	}
 }
 
-void SchemaManager::handleToNotUnique(CdbTable* table, const ColumnModifyContext* ctx) {
+void SchemaManager::handleToNotUnique(CdbTable* table, ColumnModifyContext* ctx) {
 	CdbTableColumn* col = ctx->getColumn();
 	const CdbOid* colOid = col->getOid();
 
 	CdbTableIndex* index = table->getUniqueIndexByColumnOid(colOid);
-	if(index->isPrimaryKey()){
-		throw new CdbException(L"Can't remove primary key index", __FILE__, __LINE__);
+	if(index == nullptr){ // primary key support unique
+		return;
 	}
+
 
 
 
 	// TODO implement now
 }
 
-void SchemaManager::handleToUnique(CdbTable* table, const ColumnModifyContext* ctx) {
+void SchemaManager::handleToUnique(CdbTable* table, ColumnModifyContext* ctx) {
 	CdbTableColumn* col = ctx->getColumn();
 	const CdbOid* colOid = col->getOid();
 
-	CdbTableIndex* index = table->getUniqueIndexByColumnOid(colOid);
+	// already has primary key
+	if(table->isSinglePrimaryKeyColumn(colOid)){
+		return;
+	}
 
+	uint64_t newOid = this->root->newSchemaObjectId();
+	CdbTableIndex* newIndex = new CdbTableIndex(newOid);
+	ctx->setNewIndex(newIndex);
 
-	// TODO implement now
+	UnicodeString* indexName = CdbTableIndex::createUniqueKeyIndexName(table, col->getName());
+	newIndex->setName(indexName);
+
+	table->addIndex(newIndex);
 }
 
 void SchemaManager::handleAlterTableRenameColumn(const AlterRenameColumnCommandLog* cmd) {

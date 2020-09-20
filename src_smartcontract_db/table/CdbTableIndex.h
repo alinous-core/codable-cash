@@ -32,7 +32,7 @@ public:
 	virtual ~CdbTableIndex();
 
 	static UnicodeString* createPrimaryKeyIndexName(CdbTableIndex* index, CdbTable* table) noexcept;
-	static UnicodeString* createUniqueKeyIndexName(CdbTableIndex* index, CdbTable* table, const UnicodeString* colName) noexcept;
+	static UnicodeString* createUniqueKeyIndexName(CdbTable* table, const UnicodeString* colName) noexcept;
 	void setName(UnicodeString* name) noexcept;
 
 	void assignNewOid(SchemaObjectIdPublisher* publisher);

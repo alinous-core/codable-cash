@@ -124,7 +124,7 @@ void CdbTable::addColumn(uint8_t oid, const UnicodeString* name, uint8_t type, i
 		CdbTableIndex* index = new CdbTableIndex((uint64_t)0);
 		index->addColumn(col);
 
-		UnicodeString* indexName = CdbTableIndex::createUniqueKeyIndexName(index, this, name);
+		UnicodeString* indexName = CdbTableIndex::createUniqueKeyIndexName(this, name);
 		index->setName(indexName);
 		index->setUnique(true);
 
@@ -221,6 +221,22 @@ void CdbTable::setPrimaryKey(const UnicodeString* colstr) {
 	cols.addElement(colstr);
 
 	setPrimaryKeys(&cols);
+}
+
+bool CdbTable::isSinglePrimaryKeyColumn(const CdbOid* columnOid) const noexcept {
+	bool ret = false;
+
+	int maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		if(idx->isPrimaryKey() && idx->getColumnLength() == 1 && idx->hasColumnOid(oid)){
+			ret = idx;
+			break;
+		}
+	}
+
+	return ret;
 }
 
 void CdbTable::setPrimaryKeys(ArrayList<const UnicodeString>* cols) {

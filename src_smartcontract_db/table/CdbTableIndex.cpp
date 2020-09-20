@@ -76,7 +76,7 @@ UnicodeString* CdbTableIndex::createPrimaryKeyIndexName(CdbTableIndex* index, Cd
 	return newName;
 }
 
-UnicodeString* CdbTableIndex::createUniqueKeyIndexName(CdbTableIndex* index, CdbTable* table, const UnicodeString* colName) noexcept {
+UnicodeString* CdbTableIndex::createUniqueKeyIndexName(CdbTable* table, const UnicodeString* colName) noexcept {
 	UnicodeString* newName = new UnicodeString(L"idx_unique_");
 
 	const UnicodeString* tableName = table->getName();

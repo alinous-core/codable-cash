@@ -17,6 +17,7 @@ using namespace alinous;
 namespace codablecash {
 
 class CdbTableColumn;
+class CdbTableIndex;
 
 class ColumnModifyContext {
 public:
@@ -74,9 +75,15 @@ public:
 	CdbTableColumn* getColumn() const noexcept {
 		return column;
 	}
-
 	void setColumn(CdbTableColumn* column) noexcept {
 		this->column = column;
+	}
+
+	CdbTableIndex* getNewIndex() const noexcept {
+		return newIndex;
+	}
+	void setNewIndex(CdbTableIndex* newIndex) noexcept {
+		this->newIndex = newIndex;
 	}
 
 private:
@@ -89,6 +96,7 @@ private:
 	UnicodeString* defalutValueStr;
 
 	CdbTableColumn* column;
+	CdbTableIndex* newIndex;
 };
 
 } /* namespace codablecash */
