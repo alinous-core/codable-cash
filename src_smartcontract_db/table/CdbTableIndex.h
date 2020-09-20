@@ -49,6 +49,8 @@ public:
 
 	void setPrimaryKey(bool bl);
 	bool isPrimaryKey() const noexcept;
+	void setUnique(bool unique) noexcept;
+	bool isUnique() const noexcept;
 
 	int binarySize() const;
 	void toBinary(ByteBuffer* out) const;
@@ -57,6 +59,7 @@ public:
 	const ArrayList<CdbTableColumn>* getColumns() const noexcept {
 		return this->columns;
 	}
+	int getColumnLength() const noexcept;
 
 	const UnicodeString* getName() const noexcept {
 		return this->name;
@@ -69,6 +72,7 @@ private:
 
 	UnicodeString* name;
 	bool primary;
+	bool unique;
 
 	ArrayList<CdbTableColumn>* columns;
 	HashMap<CdbOid, CdbTableColumn>* columnMap;

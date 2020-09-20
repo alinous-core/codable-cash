@@ -34,6 +34,7 @@ CdbTableIndex::CdbTableIndex(const CdbTableIndex& inst) {
 	}
 
 	this->primary = inst.primary;
+	this->unique = inst.unique;
 	this->name = new UnicodeString(inst.name);
 }
 
@@ -42,6 +43,7 @@ CdbTableIndex::CdbTableIndex(uint64_t oid) {
 	this->columns = new ArrayList<CdbTableColumn>();
 	this->columnMap = new HashMap<CdbOid, CdbTableColumn>();
 	this->primary = false;
+	this->unique = false;
 	this->name = nullptr;
 }
 
@@ -123,6 +125,9 @@ bool CdbTableIndex::hasColumnOid(const CdbOid* colOid) const noexcept {
 	return this->columnMap->get(colOid) != nullptr;
 }
 
+int CdbTableIndex::getColumnLength() const noexcept {
+	return this->columns->size();
+}
 
 void CdbTableIndex::setPrimaryKey(bool bl) {
 	this->primary = bl;
@@ -131,6 +136,15 @@ void CdbTableIndex::setPrimaryKey(bool bl) {
 bool CdbTableIndex::isPrimaryKey() const noexcept {
 	return this->primary;
 }
+
+void CdbTableIndex::setUnique(bool unique) noexcept {
+	this->unique = unique;
+}
+
+bool CdbTableIndex::isUnique() const noexcept {
+	return this->unique;
+}
+
 
 int CdbTableIndex::binarySize() const {
 	int total = sizeof(uint8_t);

@@ -16,6 +16,8 @@ using namespace alinous;
 
 namespace codablecash {
 
+class CdbTableColumn;
+
 class ColumnModifyContext {
 public:
 	typedef enum __UniqueChage{
@@ -69,6 +71,14 @@ public:
 		return defalutValueStr;
 	}
 
+	CdbTableColumn* getColumn() const noexcept {
+		return column;
+	}
+
+	void setColumn(CdbTableColumn* column) noexcept {
+		this->column = column;
+	}
+
 private:
 	UniqueChage uniqueChange;
 	NotNullChage notNullChange;
@@ -77,6 +87,8 @@ private:
 	uint8_t cdbType;
 	int64_t length;
 	UnicodeString* defalutValueStr;
+
+	CdbTableColumn* column;
 };
 
 } /* namespace codablecash */

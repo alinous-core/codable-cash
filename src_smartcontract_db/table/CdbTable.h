@@ -76,6 +76,8 @@ public:
 	CdbTableIndex* getIndexByColumnOid(const CdbOid* oid) const noexcept;
 	CdbTableIndex* getIndexByColumnOids(const ArrayList<const CdbOid>* oidlist) const noexcept;
 
+	CdbTableIndex* getUniqueIndexByColumnOid(const CdbOid* colOid) const noexcept;
+
 	int binarySize() const;
 	void toBinary(ByteBuffer* out) const;
 	void fromBinary(ByteBuffer* in);

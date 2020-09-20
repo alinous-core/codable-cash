@@ -314,6 +314,22 @@ CdbTableIndex* CdbTable::getIndexByColumnOids(const ArrayList<const CdbOid>* oid
 	return ret;
 }
 
+CdbTableIndex* CdbTable::getUniqueIndexByColumnOid(const CdbOid* colOid) const noexcept {
+	CdbTableIndex* ret = nullptr;
+
+	int maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		if(idx->isUnique() && idx->getColumnLength() == 1 && idx->hasColumnOid(colOid)){
+			ret = idx;
+			break;
+		}
+	}
+
+	return ret;
+}
+
 int CdbTable::binarySize() const {
 	checkNotNull(this->schemaName);
 	checkNotNull(this->name);

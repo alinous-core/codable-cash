@@ -82,6 +82,11 @@ private:
 	void fireOnAlterModify(const CdbTable* table, const ColumnModifyContext* ctx);
 
 	CdbTable* findTableFromCommand(const AbstractAlterCommandLog* cmdlog);
+
+	void handleUniqueIndexOnModify(CdbTable* table, const ColumnModifyContext* ctx);
+	void handleToNotUnique(CdbTable* table, const ColumnModifyContext* ctx);
+	void handleToUnique(CdbTable* table, const ColumnModifyContext* ctx);
+
 private:
 	SchemaRoot* root;
 	File* schemaBin;

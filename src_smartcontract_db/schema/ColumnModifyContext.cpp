@@ -19,10 +19,14 @@ ColumnModifyContext::ColumnModifyContext() {
 	this->cdbType = 0;
 	this->length = 0;
 	this->defalutValueStr = nullptr;
+
+	this->column = nullptr;
 }
 
 ColumnModifyContext::~ColumnModifyContext() {
 	delete this->defalutValueStr;
+
+	this->column = nullptr;
 }
 
 

@@ -24,6 +24,7 @@
 
 #include "table/CdbTable.h"
 #include "table/CdbTableColumn.h"
+#include "table/CdbTableIndex.h"
 
 #include "sql_ddl_alter_modify/AlterModifyCommand.h"
 
@@ -42,7 +43,6 @@
 
 #include "sql_ddl/DdlColumnDescriptor.h"
 #include "sql_ddl/ColumnTypeDescriptor.h"
-
 
 namespace codablecash {
 
@@ -220,12 +220,49 @@ void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
 	const UnicodeString* defaultStr = cmd->getDefaultValueStr();
 
 	ColumnModifyContext* context = col->createModifyContextwithChange(modifyCommand, defaultStr); __STP(context);
+	context->setColumn(col);
 
+	handleUniqueIndexOnModify(table, context);
+
+	// update storage
 	fireOnAlterModify(table, context);
 
 	// upgrade
 	this->root->upgradeSchemaObjectVersionId();
 	save();
+}
+
+void SchemaManager::handleUniqueIndexOnModify(CdbTable* table, const ColumnModifyContext* ctx) {
+	ColumnModifyContext::UniqueChage change = ctx->getUniqueChange();
+
+	if(change == ColumnModifyContext::UniqueChage::TO_NOT_UNIQUE){
+		handleToNotUnique(table, ctx);
+	}
+	else if(change == ColumnModifyContext::UniqueChage::TO_UNIQUE){
+		handleToUnique(table, ctx);
+	}
+}
+
+void SchemaManager::handleToNotUnique(CdbTable* table, const ColumnModifyContext* ctx) {
+	CdbTableColumn* col = ctx->getColumn();
+	const CdbOid* colOid = col->getOid();
+
+	CdbTableIndex* index = table->getUniqueIndexByColumnOid(colOid);
+	if(index->isPrimaryKey()){
+		throw new CdbException(L"Can't remove primary key index", __FILE__, __LINE__);
+	}
+
+
+
+	// TODO implement now
+}
+
+void SchemaManager::handleToUnique(CdbTable* table, const ColumnModifyContext* ctx) {
+	CdbTableColumn* col = ctx->getColumn();
+	const CdbOid* colOid = col->getOid();
+
+	CdbTableIndex* index = table->getUniqueIndexByColumnOid(colOid);
+
 
 	// TODO implement now
 }
