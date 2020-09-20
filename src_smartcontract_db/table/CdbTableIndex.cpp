@@ -105,6 +105,8 @@ void CdbTableIndex::syncColumnOid(const CdbTable* table) {
 
 		CdbTableColumn* tablecol = table->getColumn(name);
 		idxcol->setOid(tablecol->getOid()->getOid());
+
+		this->columnMap->put(idxcol->getOid(), idxcol);
 	}
 }
 
@@ -116,8 +118,11 @@ void CdbTableIndex::setOid(uint64_t oid) noexcept {
 void CdbTableIndex::addColumn(const CdbTableColumn* col) noexcept {
 	CdbTableColumn* newColumn = new CdbTableColumn(*col);
 	this->columns->addElement(newColumn);
+
 	const CdbOid* o = newColumn->getOid();
-	this->columnMap->put(o, newColumn);
+	if(o->getOid() != 0){
+		this->columnMap->put(o, newColumn);
+	}
 }
 
 

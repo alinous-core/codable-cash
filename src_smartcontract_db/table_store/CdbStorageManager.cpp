@@ -63,6 +63,8 @@ void CdbStorageManager::onCreateTable(SchemaManager* mgr, const CdbTable* table)
 }
 
 void CdbStorageManager::onAlterModify(SchemaManager* mgr, const CdbTable* table, const ColumnModifyContext* ctx) {
+
+
 	// TODO : onAlterModify()
 }
 

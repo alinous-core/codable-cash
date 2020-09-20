@@ -42,6 +42,10 @@ public:
 	void setAttributes(bool notnull, bool unique) noexcept;
 	void setDefaultValue(const UnicodeString* defaultValue) noexcept;
 
+	bool isUnique() const noexcept {
+		return unique;
+	}
+
 	void assignNewOid(SchemaObjectIdPublisher* publisher);
 	void setOid(uint64_t oid) noexcept;
 

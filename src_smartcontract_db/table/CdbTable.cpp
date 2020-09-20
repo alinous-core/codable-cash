@@ -118,19 +118,6 @@ void CdbTable::addColumn(uint8_t oid, const UnicodeString* name, uint8_t type, i
 	col->setDefaultValue(defaultValue);
 
 	addColumn(col);
-
-	// unique index
-	if(unique){
-		CdbTableIndex* index = new CdbTableIndex((uint64_t)0);
-		index->addColumn(col);
-
-		UnicodeString* indexName = CdbTableIndex::createUniqueKeyIndexName(this, name);
-		index->setName(indexName);
-		index->setUnique(true);
-
-		addIndex(index);
-	}
-
 }
 
 void CdbTable::addColumn(CdbTableColumn* col) noexcept {
@@ -198,7 +185,42 @@ void CdbTable::assignNewOid(SchemaObjectIdPublisher* publisher) {
 		idx->syncColumnOid(this);
 	}
 
+	setupUniqueIndexes();
+
+	maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		idx->assignNewOid(publisher);
+
+		// assign to column
+		idx->syncColumnOid(this);
+	}
+
 	publisher->saveSchema();
+}
+
+
+void CdbTable::setupUniqueIndexes() {
+	int maxLoop = this->columns->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableColumn* col = this->columns->get(i);
+
+		const CdbOid* colOid = col->getOid();
+		bool unique = col->isUnique();
+
+		// unique index
+		if(unique && !hasSinglePrimaryKeyColumn(colOid)){
+			CdbTableIndex* index = new CdbTableIndex((uint64_t)0);
+			index->addColumn(col);
+
+			UnicodeString* indexName = CdbTableIndex::createUniqueKeyIndexName(this, name);
+			index->setName(indexName);
+			index->setUnique(true);
+
+			addIndex(index);
+		}
+	}
 }
 
 void CdbTable::setOid(uint64_t oid) noexcept {
@@ -223,14 +245,14 @@ void CdbTable::setPrimaryKey(const UnicodeString* colstr) {
 	setPrimaryKeys(&cols);
 }
 
-bool CdbTable::isSinglePrimaryKeyColumn(const CdbOid* columnOid) const noexcept {
+bool CdbTable::hasSinglePrimaryKeyColumn(const CdbOid* columnOid) const noexcept {
 	bool ret = false;
 
 	int maxLoop = this->indexes->size();
 	for(int i = 0; i != maxLoop; ++i){
 		CdbTableIndex* idx = this->indexes->get(i);
 
-		if(idx->isPrimaryKey() && idx->getColumnLength() == 1 && idx->hasColumnOid(oid)){
+		if(idx->isPrimaryKey() && idx->getColumnLength() == 1 && idx->hasColumnOid(columnOid)){
 			ret = idx;
 			break;
 		}

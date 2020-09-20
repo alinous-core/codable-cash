@@ -263,7 +263,7 @@ void SchemaManager::handleToUnique(CdbTable* table, ColumnModifyContext* ctx) {
 	const CdbOid* colOid = col->getOid();
 
 	// already has primary key
-	if(table->isSinglePrimaryKeyColumn(colOid)){
+	if(table->hasSinglePrimaryKeyColumn(colOid)){
 		return;
 	}
 
