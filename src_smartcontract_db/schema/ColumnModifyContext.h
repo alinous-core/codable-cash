@@ -86,6 +86,13 @@ public:
 		this->newIndex = newIndex;
 	}
 
+	CdbTableIndex* getRemovalIndex() const noexcept {
+		return removalIndex;
+	}
+	void setRemovalIndex(CdbTableIndex* removalIndex) noexcept {
+		this->removalIndex = removalIndex;
+	}
+
 private:
 	UniqueChage uniqueChange;
 	NotNullChage notNullChange;
@@ -97,6 +104,7 @@ private:
 
 	CdbTableColumn* column;
 	CdbTableIndex* newIndex;
+	CdbTableIndex* removalIndex;
 };
 
 } /* namespace codablecash */

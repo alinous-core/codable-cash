@@ -9,6 +9,8 @@
 
 #include "base/UnicodeString.h"
 
+#include "table/CdbTableIndex.h"
+
 namespace codablecash {
 
 ColumnModifyContext::ColumnModifyContext() {
@@ -22,6 +24,7 @@ ColumnModifyContext::ColumnModifyContext() {
 
 	this->column = nullptr;
 	this->newIndex = nullptr;
+	this->removalIndex = nullptr;
 }
 
 ColumnModifyContext::~ColumnModifyContext() {
@@ -29,8 +32,8 @@ ColumnModifyContext::~ColumnModifyContext() {
 
 	this->column = nullptr;
 	this->newIndex = nullptr;
+	delete this->removalIndex;
 }
-
 
 void ColumnModifyContext::setDefaultValue(const UnicodeString* defalutValueStr) noexcept {
 	this->defalutValueStr = defalutValueStr != nullptr ? new UnicodeString(defalutValueStr) : nullptr;

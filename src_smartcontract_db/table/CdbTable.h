@@ -80,6 +80,8 @@ public:
 
 	CdbTableIndex* getUniqueIndexByColumnOid(const CdbOid* colOid) const noexcept;
 
+	void removeIndex(const CdbTableIndex* ptr) noexcept;
+
 	int binarySize() const;
 	void toBinary(ByteBuffer* out) const;
 	void fromBinary(ByteBuffer* in);

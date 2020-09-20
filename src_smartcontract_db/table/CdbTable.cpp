@@ -347,6 +347,24 @@ CdbTableIndex* CdbTable::getUniqueIndexByColumnOid(const CdbOid* colOid) const n
 	return ret;
 }
 
+void CdbTable::removeIndex(const CdbTableIndex* ptr) noexcept {
+	int removeIndex = -1;
+
+	int maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		if(idx == ptr){
+			removeIndex = i;
+			break;
+		}
+	}
+
+	if(removeIndex > 0){
+		this->indexes->remove(removeIndex);
+	}
+}
+
 int CdbTable::binarySize() const {
 	checkNotNull(this->schemaName);
 	checkNotNull(this->name);
