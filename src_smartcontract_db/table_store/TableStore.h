@@ -45,7 +45,7 @@ public:
 
 	const CdbTable* getTable() const noexcept;
 
-	IndexStore* getIndexStore(const CdbOid* oid) const noexcept;
+	IndexStore* getIndexStore(const CdbOid* indexoid) const noexcept;
 
 	CdbRecord* findRecord(const CdbOid* recordOid);
 
