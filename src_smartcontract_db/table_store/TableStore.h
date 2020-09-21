@@ -25,6 +25,7 @@ class IndexStore;
 class CdbRecord;
 class AbstractCdbValue;
 class CdbTableColumn;
+class CdbTableIndex;
 
 class TableStore {
 public:
@@ -35,6 +36,7 @@ public:
 
 	void createTable();
 	void loadTable();
+	const CdbTable* getTable() const noexcept;
 
 	void insert(const CdbRecord* rec);
 	void validateRecord(CdbRecord* rec);
@@ -43,7 +45,7 @@ public:
 		return this->recordStore;
 	}
 
-	const CdbTable* getTable() const noexcept;
+	void addIndex(const CdbTableIndex* index);
 
 	IndexStore* getIndexStore(const CdbOid* indexoid) const noexcept;
 

@@ -76,7 +76,7 @@ void CdbStorageManager::onAlterModify(SchemaManager* mgr, const CdbTable* table,
 void CdbStorageManager::handleUniqueKeyOnAlterModify(TableStore* store,	const ColumnModifyContext* ctx) {
 	CdbTableIndex* index = ctx->getNewIndex();
 	if(index != nullptr){
-
+		store->addIndex(index);
 		return;
 	}
 

@@ -91,6 +91,22 @@ void TableStore::createTable() {
 	}
 }
 
+void TableStore::addIndex(const CdbTableIndex* index) {
+	const Schema* sc = this->table->getSchema();
+	const UnicodeString* schemaName = sc->getName();
+
+	const UnicodeString* tableName = table->getName();
+
+	File* schemaDir = this->baseDir->get(schemaName); __STP(schemaDir);
+	File* tableDir = schemaDir->get(tableName); __STP(tableDir);
+	IndexStore::createStore(tableDir, this->table, index, this->cacheManager);
+
+	IndexStore* indexstore = new IndexStore(this->cacheManager, tableDir, this->table, index);
+	indexstore->load();
+
+	this->indexStores->put(indexstore->getIndexOid(), indexstore);
+}
+
 void TableStore::loadTable() {
 	const Schema* schema = this->table->getSchema();
 	const UnicodeString* schemaName = schema->getName();
