@@ -31,6 +31,8 @@ public:
 	virtual ~IndexStore();
 
 	static void createStore(const File* tableDir, const CdbTable* table, const CdbTableIndex* index, DiskCacheManager* cacheManager);
+	static void cleanupStore(const File* tableDir, const CdbTable* table, const CdbTableIndex* index);
+
 	void load();
 	void close() noexcept;
 

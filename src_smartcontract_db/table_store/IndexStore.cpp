@@ -33,6 +33,8 @@
 
 #include "engine/CdbOid.h"
 
+using alinous::File;
+
 namespace codablecash {
 
 IndexStore::IndexStore(DiskCacheManager* cacheManager, const File* tableDir, const CdbTable* table, const CdbTableIndex* index) {
@@ -61,6 +63,14 @@ void IndexStore::createStore(const File* tableDir, const CdbTable* table, const 
 	BtreeConfig config;
 	btree.create(&config);
 }
+
+void IndexStore::cleanupStore(const File* tableDir, const CdbTable* table, const CdbTableIndex* index) {
+	const UnicodeString* name = index->getName();
+
+	File* dir = tableDir->get(name); __STP(dir);
+	dir->deleteDir();
+}
+
 
 void IndexStore::load() {
 	const UnicodeString* name = this->index->getName();

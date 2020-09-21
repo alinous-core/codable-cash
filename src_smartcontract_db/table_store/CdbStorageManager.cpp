@@ -70,6 +70,10 @@ void CdbStorageManager::onAlterModify(SchemaManager* mgr, const CdbTable* table,
 
 	handleUniqueKeyOnAlterModify(store, ctx);
 
+	if(ctx->isTypeChanged()){
+
+	}
+
 	// TODO : onAlterModify()
 }
 
@@ -82,7 +86,7 @@ void CdbStorageManager::handleUniqueKeyOnAlterModify(TableStore* store,	const Co
 
 	index = ctx->getRemovalIndex();
 	if(index != nullptr){
-
+		store->removeIndex(index);
 	}
 }
 

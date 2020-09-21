@@ -29,6 +29,7 @@
 
 #include "btree/Btree.h"
 
+#include "table/CdbTableIndex.h"
 
 namespace codablecash {
 
@@ -105,6 +106,24 @@ void TableStore::addIndex(const CdbTableIndex* index) {
 	indexstore->load();
 
 	this->indexStores->put(indexstore->getIndexOid(), indexstore);
+}
+
+void TableStore::removeIndex(const CdbTableIndex* index) {
+	const CdbOid* indexOid = index->getOid();
+	IndexStore* indexStore = getIndexStore(indexOid); __STP(indexStore);
+
+	indexStore->close();
+	this->indexStores->remove(indexOid);
+
+	const Schema* sc = this->table->getSchema();
+	const UnicodeString* schemaName = sc->getName();
+
+	File* schemaDir = this->baseDir->get(schemaName); __STP(schemaDir);
+
+	const UnicodeString* tableName = table->getName();
+	File* tableDir = schemaDir->get(tableName); __STP(tableDir);
+
+	IndexStore::cleanupStore(tableDir, this->table, index);
 }
 
 void TableStore::loadTable() {

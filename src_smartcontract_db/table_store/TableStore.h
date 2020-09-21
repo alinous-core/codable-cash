@@ -46,6 +46,7 @@ public:
 	}
 
 	void addIndex(const CdbTableIndex* index);
+	void removeIndex(const CdbTableIndex* index);
 
 	IndexStore* getIndexStore(const CdbOid* indexoid) const noexcept;
 
