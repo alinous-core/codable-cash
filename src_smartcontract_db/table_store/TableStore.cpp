@@ -31,6 +31,7 @@
 
 #include "table/CdbTableIndex.h"
 
+#include "btree/BtreeScanner.h"
 namespace codablecash {
 
 TableStore::TableStore(DiskCacheManager* cacheManager, const File* baseDir, const CdbTable* table) {
@@ -136,6 +137,68 @@ void TableStore::resetAllIndexes() {
 	}
 }
 
+void TableStore::modifyRecords(const ColumnModifyContext* ctx) {
+	Btree* btree = this->recordStore->getBtree();
+	BtreeScanner* scanner = btree->getScanner();
+
+	scanner->begin();
+
+	while(scanner->hasNext()){
+		const IBlockObject* obj = scanner->next();
+		const CdbRecord* record = dynamic_cast<const CdbRecord*>(obj);
+
+		// TODO convert value
+	}
+}
+
+void TableStore::buildAllIndexes() {
+	ArrayList<IndexStore> list;
+	Iterator<CdbOid>* it = this->indexStores->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const CdbOid* oid = it->next();
+		IndexStore* store = this->indexStores->get(oid);
+
+		list.addElement(store);
+	}
+
+	Btree* btree = this->recordStore->getBtree();
+	BtreeScanner* scanner = btree->getScanner();
+
+	scanner->begin();
+
+	while(scanner->hasNext()){
+		const IBlockObject* obj = scanner->next();
+		const CdbRecord* record = dynamic_cast<const CdbRecord*>(obj);
+
+		addRecord2Index(&list, record);
+	}
+}
+
+void TableStore::addRecord2Index(const ArrayList<IndexStore>* indexStoreList, const CdbRecord* rec) {
+	int maxLoop = indexStoreList->size();
+	for(int i = 0; i != maxLoop; ++i){
+		IndexStore* store = indexStoreList->get(i);
+
+		store->insert(rec);
+	}
+}
+
+void TableStore::buildIndex(CdbTableIndex* index) {
+	const CdbOid* indexOid = index->getOid();
+	IndexStore* store = getIndexStore(indexOid);
+
+	Btree* btree = this->recordStore->getBtree();
+	BtreeScanner* scanner = btree->getScanner();
+
+	scanner->begin();
+
+	while(scanner->hasNext()){
+		const IBlockObject* obj = scanner->next();
+		const CdbRecord* record = dynamic_cast<const CdbRecord*>(obj);
+
+		store->insert(record);
+	}
+}
 
 void TableStore::loadTable() {
 	const Schema* schema = this->table->getSchema();
@@ -171,6 +234,10 @@ void TableStore::loadTable() {
 void TableStore::insert(const CdbRecord* rec) {
 	this->recordStore->insert(rec);
 
+	addToIndexes(rec);
+}
+
+void TableStore::addToIndexes(const CdbRecord* rec) {
 	Iterator<CdbOid>* it = this->indexStores->keySet()->iterator(); __STP(it);
 	while(it->hasNext()){
 		const CdbOid* oid = it->next();
@@ -224,6 +291,5 @@ CdbRecord* TableStore::findRecord(const CdbOid* recordOid) {
 
 	return record;
 }
-
 
 } /* namespace codablecash */
