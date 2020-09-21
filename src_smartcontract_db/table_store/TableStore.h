@@ -47,6 +47,7 @@ public:
 
 	void addIndex(const CdbTableIndex* index);
 	void removeIndex(const CdbTableIndex* index);
+	void resetAllIndexes();
 
 	IndexStore* getIndexStore(const CdbOid* indexoid) const noexcept;
 

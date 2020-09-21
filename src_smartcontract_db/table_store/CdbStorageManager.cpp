@@ -71,6 +71,9 @@ void CdbStorageManager::onAlterModify(SchemaManager* mgr, const CdbTable* table,
 	handleUniqueKeyOnAlterModify(store, ctx);
 
 	if(ctx->isTypeChanged()){
+		store->resetAllIndexes();
+	}
+	else if(!ctx->isTypeChanged() && ctx->getNewIndex() != nullptr){
 
 	}
 

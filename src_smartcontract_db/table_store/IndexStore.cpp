@@ -71,6 +71,15 @@ void IndexStore::cleanupStore(const File* tableDir, const CdbTable* table, const
 	dir->deleteDir();
 }
 
+void IndexStore::reset() {
+	close();
+
+	cleanupStore(this->tableDir, this->table, this->index);
+	createStore(this->tableDir, this->table, this->index, this->cacheManager);
+
+	load();
+}
+
 
 void IndexStore::load() {
 	const UnicodeString* name = this->index->getName();

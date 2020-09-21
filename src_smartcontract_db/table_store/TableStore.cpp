@@ -126,6 +126,17 @@ void TableStore::removeIndex(const CdbTableIndex* index) {
 	IndexStore::cleanupStore(tableDir, this->table, index);
 }
 
+void TableStore::resetAllIndexes() {
+	Iterator<CdbOid>* it = this->indexStores->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const CdbOid* oid = it->next();
+		IndexStore* store = this->indexStores->get(oid);
+
+		store->reset();
+	}
+}
+
+
 void TableStore::loadTable() {
 	const Schema* schema = this->table->getSchema();
 	const UnicodeString* schemaName = schema->getName();
