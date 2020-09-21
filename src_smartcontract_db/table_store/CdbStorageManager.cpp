@@ -73,7 +73,7 @@ void CdbStorageManager::onAlterModify(SchemaManager* mgr, const CdbTable* table,
 	if(ctx->isTypeChanged()){
 		store->resetAllIndexes();
 		store->modifyRecords(ctx);
-
+		store->buildAllIndexes();
 	}
 	else if(!ctx->isTypeChanged() && ctx->getNewIndex() != nullptr){
 		CdbTableIndex* newIndex = ctx->getNewIndex();

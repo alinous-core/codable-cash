@@ -138,6 +138,8 @@ void TableStore::resetAllIndexes() {
 }
 
 void TableStore::modifyRecords(const ColumnModifyContext* ctx) {
+
+
 	Btree* btree = this->recordStore->getBtree();
 	BtreeScanner* scanner = btree->getScanner();
 

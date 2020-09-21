@@ -28,6 +28,8 @@ TEST_GROUP(TestExecAlterMofdifyGroup) {
 	}
 };
 
+
+// ALTER TABLE test_table MODIFY email_id varchar(255) not null unique default 0;
 TEST(TestExecAlterMofdifyGroup, case01){
 	TestDbSchema01 schem(this->env);
 	schem.init();
