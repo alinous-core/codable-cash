@@ -28,10 +28,14 @@
 #include "table_record_key/CdbLongKey.h"
 
 #include "btree/Btree.h"
+#include "btree/BtreeScanner.h"
 
 #include "table/CdbTableIndex.h"
+#include "table/CdbTableColumn.h"
 
-#include "btree/BtreeScanner.h"
+#include "schema/ColumnModifyContext.h"
+
+
 namespace codablecash {
 
 TableStore::TableStore(DiskCacheManager* cacheManager, const File* baseDir, const CdbTable* table) {
@@ -138,7 +142,7 @@ void TableStore::resetAllIndexes() {
 }
 
 void TableStore::modifyRecords(const ColumnModifyContext* ctx) {
-
+	CdbTableColumn* column = ctx->getColumn();
 
 	Btree* btree = this->recordStore->getBtree();
 	BtreeScanner* scanner = btree->getScanner();
