@@ -30,23 +30,23 @@ public:
 	constexpr static const int64_t MAX_SHORT_VALUE{(int64_t)((int16_t)0x7FFF)};
 	constexpr static const int64_t MIN_SHORT_VALUE{(int64_t)((int16_t)0x8000)};
 
-	AbstractCdbValue* cast(const AbstractCdbValue* value, uint8_t cdbValueType);
-	AbstractCdbValue* convertFromString(const UnicodeString* str, uint8_t cdbValueType);
+	static AbstractCdbValue* cast(const AbstractCdbValue* value, uint8_t cdbValueType);
+	static AbstractCdbValue* convertFromString(const UnicodeString* str, uint8_t cdbValueType);
 
 private:
-	AbstractCdbValue* castFromString(const CdbStringValue* value, uint8_t cdbValueType);
-	AbstractCdbValue* castFromByte(const CdbByteValue* value, uint8_t cdbValueType);
-	AbstractCdbValue* castFromShort(const CdbShortValue* value, uint8_t cdbValueType);
-	AbstractCdbValue* castFromInt(const CdbIntValue* value, uint8_t cdbValueType);
-	AbstractCdbValue* castFromLong(const CdbLongValue* value, uint8_t cdbValueType);
+	static AbstractCdbValue* castFromString(const CdbStringValue* value, uint8_t cdbValueType);
+	static AbstractCdbValue* castFromByte(const CdbByteValue* value, uint8_t cdbValueType);
+	static AbstractCdbValue* castFromShort(const CdbShortValue* value, uint8_t cdbValueType);
+	static AbstractCdbValue* castFromInt(const CdbIntValue* value, uint8_t cdbValueType);
+	static AbstractCdbValue* castFromLong(const CdbLongValue* value, uint8_t cdbValueType);
 
-	CdbStringValue* toString(int64_t value);
+	static CdbStringValue* toString(int64_t value);
 
-	CdbStringValue* stringToCdbStringValue(const UnicodeString* str);
-	CdbByteValue* stringToCdbByteValue(const UnicodeString* str);
-	CdbShortValue* stringToCdbShortValue(const UnicodeString* str);
-	CdbIntValue* stringToCdbIntValue(const UnicodeString* str);
-	CdbLongValue* stringToCdbLongValue(const UnicodeString* str);
+	static CdbStringValue* stringToCdbStringValue(const UnicodeString* str);
+	static CdbByteValue* stringToCdbByteValue(const UnicodeString* str);
+	static CdbShortValue* stringToCdbShortValue(const UnicodeString* str);
+	static CdbIntValue* stringToCdbIntValue(const UnicodeString* str);
+	static CdbLongValue* stringToCdbLongValue(const UnicodeString* str);
 };
 
 } /* namespace codablecash */
