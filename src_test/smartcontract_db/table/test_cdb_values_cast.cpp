@@ -154,3 +154,67 @@ TEST(TestCdbValuesCastGroup, convertFromStringString01){
 	const UnicodeString* ret = dynamic_cast<CdbStringValue*>(value)->getValue();
 	CHECK(str.equals(ret));
 }
+
+TEST(TestCdbValuesCastGroup, testcast01){
+	CHECK(CdbValueCaster::cast(nullptr, 1) == nullptr);
+}
+
+TEST(TestCdbValuesCastGroup, testCastByte01){
+	CdbByteValue base(10);
+	uint8_t cdbValueType = AbstractCdbValue::TYPE_STRING;
+
+	AbstractCdbValue* value = CdbValueCaster::cast(&base, cdbValueType); __STP(value);
+	CHECK(value->getType() == cdbValueType);
+
+	const UnicodeString* ret = dynamic_cast<CdbStringValue*>(value)->getValue();
+	UnicodeString str(L"10");
+	CHECK(str.equals(ret));
+}
+
+TEST(TestCdbValuesCastGroup, testCastByte02){
+	uint8_t v = 10;
+	CdbByteValue base(v);
+	uint8_t cdbValueType = AbstractCdbValue::TYPE_BYTE;
+
+	AbstractCdbValue* value = CdbValueCaster::cast(&base, cdbValueType); __STP(value);
+	CHECK(value->getType() == cdbValueType);
+
+	int8_t ret = dynamic_cast<CdbByteValue*>(value)->getValue();
+	CHECK(ret == v);
+}
+
+TEST(TestCdbValuesCastGroup, testCastByte03){
+	uint8_t v = 10;
+	CdbByteValue base(v);
+	uint8_t cdbValueType = AbstractCdbValue::TYPE_SHORT;
+
+	AbstractCdbValue* value = CdbValueCaster::cast(&base, cdbValueType); __STP(value);
+	CHECK(value->getType() == cdbValueType);
+
+	int16_t ret = dynamic_cast<CdbShortValue*>(value)->getValue();
+	CHECK(ret == v);
+}
+
+TEST(TestCdbValuesCastGroup, testCastByte04){
+	uint8_t v = 10;
+	CdbByteValue base(v);
+	uint8_t cdbValueType = AbstractCdbValue::TYPE_INT;
+
+	AbstractCdbValue* value = CdbValueCaster::cast(&base, cdbValueType); __STP(value);
+	CHECK(value->getType() == cdbValueType);
+
+	int32_t ret = dynamic_cast<CdbIntValue*>(value)->getValue();
+	CHECK(ret == v);
+}
+
+TEST(TestCdbValuesCastGroup, testCastByte05){
+	uint8_t v = 10;
+	CdbByteValue base(v);
+	uint8_t cdbValueType = AbstractCdbValue::TYPE_LONG;
+
+	AbstractCdbValue* value = CdbValueCaster::cast(&base, cdbValueType); __STP(value);
+	CHECK(value->getType() == cdbValueType);
+
+	int64_t ret = dynamic_cast<CdbLongValue*>(value)->getValue();
+	CHECK(ret == v);
+}

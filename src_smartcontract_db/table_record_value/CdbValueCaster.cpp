@@ -113,9 +113,6 @@ AbstractCdbValue* CdbValueCaster::castFromShort(const CdbShortValue* value, uint
 
 	AbstractCdbValue* ret = nullptr;
 	switch(cdbValueType){
-	case  AbstractCdbValue::TYPE_STRING:
-		ret = toString(v);
-		break;
 	case  AbstractCdbValue::TYPE_BYTE:
 		ret = new CdbByteValue(v);
 		break;
@@ -128,7 +125,9 @@ AbstractCdbValue* CdbValueCaster::castFromShort(const CdbShortValue* value, uint
 	case  AbstractCdbValue::TYPE_LONG:
 		ret = new CdbLongValue((int64_t)v);
 		break;
+	case  AbstractCdbValue::TYPE_STRING:
 	default:
+		ret = toString(v);
 		break;
 	}
 
@@ -140,9 +139,6 @@ AbstractCdbValue* CdbValueCaster::castFromInt(const CdbIntValue* value,	uint8_t 
 
 	AbstractCdbValue* ret = nullptr;
 	switch(cdbValueType){
-	case  AbstractCdbValue::TYPE_STRING:
-		ret = toString(v);
-		break;
 	case  AbstractCdbValue::TYPE_BYTE:
 		ret = new CdbByteValue(v);
 		break;
@@ -155,7 +151,9 @@ AbstractCdbValue* CdbValueCaster::castFromInt(const CdbIntValue* value,	uint8_t 
 	case  AbstractCdbValue::TYPE_LONG:
 		ret = new CdbLongValue((int64_t)v);
 		break;
+	case  AbstractCdbValue::TYPE_STRING:
 	default:
+		ret = toString(v);
 		break;
 	}
 
@@ -167,9 +165,6 @@ AbstractCdbValue* CdbValueCaster::castFromLong(const CdbLongValue* value, uint8_
 
 	AbstractCdbValue* ret = nullptr;
 	switch(cdbValueType){
-	case  AbstractCdbValue::TYPE_STRING:
-		ret = toString(v);
-		break;
 	case  AbstractCdbValue::TYPE_BYTE:
 		ret = new CdbByteValue(v);
 		break;
@@ -182,7 +177,9 @@ AbstractCdbValue* CdbValueCaster::castFromLong(const CdbLongValue* value, uint8_
 	case  AbstractCdbValue::TYPE_LONG:
 		ret = new CdbLongValue((int64_t)v);
 		break;
+	case  AbstractCdbValue::TYPE_STRING:
 	default:
+		ret = toString(v);
 		break;
 	}
 
