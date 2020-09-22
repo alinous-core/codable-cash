@@ -280,3 +280,66 @@ TEST(TestCdbValuesCastGroup, testCastShort05){
 	int64_t ret = dynamic_cast<CdbLongValue*>(value)->getValue();
 	CHECK(ret == v);
 }
+
+///////////////////////////////////////////////
+
+TEST(TestCdbValuesCastGroup, testCastInt01){
+	CdbIntValue base(10);
+	uint8_t cdbValueType = AbstractCdbValue::TYPE_STRING;
+
+	AbstractCdbValue* value = CdbValueCaster::cast(&base, cdbValueType); __STP(value);
+	CHECK(value->getType() == cdbValueType);
+
+	const UnicodeString* ret = dynamic_cast<CdbStringValue*>(value)->getValue();
+	UnicodeString str(L"10");
+	CHECK(str.equals(ret));
+}
+
+TEST(TestCdbValuesCastGroup, testCastInt02){
+	uint8_t v = 10;
+	CdbIntValue base(v);
+	uint8_t cdbValueType = AbstractCdbValue::TYPE_BYTE;
+
+	AbstractCdbValue* value = CdbValueCaster::cast(&base, cdbValueType); __STP(value);
+	CHECK(value->getType() == cdbValueType);
+
+	int8_t ret = dynamic_cast<CdbByteValue*>(value)->getValue();
+	CHECK(ret == v);
+}
+
+TEST(TestCdbValuesCastGroup, testCastInt03){
+	uint8_t v = 10;
+	CdbIntValue base(v);
+	uint8_t cdbValueType = AbstractCdbValue::TYPE_SHORT;
+
+	AbstractCdbValue* value = CdbValueCaster::cast(&base, cdbValueType); __STP(value);
+	CHECK(value->getType() == cdbValueType);
+
+	int16_t ret = dynamic_cast<CdbShortValue*>(value)->getValue();
+	CHECK(ret == v);
+}
+
+TEST(TestCdbValuesCastGroup, testCastInt04){
+	uint8_t v = 10;
+	CdbIntValue base(v);
+	uint8_t cdbValueType = AbstractCdbValue::TYPE_INT;
+
+	AbstractCdbValue* value = CdbValueCaster::cast(&base, cdbValueType); __STP(value);
+	CHECK(value->getType() == cdbValueType);
+
+	int32_t ret = dynamic_cast<CdbIntValue*>(value)->getValue();
+	CHECK(ret == v);
+}
+
+TEST(TestCdbValuesCastGroup, testCastInt05){
+	uint8_t v = 10;
+	CdbIntValue base(v);
+	uint8_t cdbValueType = AbstractCdbValue::TYPE_LONG;
+
+	AbstractCdbValue* value = CdbValueCaster::cast(&base, cdbValueType); __STP(value);
+	CHECK(value->getType() == cdbValueType);
+
+	int64_t ret = dynamic_cast<CdbLongValue*>(value)->getValue();
+	CHECK(ret == v);
+}
+
