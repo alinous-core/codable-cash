@@ -86,22 +86,22 @@ AbstractCdbValue* CdbValueCaster::castFromByte(const CdbByteValue* value, uint8_
 
 	AbstractCdbValue* ret = nullptr;
 	switch(cdbValueType){
-	case  AbstractCdbValue::TYPE_STRING:
-		ret = toString(v);
-		break;
-	case  AbstractCdbValue::TYPE_BYTE:
+
+	case AbstractCdbValue::TYPE_BYTE:
 		ret = new CdbByteValue(v);
 		break;
 	case  AbstractCdbValue::TYPE_SHORT:
 		ret = new CdbShortValue((int16_t)v);
 		break;
-	case  AbstractCdbValue::TYPE_INT:
+	case AbstractCdbValue::TYPE_INT:
 		ret = new CdbIntValue((int32_t)v);
 		break;
-	case  AbstractCdbValue::TYPE_LONG:
+	case AbstractCdbValue::TYPE_LONG:
 		ret = new CdbLongValue((int64_t)v);
 		break;
+	case AbstractCdbValue::TYPE_STRING:
 	default:
+		ret = toString(v);
 		break;
 	}
 
