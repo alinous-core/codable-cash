@@ -18,8 +18,11 @@
 
 #include "base/Long.h"
 #include "base/Integer.h"
+#include "base/UnicodeString.h"
 
 #include "table_record_value/CdbValueCastException.h"
+
+#include "base/StackRelease.h"
 
 using alinous::Integer;
 using alinous::Long;
@@ -35,7 +38,7 @@ AbstractCdbValue* CdbValueCaster::cast(const AbstractCdbValue* value, uint8_t cd
 
 	AbstractCdbValue* ret = nullptr;
 
-	switch(cdbValueType){
+	switch(type){
 	case  AbstractCdbValue::TYPE_BYTE:
 	{
 		const CdbByteValue* v = dynamic_cast<const CdbByteValue*>(value);
@@ -79,16 +82,117 @@ AbstractCdbValue* CdbValueCaster::castFromString(const CdbStringValue* value, ui
 }
 
 AbstractCdbValue* CdbValueCaster::castFromByte(const CdbByteValue* value, uint8_t cdbValueType) {
+	int8_t v = value->getValue();
 
+	AbstractCdbValue* ret = nullptr;
+	switch(cdbValueType){
+	case  AbstractCdbValue::TYPE_STRING:
+		ret = toString(v);
+		break;
+	case  AbstractCdbValue::TYPE_BYTE:
+		ret = new CdbByteValue(v);
+		break;
+	case  AbstractCdbValue::TYPE_SHORT:
+		ret = new CdbShortValue((int16_t)v);
+		break;
+	case  AbstractCdbValue::TYPE_INT:
+		ret = new CdbIntValue((int32_t)v);
+		break;
+	case  AbstractCdbValue::TYPE_LONG:
+		ret = new CdbLongValue((int64_t)v);
+		break;
+	default:
+		break;
+	}
+
+	return ret;
 }
 
 AbstractCdbValue* CdbValueCaster::castFromShort(const CdbShortValue* value, uint8_t cdbValueType) {
+	int16_t v = value->getValue();
+
+	AbstractCdbValue* ret = nullptr;
+	switch(cdbValueType){
+	case  AbstractCdbValue::TYPE_STRING:
+		ret = toString(v);
+		break;
+	case  AbstractCdbValue::TYPE_BYTE:
+		ret = new CdbByteValue(v);
+		break;
+	case  AbstractCdbValue::TYPE_SHORT:
+		ret = new CdbShortValue((int16_t)v);
+		break;
+	case  AbstractCdbValue::TYPE_INT:
+		ret = new CdbIntValue((int32_t)v);
+		break;
+	case  AbstractCdbValue::TYPE_LONG:
+		ret = new CdbLongValue((int64_t)v);
+		break;
+	default:
+		break;
+	}
+
+	return ret;
 }
 
 AbstractCdbValue* CdbValueCaster::castFromInt(const CdbIntValue* value,	uint8_t cdbValueType) {
+	int32_t v = value->getValue();
+
+	AbstractCdbValue* ret = nullptr;
+	switch(cdbValueType){
+	case  AbstractCdbValue::TYPE_STRING:
+		ret = toString(v);
+		break;
+	case  AbstractCdbValue::TYPE_BYTE:
+		ret = new CdbByteValue(v);
+		break;
+	case  AbstractCdbValue::TYPE_SHORT:
+		ret = new CdbShortValue((int16_t)v);
+		break;
+	case  AbstractCdbValue::TYPE_INT:
+		ret = new CdbIntValue((int32_t)v);
+		break;
+	case  AbstractCdbValue::TYPE_LONG:
+		ret = new CdbLongValue((int64_t)v);
+		break;
+	default:
+		break;
+	}
+
+	return ret;
 }
 
 AbstractCdbValue* CdbValueCaster::castFromLong(const CdbLongValue* value, uint8_t cdbValueType) {
+	int32_t v = value->getValue();
+
+	AbstractCdbValue* ret = nullptr;
+	switch(cdbValueType){
+	case  AbstractCdbValue::TYPE_STRING:
+		ret = toString(v);
+		break;
+	case  AbstractCdbValue::TYPE_BYTE:
+		ret = new CdbByteValue(v);
+		break;
+	case  AbstractCdbValue::TYPE_SHORT:
+		ret = new CdbShortValue((int16_t)v);
+		break;
+	case  AbstractCdbValue::TYPE_INT:
+		ret = new CdbIntValue((int32_t)v);
+		break;
+	case  AbstractCdbValue::TYPE_LONG:
+		ret = new CdbLongValue((int64_t)v);
+		break;
+	default:
+		break;
+	}
+
+	return ret;
+}
+
+CdbStringValue* CdbValueCaster::toString(int64_t value) {
+	UnicodeString* str = Long::toString(value, 10); __STP(str);
+
+	return new CdbStringValue(str);
 }
 
 AbstractCdbValue* CdbValueCaster::convertFromString(const UnicodeString* str, uint8_t cdbValueType) {

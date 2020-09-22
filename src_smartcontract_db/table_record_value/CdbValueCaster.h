@@ -40,6 +40,8 @@ private:
 	AbstractCdbValue* castFromInt(const CdbIntValue* value, uint8_t cdbValueType);
 	AbstractCdbValue* castFromLong(const CdbLongValue* value, uint8_t cdbValueType);
 
+	CdbStringValue* toString(int64_t value);
+
 	CdbStringValue* stringToCdbStringValue(const UnicodeString* str);
 	CdbByteValue* stringToCdbByteValue(const UnicodeString* str);
 	CdbShortValue* stringToCdbShortValue(const UnicodeString* str);
