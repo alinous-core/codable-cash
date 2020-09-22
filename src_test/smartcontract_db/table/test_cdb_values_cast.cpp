@@ -23,6 +23,7 @@
 #include "table_record_value/CdbValueCaster.h"
 #include "table_record_value/CdbValueCastException.h"
 
+#include "table_record/CdbRecord.h"
 using namespace codablecash;
 using namespace alinous;
 
@@ -406,4 +407,29 @@ TEST(TestCdbValuesCastGroup, testCastLong05){
 }
 
 ///////////////////////////////////////////////
+TEST(TestCdbValuesCastGroup, testCastString01){
+	UnicodeString str(L"100");
+	CdbStringValue base(&str);
+	uint8_t cdbValueType = AbstractCdbValue::TYPE_LONG;
 
+	AbstractCdbValue* value = CdbValueCaster::cast(&base, cdbValueType); __STP(value);
+	CHECK(value->getType() == cdbValueType);
+
+	int64_t ret = dynamic_cast<CdbLongValue*>(value)->getValue();
+	CHECK(ret == 100);
+}
+
+TEST(TestCdbValuesCastGroup, testCastError01){
+	CdbRecord base;
+	uint8_t cdbValueType = AbstractCdbValue::TYPE_LONG;
+
+	CdbException* ex = nullptr;
+	try{
+		AbstractCdbValue* value = CdbValueCaster::cast(&base, cdbValueType); __STP(value);
+	}catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr);
+	delete ex;
+}
