@@ -18,6 +18,7 @@ namespace codablecash {
 
 class CdbTableColumn;
 class CdbTableIndex;
+class AbstractCdbValue;
 
 class ColumnModifyContext {
 public:
@@ -31,6 +32,8 @@ public:
 
 	ColumnModifyContext();
 	virtual ~ColumnModifyContext();
+
+	void analyze();
 
 	UniqueChage getUniqueChange() const noexcept {
 		return uniqueChange;
@@ -93,6 +96,13 @@ public:
 		this->removalIndex = removalIndex;
 	}
 
+	AbstractCdbValue* getDefaultValue() const noexcept {
+		return this->defaultValue;
+	}
+
+private:
+	void analyzeDefaultValue();
+
 private:
 	UniqueChage uniqueChange;
 	NotNullChage notNullChange;
@@ -105,6 +115,9 @@ private:
 	CdbTableColumn* column;
 	CdbTableIndex* newIndex;
 	CdbTableIndex* removalIndex;
+
+	// analyzed value
+	AbstractCdbValue* defaultValue;
 };
 
 } /* namespace codablecash */

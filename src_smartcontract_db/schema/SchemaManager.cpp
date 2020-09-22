@@ -223,6 +223,7 @@ void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
 	context->setColumn(col);
 
 	// TODO: convert default
+	context->analyze();
 
 	handleUniqueIndexOnModify(table, context);
 
