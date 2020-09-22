@@ -42,6 +42,8 @@ public:
 	const UnicodeString* getValue() const noexcept {
 		return this->value;
 	}
+
+	CdbStringValue* limitStringLength(int length) noexcept;
 private:
 	UnicodeString* value;
 };

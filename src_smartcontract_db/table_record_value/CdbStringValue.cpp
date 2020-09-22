@@ -9,8 +9,10 @@
 
 #include "base_io/ByteBuffer.h"
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #include "table_record_key/CdbStringKey.h"
+
 
 namespace codablecash {
 
@@ -85,5 +87,16 @@ UnicodeString* CdbStringValue::getString(ByteBuffer* in) noexcept {
 	return ret;
 }
 
+CdbStringValue* CdbStringValue::limitStringLength(int length) noexcept {
+	int len = this->value->length();
+
+	if(len > length){
+		UnicodeString* str = this->value->substring(0, length); __STP(str);
+
+		return new CdbStringValue(str);
+	}
+
+	return new CdbStringValue(this->value);
+}
 
 } /* namespace codablecash */
