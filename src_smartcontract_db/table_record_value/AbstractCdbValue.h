@@ -39,6 +39,10 @@ public:
 
 	static bool isCompatible(uint8_t type, uint8_t type2) noexcept;
 
+	uint8_t getType() const noexcept {
+		return type;
+	}
+
 protected:
 	uint8_t type;
 };

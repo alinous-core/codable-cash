@@ -26,6 +26,71 @@ using alinous::Long;
 
 namespace codablecash {
 
+AbstractCdbValue* CdbValueCaster::cast(const AbstractCdbValue* value, uint8_t cdbValueType) {
+	if(value == nullptr){
+		return nullptr;
+	}
+
+	uint8_t type = value->getType();
+
+	AbstractCdbValue* ret = nullptr;
+
+	switch(cdbValueType){
+	case  AbstractCdbValue::TYPE_BYTE:
+	{
+		const CdbByteValue* v = dynamic_cast<const CdbByteValue*>(value);
+		ret = castFromByte(v, cdbValueType);
+		break;
+	}
+	case  AbstractCdbValue::TYPE_SHORT:
+	{
+		const CdbShortValue* v = dynamic_cast<const CdbShortValue*>(value);
+		ret = castFromShort(v, cdbValueType);
+		break;
+	}
+	case  AbstractCdbValue::TYPE_INT:
+	{
+		const CdbIntValue* v = dynamic_cast<const CdbIntValue*>(value);
+		ret = castFromInt(v, cdbValueType);
+		break;
+	}
+	case  AbstractCdbValue::TYPE_LONG:
+	{
+		const CdbLongValue* v = dynamic_cast<const CdbLongValue*>(value);
+		ret = castFromLong(v, cdbValueType);
+		break;
+	}
+	case  AbstractCdbValue::TYPE_STRING:
+	{
+		const CdbStringValue* v = dynamic_cast<const CdbStringValue*>(value);
+		ret = castFromString(v, cdbValueType);
+		break;
+	}
+	default:
+		throw new CdbException(L"Failed in casting value", __FILE__, __LINE__);
+	}
+
+	return ret;
+}
+
+AbstractCdbValue* CdbValueCaster::castFromString(const CdbStringValue* value, uint8_t cdbValueType) {
+	const UnicodeString* str = value->getValue();
+	return convertFromString(str, cdbValueType);
+}
+
+AbstractCdbValue* CdbValueCaster::castFromByte(const CdbByteValue* value, uint8_t cdbValueType) {
+
+}
+
+AbstractCdbValue* CdbValueCaster::castFromShort(const CdbShortValue* value, uint8_t cdbValueType) {
+}
+
+AbstractCdbValue* CdbValueCaster::castFromInt(const CdbIntValue* value,	uint8_t cdbValueType) {
+}
+
+AbstractCdbValue* CdbValueCaster::castFromLong(const CdbLongValue* value, uint8_t cdbValueType) {
+}
+
 AbstractCdbValue* CdbValueCaster::convertFromString(const UnicodeString* str, uint8_t cdbValueType) {
 	if(str == nullptr){
 		return nullptr;
