@@ -70,7 +70,7 @@ TEST(TestCdbValuesCastGroup, convertFromStringShort01){
 	AbstractCdbValue* value = CdbValueCaster::convertFromString(&str, cdbValueType); __STP(value);
 	CHECK(value->getType() == cdbValueType);
 
-	int8_t val = dynamic_cast<CdbShortValue*>(value)->getValue();
+	int16_t val = dynamic_cast<CdbShortValue*>(value)->getValue();
 	CHECK(val == 100);
 }
 
@@ -89,3 +89,39 @@ TEST(TestCdbValuesCastGroup, convertFromStringShort02){
 	delete ex;
 }
 
+TEST(TestCdbValuesCastGroup, convertFromStringInt01){
+	UnicodeString str(L"100");
+	uint8_t cdbValueType = AbstractCdbValue::TYPE_INT;
+
+	AbstractCdbValue* value = CdbValueCaster::convertFromString(&str, cdbValueType); __STP(value);
+	CHECK(value->getType() == cdbValueType);
+
+	int32_t val = dynamic_cast<CdbIntValue*>(value)->getValue();
+	CHECK(val == 100);
+}
+
+TEST(TestCdbValuesCastGroup, convertFromStringInt02){
+	UnicodeString str(L"10000000000000000000");
+	uint8_t cdbValueType = AbstractCdbValue::TYPE_INT;
+
+	CdbValueCastException* ex = nullptr;
+	try{
+		AbstractCdbValue* value = CdbValueCaster::convertFromString(&str, cdbValueType); __STP(value);
+	}catch(CdbValueCastException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr);
+	delete ex;
+}
+
+TEST(TestCdbValuesCastGroup, convertFromStringLong01){
+	UnicodeString str(L"100");
+	uint8_t cdbValueType = AbstractCdbValue::TYPE_LONG;
+
+	AbstractCdbValue* value = CdbValueCaster::convertFromString(&str, cdbValueType); __STP(value);
+	CHECK(value->getType() == cdbValueType);
+
+	int64_t val = dynamic_cast<CdbLongValue*>(value)->getValue();
+	CHECK(val == 100);
+}
