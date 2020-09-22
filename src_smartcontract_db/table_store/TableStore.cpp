@@ -144,8 +144,9 @@ void TableStore::resetAllIndexes() {
 
 void TableStore::modifyRecords(const ColumnModifyContext* ctx) {
 	CdbTableColumn* column = ctx->getColumn();
+	AbstractCdbValue* defaultValue = ctx->getDefaultValue();
 
-	RecordValueConverter converter(column);
+	RecordValueConverter converter(column, defaultValue);
 
 	Btree* btree = this->recordStore->getBtree();
 	BtreeScanner* scanner = btree->getScanner(); __STP(scanner);
@@ -157,6 +158,8 @@ void TableStore::modifyRecords(const ColumnModifyContext* ctx) {
 		const CdbRecord* record = dynamic_cast<const CdbRecord*>(obj);
 
 		// TODO convert value
+		CdbRecord* newRecord = converter.processUpdate(record); __STP(newRecord);
+		this->recordStore->insert(newRecord);
 	}
 }
 

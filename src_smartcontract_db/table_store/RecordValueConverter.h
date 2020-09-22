@@ -11,14 +11,18 @@
 namespace codablecash {
 
 class CdbTableColumn;
+class AbstractCdbValue;
+class CdbRecord;
 
 class RecordValueConverter {
 public:
-	explicit RecordValueConverter(CdbTableColumn* column);
+	RecordValueConverter(CdbTableColumn* column, const AbstractCdbValue* defaultValue);
 	virtual ~RecordValueConverter();
 
+	CdbRecord* processUpdate(const CdbRecord* record);
 private:
 	CdbTableColumn* column;
+	const AbstractCdbValue* defaultValue;
 };
 
 } /* namespace codablecash */
