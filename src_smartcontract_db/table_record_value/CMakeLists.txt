@@ -9,6 +9,8 @@ set(__src
 	CdbOidValueListCursor.cpp
 	CdbShortValue.cpp
 	CdbStringValue.cpp
+	CdbValueCaster.cpp
+	CdbValueCastException.cpp
 	VmInstanceValueConverter.cpp
 )
 handle_sub(codablecashlib "${__src}" smartcontract_db table_record_value)

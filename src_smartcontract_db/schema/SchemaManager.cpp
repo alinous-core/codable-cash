@@ -222,6 +222,8 @@ void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
 	ColumnModifyContext* context = col->createModifyContextwithChange(modifyCommand, defaultStr); __STP(context);
 	context->setColumn(col);
 
+	// TODO: convert default
+
 	handleUniqueIndexOnModify(table, context);
 
 	// update storage
