@@ -33,6 +33,10 @@ TEST_GROUP(TestCdbValuesCastGroup) {
 	}
 };
 
+TEST(TestCdbValuesCastGroup, testException01){
+	testException<CdbValueCastException>();
+}
+
 TEST(TestCdbValuesCastGroup, case01){
 	CHECK(CdbValueCaster::convertFromString(nullptr, 1) == nullptr);
 }
