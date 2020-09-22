@@ -87,7 +87,7 @@ UnicodeString* CdbStringValue::getString(ByteBuffer* in) noexcept {
 	return ret;
 }
 
-CdbStringValue* CdbStringValue::limitStringLength(int length) noexcept {
+CdbStringValue* CdbStringValue::limitStringLength(int length) const noexcept {
 	int len = this->value->length();
 
 	if(len > length){

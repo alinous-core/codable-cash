@@ -48,6 +48,9 @@ public:
 	bool isNotnull() const noexcept {
 		return notnull;
 	}
+	int getLength() const noexcept {
+		return length;
+	}
 
 	void assignNewOid(SchemaObjectIdPublisher* publisher);
 	void setOid(uint64_t oid) noexcept;

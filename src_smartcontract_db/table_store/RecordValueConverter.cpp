@@ -7,15 +7,16 @@
 
 #include "table_store/RecordValueConverter.h"
 
-#include "table_record_value/AbstractCdbValue.h"
-
 #include "table_record/CdbRecord.h"
 
 #include "table/CdbTableColumn.h"
 
 #include "table_record_value/CdbValueCaster.h"
+#include "table_record_value/CdbStringValue.h"
+#include "table_record_value/AbstractCdbValue.h"
 
 #include "base/Exception.h"
+
 
 namespace codablecash {
 
@@ -50,8 +51,8 @@ AbstractCdbValue* RecordValueConverter::getModifiedValue(const AbstractCdbValue*
 
 	uint8_t lastCdbType = lastValue->getType();
 	uint8_t cdbType = this->column->getType();
-	if(cdbType == AbstractCdbValue::TYPE_STRING && lastCdbType == cdbType == AbstractCdbValue::TYPE_STRING){
-
+	if(cdbType == AbstractCdbValue::TYPE_STRING && lastCdbType == AbstractCdbValue::TYPE_STRING){
+		return handleStringType(lastValue);
 	}
 
 	AbstractCdbValue* ret = nullptr;
@@ -75,6 +76,17 @@ AbstractCdbValue* RecordValueConverter::handleNullValue() {
 	uint8_t cdbType = this->column->getType();
 
 	return CdbValueCaster::getDefaultValue(cdbType);
+}
+
+AbstractCdbValue* RecordValueConverter::handleStringType(const AbstractCdbValue* lastValue) {
+	const CdbStringValue* lastStringValue = dynamic_cast<const CdbStringValue*>(lastValue);
+
+	int length = this->column->getLength();
+	if(length <= 0){
+		return lastStringValue->copy();
+	}
+
+	return lastStringValue->limitStringLength(length);
 }
 
 } /* namespace codablecash */

@@ -24,6 +24,7 @@ public:
 private:
 	AbstractCdbValue* getModifiedValue(const AbstractCdbValue* lastValue);
 	AbstractCdbValue* handleNullValue();
+	AbstractCdbValue* handleStringType(const AbstractCdbValue* lastValue);
 
 private:
 	CdbTableColumn* column;

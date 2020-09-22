@@ -43,7 +43,7 @@ public:
 		return this->value;
 	}
 
-	CdbStringValue* limitStringLength(int length) noexcept;
+	CdbStringValue* limitStringLength(int length) const noexcept;
 private:
 	UnicodeString* value;
 };

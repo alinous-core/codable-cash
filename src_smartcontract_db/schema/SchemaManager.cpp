@@ -257,8 +257,6 @@ void SchemaManager::handleToNotUnique(CdbTable* table, ColumnModifyContext* ctx)
 
 	ctx->setRemovalIndex(index);
 	table->removeIndex(index);
-
-	// TODO implement now
 }
 
 void SchemaManager::handleToUnique(CdbTable* table, ColumnModifyContext* ctx) {
