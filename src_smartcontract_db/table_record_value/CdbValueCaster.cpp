@@ -259,10 +259,30 @@ CdbLongValue* CdbValueCaster::stringToCdbLongValue(const UnicodeString* str) {
 	return new CdbLongValue(value);
 }
 
-
-
 AbstractCdbValue* CdbValueCaster::getDefaultValue(uint8_t cdbValueType) {
-	// TODO: default value
+	AbstractCdbValue* ret = nullptr;
+
+	switch(cdbValueType){
+	case  AbstractCdbValue::TYPE_BYTE:
+		ret = new CdbByteValue(0);
+		break;
+	case  AbstractCdbValue::TYPE_SHORT:
+		ret = new CdbShortValue(0);
+		break;
+	case  AbstractCdbValue::TYPE_INT:
+		ret = new CdbIntValue(0);
+		break;
+	case  AbstractCdbValue::TYPE_LONG:
+		ret = new CdbLongValue(0);
+		break;
+	case  AbstractCdbValue::TYPE_STRING:
+		ret = new CdbStringValue(L"");
+		break;
+	default:
+		throw new CdbException(L"Wrong cdb value type", __FILE__, __LINE__);
+	}
+
+	return ret;
 }
 
 
