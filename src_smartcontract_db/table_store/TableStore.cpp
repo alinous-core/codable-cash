@@ -148,7 +148,7 @@ void TableStore::modifyRecords(const ColumnModifyContext* ctx) {
 	RecordValueConverter converter(column);
 
 	Btree* btree = this->recordStore->getBtree();
-	BtreeScanner* scanner = btree->getScanner();
+	BtreeScanner* scanner = btree->getScanner(); __STP(scanner);
 
 	scanner->begin();
 
@@ -171,7 +171,7 @@ void TableStore::buildAllIndexes() {
 	}
 
 	Btree* btree = this->recordStore->getBtree();
-	BtreeScanner* scanner = btree->getScanner();
+	BtreeScanner* scanner = btree->getScanner(); __STP(scanner);
 
 	scanner->begin();
 
