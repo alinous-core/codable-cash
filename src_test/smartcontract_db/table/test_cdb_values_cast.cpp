@@ -37,6 +37,20 @@ TEST(TestCdbValuesCastGroup, case01){
 	CHECK(CdbValueCaster::convertFromString(nullptr, 1) == nullptr);
 }
 
+TEST(TestCdbValuesCastGroup, case02){
+	UnicodeString str(L"100");
+
+	CdbException* ex = nullptr;
+	try{
+		AbstractCdbValue* value = CdbValueCaster::convertFromString(&str, 111); __STP(value);
+	}catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr);
+	delete ex;
+}
+
 TEST(TestCdbValuesCastGroup, convertFromStringByte01){
 	UnicodeString str(L"100");
 	uint8_t cdbValueType = AbstractCdbValue::TYPE_BYTE;
@@ -124,4 +138,15 @@ TEST(TestCdbValuesCastGroup, convertFromStringLong01){
 
 	int64_t val = dynamic_cast<CdbLongValue*>(value)->getValue();
 	CHECK(val == 100);
+}
+
+TEST(TestCdbValuesCastGroup, convertFromStringString01){
+	UnicodeString str(L"10000000000000000000");
+	uint8_t cdbValueType = AbstractCdbValue::TYPE_STRING;
+
+	AbstractCdbValue* value = CdbValueCaster::convertFromString(&str, cdbValueType); __STP(value);
+	CHECK(value->getType() == cdbValueType);
+
+	const UnicodeString* ret = dynamic_cast<CdbStringValue*>(value)->getValue();
+	CHECK(str.equals(ret));
 }
