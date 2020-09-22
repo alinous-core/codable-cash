@@ -157,7 +157,7 @@ void TableStore::modifyRecords(const ColumnModifyContext* ctx) {
 		const IBlockObject* obj = scanner->next();
 		const CdbRecord* record = dynamic_cast<const CdbRecord*>(obj);
 
-		// TODO convert value
+		// convert value
 		CdbRecord* newRecord = converter.processUpdate(record); __STP(newRecord);
 		this->recordStore->insert(newRecord);
 	}

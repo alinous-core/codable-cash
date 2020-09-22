@@ -259,4 +259,11 @@ CdbLongValue* CdbValueCaster::stringToCdbLongValue(const UnicodeString* str) {
 	return new CdbLongValue(value);
 }
 
+
+
+AbstractCdbValue* CdbValueCaster::getDefaultValue(uint8_t cdbValueType) {
+	// TODO: default value
+}
+
+
 } /* namespace codablecash */

@@ -13,6 +13,10 @@
 
 #include "table/CdbTableColumn.h"
 
+#include "table_record_value/CdbValueCaster.h"
+
+#include "base/Exception.h"
+
 namespace codablecash {
 
 RecordValueConverter::RecordValueConverter(CdbTableColumn* column, const AbstractCdbValue* defaultValue) {
@@ -32,9 +36,45 @@ CdbRecord* RecordValueConverter::processUpdate(const CdbRecord* record) {
 	int pos = this->column->getPosition();
 	const AbstractCdbValue* lastValue = newRecord->get(pos);
 
+	AbstractCdbValue* newValue = getModifiedValue(lastValue);
 
+	newRecord->setValue(newValue, pos);
 
 	return newRecord;
+}
+
+AbstractCdbValue* RecordValueConverter::getModifiedValue(const AbstractCdbValue* lastValue) {
+	if(lastValue == nullptr){
+		return handleNullValue();
+	}
+
+	uint8_t lastCdbType = lastValue->getType();
+	uint8_t cdbType = this->column->getType();
+	if(cdbType == AbstractCdbValue::TYPE_STRING && lastCdbType == cdbType == AbstractCdbValue::TYPE_STRING){
+
+	}
+
+	AbstractCdbValue* ret = nullptr;
+	try{
+		ret = CdbValueCaster::cast(lastValue, cdbType);
+	}
+	catch(Exception* e){
+		delete e;
+		ret = CdbValueCaster::getDefaultValue(cdbType);
+	}
+
+	return ret;
+}
+
+AbstractCdbValue* RecordValueConverter::handleNullValue() {
+	bool isnotnull = this->column->isNotnull();
+	if(!isnotnull){
+		return nullptr;
+	}
+
+	uint8_t cdbType = this->column->getType();
+
+	return CdbValueCaster::getDefaultValue(cdbType);
 }
 
 } /* namespace codablecash */

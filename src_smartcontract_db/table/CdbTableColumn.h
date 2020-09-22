@@ -45,6 +45,9 @@ public:
 	bool isUnique() const noexcept {
 		return unique;
 	}
+	bool isNotnull() const noexcept {
+		return notnull;
+	}
 
 	void assignNewOid(SchemaObjectIdPublisher* publisher);
 	void setOid(uint64_t oid) noexcept;

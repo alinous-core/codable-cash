@@ -20,6 +20,11 @@ public:
 	virtual ~RecordValueConverter();
 
 	CdbRecord* processUpdate(const CdbRecord* record);
+
+private:
+	AbstractCdbValue* getModifiedValue(const AbstractCdbValue* lastValue);
+	AbstractCdbValue* handleNullValue();
+
 private:
 	CdbTableColumn* column;
 	const AbstractCdbValue* defaultValue;

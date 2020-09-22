@@ -32,6 +32,7 @@ public:
 
 	static AbstractCdbValue* cast(const AbstractCdbValue* value, uint8_t cdbValueType);
 	static AbstractCdbValue* convertFromString(const UnicodeString* str, uint8_t cdbValueType);
+	static AbstractCdbValue* getDefaultValue(uint8_t cdbValueType);
 
 private:
 	static AbstractCdbValue* castFromString(const CdbStringValue* value, uint8_t cdbValueType);
