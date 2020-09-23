@@ -70,6 +70,10 @@ TEST(TestExecAlterMofdifyGroup, case01){
 
 	CdbTableIndex* index = schem.getIndex(L"test_table", L"email_id");
 	CHECK(index->isUnique());
+
+	IndexStore* idx = schem.getIndexStore(L"test_table", L"email_id");
+	CHECK(idx != nullptr);
+
 }
 
 

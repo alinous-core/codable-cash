@@ -24,6 +24,7 @@ class CodableDatabase;
 class CdbTableColumn;
 class CdbTableIndex;
 class CdbTable;
+class IndexStore;
 
 class TestDbSchemaBase {
 public:
@@ -45,6 +46,10 @@ public:
 
 	CdbTableIndex* getIndex(const wchar_t* schema, const wchar_t* table, const wchar_t* column);
 	CdbTableIndex* getIndex(const wchar_t* table, const wchar_t* column);
+
+	IndexStore* getIndexStore(const wchar_t* schema, const wchar_t* table, const wchar_t* column);
+	IndexStore* getIndexStore(const wchar_t* table, const wchar_t* column);
+
 protected:
 	void createDb();
 

@@ -109,5 +109,25 @@ CdbTableIndex* codablecash::TestDbSchemaBase::getIndex(const wchar_t* table, con
 	return getIndex(s, table, column);
 }
 
+IndexStore* TestDbSchemaBase::getIndexStore(const wchar_t* table, const wchar_t* column) {
+	const wchar_t* s = SchemaManager::PUBLIC.towString();
+
+	return getIndexStore(s, table, column);
+}
+
+IndexStore* TestDbSchemaBase::getIndexStore(const wchar_t* schema, const wchar_t* table, const wchar_t* column) {
+	CodableDatabase* db = getDatabase();
+	CdbStorageManager* storageMgr = db->getStorageManager();
+
+	CdbTable* cdbtable = getTable(schema, table);
+
+	TableStore* store = storageMgr->getTableStore(cdbtable->getOid());
+
+	CdbTableIndex* index = getIndex(schema, table, column);
+	IndexStore* indexStore = store->getIndexStore(index->getOid());
+
+	return indexStore;
+}
+
 
 } /* namespace codablecash */
