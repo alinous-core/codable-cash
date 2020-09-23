@@ -19,6 +19,13 @@
 
 #include "sc_analyze/AnalyzeContext.h"
 
+#include "engine/CodableDatabase.h"
+
+#include "schema/SchemaManager.h"
+
+#include "table/CdbTable.h"
+
+#include "table/CdbTableColumn.h"
 TEST_GROUP(TestExecAlterMofdifyGroup) {
 	TEST_SETUP() {
 		env->setup();
@@ -54,4 +61,8 @@ TEST(TestExecAlterMofdifyGroup, case01){
 
 		stmt->interpret(vm);
 	}
+
+	CdbTableColumn* col = schem.getColumn(L"test_table", L"email_id");
+	CHECK(col->isUnique() == true);
+	CHECK(col->isNotnull() == true);
 }

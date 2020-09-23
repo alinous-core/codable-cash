@@ -13,6 +13,11 @@
 #include "../../test_utils/TestEnv.h"
 #include "vm/VirtualMachine.h"
 
+#include "schema/SchemaManager.h"
+
+#include "table/CdbTable.h"
+#include "table/CdbTableColumn.h"
+
 namespace codablecash {
 
 TestDbSchemaBase::TestDbSchemaBase(TestEnv* env) {
@@ -50,6 +55,25 @@ void TestDbSchemaBase::createDb() {
 		CodableDatabase db;
 		db.createDatabase(this->dbDir);
 	}
+}
+
+CdbTableColumn* TestDbSchemaBase::getColumn(const wchar_t* schema, const wchar_t* table, const wchar_t* column) {
+	CodableDatabase* db = getDatabase();
+	SchemaManager* scMgr = db->getSchemaManager();
+
+	UnicodeString schemastr(schema);
+	UnicodeString tableName(table);
+	CdbTable* cdbtable = scMgr->getTable(&schemastr, &tableName);
+
+	CdbTableColumn* col = cdbtable->getColumn(column);
+
+	return col;
+}
+
+CdbTableColumn* codablecash::TestDbSchemaBase::getColumn(const wchar_t* table, const wchar_t* column) {
+	const wchar_t* s = SchemaManager::PUBLIC.towString();
+
+	return getColumn(s, table, column);
 }
 
 } /* namespace codablecash */

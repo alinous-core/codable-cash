@@ -21,6 +21,7 @@ using namespace alinous;
 namespace codablecash {
 
 class CodableDatabase;
+class CdbTableColumn;
 
 class TestDbSchemaBase {
 public:
@@ -34,6 +35,9 @@ public:
 	VirtualMachine* getVm() const noexcept {
 		return this->vm;
 	}
+
+	CdbTableColumn* getColumn(const wchar_t* schema, const wchar_t* table, const wchar_t* column);
+	CdbTableColumn* getColumn(const wchar_t* table, const wchar_t* column);
 protected:
 	void createDb();
 
