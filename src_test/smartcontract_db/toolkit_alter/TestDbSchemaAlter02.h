@@ -1,12 +1,12 @@
 /*
- * TestDbSchemaAlter01.h
+ * TestDbSchemaAlter02.h
  *
  *  Created on: 2020/09/23
  *      Author: iizuka
  */
 
-#ifndef SMARTCONTRACT_DB_TOOLKIT_ALTER_TESTDBSCHEMAALTER01_H_
-#define SMARTCONTRACT_DB_TOOLKIT_ALTER_TESTDBSCHEMAALTER01_H_
+#ifndef SMARTCONTRACT_DB_TOOLKIT_ALTER_TESTDBSCHEMAALTER02_H_
+#define SMARTCONTRACT_DB_TOOLKIT_ALTER_TESTDBSCHEMAALTER02_H_
 
 #include "../toolkit/TestDbSchemaBase.h"
 
@@ -14,10 +14,10 @@ namespace codablecash {
 
 class CdbTransaction;
 
-class TestDbSchemaAlter01 : public TestDbSchemaBase {
+class TestDbSchemaAlter02 : public TestDbSchemaBase {
 public:
-	explicit TestDbSchemaAlter01(TestEnv* env);
-	virtual ~TestDbSchemaAlter01();
+	explicit TestDbSchemaAlter02(TestEnv* env);
+	virtual ~TestDbSchemaAlter02();
 
 	virtual void init(uint64_t memCapacity);
 
@@ -30,4 +30,4 @@ private:
 
 } /* namespace codablecash */
 
-#endif /* SMARTCONTRACT_DB_TOOLKIT_ALTER_TESTDBSCHEMAALTER01_H_ */
+#endif /* SMARTCONTRACT_DB_TOOLKIT_ALTER_TESTDBSCHEMAALTER02_H_ */
