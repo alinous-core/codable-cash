@@ -54,7 +54,7 @@ void TestDbSchemaAlter01::createTable() {
 
 	table->addColumn(0, L"id", AbstractCdbValue::TYPE_INT, 0, true, true, nullptr);
 	table->addColumn(0, L"name", AbstractCdbValue::TYPE_STRING, 0, true, false, L"");
-	table->addColumn(0, L"email_id", AbstractCdbValue::TYPE_INT, 0, false, false, nullptr);
+	table->addColumn(0, L"email_id", AbstractCdbValue::TYPE_INT, 0, false, false, L"0");
 
 	table->setPrimaryKey(L"id");
 

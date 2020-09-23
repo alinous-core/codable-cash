@@ -123,7 +123,6 @@ TEST(TestExecAlterMofdifyGroup, case02){
  * no change
  * ALTER TABLE test_table MODIFY email_id int default '0';
  */
-/*
 TEST(TestExecAlterMofdifyGroup, case03){
 	TestDbSchemaAlter01 tester(this->env);
 	tester.init(1024*10);
@@ -151,12 +150,12 @@ TEST(TestExecAlterMofdifyGroup, case03){
 	}
 
 	CdbTableColumn* col = tester.getColumn(L"test_table", L"email_id");
-	CHECK(col->isUnique() == true);
-	CHECK(col->isNotnull() == true);
+	CHECK(col->isUnique() == false);
+	CHECK(col->isNotnull() == false);
 
 	CdbTableIndex* index = tester.getIndex(L"test_table", L"email_id");
-	CHECK(index->isUnique());
+	CHECK(index == nullptr);
 
 	IndexStore* idx = tester.getIndexStore(L"test_table", L"email_id");
-	CHECK(idx != nullptr);
-}*/
+	CHECK(idx == nullptr);
+}

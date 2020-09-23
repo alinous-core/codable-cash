@@ -124,6 +124,10 @@ IndexStore* TestDbSchemaBase::getIndexStore(const wchar_t* schema, const wchar_t
 	TableStore* store = storageMgr->getTableStore(cdbtable->getOid());
 
 	CdbTableIndex* index = getIndex(schema, table, column);
+	if(index == nullptr){
+		return nullptr;
+	}
+
 	IndexStore* indexStore = store->getIndexStore(index->getOid());
 
 	return indexStore;
