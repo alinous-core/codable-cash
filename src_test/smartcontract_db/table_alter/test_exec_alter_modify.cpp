@@ -79,6 +79,7 @@ TEST(TestExecAlterMofdifyGroup, case01){
 /**
  *
  * not unique -> unique
+ * ALTER TABLE test_table MODIFY email_id int not null unique default '0';
  */
 TEST(TestExecAlterMofdifyGroup, case02){
 	TestDbSchemaAlter01 tester(this->env);
