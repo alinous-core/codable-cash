@@ -40,6 +40,7 @@ TestDbSchemaAlter02::~TestDbSchemaAlter02() {
 }
 
 void TestDbSchemaAlter02::init(uint64_t memCapacity) {
+	TestDbSchemaBase::init(memCapacity);
 	createTable();
 }
 
@@ -66,6 +67,11 @@ void TestDbSchemaAlter02::createTable() {
 }
 
 void TestDbSchemaAlter02::insert01() {
+	CdbTransaction* trx = getDatabase()->newTransaction(); __STP(trx);
+
+	insertRecord(trx, 1, L"tanaka", 11);
+
+	trx->commit();
 }
 
 void TestDbSchemaAlter02::insertRecord(CdbTransaction* trx, int id,	const wchar_t* name, int email_id) {
