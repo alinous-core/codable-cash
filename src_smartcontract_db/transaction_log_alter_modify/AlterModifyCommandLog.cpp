@@ -106,4 +106,14 @@ void AlterModifyCommandLog::setLength(int64_t length) noexcept {
 	this->length = length;
 }
 
+void AlterModifyCommandLog::reanalyze(AnalyzeContext* ctx, CodeElement* parent) {
+	this->command->setParent(parent);
+	this->command->preAnalyze(ctx);
+
+	this->command->analyzeTypeRef(ctx);
+
+	this->command->analyze(ctx);
+}
+
+
 } /* namespace codablecash */

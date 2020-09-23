@@ -14,6 +14,7 @@ namespace alinous {
 class TableIdentifier;
 class VirtualMachine;
 class AnalyzeContext;
+class CodeElement;
 }
 using namespace alinous;
 
@@ -28,6 +29,8 @@ public:
 	const TableIdentifier* getTableId() const noexcept {
 		return tableId;
 	}
+
+	virtual void reanalyze(AnalyzeContext* actx, CodeElement* parent);
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;

@@ -31,6 +31,7 @@ public:
 
 	virtual void commit(CdbTransactionManager* trxManager);
 
+	virtual void reanalyze(AnalyzeContext* actx, CodeElement* parent);
 	virtual void initCommandParam(VirtualMachine* vm);
 
 	const AlterModifyCommand* getCommand() const noexcept {

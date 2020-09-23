@@ -25,6 +25,8 @@
 
 #include "sql_ddl_alter_modify/AlterModifyCommand.h"
 
+#include "sc/SmartContract.h"
+
 namespace alinous {
 
 AlterTableStatement::AlterTableStatement() : AbstractSQLStatement(CodeElement::DDL_ALTER_TABLE) {
@@ -98,8 +100,10 @@ void AlterTableStatement::interpret(VirtualMachine* vm) {
 	if(table->getSchema() == nullptr){
 		table->setSchema(new UnicodeString(vm->getCurrentSchema()));
 	}
-
 	log->setTableIdentifier(table);
+
+	log->reanalyze(nullptr, this);
+
 	log->initCommandParam(vm);
 
 	VmTransactionHandler* handler = vm->getTransactionHandler();

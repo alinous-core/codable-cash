@@ -283,6 +283,7 @@ void CdbTable::setPrimaryKeys(ArrayList<const UnicodeString>* cols) {
 	CdbTableIndex* prevIndex = getIndexByColumnOids(&oidlist);
 	if(prevIndex != nullptr){
 		prevIndex->setPrimaryKey(true);
+		prevIndex->setUnique(false);
 		return;
 	}
 

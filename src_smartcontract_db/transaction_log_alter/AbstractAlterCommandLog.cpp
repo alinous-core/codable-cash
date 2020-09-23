@@ -44,4 +44,8 @@ void AbstractAlterCommandLog::fromBinary(ByteBuffer* in) {
 	this->tableId = dynamic_cast<TableIdentifier*>(element);
 }
 
+void AbstractAlterCommandLog::reanalyze(AnalyzeContext* actx, CodeElement* parent) {
+}
+
+
 } /* namespace codablecash */
