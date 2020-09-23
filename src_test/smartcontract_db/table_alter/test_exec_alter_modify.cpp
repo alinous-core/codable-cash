@@ -16,6 +16,7 @@
 
 #include "alinous_lang/AlinousLang.h"
 #include "../toolkit/TestDbSchema01.h"
+#include "../toolkit_alter/TestDbSchemaAlter01.h"
 
 #include "sc_analyze/AnalyzeContext.h"
 
@@ -24,10 +25,10 @@
 #include "schema/SchemaManager.h"
 
 #include "table/CdbTable.h"
-
 #include "table/CdbTableColumn.h"
-
 #include "table/CdbTableIndex.h"
+
+
 TEST_GROUP(TestExecAlterMofdifyGroup) {
 	TEST_SETUP() {
 		env->setup();
@@ -73,7 +74,12 @@ TEST(TestExecAlterMofdifyGroup, case01){
 
 	IndexStore* idx = schem.getIndexStore(L"test_table", L"email_id");
 	CHECK(idx != nullptr);
-
 }
 
+TEST(TestExecAlterMofdifyGroup, case02){
+	TestDbSchemaAlter01 tester(this->env);
+	tester.init(1024*10);
+	tester.insert01();
 
+
+}
