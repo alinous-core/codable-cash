@@ -188,6 +188,39 @@ static void addKeyValue(uint64_t key, uint64_t value, Btree* btree){
 	btree->putData(&lkey, &tvalue);
 }
 
+TEST(TestBTreeGroup, scanEmpty01){
+	File projectFolder = this->env->testCaseDir();
+	_ST(File, baseDir, projectFolder.get(L"store"))
+	_ST(UnicodeString, baseDirStr, baseDir->getAbsolutePath())
+
+	DiskCacheManager cacheManager;
+	UnicodeString name(L"file01");
+	BtreeKeyFactory* factory = new BtreeKeyFactory();
+	TmpValueFactory* dfactory = new TmpValueFactory();
+
+	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
+
+	BtreeConfig config;
+	config.nodeNumber = 2;
+	btree.create(&config);
+
+	BtreeOpenConfig opconf;
+	btree.open(&opconf);
+
+	{
+		BtreeScanner* scanner = btree.getScanner();
+		StackRelease<BtreeScanner> __st_scanner(scanner);
+
+		scanner->begin();
+
+		while(scanner->hasNext()){
+			const AbstractBtreeKey* k = scanner->nextKey();
+			const IBlockObject* obj = scanner->next();
+		}
+	}
+
+	btree.close();
+}
 
 TEST(TestBTreeGroup, add01){
 	File projectFolder = this->env->testCaseDir();

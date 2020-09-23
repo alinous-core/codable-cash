@@ -317,6 +317,10 @@ IBlockObject* NodeCursor::gotoFirst() {
 	}
 
 	uint64_t nextFpos = current->nextNode();
+	if(nextFpos == 0){
+		return nullptr;
+	}
+
 	NodeHandle* nh = this->store->loadNode(nextFpos);
 	current = new NodePosition(nh);
 	push(current);
