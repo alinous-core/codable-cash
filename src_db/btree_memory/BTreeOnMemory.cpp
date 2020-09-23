@@ -42,7 +42,7 @@ MemoryBtreeScanner* BTreeOnMemory::getScanner() {
 	return new MemoryBtreeScanner(cursor);
 }
 
-void BTreeOnMemory::insert(const AbstractBtreeKey* key,	IBlockObject* data) {
+void BTreeOnMemory::putData(const AbstractBtreeKey* key,	IBlockObject* data) {
 	MemoryNodeHandle* rootNode = new MemoryNodeHandle(this->rootNode);
 
 	MemoryNodeCursor cursor(rootNode, this->config->nodeNumber, this);

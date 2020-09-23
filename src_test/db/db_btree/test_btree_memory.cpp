@@ -55,7 +55,7 @@ static void addKeyValue(uint64_t key, uint64_t value, BTreeOnMemory* btree){
 	ULongKey lkey(key);
 	TempValue* tvalue = new TempValue(value);
 
-	btree->insert(&lkey, tvalue);
+	btree->putData(&lkey, tvalue);
 }
 
 TEST(TestBTreeMemoryGroup, add01){

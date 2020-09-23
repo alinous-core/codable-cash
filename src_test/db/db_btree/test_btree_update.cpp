@@ -49,7 +49,7 @@ static void addKeyValue(uint64_t key, uint64_t value, Btree* btree){
 	ULongKey lkey(key);
 	TempValue tvalue(value);
 
-	btree->insert(&lkey, &tvalue);
+	btree->putData(&lkey, &tvalue);
 }
 
 TEST(TestBTreeUpdateGroup, case01){

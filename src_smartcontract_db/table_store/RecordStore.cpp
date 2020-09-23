@@ -77,7 +77,7 @@ void RecordStore::close() noexcept {
 void RecordStore::insert(const CdbRecord* rec) {
 	CdbLongKey key(rec->getOid());
 
-	this->btree->insert(&key, rec);
+	this->btree->putData(&key, rec);
 }
 
 } /* namespace codablecash */

@@ -135,7 +135,7 @@ void IndexStore::insert(const CdbRecord* rec) {
 	uint64_t newOid = rec->getOid();
 	oidList->addOid(new CdbOid(newOid));
 
-	this->btree->insert(key, oidList);
+	this->btree->putData(key, oidList);
 }
 
 IndexScanner* IndexStore::getScanner(CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq) {
