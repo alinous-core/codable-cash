@@ -38,18 +38,20 @@ public:
 	UniqueChage getUniqueChange() const noexcept {
 		return uniqueChange;
 	}
-
 	void setUniqueChange(UniqueChage uniqueChange) noexcept {
 		this->uniqueChange = uniqueChange;
 	}
+
 	void setNotNullChange(NotNullChage notNullChange) noexcept {
 		this->notNullChange = notNullChange;
+	}
+	NotNullChage getNotNullChange() const {
+		return notNullChange;
 	}
 
 	uint8_t getCdbType() const noexcept {
 		return cdbType;
 	}
-
 	void setCdbType(uint8_t cdbType) noexcept {
 		this->cdbType = cdbType;
 	}

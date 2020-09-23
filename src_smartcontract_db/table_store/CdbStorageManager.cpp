@@ -70,15 +70,24 @@ void CdbStorageManager::onAlterModify(SchemaManager* mgr, const CdbTable* table,
 
 	handleUniqueKeyOnAlterModify(store, ctx);
 
-	if(ctx->isTypeChanged()){
+	ColumnModifyContext::NotNullChage notNullChange = ctx->getNotNullChange();
+	CdbTableIndex* newIndex = ctx->getNewIndex();
+
+	bool recordModified = false;
+	if(!ctx->isTypeChanged() || notNullChange == ColumnModifyContext::NotNullChage::TO_NOT_NULL){
 		store->resetAllIndexes();
 		store->modifyRecords(ctx);
+		recordModified = true;
+	}
+
+	if(recordModified){
 		store->buildAllIndexes();
 	}
-	else if(!ctx->isTypeChanged() && ctx->getNewIndex() != nullptr){
+	else if(!recordModified && newIndex != nullptr){
 		CdbTableIndex* newIndex = ctx->getNewIndex();
 		store->buildIndex(newIndex);
 	}
+
 }
 
 void CdbStorageManager::handleUniqueKeyOnAlterModify(TableStore* store,	const ColumnModifyContext* ctx) {
