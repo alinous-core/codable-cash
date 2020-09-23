@@ -22,6 +22,8 @@ namespace codablecash {
 
 class CodableDatabase;
 class CdbTableColumn;
+class CdbTableIndex;
+class CdbTable;
 
 class TestDbSchemaBase {
 public:
@@ -36,8 +38,13 @@ public:
 		return this->vm;
 	}
 
+	CdbTable* getTable(const wchar_t* schema, const wchar_t* table);
+
 	CdbTableColumn* getColumn(const wchar_t* schema, const wchar_t* table, const wchar_t* column);
 	CdbTableColumn* getColumn(const wchar_t* table, const wchar_t* column);
+
+	CdbTableIndex* getIndex(const wchar_t* schema, const wchar_t* table, const wchar_t* column);
+	CdbTableIndex* getIndex(const wchar_t* table, const wchar_t* column);
 protected:
 	void createDb();
 

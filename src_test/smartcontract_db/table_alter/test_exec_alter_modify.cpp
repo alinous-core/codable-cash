@@ -66,3 +66,5 @@ TEST(TestExecAlterMofdifyGroup, case01){
 	CHECK(col->isUnique() == true);
 	CHECK(col->isNotnull() == true);
 }
+
+

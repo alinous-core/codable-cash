@@ -94,8 +94,8 @@ void CdbStorageManager::handleUniqueKeyOnAlterModify(TableStore* store,	const Co
 	}
 }
 
-TableStore* CdbStorageManager::getTableStore(const CdbOid* oid) noexcept {
-	return this->tableStoreMap->get(oid);
+TableStore* CdbStorageManager::getTableStore(const CdbOid* tableoid) noexcept {
+	return this->tableStoreMap->get(tableoid);
 }
 
 } /* namespace codablecash */

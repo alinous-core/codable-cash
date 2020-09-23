@@ -18,6 +18,7 @@
 #include "table/CdbTable.h"
 #include "table/CdbTableColumn.h"
 
+#include "table_store/CdbStorageManager.h"
 namespace codablecash {
 
 TestDbSchemaBase::TestDbSchemaBase(TestEnv* env) {
@@ -58,6 +59,15 @@ void TestDbSchemaBase::createDb() {
 }
 
 CdbTableColumn* TestDbSchemaBase::getColumn(const wchar_t* schema, const wchar_t* table, const wchar_t* column) {
+	CdbTable* cdbtable = getTable(schema, table);
+
+	CdbTableColumn* col = cdbtable->getColumn(column);
+
+	return col;
+}
+
+
+CdbTable* TestDbSchemaBase::getTable(const wchar_t* schema, const wchar_t* table) {
 	CodableDatabase* db = getDatabase();
 	SchemaManager* scMgr = db->getSchemaManager();
 
@@ -65,9 +75,7 @@ CdbTableColumn* TestDbSchemaBase::getColumn(const wchar_t* schema, const wchar_t
 	UnicodeString tableName(table);
 	CdbTable* cdbtable = scMgr->getTable(&schemastr, &tableName);
 
-	CdbTableColumn* col = cdbtable->getColumn(column);
-
-	return col;
+	return cdbtable;
 }
 
 CdbTableColumn* codablecash::TestDbSchemaBase::getColumn(const wchar_t* table, const wchar_t* column) {
@@ -75,5 +83,24 @@ CdbTableColumn* codablecash::TestDbSchemaBase::getColumn(const wchar_t* table, c
 
 	return getColumn(s, table, column);
 }
+
+CdbTableIndex* TestDbSchemaBase::getIndex(const wchar_t* schema, const wchar_t* table, const wchar_t* column) {
+	CodableDatabase* db = getDatabase();
+	CdbStorageManager* storageMgr = db->getStorageManager();
+
+	CdbTable* cdbtable = getTable(schema, table);
+
+
+
+	TableStore* store = storageMgr->getTableStore(cdbtable->getOid());
+
+}
+
+CdbTableIndex* codablecash::TestDbSchemaBase::getIndex(const wchar_t* table, const wchar_t* column) {
+	const wchar_t* s = SchemaManager::PUBLIC.towString();
+
+	return getIndex(s, table, column);
+}
+
 
 } /* namespace codablecash */
