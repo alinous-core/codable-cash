@@ -149,6 +149,8 @@ TEST(TestAlterModifyLogBinaryGroup, AlterModifyCommand01){
 		log.setCommand(dynamic_cast<AlterModifyCommand*>(cmd));
 		log.setTableIdentifier(&tableId);
 
+		log.setDefaultStr(new UnicodeString(L"0"));
+
 		int size = log.binarySize();
 		ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
 
