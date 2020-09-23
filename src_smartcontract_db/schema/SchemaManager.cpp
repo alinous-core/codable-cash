@@ -274,6 +274,8 @@ void SchemaManager::handleToUnique(CdbTable* table, ColumnModifyContext* ctx) {
 
 	UnicodeString* indexName = CdbTableIndex::createUniqueKeyIndexName(table, col->getName());
 	newIndex->setName(indexName);
+	newIndex->addColumn(col);
+	newIndex->setUnique(true);
 
 	table->addIndex(newIndex);
 }

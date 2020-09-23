@@ -26,6 +26,8 @@
 #include "table/CdbTable.h"
 
 #include "table/CdbTableColumn.h"
+
+#include "table/CdbTableIndex.h"
 TEST_GROUP(TestExecAlterMofdifyGroup) {
 	TEST_SETUP() {
 		env->setup();
@@ -65,6 +67,9 @@ TEST(TestExecAlterMofdifyGroup, case01){
 	CdbTableColumn* col = schem.getColumn(L"test_table", L"email_id");
 	CHECK(col->isUnique() == true);
 	CHECK(col->isNotnull() == true);
+
+	CdbTableIndex* index = schem.getIndex(L"test_table", L"email_id");
+	CHECK(index->isUnique());
 }
 
 
