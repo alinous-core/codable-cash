@@ -207,6 +207,9 @@ IBlockObject* MemoryNodeCursor::gotoFirst() noexcept {
 	}
 
 	AbstractMemoryTreeNode* node = current->nextNode();
+	if(node == nullptr){
+		return nullptr;
+	}
 	push(new MemoryNodeHandle(node));
 
 	MemoryDataNode* dataNode = dynamic_cast<MemoryDataNode*>(node);

@@ -58,6 +58,26 @@ static void addKeyValue(uint64_t key, uint64_t value, BTreeOnMemory* btree){
 	btree->putData(&lkey, tvalue);
 }
 
+TEST(TestBTreeMemoryGroup, emptyScan01){
+	BtreeConfig* config = new BtreeConfig();
+	config->nodeNumber = 2;
+	BtreeKeyFactory* factory = new BtreeKeyFactory();
+
+	BTreeOnMemory btree(config, factory);
+	{
+		MemoryBtreeScanner* scanner = btree.getScanner();
+		StackRelease<MemoryBtreeScanner> __st_scanner(scanner);
+
+		scanner->begin();
+
+		while(scanner->hasNext()){
+			const IBlockObject* obj = scanner->next();
+			const AbstractBtreeKey* k = scanner->nextKey();
+
+		}
+	}
+}
+
 TEST(TestBTreeMemoryGroup, add01){
 	BtreeConfig* config = new BtreeConfig();
 	config->nodeNumber = 2;
