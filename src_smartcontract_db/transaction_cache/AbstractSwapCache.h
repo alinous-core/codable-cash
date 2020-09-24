@@ -7,16 +7,22 @@
 
 #ifndef TRANSACTION_CACHE_ABSTRACTSWAPCACHE_H_
 #define TRANSACTION_CACHE_ABSTRACTSWAPCACHE_H_
+#include <cstdint>
 
 namespace codablecash {
 
+class CdbKeyFactory;
+class CdbDataFactory;
+
 class AbstractSwapCache {
 public:
-	AbstractSwapCache();
+	AbstractSwapCache(CdbKeyFactory* keyFactory, CdbDataFactory* dataFactory);
 	virtual ~AbstractSwapCache();
 
-private:
-
+protected:
+	CdbKeyFactory* keyFactory;
+	CdbDataFactory* dataFactory;
+	uint64_t currentSize;
 };
 
 } /* namespace codablecash */

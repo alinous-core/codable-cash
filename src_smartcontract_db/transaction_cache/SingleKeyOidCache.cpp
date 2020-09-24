@@ -9,13 +9,13 @@
 
 namespace codablecash {
 
-SingleKeyOidCache::SingleKeyOidCache() : AbstractSwapCache() {
-	// TODO Auto-generated constructor stub
+SingleKeyOidCache::SingleKeyOidCache(CdbKeyFactory* keyFactory, CdbDataFactory* dataFactory)
+			: AbstractSwapCache(keyFactory, dataFactory) {
 
 }
 
 SingleKeyOidCache::~SingleKeyOidCache() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */

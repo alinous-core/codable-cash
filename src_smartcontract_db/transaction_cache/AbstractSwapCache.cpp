@@ -9,12 +9,15 @@
 
 namespace codablecash {
 
-AbstractSwapCache::AbstractSwapCache() {
-
+AbstractSwapCache::AbstractSwapCache(CdbKeyFactory* keyFactory, CdbDataFactory* dataFactory) {
+	this->keyFactory = keyFactory;
+	this->dataFactory = dataFactory;
+	this->currentSize = 0;
 }
 
 AbstractSwapCache::~AbstractSwapCache() {
-
+	this->keyFactory = nullptr;
+	this->dataFactory = nullptr;
 }
 
 } /* namespace codablecash */

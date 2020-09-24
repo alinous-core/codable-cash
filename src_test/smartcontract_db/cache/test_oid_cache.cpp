@@ -23,5 +23,10 @@ TEST_GROUP(TestOidCacheGroup) {
 };
 
 TEST(TestOidCacheGroup, case01){
-	SwapCacheFactory factory;
+	File testCaseFolder = this->env->testCaseDir();
+	File* tmpDir = testCaseFolder.get(L"tmp_cache"); __STP(tmpDir);
+
+	SwapCacheFactory factory(tmpDir);
+	factory.resetDir();
+
 }

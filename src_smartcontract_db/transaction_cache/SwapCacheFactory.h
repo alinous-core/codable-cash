@@ -8,15 +8,21 @@
 #ifndef TRANSACTION_CACHE_SWAPCACHEFACTORY_H_
 #define TRANSACTION_CACHE_SWAPCACHEFACTORY_H_
 
+namespace alinous {
+class File;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class SwapCacheFactory {
 public:
-	SwapCacheFactory();
+	SwapCacheFactory(const File* tmpdir);
 	virtual ~SwapCacheFactory();
 
+	void resetDir();
 private:
-
+	File* baseDir;
 };
 
 } /* namespace codablecash */
