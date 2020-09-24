@@ -242,3 +242,14 @@ TEST(TestExecAlterMofdifyGroup, case05){
 	IndexStore* idx = tester.getIndexStore(L"test_table", L"name");
 	CHECK(idx == nullptr);
 }
+
+/**
+ * Release unique
+ */
+TEST(TestExecAlterMofdifyGroup, case06){
+
+}
+
+/**
+ * Add unique error
+ */
