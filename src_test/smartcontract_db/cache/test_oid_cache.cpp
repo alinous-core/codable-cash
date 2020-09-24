@@ -11,7 +11,9 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "transaction_cache/SwapCacheFactory.h"
+#include "random_access_file/DiskCacheManager.h"
+
+#include "transaction_cache/CdbSwapCacheFactory.h"
 
 TEST_GROUP(TestOidCacheGroup) {
 	TEST_SETUP() {
@@ -26,7 +28,9 @@ TEST(TestOidCacheGroup, case01){
 	File testCaseFolder = this->env->testCaseDir();
 	File* tmpDir = testCaseFolder.get(L"tmp_cache"); __STP(tmpDir);
 
-	SwapCacheFactory factory(tmpDir);
+	DiskCacheManager diskCache;
+
+	CdbSwapCacheFactory factory(tmpDir, &diskCache);
 	factory.resetDir();
 
 }

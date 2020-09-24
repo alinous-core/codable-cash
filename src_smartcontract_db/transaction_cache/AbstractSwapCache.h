@@ -11,22 +11,21 @@
 
 namespace alinous {
 class DiskCacheManager;
+class BtreeKeyFactory;
+class AbstractBtreeDataFactory;
 }
 using namespace alinous;
 
 namespace codablecash {
 
-class CdbKeyFactory;
-class CdbDataFactory;
-
 class AbstractSwapCache {
 public:
-	AbstractSwapCache(CdbKeyFactory* keyFactory, CdbDataFactory* dataFactory);
+	AbstractSwapCache(BtreeKeyFactory* keyFactory, AbstractBtreeDataFactory* dataFactory, DiskCacheManager* diskCache);
 	virtual ~AbstractSwapCache();
 
 protected:
-	CdbKeyFactory* keyFactory;
-	CdbDataFactory* dataFactory;
+	BtreeKeyFactory* keyFactory;
+	AbstractBtreeDataFactory* dataFactory;
 	DiskCacheManager* diskCache;
 
 	uint64_t currentSize;

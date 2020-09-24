@@ -10,6 +10,9 @@
 
 namespace alinous {
 class File;
+class DiskCacheManager;
+class BtreeKeyFactory;
+class AbstractBtreeDataFactory;
 }
 using namespace alinous;
 
@@ -17,12 +20,17 @@ namespace codablecash {
 
 class SwapCacheFactory {
 public:
-	explicit SwapCacheFactory(const File* tmpdir);
+	SwapCacheFactory(const File* tmpdir, DiskCacheManager* diskCache, BtreeKeyFactory* keyFactory, AbstractBtreeDataFactory* dataFactory);
 	virtual ~SwapCacheFactory();
 
 	void resetDir();
-private:
+
+
+protected:
 	File* baseDir;
+	DiskCacheManager* diskCache;
+	BtreeKeyFactory* keyFactory;
+	AbstractBtreeDataFactory* dataFactory;
 };
 
 } /* namespace codablecash */

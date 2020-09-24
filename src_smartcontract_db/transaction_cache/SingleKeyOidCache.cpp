@@ -7,10 +7,13 @@
 
 #include "transaction_cache/SingleKeyOidCache.h"
 
+#include "table_record/CdbKeyFactory.h"
+#include "table_record/CdbDataFactory.h"
+
 namespace codablecash {
 
-SingleKeyOidCache::SingleKeyOidCache(CdbKeyFactory* keyFactory, CdbDataFactory* dataFactory)
-			: AbstractSwapCache(keyFactory, dataFactory) {
+SingleKeyOidCache::SingleKeyOidCache(CdbKeyFactory* keyFactory, CdbDataFactory* dataFactory, DiskCacheManager* diskCache)
+			: AbstractSwapCache(keyFactory, dataFactory, diskCache) {
 
 }
 

@@ -2,6 +2,7 @@
 
 set(__src
 	AbstractSwapCache.cpp
+	CdbSwapCacheFactory.cpp
 	SingleKeyOidCache.cpp
 	SwapCacheFactory.cpp
 )

@@ -11,10 +11,10 @@
 
 namespace codablecash {
 
-AbstractSwapCache::AbstractSwapCache(CdbKeyFactory* keyFactory, CdbDataFactory* dataFactory) {
+AbstractSwapCache::AbstractSwapCache(BtreeKeyFactory* keyFactory, AbstractBtreeDataFactory* dataFactory, DiskCacheManager* diskCache) {
 	this->keyFactory = keyFactory;
 	this->dataFactory = dataFactory;
-	this->diskCache = nullptr;
+	this->diskCache = diskCache;
 
 	this->currentSize = 0;
 }
@@ -22,7 +22,7 @@ AbstractSwapCache::AbstractSwapCache(CdbKeyFactory* keyFactory, CdbDataFactory* 
 AbstractSwapCache::~AbstractSwapCache() {
 	this->keyFactory = nullptr;
 	this->dataFactory = nullptr;
-	delete this->diskCache;
+	this->diskCache = nullptr;
 }
 
 } /* namespace codablecash */

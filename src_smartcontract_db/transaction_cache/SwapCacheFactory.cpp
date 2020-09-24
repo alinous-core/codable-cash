@@ -11,8 +11,11 @@
 
 namespace codablecash {
 
-SwapCacheFactory::SwapCacheFactory(const File* tmpdir) {
+SwapCacheFactory::SwapCacheFactory(const File* tmpdir, DiskCacheManager* diskCache, BtreeKeyFactory* keyFactory, AbstractBtreeDataFactory* dataFactory) {
 	this->baseDir = new File(*tmpdir);
+	this->diskCache = diskCache;
+	this->keyFactory = keyFactory;
+	this->dataFactory = dataFactory;
 }
 
 SwapCacheFactory::~SwapCacheFactory() {
@@ -22,6 +25,10 @@ SwapCacheFactory::~SwapCacheFactory() {
 void SwapCacheFactory::resetDir() {
 	this->baseDir->deleteDir();
 	this->baseDir->mkdirs();
+
+	this->diskCache = nullptr;
+	this->keyFactory = nullptr;
+	this->dataFactory = nullptr;
 }
 
 } /* namespace codablecash */

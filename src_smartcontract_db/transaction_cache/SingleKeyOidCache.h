@@ -12,9 +12,12 @@
 
 namespace codablecash {
 
+class CdbKeyFactory;
+class CdbDataFactory;
+
 class SingleKeyOidCache : public AbstractSwapCache {
 public:
-	SingleKeyOidCache(CdbKeyFactory* keyFactory, CdbDataFactory* dataFactory);
+	SingleKeyOidCache(CdbKeyFactory* keyFactory, CdbDataFactory* dataFactory, DiskCacheManager* diskCache);
 	virtual ~SingleKeyOidCache();
 };
 
