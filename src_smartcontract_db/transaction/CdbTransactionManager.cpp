@@ -137,12 +137,12 @@ void CdbTransactionManager::commitAlterTable(AbstractAlterCommandLog* cmd) {
 }
 
 void CdbTransactionManager::handleAlterTableAddIndex(AbstractAlterCommandLog* cmd) {
-	AlterAddColumnCommandLog* cmdlog = dynamic_cast<AlterAddColumnCommandLog*>(cmd);
+	AlterAddIndexCommandLog* cmdlog = dynamic_cast<AlterAddIndexCommandLog*>(cmd);
 	this->schemaManager->handleAlterTableAddIndex(cmdlog);
 }
 
 void CdbTransactionManager::handleAlterTableAddColumn(AbstractAlterCommandLog* cmd) {
-	AlterAddIndexCommandLog* cmdlog = dynamic_cast<AlterAddIndexCommandLog*>(cmd);
+	AlterAddColumnCommandLog* cmdlog = dynamic_cast<AlterAddColumnCommandLog*>(cmd);
 	this->schemaManager->handleAlterTableAddColumn(cmdlog);
 }
 

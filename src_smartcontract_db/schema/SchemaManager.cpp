@@ -157,15 +157,17 @@ void SchemaManager::createTable(CdbTable* table) {
 	save();
 }
 
-void SchemaManager::handleAlterTableAddIndex(const AlterAddColumnCommandLog* cmd) {
+void SchemaManager::handleAlterTableAddIndex(const AlterAddIndexCommandLog* cmd) {
 	CdbTable* table = findTableFromCommand(cmd);
+
+	// TODO: alter add
 
 	// upgrade
 	this->root->upgradeSchemaObjectVersionId();
 	save();
 }
 
-void SchemaManager::handleAlterTableAddColumn(const AlterAddIndexCommandLog* cmd) {
+void SchemaManager::handleAlterTableAddColumn(const AlterAddColumnCommandLog* cmd) {
 	CdbTable* table = findTableFromCommand(cmd);
 
 	// upgrade

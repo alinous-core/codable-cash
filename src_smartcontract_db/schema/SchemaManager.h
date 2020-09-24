@@ -67,8 +67,8 @@ public:
 		return databaseBaseDir;
 	}
 
-	void handleAlterTableAddIndex(const AlterAddColumnCommandLog* cmd);
-	void handleAlterTableAddColumn(const AlterAddIndexCommandLog* cmd);
+	void handleAlterTableAddIndex(const AlterAddIndexCommandLog* cmd);
+	void handleAlterTableAddColumn(const AlterAddColumnCommandLog* cmd);
 	void handleAlterTableDropIndex(const AlterDropIndexCommandLog* cmd);
 	void handleAlterTableDropColumn(const AlterDropColumnCommandLog* cmd);
 	void handleAlterTableAddPrimaryKey(const AlterAddPrimaryKeyCommandLog* cmd);

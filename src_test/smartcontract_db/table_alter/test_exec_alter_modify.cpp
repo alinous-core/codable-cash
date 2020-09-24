@@ -327,5 +327,9 @@ TEST(TestExecAlterMofdifyGroup, case07){
 }
 
 /**
+ * handle not null
+ */
+
+/**
  * Add unique error
  */
