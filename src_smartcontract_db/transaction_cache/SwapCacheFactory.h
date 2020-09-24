@@ -17,7 +17,7 @@ namespace codablecash {
 
 class SwapCacheFactory {
 public:
-	SwapCacheFactory(const File* tmpdir);
+	explicit SwapCacheFactory(const File* tmpdir);
 	virtual ~SwapCacheFactory();
 
 	void resetDir();
