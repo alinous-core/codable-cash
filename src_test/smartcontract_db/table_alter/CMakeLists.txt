@@ -7,5 +7,6 @@ set(testsrc
 	test_exec_alter_index.cpp
 	test_exec_alter_modify.cpp
 	test_exec_alter_primary.cpp
+	test_exec_alter_rename.cpp
 )
 handle_sub(testall "${testsrc}" test smartcontract_db/table_alter)
