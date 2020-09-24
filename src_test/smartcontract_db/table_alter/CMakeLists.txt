@@ -6,5 +6,6 @@ set(testsrc
 	test_alter_parse_modify.cpp
 	test_exec_alter_index.cpp
 	test_exec_alter_modify.cpp
+	test_exec_alter_primary.cpp
 )
 handle_sub(testall "${testsrc}" test smartcontract_db/table_alter)
