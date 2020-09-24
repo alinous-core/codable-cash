@@ -112,9 +112,9 @@ static void testOnce(File projectFolder){
 TEST(RAFCacheOut, getSegmentCacheOut01){
 	File projectFolder = this->env->testCaseDir();
 
-	testOnce(projectFolder);
-	testOnce(projectFolder);
-	testOnce(projectFolder);
+	for(int i = 0; i != 10; ++i){
+		testOnce(projectFolder);
+	}
 }
 
 
