@@ -9,6 +9,11 @@
 #define TRANSACTION_CACHE_ABSTRACTSWAPCACHE_H_
 #include <cstdint>
 
+namespace alinous {
+class DiskCacheManager;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class CdbKeyFactory;
@@ -22,6 +27,8 @@ public:
 protected:
 	CdbKeyFactory* keyFactory;
 	CdbDataFactory* dataFactory;
+	DiskCacheManager* diskCache;
+
 	uint64_t currentSize;
 };
 
