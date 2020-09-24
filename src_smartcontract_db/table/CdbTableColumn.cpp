@@ -204,7 +204,7 @@ ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterMo
 	uint8_t cdbType = typeDesc->toCdbValueType();
 	int64_t length = cmd->getLengthValue();
 
-	if(this->type != cdbType || length != length){
+	if(this->type != cdbType || this->length != length){
 		ctx->setTypeChanged(true);
 		ctx->setCdbType(cdbType);
 		ctx->setLength(length);

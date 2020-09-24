@@ -74,7 +74,7 @@ void CdbStorageManager::onAlterModify(SchemaManager* mgr, const CdbTable* table,
 	CdbTableIndex* newIndex = ctx->getNewIndex();
 
 	bool recordModified = false;
-	if(!ctx->isTypeChanged() || notNullChange == ColumnModifyContext::NotNullChage::TO_NOT_NULL){
+	if(ctx->isTypeChanged() || notNullChange == ColumnModifyContext::NotNullChage::TO_NOT_NULL){
 		store->resetAllIndexes();
 		store->modifyRecords(ctx);
 		recordModified = true;
