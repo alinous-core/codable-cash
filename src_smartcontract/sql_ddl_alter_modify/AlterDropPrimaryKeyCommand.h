@@ -14,12 +14,20 @@ namespace alinous {
 
 class AlterDropPrimaryKeyCommand : public AbstractAlterDdlCommand {
 public:
+	AlterDropPrimaryKeyCommand(const AlterDropPrimaryKeyCommand& inst);
 	AlterDropPrimaryKeyCommand();
 	virtual ~AlterDropPrimaryKeyCommand();
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
+
+	virtual AbstractAlterCommandLog* getCommandLog();
+
+	virtual void preAnalyze(AnalyzeContext* actx);
+	virtual void analyzeTypeRef(AnalyzeContext* actx);
+	virtual void analyze(AnalyzeContext* actx);
+	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log);
 };
 
 } /* namespace alinous */

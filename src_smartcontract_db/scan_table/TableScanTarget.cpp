@@ -92,7 +92,7 @@ void TableScanTarget::resolveTable(VirtualMachine* vm, SelectScanPlanner* planne
 	CodableDatabase* db = vm->getDb();
 	SchemaManager* schemaManager = db->getSchemaManager();
 
-	const UnicodeString* scName = this->schema != nullptr ? this->schema : &SchemaManager::PUBLIC;
+	const UnicodeString* scName = this->schema != nullptr ? this->schema : vm->getCurrentSchema();
 	this->table = schemaManager->getTable(scName, this->tableName);
 
 

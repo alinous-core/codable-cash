@@ -9,7 +9,14 @@
 
 #include "sql_ddl/DdlColumnDescriptor.h"
 
+#include "transaction_log_alter/AlterAddColumnCommandLog.h"
+
 namespace alinous {
+
+AlterAddColumnCommand::AlterAddColumnCommand(const AlterAddColumnCommand& inst)
+				: AbstractAlterDdlCommand(CodeElement::DDL_ALTER_ADD_COLUMN) {
+	this->columnDescriptor = copyColumnDescriptor(inst.columnDescriptor);
+}
 
 AlterAddColumnCommand::AlterAddColumnCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_ADD_COLUMN) {
 	this->columnDescriptor = nullptr;
@@ -45,5 +52,25 @@ void AlterAddColumnCommand::fromBinary(ByteBuffer* in) {
 
 	this->columnDescriptor = dynamic_cast<DdlColumnDescriptor*>(element);
 }
+
+AbstractAlterCommandLog* AlterAddColumnCommand::getCommandLog() {
+	AlterAddColumnCommandLog* log = new AlterAddColumnCommandLog();
+	log->setCommand(new AlterAddColumnCommand(*this));
+
+	return log;
+}
+
+void AlterAddColumnCommand::preAnalyze(AnalyzeContext* actx) {
+}
+
+void AlterAddColumnCommand::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void AlterAddColumnCommand::analyze(AnalyzeContext* actx) {
+}
+
+void AlterAddColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log) {
+}
+
 
 } /* namespace alinous */

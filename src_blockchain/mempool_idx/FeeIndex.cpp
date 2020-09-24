@@ -74,7 +74,7 @@ void FeeIndex::addIndex(const BalanceUnit* fee, uint64_t fpos) {
 	FeeIndexKey key(fee->getAmount());
 	FeeTransactionsListValue value(fpos);
 
-	this->btree->insert(&key, &value);
+	this->btree->putData(&key, &value);
 }
 
 void FeeIndex::removeIndex(const BalanceUnit* fee, uint64_t fpos) {

@@ -22,6 +22,7 @@
 #include "table_record/CdbDataFactory.h"
 #include "table_record/CdbKeyFactory.h"
 
+#include "schema/ColumnModifyContext.h"
 namespace codablecash {
 
 CdbKeyFactory CdbStorageManager::keyFactory;
@@ -62,8 +63,48 @@ void CdbStorageManager::onCreateTable(SchemaManager* mgr, const CdbTable* table)
 	this->tableStoreMap->put(store->getOid(), store);
 }
 
-TableStore* CdbStorageManager::getTableStore(const CdbOid* oid) noexcept {
-	return this->tableStoreMap->get(oid);
+void CdbStorageManager::onAlterModify(SchemaManager* mgr, const CdbTable* table, const ColumnModifyContext* ctx) {
+	const CdbOid* tableOid = table->getOid();
+
+	TableStore* store = getTableStore(tableOid);
+
+	handleUniqueKeyOnAlterModify(store, ctx);
+
+	ColumnModifyContext::NotNullChage notNullChange = ctx->getNotNullChange();
+	CdbTableIndex* newIndex = ctx->getNewIndex();
+
+	bool recordModified = false;
+	if(ctx->isTypeChanged() || notNullChange == ColumnModifyContext::NotNullChage::TO_NOT_NULL){
+		store->resetAllIndexes();
+		store->modifyRecords(ctx);
+		recordModified = true;
+	}
+
+	if(recordModified){
+		store->buildAllIndexes();
+	}
+	else if(!recordModified && newIndex != nullptr){
+		CdbTableIndex* newIndex = ctx->getNewIndex();
+		store->buildIndex(newIndex);
+	}
+
+}
+
+void CdbStorageManager::handleUniqueKeyOnAlterModify(TableStore* store,	const ColumnModifyContext* ctx) {
+	CdbTableIndex* index = ctx->getNewIndex();
+	if(index != nullptr){
+		store->addIndex(index);
+		return;
+	}
+
+	index = ctx->getRemovalIndex();
+	if(index != nullptr){
+		store->removeIndex(index);
+	}
+}
+
+TableStore* CdbStorageManager::getTableStore(const CdbOid* tableoid) noexcept {
+	return this->tableStoreMap->get(tableoid);
 }
 
 } /* namespace codablecash */

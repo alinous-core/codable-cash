@@ -17,7 +17,15 @@
 
 #include "transaction_scan_result/ScanResultFieldMetadata.h"
 
+#include "schema/ColumnModifyContext.h"
+
+#include "sql_ddl_alter_modify/AlterModifyCommand.h"
+
+#include "sql_ddl/DdlColumnDescriptor.h"
+#include "sql_ddl/ColumnTypeDescriptor.h"
+
 namespace codablecash {
+
 
 
 CdbTableColumn::CdbTableColumn(const CdbTableColumn& inst) {
@@ -77,6 +85,7 @@ void CdbTableColumn::setAttributes(bool notnull, bool unique) noexcept {
 
 void CdbTableColumn::setDefaultValue(const UnicodeString* defaultValue) noexcept {
 	if(defaultValue != nullptr){
+		delete this->defaultValue;
 		this->defaultValue = new UnicodeString(defaultValue);
 	}
 }
@@ -163,5 +172,56 @@ ScanResultFieldMetadata* CdbTableColumn::getFieldMetadata(const CdbTable* table)
 	return fld;
 }
 
+ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterModifyCommand* cmd, const UnicodeString* defaultStr) {
+	ColumnModifyContext* ctx = new ColumnModifyContext();
+	const DdlColumnDescriptor* newdesc = cmd->getColumnDescriptor();
+
+	bool nextUnique = newdesc->isUnique();
+	if(nextUnique != this->unique){
+		if(nextUnique){
+			ctx->setUniqueChange(ColumnModifyContext::UniqueChage::TO_UNIQUE);
+		}
+		else {
+			ctx->setUniqueChange(ColumnModifyContext::UniqueChage::TO_NOT_UNIQUE);
+		}
+
+		this->unique = nextUnique;
+	}
+
+	bool nextNotnull = newdesc->isNotNull();
+	if(nextNotnull != this->notnull){
+		if(nextNotnull){
+			ctx->setNotNullChange(ColumnModifyContext::NotNullChage::TO_NOT_NULL);
+		}
+		else {
+			ctx->setNotNullChange(ColumnModifyContext::NotNullChage::RELEASE_NOT_NULL);
+		}
+
+		this->notnull = nextNotnull;
+	}
+
+	ColumnTypeDescriptor* typeDesc = newdesc->getColumnTypeDescriptor();
+	uint8_t cdbType = typeDesc->toCdbValueType();
+	int64_t length = cmd->getLengthValue();
+
+	if(this->type != cdbType || this->length != length){
+		ctx->setTypeChanged(true);
+		ctx->setCdbType(cdbType);
+		ctx->setLength(length);
+
+		this->type = cdbType;
+		this->length = length;
+	}
+
+	if((this->defaultValue != nullptr && defaultStr == nullptr) ||
+			(this->defaultValue == nullptr && defaultStr != nullptr) ||
+			!this->defaultValue->equals(defaultStr)){
+		ctx->setDefaultValue(defaultStr);
+		setDefaultValue(defaultStr);
+	}
+
+
+	return ctx;
+}
 
 } /* namespace codablecash */

@@ -19,11 +19,11 @@ Long::Long() {
 Long::~Long() {
 }
 
-int64_t Long::parseLong(UnicodeString* string) {
+int64_t Long::parseLong(const UnicodeString* string) {
 	return parseLong(string, 10);
 }
 
-int64_t Long::parseLong(UnicodeString* string, int radix){
+int64_t Long::parseLong(const UnicodeString* string, int radix){
 	bool negative = string->charAt(0) == L'-';
 	int offset = 0;
 	if(negative){
@@ -33,7 +33,7 @@ int64_t Long::parseLong(UnicodeString* string, int radix){
 	return parse(string, offset, radix, negative);
 }
 
-int64_t Long::parse(UnicodeString* string, int offset, int radix, bool negative) {
+int64_t Long::parse(const UnicodeString* string, int offset, int radix, bool negative) {
     int64_t result = 0;
     int64_t length = string->length();
     while (offset < length) {

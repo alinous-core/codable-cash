@@ -8,7 +8,7 @@
 #ifndef TRANSACTION_LOG_ALTER_ALTERDROPINDEXCOMMANDLOG_H_
 #define TRANSACTION_LOG_ALTER_ALTERDROPINDEXCOMMANDLOG_H_
 
-#include "transaction_log/AbstractDdlLog.h"
+#include "transaction_log_alter/AbstractAlterCommandLog.h"
 
 namespace alinous {
 class AlterDropIndexCommand;
@@ -17,7 +17,7 @@ using namespace alinous;
 
 namespace codablecash {
 
-class AlterDropIndexCommandLog : public AbstractDdlLog {
+class AlterDropIndexCommandLog : public AbstractAlterCommandLog {
 public:
 	AlterDropIndexCommandLog();
 	virtual ~AlterDropIndexCommandLog();
@@ -29,6 +29,8 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 	virtual void commit(CdbTransactionManager* trxManager);
+
+	virtual void initCommandParam(VirtualMachine* vm);
 
 private:
 	AlterDropIndexCommand* command;

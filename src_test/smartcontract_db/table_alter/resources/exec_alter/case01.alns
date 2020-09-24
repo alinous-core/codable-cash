@@ -1,0 +1,1 @@
+ALTER TABLE test_table MODIFY email_id varchar(255) not null unique default 0;

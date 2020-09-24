@@ -15,6 +15,7 @@ class UnicodeString;
 
 class TableIdentifier : public AbstractJoinPart {
 public:
+	TableIdentifier(const TableIdentifier& inst);
 	TableIdentifier();
 	virtual ~TableIdentifier();
 

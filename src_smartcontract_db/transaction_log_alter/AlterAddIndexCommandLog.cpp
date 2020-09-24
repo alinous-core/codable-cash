@@ -9,9 +9,14 @@
 
 #include "sql_ddl_alter/AlterAddIndexCommand.h"
 
+#include "transaction/CdbTransactionManager.h"
+
+#include "engine_lock/WriteLockHandle.h"
+
+#include "base/StackRelease.h"
 namespace codablecash {
 
-AlterAddIndexCommandLog::AlterAddIndexCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_ADD_INDEX) {
+AlterAddIndexCommandLog::AlterAddIndexCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_ADD_INDEX) {
 	this->command = nullptr;
 }
 
@@ -27,6 +32,8 @@ int AlterAddIndexCommandLog::binarySize() const {
 	CodeElement::checkNotNull(this->command);
 
 	int total = sizeof(uint8_t);
+
+	total += AbstractAlterCommandLog::binarySize();
 	total += this->command->binarySize();
 
 	return total;
@@ -36,10 +43,14 @@ void AlterAddIndexCommandLog::toBinary(ByteBuffer* out) const {
 	CodeElement::checkNotNull(this->command);
 
 	out->put(AbstractTransactionLog::TRX_ALTER_ADD_INDEX);
+
+	AbstractAlterCommandLog::toBinary(out);
 	this->command->toBinary(out);
 }
 
 void AlterAddIndexCommandLog::fromBinary(ByteBuffer* in) {
+	AbstractAlterCommandLog::fromBinary(in);
+
 	CodeElement* element = CodeElement::createFromBinary(in);
 	CodeElement::checkKind(element, CodeElement::DDL_ALTER_ADD_INDEX);
 
@@ -47,6 +58,12 @@ void AlterAddIndexCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterAddIndexCommandLog::commit(CdbTransactionManager* trxManager) {
+	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+
+	trxManager->commitAlterTable(this);
+}
+
+void AlterAddIndexCommandLog::initCommandParam(VirtualMachine* vm) {
 }
 
 } /* namespace codablecash */

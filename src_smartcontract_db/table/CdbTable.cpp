@@ -185,7 +185,42 @@ void CdbTable::assignNewOid(SchemaObjectIdPublisher* publisher) {
 		idx->syncColumnOid(this);
 	}
 
+	setupUniqueIndexes();
+
+	maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		idx->assignNewOid(publisher);
+
+		// assign to column
+		idx->syncColumnOid(this);
+	}
+
 	publisher->saveSchema();
+}
+
+
+void CdbTable::setupUniqueIndexes() {
+	int maxLoop = this->columns->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableColumn* col = this->columns->get(i);
+
+		const CdbOid* colOid = col->getOid();
+		bool unique = col->isUnique();
+
+		// unique index
+		if(unique && !hasSinglePrimaryKeyColumn(colOid)){
+			CdbTableIndex* index = new CdbTableIndex((uint64_t)0);
+			index->addColumn(col);
+
+			UnicodeString* indexName = CdbTableIndex::createUniqueKeyIndexName(this, name);
+			index->setName(indexName);
+			index->setUnique(true);
+
+			addIndex(index);
+		}
+	}
 }
 
 void CdbTable::setOid(uint64_t oid) noexcept {
@@ -210,8 +245,25 @@ void CdbTable::setPrimaryKey(const UnicodeString* colstr) {
 	setPrimaryKeys(&cols);
 }
 
+bool CdbTable::hasSinglePrimaryKeyColumn(const CdbOid* columnOid) const noexcept {
+	bool ret = false;
+
+	int maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		if(idx->isPrimaryKey() && idx->getColumnLength() == 1 && idx->hasColumnOid(columnOid)){
+			ret = idx;
+			break;
+		}
+	}
+
+	return ret;
+}
+
 void CdbTable::setPrimaryKeys(ArrayList<const UnicodeString>* cols) {
 	ArrayList<CdbTableColumn> list;
+	ArrayList<const CdbOid> oidlist;
 
 	int maxLoop = cols->size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -223,6 +275,16 @@ void CdbTable::setPrimaryKeys(ArrayList<const UnicodeString>* cols) {
 		}
 
 		list.addElement(col);
+
+		const CdbOid* oid = col->getOid();
+		oidlist.addElement(oid);
+	}
+
+	CdbTableIndex* prevIndex = getIndexByColumnOids(&oidlist);
+	if(prevIndex != nullptr){
+		prevIndex->setPrimaryKey(true);
+		prevIndex->setUnique(false);
+		return;
 	}
 
 	CdbTableIndex* index = new CdbTableIndex((uint64_t)0);
@@ -290,6 +352,40 @@ CdbTableIndex* CdbTable::getIndexByColumnOids(const ArrayList<const CdbOid>* oid
 	delete matcher;
 
 	return ret;
+}
+
+CdbTableIndex* CdbTable::getUniqueIndexByColumnOid(const CdbOid* colOid) const noexcept {
+	CdbTableIndex* ret = nullptr;
+
+	int maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		if(idx->isUnique() && idx->getColumnLength() == 1 && idx->hasColumnOid(colOid)){
+			ret = idx;
+			break;
+		}
+	}
+
+	return ret;
+}
+
+void CdbTable::removeIndex(const CdbTableIndex* ptr) noexcept {
+	int removeIndex = -1;
+
+	int maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		if(idx == ptr){
+			removeIndex = i;
+			break;
+		}
+	}
+
+	if(removeIndex > 0){
+		this->indexes->remove(removeIndex);
+	}
 }
 
 int CdbTable::binarySize() const {

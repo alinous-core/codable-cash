@@ -10,6 +10,7 @@
 #include <cstdint>
 
 #include "base/ArrayList.h"
+#include "base/UnicodeString.h"
 
 namespace alinous {
 class UnicodeString;
@@ -24,6 +25,18 @@ class SchemaRoot;
 class Schema;
 class ISchemaUptateListner;
 class CdbTable;
+class AbstractAlterCommandLog;
+
+class AlterAddColumnCommandLog;
+class AlterAddIndexCommandLog;
+class AlterDropIndexCommandLog;
+class AlterAddPrimaryKeyCommandLog;
+class AlterDropPrimaryKeyCommandLog;
+class AlterDropColumnCommandLog;
+class AlterModifyCommandLog;
+class AlterRenameColumnCommandLog;
+class AlterRenameTableCommandLog;
+class ColumnModifyContext;
 
 class SchemaManager {
 public:
@@ -54,9 +67,26 @@ public:
 		return databaseBaseDir;
 	}
 
+	void handleAlterTableAddIndex(const AlterAddIndexCommandLog* cmd);
+	void handleAlterTableAddColumn(const AlterAddColumnCommandLog* cmd);
+	void handleAlterTableDropIndex(const AlterDropIndexCommandLog* cmd);
+	void handleAlterTableDropColumn(const AlterDropColumnCommandLog* cmd);
+	void handleAlterTableAddPrimaryKey(const AlterAddPrimaryKeyCommandLog* cmd);
+	void handleAlterTableDropPrimaryKey(const AlterDropPrimaryKeyCommandLog* cmd);
+	void handleAlterTableModify(const AlterModifyCommandLog* cmd);
+	void handleAlterTableRenameColumn(const AlterRenameColumnCommandLog* cmd);
+	void handleAlterTableRenameTable(const AlterRenameTableCommandLog* cmd);
+
 private:
 	void fireSchemaLoaded() noexcept;
 	void fireOnCreateTable(const CdbTable* table);
+	void fireOnAlterModify(const CdbTable* table, const ColumnModifyContext* ctx);
+
+	CdbTable* findTableFromCommand(const AbstractAlterCommandLog* cmdlog);
+
+	void handleUniqueIndexOnModify(CdbTable* table, ColumnModifyContext* ctx);
+	void handleToNotUnique(CdbTable* table, ColumnModifyContext* ctx);
+	void handleToUnique(CdbTable* table, ColumnModifyContext* ctx);
 
 private:
 	SchemaRoot* root;

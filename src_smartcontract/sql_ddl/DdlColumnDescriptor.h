@@ -46,7 +46,7 @@ public:
 		return notNull;
 	}
 
-	const ColumnTypeDescriptor* getTypeDesc() const noexcept {
+	ColumnTypeDescriptor* getTypeDesc() const noexcept {
 		return typeDesc;
 	}
 

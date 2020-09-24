@@ -9,6 +9,7 @@
 #include "schema/SchemaRoot.h"
 #include "schema/ISchemaUptateListner.h"
 #include "schema/Schema.h"
+#include "schema/ColumnModifyContext.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
@@ -22,6 +23,26 @@
 #include "engine/CdbException.h"
 
 #include "table/CdbTable.h"
+#include "table/CdbTableColumn.h"
+#include "table/CdbTableIndex.h"
+
+#include "sql_ddl_alter_modify/AlterModifyCommand.h"
+
+#include "transaction_log_alter_modify/AlterModifyCommandLog.h"
+
+#include "sql_join_parts/TableIdentifier.h"
+
+#include "transaction_log_alter/AlterAddColumnCommandLog.h"
+#include "transaction_log_alter/AlterAddIndexCommandLog.h"
+#include "transaction_log_alter/AlterDropIndexCommandLog.h"
+#include "transaction_log_alter/AlterDropColumnCommandLog.h"
+#include "transaction_log_alter_modify/AlterAddPrimaryKeyCommandLog.h"
+#include "transaction_log_alter_modify/AlterDropPrimaryKeyCommandLog.h"
+#include "transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
+#include "transaction_log_alter_modify/AlterRenameTableCommandLog.h"
+
+#include "sql_ddl/DdlColumnDescriptor.h"
+#include "sql_ddl/ColumnTypeDescriptor.h"
 
 namespace codablecash {
 
@@ -136,12 +157,165 @@ void SchemaManager::createTable(CdbTable* table) {
 	save();
 }
 
+void SchemaManager::handleAlterTableAddIndex(const AlterAddIndexCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
+
+	// TODO: alter add
+
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
+}
+
+void SchemaManager::handleAlterTableAddColumn(const AlterAddColumnCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
+
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
+}
+
+void SchemaManager::handleAlterTableDropIndex(const AlterDropIndexCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
+
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
+}
+
+void SchemaManager::handleAlterTableDropColumn(const AlterDropColumnCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
+
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
+}
+
+void SchemaManager::handleAlterTableAddPrimaryKey(const AlterAddPrimaryKeyCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
+
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
+}
+
+void SchemaManager::handleAlterTableDropPrimaryKey(const AlterDropPrimaryKeyCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
+
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
+}
+
+void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
+
+	const AlterModifyCommand* modifyCommand = cmd->getCommand();
+
+	const DdlColumnDescriptor* newdesc = modifyCommand->getColumnDescriptor();
+
+	CdbTableColumn* col = table->getColumn(newdesc->getName());
+	if(col == nullptr){
+		throw new CdbException(L"Column does not exists.", __FILE__, __LINE__);
+	}
+
+	const UnicodeString* defaultStr = cmd->getDefaultValueStr();
+
+	ColumnModifyContext* context = col->createModifyContextwithChange(modifyCommand, defaultStr); __STP(context);
+	context->setColumn(col);
+
+	// TODO: convert default
+	context->analyze();
+
+	handleUniqueIndexOnModify(table, context);
+
+	// update storage
+	fireOnAlterModify(table, context);
+
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
+}
+
+void SchemaManager::handleUniqueIndexOnModify(CdbTable* table, ColumnModifyContext* ctx) {
+	ColumnModifyContext::UniqueChage change = ctx->getUniqueChange();
+
+	if(change == ColumnModifyContext::UniqueChage::TO_NOT_UNIQUE){
+		handleToNotUnique(table, ctx);
+	}
+	else if(change == ColumnModifyContext::UniqueChage::TO_UNIQUE){
+		handleToUnique(table, ctx);
+	}
+}
+
+void SchemaManager::handleToNotUnique(CdbTable* table, ColumnModifyContext* ctx) {
+	CdbTableColumn* col = ctx->getColumn();
+	const CdbOid* colOid = col->getOid();
+
+	CdbTableIndex* index = table->getUniqueIndexByColumnOid(colOid);
+	if(index == nullptr){ // primary key support unique
+		return;
+	}
+
+	ctx->setRemovalIndex(index);
+	table->removeIndex(index);
+}
+
+void SchemaManager::handleToUnique(CdbTable* table, ColumnModifyContext* ctx) {
+	CdbTableColumn* col = ctx->getColumn();
+	const CdbOid* colOid = col->getOid();
+
+	// already has primary key
+	if(table->hasSinglePrimaryKeyColumn(colOid)){
+		return;
+	}
+
+	uint64_t newOid = this->root->newSchemaObjectId();
+	CdbTableIndex* newIndex = new CdbTableIndex(newOid);
+	ctx->setNewIndex(newIndex);
+
+	UnicodeString* indexName = CdbTableIndex::createUniqueKeyIndexName(table, col->getName());
+	newIndex->setName(indexName);
+	newIndex->addColumn(col);
+	newIndex->setUnique(true);
+
+	table->addIndex(newIndex);
+}
+
+void SchemaManager::handleAlterTableRenameColumn(const AlterRenameColumnCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
+
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
+}
+
+void SchemaManager::handleAlterTableRenameTable(const AlterRenameTableCommandLog* cmd) {
+	CdbTable* table = findTableFromCommand(cmd);
+
+	// upgrade
+	this->root->upgradeSchemaObjectVersionId();
+	save();
+}
+
+
 void SchemaManager::fireSchemaLoaded() noexcept {
 	int maxLoop = this->listners.size();
 	for(int i = 0; i != maxLoop; ++i){
 		ISchemaUptateListner* l = this->listners.get(i);
 		l->schemaLoaded(this);
 	}
+}
+
+CdbTable* SchemaManager::findTableFromCommand(const AbstractAlterCommandLog* cmdlog) {
+	const TableIdentifier* tableId = cmdlog->getTableId();
+
+	const UnicodeString* schema = tableId->getSchema();
+	const UnicodeString* tableName = tableId->getTableName();
+
+	CdbTable* table = getTable(schema, tableName);
+
+	return table;
 }
 
 Schema* SchemaManager::getSchema(const UnicodeString* name) const noexcept {
@@ -170,6 +344,14 @@ void SchemaManager::fireOnCreateTable(const CdbTable* table) {
 		l->onCreateTable(this, table);
 	}
 
+}
+
+void SchemaManager::fireOnAlterModify(const CdbTable* table, const ColumnModifyContext* ctx) {
+	int maxLoop = this->listners.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ISchemaUptateListner* l = this->listners.get(i);
+		l->onAlterModify(this, table, ctx);
+	}
 }
 
 } /* namespace alinous */

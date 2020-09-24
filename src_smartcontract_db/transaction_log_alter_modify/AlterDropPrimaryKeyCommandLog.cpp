@@ -9,9 +9,15 @@
 
 #include "sql_ddl_alter_modify/AlterDropPrimaryKeyCommand.h"
 
+#include "transaction/CdbTransactionManager.h"
+
+#include "engine_lock/WriteLockHandle.h"
+
+#include "base/StackRelease.h"
+
 namespace codablecash {
 
-AlterDropPrimaryKeyCommandLog::AlterDropPrimaryKeyCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_DROP_PRIMARY_KEY) {
+AlterDropPrimaryKeyCommandLog::AlterDropPrimaryKeyCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_DROP_PRIMARY_KEY) {
 	this->command = nullptr;
 }
 
@@ -27,6 +33,8 @@ int AlterDropPrimaryKeyCommandLog::binarySize() const {
 	CodeElement::checkNotNull(this->command);
 
 	int total = sizeof(uint8_t);
+
+	total += AbstractAlterCommandLog::binarySize();
 	total += this->command->binarySize();
 
 	return total;
@@ -36,10 +44,14 @@ void AlterDropPrimaryKeyCommandLog::toBinary(ByteBuffer* out) const {
 	CodeElement::checkNotNull(this->command);
 
 	out->put(AbstractTransactionLog::TRX_ALTER_DROP_PRIMARY_KEY);
+
+	AbstractAlterCommandLog::toBinary(out);
 	this->command->toBinary(out);
 }
 
 void AlterDropPrimaryKeyCommandLog::fromBinary(ByteBuffer* in) {
+	AbstractAlterCommandLog::fromBinary(in);
+
 	CodeElement* element = CodeElement::createFromBinary(in);
 	CodeElement::checkKind(element, CodeElement::DDL_ALTER_DROP_PRIMARY_KEY);
 
@@ -47,6 +59,12 @@ void AlterDropPrimaryKeyCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterDropPrimaryKeyCommandLog::commit(CdbTransactionManager* trxManager) {
+	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+
+	trxManager->commitAlterTable(this);
+}
+
+void AlterDropPrimaryKeyCommandLog::initCommandParam(VirtualMachine* vm) {
 }
 
 } /* namespace codablecash */

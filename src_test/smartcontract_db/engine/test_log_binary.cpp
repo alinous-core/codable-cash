@@ -83,7 +83,7 @@ TEST(TestLogBinaryGroup, createtable){
 	CdbTable* table = new CdbTable(1);
 	table->setName(new UnicodeString(L"test_table"));
 	table->addColumn(2, L"id", AbstractCdbValue::TYPE_INT, 0, true, true, nullptr);
-	table->addColumn(3, L"name", AbstractCdbValue::TYPE_INT, 0, true, true, L"");
+	table->addColumn(3, L"name", AbstractCdbValue::TYPE_INT, 0, true, false, L"");
 
 	table->setPrimaryKey(L"id");
 
@@ -110,8 +110,10 @@ TEST(TestLogBinaryGroup, createtable){
 TEST(TestLogBinaryGroup, createtable_error){
 	CreateTableLog log;
 	CdbTable* table = new CdbTable(1);
-	table->addColumn(2, L"id", AbstractCdbValue::TYPE_INT, 0, true, true, nullptr);
-	table->addColumn(3, L"name", AbstractCdbValue::TYPE_INT, 0, true, true, L"");
+	//table->setName(new UnicodeString(L"table1"));
+
+	//table->addColumn(2, L"id", AbstractCdbValue::TYPE_INT, 0, true, true, nullptr);
+	//table->addColumn(3, L"name", AbstractCdbValue::TYPE_INT, 0, true, true, L"");
 	log.setTable(table);
 
 	CdbException* ex = nullptr;

@@ -11,6 +11,22 @@
 
 #include "sql_ddl_alter/AlterAddColumnCommand.h"
 
+#include "vm_trx/VmTransactionHandler.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+
+#include "base/Exception.h"
+#include "base/UnicodeString.h"
+#include "base/StackRelease.h"
+
+#include "transaction_log_alter/AbstractAlterCommandLog.h"
+
+#include "sql_ddl_alter_modify/AlterModifyCommand.h"
+
+#include "sc/SmartContract.h"
+
 namespace alinous {
 
 AlterTableStatement::AlterTableStatement() : AbstractSQLStatement(CodeElement::DDL_ALTER_TABLE) {
@@ -32,12 +48,16 @@ void AlterTableStatement::setCommand(AbstractAlterDdlCommand* cmd) noexcept {
 }
 
 void AlterTableStatement::preAnalyze(AnalyzeContext* actx) {
+	this->cmd->setParent(this);
+	this->cmd->preAnalyze(actx);
 }
 
 void AlterTableStatement::analyzeTypeRef(AnalyzeContext* actx) {
+	this->cmd->analyzeTypeRef(actx);
 }
 
 void AlterTableStatement::analyze(AnalyzeContext* actx) {
+	this->cmd->analyze(actx);
 }
 
 int AlterTableStatement::binarySize() const {
@@ -74,6 +94,27 @@ void AlterTableStatement::fromBinary(ByteBuffer* in) {
 }
 
 void AlterTableStatement::interpret(VirtualMachine* vm) {
+	AbstractAlterCommandLog* log = this->cmd->getCommandLog();
+
+	TableIdentifier* table = new TableIdentifier(*this->tableId); __STP(table);
+	if(table->getSchema() == nullptr){
+		table->setSchema(new UnicodeString(vm->getCurrentSchema()));
+	}
+	log->setTableIdentifier(table);
+
+	log->reanalyze(nullptr, this);
+
+	log->initCommandParam(vm);
+
+	VmTransactionHandler* handler = vm->getTransactionHandler();
+	try{
+		handler->alterTable(log);
+	}
+	catch(Exception* e){
+		DatabaseExceptionClassDeclare::throwException(e->getMessage(), vm, this);
+		delete e;
+		delete cmd;
+	}
 }
 
 } /* namespace alinous */

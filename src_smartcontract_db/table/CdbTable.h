@@ -55,6 +55,7 @@ public:
 	const ArrayList<CdbTableColumn>* getColumns() const noexcept;
 
 	void assignNewOid(SchemaObjectIdPublisher* publisher);
+	void setupUniqueIndexes();
 	void setOid(uint64_t oid) noexcept;
 
 	void setName(UnicodeString* name) noexcept;
@@ -72,9 +73,15 @@ public:
 	void setPrimaryKey(const UnicodeString* colstr);
 	void setPrimaryKeys(ArrayList<const UnicodeString>* cols);
 
+	bool hasSinglePrimaryKeyColumn(const CdbOid* columnOid) const noexcept;
+
 	void addIndex(CdbTableIndex* index);
 	CdbTableIndex* getIndexByColumnOid(const CdbOid* oid) const noexcept;
 	CdbTableIndex* getIndexByColumnOids(const ArrayList<const CdbOid>* oidlist) const noexcept;
+
+	CdbTableIndex* getUniqueIndexByColumnOid(const CdbOid* colOid) const noexcept;
+
+	void removeIndex(const CdbTableIndex* ptr) noexcept;
 
 	int binarySize() const;
 	void toBinary(ByteBuffer* out) const;

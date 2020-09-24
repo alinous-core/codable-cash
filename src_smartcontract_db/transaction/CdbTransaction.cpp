@@ -39,6 +39,9 @@
 #include "table_record_key/CdbRecordKey.h"
 
 #include "scan/IndexRecordScanner.h"
+
+#include "transaction_log_alter/AbstractAlterCommandLog.h"
+
 namespace codablecash {
 
 CdbTransaction::CdbTransaction(CdbTransactionManager* trxManager, uint64_t transactionId) {
@@ -75,6 +78,12 @@ void CdbTransaction::rollback() {
 }
 
 void CdbTransaction::createTable(CreateTableLog* cmd) {
+	commit();
+
+	this->cmdList.addElement(cmd);
+}
+
+void CdbTransaction::alterTable(AbstractAlterCommandLog* cmd) {
 	commit();
 
 	this->cmdList.addElement(cmd);

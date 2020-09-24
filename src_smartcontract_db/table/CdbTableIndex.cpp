@@ -34,6 +34,7 @@ CdbTableIndex::CdbTableIndex(const CdbTableIndex& inst) {
 	}
 
 	this->primary = inst.primary;
+	this->unique = inst.unique;
 	this->name = new UnicodeString(inst.name);
 }
 
@@ -42,6 +43,7 @@ CdbTableIndex::CdbTableIndex(uint64_t oid) {
 	this->columns = new ArrayList<CdbTableColumn>();
 	this->columnMap = new HashMap<CdbOid, CdbTableColumn>();
 	this->primary = false;
+	this->unique = false;
 	this->name = nullptr;
 }
 
@@ -74,6 +76,18 @@ UnicodeString* CdbTableIndex::createPrimaryKeyIndexName(CdbTableIndex* index, Cd
 	return newName;
 }
 
+UnicodeString* CdbTableIndex::createUniqueKeyIndexName(CdbTable* table, const UnicodeString* colName) noexcept {
+	UnicodeString* newName = new UnicodeString(L"idx_unique_");
+
+	const UnicodeString* tableName = table->getName();
+	newName->append(tableName);
+
+	newName->append(L"_");
+	newName->append(colName);
+
+	return newName;
+}
+
 void CdbTableIndex::setName(UnicodeString* name) noexcept {
 	this->name = name;
 }
@@ -91,6 +105,8 @@ void CdbTableIndex::syncColumnOid(const CdbTable* table) {
 
 		CdbTableColumn* tablecol = table->getColumn(name);
 		idxcol->setOid(tablecol->getOid()->getOid());
+
+		this->columnMap->put(idxcol->getOid(), idxcol);
 	}
 }
 
@@ -102,8 +118,11 @@ void CdbTableIndex::setOid(uint64_t oid) noexcept {
 void CdbTableIndex::addColumn(const CdbTableColumn* col) noexcept {
 	CdbTableColumn* newColumn = new CdbTableColumn(*col);
 	this->columns->addElement(newColumn);
+
 	const CdbOid* o = newColumn->getOid();
-	this->columnMap->put(o, newColumn);
+	if(o->getOid() != 0){
+		this->columnMap->put(o, newColumn);
+	}
 }
 
 
@@ -111,6 +130,9 @@ bool CdbTableIndex::hasColumnOid(const CdbOid* colOid) const noexcept {
 	return this->columnMap->get(colOid) != nullptr;
 }
 
+int CdbTableIndex::getColumnLength() const noexcept {
+	return this->columns->size();
+}
 
 void CdbTableIndex::setPrimaryKey(bool bl) {
 	this->primary = bl;
@@ -120,11 +142,20 @@ bool CdbTableIndex::isPrimaryKey() const noexcept {
 	return this->primary;
 }
 
+void CdbTableIndex::setUnique(bool unique) noexcept {
+	this->unique = unique;
+}
+
+bool CdbTableIndex::isUnique() const noexcept {
+	return this->unique;
+}
+
+
 int CdbTableIndex::binarySize() const {
 	int total = sizeof(uint8_t);
 	total += sizeof(uint64_t); // oid
 
-	total += sizeof(uint8_t); // primary
+	total += sizeof(uint8_t) * 2; // primary unique
 
 	int maxLoop = this->columns->size();
 	total += sizeof(int32_t);
@@ -139,6 +170,7 @@ void CdbTableIndex::toBinary(ByteBuffer* out) const {
 	out->putLong(this->oid->getOid());
 
 	out->put(this->primary ? 1 : 0);// primary
+	out->put(this->unique ? 1 : 0);// unique
 
 	int maxLoop = this->columns->size();
 	out->putInt(maxLoop);
@@ -153,6 +185,7 @@ void CdbTableIndex::toBinary(ByteBuffer* out) const {
 
 void CdbTableIndex::fromBinary(ByteBuffer* in, CdbTable* table) {
 	this->primary = in->get() > 0;
+	this->unique = in->get() > 0;
 
 	int maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){

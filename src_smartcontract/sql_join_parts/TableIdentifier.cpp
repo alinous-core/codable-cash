@@ -20,6 +20,12 @@
 
 namespace alinous {
 
+TableIdentifier::TableIdentifier(const TableIdentifier& inst) : AbstractJoinPart(CodeElement::SQL_EXP_TABLE_ID) {
+	this->schema = inst.schema != nullptr ? new UnicodeString(inst.schema) : nullptr;
+	this->tableName = inst.tableName != nullptr ? new UnicodeString(inst.tableName) : nullptr;
+	this->alias = inst.alias != nullptr ? new UnicodeString(inst.alias) : nullptr;
+}
+
 TableIdentifier::TableIdentifier() : AbstractJoinPart(CodeElement::SQL_EXP_TABLE_ID) {
 	this->schema = nullptr;
 	this->tableName =nullptr;

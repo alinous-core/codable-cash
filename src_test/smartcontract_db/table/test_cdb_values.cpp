@@ -125,6 +125,25 @@ TEST(TestCdbValuesGroup, CdbString){
 	CHECK(value2.getValue()->equals(bv->getValue()));
 }
 
+TEST(TestCdbValuesGroup, CdbString02){
+	UnicodeString hello(L"hello");
+	CdbStringValue value(&hello);
+
+	CdbStringValue* v = value.limitStringLength(100); __STP(v);
+
+	CHECK(hello.equals(v->getValue()));
+}
+
+TEST(TestCdbValuesGroup, CdbString03){
+	UnicodeString hello(L"hello");
+	CdbStringValue value(&hello);
+
+	CdbStringValue* v = value.limitStringLength(2); __STP(v);
+
+	UnicodeString he(L"he");
+	CHECK(he.equals(v->getValue()));
+}
+
 TEST(TestCdbValuesGroup, dataFactoryError){
 	int size = 10;
 	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);

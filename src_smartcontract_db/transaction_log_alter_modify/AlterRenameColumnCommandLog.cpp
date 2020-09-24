@@ -9,9 +9,15 @@
 
 #include "sql_ddl_alter_modify/AlterRenameColumnCommand.h"
 
+#include "engine_lock/WriteLockHandle.h"
+
+#include "base/StackRelease.h"
+
+#include "transaction/CdbTransactionManager.h"
+
 namespace codablecash {
 
-AlterRenameColumnCommandLog::AlterRenameColumnCommandLog() : AbstractDdlLog(AbstractTransactionLog::TRX_ALTER_RENAME_COLUMN) {
+AlterRenameColumnCommandLog::AlterRenameColumnCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_RENAME_COLUMN) {
 	this->command = nullptr;
 }
 
@@ -27,6 +33,8 @@ int AlterRenameColumnCommandLog::binarySize() const {
 	CodeElement::checkNotNull(this->command);
 
 	int total = sizeof(uint8_t);
+
+	total += AbstractAlterCommandLog::binarySize();
 	total += this->command->binarySize();
 
 	return total;
@@ -36,10 +44,14 @@ void AlterRenameColumnCommandLog::toBinary(ByteBuffer* out) const {
 	CodeElement::checkNotNull(this->command);
 
 	out->put(AbstractTransactionLog::TRX_ALTER_RENAME_COLUMN);
+
+	AbstractAlterCommandLog::toBinary(out);
 	this->command->toBinary(out);
 }
 
 void AlterRenameColumnCommandLog::fromBinary(ByteBuffer* in) {
+	AbstractAlterCommandLog::fromBinary(in);
+
 	CodeElement* element = CodeElement::createFromBinary(in);
 	CodeElement::checkKind(element, CodeElement::DDL_ALTER_RENAME_COLUMN);
 
@@ -47,6 +59,12 @@ void AlterRenameColumnCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterRenameColumnCommandLog::commit(CdbTransactionManager* trxManager) {
+	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+
+	trxManager->commitAlterTable(this);
+}
+
+void AlterRenameColumnCommandLog::initCommandParam(VirtualMachine* vm) {
 }
 
 } /* namespace codablecash */

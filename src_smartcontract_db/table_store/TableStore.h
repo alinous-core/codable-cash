@@ -9,6 +9,7 @@
 #define TABLE_STORE_TABLESTORE_H_
 
 #include "base/HashMap.h"
+#include "base/ArrayList.h"
 
 namespace alinous {
 class File;
@@ -25,6 +26,8 @@ class IndexStore;
 class CdbRecord;
 class AbstractCdbValue;
 class CdbTableColumn;
+class CdbTableIndex;
+class ColumnModifyContext;
 
 class TableStore {
 public:
@@ -35,22 +38,32 @@ public:
 
 	void createTable();
 	void loadTable();
+	const CdbTable* getTable() const noexcept;
 
 	void insert(const CdbRecord* rec);
 	void validateRecord(CdbRecord* rec);
+
+	void modifyRecords(const ColumnModifyContext* ctx);
+	void buildIndex(CdbTableIndex* index);
+	void buildAllIndexes();
 
 	RecordStore* getRecordStore() const noexcept {
 		return this->recordStore;
 	}
 
-	const CdbTable* getTable() const noexcept;
+	void addIndex(const CdbTableIndex* index);
+	void removeIndex(const CdbTableIndex* index);
+	void resetAllIndexes();
 
-	IndexStore* getIndexStore(const CdbOid* oid) const noexcept;
+	IndexStore* getIndexStore(const CdbOid* indexoid) const noexcept;
 
 	CdbRecord* findRecord(const CdbOid* recordOid);
 
 private:
 	void validateRecordColumnValue(CdbTableColumn* meta, AbstractCdbValue* value);
+	void addToIndexes(const CdbRecord* rec);
+	void addRecord2Index(const ArrayList<IndexStore>* indexStoreList, const CdbRecord* rec);
+
 private:
 	DiskCacheManager* cacheManager;
 

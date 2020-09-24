@@ -8,7 +8,7 @@
 #ifndef TRANSACTION_LOG_ALTER_MODIFY_ALTERRENAMETABLECOMMANDLOG_H_
 #define TRANSACTION_LOG_ALTER_MODIFY_ALTERRENAMETABLECOMMANDLOG_H_
 
-#include "transaction_log/AbstractDdlLog.h"
+#include "transaction_log_alter/AbstractAlterCommandLog.h"
 
 namespace alinous {
 class AlterRenameTableCommand;
@@ -17,7 +17,7 @@ using namespace alinous;
 
 namespace codablecash {
 
-class AlterRenameTableCommandLog : public AbstractDdlLog {
+class AlterRenameTableCommandLog : public AbstractAlterCommandLog {
 public:
 	AlterRenameTableCommandLog();
 	virtual ~AlterRenameTableCommandLog();
@@ -29,6 +29,8 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 	virtual void commit(CdbTransactionManager* trxManager);
+
+	virtual void initCommandParam(VirtualMachine* vm);
 
 private:
 	AlterRenameTableCommand* command;

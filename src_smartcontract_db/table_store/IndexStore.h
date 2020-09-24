@@ -31,12 +31,16 @@ public:
 	virtual ~IndexStore();
 
 	static void createStore(const File* tableDir, const CdbTable* table, const CdbTableIndex* index, DiskCacheManager* cacheManager);
+	static void cleanupStore(const File* tableDir, const CdbTable* table, const CdbTableIndex* index);
+
 	void load();
 	void close() noexcept;
 
 	const CdbOid* getIndexOid() const noexcept;
 
 	void insert(const CdbRecord* rec);
+	void reset();
+
 	IndexScanner* getScanner(CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq);
 
 	Btree* getBtree() const noexcept;

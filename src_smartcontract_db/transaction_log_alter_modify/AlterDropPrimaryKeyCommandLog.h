@@ -8,7 +8,7 @@
 #ifndef TRANSACTION_LOG_ALTER_MODIFY_ALTERDROPPRIMARYKEYCOMMANDLOG_H_
 #define TRANSACTION_LOG_ALTER_MODIFY_ALTERDROPPRIMARYKEYCOMMANDLOG_H_
 
-#include "transaction_log/AbstractDdlLog.h"
+#include "transaction_log_alter/AbstractAlterCommandLog.h"
 
 namespace alinous {
 class AlterDropPrimaryKeyCommand;
@@ -17,7 +17,7 @@ using namespace alinous;
 
 namespace codablecash {
 
-class AlterDropPrimaryKeyCommandLog : public AbstractDdlLog {
+class AlterDropPrimaryKeyCommandLog : public AbstractAlterCommandLog {
 public:
 	AlterDropPrimaryKeyCommandLog();
 	virtual ~AlterDropPrimaryKeyCommandLog();
@@ -29,6 +29,8 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 	virtual void commit(CdbTransactionManager* trxManager);
+
+	virtual void initCommandParam(VirtualMachine* vm);
 
 private:
 	AlterDropPrimaryKeyCommand* command;

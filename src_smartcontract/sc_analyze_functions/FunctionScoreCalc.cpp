@@ -45,6 +45,10 @@ MethodScore* FunctionScoreCalc::findMethod(const UnicodeString* methodName, Arra
 		score->eveluate(types);
 		if(score->isMatch()){
 			newScore(score);
+
+			if(this->errorCode != 0){
+				return nullptr;
+			}
 		}
 		else{
 			delete score;
@@ -71,12 +75,17 @@ void FunctionScoreCalc::newScore(MethodScore* score) noexcept {
 		this->list.addElement(this->topScore);
 		this->list.addElement(score);
 		this->topScore = nullptr;
+
 		return;
 	}
 	else if(this->topScore->getScore() < sc){
 		delete this->topScore;
 		this->topScore = score;
+
+		return;
 	}
+
+	delete score;
 }
 
 int FunctionScoreCalc::getErrorCode() const noexcept {

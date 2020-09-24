@@ -28,6 +28,7 @@ class Schema;
 class CdbStorageManager;
 class ReadLockHandle;
 class WriteLockHandle;
+class AbstractAlterCommandLog;
 
 class CdbTransactionManager : public ISchemaUptateListner {
 public:
@@ -36,6 +37,7 @@ public:
 
 	virtual void schemaLoaded(SchemaManager* sc);
 	virtual void onCreateTable(SchemaManager* mgr, const CdbTable* table);
+	virtual void onAlterModify(SchemaManager* mgr, const CdbTable* table, const ColumnModifyContext* ctx);
 
 	CdbTransaction* newTransaction(uint64_t transactionId);
 
@@ -43,6 +45,7 @@ public:
 	RecordObjectIdPublisher* getRecordObjectIdPublisher() const noexcept;
 
 	void commitCreateTable(CreateTableLog* cmd);
+	void commitAlterTable(AbstractAlterCommandLog* cmd);
 
 	void commitInsert(InsertLog* cmd);
 
@@ -52,6 +55,17 @@ public:
 
 	ReadLockHandle* databaseReadLock();
 	WriteLockHandle* databaseWriteLock();
+
+private:
+	void handleAlterTableAddIndex(AbstractAlterCommandLog* cmd);
+	void handleAlterTableAddColumn(AbstractAlterCommandLog* cmd);
+	void handleAlterTableDropIndex(AbstractAlterCommandLog* cmd);
+	void handleAlterTableDropColumn(AbstractAlterCommandLog* cmd);
+	void handleAlterTableAddPrimaryKey(AbstractAlterCommandLog* cmd);
+	void handleAlterTableDropPrimaryKey(AbstractAlterCommandLog* cmd);
+	void handleAlterTableModify(AbstractAlterCommandLog* cmd);
+	void handleAlterTableRenameColumn(AbstractAlterCommandLog* cmd);
+	void handleAlterTableRenameTable(AbstractAlterCommandLog* cmd);
 
 private:
 	CodableDatabase* db;

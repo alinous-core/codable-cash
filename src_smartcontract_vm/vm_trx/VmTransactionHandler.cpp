@@ -20,16 +20,20 @@
 #include "schema/SchemaManager.h"
 #include "schema/Schema.h"
 
+using codablecash::SchemaManager;
+
 namespace alinous {
 
 VmTransactionHandler::VmTransactionHandler(CodableDatabase* db) {
 	this->db = db;
 	this->trx = nullptr;
+	this->currentSchema = new UnicodeString(&SchemaManager::PUBLIC);
 }
 
 VmTransactionHandler::~VmTransactionHandler() {
 	reset();
 	this->db = nullptr;
+	delete this->currentSchema;
 }
 
 void VmTransactionHandler::begin() {
@@ -80,6 +84,26 @@ void VmTransactionHandler::createTable(CreateTableLog* cmd) {
 	}
 
 	this->trx->createTable(cmd);
+	commit();
+
+	if(hasTrx){
+		begin();
+	}
+}
+
+void VmTransactionHandler::alterTable(AbstractAlterCommandLog* cmd) {
+	bool hasTrx = false;
+
+	if(this->trx == nullptr){
+		begin();
+	}
+	else{
+		commit();
+		begin();
+		hasTrx = true;
+	}
+
+	this->trx->alterTable(cmd);
 	commit();
 
 	if(hasTrx){

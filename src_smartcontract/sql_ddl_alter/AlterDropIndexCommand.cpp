@@ -9,7 +9,14 @@
 
 #include "base/UnicodeString.h"
 
+#include "transaction_log_alter/AlterDropIndexCommandLog.h"
+
 namespace alinous {
+
+AlterDropIndexCommand::AlterDropIndexCommand(const AlterDropIndexCommand& inst)
+				: AbstractAlterDdlCommand(CodeElement::DDL_ALTER_DROP_INDEX){
+	this->name = new UnicodeString(inst.name);
+}
 
 AlterDropIndexCommand::AlterDropIndexCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_DROP_INDEX) {
 	this->name = nullptr;
@@ -41,6 +48,25 @@ void AlterDropIndexCommand::toBinary(ByteBuffer* out) {
 
 void AlterDropIndexCommand::fromBinary(ByteBuffer* in) {
 	this->name = getString(in);
+}
+
+AbstractAlterCommandLog* AlterDropIndexCommand::getCommandLog() {
+	AlterDropIndexCommandLog* log = new AlterDropIndexCommandLog();
+	log->setCommand(new AlterDropIndexCommand(*this));
+
+	return log;
+}
+
+void AlterDropIndexCommand::preAnalyze(AnalyzeContext* actx) {
+}
+
+void AlterDropIndexCommand::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void AlterDropIndexCommand::analyze(AnalyzeContext* actx) {
+}
+
+void AlterDropIndexCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log) {
 }
 
 } /* namespace alinous */

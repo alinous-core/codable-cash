@@ -34,12 +34,17 @@ public:
 
 	virtual void schemaLoaded(SchemaManager* sc);
 	virtual void onCreateTable(SchemaManager* mgr, const CdbTable* table);
+	virtual void onAlterModify(SchemaManager* mgr, const CdbTable* table, const ColumnModifyContext* ctx);
 
-	TableStore* getTableStore(const CdbOid* oid) noexcept;
+	TableStore* getTableStore(const CdbOid* tableoid) noexcept;
+
+private:
+	void handleUniqueKeyOnAlterModify(TableStore* store, const ColumnModifyContext* ctx);
 
 public:
 	static CdbKeyFactory keyFactory;
 	static CdbDataFactory dataFactory;
+
 private:
 	SchemaManager* schemaManager;
 	DiskCacheManager* cacheManager;

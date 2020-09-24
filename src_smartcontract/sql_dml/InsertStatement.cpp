@@ -162,7 +162,7 @@ void InsertStatement::updateSchemaInfo(VirtualMachine* vm, VmTransactionHandler*
 	const UnicodeString* schema = this->tableId->getSchema();
 	const UnicodeString* tableName = this->tableId->getTableName();
 	if(schema == nullptr){
-		schema = &SchemaManager::PUBLIC;
+		schema = vm->getCurrentSchema();
 	}
 
 	this->tableIdentifier->setSchema(new UnicodeString(schema));

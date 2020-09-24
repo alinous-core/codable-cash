@@ -70,6 +70,9 @@ TEST(TestAlterModifyLogBinaryGroup, AlterAddPrimaryKeyCommand01){
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
 
+		TableIdentifier tableId;
+		tableId.setTableName(new UnicodeString(L"table1"));
+
 		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
 		CHECK(!parser.hasError())
 
@@ -78,6 +81,7 @@ TEST(TestAlterModifyLogBinaryGroup, AlterAddPrimaryKeyCommand01){
 
 		AlterAddPrimaryKeyCommandLog log;
 		log.setCommand(dynamic_cast<AlterAddPrimaryKeyCommand*>(cmd));
+		log.setTableIdentifier(&tableId);
 
 		int size = log.binarySize();
 		ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
@@ -99,6 +103,9 @@ TEST(TestAlterModifyLogBinaryGroup, AlterDropPrimaryKeyCommand01){
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
 
+		TableIdentifier tableId;
+		tableId.setTableName(new UnicodeString(L"table1"));
+
 		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
 		CHECK(!parser.hasError())
 
@@ -107,6 +114,7 @@ TEST(TestAlterModifyLogBinaryGroup, AlterDropPrimaryKeyCommand01){
 
 		AlterDropPrimaryKeyCommandLog log;
 		log.setCommand(dynamic_cast<AlterDropPrimaryKeyCommand*>(cmd));
+		log.setTableIdentifier(&tableId);
 
 		int size = log.binarySize();
 		ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
@@ -128,6 +136,9 @@ TEST(TestAlterModifyLogBinaryGroup, AlterModifyCommand01){
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
 
+		TableIdentifier tableId;
+		tableId.setTableName(new UnicodeString(L"table1"));
+
 		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
 		CHECK(!parser.hasError())
 
@@ -136,6 +147,9 @@ TEST(TestAlterModifyLogBinaryGroup, AlterModifyCommand01){
 
 		AlterModifyCommandLog log;
 		log.setCommand(dynamic_cast<AlterModifyCommand*>(cmd));
+		log.setTableIdentifier(&tableId);
+
+		log.setDefaultStr(new UnicodeString(L"0"));
 
 		int size = log.binarySize();
 		ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
@@ -157,6 +171,9 @@ TEST(TestAlterModifyLogBinaryGroup, AlterRenameColumnCommand01){
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
 
+		TableIdentifier tableId;
+		tableId.setTableName(new UnicodeString(L"table1"));
+
 		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
 		CHECK(!parser.hasError())
 
@@ -165,6 +182,7 @@ TEST(TestAlterModifyLogBinaryGroup, AlterRenameColumnCommand01){
 
 		AlterRenameColumnCommandLog log;
 		log.setCommand(dynamic_cast<AlterRenameColumnCommand*>(cmd));
+		log.setTableIdentifier(&tableId);
 
 		int size = log.binarySize();
 		ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
@@ -186,6 +204,9 @@ TEST(TestAlterModifyLogBinaryGroup, AlterRenameTableCommand01){
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
 
+		TableIdentifier tableId;
+		tableId.setTableName(new UnicodeString(L"table1"));
+
 		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
 		CHECK(!parser.hasError())
 
@@ -194,6 +215,7 @@ TEST(TestAlterModifyLogBinaryGroup, AlterRenameTableCommand01){
 
 		AlterRenameTableCommandLog log;
 		log.setCommand(dynamic_cast<AlterRenameTableCommand*>(cmd));
+		log.setTableIdentifier(&tableId);
 
 		int size = log.binarySize();
 		ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);

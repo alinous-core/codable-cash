@@ -9,7 +9,15 @@
 
 #include "base/UnicodeString.h"
 
+#include "transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
 namespace alinous {
+
+AlterRenameColumnCommand::AlterRenameColumnCommand(const AlterRenameColumnCommand& inst)
+				: AbstractAlterDdlCommand(CodeElement::DDL_ALTER_RENAME_COLUMN){
+	this->lastName = new UnicodeString(inst.lastName);
+	this->newName = new UnicodeString(inst.newName);
+}
+
 
 AlterRenameColumnCommand::AlterRenameColumnCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_RENAME_COLUMN) {
 	this->lastName = nullptr;
@@ -53,5 +61,26 @@ void AlterRenameColumnCommand::fromBinary(ByteBuffer* in) {
 	this->lastName = getString(in);
 	this->newName = getString(in);
 }
+
+AbstractAlterCommandLog* AlterRenameColumnCommand::getCommandLog() {
+	AlterRenameColumnCommandLog* log = new AlterRenameColumnCommandLog();
+	log->setCommand(new AlterRenameColumnCommand(*this));
+
+	return log;
+}
+
+void AlterRenameColumnCommand::preAnalyze(AnalyzeContext* actx) {
+}
+
+void AlterRenameColumnCommand::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void AlterRenameColumnCommand::analyze(AnalyzeContext* actx) {
+}
+
+void AlterRenameColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log) {
+}
+
+
 
 } /* namespace alinous */

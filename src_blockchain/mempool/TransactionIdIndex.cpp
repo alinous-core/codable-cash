@@ -75,7 +75,7 @@ void TransactionIdIndex::addIndex(const TransactionId* trxId, uint64_t fpos) {
 	TransactionIdKey key(trxId);
 	FposValue value(fpos);
 
-	this->btree->insert(&key, &value);
+	this->btree->putData(&key, &value);
 }
 
 uint64_t TransactionIdIndex::findbyTransactionId(const TransactionId* trxId) const {
