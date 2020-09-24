@@ -4,6 +4,7 @@ set(testsrc
 	test_alter_modify_log_binary.cpp
 	test_alter_parse.cpp
 	test_alter_parse_modify.cpp
+	test_exec_alter_column.cpp
 	test_exec_alter_index.cpp
 	test_exec_alter_modify.cpp
 	test_exec_alter_primary.cpp
