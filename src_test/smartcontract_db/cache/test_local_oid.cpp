@@ -48,7 +48,7 @@ TEST(TestLocalOidGroup, case03){
 	LocalOidFactory factory;
 
 	LocalCdbOid* oid = factory.createLocalOid(); __STP(oid);
-	CdbOid oid2(oid->getOid());
+	CdbOid oid2(oid->getOidValue());
 
 	CHECK(!oid->equals(&oid2));
 

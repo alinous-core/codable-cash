@@ -36,7 +36,7 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	static CdbOid* fromBinary(ByteBuffer* in);
 
-	uint64_t getOid() const noexcept {
+	uint64_t getOidValue() const noexcept {
 		return oid;
 	}
 

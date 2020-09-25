@@ -289,7 +289,7 @@ IndexStore* TableStore::getIndexStore(const CdbOid* indexoid) const noexcept {
 }
 
 CdbRecord* TableStore::findRecord(const CdbOid* recordOid) {
-	CdbLongKey key(recordOid->getOid()); // FIXME oid
+	CdbLongKey key(recordOid->getOidValue()); // FIXME oid
 
 	Btree* btree = this->recordStore->getBtree();
 

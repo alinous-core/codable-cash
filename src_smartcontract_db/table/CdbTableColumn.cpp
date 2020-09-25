@@ -128,7 +128,7 @@ void CdbTableColumn::toBinary(ByteBuffer* out) const {
 	checkNotNull(this->name);
 
 	out->put(CdbTableColumn::CDB_OBJ_TYPE);
-	out->putLong(this->oid->getOid());
+	out->putLong(this->oid->getOidValue());
 
 	putString(out, this->name);
 
