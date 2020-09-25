@@ -11,6 +11,9 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "table_record_local/LocalOidFactory.h"
+#include "table_record_local/LocalCdbOid.h"
+
 TEST_GROUP(TestLocalOidGroup) {
 	TEST_SETUP() {
 		env->setup();
@@ -21,5 +24,10 @@ TEST_GROUP(TestLocalOidGroup) {
 };
 
 TEST(TestLocalOidGroup, case01){
+	LocalOidFactory factory;
 
+	LocalCdbOid* oid = factory.createLocalOid(); __STP(oid);
+
+	CHECK(oid->getTypeCode() == LocalCdbOid::CDB_LOCAL_OID);
+	CHECK(oid->isLocal());
 }

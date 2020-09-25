@@ -18,6 +18,7 @@ public:
 	LocalCdbOid(uint64_t oid);
 	virtual ~LocalCdbOid();
 
+	virtual uint8_t getTypeCode() const noexcept;
 	virtual bool isLocal() const noexcept;
 
 	virtual bool equals(const CdbOid* other) const noexcept;

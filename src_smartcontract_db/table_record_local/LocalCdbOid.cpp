@@ -20,6 +20,10 @@ LocalCdbOid::~LocalCdbOid() {
 
 }
 
+uint8_t LocalCdbOid::getTypeCode() const noexcept {
+	return CdbOid::CDB_LOCAL_OID;
+}
+
 bool LocalCdbOid::isLocal() const noexcept {
 	return true;
 }
