@@ -14,6 +14,9 @@
 #include "table_record_local/LocalOidFactory.h"
 #include "table_record_local/LocalCdbOid.h"
 
+#include "base_io/ByteBuffer.h"
+
+#include "engine/CdbException.h"
 TEST_GROUP(TestLocalOidGroup) {
 	TEST_SETUP() {
 		env->setup();
@@ -53,4 +56,85 @@ TEST(TestLocalOidGroup, case03){
 	int diff = comp(oid, &oid2);
 
 	CHECK(diff > 0);
+}
+
+static bool checkBinary(ByteBuffer* buff);
+
+bool checkBinary(ByteBuffer* buff){
+	int lastSize = buff->capacity();
+
+	buff->position(0);
+	CdbOid* element = CdbOid::fromBinary(buff); __STP(element);
+
+	int size = element->binarySize();
+	if(lastSize != size){
+		return false;
+	}
+
+	ByteBuffer* buff2 = ByteBuffer::allocateWithEndian(size, true); __STP(buff2);
+	element->toBinary(buff2);
+
+	if(buff2->position() != size){
+		return false;
+	}
+
+	return Mem::memcmp(buff->array(), buff2->array(), size) == 0;
+}
+
+TEST(TestLocalOidGroup, binary01){
+	LocalOidFactory factory;
+
+	LocalCdbOid* oid = factory.createLocalOid(); __STP(oid);
+
+	int size = oid->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	oid->toBinary(buff);
+
+	bool result = checkBinary(buff);
+	CHECK(result)
+}
+
+TEST(TestLocalOidGroup, binary02){
+	CdbOid* oid = new CdbOid(1); __STP(oid);
+
+	int size = oid->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	oid->toBinary(buff);
+
+	bool result = checkBinary(buff);
+	CHECK(result)
+}
+
+TEST(TestLocalOidGroup, binary03){
+	LocalOidFactory factory;
+
+	LocalCdbOid* oid = factory.createLocalOid(); __STP(oid);
+
+	int size = oid->binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+
+	oid->toBinary(buff);
+
+	buff->position(0);
+	CdbOid* element = CdbOid::fromBinary(buff); __STP(element);
+
+	CHECK(element->getTypeCode() == LocalCdbOid::CDB_LOCAL_OID);
+	CHECK(element->isLocal());
+}
+
+TEST(TestLocalOidGroup, binary04_err){
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(10, true); __STP(buff);
+	buff->put((uint8_t)0);
+
+	CdbException* ex = nullptr;
+	try{
+		CdbOid* element = CdbOid::fromBinary(buff); __STP(element);
+	}catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr);
+	delete ex;
 }

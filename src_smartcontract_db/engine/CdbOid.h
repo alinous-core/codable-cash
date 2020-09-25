@@ -34,7 +34,7 @@ public:
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
-	CdbOid* fromBinary(ByteBuffer* in);
+	static CdbOid* fromBinary(ByteBuffer* in);
 
 	uint64_t getOid() const noexcept {
 		return oid;
