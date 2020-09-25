@@ -7,15 +7,20 @@
 
 #include "table_record_local/LocalOidFactory.h"
 
+#include "table_record_local/LocalCdbOid.h"
+
 namespace codablecash {
 
 LocalOidFactory::LocalOidFactory() {
-	// TODO Auto-generated constructor stub
-
+	this->serial = 1;
 }
 
 LocalOidFactory::~LocalOidFactory() {
-	// TODO Auto-generated destructor stub
+
+}
+
+LocalCdbOid* LocalOidFactory::createLocalOid() noexcept {
+	return new LocalCdbOid(this->serial++);
 }
 
 } /* namespace codablecash */
