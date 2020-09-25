@@ -18,13 +18,15 @@ public:
 	explicit CdbOid(uint64_t oid);
 	virtual ~CdbOid();
 
+	virtual bool isLocal() const noexcept;
+
 	int hashCode() const;
 
 	uint64_t getOid() const noexcept {
 		return oid;
 	}
 
-	bool equals(const CdbOid* other) const noexcept;
+	virtual bool equals(const CdbOid* other) const noexcept;
 
 	class ValueCompare {
 	public:

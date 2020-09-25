@@ -20,4 +20,20 @@ LocalCdbOid::~LocalCdbOid() {
 
 }
 
+bool LocalCdbOid::isLocal() const noexcept {
+	return true;
+}
+
+bool LocalCdbOid::equals(const CdbOid* other) const noexcept {
+	return CdbOid::equals(other);
+}
+
+
+int LocalCdbOid::ValueCompare::operator ()(
+		const CdbOid* const _this, const CdbOid* const object) const noexcept {
+	static CdbOid::ValueCompare comp;
+
+	return comp(_this, object);
+}
+
 } /* namespace codablecash */

@@ -17,6 +17,15 @@ public:
 	LocalCdbOid(const LocalCdbOid& inst);
 	LocalCdbOid(uint64_t oid);
 	virtual ~LocalCdbOid();
+
+	virtual bool isLocal() const noexcept;
+
+	virtual bool equals(const CdbOid* other) const noexcept;
+
+	class ValueCompare {
+	public:
+		int operator() (const CdbOid* const _this, const  CdbOid* const object) const noexcept;
+	};
 };
 
 } /* namespace codablecash */

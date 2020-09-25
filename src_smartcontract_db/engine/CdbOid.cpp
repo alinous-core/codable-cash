@@ -21,6 +21,10 @@ CdbOid::~CdbOid() {
 
 }
 
+bool CdbOid::isLocal() const noexcept {
+	return false;
+}
+
 bool CdbOid::equals(const CdbOid* other) const noexcept {
 	return this->oid == other->oid;
 }
