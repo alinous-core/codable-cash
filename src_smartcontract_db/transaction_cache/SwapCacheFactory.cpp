@@ -16,6 +16,8 @@ SwapCacheFactory::SwapCacheFactory(const File* tmpdir, DiskCacheManager* diskCac
 	this->diskCache = diskCache;
 	this->keyFactory = keyFactory;
 	this->dataFactory = dataFactory;
+
+	this->serial = 0;
 }
 
 SwapCacheFactory::~SwapCacheFactory() {
