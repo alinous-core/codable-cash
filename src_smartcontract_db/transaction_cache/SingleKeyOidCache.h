@@ -17,8 +17,11 @@ class CdbDataFactory;
 
 class SingleKeyOidCache : public AbstractSwapCache {
 public:
-	SingleKeyOidCache(CdbKeyFactory* keyFactory, CdbDataFactory* dataFactory, DiskCacheManager* diskCache);
+	SingleKeyOidCache(const UnicodeString* name, CdbKeyFactory* keyFactory, CdbDataFactory* dataFactory, DiskCacheManager* diskCache);
 	virtual ~SingleKeyOidCache();
+
+private:
+
 };
 
 } /* namespace codablecash */

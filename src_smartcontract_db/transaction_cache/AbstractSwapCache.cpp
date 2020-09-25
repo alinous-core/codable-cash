@@ -9,9 +9,14 @@
 
 #include "random_access_file/DiskCacheManager.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
-AbstractSwapCache::AbstractSwapCache(BtreeKeyFactory* keyFactory, AbstractBtreeDataFactory* dataFactory, DiskCacheManager* diskCache) {
+AbstractSwapCache::AbstractSwapCache(const UnicodeString* name,BtreeKeyFactory* keyFactory,
+		AbstractBtreeDataFactory* dataFactory, DiskCacheManager* diskCache) {
+	this->name = new UnicodeString(name);
+
 	this->keyFactory = keyFactory;
 	this->dataFactory = dataFactory;
 	this->diskCache = diskCache;
@@ -20,6 +25,8 @@ AbstractSwapCache::AbstractSwapCache(BtreeKeyFactory* keyFactory, AbstractBtreeD
 }
 
 AbstractSwapCache::~AbstractSwapCache() {
+	delete this->name;
+
 	this->keyFactory = nullptr;
 	this->dataFactory = nullptr;
 	this->diskCache = nullptr;

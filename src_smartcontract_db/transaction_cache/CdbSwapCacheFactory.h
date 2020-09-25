@@ -25,7 +25,7 @@ public:
 
 	virtual UnicodeString* getName() noexcept;
 
-	SingleKeyOidCache* createSingleKeyOidCache();
+	SingleKeyOidCache* createSingleKeyOidCache(int swappiness);
 };
 
 } /* namespace codablecash */

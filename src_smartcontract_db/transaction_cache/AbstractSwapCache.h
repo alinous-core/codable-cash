@@ -13,6 +13,7 @@ namespace alinous {
 class DiskCacheManager;
 class BtreeKeyFactory;
 class AbstractBtreeDataFactory;
+class UnicodeString;
 }
 using namespace alinous;
 
@@ -20,15 +21,21 @@ namespace codablecash {
 
 class AbstractSwapCache {
 public:
-	AbstractSwapCache(BtreeKeyFactory* keyFactory, AbstractBtreeDataFactory* dataFactory, DiskCacheManager* diskCache);
+	AbstractSwapCache(const UnicodeString* name, BtreeKeyFactory* keyFactory, AbstractBtreeDataFactory* dataFactory, DiskCacheManager* diskCache);
 	virtual ~AbstractSwapCache();
 
+	void setSwappiness(int swappiness) {
+		this->swappiness = swappiness;
+	}
+
 protected:
+	UnicodeString* name;
 	BtreeKeyFactory* keyFactory;
 	AbstractBtreeDataFactory* dataFactory;
 	DiskCacheManager* diskCache;
 
 	uint64_t currentSize;
+	int swappiness;
 };
 
 } /* namespace codablecash */
