@@ -15,7 +15,7 @@ namespace codablecash {
 class LocalCdbOid: public CdbOid {
 public:
 	LocalCdbOid(const LocalCdbOid& inst);
-	LocalCdbOid(uint64_t oid);
+	explicit LocalCdbOid(uint64_t oid);
 	virtual ~LocalCdbOid();
 
 	virtual uint8_t getTypeCode() const noexcept;
