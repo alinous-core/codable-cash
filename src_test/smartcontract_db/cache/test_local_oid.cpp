@@ -31,3 +31,26 @@ TEST(TestLocalOidGroup, case01){
 	CHECK(oid->getTypeCode() == LocalCdbOid::CDB_LOCAL_OID);
 	CHECK(oid->isLocal());
 }
+
+TEST(TestLocalOidGroup, case02){
+	LocalOidFactory factory;
+
+	LocalCdbOid* oid = factory.createLocalOid(); __STP(oid);
+	LocalCdbOid* oid2 = new LocalCdbOid(*oid); __STP(oid2);
+
+	CHECK(oid->equals(oid2));
+}
+
+TEST(TestLocalOidGroup, case03){
+	LocalOidFactory factory;
+
+	LocalCdbOid* oid = factory.createLocalOid(); __STP(oid);
+	CdbOid oid2(oid->getOid());
+
+	CHECK(!oid->equals(&oid2));
+
+	LocalCdbOid::ValueCompare comp;
+	int diff = comp(oid, &oid2);
+
+	CHECK(diff > 0);
+}
