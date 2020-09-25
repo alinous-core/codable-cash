@@ -24,10 +24,17 @@ bool LocalCdbOid::isLocal() const noexcept {
 	return true;
 }
 
+int LocalCdbOid::binarySize() const {
+	return CdbOid::binarySize();
+}
+
+void LocalCdbOid::toBinary(ByteBuffer* out) const {
+	CdbOid::toBinary(out);
+}
+
 bool LocalCdbOid::equals(const CdbOid* other) const noexcept {
 	return CdbOid::equals(other);
 }
-
 
 int LocalCdbOid::ValueCompare::operator ()(
 		const CdbOid* const _this, const CdbOid* const object) const noexcept {
