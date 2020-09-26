@@ -17,6 +17,9 @@
 #include "base_io/ByteBuffer.h"
 
 #include "engine/CdbException.h"
+
+#include "table_record_key/CdbOidKey.h"
+
 TEST_GROUP(TestLocalOidGroup) {
 	TEST_SETUP() {
 		env->setup();
@@ -137,4 +140,15 @@ TEST(TestLocalOidGroup, binary04_err){
 
 	CHECK(ex != nullptr);
 	delete ex;
+}
+
+TEST(TestLocalOidGroup, toKey01){
+	LocalOidFactory factory;
+
+	LocalCdbOid* oid = factory.createLocalOid(); __STP(oid);
+
+	CdbOidKey* key = dynamic_cast<CdbOidKey*>(oid->toKey()); __STP(key);
+
+	const CdbOid* o = key->getOid();
+	CHECK(o->isLocal());
 }

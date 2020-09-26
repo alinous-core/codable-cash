@@ -31,6 +31,10 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	virtual void fromBinary(ByteBuffer* in);
 
+	const CdbOid* getOid() const noexcept {
+		return this->oid;
+	}
+
 private:
 	CdbOid* oid;
 };
