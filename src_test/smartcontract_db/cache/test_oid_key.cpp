@@ -68,7 +68,7 @@ bool checkBinary(ByteBuffer* buff){
 	buff->position(0);
 
 	int32_t keytype = buff->getInt();
-	AbstractBtreeKey* element = factory.fromBinary(keytype, buff);
+	AbstractBtreeKey* element = factory.fromBinary(keytype, buff); __STP(element);
 
 	int size = element->binarySize();
 	if(lastSize != size){

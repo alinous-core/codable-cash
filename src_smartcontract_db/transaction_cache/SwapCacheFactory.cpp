@@ -22,15 +22,15 @@ SwapCacheFactory::SwapCacheFactory(const File* tmpdir, DiskCacheManager* diskCac
 
 SwapCacheFactory::~SwapCacheFactory() {
 	delete this->baseDir;
+
+	this->diskCache = nullptr;
+	this->keyFactory = nullptr;
+	this->dataFactory = nullptr;
 }
 
 void SwapCacheFactory::resetDir() {
 	this->baseDir->deleteDir();
 	this->baseDir->mkdirs();
-
-	this->diskCache = nullptr;
-	this->keyFactory = nullptr;
-	this->dataFactory = nullptr;
 }
 
 } /* namespace codablecash */
