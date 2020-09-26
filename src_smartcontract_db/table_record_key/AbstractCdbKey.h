@@ -26,6 +26,7 @@ public:
 	static const constexpr uint32_t TYPE_STRING{15};
 
 	static const constexpr uint32_t TYPE_RECORD_KEY{16};
+	static const constexpr uint32_t TYPE_OID_KEY{17};
 
 	explicit AbstractCdbKey(uint32_t type);
 	virtual ~AbstractCdbKey();
