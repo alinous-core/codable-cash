@@ -22,10 +22,8 @@
 
 TEST_GROUP(TestLocalOidGroup) {
 	TEST_SETUP() {
-		env->setup();
 	}
 	TEST_TEARDOWN() {
-		env->teardown();
 	}
 };
 
