@@ -32,6 +32,8 @@ public:
 	virtual bool isLocal() const noexcept;
 	virtual bool equals(const CdbOid* other) const noexcept;
 
+	virtual CdbOid* copy() const noexcept;
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
 	static CdbOid* fromBinary(ByteBuffer* in);

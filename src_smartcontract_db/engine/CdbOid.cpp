@@ -71,6 +71,10 @@ CdbOid* CdbOid::fromBinary(ByteBuffer* in) {
 	return ptr;
 }
 
+CdbOid* CdbOid::copy() const noexcept {
+	return new CdbOid(*this);
+}
+
 int CdbOid::hashCode() const {
 	return (int)this->oid;
 }

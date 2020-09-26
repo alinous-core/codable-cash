@@ -28,6 +28,10 @@ bool LocalCdbOid::isLocal() const noexcept {
 	return true;
 }
 
+CdbOid* LocalCdbOid::copy() const noexcept {
+	return new LocalCdbOid(*this);
+}
+
 int LocalCdbOid::binarySize() const {
 	return CdbOid::binarySize();
 }
