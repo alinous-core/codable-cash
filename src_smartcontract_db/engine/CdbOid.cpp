@@ -12,6 +12,9 @@
 
 #include "table_record_local/LocalCdbOid.h"
 
+#include "table_record_key/AbstractCdbKey.h"
+#include "table_record_key/CdbOidKey.h"
+
 namespace codablecash {
 
 CdbOid::CdbOid(const CdbOid& inst) {
@@ -73,6 +76,10 @@ CdbOid* CdbOid::fromBinary(ByteBuffer* in) {
 
 CdbOid* CdbOid::copy() const noexcept {
 	return new CdbOid(*this);
+}
+
+AbstractCdbKey* CdbOid::toKey() const noexcept {
+	return new CdbOidKey(this);
 }
 
 int CdbOid::hashCode() const {

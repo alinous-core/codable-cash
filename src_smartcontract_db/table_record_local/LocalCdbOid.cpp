@@ -44,7 +44,7 @@ bool LocalCdbOid::equals(const CdbOid* other) const noexcept {
 	return CdbOid::equals(other);
 }
 
-int LocalCdbOid::ValueCompare::operator ()(
+int LocalCdbOid::ValueCompare::operator()(
 		const CdbOid* const _this, const CdbOid* const object) const noexcept {
 	static CdbOid::ValueCompare comp;
 
