@@ -424,7 +424,7 @@ void CdbTable::toBinary(ByteBuffer* out) const {
 
 	out->put(CdbTable::CDB_OBJ_TYPE);
 
-	out->putLong(this->oid->getOid());
+	out->putLong(this->oid->getOidValue());
 
 	putString(out, this->schemaName);
 	putString(out, this->name);

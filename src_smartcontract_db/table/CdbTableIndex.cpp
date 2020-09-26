@@ -104,7 +104,7 @@ void CdbTableIndex::syncColumnOid(const CdbTable* table) {
 		const UnicodeString* name = idxcol->getName();
 
 		CdbTableColumn* tablecol = table->getColumn(name);
-		idxcol->setOid(tablecol->getOid()->getOid());
+		idxcol->setOid(tablecol->getOid()->getOidValue());
 
 		this->columnMap->put(idxcol->getOid(), idxcol);
 	}
@@ -120,7 +120,7 @@ void CdbTableIndex::addColumn(const CdbTableColumn* col) noexcept {
 	this->columns->addElement(newColumn);
 
 	const CdbOid* o = newColumn->getOid();
-	if(o->getOid() != 0){
+	if(o->getOidValue() != 0){
 		this->columnMap->put(o, newColumn);
 	}
 }
@@ -167,7 +167,7 @@ int CdbTableIndex::binarySize() const {
 
 void CdbTableIndex::toBinary(ByteBuffer* out) const {
 	out->put(CdbTableIndex::CDB_OBJ_TYPE);
-	out->putLong(this->oid->getOid());
+	out->putLong(this->oid->getOidValue());
 
 	out->put(this->primary ? 1 : 0);// primary
 	out->put(this->unique ? 1 : 0);// unique
@@ -177,7 +177,7 @@ void CdbTableIndex::toBinary(ByteBuffer* out) const {
 	for(int i = 0; i != maxLoop; ++i){
 		CdbTableColumn* col = this->columns->get(i);
 		const CdbOid* oid = col->getOid();
-		uint64_t id = oid->getOid();
+		uint64_t id = oid->getOidValue();
 
 		out->putLong(id);
 	}

@@ -33,6 +33,11 @@ public:
 		CdbBinaryObject* object = nullptr;
 		checkNotNull(object);
 	}
+
+	void testCheckNull2(){
+		TableIdentifier* object = nullptr;
+		checkNotNull(object);
+	}
 };
 
 TEST(TestBinaryObjectCheckErrorGroup, case01){
@@ -47,5 +52,18 @@ TEST(TestBinaryObjectCheckErrorGroup, case01){
 
 	CHECK(ex != nullptr)
 	delete ex;
+}
 
+TEST(TestBinaryObjectCheckErrorGroup, case02){
+	DummyObject obj;
+
+	CdbException* ex = nullptr;
+	try{
+		obj.testCheckNull2();
+	}catch(CdbException* e){
+		ex = e;
+	}
+
+	CHECK(ex != nullptr)
+	delete ex;
 }

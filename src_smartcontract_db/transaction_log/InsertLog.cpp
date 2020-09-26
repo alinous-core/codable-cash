@@ -17,9 +17,12 @@
 
 #include "base/StackRelease.h"
 
-#include "engine_lock/WriteLockHandle.h"
+#include "engine/CdbOid.h"
 
+#include "engine_lock/WriteLockHandle.h"
 #include "engine_lock/ReadLockHandle.h"
+
+
 namespace codablecash {
 
 InsertLog::InsertLog() : AbstractTransactionLog(AbstractTransactionLog::TRX_INSERT) {
@@ -88,7 +91,9 @@ void InsertLog::commit(CdbTransactionManager* trxManager) {
 			CdbRecord* rec = this->records.get(i);
 			uint64_t oid = publisher->newOid();
 
-			rec->setOid(oid);
+			CdbOid oidObj(oid);
+
+			rec->setOid(&oidObj);
 		}
 
 		publisher->saveSchema();

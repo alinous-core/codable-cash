@@ -54,7 +54,7 @@ bool MMapSegment::isUsed() noexcept {
 void MMapSegment::waitForUnused() noexcept {
 	StackUnlocker unlocker(&this->lock);
 
-	if(this->refCount != 0){
+	while(this->refCount != 0){
 		this->waitCount++;
 		this->lock.wait();
 		this->waitCount--;

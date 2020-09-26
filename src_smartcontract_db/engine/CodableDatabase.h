@@ -43,6 +43,11 @@ public:
 
 	ReadLockHandle* databaseReadLock();
 	WriteLockHandle* databaseWriteLock();
+
+	CdbTransactionManager* getTransactionxManager() const noexcept {
+		return trxManager;
+	}
+
 private:
 	void checkDatabaseLoaded() const;
 

@@ -6,6 +6,14 @@
  */
 
 #include "engine/CdbOid.h"
+#include "engine/CdbException.h"
+
+#include "base_io/ByteBuffer.h"
+
+#include "table_record_local/LocalCdbOid.h"
+
+#include "table_record_key/AbstractCdbKey.h"
+#include "table_record_key/CdbOidKey.h"
 
 namespace codablecash {
 
@@ -21,8 +29,57 @@ CdbOid::~CdbOid() {
 
 }
 
+uint8_t CdbOid::getTypeCode() const noexcept {
+	return CdbOid::CDB_OID;
+}
+
+bool CdbOid::isLocal() const noexcept {
+	return false;
+}
+
 bool CdbOid::equals(const CdbOid* other) const noexcept {
-	return this->oid == other->oid;
+	return isLocal() == other->isLocal() && this->oid == other->oid;
+}
+
+int CdbOid::binarySize() const {
+	int total = sizeof(uint8_t);
+	total += sizeof(uint64_t); // oid
+
+	return total;
+}
+
+void CdbOid::toBinary(ByteBuffer* out) const {
+	uint8_t type = getTypeCode();
+	out->put(type);
+	out->putLong(this->oid);
+}
+
+CdbOid* CdbOid::fromBinary(ByteBuffer* in) {
+	uint8_t type = in->get();
+	uint64_t v = in->getLong();
+
+	CdbOid* ptr = nullptr;
+
+	switch(type){
+	case CdbOid::CDB_OID:
+		ptr = new CdbOid(v);
+		break;
+	case CdbOid::CDB_LOCAL_OID:
+		ptr = new LocalCdbOid(v);
+		break;
+	default:
+		 throw new CdbException(L"wrong oid type.", __FILE__, __LINE__);
+	}
+
+	return ptr;
+}
+
+CdbOid* CdbOid::copy() const noexcept {
+	return new CdbOid(*this);
+}
+
+AbstractCdbKey* CdbOid::toKey() const noexcept {
+	return new CdbOidKey(this);
 }
 
 int CdbOid::hashCode() const {
@@ -30,6 +87,14 @@ int CdbOid::hashCode() const {
 }
 
 int CdbOid::ValueCompare::operator ()(const CdbOid* const _this, const CdbOid* const object) const noexcept {
+	uint8_t this_type = _this->getTypeCode();
+	uint8_t object_type = object->getTypeCode();
+
+	uint8_t diff = this_type - object_type;
+	if(diff != 0){
+		return diff;
+	}
+
 	return ((int)_this->oid) - ((int)object->oid);
 }
 

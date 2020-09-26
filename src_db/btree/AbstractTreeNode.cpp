@@ -40,7 +40,7 @@ void AbstractTreeNode::toBinary(ByteBuffer* out) const {
 }
 
 void AbstractTreeNode::fromBinaryAbstract(ByteBuffer* in, BtreeKeyFactory* factory) {
-	char keytype = in->getInt();
+	int32_t keytype = in->getInt();
 	this->key = factory->fromBinary(keytype, in);
 
 	this->fpos = in->getLong();

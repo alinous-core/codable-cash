@@ -63,7 +63,7 @@ void Schema::toBinary(ByteBuffer* out) const {
 	checkNotNull(this->name);
 
 	out->put(Schema::CDB_OBJ_TYPE);
-	out->putLong(this->oid->getOid());
+	out->putLong(this->oid->getOidValue());
 
 	putString(out, this->name);
 }
