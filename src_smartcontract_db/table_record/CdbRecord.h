@@ -21,6 +21,7 @@ using namespace alinous;
 namespace codablecash {
 
 class AbstractCdbValue;
+class CdbOid;
 
 class CdbRecord : public AbstractCdbValue {
 public:
@@ -28,8 +29,8 @@ public:
 	CdbRecord();
 	virtual ~CdbRecord();
 
-	void setOid(uint64_t oid) noexcept;
-	uint64_t getOid() const noexcept {
+	void setOid(const CdbOid* oid) noexcept;
+	const CdbOid* getOid() const noexcept {
 		return oid;
 	}
 
@@ -51,7 +52,7 @@ public:
 	const AbstractCdbValue* get(int pos) const noexcept;
 
 private:
-	uint64_t oid;
+	CdbOid* oid;
 	ArrayList<AbstractCdbValue> list;
 };
 

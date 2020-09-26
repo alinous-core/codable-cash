@@ -16,6 +16,7 @@
 
 #include "filestore_block/IBlockObject.h"
 
+#include "engine/CdbOid.h"
 
 namespace codablecash {
 
@@ -32,7 +33,7 @@ CdbRecord::CdbRecord(const CdbRecord& inst) : AbstractCdbValue(AbstractCdbValue:
 }
 
 CdbRecord::CdbRecord() : AbstractCdbValue(AbstractCdbValue::TYPE_RECORD) {
-	this->oid = 0;
+	this->oid = nullptr;
 }
 
 CdbRecord::~CdbRecord() {
@@ -57,7 +58,7 @@ void CdbRecord::setValue(AbstractCdbValue* value, int i) noexcept {
 int CdbRecord::binarySize() const {
 	int total = sizeof(int8_t);
 
-	total += sizeof(this->oid);
+	total += this->oid->binarySize();
 
 	int maxLoop = this->list.size();
 	total += sizeof(int32_t);
@@ -79,7 +80,7 @@ int CdbRecord::binarySize() const {
 void CdbRecord::toBinary(ByteBuffer* out) const {
 	out->put(this->type);
 
-	out->putLong(this->oid);
+	this->oid->toBinary(out);
 
 	int maxLoop = this->list.size();
 	out->putInt(maxLoop);
@@ -96,8 +97,8 @@ void CdbRecord::toBinary(ByteBuffer* out) const {
 	}
 }
 
-void CdbRecord::setOid(uint64_t oid) noexcept {
-	this->oid = oid;
+void CdbRecord::setOid(const CdbOid* oid) noexcept {
+	this->oid = oid->copy();
 }
 
 CdbRecord* CdbRecord::createFromBinary(ByteBuffer* in) {
@@ -106,8 +107,7 @@ CdbRecord* CdbRecord::createFromBinary(ByteBuffer* in) {
 
 	in->get(); // type
 
-	uint64_t oid = in->getLong();
-	record->setOid(oid);
+	record->oid = CdbOid::fromBinary(in);
 
 	int maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){
@@ -123,8 +123,7 @@ CdbRecord* CdbRecord::createFromBinary(ByteBuffer* in) {
 void CdbRecord::fromBinary(ByteBuffer* in) {
 	CdbDataFactory factory;
 
-	uint64_t oid = in->getLong();
-	setOid(oid);
+	this->oid = CdbOid::fromBinary(in);
 
 	int maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){
