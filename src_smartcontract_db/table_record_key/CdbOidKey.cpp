@@ -9,7 +9,13 @@
 
 #include "engine/CdbOid.h"
 
+#include "base_io/ByteBuffer.h"
+
 namespace codablecash {
+
+CdbOidKey::CdbOidKey() : AbstractCdbKey(AbstractCdbKey::TYPE_OID_KEY) {
+	this->oid = nullptr;
+}
 
 CdbOidKey::CdbOidKey(const CdbOidKey& inst) : AbstractCdbKey(AbstractCdbKey::TYPE_OID_KEY) {
 	this->oid = inst.oid->copy();
@@ -42,12 +48,16 @@ int CdbOidKey::compareTo(const AbstractBtreeKey* key) const noexcept {
 }
 
 int CdbOidKey::binarySize() const {
+	return sizeof(uint32_t) + this->oid->binarySize();
 }
 
 void CdbOidKey::toBinary(ByteBuffer* out) const {
+	out->putInt(this->type);
+	this->oid->toBinary(out);
 }
 
 void CdbOidKey::fromBinary(ByteBuffer* in) {
+	this->oid = CdbOid::fromBinary(in);
 }
 
 } /* namespace codablecash */

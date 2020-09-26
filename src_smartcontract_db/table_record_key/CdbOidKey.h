@@ -15,6 +15,10 @@ namespace codablecash {
 class CdbOid;
 
 class CdbOidKey : public AbstractCdbKey {
+	friend class CdbKeyFactory;
+private:
+	CdbOidKey();
+
 public:
 	CdbOidKey(const CdbOidKey& inst);
 	explicit CdbOidKey(const CdbOid* oid);
