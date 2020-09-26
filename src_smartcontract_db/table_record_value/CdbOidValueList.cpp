@@ -35,7 +35,10 @@ int CdbOidValueList::binarySize() const {
 	int maxLoop = this->list.size();
 	total += sizeof(int32_t);
 
-	total += maxLoop * sizeof(uint64_t);
+	for(int i = 0; i != maxLoop; ++i){
+		CdbOid* oid = this->list.get(i);
+		total += oid->binarySize();
+	}
 
 	return total;
 }
@@ -48,18 +51,19 @@ void CdbOidValueList::toBinary(ByteBuffer* out) const {
 
 	for(int i = 0; i != maxLoop; ++i){
 		CdbOid* oid = this->list.get(i);
-		uint64_t longOid = oid->getOidValue();
 
-		out->putLong(longOid); // FIXME oid
+		oid->toBinary(out);
+		//uint64_t longOid = oid->getOidValue();
+		//out->putLong(longOid); // FIXME oid
 	}
 }
 
 void CdbOidValueList::fromBinary(ByteBuffer* in) {
 	int maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){
-		uint64_t longOid = in->getLong();
+		CdbOid* oid = CdbOid::fromBinary(in);
 
-		addOid(new CdbOid(longOid));
+		addOid(oid);
 	}
 }
 
