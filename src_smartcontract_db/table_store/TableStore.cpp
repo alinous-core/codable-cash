@@ -289,11 +289,12 @@ IndexStore* TableStore::getIndexStore(const CdbOid* indexoid) const noexcept {
 }
 
 CdbRecord* TableStore::findRecord(const CdbOid* recordOid) {
-	CdbLongKey key(recordOid->getOidValue()); // FIXME oid
+	//CdbLongKey key(recordOid->getOidValue()); // FIXME oid
+	AbstractCdbKey* key = recordOid->toKey(); __STP(key);
 
 	Btree* btree = this->recordStore->getBtree();
 
-	IBlockObject* obj = btree->findByKey(&key);
+	IBlockObject* obj = btree->findByKey(key);
 	if(obj == nullptr){
 		return nullptr;
 	}
