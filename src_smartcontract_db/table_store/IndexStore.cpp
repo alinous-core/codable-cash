@@ -132,8 +132,9 @@ void IndexStore::insert(const CdbRecord* rec) {
 	}
 
 	StackRelease<CdbOidValueList> __oidListRelease(oidList);
-	uint64_t newOid = rec->getOid();
-	oidList->addOid(new CdbOid(newOid));
+//	uint64_t newOid = rec->getOid()->getOidValue();
+
+	oidList->addOid(rec->getOid()->copy());
 
 	this->btree->putData(key, oidList);
 }
