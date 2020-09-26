@@ -18,12 +18,16 @@
 #include "btree/BtreeConfig.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #include "table_record/CdbDataFactory.h"
 #include "table_record/CdbKeyFactory.h"
 #include "table_record/CdbRecord.h"
 
 #include "table_record_key/CdbLongKey.h"
+
+#include "engine/CdbOid.h"
+
 
 namespace codablecash {
 
@@ -75,9 +79,10 @@ void RecordStore::close() noexcept {
 }
 
 void RecordStore::insert(const CdbRecord* rec) {
-	CdbLongKey key(rec->getOid());
+	//CdbLongKey key(rec->getOid()); FIXME oid
+	AbstractCdbKey* key = rec->getOid()->toKey(); __STP(key);
 
-	this->btree->putData(&key, rec);
+	this->btree->putData(key, rec);
 }
 
 } /* namespace codablecash */

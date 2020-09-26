@@ -22,7 +22,7 @@ namespace codablecash {
 
 
 CdbRecord::CdbRecord(const CdbRecord& inst) : AbstractCdbValue(AbstractCdbValue::TYPE_RECORD) {
-	this->oid = inst.oid;
+	this->oid = inst.oid != nullptr ? inst.oid->copy() : nullptr;
 
 	int maxLoop = inst.list.size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -38,6 +38,7 @@ CdbRecord::CdbRecord() : AbstractCdbValue(AbstractCdbValue::TYPE_RECORD) {
 
 CdbRecord::~CdbRecord() {
 	this->list.deleteElements();
+	delete this->oid;
 }
 
 void CdbRecord::initNullColumns(int num) noexcept {
@@ -58,7 +59,11 @@ void CdbRecord::setValue(AbstractCdbValue* value, int i) noexcept {
 int CdbRecord::binarySize() const {
 	int total = sizeof(int8_t);
 
-	total += this->oid->binarySize();
+	total += sizeof(uint8_t);
+	bool notnull = this->oid != nullptr;
+	if(notnull){
+		total += this->oid->binarySize();
+	}
 
 	int maxLoop = this->list.size();
 	total += sizeof(int32_t);
@@ -80,7 +85,12 @@ int CdbRecord::binarySize() const {
 void CdbRecord::toBinary(ByteBuffer* out) const {
 	out->put(this->type);
 
-	this->oid->toBinary(out);
+	bool notnull = this->oid != nullptr;
+	out->put(notnull ? 1 : 0);
+
+	if(notnull){
+		this->oid->toBinary(out);
+	}
 
 	int maxLoop = this->list.size();
 	out->putInt(maxLoop);
@@ -98,6 +108,7 @@ void CdbRecord::toBinary(ByteBuffer* out) const {
 }
 
 void CdbRecord::setOid(const CdbOid* oid) noexcept {
+	delete this->oid;
 	this->oid = oid->copy();
 }
 
@@ -107,7 +118,11 @@ CdbRecord* CdbRecord::createFromBinary(ByteBuffer* in) {
 
 	in->get(); // type
 
-	record->oid = CdbOid::fromBinary(in);
+	uint8_t bl = in->get();
+
+	if(bl != 0){
+		record->oid = CdbOid::fromBinary(in);
+	}
 
 	int maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){
@@ -121,10 +136,13 @@ CdbRecord* CdbRecord::createFromBinary(ByteBuffer* in) {
 }
 
 void CdbRecord::fromBinary(ByteBuffer* in) {
+
+	uint8_t bl = in->get();
+	if(bl != 0){
+		this->oid = CdbOid::fromBinary(in);
+	}
+
 	CdbDataFactory factory;
-
-	this->oid = CdbOid::fromBinary(in);
-
 	int maxLoop = in->getInt();
 	for(int i = 0; i != maxLoop; ++i){
 		IBlockObject* blockObj = factory.makeDataFromBinary(in);
