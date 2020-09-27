@@ -51,5 +51,10 @@ void SingleKeyOidCache::insert(const AbstractCdbKey* key, const CdbOid* value) {
 	this->currentSize += diff;
 }
 
+bool SingleKeyOidCache::hasKey(const AbstractCdbKey* key) {
+	const IBlockObject* lastObj = findData(key);
+
+	return lastObj != nullptr;
+}
 
 } /* namespace codablecash */

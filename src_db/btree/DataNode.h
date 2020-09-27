@@ -20,7 +20,7 @@ class AbstractBtreeKey;
 class DataNode: public AbstractTreeNode {
 public:
 	DataNode &operator=(const DataNode &o) = delete;
-	DataNode(const DataNode& inst);
+	explicit DataNode(const DataNode& inst);
 	DataNode();
 	explicit DataNode(AbstractBtreeKey* key);
 	virtual ~DataNode();

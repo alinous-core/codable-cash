@@ -24,6 +24,7 @@ public:
 	virtual ~SingleKeyOidCache();
 
 	void insert(const AbstractCdbKey* key, const CdbOid* value);
+	bool hasKey(const AbstractCdbKey* key);
 
 private:
 
