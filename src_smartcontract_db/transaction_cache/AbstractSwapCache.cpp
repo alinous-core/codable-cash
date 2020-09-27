@@ -56,7 +56,7 @@ void AbstractSwapCache::init(uint64_t nodeNumber) {
 	this->memoryBtree = new BtreeOnMemory(btreeConfig, this->keyFactory);
 }
 
-void AbstractSwapCache::putData(const AbstractBtreeKey* key, IBlockObject* data) {
+void AbstractSwapCache::putData(const AbstractBtreeKey* key, const IBlockObject* data) {
 	if(!this->useDisk){
 		putDataIntoMemory(key, data);
 	}
@@ -65,11 +65,11 @@ void AbstractSwapCache::putData(const AbstractBtreeKey* key, IBlockObject* data)
 	}
 }
 
-void AbstractSwapCache::putDataIntoMemory(const AbstractBtreeKey* key, IBlockObject* data) {
-	this->memoryBtree->putData(key, data);
+void AbstractSwapCache::putDataIntoMemory(const AbstractBtreeKey* key, const IBlockObject* data) {
+	this->memoryBtree->putData(key, data->copyData());
 }
 
-void AbstractSwapCache::putDataIntoDisk(const AbstractBtreeKey* key, IBlockObject* data) {
+void AbstractSwapCache::putDataIntoDisk(const AbstractBtreeKey* key, const IBlockObject* data) {
 	this->btree->putData(key, data);
 }
 
@@ -93,6 +93,7 @@ const IBlockObject* AbstractSwapCache::findData(const AbstractBtreeKey* key) {
 }
 
 const IBlockObject* AbstractSwapCache::findDataFromMemory(const AbstractBtreeKey* key) {
+	//this->memoryBtree->
 }
 
 const IBlockObject* AbstractSwapCache::findDataFromDisk(const AbstractBtreeKey* key) {
