@@ -29,7 +29,7 @@ public:
 	MemoryBtreeScanner* getScanner();
 	const IBlockObject* findByKey(const AbstractBtreeKey* key);
 
-	void putData(const AbstractBtreeKey* key, IBlockObject* data);
+	void putData(const AbstractBtreeKey* key, const IBlockObject* data);
 
 	void setRoot(MemoryTreeNode* rootNode) noexcept;
 private:
