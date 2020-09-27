@@ -36,9 +36,17 @@ public:
 	void init(uint64_t nodeNumber);
 
 protected:
+	void swapIfNecessary();
 
-	void putData(const AbstractBtreeKey* key, const IBlockObject* data);
+	void putData(const AbstractBtreeKey* key, IBlockObject* data);
 	const IBlockObject* findData(const AbstractBtreeKey* key);
+
+private:
+	void swapToDisk();
+	void putDataIntoMemory(const AbstractBtreeKey* key, IBlockObject* data);
+	void putDataIntoDisk(const AbstractBtreeKey* key, IBlockObject* data);
+	const IBlockObject* findDataFromMemory(const AbstractBtreeKey* key);
+	const IBlockObject* findDataFromDisk(const AbstractBtreeKey* key);
 
 protected:
 	UnicodeString* name;
@@ -51,7 +59,6 @@ protected:
 
 	bool useDisk;
 
-	BtreeConfig* btreeConfig;
 	Btree* btree;
 	BtreeOnMemory* memoryBtree;
 

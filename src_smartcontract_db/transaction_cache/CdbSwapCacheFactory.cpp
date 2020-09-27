@@ -41,7 +41,7 @@ UnicodeString* CdbSwapCacheFactory::getName() noexcept {
 SingleKeyOidCache* CdbSwapCacheFactory::createSingleKeyOidCache(int swappiness) {
 	UnicodeString* name = getName(); __STP(name);
 
-	SingleKeyOidCache* cache = new SingleKeyOidCache(name, dynamic_cast<CdbKeyFactory*>(this->keyFactory),
+	SingleKeyOidCache* cache = new SingleKeyOidCache(name, dynamic_cast<CdbKeyFactory*>(this->keyFactory)->copy(),
 			dynamic_cast<CdbDataFactory*>(this->dataFactory), this->diskCache);
 	cache->setSwappiness(swappiness);
 	cache->init(8);

@@ -3,6 +3,7 @@
 set(__src
 	AbstractSwapCache.cpp
 	CdbSwapCacheFactory.cpp
+	IClonableData.cpp
 	SingleKeyOidCache.cpp
 	SwapCacheFactory.cpp
 )

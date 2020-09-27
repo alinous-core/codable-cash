@@ -30,7 +30,6 @@ AbstractSwapCache::AbstractSwapCache(const UnicodeString* name,BtreeKeyFactory* 
 	this->swappiness = 100;
 	this->useDisk = false;
 
-	this->btreeConfig = nullptr;
 	this->memoryBtree = nullptr;
 
 	this->btree = nullptr;
@@ -45,24 +44,56 @@ AbstractSwapCache::~AbstractSwapCache() {
 
 	delete this->memoryBtree;
 	delete this->btree;
-	delete this->btreeConfig;
+
 }
 
 void AbstractSwapCache::init(uint64_t nodeNumber) {
-	this->btreeConfig = new BtreeConfig();
-	this->btreeConfig->nodeNumber = nodeNumber;
+	BtreeConfig* btreeConfig = new BtreeConfig();
+	btreeConfig->nodeNumber = nodeNumber;
 
-	this->memoryBtree = new BtreeOnMemory(this->btreeConfig, this->keyFactory);
+	this->memoryBtree = new BtreeOnMemory(btreeConfig, this->keyFactory);
 }
 
-void AbstractSwapCache::putData(const AbstractBtreeKey* key, const IBlockObject* data) {
+void AbstractSwapCache::putData(const AbstractBtreeKey* key, IBlockObject* data) {
+	if(!this->useDisk){
+		putDataIntoMemory(key, data);
+	}
+	else{
+		putDataIntoDisk(key, data);
+	}
 }
 
+void AbstractSwapCache::putDataIntoMemory(const AbstractBtreeKey* key, IBlockObject* data) {
+	this->memoryBtree->putData(key, data);
+}
 
+void AbstractSwapCache::putDataIntoDisk(const AbstractBtreeKey* key, IBlockObject* data) {
+	this->btree->putData(key, data);
+}
+
+void AbstractSwapCache::swapIfNecessary() {
+	if(this->currentSize > this->swappiness){
+		swapToDisk();
+	}
+}
+
+void AbstractSwapCache::swapToDisk() {
+
+	this->useDisk = true;
+}
 
 const IBlockObject* AbstractSwapCache::findData(const AbstractBtreeKey* key) {
+	if(!this->useDisk){
+		return findDataFromMemory(key);
+	}
 
+	return findDataFromDisk(key);
+}
 
+const IBlockObject* AbstractSwapCache::findDataFromMemory(const AbstractBtreeKey* key) {
+}
+
+const IBlockObject* AbstractSwapCache::findDataFromDisk(const AbstractBtreeKey* key) {
 }
 
 } /* namespace codablecash */
