@@ -18,6 +18,8 @@ class BtreeConfig;
 
 class BtreeHeaderBlock : public IBlockObject {
 public:
+	BtreeHeaderBlock &operator=(const BtreeHeaderBlock &o) = delete;
+
 	BtreeHeaderBlock(const BtreeHeaderBlock& inst);
 	BtreeHeaderBlock();
 	virtual ~BtreeHeaderBlock();

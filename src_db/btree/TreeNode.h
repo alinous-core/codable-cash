@@ -21,6 +21,8 @@ class BtreeKeyFactory;
 
 class TreeNode: public AbstractTreeNode {
 private:
+	TreeNode &operator=(const TreeNode &o) = delete;
+
 	TreeNode();
 public:
 	TreeNode(const TreeNode& inst);
