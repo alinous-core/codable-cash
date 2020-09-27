@@ -2,6 +2,7 @@
 set(testsrc
 	TempValue.cpp
 	test_btree_memory.cpp
+	test_btree_misc.cpp
 	test_btree_update.cpp
 	test_btree.cpp
 	test_cache.cpp
