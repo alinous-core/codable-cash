@@ -12,7 +12,11 @@
 
 #include "table_record_key/AbstractCdbKey.h"
 
+#include "table_record_value/CdbOidValueList.h"
+
 #include "engine/CdbOid.h"
+
+#include "base/StackRelease.h"
 
 namespace codablecash {
 
@@ -30,12 +34,18 @@ void SingleKeyOidCache::insert(const AbstractCdbKey* key, const CdbOid* value) {
 
 	int diff = 0;
 	if(lastObj != nullptr){
+		int lastSize = lastObj->binarySize();
+		CdbOidValueList* oidList = dynamic_cast<CdbOidValueList*>(lastObj->copyData()); __STP(oidList);
+		oidList->addOid(value->copy());
 
+		putData(key, oidList);
 
-		diff = lastObj->binarySize();
-
+		diff = oidList->binarySize() - lastSize;
 	}else{
+		CdbOidValueList* oidList = new CdbOidValueList(); __STP(oidList);
+		putData(key, oidList);
 
+		diff = oidList->binarySize();
 	}
 
 	this->currentSize += diff;
