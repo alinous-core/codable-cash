@@ -347,3 +347,15 @@ TEST(TestBTreeMemoryGroup, find01){
 	CHECK(tvalue->getValue() == 6);
 }
 
+TEST(TestBTreeMemoryGroup, find02){
+	BtreeConfig* config = new BtreeConfig();
+	config->nodeNumber = 3;
+	BtreeKeyFactory* factory = new BtreeKeyFactory();
+
+	BtreeOnMemory btree(config, factory);
+
+	ULongKey lkey(6);
+	const IBlockObject* obj = btree.findByKey(&lkey);
+	CHECK(obj == nullptr);
+}
+
