@@ -19,12 +19,12 @@ class MemoryTreeNode;
 class NodeHandle;
 class MemoryBtreeScanner;
 
-class BTreeOnMemory {
+class BtreeOnMemory {
 public:
-	BTreeOnMemory(const BTreeOnMemory& inst) = delete;
-	BTreeOnMemory() = delete;
-	BTreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory);
-	virtual ~BTreeOnMemory();
+	BtreeOnMemory(const BtreeOnMemory& inst) = delete;
+	BtreeOnMemory() = delete;
+	BtreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory);
+	virtual ~BtreeOnMemory();
 
 	MemoryBtreeScanner* getScanner();
 

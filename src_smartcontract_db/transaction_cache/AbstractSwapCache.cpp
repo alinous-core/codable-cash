@@ -11,6 +11,9 @@
 
 #include "base/UnicodeString.h"
 
+#include "btree/BtreeConfig.h"
+#include "btree/Btree.h"
+
 namespace codablecash {
 
 AbstractSwapCache::AbstractSwapCache(const UnicodeString* name,BtreeKeyFactory* keyFactory,
@@ -24,6 +27,10 @@ AbstractSwapCache::AbstractSwapCache(const UnicodeString* name,BtreeKeyFactory* 
 	this->currentSize = 0;
 	this->swappiness = 100;
 	this->useDisk = false;
+
+	this->btreeConfig = new BtreeConfig();
+
+	this->btree = nullptr;
 }
 
 AbstractSwapCache::~AbstractSwapCache() {
@@ -32,6 +39,9 @@ AbstractSwapCache::~AbstractSwapCache() {
 	this->keyFactory = nullptr;
 	this->dataFactory = nullptr;
 	this->diskCache = nullptr;
+
+	delete this->btree;
+	delete this->btreeConfig;
 }
 
 void AbstractSwapCache::putData(const AbstractBtreeKey* key, const IBlockObject* data) {

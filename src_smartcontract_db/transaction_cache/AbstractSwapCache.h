@@ -16,6 +16,9 @@ class AbstractBtreeDataFactory;
 class UnicodeString;
 class IBlockObject;
 class AbstractBtreeKey;
+class Btree;
+class BtreeOnMemory;
+class BtreeConfig;
 }
 using namespace alinous;
 
@@ -44,6 +47,11 @@ protected:
 	int swappiness;
 
 	bool useDisk;
+
+	BtreeConfig* btreeConfig;
+	Btree* btree;
+	BtreeOnMemory* memory;
+
 };
 
 } /* namespace codablecash */

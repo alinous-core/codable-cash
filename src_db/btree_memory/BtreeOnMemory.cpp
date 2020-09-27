@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "btree_memory/BTreeOnMemory.h"
+#include "btree_memory/BtreeOnMemory.h"
 
 #include "btreekey/BtreeKeyFactory.h"
 #include "btreekey/InfinityKey.h"
@@ -20,7 +20,7 @@
 
 namespace alinous {
 
-BTreeOnMemory::BTreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory) {
+BtreeOnMemory::BtreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory) {
 	this->config = config;
 	this->factory = factory;
 
@@ -28,21 +28,21 @@ BTreeOnMemory::BTreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory) {
 	this->rootNode = new MemoryTreeNode(true, config->nodeNumber, infinityKey, true);
 }
 
-BTreeOnMemory::~BTreeOnMemory() {
+BtreeOnMemory::~BtreeOnMemory() {
 	delete this->rootNode;
 
 	delete this->config;
 	delete this->factory;
 }
 
-MemoryBtreeScanner* BTreeOnMemory::getScanner() {
+MemoryBtreeScanner* BtreeOnMemory::getScanner() {
 	MemoryNodeHandle* rootNode = new MemoryNodeHandle(this->rootNode);
 	MemoryNodeCursor* cursor = new MemoryNodeCursor(rootNode, this->config->nodeNumber, this);
 
 	return new MemoryBtreeScanner(cursor);
 }
 
-void BTreeOnMemory::putData(const AbstractBtreeKey* key,	IBlockObject* data) {
+void BtreeOnMemory::putData(const AbstractBtreeKey* key,	IBlockObject* data) {
 	MemoryNodeHandle* rootNode = new MemoryNodeHandle(this->rootNode);
 
 	MemoryNodeCursor cursor(rootNode, this->config->nodeNumber, this);
@@ -50,7 +50,7 @@ void BTreeOnMemory::putData(const AbstractBtreeKey* key,	IBlockObject* data) {
 
 }
 
-void BTreeOnMemory::setRoot(MemoryTreeNode* rootNode) noexcept {
+void BtreeOnMemory::setRoot(MemoryTreeNode* rootNode) noexcept {
 	this->rootNode = rootNode;
 }
 

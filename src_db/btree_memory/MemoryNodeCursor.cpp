@@ -9,7 +9,7 @@
 #include "btree_memory/MemoryNodeHandle.h"
 #include "btree_memory/MemoryDataNode.h"
 #include "btree_memory/MemoryTreeNode.h"
-#include "btree_memory/BTreeOnMemory.h"
+#include "btree_memory/BtreeOnMemory.h"
 
 #include "btree/AbstractBtreeKey.h"
 
@@ -21,7 +21,7 @@
 
 namespace alinous {
 
-MemoryNodeCursor::MemoryNodeCursor(MemoryNodeHandle* rootNode, int nodeNumber, BTreeOnMemory* btree) {
+MemoryNodeCursor::MemoryNodeCursor(MemoryNodeHandle* rootNode, int nodeNumber, BtreeOnMemory* btree) {
 	this->nodestack = new ArrayList<MemoryNodeHandle>();
 	this->nodeNumber = nodeNumber;
 	this->btree = btree;
