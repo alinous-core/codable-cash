@@ -34,6 +34,8 @@ public:
 	}
 
 protected:
+	void init(uint64_t nodeNumber);
+
 	void putData(const AbstractBtreeKey* key, const IBlockObject* data);
 	const IBlockObject* findData(const AbstractBtreeKey* key);
 
@@ -50,7 +52,7 @@ protected:
 
 	BtreeConfig* btreeConfig;
 	Btree* btree;
-	BtreeOnMemory* memory;
+	BtreeOnMemory* memoryBtree;
 
 };
 
