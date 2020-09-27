@@ -22,6 +22,8 @@ AbstractSwapCache::AbstractSwapCache(const UnicodeString* name,BtreeKeyFactory* 
 	this->diskCache = diskCache;
 
 	this->currentSize = 0;
+	this->swappiness = 100;
+	this->useDisk = false;
 }
 
 AbstractSwapCache::~AbstractSwapCache() {
@@ -30,6 +32,14 @@ AbstractSwapCache::~AbstractSwapCache() {
 	this->keyFactory = nullptr;
 	this->dataFactory = nullptr;
 	this->diskCache = nullptr;
+}
+
+void AbstractSwapCache::putData(const AbstractBtreeKey* key, const IBlockObject* data) {
+}
+
+const IBlockObject* AbstractSwapCache::findData(const AbstractBtreeKey* key) {
+
+
 }
 
 } /* namespace codablecash */

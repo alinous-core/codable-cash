@@ -14,6 +14,8 @@ class DiskCacheManager;
 class BtreeKeyFactory;
 class AbstractBtreeDataFactory;
 class UnicodeString;
+class IBlockObject;
+class AbstractBtreeKey;
 }
 using namespace alinous;
 
@@ -29,6 +31,10 @@ public:
 	}
 
 protected:
+	void putData(const AbstractBtreeKey* key, const IBlockObject* data);
+	const IBlockObject* findData(const AbstractBtreeKey* key);
+
+protected:
 	UnicodeString* name;
 	BtreeKeyFactory* keyFactory;
 	AbstractBtreeDataFactory* dataFactory;
@@ -36,6 +42,8 @@ protected:
 
 	uint64_t currentSize;
 	int swappiness;
+
+	bool useDisk;
 };
 
 } /* namespace codablecash */

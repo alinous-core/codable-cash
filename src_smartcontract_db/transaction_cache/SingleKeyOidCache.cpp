@@ -21,4 +21,8 @@ SingleKeyOidCache::~SingleKeyOidCache() {
 
 }
 
+void SingleKeyOidCache::insert(const AbstractCdbKey* key, const CdbOid* value) {
+}
+
+
 } /* namespace codablecash */
