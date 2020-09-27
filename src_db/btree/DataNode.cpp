@@ -11,6 +11,11 @@
 
 namespace alinous {
 
+DataNode::DataNode(const DataNode& inst) : AbstractTreeNode(inst.key->clone()) {
+	this->fpos = inst.fpos;
+	this->datafpos = inst.datafpos;
+}
+
 DataNode::DataNode() : AbstractTreeNode(nullptr) {
 	this->datafpos = 0L;
 }
@@ -57,5 +62,10 @@ uint64_t DataNode::getDataFpos() const noexcept {
 void DataNode::setDataFpos(uint64_t fpos) noexcept {
 	this->datafpos = fpos;
 }
+
+IBlockObject* DataNode::copyData() const noexcept {
+	return new DataNode(*this);
+}
+
 
 } /* namespace alinous */

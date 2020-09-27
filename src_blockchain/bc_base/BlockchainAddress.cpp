@@ -145,6 +145,9 @@ bool BlockchainAddress::equals(const AbstractAddress* other) const noexcept {
 					(this->secretkey != nullptr && addr->secretkey != nullptr && this->secretkey->binaryEquals(addr->secretkey))	);
 }
 
-
+IBlockObject* BlockchainAddress::copyData() const noexcept {
+	// FIXME copyData()
+	return nullptr;
+}
 
 } /* namespace codablecash */

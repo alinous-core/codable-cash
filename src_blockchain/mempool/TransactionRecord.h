@@ -31,6 +31,8 @@ public:
 	static TransactionRecord* fromBinary(ByteBuffer* in);
 
 	const AbstractTransaction* getTrx() const noexcept;
+
+	virtual IBlockObject* copyData() const noexcept;
 private:
 	AbstractTransaction* trx;
 };

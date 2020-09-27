@@ -53,8 +53,6 @@ void CdbOidValueList::toBinary(ByteBuffer* out) const {
 		CdbOid* oid = this->list.get(i);
 
 		oid->toBinary(out);
-		//uint64_t longOid = oid->getOidValue();
-		//out->putLong(longOid); // FIXME oid
 	}
 }
 

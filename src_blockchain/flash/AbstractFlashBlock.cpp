@@ -87,4 +87,9 @@ AbstractFlashBlock* AbstractFlashBlock::createFromBinary(ByteBuffer* in) {
 	return blk;
 }
 
+IBlockObject* AbstractFlashBlock::copyData() const noexcept {
+	// FIXME copyData()
+	return nullptr;
+}
+
 } /* namespace codablecash */

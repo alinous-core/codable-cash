@@ -75,4 +75,8 @@ NodeIdentifier NodeIdentifier::create(const NetworkShard* shard) {
 	return std::move(nodeId);
 }
 
+IBlockObject* NodeIdentifier::copyData() const noexcept {
+	return new NodeIdentifier(*this);
+}
+
 } /* namespace codablecash */

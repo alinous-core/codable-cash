@@ -41,6 +41,8 @@ BtreeConfig* BtreeConfig::fromBinary(ByteBuffer* in) {
 	return inst;
 }
 
+IBlockObject* BtreeConfig::copyData() const noexcept {
+	return new BtreeConfig(*this);
+}
 
 } /* namespace alinous */
-

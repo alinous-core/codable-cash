@@ -67,4 +67,8 @@ NetworkShard* NetworkShard::fromBinary(ByteBuffer* in) {
 	return new NetworkShard(begin, end - begin + 1);
 }
 
+IBlockObject* NetworkShard::copyData() const noexcept {
+	return new NetworkShard(*this);
+}
+
 } /* namespace codablecash */

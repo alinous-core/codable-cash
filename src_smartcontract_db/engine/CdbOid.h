@@ -35,6 +35,7 @@ public:
 	virtual bool equals(const CdbOid* other) const noexcept;
 
 	virtual CdbOid* copy() const noexcept;
+	virtual IBlockObject* copyData() const noexcept;
 	AbstractCdbKey* toKey() const noexcept;
 
 	virtual int binarySize() const;

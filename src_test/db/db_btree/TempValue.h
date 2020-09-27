@@ -27,6 +27,7 @@ public:
 		return value;
 	}
 
+	virtual IBlockObject* copyData() const noexcept;
 private:
 	uint64_t value;
 };

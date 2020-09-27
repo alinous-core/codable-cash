@@ -82,6 +82,10 @@ AbstractCdbKey* CdbOid::toKey() const noexcept {
 	return new CdbOidKey(this);
 }
 
+IBlockObject* CdbOid::copyData() const noexcept {
+	return copy();
+}
+
 int CdbOid::hashCode() const {
 	return (int)this->oid;
 }

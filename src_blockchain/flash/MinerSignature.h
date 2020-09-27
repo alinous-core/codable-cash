@@ -27,6 +27,8 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	static MinerSignature* fromBinary(ByteBuffer* in);
 
+	virtual IBlockObject* copyData() const noexcept;
+
 private:
 	NodeIdentifier* nodeId;
 };

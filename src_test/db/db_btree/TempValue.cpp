@@ -26,6 +26,11 @@ void TempValue::toBinary(ByteBuffer* out) const {
 	out->putLong(this->value);
 }
 
+IBlockObject* TempValue::copyData() const noexcept {
+	return new TempValue(this->value);
+}
+
+
 /**************************************************/
 
 alinous::TmpValueFactory::~TmpValueFactory() {
@@ -39,7 +44,6 @@ IBlockObject* TmpValueFactory::makeDataFromBinary(ByteBuffer* in) {
 	return new TempValue(value);
 
 }
-
 } /* namespace alinous */
 
 

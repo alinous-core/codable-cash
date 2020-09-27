@@ -40,6 +40,8 @@ public:
 		this->targetDiff = targetDiff;
 	}
 
+	virtual IBlockObject* copyData() const noexcept;
+
 private:
 	uint32_t targetDiff;
 	uint32_t diff;

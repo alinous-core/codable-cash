@@ -139,4 +139,9 @@ const BalanceUnit* Transaction::getFee() const noexcept {
 	return this->fee;
 }
 
+IBlockObject* Transaction::copyData() const noexcept {
+	return clone();
+}
+
+
 } /* namespace codablecash */

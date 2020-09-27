@@ -79,7 +79,6 @@ void RecordStore::close() noexcept {
 }
 
 void RecordStore::insert(const CdbRecord* rec) {
-	//CdbLongKey key(rec->getOid()); FIXME oid
 	AbstractCdbKey* key = rec->getOid()->toKey(); __STP(key);
 
 	this->btree->putData(key, rec);

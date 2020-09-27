@@ -70,4 +70,8 @@ bool TransactionId::equals(const TransactionId* other) const noexcept {
 	return this->id->binaryEquals(other->id);
 }
 
+IBlockObject* TransactionId::copyData() const noexcept {
+	return new TransactionId(*this);
+}
+
 } /* namespace codablecash */

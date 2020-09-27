@@ -19,6 +19,8 @@ public:
 
 	virtual int binarySize() const = 0;
 	virtual void toBinary(ByteBuffer* out) const = 0;
+
+	virtual IBlockObject* copyData() const noexcept = 0;
 };
 
 } /* namespace alinous */

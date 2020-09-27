@@ -11,6 +11,21 @@
 
 namespace alinous {
 
+TreeNode::TreeNode(const TreeNode& inst) : AbstractTreeNode(inst.key->clone()) {
+	this->fpos = inst.fpos;
+
+	this->root = inst.root;
+	this->leaf = inst.leaf;
+
+	this->children = new RawArrayPrimitive<uint64_t>(inst.children->size());
+
+	int maxLoop = inst.children->size();
+	for(int i = 0; i != maxLoop; ++i){
+		uint64_t v = inst.children->get(i);
+		this->children->addElement(v);
+	}
+}
+
 TreeNode::TreeNode() : AbstractTreeNode(nullptr) {
 	this->root = false;
 	this->leaf = false;
@@ -118,7 +133,8 @@ void TreeNode::updateInnerNodeFpos(const RawArrayPrimitive<uint64_t>* newlist) n
 	}
 }
 
+IBlockObject* TreeNode::copyData() const noexcept {
+	return new TreeNode(*this);
+}
+
 } /* namespace alinous */
-
-
-

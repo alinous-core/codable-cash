@@ -12,6 +12,11 @@
 
 namespace alinous {
 
+BtreeHeaderBlock::BtreeHeaderBlock(const BtreeHeaderBlock& inst) {
+	this->config = inst.config != nullptr ? dynamic_cast<BtreeConfig*>(inst.config->copyData()) : nullptr;
+	this->rootFpos = inst.rootFpos;
+}
+
 BtreeHeaderBlock::BtreeHeaderBlock() {
 	this->config = nullptr;
 	this->rootFpos = 0;
@@ -47,6 +52,8 @@ BtreeHeaderBlock* BtreeHeaderBlock::fromBinary(ByteBuffer* in){
 	return header;
 }
 
+IBlockObject* BtreeHeaderBlock::copyData() const noexcept {
+	return new BtreeHeaderBlock(*this);
+}
+
 } /* namespace alinous */
-
-

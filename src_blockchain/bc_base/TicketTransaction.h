@@ -32,6 +32,8 @@ public:
 	void setNonce(const Nonce* nonce) noexcept;
 	void setFee(const BalanceUnit* fee) noexcept;
 
+	virtual IBlockObject* copyData() const noexcept;
+
 private:
 	Nonce* nonce;
 	uint64_t fheight;

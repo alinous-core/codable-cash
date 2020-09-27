@@ -30,5 +30,8 @@ FposValue* FposValue::fromBinary(ByteBuffer* in) {
 	return new FposValue(fpos);
 }
 
+IBlockObject* FposValue::copyData() const noexcept {
+	return new FposValue(this->fpos);
+}
 
 } /* namespace codablecash */

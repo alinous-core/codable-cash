@@ -15,4 +15,8 @@ AbstractBtreeKey::AbstractBtreeKey() : IBlockObject() {
 AbstractBtreeKey::~AbstractBtreeKey() {
 }
 
+IBlockObject* AbstractBtreeKey::copyData() const noexcept {
+	return clone();
+}
+
 } /* namespace alinous */

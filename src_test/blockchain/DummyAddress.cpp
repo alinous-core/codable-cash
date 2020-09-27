@@ -31,6 +31,10 @@ int DummyAddress::binarySize() const {
 void DummyAddress::toBinary(ByteBuffer* out) const {
 }
 
+IBlockObject* DummyAddress::copyData() const noexcept {
+	return nullptr;
+}
+
 } /* namespace codablecash */
 
 

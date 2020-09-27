@@ -89,4 +89,9 @@ void TicketTransaction::setFee(const BalanceUnit* fee) noexcept {
 	this->fee = new BalanceUnit(*fee);
 }
 
+IBlockObject* TicketTransaction::copyData() const noexcept {
+	// FIXME copyData()
+	return nullptr;
+}
+
 } /* namespace codablecash */

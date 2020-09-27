@@ -22,6 +22,7 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	virtual AbstractAddress* clone() const noexcept;
 	virtual bool equals(const AbstractAddress* other) const noexcept;
+	virtual IBlockObject* copyData() const noexcept;
 };
 
 } /* namespace codablecash */

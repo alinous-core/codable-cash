@@ -23,6 +23,7 @@ class TreeNode: public AbstractTreeNode {
 private:
 	TreeNode();
 public:
+	TreeNode(const TreeNode& inst);
 	explicit TreeNode(int numChildren, AbstractBtreeKey* key, bool reaf);
 	explicit TreeNode(bool isroot, int numChildren, AbstractBtreeKey* key, bool reaf);
 	virtual ~TreeNode();
@@ -39,6 +40,8 @@ public:
 
 	virtual RawArrayPrimitive<uint64_t>* getInnerNodeFpos() const;
 	void updateInnerNodeFpos(const RawArrayPrimitive<uint64_t>* newlist) noexcept;
+
+	virtual IBlockObject* copyData() const noexcept;
 
 private:
 	bool root;

@@ -43,6 +43,8 @@ const AbstractTransaction* TransactionRecord::getTrx() const noexcept {
 	return this->trx;
 }
 
+IBlockObject* TransactionRecord::copyData() const noexcept {
+	return new TransactionRecord(this->trx);
+}
+
 } /* namespace codablecash */
-
-

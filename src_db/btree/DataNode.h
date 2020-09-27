@@ -19,6 +19,7 @@ class AbstractBtreeKey;
 
 class DataNode: public AbstractTreeNode {
 public:
+	DataNode(const DataNode& inst);
 	DataNode();
 	explicit DataNode(AbstractBtreeKey* key);
 	virtual ~DataNode();
@@ -30,6 +31,8 @@ public:
 
 	uint64_t getDataFpos() const noexcept;
 	void setDataFpos(uint64_t fpos) noexcept;
+
+	virtual IBlockObject* copyData() const noexcept;
 
 private:
 	uint64_t datafpos;
