@@ -33,8 +33,9 @@ public:
 		this->swappiness = swappiness;
 	}
 
-protected:
 	void init(uint64_t nodeNumber);
+
+protected:
 
 	void putData(const AbstractBtreeKey* key, const IBlockObject* data);
 	const IBlockObject* findData(const AbstractBtreeKey* key);

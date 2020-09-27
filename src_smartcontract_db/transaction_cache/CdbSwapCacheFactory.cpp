@@ -44,7 +44,7 @@ SingleKeyOidCache* CdbSwapCacheFactory::createSingleKeyOidCache(int swappiness) 
 	SingleKeyOidCache* cache = new SingleKeyOidCache(name, dynamic_cast<CdbKeyFactory*>(this->keyFactory),
 			dynamic_cast<CdbDataFactory*>(this->dataFactory), this->diskCache);
 	cache->setSwappiness(swappiness);
-	cache->init();
+	cache->init(8);
 
 	return cache;
 }
