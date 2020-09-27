@@ -27,6 +27,8 @@ public:
 
 	void insert(const AbstractBtreeKey* key, IBlockObject* data);
 
+	IBlockObject* find(const AbstractBtreeKey* key);
+
 	IBlockObject* gotoFirst() noexcept;
 	IBlockObject* gotoKey(const AbstractBtreeKey* key) noexcept;
 	IBlockObject* getNext() noexcept;
@@ -43,8 +45,8 @@ private:
 	void createNewRoot(MemoryTreeNode* newNode);
 	void addToParent(MemoryTreeNode* newNode);
 	void splitTreeNode(MemoryTreeNode* node);
-
 	MemoryNodeHandle* gotoLeaf(const AbstractBtreeKey* key);
+
 private:
 	ArrayList<MemoryNodeHandle>* nodestack;
 	int nodeNumber; // max inner nodes number in a node

@@ -39,6 +39,23 @@ MemoryNodeCursor::~MemoryNodeCursor() {
 	delete this->nodestack;
 }
 
+IBlockObject* MemoryNodeCursor::find(const AbstractBtreeKey* key) {
+	MemoryNodeHandle* current = gotoLeaf(key);
+
+	MemoryNodeHandle* handle = current->gotoEqKey(key); __STP(handle);
+	if(handle == nullptr){
+		return nullptr;
+	}
+
+	AbstractMemoryTreeNode* n = handle->getNode();
+	MemoryDataNode* node = dynamic_cast<MemoryDataNode*>(n);
+
+	assert(node != nullptr);
+
+	return node->getData();
+}
+
+
 void MemoryNodeCursor::insert(const AbstractBtreeKey* key, IBlockObject* data) {
 	MemoryNodeHandle* current = top();
 

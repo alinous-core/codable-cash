@@ -27,6 +27,7 @@ public:
 	virtual ~BtreeOnMemory();
 
 	MemoryBtreeScanner* getScanner();
+	const IBlockObject* findByKey(const AbstractBtreeKey* key);
 
 	void putData(const AbstractBtreeKey* key, IBlockObject* data);
 

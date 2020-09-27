@@ -316,3 +316,34 @@ TEST(TestBTreeMemoryGroup, add03){
 	}
 }
 
+TEST(TestBTreeMemoryGroup, find01){
+	BtreeConfig* config = new BtreeConfig();
+	config->nodeNumber = 3;
+	BtreeKeyFactory* factory = new BtreeKeyFactory();
+
+	BtreeOnMemory btree(config, factory);
+	{
+		addKeyValue(10, 10, &btree);
+		addKeyValue(6, 6, &btree);
+		addKeyValue(6, 6, &btree);
+
+		addKeyValue(3, 3, &btree);
+		addKeyValue(2, 2, &btree);
+		addKeyValue(100, 100, &btree);
+		addKeyValue(50, 50, &btree);
+		addKeyValue(7, 7, &btree);
+		addKeyValue(8, 8, &btree);
+		addKeyValue(9, 9, &btree);
+		addKeyValue(11, 11, &btree);
+		addKeyValue(12, 12, &btree);
+		addKeyValue(13, 13, &btree);
+		addKeyValue(14, 14, &btree);
+	}
+
+	ULongKey lkey(6);
+	const IBlockObject* obj = btree.findByKey(&lkey);
+
+	const TempValue* tvalue = dynamic_cast<const TempValue*>(obj);
+	CHECK(tvalue->getValue() == 6);
+}
+

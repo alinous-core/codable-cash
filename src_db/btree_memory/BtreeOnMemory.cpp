@@ -18,6 +18,8 @@
 #include "btree_memory/MemoryNodeCursor.h"
 #include "btree_memory/MemoryBtreeScanner.h"
 
+#include "base/StackRelease.h"
+
 namespace alinous {
 
 BtreeOnMemory::BtreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory) {
@@ -48,6 +50,13 @@ void BtreeOnMemory::putData(const AbstractBtreeKey* key, IBlockObject* data) {
 	MemoryNodeCursor cursor(rootNode, this->config->nodeNumber, this);
 	cursor.insert(key, data);
 
+}
+
+const IBlockObject* BtreeOnMemory::findByKey(const AbstractBtreeKey* key) {
+	MemoryNodeHandle* rootNode = new MemoryNodeHandle(this->rootNode);
+	MemoryNodeCursor* cursor = new MemoryNodeCursor(rootNode, this->config->nodeNumber, this); __STP(cursor);
+
+	return cursor->find(key);
 }
 
 void BtreeOnMemory::setRoot(MemoryTreeNode* rootNode) noexcept {
