@@ -48,6 +48,7 @@ private:
 	const IBlockObject* findDataFromMemory(const AbstractBtreeKey* key);
 	const IBlockObject* findDataFromDisk(const AbstractBtreeKey* key);
 
+	void setCurrent(IBlockObject* obj) noexcept;
 protected:
 	UnicodeString* name;
 	BtreeKeyFactory* keyFactory;
@@ -62,6 +63,7 @@ protected:
 	Btree* btree;
 	BtreeOnMemory* memoryBtree;
 
+	IBlockObject* current;
 };
 
 } /* namespace codablecash */

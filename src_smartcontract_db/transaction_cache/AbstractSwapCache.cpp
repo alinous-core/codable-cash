@@ -33,6 +33,8 @@ AbstractSwapCache::AbstractSwapCache(const UnicodeString* name,BtreeKeyFactory* 
 	this->memoryBtree = nullptr;
 
 	this->btree = nullptr;
+
+	this->current = nullptr;
 }
 
 AbstractSwapCache::~AbstractSwapCache() {
@@ -94,6 +96,15 @@ const IBlockObject* AbstractSwapCache::findDataFromMemory(const AbstractBtreeKey
 }
 
 const IBlockObject* AbstractSwapCache::findDataFromDisk(const AbstractBtreeKey* key) {
+	IBlockObject* obj = this->btree->findByKey(key);
+	setCurrent(obj);
+
+	return obj;
+}
+
+void AbstractSwapCache::setCurrent(IBlockObject* obj) noexcept {
+	delete this->current;
+	this->current = obj;
 }
 
 } /* namespace codablecash */
