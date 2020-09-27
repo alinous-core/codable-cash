@@ -9,13 +9,18 @@
 #include "test_utils/t_macros.h"
 
 #include "base/StackRelease.h"
+#include "base/RawArrayPrimitive.h"
 
 #include "btree/BtreeHeaderBlock.h"
 #include "btree/BtreeConfig.h"
 #include "btree/AbstractBtreeKey.h"
 #include "btree/DataNode.h"
+#include "btree/TreeNode.h"
 
 #include "btreekey/NullKey.h"
+
+#include <cstdint>
+
 
 using namespace alinous;
 
@@ -61,4 +66,17 @@ TEST(TestBTreeMiscGroup, case04){
 
 	CHECK(node.getFpos() == node2->getFpos());
 	CHECK(node.getDataFpos() == node2->getDataFpos());
+}
+
+TEST(TestBTreeMiscGroup, case05){
+	AbstractBtreeKey* key = new NullKey();
+	TreeNode node(true, 4, key, true);
+	node.setFpos(1L);
+
+	TreeNode* node2 = dynamic_cast<TreeNode*>(node.copyData()); __STP(node2);
+
+	CHECK(node.getFpos() == node2->getFpos());
+
+	RawArrayPrimitive<uint64_t>* list = node2->getInnerNodeFpos();
+	CHECK(list->size() == 4);
 }
