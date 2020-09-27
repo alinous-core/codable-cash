@@ -34,5 +34,7 @@ TEST(TestOidCacheGroup, case01){
 	CdbSwapCacheFactory factory(tmpDir, &diskCache);
 	factory.resetDir();
 
-	SingleKeyOidCache* cache = factory.createSingleKeyOidCache(10); __STP(cache);
+	SingleKeyOidCache* cache = factory.createSingleKeyOidCache(1024); __STP(cache);
+
+	cache->removeFiles();
 }

@@ -56,6 +56,10 @@ AbstractSwapCache::~AbstractSwapCache() {
 
 }
 
+void AbstractSwapCache::removeFiles() noexcept {
+	Btree::clearFiles(this->folder, this->name);
+}
+
 void AbstractSwapCache::init(uint64_t nodeNumber) {
 	BtreeConfig* btreeConfig = new BtreeConfig();
 	btreeConfig->nodeNumber = nodeNumber;

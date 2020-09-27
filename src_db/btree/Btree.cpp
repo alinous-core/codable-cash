@@ -57,6 +57,20 @@ void Btree::create(const BtreeConfig* config) {
 	newStore.create(this->cacheManager, config);
 }
 
+void Btree::clearFiles(const File* folder, const UnicodeString* name) {
+	UnicodeString headerName(name);
+	headerName.append(L"-header.bin");
+
+	UnicodeString bodyName(name);
+	bodyName.append(L".bin");
+
+	File* headerFile = folder->get(&headerName); __STP(headerFile);
+	File* bodyFile = folder->get(&bodyName); __STP(bodyFile);
+
+	headerFile->deleteFile();
+	bodyFile->deleteFile();
+}
+
 void Btree::open(const BtreeOpenConfig* config) {
 	this->store = new BtreeStorage(this->folder, this->name, this->factory, this->dfactory);
 

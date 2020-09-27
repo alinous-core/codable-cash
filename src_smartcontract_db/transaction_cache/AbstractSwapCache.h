@@ -35,6 +35,7 @@ public:
 	}
 
 	void init(uint64_t nodeNumber);
+	void removeFiles() noexcept;
 
 protected:
 	void swapIfNecessary();
@@ -50,6 +51,7 @@ private:
 	const IBlockObject* findDataFromDisk(const AbstractBtreeKey* key);
 
 	void setCurrent(IBlockObject* obj) noexcept;
+
 protected:
 	File* folder;
 	UnicodeString* name;

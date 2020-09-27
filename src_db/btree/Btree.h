@@ -37,6 +37,8 @@ public:
 	bool exists() const noexcept;
 	void create(const BtreeConfig* config);
 
+	static void clearFiles(const File* folder, const UnicodeString* name);
+
 	void open(const BtreeOpenConfig* config);
 	void close() noexcept;
 
