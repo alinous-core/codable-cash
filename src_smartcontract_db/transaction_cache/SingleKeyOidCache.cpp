@@ -43,12 +43,16 @@ void SingleKeyOidCache::insert(const AbstractCdbKey* key, const CdbOid* value) {
 		diff = oidList->binarySize() - lastSize;
 	}else{
 		CdbOidValueList* oidList = new CdbOidValueList(); __STP(oidList);
+		oidList->addOid(value->copy());
+
 		putData(key, oidList);
 
 		diff = oidList->binarySize();
 	}
 
 	this->currentSize += diff;
+
+	swapIfNecessary();
 }
 
 bool SingleKeyOidCache::hasKey(const AbstractCdbKey* key) {
