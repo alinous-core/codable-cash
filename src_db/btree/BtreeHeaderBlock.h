@@ -30,7 +30,7 @@ public:
 	BtreeConfig* getConfig() const noexcept {
 		return config;
 	}
-	void setConfig(BtreeConfig* config) noexcept;
+	void setConfig(const BtreeConfig* config) noexcept;
 
 	uint64_t getRootFpos() const {
 		return rootFpos;

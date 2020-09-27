@@ -10,16 +10,22 @@
 #include "random_access_file/DiskCacheManager.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #include "btree/BtreeConfig.h"
 #include "btree/Btree.h"
 
 #include "btree_memory/BtreeOnMemory.h"
 
+#include "btree_memory/MemoryBtreeScanner.h"
+
+#include "base_io/File.h"
+
 namespace codablecash {
 
-AbstractSwapCache::AbstractSwapCache(const UnicodeString* name,BtreeKeyFactory* keyFactory,
+AbstractSwapCache::AbstractSwapCache(const File* folder, const UnicodeString* name,BtreeKeyFactory* keyFactory,
 		AbstractBtreeDataFactory* dataFactory, DiskCacheManager* diskCache) {
+	this->folder = new File(*folder);
 	this->name = new UnicodeString(name);
 
 	this->keyFactory = keyFactory;
@@ -38,6 +44,7 @@ AbstractSwapCache::AbstractSwapCache(const UnicodeString* name,BtreeKeyFactory* 
 }
 
 AbstractSwapCache::~AbstractSwapCache() {
+	delete this->folder;
 	delete this->name;
 
 	this->keyFactory = nullptr;
@@ -66,7 +73,7 @@ void AbstractSwapCache::putData(const AbstractBtreeKey* key, const IBlockObject*
 }
 
 void AbstractSwapCache::putDataIntoMemory(const AbstractBtreeKey* key, const IBlockObject* data) {
-	this->memoryBtree->putData(key, data->copyData());
+	this->memoryBtree->putData(key, data);
 }
 
 void AbstractSwapCache::putDataIntoDisk(const AbstractBtreeKey* key, const IBlockObject* data) {
@@ -74,12 +81,33 @@ void AbstractSwapCache::putDataIntoDisk(const AbstractBtreeKey* key, const IBloc
 }
 
 void AbstractSwapCache::swapIfNecessary() {
-	if(this->currentSize > this->swappiness){
+	if(!this->useDisk && this->currentSize > this->swappiness){
 		swapToDisk();
 	}
 }
 
 void AbstractSwapCache::swapToDisk() {
+	this->btree = new Btree(this->folder, this->name, this->diskCache, this->keyFactory, this->dataFactory);
+
+	const BtreeConfig* config = this->memoryBtree->getConfig();
+	this->btree->create(config);
+
+
+	BtreeOpenConfig opconf;
+	this->btree->open(&opconf);
+
+	{
+		MemoryBtreeScanner* scanner = this->memoryBtree->getScanner(); __STP(scanner);
+		scanner->begin();
+
+		while(scanner->hasNext()){
+			const IBlockObject* obj = scanner->next();
+			const AbstractBtreeKey* k = scanner->nextKey();
+		}
+
+		delete this->memoryBtree;
+		this->memoryBtree = nullptr;
+	}
 
 	this->useDisk = true;
 }
@@ -93,7 +121,8 @@ const IBlockObject* AbstractSwapCache::findData(const AbstractBtreeKey* key) {
 }
 
 const IBlockObject* AbstractSwapCache::findDataFromMemory(const AbstractBtreeKey* key) {
-	//this->memoryBtree->
+	const IBlockObject* obj = this->memoryBtree->findByKey(key);
+	return obj;
 }
 
 const IBlockObject* AbstractSwapCache::findDataFromDisk(const AbstractBtreeKey* key) {

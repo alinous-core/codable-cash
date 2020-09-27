@@ -10,6 +10,7 @@
 #include <cstdint>
 
 namespace alinous {
+class File;
 class DiskCacheManager;
 class BtreeKeyFactory;
 class AbstractBtreeDataFactory;
@@ -26,7 +27,7 @@ namespace codablecash {
 
 class AbstractSwapCache {
 public:
-	AbstractSwapCache(const UnicodeString* name, BtreeKeyFactory* keyFactory, AbstractBtreeDataFactory* dataFactory, DiskCacheManager* diskCache);
+	AbstractSwapCache(const File* folder, const UnicodeString* name, BtreeKeyFactory* keyFactory, AbstractBtreeDataFactory* dataFactory, DiskCacheManager* diskCache);
 	virtual ~AbstractSwapCache();
 
 	void setSwappiness(int swappiness) {
@@ -50,6 +51,7 @@ private:
 
 	void setCurrent(IBlockObject* obj) noexcept;
 protected:
+	File* folder;
 	UnicodeString* name;
 	BtreeKeyFactory* keyFactory;
 	AbstractBtreeDataFactory* dataFactory;

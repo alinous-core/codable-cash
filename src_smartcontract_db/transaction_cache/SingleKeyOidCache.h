@@ -20,7 +20,7 @@ class AbstractCdbKey;
 
 class SingleKeyOidCache : public AbstractSwapCache {
 public:
-	SingleKeyOidCache(const UnicodeString* name, CdbKeyFactory* keyFactory, CdbDataFactory* dataFactory, DiskCacheManager* diskCache);
+	SingleKeyOidCache(const File* folder, const UnicodeString* name, CdbKeyFactory* keyFactory, CdbDataFactory* dataFactory, DiskCacheManager* diskCache);
 	virtual ~SingleKeyOidCache();
 
 	void insert(const AbstractCdbKey* key, const CdbOid* value);

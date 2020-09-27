@@ -28,7 +28,7 @@ BtreeHeaderBlock::~BtreeHeaderBlock() {
 	}
 }
 
-void BtreeHeaderBlock::setConfig(BtreeConfig* config) noexcept {
+void BtreeHeaderBlock::setConfig(const BtreeConfig* config) noexcept {
 	this->config = new BtreeConfig(config);
 }
 

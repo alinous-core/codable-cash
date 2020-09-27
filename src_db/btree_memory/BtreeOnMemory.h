@@ -32,6 +32,11 @@ public:
 	void putData(const AbstractBtreeKey* key, const IBlockObject* data);
 
 	void setRoot(MemoryTreeNode* rootNode) noexcept;
+
+	const BtreeConfig* getConfig() const noexcept {
+		return this->config;
+	}
+
 private:
 	//NodeHandle* getRootHandle() const noexcept;
 

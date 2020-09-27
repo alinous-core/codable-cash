@@ -51,7 +51,7 @@ bool Btree::exists() const noexcept {
 	return newStore.exists();
 }
 
-void Btree::create(BtreeConfig* config) {
+void Btree::create(const BtreeConfig* config) {
 	BtreeStorage newStore(this->folder, this->name, this->factory, this->dfactory);
 
 	newStore.create(this->cacheManager, config);

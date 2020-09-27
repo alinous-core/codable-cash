@@ -16,8 +16,8 @@
 
 namespace codablecash {
 
-SingleKeyOidCache::SingleKeyOidCache(const UnicodeString* name, CdbKeyFactory* keyFactory, CdbDataFactory* dataFactory, DiskCacheManager* diskCache)
-			: AbstractSwapCache(name, keyFactory, dataFactory, diskCache) {
+SingleKeyOidCache::SingleKeyOidCache(const File* folder, const UnicodeString* name, CdbKeyFactory* keyFactory, CdbDataFactory* dataFactory, DiskCacheManager* diskCache)
+			: AbstractSwapCache(folder, name, keyFactory, dataFactory, diskCache) {
 
 }
 

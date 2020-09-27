@@ -60,7 +60,7 @@ bool BtreeStorage::exists() const noexcept {
 	return blockstore->exists();
 }
 
-void BtreeStorage::create(DiskCacheManager* cacheManager, BtreeConfig* config) {
+void BtreeStorage::create(DiskCacheManager* cacheManager, const BtreeConfig* config) {
 	UnicodeString* folderstr = this->folder->getAbsolutePath();
 	StackRelease<UnicodeString> __st_folderstr(folderstr);
 
@@ -125,7 +125,7 @@ void BtreeStorage::create(DiskCacheManager* cacheManager, BtreeConfig* config) {
 	blockstore->close();
 }
 
-BtreeHeaderBlock* BtreeStorage::makeHeader(BtreeConfig* config, uint64_t rootFpos) {
+BtreeHeaderBlock* BtreeStorage::makeHeader(const BtreeConfig* config, uint64_t rootFpos) {
 	BtreeHeaderBlock* header = new BtreeHeaderBlock();
 	header->setConfig(config);
 	header->setRootFpos(rootFpos);

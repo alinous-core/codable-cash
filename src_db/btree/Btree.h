@@ -35,7 +35,7 @@ public:
 	virtual ~Btree();
 
 	bool exists() const noexcept;
-	void create(BtreeConfig* config);
+	void create(const BtreeConfig* config);
 
 	void open(const BtreeOpenConfig* config);
 	void close() noexcept;
