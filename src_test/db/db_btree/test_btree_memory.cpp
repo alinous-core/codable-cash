@@ -61,7 +61,7 @@ static void addKeyValue(uint64_t key, uint64_t value, BtreeOnMemory* btree){
 TEST(TestBTreeMemoryGroup, emptyScan01){
 	BtreeConfig* config = new BtreeConfig();
 	config->nodeNumber = 2;
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
 
 	BtreeOnMemory btree(config, factory);
 	{
