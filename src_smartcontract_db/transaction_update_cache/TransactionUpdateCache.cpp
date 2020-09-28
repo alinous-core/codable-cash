@@ -32,7 +32,7 @@ TransactionUpdateCache::TransactionUpdateCache(CdbLocalCacheManager* cacheManage
 TransactionUpdateCache::~TransactionUpdateCache() {
 	reset();
 	delete this->tableCashes;
-	delete this->cacheManager;
+	this->cacheManager = nullptr;
 }
 
 void TransactionUpdateCache::updateInsert(InsertLog* cmd, const CdbTable* table) {

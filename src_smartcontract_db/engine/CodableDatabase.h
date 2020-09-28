@@ -51,7 +51,7 @@ public:
 	}
 
 	CdbLocalCacheManager* getLocalCacheManager() const noexcept {
-		return localCacheManager;
+		return this->localCacheManager;
 	}
 
 private:
