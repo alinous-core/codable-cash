@@ -17,6 +17,8 @@ namespace codablecash {
 class CdbTable;
 class CdbRecord;
 class InsertRecordsCacheCursor;
+class InsertedRecordsRepository;
+class UpdatedRecordsRepository;
 
 class TransactionTableUpdateCache {
 public:
@@ -29,6 +31,10 @@ public:
 
 private:
 	const CdbTable* table;
+
+	InsertedRecordsRepository* inserts;
+	UpdatedRecordsRepository* updates;
+
 	ArrayList<CdbRecord>* insertedRecords;
 };
 
