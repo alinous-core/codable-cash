@@ -152,8 +152,8 @@ TEST(TestBTreeGroup, constract){
 
 	DiskCacheManager cacheManager;
 	UnicodeString name(L"file01");
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
-	TmpValueFactory* dfactory = new TmpValueFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
+	TmpValueFactory* dfactory = new TmpValueFactory(); __STP(dfactory);
 
 	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
 
@@ -168,8 +168,8 @@ TEST(TestBTreeGroup, open){
 
 	DiskCacheManager cacheManager;
 	UnicodeString name(L"file01");
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
-	TmpValueFactory* dfactory = new TmpValueFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
+	TmpValueFactory* dfactory = new TmpValueFactory(); __STP(dfactory);
 
 	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
 
@@ -195,8 +195,8 @@ TEST(TestBTreeGroup, scanEmpty01){
 
 	DiskCacheManager cacheManager;
 	UnicodeString name(L"file01");
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
-	TmpValueFactory* dfactory = new TmpValueFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
+	TmpValueFactory* dfactory = new TmpValueFactory(); __STP(dfactory);
 
 	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
 
@@ -229,8 +229,8 @@ TEST(TestBTreeGroup, add01){
 
 	DiskCacheManager cacheManager;
 	UnicodeString name(L"file01");
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
-	TmpValueFactory* dfactory = new TmpValueFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
+	TmpValueFactory* dfactory = new TmpValueFactory(); __STP(dfactory);
 
 	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
 
@@ -369,8 +369,8 @@ TEST(TestBTreeGroup, add02){
 
 	DiskCacheManager cacheManager;
 	UnicodeString name(L"file01");
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
-	TmpValueFactory* dfactory = new TmpValueFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
+	TmpValueFactory* dfactory = new TmpValueFactory(); __STP(dfactory);
 
 	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
 
@@ -454,8 +454,8 @@ TEST(TestBTreeGroup, remove01){
 
 	DiskCacheManager cacheManager;
 	UnicodeString name(L"file01");
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
-	TmpValueFactory* dfactory = new TmpValueFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
+	TmpValueFactory* dfactory = new TmpValueFactory(); __STP(dfactory);
 
 	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
 
@@ -545,8 +545,8 @@ TEST(TestBTreeGroup, remove02){
 
 	DiskCacheManager cacheManager;
 	UnicodeString name(L"file01");
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
-	TmpValueFactory* dfactory = new TmpValueFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
+	TmpValueFactory* dfactory = new TmpValueFactory(); __STP(dfactory);
 
 	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
 

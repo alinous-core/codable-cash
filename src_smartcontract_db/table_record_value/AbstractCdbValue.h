@@ -37,6 +37,8 @@ public:
 	virtual AbstractCdbValue* copy() const noexcept = 0;
 	virtual AbstractCdbKey* toKey() const noexcept = 0;
 
+	virtual IBlockObject* copyData() const noexcept;
+
 	static bool isCompatible(uint8_t type, uint8_t type2) noexcept;
 
 	uint8_t getType() const noexcept {

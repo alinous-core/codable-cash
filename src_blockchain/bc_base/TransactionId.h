@@ -33,6 +33,8 @@ public:
 	static TransactionId* fromBinary(ByteBuffer* in);
 
 	bool equals(const TransactionId* other) const noexcept;
+
+	virtual IBlockObject* copyData() const noexcept;
 private:
 	ByteBuffer* id; // 32 bytes
 };

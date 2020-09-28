@@ -31,6 +31,8 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	static NetworkShard* fromBinary(ByteBuffer* in);
 
+	virtual IBlockObject* copyData() const noexcept;
+
 private:
 	int32_t begin;
 	int32_t end;

@@ -13,14 +13,14 @@
 #include "mempool_idx/FeeIndexKeyFactory.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
+
 #include "base_io/File.h"
 
 #include "bc_base/BalanceUnit.h"
 
 #include "btree/Btree.h"
 #include "btree/BtreeConfig.h"
-
-
 
 namespace codablecash {
 
@@ -39,7 +39,11 @@ FeeIndex::~FeeIndex() {
 
 bool FeeIndex::exists() const noexcept {
 	UnicodeString fileName(FeeIndex::FILE_NAME);
-	Btree btree(this->baseDir, &fileName, this->cacheManager, new FeeIndexKeyFactory(), new FeeTransactionsListValueFactory());
+
+	FeeIndexKeyFactory* keyFactory = new FeeIndexKeyFactory(); __STP(keyFactory);
+	FeeTransactionsListValueFactory* dataFactory = new FeeTransactionsListValueFactory(); __STP(dataFactory);
+
+	Btree btree(this->baseDir, &fileName, this->cacheManager, keyFactory, dataFactory);
 
 	bool ex = btree.exists();
 
@@ -48,7 +52,11 @@ bool FeeIndex::exists() const noexcept {
 
 void FeeIndex::create() noexcept(false) {
 	UnicodeString fileName(FeeIndex::FILE_NAME);
-	Btree btree(this->baseDir, &fileName, this->cacheManager, new FeeIndexKeyFactory(), new FeeTransactionsListValueFactory());
+
+	FeeIndexKeyFactory* keyFactory = new FeeIndexKeyFactory(); __STP(keyFactory);
+	FeeTransactionsListValueFactory* dataFactory = new FeeTransactionsListValueFactory(); __STP(dataFactory);
+
+	Btree btree(this->baseDir, &fileName, this->cacheManager, keyFactory, dataFactory);
 
 	BtreeConfig config;
 	config.nodeNumber = 8;
@@ -58,7 +66,11 @@ void FeeIndex::create() noexcept(false) {
 
 void FeeIndex::open() noexcept(false) {
 	UnicodeString fileName(FeeIndex::FILE_NAME);
-	this->btree = new Btree(this->baseDir, &fileName, this->cacheManager, new FeeIndexKeyFactory(), new FeeTransactionsListValueFactory());
+
+	FeeIndexKeyFactory* keyFactory = new FeeIndexKeyFactory(); __STP(keyFactory);
+	FeeTransactionsListValueFactory* dataFactory = new FeeTransactionsListValueFactory(); __STP(dataFactory);
+
+	this->btree = new Btree(this->baseDir, &fileName, this->cacheManager, keyFactory, dataFactory);
 
 	BtreeOpenConfig opconf;
 	opconf.numDataBuffer = 256;

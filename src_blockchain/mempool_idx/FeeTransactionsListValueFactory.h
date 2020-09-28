@@ -21,6 +21,8 @@ public:
 	virtual IBlockObject* makeDataFromBinary(ByteBuffer* in);
 	virtual void registerData(const AbstractBtreeKey* key, const IBlockObject* data, DataNode* dataNode, BtreeStorage* store) const;
 	virtual bool beforeRemove(DataNode* dataNode, BtreeStorage* store, const AbstractBtreeKey* key) const;
+
+	AbstractBtreeDataFactory* copy() const noexcept;
 };
 
 } /* namespace codablecash */

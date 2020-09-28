@@ -59,8 +59,8 @@ TEST(TestBTreeUpdateGroup, case01){
 
 	DiskCacheManager cacheManager;
 	UnicodeString name(L"file01");
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
-	TmpValueFactory* dfactory = new TmpValueFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
+	TmpValueFactory* dfactory = new TmpValueFactory(); __STP(dfactory);
 
 	Btree btree(baseDir, &name, &cacheManager, factory, dfactory);
 

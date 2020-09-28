@@ -245,6 +245,11 @@ UnicodeString& UnicodeString::append(const UnicodeString* str) noexcept {
 
 UnicodeString& UnicodeString::append(const int v) noexcept
 {
+	if(v == 0){
+		append(L"0");
+		return *this;
+	}
+
 	int value = v;
 	if(value < 0){
 		value = value * -1;

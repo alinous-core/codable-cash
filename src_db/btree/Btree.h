@@ -31,11 +31,13 @@ class Btree {
 public:
 	Btree() = delete;
 	Btree(const Btree& inst) = delete;
-	Btree(const File* folder, const UnicodeString* name, DiskCacheManager* cacheManager, BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory);
+	Btree(const File* folder, const UnicodeString* name, DiskCacheManager* cacheManager, const BtreeKeyFactory* factory, const AbstractBtreeDataFactory* dfactory);
 	virtual ~Btree();
 
 	bool exists() const noexcept;
-	void create(BtreeConfig* config);
+	void create(const BtreeConfig* config);
+
+	static void clearFiles(const File* folder, const UnicodeString* name);
 
 	void open(const BtreeOpenConfig* config);
 	void close() noexcept;

@@ -17,6 +17,7 @@ using namespace alinous;
 
 class FeeTransactionsListValue : public IBlockObject {
 public:
+	FeeTransactionsListValue(const FeeTransactionsListValue& inst);
 	FeeTransactionsListValue();
 	explicit FeeTransactionsListValue(uint64_t value);
 	virtual ~FeeTransactionsListValue();
@@ -31,6 +32,8 @@ public:
 	int indexof(uint64_t value) const noexcept;
 
 	bool isEmpty() const noexcept;
+
+	virtual IBlockObject* copyData() const noexcept;
 private:
 	RawArrayPrimitive<uint64_t> list;
 };

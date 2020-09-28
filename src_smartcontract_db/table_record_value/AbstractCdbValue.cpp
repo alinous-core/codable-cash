@@ -17,4 +17,9 @@ AbstractCdbValue::~AbstractCdbValue() {
 
 }
 
+IBlockObject* codablecash::AbstractCdbValue::copyData() const noexcept {
+	return copy();
+}
+
+
 } /* namespace codablecash */

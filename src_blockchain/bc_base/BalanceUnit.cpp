@@ -44,6 +44,10 @@ void BalanceUnit::importBinary(ByteBuffer* in) {
 	this->amount = in->getLong();
 }
 
+IBlockObject* BalanceUnit::copyData() const noexcept {
+	return new BalanceUnit(*this);
+}
+
 } /* namespace codablecash */
 
 

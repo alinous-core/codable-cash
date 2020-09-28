@@ -30,6 +30,8 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
 	static TransactionOutput* fromBinary(ByteBuffer* in);
+
+	virtual IBlockObject* copyData() const noexcept;
 private:
 	BalanceUnit* balance;
 	AbstractAddress* address;

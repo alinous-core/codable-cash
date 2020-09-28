@@ -22,6 +22,8 @@ public:
 	virtual IBlockObject* makeDataFromBinary(ByteBuffer* in) = 0;
 	virtual void registerData(const AbstractBtreeKey* key, const IBlockObject* data, DataNode* dataNode, BtreeStorage* store) const;
 	virtual bool beforeRemove(DataNode* dataNode, BtreeStorage* store, const AbstractBtreeKey* key) const;
+
+	virtual AbstractBtreeDataFactory* copy() const noexcept = 0;
 };
 
 } /* namespace alinous */

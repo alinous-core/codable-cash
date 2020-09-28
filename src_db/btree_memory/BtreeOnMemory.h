@@ -19,18 +19,24 @@ class MemoryTreeNode;
 class NodeHandle;
 class MemoryBtreeScanner;
 
-class BTreeOnMemory {
+class BtreeOnMemory {
 public:
-	BTreeOnMemory(const BTreeOnMemory& inst) = delete;
-	BTreeOnMemory() = delete;
-	BTreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory);
-	virtual ~BTreeOnMemory();
+	BtreeOnMemory(const BtreeOnMemory& inst) = delete;
+	BtreeOnMemory() = delete;
+	BtreeOnMemory(BtreeConfig* config, const BtreeKeyFactory* factory);
+	virtual ~BtreeOnMemory();
 
 	MemoryBtreeScanner* getScanner();
+	const IBlockObject* findByKey(const AbstractBtreeKey* key);
 
-	void putData(const AbstractBtreeKey* key, IBlockObject* data);
+	void putData(const AbstractBtreeKey* key, const IBlockObject* data);
 
 	void setRoot(MemoryTreeNode* rootNode) noexcept;
+
+	const BtreeConfig* getConfig() const noexcept {
+		return this->config;
+	}
+
 private:
 	//NodeHandle* getRootHandle() const noexcept;
 

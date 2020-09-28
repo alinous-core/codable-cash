@@ -10,6 +10,15 @@
 
 namespace codablecash {
 
+FeeTransactionsListValue::FeeTransactionsListValue(const FeeTransactionsListValue& inst) : list(8), IBlockObject() {
+	int maxLoop = inst.list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		uint64_t v = inst.list.get(i);
+
+		this->list.addElement(v);
+	}
+}
+
 FeeTransactionsListValue::FeeTransactionsListValue() : list(8), IBlockObject() {
 }
 
@@ -90,13 +99,14 @@ int FeeTransactionsListValue::indexof(uint64_t value) const noexcept {
 	}
 
 	return -1;
-
 }
 
 bool FeeTransactionsListValue::isEmpty() const noexcept {
 	return this->list.size() == 0;
 }
 
+IBlockObject* FeeTransactionsListValue::copyData() const noexcept {
+	return new FeeTransactionsListValue(*this);
+}
+
 } /* namespace codablecash */
-
-

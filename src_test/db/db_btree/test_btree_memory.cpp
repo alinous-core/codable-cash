@@ -11,7 +11,7 @@
 #include "btreekey/BtreeKeyFactory.h"
 #include "btreekey/ULongKey.h"
 
-#include "btree_memory/BTreeOnMemory.h"
+#include "btree_memory/BtreeOnMemory.h"
 
 #include "TempValue.h"
 
@@ -34,9 +34,9 @@ TEST_GROUP(TestBTreeMemoryGroup) {
 
 TEST(TestBTreeMemoryGroup, constract){
 	BtreeConfig* config = new BtreeConfig();
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
 
-	BTreeOnMemory btree(config, factory);
+	BtreeOnMemory btree(config, factory);
 }
 
 TEST(TestBTreeMemoryGroup, misc01){
@@ -51,9 +51,9 @@ TEST(TestBTreeMemoryGroup, misc02){
 	CHECK(!n.isData());
 }
 
-static void addKeyValue(uint64_t key, uint64_t value, BTreeOnMemory* btree){
+static void addKeyValue(uint64_t key, uint64_t value, BtreeOnMemory* btree){
 	ULongKey lkey(key);
-	TempValue* tvalue = new TempValue(value);
+	TempValue* tvalue = new TempValue(value); __STP(tvalue);
 
 	btree->putData(&lkey, tvalue);
 }
@@ -61,9 +61,9 @@ static void addKeyValue(uint64_t key, uint64_t value, BTreeOnMemory* btree){
 TEST(TestBTreeMemoryGroup, emptyScan01){
 	BtreeConfig* config = new BtreeConfig();
 	config->nodeNumber = 2;
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
 
-	BTreeOnMemory btree(config, factory);
+	BtreeOnMemory btree(config, factory);
 	{
 		MemoryBtreeScanner* scanner = btree.getScanner();
 		StackRelease<MemoryBtreeScanner> __st_scanner(scanner);
@@ -81,9 +81,9 @@ TEST(TestBTreeMemoryGroup, emptyScan01){
 TEST(TestBTreeMemoryGroup, add01){
 	BtreeConfig* config = new BtreeConfig();
 	config->nodeNumber = 2;
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
 
-	BTreeOnMemory btree(config, factory);
+	BtreeOnMemory btree(config, factory);
 
 	RawArrayPrimitive<uint64_t> answers(32);
 	{
@@ -187,9 +187,9 @@ TEST(TestBTreeMemoryGroup, add01){
 TEST(TestBTreeMemoryGroup, add02){
 	BtreeConfig* config = new BtreeConfig();
 	config->nodeNumber = 2;
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
 
-	BTreeOnMemory btree(config, factory);
+	BtreeOnMemory btree(config, factory);
 
 	RawArrayPrimitive<uint64_t> answers(32);
 	{
@@ -253,9 +253,9 @@ TEST(TestBTreeMemoryGroup, add02){
 TEST(TestBTreeMemoryGroup, add03){
 	BtreeConfig* config = new BtreeConfig();
 	config->nodeNumber = 3;
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
 
-	BTreeOnMemory btree(config, factory);
+	BtreeOnMemory btree(config, factory);
 
 	RawArrayPrimitive<uint64_t> answers(32);
 	{
@@ -314,5 +314,48 @@ TEST(TestBTreeMemoryGroup, add03){
 
 		CHECK(i == answers.size())
 	}
+}
+
+TEST(TestBTreeMemoryGroup, find01){
+	BtreeConfig* config = new BtreeConfig();
+	config->nodeNumber = 3;
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
+
+	BtreeOnMemory btree(config, factory);
+	{
+		addKeyValue(10, 10, &btree);
+		addKeyValue(6, 6, &btree);
+		addKeyValue(6, 6, &btree);
+
+		addKeyValue(3, 3, &btree);
+		addKeyValue(2, 2, &btree);
+		addKeyValue(100, 100, &btree);
+		addKeyValue(50, 50, &btree);
+		addKeyValue(7, 7, &btree);
+		addKeyValue(8, 8, &btree);
+		addKeyValue(9, 9, &btree);
+		addKeyValue(11, 11, &btree);
+		addKeyValue(12, 12, &btree);
+		addKeyValue(13, 13, &btree);
+		addKeyValue(14, 14, &btree);
+	}
+
+	ULongKey lkey(6);
+	const IBlockObject* obj = btree.findByKey(&lkey);
+
+	const TempValue* tvalue = dynamic_cast<const TempValue*>(obj);
+	CHECK(tvalue->getValue() == 6);
+}
+
+TEST(TestBTreeMemoryGroup, find02){
+	BtreeConfig* config = new BtreeConfig();
+	config->nodeNumber = 3;
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
+
+	BtreeOnMemory btree(config, factory);
+
+	ULongKey lkey(6);
+	const IBlockObject* obj = btree.findByKey(&lkey);
+	CHECK(obj == nullptr);
 }
 

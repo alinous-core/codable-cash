@@ -77,4 +77,8 @@ void codablecash::TransactionOutputs::importBinary(ByteBuffer* in) {
 	}
 }
 
+IBlockObject* TransactionOutputs::copyData() const noexcept {
+	return new TransactionOutputs(*this);
+}
+
 } /* namespace codablecash */

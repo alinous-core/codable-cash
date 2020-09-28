@@ -36,6 +36,7 @@ public:
 
 	static AbstractFlashBlock* createFromBinary(ByteBuffer* in);
 
+	virtual IBlockObject* copyData() const noexcept;
 protected:
 	uint16_t type;
 	AbstractFlashBlockHeader* header;

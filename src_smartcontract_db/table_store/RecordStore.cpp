@@ -50,7 +50,7 @@ RecordStore::~RecordStore() {
 void RecordStore::createStore(const File* tableDir, const CdbTable* table, DiskCacheManager* cacheManager) {
 	const UnicodeString* name = table->getName();
 
-	Btree btree(tableDir, name, cacheManager, CdbStorageManager::keyFactory.copy(), CdbStorageManager::dataFactory.copy());
+	Btree btree(tableDir, name, cacheManager, &CdbStorageManager::keyFactory, &CdbStorageManager::dataFactory);
 
 	BtreeConfig config;
 	btree.create(&config);
@@ -59,7 +59,7 @@ void RecordStore::createStore(const File* tableDir, const CdbTable* table, DiskC
 
 void RecordStore::load() {
 	const UnicodeString* name = this->table->getName();
-	this->btree = new Btree(this->tableDir, name, this->cacheManager, CdbStorageManager::keyFactory.copy(), CdbStorageManager::dataFactory.copy());
+	this->btree = new Btree(this->tableDir, name, this->cacheManager, &CdbStorageManager::keyFactory, &CdbStorageManager::dataFactory);
 
 	BtreeOpenConfig opconf;
 	this->btree->open(&opconf);
@@ -79,7 +79,6 @@ void RecordStore::close() noexcept {
 }
 
 void RecordStore::insert(const CdbRecord* rec) {
-	//CdbLongKey key(rec->getOid()); FIXME oid
 	AbstractCdbKey* key = rec->getOid()->toKey(); __STP(key);
 
 	this->btree->putData(key, rec);

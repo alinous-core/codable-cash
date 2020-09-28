@@ -28,6 +28,7 @@ public:
 	MemoryNodeHandle* getNextChild(const AbstractBtreeKey* key);
 
 	MemoryNodeHandle* gotoEqMoreThanKey(const AbstractBtreeKey* key);
+	MemoryNodeHandle* gotoEqKey(const AbstractBtreeKey* key);
 	bool hasNext() const noexcept;
 	AbstractMemoryTreeNode* nextNode() noexcept;
 

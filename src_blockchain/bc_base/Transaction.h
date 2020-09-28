@@ -42,6 +42,8 @@ public:
 
 	virtual AbstractTransaction* clone() const;
 	virtual const BalanceUnit* getFee() const noexcept;
+
+	virtual IBlockObject* copyData() const noexcept;
 private:
 	// id
 	TransactionId* trxId;

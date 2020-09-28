@@ -22,11 +22,11 @@
 
 namespace alinous {
 
-Btree::Btree(const File* folder, const UnicodeString* name, DiskCacheManager* cacheManager, BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory) {
+Btree::Btree(const File* folder, const UnicodeString* name, DiskCacheManager* cacheManager, const BtreeKeyFactory* factory, const AbstractBtreeDataFactory* dfactory) {
 	this->folder = new File(*folder);
 	this->name = new UnicodeString(name);
-	this->factory = factory;
-	this->dfactory = dfactory;
+	this->factory = factory->copy();
+	this->dfactory = dfactory->copy();
 	this->store = nullptr;
 	this->cacheManager = cacheManager;
 
@@ -51,10 +51,24 @@ bool Btree::exists() const noexcept {
 	return newStore.exists();
 }
 
-void Btree::create(BtreeConfig* config) {
+void Btree::create(const BtreeConfig* config) {
 	BtreeStorage newStore(this->folder, this->name, this->factory, this->dfactory);
 
 	newStore.create(this->cacheManager, config);
+}
+
+void Btree::clearFiles(const File* folder, const UnicodeString* name) {
+	UnicodeString headerName(name);
+	headerName.append(L"-header.bin");
+
+	UnicodeString bodyName(name);
+	bodyName.append(L".bin");
+
+	File* headerFile = folder->get(&headerName); __STP(headerFile);
+	File* bodyFile = folder->get(&bodyName); __STP(bodyFile);
+
+	headerFile->deleteFile();
+	bodyFile->deleteFile();
 }
 
 void Btree::open(const BtreeOpenConfig* config) {

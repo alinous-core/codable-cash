@@ -35,6 +35,8 @@ public:
 
 	static NodeIdentifier create(const NetworkShard* shard);
 
+	virtual IBlockObject* copyData() const noexcept;
+
 private:
 	NetworkShard* shard;
 	IKeyPair* pair;

@@ -68,7 +68,7 @@ AbstractBtreeKey* CdbKeyFactory::fromBinary(uint32_t keyType, ByteBuffer* in) co
 	return BtreeKeyFactory::fromBinary(keyType, in);;
 }
 
-CdbKeyFactory* CdbKeyFactory::copy() const noexcept {
+BtreeKeyFactory* CdbKeyFactory::copy() const noexcept {
 	return new CdbKeyFactory();
 }
 

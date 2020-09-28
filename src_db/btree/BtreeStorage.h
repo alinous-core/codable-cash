@@ -36,7 +36,7 @@ public:
 	virtual ~BtreeStorage();
 
 	bool exists() const noexcept;
-	void create(DiskCacheManager* cacheManager, BtreeConfig* config);
+	void create(DiskCacheManager* cacheManager, const BtreeConfig* config);
 
 	void open(int numDataBuffer, int numNodeBuffer, DiskCacheManager* cacheManager);
 	void close() noexcept;
@@ -63,7 +63,7 @@ public:
 	const AbstractBtreeDataFactory* getDataFactory() const noexcept;
 
 private:
-	BtreeHeaderBlock* makeHeader(BtreeConfig* config, uint64_t rootFpos);
+	BtreeHeaderBlock* makeHeader(const BtreeConfig* config, uint64_t rootFpos);
 	static AbstractTreeNode* makeNodeFromBinary(ByteBuffer* buff, BtreeKeyFactory* factory);
 
 private:

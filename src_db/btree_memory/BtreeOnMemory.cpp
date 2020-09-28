@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "btree_memory/BTreeOnMemory.h"
+#include "btree_memory/BtreeOnMemory.h"
 
 #include "btreekey/BtreeKeyFactory.h"
 #include "btreekey/InfinityKey.h"
@@ -18,39 +18,48 @@
 #include "btree_memory/MemoryNodeCursor.h"
 #include "btree_memory/MemoryBtreeScanner.h"
 
+#include "base/StackRelease.h"
+
 namespace alinous {
 
-BTreeOnMemory::BTreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory) {
+BtreeOnMemory::BtreeOnMemory(BtreeConfig* config, const BtreeKeyFactory* factory) {
 	this->config = config;
-	this->factory = factory;
+	this->factory = factory->copy();
 
 	InfinityKey* infinityKey = new InfinityKey();
 	this->rootNode = new MemoryTreeNode(true, config->nodeNumber, infinityKey, true);
 }
 
-BTreeOnMemory::~BTreeOnMemory() {
+BtreeOnMemory::~BtreeOnMemory() {
 	delete this->rootNode;
 
 	delete this->config;
 	delete this->factory;
 }
 
-MemoryBtreeScanner* BTreeOnMemory::getScanner() {
+MemoryBtreeScanner* BtreeOnMemory::getScanner() {
 	MemoryNodeHandle* rootNode = new MemoryNodeHandle(this->rootNode);
 	MemoryNodeCursor* cursor = new MemoryNodeCursor(rootNode, this->config->nodeNumber, this);
 
 	return new MemoryBtreeScanner(cursor);
 }
 
-void BTreeOnMemory::putData(const AbstractBtreeKey* key,	IBlockObject* data) {
+void BtreeOnMemory::putData(const AbstractBtreeKey* key, const IBlockObject* data) {
 	MemoryNodeHandle* rootNode = new MemoryNodeHandle(this->rootNode);
 
 	MemoryNodeCursor cursor(rootNode, this->config->nodeNumber, this);
-	cursor.insert(key, data);
+	cursor.insert(key, data->copyData());
 
 }
 
-void BTreeOnMemory::setRoot(MemoryTreeNode* rootNode) noexcept {
+const IBlockObject* BtreeOnMemory::findByKey(const AbstractBtreeKey* key) {
+	MemoryNodeHandle* rootNode = new MemoryNodeHandle(this->rootNode);
+	MemoryNodeCursor* cursor = new MemoryNodeCursor(rootNode, this->config->nodeNumber, this); __STP(cursor);
+
+	return cursor->find(key);
+}
+
+void BtreeOnMemory::setRoot(MemoryTreeNode* rootNode) noexcept {
 	this->rootNode = rootNode;
 }
 

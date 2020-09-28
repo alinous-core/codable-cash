@@ -29,6 +29,8 @@ public:
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
 	void importBinary(ByteBuffer* in);
+
+	virtual IBlockObject* copyData() const noexcept;
 private:
 	uint64_t amount;
 };

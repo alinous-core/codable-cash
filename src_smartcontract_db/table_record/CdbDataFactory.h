@@ -21,7 +21,7 @@ public:
 
 	virtual IBlockObject* makeDataFromBinary(ByteBuffer* in);
 
-	CdbDataFactory* copy() const noexcept;
+	AbstractBtreeDataFactory* copy() const noexcept;
 };
 
 } /* namespace codablecash */

@@ -27,6 +27,8 @@ public:
 		return fpos;
 	}
 
+	virtual IBlockObject* copyData() const noexcept;
+
 private:
 	uint64_t fpos;
 };

@@ -33,6 +33,8 @@ public:
 	static BlockchainAddress* fromBinary(ByteBuffer* in) noexcept(false);
 
 	virtual bool equals(const AbstractAddress* other) const noexcept;
+
+	virtual IBlockObject* copyData() const noexcept;
 private:
 	char shardhash;
 	ByteBuffer* pubkey;

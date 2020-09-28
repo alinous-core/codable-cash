@@ -34,4 +34,8 @@ Nonce* Nonce::fromBinary(ByteBuffer* in) {
 	return new Nonce(targetDiff, diff);
 }
 
+IBlockObject* Nonce::copyData() const noexcept {
+	return new Nonce(*this);
+}
+
 } /* namespace codablecash */

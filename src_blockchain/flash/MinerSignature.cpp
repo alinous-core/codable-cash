@@ -42,4 +42,8 @@ MinerSignature* MinerSignature::fromBinary(ByteBuffer* in) {
 	return sig;
 }
 
+IBlockObject* MinerSignature::copyData() const noexcept {
+	return new MinerSignature(*this);
+}
+
 } /* namespace codablecash */

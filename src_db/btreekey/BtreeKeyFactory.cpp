@@ -34,6 +34,8 @@ AbstractBtreeKey* BtreeKeyFactory::fromBinary(uint32_t keyType, ByteBuffer* in) 
 	throw new KeyFormatException(__FILE__, __LINE__);
 }
 
+BtreeKeyFactory* BtreeKeyFactory::copy() const noexcept {
+	return new BtreeKeyFactory();
+}
 
 } /* namespace alinous */
-

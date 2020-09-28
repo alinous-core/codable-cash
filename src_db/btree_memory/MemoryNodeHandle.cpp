@@ -77,6 +77,27 @@ MemoryNodeHandle* MemoryNodeHandle::gotoEqMoreThanKey(const AbstractBtreeKey* ke
 	return ret;
 }
 
+MemoryNodeHandle* alinous::MemoryNodeHandle::gotoEqKey(const AbstractBtreeKey* key) {
+	MemoryTreeNode* node = dynamic_cast<MemoryTreeNode*>(this->node);
+	ArrayList<AbstractMemoryTreeNode>* list = node->getChildren();
+
+	MemoryNodeHandle* ret = nullptr;
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		this->pos = i;
+		AbstractMemoryTreeNode* n = list->get(i);
+		if(key->compareTo(n->getKey()) == 0){
+			ret = new MemoryNodeHandle(n);
+			break;
+		}
+	}
+
+	// this->pos++; // not necessary, because always hit.
+	return ret;
+}
+
+
 bool MemoryNodeHandle::hasNext() const noexcept {
 	MemoryTreeNode* node = dynamic_cast<MemoryTreeNode*>(this->node);
 	ArrayList<AbstractMemoryTreeNode>* list = node->getChildren();

@@ -18,6 +18,9 @@ class BtreeConfig;
 
 class BtreeHeaderBlock : public IBlockObject {
 public:
+	BtreeHeaderBlock &operator=(const BtreeHeaderBlock &o) = delete;
+
+	BtreeHeaderBlock(const BtreeHeaderBlock& inst);
 	BtreeHeaderBlock();
 	virtual ~BtreeHeaderBlock();
 
@@ -29,7 +32,7 @@ public:
 	BtreeConfig* getConfig() const noexcept {
 		return config;
 	}
-	void setConfig(BtreeConfig* config) noexcept;
+	void setConfig(const BtreeConfig* config) noexcept;
 
 	uint64_t getRootFpos() const {
 		return rootFpos;
@@ -37,6 +40,8 @@ public:
 	void setRootFpos(uint64_t rootFpos) {
 		this->rootFpos = rootFpos;
 	}
+
+	virtual IBlockObject* copyData() const noexcept;
 
 private:
 	uint64_t rootFpos;

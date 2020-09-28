@@ -60,4 +60,8 @@ TransactionInput* TransactionInput::fromBinary(ByteBuffer* in) {
 	return input;
 }
 
+IBlockObject* TransactionInput::copyData() const noexcept {
+	return new TransactionInput(*this);
+}
+
 } /* namespace codablecash */

@@ -24,6 +24,8 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	static BtreeConfig* fromBinary(ByteBuffer* in);
 
+	virtual IBlockObject* copyData() const noexcept;
+
 	uint64_t blockSize;
 	uint64_t nodeNumber;
 };

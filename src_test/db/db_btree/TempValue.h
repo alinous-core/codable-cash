@@ -27,6 +27,7 @@ public:
 		return value;
 	}
 
+	virtual IBlockObject* copyData() const noexcept;
 private:
 	uint64_t value;
 };
@@ -38,6 +39,7 @@ public:
 	virtual ~TmpValueFactory();
 
 	virtual IBlockObject* makeDataFromBinary(ByteBuffer* in);
+	virtual AbstractBtreeDataFactory* copy() const noexcept{ return new TmpValueFactory(); }
 };
 
 } /* namespace alinous */

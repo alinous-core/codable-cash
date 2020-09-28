@@ -9,7 +9,7 @@
 #include "btree_memory/MemoryNodeHandle.h"
 #include "btree_memory/MemoryDataNode.h"
 #include "btree_memory/MemoryTreeNode.h"
-#include "btree_memory/BTreeOnMemory.h"
+#include "btree_memory/BtreeOnMemory.h"
 
 #include "btree/AbstractBtreeKey.h"
 
@@ -21,7 +21,7 @@
 
 namespace alinous {
 
-MemoryNodeCursor::MemoryNodeCursor(MemoryNodeHandle* rootNode, int nodeNumber, BTreeOnMemory* btree) {
+MemoryNodeCursor::MemoryNodeCursor(MemoryNodeHandle* rootNode, int nodeNumber, BtreeOnMemory* btree) {
 	this->nodestack = new ArrayList<MemoryNodeHandle>();
 	this->nodeNumber = nodeNumber;
 	this->btree = btree;
@@ -38,6 +38,23 @@ MemoryNodeCursor::~MemoryNodeCursor() {
 
 	delete this->nodestack;
 }
+
+IBlockObject* MemoryNodeCursor::find(const AbstractBtreeKey* key) {
+	MemoryNodeHandle* current = gotoLeaf(key);
+
+	MemoryNodeHandle* handle = current->gotoEqKey(key); __STP(handle);
+	if(handle == nullptr){
+		return nullptr;
+	}
+
+	AbstractMemoryTreeNode* n = handle->getNode();
+	MemoryDataNode* node = dynamic_cast<MemoryDataNode*>(n);
+
+	assert(node != nullptr);
+
+	return node->getData();
+}
+
 
 void MemoryNodeCursor::insert(const AbstractBtreeKey* key, IBlockObject* data) {
 	MemoryNodeHandle* current = top();

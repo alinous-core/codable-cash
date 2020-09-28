@@ -22,6 +22,8 @@ public:
 
 	virtual int compareTo(const AbstractBtreeKey* key) const noexcept = 0;
 	virtual AbstractBtreeKey* clone()  const noexcept = 0;
+
+	virtual IBlockObject* copyData() const noexcept;
 };
 
 } /* namespace alinous */

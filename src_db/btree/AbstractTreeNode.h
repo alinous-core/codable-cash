@@ -19,7 +19,7 @@ class BtreeKeyFactory;
 class DataNode;
 class TreeNode;
 
-class AbstractTreeNode : IBlockObject {
+class AbstractTreeNode : public IBlockObject {
 public:
 	static const constexpr char NODE{0x01};
 	static const constexpr char DATA{0x02};

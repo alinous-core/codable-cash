@@ -58,7 +58,7 @@ IndexStore::~IndexStore() {
 void IndexStore::createStore(const File* tableDir, const CdbTable* table, const CdbTableIndex* index, DiskCacheManager* cacheManager) {
 	const UnicodeString* name = index->getName();
 
-	Btree btree(tableDir, name, cacheManager, CdbStorageManager::keyFactory.copy(), CdbStorageManager::dataFactory.copy());
+	Btree btree(tableDir, name, cacheManager, &CdbStorageManager::keyFactory, &CdbStorageManager::dataFactory);
 
 	BtreeConfig config;
 	btree.create(&config);
@@ -83,7 +83,7 @@ void IndexStore::reset() {
 
 void IndexStore::load() {
 	const UnicodeString* name = this->index->getName();
-	this->btree = new Btree(this->tableDir, name, this->cacheManager, CdbStorageManager::keyFactory.copy(), CdbStorageManager::dataFactory.copy());
+	this->btree = new Btree(this->tableDir, name, this->cacheManager, &CdbStorageManager::keyFactory, &CdbStorageManager::dataFactory);
 
 	BtreeOpenConfig opconf;
 	this->btree->open(&opconf);
