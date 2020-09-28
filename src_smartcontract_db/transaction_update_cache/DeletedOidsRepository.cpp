@@ -5,17 +5,16 @@
  *      Author: iizuka
  */
 
-#include <transaction_update_cache/DeletedOidsRepository.h>
+#include "transaction_update_cache/DeletedOidsRepository.h"
 
 namespace codablecash {
 
-DeletedOidsRepository::DeletedOidsRepository() {
-	// TODO Auto-generated constructor stub
+DeletedOidsRepository::DeletedOidsRepository(CdbLocalCacheManager* cacheManager) {
 
 }
 
 DeletedOidsRepository::~DeletedOidsRepository() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */

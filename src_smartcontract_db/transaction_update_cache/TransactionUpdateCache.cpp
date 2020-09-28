@@ -71,7 +71,7 @@ TransactionTableUpdateCache* TransactionUpdateCache::getTransactionTableUpdateCa
 	TransactionTableUpdateCache* cache = this->tableCashes->get(oid);
 
 	if(cache == nullptr){
-		cache = new TransactionTableUpdateCache(table);
+		cache = new TransactionTableUpdateCache(table, this->cacheManager);
 		this->tableCashes->put(oid, cache);
 	}
 

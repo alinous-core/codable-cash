@@ -10,9 +10,11 @@
 
 namespace codablecash {
 
+class CdbLocalCacheManager;
+
 class UpdatedRecordsRepository {
 public:
-	UpdatedRecordsRepository();
+	explicit UpdatedRecordsRepository(CdbLocalCacheManager* cacheManager);
 	virtual ~UpdatedRecordsRepository();
 };
 

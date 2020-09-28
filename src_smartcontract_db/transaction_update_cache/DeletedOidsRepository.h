@@ -10,10 +10,13 @@
 
 namespace codablecash {
 
+class CdbLocalCacheManager;
+
 class DeletedOidsRepository {
 public:
-	DeletedOidsRepository();
+	explicit DeletedOidsRepository(CdbLocalCacheManager* cacheManager);
 	virtual ~DeletedOidsRepository();
+
 };
 
 } /* namespace codablecash */

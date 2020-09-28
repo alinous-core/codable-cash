@@ -19,10 +19,12 @@ class CdbRecord;
 class InsertRecordsCacheCursor;
 class InsertedRecordsRepository;
 class UpdatedRecordsRepository;
+class CdbLocalCacheManager;
+class DeletedOidsRepository;
 
 class TransactionTableUpdateCache {
 public:
-	explicit TransactionTableUpdateCache(const CdbTable* table);
+	TransactionTableUpdateCache(const CdbTable* table, CdbLocalCacheManager* cacheManager);
 	virtual ~TransactionTableUpdateCache();
 
 	void addRecord(CdbRecord* newRecord) noexcept;
@@ -34,6 +36,9 @@ private:
 
 	InsertedRecordsRepository* inserts;
 	UpdatedRecordsRepository* updates;
+	DeletedOidsRepository* deletes;
+
+	CdbLocalCacheManager* cacheManager;
 
 	ArrayList<CdbRecord>* insertedRecords;
 };

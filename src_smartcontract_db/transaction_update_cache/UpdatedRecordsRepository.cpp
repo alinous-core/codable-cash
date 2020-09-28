@@ -9,13 +9,12 @@
 
 namespace codablecash {
 
-UpdatedRecordsRepository::UpdatedRecordsRepository() {
-	// TODO Auto-generated constructor stub
+UpdatedRecordsRepository::UpdatedRecordsRepository(CdbLocalCacheManager* cacheManager) {
 
 }
 
 UpdatedRecordsRepository::~UpdatedRecordsRepository() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */
