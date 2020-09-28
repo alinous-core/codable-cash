@@ -19,15 +19,19 @@
 
 #include "table/CdbTable.h"
 
+#include "base_io/File.h"
+
 namespace codablecash {
 
-TransactionUpdateCache::TransactionUpdateCache() {
+TransactionUpdateCache::TransactionUpdateCache(const File* tmpFolder) {
 	this->tableCashes = new HashMap<CdbOid, TransactionTableUpdateCache>();
+	this->tmpFolder = new File(*tmpFolder);
 }
 
 TransactionUpdateCache::~TransactionUpdateCache() {
 	reset();
 	delete this->tableCashes;
+	delete this->tmpFolder;
 }
 
 void TransactionUpdateCache::updateInsert(InsertLog* cmd, const CdbTable* table) {

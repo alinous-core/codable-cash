@@ -10,6 +10,9 @@
 
 #include "base/HashMap.h"
 
+namespace alinous {
+class File;
+}  // namespace alinous
 using namespace alinous;
 
 namespace codablecash {
@@ -23,7 +26,7 @@ class TransactionTableUpdateCache;
 
 class TransactionUpdateCache {
 public:
-	TransactionUpdateCache();
+	explicit TransactionUpdateCache(const File* tmpFolder);
 	virtual ~TransactionUpdateCache();
 
 	void updateInsert(InsertLog* cmd, const CdbTable* table);
@@ -37,6 +40,7 @@ private:
 
 private:
 	HashMap<CdbOid, TransactionTableUpdateCache>* tableCashes;
+	File* tmpFolder;
 };
 
 } /* namespace codablecash */

@@ -16,6 +16,7 @@
 #include "base/StackRelease.h"
 #include "base/UnicodeString.h"
 
+#include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"
 #include "engine/CdbOid.h"
 
@@ -42,12 +43,17 @@
 
 #include "transaction_log_alter/AbstractAlterCommandLog.h"
 
+
 namespace codablecash {
 
 CdbTransaction::CdbTransaction(CdbTransactionManager* trxManager, uint64_t transactionId) {
 	this->trxManager = trxManager;
 	this->transactionId = transactionId;
-	this->updateCache = new TransactionUpdateCache();
+
+	CodableDatabase* db = trxManager->getDb();
+	const File* folder = db->getTmpFolder();
+
+	this->updateCache = new TransactionUpdateCache(folder);
 }
 
 CdbTransaction::~CdbTransaction() {

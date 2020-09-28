@@ -56,6 +56,10 @@ public:
 	ReadLockHandle* databaseReadLock();
 	WriteLockHandle* databaseWriteLock();
 
+	CodableDatabase* getDb() const noexcept {
+		return db;
+	}
+
 private:
 	void handleAlterTableAddIndex(AbstractAlterCommandLog* cmd);
 	void handleAlterTableAddColumn(AbstractAlterCommandLog* cmd);

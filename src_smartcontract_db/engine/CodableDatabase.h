@@ -32,6 +32,7 @@ public:
 
 	void createDatabase(File* dbdir);
 	bool loadDatabase(const File* dbdir);
+	bool loadDatabase(const File* dbdir, const File* tmpdir);
 	void closeDatabase() noexcept;
 
 	CdbTransaction* newTransaction();
@@ -48,6 +49,9 @@ public:
 		return trxManager;
 	}
 
+	const File* getTmpFolder() const noexcept {
+		return this->tmpdir;
+	}
 private:
 	void checkDatabaseLoaded() const;
 
@@ -59,6 +63,7 @@ private:
 	DatabaseLevelLock* dbLevelLock;
 
 	File* loadedFile;
+	File* tmpdir;
 };
 
 } /* namespace alinous */

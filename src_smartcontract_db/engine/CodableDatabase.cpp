@@ -20,6 +20,8 @@
 
 #include "engine_lock/DatabaseLevelLock.h"
 
+#include "base/StackRelease.h"
+
 namespace codablecash {
 
 CodableDatabase::CodableDatabase() {
@@ -28,6 +30,8 @@ CodableDatabase::CodableDatabase() {
 	this->loadedFile = nullptr;
 	this->store = nullptr;
 	this->dbLevelLock = new DatabaseLevelLock();
+
+	this->tmpdir = nullptr;
 }
 
 CodableDatabase::~CodableDatabase() {
@@ -37,6 +41,8 @@ CodableDatabase::~CodableDatabase() {
 	delete this->schema;
 	delete this->store;
 	delete this->dbLevelLock;
+
+	delete this->tmpdir;
 }
 
 void CodableDatabase::createDatabase(File* dbdir) {
@@ -49,9 +55,19 @@ void CodableDatabase::createDatabase(File* dbdir) {
 }
 
 bool CodableDatabase::loadDatabase(const File* dbdir) {
+	File* tmpdir = dbdir->get(L"temp"); __STP(tmpdir);
+	return loadDatabase(dbdir, tmpdir);
+}
+
+bool CodableDatabase::loadDatabase(const File* dbdir, const File* tmpdir) {
 	if(!dbdir->exists() || !dbdir->isDirectory()){
 		return false;
 	}
+
+	if(!tmpdir->exists()){
+		tmpdir->mkdirs();
+	}
+	this->tmpdir = new File(*tmpdir);
 
 	this->store = new CdbStorageManager();
 
@@ -66,6 +82,7 @@ bool CodableDatabase::loadDatabase(const File* dbdir) {
 
 	return true;
 }
+
 void CodableDatabase::closeDatabase() noexcept {
 	if(this->loadedFile != nullptr){
 		delete this->loadedFile;
