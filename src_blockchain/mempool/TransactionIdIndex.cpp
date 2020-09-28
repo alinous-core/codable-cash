@@ -40,7 +40,11 @@ TransactionIdIndex::~TransactionIdIndex() {
 
 bool TransactionIdIndex::exists() const noexcept {
 	UnicodeString fileName(TransactionIdIndex::FILE_NAME);
-	Btree btree(this->baseDir, &fileName, this->cacheManager, new TransactionIdKeyFactory(), new IndexValueFactory());
+
+	TransactionIdKeyFactory* keyFactory = new TransactionIdKeyFactory(); __STP(keyFactory);
+	IndexValueFactory* dataFactory =  new IndexValueFactory(); __STP(dataFactory);
+
+	Btree btree(this->baseDir, &fileName, this->cacheManager, keyFactory, dataFactory);
 
 	bool ex = btree.exists();
 
@@ -49,7 +53,11 @@ bool TransactionIdIndex::exists() const noexcept {
 
 void TransactionIdIndex::create() noexcept(false) {
 	UnicodeString fileName(TransactionIdIndex::FILE_NAME);
-	Btree btree(this->baseDir, &fileName, this->cacheManager, new TransactionIdKeyFactory(), new IndexValueFactory());
+
+	TransactionIdKeyFactory* keyFactory = new TransactionIdKeyFactory(); __STP(keyFactory);
+	IndexValueFactory* dataFactory =  new IndexValueFactory(); __STP(dataFactory);
+
+	Btree btree(this->baseDir, &fileName, this->cacheManager, keyFactory, dataFactory);
 
 	BtreeConfig config;
 	config.nodeNumber = 8;
@@ -59,7 +67,11 @@ void TransactionIdIndex::create() noexcept(false) {
 
 void TransactionIdIndex::open() noexcept(false) {
 	UnicodeString fileName(TransactionIdIndex::FILE_NAME);
-	this->btree = new Btree(this->baseDir, &fileName, this->cacheManager, new TransactionIdKeyFactory(), new IndexValueFactory());
+
+	TransactionIdKeyFactory* keyFactory = new TransactionIdKeyFactory(); __STP(keyFactory);
+	IndexValueFactory* dataFactory =  new IndexValueFactory(); __STP(dataFactory);
+
+	this->btree = new Btree(this->baseDir, &fileName, this->cacheManager, keyFactory, dataFactory);
 
 	BtreeOpenConfig opconf;
 	opconf.numDataBuffer = 256;
