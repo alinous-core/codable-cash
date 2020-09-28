@@ -119,5 +119,15 @@ TEST(TestOidCacheGroup, swap01){
 	addKeyValue(&array, cache, 4);
 	addKeyValue(&array, cache, 5);
 
+	int maxLoop = array.size();
+	for(int i = 0; i != maxLoop; ++i){
+		int64_t value = array.get(i);
+
+		CdbOid oid(value);
+		CdbOidKey key(&oid);
+
+		bool result = cache->hasKey(&key);
+		CHECK(result)
+	}
 }
 
