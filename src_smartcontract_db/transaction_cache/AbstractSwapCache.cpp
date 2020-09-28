@@ -44,9 +44,6 @@ AbstractSwapCache::AbstractSwapCache(const File* folder, const UnicodeString* na
 }
 
 AbstractSwapCache::~AbstractSwapCache() {
-	delete this->folder;
-	delete this->name;
-
 	this->keyFactory = nullptr;
 	this->dataFactory = nullptr;
 	this->diskCache = nullptr;
@@ -59,6 +56,9 @@ AbstractSwapCache::~AbstractSwapCache() {
 	delete this->btree;
 
 	removeFiles();
+
+	delete this->folder;
+	delete this->name;
 }
 
 void AbstractSwapCache::removeFiles() noexcept {

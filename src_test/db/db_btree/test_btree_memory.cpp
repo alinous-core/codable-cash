@@ -34,7 +34,7 @@ TEST_GROUP(TestBTreeMemoryGroup) {
 
 TEST(TestBTreeMemoryGroup, constract){
 	BtreeConfig* config = new BtreeConfig();
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
 
 	BtreeOnMemory btree(config, factory);
 }
@@ -81,7 +81,7 @@ TEST(TestBTreeMemoryGroup, emptyScan01){
 TEST(TestBTreeMemoryGroup, add01){
 	BtreeConfig* config = new BtreeConfig();
 	config->nodeNumber = 2;
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
 
 	BtreeOnMemory btree(config, factory);
 
@@ -187,7 +187,7 @@ TEST(TestBTreeMemoryGroup, add01){
 TEST(TestBTreeMemoryGroup, add02){
 	BtreeConfig* config = new BtreeConfig();
 	config->nodeNumber = 2;
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
 
 	BtreeOnMemory btree(config, factory);
 
@@ -253,7 +253,7 @@ TEST(TestBTreeMemoryGroup, add02){
 TEST(TestBTreeMemoryGroup, add03){
 	BtreeConfig* config = new BtreeConfig();
 	config->nodeNumber = 3;
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
 
 	BtreeOnMemory btree(config, factory);
 
@@ -319,7 +319,7 @@ TEST(TestBTreeMemoryGroup, add03){
 TEST(TestBTreeMemoryGroup, find01){
 	BtreeConfig* config = new BtreeConfig();
 	config->nodeNumber = 3;
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
 
 	BtreeOnMemory btree(config, factory);
 	{
@@ -350,7 +350,7 @@ TEST(TestBTreeMemoryGroup, find01){
 TEST(TestBTreeMemoryGroup, find02){
 	BtreeConfig* config = new BtreeConfig();
 	config->nodeNumber = 3;
-	BtreeKeyFactory* factory = new BtreeKeyFactory();
+	BtreeKeyFactory* factory = new BtreeKeyFactory(); __STP(factory);
 
 	BtreeOnMemory btree(config, factory);
 

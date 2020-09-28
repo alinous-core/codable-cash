@@ -117,6 +117,7 @@ TEST(TestOidCacheGroup, swap01){
 	addKeyValue(&array, cache, 2);
 	addKeyValue(&array, cache, 3);
 	addKeyValue(&array, cache, 4);
+	addKeyValue(&array, cache, 5);
 
 }
 

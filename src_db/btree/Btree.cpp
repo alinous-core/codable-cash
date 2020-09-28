@@ -22,11 +22,11 @@
 
 namespace alinous {
 
-Btree::Btree(const File* folder, const UnicodeString* name, DiskCacheManager* cacheManager, BtreeKeyFactory* factory, AbstractBtreeDataFactory* dfactory) {
+Btree::Btree(const File* folder, const UnicodeString* name, DiskCacheManager* cacheManager, const BtreeKeyFactory* factory, const AbstractBtreeDataFactory* dfactory) {
 	this->folder = new File(*folder);
 	this->name = new UnicodeString(name);
-	this->factory = factory;
-	this->dfactory = dfactory;
+	this->factory = factory->copy();
+	this->dfactory = dfactory->copy();
 	this->store = nullptr;
 	this->cacheManager = cacheManager;
 
