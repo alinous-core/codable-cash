@@ -23,10 +23,11 @@ class InsertLog;
 class CdbRecord;
 class InsertRecordsCacheCursor;
 class TransactionTableUpdateCache;
+class CdbLocalCacheManager;
 
 class TransactionUpdateCache {
 public:
-	explicit TransactionUpdateCache(const File* tmpFolder);
+	explicit TransactionUpdateCache(CdbLocalCacheManager* cacheManager);
 	virtual ~TransactionUpdateCache();
 
 	void updateInsert(InsertLog* cmd, const CdbTable* table);
@@ -40,7 +41,9 @@ private:
 
 private:
 	HashMap<CdbOid, TransactionTableUpdateCache>* tableCashes;
-	File* tmpFolder;
+
+	CdbLocalCacheManager* cacheManager;
+
 };
 
 } /* namespace codablecash */

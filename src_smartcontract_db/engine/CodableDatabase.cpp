@@ -7,6 +7,7 @@
 
 #include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"
+#include "engine/CdbLocalCacheManager.h"
 
 #include "transaction/CdbTransactionManager.h"
 #include "transaction/SchemaObjectIdPublisher.h"
@@ -22,6 +23,7 @@
 
 #include "base/StackRelease.h"
 
+
 namespace codablecash {
 
 CodableDatabase::CodableDatabase() {
@@ -30,8 +32,7 @@ CodableDatabase::CodableDatabase() {
 	this->loadedFile = nullptr;
 	this->store = nullptr;
 	this->dbLevelLock = new DatabaseLevelLock();
-
-	this->tmpdir = nullptr;
+	this->localCacheManager = nullptr;
 }
 
 CodableDatabase::~CodableDatabase() {
@@ -41,8 +42,6 @@ CodableDatabase::~CodableDatabase() {
 	delete this->schema;
 	delete this->store;
 	delete this->dbLevelLock;
-
-	delete this->tmpdir;
 }
 
 void CodableDatabase::createDatabase(File* dbdir) {
@@ -67,7 +66,8 @@ bool CodableDatabase::loadDatabase(const File* dbdir, const File* tmpdir) {
 	if(!tmpdir->exists()){
 		tmpdir->mkdirs();
 	}
-	this->tmpdir = new File(*tmpdir);
+
+	this->localCacheManager = new CdbLocalCacheManager(tmpdir);
 
 	this->store = new CdbStorageManager();
 
@@ -87,6 +87,9 @@ void CodableDatabase::closeDatabase() noexcept {
 	if(this->loadedFile != nullptr){
 		delete this->loadedFile;
 		this->loadedFile = nullptr;
+
+		delete this->localCacheManager;
+		this->localCacheManager = nullptr;
 	}
 }
 

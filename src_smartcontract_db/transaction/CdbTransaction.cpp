@@ -51,9 +51,9 @@ CdbTransaction::CdbTransaction(CdbTransactionManager* trxManager, uint64_t trans
 	this->transactionId = transactionId;
 
 	CodableDatabase* db = trxManager->getDb();
-	const File* folder = db->getTmpFolder();
+	CdbLocalCacheManager* cacheManager = db->getLocalCacheManager();
 
-	this->updateCache = new TransactionUpdateCache(folder);
+	this->updateCache = new TransactionUpdateCache(cacheManager);
 }
 
 CdbTransaction::~CdbTransaction() {

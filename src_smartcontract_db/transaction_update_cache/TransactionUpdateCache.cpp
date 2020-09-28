@@ -13,6 +13,7 @@
 
 #include "transaction_log/InsertLog.h"
 
+#include "engine/CdbLocalCacheManager.h"
 #include "engine/CdbOid.h"
 
 #include "base/StackRelease.h"
@@ -23,15 +24,15 @@
 
 namespace codablecash {
 
-TransactionUpdateCache::TransactionUpdateCache(const File* tmpFolder) {
+TransactionUpdateCache::TransactionUpdateCache(CdbLocalCacheManager* cacheManager) {
 	this->tableCashes = new HashMap<CdbOid, TransactionTableUpdateCache>();
-	this->tmpFolder = new File(*tmpFolder);
+	this->cacheManager = cacheManager;
 }
 
 TransactionUpdateCache::~TransactionUpdateCache() {
 	reset();
 	delete this->tableCashes;
-	delete this->tmpFolder;
+	delete this->cacheManager;
 }
 
 void TransactionUpdateCache::updateInsert(InsertLog* cmd, const CdbTable* table) {

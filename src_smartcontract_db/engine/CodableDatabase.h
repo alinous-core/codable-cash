@@ -24,6 +24,7 @@ class CdbStorageManager;
 class ReadLockHandle;
 class WriteLockHandle;
 class DatabaseLevelLock;
+class CdbLocalCacheManager;
 
 class CodableDatabase {
 public:
@@ -49,9 +50,10 @@ public:
 		return trxManager;
 	}
 
-	const File* getTmpFolder() const noexcept {
-		return this->tmpdir;
+	CdbLocalCacheManager* getLocalCacheManager() const noexcept {
+		return localCacheManager;
 	}
+
 private:
 	void checkDatabaseLoaded() const;
 
@@ -60,10 +62,11 @@ private:
 	SchemaManager* schema;
 	CdbStorageManager* store;
 
+	CdbLocalCacheManager* localCacheManager;
+
 	DatabaseLevelLock* dbLevelLock;
 
 	File* loadedFile;
-	File* tmpdir;
 };
 
 } /* namespace alinous */
