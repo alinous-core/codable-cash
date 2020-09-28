@@ -24,4 +24,9 @@ AbstractBtreeKey* TransactionIdKeyFactory::fromBinary(uint32_t keyType,	ByteBuff
 	return BtreeKeyFactory::fromBinary(keyType, in);
 }
 
+BtreeKeyFactory* TransactionIdKeyFactory::copy() const noexcept {
+	return new TransactionIdKeyFactory();
+}
+
+
 } /* namespace codablecash */

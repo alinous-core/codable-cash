@@ -24,4 +24,9 @@ AbstractBtreeKey* FeeIndexKeyFactory::fromBinary(uint32_t keyType, ByteBuffer* i
 	return BtreeKeyFactory::fromBinary(keyType, in);
 }
 
+BtreeKeyFactory* FeeIndexKeyFactory::copy() const noexcept {
+	return new FeeIndexKeyFactory();
+}
+
+
 } /* namespace codablecash */

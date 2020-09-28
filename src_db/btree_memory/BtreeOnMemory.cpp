@@ -22,9 +22,9 @@
 
 namespace alinous {
 
-BtreeOnMemory::BtreeOnMemory(BtreeConfig* config, BtreeKeyFactory* factory) {
+BtreeOnMemory::BtreeOnMemory(BtreeConfig* config, const BtreeKeyFactory* factory) {
 	this->config = config;
-	this->factory = factory;
+	this->factory = factory->copy();
 
 	InfinityKey* infinityKey = new InfinityKey();
 	this->rootNode = new MemoryTreeNode(true, config->nodeNumber, infinityKey, true);

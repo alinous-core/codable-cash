@@ -21,6 +21,9 @@
 #include "engine/CdbOid.h"
 
 #include "table_record_key/CdbOidKey.h"
+
+#include "base/RawArrayPrimitive.h"
+
 TEST_GROUP(TestOidCacheGroup) {
 	TEST_SETUP() {
 		env->setup();
@@ -88,3 +91,32 @@ TEST(TestOidCacheGroup, memory02){
 
 	cache->removeFiles();
 }
+
+static void addKeyValue(RawArrayPrimitive<int64_t>* array, SingleKeyOidCache* cache, uint64_t value);
+void addKeyValue(RawArrayPrimitive<int64_t>* array, SingleKeyOidCache* cache, uint64_t value){
+	array->addElement(value);
+	CdbOid oid(value);
+	CdbOidKey key(&oid);
+
+	cache->insert(&key, &oid);
+}
+
+TEST(TestOidCacheGroup, swap01){
+	File testCaseFolder = this->env->testCaseDir();
+	File* tmpDir = testCaseFolder.get(L"tmp_cache"); __STP(tmpDir);
+
+	DiskCacheManager diskCache;
+
+	CdbSwapCacheFactory factory(tmpDir, &diskCache);
+	factory.resetDir();
+
+	SingleKeyOidCache* cache = factory.createSingleKeyOidCache(50); __STP(cache);
+
+	RawArrayPrimitive<int64_t> array(8);
+	addKeyValue(&array, cache, 1);
+	addKeyValue(&array, cache, 2);
+	addKeyValue(&array, cache, 3);
+	addKeyValue(&array, cache, 4);
+
+}
+

@@ -67,6 +67,9 @@ bool FeeTransactionsListValueFactory::beforeRemove(DataNode* dataNode, BtreeStor
 	return false;
 }
 
+AbstractBtreeDataFactory* FeeTransactionsListValueFactory::copy() const noexcept {
+	return new FeeTransactionsListValueFactory();
+}
+
+
 } /* namespace codablecash */
-
-

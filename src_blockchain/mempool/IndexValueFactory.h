@@ -19,6 +19,7 @@ public:
 	virtual ~IndexValueFactory();
 
 	virtual IBlockObject* makeDataFromBinary(ByteBuffer* in);
+	AbstractBtreeDataFactory* copy() const noexcept;
 };
 
 } /* namespace codablecash */

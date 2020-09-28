@@ -52,8 +52,13 @@ AbstractSwapCache::~AbstractSwapCache() {
 	this->diskCache = nullptr;
 
 	delete this->memoryBtree;
+
+	if(this->btree != nullptr){
+		this->btree->close();
+	}
 	delete this->btree;
 
+	removeFiles();
 }
 
 void AbstractSwapCache::removeFiles() noexcept {
@@ -106,7 +111,9 @@ void AbstractSwapCache::swapToDisk() {
 
 		while(scanner->hasNext()){
 			const IBlockObject* obj = scanner->next();
-			const AbstractBtreeKey* k = scanner->nextKey();
+			const AbstractBtreeKey* key = scanner->nextKey();
+
+			this->btree->putData(key, obj);
 		}
 
 		delete this->memoryBtree;

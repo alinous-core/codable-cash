@@ -25,6 +25,7 @@ public:
 	virtual ~TransactionIdKeyFactory();
 
 	virtual AbstractBtreeKey* fromBinary(uint32_t keyType, ByteBuffer* in) const;
+	virtual BtreeKeyFactory* copy() const noexcept;
 };
 
 } /* namespace codablecash */

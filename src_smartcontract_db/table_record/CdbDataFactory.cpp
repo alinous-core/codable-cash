@@ -70,7 +70,7 @@ IBlockObject* CdbDataFactory::makeDataFromBinary(ByteBuffer* in) {
 	return value;
 }
 
-CdbDataFactory* CdbDataFactory::copy() const noexcept {
+AbstractBtreeDataFactory* CdbDataFactory::copy() const noexcept {
 	return new CdbDataFactory();
 }
 

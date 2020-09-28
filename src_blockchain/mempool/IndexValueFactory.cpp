@@ -21,4 +21,8 @@ IBlockObject* IndexValueFactory::makeDataFromBinary(ByteBuffer* in) {
 	return FposValue::fromBinary(in);
 }
 
+AbstractBtreeDataFactory* IndexValueFactory::copy() const noexcept {
+	return new IndexValueFactory();
+}
+
 } /* namespace codablecash */
