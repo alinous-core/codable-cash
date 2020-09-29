@@ -25,6 +25,7 @@ class ReadLockHandle;
 class WriteLockHandle;
 class DatabaseLevelLock;
 class CdbLocalCacheManager;
+class LocalOidFactory;
 
 class CodableDatabase {
 public:
@@ -62,6 +63,7 @@ private:
 	SchemaManager* schema;
 	CdbStorageManager* store;
 
+	LocalOidFactory* localOidFactory;
 	CdbLocalCacheManager* localCacheManager;
 
 	DatabaseLevelLock* dbLevelLock;

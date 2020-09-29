@@ -23,6 +23,7 @@
 
 #include "base/StackRelease.h"
 
+#include "table_record_local/LocalOidFactory.h"
 
 namespace codablecash {
 
@@ -33,6 +34,7 @@ CodableDatabase::CodableDatabase() {
 	this->store = nullptr;
 	this->dbLevelLock = new DatabaseLevelLock();
 	this->localCacheManager = nullptr;
+	this->localOidFactory = nullptr;
 }
 
 CodableDatabase::~CodableDatabase() {
@@ -67,7 +69,8 @@ bool CodableDatabase::loadDatabase(const File* dbdir, const File* tmpdir) {
 		tmpdir->mkdirs();
 	}
 
-	this->localCacheManager = new CdbLocalCacheManager(tmpdir);
+	this->localOidFactory = new LocalOidFactory();
+	this->localCacheManager = new CdbLocalCacheManager(tmpdir, this->localOidFactory);
 
 	this->store = new CdbStorageManager();
 
@@ -90,6 +93,9 @@ void CodableDatabase::closeDatabase() noexcept {
 
 		delete this->localCacheManager;
 		this->localCacheManager = nullptr;
+
+		delete this->localOidFactory;
+		this->localOidFactory = nullptr;
 	}
 }
 

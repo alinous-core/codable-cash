@@ -15,19 +15,23 @@
 
 namespace codablecash {
 
-CdbLocalCacheManager::CdbLocalCacheManager(const File* tmpdir) {
+CdbLocalCacheManager::CdbLocalCacheManager(const File* tmpdir, LocalOidFactory* localOidFacroty) {
 	this->folder = new File(*tmpdir);
 	this->diskCache = new DiskCacheManager();
 
 	File* cacheDir = this->folder->get(L"swap");
 
 	this->cacheFactory = new CdbSwapCacheFactory(cacheDir, this->diskCache);
+
+	this->localOidFacroty = localOidFacroty;
 }
 
 CdbLocalCacheManager::~CdbLocalCacheManager() {
 	delete this->folder;
 	delete this->diskCache;
 	delete this->cacheFactory;
+
+	this->localOidFacroty = nullptr;
 }
 
 } /* namespace codablecash */

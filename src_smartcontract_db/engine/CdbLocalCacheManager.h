@@ -17,16 +17,19 @@ using namespace alinous;
 namespace codablecash {
 
 class CdbSwapCacheFactory;
+class LocalOidFactory;
 
 class CdbLocalCacheManager {
 public:
-	explicit CdbLocalCacheManager(const File* tmpdir);
+	CdbLocalCacheManager(const File* tmpdir, LocalOidFactory* localOidFacroty);
 	virtual ~CdbLocalCacheManager();
 
 private:
 	File* folder;
 	DiskCacheManager* diskCache;
 	CdbSwapCacheFactory* cacheFactory;
+
+	LocalOidFactory* localOidFacroty;
 };
 
 } /* namespace codablecash */
