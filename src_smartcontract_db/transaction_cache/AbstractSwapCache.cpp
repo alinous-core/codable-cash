@@ -14,9 +14,9 @@
 
 #include "btree/BtreeConfig.h"
 #include "btree/Btree.h"
+#include "btree/BtreeScanner.h"
 
 #include "btree_memory/BtreeOnMemory.h"
-
 #include "btree_memory/MemoryBtreeScanner.h"
 
 #include "base_io/File.h"
@@ -143,6 +143,14 @@ const IBlockObject* AbstractSwapCache::findDataFromDisk(const AbstractBtreeKey* 
 	setCurrent(obj);
 
 	return obj;
+}
+
+IBtreeScanner* AbstractSwapCache::getScanner() {
+	if(!this->useDisk){
+		return this->memoryBtree->getScanner();
+	}
+
+	return this->btree->getScanner();
 }
 
 void AbstractSwapCache::setCurrent(IBlockObject* obj) noexcept {

@@ -20,6 +20,7 @@ class AbstractBtreeKey;
 class Btree;
 class BtreeOnMemory;
 class BtreeConfig;
+class IBtreeScanner;
 }
 using namespace alinous;
 
@@ -36,6 +37,8 @@ public:
 
 	void init(uint64_t nodeNumber);
 	void removeFiles() noexcept;
+
+	IBtreeScanner* getScanner();
 
 protected:
 	void swapIfNecessary();
