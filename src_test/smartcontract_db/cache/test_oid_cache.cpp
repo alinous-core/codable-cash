@@ -8,6 +8,7 @@
 #include "test_utils/t_macros.h"
 
 #include "base/StackRelease.h"
+#include "base/RawArrayPrimitive.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -16,13 +17,13 @@
 #include "transaction_cache/CdbSwapCacheFactory.h"
 #include "transaction_cache/SingleKeyOidCache.h"
 
+#include "btree/IBtreeScanner.h"
+
 #include "btreekey/ULongKey.h"
 
 #include "engine/CdbOid.h"
 
 #include "table_record_key/CdbOidKey.h"
-
-#include "base/RawArrayPrimitive.h"
 
 TEST_GROUP(TestOidCacheGroup) {
 	TEST_SETUP() {
@@ -88,6 +89,18 @@ TEST(TestOidCacheGroup, memory02){
 
 	bool bl = cache->hasKey(&key);
 	CHECK(bl);
+
+	IBtreeScanner* scanner = cache->getScanner();
+	scanner->begin();
+
+	while(scanner->hasNext()){
+		const IBlockObject* obj = scanner->next();
+		const AbstractBtreeKey* k = scanner->nextKey();
+
+		const CdbOidKey* oidk = dynamic_cast<const CdbOidKey*>(k);
+		int diff = key.compareTo(oidk);
+		CHECK(diff == 0);
+	}
 
 	cache->removeFiles();
 }
