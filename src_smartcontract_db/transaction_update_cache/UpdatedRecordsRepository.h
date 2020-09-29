@@ -11,11 +11,15 @@
 namespace codablecash {
 
 class CdbLocalCacheManager;
+class CdbRecord;
 
 class UpdatedRecordsRepository {
 public:
 	explicit UpdatedRecordsRepository(CdbLocalCacheManager* cacheManager);
 	virtual ~UpdatedRecordsRepository();
+
+	bool hasNext() const noexcept;
+	const CdbRecord* next() noexcept;
 };
 
 } /* namespace codablecash */

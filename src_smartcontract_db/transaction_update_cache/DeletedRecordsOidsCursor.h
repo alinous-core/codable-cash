@@ -8,12 +8,26 @@
 #ifndef TRANSACTION_UPDATE_CACHE_DELETEDRECORDSOIDSCURSOR_H_
 #define TRANSACTION_UPDATE_CACHE_DELETEDRECORDSOIDSCURSOR_H_
 
+namespace alinous {
+class IBtreeScanner;
+}
+using namespace alinous;
+
 namespace codablecash {
+
+class DeletedOidsRepository;
+class CdbOid;
 
 class DeletedRecordsOidsCursor {
 public:
-	DeletedRecordsOidsCursor();
+	explicit DeletedRecordsOidsCursor(DeletedOidsRepository* repo);
 	virtual ~DeletedRecordsOidsCursor();
+
+	bool hasNext() const noexcept;
+	const CdbOid* next() noexcept;
+
+private:
+	IBtreeScanner* scanner;
 };
 
 } /* namespace codablecash */

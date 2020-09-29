@@ -9,7 +9,7 @@
 
 namespace codablecash {
 
-UpdatedRecordCursor::UpdatedRecordCursor() {
+UpdatedRecordCursor::UpdatedRecordCursor(UpdatedRecordsRepository* repo) {
 	// TODO Auto-generated constructor stub
 
 }

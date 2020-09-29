@@ -20,7 +20,7 @@ class InsertedRecordsRepository;
 
 class InsertRecordsCacheCursor {
 public:
-	InsertRecordsCacheCursor(InsertedRecordsRepository* insertsRepo);
+	explicit InsertRecordsCacheCursor(InsertedRecordsRepository* insertsRepo);
 	virtual ~InsertRecordsCacheCursor();
 
 	bool hasNext() const noexcept;

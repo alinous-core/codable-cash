@@ -12,6 +12,7 @@
 #include "random_access_file/DiskCacheManager.h"
 
 #include "transaction_cache/CdbSwapCacheFactory.h"
+#include "transaction_cache/SingleKeyOidCache.h"
 
 #include "base/StackRelease.h"
 
@@ -41,7 +42,11 @@ void CdbLocalCacheManager::init() {
 }
 
 OidKeyRecordCache* CdbLocalCacheManager::createOidKeyRecordCache() {
-	return this->cacheFactory->createOidKeyRecordCache(1024*500);
+	return this->cacheFactory->createOidKeyRecordCache(CdbLocalCacheManager::DEFAULT_SWAPPINESS);
+}
+
+SingleKeyOidCache* CdbLocalCacheManager::createSingleKeyOidCache() {
+	return this->cacheFactory->createSingleKeyOidCache(CdbLocalCacheManager::DEFAULT_SWAPPINESS);
 }
 
 } /* namespace codablecash */

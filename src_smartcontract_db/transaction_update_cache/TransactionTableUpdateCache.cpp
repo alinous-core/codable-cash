@@ -11,6 +11,7 @@
 #include "transaction_update_cache/UpdatedRecordsRepository.h"
 #include "transaction_update_cache/DeletedOidsRepository.h"
 #include "transaction_update_cache/UpdatedRecordCursor.h"
+#include "transaction_update_cache/DeletedRecordsOidsCursor.h"
 
 #include "table_record/CdbRecord.h"
 
@@ -50,6 +51,7 @@ InsertRecordsCacheCursor* TransactionTableUpdateCache::newInsertedRecordCursor()
 }
 
 void TransactionTableUpdateCache::addDeletedRecord(const CdbOid* recordOid) {
+	// TODO add del
 }
 
 bool TransactionTableUpdateCache::isDeleted(const CdbOid* recordOid) {
@@ -63,6 +65,7 @@ bool TransactionTableUpdateCache::isDeleted(const CdbOidKey* recordOidKey) {
 }
 
 DeletedRecordsOidsCursor* TransactionTableUpdateCache::getDeletedRecordsOidsCursor() {
+	return new DeletedRecordsOidsCursor(this->deletedRecordRepo);
 }
 
 void TransactionTableUpdateCache::addUpdatedRecord(const CdbRecord* updatedRecord) {

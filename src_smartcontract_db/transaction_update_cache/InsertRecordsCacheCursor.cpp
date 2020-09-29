@@ -16,6 +16,7 @@ namespace codablecash {
 
 InsertRecordsCacheCursor::InsertRecordsCacheCursor(InsertedRecordsRepository* insertsRepo) {
 	this->scanner = insertsRepo->getScanner();
+	this->scanner->begin();
 }
 
 InsertRecordsCacheCursor::~InsertRecordsCacheCursor() {

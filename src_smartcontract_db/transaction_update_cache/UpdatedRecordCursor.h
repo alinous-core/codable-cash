@@ -10,10 +10,14 @@
 
 namespace codablecash {
 
+class UpdatedRecordsRepository;
+
 class UpdatedRecordCursor {
 public:
-	UpdatedRecordCursor();
+	explicit UpdatedRecordCursor(UpdatedRecordsRepository* repo);
 	virtual ~UpdatedRecordCursor();
+
+private:
 };
 
 } /* namespace codablecash */
