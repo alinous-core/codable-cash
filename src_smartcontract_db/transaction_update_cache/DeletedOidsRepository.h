@@ -17,6 +17,8 @@ namespace codablecash {
 
 class CdbLocalCacheManager;
 class SingleKeyOidCache;
+class CdbOid;
+class CdbOidKey;
 
 class DeletedOidsRepository {
 public:
@@ -24,6 +26,8 @@ public:
 	virtual ~DeletedOidsRepository();
 
 	IBtreeScanner* getScanner();
+	void addDeletedRecord(const CdbOid* recordOid);
+	bool isDeleted(const CdbOidKey* recordOidKey);
 
 private:
 	SingleKeyOidCache* cache;
