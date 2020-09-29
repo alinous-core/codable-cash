@@ -90,7 +90,7 @@ TEST(TestOidCacheGroup, memory02){
 	bool bl = cache->hasKey(&key);
 	CHECK(bl);
 
-	IBtreeScanner* scanner = cache->getScanner();
+	IBtreeScanner* scanner = cache->getScanner(); __STP(scanner);
 	scanner->begin();
 
 	while(scanner->hasNext()){
@@ -141,6 +141,23 @@ TEST(TestOidCacheGroup, swap01){
 
 		bool result = cache->hasKey(&key);
 		CHECK(result)
+	}
+
+	IBtreeScanner* scanner = cache->getScanner(); __STP(scanner);
+	scanner->begin();
+
+	int i = 0;
+	while(scanner->hasNext()){
+		const IBlockObject* obj = scanner->next();
+		const AbstractBtreeKey* k = scanner->nextKey();
+
+		const CdbOidKey* oidk = dynamic_cast<const CdbOidKey*>(k);
+		uint64_t v = oidk->getOid()->getOidValue();
+		uint64_t v2 = array.get(i);
+
+		CHECK(v == v2);
+
+		++i;
 	}
 }
 
