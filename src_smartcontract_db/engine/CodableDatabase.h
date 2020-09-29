@@ -55,6 +55,10 @@ public:
 		return this->localCacheManager;
 	}
 
+	LocalOidFactory* getLocalOidFactory() const noexcept {
+		return localOidFactory;
+	}
+
 private:
 	void checkDatabaseLoaded() const;
 

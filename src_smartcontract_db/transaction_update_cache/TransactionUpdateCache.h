@@ -24,10 +24,11 @@ class CdbRecord;
 class InsertRecordsCacheCursor;
 class TransactionTableUpdateCache;
 class CdbLocalCacheManager;
+class LocalOidFactory;
 
 class TransactionUpdateCache {
 public:
-	explicit TransactionUpdateCache(CdbLocalCacheManager* cacheManager);
+	explicit TransactionUpdateCache(CdbLocalCacheManager* cacheManager, LocalOidFactory* localOidFacroty);
 	virtual ~TransactionUpdateCache();
 
 	void updateInsert(InsertLog* cmd, const CdbTable* table);
@@ -43,6 +44,7 @@ private:
 	HashMap<CdbOid, TransactionTableUpdateCache>* tableCashes;
 
 	CdbLocalCacheManager* cacheManager;
+	LocalOidFactory* localOidFactory;
 
 };
 

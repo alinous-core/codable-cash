@@ -22,17 +22,21 @@
 
 #include "base_io/File.h"
 
+#include "table_record_local/LocalOidFactory.h"
+
 namespace codablecash {
 
-TransactionUpdateCache::TransactionUpdateCache(CdbLocalCacheManager* cacheManager) {
+TransactionUpdateCache::TransactionUpdateCache(CdbLocalCacheManager* cacheManager, LocalOidFactory* localOidFacroty) {
 	this->tableCashes = new HashMap<CdbOid, TransactionTableUpdateCache>();
 	this->cacheManager = cacheManager;
+	this->localOidFactory = localOidFacroty;
 }
 
 TransactionUpdateCache::~TransactionUpdateCache() {
 	reset();
 	delete this->tableCashes;
 	this->cacheManager = nullptr;
+	this->localOidFactory = nullptr;
 }
 
 void TransactionUpdateCache::updateInsert(InsertLog* cmd, const CdbTable* table) {

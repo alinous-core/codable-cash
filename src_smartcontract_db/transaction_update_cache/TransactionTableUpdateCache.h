@@ -22,6 +22,7 @@ class UpdatedRecordsRepository;
 class CdbLocalCacheManager;
 class DeletedOidsRepository;
 
+
 class TransactionTableUpdateCache {
 public:
 	TransactionTableUpdateCache(const CdbTable* table, CdbLocalCacheManager* cacheManager);
