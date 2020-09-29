@@ -23,6 +23,7 @@
 #include "base_io/File.h"
 
 #include "table_record_local/LocalOidFactory.h"
+#include "table_record_local/LocalCdbOid.h"
 
 namespace codablecash {
 
@@ -49,6 +50,10 @@ void TransactionUpdateCache::updateInsert(InsertLog* cmd, const CdbTable* table)
 		CdbRecord* record = list->get(i);
 
 		CdbRecord* newRecord = dynamic_cast<CdbRecord*>(record->copy());
+		LocalCdbOid* newOid = this->localOidFactory->createLocalOid(); __STP(newOid);
+
+		newRecord->setOid(newOid);
+
 		c->addRecord(newRecord);
 	}
 }
