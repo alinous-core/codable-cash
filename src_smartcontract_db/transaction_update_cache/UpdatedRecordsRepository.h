@@ -8,18 +8,26 @@
 #ifndef TRANSACTION_UPDATE_CACHE_UPDATEDRECORDSREPOSITORY_H_
 #define TRANSACTION_UPDATE_CACHE_UPDATEDRECORDSREPOSITORY_H_
 
+namespace alinous {
+class IBtreeScanner;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class CdbLocalCacheManager;
 class CdbRecord;
+class OidKeyRecordCache;
 
 class UpdatedRecordsRepository {
 public:
 	explicit UpdatedRecordsRepository(CdbLocalCacheManager* cacheManager);
 	virtual ~UpdatedRecordsRepository();
 
-	bool hasNext() const noexcept;
-	const CdbRecord* next() noexcept;
+	IBtreeScanner* getScanner();
+
+private:
+	OidKeyRecordCache* cache;
 };
 
 } /* namespace codablecash */

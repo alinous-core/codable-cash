@@ -89,9 +89,11 @@ const CdbRecord* TransactionTableUpdateCache::getUpdatedRecord(const CdbOid* rec
 }
 
 const CdbRecord* TransactionTableUpdateCache::getUpdatedRecord(const CdbOidKey* recordOidKey) {
+
 }
 
 UpdatedRecordCursor* TransactionTableUpdateCache::getUpdatedRecordCursor() {
+	return new UpdatedRecordCursor(this->updatedRecordRepo);
 }
 
 } /* namespace codablecash */

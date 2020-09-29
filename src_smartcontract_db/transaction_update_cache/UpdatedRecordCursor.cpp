@@ -5,17 +5,37 @@
  *      Author: iizuka
  */
 
+#include <cassert>
+
 #include "transaction_update_cache/UpdatedRecordCursor.h"
+#include "transaction_update_cache/UpdatedRecordsRepository.h"
+
+#include "btree/IBtreeScanner.h"
+
+#include "table_record/CdbRecord.h"
 
 namespace codablecash {
 
 UpdatedRecordCursor::UpdatedRecordCursor(UpdatedRecordsRepository* repo) {
-	// TODO Auto-generated constructor stub
-
+	this->scanner = repo->getScanner();
+	this->scanner->begin();
 }
 
 UpdatedRecordCursor::~UpdatedRecordCursor() {
-	// TODO Auto-generated destructor stub
+	delete this->scanner;
+}
+
+bool UpdatedRecordCursor::hasNext() const noexcept {
+	return this->scanner->hasNext();
+}
+
+const CdbRecord* UpdatedRecordCursor::next() noexcept {
+	const IBlockObject* obj = this->scanner->next();
+	const CdbRecord* record = dynamic_cast<const CdbRecord*>(obj);
+
+	assert(record != nullptr);
+
+	return record;
 }
 
 } /* namespace codablecash */
