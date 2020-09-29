@@ -18,6 +18,7 @@ namespace codablecash {
 class CdbLocalCacheManager;
 class CdbRecord;
 class OidKeyRecordCache;
+class CdbOidKey;
 
 class UpdatedRecordsRepository {
 public:
@@ -25,6 +26,9 @@ public:
 	virtual ~UpdatedRecordsRepository();
 
 	IBtreeScanner* getScanner();
+	void addUpdatedRecord(const CdbRecord* updatedRecord);
+	bool isUpdated(const CdbOidKey* recordOidKey);
+	const CdbRecord* getUpdatedRecord(const CdbOidKey* recordOidKey);
 
 private:
 	OidKeyRecordCache* cache;

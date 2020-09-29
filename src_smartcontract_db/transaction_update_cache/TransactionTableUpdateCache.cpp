@@ -70,6 +70,7 @@ DeletedRecordsOidsCursor* TransactionTableUpdateCache::getDeletedRecordsOidsCurs
 }
 
 void TransactionTableUpdateCache::addUpdatedRecord(const CdbRecord* updatedRecord) {
+	this->updatedRecordRepo->addUpdatedRecord(updatedRecord);
 }
 
 bool TransactionTableUpdateCache::isUpdated(const CdbOid* recordOid) {
@@ -80,6 +81,7 @@ bool TransactionTableUpdateCache::isUpdated(const CdbOid* recordOid) {
 }
 
 bool TransactionTableUpdateCache::isUpdated(const CdbOidKey* recordOidKey) {
+	return this->updatedRecordRepo->isUpdated(recordOidKey);
 }
 
 const CdbRecord* TransactionTableUpdateCache::getUpdatedRecord(const CdbOid* recordOid) {
@@ -90,7 +92,7 @@ const CdbRecord* TransactionTableUpdateCache::getUpdatedRecord(const CdbOid* rec
 }
 
 const CdbRecord* TransactionTableUpdateCache::getUpdatedRecord(const CdbOidKey* recordOidKey) {
-
+	return this->updatedRecordRepo->getUpdatedRecord(recordOidKey);
 }
 
 UpdatedRecordCursor* TransactionTableUpdateCache::getUpdatedRecordCursor() {

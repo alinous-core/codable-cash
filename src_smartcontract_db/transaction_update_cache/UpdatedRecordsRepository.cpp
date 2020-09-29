@@ -11,6 +11,10 @@
 
 #include "engine/CdbLocalCacheManager.h"
 
+#include "table_record_key/CdbOidKey.h"
+
+#include "table_record/CdbRecord.h"
+
 namespace codablecash {
 
 UpdatedRecordsRepository::UpdatedRecordsRepository(CdbLocalCacheManager* cacheManager) {
@@ -24,5 +28,18 @@ UpdatedRecordsRepository::~UpdatedRecordsRepository() {
 IBtreeScanner* UpdatedRecordsRepository::getScanner() {
 	return this->cache->getScanner();
 }
+
+void UpdatedRecordsRepository::addUpdatedRecord(const CdbRecord* updatedRecord) {
+	this->cache->insert(updatedRecord);
+}
+
+bool UpdatedRecordsRepository::isUpdated(const CdbOidKey* recordOidKey) {
+	return this->cache->hasKey(recordOidKey);
+}
+
+const CdbRecord* UpdatedRecordsRepository::getUpdatedRecord(const CdbOidKey* recordOidKey) {
+	// TODO: find record
+}
+
 
 } /* namespace codablecash */
