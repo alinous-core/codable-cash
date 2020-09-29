@@ -10,8 +10,16 @@
 #include "transaction_update_cache/InsertedRecordsRepository.h"
 #include "transaction_update_cache/UpdatedRecordsRepository.h"
 #include "transaction_update_cache/DeletedOidsRepository.h"
+#include "transaction_update_cache/UpdatedRecordCursor.h"
 
 #include "table_record/CdbRecord.h"
+
+#include "table_record_key/CdbOidKey.h"
+#include "table_record_key/AbstractCdbKey.h"
+
+#include "base/StackRelease.h"
+
+#include "engine/CdbOid.h"
 
 namespace codablecash {
 
@@ -39,6 +47,48 @@ void TransactionTableUpdateCache::addInsertedRecord(const CdbRecord* newRecord) 
 
 InsertRecordsCacheCursor* TransactionTableUpdateCache::newInsertedRecordCursor() const noexcept {
 	return new InsertRecordsCacheCursor(this->insertedRecordRepo);
+}
+
+void TransactionTableUpdateCache::addDeletedRecord(const CdbOid* recordOid) {
+}
+
+bool TransactionTableUpdateCache::isDeleted(const CdbOid* recordOid) {
+	AbstractCdbKey* abkey = recordOid->toKey(); __STP(abkey);
+	CdbOidKey* key = dynamic_cast<CdbOidKey*>(abkey);
+
+	return isDeleted(key);
+}
+
+bool TransactionTableUpdateCache::isDeleted(const CdbOidKey* recordOidKey) {
+}
+
+DeletedRecordsOidsCursor* TransactionTableUpdateCache::getDeletedRecordsOidsCursor() {
+}
+
+void TransactionTableUpdateCache::addUpdatedRecord(const CdbRecord* updatedRecord) {
+}
+
+bool TransactionTableUpdateCache::isUpdated(const CdbOid* recordOid) {
+	AbstractCdbKey* abkey = recordOid->toKey(); __STP(abkey);
+	CdbOidKey* key = dynamic_cast<CdbOidKey*>(abkey);
+
+	return isUpdated(key);
+}
+
+bool TransactionTableUpdateCache::isUpdated(const CdbOidKey* recordOidKey) {
+}
+
+const CdbRecord* TransactionTableUpdateCache::getUpdatedRecord(const CdbOid* recordOid) {
+	AbstractCdbKey* abkey = recordOid->toKey(); __STP(abkey);
+	CdbOidKey* key = dynamic_cast<CdbOidKey*>(abkey);
+
+	return getUpdatedRecord(key);
+}
+
+const CdbRecord* TransactionTableUpdateCache::getUpdatedRecord(const CdbOidKey* recordOidKey) {
+}
+
+UpdatedRecordCursor* TransactionTableUpdateCache::getUpdatedRecordCursor() {
 }
 
 } /* namespace codablecash */

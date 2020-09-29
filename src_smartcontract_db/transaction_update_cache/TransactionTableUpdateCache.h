@@ -21,7 +21,10 @@ class InsertedRecordsRepository;
 class UpdatedRecordsRepository;
 class CdbLocalCacheManager;
 class DeletedOidsRepository;
-
+class CdbOid;
+class CdbOidKey;
+class DeletedRecordsOidsCursor;
+class UpdatedRecordCursor;
 
 class TransactionTableUpdateCache {
 public:
@@ -30,6 +33,18 @@ public:
 
 	void addInsertedRecord(const CdbRecord* newRecord) noexcept;
 	InsertRecordsCacheCursor* newInsertedRecordCursor() const noexcept;
+
+	void addDeletedRecord(const CdbOid* recordOid);
+	bool isDeleted(const CdbOid* recordOid);
+	bool isDeleted(const CdbOidKey* recordOidKey);
+	DeletedRecordsOidsCursor* getDeletedRecordsOidsCursor();
+
+	void addUpdatedRecord(const CdbRecord* updatedRecord);
+	bool isUpdated(const CdbOid* recordOid);
+	bool isUpdated(const CdbOidKey* recordOidKey);
+	const CdbRecord* getUpdatedRecord(const CdbOid* recordOid);
+	const CdbRecord* getUpdatedRecord(const CdbOidKey* recordOidKey);
+	UpdatedRecordCursor* getUpdatedRecordCursor();
 
 private:
 	const CdbTable* table;
