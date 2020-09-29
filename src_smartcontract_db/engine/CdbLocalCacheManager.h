@@ -18,11 +18,16 @@ namespace codablecash {
 
 class CdbSwapCacheFactory;
 class LocalOidFactory;
+class OidKeyRecordCache;
 
 class CdbLocalCacheManager {
 public:
 	CdbLocalCacheManager(const File* tmpdir, LocalOidFactory* localOidFacroty);
 	virtual ~CdbLocalCacheManager();
+
+	void init();
+
+	OidKeyRecordCache* createOidKeyRecordCache();
 
 private:
 	File* folder;

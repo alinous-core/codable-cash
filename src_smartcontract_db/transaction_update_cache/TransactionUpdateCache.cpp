@@ -49,12 +49,12 @@ void TransactionUpdateCache::updateInsert(InsertLog* cmd, const CdbTable* table)
 	for(int i = 0; i != maxLoop; ++i){
 		CdbRecord* record = list->get(i);
 
-		CdbRecord* newRecord = dynamic_cast<CdbRecord*>(record->copy());
+		CdbRecord* newRecord = dynamic_cast<CdbRecord*>(record->copy()); __STP(newRecord);
 		LocalCdbOid* newOid = this->localOidFactory->createLocalOid(); __STP(newOid);
 
 		newRecord->setOid(newOid);
 
-		c->addRecord(newRecord);
+		c->addInsertedRecord(newRecord);
 	}
 }
 
@@ -69,10 +69,10 @@ void TransactionUpdateCache::reset() noexcept {
 	this->tableCashes->clear();
 }
 
-InsertRecordsCacheCursor* TransactionUpdateCache::newCursor(const CdbTable* table) noexcept {
+InsertRecordsCacheCursor* TransactionUpdateCache::newInsertedRecordsCursor(const CdbTable* table) noexcept {
 	TransactionTableUpdateCache* c = getTransactionTableUpdateCache(table);
 
-	return c->newCursor();
+	return c->newInsertedRecordCursor();
 }
 
 TransactionTableUpdateCache* TransactionUpdateCache::getTransactionTableUpdateCache(const CdbTable* table) noexcept {

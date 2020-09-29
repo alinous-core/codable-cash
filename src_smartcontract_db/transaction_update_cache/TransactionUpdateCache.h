@@ -35,7 +35,7 @@ public:
 
 	void reset() noexcept;
 
-	InsertRecordsCacheCursor* newCursor(const CdbTable* table) noexcept;
+	InsertRecordsCacheCursor* newInsertedRecordsCursor(const CdbTable* table) noexcept;
 
 private:
 	TransactionTableUpdateCache* getTransactionTableUpdateCache(const CdbTable* table) noexcept;

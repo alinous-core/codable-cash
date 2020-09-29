@@ -7,14 +7,28 @@
 
 #include "transaction_update_cache/InsertedRecordsRepository.h"
 
+#include "engine/CdbLocalCacheManager.h"
+
+#include "transaction_cache/OidKeyRecordCache.h"
+
+#include "btree/IBtreeScanner.h"
+
 namespace codablecash {
 
 InsertedRecordsRepository::InsertedRecordsRepository(CdbLocalCacheManager* cacheManager) {
-
+	this->cache = cacheManager->createOidKeyRecordCache();
 }
 
 InsertedRecordsRepository::~InsertedRecordsRepository() {
+	delete this->cache;
+}
 
+IBtreeScanner* InsertedRecordsRepository::getScanner() {
+	return this->cache->getScanner();
+}
+
+void codablecash::InsertedRecordsRepository::addRecord(const CdbRecord* record) {
+	this->cache->insert(record);
 }
 
 } /* namespace codablecash */

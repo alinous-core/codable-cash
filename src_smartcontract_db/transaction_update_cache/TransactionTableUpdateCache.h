@@ -28,20 +28,17 @@ public:
 	TransactionTableUpdateCache(const CdbTable* table, CdbLocalCacheManager* cacheManager);
 	virtual ~TransactionTableUpdateCache();
 
-	void addRecord(CdbRecord* newRecord) noexcept;
-	void reset() noexcept;
-	InsertRecordsCacheCursor* newCursor() const noexcept;
+	void addInsertedRecord(const CdbRecord* newRecord) noexcept;
+	InsertRecordsCacheCursor* newInsertedRecordCursor() const noexcept;
 
 private:
 	const CdbTable* table;
 
-	InsertedRecordsRepository* inserts;
-	UpdatedRecordsRepository* updates;
-	DeletedOidsRepository* deletes;
+	InsertedRecordsRepository* insertedRecordRepo;
+	UpdatedRecordsRepository* updatedRecordRepo;
+	DeletedOidsRepository* deletedRecordRepo;
 
 	CdbLocalCacheManager* cacheManager;
-
-	ArrayList<CdbRecord>* insertedRecords;
 };
 
 } /* namespace codablecash */

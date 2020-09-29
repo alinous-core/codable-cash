@@ -19,36 +19,26 @@ TransactionTableUpdateCache::TransactionTableUpdateCache(const CdbTable* table, 
 	this->table = table;
 	this->cacheManager = cacheManager;
 
-	this->inserts = new InsertedRecordsRepository(cacheManager);
-	this->updates = new UpdatedRecordsRepository(cacheManager);
-	this->deletes = new DeletedOidsRepository(cacheManager);
-
-	this->insertedRecords = new ArrayList<CdbRecord>();
+	this->insertedRecordRepo = new InsertedRecordsRepository(cacheManager);
+	this->updatedRecordRepo = new UpdatedRecordsRepository(cacheManager);
+	this->deletedRecordRepo = new DeletedOidsRepository(cacheManager);
 }
 
 TransactionTableUpdateCache::~TransactionTableUpdateCache() {
 	this->table = nullptr;
 	this->cacheManager = nullptr;
 
-	delete this->inserts;
-	delete this->updates;
-	delete this->deletes;
-
-	reset();
-	delete this->insertedRecords;
+	delete this->insertedRecordRepo;
+	delete this->updatedRecordRepo;
+	delete this->deletedRecordRepo;
 }
 
-void TransactionTableUpdateCache::reset() noexcept {
-	this->insertedRecords->deleteElements();
-	this->insertedRecords->reset();
+void TransactionTableUpdateCache::addInsertedRecord(const CdbRecord* newRecord) noexcept {
+	this->insertedRecordRepo->addRecord(newRecord);
 }
 
-void TransactionTableUpdateCache::addRecord(CdbRecord* newRecord) noexcept {
-	this->insertedRecords->addElement(newRecord);
-}
-
-InsertRecordsCacheCursor* TransactionTableUpdateCache::newCursor() const noexcept {
-	return new InsertRecordsCacheCursor(this->insertedRecords);
+InsertRecordsCacheCursor* TransactionTableUpdateCache::newInsertedRecordCursor() const noexcept {
+	return new InsertRecordsCacheCursor(this->insertedRecordRepo);
 }
 
 } /* namespace codablecash */

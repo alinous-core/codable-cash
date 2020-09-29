@@ -36,4 +36,12 @@ CdbLocalCacheManager::~CdbLocalCacheManager() {
 	this->localOidFacroty = nullptr;
 }
 
+void CdbLocalCacheManager::init() {
+	this->cacheFactory->resetDir();
+}
+
+OidKeyRecordCache* CdbLocalCacheManager::createOidKeyRecordCache() {
+	return this->cacheFactory->createOidKeyRecordCache(1024*500);
+}
+
 } /* namespace codablecash */
