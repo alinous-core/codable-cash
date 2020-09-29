@@ -53,4 +53,11 @@ bool OidKeyRecordCache::hasKey(const CdbOidKey* key) {
 	return data != nullptr;
 }
 
+const CdbRecord* OidKeyRecordCache::findRecord(const CdbOidKey* key) {
+	const IBlockObject* data = findData(key);
+	const CdbRecord* record = dynamic_cast<const CdbRecord*>(data);
+
+	return record;
+}
+
 } /* namespace codablecash */

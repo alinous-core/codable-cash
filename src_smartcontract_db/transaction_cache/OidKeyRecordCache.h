@@ -24,6 +24,7 @@ public:
 
 	void insert(const CdbRecord* value);
 	bool hasKey(const CdbOidKey* key);
+	const CdbRecord* findRecord(const CdbOidKey* key);
 };
 
 } /* namespace codablecash */

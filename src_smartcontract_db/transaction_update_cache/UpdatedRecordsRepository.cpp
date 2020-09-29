@@ -38,7 +38,7 @@ bool UpdatedRecordsRepository::isUpdated(const CdbOidKey* recordOidKey) {
 }
 
 const CdbRecord* UpdatedRecordsRepository::getUpdatedRecord(const CdbOidKey* recordOidKey) {
-	// TODO: find record
+	return this->cache->findRecord(recordOidKey);
 }
 
 
