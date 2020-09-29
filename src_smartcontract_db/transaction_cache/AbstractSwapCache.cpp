@@ -59,6 +59,8 @@ AbstractSwapCache::~AbstractSwapCache() {
 
 	delete this->folder;
 	delete this->name;
+
+	delete this->current;
 }
 
 void AbstractSwapCache::removeFiles() noexcept {

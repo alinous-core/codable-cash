@@ -13,13 +13,15 @@
 
 #include "transaction_cache/CdbSwapCacheFactory.h"
 
+#include "base/StackRelease.h"
+
 namespace codablecash {
 
 CdbLocalCacheManager::CdbLocalCacheManager(const File* tmpdir, LocalOidFactory* localOidFacroty) {
 	this->folder = new File(*tmpdir);
 	this->diskCache = new DiskCacheManager();
 
-	File* cacheDir = this->folder->get(L"swap");
+	File* cacheDir = this->folder->get(L"swap"); __STP(cacheDir);
 
 	this->cacheFactory = new CdbSwapCacheFactory(cacheDir, this->diskCache);
 
