@@ -60,7 +60,7 @@ void AlterAddIndexCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterAddIndexCommandLog::commit(CdbTransactionManager* trxManager) {
-	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+	WriteLockHandle* lockH = trxManager->databaseWriteLock();
 	StackDbLockUnlocker unlocker(lockH);
 
 	trxManager->commitAlterTable(this);
