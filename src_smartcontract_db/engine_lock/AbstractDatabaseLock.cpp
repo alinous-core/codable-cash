@@ -52,7 +52,7 @@ ReadLockHandle* AbstractDatabaseLock::readLock() {
 			this->readHandles.put(&oid, handle);
 		}
 
-		handle->incRef();
+		handle->incRef();// ref for times the thread locked
 	}
 
 	return handle;
@@ -83,26 +83,37 @@ WriteLockHandle* AbstractDatabaseLock::writeLock() {
 	return handle;
 }
 
+void AbstractDatabaseLock::unclockHandle(AbstractLockHandle* handle) noexcept {
+	handle->decRef();
+
+	if(handle->isReleasable()){
+		if(handle->isWriteLock()){
+			WriteLockHandle* wh = dynamic_cast<WriteLockHandle*>(handle);
+			assert(wh != nullptr);
+
+			writeUnlock(wh);
+		}
+		else{
+			ReadLockHandle* rh = dynamic_cast<ReadLockHandle*>(handle);
+			assert(rh != nullptr);
+
+			readUnlock(rh);
+		}
+	}
+}
+
 void AbstractDatabaseLock::readUnlock(ReadLockHandle* handle) noexcept {
 	{
 		StackUnlocker stackLock(this->hashMutex);
 
 		const CdbOid* key = handle->getThreadId();
 		this->readHandles.remove(key);
+		delete handle;
 
 		this->gate->exit();
 	}
-
-
 }
 
-void AbstractDatabaseLock::unclockHandle(AbstractLockHandle* handle) noexcept {
-	handle->decRef();
-
-	if(handle->isReleasable()){
-
-	}
-}
 
 void AbstractDatabaseLock::writeUnlock(WriteLockHandle* handle) noexcept {
 	{
@@ -110,6 +121,7 @@ void AbstractDatabaseLock::writeUnlock(WriteLockHandle* handle) noexcept {
 
 		const CdbOid* key = handle->getThreadId();
 		this->writeHandles.remove(key);
+		delete handle;
 
 		this->gate->open();
 	}

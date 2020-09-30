@@ -16,6 +16,8 @@ class WriteLockHandle : public AbstractLockHandle {
 public:
 	WriteLockHandle(const CdbOid* threadId, AbstractDatabaseLock* lock);
 	virtual ~WriteLockHandle();
+
+	virtual bool isWriteLock() const noexcept;
 };
 
 } /* namespace codablecash */

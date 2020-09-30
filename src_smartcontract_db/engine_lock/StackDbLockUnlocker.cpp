@@ -10,13 +10,15 @@
 
 namespace codablecash {
 
-StackDbLockUnlocker::StackDbLockUnlocker(AbstractDatabaseLock* lock) {
-	// TODO Auto-generated constructor stub
-
+StackDbLockUnlocker::StackDbLockUnlocker(AbstractLockHandle* handle) {
+	this->handle =handle;
 }
 
 StackDbLockUnlocker::~StackDbLockUnlocker() {
-	// TODO Auto-generated destructor stub
+	AbstractDatabaseLock* lock = this->handle->getLock();
+
+	lock->unclockHandle(this->handle); // handle is deleted if necessary
+	this->handle = nullptr;
 }
 
 } /* namespace codablecash */

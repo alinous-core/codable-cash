@@ -15,7 +15,7 @@ class AbstractLockHandle;
 
 class StackDbLockUnlocker {
 public:
-	explicit StackDbLockUnlocker(AbstractDatabaseLock* lock);
+	explicit StackDbLockUnlocker(AbstractLockHandle* handle);
 	virtual ~StackDbLockUnlocker();
 
 private:

@@ -22,8 +22,14 @@ public:
 	void decRef() noexcept;
 	bool isReleasable();
 
+	virtual bool isWriteLock() const noexcept = 0;
+
 	const CdbOid* getThreadId() const noexcept {
 		return threadId;
+	}
+
+	AbstractDatabaseLock* getLock() const noexcept {
+		return lock;
 	}
 
 protected:

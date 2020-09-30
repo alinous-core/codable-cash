@@ -26,9 +26,6 @@ class AbstractLockHandle;
 
 class AbstractDatabaseLock {
 public:
-	friend class ReadLockHandle;
-	friend class WriteLockHandle;
-
 	AbstractDatabaseLock();
 	virtual ~AbstractDatabaseLock();
 
