@@ -69,6 +69,7 @@ void AlterAddColumnCommandLog::commit(CdbTransactionManager* trxManager) {
 }
 
 void AlterAddColumnCommandLog::initCommandParam(VirtualMachine* vm) {
+	this->command->interpret(vm, this);
 }
 
 } /* namespace codablecash */

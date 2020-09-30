@@ -67,6 +67,7 @@ void AlterDropIndexCommandLog::commit(CdbTransactionManager* trxManager) {
 }
 
 void AlterDropIndexCommandLog::initCommandParam(VirtualMachine* vm) {
+	this->command->interpret(vm, this);
 }
 
 } /* namespace codablecash */
