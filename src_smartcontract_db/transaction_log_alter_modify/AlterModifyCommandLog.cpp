@@ -10,12 +10,14 @@
 #include "sql_ddl_alter_modify/AlterModifyCommand.h"
 
 #include "engine_lock/WriteLockHandle.h"
+#include "engine_lock/StackDbLockUnlocker.h"
 
 #include "base/StackRelease.h"
 
 #include "transaction/CdbTransactionManager.h"
 
 #include "base/UnicodeString.h"
+
 
 namespace codablecash {
 
@@ -93,7 +95,8 @@ void AlterModifyCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterModifyCommandLog::commit(CdbTransactionManager* trxManager) {
-	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH); // TODO: lock
+	WriteLockHandle* lockH = trxManager->databaseWriteLock();
+	StackDbLockUnlocker unlocker(lockH);
 
 	trxManager->commitAlterTable(this);
 }
