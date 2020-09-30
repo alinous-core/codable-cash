@@ -19,6 +19,7 @@
 #include "transaction/CdbTransaction.h"
 
 #include "transaction_update_cache/TransactionUpdateCache.h"
+#include "transaction_update_cache/UpdatedRecordCursor.h"
 
 #include "../toolkit/TestDbSchema01.h"
 
@@ -76,3 +77,37 @@ TEST(TestUpdateTrxCacheGroup, case01){
 	}
 }
 
+TEST(TestUpdateTrxCacheGroup, case02){
+	TestDbSchema01 tester(this->env);
+	tester.init();
+
+	{
+		CodableDatabase* db = tester.getDatabase();
+
+		SchemaManager* schema = db->getSchemaManager();
+		CdbTable* table = schema->getTable(L"public", L"test_table");
+
+		CdbTransaction* trx = db->newTransaction(); __STP(trx);
+		TransactionUpdateCache* cache = trx->getUpdateCache();
+
+		ArrayList<CdbRecord> list;
+		list.setDeleteOnExit();
+
+		for(int i = 1; i != 11; ++i){
+			CdbRecord* rec = makeRecord(i, i);
+			list.addElement(rec);
+
+			cache->addUpdatedRecord(table, rec);
+		}
+
+		int i = 0;
+		UpdatedRecordCursor* cursor = cache->getUpdatedRecordCursor(table); __STP(cursor);
+		while(cursor->hasNext()){
+			const CdbRecord* crec = cursor->next();
+
+			CdbRecord* rec = list.get(i++);
+
+			CHECK(crec->getOid()->equals(rec->getOid()));
+		}
+	}
+}
