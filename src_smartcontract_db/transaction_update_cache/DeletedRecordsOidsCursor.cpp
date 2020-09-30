@@ -22,6 +22,7 @@ namespace codablecash {
 
 DeletedRecordsOidsCursor::DeletedRecordsOidsCursor(DeletedOidsRepository* repo) {
 	this->scanner = repo->getScanner();
+	this->scanner->begin();
 }
 
 DeletedRecordsOidsCursor::~DeletedRecordsOidsCursor() {
