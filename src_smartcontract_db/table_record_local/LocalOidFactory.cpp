@@ -9,6 +9,9 @@
 
 #include "table_record_local/LocalCdbOid.h"
 
+#include "base_thread/SysMutex.h"
+#include "base_thread/StackUnlocker.h"
+
 namespace codablecash {
 
 LocalOidFactory::LocalOidFactory() {
@@ -20,6 +23,9 @@ LocalOidFactory::~LocalOidFactory() {
 }
 
 LocalCdbOid* LocalOidFactory::createLocalOid() noexcept {
+	SysMutex mutex;
+	StackUnlocker unlocker(&mutex);
+
 	return new LocalCdbOid(this->serial++);
 }
 
