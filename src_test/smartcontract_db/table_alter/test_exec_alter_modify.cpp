@@ -355,6 +355,20 @@ TEST(TestExecAlterMofdifyGroup, case08){
 
 		stmt->interpret(vm);
 	}
+
+	CdbTableColumn* col = tester.getColumn(L"test_table", L"email_id");
+	CHECK(col->isUnique() == false);
+	CHECK(col->isNotnull() == true);
+
+	const UnicodeString* strdef = col->getDefaultValue();
+	UnicodeString defans(L"0");
+	CHECK(strdef->equals(defans));
+
+	CdbTableIndex* index = tester.getIndex(L"test_table", L"email_id");
+	CHECK(index == nullptr);
+
+	IndexStore* idx = tester.getIndexStore(L"test_table", L"email_id");
+	CHECK(idx == nullptr);
 }
 
 /**
