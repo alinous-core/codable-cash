@@ -67,6 +67,7 @@ void AlterDropPrimaryKeyCommandLog::commit(CdbTransactionManager* trxManager) {
 }
 
 void AlterDropPrimaryKeyCommandLog::initCommandParam(VirtualMachine* vm) {
+	this->command->interpret(vm, this);
 }
 
 } /* namespace codablecash */
