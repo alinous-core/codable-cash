@@ -309,4 +309,9 @@ CdbRecord* TableStore::findRecord(const CdbOid* recordOid) {
 	return record;
 }
 
+AbstractLockHandle* TableStore::writeLock() {
+	return this->tableLock->writeLock();
+}
+
+
 } /* namespace codablecash */

@@ -29,6 +29,7 @@ class CdbTableColumn;
 class CdbTableIndex;
 class ColumnModifyContext;
 class TableLevelLock;
+class AbstractLockHandle;
 
 class TableStore {
 public:
@@ -60,9 +61,7 @@ public:
 
 	CdbRecord* findRecord(const CdbOid* recordOid);
 
-	TableLevelLock* getTableLock() const noexcept {
-		return tableLock;
-	}
+	AbstractLockHandle* writeLock();
 
 private:
 	void validateRecordColumnValue(CdbTableColumn* meta, AbstractCdbValue* value);
