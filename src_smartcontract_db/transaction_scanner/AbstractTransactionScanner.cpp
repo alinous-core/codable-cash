@@ -22,6 +22,7 @@ AbstractTransactionScanner::AbstractTransactionScanner(CdbTransaction* trx, cons
 
 	TransactionUpdateCache* cache = this->trx->getUpdateCache();
 	this->cacheCursor = cache->newInsertedRecordsCursor(table);
+
 }
 
 AbstractTransactionScanner::~AbstractTransactionScanner() {

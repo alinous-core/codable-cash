@@ -13,6 +13,9 @@
 
 #include "table_store/TableStore.h"
 
+#include "engine_lock/AbstractLockHandle.h"
+#include "engine_lock/AbstractDatabaseLock.h"
+
 namespace codablecash {
 
 TableTransactionScanner::TableTransactionScanner(CdbTransaction* trx, TableStore* tableStore)
@@ -21,6 +24,7 @@ TableTransactionScanner::TableTransactionScanner(CdbTransaction* trx, TableStore
 	this->internalScanner = nullptr;
 	this->nextRecord = nullptr;
 	this->scanedStore = false;
+	this->lockHandle = nullptr;
 }
 
 TableTransactionScanner::~TableTransactionScanner() {
@@ -29,7 +33,21 @@ TableTransactionScanner::~TableTransactionScanner() {
 	this->tableStore = nullptr;
 }
 
+void TableTransactionScanner::shutdown() {
+	if(this->internalScanner != nullptr){
+		this->internalScanner->shutdown();
+		delete this->internalScanner;
+		this->internalScanner = nullptr;
+
+		AbstractDatabaseLock* lock = this->lockHandle->getLock();
+		lock->unclockHandle(this->lockHandle);
+		this->lockHandle = nullptr;
+	}
+}
+
 void TableTransactionScanner::start() {
+	this->lockHandle = this->tableStore->readLock();
+
 	this->internalScanner = new RecordScanner(this->tableStore);
 	this->internalScanner->start();
 
@@ -60,12 +78,5 @@ const CdbRecord* TableTransactionScanner::next() {
 	return this->nextRecord;
 }
 
-void TableTransactionScanner::shutdown() {
-	if(this->internalScanner != nullptr){
-		this->internalScanner->shutdown();
-		delete this->internalScanner;
-		this->internalScanner = nullptr;
-	}
-}
 
 } /* namespace codablecash */

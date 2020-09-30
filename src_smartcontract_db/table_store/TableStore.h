@@ -62,6 +62,7 @@ public:
 	CdbRecord* findRecord(const CdbOid* recordOid);
 
 	AbstractLockHandle* writeLock();
+	AbstractLockHandle* readLock();
 
 private:
 	void validateRecordColumnValue(CdbTableColumn* meta, AbstractCdbValue* value);

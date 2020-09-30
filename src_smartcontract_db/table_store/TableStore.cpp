@@ -24,6 +24,9 @@
 #include "engine_lock/TableLevelLock.h"
 #include "engine_lock/AbstractLockHandle.h"
 #include "engine_lock/WriteLockHandle.h"
+#include "engine_lock/ReadLockHandle.h"
+#include "engine_lock/AbstractLockHandle.h"
+#include "engine_lock/AbstractDatabaseLock.h"
 
 #include "table/CdbTableIndex.h"
 #include "table/CdbTableColumn.h"
@@ -40,7 +43,6 @@
 #include "btree/BtreeScanner.h"
 
 #include "schema/ColumnModifyContext.h"
-
 
 
 namespace codablecash {
@@ -316,5 +318,8 @@ AbstractLockHandle* TableStore::writeLock() {
 	return this->tableLock->writeLock();
 }
 
+AbstractLockHandle* TableStore::readLock() {
+	return this->tableLock->readLock();
+}
 
 } /* namespace codablecash */
