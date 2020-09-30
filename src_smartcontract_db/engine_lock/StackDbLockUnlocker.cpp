@@ -7,6 +7,7 @@
 
 #include "engine_lock/StackDbLockUnlocker.h"
 #include "engine_lock/AbstractDatabaseLock.h"
+#include "engine_lock/AbstractLockHandle.h"
 
 namespace codablecash {
 
