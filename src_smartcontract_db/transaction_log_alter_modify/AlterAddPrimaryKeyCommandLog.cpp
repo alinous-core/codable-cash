@@ -60,7 +60,7 @@ void AlterAddPrimaryKeyCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterAddPrimaryKeyCommandLog::commit(CdbTransactionManager* trxManager) {
-	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+	WriteLockHandle* lockH = trxManager->databaseWriteLock();
 	StackDbLockUnlocker unlocker(lockH);
 
 	trxManager->commitAlterTable(this);
