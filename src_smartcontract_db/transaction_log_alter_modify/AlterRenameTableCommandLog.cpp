@@ -59,7 +59,7 @@ void AlterRenameTableCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterRenameTableCommandLog::commit(CdbTransactionManager* trxManager) {
-	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH); // TODO: lock
 
 	trxManager->commitAlterTable(this);
 }

@@ -93,7 +93,7 @@ void AlterModifyCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterModifyCommandLog::commit(CdbTransactionManager* trxManager) {
-	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH); // TODO: lock
 
 	trxManager->commitAlterTable(this);
 }

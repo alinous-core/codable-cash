@@ -21,21 +21,24 @@
 #include "engine/CdbOid.h"
 #include "engine/CdbException.h"
 
-#include "table_record_value/AbstractCdbValue.h"
-
-#include "table_record/CdbRecord.h"
-
-#include "table_record_key/CdbLongKey.h"
-
-#include "btree/Btree.h"
-#include "btree/BtreeScanner.h"
+#include "engine_lock/TableLevelLock.h"
 
 #include "table/CdbTableIndex.h"
 #include "table/CdbTableColumn.h"
 
-#include "schema/ColumnModifyContext.h"
+#include "table_record/CdbRecord.h"
+
+#include "table_record_value/AbstractCdbValue.h"
+
+#include "table_record_key/CdbLongKey.h"
 
 #include "table_store/RecordValueConverter.h"
+
+#include "btree/Btree.h"
+#include "btree/BtreeScanner.h"
+
+#include "schema/ColumnModifyContext.h"
+
 
 namespace codablecash {
 
@@ -47,6 +50,7 @@ TableStore::TableStore(DiskCacheManager* cacheManager, const File* baseDir, cons
 	this->indexStores = new HashMap<CdbOid, IndexStore>();
 
 	this->cacheManager = cacheManager;
+	this->tableLock = new TableLevelLock();
 }
 
 TableStore::~TableStore() {
@@ -65,6 +69,7 @@ TableStore::~TableStore() {
 	delete this->indexStores;
 
 	this->cacheManager = nullptr;
+	delete this->tableLock;
 }
 
 const CdbOid* TableStore::getOid() const noexcept {

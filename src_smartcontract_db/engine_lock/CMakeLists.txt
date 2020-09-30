@@ -5,6 +5,7 @@ set(__src
 	AbstractLockHandle.cpp
 	DatabaseLevelLock.cpp
 	ReadLockHandle.cpp
+	StackDbLockUnlocker.cpp
 	TableLevelLock.cpp
 	WriteLockHandle.cpp
 )

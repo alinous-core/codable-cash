@@ -28,4 +28,14 @@ void AbstractLockHandle::incRef() noexcept {
 	this->ref++;
 }
 
+void AbstractLockHandle::decRef() noexcept {
+	this->ref--;
+}
+
+bool AbstractLockHandle::isReleasable() {
+	return this->ref <= 0;
+}
+
+
+
 } /* namespace codablecash */

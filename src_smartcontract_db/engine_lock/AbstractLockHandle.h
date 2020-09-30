@@ -19,6 +19,8 @@ public:
 	virtual ~AbstractLockHandle();
 
 	void incRef() noexcept;
+	void decRef() noexcept;
+	bool isReleasable();
 
 	const CdbOid* getThreadId() const noexcept {
 		return threadId;

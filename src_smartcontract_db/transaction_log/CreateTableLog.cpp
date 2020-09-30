@@ -53,7 +53,7 @@ void CreateTableLog::fromBinary(ByteBuffer* in) {
 }
 
 void CreateTableLog::commit(CdbTransactionManager* trxManager) {
-	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+	WriteLockHandle* lockH = trxManager->databaseWriteLock(); // TODO: lock
 
 	SchemaObjectIdPublisher* publisher= trxManager->getSchemaObjectIdPublisher();
 	this->table->assignNewOid(publisher);

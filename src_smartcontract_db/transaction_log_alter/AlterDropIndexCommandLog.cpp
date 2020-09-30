@@ -59,7 +59,7 @@ void AlterDropIndexCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterDropIndexCommandLog::commit(CdbTransactionManager* trxManager) {
-	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH); // TODO: lock
 
 	trxManager->commitAlterTable(this);
 }

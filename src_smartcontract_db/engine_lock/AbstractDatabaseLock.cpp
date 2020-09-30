@@ -83,26 +83,36 @@ WriteLockHandle* AbstractDatabaseLock::writeLock() {
 	return handle;
 }
 
-void AbstractDatabaseLock::readUnlock(const ReadLockHandle* handle) noexcept {
-	const CdbOid* key = handle->getThreadId();
-
+void AbstractDatabaseLock::readUnlock(ReadLockHandle* handle) noexcept {
 	{
 		StackUnlocker stackLock(this->hashMutex);
+
+		const CdbOid* key = handle->getThreadId();
 		this->readHandles.remove(key);
+
+		this->gate->exit();
 	}
 
-	this->gate->exit();
+
 }
 
-void AbstractDatabaseLock::writeUnlock(const WriteLockHandle* handle) noexcept {
-	const CdbOid* key = handle->getThreadId();
+void AbstractDatabaseLock::unclockHandle(AbstractLockHandle* handle) noexcept {
+	handle->decRef();
 
+	if(handle->isReleasable()){
+
+	}
+}
+
+void AbstractDatabaseLock::writeUnlock(WriteLockHandle* handle) noexcept {
 	{
 		StackUnlocker stackLock(this->hashMutex);
-		this->writeHandles.remove(key);
-	}
 
-	this->gate->open();
+		const CdbOid* key = handle->getThreadId();
+		this->writeHandles.remove(key);
+
+		this->gate->open();
+	}
 }
 
 } /* namespace codablecash */
