@@ -332,7 +332,7 @@ TEST(TestExecAlterMofdifyGroup, case07){
 TEST(TestExecAlterMofdifyGroup, case08){
 	TestDbSchemaAlter01 tester(this->env);
 	tester.init(1024*10);
-	tester.insert01();
+	tester.insert02();
 
 
 }
