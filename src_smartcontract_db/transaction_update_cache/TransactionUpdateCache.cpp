@@ -40,6 +40,29 @@ TransactionUpdateCache::~TransactionUpdateCache() {
 	this->localOidFactory = nullptr;
 }
 
+void TransactionUpdateCache::reset() noexcept {
+	Iterator<CdbOid>* it = this->tableCashes->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const CdbOid* oid = it->next();
+		TransactionTableUpdateCache* c = this->tableCashes->get(oid);
+		delete c;
+	}
+
+	this->tableCashes->clear();
+}
+
+TransactionTableUpdateCache* TransactionUpdateCache::getTransactionTableUpdateCache(const CdbTable* table) noexcept {
+	const CdbOid* oid = table->getOid();
+	TransactionTableUpdateCache* cache = this->tableCashes->get(oid);
+
+	if(cache == nullptr){
+		cache = new TransactionTableUpdateCache(table, this->cacheManager);
+		this->tableCashes->put(oid, cache);
+	}
+
+	return cache;
+}
+
 void TransactionUpdateCache::updateInsert(InsertLog* cmd, const CdbTable* table) {
 	TransactionTableUpdateCache* c = getTransactionTableUpdateCache(table);
 
@@ -58,33 +81,51 @@ void TransactionUpdateCache::updateInsert(InsertLog* cmd, const CdbTable* table)
 	}
 }
 
-void TransactionUpdateCache::reset() noexcept {
-	Iterator<CdbOid>* it = this->tableCashes->keySet()->iterator(); __STP(it);
-	while(it->hasNext()){
-		const CdbOid* oid = it->next();
-		TransactionTableUpdateCache* c = this->tableCashes->get(oid);
-		delete c;
-	}
-
-	this->tableCashes->clear();
-}
-
 InsertRecordsCacheCursor* TransactionUpdateCache::newInsertedRecordsCursor(const CdbTable* table) noexcept {
 	TransactionTableUpdateCache* c = getTransactionTableUpdateCache(table);
 
 	return c->newInsertedRecordCursor();
 }
 
-TransactionTableUpdateCache* TransactionUpdateCache::getTransactionTableUpdateCache(const CdbTable* table) noexcept {
-	const CdbOid* oid = table->getOid();
-	TransactionTableUpdateCache* cache = this->tableCashes->get(oid);
-
-	if(cache == nullptr){
-		cache = new TransactionTableUpdateCache(table, this->cacheManager);
-		this->tableCashes->put(oid, cache);
-	}
-
-	return cache;
+void TransactionUpdateCache::addDeletedRecord(const CdbTable* table, const CdbOid* recordOid) {
+	TransactionTableUpdateCache* c = getTransactionTableUpdateCache(table);
 }
+
+bool TransactionUpdateCache::isDeleted(const CdbTable* table, const CdbOid* recordOid) {
+	TransactionTableUpdateCache* c = getTransactionTableUpdateCache(table);
+
+	return c->isDeleted(recordOid);
+}
+
+DeletedRecordsOidsCursor* TransactionUpdateCache::getDeletedRecordsOidsCursor(const CdbTable* table) {
+	TransactionTableUpdateCache* c = getTransactionTableUpdateCache(table);
+
+	return c->getDeletedRecordsOidsCursor();
+}
+
+void TransactionUpdateCache::addUpdatedRecord(const CdbTable* table, const CdbRecord* updatedRecord) {
+	TransactionTableUpdateCache* c = getTransactionTableUpdateCache(table);
+
+	c->addUpdatedRecord(updatedRecord);
+}
+
+bool TransactionUpdateCache::isUpdated(const CdbTable* table, const CdbOid* recordOid) {
+	TransactionTableUpdateCache* c = getTransactionTableUpdateCache(table);
+
+	return c->isUpdated(recordOid);
+}
+
+const CdbRecord* TransactionUpdateCache::getUpdatedRecord(const CdbTable* table, const CdbOid* recordOid) {
+	TransactionTableUpdateCache* c = getTransactionTableUpdateCache(table);
+
+	return c->getUpdatedRecord(recordOid);
+}
+
+UpdatedRecordCursor* TransactionUpdateCache::getUpdatedRecordCursor(const CdbTable* table) {
+	TransactionTableUpdateCache* c = getTransactionTableUpdateCache(table);
+
+	return c->getUpdatedRecordCursor();
+}
+
 
 } /* namespace codablecash */
