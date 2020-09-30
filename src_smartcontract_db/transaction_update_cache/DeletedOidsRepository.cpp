@@ -14,6 +14,8 @@
 
 #include "table_record_key/CdbOidKey.h"
 
+#include "base/StackRelease.h"
+
 namespace codablecash {
 
 DeletedOidsRepository::DeletedOidsRepository(CdbLocalCacheManager* cacheManager) {
@@ -29,7 +31,7 @@ IBtreeScanner* DeletedOidsRepository::getScanner() {
 }
 
 void DeletedOidsRepository::addDeletedRecord(const CdbOid* recordOid) {
-	const AbstractCdbKey* key = recordOid->toKey();
+	const AbstractCdbKey* key = recordOid->toKey(); __STP(key);
 
 	this->cache->insert(key, recordOid);
 }
