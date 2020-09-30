@@ -6,5 +6,15 @@
  */
 
 
+/**
+ * text to int (includes not int)
+ */
+
+/**
+ * text change length(shorter)
+ */
 
 
+/**
+ * text change length(longer)
+ */

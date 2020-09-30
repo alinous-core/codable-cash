@@ -460,6 +460,3 @@ TEST(TestExecAlterMofdifyGroup, case10){
 	CHECK(idx == nullptr);
 }
 
-/**
- * Add unique error
- */
