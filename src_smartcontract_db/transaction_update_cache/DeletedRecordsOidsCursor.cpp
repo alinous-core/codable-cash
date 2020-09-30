@@ -16,11 +16,13 @@
 
 #include "filestore_block/IBlockObject.h"
 
+#include "table_record_value/CdbOidValueList.h"
 
 namespace codablecash {
 
 DeletedRecordsOidsCursor::DeletedRecordsOidsCursor(DeletedOidsRepository* repo) {
 	this->scanner = repo->getScanner();
+	this->scanner->begin();
 }
 
 DeletedRecordsOidsCursor::~DeletedRecordsOidsCursor() {
@@ -33,8 +35,11 @@ bool DeletedRecordsOidsCursor::hasNext() const noexcept {
 
 const CdbOid* DeletedRecordsOidsCursor::next() noexcept {
 	const IBlockObject* obj = this->scanner->next();
-	const CdbOid* recordOid = dynamic_cast<const CdbOid*>(obj);
+	const CdbOidValueList* vlist =  dynamic_cast<const CdbOidValueList*>(obj);
+	assert(vlist != nullptr);
 
+
+	const CdbOid* recordOid = dynamic_cast<const CdbOid*>(vlist->get(0));
 	assert(recordOid != nullptr);
 
 	return recordOid;

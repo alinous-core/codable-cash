@@ -322,6 +322,13 @@ Schema* SchemaManager::getSchema(const UnicodeString* name) const noexcept {
 	return this->root->getSchema(name);
 }
 
+CdbTable* SchemaManager::getTable(const wchar_t* schema, const wchar_t* name) const {
+	UnicodeString s(schema);
+	UnicodeString n(name);
+
+	return getTable(&s, &n);
+}
+
 CdbTable* SchemaManager::getTable(const UnicodeString* schema, const UnicodeString* name) const {
 	Schema* sc = getSchema(schema);
 	if(sc == nullptr){

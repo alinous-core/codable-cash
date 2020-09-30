@@ -14,6 +14,7 @@
 #include "sql_dml_parts/SQLSelectTargetList.h"
 
 #include "base/UnicodeString.h"
+#include "base/Exception.h"
 
 #include "sc_analyze_stack/AnalyzeStack.h"
 #include "sc_analyze_stack/AnalyzeStackManager.h"
@@ -35,6 +36,15 @@
 #include "scan_table/AbstractScanTableTarget.h"
 
 #include "instance_exception/ExceptionInterrupt.h"
+
+#include "transaction/CdbTransaction.h"
+#include "transaction/CdbTransactionManager.h"
+
+#include "engine_lock/ReadLockHandle.h"
+#include "engine_lock/StackDbLockUnlocker.h"
+
+#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+
 
 namespace alinous {
 
@@ -251,19 +261,49 @@ void SelectStatement::init(VirtualMachine* vm) {
 
 void SelectStatement::interpret(VirtualMachine* vm) {
 	VmTransactionHandler* trxHandler = vm->getTransactionHandler();
+	CdbTransaction* trx = trxHandler->getTransaction();
 
-	uint64_t currentVer = trxHandler->getSchemaObjectVersionId();
-	if(currentVer > this->lastSchemaVersion){
-		try{
-			buildPlanner(vm, currentVer);
-		}
-		catch(ExceptionInterrupt* e){
-			delete e;
-			return;
-		}
+	bool tmptrx = false;
+	if(trx == nullptr){
+		trxHandler->begin();
+		trx = trxHandler->getTransaction();
+		tmptrx = true;
 	}
 
-	this->planner->executeQuery(vm);
+	CdbTransactionManager* trxMgr = trx->getTrxManager();
+
+	ReadLockHandle* lockH = trxMgr->databaseReadLock();
+	StackDbLockUnlocker unclocker(lockH);
+
+	try{
+		uint64_t currentVer = trxHandler->getSchemaObjectVersionId();
+		if(currentVer > this->lastSchemaVersion){
+			try{
+				buildPlanner(vm, currentVer);
+			}
+			catch(ExceptionInterrupt* e){
+				trxHandler->rollback(true);
+
+				delete e;
+
+				return;
+			}
+		}
+
+		this->planner->executeQuery(vm);
+	}
+	catch(Exception* e){
+		trxHandler->rollback(true);
+
+		DatabaseExceptionClassDeclare::throwException(e->getMessage(), vm, this);
+		delete e;
+
+		return;
+	}
+
+	if(tmptrx){
+		trxHandler->rollback();
+	}
 
 	// FIXME SQL statement
 }

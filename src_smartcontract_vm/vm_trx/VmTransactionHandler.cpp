@@ -52,12 +52,19 @@ void VmTransactionHandler::commit() {
 	doCommit();
 }
 
+
 void VmTransactionHandler::rollback() {
-	if(this->trx == nullptr){
+	rollback(false);
+}
+
+void VmTransactionHandler::rollback(bool force) {
+	if(!force && this->trx == nullptr){
 		throw new VmTransactionHandlerException(__FILE__, __LINE__);
 	}
 
-	doRollback();
+	if(this->trx != nullptr){
+		doRollback();
+	}
 }
 
 void VmTransactionHandler::reset() noexcept {

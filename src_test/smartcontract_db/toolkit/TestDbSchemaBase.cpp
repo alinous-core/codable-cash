@@ -29,6 +29,7 @@ TestDbSchemaBase::TestDbSchemaBase(TestEnv* env) {
 	this->env = env;
 	this->dbDir = nullptr;
 	this->vm = nullptr;
+	this->loidSerial = 1;
 }
 
 TestDbSchemaBase::~TestDbSchemaBase() {

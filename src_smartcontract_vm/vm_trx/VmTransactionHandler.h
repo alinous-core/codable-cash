@@ -32,6 +32,7 @@ public:
 	void begin();
 	void commit();
 	void rollback();
+	void rollback(bool force);
 
 	void createTable(CreateTableLog* cmd);
 	void alterTable(AbstractAlterCommandLog* cmd);
@@ -45,6 +46,10 @@ public:
 
 	const UnicodeString* getCurrentSchema() const noexcept {
 		return currentSchema;
+	}
+
+	CdbTransaction* getTransaction() const noexcept {
+		return this->trx;
 	}
 
 private:

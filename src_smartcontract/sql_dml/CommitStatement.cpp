@@ -53,6 +53,8 @@ void CommitStatement::interpret(VirtualMachine* vm) {
 		handler->commit();
 	}
 	catch(Exception* e){
+		handler->rollback(true);
+
 		DatabaseExceptionClassDeclare::throwException(e->getMessage(), vm, this);
 		delete e;
 	}

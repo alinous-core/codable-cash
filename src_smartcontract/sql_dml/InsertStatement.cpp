@@ -32,6 +32,7 @@
 #include "transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #include "vm_ctrl/ExecControlManager.h"
 
@@ -48,6 +49,12 @@
 
 #include "table_record_value/AbstractCdbValue.h"
 #include "table_record_value/VmInstanceValueConverter.h"
+
+#include "engine/CodableDatabase.h"
+
+#include "table_record_local/LocalCdbOid.h"
+#include "table_record_local/LocalOidFactory.h"
+
 
 using namespace codablecash;
 
@@ -125,6 +132,11 @@ void InsertStatement::interpret(VirtualMachine* vm) {
 
 	// make record
 	CdbRecord* record = new CdbRecord();
+
+	CodableDatabase* db = vm->getDb();
+	LocalOidFactory* lfactory = db->getLocalOidFactory();
+	LocalCdbOid* loid = lfactory->createLocalOid(); __STP(loid);
+	record->setOid(loid);
 
 	int colSize = this->analyzedColumns->size();
 	record->initNullColumns(colSize);
