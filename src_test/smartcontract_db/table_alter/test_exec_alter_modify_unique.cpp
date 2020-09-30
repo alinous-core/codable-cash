@@ -40,7 +40,6 @@ TEST_GROUP(TestExecAlterMofdifyUniqueGroup) {
 };
 
 
-
 /**
  * Add unique error
  */
