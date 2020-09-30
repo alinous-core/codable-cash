@@ -217,6 +217,8 @@ ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterMo
 			(this->defaultValue == nullptr && defaultStr != nullptr) ||
 			!this->defaultValue->equals(defaultStr)){
 		ctx->setDefaultValue(defaultStr);
+		ctx->setDefaultChanged(true);
+
 		setDefaultValue(defaultStr);
 	}
 

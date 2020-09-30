@@ -33,7 +33,7 @@ public:
 	ColumnModifyContext();
 	virtual ~ColumnModifyContext();
 
-	void analyze();
+	void analyze(const CdbTableColumn* columns);
 
 	UniqueChage getUniqueChange() const noexcept {
 		return uniqueChange;
@@ -102,6 +102,14 @@ public:
 		return this->defaultValue;
 	}
 
+	bool isDefaultChanged() const noexcept {
+		return defaultChanged;
+	}
+
+	void setDefaultChanged(bool defaultChanged) {
+		this->defaultChanged = defaultChanged;
+	}
+
 private:
 	void analyzeDefaultValue();
 
@@ -117,6 +125,8 @@ private:
 	CdbTableColumn* column;
 	CdbTableIndex* newIndex;
 	CdbTableIndex* removalIndex;
+
+	bool defaultChanged;
 
 	// analyzed value
 	AbstractCdbValue* defaultValue;

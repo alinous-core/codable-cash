@@ -73,6 +73,10 @@ AbstractCdbValue* RecordValueConverter::handleNullValue() {
 		return nullptr;
 	}
 
+	if(this->defaultValue != nullptr){
+		return this->defaultValue->copy();
+	}
+
 	uint8_t cdbType = this->column->getType();
 
 	return CdbValueCaster::getDefaultValue(cdbType);
