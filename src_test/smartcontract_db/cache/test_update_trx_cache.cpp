@@ -62,6 +62,17 @@ TEST(TestUpdateTrxCacheGroup, case01){
 		CdbTransaction* trx = db->newTransaction(); __STP(trx);
 		TransactionUpdateCache* cache = trx->getUpdateCache();
 
+		CdbRecord* rec = makeRecord(1, 10); __STP(rec);
+
+		cache->addUpdatedRecord(table, rec);
+
+		bool result = cache->isUpdated(table, rec->getOid());
+		CHECK(result);
+
+		const CdbRecord* crec = cache->getUpdatedRecord(table, rec->getOid());
+		CHECK(crec != nullptr);
+
+		CHECK(crec->getOid()->equals(rec->getOid()));
 	}
 }
 
