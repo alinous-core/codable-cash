@@ -328,13 +328,33 @@ TEST(TestExecAlterMofdifyGroup, case07){
 
 /**
  * handle not null
+ * ALTER TABLE test_table MODIFY email_id int not null default 0;
  */
 TEST(TestExecAlterMofdifyGroup, case08){
 	TestDbSchemaAlter01 tester(this->env);
 	tester.init(1024*10);
 	tester.insert02();
 
+	VirtualMachine* vm = tester.getVm();
 
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/exec_alter/case08.alns"))
+	{
+		SmartContractParser parser(sourceFile);
+		AlinousLang* lang = parser.getDebugAlinousLang();
+
+		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
+		CHECK(!parser.hasError())
+
+		AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
+		actx->setVm(vm);
+
+		stmt->preAnalyze(actx);
+		stmt->analyzeTypeRef(actx);
+		stmt->analyze(actx);
+
+		stmt->interpret(vm);
+	}
 }
 
 /**
