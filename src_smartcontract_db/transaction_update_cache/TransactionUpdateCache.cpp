@@ -89,6 +89,8 @@ InsertRecordsCacheCursor* TransactionUpdateCache::newInsertedRecordsCursor(const
 
 void TransactionUpdateCache::addDeletedRecord(const CdbTable* table, const CdbOid* recordOid) {
 	TransactionTableUpdateCache* c = getTransactionTableUpdateCache(table);
+
+	c->addDeletedRecord(recordOid);
 }
 
 bool TransactionUpdateCache::isDeleted(const CdbTable* table, const CdbOid* recordOid) {

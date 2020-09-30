@@ -9,12 +9,19 @@
 
 #include "base/StackRelease.h"
 
-#include "../toolkit/TestDbSchema01.h"
 #include "engine/CodableDatabase.h"
+#include "engine/CdbOid.h"
 
 #include "schema/SchemaManager.h"
 
+#include "table/CdbTable.h"
+
 #include "transaction/CdbTransaction.h"
+
+#include "transaction_update_cache/TransactionUpdateCache.h"
+#include "transaction_update_cache/DeletedRecordsOidsCursor.h"
+
+#include "../toolkit/TestDbSchema01.h"
 
 using namespace alinous;
 using namespace codablecash;
@@ -39,7 +46,50 @@ TEST(TestDeleteTrxCacheGroup, case01){
 		CdbTable* table = schema->getTable(L"public", L"test_table");
 
 		CdbTransaction* trx = db->newTransaction(); __STP(trx);
+		TransactionUpdateCache* cache = trx->getUpdateCache();
 
+		CdbOid record01(10);
+		cache->addDeletedRecord(table, &record01);
+
+		bool bl = cache->isDeleted(table, &record01);
+		CHECK(bl);
 	}
+}
 
+TEST(TestDeleteTrxCacheGroup, case02){
+	TestDbSchema01 tester(this->env);
+	tester.init();
+
+	{
+		CodableDatabase* db = tester.getDatabase();
+
+		SchemaManager* schema = db->getSchemaManager();
+		CdbTable* table = schema->getTable(L"public", L"test_table");
+
+		CdbTransaction* trx = db->newTransaction(); __STP(trx);
+		TransactionUpdateCache* cache = trx->getUpdateCache();
+
+		RawArrayPrimitive<uint64_t> list(10);
+
+		int maxLoop = 10;
+		for(int i = 0; i != maxLoop; ++i){
+			CdbOid record01(i);
+			cache->addDeletedRecord(table, &record01);
+
+			list.addElement(i);
+		}
+
+		int count = 0;
+		DeletedRecordsOidsCursor* cursor = cache->getDeletedRecordsOidsCursor(table); __STP(cursor);
+		while(cursor->hasNext()){
+			const CdbOid* o = cursor->next();
+
+			uint64_t v = o->getOidValue();
+			uint64_t ans = list.get(count);
+
+			CHECK(v == ans);
+
+			count++;
+		}
+	}
 }
