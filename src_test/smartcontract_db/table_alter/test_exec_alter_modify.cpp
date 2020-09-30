@@ -329,6 +329,13 @@ TEST(TestExecAlterMofdifyGroup, case07){
 /**
  * handle not null
  */
+TEST(TestExecAlterMofdifyGroup, case08){
+	TestDbSchemaAlter01 tester(this->env);
+	tester.init(1024*10);
+	tester.insert01();
+
+
+}
 
 /**
  * Add unique error
