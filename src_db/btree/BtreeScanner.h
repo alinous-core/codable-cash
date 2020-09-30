@@ -8,6 +8,8 @@
 #ifndef BTREE_BTREESCANNER_H_
 #define BTREE_BTREESCANNER_H_
 
+#include "btree/IBtreeScanner.h"
+
 namespace alinous {
 
 class NodeCursor;
@@ -15,18 +17,19 @@ class NodeHandle;
 class IBlockObject;
 class AbstractBtreeKey;
 
-class BtreeScanner {
+class BtreeScanner : public IBtreeScanner {
 public:
 	BtreeScanner(const BtreeScanner& inst) = delete;
 	explicit BtreeScanner(NodeCursor* cursor);
 	virtual ~BtreeScanner();
 
-	void begin();
-	void begin(const AbstractBtreeKey* key);
-	bool hasNext();
+	virtual void begin();
+	virtual void begin(const AbstractBtreeKey* key);
+	virtual bool hasNext();
 
-	const IBlockObject* next();
-	const AbstractBtreeKey* nextKey();
+	virtual const IBlockObject* next();
+	virtual const AbstractBtreeKey* nextKey();
+
 private:
 	NodeCursor* cursor;
 	IBlockObject* nextObj;

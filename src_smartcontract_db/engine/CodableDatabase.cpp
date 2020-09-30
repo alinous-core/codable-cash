@@ -7,6 +7,7 @@
 
 #include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"
+#include "engine/CdbLocalCacheManager.h"
 
 #include "transaction/CdbTransactionManager.h"
 #include "transaction/SchemaObjectIdPublisher.h"
@@ -20,6 +21,10 @@
 
 #include "engine_lock/DatabaseLevelLock.h"
 
+#include "base/StackRelease.h"
+
+#include "table_record_local/LocalOidFactory.h"
+
 namespace codablecash {
 
 CodableDatabase::CodableDatabase() {
@@ -28,6 +33,8 @@ CodableDatabase::CodableDatabase() {
 	this->loadedFile = nullptr;
 	this->store = nullptr;
 	this->dbLevelLock = new DatabaseLevelLock();
+	this->localCacheManager = nullptr;
+	this->localOidFactory = nullptr;
 }
 
 CodableDatabase::~CodableDatabase() {
@@ -49,9 +56,21 @@ void CodableDatabase::createDatabase(File* dbdir) {
 }
 
 bool CodableDatabase::loadDatabase(const File* dbdir) {
+	File* tmpdir = dbdir->get(L"temp"); __STP(tmpdir);
+	return loadDatabase(dbdir, tmpdir);
+}
+
+bool CodableDatabase::loadDatabase(const File* dbdir, const File* tmpdir) {
 	if(!dbdir->exists() || !dbdir->isDirectory()){
 		return false;
 	}
+
+	if(!tmpdir->exists()){
+		tmpdir->mkdirs();
+	}
+
+	this->localOidFactory = new LocalOidFactory();
+	this->localCacheManager = new CdbLocalCacheManager(tmpdir, this->localOidFactory);
 
 	this->store = new CdbStorageManager();
 
@@ -66,10 +85,17 @@ bool CodableDatabase::loadDatabase(const File* dbdir) {
 
 	return true;
 }
+
 void CodableDatabase::closeDatabase() noexcept {
 	if(this->loadedFile != nullptr){
 		delete this->loadedFile;
 		this->loadedFile = nullptr;
+
+		delete this->localCacheManager;
+		this->localCacheManager = nullptr;
+
+		delete this->localOidFactory;
+		this->localOidFactory = nullptr;
 	}
 }
 

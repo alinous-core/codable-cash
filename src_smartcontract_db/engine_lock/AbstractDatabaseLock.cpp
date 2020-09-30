@@ -16,6 +16,8 @@
 #include "base_thread/SysMutex.h"
 
 #include "base/StackRelease.h"
+
+#include "base_thread/StackUnlocker.h"
 using namespace alinous;
 
 namespace codablecash {
@@ -36,21 +38,22 @@ ReadLockHandle* AbstractDatabaseLock::readLock() {
 
 	CdbOid oid(threadId);
 
-	this->hashMutex->lock();
-	ReadLockHandle* handle = this->readHandles.get(&oid);
-	this->hashMutex->unlock();
+	ReadLockHandle* handle = nullptr;
+	{
+		StackUnlocker stackLock(this->hashMutex);
 
-	if(handle == nullptr){
-		this->gate->enter();
+		handle = this->readHandles.get(&oid);
 
-		handle = new ReadLockHandle(&oid, this);
+		if(handle == nullptr){
+			this->gate->enter();
 
-		this->hashMutex->lock();
-		this->readHandles.put(&oid, handle);
-		this->hashMutex->unlock();
+			handle = new ReadLockHandle(&oid, this);
+
+			this->readHandles.put(&oid, handle);
+		}
+
+		handle->incRef();// ref for times the thread locked
 	}
-
-	handle->incRef();
 
 	return handle;
 }
@@ -60,44 +63,68 @@ WriteLockHandle* AbstractDatabaseLock::writeLock() {
 	uint64_t threadId = (uint64_t)thread->getId();
 
 	CdbOid oid(threadId);
+	WriteLockHandle* handle = nullptr;
+	{
+		StackUnlocker stackLock(this->hashMutex);
 
-	this->hashMutex->lock();
-	WriteLockHandle* handle = this->writeHandles.get(&oid);
-	this->hashMutex->unlock();
+		handle = this->writeHandles.get(&oid);
 
-	if(handle == nullptr){
-		this->gate->close();
+		if(handle == nullptr){
+			this->gate->close();
 
-		handle = new WriteLockHandle(&oid, this);
+			handle = new WriteLockHandle(&oid, this);
 
-		this->hashMutex->lock();
-		this->writeHandles.put(&oid, handle);
-		this->hashMutex->unlock();
+			this->writeHandles.put(&oid, handle);
+		}
+
+		handle->incRef(); // ref for times the thread locked
 	}
-
-	handle->incRef();
 
 	return handle;
 }
 
-void AbstractDatabaseLock::readUnlock(const ReadLockHandle* handle) noexcept {
-	const CdbOid* key = handle->getThreadId();
+void AbstractDatabaseLock::unclockHandle(AbstractLockHandle* handle) noexcept {
+	handle->decRef();
 
-	this->hashMutex->lock();
-	this->readHandles.remove(key);
-	this->hashMutex->unlock();
+	if(handle->isReleasable()){
+		if(handle->isWriteLock()){
+			WriteLockHandle* wh = dynamic_cast<WriteLockHandle*>(handle);
+			assert(wh != nullptr);
 
-	this->gate->exit();
+			writeUnlock(wh);
+		}
+		else{
+			ReadLockHandle* rh = dynamic_cast<ReadLockHandle*>(handle);
+			assert(rh != nullptr);
+
+			readUnlock(rh);
+		}
+	}
 }
 
-void AbstractDatabaseLock::writeUnlock(const WriteLockHandle* handle) noexcept {
-	const CdbOid* key = handle->getThreadId();
+void AbstractDatabaseLock::readUnlock(ReadLockHandle* handle) noexcept {
+	{
+		StackUnlocker stackLock(this->hashMutex);
 
-	this->hashMutex->lock();
-	this->writeHandles.remove(key);
-	this->hashMutex->unlock();
+		const CdbOid* key = handle->getThreadId();
+		this->readHandles.remove(key);
+		delete handle;
 
-	this->gate->open();
+		this->gate->exit();
+	}
+}
+
+
+void AbstractDatabaseLock::writeUnlock(WriteLockHandle* handle) noexcept {
+	{
+		StackUnlocker stackLock(this->hashMutex);
+
+		const CdbOid* key = handle->getThreadId();
+		this->writeHandles.remove(key);
+		delete handle;
+
+		this->gate->open();
+	}
 }
 
 } /* namespace codablecash */

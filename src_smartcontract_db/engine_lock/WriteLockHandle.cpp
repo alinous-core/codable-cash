@@ -16,10 +16,11 @@ WriteLockHandle::WriteLockHandle(const CdbOid* threadId, AbstractDatabaseLock* l
 }
 
 WriteLockHandle::~WriteLockHandle() {
-	this->ref--;
-	if(this->ref == 0){
-		this->lock->writeUnlock(this);
-	}
+
+}
+
+bool WriteLockHandle::isWriteLock() const noexcept {
+	return true;
 }
 
 } /* namespace codablecash */

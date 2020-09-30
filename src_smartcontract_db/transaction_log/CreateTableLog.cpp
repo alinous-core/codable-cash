@@ -7,8 +7,6 @@
 
 #include "transaction_log/CreateTableLog.h"
 
-#include "base_io/ByteBuffer.h"
-
 #include "table/CdbTable.h"
 #include "table/TableObjectFactory.h"
 
@@ -17,7 +15,10 @@
 
 #include "base/StackRelease.h"
 
+#include "base_io/ByteBuffer.h"
+
 #include "engine_lock/WriteLockHandle.h"
+#include "engine_lock/StackDbLockUnlocker.h"
 
 namespace codablecash {
 
@@ -53,7 +54,8 @@ void CreateTableLog::fromBinary(ByteBuffer* in) {
 }
 
 void CreateTableLog::commit(CdbTransactionManager* trxManager) {
-	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+	WriteLockHandle* lockH = trxManager->databaseWriteLock();
+	StackDbLockUnlocker unlocker(lockH);
 
 	SchemaObjectIdPublisher* publisher= trxManager->getSchemaObjectIdPublisher();
 	this->table->assignNewOid(publisher);

@@ -6,25 +6,31 @@
  */
 
 #include "transaction_update_cache/InsertRecordsCacheCursor.h"
+#include "transaction_update_cache/InsertedRecordsRepository.h"
+
+#include "btree/IBtreeScanner.h"
+
+#include "table_record/CdbRecord.h"
 
 namespace codablecash {
 
-InsertRecordsCacheCursor::InsertRecordsCacheCursor(const ArrayList<CdbRecord>* insertedRecords) {
-	this->insertedRecords = insertedRecords;
-	this->limit = insertedRecords->size();
-	this->position = 0;
+InsertRecordsCacheCursor::InsertRecordsCacheCursor(InsertedRecordsRepository* insertsRepo) {
+	this->scanner = insertsRepo->getScanner();
+	this->scanner->begin();
 }
 
 InsertRecordsCacheCursor::~InsertRecordsCacheCursor() {
-
+	delete this->scanner;
 }
 
 bool InsertRecordsCacheCursor::hasNext() const noexcept {
-	return this->position < this->limit;
+	return this->scanner->hasNext();
 }
 
 const CdbRecord* InsertRecordsCacheCursor::next() noexcept {
-	return this->insertedRecords->get(this->position++);
+	const IBlockObject* obj = this->scanner->next();
+
+	return dynamic_cast<const CdbRecord*>(obj);
 }
 
 } /* namespace codablecash */

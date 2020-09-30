@@ -24,6 +24,8 @@ class CdbStorageManager;
 class ReadLockHandle;
 class WriteLockHandle;
 class DatabaseLevelLock;
+class CdbLocalCacheManager;
+class LocalOidFactory;
 
 class CodableDatabase {
 public:
@@ -32,6 +34,7 @@ public:
 
 	void createDatabase(File* dbdir);
 	bool loadDatabase(const File* dbdir);
+	bool loadDatabase(const File* dbdir, const File* tmpdir);
 	void closeDatabase() noexcept;
 
 	CdbTransaction* newTransaction();
@@ -48,6 +51,14 @@ public:
 		return trxManager;
 	}
 
+	CdbLocalCacheManager* getLocalCacheManager() const noexcept {
+		return this->localCacheManager;
+	}
+
+	LocalOidFactory* getLocalOidFactory() const noexcept {
+		return localOidFactory;
+	}
+
 private:
 	void checkDatabaseLoaded() const;
 
@@ -55,6 +66,9 @@ private:
 	CdbTransactionManager* trxManager;
 	SchemaManager* schema;
 	CdbStorageManager* store;
+
+	LocalOidFactory* localOidFactory;
+	CdbLocalCacheManager* localCacheManager;
 
 	DatabaseLevelLock* dbLevelLock;
 

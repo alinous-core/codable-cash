@@ -16,6 +16,7 @@ namespace codablecash {
 
 class TableStore;
 class RecordScanner;
+class AbstractLockHandle;
 
 class TableTransactionScanner : public AbstractTransactionScanner, public IJoinLeftSource {
 public:
@@ -33,6 +34,8 @@ private:
 
 	const CdbRecord* nextRecord;
 	bool scanedStore;
+
+	AbstractLockHandle* lockHandle;
 };
 
 } /* namespace codablecash */

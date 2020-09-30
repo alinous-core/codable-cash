@@ -8,25 +8,26 @@
 #ifndef TRANSACTION_UPDATE_CACHE_INSERTRECORDSCACHECURSOR_H_
 #define TRANSACTION_UPDATE_CACHE_INSERTRECORDSCACHECURSOR_H_
 
-#include "base/ArrayList.h"
-
-using alinous::ArrayList;
+namespace alinous {
+class IBtreeScanner;
+}
+using namespace alinous;
 
 namespace codablecash {
 
 class CdbRecord;
+class InsertedRecordsRepository;
 
 class InsertRecordsCacheCursor {
 public:
-	InsertRecordsCacheCursor(const ArrayList<CdbRecord>* insertedRecords);
+	explicit InsertRecordsCacheCursor(InsertedRecordsRepository* insertsRepo);
 	virtual ~InsertRecordsCacheCursor();
 
 	bool hasNext() const noexcept;
 	const CdbRecord* next() noexcept;
+
 private:
-	const ArrayList<CdbRecord>* insertedRecords;
-	int position;
-	int limit;
+	IBtreeScanner* scanner;
 };
 
 } /* namespace codablecash */

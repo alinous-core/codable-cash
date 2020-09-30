@@ -16,6 +16,8 @@ class ReadLockHandle : public AbstractLockHandle {
 public:
 	ReadLockHandle(const CdbOid* threadId, AbstractDatabaseLock* lock);
 	virtual ~ReadLockHandle();
+
+	virtual bool isWriteLock() const noexcept;
 };
 
 } /* namespace codablecash */

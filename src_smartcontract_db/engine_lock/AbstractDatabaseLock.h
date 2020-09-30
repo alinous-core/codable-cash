@@ -22,22 +22,20 @@ namespace codablecash {
 class CdbOid;
 class ReadLockHandle;
 class WriteLockHandle;
+class AbstractLockHandle;
 
 class AbstractDatabaseLock {
 public:
-	friend class ReadLockHandle;
-	friend class WriteLockHandle;
-
 	AbstractDatabaseLock();
 	virtual ~AbstractDatabaseLock();
 
 	ReadLockHandle* readLock();
-
 	WriteLockHandle* writeLock();
 
+	void unclockHandle(AbstractLockHandle* handle) noexcept;
 private:
-	void readUnlock(const ReadLockHandle* handle) noexcept;
-	void writeUnlock(const WriteLockHandle* handle) noexcept;
+	void readUnlock(ReadLockHandle* handle) noexcept;
+	void writeUnlock(WriteLockHandle* handle) noexcept;
 
 private:
 	ConcurrentGate* gate;

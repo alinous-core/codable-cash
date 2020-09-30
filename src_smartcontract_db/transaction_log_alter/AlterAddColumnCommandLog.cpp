@@ -14,6 +14,7 @@
 #include "transaction/CdbTransactionManager.h"
 
 #include "engine_lock/WriteLockHandle.h"
+#include "engine_lock/StackDbLockUnlocker.h"
 
 #include "base/StackRelease.h"
 
@@ -61,7 +62,8 @@ void AlterAddColumnCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterAddColumnCommandLog::commit(CdbTransactionManager* trxManager) {
-	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+	WriteLockHandle* lockH = trxManager->databaseWriteLock();
+	StackDbLockUnlocker unlocker(lockH);
 
 	trxManager->commitAlterTable(this);
 }

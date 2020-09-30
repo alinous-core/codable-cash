@@ -21,7 +21,7 @@
 
 #include "engine_lock/WriteLockHandle.h"
 #include "engine_lock/ReadLockHandle.h"
-
+#include "engine_lock/StackDbLockUnlocker.h"
 
 namespace codablecash {
 
@@ -82,7 +82,8 @@ void InsertLog::fromBinary(ByteBuffer* in) {
 
 void InsertLog::commit(CdbTransactionManager* trxManager) {
 	{
-		WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+		WriteLockHandle* lockH = trxManager->databaseWriteLock();
+		StackDbLockUnlocker unlocker(lockH);
 
 		RecordObjectIdPublisher* publisher = trxManager->getRecordObjectIdPublisher();
 
@@ -97,10 +98,7 @@ void InsertLog::commit(CdbTransactionManager* trxManager) {
 		}
 
 		publisher->saveSchema();
-	}
 
-	{
-		ReadLockHandle* lockH = trxManager->databaseReadLock(); __STP(lockH);
 		trxManager->commitInsert(this);
 	}
 }

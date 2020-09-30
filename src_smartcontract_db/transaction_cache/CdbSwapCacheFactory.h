@@ -15,6 +15,7 @@ namespace codablecash {
 class CdbKeyFactory;
 class CdbDataFactory;
 class SingleKeyOidCache;
+class OidKeyRecordCache;
 
 class CdbSwapCacheFactory: public SwapCacheFactory {
 public:
@@ -26,6 +27,8 @@ public:
 	virtual UnicodeString* getName() noexcept;
 
 	SingleKeyOidCache* createSingleKeyOidCache(int swappiness);
+	OidKeyRecordCache* createOidKeyRecordCache(int swappiness);
+
 };
 
 } /* namespace codablecash */

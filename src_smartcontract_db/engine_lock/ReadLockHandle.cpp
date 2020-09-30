@@ -15,10 +15,12 @@ ReadLockHandle::ReadLockHandle(const CdbOid* threadId, AbstractDatabaseLock* loc
 }
 
 ReadLockHandle::~ReadLockHandle() {
-	this->ref--;
-	if(this->ref == 0){
-		this->lock->readUnlock(this);
-	}
+
 }
+
+bool ReadLockHandle::isWriteLock() const noexcept {
+	return false;
+}
+
 
 } /* namespace codablecash */

@@ -112,8 +112,6 @@ AbstractScanTableTarget* TablesHolder::buildOuterJoinTarget() {
 	}
 
 	return target;
-
-	// FIXME TablesHolder::buildScannerFactories
 }
 
 } /* namespace codablecash */

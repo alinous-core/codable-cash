@@ -10,6 +10,7 @@ set(__src
 	BtreeStorage.cpp
 	DataNode.cpp
 	exceptions.cpp
+	IBtreeScanner.cpp
 	NodeCursor.cpp
 	NodeHandle.cpp
 	NodePosition.cpp

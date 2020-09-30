@@ -10,6 +10,7 @@
 #include "sql_ddl_alter_modify/AlterRenameColumnCommand.h"
 
 #include "engine_lock/WriteLockHandle.h"
+#include "engine_lock/StackDbLockUnlocker.h"
 
 #include "base/StackRelease.h"
 
@@ -59,7 +60,8 @@ void AlterRenameColumnCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterRenameColumnCommandLog::commit(CdbTransactionManager* trxManager) {
-	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH);
+	WriteLockHandle* lockH = trxManager->databaseWriteLock();
+	StackDbLockUnlocker unlocker(lockH);
 
 	trxManager->commitAlterTable(this);
 }

@@ -28,6 +28,8 @@ class AbstractCdbValue;
 class CdbTableColumn;
 class CdbTableIndex;
 class ColumnModifyContext;
+class TableLevelLock;
+class AbstractLockHandle;
 
 class TableStore {
 public:
@@ -59,6 +61,9 @@ public:
 
 	CdbRecord* findRecord(const CdbOid* recordOid);
 
+	AbstractLockHandle* writeLock();
+	AbstractLockHandle* readLock();
+
 private:
 	void validateRecordColumnValue(CdbTableColumn* meta, AbstractCdbValue* value);
 	void addToIndexes(const CdbRecord* rec);
@@ -72,6 +77,8 @@ private:
 
 	RecordStore* recordStore;
 	HashMap<CdbOid, IndexStore>* indexStores;
+
+	TableLevelLock* tableLock;
 };
 
 } /* namespace codablecash */
