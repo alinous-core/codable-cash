@@ -12,6 +12,7 @@
 #include "transaction/CdbTransactionManager.h"
 
 #include "engine_lock/WriteLockHandle.h"
+#include "engine_lock/StackDbLockUnlocker.h"
 
 #include "base/StackRelease.h"
 
@@ -59,7 +60,8 @@ void AlterDropPrimaryKeyCommandLog::fromBinary(ByteBuffer* in) {
 }
 
 void AlterDropPrimaryKeyCommandLog::commit(CdbTransactionManager* trxManager) {
-	WriteLockHandle* lockH = trxManager->databaseWriteLock(); __STP(lockH); // TODO: lock
+	WriteLockHandle* lockH = trxManager->databaseWriteLock();
+	StackDbLockUnlocker unlocker(lockH);
 
 	trxManager->commitAlterTable(this);
 }
