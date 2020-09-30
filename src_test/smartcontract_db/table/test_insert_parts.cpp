@@ -56,6 +56,8 @@
 #include "schema/Schema.h"
 
 #include "table_store/TableStore.h"
+
+#include "table_record_local/LocalCdbOid.h"
 using namespace alinous;
 using namespace codablecash;
 
@@ -97,6 +99,9 @@ TEST(TestInsertPartGroup, testBinary01){
 	log.setTable(tableId);
 
 	CdbRecord* record = new CdbRecord();
+	LocalCdbOid loid(1);
+	record->setOid(&loid);
+
 	record->addValue(new CdbIntValue(1));
 	record->addValue(new CdbStringValue(L"hello"));
 	record->addValue(nullptr);
@@ -172,6 +177,9 @@ TEST(TestInsertPartGroup, case01){
 	log->setTable(tableId);
 
 	CdbRecord* record = new CdbRecord();
+	LocalCdbOid loid(1);
+	record->setOid(&loid);
+
 	record->addValue(new CdbIntValue(1));
 	record->addValue(new CdbStringValue(L"hello"));
 
@@ -194,6 +202,9 @@ TEST(TestInsertPartGroup, case02_err){
 	log->setTable(tableId);
 
 	CdbRecord* record = new CdbRecord();
+	LocalCdbOid loid(1);
+	record->setOid(&loid);
+
 	record->addValue(new CdbIntValue(1));
 	record->addValue(new CdbStringValue(L"hello"));
 
@@ -229,6 +240,9 @@ TEST(TestInsertPartGroup, case03_err){
 	log->setTable(tableId);
 
 	CdbRecord* record = new CdbRecord();
+	LocalCdbOid loid(1);
+	record->setOid(&loid);
+
 	record->addValue(new CdbIntValue(1));
 	record->addValue(new CdbStringValue(L"hello"));
 	record->addValue(new CdbStringValue(L"hello2"));

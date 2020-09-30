@@ -36,6 +36,8 @@
 
 #include "table_store/TableStore.h"
 
+#include "table_record_local/LocalCdbOid.h"
+
 using namespace codablecash;
 
 
@@ -75,6 +77,8 @@ void initDb(CodableDatabase& db, File* dbDir) {
 }
 
 void insertRecord(CdbTransaction* trx, int id, const wchar_t* name, ArrayList<CdbRecord>* list) {
+	static int serial = 1;
+
 	InsertLog* log = new InsertLog();
 
 	CdbTableIdentifier* tableId = new CdbTableIdentifier();
@@ -82,6 +86,9 @@ void insertRecord(CdbTransaction* trx, int id, const wchar_t* name, ArrayList<Cd
 	log->setTable(tableId);
 
 	CdbRecord* record = new CdbRecord();
+	LocalCdbOid loid(serial++);
+	record->setOid(&loid);
+
 	record->addValue(new CdbIntValue(id));
 
 	record->addValue(new CdbStringValue(name));

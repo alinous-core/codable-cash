@@ -27,6 +27,8 @@
 #include "table_record_value/CdbIntValue.h"
 #include "table_record_value/CdbStringValue.h"
 
+#include "table_record_local/LocalCdbOid.h"
+
 namespace codablecash {
 
 TestDbSchemaAlter01::TestDbSchemaAlter01(TestEnv* env) : TestDbSchemaBase(env) {
@@ -80,6 +82,9 @@ void TestDbSchemaAlter01::insertRecord(CdbTransaction* trx, int id,	const wchar_
 	log->setTable(tableId);
 
 	CdbRecord* record = new CdbRecord();
+	LocalCdbOid loid(this->loidSerial++);
+	record->setOid(&loid);
+
 	record->addValue(new CdbIntValue(id));
 
 	record->addValue(new CdbStringValue(name));

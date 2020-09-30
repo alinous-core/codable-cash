@@ -57,6 +57,8 @@ protected:
 	VirtualMachine* vm;
 	TestEnv* env;
 
+	uint64_t loidSerial;
+
 	File* dbDir;
 };
 

@@ -43,6 +43,9 @@
 #include "table_record_value/CdbOidValueList.h"
 
 #include "engine/CdbOid.h"
+
+#include "table_record_local/LocalCdbOid.h"
+
 using namespace alinous;
 using namespace codablecash;
 
@@ -96,6 +99,9 @@ TEST(TestInsertPartTypesGroup, case01){
 	log->setTable(tableId);
 
 	CdbRecord* record = new CdbRecord();
+	LocalCdbOid loid(1);
+	record->setOid(&loid);
+
 	record->addValue(new CdbIntValue(1));
 	record->addValue(new CdbStringValue(L"hello"));
 	record->addValue(new CdbByteValue(2));

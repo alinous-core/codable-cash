@@ -49,6 +49,8 @@
 #include "table_record_key/AbstractCdbKey.h"
 
 #include "scan_condition/RootScanCondition.h"
+
+#include "table_record_local/LocalCdbOid.h"
 using namespace alinous;
 using namespace codablecash;
 
@@ -85,6 +87,7 @@ static void initDb(CodableDatabase& db, File* dbDir) {
 }
 
 static void insertRecord(CdbTransaction* trx, int id, const wchar_t* name, ArrayList<CdbRecord>* list) {
+	static int serial = 1;
 	InsertLog* log = new InsertLog();
 
 	CdbTableIdentifier* tableId = new CdbTableIdentifier();
@@ -92,6 +95,9 @@ static void insertRecord(CdbTransaction* trx, int id, const wchar_t* name, Array
 	log->setTable(tableId);
 
 	CdbRecord* record = new CdbRecord();
+	LocalCdbOid loid(serial++);
+	record->setOid(&loid);
+
 	record->addValue(new CdbIntValue(id));
 
 	record->addValue(new CdbStringValue(name));

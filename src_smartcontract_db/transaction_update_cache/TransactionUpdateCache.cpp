@@ -72,12 +72,9 @@ void TransactionUpdateCache::updateInsert(InsertLog* cmd, const CdbTable* table)
 	for(int i = 0; i != maxLoop; ++i){
 		CdbRecord* record = list->get(i);
 
-		CdbRecord* newRecord = dynamic_cast<CdbRecord*>(record->copy()); __STP(newRecord);
-		LocalCdbOid* newOid = this->localOidFactory->createLocalOid(); __STP(newOid);
+	//	CdbRecord* newRecord = dynamic_cast<CdbRecord*>(record->copy()); __STP(newRecord);
 
-		newRecord->setOid(newOid);
-
-		c->addInsertedRecord(newRecord);
+		c->addInsertedRecord(record);
 	}
 }
 
