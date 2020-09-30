@@ -38,6 +38,7 @@
 #include "transaction_log_alter_modify/AlterRenameTableCommandLog.h"
 #include "transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
 
+#include "engine_lock/StackDbLockUnlocker.h"
 namespace codablecash {
 
 CdbTransactionManager::CdbTransactionManager(CodableDatabase* db) {
@@ -196,27 +197,30 @@ void CdbTransactionManager::commitInsert(InsertLog* cmd) {
 
 	CdbStorageManager* storeManager = this->db->getStorageManager();
 	TableStore* store = storeManager->getTableStore(oid);
-
-	// FIXME table level lock
-
 	assert(store != nullptr);
 
-	const ArrayList<CdbRecord>* records = cmd->getRecords();
+	// table level lock
+	{
+		AbstractLockHandle* lockH = store->writeLock();
+		StackDbLockUnlocker unlocker(lockH);
 
-	int maxLoop = records->size();
-	for(int i = 0; i != maxLoop; ++i){
-		CdbRecord* rec = records->get(i);
-		store->validateRecord(rec);
+		const ArrayList<CdbRecord>* records = cmd->getRecords();
+
+		int maxLoop = records->size();
+		for(int i = 0; i != maxLoop; ++i){
+			CdbRecord* rec = records->get(i);
+			store->validateRecord(rec);
+		}
+
+
+		for(int i = 0; i != maxLoop; ++i){
+			CdbRecord* rec = records->get(i);
+
+			store->insert(rec);
+		}
+
+		this->committedCommands->addElement(cmd);
 	}
-
-
-	for(int i = 0; i != maxLoop; ++i){
-		CdbRecord* rec = records->get(i);
-
-		store->insert(rec);
-	}
-
-	this->committedCommands->addElement(cmd);
 }
 
 Schema* CdbTransactionManager::getSchema(const UnicodeString* name) const noexcept {

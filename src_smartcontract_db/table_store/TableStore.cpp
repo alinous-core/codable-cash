@@ -22,6 +22,8 @@
 #include "engine/CdbException.h"
 
 #include "engine_lock/TableLevelLock.h"
+#include "engine_lock/AbstractLockHandle.h"
+#include "engine_lock/WriteLockHandle.h"
 
 #include "table/CdbTableIndex.h"
 #include "table/CdbTableColumn.h"
@@ -38,6 +40,7 @@
 #include "btree/BtreeScanner.h"
 
 #include "schema/ColumnModifyContext.h"
+
 
 
 namespace codablecash {
