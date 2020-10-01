@@ -8,19 +8,26 @@
 #ifndef SQL_DDL_ALTER_INDEXCHECKER_H_
 #define SQL_DDL_ALTER_INDEXCHECKER_H_
 
+#include "base/ArrayList.h"
+
+using alinous::ArrayList;
+
 namespace codablecash {
 
-class SchemaManager;
-class CdbStorageManager;
+class CodableDatabase;
+class CdbTable;
+class CdbTableColumn;
 
 class IndexChecker {
 public:
-	IndexChecker(SchemaManager* scmagr, CdbStorageManager* storagemgr);
+	explicit IndexChecker(CodableDatabase* db);
 	virtual ~IndexChecker();
 
+	bool checkUnique(const CdbTable* table, const CdbTableColumn* column);
+	bool checkUnique(const CdbTable* table, ArrayList<const CdbTableColumn>* column);
+
 private:
-	SchemaManager* const scmagr;
-	CdbStorageManager* const storagemgr;
+	CodableDatabase* const db;
 };
 
 } /* namespace codablecash */

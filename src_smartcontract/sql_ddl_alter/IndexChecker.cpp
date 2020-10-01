@@ -7,19 +7,31 @@
 
 #include "sql_ddl_alter/IndexChecker.h"
 
-#include "schema/SchemaManager.h"
+#include "engine/CodableDatabase.h"
 
-#include "table_store/CdbStorageManager.h"
+#include "table/CdbTableColumn.h"
 
 namespace codablecash {
 
-IndexChecker::IndexChecker(SchemaManager* scmagr, CdbStorageManager* storagemgr)
-		: scmagr(scmagr), storagemgr(storagemgr) {
+IndexChecker::IndexChecker(CodableDatabase* db)
+		: db(db) {
 
 }
 
 IndexChecker::~IndexChecker() {
 
 }
+
+bool IndexChecker::checkUnique(const CdbTable* table, const CdbTableColumn* column) {
+	ArrayList<const CdbTableColumn> list;
+	list.addElement(column);
+
+	return checkUnique(table, &list);
+}
+
+bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableColumn>* column) {
+
+}
+
 
 } /* namespace codablecash */

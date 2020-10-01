@@ -32,18 +32,21 @@
 #include "instance_string/VmStringInstance.h"
 
 #include "instance_exception/TypeCastExceptionClassDeclare.h"
+#include "instance_exception/ExceptionInterrupt.h"
 
 #include "engine/CodableDatabase.h"
-
-#include "instance_exception/ExceptionInterrupt.h"
 
 #include "sql_join_parts/TableIdentifier.h"
 
 #include "schema/SchemaManager.h"
+#include "schema/ColumnModifyContext.h"
 
 #include "table/CdbTable.h"
-
 #include "table/CdbTableColumn.h"
+
+#include "sql_ddl_alter/IndexChecker.h"
+
+
 namespace alinous {
 
 AlterModifyCommand::AlterModifyCommand(const AlterModifyCommand& inst) : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_MODIFY) {
@@ -214,6 +217,13 @@ void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log
 
 	ColumnModifyContext* modifyContext = column->createModifyContextwithChange(this, defstr, false);
 
+	IndexChecker checker(db);
+
+	ColumnModifyContext::UniqueChage uchange = modifyContext->getUniqueChange();
+	if(uchange == ColumnModifyContext::UniqueChage::TO_UNIQUE){
+		bool result = checker.checkUnique(table, column);
+
+	}
 }
 
 
