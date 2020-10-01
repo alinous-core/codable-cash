@@ -102,9 +102,7 @@ void AlterTableStatement::interpret(VirtualMachine* vm) {
 	}
 	log->setTableIdentifier(table);
 
-	log->reanalyze(nullptr, this);
-
-
+	log->reanalyze(vm->getSmartContract()->getAnalyzeContext(), this);
 
 	VmTransactionHandler* handler = vm->getTransactionHandler();
 	try{
