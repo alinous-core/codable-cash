@@ -10,6 +10,11 @@
 #include "engine/CodableDatabase.h"
 
 #include "table/CdbTableColumn.h"
+#include "table/CdbTable.h"
+
+#include "table_store/CdbStorageManager.h"
+
+#include "scan/RecordScanner.h"
 
 namespace codablecash {
 
@@ -30,7 +35,22 @@ bool IndexChecker::checkUnique(const CdbTable* table, const CdbTableColumn* colu
 }
 
 bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableColumn>* column) {
+	CdbLocalCacheManager* cacheMgr = this->db->getLocalCacheManager();
+	CdbStorageManager* storeMgr = this->db->getStorageManager();
 
+	TableStore* store = storeMgr->getTableStore(table->getOid());
+
+	bool ret = true;
+
+	RecordScanner scanner(store);
+
+	scanner.start();
+	while(scanner.hasNext()){
+		const CdbRecord* record = scanner.next();
+
+	}
+
+	return true;
 }
 
 
