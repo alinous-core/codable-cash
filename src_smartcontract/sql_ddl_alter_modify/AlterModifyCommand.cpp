@@ -34,6 +34,8 @@
 #include "instance_exception/TypeCastExceptionClassDeclare.h"
 
 #include "engine/CodableDatabase.h"
+
+#include "instance_exception/ExceptionInterrupt.h"
 namespace alinous {
 
 AlterModifyCommand::AlterModifyCommand(const AlterModifyCommand& inst) : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_MODIFY) {
@@ -183,6 +185,7 @@ void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* 
 		}
 		else{
 			TypeCastExceptionClassDeclare::throwException(vm, this);
+			ExceptionInterrupt::interruptPoint(vm);
 		}
 	}
 }
@@ -192,6 +195,7 @@ void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log
 	SchemaManager* scmagr = db->getSchemaManager();
 	CdbStorageManager* storagemgr = db->getStorageManager();
 
+	const UnicodeString* name = this->columnDescriptor->getName();
 
 }
 

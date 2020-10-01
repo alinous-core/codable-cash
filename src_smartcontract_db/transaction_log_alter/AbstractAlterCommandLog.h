@@ -15,6 +15,7 @@ class TableIdentifier;
 class VirtualMachine;
 class AnalyzeContext;
 class CodeElement;
+class TableIdentifier;
 }
 using namespace alinous;
 
@@ -36,7 +37,7 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	virtual void fromBinary(ByteBuffer* in);
 
-	virtual void initCommandParam(VirtualMachine* vm) = 0;
+	virtual void initCommandParam(VirtualMachine* vm, TableIdentifier* tableId) = 0;
 
 protected:
 	TableIdentifier* tableId;
