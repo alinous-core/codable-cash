@@ -32,6 +32,8 @@
 #include "instance_string/VmStringInstance.h"
 
 #include "instance_exception/TypeCastExceptionClassDeclare.h"
+
+#include "engine/CodableDatabase.h"
 namespace alinous {
 
 AlterModifyCommand::AlterModifyCommand(const AlterModifyCommand& inst) : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_MODIFY) {
@@ -186,6 +188,10 @@ void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* 
 }
 
 void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log) {
+	CodableDatabase* db = vm->getDb();
+	SchemaManager* scmagr = db->getSchemaManager();
+	CdbStorageManager* storagemgr = db->getStorageManager();
+
 
 }
 

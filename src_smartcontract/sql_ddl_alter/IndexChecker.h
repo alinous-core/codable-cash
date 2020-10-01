@@ -10,10 +10,17 @@
 
 namespace codablecash {
 
+class SchemaManager;
+class CdbStorageManager;
+
 class IndexChecker {
 public:
-	IndexChecker();
+	IndexChecker(SchemaManager* scmagr, CdbStorageManager* storagemgr);
 	virtual ~IndexChecker();
+
+private:
+	SchemaManager* const scmagr;
+	CdbStorageManager* const storagemgr;
 };
 
 } /* namespace codablecash */
