@@ -91,6 +91,10 @@ void TestDbSchemaBase::setMain(const wchar_t* pkg, const wchar_t* clazz, const w
 	this->vm->getSmartContract()->setMainMethod(&mainPackage, &mainClass, &mainMethod);
 }
 
+void TestDbSchemaBase::checkUncaughtException() {
+	this->vm->checkUncaughtException();
+}
+
 void TestDbSchemaBase::createDb() {
 	File testCaseFolder = this->env->testCaseDir();
 	this->dbDir = testCaseFolder.get(L"db");

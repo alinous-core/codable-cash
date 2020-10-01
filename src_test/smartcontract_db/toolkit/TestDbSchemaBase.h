@@ -39,6 +39,8 @@ public:
 		return this->vm;
 	}
 
+	void checkUncaughtException();
+
 	CdbTable* getTable(const wchar_t* schema, const wchar_t* table);
 
 	CdbTableColumn* getColumn(const wchar_t* schema, const wchar_t* table, const wchar_t* column);
