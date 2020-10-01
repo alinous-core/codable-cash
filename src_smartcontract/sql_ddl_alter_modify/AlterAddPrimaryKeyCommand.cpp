@@ -85,7 +85,7 @@ void AlterAddPrimaryKeyCommand::analyzeTypeRef(AnalyzeContext* actx) {
 void AlterAddPrimaryKeyCommand::analyze(AnalyzeContext* actx) {
 }
 
-void AlterAddPrimaryKeyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log) {
+void AlterAddPrimaryKeyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
 }
 
 

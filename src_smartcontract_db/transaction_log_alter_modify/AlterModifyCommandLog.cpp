@@ -102,7 +102,7 @@ void AlterModifyCommandLog::commit(CdbTransactionManager* trxManager) {
 }
 
 void AlterModifyCommandLog::initCommandParam(VirtualMachine* vm, TableIdentifier* tableId) {
-	this->command->interpret(vm, this);
+	this->command->interpret(vm, this, tableId);
 }
 
 void AlterModifyCommandLog::setLength(int64_t length) noexcept {

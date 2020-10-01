@@ -69,7 +69,7 @@ void AlterAddColumnCommand::analyzeTypeRef(AnalyzeContext* actx) {
 void AlterAddColumnCommand::analyze(AnalyzeContext* actx) {
 }
 
-void AlterAddColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log) {
+void AlterAddColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
 }
 
 

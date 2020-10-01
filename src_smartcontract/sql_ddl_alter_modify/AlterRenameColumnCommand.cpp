@@ -78,7 +78,7 @@ void AlterRenameColumnCommand::analyzeTypeRef(AnalyzeContext* actx) {
 void AlterRenameColumnCommand::analyze(AnalyzeContext* actx) {
 }
 
-void AlterRenameColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log) {
+void AlterRenameColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
 }
 
 

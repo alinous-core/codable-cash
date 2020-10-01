@@ -156,7 +156,7 @@ void AlterModifyCommand::analyze(AnalyzeContext* actx) {
 	}
 }
 
-void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log) {
+void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
 	AlterModifyCommandLog* modifyLog = dynamic_cast<AlterModifyCommandLog*>(log);
 
 	validate(vm, modifyLog);
