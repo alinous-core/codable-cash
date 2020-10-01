@@ -34,6 +34,8 @@
 #include "transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "sc_analyze/ValidationError.h"
+
+#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
 using namespace alinous;
 using namespace codablecash;
 

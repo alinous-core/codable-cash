@@ -67,6 +67,7 @@ AlterModifyCommand::~AlterModifyCommand() {
 }
 
 void AlterModifyCommand::setColumnDescriptor(DdlColumnDescriptor* columnDescriptor) noexcept {
+	delete this->columnDescriptor;
 	this->columnDescriptor = columnDescriptor;
 }
 
@@ -201,10 +202,10 @@ void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* 
 
 			modifyLog->setDefaultStr(new UnicodeString(str));
 		}
-		else{
-			TypeCastExceptionClassDeclare::throwException(vm, this);
-			ExceptionInterrupt::interruptPoint(vm);
-		}
+		//else{ Not necessary
+		//	TypeCastExceptionClassDeclare::throwException(vm, this);
+		//	ExceptionInterrupt::interruptPoint(vm);
+		//}
 	}
 
 	validate(vm, modifyLog, tableId);

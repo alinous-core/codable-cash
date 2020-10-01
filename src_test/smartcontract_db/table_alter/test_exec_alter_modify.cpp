@@ -30,6 +30,7 @@
 #include "table/CdbTableColumn.h"
 #include "table/CdbTableIndex.h"
 
+#include "sql_expression/SQLWildCard.h"
 
 TEST_GROUP(TestExecAlterMofdifyGroup) {
 	TEST_SETUP() {
