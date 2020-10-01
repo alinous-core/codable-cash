@@ -101,7 +101,7 @@ void AlterModifyCommandLog::commit(CdbTransactionManager* trxManager) {
 	trxManager->commitAlterTable(this);
 }
 
-void AlterModifyCommandLog::initCommandParam(VirtualMachine* vm) {
+void AlterModifyCommandLog::initCommandParam(VirtualMachine* vm, TableIdentifier* tableId) {
 	this->command->interpret(vm, this);
 }
 

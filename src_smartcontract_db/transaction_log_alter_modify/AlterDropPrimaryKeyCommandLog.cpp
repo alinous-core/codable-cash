@@ -66,7 +66,7 @@ void AlterDropPrimaryKeyCommandLog::commit(CdbTransactionManager* trxManager) {
 	trxManager->commitAlterTable(this);
 }
 
-void AlterDropPrimaryKeyCommandLog::initCommandParam(VirtualMachine* vm) {
+void AlterDropPrimaryKeyCommandLog::initCommandParam(VirtualMachine* vm, TableIdentifier* tableId) {
 	this->command->interpret(vm, this);
 }
 

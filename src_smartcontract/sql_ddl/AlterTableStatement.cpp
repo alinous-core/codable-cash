@@ -104,7 +104,7 @@ void AlterTableStatement::interpret(VirtualMachine* vm) {
 
 	log->reanalyze(nullptr, this);
 
-	log->initCommandParam(vm);
+	log->initCommandParam(vm, this->tableId);
 
 	VmTransactionHandler* handler = vm->getTransactionHandler();
 	try{

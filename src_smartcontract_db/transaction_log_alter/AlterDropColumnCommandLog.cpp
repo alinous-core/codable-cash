@@ -66,7 +66,7 @@ void AlterDropColumnCommandLog::commit(CdbTransactionManager* trxManager) {
 	trxManager->commitAlterTable(this);
 }
 
-void AlterDropColumnCommandLog::initCommandParam(VirtualMachine* vm) {
+void AlterDropColumnCommandLog::initCommandParam(VirtualMachine* vm, TableIdentifier* tableId) {
 	this->command->interpret(vm, this);
 }
 
