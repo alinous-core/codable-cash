@@ -14,6 +14,7 @@ namespace alinous {
 class TestEnv;
 class File;
 class VirtualMachine;
+class ExtExceptionObject;
 }
 using namespace alinous;
 
@@ -39,7 +40,7 @@ public:
 		return this->vm;
 	}
 
-	void checkUncaughtException();
+	const ExtExceptionObject* checkUncaughtException();
 
 	CdbTable* getTable(const wchar_t* schema, const wchar_t* table);
 
@@ -66,6 +67,8 @@ protected:
 	File* dbDir;
 
 	File* folder; // smart contract base
+
+	ExtExceptionObject* exobj;
 };
 
 } /* namespace codablecash */

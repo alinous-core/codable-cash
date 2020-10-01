@@ -27,6 +27,8 @@
 #include "sc/SmartContract.h"
 
 #include "base_io_stream/FileInputStream.h"
+
+#include "ext_binary/ExtExceptionObject.h"
 namespace codablecash {
 
 TestDbSchemaBase::TestDbSchemaBase(TestEnv* env) {
@@ -36,6 +38,7 @@ TestDbSchemaBase::TestDbSchemaBase(TestEnv* env) {
 	this->loidSerial = 1;
 
 	this->folder = nullptr;
+	this->exobj = nullptr;
 }
 
 TestDbSchemaBase::~TestDbSchemaBase() {
@@ -43,6 +46,7 @@ TestDbSchemaBase::~TestDbSchemaBase() {
 	delete this->dbDir;
 	delete this->vm;
 	delete this->folder;
+	delete this->exobj;
 }
 
 void TestDbSchemaBase::init() {
@@ -91,8 +95,12 @@ void TestDbSchemaBase::setMain(const wchar_t* pkg, const wchar_t* clazz, const w
 	this->vm->getSmartContract()->setMainMethod(&mainPackage, &mainClass, &mainMethod);
 }
 
-void TestDbSchemaBase::checkUncaughtException() {
+const ExtExceptionObject* TestDbSchemaBase::checkUncaughtException() {
 	this->vm->checkUncaughtException();
+
+	this->exobj = this->vm->getUncaughtException();
+
+	return this->exobj;
 }
 
 void TestDbSchemaBase::createDb() {

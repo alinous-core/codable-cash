@@ -29,6 +29,12 @@
 #include "table/CdbTableColumn.h"
 #include "table/CdbTableIndex.h"
 
+#include "ext_binary/ExtExceptionObject.h"
+
+#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+
+using namespace alinous;
+using namespace codablecash;
 
 TEST_GROUP(TestExecAlterMofdifyUniqueGroup) {
 	TEST_SETUP() {
@@ -70,8 +76,10 @@ TEST(TestExecAlterMofdifyUniqueGroup, case01){
 		stmt->interpret(vm);
 	}
 
-	tester.checkUncaughtException();
+	const ExtExceptionObject* ex = tester.checkUncaughtException();
+	CHECK(ex != nullptr);
 
+	ex->getClassName()->equals(&DatabaseExceptionClassDeclare::NAME);
 }
 
 /**
