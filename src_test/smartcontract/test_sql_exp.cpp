@@ -14,6 +14,11 @@
 #include "alinous_lang/AlinousLang.h"
 #include "sql_expression/SQLWildCard.h"
 
+#include "sql_expression/SQLNullLiteral.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "scan_planner/SelectScanPlanner.h"
 static bool checkBinary(ByteBuffer* buff){
 	int lastSize = buff->capacity();
 
@@ -597,5 +602,39 @@ TEST(TestSQLExpressionGroup, wildcard02){
 	AnalyzedType none;
 
 	CHECK(atype.getType() == none.getType());
+}
+
+TEST(TestSQLExpressionGroup, sqlnull01){
+	VirtualMachine* vm = new VirtualMachine(10*1024); __STP(vm);
+	SQLNullLiteral exp;
+	exp.init(vm);
+
+	AnalyzedType atype = exp.getType(nullptr);
+	AnalyzedType none(AnalyzedType::TYPE_NULL);
+
+	CHECK(atype.getType() == none.getType());
+}
+
+TEST(TestSQLExpressionGroup, sqlnull02){
+	VirtualMachine* vm = new VirtualMachine(10*1024); __STP(vm);
+	SQLNullLiteral exp;
+	exp.init(vm);
+
+	exp.onSelectTarget(vm);
+}
+
+TEST(TestSQLExpressionGroup, sqlnull03){
+	VirtualMachine* vm = new VirtualMachine(10*1024); __STP(vm);
+	SQLNullLiteral exp;
+	exp.init(vm);
+
+	SelectScanPlanner* planner = new SelectScanPlanner(); __STP(planner);
+	vm->setSelectPlanner(planner);
+
+	exp.interpret(vm);
+
+	vm->popSelectPlanner();
+
+	exp.onSelectTarget(vm);
 }
 
