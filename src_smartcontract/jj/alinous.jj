@@ -3196,7 +3196,7 @@ DdlColumnDescriptor* ddlColumnDescriptor() :
 		t=<SQL_DEFAULT> {
 			desc->setPosition(t);
 		}
-		(val=sqlLiteral() | val=sqlBooleanLiteral()) {
+		(val=sqlLiteral() | val=sqlBooleanLiteral() | val=sqlNullLiteral()) {
 			desc->setDefaultValue(val);
 			desc->setPosition(val);
 		}		
@@ -4284,6 +4284,7 @@ AbstractSQLExpression* sqlPrimitiveExpression() : {
 }
 {
 	(
+		exp=sqlNullLiteral() |
 		exp=sqlWildCard() |
 		exp=sqlParenthesisExpression() |
 		exp=sqlLiteral() |
@@ -4294,6 +4295,20 @@ AbstractSQLExpression* sqlPrimitiveExpression() : {
 	)
 	{}
 	{
+		return exp;
+	}
+}
+
+SQLNullLiteral* sqlNullLiteral() : {
+	SQLNullLiteral* exp = new SQLNullLiteral();
+	Token* t = nullptr;
+}
+{
+	t=<_NULL> {
+		exp->setPosition(t);
+	}
+	{
+		__ONERROR(exp);
 		return exp;
 	}
 }

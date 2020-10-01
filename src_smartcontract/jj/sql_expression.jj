@@ -478,6 +478,7 @@ AbstractSQLExpression* sqlPrimitiveExpression() : {
 }
 {
 	(
+		exp=sqlNullLiteral() |
 		exp=sqlWildCard() |
 		exp=sqlParenthesisExpression() |
 		exp=sqlLiteral() |
@@ -488,6 +489,20 @@ AbstractSQLExpression* sqlPrimitiveExpression() : {
 	)
 	{}
 	{
+		return exp;
+	}
+}
+
+SQLNullLiteral* sqlNullLiteral() : {
+	SQLNullLiteral* exp = new SQLNullLiteral();
+	Token* t = nullptr;
+}
+{
+	t=<_NULL> {
+		exp->setPosition(t);
+	}
+	{
+		__ONERROR(exp);
 		return exp;
 	}
 }

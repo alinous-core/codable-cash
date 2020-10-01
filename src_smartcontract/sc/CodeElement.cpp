@@ -596,7 +596,7 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		element = new SQLWildCard();
 		break;
 	case SQL_EXP_NULL_LITERAL:
-		element = new NullLiteral();
+		element = new SQLNullLiteral();
 		break;
 
 	case SQL_PART_COLUMN_LIST:
