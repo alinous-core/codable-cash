@@ -83,6 +83,15 @@ void TestDbSchemaAlter01::insert02() {
 	trx->commit();
 }
 
+void TestDbSchemaAlter01::insert03() {
+	CdbTransaction* trx = getDatabase()->newTransaction(); __STP(trx);
+
+	insertRecord(trx, 1, L"tanaka", 11);
+	insertRecord(trx, 2, L"sato", 11);
+
+	trx->commit();
+}
+
 void TestDbSchemaAlter01::insertRecord(CdbTransaction* trx, int id,	const wchar_t* name, int email_id) {
 	InsertLog* log = new InsertLog();
 
@@ -124,5 +133,6 @@ void TestDbSchemaAlter01::insertRecord02(CdbTransaction* trx, int id, const wcha
 
 	trx->insert(log);
 }
+
 
 } /* namespace codablecash */

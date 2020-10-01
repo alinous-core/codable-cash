@@ -28,6 +28,7 @@
 #include "instance_ref/PrimitiveReference.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #include "instance_string/VmStringInstance.h"
 
@@ -46,6 +47,7 @@
 
 #include "sql_ddl_alter/IndexChecker.h"
 
+#include "engine/CdbException.h"
 
 namespace alinous {
 
@@ -215,13 +217,16 @@ void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log
 
 	const UnicodeString* defstr = log->getDefaultValueStr();
 
-	ColumnModifyContext* modifyContext = column->createModifyContextwithChange(this, defstr, false);
+	ColumnModifyContext* modifyContext = column->createModifyContextwithChange(this, defstr, false); __STP(modifyContext);
 
 	IndexChecker checker(db);
 
 	ColumnModifyContext::UniqueChage uchange = modifyContext->getUniqueChange();
 	if(uchange == ColumnModifyContext::UniqueChage::TO_UNIQUE){
 		bool result = checker.checkUnique(table, column);
+		if(!result){
+			throw new CdbException(L"Can not set the column unique because of table data.", __FILE__, __LINE__);
+		}
 
 	}
 }
