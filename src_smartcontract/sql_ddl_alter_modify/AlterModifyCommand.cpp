@@ -182,10 +182,14 @@ void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* 
 		AbstractVmInstance* inst = defaultValue->interpret(vm);
 		releaser.registerInstance(inst);
 
-		IAbstractVmInstanceSubstance* sub = inst->getInstance();
+		IAbstractVmInstanceSubstance* sub = inst != nullptr ? inst->getInstance() : nullptr;
 
-		uint8_t instType = sub->getInstType();
-		if(sub->instIsPrimitive()){
+		uint8_t instType = sub != nullptr ? sub->getInstType() : VmInstanceTypesConst::INST_NULL;
+
+		if(instType == VmInstanceTypesConst::INST_NULL){
+			modifyLog->setDefaultStr(nullptr);
+		}
+		else if(sub->instIsPrimitive()){
 			PrimitiveReference* pr = dynamic_cast<PrimitiveReference*>(sub);
 			const UnicodeString* str = pr->toString();
 

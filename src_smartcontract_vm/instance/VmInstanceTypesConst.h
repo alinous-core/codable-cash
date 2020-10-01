@@ -13,6 +13,7 @@ namespace alinous {
 
 class VmInstanceTypesConst {
 public:
+	static constexpr uint8_t INST_NULL {0};
 	static constexpr uint8_t STACK {1};
 	static constexpr uint8_t INST_OBJ {2};
 	static constexpr uint8_t INST_STRING{3};
