@@ -17,6 +17,8 @@ namespace codablecash {
 class CodableDatabase;
 class CdbTable;
 class CdbTableColumn;
+class CdbRecordKey;
+class CdbRecord;
 
 class IndexChecker {
 public:
@@ -25,6 +27,9 @@ public:
 
 	bool checkUnique(const CdbTable* table, const CdbTableColumn* column);
 	bool checkUnique(const CdbTable* table, ArrayList<const CdbTableColumn>* column);
+
+private:
+	CdbRecordKey* makeIndexKey(const CdbRecord* record, ArrayList<const CdbTableColumn>* column);
 
 private:
 	CodableDatabase* const db;
