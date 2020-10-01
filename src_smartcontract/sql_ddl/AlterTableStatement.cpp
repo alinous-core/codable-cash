@@ -115,7 +115,6 @@ void AlterTableStatement::interpret(VirtualMachine* vm) {
 	catch(Exception* e){
 		DatabaseExceptionClassDeclare::throwException(e->getMessage(), vm, this);
 		delete e;
-		delete cmd;
 	}
 }
 

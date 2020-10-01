@@ -76,6 +76,19 @@ void TestDbSchemaBase::initSmartcontract() {
 	sc->addCompilationUnit(&stream, length, this->folder, sourceFile);
 
 	this->vm->loadSmartContract(sc);
+
+	this->vm->analyze();
+
+	setMain(L"test.fw", L"SmartContract", L"main");
+	this->vm->createScInstance();
+}
+
+void TestDbSchemaBase::setMain(const wchar_t* pkg, const wchar_t* clazz, const wchar_t* method) noexcept {
+	UnicodeString mainPackage(pkg);
+	UnicodeString mainClass(clazz);
+	UnicodeString mainMethod(method);
+
+	this->vm->getSmartContract()->setMainMethod(&mainPackage, &mainClass, &mainMethod);
 }
 
 void TestDbSchemaBase::createDb() {

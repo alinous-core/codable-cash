@@ -68,6 +68,8 @@ TEST(TestExecAlterMofdifyUniqueGroup, case01){
 		stmt->analyze(actx);
 
 		stmt->interpret(vm);
+
+
 	}
 }
 
