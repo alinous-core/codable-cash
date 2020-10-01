@@ -24,6 +24,7 @@ public:
 
 	void setName(UnicodeString* name) noexcept;
 	void addColumn(UnicodeString* colName) noexcept;
+	void setUnique(bool unique) noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

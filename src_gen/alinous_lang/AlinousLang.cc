@@ -4832,6 +4832,7 @@ AlterAddIndexCommand                    * AlinousLang::alterAddIndexCommand(Toke
       }
       if (!hasError) {
 cmd->setPosition(t);
+                        cmd->setUnique(true);
       }
       break;
       }

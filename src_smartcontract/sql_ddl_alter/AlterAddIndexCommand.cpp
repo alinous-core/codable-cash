@@ -40,6 +40,10 @@ void AlterAddIndexCommand::setName(UnicodeString* name) noexcept {
 	this->name = name;
 }
 
+void AlterAddIndexCommand::setUnique(bool unique) noexcept {
+	this->unique = unique;
+}
+
 void AlterAddIndexCommand::addColumn(UnicodeString* colName) noexcept {
 	this->list.addElement(colName);
 }

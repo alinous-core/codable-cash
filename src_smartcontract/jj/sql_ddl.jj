@@ -314,6 +314,7 @@ AlterAddIndexCommand* alterAddIndexCommand(Token* t) : {
 	[
 		t=<UNIQUE>{
 			cmd->setPosition(t);
+			cmd->setUnique(true);
 		}
 	]
 
