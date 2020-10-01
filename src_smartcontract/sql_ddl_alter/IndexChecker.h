@@ -26,10 +26,10 @@ public:
 	virtual ~IndexChecker();
 
 	bool checkUnique(const CdbTable* table, const CdbTableColumn* column);
-	bool checkUnique(const CdbTable* table, ArrayList<const CdbTableColumn>* column);
+	bool checkUnique(const CdbTable* table, ArrayList<const CdbTableColumn>* columnList);
 
 private:
-	CdbRecordKey* makeIndexKey(const CdbRecord* record, ArrayList<const CdbTableColumn>* column);
+	CdbRecordKey* makeIndexKey(const CdbRecord* record, ArrayList<const CdbTableColumn>* columnList);
 
 private:
 	CodableDatabase* const db;

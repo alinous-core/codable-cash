@@ -21,8 +21,12 @@
 
 #include "transaction_cache/SingleKeyOidCache.h"
 
-#include "table_record_key/CdbRecordKey.h"
 #include "table_record/CdbRecord.h"
+
+#include "table_record_key/CdbRecordKey.h"
+
+#include "table_record_value/AbstractCdbValue.h"
+
 
 namespace codablecash {
 
@@ -42,7 +46,7 @@ bool IndexChecker::checkUnique(const CdbTable* table, const CdbTableColumn* colu
 	return checkUnique(table, &list);
 }
 
-bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableColumn>* column) {
+bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableColumn>* columnList) {
 	CdbLocalCacheManager* cacheMgr = this->db->getLocalCacheManager();
 	SingleKeyOidCache* cache = cacheMgr->createSingleKeyOidCache(); __STP(cache);
 
@@ -57,7 +61,7 @@ bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableCo
 	while(scanner.hasNext()){
 		const CdbRecord* record = scanner.next();
 
-		CdbRecordKey* key = makeIndexKey(record, column);
+		CdbRecordKey* key = makeIndexKey(record, columnList);
 
 		if(cache->hasKey(key)){
 			ret = false;
@@ -70,7 +74,20 @@ bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableCo
 	return ret;
 }
 
-CdbRecordKey* IndexChecker::makeIndexKey(const CdbRecord* record, ArrayList<const CdbTableColumn>* column) {
+CdbRecordKey* IndexChecker::makeIndexKey(const CdbRecord* record, ArrayList<const CdbTableColumn>* columnList) {
+	CdbRecordKey* key = new CdbRecordKey();
+
+	int maxLoop = columnList->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const CdbTableColumn* column = columnList->get(i);
+		int pos = column->getPosition();
+
+		const AbstractCdbValue* v = record->get(pos);
+		AbstractCdbKey* vkey = v != nullptr? v->toKey() : nullptr;
+		key->addKey(vkey);
+	}
+
+	return key;
 }
 
 } /* namespace codablecash */
