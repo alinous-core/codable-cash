@@ -73,6 +73,7 @@ public:
 	ScanResultFieldMetadata* getFieldMetadata(const CdbTable* table) const noexcept;
 
 	ColumnModifyContext* createModifyContextwithChange(const AlterModifyCommand* cmd, const UnicodeString* defaultStr);
+	ColumnModifyContext* createModifyContextwithChange(const AlterModifyCommand* cmd, const UnicodeString* defaultStr, bool update);
 
 private:
 	CdbOid* oid;

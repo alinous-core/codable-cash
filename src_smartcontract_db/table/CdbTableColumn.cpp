@@ -176,7 +176,11 @@ ScanResultFieldMetadata* CdbTableColumn::getFieldMetadata(const CdbTable* table)
 	return fld;
 }
 
-ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterModifyCommand* cmd, const UnicodeString* defaultStr) {
+ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterModifyCommand* cmd, const UnicodeString* defaultStr){
+	return createModifyContextwithChange(cmd, defaultStr, true);
+}
+
+ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterModifyCommand* cmd, const UnicodeString* defaultStr, bool update) {
 	ColumnModifyContext* ctx = new ColumnModifyContext();
 	const DdlColumnDescriptor* newdesc = cmd->getColumnDescriptor();
 
@@ -189,7 +193,9 @@ ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterMo
 			ctx->setUniqueChange(ColumnModifyContext::UniqueChage::TO_NOT_UNIQUE);
 		}
 
-		this->unique = nextUnique;
+		if(update){
+			this->unique = nextUnique;
+		}
 	}
 
 	bool nextNotnull = newdesc->isNotNull();
@@ -201,7 +207,9 @@ ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterMo
 			ctx->setNotNullChange(ColumnModifyContext::NotNullChage::RELEASE_NOT_NULL);
 		}
 
-		this->notnull = nextNotnull;
+		if(update){
+			this->notnull = nextNotnull;
+		}
 	}
 
 	ColumnTypeDescriptor* typeDesc = newdesc->getColumnTypeDescriptor();
@@ -213,8 +221,10 @@ ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterMo
 		ctx->setCdbType(cdbType);
 		ctx->setLength(length);
 
-		this->type = cdbType;
-		this->length = length;
+		if(update){
+			this->type = cdbType;
+			this->length = length;
+		}
 	}
 
 	if((this->defaultValue != nullptr && defaultStr == nullptr) ||
@@ -223,9 +233,10 @@ ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterMo
 		ctx->setDefaultValue(defaultStr);
 		ctx->setDefaultChanged(true);
 
-		setDefaultValue(defaultStr);
+		if(update){
+			setDefaultValue(defaultStr);
+		}
 	}
-
 
 	return ctx;
 }

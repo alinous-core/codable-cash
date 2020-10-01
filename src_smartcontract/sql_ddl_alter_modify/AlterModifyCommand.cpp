@@ -36,6 +36,14 @@
 #include "engine/CodableDatabase.h"
 
 #include "instance_exception/ExceptionInterrupt.h"
+
+#include "sql_join_parts/TableIdentifier.h"
+
+#include "schema/SchemaManager.h"
+
+#include "table/CdbTable.h"
+
+#include "table/CdbTableColumn.h"
 namespace alinous {
 
 AlterModifyCommand::AlterModifyCommand(const AlterModifyCommand& inst) : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_MODIFY) {
@@ -159,8 +167,6 @@ void AlterModifyCommand::analyze(AnalyzeContext* actx) {
 void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
 	AlterModifyCommandLog* modifyLog = dynamic_cast<AlterModifyCommandLog*>(log);
 
-	validate(vm, modifyLog);
-
 	AbstractSQLExpression* defaultValue = this->columnDescriptor->getDefaultValue();
 	if(defaultValue != nullptr){
 		StackFloatingVariableHandler releaser(vm->getGc());
@@ -188,14 +194,29 @@ void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* 
 			ExceptionInterrupt::interruptPoint(vm);
 		}
 	}
+
+	validate(vm, modifyLog, tableId);
 }
 
-void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log) {
+void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log, TableIdentifier* tableId) {
 	CodableDatabase* db = vm->getDb();
 	SchemaManager* scmagr = db->getSchemaManager();
 	CdbStorageManager* storagemgr = db->getStorageManager();
 
+	const UnicodeString* scName = tableId->getSchema();
+	if(scName == nullptr){
+		scName = vm->getCurrentSchema();
+	}
+
+	const UnicodeString* tblName = tableId->getTableName();
+	CdbTable* table = scmagr->getTable(scName, tblName);
+
 	const UnicodeString* name = this->columnDescriptor->getName();
+	CdbTableColumn* column = table->getColumn(name);
+
+	const UnicodeString* defstr = log->getDefaultValueStr();
+
+	ColumnModifyContext* modifyContext = column->createModifyContextwithChange(this, defstr);
 
 }
 

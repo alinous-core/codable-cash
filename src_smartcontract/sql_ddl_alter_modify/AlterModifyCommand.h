@@ -47,7 +47,7 @@ public:
 	}
 
 private:
-	void validate(VirtualMachine* vm, AlterModifyCommandLog* log);
+	void validate(VirtualMachine* vm, AlterModifyCommandLog* log, TableIdentifier* tableId);
 
 private:
 	DdlColumnDescriptor* columnDescriptor;
