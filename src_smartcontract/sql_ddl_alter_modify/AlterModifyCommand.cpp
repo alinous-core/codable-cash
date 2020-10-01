@@ -155,6 +155,8 @@ void AlterModifyCommand::analyze(AnalyzeContext* actx) {
 void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log) {
 	AlterModifyCommandLog* modifyLog = dynamic_cast<AlterModifyCommandLog*>(log);
 
+	validate(vm, modifyLog);
+
 	AbstractSQLExpression* defaultValue = this->columnDescriptor->getDefaultValue();
 	if(defaultValue != nullptr){
 		StackFloatingVariableHandler releaser(vm->getGc());
@@ -182,6 +184,11 @@ void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* 
 		}
 	}
 }
+
+void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log) {
+
+}
+
 
 
 } /* namespace alinous */

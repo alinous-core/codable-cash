@@ -10,6 +10,11 @@
 
 #include "sql_ddl_alter/AbstractAlterDdlCommand.h"
 
+namespace codablecash {
+class AlterModifyCommandLog;
+}
+using namespace codablecash;
+
 namespace alinous {
 
 class DdlColumnDescriptor;
@@ -40,6 +45,9 @@ public:
 	int64_t getLengthValue() const noexcept {
 		return this->longValue;
 	}
+
+private:
+	void validate(VirtualMachine* vm, AlterModifyCommandLog* log);
 
 private:
 	DdlColumnDescriptor* columnDescriptor;
