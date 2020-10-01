@@ -29,11 +29,12 @@
 
 #include "scan_columns_params/NumberLiteralColumnParam.h"
 #include "scan_columns_params/StringLiteralColumnParam.h"
-
+#include <sql_expression/SQLLiteral.h>
 
 namespace alinous {
 
-SQLLiteral::SQLLiteral() : AbstractSQLExpression(CodeElement::SQL_EXP_LITERAL) {
+SQLLiteral::SQLLiteral() :
+		AbstractSQLExpression(CodeElement::SQL_EXP_LITERAL) {
 	this->value = nullptr;
 	this->type = TYPE_STRING;
 	this->longv = 0;
@@ -80,7 +81,7 @@ void SQLLiteral::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void SQLLiteral::analyze(AnalyzeContext* actx) {
-	if(this->type == SQLLiteral::TYPE_NUMBER){
+	if (this->type == SQLLiteral::TYPE_NUMBER) {
 		this->longv = Long::parseLong(this->value);
 		return;
 	}
@@ -89,7 +90,7 @@ void SQLLiteral::analyze(AnalyzeContext* actx) {
 }
 
 AnalyzedType SQLLiteral::getType(AnalyzeContext* actx) {
-	if(this->type == SQLLiteral::TYPE_NUMBER){
+	if (this->type == SQLLiteral::TYPE_NUMBER) {
 		return AnalyzedType(AnalyzedType::TYPE_LONG);
 	}
 
@@ -101,16 +102,16 @@ void SQLLiteral::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLLiteral::interpret(VirtualMachine* vm) {
-	if(vm->isSelectPlanning()){
+	if (vm->isSelectPlanning()) {
 		interpretOnPlanning(vm);
 		return nullptr;
 	}
 
-	if(this->type == SQLLiteral::TYPE_NUMBER){
+	if (this->type == SQLLiteral::TYPE_NUMBER) {
 		return PrimitiveReference::createLongReference(vm, this->longv);
 	}
 
-	VmStringInstance* inst = new(vm) VmStringInstance(vm, this->stringValue);
+	VmStringInstance* inst = new (vm) VmStringInstance(vm, this->stringValue);
 	return inst;
 }
 
@@ -119,10 +120,9 @@ void SQLLiteral::interpretOnPlanning(VirtualMachine* vm) {
 	ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
 	AbstractScanConditionParameter* param = nullptr;
-	if(this->type == SQLLiteral::TYPE_NUMBER){
+	if (this->type == SQLLiteral::TYPE_NUMBER) {
 		param = new NumericScanParam(this->longv);
-	}
-	else{
+	} else {
 		param = new StringScanParam(this->stringValue);
 	}
 
@@ -134,15 +134,13 @@ void SQLLiteral::onSelectTarget(VirtualMachine* vm) {
 	ScanColumnHolder* colHolder = planner->getColumnHolder();
 
 	AbstractColumnParam* param = nullptr;
-	if(this->type == SQLLiteral::TYPE_NUMBER){
+	if (this->type == SQLLiteral::TYPE_NUMBER) {
 		param = new NumberLiteralColumnParam(this->longv);
-	}
-	else{
+	} else {
 		param = new StringLiteralColumnParam(this->stringValue);
 	}
 
 	colHolder->push(param);
 }
-
 
 } /* namespace alinous */

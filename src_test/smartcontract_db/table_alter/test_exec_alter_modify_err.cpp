@@ -49,7 +49,7 @@ TEST_GROUP(TestExecAlterMofdifyErrGroup) {
 
 /**
  * default value error
- * ALTER TABLE test_table MODIFY email_id VARCHAR(0);
+ * ALTER TABLE test_table MODIFY email_id VARCHAR(-1);
  */
 TEST(TestExecAlterMofdifyErrGroup, case01){
 	TestDbSchemaAlter01 tester(this->env);
