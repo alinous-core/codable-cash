@@ -29,7 +29,7 @@
 
 #include "scan_columns_params/NumberLiteralColumnParam.h"
 #include "scan_columns_params/StringLiteralColumnParam.h"
-#include <sql_expression/SQLLiteral.h>
+
 
 namespace alinous {
 

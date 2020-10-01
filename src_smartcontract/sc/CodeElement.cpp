@@ -130,6 +130,7 @@
 #include "sql_expression/SQLIsNullExpression.h"
 #include "sql_expression/SQLLikeExpression.h"
 #include "sql_expression/SQLLiteral.h"
+#include "sql_expression/SQLNullLiteral.h"
 #include "sql_expression/SqlMultiplicativeExpression.h"
 #include "sql_expression/SQLNotExpression.h"
 #include "sql_expression/SQLOrExpression.h"
@@ -593,6 +594,9 @@ CodeElement* CodeElement::createFromBinary(ByteBuffer* in) {
 		break;
 	case SQL_EXP_WILDCARD:
 		element = new SQLWildCard();
+		break;
+	case SQL_EXP_NULL_LITERAL:
+		element = new NullLiteral();
 		break;
 
 	case SQL_PART_COLUMN_LIST:
