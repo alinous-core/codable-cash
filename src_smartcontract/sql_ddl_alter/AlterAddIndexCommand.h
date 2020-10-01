@@ -38,6 +38,7 @@ public:
 
 private:
 	UnicodeString* name;
+	bool unique;
 	ArrayList<UnicodeString> list;
 };
 
