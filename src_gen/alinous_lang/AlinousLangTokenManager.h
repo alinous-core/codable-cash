@@ -90,8 +90,8 @@ public:
   const JJSimpleString jjKindsForStateVector(int lexState, int vec[], int start, int end);
 
   JAVACC_CHARSTREAM*        input_stream;
-  int                       jjrounds[73];
-  int                       jjstateSet[2 * 73];
+  int                       jjrounds[75];
+  int                       jjstateSet[2 * 75];
   JJString                  jjimage;
   JJString                  image;
   int                       jjimageLen;

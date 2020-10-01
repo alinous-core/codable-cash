@@ -377,13 +377,6 @@ JsonKeyValuePairExpression                          * jsonKeyValuePair();
  { jj_save(23, xla); }
   }
 
- inline bool jj_3R_174()
- {
-    if (jj_done) return true;
-    if (jj_3R_58()) return true;
-    return false;
-  }
-
  inline bool jj_3R_238()
  {
     if (jj_done) return true;
@@ -2681,6 +2674,13 @@ JsonKeyValuePairExpression                          * jsonKeyValuePair();
     Token * xsp;
     xsp = jj_scanpos;
     if (jj_3R_79()) jj_scanpos = xsp;
+    return false;
+  }
+
+ inline bool jj_3R_174()
+ {
+    if (jj_done) return true;
+    if (jj_3R_58()) return true;
     return false;
   }
 
