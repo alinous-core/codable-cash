@@ -51,6 +51,7 @@ public:
 	IndexStore* getIndexStore(const wchar_t* table, const wchar_t* column);
 
 protected:
+	void initSmartcontract();
 	void createDb();
 
 protected:
@@ -60,6 +61,8 @@ protected:
 	uint64_t loidSerial;
 
 	File* dbDir;
+
+	File* folder; // smart contract base
 };
 
 } /* namespace codablecash */

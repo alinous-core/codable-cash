@@ -22,7 +22,11 @@
 #include "table_store/CdbStorageManager.h"
 #include "table_store/TableStore.h"
 
+#include "base/StackRelease.h"
 
+#include "sc/SmartContract.h"
+
+#include "base_io_stream/FileInputStream.h"
 namespace codablecash {
 
 TestDbSchemaBase::TestDbSchemaBase(TestEnv* env) {
@@ -30,12 +34,15 @@ TestDbSchemaBase::TestDbSchemaBase(TestEnv* env) {
 	this->dbDir = nullptr;
 	this->vm = nullptr;
 	this->loidSerial = 1;
+
+	this->folder = nullptr;
 }
 
 TestDbSchemaBase::~TestDbSchemaBase() {
 	this->env = nullptr;
 	delete this->dbDir;
 	delete this->vm;
+	delete this->folder;
 }
 
 void TestDbSchemaBase::init() {
@@ -45,6 +52,7 @@ void TestDbSchemaBase::init() {
 void TestDbSchemaBase::init(uint64_t memCapacity) {
 	this->vm = new VirtualMachine(memCapacity);
 
+	initSmartcontract();
 	createDb();
 
 	this->vm->loadDatabase(this->dbDir);
@@ -52,6 +60,22 @@ void TestDbSchemaBase::init(uint64_t memCapacity) {
 
 CodableDatabase* TestDbSchemaBase::getDatabase() const noexcept {
 	return this->vm->getDb();
+}
+
+void TestDbSchemaBase::initSmartcontract() {
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/toolkit/resources/sc/SmartContract.alns"))
+
+	this->folder = projectFolder->get(L"src_test/smartcontract_db/toolkit/resources/sc/");
+
+	SmartContract* sc = new SmartContract();
+
+	int length = sourceFile->length();
+	FileInputStream stream(sourceFile);
+
+	sc->addCompilationUnit(&stream, length, this->folder, sourceFile);
+
+	this->vm->loadSmartContract(sc);
 }
 
 void TestDbSchemaBase::createDb() {
