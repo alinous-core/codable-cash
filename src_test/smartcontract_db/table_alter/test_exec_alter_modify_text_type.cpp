@@ -43,9 +43,7 @@ TEST_GROUP(TestExecAlterMofdifyTextGroup) {
  * text to int (includes not int)
  */
 TEST(TestExecAlterMofdifyTextGroup, case01){
-	TestDbSchemaAlter01 tester(this->env);
-	tester.init(1024*10);
-	tester.insert03();
+
 }
 
 /**
