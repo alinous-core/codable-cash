@@ -7,15 +7,62 @@
 
 #include "sql_expression/SQLNullLiteral.h"
 
+#include "sc_analyze/AnalyzedType.h"
+
+#include "vm/VirtualMachine.h"
+
 namespace alinous {
 
 SQLNullLiteral::SQLNullLiteral() : AbstractSQLExpression(CodeElement::SQL_EXP_NULL_LITERAL){
-	// TODO Auto-generated constructor stub
 
 }
 
 SQLNullLiteral::~SQLNullLiteral() {
-	// TODO Auto-generated destructor stub
+
+}
+
+int SQLNullLiteral::binarySize() const {
+	int total = sizeof(uint16_t);
+
+	return total;
+}
+
+void SQLNullLiteral::toBinary(ByteBuffer* out) {
+	out->putShort(CodeElement::SQL_EXP_NULL_LITERAL);
+}
+
+void SQLNullLiteral::fromBinary(ByteBuffer* in) {
+}
+
+void SQLNullLiteral::preAnalyze(AnalyzeContext* actx) {
+}
+
+void SQLNullLiteral::analyzeTypeRef(AnalyzeContext* actx) {
+}
+
+void SQLNullLiteral::analyze(AnalyzeContext* actx) {
+}
+
+AnalyzedType SQLNullLiteral::getType(AnalyzeContext* actx) {
+	return AnalyzedType(AnalyzedType::TYPE_NULL);
+}
+
+void SQLNullLiteral::init(VirtualMachine* vm) {
+}
+
+AbstractVmInstance* SQLNullLiteral::interpret(VirtualMachine* vm) {
+	if(vm->isSelectPlanning()) {
+		interpretOnPlanning(vm);
+		return nullptr;
+	}
+
+	return nullptr;
+}
+
+void SQLNullLiteral::onSelectTarget(VirtualMachine* vm) {
+}
+
+void SQLNullLiteral::interpretOnPlanning(VirtualMachine* vm) {
 }
 
 } /* namespace alinous */
