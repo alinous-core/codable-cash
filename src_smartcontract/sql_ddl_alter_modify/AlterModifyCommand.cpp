@@ -204,10 +204,6 @@ void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log
 	CdbStorageManager* storagemgr = db->getStorageManager();
 
 	const UnicodeString* scName = tableId->getSchema();
-	if(scName == nullptr){
-		scName = vm->getCurrentSchema();
-	}
-
 	const UnicodeString* tblName = tableId->getTableName();
 	CdbTable* table = scmagr->getTable(scName, tblName);
 
@@ -216,7 +212,7 @@ void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log
 
 	const UnicodeString* defstr = log->getDefaultValueStr();
 
-	ColumnModifyContext* modifyContext = column->createModifyContextwithChange(this, defstr);
+	ColumnModifyContext* modifyContext = column->createModifyContextwithChange(this, defstr, false);
 
 }
 
