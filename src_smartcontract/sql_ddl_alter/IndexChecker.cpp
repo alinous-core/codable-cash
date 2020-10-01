@@ -61,7 +61,7 @@ bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableCo
 	while(scanner.hasNext()){
 		const CdbRecord* record = scanner.next();
 
-		CdbRecordKey* key = makeIndexKey(record, columnList);
+		CdbRecordKey* key = makeIndexKey(record, columnList); __STP(key);
 
 		if(cache->hasKey(key)){
 			ret = false;
