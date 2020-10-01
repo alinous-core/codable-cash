@@ -79,7 +79,7 @@ TEST(TestExecAlterMofdifyUniqueGroup, case01){
 	const ExtExceptionObject* ex = tester.checkUncaughtException();
 	CHECK(ex != nullptr);
 
-	ex->getClassName()->equals(&DatabaseExceptionClassDeclare::NAME);
+	CHECK(ex->getClassName()->equals(&DatabaseExceptionClassDeclare::NAME));
 }
 
 /**
