@@ -154,7 +154,7 @@ void TableStore::resetAllIndexes() {
 
 void TableStore::modifyRecords(const ColumnModifyContext* ctx) {
 	CdbTableColumn* column = ctx->getColumn();
-	AbstractCdbValue* defaultValue = ctx->getDefaultValue();
+	const AbstractCdbValue* defaultValue = ctx->getDefaultValue();
 
 	RecordValueConverter converter(column, defaultValue);
 

@@ -18,6 +18,7 @@ class CdbRecord;
 class RecordValueConverter {
 public:
 	RecordValueConverter(CdbTableColumn* column, const AbstractCdbValue* defaultValue);
+	RecordValueConverter(int pos, bool isnotnull, uint8_t cdbType, int length, const AbstractCdbValue* defaultValue);
 	virtual ~RecordValueConverter();
 
 	CdbRecord* processUpdate(const CdbRecord* record);

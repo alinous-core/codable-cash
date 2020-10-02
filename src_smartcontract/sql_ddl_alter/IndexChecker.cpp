@@ -80,22 +80,17 @@ bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableCo
 }
 
 CdbRecord* IndexChecker::getConvertedRecord(const CdbRecord* record) {
-	const ArrayList<AbstractCdbValue>* values = record->getValues();
-
 	CdbTableColumn* column = this->modifyContext->getColumn();
 
+	int pos = column->getPosition();
+	bool isnotnull = this->modifyContext->isNotNull();
+	uint8_t cdbType = this->modifyContext->getCdbType();
+	int length = this->modifyContext->getLength();
+	const AbstractCdbValue* defaultValue = this->modifyContext->getDefaultValue();
 
+	RecordValueConverter converter(pos, isnotnull, cdbType, length, defaultValue);
 
-	CdbRecord* newRecord = new CdbRecord();
-	newRecord->setOid(record->getOid());
-
-	int maxLoop = values->size();
-	for(int i = 0; i != maxLoop; ++i){
-		const AbstractCdbValue* value = values->get(i);
-
-		// TODO:
-		newRecord->addValue(value->copy());
-	}
+	CdbRecord* newRecord = converter.processUpdate(record);
 
 	return newRecord;
 }

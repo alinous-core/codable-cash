@@ -29,6 +29,16 @@ RecordValueConverter::RecordValueConverter(CdbTableColumn* column, const Abstrac
 	this->defaultValue = defaultValue;
 }
 
+RecordValueConverter::RecordValueConverter(int pos, bool isnotnull,
+				uint8_t cdbType, int length, const AbstractCdbValue* defaultValue) {
+	this->pos = pos;
+	this->isnotnull = isnotnull;
+	this->cdbType = cdbType;
+	this->length = length;
+
+	this->defaultValue = defaultValue;
+}
+
 RecordValueConverter::~RecordValueConverter() {
 
 }

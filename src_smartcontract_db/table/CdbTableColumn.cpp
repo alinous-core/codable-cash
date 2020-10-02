@@ -211,6 +211,7 @@ ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterMo
 			this->notnull = nextNotnull;
 		}
 	}
+	ctx->setNotNull(nextNotnull);
 
 	ColumnTypeDescriptor* typeDesc = newdesc->getColumnTypeDescriptor();
 	uint8_t cdbType = typeDesc->toCdbValueType();
@@ -226,16 +227,24 @@ ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterMo
 			this->length = length;
 		}
 	}
+	else{
+		ctx->setCdbType(this->type);
+		ctx->setLength(this->length);
+	}
 
 	if((this->defaultValue != nullptr && defaultStr == nullptr) ||
 			(this->defaultValue == nullptr && defaultStr != nullptr) ||
 			!this->defaultValue->equals(defaultStr)){
-		ctx->setDefaultValue(defaultStr);
 		ctx->setDefaultChanged(true);
+		ctx->setDefaultValue(defaultStr);
+
 
 		if(update){
 			setDefaultValue(defaultStr);
 		}
+	}
+	else{
+		ctx->setDefaultValue(this->defaultValue);
 	}
 
 	return ctx;

@@ -23,6 +23,8 @@ ColumnModifyContext::ColumnModifyContext() {
 	this->typeChanged = false;
 	this->notNullChange = NotNullChage::NOTNULL_NONE;
 
+	this->notNull = false;
+
 	this->cdbType = 0;
 	this->length = 0;
 	this->defalutValueStr = nullptr;
@@ -46,21 +48,12 @@ ColumnModifyContext::~ColumnModifyContext() {
 	delete this->defaultValue;
 }
 
-void ColumnModifyContext::analyze(const CdbTableColumn* columns) {
-	if(isDefaultChanged()){
-		analyzeDefaultValue();
-	}
-	else{
-		const UnicodeString* defstr = columns->getDefaultValue();
-		uint8_t colCdbType = columns->getType();
-		this->defaultValue = CdbValueCaster::convertFromString(defstr, colCdbType);
-	}
+void ColumnModifyContext::analyze() {
+	analyzeDefaultValue();
 }
 
 void ColumnModifyContext::analyzeDefaultValue() {
-	uint8_t cdbType = this->column->getType(); // cdb type
-
-	this->defaultValue = CdbValueCaster::convertFromString(this->defalutValueStr, cdbType);
+	this->defaultValue = CdbValueCaster::convertFromString(this->defalutValueStr, this->cdbType);
 }
 
 void ColumnModifyContext::setDefaultValue(const UnicodeString* defalutValueStr) noexcept {

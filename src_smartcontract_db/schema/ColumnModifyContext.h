@@ -33,7 +33,7 @@ public:
 	ColumnModifyContext();
 	virtual ~ColumnModifyContext();
 
-	void analyze(const CdbTableColumn* columns);
+	void analyze();
 
 	UniqueChage getUniqueChange() const noexcept {
 		return uniqueChange;
@@ -98,7 +98,7 @@ public:
 		this->removalIndex = removalIndex;
 	}
 
-	AbstractCdbValue* getDefaultValue() const noexcept {
+	const AbstractCdbValue* getDefaultValue() const noexcept {
 		return this->defaultValue;
 	}
 
@@ -106,8 +106,16 @@ public:
 		return defaultChanged;
 	}
 
-	void setDefaultChanged(bool defaultChanged) {
+	void setDefaultChanged(bool defaultChanged) noexcept {
 		this->defaultChanged = defaultChanged;
+	}
+
+	bool isNotNull() const noexcept {
+		return notNull;
+	}
+
+	void setNotNull(bool notNull) noexcept {
+		this->notNull = notNull;
 	}
 
 private:
@@ -116,6 +124,8 @@ private:
 private:
 	UniqueChage uniqueChange;
 	NotNullChage notNullChange;
+
+	bool notNull;
 
 	bool typeChanged;
 	uint8_t cdbType;

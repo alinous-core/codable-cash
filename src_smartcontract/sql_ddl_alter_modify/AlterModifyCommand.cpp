@@ -226,6 +226,8 @@ void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log
 	const UnicodeString* defstr = log->getDefaultValueStr();
 
 	ColumnModifyContext* modifyContext = column->createModifyContextwithChange(this, defstr, false); __STP(modifyContext);
+	modifyContext->setColumn(column);
+	modifyContext->analyze();
 
 	ColumnModifyContext::UniqueChage uchange = modifyContext->getUniqueChange();
 	if(uchange == ColumnModifyContext::UniqueChage::TO_UNIQUE){
