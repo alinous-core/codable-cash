@@ -9,6 +9,7 @@
 #define SMARTCONTRACT_DB_TOOLKIT_TESTDBSCHEMABASE_H_
 #include <cstdint>
 
+#include "base/ArrayList.h"
 
 namespace alinous {
 class TestEnv;
@@ -26,6 +27,7 @@ class CdbTableColumn;
 class CdbTableIndex;
 class CdbTable;
 class IndexStore;
+class CdbRecord;
 
 class TestDbSchemaBase {
 public:
@@ -52,6 +54,9 @@ public:
 
 	IndexStore* getIndexStore(const wchar_t* schema, const wchar_t* table, const wchar_t* column);
 	IndexStore* getIndexStore(const wchar_t* table, const wchar_t* column);
+
+	ArrayList<CdbRecord>* scanRecords(const wchar_t* table);
+	ArrayList<CdbRecord>* scanRecords(const wchar_t* schema, const wchar_t* table);
 
 protected:
 	void initSmartcontract();

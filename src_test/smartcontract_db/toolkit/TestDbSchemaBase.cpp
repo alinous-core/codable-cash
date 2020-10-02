@@ -29,6 +29,10 @@
 #include "base_io_stream/FileInputStream.h"
 
 #include "ext_binary/ExtExceptionObject.h"
+
+#include "table_record/CdbRecord.h"
+
+#include "scan/RecordScanner.h"
 namespace codablecash {
 
 TestDbSchemaBase::TestDbSchemaBase(TestEnv* env) {
@@ -112,6 +116,31 @@ void TestDbSchemaBase::createDb() {
 	}
 }
 
+ArrayList<CdbRecord>* TestDbSchemaBase::scanRecords(const wchar_t* table) {
+	return scanRecords(SchemaManager::PUBLIC.towString(), table);
+}
+
+ArrayList<CdbRecord>* TestDbSchemaBase::scanRecords(const wchar_t* schema, const wchar_t* table) {
+	CodableDatabase* db = getDatabase();
+	CdbStorageManager* storageMgr = db->getStorageManager();
+
+	CdbTable* cdbtable = getTable(schema, table);
+
+	TableStore* store = storageMgr->getTableStore(cdbtable->getOid());
+
+	RecordScanner scanner(store);
+	scanner.start();
+
+	ArrayList<CdbRecord>* list = new ArrayList<CdbRecord>();
+	while(scanner.hasNext()){
+		const CdbRecord* record = scanner.next();
+
+		list->addElement(new CdbRecord(*record));
+	}
+
+	return list;
+}
+
 CdbTableColumn* TestDbSchemaBase::getColumn(const wchar_t* schema, const wchar_t* table, const wchar_t* column) {
 	CdbTable* cdbtable = getTable(schema, table);
 
@@ -120,7 +149,7 @@ CdbTableColumn* TestDbSchemaBase::getColumn(const wchar_t* schema, const wchar_t
 	return col;
 }
 
-CdbTableColumn* codablecash::TestDbSchemaBase::getColumn(const wchar_t* table, const wchar_t* column) {
+CdbTableColumn* TestDbSchemaBase::getColumn(const wchar_t* table, const wchar_t* column) {
 	const wchar_t* s = SchemaManager::PUBLIC.towString();
 
 	return getColumn(s, table, column);
@@ -153,7 +182,7 @@ CdbTableIndex* TestDbSchemaBase::getIndex(const wchar_t* schema, const wchar_t* 
 	return index;
 }
 
-CdbTableIndex* codablecash::TestDbSchemaBase::getIndex(const wchar_t* table, const wchar_t* column) {
+CdbTableIndex* TestDbSchemaBase::getIndex(const wchar_t* table, const wchar_t* column) {
 	const wchar_t* s = SchemaManager::PUBLIC.towString();
 
 	return getIndex(s, table, column);
