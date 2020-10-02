@@ -29,6 +29,7 @@
 
 #include "table_store/RecordValueConverter.h"
 
+#include "schema/ColumnModifyContext.h"
 namespace codablecash {
 
 IndexChecker::IndexChecker(CodableDatabase* db, const ColumnModifyContext* modifyContext)
@@ -58,15 +59,14 @@ bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableCo
 
 	RecordScanner scanner(store);
 
-	RecordValueConverter* conv = nullptr; // TODO:
-
 	scanner.start();
 	while(scanner.hasNext()){
 		const CdbRecord* record = scanner.next();
 
 		// RecordValueConverter
+		CdbRecord* newRecord = getConvertedRecord(record); __STP(newRecord);
 
-		CdbRecordKey* key = makeIndexKey(record, columnList); __STP(key);
+		CdbRecordKey* key = makeIndexKey(newRecord, columnList); __STP(key);
 
 		if(cache->hasKey(key)){
 			ret = false;
@@ -77,6 +77,27 @@ bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableCo
 	}
 
 	return ret;
+}
+
+CdbRecord* IndexChecker::getConvertedRecord(const CdbRecord* record) {
+	const ArrayList<AbstractCdbValue>* values = record->getValues();
+
+	CdbTableColumn* column = this->modifyContext->getColumn();
+
+
+
+	CdbRecord* newRecord = new CdbRecord();
+	newRecord->setOid(record->getOid());
+
+	int maxLoop = values->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const AbstractCdbValue* value = values->get(i);
+
+		// TODO:
+		newRecord->addValue(value->copy());
+	}
+
+	return newRecord;
 }
 
 CdbRecordKey* IndexChecker::makeIndexKey(const CdbRecord* record, ArrayList<const CdbTableColumn>* columnList) {

@@ -31,7 +31,7 @@ public:
 
 private:
 	CdbRecordKey* makeIndexKey(const CdbRecord* record, ArrayList<const CdbTableColumn>* columnList);
-
+	CdbRecord* getConvertedRecord(const CdbRecord* record);
 
 private:
 	CodableDatabase* const db;
