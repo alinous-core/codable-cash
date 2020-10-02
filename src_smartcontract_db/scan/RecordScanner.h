@@ -20,7 +20,7 @@ class TableStore;
 
 class RecordScanner : public AbstractRecordScanner {
 public:
-	RecordScanner(TableStore* tableStore);
+	explicit RecordScanner(TableStore* tableStore);
 	virtual ~RecordScanner();
 
 	virtual void start();
