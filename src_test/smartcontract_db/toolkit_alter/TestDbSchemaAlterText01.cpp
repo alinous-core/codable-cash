@@ -57,9 +57,9 @@ void TestDbSchemaAlterText01::createTable() {
 	table->setSchemaName(testSchema);
 	table->setName(new UnicodeString(L"test_table"));
 
-	table->addColumn(0, L"id", AbstractCdbValue::TYPE_INT, 0, true, true, nullptr);
+	table->addColumn(0, L"id", AbstractCdbValue::TYPE_INT, 0, false, false, nullptr);
 	table->addColumn(0, L"name", AbstractCdbValue::TYPE_STRING, 8, false, false, L"");
-	table->addColumn(0, L"email_id", AbstractCdbValue::TYPE_INT, 0, false, true, L"0");
+	table->addColumn(0, L"email_id", AbstractCdbValue::TYPE_INT, 0, false, false, L"0");
 
 	table->setPrimaryKey(L"id");
 
@@ -73,7 +73,8 @@ void TestDbSchemaAlterText01::insert01() {
 	CdbTransaction* trx = getDatabase()->newTransaction(); __STP(trx);
 
 	insertRecord(trx, 1, L"tanaka", 11);
-	insertRecord(trx, 2, L"sato", 11);
+	insertRecord(trx, 2, L"sato", 12);
+	insertRecord(trx, 3, nullptr, 13);
 
 	trx->commit();
 }
@@ -91,7 +92,13 @@ void TestDbSchemaAlterText01::insertRecord(CdbTransaction* trx, int id,	const wc
 
 	record->addValue(new CdbIntValue(id));
 
-	record->addValue(new CdbStringValue(name));
+	if(name != nullptr){
+		record->addValue(new CdbStringValue(name));
+	}
+	else{
+		record->addValue(nullptr);
+	}
+
 	record->addValue(new CdbIntValue(email_id));
 
 	log->addRecord(record);

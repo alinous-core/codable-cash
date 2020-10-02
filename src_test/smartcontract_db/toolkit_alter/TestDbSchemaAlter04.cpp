@@ -91,7 +91,13 @@ void TestDbSchemaAlter04::insertRecord(CdbTransaction* trx, int id,	const wchar_
 
 	record->addValue(new CdbIntValue(id));
 
-	record->addValue(new CdbStringValue(name));
+	if(name != nullptr){
+		record->addValue(new CdbStringValue(name));
+	}
+	else{
+		record->addValue(nullptr);
+	}
+
 	record->addValue(new CdbIntValue(email_id));
 
 	log->addRecord(record);
