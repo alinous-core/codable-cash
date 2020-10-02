@@ -16,7 +16,7 @@ class CdbTransaction;
 
 class TestDbSchemaAlterText01 : public TestDbSchemaBase {
 public:
-	TestDbSchemaAlterText01(TestEnv* env);
+	explicit TestDbSchemaAlterText01(TestEnv* env);
 	virtual ~TestDbSchemaAlterText01();
 
 	virtual void init(uint64_t memCapacity);

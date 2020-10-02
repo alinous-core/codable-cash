@@ -5,5 +5,6 @@ set(testsrc
 	TestDbSchemaAlter03.cpp
 	TestDbSchemaAlter04.cpp
 	TestDbSchemaAlterText01.cpp
+	TestDbSchemaAlterTextUnique01.cpp
 )
 handle_sub(testall "${testsrc}" test smartcontract_db/toolkit_alter)
