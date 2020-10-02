@@ -75,6 +75,7 @@ void TestDbSchemaAlterText01::insert01() {
 	insertRecord(trx, 1, L"tanaka", 11);
 	insertRecord(trx, 2, L"sato", 12);
 	insertRecord(trx, 3, nullptr, 13);
+	insertRecord(trx, 4, L"100", 14);
 
 	trx->commit();
 }
