@@ -27,12 +27,13 @@
 
 #include "table_record_value/AbstractCdbValue.h"
 
+#include "table_store/RecordValueConverter.h"
 
 namespace codablecash {
 
-IndexChecker::IndexChecker(CodableDatabase* db)
+IndexChecker::IndexChecker(CodableDatabase* db, const ColumnModifyContext* modifyContext)
 		: db(db) {
-
+	this->modifyContext = modifyContext;
 }
 
 IndexChecker::~IndexChecker() {
@@ -57,9 +58,13 @@ bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableCo
 
 	RecordScanner scanner(store);
 
+	RecordValueConverter* conv = nullptr; // TODO:
+
 	scanner.start();
 	while(scanner.hasNext()){
 		const CdbRecord* record = scanner.next();
+
+		// RecordValueConverter
 
 		CdbRecordKey* key = makeIndexKey(record, columnList); __STP(key);
 

@@ -227,10 +227,10 @@ void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log
 
 	ColumnModifyContext* modifyContext = column->createModifyContextwithChange(this, defstr, false); __STP(modifyContext);
 
-	IndexChecker checker(db);
-
 	ColumnModifyContext::UniqueChage uchange = modifyContext->getUniqueChange();
 	if(uchange == ColumnModifyContext::UniqueChage::TO_UNIQUE){
+		IndexChecker checker(db, modifyContext);
+
 		bool result = checker.checkUnique(table, column);
 		if(!result){
 			throw new CdbException(L"Can not set the column unique because of table data.", __FILE__, __LINE__);

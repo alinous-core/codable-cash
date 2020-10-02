@@ -19,10 +19,11 @@ class CdbTable;
 class CdbTableColumn;
 class CdbRecordKey;
 class CdbRecord;
+class ColumnModifyContext;
 
 class IndexChecker {
 public:
-	explicit IndexChecker(CodableDatabase* db);
+	explicit IndexChecker(CodableDatabase* db, const ColumnModifyContext* modifyContext);
 	virtual ~IndexChecker();
 
 	bool checkUnique(const CdbTable* table, const CdbTableColumn* column);
@@ -31,8 +32,10 @@ public:
 private:
 	CdbRecordKey* makeIndexKey(const CdbRecord* record, ArrayList<const CdbTableColumn>* columnList);
 
+
 private:
 	CodableDatabase* const db;
+	const ColumnModifyContext* modifyContext;
 };
 
 } /* namespace codablecash */

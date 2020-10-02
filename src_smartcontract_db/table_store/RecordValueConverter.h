@@ -7,6 +7,7 @@
 
 #ifndef TABLE_STORE_RECORDVALUECONVERTER_H_
 #define TABLE_STORE_RECORDVALUECONVERTER_H_
+#include <cstdint>
 
 namespace codablecash {
 
@@ -27,7 +28,12 @@ private:
 	AbstractCdbValue* handleStringType(const AbstractCdbValue* lastValue);
 
 private:
-	CdbTableColumn* column;
+	//CdbTableColumn* column;
+	int pos;
+	bool isnotnull;
+	uint8_t cdbType;
+	int length;
+
 	const AbstractCdbValue* defaultValue;
 };
 
