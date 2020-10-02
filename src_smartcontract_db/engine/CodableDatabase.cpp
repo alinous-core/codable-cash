@@ -71,6 +71,7 @@ bool CodableDatabase::loadDatabase(const File* dbdir, const File* tmpdir) {
 
 	this->localOidFactory = new LocalOidFactory();
 	this->localCacheManager = new CdbLocalCacheManager(tmpdir, this->localOidFactory);
+	this->localCacheManager->init();
 
 	this->store = new CdbStorageManager();
 
