@@ -30,6 +30,12 @@
 #include "table/CdbTableColumn.h"
 #include "table/CdbTableIndex.h"
 
+#include "table_record_value/AbstractCdbValue.h"
+
+#include "table_record/CdbRecord.h"
+
+#include "table_record_value/CdbIntValue.h"
+using namespace codablecash;
 
 TEST_GROUP(TestExecAlterMofdifyTextGroup) {
 	TEST_SETUP() {
@@ -68,7 +74,48 @@ TEST(TestExecAlterMofdifyTextGroup, case01){
 		stmt->analyze(actx);
 
 		stmt->interpret(vm);
+
+		// checking
+		CdbTableColumn* col = tester.getColumn(L"test_table", L"name");
+		uint8_t t = col->getType();
+		CHECK(t == AbstractCdbValue::TYPE_INT);
+
+		ArrayList<CdbRecord>* list = tester.scanRecords(L"test_table"); __STP(list);
+		list->setDeleteOnExit();
+
+		int maxLoop = list->size();
+		CHECK(maxLoop == 4);
+
+		int pos = col->getPosition();
+		CHECK(pos == 1);
+
+		for(int i = 0; i != maxLoop; ++i){
+			CdbRecord* record = list->get(i);
+
+			const CdbIntValue* v = dynamic_cast<const CdbIntValue*>(record->get(pos));
+			if(i == 2){
+				CHECK( v == nullptr);
+			}
+			else if(i != 3){
+				int32_t intvalue = v->getValue();
+				CHECK(0 == intvalue);
+			}
+			else{
+				int32_t intvalue = v->getValue();
+				CHECK(100 == intvalue);
+			}
+		}
 	}
+
+}
+
+/**
+ * unique error case, after changing value
+ * text to int (includes not int)
+ * ALTER TABLE test_table MODIFY name int;
+ */
+TEST(TestExecAlterMofdifyTextGroup, case01_err){
+
 }
 
 /**
