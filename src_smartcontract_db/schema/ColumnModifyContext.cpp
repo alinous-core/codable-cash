@@ -24,6 +24,7 @@ ColumnModifyContext::ColumnModifyContext() {
 	this->notNullChange = NotNullChage::NOTNULL_NONE;
 
 	this->notNull = false;
+	this->unique = false;
 
 	this->cdbType = 0;
 	this->length = 0;

@@ -197,6 +197,7 @@ ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterMo
 			this->unique = nextUnique;
 		}
 	}
+	ctx->setUnique(nextUnique);
 
 	bool nextNotnull = newdesc->isNotNull();
 	if(nextNotnull != this->notnull){

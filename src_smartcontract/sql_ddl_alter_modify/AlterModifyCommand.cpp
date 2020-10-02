@@ -230,7 +230,8 @@ void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log
 	modifyContext->analyze();
 
 	ColumnModifyContext::UniqueChage uchange = modifyContext->getUniqueChange();
-	if(uchange == ColumnModifyContext::UniqueChage::TO_UNIQUE){
+
+	if(uchange == ColumnModifyContext::UniqueChage::TO_UNIQUE || (modifyContext->isUnique() && modifyContext->isTypeChanged())){
 		IndexChecker checker(db, modifyContext);
 
 		bool result = checker.checkUnique(table, column);

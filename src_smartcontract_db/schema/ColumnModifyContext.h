@@ -118,6 +118,14 @@ public:
 		this->notNull = notNull;
 	}
 
+	bool isUnique() const noexcept {
+		return unique;
+	}
+
+	void setUnique(bool unique) noexcept {
+		this->unique = unique;
+	}
+
 private:
 	void analyzeDefaultValue();
 
@@ -126,6 +134,7 @@ private:
 	NotNullChage notNullChange;
 
 	bool notNull;
+	bool unique;
 
 	bool typeChanged;
 	uint8_t cdbType;
