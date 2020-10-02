@@ -19,6 +19,7 @@
 #include "../toolkit_alter/TestDbSchemaAlter02.h"
 #include "../toolkit_alter/TestDbSchemaAlter03.h"
 #include "../toolkit_alter/TestDbSchemaAlterText01.h"
+#include "../toolkit_alter/TestDbSchemaAlterTextUnique01.h"
 
 #include "sc_analyze/AnalyzeContext.h"
 
@@ -35,6 +36,8 @@
 #include "table_record/CdbRecord.h"
 
 #include "table_record_value/CdbIntValue.h"
+
+
 using namespace codablecash;
 
 TEST_GROUP(TestExecAlterMofdifyTextGroup) {
@@ -80,6 +83,9 @@ TEST(TestExecAlterMofdifyTextGroup, case01){
 		uint8_t t = col->getType();
 		CHECK(t == AbstractCdbValue::TYPE_INT);
 
+		CHECK(!col->isNotnull());
+		CHECK(!col->isUnique());
+
 		ArrayList<CdbRecord>* list = tester.scanRecords(L"test_table"); __STP(list);
 		list->setDeleteOnExit();
 
@@ -115,8 +121,21 @@ TEST(TestExecAlterMofdifyTextGroup, case01){
  * ALTER TABLE test_table MODIFY name int;
  */
 TEST(TestExecAlterMofdifyTextGroup, case01_err){
+	TestDbSchemaAlterTextUnique01 tester(this->env);
+	tester.init(1024*512);
+	tester.insert01();
 
 }
+
+/**
+ * unique error case, changing value
+ * text to int (includes not int)
+ * ALTER TABLE test_table MODIFY name int UNIQUE;
+ */
+TEST(TestExecAlterMofdifyTextGroup, case02_err){
+
+}
+
 
 /**
  * text change length(shorter)

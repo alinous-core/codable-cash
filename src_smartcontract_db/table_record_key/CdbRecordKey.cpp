@@ -18,14 +18,14 @@ namespace codablecash {
 CdbRecordKey::CdbRecordKey(const CdbRecordKey& inst) : AbstractCdbKey(AbstractCdbKey::TYPE_RECORD_KEY) {
 	int maxLoop = inst.list.size();
 	for(int i = 0; i != maxLoop; ++i){
-		AbstractCdbKey* key = inst.list.get(i);
+		AbstractBtreeKey* key = inst.list.get(i);
 
 		if(key == nullptr){
 			this->list.addElement(nullptr);
 			continue;
 		}
 
-		key = dynamic_cast<AbstractCdbKey*>(key->clone());
+		key = dynamic_cast<AbstractBtreeKey*>(key->clone());
 		this->list.addElement(key);
 	}
 }
@@ -56,8 +56,8 @@ int CdbRecordKey::compareTo(const AbstractBtreeKey* key) const noexcept {
 
 	int leftSize = this->list.size();
 	for(int i = 0; i != leftSize; ++i){
-		AbstractCdbKey* l = this->list.get(i);
-		AbstractCdbKey* r = right->list.get(i);
+		AbstractBtreeKey* l = this->list.get(i);
+		AbstractBtreeKey* r = right->list.get(i);
 
 		result = l != nullptr ? l->compareTo(r) : l - r;
 
@@ -78,7 +78,7 @@ int CdbRecordKey::binarySize() const {
 	total += sizeof(int32_t);
 
 	for(int i = 0; i != maxLoop; ++i){
-		AbstractCdbKey* key = this->list.get(i);
+		AbstractBtreeKey* key = this->list.get(i);
 
 		if(key == nullptr){
 			total += sizeof(uint32_t);
@@ -98,7 +98,7 @@ void CdbRecordKey::toBinary(ByteBuffer* out) const {
 	out->putInt(maxLoop);
 
 	for(int i = 0; i != maxLoop; ++i){
-		AbstractCdbKey* key = this->list.get(i);
+		AbstractBtreeKey* key = this->list.get(i);
 
 		if(key == nullptr){
 			out->putInt(0);
@@ -117,13 +117,17 @@ void CdbRecordKey::fromBinary(ByteBuffer* in) {
 		uint32_t keyType = in->getInt();
 		AbstractBtreeKey* abkey = factory.fromBinary(keyType, in);
 
-		AbstractCdbKey* key = dynamic_cast<AbstractCdbKey*>(abkey);
+		AbstractBtreeKey* key = dynamic_cast<AbstractBtreeKey*>(abkey);
+		//assert(key != nullptr);
+
 		addKey(key);
 	}
 
 }
 
-void CdbRecordKey::addKey(AbstractCdbKey* key) noexcept {
+void CdbRecordKey::addKey(AbstractBtreeKey* key) noexcept {
+	//assert(key != nullptr);
+
 	this->list.addElement(key);
 }
 

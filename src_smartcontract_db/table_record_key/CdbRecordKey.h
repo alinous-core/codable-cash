@@ -27,9 +27,9 @@ public:
 	virtual void toBinary(ByteBuffer* out) const;
 	virtual void fromBinary(ByteBuffer* in);
 
-	void addKey(AbstractCdbKey* key) noexcept;
+	void addKey(AbstractBtreeKey* key) noexcept;
 private:
-	ArrayList<AbstractCdbKey> list;
+	ArrayList<AbstractBtreeKey> list;
 };
 
 } /* namespace codablecash */

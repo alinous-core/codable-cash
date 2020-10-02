@@ -16,8 +16,16 @@ class CdbTransaction;
 
 class TestDbSchemaAlterTextUnique01 : public TestDbSchemaBase {
 public:
-	TestDbSchemaAlterTextUnique01(TestEnv* env);
+	explicit TestDbSchemaAlterTextUnique01(TestEnv* env);
 	virtual ~TestDbSchemaAlterTextUnique01();
+
+	virtual void init(uint64_t memCapacity);
+
+	void createTable();
+	void insert01();
+
+private:
+	void insertRecord(CdbTransaction* trx, int id, const wchar_t* name, int email_id);
 };
 
 } /* namespace codablecash */

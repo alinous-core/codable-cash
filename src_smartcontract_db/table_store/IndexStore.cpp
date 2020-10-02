@@ -33,6 +33,7 @@
 
 #include "engine/CdbOid.h"
 
+#include "btreekey/NullKey.h"
 using alinous::File;
 
 namespace codablecash {
@@ -117,6 +118,10 @@ void IndexStore::insert(const CdbRecord* rec) {
 		int pos = col->getPosition();
 		const AbstractCdbValue* value = rec->get(pos);
 
+		if(value == nullptr){
+			key->addKey(new NullKey());
+			continue;
+		}
 		key->addKey(value->toKey());
 	}
 
