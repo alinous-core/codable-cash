@@ -158,23 +158,33 @@ TEST(TestExecAlterMofdifyTextGroup, case01_err){
 
 /**
  * text change length(shorter)
- *
+ * ALTER TABLE test_table MODIFY name VARCHAR(2) UNIQUE;
  */
-TEST(TestExecAlterMofdifyTextGroup, case02){
+TEST(TestExecAlterMofdifyTextGroup, case03){
+	TestDbSchemaAlterTextUnique01 tester(this->env);
+	tester.init(1024*512);
+	tester.insert01();
 
+	VirtualMachine* vm = tester.getVm();
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/exec_alter_modify_text/case03.alns"))
+	{
+
+	}
 }
 
 /**
  * unique error case, after changing length into shorter one
  *
  */
-TEST(TestExecAlterMofdifyTextGroup, case02_err){
+TEST(TestExecAlterMofdifyTextGroup, case03_err){
 
 }
 
 /**
  * text change length(longer)
  */
-TEST(TestExecAlterMofdifyTextGroup, case03){
+TEST(TestExecAlterMofdifyTextGroup, case04){
 
 }
