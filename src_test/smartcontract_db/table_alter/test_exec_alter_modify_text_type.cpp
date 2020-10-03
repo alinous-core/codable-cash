@@ -33,12 +33,14 @@
 
 #include "table_record_value/AbstractCdbValue.h"
 #include "table_record_value/CdbIntValue.h"
+#include "table_record_value/CdbStringValue.h"
 
 #include "table_record/CdbRecord.h"
 
 #include "transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "ext_binary/ExtExceptionObject.h"
+
 
 using namespace codablecash;
 
@@ -50,6 +52,20 @@ TEST_GROUP(TestExecAlterMofdifyTextGroup) {
 		env->teardown();
 	}
 };
+
+static bool checkTextValue(const AbstractCdbValue* cdbv, const wchar_t* ans);
+bool checkTextValue(const AbstractCdbValue* cdbv, const wchar_t* ans){
+	if(ans == nullptr){
+		return cdbv == nullptr;
+	}
+
+	const CdbStringValue* strv = dynamic_cast<const CdbStringValue*>(cdbv);
+	const UnicodeString* str = strv->getValue();
+
+	UnicodeString ansstr(ans);
+
+	return ansstr.equals(str);
+}
 
 /**
  * text to int (includes not int)
@@ -157,7 +173,7 @@ TEST(TestExecAlterMofdifyTextGroup, case01_err){
 
 
 /**
- * text change length(shorter)
+ * text change length(shorter) including null
  * ALTER TABLE test_table MODIFY name VARCHAR(2) UNIQUE;
  */
 TEST(TestExecAlterMofdifyTextGroup, case02){
@@ -193,7 +209,41 @@ TEST(TestExecAlterMofdifyTextGroup, case02){
 		CHECK(!col->isNotnull());
 		CHECK(col->isUnique());
 
+		ArrayList<CdbRecord>* list = tester.scanRecords(L"test_table"); __STP(list);
+		list->setDeleteOnExit();
 
+		int maxLoop = list->size();
+		CHECK(maxLoop == 4);
+
+		int pos = col->getPosition();
+		CHECK(pos == 1);
+
+		bool result = false;
+		for(int i = 0; i != maxLoop; ++i){
+			CdbRecord* record = list->get(i);
+
+			const AbstractCdbValue* cdbv = record->get(pos);
+
+			switch(i){
+			case 0:
+				result = checkTextValue(cdbv, L"ta");
+				CHECK(result);
+				break;
+			case 1:
+				result = checkTextValue(cdbv, L"sa");
+				CHECK(result);
+				break;
+			case 2:
+				result = checkTextValue(cdbv, nullptr);
+				CHECK(result);
+				break;
+			case 3:
+			default:
+				result = checkTextValue(cdbv, L"10");
+				CHECK(result);
+				break;
+			}
+		}
 	}
 }
 
