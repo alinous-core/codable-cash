@@ -74,10 +74,12 @@ public:
 	void setPrimaryKeys(ArrayList<const UnicodeString>* cols);
 
 	bool hasSinglePrimaryKeyColumn(const CdbOid* columnOid) const noexcept;
+	CdbTableIndex* getPrimaryKey() const noexcept;
 
 	void addIndex(CdbTableIndex* index);
 	CdbTableIndex* getIndexByColumnOid(const CdbOid* oid) const noexcept;
 	CdbTableIndex* getIndexByColumnOids(const ArrayList<const CdbOid>* oidlist) const noexcept;
+	CdbTableIndex* getIndexByColumnOidsStrict(const ArrayList<const CdbOid>* oidlist) const noexcept;
 
 	CdbTableIndex* getUniqueIndexByColumnOid(const CdbOid* colOid) const noexcept;
 

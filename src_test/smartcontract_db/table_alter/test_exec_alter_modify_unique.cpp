@@ -111,6 +111,15 @@ TEST(TestExecAlterMofdifyUniqueGroup, case02){
 		stmt->analyzeTypeRef(actx);
 		stmt->analyze(actx);
 
+		// check before interpret
+		{
+			CdbTableColumn* col = tester.getColumn(L"test_table", L"id");
+			CHECK(!col->isNotnull());
+			CHECK(!col->isUnique());
+
+
+		}
+
 		stmt->interpret(vm);
 	}
 }

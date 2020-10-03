@@ -212,5 +212,17 @@ IndexStore* TestDbSchemaBase::getIndexStore(const wchar_t* schema, const wchar_t
 	return indexStore;
 }
 
+CdbTableIndex* TestDbSchemaBase::getPrimaryKey(const wchar_t* table) {
+	const wchar_t* s = SchemaManager::PUBLIC.towString();
+
+	return getPrimaryKey(s, table);
+}
+
+CdbTableIndex* TestDbSchemaBase::getPrimaryKey(const wchar_t* schema, const wchar_t* table) {
+	CdbTable* cdbtable = getTable(schema, table);
+
+}
+
+
 
 } /* namespace codablecash */

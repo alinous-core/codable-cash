@@ -280,10 +280,10 @@ void CdbTable::setPrimaryKeys(ArrayList<const UnicodeString>* cols) {
 		oidlist.addElement(oid);
 	}
 
-	CdbTableIndex* prevIndex = getIndexByColumnOids(&oidlist);
+	CdbTableIndex* prevIndex = getIndexByColumnOidsStrict(&oidlist); // TODO
 	if(prevIndex != nullptr){
 		prevIndex->setPrimaryKey(true);
-		prevIndex->setUnique(false);
+		prevIndex->setUnique(true); // if it is primary key, it is unique automatically
 		return;
 	}
 
@@ -303,6 +303,21 @@ void CdbTable::setPrimaryKeys(ArrayList<const UnicodeString>* cols) {
 	adjustIndexColumnPosition();
 }
 
+CdbTableIndex* CdbTable::getPrimaryKey() const noexcept {
+	CdbTableIndex* ret = nullptr;
+
+	int maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		if(idx->isPrimaryKey()){
+			ret = idx;
+			break;
+		}
+	}
+
+	return ret;
+}
 
 void CdbTable::addIndex(CdbTableIndex* index) {
 	this->indexes->addElement(index);
@@ -350,6 +365,40 @@ CdbTableIndex* CdbTable::getIndexByColumnOids(const ArrayList<const CdbOid>* oid
 
 	CdbTableIndex* ret = matcher != nullptr ? matcher->getIdx(): nullptr;
 	delete matcher;
+
+	return ret;
+}
+
+
+CdbTableIndex* CdbTable::getIndexByColumnOidsStrict(const ArrayList<const CdbOid>* oidlist) const noexcept {
+	CdbTableIndex* ret = nullptr;
+	int keyLength = oidlist->size();
+
+	int maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		int l = idx->getColumnLength();
+		if(l != keyLength){
+			continue;
+		}
+
+		bool hit = true;
+		for(int j = 0; i != keyLength; ++j){
+			const CdbOid* oid = oidlist->get(j);
+			const CdbOid* oidIdxCol = idx->getColumnOidAt(j);
+
+			if(!oid->equals(oidIdxCol)){
+				hit = false;
+				break;
+			}
+		}
+
+		if(hit){
+			ret = idx;
+			break;
+		}
+	}
 
 	return ret;
 }

@@ -58,6 +58,10 @@ public:
 	ArrayList<CdbRecord>* scanRecords(const wchar_t* table);
 	ArrayList<CdbRecord>* scanRecords(const wchar_t* schema, const wchar_t* table);
 
+	CdbTableIndex* getPrimaryKey(const wchar_t* table);
+	CdbTableIndex* getPrimaryKey(const wchar_t* schema, const wchar_t* table);
+
+
 protected:
 	void initSmartcontract();
 	void setMain(const wchar_t* pkg, const wchar_t* clazz, const wchar_t* method) noexcept;
