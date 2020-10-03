@@ -38,6 +38,10 @@ TEST_GROUP(TestExecAlterPrimaryGroup) {
 	}
 };
 
+
+/**
+ *
+ */
 TEST(TestExecAlterPrimaryGroup, dropPrimaryKey01){
 	TestDbSchemaAlter01 tester(this->env);
 	tester.init(1024*10);
