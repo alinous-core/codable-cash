@@ -27,6 +27,8 @@
 #include "table_record_value/CdbStringValue.h"
 
 #include "table_record_local/LocalCdbOid.h"
+
+#include "vm/VirtualMachine.h"
 namespace codablecash {
 
 TestDbSchema01::TestDbSchema01(TestEnv* env) : TestDbSchemaBase(env) {
@@ -45,6 +47,7 @@ void TestDbSchema01::init() {
 
 void TestDbSchema01::init(uint64_t memCapacity) {
 	TestDbSchemaBase::init(memCapacity);
+
 	createTable();
 	insertData();
 }

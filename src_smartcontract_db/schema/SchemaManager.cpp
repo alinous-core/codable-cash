@@ -224,7 +224,7 @@ void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
 	ColumnModifyContext* context = col->createModifyContextwithChange(modifyCommand, defaultStr); __STP(context);
 	context->setColumn(col);
 
-	// TODO: convert default
+	// convert default
 	context->analyze();
 
 	handleUniqueIndexOnModify(table, context);
@@ -253,7 +253,7 @@ void SchemaManager::handleToNotUnique(CdbTable* table, ColumnModifyContext* ctx)
 	const CdbOid* colOid = col->getOid();
 
 	CdbTableIndex* index = table->getUniqueIndexByColumnOid(colOid);
-	if(index == nullptr){ // primary key support unique
+	if(index == nullptr || index->isPrimaryKey()){ // primary key support unique
 		return;
 	}
 

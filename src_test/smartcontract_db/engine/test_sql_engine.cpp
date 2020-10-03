@@ -63,7 +63,7 @@ TEST(TestDbEngineGroup, testEx){
 	testException<CdbException>();
 }
 
-TEST(TestDbEngineGroup, testOid){
+TEST(TestDbEngineGroup, testOid01){
 	CdbOid oid1(1);
 	CdbOid oid2(2);
 	CdbOid oid3(1);
@@ -72,3 +72,11 @@ TEST(TestDbEngineGroup, testOid){
 	CHECK(oid1.equals(&oid3))
 }
 
+TEST(TestDbEngineGroup, testOid02){
+	CdbOid oid1(1);
+
+	IBlockObject* bobj = oid1.copyData(); __STP(bobj);
+	CdbOid* oid2 = dynamic_cast<CdbOid*>(bobj);
+
+	CHECK(oid1.equals(oid2))
+}

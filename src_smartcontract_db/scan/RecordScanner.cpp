@@ -25,6 +25,7 @@ RecordScanner::RecordScanner(TableStore* tableStore) {
 }
 
 RecordScanner::~RecordScanner() {
+	shutdown();
 	this->tableStore = nullptr;
 }
 

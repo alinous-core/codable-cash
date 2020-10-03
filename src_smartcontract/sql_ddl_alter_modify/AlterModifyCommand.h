@@ -10,6 +10,11 @@
 
 #include "sql_ddl_alter/AbstractAlterDdlCommand.h"
 
+namespace codablecash {
+class AlterModifyCommandLog;
+}
+using namespace codablecash;
+
 namespace alinous {
 
 class DdlColumnDescriptor;
@@ -35,11 +40,14 @@ public:
 	virtual void preAnalyze(AnalyzeContext* actx);
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
-	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log);
+	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId);
 
 	int64_t getLengthValue() const noexcept {
 		return this->longValue;
 	}
+
+private:
+	void validate(VirtualMachine* vm, AlterModifyCommandLog* log, TableIdentifier* tableId);
 
 private:
 	DdlColumnDescriptor* columnDescriptor;

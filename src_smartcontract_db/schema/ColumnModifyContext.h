@@ -30,6 +30,10 @@ public:
 		NOTNULL_NONE, TO_NOT_NULL, RELEASE_NOT_NULL
 	} NotNullChage;
 
+	typedef enum __LengthChange{
+		LENGTH_NO_CHANGE, LENGTH_CHANGE_SHORTER, LENGTH_CHANGE_LONGER
+	} LengthChange;
+
 	ColumnModifyContext();
 	virtual ~ColumnModifyContext();
 
@@ -47,6 +51,14 @@ public:
 	}
 	NotNullChage getNotNullChange() const {
 		return notNullChange;
+	}
+
+	void setLengthChange(LengthChange lengthChange) noexcept {
+		this->lengthChange = lengthChange;
+	}
+
+	LengthChange getLengthChange() const noexcept {
+		return this->lengthChange;
 	}
 
 	uint8_t getCdbType() const noexcept {
@@ -98,9 +110,35 @@ public:
 		this->removalIndex = removalIndex;
 	}
 
-	AbstractCdbValue* getDefaultValue() const noexcept {
+	const AbstractCdbValue* getDefaultValue() const noexcept {
 		return this->defaultValue;
 	}
+
+	bool isDefaultChanged() const noexcept {
+		return defaultChanged;
+	}
+
+	void setDefaultChanged(bool defaultChanged) noexcept {
+		this->defaultChanged = defaultChanged;
+	}
+
+	bool isNotNull() const noexcept {
+		return notNull;
+	}
+
+	void setNotNull(bool notNull) noexcept {
+		this->notNull = notNull;
+	}
+
+	bool isUnique() const noexcept {
+		return unique;
+	}
+
+	void setUnique(bool unique) noexcept {
+		this->unique = unique;
+	}
+
+
 
 private:
 	void analyzeDefaultValue();
@@ -108,6 +146,10 @@ private:
 private:
 	UniqueChage uniqueChange;
 	NotNullChage notNullChange;
+	LengthChange lengthChange;
+
+	bool notNull;
+	bool unique;
 
 	bool typeChanged;
 	uint8_t cdbType;
@@ -117,6 +159,8 @@ private:
 	CdbTableColumn* column;
 	CdbTableIndex* newIndex;
 	CdbTableIndex* removalIndex;
+
+	bool defaultChanged;
 
 	// analyzed value
 	AbstractCdbValue* defaultValue;

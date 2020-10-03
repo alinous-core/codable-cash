@@ -21,12 +21,25 @@
 namespace codablecash {
 
 RecordValueConverter::RecordValueConverter(CdbTableColumn* column, const AbstractCdbValue* defaultValue) {
-	this->column = column;
+	this->pos = column->getPosition();
+	this->isnotnull = column->isNotnull();
+	this->cdbType = column->getType();
+	this->length = column->getLength();
+
+	this->defaultValue = defaultValue;
+}
+
+RecordValueConverter::RecordValueConverter(int pos, bool isnotnull,
+				uint8_t cdbType, int length, const AbstractCdbValue* defaultValue) {
+	this->pos = pos;
+	this->isnotnull = isnotnull;
+	this->cdbType = cdbType;
+	this->length = length;
+
 	this->defaultValue = defaultValue;
 }
 
 RecordValueConverter::~RecordValueConverter() {
-	this->column = nullptr;
 
 }
 
@@ -34,12 +47,11 @@ CdbRecord* RecordValueConverter::processUpdate(const CdbRecord* record) {
 	AbstractCdbValue* obj = record->copy();
 	CdbRecord* newRecord = dynamic_cast<CdbRecord*>(obj);
 
-	int pos = this->column->getPosition();
-	const AbstractCdbValue* lastValue = newRecord->get(pos);
+	const AbstractCdbValue* lastValue = newRecord->get(this->pos);
 
 	AbstractCdbValue* newValue = getModifiedValue(lastValue);
 
-	newRecord->setValue(newValue, pos);
+	newRecord->setValue(newValue, this->pos);
 
 	return newRecord;
 }
@@ -50,39 +62,38 @@ AbstractCdbValue* RecordValueConverter::getModifiedValue(const AbstractCdbValue*
 	}
 
 	uint8_t lastCdbType = lastValue->getType();
-	uint8_t cdbType = this->column->getType();
-	if(cdbType == AbstractCdbValue::TYPE_STRING && lastCdbType == AbstractCdbValue::TYPE_STRING){
+	if(this->cdbType == AbstractCdbValue::TYPE_STRING && lastCdbType == AbstractCdbValue::TYPE_STRING){
 		return handleStringType(lastValue);
 	}
 
 	AbstractCdbValue* ret = nullptr;
 	try{
-		ret = CdbValueCaster::cast(lastValue, cdbType);
+		ret = CdbValueCaster::cast(lastValue, this->cdbType);
 	}
 	catch(Exception* e){
 		delete e;
-		ret = CdbValueCaster::getDefaultValue(cdbType);
+		ret = CdbValueCaster::getDefaultValue(this->cdbType);
 	}
 
 	return ret;
 }
 
 AbstractCdbValue* RecordValueConverter::handleNullValue() {
-	bool isnotnull = this->column->isNotnull();
-	if(!isnotnull){
+	if(!this->isnotnull){
 		return nullptr;
 	}
 
-	uint8_t cdbType = this->column->getType();
+	if(this->defaultValue != nullptr){
+		return this->defaultValue->copy();
+	}
 
-	return CdbValueCaster::getDefaultValue(cdbType);
+	return CdbValueCaster::getDefaultValue(this->cdbType);
 }
 
 AbstractCdbValue* RecordValueConverter::handleStringType(const AbstractCdbValue* lastValue) {
 	const CdbStringValue* lastStringValue = dynamic_cast<const CdbStringValue*>(lastValue);
 
-	int length = this->column->getLength();
-	if(length <= 0){
+	if(this->length <= 0){
 		return lastStringValue->copy();
 	}
 

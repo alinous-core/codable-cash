@@ -314,6 +314,7 @@ AlterAddIndexCommand* alterAddIndexCommand(Token* t) : {
 	[
 		t=<UNIQUE>{
 			cmd->setPosition(t);
+			cmd->setUnique(true);
 		}
 	]
 
@@ -469,7 +470,7 @@ DdlColumnDescriptor* ddlColumnDescriptor() :
 		t=<SQL_DEFAULT> {
 			desc->setPosition(t);
 		}
-		(val=sqlLiteral() | val=sqlBooleanLiteral()) {
+		(val=sqlLiteral() | val=sqlBooleanLiteral() | val=sqlNullLiteral()) {
 			desc->setDefaultValue(val);
 			desc->setPosition(val);
 		}		

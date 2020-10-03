@@ -84,9 +84,13 @@ void CdbTableColumn::setAttributes(bool notnull, bool unique) noexcept {
 }
 
 void CdbTableColumn::setDefaultValue(const UnicodeString* defaultValue) noexcept {
+	delete this->defaultValue;
+
 	if(defaultValue != nullptr){
-		delete this->defaultValue;
 		this->defaultValue = new UnicodeString(defaultValue);
+	}
+	else{
+		this->defaultValue = nullptr;
 	}
 }
 
@@ -172,7 +176,11 @@ ScanResultFieldMetadata* CdbTableColumn::getFieldMetadata(const CdbTable* table)
 	return fld;
 }
 
-ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterModifyCommand* cmd, const UnicodeString* defaultStr) {
+ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterModifyCommand* cmd, const UnicodeString* defaultStr){
+	return createModifyContextwithChange(cmd, defaultStr, true);
+}
+
+ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterModifyCommand* cmd, const UnicodeString* defaultStr, bool update) {
 	ColumnModifyContext* ctx = new ColumnModifyContext();
 	const DdlColumnDescriptor* newdesc = cmd->getColumnDescriptor();
 
@@ -185,8 +193,11 @@ ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterMo
 			ctx->setUniqueChange(ColumnModifyContext::UniqueChage::TO_NOT_UNIQUE);
 		}
 
-		this->unique = nextUnique;
+		if(update){
+			this->unique = nextUnique;
+		}
 	}
+	ctx->setUnique(nextUnique);
 
 	bool nextNotnull = newdesc->isNotNull();
 	if(nextNotnull != this->notnull){
@@ -197,8 +208,11 @@ ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterMo
 			ctx->setNotNullChange(ColumnModifyContext::NotNullChage::RELEASE_NOT_NULL);
 		}
 
-		this->notnull = nextNotnull;
+		if(update){
+			this->notnull = nextNotnull;
+		}
 	}
+	ctx->setNotNull(nextNotnull);
 
 	ColumnTypeDescriptor* typeDesc = newdesc->getColumnTypeDescriptor();
 	uint8_t cdbType = typeDesc->toCdbValueType();
@@ -209,17 +223,40 @@ ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterMo
 		ctx->setCdbType(cdbType);
 		ctx->setLength(length);
 
-		this->type = cdbType;
-		this->length = length;
+		if(update){
+			this->type = cdbType;
+			this->length = length;
+		}
+	}
+	else{
+		ctx->setCdbType(this->type);
+		ctx->setLength(this->length);
 	}
 
-	if((this->defaultValue != nullptr && defaultStr == nullptr) ||
+	// length change
+	if(ctx->getLength() < this->length){
+		ctx->setLengthChange(ColumnModifyContext::LengthChange::LENGTH_CHANGE_SHORTER);
+	}
+	else if(ctx->getLength() > this->length){
+		ctx->setLengthChange(ColumnModifyContext::LengthChange::LENGTH_CHANGE_LONGER);
+	}
+
+	if(!(this->defaultValue == nullptr && defaultStr == nullptr)
+			&& ((this->defaultValue != nullptr && defaultStr == nullptr) ||
 			(this->defaultValue == nullptr && defaultStr != nullptr) ||
-			!this->defaultValue->equals(defaultStr)){
+			!this->defaultValue->equals(defaultStr))
+			){
+		ctx->setDefaultChanged(true);
 		ctx->setDefaultValue(defaultStr);
-		setDefaultValue(defaultStr);
-	}
 
+
+		if(update){
+			setDefaultValue(defaultStr);
+		}
+	}
+	else{
+		ctx->setDefaultValue(this->defaultValue);
+	}
 
 	return ctx;
 }

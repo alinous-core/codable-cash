@@ -212,4 +212,12 @@ void CdbTableIndex::adjustIndexColumnPosition(const CdbTable* table) noexcept {
 	}
 }
 
+
+const CdbOid* CdbTableIndex::getColumnOidAt(int idxColumnPos) const noexcept {
+	CdbTableColumn* tcol = this->columns->get(idxColumnPos);
+
+	return tcol->getOid();
+}
+
+
 } /* namespace codablecash */

@@ -22,6 +22,10 @@ ColumnModifyContext::ColumnModifyContext() {
 	this->uniqueChange = UniqueChage::UNIQUE_NONE;
 	this->typeChanged = false;
 	this->notNullChange = NotNullChage::NOTNULL_NONE;
+	this->lengthChange = LengthChange::LENGTH_NO_CHANGE;
+
+	this->notNull = false;
+	this->unique = false;
 
 	this->cdbType = 0;
 	this->length = 0;
@@ -30,6 +34,8 @@ ColumnModifyContext::ColumnModifyContext() {
 	this->column = nullptr;
 	this->newIndex = nullptr;
 	this->removalIndex = nullptr;
+
+	this->defaultChanged = false;
 
 	this->defaultValue = nullptr;
 }
@@ -45,15 +51,11 @@ ColumnModifyContext::~ColumnModifyContext() {
 }
 
 void ColumnModifyContext::analyze() {
-	if(this->defalutValueStr != nullptr){
-		analyzeDefaultValue();
-	}
+	analyzeDefaultValue();
 }
 
 void ColumnModifyContext::analyzeDefaultValue() {
-	uint8_t cdbType = this->column->getType(); // cdb type
-
-	this->defaultValue = CdbValueCaster::convertFromString(this->defalutValueStr, cdbType);
+	this->defaultValue = CdbValueCaster::convertFromString(this->defalutValueStr, this->cdbType);
 }
 
 void ColumnModifyContext::setDefaultValue(const UnicodeString* defalutValueStr) noexcept {

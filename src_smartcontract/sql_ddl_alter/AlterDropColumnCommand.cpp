@@ -65,7 +65,7 @@ void AlterDropColumnCommand::analyzeTypeRef(AnalyzeContext* actx) {
 void AlterDropColumnCommand::analyze(AnalyzeContext* actx) {
 }
 
-void AlterDropColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log) {
+void AlterDropColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
 }
 
 } /* namespace alinous */

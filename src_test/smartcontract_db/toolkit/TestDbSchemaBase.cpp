@@ -22,7 +22,17 @@
 #include "table_store/CdbStorageManager.h"
 #include "table_store/TableStore.h"
 
+#include "base/StackRelease.h"
 
+#include "sc/SmartContract.h"
+
+#include "base_io_stream/FileInputStream.h"
+
+#include "ext_binary/ExtExceptionObject.h"
+
+#include "table_record/CdbRecord.h"
+
+#include "scan/RecordScanner.h"
 namespace codablecash {
 
 TestDbSchemaBase::TestDbSchemaBase(TestEnv* env) {
@@ -30,12 +40,17 @@ TestDbSchemaBase::TestDbSchemaBase(TestEnv* env) {
 	this->dbDir = nullptr;
 	this->vm = nullptr;
 	this->loidSerial = 1;
+
+	this->folder = nullptr;
+	this->exobj = nullptr;
 }
 
 TestDbSchemaBase::~TestDbSchemaBase() {
 	this->env = nullptr;
 	delete this->dbDir;
 	delete this->vm;
+	delete this->folder;
+	delete this->exobj;
 }
 
 void TestDbSchemaBase::init() {
@@ -45,6 +60,7 @@ void TestDbSchemaBase::init() {
 void TestDbSchemaBase::init(uint64_t memCapacity) {
 	this->vm = new VirtualMachine(memCapacity);
 
+	initSmartcontract();
 	createDb();
 
 	this->vm->loadDatabase(this->dbDir);
@@ -52,6 +68,43 @@ void TestDbSchemaBase::init(uint64_t memCapacity) {
 
 CodableDatabase* TestDbSchemaBase::getDatabase() const noexcept {
 	return this->vm->getDb();
+}
+
+void TestDbSchemaBase::initSmartcontract() {
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/toolkit/resources/sc/SmartContract.alns"))
+
+	this->folder = projectFolder->get(L"src_test/smartcontract_db/toolkit/resources/sc/");
+
+	SmartContract* sc = new SmartContract();
+
+	int length = sourceFile->length();
+	FileInputStream stream(sourceFile);
+
+	sc->addCompilationUnit(&stream, length, this->folder, sourceFile);
+
+	this->vm->loadSmartContract(sc);
+
+	this->vm->analyze();
+
+	setMain(L"test.fw", L"SmartContract", L"main");
+	this->vm->createScInstance();
+}
+
+void TestDbSchemaBase::setMain(const wchar_t* pkg, const wchar_t* clazz, const wchar_t* method) noexcept {
+	UnicodeString mainPackage(pkg);
+	UnicodeString mainClass(clazz);
+	UnicodeString mainMethod(method);
+
+	this->vm->getSmartContract()->setMainMethod(&mainPackage, &mainClass, &mainMethod);
+}
+
+const ExtExceptionObject* TestDbSchemaBase::checkUncaughtException() {
+	this->vm->checkUncaughtException();
+
+	this->exobj = this->vm->getUncaughtException();
+
+	return this->exobj;
 }
 
 void TestDbSchemaBase::createDb() {
@@ -63,6 +116,31 @@ void TestDbSchemaBase::createDb() {
 	}
 }
 
+ArrayList<CdbRecord>* TestDbSchemaBase::scanRecords(const wchar_t* table) {
+	return scanRecords(SchemaManager::PUBLIC.towString(), table);
+}
+
+ArrayList<CdbRecord>* TestDbSchemaBase::scanRecords(const wchar_t* schema, const wchar_t* table) {
+	CodableDatabase* db = getDatabase();
+	CdbStorageManager* storageMgr = db->getStorageManager();
+
+	CdbTable* cdbtable = getTable(schema, table);
+
+	TableStore* store = storageMgr->getTableStore(cdbtable->getOid());
+
+	RecordScanner scanner(store);
+	scanner.start();
+
+	ArrayList<CdbRecord>* list = new ArrayList<CdbRecord>();
+	while(scanner.hasNext()){
+		const CdbRecord* record = scanner.next();
+
+		list->addElement(new CdbRecord(*record));
+	}
+
+	return list;
+}
+
 CdbTableColumn* TestDbSchemaBase::getColumn(const wchar_t* schema, const wchar_t* table, const wchar_t* column) {
 	CdbTable* cdbtable = getTable(schema, table);
 
@@ -71,7 +149,7 @@ CdbTableColumn* TestDbSchemaBase::getColumn(const wchar_t* schema, const wchar_t
 	return col;
 }
 
-CdbTableColumn* codablecash::TestDbSchemaBase::getColumn(const wchar_t* table, const wchar_t* column) {
+CdbTableColumn* TestDbSchemaBase::getColumn(const wchar_t* table, const wchar_t* column) {
 	const wchar_t* s = SchemaManager::PUBLIC.towString();
 
 	return getColumn(s, table, column);
@@ -104,7 +182,7 @@ CdbTableIndex* TestDbSchemaBase::getIndex(const wchar_t* schema, const wchar_t* 
 	return index;
 }
 
-CdbTableIndex* codablecash::TestDbSchemaBase::getIndex(const wchar_t* table, const wchar_t* column) {
+CdbTableIndex* TestDbSchemaBase::getIndex(const wchar_t* table, const wchar_t* column) {
 	const wchar_t* s = SchemaManager::PUBLIC.towString();
 
 	return getIndex(s, table, column);
@@ -133,6 +211,19 @@ IndexStore* TestDbSchemaBase::getIndexStore(const wchar_t* schema, const wchar_t
 
 	return indexStore;
 }
+
+CdbTableIndex* TestDbSchemaBase::getPrimaryKey(const wchar_t* table) {
+	const wchar_t* s = SchemaManager::PUBLIC.towString();
+
+	return getPrimaryKey(s, table);
+}
+
+CdbTableIndex* TestDbSchemaBase::getPrimaryKey(const wchar_t* schema, const wchar_t* table) {
+	CdbTable* cdbtable = getTable(schema, table);
+
+	return cdbtable->getPrimaryKey();
+}
+
 
 
 } /* namespace codablecash */

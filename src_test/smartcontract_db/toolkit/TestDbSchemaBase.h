@@ -9,11 +9,13 @@
 #define SMARTCONTRACT_DB_TOOLKIT_TESTDBSCHEMABASE_H_
 #include <cstdint>
 
+#include "base/ArrayList.h"
 
 namespace alinous {
 class TestEnv;
 class File;
 class VirtualMachine;
+class ExtExceptionObject;
 }
 using namespace alinous;
 
@@ -25,6 +27,7 @@ class CdbTableColumn;
 class CdbTableIndex;
 class CdbTable;
 class IndexStore;
+class CdbRecord;
 
 class TestDbSchemaBase {
 public:
@@ -39,6 +42,8 @@ public:
 		return this->vm;
 	}
 
+	const ExtExceptionObject* checkUncaughtException();
+
 	CdbTable* getTable(const wchar_t* schema, const wchar_t* table);
 
 	CdbTableColumn* getColumn(const wchar_t* schema, const wchar_t* table, const wchar_t* column);
@@ -50,7 +55,16 @@ public:
 	IndexStore* getIndexStore(const wchar_t* schema, const wchar_t* table, const wchar_t* column);
 	IndexStore* getIndexStore(const wchar_t* table, const wchar_t* column);
 
+	ArrayList<CdbRecord>* scanRecords(const wchar_t* table);
+	ArrayList<CdbRecord>* scanRecords(const wchar_t* schema, const wchar_t* table);
+
+	CdbTableIndex* getPrimaryKey(const wchar_t* table);
+	CdbTableIndex* getPrimaryKey(const wchar_t* schema, const wchar_t* table);
+
+
 protected:
+	void initSmartcontract();
+	void setMain(const wchar_t* pkg, const wchar_t* clazz, const wchar_t* method) noexcept;
 	void createDb();
 
 protected:
@@ -60,6 +74,10 @@ protected:
 	uint64_t loidSerial;
 
 	File* dbDir;
+
+	File* folder; // smart contract base
+
+	ExtExceptionObject* exobj;
 };
 
 } /* namespace codablecash */

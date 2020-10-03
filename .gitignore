@@ -2,6 +2,6 @@ target/
 ext/
 .cccc/
 junit.xml
-
+.settings/
 
 

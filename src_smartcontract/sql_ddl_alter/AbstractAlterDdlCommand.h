@@ -33,7 +33,7 @@ public:
 	virtual void preAnalyze(AnalyzeContext* actx) = 0;
 	virtual void analyzeTypeRef(AnalyzeContext* actx) = 0;
 	virtual void analyze(AnalyzeContext* actx) = 0;
-	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log) = 0;
+	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) = 0;
 
 protected:
 	DdlColumnDescriptor* copyColumnDescriptor(DdlColumnDescriptor* columnDescriptor) const;

@@ -41,10 +41,12 @@ SKIP :
 
 TOKEN :
 {
-  < INTEGER_LITERAL:
+  < INTEGER_LITERAL: (<MINUS>)?
+  	(
         <DECIMAL_LITERAL> (["l","L"])?
       | <HEX_LITERAL> (["l","L"])?
       | <OCTAL_LITERAL> (["l","L"])?
+    )
   >
 |
   < #DECIMAL_LITERAL: ["1"-"9"] (["0"-"9"])* >
@@ -3038,6 +3040,7 @@ AlterAddIndexCommand* alterAddIndexCommand(Token* t) : {
 	[
 		t=<UNIQUE>{
 			cmd->setPosition(t);
+			cmd->setUnique(true);
 		}
 	]
 
@@ -3193,7 +3196,7 @@ DdlColumnDescriptor* ddlColumnDescriptor() :
 		t=<SQL_DEFAULT> {
 			desc->setPosition(t);
 		}
-		(val=sqlLiteral() | val=sqlBooleanLiteral()) {
+		(val=sqlLiteral() | val=sqlBooleanLiteral() | val=sqlNullLiteral()) {
 			desc->setDefaultValue(val);
 			desc->setPosition(val);
 		}		
@@ -4281,6 +4284,7 @@ AbstractSQLExpression* sqlPrimitiveExpression() : {
 }
 {
 	(
+		exp=sqlNullLiteral() |
 		exp=sqlWildCard() |
 		exp=sqlParenthesisExpression() |
 		exp=sqlLiteral() |
@@ -4291,6 +4295,20 @@ AbstractSQLExpression* sqlPrimitiveExpression() : {
 	)
 	{}
 	{
+		return exp;
+	}
+}
+
+SQLNullLiteral* sqlNullLiteral() : {
+	SQLNullLiteral* exp = new SQLNullLiteral();
+	Token* t = nullptr;
+}
+{
+	t=<_NULL> {
+		exp->setPosition(t);
+	}
+	{
+		__ONERROR(exp);
 		return exp;
 	}
 }

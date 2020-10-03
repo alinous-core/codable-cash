@@ -20,9 +20,6 @@
 #include "base_io/ByteBuffer.h"
 #include "charsets/CharsetManager.h"
 
-
-
-
 namespace alinous {
 
 UnicodeString& UnicodeString::operator=(const UnicodeString &o) {
@@ -552,7 +549,7 @@ ArrayList<UnicodeString>* UnicodeString::split(const UnicodeString* regex, bool 
 
 	std::wsregex_token_iterator it(str.begin(), str.end(), wreg, -1), end;
 	for (; it != end; ++it) {
-		const std::wstring res(it->first, it->second);
+		const std::wstring res = *it;//(it->first, it->second);
 
 		int len = res.length();
 		if(!addBlankString && len == 0){

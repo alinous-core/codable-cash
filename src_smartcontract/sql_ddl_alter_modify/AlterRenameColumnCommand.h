@@ -30,7 +30,7 @@ public:
 	virtual void preAnalyze(AnalyzeContext* actx);
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
-	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log);
+	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId);
 
 private:
 	UnicodeString* lastName;

@@ -66,7 +66,8 @@ void AlterAddPrimaryKeyCommandLog::commit(CdbTransactionManager* trxManager) {
 	trxManager->commitAlterTable(this);
 }
 
-void AlterAddPrimaryKeyCommandLog::initCommandParam(VirtualMachine* vm) {
+void AlterAddPrimaryKeyCommandLog::initCommandParam(VirtualMachine* vm, TableIdentifier* tableId) {
+	this->command->interpret(vm, this, tableId);
 }
 
 } /* namespace codablecash */

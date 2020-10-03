@@ -102,18 +102,18 @@ void AlterTableStatement::interpret(VirtualMachine* vm) {
 	}
 	log->setTableIdentifier(table);
 
-	log->reanalyze(nullptr, this);
-
-	log->initCommandParam(vm);
+	log->reanalyze(vm->getSmartContract()->getAnalyzeContext(), this);
 
 	VmTransactionHandler* handler = vm->getTransactionHandler();
 	try{
+		log->initCommandParam(vm, table);
+
 		handler->alterTable(log);
 	}
 	catch(Exception* e){
 		DatabaseExceptionClassDeclare::throwException(e->getMessage(), vm, this);
 		delete e;
-		delete cmd;
+		delete log;
 	}
 }
 

@@ -63,11 +63,13 @@ void SQLWildCard::init(VirtualMachine* vm) {
 }
 
 AbstractVmInstance* SQLWildCard::interpret(VirtualMachine* vm) {
-	SelectScanPlanner* planner = vm->getSelectPlanner();
-	ConditionsHolderStackMarker marker(planner->getConditionsStack());
+	if(vm->isSelectPlanning()){
+		SelectScanPlanner* planner = vm->getSelectPlanner();
+		ConditionsHolderStackMarker marker(planner->getConditionsStack());
 
-	WildCardScanParam* param = new WildCardScanParam();
-	planner->push(param);
+		WildCardScanParam* param = new WildCardScanParam();
+		planner->push(param);
+	}
 
 	return nullptr;
 }

@@ -74,6 +74,24 @@ void TestDbSchemaAlter01::insert01() {
 	trx->commit();
 }
 
+void TestDbSchemaAlter01::insert02() {
+	CdbTransaction* trx = getDatabase()->newTransaction(); __STP(trx);
+
+	insertRecord(trx, 1, L"tanaka", 11);
+	insertRecord02(trx, 1, L"sato");
+
+	trx->commit();
+}
+
+void TestDbSchemaAlter01::insert03() {
+	CdbTransaction* trx = getDatabase()->newTransaction(); __STP(trx);
+
+	insertRecord(trx, 1, L"tanaka", 11);
+	insertRecord(trx, 2, L"sato", 11);
+
+	trx->commit();
+}
+
 void TestDbSchemaAlter01::insertRecord(CdbTransaction* trx, int id,	const wchar_t* name, int email_id) {
 	InsertLog* log = new InsertLog();
 
@@ -94,5 +112,27 @@ void TestDbSchemaAlter01::insertRecord(CdbTransaction* trx, int id,	const wchar_
 
 	trx->insert(log);
 }
+
+void TestDbSchemaAlter01::insertRecord02(CdbTransaction* trx, int id, const wchar_t* name) {
+	InsertLog* log = new InsertLog();
+
+	CdbTableIdentifier* tableId = new CdbTableIdentifier();
+	tableId->setTable(new UnicodeString(L"test_table"));
+	log->setTable(tableId);
+
+	CdbRecord* record = new CdbRecord();
+	LocalCdbOid loid(this->loidSerial++);
+	record->setOid(&loid);
+
+	record->addValue(new CdbIntValue(id));
+
+	record->addValue(new CdbStringValue(name));
+	record->addValue(nullptr);
+
+	log->addRecord(record);
+
+	trx->insert(log);
+}
+
 
 } /* namespace codablecash */

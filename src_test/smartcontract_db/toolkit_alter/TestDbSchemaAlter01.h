@@ -23,9 +23,12 @@ public:
 
 	void createTable();
 	void insert01();
+	void insert02();
+	void insert03();
 
 private:
 	void insertRecord(CdbTransaction* trx, int id, const wchar_t* name, int email_id);
+	void insertRecord02(CdbTransaction* trx, int id, const wchar_t* name);
 };
 
 } /* namespace codablecash */

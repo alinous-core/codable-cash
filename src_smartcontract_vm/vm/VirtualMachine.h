@@ -100,8 +100,6 @@ public:
 	void setCaught(bool caught) noexcept;
 	bool isCaught() const noexcept;
 
-
-
 	// database and transaction
 	VmTransactionHandler* getTransactionHandler() const noexcept;
 	void loadDatabase(const File* dbdir);

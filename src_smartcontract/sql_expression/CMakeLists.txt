@@ -16,6 +16,7 @@ set(__src
 	SQLLiteral.cpp
 	SqlMultiplicativeExpression.cpp
 	SQLNotExpression.cpp
+	SQLNullLiteral.cpp
 	SQLOrExpression.cpp
 	SQLParenthesisExpression.cpp
 	SQLPlaceHolder.cpp

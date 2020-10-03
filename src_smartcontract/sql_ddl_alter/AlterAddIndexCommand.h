@@ -24,6 +24,7 @@ public:
 
 	void setName(UnicodeString* name) noexcept;
 	void addColumn(UnicodeString* colName) noexcept;
+	void setUnique(bool unique) noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
@@ -34,10 +35,11 @@ public:
 	virtual void preAnalyze(AnalyzeContext* actx);
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
-	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log);
+	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId);
 
 private:
 	UnicodeString* name;
+	bool unique;
 	ArrayList<UnicodeString> list;
 };
 

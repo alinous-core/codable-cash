@@ -281,7 +281,7 @@ void SelectStatement::interpret(VirtualMachine* vm) {
 			try{
 				buildPlanner(vm, currentVer);
 			}
-			catch(ExceptionInterrupt* e){
+			catch(ExceptionInterrupt* e){ // exception is already thrown
 				trxHandler->rollback(true);
 
 				delete e;

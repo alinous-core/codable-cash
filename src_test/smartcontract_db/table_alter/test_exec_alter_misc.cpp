@@ -48,7 +48,7 @@ public:
 	explicit DummyCommand() : AbstractAlterCommandLog(123) {
 	}
 	virtual ~DummyCommand(){};
-	virtual void initCommandParam(VirtualMachine* vm){}
+	virtual void initCommandParam(VirtualMachine* vm, TableIdentifier* tableId){}
 	virtual void commit(CdbTransactionManager* trxManager){}
 };
 

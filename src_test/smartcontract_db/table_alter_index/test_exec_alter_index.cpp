@@ -1,5 +1,5 @@
 /*
- * test_exec_alter_primary.cpp
+ * test_exec_alter_index.cpp
  *
  *  Created on: 2020/09/24
  *      Author: iizuka
@@ -29,7 +29,7 @@
 #include "table/CdbTableColumn.h"
 #include "table/CdbTableIndex.h"
 
-TEST_GROUP(TestExecAlterPrimaryGroup) {
+TEST_GROUP(TestExecAlterIndexGroup) {
 	TEST_SETUP() {
 		env->setup();
 	}
@@ -38,7 +38,11 @@ TEST_GROUP(TestExecAlterPrimaryGroup) {
 	}
 };
 
-TEST(TestExecAlterPrimaryGroup, dropPrimaryKey01){
+/**
+ * add index
+ *	ALTER TABLE test_table ADD INDEX test_index(email_id);
+ */
+TEST(TestExecAlterIndexGroup, addIndex01){
 	TestDbSchemaAlter01 tester(this->env);
 	tester.init(1024*10);
 	tester.insert01();
@@ -46,7 +50,7 @@ TEST(TestExecAlterPrimaryGroup, dropPrimaryKey01){
 	VirtualMachine* vm = tester.getVm();
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/exec_primary/dropPrimaryKey01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/exec_index/addIndex01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -63,24 +67,22 @@ TEST(TestExecAlterPrimaryGroup, dropPrimaryKey01){
 
 		stmt->interpret(vm);
 	}
-
 }
 
 /**
- *	add primary key after drop
- *	ALTER TABLE test_table ADD PRIMARY KEY(id);
+ * drop index
  */
-TEST(TestExecAlterPrimaryGroup, addPrimaryKey01){
+TEST(TestExecAlterIndexGroup, dropIndex01){
 	TestDbSchemaAlter01 tester(this->env);
 	tester.init(1024*10);
 	tester.insert01();
 
 	VirtualMachine* vm = tester.getVm();
 
-	// DROP FIRST
+	// add index
 	{
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/exec_primary/dropPrimaryKey01.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/exec_index/addIndex01.alns"))
 		{
 			SmartContractParser parser(sourceFile);
 			AlinousLang* lang = parser.getDebugAlinousLang();
@@ -100,7 +102,7 @@ TEST(TestExecAlterPrimaryGroup, addPrimaryKey01){
 	}
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/exec_primary/addPrimaryKey01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/exec_index/dropIndex01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -118,3 +120,5 @@ TEST(TestExecAlterPrimaryGroup, addPrimaryKey01){
 		stmt->interpret(vm);
 	}
 }
+
+

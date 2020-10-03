@@ -28,10 +28,28 @@
 #include "instance_ref/PrimitiveReference.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #include "instance_string/VmStringInstance.h"
 
 #include "instance_exception/TypeCastExceptionClassDeclare.h"
+#include "instance_exception/ExceptionInterrupt.h"
+
+#include "engine/CodableDatabase.h"
+
+#include "sql_join_parts/TableIdentifier.h"
+
+#include "schema/SchemaManager.h"
+#include "schema/ColumnModifyContext.h"
+
+#include "table/CdbTable.h"
+#include "table/CdbTableColumn.h"
+
+#include "sql_ddl_alter/IndexChecker.h"
+
+#include "engine/CdbException.h"
+
+#include "table_record_value/AbstractCdbValue.h"
 namespace alinous {
 
 AlterModifyCommand::AlterModifyCommand(const AlterModifyCommand& inst) : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_MODIFY) {
@@ -50,6 +68,7 @@ AlterModifyCommand::~AlterModifyCommand() {
 }
 
 void AlterModifyCommand::setColumnDescriptor(DdlColumnDescriptor* columnDescriptor) noexcept {
+	delete this->columnDescriptor;
 	this->columnDescriptor = columnDescriptor;
 }
 
@@ -122,28 +141,31 @@ void AlterModifyCommand::analyze(AnalyzeContext* actx) {
 	AbstractSQLExpression* length = typeDesc->getLengthExp();
 
 	if(length != nullptr){
+		bool error = false;
 		short kind = length->getKind();
 		if(kind != CodeElement::SQL_EXP_LITERAL){
 			const UnicodeString* tname = typeDesc->getTypeName();
 			actx->addValidationError(ValidationError::DB_LENGTH_IS_NOT_INTEGER, this, L"The type {0}'s length must be integer value.", {tname});
+
+			error = true;
 		}
 
-		SQLLiteral* lit = dynamic_cast<SQLLiteral*>(length);
-		uint8_t litType = lit->getLiteralType();
-		if(litType != SQLLiteral::TYPE_NUMBER){
-			const UnicodeString* tname = typeDesc->getTypeName();
-			actx->addValidationError(ValidationError::DB_LENGTH_IS_NOT_INTEGER, this, L"The type {0}'s length must be integer value.", {tname});
+		if(!error){
+			SQLLiteral* lit = dynamic_cast<SQLLiteral*>(length);
+			uint8_t litType = lit->getLiteralType();
+			if(litType != SQLLiteral::TYPE_NUMBER){
+				const UnicodeString* tname = typeDesc->getTypeName();
+				actx->addValidationError(ValidationError::DB_LENGTH_IS_NOT_INTEGER, this, L"The type {0}'s length must be integer value.", {tname});
+			}
+
+			lit->analyze(actx);
+
+			this->longValue = lit->getLongv();
+			if(this->longValue < 1){
+				const UnicodeString* tname = typeDesc->getTypeName();
+				actx->addValidationError(ValidationError::DB_LENGTH_IS_NOT_CORRECT_INTEGER, this, L"The type {0}'s length must be greater than 0.", {tname});
+			}
 		}
-
-		lit->analyze(actx);
-
-		this->longValue = lit->getLongv();
-		if(this->longValue < 1){
-			const UnicodeString* tname = typeDesc->getTypeName();
-			actx->addValidationError(ValidationError::DB_LENGTH_IS_NOT_CORRECT_INTEGER, this, L"The type {0}'s length must be greater than 0.", {tname});
-		}
-
-
 	}
 
 	AbstractSQLExpression* defaultValue = this->columnDescriptor->getDefaultValue();
@@ -152,7 +174,7 @@ void AlterModifyCommand::analyze(AnalyzeContext* actx) {
 	}
 }
 
-void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log) {
+void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
 	AlterModifyCommandLog* modifyLog = dynamic_cast<AlterModifyCommandLog*>(log);
 
 	AbstractSQLExpression* defaultValue = this->columnDescriptor->getDefaultValue();
@@ -162,10 +184,14 @@ void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* 
 		AbstractVmInstance* inst = defaultValue->interpret(vm);
 		releaser.registerInstance(inst);
 
-		IAbstractVmInstanceSubstance* sub = inst->getInstance();
+		IAbstractVmInstanceSubstance* sub = inst != nullptr ? inst->getInstance() : nullptr;
 
-		uint8_t instType = sub->getInstType();
-		if(sub->instIsPrimitive()){
+		uint8_t instType = sub != nullptr ? sub->getInstType() : VmInstanceTypesConst::INST_NULL;
+
+		if(instType == VmInstanceTypesConst::INST_NULL){
+			modifyLog->setDefaultStr(nullptr);
+		}
+		else if(sub->instIsPrimitive()){
 			PrimitiveReference* pr = dynamic_cast<PrimitiveReference*>(sub);
 			const UnicodeString* str = pr->toString();
 
@@ -177,11 +203,59 @@ void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* 
 
 			modifyLog->setDefaultStr(new UnicodeString(str));
 		}
-		else{
-			TypeCastExceptionClassDeclare::throwException(vm, this);
+		//else{ Not necessary
+		//	TypeCastExceptionClassDeclare::throwException(vm, this);
+		//	ExceptionInterrupt::interruptPoint(vm);
+		//}
+	}
+
+	validate(vm, modifyLog, tableId);
+}
+
+void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log, TableIdentifier* tableId) {
+	CodableDatabase* db = vm->getDb();
+	SchemaManager* scmagr = db->getSchemaManager();
+	CdbStorageManager* storagemgr = db->getStorageManager();
+
+	const UnicodeString* scName = tableId->getSchema();
+	const UnicodeString* tblName = tableId->getTableName();
+	CdbTable* table = scmagr->getTable(scName, tblName);
+
+	const UnicodeString* name = this->columnDescriptor->getName();
+	CdbTableColumn* column = table->getColumn(name);
+
+	const UnicodeString* defstr = log->getDefaultValueStr();
+
+	ColumnModifyContext* modifyContext = column->createModifyContextwithChange(this, defstr, false); __STP(modifyContext);
+	modifyContext->setColumn(column);
+	modifyContext->analyze();
+
+	ColumnModifyContext::UniqueChage uchange = modifyContext->getUniqueChange();
+
+	if(uchange == ColumnModifyContext::UniqueChage::TO_UNIQUE || (modifyContext->isUnique() && modifyContext->isTypeChanged())){
+		bool currentUnique = column->isUnique();
+		uint8_t currentType = column->getType();
+		uint8_t nextType = modifyContext->getCdbType();
+		ColumnModifyContext::LengthChange lengthChange = modifyContext->getLengthChange();
+
+		uint8_t strType = AbstractCdbValue::TYPE_STRING;
+
+		if((currentType == nextType && nextType == strType) && currentUnique
+				&& lengthChange != ColumnModifyContext::LengthChange::LENGTH_CHANGE_SHORTER){
+			return;
 		}
+
+		IndexChecker checker(db, modifyContext);
+
+		bool result = checker.checkUnique(table, column);
+		if(!result){
+			throw new CdbException(L"Can not set the column unique because of table data.", __FILE__, __LINE__);
+		}
+
+		// FIXME check multiple index unique
 	}
 }
+
 
 
 } /* namespace alinous */

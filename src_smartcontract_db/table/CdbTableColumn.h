@@ -40,7 +40,11 @@ public:
 	const UnicodeString* getName() const noexcept;
 	void setType(uint8_t type, int length) noexcept;
 	void setAttributes(bool notnull, bool unique) noexcept;
+
 	void setDefaultValue(const UnicodeString* defaultValue) noexcept;
+	const UnicodeString* getDefaultValue() const noexcept {
+		return defaultValue;
+	}
 
 	bool isUnique() const noexcept {
 		return unique;
@@ -69,6 +73,7 @@ public:
 	ScanResultFieldMetadata* getFieldMetadata(const CdbTable* table) const noexcept;
 
 	ColumnModifyContext* createModifyContextwithChange(const AlterModifyCommand* cmd, const UnicodeString* defaultStr);
+	ColumnModifyContext* createModifyContextwithChange(const AlterModifyCommand* cmd, const UnicodeString* defaultStr, bool update);
 
 private:
 	CdbOid* oid;
