@@ -291,7 +291,7 @@ TEST(TestExecAlterMofdifyTextGroup, case03_err){
 TEST(TestExecAlterMofdifyTextGroup, case04){
 	TestDbSchemaAlterTextUnique01 tester(this->env);
 	tester.init(1024*512);
-	tester.insert02();
+	tester.insert03();
 
 	VirtualMachine* vm = tester.getVm();
 
@@ -313,6 +313,50 @@ TEST(TestExecAlterMofdifyTextGroup, case04){
 
 		stmt->interpret(vm);
 
+		// checking
+		CdbTableColumn* col = tester.getColumn(L"test_table", L"name");
+		uint8_t t = col->getType();
+		CHECK(t == AbstractCdbValue::TYPE_STRING);
+		int len = col->getLength();
+		CHECK(len == 255);
 
+		CHECK(!col->isNotnull());
+		CHECK(col->isUnique());
+
+		ArrayList<CdbRecord>* list = tester.scanRecords(L"test_table"); __STP(list);
+		list->setDeleteOnExit();
+
+		int maxLoop = list->size();
+		CHECK(maxLoop == 4);
+
+		int pos = col->getPosition();
+		CHECK(pos == 1);
+
+		bool result = false;
+		for(int i = 0; i != maxLoop; ++i){
+			CdbRecord* record = list->get(i);
+
+			const AbstractCdbValue* cdbv = record->get(pos);
+
+			switch(i){
+			case 0:
+				result = checkTextValue(cdbv, L"tanaka");
+				CHECK(result);
+				break;
+			case 1:
+				result = checkTextValue(cdbv, L"sato");
+				CHECK(result);
+				break;
+			case 2:
+				result = checkTextValue(cdbv, L"saito");
+				CHECK(result);
+				break;
+			case 3:
+			default:
+				result = checkTextValue(cdbv, nullptr);
+				CHECK(result);
+				break;
+			}
+		}
 	}
 }

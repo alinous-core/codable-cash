@@ -84,7 +84,18 @@ void TestDbSchemaAlterTextUnique01::insert02() {
 
 	insertRecord(trx, 1, L"tanaka", 11);
 	insertRecord(trx, 2, L"sato", 12);
-	insertRecord(trx, 2, L"saito", 12);
+	insertRecord(trx, 3, L"saito", 13);
+
+	trx->commit();
+}
+
+void TestDbSchemaAlterTextUnique01::insert03() {
+	CdbTransaction* trx = getDatabase()->newTransaction(); __STP(trx);
+
+	insertRecord(trx, 1, L"tanaka", 11);
+	insertRecord(trx, 2, L"sato", 12);
+	insertRecord(trx, 3, L"saito", 13);
+	insertRecord(trx, 4, nullptr, 14);
 
 	trx->commit();
 }
