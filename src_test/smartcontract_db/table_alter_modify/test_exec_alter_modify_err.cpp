@@ -1,7 +1,7 @@
 /*
- * test_exec_alter_modify_unique.cpp
+ * test_exec_alter_modify_err.cpp
  *
- *  Created on: 2020/09/30
+ *  Created on: 2020/10/01
  *      Author: iizuka
  */
 
@@ -33,11 +33,13 @@
 
 #include "transaction_exception/DatabaseExceptionClassDeclare.h"
 
-#include "../toolkit_alter/TestDbSchemaAlterText01.h"
+#include "sc_analyze/ValidationError.h"
+
+#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
 using namespace alinous;
 using namespace codablecash;
 
-TEST_GROUP(TestExecAlterMofdifyUniqueGroup) {
+TEST_GROUP(TestExecAlterMofdifyErrGroup) {
 	TEST_SETUP() {
 		env->setup();
 	}
@@ -48,10 +50,10 @@ TEST_GROUP(TestExecAlterMofdifyUniqueGroup) {
 
 
 /**
- * Add unique error
- * ALTER TABLE test_table MODIFY email_id int unique;
+ * default value error
+ * ALTER TABLE test_table MODIFY email_id VARCHAR(-1);
  */
-TEST(TestExecAlterMofdifyUniqueGroup, case01){
+TEST(TestExecAlterMofdifyErrGroup, case01){
 	TestDbSchemaAlter01 tester(this->env);
 	tester.init(1024*10);
 	tester.insert03();
@@ -59,7 +61,7 @@ TEST(TestExecAlterMofdifyUniqueGroup, case01){
 	VirtualMachine* vm = tester.getVm();
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/exec_alter/case11.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_modify/resources/exec_alter_modify_err/case01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -74,29 +76,23 @@ TEST(TestExecAlterMofdifyUniqueGroup, case01){
 		stmt->analyzeTypeRef(actx);
 		stmt->analyze(actx);
 
-		stmt->interpret(vm);
+		vm->hasAnalyzeError(ValidationError::DB_LENGTH_IS_NOT_CORRECT_INTEGER);
 	}
-
-	const ExtExceptionObject* ex = tester.checkUncaughtException();
-	CHECK(ex != nullptr);
-
-	CHECK(ex->getClassName()->equals(&DatabaseExceptionClassDeclare::NAME));
 }
 
 /**
- * set primary key unique
- * ALTER TABLE test_table MODIFY id int unique;
- *
+ * default value error
+ * ALTER TABLE test_table MODIFY email_id VARCHAR(true);
  */
-TEST(TestExecAlterMofdifyUniqueGroup, case02){
-	TestDbSchemaAlterText01 tester(this->env);
+TEST(TestExecAlterMofdifyErrGroup, case02){
+	TestDbSchemaAlter01 tester(this->env);
 	tester.init(1024*10);
-	tester.insert01();
+	tester.insert03();
 
 	VirtualMachine* vm = tester.getVm();
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/exec_alter_modify_unique/case01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_modify/resources/exec_alter_modify_err/case02.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -111,30 +107,38 @@ TEST(TestExecAlterMofdifyUniqueGroup, case02){
 		stmt->analyzeTypeRef(actx);
 		stmt->analyze(actx);
 
-		// check before interpret
-		CdbTableIndex* pidx = nullptr;
-		{
-			CdbTableColumn* col = tester.getColumn(L"test_table", L"id");
-			CHECK(!col->isNotnull());
-			CHECK(!col->isUnique());
-
-			pidx = tester.getPrimaryKey(L"test_table");
-			CHECK(pidx != nullptr);
-		}
-
-		stmt->interpret(vm);
-
-		// after
-		{
-			CdbTableIndex* pidx2 = tester.getPrimaryKey(L"test_table");
-			CHECK(pidx == pidx2);
-		}
+		vm->hasAnalyzeError(ValidationError::DB_LENGTH_IS_NOT_CORRECT_INTEGER);
 	}
 }
 
 /**
- * set primary key not unique -> do not delete primary key index
+ * default value error
+ * ALTER TABLE test_table MODIFY email_id VARCHAR('test');
  */
-TEST(TestExecAlterMofdifyUniqueGroup, case03){
+TEST(TestExecAlterMofdifyErrGroup, case03){
+	TestDbSchemaAlter01 tester(this->env);
+	tester.init(1024*10);
+	tester.insert03();
 
+	VirtualMachine* vm = tester.getVm();
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_modify/resources/exec_alter_modify_err/case03.alns"))
+	{
+		SmartContractParser parser(sourceFile);
+		AlinousLang* lang = parser.getDebugAlinousLang();
+
+		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
+		CHECK(!parser.hasError())
+
+		AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
+		actx->setVm(vm);
+
+		stmt->preAnalyze(actx);
+		stmt->analyzeTypeRef(actx);
+		stmt->analyze(actx);
+
+		vm->hasAnalyzeError(ValidationError::DB_LENGTH_IS_NOT_CORRECT_INTEGER);
+	}
 }
+
