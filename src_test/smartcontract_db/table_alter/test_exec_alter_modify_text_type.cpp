@@ -360,3 +360,80 @@ TEST(TestExecAlterMofdifyTextGroup, case04){
 		}
 	}
 }
+
+/**
+ * text change length(longer)
+ * ALTER TABLE test_table MODIFY name TEXT UNIQUE;
+ */
+TEST(TestExecAlterMofdifyTextGroup, case05){
+	TestDbSchemaAlterTextUnique01 tester(this->env);
+	tester.init(1024*512);
+	tester.insert03();
+
+	VirtualMachine* vm = tester.getVm();
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/exec_alter_modify_text/case05.alns"))
+	{
+		SmartContractParser parser(sourceFile);
+		AlinousLang* lang = parser.getDebugAlinousLang();
+
+		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
+		CHECK(!parser.hasError())
+
+		AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
+		actx->setVm(vm);
+
+		stmt->preAnalyze(actx);
+		stmt->analyzeTypeRef(actx);
+		stmt->analyze(actx);
+
+		stmt->interpret(vm);
+
+		// checking
+		CdbTableColumn* col = tester.getColumn(L"test_table", L"name");
+		uint8_t t = col->getType();
+		CHECK(t == AbstractCdbValue::TYPE_STRING);
+		int len = col->getLength();
+		CHECK(len == 0);
+
+		CHECK(!col->isNotnull());
+		CHECK(col->isUnique());
+
+		ArrayList<CdbRecord>* list = tester.scanRecords(L"test_table"); __STP(list);
+		list->setDeleteOnExit();
+
+		int maxLoop = list->size();
+		CHECK(maxLoop == 4);
+
+		int pos = col->getPosition();
+		CHECK(pos == 1);
+
+		bool result = false;
+		for(int i = 0; i != maxLoop; ++i){
+			CdbRecord* record = list->get(i);
+
+			const AbstractCdbValue* cdbv = record->get(pos);
+
+			switch(i){
+			case 0:
+				result = checkTextValue(cdbv, L"tanaka");
+				CHECK(result);
+				break;
+			case 1:
+				result = checkTextValue(cdbv, L"sato");
+				CHECK(result);
+				break;
+			case 2:
+				result = checkTextValue(cdbv, L"saito");
+				CHECK(result);
+				break;
+			case 3:
+			default:
+				result = checkTextValue(cdbv, nullptr);
+				CHECK(result);
+				break;
+			}
+		}
+	}
+}
