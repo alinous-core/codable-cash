@@ -221,6 +221,7 @@ CdbTableIndex* TestDbSchemaBase::getPrimaryKey(const wchar_t* table) {
 CdbTableIndex* TestDbSchemaBase::getPrimaryKey(const wchar_t* schema, const wchar_t* table) {
 	CdbTable* cdbtable = getTable(schema, table);
 
+	return cdbtable->getPrimaryKey();
 }
 
 

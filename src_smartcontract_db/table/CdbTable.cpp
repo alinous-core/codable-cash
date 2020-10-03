@@ -280,7 +280,7 @@ void CdbTable::setPrimaryKeys(ArrayList<const UnicodeString>* cols) {
 		oidlist.addElement(oid);
 	}
 
-	CdbTableIndex* prevIndex = getIndexByColumnOidsStrict(&oidlist); // TODO
+	CdbTableIndex* prevIndex = getIndexByColumnOidsStrict(&oidlist);
 	if(prevIndex != nullptr){
 		prevIndex->setPrimaryKey(true);
 		prevIndex->setUnique(true); // if it is primary key, it is unique automatically

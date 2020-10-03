@@ -252,6 +252,7 @@ void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log
 			throw new CdbException(L"Can not set the column unique because of table data.", __FILE__, __LINE__);
 		}
 
+		// FIXME check multiple index unique
 	}
 }
 

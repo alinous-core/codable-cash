@@ -112,20 +112,28 @@ TEST(TestExecAlterMofdifyUniqueGroup, case02){
 		stmt->analyze(actx);
 
 		// check before interpret
+		CdbTableIndex* pidx = nullptr;
 		{
 			CdbTableColumn* col = tester.getColumn(L"test_table", L"id");
 			CHECK(!col->isNotnull());
 			CHECK(!col->isUnique());
 
-
+			pidx = tester.getPrimaryKey(L"test_table");
+			CHECK(pidx != nullptr);
 		}
 
 		stmt->interpret(vm);
+
+		// after
+		{
+			CdbTableIndex* pidx2 = tester.getPrimaryKey(L"test_table");
+			CHECK(pidx == pidx2);
+		}
 	}
 }
 
 /**
- * set primary key not unique
+ * set primary key not unique -> do not delete primary key index
  */
 TEST(TestExecAlterMofdifyUniqueGroup, case03){
 
