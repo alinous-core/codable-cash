@@ -202,6 +202,16 @@ void SchemaManager::handleAlterTableAddPrimaryKey(const AlterAddPrimaryKeyComman
 void SchemaManager::handleAlterTableDropPrimaryKey(const AlterDropPrimaryKeyCommandLog* cmd) {
 	CdbTable* table = findTableFromCommand(cmd);
 
+	CdbTableIndex* primaryKey = table->getPrimaryKey(); __STP(primaryKey);
+	if(primaryKey == nullptr){
+		return;
+	}
+
+	table->removeIndex(primaryKey);
+
+	fireOnDropPrimaryKey(table, primaryKey);
+
+
 	// upgrade
 	this->root->upgradeSchemaObjectVersionId();
 	save();
@@ -360,5 +370,14 @@ void SchemaManager::fireOnAlterModify(const CdbTable* table, const ColumnModifyC
 		l->onAlterModify(this, table, ctx);
 	}
 }
+
+void SchemaManager::fireOnDropPrimaryKey(const CdbTable* table, const CdbTableIndex* primaryKey) {
+	int maxLoop = this->listners.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ISchemaUptateListner* l = this->listners.get(i);
+		l->onDropPrimaryKey(this, table, primaryKey);
+	}
+}
+
 
 } /* namespace alinous */

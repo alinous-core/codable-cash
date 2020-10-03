@@ -433,7 +433,7 @@ void CdbTable::removeIndex(const CdbTableIndex* ptr) noexcept {
 		}
 	}
 
-	if(removeIndex > 0){
+	if(removeIndex >= 0){
 		this->indexes->remove(removeIndex);
 	}
 }

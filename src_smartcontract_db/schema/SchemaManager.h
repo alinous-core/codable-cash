@@ -37,6 +37,7 @@ class AlterModifyCommandLog;
 class AlterRenameColumnCommandLog;
 class AlterRenameTableCommandLog;
 class ColumnModifyContext;
+class CdbTableIndex;
 
 class SchemaManager {
 public:
@@ -82,6 +83,7 @@ private:
 	void fireSchemaLoaded() noexcept;
 	void fireOnCreateTable(const CdbTable* table);
 	void fireOnAlterModify(const CdbTable* table, const ColumnModifyContext* ctx);
+	void fireOnDropPrimaryKey(const CdbTable* table, const CdbTableIndex* primaryKey);
 
 	CdbTable* findTableFromCommand(const AbstractAlterCommandLog* cmdlog);
 
