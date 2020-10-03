@@ -103,8 +103,16 @@ void CdbStorageManager::handleUniqueKeyOnAlterModify(TableStore* store,	const Co
 	}
 }
 
+void CdbStorageManager::onDropPrimaryKey(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* primaryKey) {
+	const CdbOid* tableOid = table->getOid();
+
+	TableStore* store = getTableStore(tableOid);
+	store->removeIndex(primaryKey);
+}
+
 TableStore* CdbStorageManager::getTableStore(const CdbOid* tableoid) noexcept {
 	return this->tableStoreMap->get(tableoid);
 }
+
 
 } /* namespace codablecash */

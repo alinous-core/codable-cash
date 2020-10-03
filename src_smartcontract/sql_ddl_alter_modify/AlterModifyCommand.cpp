@@ -251,7 +251,12 @@ void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log
 		if(!result){
 			throw new CdbException(L"Can not set the column unique because of table data.", __FILE__, __LINE__);
 		}
+	}
 
+	/**
+	 * When the type changed, need to check other indexes containing the column
+	 */
+	if(modifyContext->isTypeChanged()){
 		// FIXME check multiple index unique
 	}
 }

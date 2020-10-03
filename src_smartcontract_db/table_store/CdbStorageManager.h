@@ -40,6 +40,7 @@ public:
 
 private:
 	void handleUniqueKeyOnAlterModify(TableStore* store, const ColumnModifyContext* ctx);
+	virtual void onDropPrimaryKey(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* primaryKey);
 
 public:
 	static CdbKeyFactory keyFactory;
