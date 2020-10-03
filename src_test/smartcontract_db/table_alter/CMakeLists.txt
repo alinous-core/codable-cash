@@ -5,7 +5,6 @@ set(testsrc
 	test_exec_alter_column.cpp
 	test_exec_alter_index.cpp
 	test_exec_alter_misc.cpp
-	test_exec_alter_modify_text_type.cpp
 	test_exec_alter_primary.cpp
 	test_exec_alter_rename.cpp
 )
