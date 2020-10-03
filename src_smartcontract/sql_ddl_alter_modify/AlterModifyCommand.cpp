@@ -233,12 +233,14 @@ void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log
 	ColumnModifyContext::UniqueChage uchange = modifyContext->getUniqueChange();
 
 	if(uchange == ColumnModifyContext::UniqueChage::TO_UNIQUE || (modifyContext->isUnique() && modifyContext->isTypeChanged())){
-		bool currentUnique = column->isNotnull();
+		bool currentUnique = column->isUnique();
 		uint8_t currentType = column->getType();
 		uint8_t nextType = modifyContext->getCdbType();
 		ColumnModifyContext::LengthChange lengthChange = modifyContext->getLengthChange();
 
-		if((currentType == nextType && nextType == AbstractCdbValue::TYPE_STRING) && currentUnique
+		uint8_t strType = AbstractCdbValue::TYPE_STRING;
+
+		if((currentType == nextType && nextType == strType) && currentUnique
 				&& lengthChange != ColumnModifyContext::LengthChange::LENGTH_CHANGE_SHORTER){
 			return;
 		}
