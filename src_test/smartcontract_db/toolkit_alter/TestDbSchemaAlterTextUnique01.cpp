@@ -79,6 +79,16 @@ void TestDbSchemaAlterTextUnique01::insert01() {
 	trx->commit();
 }
 
+void TestDbSchemaAlterTextUnique01::insert02() {
+	CdbTransaction* trx = getDatabase()->newTransaction(); __STP(trx);
+
+	insertRecord(trx, 1, L"tanaka", 11);
+	insertRecord(trx, 2, L"sato", 12);
+	insertRecord(trx, 2, L"saito", 12);
+
+	trx->commit();
+}
+
 void TestDbSchemaAlterTextUnique01::insertRecord(CdbTransaction* trx, int id,
 		const wchar_t* name, int email_id) {
 	InsertLog* log = new InsertLog();

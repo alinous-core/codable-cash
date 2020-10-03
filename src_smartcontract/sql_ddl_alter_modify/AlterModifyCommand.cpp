@@ -236,7 +236,7 @@ void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log
 		bool currentUnique = column->isNotnull();
 		uint8_t currentType = column->getType();
 		uint8_t nextType = modifyContext->getCdbType();
-		ColumnModifyContext::LengthChange lengthChange = modifyContext->getLengthChange(); // TODO
+		ColumnModifyContext::LengthChange lengthChange = modifyContext->getLengthChange();
 
 		if((currentType == nextType && nextType == AbstractCdbValue::TYPE_STRING) && currentUnique
 				&& lengthChange != ColumnModifyContext::LengthChange::LENGTH_CHANGE_SHORTER){

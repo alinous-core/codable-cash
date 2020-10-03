@@ -160,7 +160,7 @@ TEST(TestExecAlterMofdifyTextGroup, case01_err){
  * text change length(shorter)
  * ALTER TABLE test_table MODIFY name VARCHAR(2) UNIQUE;
  */
-TEST(TestExecAlterMofdifyTextGroup, case03){
+TEST(TestExecAlterMofdifyTextGroup, case02){
 	TestDbSchemaAlterTextUnique01 tester(this->env);
 	tester.init(1024*512);
 	tester.insert01();
@@ -170,17 +170,48 @@ TEST(TestExecAlterMofdifyTextGroup, case03){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/exec_alter_modify_text/case03.alns"))
 	{
+		SmartContractParser parser(sourceFile);
+		AlinousLang* lang = parser.getDebugAlinousLang();
+
+		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
+		CHECK(!parser.hasError())
+
+		AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
+		actx->setVm(vm);
+
+		stmt->preAnalyze(actx);
+		stmt->analyzeTypeRef(actx);
+		stmt->analyze(actx);
+
+		stmt->interpret(vm);
+
+		// checking
+		CdbTableColumn* col = tester.getColumn(L"test_table", L"name");
+		uint8_t t = col->getType();
+		CHECK(t == AbstractCdbValue::TYPE_STRING);
+
+		CHECK(!col->isNotnull());
+		CHECK(col->isUnique());
+
 
 	}
 }
 
 /**
- * unique error case, after changing length into shorter one
- *
+ * unique error on text change length(shorter)
+ * ALTER TABLE test_table MODIFY name VARCHAR(2) UNIQUE;
  */
 TEST(TestExecAlterMofdifyTextGroup, case03_err){
+	TestDbSchemaAlterTextUnique01 tester(this->env);
+	tester.init(1024*512);
+	tester.insert02();
 
+	VirtualMachine* vm = tester.getVm();
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/exec_alter_modify_text/case03.alns"))
 }
+
 
 /**
  * text change length(longer)

@@ -24,12 +24,19 @@
 #include "table_record/CdbRecord.h"
 
 #include "table_record_key/CdbRecordKey.h"
-
+#include "table_record_key/AbstractCdbKey.h"
 #include "table_record_value/AbstractCdbValue.h"
 
 #include "table_store/RecordValueConverter.h"
 
 #include "schema/ColumnModifyContext.h"
+
+#include "btreekey/NullKey.h"
+
+#include "btree/AbstractBtreeKey.h"
+
+using namespace alinous;
+
 namespace codablecash {
 
 IndexChecker::IndexChecker(CodableDatabase* db, const ColumnModifyContext* modifyContext)
@@ -104,7 +111,11 @@ CdbRecordKey* IndexChecker::makeIndexKey(const CdbRecord* record, ArrayList<cons
 		int pos = column->getPosition();
 
 		const AbstractCdbValue* v = record->get(pos);
-		AbstractCdbKey* vkey = v != nullptr? v->toKey() : nullptr;
+		AbstractBtreeKey* vkey = v != nullptr? v->toKey() : nullptr;
+		if(vkey == nullptr){
+			vkey = new NullKey();
+		}
+
 		key->addKey(vkey);
 	}
 
