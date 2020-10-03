@@ -33,6 +33,7 @@
 
 #include "transaction_exception/DatabaseExceptionClassDeclare.h"
 
+#include "../toolkit_alter/TestDbSchemaAlterText01.h"
 using namespace alinous;
 using namespace codablecash;
 
@@ -84,9 +85,34 @@ TEST(TestExecAlterMofdifyUniqueGroup, case01){
 
 /**
  * set primary key unique
+ * ALTER TABLE test_table MODIFY id int unique;
+ *
  */
 TEST(TestExecAlterMofdifyUniqueGroup, case02){
+	TestDbSchemaAlterText01 tester(this->env);
+	tester.init(1024*10);
+	tester.insert01();
 
+	VirtualMachine* vm = tester.getVm();
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/exec_alter_modify_unique/case01.alns"))
+	{
+		SmartContractParser parser(sourceFile);
+		AlinousLang* lang = parser.getDebugAlinousLang();
+
+		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
+		CHECK(!parser.hasError())
+
+		AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
+		actx->setVm(vm);
+
+		stmt->preAnalyze(actx);
+		stmt->analyzeTypeRef(actx);
+		stmt->analyze(actx);
+
+		stmt->interpret(vm);
+	}
 }
 
 /**

@@ -241,9 +241,11 @@ ColumnModifyContext* CdbTableColumn::createModifyContextwithChange(const AlterMo
 		ctx->setLengthChange(ColumnModifyContext::LengthChange::LENGTH_CHANGE_LONGER);
 	}
 
-	if((this->defaultValue != nullptr && defaultStr == nullptr) ||
+	if(!(this->defaultValue == nullptr && defaultStr == nullptr)
+			&& ((this->defaultValue != nullptr && defaultStr == nullptr) ||
 			(this->defaultValue == nullptr && defaultStr != nullptr) ||
-			!this->defaultValue->equals(defaultStr)){
+			!this->defaultValue->equals(defaultStr))
+			){
 		ctx->setDefaultChanged(true);
 		ctx->setDefaultValue(defaultStr);
 
