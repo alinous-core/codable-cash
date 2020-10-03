@@ -288,6 +288,7 @@ void CdbTable::setPrimaryKeys(ArrayList<const UnicodeString>* cols) {
 	}
 
 	CdbTableIndex* index = new CdbTableIndex((uint64_t)0);
+	index->setUnique(true);
 	addIndex(index);
 
 	for(int i = 0; i != maxLoop; ++i){

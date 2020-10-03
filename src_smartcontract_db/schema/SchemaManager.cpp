@@ -253,7 +253,7 @@ void SchemaManager::handleToNotUnique(CdbTable* table, ColumnModifyContext* ctx)
 	const CdbOid* colOid = col->getOid();
 
 	CdbTableIndex* index = table->getUniqueIndexByColumnOid(colOid);
-	if(index == nullptr){ // primary key support unique
+	if(index == nullptr || index->isPrimaryKey()){ // primary key support unique
 		return;
 	}
 
