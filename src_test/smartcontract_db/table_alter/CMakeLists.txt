@@ -2,7 +2,6 @@
 set(testsrc
 	test_alter_log_binary.cpp
 	test_alter_parse.cpp
-	test_exec_alter_column.cpp
 	test_exec_alter_index.cpp
 	test_exec_alter_misc.cpp
 	test_exec_alter_primary.cpp
