@@ -50,7 +50,7 @@ TEST(TestExecAlterIndexGroup, addIndex01){
 	VirtualMachine* vm = tester.getVm();
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/exec_index/addIndex01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/exec_index/addIndex01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -82,7 +82,7 @@ TEST(TestExecAlterIndexGroup, dropIndex01){
 	// add index
 	{
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/exec_index/addIndex01.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/exec_index/addIndex01.alns"))
 		{
 			SmartContractParser parser(sourceFile);
 			AlinousLang* lang = parser.getDebugAlinousLang();
@@ -102,7 +102,7 @@ TEST(TestExecAlterIndexGroup, dropIndex01){
 	}
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/exec_index/dropIndex01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/exec_index/dropIndex01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
