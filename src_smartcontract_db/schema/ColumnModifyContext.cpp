@@ -22,6 +22,7 @@ ColumnModifyContext::ColumnModifyContext() {
 	this->uniqueChange = UniqueChage::UNIQUE_NONE;
 	this->typeChanged = false;
 	this->notNullChange = NotNullChage::NOTNULL_NONE;
+	this->lengthChange = LengthChange::LENGTH_NO_CHANGE;
 
 	this->notNull = false;
 	this->unique = false;

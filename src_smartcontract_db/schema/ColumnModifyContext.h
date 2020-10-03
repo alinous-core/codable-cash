@@ -30,6 +30,10 @@ public:
 		NOTNULL_NONE, TO_NOT_NULL, RELEASE_NOT_NULL
 	} NotNullChage;
 
+	typedef enum __LengthChange{
+		LENGTH_NO_CHANGE, LENGTH_CHANGE_SHORTER, LENGTH_CHANGE_LONGER
+	} LengthChange;
+
 	ColumnModifyContext();
 	virtual ~ColumnModifyContext();
 
@@ -47,6 +51,14 @@ public:
 	}
 	NotNullChage getNotNullChange() const {
 		return notNullChange;
+	}
+
+	void setLengthChange(LengthChange lengthChange) noexcept {
+		this->lengthChange = lengthChange;
+	}
+
+	LengthChange getLengthChange() const noexcept {
+		return this->lengthChange;
 	}
 
 	uint8_t getCdbType() const noexcept {
@@ -126,12 +138,15 @@ public:
 		this->unique = unique;
 	}
 
+
+
 private:
 	void analyzeDefaultValue();
 
 private:
 	UniqueChage uniqueChange;
 	NotNullChage notNullChange;
+	LengthChange lengthChange;
 
 	bool notNull;
 	bool unique;

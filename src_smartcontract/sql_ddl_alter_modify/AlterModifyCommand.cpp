@@ -49,6 +49,7 @@
 
 #include "engine/CdbException.h"
 
+#include "table_record_value/AbstractCdbValue.h"
 namespace alinous {
 
 AlterModifyCommand::AlterModifyCommand(const AlterModifyCommand& inst) : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_MODIFY) {
@@ -232,6 +233,16 @@ void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log
 	ColumnModifyContext::UniqueChage uchange = modifyContext->getUniqueChange();
 
 	if(uchange == ColumnModifyContext::UniqueChage::TO_UNIQUE || (modifyContext->isUnique() && modifyContext->isTypeChanged())){
+		bool currentUnique = column->isNotnull();
+		uint8_t currentType = column->getType();
+		uint8_t nextType = modifyContext->getCdbType();
+		ColumnModifyContext::LengthChange lengthChange = modifyContext->getLengthChange(); // TODO
+
+		if((currentType == nextType && nextType == AbstractCdbValue::TYPE_STRING) && currentUnique
+				&& lengthChange != ColumnModifyContext::LengthChange::LENGTH_CHANGE_SHORTER){
+			return;
+		}
+
 		IndexChecker checker(db, modifyContext);
 
 		bool result = checker.checkUnique(table, column);
