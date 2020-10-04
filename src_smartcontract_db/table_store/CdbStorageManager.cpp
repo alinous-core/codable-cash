@@ -51,6 +51,20 @@ CdbStorageManager::~CdbStorageManager() {
 
 void CdbStorageManager::schemaLoaded(SchemaManager* sc) {
 	this->schemaManager = sc;
+
+	const ArrayList<Schema>* sclist = this->schemaManager->getSchemaList();
+
+	int maxLoop = sclist->size();
+	for(int i = 0; i != maxLoop; ++i){
+		Schema* schema = sclist->get(i);
+
+		loadSchemaStore(schema);
+	}
+
+}
+
+void CdbStorageManager::loadSchemaStore(Schema* schema) {
+
 }
 
 void CdbStorageManager::onCreateTable(SchemaManager* mgr, const CdbTable* table) {

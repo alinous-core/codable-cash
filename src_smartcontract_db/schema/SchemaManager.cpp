@@ -332,6 +332,10 @@ Schema* SchemaManager::getSchema(const UnicodeString* name) const noexcept {
 	return this->root->getSchema(name);
 }
 
+const ArrayList<Schema>* SchemaManager::getSchemaList() const noexcept {
+	return this->root->getSchemaList();
+}
+
 CdbTable* SchemaManager::getTable(const wchar_t* schema, const wchar_t* name) const {
 	UnicodeString s(schema);
 	UnicodeString n(name);

@@ -133,4 +133,8 @@ const CdbTable* SchemaRoot::createTable(const CdbTable* table) {
 	return newTable;
 }
 
+const ArrayList<Schema>* SchemaRoot::getSchemaList() const noexcept {
+	return &this->list;
+}
+
 } /* namespace codablecash */
