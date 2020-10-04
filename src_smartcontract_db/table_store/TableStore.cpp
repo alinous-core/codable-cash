@@ -59,22 +59,33 @@ TableStore::TableStore(DiskCacheManager* cacheManager, const File* baseDir, cons
 }
 
 TableStore::~TableStore() {
-	delete this->baseDir;
+	closeTable();
 
-	delete this->recordStore;
+	delete this->baseDir;
 	this->table = nullptr;
 
-	Iterator<CdbOid>* it = this->indexStores->keySet()->iterator(); __STP(it);
-	while(it->hasNext()){
-		const CdbOid* oid = it->next();
-		IndexStore* store = this->indexStores->get(oid);
-
-		delete store;
-	}
 	delete this->indexStores;
 
 	this->cacheManager = nullptr;
 	delete this->tableLock;
+}
+
+void TableStore::closeTable() {
+	if(this->recordStore != nullptr){
+		this->recordStore->close();
+		delete this->recordStore;
+		this->recordStore = nullptr;
+
+		Iterator<CdbOid>* it = this->indexStores->keySet()->iterator(); __STP(it);
+		while(it->hasNext()){
+			const CdbOid* oid = it->next();
+			IndexStore* store = this->indexStores->get(oid);
+
+			delete store;
+		}
+		this->indexStores->clear();
+	}
+
 }
 
 void TableStore::loadTable() {

@@ -40,6 +40,7 @@ public:
 
 	void createTable();
 	void loadTable();
+	void closeTable();
 	const CdbTable* getTable() const noexcept;
 
 	void insert(const CdbRecord* rec);
