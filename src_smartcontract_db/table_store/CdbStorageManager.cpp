@@ -69,25 +69,32 @@ void CdbStorageManager::schemaLoaded(SchemaManager* sc) {
 	for(int i = 0; i != maxLoop; ++i){
 		Schema* schema = sclist->get(i);
 
-		loadSchemaStore(schema);
+		loadSchemaStore(sc, schema);
 	}
 
 }
 
-void CdbStorageManager::loadSchemaStore(const Schema* schema) {
+void CdbStorageManager::loadSchemaStore(SchemaManager* scMgr, const Schema* schema) {
 	const ArrayList<CdbTable>* list = schema->getTablesList();
 
 	int maxLoop = list->size();
 	for(int i = 0; i != maxLoop; ++i){
 		const CdbTable* table = list->get(i);
 
-		loadTableStore(table);
+		loadTableStore(scMgr, table);
 	}
 }
 
-void CdbStorageManager::loadTableStore(const CdbTable* table) {
-	TableStore* store = nullptr;
+void CdbStorageManager::loadTableStore(SchemaManager* scMgr, const CdbTable* table) {
+	const File* baseDir = scMgr->getDatabaseBaseDir();
 
+	TableStore* store = new TableStore(this->cacheManager, baseDir, table);
+	StackRelease<TableStore> stStore(store);
+
+	store->loadTable();
+	stStore.cancel();
+
+	this->tableStoreMap->put(store->getOid(), store);
 	// FIXME loadTableStore
 }
 
@@ -131,7 +138,7 @@ void CdbStorageManager::onAlterModify(SchemaManager* mgr, const CdbTable* table,
 void CdbStorageManager::handleUniqueKeyOnAlterModify(TableStore* store,	const ColumnModifyContext* ctx) {
 	CdbTableIndex* index = ctx->getNewIndex();
 	if(index != nullptr){
-		store->addIndex(index);
+		store->addNewIndex(index);
 		return;
 	}
 

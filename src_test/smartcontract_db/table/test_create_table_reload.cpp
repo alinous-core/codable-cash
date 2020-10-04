@@ -42,27 +42,36 @@ TEST(TestCreateTableReloadGroup, case01){
 	File* dbDir = testCaseFolder.get(L"db"); __STP(dbDir);
 	CodableDatabase db;
 
-	db.createDatabase(dbDir);
-	db.loadDatabase(dbDir);
+	{
+		db.createDatabase(dbDir);
+		db.loadDatabase(dbDir);
 
-	CdbTransaction* trx = db.newTransaction(); __STP(trx);
-	CHECK(trx != nullptr);
+		CdbTransaction* trx = db.newTransaction(); __STP(trx);
+		CHECK(trx != nullptr);
 
-	CreateTableLog* cmd = new CreateTableLog();
-	CdbTable* table = new CdbTable(0);
-	table->setName(new UnicodeString(L"test_table"));
+		CreateTableLog* cmd = new CreateTableLog();
+		CdbTable* table = new CdbTable(0);
+		table->setName(new UnicodeString(L"test_table"));
 
 
-	table->addColumn(0, L"id", AbstractCdbValue::TYPE_INT, 0, true, true, nullptr);
-	table->addColumn(0, L"name", AbstractCdbValue::TYPE_INT, 0, true, true, L"");
+		table->addColumn(0, L"id", AbstractCdbValue::TYPE_INT, 0, true, true, nullptr);
+		table->addColumn(0, L"name", AbstractCdbValue::TYPE_INT, 0, true, true, L"");
 
-	table->setPrimaryKey(L"id");
+		table->setPrimaryKey(L"id");
 
-	cmd->setTable(table);
+		cmd->setTable(table);
 
-	trx->createTable(cmd);
+		trx->createTable(cmd);
 
-	trx->commit();
+		trx->commit();
+
+		db.closeDatabase();
+	}
+
+	{
+		bool result = db.loadDatabase(dbDir);
+		CHECK(result);
+	}
 }
 
 

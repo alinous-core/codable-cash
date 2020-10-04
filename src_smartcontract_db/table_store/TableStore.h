@@ -54,7 +54,7 @@ public:
 		return this->recordStore;
 	}
 
-	void addIndex(const CdbTableIndex* index);
+	void addNewIndex(const CdbTableIndex* index);
 	void removeIndex(const CdbTableIndex* index);
 	void resetAllIndexes();
 

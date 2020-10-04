@@ -104,6 +104,8 @@ void Schema::fromBinary(ByteBuffer* in) {
 		CdbBinaryObject* obj = TableObjectFactory::createFromBinary(in, CdbTable::CDB_OBJ_TYPE);
 		CdbTable* table = dynamic_cast<CdbTable*>(obj);
 
+		table->fromBinary(in);
+
 		addTable(table);
 	}
 }

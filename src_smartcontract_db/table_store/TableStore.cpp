@@ -105,6 +105,7 @@ void TableStore::loadTable() {
 		const CdbTableIndex* index = list->get(i);
 
 		IndexStore* store = new IndexStore(this->cacheManager, tableDir, this->table, index);
+
 		this->indexStores->put(store->getIndexOid(), store);
 	}
 
@@ -150,7 +151,7 @@ void TableStore::createTable() {
 	}
 }
 
-void TableStore::addIndex(const CdbTableIndex* index) {
+void TableStore::addNewIndex(const CdbTableIndex* index) {
 	const Schema* sc = this->table->getSchema();
 	const UnicodeString* schemaName = sc->getName();
 

@@ -44,8 +44,8 @@ public:
 	TableStore* getTableStore(const CdbOid* tableoid) noexcept;
 
 private:
-	void loadSchemaStore(const Schema* schema);
-	void loadTableStore(const CdbTable* table);
+	void loadSchemaStore(SchemaManager* scMgr, const Schema* schema);
+	void loadTableStore(SchemaManager* scMgr, const CdbTable* table);
 
 	void handleUniqueKeyOnAlterModify(TableStore* store, const ColumnModifyContext* ctx);
 
