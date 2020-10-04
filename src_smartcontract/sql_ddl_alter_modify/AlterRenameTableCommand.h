@@ -20,7 +20,7 @@ public:
 	AlterRenameTableCommand();
 	virtual ~AlterRenameTableCommand();
 
-	void setNewName(UnicodeString* name) noexcept;
+	void setNewName(TableIdentifier* name) noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
@@ -34,7 +34,7 @@ public:
 	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId);
 
 private:
-	UnicodeString* newName;
+	TableIdentifier* newName;
 };
 
 } /* namespace alinous */

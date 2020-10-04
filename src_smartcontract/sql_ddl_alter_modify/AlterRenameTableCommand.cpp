@@ -11,11 +11,12 @@
 
 #include "transaction_log_alter_modify/AlterRenameTableCommandLog.h"
 
+#include "sql_join_parts/TableIdentifier.h"
 namespace alinous {
 
 AlterRenameTableCommand::AlterRenameTableCommand(const AlterRenameTableCommand& inst)
 				: AbstractAlterDdlCommand(CodeElement::DDL_ALTER_RENAME_TABLE){
-	this->newName = new UnicodeString(inst.newName);
+	this->newName = new TableIdentifier(*inst.newName);
 }
 
 
@@ -27,7 +28,7 @@ AlterRenameTableCommand::~AlterRenameTableCommand() {
 	delete this->newName;
 }
 
-void AlterRenameTableCommand::setNewName(UnicodeString* name) noexcept {
+void AlterRenameTableCommand::setNewName(TableIdentifier* name) noexcept {
 	this->newName = name;
 }
 
@@ -35,7 +36,7 @@ int AlterRenameTableCommand::binarySize() const {
 	checkNotNull(this->newName);
 
 	int total = sizeof(uint16_t);
-	total += stringSize(this->newName);
+	total += this->newName->binarySize();
 
 	return total;
 }
@@ -44,11 +45,14 @@ void AlterRenameTableCommand::toBinary(ByteBuffer* out) {
 	checkNotNull(this->newName);
 
 	out->putShort(CodeElement::DDL_ALTER_RENAME_TABLE);
-	putString(out, this->newName);
+	this->newName->toBinary(out);
 }
 
 void AlterRenameTableCommand::fromBinary(ByteBuffer* in) {
-	this->newName = getString(in);
+	CodeElement* element = CodeElement::createFromBinary(in);
+	checkKind(element, CodeElement::SQL_EXP_TABLE_ID);
+
+	this->newName = dynamic_cast<TableIdentifier*>(element);
 }
 
 AbstractAlterCommandLog* AlterRenameTableCommand::getCommandLog() {
