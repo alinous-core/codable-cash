@@ -31,9 +31,9 @@ SchemaRoot::~SchemaRoot() {
 }
 
 void SchemaRoot::addSchemaName(const UnicodeString* name) noexcept {
-	this->maxSchemaObjectId++;
+	uint64_t newOid = newSchemaObjectId();
 
-	Schema* schema = new Schema(this->maxSchemaObjectId);
+	Schema* schema = new Schema(newOid);
 	schema->setName(new UnicodeString(name));
 
 	addSchema(schema);

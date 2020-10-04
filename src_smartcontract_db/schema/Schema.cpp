@@ -8,12 +8,15 @@
 #include "schema/Schema.h"
 
 #include "base/UnicodeString.h"
+#include "base/Iterator.h"
+#include "base/StackRelease.h"
 
 #include "base_io/ByteBuffer.h"
 
 #include "engine/CdbOid.h"
 
 #include "table/CdbTable.h"
+#include "table/TableObjectFactory.h"
 
 namespace codablecash {
 
@@ -48,7 +51,7 @@ void Schema::addTable(CdbTable* table) noexcept {
 	this->oidTableMap.put(table->getOid(), table);
 }
 
-const ArrayList<CdbTable>* codablecash::Schema::getTablesList() const noexcept {
+const ArrayList<CdbTable>* Schema::getTablesList() const noexcept {
 	return this->tables;
 }
 
@@ -60,6 +63,16 @@ int Schema::binarySize() const {
 
 	total += stringSize(this->name);
 
+	total += sizeof(int32_t); // numTable
+
+	Iterator<CdbOid>* it = this->oidTableMap.keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const CdbOid* oid = it->next();
+		CdbTable* table = this->oidTableMap.get(oid);
+
+		total += table->binarySize();
+	}
+
 	return total;
 }
 
@@ -70,15 +83,34 @@ void Schema::toBinary(ByteBuffer* out) const {
 	out->putLong(this->oid->getOidValue());
 
 	putString(out, this->name);
-}
 
-CdbTable* Schema::getCdbTableByName(const UnicodeString* tableName) const noexcept {
-	return this->nameTableMap.get(tableName);
+	int numTable = this->oidTableMap.size();
+	out->putInt(numTable);
+
+	Iterator<CdbOid>* it = this->oidTableMap.keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const CdbOid* oid = it->next();
+		CdbTable* table = this->oidTableMap.get(oid);
+
+		table->toBinary(out);
+	}
 }
 
 void Schema::fromBinary(ByteBuffer* in) {
 	this->name = getString(in);
+
+	int numTable = in->getInt();
+	for(int i = 0; i != numTable; ++i){
+		CdbBinaryObject* obj = TableObjectFactory::createFromBinary(in, CdbTable::CDB_OBJ_TYPE);
+		CdbTable* table = dynamic_cast<CdbTable*>(obj);
+
+		addTable(table);
+	}
 }
 
+
+CdbTable* Schema::getCdbTableByName(const UnicodeString* tableName) const noexcept {
+	return this->nameTableMap.get(tableName);
+}
 
 } /* namespace codablecash */
