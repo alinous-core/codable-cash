@@ -40,6 +40,7 @@ public:
 
 	void createTable();
 	void loadTable();
+	void closeTable();
 	const CdbTable* getTable() const noexcept;
 
 	void insert(const CdbRecord* rec);
@@ -53,7 +54,7 @@ public:
 		return this->recordStore;
 	}
 
-	void addIndex(const CdbTableIndex* index);
+	void addNewIndex(const CdbTableIndex* index);
 	void removeIndex(const CdbTableIndex* index);
 	void resetAllIndexes();
 

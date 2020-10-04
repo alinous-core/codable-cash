@@ -62,6 +62,8 @@ public:
 	void createTable(CdbTable* table);
 
 	Schema* getSchema(const UnicodeString* name) const noexcept;
+	const ArrayList<Schema>* getSchemaList() const noexcept;
+
 	CdbTable* getTable(const wchar_t* schema, const wchar_t* name) const;
 	CdbTable* getTable(const UnicodeString* schema, const UnicodeString* name) const;
 

@@ -23,6 +23,8 @@
 #include "table_record/CdbKeyFactory.h"
 
 #include "schema/ColumnModifyContext.h"
+#include "schema/Schema.h"
+
 namespace codablecash {
 
 CdbKeyFactory CdbStorageManager::keyFactory;
@@ -35,22 +37,65 @@ CdbStorageManager::CdbStorageManager() {
 }
 
 CdbStorageManager::~CdbStorageManager() {
-	this->schemaManager = nullptr;
-
-	Iterator<CdbOid> *it = this->tableStoreMap->keySet()->iterator(); __STP(it);
-	while(it->hasNext()){
-		const CdbOid* oid = it->next();
-		TableStore* tableStore = this->tableStoreMap->get(oid);
-
-		delete tableStore;
-	}
+	close();
 
 	delete this->tableStoreMap;
 	delete this->cacheManager;
 }
 
+void CdbStorageManager::close() {
+	if(this->schemaManager != nullptr || !this->tableStoreMap->isEmpty()){
+		this->schemaManager = nullptr;
+
+		Iterator<CdbOid> *it = this->tableStoreMap->keySet()->iterator(); __STP(it);
+		while(it->hasNext()){
+			const CdbOid* oid = it->next();
+			TableStore* tableStore = this->tableStoreMap->get(oid);
+
+			delete tableStore;
+		}
+
+		this->tableStoreMap->clear();
+	}
+}
+
+
 void CdbStorageManager::schemaLoaded(SchemaManager* sc) {
 	this->schemaManager = sc;
+
+	const ArrayList<Schema>* sclist = this->schemaManager->getSchemaList();
+
+	int maxLoop = sclist->size();
+	for(int i = 0; i != maxLoop; ++i){
+		Schema* schema = sclist->get(i);
+
+		loadSchemaStore(sc, schema);
+	}
+
+}
+
+void CdbStorageManager::loadSchemaStore(SchemaManager* scMgr, const Schema* schema) {
+	const ArrayList<CdbTable>* list = schema->getTablesList();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const CdbTable* table = list->get(i);
+
+		loadTableStore(scMgr, table);
+	}
+}
+
+void CdbStorageManager::loadTableStore(SchemaManager* scMgr, const CdbTable* table) {
+	const File* baseDir = scMgr->getDatabaseBaseDir();
+
+	TableStore* store = new TableStore(this->cacheManager, baseDir, table);
+	StackRelease<TableStore> stStore(store);
+
+	store->loadTable();
+	stStore.cancel();
+
+	this->tableStoreMap->put(store->getOid(), store);
+	// FIXME loadTableStore
 }
 
 void CdbStorageManager::onCreateTable(SchemaManager* mgr, const CdbTable* table) {
@@ -93,7 +138,7 @@ void CdbStorageManager::onAlterModify(SchemaManager* mgr, const CdbTable* table,
 void CdbStorageManager::handleUniqueKeyOnAlterModify(TableStore* store,	const ColumnModifyContext* ctx) {
 	CdbTableIndex* index = ctx->getNewIndex();
 	if(index != nullptr){
-		store->addIndex(index);
+		store->addNewIndex(index);
 		return;
 	}
 

@@ -25,6 +25,8 @@ class TableStore;
 class CdbOid;
 class CdbKeyFactory;
 class CdbDataFactory;
+class Schema;
+class CdbTable;
 
 class CdbStorageManager : public ISchemaUptateListner {
 public:
@@ -32,15 +34,20 @@ public:
 
 	virtual ~CdbStorageManager();
 
+	void close();
+
 	virtual void schemaLoaded(SchemaManager* sc);
 	virtual void onCreateTable(SchemaManager* mgr, const CdbTable* table);
 	virtual void onAlterModify(SchemaManager* mgr, const CdbTable* table, const ColumnModifyContext* ctx);
+	virtual void onDropPrimaryKey(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* primaryKey);
 
 	TableStore* getTableStore(const CdbOid* tableoid) noexcept;
 
 private:
+	void loadSchemaStore(SchemaManager* scMgr, const Schema* schema);
+	void loadTableStore(SchemaManager* scMgr, const CdbTable* table);
+
 	void handleUniqueKeyOnAlterModify(TableStore* store, const ColumnModifyContext* ctx);
-	virtual void onDropPrimaryKey(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* primaryKey);
 
 public:
 	static CdbKeyFactory keyFactory;

@@ -48,6 +48,9 @@ public:
 	void upgradeSchemaObjectVersionId() noexcept;
 
 	const CdbTable* createTable(const CdbTable* table);
+
+	const ArrayList<Schema>* getSchemaList() const noexcept;
+
 private:
 	ArrayList<Schema> list;
 	HashMap<UnicodeString, Schema> map;

@@ -155,6 +155,8 @@ int CdbTableIndex::binarySize() const {
 	int total = sizeof(uint8_t);
 	total += sizeof(uint64_t); // oid
 
+	total += stringSize(this->name); // name
+
 	total += sizeof(uint8_t) * 2; // primary unique
 
 	int maxLoop = this->columns->size();
@@ -168,6 +170,8 @@ int CdbTableIndex::binarySize() const {
 void CdbTableIndex::toBinary(ByteBuffer* out) const {
 	out->put(CdbTableIndex::CDB_OBJ_TYPE);
 	out->putLong(this->oid->getOidValue());
+
+	putString(out, this->name); //name
 
 	out->put(this->primary ? 1 : 0);// primary
 	out->put(this->unique ? 1 : 0);// unique
@@ -184,6 +188,8 @@ void CdbTableIndex::toBinary(ByteBuffer* out) const {
 }
 
 void CdbTableIndex::fromBinary(ByteBuffer* in, CdbTable* table) {
+	this->name = getString(in);
+
 	this->primary = in->get() > 0;
 	this->unique = in->get() > 0;
 

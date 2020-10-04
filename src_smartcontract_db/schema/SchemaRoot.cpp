@@ -31,9 +31,9 @@ SchemaRoot::~SchemaRoot() {
 }
 
 void SchemaRoot::addSchemaName(const UnicodeString* name) noexcept {
-	this->maxSchemaObjectId++;
+	uint64_t newOid = newSchemaObjectId();
 
-	Schema* schema = new Schema(this->maxSchemaObjectId);
+	Schema* schema = new Schema(newOid);
 	schema->setName(new UnicodeString(name));
 
 	addSchema(schema);
@@ -131,6 +131,10 @@ const CdbTable* SchemaRoot::createTable(const CdbTable* table) {
 	sc->addTable(newTable);
 
 	return newTable;
+}
+
+const ArrayList<Schema>* SchemaRoot::getSchemaList() const noexcept {
+	return &this->list;
 }
 
 } /* namespace codablecash */

@@ -594,6 +594,12 @@ bool UnicodeString::equals(const UnicodeString* str) const noexcept
 	return __equals(str);
 }
 
+bool UnicodeString::equals(const wchar_t* str) const noexcept {
+	UnicodeString inst(str);
+
+	return equals(inst);
+}
+
 bool UnicodeString::__equals(const UnicodeString* str) const noexcept{
 	const int size = str->length();
 	if(size != this->length()){

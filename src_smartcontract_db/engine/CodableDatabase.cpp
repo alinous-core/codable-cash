@@ -41,9 +41,10 @@ CodableDatabase::~CodableDatabase() {
 	closeDatabase();
 
 	delete this->trxManager;
-	delete this->schema;
-	delete this->store;
+	this->trxManager = nullptr;
+
 	delete this->dbLevelLock;
+	this->dbLevelLock = nullptr;
 }
 
 void CodableDatabase::createDatabase(File* dbdir) {
@@ -79,8 +80,13 @@ bool CodableDatabase::loadDatabase(const File* dbdir, const File* tmpdir) {
 	this->schema->addSchemaUpdateListner(this->trxManager);
 	this->schema->addSchemaUpdateListner(this->store);
 
-	this->schema->loadSchema(dbdir);
-
+	try{
+		this->schema->loadSchema(dbdir);
+	}
+	catch(Exception* e){
+		delete e;
+		return false;
+	}
 
 	this->loadedFile = new File(*dbdir);
 
@@ -88,7 +94,13 @@ bool CodableDatabase::loadDatabase(const File* dbdir, const File* tmpdir) {
 }
 
 void CodableDatabase::closeDatabase() noexcept {
-	if(this->loadedFile != nullptr){
+	if(this->loadedFile != nullptr || this->schema != nullptr){
+		delete this->store;
+		this->store = nullptr;
+
+		delete this->schema;
+		this->schema = nullptr;
+
 		delete this->loadedFile;
 		this->loadedFile = nullptr;
 
