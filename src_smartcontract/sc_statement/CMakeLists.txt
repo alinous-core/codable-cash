@@ -6,7 +6,6 @@ set(__src
 	ExpressionStatement.cpp
 	StatementBlock.cpp
 	SubstitutionStatement.cpp
-	SubstitutionStatement.cpp
 	VariableDeclareStatement.cpp
 )
 

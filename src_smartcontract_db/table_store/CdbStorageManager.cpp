@@ -74,7 +74,6 @@ void CdbStorageManager::loadSchemaStore(const Schema* schema) {
 
 		loadTableStore(table);
 	}
-
 }
 
 void CdbStorageManager::loadTableStore(const CdbTable* table) {
