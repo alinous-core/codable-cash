@@ -26,6 +26,7 @@ class CdbOid;
 class CdbKeyFactory;
 class CdbDataFactory;
 class Schema;
+class CdbTable;
 
 class CdbStorageManager : public ISchemaUptateListner {
 public:
@@ -41,7 +42,8 @@ public:
 	TableStore* getTableStore(const CdbOid* tableoid) noexcept;
 
 private:
-	void loadSchemaStore(Schema* schema);
+	void loadSchemaStore(const Schema* schema);
+	void loadTableStore(const CdbTable* table);
 
 	void handleUniqueKeyOnAlterModify(TableStore* store, const ColumnModifyContext* ctx);
 

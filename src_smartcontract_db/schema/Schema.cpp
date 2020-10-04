@@ -48,6 +48,10 @@ void Schema::addTable(CdbTable* table) noexcept {
 	this->oidTableMap.put(table->getOid(), table);
 }
 
+const ArrayList<CdbTable>* codablecash::Schema::getTablesList() const noexcept {
+	return this->tables;
+}
+
 int Schema::binarySize() const {
 	checkNotNull(this->name);
 

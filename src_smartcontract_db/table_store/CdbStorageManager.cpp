@@ -23,6 +23,8 @@
 #include "table_record/CdbKeyFactory.h"
 
 #include "schema/ColumnModifyContext.h"
+#include "schema/Schema.h"
+
 namespace codablecash {
 
 CdbKeyFactory CdbStorageManager::keyFactory;
@@ -63,8 +65,22 @@ void CdbStorageManager::schemaLoaded(SchemaManager* sc) {
 
 }
 
-void CdbStorageManager::loadSchemaStore(Schema* schema) {
+void CdbStorageManager::loadSchemaStore(const Schema* schema) {
+	const ArrayList<CdbTable>* list = schema->getTablesList();
 
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const CdbTable* table = list->get(i);
+
+		loadTableStore(table);
+	}
+
+}
+
+void CdbStorageManager::loadTableStore(const CdbTable* table) {
+	TableStore* store = nullptr;
+
+	// FIXME loadTableStore
 }
 
 void CdbStorageManager::onCreateTable(SchemaManager* mgr, const CdbTable* table) {
