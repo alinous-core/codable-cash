@@ -44,17 +44,19 @@ CdbStorageManager::~CdbStorageManager() {
 }
 
 void CdbStorageManager::close() {
-	this->schemaManager = nullptr;
+	if(this->schemaManager != nullptr || !this->tableStoreMap->isEmpty()){
+		this->schemaManager = nullptr;
 
-	Iterator<CdbOid> *it = this->tableStoreMap->keySet()->iterator(); __STP(it);
-	while(it->hasNext()){
-		const CdbOid* oid = it->next();
-		TableStore* tableStore = this->tableStoreMap->get(oid);
+		Iterator<CdbOid> *it = this->tableStoreMap->keySet()->iterator(); __STP(it);
+		while(it->hasNext()){
+			const CdbOid* oid = it->next();
+			TableStore* tableStore = this->tableStoreMap->get(oid);
 
-		delete tableStore;
+			delete tableStore;
+		}
+
+		this->tableStoreMap->clear();
 	}
-
-	this->tableStoreMap->clear();
 }
 
 

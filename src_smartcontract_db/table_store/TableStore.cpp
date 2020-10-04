@@ -77,6 +77,37 @@ TableStore::~TableStore() {
 	delete this->tableLock;
 }
 
+void TableStore::loadTable() {
+	const Schema* schema = this->table->getSchema();
+	const UnicodeString* schemaName = schema->getName();
+	const UnicodeString* tableName = this->table->getName();
+
+	File* schemaDir = this->baseDir->get(schemaName); __STP(schemaDir);
+	File* tableDir = schemaDir->get(tableName); __STP(tableDir);
+
+	this->recordStore = new RecordStore(this->cacheManager ,tableDir, this->table);
+
+	const ArrayList<CdbTableIndex>* list = this->table->getIndexes();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const CdbTableIndex* index = list->get(i);
+
+		IndexStore* store = new IndexStore(this->cacheManager, tableDir, this->table, index);
+		this->indexStores->put(store->getIndexOid(), store);
+	}
+
+	// load
+	this->recordStore->load();
+
+	Iterator<CdbOid>* it = this->indexStores->keySet()->iterator(); __STP(it);
+	while(it->hasNext()){
+		const CdbOid* oid = it->next();
+		IndexStore* store = this->indexStores->get(oid);
+		store->load();
+	}
+}
+
 const CdbOid* TableStore::getOid() const noexcept {
 	return this->table->getOid();
 }
@@ -219,37 +250,6 @@ void TableStore::buildIndex(CdbTableIndex* index) {
 		const CdbRecord* record = dynamic_cast<const CdbRecord*>(obj);
 
 		store->insert(record);
-	}
-}
-
-void TableStore::loadTable() {
-	const Schema* schema = this->table->getSchema();
-	const UnicodeString* schemaName = schema->getName();
-	const UnicodeString* tableName = this->table->getName();
-
-	File* schemaDir = this->baseDir->get(schemaName); __STP(schemaDir);
-	File* tableDir = schemaDir->get(tableName); __STP(tableDir);
-
-	this->recordStore = new RecordStore(this->cacheManager ,tableDir, this->table);
-
-	const ArrayList<CdbTableIndex>* list = this->table->getIndexes();
-
-	int maxLoop = list->size();
-	for(int i = 0; i != maxLoop; ++i){
-		const CdbTableIndex* index = list->get(i);
-
-		IndexStore* store = new IndexStore(this->cacheManager, tableDir, this->table, index);
-		this->indexStores->put(store->getIndexOid(), store);
-	}
-
-	// load
-	this->recordStore->load();
-
-	Iterator<CdbOid>* it = this->indexStores->keySet()->iterator(); __STP(it);
-	while(it->hasNext()){
-		const CdbOid* oid = it->next();
-		IndexStore* store = this->indexStores->get(oid);
-		store->load();
 	}
 }
 
