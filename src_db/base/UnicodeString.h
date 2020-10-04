@@ -91,6 +91,7 @@ public:
 	int isEmpty() const noexcept;
 	bool equals(const UnicodeString* str) const noexcept;
 	bool equals(const UnicodeString& str) const noexcept;
+	bool equals(const wchar_t* str) const noexcept;
 
 	bool __equals(const UnicodeString* str) const noexcept;
 
