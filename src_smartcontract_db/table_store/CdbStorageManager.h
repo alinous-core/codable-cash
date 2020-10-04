@@ -34,6 +34,8 @@ public:
 
 	virtual ~CdbStorageManager();
 
+	void close();
+
 	virtual void schemaLoaded(SchemaManager* sc);
 	virtual void onCreateTable(SchemaManager* mgr, const CdbTable* table);
 	virtual void onAlterModify(SchemaManager* mgr, const CdbTable* table, const ColumnModifyContext* ctx);
