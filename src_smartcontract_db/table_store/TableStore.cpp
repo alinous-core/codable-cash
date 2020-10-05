@@ -281,6 +281,10 @@ void TableStore::addToIndexes(const CdbRecord* rec) {
 	}
 }
 
+void TableStore::rename(const UnicodeString* dstSchema,	const UnicodeString* dstName) {
+}
+
+
 void TableStore::validateRecord(CdbRecord* rec) {
 	const ArrayList<CdbTableColumn>* metaData = this->table->getColumns();
 	const ArrayList<AbstractCdbValue>* values = rec->getValues();

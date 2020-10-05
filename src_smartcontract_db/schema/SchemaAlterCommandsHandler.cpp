@@ -95,8 +95,21 @@ void SchemaAlterCommandsHandler::handleAlterTableAddPrimaryKey(const AlterAddPri
 void SchemaAlterCommandsHandler::handleAlterTableDropPrimaryKey(const AlterDropPrimaryKeyCommandLog* cmd) {
 	CdbTable* table = findTableFromCommand(cmd);
 
-	CdbTableIndex* primaryKey = table->getPrimaryKey(); __STP(primaryKey);
+	CdbTableIndex* primaryKey = table->getPrimaryKey();
+	StackRelease<CdbTableIndex> stPrimaryKey(primaryKey);
+
 	if(primaryKey == nullptr){
+		return;
+	}
+
+	// FIXME check unique of column on length == 1
+	if(primaryKey->getColumnLength() == 1 && primaryKey->getColumnAt(0)->isUnique()){
+		primaryKey->setPrimaryKey(false);
+		stPrimaryKey.cancel();
+
+		// upgrade
+		this->schemaManager->root->upgradeSchemaObjectVersionId();
+		this->schemaManager->save();
 		return;
 	}
 

@@ -156,6 +156,12 @@ void CdbStorageManager::onDropPrimaryKey(SchemaManager* mgr, const CdbTable* tab
 }
 
 void CdbStorageManager::onAlterTableRenameTable(SchemaManager* mgr,	const CdbTable* table, const TableRenameContext* ctx) {
+	const CdbOid* tableOid = table->getOid();
+
+	TableStore* store = getTableStore(tableOid);
+
+
+
 	// TODO onAlterTableRenameTable
 }
 

@@ -65,6 +65,8 @@ public:
 	AbstractLockHandle* writeLock();
 	AbstractLockHandle* readLock();
 
+	void rename(const UnicodeString* dstSchema, const UnicodeString* dstName);
+
 private:
 	void validateRecordColumnValue(CdbTableColumn* meta, AbstractCdbValue* value);
 	void addToIndexes(const CdbRecord* rec);
