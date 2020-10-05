@@ -93,7 +93,6 @@ void Btree::renameFiles(const File* folder, const UnicodeString* lastName,	const
 
 	headerFile->move(newHeaderFile);
 	bodyFile->move(newBodyFile);
-	// TODO rename
 }
 
 

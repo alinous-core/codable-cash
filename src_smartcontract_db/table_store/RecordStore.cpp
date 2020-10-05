@@ -94,7 +94,6 @@ void RecordStore::onRename(const UnicodeString* newName) {
 	const UnicodeString* name = table->getName();
 
 	Btree::renameFiles(this->tableDir, name, newName);
-	// TODO: onRename
 }
 
 } /* namespace codablecash */

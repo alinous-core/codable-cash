@@ -291,6 +291,8 @@ void TableStore::onRename(SchemaManager* mgr, TableRenameContext* ctx) {
 
 	closeTable();
 
+
+
 	// TODO onRename
 
 	ctx->commit(mgr);
