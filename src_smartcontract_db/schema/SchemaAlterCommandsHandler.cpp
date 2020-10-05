@@ -102,7 +102,7 @@ void SchemaAlterCommandsHandler::handleAlterTableDropPrimaryKey(const AlterDropP
 		return;
 	}
 
-	// FIXME check unique of column on length == 1
+	// check unique of column on length == 1
 	if(primaryKey->getColumnLength() == 1 && primaryKey->getColumnAt(0)->isUnique()){
 		primaryKey->setPrimaryKey(false);
 		stPrimaryKey.cancel();
