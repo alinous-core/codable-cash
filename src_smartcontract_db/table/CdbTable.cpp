@@ -229,6 +229,7 @@ void CdbTable::setOid(uint64_t oid) noexcept {
 }
 
 void CdbTable::setName(UnicodeString* name) noexcept {
+	delete  this->name;
 	this->name = name;
 }
 

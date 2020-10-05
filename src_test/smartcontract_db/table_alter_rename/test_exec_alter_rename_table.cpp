@@ -69,9 +69,9 @@ TEST(TestExecAlterRenameGroup, renameTable01){
 }
 
 /**
- * ALTER TABLE test_table RENAME id TO id2;
+ * ALTER TABLE test_table RENAME TO schema01.test_renamed;
  */
-TEST(TestExecAlterRenameGroup, renameColumn01){
+TEST(TestExecAlterRenameGroup, renameTable02){
 	TestDbSchemaAlter01 tester(this->env);
 	tester.init(1024*10);
 	tester.insert01();
@@ -79,7 +79,7 @@ TEST(TestExecAlterRenameGroup, renameColumn01){
 	VirtualMachine* vm = tester.getVm();
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_rename/resources/exec_rename/renameColumn01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_rename/resources/exec_rename/renameTable02.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -97,4 +97,3 @@ TEST(TestExecAlterRenameGroup, renameColumn01){
 		stmt->interpret(vm);
 	}
 }
-

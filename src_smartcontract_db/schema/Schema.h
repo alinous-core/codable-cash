@@ -35,6 +35,8 @@ public:
 		return name;
 	}
 
+	void renameTable(const UnicodeString* lastName, const UnicodeString* newName) noexcept;
+
 	void addTable(CdbTable* table) noexcept;
 	CdbTable* getCdbTableByName(const UnicodeString* tableName) const noexcept;
 	const ArrayList<CdbTable>* getTablesList() const noexcept;

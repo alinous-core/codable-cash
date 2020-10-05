@@ -32,6 +32,9 @@ public:
 	const CdbTable* getTable() const noexcept {
 		return table;
 	}
+
+	bool isSchemaChanged() const noexcept;
+
 private:
 	UnicodeString* srcSchema;
 	UnicodeString* dstSchema;

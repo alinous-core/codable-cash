@@ -20,7 +20,9 @@
 
 #include "sql_ddl_alter_modify/AlterRenameTableCommand.h"
 
+#include "table/CdbTable.h"
 
+#include "schema/Schema.h"
 namespace codablecash {
 
 TableRenameContext::TableRenameContext() {
@@ -65,17 +67,26 @@ void TableRenameContext::validate(SchemaManager* schemaManamger) {
 }
 
 void TableRenameContext::commit(SchemaManager* schemaManamger) {
-	Schema* sc = schemaManamger->getSchema(this->dstSchema);
+	if(isSchemaChanged()){
+		Schema* sc = schemaManamger->getSchema(this->dstSchema);
 
-	if(sc == nullptr){
-		schemaManamger->createSchema(this->dstSchema);
-		sc = schemaManamger->getSchema(this->dstSchema);
+		if(sc == nullptr){
+			schemaManamger->createSchema(this->dstSchema);
+			sc = schemaManamger->getSchema(this->dstSchema);
 
-		// move table
+			// move table
+
+			// TODO: commit;
+		}
 	}
-
-	// TODO: commit;
+	else {
+		Schema* sc = schemaManamger->getSchema(this->srcSchema);
+		sc->renameTable(this->srcTable, this->dstTable);
+	}
 }
 
+bool TableRenameContext::isSchemaChanged() const noexcept {
+	return !this->dstSchema->equals(this->srcSchema);
+}
 
 } /* namespace codablecash */
