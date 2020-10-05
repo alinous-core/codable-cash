@@ -3,6 +3,7 @@
 set(__src
 	ISchemaUptateListner.cpp
 	Schema.cpp
+	SchemaAlterCommandsHandler.cpp
 	SchemaManager.cpp
 	SchemaRoot.cpp
 )

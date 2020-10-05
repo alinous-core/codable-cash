@@ -39,10 +39,12 @@ class AlterRenameColumnCommandLog;
 class AlterRenameTableCommandLog;
 class ColumnModifyContext;
 class CdbTableIndex;
-
+class SchemaAlterCommandsHandler;
 
 class SchemaManager {
 public:
+	friend class SchemaAlterCommandsHandler;
+
 	static const UnicodeString PUBLIC;
 	static const UnicodeString SCHEMA_FILE;
 
@@ -100,6 +102,8 @@ private:
 	SchemaRoot* root;
 	File* schemaBin;
 	File* databaseBaseDir;
+
+	SchemaAlterCommandsHandler* alterHandler;
 
 	ArrayList<ISchemaUptateListner> listners;
 };

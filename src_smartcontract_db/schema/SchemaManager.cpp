@@ -45,6 +45,8 @@
 #include "sql_ddl/DdlColumnDescriptor.h"
 #include "sql_ddl/ColumnTypeDescriptor.h"
 
+#include "schema/SchemaAlterCommandsHandler.h"
+
 namespace codablecash {
 
 const UnicodeString SchemaManager::PUBLIC(L"public");
@@ -55,12 +57,21 @@ SchemaManager::SchemaManager() {
 	this->root = nullptr;
 	this->schemaBin = nullptr;
 	this->databaseBaseDir = nullptr;
+	this->alterHandler = new SchemaAlterCommandsHandler();
 }
 
 SchemaManager::~SchemaManager() {
 	delete this->root;
+	this->root = nullptr;
+
 	delete this->schemaBin;
+	this->schemaBin = nullptr;
+
 	delete this->databaseBaseDir;
+	this->databaseBaseDir = nullptr;
+
+	delete this->alterHandler;
+	this->alterHandler = nullptr;
 }
 
 void SchemaManager::addSchemaUpdateListner(ISchemaUptateListner* listner) noexcept {
