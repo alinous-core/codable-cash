@@ -77,7 +77,7 @@ void TableRenameContext::commit(SchemaManager* schemaManamger) {
 			sc = schemaManamger->getSchema(this->dstSchema);
 		}
 
-		// TODO: move schema
+		// move schema
 		lastScema->removeTable(this->srcTable);
 
 		this->table->setName(new UnicodeString(this->dstTable));
