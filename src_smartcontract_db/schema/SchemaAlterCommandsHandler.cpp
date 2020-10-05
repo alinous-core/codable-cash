@@ -213,8 +213,6 @@ void SchemaAlterCommandsHandler::handleAlterTableRenameTable(const AlterRenameTa
 
 	this->schemaManager->fireOnRenameTable(table, &context);
 
-	context.commit(this->schemaManager);
-
 	// upgrade
 	this->schemaManager->root->upgradeSchemaObjectVersionId();
 	this->schemaManager->save();

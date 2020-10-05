@@ -277,7 +277,7 @@ void SchemaManager::fireOnDropPrimaryKey(const CdbTable* table, const CdbTableIn
 	}
 }
 
-void SchemaManager::fireOnRenameTable(const CdbTable* table, const TableRenameContext* context) {
+void SchemaManager::fireOnRenameTable(const CdbTable* table, TableRenameContext* context) {
 	int maxLoop = this->listners.size();
 	for(int i = 0; i != maxLoop; ++i){
 		ISchemaUptateListner* l = this->listners.get(i);

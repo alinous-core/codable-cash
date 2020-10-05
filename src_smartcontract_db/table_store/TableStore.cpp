@@ -281,7 +281,12 @@ void TableStore::addToIndexes(const CdbRecord* rec) {
 	}
 }
 
-void TableStore::rename(const UnicodeString* dstSchema,	const UnicodeString* dstName) {
+void TableStore::onRename(const TableRenameContext* ctx) {
+	closeTable();
+
+	// TODO onRename
+
+	loadTable();
 }
 
 

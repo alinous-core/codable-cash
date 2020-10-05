@@ -86,7 +86,7 @@ void CdbTransactionManager::onDropPrimaryKey(SchemaManager* mgr,
 }
 
 void CdbTransactionManager::onAlterTableRenameTable(SchemaManager* mgr,
-		const CdbTable* table, const TableRenameContext* ctx) {
+		const CdbTable* table, TableRenameContext* ctx) {
 	// do nothing
 }
 

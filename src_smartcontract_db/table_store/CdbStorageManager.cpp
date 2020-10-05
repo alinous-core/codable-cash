@@ -156,14 +156,11 @@ void CdbStorageManager::onDropPrimaryKey(SchemaManager* mgr, const CdbTable* tab
 	store->removeIndex(primaryKey);
 }
 
-void CdbStorageManager::onAlterTableRenameTable(SchemaManager* mgr,	const CdbTable* table, const TableRenameContext* ctx) {
+void CdbStorageManager::onAlterTableRenameTable(SchemaManager* mgr,	const CdbTable* table, TableRenameContext* ctx) {
 	const CdbOid* tableOid = table->getOid();
 
 	TableStore* store = getTableStore(tableOid);
-
-	const UnicodeString* dstSchema = ctx->getDstSchema();
-	const UnicodeString* dstTable = ctx->getDstSchema();
-	store->rename(dstSchema, dstTable);
+	store->onRename(ctx);
 }
 
 TableStore* CdbStorageManager::getTableStore(const CdbOid* tableoid) noexcept {

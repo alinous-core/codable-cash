@@ -30,6 +30,7 @@ class CdbTableIndex;
 class ColumnModifyContext;
 class TableLevelLock;
 class AbstractLockHandle;
+class TableRenameContext;
 
 class TableStore {
 public:
@@ -65,7 +66,7 @@ public:
 	AbstractLockHandle* writeLock();
 	AbstractLockHandle* readLock();
 
-	void rename(const UnicodeString* dstSchema, const UnicodeString* dstName);
+	void onRename(const TableRenameContext* ctx);
 
 private:
 	void validateRecordColumnValue(CdbTableColumn* meta, AbstractCdbValue* value);
