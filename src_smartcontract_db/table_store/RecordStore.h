@@ -29,6 +29,7 @@ public:
 
 	void load();
 	void close() noexcept;
+	void close(bool deleteBtree) noexcept;
 
 	void insert(const CdbRecord* rec);
 

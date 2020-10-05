@@ -31,6 +31,7 @@ class ColumnModifyContext;
 class TableLevelLock;
 class AbstractLockHandle;
 class TableRenameContext;
+class SchemaManager;
 
 class TableStore {
 public:
@@ -66,7 +67,7 @@ public:
 	AbstractLockHandle* writeLock();
 	AbstractLockHandle* readLock();
 
-	void onRename(const TableRenameContext* ctx);
+	void onRename(SchemaManager* mgr, TableRenameContext* ctx);
 
 private:
 	void validateRecordColumnValue(CdbTableColumn* meta, AbstractCdbValue* value);

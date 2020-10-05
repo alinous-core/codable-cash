@@ -67,14 +67,20 @@ void RecordStore::load() {
 }
 
 void RecordStore::close() noexcept {
+	close(true);
+}
+
+void RecordStore::close(bool deleteBtree) noexcept {
 	if(this->btree != nullptr){
 		if(this->opened){
 			this->opened = false;
 			this->btree->close();
 		}
 
-		delete this->btree;
-		this->btree = nullptr;
+		if(deleteBtree){
+			delete this->btree;
+			this->btree = nullptr;
+		}
 	}
 }
 

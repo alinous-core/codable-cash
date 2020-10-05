@@ -160,7 +160,7 @@ void CdbStorageManager::onAlterTableRenameTable(SchemaManager* mgr,	const CdbTab
 	const CdbOid* tableOid = table->getOid();
 
 	TableStore* store = getTableStore(tableOid);
-	store->onRename(ctx);
+	store->onRename(mgr, ctx);
 }
 
 TableStore* CdbStorageManager::getTableStore(const CdbOid* tableoid) noexcept {

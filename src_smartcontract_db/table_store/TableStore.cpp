@@ -44,7 +44,9 @@
 
 #include "schema_alter_ctx/ColumnModifyContext.h"
 
+#include "schema/SchemaManager.h"
 
+#include "schema_alter_ctx/TableRenameContext.h"
 namespace codablecash {
 
 TableStore::TableStore(DiskCacheManager* cacheManager, const File* baseDir, const CdbTable* table) {
@@ -281,11 +283,12 @@ void TableStore::addToIndexes(const CdbRecord* rec) {
 	}
 }
 
-void TableStore::onRename(const TableRenameContext* ctx) {
+void TableStore::onRename(SchemaManager* mgr, TableRenameContext* ctx) {
 	closeTable();
 
 	// TODO onRename
 
+	ctx->commit(mgr);
 	loadTable();
 }
 
