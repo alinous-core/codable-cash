@@ -80,6 +80,7 @@ public:
 	static bool isFile(const UnicodeString* path) noexcept;
 	static ArrayList<UnicodeString>* listFiles(const UnicodeString* path) noexcept;
 	static int64_t fileLength(const File* const file) noexcept;
+	static bool rename(const UnicodeString* src, const UnicodeString* dest) noexcept;
 
 	static uint64_t getSystemPageSize() noexcept;
 

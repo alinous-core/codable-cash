@@ -46,6 +46,8 @@ public:
 	File* get(const wchar_t* seg) const noexcept;
 	ArrayList<UnicodeString>* list() const noexcept;
 
+	bool move(const File* destFile) const noexcept;
+
 private:
 	static bool deleteInnerDir(const File* dir) noexcept;
 private:

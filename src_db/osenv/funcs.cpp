@@ -350,8 +350,16 @@ uint64_t Os::getSystemPageSize() noexcept {
 	return ::sysconf(_SC_PAGE_SIZE);
 }
 
+bool Os::rename(const UnicodeString* src, const UnicodeString* dest) noexcept {
+	const char* oldfile = src->toCString();
+	const char* newfile = dest->toCString();
 
+	int ret = ::rename(oldfile, newfile);
 
+	delete [] oldfile;
+	delete [] newfile;
+
+	return ret == 0;
 }
 
-
+}
