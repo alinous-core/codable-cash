@@ -89,9 +89,7 @@ void AlterRenameTableCommand::interpret(VirtualMachine* vm, AbstractAlterCommand
 	TableRenameContext context;
 
 	const UnicodeString* defaultSchema = vm->getCurrentSchema();
-	context.init(renameTableLog, db, defaultSchema);
-
-	// FIXME
+	context.init(renameTableLog, db, defaultSchema); // includes validation process
 }
 
 

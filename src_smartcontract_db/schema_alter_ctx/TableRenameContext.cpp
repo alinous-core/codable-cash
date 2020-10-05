@@ -54,6 +54,8 @@ void TableRenameContext::init(AlterRenameTableCommandLog* renameTableLog, Codabl
 	s = destTable->getSchema();
 	this->dstSchema = s != nullptr ? new UnicodeString(s) : new UnicodeString(defaultSchema);
 	this->dstTable = new UnicodeString(destTable->getTableName());
+
+	this->table = schemaManamger->getTable(srcTable, defaultSchema);
 }
 
 } /* namespace codablecash */
