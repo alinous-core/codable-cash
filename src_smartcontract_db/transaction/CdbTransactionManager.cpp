@@ -85,6 +85,12 @@ void CdbTransactionManager::onDropPrimaryKey(SchemaManager* mgr,
 	// do nothing
 }
 
+void CdbTransactionManager::onAlterTableRenameTable(SchemaManager* mgr,
+		const CdbTable* table, const TableRenameContext* ctx) {
+	// do nothing
+}
+
+
 
 CdbTransaction* CdbTransactionManager::newTransaction(uint64_t transactionId) {
 	CdbTransaction* trx = new CdbTransaction(this, transactionId);

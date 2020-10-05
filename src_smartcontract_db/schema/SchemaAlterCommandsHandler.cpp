@@ -202,6 +202,7 @@ void SchemaAlterCommandsHandler::handleAlterTableRenameTable(const AlterRenameTa
 
 
 
+
 	// TODO : handleAlterTableRenameTable
 
 	// upgrade

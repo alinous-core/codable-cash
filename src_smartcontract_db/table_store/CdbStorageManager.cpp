@@ -96,7 +96,6 @@ void CdbStorageManager::loadTableStore(SchemaManager* scMgr, const CdbTable* tab
 	stStore.cancel();
 
 	this->tableStoreMap->put(store->getOid(), store);
-	// FIXME loadTableStore
 }
 
 void CdbStorageManager::onCreateTable(SchemaManager* mgr, const CdbTable* table) {
@@ -154,6 +153,10 @@ void CdbStorageManager::onDropPrimaryKey(SchemaManager* mgr, const CdbTable* tab
 
 	TableStore* store = getTableStore(tableOid);
 	store->removeIndex(primaryKey);
+}
+
+void CdbStorageManager::onAlterTableRenameTable(SchemaManager* mgr,	const CdbTable* table, const TableRenameContext* ctx) {
+	// TODO onAlterTableRenameTable
 }
 
 TableStore* CdbStorageManager::getTableStore(const CdbOid* tableoid) noexcept {
