@@ -103,6 +103,18 @@ void SchemaManager::createSchema(const UnicodeString* name, File* baseDir) {
 	outStream->close();
 }
 
+
+void SchemaManager::createSchema(const UnicodeString* name) {
+	Schema* schema = new Schema(newSchemaObjectId());
+	schema->setName(new UnicodeString(name));
+
+	File* scdir = this->databaseBaseDir->get(name); __STP(scdir);
+	scdir->mkdirs();
+
+	this->root->addSchema(schema);
+}
+
+
 void SchemaManager::save() {
 	FileOutputStream* outStream = new FileOutputStream(schemaBin); __STP(outStream);
 	outStream->open(false);

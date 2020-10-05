@@ -56,6 +56,9 @@ public:
 	void addSchemaUpdateListner(ISchemaUptateListner* listner) noexcept;
 
 	static void createSchema(const UnicodeString* name, File* baseDir);
+
+	void createSchema(const UnicodeString* name);
+
 	void loadSchema(const File* baseDir);
 	void save();
 

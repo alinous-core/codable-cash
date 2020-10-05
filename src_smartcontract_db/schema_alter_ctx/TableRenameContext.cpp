@@ -57,6 +57,16 @@ void TableRenameContext::init(const AlterRenameTableCommandLog* renameTableLog, 
 }
 
 void TableRenameContext::commit(SchemaManager* schemaManamger) {
+	Schema* sc = schemaManamger->getSchema(this->dstSchema);
+
+	if(sc == nullptr){
+		schemaManamger->createSchema(this->dstSchema);
+		sc = schemaManamger->getSchema(this->dstSchema);
+
+		// move table
+	}
+
+	// TODO: commit;
 }
 
 
