@@ -20,9 +20,11 @@ class AlterModifyCommandLog;
 class AlterRenameColumnCommandLog;
 class AlterRenameTableCommandLog;
 
+class SchemaManager;
+
 class SchemaAlterCommandsHandler {
 public:
-	SchemaAlterCommandsHandler();
+	explicit SchemaAlterCommandsHandler(SchemaManager* schemaManager);
 	virtual ~SchemaAlterCommandsHandler();
 
 	void handleAlterTableAddIndex(const AlterAddIndexCommandLog* cmd);
@@ -34,6 +36,9 @@ public:
 	void handleAlterTableModify(const AlterModifyCommandLog* cmd);
 	void handleAlterTableRenameColumn(const AlterRenameColumnCommandLog* cmd);
 	void handleAlterTableRenameTable(const AlterRenameTableCommandLog* cmd);
+
+private:
+	SchemaManager* schemaManager;
 };
 
 } /* namespace codablecash */

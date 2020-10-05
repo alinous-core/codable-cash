@@ -57,7 +57,7 @@ SchemaManager::SchemaManager() {
 	this->root = nullptr;
 	this->schemaBin = nullptr;
 	this->databaseBaseDir = nullptr;
-	this->alterHandler = new SchemaAlterCommandsHandler();
+	this->alterHandler = new SchemaAlterCommandsHandler(this);
 }
 
 SchemaManager::~SchemaManager() {
