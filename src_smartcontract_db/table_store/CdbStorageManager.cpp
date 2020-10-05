@@ -22,9 +22,11 @@
 #include "table_record/CdbDataFactory.h"
 #include "table_record/CdbKeyFactory.h"
 
-#include "schema/ColumnModifyContext.h"
 #include "schema/Schema.h"
 
+#include "schema_alter_ctx/ColumnModifyContext.h"
+
+#include "schema_alter_ctx/TableRenameContext.h"
 namespace codablecash {
 
 CdbKeyFactory CdbStorageManager::keyFactory;
@@ -95,7 +97,6 @@ void CdbStorageManager::loadTableStore(SchemaManager* scMgr, const CdbTable* tab
 	stStore.cancel();
 
 	this->tableStoreMap->put(store->getOid(), store);
-	// FIXME loadTableStore
 }
 
 void CdbStorageManager::onCreateTable(SchemaManager* mgr, const CdbTable* table) {
@@ -153,6 +154,13 @@ void CdbStorageManager::onDropPrimaryKey(SchemaManager* mgr, const CdbTable* tab
 
 	TableStore* store = getTableStore(tableOid);
 	store->removeIndex(primaryKey);
+}
+
+void CdbStorageManager::onAlterTableRenameTable(SchemaManager* mgr,	const CdbTable* table, TableRenameContext* ctx) {
+	const CdbOid* tableOid = table->getOid();
+
+	TableStore* store = getTableStore(tableOid);
+	store->onRename(mgr, ctx);
 }
 
 TableStore* CdbStorageManager::getTableStore(const CdbOid* tableoid) noexcept {

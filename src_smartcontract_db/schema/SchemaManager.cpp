@@ -9,7 +9,8 @@
 #include "schema/SchemaRoot.h"
 #include "schema/ISchemaUptateListner.h"
 #include "schema/Schema.h"
-#include "schema/ColumnModifyContext.h"
+
+#include "schema_alter_ctx/ColumnModifyContext.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
@@ -44,22 +45,33 @@
 #include "sql_ddl/DdlColumnDescriptor.h"
 #include "sql_ddl/ColumnTypeDescriptor.h"
 
+#include "schema/SchemaAlterCommandsHandler.h"
+
 namespace codablecash {
 
 const UnicodeString SchemaManager::PUBLIC(L"public");
 const UnicodeString SchemaManager::SCHEMA_FILE(L"schema.bin");
 
 
-SchemaManager::SchemaManager() {
+SchemaManager::SchemaManager(CodableDatabase* db) {
 	this->root = nullptr;
 	this->schemaBin = nullptr;
 	this->databaseBaseDir = nullptr;
+	this->alterHandler = new SchemaAlterCommandsHandler(this);
 }
 
 SchemaManager::~SchemaManager() {
 	delete this->root;
+	this->root = nullptr;
+
 	delete this->schemaBin;
+	this->schemaBin = nullptr;
+
 	delete this->databaseBaseDir;
+	this->databaseBaseDir = nullptr;
+
+	delete this->alterHandler;
+	this->alterHandler = nullptr;
 }
 
 void SchemaManager::addSchemaUpdateListner(ISchemaUptateListner* listner) noexcept {
@@ -90,6 +102,18 @@ void SchemaManager::createSchema(const UnicodeString* name, File* baseDir) {
 
 	outStream->close();
 }
+
+
+void SchemaManager::createSchema(const UnicodeString* name) {
+	Schema* schema = new Schema(newSchemaObjectId());
+	schema->setName(new UnicodeString(name));
+
+	File* scdir = this->databaseBaseDir->get(name); __STP(scdir);
+	scdir->mkdirs();
+
+	this->root->addSchema(schema);
+}
+
 
 void SchemaManager::save() {
 	FileOutputStream* outStream = new FileOutputStream(schemaBin); __STP(outStream);
@@ -157,158 +181,6 @@ void SchemaManager::createTable(CdbTable* table) {
 	save();
 }
 
-void SchemaManager::handleAlterTableAddIndex(const AlterAddIndexCommandLog* cmd) {
-	CdbTable* table = findTableFromCommand(cmd);
-
-	// TODO: alter add
-
-	// upgrade
-	this->root->upgradeSchemaObjectVersionId();
-	save();
-}
-
-void SchemaManager::handleAlterTableAddColumn(const AlterAddColumnCommandLog* cmd) {
-	CdbTable* table = findTableFromCommand(cmd);
-
-	// upgrade
-	this->root->upgradeSchemaObjectVersionId();
-	save();
-}
-
-void SchemaManager::handleAlterTableDropIndex(const AlterDropIndexCommandLog* cmd) {
-	CdbTable* table = findTableFromCommand(cmd);
-
-	// upgrade
-	this->root->upgradeSchemaObjectVersionId();
-	save();
-}
-
-void SchemaManager::handleAlterTableDropColumn(const AlterDropColumnCommandLog* cmd) {
-	CdbTable* table = findTableFromCommand(cmd);
-
-	// upgrade
-	this->root->upgradeSchemaObjectVersionId();
-	save();
-}
-
-void SchemaManager::handleAlterTableAddPrimaryKey(const AlterAddPrimaryKeyCommandLog* cmd) {
-	CdbTable* table = findTableFromCommand(cmd);
-
-	// upgrade
-	this->root->upgradeSchemaObjectVersionId();
-	save();
-}
-
-void SchemaManager::handleAlterTableDropPrimaryKey(const AlterDropPrimaryKeyCommandLog* cmd) {
-	CdbTable* table = findTableFromCommand(cmd);
-
-	CdbTableIndex* primaryKey = table->getPrimaryKey(); __STP(primaryKey);
-	if(primaryKey == nullptr){
-		return;
-	}
-
-	table->removeIndex(primaryKey);
-
-	fireOnDropPrimaryKey(table, primaryKey);
-
-
-	// upgrade
-	this->root->upgradeSchemaObjectVersionId();
-	save();
-}
-
-void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
-	CdbTable* table = findTableFromCommand(cmd);
-
-	const AlterModifyCommand* modifyCommand = cmd->getCommand();
-
-	const DdlColumnDescriptor* newdesc = modifyCommand->getColumnDescriptor();
-
-	CdbTableColumn* col = table->getColumn(newdesc->getName());
-	if(col == nullptr){
-		throw new CdbException(L"Column does not exists.", __FILE__, __LINE__);
-	}
-
-	const UnicodeString* defaultStr = cmd->getDefaultValueStr();
-
-	ColumnModifyContext* context = col->createModifyContextwithChange(modifyCommand, defaultStr); __STP(context);
-	context->setColumn(col);
-
-	// convert default
-	context->analyze();
-
-	handleUniqueIndexOnModify(table, context);
-
-	// update storage
-	fireOnAlterModify(table, context);
-
-	// upgrade
-	this->root->upgradeSchemaObjectVersionId();
-	save();
-}
-
-void SchemaManager::handleUniqueIndexOnModify(CdbTable* table, ColumnModifyContext* ctx) {
-	ColumnModifyContext::UniqueChage change = ctx->getUniqueChange();
-
-	if(change == ColumnModifyContext::UniqueChage::TO_NOT_UNIQUE){
-		handleToNotUnique(table, ctx);
-	}
-	else if(change == ColumnModifyContext::UniqueChage::TO_UNIQUE){
-		handleToUnique(table, ctx);
-	}
-}
-
-void SchemaManager::handleToNotUnique(CdbTable* table, ColumnModifyContext* ctx) {
-	CdbTableColumn* col = ctx->getColumn();
-	const CdbOid* colOid = col->getOid();
-
-	CdbTableIndex* index = table->getUniqueIndexByColumnOid(colOid);
-	if(index == nullptr || index->isPrimaryKey()){ // primary key support unique
-		return;
-	}
-
-	ctx->setRemovalIndex(index);
-	table->removeIndex(index);
-}
-
-void SchemaManager::handleToUnique(CdbTable* table, ColumnModifyContext* ctx) {
-	CdbTableColumn* col = ctx->getColumn();
-	const CdbOid* colOid = col->getOid();
-
-	// already has primary key
-	if(table->hasSinglePrimaryKeyColumn(colOid)){
-		return;
-	}
-
-	uint64_t newOid = this->root->newSchemaObjectId();
-	CdbTableIndex* newIndex = new CdbTableIndex(newOid);
-	ctx->setNewIndex(newIndex);
-
-	UnicodeString* indexName = CdbTableIndex::createUniqueKeyIndexName(table, col->getName());
-	newIndex->setName(indexName);
-	newIndex->addColumn(col);
-	newIndex->setUnique(true);
-
-	table->addIndex(newIndex);
-}
-
-void SchemaManager::handleAlterTableRenameColumn(const AlterRenameColumnCommandLog* cmd) {
-	CdbTable* table = findTableFromCommand(cmd);
-
-	// upgrade
-	this->root->upgradeSchemaObjectVersionId();
-	save();
-}
-
-void SchemaManager::handleAlterTableRenameTable(const AlterRenameTableCommandLog* cmd) {
-	CdbTable* table = findTableFromCommand(cmd);
-
-	// upgrade
-	this->root->upgradeSchemaObjectVersionId();
-	save();
-}
-
-
 void SchemaManager::fireSchemaLoaded() noexcept {
 	int maxLoop = this->listners.size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -343,6 +215,17 @@ CdbTable* SchemaManager::getTable(const wchar_t* schema, const wchar_t* name) co
 	return getTable(&s, &n);
 }
 
+CdbTable* SchemaManager::getTable(const TableIdentifier* tableId, const UnicodeString* defaultSchema) const {
+	const UnicodeString* schema = tableId->getSchema();
+	const UnicodeString* table = tableId->getTableName();
+
+	if(schema == nullptr){
+		schema = defaultSchema;
+	}
+
+	return getTable(schema, table);
+}
+
 CdbTable* SchemaManager::getTable(const UnicodeString* schema, const UnicodeString* name) const {
 	Schema* sc = getSchema(schema);
 	if(sc == nullptr){
@@ -355,6 +238,17 @@ CdbTable* SchemaManager::getTable(const UnicodeString* schema, const UnicodeStri
 	}
 
 	return table;
+}
+
+bool SchemaManager::hasTable(const UnicodeString* schema, const UnicodeString* name) const noexcept {
+	Schema* sc = getSchema(schema);
+	if(sc == nullptr){
+		return false;
+	}
+
+	CdbTable* table = sc->getCdbTableByName(name);
+
+	return table != nullptr;
 }
 
 
@@ -383,5 +277,49 @@ void SchemaManager::fireOnDropPrimaryKey(const CdbTable* table, const CdbTableIn
 	}
 }
 
+void SchemaManager::fireOnRenameTable(const CdbTable* table, TableRenameContext* context) {
+	int maxLoop = this->listners.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ISchemaUptateListner* l = this->listners.get(i);
+		l->onAlterTableRenameTable(this, table, context);
+	}
+}
+
+
+void SchemaManager::handleAlterTableAddIndex(const AlterAddIndexCommandLog* cmd) {
+	this->alterHandler->handleAlterTableAddIndex(cmd);
+}
+
+void SchemaManager::handleAlterTableAddColumn(const AlterAddColumnCommandLog* cmd) {
+	this->alterHandler->handleAlterTableAddColumn(cmd);
+}
+
+void SchemaManager::handleAlterTableDropIndex(const AlterDropIndexCommandLog* cmd) {
+	this->alterHandler->handleAlterTableDropIndex(cmd);
+}
+
+void SchemaManager::handleAlterTableDropColumn(const AlterDropColumnCommandLog* cmd) {
+	this->alterHandler->handleAlterTableDropColumn(cmd);
+}
+
+void SchemaManager::handleAlterTableAddPrimaryKey(const AlterAddPrimaryKeyCommandLog* cmd) {
+	this->alterHandler->handleAlterTableAddPrimaryKey(cmd);
+}
+
+void SchemaManager::handleAlterTableDropPrimaryKey(const AlterDropPrimaryKeyCommandLog* cmd) {
+	this->alterHandler->handleAlterTableDropPrimaryKey(cmd);
+}
+
+void SchemaManager::handleAlterTableModify(const AlterModifyCommandLog* cmd) {
+	this->alterHandler->handleAlterTableModify(cmd);
+}
+
+void SchemaManager::handleAlterTableRenameColumn(const AlterRenameColumnCommandLog* cmd) {
+	this->alterHandler->handleAlterTableRenameColumn(cmd);
+}
+
+void SchemaManager::handleAlterTableRenameTable(const AlterRenameTableCommandLog* cmd) {
+	this->alterHandler->handleAlterTableRenameTable(cmd);
+}
 
 } /* namespace alinous */

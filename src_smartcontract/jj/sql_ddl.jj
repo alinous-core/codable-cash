@@ -91,14 +91,16 @@ AbstractAlterDdlCommand* alterRenameCommands() : {
 AlterRenameTableCommand* alterRenameTableCommand(Token* t) : {
 	AlterRenameTableCommand* cmd = new AlterRenameTableCommand();
 	cmd->setPosition(t);
+	
+	TableIdentifier* tableId = nullptr;
 }
 {
 	t=<TO>{
 		cmd->setPosition(t);
 	}
-	t=<IDENTIFIER>{
+	tableId=tableIdentifier(){
 		cmd->setPosition(t);
-		cmd->setNewName(_STR(t));
+		cmd->setNewName(tableId);
 	}
 	{
 		__ONERROR(cmd);

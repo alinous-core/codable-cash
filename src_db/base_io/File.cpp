@@ -254,6 +254,12 @@ int File::length() const noexcept {
 	return Os::fileLength(this);
 }
 
+bool File::move(const File* destFile) const noexcept {
+	UnicodeString* src = getAbsolutePath(); __STP(src);
+	UnicodeString* dst = destFile->getAbsolutePath(); __STP(dst);
+
+	return Os::rename(src, dst);
+}
+
 
 } /* namespace alinous */
-

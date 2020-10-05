@@ -1,9 +1,9 @@
 
 
 set(__src
-	ColumnModifyContext.cpp
 	ISchemaUptateListner.cpp
 	Schema.cpp
+	SchemaAlterCommandsHandler.cpp
 	SchemaManager.cpp
 	SchemaRoot.cpp
 )

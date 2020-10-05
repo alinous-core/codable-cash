@@ -13,5 +13,6 @@ set(testsrc
 	test_insert.cpp
 	test_metadata.cpp
 	test_scan_part.cpp
+	test_schema.cpp
 )
 handle_sub(testall "${testsrc}" test smartcontract_db/table)

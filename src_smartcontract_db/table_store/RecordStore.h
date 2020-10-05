@@ -12,6 +12,7 @@ namespace alinous {
 class DiskCacheManager;
 class File;
 class Btree;
+class UnicodeString;
 }
 using namespace alinous;
 
@@ -19,6 +20,7 @@ namespace codablecash {
 
 class CdbTable;
 class CdbRecord;
+class TableRenameContext;
 
 class RecordStore {
 public:
@@ -29,12 +31,15 @@ public:
 
 	void load();
 	void close() noexcept;
+	void close(bool deleteBtree) noexcept;
 
 	void insert(const CdbRecord* rec);
 
 	Btree* getBtree() const noexcept {
 		return this->btree;
 	}
+
+	void onRename(const UnicodeString* newName);
 private:
 	DiskCacheManager* cacheManager;
 	File* tableDir;

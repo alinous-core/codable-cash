@@ -67,6 +67,7 @@ public:
 
 	void adjustIndexColumnPosition(const CdbTable* table) noexcept;
 
+	const CdbTableColumn* getColumnAt(int idxColumnPos) const noexcept;
 	const CdbOid* getColumnOidAt(int idxColumnPos) const noexcept;
 private:
 	CdbOid* oid;

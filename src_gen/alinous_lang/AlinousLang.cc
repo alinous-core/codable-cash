@@ -4503,6 +4503,8 @@ assert(false);
 
 AlterRenameTableCommand                       * AlinousLang::alterRenameTableCommand(Token* t) {AlterRenameTableCommand* cmd = new AlterRenameTableCommand();
         cmd->setPosition(t);
+
+        TableIdentifier* tableId = nullptr;
     if (!hasError) {
     t = jj_consume_token(TO);
     }
@@ -4510,11 +4512,11 @@ AlterRenameTableCommand                       * AlinousLang::alterRenameTableCom
 cmd->setPosition(t);
     }
     if (!hasError) {
-    t = jj_consume_token(IDENTIFIER);
+    tableId = tableIdentifier();
     }
     if (!hasError) {
 cmd->setPosition(t);
-                cmd->setNewName(_STR(t));
+                cmd->setNewName(tableId);
     }
 __ONERROR(cmd);
                 return cmd;

@@ -39,6 +39,7 @@ public:
 	virtual void onCreateTable(SchemaManager* mgr, const CdbTable* table);
 	virtual void onAlterModify(SchemaManager* mgr, const CdbTable* table, const ColumnModifyContext* ctx);
 	virtual void onDropPrimaryKey(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* primaryKey);
+	virtual void onAlterTableRenameTable(SchemaManager* mgr, const CdbTable* table, TableRenameContext* ctx);
 
 	CdbTransaction* newTransaction(uint64_t transactionId);
 

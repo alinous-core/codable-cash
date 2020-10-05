@@ -22,8 +22,10 @@
 #include "sc_analyze/AnalyzeContext.h"
 
 #include "engine/CodableDatabase.h"
+#include "engine/CdbException.h"
 
 #include "schema/SchemaManager.h"
+#include "schema/SchemaAlterCommandsHandler.h"
 
 #include "table/CdbTable.h"
 #include "table/CdbTableColumn.h"
@@ -36,6 +38,11 @@
 #include "sc_analyze/ValidationError.h"
 
 #include "sql_ddl_alter/AbstractAlterDdlCommand.h"
+
+#include "../toolkit_alter/TestDbSchemaAlterText01.h"
+
+#include "transaction_log_alter_modify/AlterModifyCommandLog.h"
+
 using namespace alinous;
 using namespace codablecash;
 
@@ -139,6 +146,56 @@ TEST(TestExecAlterMofdifyErrGroup, case03){
 		stmt->analyze(actx);
 
 		vm->hasAnalyzeError(ValidationError::DB_LENGTH_IS_NOT_CORRECT_INTEGER);
+	}
+}
+
+/**
+ * ALTER TABLE test_table MODIFY name222 int;
+ */
+TEST(TestExecAlterMofdifyErrGroup, case04){
+	TestDbSchemaAlterText01 tester(this->env);
+	tester.init(1024*10);
+	tester.insert01();
+
+	VirtualMachine* vm = tester.getVm();
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_modify/resources/exec_alter_modify_err/case04.alns"))
+	{
+		SmartContractParser parser(sourceFile);
+		AlinousLang* lang = parser.getDebugAlinousLang();
+
+		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
+		CHECK(!parser.hasError())
+
+		AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
+		actx->setVm(vm);
+
+		stmt->preAnalyze(actx);
+		stmt->analyzeTypeRef(actx);
+		stmt->analyze(actx);
+
+		SchemaAlterCommandsHandler handler(tester.getSchemaManager());
+
+		AbstractAlterDdlCommand* cmd = stmt->getCmd();
+		AlterModifyCommandLog* log = dynamic_cast<AlterModifyCommandLog*>(cmd->getCommandLog()); __STP(log);
+
+		TableIdentifier* table = new TableIdentifier(*stmt->getTableId()); __STP(table);
+		if(table->getSchema() == nullptr){
+			table->setSchema(new UnicodeString(vm->getCurrentSchema()));
+		}
+		log->setTableIdentifier(table);
+
+		CdbException* ex = nullptr;
+		try{
+			handler.handleAlterTableModify(log);
+		}
+		catch(CdbException* e){
+			ex = e;
+		}
+
+		CHECK(ex != nullptr);
+		delete ex;
 	}
 }
 

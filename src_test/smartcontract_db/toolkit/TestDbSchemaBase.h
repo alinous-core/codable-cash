@@ -28,6 +28,7 @@ class CdbTableIndex;
 class CdbTable;
 class IndexStore;
 class CdbRecord;
+class SchemaManager;
 
 class TestDbSchemaBase {
 public:
@@ -36,6 +37,8 @@ public:
 
 	virtual void init();
 	virtual void init(uint64_t memCapacity);
+
+	void reloadDb();
 
 	CodableDatabase* getDatabase() const noexcept;
 	VirtualMachine* getVm() const noexcept {
@@ -61,7 +64,7 @@ public:
 	CdbTableIndex* getPrimaryKey(const wchar_t* table);
 	CdbTableIndex* getPrimaryKey(const wchar_t* schema, const wchar_t* table);
 
-
+	SchemaManager* getSchemaManager() const noexcept;
 protected:
 	void initSmartcontract();
 	void setMain(const wchar_t* pkg, const wchar_t* clazz, const wchar_t* method) noexcept;

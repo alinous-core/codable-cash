@@ -115,4 +115,22 @@ CdbTable* Schema::getCdbTableByName(const UnicodeString* tableName) const noexce
 	return this->nameTableMap.get(tableName);
 }
 
+void Schema::removeTable(const UnicodeString* tableName) noexcept {
+	CdbTable* table = this->nameTableMap.get(tableName);
+
+	this->nameTableMap.remove(tableName);
+	this->oidTableMap.remove(table->getOid());
+
+	tables->removeByObj(table);
+}
+
+
+void Schema::renameTable(const UnicodeString* lastName,	const UnicodeString* newName) noexcept {
+	CdbTable* table = this->nameTableMap.get(lastName);
+	this->nameTableMap.remove(lastName);
+
+	table->setName(new UnicodeString(newName));
+	this->nameTableMap.put(newName, table);
+}
+
 } /* namespace codablecash */

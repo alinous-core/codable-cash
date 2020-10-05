@@ -37,6 +37,10 @@ public:
 		return cmd;
 	}
 
+	const TableIdentifier* getTableId() const noexcept {
+		return tableId;
+	}
+
 private:
 	TableIdentifier* tableId;
 	AbstractAlterDdlCommand* cmd;

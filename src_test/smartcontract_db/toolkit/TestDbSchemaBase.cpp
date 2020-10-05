@@ -66,6 +66,13 @@ void TestDbSchemaBase::init(uint64_t memCapacity) {
 	this->vm->loadDatabase(this->dbDir);
 }
 
+void TestDbSchemaBase::reloadDb() {
+	CodableDatabase* db = getDatabase();
+
+	db->closeDatabase();
+	db->loadDatabase(this->dbDir);
+}
+
 CodableDatabase* TestDbSchemaBase::getDatabase() const noexcept {
 	return this->vm->getDb();
 }
@@ -224,6 +231,9 @@ CdbTableIndex* TestDbSchemaBase::getPrimaryKey(const wchar_t* schema, const wcha
 	return cdbtable->getPrimaryKey();
 }
 
+SchemaManager* TestDbSchemaBase::getSchemaManager() const noexcept {
+	return this->vm->getDb()->getSchemaManager();
+}
 
 
 } /* namespace codablecash */

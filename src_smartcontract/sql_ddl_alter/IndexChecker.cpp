@@ -29,7 +29,7 @@
 
 #include "table_store/RecordValueConverter.h"
 
-#include "schema/ColumnModifyContext.h"
+#include "schema_alter_ctx/ColumnModifyContext.h"
 
 #include "btreekey/NullKey.h"
 

@@ -32,6 +32,11 @@ public:
 
 	virtual void initCommandParam(VirtualMachine* vm, TableIdentifier* tableId);
 
+	const AlterRenameTableCommand* getCommand() const noexcept {
+		return command;
+	}
+
+	void inputDefaultSchema(const UnicodeString* defaultSchema);
 private:
 	AlterRenameTableCommand* command;
 };

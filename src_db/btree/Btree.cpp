@@ -71,6 +71,31 @@ void Btree::clearFiles(const File* folder, const UnicodeString* name) {
 	bodyFile->deleteFile();
 }
 
+
+void Btree::renameFiles(const File* folder, const UnicodeString* lastName,	const UnicodeString* newName) {
+	UnicodeString headerName(lastName);
+	headerName.append(L"-header.bin");
+
+	UnicodeString bodyName(lastName);
+	bodyName.append(L".bin");
+
+	File* headerFile = folder->get(&headerName); __STP(headerFile);
+	File* bodyFile = folder->get(&bodyName); __STP(bodyFile);
+
+	UnicodeString newHeaderName(newName);
+	newHeaderName.append(L"-header.bin");
+
+	UnicodeString newBodyName(newName);
+	newBodyName.append(L".bin");
+
+	File* newHeaderFile = folder->get(&newHeaderName); __STP(newHeaderFile);
+	File* newBodyFile = folder->get(&newBodyName); __STP(newBodyFile);
+
+	headerFile->move(newHeaderFile);
+	bodyFile->move(newBodyFile);
+}
+
+
 void Btree::open(const BtreeOpenConfig* config) {
 	this->store = new BtreeStorage(this->folder, this->name, this->factory, this->dfactory);
 

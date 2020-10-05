@@ -218,9 +218,12 @@ void CdbTableIndex::adjustIndexColumnPosition(const CdbTable* table) noexcept {
 	}
 }
 
+const CdbTableColumn* CdbTableIndex::getColumnAt(int idxColumnPos) const noexcept {
+	return this->columns->get(idxColumnPos);
+}
 
 const CdbOid* CdbTableIndex::getColumnOidAt(int idxColumnPos) const noexcept {
-	CdbTableColumn* tcol = this->columns->get(idxColumnPos);
+	const CdbTableColumn* tcol = getColumnAt(idxColumnPos);
 
 	return tcol->getOid();
 }

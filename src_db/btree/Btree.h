@@ -38,6 +38,7 @@ public:
 	void create(const BtreeConfig* config);
 
 	static void clearFiles(const File* folder, const UnicodeString* name);
+	static void renameFiles(const File* folder, const UnicodeString* lastName, const UnicodeString* newName);
 
 	void open(const BtreeOpenConfig* config);
 	void close() noexcept;

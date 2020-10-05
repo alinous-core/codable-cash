@@ -67,14 +67,20 @@ void RecordStore::load() {
 }
 
 void RecordStore::close() noexcept {
+	close(true);
+}
+
+void RecordStore::close(bool deleteBtree) noexcept {
 	if(this->btree != nullptr){
 		if(this->opened){
 			this->opened = false;
 			this->btree->close();
 		}
 
-		delete this->btree;
-		this->btree = nullptr;
+		if(deleteBtree){
+			delete this->btree;
+			this->btree = nullptr;
+		}
 	}
 }
 
@@ -82,6 +88,12 @@ void RecordStore::insert(const CdbRecord* rec) {
 	AbstractCdbKey* key = rec->getOid()->toKey(); __STP(key);
 
 	this->btree->putData(key, rec);
+}
+
+void RecordStore::onRename(const UnicodeString* newName) {
+	const UnicodeString* name = table->getName();
+
+	Btree::renameFiles(this->tableDir, name, newName);
 }
 
 } /* namespace codablecash */

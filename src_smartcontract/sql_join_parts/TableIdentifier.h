@@ -43,6 +43,8 @@ public:
 		return tableName;
 	}
 
+	void inputDefaultSchema(const UnicodeString* defaultSchema);
+
 private:
 	UnicodeString* schema;
 	UnicodeString* tableName;

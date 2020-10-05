@@ -15,6 +15,7 @@
 namespace alinous {
 class UnicodeString;
 class File;
+class TableIdentifier;
 
 }  // namespace alinous
 using namespace alinous;
@@ -38,18 +39,26 @@ class AlterRenameColumnCommandLog;
 class AlterRenameTableCommandLog;
 class ColumnModifyContext;
 class CdbTableIndex;
+class SchemaAlterCommandsHandler;
+class CodableDatabase;
+class TableRenameContext;
 
 class SchemaManager {
 public:
+	friend class SchemaAlterCommandsHandler;
+
 	static const UnicodeString PUBLIC;
 	static const UnicodeString SCHEMA_FILE;
 
-	SchemaManager();
+	explicit SchemaManager(CodableDatabase* db);
 	virtual ~SchemaManager();
 
 	void addSchemaUpdateListner(ISchemaUptateListner* listner) noexcept;
 
 	static void createSchema(const UnicodeString* name, File* baseDir);
+
+	void createSchema(const UnicodeString* name);
+
 	void loadSchema(const File* baseDir);
 	void save();
 
@@ -66,6 +75,9 @@ public:
 
 	CdbTable* getTable(const wchar_t* schema, const wchar_t* name) const;
 	CdbTable* getTable(const UnicodeString* schema, const UnicodeString* name) const;
+	CdbTable* getTable(const TableIdentifier* tableId, const UnicodeString* defaultSchema) const;
+
+	bool hasTable(const UnicodeString* schema, const UnicodeString* name) const noexcept;
 
 	const File* getDatabaseBaseDir() const noexcept {
 		return databaseBaseDir;
@@ -86,17 +98,16 @@ private:
 	void fireOnCreateTable(const CdbTable* table);
 	void fireOnAlterModify(const CdbTable* table, const ColumnModifyContext* ctx);
 	void fireOnDropPrimaryKey(const CdbTable* table, const CdbTableIndex* primaryKey);
+	void fireOnRenameTable(const CdbTable* table, TableRenameContext* context);
 
 	CdbTable* findTableFromCommand(const AbstractAlterCommandLog* cmdlog);
-
-	void handleUniqueIndexOnModify(CdbTable* table, ColumnModifyContext* ctx);
-	void handleToNotUnique(CdbTable* table, ColumnModifyContext* ctx);
-	void handleToUnique(CdbTable* table, ColumnModifyContext* ctx);
 
 private:
 	SchemaRoot* root;
 	File* schemaBin;
 	File* databaseBaseDir;
+
+	SchemaAlterCommandsHandler* alterHandler;
 
 	ArrayList<ISchemaUptateListner> listners;
 };
