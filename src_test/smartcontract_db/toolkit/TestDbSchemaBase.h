@@ -38,6 +38,8 @@ public:
 	virtual void init();
 	virtual void init(uint64_t memCapacity);
 
+	void reloadDb();
+
 	CodableDatabase* getDatabase() const noexcept;
 	VirtualMachine* getVm() const noexcept {
 		return this->vm;
