@@ -76,7 +76,7 @@ bool CodableDatabase::loadDatabase(const File* dbdir, const File* tmpdir) {
 
 	this->store = new CdbStorageManager();
 
-	this->schema = new SchemaManager();
+	this->schema = new SchemaManager(this);
 	this->schema->addSchemaUpdateListner(this->trxManager);
 	this->schema->addSchemaUpdateListner(this->store);
 

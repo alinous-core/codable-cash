@@ -53,11 +53,11 @@ const UnicodeString SchemaManager::PUBLIC(L"public");
 const UnicodeString SchemaManager::SCHEMA_FILE(L"schema.bin");
 
 
-SchemaManager::SchemaManager() {
+SchemaManager::SchemaManager(CodableDatabase* db) {
 	this->root = nullptr;
 	this->schemaBin = nullptr;
 	this->databaseBaseDir = nullptr;
-	this->alterHandler = new SchemaAlterCommandsHandler(this);
+	this->alterHandler = new SchemaAlterCommandsHandler(db);
 }
 
 SchemaManager::~SchemaManager() {

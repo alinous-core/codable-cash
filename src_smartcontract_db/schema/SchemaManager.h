@@ -40,6 +40,7 @@ class AlterRenameTableCommandLog;
 class ColumnModifyContext;
 class CdbTableIndex;
 class SchemaAlterCommandsHandler;
+class CodableDatabase;
 
 class SchemaManager {
 public:
@@ -48,7 +49,7 @@ public:
 	static const UnicodeString PUBLIC;
 	static const UnicodeString SCHEMA_FILE;
 
-	SchemaManager();
+	explicit SchemaManager(CodableDatabase* db);
 	virtual ~SchemaManager();
 
 	void addSchemaUpdateListner(ISchemaUptateListner* listner) noexcept;

@@ -24,10 +24,11 @@ class ColumnModifyContext;
 class AbstractAlterCommandLog;
 
 class SchemaManager;
+class CodableDatabase;
 
 class SchemaAlterCommandsHandler {
 public:
-	explicit SchemaAlterCommandsHandler(SchemaManager* schemaManager);
+	explicit SchemaAlterCommandsHandler(CodableDatabase* db);
 	virtual ~SchemaAlterCommandsHandler();
 
 	void handleAlterTableAddIndex(const AlterAddIndexCommandLog* cmd);
@@ -49,6 +50,7 @@ private:
 
 private:
 	SchemaManager* schemaManager;
+	CodableDatabase* db;
 };
 
 } /* namespace codablecash */

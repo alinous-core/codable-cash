@@ -175,7 +175,7 @@ TEST(TestExecAlterMofdifyErrGroup, case04){
 		stmt->analyzeTypeRef(actx);
 		stmt->analyze(actx);
 
-		SchemaAlterCommandsHandler handler(tester.getSchemaManager());
+		SchemaAlterCommandsHandler handler(tester.getDatabase());
 
 		AbstractAlterDdlCommand* cmd = stmt->getCmd();
 		AlterModifyCommandLog* log = dynamic_cast<AlterModifyCommandLog*>(cmd->getCommandLog()); __STP(log);
