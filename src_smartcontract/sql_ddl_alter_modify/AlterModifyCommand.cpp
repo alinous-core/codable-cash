@@ -40,7 +40,8 @@
 #include "sql_join_parts/TableIdentifier.h"
 
 #include "schema/SchemaManager.h"
-#include "schema/ColumnModifyContext.h"
+
+#include "schema_alter_ctx/ColumnModifyContext.h"
 
 #include "table/CdbTable.h"
 #include "table/CdbTableColumn.h"
@@ -50,6 +51,7 @@
 #include "engine/CdbException.h"
 
 #include "table_record_value/AbstractCdbValue.h"
+
 namespace alinous {
 
 AlterModifyCommand::AlterModifyCommand(const AlterModifyCommand& inst) : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_MODIFY) {

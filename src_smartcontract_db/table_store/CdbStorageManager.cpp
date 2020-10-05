@@ -22,8 +22,9 @@
 #include "table_record/CdbDataFactory.h"
 #include "table_record/CdbKeyFactory.h"
 
-#include "schema/ColumnModifyContext.h"
 #include "schema/Schema.h"
+
+#include "schema_alter_ctx/ColumnModifyContext.h"
 
 namespace codablecash {
 

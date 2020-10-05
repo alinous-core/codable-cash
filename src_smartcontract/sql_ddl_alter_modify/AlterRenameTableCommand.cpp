@@ -72,6 +72,7 @@ void AlterRenameTableCommand::analyze(AnalyzeContext* actx) {
 }
 
 void AlterRenameTableCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
+	// FIXME
 }
 
 

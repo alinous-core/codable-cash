@@ -42,7 +42,7 @@
 #include "btree/Btree.h"
 #include "btree/BtreeScanner.h"
 
-#include "schema/ColumnModifyContext.h"
+#include "schema_alter_ctx/ColumnModifyContext.h"
 
 
 namespace codablecash {

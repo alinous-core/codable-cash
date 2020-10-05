@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "schema/ColumnModifyContext.h"
+#include "schema_alter_ctx/ColumnModifyContext.h"
 
 #include "base/UnicodeString.h"
 

@@ -9,7 +9,8 @@
 #include "schema/SchemaRoot.h"
 #include "schema/ISchemaUptateListner.h"
 #include "schema/Schema.h"
-#include "schema/ColumnModifyContext.h"
+
+#include "schema_alter_ctx/ColumnModifyContext.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"

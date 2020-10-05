@@ -17,7 +17,7 @@
 
 #include "transaction_scan_result/ScanResultFieldMetadata.h"
 
-#include "schema/ColumnModifyContext.h"
+#include "schema_alter_ctx/ColumnModifyContext.h"
 
 #include "sql_ddl_alter_modify/AlterModifyCommand.h"
 
