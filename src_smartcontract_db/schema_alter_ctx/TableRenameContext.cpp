@@ -39,7 +39,7 @@ TableRenameContext::~TableRenameContext() {
 	this->table = nullptr;
 }
 
-void TableRenameContext::init(AlterRenameTableCommandLog* renameTableLog, CodableDatabase* db, const UnicodeString* defaultSchema) {
+void TableRenameContext::init(const AlterRenameTableCommandLog* renameTableLog, CodableDatabase* db, const UnicodeString* defaultSchema) {
 	SchemaManager* schemaManamger = db->getSchemaManager();
 
 	const TableIdentifier* srcTable = renameTableLog->getTableId();

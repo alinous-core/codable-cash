@@ -36,6 +36,7 @@ public:
 		return command;
 	}
 
+	void inputDefaultSchema(const UnicodeString* defaultSchema);
 private:
 	AlterRenameTableCommand* command;
 };

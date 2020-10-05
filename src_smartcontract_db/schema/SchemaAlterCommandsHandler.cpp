@@ -198,6 +198,7 @@ void SchemaAlterCommandsHandler::handleAlterTableRenameTable(const AlterRenameTa
 	CdbTable* table = findTableFromCommand(cmd);
 
 	TableRenameContext context;
+	context.init(cmd, this->db, nullptr);
 
 
 

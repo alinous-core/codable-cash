@@ -24,7 +24,7 @@ public:
 	TableRenameContext();
 	virtual ~TableRenameContext();
 
-	void init(AlterRenameTableCommandLog* renameTableLog, CodableDatabase* db, const UnicodeString* defaultSchema);
+	void init(const AlterRenameTableCommandLog* renameTableLog, CodableDatabase* db, const UnicodeString* defaultSchema);
 
 private:
 	UnicodeString* srcSchema;

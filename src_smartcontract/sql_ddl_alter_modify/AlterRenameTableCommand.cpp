@@ -80,16 +80,21 @@ void AlterRenameTableCommand::analyzeTypeRef(AnalyzeContext* actx) {
 void AlterRenameTableCommand::analyze(AnalyzeContext* actx) {
 }
 
+void AlterRenameTableCommand::inputDefaultSchema(const UnicodeString* defaultSchema) {
+	this->newName->inputDefaultSchema(defaultSchema);
+}
+
 void AlterRenameTableCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
 	AlterRenameTableCommandLog* renameTableLog = dynamic_cast<AlterRenameTableCommandLog*>(log);
 
 	CodableDatabase* db = vm->getDb();
 
-
 	TableRenameContext context;
 
 	const UnicodeString* defaultSchema = vm->getCurrentSchema();
 	context.init(renameTableLog, db, defaultSchema); // includes validation process
+
+	renameTableLog->inputDefaultSchema(defaultSchema);
 }
 
 

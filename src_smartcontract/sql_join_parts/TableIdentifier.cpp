@@ -131,5 +131,12 @@ AbstractVmInstance* TableIdentifier::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
+void TableIdentifier::inputDefaultSchema(const UnicodeString* defaultSchema) {
+	if(this->schema == nullptr){
+		this->schema = new UnicodeString(defaultSchema);
+	}
+}
+
+
 
 } /* namespace alinous */

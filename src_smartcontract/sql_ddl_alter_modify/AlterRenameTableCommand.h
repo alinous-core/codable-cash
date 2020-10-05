@@ -25,6 +25,8 @@ public:
 		return newName;
 	}
 
+	void inputDefaultSchema(const UnicodeString* defaultSchema);
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);

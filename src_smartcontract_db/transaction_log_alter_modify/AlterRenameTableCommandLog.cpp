@@ -16,6 +16,8 @@
 
 #include "transaction/CdbTransactionManager.h"
 
+#include "sql_join_parts/TableIdentifier.h"
+
 namespace codablecash {
 
 AlterRenameTableCommandLog::AlterRenameTableCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_RENAME_TABLE) {
@@ -69,5 +71,12 @@ void AlterRenameTableCommandLog::commit(CdbTransactionManager* trxManager) {
 void AlterRenameTableCommandLog::initCommandParam(VirtualMachine* vm, TableIdentifier* tableId) {
 	this->command->interpret(vm, this, tableId);
 }
+
+void AlterRenameTableCommandLog::inputDefaultSchema(const UnicodeString* defaultSchema) {
+	this->tableId->inputDefaultSchema(defaultSchema);
+	this->command->inputDefaultSchema(defaultSchema);
+
+}
+
 
 } /* namespace codablecash */
