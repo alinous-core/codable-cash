@@ -224,6 +224,9 @@ CdbTableIndex* TestDbSchemaBase::getPrimaryKey(const wchar_t* schema, const wcha
 	return cdbtable->getPrimaryKey();
 }
 
+SchemaManager* TestDbSchemaBase::getSchemaManager() const noexcept {
+	return this->vm->getDb()->getSchemaManager();
+}
 
 
 } /* namespace codablecash */

@@ -29,6 +29,7 @@
 #include "schema/SchemaRoot.h"
 
 #include "schema_alter_ctx/ColumnModifyContext.h"
+#include "schema_alter_ctx/TableRenameContext.h"
 
 #include "sql_ddl/DdlColumnDescriptor.h"
 
@@ -37,6 +38,8 @@
 #include "table/CdbTableIndex.h"
 
 #include "sql_join_parts/TableIdentifier.h"
+
+
 namespace codablecash {
 
 SchemaAlterCommandsHandler::SchemaAlterCommandsHandler(SchemaManager* schemaManager) {
@@ -191,6 +194,11 @@ void SchemaAlterCommandsHandler::handleAlterTableRenameColumn(const AlterRenameC
 
 void SchemaAlterCommandsHandler::handleAlterTableRenameTable(const AlterRenameTableCommandLog* cmd) {
 	CdbTable* table = findTableFromCommand(cmd);
+
+	TableRenameContext context;
+
+
+	// TODO : handleAlterTableRenameTable
 
 	// upgrade
 	this->schemaManager->root->upgradeSchemaObjectVersionId();
