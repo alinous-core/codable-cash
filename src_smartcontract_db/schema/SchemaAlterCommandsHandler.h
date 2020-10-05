@@ -19,6 +19,9 @@ class AlterDropPrimaryKeyCommandLog;
 class AlterModifyCommandLog;
 class AlterRenameColumnCommandLog;
 class AlterRenameTableCommandLog;
+class CdbTable;
+class ColumnModifyContext;
+class AbstractAlterCommandLog;
 
 class SchemaManager;
 
@@ -36,6 +39,13 @@ public:
 	void handleAlterTableModify(const AlterModifyCommandLog* cmd);
 	void handleAlterTableRenameColumn(const AlterRenameColumnCommandLog* cmd);
 	void handleAlterTableRenameTable(const AlterRenameTableCommandLog* cmd);
+
+private:
+	void handleUniqueIndexOnModify(CdbTable* table, ColumnModifyContext* ctx);
+	void handleToNotUnique(CdbTable* table, ColumnModifyContext* ctx);
+	void handleToUnique(CdbTable* table, ColumnModifyContext* ctx);
+
+	CdbTable* findTableFromCommand(const AbstractAlterCommandLog* cmdlog);
 
 private:
 	SchemaManager* schemaManager;
