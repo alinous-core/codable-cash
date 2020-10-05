@@ -344,6 +344,18 @@ CdbTable* SchemaManager::getTable(const wchar_t* schema, const wchar_t* name) co
 	return getTable(&s, &n);
 }
 
+CdbTable* SchemaManager::getTable(const TableIdentifier* tableId, const UnicodeString* defaultSchema) const {
+	const UnicodeString* schema = tableId->getSchema();
+	const UnicodeString* table = tableId->getTableName();
+
+	if(schema == nullptr){
+		schema = defaultSchema;
+	}
+
+	return getTable(schema, table);
+}
+
+
 CdbTable* SchemaManager::getTable(const UnicodeString* schema, const UnicodeString* name) const {
 	Schema* sc = getSchema(schema);
 	if(sc == nullptr){

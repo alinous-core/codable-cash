@@ -21,6 +21,9 @@ public:
 	virtual ~AlterRenameTableCommand();
 
 	void setNewName(TableIdentifier* name) noexcept;
+	const TableIdentifier* getNewName() const noexcept {
+		return newName;
+	}
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);

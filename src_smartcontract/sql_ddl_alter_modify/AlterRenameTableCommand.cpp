@@ -12,6 +12,15 @@
 #include "transaction_log_alter_modify/AlterRenameTableCommandLog.h"
 
 #include "sql_join_parts/TableIdentifier.h"
+
+#include "engine/CodableDatabase.h"
+
+#include "schema/SchemaManager.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "schema_alter_ctx/TableRenameContext.h"
+
 namespace alinous {
 
 AlterRenameTableCommand::AlterRenameTableCommand(const AlterRenameTableCommand& inst)
@@ -72,6 +81,16 @@ void AlterRenameTableCommand::analyze(AnalyzeContext* actx) {
 }
 
 void AlterRenameTableCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
+	AlterRenameTableCommandLog* renameTableLog = dynamic_cast<AlterRenameTableCommandLog*>(log);
+
+	CodableDatabase* db = vm->getDb();
+
+
+	TableRenameContext context;
+
+	const UnicodeString* defaultSchema = vm->getCurrentSchema();
+	context.init(renameTableLog, db, defaultSchema);
+
 	// FIXME
 }
 
