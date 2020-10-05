@@ -284,6 +284,11 @@ void TableStore::addToIndexes(const CdbRecord* rec) {
 }
 
 void TableStore::onRename(SchemaManager* mgr, TableRenameContext* ctx) {
+	this->recordStore->close(false);
+
+	const UnicodeString* newName = ctx->getDstTable();
+	this->recordStore->onRename(newName);
+
 	closeTable();
 
 	// TODO onRename

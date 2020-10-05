@@ -90,4 +90,11 @@ void RecordStore::insert(const CdbRecord* rec) {
 	this->btree->putData(key, rec);
 }
 
+void RecordStore::onRename(const UnicodeString* newName) {
+	const UnicodeString* name = table->getName();
+
+	Btree::renameFiles(this->tableDir, name, newName);
+	// TODO: onRename
+}
+
 } /* namespace codablecash */
