@@ -83,13 +83,16 @@ void Btree::renameFiles(const File* folder, const UnicodeString* lastName,	const
 	File* bodyFile = folder->get(&bodyName); __STP(bodyFile);
 
 	UnicodeString newHeaderName(newName);
-	headerName.append(L"-header.bin");
+	newHeaderName.append(L"-header.bin");
 
 	UnicodeString newBodyName(newName);
-	bodyName.append(L".bin");
+	newBodyName.append(L".bin");
 
-	File* newHeaderFile = folder->get(&headerName); __STP(newHeaderFile);
-	File* newBodyFile = folder->get(&bodyName); __STP(newBodyFile);
+	File* newHeaderFile = folder->get(&newHeaderName); __STP(newHeaderFile);
+	File* newBodyFile = folder->get(&newBodyName); __STP(newBodyFile);
+
+	headerFile->move(newHeaderFile);
+	bodyFile->move(newBodyFile);
 	// TODO rename
 }
 
