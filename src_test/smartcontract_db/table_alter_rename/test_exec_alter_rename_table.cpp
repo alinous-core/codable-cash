@@ -67,7 +67,7 @@ TEST(TestExecAlterRenameGroup, renameTable01){
 		stmt->interpret(vm);
 	}
 
-	//tester.reloadDb();
+	tester.reloadDb();
 }
 
 /**
@@ -99,5 +99,5 @@ TEST(TestExecAlterRenameGroup, renameTable02){
 		stmt->interpret(vm);
 	}
 
-	//tester.reloadDb();
+	tester.reloadDb();
 }

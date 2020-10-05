@@ -291,8 +291,20 @@ void TableStore::onRename(SchemaManager* mgr, TableRenameContext* ctx) {
 
 	closeTable();
 
+	const Schema* schema = this->table->getSchema();
+	const UnicodeString* schemaName = schema->getName();
+	const UnicodeString* tableName = this->table->getName();
 
+	File* schemaDir = this->baseDir->get(schemaName); __STP(schemaDir);
+	File* tableDir = schemaDir->get(tableName); __STP(tableDir);
 
+	const UnicodeString* newSchema = ctx->getDstSchema();
+	File* newSchemaDir = this->baseDir->get(newSchema); __STP(newSchemaDir);
+	File* newTableDir = newSchemaDir->get(newName); __STP(newTableDir);
+
+	ctx->commitSchemaDir(mgr);
+
+	tableDir->move(newTableDir);
 	// TODO onRename
 
 	ctx->commit(mgr);

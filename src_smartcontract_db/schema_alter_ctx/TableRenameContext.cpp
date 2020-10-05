@@ -67,15 +67,21 @@ void TableRenameContext::validate(SchemaManager* schemaManamger) {
 	}
 }
 
+void TableRenameContext::commitSchemaDir(SchemaManager* schemaManamger) {
+	if(isSchemaChanged()){
+		Schema* sc = schemaManamger->getSchema(this->dstSchema);
+		if(sc == nullptr){
+			schemaManamger->createSchema(this->dstSchema);
+		}
+	}
+}
+
 void TableRenameContext::commit(SchemaManager* schemaManamger) {
 	if(isSchemaChanged()){
 		Schema* lastScema = schemaManamger->getSchema(this->srcSchema);
 		Schema* sc = schemaManamger->getSchema(this->dstSchema);
 
-		if(sc == nullptr){
-			schemaManamger->createSchema(this->dstSchema);
-			sc = schemaManamger->getSchema(this->dstSchema);
-		}
+		assert(sc != nullptr);
 
 		// move schema
 		lastScema->removeTable(this->srcTable);

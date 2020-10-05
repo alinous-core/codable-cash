@@ -27,6 +27,8 @@ public:
 
 	void init(const AlterRenameTableCommandLog* renameTableLog, SchemaManager* schemaManamger, const UnicodeString* defaultSchema);
 	void validate(SchemaManager* schemaManamger);
+
+	void commitSchemaDir(SchemaManager* schemaManamger);
 	void commit(SchemaManager* schemaManamger);
 
 	const CdbTable* getTable() const noexcept {
@@ -41,6 +43,10 @@ public:
 
 	const UnicodeString* getDstTable() const noexcept {
 		return dstTable;
+	}
+
+	const UnicodeString* getSrcSchema() const noexcept {
+		return srcSchema;
 	}
 
 private:
