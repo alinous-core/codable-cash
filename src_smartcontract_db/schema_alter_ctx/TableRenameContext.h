@@ -26,6 +26,7 @@ public:
 	virtual ~TableRenameContext();
 
 	void init(const AlterRenameTableCommandLog* renameTableLog, SchemaManager* schemaManamger, const UnicodeString* defaultSchema);
+	void validate(SchemaManager* schemaManamger);
 	void commit(SchemaManager* schemaManamger);
 
 	const CdbTable* getTable() const noexcept {

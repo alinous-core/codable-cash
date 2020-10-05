@@ -240,6 +240,18 @@ CdbTable* SchemaManager::getTable(const UnicodeString* schema, const UnicodeStri
 	return table;
 }
 
+bool SchemaManager::hasTable(const UnicodeString* schema, const UnicodeString* name) const noexcept {
+	Schema* sc = getSchema(schema);
+	if(sc == nullptr){
+		return false;
+	}
+
+	CdbTable* table = sc->getCdbTableByName(name);
+
+	return table != nullptr;
+}
+
+
 void SchemaManager::fireOnCreateTable(const CdbTable* table) {
 	int maxLoop = this->listners.size();
 	for(int i = 0; i != maxLoop; ++i){

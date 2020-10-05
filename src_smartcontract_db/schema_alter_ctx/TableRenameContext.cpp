@@ -12,12 +12,14 @@
 #include "transaction_log_alter_modify/AlterRenameTableCommandLog.h"
 
 #include "engine/CodableDatabase.h"
+#include "engine/CdbException.h"
 
 #include "schema/SchemaManager.h"
 
 #include "sql_join_parts/TableIdentifier.h"
 
 #include "sql_ddl_alter_modify/AlterRenameTableCommand.h"
+
 
 namespace codablecash {
 
@@ -54,6 +56,12 @@ void TableRenameContext::init(const AlterRenameTableCommandLog* renameTableLog, 
 	this->dstTable = new UnicodeString(destTable->getTableName());
 
 	this->table = schemaManamger->getTable(srcTable, defaultSchema); // throws CdbException if not exists
+}
+
+void TableRenameContext::validate(SchemaManager* schemaManamger) {
+	if(schemaManamger->hasTable(this->dstSchema, this->dstTable)){
+		throw new CdbException(L"", __FILE__, __LINE__);
+	}
 }
 
 void TableRenameContext::commit(SchemaManager* schemaManamger) {

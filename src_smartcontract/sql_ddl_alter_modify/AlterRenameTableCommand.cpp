@@ -94,6 +94,8 @@ void AlterRenameTableCommand::interpret(VirtualMachine* vm, AbstractAlterCommand
 	const UnicodeString* defaultSchema = vm->getCurrentSchema();
 	context.init(renameTableLog, db->getSchemaManager(), defaultSchema); // includes validation process
 
+	context.validate(db->getSchemaManager());
+
 	renameTableLog->inputDefaultSchema(defaultSchema);
 }
 
