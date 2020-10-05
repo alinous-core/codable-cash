@@ -28,7 +28,7 @@ class CodableDatabase;
 
 class SchemaAlterCommandsHandler {
 public:
-	explicit SchemaAlterCommandsHandler(CodableDatabase* db);
+	SchemaAlterCommandsHandler(CodableDatabase* db, SchemaManager* schemaManager);
 	virtual ~SchemaAlterCommandsHandler();
 
 	void handleAlterTableAddIndex(const AlterAddIndexCommandLog* cmd);

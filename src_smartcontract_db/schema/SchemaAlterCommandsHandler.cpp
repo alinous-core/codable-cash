@@ -43,8 +43,8 @@
 
 namespace codablecash {
 
-SchemaAlterCommandsHandler::SchemaAlterCommandsHandler(CodableDatabase* db) {
-	this->schemaManager = db->getSchemaManager();
+SchemaAlterCommandsHandler::SchemaAlterCommandsHandler(CodableDatabase* db, SchemaManager* schemaManager) {
+	this->schemaManager = schemaManager;
 	this->db = db;
 }
 

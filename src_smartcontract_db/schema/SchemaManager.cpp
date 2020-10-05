@@ -57,7 +57,7 @@ SchemaManager::SchemaManager(CodableDatabase* db) {
 	this->root = nullptr;
 	this->schemaBin = nullptr;
 	this->databaseBaseDir = nullptr;
-	this->alterHandler = new SchemaAlterCommandsHandler(db);
+	this->alterHandler = new SchemaAlterCommandsHandler(db, this);
 }
 
 SchemaManager::~SchemaManager() {
