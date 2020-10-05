@@ -39,13 +39,11 @@
 
 #include "sql_join_parts/TableIdentifier.h"
 
-#include "engine/CodableDatabase.h"
 
 namespace codablecash {
 
-SchemaAlterCommandsHandler::SchemaAlterCommandsHandler(CodableDatabase* db, SchemaManager* schemaManager) {
+SchemaAlterCommandsHandler::SchemaAlterCommandsHandler(SchemaManager* schemaManager) {
 	this->schemaManager = schemaManager;
-	this->db = db;
 }
 
 SchemaAlterCommandsHandler::~SchemaAlterCommandsHandler() {
@@ -198,9 +196,9 @@ void SchemaAlterCommandsHandler::handleAlterTableRenameTable(const AlterRenameTa
 	CdbTable* table = findTableFromCommand(cmd);
 
 	TableRenameContext context;
-	context.init(cmd, this->db, nullptr);
+	context.init(cmd, this->schemaManager, nullptr);
 
-
+	this->schemaManager->fireOnRenameTable(table, &context);
 
 
 	// TODO : handleAlterTableRenameTable

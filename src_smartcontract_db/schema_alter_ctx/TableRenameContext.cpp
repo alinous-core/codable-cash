@@ -39,9 +39,7 @@ TableRenameContext::~TableRenameContext() {
 	this->table = nullptr;
 }
 
-void TableRenameContext::init(const AlterRenameTableCommandLog* renameTableLog, CodableDatabase* db, const UnicodeString* defaultSchema) {
-	SchemaManager* schemaManamger = db->getSchemaManager();
-
+void TableRenameContext::init(const AlterRenameTableCommandLog* renameTableLog, SchemaManager* schemaManamger, const UnicodeString* defaultSchema) {
 	const TableIdentifier* srcTable = renameTableLog->getTableId();
 
 	const UnicodeString* s = srcTable->getSchema();
@@ -55,7 +53,11 @@ void TableRenameContext::init(const AlterRenameTableCommandLog* renameTableLog, 
 	this->dstSchema = s != nullptr ? new UnicodeString(s) : new UnicodeString(defaultSchema);
 	this->dstTable = new UnicodeString(destTable->getTableName());
 
-	this->table = schemaManamger->getTable(srcTable, defaultSchema);
+	this->table = schemaManamger->getTable(srcTable, defaultSchema); // throws CdbException if not exists
 }
+
+void TableRenameContext::commit(SchemaManager* schemaManamger) {
+}
+
 
 } /* namespace codablecash */

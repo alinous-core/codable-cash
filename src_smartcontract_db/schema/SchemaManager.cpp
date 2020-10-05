@@ -57,7 +57,7 @@ SchemaManager::SchemaManager(CodableDatabase* db) {
 	this->root = nullptr;
 	this->schemaBin = nullptr;
 	this->databaseBaseDir = nullptr;
-	this->alterHandler = new SchemaAlterCommandsHandler(db, this);
+	this->alterHandler = new SchemaAlterCommandsHandler(this);
 }
 
 SchemaManager::~SchemaManager() {
@@ -214,7 +214,6 @@ CdbTable* SchemaManager::getTable(const TableIdentifier* tableId, const UnicodeS
 	return getTable(schema, table);
 }
 
-
 CdbTable* SchemaManager::getTable(const UnicodeString* schema, const UnicodeString* name) const {
 	Schema* sc = getSchema(schema);
 	if(sc == nullptr){
@@ -228,7 +227,6 @@ CdbTable* SchemaManager::getTable(const UnicodeString* schema, const UnicodeStri
 
 	return table;
 }
-
 
 void SchemaManager::fireOnCreateTable(const CdbTable* table) {
 	int maxLoop = this->listners.size();
@@ -254,6 +252,15 @@ void SchemaManager::fireOnDropPrimaryKey(const CdbTable* table, const CdbTableIn
 		l->onDropPrimaryKey(this, table, primaryKey);
 	}
 }
+
+void SchemaManager::fireOnRenameTable(const CdbTable* table, const TableRenameContext* context) {
+	int maxLoop = this->listners.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ISchemaUptateListner* l = this->listners.get(i);
+		l->onAlterTableRenameTable(this, table, context);
+	}
+}
+
 
 void SchemaManager::handleAlterTableAddIndex(const AlterAddIndexCommandLog* cmd) {
 	this->alterHandler->handleAlterTableAddIndex(cmd);

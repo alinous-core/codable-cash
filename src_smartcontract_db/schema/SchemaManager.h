@@ -41,6 +41,7 @@ class ColumnModifyContext;
 class CdbTableIndex;
 class SchemaAlterCommandsHandler;
 class CodableDatabase;
+class TableRenameContext;
 
 class SchemaManager {
 public:
@@ -92,6 +93,7 @@ private:
 	void fireOnCreateTable(const CdbTable* table);
 	void fireOnAlterModify(const CdbTable* table, const ColumnModifyContext* ctx);
 	void fireOnDropPrimaryKey(const CdbTable* table, const CdbTableIndex* primaryKey);
+	void fireOnRenameTable(const CdbTable* table, const TableRenameContext* context);
 
 	CdbTable* findTableFromCommand(const AbstractAlterCommandLog* cmdlog);
 

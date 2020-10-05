@@ -18,14 +18,19 @@ namespace codablecash {
 class CodableDatabase;
 class CdbTable;
 class AlterRenameTableCommandLog;
+class SchemaManager;
 
 class TableRenameContext {
 public:
 	TableRenameContext();
 	virtual ~TableRenameContext();
 
-	void init(const AlterRenameTableCommandLog* renameTableLog, CodableDatabase* db, const UnicodeString* defaultSchema);
+	void init(const AlterRenameTableCommandLog* renameTableLog, SchemaManager* schemaManamger, const UnicodeString* defaultSchema);
+	void commit(SchemaManager* schemaManamger);
 
+	const CdbTable* getTable() const noexcept {
+		return table;
+	}
 private:
 	UnicodeString* srcSchema;
 	UnicodeString* dstSchema;
