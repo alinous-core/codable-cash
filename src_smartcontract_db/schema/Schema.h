@@ -41,6 +41,8 @@ public:
 	CdbTable* getCdbTableByName(const UnicodeString* tableName) const noexcept;
 	const ArrayList<CdbTable>* getTablesList() const noexcept;
 
+	void removeTable(const UnicodeString* tableName) noexcept;
+
 	int binarySize() const;
 	void toBinary(ByteBuffer* out) const;
 	void fromBinary(ByteBuffer* in);

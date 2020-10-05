@@ -15,6 +15,7 @@
 #include "engine/CdbException.h"
 
 #include "schema/SchemaManager.h"
+#include "schema/Schema.h"
 
 #include "sql_join_parts/TableIdentifier.h"
 
@@ -22,7 +23,7 @@
 
 #include "table/CdbTable.h"
 
-#include "schema/Schema.h"
+
 namespace codablecash {
 
 TableRenameContext::TableRenameContext() {
@@ -68,16 +69,19 @@ void TableRenameContext::validate(SchemaManager* schemaManamger) {
 
 void TableRenameContext::commit(SchemaManager* schemaManamger) {
 	if(isSchemaChanged()){
+		Schema* lastScema = schemaManamger->getSchema(this->srcSchema);
 		Schema* sc = schemaManamger->getSchema(this->dstSchema);
 
 		if(sc == nullptr){
 			schemaManamger->createSchema(this->dstSchema);
 			sc = schemaManamger->getSchema(this->dstSchema);
-
-			// move table
-
-			// TODO: commit;
 		}
+
+		// TODO: move schema
+		lastScema->removeTable(this->srcTable);
+
+		this->table->setName(new UnicodeString(this->dstTable));
+		sc->addTable(this->table);
 	}
 	else {
 		Schema* sc = schemaManamger->getSchema(this->srcSchema);
