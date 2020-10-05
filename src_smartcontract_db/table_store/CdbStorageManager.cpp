@@ -26,6 +26,7 @@
 
 #include "schema_alter_ctx/ColumnModifyContext.h"
 
+#include "schema_alter_ctx/TableRenameContext.h"
 namespace codablecash {
 
 CdbKeyFactory CdbStorageManager::keyFactory;
@@ -160,9 +161,9 @@ void CdbStorageManager::onAlterTableRenameTable(SchemaManager* mgr,	const CdbTab
 
 	TableStore* store = getTableStore(tableOid);
 
-
-
-	// TODO onAlterTableRenameTable
+	const UnicodeString* dstSchema = ctx->getDstSchema();
+	const UnicodeString* dstTable = ctx->getDstSchema();
+	store->rename(dstSchema, dstTable);
 }
 
 TableStore* CdbStorageManager::getTableStore(const CdbOid* tableoid) noexcept {

@@ -35,6 +35,14 @@ public:
 
 	bool isSchemaChanged() const noexcept;
 
+	const UnicodeString* getDstSchema() const noexcept {
+		return dstSchema;
+	}
+
+	const UnicodeString* getDstTable() const noexcept {
+		return dstTable;
+	}
+
 private:
 	UnicodeString* srcSchema;
 	UnicodeString* dstSchema;
