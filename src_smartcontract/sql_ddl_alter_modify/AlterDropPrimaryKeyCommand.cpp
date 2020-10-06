@@ -9,6 +9,13 @@
 
 #include "transaction_log_alter_modify/AlterDropPrimaryKeyCommandLog.h"
 
+#include "engine/CodableDatabase.h"
+
+#include "schema/SchemaManager.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "sql_join_parts/TableIdentifier.h"
 namespace alinous {
 
 AlterDropPrimaryKeyCommand::AlterDropPrimaryKeyCommand(const AlterDropPrimaryKeyCommand& inst)
@@ -53,6 +60,16 @@ void AlterDropPrimaryKeyCommand::analyze(AnalyzeContext* actx) {
 }
 
 void AlterDropPrimaryKeyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
+	AlterDropPrimaryKeyCommandLog* dropPrimaryKeyLog = dynamic_cast<AlterDropPrimaryKeyCommandLog*>(log);
+	const AlterDropPrimaryKeyCommand* command = dropPrimaryKeyLog->getCommand();
+
+	CodableDatabase* db = vm->getDb();
+	SchemaManager* schemaManager = db->getSchemaManager();
+
+	const UnicodeString* defaultSchema = vm->getCurrentSchema();
+	tableId->inputDefaultSchema(defaultSchema);
+
+	CdbTable* table = schemaManager->getTable(tableId, nullptr); // throws if Table does not exists;
 }
 
 
