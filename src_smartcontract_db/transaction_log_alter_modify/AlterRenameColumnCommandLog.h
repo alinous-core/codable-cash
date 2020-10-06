@@ -32,6 +32,10 @@ public:
 
 	virtual void initCommandParam(VirtualMachine* vm, TableIdentifier* tableId);
 
+	const AlterRenameColumnCommand* getCommand() const {
+		return command;
+	}
+
 private:
 	AlterRenameColumnCommand* command;
 };

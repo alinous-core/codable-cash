@@ -32,6 +32,14 @@ public:
 	virtual void analyze(AnalyzeContext* actx);
 	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId);
 
+	const UnicodeString* getLastName() const noexcept {
+		return lastName;
+	}
+
+	const UnicodeString* getNewName() const noexcept {
+		return newName;
+	}
+
 private:
 	UnicodeString* lastName;
 	UnicodeString* newName;
