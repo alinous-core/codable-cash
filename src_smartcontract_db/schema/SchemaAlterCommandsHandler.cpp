@@ -88,6 +88,9 @@ void SchemaAlterCommandsHandler::handleAlterTableDropColumn(const AlterDropColum
 void SchemaAlterCommandsHandler::handleAlterTableAddPrimaryKey(const AlterAddPrimaryKeyCommandLog* cmd) {
 	CdbTable* table = findTableFromCommand(cmd);
 
+	const AlterAddPrimaryKeyCommand* command = cmd->getCommand();
+
+	//table->getIndexByColumnOidsStrict()
 
 
 	// TODO: handleAlterTableAddPrimaryKey execute
@@ -174,6 +177,9 @@ void SchemaAlterCommandsHandler::handleToNotUnique(CdbTable* table,	ColumnModify
 
 	CdbTableIndex* index = table->getUniqueIndexByColumnOid(colOid);
 	if(index == nullptr || index->isPrimaryKey()){ // leave primary key
+		if(index != nullptr){
+			index->setUnique(false);
+		}
 		return;
 	}
 

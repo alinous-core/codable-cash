@@ -281,7 +281,7 @@ void CdbTable::setPrimaryKeys(ArrayList<const UnicodeString>* cols) {
 		oidlist.addElement(oid);
 	}
 
-	CdbTableIndex* prevIndex = getIndexByColumnOidsStrict(&oidlist);
+	CdbTableIndex* prevIndex = getIndexByColumnOidsStrict(&oidlist, true);
 	if(prevIndex != nullptr){
 		prevIndex->setPrimaryKey(true);
 		prevIndex->setUnique(true); // if it is primary key, it is unique automatically
@@ -372,13 +372,17 @@ CdbTableIndex* CdbTable::getIndexByColumnOids(const ArrayList<const CdbOid>* oid
 }
 
 
-CdbTableIndex* CdbTable::getIndexByColumnOidsStrict(const ArrayList<const CdbOid>* oidlist) const noexcept {
+CdbTableIndex* CdbTable::getIndexByColumnOidsStrict(const ArrayList<const CdbOid>* oidlist, bool uniqueData) const noexcept {
 	CdbTableIndex* ret = nullptr;
 	int keyLength = oidlist->size();
 
 	int maxLoop = this->indexes->size();
 	for(int i = 0; i != maxLoop; ++i){
 		CdbTableIndex* idx = this->indexes->get(i);
+
+		if(idx->isUniqueDataRequired() != uniqueData){
+			continue;
+		}
 
 		int l = idx->getColumnLength();
 		if(l != keyLength){

@@ -79,7 +79,7 @@ public:
 	void addIndex(CdbTableIndex* index);
 	CdbTableIndex* getIndexByColumnOid(const CdbOid* oid) const noexcept;
 	CdbTableIndex* getIndexByColumnOids(const ArrayList<const CdbOid>* oidlist) const noexcept;
-	CdbTableIndex* getIndexByColumnOidsStrict(const ArrayList<const CdbOid>* oidlist) const noexcept;
+	CdbTableIndex* getIndexByColumnOidsStrict(const ArrayList<const CdbOid>* oidlist, bool uniqueData) const noexcept;
 
 	CdbTableIndex* getUniqueIndexByColumnOid(const CdbOid* colOid) const noexcept;
 
