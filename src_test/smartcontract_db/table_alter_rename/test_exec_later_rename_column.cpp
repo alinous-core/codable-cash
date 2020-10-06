@@ -81,8 +81,21 @@ TEST(TestExecAlterRenameColumnGroup, renameColumn02){
 	VirtualMachine* vm = tester.getVm();
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_rename/resources/exec_rename/renameColumn01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_rename/resources/exec_rename/renameColumn02.alns"))
 }
 
+/**
+ * last column does not exist
+ * ALTER TABLE test_table RENAME id2 TO id3;
+ */
+TEST(TestExecAlterRenameColumnGroup, renameColumn03){
+	TestDbSchemaAlter01 tester(this->env);
+	tester.init(1024*10);
+	tester.insert01();
 
+	VirtualMachine* vm = tester.getVm();
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_rename/resources/exec_rename/renameColumn03.alns"))
+}
 
