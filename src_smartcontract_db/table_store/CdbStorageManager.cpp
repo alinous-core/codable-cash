@@ -157,6 +157,12 @@ void CdbStorageManager::onDropPrimaryKey(SchemaManager* mgr, const CdbTable* tab
 }
 
 void CdbStorageManager::onAddPrimaryKey(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* primaryKey) {
+	const CdbOid* tableOid = table->getOid();
+
+	TableStore* store = getTableStore(tableOid);
+	store->addNewIndex(primaryKey);
+	store->buildIndex(primaryKey);
+
 	// TODO: onAddPrimaryKey
 }
 

@@ -250,7 +250,7 @@ void TableStore::addRecord2Index(const ArrayList<IndexStore>* indexStoreList, co
 	}
 }
 
-void TableStore::buildIndex(CdbTableIndex* index) {
+void TableStore::buildIndex(const CdbTableIndex* index) {
 	const CdbOid* indexOid = index->getOid();
 	IndexStore* store = getIndexStore(indexOid);
 

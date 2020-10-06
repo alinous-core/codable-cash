@@ -49,7 +49,7 @@ public:
 	void validateRecord(CdbRecord* rec);
 
 	void modifyRecords(const ColumnModifyContext* ctx);
-	void buildIndex(CdbTableIndex* index);
+	void buildIndex(const CdbTableIndex* index);
 	void buildAllIndexes();
 
 	RecordStore* getRecordStore() const noexcept {

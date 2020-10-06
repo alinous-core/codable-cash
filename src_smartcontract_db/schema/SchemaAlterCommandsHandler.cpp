@@ -113,9 +113,7 @@ void SchemaAlterCommandsHandler::handleAlterTableDropPrimaryKey(const AlterDropP
 	CdbTableIndex* primaryKey = table->getPrimaryKey();
 	StackRelease<CdbTableIndex> stPrimaryKey(primaryKey);
 
-	if(primaryKey == nullptr){
-		return;
-	}
+	assert(primaryKey != nullptr);
 
 	// check unique of column on length == 1
 	if(primaryKey->getColumnLength() == 1 && primaryKey->getColumnAt(0)->isUnique()){

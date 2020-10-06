@@ -119,7 +119,7 @@ TEST(TestExecAlterPrimaryGroup, dropPrimaryKey02){
 }
 
 /**
- *	add primary key after drop
+ *	add primary key(unique) after drop
  *	ALTER TABLE test_table ADD PRIMARY KEY(id);
  */
 TEST(TestExecAlterPrimaryGroup, addPrimaryKey01){
@@ -169,7 +169,15 @@ TEST(TestExecAlterPrimaryGroup, addPrimaryKey01){
 
 		stmt->interpret(vm);
 	}
+
+	CdbTableIndex* index = tester.getPrimaryKey(L"test_table");
+	CHECK(index != nullptr);
 }
+
+/**
+ *	add primary key(not unique) after drop
+ *	ALTER TABLE test_table ADD PRIMARY KEY(id);
+ */
 
 /**
  * column does not exists
