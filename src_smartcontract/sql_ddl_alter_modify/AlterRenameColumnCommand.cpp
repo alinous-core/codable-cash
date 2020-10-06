@@ -12,12 +12,14 @@
 #include "transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
 
 #include "engine/CodableDatabase.h"
+#include "engine/CdbException.h"
 
 #include "vm/VirtualMachine.h"
 
 #include "sql_join_parts/TableIdentifier.h"
 
 #include "schema/SchemaManager.h"
+
 namespace alinous {
 
 AlterRenameColumnCommand::AlterRenameColumnCommand(const AlterRenameColumnCommand& inst)
@@ -93,7 +95,7 @@ void AlterRenameColumnCommand::interpret(VirtualMachine* vm, AbstractAlterComman
 	SchemaManager* schemaManager = db->getSchemaManager();
 
 	if(schemaManager->hasTable(tableId)){
-
+		throw new CdbException(L"Column already exists.", __FILE__, __LINE__);
 	}
 
 	// TODO: rename check
