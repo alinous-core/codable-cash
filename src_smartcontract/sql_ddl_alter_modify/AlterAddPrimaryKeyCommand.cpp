@@ -11,6 +11,18 @@
 
 #include "transaction_log_alter_modify/AlterAddPrimaryKeyCommandLog.h"
 
+#include "vm/VirtualMachine.h"
+
+#include "sql_join_parts/TableIdentifier.h"
+
+#include "table/CdbTable.h"
+
+#include "schema/SchemaManager.h"
+
+#include "engine/CodableDatabase.h"
+#include "engine/CdbException.h"
+
+#include "table/CdbTableColumn.h"
 namespace alinous {
 
 AlterAddPrimaryKeyCommand::AlterAddPrimaryKeyCommand(const AlterAddPrimaryKeyCommand& inst)
@@ -86,8 +98,37 @@ void AlterAddPrimaryKeyCommand::analyze(AnalyzeContext* actx) {
 }
 
 void AlterAddPrimaryKeyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
+	AlterAddPrimaryKeyCommandLog* dropPrimaryKeyLog = dynamic_cast<AlterAddPrimaryKeyCommandLog*>(log);
+	const AlterAddPrimaryKeyCommand* command = dropPrimaryKeyLog->getCommand();
+
+	CodableDatabase* db = vm->getDb();
+	SchemaManager* schemaManager = db->getSchemaManager();
+
+	const UnicodeString* defaultSchema = vm->getCurrentSchema();
+	tableId->inputDefaultSchema(defaultSchema);
+
+	CdbTable* table = schemaManager->getTable(tableId, nullptr); // throws if Table does not exists;
+
+	CdbTableIndex* pkey = table->getPrimaryKey();
+	if(pkey != nullptr){
+		throw new CdbException(L"Primary key already exists.", __FILE__, __LINE__);
+	}
+
+	const ArrayList<UnicodeString>* list = command->getColumns();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const UnicodeString* columnName = list->get(i);
+
+		CdbTableColumn* c = table->getColumn(columnName);
+		if(c == nullptr){
+			throw new CdbException(L"Primary key column does not exist.", __FILE__, __LINE__);
+		}
+	}
 }
 
-
+const ArrayList<UnicodeString>* AlterAddPrimaryKeyCommand::getColumns() const noexcept {
+	return &this->list;
+}
 
 } /* namespace alinous */

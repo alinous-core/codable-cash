@@ -170,3 +170,12 @@ TEST(TestExecAlterPrimaryGroup, addPrimaryKey01){
 		stmt->interpret(vm);
 	}
 }
+
+/**
+ * column does not exists
+ */
+
+/**
+ * primary key already exists
+ */
+
