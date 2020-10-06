@@ -69,6 +69,20 @@ TEST(TestExecAlterRenameColumnGroup, renameColumn01){
 	}
 }
 
+/**
+ * column already exists
+ * ALTER TABLE test_table RENAME id TO email_id;
+ */
+TEST(TestExecAlterRenameColumnGroup, renameColumn02){
+	TestDbSchemaAlter01 tester(this->env);
+	tester.init(1024*10);
+	tester.insert01();
+
+	VirtualMachine* vm = tester.getVm();
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_rename/resources/exec_rename/renameColumn01.alns"))
+}
 
 
 
