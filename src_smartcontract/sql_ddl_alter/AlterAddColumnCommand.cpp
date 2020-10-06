@@ -11,6 +11,15 @@
 
 #include "transaction_log_alter/AlterAddColumnCommandLog.h"
 
+#include "vm/VirtualMachine.h"
+
+#include "sql_join_parts/TableIdentifier.h"
+
+#include "transaction_log_alter/AbstractAlterCommandLog.h"
+
+#include "engine/CodableDatabase.h"
+
+#include "schema/SchemaManager.h"
 namespace alinous {
 
 AlterAddColumnCommand::AlterAddColumnCommand(const AlterAddColumnCommand& inst)
@@ -70,6 +79,16 @@ void AlterAddColumnCommand::analyze(AnalyzeContext* actx) {
 }
 
 void AlterAddColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
+	AlterAddColumnCommandLog* thisLog = dynamic_cast<AlterAddColumnCommandLog*>(log);
+	const AlterAddColumnCommand* command = thisLog->getCommand();
+
+	CodableDatabase* db = vm->getDb();
+	SchemaManager* schemaManager = db->getSchemaManager();
+
+	const UnicodeString* defaultSchema = vm->getCurrentSchema();
+	tableId->inputDefaultSchema(defaultSchema);
+
+	CdbTable* table = schemaManager->getTable(tableId, nullptr); // throws if Table does not exists;
 }
 
 

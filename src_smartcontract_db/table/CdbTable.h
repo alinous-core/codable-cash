@@ -84,6 +84,7 @@ public:
 	CdbTableIndex* getUniqueIndexByColumnOid(const CdbOid* colOid) const noexcept;
 
 	void removeIndex(const CdbTableIndex* ptr) noexcept;
+	void renameColumn(const UnicodeString* lastColumn, const UnicodeString* newColumn);
 
 	int binarySize() const;
 	void toBinary(ByteBuffer* out) const;

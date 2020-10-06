@@ -439,6 +439,21 @@ void CdbTable::removeIndex(const CdbTableIndex* ptr) noexcept {
 	}
 }
 
+void CdbTable::renameColumn(const UnicodeString* lastColumn, const UnicodeString* newColumn) {
+	CdbTableColumn* column = getColumn(lastColumn);
+	column->setName(newColumn);
+
+	const CdbOid* columnOid = column->getOid();
+
+	int maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		idx->renameColumn(columnOid, newColumn);
+	}
+}
+
+
 int CdbTable::binarySize() const {
 	checkNotNull(this->schemaName);
 	checkNotNull(this->name);

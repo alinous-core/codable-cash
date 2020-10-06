@@ -46,6 +46,7 @@ public:
 	bool hasColumnOid(const CdbOid* colOid) const noexcept;
 
 	void addColumn(const CdbTableColumn* col) noexcept;
+	void renameColumn(const CdbOid* columnOid, const UnicodeString* newName) noexcept;
 
 	void setPrimaryKey(bool bl);
 	bool isPrimaryKey() const noexcept;

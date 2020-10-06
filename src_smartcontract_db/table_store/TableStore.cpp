@@ -305,7 +305,6 @@ void TableStore::onRename(SchemaManager* mgr, TableRenameContext* ctx) {
 	ctx->commitSchemaDir(mgr);
 
 	tableDir->move(newTableDir);
-	// TODO onRename
 
 	ctx->commit(mgr);
 	loadTable();

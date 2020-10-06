@@ -10,6 +10,17 @@
 #include "base/UnicodeString.h"
 
 #include "transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
+
+#include "engine/CodableDatabase.h"
+#include "engine/CdbException.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "sql_join_parts/TableIdentifier.h"
+
+#include "schema/SchemaManager.h"
+
+#include "table/CdbTable.h"
 namespace alinous {
 
 AlterRenameColumnCommand::AlterRenameColumnCommand(const AlterRenameColumnCommand& inst)
@@ -79,8 +90,29 @@ void AlterRenameColumnCommand::analyze(AnalyzeContext* actx) {
 }
 
 void AlterRenameColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
+	AlterRenameColumnCommandLog* renameTableLog = dynamic_cast<AlterRenameColumnCommandLog*>(log);
+	const AlterRenameColumnCommand* command = renameTableLog->getCommand();
+	const UnicodeString* lastName = command->getLastName();
+	const UnicodeString* newName = command->getNewName();
+
+	CodableDatabase* db = vm->getDb();
+	SchemaManager* schemaManager = db->getSchemaManager();
+
+	const UnicodeString* defaultSchema = vm->getCurrentSchema();
+	tableId->inputDefaultSchema(defaultSchema);
+
+	CdbTable* table = schemaManager->getTable(tableId, nullptr); // throws if Table does not exists;
+
+	CdbTableColumn* column = table->getColumn(lastName);
+	if(column == nullptr){
+		throw new CdbException(L"Column does not exist.", __FILE__, __LINE__);
+	}
+	column = table->getColumn(newName);
+	if(column != nullptr){
+		throw new CdbException(L"Column already exists.", __FILE__, __LINE__);
+	}
+
+	// TODO: rename check
 }
-
-
 
 } /* namespace alinous */

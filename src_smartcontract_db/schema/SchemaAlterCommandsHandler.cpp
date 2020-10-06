@@ -39,6 +39,7 @@
 
 #include "sql_join_parts/TableIdentifier.h"
 
+#include "sql_ddl_alter_modify/AlterRenameColumnCommand.h"
 
 namespace codablecash {
 
@@ -198,7 +199,13 @@ void SchemaAlterCommandsHandler::handleToUnique(CdbTable* table, ColumnModifyCon
 }
 
 void SchemaAlterCommandsHandler::handleAlterTableRenameColumn(const AlterRenameColumnCommandLog* cmd) {
+	const AlterRenameColumnCommand* command = cmd->getCommand();
+	const UnicodeString* lastName = command->getLastName();
+	const UnicodeString* newName = command->getNewName();
+
 	CdbTable* table = findTableFromCommand(cmd);
+	table->renameColumn(lastName, newName);
+	// TODO: rename exrcute
 
 	// upgrade
 	this->schemaManager->root->upgradeSchemaObjectVersionId();

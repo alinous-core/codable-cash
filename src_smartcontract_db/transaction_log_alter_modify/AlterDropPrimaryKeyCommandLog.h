@@ -32,6 +32,10 @@ public:
 
 	virtual void initCommandParam(VirtualMachine* vm, TableIdentifier* tableId);
 
+	const AlterDropPrimaryKeyCommand* getCommand() const noexcept {
+		return command;
+	}
+
 private:
 	AlterDropPrimaryKeyCommand* command;
 };

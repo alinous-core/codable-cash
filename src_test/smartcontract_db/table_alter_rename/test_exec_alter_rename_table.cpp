@@ -68,6 +68,11 @@ TEST(TestExecAlterRenameGroup, renameTable01){
 	}
 
 	tester.reloadDb();
+
+	{
+		CdbTable* table = tester.getTable(L"public", L"test_renamed");
+		CHECK(table != nullptr);
+	}
 }
 
 /**
@@ -100,4 +105,9 @@ TEST(TestExecAlterRenameGroup, renameTable02){
 	}
 
 	tester.reloadDb();
+
+	{
+		CdbTable* table = tester.getTable(L"schema01", L"test_renamed");
+		CHECK(table != nullptr);
+	}
 }
