@@ -10,6 +10,14 @@
 #include "base/UnicodeString.h"
 
 #include "transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
+
+#include "engine/CodableDatabase.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "sql_join_parts/TableIdentifier.h"
+
+#include "schema/SchemaManager.h"
 namespace alinous {
 
 AlterRenameColumnCommand::AlterRenameColumnCommand(const AlterRenameColumnCommand& inst)
@@ -79,8 +87,16 @@ void AlterRenameColumnCommand::analyze(AnalyzeContext* actx) {
 }
 
 void AlterRenameColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
+	AlterRenameColumnCommandLog* renameTableLog = dynamic_cast<AlterRenameColumnCommandLog*>(log);
+
+	CodableDatabase* db = vm->getDb();
+	SchemaManager* schemaManager = db->getSchemaManager();
+
+	if(schemaManager->hasTable(tableId)){
+
+	}
+
+	// TODO: rename check
 }
-
-
 
 } /* namespace alinous */

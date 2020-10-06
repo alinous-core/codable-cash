@@ -200,6 +200,8 @@ void SchemaAlterCommandsHandler::handleToUnique(CdbTable* table, ColumnModifyCon
 void SchemaAlterCommandsHandler::handleAlterTableRenameColumn(const AlterRenameColumnCommandLog* cmd) {
 	CdbTable* table = findTableFromCommand(cmd);
 
+	// TODO: rename exrcute
+
 	// upgrade
 	this->schemaManager->root->upgradeSchemaObjectVersionId();
 	this->schemaManager->save();
