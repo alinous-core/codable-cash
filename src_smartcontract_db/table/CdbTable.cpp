@@ -240,29 +240,15 @@ void CdbTable::setPrimaryKey(const wchar_t* col) {
 }
 
 void CdbTable::setPrimaryKey(const UnicodeString* colstr) {
-	ArrayList<const UnicodeString> cols;
-	cols.addElement(colstr);
+	ArrayList<UnicodeString> cols;
+	cols.setDeleteOnExit();
+
+	cols.addElement(new UnicodeString(colstr));
 
 	setPrimaryKeys(&cols);
 }
 
-bool CdbTable::hasSinglePrimaryKeyColumn(const CdbOid* columnOid) const noexcept {
-	bool ret = false;
-
-	int maxLoop = this->indexes->size();
-	for(int i = 0; i != maxLoop; ++i){
-		CdbTableIndex* idx = this->indexes->get(i);
-
-		if(idx->isPrimaryKey() && idx->getColumnLength() == 1 && idx->hasColumnOid(columnOid)){
-			ret = true;
-			break;
-		}
-	}
-
-	return ret;
-}
-
-void CdbTable::setPrimaryKeys(ArrayList<const UnicodeString>* cols) {
+const CdbTableIndex* CdbTable::setPrimaryKeys(const ArrayList<UnicodeString>* cols) {
 	ArrayList<CdbTableColumn> list;
 	ArrayList<const CdbOid> oidlist;
 
@@ -284,8 +270,8 @@ void CdbTable::setPrimaryKeys(ArrayList<const UnicodeString>* cols) {
 	CdbTableIndex* prevIndex = getIndexByColumnOidsStrict(&oidlist, true);
 	if(prevIndex != nullptr){
 		prevIndex->setPrimaryKey(true);
-		prevIndex->setUnique(true); // if it is primary key, it is unique automatically
-		return;
+
+		return nullptr;
 	}
 
 	CdbTableIndex* index = new CdbTableIndex((uint64_t)0);
@@ -303,6 +289,8 @@ void CdbTable::setPrimaryKeys(ArrayList<const UnicodeString>* cols) {
 	index->setPrimaryKey(true);
 
 	adjustIndexColumnPosition();
+
+	return index;
 }
 
 CdbTableIndex* CdbTable::getPrimaryKey() const noexcept {
@@ -314,6 +302,22 @@ CdbTableIndex* CdbTable::getPrimaryKey() const noexcept {
 
 		if(idx->isPrimaryKey()){
 			ret = idx;
+			break;
+		}
+	}
+
+	return ret;
+}
+
+bool CdbTable::hasSinglePrimaryKeyColumn(const CdbOid* columnOid) const noexcept {
+	bool ret = false;
+
+	int maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		if(idx->isPrimaryKey() && idx->getColumnLength() == 1 && idx->hasColumnOid(columnOid)){
+			ret = true;
 			break;
 		}
 	}
@@ -390,7 +394,7 @@ CdbTableIndex* CdbTable::getIndexByColumnOidsStrict(const ArrayList<const CdbOid
 		}
 
 		bool hit = true;
-		for(int j = 0; i != keyLength; ++j){
+		for(int j = 0; j != keyLength; ++j){
 			const CdbOid* oid = oidlist->get(j);
 			const CdbOid* oidIdxCol = idx->getColumnOidAt(j);
 

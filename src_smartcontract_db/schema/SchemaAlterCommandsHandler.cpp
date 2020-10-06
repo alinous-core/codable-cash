@@ -41,6 +41,9 @@
 
 #include "sql_ddl_alter_modify/AlterRenameColumnCommand.h"
 
+#include "engine/CdbOid.h"
+
+#include "sql_ddl_alter_modify/AlterAddPrimaryKeyCommand.h"
 namespace codablecash {
 
 SchemaAlterCommandsHandler::SchemaAlterCommandsHandler(SchemaManager* schemaManager) {
@@ -89,9 +92,13 @@ void SchemaAlterCommandsHandler::handleAlterTableAddPrimaryKey(const AlterAddPri
 	CdbTable* table = findTableFromCommand(cmd);
 
 	const AlterAddPrimaryKeyCommand* command = cmd->getCommand();
+	const ArrayList<UnicodeString>* collist = command->getColumns();
 
-	//table->getIndexByColumnOidsStrict()
+	const CdbTableIndex* newidx = table->setPrimaryKeys(collist);
 
+	if(newidx != nullptr){
+
+	}
 
 	// TODO: handleAlterTableAddPrimaryKey execute
 
@@ -175,7 +182,10 @@ void SchemaAlterCommandsHandler::handleToNotUnique(CdbTable* table,	ColumnModify
 	CdbTableColumn* col = ctx->getColumn();
 	const CdbOid* colOid = col->getOid();
 
-	CdbTableIndex* index = table->getUniqueIndexByColumnOid(colOid);
+	ArrayList<const CdbOid> oidlist;
+	oidlist.addElement(colOid);
+
+	CdbTableIndex* index = table->getIndexByColumnOidsStrict(&oidlist, true);
 	if(index == nullptr || index->isPrimaryKey()){ // leave primary key
 		if(index != nullptr){
 			index->setUnique(false);
@@ -194,6 +204,15 @@ void SchemaAlterCommandsHandler::handleToUnique(CdbTable* table, ColumnModifyCon
 	// already has primary key
 	if(table->hasSinglePrimaryKeyColumn(colOid)){
 		CdbTableIndex* idx = table->getPrimaryKey();
+		idx->setUnique(true);
+		return;
+	}
+
+	// already has not-unique index
+	ArrayList<const CdbOid> oidlist;
+	oidlist.addElement(colOid);
+	CdbTableIndex* idx = table->getIndexByColumnOidsStrict(&oidlist, false);
+	if(idx != nullptr){
 		idx->setUnique(true);
 		return;
 	}

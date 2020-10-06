@@ -71,7 +71,7 @@ public:
 
 	void setPrimaryKey(const wchar_t* col);
 	void setPrimaryKey(const UnicodeString* colstr);
-	void setPrimaryKeys(ArrayList<const UnicodeString>* cols);
+	const CdbTableIndex* setPrimaryKeys(const ArrayList<UnicodeString>* cols);
 
 	bool hasSinglePrimaryKeyColumn(const CdbOid* columnOid) const noexcept;
 	CdbTableIndex* getPrimaryKey() const noexcept;
