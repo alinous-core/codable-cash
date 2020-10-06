@@ -10,6 +10,16 @@
 #include "base/UnicodeString.h"
 
 #include "transaction_log_alter/AlterDropColumnCommandLog.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "sql_join_parts/TableIdentifier.h"
+
+#include "engine/CodableDatabase.h"
+
+#include "schema/SchemaManager.h"
+
+#include "table/CdbTable.h"
 namespace alinous {
 
 AlterDropColumnCommand::AlterDropColumnCommand(const AlterDropColumnCommand& inst)
@@ -66,6 +76,16 @@ void AlterDropColumnCommand::analyze(AnalyzeContext* actx) {
 }
 
 void AlterDropColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
+	AlterDropColumnCommandLog* thisLog = dynamic_cast<AlterDropColumnCommandLog*>(log);
+	const AlterDropColumnCommand* command = thisLog->getCommand();
+
+	CodableDatabase* db = vm->getDb();
+	SchemaManager* schemaManager = db->getSchemaManager();
+
+	const UnicodeString* defaultSchema = vm->getCurrentSchema();
+	tableId->inputDefaultSchema(defaultSchema);
+
+	CdbTable* table = schemaManager->getTable(tableId, nullptr); // throws if Table does not exists;
 }
 
 } /* namespace alinous */
