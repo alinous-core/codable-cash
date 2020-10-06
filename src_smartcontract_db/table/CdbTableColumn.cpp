@@ -66,6 +66,7 @@ const CdbOid* CdbTableColumn::getOid() const noexcept {
 }
 
 void CdbTableColumn::setName(const UnicodeString* name) noexcept {
+	delete this->name;
 	this->name = new UnicodeString(name);
 }
 

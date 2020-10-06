@@ -204,11 +204,7 @@ void SchemaAlterCommandsHandler::handleAlterTableRenameColumn(const AlterRenameC
 	const UnicodeString* newName = command->getNewName();
 
 	CdbTable* table = findTableFromCommand(cmd);
-	table->getColumn(lastName);
-
-
-
-
+	table->renameColumn(lastName, newName);
 	// TODO: rename exrcute
 
 	// upgrade
