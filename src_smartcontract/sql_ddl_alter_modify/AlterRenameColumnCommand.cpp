@@ -111,8 +111,6 @@ void AlterRenameColumnCommand::interpret(VirtualMachine* vm, AbstractAlterComman
 	if(column != nullptr){
 		throw new CdbException(L"Column already exists.", __FILE__, __LINE__);
 	}
-
-	// TODO: rename check
 }
 
 } /* namespace alinous */

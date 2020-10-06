@@ -10,12 +10,17 @@
 #include "transaction_log_alter_modify/AlterDropPrimaryKeyCommandLog.h"
 
 #include "engine/CodableDatabase.h"
+#include "engine/CdbException.h"
 
 #include "schema/SchemaManager.h"
 
 #include "vm/VirtualMachine.h"
 
 #include "sql_join_parts/TableIdentifier.h"
+
+#include "table/CdbTable.h"
+
+
 namespace alinous {
 
 AlterDropPrimaryKeyCommand::AlterDropPrimaryKeyCommand(const AlterDropPrimaryKeyCommand& inst)
@@ -70,6 +75,13 @@ void AlterDropPrimaryKeyCommand::interpret(VirtualMachine* vm, AbstractAlterComm
 	tableId->inputDefaultSchema(defaultSchema);
 
 	CdbTable* table = schemaManager->getTable(tableId, nullptr); // throws if Table does not exists;
+
+	CdbTableIndex* pkey = table->getPrimaryKey();
+	if(pkey == nullptr){
+		throw new CdbException(L"Primary key does not exists", __FILE__, __LINE__);
+	}
+
+	// TODO: primary drop check
 }
 
 

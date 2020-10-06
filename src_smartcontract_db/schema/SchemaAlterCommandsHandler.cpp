@@ -88,6 +88,8 @@ void SchemaAlterCommandsHandler::handleAlterTableDropColumn(const AlterDropColum
 void SchemaAlterCommandsHandler::handleAlterTableAddPrimaryKey(const AlterAddPrimaryKeyCommandLog* cmd) {
 	CdbTable* table = findTableFromCommand(cmd);
 
+	// TODO: handleAlterTableAddPrimaryKey execute
+
 	// upgrade
 	this->schemaManager->root->upgradeSchemaObjectVersionId();
 	this->schemaManager->save();
@@ -205,7 +207,6 @@ void SchemaAlterCommandsHandler::handleAlterTableRenameColumn(const AlterRenameC
 
 	CdbTable* table = findTableFromCommand(cmd);
 	table->renameColumn(lastName, newName);
-	// TODO: rename exrcute
 
 	// upgrade
 	this->schemaManager->root->upgradeSchemaObjectVersionId();
