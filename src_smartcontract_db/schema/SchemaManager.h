@@ -77,7 +77,7 @@ public:
 	CdbTable* getTable(const UnicodeString* schema, const UnicodeString* name) const;
 	CdbTable* getTable(const TableIdentifier* tableId, const UnicodeString* defaultSchema) const;
 
-	bool hasTable(const TableIdentifier* tableId) const noexcept;
+	//bool hasTable(const TableIdentifier* tableId) const noexcept;
 	bool hasTable(const UnicodeString* schema, const UnicodeString* name) const noexcept;
 
 	const File* getDatabaseBaseDir() const noexcept {
