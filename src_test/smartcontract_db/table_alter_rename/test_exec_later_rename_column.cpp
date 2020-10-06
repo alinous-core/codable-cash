@@ -30,6 +30,10 @@
 #include "table/CdbTableColumn.h"
 #include "table/CdbTableIndex.h"
 
+#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+
+#include "ext_binary/ExtExceptionObject.h"
+
 TEST_GROUP(TestExecAlterRenameColumnGroup) {
 	TEST_SETUP() {
 		env->setup();
@@ -82,6 +86,27 @@ TEST(TestExecAlterRenameColumnGroup, renameColumn02){
 
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_rename/resources/exec_rename/renameColumn02.alns"))
+	{
+		SmartContractParser parser(sourceFile);
+		AlinousLang* lang = parser.getDebugAlinousLang();
+
+		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
+		CHECK(!parser.hasError())
+
+		AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
+		actx->setVm(vm);
+
+		stmt->preAnalyze(actx);
+		stmt->analyzeTypeRef(actx);
+		stmt->analyze(actx);
+
+		stmt->interpret(vm);
+	}
+
+	const ExtExceptionObject* ex = tester.checkUncaughtException();
+	CHECK(ex != nullptr);
+
+	CHECK(ex->getClassName()->equals(&DatabaseExceptionClassDeclare::NAME));
 }
 
 /**
@@ -97,5 +122,26 @@ TEST(TestExecAlterRenameColumnGroup, renameColumn03){
 
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_rename/resources/exec_rename/renameColumn03.alns"))
+	{
+		SmartContractParser parser(sourceFile);
+		AlinousLang* lang = parser.getDebugAlinousLang();
+
+		AlterTableStatement* stmt = lang->alterTableStatement(); __STP(stmt);
+		CHECK(!parser.hasError())
+
+		AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
+		actx->setVm(vm);
+
+		stmt->preAnalyze(actx);
+		stmt->analyzeTypeRef(actx);
+		stmt->analyze(actx);
+
+		stmt->interpret(vm);
+	}
+
+	const ExtExceptionObject* ex = tester.checkUncaughtException();
+	CHECK(ex != nullptr);
+
+	CHECK(ex->getClassName()->equals(&DatabaseExceptionClassDeclare::NAME));
 }
 
