@@ -284,6 +284,14 @@ void SchemaManager::fireOnDropPrimaryKey(const CdbTable* table, const CdbTableIn
 	}
 }
 
+void SchemaManager::fireOnAddPrimaryKey(const CdbTable* table,	const CdbTableIndex* primaryKey) {
+	int maxLoop = this->listners.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ISchemaUptateListner* l = this->listners.get(i);
+		l->onAddPrimaryKey(this, table, primaryKey);
+	}
+}
+
 void SchemaManager::fireOnRenameTable(const CdbTable* table, TableRenameContext* context) {
 	int maxLoop = this->listners.size();
 	for(int i = 0; i != maxLoop; ++i){

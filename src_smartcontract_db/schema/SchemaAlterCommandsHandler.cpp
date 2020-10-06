@@ -97,7 +97,7 @@ void SchemaAlterCommandsHandler::handleAlterTableAddPrimaryKey(const AlterAddPri
 	const CdbTableIndex* newidx = table->setPrimaryKeys(collist);
 
 	if(newidx != nullptr){
-
+		this->schemaManager->fireOnAddPrimaryKey(table, newidx);
 	}
 
 	// TODO: handleAlterTableAddPrimaryKey execute

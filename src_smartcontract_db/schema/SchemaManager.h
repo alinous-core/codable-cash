@@ -99,6 +99,7 @@ private:
 	void fireOnCreateTable(const CdbTable* table);
 	void fireOnAlterModify(const CdbTable* table, const ColumnModifyContext* ctx);
 	void fireOnDropPrimaryKey(const CdbTable* table, const CdbTableIndex* primaryKey);
+	void fireOnAddPrimaryKey(const CdbTable* table, const CdbTableIndex* primaryKey);
 	void fireOnRenameTable(const CdbTable* table, TableRenameContext* context);
 
 	CdbTable* findTableFromCommand(const AbstractAlterCommandLog* cmdlog);
