@@ -32,6 +32,10 @@ public:
 
 	virtual void initCommandParam(VirtualMachine* vm, TableIdentifier* tableId);
 
+	const AlterDropIndexCommand* getCommand() const noexcept {
+		return command;
+	}
+
 private:
 	AlterDropIndexCommand* command;
 };

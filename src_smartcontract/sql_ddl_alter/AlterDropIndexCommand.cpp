@@ -10,6 +10,17 @@
 #include "base/UnicodeString.h"
 
 #include "transaction_log_alter/AlterDropIndexCommandLog.h"
+#include "transaction_log_alter/AbstractAlterCommandLog.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "sql_join_parts/TableIdentifier.h"
+
+#include "engine/CodableDatabase.h"
+
+#include "schema/SchemaManager.h"
+
+#include "table/CdbTable.h"
 
 namespace alinous {
 
@@ -67,6 +78,16 @@ void AlterDropIndexCommand::analyze(AnalyzeContext* actx) {
 }
 
 void AlterDropIndexCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
+	AlterDropIndexCommandLog* thisLog = dynamic_cast<AlterDropIndexCommandLog*>(log);
+	const AlterDropIndexCommand* command = thisLog->getCommand();
+
+	CodableDatabase* db = vm->getDb();
+	SchemaManager* schemaManager = db->getSchemaManager();
+
+	const UnicodeString* defaultSchema = vm->getCurrentSchema();
+	tableId->inputDefaultSchema(defaultSchema);
+
+	CdbTable* table = schemaManager->getTable(tableId, nullptr); // throws if Table does not exists;
 }
 
 } /* namespace alinous */
