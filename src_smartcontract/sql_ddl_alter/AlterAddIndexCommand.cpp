@@ -11,6 +11,16 @@
 
 #include "transaction_log_alter/AlterAddIndexCommandLog.h"
 
+#include "vm/VirtualMachine.h"
+
+#include "sql_join_parts/TableIdentifier.h"
+
+#include "engine/CodableDatabase.h"
+
+#include "schema/SchemaManager.h"
+
+#include "table/CdbTable.h"
+
 namespace alinous {
 
 AlterAddIndexCommand::AlterAddIndexCommand(const AlterAddIndexCommand& inst)
@@ -112,6 +122,16 @@ void AlterAddIndexCommand::analyze(AnalyzeContext* actx) {
 }
 
 void AlterAddIndexCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
+	AlterAddIndexCommandLog* thisLog = dynamic_cast<AlterAddIndexCommandLog*>(log);
+	const AlterAddIndexCommand* command = thisLog->getCommand();
+
+	CodableDatabase* db = vm->getDb();
+	SchemaManager* schemaManager = db->getSchemaManager();
+
+	const UnicodeString* defaultSchema = vm->getCurrentSchema();
+	tableId->inputDefaultSchema(defaultSchema);
+
+	CdbTable* table = schemaManager->getTable(tableId, nullptr); // throws if Table does not exists;
 }
 
 } /* namespace alinous */
