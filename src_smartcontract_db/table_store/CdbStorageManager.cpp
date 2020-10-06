@@ -156,6 +156,10 @@ void CdbStorageManager::onDropPrimaryKey(SchemaManager* mgr, const CdbTable* tab
 	store->removeIndex(primaryKey);
 }
 
+void CdbStorageManager::onAddPrimaryKey(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* primaryKey) {
+	// TODO: onAddPrimaryKey
+}
+
 void CdbStorageManager::onAlterTableRenameTable(SchemaManager* mgr,	const CdbTable* table, TableRenameContext* ctx) {
 	const CdbOid* tableOid = table->getOid();
 

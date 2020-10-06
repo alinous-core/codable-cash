@@ -88,6 +88,8 @@ void SchemaAlterCommandsHandler::handleAlterTableDropColumn(const AlterDropColum
 void SchemaAlterCommandsHandler::handleAlterTableAddPrimaryKey(const AlterAddPrimaryKeyCommandLog* cmd) {
 	CdbTable* table = findTableFromCommand(cmd);
 
+
+
 	// TODO: handleAlterTableAddPrimaryKey execute
 
 	// upgrade

@@ -90,7 +90,10 @@ void CdbTransactionManager::onAlterTableRenameTable(SchemaManager* mgr,
 	// do nothing
 }
 
-
+void CdbTransactionManager::onAddPrimaryKey(SchemaManager* mgr,
+		const CdbTable* table, const CdbTableIndex* primaryKey) {
+	// do nothing
+}
 
 CdbTransaction* CdbTransactionManager::newTransaction(uint64_t transactionId) {
 	CdbTransaction* trx = new CdbTransaction(this, transactionId);
