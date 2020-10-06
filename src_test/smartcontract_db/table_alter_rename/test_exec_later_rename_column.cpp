@@ -71,6 +71,24 @@ TEST(TestExecAlterRenameColumnGroup, renameColumn01){
 
 		stmt->interpret(vm);
 	}
+
+	{
+		CdbTableIndex* index = tester.getIndex(L"test_table", L"id2");
+		CHECK(index != nullptr);
+
+		IndexStore* idxStore = tester.getIndexStore(L"public", L"test_table", L"id2");
+		CHECK(idxStore != nullptr);
+	}
+
+	tester.reloadDb();
+
+	{
+		CdbTableIndex* index = tester.getIndex(L"test_table", L"id2");
+		CHECK(index != nullptr);
+
+		IndexStore* idxStore = tester.getIndexStore(L"public", L"test_table", L"id2");
+		CHECK(idxStore != nullptr);
+	}
 }
 
 /**

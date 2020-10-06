@@ -126,12 +126,10 @@ void CdbTableIndex::addColumn(const CdbTableColumn* col) noexcept {
 }
 
 void CdbTableIndex::renameColumn(const CdbOid* columnOid, const UnicodeString* newName) noexcept {
-	if(!hasColumnOid(columnOid)){
-		return;
+	if(hasColumnOid(columnOid)){
+		CdbTableColumn* col = this->columnMap->get(columnOid);
+		col->setName(newName);
 	}
-
-	CdbTableColumn* col = this->columnMap->get(columnOid);
-	col->setName(newName);
 }
 
 bool CdbTableIndex::hasColumnOid(const CdbOid* colOid) const noexcept {
