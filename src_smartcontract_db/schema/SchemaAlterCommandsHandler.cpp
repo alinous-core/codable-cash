@@ -171,7 +171,7 @@ void SchemaAlterCommandsHandler::handleToNotUnique(CdbTable* table,	ColumnModify
 	const CdbOid* colOid = col->getOid();
 
 	CdbTableIndex* index = table->getUniqueIndexByColumnOid(colOid);
-	if(index == nullptr || index->isPrimaryKey()){ // primary key support unique
+	if(index == nullptr || index->isPrimaryKey()){ // leave primary key
 		return;
 	}
 
@@ -185,6 +185,8 @@ void SchemaAlterCommandsHandler::handleToUnique(CdbTable* table, ColumnModifyCon
 
 	// already has primary key
 	if(table->hasSinglePrimaryKeyColumn(colOid)){
+		CdbTableIndex* idx = table->getPrimaryKey();
+		idx->setUnique(true);
 		return;
 	}
 

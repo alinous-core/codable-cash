@@ -254,7 +254,7 @@ bool CdbTable::hasSinglePrimaryKeyColumn(const CdbOid* columnOid) const noexcept
 		CdbTableIndex* idx = this->indexes->get(i);
 
 		if(idx->isPrimaryKey() && idx->getColumnLength() == 1 && idx->hasColumnOid(columnOid)){
-			ret = idx;
+			ret = true;
 			break;
 		}
 	}
@@ -412,7 +412,7 @@ CdbTableIndex* CdbTable::getUniqueIndexByColumnOid(const CdbOid* colOid) const n
 	for(int i = 0; i != maxLoop; ++i){
 		CdbTableIndex* idx = this->indexes->get(i);
 
-		if(idx->isUnique() && idx->getColumnLength() == 1 && idx->hasColumnOid(colOid)){
+		if((idx->isUnique() || idx->isPrimaryKey())&& idx->getColumnLength() == 1 && idx->hasColumnOid(colOid)){
 			ret = idx;
 			break;
 		}
