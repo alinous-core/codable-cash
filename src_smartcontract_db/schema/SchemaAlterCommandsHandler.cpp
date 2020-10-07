@@ -100,8 +100,6 @@ void SchemaAlterCommandsHandler::handleAlterTableAddPrimaryKey(const AlterAddPri
 		this->schemaManager->fireOnAddPrimaryKey(table, newidx);
 	}
 
-	// TODO: handleAlterTableAddPrimaryKey execute
-
 	// upgrade
 	this->schemaManager->root->upgradeSchemaObjectVersionId();
 	this->schemaManager->save();

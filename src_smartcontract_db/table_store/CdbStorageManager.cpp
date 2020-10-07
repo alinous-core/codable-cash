@@ -162,8 +162,6 @@ void CdbStorageManager::onAddPrimaryKey(SchemaManager* mgr, const CdbTable* tabl
 	TableStore* store = getTableStore(tableOid);
 	store->addNewIndex(primaryKey);
 	store->buildIndex(primaryKey);
-
-	// TODO: onAddPrimaryKey
 }
 
 void CdbStorageManager::onAlterTableRenameTable(SchemaManager* mgr,	const CdbTable* table, TableRenameContext* ctx) {

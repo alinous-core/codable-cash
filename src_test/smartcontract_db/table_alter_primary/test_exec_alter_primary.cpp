@@ -124,6 +124,9 @@ TEST(TestExecAlterPrimaryGroup, dropPrimaryKey02){
 
 		stmt->interpret(vm);
 	}
+
+	CdbTableIndex* index = tester.getPrimaryKey(L"test_table");
+	CHECK(index == nullptr);
 }
 
 /**

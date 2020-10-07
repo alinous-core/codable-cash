@@ -80,8 +80,6 @@ void AlterDropPrimaryKeyCommand::interpret(VirtualMachine* vm, AbstractAlterComm
 	if(pkey == nullptr){
 		throw new CdbException(L"Primary key does not exists", __FILE__, __LINE__);
 	}
-
-	// TODO: primary drop check
 }
 
 
