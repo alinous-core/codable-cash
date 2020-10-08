@@ -84,6 +84,8 @@ public:
 	CdbTableIndex* getIndexByName(const UnicodeString* indexname) const noexcept;
 
 	void removeIndex(const CdbTableIndex* ptr) noexcept;
+	CdbTableColumn* removeColumn(const UnicodeString* columnName) noexcept;
+	ArrayList<CdbTableIndex>* removeIndexesUsingColumn(const UnicodeString* columnName) noexcept;
 	void renameColumn(const UnicodeString* lastColumn, const UnicodeString* newColumn);
 
 	int binarySize() const;

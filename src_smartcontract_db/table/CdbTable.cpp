@@ -122,7 +122,7 @@ void CdbTable::addColumn(uint8_t oid, const UnicodeString* name, uint8_t type, i
 
 void CdbTable::addColumn(CdbTableColumn* col) noexcept {
 	int position = this->columns->size();
-	col->setPosition(position);
+	col->setPosition(position); // set position
 
 	this->columns->addElement(col);
 	const CdbOid* o = col->getOid();
@@ -430,6 +430,42 @@ CdbTableIndex* CdbTable::getIndexByName(const UnicodeString* indexname) const no
 	return ret;
 }
 
+ArrayList<CdbTableIndex>* CdbTable::removeIndexesUsingColumn(const UnicodeString* columnName) noexcept {
+	CdbTableColumn* removalColumn = getColumn(columnName);
+	const CdbOid* columnOid = removalColumn->getOid();
+
+	ArrayList<CdbTableIndex>* list = new ArrayList<CdbTableIndex>();
+
+	int maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+		if(idx->isUniqueDataRequired()){
+			continue;
+		}
+
+		if(idx->hasColumnOid(columnOid)){
+			removeIndex(idx);
+			list->addElement(idx);
+		}
+	}
+
+	return list;
+}
+
+
+CdbTableColumn* CdbTable::removeColumn(const UnicodeString* columnName) noexcept {
+	CdbTableColumn* removalColumn = getColumn(columnName);
+
+	bool result = this->columns->removeByObj(removalColumn);
+	assert(result);
+
+	const CdbOid* columnOid = removalColumn->getOid();
+	this->columnMap->remove(columnOid);
+
+	adjustIndexColumnPosition();
+
+	return removalColumn;
+}
 
 void CdbTable::removeIndex(const CdbTableIndex* ptr) noexcept {
 	int removeIndex = -1;
