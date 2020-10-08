@@ -46,6 +46,8 @@
 #include "sql_ddl_alter_modify/AlterAddPrimaryKeyCommand.h"
 
 #include "sql_ddl_alter/AlterAddIndexCommand.h"
+
+#include "sql_ddl_alter/AlterDropIndexCommand.h"
 namespace codablecash {
 
 SchemaAlterCommandsHandler::SchemaAlterCommandsHandler(SchemaManager* schemaManager) {
@@ -82,15 +84,7 @@ void SchemaAlterCommandsHandler::handleAlterTableAddIndex(const AlterAddIndexCom
 
 	table->addIndex(newIndex);
 
-	// TODO: alter add
-
-	// upgrade
-	this->schemaManager->root->upgradeSchemaObjectVersionId();
-	this->schemaManager->save();
-}
-
-void SchemaAlterCommandsHandler::handleAlterTableAddColumn(const AlterAddColumnCommandLog* cmd) {
-	CdbTable* table = findTableFromCommand(cmd);
+	// TODO: alter add const CdbTableIndex* newIndex
 
 	// upgrade
 	this->schemaManager->root->upgradeSchemaObjectVersionId();
@@ -98,6 +92,24 @@ void SchemaAlterCommandsHandler::handleAlterTableAddColumn(const AlterAddColumnC
 }
 
 void SchemaAlterCommandsHandler::handleAlterTableDropIndex(const AlterDropIndexCommandLog* cmd) {
+	const AlterDropIndexCommand* command = cmd->getCommand();
+
+	CdbTable* table = findTableFromCommand(cmd);
+
+	const UnicodeString* indexName = command->getName();
+	CdbTableIndex* removalIndex = table->getIndexByName(indexName); __STP(removalIndex);
+	assert(removalIndex != nullptr);
+
+	table->removeIndex(removalIndex);
+
+	// TODO : fire CdbTableIndex* removalIndex
+
+	// upgrade
+	this->schemaManager->root->upgradeSchemaObjectVersionId();
+	this->schemaManager->save();
+}
+
+void SchemaAlterCommandsHandler::handleAlterTableAddColumn(const AlterAddColumnCommandLog* cmd) {
 	CdbTable* table = findTableFromCommand(cmd);
 
 	// upgrade
