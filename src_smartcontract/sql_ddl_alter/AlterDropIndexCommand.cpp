@@ -17,11 +17,16 @@
 #include "sql_join_parts/TableIdentifier.h"
 
 #include "engine/CodableDatabase.h"
+#include "engine/CdbException.h"
 
 #include "schema/SchemaManager.h"
 
 #include "table/CdbTable.h"
+#include "table/CdbTableIndex.h"
 
+#include "table/CdbTableColumn.h"
+
+using codablecash::CdbTableColumn;
 namespace alinous {
 
 AlterDropIndexCommand::AlterDropIndexCommand(const AlterDropIndexCommand& inst)
@@ -88,6 +93,20 @@ void AlterDropIndexCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLo
 	tableId->inputDefaultSchema(defaultSchema);
 
 	CdbTable* table = schemaManager->getTable(tableId, nullptr); // throws if Table does not exists;
+
+	const UnicodeString* idxname = command->getName();
+	CdbTableIndex* index = table->getIndexByName(idxname);
+	if(index == nullptr){
+		throw new CdbException(L"Index does not exist", __FILE__, __LINE__);
+	}
+
+	if(index->isPrimaryKey()){
+		throw new CdbException(L"Can not delete primary key index, use ALTER TABLE DROP PRIMARY KEY, instead.", __FILE__, __LINE__);
+	}
+
+	if(index->getColumnLength() == 1 && index->isUnique() && index->getColumnAt(0)->isUnique()){
+		throw new CdbException(L"Can not delete index used by unique column.", __FILE__, __LINE__);
+	}
 }
 
 } /* namespace alinous */
