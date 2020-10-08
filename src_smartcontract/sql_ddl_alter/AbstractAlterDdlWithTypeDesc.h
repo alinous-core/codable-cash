@@ -28,6 +28,7 @@ public:
 		return this->longValue;
 	}
 
+	void analyzeLengthOfValiable(AnalyzeContext* actx);
 	UnicodeString* interpretDefaultString(VirtualMachine* vm);
 
 protected:

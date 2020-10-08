@@ -12,28 +12,7 @@
 
 #include "transaction_log_alter_modify/AlterModifyCommandLog.h"
 
-#include "sql/AbstractSQLExpression.h"
-
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzeContext.h"
-
-#include "sql_expression/SQLLiteral.h"
-
-#include "instance/AbstractVmInstance.h"
-#include "instance/IAbstractVmInstanceSubstance.h"
-#include "instance/VmInstanceTypesConst.h"
-
-#include "instance_gc/StackFloatingVariableHandler.h"
-
-#include "instance_ref/PrimitiveReference.h"
-
-#include "base/UnicodeString.h"
 #include "base/StackRelease.h"
-
-#include "instance_string/VmStringInstance.h"
-
-#include "instance_exception/TypeCastExceptionClassDeclare.h"
-#include "instance_exception/ExceptionInterrupt.h"
 
 #include "engine/CodableDatabase.h"
 
@@ -51,6 +30,10 @@
 #include "engine/CdbException.h"
 
 #include "table_record_value/AbstractCdbValue.h"
+
+#include "base_io/ByteBuffer.h"
+
+#include "vm/VirtualMachine.h"
 
 namespace alinous {
 
@@ -132,37 +115,7 @@ void AlterModifyCommand::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void AlterModifyCommand::analyze(AnalyzeContext* actx) {
-	ColumnTypeDescriptor* typeDesc = this->columnDescriptor->getTypeDesc();
-
-	AbstractSQLExpression* length = typeDesc->getLengthExp();
-
-	if(length != nullptr){
-		bool error = false;
-		short kind = length->getKind();
-		if(kind != CodeElement::SQL_EXP_LITERAL){
-			const UnicodeString* tname = typeDesc->getTypeName();
-			actx->addValidationError(ValidationError::DB_LENGTH_IS_NOT_INTEGER, this, L"The type {0}'s length must be integer value.", {tname});
-
-			error = true;
-		}
-
-		if(!error){
-			SQLLiteral* lit = dynamic_cast<SQLLiteral*>(length);
-			uint8_t litType = lit->getLiteralType();
-			if(litType != SQLLiteral::TYPE_NUMBER){
-				const UnicodeString* tname = typeDesc->getTypeName();
-				actx->addValidationError(ValidationError::DB_LENGTH_IS_NOT_INTEGER, this, L"The type {0}'s length must be integer value.", {tname});
-			}
-
-			lit->analyze(actx);
-
-			this->longValue = lit->getLongv();
-			if(this->longValue < 1){
-				const UnicodeString* tname = typeDesc->getTypeName();
-				actx->addValidationError(ValidationError::DB_LENGTH_IS_NOT_CORRECT_INTEGER, this, L"The type {0}'s length must be greater than 0.", {tname});
-			}
-		}
-	}
+	analyzeLengthOfValiable(actx);
 
 	AbstractSQLExpression* defaultValue = this->columnDescriptor->getDefaultValue();
 	if(defaultValue != nullptr){
@@ -227,7 +180,5 @@ void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log
 		// FIXME check multiple index unique
 	}
 }
-
-
 
 } /* namespace alinous */
