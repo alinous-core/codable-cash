@@ -173,37 +173,8 @@ void AlterModifyCommand::analyze(AnalyzeContext* actx) {
 void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
 	AlterModifyCommandLog* modifyLog = dynamic_cast<AlterModifyCommandLog*>(log);
 
-	AbstractSQLExpression* defaultValue = this->columnDescriptor->getDefaultValue();
-	if(defaultValue != nullptr){
-		StackFloatingVariableHandler releaser(vm->getGc());
-
-		AbstractVmInstance* inst = defaultValue->interpret(vm);
-		releaser.registerInstance(inst);
-
-		IAbstractVmInstanceSubstance* sub = inst != nullptr ? inst->getInstance() : nullptr;
-
-		uint8_t instType = sub != nullptr ? sub->getInstType() : VmInstanceTypesConst::INST_NULL;
-
-		if(instType == VmInstanceTypesConst::INST_NULL){
-			modifyLog->setDefaultStr(nullptr);
-		}
-		else if(sub->instIsPrimitive()){
-			PrimitiveReference* pr = dynamic_cast<PrimitiveReference*>(sub);
-			const UnicodeString* str = pr->toString();
-
-			modifyLog->setDefaultStr(new UnicodeString(str));
-		}
-		else if(VmInstanceTypesConst::INST_STRING == instType){
-			VmStringInstance* strInst = dynamic_cast<VmStringInstance*>(sub);
-			const UnicodeString* str = strInst->toString();
-
-			modifyLog->setDefaultStr(new UnicodeString(str));
-		}
-		//else{ Not necessary
-		//	TypeCastExceptionClassDeclare::throwException(vm, this);
-		//	ExceptionInterrupt::interruptPoint(vm);
-		//}
-	}
+	UnicodeString* str = interpretDefaultString(vm);
+	modifyLog->setDefaultStr(str);
 
 	validate(vm, modifyLog, tableId);
 }

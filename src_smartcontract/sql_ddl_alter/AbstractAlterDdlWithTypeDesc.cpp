@@ -9,9 +9,23 @@
 
 #include "sql_ddl/DdlColumnDescriptor.h"
 
+#include "sql/AbstractSQLExpression.h"
+
 #include "base/StackRelease.h"
+#include "base/UnicodeString.h"
 
 #include "base_io/ByteBuffer.h"
+
+#include "instance_gc/StackFloatingVariableHandler.h"
+
+#include "instance/IAbstractVmInstanceSubstance.h"
+#include "instance/VmInstanceTypesConst.h"
+#include "instance/AbstractVmInstance.h"
+
+#include "instance_ref/PrimitiveReference.h"
+
+#include "instance_string/VmStringInstance.h"
+
 
 namespace alinous {
 
@@ -27,6 +41,44 @@ AbstractAlterDdlWithTypeDesc::~AbstractAlterDdlWithTypeDesc() {
 void AbstractAlterDdlWithTypeDesc::setColumnDescriptor(DdlColumnDescriptor* columnDescriptor) noexcept {
 	delete this->columnDescriptor;
 	this->columnDescriptor = columnDescriptor;
+}
+
+UnicodeString* AbstractAlterDdlWithTypeDesc::interpretDefaultString(VirtualMachine* vm) {
+	UnicodeString* ret = nullptr;
+
+	AbstractSQLExpression* defaultValue = this->columnDescriptor->getDefaultValue();
+	if(defaultValue != nullptr){
+		StackFloatingVariableHandler releaser(vm->getGc());
+
+		AbstractVmInstance* inst = defaultValue->interpret(vm);
+		releaser.registerInstance(inst);
+
+		IAbstractVmInstanceSubstance* sub = inst != nullptr ? inst->getInstance() : nullptr;
+
+		uint8_t instType = sub != nullptr ? sub->getInstType() : VmInstanceTypesConst::INST_NULL;
+
+		if(instType == VmInstanceTypesConst::INST_NULL){
+			ret = nullptr;
+		}
+		else if(sub->instIsPrimitive()){
+			PrimitiveReference* pr = dynamic_cast<PrimitiveReference*>(sub);
+			const UnicodeString* str = pr->toString();
+
+			ret = new UnicodeString(str);
+		}
+		else if(VmInstanceTypesConst::INST_STRING == instType){
+			VmStringInstance* strInst = dynamic_cast<VmStringInstance*>(sub);
+			const UnicodeString* str = strInst->toString();
+
+			ret = new UnicodeString(new UnicodeString(str));
+		}
+		//else{ Not necessary
+		//	TypeCastExceptionClassDeclare::throwException(vm, this);
+		//	ExceptionInterrupt::interruptPoint(vm);
+		//}
+	}
+
+	return ret;
 }
 
 DdlColumnDescriptor* AbstractAlterDdlWithTypeDesc::copyColumnDescriptor(

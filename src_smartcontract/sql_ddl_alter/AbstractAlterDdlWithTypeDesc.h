@@ -13,6 +13,7 @@
 namespace alinous {
 
 class DdlColumnDescriptor;
+class UnicodeString;
 
 class AbstractAlterDdlWithTypeDesc : public AbstractAlterDdlCommand {
 public:
@@ -26,6 +27,8 @@ public:
 	int64_t getLengthValue() const noexcept {
 		return this->longValue;
 	}
+
+	UnicodeString* interpretDefaultString(VirtualMachine* vm);
 
 protected:
 	DdlColumnDescriptor* copyColumnDescriptor(DdlColumnDescriptor* columnDescriptor) const;
