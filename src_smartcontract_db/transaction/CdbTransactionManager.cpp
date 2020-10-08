@@ -95,6 +95,28 @@ void CdbTransactionManager::onAddPrimaryKey(SchemaManager* mgr,
 	// do nothing
 }
 
+void CdbTransactionManager::onAddColumn(SchemaManager* mgr,
+		const CdbTable* table, const CdbTableColumn* newColumn,
+		const CdbTableIndex* newUniqueIndex) {
+	// do nothing
+}
+
+void CdbTransactionManager::onDropColumn(SchemaManager* mgr,
+		const CdbTable* table, const CdbTableColumn* removalColumn,
+		const ArrayList<CdbTableIndex>* removalIndexes) {
+	// do nothing
+}
+
+void CdbTransactionManager::onAddIndex(SchemaManager* mgr,
+		const CdbTable* table, const CdbTableIndex* newIndex) {
+	// do nothing
+}
+
+void CdbTransactionManager::onDropIndex(SchemaManager* mgr,
+		const CdbTable* table, const CdbTableIndex* removalIndex) {
+	// do nothing
+}
+
 CdbTransaction* CdbTransactionManager::newTransaction(uint64_t transactionId) {
 	CdbTransaction* trx = new CdbTransaction(this, transactionId);
 

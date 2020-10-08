@@ -8,6 +8,10 @@
 #ifndef SCHEMA_ISCHEMAUPTATELISTNER_H_
 #define SCHEMA_ISCHEMAUPTATELISTNER_H_
 
+#include "base/ArrayList.h"
+
+using namespace alinous;
+
 namespace codablecash {
 
 class SchemaManager;
@@ -15,6 +19,7 @@ class CdbTable;
 class ColumnModifyContext;
 class TableRenameContext;
 class CdbTableIndex;
+class CdbTableColumn;
 
 class ISchemaUptateListner {
 public:
@@ -23,10 +28,10 @@ public:
 
 	virtual void schemaLoaded(SchemaManager* sc) = 0;
 	virtual void onCreateTable(SchemaManager* mgr, const CdbTable* table) = 0;
-	//virtual void onAddColumn(SchemaManager* mgr, const CdbTable* table, const ColumnModifyContext* ctx) = 0;
-	//virtual void onDropColumn(SchemaManager* mgr, const CdbTable* table, const ColumnModifyContext* ctx) = 0;
-//	virtual void onAddIndex(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* newIndex) = 0;
-//	virtual void onDropIndex(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* removalIndex) = 0;
+	virtual void onAddColumn(SchemaManager* mgr, const CdbTable* table, const CdbTableColumn* newColumn, const CdbTableIndex* newUniqueIndex) = 0;
+	virtual void onDropColumn(SchemaManager* mgr, const CdbTable* table, const CdbTableColumn* removalColumn, const ArrayList<CdbTableIndex>* removalIndexes) = 0;
+	virtual void onAddIndex(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* newIndex) = 0;
+	virtual void onDropIndex(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* removalIndex) = 0;
 	virtual void onAlterModify(SchemaManager* mgr, const CdbTable* table, const ColumnModifyContext* ctx) = 0;
 	virtual void onDropPrimaryKey(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* primaryKey) = 0;
 	virtual void onAddPrimaryKey(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* primaryKey) = 0;

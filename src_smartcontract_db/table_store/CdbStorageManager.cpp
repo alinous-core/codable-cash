@@ -164,6 +164,24 @@ void CdbStorageManager::onAddPrimaryKey(SchemaManager* mgr, const CdbTable* tabl
 	store->buildIndex(primaryKey);
 }
 
+void CdbStorageManager::onAddColumn(SchemaManager* mgr, const CdbTable* table,
+		const CdbTableColumn* newColumn, const CdbTableIndex* newUniqueIndex) {
+	// TODO: CdbStorageManager::onAddColumn
+}
+
+void CdbStorageManager::onDropColumn(SchemaManager* mgr, const CdbTable* table,
+		const CdbTableColumn* removalColumn, const ArrayList<CdbTableIndex>* removalIndexes) {
+}
+
+void CdbStorageManager::onAddIndex(SchemaManager* mgr, const CdbTable* table,
+		const CdbTableIndex* newIndex) {
+}
+
+void CdbStorageManager::onDropIndex(SchemaManager* mgr, const CdbTable* table,
+		const CdbTableIndex* removalIndex) {
+}
+
+
 void CdbStorageManager::onAlterTableRenameTable(SchemaManager* mgr,	const CdbTable* table, TableRenameContext* ctx) {
 	const CdbOid* tableOid = table->getOid();
 

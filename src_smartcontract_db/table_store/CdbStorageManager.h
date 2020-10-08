@@ -41,6 +41,10 @@ public:
 	virtual void onAlterModify(SchemaManager* mgr, const CdbTable* table, const ColumnModifyContext* ctx);
 	virtual void onDropPrimaryKey(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* primaryKey);
 	virtual void onAddPrimaryKey(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* primaryKey);
+	virtual void onAddColumn(SchemaManager* mgr, const CdbTable* table, const CdbTableColumn* newColumn, const CdbTableIndex* newUniqueIndex);
+	virtual void onDropColumn(SchemaManager* mgr, const CdbTable* table, const CdbTableColumn* removalColumn, const ArrayList<CdbTableIndex>* removalIndexes);
+	virtual void onAddIndex(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* newIndex);
+	virtual void onDropIndex(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* removalIndex);
 	virtual void onAlterTableRenameTable(SchemaManager* mgr, const CdbTable* table, TableRenameContext* ctx);
 
 	TableStore* getTableStore(const CdbOid* tableoid) noexcept;

@@ -104,7 +104,7 @@ void SchemaAlterCommandsHandler::handleAlterTableDropIndex(const AlterDropIndexC
 
 	table->removeIndex(removalIndex);
 
-	// TODO : fire CdbTableIndex* removalIndex
+	// TODO : fire CdbTableIndex* removalIndex,
 
 	// upgrade
 	this->schemaManager->root->upgradeSchemaObjectVersionId();
@@ -162,7 +162,7 @@ void SchemaAlterCommandsHandler::handleAlterTableDropColumn(const AlterDropColum
 
 	CdbTableColumn* removalColumn = table->removeColumn(columnName); __STP(removalColumn);
 
-	// TODO: fire onst CdbTableColumn* removalColumn, const ArrayList<CdbTableIndex>* removalIndexes
+	// TODO: fire const CdbTableColumn* removalColumn, const ArrayList<CdbTableIndex>* removalIndexes
 
 	// upgrade
 	this->schemaManager->root->upgradeSchemaObjectVersionId();
