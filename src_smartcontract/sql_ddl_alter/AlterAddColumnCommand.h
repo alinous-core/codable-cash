@@ -20,11 +20,6 @@ public:
 	AlterAddColumnCommand();
 	virtual ~AlterAddColumnCommand();
 
-	void setColumnDescriptor(DdlColumnDescriptor* columnDescriptor) noexcept;
-	const DdlColumnDescriptor* getColumnDescriptor() const noexcept {
-		return columnDescriptor;
-	}
-
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
@@ -35,9 +30,6 @@ public:
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId);
-
-private:
-	DdlColumnDescriptor* columnDescriptor;
 };
 
 } /* namespace alinous */

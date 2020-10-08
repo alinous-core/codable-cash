@@ -35,15 +35,11 @@ AlterAddColumnCommand::AlterAddColumnCommand(const AlterAddColumnCommand& inst)
 }
 
 AlterAddColumnCommand::AlterAddColumnCommand() : AbstractAlterDdlWithTypeDesc(CodeElement::DDL_ALTER_ADD_COLUMN) {
-	this->columnDescriptor = nullptr;
+
 }
 
 AlterAddColumnCommand::~AlterAddColumnCommand() {
-	delete this->columnDescriptor;
-}
 
-void AlterAddColumnCommand::setColumnDescriptor(DdlColumnDescriptor* columnDescriptor) noexcept {
-	this->columnDescriptor = columnDescriptor;
 }
 
 int AlterAddColumnCommand::binarySize() const {

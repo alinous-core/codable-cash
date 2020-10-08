@@ -16,11 +16,17 @@
 namespace alinous {
 
 AbstractAlterDdlWithTypeDesc::AbstractAlterDdlWithTypeDesc(short kind) : AbstractAlterDdlCommand(kind) {
-
+	this->columnDescriptor = nullptr;
+	this->longValue = 0;
 }
 
 AbstractAlterDdlWithTypeDesc::~AbstractAlterDdlWithTypeDesc() {
 
+}
+
+void AbstractAlterDdlWithTypeDesc::setColumnDescriptor(DdlColumnDescriptor* columnDescriptor) noexcept {
+	delete this->columnDescriptor;
+	this->columnDescriptor = columnDescriptor;
 }
 
 DdlColumnDescriptor* AbstractAlterDdlWithTypeDesc::copyColumnDescriptor(

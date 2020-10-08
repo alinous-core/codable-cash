@@ -61,17 +61,11 @@ AlterModifyCommand::AlterModifyCommand(const AlterModifyCommand& inst) : Abstrac
 
 
 AlterModifyCommand::AlterModifyCommand() : AbstractAlterDdlWithTypeDesc(CodeElement::DDL_ALTER_MODIFY) {
-	this->columnDescriptor = nullptr;
-	this->longValue = 0;
+
 }
 
 AlterModifyCommand::~AlterModifyCommand() {
 	delete this->columnDescriptor;
-}
-
-void AlterModifyCommand::setColumnDescriptor(DdlColumnDescriptor* columnDescriptor) noexcept {
-	delete this->columnDescriptor;
-	this->columnDescriptor = columnDescriptor;
 }
 
 int AlterModifyCommand::binarySize() const {

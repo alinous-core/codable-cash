@@ -26,11 +26,6 @@ public:
 	AlterModifyCommand();
 	virtual ~AlterModifyCommand();
 
-	void setColumnDescriptor(DdlColumnDescriptor* columnDescriptor) noexcept;
-	const DdlColumnDescriptor* getColumnDescriptor() const noexcept {
-		return columnDescriptor;
-	}
-
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
@@ -42,16 +37,9 @@ public:
 	virtual void analyze(AnalyzeContext* actx);
 	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId);
 
-	int64_t getLengthValue() const noexcept {
-		return this->longValue;
-	}
-
 private:
 	void validate(VirtualMachine* vm, AlterModifyCommandLog* log, TableIdentifier* tableId);
 
-private:
-	DdlColumnDescriptor* columnDescriptor;
-	int64_t longValue;
 };
 
 } /* namespace alinous */
