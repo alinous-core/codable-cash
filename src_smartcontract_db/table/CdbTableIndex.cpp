@@ -89,6 +89,7 @@ UnicodeString* CdbTableIndex::createUniqueKeyIndexName(CdbTable* table, const Un
 }
 
 void CdbTableIndex::setName(UnicodeString* name) noexcept {
+	delete this->name;
 	this->name = name;
 }
 

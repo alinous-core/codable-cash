@@ -44,6 +44,8 @@
 #include "engine/CdbOid.h"
 
 #include "sql_ddl_alter_modify/AlterAddPrimaryKeyCommand.h"
+
+#include "sql_ddl_alter/AlterAddIndexCommand.h"
 namespace codablecash {
 
 SchemaAlterCommandsHandler::SchemaAlterCommandsHandler(SchemaManager* schemaManager) {
@@ -55,7 +57,30 @@ SchemaAlterCommandsHandler::~SchemaAlterCommandsHandler() {
 }
 
 void SchemaAlterCommandsHandler::handleAlterTableAddIndex(const AlterAddIndexCommandLog* cmd) {
+	const AlterAddIndexCommand* command = cmd->getCommand();
+
 	CdbTable* table = findTableFromCommand(cmd);
+
+	uint64_t newOid = this->schemaManager->root->newSchemaObjectId();
+	CdbTableIndex* newIndex = new CdbTableIndex(newOid);
+
+	const UnicodeString* indexName = command->getName();
+	newIndex->setName(new UnicodeString(indexName));
+
+	const ArrayList<UnicodeString>* colList = command->getList();
+	int maxLoop = colList->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const UnicodeString* colstr = colList->get(i);
+
+		const CdbTableColumn* col = table->getColumn(colstr);
+		assert(col != nullptr);
+
+		newIndex->addColumn(col);
+	}
+
+	newIndex->setUnique(command->isUnique());
+
+	table->addIndex(newIndex);
 
 	// TODO: alter add
 
