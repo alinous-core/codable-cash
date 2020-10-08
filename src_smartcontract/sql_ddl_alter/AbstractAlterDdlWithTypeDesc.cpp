@@ -37,10 +37,11 @@ namespace alinous {
 AbstractAlterDdlWithTypeDesc::AbstractAlterDdlWithTypeDesc(short kind) : AbstractAlterDdlCommand(kind) {
 	this->columnDescriptor = nullptr;
 	this->longValue = 0;
+	this->defaultValueStr = nullptr;
 }
 
 AbstractAlterDdlWithTypeDesc::~AbstractAlterDdlWithTypeDesc() {
-
+	delete this->defaultValueStr;
 }
 
 void AbstractAlterDdlWithTypeDesc::setColumnDescriptor(DdlColumnDescriptor* columnDescriptor) noexcept {
@@ -118,6 +119,11 @@ void AbstractAlterDdlWithTypeDesc::analyzeLengthOfValiable(AnalyzeContext* actx)
 			}
 		}
 	}
+}
+
+void AbstractAlterDdlWithTypeDesc::setDefaultValueStr(UnicodeString* str) noexcept {
+	delete this->defaultValueStr;
+	this->defaultValueStr = str;
 }
 
 DdlColumnDescriptor* AbstractAlterDdlWithTypeDesc::copyColumnDescriptor(

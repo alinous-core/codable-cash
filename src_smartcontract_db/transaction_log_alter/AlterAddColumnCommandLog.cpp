@@ -68,6 +68,15 @@ void AlterAddColumnCommandLog::commit(CdbTransactionManager* trxManager) {
 	trxManager->commitAlterTable(this);
 }
 
+void AlterAddColumnCommandLog::reanalyze(AnalyzeContext* ctx, CodeElement* parent) {
+	this->command->setParent(parent);
+	this->command->preAnalyze(ctx);
+
+	this->command->analyzeTypeRef(ctx);
+
+	this->command->analyze(ctx);
+}
+
 void AlterAddColumnCommandLog::initCommandParam(VirtualMachine* vm, TableIdentifier* tableId) {
 	this->command->interpret(vm, this, tableId);
 }

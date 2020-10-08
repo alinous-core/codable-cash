@@ -127,7 +127,7 @@ void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* 
 	AlterModifyCommandLog* modifyLog = dynamic_cast<AlterModifyCommandLog*>(log);
 
 	UnicodeString* str = interpretDefaultString(vm);
-	modifyLog->setDefaultStr(str);
+	setDefaultValueStr(str);
 
 	validate(vm, modifyLog, tableId);
 }
@@ -144,7 +144,9 @@ void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log
 	const UnicodeString* name = this->columnDescriptor->getName();
 	CdbTableColumn* column = table->getColumn(name);
 
-	const UnicodeString* defstr = log->getDefaultValueStr();
+
+	AlterModifyCommand* command = log->getCommand();
+	const UnicodeString* defstr = command->getDefaultValueStr();
 
 	ColumnModifyContext* modifyContext = column->createModifyContextwithChange(this, defstr, false); __STP(modifyContext);
 	modifyContext->setColumn(column);

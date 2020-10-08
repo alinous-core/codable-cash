@@ -23,7 +23,6 @@ public:
 	virtual ~AlterModifyCommandLog();
 
 	void setCommand(AlterModifyCommand* command) noexcept;
-	void setDefaultStr(UnicodeString* defaultValueStr) noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out) const;
@@ -34,22 +33,20 @@ public:
 	virtual void reanalyze(AnalyzeContext* actx, CodeElement* parent);
 	virtual void initCommandParam(VirtualMachine* vm, TableIdentifier* tableId);
 
-	const AlterModifyCommand* getCommand() const noexcept {
+	AlterModifyCommand* getCommand() const noexcept {
 		return command;
 	}
 
 	void setLength(int64_t length) noexcept;
 
-	const UnicodeString* getDefaultValueStr() const noexcept {
+	/*const UnicodeString* getDefaultValueStr() const noexcept {
 		return defaultValueStr;
-	}
+	}*/
 
 private:
 	AlterModifyCommand* command;
 
 	int64_t length;
-	UnicodeString* defaultValueStr;
-
 };
 
 } /* namespace codablecash */

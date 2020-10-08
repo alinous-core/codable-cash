@@ -20,6 +20,11 @@ public:
 	explicit AbstractAlterDdlWithTypeDesc(short kind);
 	virtual ~AbstractAlterDdlWithTypeDesc();
 
+	void setDefaultValueStr(UnicodeString* str) noexcept;
+	const UnicodeString* getDefaultValueStr() const noexcept{
+		return defaultValueStr;
+	}
+
 	void setColumnDescriptor(DdlColumnDescriptor* columnDescriptor) noexcept;
 	const DdlColumnDescriptor* getColumnDescriptor() const noexcept {
 		return columnDescriptor;
@@ -31,12 +36,17 @@ public:
 	void analyzeLengthOfValiable(AnalyzeContext* actx);
 	UnicodeString* interpretDefaultString(VirtualMachine* vm);
 
+	void setLongValue(int64_t longValue) {
+		this->longValue = longValue;
+	}
+
 protected:
 	DdlColumnDescriptor* copyColumnDescriptor(DdlColumnDescriptor* columnDescriptor) const;
 
 protected:
 	DdlColumnDescriptor* columnDescriptor;
 	int64_t longValue;
+	UnicodeString* defaultValueStr;
 };
 
 } /* namespace alinous */
