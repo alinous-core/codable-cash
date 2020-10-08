@@ -160,6 +160,11 @@ void AlterAddIndexCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog
 		throw new CdbException(L"Index with same column & uniqueness exists", __FILE__, __LINE__);
 	}
 
+	const UnicodeString* idxname = command->getName();
+	index = table->getIndexByName(idxname);
+	if(index != nullptr){
+		throw new CdbException(L"Index with same name exists", __FILE__, __LINE__);
+	}
 	// TODO AlterAddIndexCommand::interpret
 }
 

@@ -102,7 +102,6 @@ void AlterDropColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandL
 	if(primaryKey->hasColumnOid(col->getOid())){
 		throw new CdbException(L"Can not delete columns used in Primary Key.", __FILE__, __LINE__);
 	}
-
 }
 
 } /* namespace alinous */

@@ -81,6 +81,8 @@ public:
 	CdbTableIndex* getIndexByColumnOids(const ArrayList<const CdbOid>* oidlist) const noexcept;
 	CdbTableIndex* getIndexByColumnOidsStrict(const ArrayList<const CdbOid>* oidlist, bool uniqueData) const noexcept;
 
+	CdbTableIndex* getIndexByName(const UnicodeString* indexname) const noexcept;
+
 	void removeIndex(const CdbTableIndex* ptr) noexcept;
 	void renameColumn(const UnicodeString* lastColumn, const UnicodeString* newColumn);
 

@@ -413,6 +413,24 @@ CdbTableIndex* CdbTable::getIndexByColumnOidsStrict(const ArrayList<const CdbOid
 	return ret;
 }
 
+CdbTableIndex* CdbTable::getIndexByName(const UnicodeString* indexname) const noexcept {
+	CdbTableIndex* ret = nullptr;
+
+	int maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* idx = this->indexes->get(i);
+
+		const UnicodeString* name = idx->getName();
+		if(name->equals(indexname)){
+			ret = idx;
+			break;
+		}
+	}
+
+	return ret;
+}
+
+
 void CdbTable::removeIndex(const CdbTableIndex* ptr) noexcept {
 	int removeIndex = -1;
 

@@ -29,6 +29,9 @@ public:
 	bool isUnique() const noexcept {
 		return unique;
 	}
+	const UnicodeString* getName() const noexcept {
+		return name;
+	}
 
 	const ArrayList<UnicodeString>* getList() const noexcept {
 		return &list;
@@ -44,6 +47,8 @@ public:
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId);
+
+
 
 private:
 	UnicodeString* name;
