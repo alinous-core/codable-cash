@@ -8,6 +8,7 @@
 #include "sql_ddl_alter/AlterAddIndexCommand.h"
 
 #include "base/UnicodeString.h"
+#include "base/ArrayList.h"
 
 #include "transaction_log_alter/AlterAddIndexCommandLog.h"
 
@@ -16,10 +17,14 @@
 #include "sql_join_parts/TableIdentifier.h"
 
 #include "engine/CodableDatabase.h"
+#include "engine/CdbOid.h"
+#include "engine/CdbException.h"
 
 #include "schema/SchemaManager.h"
 
 #include "table/CdbTable.h"
+
+#include "table/CdbTableColumn.h"
 
 namespace alinous {
 
@@ -132,6 +137,31 @@ void AlterAddIndexCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog
 	tableId->inputDefaultSchema(defaultSchema);
 
 	CdbTable* table = schemaManager->getTable(tableId, nullptr); // throws if Table does not exists;
+
+	bool unique = command->isUnique();
+
+	ArrayList<const CdbOid> oidlist;
+	const ArrayList<UnicodeString>* colList = command->getList();
+
+	int maxLoop = colList->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const UnicodeString* colstr = colList->get(i);
+
+		const CdbTableColumn* c = table->getColumn(colstr);
+		if(c == nullptr){
+			throw new CdbException(L"Column does not exist", __FILE__, __LINE__);
+		}
+
+		oidlist.addElement(c->getOid());
+	}
+
+
+	CdbTableIndex* index = table->getIndexByColumnOidsStrict(&oidlist, unique);
+	if(index != nullptr){
+		throw new CdbException(L"Index with same column & uniqueness exists", __FILE__, __LINE__);
+	}
+
+	// TODO AlterAddIndexCommand::interpret
 }
 
 } /* namespace alinous */

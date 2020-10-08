@@ -26,6 +26,14 @@ public:
 	void addColumn(UnicodeString* colName) noexcept;
 	void setUnique(bool unique) noexcept;
 
+	bool isUnique() const noexcept {
+		return unique;
+	}
+
+	const ArrayList<UnicodeString>* getList() const noexcept {
+		return &list;
+	}
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
