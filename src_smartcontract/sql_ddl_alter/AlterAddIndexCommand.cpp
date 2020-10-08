@@ -155,7 +155,6 @@ void AlterAddIndexCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog
 		oidlist.addElement(c->getOid());
 	}
 
-
 	CdbTableIndex* index = table->getIndexByColumnOidsStrict(&oidlist, unique);
 	if(index != nullptr){
 		throw new CdbException(L"Index with same column & uniqueness exists", __FILE__, __LINE__);

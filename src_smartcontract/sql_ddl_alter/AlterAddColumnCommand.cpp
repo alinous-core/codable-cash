@@ -18,8 +18,15 @@
 #include "transaction_log_alter/AbstractAlterCommandLog.h"
 
 #include "engine/CodableDatabase.h"
+#include "engine/CdbException.h"
 
 #include "schema/SchemaManager.h"
+
+#include "table/CdbTable.h"
+
+#include "base/UnicodeString.h"
+
+
 namespace alinous {
 
 AlterAddColumnCommand::AlterAddColumnCommand(const AlterAddColumnCommand& inst)
@@ -76,6 +83,8 @@ void AlterAddColumnCommand::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void AlterAddColumnCommand::analyze(AnalyzeContext* actx) {
+	ColumnTypeDescriptor* typeDesc = this->columnDescriptor->getTypeDesc();
+
 }
 
 void AlterAddColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
@@ -89,6 +98,16 @@ void AlterAddColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLo
 	tableId->inputDefaultSchema(defaultSchema);
 
 	CdbTable* table = schemaManager->getTable(tableId, nullptr); // throws if Table does not exists;
+
+	const DdlColumnDescriptor* colDesc = command->getColumnDescriptor();
+	const UnicodeString* colName = colDesc->getName();
+
+	CdbTableColumn* c = table->getColumn(colName);
+	if(c != nullptr){
+		throw new CdbException(L"Column already exists", __FILE__, __LINE__);
+	}
+
+
 }
 
 
