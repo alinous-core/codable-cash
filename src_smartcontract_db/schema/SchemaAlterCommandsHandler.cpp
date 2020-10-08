@@ -87,7 +87,7 @@ void SchemaAlterCommandsHandler::handleAlterTableAddIndex(const AlterAddIndexCom
 	newIndex->setUnique(command->isUnique());
 	table->addIndex(newIndex);
 
-	// TODO: alter add const CdbTableIndex* newIndex
+	this->schemaManager->fireOnAddIndex(table, newIndex);
 
 	// save
 	this->schemaManager->save();
@@ -104,7 +104,7 @@ void SchemaAlterCommandsHandler::handleAlterTableDropIndex(const AlterDropIndexC
 
 	table->removeIndex(removalIndex);
 
-	// TODO : fire CdbTableIndex* removalIndex,
+	this->schemaManager->fireOnDropIndex(table, removalIndex);
 
 	// upgrade
 	this->schemaManager->root->upgradeSchemaObjectVersionId();
@@ -144,7 +144,7 @@ void SchemaAlterCommandsHandler::handleAlterTableAddColumn(const AlterAddColumnC
 		table->addIndex(newUniqueIndex);
 	}
 
-	// TODO fire const CdbTableColumn* newColumn, const CdbTableIndex* newUniqueIndex
+	this->schemaManager->fireOnAddColumn(table, newColumn, newUniqueIndex);
 
 	// save
 	this->schemaManager->save();
@@ -162,7 +162,7 @@ void SchemaAlterCommandsHandler::handleAlterTableDropColumn(const AlterDropColum
 
 	CdbTableColumn* removalColumn = table->removeColumn(columnName); __STP(removalColumn);
 
-	// TODO: fire const CdbTableColumn* removalColumn, const ArrayList<CdbTableIndex>* removalIndexes
+	this->schemaManager->fireOnDropColumn(table, removalColumn, removalIndexes);
 
 	// upgrade
 	this->schemaManager->root->upgradeSchemaObjectVersionId();

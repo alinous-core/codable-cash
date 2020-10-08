@@ -292,6 +292,43 @@ void SchemaManager::fireOnAddPrimaryKey(const CdbTable* table,	const CdbTableInd
 	}
 }
 
+void SchemaManager::fireOnAddColumn(const CdbTable* table,
+		const CdbTableColumn* newColumn, const CdbTableIndex* newUniqueIndex) {
+	int maxLoop = this->listners.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ISchemaUptateListner* l = this->listners.get(i);
+		l->onAddColumn(this, table, newColumn, newUniqueIndex);
+	}
+}
+
+void SchemaManager::fireOnDropColumn(const CdbTable* table,
+		const CdbTableColumn* removalColumn, const ArrayList<CdbTableIndex>* removalIndexes) {
+	int maxLoop = this->listners.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ISchemaUptateListner* l = this->listners.get(i);
+		l->onDropColumn(this, table, removalColumn, removalIndexes);
+	}
+}
+
+void SchemaManager::fireOnAddIndex(const CdbTable* table,
+		const CdbTableIndex* newIndex) {
+	int maxLoop = this->listners.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ISchemaUptateListner* l = this->listners.get(i);
+		l->onAddIndex(this, table, newIndex);
+	}
+}
+
+void SchemaManager::fireOnDropIndex(const CdbTable* table,
+		const CdbTableIndex* removalIndex) {
+	int maxLoop = this->listners.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ISchemaUptateListner* l = this->listners.get(i);
+		l->onDropIndex(this, table, removalIndex);
+	}
+}
+
+
 void SchemaManager::fireOnRenameTable(const CdbTable* table, TableRenameContext* context) {
 	int maxLoop = this->listners.size();
 	for(int i = 0; i != maxLoop; ++i){
