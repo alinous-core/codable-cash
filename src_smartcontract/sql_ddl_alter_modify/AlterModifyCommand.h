@@ -8,7 +8,7 @@
 #ifndef SQL_DDL_ALTER_MODIFY_ALTERMODIFYCOMMAND_H_
 #define SQL_DDL_ALTER_MODIFY_ALTERMODIFYCOMMAND_H_
 
-#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
+#include "sql_ddl_alter/AbstractAlterDdlWithTypeDesc.h"
 
 namespace codablecash {
 class AlterModifyCommandLog;
@@ -20,7 +20,7 @@ namespace alinous {
 class DdlColumnDescriptor;
 class VirtualMachine;
 
-class AlterModifyCommand : public AbstractAlterDdlCommand {
+class AlterModifyCommand : public AbstractAlterDdlWithTypeDesc {
 public:
 	AlterModifyCommand(const AlterModifyCommand& inst);
 	AlterModifyCommand();

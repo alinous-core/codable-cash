@@ -8,13 +8,13 @@
 #ifndef SQL_DDL_ALTER_ALTERADDCOLUMNCOMMAND_H_
 #define SQL_DDL_ALTER_ALTERADDCOLUMNCOMMAND_H_
 
-#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
+#include "sql_ddl_alter/AbstractAlterDdlWithTypeDesc.h"
 
 namespace alinous {
 
 class DdlColumnDescriptor;
 
-class AlterAddColumnCommand : public AbstractAlterDdlCommand {
+class AlterAddColumnCommand : public AbstractAlterDdlWithTypeDesc {
 public:
 	AlterAddColumnCommand(const AlterAddColumnCommand& inst);
 	AlterAddColumnCommand();

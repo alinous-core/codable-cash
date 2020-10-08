@@ -30,11 +30,11 @@
 namespace alinous {
 
 AlterAddColumnCommand::AlterAddColumnCommand(const AlterAddColumnCommand& inst)
-				: AbstractAlterDdlCommand(CodeElement::DDL_ALTER_ADD_COLUMN) {
+				: AbstractAlterDdlWithTypeDesc(CodeElement::DDL_ALTER_ADD_COLUMN) {
 	this->columnDescriptor = copyColumnDescriptor(inst.columnDescriptor);
 }
 
-AlterAddColumnCommand::AlterAddColumnCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_ADD_COLUMN) {
+AlterAddColumnCommand::AlterAddColumnCommand() : AbstractAlterDdlWithTypeDesc(CodeElement::DDL_ALTER_ADD_COLUMN) {
 	this->columnDescriptor = nullptr;
 }
 

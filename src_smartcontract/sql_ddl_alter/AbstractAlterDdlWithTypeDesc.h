@@ -16,6 +16,9 @@ class AbstractAlterDdlWithTypeDesc : public AbstractAlterDdlCommand {
 public:
 	explicit AbstractAlterDdlWithTypeDesc(short kind);
 	virtual ~AbstractAlterDdlWithTypeDesc();
+
+protected:
+	DdlColumnDescriptor* copyColumnDescriptor(DdlColumnDescriptor* columnDescriptor) const;
 };
 
 } /* namespace alinous */

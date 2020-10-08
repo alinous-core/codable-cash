@@ -54,13 +54,13 @@
 
 namespace alinous {
 
-AlterModifyCommand::AlterModifyCommand(const AlterModifyCommand& inst) : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_MODIFY) {
+AlterModifyCommand::AlterModifyCommand(const AlterModifyCommand& inst) : AbstractAlterDdlWithTypeDesc(CodeElement::DDL_ALTER_MODIFY) {
 	this->columnDescriptor = copyColumnDescriptor(inst.columnDescriptor);
 	this->longValue = inst.longValue;
 }
 
 
-AlterModifyCommand::AlterModifyCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_MODIFY) {
+AlterModifyCommand::AlterModifyCommand() : AbstractAlterDdlWithTypeDesc(CodeElement::DDL_ALTER_MODIFY) {
 	this->columnDescriptor = nullptr;
 	this->longValue = 0;
 }
