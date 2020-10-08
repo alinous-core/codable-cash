@@ -32,6 +32,7 @@ namespace alinous {
 AlterAddColumnCommand::AlterAddColumnCommand(const AlterAddColumnCommand& inst)
 				: AbstractAlterDdlWithTypeDesc(CodeElement::DDL_ALTER_ADD_COLUMN) {
 	this->columnDescriptor = copyColumnDescriptor(inst.columnDescriptor);
+	this->longValue = inst.longValue;
 }
 
 AlterAddColumnCommand::AlterAddColumnCommand() : AbstractAlterDdlWithTypeDesc(CodeElement::DDL_ALTER_ADD_COLUMN) {
@@ -89,7 +90,7 @@ void AlterAddColumnCommand::analyze(AnalyzeContext* actx) {
 
 void AlterAddColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
 	AlterAddColumnCommandLog* thisLog = dynamic_cast<AlterAddColumnCommandLog*>(log);
-	const AlterAddColumnCommand* command = thisLog->getCommand();
+	AlterAddColumnCommand* command = thisLog->getCommand();
 
 	CodableDatabase* db = vm->getDb();
 	SchemaManager* schemaManager = db->getSchemaManager();
@@ -108,7 +109,7 @@ void AlterAddColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLo
 	}
 
 	UnicodeString* str = interpretDefaultString(vm);
-	setDefaultValueStr(str);
+	command->setDefaultValueStr(str);
 }
 
 

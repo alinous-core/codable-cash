@@ -48,7 +48,7 @@ AlterModifyCommand::AlterModifyCommand() : AbstractAlterDdlWithTypeDesc(CodeElem
 }
 
 AlterModifyCommand::~AlterModifyCommand() {
-	delete this->columnDescriptor;
+
 }
 
 int AlterModifyCommand::binarySize() const {
@@ -125,9 +125,11 @@ void AlterModifyCommand::analyze(AnalyzeContext* actx) {
 
 void AlterModifyCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
 	AlterModifyCommandLog* modifyLog = dynamic_cast<AlterModifyCommandLog*>(log);
+	AlterModifyCommand* command = modifyLog->getCommand();
 
 	UnicodeString* str = interpretDefaultString(vm);
-	setDefaultValueStr(str);
+	command->setDefaultValueStr(str);
+
 
 	validate(vm, modifyLog, tableId);
 }

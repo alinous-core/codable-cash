@@ -33,7 +33,7 @@ public:
 	virtual void reanalyze(AnalyzeContext* ctx, CodeElement* parent);
 	virtual void initCommandParam(VirtualMachine* vm, TableIdentifier* tableId);
 
-	const AlterAddColumnCommand* getCommand() const noexcept {
+	AlterAddColumnCommand* getCommand() const noexcept {
 		return command;
 	}
 

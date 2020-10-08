@@ -41,6 +41,7 @@ AbstractAlterDdlWithTypeDesc::AbstractAlterDdlWithTypeDesc(short kind) : Abstrac
 }
 
 AbstractAlterDdlWithTypeDesc::~AbstractAlterDdlWithTypeDesc() {
+	delete columnDescriptor;
 	delete this->defaultValueStr;
 }
 
@@ -76,7 +77,7 @@ UnicodeString* AbstractAlterDdlWithTypeDesc::interpretDefaultString(VirtualMachi
 			VmStringInstance* strInst = dynamic_cast<VmStringInstance*>(sub);
 			const UnicodeString* str = strInst->toString();
 
-			ret = new UnicodeString(new UnicodeString(str));
+			ret = new UnicodeString(str);
 		}
 		//else{ Not necessary
 		//	TypeCastExceptionClassDeclare::throwException(vm, this);
