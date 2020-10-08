@@ -20,6 +20,11 @@
 #include "schema/SchemaManager.h"
 
 #include "table/CdbTable.h"
+#include "table/CdbTableColumn.h"
+#include "table/CdbTableIndex.h"
+
+#include "engine/CdbException.h"
+
 namespace alinous {
 
 AlterDropColumnCommand::AlterDropColumnCommand(const AlterDropColumnCommand& inst)
@@ -86,6 +91,18 @@ void AlterDropColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandL
 	tableId->inputDefaultSchema(defaultSchema);
 
 	CdbTable* table = schemaManager->getTable(tableId, nullptr); // throws if Table does not exists;
+
+	const UnicodeString* colName = command->getName();
+	CdbTableColumn* col = table->getColumn(colName);
+	if(col == nullptr){
+		throw new CdbException(L"Column does not exist", __FILE__, __LINE__);
+	}
+
+	CdbTableIndex* primaryKey = table->getPrimaryKey();
+	if(primaryKey->hasColumnOid(col->getOid())){
+		throw new CdbException(L"Can not delete columns used in Primary Key.", __FILE__, __LINE__);
+	}
+
 }
 
 } /* namespace alinous */

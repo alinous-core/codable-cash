@@ -19,6 +19,9 @@ public:
 	virtual ~AlterDropColumnCommand();
 
 	void setName(UnicodeString* name) noexcept;
+	const UnicodeString* getName() const noexcept {
+		return name;
+	}
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
