@@ -156,9 +156,13 @@ void TableStore::createTable() {
 
 
 void TableStore::addNewColumn(const CdbTableColumn* newColumn) {
+
+	// TODO TableStore::addNewColumn
+
 }
 
 void TableStore::removeColumn(const CdbTableColumn* removalColumn) {
+	// TODO TableStore::removeColumn
 }
 
 

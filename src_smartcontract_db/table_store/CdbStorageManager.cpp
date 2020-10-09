@@ -188,6 +188,15 @@ void CdbStorageManager::onDropColumn(SchemaManager* mgr, const CdbTable* table,
 
 	TableStore* store = getTableStore(tableOid);
 	assert(store != nullptr);
+
+	store->removeColumn(removalColumn);
+
+	int maxLoop = removalIndexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const CdbTableIndex* index = removalIndexes->get(i);
+
+		store->removeIndex(index);
+	}
 }
 
 void CdbStorageManager::onAddIndex(SchemaManager* mgr, const CdbTable* table,
