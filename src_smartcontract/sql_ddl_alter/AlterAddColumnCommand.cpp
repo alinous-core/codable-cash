@@ -24,8 +24,12 @@
 #include "table/CdbTable.h"
 
 #include "table_store/CdbStorageManager.h"
+#include "table_store/TableStore.h"
+#include "table_store/RecordStore.h"
 
 #include "base/UnicodeString.h"
+
+#include "scan/RecordScanner.h"
 
 namespace alinous {
 
@@ -111,7 +115,7 @@ void AlterAddColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLo
 	UnicodeString* str = interpretDefaultString(vm);
 	command->setDefaultValueStr(str);
 
-	// FIXME check unique
+	// check unique
 	if(colDesc->isUnique()){
 		CdbStorageManager* storageManager = db->getStorageManager();
 		TableStore* store = storageManager->getTableStore(table->getOid());
@@ -121,6 +125,19 @@ void AlterAddColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLo
 }
 
 void AlterAddColumnCommand::checkRecordCount(TableStore* store) {
+	RecordScanner scanner(store);
+
+	scanner.start();
+
+	int count = 0;
+	while(scanner.hasNext()){
+		const CdbRecord* record = scanner.next();
+
+		count++;
+		if(count > 1){
+			throw new CdbException(L"Unique column requires unique data.", __FILE__, __LINE__);
+		}
+	}
 }
 
 } /* namespace alinous */
