@@ -5,10 +5,6 @@ set(testsrc
 	test_cdb_values_cast_default.cpp
 	test_cdb_values_cast.cpp
 	test_cdb_values.cpp
-	test_create_table_reload.cpp
-	test_create_table_script.cpp
-	test_create_table.cpp
-	test_drop_table.cpp
 	test_insert_parts_types.cpp
 	test_insert_parts.cpp
 	test_insert.cpp
