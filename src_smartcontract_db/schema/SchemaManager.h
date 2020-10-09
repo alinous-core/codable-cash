@@ -70,6 +70,7 @@ public:
 	uint64_t getSchemaObjectVersionId() const noexcept;
 
 	void createTable(CdbTable* table);
+	void dropTable(const TableIdentifier* table);
 
 	Schema* getSchema(const UnicodeString* name) const noexcept;
 	const ArrayList<Schema>* getSchemaList() const noexcept;

@@ -22,6 +22,7 @@ class CodableDatabase;
 class SchemaObjectIdPublisher;
 class RecordObjectIdPublisher;
 class CreateTableLog;
+class DropTableLog;
 class AbstractTransactionLog;
 class InsertLog;
 class Schema;
@@ -52,6 +53,7 @@ public:
 	RecordObjectIdPublisher* getRecordObjectIdPublisher() const noexcept;
 
 	void commitCreateTable(CreateTableLog* cmd);
+	void commitDropTable(DropTableLog* cmd);
 	void commitAlterTable(AbstractAlterCommandLog* cmd);
 
 	void commitInsert(InsertLog* cmd);

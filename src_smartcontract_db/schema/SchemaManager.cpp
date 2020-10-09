@@ -114,6 +114,15 @@ void SchemaManager::createSchema(const UnicodeString* name) {
 	this->root->addSchema(schema);
 }
 
+void SchemaManager::dropTable(const TableIdentifier* table){
+
+
+	// TODO:  SchemaManager::dropTable
+
+	// upgrade & save
+	this->root->upgradeSchemaObjectVersionId();
+	save();
+}
 
 void SchemaManager::save() {
 	FileOutputStream* outStream = new FileOutputStream(schemaBin); __STP(outStream);

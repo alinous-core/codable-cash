@@ -39,6 +39,8 @@
 #include "transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
 
 #include "engine_lock/StackDbLockUnlocker.h"
+
+#include "transaction_log/DropTableLog.h"
 namespace codablecash {
 
 CdbTransactionManager::CdbTransactionManager(CodableDatabase* db) {
@@ -134,6 +136,13 @@ RecordObjectIdPublisher* CdbTransactionManager::getRecordObjectIdPublisher() con
 void CdbTransactionManager::commitCreateTable(CreateTableLog* cmd) {
 	CdbTable* table = cmd->getTable();
 	this->schemaManager->createTable(table);
+
+	this->committedCommands->addElement(cmd);
+}
+
+void CdbTransactionManager::commitDropTable(DropTableLog* cmd) {
+	const TableIdentifier* tableId = cmd->getTableId();
+	this->schemaManager->dropTable(tableId);
 
 	this->committedCommands->addElement(cmd);
 }

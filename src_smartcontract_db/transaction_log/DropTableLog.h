@@ -29,6 +29,9 @@ public:
 	virtual void commit(CdbTransactionManager* trxManager);
 
 	void setTableId(const TableIdentifier* tableId) noexcept;
+	const TableIdentifier* getTableId() const noexcept {
+		return tableId;
+	}
 
 private:
 	TableIdentifier* tableId;
