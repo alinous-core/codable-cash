@@ -37,32 +37,43 @@ void AlterRecordValueExecutor::addColumn(TableStore* store) {
 	uint8_t cdbType = this->column->getType();
 	const UnicodeString* defstr = this->column->getDefaultValue();
 
-	AbstractCdbValue* defaultValue = CdbValueCaster::convertFromString(defstr, cdbType);
+	AbstractCdbValue* defaultValue = CdbValueCaster::convertFromString(defstr, cdbType); __STP(defaultValue);
 
-	Btree* btree = store->getRecordStore()->getBtree();
+	RecordStore* recordStore = store->getRecordStore();
+	Btree* btree = recordStore->getBtree();
 	BtreeScanner* scanner = btree->getScanner(); __STP(scanner);
 
 	scanner->begin();
 
 	while(scanner->hasNext()){
 		const IBlockObject* obj = scanner->next();
-		CdbRecord* record = dynamic_cast<CdbRecord*>(obj->copyData());
+		CdbRecord* record = dynamic_cast<CdbRecord*>(obj->copyData()); __STP(record);
 
+		record->addValue(defaultValue != nullptr ? defaultValue->copy() : nullptr);
+		recordStore->insert(record);
 	}
 
 	// TODO AlterRecordValueExecutor::addNewColumn
 }
 
 void AlterRecordValueExecutor::removeColumn(TableStore* store) {
-	Btree* btree = store->getRecordStore()->getBtree();
+	RecordStore* recordStore = store->getRecordStore();
+	Btree* btree = recordStore->getBtree();
 	BtreeScanner* scanner = btree->getScanner(); __STP(scanner);
+
+	int removePosition = this->column->getPosition();
 
 	scanner->begin();
 	while(scanner->hasNext()){
 		const IBlockObject* obj = scanner->next();
-		CdbRecord* record = dynamic_cast<CdbRecord*>(obj->copyData());
+		CdbRecord* record = dynamic_cast<CdbRecord*>(obj->copyData()); __STP(record);
 
+		record->removeColumnValue(removePosition);
+
+		recordStore->insert(record);
 	}
+
+
 
 	// TODO AlterRecordValueExecutor::removeColumn
 }

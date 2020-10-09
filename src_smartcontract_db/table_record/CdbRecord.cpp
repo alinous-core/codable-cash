@@ -56,6 +56,13 @@ void CdbRecord::setValue(AbstractCdbValue* value, int i) noexcept {
 	this->list.setElement(value, i);
 }
 
+void CdbRecord::removeColumnValue(int pos) noexcept {
+	AbstractCdbValue* value = this->list.get(pos);
+
+	this->list.remove(pos);
+	delete value;
+}
+
 int CdbRecord::binarySize() const {
 	int total = sizeof(int8_t);
 

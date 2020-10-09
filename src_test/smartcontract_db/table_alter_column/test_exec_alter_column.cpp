@@ -40,7 +40,7 @@ TEST_GROUP(TestExecAlterColumnGroup) {
 
 /**
  * add column
- *
+ * ALTER TABLE test_table ADD COLUMN email_id2 int not null unique default '0';
  */
 TEST(TestExecAlterColumnGroup, addColumn01){
 	TestDbSchemaAlter01 tester(this->env);
@@ -71,7 +71,7 @@ TEST(TestExecAlterColumnGroup, addColumn01){
 
 /**
  * drop column
- *
+ * ALTER TABLE test_table DROP email_id;
  */
 TEST(TestExecAlterColumnGroup, dropColumn01){
 	TestDbSchemaAlter01 tester(this->env);
