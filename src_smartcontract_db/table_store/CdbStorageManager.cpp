@@ -109,6 +109,10 @@ void CdbStorageManager::onCreateTable(SchemaManager* mgr, const CdbTable* table)
 	this->tableStoreMap->put(store->getOid(), store);
 }
 
+void CdbStorageManager::onDropTable(SchemaManager* mgr, const CdbTable* table) {
+	// TODO: CdbStorageManager::onDropTable
+}
+
 void CdbStorageManager::onAlterModify(SchemaManager* mgr, const CdbTable* table, const ColumnModifyContext* ctx) {
 	const CdbOid* tableOid = table->getOid();
 

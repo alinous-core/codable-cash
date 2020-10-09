@@ -114,19 +114,6 @@ void SchemaManager::createSchema(const UnicodeString* name) {
 	this->root->addSchema(schema);
 }
 
-void SchemaManager::dropTable(const TableIdentifier* tableId){
-	const UnicodeString* schema = tableId->getSchema();
-	const UnicodeString* tableName = tableId->getTableName();
-
-	CdbTable* table = getTable(schema, tableName);
-
-	// TODO:  SchemaManager::dropTable
-
-	// upgrade & save
-	this->root->upgradeSchemaObjectVersionId();
-	save();
-}
-
 void SchemaManager::save() {
 	FileOutputStream* outStream = new FileOutputStream(schemaBin); __STP(outStream);
 	outStream->open(false);
@@ -190,6 +177,21 @@ void SchemaManager::createTable(CdbTable* table) {
 	const CdbTable* newTable = this->root->createTable(table);
 	fireOnCreateTable(newTable);
 
+	save();
+}
+
+void SchemaManager::dropTable(const TableIdentifier* tableId){
+	const UnicodeString* schema = tableId->getSchema();
+	const UnicodeString* tableName = tableId->getTableName();
+
+	CdbTable* table = getTable(schema, tableName);
+
+	// TODO:  SchemaManager::dropTable
+
+	fireOnDropTable(table);
+
+	// upgrade & save
+	this->root->upgradeSchemaObjectVersionId();
 	save();
 }
 
@@ -277,7 +279,14 @@ void SchemaManager::fireOnCreateTable(const CdbTable* table) {
 		ISchemaUptateListner* l = this->listners.get(i);
 		l->onCreateTable(this, table);
 	}
+}
 
+void SchemaManager::fireOnDropTable(const CdbTable* table) {
+	int maxLoop = this->listners.size();
+	for(int i = 0; i != maxLoop; ++i){
+		ISchemaUptateListner* l = this->listners.get(i);
+		l->onDropTable(this, table);
+	}
 }
 
 void SchemaManager::fireOnAlterModify(const CdbTable* table, const ColumnModifyContext* ctx) {

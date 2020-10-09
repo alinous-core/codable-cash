@@ -99,6 +99,7 @@ public:
 private:
 	void fireSchemaLoaded() noexcept;
 	void fireOnCreateTable(const CdbTable* table);
+	void fireOnDropTable(const CdbTable* table);
 	void fireOnAlterModify(const CdbTable* table, const ColumnModifyContext* ctx);
 	void fireOnDropPrimaryKey(const CdbTable* table, const CdbTableIndex* primaryKey);
 	void fireOnAddPrimaryKey(const CdbTable* table, const CdbTableIndex* primaryKey);

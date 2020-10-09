@@ -28,6 +28,8 @@ public:
 
 	virtual void schemaLoaded(SchemaManager* sc) = 0;
 	virtual void onCreateTable(SchemaManager* mgr, const CdbTable* table) = 0;
+	virtual void onDropTable(SchemaManager* mgr, const CdbTable* table) = 0;
+
 	virtual void onAddColumn(SchemaManager* mgr, const CdbTable* table, const CdbTableColumn* newColumn, const CdbTableIndex* newUniqueIndex) = 0;
 	virtual void onDropColumn(SchemaManager* mgr, const CdbTable* table, const CdbTableColumn* removalColumn, const ArrayList<CdbTableIndex>* removalIndexes) = 0;
 	virtual void onAddIndex(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* newIndex) = 0;

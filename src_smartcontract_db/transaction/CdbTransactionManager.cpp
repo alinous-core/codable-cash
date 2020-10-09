@@ -77,6 +77,10 @@ void CdbTransactionManager::onCreateTable(SchemaManager* mgr, const CdbTable* ta
 	// do nothing
 }
 
+void CdbTransactionManager::onDropTable(SchemaManager* mgr,	const CdbTable* table) {
+	// do nothing
+}
+
 void CdbTransactionManager::onAlterModify(SchemaManager* mgr,
 		const CdbTable* table, const ColumnModifyContext* ctx) {
 	// do nothing
