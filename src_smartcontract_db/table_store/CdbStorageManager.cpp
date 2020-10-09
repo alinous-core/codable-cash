@@ -178,8 +178,6 @@ void CdbStorageManager::onAddColumn(SchemaManager* mgr, const CdbTable* table,
 		store->addNewIndex(newUniqueIndex);
 		store->buildIndex(newUniqueIndex);
 	}
-
-	// TODO: CdbStorageManager::onAddColumn
 }
 
 void CdbStorageManager::onDropColumn(SchemaManager* mgr, const CdbTable* table,
