@@ -10,6 +10,11 @@
 
 #include "sql_ddl_alter/AbstractAlterDdlWithTypeDesc.h"
 
+namespace codablecash {
+class TableStore;
+}
+using namespace codablecash;
+
 namespace alinous {
 
 class DdlColumnDescriptor;
@@ -30,6 +35,9 @@ public:
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId);
+
+private:
+	void checkRecordCount(TableStore* store);
 };
 
 } /* namespace alinous */

@@ -9,13 +9,12 @@
 
 #include "sql_ddl/DdlColumnDescriptor.h"
 
-#include "transaction_log_alter/AlterAddColumnCommandLog.h"
-
 #include "vm/VirtualMachine.h"
 
 #include "sql_join_parts/TableIdentifier.h"
 
 #include "transaction_log_alter/AbstractAlterCommandLog.h"
+#include "transaction_log_alter/AlterAddColumnCommandLog.h"
 
 #include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"
@@ -24,8 +23,9 @@
 
 #include "table/CdbTable.h"
 
-#include "base/UnicodeString.h"
+#include "table_store/CdbStorageManager.h"
 
+#include "base/UnicodeString.h"
 
 namespace alinous {
 
@@ -112,12 +112,15 @@ void AlterAddColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLo
 	command->setDefaultValueStr(str);
 
 	// FIXME check unique
-
-
 	if(colDesc->isUnique()){
+		CdbStorageManager* storageManager = db->getStorageManager();
+		TableStore* store = storageManager->getTableStore(table->getOid());
 
+		checkRecordCount(store);
 	}
 }
 
+void AlterAddColumnCommand::checkRecordCount(TableStore* store) {
+}
 
 } /* namespace alinous */
