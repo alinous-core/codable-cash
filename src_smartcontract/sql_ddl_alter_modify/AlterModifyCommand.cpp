@@ -171,7 +171,7 @@ void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log
 
 		IndexChecker checker(db, modifyContext);
 
-		bool result = checker.checkUnique(table, column);
+		bool result = checker.checkUnique(table, column, true);
 		if(!result){
 			throw new CdbException(L"Can not set the column unique because of table data.", __FILE__, __LINE__);
 		}

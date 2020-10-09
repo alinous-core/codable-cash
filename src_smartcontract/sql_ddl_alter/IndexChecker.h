@@ -26,11 +26,11 @@ class AbstractCdbValue;
 class IndexChecker {
 public:
 	IndexChecker(CodableDatabase* db, const ColumnModifyContext* modifyContext);
-	IndexChecker(CodableDatabase* db, const CdbTableColumn* column);
+	explicit IndexChecker(CodableDatabase* db);
 	virtual ~IndexChecker();
 
-	bool checkUnique(const CdbTable* table, const CdbTableColumn* column);
-	bool checkUnique(const CdbTable* table, ArrayList<const CdbTableColumn>* columnList);
+	bool checkUnique(const CdbTable* table, const CdbTableColumn* column, bool update);
+	bool checkUnique(const CdbTable* table, ArrayList<const CdbTableColumn>* columnList, bool update);
 
 private:
 	CdbRecordKey* makeIndexKey(const CdbRecord* record, ArrayList<const CdbTableColumn>* columnList);
@@ -39,6 +39,7 @@ private:
 private:
 	CodableDatabase* const db;
 
+	// values used by record converter
 	int pos;
 	bool isnotnull;
 	uint8_t cdbType;

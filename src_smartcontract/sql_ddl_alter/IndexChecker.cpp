@@ -52,28 +52,27 @@ IndexChecker::IndexChecker(CodableDatabase* db, const ColumnModifyContext* modif
 	this->defaultValue = modifyContext->getDefaultValue();
 }
 
-IndexChecker::IndexChecker(CodableDatabase* db, const CdbTableColumn* column) : db(db) {
-	this->pos = column->getPosition();
-	this->isnotnull = column->isNotnull();
-	this->cdbType = column->getType();
-	this->length = column->getType();
+IndexChecker::IndexChecker(CodableDatabase* db) : db(db) {
+	this->pos = -1;
+	this->isnotnull = false;
+	this->cdbType = false;
+	this->length = -1;
 
-	const UnicodeString* defstr = column->getDefaultValue();
-	this->defaultValue =  CdbValueCaster::convertFromString(defstr, cdbType);
+	this->defaultValue = nullptr;
 }
 
 IndexChecker::~IndexChecker() {
-	delete this->defaultValue;
+	this->defaultValue = nullptr;
 }
 
-bool IndexChecker::checkUnique(const CdbTable* table, const CdbTableColumn* column) {
+bool IndexChecker::checkUnique(const CdbTable* table, const CdbTableColumn* column, bool update) {
 	ArrayList<const CdbTableColumn> list;
 	list.addElement(column);
 
-	return checkUnique(table, &list);
+	return checkUnique(table, &list, update);
 }
 
-bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableColumn>* columnList) {
+bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableColumn>* columnList, bool update) {
 	CdbLocalCacheManager* cacheMgr = this->db->getLocalCacheManager();
 	SingleKeyOidCache* cache = cacheMgr->createSingleKeyOidCache(); __STP(cache);
 
@@ -89,10 +88,14 @@ bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableCo
 		const CdbRecord* record = scanner.next();
 
 		// RecordValueConverter
-		CdbRecord* newRecord = getConvertedRecord(record); __STP(newRecord);
+		CdbRecord* newRecord = nullptr;
+		if(update){
+			newRecord = getConvertedRecord(record);
+			record = newRecord;
+		}
+		 __STP(newRecord);
 
-		CdbRecordKey* key = makeIndexKey(newRecord, columnList); __STP(key);
-
+		CdbRecordKey* key = makeIndexKey(record, columnList); __STP(key);
 		if(cache->hasKey(key)){
 			ret = false;
 			break;
