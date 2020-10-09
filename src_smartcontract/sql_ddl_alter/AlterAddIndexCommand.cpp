@@ -181,8 +181,6 @@ void AlterAddIndexCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog
 		IndexChecker indexChecker(db);
 		indexChecker.checkUnique(table, &oidlist, false);
 	}
-
-	// TODO AlterAddIndexCommand::interpret
 }
 
 } /* namespace alinous */
