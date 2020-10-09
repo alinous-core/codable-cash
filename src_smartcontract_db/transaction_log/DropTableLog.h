@@ -28,6 +28,8 @@ public:
 
 	virtual void commit(CdbTransactionManager* trxManager);
 
+	void setTableId(const TableIdentifier* tableId) noexcept;
+
 private:
 	TableIdentifier* tableId;
 };
