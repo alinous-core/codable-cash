@@ -52,8 +52,6 @@ void AlterRecordValueExecutor::addColumn(TableStore* store) {
 		record->addValue(defaultValue != nullptr ? defaultValue->copy() : nullptr);
 		recordStore->insert(record);
 	}
-
-	// TODO AlterRecordValueExecutor::addNewColumn
 }
 
 void AlterRecordValueExecutor::removeColumn(TableStore* store) {
@@ -72,10 +70,6 @@ void AlterRecordValueExecutor::removeColumn(TableStore* store) {
 
 		recordStore->insert(record);
 	}
-
-
-
-	// TODO AlterRecordValueExecutor::removeColumn
 }
 
 } /* namespace codablecash */
