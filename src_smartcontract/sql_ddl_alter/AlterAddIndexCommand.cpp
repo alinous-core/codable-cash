@@ -179,7 +179,10 @@ void AlterAddIndexCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog
 	// check data is unique
 	if(unique){
 		IndexChecker indexChecker(db);
-		indexChecker.checkUnique(table, &oidlist, false);
+		bool result = indexChecker.checkUnique(table, &oidlist, false);
+		if(!result){
+			throw new CdbException(L"Unique index requires unique data.", __FILE__, __LINE__);
+		}
 	}
 }
 
