@@ -178,8 +178,8 @@ void AlterAddIndexCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog
 
 	// check data is unique
 	if(unique){
-		//IndexChecker indexChecker(db, );
-
+		IndexChecker indexChecker(db);
+		indexChecker.checkUnique(table, &oidlist, false);
 	}
 
 	// TODO AlterAddIndexCommand::interpret

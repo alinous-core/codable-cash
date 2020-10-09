@@ -65,6 +65,21 @@ IndexChecker::~IndexChecker() {
 	this->defaultValue = nullptr;
 }
 
+bool IndexChecker::checkUnique(const CdbTable* table, const ArrayList<const CdbOid>* columnOidlist, bool update) {
+	ArrayList<const CdbTableColumn> columnList;
+
+	int maxLoop = columnOidlist->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const CdbOid* columnOid = columnOidlist->get(i);
+
+		const CdbTableColumn* column = table->getColumn(columnOid);
+		columnList.addElement(column);
+	}
+
+	return checkUnique(table, &columnList, update);
+}
+
+
 bool IndexChecker::checkUnique(const CdbTable* table, const CdbTableColumn* column, bool update) {
 	ArrayList<const CdbTableColumn> list;
 	list.addElement(column);

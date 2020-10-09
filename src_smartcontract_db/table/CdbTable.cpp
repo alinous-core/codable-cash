@@ -155,6 +155,11 @@ CdbTableColumn* CdbTable::getColumn(int index) const noexcept {
 	return this->columns->get(index);
 }
 
+CdbTableColumn* CdbTable::getColumn(const CdbOid* columnOid) const noexcept {
+	return this->columnMap->get(columnOid);
+}
+
+
 CdbTableColumn* CdbTable::findColumnByOid(const CdbOid* oid) const noexcept {
 	return this->columnMap->get(oid);
 }

@@ -22,6 +22,7 @@ class CdbRecordKey;
 class CdbRecord;
 class ColumnModifyContext;
 class AbstractCdbValue;
+class CdbOid;
 
 class IndexChecker {
 public:
@@ -29,6 +30,7 @@ public:
 	explicit IndexChecker(CodableDatabase* db);
 	virtual ~IndexChecker();
 
+	bool checkUnique(const CdbTable* table, const ArrayList<const CdbOid>* columnOidlist, bool update);
 	bool checkUnique(const CdbTable* table, const CdbTableColumn* column, bool update);
 	bool checkUnique(const CdbTable* table, ArrayList<const CdbTableColumn>* columnList, bool update);
 
