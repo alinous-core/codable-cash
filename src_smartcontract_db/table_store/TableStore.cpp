@@ -38,15 +38,17 @@
 #include "table_record_key/CdbLongKey.h"
 
 #include "table_store/RecordValueConverter.h"
+#include "table_store/AlterRecordValueExecutor.h"
 
 #include "btree/Btree.h"
 #include "btree/BtreeScanner.h"
 
-#include "schema_alter_ctx/ColumnModifyContext.h"
-
 #include "schema/SchemaManager.h"
 
+#include "schema_alter_ctx/ColumnModifyContext.h"
 #include "schema_alter_ctx/TableRenameContext.h"
+
+
 namespace codablecash {
 
 TableStore::TableStore(DiskCacheManager* cacheManager, const File* baseDir, const CdbTable* table) {
@@ -156,13 +158,15 @@ void TableStore::createTable() {
 
 
 void TableStore::addNewColumn(const CdbTableColumn* newColumn) {
+	AlterRecordValueExecutor exec(newColumn);
 
-	// TODO TableStore::addNewColumn
-
+	exec.addColumn(this);
 }
 
 void TableStore::removeColumn(const CdbTableColumn* removalColumn) {
-	// TODO TableStore::removeColumn
+	AlterRecordValueExecutor exec(removalColumn);
+
+	exec.removeColumn(this);
 }
 
 

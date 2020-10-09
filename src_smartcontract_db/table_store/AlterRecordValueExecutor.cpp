@@ -9,13 +9,20 @@
 
 namespace codablecash {
 
-AlterRecordValueExecutor::AlterRecordValueExecutor() {
-	// TODO Auto-generated constructor stub
-
+AlterRecordValueExecutor::AlterRecordValueExecutor(const CdbTableColumn* column) {
+	this->column = column;
 }
 
 AlterRecordValueExecutor::~AlterRecordValueExecutor() {
-	// TODO Auto-generated destructor stub
+	this->column = nullptr;
+}
+
+void AlterRecordValueExecutor::addColumn(TableStore* store) {
+	// TODO AlterRecordValueExecutor::addNewColumn
+}
+
+void AlterRecordValueExecutor::removeColumn(TableStore* store) {
+	// TODO AlterRecordValueExecutor::removeColumn
 }
 
 } /* namespace codablecash */

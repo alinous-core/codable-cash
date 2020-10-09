@@ -10,10 +10,19 @@
 
 namespace codablecash {
 
+class CdbTableColumn;
+class TableStore;
+
 class AlterRecordValueExecutor {
 public:
-	AlterRecordValueExecutor();
+	explicit AlterRecordValueExecutor(const CdbTableColumn* column);
 	virtual ~AlterRecordValueExecutor();
+
+	void addColumn(TableStore* store);
+	void removeColumn(TableStore* store);
+
+private:
+	const CdbTableColumn* column;
 };
 
 } /* namespace codablecash */

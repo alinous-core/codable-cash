@@ -171,7 +171,7 @@ void CdbStorageManager::onAddColumn(SchemaManager* mgr, const CdbTable* table,
 	TableStore* store = getTableStore(tableOid);
 	assert(store != nullptr);
 
-	// FIXME add column
+	// add column
 	store->addNewColumn(newColumn);
 
 	if(newUniqueIndex != nullptr){
