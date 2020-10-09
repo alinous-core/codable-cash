@@ -7,6 +7,16 @@
 
 #include "sql_ddl/DropTableStatement.h"
 #include "sql_join_parts/TableIdentifier.h"
+
+#include "vm/VirtualMachine.h"
+
+#include "vm_trx/VmTransactionHandler.h"
+
+#include "transaction_log/DropTableLog.h"
+
+#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+
+#include "base/Exception.h"
 namespace alinous {
 
 DropTableStatement::DropTableStatement() : AbstractSQLStatement(CodeElement::DDL_DROP_TABLE) {
@@ -55,7 +65,18 @@ void DropTableStatement::fromBinary(ByteBuffer* in) {
 }
 
 void DropTableStatement::interpret(VirtualMachine* vm) {
-	// FIXME SQL statement
+	DropTableLog* cmd = new DropTableLog();
+	cmd->setTableId(this->tableId);
+
+	VmTransactionHandler* handler = vm->getTransactionHandler();
+	try{
+		handler->dropTable(cmd);
+	}
+	catch(Exception* e){
+		DatabaseExceptionClassDeclare::throwException(e->getMessage(), vm, this);
+		delete e;
+		delete cmd;
+	}
 }
 
 } /* namespace alinous */

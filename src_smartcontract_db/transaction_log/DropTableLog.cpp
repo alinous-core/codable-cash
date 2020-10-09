@@ -56,6 +56,7 @@ void DropTableLog::fromBinary(ByteBuffer* in) {
 }
 
 void DropTableLog::commit(CdbTransactionManager* trxManager) {
+
 }
 
 void DropTableLog::setTableId(const TableIdentifier* tableId) noexcept {

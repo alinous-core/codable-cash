@@ -98,6 +98,26 @@ void VmTransactionHandler::createTable(CreateTableLog* cmd) {
 	}
 }
 
+void VmTransactionHandler::dropTable(DropTableLog* cmd) {
+	bool hasTrx = false;
+
+	if(this->trx == nullptr){
+		begin();
+	}
+	else{
+		commit();
+		begin();
+		hasTrx = true;
+	}
+
+	this->trx->dropTable(cmd);
+	commit();
+
+	if(hasTrx){
+		begin();
+	}
+}
+
 void VmTransactionHandler::alterTable(AbstractAlterCommandLog* cmd) {
 	bool hasTrx = false;
 
@@ -153,7 +173,5 @@ CdbTable* VmTransactionHandler::getTable(const UnicodeString* schema, const Unic
 
 	return schemaObj->getCdbTableByName(tableName);
 }
-
-
 
 } /* namespace alinous */
