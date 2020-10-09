@@ -81,6 +81,9 @@ TEST(TestExecAlterIndexGroup, dropIndex01){
 
 	// add index
 	{
+		/**
+		 * ALTER TABLE test_table ADD INDEX test_index(email_id);
+		 */
 		const File* projectFolder = this->env->getProjectRoot();
 		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/exec_index/addIndex01.alns"))
 		{
@@ -101,6 +104,9 @@ TEST(TestExecAlterIndexGroup, dropIndex01){
 		}
 	}
 
+	/**
+	 * ALTER TABLE test_table DROP INDEX test_index;
+	 */
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/exec_index/dropIndex01.alns"))
 	{

@@ -68,8 +68,7 @@ void IndexStore::createStore(const File* tableDir, const CdbTable* table, const 
 void IndexStore::cleanupStore(const File* tableDir, const CdbTable* table, const CdbTableIndex* index) {
 	const UnicodeString* name = index->getName();
 
-	File* dir = tableDir->get(name); __STP(dir);
-	dir->deleteDir();
+	Btree::clearFiles(tableDir, name);
 }
 
 void IndexStore::reset() {

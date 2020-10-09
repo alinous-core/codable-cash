@@ -175,10 +175,23 @@ void CdbStorageManager::onDropColumn(SchemaManager* mgr, const CdbTable* table,
 
 void CdbStorageManager::onAddIndex(SchemaManager* mgr, const CdbTable* table,
 		const CdbTableIndex* newIndex) {
+	const CdbOid* tableOid = table->getOid();
+
+	TableStore* store = getTableStore(tableOid);
+	assert(store != nullptr);
+
+	store->addNewIndex(newIndex);
+	store->buildIndex(newIndex);
 }
 
 void CdbStorageManager::onDropIndex(SchemaManager* mgr, const CdbTable* table,
 		const CdbTableIndex* removalIndex) {
+	const CdbOid* tableOid = table->getOid();
+
+	TableStore* store = getTableStore(tableOid);
+	assert(store != nullptr);
+
+	store->removeIndex(removalIndex);
 }
 
 
