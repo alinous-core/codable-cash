@@ -23,6 +23,7 @@ class CdbTransactionManager;
 class AbstractTransactionLog : public CdbBinaryObject {
 public:
 	static const constexpr uint8_t TRX_CREATE_TABLE{1};
+	static const constexpr uint8_t TRX_DROP_TABLE{2};
 
 	static const constexpr uint8_t TRX_ALTER_ADD_INDEX{31};
 	static const constexpr uint8_t TRX_ALTER_ADD_COLUMN{32};
@@ -34,7 +35,7 @@ public:
 	static const constexpr uint8_t TRX_ALTER_RENAME_COLUMN{38};
 	static const constexpr uint8_t TRX_ALTER_RENAME_TABLE{39};
 
-	static const constexpr uint8_t TRX_INSERT{100};
+	static const constexpr uint8_t TRX_INSERT{60};
 
 	explicit AbstractTransactionLog(uint8_t type);
 	virtual ~AbstractTransactionLog();

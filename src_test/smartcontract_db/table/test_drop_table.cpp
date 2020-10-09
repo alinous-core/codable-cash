@@ -20,6 +20,7 @@
 
 #include "sql_ddl/DropTableStatement.h"
 
+#include "sc_analyze/AnalyzeContext.h"
 using namespace codablecash;
 using namespace alinous;
 
@@ -49,5 +50,14 @@ TEST(TestDropTableGroup, case01){
 
 		DropTableStatement* stmt = lang->dropTableStatement(); __STP(stmt);
 		CHECK(!parser.hasError())
+
+		AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
+		actx->setVm(vm);
+
+		stmt->preAnalyze(actx);
+		stmt->analyzeTypeRef(actx);
+		stmt->analyze(actx);
+
+		stmt->interpret(vm);
 	}
 }
