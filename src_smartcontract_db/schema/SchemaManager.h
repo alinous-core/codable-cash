@@ -70,7 +70,7 @@ public:
 	uint64_t getSchemaObjectVersionId() const noexcept;
 
 	void createTable(CdbTable* table);
-	void dropTable(const TableIdentifier* table);
+	void dropTable(const TableIdentifier* tableId);
 
 	Schema* getSchema(const UnicodeString* name) const noexcept;
 	const ArrayList<Schema>* getSchemaList() const noexcept;
@@ -79,7 +79,7 @@ public:
 	CdbTable* getTable(const UnicodeString* schema, const UnicodeString* name) const;
 	CdbTable* getTable(const TableIdentifier* tableId, const UnicodeString* defaultSchema) const;
 
-	//bool hasTable(const TableIdentifier* tableId) const noexcept;
+	bool hasTable(const TableIdentifier* tableId) const noexcept;
 	bool hasTable(const UnicodeString* schema, const UnicodeString* name) const noexcept;
 
 	const File* getDatabaseBaseDir() const noexcept {

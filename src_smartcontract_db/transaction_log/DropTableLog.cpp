@@ -63,4 +63,9 @@ void DropTableLog::setTableId(const TableIdentifier* tableId) noexcept {
 	this->tableId = new TableIdentifier(*tableId);
 }
 
+void DropTableLog::inputDefaultSchema(const UnicodeString* schema) {
+	this->tableId->inputDefaultSchema(schema);
+}
+
+
 } /* namespace codablecash */

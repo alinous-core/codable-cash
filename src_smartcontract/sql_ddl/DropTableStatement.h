@@ -10,6 +10,11 @@
 
 #include "sql/AbstractSQLStatement.h"
 
+namespace codablecash {
+class DropTableLog;
+}
+using namespace codablecash;
+
 namespace alinous {
 class TableIdentifier;
 
@@ -29,6 +34,10 @@ public:
 	virtual void fromBinary(ByteBuffer* in);
 
 	virtual void interpret(VirtualMachine* vm);
+
+private:
+	void validateCommandLog(VirtualMachine* vm, DropTableLog* cmd);
+
 private:
 	TableIdentifier* tableId;
 };

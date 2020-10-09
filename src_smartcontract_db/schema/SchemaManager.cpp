@@ -114,8 +114,11 @@ void SchemaManager::createSchema(const UnicodeString* name) {
 	this->root->addSchema(schema);
 }
 
-void SchemaManager::dropTable(const TableIdentifier* table){
+void SchemaManager::dropTable(const TableIdentifier* tableId){
+	const UnicodeString* schema = tableId->getSchema();
+	const UnicodeString* tableName = tableId->getTableName();
 
+	CdbTable* table = getTable(schema, tableName);
 
 	// TODO:  SchemaManager::dropTable
 
@@ -248,13 +251,13 @@ CdbTable* SchemaManager::getTable(const UnicodeString* schema, const UnicodeStri
 
 	return table;
 }
-/*
+
 bool SchemaManager::hasTable(const TableIdentifier* tableId) const noexcept {
 	const UnicodeString* schema = tableId->getSchema();
 	const UnicodeString* name = tableId->getTableName();
 
 	return hasTable(schema, name);
-}*/
+}
 
 bool SchemaManager::hasTable(const UnicodeString* schema, const UnicodeString* name) const noexcept {
 	Schema* sc = getSchema(schema);

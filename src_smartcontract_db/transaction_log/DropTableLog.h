@@ -33,6 +33,8 @@ public:
 		return tableId;
 	}
 
+	void inputDefaultSchema(const UnicodeString* schema);
+
 private:
 	TableIdentifier* tableId;
 };

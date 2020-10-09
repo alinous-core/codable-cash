@@ -17,6 +17,12 @@
 #include "transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "base/Exception.h"
+
+#include "engine/CodableDatabase.h"
+
+#include "schema/SchemaManager.h"
+
+#include "engine/CdbException.h"
 namespace alinous {
 
 DropTableStatement::DropTableStatement() : AbstractSQLStatement(CodeElement::DDL_DROP_TABLE) {
@@ -70,6 +76,7 @@ void DropTableStatement::interpret(VirtualMachine* vm) {
 
 	VmTransactionHandler* handler = vm->getTransactionHandler();
 	try{
+		validateCommandLog(vm, cmd);
 		handler->dropTable(cmd);
 	}
 	catch(Exception* e){
@@ -78,5 +85,21 @@ void DropTableStatement::interpret(VirtualMachine* vm) {
 		delete cmd;
 	}
 }
+
+void DropTableStatement::validateCommandLog(VirtualMachine* vm, DropTableLog* cmd) {
+	CodableDatabase* db = vm->getDb();
+	SchemaManager* schemaManager = db->getSchemaManager();
+
+	const UnicodeString* currentSchema = vm->getCurrentSchema();
+	cmd->inputDefaultSchema(currentSchema);
+
+	const TableIdentifier* tableId = cmd->getTableId();
+
+	if(!schemaManager->hasTable(tableId)){
+		throw new CdbException(L"Table does not exist.", __FILE__, __LINE__);
+	}
+
+}
+
 
 } /* namespace alinous */

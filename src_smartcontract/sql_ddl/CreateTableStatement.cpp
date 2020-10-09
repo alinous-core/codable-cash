@@ -109,6 +109,7 @@ void CreateTableStatement::interpret(VirtualMachine* vm) {
 
 	VmTransactionHandler* handler = vm->getTransactionHandler();
 	try{
+		validate(vm, cmd);
 		handler->createTable(cmd);
 	}
 	catch(Exception* e){
@@ -117,6 +118,11 @@ void CreateTableStatement::interpret(VirtualMachine* vm) {
 		delete cmd;
 	}
 }
+
+void CreateTableStatement::validate(VirtualMachine* vm, CreateTableLog* cmd) {
+	// FIXME validate default value, column names
+}
+
 
 CdbTable* CreateTableStatement::createTable(VirtualMachine* vm) {
 	StackFloatingVariableHandler releaser(vm->getGc());
