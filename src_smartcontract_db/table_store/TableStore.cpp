@@ -153,6 +153,15 @@ void TableStore::createTable() {
 	}
 }
 
+
+
+void TableStore::addNewColumn(const CdbTableColumn* newColumn) {
+}
+
+void TableStore::removeColumn(const CdbTableColumn* removalColumn) {
+}
+
+
 void TableStore::addNewIndex(const CdbTableIndex* index) {
 	const Schema* sc = this->table->getSchema();
 	const UnicodeString* schemaName = sc->getName();

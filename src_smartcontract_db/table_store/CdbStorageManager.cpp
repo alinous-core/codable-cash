@@ -172,7 +172,7 @@ void CdbStorageManager::onAddColumn(SchemaManager* mgr, const CdbTable* table,
 	assert(store != nullptr);
 
 	// FIXME add column
-
+	store->addNewColumn(newColumn);
 
 	if(newUniqueIndex != nullptr){
 		store->addNewIndex(newUniqueIndex);
@@ -184,6 +184,10 @@ void CdbStorageManager::onAddColumn(SchemaManager* mgr, const CdbTable* table,
 
 void CdbStorageManager::onDropColumn(SchemaManager* mgr, const CdbTable* table,
 		const CdbTableColumn* removalColumn, const ArrayList<CdbTableIndex>* removalIndexes) {
+	const CdbOid* tableOid = table->getOid();
+
+	TableStore* store = getTableStore(tableOid);
+	assert(store != nullptr);
 }
 
 void CdbStorageManager::onAddIndex(SchemaManager* mgr, const CdbTable* table,

@@ -1,6 +1,7 @@
 
 
 set(__src
+	AlterRecordValueExecutor.cpp
 	CdbStorageManager.cpp
 	IndexStore.cpp
 	RecordStore.cpp

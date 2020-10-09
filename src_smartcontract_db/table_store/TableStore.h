@@ -48,6 +48,9 @@ public:
 	void insert(const CdbRecord* rec);
 	void validateRecord(CdbRecord* rec);
 
+	void addNewColumn(const CdbTableColumn* newColumn);
+	void removeColumn(const CdbTableColumn* removalColumn);
+
 	void modifyRecords(const ColumnModifyContext* ctx);
 	void buildIndex(const CdbTableIndex* index);
 	void buildAllIndexes();
