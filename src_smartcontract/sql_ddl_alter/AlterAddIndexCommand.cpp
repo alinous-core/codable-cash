@@ -138,6 +138,13 @@ void AlterAddIndexCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog
 
 	CdbTable* table = schemaManager->getTable(tableId, nullptr); // throws if Table does not exists;
 
+	const UnicodeString* tableName =table->getName();
+	const UnicodeString* idxname = command->getName();
+
+	if(tableName->equals(idxname)){
+		throw new CdbException(L"Index can not use table name.", __FILE__, __LINE__);
+	}
+
 	bool unique = command->isUnique();
 
 	ArrayList<const CdbOid> oidlist;
@@ -152,6 +159,7 @@ void AlterAddIndexCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog
 			throw new CdbException(L"Column does not exist", __FILE__, __LINE__);
 		}
 
+
 		oidlist.addElement(c->getOid());
 	}
 
@@ -160,11 +168,16 @@ void AlterAddIndexCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog
 		throw new CdbException(L"Index with same column & uniqueness exists", __FILE__, __LINE__);
 	}
 
-	const UnicodeString* idxname = command->getName();
 	index = table->getIndexByName(idxname);
 	if(index != nullptr){
 		throw new CdbException(L"Index with same name exists", __FILE__, __LINE__);
 	}
+
+	// check data is unique
+	if(unique){
+
+	}
+
 	// TODO AlterAddIndexCommand::interpret
 }
 

@@ -9,6 +9,7 @@
 #define SQL_DDL_ALTER_INDEXCHECKER_H_
 
 #include "base/ArrayList.h"
+#include <cstdint>
 
 using alinous::ArrayList;
 
@@ -20,6 +21,7 @@ class CdbTableColumn;
 class CdbRecordKey;
 class CdbRecord;
 class ColumnModifyContext;
+class AbstractCdbValue;
 
 class IndexChecker {
 public:
@@ -35,7 +37,12 @@ private:
 
 private:
 	CodableDatabase* const db;
-	const ColumnModifyContext* modifyContext;
+
+	int pos;
+	bool isnotnull;
+	uint8_t cdbType;
+	int length;
+	const AbstractCdbValue* defaultValue;
 };
 
 } /* namespace codablecash */

@@ -166,6 +166,19 @@ void CdbStorageManager::onAddPrimaryKey(SchemaManager* mgr, const CdbTable* tabl
 
 void CdbStorageManager::onAddColumn(SchemaManager* mgr, const CdbTable* table,
 		const CdbTableColumn* newColumn, const CdbTableIndex* newUniqueIndex) {
+	const CdbOid* tableOid = table->getOid();
+
+	TableStore* store = getTableStore(tableOid);
+	assert(store != nullptr);
+
+	// FIXME add column
+
+
+	if(newUniqueIndex != nullptr){
+		store->addNewIndex(newUniqueIndex);
+		store->buildIndex(newUniqueIndex);
+	}
+
 	// TODO: CdbStorageManager::onAddColumn
 }
 

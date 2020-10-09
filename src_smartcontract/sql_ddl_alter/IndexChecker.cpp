@@ -41,7 +41,13 @@ namespace codablecash {
 
 IndexChecker::IndexChecker(CodableDatabase* db, const ColumnModifyContext* modifyContext)
 		: db(db) {
-	this->modifyContext = modifyContext;
+	CdbTableColumn* column = modifyContext->getColumn();
+
+	this->pos = column->getPosition();
+	this->isnotnull = modifyContext->isNotNull();
+	this->cdbType = modifyContext->getCdbType();
+	this->length = modifyContext->getLength();
+	this->defaultValue = modifyContext->getDefaultValue();
 }
 
 IndexChecker::~IndexChecker() {
@@ -87,15 +93,7 @@ bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableCo
 }
 
 CdbRecord* IndexChecker::getConvertedRecord(const CdbRecord* record) {
-	CdbTableColumn* column = this->modifyContext->getColumn();
-
-	int pos = column->getPosition();
-	bool isnotnull = this->modifyContext->isNotNull();
-	uint8_t cdbType = this->modifyContext->getCdbType();
-	int length = this->modifyContext->getLength();
-	const AbstractCdbValue* defaultValue = this->modifyContext->getDefaultValue();
-
-	RecordValueConverter converter(pos, isnotnull, cdbType, length, defaultValue);
+	RecordValueConverter converter(this->pos, this->isnotnull, this->cdbType, this->length, this->defaultValue);
 
 	CdbRecord* newRecord = converter.processUpdate(record);
 
