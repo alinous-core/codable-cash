@@ -110,6 +110,13 @@ void AlterAddColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLo
 
 	UnicodeString* str = interpretDefaultString(vm);
 	command->setDefaultValueStr(str);
+
+	// FIXME check unique
+
+
+	if(colDesc->isUnique()){
+
+	}
 }
 
 

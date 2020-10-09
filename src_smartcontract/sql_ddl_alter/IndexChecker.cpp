@@ -25,7 +25,9 @@
 
 #include "table_record_key/CdbRecordKey.h"
 #include "table_record_key/AbstractCdbKey.h"
+
 #include "table_record_value/AbstractCdbValue.h"
+#include "table_record_value/CdbValueCaster.h"
 
 #include "table_store/RecordValueConverter.h"
 
@@ -50,8 +52,18 @@ IndexChecker::IndexChecker(CodableDatabase* db, const ColumnModifyContext* modif
 	this->defaultValue = modifyContext->getDefaultValue();
 }
 
-IndexChecker::~IndexChecker() {
+IndexChecker::IndexChecker(CodableDatabase* db, const CdbTableColumn* column) : db(db) {
+	this->pos = column->getPosition();
+	this->isnotnull = column->isNotnull();
+	this->cdbType = column->getType();
+	this->length = column->getType();
 
+	const UnicodeString* defstr = column->getDefaultValue();
+	this->defaultValue =  CdbValueCaster::convertFromString(defstr, cdbType);
+}
+
+IndexChecker::~IndexChecker() {
+	delete this->defaultValue;
 }
 
 bool IndexChecker::checkUnique(const CdbTable* table, const CdbTableColumn* column) {

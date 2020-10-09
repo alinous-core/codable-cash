@@ -23,8 +23,11 @@
 #include "schema/SchemaManager.h"
 
 #include "table/CdbTable.h"
-
 #include "table/CdbTableColumn.h"
+
+#include "sql_ddl_alter/IndexChecker.h"
+
+using namespace codablecash;
 
 namespace alinous {
 
@@ -175,6 +178,7 @@ void AlterAddIndexCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog
 
 	// check data is unique
 	if(unique){
+		IndexChecker indexChecker();
 
 	}
 

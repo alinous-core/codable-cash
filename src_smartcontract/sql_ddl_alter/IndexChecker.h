@@ -25,7 +25,8 @@ class AbstractCdbValue;
 
 class IndexChecker {
 public:
-	explicit IndexChecker(CodableDatabase* db, const ColumnModifyContext* modifyContext);
+	IndexChecker(CodableDatabase* db, const ColumnModifyContext* modifyContext);
+	IndexChecker(CodableDatabase* db, const CdbTableColumn* column);
 	virtual ~IndexChecker();
 
 	bool checkUnique(const CdbTable* table, const CdbTableColumn* column);
