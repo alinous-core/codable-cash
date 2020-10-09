@@ -37,7 +37,11 @@
 
 #include "instance_gc/StackFloatingVariableHandler.h"
 
+#include "schema/SchemaManager.h"
 
+#include "engine/CdbException.h"
+
+#include "engine/CodableDatabase.h"
 namespace alinous {
 
 CreateTableStatement::CreateTableStatement() : AbstractSQLStatement(CodeElement::DDL_CREATE_TABLE) {
@@ -104,11 +108,11 @@ void CreateTableStatement::analyze(AnalyzeContext* actx) {
 void CreateTableStatement::interpret(VirtualMachine* vm) {
 	CreateTableLog* cmd = new CreateTableLog();
 
-	CdbTable* table = createTable(vm);
-	cmd->setTable(table);
-
 	VmTransactionHandler* handler = vm->getTransactionHandler();
 	try{
+		CdbTable* table = createTable(vm);
+		cmd->setTable(table);
+
 		validate(vm, cmd);
 		handler->createTable(cmd);
 	}
@@ -120,6 +124,15 @@ void CreateTableStatement::interpret(VirtualMachine* vm) {
 }
 
 void CreateTableStatement::validate(VirtualMachine* vm, CreateTableLog* cmd) {
+	CodableDatabase* db = vm->getDb();
+	SchemaManager* schemaManager = db->getSchemaManager();
+
+	CdbTable* table = cmd->getTable();
+
+	if(schemaManager->hasTable(table->getSchemaName(), table->getName())){
+		throw new CdbException(L"Table already exists.", __FILE__, __LINE__);
+	}
+
 	// FIXME validate default value, column names
 }
 
