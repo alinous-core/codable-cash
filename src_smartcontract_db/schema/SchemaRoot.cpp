@@ -133,6 +133,14 @@ const CdbTable* SchemaRoot::createTable(const CdbTable* table) {
 	return newTable;
 }
 
+void SchemaRoot::removeTable(const UnicodeString* schema, const UnicodeString* table) {
+	Schema* sc = getSchema(schema);
+	assert(sc != nullptr);
+
+	sc->removeTable(table);
+}
+
+
 const ArrayList<Schema>* SchemaRoot::getSchemaList() const noexcept {
 	return &this->list;
 }
