@@ -38,6 +38,8 @@ public:
 	TableStore(DiskCacheManager* cacheManager, const File* baseDir, const CdbTable* table);
 	virtual ~TableStore();
 
+	static void cleanTableStore(const CdbTable* table, const TableStore* store);
+
 	const CdbOid* getOid() const noexcept;
 
 	void createTable();

@@ -74,6 +74,18 @@ TableStore::~TableStore() {
 	delete this->tableLock;
 }
 
+void TableStore::cleanTableStore(const CdbTable* table, const TableStore* store) {
+	const Schema* schema = table->getSchema();
+	const UnicodeString* schemaName = schema->getName();
+	const UnicodeString* tableName = table->getName();
+
+	File* schemaDir = store->baseDir->get(schemaName); __STP(schemaDir);
+	File* tableDir = schemaDir->get(tableName); __STP(tableDir);
+
+	bool result = tableDir->deleteDir();
+	assert(result);
+}
+
 void TableStore::closeTable() {
 	if(this->recordStore != nullptr){
 		this->recordStore->close();

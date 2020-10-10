@@ -174,7 +174,7 @@ bool File::deleteInnerDir(const File* dir) noexcept {
 
 	_list->deleteElements();
 
-	return Os::deleteFile(dir->path);
+	return Os::deleteFile(dir->path) == 0;
 }
 
 bool File::exists() const noexcept

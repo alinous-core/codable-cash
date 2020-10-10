@@ -110,7 +110,14 @@ void CdbStorageManager::onCreateTable(SchemaManager* mgr, const CdbTable* table)
 }
 
 void CdbStorageManager::onDropTable(SchemaManager* mgr, const CdbTable* table) {
-	// TODO: CdbStorageManager::onDropTable
+	const CdbOid* tableOid = table->getOid();
+
+	TableStore* store = getTableStore(tableOid); __STP(store);
+	this->tableStoreMap->remove(store->getOid());
+
+	store->closeTable();
+
+	TableStore::cleanTableStore(table, store);
 }
 
 void CdbStorageManager::onAlterModify(SchemaManager* mgr, const CdbTable* table, const ColumnModifyContext* ctx) {
