@@ -184,11 +184,9 @@ void SchemaManager::dropTable(const TableIdentifier* tableId){
 	const UnicodeString* schema = tableId->getSchema();
 	const UnicodeString* tableName = tableId->getTableName();
 
-	CdbTable* table = getTable(schema, tableName);
+	CdbTable* table = getTable(schema, tableName); __STP(table);
 
 	this->root->removeTable(schema, tableName);
-
-	// TODO:  SchemaManager::dropTable
 
 	fireOnDropTable(table);
 
