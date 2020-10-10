@@ -65,6 +65,8 @@ public:
 	CdbTableIndex* getPrimaryKey(const wchar_t* schema, const wchar_t* table);
 
 	SchemaManager* getSchemaManager() const noexcept;
+
+	void execDDL(const File* sourceFile);
 protected:
 	void initSmartcontract();
 	void setMain(const wchar_t* pkg, const wchar_t* clazz, const wchar_t* method) noexcept;
