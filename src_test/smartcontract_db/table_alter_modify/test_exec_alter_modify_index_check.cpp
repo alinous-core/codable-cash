@@ -9,7 +9,9 @@
 
 #include "base/StackRelease.h"
 
+#include "../toolkit_alter/TestDbSchemaAlterModifyIndexCheck.h"
 
+using namespace codablecash;
 
 TEST_GROUP(TestExecAlterModifyIndexCheckGroup) {
 	TEST_SETUP() {
@@ -21,6 +23,8 @@ TEST_GROUP(TestExecAlterModifyIndexCheckGroup) {
 };
 
 TEST(TestExecAlterModifyIndexCheckGroup, case01){
-
+	TestDbSchemaAlterModifyIndexCheck tester(env);
+	tester.init(1024*10);
+	tester.insert01();
 }
 
