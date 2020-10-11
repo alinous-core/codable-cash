@@ -81,7 +81,7 @@ TEST(TestCreateTableScriptGroup, case02_err) {
 
 TEST(TestCreateTableScriptGroup, case03_err) {
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_db/table/resources/create/case03_err/", projectFolder, this->env);
+	VmTestUtils util(L"src_test/smartcontract_db/table_ddl/resources/create/case03_err/", projectFolder, this->env);
 
 	bool result = util.loadAllFiles();
 	CHECK(result)
