@@ -1,0 +1,6 @@
+CREATE TABLE test_table (
+	id int not null unique,
+	val int default 0,
+	val int default 0,
+	PRIMARY KEY(id)
+);

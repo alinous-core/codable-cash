@@ -254,8 +254,8 @@ bool TestDbSchemaBase::execDDL(const File* sourceFile) {
 		throw new CdbException(L"failed in parsing.", __FILE__, __LINE__);
 	}
 
-	AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
-	actx->setVm(this->vm);
+	AnalyzeContext* actx = this->vm->getSmartContract()->getAnalyzeContext(); //new AnalyzeContext(); __STP(actx);
+	//actx->setVm(this->vm);
 
 	stmt->preAnalyze(actx);
 	stmt->analyzeTypeRef(actx);

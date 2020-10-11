@@ -87,7 +87,7 @@ void CreateTableStatement::analyze(AnalyzeContext* actx) {
 		actx->addValidationError(ValidationError::DB_NO_PRIMARY_KEY, this, L"Primary key is required.", {});
 	}
 
-	ArrayList<UnicodeString> namelist;
+	ArrayList<const UnicodeString, UnicodeString::ValueCompare> namelist;
 
 	int maxLoop = this->list->size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -99,6 +99,7 @@ void CreateTableStatement::analyze(AnalyzeContext* actx) {
 		if(n != nullptr){
 			actx->addValidationError(ValidationError::DB_CREATE_TABLE_COLUMN_DUPLICATED_NAME, this, L"The column {0} is duplicated.", {nm});
 		}
+		namelist.addElement(nm);
 
 		uint8_t type = typeDesc->toCdbValueType();
 		if(type == 0){
