@@ -68,11 +68,70 @@ TEST(TestExecAlterIndexAddErrGroup, case01){
 /**
  * index with same columns exists
  */
+TEST(TestExecAlterIndexAddErrGroup, case02){
+	TestDbSchema01 tester(this->env);
+	tester.init(1024*10);
+
+	{
+		const File* projectFolder = this->env->getProjectRoot();
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/add_error/case02.alns"))
+
+		bool result = tester.execDDL(sourceFile);
+		CHECK(result);
+
+		const ExtExceptionObject* ex = tester.checkUncaughtException();
+		CHECK(ex == nullptr);
+	}
+
+	{
+		/**
+		 * ALTER TABLE test_table ADD UNIQUE INDEX test_index2(email_id);
+		 */
+		const File* projectFolder = this->env->getProjectRoot();
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/add_error/case02_2.alns"))
+
+		bool result = tester.execDDL(sourceFile);
+		CHECK(result);
+
+		const ExtExceptionObject* ex = tester.checkUncaughtException();
+		CHECK(ex != nullptr);
+
+		CHECK(ex->getClassName()->equals(&DatabaseExceptionClassDeclare::NAME));
+	}
+}
 
 /**
  * index with same name exists
  */
+TEST(TestExecAlterIndexAddErrGroup, case03){
+	TestDbSchema01 tester(this->env);
+	tester.init(1024*10);
 
+	{
+		const File* projectFolder = this->env->getProjectRoot();
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/add_error/case02.alns"))
+
+		bool result = tester.execDDL(sourceFile);
+		CHECK(result);
+
+		const ExtExceptionObject* ex = tester.checkUncaughtException();
+		CHECK(ex == nullptr);
+	}
+
+	{
+
+		const File* projectFolder = this->env->getProjectRoot();
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/add_error/case03.alns"))
+
+		bool result = tester.execDDL(sourceFile);
+		CHECK(result);
+
+		const ExtExceptionObject* ex = tester.checkUncaughtException();
+		CHECK(ex != nullptr);
+
+		CHECK(ex->getClassName()->equals(&DatabaseExceptionClassDeclare::NAME));
+	}
+}
 
 
 /**
