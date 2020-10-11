@@ -8,6 +8,7 @@
 #include "test_utils/t_macros.h"
 
 #include "base/StackRelease.h"
+#include "base/UnicodeString.h"
 
 #include "base_io/File.h"
 
@@ -21,6 +22,11 @@
 #include "sql_ddl/DropTableStatement.h"
 
 #include "sc_analyze/AnalyzeContext.h"
+
+#include "ext_binary/ExtExceptionObject.h"
+
+#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+
 using namespace codablecash;
 using namespace alinous;
 
@@ -74,7 +80,13 @@ TEST(TestDropTableGroup, case02_err){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_ddl/resources/droptable/case02_err.alns"))
 	{
-		tester.execDDL(sourceFile);
+		bool result = tester.execDDL(sourceFile);
+		CHECK(result);
+
+		const ExtExceptionObject* ex = tester.checkUncaughtException();
+		CHECK(ex != nullptr);
+
+		CHECK(ex->getClassName()->equals(&DatabaseExceptionClassDeclare::NAME));
 	}
 }
 
