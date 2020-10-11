@@ -243,9 +243,52 @@ TEST(TestExecAlterPrimaryGroup, addPrimaryKey02){
 
 /**
  * column does not exists
+ * ALTER TABLE test_table ADD PRIMARY KEY(id2);
  */
+TEST(TestExecAlterPrimaryGroup, addPrimaryKey03_err){
+	TestDbSchemaAlterTextUnique01 tester(this->env);
+	tester.init(1024*10);
+	tester.insert01();
+	{
+		const File* projectFolder = this->env->getProjectRoot();
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_primary/resources/exec_primary/dropPrimaryKey01.alns"))
+
+		bool result = tester.execDDL(sourceFile);
+		CHECK(result);
+	}
+
+	{
+		const File* projectFolder = this->env->getProjectRoot();
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_primary/resources/exec_primary/addPrimaryKey03_err.alns"))
+
+		bool result = tester.execDDL(sourceFile);
+		CHECK(result);
+
+		const ExtExceptionObject* ex = tester.checkUncaughtException();
+		CHECK(ex != nullptr);
+
+		CHECK(ex->getClassName()->equals(&DatabaseExceptionClassDeclare::NAME));
+	}
+}
 
 /**
  * primary key already exists
  */
+TEST(TestExecAlterPrimaryGroup, addPrimaryKey04_err){
+	TestDbSchemaAlterTextUnique01 tester(this->env);
+	tester.init(1024*10);
+	tester.insert01();
 
+	{
+		const File* projectFolder = this->env->getProjectRoot();
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_primary/resources/exec_primary/addPrimaryKey01.alns"))
+
+		bool result = tester.execDDL(sourceFile);
+		CHECK(result);
+
+		const ExtExceptionObject* ex = tester.checkUncaughtException();
+		CHECK(ex != nullptr);
+
+		CHECK(ex->getClassName()->equals(&DatabaseExceptionClassDeclare::NAME));
+	}
+}
