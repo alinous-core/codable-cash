@@ -61,3 +61,20 @@ TEST(TestDropTableGroup, case01){
 		stmt->interpret(vm);
 	}
 }
+
+/**
+ *	DROP TABLE test_table2 error;
+ */
+TEST(TestDropTableGroup, case02_err){
+	TestDbSchema01 tester(this->env);
+	tester.init(1024*10);
+
+	VirtualMachine* vm = tester.getVm();
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_ddl/resources/droptable/case01.alns"))
+	{
+
+	}
+}
+

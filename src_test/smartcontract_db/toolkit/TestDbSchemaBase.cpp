@@ -245,7 +245,7 @@ SchemaManager* TestDbSchemaBase::getSchemaManager() const noexcept {
 	return this->vm->getDb()->getSchemaManager();
 }
 
-void TestDbSchemaBase::execDDL(const File* sourceFile) {
+bool TestDbSchemaBase::execDDL(const File* sourceFile) {
 	SmartContractParser parser(sourceFile);
 	AlinousLang* lang = parser.getDebugAlinousLang();
 
@@ -261,7 +261,13 @@ void TestDbSchemaBase::execDDL(const File* sourceFile) {
 	stmt->analyzeTypeRef(actx);
 	stmt->analyze(actx);
 
+	if(this->vm->hasError()){
+		return false;
+	}
+
 	stmt->interpret(this->vm);
+
+	return true;
 }
 
 } /* namespace codablecash */
