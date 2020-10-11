@@ -33,6 +33,8 @@
 
 #include "transaction_exception/DatabaseExceptionClassDeclare.h"
 
+#include "table_store/CdbStorageManager.h"
+
 TEST_GROUP(TestExecAlterColumnDropGroup) {
 	TEST_SETUP() {
 		env->setup();
@@ -46,6 +48,39 @@ TEST(TestExecAlterColumnDropGroup, case01){
 	TestDbSchemaAlter01 tester(this->env);
 	tester.init(1024*10);
 	tester.insert03();
+
+	SchemaManager* schemaManager = tester.getSchemaManager();
+	CdbStorageManager* storageManager = tester.getStorageManager();
+
+	{
+		/**
+		 * ALTER TABLE test_table ADD INDEX test_index(id, email_id);
+		 */
+		const File* projectFolder = this->env->getProjectRoot();
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_column/resources/drop/case01_1.alns"))
+
+		bool result = tester.execDDL(sourceFile);
+		CHECK(result);
+	}
+
+	{
+		/**
+		 * ALTER TABLE test_table DROP email_id;
+		 */
+		const File* projectFolder = this->env->getProjectRoot();
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_column/resources/drop/case01.alns"))
+
+		bool result = tester.execDDL(sourceFile);
+		CHECK(result);
+
+		CdbTable* table = schemaManager->getTable(L"public", L"test_table");
+		TableStore* store = storageManager->getTableStore(table->getOid());
+
+		UnicodeString indexname(L"test_index");
+		CdbTableIndex* idx = table->getIndexByName(&indexname);
+
+		CHECK(idx == nullptr);
+	}
 }
 
 

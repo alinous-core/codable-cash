@@ -444,14 +444,13 @@ ArrayList<CdbTableIndex>* CdbTable::removeIndexesUsingColumn(const UnicodeString
 	int maxLoop = this->indexes->size();
 	for(int i = 0; i != maxLoop; ++i){
 		CdbTableIndex* idx = this->indexes->get(i);
-		if(idx->isUniqueDataRequired()){
+
+		if(!idx->hasColumnOid(columnOid)){
 			continue;
 		}
 
-		if(idx->hasColumnOid(columnOid)){
-			removeIndex(idx);
-			list->addElement(idx);
-		}
+		removeIndex(idx);
+		list->addElement(idx);
 	}
 
 	return list;

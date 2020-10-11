@@ -245,6 +245,10 @@ SchemaManager* TestDbSchemaBase::getSchemaManager() const noexcept {
 	return this->vm->getDb()->getSchemaManager();
 }
 
+CdbStorageManager* TestDbSchemaBase::getStorageManager() const noexcept {
+	return this->vm->getDb()->getStorageManager();
+}
+
 bool TestDbSchemaBase::execDDL(const File* sourceFile) {
 	SmartContractParser parser(sourceFile);
 	AlinousLang* lang = parser.getDebugAlinousLang();

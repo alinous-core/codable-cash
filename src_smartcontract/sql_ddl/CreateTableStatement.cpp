@@ -146,8 +146,6 @@ void CreateTableStatement::validate(VirtualMachine* vm, CreateTableLog* cmd) {
 	if(schemaManager->hasTable(table->getSchemaName(), table->getName())){
 		throw new CdbException(L"Table already exists.", __FILE__, __LINE__);
 	}
-
-	// FIXME validate default value, column names
 }
 
 
