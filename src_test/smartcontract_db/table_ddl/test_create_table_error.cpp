@@ -21,6 +21,11 @@
 #include "sql_ddl/DropTableStatement.h"
 
 #include "sc_analyze/AnalyzeContext.h"
+
+#include "ext_binary/ExtExceptionObject.h"
+
+#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+
 using namespace codablecash;
 using namespace alinous;
 
@@ -42,6 +47,28 @@ TEST(TestCreateTableErrorGroup, case01){
 	{
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);
+
+		const ExtExceptionObject* ex = tester.checkUncaughtException();
+		CHECK(ex != nullptr);
+
+		CHECK(ex->getClassName()->equals(&DatabaseExceptionClassDeclare::NAME));
+	}
+}
+
+TEST(TestCreateTableErrorGroup, case02){
+	TestDbSchema01 tester(this->env);
+	tester.init(1024*10);
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_ddl/resources/create_err/case02.alns"))
+	{
+		bool result = tester.execDDL(sourceFile);
+		CHECK(result);
+
+		const ExtExceptionObject* ex = tester.checkUncaughtException();
+		CHECK(ex != nullptr);
+
+		CHECK(ex->getClassName()->equals(&DatabaseExceptionClassDeclare::NAME));
 	}
 }
 
