@@ -4,6 +4,7 @@ set(testsrc
 	TestDbSchemaAlter02.cpp
 	TestDbSchemaAlter03.cpp
 	TestDbSchemaAlter04.cpp
+	TestDbSchemaAlterModifyIndexCheck.cpp
 	TestDbSchemaAlterText01.cpp
 	TestDbSchemaAlterTextUnique01.cpp
 )
