@@ -35,6 +35,7 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "table/CdbTableIndex.h"
 namespace alinous {
 
 AlterModifyCommand::AlterModifyCommand(const AlterModifyCommand& inst) : AbstractAlterDdlWithTypeDesc(CodeElement::DDL_ALTER_MODIFY) {
@@ -181,8 +182,51 @@ void AlterModifyCommand::validate(VirtualMachine* vm, AlterModifyCommandLog* log
 	 * When the type changed, need to check other indexes containing the column
 	 */
 	if(modifyContext->isTypeChanged()){
-		// FIXME check multiple index unique
+		checkUniqueIndexes(db, table, column, modifyContext);
 	}
+}
+
+void AlterModifyCommand::checkUniqueIndexes(CodableDatabase* db, const CdbTable* table, const CdbTableColumn* column
+		, const ColumnModifyContext* modifyContext) {
+	const ArrayList<CdbTableIndex>* list = table->getIndexes();
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const CdbTableIndex* index = list->get(i);
+
+		if(!index->isUniqueDataRequired() || !index->hasColumnOid(column->getOid())){
+			continue;
+		}
+
+		if(index->getColumnLength() == 1 && index->hasColumnOid(column->getOid()) && column->isUnique()){
+			continue; // already checked
+		}
+
+		checkUniqueIndex(index, db, table, column, modifyContext);
+	}
+}
+
+void AlterModifyCommand::checkUniqueIndex(const CdbTableIndex* index,
+		CodableDatabase* db, const CdbTable* table,
+		const CdbTableColumn* column,
+		const ColumnModifyContext* modifyContext) {
+	IndexChecker checker(db, modifyContext);
+
+	ArrayList<const CdbTableColumn> columnList;
+
+	int maxLoop = index->getColumnLength();
+	for(int i = 0; i != maxLoop; ++i){
+		const CdbTableColumn* c = index->getColumnAt(i);
+
+		columnList.addElement(c);
+	}
+
+	bool result = checker.checkUnique(table, &columnList, true);
+	if(!result){
+		throw new CdbException(L"Can not change the column type because of unique index data.", __FILE__, __LINE__);
+	}
+
+	// FIXME check multiple index unique
 }
 
 } /* namespace alinous */

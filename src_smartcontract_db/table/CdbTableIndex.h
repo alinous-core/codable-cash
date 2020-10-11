@@ -53,7 +53,7 @@ public:
 	void setUnique(bool unique) noexcept;
 	bool isUnique() const noexcept;
 
-	bool isUniqueDataRequired(){
+	bool isUniqueDataRequired() const noexcept {
 		return isPrimaryKey() || isUnique();
 	}
 

@@ -12,6 +12,11 @@
 
 namespace codablecash {
 class AlterModifyCommandLog;
+class ColumnModifyContext;
+class CodableDatabase;
+class CdbTable;
+class CdbTableColumn;
+class CdbTableIndex;
 }
 using namespace codablecash;
 
@@ -39,6 +44,9 @@ public:
 
 private:
 	void validate(VirtualMachine* vm, AlterModifyCommandLog* log, TableIdentifier* tableId);
+
+	void checkUniqueIndexes(CodableDatabase* db, const CdbTable* table, const CdbTableColumn* column, const ColumnModifyContext* modifyContext);
+	void checkUniqueIndex(const CdbTableIndex* index, CodableDatabase* db, const CdbTable* table, const CdbTableColumn* column, const ColumnModifyContext* modifyContext);
 
 };
 
