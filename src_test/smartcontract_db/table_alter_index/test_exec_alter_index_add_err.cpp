@@ -156,5 +156,23 @@ TEST(TestExecAlterIndexAddErrGroup, case04){
 
 /**
  * set unique to have multiple ununique records
+ * ALTER TABLE test_table ADD UNIQUE INDEX test_index(email_id);
  */
+TEST(TestExecAlterIndexAddErrGroup, case05){
+	TestDbSchemaAlter01 tester(this->env);
+	tester.init(1024*10);
+	tester.insert03();
 
+	{
+		const File* projectFolder = this->env->getProjectRoot();
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/add_error/case05.alns"))
+
+		bool result = tester.execDDL(sourceFile);
+		CHECK(result);
+
+		const ExtExceptionObject* ex = tester.checkUncaughtException();
+		CHECK(ex != nullptr);
+
+		CHECK(ex->getClassName()->equals(&DatabaseExceptionClassDeclare::NAME));
+	}
+}
