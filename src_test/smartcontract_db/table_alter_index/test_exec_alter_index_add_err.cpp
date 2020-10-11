@@ -119,7 +119,6 @@ TEST(TestExecAlterIndexAddErrGroup, case03){
 	}
 
 	{
-
 		const File* projectFolder = this->env->getProjectRoot();
 		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/add_error/case03.alns"))
 
@@ -133,8 +132,29 @@ TEST(TestExecAlterIndexAddErrGroup, case03){
 	}
 }
 
+/**
+ * use table name as index
+ * ALTER TABLE test_table ADD UNIQUE INDEX test_table(id, email_id);
+ */
+TEST(TestExecAlterIndexAddErrGroup, case04){
+	TestDbSchema01 tester(this->env);
+	tester.init(1024*10);
+
+	{
+		const File* projectFolder = this->env->getProjectRoot();
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/add_error/case04.alns"))
+
+		bool result = tester.execDDL(sourceFile);
+		CHECK(result);
+
+		const ExtExceptionObject* ex = tester.checkUncaughtException();
+		CHECK(ex != nullptr);
+
+		CHECK(ex->getClassName()->equals(&DatabaseExceptionClassDeclare::NAME));
+	}
+}
 
 /**
- * set unique to have multiple records
+ * set unique to have multiple ununique records
  */
 
