@@ -76,6 +76,16 @@ void TestDbSchemaAlterModifyIndexCheck::insert01() {
 	trx->commit();
 }
 
+void TestDbSchemaAlterModifyIndexCheck::insert02() {
+	CdbTransaction* trx = getDatabase()->newTransaction(); __STP(trx);
+
+	insertRecord(trx, 1, L"tanaka", 11, L"test1");
+	insertRecord(trx, 2, L"sato", 12, L"test2");
+	insertRecord(trx, 3, L"saito", 13, L"test3");
+
+	trx->commit();
+}
+
 void TestDbSchemaAlterModifyIndexCheck::insertRecord(CdbTransaction* trx,
 		int id, const wchar_t* name, int email_id, const wchar_t* comment) {
 	InsertLog* log = new InsertLog();

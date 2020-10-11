@@ -23,6 +23,7 @@ public:
 	void createTable();
 
 	void insert01();
+	void insert02();
 
 private:
 	void insertRecord(CdbTransaction* trx, int id, const wchar_t* name, int email_id, const wchar_t* comment);
