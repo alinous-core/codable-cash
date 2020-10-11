@@ -42,6 +42,11 @@
 #include "engine/CdbException.h"
 
 #include "engine/CodableDatabase.h"
+
+#include "table_record_value/CdbValueCaster.h"
+
+#include "table_record_value/AbstractCdbValue.h"
+using codablecash::CdbValueCaster;
 namespace alinous {
 
 CreateTableStatement::CreateTableStatement() : AbstractSQLStatement(CodeElement::DDL_CREATE_TABLE) {
@@ -174,7 +179,14 @@ CdbTable* CreateTableStatement::createTable(VirtualMachine* vm) {
 			}
 		}
 
-		table->addColumn(0, name,type, length, colDesc->isNotNull(), colDesc->isUnique(), defaultValue);
+		try{
+			AbstractCdbValue* testValue = CdbValueCaster::convertFromString(defaultValue, type); __STP(testValue);
+		}
+		catch(Exception* e){
+			throw e;
+		}
+
+		table->addColumn(0, name, type, length, colDesc->isNotNull(), colDesc->isUnique(), defaultValue);
 	}
 
 	__tableRelease.cancel();

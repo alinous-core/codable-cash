@@ -1,0 +1,5 @@
+CREATE TABLE new_table (
+	id int not null unique,
+	val int default 'aaa',
+	PRIMARY KEY(id)
+);

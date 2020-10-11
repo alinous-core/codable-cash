@@ -40,7 +40,8 @@ TEST(TestCreateTableErrorGroup, case01){
 	const File* projectFolder = this->env->getProjectRoot();
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_ddl/resources/create_err/case01.alns"))
 	{
-
+		bool result = tester.execDDL(sourceFile);
+		CHECK(result);
 	}
 }
 
