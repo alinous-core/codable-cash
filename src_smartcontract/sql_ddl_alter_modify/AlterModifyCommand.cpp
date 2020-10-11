@@ -225,8 +225,6 @@ void AlterModifyCommand::checkUniqueIndex(const CdbTableIndex* index,
 	if(!result){
 		throw new CdbException(L"Can not change the column type because of unique index data.", __FILE__, __LINE__);
 	}
-
-	// FIXME check multiple index unique
 }
 
 } /* namespace alinous */

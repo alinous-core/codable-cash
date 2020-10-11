@@ -69,9 +69,9 @@ void TestDbSchemaAlterModifyIndexCheck::createTable() {
 void TestDbSchemaAlterModifyIndexCheck::insert01() {
 	CdbTransaction* trx = getDatabase()->newTransaction(); __STP(trx);
 
-	insertRecord(trx, 1, L"tanaka", 11, L"test");
-	insertRecord(trx, 2, L"sato", 12, L"test");
-	insertRecord(trx, 3, L"saito", 13, L"test");
+	insertRecord(trx, 1, L"tanaka", 11, L"test1");
+	insertRecord(trx, 2, L"sato", 12, L"test2");
+	insertRecord(trx, 3, L"saito", 12, L"test3");
 
 	trx->commit();
 }
