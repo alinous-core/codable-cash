@@ -50,6 +50,7 @@ public:
 	CdbTableColumn* getColumn(const wchar_t* name) noexcept;
 	CdbTableColumn* getColumn(const UnicodeString* name) const noexcept;
 	CdbTableColumn* getColumn(int index) const noexcept;
+	CdbTableColumn* getColumn(const CdbOid* columnOid) const noexcept;
 
 	CdbTableColumn* findColumnByOid(const CdbOid* oid) const noexcept;
 	const ArrayList<CdbTableColumn>* getColumns() const noexcept;
@@ -71,7 +72,7 @@ public:
 
 	void setPrimaryKey(const wchar_t* col);
 	void setPrimaryKey(const UnicodeString* colstr);
-	void setPrimaryKeys(ArrayList<const UnicodeString>* cols);
+	const CdbTableIndex* setPrimaryKeys(const ArrayList<UnicodeString>* cols);
 
 	bool hasSinglePrimaryKeyColumn(const CdbOid* columnOid) const noexcept;
 	CdbTableIndex* getPrimaryKey() const noexcept;
@@ -79,11 +80,13 @@ public:
 	void addIndex(CdbTableIndex* index);
 	CdbTableIndex* getIndexByColumnOid(const CdbOid* oid) const noexcept;
 	CdbTableIndex* getIndexByColumnOids(const ArrayList<const CdbOid>* oidlist) const noexcept;
-	CdbTableIndex* getIndexByColumnOidsStrict(const ArrayList<const CdbOid>* oidlist) const noexcept;
+	CdbTableIndex* getIndexByColumnOidsStrict(const ArrayList<const CdbOid>* oidlist, bool uniqueData) const noexcept;
 
-	CdbTableIndex* getUniqueIndexByColumnOid(const CdbOid* colOid) const noexcept;
+	CdbTableIndex* getIndexByName(const UnicodeString* indexname) const noexcept;
 
 	void removeIndex(const CdbTableIndex* ptr) noexcept;
+	CdbTableColumn* removeColumn(const UnicodeString* columnName) noexcept;
+	ArrayList<CdbTableIndex>* removeIndexesUsingColumn(const UnicodeString* columnName) noexcept;
 	void renameColumn(const UnicodeString* lastColumn, const UnicodeString* newColumn);
 
 	int binarySize() const;

@@ -17,6 +17,7 @@
 #include "transaction_log/AbstractTransactionLog.h"
 #include "transaction_log/TransactionLogFactory.h"
 #include "transaction_log/CreateTableLog.h"
+#include "transaction_log/DropTableLog.h"
 
 #include "base_io/ByteBuffer.h"
 
@@ -29,6 +30,7 @@
 
 #include "table_record_value/AbstractCdbValue.h"
 
+#include "sql_join_parts/TableIdentifier.h"
 using namespace codablecash;
 
 
@@ -40,8 +42,9 @@ TEST_GROUP(TestLogBinaryGroup) {
 		env->teardown();
 	}
 };
+static bool checkBinary(ByteBuffer* buff);
 
-static bool checkBinary(ByteBuffer* buff){
+bool checkBinary(ByteBuffer* buff){
 	int lastSize = buff->capacity();
 
 	buff->position(0);
@@ -146,6 +149,21 @@ TEST(TestLogBinaryGroup, createtable_primarykey_error){
 	CHECK(ex != nullptr)
 	delete ex;
 
+}
+
+TEST(TestLogBinaryGroup, droptable01){
+	DropTableLog log;
+
+	TableIdentifier tableId;
+	tableId.setTableName(new UnicodeString(L"test_table"));
+	log.setTableId(&tableId);
+
+	int size = log.binarySize();
+	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
+	log.toBinary(buff);
+
+	bool res = checkBinary(buff);
+	CHECK(res)
 }
 
 TEST(TestLogBinaryGroup, faactory_error01){

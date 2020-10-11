@@ -8,8 +8,8 @@
 #include "TestDbSchemaBase.h"
 
 #include "engine/CodableDatabase.h"
+#include "engine/CdbException.h"
 
-#include "base_io/File.h"
 #include "../../test_utils/TestEnv.h"
 #include "vm/VirtualMachine.h"
 
@@ -24,7 +24,7 @@
 
 #include "base/StackRelease.h"
 
-#include "sc/SmartContract.h"
+#include "base_io/File.h"
 
 #include "base_io_stream/FileInputStream.h"
 
@@ -33,6 +33,16 @@
 #include "table_record/CdbRecord.h"
 
 #include "scan/RecordScanner.h"
+
+#include "compiler/SmartContractParser.h"
+
+#include "sc/SmartContract.h"
+
+#include "alinous_lang/AlinousLang.h"
+#include "sql/AbstractSQLStatement.h"
+
+#include "sc_analyze/AnalyzeContext.h"
+
 namespace codablecash {
 
 TestDbSchemaBase::TestDbSchemaBase(TestEnv* env) {
@@ -235,5 +245,33 @@ SchemaManager* TestDbSchemaBase::getSchemaManager() const noexcept {
 	return this->vm->getDb()->getSchemaManager();
 }
 
+CdbStorageManager* TestDbSchemaBase::getStorageManager() const noexcept {
+	return this->vm->getDb()->getStorageManager();
+}
+
+bool TestDbSchemaBase::execDDL(const File* sourceFile) {
+	SmartContractParser parser(sourceFile);
+	AlinousLang* lang = parser.getDebugAlinousLang();
+
+	AbstractSQLStatement* stmt = lang->ddlStatement(); __STP(stmt);
+	if(stmt == nullptr){
+		throw new CdbException(L"failed in parsing.", __FILE__, __LINE__);
+	}
+
+	AnalyzeContext* actx = this->vm->getSmartContract()->getAnalyzeContext(); //new AnalyzeContext(); __STP(actx);
+	//actx->setVm(this->vm);
+
+	stmt->preAnalyze(actx);
+	stmt->analyzeTypeRef(actx);
+	stmt->analyze(actx);
+
+	if(this->vm->hasError()){
+		return false;
+	}
+
+	stmt->interpret(this->vm);
+
+	return true;
+}
 
 } /* namespace codablecash */

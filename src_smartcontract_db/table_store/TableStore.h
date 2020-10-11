@@ -38,6 +38,8 @@ public:
 	TableStore(DiskCacheManager* cacheManager, const File* baseDir, const CdbTable* table);
 	virtual ~TableStore();
 
+	static void cleanTableStore(const CdbTable* table, const TableStore* store);
+
 	const CdbOid* getOid() const noexcept;
 
 	void createTable();
@@ -48,8 +50,11 @@ public:
 	void insert(const CdbRecord* rec);
 	void validateRecord(CdbRecord* rec);
 
+	void addNewColumn(const CdbTableColumn* newColumn);
+	void removeColumn(const CdbTableColumn* removalColumn);
+
 	void modifyRecords(const ColumnModifyContext* ctx);
-	void buildIndex(CdbTableIndex* index);
+	void buildIndex(const CdbTableIndex* index);
 	void buildAllIndexes();
 
 	RecordStore* getRecordStore() const noexcept {

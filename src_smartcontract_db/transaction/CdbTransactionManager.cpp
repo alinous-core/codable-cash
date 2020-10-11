@@ -39,6 +39,8 @@
 #include "transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
 
 #include "engine_lock/StackDbLockUnlocker.h"
+
+#include "transaction_log/DropTableLog.h"
 namespace codablecash {
 
 CdbTransactionManager::CdbTransactionManager(CodableDatabase* db) {
@@ -75,6 +77,10 @@ void CdbTransactionManager::onCreateTable(SchemaManager* mgr, const CdbTable* ta
 	// do nothing
 }
 
+void CdbTransactionManager::onDropTable(SchemaManager* mgr,	const CdbTable* table) {
+	// do nothing
+}
+
 void CdbTransactionManager::onAlterModify(SchemaManager* mgr,
 		const CdbTable* table, const ColumnModifyContext* ctx) {
 	// do nothing
@@ -90,7 +96,32 @@ void CdbTransactionManager::onAlterTableRenameTable(SchemaManager* mgr,
 	// do nothing
 }
 
+void CdbTransactionManager::onAddPrimaryKey(SchemaManager* mgr,
+		const CdbTable* table, const CdbTableIndex* primaryKey) {
+	// do nothing
+}
 
+void CdbTransactionManager::onAddColumn(SchemaManager* mgr,
+		const CdbTable* table, const CdbTableColumn* newColumn,
+		const CdbTableIndex* newUniqueIndex) {
+	// do nothing
+}
+
+void CdbTransactionManager::onDropColumn(SchemaManager* mgr,
+		const CdbTable* table, const CdbTableColumn* removalColumn,
+		const ArrayList<CdbTableIndex>* removalIndexes) {
+	// do nothing
+}
+
+void CdbTransactionManager::onAddIndex(SchemaManager* mgr,
+		const CdbTable* table, const CdbTableIndex* newIndex) {
+	// do nothing
+}
+
+void CdbTransactionManager::onDropIndex(SchemaManager* mgr,
+		const CdbTable* table, const CdbTableIndex* removalIndex) {
+	// do nothing
+}
 
 CdbTransaction* CdbTransactionManager::newTransaction(uint64_t transactionId) {
 	CdbTransaction* trx = new CdbTransaction(this, transactionId);
@@ -109,6 +140,13 @@ RecordObjectIdPublisher* CdbTransactionManager::getRecordObjectIdPublisher() con
 void CdbTransactionManager::commitCreateTable(CreateTableLog* cmd) {
 	CdbTable* table = cmd->getTable();
 	this->schemaManager->createTable(table);
+
+	this->committedCommands->addElement(cmd);
+}
+
+void CdbTransactionManager::commitDropTable(DropTableLog* cmd) {
+	const TableIdentifier* tableId = cmd->getTableId();
+	this->schemaManager->dropTable(tableId);
 
 	this->committedCommands->addElement(cmd);
 }

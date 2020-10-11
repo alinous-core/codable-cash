@@ -109,6 +109,17 @@ void CdbStorageManager::onCreateTable(SchemaManager* mgr, const CdbTable* table)
 	this->tableStoreMap->put(store->getOid(), store);
 }
 
+void CdbStorageManager::onDropTable(SchemaManager* mgr, const CdbTable* table) {
+	const CdbOid* tableOid = table->getOid();
+
+	TableStore* store = getTableStore(tableOid); __STP(store);
+	this->tableStoreMap->remove(store->getOid());
+
+	store->closeTable();
+
+	TableStore::cleanTableStore(table, store);
+}
+
 void CdbStorageManager::onAlterModify(SchemaManager* mgr, const CdbTable* table, const ColumnModifyContext* ctx) {
 	const CdbOid* tableOid = table->getOid();
 
@@ -155,6 +166,69 @@ void CdbStorageManager::onDropPrimaryKey(SchemaManager* mgr, const CdbTable* tab
 	TableStore* store = getTableStore(tableOid);
 	store->removeIndex(primaryKey);
 }
+
+void CdbStorageManager::onAddPrimaryKey(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* primaryKey) {
+	const CdbOid* tableOid = table->getOid();
+
+	TableStore* store = getTableStore(tableOid);
+	store->addNewIndex(primaryKey);
+	store->buildIndex(primaryKey);
+}
+
+void CdbStorageManager::onAddColumn(SchemaManager* mgr, const CdbTable* table,
+		const CdbTableColumn* newColumn, const CdbTableIndex* newUniqueIndex) {
+	const CdbOid* tableOid = table->getOid();
+
+	TableStore* store = getTableStore(tableOid);
+	assert(store != nullptr);
+
+	// add column
+	store->addNewColumn(newColumn);
+
+	if(newUniqueIndex != nullptr){
+		store->addNewIndex(newUniqueIndex);
+		store->buildIndex(newUniqueIndex);
+	}
+}
+
+void CdbStorageManager::onDropColumn(SchemaManager* mgr, const CdbTable* table,
+		const CdbTableColumn* removalColumn, const ArrayList<CdbTableIndex>* removalIndexes) {
+	const CdbOid* tableOid = table->getOid();
+
+	TableStore* store = getTableStore(tableOid);
+	assert(store != nullptr);
+
+	store->removeColumn(removalColumn);
+
+	int maxLoop = removalIndexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const CdbTableIndex* index = removalIndexes->get(i);
+
+		store->removeIndex(index);
+	}
+}
+
+void CdbStorageManager::onAddIndex(SchemaManager* mgr, const CdbTable* table,
+		const CdbTableIndex* newIndex) {
+	const CdbOid* tableOid = table->getOid();
+
+	TableStore* store = getTableStore(tableOid);
+	assert(store != nullptr);
+
+	store->addNewIndex(newIndex);
+	store->buildIndex(newIndex);
+}
+
+void CdbStorageManager::onDropIndex(SchemaManager* mgr, const CdbTable* table,
+		const CdbTableIndex* removalIndex) {
+	const CdbOid* tableOid = table->getOid();
+
+	TableStore* store = getTableStore(tableOid);
+	assert(store != nullptr);
+
+	store->removeIndex(removalIndex);
+}
+
 
 void CdbStorageManager::onAlterTableRenameTable(SchemaManager* mgr,	const CdbTable* table, TableRenameContext* ctx) {
 	const CdbOid* tableOid = table->getOid();

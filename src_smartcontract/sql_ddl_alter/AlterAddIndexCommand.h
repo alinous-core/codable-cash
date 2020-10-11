@@ -26,6 +26,17 @@ public:
 	void addColumn(UnicodeString* colName) noexcept;
 	void setUnique(bool unique) noexcept;
 
+	bool isUnique() const noexcept {
+		return unique;
+	}
+	const UnicodeString* getName() const noexcept {
+		return name;
+	}
+
+	const ArrayList<UnicodeString>* getList() const noexcept {
+		return &list;
+	}
+
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
 	virtual void fromBinary(ByteBuffer* in);
@@ -36,6 +47,8 @@ public:
 	virtual void analyzeTypeRef(AnalyzeContext* actx);
 	virtual void analyze(AnalyzeContext* actx);
 	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId);
+
+
 
 private:
 	UnicodeString* name;

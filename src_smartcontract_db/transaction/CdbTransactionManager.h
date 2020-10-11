@@ -22,6 +22,7 @@ class CodableDatabase;
 class SchemaObjectIdPublisher;
 class RecordObjectIdPublisher;
 class CreateTableLog;
+class DropTableLog;
 class AbstractTransactionLog;
 class InsertLog;
 class Schema;
@@ -37,9 +38,16 @@ public:
 
 	virtual void schemaLoaded(SchemaManager* sc);
 	virtual void onCreateTable(SchemaManager* mgr, const CdbTable* table);
+	virtual void onDropTable(SchemaManager* mgr, const CdbTable* table);
+
 	virtual void onAlterModify(SchemaManager* mgr, const CdbTable* table, const ColumnModifyContext* ctx);
 	virtual void onDropPrimaryKey(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* primaryKey);
+	virtual void onAddPrimaryKey(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* primaryKey);
 	virtual void onAlterTableRenameTable(SchemaManager* mgr, const CdbTable* table, TableRenameContext* ctx);
+	virtual void onAddColumn(SchemaManager* mgr, const CdbTable* table, const CdbTableColumn* newColumn, const CdbTableIndex* newUniqueIndex);
+	virtual void onDropColumn(SchemaManager* mgr, const CdbTable* table, const CdbTableColumn* removalColumn, const ArrayList<CdbTableIndex>* removalIndexes);
+	virtual void onAddIndex(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* newIndex);
+	virtual void onDropIndex(SchemaManager* mgr, const CdbTable* table, const CdbTableIndex* removalIndex);
 
 	CdbTransaction* newTransaction(uint64_t transactionId);
 
@@ -47,6 +55,7 @@ public:
 	RecordObjectIdPublisher* getRecordObjectIdPublisher() const noexcept;
 
 	void commitCreateTable(CreateTableLog* cmd);
+	void commitDropTable(DropTableLog* cmd);
 	void commitAlterTable(AbstractAlterCommandLog* cmd);
 
 	void commitInsert(InsertLog* cmd);

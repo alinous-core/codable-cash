@@ -23,21 +23,15 @@ namespace codablecash {
 
 AlterModifyCommandLog::AlterModifyCommandLog() : AbstractAlterCommandLog(AbstractTransactionLog::TRX_ALTER_MODIFY) {
 	this->command = nullptr;
-	this->defaultValueStr = nullptr;
 	this->length = 0;
 }
 
 AlterModifyCommandLog::~AlterModifyCommandLog() {
 	delete this->command;
-	delete this->defaultValueStr;
 }
 
 void AlterModifyCommandLog::setCommand(AlterModifyCommand* command) noexcept {
 	this->command = command;
-}
-
-void AlterModifyCommandLog::setDefaultStr(UnicodeString* defaultValueStr) noexcept {
-	this->defaultValueStr = defaultValueStr;
 }
 
 int AlterModifyCommandLog::binarySize() const {
@@ -47,13 +41,6 @@ int AlterModifyCommandLog::binarySize() const {
 
 	total += AbstractAlterCommandLog::binarySize();
 	total += this->command->binarySize();
-
-	bool isnotnull = this->defaultValueStr != nullptr;
-	total += sizeof(uint8_t);
-
-	if(isnotnull){
-		total += stringSize(this->defaultValueStr);
-	}
 
 	total += sizeof(int64_t); // length
 
@@ -68,13 +55,6 @@ void AlterModifyCommandLog::toBinary(ByteBuffer* out) const {
 	AbstractAlterCommandLog::toBinary(out);
 	this->command->toBinary(out);
 
-	bool isnotnull = this->defaultValueStr != nullptr;
-	out->put(isnotnull ? 1 : 0);
-
-	if(isnotnull){
-		putString(out, this->defaultValueStr);
-	}
-
 	out->putLong(this->length);
 }
 
@@ -85,11 +65,6 @@ void AlterModifyCommandLog::fromBinary(ByteBuffer* in) {
 	CodeElement::checkKind(element, CodeElement::DDL_ALTER_MODIFY);
 
 	this->command = dynamic_cast<AlterModifyCommand*>(element);
-
-	char bl = in->get();
-	if(bl){
-		this->defaultValueStr = getString(in);
-	}
 
 	this->length = in->getLong();
 }

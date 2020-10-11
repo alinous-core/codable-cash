@@ -53,6 +53,10 @@ public:
 	void setUnique(bool unique) noexcept;
 	bool isUnique() const noexcept;
 
+	bool isUniqueDataRequired() const noexcept {
+		return isPrimaryKey() || isUnique();
+	}
+
 	int binarySize() const;
 	void toBinary(ByteBuffer* out) const;
 	void fromBinary(ByteBuffer* in, CdbTable* table);

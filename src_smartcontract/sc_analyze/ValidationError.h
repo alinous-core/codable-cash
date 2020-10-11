@@ -70,6 +70,7 @@ public:
 	static constexpr int DB_NO_PRIMARY_KEY = 1002;
 	static constexpr int DB_LENGTH_IS_NOT_INTEGER = 1002;
 	static constexpr int DB_LENGTH_IS_NOT_CORRECT_INTEGER = 1003;
+	static constexpr int DB_CREATE_TABLE_COLUMN_DUPLICATED_NAME = 1004;
 
 	static constexpr int SQL_INSERT_VALUES_NUMBERS = 1100;
 

@@ -8,19 +8,22 @@
 #ifndef SQL_DDL_ALTER_ALTERADDCOLUMNCOMMAND_H_
 #define SQL_DDL_ALTER_ALTERADDCOLUMNCOMMAND_H_
 
-#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
+#include "sql_ddl_alter/AbstractAlterDdlWithTypeDesc.h"
+
+namespace codablecash {
+class TableStore;
+}
+using namespace codablecash;
 
 namespace alinous {
 
 class DdlColumnDescriptor;
 
-class AlterAddColumnCommand : public AbstractAlterDdlCommand {
+class AlterAddColumnCommand : public AbstractAlterDdlWithTypeDesc {
 public:
 	AlterAddColumnCommand(const AlterAddColumnCommand& inst);
 	AlterAddColumnCommand();
 	virtual ~AlterAddColumnCommand();
-
-	void setColumnDescriptor(DdlColumnDescriptor* columnDescriptor) noexcept;
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
@@ -34,7 +37,7 @@ public:
 	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId);
 
 private:
-	DdlColumnDescriptor* columnDescriptor;
+	void checkRecordCount(TableStore* store);
 };
 
 } /* namespace alinous */

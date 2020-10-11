@@ -1,0 +1,1 @@
+ALTER TABLE test_table ADD UNIQUE INDEX test_index(email_id, comment);

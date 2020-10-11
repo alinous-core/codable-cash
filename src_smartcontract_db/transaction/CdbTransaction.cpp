@@ -43,6 +43,7 @@
 
 #include "transaction_log_alter/AbstractAlterCommandLog.h"
 
+#include "transaction_log/DropTableLog.h"
 
 namespace codablecash {
 
@@ -86,14 +87,14 @@ void CdbTransaction::rollback() {
 }
 
 void CdbTransaction::createTable(CreateTableLog* cmd) {
-	commit();
+	this->cmdList.addElement(cmd);
+}
 
+void CdbTransaction::dropTable(DropTableLog* cmd) {
 	this->cmdList.addElement(cmd);
 }
 
 void CdbTransaction::alterTable(AbstractAlterCommandLog* cmd) {
-	commit();
-
 	this->cmdList.addElement(cmd);
 }
 
@@ -138,6 +139,7 @@ IndexScanner* CdbTransaction::getRawIndexScanner(const CdbTableIdentifier* table
 
 	return getRawIndexScanner(tableId, &columnOidList, begin, beginEq, end, endEq);
 }
+
 void CdbTransaction::convertColumnName2OidList(const CdbTable* table, const ArrayList<const UnicodeString>* columnlist,
 		ArrayList<const CdbOid>* columnOidList) const {
 	int maxLoop = columnlist->size();

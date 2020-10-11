@@ -51,6 +51,8 @@ public:
 
 	const ArrayList<Schema>* getSchemaList() const noexcept;
 
+	void removeTable(const UnicodeString* schema, const UnicodeString* table);
+
 private:
 	ArrayList<Schema> list;
 	HashMap<UnicodeString, Schema> map;

@@ -29,6 +29,7 @@ class CdbTable;
 class IndexStore;
 class CdbRecord;
 class SchemaManager;
+class CdbStorageManager;
 
 class TestDbSchemaBase {
 public:
@@ -65,6 +66,9 @@ public:
 	CdbTableIndex* getPrimaryKey(const wchar_t* schema, const wchar_t* table);
 
 	SchemaManager* getSchemaManager() const noexcept;
+	CdbStorageManager* getStorageManager() const noexcept;
+
+	bool execDDL(const File* sourceFile);
 protected:
 	void initSmartcontract();
 	void setMain(const wchar_t* pkg, const wchar_t* clazz, const wchar_t* method) noexcept;

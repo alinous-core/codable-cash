@@ -8,10 +8,15 @@
 #ifndef SQL_DDL_ALTER_MODIFY_ALTERMODIFYCOMMAND_H_
 #define SQL_DDL_ALTER_MODIFY_ALTERMODIFYCOMMAND_H_
 
-#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
+#include "sql_ddl_alter/AbstractAlterDdlWithTypeDesc.h"
 
 namespace codablecash {
 class AlterModifyCommandLog;
+class ColumnModifyContext;
+class CodableDatabase;
+class CdbTable;
+class CdbTableColumn;
+class CdbTableIndex;
 }
 using namespace codablecash;
 
@@ -20,16 +25,11 @@ namespace alinous {
 class DdlColumnDescriptor;
 class VirtualMachine;
 
-class AlterModifyCommand : public AbstractAlterDdlCommand {
+class AlterModifyCommand : public AbstractAlterDdlWithTypeDesc {
 public:
 	AlterModifyCommand(const AlterModifyCommand& inst);
 	AlterModifyCommand();
 	virtual ~AlterModifyCommand();
-
-	void setColumnDescriptor(DdlColumnDescriptor* columnDescriptor) noexcept;
-	const DdlColumnDescriptor* getColumnDescriptor() const noexcept {
-		return columnDescriptor;
-	}
 
 	virtual int binarySize() const;
 	virtual void toBinary(ByteBuffer* out);
@@ -42,16 +42,12 @@ public:
 	virtual void analyze(AnalyzeContext* actx);
 	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId);
 
-	int64_t getLengthValue() const noexcept {
-		return this->longValue;
-	}
-
 private:
 	void validate(VirtualMachine* vm, AlterModifyCommandLog* log, TableIdentifier* tableId);
 
-private:
-	DdlColumnDescriptor* columnDescriptor;
-	int64_t longValue;
+	void checkUniqueIndexes(CodableDatabase* db, const CdbTable* table, const CdbTableColumn* column, const ColumnModifyContext* modifyContext);
+	void checkUniqueIndex(const CdbTableIndex* index, CodableDatabase* db, const CdbTable* table, const CdbTableColumn* column, const ColumnModifyContext* modifyContext);
+
 };
 
 } /* namespace alinous */

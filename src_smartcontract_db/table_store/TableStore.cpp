@@ -38,15 +38,17 @@
 #include "table_record_key/CdbLongKey.h"
 
 #include "table_store/RecordValueConverter.h"
+#include "table_store/AlterRecordValueExecutor.h"
 
 #include "btree/Btree.h"
 #include "btree/BtreeScanner.h"
 
-#include "schema_alter_ctx/ColumnModifyContext.h"
-
 #include "schema/SchemaManager.h"
 
+#include "schema_alter_ctx/ColumnModifyContext.h"
 #include "schema_alter_ctx/TableRenameContext.h"
+
+
 namespace codablecash {
 
 TableStore::TableStore(DiskCacheManager* cacheManager, const File* baseDir, const CdbTable* table) {
@@ -70,6 +72,18 @@ TableStore::~TableStore() {
 
 	this->cacheManager = nullptr;
 	delete this->tableLock;
+}
+
+void TableStore::cleanTableStore(const CdbTable* table, const TableStore* store) {
+	const Schema* schema = table->getSchema();
+	const UnicodeString* schemaName = schema->getName();
+	const UnicodeString* tableName = table->getName();
+
+	File* schemaDir = store->baseDir->get(schemaName); __STP(schemaDir);
+	File* tableDir = schemaDir->get(tableName); __STP(tableDir);
+
+	bool result = tableDir->deleteDir();
+	assert(result);
 }
 
 void TableStore::closeTable() {
@@ -152,6 +166,21 @@ void TableStore::createTable() {
 		IndexStore::createStore(tableDir, this->table, index, this->cacheManager);
 	}
 }
+
+
+
+void TableStore::addNewColumn(const CdbTableColumn* newColumn) {
+	AlterRecordValueExecutor exec(newColumn);
+
+	exec.addColumn(this);
+}
+
+void TableStore::removeColumn(const CdbTableColumn* removalColumn) {
+	AlterRecordValueExecutor exec(removalColumn);
+
+	exec.removeColumn(this);
+}
+
 
 void TableStore::addNewIndex(const CdbTableIndex* index) {
 	const Schema* sc = this->table->getSchema();
@@ -250,7 +279,7 @@ void TableStore::addRecord2Index(const ArrayList<IndexStore>* indexStoreList, co
 	}
 }
 
-void TableStore::buildIndex(CdbTableIndex* index) {
+void TableStore::buildIndex(const CdbTableIndex* index) {
 	const CdbOid* indexOid = index->getOid();
 	IndexStore* store = getIndexStore(indexOid);
 

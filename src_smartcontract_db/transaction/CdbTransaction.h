@@ -24,6 +24,7 @@ class AbstractScanCondition;
 class CdbTableIdentifier;
 class TransactionUpdateCache;
 class CdbTable;
+class DropTableLog;
 class IndexScanner;
 class CdbOid;
 class AbstractCdbKey;
@@ -42,6 +43,7 @@ public:
 	void rollback();
 
 	void createTable(CreateTableLog* cmd);
+	void dropTable(DropTableLog* cmd);
 	void alterTable(AbstractAlterCommandLog* cmd);
 
 	void insert(InsertLog* cmd);

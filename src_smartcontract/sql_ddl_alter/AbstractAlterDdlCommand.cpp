@@ -24,18 +24,4 @@ AbstractAlterDdlCommand::~AbstractAlterDdlCommand() {
 
 }
 
-DdlColumnDescriptor* AbstractAlterDdlCommand::copyColumnDescriptor(DdlColumnDescriptor* columnDescriptor) const {
-	int size = columnDescriptor->binarySize();
-
-	ByteBuffer* buff = ByteBuffer::allocateWithEndian(size, true); __STP(buff);
-	columnDescriptor->toBinary(buff);
-
-	buff->position(0);
-
-	CodeElement* element = CodeElement::createFromBinary(buff);
-
-	return dynamic_cast<DdlColumnDescriptor*>(element);
-}
-
-
 } /* namespace alinous */

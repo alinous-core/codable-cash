@@ -1,0 +1,1 @@
+ALTER TABLE test_table ADD COLUMN email_id2 int not null unique default '0';

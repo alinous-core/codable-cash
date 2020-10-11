@@ -33,13 +33,24 @@
 
 #include "sql_ddl/DdlColumnDescriptor.h"
 
-#include "sql_ddl_alter_modify/AlterModifyCommand.h"
-
 #include "table/CdbTableIndex.h"
 
 #include "sql_join_parts/TableIdentifier.h"
 
+#include "engine/CdbOid.h"
+
+#include "sql_ddl_alter_modify/AlterAddPrimaryKeyCommand.h"
 #include "sql_ddl_alter_modify/AlterRenameColumnCommand.h"
+#include "sql_ddl_alter_modify/AlterModifyCommand.h"
+
+#include "sql_ddl_alter/AlterAddIndexCommand.h"
+#include "sql_ddl_alter/AlterDropIndexCommand.h"
+#include "sql_ddl_alter/AlterAddColumnCommand.h"
+#include "sql_ddl_alter/AlterDropColumnCommand.h"
+
+#include "sql_ddl/ColumnTypeDescriptor.h"
+
+using namespace alinous;
 
 namespace codablecash {
 
@@ -52,9 +63,48 @@ SchemaAlterCommandsHandler::~SchemaAlterCommandsHandler() {
 }
 
 void SchemaAlterCommandsHandler::handleAlterTableAddIndex(const AlterAddIndexCommandLog* cmd) {
+	const AlterAddIndexCommand* command = cmd->getCommand();
+
 	CdbTable* table = findTableFromCommand(cmd);
 
-	// TODO: alter add
+	uint64_t newOid = this->schemaManager->root->newSchemaObjectId();
+	CdbTableIndex* newIndex = new CdbTableIndex(newOid);
+
+	const UnicodeString* indexName = command->getName();
+	newIndex->setName(new UnicodeString(indexName));
+
+	const ArrayList<UnicodeString>* colList = command->getList();
+	int maxLoop = colList->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const UnicodeString* colstr = colList->get(i);
+
+		const CdbTableColumn* col = table->getColumn(colstr);
+		assert(col != nullptr);
+
+		newIndex->addColumn(col);
+	}
+
+	newIndex->setUnique(command->isUnique());
+	table->addIndex(newIndex);
+
+	this->schemaManager->fireOnAddIndex(table, newIndex);
+
+	// save
+	this->schemaManager->save();
+}
+
+void SchemaAlterCommandsHandler::handleAlterTableDropIndex(const AlterDropIndexCommandLog* cmd) {
+	const AlterDropIndexCommand* command = cmd->getCommand();
+
+	CdbTable* table = findTableFromCommand(cmd);
+
+	const UnicodeString* indexName = command->getName();
+	CdbTableIndex* removalIndex = table->getIndexByName(indexName); __STP(removalIndex);
+	assert(removalIndex != nullptr);
+
+	table->removeIndex(removalIndex);
+
+	this->schemaManager->fireOnDropIndex(table, removalIndex);
 
 	// upgrade
 	this->schemaManager->root->upgradeSchemaObjectVersionId();
@@ -62,23 +112,57 @@ void SchemaAlterCommandsHandler::handleAlterTableAddIndex(const AlterAddIndexCom
 }
 
 void SchemaAlterCommandsHandler::handleAlterTableAddColumn(const AlterAddColumnCommandLog* cmd) {
+	AlterAddColumnCommand* command = cmd->getCommand();
+
 	CdbTable* table = findTableFromCommand(cmd);
 
-	// upgrade
-	this->schemaManager->root->upgradeSchemaObjectVersionId();
-	this->schemaManager->save();
-}
+	const DdlColumnDescriptor* columnDesc = command->getColumnDescriptor();
+	const ColumnTypeDescriptor* typeDesc = columnDesc->getTypeDesc();
 
-void SchemaAlterCommandsHandler::handleAlterTableDropIndex(const AlterDropIndexCommandLog* cmd) {
-	CdbTable* table = findTableFromCommand(cmd);
+	uint64_t newOid = this->schemaManager->root->newSchemaObjectId();
+	const UnicodeString* colName = columnDesc->getName();
+	uint8_t cdbType = typeDesc->toCdbValueType();
+	int colLength = command->getLengthValue();
+	bool notnull = columnDesc->isNotNull();
+	bool unique = columnDesc->isUnique();
+	const UnicodeString* defValue = command->getDefaultValueStr();
 
-	// upgrade
-	this->schemaManager->root->upgradeSchemaObjectVersionId();
+	table->addColumn(newOid, colName, cdbType, colLength, notnull, unique, defValue);
+
+	CdbTableColumn* newColumn = table->getColumn(colName);
+	CdbTableIndex* newUniqueIndex = nullptr;
+	if(newColumn->isUnique()){
+		uint64_t newIdxOid = this->schemaManager->root->newSchemaObjectId();
+		newUniqueIndex = new CdbTableIndex(newIdxOid);
+
+		UnicodeString* indexName = CdbTableIndex::createUniqueKeyIndexName(table, newColumn->getName());
+		newUniqueIndex->setName(indexName);
+		newUniqueIndex->addColumn(newColumn);
+		newUniqueIndex->setUnique(true);
+		newUniqueIndex->setPrimaryKey(false);
+
+		table->addIndex(newUniqueIndex);
+	}
+
+	this->schemaManager->fireOnAddColumn(table, newColumn, newUniqueIndex);
+
+	// save
 	this->schemaManager->save();
 }
 
 void SchemaAlterCommandsHandler::handleAlterTableDropColumn(const AlterDropColumnCommandLog* cmd) {
+	const AlterDropColumnCommand* command = cmd->getCommand();
+
 	CdbTable* table = findTableFromCommand(cmd);
+
+	const UnicodeString* columnName = command->getName();
+
+	ArrayList<CdbTableIndex>* removalIndexes = table->removeIndexesUsingColumn(columnName); __STP(removalIndexes);
+	removalIndexes->setDeleteOnExit();
+
+	CdbTableColumn* removalColumn = table->removeColumn(columnName); __STP(removalColumn);
+
+	this->schemaManager->fireOnDropColumn(table, removalColumn, removalIndexes);
 
 	// upgrade
 	this->schemaManager->root->upgradeSchemaObjectVersionId();
@@ -87,6 +171,15 @@ void SchemaAlterCommandsHandler::handleAlterTableDropColumn(const AlterDropColum
 
 void SchemaAlterCommandsHandler::handleAlterTableAddPrimaryKey(const AlterAddPrimaryKeyCommandLog* cmd) {
 	CdbTable* table = findTableFromCommand(cmd);
+
+	const AlterAddPrimaryKeyCommand* command = cmd->getCommand();
+	const ArrayList<UnicodeString>* collist = command->getColumns();
+
+	const CdbTableIndex* newidx = table->setPrimaryKeys(collist);
+
+	if(newidx != nullptr){
+		this->schemaManager->fireOnAddPrimaryKey(table, newidx);
+	}
 
 	// upgrade
 	this->schemaManager->root->upgradeSchemaObjectVersionId();
@@ -99,9 +192,7 @@ void SchemaAlterCommandsHandler::handleAlterTableDropPrimaryKey(const AlterDropP
 	CdbTableIndex* primaryKey = table->getPrimaryKey();
 	StackRelease<CdbTableIndex> stPrimaryKey(primaryKey);
 
-	if(primaryKey == nullptr){
-		return;
-	}
+	assert(primaryKey != nullptr);
 
 	// check unique of column on length == 1
 	if(primaryKey->getColumnLength() == 1 && primaryKey->getColumnAt(0)->isUnique()){
@@ -135,7 +226,7 @@ void SchemaAlterCommandsHandler::handleAlterTableModify(const AlterModifyCommand
 		throw new CdbException(L"Column does not exists.", __FILE__, __LINE__);
 	}
 
-	const UnicodeString* defaultStr = cmd->getDefaultValueStr();
+	const UnicodeString* defaultStr = cmd->getCommand()->getDefaultValueStr();
 
 	ColumnModifyContext* context = col->createModifyContextwithChange(modifyCommand, defaultStr); __STP(context);
 	context->setColumn(col);
@@ -168,8 +259,14 @@ void SchemaAlterCommandsHandler::handleToNotUnique(CdbTable* table,	ColumnModify
 	CdbTableColumn* col = ctx->getColumn();
 	const CdbOid* colOid = col->getOid();
 
-	CdbTableIndex* index = table->getUniqueIndexByColumnOid(colOid);
-	if(index == nullptr || index->isPrimaryKey()){ // primary key support unique
+	ArrayList<const CdbOid> oidlist;
+	oidlist.addElement(colOid);
+
+	CdbTableIndex* index = table->getIndexByColumnOidsStrict(&oidlist, true);
+	if(index == nullptr || index->isPrimaryKey()){ // leave primary key
+		if(index != nullptr){
+			index->setUnique(false);
+		}
 		return;
 	}
 
@@ -183,6 +280,17 @@ void SchemaAlterCommandsHandler::handleToUnique(CdbTable* table, ColumnModifyCon
 
 	// already has primary key
 	if(table->hasSinglePrimaryKeyColumn(colOid)){
+		CdbTableIndex* idx = table->getPrimaryKey();
+		idx->setUnique(true);
+		return;
+	}
+
+	// already has not-unique index
+	ArrayList<const CdbOid> oidlist;
+	oidlist.addElement(colOid);
+	CdbTableIndex* idx = table->getIndexByColumnOidsStrict(&oidlist, false);
+	if(idx != nullptr){
+		idx->setUnique(true);
 		return;
 	}
 
@@ -205,7 +313,6 @@ void SchemaAlterCommandsHandler::handleAlterTableRenameColumn(const AlterRenameC
 
 	CdbTable* table = findTableFromCommand(cmd);
 	table->renameColumn(lastName, newName);
-	// TODO: rename exrcute
 
 	// upgrade
 	this->schemaManager->root->upgradeSchemaObjectVersionId();

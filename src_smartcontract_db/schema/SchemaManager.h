@@ -42,6 +42,7 @@ class CdbTableIndex;
 class SchemaAlterCommandsHandler;
 class CodableDatabase;
 class TableRenameContext;
+class CdbTableColumn;
 
 class SchemaManager {
 public:
@@ -69,6 +70,7 @@ public:
 	uint64_t getSchemaObjectVersionId() const noexcept;
 
 	void createTable(CdbTable* table);
+	void dropTable(const TableIdentifier* tableId);
 
 	Schema* getSchema(const UnicodeString* name) const noexcept;
 	const ArrayList<Schema>* getSchemaList() const noexcept;
@@ -97,8 +99,14 @@ public:
 private:
 	void fireSchemaLoaded() noexcept;
 	void fireOnCreateTable(const CdbTable* table);
+	void fireOnDropTable(const CdbTable* table);
 	void fireOnAlterModify(const CdbTable* table, const ColumnModifyContext* ctx);
 	void fireOnDropPrimaryKey(const CdbTable* table, const CdbTableIndex* primaryKey);
+	void fireOnAddPrimaryKey(const CdbTable* table, const CdbTableIndex* primaryKey);
+	void fireOnAddColumn(const CdbTable* table, const CdbTableColumn* newColumn, const CdbTableIndex* newUniqueIndex);
+	void fireOnDropColumn(const CdbTable* table, const CdbTableColumn* removalColumn, const ArrayList<CdbTableIndex>* removalIndexes);
+	void fireOnAddIndex(const CdbTable* table, const CdbTableIndex* newIndex);
+	void fireOnDropIndex(const CdbTable* table, const CdbTableIndex* removalIndex);
 	void fireOnRenameTable(const CdbTable* table, TableRenameContext* context);
 
 	CdbTable* findTableFromCommand(const AbstractAlterCommandLog* cmdlog);

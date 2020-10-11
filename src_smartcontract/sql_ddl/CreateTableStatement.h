@@ -14,6 +14,7 @@
 
 namespace codablecash {
 class CdbTable;
+class CreateTableLog;
 }
 using namespace codablecash;
 
@@ -41,6 +42,7 @@ public:
 	void addPrimaryKey(UnicodeString* key) noexcept;
 
 private:
+	void validate(VirtualMachine* vm, CreateTableLog* cmd);
 	CdbTable* createTable(VirtualMachine* vm);
 private:
 	UnicodeString* name;

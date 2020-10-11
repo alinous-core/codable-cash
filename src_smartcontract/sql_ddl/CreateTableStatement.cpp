@@ -37,7 +37,16 @@
 
 #include "instance_gc/StackFloatingVariableHandler.h"
 
+#include "schema/SchemaManager.h"
 
+#include "engine/CdbException.h"
+
+#include "engine/CodableDatabase.h"
+
+#include "table_record_value/CdbValueCaster.h"
+
+#include "table_record_value/AbstractCdbValue.h"
+using codablecash::CdbValueCaster;
 namespace alinous {
 
 CreateTableStatement::CreateTableStatement() : AbstractSQLStatement(CodeElement::DDL_CREATE_TABLE) {
@@ -78,10 +87,19 @@ void CreateTableStatement::analyze(AnalyzeContext* actx) {
 		actx->addValidationError(ValidationError::DB_NO_PRIMARY_KEY, this, L"Primary key is required.", {});
 	}
 
+	ArrayList<const UnicodeString, UnicodeString::ValueCompare> namelist;
+
 	int maxLoop = this->list->size();
 	for(int i = 0; i != maxLoop; ++i){
 		DdlColumnDescriptor* colDesc = this->list->get(i);
 		ColumnTypeDescriptor* typeDesc = colDesc->getColumnTypeDescriptor();
+
+		const UnicodeString* nm = colDesc->getName();
+		const UnicodeString* n = namelist.search(nm);
+		if(n != nullptr){
+			actx->addValidationError(ValidationError::DB_CREATE_TABLE_COLUMN_DUPLICATED_NAME, this, L"The column {0} is duplicated.", {nm});
+		}
+		namelist.addElement(nm);
 
 		uint8_t type = typeDesc->toCdbValueType();
 		if(type == 0){
@@ -104,11 +122,12 @@ void CreateTableStatement::analyze(AnalyzeContext* actx) {
 void CreateTableStatement::interpret(VirtualMachine* vm) {
 	CreateTableLog* cmd = new CreateTableLog();
 
-	CdbTable* table = createTable(vm);
-	cmd->setTable(table);
-
 	VmTransactionHandler* handler = vm->getTransactionHandler();
 	try{
+		CdbTable* table = createTable(vm);
+		cmd->setTable(table);
+
+		validate(vm, cmd);
 		handler->createTable(cmd);
 	}
 	catch(Exception* e){
@@ -117,6 +136,18 @@ void CreateTableStatement::interpret(VirtualMachine* vm) {
 		delete cmd;
 	}
 }
+
+void CreateTableStatement::validate(VirtualMachine* vm, CreateTableLog* cmd) {
+	CodableDatabase* db = vm->getDb();
+	SchemaManager* schemaManager = db->getSchemaManager();
+
+	CdbTable* table = cmd->getTable();
+
+	if(schemaManager->hasTable(table->getSchemaName(), table->getName())){
+		throw new CdbException(L"Table already exists.", __FILE__, __LINE__);
+	}
+}
+
 
 CdbTable* CreateTableStatement::createTable(VirtualMachine* vm) {
 	StackFloatingVariableHandler releaser(vm->getGc());
@@ -155,7 +186,14 @@ CdbTable* CreateTableStatement::createTable(VirtualMachine* vm) {
 			}
 		}
 
-		table->addColumn(0, name,type, length, colDesc->isNotNull(), colDesc->isUnique(), defaultValue);
+		try{
+			AbstractCdbValue* testValue = CdbValueCaster::convertFromString(defaultValue, type); __STP(testValue);
+		}
+		catch(Exception* e){
+			throw e;
+		}
+
+		table->addColumn(0, name, type, length, colDesc->isNotNull(), colDesc->isUnique(), defaultValue);
 	}
 
 	__tableRelease.cancel();

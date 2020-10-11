@@ -25,7 +25,9 @@
 
 #include "table_record_key/CdbRecordKey.h"
 #include "table_record_key/AbstractCdbKey.h"
+
 #include "table_record_value/AbstractCdbValue.h"
+#include "table_record_value/CdbValueCaster.h"
 
 #include "table_store/RecordValueConverter.h"
 
@@ -41,21 +43,51 @@ namespace codablecash {
 
 IndexChecker::IndexChecker(CodableDatabase* db, const ColumnModifyContext* modifyContext)
 		: db(db) {
-	this->modifyContext = modifyContext;
+	CdbTableColumn* column = modifyContext->getColumn();
+
+	this->pos = column->getPosition();
+	this->isnotnull = modifyContext->isNotNull();
+	this->cdbType = modifyContext->getCdbType();
+	this->length = modifyContext->getLength();
+	this->defaultValue = modifyContext->getDefaultValue();
+}
+
+IndexChecker::IndexChecker(CodableDatabase* db) : db(db) {
+	this->pos = -1;
+	this->isnotnull = false;
+	this->cdbType = false;
+	this->length = -1;
+
+	this->defaultValue = nullptr;
 }
 
 IndexChecker::~IndexChecker() {
-
+	this->defaultValue = nullptr;
 }
 
-bool IndexChecker::checkUnique(const CdbTable* table, const CdbTableColumn* column) {
+bool IndexChecker::checkUnique(const CdbTable* table, const ArrayList<const CdbOid>* columnOidlist, bool update) {
+	ArrayList<const CdbTableColumn> columnList;
+
+	int maxLoop = columnOidlist->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const CdbOid* columnOid = columnOidlist->get(i);
+
+		const CdbTableColumn* column = table->getColumn(columnOid);
+		columnList.addElement(column);
+	}
+
+	return checkUnique(table, &columnList, update);
+}
+
+
+bool IndexChecker::checkUnique(const CdbTable* table, const CdbTableColumn* column, bool update) {
 	ArrayList<const CdbTableColumn> list;
 	list.addElement(column);
 
-	return checkUnique(table, &list);
+	return checkUnique(table, &list, update);
 }
 
-bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableColumn>* columnList) {
+bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableColumn>* columnList, bool update) {
 	CdbLocalCacheManager* cacheMgr = this->db->getLocalCacheManager();
 	SingleKeyOidCache* cache = cacheMgr->createSingleKeyOidCache(); __STP(cache);
 
@@ -71,10 +103,14 @@ bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableCo
 		const CdbRecord* record = scanner.next();
 
 		// RecordValueConverter
-		CdbRecord* newRecord = getConvertedRecord(record); __STP(newRecord);
+		CdbRecord* newRecord = nullptr;
+		if(update){
+			newRecord = getConvertedRecord(record);
+			record = newRecord;
+		}
+		 __STP(newRecord);
 
-		CdbRecordKey* key = makeIndexKey(newRecord, columnList); __STP(key);
-
+		CdbRecordKey* key = makeIndexKey(record, columnList); __STP(key);
 		if(cache->hasKey(key)){
 			ret = false;
 			break;
@@ -87,15 +123,7 @@ bool IndexChecker::checkUnique(const CdbTable* table, ArrayList<const CdbTableCo
 }
 
 CdbRecord* IndexChecker::getConvertedRecord(const CdbRecord* record) {
-	CdbTableColumn* column = this->modifyContext->getColumn();
-
-	int pos = column->getPosition();
-	bool isnotnull = this->modifyContext->isNotNull();
-	uint8_t cdbType = this->modifyContext->getCdbType();
-	int length = this->modifyContext->getLength();
-	const AbstractCdbValue* defaultValue = this->modifyContext->getDefaultValue();
-
-	RecordValueConverter converter(pos, isnotnull, cdbType, length, defaultValue);
+	RecordValueConverter converter(this->pos, this->isnotnull, this->cdbType, this->length, this->defaultValue);
 
 	CdbRecord* newRecord = converter.processUpdate(record);
 

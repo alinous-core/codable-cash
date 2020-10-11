@@ -9,34 +9,42 @@
 
 #include "sql_ddl/DdlColumnDescriptor.h"
 
-#include "transaction_log_alter/AlterAddColumnCommandLog.h"
-
 #include "vm/VirtualMachine.h"
 
 #include "sql_join_parts/TableIdentifier.h"
 
 #include "transaction_log_alter/AbstractAlterCommandLog.h"
+#include "transaction_log_alter/AlterAddColumnCommandLog.h"
 
 #include "engine/CodableDatabase.h"
+#include "engine/CdbException.h"
 
 #include "schema/SchemaManager.h"
+
+#include "table/CdbTable.h"
+
+#include "table_store/CdbStorageManager.h"
+#include "table_store/TableStore.h"
+#include "table_store/RecordStore.h"
+
+#include "base/UnicodeString.h"
+
+#include "scan/RecordScanner.h"
+
 namespace alinous {
 
 AlterAddColumnCommand::AlterAddColumnCommand(const AlterAddColumnCommand& inst)
-				: AbstractAlterDdlCommand(CodeElement::DDL_ALTER_ADD_COLUMN) {
+				: AbstractAlterDdlWithTypeDesc(CodeElement::DDL_ALTER_ADD_COLUMN) {
 	this->columnDescriptor = copyColumnDescriptor(inst.columnDescriptor);
+	this->longValue = inst.longValue;
 }
 
-AlterAddColumnCommand::AlterAddColumnCommand() : AbstractAlterDdlCommand(CodeElement::DDL_ALTER_ADD_COLUMN) {
-	this->columnDescriptor = nullptr;
+AlterAddColumnCommand::AlterAddColumnCommand() : AbstractAlterDdlWithTypeDesc(CodeElement::DDL_ALTER_ADD_COLUMN) {
+
 }
 
 AlterAddColumnCommand::~AlterAddColumnCommand() {
-	delete this->columnDescriptor;
-}
 
-void AlterAddColumnCommand::setColumnDescriptor(DdlColumnDescriptor* columnDescriptor) noexcept {
-	this->columnDescriptor = columnDescriptor;
 }
 
 int AlterAddColumnCommand::binarySize() const {
@@ -76,11 +84,17 @@ void AlterAddColumnCommand::analyzeTypeRef(AnalyzeContext* actx) {
 }
 
 void AlterAddColumnCommand::analyze(AnalyzeContext* actx) {
+	analyzeLengthOfValiable(actx);
+
+	AbstractSQLExpression* defaultValue = this->columnDescriptor->getDefaultValue();
+	if(defaultValue != nullptr){
+		defaultValue->analyze(actx);
+	}
 }
 
 void AlterAddColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId) {
 	AlterAddColumnCommandLog* thisLog = dynamic_cast<AlterAddColumnCommandLog*>(log);
-	const AlterAddColumnCommand* command = thisLog->getCommand();
+	AlterAddColumnCommand* command = thisLog->getCommand();
 
 	CodableDatabase* db = vm->getDb();
 	SchemaManager* schemaManager = db->getSchemaManager();
@@ -89,7 +103,41 @@ void AlterAddColumnCommand::interpret(VirtualMachine* vm, AbstractAlterCommandLo
 	tableId->inputDefaultSchema(defaultSchema);
 
 	CdbTable* table = schemaManager->getTable(tableId, nullptr); // throws if Table does not exists;
+
+	const DdlColumnDescriptor* colDesc = command->getColumnDescriptor();
+	const UnicodeString* colName = colDesc->getName();
+
+	CdbTableColumn* c = table->getColumn(colName);
+	if(c != nullptr){
+		throw new CdbException(L"Column already exists", __FILE__, __LINE__);
+	}
+
+	UnicodeString* str = interpretDefaultString(vm);
+	command->setDefaultValueStr(str);
+
+	// check unique
+	if(colDesc->isUnique()){
+		CdbStorageManager* storageManager = db->getStorageManager();
+		TableStore* store = storageManager->getTableStore(table->getOid());
+
+		checkRecordCount(store);
+	}
 }
 
+void AlterAddColumnCommand::checkRecordCount(TableStore* store) {
+	RecordScanner scanner(store);
+
+	scanner.start();
+
+	int count = 0;
+	while(scanner.hasNext()){
+		const CdbRecord* record = scanner.next();
+
+		count++;
+		if(count > 1){
+			throw new CdbException(L"Unique column requires unique data.", __FILE__, __LINE__);
+		}
+	}
+}
 
 } /* namespace alinous */

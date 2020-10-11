@@ -35,6 +35,7 @@ public:
 	virtual void analyze(AnalyzeContext* actx);
 	virtual void interpret(VirtualMachine* vm, AbstractAlterCommandLog* log, TableIdentifier* tableId);
 
+	const ArrayList<UnicodeString>* getColumns() const noexcept;
 private:
 	ArrayList<UnicodeString> list;
 };
