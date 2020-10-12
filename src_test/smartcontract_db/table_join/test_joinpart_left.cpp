@@ -31,7 +31,7 @@ TEST_GROUP(TestJoinPartLeftGroup) {
 
 TEST(TestJoinPartLeftGroup, case01){
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_analyze/resources/joinleft/case01/select01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_join/resources/joinleft/case01/select01.alns"))
 
 	TestDbSchema01 schem(this->env);
 	schem.init();
