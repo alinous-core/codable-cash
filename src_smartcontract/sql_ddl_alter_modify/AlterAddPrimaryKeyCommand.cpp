@@ -9,7 +9,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "transaction_log_alter_modify/AlterAddPrimaryKeyCommandLog.h"
+#include "trx/transaction_log_alter_modify/AlterAddPrimaryKeyCommandLog.h"
 
 #include "vm/VirtualMachine.h"
 

@@ -19,7 +19,7 @@
 #include "instance_exception/NullPointerExceptionClassDeclare.h"
 #include "instance_exception/ZeroDivisionExceptionClassDeclare.h"
 #include "instance_exception/TypeCastExceptionClassDeclare.h"
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "base/UnicodeString.h"
 

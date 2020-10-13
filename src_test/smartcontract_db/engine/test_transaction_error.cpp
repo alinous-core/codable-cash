@@ -12,7 +12,7 @@
 
 #include "engine/CodableDatabase.h"
 
-#include "transaction/CdbTransaction.h"
+#include "trx/transaction/CdbTransaction.h"
 
 #include "engine/CdbException.h"
 

@@ -8,7 +8,7 @@
 #ifndef SMARTCONTRACT_DB_ENGINE_DUMMYERRORTRANSACTIONLOG_H_
 #define SMARTCONTRACT_DB_ENGINE_DUMMYERRORTRANSACTIONLOG_H_
 
-#include "transaction_log/CreateTableLog.h"
+#include "trx/transaction_log/CreateTableLog.h"
 
 namespace codablecash {
 

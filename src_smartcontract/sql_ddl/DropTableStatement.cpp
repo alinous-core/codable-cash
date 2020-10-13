@@ -12,9 +12,9 @@
 
 #include "vm_trx/VmTransactionHandler.h"
 
-#include "transaction_log/DropTableLog.h"
+#include "trx/transaction_log/DropTableLog.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "base/Exception.h"
 

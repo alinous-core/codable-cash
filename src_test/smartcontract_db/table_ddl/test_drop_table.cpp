@@ -25,7 +25,7 @@
 
 #include "ext_binary/ExtExceptionObject.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 using namespace codablecash;
 using namespace alinous;

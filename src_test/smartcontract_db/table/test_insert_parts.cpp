@@ -17,18 +17,18 @@
 #include "../../smartcontract_vm/VmTestUtils.h"
 #include "vm_trx/VmTransactionHandlerException.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "sc_analyze/ValidationError.h"
 
 #include "engine/CodableDatabase.h"
 
-#include "transaction/CdbTransaction.h"
+#include "trx/transaction/CdbTransaction.h"
 
-#include "transaction_log/CreateTableLog.h"
-#include "transaction_log/InsertLog.h"
-#include "transaction_log/TransactionLogFactory.h"
-#include "transaction_log/AbstractTransactionLog.h"
+#include "trx/transaction_log/CreateTableLog.h"
+#include "trx/transaction_log/InsertLog.h"
+#include "trx/transaction_log/TransactionLogFactory.h"
+#include "trx/transaction_log/AbstractTransactionLog.h"
 
 #include "schema_table/table/CdbTable.h"
 #include "schema_table/table/CdbTableColumn.h"
@@ -49,7 +49,7 @@
 
 #include "engine/CdbException.h"
 
-#include "transaction/CdbTransactionManager.h"
+#include "trx/transaction/CdbTransactionManager.h"
 
 #include "schema_table/table_store/CdbStorageManager.h"
 

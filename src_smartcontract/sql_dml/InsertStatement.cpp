@@ -15,7 +15,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "transaction_log/InsertLog.h"
+#include "trx/transaction_log/InsertLog.h"
 
 #include "sc_analyze/ValidationError.h"
 #include "sc_analyze/AnalyzeContext.h"
@@ -29,7 +29,7 @@
 
 #include "schema_table/table/CdbTable.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"

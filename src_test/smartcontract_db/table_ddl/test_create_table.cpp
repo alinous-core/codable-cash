@@ -13,13 +13,13 @@
 #include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"
 
-#include "transaction_log/AbstractTransactionLog.h"
-#include "transaction_log/TransactionLogFactory.h"
-#include "transaction_log/CreateTableLog.h"
+#include "trx/transaction_log/AbstractTransactionLog.h"
+#include "trx/transaction_log/TransactionLogFactory.h"
+#include "trx/transaction_log/CreateTableLog.h"
 
 #include "base_io/ByteBuffer.h"
 
-#include "transaction/CdbTransaction.h"
+#include "trx/transaction/CdbTransaction.h"
 
 #include "schema_table/table/CdbTable.h"
 #include "schema_table/table/CdbTableColumn.h"

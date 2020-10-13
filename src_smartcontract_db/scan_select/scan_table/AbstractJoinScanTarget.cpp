@@ -11,7 +11,7 @@
 
 #include "scan_select/scan_condition/AbstractScanCondition.h"
 
-#include "transaction_scan_result/ScanResultMetadata.h"
+#include "trx/transaction_scan_result/ScanResultMetadata.h"
 
 namespace codablecash {
 

@@ -13,8 +13,8 @@
 
 #include "sql_join_parts/TableIdentifier.h"
 
-#include "transaction_log_alter/AbstractAlterCommandLog.h"
-#include "transaction_log_alter/AlterAddColumnCommandLog.h"
+#include "trx/transaction_log_alter/AbstractAlterCommandLog.h"
+#include "trx/transaction_log_alter/AlterAddColumnCommandLog.h"
 
 #include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"

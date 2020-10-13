@@ -30,9 +30,9 @@
 #include "schema_table/table/CdbTableColumn.h"
 #include "schema_table/table/CdbTableIndex.h"
 
-#include "transaction_log_alter/AbstractAlterCommandLog.h"
+#include "trx/transaction_log_alter/AbstractAlterCommandLog.h"
 
-#include "transaction/CdbTransactionManager.h"
+#include "trx/transaction/CdbTransactionManager.h"
 
 TEST_GROUP(TestExecAlterMiscGroup) {
 	TEST_SETUP() {

@@ -37,13 +37,13 @@
 
 #include "instance_exception/ExceptionInterrupt.h"
 
-#include "transaction/CdbTransaction.h"
-#include "transaction/CdbTransactionManager.h"
+#include "trx/transaction/CdbTransaction.h"
+#include "trx/transaction/CdbTransactionManager.h"
 
 #include "engine_lock/ReadLockHandle.h"
 #include "engine_lock/StackDbLockUnlocker.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 
 namespace alinous {

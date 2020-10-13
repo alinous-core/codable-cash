@@ -9,7 +9,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "transaction_log_alter_modify/AlterRenameTableCommandLog.h"
+#include "trx/transaction_log_alter_modify/AlterRenameTableCommandLog.h"
 
 #include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"

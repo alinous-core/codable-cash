@@ -7,7 +7,7 @@
 
 #include "scan_select/scan_planner_scanner/AbstractScannerFactory.h"
 
-#include "transaction_scan_result/ScanResultMetadata.h"
+#include "trx/transaction_scan_result/ScanResultMetadata.h"
 
 namespace codablecash {
 

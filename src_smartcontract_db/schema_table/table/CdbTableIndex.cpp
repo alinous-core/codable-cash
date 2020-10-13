@@ -11,7 +11,7 @@
 
 #include "engine/CdbOid.h"
 
-#include "transaction/SchemaObjectIdPublisher.h"
+#include "trx/transaction/SchemaObjectIdPublisher.h"
 
 #include "base_io/ByteBuffer.h"
 

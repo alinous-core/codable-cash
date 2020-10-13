@@ -32,7 +32,7 @@
 #include "../toolkit_alter/TestDbSchemaAlterTextUnique01.h"
 #include "ext_binary/ExtExceptionObject.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 TEST_GROUP(TestExecAlterPrimaryGroup) {
 	TEST_SETUP() {
 		env->setup();

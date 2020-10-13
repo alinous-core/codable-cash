@@ -10,7 +10,7 @@
 #include "base/UnicodeString.h"
 #include "base/ArrayList.h"
 
-#include "transaction_log_alter/AlterAddIndexCommandLog.h"
+#include "trx/transaction_log_alter/AlterAddIndexCommandLog.h"
 
 #include "vm/VirtualMachine.h"
 

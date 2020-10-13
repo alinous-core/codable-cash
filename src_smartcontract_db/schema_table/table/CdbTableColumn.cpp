@@ -11,11 +11,11 @@
 
 #include "base/UnicodeString.h"
 
-#include "transaction/SchemaObjectIdPublisher.h"
+#include "trx/transaction/SchemaObjectIdPublisher.h"
 
 #include "base_io/ByteBuffer.h"
 
-#include "transaction_scan_result/ScanResultFieldMetadata.h"
+#include "trx/transaction_scan_result/ScanResultFieldMetadata.h"
 
 #include "schema_table/schema_alter_ctx/ColumnModifyContext.h"
 

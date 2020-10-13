@@ -10,7 +10,7 @@
 #include "sql_ddl/DdlColumnDescriptor.h"
 #include "sql_ddl/ColumnTypeDescriptor.h"
 
-#include "transaction_log_alter_modify/AlterModifyCommandLog.h"
+#include "trx/transaction_log_alter_modify/AlterModifyCommandLog.h"
 
 #include "base/StackRelease.h"
 

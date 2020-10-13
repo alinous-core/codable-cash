@@ -31,7 +31,7 @@
 
 #include "ext_binary/ExtExceptionObject.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "../toolkit_alter/TestDbSchemaAlterText01.h"
 using namespace alinous;

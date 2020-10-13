@@ -13,7 +13,7 @@
 
 #include "base/Exception.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 namespace alinous {
 

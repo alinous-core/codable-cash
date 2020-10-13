@@ -7,7 +7,7 @@
 
 #include "DummyErrorTransactionLog.h"
 
-#include "transaction_log/AbstractTransactionLog.h"
+#include "trx/transaction_log/AbstractTransactionLog.h"
 
 #include "engine/CdbException.h"
 

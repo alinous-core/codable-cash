@@ -9,8 +9,8 @@
 
 #include "engine/CodableDatabase.h"
 
-#include "transaction/CdbTransaction.h"
-#include "transaction_log/CreateTableLog.h"
+#include "trx/transaction/CdbTransaction.h"
+#include "trx/transaction_log/CreateTableLog.h"
 
 #include "base/StackRelease.h"
 #include "base/UnicodeString.h"
@@ -20,7 +20,7 @@
 #include "schema_table/table_record/CdbRecord.h"
 #include "schema_table/table_record/CdbTableIdentifier.h"
 
-#include "transaction_log/InsertLog.h"
+#include "trx/transaction_log/InsertLog.h"
 
 #include "schema_table/table_record_value/AbstractCdbValue.h"
 #include "schema_table/table_record_value/CdbIntValue.h"

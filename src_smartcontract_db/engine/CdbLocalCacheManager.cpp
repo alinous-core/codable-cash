@@ -11,8 +11,8 @@
 
 #include "random_access_file/DiskCacheManager.h"
 
-#include "transaction_cache/CdbSwapCacheFactory.h"
-#include "transaction_cache/SingleKeyOidCache.h"
+#include "trx/transaction_cache/CdbSwapCacheFactory.h"
+#include "trx/transaction_cache/SingleKeyOidCache.h"
 
 #include "base/StackRelease.h"
 

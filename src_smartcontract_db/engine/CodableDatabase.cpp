@@ -9,9 +9,9 @@
 #include "engine/CdbException.h"
 #include "engine/CdbLocalCacheManager.h"
 
-#include "transaction/CdbTransactionManager.h"
-#include "transaction/SchemaObjectIdPublisher.h"
-#include "transaction/CdbTransaction.h"
+#include "trx/transaction/CdbTransactionManager.h"
+#include "trx/transaction/SchemaObjectIdPublisher.h"
+#include "trx/transaction/CdbTransaction.h"
 
 #include "base_io/File.h"
 

@@ -19,7 +19,7 @@
 
 #include "base/StackRelease.h"
 
-#include "transaction_cache/SingleKeyOidCache.h"
+#include "trx/transaction_cache/SingleKeyOidCache.h"
 
 #include "schema_table/table_record/CdbRecord.h"
 

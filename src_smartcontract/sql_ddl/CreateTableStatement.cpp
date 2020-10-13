@@ -16,11 +16,11 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "transaction_log/CreateTableLog.h"
+#include "trx/transaction_log/CreateTableLog.h"
 
 
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "vm_trx/VmTransactionHandler.h"
 

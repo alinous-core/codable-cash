@@ -9,7 +9,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "transaction_log_alter/AlterDropColumnCommandLog.h"
+#include "trx/transaction_log_alter/AlterDropColumnCommandLog.h"
 
 #include "vm/VirtualMachine.h"
 

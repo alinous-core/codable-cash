@@ -15,13 +15,13 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "base/Exception.h"
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
-#include "transaction_log_alter/AbstractAlterCommandLog.h"
+#include "trx/transaction_log_alter/AbstractAlterCommandLog.h"
 
 #include "sql_ddl_alter_modify/AlterModifyCommand.h"
 

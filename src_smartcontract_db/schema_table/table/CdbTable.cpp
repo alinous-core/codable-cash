@@ -16,7 +16,7 @@
 
 #include "base_io/ByteBuffer.h"
 
-#include "transaction/SchemaObjectIdPublisher.h"
+#include "trx/transaction/SchemaObjectIdPublisher.h"
 
 #include "schema_table/table/TableObjectFactory.h"
 #include "schema_table/table/CdbTableIndex.h"
@@ -24,9 +24,9 @@
 
 #include "schema_table/schema/SchemaManager.h"
 
-#include "transaction_scan_result/ScanResultMetadata.h"
+#include "trx/transaction_scan_result/ScanResultMetadata.h"
 
-#include "transaction_scan_result/ScanResultFieldMetadata.h"
+#include "trx/transaction_scan_result/ScanResultFieldMetadata.h"
 
 using namespace alinous;
 

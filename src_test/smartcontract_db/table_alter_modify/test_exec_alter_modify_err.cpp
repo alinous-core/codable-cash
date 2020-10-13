@@ -33,7 +33,7 @@
 
 #include "ext_binary/ExtExceptionObject.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "sc_analyze/ValidationError.h"
 
@@ -41,7 +41,7 @@
 
 #include "../toolkit_alter/TestDbSchemaAlterText01.h"
 
-#include "transaction_log_alter_modify/AlterModifyCommandLog.h"
+#include "trx/transaction_log_alter_modify/AlterModifyCommandLog.h"
 
 using namespace alinous;
 using namespace codablecash;

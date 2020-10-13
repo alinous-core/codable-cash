@@ -14,10 +14,10 @@
 
 #include "engine/CdbException.h"
 
-#include "transaction_log/AbstractTransactionLog.h"
-#include "transaction_log/TransactionLogFactory.h"
-#include "transaction_log/CreateTableLog.h"
-#include "transaction_log/DropTableLog.h"
+#include "trx/transaction_log/AbstractTransactionLog.h"
+#include "trx/transaction_log/TransactionLogFactory.h"
+#include "trx/transaction_log/CreateTableLog.h"
+#include "trx/transaction_log/DropTableLog.h"
 
 #include "base_io/ByteBuffer.h"
 

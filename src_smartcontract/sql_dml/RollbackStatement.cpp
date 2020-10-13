@@ -9,7 +9,7 @@
 
 #include "vm_trx/VmTransactionHandler.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "vm/VirtualMachine.h"
 

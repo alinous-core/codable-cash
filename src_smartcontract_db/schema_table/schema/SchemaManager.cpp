@@ -29,18 +29,18 @@
 
 #include "sql_ddl_alter_modify/AlterModifyCommand.h"
 
-#include "transaction_log_alter_modify/AlterModifyCommandLog.h"
+#include "trx/transaction_log_alter_modify/AlterModifyCommandLog.h"
 
 #include "sql_join_parts/TableIdentifier.h"
 
-#include "transaction_log_alter/AlterAddColumnCommandLog.h"
-#include "transaction_log_alter/AlterAddIndexCommandLog.h"
-#include "transaction_log_alter/AlterDropIndexCommandLog.h"
-#include "transaction_log_alter/AlterDropColumnCommandLog.h"
-#include "transaction_log_alter_modify/AlterAddPrimaryKeyCommandLog.h"
-#include "transaction_log_alter_modify/AlterDropPrimaryKeyCommandLog.h"
-#include "transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
-#include "transaction_log_alter_modify/AlterRenameTableCommandLog.h"
+#include "trx/transaction_log_alter/AlterAddColumnCommandLog.h"
+#include "trx/transaction_log_alter/AlterAddIndexCommandLog.h"
+#include "trx/transaction_log_alter/AlterDropIndexCommandLog.h"
+#include "trx/transaction_log_alter/AlterDropColumnCommandLog.h"
+#include "trx/transaction_log_alter_modify/AlterAddPrimaryKeyCommandLog.h"
+#include "trx/transaction_log_alter_modify/AlterDropPrimaryKeyCommandLog.h"
+#include "trx/transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
+#include "trx/transaction_log_alter_modify/AlterRenameTableCommandLog.h"
 
 #include "sql_ddl/DdlColumnDescriptor.h"
 #include "sql_ddl/ColumnTypeDescriptor.h"

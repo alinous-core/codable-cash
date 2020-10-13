@@ -9,8 +9,8 @@
 
 #include "base/UnicodeString.h"
 
-#include "transaction_log_alter/AlterDropIndexCommandLog.h"
-#include "transaction_log_alter/AbstractAlterCommandLog.h"
+#include "trx/transaction_log_alter/AlterDropIndexCommandLog.h"
+#include "trx/transaction_log_alter/AbstractAlterCommandLog.h"
 
 #include "vm/VirtualMachine.h"
 

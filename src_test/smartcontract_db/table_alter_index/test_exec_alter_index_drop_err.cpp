@@ -29,7 +29,7 @@
 #include "schema_table/table/CdbTableColumn.h"
 #include "schema_table/table/CdbTableIndex.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "ext_binary/ExtExceptionObject.h"
 

@@ -17,7 +17,7 @@
 #include "../../smartcontract_vm/VmTestUtils.h"
 #include "vm_trx/VmTransactionHandlerException.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "sc_analyze/ValidationError.h"
 using namespace alinous;

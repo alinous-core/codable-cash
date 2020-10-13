@@ -17,12 +17,12 @@
 #include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"
 
-#include "transaction/CdbTransaction.h"
+#include "trx/transaction/CdbTransaction.h"
 
-#include "transaction_log/AbstractTransactionLog.h"
-#include "transaction_log/TransactionLogFactory.h"
-#include "transaction_log/CreateTableLog.h"
-#include "transaction_log/InsertLog.h"
+#include "trx/transaction_log/AbstractTransactionLog.h"
+#include "trx/transaction_log/TransactionLogFactory.h"
+#include "trx/transaction_log/CreateTableLog.h"
+#include "trx/transaction_log/InsertLog.h"
 
 #include "schema_table/schema/SchemaManager.h"
 

@@ -15,13 +15,13 @@
 
 #include "alinous_lang/AlinousLang.h"
 
-#include "transaction_log/TransactionLogFactory.h"
-#include "transaction_log/AbstractTransactionLog.h"
+#include "trx/transaction_log/TransactionLogFactory.h"
+#include "trx/transaction_log/AbstractTransactionLog.h"
 
-#include "transaction_log_alter/AlterAddColumnCommandLog.h"
-#include "transaction_log_alter/AlterAddIndexCommandLog.h"
-#include "transaction_log_alter/AlterDropColumnCommandLog.h"
-#include "transaction_log_alter/AlterDropIndexCommandLog.h"
+#include "trx/transaction_log_alter/AlterAddColumnCommandLog.h"
+#include "trx/transaction_log_alter/AlterAddIndexCommandLog.h"
+#include "trx/transaction_log_alter/AlterDropColumnCommandLog.h"
+#include "trx/transaction_log_alter/AlterDropIndexCommandLog.h"
 
 #include "sql_ddl_alter/AlterAddColumnCommand.h"
 #include "sql_ddl_alter/AlterAddIndexCommand.h"

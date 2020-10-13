@@ -24,7 +24,7 @@
 
 #include "ext_binary/ExtExceptionObject.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "../toolkit/TestDbSchemaBase.h"
 #include "sc_analyze/ValidationError.h"
