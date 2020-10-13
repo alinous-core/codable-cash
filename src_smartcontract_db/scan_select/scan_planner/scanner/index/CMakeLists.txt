@@ -9,5 +9,5 @@ set(__src
 	TableIndexDetectorStack.cpp
 	TableIndexDetectorStackMarker.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_planner_scanner_ctx_index)
+handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_planner/scanner/index)
 

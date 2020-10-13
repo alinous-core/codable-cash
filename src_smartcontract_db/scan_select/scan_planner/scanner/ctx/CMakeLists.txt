@@ -7,5 +7,5 @@ set(__src
 	ScanJoinContext.cpp
 	ScanJoinContextHolder.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_planner_scanner_ctx)
+handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_planner/scanner/ctx)
 

@@ -5,5 +5,5 @@ set(__src
 	ScanColumnNameResolver.cpp
 	ScanTargetNameResolver.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_planner_analyze)
+handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_planner/analyze)
 

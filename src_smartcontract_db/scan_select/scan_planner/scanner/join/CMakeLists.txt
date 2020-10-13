@@ -10,5 +10,5 @@ set(__src
 	JoinMultipleCandidate.cpp
 	JoinOrCandidate.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_planner_scanner_ctx_join)
+handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_planner/scanner/join)
 

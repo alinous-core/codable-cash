@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_planner_scanner_ctx_index/AbstractIndexCandidateCollection.h"
+#include "scan_select/scan_planner/scanner/index/AbstractIndexCandidateCollection.h"
 
 namespace codablecash {
 
