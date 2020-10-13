@@ -9,7 +9,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "transaction_log/AbstractTransactionLog.h"
+#include "trx/transaction_log/AbstractTransactionLog.h"
 
 namespace codablecash {
 

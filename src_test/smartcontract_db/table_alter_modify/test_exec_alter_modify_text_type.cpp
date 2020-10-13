@@ -11,7 +11,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 
 #include "alinous_lang/AlinousLang.h"
 #include "../toolkit/TestDbSchema01.h"
@@ -21,23 +21,23 @@
 #include "../toolkit_alter/TestDbSchemaAlterText01.h"
 #include "../toolkit_alter/TestDbSchemaAlterTextUnique01.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "engine/CodableDatabase.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
-#include "table/CdbTableIndex.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
+#include "schema_table/table/CdbTableIndex.h"
 
-#include "table_record_value/AbstractCdbValue.h"
-#include "table_record_value/CdbIntValue.h"
-#include "table_record_value/CdbStringValue.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/CdbIntValue.h"
+#include "schema_table/table_record_value/CdbStringValue.h"
 
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbRecord.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "ext_binary/ExtExceptionObject.h"
 

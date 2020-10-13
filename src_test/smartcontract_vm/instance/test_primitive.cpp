@@ -7,7 +7,7 @@
 #include "test_utils/t_macros.h"
 
 #include "vm/VirtualMachine.h"
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 #include "base_io_stream/FileInputStream.h"
 
 #include "base/UnicodeString.h"
@@ -16,13 +16,13 @@
 
 #include "../VmTestUtils.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
-#include "instance_ref/RefereceFactory.h"
+#include "instance/instance_ref/RefereceFactory.h"
 
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 using namespace alinous;
 

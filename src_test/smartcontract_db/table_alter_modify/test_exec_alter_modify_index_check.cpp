@@ -10,7 +10,7 @@
 #include "base/StackRelease.h"
 
 #include "../toolkit_alter/TestDbSchemaAlterModifyIndexCheck.h"
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "ext_binary/ExtExceptionObject.h"
 using namespace codablecash;

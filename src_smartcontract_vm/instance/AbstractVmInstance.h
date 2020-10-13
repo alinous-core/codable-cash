@@ -9,7 +9,7 @@
 #define INSTANCE_ABSTRACTVMINSTANCE_H_
 #include <cstddef>
 #include <cstdint>
-#include "instance_parts/VMemList.h"
+#include "instance/instance_parts/VMemList.h"
 
 #include "instance/VmAllocatee.h"
 

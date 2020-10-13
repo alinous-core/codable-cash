@@ -8,24 +8,24 @@
 #include "test_utils/t_macros.h"
 
 #include "vm/VirtualMachine.h"
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 #include "base_io_stream/FileInputStream.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "base/UnicodeString.h"
 
 #include "../VmTestUtils.h"
-#include "sc_analyze/AnalyzedClass.h"
-#include "sc_analyze/TypeResolver.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/TypeResolver.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
-#include "sc_declare_types/BoolType.h"
-#include "sc_declare_types/ObjectType.h"
+#include "lang/sc_declare_types/BoolType.h"
+#include "lang/sc_declare_types/ObjectType.h"
 
-#include "sc_declare/ClassDeclare.h"
+#include "lang/sc_declare/ClassDeclare.h"
 
-#include "sc_declare/PackageNameDeclare.h"
+#include "lang/sc_declare/PackageNameDeclare.h"
 
 using namespace alinous;
 

@@ -12,14 +12,14 @@
 #include "engine/CodableDatabase.h"
 #include "engine/CdbOid.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
-#include "table/CdbTable.h"
+#include "schema_table/table/CdbTable.h"
 
-#include "transaction/CdbTransaction.h"
+#include "trx/transaction/CdbTransaction.h"
 
-#include "transaction_update_cache/TransactionUpdateCache.h"
-#include "transaction_update_cache/DeletedRecordsOidsCursor.h"
+#include "trx/transaction_update_cache/TransactionUpdateCache.h"
+#include "trx/transaction_update_cache/DeletedRecordsOidsCursor.h"
 
 #include "../toolkit/TestDbSchema01.h"
 

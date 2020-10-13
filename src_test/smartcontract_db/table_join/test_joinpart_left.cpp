@@ -10,12 +10,12 @@
 #include "base/StackRelease.h"
 
 #include "../toolkit/TestDbSchema01.h"
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 #include "alinous_lang/AlinousLang.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
-#include "scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
 
 #include "vm/VmSelectPlannerSetter.h"
 
@@ -31,7 +31,7 @@ TEST_GROUP(TestJoinPartLeftGroup) {
 
 TEST(TestJoinPartLeftGroup, case01){
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_analyze/resources/joinleft/case01/select01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_join/resources/joinleft/case01/select01.alns"))
 
 	TestDbSchema01 schem(this->env);
 	schem.init();

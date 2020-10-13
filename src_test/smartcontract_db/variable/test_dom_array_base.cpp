@@ -10,24 +10,24 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_dom/DomVariableInstance.h"
+#include "instance/instance_dom/DomVariableInstance.h"
 
-#include "instance_ref/VmRootReference.h"
-#include "instance_ref/AbstractReference.h"
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/VmRootReference.h"
+#include "instance/instance_ref/AbstractReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_string/VmStringInstance.h"
 
-#include "instance_dom/DomRuntimeReference.h"
-#include "instance_dom/DomArrayVariable.h"
+#include "instance/instance_dom/DomRuntimeReference.h"
+#include "instance/instance_dom/DomArrayVariable.h"
 
 #include "ext_binary/AbstractExtObject.h"
 
-#include "instance_dom/DomVariableReference.h"
+#include "instance/instance_dom/DomVariableReference.h"
 using namespace alinous;
 
 TEST_GROUP(TestDomArrayBaseGroup) {

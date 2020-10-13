@@ -13,18 +13,18 @@
 #include "vm/VirtualMachine.h"
 #include "vm/VmSelectPlannerSetter.h"
 
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 
 #include "alinous_lang/AlinousLang.h"
 
-#include "scan_planner/SelectScanPlanner.h"
-#include "scan_planner/ConditionsHolder.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/ConditionsHolder.h"
 
-#include "scan_condition/RootScanCondition.h"
+#include "scan_select/scan_condition/RootScanCondition.h"
 
 using namespace alinous;
 

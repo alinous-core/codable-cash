@@ -9,21 +9,21 @@
 #include "engine/CdbException.h"
 #include "engine/CdbLocalCacheManager.h"
 
-#include "transaction/CdbTransactionManager.h"
-#include "transaction/SchemaObjectIdPublisher.h"
-#include "transaction/CdbTransaction.h"
+#include "trx/transaction/CdbTransactionManager.h"
+#include "trx/transaction/SchemaObjectIdPublisher.h"
+#include "trx/transaction/CdbTransaction.h"
 
 #include "base_io/File.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
-#include "table_store/CdbStorageManager.h"
+#include "schema_table/table_store/CdbStorageManager.h"
 
 #include "engine_lock/DatabaseLevelLock.h"
 
 #include "base/StackRelease.h"
 
-#include "table_record_local/LocalOidFactory.h"
+#include "schema_table/table_record_local/LocalOidFactory.h"
 
 namespace codablecash {
 

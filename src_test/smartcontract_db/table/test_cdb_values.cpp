@@ -13,22 +13,22 @@
 #include "engine/CdbException.h"
 #include "engine/CdbBinaryObject.h"
 
-#include "table_record/CdbDataFactory.h"
+#include "schema_table/table_record/CdbDataFactory.h"
 
-#include "table_record_value/CdbByteValue.h"
-#include "table_record_value/CdbShortValue.h"
-#include "table_record_value/CdbIntValue.h"
-#include "table_record_value/CdbLongValue.h"
-#include "table_record_value/CdbStringValue.h"
-#include "table_record_value/VmInstanceValueConverter.h"
+#include "schema_table/table_record_value/CdbByteValue.h"
+#include "schema_table/table_record_value/CdbShortValue.h"
+#include "schema_table/table_record_value/CdbIntValue.h"
+#include "schema_table/table_record_value/CdbLongValue.h"
+#include "schema_table/table_record_value/CdbStringValue.h"
+#include "schema_table/table_record_value/VmInstanceValueConverter.h"
 
 #include "base_io/ByteBuffer.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_ref/VmRootReference.h"
+#include "instance/instance_ref/VmRootReference.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 using namespace codablecash;
 using namespace alinous;
 

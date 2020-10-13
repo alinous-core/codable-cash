@@ -14,8 +14,8 @@
 
 #include "random_access_file/DiskCacheManager.h"
 
-#include "transaction_cache/CdbSwapCacheFactory.h"
-#include "transaction_cache/SingleKeyOidCache.h"
+#include "trx/transaction_cache/CdbSwapCacheFactory.h"
+#include "trx/transaction_cache/SingleKeyOidCache.h"
 
 #include "btree/IBtreeScanner.h"
 
@@ -23,7 +23,7 @@
 
 #include "engine/CdbOid.h"
 
-#include "table_record_key/CdbOidKey.h"
+#include "schema_table/table_record_key/CdbOidKey.h"
 
 TEST_GROUP(TestOidCacheGroup) {
 	TEST_SETUP() {

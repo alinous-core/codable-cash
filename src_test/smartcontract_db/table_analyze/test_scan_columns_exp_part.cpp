@@ -15,23 +15,23 @@
 #include "vm/VirtualMachine.h"
 #include "vm/VmSelectPlannerSetter.h"
 
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 
-#include "sql_dml/SelectStatement.h"
+#include "lang_sql/sql_dml/SelectStatement.h"
 
-#include "sql_dml_parts/SQLSelectTargetList.h"
+#include "lang_sql/sql_dml_parts/SQLSelectTargetList.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
-#include "scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
 
 #include "alinous_lang/AlinousLang.h"
 
-#include "scan_columns/ScanColumnHolder.h"
+#include "scan_select/scan_columns/ScanColumnHolder.h"
 
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
-#include "scan_columns_exp/InExpressionScanColumnTarget.h"
+#include "scan_select/scan_columns_exp/InExpressionScanColumnTarget.h"
 
 #include "engine/CdbException.h"
 using namespace codablecash;

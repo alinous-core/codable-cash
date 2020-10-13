@@ -8,7 +8,7 @@
 #include "test_utils/t_macros.h"
 
 #include "vm/VirtualMachine.h"
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 
 #include "base_io_stream/FileInputStream.h"
 
@@ -18,13 +18,13 @@
 
 #include "base/UnicodeString.h"
 
-#include "instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance/instance_exception/NullPointerExceptionClassDeclare.h"
 
-#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
+#include "instance/instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
 
-#include "variable_access/ThisPointerAccess.h"
-#include "variable_access/StackVariableAccess.h"
-#include "variable_access/MemberVariableAccess.h"
+#include "vm/variable_access/ThisPointerAccess.h"
+#include "vm/variable_access/StackVariableAccess.h"
+#include "vm/variable_access/MemberVariableAccess.h"
 
 using namespace alinous;
 

@@ -7,11 +7,11 @@
 
 #include "ext_arguments/BoolArgument.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 namespace alinous {
 

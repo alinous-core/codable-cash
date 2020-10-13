@@ -8,7 +8,7 @@
 #include "instance/AbstractVmInstance.h"
 
 #include "vm/VirtualMachine.h"
-#include "memory/VmMemoryManager.h"
+#include "vm/memory/VmMemoryManager.h"
 #include <cstdint>
 
 namespace alinous {

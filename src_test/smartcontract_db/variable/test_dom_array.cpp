@@ -14,15 +14,15 @@
 #include "vm/VirtualMachine.h"
 
 
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/ValidationError.h"
 
 #include "ext_binary/ExtClassObject.h"
 #include "ext_binary/ExtDomArrayObject.h"
 #include "ext_binary/ExtPrimitiveObject.h"
 
-#include "instance_exception/NullPointerExceptionClassDeclare.h"
-#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
-#include "instance_exception/TypeCastExceptionClassDeclare.h"
+#include "instance/instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance/instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
+#include "instance/instance_exception/TypeCastExceptionClassDeclare.h"
 
 using namespace alinous;
 

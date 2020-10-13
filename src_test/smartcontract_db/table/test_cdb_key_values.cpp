@@ -12,24 +12,24 @@
 
 #include "engine/CodableDatabase.h"
 
-#include "transaction/CdbTransaction.h"
+#include "trx/transaction/CdbTransaction.h"
 
 #include "engine/CdbException.h"
 #include "engine/CdbBinaryObject.h"
 
 #include "base_io/ByteBuffer.h"
 
-#include "table_record/CdbKeyFactory.h"
+#include "schema_table/table_record/CdbKeyFactory.h"
 #include <cstdint>
 
 #include "btreekey/InfinityKey.h"
 
-#include "table_record_key/CdbByteKey.h"
-#include "table_record_key/CdbShortKey.h"
-#include "table_record_key/CdbIntKey.h"
-#include "table_record_key/CdbLongKey.h"
-#include "table_record_key/CdbStringKey.h"
-#include "table_record_key/CdbRecordKey.h"
+#include "schema_table/table_record_key/CdbByteKey.h"
+#include "schema_table/table_record_key/CdbShortKey.h"
+#include "schema_table/table_record_key/CdbIntKey.h"
+#include "schema_table/table_record_key/CdbLongKey.h"
+#include "schema_table/table_record_key/CdbStringKey.h"
+#include "schema_table/table_record_key/CdbRecordKey.h"
 
 #include "btreekey/NullKey.h"
 using namespace codablecash;

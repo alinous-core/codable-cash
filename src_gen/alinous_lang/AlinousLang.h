@@ -4,7 +4,7 @@
 #include "CharStream.h"
 #include "Token.h"
 #include "TokenManager.h"
-#include "sc/alinouslang.h"
+#include "engine/sc/alinouslang.h"
 #include "AlinousLangConstants.h"
 #include "ErrorHandler.h"
 namespace alinouslang {

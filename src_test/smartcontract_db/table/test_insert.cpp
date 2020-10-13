@@ -12,7 +12,7 @@
 #include "../../smartcontract_vm/VmTestUtils.h"
 #include "vm/VirtualMachine.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 using namespace alinous;
 //using namespace codablecash;
 

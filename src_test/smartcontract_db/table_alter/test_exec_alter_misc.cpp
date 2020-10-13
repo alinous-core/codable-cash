@@ -11,7 +11,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 
 #include "alinous_lang/AlinousLang.h"
 #include "../toolkit/TestDbSchema01.h"
@@ -19,20 +19,20 @@
 #include "../toolkit_alter/TestDbSchemaAlter02.h"
 #include "../toolkit_alter/TestDbSchemaAlter03.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
-#include "table/CdbTableIndex.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
+#include "schema_table/table/CdbTableIndex.h"
 
-#include "transaction_log_alter/AbstractAlterCommandLog.h"
+#include "trx/transaction_log_alter/AbstractAlterCommandLog.h"
 
-#include "transaction/CdbTransactionManager.h"
+#include "trx/transaction/CdbTransactionManager.h"
 
 TEST_GROUP(TestExecAlterMiscGroup) {
 	TEST_SETUP() {

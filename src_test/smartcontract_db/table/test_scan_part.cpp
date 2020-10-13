@@ -9,48 +9,51 @@
 #include "test_utils/t_macros.h"
 
 #include "vm/VirtualMachine.h"
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 #include "base_io_stream/FileInputStream.h"
 
 
 #include "ext_binary/ExtClassObject.h"
 
 #include "../../smartcontract_vm/VmTestUtils.h"
-#include "vm_trx/VmTransactionHandlerException.h"
+#include "vm/vm_trx/VmTransactionHandlerException.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/ValidationError.h"
 
 #include "engine/CodableDatabase.h"
 
-#include "transaction/CdbTransaction.h"
+#include "trx/transaction/CdbTransaction.h"
 
-#include "transaction_log/CreateTableLog.h"
-#include "transaction_log/InsertLog.h"
-#include "transaction_log/TransactionLogFactory.h"
-#include "transaction_log/AbstractTransactionLog.h"
+#include "trx/transaction_log/CreateTableLog.h"
+#include "trx/transaction_log/InsertLog.h"
+#include "trx/transaction_log/TransactionLogFactory.h"
+#include "trx/transaction_log/AbstractTransactionLog.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
 
-#include "table_record/CdbTableIdentifier.h"
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbTableIdentifier.h"
+#include "schema_table/table_record/CdbRecord.h"
 
-#include "table_record_value/CdbIntValue.h"
-#include "table_record_value/CdbStringValue.h"
+#include "schema_table/table_record_value/CdbIntValue.h"
+#include "schema_table/table_record_value/CdbStringValue.h"
 
 #include "base_io/ByteBuffer.h"
 
 #include "base/StackRelease.h"
 
-#include "transaction_scanner/TableTransactionScanner.h"
+#include "trx/transaction_scanner/TableTransactionScanner.h"
 
-#include "table_record_key/AbstractCdbKey.h"
+#include "schema_table/table_record_key/AbstractCdbKey.h"
 
-#include "scan_condition/RootScanCondition.h"
+#include "scan_select/scan_condition/RootScanCondition.h"
 
-#include "table_record_local/LocalCdbOid.h"
+#include "schema_table/table_record_value/VmInstanceValueConverter.h"
+
+#include "schema_table/table_record_local/LocalCdbOid.h"
+
 using namespace alinous;
 using namespace codablecash;
 

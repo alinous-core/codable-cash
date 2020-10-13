@@ -11,24 +11,24 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 
 #include "alinous_lang/AlinousLang.h"
 
-#include "transaction_log/TransactionLogFactory.h"
-#include "transaction_log/AbstractTransactionLog.h"
+#include "trx/transaction_log/TransactionLogFactory.h"
+#include "trx/transaction_log/AbstractTransactionLog.h"
 
-#include "transaction_log_alter_modify/AlterAddPrimaryKeyCommandLog.h"
-#include "transaction_log_alter_modify/AlterDropPrimaryKeyCommandLog.h"
-#include "transaction_log_alter_modify/AlterModifyCommandLog.h"
-#include "transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
-#include "transaction_log_alter_modify/AlterRenameTableCommandLog.h"
+#include "trx/transaction_log_alter_modify/AlterAddPrimaryKeyCommandLog.h"
+#include "trx/transaction_log_alter_modify/AlterDropPrimaryKeyCommandLog.h"
+#include "trx/transaction_log_alter_modify/AlterModifyCommandLog.h"
+#include "trx/transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
+#include "trx/transaction_log_alter_modify/AlterRenameTableCommandLog.h"
 
-#include "sql_ddl_alter_modify/AlterAddPrimaryKeyCommand.h"
-#include "sql_ddl_alter_modify/AlterDropPrimaryKeyCommand.h"
-#include "sql_ddl_alter_modify/AlterModifyCommand.h"
-#include "sql_ddl_alter_modify/AlterRenameColumnCommand.h"
-#include "sql_ddl_alter_modify/AlterRenameTableCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterAddPrimaryKeyCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterDropPrimaryKeyCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterModifyCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterRenameColumnCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterRenameTableCommand.h"
 
 
 TEST_GROUP(TestAlterModifyLogBinaryGroup) {

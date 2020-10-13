@@ -11,12 +11,12 @@
 #include "instance/AbstractVmInstance.h"
 #include "instance/VmInstanceTypesConst.h"
 
-#include "instance_ref/AbstractReference.h"
-#include "instance_ref/ObjectReference.h"
+#include "instance/instance_ref/AbstractReference.h"
+#include "instance/instance_ref/ObjectReference.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_string/VmStringInstance.h"
 
 namespace alinous {
 

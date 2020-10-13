@@ -11,7 +11,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 
 #include "alinous_lang/AlinousLang.h"
 #include "../toolkit/TestDbSchema01.h"
@@ -19,29 +19,29 @@
 #include "../toolkit_alter/TestDbSchemaAlter02.h"
 #include "../toolkit_alter/TestDbSchemaAlter03.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"
 
-#include "schema/SchemaManager.h"
-#include "schema/SchemaAlterCommandsHandler.h"
+#include "schema_table/schema/SchemaManager.h"
+#include "schema_table/schema/SchemaAlterCommandsHandler.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
-#include "table/CdbTableIndex.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
+#include "schema_table/table/CdbTableIndex.h"
 
 #include "ext_binary/ExtExceptionObject.h"
 
-#include "transaction_exception/DatabaseExceptionClassDeclare.h"
+#include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/ValidationError.h"
 
-#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
+#include "lang_sql/sql_ddl_alter/AbstractAlterDdlCommand.h"
 
 #include "../toolkit_alter/TestDbSchemaAlterText01.h"
 
-#include "transaction_log_alter_modify/AlterModifyCommandLog.h"
+#include "trx/transaction_log_alter_modify/AlterModifyCommandLog.h"
 
 using namespace alinous;
 using namespace codablecash;

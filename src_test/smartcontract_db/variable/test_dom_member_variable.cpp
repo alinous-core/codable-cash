@@ -17,10 +17,10 @@
 #include "ext_binary/ExtStringClass.h"
 #include "ext_binary/ExtDomObject.h"
 
-#include "instance_exception/NullPointerExceptionClassDeclare.h"
-#include "instance_exception/TypeCastExceptionClassDeclare.h"
+#include "instance/instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance/instance_exception/TypeCastExceptionClassDeclare.h"
 
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/ValidationError.h"
 
 
 using namespace alinous;

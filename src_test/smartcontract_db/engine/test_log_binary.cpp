@@ -14,23 +14,23 @@
 
 #include "engine/CdbException.h"
 
-#include "transaction_log/AbstractTransactionLog.h"
-#include "transaction_log/TransactionLogFactory.h"
-#include "transaction_log/CreateTableLog.h"
-#include "transaction_log/DropTableLog.h"
+#include "trx/transaction_log/AbstractTransactionLog.h"
+#include "trx/transaction_log/TransactionLogFactory.h"
+#include "trx/transaction_log/CreateTableLog.h"
+#include "trx/transaction_log/DropTableLog.h"
 
 #include "base_io/ByteBuffer.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
 
-#include "table/TableObjectFactory.h"
+#include "schema_table/table/TableObjectFactory.h"
 
-#include "table/CdbTableIndex.h"
+#include "schema_table/table/CdbTableIndex.h"
 
-#include "table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
 
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 using namespace codablecash;
 
 

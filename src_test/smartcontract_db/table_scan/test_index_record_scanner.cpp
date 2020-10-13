@@ -12,31 +12,33 @@
 
 #include "base_io/File.h"
 
-#include "transaction/CdbTransaction.h"
+#include "trx/transaction/CdbTransaction.h"
 
-#include "transaction_log/CreateTableLog.h"
+#include "trx/transaction_log/CreateTableLog.h"
 
-#include "table/CdbTable.h"
+#include "schema_table/table/CdbTable.h"
 
-#include "transaction_log/InsertLog.h"
+#include "trx/transaction_log/InsertLog.h"
 
-#include "table_record/CdbTableIdentifier.h"
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbTableIdentifier.h"
+#include "schema_table/table_record/CdbRecord.h"
 
-#include "table_record_value/CdbIntValue.h"
-#include "table_record_value/CdbStringValue.h"
+#include "schema_table/table_record_value/CdbIntValue.h"
+#include "schema_table/table_record_value/CdbStringValue.h"
 
-#include "table_record_key/CdbRecordKey.h"
+#include "schema_table/table_record_key/CdbRecordKey.h"
 
-#include "table_record_key/CdbIntKey.h"
+#include "schema_table/table_record_key/CdbIntKey.h"
 
 #include "base/StackRelease.h"
 
-#include "scan/IndexRecordScanner.h"
+#include "scan_select/scan/IndexRecordScanner.h"
 
-#include "table_store/TableStore.h"
+#include "schema_table/table_store/TableStore.h"
 
-#include "table_record_local/LocalCdbOid.h"
+#include "schema_table/table_record_value/VmInstanceValueConverter.h"
+
+#include "schema_table/table_record_local/LocalCdbOid.h"
 
 using namespace codablecash;
 

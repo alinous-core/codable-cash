@@ -7,12 +7,12 @@
 #include "test_utils/t_macros.h"
 
 #include "vm/VirtualMachine.h"
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 #include "base_io_stream/FileInputStream.h"
 
 #include "base/UnicodeString.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 #include "ext_binary/ExtPrimitiveObject.h"
 using namespace alinous;

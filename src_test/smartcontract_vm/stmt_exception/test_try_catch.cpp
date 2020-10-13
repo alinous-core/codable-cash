@@ -8,7 +8,7 @@
 #include "test_utils/t_macros.h"
 
 #include "vm/VirtualMachine.h"
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 
 #include "base_io_stream/FileInputStream.h"
 
@@ -19,15 +19,15 @@
 
 #include "base/UnicodeString.h"
 
-#include "sc/CodeElement.h"
+#include "engine/sc/CodeElement.h"
 
-#include "instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance/instance_exception/NullPointerExceptionClassDeclare.h"
 
-#include "instance_exception_class/ExceptionClassDeclare.h"
+#include "instance/instance_exception_class/ExceptionClassDeclare.h"
 
-#include "vm_ctrl/BreakControl.h"
+#include "vm/vm_ctrl/BreakControl.h"
 
-#include "sc_declare/ClassDeclareBlock.h"
+#include "lang/sc_declare/ClassDeclareBlock.h"
 
 using namespace alinous;
 

@@ -8,16 +8,16 @@
 #include "test_utils/t_macros.h"
 
 #include "vm/VirtualMachine.h"
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 #include "base_io_stream/FileInputStream.h"
 
 #include "../VmTestUtils.h"
 
-#include "reserved_classes_string/StringClassDeclare.h"
+#include "instance/reserved_classes_string/StringClassDeclare.h"
 
-#include "instance_string/VmString.h"
+#include "instance/instance_string/VmString.h"
 
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_string/VmStringInstance.h"
 using namespace alinous;
 
 TEST_GROUP(TestStringClassGroup) {

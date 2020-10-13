@@ -11,7 +11,7 @@
 
 #include "base/ArrayList.h"
 
-#include "compiler/CompileError.h"
+#include "engine/compiler/CompileError.h"
 
 #include "ext_binary/ExtExceptionObject.h"
 

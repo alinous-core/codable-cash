@@ -10,18 +10,18 @@
 #include "base/StackRelease.h"
 
 #include "../../smartcontract_vm/VmTestUtils.h"
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 
-#include "sc/CompilationUnit.h"
+#include "engine/sc/CompilationUnit.h"
 
-#include "sc_declare/ClassDeclare.h"
-#include "sc_declare/MethodDeclare.h"
+#include "lang/sc_declare/ClassDeclare.h"
+#include "lang/sc_declare/MethodDeclare.h"
 
 #include "base/ArrayList.h"
 
-#include "scan_condition/ScanConditionCast.h"
+#include "scan_select/scan_condition/ScanConditionCast.h"
 
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
 #include "vm/VirtualMachine.h"
 

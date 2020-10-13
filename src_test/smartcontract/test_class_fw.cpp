@@ -7,9 +7,9 @@
 
 #include "test_utils/t_macros.h"
 
-#include "sc/CompilationUnit.h"
-#include "compiler/SmartContractParser.h"
-#include "sc/exceptions.h"
+#include "engine/sc/CompilationUnit.h"
+#include "engine/compiler/SmartContractParser.h"
+#include "engine/sc/exceptions.h"
 
 TEST_GROUP(TestClassFwGroup) {
 	TEST_SETUP(){}

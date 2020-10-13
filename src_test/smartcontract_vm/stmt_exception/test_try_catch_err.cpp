@@ -8,7 +8,7 @@
 #include "test_utils/t_macros.h"
 
 #include "vm/VirtualMachine.h"
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 
 #include "base_io_stream/FileInputStream.h"
 
@@ -19,7 +19,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "sc/CodeElement.h"
+#include "engine/sc/CodeElement.h"
 
 using namespace alinous;
 

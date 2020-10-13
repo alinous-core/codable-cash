@@ -6,39 +6,39 @@
  */
 
 #include "vm/VirtualMachine.h"
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 
-#include "memory/VmMemoryManager.h"
-#include "instance_parts/VmMalloc.h"
-#include "instance_gc/GcManager.h"
+#include "vm/memory/VmMemoryManager.h"
+#include "instance/instance_parts/VmMalloc.h"
+#include "instance/instance_gc/GcManager.h"
 
 #include "instance/IAbstractVmInstanceSubstance.h"
 #include "instance/VmClassInstance.h"
 
-#include "instance_ref/AbstractReference.h"
-#include "instance_ref/ObjectReference.h"
+#include "instance/instance_ref/AbstractReference.h"
+#include "instance/instance_ref/ObjectReference.h"
 
-#include "stack/VmStackManager.h"
-#include "stack/VmStack.h"
+#include "vm/stack/VmStackManager.h"
+#include "vm/stack/VmStack.h"
 
-#include "instance_ref/VmRootReference.h"
+#include "instance/instance_ref/VmRootReference.h"
 
-#include "sc_declare/MethodDeclare.h"
-#include "sc_statement/StatementBlock.h"
+#include "lang/sc_declare/MethodDeclare.h"
+#include "lang/sc_statement/StatementBlock.h"
 
-#include "sc_analyze_functions/FunctionScoreCalc.h"
-#include "sc_analyze_functions/VTableRegistory.h"
-#include "sc_analyze_functions/VTableMethodEntry.h"
-#include "sc_analyze_functions/MethodScore.h"
+#include "engine/sc_analyze_functions/FunctionScoreCalc.h"
+#include "engine/sc_analyze_functions/VTableRegistory.h"
+#include "engine/sc_analyze_functions/VTableMethodEntry.h"
+#include "engine/sc_analyze_functions/MethodScore.h"
 
-#include "variable_access/FunctionArguments.h"
+#include "vm/variable_access/FunctionArguments.h"
 
-#include "sc_analyze/AnalyzedClass.h"
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/ValidationError.h"
 
-#include "instance_exception_class/VmExceptionInstance.h"
+#include "instance/instance_exception_class/VmExceptionInstance.h"
 
 #include "ext_arguments/AbstractFunctionExtArguments.h"
 
@@ -46,24 +46,24 @@
 
 #include "vm/exceptions.h"
 
-#include "stack/StackPopper.h"
+#include "vm/stack/StackPopper.h"
 
-#include "vm_ctrl/ExecControlManager.h"
-#include "vm_ctrl/ExceptionControl.h"
+#include "vm/vm_ctrl/ExecControlManager.h"
+#include "vm/vm_ctrl/ExceptionControl.h"
 
 #include "base/Exception.h"
 
-#include "reserved_classes/ReservedClassRegistory.h"
+#include "instance/reserved_classes/ReservedClassRegistory.h"
 
-#include "instance_exception_class/ExceptionClassDeclare.h"
+#include "instance/instance_exception_class/ExceptionClassDeclare.h"
 
 #include "base/UnicodeString.h"
 
 #include "engine/CodableDatabase.h"
 
-#include "vm_trx/VmTransactionHandler.h"
+#include "vm/vm_trx/VmTransactionHandler.h"
 
-#include "scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
 
 namespace alinous {
 

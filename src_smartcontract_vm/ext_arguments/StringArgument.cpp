@@ -7,13 +7,13 @@
 
 #include "ext_arguments/StringArgument.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "vm/VirtualMachine.h"
 
 #include "base/UnicodeString.h"
 
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_string/VmStringInstance.h"
 
 
 namespace alinous {

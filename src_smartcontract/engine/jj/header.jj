@@ -1,0 +1,18 @@
+options {
+JAVA_UNICODE_ESCAPE = true;
+UNICODE_INPUT = true;
+OUTPUT_LANGUAGE = "c++";
+NAMESPACE = "alinouslang";
+OUTPUT_DIRECTORY = "src_gen/alinous_lang/";
+FORCE_LA_CHECK = false;
+ERROR_REPORTING = true;
+PARSER_INCLUDES = "engine/sc/alinouslang.h";
+//STATIC = false; // ignored by c++
+DEBUG_PARSER=false;
+}
+
+PARSER_BEGIN(AlinousLang)
+
+// write includes here
+
+PARSER_END(AlinousLang)

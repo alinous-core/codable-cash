@@ -1,0 +1,5022 @@
+options {
+JAVA_UNICODE_ESCAPE = true;
+UNICODE_INPUT = true;
+OUTPUT_LANGUAGE = "c++";
+NAMESPACE = "alinouslang";
+OUTPUT_DIRECTORY = "src_gen/alinous_lang/";
+FORCE_LA_CHECK = false;
+ERROR_REPORTING = true;
+PARSER_INCLUDES = "engine/sc/alinouslang.h";
+//STATIC = false; // ignored by c++
+DEBUG_PARSER=false;
+}
+
+PARSER_BEGIN(AlinousLang)
+
+// write includes here
+
+PARSER_END(AlinousLang)
+
+/******************************************************************************************
+* Alinous Language Lex
+*/
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+}
+
+<*>TOKEN :
+{
+	<#NOTASCII: ["\u0080"-"\ufaff"]>	|
+	<#ASCILETTER: ["a"-"z"] | ["A"-"Z"] | ["_"]> |
+	<#NUMBERLETTER: ["0"-"9"]> |
+
+	
+	<#CHARACTOR: <NOTASCII> | <ASCILETTER> | <NUMBERLETTER> >
+}
+
+TOKEN :
+{
+  < INTEGER_LITERAL: (<MINUS>)?
+  	(
+        <DECIMAL_LITERAL> (["l","L"])?
+      | <HEX_LITERAL> (["l","L"])?
+      | <OCTAL_LITERAL> (["l","L"])?
+    )
+  >
+|
+  < #DECIMAL_LITERAL: ["1"-"9"] (["0"-"9"])* >
+|
+  < #HEX_LITERAL: "0" ["x","X"] (["0"-"9","a"-"f","A"-"F"])+ >
+|
+  < #OCTAL_LITERAL: "0" (["0"-"7"])* >
+|
+  < FLOATING_POINT_LITERAL:
+        <DECIMAL_FLOATING_POINT_LITERAL>
+      | <HEXADECIMAL_FLOATING_POINT_LITERAL>
+  >
+|
+  < #DECIMAL_FLOATING_POINT_LITERAL:
+        (["0"-"9"])+ "." (["0"-"9"])* (<DECIMAL_EXPONENT>)? (["f","F","d","D"])?
+      | "." (["0"-"9"])+ (<DECIMAL_EXPONENT>)? (["f","F","d","D"])?
+      | (["0"-"9"])+ <DECIMAL_EXPONENT> (["f","F","d","D"])?
+      | (["0"-"9"])+ (<DECIMAL_EXPONENT>)? ["f","F","d","D"]
+  >
+|
+  < #DECIMAL_EXPONENT: ["e","E"] (["+","-"])? (["0"-"9"])+ >
+|
+  < #HEXADECIMAL_FLOATING_POINT_LITERAL:
+        "0" ["x", "X"] (["0"-"9","a"-"f","A"-"F"])+ (".")? <HEXADECIMAL_EXPONENT> (["f","F","d","D"])?
+      | "0" ["x", "X"] (["0"-"9","a"-"f","A"-"F"])* "." (["0"-"9","a"-"f","A"-"F"])+ <HEXADECIMAL_EXPONENT> (["f","F","d","D"])?
+  >
+|
+  < #HEXADECIMAL_EXPONENT: ["p","P"] (["+","-"])? (["0"-"9"])+ >
+
+|
+  < STRING_LITERAL:
+      "\""
+      (   (~["\"","\\","\n","\r"])
+        | ("\\"
+            ( ["n","t","b","r","f","\\","'","\""]
+            | ["0"-"7"] ( ["0"-"7"] )?
+            | ["0"-"3"] ["0"-"7"] ["0"-"7"]
+            )
+          )
+      )*
+      "\""
+  >
+|
+  < CHARACTER_LITERAL:
+      "'"
+      (   (~["'","\\","\n","\r"])
+        | ("\\"
+            ( ["n","t","b","r","f","\\","'","\""]
+            | ["0"-"7"] ( ["0"-"7"] )?
+            | ["0"-"3"] ["0"-"7"] ["0"-"7"]
+            | "u" (["0"-"9","a"-"f","A"-"F"])+
+            )
+          )
+      )
+      "'"
+  >
+|
+  < SQL_STRING_LITERAL:
+      "'"
+      (   (~["'","\\","\n","\r"])
+        | ("\\"
+            ( ["n","t","b","r","f","\\","'","\""]
+            | ["0"-"7"] ( ["0"-"7"] )?
+            | ["0"-"3"] ["0"-"7"] ["0"-"7"]
+            | "u" (["0"-"9","a"-"f","A"-"F"])+
+            )
+          )
+      )*
+      "'"
+  >
+}
+
+TOKEN :
+{
+	<SEMI_COLON: ";">		|
+	<EQUALS: "=">			|
+	<ASTERISK: "*">			|
+	<PLUSPLUS: "++">		|
+	<PLUS: "+">				|
+	<MINUSMINUS: "--">		|
+	<MINUS: "-">			|
+	<DIV: "/">				|
+	<MODULO: "%">			|
+	<LOGICAL_AND: "&&">		|
+	<LOGICAL_OR: "||">		|
+	<BIT_AND: "&">			|
+	<BIT_OR: "|">			|
+	<L_PARENTHESIS: "(">	|
+	<R_PARENTHESIS: ")">	|
+	<L_BRACKET: "[">		|
+	<R_BRACKET: "]">		|
+	<DOLLAR: "$">			|
+	<DOT: ".">				|
+	<COMMA: ",">			|
+	<AT_AT_MARK: "@@">		|
+	<AT_MARK: "@">			|
+	<L_BRACE: "{">			|
+	<R_BRACE: "}">			|
+	<CMP_EQUALS: "==">		|
+	<CMP_NOTEQUALS: "!=">	|
+	< GT: ">" >				|
+	<GEQ: ">=">				|
+	<LT: "<">				|
+	<LEQ: "<=">				|
+	<NOT: "!">				|
+	<COLON: ":">			|
+
+	<RSIGNEDSHIFT: ">>" >	|
+	<RUNSIGNEDSHIFT: ">>>" >
+}
+
+TOKEN :
+{
+<IMPORT: "import">
+| <PACKAGE: "package">
+| <CLASS: "class">
+| <CLASS_INTERFACE: "interface">
+| < ABSTRACT: "abstract" >
+| < BREAK: "break" >
+| < BOOLEAN: "boolean" >
+| < BYTE: "byte" >
+| < CHAR: "char" >
+| < SHORT: "short" >
+| < INT: "int" >
+| < LONG: "long" >
+| < STRING: "String" >
+| < VAR: "var" >
+| < CASE: "case" >
+| < CATCH: "catch" >
+| < _CONST: "const" >
+| < CONTINUE: "continue" >
+| < DO: "do" >
+| < ELSE: "else" >
+| < EXTENDS: "extends" >
+| < FINALLY: "finally" >
+| < FOR: "for" >
+| < GOTO: "goto" >
+| < IF: "if" >
+| < IMPLEMENTS: "implements" >
+| < INSTANCEOF: "instanceof" >
+| < NEW: "new" >
+| < PRIVATE: "private" >
+| < PROTECTED: "protected" >
+| < PUBLIC: "public" >
+| < RETURN: "return" >
+| < STATIC: "static" >
+| < SUPER: "super" >
+| < SWITCH: "switch" >
+| < SYNCHRONIZED: "synchronized" >
+| < THIS: "this" >
+| < THROW: "throw" >
+| < THROWS: "throws" >
+
+| < TRY: "try" >
+| < VOID: "void" >
+| < WHILE: "while" >
+| <INCLUDE: "include" >
+	
+| < TRUE: "true" >
+| < FALSE: "false" >
+}
+
+
+TOKEN [IGNORE_CASE] :
+{
+	<SELECT: "SELECT">	|
+	<INSERT: "INSERT">	|
+	<UPDATE: "UPDATE">	|
+	<DELETE: "DELETE">	|
+	<INTO: "INTO">		|
+	<FROM: "FROM">		|
+	<WHERE: "WHERE">	|
+	<OR: "OR">			|
+	<SQLAND: "AND">		|
+	<LIKE: "LIKE">		|
+	<ESCAPE: "ESCAPE">	|
+	<LEFT: "LEFT">		|
+	<RIGHT: "RIGHT">	|
+	<NATURAL: "NATURAL">|
+	<INNER: "INNER">	|
+	<OUTER: "OUTER">	|
+	<FULL: "FULL">		|
+	<JOIN: "JOIN">		|
+	<CROSS: "CROSS">	|
+	<SET: "SET">		|
+	<VALUES: "VALUES">	|
+	<GROUP: "GROUP">	|
+	<BY: "BY">			|
+	<HAVING: "HAVING">	|
+	<ORDER: "ORDER">	|
+	<ASC: "ASC">		|
+	<DESC: "DESC">		|
+	
+	<LIMIT: "LIMIT">	|
+	<OFFSET: "OFFSET">	|
+	<ON: "ON">			|
+	<SQL_NOT: "NOT">	|
+	<AS: "AS">			|
+	<DISTINCT: "DISTINCT">		|
+	
+	<SHARE: "SHARE">	|
+	<NOWAIT: "NOWAIT">	|
+	<OF: "OF">			|
+	
+	<IN: "IN">			|
+	<BETWEEN: "BETWEEN">	|
+	<IS: "IS">			|
+	
+	<BEGIN: "BEGIN">	|
+	//<PREPARE: "PREPARE">	|
+	//<TRANSACTION: "TRANSACTION">	|
+	//<ISOLATION: "ISOLATION">	|
+	//<LEVEL: "LEVEL">	|
+	
+	<COMMIT: "COMMIT">	|
+	//<PREPARED: "PREPARED">	|
+	//<END: "END">		|
+	<ROLLBACK: "ROLLBACK">		|
+
+	<CREATE: "CREATE">		|
+	<DROP: "DROP">		|
+	<ALTER: "ALTER">	|
+	<TABLE: "TABLE">	|
+	<SQL_DEFAULT: "DEFAULT">	|
+	<ADD: "ADD">	|
+	<RENAME: "RENAME">	|
+	<MODIFY: "MODIFY">	|
+	<COLUMN: "COLUMN">	|
+	<TO: "TO">	|
+	<PRIMARY: "PRIMARY">	|
+	<KEY: "KEY">	|
+	<UNIQUE: "UNIQUE">	|
+	<CHECK: "CHECK">	|
+	<RETURNS: "RETURNS">	|
+	<SETOF: "SETOF">	|
+	<LANGUAGE: "LANGUAGE">	|
+	<REPLACE: "REPLACE">	|
+	<INDEX: "INDEX">	|
+	<USING: "USING">	|
+	
+	<EACH: "EACH">		|
+	<ROW: "ROW">		|
+	<STATEMENT: "STATEMENT">|
+	<EXECUTE: "EXECUTE">	|
+	<PROCEDURE: "PROCEDURE">		|
+	<EXISTS: "EXISTS">	|
+	
+	<TRIGGER: "TRIGGER">	|
+	<BEFORE: "BEFORE">	|
+	<AFTER: "AFTER">	|
+	
+	<FOREIGN: "FOREIGN">	|
+	<REFERENCES: "REFERENCES">	|
+	
+	<ADJUST_WHERE: "ADJUST_WHERE">	|
+	<ADJUST_SET: "ADJUST_SET">	|
+	
+	<BOOL: "BOOL">		|
+	<_NULL: "NULL">		|
+	
+	// <FUNCTION: "FUNCTION">	|
+
+	<USE: "USE" >  |
+	<REGION: "REGION"> |
+	<PARTITION: "PARTITION" > |
+	<SUB: "SUB">		|
+	<SERIALIZABLE: "SERIALIZABLE">	|
+	<READ: "READ">	|
+	<COMMITTED: "COMMITTED">
+
+
+}
+
+TOKEN :
+{
+	<IDENTIFIER: <ASCILETTER> (<ASCILETTER> | <NUMBERLETTER>)*>
+}
+
+MORE:
+{
+	< "/*" > :COMM	 |
+	< "//" > :L_COMM
+}
+
+<L_COMM>SPECIAL_TOKEN:
+{
+	< "\n" > : DEFAULT
+}
+
+<L_COMM>MORE:
+{
+	< ~[] >
+}
+
+<COMM>SPECIAL_TOKEN:
+{
+	< "*/" > : DEFAULT
+}
+
+<COMM>MORE:
+{
+	< ~[] >
+}
+
+/******************************************************************************************
+* Alinous Language Starts
+*/
+
+CompilationUnit* compilationUnit() :
+{
+	CompilationUnit* unit = new CompilationUnit();
+	PackageDeclare* pkg = nullptr;
+	ImportsDeclare* imports = nullptr;
+	ClassDeclare* clazz = nullptr;
+}
+{
+	[
+		pkg=packageDeclare() {
+			unit->setPackage(pkg);
+		}
+	]
+	
+	imports=importsDeclare() {
+		unit->setImports(imports);
+	}
+    
+	(
+	    clazz=classDeclare() {
+			unit->setPosition(clazz);
+			unit->addClassDeclare(clazz);
+	    }
+	)+
+	<EOF>
+	{
+		return unit;
+	}
+}
+
+ImportsDeclare* importsDeclare() : {
+	ImportsDeclare* importsDeclare = new ImportsDeclare();
+	ImportDeclare* dec = nullptr;
+}
+{
+	(
+		dec=importDeclare() {
+			importsDeclare->addImport(dec);
+			importsDeclare->setPosition(dec);
+		}
+	)*
+	{
+	}
+	{
+	    __ONERROR(importsDeclare);
+		return importsDeclare;
+	}
+}
+
+ImportDeclare* importDeclare() : {
+	ImportDeclare* dec = new ImportDeclare();
+	Token* t = nullptr;
+}
+{
+	t="import" {
+		dec->setPosition(t);
+	}
+	
+	t=< IDENTIFIER > {
+		dec->setPosition(t);
+		dec->appendStr(t->image.c_str());
+	}
+	(
+		t="." {
+			dec->setPosition(t);
+			dec->appendStr(t->image.c_str());
+		}
+		t=< IDENTIFIER > {
+			dec->setPosition(t);
+			dec->appendStr(t->image.c_str());
+		}
+	)*
+	
+	t=";" {
+		dec->setPosition(t);
+	}
+	{
+	    __ONERROR(dec);
+		return dec;
+	}
+}
+
+PackageDeclare* packageDeclare() : {
+	PackageDeclare* pkg = nullptr;
+	PackageNameDeclare* name = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="package" {
+		pkg=new PackageDeclare();
+		pkg->setPosition(t);
+	}
+
+	name=packageNameDeclare() {
+	    pkg->setName(name);
+		pkg->setPosition(name);
+	}
+	
+	t=";" {
+		pkg->setPosition(t);
+	}
+	{
+	    __ONERROR(pkg);
+		return pkg;
+	}
+}
+
+PackageNameDeclare* packageNameDeclare() :
+{
+	PackageNameDeclare* names = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=< IDENTIFIER > {
+	    names = new PackageNameDeclare();
+		names->addSegment(_STR(t));
+		names->setPosition(t);
+	}
+
+	(LOOKAHEAD(2)
+	    "." t=< IDENTIFIER > {
+			names->addSegment(_STR(t));
+			names->setPosition(t);
+	    }
+	)*
+	{
+	}
+	{
+	    __ONERROR(names);
+		return names;
+	}
+
+}
+
+ClassDeclare* classDeclare() :
+{
+	ClassDeclare* clazz = nullptr;
+	Token* cls = nullptr;
+	Token* name = nullptr;
+	ClassDeclareBlock* block = nullptr;
+	Token* t = nullptr;
+	ClassExtends* clsextends = nullptr;
+	ClassImplements*  clsimplements = nullptr;	
+}
+{
+	(
+		cls="class" {
+			clazz = new ClassDeclare();
+		}
+		|
+		cls="interface" {
+			clazz = new ClassDeclare();
+			clazz->setInterface(true);
+		}
+	)
+	
+	name=<IDENTIFIER> {
+		 clazz->setName(_STR(name));
+	}
+	
+	[
+		clsextends=classExtends() {
+			clazz->setExtends(clsextends);
+		}
+	]
+	
+	[
+		clsimplements=classImplements() {
+			clazz->setImplements(clsimplements);
+		}
+	]
+		
+	block=classDeclareBlock() {
+	    clazz->setPositions(cls, block);
+	    clazz->setBlock(block);
+	}
+	{
+	    __ONERROR(clazz);
+		return clazz;
+	}
+}
+
+ClassExtends* classExtends() :
+{
+	ClassExtends* extends = new ClassExtends();
+	ClassName* name = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="extends" {
+		extends->setPosition(t);
+	}
+	name=className() {
+		extends->setPosition(name);
+		extends->setClassName(name);
+	}
+	{
+		__ONERROR(extends);
+		return extends;
+	}
+}
+
+ClassImplements* classImplements() :{
+	ClassImplements*  implements = new ClassImplements();
+	ClassName* name = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="implements" {
+		implements->setPosition(t);
+	}
+	name=className() {
+		implements->setPosition(name);
+		implements->addClassName(name);
+	}
+	(
+		t="," {
+			implements->setPosition(t);
+		}
+		name=className() {
+			implements->setPosition(name);
+			implements->addClassName(name);
+		}	
+	)*
+	{}
+	
+	{
+		__ONERROR(implements);
+		return implements;
+	}
+}
+
+ClassName* className() :
+{
+	ClassName* name = new ClassName();
+	Token* t = nullptr;
+}
+{
+	t=< IDENTIFIER > {
+		name->setPosition(t);
+		name->addStr(t->image.c_str());
+	}
+	(
+		t="." {
+			name->setPosition(t);
+			name->addStr(t->image.c_str());
+		}
+		t=< IDENTIFIER > {
+			name->setPosition(t);
+			name->addStr(t->image.c_str());		
+		}
+	)*
+	{}
+	{
+		__ONERROR(name);
+		return name;
+	}
+}
+
+ClassDeclareBlock* classDeclareBlock() :
+{
+	ClassDeclareBlock* block = nullptr;
+	Token* begin, *end;
+	
+	MethodDeclare* method = nullptr;
+	MemberVariableDeclare* member = nullptr;
+
+	AccessControlDeclare* ctrl = nullptr;
+	bool _static=false;
+	AbstractType* type = nullptr;
+	Token* t=nullptr;
+}
+{
+	begin="{" {
+		block = new ClassDeclareBlock();
+		block->setPosition(begin);
+	}
+
+	(
+		ctrl=accessControlDeclare() {
+	    }
+		
+		(LOOKAHEAD(2)
+			(
+				[
+					t="static" {
+					    _static=true;
+					}
+				]
+		
+				[LOOKAHEAD(2)
+					type=typeDeclare() {
+					}
+				]
+			
+				t=identifierName()
+			)
+			|
+			(
+				t=identifierName() // constructor
+			)	
+		)
+
+		(			method=methodDeclare(ctrl, _static, type, t) {
+				block->addMethod(method);
+			}
+			|
+			member=memberVariableDeclare(ctrl, _static, type, t) {
+				block->addVariable(member);
+				
+			}
+		)
+		{
+		    _static = false;
+		    type = nullptr;
+		}
+	)*
+
+	
+	 end="}"
+	{
+   		block->setPosition(end);
+	}
+	{
+		__ONERROR(block);
+		return block;
+	}
+}
+
+MethodDeclare* methodDeclare(AccessControlDeclare* ctrl, bool _static, AbstractType* type, Token* identifier) : {
+    MethodDeclare* method = new MethodDeclare();
+
+    method->setPosition(ctrl);
+    
+	method->setAccessControl(ctrl);
+	method->setStatic(_static);
+	method->setType(type);
+	method->setName(_STR(identifier));
+    
+	Token* t = nullptr;
+	ArgumentsListDeclare* args = nullptr;
+	StatementBlock* block = nullptr;
+}
+{
+	args=argumentsListDeclare() {
+	  	method->setArguments(args);
+		method->setPosition(args);
+	}
+	
+	(
+		block=statementBlock() {
+			method->setBlock(block);
+			method->setPosition(block);
+		}
+		|
+		t=";" {
+			method->setPosition(t);
+		}
+	)
+	{
+	}
+	{
+	    __ONERROR(method);
+		return method;
+	}
+}
+
+MemberVariableDeclare* memberVariableDeclare(AccessControlDeclare* ctrl, bool _static, AbstractType* type, Token* identifier) : {
+    MemberVariableDeclare* variable = new MemberVariableDeclare();
+	Token* t = nullptr;
+	
+	variable->setPosition(ctrl);
+
+	variable->setAccessControl(ctrl);
+	variable->setStatic(_static);
+	variable->setType(type);
+	variable->setName(_STR(identifier));
+	
+	AbstractExpression* exp = nullptr;
+}
+{
+	[
+		t="=" {
+			variable->setPosition(t);
+		}
+		exp=expression() {
+			variable->setPosition(exp);
+			variable->setExp(exp);
+		}
+	]
+
+	t=";" {
+		variable->setPosition(t);
+	}
+	
+	{
+	    __ONERROR(variable);
+		return variable;
+	}
+}
+
+AccessControlDeclare* accessControlDeclare() : {
+	Token* t = nullptr;
+	AccessControlDeclare* ctrl = new AccessControlDeclare();
+}
+{
+    ( 
+		t="public" {
+			ctrl->setCtrl(AccessControlDeclare::PUBLIC);
+			ctrl->setPositions(_P(t, t));
+		}
+		|
+		t="protected" {
+			ctrl->setCtrl(AccessControlDeclare::PROTECTED);
+			ctrl->setPositions(_P(t, t));
+		}
+		|      
+		t="private" {
+			ctrl->setCtrl(AccessControlDeclare::PRIVATE);
+			ctrl->setPositions(_P(t, t));
+		}
+	)
+	{
+	    __ONERROR(ctrl);
+		return ctrl;
+	}
+}
+
+ArgumentsListDeclare* argumentsListDeclare() : {
+    ArgumentsListDeclare* arguments = new ArgumentsListDeclare();
+	Token* t = nullptr;
+	ArgumentDeclare* arg = nullptr;
+}
+{
+	t="(" {
+		arguments->setPosition(t);
+	}
+
+	[
+		arg=argumentDeclare() {
+		    arguments->addArgument(arg);
+		    arguments->setPosition(arg);
+		}
+		(
+		    "," arg=argumentDeclare() {
+		        arguments->addArgument(arg);
+		        arguments->setPosition(arg);
+		    }		)*
+	]
+
+	t=")" {
+		arguments->setPosition(t);
+	}
+	{
+	    __ONERROR(arguments);
+		return arguments;
+	}
+}
+
+
+ArgumentDeclare* argumentDeclare() : {
+	ArgumentDeclare* arg = new ArgumentDeclare();
+	AbstractType* type = nullptr;
+	Token* t = nullptr;
+}
+{
+    type=typeDeclare() {
+		arg->setType(type);
+		arg->setPosition(type);
+    }
+
+    t=< IDENTIFIER > {
+		arg->setName(_STR(t));
+		arg->setPosition(t);
+    }
+
+	{
+	    __ONERROR(arg);
+		return arg;
+	}
+}
+
+
+
+
+AbstractType* typeDeclare() : {
+	AbstractType* dec = nullptr;
+	Token* t1 = nullptr;
+	Token* t2 = nullptr;
+}
+{
+	(
+		dec=boolType()
+		|
+		dec=byteType()
+		|		dec=charType()
+		|
+		dec=shortType()
+		|
+		dec=intType()
+		|
+		dec=longType()
+		|
+		dec=stringType()
+		|
+		dec=voidType()
+		|
+		dec=domType()
+		|
+		dec=objectType()
+	)
+	(
+		t1="[" t2="]"
+		{
+			dec->addDimension();
+		}
+	)*
+	{
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+ObjectType* objectType() : {
+	ObjectType* dec = new ObjectType();
+	PackageNameDeclare* packageName = nullptr;
+	Token* t=nullptr;
+}
+{
+	(LOOKAHEAD(2)
+		 t=< IDENTIFIER > {
+		 	if(packageName == nullptr){
+		 		packageName = new PackageNameDeclare();
+		 		dec->setPackageName(packageName);
+		 	}
+		 	
+		 	dec->setPosition(t);
+		 	packageName->setPosition(t);
+		 	packageName->addSegment(_STR(t));
+		 }
+		 t="." {
+		 	dec->setPosition(t);
+		 }
+	)*
+	 t=< IDENTIFIER > {
+	 	dec->setName(_STR(t));
+	 	dec->setPosition(t);
+	 }
+	 {
+		__ONERROR(dec);
+		return dec;
+	 }
+}
+
+BoolType* boolType() : {
+	BoolType* dec = new BoolType();
+	Token* t=nullptr;
+}
+{
+	t="boolean" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+ByteType* byteType() : {
+	ByteType* dec = new ByteType();
+	Token* t=nullptr;
+}
+{
+	t="byte" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+CharType* charType() : {
+	CharType* dec = new CharType();
+	Token* t=nullptr;
+}
+{
+	t="char" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+ShortType* shortType() : {
+	ShortType* dec = new ShortType();
+	Token* t=nullptr;
+}
+{
+	t="short" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+IntType* intType() : {
+	IntType* dec = new IntType();
+	Token* t=nullptr;
+}
+{
+	t="int" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+LongType* longType() : {
+	LongType* dec = new LongType();
+	Token* t=nullptr;
+}
+{
+	t="long" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+StringType* stringType() : {
+	StringType* dec = new StringType();
+	Token* t=nullptr;
+}
+{
+	t="String" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+VoidType* voidType() : {
+	VoidType* dec = new VoidType();
+	Token* t=nullptr;
+}
+{
+	t="void" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+DomType* domType() : {
+	DomType* dec = new DomType();
+	Token* t=nullptr;
+}
+{
+	t="var" {
+		dec->setPositions(_P(t, t));
+	}
+	{
+		__ONERROR(dec);
+		return dec;
+	}
+}
+
+
+
+
+/******************************************************************************************
+* Alinous Language Statements Starts
+*/
+
+AbstractStatement* statement() : {
+	AbstractStatement* stmt = nullptr;
+}
+{
+	(
+		LOOKAHEAD(3) stmt=statementBlock() |
+		LOOKAHEAD(2) stmt=substitutionStatement() |
+		stmt=variableDeclareStatement() |
+		//stmt=expressionStatement() |
+		stmt=ctrlStatement() |
+		stmt=blankStatement() |
+		stmt=ddlStatement() |
+		stmt=sqlDmlStatement()
+	)
+	{}
+	{
+		return stmt;
+	}
+}
+
+VariableDeclareStatement* variableDeclareStatement() : {
+	VariableDeclareStatement* stmt = nullptr;
+	Token* t = nullptr;
+}
+{
+	stmt=__variableDeclareStatement()
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+
+VariableDeclareStatement* __variableDeclareStatement() : {
+	VariableDeclareStatement* stmt = new VariableDeclareStatement();
+	AbstractType* type = nullptr;
+	VariableIdentifier* valId = nullptr;
+	AbstractExpression* exp = nullptr;
+	Token* t = nullptr;
+}
+{
+	type=typeDeclare() {
+		stmt->setType(type);
+		stmt->setPosition(type);
+	}
+	
+	valId=variableIdentifier() {
+		stmt->setVariableId(valId);
+		stmt->setPosition(valId);
+	}
+	
+	[
+		t="=" {
+			stmt->setPosition(t);
+		}
+		exp=expression() {
+			stmt->setInitExpression(exp);
+			stmt->setPosition(exp);
+		}
+	]
+	
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}	
+}
+
+AbstractStatement* substitutionStatement() : {
+	AbstractStatement* stmt = nullptr;
+	Token* t = nullptr;
+}
+{
+	stmt=__substitutionStatement()
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+AbstractStatement* __substitutionStatement() : {
+	AbstractStatement* stmt = nullptr;
+	
+	AbstractExpression* first = nullptr;
+	AbstractExpression* exp = nullptr;
+	Token* t = nullptr;
+}
+{
+	first=expression()
+	[
+		t="="		
+		exp=expression() {
+			SubstitutionStatement* sstmt = new SubstitutionStatement();
+			stmt = sstmt;
+			sstmt->setVariableId(first);
+			sstmt->setPosition(first);
+			
+			sstmt->setExpression(exp);
+			sstmt->setPosition(exp);
+		}
+	]
+	{
+		if(stmt == nullptr){
+		 	ExpressionStatement* exstmt = new ExpressionStatement();
+			stmt = exstmt;
+			exstmt->setExpression(first);
+			exstmt->setPosition(first);
+		}
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+BlankStatement* blankStatement() : {
+	BlankStatement* stmt = new BlankStatement();
+	Token* t = nullptr;
+}
+{
+	t=";" {
+		stmt->setPosition(t);
+		stmt->setPosition(t);
+	}
+	
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+StatementBlock* statementBlock() : {
+	StatementBlock* block = new StatementBlock();
+	AbstractStatement* stmt = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="{" {
+		block->setPosition(t);
+	}
+	
+	(
+		stmt=statement() {
+			block->addStatement(stmt);
+			block->setPosition(stmt);
+		}
+	)*
+	
+	t="}" {
+		block->setPosition(t);
+	}
+	{
+	    __ONERROR(block);
+		return block;
+	}
+}
+
+/*
+ExpressionStatement* expressionStatement() : {
+	ExpressionStatement* stmt = new ExpressionStatement();
+	Token* t = nullptr;
+	AbstractExpression* exp = nullptr;
+}
+{
+	exp=expression() {
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+*/
+
+
+/******************************************************************************************
+* Alinous Language Control Statements Starts
+*/
+
+AbstractStatement* ctrlStatement() : {
+	AbstractStatement* stmt = nullptr;
+}
+{
+	(
+		stmt=throwStatement() |
+		stmt=tryStatement() |
+		stmt=ifStatement() |
+		stmt=breakStatement() |
+		stmt=continueStatement() |
+		stmt=returnStatement() |
+		stmt=whileStatement() |
+		stmt=doWhileStatement() |
+		stmt=forStatement()
+	)
+	{}
+	{
+		return stmt;
+	}
+}
+
+TryStatement* tryStatement() : {
+	TryStatement* stmt = new TryStatement();
+	StatementBlock* block = nullptr;
+	Token* t = nullptr;
+	
+	CatchStatement* catchStmt = nullptr;
+	FinallyStatement* finallyStmt = nullptr;
+}
+{
+	t="try" {
+		stmt->setPosition(t);
+	}
+	block=statementBlock() {
+		stmt->setBlock(block);
+		stmt->setPosition(block);
+	}
+	
+	(
+		catchStmt=catchStatement() {
+			stmt->addCatchStatement(catchStmt);
+			stmt->setPosition(catchStmt);
+		}
+	)*
+	
+	[
+		finallyStmt=finallyStatement() {
+			stmt->setFinallyStatement(finallyStmt);
+			stmt->setPosition(finallyStmt);
+		}
+	]
+	
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+FinallyStatement* finallyStatement() : {
+	FinallyStatement* stmt = new FinallyStatement();
+	StatementBlock* block = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="finally" {
+		stmt->setPosition(t);
+	}
+	block=statementBlock() {
+		stmt->setBlock(block);
+		stmt->setPosition(block);
+	}
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+CatchStatement* catchStatement() : {
+	CatchStatement* stmt = new CatchStatement();
+	StatementBlock* block = nullptr;
+	Token* t = nullptr;
+	
+	VariableDeclareStatement* variableDeclare = nullptr;
+}
+{
+	t="catch" {
+		stmt->setPosition(t);
+	}
+	
+	t="(" {
+		stmt->setPosition(t);
+	}
+	
+	variableDeclare=__variableDeclareStatement() {
+		stmt->setVariableDeclare(variableDeclare);
+		stmt->setPosition(variableDeclare);
+	}
+	
+	t=")" {
+		stmt->setPosition(t);
+	}
+	block=statementBlock() {
+		stmt->setBlock(block);
+		stmt->setPosition(block);
+	}
+	
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+ThrowStatement* throwStatement() : {
+	ThrowStatement* stmt = new ThrowStatement();
+	AbstractExpression* exp = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="throw" {
+		stmt->setPosition(t);
+	}
+	exp=expression()
+	{
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}	
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+ForStatement* forStatement() : {
+	ForStatement* stmt = new ForStatement();
+	AbstractExpression* exp = nullptr;
+	AbstractStatement* st = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="for" {
+		stmt->setPosition(t);
+	}
+	t="(" {
+		stmt->setPosition(t);
+	}
+	
+	st=forInnerStatement() {
+		stmt->setInit(st);
+		stmt->setPosition(st);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	
+	exp=expression() {
+		stmt->setCondition(exp);
+		stmt->setPosition(exp);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	
+	st=forInnerStatement() {
+		stmt->setPostLoop(st);
+		stmt->setPosition(st);
+	}	
+	
+	t=")" {
+		stmt->setPosition(t);
+	}
+	st=statement() {
+		stmt->setStatement(st);
+		stmt->setPosition(st);
+	}
+	
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+AbstractStatement* forInnerStatement() : {
+	AbstractStatement* stmt = nullptr;
+}
+{
+	(LOOKAHEAD(2)
+		stmt=__substitutionStatement()
+		|
+		stmt=__variableDeclareStatement()
+	)
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+DoWhileStatement* doWhileStatement() : {
+	DoWhileStatement* stmt = new DoWhileStatement();
+	AbstractExpression* exp = nullptr;
+	AbstractStatement* st = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="do" {
+		stmt->setPosition(t);
+	}
+	st=statement() {
+		stmt->setStatement(st);
+		stmt->setPosition(st);
+	}
+	t="while" {
+		stmt->setPosition(t);
+	}
+	t="(" {
+		stmt->setPosition(t);
+	}
+	exp=expression() {
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	
+	t=")" {
+		stmt->setPosition(t);
+	}
+	
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+WhileStatement* whileStatement() : {
+	WhileStatement* stmt = new WhileStatement();
+	AbstractExpression* exp = nullptr;
+	AbstractStatement* st = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="while" {
+		stmt->setPosition(t);
+	}
+	t="(" {
+		stmt->setPosition(t);
+	}
+	
+	exp=expression() {
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	
+	t=")" {
+		stmt->setPosition(t);
+	}
+	st=statement() {
+		stmt->setStatement(st);
+		stmt->setPosition(st);
+	}
+	
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}	
+}
+
+ReturnStatement* returnStatement() : {
+	ReturnStatement* stmt = new ReturnStatement();
+	AbstractExpression* exp = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="return" {
+		stmt->setPosition(t);
+	}
+	[
+		exp=expression() {
+			stmt->setExpression(exp);
+			stmt->setPosition(exp);
+		}
+	]
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}
+}
+
+ContinueStatement* continueStatement() : {
+	ContinueStatement* stmt = new ContinueStatement();
+	Token* t = nullptr;
+}
+{
+	t="continue" {
+		stmt->setPosition(t);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}	
+}
+
+
+BreakStatement* breakStatement() : {
+	BreakStatement* stmt = new BreakStatement();
+	Token* t = nullptr;
+}
+{
+	t="break" {
+		stmt->setPosition(t);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		 __ONERROR(stmt);
+		return stmt;
+	}	
+}
+
+IfStatement* ifStatement() : {
+	IfStatement* ifstmt = new IfStatement();
+	AbstractExpression* exp;
+	AbstractStatement* stmt;
+	Token* t = nullptr;
+	
+	IfStatement* elseif = nullptr;
+}
+{
+	t="if" {
+		ifstmt->setPosition(t);
+	}
+	"("
+	exp=expression() {
+		ifstmt->setExpression(exp);
+		ifstmt->setPosition(exp);
+	}
+	
+	")"
+	
+	stmt=statement() {
+		ifstmt->setStatement(stmt);
+		ifstmt->setPosition(stmt);
+	}
+	
+	(LOOKAHEAD(2)
+		elseif=elseifStatement() {
+			ifstmt->addElseIf(elseif);
+			ifstmt->setPosition(elseif);
+		}
+	)*
+	
+	[LOOKAHEAD(2)
+		t="else" { ifstmt->setPosition(t); }
+		stmt=statement() {
+			ifstmt->setElseStatement(stmt);
+			ifstmt->setPosition(stmt);
+		}
+	]
+	
+	{
+		 __ONERROR(ifstmt);
+		return ifstmt;
+	}
+}
+
+IfStatement* elseifStatement() : {
+	IfStatement* ifstmt = new IfStatement();
+	AbstractExpression* exp;
+	AbstractStatement* stmt;
+	Token* t = nullptr;
+}
+{
+	t="else" {ifstmt->setPosition(t);}
+	t="if" {ifstmt->setPosition(t);}
+	t="(" {ifstmt->setPosition(t);}
+	
+	exp=expression() {
+		ifstmt->setExpression(exp);
+		ifstmt->setPosition(exp);
+	}
+		
+	t=")" {ifstmt->setPosition(t);}
+	
+	stmt=statement() {
+		ifstmt->setStatement(stmt);
+		ifstmt->setPosition(stmt);
+	}
+	{
+		 __ONERROR(ifstmt);
+		return ifstmt;
+	}
+}
+
+
+/******************************************************************************************
+* Alinous Language Expressions Starts
+*/
+
+AbstractExpression* expression() : {
+	AbstractExpression* exp = nullptr;
+}
+{
+	(
+		exp=conditionalOrExpression()
+	)
+	{
+	}
+	{
+		return exp;
+	}
+}
+
+AbstractExpression* conditionalOrExpression() : {
+	Token* t = nullptr;
+	ConditionalOrExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=conditionalAndExpression()
+	(
+
+		t="||" {
+			if(exp == nullptr){
+				exp = new ConditionalOrExpression();
+				exp->setPosition(left);
+				exp->addExp(left);
+				left = exp;
+			}
+			
+			exp->setPosition(t);
+		}
+
+		right=conditionalAndExpression() {
+			exp->addExp(right);
+			exp->setPosition(right);
+		}	
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* conditionalAndExpression() : {
+	Token* t = nullptr;
+	ConditionalAndExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=orExpression()
+	(
+
+		t="&&" {
+			if(exp == nullptr){
+				exp = new ConditionalAndExpression();
+				exp->setPosition(left);
+				exp->addExp(left);
+				left = exp;
+			}
+			
+			exp->setPosition(t);
+		}
+
+		right=orExpression() {
+			exp->addExp(right);
+			exp->setPosition(right);
+		}	
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* orExpression() : {
+	Token* t = nullptr;
+	OrExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=exclusiveOrExpression()
+	(
+
+		t="|" {
+			if(exp == nullptr){
+				exp = new OrExpression();
+				exp->setPosition(left);
+				exp->addExp(left);
+				left = exp;
+			}
+			
+			exp->setPosition(t);
+		}
+
+		right=exclusiveOrExpression() {
+			exp->addExp(right);
+			exp->setPosition(right);
+		}	
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* exclusiveOrExpression() : {
+	Token* t = nullptr;
+	ExclusiveOrExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=andExpression()
+	(
+
+		t="^" {
+			if(exp == nullptr){
+				exp = new ExclusiveOrExpression();
+				exp->setPosition(left);
+				exp->addExp(left);
+				left = exp;
+			}
+			
+			exp->setPosition(t);
+		}
+
+		right=andExpression() {
+			exp->addExp(right);
+			exp->setPosition(right);
+		}	
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* andExpression() : {
+	Token* t = nullptr;
+	AndExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=equalityExpression()
+	(
+
+		t="&" {
+			if(exp == nullptr){
+				exp = new AndExpression();
+				exp->setPosition(left);
+				exp->addExp(left);
+				left = exp;
+			}
+			
+			exp->setPosition(t);
+		}
+
+		right=equalityExpression() {
+			exp->addExp(right);
+			exp->setPosition(right);
+		}	
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* equalityExpression() : {
+	Token* t = nullptr;
+	EqualityExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=relationalExpression()
+	[
+		(
+			t="==" {
+				exp = new EqualityExpression();
+				exp->setPosition(left);
+				exp->setLeft(left);
+				left = exp;
+
+				exp->setPosition(t);
+				exp->setOp(EqualityExpression::EQ);
+			}
+			|
+			t="!=" {
+				exp = new EqualityExpression();
+				exp->setPosition(left);
+				exp->setLeft(left);
+				left = exp;
+
+				exp->setPosition(t);
+				exp->setOp(EqualityExpression::NOT_EQ);
+			}
+		)
+		
+		right=relationalExpression() {
+			exp->setRight(right);
+			exp->setPosition(right);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+
+AbstractExpression* relationalExpression() : {
+	Token* t = nullptr;
+	RelationalExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=shiftExpression()
+	
+	[
+		(
+			t=">" {
+				exp = new RelationalExpression();
+				exp->setPosition(left);
+				exp->setLeft(left);
+				left = exp;
+
+				
+				exp->setPosition(t);
+				exp->setOp(RelationalExpression::GT);
+			}
+			|
+			t=">=" {
+				exp = new RelationalExpression();
+				exp->setPosition(left);
+				exp->setLeft(left);
+				left = exp;
+				
+				exp->setPosition(t);
+				exp->setOp(RelationalExpression::GT_EQ);
+			}
+			|
+			t="<" {
+				exp = new RelationalExpression();
+				exp->setPosition(left);
+				exp->setLeft(left);
+				left = exp;
+
+				
+				exp->setPosition(t);
+				exp->setOp(RelationalExpression::LT);
+			}
+			|
+			t="<=" {
+				exp = new RelationalExpression();
+				exp->setPosition(left);
+				exp->setLeft(left);
+				left = exp;
+				
+				exp->setPosition(t);
+				exp->setOp(RelationalExpression::LT_EQ);
+			}
+		)
+		
+		right=shiftExpression() {
+			exp->setRight(right);
+			exp->setPosition(right);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* shiftExpression() : {
+	Token* t = nullptr;
+	ShiftExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=additiveExpression()
+	(
+		(
+			t="<<" {
+				if(exp == nullptr){
+					exp = new ShiftExpression();
+					exp->setPosition(left);
+					exp->addExp(left);
+					left = exp;
+				}
+				
+				exp->setPosition(t);
+				exp->addOpe(ShiftExpression::LEFT);
+			}
+			|
+			t=">>" {
+				if(exp == nullptr){
+					exp = new ShiftExpression();
+					exp->setPosition(left);
+					exp->addExp(left);
+					left = exp;
+				}
+				
+				exp->setPosition(t);
+				exp->addOpe(ShiftExpression::RIGHT);
+			}
+		)
+
+		right=additiveExpression() {
+			exp->addExp(right);
+			exp->setPosition(right);
+		}	
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* additiveExpression() : {
+	Token* t = nullptr;
+	AddExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=multiplicativeExpression()
+	(LOOKAHEAD(2)
+		(
+			t="+" {
+				if(exp == nullptr){
+					exp = new AddExpression();
+					exp->setPosition(left);
+					exp->addExp(left);
+					left = exp;
+				}
+				
+				exp->setPosition(t);
+				exp->addOpe(AddExpression::ADD);
+			}
+			|
+			t="-" {
+				if(exp == nullptr){
+					exp = new AddExpression();
+					exp->setPosition(left);
+					exp->addExp(left);
+					left = exp;
+				}
+				
+				exp->setPosition(t);
+				exp->addOpe(AddExpression::SUB);
+			}
+		)
+
+		right=multiplicativeExpression() {
+			exp->addExp(right);
+			exp->setPosition(right);
+		}	
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* multiplicativeExpression() : {
+	Token* t = nullptr;
+	MultiplicativeExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=negateExpression()
+	(
+		(
+			t="*" {
+				if(exp == nullptr){
+					exp = new MultiplicativeExpression();
+					exp->setPosition(left);
+					exp->addExp(left);
+					left = exp;
+				}
+				exp->addOpe(MultiplicativeExpression::MUL);
+				exp->setPosition(t);
+			}
+			|
+			t="/" {
+				if(exp == nullptr){
+					exp = new MultiplicativeExpression();
+					exp->setPosition(left);
+					exp->addExp(left);
+					left = exp;
+				}
+				exp->addOpe(MultiplicativeExpression::DIV);
+				exp->setPosition(t);
+			}
+			|
+			t="%" {
+				if(exp == nullptr){
+					exp = new MultiplicativeExpression();
+					exp->setPosition(left);
+					exp->addExp(left);
+					left = exp;
+				}
+				exp->addOpe(MultiplicativeExpression::MOD);
+				exp->setPosition(t);
+			}
+		)
+		
+		right=negateExpression() {
+			exp->addExp(right);
+			exp->setPosition(right);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* negateExpression() :{
+	Token* t = nullptr;
+	NegateExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	[
+		t="-" {
+			exp = new NegateExpression();
+			exp->setPosition(t);
+			left = exp;
+		}
+	]
+	right=postIncrementExpression() {
+		if(left==nullptr){
+			left = right;
+		}
+		else{
+			exp->setExpression(right);
+			exp->setPosition(right);
+		}
+	}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* postIncrementExpression() : {
+	Token* t = nullptr;
+	PostIncrementExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+}
+{
+	left=preIncrementExpression()
+	
+	[LOOKAHEAD(2)
+		(
+			t="--" {
+				exp = new PostIncrementExpression();
+				exp->setExpression(left);
+				exp->setOpe(PostIncrementExpression::MINUS);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				left = exp;
+			}
+			|
+			t="++" {
+				exp = new PostIncrementExpression();
+				exp->setExpression(left);
+				exp->setOpe(PostIncrementExpression::PLUS);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				left = exp;
+			}			
+		)
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+	
+}
+
+AbstractExpression* preIncrementExpression() : {
+	Token* t = nullptr;
+	PreIncrementExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	[
+		(
+			t="--" {
+				exp = new PreIncrementExpression();
+				exp->setOpe(PreIncrementExpression::MINUS);
+				exp->setPosition(t);
+				left = exp;
+			}
+			|
+			t="++" {
+				exp = new PreIncrementExpression();
+				exp->setOpe(PreIncrementExpression::PLUS);
+				exp->setPosition(t);
+				left = exp;
+			}			
+		)
+	]
+	right=bitReverseExpression() {
+		if(left==nullptr){
+			left = right;
+		}
+		else{
+			exp->setExpression(right);
+			exp->setPosition(right);
+		}
+	}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* bitReverseExpression() : {
+	Token* t = nullptr;
+	BitReverseExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	[
+		t="~" {
+			exp = new BitReverseExpression();
+			exp->setPosition(t);
+			left = exp;
+		}
+	]
+	right=notExpression() {
+		if(left==nullptr){
+			left = right;
+		}
+		else{
+			exp->setExpression(right);
+			exp->setPosition(right);
+		}
+	}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* notExpression() : {
+	Token* t = nullptr;
+	NotExpression* exp = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	[
+		t="!" {
+			exp = new NotExpression();
+			exp->setPosition(t);
+			left = exp;
+		}
+	]
+	right=castExpression() {
+		if(left==nullptr){
+			left = right;
+		}
+		else{
+			exp->setExpression(right);
+			exp->setPosition(right);
+		}
+	}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* castExpression() : {
+	Token* t = nullptr;
+	CastExpression* exp = nullptr;
+	AbstractType* type = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	(LOOKAHEAD(3)
+		(
+			t="(" {
+				exp = new CastExpression();
+				exp->setPosition(t);
+				left = exp;
+			}
+			
+			type=typeDeclare() {
+				exp->setType(type);
+				exp->setPosition(type);
+			}
+			
+			t=")" {
+				exp->setPosition(t);
+			}
+			right=memberReferenceExpression() {
+				exp->setExpression(right);
+				exp->setPosition(right);
+			}
+		)
+		|
+		(
+			right=memberReferenceExpression() {
+				left = right;
+			}
+		)
+	)
+	
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractExpression* memberReferenceExpression() :{
+	MemberReferenceExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=arrayReferenceExpression() 
+	(
+		"." right=arrayReferenceExpression() {
+			if(exp == nullptr){
+				exp = new MemberReferenceExpression();
+				exp->addExp(left);
+				exp->setPosition(left);
+				left = exp;
+			}
+			
+			exp->addExp(right);
+			exp->setPosition(right);
+		}
+	)*
+	{
+	}
+	{
+		__ONERROR(left);
+		return left;
+	}
+	
+}
+
+AbstractExpression* arrayReferenceExpression() : {
+	ArrayReferenceExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractExpression* left = nullptr;
+	AbstractExpression* right = nullptr;
+}
+{
+	left=functionCallExpression() 
+	(LOOKAHEAD(2)
+		t="[" {
+			if(exp == nullptr){
+				exp = new ArrayReferenceExpression();
+				exp->setExp(left);
+				exp->setPosition(left);
+				left = exp;
+			}
+		}
+		right=expression()
+		t="]" {
+			exp->addIndex(right);
+			exp->setPosition(t);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+// func call
+AbstractExpression* functionCallExpression() : {
+	FunctionCallExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractExpression* left = nullptr;
+}
+{
+	left=primitive()
+	
+	[LOOKAHEAD(2)
+		t="(" {
+			exp = new FunctionCallExpression();
+			exp->setName(left);
+			exp->setPosition(left);
+			exp->setPosition(t);
+			
+			left = exp;
+		}
+		
+		functionCallExpressionArg(exp)		
+		
+		t=")" {
+			exp->setPosition(t);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+void functionCallExpressionArg(FunctionCallExpression* exp) : {
+	AbstractExpression* arg = nullptr;
+	Token* t = nullptr;
+}
+{
+	[
+		arg=expression() {
+			exp->addArgument(arg);
+			exp->setPosition(arg);
+		}
+		
+		(
+			t="," {
+				exp->setPosition(t);
+			}
+			
+			arg=expression() {
+				exp->addArgument(arg);
+				exp->setPosition(arg);
+			}
+		)*
+	]
+}
+
+AbstractExpression* primitive() : {
+	AbstractExpression* exp = nullptr;
+}
+{
+	(
+		exp=jsonInitializerExpression() |
+		exp=jsonArrayExpression() |
+		exp=parenthesisExpression() |
+		exp=allocationExpression() |
+		exp=literal() |
+		exp=variableIdentifier()
+	)
+	{
+	}
+	{
+		return exp;
+	}
+}
+
+AllocationExpression* allocationExpression() : {
+	AllocationExpression* exp = nullptr;
+	PackageNameDeclare* packageName = nullptr;
+	ConstructorCall* func = nullptr;
+	ConstructorArray* ar = nullptr;
+	Token* t = nullptr;
+	
+	PackageNameDeclare* names = nullptr;
+}
+{
+	t="new" {
+		exp = new AllocationExpression();
+		exp->setPosition(t);
+	}
+	
+	(LOOKAHEAD(2)
+		 t=< IDENTIFIER > {
+		 	if(packageName == nullptr){
+		 		packageName = new PackageNameDeclare();
+		 		exp->setPackage(packageName);
+		 	}
+		 	
+		 	exp->setPosition(t);
+		 	packageName->setPosition(t);
+		 	packageName->addSegment(_STR(t));
+		 }
+		 t="." {
+		 	exp->setPosition(t);
+		 }
+	)*
+	
+	(LOOKAHEAD(2)
+		(
+			func=constructorCallExpression() {
+				exp->setExpression(func);
+				exp->setPosition(func);
+			}
+		)
+		|
+		(
+			ar=constructorArray() {
+				exp->setPosition(ar);
+				exp->setConstructorArray(ar);
+			}
+		)
+	)
+
+	{	
+		 __ONERROR(exp);
+		return exp;
+	}
+}
+
+
+ConstructorArray* constructorArray() : {
+	ConstructorArray* exp = new ConstructorArray();
+	Token* t = nullptr;
+	VariableIdentifier* valId = nullptr;
+	AbstractExpression* dim = nullptr;
+}
+{
+	valId=typeIdentifier() {
+		exp->setPosition(valId);
+		exp->setValId(valId);
+	}
+	
+	(LOOKAHEAD(2)
+		t="[" {
+			exp->setPosition(t);
+		}
+		
+		dim=expression() {
+			exp->setPosition(dim);
+			exp->addDim(dim);
+		}
+		
+		t="]" {
+			exp->setPosition(t);
+		}
+	)*
+	{
+	
+	}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+ConstructorCall* constructorCallExpression() : {
+	ConstructorCall* exp = new ConstructorCall();
+	Token* t = nullptr;
+	AbstractExpression* left = nullptr;
+}
+{
+	left=variableIdentifier()
+
+	t="(" {
+		exp->setName(left);
+		exp->setPosition(left);
+		exp->setPosition(t);
+	}
+	
+	constructorCallExpressionArg(exp)		
+	
+	t=")" {
+		exp->setPosition(t);
+	}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+void constructorCallExpressionArg(ConstructorCall* exp) : {
+	AbstractExpression* arg = nullptr;
+	Token* t = nullptr;
+}
+{
+	[
+		arg=expression() {
+			exp->addArgument(arg);
+			exp->setPosition(arg);
+		}
+		
+		(
+			t="," {
+				exp->setPosition(t);
+			}
+			
+			arg=expression() {
+				exp->addArgument(arg);
+				exp->setPosition(arg);
+			}
+		)*
+	]
+}
+
+ParenthesisExpression* parenthesisExpression() : {
+	ParenthesisExpression* exp = new ParenthesisExpression();
+	AbstractExpression* e = nullptr;
+	Token* t = nullptr;
+}
+{
+	t="(" {
+		exp->setPosition(t);
+	}
+	
+	e=expression() {
+		exp->setExp(e);
+		exp->setPosition(e);
+	}
+	
+	t=")" {
+		exp->setPosition(t);
+	}
+	{
+		 __ONERROR(exp);
+		return exp;
+	}
+}
+
+
+VariableIdentifier* variableIdentifier() : {
+	VariableIdentifier* valId = new VariableIdentifier();
+	Token* t = nullptr;
+}
+{
+	t=identifierName() {
+		valId->setName(_STR(t));
+	}
+	{
+		 __ONERROR(valId);
+		return valId;
+	}
+}
+
+Token* identifierName() : {
+	Token* t = nullptr;
+}
+{
+	(t=<IDENTIFIER> | t="this" | t="super" | t=<INNER> | t=<OUTER>
+		| t=<FULL> | t=<JOIN> | t=<VALUES> | t=<CROSS> | t=<GROUP>
+		| t=<BY> | t=<HAVING> | t=<ORDER> | t=<ASC> | t=<DESC>
+		| t=<LIMIT> | t=<OFFSET> | t=<ON> | t=<AS> | t=<DISTINCT>
+		| t=<SHARE> | t=<NOWAIT> | t=<OF> | t=<IN> | t=<BETWEEN>
+		| t=<CREATE> | t=<DROP> | t=<TABLE> | t=<SQL_DEFAULT> | t=<ADD>
+		| t=<RENAME> | t=<COLUMN> | t=<TO> | t=<PRIMARY> | t=<KEY>
+		| t=<UNIQUE> | t=<CHECK> | t=<RETURNS> | t=<SETOF> | t=<LANGUAGE>
+		| t=<REPLACE> | t=<INDEX> | t=<USING> )
+	{
+		return t;
+	}
+}
+
+
+VariableIdentifier* typeIdentifier() : {
+	VariableIdentifier* valId = new VariableIdentifier();
+	Token* t = nullptr;
+}
+{
+	(t=<IDENTIFIER> | t="boolean" | t="byte" | t="char" | t="short" | t="int" | t="long" | t="String") {
+		valId->setName(_STR(t));
+	}
+	{
+		 __ONERROR(valId);
+		return valId;
+	}
+}
+
+AbstractExpression* literal() : {
+	AbstractExpression* lit = nullptr;
+}
+{
+	(
+		lit=nullLiteral() |
+		lit=booleanLiteral() |
+		lit=numberLiteral() |
+		lit=literalExpression()
+	)
+	{
+	}
+	{
+		return lit;
+	}
+}
+
+
+NullLiteral* nullLiteral() :
+{
+	NullLiteral* lit = new NullLiteral();
+	Token* t = nullptr;
+}
+{
+	t=<_NULL> {
+		lit->setPositions(t, t);
+	}
+	{
+		 __ONERROR(lit);
+		return lit;
+	}
+}
+
+NumberLiteral* numberLiteral() : {
+	NumberLiteral* lit = new NumberLiteral();
+	Token* t = nullptr;
+}
+{
+	t=<INTEGER_LITERAL>
+	{
+		lit->setValue(_STR(t));
+		lit->setPositions(t, t);
+	}
+	{
+		 __ONERROR(lit);
+		return lit;
+	}
+}
+
+
+BooleanLiteral* booleanLiteral() : {
+	BooleanLiteral* lit = new BooleanLiteral();
+	Token* t = nullptr;
+}
+{
+	(
+		t="true" {
+			lit->setValue(true);
+		}
+		|
+		t="false" {
+			lit->setValue(false);
+		}
+	)
+	{
+		lit->setPositions(t, t);
+	}
+	{
+		 __ONERROR(lit);
+		return lit;
+	}
+}
+
+LiteralExpression* literalExpression() :
+{
+	LiteralExpression* lit = new LiteralExpression();
+	Token* t = nullptr;
+}
+{
+	(
+		t=<STRING_LITERAL> {
+			lit->setString(_STR(t), true);
+		}
+		|
+		t=<SQL_STRING_LITERAL> {
+			lit->setString(_STR(t), false);
+		}
+	){
+		lit->setPositions(t, t);
+	}
+	{
+		 __ONERROR(lit);
+		return lit;
+	}
+}
+
+
+
+/******************************************************************************************
+* SQL Language DDL Statements Starts
+*/
+
+AbstractSQLStatement* ddlStatement() : {
+	AbstractSQLStatement* stmt = nullptr;
+}
+{
+	(
+		stmt=createTableStatement() |
+		stmt=dropTableStatement() |
+		stmt=alterTableStatement()
+	)
+	{}
+	{
+		return stmt;
+	}
+}
+
+AlterTableStatement* alterTableStatement() : {
+	AlterTableStatement* stmt = new AlterTableStatement();
+	TableIdentifier* tableId = nullptr;
+	AbstractAlterDdlCommand* cmd = nullptr;
+	Token* t = null;
+}
+{
+	t=<ALTER>{
+		stmt->setPosition(t);
+	}
+	
+	t=<TABLE>{
+		stmt->setPosition(t);
+	}
+	
+	tableId=tableIdentifier() {
+		stmt->setPosition(tableId);
+		stmt->setTableId(tableId);
+	}
+	
+	cmd=alterCommands() {
+		stmt->setPosition(cmd);
+		stmt->setCommand(cmd);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
+	}	
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+AbstractAlterDdlCommand* alterCommands() : {
+	AbstractAlterDdlCommand* cmd = nullptr;
+}
+{
+	(
+		cmd=addAlterCommands()
+		|
+		cmd=dropAlterCommands()
+		|
+		cmd=alterModifyCommand()
+		|
+		cmd=alterRenameCommands()
+	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AbstractAlterDdlCommand* alterRenameCommands() : {
+	AbstractAlterDdlCommand* cmd = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=<RENAME>
+	(
+		cmd=alterRenameColumnCommand(t)
+		|
+		cmd=alterRenameTableCommand(t)
+	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterRenameTableCommand* alterRenameTableCommand(Token* t) : {
+	AlterRenameTableCommand* cmd = new AlterRenameTableCommand();
+	cmd->setPosition(t);
+	
+	TableIdentifier* tableId = nullptr;
+}
+{
+	t=<TO>{
+		cmd->setPosition(t);
+	}
+	tableId=tableIdentifier(){
+		cmd->setPosition(t);
+		cmd->setNewName(tableId);
+	}
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterRenameColumnCommand* alterRenameColumnCommand(Token* t) : {
+	AlterRenameColumnCommand* cmd = new AlterRenameColumnCommand();
+	cmd->setPosition(t);
+}
+{
+	t=<IDENTIFIER>{
+		cmd->setPosition(t);
+		cmd->setLastName(_STR(t));
+	}
+	
+	t=<TO>{
+		cmd->setPosition(t);
+	}
+	
+	t=<IDENTIFIER>{
+		cmd->setPosition(t);
+		cmd->setNewName(_STR(t));
+	}
+	
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterModifyCommand* alterModifyCommand() : {
+	AlterModifyCommand* cmd = new AlterModifyCommand();
+	DdlColumnDescriptor* desc = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=<MODIFY>{
+		cmd->setPosition(t);
+	}
+	desc=ddlColumnDescriptor() {
+		cmd->setPosition(desc);
+		cmd->setColumnDescriptor(desc);
+	}
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AbstractAlterDdlCommand* dropAlterCommands() : {
+	AbstractAlterDdlCommand* cmd = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=<DROP>
+	(
+		cmd=alterDropIndexCommand(t)
+		|
+		cmd=alterDropColumnCommand(t)
+		|
+		cmd=alterDropPrimaryKeyCommand(t)
+	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterDropPrimaryKeyCommand* alterDropPrimaryKeyCommand(Token* t) : {
+	AlterDropPrimaryKeyCommand* cmd = new AlterDropPrimaryKeyCommand();
+	cmd->setPosition(t);
+}
+{
+	t=<PRIMARY>{
+		cmd->setPosition(t);
+	}
+	t=<KEY>{
+		cmd->setPosition(t);
+	}
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterDropIndexCommand* alterDropIndexCommand(Token* t) : {
+	AlterDropIndexCommand* cmd = new AlterDropIndexCommand();
+	cmd->setPosition(t);
+}
+{
+	t=<INDEX>{
+		cmd->setPosition(t);
+	}
+	t=<IDENTIFIER> {
+		cmd->setPosition(t);
+		cmd->setName(_STR(t));
+	}
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterDropColumnCommand* alterDropColumnCommand(Token* t) : {
+	AlterDropColumnCommand* cmd = new AlterDropColumnCommand();
+	cmd->setPosition(t);
+}
+{
+	[t=<COLUMN>{
+		cmd->setPosition(t);
+	}]
+	t=<IDENTIFIER>{
+		cmd->setPosition(t);
+		cmd->setName(_STR(t));
+	}
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AbstractAlterDdlCommand* addAlterCommands() : {
+	AbstractAlterDdlCommand* cmd = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=<ADD>
+	(
+		cmd=alterAddIndexCommand(t)
+		|
+		cmd=alterAddColumnCommand(t)
+		|
+		cmd=alterAddPrimaryKeyCommand(t)
+	)
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterAddPrimaryKeyCommand* alterAddPrimaryKeyCommand(Token* t) : {
+	AlterAddPrimaryKeyCommand* cmd = new AlterAddPrimaryKeyCommand();
+	
+	cmd->setPosition(t);
+}
+{
+	t=<PRIMARY>{
+		cmd->setPosition(t);
+	}
+	t=<KEY>{
+		cmd->setPosition(t);
+	}
+	
+	t="(" {
+		cmd->setPosition(t);
+	}
+	
+	t=<IDENTIFIER> {
+		cmd->setPosition(t);
+		cmd->addColumn(_STR(t));
+	}
+	(
+		t="," {
+			cmd->setPosition(t);
+		}
+		t=<IDENTIFIER> {
+			cmd->setPosition(t);
+			cmd->addColumn(_STR(t));
+		}
+	)*
+	
+	
+	t=")" {
+		cmd->setPosition(t);
+	}
+	
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterAddColumnCommand* alterAddColumnCommand(Token* __t) : {
+	AlterAddColumnCommand* cmd = new AlterAddColumnCommand();
+	DdlColumnDescriptor* desc = nullptr;
+	cmd->setPosition(__t);
+	
+	Token* t = nullptr;
+}
+{
+	[t=<COLUMN>{
+		cmd->setPosition(t);
+	}]
+	
+	desc=ddlColumnDescriptor() {
+		cmd->setPosition(desc);
+		cmd->setColumnDescriptor(desc);
+	}
+	
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+AlterAddIndexCommand* alterAddIndexCommand(Token* t) : {
+	AlterAddIndexCommand* cmd = new AlterAddIndexCommand();
+	cmd->setPosition(t);
+}
+{
+	[
+		t=<UNIQUE>{
+			cmd->setPosition(t);
+			cmd->setUnique(true);
+		}
+	]
+
+	t=<INDEX>{
+		cmd->setPosition(t);
+	}
+	t=<IDENTIFIER>{
+		cmd->setPosition(t);
+		cmd->setName(_STR(t));
+	}
+	t="(" {
+		cmd->setPosition(t);
+	}
+	
+	t=<IDENTIFIER> {
+		cmd->setPosition(t);
+		cmd->addColumn(_STR(t));
+	}
+	(
+		t="," {
+			cmd->setPosition(t);
+		}
+		t=<IDENTIFIER> {
+			cmd->setPosition(t);
+			cmd->addColumn(_STR(t));
+		}
+	)*
+	
+	
+	t=")" {
+		cmd->setPosition(t);
+	}
+
+	{
+		__ONERROR(cmd);
+		return cmd;
+	}
+}
+
+
+CreateTableStatement* createTableStatement() : {
+	CreateTableStatement* stmt = new CreateTableStatement();
+	DdlColumnDescriptor* desc = nullptr;
+	Token* t = null;
+}
+{
+	t=<CREATE>{
+		stmt->setPosition(t);
+	}
+	t=<TABLE>{
+		stmt->setPosition(t);
+	}
+	t=<IDENTIFIER> {
+		stmt->setName(_STR(t));
+		stmt->setPosition(t);
+	}
+	t=<L_PARENTHESIS> {
+		stmt->setPosition(t);
+	}
+	
+	[
+		// columns
+		desc=ddlColumnDescriptor() {
+			stmt->addColumn(desc);
+			stmt->setPosition(desc);
+		}
+		
+		(LOOKAHEAD(2)
+			t="," {
+				stmt->setPosition(t);
+			}
+			desc=ddlColumnDescriptor() {
+				stmt->addColumn(desc);
+				stmt->setPosition(desc);
+			}
+		)*
+	]
+	
+	[
+		[t=","]
+		t=<PRIMARY> {stmt->setPosition(t);}
+		t=<KEY> {stmt->setPosition(t);}
+		
+		t=<L_PARENTHESIS> {
+			stmt->setPosition(t);
+		}
+		
+		t=<IDENTIFIER> {
+			stmt->addPrimaryKey(_STR(t));
+			stmt->setPosition(t);
+		}
+		
+		(
+			t="," {
+				stmt->setPosition(t);
+			}
+			t=<IDENTIFIER> {
+				stmt->addPrimaryKey(_STR(t));
+				stmt->setPosition(t);
+			}
+		)*
+		
+		t=<R_PARENTHESIS> {
+			stmt->setPosition(t);
+		}
+	]
+	
+	t=<R_PARENTHESIS> {
+		stmt->setPosition(t);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}	
+}
+
+DdlColumnDescriptor* ddlColumnDescriptor() :
+{
+	DdlColumnDescriptor* desc = new DdlColumnDescriptor();
+	ColumnTypeDescriptor* typeDesc = nullptr;
+	AbstractSQLExpression* val = nullptr;
+	Token* t = nullptr;
+}
+{
+	t=<IDENTIFIER> {
+		desc->setName(_STR(t));
+		desc->setPosition(t);
+	}
+	typeDesc=columnTypeDescriptor() {
+		desc->setColumnType(typeDesc);
+		desc->setPosition(typeDesc);
+	}
+	[
+		t=<SQL_NOT> {
+			desc->setPosition(t);
+		}
+		t=<_NULL> {
+			desc->setNotNull(true);
+			desc->setPosition(t);
+		}
+	]
+	[
+		t=<UNIQUE> {
+			desc->setUnique(true);
+			desc->setPosition(t);
+		}
+	]
+	[
+		t=<SQL_DEFAULT> {
+			desc->setPosition(t);
+		}
+		(val=sqlLiteral() | val=sqlBooleanLiteral() | val=sqlNullLiteral()) {
+			desc->setDefaultValue(val);
+			desc->setPosition(val);
+		}		
+	]
+	{
+		__ONERROR(desc);
+		return desc;
+	}	
+}
+
+ColumnTypeDescriptor* columnTypeDescriptor() :
+{
+	ColumnTypeDescriptor* typeDesc = new ColumnTypeDescriptor();
+	AbstractSQLExpression* val = nullptr;
+	Token* t1 = nullptr;
+	Token* t2 = nullptr;
+}
+{
+	(t1=<IDENTIFIER> | t1=<INT> | t1=<BYTE> | t1=<SHORT> | t1=<LONG>) {
+		typeDesc->setTypeName(_STR(t1));
+		typeDesc->setPosition(t1);
+	}
+	[
+		t2=<L_PARENTHESIS> {
+			typeDesc->setPosition(t2);
+		}
+		
+		(val=sqlLiteral() | val=sqlBooleanLiteral()){
+			typeDesc->setLength(val);
+			typeDesc->setPosition(val);
+		}
+		
+		t2=<R_PARENTHESIS> {
+			typeDesc->setPosition(t2);
+		}
+	]
+	{
+		__ONERROR(typeDesc);
+		return typeDesc;
+	}	
+}
+
+DropTableStatement* dropTableStatement() : {
+	DropTableStatement* stmt = new DropTableStatement();
+	Token* t = null;
+	TableIdentifier* tableId = nullptr;
+}
+{
+	t=<DROP>{
+		stmt->setPosition(t);
+	}
+	t=<TABLE>{
+		stmt->setPosition(t);
+	}
+	
+	tableId=tableIdentifier() {
+		stmt->setTableId(tableId);
+		stmt->setPosition(tableId);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}	
+}
+
+/******************************************************************************************
+* SQL Language DML Statements Starts
+*/
+
+AbstractSQLStatement* sqlDmlStatement() : {
+	AbstractSQLStatement* stmt = nullptr;
+}
+{
+	(
+		stmt=beginStatement() |
+		stmt=commitStatement() |
+		stmt=rollbackStatement() |
+		stmt=deleteStatement() |
+		stmt=insertStatement() |
+		stmt=updateStatement() |
+		stmt=selectStatement()
+	)
+	{}
+	{
+		return stmt;
+	}
+}
+
+SelectStatement* selectStatement() : {
+	SelectStatement* stmt = new SelectStatement();
+	Token* t = nullptr;
+	SQLSelectTargetList* expList = nullptr;
+	SQLFrom* from = nullptr;
+	SQLWhere* where = nullptr;
+	SQLOrderBy* orderBy = nullptr;
+	SQLGroupBy* groupBy = nullptr;
+	SQLLimitOffset* limitOffset = nullptr;
+}
+{
+	t=<SELECT> {
+		stmt->setPosition(t);
+	}
+	expList=sqlSelectTargetList() {
+		stmt->setList(expList);
+		stmt->setPosition(expList);
+	}
+	[
+		t=<INTO> {
+			stmt->setPosition(t);
+		}
+		t=<IDENTIFIER> {
+			stmt->setintoVar(_STR(t));
+			stmt->setPosition(t);
+		}
+	]
+	from=sqlFrom() {
+		stmt->setFrom(from);
+		stmt->setPosition(from);
+	}
+	[
+		where=sqlWhere() {
+			stmt->setWhere(where);
+			stmt->setPosition(where);
+		}
+	]
+	[
+		 groupBy=sqlGroupBy() {
+			stmt->setGroupBy(groupBy);
+			stmt->setPosition(groupBy);
+		 }
+	]
+	[
+		orderBy=sqlOrderBy() {
+			stmt->setOrderBy(orderBy);
+			stmt->setPosition(orderBy);
+		}
+	]
+	limitOffset=sqlLimitOffset() {
+		stmt->setLimitOffset(limitOffset);
+		stmt->setPosition(limitOffset);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLSelectTargetList* sqlSelectTargetList() : {
+	SQLSelectTargetList* stmt = new SQLSelectTargetList();
+	Token* t = nullptr;
+	SQLSelectTarget* target = nullptr;
+}
+{
+	target=sqlSelectTarget() {
+		stmt->addTarget(target);
+		stmt->setPosition(target);
+	}
+	(
+		t="," {
+			stmt->setPosition(t);
+		}
+		target=sqlSelectTarget() {
+			stmt->addTarget(target);
+			stmt->setPosition(target);
+		}
+	)*
+	{}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLSelectTarget* sqlSelectTarget() : {
+	SQLSelectTarget* stmt = new SQLSelectTarget();
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	(
+		(
+			exp=sqlExpression() {
+				stmt->setExpression(exp);
+				stmt->setPosition(exp);
+			}
+			[
+				t=<AS> {
+					stmt->setPosition(t);
+				}
+				t=<IDENTIFIER> {
+					stmt->setAsName(_STR(t));
+					stmt->setPosition(t);
+				}
+			]
+		)
+	)
+	{}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLGroupBy* sqlGroupBy() : {
+	SQLGroupBy* stmt = new SQLGroupBy();
+	Token* t = nullptr;
+	SQLColumnsList* columns = nullptr;
+	SQLHaving* having = nullptr;
+}
+{
+	t=<GROUP> {
+		stmt->setPosition(t);
+	}
+	t=<BY> {
+		stmt->setPosition(t);
+	}
+	columns=sqlColumnsList() {
+		stmt->setList(columns);
+		stmt->setPosition(columns);
+	}
+	
+	[
+		having=sqlHaving() {
+			stmt->setHaving(having);
+			stmt->setPosition(having);
+		}
+	]
+	{}	
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLHaving* sqlHaving() : {
+	SQLHaving* stmt = new SQLHaving();
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	t=<HAVING> {
+		stmt->setPosition(t);
+	}
+	exp=sqlExpression() {
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLOrderBy* sqlOrderBy() : {
+	SQLOrderBy* stmt = new SQLOrderBy();
+	Token* t = nullptr;
+	SQLColumnsList* columns = nullptr;
+}
+{
+	t=<ORDER> {
+		stmt->setPosition(t);
+	}
+	t=<BY> {
+		stmt->setPosition(t);
+	}
+	columns=sqlColumnsList() {
+		stmt->setList(columns);
+		stmt->setPosition(columns);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLLimitOffset* sqlLimitOffset() : {
+	SQLLimitOffset* stmt = new SQLLimitOffset();
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	[
+		t=<LIMIT> {
+			stmt->setPosition(t);
+		}
+		exp=sqlExpression() {
+			stmt->setLimit(exp);
+			stmt->setPosition(exp);
+		}
+	]
+	[
+		t=<OFFSET> {
+			stmt->setPosition(t);
+		}
+		exp=sqlExpression() {
+			stmt->setOffset(exp);
+			stmt->setPosition(exp);
+		}
+	]
+	{}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+UpdateStatement* updateStatement() : {
+	UpdateStatement* stmt = new UpdateStatement();
+	Token* t = nullptr;
+	TableIdentifier* tableId = nullptr;
+	SQLSet* set = nullptr;
+	SQLWhere* where = nullptr;
+}
+{
+	t=<UPDATE> {
+		stmt->setPosition(t);
+	}
+	tableId=tableIdentifier() {
+		stmt->setTable(tableId);
+		stmt->setPosition(tableId);
+	}
+	set=sqlSet() {
+		stmt->setSet(set);
+		stmt->setPosition(set);
+	}
+	[
+		where=sqlWhere() {
+			stmt->setWhere(where);
+			stmt->setPosition(where);
+		}
+	]	
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLSet* sqlSet() : {
+	SQLSet* stmt = new SQLSet();
+	Token* t = nullptr;
+	SQLSetPair* pair = nullptr;
+}
+{
+	t=<SET> {
+		stmt->setPosition(t);
+	}
+	pair=sqlSetPair() {
+		stmt->addPair(pair);
+		stmt->setPosition(pair);
+	}
+	(
+		t="," {
+			stmt->setPosition(t);
+		}
+		pair=sqlSetPair() {
+			stmt->addPair(pair);
+			stmt->setPosition(pair);
+		}	
+	)*
+	{}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLSetPair* sqlSetPair() : {
+	SQLSetPair* stmt = new SQLSetPair();
+	Token* t = nullptr;
+	SQLColumnIdentifier* colId = nullptr;
+	AbstractSQLExpression* ex = nullptr;
+}
+{
+	colId=sqlColumnIdentifier() {
+		stmt->setColumn(colId);
+		stmt->setPosition(colId);
+	}
+	
+	t="=" {
+		stmt->setPosition(t);
+	}
+	
+	ex=sqlExpression() {
+		stmt->setExpression(ex);
+		stmt->setPosition(ex);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+InsertStatement* insertStatement() : {
+	InsertStatement* stmt = new InsertStatement();
+	Token* t = nullptr;
+	TableIdentifier* tableId = nullptr;
+	SQLColumnsList* columns = nullptr;
+	SQLExpressionList* expList = nullptr;
+}
+{
+	t=<INSERT> {
+		stmt->setPosition(t);
+	}
+	t=<INTO> {
+		stmt->setPosition(t);
+	}
+	tableId=tableIdentifier() {
+		stmt->setTable(tableId);
+		stmt->setPosition(tableId);
+	}
+	
+	[
+		t="(" {
+			stmt->setPosition(t);
+		}
+		
+		columns=sqlColumnsList() {
+			stmt->setColumns(columns);
+			stmt->setPosition(columns);
+		}
+		
+		t=")" {
+			stmt->setPosition(t);
+		}
+	]
+	
+	t=<VALUES> {
+		stmt->setPosition(t);
+	}	
+	t="(" {
+		stmt->setPosition(t);
+	}
+	expList=sqlExpressionList() {
+		stmt->setExpressionList(expList);
+		stmt->setPosition(expList);
+	}
+	
+	t=")" {
+		stmt->setPosition(t);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLColumnsList* sqlColumnsList() : {
+	SQLColumnsList* stmt = new SQLColumnsList();
+	Token* t = nullptr;
+	SQLColumnIdentifier* colId = nullptr;
+}
+{
+	colId=sqlColumnIdentifier() {
+		stmt->addColumn(colId);
+		stmt->setPosition(colId);
+	}
+	(
+		t="," {
+			stmt->setPosition(t);
+		}
+		colId=sqlColumnIdentifier() {
+			stmt->addColumn(colId);
+			stmt->setPosition(colId);
+		}
+	)*
+	{}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+DeleteStatement* deleteStatement() : {
+	DeleteStatement* stmt = new DeleteStatement();
+	Token* t = nullptr;
+	SQLFrom* from = nullptr;
+	SQLWhere* where = nullptr;
+}
+{
+	t=<DELETE> {
+		stmt->setPosition(t);
+	}
+	from=sqlFrom() {
+		stmt->setFrom(from);
+		stmt->setPosition(from);
+	}
+	[
+		where=sqlWhere() {
+			stmt->setWhere(where);
+			stmt->setPosition(where);
+		}
+	]
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLWhere* sqlWhere() : {
+	SQLWhere* stmt = new SQLWhere();
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	t=<WHERE> {
+		stmt->setPosition(t);
+	}
+	exp=sqlExpression() {
+		stmt->setExpression(exp);
+		stmt->setPosition(exp);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+SQLFrom* sqlFrom() : {
+	SQLFrom* stmt = new SQLFrom();
+	Token* t = nullptr;
+	AbstractJoinPart* tableId = nullptr;
+}
+{
+	t=<FROM> {
+		stmt->setPosition(t);
+	}
+	tableId=tableList() {
+		stmt->setTable(tableId);
+		stmt->setPosition(tableId);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}	
+}
+
+BeginStatement* beginStatement() : {
+	BeginStatement* stmt = new BeginStatement();
+	Token* t = null;
+}
+{
+	t=<BEGIN> {
+		stmt->setPosition(t);
+	}
+	
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+CommitStatement* commitStatement() : {
+	CommitStatement* stmt = new CommitStatement();
+	Token* t = null;
+}
+{
+	t=<COMMIT> {
+		stmt->setPosition(t);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+RollbackStatement* rollbackStatement() : {
+	RollbackStatement* stmt = new RollbackStatement();
+	Token* t = null;
+}
+{
+	t=<ROLLBACK> {
+		stmt->setPosition(t);
+	}
+	t=";" {
+		stmt->setPosition(t);
+	}
+	{
+		__ONERROR(stmt);
+		return stmt;
+	}
+}
+
+/******************************************************************************************
+* SQL Language Expressions Starts
+*/
+
+AbstractSQLExpression* sqlExpression() : {
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	(
+		exp=sqlOrExpression()
+	)
+	{}
+	{
+		return exp;
+	}
+}
+
+AbstractSQLExpression* sqlOrExpression() : {
+	SQLOrExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlAndExpression()
+	(LOOKAHEAD(2)
+		t=<OR> {
+			if(exp == nullptr){
+				exp = new SQLOrExpression();
+				exp->addOperand(left);
+				exp->setPosition(left);
+				left = exp;
+			}
+
+			exp->setPosition(t);
+		}
+		right=sqlAndExpression() {
+			exp->addOperand(right);
+			exp->setPosition(right);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlAndExpression() : {
+	SQLAndExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlNotExpression()
+	(LOOKAHEAD(2)
+		t=<SQLAND> {
+			if(exp == nullptr){
+				exp = new SQLAndExpression();
+				exp->addOperand(left);
+				exp->setPosition(left);
+				left = exp;
+			}
+
+			exp->setPosition(t);
+		}
+		right=sqlNotExpression() {
+			exp->addOperand(right);
+			exp->setPosition(right);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlNotExpression() : {
+	SQLNotExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	[
+		t=<SQL_NOT> {
+			exp = new SQLNotExpression();
+			exp->setPosition(t);
+			left = exp;
+		}
+	]
+	right=sqlLikeExpression() {
+		if(left == nullptr){
+			left = right;
+		}
+		else{
+			exp->setExpression(right);
+			exp->setPosition(right);
+		}
+	}
+	
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlLikeExpression() : {
+	SQLLikeExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	SQLLiteral* right = nullptr;
+}
+{
+	left=sqlIsNullExpression()
+	[LOOKAHEAD(2)
+		t=<LIKE> {
+			exp = new SQLLikeExpression();
+			exp->setLeft(left);
+			
+			exp->setPosition(left);
+			exp->setPosition(t);
+			left = exp;
+		}
+		
+		right=sqlLiteral() {
+			exp->setRight(right);
+			exp->setPosition(right);
+		}
+		
+		[
+			t=<ESCAPE> {
+				exp->setPosition(t);
+			}
+			right=sqlLiteral() {
+				exp->setEscape(right);
+				exp->setPosition(right);
+			}
+		]
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}	
+}
+
+AbstractSQLExpression* sqlIsNullExpression() : {
+	SQLIsNullExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlBetweenExpression()
+	[LOOKAHEAD(2)
+		t=<IS> {
+			exp = new SQLIsNullExpression();
+			exp->setExpression(left);
+			
+			exp->setPosition(left);
+			exp->setPosition(t);
+			left = exp;
+		}
+		
+		[
+			t=<SQL_NOT> {
+				exp->setNotNull(true);
+				exp->setPosition(t);
+			}
+		]
+		
+		t=<_NULL> {
+			exp->setPosition(t);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlBetweenExpression() : {
+	SQLBetweenExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlInExpression()
+	[
+		t=<BETWEEN> {
+			exp = new SQLBetweenExpression();
+			exp->setLeft(left);
+			
+			exp->setPosition(left);
+			exp->setPosition(t);
+			left = exp;
+		}
+		
+		right=sqlAdditiveExpression() {
+			exp->setStart(right);
+			exp->setPosition(right);
+		}
+		
+		t=<SQLAND> {
+			exp->setPosition(t);
+		}
+		
+		right=sqlAdditiveExpression() {
+			exp->setEnd(right);
+			exp->setPosition(right);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlInExpression() : {
+	SQLInExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	SQLExpressionList* list = nullptr;
+}
+{
+	
+	left=sqlRelationalExpression()
+	[
+		t=<IN> {
+			exp = new SQLInExpression();
+			exp->setLeft(left);
+			
+			exp->setPosition(left);
+			exp->setPosition(t);
+			left = exp;
+		}
+		t="(" {
+			exp->setPosition(t);
+		}
+		
+		list=sqlExpressionList() {
+			exp->setList(list);
+		}
+		
+		t=")" {
+			exp->setPosition(t);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlRelationalExpression() : {
+	SQLRelationalExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlEqualityExpression()
+	[
+		(
+			t="<" {
+				exp = new SQLRelationalExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLRelationalExpression::LT);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+			|
+			t=">" {
+				exp = new SQLRelationalExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLRelationalExpression::GT);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+			|
+			t="<=" {
+				exp = new SQLRelationalExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLRelationalExpression::LT_EQ);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+			|
+			t=">=" {
+				exp = new SQLRelationalExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLRelationalExpression::GT_EQ);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+		)
+		right=sqlEqualityExpression() {
+			exp->setRight(right);
+			exp->setPosition(right);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlEqualityExpression() : {
+	SQLEqualityExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlAdditiveExpression()
+	[
+		(
+			t="=" {
+				exp = new SQLEqualityExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLEqualityExpression::EQ);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+			|
+			t="<>" {
+				exp = new SQLEqualityExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLEqualityExpression::NOT_EQ);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+			|
+			t="!=" {
+				exp = new SQLEqualityExpression();
+				exp->setLeft(left);
+				exp->setOp(SQLEqualityExpression::NOT_EQ);
+				exp->setPosition(left);
+				exp->setPosition(t);
+				
+				left = exp;
+			}
+		)
+		right=sqlAdditiveExpression() {
+			exp->setRight(right);
+			exp->setPosition(right);
+		}
+	]
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlAdditiveExpression() : {
+	SQLAdditiveExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlMultiplicativeExpression()
+	(
+		(
+			t="+" {
+				if(exp == nullptr){
+					exp = new SQLAdditiveExpression();
+					exp->addOperand(left);
+					exp->setPosition(left);
+					left = exp;
+				}
+				exp->addOpe(SQLAdditiveExpression::ADD);
+				exp->setPosition(t);
+			}
+			|
+			t="-" {
+				if(exp == nullptr){
+					exp = new SQLAdditiveExpression();
+					exp->addOperand(left);
+					exp->setPosition(left);
+					left = exp;
+				}
+				exp->addOpe(SQLAdditiveExpression::SUB);
+				exp->setPosition(t);
+			}
+		)
+		right=sqlMultiplicativeExpression() {
+			exp->addOperand(right);
+			exp->setPosition(right);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlMultiplicativeExpression() : {
+	SqlMultiplicativeExpression* exp = nullptr;
+	Token* t = nullptr;
+	AbstractSQLExpression* left = nullptr;
+	AbstractSQLExpression* right = nullptr;
+}
+{
+	left=sqlPrimitiveExpression()
+	(
+		(
+			t="*" {
+				if(exp == nullptr){
+					exp = new SqlMultiplicativeExpression();
+					exp->addOperand(left);
+					exp->setPosition(left);
+					left = exp;
+				}
+				exp->addOpe(SqlMultiplicativeExpression::MUL);
+				exp->setPosition(t);
+			}
+			|
+			t="/" {
+				if(exp == nullptr){
+					exp = new SqlMultiplicativeExpression();
+					exp->addOperand(left);
+					exp->setPosition(left);
+					left = exp;
+				}
+				exp->addOpe(SqlMultiplicativeExpression::DIV);
+				exp->setPosition(t);
+			}
+			|
+			t="%" {
+				if(exp == nullptr){
+					exp = new SqlMultiplicativeExpression();
+					exp->addOperand(left);
+					exp->setPosition(left);
+					left = exp;
+				}
+				exp->addOpe(SqlMultiplicativeExpression::MOD);
+				exp->setPosition(t);
+			}
+		)
+		right=sqlPrimitiveExpression() {
+			exp->addOperand(right);
+			exp->setPosition(right);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractSQLExpression* sqlPrimitiveExpression() : {
+	AbstractSQLExpression* exp = nullptr;
+}
+{
+	(
+		exp=sqlNullLiteral() |
+		exp=sqlWildCard() |
+		exp=sqlParenthesisExpression() |
+		exp=sqlLiteral() |
+		exp=sqlBooleanLiteral() |
+		LOOKAHEAD(2) exp = sqlFunctionCall() |
+		exp=sqlColumnIdentifier() |
+		exp=sqlPlaceHolder()
+	)
+	{}
+	{
+		return exp;
+	}
+}
+
+SQLNullLiteral* sqlNullLiteral() : {
+	SQLNullLiteral* exp = new SQLNullLiteral();
+	Token* t = nullptr;
+}
+{
+	t=<_NULL> {
+		exp->setPosition(t);
+	}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+SQLWildCard* sqlWildCard() : {
+	SQLWildCard* exp = new SQLWildCard();
+	Token* t = nullptr;
+}
+{
+	t="*" {
+		exp->setPosition(t);
+	}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+SQLFunctionCall* sqlFunctionCall() : {
+	SQLFunctionCall* exp = new SQLFunctionCall();
+	Token* t = nullptr;
+	VariableIdentifier* name = nullptr;
+}
+{
+	name=variableIdentifier() {
+		exp->setName(name);
+		exp->setPosition(name);
+	}
+	t="(" {
+		exp->setPosition(t);
+	}
+	
+	sqlFunctionCallArguments(exp)
+	
+	t=")" {
+		exp->setPosition(t);
+	}
+	
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+void sqlFunctionCallArguments(SQLFunctionCall* exp) : {
+	AbstractSQLExpression* ex = nullptr;
+	Token* t = nullptr;
+}
+{
+	[
+		ex=sqlExpression() {
+			exp->addArgument(ex);
+			exp->setPosition(ex);
+		}
+		
+		(
+			t="," {
+				exp->setPosition(t);
+			}
+			ex=sqlExpression() {
+				exp->addArgument(ex);
+				exp->setPosition(ex);
+			}
+			
+		)*
+	]
+}
+
+SQLPlaceHolder* sqlPlaceHolder() : {
+	SQLPlaceHolder* exp = new SQLPlaceHolder();
+	Token* t = nullptr;
+	AbstractExpression* ex = nullptr;
+}
+{
+	t="$" {
+		exp->setPosition(t);
+	}
+	t="{" {
+		exp->setPosition(t);
+	}
+	
+	ex=expression() {
+		exp->setExpression(ex);
+	}
+	
+	t="}" {
+		exp->setPosition(t);
+	}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+
+SQLParenthesisExpression* sqlParenthesisExpression() : {
+	SQLParenthesisExpression* exp = new SQLParenthesisExpression();
+	Token* t = nullptr;
+	AbstractSQLExpression* ex = nullptr;
+}
+{
+	t="(" {
+		exp->setPosition(t);
+	}
+	
+	ex=sqlExpression() {
+		exp->setExpression(ex);
+		exp->setPosition(ex);
+	}
+
+	t=")" {
+		exp->setPosition(t);
+	}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+SQLLiteral* sqlLiteral() : {
+	SQLLiteral* exp = new SQLLiteral();
+	Token* t = nullptr;
+}
+{
+	(
+		t=<INTEGER_LITERAL> {
+			exp->setValue(_STR(t), SQLLiteral::TYPE_NUMBER);
+			exp->setPosition(t);
+		}
+		|
+		t=<SQL_STRING_LITERAL> {
+			exp->setValue(_STR(t), SQLLiteral::TYPE_STRING);
+			exp->setPosition(t);
+		}
+		|
+		t=<CHARACTER_LITERAL> {
+			exp->setValue(_STR(t), SQLLiteral::TYPE_STRING);
+			exp->setPosition(t);
+		}
+	)
+	{}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+SQLBooleanLiteral* sqlBooleanLiteral() : {
+	SQLBooleanLiteral* exp = new SQLBooleanLiteral();
+	Token* t = nullptr;
+}
+{
+	(
+		t=<TRUE> {
+			exp->setValue(true);
+			exp->setPosition(t);
+		}
+		|
+		t= <FALSE> {
+			exp->setValue(false);
+			exp->setPosition(t);
+		}
+	)
+	{}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+SQLColumnIdentifier* sqlColumnIdentifier() : {
+	SQLColumnIdentifier* exp = new SQLColumnIdentifier();
+	Token* t = nullptr;
+	Token* t1 = nullptr;
+	Token* t2 = nullptr;
+	Token* t3 = nullptr;
+}
+{
+	t1=sqlIdentifierName() {
+		exp->setPosition(t1);
+	}
+	[
+		t="." {
+			exp->setPosition(t);
+		}
+		t2=sqlIdentifierName() {
+			exp->setPosition(t2);
+		}
+		[
+			t="." {
+				exp->setPosition(t);
+			}
+			t3=sqlIdentifierName() {
+				exp->setPosition(t3);
+			}
+		]
+	]
+	{
+		if(t3 != nullptr){
+			exp->setSchema(_STR(t1));
+			exp->setTableName(_STR(t2));
+			exp->setColumnName(_STR(t3));
+		}
+		else if(t2 != nullptr){
+			exp->setTableName(_STR(t1));
+			exp->setColumnName(_STR(t2));
+		}
+		else{
+			exp->setColumnName(_STR(t1));
+		}
+	}
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+Token* sqlIdentifierName() : {
+	Token* t = nullptr;
+}
+{
+	(t=<IDENTIFIER> | t="this" | t="super" | t=<INNER> | t=<OUTER>
+		| t=<FULL> | t=<JOIN> | t=<VALUES> | t=<CROSS> | t=<GROUP>
+		| t=<BY> | t=<HAVING> | t=<ORDER> | t=<ASC> | t=<DESC>
+		| t=<LIMIT> | t=<OFFSET> | t=<ON> | t=<AS> | t=<DISTINCT>
+		| t=<SHARE> | t=<NOWAIT> | t=<OF> | t=<IN> | t=<BETWEEN>
+		| t=<CREATE> | t=<DROP> | t=<TABLE> | t=<SQL_DEFAULT> | t=<ADD>
+		| t=<RENAME> | t=<COLUMN> | t=<TO> | t=<PRIMARY> | t=<KEY>
+		| t=<UNIQUE> | t=<CHECK> | t=<RETURNS> | t=<SETOF> | t=<LANGUAGE>
+		| t=<REPLACE> | t=<INDEX> | t=<USING>
+		| t="public" | t="protected" | t="private" )
+	{
+		return t;
+	}
+}
+
+
+/******************************************************************************************
+* SQL Language Expressions Special Part Starts
+*/
+
+SQLExpressionList* sqlExpressionList() : {
+	SQLExpressionList* exp = new SQLExpressionList();
+	Token* t = nullptr;
+	AbstractSQLExpression* ex = nullptr;
+}
+{
+	ex=sqlExpression() {
+		exp->addExpression(ex);
+		exp->setPosition(ex);
+	}
+	(
+		t="," {
+			exp->setPosition(t);
+		}
+		ex=sqlExpression() {
+			exp->addExpression(ex);
+			exp->setPosition(ex);
+		}
+		
+	)*
+	{}
+	{
+		__ONERROR(exp);
+		return exp;
+	}	
+}
+
+
+/******************************************************************************************
+* SQL Language JOIN Special Part Starts
+*/
+
+AbstractJoinPart* tableList() : {
+	AbstractJoinPart* left = nullptr;
+	TableList* tablelist = nullptr;
+	Token* t = nullptr;
+	TableIdentifier* table = nullptr;
+}
+{
+	left=join()
+	(
+		t="," {
+			if(tablelist == nullptr){
+				tablelist =  new TableList();
+				tablelist->addTable(left);
+				tablelist->setPosition(left);
+				
+				left = tablelist;
+			}
+			
+			tablelist->setPosition(t);
+		}
+		
+		table=tableIdentifier() {
+			tablelist->addTable(table);
+			tablelist->setPosition(table);
+		}
+	)*
+	{}
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+AbstractJoinPart* join() : {
+	AbstractJoinPart* left = nullptr;
+	SQLJoinPart* right = nullptr;
+	SQLJoin* joinBody = nullptr;
+	
+}
+{
+	left=joinTarget()
+	(
+		(
+			right=leftJoin()
+			|
+			right=rightJoin()
+			|
+			right=innerJoin()
+			|
+			right=crossJoin()
+		)
+		{
+			if(joinBody == nullptr){
+				joinBody = new SQLJoin();
+				joinBody->setPosition(left);
+				joinBody->setFirst(left);
+				
+				left = joinBody;
+			}
+			
+			joinBody->addJoinPart(right);
+		}
+	)*
+	
+	{
+		__ONERROR(left);
+		return left;
+	}
+}
+
+SQLJoinPart* innerJoin() : {
+	SQLJoinPart* join = new SQLJoinPart();
+	join->setJoinType(SQLJoinPart::INNER_JOIN);
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+	TableIdentifier* table = nullptr;
+}
+{
+	t=<INNER> {
+		join->setPosition(t);
+	}
+	
+	t=<JOIN> {
+		join->setPosition(t);
+	}
+	table=tableIdentifier() {
+		join->setTable(table);
+		join->setPosition(table);
+	}
+	[
+		t=<ON>  {
+			join->setPosition(t);
+		}
+		exp=sqlExpression() {
+			join->setExpression(exp);
+			join->setPosition(exp);
+		}
+	]
+	{}	
+	{
+		__ONERROR(join);
+		return join;
+	}
+}
+
+
+SQLJoinPart* leftJoin() : {
+	SQLJoinPart* join = new SQLJoinPart();
+	join->setJoinType(SQLJoinPart::LEFT_OUTER_JOIN);
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+	AbstractJoinPart* table = nullptr;
+}
+{
+	t=<LEFT> {
+		join->setPosition(t);
+	}
+	[
+		t=<OUTER> {
+			join->setPosition(t);
+		}
+	]
+	t=<JOIN> {
+		join->setPosition(t);
+	}
+	table=joinTarget() {
+		join->setTable(table);
+		join->setPosition(table);
+	}
+	[
+		t=<ON>  {
+			join->setPosition(t);
+		}
+		exp=sqlExpression() {
+			join->setExpression(exp);
+			join->setPosition(exp);
+		}
+	]
+	{}
+	{
+		__ONERROR(join);
+		return join;
+	}
+}
+
+SQLJoinPart* rightJoin() : {
+	SQLJoinPart* join = new SQLJoinPart();
+	join->setJoinType(SQLJoinPart::RIGHT_OUTER_JOIN);
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+	AbstractJoinPart* table = nullptr;
+}
+{
+	t=<RIGHT> {
+		join->setPosition(t);
+	}
+	[
+		t=<OUTER> {
+			join->setPosition(t);
+		}
+	]
+	t=<JOIN> {
+		join->setPosition(t);
+	}
+	table=joinTarget() {
+		join->setTable(table);
+		join->setPosition(table);
+	}
+	[
+		t=<ON>  {
+			join->setPosition(t);
+		}
+		exp=sqlExpression() {
+			join->setExpression(exp);
+			join->setPosition(exp);
+		}
+	]
+	{}
+	{
+		__ONERROR(join);
+		return join;
+	}
+}
+
+SQLJoinPart* crossJoin() : {
+	SQLJoinPart* join = new SQLJoinPart();
+	join->setJoinType(SQLJoinPart::CROSS_JOIN);
+	Token* t = nullptr;
+	AbstractSQLExpression* exp = nullptr;
+	AbstractJoinPart* table = nullptr;
+}
+{
+	t=<CROSS>  {
+		join->setPosition(t);
+	}
+	t=<JOIN>  {
+		join->setPosition(t);
+	}
+	table=joinTarget() {
+		join->setTable(table);
+		join->setPosition(table);
+	}
+	[
+		t=<ON>  {
+			join->setPosition(t);
+		}
+		exp=sqlExpression() {
+			join->setExpression(exp);
+			join->setPosition(exp);
+		}
+	]
+	{}
+
+	{
+		__ONERROR(join);
+		return join;
+	}
+}
+
+
+AbstractJoinPart* joinTarget() : {
+	AbstractJoinPart* target = nullptr;
+}
+{
+	(
+		target=tableIdentifier()
+		|
+		target=parenthesisJoinPart()
+	)
+	{}
+	{
+		return target;
+	}
+}
+
+ParenthesisJoinPart* parenthesisJoinPart() : {
+	ParenthesisJoinPart* part = new ParenthesisJoinPart();
+	Token* t = nullptr;
+	AbstractJoinPart* target = nullptr;
+}
+{
+	t="(" {
+		part->setPosition(t);
+	}
+	
+	target=join() {
+		part->setPart(target);
+		part->setPosition(target);
+	}
+	
+	t=")" {
+		part->setPosition(t);
+	}
+	{
+		__ONERROR(part);
+		return part;
+	}
+}
+
+TableIdentifier* tableIdentifier() : {
+	TableIdentifier* exp = new TableIdentifier();
+	Token* t = nullptr;
+	Token* t1 = nullptr;
+	Token* t2 = nullptr;
+}
+{
+	t1=sqlIdentifierName() {
+		exp->setPosition(t1);
+	}
+	[
+		t="." {
+			exp->setPosition(t);
+		}
+		t2=sqlIdentifierName() {
+			exp->setPosition(t2);
+		}
+	]
+	{
+		if(t2 != nullptr){
+			exp->setSchema(_STR(t1));
+			exp->setTableName(_STR(t2));
+		}
+		else{
+			exp->setTableName(_STR(t1));
+		}
+	}
+	[
+		t=<AS> {
+			exp->setPosition(t);
+		}
+		t=sqlIdentifierName() {
+			exp->setPosition(t);
+			exp->setAlias(_STR(t));
+		}
+	]
+	
+	{
+		__ONERROR(exp);
+		return exp;
+	}
+}
+
+/******************************************************************************************
+* JSON INIT statement start
+*/
+
+AbstractJsonExpression* jsonElement() : {
+	AbstractJsonExpression* jsonExp = nullptr;
+}
+{
+	(
+		jsonExp=jsonInitializerExpression()
+		|
+		jsonExp=jsonArrayExpression()
+		|
+		jsonExp=jsonKeyValuePair()
+		
+	)
+	{
+		 __ONERROR(jsonExp);
+		return jsonExp;
+	}
+}
+
+JsonInitializerExpression* jsonInitializerExpression() :
+{
+	JsonInitializerExpression* jsonExp = new JsonInitializerExpression();
+	Token* t = nullptr;
+	JsonKeyValuePairExpression* element = nullptr;
+}
+{
+	t="{" {
+		jsonExp->setPosition(t);
+	}
+	
+	[
+		element=jsonKeyValuePair() {
+			jsonExp->setPosition(element);
+			jsonExp->addElement(element);
+		}
+		(
+			t="," {
+				jsonExp->setPosition(t);
+			}
+			element=jsonKeyValuePair() {
+				jsonExp->setPosition(element);
+				jsonExp->addElement(element);
+			}
+		)*
+	]
+	t="}" {
+		jsonExp->setPosition(t);
+	}
+	{
+		 __ONERROR(jsonExp);
+		return jsonExp;
+	}
+}
+
+JsonArrayExpression* jsonArrayExpression() :
+{
+	JsonArrayExpression* jsonExp = new JsonArrayExpression();
+	AbstractJsonExpression* element = nullptr;
+	Token* t = nullptr;
+	
+	AbstractExpression* exp = nullptr;
+}
+{
+	t="[" {
+		jsonExp->setPosition(t);
+	}
+	
+	[
+		exp=expression() {
+			jsonExp->setPosition(exp);
+			jsonExp->addElement(exp);
+		}
+		(
+			t="," {
+				jsonExp->setPosition(t);
+			}
+			exp=expression() {
+				jsonExp->setPosition(exp);
+				jsonExp->addElement(exp);
+			}
+		)*
+	]
+	
+	t="]" {
+		jsonExp->setPosition(t);
+	}
+	{
+		 __ONERROR(jsonExp);
+		return jsonExp;
+	}
+}
+
+JsonKeyValuePairExpression* jsonKeyValuePair() :
+{
+	JsonKeyValuePairExpression* pair = new JsonKeyValuePairExpression();
+	Token* t = nullptr;
+	AbstractExpression* exp = nullptr;
+	LiteralExpression* lit = nullptr;
+	AbstractJsonExpression* jsonExp = nullptr;
+}
+{
+	(
+		lit=literalExpression() {
+			pair->setPosition(lit);
+			pair->setName(lit);
+		}
+		|
+		t=<IDENTIFIER>{
+			pair->setPosition(t);
+			pair->setName(_STR(t));
+		}
+	)
+	t=":" {
+		pair->setPosition(t);
+	}
+	(LOOKAHEAD(2)
+		exp=expression() {
+			pair->setPosition(exp);
+			pair->setValue(exp);
+		}
+		|
+		jsonExp=jsonElement() {
+			pair->setPosition(jsonExp);
+			pair->setValue(jsonExp);
+		}
+	)
+	{
+		 __ONERROR(pair);
+		return pair;
+	}
+}

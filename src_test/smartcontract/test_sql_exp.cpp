@@ -7,18 +7,18 @@
 
 
 #include "test_utils/t_macros.h"
-#include "compiler/SmartContractParser.h"
-#include "sc_statement/AbstractStatement.h"
+#include "engine/compiler/SmartContractParser.h"
+#include "lang/sc_statement/AbstractStatement.h"
 
 #include "base/StackRelease.h"
 #include "alinous_lang/AlinousLang.h"
-#include "sql_expression/SQLWildCard.h"
+#include "lang_sql/sql_expression/SQLWildCard.h"
 
-#include "sql_expression/SQLNullLiteral.h"
+#include "lang_sql/sql_expression/SQLNullLiteral.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
 static bool checkBinary(ByteBuffer* buff){
 	int lastSize = buff->capacity();
 

@@ -11,14 +11,16 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "table_record_local/LocalOidFactory.h"
-#include "table_record_local/LocalCdbOid.h"
+#include "schema_table/table_record_local/LocalOidFactory.h"
+#include "schema_table/table_record_local/LocalCdbOid.h"
+#include "schema_table/table_record_value/VmInstanceValueConverter.h"
 
 #include "base_io/ByteBuffer.h"
 
 #include "engine/CdbException.h"
 
-#include "table_record_key/CdbOidKey.h"
+#include "schema_table/table_record_key/CdbOidKey.h"
+
 
 TEST_GROUP(TestLocalOidGroup) {
 	TEST_SETUP() {

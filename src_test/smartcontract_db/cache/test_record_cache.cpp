@@ -14,18 +14,18 @@
 
 #include "random_access_file/DiskCacheManager.h"
 
-#include "transaction_cache/CdbSwapCacheFactory.h"
-#include "transaction_cache/SingleKeyOidCache.h"
-#include "transaction_cache/OidKeyRecordCache.h"
+#include "trx/transaction_cache/CdbSwapCacheFactory.h"
+#include "trx/transaction_cache/SingleKeyOidCache.h"
+#include "trx/transaction_cache/OidKeyRecordCache.h"
 
 #include "btreekey/ULongKey.h"
 
 #include "engine/CdbOid.h"
 #include "engine/CdbException.h"
 
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbRecord.h"
 
-#include "table_record_key/CdbOidKey.h"
+#include "schema_table/table_record_key/CdbOidKey.h"
 
 
 TEST_GROUP(TestRecordCacheGroup) {

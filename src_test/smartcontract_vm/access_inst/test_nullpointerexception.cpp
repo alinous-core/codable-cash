@@ -8,7 +8,7 @@
 #include "test_utils/t_macros.h"
 
 #include "vm/VirtualMachine.h"
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 
 #include "base_io_stream/FileInputStream.h"
 
@@ -18,7 +18,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance/instance_exception/NullPointerExceptionClassDeclare.h"
 using namespace alinous;
 
 
