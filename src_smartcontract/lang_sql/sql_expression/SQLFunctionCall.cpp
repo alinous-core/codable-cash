@@ -12,7 +12,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_select/scan_condition_exp/FunctionCallScanCondition.h"
+#include "scan_select/scan_condition/exp/FunctionCallScanCondition.h"
 
 #include "scan_select/scan_condition/ScanConditionCast.h"
 

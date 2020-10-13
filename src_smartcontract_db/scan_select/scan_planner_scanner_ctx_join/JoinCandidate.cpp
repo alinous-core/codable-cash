@@ -9,7 +9,7 @@
 
 #include "scan_select/scan_table/AbstractScanTableTarget.h"
 
-#include "scan_select/scan_condition_params/ColumnIdentifierScanParam.h"
+#include "scan_select/scan_condition/params/ColumnIdentifierScanParam.h"
 
 #include "scan_select/scan_planner_scanner_ctx_join/JoinOrCandidate.h"
 #include "scan_select/scan_planner_scanner_ctx_join/JoinMultipleCandidate.h"

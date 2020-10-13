@@ -12,7 +12,7 @@
 
 #include "lang_sql/sql/AbstractSQLExpression.h"
 
-#include "scan_select/scan_condition_params/AbstractScanConditionParameter.h"
+#include "scan_select/scan_condition/params/AbstractScanConditionParameter.h"
 
 
 namespace codablecash {

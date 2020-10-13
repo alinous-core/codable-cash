@@ -12,7 +12,7 @@
 #include "scan_select/scan_planner/SelectScanPlanner.h"
 #include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
 
-#include "scan_select/scan_condition_arithmetic/MultiplicativeScanCondition.h"
+#include "scan_select/scan_condition/arithmetic/MultiplicativeScanCondition.h"
 #include "scan_select/scan_condition/AbstractScanConditionElement.h"
 #include "scan_select/scan_condition/IValueProvider.h"
 #include "scan_select/scan_condition/ScanConditionCast.h"

@@ -17,7 +17,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_select/scan_condition_params/WildCardScanParam.h"
+#include "scan_select/scan_condition/params/WildCardScanParam.h"
 
 using codablecash::AllScanColumns;
 using codablecash::ScanColumnHolder;

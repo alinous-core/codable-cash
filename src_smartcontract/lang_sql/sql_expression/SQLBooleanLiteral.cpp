@@ -14,7 +14,7 @@
 #include "scan_select/scan_planner/SelectScanPlanner.h"
 #include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
 
-#include "scan_select/scan_condition_params/BooleanScanParam.h"
+#include "scan_select/scan_condition/params/BooleanScanParam.h"
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 

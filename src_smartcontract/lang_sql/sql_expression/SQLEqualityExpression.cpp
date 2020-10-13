@@ -15,7 +15,7 @@
 #include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
 
 #include "scan_select/scan_condition/AbstractScanCondition.h"
-#include "scan_select/scan_condition_exp/EqualityScanCondition.h"
+#include "scan_select/scan_condition/exp/EqualityScanCondition.h"
 
 #include "scan_select/scan_condition/IValueProvider.h"
 

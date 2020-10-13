@@ -12,7 +12,7 @@
 #include "scan_select/scan_planner/SelectScanPlanner.h"
 #include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
 
-#include "scan_select/scan_condition_exp/ParenthesisScanCondition.h"
+#include "scan_select/scan_condition/exp/ParenthesisScanCondition.h"
 
 #include "vm/VirtualMachine.h"
 

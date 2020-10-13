@@ -15,7 +15,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_select/scan_condition_params/PlaceHolderScanCondition.h"
+#include "scan_select/scan_condition/params/PlaceHolderScanCondition.h"
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 

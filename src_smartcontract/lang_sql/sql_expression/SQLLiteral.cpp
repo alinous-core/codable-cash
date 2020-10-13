@@ -18,9 +18,9 @@
 
 #include "base/StackRelease.h"
 
-#include "scan_select/scan_condition_params/AbstractScanConditionParameter.h"
-#include "scan_select/scan_condition_params/NumericScanParam.h"
-#include "scan_select/scan_condition_params/StringScanParam.h"
+#include "scan_select/scan_condition/params/AbstractScanConditionParameter.h"
+#include "scan_select/scan_condition/params/NumericScanParam.h"
+#include "scan_select/scan_condition/params/StringScanParam.h"
 
 #include "scan_select/scan_planner/SelectScanPlanner.h"
 #include "scan_select/scan_planner/ConditionsHolderStackMarker.h"

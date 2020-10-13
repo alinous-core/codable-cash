@@ -11,7 +11,7 @@
 
 #include "instance/instance_ref/PrimitiveReference.h"
 
-#include "scan_select/scan_condition_exp/IsNullScanCondition.h"
+#include "scan_select/scan_condition/exp/IsNullScanCondition.h"
 
 #include "scan_select/scan_condition/ScanConditionCast.h"
 

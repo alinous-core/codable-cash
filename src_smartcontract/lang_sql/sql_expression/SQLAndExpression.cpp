@@ -9,7 +9,7 @@
 
 #include "engine/sc_analyze/AnalyzedType.h"
 
-#include "scan_select/scan_condition_logical/AndScanCondition.h"
+#include "scan_select/scan_condition/logical/AndScanCondition.h"
 
 #include "scan_select/scan_planner/SelectScanPlanner.h"
 #include "scan_select/scan_planner/ConditionsHolderStackMarker.h"

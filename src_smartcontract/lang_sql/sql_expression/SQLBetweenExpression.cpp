@@ -9,7 +9,7 @@
 
 #include "engine/sc_analyze/AnalyzedType.h"
 
-#include "scan_select/scan_condition_exp/BetweenScanCondition.h"
+#include "scan_select/scan_condition/exp/BetweenScanCondition.h"
 
 #include "vm/VirtualMachine.h"
 

@@ -14,7 +14,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_select/scan_condition_arithmetic/AdditiveScanCondition.h"
+#include "scan_select/scan_condition/arithmetic/AdditiveScanCondition.h"
 
 #include "scan_select/scan_condition/AbstractScanConditionElement.h"
 #include "scan_select/scan_condition/ScanConditionCast.h"

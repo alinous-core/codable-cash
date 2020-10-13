@@ -20,7 +20,7 @@
 #include "scan_select/scan_planner/SelectScanPlanner.h"
 #include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
 
-#include "scan_select/scan_condition_logical/NotScanCondition.h"
+#include "scan_select/scan_condition/logical/NotScanCondition.h"
 
 #include "scan_select/scan_condition/ScanConditionCast.h"
 

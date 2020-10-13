@@ -1,0 +1,175 @@
+/*
+ * AndScanCondition.cpp
+ *
+ *  Created on: 2020/07/30
+ *      Author: iizuka
+ */
+
+#include "scan_select/scan_condition/logical/AndScanCondition.h"
+
+#include "engine/sc/CodeElement.h"
+
+#include "base/UnicodeString.h"
+
+#include "scan_select/scan_planner_scanner_ctx/FilterConditionDitector.h"
+
+#include "scan_select/scan_condition/AbstractScanCondition.h"
+
+#include "scan_select/scan_planner_scanner_ctx_join/JoinCandidateStackMarker.h"
+#include "scan_select/scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
+#include "scan_select/scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
+
+#include "scan_select/scan_planner_scanner_ctx_join/JoinMultipleCandidate.h"
+#include "scan_select/scan_planner_scanner_ctx/FilterConditionStackMarker.h"
+
+using namespace alinous;
+
+namespace codablecash {
+
+AndScanCondition::AndScanCondition() : AbstractScanCondition(CodeElement::SQL_EXP_AND) {
+	this->str = nullptr;
+}
+
+AndScanCondition::~AndScanCondition() {
+	this->list.deleteElements();
+	resetStr();
+}
+
+void AndScanCondition::addCondition(AbstractScanCondition* cond) {
+	this->list.addElement(cond);
+	resetStr();
+}
+
+const UnicodeString* AndScanCondition::toStringCode() noexcept {
+	if(this->str == nullptr){
+		resetStr();
+
+		this->str = new UnicodeString(L"");
+
+		int maxLoop = this->list.size();
+		for(int i = 0; i != maxLoop; ++i){
+			AbstractScanCondition* cond = this->list.get(i);
+
+			if(i != 0){
+				this->str->append(L" AND ");
+			}
+
+			this->str->append(cond->toStringCode());
+		}
+	}
+
+	return this->str;
+}
+
+AbstractScanCondition* AndScanCondition::cloneCondition() const noexcept {
+	AndScanCondition* cond = new AndScanCondition();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cnd = this->list.get(i);
+
+		cond->addCondition(cnd->cloneCondition());
+	}
+
+	return cond;
+}
+
+void AndScanCondition::detectFilterConditions(VirtualMachine* vm,
+		SelectScanPlanner* planner, FilterConditionDitector* detector) {
+	FilterConditionStackMarker marker(detector->getStack());
+
+	ArrayList<AbstractScanCondition> scanList;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cnd = this->list.get(i);
+
+		cnd->detectFilterConditions(vm, planner, detector);
+		if(!detector->isEmpty()){
+			scanList.addElement(detector->pop());
+		}
+	}
+
+	maxLoop = scanList.size();
+	if(maxLoop > 1){
+		AndScanCondition* newAnd = new AndScanCondition();
+		for(int i = 0; i != maxLoop; ++i){
+			AbstractScanCondition* cnd = scanList.get(i);
+
+			newAnd->addCondition(cnd);
+		}
+
+		detector->push(newAnd);
+	}
+	else if(maxLoop == 1){
+		detector->push(scanList.get(0));
+	}
+}
+
+void AndScanCondition::detectIndexCondition(VirtualMachine* vm,	SelectScanPlanner* planner, TableIndexDetector* detector) {
+	// FIXME detectIndexCondition
+}
+
+void AndScanCondition::resetStr() noexcept {
+	if(this->str != nullptr){
+		delete this->str;
+		this->str = nullptr;
+	}
+}
+
+void AndScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPlanner* planner) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cond = this->list.get(i);
+
+		cond->analyzeConditions(vm, planner);
+	}
+}
+
+void AndScanCondition::collectJoinCandidate(VirtualMachine* vm,
+		SelectScanPlanner* planner, int joinType,
+		JoinCandidateHolder* jholder) {
+
+	JoinCandidateStackMarker marker(jholder->getStack());
+
+	ArrayList<AbstractJoinCandidate> operandList;
+	operandList.setDeleteOnExit();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cond = this->list.get(i);
+
+		cond->collectJoinCandidate(vm, planner, joinType, jholder);
+		if(!jholder->isEmpty()){
+			AbstractJoinCandidate* c = jholder->pop();
+
+			operandList.addElement(c);
+		}
+	}
+
+	int listSize = operandList.size();
+	if(listSize > 0){
+		if(listSize == 1){
+			const AbstractJoinCandidate* c = operandList.get(0);
+			jholder->push(c->copy());
+		}
+		else{
+			AbstractJoinCandidate* multi = new JoinMultipleCandidate(joinType);
+
+			for(int i = 0; i != listSize; ++i){
+				AbstractJoinCandidate* c = operandList.get(i);
+
+				AbstractJoinCandidate* newmulti = multi->multiply(c);
+
+				delete multi;
+				multi = newmulti;
+			}
+
+			jholder->push(multi);
+		}
+
+	}
+}
+
+
+} /* namespace codablecash */

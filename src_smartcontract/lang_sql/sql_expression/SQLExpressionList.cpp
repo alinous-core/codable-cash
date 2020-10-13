@@ -11,7 +11,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_select/scan_condition_exp/ExpressionListScanCondition.h"
+#include "scan_select/scan_condition/exp/ExpressionListScanCondition.h"
 #include "scan_select/scan_condition/IValueProvider.h"
 
 #include "scan_select/scan_planner/SelectScanPlanner.h"

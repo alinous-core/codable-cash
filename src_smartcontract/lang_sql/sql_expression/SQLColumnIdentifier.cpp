@@ -14,7 +14,7 @@
 #include "scan_select/scan_planner/SelectScanPlanner.h"
 #include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
 
-#include "scan_select/scan_condition_params/ColumnIdentifierScanParam.h"
+#include "scan_select/scan_condition/params/ColumnIdentifierScanParam.h"
 
 #include "vm/VirtualMachine.h"
 
