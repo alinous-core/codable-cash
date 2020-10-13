@@ -8,7 +8,7 @@
 #ifndef SCAN_PLANNER_SCANNER_CTX_JOINMUNTIPLECANDIDATE_H_
 #define SCAN_PLANNER_SCANNER_CTX_JOINMUNTIPLECANDIDATE_H_
 
-#include "scan_select/scan_planner_scanner_ctx_join/AbstractJoinCandidateCollection.h"
+#include "scan_select/scan_planner/scanner/join/AbstractJoinCandidateCollection.h"
 
 #include "base/ArrayList.h"
 

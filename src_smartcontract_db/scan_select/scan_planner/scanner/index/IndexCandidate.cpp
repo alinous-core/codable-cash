@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_planner_scanner_ctx_index/IndexCandidate.h"
-#include "scan_select/scan_planner_scanner_ctx_index/OrIndexCandidate.h"
-#include "scan_select/scan_planner_scanner_ctx_index/MultipleIndexCandidate.h"
+#include "scan_select/scan_planner/scanner/index/IndexCandidate.h"
+#include "scan_select/scan_planner/scanner/index/OrIndexCandidate.h"
+#include "scan_select/scan_planner/scanner/index/MultipleIndexCandidate.h"
 
 namespace codablecash {
 

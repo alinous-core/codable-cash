@@ -8,7 +8,7 @@
 #ifndef SCAN_PLANNER_SCANNER_CTX_INDEX_ABSTRACTINDEXCANDIDATECOLLECTION_H_
 #define SCAN_PLANNER_SCANNER_CTX_INDEX_ABSTRACTINDEXCANDIDATECOLLECTION_H_
 
-#include "scan_select/scan_planner_scanner_ctx_index/AbstractIndexCandidate.h"
+#include "scan_select/scan_planner/scanner/index/AbstractIndexCandidate.h"
 
 namespace codablecash {
 

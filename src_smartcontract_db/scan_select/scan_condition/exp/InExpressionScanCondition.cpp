@@ -15,8 +15,8 @@
 
 #include "scan_select/scan_condition/exp/ExpressionListScanCondition.h"
 
-#include "scan_select/scan_planner_scanner_ctx/FilterConditionDitector.h"
-#include "scan_select/scan_planner_scanner_ctx/FilterConditionStackMarker.h"
+#include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
+#include "scan_select/scan_planner/scanner/ctx/FilterConditionStackMarker.h"
 
 namespace codablecash {
 

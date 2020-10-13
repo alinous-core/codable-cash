@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_planner_scanner_ctx_index/TableIndexDetector.h"
-#include "scan_select/scan_planner_scanner_ctx_index/TableIndexDetectorStack.h"
+#include "scan_select/scan_planner/scanner/index/TableIndexDetector.h"
+#include "scan_select/scan_planner/scanner/index/TableIndexDetectorStack.h"
 
 #include "scan_select/scan_condition/AbstractScanCondition.h"
 

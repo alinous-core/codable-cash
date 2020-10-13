@@ -8,7 +8,7 @@
 #ifndef SCAN_PLANNER_SCANNER_CTX_INDEX_MULTIPLEINDEXCANDIDATE_H_
 #define SCAN_PLANNER_SCANNER_CTX_INDEX_MULTIPLEINDEXCANDIDATE_H_
 
-#include "scan_select/scan_planner_scanner_ctx_index/AbstractIndexCandidateCollection.h"
+#include "scan_select/scan_planner/scanner/index/AbstractIndexCandidateCollection.h"
 
 #include "base/ArrayList.h"
 

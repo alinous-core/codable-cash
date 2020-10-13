@@ -8,7 +8,7 @@
 #ifndef SCAN_PLANNER_SCANNER_CTX_JOINBRANCHCANDIDATE_H_
 #define SCAN_PLANNER_SCANNER_CTX_JOINBRANCHCANDIDATE_H_
 
-#include "scan_select/scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
+#include "scan_select/scan_planner/scanner/join/AbstractJoinCandidate.h"
 
 #include "base/ArrayList.h"
 

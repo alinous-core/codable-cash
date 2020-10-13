@@ -15,18 +15,18 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_select/scan_planner_scanner_ctx/ScanJoinContextHolder.h"
+#include "scan_select/scan_planner/scanner/ctx/ScanJoinContextHolder.h"
 
-#include "scan_select/scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
-#include "scan_select/scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
+#include "scan_select/scan_planner/scanner/join/AbstractJoinCandidate.h"
+#include "scan_select/scan_planner/scanner/join/JoinCandidateHolder.h"
 
 #include "scan_select/scan_condition/AbstractScanCondition.h"
 #include "scan_select/scan_condition/RootScanCondition.h"
 
-#include "scan_select/scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
 
-#include "scan_select/scan_planner_scanner/InnerJoinScannerFactory.h"
-#include "scan_select/scan_planner_scanner/LeftJoinScannerFactory.h"
+#include "scan_select/scan_planner/scanner/factory/InnerJoinScannerFactory.h"
+#include "scan_select/scan_planner/scanner/factory/LeftJoinScannerFactory.h"
 
 namespace codablecash {
 

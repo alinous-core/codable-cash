@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_planner_analyze/ScanTargetNameResolver.h"
+#include "scan_select/scan_planner/analyze/ScanTargetNameResolver.h"
 
 #include "base/UnicodeString.h"
 

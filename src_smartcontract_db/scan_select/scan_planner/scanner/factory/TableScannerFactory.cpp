@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_planner_scanner/TableScannerFactory.h"
+#include "scan_select/scan_planner/scanner/factory/TableScannerFactory.h"
 
 namespace codablecash {
 

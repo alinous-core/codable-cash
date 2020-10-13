@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_planner_scanner_ctx_index/TableIndexDetectorStackMarker.h"
-#include "scan_select/scan_planner_scanner_ctx_index/TableIndexDetectorStack.h"
+#include "scan_select/scan_planner/scanner/index/TableIndexDetectorStackMarker.h"
+#include "scan_select/scan_planner/scanner/index/TableIndexDetectorStack.h"
 
 namespace codablecash {
 

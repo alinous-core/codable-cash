@@ -23,12 +23,12 @@
 
 #include "schema_table/schema/SchemaManager.h"
 
-#include "scan_select/scan_planner_analyze/AnalyzedScanPlan.h"
-#include "scan_select/scan_planner_analyze/ScanTargetNameResolver.h"
+#include "scan_select/scan_planner/analyze/AnalyzedScanPlan.h"
+#include "scan_select/scan_planner/analyze/ScanTargetNameResolver.h"
 
 #include "scan_select/scan_table/AbstractScanTableTarget.h"
 
-#include "scan_select/scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
 
 namespace codablecash {
 

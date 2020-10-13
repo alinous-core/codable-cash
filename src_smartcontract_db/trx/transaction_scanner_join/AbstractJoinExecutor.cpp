@@ -10,7 +10,7 @@
 #include "trx/transaction_scanner_join/IJoinLeftSource.h"
 #include "trx/transaction_scanner_join/IJoinRightSource.h"
 
-#include "scan_select/scan_planner_scanner_ctx/ScanJoinContext.h"
+#include "scan_select/scan_planner/scanner/ctx/ScanJoinContext.h"
 
 #include "trx/transaction_scan_result/ScanResultFieldMetadata.h"
 

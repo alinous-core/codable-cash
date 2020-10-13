@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_planner_analyze/ScanColumnNameResolver.h"
+#include "scan_select/scan_planner/analyze/ScanColumnNameResolver.h"
 
 namespace codablecash {
 

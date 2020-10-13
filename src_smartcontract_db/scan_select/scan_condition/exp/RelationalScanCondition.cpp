@@ -17,8 +17,8 @@
 
 #include "lang_sql/sql_expression/SQLRelationalExpression.h"
 
-#include "scan_select/scan_planner_scanner_ctx/FilterConditionDitector.h"
-#include "scan_select/scan_planner_scanner_ctx/FilterConditionStackMarker.h"
+#include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
+#include "scan_select/scan_planner/scanner/ctx/FilterConditionStackMarker.h"
 
 using namespace alinous;
 

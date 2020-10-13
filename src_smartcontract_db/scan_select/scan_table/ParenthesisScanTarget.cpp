@@ -9,8 +9,8 @@
 
 #include "base/UnicodeString.h"
 
-#include "scan_select/scan_planner_analyze/AnalyzedScanPlan.h"
-#include "scan_select/scan_planner_analyze/ScanTargetNameResolver.h"
+#include "scan_select/scan_planner/analyze/AnalyzedScanPlan.h"
+#include "scan_select/scan_planner/analyze/ScanTargetNameResolver.h"
 
 namespace codablecash {
 

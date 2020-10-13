@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
-#include "scan_select/scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
-#include "scan_select/scan_planner_scanner_ctx_join/JoinCandidate.h"
-#include "scan_select/scan_planner_scanner_ctx_join/JoinCandidateStack.h"
+#include "scan_select/scan_planner/scanner/join/JoinCandidateHolder.h"
+#include "scan_select/scan_planner/scanner/join/AbstractJoinCandidate.h"
+#include "scan_select/scan_planner/scanner/join/JoinCandidate.h"
+#include "scan_select/scan_planner/scanner/join/JoinCandidateStack.h"
 
 #include "scan_select/scan_table/AbstractScanTableTarget.h"
 

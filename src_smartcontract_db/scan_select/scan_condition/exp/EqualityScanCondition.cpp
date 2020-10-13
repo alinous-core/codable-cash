@@ -16,14 +16,14 @@
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
-#include "scan_select/scan_planner_scanner_ctx_join/JoinCandidate.h"
-#include "scan_select/scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
-#include "scan_select/scan_planner_scanner_ctx_join/JoinCandidateStackMarker.h"
+#include "scan_select/scan_planner/scanner/join/JoinCandidate.h"
+#include "scan_select/scan_planner/scanner/join/JoinCandidateHolder.h"
+#include "scan_select/scan_planner/scanner/join/JoinCandidateStackMarker.h"
 
 #include "scan_select/scan_condition/params/ColumnIdentifierScanParam.h"
 
-#include "scan_select/scan_planner_scanner_ctx/FilterConditionDitector.h"
-#include "scan_select/scan_planner_scanner_ctx/FilterConditionStackMarker.h"
+#include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
+#include "scan_select/scan_planner/scanner/ctx/FilterConditionStackMarker.h"
 
 using namespace alinous;
 

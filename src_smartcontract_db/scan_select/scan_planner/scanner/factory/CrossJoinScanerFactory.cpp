@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_planner_scanner/CrossJoinScanerFactory.h"
+#include "scan_select/scan_planner/scanner/factory/CrossJoinScanerFactory.h"
 
 namespace codablecash {
 

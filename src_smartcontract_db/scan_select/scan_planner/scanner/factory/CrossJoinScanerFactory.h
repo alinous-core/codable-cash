@@ -8,7 +8,7 @@
 #ifndef SCAN_PLANNER_SCANNER_CROSSJOINSCANERFACTORY_H_
 #define SCAN_PLANNER_SCANNER_CROSSJOINSCANERFACTORY_H_
 
-#include "scan_select/scan_planner_scanner/AbstractJoinScannerFactory.h"
+#include "scan_select/scan_planner/scanner/factory/AbstractJoinScannerFactory.h"
 
 namespace codablecash {
 

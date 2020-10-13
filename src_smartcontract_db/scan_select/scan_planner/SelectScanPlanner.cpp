@@ -12,7 +12,7 @@
 #include "scan_select/scan_planner/TablesHolder.h"
 #include "scan_select/scan_planner/ConditionsHolderStack.h"
 
-#include "scan_select/scan_planner_analyze/AnalyzedScanPlan.h"
+#include "scan_select/scan_planner/analyze/AnalyzedScanPlan.h"
 
 #include "scan_select/scan_condition/AbstractScanCondition.h"
 

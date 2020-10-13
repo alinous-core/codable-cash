@@ -8,7 +8,7 @@
 #ifndef SCAN_PLANNER_SCANNER_CTX_JOIN_ABSTRACTJOINCANDIDATECOLLECTION_H_
 #define SCAN_PLANNER_SCANNER_CTX_JOIN_ABSTRACTJOINCANDIDATECOLLECTION_H_
 
-#include "scan_select/scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
+#include "scan_select/scan_planner/scanner/join/AbstractJoinCandidate.h"
 
 namespace codablecash {
 

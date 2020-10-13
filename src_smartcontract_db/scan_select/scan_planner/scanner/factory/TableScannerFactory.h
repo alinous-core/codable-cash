@@ -8,7 +8,7 @@
 #ifndef SCAN_PLANNER_SCANNER_TABLESCANNERFACTORY_H_
 #define SCAN_PLANNER_SCANNER_TABLESCANNERFACTORY_H_
 
-#include "scan_select/scan_planner_scanner/AbstractScannerFactory.h"
+#include "scan_select/scan_planner/scanner/factory/AbstractScannerFactory.h"
 
 namespace codablecash {
 

@@ -14,7 +14,7 @@
 
 #include "scan_select/scan_planner/SelectScanPlanner.h"
 
-#include "scan_select/scan_planner_analyze/AnalyzedScanPlan.h"
+#include "scan_select/scan_planner/analyze/AnalyzedScanPlan.h"
 
 
 namespace codablecash {
