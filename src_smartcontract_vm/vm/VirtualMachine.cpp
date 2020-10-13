@@ -8,7 +8,7 @@
 #include "vm/VirtualMachine.h"
 #include "engine/sc/SmartContract.h"
 
-#include "memory/VmMemoryManager.h"
+#include "vm/memory/VmMemoryManager.h"
 #include "instance_parts/VmMalloc.h"
 #include "instance_gc/GcManager.h"
 
@@ -18,8 +18,8 @@
 #include "instance_ref/AbstractReference.h"
 #include "instance_ref/ObjectReference.h"
 
-#include "stack/VmStackManager.h"
-#include "stack/VmStack.h"
+#include "vm/stack/VmStackManager.h"
+#include "vm/stack/VmStack.h"
 
 #include "instance_ref/VmRootReference.h"
 
@@ -31,7 +31,7 @@
 #include "engine/sc_analyze_functions/VTableMethodEntry.h"
 #include "engine/sc_analyze_functions/MethodScore.h"
 
-#include "variable_access/FunctionArguments.h"
+#include "vm/variable_access/FunctionArguments.h"
 
 #include "engine/sc_analyze/AnalyzedClass.h"
 #include "engine/sc_analyze/AnalyzeContext.h"
@@ -46,10 +46,10 @@
 
 #include "vm/exceptions.h"
 
-#include "stack/StackPopper.h"
+#include "vm/stack/StackPopper.h"
 
-#include "vm_ctrl/ExecControlManager.h"
-#include "vm_ctrl/ExceptionControl.h"
+#include "vm/vm_ctrl/ExecControlManager.h"
+#include "vm/vm_ctrl/ExceptionControl.h"
 
 #include "base/Exception.h"
 
@@ -61,7 +61,7 @@
 
 #include "engine/CodableDatabase.h"
 
-#include "vm_trx/VmTransactionHandler.h"
+#include "vm/vm_trx/VmTransactionHandler.h"
 
 #include "scan_select/scan_planner/SelectScanPlanner.h"
 

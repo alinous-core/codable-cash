@@ -7,7 +7,7 @@
 
 #include "lang_sql/sql_dml/BeginStatement.h"
 
-#include "vm_trx/VmTransactionHandler.h"
+#include "vm/vm_trx/VmTransactionHandler.h"
 
 #include "vm/VirtualMachine.h"
 

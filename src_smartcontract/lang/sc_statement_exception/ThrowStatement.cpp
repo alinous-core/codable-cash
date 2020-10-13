@@ -26,7 +26,7 @@
 
 #include "instance_gc/StackFloatingVariableHandler.h"
 
-#include "vm_ctrl/ExecControlManager.h"
+#include "vm/vm_ctrl/ExecControlManager.h"
 
 #include "instance_exception/NullPointerExceptionClassDeclare.h"
 #include "instance_exception/ExceptionInterrupt.h"

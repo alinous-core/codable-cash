@@ -18,9 +18,9 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "vm_ctrl/BlockState.h"
-#include "vm_ctrl/ExecControlManager.h"
-#include "vm_ctrl/AbstractCtrlInstruction.h"
+#include "vm/vm_ctrl/BlockState.h"
+#include "vm/vm_ctrl/ExecControlManager.h"
+#include "vm/vm_ctrl/AbstractCtrlInstruction.h"
 
 #include "instance_gc/GcManager.h"
 #include "instance_gc/StackFloatingVariableHandler.h"
@@ -28,7 +28,7 @@
 #include "engine/sc_analyze_stack/AnalyzeStackPopper.h"
 #include "engine/sc_analyze_stack/AnalyzeStackManager.h"
 
-#include "stack/StackPopper.h"
+#include "vm/stack/StackPopper.h"
 
 #include "instance_exception/ExceptionInterrupt.h"
 

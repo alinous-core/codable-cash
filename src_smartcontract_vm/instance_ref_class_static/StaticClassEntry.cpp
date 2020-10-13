@@ -25,7 +25,7 @@
 
 #include "lang/sc_expression/AbstractExpression.h"
 
-#include "stack/StackPopper.h"
+#include "vm/stack/StackPopper.h"
 
 
 namespace alinous {

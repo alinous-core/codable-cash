@@ -32,8 +32,8 @@
 #include "base_io_stream/FileInputStream.h"
 #include "base_io/File.h"
 
-#include "stack/StackPopper.h"
-#include "stack/VmStack.h"
+#include "vm/stack/StackPopper.h"
+#include "vm/stack/VmStack.h"
 
 #include "engine/compiler/CompileError.h"
 #include "engine/compiler/ParseErrorHandler.h"

@@ -8,12 +8,12 @@
 #include "lang/sc_statement_ctrl/ReturnStatement.h"
 #include "lang/sc_expression/AbstractExpression.h"
 
-#include "vm_ctrl/ExecControlManager.h"
-#include "vm_ctrl/ReturnControl.h"
+#include "vm/vm_ctrl/ExecControlManager.h"
+#include "vm/vm_ctrl/ReturnControl.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "variable_access/FunctionArguments.h"
+#include "vm/variable_access/FunctionArguments.h"
 
 #include "instance_exception/ExceptionInterrupt.h"
 

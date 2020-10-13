@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "vm_ctrl/AbstractCtrlInstruction.h"
+#include "vm/vm_ctrl/AbstractCtrlInstruction.h"
 
 namespace alinous {
 

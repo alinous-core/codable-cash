@@ -19,8 +19,8 @@
 #include "engine/sc_analyze/ValidationError.h"
 #include "engine/sc_analyze/AnalyzedClass.h"
 
-#include "stack/StackPopper.h"
-#include "stack/VmStack.h"
+#include "vm/stack/StackPopper.h"
+#include "vm/stack/VmStack.h"
 
 #include "vm/VirtualMachine.h"
 

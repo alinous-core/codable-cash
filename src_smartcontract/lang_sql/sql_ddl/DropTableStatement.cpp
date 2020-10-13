@@ -10,7 +10,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "vm_trx/VmTransactionHandler.h"
+#include "vm/vm_trx/VmTransactionHandler.h"
 
 #include "trx/transaction_log/DropTableLog.h"
 

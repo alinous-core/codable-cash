@@ -10,8 +10,8 @@
 
 #include "lang/sc_statement/StatementBlock.h"
 
-#include "vm_ctrl/BlockState.h"
-#include "vm_ctrl/ExecControlManager.h"
+#include "vm/vm_ctrl/BlockState.h"
+#include "vm/vm_ctrl/ExecControlManager.h"
 
 #include "instance_gc/GcManager.h"
 #include "instance_gc/StackFloatingVariableHandler.h"
@@ -20,7 +20,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "vm_ctrl/AbstractCtrlInstruction.h"
+#include "vm/vm_ctrl/AbstractCtrlInstruction.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
 #include "engine/sc_analyze/ValidationError.h"

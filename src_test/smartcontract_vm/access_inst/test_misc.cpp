@@ -22,9 +22,9 @@
 
 #include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
 
-#include "variable_access/ThisPointerAccess.h"
-#include "variable_access/StackVariableAccess.h"
-#include "variable_access/MemberVariableAccess.h"
+#include "vm/variable_access/ThisPointerAccess.h"
+#include "vm/variable_access/StackVariableAccess.h"
+#include "vm/variable_access/MemberVariableAccess.h"
 
 using namespace alinous;
 

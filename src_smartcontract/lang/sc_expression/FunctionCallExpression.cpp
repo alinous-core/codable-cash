@@ -24,8 +24,8 @@
 
 #include "engine/sc_analyze_stack/AnalyzeStackManager.h"
 
-#include "variable_access/StackVariableAccess.h"
-#include "variable_access/FunctionArguments.h"
+#include "vm/variable_access/StackVariableAccess.h"
+#include "vm/variable_access/FunctionArguments.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"

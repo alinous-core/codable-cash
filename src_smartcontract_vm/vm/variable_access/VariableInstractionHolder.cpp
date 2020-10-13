@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "variable_access/VariableInstractionHolder.h"
+#include "vm/variable_access/VariableInstractionHolder.h"
 
 #include "lang/sc_expression/AbstractExpression.h"
 #include "lang/sc_expression/VariableIdentifier.h"
@@ -17,14 +17,14 @@
 #include "engine/sc_analyze/ValidationError.h"
 #include "engine/sc_analyze/TypeResolver.h"
 
-#include "variable_access/AbstractVariableInstraction.h"
-#include "variable_access/ExpressionAccess.h"
-#include "variable_access/ThisPointerAccess.h"
-#include "variable_access/ArrayReferenceAccess.h"
-#include "variable_access/MemberVariableAccess.h"
-#include "variable_access/StackVariableAccess.h"
-#include "variable_access/MemberFunctionCallAccess.h"
-#include "variable_access/ClassTypeAccess.h"
+#include "vm/variable_access/AbstractVariableInstraction.h"
+#include "vm/variable_access/ExpressionAccess.h"
+#include "vm/variable_access/ThisPointerAccess.h"
+#include "vm/variable_access/ArrayReferenceAccess.h"
+#include "vm/variable_access/MemberVariableAccess.h"
+#include "vm/variable_access/StackVariableAccess.h"
+#include "vm/variable_access/MemberFunctionCallAccess.h"
+#include "vm/variable_access/ClassTypeAccess.h"
 
 #include "engine/sc_analyze_stack/AnalyzeStackManager.h"
 

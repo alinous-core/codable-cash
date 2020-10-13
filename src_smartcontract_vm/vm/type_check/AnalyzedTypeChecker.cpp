@@ -5,16 +5,16 @@
  *      Author: iizuka
  */
 
-#include "type_check/AnalyzedTypeChecker.h"
+#include "vm/type_check/AnalyzedTypeChecker.h"
 
-#include "type_check/LeftType.h"
-#include "type_check/RightType.h"
+#include "vm/type_check/LeftType.h"
+#include "vm/type_check/RightType.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
 
 #include "lang/sc_expression/AbstractExpression.h"
 
-#include "type_check/InternalTypeChecker.h"
+#include "vm/type_check/InternalTypeChecker.h"
 
 #include "engine/sc_analyze/ValidationError.h"
 #include "engine/sc_analyze/AnalyzeContext.h"

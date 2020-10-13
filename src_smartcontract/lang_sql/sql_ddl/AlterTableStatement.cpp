@@ -11,7 +11,7 @@
 
 #include "lang_sql/sql_ddl_alter/AlterAddColumnCommand.h"
 
-#include "vm_trx/VmTransactionHandler.h"
+#include "vm/vm_trx/VmTransactionHandler.h"
 
 #include "vm/VirtualMachine.h"
 

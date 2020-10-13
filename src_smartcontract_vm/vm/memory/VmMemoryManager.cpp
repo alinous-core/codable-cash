@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "memory/VmMemoryManager.h"
+#include "vm/memory/VmMemoryManager.h"
 #include "filestore/LongRangeList.h"
 #include "filestore/LongRange.h"
 

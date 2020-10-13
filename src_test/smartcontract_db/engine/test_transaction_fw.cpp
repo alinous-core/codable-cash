@@ -15,7 +15,7 @@
 #include "ext_binary/ExtClassObject.h"
 
 #include "../../smartcontract_vm/VmTestUtils.h"
-#include "vm_trx/VmTransactionHandlerException.h"
+#include "vm/vm_trx/VmTransactionHandlerException.h"
 
 #include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 

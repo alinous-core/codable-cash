@@ -19,7 +19,7 @@
 #include "engine/sc_analyze_stack/AnalyzeStackManager.h"
 #include "engine/sc_analyze_stack/AnalyzedStackReference.h"
 
-#include "stack/VmStack.h"
+#include "vm/stack/VmStack.h"
 
 #include "instance_ref/RefereceFactory.h"
 
@@ -28,11 +28,11 @@
 
 #include "instance_exception/ExceptionInterrupt.h"
 
-#include "type_check/AnalyzedTypeChecker.h"
+#include "vm/type_check/AnalyzedTypeChecker.h"
 
 #include "engine/sc_analyze/ValidationError.h"
 
-#include "type_check/InternalTypeChecker.h"
+#include "vm/type_check/InternalTypeChecker.h"
 namespace alinous {
 
 VariableDeclareStatement::VariableDeclareStatement() : AbstractStatement(CodeElement::STMT_VARIABLE_DECLARE) {

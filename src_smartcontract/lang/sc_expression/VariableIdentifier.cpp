@@ -13,10 +13,10 @@
 
 #include "engine/sc_analyze_stack/AnalyzeStackManager.h"
 
-#include "variable_access/AbstractVariableInstraction.h"
-#include "variable_access/StackVariableAccess.h"
-#include "variable_access/MemberVariableAccess.h"
-#include "variable_access/ThisPointerAccess.h"
+#include "vm/variable_access/AbstractVariableInstraction.h"
+#include "vm/variable_access/StackVariableAccess.h"
+#include "vm/variable_access/MemberVariableAccess.h"
+#include "vm/variable_access/ThisPointerAccess.h"
 
 #include "instance_ref/AbstractReference.h"
 

@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "vm_trx/StackTransactionReset.h"
-#include "vm_trx/VmTransactionHandler.h"
+#include "vm/vm_trx/StackTransactionReset.h"
+#include "vm/vm_trx/VmTransactionHandler.h"
 
 namespace alinous {
 

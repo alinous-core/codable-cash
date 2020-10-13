@@ -19,7 +19,7 @@
 #include "base/UnicodeString.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
-#include "variable_access/ClassTypeAccess.h"
+#include "vm/variable_access/ClassTypeAccess.h"
 
 using namespace alinous;
 

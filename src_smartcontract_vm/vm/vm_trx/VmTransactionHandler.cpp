@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "vm_trx/VmTransactionHandler.h"
-#include "vm_trx/VmTransactionHandlerException.h"
-#include "vm_trx/StackTransactionReset.h"
+#include "vm/vm_trx/VmTransactionHandler.h"
+#include "vm/vm_trx/VmTransactionHandlerException.h"
+#include "vm/vm_trx/StackTransactionReset.h"
 
 #include "engine/CodableDatabase.h"
 

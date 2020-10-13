@@ -5,15 +5,15 @@
  *      Author: iizuka
  */
 
-#include "vm_ctrl/ExecControlManager.h"
-#include "vm_ctrl/AbstractCtrlInstruction.h"
-#include "vm_ctrl/BlockState.h"
+#include "vm/vm_ctrl/ExecControlManager.h"
+#include "vm/vm_ctrl/AbstractCtrlInstruction.h"
+#include "vm/vm_ctrl/BlockState.h"
 
 #include "engine/sc/CodeElement.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "vm_ctrl/ExceptionControl.h"
+#include "vm/vm_ctrl/ExceptionControl.h"
 
 namespace alinous {
 

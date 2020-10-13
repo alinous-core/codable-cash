@@ -16,7 +16,7 @@
 
 #include "ext_binary/ExtPrimitiveObject.h"
 
-#include "stack/VmStack.h"
+#include "vm/stack/VmStack.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
 using namespace alinous;

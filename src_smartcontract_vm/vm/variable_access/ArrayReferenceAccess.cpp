@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "variable_access/ArrayReferenceAccess.h"
+#include "vm/variable_access/ArrayReferenceAccess.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
 #include "engine/sc_analyze/AnalyzeContext.h"

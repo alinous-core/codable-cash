@@ -15,7 +15,7 @@
 #include "engine/sc_analyze/TypeResolver.h"
 #include "engine/sc_analyze/AnalyzeContext.h"
 
-#include "variable_access/VariableInstractionHolder.h"
+#include "vm/variable_access/VariableInstractionHolder.h"
 
 #include "base/UnicodeString.h"
 

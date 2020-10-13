@@ -15,7 +15,7 @@
 
 #include "instance_parts/VmMalloc.h"
 
-#include "memory/VmMemoryManager.h"
+#include "vm/memory/VmMemoryManager.h"
 
 namespace alinous {
 

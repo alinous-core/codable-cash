@@ -8,7 +8,7 @@
 #ifndef VARIABLE_ACCESS_CLASSTYPEACCESS_H_
 #define VARIABLE_ACCESS_CLASSTYPEACCESS_H_
 
-#include "variable_access/AbstractVariableInstraction.h"
+#include "vm/variable_access/AbstractVariableInstraction.h"
 
 namespace alinous {
 

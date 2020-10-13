@@ -9,7 +9,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "vm_ctrl/ExecControlManager.h"
+#include "vm/vm_ctrl/ExecControlManager.h"
 
 #include "instance/VmClassInstance.h"
 

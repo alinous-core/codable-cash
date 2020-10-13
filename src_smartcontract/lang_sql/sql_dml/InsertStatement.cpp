@@ -11,7 +11,7 @@
 #include "lang_sql/sql_expression/SQLExpressionList.h"
 #include "lang_sql/sql_join_parts/TableIdentifier.h"
 
-#include "vm_trx/VmTransactionHandler.h"
+#include "vm/vm_trx/VmTransactionHandler.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -34,7 +34,7 @@
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
-#include "vm_ctrl/ExecControlManager.h"
+#include "vm/vm_ctrl/ExecControlManager.h"
 
 #include "schema_table/table_record/CdbRecord.h"
 #include "schema_table/table_record/CdbTableIdentifier.h"

@@ -13,7 +13,7 @@
 
 #include "osenv/memory.h"
 
-#include "memory/VmMemoryManager.h"
+#include "vm/memory/VmMemoryManager.h"
 
 namespace alinous {
 

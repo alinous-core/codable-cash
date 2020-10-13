@@ -22,7 +22,7 @@
 
 #include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
-#include "vm_trx/VmTransactionHandler.h"
+#include "vm/vm_trx/VmTransactionHandler.h"
 
 #include "engine/sc_analyze/AnalyzeContext.h"
 #include "engine/sc_analyze/ValidationError.h"

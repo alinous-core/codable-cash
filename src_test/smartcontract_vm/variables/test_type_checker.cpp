@@ -17,11 +17,11 @@
 #include "ext_binary/ExtClassObject.h"
 #include "ext_binary/ExtPrimitiveObject.h"
 
-#include "type_check/AnalyzedTypeChecker.h"
+#include "vm/type_check/AnalyzedTypeChecker.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
 
-#include "type_check/InternalTypeChecker.h"
+#include "vm/type_check/InternalTypeChecker.h"
 
 #include "engine/sc_analyze/ValidationError.h"
 

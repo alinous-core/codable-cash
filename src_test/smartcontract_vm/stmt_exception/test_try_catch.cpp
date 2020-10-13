@@ -25,7 +25,7 @@
 
 #include "instance_exception_class/ExceptionClassDeclare.h"
 
-#include "vm_ctrl/BreakControl.h"
+#include "vm/vm_ctrl/BreakControl.h"
 
 #include "lang/sc_declare/ClassDeclareBlock.h"
 

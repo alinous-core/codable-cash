@@ -11,9 +11,9 @@
 #include "lang/sc_statement_exception/CatchStatement.h"
 #include "lang/sc_statement_exception/FinallyStatement.h"
 
-#include "vm_ctrl/ExecControlManager.h"
-#include "vm_ctrl/AbstractCtrlInstruction.h"
-#include "vm_ctrl/BlockState.h"
+#include "vm/vm_ctrl/ExecControlManager.h"
+#include "vm/vm_ctrl/AbstractCtrlInstruction.h"
+#include "vm/vm_ctrl/BlockState.h"
 
 #include "vm/VirtualMachine.h"
 

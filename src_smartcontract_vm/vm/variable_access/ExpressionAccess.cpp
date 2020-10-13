@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "variable_access/ExpressionAccess.h"
+#include "vm/variable_access/ExpressionAccess.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
 

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "variable_access/StackVariableAccess.h"
+#include "vm/variable_access/StackVariableAccess.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
 #include "engine/sc_analyze/AnalyzeContext.h"
@@ -16,7 +16,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "stack/VmStack.h"
+#include "vm/stack/VmStack.h"
 
 
 namespace alinous {

@@ -25,17 +25,17 @@
 
 #include "base/StackRelease.h"
 
-#include "stack/StackPopper.h"
-#include "stack/VmStack.h"
+#include "vm/stack/StackPopper.h"
+#include "vm/stack/VmStack.h"
 
 #include "instance_ref/ObjectReference.h"
 
-#include "variable_access/FunctionArguments.h"
+#include "vm/variable_access/FunctionArguments.h"
 
-#include "vm_ctrl/BlockState.h"
-#include "vm_ctrl/ExecControlManager.h"
+#include "vm/vm_ctrl/BlockState.h"
+#include "vm/vm_ctrl/ExecControlManager.h"
 
-#include "vm_ctrl/AbstractCtrlInstruction.h"
+#include "vm/vm_ctrl/AbstractCtrlInstruction.h"
 
 #include "lang/sc_statement/ExpressionStatement.h"
 

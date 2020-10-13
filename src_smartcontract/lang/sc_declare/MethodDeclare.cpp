@@ -26,7 +26,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "stack/MethodArgumentSetupper.h"
+#include "vm/stack/MethodArgumentSetupper.h"
 
 namespace alinous {
 

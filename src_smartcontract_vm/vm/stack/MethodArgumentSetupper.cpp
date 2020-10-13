@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "stack/MethodArgumentSetupper.h"
+#include "vm/stack/MethodArgumentSetupper.h"
 
 #include "vm/VirtualMachine.h"
 

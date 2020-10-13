@@ -8,7 +8,7 @@
 #ifndef VM_CTRL_CONTINUECONTROL_H_
 #define VM_CTRL_CONTINUECONTROL_H_
 
-#include "vm_ctrl/AbstractCtrlInstruction.h"
+#include "vm/vm_ctrl/AbstractCtrlInstruction.h"
 
 namespace alinous {
 

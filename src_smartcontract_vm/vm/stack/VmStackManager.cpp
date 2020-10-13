@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "stack/VmStackManager.h"
-#include "stack/VmStack.h"
+#include "vm/stack/VmStackManager.h"
+#include "vm/stack/VmStack.h"
 namespace alinous {
 
 VmStackManager::VmStackManager() {

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "type_check/AbstractTypeCheckTarget.h"
+#include "vm/type_check/AbstractTypeCheckTarget.h"
 #include "lang/sc_expression/AbstractExpression.h"
 
 #include "engine/sc_analyze/AnalyzeContext.h"

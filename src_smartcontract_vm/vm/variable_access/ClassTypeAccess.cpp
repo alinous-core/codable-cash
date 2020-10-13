@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "variable_access/ClassTypeAccess.h"
+#include "vm/variable_access/ClassTypeAccess.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
 #include "engine/sc_analyze/AnalyzeContext.h"
@@ -27,7 +27,7 @@
 
 #include "instance/VmClassInstance.h"
 
-#include "variable_access/FunctionArguments.h"
+#include "vm/variable_access/FunctionArguments.h"
 namespace alinous {
 
 ClassTypeAccess::ClassTypeAccess(const AnalyzedType* atype)

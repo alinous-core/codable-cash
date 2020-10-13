@@ -8,7 +8,7 @@
 #ifndef TYPE_CHECK_LEFTTYPE_H_
 #define TYPE_CHECK_LEFTTYPE_H_
 
-#include "type_check/AbstractTypeCheckTarget.h"
+#include "vm/type_check/AbstractTypeCheckTarget.h"
 
 namespace alinous {
 

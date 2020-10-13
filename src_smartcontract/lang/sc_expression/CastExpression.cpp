@@ -18,7 +18,7 @@
 
 #include "instance_ref/PrimitiveReference.h"
 
-#include "type_check/InternalTypeChecker.h"
+#include "vm/type_check/InternalTypeChecker.h"
 
 #include "engine/sc_analyze/ValidationError.h"
 #include "engine/sc_analyze/AnalyzedClass.h"

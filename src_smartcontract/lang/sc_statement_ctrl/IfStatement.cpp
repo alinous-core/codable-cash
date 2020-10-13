@@ -19,7 +19,7 @@
 
 #include "instance_ref/PrimitiveReference.h"
 
-#include "vm_ctrl/ExecControlManager.h"
+#include "vm/vm_ctrl/ExecControlManager.h"
 
 #include "instance_exception/ExceptionInterrupt.h"
 

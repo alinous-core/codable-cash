@@ -16,7 +16,7 @@
 
 #include "ext_binary/ExtPrimitiveObject.h"
 
-#include "stack/VmStack.h"
+#include "vm/stack/VmStack.h"
 using namespace alinous;
 
 TEST_GROUP(TestMiscCompareGroup) {

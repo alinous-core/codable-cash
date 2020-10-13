@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "variable_access/MemberVariableAccess.h"
+#include "vm/variable_access/MemberVariableAccess.h"
 
 #include "lang/sc_expression/VariableIdentifier.h"
 
@@ -26,8 +26,8 @@
 #include "instance_exception/NullPointerExceptionClassDeclare.h"
 #include "instance_exception/ExceptionInterrupt.h"
 
-#include "variable_access/AbstractVariableInstraction.h"
-#include "variable_access/ClassTypeAccess.h"
+#include "vm/variable_access/AbstractVariableInstraction.h"
+#include "vm/variable_access/ClassTypeAccess.h"
 
 #include "instance_ref_class_static_meta/StaticClassMetadataHolder.h"
 #include "instance_ref_class_static_meta/StaticVariableMetadata.h"

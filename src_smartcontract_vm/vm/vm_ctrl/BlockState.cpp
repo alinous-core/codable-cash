@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "vm_ctrl/BlockState.h"
+#include "vm/vm_ctrl/BlockState.h"
 
 namespace alinous {
 

@@ -7,7 +7,7 @@
 
 #include "lang_sql/sql_dml/RollbackStatement.h"
 
-#include "vm_trx/VmTransactionHandler.h"
+#include "vm/vm_trx/VmTransactionHandler.h"
 
 #include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 

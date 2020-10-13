@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "vm_ctrl/ReturnControl.h"
+#include "vm/vm_ctrl/ReturnControl.h"
 
-#include "vm_ctrl/ExecControlManager.h"
-#include "vm_ctrl/BlockState.h"
+#include "vm/vm_ctrl/ExecControlManager.h"
+#include "vm/vm_ctrl/BlockState.h"
 
 namespace alinous {
 

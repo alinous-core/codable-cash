@@ -5,14 +5,14 @@
  *      Author: iizuka
  */
 
-#include "variable_access/ThisPointerAccess.h"
+#include "vm/variable_access/ThisPointerAccess.h"
 
 #include "engine/sc_analyze/AnalyzeContext.h"
 #include "engine/sc_analyze/AnalyzedType.h"
 #include "engine/sc_analyze/ValidationError.h"
 
 #include "vm/VirtualMachine.h"
-#include "variable_access/FunctionArguments.h"
+#include "vm/variable_access/FunctionArguments.h"
 
 #include "instance/VmClassInstance.h"
 

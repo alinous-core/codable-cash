@@ -7,7 +7,7 @@
 
 #include <cstdint>
 
-#include "type_check/InternalTypeChecker.h"
+#include "vm/type_check/InternalTypeChecker.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
 #include "lang/sc_declare/ClassDeclare.h"

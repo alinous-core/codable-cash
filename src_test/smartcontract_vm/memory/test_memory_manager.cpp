@@ -9,7 +9,7 @@
 
 #include "test_utils/t_macros.h"
 
-#include "memory/VmMemoryManager.h"
+#include "vm/memory/VmMemoryManager.h"
 #include "base/StackRelease.h"
 
 #include "base/Exception.h"

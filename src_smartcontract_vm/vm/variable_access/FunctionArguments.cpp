@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "variable_access/FunctionArguments.h"
+#include "vm/variable_access/FunctionArguments.h"
 #include "instance_ref/AbstractReference.h"
 #include "instance/IAbstractVmInstanceSubstance.h"
 

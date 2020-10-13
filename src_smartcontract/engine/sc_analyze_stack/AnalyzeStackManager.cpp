@@ -8,7 +8,7 @@
 #include "engine/sc_analyze_stack/AnalyzeStackManager.h"
 #include "engine/sc_analyze_stack/AnalyzeStack.h"
 
-#include "variable_access/StackVariableAccess.h"
+#include "vm/variable_access/StackVariableAccess.h"
 
 
 namespace alinous {

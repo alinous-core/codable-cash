@@ -18,7 +18,7 @@
 
 #include "lang/sc_declare/ClassExtends.h"
 
-#include "vm_ctrl/ExecControlManager.h"
+#include "vm/vm_ctrl/ExecControlManager.h"
 
 #include "vm/VirtualMachine.h"
 

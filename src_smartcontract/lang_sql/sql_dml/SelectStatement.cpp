@@ -26,7 +26,7 @@
 #include "vm/VirtualMachine.h"
 #include "vm/VmSelectPlannerSetter.h"
 
-#include "vm_trx/VmTransactionHandler.h"
+#include "vm/vm_trx/VmTransactionHandler.h"
 
 #include "scan_select/scan_planner/SelectScanPlanner.h"
 #include "scan_select/scan_planner/TablesHolder.h"

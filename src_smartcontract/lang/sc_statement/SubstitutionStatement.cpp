@@ -17,7 +17,7 @@
 #include "instance_gc/GcManager.h"
 #include "instance_gc/StackFloatingVariableHandler.h"
 
-#include "type_check/AnalyzedTypeChecker.h"
+#include "vm/type_check/AnalyzedTypeChecker.h"
 
 #include "engine/sc_analyze/AnalyzeContext.h"
 

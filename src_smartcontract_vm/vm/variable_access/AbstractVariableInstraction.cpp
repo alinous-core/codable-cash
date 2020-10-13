@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "variable_access/AbstractVariableInstraction.h"
+#include "vm/variable_access/AbstractVariableInstraction.h"
 
 namespace alinous {
 

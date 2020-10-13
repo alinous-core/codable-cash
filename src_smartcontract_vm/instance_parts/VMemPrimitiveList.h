@@ -8,7 +8,7 @@
 #ifndef INSTANCE_PARTS_VMEMPRIMITIVELIST_H_
 #define INSTANCE_PARTS_VMEMPRIMITIVELIST_H_
 
-#include "memory/VmMemoryManager.h"
+#include "vm/memory/VmMemoryManager.h"
 #include "vm/VirtualMachine.h"
 #include "instance_parts/VmMalloc.h"
 

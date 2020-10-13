@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "variable_access/MemberFunctionCallAccess.h"
+#include "vm/variable_access/MemberFunctionCallAccess.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
 

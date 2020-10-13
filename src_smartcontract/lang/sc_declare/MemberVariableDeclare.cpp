@@ -29,14 +29,14 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "stack/StackPopper.h"
+#include "vm/stack/StackPopper.h"
 
 #include "instance_gc/GcManager.h"
 
 #include "instance_gc/StackFloatingVariableHandler.h"
 
-#include "type_check/AnalyzedTypeChecker.h"
-#include "type_check/InternalTypeChecker.h"
+#include "vm/type_check/AnalyzedTypeChecker.h"
+#include "vm/type_check/InternalTypeChecker.h"
 
 namespace alinous {
 

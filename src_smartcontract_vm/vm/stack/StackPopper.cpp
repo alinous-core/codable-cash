@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "stack/StackPopper.h"
+#include "vm/stack/StackPopper.h"
 #include "vm/VirtualMachine.h"
 
 namespace alinous {

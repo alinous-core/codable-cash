@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "vm_trx/VmTransactionHandlerException.h"
+#include "vm/vm_trx/VmTransactionHandlerException.h"
 
 #include "base/UnicodeString.h"
 

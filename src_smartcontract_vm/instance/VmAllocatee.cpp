@@ -9,7 +9,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "memory/VmMemoryManager.h"
+#include "vm/memory/VmMemoryManager.h"
 
 
 namespace alinous {

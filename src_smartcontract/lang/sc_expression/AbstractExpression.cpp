@@ -7,7 +7,7 @@
 
 #include "lang/sc_expression/AbstractExpression.h"
 
-#include "variable_access/VariableInstractionHolder.h"
+#include "vm/variable_access/VariableInstractionHolder.h"
 
 #include "lang/sc_declare/MethodDeclare.h"
 #include "lang/sc_declare/MemberVariableDeclare.h"

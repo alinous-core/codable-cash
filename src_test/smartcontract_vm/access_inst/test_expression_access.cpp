@@ -18,7 +18,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "variable_access/ExpressionAccess.h"
+#include "vm/variable_access/ExpressionAccess.h"
 using namespace alinous;
 
 

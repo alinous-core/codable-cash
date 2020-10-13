@@ -25,8 +25,8 @@
 #include "engine/sc_analyze_functions/VTableRegistory.h"
 #include "engine/sc_analyze_functions/VTableMethodEntry.h"
 
-#include "variable_access/StackVariableAccess.h"
-#include "variable_access/FunctionArguments.h"
+#include "vm/variable_access/StackVariableAccess.h"
+#include "vm/variable_access/FunctionArguments.h"
 
 #include "engine/sc_analyze_stack/AnalyzeStackManager.h"
 

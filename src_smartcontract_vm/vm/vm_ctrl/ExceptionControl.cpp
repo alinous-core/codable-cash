@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "vm_ctrl/ExceptionControl.h"
+#include "vm/vm_ctrl/ExceptionControl.h"
 
 #include "instance_exception_class/VmExceptionInstance.h"
 

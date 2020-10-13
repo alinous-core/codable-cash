@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "stack/VmStack.h"
+#include "vm/stack/VmStack.h"
 
 #include "instance_ref/AbstractReference.h"
 #include "instance_ref/PrimitiveReference.h"
