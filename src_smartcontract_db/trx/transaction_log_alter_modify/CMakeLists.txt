@@ -7,5 +7,5 @@ set(__src
 	AlterRenameColumnCommandLog.cpp
 	AlterRenameTableCommandLog.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db transaction_log_alter_modify)
+handle_sub(codablecashlib "${__src}" smartcontract_db trx/transaction_log_alter_modify)
 

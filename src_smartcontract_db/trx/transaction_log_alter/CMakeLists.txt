@@ -7,5 +7,5 @@ set(__src
 	AlterDropColumnCommandLog.cpp
 	AlterDropIndexCommandLog.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db transaction_log_alter)
+handle_sub(codablecashlib "${__src}" smartcontract_db trx/transaction_log_alter)
 

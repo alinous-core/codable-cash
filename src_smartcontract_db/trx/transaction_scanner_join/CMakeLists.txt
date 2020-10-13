@@ -7,5 +7,5 @@ set(__src
 	IJoinRightSource.cpp
 	OuterJoinExecutor.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db transaction_scanner_join)
+handle_sub(codablecashlib "${__src}" smartcontract_db trx/transaction_scanner_join)
 

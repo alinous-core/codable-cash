@@ -6,5 +6,5 @@ set(__src
 	RecordObjectIdPublisher.cpp
 	SchemaObjectIdPublisher.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db transaction)
+handle_sub(codablecashlib "${__src}" smartcontract_db trx/transaction)
 

@@ -8,5 +8,5 @@ set(__src
 	InsertLog.cpp
 	TransactionLogFactory.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db transaction_log)
+handle_sub(codablecashlib "${__src}" smartcontract_db trx/transaction_log)
 

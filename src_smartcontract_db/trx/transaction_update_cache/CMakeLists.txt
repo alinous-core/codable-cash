@@ -10,5 +10,5 @@ set(__src
 	UpdatedRecordCursor.cpp
 	UpdatedRecordsRepository.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db transaction_update_cache)
+handle_sub(codablecashlib "${__src}" smartcontract_db trx/transaction_update_cache)
 
