@@ -8,7 +8,7 @@
 #ifndef SCAN_TABLE_LEFTOUTERJOINTARGET_H_
 #define SCAN_TABLE_LEFTOUTERJOINTARGET_H_
 
-#include "scan_table/AbstractJoinScanTarget.h"
+#include "scan_select/scan_table/AbstractJoinScanTarget.h"
 
 namespace codablecash {
 

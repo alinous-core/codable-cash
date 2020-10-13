@@ -33,7 +33,7 @@
 
 #include "sql/AbstractJoinPart.h"
 
-#include "scan_table/AbstractScanTableTarget.h"
+#include "scan_select/scan_table/AbstractScanTableTarget.h"
 
 #include "instance_exception/ExceptionInterrupt.h"
 

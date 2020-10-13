@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_table/TableScanTarget.h"
+#include "scan_select/scan_table/TableScanTarget.h"
 
 #include "base/UnicodeString.h"
 

@@ -7,8 +7,8 @@
 
 #include "scan_planner/TablesHolder.h"
 
-#include "scan_table/AbstractScanTableTarget.h"
-#include "scan_table/CrossJoinScanTarget.h"
+#include "scan_select/scan_table/AbstractScanTableTarget.h"
+#include "scan_select/scan_table/CrossJoinScanTarget.h"
 
 #include "base/UnicodeString.h"
 

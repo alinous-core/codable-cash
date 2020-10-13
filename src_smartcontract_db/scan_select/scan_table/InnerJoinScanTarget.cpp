@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_table/InnerJoinScanTarget.h"
+#include "scan_select/scan_table/InnerJoinScanTarget.h"
 
 #include "base/UnicodeString.h"
 

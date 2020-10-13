@@ -8,7 +8,7 @@
 #include "scan_planner_scanner_ctx/FilterConditionDitector.h"
 #include "scan_planner_scanner_ctx/FilterConditionStack.h"
 
-#include "scan_table/AbstractScanTableTarget.h"
+#include "scan_select/scan_table/AbstractScanTableTarget.h"
 
 #include "scan_planner/ConditionsHolder.h"
 #include "scan_planner/SelectScanPlanner.h"

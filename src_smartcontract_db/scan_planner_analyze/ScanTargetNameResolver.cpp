@@ -9,7 +9,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "scan_table/AbstractScanTableTarget.h"
+#include "scan_select/scan_table/AbstractScanTableTarget.h"
 
 #include "engine/CdbException.h"
 

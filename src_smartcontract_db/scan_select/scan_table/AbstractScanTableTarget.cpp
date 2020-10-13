@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_table/AbstractScanTableTarget.h"
+#include "scan_select/scan_table/AbstractScanTableTarget.h"
 
 #include "transaction_scan_result/ScanResultMetadata.h"
 

@@ -7,7 +7,7 @@
 
 #include "scan_planner_scanner_ctx_join/JoinCandidate.h"
 
-#include "scan_table/AbstractScanTableTarget.h"
+#include "scan_select/scan_table/AbstractScanTableTarget.h"
 
 #include "scan_condition_params/ColumnIdentifierScanParam.h"
 

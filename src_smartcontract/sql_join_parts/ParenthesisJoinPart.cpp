@@ -15,7 +15,8 @@
 
 #include "scan_planner/TablesHolder.h"
 
-#include "scan_table/ParenthesisScanTarget.h"
+#include "scan_select/scan_table/ParenthesisScanTarget.h"
+
 namespace alinous {
 
 ParenthesisJoinPart::ParenthesisJoinPart() : AbstractJoinPart(CodeElement::SQL_EXP_PARENTHESIS_JOIN_PART) {

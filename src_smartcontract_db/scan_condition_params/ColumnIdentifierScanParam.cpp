@@ -26,7 +26,7 @@
 #include "scan_planner_analyze/AnalyzedScanPlan.h"
 #include "scan_planner_analyze/ScanTargetNameResolver.h"
 
-#include "scan_table/AbstractScanTableTarget.h"
+#include "scan_select/scan_table/AbstractScanTableTarget.h"
 
 #include "scan_planner_scanner_ctx/FilterConditionDitector.h"
 

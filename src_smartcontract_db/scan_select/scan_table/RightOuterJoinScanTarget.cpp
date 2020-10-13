@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_table/RightOuterJoinScanTarget.h"
+#include "scan_select/scan_table/RightOuterJoinScanTarget.h"
 
 #include "base/UnicodeString.h"
 

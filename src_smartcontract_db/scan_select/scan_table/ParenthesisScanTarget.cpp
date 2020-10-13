@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_table/ParenthesisScanTarget.h"
+#include "scan_select/scan_table/ParenthesisScanTarget.h"
 
 #include "base/UnicodeString.h"
 

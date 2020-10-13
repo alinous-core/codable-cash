@@ -17,11 +17,11 @@
 
 #include "engine/CdbException.h"
 
-#include "scan_table/AbstractJoinScanTarget.h"
-#include "scan_table/LeftOuterJoinTarget.h"
-#include "scan_table/InnerJoinScanTarget.h"
-#include "scan_table/CrossJoinScanTarget.h"
-#include "scan_table/RightOuterJoinScanTarget.h"
+#include "scan_select/scan_table/AbstractJoinScanTarget.h"
+#include "scan_select/scan_table/LeftOuterJoinTarget.h"
+#include "scan_select/scan_table/InnerJoinScanTarget.h"
+#include "scan_select/scan_table/CrossJoinScanTarget.h"
+#include "scan_select/scan_table/RightOuterJoinScanTarget.h"
 
 #include "scan_condition/AbstractScanConditionElement.h"
 #include "scan_condition/ScanConditionCast.h"

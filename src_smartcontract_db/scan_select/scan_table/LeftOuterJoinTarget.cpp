@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_table/LeftOuterJoinTarget.h"
+#include "scan_select/scan_table/LeftOuterJoinTarget.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
