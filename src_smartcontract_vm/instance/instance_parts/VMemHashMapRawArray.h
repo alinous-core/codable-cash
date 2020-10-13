@@ -13,7 +13,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_parts/VmMalloc.h"
+#include "instance/instance_parts/VmMalloc.h"
 
 #include "vm/memory/VmMemoryManager.h"
 

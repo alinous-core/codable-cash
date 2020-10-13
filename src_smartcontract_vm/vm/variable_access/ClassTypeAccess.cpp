@@ -15,11 +15,11 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_ref_class_static/ClassTypeReference.h"
+#include "instance/instance_ref_class_static/ClassTypeReference.h"
 
 #include "engine/sc/SmartContract.h"
 
-#include "instance_ref/VmRootReference.h"
+#include "instance/instance_ref/VmRootReference.h"
 
 #include "lang/sc_expression/VariableIdentifier.h"
 

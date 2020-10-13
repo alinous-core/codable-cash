@@ -21,9 +21,9 @@
 
 #include "engine/sc/CodeElement.h"
 
-#include "instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance/instance_exception/NullPointerExceptionClassDeclare.h"
 
-#include "instance_exception_class/ExceptionClassDeclare.h"
+#include "instance/instance_exception_class/ExceptionClassDeclare.h"
 
 #include "vm/vm_ctrl/BreakControl.h"
 

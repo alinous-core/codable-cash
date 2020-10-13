@@ -15,13 +15,13 @@
 
 #include "base_io/ByteBuffer.h"
 
-#include "instance_dom/DomVariableInstance.h"
+#include "instance/instance_dom/DomVariableInstance.h"
 
-#include "instance_gc/StackFloatingVariableHandler.h"
+#include "instance/instance_gc/StackFloatingVariableHandler.h"
 
-#include "instance_dom/DomRuntimeReference.h"
+#include "instance/instance_dom/DomRuntimeReference.h"
 
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_string/VmStringInstance.h"
 namespace alinous {
 
 JsonInitializerExpression::JsonInitializerExpression() : AbstractJsonExpression(CodeElement::EXP_JSON_INITIALIZER) {

@@ -14,7 +14,7 @@
 #include "../VmTestUtils.h"
 #include "ext_binary/ExtClassObject.h"
 
-#include "instance_exception_class/ExceptionClassDeclare.h"
+#include "instance/instance_exception_class/ExceptionClassDeclare.h"
 
 #include "engine/sc_analyze/ValidationError.h"
 using namespace alinous;

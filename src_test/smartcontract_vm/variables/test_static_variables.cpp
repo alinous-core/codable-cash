@@ -17,9 +17,9 @@
 #include "../VmTestUtils.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
-#include "instance_ref_class_static/ClassTypeReference.h"
+#include "instance/instance_ref_class_static/ClassTypeReference.h"
 
-#include "instance_ref/VmRootReference.h"
+#include "instance/instance_ref/VmRootReference.h"
 
 using namespace alinous;
 

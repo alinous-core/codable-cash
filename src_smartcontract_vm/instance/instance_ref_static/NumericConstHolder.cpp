@@ -5,14 +5,14 @@
  *      Author: iizuka
  */
 
-#include "instance_ref_static/NumericConstHolder.h"
+#include "instance/instance_ref_static/NumericConstHolder.h"
 
-#include "instance_ref/PrimitiveReference.h"
-#include "instance_ref/RefereceFactory.h"
-#include "instance_ref/VmRootReference.h"
-#include "instance_ref/ConstStaticPrimitive.h"
+#include "instance/instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/RefereceFactory.h"
+#include "instance/instance_ref/VmRootReference.h"
+#include "instance/instance_ref/ConstStaticPrimitive.h"
 
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
 

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "instance_dom/AbstractDomInstance.h"
+#include "instance/instance_dom/AbstractDomInstance.h"
 
 #include "vm/VirtualMachine.h"
 

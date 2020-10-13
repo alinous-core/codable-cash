@@ -5,16 +5,16 @@
  *      Author: iizuka
  */
 
-#include "instance_ref_static/StringConstHolder.h"
+#include "instance/instance_ref_static/StringConstHolder.h"
 
-#include "instance_ref/VmRootReference.h"
+#include "instance/instance_ref/VmRootReference.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_string/VmStringInstance.h"
 
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 
 
 namespace alinous {

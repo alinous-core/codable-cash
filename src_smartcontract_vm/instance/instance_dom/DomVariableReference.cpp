@@ -5,17 +5,17 @@
  *      Author: iizuka
  */
 
-#include "instance_dom/DomVariableReference.h"
-#include "instance_dom/DomVariableInstance.h"
+#include "instance/instance_dom/DomVariableReference.h"
+#include "instance/instance_dom/DomVariableInstance.h"
 
 #include "instance/IAbstractVmInstanceSubstance.h"
 #include "instance/VmInstanceTypesConst.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 
-#include "instance_dom/AbstractDomInstance.h"
+#include "instance/instance_dom/AbstractDomInstance.h"
 
 namespace alinous {
 

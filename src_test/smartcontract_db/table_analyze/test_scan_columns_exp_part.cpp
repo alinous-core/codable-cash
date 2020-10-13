@@ -29,7 +29,7 @@
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
 #include "scan_select/scan_columns_exp/InExpressionScanColumnTarget.h"
 

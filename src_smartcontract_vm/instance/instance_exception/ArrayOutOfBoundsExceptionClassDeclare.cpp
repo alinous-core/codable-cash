@@ -5,16 +5,16 @@
  *      Author: iizuka
  */
 
-#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
+#include "instance/instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
 
 #include "base/UnicodeString.h"
 
 #include "engine/sc_analyze/AnalyzedClass.h"
 #include "engine/sc_analyze/AnalyzedType.h"
 
-#include "instance_exception_class/ExceptionInstanceFactory.h"
-#include "instance_exception_class/ExceptionClassDeclare.h"
-#include "instance_exception_class/VmExceptionInstance.h"
+#include "instance/instance_exception_class/ExceptionInstanceFactory.h"
+#include "instance/instance_exception_class/ExceptionClassDeclare.h"
+#include "instance/instance_exception_class/VmExceptionInstance.h"
 
 #include "lang/sc_declare/ClassExtends.h"
 
@@ -22,7 +22,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "reserved_classes/ReservedClassRegistory.h"
+#include "instance/reserved_classes/ReservedClassRegistory.h"
 
 namespace alinous {
 

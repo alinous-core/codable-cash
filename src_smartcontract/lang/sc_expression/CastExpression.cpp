@@ -14,17 +14,17 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_gc/StackFloatingVariableHandler.h"
+#include "instance/instance_gc/StackFloatingVariableHandler.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 #include "vm/type_check/InternalTypeChecker.h"
 
 #include "engine/sc_analyze/ValidationError.h"
 #include "engine/sc_analyze/AnalyzedClass.h"
 
-#include "instance_exception/ExceptionInterrupt.h"
-#include "instance_exception/TypeCastExceptionClassDeclare.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/TypeCastExceptionClassDeclare.h"
 
 
 namespace alinous {

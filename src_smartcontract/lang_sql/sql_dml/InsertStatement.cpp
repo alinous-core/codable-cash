@@ -39,8 +39,8 @@
 #include "schema_table/table_record/CdbRecord.h"
 #include "schema_table/table_record/CdbTableIdentifier.h"
 
-#include "instance_gc/StackFloatingVariableHandler.h"
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/StackFloatingVariableHandler.h"
+#include "instance/instance_gc/GcManager.h"
 
 #include "lang_sql/sql/AbstractSQLExpression.h"
 

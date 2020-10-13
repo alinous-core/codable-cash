@@ -32,10 +32,10 @@
 
 #include "lang_sql/sql/AbstractSQLExpression.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 
-#include "instance_gc/StackFloatingVariableHandler.h"
+#include "instance/instance_gc/StackFloatingVariableHandler.h"
 
 #include "schema_table/schema/SchemaManager.h"
 

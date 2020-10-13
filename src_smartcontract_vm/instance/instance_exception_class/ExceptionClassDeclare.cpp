@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "instance_exception_class/ExceptionClassDeclare.h"
-#include "instance_exception_class/ExceptionInstanceFactory.h"
+#include "instance/instance_exception_class/ExceptionClassDeclare.h"
+#include "instance/instance_exception_class/ExceptionInstanceFactory.h"
 
 #include "engine/sc_analyze/AnalyzedClass.h"
 

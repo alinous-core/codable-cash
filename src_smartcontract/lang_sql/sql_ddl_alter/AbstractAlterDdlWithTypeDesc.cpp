@@ -17,15 +17,15 @@
 
 #include "base_io/ByteBuffer.h"
 
-#include "instance_gc/StackFloatingVariableHandler.h"
+#include "instance/instance_gc/StackFloatingVariableHandler.h"
 
 #include "instance/IAbstractVmInstanceSubstance.h"
 #include "instance/VmInstanceTypesConst.h"
 #include "instance/AbstractVmInstance.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_string/VmStringInstance.h"
 
 #include "lang_sql/sql_expression/SQLLiteral.h"
 

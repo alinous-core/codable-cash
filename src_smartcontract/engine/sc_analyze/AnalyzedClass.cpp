@@ -19,7 +19,7 @@
 #include "base/UnicodeString.h"
 #include "base/ArrayList.h"
 
-#include "instance_ref/AbstractReference.h"
+#include "instance/instance_ref/AbstractReference.h"
 
 #include "engine/sc_analyze_functions/VTableRegistory.h"
 #include "engine/sc_analyze_functions/FunctionScoreCalc.h"

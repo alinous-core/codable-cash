@@ -6,10 +6,10 @@
  */
 #include "lang/sc_expression_arithmetic/AddExpression.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
-#include "instance_gc/GcManager.h"
-#include "instance_gc/StackFloatingVariableHandler.h"
+#include "instance/instance_gc/GcManager.h"
+#include "instance/instance_gc/StackFloatingVariableHandler.h"
 
 namespace alinous {
 

@@ -8,7 +8,7 @@
 #ifndef INSTANCE_ARRAY_VMARRAYINSTANCEUTILS_H_
 #define INSTANCE_ARRAY_VMARRAYINSTANCEUTILS_H_
 
-#include "instance_array/VmArrayInstance.h"
+#include "instance/instance_array/VmArrayInstance.h"
 
 namespace alinous {
 

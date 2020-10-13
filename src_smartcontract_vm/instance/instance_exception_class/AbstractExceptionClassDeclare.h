@@ -8,7 +8,7 @@
 #ifndef INSTANCE_EXCEPTION_CLASS_ABSTRACTEXCEPTIONCLASSDECLARE_H_
 #define INSTANCE_EXCEPTION_CLASS_ABSTRACTEXCEPTIONCLASSDECLARE_H_
 
-#include "reserved_classes/AbstractReservedClassDeclare.h"
+#include "instance/reserved_classes/AbstractReservedClassDeclare.h"
 
 namespace alinous {
 

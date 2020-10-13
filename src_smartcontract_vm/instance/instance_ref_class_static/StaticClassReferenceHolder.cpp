@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "instance_ref_class_static/StaticClassReferenceHolder.h"
-#include "instance_ref_class_static/StaticClassEntry.h"
+#include "instance/instance_ref_class_static/StaticClassReferenceHolder.h"
+#include "instance/instance_ref_class_static/StaticClassEntry.h"
 
-#include "instance_ref/VmRootReference.h"
+#include "instance/instance_ref/VmRootReference.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
@@ -24,8 +24,8 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_ref_class_static_meta/StaticClassMetadataHolder.h"
-#include "instance_ref_class_static_meta/StaticClassMetadata.h"
+#include "instance/instance_ref_class_static_meta/StaticClassMetadataHolder.h"
+#include "instance/instance_ref_class_static_meta/StaticClassMetadata.h"
 
 
 namespace alinous {

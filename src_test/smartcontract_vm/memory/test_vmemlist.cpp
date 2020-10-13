@@ -8,12 +8,12 @@
 #include "test_utils/t_macros.h"
 
 #include "vm/VirtualMachine.h"
-#include "instance_parts/VmMalloc.h"
-#include "instance_parts/VMemList.h"
+#include "instance/instance_parts/VmMalloc.h"
+#include "instance/instance_parts/VMemList.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
-#include "instance_parts/VMemPrimitiveList.h"
+#include "instance/instance_parts/VMemPrimitiveList.h"
 using namespace alinous;
 
 TEST_GROUP(TestVmMemList) {

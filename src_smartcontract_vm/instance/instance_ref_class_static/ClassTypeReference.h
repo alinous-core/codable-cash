@@ -8,7 +8,7 @@
 #ifndef INSTANCE_REF_CLASS_STATIC_CLASSTYPEREFERENCE_H_
 #define INSTANCE_REF_CLASS_STATIC_CLASSTYPEREFERENCE_H_
 
-#include "instance_ref/AbstractReference.h"
+#include "instance/instance_ref/AbstractReference.h"
 #include "instance/IAbstractVmInstanceSubstance.h"
 
 namespace alinous {

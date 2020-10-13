@@ -13,8 +13,8 @@
 
 #include "instance/VmClassInstance.h"
 
-#include "instance_exception/NullPointerExceptionClassDeclare.h"
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
 
 namespace alinous {

@@ -23,10 +23,10 @@
 #include "lang/sc_declare/MethodDeclare.h"
 
 #include "instance/VmClassInstance.h"
-#include "instance_ref/ObjectReference.h"
-#include "instance_ref/VmRootReference.h"
+#include "instance/instance_ref/ObjectReference.h"
+#include "instance/instance_ref/VmRootReference.h"
 
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 
 
 #include "base_io_stream/FileInputStream.h"
@@ -40,13 +40,13 @@
 
 #include "ext_arguments/AbstractFunctionExtArguments.h"
 
-#include "reserved_classes/ReservedClassRegistory.h"
+#include "instance/reserved_classes/ReservedClassRegistory.h"
 
 #include "base/Exception.h"
 
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
-#include "instance_ref_class_static/StaticClassReferenceHolder.h"
+#include "instance/instance_ref_class_static/StaticClassReferenceHolder.h"
 
 
 namespace alinous {

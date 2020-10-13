@@ -9,18 +9,18 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_dom/DomVariableInstance.h"
+#include "instance/instance_dom/DomVariableInstance.h"
 
-#include "instance_parts/VMemHashmap.h"
-#include "instance_parts/VMemHashMapKeySet.h"
+#include "instance/instance_parts/VMemHashmap.h"
+#include "instance/instance_parts/VMemHashMapKeySet.h"
 
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_string/VmStringInstance.h"
 
 #include "base/StackRelease.h"
 #include "base/UnicodeString.h"
 #include "base/Iterator.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 
 using namespace alinous;

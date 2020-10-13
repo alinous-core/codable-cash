@@ -20,30 +20,30 @@
 #include "base/UnicodeString.h"
 
 #include "instance/VmClassInstance.h"
-#include "instance_ref/AbstractReference.h"
-#include "instance_parts/VMemList.h"
+#include "instance/instance_ref/AbstractReference.h"
+#include "instance/instance_parts/VMemList.h"
 
-#include "instance_exception/NullPointerExceptionClassDeclare.h"
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
 #include "vm/variable_access/AbstractVariableInstraction.h"
 #include "vm/variable_access/ClassTypeAccess.h"
 
-#include "instance_ref_class_static_meta/StaticClassMetadataHolder.h"
-#include "instance_ref_class_static_meta/StaticVariableMetadata.h"
-#include "instance_ref_class_static_meta/StaticClassMetadata.h"
+#include "instance/instance_ref_class_static_meta/StaticClassMetadataHolder.h"
+#include "instance/instance_ref_class_static_meta/StaticVariableMetadata.h"
+#include "instance/instance_ref_class_static_meta/StaticClassMetadata.h"
 
-#include "instance_ref_class_static/StaticClassEntry.h"
+#include "instance/instance_ref_class_static/StaticClassEntry.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_string/VmStringInstance.h"
 
-#include "instance_gc/StackFloatingVariableHandler.h"
+#include "instance/instance_gc/StackFloatingVariableHandler.h"
 
-#include "instance_dom/DomVariableInstance.h"
-#include "instance_dom/DomRuntimeReference.h"
-#include "instance_dom/DomArrayVariable.h"
+#include "instance/instance_dom/DomVariableInstance.h"
+#include "instance/instance_dom/DomRuntimeReference.h"
+#include "instance/instance_dom/DomArrayVariable.h"
 
 
 namespace alinous {

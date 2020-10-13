@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "instance_ref/ConstStaticPrimitive.h"
+#include "instance/instance_ref/ConstStaticPrimitive.h"
 
 #include "osenv/memory.h"
 

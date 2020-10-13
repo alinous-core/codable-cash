@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "instance_ref/AbstractReference.h"
+#include "instance/instance_ref/AbstractReference.h"
 
 #include "base/UnicodeString.h"
 

@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "instance_ref/PrimitiveReference.h"
-#include "instance_parts/VmMalloc.h"
+#include "instance/instance_ref/PrimitiveReference.h"
+#include "instance/instance_parts/VmMalloc.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -19,9 +19,9 @@
 #include "base/UnicodeString.h"
 #include "base/Long.h"
 
-#include "instance_exception/TypeCastExceptionClassDeclare.h"
+#include "instance/instance_exception/TypeCastExceptionClassDeclare.h"
 
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 namespace alinous {
 
 PrimitiveReference::PrimitiveReference(uint8_t type) : AbstractReference(nullptr, type) {

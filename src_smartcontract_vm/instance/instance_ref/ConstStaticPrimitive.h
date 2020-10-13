@@ -8,7 +8,7 @@
 #ifndef INSTANCE_REF_CONSTSTATICPRIMITIVE_H_
 #define INSTANCE_REF_CONSTSTATICPRIMITIVE_H_
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 namespace alinous {
 

@@ -11,7 +11,7 @@
 #include "engine/sc/SmartContract.h"
 #include "base_io_stream/FileInputStream.h"
 
-#include "instance_ref/VmRootReference.h"
+#include "instance/instance_ref/VmRootReference.h"
 
 #include "../VmTestUtils.h"
 

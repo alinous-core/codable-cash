@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "instance_ref_static/StaticInstanceHolder.h"
+#include "instance/instance_ref_static/StaticInstanceHolder.h"
 
-#include "instance_ref_static/NumericConstHolder.h"
-#include "instance_ref_static/StringConstHolder.h"
+#include "instance/instance_ref_static/NumericConstHolder.h"
+#include "instance/instance_ref_static/StringConstHolder.h"
 
 
 namespace alinous {

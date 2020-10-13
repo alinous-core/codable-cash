@@ -5,13 +5,13 @@
  *      Author: iizuka
  */
 
-#include "instance_ref/ObjectReference.h"
+#include "instance/instance_ref/ObjectReference.h"
 
 #include "instance/VmClassInstance.h"
 #include "instance/VmInstanceTypesConst.h"
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_string/VmStringInstance.h"
 
 #include "ext_binary/ExtStringClass.h"
 #include "ext_binary/ExtNullPtrObject.h"

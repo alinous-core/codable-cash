@@ -12,9 +12,9 @@
 
 #include "engine/sc_analyze/AnalyzedType.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_string/VmStringInstance.h"
 
 #include "base/StackRelease.h"
 

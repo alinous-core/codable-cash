@@ -20,7 +20,7 @@
 
 #include "engine/sc_analyze/AnalyzedType.h"
 
-#include "instance_ref/ObjectReference.h"
+#include "instance/instance_ref/ObjectReference.h"
 using namespace alinous;
 
 TEST_GROUP(TestClassCompareGroup) {

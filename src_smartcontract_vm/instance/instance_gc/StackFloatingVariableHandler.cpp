@@ -5,13 +5,13 @@
  *      Author: iizuka
  */
 
-#include "instance_gc/StackFloatingVariableHandler.h"
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/StackFloatingVariableHandler.h"
+#include "instance/instance_gc/GcManager.h"
 
 #include "instance/AbstractVmInstance.h"
 #include "instance/IAbstractVmInstanceSubstance.h"
 
-#include "instance_ref/AbstractReference.h"
+#include "instance/instance_ref/AbstractReference.h"
 
 namespace alinous {
 

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "instance_exception_class/VmExceptionInstance.h"
+#include "instance/instance_exception_class/VmExceptionInstance.h"
 
 #include "instance/VmInstanceTypesConst.h"
 

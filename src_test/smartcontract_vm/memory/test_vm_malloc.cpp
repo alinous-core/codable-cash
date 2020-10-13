@@ -2,7 +2,7 @@
 #include "test_utils/t_macros.h"
 
 #include "vm/VirtualMachine.h"
-#include "instance_parts/VmMalloc.h"
+#include "instance/instance_parts/VmMalloc.h"
 
 using namespace alinous;
 

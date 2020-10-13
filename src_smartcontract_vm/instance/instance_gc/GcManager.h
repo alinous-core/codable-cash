@@ -9,7 +9,7 @@
 #define INSTANCE_GC_GCMANAGER_H_
 
 #include "base/HashMap.h"
-#include "instance_gc/ReferenceStatusCompare.h"
+#include "instance/instance_gc/ReferenceStatusCompare.h"
 
 namespace alinous {
 

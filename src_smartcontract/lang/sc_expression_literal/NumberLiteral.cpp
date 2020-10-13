@@ -11,13 +11,13 @@
 
 #include "engine/sc_analyze/AnalyzedType.h"
 
-#include "instance_ref/RefereceFactory.h"
-#include "instance_gc/GcManager.h"
+#include "instance/instance_ref/RefereceFactory.h"
+#include "instance/instance_gc/GcManager.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_ref/VmRootReference.h"
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/VmRootReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 #include "base/Long.h"
 

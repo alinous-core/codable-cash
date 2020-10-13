@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "instance_string/VmString.h"
+#include "instance/instance_string/VmString.h"
 
 #include "base/UnicodeString.h"
 

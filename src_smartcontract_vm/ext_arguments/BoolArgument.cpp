@@ -11,7 +11,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 namespace alinous {
 

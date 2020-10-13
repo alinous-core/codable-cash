@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "instance_ref_class_static_meta/StaticClassMetadata.h"
-#include "instance_ref_class_static_meta/StaticVariableMetadata.h"
-#include "instance_ref_class_static_meta/StaticClassMetadataHolder.h"
+#include "instance/instance_ref_class_static_meta/StaticClassMetadata.h"
+#include "instance/instance_ref_class_static_meta/StaticVariableMetadata.h"
+#include "instance/instance_ref_class_static_meta/StaticClassMetadataHolder.h"
 
 #include "lang/sc_declare/ClassDeclare.h"
 #include "lang/sc_declare/MemberVariableDeclare.h"

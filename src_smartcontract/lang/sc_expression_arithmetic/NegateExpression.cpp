@@ -11,10 +11,10 @@
 #include "engine/sc_analyze/ValidationError.h"
 #include "engine/sc_analyze/AnalyzeContext.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
-#include "instance_gc/StackFloatingVariableHandler.h"
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/StackFloatingVariableHandler.h"
+#include "instance/instance_gc/GcManager.h"
 
 
 namespace alinous {

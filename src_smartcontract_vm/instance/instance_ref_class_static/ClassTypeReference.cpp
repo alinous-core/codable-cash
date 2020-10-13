@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "instance_ref_class_static/ClassTypeReference.h"
+#include "instance/instance_ref_class_static/ClassTypeReference.h"
 
 #include "instance/VmInstanceTypesConst.h"
 #include "instance/IAbstractVmInstanceSubstance.h"

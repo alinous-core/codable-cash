@@ -5,21 +5,21 @@
  *      Author: iizuka
  */
 
-#include "instance_ref/RefereceFactory.h"
+#include "instance/instance_ref/RefereceFactory.h"
 #include "lang/sc_declare/MemberVariableDeclare.h"
 #include "lang/sc_declare_types/AbstractType.h"
 
 #include "instance/VmInstanceTypesConst.h"
 
 #include "vm/VirtualMachine.h"
-#include "instance_ref/PrimitiveReference.h"
-#include "instance_ref/ObjectReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/ObjectReference.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
 
-#include "instance_array/ArrayReference.h"
+#include "instance/instance_array/ArrayReference.h"
 
-#include "instance_dom/DomRuntimeReference.h"
+#include "instance/instance_dom/DomRuntimeReference.h"
 
 namespace alinous {
 

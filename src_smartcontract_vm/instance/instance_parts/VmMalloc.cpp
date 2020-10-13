@@ -7,7 +7,7 @@
 
 #include <cstdint>
 
-#include "instance_parts/VmMalloc.h"
+#include "instance/instance_parts/VmMalloc.h"
 #include "vm/memory/VmMemoryManager.h"
 #include "vm/VirtualMachine.h"
 

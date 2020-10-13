@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "instance_ref_class_static/StaticClassEntry.h"
+#include "instance/instance_ref_class_static/StaticClassEntry.h"
 
 #include "engine/sc_analyze/AnalyzedClass.h"
 
@@ -16,12 +16,12 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_ref/RefereceFactory.h"
-#include "instance_ref/VmRootReference.h"
-#include "instance_ref/AbstractReference.h"
+#include "instance/instance_ref/RefereceFactory.h"
+#include "instance/instance_ref/VmRootReference.h"
+#include "instance/instance_ref/AbstractReference.h"
 
-#include "instance_gc/GcManager.h"
-#include "instance_gc/StackFloatingVariableHandler.h"
+#include "instance/instance_gc/GcManager.h"
+#include "instance/instance_gc/StackFloatingVariableHandler.h"
 
 #include "lang/sc_expression/AbstractExpression.h"
 

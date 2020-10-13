@@ -11,22 +11,22 @@
 #include "engine/sc_analyze/AnalyzeContext.h"
 #include "engine/sc_analyze/ValidationError.h"
 
-#include "instance_array/VmArrayInstanceUtils.h"
+#include "instance/instance_array/VmArrayInstanceUtils.h"
 
-#include "instance_gc/StackFloatingVariableHandler.h"
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/StackFloatingVariableHandler.h"
+#include "instance/instance_gc/GcManager.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
-#include "instance_exception/NullPointerExceptionClassDeclare.h"
-#include "instance_exception/ExceptionInterrupt.h"
-#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
-#include "instance_exception/TypeCastExceptionClassDeclare.h"
+#include "instance/instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
+#include "instance/instance_exception/TypeCastExceptionClassDeclare.h"
 
-#include "instance_dom/DomArrayVariable.h"
-#include "instance_dom/DomRuntimeReference.h"
+#include "instance/instance_dom/DomArrayVariable.h"
+#include "instance/instance_dom/DomRuntimeReference.h"
 
 #include "instance/IAbstractVmInstanceSubstance.h"
 

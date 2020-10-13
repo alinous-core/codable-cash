@@ -8,7 +8,7 @@
 #ifndef INSTANCE_EXCEPTION_CLASS_EXCEPTIONCLASSDECLARE_H_
 #define INSTANCE_EXCEPTION_CLASS_EXCEPTIONCLASSDECLARE_H_
 
-#include "instance_exception_class/AbstractExceptionClassDeclare.h"
+#include "instance/instance_exception_class/AbstractExceptionClassDeclare.h"
 
 namespace alinous {
 

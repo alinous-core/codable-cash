@@ -35,7 +35,7 @@
 
 #include "scan_select/scan_table/AbstractScanTableTarget.h"
 
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
 #include "trx/transaction/CdbTransaction.h"
 #include "trx/transaction/CdbTransactionManager.h"

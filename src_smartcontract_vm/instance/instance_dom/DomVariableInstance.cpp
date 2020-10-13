@@ -5,26 +5,26 @@
  *      Author: iizuka
  */
 
-#include "instance_dom/DomVariableInstance.h"
-#include "instance_dom/DomVariableReference.h"
-#include "instance_dom/DomRuntimeReference.h"
+#include "instance/instance_dom/DomVariableInstance.h"
+#include "instance/instance_dom/DomVariableReference.h"
+#include "instance/instance_dom/DomRuntimeReference.h"
 
 #include "instance/VmInstanceTypesConst.h"
 
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
 
-#include "instance_parts/VMemList.h"
+#include "instance/instance_parts/VMemList.h"
 
-#include "instance_ref/AbstractReference.h"
+#include "instance/instance_ref/AbstractReference.h"
 
 #include "ext_binary/ExtDomObject.h"
 
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_string/VmStringInstance.h"
 
 namespace alinous {
 

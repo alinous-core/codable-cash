@@ -14,7 +14,7 @@
 #include "../VmTestUtils.h"
 #include "ext_binary/ExtClassObject.h"
 
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 using namespace alinous;
 
 TEST_GROUP(TestGcGroup) {

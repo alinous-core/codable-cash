@@ -13,7 +13,7 @@
 
 #include "base/Exception.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 #include "engine/sc_analyze/AnalyzedClass.h"
 

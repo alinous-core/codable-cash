@@ -9,19 +9,19 @@
 #include "engine/sc/SmartContract.h"
 
 #include "vm/memory/VmMemoryManager.h"
-#include "instance_parts/VmMalloc.h"
-#include "instance_gc/GcManager.h"
+#include "instance/instance_parts/VmMalloc.h"
+#include "instance/instance_gc/GcManager.h"
 
 #include "instance/IAbstractVmInstanceSubstance.h"
 #include "instance/VmClassInstance.h"
 
-#include "instance_ref/AbstractReference.h"
-#include "instance_ref/ObjectReference.h"
+#include "instance/instance_ref/AbstractReference.h"
+#include "instance/instance_ref/ObjectReference.h"
 
 #include "vm/stack/VmStackManager.h"
 #include "vm/stack/VmStack.h"
 
-#include "instance_ref/VmRootReference.h"
+#include "instance/instance_ref/VmRootReference.h"
 
 #include "lang/sc_declare/MethodDeclare.h"
 #include "lang/sc_statement/StatementBlock.h"
@@ -38,7 +38,7 @@
 #include "engine/sc_analyze/AnalyzedType.h"
 #include "engine/sc_analyze/ValidationError.h"
 
-#include "instance_exception_class/VmExceptionInstance.h"
+#include "instance/instance_exception_class/VmExceptionInstance.h"
 
 #include "ext_arguments/AbstractFunctionExtArguments.h"
 
@@ -53,9 +53,9 @@
 
 #include "base/Exception.h"
 
-#include "reserved_classes/ReservedClassRegistory.h"
+#include "instance/reserved_classes/ReservedClassRegistory.h"
 
-#include "instance_exception_class/ExceptionClassDeclare.h"
+#include "instance/instance_exception_class/ExceptionClassDeclare.h"
 
 #include "base/UnicodeString.h"
 

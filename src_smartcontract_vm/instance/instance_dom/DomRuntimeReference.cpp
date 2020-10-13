@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "instance_dom/DomRuntimeReference.h"
+#include "instance/instance_dom/DomRuntimeReference.h"
 
 #include "instance/IAbstractVmInstanceSubstance.h"
 #include "instance/VmInstanceTypesConst.h"
@@ -14,7 +14,7 @@
 
 #include "ext_binary/ExtNullPtrObject.h"
 
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 namespace alinous {
 
 DomRuntimeReference::DomRuntimeReference(IAbstractVmInstanceSubstance* owner, VirtualMachine* vm)

@@ -14,7 +14,7 @@
 #include "engine/sc_analyze/ValidationError.h"
 #include "engine/sc_analyze/AnalyzeContext.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -22,15 +22,15 @@
 #include "vm/vm_ctrl/ExecControlManager.h"
 #include "vm/vm_ctrl/AbstractCtrlInstruction.h"
 
-#include "instance_gc/GcManager.h"
-#include "instance_gc/StackFloatingVariableHandler.h"
+#include "instance/instance_gc/GcManager.h"
+#include "instance/instance_gc/StackFloatingVariableHandler.h"
 
 #include "engine/sc_analyze_stack/AnalyzeStackPopper.h"
 #include "engine/sc_analyze_stack/AnalyzeStackManager.h"
 
 #include "vm/stack/StackPopper.h"
 
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
 namespace alinous {
 

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "instance_exception_class/AbstractExceptionClassDeclare.h"
+#include "instance/instance_exception_class/AbstractExceptionClassDeclare.h"
 
 #include "engine/sc_analyze/AnalyzedClass.h"
 namespace alinous {

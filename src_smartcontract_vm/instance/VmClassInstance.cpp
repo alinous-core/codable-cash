@@ -6,7 +6,7 @@
  */
 
 #include "instance/VmClassInstance.h"
-#include "instance_ref/AbstractReference.h"
+#include "instance/instance_ref/AbstractReference.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -21,8 +21,8 @@
 #include "engine/sc_analyze_variables/MemberVariableTable.h"
 #include "engine/sc_analyze_variables/MemberVariableEntry.h"
 
-#include "instance_ref/RefereceFactory.h"
-#include "instance_gc/GcManager.h"
+#include "instance/instance_ref/RefereceFactory.h"
+#include "instance/instance_gc/GcManager.h"
 
 #include "instance/VmInstanceTypesConst.h"
 
@@ -31,9 +31,9 @@
 #include "base/ArrayList.h"
 #include "base/UnicodeString.h"
 
-#include "instance_ref/ObjectReference.h"
+#include "instance/instance_ref/ObjectReference.h"
 
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
 namespace alinous {
 

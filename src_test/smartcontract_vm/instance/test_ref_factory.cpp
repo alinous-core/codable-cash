@@ -22,8 +22,8 @@
 
 #include "engine/sc_analyze/AnalyzedType.h"
 
-#include "instance_ref/ObjectReference.h"
-#include "instance_ref/RefereceFactory.h"
+#include "instance/instance_ref/ObjectReference.h"
+#include "instance/instance_ref/RefereceFactory.h"
 
 
 using namespace alinous;

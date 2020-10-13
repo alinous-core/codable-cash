@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "instance_gc/ReferenceStatusCompare.h"
-#include "instance_gc/ReferenceStatus.h"
+#include "instance/instance_gc/ReferenceStatusCompare.h"
+#include "instance/instance_gc/ReferenceStatus.h"
 
 namespace alinous {
 

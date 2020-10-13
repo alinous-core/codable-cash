@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include "instance_parts/VMemRawBitSet.h"
+#include "instance/instance_parts/VMemRawBitSet.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_parts/VmMalloc.h"
+#include "instance/instance_parts/VmMalloc.h"
 
 #include "osenv/memory.h"
 

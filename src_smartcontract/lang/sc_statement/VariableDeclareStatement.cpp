@@ -21,12 +21,12 @@
 
 #include "vm/stack/VmStack.h"
 
-#include "instance_ref/RefereceFactory.h"
+#include "instance/instance_ref/RefereceFactory.h"
 
-#include "instance_gc/GcManager.h"
-#include "instance_gc/StackFloatingVariableHandler.h"
+#include "instance/instance_gc/GcManager.h"
+#include "instance/instance_gc/StackFloatingVariableHandler.h"
 
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
 #include "vm/type_check/AnalyzedTypeChecker.h"
 

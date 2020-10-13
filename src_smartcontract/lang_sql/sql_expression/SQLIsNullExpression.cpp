@@ -9,7 +9,7 @@
 
 #include "engine/sc_analyze/AnalyzedType.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 #include "scan_select/scan_condition_exp/IsNullScanCondition.h"
 

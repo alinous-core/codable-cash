@@ -15,7 +15,7 @@
 
 #include "vm/variable_access/FunctionArguments.h"
 
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
 namespace alinous {
 

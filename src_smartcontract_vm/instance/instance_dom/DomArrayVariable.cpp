@@ -5,22 +5,22 @@
  *      Author: iizuka
  */
 
-#include "instance_dom/DomArrayVariable.h"
-#include "instance_dom/DomVariableReference.h"
+#include "instance/instance_dom/DomArrayVariable.h"
+#include "instance/instance_dom/DomVariableReference.h"
 
 #include "instance/VmInstanceTypesConst.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
 
-#include "instance_ref/AbstractReference.h"
+#include "instance/instance_ref/AbstractReference.h"
 
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 
 #include "ext_binary/ExtDomArrayObject.h"
 
 #include "base/UnicodeString.h"
 
-#include "instance_dom/DomRuntimeReference.h"
+#include "instance/instance_dom/DomRuntimeReference.h"
 
 namespace alinous {
 

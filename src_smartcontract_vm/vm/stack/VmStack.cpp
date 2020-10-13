@@ -7,10 +7,10 @@
 
 #include "vm/stack/VmStack.h"
 
-#include "instance_ref/AbstractReference.h"
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/AbstractReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 #include "instance/AbstractVmInstance.h"
 #include "instance/VmInstanceTypesConst.h"
 

@@ -13,15 +13,15 @@
 
 #include "engine/sc_analyze/AnalyzedType.h"
 
-#include "instance_ref/VmRootReference.h"
-#include "instance_ref/AbstractReference.h"
-#include "instance_ref/RefereceFactory.h"
+#include "instance/instance_ref/VmRootReference.h"
+#include "instance/instance_ref/AbstractReference.h"
+#include "instance/instance_ref/RefereceFactory.h"
 
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_string/VmStringInstance.h"
 
-#include "instance_ref/ObjectReference.h"
+#include "instance/instance_ref/ObjectReference.h"
 using namespace alinous;
 
 

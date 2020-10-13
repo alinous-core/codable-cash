@@ -26,9 +26,9 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_ref/VmRootReference.h"
+#include "instance/instance_ref/VmRootReference.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 using namespace codablecash;
 using namespace alinous;
 

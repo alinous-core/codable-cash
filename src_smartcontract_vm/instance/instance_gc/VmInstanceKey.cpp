@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "instance_gc/VmInstanceKey.h"
+#include "instance/instance_gc/VmInstanceKey.h"
 
 #include "instance/AbstractVmInstance.h"
 #include "instance/IAbstractVmInstanceSubstance.h"

@@ -6,18 +6,18 @@
  */
 #include "lang/sc_expression_arithmetic/MultiplicativeExpression.h"
 
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 #include "engine/sc_analyze/ValidationError.h"
 #include "engine/sc_analyze/AnalyzeContext.h"
 
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
-#include "instance_exception/ZeroDivisionExceptionClassDeclare.h"
+#include "instance/instance_exception/ZeroDivisionExceptionClassDeclare.h"
 
-#include "instance_gc/StackFloatingVariableHandler.h"
+#include "instance/instance_gc/StackFloatingVariableHandler.h"
 namespace alinous {
 
 MultiplicativeExpression::MultiplicativeExpression() : AbstractArithmeticBinaryExpresson(CodeElement::EXP_MUL) {

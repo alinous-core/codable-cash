@@ -7,8 +7,8 @@
 #include "test_utils/t_macros.h"
 #include "vm/VirtualMachine.h"
 
-#include "instance_exception_class/VmExceptionInstance.h"
-#include "instance_exception_class/ExceptionClassDeclare.h"
+#include "instance/instance_exception_class/VmExceptionInstance.h"
+#include "instance/instance_exception_class/ExceptionClassDeclare.h"
 
 #include "engine/sc_analyze/AnalyzedClass.h"
 

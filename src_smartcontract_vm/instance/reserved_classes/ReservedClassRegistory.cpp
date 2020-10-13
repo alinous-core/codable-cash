@@ -5,20 +5,20 @@
  *      Author: iizuka
  */
 
-#include "reserved_classes/ReservedClassRegistory.h"
+#include "instance/reserved_classes/ReservedClassRegistory.h"
 
 #include "engine/sc_analyze/AnalyzedClass.h"
 
-#include "reserved_classes_string/StringClassDeclare.h"
+#include "instance/reserved_classes_string/StringClassDeclare.h"
 
-#include "instance_exception_class/ExceptionClassDeclare.h"
+#include "instance/instance_exception_class/ExceptionClassDeclare.h"
 
 #include "engine/sc/CompilationUnit.h"
 
-#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
-#include "instance_exception/NullPointerExceptionClassDeclare.h"
-#include "instance_exception/ZeroDivisionExceptionClassDeclare.h"
-#include "instance_exception/TypeCastExceptionClassDeclare.h"
+#include "instance/instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
+#include "instance/instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance/instance_exception/ZeroDivisionExceptionClassDeclare.h"
+#include "instance/instance_exception/TypeCastExceptionClassDeclare.h"
 #include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "base/UnicodeString.h"

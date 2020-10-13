@@ -8,7 +8,7 @@
 #ifndef INSTANCE_DOM_DOMVARIABLEREFERENCE_H_
 #define INSTANCE_DOM_DOMVARIABLEREFERENCE_H_
 
-#include "instance_ref/AbstractReference.h"
+#include "instance/instance_ref/AbstractReference.h"
 
 namespace alinous {
 

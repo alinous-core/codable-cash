@@ -32,15 +32,15 @@
 
 #include "lang/sc_declare/MethodDeclare.h"
 
-#include "instance_ref/ObjectReference.h"
+#include "instance/instance_ref/ObjectReference.h"
 
-#include "instance_gc/StackFloatingVariableHandler.h"
+#include "instance/instance_gc/StackFloatingVariableHandler.h"
 
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
 #include "engine/sc/SmartContract.h"
 
-#include "instance_ref/VmRootReference.h"
+#include "instance/instance_ref/VmRootReference.h"
 namespace alinous {
 
 ConstructorCall::ConstructorCall() : AbstractExpression(CodeElement::EXP_CONSTRUCTORCALL) {

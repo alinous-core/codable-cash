@@ -10,7 +10,7 @@
 
 #include "vm/memory/VmMemoryManager.h"
 #include "vm/VirtualMachine.h"
-#include "instance_parts/VmMalloc.h"
+#include "instance/instance_parts/VmMalloc.h"
 
 
 namespace alinous {

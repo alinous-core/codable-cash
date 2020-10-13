@@ -12,7 +12,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 #include "ext_binary/ExtPrimitiveObject.h"
 using namespace alinous;

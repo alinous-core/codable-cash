@@ -5,16 +5,16 @@
  *      Author: iizuka
  */
 
-#include "instance_array/VmArrayInstanceUtils.h"
+#include "instance/instance_array/VmArrayInstanceUtils.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
 
-#include "instance_array/VmArrayInstance.h"
-#include "instance_array/ArrayReference.h"
+#include "instance/instance_array/VmArrayInstance.h"
+#include "instance/instance_array/ArrayReference.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_ref/RefereceFactory.h"
+#include "instance/instance_ref/RefereceFactory.h"
 
 #include "instance/VmInstanceTypesConst.h"
 namespace alinous {

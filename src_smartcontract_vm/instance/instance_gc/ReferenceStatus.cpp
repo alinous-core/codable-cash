@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include "instance_gc/ReferenceStatus.h"
-#include "instance_gc/GcManager.h"
-#include "instance_gc/GcCyclicCheckerContext.h"
+#include "instance/instance_gc/ReferenceStatus.h"
+#include "instance/instance_gc/GcManager.h"
+#include "instance/instance_gc/GcCyclicCheckerContext.h"
 
-#include "instance_ref/AbstractReference.h"
+#include "instance/instance_ref/AbstractReference.h"
 #include "instance/IInstanceContainer.h"
 #include "instance/VmInstanceTypesConst.h"
 

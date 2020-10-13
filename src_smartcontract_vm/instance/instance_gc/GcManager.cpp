@@ -5,16 +5,16 @@
  *      Author: iizuka
  */
 
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 
 #include "instance/AbstractVmInstance.h"
 
-#include "instance_gc/ReferenceStatus.h"
-#include "instance_gc/VmInstanceKey.h"
-#include "instance_gc/GcCyclicCheckerContext.h"
+#include "instance/instance_gc/ReferenceStatus.h"
+#include "instance/instance_gc/VmInstanceKey.h"
+#include "instance/instance_gc/GcCyclicCheckerContext.h"
 
-#include "instance_ref/AbstractReference.h"
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/AbstractReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 #include "instance/IAbstractVmInstanceSubstance.h"
 

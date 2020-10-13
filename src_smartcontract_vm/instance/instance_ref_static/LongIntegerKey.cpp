@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "instance_ref_static/LongIntegerKey.h"
+#include "instance/instance_ref_static/LongIntegerKey.h"
 
 namespace alinous {
 

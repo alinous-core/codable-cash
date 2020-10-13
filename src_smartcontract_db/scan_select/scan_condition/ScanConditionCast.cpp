@@ -15,8 +15,8 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_exception/TypeCastExceptionClassDeclare.h"
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/TypeCastExceptionClassDeclare.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
 namespace codablecash {
 

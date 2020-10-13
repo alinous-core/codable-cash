@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_string/VmStringInstance.h"
 
 #include "instance/VmInstanceTypesConst.h"
-#include "instance_ref/ObjectReference.h"
-#include "instance_string/VmString.h"
+#include "instance/instance_ref/ObjectReference.h"
+#include "instance/instance_string/VmString.h"
 
 #include "base/UnicodeString.h"
 

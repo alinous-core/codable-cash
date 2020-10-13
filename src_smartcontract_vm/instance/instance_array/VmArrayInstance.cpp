@@ -5,12 +5,12 @@
  *      Author: iizuka
  */
 
-#include "instance_array/VmArrayInstance.h"
+#include "instance/instance_array/VmArrayInstance.h"
 #include "instance/VmInstanceTypesConst.h"
 
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 
-#include "instance_array/ArrayReference.h"
+#include "instance/instance_array/ArrayReference.h"
 
 #include "ext_binary/ExtArrayObject.h"
 

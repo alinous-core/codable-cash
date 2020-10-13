@@ -8,7 +8,7 @@
 #include "lang/sc_expression_literal/BooleanLiteral.h"
 #include "engine/sc_analyze/AnalyzedType.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 namespace alinous {
 

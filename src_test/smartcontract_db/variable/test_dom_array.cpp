@@ -20,9 +20,9 @@
 #include "ext_binary/ExtDomArrayObject.h"
 #include "ext_binary/ExtPrimitiveObject.h"
 
-#include "instance_exception/NullPointerExceptionClassDeclare.h"
-#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
-#include "instance_exception/TypeCastExceptionClassDeclare.h"
+#include "instance/instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance/instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
+#include "instance/instance_exception/TypeCastExceptionClassDeclare.h"
 
 using namespace alinous;
 

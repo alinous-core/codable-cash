@@ -8,11 +8,11 @@
 #ifndef INSTANCE_DOM_DOMVARIABLEINSTANCE_H_
 #define INSTANCE_DOM_DOMVARIABLEINSTANCE_H_
 
-#include "instance_dom/AbstractDomInstance.h"
+#include "instance/instance_dom/AbstractDomInstance.h"
 
-#include "instance_parts/VMemHashmap.h"
+#include "instance/instance_parts/VMemHashmap.h"
 
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_string/VmStringInstance.h"
 
 
 namespace alinous {

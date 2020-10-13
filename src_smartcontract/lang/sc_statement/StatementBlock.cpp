@@ -28,7 +28,7 @@
 #include "vm/stack/StackPopper.h"
 #include "vm/stack/VmStack.h"
 
-#include "instance_ref/ObjectReference.h"
+#include "instance/instance_ref/ObjectReference.h"
 
 #include "vm/variable_access/FunctionArguments.h"
 

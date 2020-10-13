@@ -18,7 +18,7 @@
 #include "vm/variable_access/MemberVariableAccess.h"
 #include "vm/variable_access/ThisPointerAccess.h"
 
-#include "instance_ref/AbstractReference.h"
+#include "instance/instance_ref/AbstractReference.h"
 
 #include "engine/sc_analyze/AnalyzedClass.h"
 #include "engine/sc_analyze/ValidationError.h"
@@ -28,10 +28,10 @@
 
 #include "engine/sc_analyze_variables/MemberVariableTable.h"
 
-#include "instance_ref_class_static_meta/StaticVariableMetadata.h"
-#include "instance_ref_class_static_meta/StaticClassMetadataHolder.h"
-#include "instance_ref_class_static/StaticClassEntry.h"
-#include "instance_ref_class_static_meta/StaticClassMetadata.h"
+#include "instance/instance_ref_class_static_meta/StaticVariableMetadata.h"
+#include "instance/instance_ref_class_static_meta/StaticClassMetadataHolder.h"
+#include "instance/instance_ref_class_static/StaticClassEntry.h"
+#include "instance/instance_ref_class_static_meta/StaticClassMetadata.h"
 
 
 namespace alinous {

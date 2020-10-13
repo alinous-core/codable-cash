@@ -11,7 +11,7 @@
 #include "instance/IAbstractVmInstanceSubstance.h"
 #include "instance/AbstractVmInstance.h"
 
-#include "instance_string/VmString.h"
+#include "instance/instance_string/VmString.h"
 
 
 namespace alinous {

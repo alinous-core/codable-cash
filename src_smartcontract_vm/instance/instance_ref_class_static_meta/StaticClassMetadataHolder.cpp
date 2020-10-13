@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "instance_ref_class_static_meta/StaticClassMetadataHolder.h"
-#include "instance_ref_class_static_meta/StaticClassMetadata.h"
+#include "instance/instance_ref_class_static_meta/StaticClassMetadataHolder.h"
+#include "instance/instance_ref_class_static_meta/StaticClassMetadata.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"

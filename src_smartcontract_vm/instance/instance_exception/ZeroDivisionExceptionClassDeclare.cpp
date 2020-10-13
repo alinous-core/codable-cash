@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "instance_exception/ZeroDivisionExceptionClassDeclare.h"
+#include "instance/instance_exception/ZeroDivisionExceptionClassDeclare.h"
 
-#include "instance_exception_class/ExceptionInstanceFactory.h"
-#include "instance_exception_class/ExceptionClassDeclare.h"
+#include "instance/instance_exception_class/ExceptionInstanceFactory.h"
+#include "instance/instance_exception_class/ExceptionClassDeclare.h"
 
 #include "base/UnicodeString.h"
 
@@ -24,9 +24,9 @@
 
 #include "instance/VmClassInstance.h"
 
-#include "reserved_classes/ReservedClassRegistory.h"
+#include "instance/reserved_classes/ReservedClassRegistory.h"
 
-#include "instance_exception_class/VmExceptionInstance.h"
+#include "instance/instance_exception_class/VmExceptionInstance.h"
 
 namespace alinous {
 

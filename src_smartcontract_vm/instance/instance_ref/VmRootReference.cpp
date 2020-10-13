@@ -5,19 +5,19 @@
  *      Author: iizuka
  */
 
-#include "instance_ref/VmRootReference.h"
-#include "instance_gc/GcManager.h"
-#include "instance_ref_static/StaticInstanceHolder.h"
+#include "instance/instance_ref/VmRootReference.h"
+#include "instance/instance_gc/GcManager.h"
+#include "instance/instance_ref_static/StaticInstanceHolder.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_ref/RefereceFactory.h"
+#include "instance/instance_ref/RefereceFactory.h"
 #include "instance/VmClassInstance.h"
 #include "instance/VmInstanceTypesConst.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
 
-#include "instance_ref_class_static/StaticClassReferenceHolder.h"
+#include "instance/instance_ref_class_static/StaticClassReferenceHolder.h"
 
 
 namespace alinous {

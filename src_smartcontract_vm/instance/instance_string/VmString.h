@@ -10,7 +10,7 @@
 
 #include "instance/VmAllocatee.h"
 
-#include "instance_parts/VMemPrimitiveList.h"
+#include "instance/instance_parts/VMemPrimitiveList.h"
 
 namespace alinous {
 

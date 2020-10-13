@@ -10,7 +10,7 @@
 #include "instance/IAbstractVmInstanceSubstance.h"
 #include "instance/VmInstanceTypesConst.h"
 
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 #include "schema_table/table_record_value/AbstractCdbValue.h"
 #include "schema_table/table_record_value/CdbByteValue.h"
@@ -19,7 +19,7 @@
 #include "schema_table/table_record_value/CdbLongValue.h"
 #include "schema_table/table_record_value/CdbStringValue.h"
 
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_string/VmStringInstance.h"
 
 #include "engine/CdbException.h"
 

@@ -8,7 +8,7 @@
 #ifndef INSTANCE_REF_VMROOTREFERENCE_H_
 #define INSTANCE_REF_VMROOTREFERENCE_H_
 
-#include "instance_ref/AbstractReference.h"
+#include "instance/instance_ref/AbstractReference.h"
 #include <cstdint>
 
 #include "instance/IAbstractVmInstanceSubstance.h"

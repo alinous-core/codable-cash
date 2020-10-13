@@ -14,7 +14,7 @@
 
 #include "base_io/ByteBuffer.h"
 
-#include "instance_dom/DomArrayVariable.h"
+#include "instance/instance_dom/DomArrayVariable.h"
 
 namespace alinous {
 

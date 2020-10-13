@@ -10,8 +10,8 @@
 
 #include "engine/sc_analyze/AnalyzedType.h"
 
-#include "instance_ref/VmRootReference.h"
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_ref/VmRootReference.h"
+#include "instance/instance_string/VmStringInstance.h"
 
 #include "vm/VirtualMachine.h"
 

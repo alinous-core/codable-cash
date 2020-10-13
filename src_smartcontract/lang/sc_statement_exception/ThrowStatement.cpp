@@ -19,17 +19,17 @@
 
 #include "instance/AbstractVmInstance.h"
 
-#include "instance_exception_class/ExceptionClassDeclare.h"
-#include "instance_exception_class/VmExceptionInstance.h"
+#include "instance/instance_exception_class/ExceptionClassDeclare.h"
+#include "instance/instance_exception_class/VmExceptionInstance.h"
 
 #include "base/StackRelease.h"
 
-#include "instance_gc/StackFloatingVariableHandler.h"
+#include "instance/instance_gc/StackFloatingVariableHandler.h"
 
 #include "vm/vm_ctrl/ExecControlManager.h"
 
-#include "instance_exception/NullPointerExceptionClassDeclare.h"
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
 namespace alinous {
 

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -13,7 +13,7 @@
 
 #include "instance/VmClassInstance.h"
 
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 
 
 namespace alinous {

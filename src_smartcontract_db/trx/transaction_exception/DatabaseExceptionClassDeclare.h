@@ -8,7 +8,7 @@
 #ifndef TRANSACTION_EXCEPTION_DATABASEEXCEPTIONCLASSDECLARE_H_
 #define TRANSACTION_EXCEPTION_DATABASEEXCEPTIONCLASSDECLARE_H_
 
-#include "instance_exception_class/AbstractExceptionClassDeclare.h"
+#include "instance/instance_exception_class/AbstractExceptionClassDeclare.h"
 
 namespace alinous {
 

@@ -10,7 +10,7 @@
 
 #include "instance/AbstractVmInstance.h"
 #include "instance/IInstanceContainer.h"
-#include "instance_parts/VMemList.h"
+#include "instance/instance_parts/VMemList.h"
 
 
 namespace alinous {

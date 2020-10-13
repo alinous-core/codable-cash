@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "reserved_classes/AbstractReservedClassDeclare.h"
+#include "instance/reserved_classes/AbstractReservedClassDeclare.h"
 
 #include "lang/sc_declare/MethodDeclare.h"
 #include "lang/sc_declare/MemberVariableDeclare.h"
@@ -24,7 +24,7 @@
 #include "engine/sc_analyze/AnalyzeContext.h"
 #include "engine/sc_analyze/AnalyzedClass.h"
 
-#include "reserved_classes/ReservedClassRegistory.h"
+#include "instance/reserved_classes/ReservedClassRegistory.h"
 
 #include "engine/sc/CompilationUnit.h"
 

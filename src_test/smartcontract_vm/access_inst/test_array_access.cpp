@@ -18,9 +18,9 @@
 
 #include "base/UnicodeString.h"
 
-#include "instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance/instance_exception/NullPointerExceptionClassDeclare.h"
 
-#include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
+#include "instance/instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
 using namespace alinous;
 
 

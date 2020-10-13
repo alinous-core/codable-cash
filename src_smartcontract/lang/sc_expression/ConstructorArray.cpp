@@ -21,8 +21,8 @@
 #include "lang/sc_expression/VariableIdentifier.h"
 #include "lang/sc_expression_literal/NumberLiteral.h"
 
-#include "instance_array/VmArrayInstanceUtils.h"
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_array/VmArrayInstanceUtils.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 #include "base/StackRelease.h"
 

@@ -18,7 +18,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "instance_exception/NullPointerExceptionClassDeclare.h"
+#include "instance/instance_exception/NullPointerExceptionClassDeclare.h"
 using namespace alinous;
 
 

@@ -13,7 +13,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "instance_string/VmStringInstance.h"
+#include "instance/instance_string/VmStringInstance.h"
 
 
 namespace alinous {

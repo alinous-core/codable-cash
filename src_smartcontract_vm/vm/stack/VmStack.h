@@ -8,10 +8,10 @@
 #ifndef STACK_VMSTACK_H_
 #define STACK_VMSTACK_H_
 
-#include "instance_ref/AbstractReference.h"
+#include "instance/instance_ref/AbstractReference.h"
 #include "instance/IInstanceContainer.h"
 
-#include "instance_parts/VMemList.h"
+#include "instance/instance_parts/VMemList.h"
 
 namespace alinous {
 

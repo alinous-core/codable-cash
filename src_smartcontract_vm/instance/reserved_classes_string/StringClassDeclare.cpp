@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "reserved_classes_string/StringClassDeclare.h"
+#include "instance/reserved_classes_string/StringClassDeclare.h"
 
 #include "base/UnicodeString.h"
 

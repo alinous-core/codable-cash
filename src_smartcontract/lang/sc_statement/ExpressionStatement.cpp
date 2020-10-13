@@ -10,13 +10,13 @@
 #include "lang/sc_expression/AbstractExpression.h"
 #include "lang/sc_expression/FunctionCallExpression.h"
 
-#include "instance_gc/GcManager.h"
+#include "instance/instance_gc/GcManager.h"
 
 #include "vm/VirtualMachine.h"
 
 #include "instance/AbstractVmInstance.h"
 
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
 
 namespace alinous {

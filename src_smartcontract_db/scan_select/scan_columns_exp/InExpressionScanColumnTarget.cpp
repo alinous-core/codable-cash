@@ -9,8 +9,8 @@
 
 #include "scan_select/scan_columns_exp/ExpressionListScanColumnTarget.h"
 
-#include "instance_exception/TypeCastExceptionClassDeclare.h"
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/TypeCastExceptionClassDeclare.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
 #include "base/UnicodeString.h"
 

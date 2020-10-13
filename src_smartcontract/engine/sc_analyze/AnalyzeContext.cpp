@@ -28,11 +28,11 @@
 
 #include "base/StackRelease.h"
 
-#include "reserved_classes/ReservedClassRegistory.h"
+#include "instance/reserved_classes/ReservedClassRegistory.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_ref_class_static_meta/StaticClassMetadataHolder.h"
+#include "instance/instance_ref_class_static_meta/StaticClassMetadataHolder.h"
 
 namespace alinous {
 

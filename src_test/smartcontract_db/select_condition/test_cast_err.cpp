@@ -21,7 +21,7 @@
 
 #include "scan_select/scan_condition/ScanConditionCast.h"
 
-#include "instance_exception/ExceptionInterrupt.h"
+#include "instance/instance_exception/ExceptionInterrupt.h"
 
 #include "vm/VirtualMachine.h"
 

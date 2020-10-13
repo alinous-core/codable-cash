@@ -8,11 +8,11 @@
 #ifndef INSTANCE_DOM_DOMARRAYVARIABLE_H_
 #define INSTANCE_DOM_DOMARRAYVARIABLE_H_
 
-#include "instance_dom/AbstractDomInstance.h"
+#include "instance/instance_dom/AbstractDomInstance.h"
 
 #include "instance/IInstanceContainer.h"
 
-#include "instance_parts/VMemList.h"
+#include "instance/instance_parts/VMemList.h"
 
 namespace alinous {
 

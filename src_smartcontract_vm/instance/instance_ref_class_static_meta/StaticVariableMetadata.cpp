@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "instance_ref_class_static_meta/StaticVariableMetadata.h"
+#include "instance/instance_ref_class_static_meta/StaticVariableMetadata.h"
 
 #include "engine/sc_analyze/AnalyzedType.h"
 

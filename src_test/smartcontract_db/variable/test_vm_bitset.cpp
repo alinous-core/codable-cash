@@ -9,9 +9,9 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "instance_dom/DomVariableInstance.h"
+#include "instance/instance_dom/DomVariableInstance.h"
 
-#include "instance_parts/VMemRawBitSet.h"
+#include "instance/instance_parts/VMemRawBitSet.h"
 
 #include "base/StackRelease.h"
 

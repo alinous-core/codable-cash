@@ -17,7 +17,7 @@
 #include "base_io_stream/FileInputStream.h"
 
 #include "instance/VmClassInstance.h"
-#include "instance_ref/PrimitiveReference.h"
+#include "instance/instance_ref/PrimitiveReference.h"
 
 #include "ext_binary/AbstractExtObject.h"
 #include "ext_binary/ExtClassObject.h"
