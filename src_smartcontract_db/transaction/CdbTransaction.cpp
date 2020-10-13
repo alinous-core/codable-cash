@@ -39,7 +39,7 @@
 
 #include "table_record_key/CdbRecordKey.h"
 
-#include "scan/IndexRecordScanner.h"
+#include "scan_select/scan/IndexRecordScanner.h"
 
 #include "transaction_log_alter/AbstractAlterCommandLog.h"
 

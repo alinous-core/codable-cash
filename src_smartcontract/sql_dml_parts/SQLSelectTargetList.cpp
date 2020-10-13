@@ -14,10 +14,10 @@
 
 #include "instance/AbstractVmInstance.h"
 
-#include "scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
 
-#include "scan_columns/ScanColumnHolder.h"
-#include "scan_columns/AbstractScanColumnsTarget.h"
+#include "scan_select/scan_columns/ScanColumnHolder.h"
+#include "scan_select/scan_columns/AbstractScanColumnsTarget.h"
 
 namespace alinous {
 

@@ -9,7 +9,7 @@
 
 #include "transaction/CdbTransaction.h"
 
-#include "scan/RecordScanner.h"
+#include "scan_select/scan/RecordScanner.h"
 
 #include "table_store/TableStore.h"
 

@@ -29,7 +29,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "scan/RecordScanner.h"
+#include "scan_select/scan/RecordScanner.h"
 
 namespace alinous {
 

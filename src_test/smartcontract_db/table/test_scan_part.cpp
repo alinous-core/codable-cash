@@ -48,7 +48,7 @@
 
 #include "table_record_key/AbstractCdbKey.h"
 
-#include "scan_condition/RootScanCondition.h"
+#include "scan_select/scan_condition/RootScanCondition.h"
 
 #include "table_record_local/LocalCdbOid.h"
 using namespace alinous;

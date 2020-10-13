@@ -27,21 +27,21 @@
 
 #include "instance/AbstractVmInstance.h"
 
-#include "scan_condition_exp/RelationalScanCondition.h"
-#include "scan_condition_exp/EqualityScanCondition.h"
-#include "scan_condition_exp/ParenthesisScanCondition.h"
+#include "scan_select/scan_condition_exp/RelationalScanCondition.h"
+#include "scan_select/scan_condition_exp/EqualityScanCondition.h"
+#include "scan_select/scan_condition_exp/ParenthesisScanCondition.h"
 
 #include "sc_analyze/AnalyzeContext.h"
 
-#include "scan_condition_logical/NotScanCondition.h"
-#include "scan_condition_logical/AndScanCondition.h"
-#include "scan_condition_logical/OrScanCondition.h"
+#include "scan_select/scan_condition_logical/NotScanCondition.h"
+#include "scan_select/scan_condition_logical/AndScanCondition.h"
+#include "scan_select/scan_condition_logical/OrScanCondition.h"
 
-#include "scan_condition/RootScanCondition.h"
+#include "scan_select/scan_condition/RootScanCondition.h"
 
-#include "scan_condition_arithmetic/AdditiveScanCondition.h"
+#include "scan_select/scan_condition_arithmetic/AdditiveScanCondition.h"
 
-#include "scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
 using namespace alinous;
 using namespace codablecash;
 

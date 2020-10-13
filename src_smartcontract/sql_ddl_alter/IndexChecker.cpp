@@ -15,7 +15,7 @@
 
 #include "table_store/CdbStorageManager.h"
 
-#include "scan/RecordScanner.h"
+#include "scan_select/scan/RecordScanner.h"
 
 #include "base/StackRelease.h"
 

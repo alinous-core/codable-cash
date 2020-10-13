@@ -26,7 +26,7 @@
 #include "table_record_value/CdbIntValue.h"
 #include "table_record_value/CdbStringValue.h"
 
-#include "scan/IndexScanner.h"
+#include "scan_select/scan/IndexScanner.h"
 
 #include "table_record_key/CdbIntKey.h"
 

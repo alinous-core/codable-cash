@@ -22,10 +22,10 @@
 
 #include "sc_analyze/AnalyzeContext.h"
 
-#include "scan_planner/SelectScanPlanner.h"
-#include "scan_planner/ConditionsHolder.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/ConditionsHolder.h"
 
-#include "scan_condition/RootScanCondition.h"
+#include "scan_select/scan_condition/RootScanCondition.h"
 
 
 using namespace alinous;

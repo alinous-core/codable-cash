@@ -9,19 +9,19 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
-#include "scan_planner/SelectScanPlanner.h"
-#include "scan_planner/ConditionsHolderStackMarker.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
 
-#include "scan_condition_arithmetic/MultiplicativeScanCondition.h"
-#include "scan_condition/AbstractScanConditionElement.h"
-#include "scan_condition/IValueProvider.h"
-#include "scan_condition/ScanConditionCast.h"
+#include "scan_select/scan_condition_arithmetic/MultiplicativeScanCondition.h"
+#include "scan_select/scan_condition/AbstractScanConditionElement.h"
+#include "scan_select/scan_condition/IValueProvider.h"
+#include "scan_select/scan_condition/ScanConditionCast.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_columns/ScanColumnHolder.h"
+#include "scan_select/scan_columns/ScanColumnHolder.h"
 
-#include "scan_columns_arithmetic/MultiplicativeExpressionScanColumnTarget.h"
+#include "scan_select/scan_columns_arithmetic/MultiplicativeExpressionScanColumnTarget.h"
 
 using codablecash::AbstractScanConditionElement;
 using codablecash::IValueProvider;

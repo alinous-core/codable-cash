@@ -42,7 +42,7 @@
 #include "table_store/CdbStorageManager.h"
 #include "table_store/TableStore.h"
 
-#include "scan/RecordScanner.h"
+#include "scan_select/scan/RecordScanner.h"
 
 #include "../toolkit/TestDbSchema01.h"
 #include "sql_join_parts/TableIdentifier.h"

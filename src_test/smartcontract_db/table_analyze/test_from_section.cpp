@@ -19,8 +19,8 @@
 
 #include "sc_analyze/AnalyzeContext.h"
 
-#include "scan_planner/SelectScanPlanner.h"
-#include "scan_planner/TablesHolder.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/TablesHolder.h"
 
 #include "engine/CdbException.h"
 

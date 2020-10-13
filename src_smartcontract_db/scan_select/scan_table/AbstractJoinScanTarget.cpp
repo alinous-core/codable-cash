@@ -9,7 +9,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "scan_condition/AbstractScanCondition.h"
+#include "scan_select/scan_condition/AbstractScanCondition.h"
 
 #include "transaction_scan_result/ScanResultMetadata.h"
 

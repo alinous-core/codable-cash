@@ -11,19 +11,19 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_planner/SelectScanPlanner.h"
-#include "scan_planner/ConditionsHolderStackMarker.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
 
-#include "scan_condition/AbstractScanCondition.h"
-#include "scan_condition_exp/EqualityScanCondition.h"
+#include "scan_select/scan_condition/AbstractScanCondition.h"
+#include "scan_select/scan_condition_exp/EqualityScanCondition.h"
 
-#include "scan_condition/IValueProvider.h"
+#include "scan_select/scan_condition/IValueProvider.h"
 
-#include "scan_columns/ScanColumnHolder.h"
+#include "scan_select/scan_columns/ScanColumnHolder.h"
 
-#include "scan_columns_exp/EqualityScanColumnTarget.h"
+#include "scan_select/scan_columns_exp/EqualityScanColumnTarget.h"
 
-#include "scan_condition/ScanConditionCast.h"
+#include "scan_select/scan_condition/ScanConditionCast.h"
 
 
 using namespace codablecash;

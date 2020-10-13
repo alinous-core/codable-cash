@@ -10,16 +10,16 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
-#include "scan_planner/SelectScanPlanner.h"
-#include "scan_planner/ConditionsHolderStackMarker.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_condition_params/PlaceHolderScanCondition.h"
+#include "scan_select/scan_condition_params/PlaceHolderScanCondition.h"
 
-#include "scan_columns/ScanColumnHolder.h"
+#include "scan_select/scan_columns/ScanColumnHolder.h"
 
-#include "scan_columns_exp/PlaceHolderScanColumnTarget.h"
+#include "scan_select/scan_columns_exp/PlaceHolderScanColumnTarget.h"
 
 
 using codablecash::SelectScanPlanner;

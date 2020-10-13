@@ -32,7 +32,7 @@
 
 #include "base/StackRelease.h"
 
-#include "scan/IndexRecordScanner.h"
+#include "scan_select/scan/IndexRecordScanner.h"
 
 #include "table_store/TableStore.h"
 

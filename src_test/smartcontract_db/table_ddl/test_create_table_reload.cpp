@@ -42,7 +42,7 @@
 #include "table_store/CdbStorageManager.h"
 #include "table_store/TableStore.h"
 
-#include "scan/RecordScanner.h"
+#include "scan_select/scan/RecordScanner.h"
 
 using namespace codablecash;
 

@@ -11,18 +11,18 @@
 
 #include "instance_ref/PrimitiveReference.h"
 
-#include "scan_condition_exp/IsNullScanCondition.h"
+#include "scan_select/scan_condition_exp/IsNullScanCondition.h"
 
-#include "scan_condition/ScanConditionCast.h"
+#include "scan_select/scan_condition/ScanConditionCast.h"
 
-#include "scan_planner/SelectScanPlanner.h"
-#include "scan_planner/ConditionsHolderStackMarker.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_columns/ScanColumnHolder.h"
+#include "scan_select/scan_columns/ScanColumnHolder.h"
 
-#include "scan_columns_exp/IsNullScanColumnTarget.h"
+#include "scan_select/scan_columns_exp/IsNullScanColumnTarget.h"
 
 
 namespace alinous {

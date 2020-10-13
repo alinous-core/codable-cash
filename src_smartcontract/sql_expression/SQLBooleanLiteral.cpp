@@ -11,14 +11,14 @@
 
 #include "instance_ref/PrimitiveReference.h"
 
-#include "scan_planner/SelectScanPlanner.h"
-#include "scan_planner/ConditionsHolderStackMarker.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
 
-#include "scan_condition_params/BooleanScanParam.h"
+#include "scan_select/scan_condition_params/BooleanScanParam.h"
 
-#include "scan_columns/ScanColumnHolder.h"
+#include "scan_select/scan_columns/ScanColumnHolder.h"
 
-#include "scan_columns_params/BooleanLiteralColumnParam.h"
+#include "scan_select/scan_columns_params/BooleanLiteralColumnParam.h"
 
 
 namespace alinous {

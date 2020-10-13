@@ -19,7 +19,7 @@
 
 #include "base/ArrayList.h"
 
-#include "scan_condition/ScanConditionCast.h"
+#include "scan_select/scan_condition/ScanConditionCast.h"
 
 #include "instance_exception/ExceptionInterrupt.h"
 

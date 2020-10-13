@@ -9,15 +9,15 @@
 
 #include "sc_analyze/AnalyzedType.h"
 
-#include "scan_planner/SelectScanPlanner.h"
-#include "scan_planner/ConditionsHolderStackMarker.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
 
-#include "scan_columns/ScanColumnHolder.h"
-#include "scan_columns/AllScanColumns.h"
+#include "scan_select/scan_columns/ScanColumnHolder.h"
+#include "scan_select/scan_columns/AllScanColumns.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_condition_params/WildCardScanParam.h"
+#include "scan_select/scan_condition_params/WildCardScanParam.h"
 
 using codablecash::AllScanColumns;
 using codablecash::ScanColumnHolder;

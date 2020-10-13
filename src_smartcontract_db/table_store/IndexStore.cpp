@@ -27,7 +27,7 @@
 #include "table_record_key/CdbRecordKey.h"
 #include "table_record_key/AbstractCdbKey.h"
 
-#include "scan/IndexScanner.h"
+#include "scan_select/scan/IndexScanner.h"
 
 #include "table_record_value/CdbOidValueList.h"
 

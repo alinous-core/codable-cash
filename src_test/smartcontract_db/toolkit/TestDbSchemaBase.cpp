@@ -32,7 +32,7 @@
 
 #include "table_record/CdbRecord.h"
 
-#include "scan/RecordScanner.h"
+#include "scan_select/scan/RecordScanner.h"
 
 #include "compiler/SmartContractParser.h"
 

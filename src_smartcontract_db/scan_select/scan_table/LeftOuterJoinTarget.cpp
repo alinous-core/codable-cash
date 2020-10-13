@@ -10,23 +10,23 @@
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
-#include "scan_planner/SelectScanPlanner.h"
-#include "scan_planner/ConditionsHolder.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/ConditionsHolder.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_planner_scanner_ctx/ScanJoinContextHolder.h"
+#include "scan_select/scan_planner_scanner_ctx/ScanJoinContextHolder.h"
 
 #include "scan_select/scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
 #include "scan_select/scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
 
-#include "scan_condition/AbstractScanCondition.h"
-#include "scan_condition/RootScanCondition.h"
+#include "scan_select/scan_condition/AbstractScanCondition.h"
+#include "scan_select/scan_condition/RootScanCondition.h"
 
-#include "scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_select/scan_planner_scanner_ctx/FilterConditionDitector.h"
 
-#include "scan_planner_scanner/InnerJoinScannerFactory.h"
-#include "scan_planner_scanner/LeftJoinScannerFactory.h"
+#include "scan_select/scan_planner_scanner/InnerJoinScannerFactory.h"
+#include "scan_select/scan_planner_scanner/LeftJoinScannerFactory.h"
 
 namespace codablecash {
 

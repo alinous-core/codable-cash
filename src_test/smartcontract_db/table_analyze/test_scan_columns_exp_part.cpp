@@ -23,15 +23,15 @@
 
 #include "sc_analyze/AnalyzeContext.h"
 
-#include "scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
 
 #include "alinous_lang/AlinousLang.h"
 
-#include "scan_columns/ScanColumnHolder.h"
+#include "scan_select/scan_columns/ScanColumnHolder.h"
 
 #include "instance_exception/ExceptionInterrupt.h"
 
-#include "scan_columns_exp/InExpressionScanColumnTarget.h"
+#include "scan_select/scan_columns_exp/InExpressionScanColumnTarget.h"
 
 #include "engine/CdbException.h"
 using namespace codablecash;

@@ -63,7 +63,7 @@
 
 #include "vm_trx/VmTransactionHandler.h"
 
-#include "scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/SelectScanPlanner.h"
 
 namespace alinous {
 
