@@ -66,5 +66,16 @@ bool JoinCandidateHolder::isInnerJoin() const noexcept {
 	return !this->innerJoin.isEmpty();
 }
 
+AbstractJoinCandidate* JoinCandidateHolder::getBestCandidate() const noexcept {
+	if(isInnerJoin()){
+		return this->innerJoin.get(0);
+	}
+
+	return this->leftOuterJoin.isEmpty() ? nullptr : this->leftOuterJoin.get(0);
+
+// FIXME getBestCandidate()
+
+
+}
 
 } /* namespace codablecash */

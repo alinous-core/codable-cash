@@ -36,6 +36,8 @@ public:
 
 	bool isInnerJoin() const noexcept;
 
+	AbstractJoinCandidate* getBestCandidate() const noexcept;
+
 private:
 	JoinCandidateStack* stack;
 

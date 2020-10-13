@@ -89,6 +89,8 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 		joinFactory = new LeftJoinScannerFactory(this->metadata);
 	}
 
+	AbstractJoinCandidate* bestCandidate = joinCandidates.getBestCandidate();
+
 
 	AbstractScannerFactory* leftFactory = this->left->getScanFactory(vm, planner);
 	joinFactory->setLeft(leftFactory);
