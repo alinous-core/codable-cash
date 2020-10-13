@@ -18,7 +18,7 @@
 
 #include "scan_select/scan_condition/ScanConditionCast.h"
 
-#include "scan_select/scan_columns_exp/BetweenScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_exp/BetweenScanColumnTarget.h"
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 

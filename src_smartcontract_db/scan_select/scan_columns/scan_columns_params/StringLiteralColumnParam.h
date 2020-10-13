@@ -8,7 +8,7 @@
 #ifndef SCAN_COLUMNS_PARAMS_STRINGLITERALCOLUMNPARAM_H_
 #define SCAN_COLUMNS_PARAMS_STRINGLITERALCOLUMNPARAM_H_
 
-#include "scan_select/scan_columns_params/AbstractColumnParam.h"
+#include "scan_select/scan_columns/scan_columns_params/AbstractColumnParam.h"
 
 namespace alinous {
 class UnicodeString;

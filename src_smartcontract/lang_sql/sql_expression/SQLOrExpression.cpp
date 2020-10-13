@@ -20,7 +20,7 @@
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 
-#include "scan_select/scan_columns_logical/OrScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_logical/OrScanColumnTarget.h"
 
 
 namespace alinous {

@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_columns_exp/InExpressionScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_exp/InExpressionScanColumnTarget.h"
 
-#include "scan_select/scan_columns_exp/ExpressionListScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_exp/ExpressionListScanColumnTarget.h"
 
 #include "instance/instance_exception/TypeCastExceptionClassDeclare.h"
 #include "instance/instance_exception/ExceptionInterrupt.h"

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_columns_exp/BetweenScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_exp/BetweenScanColumnTarget.h"
 
 #include "base/UnicodeString.h"
 

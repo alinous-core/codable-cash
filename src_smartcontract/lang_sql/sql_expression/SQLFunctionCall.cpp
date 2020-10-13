@@ -23,7 +23,7 @@
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 
-#include "scan_select/scan_columns_exp/FunctionCallScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_exp/FunctionCallScanColumnTarget.h"
 
 
 namespace alinous {

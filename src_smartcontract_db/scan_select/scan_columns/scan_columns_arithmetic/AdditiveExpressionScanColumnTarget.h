@@ -8,7 +8,7 @@
 #ifndef SCAN_COLUMNS_ARITHMETIC_ADDITIVEEXPRESSIONSCANCOLUMNTARGET_H_
 #define SCAN_COLUMNS_ARITHMETIC_ADDITIVEEXPRESSIONSCANCOLUMNTARGET_H_
 
-#include "scan_select/scan_columns_exp/AbstractExpressionScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_exp/AbstractExpressionScanColumnTarget.h"
 
 #include "base/ArrayList.h"
 #include "base/RawArrayPrimitive.h"

@@ -26,7 +26,7 @@
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 
-#include "scan_select/scan_columns_logical/NotScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_logical/NotScanColumnTarget.h"
 
 
 using namespace alinous;

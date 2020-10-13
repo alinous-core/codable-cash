@@ -18,7 +18,7 @@
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 
-#include "scan_select/scan_columns_params/BooleanLiteralColumnParam.h"
+#include "scan_select/scan_columns/scan_columns_params/BooleanLiteralColumnParam.h"
 
 
 namespace alinous {

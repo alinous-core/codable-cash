@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_columns_params/NumberLiteralColumnParam.h"
+#include "scan_select/scan_columns/scan_columns_params/NumberLiteralColumnParam.h"
 
 #include "base/UnicodeString.h"
 #include "base/Long.h"

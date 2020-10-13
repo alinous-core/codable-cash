@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_columns_logical/AbstractLogicalScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_logical/AbstractLogicalScanColumnTarget.h"
 
 namespace codablecash {
 

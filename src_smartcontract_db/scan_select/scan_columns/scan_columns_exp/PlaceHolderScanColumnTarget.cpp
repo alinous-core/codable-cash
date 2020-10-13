@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_columns_exp/PlaceHolderScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_exp/PlaceHolderScanColumnTarget.h"
 
 #include "base/UnicodeString.h"
 

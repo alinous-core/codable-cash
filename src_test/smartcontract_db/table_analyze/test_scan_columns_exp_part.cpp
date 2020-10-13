@@ -31,7 +31,7 @@
 
 #include "instance/instance_exception/ExceptionInterrupt.h"
 
-#include "scan_select/scan_columns_exp/InExpressionScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_exp/InExpressionScanColumnTarget.h"
 
 #include "engine/CdbException.h"
 using namespace codablecash;

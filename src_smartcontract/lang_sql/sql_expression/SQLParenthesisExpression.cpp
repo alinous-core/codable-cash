@@ -20,7 +20,7 @@
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 
-#include "scan_select/scan_columns_exp/ParenthesisScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_exp/ParenthesisScanColumnTarget.h"
 
 
 using codablecash::ParenthesisScanCondition;

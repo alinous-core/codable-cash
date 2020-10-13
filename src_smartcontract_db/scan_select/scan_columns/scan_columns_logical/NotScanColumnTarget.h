@@ -8,7 +8,7 @@
 #ifndef SCAN_COLUMNS_LOGICAL_NOTSCANCOLUMNTARGET_H_
 #define SCAN_COLUMNS_LOGICAL_NOTSCANCOLUMNTARGET_H_
 
-#include "scan_select/scan_columns_logical/AbstractLogicalScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_logical/AbstractLogicalScanColumnTarget.h"
 
 namespace codablecash {
 

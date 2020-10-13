@@ -21,7 +21,7 @@
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 
-#include "scan_select/scan_columns_arithmetic/AdditiveExpressionScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_arithmetic/AdditiveExpressionScanColumnTarget.h"
 
 
 using namespace codablecash;

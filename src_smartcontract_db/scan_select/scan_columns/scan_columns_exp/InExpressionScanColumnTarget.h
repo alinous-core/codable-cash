@@ -8,7 +8,7 @@
 #ifndef SCAN_COLUMNS_EXP_INEXPRESSIONSCANCOLUMNTARGET_H_
 #define SCAN_COLUMNS_EXP_INEXPRESSIONSCANCOLUMNTARGET_H_
 
-#include "scan_select/scan_columns_exp/AbstractExpressionScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_exp/AbstractExpressionScanColumnTarget.h"
 
 namespace alinous {
 class CodeElement;
