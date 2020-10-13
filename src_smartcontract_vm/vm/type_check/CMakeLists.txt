@@ -7,5 +7,5 @@ set(__src
 	LeftType.cpp
 	RightType.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_vm type_check)
+handle_sub(codablecashlib "${__src}" smartcontract_vm vm/type_check)
 

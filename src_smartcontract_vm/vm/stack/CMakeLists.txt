@@ -6,5 +6,5 @@ set(__src
 	VmStack.cpp
 	VmStackManager.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_vm stack)
+handle_sub(codablecashlib "${__src}" smartcontract_vm vm/stack)
 

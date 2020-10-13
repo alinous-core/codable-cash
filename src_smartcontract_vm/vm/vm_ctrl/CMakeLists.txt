@@ -9,5 +9,5 @@ set(__src
 	ExecControlManager.cpp
 	ReturnControl.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_vm vm_ctrl)
+handle_sub(codablecashlib "${__src}" smartcontract_vm vm/vm_ctrl)
 

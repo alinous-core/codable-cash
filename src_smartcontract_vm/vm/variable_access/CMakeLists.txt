@@ -12,5 +12,5 @@ set(__src
 	ThisPointerAccess.cpp
 	VariableInstractionHolder.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_vm variable_access)
+handle_sub(codablecashlib "${__src}" smartcontract_vm vm/variable_access)
 
