@@ -13,5 +13,5 @@ set(__src
 	CdbValueCastException.cpp
 	VmInstanceValueConverter.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db table_record_value)
+handle_sub(codablecashlib "${__src}" smartcontract_db schema_table/table_record_value)
 

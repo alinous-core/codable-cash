@@ -7,5 +7,5 @@ set(__src
 	CdbTableIndex.cpp
 	TableObjectFactory.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db table)
+handle_sub(codablecashlib "${__src}" smartcontract_db schema_table/table)
 

@@ -6,5 +6,5 @@ set(__src
 	CdbRecord.cpp
 	CdbTableIdentifier.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db table_record)
+handle_sub(codablecashlib "${__src}" smartcontract_db schema_table/table_record)
 

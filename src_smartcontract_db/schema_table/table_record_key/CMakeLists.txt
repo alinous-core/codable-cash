@@ -10,5 +10,5 @@ set(__src
 	CdbShortKey.cpp
 	CdbStringKey.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db table_record_key)
+handle_sub(codablecashlib "${__src}" smartcontract_db schema_table/table_record_key)
 

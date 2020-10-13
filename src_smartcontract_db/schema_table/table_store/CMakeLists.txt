@@ -8,5 +8,5 @@ set(__src
 	RecordValueConverter.cpp
 	TableStore.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db table_store)
+handle_sub(codablecashlib "${__src}" smartcontract_db schema_table/table_store)
 
