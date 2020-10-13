@@ -6,5 +6,5 @@ set(__src
 	NotScanColumnTarget.cpp
 	OrScanColumnTarget.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_columns_logical)
+handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_columns/scan_columns_logical)
 

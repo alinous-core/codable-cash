@@ -6,5 +6,5 @@ set(__src
 	NumberLiteralColumnParam.cpp
 	StringLiteralColumnParam.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_columns_params)
+handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_columns/scan_columns_params)
 

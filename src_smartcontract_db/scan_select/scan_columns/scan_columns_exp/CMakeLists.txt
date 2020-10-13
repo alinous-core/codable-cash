@@ -13,5 +13,5 @@ set(__src
 	PlaceHolderScanColumnTarget.cpp
 	RelationalExpressionScanTarget.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_columns_exp)
+handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_columns/scan_columns_exp)
 
