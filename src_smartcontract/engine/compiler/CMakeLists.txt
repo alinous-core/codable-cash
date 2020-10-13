@@ -8,5 +8,5 @@ set(__src
 	ParserReaderStream.cpp
 	SmartContractParser.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract compiler)
+handle_sub(codablecashlib "${__src}" smartcontract engine/compiler)
 

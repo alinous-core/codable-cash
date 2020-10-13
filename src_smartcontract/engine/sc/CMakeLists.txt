@@ -6,5 +6,5 @@ set(__src
 	exceptions.cpp
 	SmartContract.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract sc)
+handle_sub(codablecashlib "${__src}" smartcontract engine/sc)
 

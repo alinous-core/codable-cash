@@ -8,5 +8,5 @@ set(__src
 	VTableMethodEntry.cpp
 	VTableRegistory.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract sc_analyze_functions)
+handle_sub(codablecashlib "${__src}" smartcontract engine/sc_analyze_functions)
 

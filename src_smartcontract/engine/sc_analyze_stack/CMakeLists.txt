@@ -6,5 +6,5 @@ set(__src
 	AnalyzeStackManager.cpp
 	AnalyzeStackPopper.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract sc_analyze_stack)
+handle_sub(codablecashlib "${__src}" smartcontract engine/sc_analyze_stack)
 

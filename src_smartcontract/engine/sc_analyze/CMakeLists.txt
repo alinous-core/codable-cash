@@ -11,5 +11,5 @@ set(__src
 	TypeResolver.cpp
 	ValidationError.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract sc_analyze)
+handle_sub(codablecashlib "${__src}" smartcontract engine/sc_analyze)
 
