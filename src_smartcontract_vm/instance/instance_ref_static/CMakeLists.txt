@@ -6,5 +6,5 @@ set(__src
 	StaticInstanceHolder.cpp
 	StringConstHolder.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_vm instance_ref_static)
+handle_sub(codablecashlib "${__src}" smartcontract_vm instance/instance_ref_static)
 

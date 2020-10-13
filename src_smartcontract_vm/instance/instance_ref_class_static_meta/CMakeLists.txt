@@ -5,5 +5,5 @@ set(__src
 	StaticClassMetadataHolder.cpp
 	StaticVariableMetadata.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_vm instance_ref_class_static_meta)
+handle_sub(codablecashlib "${__src}" smartcontract_vm instance/instance_ref_class_static_meta)
 

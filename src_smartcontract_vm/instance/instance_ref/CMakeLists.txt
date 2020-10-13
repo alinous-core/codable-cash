@@ -8,5 +8,5 @@ set(__src
 	RefereceFactory.cpp
 	VmRootReference.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_vm instance_ref)
+handle_sub(codablecashlib "${__src}" smartcontract_vm instance/instance_ref)
 

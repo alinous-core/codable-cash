@@ -6,5 +6,5 @@ set(__src
 	ExceptionInstanceFactory.cpp
 	VmExceptionInstance.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_vm instance_exception_class)
+handle_sub(codablecashlib "${__src}" smartcontract_vm instance/instance_exception_class)
 

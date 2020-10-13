@@ -8,5 +8,5 @@ set(__src
 	StackFloatingVariableHandler.cpp
 	VmInstanceKey.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_vm instance_gc)
+handle_sub(codablecashlib "${__src}" smartcontract_vm instance/instance_gc)
 

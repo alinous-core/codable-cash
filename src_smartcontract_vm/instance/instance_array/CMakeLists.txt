@@ -5,5 +5,5 @@ set(__src
 	VmArrayInstance.cpp
 	VmArrayInstanceUtils.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_vm instance_array)
+handle_sub(codablecashlib "${__src}" smartcontract_vm instance/instance_array)
 
