@@ -24,23 +24,25 @@
 #include "transaction_log/CreateTableLog.h"
 #include "transaction_log/InsertLog.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
 
-#include "table_record/CdbTableIdentifier.h"
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbTableIdentifier.h"
+#include "schema_table/table_record/CdbRecord.h"
 
-#include "table_record_value/AbstractCdbValue.h"
-#include "table_record_value/CdbIntValue.h"
-#include "table_record_value/CdbStringValue.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/CdbIntValue.h"
+#include "schema_table/table_record_value/CdbStringValue.h"
 
-#include "table_record_local/LocalOidFactory.h"
-#include "table_record_local/LocalCdbOid.h"
+#include "schema_table/table_record_local/LocalOidFactory.h"
+#include "schema_table/table_record_local/LocalCdbOid.h"
 
-#include "table_store/CdbStorageManager.h"
-#include "table_store/TableStore.h"
+#include "schema_table/table_record_value/VmInstanceValueConverter.h"
+
+#include "schema_table/table_store/CdbStorageManager.h"
+#include "schema_table/table_store/TableStore.h"
 
 #include "scan_select/scan/RecordScanner.h"
 

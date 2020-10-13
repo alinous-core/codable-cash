@@ -18,24 +18,24 @@
 
 #include "sql_join_parts/TableIdentifier.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
-#include "schema_alter_ctx/ColumnModifyContext.h"
+#include "schema_table/schema_alter_ctx/ColumnModifyContext.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
 
 #include "sql_ddl_alter/IndexChecker.h"
 
 #include "engine/CdbException.h"
 
-#include "table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
 
 #include "base_io/ByteBuffer.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "table/CdbTableIndex.h"
+#include "schema_table/table/CdbTableIndex.h"
 namespace alinous {
 
 AlterModifyCommand::AlterModifyCommand(const AlterModifyCommand& inst) : AbstractAlterDdlWithTypeDesc(CodeElement::DDL_ALTER_MODIFY) {

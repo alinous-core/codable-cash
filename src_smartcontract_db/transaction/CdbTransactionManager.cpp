@@ -17,15 +17,15 @@
 #include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"
 
-#include "schema/SchemaManager.h"
-#include "schema/Schema.h"
+#include "schema_table/schema/SchemaManager.h"
+#include "schema_table/schema/Schema.h"
 
-#include "table_record/CdbTableIdentifier.h"
+#include "schema_table/table_record/CdbTableIdentifier.h"
 
-#include "table/CdbTable.h"
+#include "schema_table/table/CdbTable.h"
 
-#include "table_store/CdbStorageManager.h"
-#include "table_store/TableStore.h"
+#include "schema_table/table_store/CdbStorageManager.h"
+#include "schema_table/table_store/TableStore.h"
 
 #include "transaction_log_alter/AbstractAlterCommandLog.h"
 #include "transaction_log_alter/AlterAddColumnCommandLog.h"

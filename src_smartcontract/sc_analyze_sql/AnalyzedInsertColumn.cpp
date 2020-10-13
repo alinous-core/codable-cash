@@ -7,7 +7,7 @@
 
 #include "sc_analyze_sql/AnalyzedInsertColumn.h"
 
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTableColumn.h"
 
 
 namespace alinous {

@@ -5,19 +5,19 @@
  *      Author: iizuka
  */
 
-#include "table_record/CdbKeyFactory.h"
+#include "schema_table/table_record/CdbKeyFactory.h"
 
-#include "table_record_key/AbstractCdbKey.h"
+#include "schema_table/table_record_key/AbstractCdbKey.h"
 
 #include "base_io/ByteBuffer.h"
 
-#include "table_record_key/CdbByteKey.h"
-#include "table_record_key/CdbShortKey.h"
-#include "table_record_key/CdbIntKey.h"
-#include "table_record_key/CdbLongKey.h"
-#include "table_record_key/CdbStringKey.h"
-#include "table_record_key/CdbRecordKey.h"
-#include "table_record_key/CdbOidKey.h"
+#include "schema_table/table_record_key/CdbByteKey.h"
+#include "schema_table/table_record_key/CdbShortKey.h"
+#include "schema_table/table_record_key/CdbIntKey.h"
+#include "schema_table/table_record_key/CdbLongKey.h"
+#include "schema_table/table_record_key/CdbStringKey.h"
+#include "schema_table/table_record_key/CdbRecordKey.h"
+#include "schema_table/table_record_key/CdbOidKey.h"
 
 namespace codablecash {
 

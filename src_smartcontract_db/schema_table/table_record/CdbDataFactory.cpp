@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "table_record/CdbDataFactory.h"
+#include "schema_table/table_record/CdbDataFactory.h"
 
 #include "base_io/ByteBuffer.h"
 
@@ -13,15 +13,15 @@
 
 #include "engine/CdbException.h"
 
-#include "table_record_value/AbstractCdbValue.h"
-#include "table_record_value/CdbByteValue.h"
-#include "table_record_value/CdbShortValue.h"
-#include "table_record_value/CdbIntValue.h"
-#include "table_record_value/CdbLongValue.h"
-#include "table_record_value/CdbStringValue.h"
-#include "table_record_value/CdbOidValueList.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/CdbByteValue.h"
+#include "schema_table/table_record_value/CdbShortValue.h"
+#include "schema_table/table_record_value/CdbIntValue.h"
+#include "schema_table/table_record_value/CdbLongValue.h"
+#include "schema_table/table_record_value/CdbStringValue.h"
+#include "schema_table/table_record_value/CdbOidValueList.h"
 
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbRecord.h"
 
 namespace codablecash {
 

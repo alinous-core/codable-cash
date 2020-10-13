@@ -23,7 +23,7 @@
 
 #include "engine/CdbOid.h"
 
-#include "table_record_key/CdbOidKey.h"
+#include "schema_table/table_record_key/CdbOidKey.h"
 
 TEST_GROUP(TestOidCacheGroup) {
 	TEST_SETUP() {

@@ -7,8 +7,8 @@
 
 #include "transaction_log/CreateTableLog.h"
 
-#include "table/CdbTable.h"
-#include "table/TableObjectFactory.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/TableObjectFactory.h"
 
 #include "transaction/SchemaObjectIdPublisher.h"
 #include "transaction/CdbTransactionManager.h"

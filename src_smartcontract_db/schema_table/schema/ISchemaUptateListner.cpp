@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "schema/ISchemaUptateListner.h"
+#include "schema_table/schema/ISchemaUptateListner.h"
 
 namespace codablecash {
 

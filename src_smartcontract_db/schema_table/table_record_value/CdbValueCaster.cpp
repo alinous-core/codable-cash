@@ -5,22 +5,22 @@
  *      Author: iizuka
  */
 
-#include "table_record_value/CdbValueCaster.h"
+#include "schema_table/table_record_value/CdbValueCaster.h"
 
 #include "engine/CdbException.h"
 
-#include "table_record_value/AbstractCdbValue.h"
-#include "table_record_value/CdbStringValue.h"
-#include "table_record_value/CdbByteValue.h"
-#include "table_record_value/CdbShortValue.h"
-#include "table_record_value/CdbIntValue.h"
-#include "table_record_value/CdbLongValue.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/CdbStringValue.h"
+#include "schema_table/table_record_value/CdbByteValue.h"
+#include "schema_table/table_record_value/CdbShortValue.h"
+#include "schema_table/table_record_value/CdbIntValue.h"
+#include "schema_table/table_record_value/CdbLongValue.h"
 
 #include "base/Long.h"
 #include "base/Integer.h"
 #include "base/UnicodeString.h"
 
-#include "table_record_value/CdbValueCastException.h"
+#include "schema_table/table_record_value/CdbValueCastException.h"
 
 #include "base/StackRelease.h"
 

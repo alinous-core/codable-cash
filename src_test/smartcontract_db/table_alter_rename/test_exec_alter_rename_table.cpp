@@ -23,11 +23,11 @@
 
 #include "engine/CodableDatabase.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
-#include "table/CdbTableIndex.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
+#include "schema_table/table/CdbTableIndex.h"
 
 TEST_GROUP(TestExecAlterRenameGroup) {
 	TEST_SETUP() {

@@ -8,9 +8,9 @@
 #include "scan_select/scan/IndexRecordScanner.h"
 #include "scan_select/scan/IndexScanner.h"
 
-#include "table_store/TableStore.h"
+#include "schema_table/table_store/TableStore.h"
 
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbRecord.h"
 
 namespace codablecash {
 

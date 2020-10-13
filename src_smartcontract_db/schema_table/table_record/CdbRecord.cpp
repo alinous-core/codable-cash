@@ -5,12 +5,12 @@
  *      Author: iizuka
  */
 
-#include "table_record/CdbRecord.h"
-#include "table_record/CdbDataFactory.h"
+#include "schema_table/table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbDataFactory.h"
 
-#include "table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
 
-#include "table_record_key/CdbRecordKey.h"
+#include "schema_table/table_record_key/CdbRecordKey.h"
 
 #include "base_io/ByteBuffer.h"
 

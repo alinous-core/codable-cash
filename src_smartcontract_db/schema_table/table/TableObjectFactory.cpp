@@ -5,12 +5,12 @@
  *      Author: iizuka
  */
 
-#include "table/TableObjectFactory.h"
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
-#include "table/CdbTableIndex.h"
+#include "schema_table/table/TableObjectFactory.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
+#include "schema_table/table/CdbTableIndex.h"
 
-#include "schema/Schema.h"
+#include "schema_table/schema/Schema.h"
 
 #include "engine/CdbBinaryObject.h"
 #include "engine/CdbException.h"

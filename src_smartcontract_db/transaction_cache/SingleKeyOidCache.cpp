@@ -7,12 +7,12 @@
 
 #include "transaction_cache/SingleKeyOidCache.h"
 
-#include "table_record/CdbKeyFactory.h"
-#include "table_record/CdbDataFactory.h"
+#include "schema_table/table_record/CdbKeyFactory.h"
+#include "schema_table/table_record/CdbDataFactory.h"
 
-#include "table_record_key/AbstractCdbKey.h"
+#include "schema_table/table_record_key/AbstractCdbKey.h"
 
-#include "table_record_value/CdbOidValueList.h"
+#include "schema_table/table_record_value/CdbOidValueList.h"
 
 #include "engine/CdbOid.h"
 

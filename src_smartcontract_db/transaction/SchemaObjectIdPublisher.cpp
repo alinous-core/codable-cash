@@ -7,7 +7,7 @@
 
 #include "transaction/SchemaObjectIdPublisher.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
 namespace codablecash {
 

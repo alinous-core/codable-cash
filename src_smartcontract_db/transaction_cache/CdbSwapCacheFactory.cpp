@@ -9,8 +9,8 @@
 #include "transaction_cache/SingleKeyOidCache.h"
 #include "transaction_cache/OidKeyRecordCache.h"
 
-#include "table_record/CdbDataFactory.h"
-#include "table_record/CdbKeyFactory.h"
+#include "schema_table/table_record/CdbDataFactory.h"
+#include "schema_table/table_record/CdbKeyFactory.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"

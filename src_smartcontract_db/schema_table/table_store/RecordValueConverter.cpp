@@ -5,15 +5,15 @@
  *      Author: iizuka
  */
 
-#include "table_store/RecordValueConverter.h"
+#include "schema_table/table_store/RecordValueConverter.h"
 
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbRecord.h"
 
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTableColumn.h"
 
-#include "table_record_value/CdbValueCaster.h"
-#include "table_record_value/CdbStringValue.h"
-#include "table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/CdbValueCaster.h"
+#include "schema_table/table_record_value/CdbStringValue.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
 
 #include "base/Exception.h"
 

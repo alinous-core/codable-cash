@@ -15,11 +15,11 @@
 
 #include "engine/CodableDatabase.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "schema_alter_ctx/TableRenameContext.h"
+#include "schema_table/schema_alter_ctx/TableRenameContext.h"
 
 namespace alinous {
 

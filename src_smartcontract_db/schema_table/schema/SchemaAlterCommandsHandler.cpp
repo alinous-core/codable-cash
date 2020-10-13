@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "schema/SchemaAlterCommandsHandler.h"
+#include "schema_table/schema/SchemaAlterCommandsHandler.h"
 
 #include "engine/CdbException.h"
 
@@ -22,18 +22,18 @@
 #include "transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
 #include "transaction_log_alter_modify/AlterRenameTableCommandLog.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
 
-#include "schema/SchemaManager.h"
-#include "schema/SchemaRoot.h"
+#include "schema_table/schema/SchemaManager.h"
+#include "schema_table/schema/SchemaRoot.h"
 
-#include "schema_alter_ctx/ColumnModifyContext.h"
-#include "schema_alter_ctx/TableRenameContext.h"
+#include "schema_table/schema_alter_ctx/ColumnModifyContext.h"
+#include "schema_table/schema_alter_ctx/TableRenameContext.h"
 
 #include "sql_ddl/DdlColumnDescriptor.h"
 
-#include "table/CdbTableIndex.h"
+#include "schema_table/table/CdbTableIndex.h"
 
 #include "sql_join_parts/TableIdentifier.h"
 

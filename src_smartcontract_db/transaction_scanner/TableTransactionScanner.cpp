@@ -11,7 +11,7 @@
 
 #include "scan_select/scan/RecordScanner.h"
 
-#include "table_store/TableStore.h"
+#include "schema_table/table_store/TableStore.h"
 
 #include "engine_lock/AbstractLockHandle.h"
 #include "engine_lock/AbstractDatabaseLock.h"

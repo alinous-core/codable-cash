@@ -13,26 +13,28 @@
 #include "transaction/CdbTransaction.h"
 #include "transaction_log/CreateTableLog.h"
 
-#include "table/CdbTable.h"
-#include "table_record/CdbRecord.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table_record/CdbRecord.h"
 
-#include "table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
 
 #include "base/ArrayList.h"
 
 #include "transaction_log/InsertLog.h"
 
-#include "table_record/CdbTableIdentifier.h"
-#include "table_record_value/CdbIntValue.h"
-#include "table_record_value/CdbStringValue.h"
+#include "schema_table/table_record/CdbTableIdentifier.h"
+#include "schema_table/table_record_value/CdbIntValue.h"
+#include "schema_table/table_record_value/CdbStringValue.h"
 
 #include "scan_select/scan/IndexScanner.h"
 
-#include "table_record_key/CdbIntKey.h"
+#include "schema_table/table_record_key/CdbIntKey.h"
 
-#include "table_record_key/CdbRecordKey.h"
+#include "schema_table/table_record_key/CdbRecordKey.h"
 
-#include "table_record_local/LocalCdbOid.h"
+#include "schema_table/table_record_value/VmInstanceValueConverter.h"
+
+#include "schema_table/table_record_local/LocalCdbOid.h"
 
 using namespace codablecash;
 

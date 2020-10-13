@@ -5,9 +5,10 @@
  *      Author: iizuka
  */
 
-#include "table_record_local/LocalOidFactory.h"
+#include "schema_table/table_record_local/LocalOidFactory.h"
+#include "schema_table/table_record_local/LocalCdbOid.h"
 
-#include "table_record_local/LocalCdbOid.h"
+#include "schema_table/table_record_value/VmInstanceValueConverter.h"
 
 #include "base_thread/SysMutex.h"
 #include "base_thread/StackUnlocker.h"

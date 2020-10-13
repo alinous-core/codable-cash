@@ -8,7 +8,7 @@
 #ifndef TABLE_RECORD_VALUE_CDBINTVALUE_H_
 #define TABLE_RECORD_VALUE_CDBINTVALUE_H_
 
-#include "table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
 
 namespace codablecash {
 

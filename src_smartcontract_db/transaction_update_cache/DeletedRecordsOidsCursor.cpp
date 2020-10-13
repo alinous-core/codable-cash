@@ -16,7 +16,7 @@
 
 #include "filestore_block/IBlockObject.h"
 
-#include "table_record_value/CdbOidValueList.h"
+#include "schema_table/table_record_value/CdbOidValueList.h"
 
 namespace codablecash {
 

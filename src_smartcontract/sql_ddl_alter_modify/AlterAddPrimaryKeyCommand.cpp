@@ -15,14 +15,14 @@
 
 #include "sql_join_parts/TableIdentifier.h"
 
-#include "table/CdbTable.h"
+#include "schema_table/table/CdbTable.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
 #include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"
 
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTableColumn.h"
 namespace alinous {
 
 AlterAddPrimaryKeyCommand::AlterAddPrimaryKeyCommand(const AlterAddPrimaryKeyCommand& inst)

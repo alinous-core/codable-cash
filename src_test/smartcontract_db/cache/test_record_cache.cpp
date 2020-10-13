@@ -23,9 +23,9 @@
 #include "engine/CdbOid.h"
 #include "engine/CdbException.h"
 
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbRecord.h"
 
-#include "table_record_key/CdbOidKey.h"
+#include "schema_table/table_record_key/CdbOidKey.h"
 
 
 TEST_GROUP(TestRecordCacheGroup) {

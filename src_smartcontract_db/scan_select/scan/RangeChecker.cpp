@@ -7,8 +7,8 @@
 
 #include "scan_select/scan/RangeChecker.h"
 
-#include "table_record_key/AbstractCdbKey.h"
-#include "table_record_key/CdbRecordKey.h"
+#include "schema_table/table_record_key/AbstractCdbKey.h"
+#include "schema_table/table_record_key/CdbRecordKey.h"
 
 #include "btree/AbstractBtreeKey.h"
 

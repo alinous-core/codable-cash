@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "table_record_key/CdbOidKey.h"
+#include "schema_table/table_record_key/CdbOidKey.h"
 
 #include "engine/CdbOid.h"
 

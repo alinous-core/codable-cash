@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include "table_record_value/CdbShortValue.h"
+#include "schema_table/table_record_value/CdbShortValue.h"
 
 #include "base_io/ByteBuffer.h"
 
-#include "table_record_key/CdbShortKey.h"
+#include "schema_table/table_record_key/CdbShortKey.h"
 
 namespace codablecash {
 

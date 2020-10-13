@@ -4,8 +4,10 @@
  *  Created on: 2020/09/25
  *      Author: iizuka
  */
+#include "schema_table/table_record_local/LocalCdbOid.h"
 
-#include "table_record_local/LocalCdbOid.h"
+#include "schema_table/table_record_value/VmInstanceValueConverter.h"
+
 
 namespace codablecash {
 

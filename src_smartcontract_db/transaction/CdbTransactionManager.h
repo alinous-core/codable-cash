@@ -9,7 +9,7 @@
 #define TRANSACTION_CDBTRANSACTIONMANAGER_H_
 #include <cstdint>
 
-#include "schema/ISchemaUptateListner.h"
+#include "schema_table/schema/ISchemaUptateListner.h"
 
 #include "base/ArrayList.h"
 

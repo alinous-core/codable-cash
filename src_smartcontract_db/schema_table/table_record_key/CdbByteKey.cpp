@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "table_record_key/CdbByteKey.h"
+#include "schema_table/table_record_key/CdbByteKey.h"
 
 #include "base_io/ByteBuffer.h"
 

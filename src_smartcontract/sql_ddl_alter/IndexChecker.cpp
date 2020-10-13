@@ -10,10 +10,10 @@
 #include "engine/CodableDatabase.h"
 #include "engine/CdbLocalCacheManager.h"
 
-#include "table/CdbTableColumn.h"
-#include "table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
+#include "schema_table/table/CdbTable.h"
 
-#include "table_store/CdbStorageManager.h"
+#include "schema_table/table_store/CdbStorageManager.h"
 
 #include "scan_select/scan/RecordScanner.h"
 
@@ -21,17 +21,17 @@
 
 #include "transaction_cache/SingleKeyOidCache.h"
 
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbRecord.h"
 
-#include "table_record_key/CdbRecordKey.h"
-#include "table_record_key/AbstractCdbKey.h"
+#include "schema_table/table_record_key/CdbRecordKey.h"
+#include "schema_table/table_record_key/AbstractCdbKey.h"
 
-#include "table_record_value/AbstractCdbValue.h"
-#include "table_record_value/CdbValueCaster.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/CdbValueCaster.h"
 
-#include "table_store/RecordValueConverter.h"
+#include "schema_table/table_store/RecordValueConverter.h"
 
-#include "schema_alter_ctx/ColumnModifyContext.h"
+#include "schema_table/schema_alter_ctx/ColumnModifyContext.h"
 
 #include "btreekey/NullKey.h"
 

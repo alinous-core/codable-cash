@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTableColumn.h"
 
 #include "engine/CdbOid.h"
 
@@ -17,7 +17,7 @@
 
 #include "transaction_scan_result/ScanResultFieldMetadata.h"
 
-#include "schema_alter_ctx/ColumnModifyContext.h"
+#include "schema_table/schema_alter_ctx/ColumnModifyContext.h"
 
 #include "sql_ddl_alter_modify/AlterModifyCommand.h"
 

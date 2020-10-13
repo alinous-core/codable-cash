@@ -9,8 +9,8 @@
 
 #include "base/UnicodeString.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
 
 #include "sql_expression/SQLColumnIdentifier.h"
 
@@ -21,7 +21,7 @@
 #include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
 #include "scan_select/scan_planner_analyze/AnalyzedScanPlan.h"
 #include "scan_select/scan_planner_analyze/ScanTargetNameResolver.h"

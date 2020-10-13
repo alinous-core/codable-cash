@@ -12,7 +12,7 @@
 #include "transaction_update_cache/InsertRecordsCacheCursor.h"
 #include "transaction_update_cache/TransactionUpdateCache.h"
 
-#include "table/CdbTable.h"
+#include "schema_table/table/CdbTable.h"
 
 namespace codablecash {
 

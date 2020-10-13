@@ -8,7 +8,7 @@
 #ifndef TABLE_STORE_CDBSTORAGEMANAGER_H_
 #define TABLE_STORE_CDBSTORAGEMANAGER_H_
 
-#include "schema/ISchemaUptateListner.h"
+#include "schema_table/schema/ISchemaUptateListner.h"
 
 #include "base/HashMap.h"
 

@@ -14,7 +14,7 @@
 
 #include "base_io/ByteBuffer.h"
 
-#include "table/TableObjectFactory.h"
+#include "schema_table/table/TableObjectFactory.h"
 
 #include "base/StackRelease.h"
 namespace codablecash {

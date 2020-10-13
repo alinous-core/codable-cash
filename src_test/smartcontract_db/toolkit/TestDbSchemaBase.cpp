@@ -13,14 +13,14 @@
 #include "../../test_utils/TestEnv.h"
 #include "vm/VirtualMachine.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
-#include "table/CdbTableIndex.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
+#include "schema_table/table/CdbTableIndex.h"
 
-#include "table_store/CdbStorageManager.h"
-#include "table_store/TableStore.h"
+#include "schema_table/table_store/CdbStorageManager.h"
+#include "schema_table/table_store/TableStore.h"
 
 #include "base/StackRelease.h"
 
@@ -30,7 +30,7 @@
 
 #include "ext_binary/ExtExceptionObject.h"
 
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbRecord.h"
 
 #include "scan_select/scan/RecordScanner.h"
 

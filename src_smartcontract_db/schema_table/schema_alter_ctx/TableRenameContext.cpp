@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "schema_alter_ctx/TableRenameContext.h"
+#include "schema_table/schema_alter_ctx/TableRenameContext.h"
 
 #include "base/UnicodeString.h"
 
@@ -14,14 +14,14 @@
 #include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"
 
-#include "schema/SchemaManager.h"
-#include "schema/Schema.h"
+#include "schema_table/schema/SchemaManager.h"
+#include "schema_table/schema/Schema.h"
 
 #include "sql_join_parts/TableIdentifier.h"
 
 #include "sql_ddl_alter_modify/AlterRenameTableCommand.h"
 
-#include "table/CdbTable.h"
+#include "schema_table/table/CdbTable.h"
 
 
 namespace codablecash {

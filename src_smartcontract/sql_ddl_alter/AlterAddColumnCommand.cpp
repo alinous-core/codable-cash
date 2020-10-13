@@ -19,13 +19,13 @@
 #include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
-#include "table/CdbTable.h"
+#include "schema_table/table/CdbTable.h"
 
-#include "table_store/CdbStorageManager.h"
-#include "table_store/TableStore.h"
-#include "table_store/RecordStore.h"
+#include "schema_table/table_store/CdbStorageManager.h"
+#include "schema_table/table_store/TableStore.h"
+#include "schema_table/table_store/RecordStore.h"
 
 #include "base/UnicodeString.h"
 

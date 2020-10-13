@@ -11,7 +11,7 @@
 #include "base/ArrayList.h"
 #include <cstdint>
 
-#include "table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
 
 namespace alinous {
 class ByteBuffer;

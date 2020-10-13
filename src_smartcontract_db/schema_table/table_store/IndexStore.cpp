@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include "table_store/IndexStore.h"
+#include "schema_table/table_store/IndexStore.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableIndex.h"
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableIndex.h"
+#include "schema_table/table/CdbTableColumn.h"
 
 #include "base/StackRelease.h"
 
@@ -18,18 +18,18 @@
 #include "btree/Btree.h"
 #include "btree/BtreeConfig.h"
 
-#include "table_store/CdbStorageManager.h"
+#include "schema_table/table_store/CdbStorageManager.h"
 
-#include "table_record/CdbKeyFactory.h"
-#include "table_record/CdbDataFactory.h"
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbKeyFactory.h"
+#include "schema_table/table_record/CdbDataFactory.h"
+#include "schema_table/table_record/CdbRecord.h"
 
-#include "table_record_key/CdbRecordKey.h"
-#include "table_record_key/AbstractCdbKey.h"
+#include "schema_table/table_record_key/CdbRecordKey.h"
+#include "schema_table/table_record_key/AbstractCdbKey.h"
 
 #include "scan_select/scan/IndexScanner.h"
 
-#include "table_record_value/CdbOidValueList.h"
+#include "schema_table/table_record_value/CdbOidValueList.h"
 
 #include "engine/CdbOid.h"
 

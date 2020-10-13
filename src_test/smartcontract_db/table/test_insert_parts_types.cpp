@@ -18,33 +18,35 @@
 
 #include "transaction/CdbTransaction.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
 
 #include "engine/CodableDatabase.h"
 
-#include "table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
 
-#include "table_record/CdbTableIdentifier.h"
-#include "table_record/CdbRecord.h"
-#include "table_record_value/CdbIntValue.h"
-#include "table_record_value/CdbStringValue.h"
-#include "table_record_value/CdbByteValue.h"
-#include "table_record_value/CdbShortValue.h"
-#include "table_record_value/CdbLongValue.h"
-#include "table_record/CdbKeyFactory.h"
+#include "schema_table/table_record/CdbTableIdentifier.h"
+#include "schema_table/table_record/CdbRecord.h"
+#include "schema_table/table_record_value/CdbIntValue.h"
+#include "schema_table/table_record_value/CdbStringValue.h"
+#include "schema_table/table_record_value/CdbByteValue.h"
+#include "schema_table/table_record_value/CdbShortValue.h"
+#include "schema_table/table_record_value/CdbLongValue.h"
+#include "schema_table/table_record/CdbKeyFactory.h"
 
-#include "table_record_key/AbstractCdbKey.h"
-#include "table_record_key/CdbByteKey.h"
-#include "table_record_key/CdbLongKey.h"
+#include "schema_table/table_record_key/AbstractCdbKey.h"
+#include "schema_table/table_record_key/CdbByteKey.h"
+#include "schema_table/table_record_key/CdbLongKey.h"
 
-#include "table_record_key/CdbShortKey.h"
+#include "schema_table/table_record_key/CdbShortKey.h"
 
-#include "table_record_value/CdbOidValueList.h"
+#include "schema_table/table_record_value/CdbOidValueList.h"
 
 #include "engine/CdbOid.h"
 
-#include "table_record_local/LocalCdbOid.h"
+#include "schema_table/table_record_value/VmInstanceValueConverter.h"
+
+#include "schema_table/table_record_local/LocalCdbOid.h"
 
 using namespace alinous;
 using namespace codablecash;

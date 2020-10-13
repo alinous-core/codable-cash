@@ -5,13 +5,13 @@
  *      Author: iizuka
  */
 
-#include "table_record_value/CdbStringValue.h"
+#include "schema_table/table_record_value/CdbStringValue.h"
 
 #include "base_io/ByteBuffer.h"
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
-#include "table_record_key/CdbStringKey.h"
+#include "schema_table/table_record_key/CdbStringKey.h"
 
 
 namespace codablecash {

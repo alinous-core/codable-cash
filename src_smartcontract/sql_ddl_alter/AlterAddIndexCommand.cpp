@@ -20,10 +20,10 @@
 #include "engine/CdbOid.h"
 #include "engine/CdbException.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
 
 #include "sql_ddl_alter/IndexChecker.h"
 

@@ -7,8 +7,8 @@
 
 #include "transaction_scan_result/ScanResultFieldMetadata.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
 
 #include "base/UnicodeString.h"
 

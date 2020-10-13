@@ -25,17 +25,17 @@
 
 #include "engine/CodableDatabase.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
-#include "table/CdbTableIndex.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
+#include "schema_table/table/CdbTableIndex.h"
 
-#include "table_record_value/AbstractCdbValue.h"
-#include "table_record_value/CdbIntValue.h"
-#include "table_record_value/CdbStringValue.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/CdbIntValue.h"
+#include "schema_table/table_record_value/CdbStringValue.h"
 
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbRecord.h"
 
 #include "transaction_exception/DatabaseExceptionClassDeclare.h"
 

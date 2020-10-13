@@ -9,7 +9,7 @@
 #include "transaction_update_cache/InsertRecordsCacheCursor.h"
 #include "transaction_update_cache/TransactionTableUpdateCache.h"
 
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbRecord.h"
 
 #include "transaction_log/InsertLog.h"
 
@@ -18,12 +18,12 @@
 
 #include "base/StackRelease.h"
 
-#include "table/CdbTable.h"
+#include "schema_table/table/CdbTable.h"
 
 #include "base_io/File.h"
 
-#include "table_record_local/LocalOidFactory.h"
-#include "table_record_local/LocalCdbOid.h"
+#include "schema_table/table_record_local/LocalOidFactory.h"
+#include "schema_table/table_record_value/VmInstanceValueConverter.h"
 
 namespace codablecash {
 

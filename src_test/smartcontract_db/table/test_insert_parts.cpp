@@ -30,34 +30,37 @@
 #include "transaction_log/TransactionLogFactory.h"
 #include "transaction_log/AbstractTransactionLog.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
 
-#include "table_record/CdbTableIdentifier.h"
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbTableIdentifier.h"
+#include "schema_table/table_record/CdbRecord.h"
 
-#include "table_record_value/CdbIntValue.h"
-#include "table_record_value/CdbStringValue.h"
+#include "schema_table/table_record_value/CdbIntValue.h"
+#include "schema_table/table_record_value/CdbStringValue.h"
 
 #include "base_io/ByteBuffer.h"
 
 #include "base/StackRelease.h"
 
-#include "table_record_value/CdbByteValue.h"
-#include "table_record_value/CdbShortValue.h"
-#include "table_record_value/CdbLongValue.h"
+#include "schema_table/table_record_value/CdbByteValue.h"
+#include "schema_table/table_record_value/CdbShortValue.h"
+#include "schema_table/table_record_value/CdbLongValue.h"
 
 #include "engine/CdbException.h"
 
 #include "transaction/CdbTransactionManager.h"
 
-#include "table_store/CdbStorageManager.h"
+#include "schema_table/table_store/CdbStorageManager.h"
 
-#include "schema/Schema.h"
+#include "schema_table/schema/Schema.h"
 
-#include "table_store/TableStore.h"
+#include "schema_table/table_store/TableStore.h"
 
-#include "table_record_local/LocalCdbOid.h"
+#include "schema_table/table_record_value/VmInstanceValueConverter.h"
+
+#include "schema_table/table_record_local/LocalCdbOid.h"
+
 using namespace alinous;
 using namespace codablecash;
 

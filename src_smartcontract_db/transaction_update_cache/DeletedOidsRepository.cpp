@@ -12,7 +12,7 @@
 #include "engine/CdbLocalCacheManager.h"
 #include "engine/CdbOid.h"
 
-#include "table_record_key/CdbOidKey.h"
+#include "schema_table/table_record_key/CdbOidKey.h"
 
 #include "base/StackRelease.h"
 

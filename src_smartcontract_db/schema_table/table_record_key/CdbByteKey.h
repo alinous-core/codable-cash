@@ -8,7 +8,7 @@
 #ifndef TABLE_RECORD_KEY_CDBBYTEKEY_H_
 #define TABLE_RECORD_KEY_CDBBYTEKEY_H_
 
-#include "table_record_key/AbstractCdbKey.h"
+#include "schema_table/table_record_key/AbstractCdbKey.h"
 
 namespace codablecash {
 

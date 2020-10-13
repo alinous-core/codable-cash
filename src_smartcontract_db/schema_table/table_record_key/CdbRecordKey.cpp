@@ -5,13 +5,13 @@
  *      Author: iizuka
  */
 
-#include "table_record_key/CdbRecordKey.h"
+#include "schema_table/table_record_key/CdbRecordKey.h"
 
 #include "btree/AbstractBtreeKey.h"
 
 #include "base_io/ByteBuffer.h"
 
-#include "table_record/CdbKeyFactory.h"
+#include "schema_table/table_record/CdbKeyFactory.h"
 
 namespace codablecash {
 

@@ -5,15 +5,15 @@
  *      Author: iizuka
  */
 
-#include "table_store/TableStore.h"
-#include "table_store/RecordStore.h"
-#include "table_store/IndexStore.h"
+#include "schema_table/table_store/TableStore.h"
+#include "schema_table/table_store/RecordStore.h"
+#include "schema_table/table_store/IndexStore.h"
 
 #include "base_io/File.h"
 
-#include "table/CdbTable.h"
+#include "schema_table/table/CdbTable.h"
 
-#include "schema/Schema.h"
+#include "schema_table/schema/Schema.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
@@ -28,25 +28,25 @@
 #include "engine_lock/AbstractLockHandle.h"
 #include "engine_lock/AbstractDatabaseLock.h"
 
-#include "table/CdbTableIndex.h"
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTableIndex.h"
+#include "schema_table/table/CdbTableColumn.h"
 
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbRecord.h"
 
-#include "table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
 
-#include "table_record_key/CdbLongKey.h"
+#include "schema_table/table_record_key/CdbLongKey.h"
 
-#include "table_store/RecordValueConverter.h"
-#include "table_store/AlterRecordValueExecutor.h"
+#include "schema_table/table_store/RecordValueConverter.h"
+#include "schema_table/table_store/AlterRecordValueExecutor.h"
 
 #include "btree/Btree.h"
 #include "btree/BtreeScanner.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
-#include "schema_alter_ctx/ColumnModifyContext.h"
-#include "schema_alter_ctx/TableRenameContext.h"
+#include "schema_table/schema_alter_ctx/ColumnModifyContext.h"
+#include "schema_table/schema_alter_ctx/TableRenameContext.h"
 
 
 namespace codablecash {

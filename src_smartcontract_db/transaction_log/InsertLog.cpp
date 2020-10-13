@@ -9,8 +9,8 @@
 
 #include "base_io/ByteBuffer.h"
 
-#include "table_record/CdbRecord.h"
-#include "table_record/CdbTableIdentifier.h"
+#include "schema_table/table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbTableIdentifier.h"
 
 #include "transaction/CdbTransactionManager.h"
 #include "transaction/RecordObjectIdPublisher.h"

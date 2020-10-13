@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "table_record_value/CdbOidValueList.h"
+#include "schema_table/table_record_value/CdbOidValueList.h"
 
 #include "engine/CdbOid.h"
 

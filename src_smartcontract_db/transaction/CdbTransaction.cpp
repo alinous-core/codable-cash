@@ -20,24 +20,24 @@
 #include "engine/CdbException.h"
 #include "engine/CdbOid.h"
 
-#include "table_record/CdbTableIdentifier.h"
+#include "schema_table/table_record/CdbTableIdentifier.h"
 
-#include "schema/Schema.h"
+#include "schema_table/schema/Schema.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableIndex.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableIndex.h"
 
-#include "table_store/CdbStorageManager.h"
-#include "table_store/TableStore.h"
-#include "table_store/IndexStore.h"
+#include "schema_table/table_store/CdbStorageManager.h"
+#include "schema_table/table_store/TableStore.h"
+#include "schema_table/table_store/IndexStore.h"
 
 #include "transaction_scanner/TableTransactionScanner.h"
 
 #include "transaction_update_cache/TransactionUpdateCache.h"
 
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTableColumn.h"
 
-#include "table_record_key/CdbRecordKey.h"
+#include "schema_table/table_record_key/CdbRecordKey.h"
 
 #include "scan_select/scan/IndexRecordScanner.h"
 

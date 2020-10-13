@@ -5,15 +5,15 @@
  *      Author: iizuka
  */
 
-#include "schema/SchemaRoot.h"
-#include "schema/Schema.h"
+#include "schema_table/schema/SchemaRoot.h"
+#include "schema_table/schema/Schema.h"
 
 #include "base/UnicodeString.h"
 
 #include "base_io/ByteBuffer.h"
 
-#include "table/TableObjectFactory.h"
-#include "table/CdbTable.h"
+#include "schema_table/table/TableObjectFactory.h"
+#include "schema_table/table/CdbTable.h"
 
 #include "engine/CdbException.h"
 

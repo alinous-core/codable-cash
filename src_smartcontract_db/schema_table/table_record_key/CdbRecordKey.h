@@ -8,7 +8,7 @@
 #ifndef TABLE_RECORD_KEY_CDBRECORDKEY_H_
 #define TABLE_RECORD_KEY_CDBRECORDKEY_H_
 
-#include "table_record_key/AbstractCdbKey.h"
+#include "schema_table/table_record_key/AbstractCdbKey.h"
 
 #include "base/ArrayList.h"
 

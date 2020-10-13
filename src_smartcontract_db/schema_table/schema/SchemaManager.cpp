@@ -5,12 +5,12 @@
  *      Author: iizuka
  */
 
-#include "schema/SchemaManager.h"
-#include "schema/SchemaRoot.h"
-#include "schema/ISchemaUptateListner.h"
-#include "schema/Schema.h"
+#include "schema_table/schema/SchemaManager.h"
+#include "schema_table/schema/SchemaRoot.h"
+#include "schema_table/schema/ISchemaUptateListner.h"
+#include "schema_table/schema/Schema.h"
 
-#include "schema_alter_ctx/ColumnModifyContext.h"
+#include "schema_table/schema_alter_ctx/ColumnModifyContext.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
@@ -23,9 +23,9 @@
 
 #include "engine/CdbException.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
-#include "table/CdbTableIndex.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
+#include "schema_table/table/CdbTableIndex.h"
 
 #include "sql_ddl_alter_modify/AlterModifyCommand.h"
 
@@ -45,7 +45,7 @@
 #include "sql_ddl/DdlColumnDescriptor.h"
 #include "sql_ddl/ColumnTypeDescriptor.h"
 
-#include "schema/SchemaAlterCommandsHandler.h"
+#include "schema_table/schema/SchemaAlterCommandsHandler.h"
 
 namespace codablecash {
 

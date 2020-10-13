@@ -12,9 +12,9 @@
 #include "engine/CodableDatabase.h"
 #include "engine/CdbOid.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
-#include "table/CdbTable.h"
+#include "schema_table/table/CdbTable.h"
 
 #include "transaction/CdbTransaction.h"
 
@@ -23,8 +23,8 @@
 
 #include "../toolkit/TestDbSchema01.h"
 
-#include "table_record/CdbRecord.h"
-#include "table_record_value/CdbIntValue.h"
+#include "schema_table/table_record/CdbRecord.h"
+#include "schema_table/table_record_value/CdbIntValue.h"
 
 using namespace alinous;
 using namespace codablecash;

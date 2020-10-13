@@ -11,9 +11,9 @@
 
 #include "engine/CdbLocalCacheManager.h"
 
-#include "table_record_key/CdbOidKey.h"
+#include "schema_table/table_record_key/CdbOidKey.h"
 
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbRecord.h"
 
 namespace codablecash {
 

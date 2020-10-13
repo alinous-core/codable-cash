@@ -23,17 +23,17 @@
 
 #include "engine/CodableDatabase.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
-#include "table/CdbTableIndex.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
+#include "schema_table/table/CdbTableIndex.h"
 
 #include "ext_binary/ExtExceptionObject.h"
 
 #include "transaction_exception/DatabaseExceptionClassDeclare.h"
 
-#include "table_store/CdbStorageManager.h"
+#include "schema_table/table_store/CdbStorageManager.h"
 
 TEST_GROUP(TestExecAlterColumnDropGroup) {
 	TEST_SETUP() {

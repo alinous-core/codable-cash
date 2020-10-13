@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "schema/Schema.h"
+#include "schema_table/schema/Schema.h"
 
 #include "base/UnicodeString.h"
 #include "base/Iterator.h"
@@ -15,8 +15,8 @@
 
 #include "engine/CdbOid.h"
 
-#include "table/CdbTable.h"
-#include "table/TableObjectFactory.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/TableObjectFactory.h"
 
 namespace codablecash {
 

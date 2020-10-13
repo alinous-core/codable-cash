@@ -12,7 +12,7 @@
 #include "base/StackRelease.h"
 #include "base/Exception.h"
 
-#include "table/CdbTable.h"
+#include "schema_table/table/CdbTable.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -37,15 +37,15 @@
 
 #include "instance_gc/StackFloatingVariableHandler.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
 #include "engine/CdbException.h"
 
 #include "engine/CodableDatabase.h"
 
-#include "table_record_value/CdbValueCaster.h"
+#include "schema_table/table_record_value/CdbValueCaster.h"
 
-#include "table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
 using codablecash::CdbValueCaster;
 namespace alinous {
 

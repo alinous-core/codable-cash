@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include "table_record/CdbTableIdentifier.h"
+#include "schema_table/table_record/CdbTableIdentifier.h"
 
 #include "base/UnicodeString.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
 #include "base_io/ByteBuffer.h"
 

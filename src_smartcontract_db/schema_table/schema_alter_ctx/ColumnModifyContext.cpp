@@ -5,16 +5,16 @@
  *      Author: iizuka
  */
 
-#include "schema_alter_ctx/ColumnModifyContext.h"
+#include "schema_table/schema_alter_ctx/ColumnModifyContext.h"
 
 #include "base/UnicodeString.h"
 
-#include "table/CdbTableIndex.h"
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTableIndex.h"
+#include "schema_table/table/CdbTableColumn.h"
 
-#include "table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
 
-#include "table_record_value/CdbValueCaster.h"
+#include "schema_table/table_record_value/CdbValueCaster.h"
 
 namespace codablecash {
 

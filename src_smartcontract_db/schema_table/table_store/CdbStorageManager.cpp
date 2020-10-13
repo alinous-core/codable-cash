@@ -5,28 +5,28 @@
  *      Author: iizuka
  */
 
-#include "table_store/CdbStorageManager.h"
-#include "table_store/TableStore.h"
+#include "schema_table/table_store/CdbStorageManager.h"
+#include "schema_table/table_store/TableStore.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
 #include "random_access_file/DiskCacheManager.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
-#include "table/CdbTable.h"
+#include "schema_table/table/CdbTable.h"
 
 #include "engine/CdbOid.h"
 
-#include "table_record/CdbDataFactory.h"
-#include "table_record/CdbKeyFactory.h"
+#include "schema_table/table_record/CdbDataFactory.h"
+#include "schema_table/table_record/CdbKeyFactory.h"
 
-#include "schema/Schema.h"
+#include "schema_table/schema/Schema.h"
 
-#include "schema_alter_ctx/ColumnModifyContext.h"
+#include "schema_table/schema_alter_ctx/ColumnModifyContext.h"
 
-#include "schema_alter_ctx/TableRenameContext.h"
+#include "schema_table/schema_alter_ctx/TableRenameContext.h"
 namespace codablecash {
 
 CdbKeyFactory CdbStorageManager::keyFactory;

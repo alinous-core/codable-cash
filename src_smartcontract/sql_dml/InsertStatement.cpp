@@ -23,11 +23,11 @@
 #include "sc_analyze_sql/AnalyzedInsertColumnList.h"
 #include "sc_analyze_sql/AnalyzedInsertColumn.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
 #include "sql_expression/SQLColumnIdentifier.h"
 
-#include "table/CdbTable.h"
+#include "schema_table/table/CdbTable.h"
 
 #include "transaction_exception/DatabaseExceptionClassDeclare.h"
 
@@ -36,8 +36,8 @@
 
 #include "vm_ctrl/ExecControlManager.h"
 
-#include "table_record/CdbRecord.h"
-#include "table_record/CdbTableIdentifier.h"
+#include "schema_table/table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbTableIdentifier.h"
 
 #include "instance_gc/StackFloatingVariableHandler.h"
 #include "instance_gc/GcManager.h"
@@ -47,14 +47,14 @@
 #include "instance/IAbstractVmInstanceSubstance.h"
 #include "instance/AbstractVmInstance.h"
 
-#include "table_record_value/AbstractCdbValue.h"
-#include "table_record_value/VmInstanceValueConverter.h"
+#include "schema_table/table_record_value/AbstractCdbValue.h"
+#include "schema_table/table_record_value/VmInstanceValueConverter.h"
 
 #include "engine/CodableDatabase.h"
 
-#include "table_record_local/LocalCdbOid.h"
-#include "table_record_local/LocalOidFactory.h"
-
+#include "schema_table/table_record_value/VmInstanceValueConverter.h"
+#include "schema_table/table_record_local/LocalOidFactory.h"
+#include "schema_table/table_record_local/LocalCdbOid.h"
 
 using namespace codablecash;
 

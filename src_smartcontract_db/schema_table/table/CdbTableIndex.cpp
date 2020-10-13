@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "table/CdbTableIndex.h"
-#include "table/CdbTableColumn.h"
-#include "table/CdbTable.h"
+#include "schema_table/table/CdbTableIndex.h"
+#include "schema_table/table/CdbTableColumn.h"
+#include "schema_table/table/CdbTable.h"
 
 #include "engine/CdbOid.h"
 

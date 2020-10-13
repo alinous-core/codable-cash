@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "table/CdbTable.h"
-#include "table/CdbTableColumn.h"
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
 
 #include "engine/CdbOid.h"
 #include "engine/CdbException.h"
@@ -18,11 +18,11 @@
 
 #include "transaction/SchemaObjectIdPublisher.h"
 
-#include "table/TableObjectFactory.h"
-#include "table/CdbTableIndex.h"
-#include "table/ColumnIndexMatcher.h"
+#include "schema_table/table/TableObjectFactory.h"
+#include "schema_table/table/CdbTableIndex.h"
+#include "schema_table/table/ColumnIndexMatcher.h"
 
-#include "schema/SchemaManager.h"
+#include "schema_table/schema/SchemaManager.h"
 
 #include "transaction_scan_result/ScanResultMetadata.h"
 

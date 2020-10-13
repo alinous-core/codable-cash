@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "table_store/RecordStore.h"
-#include "table_store/CdbStorageManager.h"
+#include "schema_table/table_store/RecordStore.h"
+#include "schema_table/table_store/CdbStorageManager.h"
 
-#include "table/CdbTable.h"
+#include "schema_table/table/CdbTable.h"
 
 #include "base_io/File.h"
 
@@ -20,11 +20,11 @@
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
-#include "table_record/CdbDataFactory.h"
-#include "table_record/CdbKeyFactory.h"
-#include "table_record/CdbRecord.h"
+#include "schema_table/table_record/CdbDataFactory.h"
+#include "schema_table/table_record/CdbKeyFactory.h"
+#include "schema_table/table_record/CdbRecord.h"
 
-#include "table_record_key/CdbLongKey.h"
+#include "schema_table/table_record_key/CdbLongKey.h"
 
 #include "engine/CdbOid.h"
 
