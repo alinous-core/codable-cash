@@ -14,10 +14,10 @@
 #include "scan_planner_scanner_ctx/FilterConditionDitector.h"
 #include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
 
-#include "scan_planner_scanner_ctx_join/JoinCandidateStackMarker.h"
-#include "scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
-#include "scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
-#include "scan_planner_scanner_ctx_join/JoinOrCandidate.h"
+#include "scan_select/scan_planner_scanner_ctx_join/JoinCandidateStackMarker.h"
+#include "scan_select/scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
+#include "scan_select/scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
+#include "scan_select/scan_planner_scanner_ctx_join/JoinOrCandidate.h"
 
 using namespace alinous;
 

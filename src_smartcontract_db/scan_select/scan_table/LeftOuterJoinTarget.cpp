@@ -17,8 +17,8 @@
 
 #include "scan_planner_scanner_ctx/ScanJoinContextHolder.h"
 
-#include "scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
-#include "scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
+#include "scan_select/scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
+#include "scan_select/scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
 
 #include "scan_condition/AbstractScanCondition.h"
 #include "scan_condition/RootScanCondition.h"

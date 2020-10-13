@@ -15,11 +15,11 @@
 
 #include "scan_condition/AbstractScanCondition.h"
 
-#include "scan_planner_scanner_ctx_join/JoinCandidateStackMarker.h"
-#include "scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
-#include "scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
+#include "scan_select/scan_planner_scanner_ctx_join/JoinCandidateStackMarker.h"
+#include "scan_select/scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
+#include "scan_select/scan_planner_scanner_ctx_join/AbstractJoinCandidate.h"
 
-#include "scan_planner_scanner_ctx_join/JoinMultipleCandidate.h"
+#include "scan_select/scan_planner_scanner_ctx_join/JoinMultipleCandidate.h"
 #include "scan_planner_scanner_ctx/FilterConditionStackMarker.h"
 
 using namespace alinous;

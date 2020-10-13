@@ -16,9 +16,9 @@
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
-#include "scan_planner_scanner_ctx_join/JoinCandidate.h"
-#include "scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
-#include "scan_planner_scanner_ctx_join/JoinCandidateStackMarker.h"
+#include "scan_select/scan_planner_scanner_ctx_join/JoinCandidate.h"
+#include "scan_select/scan_planner_scanner_ctx_join/JoinCandidateHolder.h"
+#include "scan_select/scan_planner_scanner_ctx_join/JoinCandidateStackMarker.h"
 
 #include "scan_condition_params/ColumnIdentifierScanParam.h"
 
