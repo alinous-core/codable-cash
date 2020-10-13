@@ -6,7 +6,7 @@
  */
 
 #include "vm/VirtualMachine.h"
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 
 #include "memory/VmMemoryManager.h"
 #include "instance_parts/VmMalloc.h"
@@ -23,20 +23,20 @@
 
 #include "instance_ref/VmRootReference.h"
 
-#include "sc_declare/MethodDeclare.h"
-#include "sc_statement/StatementBlock.h"
+#include "lang/sc_declare/MethodDeclare.h"
+#include "lang/sc_statement/StatementBlock.h"
 
-#include "sc_analyze_functions/FunctionScoreCalc.h"
-#include "sc_analyze_functions/VTableRegistory.h"
-#include "sc_analyze_functions/VTableMethodEntry.h"
-#include "sc_analyze_functions/MethodScore.h"
+#include "engine/sc_analyze_functions/FunctionScoreCalc.h"
+#include "engine/sc_analyze_functions/VTableRegistory.h"
+#include "engine/sc_analyze_functions/VTableMethodEntry.h"
+#include "engine/sc_analyze_functions/MethodScore.h"
 
 #include "variable_access/FunctionArguments.h"
 
-#include "sc_analyze/AnalyzedClass.h"
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/ValidationError.h"
 
 #include "instance_exception_class/VmExceptionInstance.h"
 

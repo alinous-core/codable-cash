@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sc_expression_literal/BooleanLiteral.h"
-#include "sc_analyze/AnalyzedType.h"
+#include "lang/sc_expression_literal/BooleanLiteral.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "instance_ref/PrimitiveReference.h"
 

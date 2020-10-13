@@ -5,32 +5,32 @@
  *      Author: iizuka
  */
 
-#include "sc_expression/ConstructorCall.h"
+#include "lang/sc_expression/ConstructorCall.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/AnalyzedClass.h"
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzedThisClassStackPopper.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzedThisClassStackPopper.h"
 
-#include "sc_expression/VariableIdentifier.h"
+#include "lang/sc_expression/VariableIdentifier.h"
 
 #include "instance/VmClassInstance.h"
 
 #include "base/UnicodeString.h"
 
-#include "sc_declare/ClassDeclare.h"
+#include "lang/sc_declare/ClassDeclare.h"
 
-#include "sc_analyze_functions/VTableClassEntry.h"
-#include "sc_analyze_functions/VTableRegistory.h"
-#include "sc_analyze_functions/VTableMethodEntry.h"
+#include "engine/sc_analyze_functions/VTableClassEntry.h"
+#include "engine/sc_analyze_functions/VTableRegistory.h"
+#include "engine/sc_analyze_functions/VTableMethodEntry.h"
 
 #include "variable_access/StackVariableAccess.h"
 #include "variable_access/FunctionArguments.h"
 
-#include "sc_analyze_stack/AnalyzeStackManager.h"
+#include "engine/sc_analyze_stack/AnalyzeStackManager.h"
 
-#include "sc_declare/MethodDeclare.h"
+#include "lang/sc_declare/MethodDeclare.h"
 
 #include "instance_ref/ObjectReference.h"
 
@@ -38,7 +38,7 @@
 
 #include "instance_exception/ExceptionInterrupt.h"
 
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 
 #include "instance_ref/VmRootReference.h"
 namespace alinous {

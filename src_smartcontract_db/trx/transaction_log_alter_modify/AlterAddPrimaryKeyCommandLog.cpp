@@ -7,7 +7,7 @@
 
 #include "trx/transaction_log_alter_modify/AlterAddPrimaryKeyCommandLog.h"
 
-#include "sql_ddl_alter_modify/AlterAddPrimaryKeyCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterAddPrimaryKeyCommand.h"
 
 #include "trx/transaction/CdbTransactionManager.h"
 

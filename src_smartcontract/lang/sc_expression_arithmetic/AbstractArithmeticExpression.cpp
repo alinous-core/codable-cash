@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "sc_expression_arithmetic/AbstractArithmeticExpression.h"
+#include "lang/sc_expression_arithmetic/AbstractArithmeticExpression.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 
 namespace alinous {

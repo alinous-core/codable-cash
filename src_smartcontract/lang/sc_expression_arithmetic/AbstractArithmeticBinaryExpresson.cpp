@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "sc_expression_arithmetic/AbstractArithmeticBinaryExpresson.h"
+#include "lang/sc_expression_arithmetic/AbstractArithmeticBinaryExpresson.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "base_io/ByteBuffer.h"
 

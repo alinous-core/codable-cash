@@ -5,13 +5,13 @@
  *      Author: iizuka
  */
 
-#include "sql_ddl_alter/AlterAddColumnCommand.h"
+#include "lang_sql/sql_ddl_alter/AlterAddColumnCommand.h"
 
-#include "sql_ddl/DdlColumnDescriptor.h"
+#include "lang_sql/sql_ddl/DdlColumnDescriptor.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 
 #include "trx/transaction_log_alter/AbstractAlterCommandLog.h"
 #include "trx/transaction_log_alter/AlterAddColumnCommandLog.h"

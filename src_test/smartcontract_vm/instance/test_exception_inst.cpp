@@ -10,7 +10,7 @@
 #include "instance_exception_class/VmExceptionInstance.h"
 #include "instance_exception_class/ExceptionClassDeclare.h"
 
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
 #include "base/UnicodeString.h"
 

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_declare_types/VoidType.h"
+#include "lang/sc_declare_types/VoidType.h"
 
 #include "base/UnicodeString.h"
 

@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "sql_expression/SQLIsNullExpression.h"
+#include "lang_sql/sql_expression/SQLIsNullExpression.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "instance_ref/PrimitiveReference.h"
 

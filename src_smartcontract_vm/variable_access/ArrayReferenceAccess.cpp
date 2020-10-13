@@ -7,11 +7,11 @@
 
 #include "variable_access/ArrayReferenceAccess.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/ValidationError.h"
 
-#include "sc_expression/ArrayReferenceExpression.h"
+#include "lang/sc_expression/ArrayReferenceExpression.h"
 
 #include "instance_array/VmArrayInstanceUtils.h"
 

@@ -5,12 +5,12 @@
  *      Author: iizuka
  */
 
-#include "sc_declare/ArgumentsListDeclare.h"
-#include "sc_declare/ArgumentDeclare.h"
+#include "lang/sc_declare/ArgumentsListDeclare.h"
+#include "lang/sc_declare/ArgumentDeclare.h"
 
 #include "base/UnicodeString.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 

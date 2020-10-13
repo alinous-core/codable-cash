@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze_functions/VTableRegistory.h"
-#include "sc_analyze_functions/VTableClassEntry.h"
+#include "engine/sc_analyze_functions/VTableRegistory.h"
+#include "engine/sc_analyze_functions/VTableClassEntry.h"
 
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
 #include "base/UnicodeString.h"
 

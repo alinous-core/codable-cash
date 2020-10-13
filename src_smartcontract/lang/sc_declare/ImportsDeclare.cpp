@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sc_declare/ImportsDeclare.h"
-#include "sc_declare/ImportDeclare.h"
+#include "lang/sc_declare/ImportsDeclare.h"
+#include "lang/sc_declare/ImportDeclare.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 namespace alinous {
 

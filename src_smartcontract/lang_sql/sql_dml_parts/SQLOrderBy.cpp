@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sql_dml_parts/SQLOrderBy.h"
-#include "sql_dml_parts/SQLColumnsList.h"
+#include "lang_sql/sql_dml_parts/SQLOrderBy.h"
+#include "lang_sql/sql_dml_parts/SQLColumnsList.h"
 
 namespace alinous {
 

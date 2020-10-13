@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include "sql_expression/SQLNotExpression.h"
+#include "lang_sql/sql_expression/SQLNotExpression.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "instance_gc/StackFloatingVariableHandler.h"
 

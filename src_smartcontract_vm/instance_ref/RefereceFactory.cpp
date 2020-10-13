@@ -6,8 +6,8 @@
  */
 
 #include "instance_ref/RefereceFactory.h"
-#include "sc_declare/MemberVariableDeclare.h"
-#include "sc_declare_types/AbstractType.h"
+#include "lang/sc_declare/MemberVariableDeclare.h"
+#include "lang/sc_declare_types/AbstractType.h"
 
 #include "instance/VmInstanceTypesConst.h"
 
@@ -15,7 +15,7 @@
 #include "instance_ref/PrimitiveReference.h"
 #include "instance_ref/ObjectReference.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "instance_array/ArrayReference.h"
 

@@ -8,7 +8,7 @@
 #ifndef SQL_DML_PARTS_SQLORDERBY_H_
 #define SQL_DML_PARTS_SQLORDERBY_H_
 
-#include "sql/AbstractSQLPart.h"
+#include "lang_sql/sql/AbstractSQLPart.h"
 
 namespace alinous {
 

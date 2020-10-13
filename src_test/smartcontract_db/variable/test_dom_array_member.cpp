@@ -13,7 +13,7 @@
 #include "../../smartcontract_vm/VmTestUtils.h"
 #include "vm/VirtualMachine.h"
 
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/ValidationError.h"
 
 #include "ext_binary/ExtPrimitiveObject.h"
 #include "ext_binary/ExtClassObject.h"

@@ -8,7 +8,7 @@
 #ifndef SQL_DML_SELECTSTATEMENT_H_
 #define SQL_DML_SELECTSTATEMENT_H_
 
-#include "sql/AbstractSQLStatement.h"
+#include "lang_sql/sql/AbstractSQLStatement.h"
 #include <cstdint>
 
 namespace codablecash {

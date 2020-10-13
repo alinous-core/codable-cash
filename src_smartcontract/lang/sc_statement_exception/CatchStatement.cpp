@@ -5,19 +5,19 @@
  *      Author: iizuka
  */
 
-#include "sc_statement_exception/CatchStatement.h"
+#include "lang/sc_statement_exception/CatchStatement.h"
 
-#include "sc_statement/StatementBlock.h"
-#include "sc_statement/VariableDeclareStatement.h"
+#include "lang/sc_statement/StatementBlock.h"
+#include "lang/sc_statement/VariableDeclareStatement.h"
 
-#include "sc_analyze_stack/AnalyzeStackManager.h"
-#include "sc_analyze_stack/AnalyzeStackPopper.h"
+#include "engine/sc_analyze_stack/AnalyzeStackManager.h"
+#include "engine/sc_analyze_stack/AnalyzeStackPopper.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/TypeResolver.h"
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/TypeResolver.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
 #include "stack/StackPopper.h"
 #include "stack/VmStack.h"

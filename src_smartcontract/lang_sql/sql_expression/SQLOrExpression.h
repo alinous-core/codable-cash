@@ -8,7 +8,7 @@
 #ifndef SQL_EXPRESSION_SQLOREXPRESSION_H_
 #define SQL_EXPRESSION_SQLOREXPRESSION_H_
 
-#include "sql_expression/AbstractSQLBinaryExpression.h"
+#include "lang_sql/sql_expression/AbstractSQLBinaryExpression.h"
 
 namespace alinous {
 

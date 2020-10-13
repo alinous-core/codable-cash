@@ -11,8 +11,8 @@
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
-#include "sc_analyze/AnalyzedClass.h"
-#include "sc_declare/ClassDeclare.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
+#include "lang/sc_declare/ClassDeclare.h"
 
 
 namespace alinous {

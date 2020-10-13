@@ -17,9 +17,9 @@
 #include "schema_table/schema/SchemaManager.h"
 #include "schema_table/schema/Schema.h"
 
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 
-#include "sql_ddl_alter_modify/AlterRenameTableCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterRenameTableCommand.h"
 
 #include "schema_table/table/CdbTable.h"
 

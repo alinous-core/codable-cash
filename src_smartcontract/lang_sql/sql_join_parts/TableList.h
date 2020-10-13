@@ -9,7 +9,7 @@
 #define SQL_JOIN_PARTS_TABLELIST_H_
 
 #include "base/ArrayList.h"
-#include "sql/AbstractJoinPart.h"
+#include "lang_sql/sql/AbstractJoinPart.h"
 
 namespace alinous {
 

@@ -8,7 +8,7 @@
 #ifndef SC_EXPRESSION_BIT_EXCLUSIVEOREXPRESSION_H_
 #define SC_EXPRESSION_BIT_EXCLUSIVEOREXPRESSION_H_
 
-#include "sc_expression_arithmetic/AbstractArithmeticBinaryExpresson.h"
+#include "lang/sc_expression_arithmetic/AbstractArithmeticBinaryExpresson.h"
 
 
 namespace alinous {

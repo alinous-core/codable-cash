@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "sc_statement_exception/FinallyStatement.h"
+#include "lang/sc_statement_exception/FinallyStatement.h"
 
-#include "sc_statement/StatementBlock.h"
+#include "lang/sc_statement/StatementBlock.h"
 
 
 namespace alinous {

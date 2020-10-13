@@ -14,7 +14,7 @@
 
 #include "instance_gc/GcManager.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "vm/VirtualMachine.h"
 

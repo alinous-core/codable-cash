@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "sql_join_parts/ParenthesisJoinPart.h"
+#include "lang_sql/sql_join_parts/ParenthesisJoinPart.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "vm/VirtualMachine.h"
 

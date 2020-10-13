@@ -9,15 +9,15 @@
 
 #include "base/UnicodeString.h"
 
-#include "sc_analyze/AnalyzedClass.h"
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/IVmInstanceFactory.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/IVmInstanceFactory.h"
 
 #include "instance_exception_class/ExceptionInstanceFactory.h"
 #include "instance_exception_class/ExceptionClassDeclare.h"
 #include "instance_exception_class/VmExceptionInstance.h"
 
-#include "sc_declare/ClassExtends.h"
+#include "lang/sc_declare/ClassExtends.h"
 
 #include "vm_ctrl/ExecControlManager.h"
 

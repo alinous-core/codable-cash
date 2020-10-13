@@ -7,7 +7,7 @@
 
 #include "trx/transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
 
-#include "sql_ddl_alter_modify/AlterRenameColumnCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterRenameColumnCommand.h"
 
 #include "engine_lock/WriteLockHandle.h"
 #include "engine_lock/StackDbLockUnlocker.h"

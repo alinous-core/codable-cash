@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sc_expression_bit/AndExpression.h"
+#include "lang/sc_expression_bit/AndExpression.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/ValidationError.h"
 
 #include "instance_ref/PrimitiveReference.h"
 

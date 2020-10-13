@@ -8,7 +8,7 @@
 #ifndef SQL_DML_PARTS_SQLJOIN_H_
 #define SQL_DML_PARTS_SQLJOIN_H_
 
-#include "sql/AbstractJoinPart.h"
+#include "lang_sql/sql/AbstractJoinPart.h"
 #include <cstdint>
 
 #include "base/ArrayList.h"

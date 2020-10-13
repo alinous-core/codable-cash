@@ -5,15 +5,15 @@
  *      Author: iizuka
  */
 
-#include "sc_expression/MemberReferenceExpression.h"
+#include "lang/sc_expression/MemberReferenceExpression.h"
 
-#include "sc_expression/AbstractExpression.h"
-#include "sc_expression/VariableIdentifier.h"
+#include "lang/sc_expression/AbstractExpression.h"
+#include "lang/sc_expression/VariableIdentifier.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/NameSegments.h"
-#include "sc_analyze/TypeResolver.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/NameSegments.h"
+#include "engine/sc_analyze/TypeResolver.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "variable_access/VariableInstractionHolder.h"
 

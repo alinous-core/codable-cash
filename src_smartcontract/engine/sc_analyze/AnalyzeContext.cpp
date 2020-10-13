@@ -4,27 +4,27 @@
  *  Created on: 2019/05/22
  *      Author: iizuka
  */
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 #include "base/Iterator.h"
 #include "base/UnicodeString.h"
 
-#include "sc_analyze/PackageSpace.h"
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze_stack/AnalyzeStackManager.h"
-#include "sc_analyze/TypeResolver.h"
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/PackageSpace.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze_stack/AnalyzeStackManager.h"
+#include "engine/sc_analyze/TypeResolver.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
-#include "sc_analyze_functions/VTableRegistory.h"
-#include "sc_analyze_functions/VTableClassEntry.h"
+#include "engine/sc_analyze_functions/VTableRegistory.h"
+#include "engine/sc_analyze_functions/VTableClassEntry.h"
 
-#include "sc_analyze_variables/MemberVariableTable.h"
-#include "sc_analyze_variables/MemberVariableEntry.h"
+#include "engine/sc_analyze_variables/MemberVariableTable.h"
+#include "engine/sc_analyze_variables/MemberVariableEntry.h"
 
-#include "sc_declare/ClassDeclare.h"
-#include "sc_declare/MemberVariableDeclare.h"
+#include "lang/sc_declare/ClassDeclare.h"
+#include "lang/sc_declare/MemberVariableDeclare.h"
 
-#include "sc/CompilationUnit.h"
-#include "sc/exceptions.h"
+#include "engine/sc/CompilationUnit.h"
+#include "engine/sc/exceptions.h"
 
 #include "base/StackRelease.h"
 

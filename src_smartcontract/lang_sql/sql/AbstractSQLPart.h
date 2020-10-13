@@ -8,8 +8,8 @@
 #ifndef SQL_ABSTRACTSQLPART_H_
 #define SQL_ABSTRACTSQLPART_H_
 
-#include "sc/CodeElement.h"
-#include "sql/ISQLElement.h"
+#include "engine/sc/CodeElement.h"
+#include "lang_sql/sql/ISQLElement.h"
 
 namespace alinous {
 

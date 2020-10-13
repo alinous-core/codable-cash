@@ -5,13 +5,13 @@
  *      Author: iizuka
  */
 
-#include "sql_ddl/DdlColumnDescriptor.h"
+#include "lang_sql/sql_ddl/DdlColumnDescriptor.h"
 
 #include "base/UnicodeString.h"
 
-#include "sql_ddl/ColumnTypeDescriptor.h"
+#include "lang_sql/sql_ddl/ColumnTypeDescriptor.h"
 
-#include "sql/AbstractSQLExpression.h"
+#include "lang_sql/sql/AbstractSQLExpression.h"
 
 namespace alinous {
 

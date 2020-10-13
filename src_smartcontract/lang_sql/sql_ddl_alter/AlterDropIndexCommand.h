@@ -8,7 +8,7 @@
 #ifndef SQL_DDL_ALTER_ALTERDROPINDEXCOMMAND_H_
 #define SQL_DDL_ALTER_ALTERDROPINDEXCOMMAND_H_
 
-#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
+#include "lang_sql/sql_ddl_alter/AbstractAlterDdlCommand.h"
 
 namespace alinous {
 

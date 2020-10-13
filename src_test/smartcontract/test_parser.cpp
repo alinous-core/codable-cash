@@ -7,8 +7,8 @@
 
 #include "test_utils/t_macros.h"
 
-#include "compiler/SmartContractParser.h"
-#include "sc/CompilationUnit.h"
+#include "engine/compiler/SmartContractParser.h"
+#include "engine/sc/CompilationUnit.h"
 
 using namespace alinous;
 

@@ -7,7 +7,7 @@
 
 #include "instance_array/VmArrayInstanceUtils.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "instance_array/VmArrayInstance.h"
 #include "instance_array/ArrayReference.h"

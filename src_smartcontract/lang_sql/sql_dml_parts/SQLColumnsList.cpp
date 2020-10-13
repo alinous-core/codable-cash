@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sql_dml_parts/SQLColumnsList.h"
-#include "sql_expression/SQLColumnIdentifier.h"
+#include "lang_sql/sql_dml_parts/SQLColumnsList.h"
+#include "lang_sql/sql_expression/SQLColumnIdentifier.h"
 
 namespace alinous {
 

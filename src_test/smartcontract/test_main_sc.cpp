@@ -8,7 +8,7 @@
 
 #include "test_utils/t_macros.h"
 
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 #include "base_io_stream/FileInputStream.h"
 
 using namespace alinous;

@@ -5,19 +5,19 @@
  *      Author: iizuka
  */
 
-#include "sc_statement/VariableDeclareStatement.h"
+#include "lang/sc_statement/VariableDeclareStatement.h"
 
-#include "sc_declare_types/AbstractType.h"
-#include "sc_expression/VariableIdentifier.h"
-#include "sc_expression/AbstractExpression.h"
+#include "lang/sc_declare_types/AbstractType.h"
+#include "lang/sc_expression/VariableIdentifier.h"
+#include "lang/sc_expression/AbstractExpression.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/TypeResolver.h"
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/TypeResolver.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
-#include "sc_analyze_stack/AnalyzeStack.h"
-#include "sc_analyze_stack/AnalyzeStackManager.h"
-#include "sc_analyze_stack/AnalyzedStackReference.h"
+#include "engine/sc_analyze_stack/AnalyzeStack.h"
+#include "engine/sc_analyze_stack/AnalyzeStackManager.h"
+#include "engine/sc_analyze_stack/AnalyzedStackReference.h"
 
 #include "stack/VmStack.h"
 
@@ -30,7 +30,7 @@
 
 #include "type_check/AnalyzedTypeChecker.h"
 
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/ValidationError.h"
 
 #include "type_check/InternalTypeChecker.h"
 namespace alinous {

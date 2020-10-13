@@ -5,17 +5,17 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze_functions/MethodScore.h"
-#include "sc_analyze_functions/VTableMethodEntry.h"
+#include "engine/sc_analyze_functions/MethodScore.h"
+#include "engine/sc_analyze_functions/VTableMethodEntry.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
-#include "sc_declare/ArgumentsListDeclare.h"
-#include "sc_declare/MethodDeclare.h"
+#include "lang/sc_declare/ArgumentsListDeclare.h"
+#include "lang/sc_declare/MethodDeclare.h"
 
-#include "sc_declare/ClassDeclare.h"
+#include "lang/sc_declare/ClassDeclare.h"
 
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 namespace alinous {
 
 MethodScore::MethodScore(VTableMethodEntry* method) {

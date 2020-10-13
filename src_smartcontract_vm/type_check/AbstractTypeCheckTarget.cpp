@@ -6,10 +6,10 @@
  */
 
 #include "type_check/AbstractTypeCheckTarget.h"
-#include "sc_expression/AbstractExpression.h"
+#include "lang/sc_expression/AbstractExpression.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "base/UnicodeString.h"
 

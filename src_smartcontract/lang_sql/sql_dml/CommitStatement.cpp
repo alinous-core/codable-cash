@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sql_dml/CommitStatement.h"
+#include "lang_sql/sql_dml/CommitStatement.h"
 
 #include "vm/VirtualMachine.h"
 

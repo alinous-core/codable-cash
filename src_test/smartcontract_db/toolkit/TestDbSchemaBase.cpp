@@ -34,14 +34,14 @@
 
 #include "scan_select/scan/RecordScanner.h"
 
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 
 #include "alinous_lang/AlinousLang.h"
-#include "sql/AbstractSQLStatement.h"
+#include "lang_sql/sql/AbstractSQLStatement.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 namespace codablecash {
 

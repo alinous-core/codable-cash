@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sql/ISQLElement.h"
+#include "lang_sql/sql/ISQLElement.h"
 
 namespace alinous {
 

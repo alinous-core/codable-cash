@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sql_ddl_alter/AlterAddIndexCommand.h"
+#include "lang_sql/sql_ddl_alter/AlterAddIndexCommand.h"
 
 #include "base/UnicodeString.h"
 #include "base/ArrayList.h"
@@ -14,7 +14,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 
 #include "engine/CodableDatabase.h"
 #include "engine/CdbOid.h"
@@ -25,7 +25,7 @@
 #include "schema_table/table/CdbTable.h"
 #include "schema_table/table/CdbTableColumn.h"
 
-#include "sql_ddl_alter/IndexChecker.h"
+#include "lang_sql/sql_ddl_alter/IndexChecker.h"
 
 using namespace codablecash;
 

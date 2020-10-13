@@ -19,10 +19,10 @@
 
 #include "schema_table/schema_alter_ctx/ColumnModifyContext.h"
 
-#include "sql_ddl_alter_modify/AlterModifyCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterModifyCommand.h"
 
-#include "sql_ddl/DdlColumnDescriptor.h"
-#include "sql_ddl/ColumnTypeDescriptor.h"
+#include "lang_sql/sql_ddl/DdlColumnDescriptor.h"
+#include "lang_sql/sql_ddl/ColumnTypeDescriptor.h"
 
 namespace codablecash {
 

@@ -4,7 +4,7 @@
  *  Created on: 2019/02/05
  *      Author: iizuka
  */
-#include "sc_expression_arithmetic/AddExpression.h"
+#include "lang/sc_expression_arithmetic/AddExpression.h"
 
 #include "instance_ref/PrimitiveReference.h"
 

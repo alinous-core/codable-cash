@@ -8,7 +8,7 @@
 #ifndef SQL_DDL_ALTERTABLESTATEMENT_H_
 #define SQL_DDL_ALTERTABLESTATEMENT_H_
 
-#include "sql/AbstractSQLStatement.h"
+#include "lang_sql/sql/AbstractSQLStatement.h"
 
 namespace alinous {
 

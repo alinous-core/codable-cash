@@ -8,7 +8,7 @@
 #ifndef SC_DECLARE_TYPES_DOMTYPE_H_
 #define SC_DECLARE_TYPES_DOMTYPE_H_
 
-#include "sc_declare_types/AbstractType.h"
+#include "lang/sc_declare_types/AbstractType.h"
 
 namespace alinous {
 

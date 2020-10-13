@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include "sc_statement_exception/TryStatement.h"
+#include "lang/sc_statement_exception/TryStatement.h"
 
-#include "sc_statement/StatementBlock.h"
-#include "sc_statement_exception/CatchStatement.h"
-#include "sc_statement_exception/FinallyStatement.h"
+#include "lang/sc_statement/StatementBlock.h"
+#include "lang/sc_statement_exception/CatchStatement.h"
+#include "lang/sc_statement_exception/FinallyStatement.h"
 
 #include "vm_ctrl/ExecControlManager.h"
 #include "vm_ctrl/AbstractCtrlInstruction.h"

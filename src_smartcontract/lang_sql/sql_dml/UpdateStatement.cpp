@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include "sql_dml/UpdateStatement.h"
-#include "sql_dml_parts/SQLWhere.h"
-#include "sql_dml_parts/SQLSet.h"
+#include "lang_sql/sql_dml/UpdateStatement.h"
+#include "lang_sql/sql_dml_parts/SQLWhere.h"
+#include "lang_sql/sql_dml_parts/SQLSet.h"
 
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 
 namespace alinous {
 

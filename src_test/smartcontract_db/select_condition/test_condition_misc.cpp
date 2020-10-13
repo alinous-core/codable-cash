@@ -11,17 +11,17 @@
 
 #include "engine/CdbException.h"
 
-#include "sql_expression/SQLBooleanLiteral.h"
-#include "sql_expression/SQLEqualityExpression.h"
-#include "sql_expression/SQLRelationalExpression.h"
-#include "sql_expression/SQLNotExpression.h"
-#include "sql_expression/SQLInExpression.h"
-#include "sql_expression/SQLExpressionList.h"
-#include "sql_expression/SQLLikeExpression.h"
-#include "sql_expression/SQLPlaceHolder.h"
-#include "sql_expression/SQLFunctionCall.h"
+#include "lang_sql/sql_expression/SQLBooleanLiteral.h"
+#include "lang_sql/sql_expression/SQLEqualityExpression.h"
+#include "lang_sql/sql_expression/SQLRelationalExpression.h"
+#include "lang_sql/sql_expression/SQLNotExpression.h"
+#include "lang_sql/sql_expression/SQLInExpression.h"
+#include "lang_sql/sql_expression/SQLExpressionList.h"
+#include "lang_sql/sql_expression/SQLLikeExpression.h"
+#include "lang_sql/sql_expression/SQLPlaceHolder.h"
+#include "lang_sql/sql_expression/SQLFunctionCall.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -31,7 +31,7 @@
 #include "scan_select/scan_condition_exp/EqualityScanCondition.h"
 #include "scan_select/scan_condition_exp/ParenthesisScanCondition.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "scan_select/scan_condition_logical/NotScanCondition.h"
 #include "scan_select/scan_condition_logical/AndScanCondition.h"

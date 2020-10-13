@@ -12,11 +12,11 @@
 
 #include "ext_binary/ExtPrimitiveObject.h"
 
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/ValidationError.h"
 
 #include "../VmTestUtils.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 #include "instance_ref_class_static/ClassTypeReference.h"
 
 #include "instance_ref/VmRootReference.h"

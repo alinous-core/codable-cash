@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sql_join_parts/SQLJoinPart.h"
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_join_parts/SQLJoinPart.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 namespace alinous {
 
 SQLJoinPart::SQLJoinPart() : AbstractJoinPart(CodeElement::SQL_EXP_JOIN_PART) {

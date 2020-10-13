@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_declare_types/ShortType.h"
+#include "lang/sc_declare_types/ShortType.h"
 
 #include "base/UnicodeString.h"
 

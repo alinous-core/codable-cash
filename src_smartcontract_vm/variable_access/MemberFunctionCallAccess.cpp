@@ -7,9 +7,9 @@
 
 #include "variable_access/MemberFunctionCallAccess.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
-#include "sc_expression/FunctionCallExpression.h"
+#include "lang/sc_expression/FunctionCallExpression.h"
 
 #include "instance/VmClassInstance.h"
 

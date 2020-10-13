@@ -8,7 +8,7 @@
 #ifndef SC_DECLARE_TYPES_ABSTRACTTYPE_H_
 #define SC_DECLARE_TYPES_ABSTRACTTYPE_H_
 
-#include "sc/CodeElement.h"
+#include "engine/sc/CodeElement.h"
 #include <cstdint>
 
 namespace alinous {

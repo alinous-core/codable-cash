@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "sql_expression/SQLAndExpression.h"
+#include "lang_sql/sql_expression/SQLAndExpression.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "scan_select/scan_condition_logical/AndScanCondition.h"
 

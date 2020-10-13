@@ -11,7 +11,7 @@
 
 #include "ext_binary/ExtExceptionObject.h"
 
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
 #include "base/UnicodeString.h"
 

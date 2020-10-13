@@ -8,7 +8,7 @@
 #ifndef SQL_DDL_DDLCOLUMNDESCRIPTOR_H_
 #define SQL_DDL_DDLCOLUMNDESCRIPTOR_H_
 
-#include "sql/AbstractSQLPart.h"
+#include "lang_sql/sql/AbstractSQLPart.h"
 
 namespace alinous {
 

@@ -8,7 +8,7 @@
 #ifndef SQL_DDL_ALTER_ABSTRACTALTERDDLCOMMAND_H_
 #define SQL_DDL_ALTER_ABSTRACTALTERDDLCOMMAND_H_
 
-#include "sc/CodeElement.h"
+#include "engine/sc/CodeElement.h"
 
 namespace codablecash {
 class AbstractAlterCommandLog;

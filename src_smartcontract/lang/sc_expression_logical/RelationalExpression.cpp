@@ -4,11 +4,11 @@
  *  Created on: 2019/02/05
  *      Author: iizuka
  */
-#include "sc_expression_logical/RelationalExpression.h"
+#include "lang/sc_expression_logical/RelationalExpression.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "instance_gc/GcManager.h"
 #include "instance_gc/StackFloatingVariableHandler.h"

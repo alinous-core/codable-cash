@@ -5,13 +5,13 @@
  *      Author: iizuka
  */
 
-#include "sc_declare/ArgumentDeclare.h"
-#include "sc_declare_types/AbstractType.h"
+#include "lang/sc_declare/ArgumentDeclare.h"
+#include "lang/sc_declare_types/AbstractType.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/TypeResolver.h"
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/TypeResolver.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "base/UnicodeString.h"
 

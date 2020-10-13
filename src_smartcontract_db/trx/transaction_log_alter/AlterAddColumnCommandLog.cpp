@@ -7,9 +7,9 @@
 
 #include "trx/transaction_log_alter/AlterAddColumnCommandLog.h"
 
-#include "sql_ddl_alter/AlterAddColumnCommand.h"
+#include "lang_sql/sql_ddl_alter/AlterAddColumnCommand.h"
 
-#include "sc/CodeElement.h"
+#include "engine/sc/CodeElement.h"
 
 #include "trx/transaction/CdbTransactionManager.h"
 

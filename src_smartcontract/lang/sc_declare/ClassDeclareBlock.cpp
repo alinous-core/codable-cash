@@ -5,17 +5,17 @@
  *      Author: iizuka
  */
 
-#include "sc_declare/ClassDeclareBlock.h"
-#include "sc_declare/MemberVariableDeclare.h"
-#include "sc_declare/MethodDeclare.h"
-#include "sc_declare/ArgumentsListDeclare.h"
-#include "sc_declare/AccessControlDeclare.h"
+#include "lang/sc_declare/ClassDeclareBlock.h"
+#include "lang/sc_declare/MemberVariableDeclare.h"
+#include "lang/sc_declare/MethodDeclare.h"
+#include "lang/sc_declare/ArgumentsListDeclare.h"
+#include "lang/sc_declare/AccessControlDeclare.h"
 
 #include "vm/VirtualMachine.h"
 
 #include "base/UnicodeString.h"
 
-#include "sc_statement/StatementBlock.h"
+#include "lang/sc_statement/StatementBlock.h"
 
 namespace alinous {
 

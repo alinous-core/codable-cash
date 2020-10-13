@@ -7,7 +7,7 @@
 
 #ifndef SQL_DML_PARTS_SQLSELECTTARGET_H_
 #define SQL_DML_PARTS_SQLSELECTTARGET_H_
-#include "sql/AbstractSQLPart.h"
+#include "lang_sql/sql/AbstractSQLPart.h"
 
 namespace alinous {
 class AbstractSQLExpression;

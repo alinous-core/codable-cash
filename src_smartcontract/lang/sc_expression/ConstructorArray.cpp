@@ -5,12 +5,12 @@
  *      Author: iizuka
  */
 
-#include "sc_expression/ConstructorArray.h"
+#include "lang/sc_expression/ConstructorArray.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/AnalyzedThisClassStackPopper.h"
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedThisClassStackPopper.h"
+#include "engine/sc_analyze/ValidationError.h"
 
 #include "instance/AbstractVmInstance.h"
 
@@ -18,8 +18,8 @@
 
 #include "base_io/ByteBuffer.h"
 
-#include "sc_expression/VariableIdentifier.h"
-#include "sc_expression_literal/NumberLiteral.h"
+#include "lang/sc_expression/VariableIdentifier.h"
+#include "lang/sc_expression_literal/NumberLiteral.h"
 
 #include "instance_array/VmArrayInstanceUtils.h"
 #include "instance_ref/PrimitiveReference.h"

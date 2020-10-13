@@ -5,13 +5,13 @@
  *      Author: iizuka
  */
 
-#include "sc_expression/VariableIdentifier.h"
+#include "lang/sc_expression/VariableIdentifier.h"
 #include "base/UnicodeString.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
-#include "sc_analyze_stack/AnalyzeStackManager.h"
+#include "engine/sc_analyze_stack/AnalyzeStackManager.h"
 
 #include "variable_access/AbstractVariableInstraction.h"
 #include "variable_access/StackVariableAccess.h"
@@ -20,13 +20,13 @@
 
 #include "instance_ref/AbstractReference.h"
 
-#include "sc_analyze/AnalyzedClass.h"
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/ValidationError.h"
 
-#include "sc_analyze_functions/VTableRegistory.h"
-#include "sc_analyze_functions/VTableClassEntry.h"
+#include "engine/sc_analyze_functions/VTableRegistory.h"
+#include "engine/sc_analyze_functions/VTableClassEntry.h"
 
-#include "sc_analyze_variables/MemberVariableTable.h"
+#include "engine/sc_analyze_variables/MemberVariableTable.h"
 
 #include "instance_ref_class_static_meta/StaticVariableMetadata.h"
 #include "instance_ref_class_static_meta/StaticClassMetadataHolder.h"

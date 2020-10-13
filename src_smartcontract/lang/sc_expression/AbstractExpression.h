@@ -8,7 +8,7 @@
 #ifndef SC_EXPRESSION_ABSTRACTEXPRESSION_H_
 #define SC_EXPRESSION_ABSTRACTEXPRESSION_H_
 
-#include "sc/CodeElement.h"
+#include "engine/sc/CodeElement.h"
 
 namespace alinous {
 

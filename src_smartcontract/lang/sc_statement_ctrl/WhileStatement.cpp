@@ -5,16 +5,16 @@
  *      Author: iizuka
  */
 
-#include "sc_statement_ctrl/WhileStatement.h"
-#include "sc_expression/AbstractExpression.h"
+#include "lang/sc_statement_ctrl/WhileStatement.h"
+#include "lang/sc_expression/AbstractExpression.h"
 
-#include "sc_statement/StatementBlock.h"
+#include "lang/sc_statement/StatementBlock.h"
 
 #include "vm_ctrl/BlockState.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/ValidationError.h"
 
 #include "instance_ref/PrimitiveReference.h"
 

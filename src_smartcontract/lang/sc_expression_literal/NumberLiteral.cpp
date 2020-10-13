@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include "sc_expression_literal/NumberLiteral.h"
+#include "lang/sc_expression_literal/NumberLiteral.h"
 #include "base/UnicodeString.h"
 #include "base/Integer.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "instance_ref/RefereceFactory.h"
 #include "instance_gc/GcManager.h"

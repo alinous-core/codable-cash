@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "compiler/ParserReaderStream.h"
+#include "engine/compiler/ParserReaderStream.h"
 #include "base_io_stream/InputStream.h"
 
 namespace alinous {

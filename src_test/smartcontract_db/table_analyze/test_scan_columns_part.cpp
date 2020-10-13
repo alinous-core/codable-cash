@@ -17,13 +17,13 @@
 #include "vm/VirtualMachine.h"
 #include "vm/VmSelectPlannerSetter.h"
 
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 
 #include "alinous_lang/AlinousLang.h"
 
-#include "sql_dml_parts/SQLSelectTargetList.h"
+#include "lang_sql/sql_dml_parts/SQLSelectTargetList.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "scan_select/scan_planner/SelectScanPlanner.h"
 

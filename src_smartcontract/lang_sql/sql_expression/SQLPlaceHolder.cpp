@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sql_expression/SQLPlaceHolder.h"
-#include "sc_expression/AbstractExpression.h"
+#include "lang_sql/sql_expression/SQLPlaceHolder.h"
+#include "lang/sc_expression/AbstractExpression.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "scan_select/scan_planner/SelectScanPlanner.h"
 #include "scan_select/scan_planner/ConditionsHolderStackMarker.h"

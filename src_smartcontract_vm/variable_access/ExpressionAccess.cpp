@@ -7,9 +7,9 @@
 
 #include "variable_access/ExpressionAccess.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
-#include "sc_expression/AbstractExpression.h"
+#include "lang/sc_expression/AbstractExpression.h"
 
 namespace alinous {
 

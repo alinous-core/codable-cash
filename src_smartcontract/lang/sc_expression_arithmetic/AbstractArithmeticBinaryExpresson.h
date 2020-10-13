@@ -8,8 +8,8 @@
 #ifndef SC_EXPRESSION_ARITHMETIC_ABSTRACTARITHMETICBINARYEXPRESSON_H_
 #define SC_EXPRESSION_ARITHMETIC_ABSTRACTARITHMETICBINARYEXPRESSON_H_
 
-#include "sc_expression/AbstractBinaryExpression.h"
-#include "sc_analyze/AnalyzedType.h"
+#include "lang/sc_expression/AbstractBinaryExpression.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "base/RawArrayPrimitive.h"
 #include <cstdint>

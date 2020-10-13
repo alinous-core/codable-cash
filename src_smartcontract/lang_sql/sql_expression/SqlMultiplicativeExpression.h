@@ -8,7 +8,7 @@
 #ifndef SQL_EXPRESSION_SQLMULTIPLICATIVEEXPRESSION_H_
 #define SQL_EXPRESSION_SQLMULTIPLICATIVEEXPRESSION_H_
 
-#include "sql_expression/AbstractSQLBinaryExpression.h"
+#include "lang_sql/sql_expression/AbstractSQLBinaryExpression.h"
 #include "base/RawArrayPrimitive.h"
 #include <cstdint>
 

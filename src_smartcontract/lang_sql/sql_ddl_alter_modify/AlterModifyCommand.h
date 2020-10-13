@@ -8,7 +8,7 @@
 #ifndef SQL_DDL_ALTER_MODIFY_ALTERMODIFYCOMMAND_H_
 #define SQL_DDL_ALTER_MODIFY_ALTERMODIFYCOMMAND_H_
 
-#include "sql_ddl_alter/AbstractAlterDdlWithTypeDesc.h"
+#include "lang_sql/sql_ddl_alter/AbstractAlterDdlWithTypeDesc.h"
 
 namespace codablecash {
 class AlterModifyCommandLog;

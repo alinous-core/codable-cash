@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_declare_types/LongType.h"
+#include "lang/sc_declare_types/LongType.h"
 
 #include "base/UnicodeString.h"
 

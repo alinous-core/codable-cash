@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sc_expression_bit/ExclusiveOrExpression.h"
+#include "lang/sc_expression_bit/ExclusiveOrExpression.h"
 
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "instance_gc/GcManager.h"
 #include "instance_gc/StackFloatingVariableHandler.h"

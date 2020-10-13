@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze_functions/MethodNameCollection.h"
+#include "engine/sc_analyze_functions/MethodNameCollection.h"
 
-#include "sc_analyze_functions/VTableMethodEntry.h"
+#include "engine/sc_analyze_functions/VTableMethodEntry.h"
 
 namespace alinous {
 

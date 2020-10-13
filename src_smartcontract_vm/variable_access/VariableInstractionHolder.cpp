@@ -7,15 +7,15 @@
 
 #include "variable_access/VariableInstractionHolder.h"
 
-#include "sc_expression/AbstractExpression.h"
-#include "sc_expression/VariableIdentifier.h"
-#include "sc_expression/ArrayReferenceExpression.h"
-#include "sc_expression/FunctionCallExpression.h"
+#include "lang/sc_expression/AbstractExpression.h"
+#include "lang/sc_expression/VariableIdentifier.h"
+#include "lang/sc_expression/ArrayReferenceExpression.h"
+#include "lang/sc_expression/FunctionCallExpression.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/TypeResolver.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/TypeResolver.h"
 
 #include "variable_access/AbstractVariableInstraction.h"
 #include "variable_access/ExpressionAccess.h"
@@ -26,7 +26,7 @@
 #include "variable_access/MemberFunctionCallAccess.h"
 #include "variable_access/ClassTypeAccess.h"
 
-#include "sc_analyze_stack/AnalyzeStackManager.h"
+#include "engine/sc_analyze_stack/AnalyzeStackManager.h"
 
 #include "instance_gc/GcManager.h"
 #include "instance_gc/StackFloatingVariableHandler.h"

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sql_dml/RollbackStatement.h"
+#include "lang_sql/sql_dml/RollbackStatement.h"
 
 #include "vm_trx/VmTransactionHandler.h"
 

@@ -8,7 +8,7 @@
 #include "test_utils/t_macros.h"
 
 #include "vm/VirtualMachine.h"
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 #include "base_io_stream/FileInputStream.h"
 
 
@@ -19,7 +19,7 @@
 
 #include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/ValidationError.h"
 using namespace alinous;
 
 TEST_GROUP(TestCreateTableScriptGroup) {

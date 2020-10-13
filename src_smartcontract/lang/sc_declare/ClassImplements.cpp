@@ -5,12 +5,12 @@
  *      Author: iizuka
  */
 
-#include "sc_declare/ClassImplements.h"
-#include "sc_declare/ClassName.h"
+#include "lang/sc_declare/ClassImplements.h"
+#include "lang/sc_declare/ClassName.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/TypeResolver.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/TypeResolver.h"
 
 namespace alinous {
 

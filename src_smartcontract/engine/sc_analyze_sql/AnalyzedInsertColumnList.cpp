@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze_sql/AnalyzedInsertColumnList.h"
-#include "sc_analyze_sql/AnalyzedInsertColumn.h"
+#include "engine/sc_analyze_sql/AnalyzedInsertColumnList.h"
+#include "engine/sc_analyze_sql/AnalyzedInsertColumn.h"
 
 namespace alinous {
 

@@ -5,12 +5,12 @@
  *      Author: iizuka
  */
 
-#include "sc_declare/ImportDeclare.h"
+#include "lang/sc_declare/ImportDeclare.h"
 #include "base/UnicodeString.h"
 
-#include "sc_analyze/TypeResolver.h"
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/TypeResolver.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "base/StackRelease.h"
 

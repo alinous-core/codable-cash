@@ -5,22 +5,22 @@
  *      Author: iizuka
  */
 
-#include "sc_expression/AllocationExpression.h"
+#include "lang/sc_expression/AllocationExpression.h"
 
-#include "sc_declare/PackageNameDeclare.h"
-#include "sc_expression/ConstructorCall.h"
-#include "sc_expression/ConstructorArray.h"
+#include "lang/sc_declare/PackageNameDeclare.h"
+#include "lang/sc_expression/ConstructorCall.h"
+#include "lang/sc_expression/ConstructorArray.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/TypeResolver.h"
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/AnalyzedThisClassStackPopper.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/TypeResolver.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedThisClassStackPopper.h"
 
 #include "instance/VmClassInstance.h"
 
 #include "base/StackRelease.h"
 
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/ValidationError.h"
 
 namespace alinous {
 

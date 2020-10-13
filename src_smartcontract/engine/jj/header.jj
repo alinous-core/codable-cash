@@ -6,7 +6,7 @@ NAMESPACE = "alinouslang";
 OUTPUT_DIRECTORY = "src_gen/alinous_lang/";
 FORCE_LA_CHECK = false;
 ERROR_REPORTING = true;
-PARSER_INCLUDES = "sc/alinouslang.h";
+PARSER_INCLUDES = "engine/sc/alinouslang.h";
 //STATIC = false; // ignored by c++
 DEBUG_PARSER=false;
 }

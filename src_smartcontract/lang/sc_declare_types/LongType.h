@@ -8,7 +8,7 @@
 #ifndef SC_DECLARE_TYPES_LONGTYPE_H_
 #define SC_DECLARE_TYPES_LONGTYPE_H_
 
-#include "sc_declare_types/AbstractPrimitiveType.h"
+#include "lang/sc_declare_types/AbstractPrimitiveType.h"
 
 namespace alinous {
 

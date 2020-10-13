@@ -8,15 +8,15 @@
 #include "test_utils/t_macros.h"
 
 #include "vm/VirtualMachine.h"
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 #include "base_io_stream/FileInputStream.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "base/UnicodeString.h"
 
 #include "../VmTestUtils.h"
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
 using namespace alinous;
 

@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sc_expression_literal/LiteralExpression.h"
+#include "lang/sc_expression_literal/LiteralExpression.h"
 #include "base/UnicodeString.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "instance_ref/VmRootReference.h"
 #include "instance_string/VmStringInstance.h"

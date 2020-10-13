@@ -5,24 +5,24 @@
  *      Author: iizuka
  */
 
-#include "sc_declare/MethodDeclare.h"
-#include "sc_declare/AccessControlDeclare.h"
-#include "sc_declare/ArgumentsListDeclare.h"
-#include "sc_declare_types/AbstractType.h"
-#include "sc_declare/ClassDeclare.h"
+#include "lang/sc_declare/MethodDeclare.h"
+#include "lang/sc_declare/AccessControlDeclare.h"
+#include "lang/sc_declare/ArgumentsListDeclare.h"
+#include "lang/sc_declare_types/AbstractType.h"
+#include "lang/sc_declare/ClassDeclare.h"
 
-#include "sc_statement/StatementBlock.h"
+#include "lang/sc_statement/StatementBlock.h"
 #include "base/UnicodeString.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/AnalyzedClass.h"
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/TypeResolver.h"
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/TypeResolver.h"
+#include "engine/sc_analyze/ValidationError.h"
 
-#include "sc/exceptions.h"
+#include "engine/sc/exceptions.h"
 
-#include "sc_analyze/AnalyzedThisClassStackPopper.h"
+#include "engine/sc_analyze/AnalyzedThisClassStackPopper.h"
 
 #include "vm/VirtualMachine.h"
 

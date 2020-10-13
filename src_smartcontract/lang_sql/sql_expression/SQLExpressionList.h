@@ -8,7 +8,7 @@
 #ifndef SQL_DML_PARTS_SQLEXPRESSIONLIST_H_
 #define SQL_DML_PARTS_SQLEXPRESSIONLIST_H_
 
-#include "sql/AbstractSQLExpression.h"
+#include "lang_sql/sql/AbstractSQLExpression.h"
 #include "base/ArrayList.h"
 
 namespace alinous {

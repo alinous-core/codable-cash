@@ -8,21 +8,21 @@
 #include "test_utils/t_macros.h"
 
 #include "vm/VirtualMachine.h"
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 #include "base_io_stream/FileInputStream.h"
 
 #include "instance_ref/VmRootReference.h"
 #include "instance/VmClassInstance.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze_functions/VTableRegistory.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze_functions/VTableRegistory.h"
 
 #include "ext_binary/AbstractExtObject.h"
 #include "ext_binary/ExtClassObject.h"
 
 #include "ext_binary/ExtPrimitiveObject.h"
 
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/ValidationError.h"
 using namespace alinous;
 
 

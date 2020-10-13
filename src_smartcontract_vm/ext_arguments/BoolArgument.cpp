@@ -7,7 +7,7 @@
 
 #include "ext_arguments/BoolArgument.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "vm/VirtualMachine.h"
 

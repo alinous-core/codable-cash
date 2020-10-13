@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "compiler/CompileError.h"
+#include "engine/compiler/CompileError.h"
 #include "base/UnicodeString.h"
 
 namespace alinous {

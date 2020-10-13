@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sql_dml_parts/SQLHaving.h"
-#include "sql/AbstractSQLExpression.h"
+#include "lang_sql/sql_dml_parts/SQLHaving.h"
+#include "lang_sql/sql/AbstractSQLExpression.h"
 
 namespace alinous {
 

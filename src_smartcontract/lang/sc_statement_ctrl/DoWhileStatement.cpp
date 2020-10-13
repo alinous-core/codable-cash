@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sc_statement_ctrl/DoWhileStatement.h"
-#include "sc_expression/AbstractExpression.h"
+#include "lang/sc_statement_ctrl/DoWhileStatement.h"
+#include "lang/sc_expression/AbstractExpression.h"
 
-#include "sc_statement/StatementBlock.h"
+#include "lang/sc_statement/StatementBlock.h"
 
 #include "vm_ctrl/BlockState.h"
 #include "vm_ctrl/ExecControlManager.h"
@@ -22,9 +22,9 @@
 
 #include "vm_ctrl/AbstractCtrlInstruction.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "instance_gc/StackFloatingVariableHandler.h"
 

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze/IVmInstanceFactory.h"
+#include "engine/sc_analyze/IVmInstanceFactory.h"
 
 namespace alinous {
 

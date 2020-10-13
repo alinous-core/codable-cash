@@ -7,7 +7,7 @@
 
 #include "scan_select/scan_condition_logical/OrScanCondition.h"
 
-#include "sc/CodeElement.h"
+#include "engine/sc/CodeElement.h"
 
 #include "base/UnicodeString.h"
 

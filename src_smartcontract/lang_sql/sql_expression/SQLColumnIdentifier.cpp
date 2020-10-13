@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include "sql_expression/SQLColumnIdentifier.h"
+#include "lang_sql/sql_expression/SQLColumnIdentifier.h"
 #include "base/UnicodeString.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "scan_select/scan_planner/SelectScanPlanner.h"
 #include "scan_select/scan_planner/ConditionsHolderStackMarker.h"

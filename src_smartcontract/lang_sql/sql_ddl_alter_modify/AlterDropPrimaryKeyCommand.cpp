@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sql_ddl_alter_modify/AlterDropPrimaryKeyCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterDropPrimaryKeyCommand.h"
 
 #include "trx/transaction_log_alter_modify/AlterDropPrimaryKeyCommandLog.h"
 
@@ -16,7 +16,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 
 #include "schema_table/table/CdbTable.h"
 

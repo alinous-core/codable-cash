@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sql_dml_parts/SQLSetPair.h"
+#include "lang_sql/sql_dml_parts/SQLSetPair.h"
 
-#include "sql_expression/SQLColumnIdentifier.h"
-#include "sql/AbstractSQLExpression.h"
+#include "lang_sql/sql_expression/SQLColumnIdentifier.h"
+#include "lang_sql/sql/AbstractSQLExpression.h"
 
 namespace alinous {
 

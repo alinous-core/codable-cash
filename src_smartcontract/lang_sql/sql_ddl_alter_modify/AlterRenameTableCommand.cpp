@@ -5,13 +5,13 @@
  *      Author: iizuka
  */
 
-#include "sql_ddl_alter_modify/AlterRenameTableCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterRenameTableCommand.h"
 
 #include "base/UnicodeString.h"
 
 #include "trx/transaction_log_alter_modify/AlterRenameTableCommandLog.h"
 
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 
 #include "engine/CodableDatabase.h"
 

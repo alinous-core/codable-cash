@@ -8,7 +8,7 @@
 #ifndef INSTANCE_EXCEPTION_CLASS_EXCEPTIONINSTANCEFACTORY_H_
 #define INSTANCE_EXCEPTION_CLASS_EXCEPTIONINSTANCEFACTORY_H_
 
-#include "sc_analyze/IVmInstanceFactory.h"
+#include "engine/sc_analyze/IVmInstanceFactory.h"
 
 namespace alinous {
 

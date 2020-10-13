@@ -8,7 +8,7 @@
 #ifndef SC_EXPRESSION_JSON_JSONARRAYEXPRESSION_H_
 #define SC_EXPRESSION_JSON_JSONARRAYEXPRESSION_H_
 
-#include "sc_expression_json/AbstractJsonExpression.h"
+#include "lang/sc_expression_json/AbstractJsonExpression.h"
 
 #include "base/ArrayList.h"
 

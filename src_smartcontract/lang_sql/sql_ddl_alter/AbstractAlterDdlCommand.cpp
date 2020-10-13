@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
+#include "lang_sql/sql_ddl_alter/AbstractAlterDdlCommand.h"
 
-#include "sql_ddl/DdlColumnDescriptor.h"
+#include "lang_sql/sql_ddl/DdlColumnDescriptor.h"
 
 #include "base/StackRelease.h"
 

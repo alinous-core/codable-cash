@@ -5,27 +5,27 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
-#include "sc_declare/MemberVariableDeclare.h"
-#include "sc_declare/MethodDeclare.h"
-#include "sc_declare/ArgumentsListDeclare.h"
-#include "sc_declare/ClassDeclare.h"
-#include "sc_declare/ArgumentDeclare.h"
+#include "lang/sc_declare/MemberVariableDeclare.h"
+#include "lang/sc_declare/MethodDeclare.h"
+#include "lang/sc_declare/ArgumentsListDeclare.h"
+#include "lang/sc_declare/ClassDeclare.h"
+#include "lang/sc_declare/ArgumentDeclare.h"
 
 #include "base/UnicodeString.h"
 #include "base/ArrayList.h"
 
 #include "instance_ref/AbstractReference.h"
 
-#include "sc_analyze_functions/VTableRegistory.h"
-#include "sc_analyze_functions/FunctionScoreCalc.h"
-#include "sc_analyze_functions/VTableClassEntry.h"
+#include "engine/sc_analyze_functions/VTableRegistory.h"
+#include "engine/sc_analyze_functions/FunctionScoreCalc.h"
+#include "engine/sc_analyze_functions/VTableClassEntry.h"
 
-#include "sc_analyze/IVmInstanceFactory.h"
+#include "engine/sc_analyze/IVmInstanceFactory.h"
 namespace alinous {
 
 AnalyzedClass::AnalyzedClass(const AnalyzedClass& inst) {

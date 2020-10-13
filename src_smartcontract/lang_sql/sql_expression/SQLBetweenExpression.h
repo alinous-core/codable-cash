@@ -8,7 +8,7 @@
 #ifndef SQL_EXPRESSION_SQLBETWEENEXPRESSION_H_
 #define SQL_EXPRESSION_SQLBETWEENEXPRESSION_H_
 
-#include "sql/AbstractSQLExpression.h"
+#include "lang_sql/sql/AbstractSQLExpression.h"
 
 namespace alinous {
 

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze_sql/AnalyzedInsertColumn.h"
+#include "engine/sc_analyze_sql/AnalyzedInsertColumn.h"
 
 #include "schema_table/table/CdbTableColumn.h"
 

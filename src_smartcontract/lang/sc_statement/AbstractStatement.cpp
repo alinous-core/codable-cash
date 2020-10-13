@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_statement/AbstractStatement.h"
+#include "lang/sc_statement/AbstractStatement.h"
 
 namespace alinous {
 

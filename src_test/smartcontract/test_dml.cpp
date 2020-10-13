@@ -6,8 +6,8 @@
  */
 
 #include "test_utils/t_macros.h"
-#include "compiler/SmartContractParser.h"
-#include "sc_statement/AbstractStatement.h"
+#include "engine/compiler/SmartContractParser.h"
+#include "lang/sc_statement/AbstractStatement.h"
 
 #include "base/StackRelease.h"
 #include "alinous_lang/AlinousLang.h"

@@ -7,11 +7,11 @@
 
 #include "scan_select/scan_condition_arithmetic/AdditiveScanCondition.h"
 
-#include "sc/CodeElement.h"
+#include "engine/sc/CodeElement.h"
 
 #include "base/UnicodeString.h"
 
-#include "sql_expression/SQLAdditiveExpression.h"
+#include "lang_sql/sql_expression/SQLAdditiveExpression.h"
 
 #include "scan_select/scan_planner_scanner_ctx/FilterConditionDitector.h"
 #include "scan_select/scan_planner_scanner_ctx/FilterConditionStackMarker.h"

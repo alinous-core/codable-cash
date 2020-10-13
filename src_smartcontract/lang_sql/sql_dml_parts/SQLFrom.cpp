@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "sql_dml_parts/SQLFrom.h"
-#include "sql_join_parts/TableIdentifier.h"
-#include "sql/AbstractJoinPart.h"
+#include "lang_sql/sql_dml_parts/SQLFrom.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql/AbstractJoinPart.h"
 
 namespace alinous {
 

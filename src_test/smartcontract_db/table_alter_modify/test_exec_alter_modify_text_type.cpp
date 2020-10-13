@@ -11,7 +11,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 
 #include "alinous_lang/AlinousLang.h"
 #include "../toolkit/TestDbSchema01.h"
@@ -21,7 +21,7 @@
 #include "../toolkit_alter/TestDbSchemaAlterText01.h"
 #include "../toolkit_alter/TestDbSchemaAlterTextUnique01.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "engine/CodableDatabase.h"
 

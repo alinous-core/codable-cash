@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze/AnalyzedThisClassStackPopper.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedThisClassStackPopper.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 namespace alinous {
 

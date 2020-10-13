@@ -8,7 +8,7 @@
 #ifndef SC_DECLARE_ARGUMENTDECLARE_H_
 #define SC_DECLARE_ARGUMENTDECLARE_H_
 
-#include "sc/CodeElement.h"
+#include "engine/sc/CodeElement.h"
 
 namespace alinous {
 

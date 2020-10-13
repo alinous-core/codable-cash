@@ -7,31 +7,31 @@
 #include "test_utils/t_macros.h"
 
 #include "vm/VirtualMachine.h"
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 #include "base_io_stream/FileInputStream.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "base/UnicodeString.h"
 
 #include "../VmTestUtils.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
-#include "sc_declare_types/ObjectType.h"
-#include "sc/CompilationUnit.h"
+#include "lang/sc_declare_types/ObjectType.h"
+#include "engine/sc/CompilationUnit.h"
 
 #include "base/Exception.h"
 
-#include "sc_declare_types/BoolType.h"
-#include "sc_declare_types/ByteType.h"
-#include "sc_declare_types/CharType.h"
-#include "sc_declare_types/ShortType.h"
-#include "sc_declare_types/IntType.h"
-#include "sc_declare_types/LongType.h"
-#include "sc_declare_types/VoidType.h"
-#include "sc_declare_types/StringType.h"
+#include "lang/sc_declare_types/BoolType.h"
+#include "lang/sc_declare_types/ByteType.h"
+#include "lang/sc_declare_types/CharType.h"
+#include "lang/sc_declare_types/ShortType.h"
+#include "lang/sc_declare_types/IntType.h"
+#include "lang/sc_declare_types/LongType.h"
+#include "lang/sc_declare_types/VoidType.h"
+#include "lang/sc_declare_types/StringType.h"
 
-#include "sc_declare/PackageNameDeclare.h"
+#include "lang/sc_declare/PackageNameDeclare.h"
 using namespace alinous;
 
 TEST_GROUP(TestScDeclareTypesGroup) {

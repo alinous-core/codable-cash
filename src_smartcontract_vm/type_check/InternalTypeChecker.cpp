@@ -9,9 +9,9 @@
 
 #include "type_check/InternalTypeChecker.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_declare/ClassDeclare.h"
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "lang/sc_declare/ClassDeclare.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
 namespace alinous {
 

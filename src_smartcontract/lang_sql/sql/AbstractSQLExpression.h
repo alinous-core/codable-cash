@@ -8,8 +8,8 @@
 #ifndef SQL_ABSTRACTSQLEXPRESSION_H_
 #define SQL_ABSTRACTSQLEXPRESSION_H_
 
-#include "sql/ISQLElement.h"
-#include "sc/CodeElement.h"
+#include "lang_sql/sql/ISQLElement.h"
+#include "engine/sc/CodeElement.h"
 
 namespace alinous {
 

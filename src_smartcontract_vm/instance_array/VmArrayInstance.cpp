@@ -14,7 +14,7 @@
 
 #include "ext_binary/ExtArrayObject.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "base/UnicodeString.h"
 

@@ -8,7 +8,7 @@
 #ifndef SC_DECLARE_ACCESSCONTROLDECLARE_H_
 #define SC_DECLARE_ACCESSCONTROLDECLARE_H_
 
-#include "sc/CodeElement.h"
+#include "engine/sc/CodeElement.h"
 
 namespace alinous {
 

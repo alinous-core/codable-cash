@@ -8,7 +8,7 @@
 #ifndef SQL_JOIN_PARTS_PARENTHESISJOINPART_H_
 #define SQL_JOIN_PARTS_PARENTHESISJOINPART_H_
 
-#include "sql/AbstractJoinPart.h"
+#include "lang_sql/sql/AbstractJoinPart.h"
 
 namespace alinous {
 

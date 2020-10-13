@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sc_expression_json/JsonArrayExpression.h"
+#include "lang/sc_expression_json/JsonArrayExpression.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "vm/VirtualMachine.h"
 

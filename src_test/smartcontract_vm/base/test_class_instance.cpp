@@ -15,7 +15,7 @@
 
 #include "instance_ref/PrimitiveReference.h"
 
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
 #include "instance/VmInstanceTypesConst.h"
 using namespace alinous;

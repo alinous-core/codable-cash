@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "sql_dml_parts/SQLGroupBy.h"
-#include "sql_dml_parts/SQLColumnsList.h"
-#include "sql_dml_parts/SQLHaving.h"
+#include "lang_sql/sql_dml_parts/SQLGroupBy.h"
+#include "lang_sql/sql_dml_parts/SQLColumnsList.h"
+#include "lang_sql/sql_dml_parts/SQLHaving.h"
 
 namespace alinous {
 

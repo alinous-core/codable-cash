@@ -7,12 +7,12 @@
 
 #include "instance_ref_class_static/StaticClassEntry.h"
 
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
-#include "sc_declare/MemberVariableDeclare.h"
+#include "lang/sc_declare/MemberVariableDeclare.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -23,7 +23,7 @@
 #include "instance_gc/GcManager.h"
 #include "instance_gc/StackFloatingVariableHandler.h"
 
-#include "sc_expression/AbstractExpression.h"
+#include "lang/sc_expression/AbstractExpression.h"
 
 #include "stack/StackPopper.h"
 

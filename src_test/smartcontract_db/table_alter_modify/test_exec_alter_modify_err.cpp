@@ -11,7 +11,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 
 #include "alinous_lang/AlinousLang.h"
 #include "../toolkit/TestDbSchema01.h"
@@ -19,7 +19,7 @@
 #include "../toolkit_alter/TestDbSchemaAlter02.h"
 #include "../toolkit_alter/TestDbSchemaAlter03.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"
@@ -35,9 +35,9 @@
 
 #include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/ValidationError.h"
 
-#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
+#include "lang_sql/sql_ddl_alter/AbstractAlterDdlCommand.h"
 
 #include "../toolkit_alter/TestDbSchemaAlterText01.h"
 

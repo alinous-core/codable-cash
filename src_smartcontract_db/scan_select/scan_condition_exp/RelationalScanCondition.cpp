@@ -7,7 +7,7 @@
 
 #include "scan_select/scan_condition_exp/RelationalScanCondition.h"
 
-#include "sc/CodeElement.h"
+#include "engine/sc/CodeElement.h"
 
 #include "scan_select/scan_condition/IValueProvider.h"
 
@@ -15,7 +15,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "sql_expression/SQLRelationalExpression.h"
+#include "lang_sql/sql_expression/SQLRelationalExpression.h"
 
 #include "scan_select/scan_planner_scanner_ctx/FilterConditionDitector.h"
 #include "scan_select/scan_planner_scanner_ctx/FilterConditionStackMarker.h"

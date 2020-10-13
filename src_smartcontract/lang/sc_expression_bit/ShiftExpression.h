@@ -10,7 +10,7 @@
 #include <cstdint>
 
 #include "base/RawArrayPrimitive.h"
-#include "sc_expression_arithmetic/AbstractArithmeticBinaryExpresson.h"
+#include "lang/sc_expression_arithmetic/AbstractArithmeticBinaryExpresson.h"
 
 
 namespace alinous {

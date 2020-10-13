@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze_variables/MemberVariableTable.h"
-#include "sc_analyze_variables/MemberVariableEntry.h"
+#include "engine/sc_analyze_variables/MemberVariableTable.h"
+#include "engine/sc_analyze_variables/MemberVariableEntry.h"
 
 #include "base/UnicodeString.h"
 

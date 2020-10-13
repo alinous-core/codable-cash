@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sql_dml_parts/SQLSet.h"
-#include "sql_dml_parts/SQLSetPair.h"
+#include "lang_sql/sql_dml_parts/SQLSet.h"
+#include "lang_sql/sql_dml_parts/SQLSetPair.h"
 
 namespace alinous {
 

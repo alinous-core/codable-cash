@@ -15,12 +15,12 @@
 #include "base/HashMap.h"
 #include "base/ArrayList.h"
 
-#include "sc_analyze/PackageSpace.h"
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/PackageSpace.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
-#include "sc_declare/ClassDeclare.h"
-#include "sc_declare/MemberVariableDeclare.h"
+#include "lang/sc_declare/ClassDeclare.h"
+#include "lang/sc_declare/MemberVariableDeclare.h"
 
 #include "vm/VirtualMachine.h"
 

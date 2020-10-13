@@ -5,17 +5,17 @@
  *      Author: iizuka
  */
 
-#include "sc_statement_ctrl/IfStatement.h"
-#include "sc_expression/AbstractExpression.h"
+#include "lang/sc_statement_ctrl/IfStatement.h"
+#include "lang/sc_expression/AbstractExpression.h"
 
 #include "instance_gc/GcManager.h"
 #include "instance_gc/StackFloatingVariableHandler.h"
 
 #include "vm/VirtualMachine.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "instance_ref/PrimitiveReference.h"
 

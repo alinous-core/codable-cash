@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_declare_types/StringType.h"
+#include "lang/sc_declare_types/StringType.h"
 
 #include "base/UnicodeString.h"
 

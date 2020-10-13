@@ -27,11 +27,11 @@
 #include "schema_table/table/CdbTableColumn.h"
 #include "schema_table/table/CdbTableIndex.h"
 
-#include "sql_ddl_alter_modify/AlterModifyCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterModifyCommand.h"
 
 #include "trx/transaction_log_alter_modify/AlterModifyCommandLog.h"
 
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 
 #include "trx/transaction_log_alter/AlterAddColumnCommandLog.h"
 #include "trx/transaction_log_alter/AlterAddIndexCommandLog.h"
@@ -42,8 +42,8 @@
 #include "trx/transaction_log_alter_modify/AlterRenameColumnCommandLog.h"
 #include "trx/transaction_log_alter_modify/AlterRenameTableCommandLog.h"
 
-#include "sql_ddl/DdlColumnDescriptor.h"
-#include "sql_ddl/ColumnTypeDescriptor.h"
+#include "lang_sql/sql_ddl/DdlColumnDescriptor.h"
+#include "lang_sql/sql_ddl/ColumnTypeDescriptor.h"
 
 #include "schema_table/schema/SchemaAlterCommandsHandler.h"
 

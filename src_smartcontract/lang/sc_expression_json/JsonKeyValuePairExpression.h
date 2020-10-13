@@ -8,7 +8,7 @@
 #ifndef SC_EXPRESSION_JSON_JSONKEYVALUEPAIREXPRESSION_H_
 #define SC_EXPRESSION_JSON_JSONKEYVALUEPAIREXPRESSION_H_
 
-#include "sc_expression_json/AbstractJsonExpression.h"
+#include "lang/sc_expression_json/AbstractJsonExpression.h"
 
 namespace alinous {
 

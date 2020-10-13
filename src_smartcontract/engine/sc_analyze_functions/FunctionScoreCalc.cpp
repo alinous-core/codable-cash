@@ -5,12 +5,12 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze_functions/FunctionScoreCalc.h"
+#include "engine/sc_analyze_functions/FunctionScoreCalc.h"
 
-#include "sc_analyze_functions/MethodScore.h"
-#include "sc_analyze_functions/VTableClassEntry.h"
-#include "sc_analyze_functions/VTableMethodEntry.h"
-#include "sc_analyze_functions/MethodNameCollection.h"
+#include "engine/sc_analyze_functions/MethodScore.h"
+#include "engine/sc_analyze_functions/VTableClassEntry.h"
+#include "engine/sc_analyze_functions/VTableMethodEntry.h"
+#include "engine/sc_analyze_functions/MethodNameCollection.h"
 
 #include "base/ArrayList.h"
 

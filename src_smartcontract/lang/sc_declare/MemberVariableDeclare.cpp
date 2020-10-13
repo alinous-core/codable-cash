@@ -5,27 +5,27 @@
  *      Author: iizuka
  */
 
-#include "sc_declare/MemberVariableDeclare.h"
-#include "sc_declare/AccessControlDeclare.h"
-#include "sc_declare_types/AbstractType.h"
+#include "lang/sc_declare/MemberVariableDeclare.h"
+#include "lang/sc_declare/AccessControlDeclare.h"
+#include "lang/sc_declare_types/AbstractType.h"
 
 #include "base/UnicodeString.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/AnalyzedClass.h"
-#include "sc_analyze/TypeResolver.h"
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzedThisClassStackPopper.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/TypeResolver.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzedThisClassStackPopper.h"
 
-#include "sc_expression/AbstractExpression.h"
+#include "lang/sc_expression/AbstractExpression.h"
 
-#include "sc_analyze_stack/AnalyzeStackPopper.h"
-#include "sc_analyze_stack/AnalyzeStackManager.h"
+#include "engine/sc_analyze_stack/AnalyzeStackPopper.h"
+#include "engine/sc_analyze_stack/AnalyzeStackManager.h"
 
 #include "instance_ref/AbstractReference.h"
 
-#include "sc/exceptions.h"
+#include "engine/sc/exceptions.h"
 
 #include "vm/VirtualMachine.h"
 

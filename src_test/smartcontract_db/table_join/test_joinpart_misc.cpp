@@ -9,14 +9,14 @@
 
 #include "base/StackRelease.h"
 
-#include "sql_join_parts/TableIdentifier.h"
-#include "sql_join_parts/TableList.h"
-#include "sql_join_parts/SQLJoinPart.h"
-#include "sql_join_parts/SQLJoin.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_join_parts/TableList.h"
+#include "lang_sql/sql_join_parts/SQLJoinPart.h"
+#include "lang_sql/sql_join_parts/SQLJoin.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
-#include "sql_join_parts/ParenthesisJoinPart.h"
+#include "lang_sql/sql_join_parts/ParenthesisJoinPart.h"
 
 #include "engine/CdbException.h"
 using namespace alinous;

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "compiler/LexError.h"
+#include "engine/compiler/LexError.h"
 #include "base/UnicodeString.h"
 
 namespace alinous {

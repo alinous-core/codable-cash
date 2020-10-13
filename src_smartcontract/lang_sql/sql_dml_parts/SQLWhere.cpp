@@ -5,12 +5,12 @@
  *      Author: iizuka
  */
 
-#include "sql_dml_parts/SQLWhere.h"
-#include "sql/AbstractSQLExpression.h"
+#include "lang_sql/sql_dml_parts/SQLWhere.h"
+#include "lang_sql/sql/AbstractSQLExpression.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "scan_select/scan_planner/SelectScanPlanner.h"
 #include "scan_select/scan_planner/ConditionsHolder.h"

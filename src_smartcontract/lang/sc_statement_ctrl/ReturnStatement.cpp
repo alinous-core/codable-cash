@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sc_statement_ctrl/ReturnStatement.h"
-#include "sc_expression/AbstractExpression.h"
+#include "lang/sc_statement_ctrl/ReturnStatement.h"
+#include "lang/sc_expression/AbstractExpression.h"
 
 #include "vm_ctrl/ExecControlManager.h"
 #include "vm_ctrl/ReturnControl.h"

@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze_stack/AnalyzeStack.h"
-#include "sc_analyze_stack/AnalyzedStackReference.h"
+#include "engine/sc_analyze_stack/AnalyzeStack.h"
+#include "engine/sc_analyze_stack/AnalyzedStackReference.h"
 
 #include "base/UnicodeString.h"
 

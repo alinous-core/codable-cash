@@ -5,23 +5,23 @@
  *      Author: iizuka
  */
 
-#include "sql_dml/SelectStatement.h"
-#include "sql_dml_parts/SQLFrom.h"
-#include "sql_dml_parts/SQLWhere.h"
-#include "sql_dml_parts/SQLGroupBy.h"
-#include "sql_dml_parts/SQLOrderBy.h"
-#include "sql_dml_parts/SQLLimitOffset.h"
-#include "sql_dml_parts/SQLSelectTargetList.h"
+#include "lang_sql/sql_dml/SelectStatement.h"
+#include "lang_sql/sql_dml_parts/SQLFrom.h"
+#include "lang_sql/sql_dml_parts/SQLWhere.h"
+#include "lang_sql/sql_dml_parts/SQLGroupBy.h"
+#include "lang_sql/sql_dml_parts/SQLOrderBy.h"
+#include "lang_sql/sql_dml_parts/SQLLimitOffset.h"
+#include "lang_sql/sql_dml_parts/SQLSelectTargetList.h"
 
 #include "base/UnicodeString.h"
 #include "base/Exception.h"
 
-#include "sc_analyze_stack/AnalyzeStack.h"
-#include "sc_analyze_stack/AnalyzeStackManager.h"
-#include "sc_analyze_stack/AnalyzedStackReference.h"
+#include "engine/sc_analyze_stack/AnalyzeStack.h"
+#include "engine/sc_analyze_stack/AnalyzeStackManager.h"
+#include "engine/sc_analyze_stack/AnalyzedStackReference.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "vm/VirtualMachine.h"
 #include "vm/VmSelectPlannerSetter.h"
@@ -31,7 +31,7 @@
 #include "scan_select/scan_planner/SelectScanPlanner.h"
 #include "scan_select/scan_planner/TablesHolder.h"
 
-#include "sql/AbstractJoinPart.h"
+#include "lang_sql/sql/AbstractJoinPart.h"
 
 #include "scan_select/scan_table/AbstractScanTableTarget.h"
 

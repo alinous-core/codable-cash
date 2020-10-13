@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sc/CompilationUnit.h"
-#include "sc_declare/ClassDeclare.h"
-#include "sc_declare/PackageDeclare.h"
-#include "sc_declare/ImportsDeclare.h"
+#include "engine/sc/CompilationUnit.h"
+#include "lang/sc_declare/ClassDeclare.h"
+#include "lang/sc_declare/PackageDeclare.h"
+#include "lang/sc_declare/ImportsDeclare.h"
 #include "base/UnicodeString.h"
 
 namespace alinous {

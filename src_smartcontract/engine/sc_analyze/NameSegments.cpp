@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze/NameSegments.h"
+#include "engine/sc_analyze/NameSegments.h"
 
 #include "base/UnicodeString.h"
 

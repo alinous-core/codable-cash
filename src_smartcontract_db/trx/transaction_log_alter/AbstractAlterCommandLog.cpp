@@ -7,7 +7,7 @@
 
 #include "trx/transaction_log_alter/AbstractAlterCommandLog.h"
 
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 
 namespace codablecash {
 

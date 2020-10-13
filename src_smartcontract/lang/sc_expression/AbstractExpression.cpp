@@ -5,14 +5,14 @@
  *      Author: iizuka
  */
 
-#include "sc_expression/AbstractExpression.h"
+#include "lang/sc_expression/AbstractExpression.h"
 
 #include "variable_access/VariableInstractionHolder.h"
 
-#include "sc_declare/MethodDeclare.h"
-#include "sc_declare/MemberVariableDeclare.h"
+#include "lang/sc_declare/MethodDeclare.h"
+#include "lang/sc_declare/MemberVariableDeclare.h"
 
-#include "sc_expression/ConstructorCall.h"
+#include "lang/sc_expression/ConstructorCall.h"
 
 
 namespace alinous {

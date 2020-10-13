@@ -12,7 +12,7 @@
 #include "schema_table/table/CdbTable.h"
 #include "schema_table/table/CdbTableColumn.h"
 
-#include "sql_expression/SQLColumnIdentifier.h"
+#include "lang_sql/sql_expression/SQLColumnIdentifier.h"
 
 #include "vm/VirtualMachine.h"
 

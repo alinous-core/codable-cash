@@ -7,7 +7,7 @@
 
 #include "scan_select/scan_condition_exp/EqualityScanCondition.h"
 
-#include "sc/CodeElement.h"
+#include "engine/sc/CodeElement.h"
 
 #include "scan_select/scan_condition/IValueProvider.h"
 

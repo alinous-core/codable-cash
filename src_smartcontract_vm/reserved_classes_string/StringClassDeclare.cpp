@@ -9,7 +9,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
 namespace alinous {
 

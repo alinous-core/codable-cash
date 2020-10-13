@@ -9,7 +9,7 @@
 #define SQL_EXPRESSION_SQLJOINPART_H_
 
 #include <cstdint>
-#include "sql/AbstractJoinPart.h"
+#include "lang_sql/sql/AbstractJoinPart.h"
 
 namespace alinous {
 class TableIdentifier;

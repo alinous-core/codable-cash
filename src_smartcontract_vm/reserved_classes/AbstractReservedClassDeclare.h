@@ -8,7 +8,7 @@
 #ifndef RESERVED_CLASSES_ABSTRACTRESERVEDCLASSDECLARE_H_
 #define RESERVED_CLASSES_ABSTRACTRESERVEDCLASSDECLARE_H_
 
-#include "sc_declare/ClassDeclare.h"
+#include "lang/sc_declare/ClassDeclare.h"
 
 
 namespace alinous {

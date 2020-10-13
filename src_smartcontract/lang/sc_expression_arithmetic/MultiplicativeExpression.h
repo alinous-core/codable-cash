@@ -10,10 +10,10 @@
 
 #include <cstdint>
 
-#include "sc_expression_arithmetic/AbstractArithmeticBinaryExpresson.h"
+#include "lang/sc_expression_arithmetic/AbstractArithmeticBinaryExpresson.h"
 
 #include "base/RawArrayPrimitive.h"
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 
 namespace alinous {

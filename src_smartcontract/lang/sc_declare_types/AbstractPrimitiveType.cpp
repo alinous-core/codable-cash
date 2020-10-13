@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_declare_types/AbstractPrimitiveType.h"
+#include "lang/sc_declare_types/AbstractPrimitiveType.h"
 
 namespace alinous {
 

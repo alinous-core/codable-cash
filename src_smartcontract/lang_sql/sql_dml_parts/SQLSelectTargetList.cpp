@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sql_dml_parts/SQLSelectTargetList.h"
-#include "sql_dml_parts/SQLSelectTarget.h"
+#include "lang_sql/sql_dml_parts/SQLSelectTargetList.h"
+#include "lang_sql/sql_dml_parts/SQLSelectTarget.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "vm/VirtualMachine.h"
 

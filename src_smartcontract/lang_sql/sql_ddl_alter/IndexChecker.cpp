@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sql_ddl_alter/IndexChecker.h"
+#include "lang_sql/sql_ddl_alter/IndexChecker.h"
 
 #include "engine/CodableDatabase.h"
 #include "engine/CdbLocalCacheManager.h"

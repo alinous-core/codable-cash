@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include "sc_expression_json/JsonInitializerExpression.h"
-#include "sc_expression_json/JsonKeyValuePairExpression.h"
+#include "lang/sc_expression_json/JsonInitializerExpression.h"
+#include "lang/sc_expression_json/JsonKeyValuePairExpression.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "vm/VirtualMachine.h"
 

@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sql_expression/SQLLikeExpression.h"
-#include "sql_expression/SQLLiteral.h"
+#include "lang_sql/sql_expression/SQLLikeExpression.h"
+#include "lang_sql/sql_expression/SQLLiteral.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "vm/VirtualMachine.h"
 

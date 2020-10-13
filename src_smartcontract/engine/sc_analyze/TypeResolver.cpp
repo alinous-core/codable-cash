@@ -5,21 +5,21 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze/TypeResolver.h"
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/PackageSpace.h"
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/TypeResolver.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/PackageSpace.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
-#include "sc/CodeElement.h"
-#include "sc/CompilationUnit.h"
+#include "engine/sc/CodeElement.h"
+#include "engine/sc/CompilationUnit.h"
 
-#include "sc_declare/ImportsDeclare.h"
-#include "sc_declare/ImportDeclare.h"
-#include "sc_declare/PackageNameDeclare.h"
-#include "sc_declare/ClassDeclare.h"
+#include "lang/sc_declare/ImportsDeclare.h"
+#include "lang/sc_declare/ImportDeclare.h"
+#include "lang/sc_declare/PackageNameDeclare.h"
+#include "lang/sc_declare/ClassDeclare.h"
 
-#include "sc_declare_types/AbstractType.h"
-#include "sc_declare_types/ObjectType.h"
+#include "lang/sc_declare_types/AbstractType.h"
+#include "lang/sc_declare_types/ObjectType.h"
 
 #include "base/StackRelease.h"
 #include "base/ArrayList.h"

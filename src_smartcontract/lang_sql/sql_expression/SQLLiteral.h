@@ -8,7 +8,7 @@
 #ifndef SQL_EXPRESSION_SQLLITERAL_H_
 #define SQL_EXPRESSION_SQLLITERAL_H_
 
-#include "sql/AbstractSQLExpression.h"
+#include "lang_sql/sql/AbstractSQLExpression.h"
 #include <cstdint>
 
 namespace alinous {

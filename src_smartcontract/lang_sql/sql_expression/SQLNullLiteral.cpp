@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "sql_expression/SQLNullLiteral.h"
+#include "lang_sql/sql_expression/SQLNullLiteral.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "vm/VirtualMachine.h"
 

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_declare/AccessControlDeclare.h"
+#include "lang/sc_declare/AccessControlDeclare.h"
 
 namespace alinous {
 

@@ -8,7 +8,7 @@
 #ifndef SC_EXPRESSION_ARITHMETIC_NEGATEEXPRESSION_H_
 #define SC_EXPRESSION_ARITHMETIC_NEGATEEXPRESSION_H_
 
-#include "sc_expression_arithmetic/AbstractArithmeticExpression.h"
+#include "lang/sc_expression_arithmetic/AbstractArithmeticExpression.h"
 
 namespace alinous {
 

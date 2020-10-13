@@ -9,7 +9,7 @@
 #include "vm_ctrl/AbstractCtrlInstruction.h"
 #include "vm_ctrl/BlockState.h"
 
-#include "sc/CodeElement.h"
+#include "engine/sc/CodeElement.h"
 
 #include "vm/VirtualMachine.h"
 

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sql/AbstractSQLExpression.h"
+#include "lang_sql/sql/AbstractSQLExpression.h"
 
 namespace alinous {
 

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_statement/BlankStatement.h"
+#include "lang/sc_statement/BlankStatement.h"
 
 namespace alinous {
 

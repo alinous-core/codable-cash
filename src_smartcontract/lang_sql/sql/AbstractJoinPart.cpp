@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sql/AbstractJoinPart.h"
+#include "lang_sql/sql/AbstractJoinPart.h"
 
 #include "engine/CdbException.h"
 

@@ -8,7 +8,7 @@
 #ifndef SQL_EXPRESSION_SQLINEXPRESSION_H_
 #define SQL_EXPRESSION_SQLINEXPRESSION_H_
 
-#include "sql/AbstractSQLExpression.h"
+#include "lang_sql/sql/AbstractSQLExpression.h"
 
 namespace alinous {
 class SQLExpressionList;

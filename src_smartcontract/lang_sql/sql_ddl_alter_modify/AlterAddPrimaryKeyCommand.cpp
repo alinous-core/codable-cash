@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sql_ddl_alter_modify/AlterAddPrimaryKeyCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterAddPrimaryKeyCommand.h"
 
 #include "base/UnicodeString.h"
 
@@ -13,7 +13,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 
 #include "schema_table/table/CdbTable.h"
 

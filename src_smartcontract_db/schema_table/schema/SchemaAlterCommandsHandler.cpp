@@ -31,24 +31,24 @@
 #include "schema_table/schema_alter_ctx/ColumnModifyContext.h"
 #include "schema_table/schema_alter_ctx/TableRenameContext.h"
 
-#include "sql_ddl/DdlColumnDescriptor.h"
+#include "lang_sql/sql_ddl/DdlColumnDescriptor.h"
 
 #include "schema_table/table/CdbTableIndex.h"
 
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 
 #include "engine/CdbOid.h"
 
-#include "sql_ddl_alter_modify/AlterAddPrimaryKeyCommand.h"
-#include "sql_ddl_alter_modify/AlterRenameColumnCommand.h"
-#include "sql_ddl_alter_modify/AlterModifyCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterAddPrimaryKeyCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterRenameColumnCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterModifyCommand.h"
 
-#include "sql_ddl_alter/AlterAddIndexCommand.h"
-#include "sql_ddl_alter/AlterDropIndexCommand.h"
-#include "sql_ddl_alter/AlterAddColumnCommand.h"
-#include "sql_ddl_alter/AlterDropColumnCommand.h"
+#include "lang_sql/sql_ddl_alter/AlterAddIndexCommand.h"
+#include "lang_sql/sql_ddl_alter/AlterDropIndexCommand.h"
+#include "lang_sql/sql_ddl_alter/AlterAddColumnCommand.h"
+#include "lang_sql/sql_ddl_alter/AlterDropColumnCommand.h"
 
-#include "sql_ddl/ColumnTypeDescriptor.h"
+#include "lang_sql/sql_ddl/ColumnTypeDescriptor.h"
 
 using namespace alinous;
 

@@ -8,7 +8,7 @@
 #ifndef SC_EXPRESSION_BOOLEANLITERAL_H_
 #define SC_EXPRESSION_BOOLEANLITERAL_H_
 
-#include "sc_expression/AbstractExpression.h"
+#include "lang/sc_expression/AbstractExpression.h"
 
 namespace alinous {
 

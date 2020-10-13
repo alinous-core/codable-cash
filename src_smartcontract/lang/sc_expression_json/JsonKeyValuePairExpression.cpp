@@ -5,18 +5,18 @@
  *      Author: iizuka
  */
 
-#include "sc_expression_json/JsonKeyValuePairExpression.h"
+#include "lang/sc_expression_json/JsonKeyValuePairExpression.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "vm/VirtualMachine.h"
 
 #include "base_io/ByteBuffer.h"
 #include "base/UnicodeString.h"
 
-#include "sc_expression/AbstractExpression.h"
-#include "sc_expression_literal/LiteralExpression.h"
+#include "lang/sc_expression/AbstractExpression.h"
+#include "lang/sc_expression_literal/LiteralExpression.h"
 
 namespace alinous {
 

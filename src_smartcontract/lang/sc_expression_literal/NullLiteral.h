@@ -7,7 +7,7 @@
 
 #ifndef SC_EXPRESSION_NULLLITERAL_H_
 #define SC_EXPRESSION_NULLLITERAL_H_
-#include "sc_expression/AbstractExpression.h"
+#include "lang/sc_expression/AbstractExpression.h"
 
 namespace alinous {
 

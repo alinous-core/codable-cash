@@ -14,7 +14,7 @@
 #include "vm/VirtualMachine.h"
 
 
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/ValidationError.h"
 
 #include "ext_binary/ExtClassObject.h"
 #include "ext_binary/ExtDomArrayObject.h"

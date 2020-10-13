@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 #include "test_utils/t_macros.h"
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 
 #include "base/StackRelease.h"
-#include "sc_expression_literal/NullLiteral.h"
+#include "lang/sc_expression_literal/NullLiteral.h"
 
 #include "alinous_lang/AlinousLang.h"
 

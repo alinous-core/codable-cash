@@ -8,7 +8,7 @@
 #ifndef SQL_DDL_ALTER_MODIFY_ALTERRENAMETABLECOMMAND_H_
 #define SQL_DDL_ALTER_MODIFY_ALTERRENAMETABLECOMMAND_H_
 
-#include "sql_ddl_alter/AbstractAlterDdlCommand.h"
+#include "lang_sql/sql_ddl_alter/AbstractAlterDdlCommand.h"
 
 namespace alinous {
 

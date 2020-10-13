@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sql_ddl/CreateTableStatement.h"
-#include "sql_ddl/DdlColumnDescriptor.h"
+#include "lang_sql/sql_ddl/CreateTableStatement.h"
+#include "lang_sql/sql_ddl/DdlColumnDescriptor.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
@@ -24,13 +24,13 @@
 
 #include "vm_trx/VmTransactionHandler.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
-#include "sql_ddl/ColumnTypeDescriptor.h"
+#include "lang_sql/sql_ddl/ColumnTypeDescriptor.h"
 
-#include "sql/AbstractSQLExpression.h"
+#include "lang_sql/sql/AbstractSQLExpression.h"
 
 #include "instance_ref/PrimitiveReference.h"
 

@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sc_statement/ExpressionStatement.h"
+#include "lang/sc_statement/ExpressionStatement.h"
 
-#include "sc_expression/AbstractExpression.h"
-#include "sc_expression/FunctionCallExpression.h"
+#include "lang/sc_expression/AbstractExpression.h"
+#include "lang/sc_expression/FunctionCallExpression.h"
 
 #include "instance_gc/GcManager.h"
 

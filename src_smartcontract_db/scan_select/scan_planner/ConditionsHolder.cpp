@@ -10,7 +10,7 @@
 
 #include "scan_select/scan_condition/RootScanCondition.h"
 
-#include "sql/AbstractSQLExpression.h"
+#include "lang_sql/sql/AbstractSQLExpression.h"
 
 #include "scan_select/scan_condition_params/AbstractScanConditionParameter.h"
 

@@ -14,7 +14,7 @@
 #include "instance/AbstractVmInstance.h"
 #include "instance/VmInstanceTypesConst.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 

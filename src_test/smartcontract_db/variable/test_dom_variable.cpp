@@ -19,7 +19,7 @@
 
 #include "instance_exception/TypeCastExceptionClassDeclare.h"
 
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/ValidationError.h"
 using namespace alinous;
 
 TEST_GROUP(TestDomVariableGroup) {

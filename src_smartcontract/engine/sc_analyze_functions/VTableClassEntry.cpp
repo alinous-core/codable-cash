@@ -5,24 +5,24 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze_functions/VTableClassEntry.h"
+#include "engine/sc_analyze_functions/VTableClassEntry.h"
 
-#include "sc_analyze/AnalyzedClass.h"
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
-#include "sc_analyze_functions/FunctionScoreCalc.h"
-#include "sc_analyze_functions/VTableMethodEntry.h"
-#include "sc_analyze_functions/MethodNameCollection.h"
-#include "sc_analyze_functions/MethodScore.h"
+#include "engine/sc_analyze_functions/FunctionScoreCalc.h"
+#include "engine/sc_analyze_functions/VTableMethodEntry.h"
+#include "engine/sc_analyze_functions/MethodNameCollection.h"
+#include "engine/sc_analyze_functions/MethodScore.h"
 
-#include "sc_analyze_variables/MemberVariableTable.h"
+#include "engine/sc_analyze_variables/MemberVariableTable.h"
 
-#include "sc_declare/ClassDeclare.h"
-#include "sc_declare/MethodDeclare.h"
-#include "sc_declare/ArgumentsListDeclare.h"
-#include "sc_declare/MemberVariableDeclare.h"
+#include "lang/sc_declare/ClassDeclare.h"
+#include "lang/sc_declare/MethodDeclare.h"
+#include "lang/sc_declare/ArgumentsListDeclare.h"
+#include "lang/sc_declare/MemberVariableDeclare.h"
 
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"

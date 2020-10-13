@@ -7,7 +7,7 @@
 
 #include "instance_exception_class/AbstractExceptionClassDeclare.h"
 
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 namespace alinous {
 
 AbstractExceptionClassDeclare::AbstractExceptionClassDeclare() : AbstractReservedClassDeclare() {

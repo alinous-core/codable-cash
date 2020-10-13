@@ -5,12 +5,12 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze/PackageSpace.h"
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/PackageSpace.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
 #include "base/UnicodeString.h"
 
-#include "sc_declare/ClassDeclare.h"
+#include "lang/sc_declare/ClassDeclare.h"
 
 #include "base/ArrayList.h"
 #include "base/StackRelease.h"

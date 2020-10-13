@@ -8,7 +8,7 @@
 #ifndef SC_EXPRESSION_BIT_BITREVERSEEXPRESSION_H_
 #define SC_EXPRESSION_BIT_BITREVERSEEXPRESSION_H_
 
-#include "sc_expression/AbstractExpression.h"
+#include "lang/sc_expression/AbstractExpression.h"
 
 namespace alinous {
 

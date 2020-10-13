@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sc_declare/PackageDeclare.h"
-#include "sc_declare/PackageNameDeclare.h"
+#include "lang/sc_declare/PackageDeclare.h"
+#include "lang/sc_declare/PackageNameDeclare.h"
 
 namespace alinous {
 

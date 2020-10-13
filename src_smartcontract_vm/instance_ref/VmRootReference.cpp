@@ -15,7 +15,7 @@
 #include "instance/VmClassInstance.h"
 #include "instance/VmInstanceTypesConst.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "instance_ref_class_static/StaticClassReferenceHolder.h"
 

@@ -16,12 +16,12 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 #include "alinous_lang/AlinousLang.h"
 
-#include "sql_ddl/DropTableStatement.h"
+#include "lang_sql/sql_ddl/DropTableStatement.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "ext_binary/ExtExceptionObject.h"
 

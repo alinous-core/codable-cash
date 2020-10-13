@@ -8,7 +8,7 @@
 #ifndef SC_EXPRESSION_LOGICAL_CONDITIONALANDEXPRESSION_H_
 #define SC_EXPRESSION_LOGICAL_CONDITIONALANDEXPRESSION_H_
 
-#include "sc_expression/AbstractBinaryExpression.h"
+#include "lang/sc_expression/AbstractBinaryExpression.h"
 
 namespace alinous {
 

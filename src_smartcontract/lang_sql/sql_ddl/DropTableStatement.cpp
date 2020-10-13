@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sql_ddl/DropTableStatement.h"
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_ddl/DropTableStatement.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 
 #include "vm/VirtualMachine.h"
 

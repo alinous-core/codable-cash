@@ -8,7 +8,7 @@
 #ifndef SQL_EXPRESSION_TABLEIDENTIFIER_H_
 #define SQL_EXPRESSION_TABLEIDENTIFIER_H_
 
-#include "sql/AbstractJoinPart.h"
+#include "lang_sql/sql/AbstractJoinPart.h"
 
 namespace alinous {
 class UnicodeString;

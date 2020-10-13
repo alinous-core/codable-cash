@@ -11,7 +11,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 
 #include "alinous_lang/AlinousLang.h"
 
@@ -23,12 +23,12 @@
 #include "trx/transaction_log_alter/AlterDropColumnCommandLog.h"
 #include "trx/transaction_log_alter/AlterDropIndexCommandLog.h"
 
-#include "sql_ddl_alter/AlterAddColumnCommand.h"
-#include "sql_ddl_alter/AlterAddIndexCommand.h"
-#include "sql_ddl_alter/AlterDropColumnCommand.h"
-#include "sql_ddl_alter/AlterDropIndexCommand.h"
+#include "lang_sql/sql_ddl_alter/AlterAddColumnCommand.h"
+#include "lang_sql/sql_ddl_alter/AlterAddIndexCommand.h"
+#include "lang_sql/sql_ddl_alter/AlterDropColumnCommand.h"
+#include "lang_sql/sql_ddl_alter/AlterDropIndexCommand.h"
 
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 TEST_GROUP(TestAlterLogBinaryGroup) {
 	TEST_SETUP(){
 	}

@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "sc_statement/SubstitutionStatement.h"
-#include "sc_expression/VariableIdentifier.h"
-#include "sc_expression/AbstractExpression.h"
+#include "lang/sc_statement/SubstitutionStatement.h"
+#include "lang/sc_expression/VariableIdentifier.h"
+#include "lang/sc_expression/AbstractExpression.h"
 
 #include "instance/AbstractVmInstance.h"
 #include "instance/IAbstractVmInstanceSubstance.h"
@@ -19,7 +19,7 @@
 
 #include "type_check/AnalyzedTypeChecker.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "instance_exception/ExceptionInterrupt.h"
 

@@ -8,7 +8,7 @@
 #ifndef SC_COMPILATIONUNIT_H_
 #define SC_COMPILATIONUNIT_H_
 
-#include "sc/CodeElement.h"
+#include "engine/sc/CodeElement.h"
 #include "base/ArrayList.h"
 
 namespace alinous {

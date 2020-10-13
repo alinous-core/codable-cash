@@ -7,13 +7,13 @@
 
 #include "reserved_classes/ReservedClassRegistory.h"
 
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
 #include "reserved_classes_string/StringClassDeclare.h"
 
 #include "instance_exception_class/ExceptionClassDeclare.h"
 
-#include "sc/CompilationUnit.h"
+#include "engine/sc/CompilationUnit.h"
 
 #include "instance_exception/ArrayOutOfBoundsExceptionClassDeclare.h"
 #include "instance_exception/NullPointerExceptionClassDeclare.h"

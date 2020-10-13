@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sc_expression/ParenthesisExpression.h"
-#include "sc_analyze/AnalyzedType.h"
+#include "lang/sc_expression/ParenthesisExpression.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 namespace alinous {
 

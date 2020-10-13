@@ -12,7 +12,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 
 namespace alinous {

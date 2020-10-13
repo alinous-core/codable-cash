@@ -9,7 +9,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 #include "vm/VirtualMachine.h"
 
 #include "base/StackRelease.h"
@@ -25,11 +25,11 @@
 #include "ext_binary/ExtStringClass.h"
 #include "ext_binary/ExtArrayObject.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
-#include "sc_analyze/TypeResolver.h"
+#include "engine/sc_analyze/TypeResolver.h"
 
-#include "sc/CompilationUnit.h"
+#include "engine/sc/CompilationUnit.h"
 
 #include "engine/CodableDatabase.h"
 

@@ -10,10 +10,10 @@
 #include "base/StackRelease.h"
 
 #include "../toolkit/TestDbSchema01.h"
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 #include "alinous_lang/AlinousLang.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "scan_select/scan_planner/SelectScanPlanner.h"
 

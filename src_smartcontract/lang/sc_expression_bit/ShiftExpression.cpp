@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include "sc_expression_bit/ShiftExpression.h"
+#include "lang/sc_expression_bit/ShiftExpression.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/ValidationError.h"
 
 #include "instance_gc/GcManager.h"
 #include "instance_gc/StackFloatingVariableHandler.h"

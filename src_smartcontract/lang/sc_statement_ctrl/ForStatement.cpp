@@ -5,14 +5,14 @@
  *      Author: iizuka
  */
 
-#include "sc_statement_ctrl/ForStatement.h"
-#include "sc_expression/AbstractExpression.h"
+#include "lang/sc_statement_ctrl/ForStatement.h"
+#include "lang/sc_expression/AbstractExpression.h"
 
-#include "sc_statement/StatementBlock.h"
+#include "lang/sc_statement/StatementBlock.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "instance_ref/PrimitiveReference.h"
 
@@ -25,8 +25,8 @@
 #include "instance_gc/GcManager.h"
 #include "instance_gc/StackFloatingVariableHandler.h"
 
-#include "sc_analyze_stack/AnalyzeStackPopper.h"
-#include "sc_analyze_stack/AnalyzeStackManager.h"
+#include "engine/sc_analyze_stack/AnalyzeStackPopper.h"
+#include "engine/sc_analyze_stack/AnalyzeStackManager.h"
 
 #include "stack/StackPopper.h"
 

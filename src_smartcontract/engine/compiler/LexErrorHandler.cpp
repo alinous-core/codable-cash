@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "compiler/LexErrorHandler.h"
-#include "compiler/LexError.h"
+#include "engine/compiler/LexErrorHandler.h"
+#include "engine/compiler/LexError.h"
 #include "base/UnicodeString.h"
 
 namespace alinous {

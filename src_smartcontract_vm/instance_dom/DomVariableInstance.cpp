@@ -16,7 +16,7 @@
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "instance_parts/VMemList.h"
 

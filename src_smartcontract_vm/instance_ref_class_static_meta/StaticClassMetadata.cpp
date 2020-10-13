@@ -9,10 +9,10 @@
 #include "instance_ref_class_static_meta/StaticVariableMetadata.h"
 #include "instance_ref_class_static_meta/StaticClassMetadataHolder.h"
 
-#include "sc_declare/ClassDeclare.h"
-#include "sc_declare/MemberVariableDeclare.h"
+#include "lang/sc_declare/ClassDeclare.h"
+#include "lang/sc_declare/MemberVariableDeclare.h"
 
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
 #include "base/ArrayList.h"
 #include "base/UnicodeString.h"

@@ -5,12 +5,12 @@
  *      Author: iizuka
  */
 
-#include "sql_expression/SQLLiteral.h"
+#include "lang_sql/sql_expression/SQLLiteral.h"
 
 #include "base/UnicodeString.h"
 #include "base/Long.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "instance_ref/PrimitiveReference.h"
 

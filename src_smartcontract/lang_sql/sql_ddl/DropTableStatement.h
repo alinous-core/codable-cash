@@ -8,7 +8,7 @@
 #ifndef SQL_DDL_DROPTABLESTATEMENT_H_
 #define SQL_DDL_DROPTABLESTATEMENT_H_
 
-#include "sql/AbstractSQLStatement.h"
+#include "lang_sql/sql/AbstractSQLStatement.h"
 
 namespace codablecash {
 class DropTableLog;

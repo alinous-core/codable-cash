@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "sql_dml_parts/SQLSelectTarget.h"
+#include "lang_sql/sql_dml_parts/SQLSelectTarget.h"
 #include "base/UnicodeString.h"
-#include "sql/AbstractSQLExpression.h"
+#include "lang_sql/sql/AbstractSQLExpression.h"
 
 #include "scan_select/scan_planner/TablesHolder.h"
 

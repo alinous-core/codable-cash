@@ -7,26 +7,26 @@
 
 #include "reserved_classes/AbstractReservedClassDeclare.h"
 
-#include "sc_declare/MethodDeclare.h"
-#include "sc_declare/MemberVariableDeclare.h"
+#include "lang/sc_declare/MethodDeclare.h"
+#include "lang/sc_declare/MemberVariableDeclare.h"
 
 #include "base/ArrayList.h"
 #include "base/UnicodeString.h"
 
-#include "sc_declare/AccessControlDeclare.h"
-#include "sc_declare/ArgumentsListDeclare.h"
-#include "sc_declare/ClassExtends.h"
+#include "lang/sc_declare/AccessControlDeclare.h"
+#include "lang/sc_declare/ArgumentsListDeclare.h"
+#include "lang/sc_declare/ClassExtends.h"
 
-#include "sc_statement/StatementBlock.h"
+#include "lang/sc_statement/StatementBlock.h"
 
-#include "sc_analyze/PackageSpace.h"
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/PackageSpace.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
 #include "reserved_classes/ReservedClassRegistory.h"
 
-#include "sc/CompilationUnit.h"
+#include "engine/sc/CompilationUnit.h"
 
 
 namespace alinous {

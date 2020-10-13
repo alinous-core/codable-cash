@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sql_dml/DeleteStatement.h"
+#include "lang_sql/sql_dml/DeleteStatement.h"
 
-#include "sql_dml_parts/SQLFrom.h"
-#include "sql_dml_parts/SQLWhere.h"
+#include "lang_sql/sql_dml_parts/SQLFrom.h"
+#include "lang_sql/sql_dml_parts/SQLWhere.h"
 
 namespace alinous {
 

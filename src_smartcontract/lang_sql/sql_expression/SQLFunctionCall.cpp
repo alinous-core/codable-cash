@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sql_expression/SQLFunctionCall.h"
-#include "sc_expression/VariableIdentifier.h"
+#include "lang_sql/sql_expression/SQLFunctionCall.h"
+#include "lang/sc_expression/VariableIdentifier.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "vm/VirtualMachine.h"
 

@@ -10,16 +10,16 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "sc_analyze/AnalyzedClass.h"
-#include "sc_analyze/IVmInstanceFactory.h"
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/IVmInstanceFactory.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
-#include "sc_declare/MemberVariableDeclare.h"
-#include "sc_analyze_functions/VTableRegistory.h"
-#include "sc_analyze_functions/VTableClassEntry.h"
+#include "lang/sc_declare/MemberVariableDeclare.h"
+#include "engine/sc_analyze_functions/VTableRegistory.h"
+#include "engine/sc_analyze_functions/VTableClassEntry.h"
 
-#include "sc_analyze_variables/MemberVariableTable.h"
-#include "sc_analyze_variables/MemberVariableEntry.h"
+#include "engine/sc_analyze_variables/MemberVariableTable.h"
+#include "engine/sc_analyze_variables/MemberVariableEntry.h"
 
 #include "instance_ref/RefereceFactory.h"
 #include "instance_gc/GcManager.h"

@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "sql_expression/SqlMultiplicativeExpression.h"
+#include "lang_sql/sql_expression/SqlMultiplicativeExpression.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 #include "scan_select/scan_planner/SelectScanPlanner.h"
 #include "scan_select/scan_planner/ConditionsHolderStackMarker.h"

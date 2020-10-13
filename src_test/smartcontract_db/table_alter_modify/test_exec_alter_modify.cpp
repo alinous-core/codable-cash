@@ -12,7 +12,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 
 #include "alinous_lang/AlinousLang.h"
 #include "../toolkit/TestDbSchema01.h"
@@ -20,7 +20,7 @@
 #include "../toolkit_alter/TestDbSchemaAlter02.h"
 #include "../toolkit_alter/TestDbSchemaAlter03.h"
 
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "engine/CodableDatabase.h"
 
@@ -30,7 +30,7 @@
 #include "schema_table/table/CdbTableColumn.h"
 #include "schema_table/table/CdbTableIndex.h"
 
-#include "sql_expression/SQLWildCard.h"
+#include "lang_sql/sql_expression/SQLWildCard.h"
 
 TEST_GROUP(TestExecAlterMofdifyGroup) {
 	TEST_SETUP() {

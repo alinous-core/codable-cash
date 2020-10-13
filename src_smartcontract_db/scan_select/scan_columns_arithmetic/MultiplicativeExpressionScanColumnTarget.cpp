@@ -9,7 +9,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "sql_expression/SqlMultiplicativeExpression.h"
+#include "lang_sql/sql_expression/SqlMultiplicativeExpression.h"
 
 namespace codablecash {
 

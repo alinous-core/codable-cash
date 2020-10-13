@@ -5,10 +5,10 @@
  *      Author: iizuka
  */
 
-#include "sql_ddl_alter_modify/AlterModifyCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterModifyCommand.h"
 
-#include "sql_ddl/DdlColumnDescriptor.h"
-#include "sql_ddl/ColumnTypeDescriptor.h"
+#include "lang_sql/sql_ddl/DdlColumnDescriptor.h"
+#include "lang_sql/sql_ddl/ColumnTypeDescriptor.h"
 
 #include "trx/transaction_log_alter_modify/AlterModifyCommandLog.h"
 
@@ -16,7 +16,7 @@
 
 #include "engine/CodableDatabase.h"
 
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 
 #include "schema_table/schema/SchemaManager.h"
 
@@ -25,7 +25,7 @@
 #include "schema_table/table/CdbTable.h"
 #include "schema_table/table/CdbTableColumn.h"
 
-#include "sql_ddl_alter/IndexChecker.h"
+#include "lang_sql/sql_ddl_alter/IndexChecker.h"
 
 #include "engine/CdbException.h"
 

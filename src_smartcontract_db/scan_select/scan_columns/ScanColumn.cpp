@@ -9,7 +9,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "sql_expression/SQLColumnIdentifier.h"
+#include "lang_sql/sql_expression/SQLColumnIdentifier.h"
 
 #include "vm/VirtualMachine.h"
 

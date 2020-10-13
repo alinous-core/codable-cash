@@ -5,12 +5,12 @@
  *      Author: iizuka
  */
 
-#include "sql_ddl_alter/AbstractAlterDdlWithTypeDesc.h"
+#include "lang_sql/sql_ddl_alter/AbstractAlterDdlWithTypeDesc.h"
 
-#include "sql_ddl/DdlColumnDescriptor.h"
-#include "sql_ddl/ColumnTypeDescriptor.h"
+#include "lang_sql/sql_ddl/DdlColumnDescriptor.h"
+#include "lang_sql/sql_ddl/ColumnTypeDescriptor.h"
 
-#include "sql/AbstractSQLExpression.h"
+#include "lang_sql/sql/AbstractSQLExpression.h"
 
 #include "base/StackRelease.h"
 #include "base/UnicodeString.h"
@@ -27,10 +27,10 @@
 
 #include "instance_string/VmStringInstance.h"
 
-#include "sql_expression/SQLLiteral.h"
+#include "lang_sql/sql_expression/SQLLiteral.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/ValidationError.h"
 
 namespace alinous {
 

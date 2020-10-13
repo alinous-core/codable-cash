@@ -6,7 +6,7 @@
  */
 
 #include "test_utils/t_macros.h"
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 
 #include "base/StackRelease.h"
 

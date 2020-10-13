@@ -8,7 +8,7 @@
 #ifndef SC_STATEMENT_CTRL_IFSTATEMENT_H_
 #define SC_STATEMENT_CTRL_IFSTATEMENT_H_
 
-#include "sc_statement/AbstractStatement.h"
+#include "lang/sc_statement/AbstractStatement.h"
 
 #include "base/ArrayList.h"
 

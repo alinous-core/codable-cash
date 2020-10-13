@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc/exceptions.h"
+#include "engine/sc/exceptions.h"
 #include "base/UnicodeString.h"
 
 namespace alinous {

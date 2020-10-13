@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include "sql_ddl/AlterTableStatement.h"
+#include "lang_sql/sql_ddl/AlterTableStatement.h"
 
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 
-#include "sql_ddl_alter/AlterAddColumnCommand.h"
+#include "lang_sql/sql_ddl_alter/AlterAddColumnCommand.h"
 
 #include "vm_trx/VmTransactionHandler.h"
 
@@ -23,9 +23,9 @@
 
 #include "trx/transaction_log_alter/AbstractAlterCommandLog.h"
 
-#include "sql_ddl_alter_modify/AlterModifyCommand.h"
+#include "lang_sql/sql_ddl_alter_modify/AlterModifyCommand.h"
 
-#include "sc/SmartContract.h"
+#include "engine/sc/SmartContract.h"
 
 namespace alinous {
 

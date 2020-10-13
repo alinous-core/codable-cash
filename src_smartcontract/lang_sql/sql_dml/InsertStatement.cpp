@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include "sql_dml/InsertStatement.h"
+#include "lang_sql/sql_dml/InsertStatement.h"
 
-#include "sql_dml_parts/SQLColumnsList.h"
-#include "sql_expression/SQLExpressionList.h"
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_dml_parts/SQLColumnsList.h"
+#include "lang_sql/sql_expression/SQLExpressionList.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 
 #include "vm_trx/VmTransactionHandler.h"
 
@@ -17,15 +17,15 @@
 
 #include "trx/transaction_log/InsertLog.h"
 
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
-#include "sc_analyze_sql/AnalyzedInsertColumnList.h"
-#include "sc_analyze_sql/AnalyzedInsertColumn.h"
+#include "engine/sc_analyze_sql/AnalyzedInsertColumnList.h"
+#include "engine/sc_analyze_sql/AnalyzedInsertColumn.h"
 
 #include "schema_table/schema/SchemaManager.h"
 
-#include "sql_expression/SQLColumnIdentifier.h"
+#include "lang_sql/sql_expression/SQLColumnIdentifier.h"
 
 #include "schema_table/table/CdbTable.h"
 
@@ -42,7 +42,7 @@
 #include "instance_gc/StackFloatingVariableHandler.h"
 #include "instance_gc/GcManager.h"
 
-#include "sql/AbstractSQLExpression.h"
+#include "lang_sql/sql/AbstractSQLExpression.h"
 
 #include "instance/IAbstractVmInstanceSubstance.h"
 #include "instance/AbstractVmInstance.h"

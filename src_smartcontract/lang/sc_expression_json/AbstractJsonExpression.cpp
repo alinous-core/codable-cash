@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_expression_json/AbstractJsonExpression.h"
+#include "lang/sc_expression_json/AbstractJsonExpression.h"
 
 namespace alinous {
 

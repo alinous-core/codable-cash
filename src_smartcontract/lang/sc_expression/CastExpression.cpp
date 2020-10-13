@@ -5,12 +5,12 @@
  *      Author: iizuka
  */
 
-#include "sc_expression/CastExpression.h"
-#include "sc_declare_types/AbstractType.h"
+#include "lang/sc_expression/CastExpression.h"
+#include "lang/sc_declare_types/AbstractType.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/TypeResolver.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/TypeResolver.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -20,8 +20,8 @@
 
 #include "type_check/InternalTypeChecker.h"
 
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
 #include "instance_exception/ExceptionInterrupt.h"
 #include "instance_exception/TypeCastExceptionClassDeclare.h"

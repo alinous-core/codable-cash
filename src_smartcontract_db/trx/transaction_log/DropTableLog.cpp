@@ -10,7 +10,7 @@
 
 #include "trx/transaction/CdbTransactionManager.h"
 
-#include "sql_join_parts/TableIdentifier.h"
+#include "lang_sql/sql_join_parts/TableIdentifier.h"
 
 #include "base_io/ByteBuffer.h"
 

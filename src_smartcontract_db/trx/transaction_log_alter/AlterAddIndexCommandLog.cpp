@@ -7,7 +7,7 @@
 
 #include "trx/transaction_log_alter/AlterAddIndexCommandLog.h"
 
-#include "sql_ddl_alter/AlterAddIndexCommand.h"
+#include "lang_sql/sql_ddl_alter/AlterAddIndexCommand.h"
 
 #include "trx/transaction/CdbTransactionManager.h"
 

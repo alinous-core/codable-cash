@@ -7,12 +7,12 @@
 
 #include "variable_access/StackVariableAccess.h"
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
-#include "sc_analyze_stack/AnalyzeStackManager.h"
-#include "sc_analyze_stack/AnalyzedStackReference.h"
-#include "sc_analyze_stack/AnalyzeStack.h"
+#include "engine/sc_analyze_stack/AnalyzeStackManager.h"
+#include "engine/sc_analyze_stack/AnalyzedStackReference.h"
+#include "engine/sc_analyze_stack/AnalyzeStack.h"
 
 #include "vm/VirtualMachine.h"
 

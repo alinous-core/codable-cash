@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sc_declare_types/ObjectType.h"
-#include "sc_declare/PackageNameDeclare.h"
+#include "lang/sc_declare_types/ObjectType.h"
+#include "lang/sc_declare/PackageNameDeclare.h"
 #include "base/UnicodeString.h"
 
 

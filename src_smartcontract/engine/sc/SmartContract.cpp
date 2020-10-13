@@ -5,22 +5,22 @@
  *      Author: iizuka
  */
 
-#include "sc/SmartContract.h"
-#include "sc/CompilationUnit.h"
+#include "engine/sc/SmartContract.h"
+#include "engine/sc/CompilationUnit.h"
 
-#include "compiler/SmartContractParser.h"
+#include "engine/compiler/SmartContractParser.h"
 
-#include "sc_analyze/AnalyzeContext.h"
-#include "sc_analyze/PackageSpace.h"
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/PackageSpace.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
-#include "sc_analyze_stack/AnalyzeStackPopper.h"
-#include "sc_analyze_stack/AnalyzeStackManager.h"
+#include "engine/sc_analyze_stack/AnalyzeStackPopper.h"
+#include "engine/sc_analyze_stack/AnalyzeStackManager.h"
 
 #include "base/UnicodeString.h"
 
-#include "sc_declare/ClassDeclare.h"
-#include "sc_declare/MethodDeclare.h"
+#include "lang/sc_declare/ClassDeclare.h"
+#include "lang/sc_declare/MethodDeclare.h"
 
 #include "instance/VmClassInstance.h"
 #include "instance_ref/ObjectReference.h"
@@ -35,8 +35,8 @@
 #include "stack/StackPopper.h"
 #include "stack/VmStack.h"
 
-#include "compiler/CompileError.h"
-#include "compiler/ParseErrorHandler.h"
+#include "engine/compiler/CompileError.h"
+#include "engine/compiler/ParseErrorHandler.h"
 
 #include "ext_arguments/AbstractFunctionExtArguments.h"
 

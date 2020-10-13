@@ -4,14 +4,14 @@
  *  Created on: 2019/02/05
  *      Author: iizuka
  */
-#include "sc_expression_arithmetic/MultiplicativeExpression.h"
+#include "lang/sc_expression_arithmetic/MultiplicativeExpression.h"
 
 #include "instance_gc/GcManager.h"
 
 #include "instance_ref/PrimitiveReference.h"
 
-#include "sc_analyze/ValidationError.h"
-#include "sc_analyze/AnalyzeContext.h"
+#include "engine/sc_analyze/ValidationError.h"
+#include "engine/sc_analyze/AnalyzeContext.h"
 
 #include "instance_exception/ExceptionInterrupt.h"
 

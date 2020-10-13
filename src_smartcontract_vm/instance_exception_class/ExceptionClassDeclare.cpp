@@ -8,14 +8,14 @@
 #include "instance_exception_class/ExceptionClassDeclare.h"
 #include "instance_exception_class/ExceptionInstanceFactory.h"
 
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
 #include "base/UnicodeString.h"
 
-#include "sc_declare/MemberVariableDeclare.h"
-#include "sc_declare/AccessControlDeclare.h"
+#include "lang/sc_declare/MemberVariableDeclare.h"
+#include "lang/sc_declare/AccessControlDeclare.h"
 
-#include "sc_declare_types/StringType.h"
+#include "lang/sc_declare_types/StringType.h"
 
 
 namespace alinous {

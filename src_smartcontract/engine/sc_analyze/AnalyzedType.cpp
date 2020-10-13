@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "sc_analyze/AnalyzedType.h"
-#include "sc_analyze/AnalyzedClass.h"
+#include "engine/sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedClass.h"
 
 #include "base/UnicodeString.h"
 

@@ -8,11 +8,11 @@
 #include "type_check/LeftType.h"
 #include "type_check/RightType.h"
 
-#include "sc_expression/AbstractExpression.h"
+#include "lang/sc_expression/AbstractExpression.h"
 
 #include "type_check/InternalTypeChecker.h"
 
-#include "sc_analyze/AnalyzedType.h"
+#include "engine/sc_analyze/AnalyzedType.h"
 
 
 namespace alinous {

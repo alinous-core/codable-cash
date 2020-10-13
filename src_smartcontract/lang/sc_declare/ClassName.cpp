@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_declare/ClassName.h"
+#include "lang/sc_declare/ClassName.h"
 
 #include "base/UnicodeString.h"
 

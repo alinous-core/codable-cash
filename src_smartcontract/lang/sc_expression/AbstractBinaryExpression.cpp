@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_expression/AbstractBinaryExpression.h"
+#include "lang/sc_expression/AbstractBinaryExpression.h"
 
 namespace alinous {
 

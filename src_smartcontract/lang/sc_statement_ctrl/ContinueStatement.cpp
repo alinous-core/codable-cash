@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_statement_ctrl/ContinueStatement.h"
+#include "lang/sc_statement_ctrl/ContinueStatement.h"
 
 #include "vm_ctrl/ExecControlManager.h"
 #include "vm_ctrl/ContinueControl.h"

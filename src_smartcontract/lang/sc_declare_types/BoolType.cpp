@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "sc_declare_types/BoolType.h"
+#include "lang/sc_declare_types/BoolType.h"
 
 #include "base/UnicodeString.h"
 
