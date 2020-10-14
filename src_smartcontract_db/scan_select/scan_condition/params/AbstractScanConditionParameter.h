@@ -8,9 +8,9 @@
 #ifndef SCAN_CONDITION_PARAMS_ABSTRACTSCANCONDITIONPARAMETER_H_
 #define SCAN_CONDITION_PARAMS_ABSTRACTSCANCONDITIONPARAMETER_H_
 
-#include "scan_select/scan_condition/AbstractScanConditionElement.h"
+#include "scan_select/scan_condition/base/AbstractScanConditionElement.h"
 
-#include "scan_select/scan_condition/IValueProvider.h"
+#include "scan_select/scan_condition/base/IValueProvider.h"
 
 namespace codablecash {
 

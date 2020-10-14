@@ -7,5 +7,5 @@ set(__src
 	RootScanCondition.cpp
 	ScanConditionCast.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_condition)
+handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_condition/base)
 

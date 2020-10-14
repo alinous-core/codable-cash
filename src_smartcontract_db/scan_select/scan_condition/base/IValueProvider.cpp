@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_condition/IValueProvider.h"
+#include "scan_select/scan_condition/base/IValueProvider.h"
 
 namespace codablecash {
 

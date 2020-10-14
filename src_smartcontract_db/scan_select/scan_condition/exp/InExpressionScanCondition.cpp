@@ -11,7 +11,7 @@
 
 #include "base/UnicodeString.h"
 
-#include "scan_select/scan_condition/IValueProvider.h"
+#include "scan_select/scan_condition/base/IValueProvider.h"
 
 #include "scan_select/scan_condition/exp/ExpressionListScanCondition.h"
 

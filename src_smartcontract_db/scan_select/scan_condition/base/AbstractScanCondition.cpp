@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_condition/AbstractScanCondition.h"
+#include "scan_select/scan_condition/base/AbstractScanCondition.h"
 
 #include "engine/CdbException.h"
 

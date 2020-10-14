@@ -14,16 +14,16 @@
 #include "scan_select/scan_planner/base/SelectScanPlanner.h"
 #include "scan_select/scan_planner/base/ConditionsHolderStackMarker.h"
 
-#include "scan_select/scan_condition/AbstractScanCondition.h"
+#include "scan_select/scan_condition/base/AbstractScanCondition.h"
 #include "scan_select/scan_condition/exp/EqualityScanCondition.h"
 
-#include "scan_select/scan_condition/IValueProvider.h"
+#include "scan_select/scan_condition/base/IValueProvider.h"
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 
 #include "scan_select/scan_columns/scan_columns_exp/EqualityScanColumnTarget.h"
 
-#include "scan_select/scan_condition/ScanConditionCast.h"
+#include "scan_select/scan_condition/base/ScanConditionCast.h"
 
 
 using namespace codablecash;

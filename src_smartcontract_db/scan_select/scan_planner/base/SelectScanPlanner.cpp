@@ -14,7 +14,7 @@
 
 #include "scan_select/scan_planner/analyze/AnalyzedScanPlan.h"
 
-#include "scan_select/scan_condition/AbstractScanCondition.h"
+#include "scan_select/scan_condition/base/AbstractScanCondition.h"
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 

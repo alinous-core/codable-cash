@@ -12,12 +12,12 @@
 #include "vm/VirtualMachine.h"
 
 #include "scan_select/scan_condition/exp/ExpressionListScanCondition.h"
-#include "scan_select/scan_condition/IValueProvider.h"
+#include "scan_select/scan_condition/base/IValueProvider.h"
 
 #include "scan_select/scan_planner/base/SelectScanPlanner.h"
 #include "scan_select/scan_planner/base/ConditionsHolderStackMarker.h"
 
-#include "scan_select/scan_condition/ScanConditionCast.h"
+#include "scan_select/scan_condition/base/ScanConditionCast.h"
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 

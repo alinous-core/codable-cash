@@ -23,8 +23,8 @@
 #include "scan_select/scan_table/CrossJoinScanTarget.h"
 #include "scan_select/scan_table/RightOuterJoinScanTarget.h"
 
-#include "scan_select/scan_condition/AbstractScanConditionElement.h"
-#include "scan_select/scan_condition/ScanConditionCast.h"
+#include "scan_select/scan_condition/base/AbstractScanConditionElement.h"
+#include "scan_select/scan_condition/base/ScanConditionCast.h"
 
 
 namespace alinous {

@@ -20,8 +20,8 @@
 #include "scan_select/scan_planner/scanner/join/AbstractJoinCandidate.h"
 #include "scan_select/scan_planner/scanner/join/JoinCandidateHolder.h"
 
-#include "scan_select/scan_condition/AbstractScanCondition.h"
-#include "scan_select/scan_condition/RootScanCondition.h"
+#include "scan_select/scan_condition/base/AbstractScanCondition.h"
+#include "scan_select/scan_condition/base/RootScanCondition.h"
 
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
 

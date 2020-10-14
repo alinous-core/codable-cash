@@ -8,7 +8,7 @@
 #ifndef SCAN_CONDITION_EXP_BETWEENSCANCONDITION_H_
 #define SCAN_CONDITION_EXP_BETWEENSCANCONDITION_H_
 
-#include "scan_select/scan_condition/AbstractScanCondition.h"
+#include "scan_select/scan_condition/base/AbstractScanCondition.h"
 
 namespace alinous {
 class UnicodeString;

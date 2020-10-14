@@ -5,11 +5,11 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_condition/ScanConditionCast.h"
+#include "scan_select/scan_condition/base/ScanConditionCast.h"
 
-#include "scan_select/scan_condition/AbstractScanCondition.h"
-#include "scan_select/scan_condition/AbstractScanConditionElement.h"
-#include "scan_select/scan_condition/IValueProvider.h"
+#include "scan_select/scan_condition/base/AbstractScanCondition.h"
+#include "scan_select/scan_condition/base/AbstractScanConditionElement.h"
+#include "scan_select/scan_condition/base/IValueProvider.h"
 
 #include "scan_select/scan_condition/exp/ExpressionListScanCondition.h"
 

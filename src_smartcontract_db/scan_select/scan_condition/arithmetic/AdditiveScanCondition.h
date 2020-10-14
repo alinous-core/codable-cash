@@ -12,8 +12,8 @@
 #include "base/ArrayList.h"
 #include "base/RawArrayPrimitive.h"
 
-#include "scan_select/scan_condition/AbstractScanCondition.h"
-#include "scan_select/scan_condition/IValueProvider.h"
+#include "scan_select/scan_condition/base/AbstractScanCondition.h"
+#include "scan_select/scan_condition/base/IValueProvider.h"
 
 using namespace alinous;
 

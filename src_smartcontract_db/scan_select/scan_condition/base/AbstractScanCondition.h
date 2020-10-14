@@ -8,7 +8,7 @@
 #ifndef SCAN_CONDITION_ABSTRACTSCANCONDITION_H_
 #define SCAN_CONDITION_ABSTRACTSCANCONDITION_H_
 
-#include "scan_select/scan_condition/AbstractScanConditionElement.h"
+#include "scan_select/scan_condition/base/AbstractScanConditionElement.h"
 
 namespace codablecash {
 

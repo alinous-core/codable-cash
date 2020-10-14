@@ -9,7 +9,7 @@
 
 #include "engine/sc/CodeElement.h"
 
-#include "scan_select/scan_condition/IValueProvider.h"
+#include "scan_select/scan_condition/base/IValueProvider.h"
 
 #include "engine/CdbException.h"
 

@@ -48,7 +48,7 @@
 
 #include "schema_table/table_record_key/AbstractCdbKey.h"
 
-#include "scan_select/scan_condition/RootScanCondition.h"
+#include "scan_select/scan_condition/base/RootScanCondition.h"
 
 #include "schema_table/table_record_value/VmInstanceValueConverter.h"
 

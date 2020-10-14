@@ -7,7 +7,7 @@
 
 #include "scan_select/scan_condition/exp/BetweenScanCondition.h"
 
-#include "scan_select/scan_condition/IValueProvider.h"
+#include "scan_select/scan_condition/base/IValueProvider.h"
 
 #include "engine/sc/CodeElement.h"
 

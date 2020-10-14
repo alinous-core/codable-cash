@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_condition/RootScanCondition.h"
+#include "scan_select/scan_condition/base/RootScanCondition.h"
 
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionStackMarker.h"
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"

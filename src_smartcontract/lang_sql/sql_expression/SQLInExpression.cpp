@@ -17,7 +17,7 @@
 
 #include "scan_select/scan_condition/exp/InExpressionScanCondition.h"
 
-#include "scan_select/scan_condition/ScanConditionCast.h"
+#include "scan_select/scan_condition/base/ScanConditionCast.h"
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 

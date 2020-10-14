@@ -13,7 +13,7 @@
 #include "scan_select/scan_planner/base/ConditionsHolder.h"
 #include "scan_select/scan_planner/base/SelectScanPlanner.h"
 
-#include "scan_select/scan_condition/RootScanCondition.h"
+#include "scan_select/scan_condition/base/RootScanCondition.h"
 
 namespace codablecash {
 

@@ -7,7 +7,7 @@
 
 #include "scan_select/scan_planner/base/ConditionsHolderStack.h"
 
-#include "scan_select/scan_condition/AbstractScanConditionElement.h"
+#include "scan_select/scan_condition/base/AbstractScanConditionElement.h"
 
 namespace codablecash {
 
