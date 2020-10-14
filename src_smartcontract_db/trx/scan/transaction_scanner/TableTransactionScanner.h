@@ -8,9 +8,9 @@
 #ifndef TRANSACTION_SCANNER_TABLETRANSACTIONSCANNER_H_
 #define TRANSACTION_SCANNER_TABLETRANSACTIONSCANNER_H_
 
-#include "trx/transaction_scanner/AbstractTransactionScanner.h"
+#include "trx/scan/transaction_scanner/AbstractTransactionScanner.h"
 
-#include "trx/transaction_scanner_join/IJoinLeftSource.h"
+#include "trx/scan/transaction_scanner_join/IJoinLeftSource.h"
 
 namespace codablecash {
 

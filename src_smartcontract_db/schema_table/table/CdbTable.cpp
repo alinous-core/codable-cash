@@ -24,9 +24,9 @@
 
 #include "schema_table/schema/SchemaManager.h"
 
-#include "trx/transaction_scan_result/ScanResultMetadata.h"
+#include "trx/scan/transaction_scan_result/ScanResultMetadata.h"
 
-#include "trx/transaction_scan_result/ScanResultFieldMetadata.h"
+#include "trx/scan/transaction_scan_result/ScanResultFieldMetadata.h"
 
 using namespace alinous;
 

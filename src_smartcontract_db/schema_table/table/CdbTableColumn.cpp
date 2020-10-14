@@ -15,7 +15,7 @@
 
 #include "base_io/ByteBuffer.h"
 
-#include "trx/transaction_scan_result/ScanResultFieldMetadata.h"
+#include "trx/scan/transaction_scan_result/ScanResultFieldMetadata.h"
 
 #include "schema_table/schema_alter_ctx/ColumnModifyContext.h"
 

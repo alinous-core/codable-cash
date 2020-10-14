@@ -5,14 +5,14 @@
  *      Author: iizuka
  */
 
-#include "trx/transaction_scanner_join/AbstractJoinExecutor.h"
+#include "trx/scan/transaction_scanner_join/AbstractJoinExecutor.h"
 
-#include "trx/transaction_scanner_join/IJoinLeftSource.h"
-#include "trx/transaction_scanner_join/IJoinRightSource.h"
+#include "trx/scan/transaction_scanner_join/IJoinLeftSource.h"
+#include "trx/scan/transaction_scanner_join/IJoinRightSource.h"
 
 #include "scan_select/scan_planner/scanner/ctx/ScanJoinContext.h"
 
-#include "trx/transaction_scan_result/ScanResultFieldMetadata.h"
+#include "trx/scan/transaction_scan_result/ScanResultFieldMetadata.h"
 
 
 namespace codablecash {

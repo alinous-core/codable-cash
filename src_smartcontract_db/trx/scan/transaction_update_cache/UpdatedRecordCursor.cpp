@@ -7,8 +7,8 @@
 
 #include <cassert>
 
-#include "trx/transaction_update_cache/UpdatedRecordCursor.h"
-#include "trx/transaction_update_cache/UpdatedRecordsRepository.h"
+#include "trx/scan/transaction_update_cache/UpdatedRecordCursor.h"
+#include "trx/scan/transaction_update_cache/UpdatedRecordsRepository.h"
 
 #include "btree/IBtreeScanner.h"
 

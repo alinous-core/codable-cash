@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "trx/transaction_scan_result/ScanResultFieldMetadata.h"
+#include "trx/scan/transaction_scan_result/ScanResultFieldMetadata.h"
 
 #include "schema_table/table/CdbTable.h"
 #include "schema_table/table/CdbTableColumn.h"

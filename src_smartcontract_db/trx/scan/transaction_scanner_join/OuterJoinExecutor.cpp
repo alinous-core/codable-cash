@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "trx/transaction_scanner_join/OuterJoinExecutor.h"
+#include "trx/scan/transaction_scanner_join/OuterJoinExecutor.h"
 
 namespace codablecash {
 

@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "trx/transaction_scan_result/ScanResultMetadata.h"
-#include "trx/transaction_scan_result/ScanResultFieldMetadata.h"
+#include "trx/scan/transaction_scan_result/ScanResultMetadata.h"
+#include "trx/scan/transaction_scan_result/ScanResultFieldMetadata.h"
 
 #include "base/UnicodeString.h"
 

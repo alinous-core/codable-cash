@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "trx/transaction_update_cache/UpdatedRecordsRepository.h"
+#include "trx/scan/transaction_update_cache/UpdatedRecordsRepository.h"
 
 #include "trx/transaction_cache/OidKeyRecordCache.h"
 

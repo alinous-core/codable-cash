@@ -5,13 +5,13 @@
  *      Author: iizuka
  */
 
-#include "trx/transaction_update_cache/TransactionTableUpdateCache.h"
-#include "trx/transaction_update_cache/InsertRecordsCacheCursor.h"
-#include "trx/transaction_update_cache/InsertedRecordsRepository.h"
-#include "trx/transaction_update_cache/UpdatedRecordsRepository.h"
-#include "trx/transaction_update_cache/DeletedOidsRepository.h"
-#include "trx/transaction_update_cache/UpdatedRecordCursor.h"
-#include "trx/transaction_update_cache/DeletedRecordsOidsCursor.h"
+#include "trx/scan/transaction_update_cache/TransactionTableUpdateCache.h"
+#include "trx/scan/transaction_update_cache/InsertRecordsCacheCursor.h"
+#include "trx/scan/transaction_update_cache/InsertedRecordsRepository.h"
+#include "trx/scan/transaction_update_cache/UpdatedRecordsRepository.h"
+#include "trx/scan/transaction_update_cache/DeletedOidsRepository.h"
+#include "trx/scan/transaction_update_cache/UpdatedRecordCursor.h"
+#include "trx/scan/transaction_update_cache/DeletedRecordsOidsCursor.h"
 
 #include "schema_table/record/table_record/CdbRecord.h"
 

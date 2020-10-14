@@ -7,8 +7,8 @@
 
 #include <cassert>
 
-#include "trx/transaction_update_cache/DeletedRecordsOidsCursor.h"
-#include "trx/transaction_update_cache/DeletedOidsRepository.h"
+#include "trx/scan/transaction_update_cache/DeletedRecordsOidsCursor.h"
+#include "trx/scan/transaction_update_cache/DeletedOidsRepository.h"
 
 #include "engine/CdbOid.h"
 

@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "trx/transaction_update_cache/DeletedOidsRepository.h"
+#include "trx/scan/transaction_update_cache/DeletedOidsRepository.h"
 
 #include "trx/transaction_cache/SingleKeyOidCache.h"
 

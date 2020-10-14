@@ -8,7 +8,7 @@
 #ifndef TRANSACTION_SCANNER_JOIN_INNERJOINEXECUTOR_H_
 #define TRANSACTION_SCANNER_JOIN_INNERJOINEXECUTOR_H_
 
-#include "trx/transaction_scanner_join/AbstractJoinExecutor.h"
+#include "trx/scan/transaction_scanner_join/AbstractJoinExecutor.h"
 
 namespace codablecash {
 

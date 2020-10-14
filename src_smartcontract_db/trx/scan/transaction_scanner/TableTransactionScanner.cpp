@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include "trx/transaction_scanner/TableTransactionScanner.h"
+#include "trx/scan/transaction_scanner/TableTransactionScanner.h"
 
 #include "trx/transaction/CdbTransaction.h"
 

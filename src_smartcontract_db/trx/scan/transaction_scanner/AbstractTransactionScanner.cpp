@@ -5,12 +5,12 @@
  *      Author: iizuka
  */
 
-#include "trx/transaction_scanner/AbstractTransactionScanner.h"
+#include "trx/scan/transaction_scanner/AbstractTransactionScanner.h"
 
 #include "trx/transaction/CdbTransaction.h"
 
-#include "trx/transaction_update_cache/InsertRecordsCacheCursor.h"
-#include "trx/transaction_update_cache/TransactionUpdateCache.h"
+#include "trx/scan/transaction_update_cache/InsertRecordsCacheCursor.h"
+#include "trx/scan/transaction_update_cache/TransactionUpdateCache.h"
 
 #include "schema_table/table/CdbTable.h"
 

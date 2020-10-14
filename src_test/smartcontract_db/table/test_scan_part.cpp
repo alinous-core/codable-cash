@@ -44,7 +44,7 @@
 
 #include "base/StackRelease.h"
 
-#include "trx/transaction_scanner/TableTransactionScanner.h"
+#include "trx/scan/transaction_scanner/TableTransactionScanner.h"
 
 #include "schema_table/record/table_record_key/AbstractCdbKey.h"
 

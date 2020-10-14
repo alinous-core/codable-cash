@@ -5,8 +5,8 @@
  *      Author: iizuka
  */
 
-#include "trx/transaction_update_cache/InsertRecordsCacheCursor.h"
-#include "trx/transaction_update_cache/InsertedRecordsRepository.h"
+#include "trx/scan/transaction_update_cache/InsertRecordsCacheCursor.h"
+#include "trx/scan/transaction_update_cache/InsertedRecordsRepository.h"
 
 #include "btree/IBtreeScanner.h"
 

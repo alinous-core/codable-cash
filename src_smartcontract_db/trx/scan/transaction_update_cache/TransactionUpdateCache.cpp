@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "trx/transaction_update_cache/TransactionUpdateCache.h"
-#include "trx/transaction_update_cache/InsertRecordsCacheCursor.h"
-#include "trx/transaction_update_cache/TransactionTableUpdateCache.h"
+#include "trx/scan/transaction_update_cache/TransactionUpdateCache.h"
+#include "trx/scan/transaction_update_cache/InsertRecordsCacheCursor.h"
+#include "trx/scan/transaction_update_cache/TransactionTableUpdateCache.h"
 
 #include "schema_table/record/table_record/CdbRecord.h"
 

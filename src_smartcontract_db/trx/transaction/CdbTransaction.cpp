@@ -31,9 +31,9 @@
 #include "schema_table/table_store/TableStore.h"
 #include "schema_table/table_store/IndexStore.h"
 
-#include "trx/transaction_scanner/TableTransactionScanner.h"
+#include "trx/scan/transaction_scanner/TableTransactionScanner.h"
 
-#include "trx/transaction_update_cache/TransactionUpdateCache.h"
+#include "trx/scan/transaction_update_cache/TransactionUpdateCache.h"
 
 #include "schema_table/table/CdbTableColumn.h"
 
