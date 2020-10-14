@@ -41,7 +41,7 @@
 
 #include "scan_select/scan_condition/arithmetic/AdditiveScanCondition.h"
 
-#include "scan_select/scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
 using namespace alinous;
 using namespace codablecash;
 

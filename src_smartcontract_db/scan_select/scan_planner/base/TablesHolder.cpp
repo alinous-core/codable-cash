@@ -5,14 +5,14 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_planner/TablesHolder.h"
+#include "scan_select/scan_planner/base/TablesHolder.h"
 
 #include "scan_select/scan_table/AbstractScanTableTarget.h"
 #include "scan_select/scan_table/CrossJoinScanTarget.h"
 
 #include "base/UnicodeString.h"
 
-#include "scan_select/scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
 
 #include "scan_select/scan_planner/analyze/AnalyzedScanPlan.h"
 

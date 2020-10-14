@@ -11,8 +11,8 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_select/scan_planner/SelectScanPlanner.h"
-#include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
+#include "scan_select/scan_planner/base/ConditionsHolderStackMarker.h"
 
 #include "scan_select/scan_condition/exp/RelationalScanCondition.h"
 

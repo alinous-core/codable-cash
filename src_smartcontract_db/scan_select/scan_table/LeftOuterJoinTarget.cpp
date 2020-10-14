@@ -10,8 +10,8 @@
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
-#include "scan_select/scan_planner/SelectScanPlanner.h"
-#include "scan_select/scan_planner/ConditionsHolder.h"
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
+#include "scan_select/scan_planner/base/ConditionsHolder.h"
 
 #include "vm/VirtualMachine.h"
 

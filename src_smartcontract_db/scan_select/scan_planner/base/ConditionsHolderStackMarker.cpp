@@ -5,9 +5,9 @@
  *      Author: iizuka
  */
 
-#include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
+#include "scan_select/scan_planner/base/ConditionsHolderStackMarker.h"
 
-#include "scan_select/scan_planner/ConditionsHolderStack.h"
+#include "scan_select/scan_planner/base/ConditionsHolderStack.h"
 
 namespace codablecash {
 

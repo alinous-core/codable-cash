@@ -22,8 +22,8 @@
 #include "scan_select/scan_condition/params/NumericScanParam.h"
 #include "scan_select/scan_condition/params/StringScanParam.h"
 
-#include "scan_select/scan_planner/SelectScanPlanner.h"
-#include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
+#include "scan_select/scan_planner/base/ConditionsHolderStackMarker.h"
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 

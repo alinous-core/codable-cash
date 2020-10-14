@@ -7,5 +7,5 @@ set(__src
 	SelectScanPlanner.cpp
 	TablesHolder.cpp
 )
-handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_planner)
+handle_sub(codablecashlib "${__src}" smartcontract_db scan_select/scan_planner/base)
 

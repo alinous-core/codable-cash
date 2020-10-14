@@ -8,7 +8,7 @@
 #include "vm/VmSelectPlannerSetter.h"
 #include "vm/VirtualMachine.h"
 
-#include "scan_select/scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
 
 namespace alinous {
 

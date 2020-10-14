@@ -15,7 +15,7 @@
 
 #include "engine/sc_analyze/AnalyzeContext.h"
 
-#include "scan_select/scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
 
 #include "vm/VmSelectPlannerSetter.h"
 

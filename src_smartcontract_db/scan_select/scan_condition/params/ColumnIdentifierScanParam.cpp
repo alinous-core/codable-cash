@@ -16,7 +16,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_select/scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
 
 #include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"

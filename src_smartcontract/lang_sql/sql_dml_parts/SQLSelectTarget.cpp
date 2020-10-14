@@ -9,14 +9,14 @@
 #include "base/UnicodeString.h"
 #include "lang_sql/sql/AbstractSQLExpression.h"
 
-#include "scan_select/scan_planner/TablesHolder.h"
+#include "scan_select/scan_planner/base/TablesHolder.h"
 
 #include "vm/VirtualMachine.h"
 
 #include "scan_select/scan_columns/AllScanColumns.h"
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 
-#include "scan_select/scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
 
 using namespace codablecash;
 
