@@ -31,11 +31,11 @@
 #include "schema_table/table/CdbTableColumn.h"
 #include "schema_table/table/CdbTableIndex.h"
 
-#include "schema_table/table_record_value/AbstractCdbValue.h"
-#include "schema_table/table_record_value/CdbIntValue.h"
-#include "schema_table/table_record_value/CdbStringValue.h"
+#include "schema_table/record/table_record_value/AbstractCdbValue.h"
+#include "schema_table/record/table_record_value/CdbIntValue.h"
+#include "schema_table/record/table_record_value/CdbStringValue.h"
 
-#include "schema_table/table_record/CdbRecord.h"
+#include "schema_table/record/table_record/CdbRecord.h"
 
 #include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 

@@ -13,10 +13,10 @@
 #include "trx/transaction_update_cache/UpdatedRecordCursor.h"
 #include "trx/transaction_update_cache/DeletedRecordsOidsCursor.h"
 
-#include "schema_table/table_record/CdbRecord.h"
+#include "schema_table/record/table_record/CdbRecord.h"
 
-#include "schema_table/table_record_key/CdbOidKey.h"
-#include "schema_table/table_record_key/AbstractCdbKey.h"
+#include "schema_table/record/table_record_key/CdbOidKey.h"
+#include "schema_table/record/table_record_key/AbstractCdbKey.h"
 
 #include "base/StackRelease.h"
 

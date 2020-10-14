@@ -20,7 +20,7 @@
 #include "engine/CdbException.h"
 #include "engine/CdbOid.h"
 
-#include "schema_table/table_record/CdbTableIdentifier.h"
+#include "schema_table/record/table_record/CdbTableIdentifier.h"
 
 #include "schema_table/schema/Schema.h"
 
@@ -37,7 +37,7 @@
 
 #include "schema_table/table/CdbTableColumn.h"
 
-#include "schema_table/table_record_key/CdbRecordKey.h"
+#include "schema_table/record/table_record_key/CdbRecordKey.h"
 
 #include "scan_select/scan/IndexRecordScanner.h"
 

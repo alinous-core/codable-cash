@@ -12,7 +12,7 @@
 
 #include "btree/IBtreeScanner.h"
 
-#include "schema_table/table_record/CdbRecord.h"
+#include "schema_table/record/table_record/CdbRecord.h"
 
 namespace codablecash {
 

@@ -43,9 +43,9 @@
 
 #include "engine/CodableDatabase.h"
 
-#include "schema_table/table_record_value/CdbValueCaster.h"
+#include "schema_table/record/table_record_value/CdbValueCaster.h"
 
-#include "schema_table/table_record_value/AbstractCdbValue.h"
+#include "schema_table/record/table_record_value/AbstractCdbValue.h"
 using codablecash::CdbValueCaster;
 namespace alinous {
 

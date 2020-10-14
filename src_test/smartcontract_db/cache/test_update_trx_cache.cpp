@@ -23,8 +23,8 @@
 
 #include "../toolkit/TestDbSchema01.h"
 
-#include "schema_table/table_record/CdbRecord.h"
-#include "schema_table/table_record_value/CdbIntValue.h"
+#include "schema_table/record/table_record/CdbRecord.h"
+#include "schema_table/record/table_record_value/CdbIntValue.h"
 
 using namespace alinous;
 using namespace codablecash;

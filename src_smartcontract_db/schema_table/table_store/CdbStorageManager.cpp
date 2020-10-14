@@ -19,8 +19,8 @@
 
 #include "engine/CdbOid.h"
 
-#include "schema_table/table_record/CdbDataFactory.h"
-#include "schema_table/table_record/CdbKeyFactory.h"
+#include "schema_table/record/table_record/CdbDataFactory.h"
+#include "schema_table/record/table_record/CdbKeyFactory.h"
 
 #include "schema_table/schema/Schema.h"
 

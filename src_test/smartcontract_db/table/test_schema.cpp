@@ -29,15 +29,15 @@
 #include "schema_table/table/CdbTable.h"
 #include "schema_table/table/CdbTableColumn.h"
 
-#include "schema_table/table_record/CdbTableIdentifier.h"
-#include "schema_table/table_record/CdbRecord.h"
+#include "schema_table/record/table_record/CdbTableIdentifier.h"
+#include "schema_table/record/table_record/CdbRecord.h"
 
-#include "schema_table/table_record_value/AbstractCdbValue.h"
-#include "schema_table/table_record_value/CdbIntValue.h"
-#include "schema_table/table_record_value/CdbStringValue.h"
+#include "schema_table/record/table_record_value/AbstractCdbValue.h"
+#include "schema_table/record/table_record_value/CdbIntValue.h"
+#include "schema_table/record/table_record_value/CdbStringValue.h"
 
-#include "schema_table/table_record_local/LocalOidFactory.h"
-#include "schema_table/table_record_value/VmInstanceValueConverter.h"
+#include "schema_table/record/table_record_local/LocalOidFactory.h"
+#include "schema_table/record/table_record_value/VmInstanceValueConverter.h"
 
 #include "schema_table/table_store/CdbStorageManager.h"
 #include "schema_table/table_store/TableStore.h"

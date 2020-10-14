@@ -33,19 +33,19 @@
 #include "schema_table/table/CdbTable.h"
 #include "schema_table/table/CdbTableColumn.h"
 
-#include "schema_table/table_record/CdbTableIdentifier.h"
-#include "schema_table/table_record/CdbRecord.h"
+#include "schema_table/record/table_record/CdbTableIdentifier.h"
+#include "schema_table/record/table_record/CdbRecord.h"
 
-#include "schema_table/table_record_value/CdbIntValue.h"
-#include "schema_table/table_record_value/CdbStringValue.h"
+#include "schema_table/record/table_record_value/CdbIntValue.h"
+#include "schema_table/record/table_record_value/CdbStringValue.h"
 
 #include "base_io/ByteBuffer.h"
 
 #include "base/StackRelease.h"
 
-#include "schema_table/table_record_value/CdbByteValue.h"
-#include "schema_table/table_record_value/CdbShortValue.h"
-#include "schema_table/table_record_value/CdbLongValue.h"
+#include "schema_table/record/table_record_value/CdbByteValue.h"
+#include "schema_table/record/table_record_value/CdbShortValue.h"
+#include "schema_table/record/table_record_value/CdbLongValue.h"
 
 #include "engine/CdbException.h"
 
@@ -57,9 +57,9 @@
 
 #include "schema_table/table_store/TableStore.h"
 
-#include "schema_table/table_record_value/VmInstanceValueConverter.h"
+#include "schema_table/record/table_record_value/VmInstanceValueConverter.h"
 
-#include "schema_table/table_record_local/LocalCdbOid.h"
+#include "schema_table/record/table_record_local/LocalCdbOid.h"
 
 using namespace alinous;
 using namespace codablecash;

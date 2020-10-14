@@ -20,11 +20,11 @@
 #include "base/UnicodeString.h"
 #include "base/StackRelease.h"
 
-#include "schema_table/table_record/CdbDataFactory.h"
-#include "schema_table/table_record/CdbKeyFactory.h"
-#include "schema_table/table_record/CdbRecord.h"
+#include "schema_table/record/table_record/CdbDataFactory.h"
+#include "schema_table/record/table_record/CdbKeyFactory.h"
+#include "schema_table/record/table_record/CdbRecord.h"
 
-#include "schema_table/table_record_key/CdbLongKey.h"
+#include "schema_table/record/table_record_key/CdbLongKey.h"
 
 #include "engine/CdbOid.h"
 

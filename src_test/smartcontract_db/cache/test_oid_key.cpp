@@ -11,8 +11,8 @@
 
 #include "engine/CdbOid.h"
 
-#include "schema_table/table_record_key/CdbOidKey.h"
-#include "schema_table/table_record/CdbKeyFactory.h"
+#include "schema_table/record/table_record_key/CdbOidKey.h"
+#include "schema_table/record/table_record/CdbKeyFactory.h"
 
 #include "btree/AbstractBtreeKey.h"
 

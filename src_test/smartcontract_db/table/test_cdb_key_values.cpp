@@ -19,17 +19,17 @@
 
 #include "base_io/ByteBuffer.h"
 
-#include "schema_table/table_record/CdbKeyFactory.h"
+#include "schema_table/record/table_record/CdbKeyFactory.h"
 #include <cstdint>
 
 #include "btreekey/InfinityKey.h"
 
-#include "schema_table/table_record_key/CdbByteKey.h"
-#include "schema_table/table_record_key/CdbShortKey.h"
-#include "schema_table/table_record_key/CdbIntKey.h"
-#include "schema_table/table_record_key/CdbLongKey.h"
-#include "schema_table/table_record_key/CdbStringKey.h"
-#include "schema_table/table_record_key/CdbRecordKey.h"
+#include "schema_table/record/table_record_key/CdbByteKey.h"
+#include "schema_table/record/table_record_key/CdbShortKey.h"
+#include "schema_table/record/table_record_key/CdbIntKey.h"
+#include "schema_table/record/table_record_key/CdbLongKey.h"
+#include "schema_table/record/table_record_key/CdbStringKey.h"
+#include "schema_table/record/table_record_key/CdbRecordKey.h"
 
 #include "btreekey/NullKey.h"
 using namespace codablecash;
