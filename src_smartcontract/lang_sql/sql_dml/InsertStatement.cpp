@@ -36,8 +36,8 @@
 
 #include "vm/vm_ctrl/ExecControlManager.h"
 
-#include "schema_table/table_record/CdbRecord.h"
-#include "schema_table/table_record/CdbTableIdentifier.h"
+#include "schema_table/record/table_record/CdbRecord.h"
+#include "schema_table/record/table_record/CdbTableIdentifier.h"
 
 #include "instance/instance_gc/StackFloatingVariableHandler.h"
 #include "instance/instance_gc/GcManager.h"
@@ -47,14 +47,14 @@
 #include "instance/IAbstractVmInstanceSubstance.h"
 #include "instance/AbstractVmInstance.h"
 
-#include "schema_table/table_record_value/AbstractCdbValue.h"
-#include "schema_table/table_record_value/VmInstanceValueConverter.h"
+#include "schema_table/record/table_record_value/AbstractCdbValue.h"
+#include "schema_table/record/table_record_value/VmInstanceValueConverter.h"
 
 #include "engine/CodableDatabase.h"
 
-#include "schema_table/table_record_value/VmInstanceValueConverter.h"
-#include "schema_table/table_record_local/LocalOidFactory.h"
-#include "schema_table/table_record_local/LocalCdbOid.h"
+#include "schema_table/record/table_record_value/VmInstanceValueConverter.h"
+#include "schema_table/record/table_record_local/LocalOidFactory.h"
+#include "schema_table/record/table_record_local/LocalCdbOid.h"
 
 using namespace codablecash;
 

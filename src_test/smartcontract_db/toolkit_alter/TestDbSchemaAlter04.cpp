@@ -12,7 +12,7 @@
 #include "base/StackRelease.h"
 #include "base/UnicodeString.h"
 
-#include "schema_table/table_record_value/AbstractCdbValue.h"
+#include "schema_table/record/table_record_value/AbstractCdbValue.h"
 
 #include "base/StackRelease.h"
 
@@ -23,15 +23,15 @@
 #include "trx/transaction_log/CreateTableLog.h"
 #include "trx/transaction_log/InsertLog.h"
 
-#include "schema_table/table_record/CdbRecord.h"
-#include "schema_table/table_record/CdbTableIdentifier.h"
+#include "schema_table/record/table_record/CdbRecord.h"
+#include "schema_table/record/table_record/CdbTableIdentifier.h"
 
-#include "schema_table/table_record_value/CdbIntValue.h"
-#include "schema_table/table_record_value/CdbStringValue.h"
+#include "schema_table/record/table_record_value/CdbIntValue.h"
+#include "schema_table/record/table_record_value/CdbStringValue.h"
 
-#include "schema_table/table_record_value/VmInstanceValueConverter.h"
+#include "schema_table/record/table_record_value/VmInstanceValueConverter.h"
 
-#include "schema_table/table_record_local/LocalCdbOid.h"
+#include "schema_table/record/table_record_local/LocalCdbOid.h"
 
 namespace codablecash {
 

@@ -31,11 +31,11 @@
 #include "schema_table/table/CdbTableIndex.h"
 #include "schema_table/table/CdbTableColumn.h"
 
-#include "schema_table/table_record/CdbRecord.h"
+#include "schema_table/record/table_record/CdbRecord.h"
 
-#include "schema_table/table_record_value/AbstractCdbValue.h"
+#include "schema_table/record/table_record_value/AbstractCdbValue.h"
 
-#include "schema_table/table_record_key/CdbLongKey.h"
+#include "schema_table/record/table_record_key/CdbLongKey.h"
 
 #include "schema_table/table_store/RecordValueConverter.h"
 #include "schema_table/table_store/AlterRecordValueExecutor.h"

@@ -18,7 +18,7 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_select/scan_planner/SelectScanPlanner.h"
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
 static bool checkBinary(ByteBuffer* buff){
 	int lastSize = buff->capacity();
 

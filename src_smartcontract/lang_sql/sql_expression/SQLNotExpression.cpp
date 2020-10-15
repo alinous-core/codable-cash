@@ -17,16 +17,16 @@
 
 #include "instance/instance_ref/PrimitiveReference.h"
 
-#include "scan_select/scan_planner/SelectScanPlanner.h"
-#include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
+#include "scan_select/scan_planner/base/ConditionsHolderStackMarker.h"
 
-#include "scan_select/scan_condition_logical/NotScanCondition.h"
+#include "scan_select/scan_condition/logical/NotScanCondition.h"
 
-#include "scan_select/scan_condition/ScanConditionCast.h"
+#include "scan_select/scan_condition/base/ScanConditionCast.h"
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 
-#include "scan_select/scan_columns_logical/NotScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_logical/NotScanColumnTarget.h"
 
 
 using namespace alinous;

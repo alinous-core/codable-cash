@@ -28,8 +28,8 @@
 
 #include "vm/vm_trx/VmTransactionHandler.h"
 
-#include "scan_select/scan_planner/SelectScanPlanner.h"
-#include "scan_select/scan_planner/TablesHolder.h"
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
+#include "scan_select/scan_planner/base/TablesHolder.h"
 
 #include "lang_sql/sql/AbstractJoinPart.h"
 

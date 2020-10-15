@@ -9,8 +9,8 @@
 
 #include "base/UnicodeString.h"
 
-#include "scan_select/scan_planner/SelectScanPlanner.h"
-#include "scan_select/scan_planner/ConditionsHolder.h"
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
+#include "scan_select/scan_planner/base/ConditionsHolder.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -22,12 +22,12 @@
 #include "engine/CodableDatabase.h"
 #include "engine/CdbException.h"
 
-#include "scan_select/scan_planner_analyze/ScanTargetNameResolver.h"
-#include "scan_select/scan_planner_analyze/AnalyzedScanPlan.h"
+#include "scan_select/scan_planner/analyze/ScanTargetNameResolver.h"
+#include "scan_select/scan_planner/analyze/AnalyzedScanPlan.h"
 
-#include "scan_select/scan_planner_scanner_ctx/FilterConditionDitector.h"
+#include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
 
-#include "scan_select/scan_planner_scanner_ctx_index/TableIndexDetector.h"
+#include "scan_select/scan_planner/scanner/index/TableIndexDetector.h"
 
 namespace codablecash {
 

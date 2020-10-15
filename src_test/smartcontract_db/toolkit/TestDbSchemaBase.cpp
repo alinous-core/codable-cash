@@ -30,7 +30,7 @@
 
 #include "ext_binary/ExtExceptionObject.h"
 
-#include "schema_table/table_record/CdbRecord.h"
+#include "schema_table/record/table_record/CdbRecord.h"
 
 #include "scan_select/scan/RecordScanner.h"
 

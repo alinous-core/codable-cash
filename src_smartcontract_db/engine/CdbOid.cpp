@@ -10,11 +10,11 @@
 
 #include "base_io/ByteBuffer.h"
 
-#include "schema_table/table_record_value/VmInstanceValueConverter.h"
+#include "schema_table/record/table_record_value/VmInstanceValueConverter.h"
 
-#include "schema_table/table_record_key/AbstractCdbKey.h"
-#include "schema_table/table_record_key/CdbOidKey.h"
-#include "schema_table/table_record_local/LocalCdbOid.h"
+#include "schema_table/record/table_record_key/AbstractCdbKey.h"
+#include "schema_table/record/table_record_key/CdbOidKey.h"
+#include "schema_table/record/table_record_local/LocalCdbOid.h"
 
 namespace codablecash {
 

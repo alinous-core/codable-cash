@@ -18,13 +18,13 @@
 
 #include "trx/transaction/CdbTransaction.h"
 
-#include "trx/transaction_update_cache/TransactionUpdateCache.h"
-#include "trx/transaction_update_cache/UpdatedRecordCursor.h"
+#include "trx/scan/transaction_update_cache/TransactionUpdateCache.h"
+#include "trx/scan/transaction_update_cache/UpdatedRecordCursor.h"
 
 #include "../toolkit/TestDbSchema01.h"
 
-#include "schema_table/table_record/CdbRecord.h"
-#include "schema_table/table_record_value/CdbIntValue.h"
+#include "schema_table/record/table_record/CdbRecord.h"
+#include "schema_table/record/table_record_value/CdbIntValue.h"
 
 using namespace alinous;
 using namespace codablecash;

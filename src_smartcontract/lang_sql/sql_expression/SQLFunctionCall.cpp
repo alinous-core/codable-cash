@@ -12,18 +12,18 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_select/scan_condition_exp/FunctionCallScanCondition.h"
+#include "scan_select/scan_condition/exp/FunctionCallScanCondition.h"
 
-#include "scan_select/scan_condition/ScanConditionCast.h"
+#include "scan_select/scan_condition/base/ScanConditionCast.h"
 
-#include "scan_select/scan_planner/SelectScanPlanner.h"
-#include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
+#include "scan_select/scan_planner/base/ConditionsHolderStackMarker.h"
 
 #include "base/UnicodeString.h"
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 
-#include "scan_select/scan_columns_exp/FunctionCallScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_exp/FunctionCallScanColumnTarget.h"
 
 
 namespace alinous {

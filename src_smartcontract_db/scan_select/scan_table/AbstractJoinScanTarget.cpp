@@ -9,9 +9,9 @@
 
 #include "base/UnicodeString.h"
 
-#include "scan_select/scan_condition/AbstractScanCondition.h"
+#include "scan_select/scan_condition/base/AbstractScanCondition.h"
 
-#include "trx/transaction_scan_result/ScanResultMetadata.h"
+#include "trx/scan/transaction_scan_result/ScanResultMetadata.h"
 
 namespace codablecash {
 

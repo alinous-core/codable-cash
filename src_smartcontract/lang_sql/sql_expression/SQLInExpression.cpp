@@ -12,16 +12,16 @@
 
 #include "vm/VirtualMachine.h"
 
-#include "scan_select/scan_planner/SelectScanPlanner.h"
-#include "scan_select/scan_planner/ConditionsHolderStackMarker.h"
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
+#include "scan_select/scan_planner/base/ConditionsHolderStackMarker.h"
 
-#include "scan_select/scan_condition_exp/InExpressionScanCondition.h"
+#include "scan_select/scan_condition/exp/InExpressionScanCondition.h"
 
-#include "scan_select/scan_condition/ScanConditionCast.h"
+#include "scan_select/scan_condition/base/ScanConditionCast.h"
 
 #include "scan_select/scan_columns/ScanColumnHolder.h"
 
-#include "scan_select/scan_columns_exp/InExpressionScanColumnTarget.h"
+#include "scan_select/scan_columns/scan_columns_exp/InExpressionScanColumnTarget.h"
 
 
 using codablecash::ScanConditionCast;

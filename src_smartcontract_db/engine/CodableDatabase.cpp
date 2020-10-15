@@ -23,7 +23,7 @@
 
 #include "base/StackRelease.h"
 
-#include "schema_table/table_record_local/LocalOidFactory.h"
+#include "schema_table/record/table_record_local/LocalOidFactory.h"
 
 namespace codablecash {
 

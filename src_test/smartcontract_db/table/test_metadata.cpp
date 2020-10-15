@@ -6,7 +6,7 @@
  */
 
 #include "test_utils/t_macros.h"
-#include "trx/transaction_scan_result/ScanResultMetadata.h"
+#include "trx/scan/transaction_scan_result/ScanResultMetadata.h"
 
 using codablecash::ScanResultMetadata;
 

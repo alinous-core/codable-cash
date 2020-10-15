@@ -7,19 +7,19 @@
 
 #include "scan_select/scan/IndexScanner.h"
 
-#include "schema_table/table_record_key/AbstractCdbKey.h"
+#include "schema_table/record/table_record_key/AbstractCdbKey.h"
 
 #include "schema_table/table_store/IndexStore.h"
 
 #include "btree/Btree.h"
 #include "btree/BtreeScanner.h"
 
-#include "schema_table/table_record/CdbRecord.h"
+#include "schema_table/record/table_record/CdbRecord.h"
 
-#include "schema_table/table_record_value/CdbOidValueList.h"
-#include "schema_table/table_record_value/CdbOidValueListCursor.h"
+#include "schema_table/record/table_record_value/CdbOidValueList.h"
+#include "schema_table/record/table_record_value/CdbOidValueListCursor.h"
 
-#include "schema_table/table_record_key/CdbRecordKey.h"
+#include "schema_table/record/table_record_key/CdbRecordKey.h"
 namespace codablecash {
 
 IndexScanner::IndexScanner(const CdbRecordKey* begin, bool beginEq, const CdbRecordKey* end, bool endEq, IndexStore* store)

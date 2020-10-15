@@ -18,8 +18,8 @@
 
 #include "trx/transaction/CdbTransaction.h"
 
-#include "trx/transaction_update_cache/TransactionUpdateCache.h"
-#include "trx/transaction_update_cache/DeletedRecordsOidsCursor.h"
+#include "trx/scan/transaction_update_cache/TransactionUpdateCache.h"
+#include "trx/scan/transaction_update_cache/DeletedRecordsOidsCursor.h"
 
 #include "../toolkit/TestDbSchema01.h"
 

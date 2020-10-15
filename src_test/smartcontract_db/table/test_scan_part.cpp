@@ -34,25 +34,25 @@
 #include "schema_table/table/CdbTable.h"
 #include "schema_table/table/CdbTableColumn.h"
 
-#include "schema_table/table_record/CdbTableIdentifier.h"
-#include "schema_table/table_record/CdbRecord.h"
+#include "schema_table/record/table_record/CdbTableIdentifier.h"
+#include "schema_table/record/table_record/CdbRecord.h"
 
-#include "schema_table/table_record_value/CdbIntValue.h"
-#include "schema_table/table_record_value/CdbStringValue.h"
+#include "schema_table/record/table_record_value/CdbIntValue.h"
+#include "schema_table/record/table_record_value/CdbStringValue.h"
 
 #include "base_io/ByteBuffer.h"
 
 #include "base/StackRelease.h"
 
-#include "trx/transaction_scanner/TableTransactionScanner.h"
+#include "trx/scan/transaction_scanner/TableTransactionScanner.h"
 
-#include "schema_table/table_record_key/AbstractCdbKey.h"
+#include "schema_table/record/table_record_key/AbstractCdbKey.h"
 
-#include "scan_select/scan_condition/RootScanCondition.h"
+#include "scan_select/scan_condition/base/RootScanCondition.h"
 
-#include "schema_table/table_record_value/VmInstanceValueConverter.h"
+#include "schema_table/record/table_record_value/VmInstanceValueConverter.h"
 
-#include "schema_table/table_record_local/LocalCdbOid.h"
+#include "schema_table/record/table_record_local/LocalCdbOid.h"
 
 using namespace alinous;
 using namespace codablecash;
