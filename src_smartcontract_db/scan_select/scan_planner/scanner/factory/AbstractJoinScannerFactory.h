@@ -12,6 +12,8 @@
 
 namespace codablecash {
 
+class AbstractJoinCandidate;
+
 class AbstractJoinScannerFactory : public AbstractScannerFactory {
 public:
 	explicit AbstractJoinScannerFactory(const ScanResultMetadata* metadata);
@@ -19,10 +21,13 @@ public:
 
 	void setLeft(AbstractScannerFactory* factory) noexcept;
 	void setRight(AbstractScannerFactory* factory) noexcept;
+	void setJoinCandidate(const AbstractJoinCandidate* joinCandidate) noexcept;
 
-private:
+protected:
 	AbstractScannerFactory* leftFactory;
 	AbstractScannerFactory* rightFactory;
+
+	AbstractJoinCandidate* joinCandidate;
 
 };
 

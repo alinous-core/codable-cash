@@ -100,4 +100,18 @@ void JoinOrCandidate::addOr(const JoinOrCandidate* candidate) noexcept {
 AbstractJoinCandidate* JoinOrCandidate::copy() const noexcept {
 	return new JoinOrCandidate(*this);
 }
+
+int JoinOrCandidate::getOverHeadScore() const noexcept {
+	int score = 0;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractJoinCandidateCollection* col = this->list.get(i);
+
+		score += score;
+	}
+
+	return score;
+}
+
 } /* namespace codablecash */

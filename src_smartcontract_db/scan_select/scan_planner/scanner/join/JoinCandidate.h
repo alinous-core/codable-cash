@@ -25,6 +25,8 @@ public:
 	const AbstractScanTableTarget* getLeftTarget() const noexcept;
 	const AbstractScanTableTarget* getRightTarget() const noexcept;
 
+	virtual int getOverHeadScore() const noexcept;
+
 	virtual JoinCandidate::CandidateType getCandidateType() const noexcept;
 	virtual AbstractJoinCandidate* multiply(const AbstractJoinCandidate* other) const noexcept;
 	virtual int size() const noexcept;

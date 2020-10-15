@@ -36,6 +36,8 @@ private:
 
 	void addOr(const JoinOrCandidate* candidate) noexcept;
 
+	virtual int getOverHeadScore() const noexcept;
+
 private:
 	ArrayList<AbstractJoinCandidateCollection> list;
 };

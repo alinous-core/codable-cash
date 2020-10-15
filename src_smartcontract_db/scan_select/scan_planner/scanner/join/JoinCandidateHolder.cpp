@@ -66,16 +66,30 @@ bool JoinCandidateHolder::isInnerJoin() const noexcept {
 	return !this->innerJoin.isEmpty();
 }
 
-AbstractJoinCandidate* JoinCandidateHolder::getBestCandidate() const noexcept {
+const AbstractJoinCandidate* JoinCandidateHolder::getBestCandidate() const noexcept {
 	if(isInnerJoin()){
-		return this->innerJoin.get(0);
+		return getBestFromList(&this->innerJoin);
 	}
 
-	return this->leftOuterJoin.isEmpty() ? nullptr : this->leftOuterJoin.get(0);
+	return getBestFromList(&this->leftOuterJoin);
+}
 
-// FIXME getBestCandidate()
+const AbstractJoinCandidate* codablecash::JoinCandidateHolder::getBestFromList(
+		const ArrayList<AbstractJoinCandidate>* list) const noexcept {
+	AbstractJoinCandidate* candidate = nullptr;
+	int score = 0;
 
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractJoinCandidate* cn = list->get(i);
 
+		if(candidate == nullptr || cn->getOverHeadScore() < score){
+			score = cn->getOverHeadScore();
+			candidate = cn;
+		}
+	}
+
+	return candidate;
 }
 
 } /* namespace codablecash */

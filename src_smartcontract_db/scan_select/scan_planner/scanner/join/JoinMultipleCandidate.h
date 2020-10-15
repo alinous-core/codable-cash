@@ -31,6 +31,8 @@ public:
 	virtual AbstractJoinCandidate* copy() const noexcept;
 
 	void mul(const JoinCandidate* candidate) noexcept;
+
+	virtual int getOverHeadScore() const noexcept;
 private:
 	ArrayList<JoinCandidate> list;
 };

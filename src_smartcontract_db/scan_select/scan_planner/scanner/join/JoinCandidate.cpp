@@ -44,6 +44,12 @@ JoinCandidate::CandidateType JoinCandidate::getCandidateType() const noexcept {
 	return JoinCandidate::CandidateType::EQUALS;
 }
 
+int JoinCandidate::getOverHeadScore() const noexcept {
+	// TODO: getOverHeadScore()
+	return 10;
+}
+
+
 AbstractJoinCandidate* JoinCandidate::multiply(const AbstractJoinCandidate* other) const noexcept {
 	JoinCandidate::CandidateType candidateType = other->getCandidateType();
 
@@ -76,6 +82,5 @@ const JoinCandidate* JoinCandidate::get(int i) const noexcept {
 AbstractJoinCandidate* JoinCandidate::copy() const noexcept {
 	return new JoinCandidate(*this);
 }
-
 
 } /* namespace codablecash */
