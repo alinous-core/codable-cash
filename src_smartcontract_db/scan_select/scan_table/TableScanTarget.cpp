@@ -134,4 +134,8 @@ bool TableScanTarget::hasTarget(const AbstractScanTableTarget* target) const noe
 	return target == this;
 }
 
+ScanTableColumnParam* TableScanTarget::findTableColumns(const UnicodeString* colName) const {
+	// TODO column
+}
+
 } /* namespace codablecash */

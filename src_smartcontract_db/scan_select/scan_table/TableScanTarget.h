@@ -35,6 +35,8 @@ public:
 	virtual AbstractScannerFactory* getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner);
 	virtual bool hasTarget(const AbstractScanTableTarget* target) const noexcept;
 
+	virtual ScanTableColumnParam* findTableColumns(const UnicodeString* colName) const;
+
 private:
 	UnicodeString* schema;
 	UnicodeString* tableName;

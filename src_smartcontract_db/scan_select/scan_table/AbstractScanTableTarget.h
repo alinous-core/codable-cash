@@ -41,7 +41,7 @@ public:
 	virtual AbstractScannerFactory* getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) = 0;
 	virtual bool hasTarget(const AbstractScanTableTarget* target) const noexcept = 0;
 
-	ScanTableColumnParam* findTableColumns(const UnicodeString* colName) const = 0;
+	virtual ScanTableColumnParam* findTableColumns(const UnicodeString* colName) const = 0;
 
 	const ScanResultMetadata* getMetadata() const noexcept {
 		return metadata;
