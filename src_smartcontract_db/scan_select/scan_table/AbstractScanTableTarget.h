@@ -21,6 +21,13 @@ namespace codablecash {
 class SelectScanPlanner;
 class AbstractScannerFactory;
 class ScanResultMetadata;
+class CdbTable;
+class CdbTableColumn;
+
+typedef struct __ScanTableColumnParam {
+	const CdbTable* table;
+	const CdbTableColumn* column;
+} ScanTableColumnParam;
 
 class AbstractScanTableTarget {
 public:
@@ -33,6 +40,8 @@ public:
 	virtual void collectScanTargets(VirtualMachine* vm, SelectScanPlanner* planner, ArrayList<AbstractScanTableTarget>* list) = 0;
 	virtual AbstractScannerFactory* getScanFactory(VirtualMachine* vm, SelectScanPlanner* planner) = 0;
 	virtual bool hasTarget(const AbstractScanTableTarget* target) const noexcept = 0;
+
+	ScanTableColumnParam* findTableColumns(const UnicodeString* colName) const = 0;
 
 	const ScanResultMetadata* getMetadata() const noexcept {
 		return metadata;

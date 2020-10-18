@@ -87,6 +87,10 @@ void ColumnIdentifierScanParam::analyzeConditions(VirtualMachine* vm, SelectScan
 	const UnicodeString* tableName = this->sqlColId->getTableName();
 	const UnicodeString* colName = this->sqlColId->getColumnName();
 
+	if(tableName == nullptr){
+
+	}
+
 	if(schemaName == nullptr && resolveAlias(tableName, aliasResolver)){
 		return;
 	}

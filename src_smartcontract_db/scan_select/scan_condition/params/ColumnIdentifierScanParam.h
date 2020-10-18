@@ -46,7 +46,7 @@ private:
 	const SQLColumnIdentifier* sqlColId;
 
 	AbstractScanTableTarget* target;
-	CdbTableColumn* cdbColumn;
+	const CdbTableColumn* cdbColumn;
 
 	UnicodeString* str;
 };
