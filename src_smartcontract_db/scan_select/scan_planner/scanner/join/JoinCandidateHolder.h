@@ -38,6 +38,14 @@ public:
 
 	const AbstractJoinCandidate* getBestCandidate(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept;
 
+	const AbstractScanTableTarget* getLeft() const noexcept {
+		return left;
+	}
+
+	const AbstractScanTableTarget* getRight() const noexcept {
+		return right;
+	}
+
 private:
 	const AbstractJoinCandidate* getBestFromList(const ArrayList<AbstractJoinCandidate>* list,
 			AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept;

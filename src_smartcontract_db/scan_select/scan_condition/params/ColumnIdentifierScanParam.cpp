@@ -145,4 +145,17 @@ bool ColumnIdentifierScanParam::resolveAlias(const UnicodeString* tableAlias, Sc
 	return false;
 }
 
+bool ColumnIdentifierScanParam::hasIndex() const noexcept {
+	ScanTableColumnParam* p = this->target->findTableColumns(sqlColId->getColumnName());
+
+	if(p->table == nullptr){
+		return false;
+	}
+
+	const CdbTable* table = p->table;
+	CdbTableIndex* index = table->getIndexByColumnOid(p->column->getOid());
+
+	return index != nullptr;
+}
+
 } /* namespace codablecash */

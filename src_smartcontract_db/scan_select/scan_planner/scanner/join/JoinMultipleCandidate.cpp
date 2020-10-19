@@ -77,6 +77,9 @@ void codablecash::JoinMultipleCandidate::mul(const JoinCandidate* candidate) noe
 }
 
 int JoinMultipleCandidate::getOverHeadScore(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept {
+
+	int maxLoop = this->list.size();
+
 	// TODO
 	return 1;
 }

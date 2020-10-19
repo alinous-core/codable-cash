@@ -45,8 +45,20 @@ JoinCandidate::CandidateType JoinCandidate::getCandidateType() const noexcept {
 }
 
 int JoinCandidate::getOverHeadScore(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept {
-	// TODO: getOverHeadScore()
-	return 10;
+	ColumnIdentifierScanParam* rightParam = getRightParam(right);
+
+	if(rightParam->hasIndex()){
+		return 1;
+	}
+
+	return 1000;
+}
+
+ColumnIdentifierScanParam* JoinCandidate::getRightParam(AbstractScanTableTarget* right) const noexcept {
+	if(this->left->getTarget() == right){
+		return this->left;
+	}
+	return this->right;
 }
 
 

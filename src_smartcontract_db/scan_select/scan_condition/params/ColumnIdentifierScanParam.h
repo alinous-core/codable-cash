@@ -39,6 +39,8 @@ public:
 		return target;
 	}
 
+	bool hasIndex() const noexcept;
+
 private:
 	bool resolveAlias(const UnicodeString* tableAlias, ScanTargetNameResolver* aliasResolver);
 

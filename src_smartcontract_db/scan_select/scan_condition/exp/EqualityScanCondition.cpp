@@ -93,7 +93,6 @@ void EqualityScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanP
 	// FIXME detectIndexCondition
 }
 
-
 void EqualityScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
 		delete this->str;
@@ -112,6 +111,12 @@ void EqualityScanCondition::collectJoinCandidate(VirtualMachine* vm, SelectScanP
 		return;
 	}
 
+	const AbstractScanTableTarget* left = jholder->getLeft();
+	const AbstractScanTableTarget* right = jholder->getRight();
+	if(!hasLeftAndRightScanTarget(left, right)){
+		return;
+	}
+
 	JoinCandidateStackMarker marker(jholder->getStack());
 
 	JoinCandidate* candidate = new JoinCandidate(joinType, dynamic_cast<ColumnIdentifierScanParam*>(this->left)
@@ -121,6 +126,30 @@ void EqualityScanCondition::collectJoinCandidate(VirtualMachine* vm, SelectScanP
 	if(jholder->isJoinCondition(candidate)){
 		jholder->push(st_candidate.move());
 	}
+}
+
+bool EqualityScanCondition::hasLeftAndRightScanTarget(
+		const AbstractScanTableTarget* left,
+		const AbstractScanTableTarget* right) const noexcept {
+	bool l = false;
+	bool r = false;
+
+	ColumnIdentifierScanParam* lparam = dynamic_cast<ColumnIdentifierScanParam*>(this->left);
+	ColumnIdentifierScanParam* rparam = dynamic_cast<ColumnIdentifierScanParam*>(this->right);
+
+	if(lparam->getTarget() == left){
+		l = true;
+	}else if(lparam->getTarget() == right){
+		r = true;
+	}
+
+	if(rparam->getTarget() == left){
+		l = true;
+	}else if(rparam->getTarget() == right){
+		r = true;
+	}
+
+	return l && r;
 }
 
 } /* namespace codablecash */

@@ -34,6 +34,9 @@ public:
 	virtual AbstractJoinCandidate* copy() const noexcept;
 
 private:
+	ColumnIdentifierScanParam* getRightParam(AbstractScanTableTarget* right) const noexcept;
+
+private:
 	ColumnIdentifierScanParam* left;
 	ColumnIdentifierScanParam* right;
 };
