@@ -100,7 +100,6 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 	AbstractScannerFactory* rightFactory = this->right->getScanFactory(vm, planner);
 	joinFactory->setRight(rightFactory);
 
-	// FIXME getScanFactory
 	return joinFactory;
 }
 

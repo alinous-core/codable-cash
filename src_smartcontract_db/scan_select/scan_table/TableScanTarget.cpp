@@ -123,7 +123,7 @@ AbstractScannerFactory* TableScanTarget::getScanFactory(VirtualMachine* vm, Sele
 	FilterConditionDitector filterDetector(vm, planner);
 	filterDetector.detect(this);
 
-	TableIndexDetector indexDetextor(vm, planner);
+	TableIndexDetector indexDetextor(vm, planner, this);
 	indexDetextor.detect(filterDetector.getCondition());
 
 	// FIXME getScanFactory

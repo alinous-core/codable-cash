@@ -19,10 +19,11 @@ class SelectScanPlanner;
 class AbstractScanCondition;
 class TableIndexDetectorStack;
 class AbstractIndexCandidate;
+class TableScanTarget;
 
 class TableIndexDetector {
 public:
-	TableIndexDetector(VirtualMachine* vm, SelectScanPlanner* planner);
+	TableIndexDetector(VirtualMachine* vm, SelectScanPlanner* planner, TableScanTarget* tableScanTarget);
 	virtual ~TableIndexDetector();
 
 	void detect(AbstractScanCondition* cond);
@@ -33,6 +34,7 @@ public:
 private:
 	VirtualMachine* vm;
 	SelectScanPlanner* planner;
+	TableScanTarget* tableScanTarget;
 
 	TableIndexDetectorStack* stack;
 

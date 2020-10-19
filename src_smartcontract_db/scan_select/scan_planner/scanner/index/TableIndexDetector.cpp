@@ -13,21 +13,23 @@
 
 namespace codablecash {
 
-TableIndexDetector::TableIndexDetector(VirtualMachine* vm, SelectScanPlanner* planner) {
+TableIndexDetector::TableIndexDetector(VirtualMachine* vm, SelectScanPlanner* planner, TableScanTarget* tableScanTarget) {
 	this->vm = vm;
 	this->planner = planner;
+	this->tableScanTarget = tableScanTarget;
 	this->stack = new TableIndexDetectorStack();
 }
 
 TableIndexDetector::~TableIndexDetector() {
 	this->vm = nullptr;
 	this->planner = nullptr;
+	this->tableScanTarget = nullptr;
 	delete this->stack;
 }
 
 void TableIndexDetector::detect(AbstractScanCondition* cond) {
 	if(cond != nullptr){
-
+		cond->detectIndexCondition(this->vm, this->planner, this);
 	}
 }
 

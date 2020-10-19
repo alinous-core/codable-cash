@@ -14,6 +14,7 @@ class AbstractIndexCandidate {
 public:
 	enum IndexType{
 		EQUALS,
+		RANGE,
 		AND,
 		OR
 	};
