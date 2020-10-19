@@ -31,6 +31,7 @@
 
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
 
+#include "scan_select/scan_planner/base/TablesHolder.h"
 
 namespace codablecash {
 
@@ -90,15 +91,25 @@ void ColumnIdentifierScanParam::analyzeConditions(VirtualMachine* vm, SelectScan
 	const UnicodeString* colName = this->sqlColId->getColumnName();
 
 	if(tableName == nullptr){
+		TablesHolder* tablesHolder = planner->getTablesHolder();
+		this->target = tablesHolder->findTable(colName);
+		if(this->target == nullptr){
+			throw new CdbException(L"Can not resolve column name.", __FILE__, __LINE__);
+		}
 
+		ScanTableColumnParam* param = this->target->findTableColumns(colName); __STP(param);
+		this->cdbColumn = param->column;
+
+		return;
 	}
 
 	if(schemaName == nullptr && resolveAlias(tableName, aliasResolver)){
 		ScanTableColumnParam* param = this->target->findTableColumns(colName); __STP(param);
 		if(param == nullptr){
-			throw new CdbException(L"", __FILE__, __LINE__);
+			throw new CdbException(L"Can not resolve column name.", __FILE__, __LINE__);
 		}
 		this->cdbColumn = param->column;
+		this->target = param->target;
 		return;
 	}
 

@@ -46,7 +46,7 @@ void FilterConditionDitector::detect(AbstractScanTableTarget* target) {
 
 }
 
-bool FilterConditionDitector::hasTarget(AbstractScanTableTarget* target) const noexcept {
+bool FilterConditionDitector::hasTarget(const AbstractScanTableTarget* target) const noexcept {
 	bool result = false;
 
 	int maxLoop = this->list.size();

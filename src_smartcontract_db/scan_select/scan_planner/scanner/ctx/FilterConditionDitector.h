@@ -28,7 +28,7 @@ public:
 	virtual ~FilterConditionDitector();
 
 	void detect(AbstractScanTableTarget* target);
-	bool hasTarget(AbstractScanTableTarget* target) const noexcept;
+	bool hasTarget(const AbstractScanTableTarget* target) const noexcept;
 
 	bool isEmpty() const noexcept;
 	void push(AbstractScanCondition* cond) noexcept;
