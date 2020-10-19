@@ -90,7 +90,7 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 		joinFactory = new LeftJoinScannerFactory(this->metadata);
 	}
 
-	const AbstractJoinCandidate* bestCandidate = joinCandidates.getBestCandidate();
+	const AbstractJoinCandidate* bestCandidate = joinCandidates.getBestCandidate(this->left, this->right);
 	joinFactory->setJoinCandidate(bestCandidate);
 
 

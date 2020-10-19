@@ -36,7 +36,7 @@ private:
 
 	void addOr(const JoinOrCandidate* candidate) noexcept;
 
-	virtual int getOverHeadScore() const noexcept;
+	virtual int getOverHeadScore(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept;
 
 private:
 	ArrayList<AbstractJoinCandidateCollection> list;

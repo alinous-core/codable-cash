@@ -44,7 +44,7 @@ JoinCandidate::CandidateType JoinCandidate::getCandidateType() const noexcept {
 	return JoinCandidate::CandidateType::EQUALS;
 }
 
-int JoinCandidate::getOverHeadScore() const noexcept {
+int JoinCandidate::getOverHeadScore(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept {
 	// TODO: getOverHeadScore()
 	return 10;
 }

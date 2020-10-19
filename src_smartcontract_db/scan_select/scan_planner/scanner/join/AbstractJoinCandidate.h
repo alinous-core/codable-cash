@@ -10,6 +10,8 @@
 
 namespace codablecash {
 
+class AbstractScanTableTarget;
+
 class AbstractJoinCandidate {
 public:
 	static const constexpr int LEFT_OUTER{1};
@@ -32,7 +34,7 @@ public:
 	virtual AbstractJoinCandidate* multiply(const AbstractJoinCandidate* other) const noexcept = 0;
 	virtual AbstractJoinCandidate* copy() const noexcept = 0;
 
-	virtual int getOverHeadScore() const noexcept = 0;
+	virtual int getOverHeadScore(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept = 0;
 protected:
 	int joinType;
 };

@@ -36,10 +36,11 @@ public:
 
 	bool isInnerJoin() const noexcept;
 
-	const AbstractJoinCandidate* getBestCandidate() const noexcept;
+	const AbstractJoinCandidate* getBestCandidate(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept;
 
 private:
-	const AbstractJoinCandidate* getBestFromList(const ArrayList<AbstractJoinCandidate>* list) const noexcept;
+	const AbstractJoinCandidate* getBestFromList(const ArrayList<AbstractJoinCandidate>* list,
+			AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept;
 
 private:
 	JoinCandidateStack* stack;

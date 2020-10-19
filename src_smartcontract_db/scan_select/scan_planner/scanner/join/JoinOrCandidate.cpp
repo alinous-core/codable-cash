@@ -101,14 +101,14 @@ AbstractJoinCandidate* JoinOrCandidate::copy() const noexcept {
 	return new JoinOrCandidate(*this);
 }
 
-int JoinOrCandidate::getOverHeadScore() const noexcept {
+int JoinOrCandidate::getOverHeadScore(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept {
 	int score = 0;
 
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractJoinCandidateCollection* col = this->list.get(i);
 
-		score += score;
+		score += col->getOverHeadScore(left, right);
 	}
 
 	return score;
