@@ -25,6 +25,7 @@
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionStackMarker.h"
 
+#include "scan_select/scan_table/AbstractScanTableTarget.h"
 using namespace alinous;
 
 namespace codablecash {
@@ -137,15 +138,15 @@ bool EqualityScanCondition::hasLeftAndRightScanTarget(
 	ColumnIdentifierScanParam* lparam = dynamic_cast<ColumnIdentifierScanParam*>(this->left);
 	ColumnIdentifierScanParam* rparam = dynamic_cast<ColumnIdentifierScanParam*>(this->right);
 
-	if(lparam->getTarget() == left){
+	if(lparam->getTarget()->hasTarget(left)){
 		l = true;
-	}else if(lparam->getTarget() == right){
+	}else if(lparam->getTarget()->hasTarget(right)){
 		r = true;
 	}
 
-	if(rparam->getTarget() == left){
+	if(rparam->getTarget()->hasTarget(left)){
 		l = true;
-	}else if(rparam->getTarget() == right){
+	}else if(rparam->getTarget()->hasTarget(right)){
 		r = true;
 	}
 
