@@ -135,7 +135,17 @@ bool TableScanTarget::hasTarget(const AbstractScanTableTarget* target) const noe
 }
 
 ScanTableColumnParam* TableScanTarget::findTableColumns(const UnicodeString* colName) const {
-	// TODO column
+	CdbTableColumn* column = this->table->getColumn(colName);
+	if(column != nullptr){
+		ScanTableColumnParam* param = new ScanTableColumnParam();
+		param->table = this->table;
+		param->column = column;
+		param->target = this;
+
+		return param;
+	}
+
+	return nullptr;
 }
 
 } /* namespace codablecash */

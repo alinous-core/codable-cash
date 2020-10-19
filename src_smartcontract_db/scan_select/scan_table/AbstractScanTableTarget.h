@@ -23,10 +23,12 @@ class AbstractScannerFactory;
 class ScanResultMetadata;
 class CdbTable;
 class CdbTableColumn;
+class AbstractScanTableTarget;
 
 typedef struct __ScanTableColumnParam {
 	const CdbTable* table;
 	const CdbTableColumn* column;
+	const AbstractScanTableTarget* target;
 } ScanTableColumnParam;
 
 class AbstractScanTableTarget {

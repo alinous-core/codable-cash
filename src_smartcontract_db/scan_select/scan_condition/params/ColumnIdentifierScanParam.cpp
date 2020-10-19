@@ -8,6 +8,7 @@
 #include "scan_select/scan_condition/params/ColumnIdentifierScanParam.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #include "schema_table/table/CdbTable.h"
 #include "schema_table/table/CdbTableColumn.h"
@@ -29,6 +30,7 @@
 #include "scan_select/scan_table/AbstractScanTableTarget.h"
 
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
+
 
 namespace codablecash {
 
@@ -92,6 +94,11 @@ void ColumnIdentifierScanParam::analyzeConditions(VirtualMachine* vm, SelectScan
 	}
 
 	if(schemaName == nullptr && resolveAlias(tableName, aliasResolver)){
+		ScanTableColumnParam* param = this->target->findTableColumns(colName); __STP(param);
+		if(param == nullptr){
+			throw new CdbException(L"", __FILE__, __LINE__);
+		}
+		this->cdbColumn = param->column;
 		return;
 	}
 
