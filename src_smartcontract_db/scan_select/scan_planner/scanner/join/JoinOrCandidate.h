@@ -30,6 +30,9 @@ public:
 
 	void add(const AbstractJoinCandidate* candidate) noexcept;
 
+	int size() const noexcept;
+	const AbstractJoinCandidateCollection* get(int i) const noexcept;
+
 private:
 	AbstractJoinCandidate* multiplyOr(const JoinOrCandidate* other) const noexcept;
 	void multiply(const JoinOrCandidate* other, const AbstractJoinCandidateCollection* col, JoinOrCandidate* newCond) const noexcept;

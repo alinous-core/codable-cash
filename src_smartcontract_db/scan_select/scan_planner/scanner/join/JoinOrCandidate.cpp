@@ -91,7 +91,7 @@ void JoinOrCandidate::add(const AbstractJoinCandidate* candidate) noexcept {
 void JoinOrCandidate::addOr(const JoinOrCandidate* candidate) noexcept {
 	int maxLoop = candidate->list.size();
 	for(int i = 0; i != maxLoop; ++i){
-		AbstractJoinCandidateCollection* col = candidate->list.get(i);
+		AbstractJoinCandidateCollection* col = dynamic_cast<AbstractJoinCandidateCollection*>(candidate->list.get(i)->copy());
 
 		this->list.addElement(col);
 	}
@@ -99,6 +99,14 @@ void JoinOrCandidate::addOr(const JoinOrCandidate* candidate) noexcept {
 
 AbstractJoinCandidate* JoinOrCandidate::copy() const noexcept {
 	return new JoinOrCandidate(*this);
+}
+
+int JoinOrCandidate::size() const noexcept {
+	return this->list.size();
+}
+
+const AbstractJoinCandidateCollection* JoinOrCandidate::get(int i) const noexcept {
+	return this->list.get(i);
 }
 
 int JoinOrCandidate::getOverHeadScore(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept {

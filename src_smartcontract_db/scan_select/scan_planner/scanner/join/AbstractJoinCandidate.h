@@ -35,6 +35,7 @@ public:
 	virtual AbstractJoinCandidate* copy() const noexcept = 0;
 
 	virtual int getOverHeadScore(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept = 0;
+
 protected:
 	int joinType;
 };
