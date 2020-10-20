@@ -30,6 +30,13 @@ SQLColumnIdentifier::SQLColumnIdentifier() : AbstractSQLExpression(CodeElement::
 	this->columnName =nullptr;
 }
 
+SQLColumnIdentifier::SQLColumnIdentifier(const wchar_t* schema,
+		const wchar_t* table, const wchar_t* column) : AbstractSQLExpression(CodeElement::SQL_EXP_COLUMN_ID) {
+	this->schema = new UnicodeString(schema);
+	this->tableName =new UnicodeString(table);
+	this->columnName =new UnicodeString(column);
+}
+
 SQLColumnIdentifier::~SQLColumnIdentifier() {
 	delete this->schema;
 	delete this->tableName;

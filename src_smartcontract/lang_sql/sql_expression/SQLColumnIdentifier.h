@@ -16,6 +16,7 @@ class UnicodeString;
 class SQLColumnIdentifier : public AbstractSQLExpression {
 public:
 	SQLColumnIdentifier();
+	SQLColumnIdentifier(const wchar_t* schema, const wchar_t* table, const wchar_t* column);
 	virtual ~SQLColumnIdentifier();
 
 	void setSchema(UnicodeString* schema) noexcept;

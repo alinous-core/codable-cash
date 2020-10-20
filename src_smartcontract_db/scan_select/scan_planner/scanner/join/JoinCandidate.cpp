@@ -71,6 +71,7 @@ AbstractJoinCandidate* JoinCandidate::multiply(const AbstractJoinCandidate* othe
 	}
 
 	JoinMultipleCandidate* candidate = new JoinMultipleCandidate(this->joinType);
+	candidate->mul(this);
 
 	const AbstractJoinCandidateCollection* col = dynamic_cast<const AbstractJoinCandidateCollection*>(other);
 
