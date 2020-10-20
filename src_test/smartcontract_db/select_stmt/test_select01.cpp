@@ -26,7 +26,7 @@ TEST_GROUP(TestSelect01Group) {
 
 TEST(TestSelect01Group, case01){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_db/select/resources/select01/case01/", projectFolder, this->env);
+	VmTestUtils util(L"src_test/smartcontract_db/select_stmt/resources/select01/case01/", projectFolder, this->env);
 
 	bool result = util.loadAllFiles();
 	CHECK(result)
