@@ -48,7 +48,7 @@ TEST(TestAlterParseGroup, AlterAddColumnCommand01){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/parse/alterAddColumn01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter/resources/parse/alterAddColumn01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -71,7 +71,7 @@ TEST(TestAlterParseGroup, AlterAddIndexCommand01){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/parse/alterAddIndexCommand01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter/resources/parse/alterAddIndexCommand01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -94,7 +94,7 @@ TEST(TestAlterParseGroup, AlterDropColumnCommand01){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/parse/alterDropColumnCommand01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter/resources/parse/alterDropColumnCommand01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -117,7 +117,7 @@ TEST(TestAlterParseGroup, AlterDropIndexCommand01){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter/resources/parse/alterDropIndexCommand01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter/resources/parse/alterDropIndexCommand01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();

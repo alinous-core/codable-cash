@@ -14,10 +14,10 @@
 #include "engine/compiler/SmartContractParser.h"
 
 #include "alinous_lang/AlinousLang.h"
-#include "../toolkit/TestDbSchema01.h"
-#include "../toolkit_alter/TestDbSchemaAlter01.h"
-#include "../toolkit_alter/TestDbSchemaAlter02.h"
-#include "../toolkit_alter/TestDbSchemaAlter03.h"
+#include "../../toolkit/TestDbSchema01.h"
+#include "../../toolkit_alter/TestDbSchemaAlter01.h"
+#include "../../toolkit_alter/TestDbSchemaAlter02.h"
+#include "../../toolkit_alter/TestDbSchemaAlter03.h"
 
 #include "engine/sc_analyze/AnalyzeContext.h"
 
