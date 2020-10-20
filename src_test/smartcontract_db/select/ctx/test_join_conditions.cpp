@@ -71,3 +71,30 @@ TEST(TestJoinConditionGroup, case02){
 		CHECK(mulCandidate->getCandidateType() == JoinCandidate::CandidateType::AND);
 	}
 }
+
+TEST(TestJoinConditionGroup, case03){
+	TestDbSchema01 tester(this->env);
+	tester.init(1024 * 10);
+
+	{
+		SQLColumnIdentifier id(L"public", L"test_table", L"id");
+		SQLColumnIdentifier email_id(L"public", L"test_table", L"email_id");
+		SQLColumnIdentifier email(L"public", L"test_table", L"email");
+
+		ColumnIdentifierScanParam pid(&id);
+		ColumnIdentifierScanParam pemail_id(&email_id);
+		ColumnIdentifierScanParam pemail(&email);
+
+		JoinCandidate candidate(JoinCandidate::INNER, &pid, &pemail_id);
+		JoinCandidate candidate2(JoinCandidate::INNER, &pemail_id, &pemail);
+
+		AbstractJoinCandidate* c3 = candidate.multiply(&candidate2); __STP(c3);
+
+		AbstractJoinCandidate* c4 = c3->copy();
+
+		AbstractJoinCandidate* c5 = c4->multiply(c3); __STP(c5);
+
+		JoinMultipleCandidate* mulCandidate = dynamic_cast<JoinMultipleCandidate*>(c5);
+		CHECK(mulCandidate->size() == 4);
+	}
+}
