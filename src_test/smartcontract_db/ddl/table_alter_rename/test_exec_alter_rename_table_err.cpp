@@ -50,7 +50,7 @@ TEST(TestExecAlterRenameTableErrGroup, case01){
 	VirtualMachine* vm = tester.getVm();
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_rename/resources/rename_err/case01.alns"));
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_rename/resources/rename_err/case01.alns"));
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();

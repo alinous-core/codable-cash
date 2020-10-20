@@ -37,7 +37,7 @@ TEST(TestExecAlterModifyIndexCheckGroup, case01){
 		 * ALTER TABLE test_table ADD UNIQUE INDEX test_index(email_id, comment);
 		 */
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_modify/resources/check_index/addIndex01.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_modify/resources/check_index/addIndex01.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);
@@ -51,7 +51,7 @@ TEST(TestExecAlterModifyIndexCheckGroup, case01){
 		 * ALTER TABLE test_table MODIFY comment int not null default 0;
 		 */
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_modify/resources/check_index/case01.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_modify/resources/check_index/case01.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);
@@ -76,7 +76,7 @@ TEST(TestExecAlterModifyIndexCheckGroup, case02){
 		 * ALTER TABLE test_table ADD UNIQUE INDEX test_index(email_id, comment);
 		 */
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_modify/resources/check_index/addIndex01.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_modify/resources/check_index/addIndex01.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);
@@ -90,7 +90,7 @@ TEST(TestExecAlterModifyIndexCheckGroup, case02){
 		 * ALTER TABLE test_table MODIFY comment int not null default 0;
 		 */
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_modify/resources/check_index/case01.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_modify/resources/check_index/case01.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);

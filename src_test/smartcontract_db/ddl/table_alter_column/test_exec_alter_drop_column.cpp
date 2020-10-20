@@ -57,7 +57,7 @@ TEST(TestExecAlterColumnDropGroup, case01){
 		 * ALTER TABLE test_table ADD INDEX test_index(id, email_id);
 		 */
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_column/resources/drop/case01_1.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_column/resources/drop/case01_1.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);
@@ -68,7 +68,7 @@ TEST(TestExecAlterColumnDropGroup, case01){
 		 * ALTER TABLE test_table DROP email_id;
 		 */
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_column/resources/drop/case01.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_column/resources/drop/case01.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);

@@ -54,7 +54,7 @@ TEST(TestExecAlterRenameColumnGroup, renameColumn01){
 	VirtualMachine* vm = tester.getVm();
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_rename/resources/exec_rename/renameColumn01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_rename/resources/exec_rename/renameColumn01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -103,7 +103,7 @@ TEST(TestExecAlterRenameColumnGroup, renameColumn02){
 	VirtualMachine* vm = tester.getVm();
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_rename/resources/exec_rename/renameColumn02.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_rename/resources/exec_rename/renameColumn02.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -139,7 +139,7 @@ TEST(TestExecAlterRenameColumnGroup, renameColumn03){
 	VirtualMachine* vm = tester.getVm();
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_rename/resources/exec_rename/renameColumn03.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_rename/resources/exec_rename/renameColumn03.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();

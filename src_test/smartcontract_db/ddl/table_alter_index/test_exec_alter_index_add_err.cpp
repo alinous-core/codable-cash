@@ -53,7 +53,7 @@ TEST(TestExecAlterIndexAddErrGroup, case01){
 
 	{
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/add_error/case01.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_index/resources/add_error/case01.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);
@@ -74,7 +74,7 @@ TEST(TestExecAlterIndexAddErrGroup, case02){
 
 	{
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/add_error/case02.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_index/resources/add_error/case02.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);
@@ -88,7 +88,7 @@ TEST(TestExecAlterIndexAddErrGroup, case02){
 		 * ALTER TABLE test_table ADD UNIQUE INDEX test_index2(email_id);
 		 */
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/add_error/case02_2.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_index/resources/add_error/case02_2.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);
@@ -109,7 +109,7 @@ TEST(TestExecAlterIndexAddErrGroup, case03){
 
 	{
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/add_error/case02.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_index/resources/add_error/case02.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);
@@ -120,7 +120,7 @@ TEST(TestExecAlterIndexAddErrGroup, case03){
 
 	{
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/add_error/case03.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_index/resources/add_error/case03.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);
@@ -142,7 +142,7 @@ TEST(TestExecAlterIndexAddErrGroup, case04){
 
 	{
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/add_error/case04.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_index/resources/add_error/case04.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);
@@ -165,7 +165,7 @@ TEST(TestExecAlterIndexAddErrGroup, case05){
 
 	{
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_index/resources/add_error/case05.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_index/resources/add_error/case05.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);

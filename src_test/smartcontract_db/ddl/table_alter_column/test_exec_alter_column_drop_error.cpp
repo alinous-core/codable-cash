@@ -53,7 +53,7 @@ TEST(TestExecAlterColumnDropErrorGroup, case01){
 
 	{
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_column/resources/drop_error/case01.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_column/resources/drop_error/case01.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);
@@ -76,7 +76,7 @@ TEST(TestExecAlterColumnDropErrorGroup, case02){
 
 	{
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_column/resources/drop_error/case02.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_column/resources/drop_error/case02.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);

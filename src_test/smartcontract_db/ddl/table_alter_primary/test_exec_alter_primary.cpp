@@ -54,7 +54,7 @@ TEST(TestExecAlterPrimaryGroup, dropPrimaryKey01){
 	VirtualMachine* vm = tester.getVm();
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_primary/resources/exec_primary/dropPrimaryKey01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_primary/resources/exec_primary/dropPrimaryKey01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -107,7 +107,7 @@ TEST(TestExecAlterPrimaryGroup, dropPrimaryKey02){
 	VirtualMachine* vm = tester.getVm();
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_primary/resources/exec_primary/dropPrimaryKey01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_primary/resources/exec_primary/dropPrimaryKey01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -143,7 +143,7 @@ TEST(TestExecAlterPrimaryGroup, addPrimaryKey01){
 	// DROP FIRST
 	{
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_primary/resources/exec_primary/dropPrimaryKey01.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_primary/resources/exec_primary/dropPrimaryKey01.alns"))
 		{
 			SmartContractParser parser(sourceFile);
 			AlinousLang* lang = parser.getDebugAlinousLang();
@@ -163,7 +163,7 @@ TEST(TestExecAlterPrimaryGroup, addPrimaryKey01){
 	}
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_primary/resources/exec_primary/addPrimaryKey01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_primary/resources/exec_primary/addPrimaryKey01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -199,7 +199,7 @@ TEST(TestExecAlterPrimaryGroup, addPrimaryKey02){
 	// DROP FIRST
 	{
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_primary/resources/exec_primary/dropPrimaryKey01.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_primary/resources/exec_primary/dropPrimaryKey01.alns"))
 		{
 			SmartContractParser parser(sourceFile);
 			AlinousLang* lang = parser.getDebugAlinousLang();
@@ -219,7 +219,7 @@ TEST(TestExecAlterPrimaryGroup, addPrimaryKey02){
 	}
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_primary/resources/exec_primary/addPrimaryKey01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_primary/resources/exec_primary/addPrimaryKey01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -251,7 +251,7 @@ TEST(TestExecAlterPrimaryGroup, addPrimaryKey03_err){
 	tester.insert01();
 	{
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_primary/resources/exec_primary/dropPrimaryKey01.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_primary/resources/exec_primary/dropPrimaryKey01.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);
@@ -259,7 +259,7 @@ TEST(TestExecAlterPrimaryGroup, addPrimaryKey03_err){
 
 	{
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_primary/resources/exec_primary/addPrimaryKey03_err.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_primary/resources/exec_primary/addPrimaryKey03_err.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);
@@ -281,7 +281,7 @@ TEST(TestExecAlterPrimaryGroup, addPrimaryKey04_err){
 
 	{
 		const File* projectFolder = this->env->getProjectRoot();
-		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_alter_primary/resources/exec_primary/addPrimaryKey01.alns"))
+		_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_alter_primary/resources/exec_primary/addPrimaryKey01.alns"))
 
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);
