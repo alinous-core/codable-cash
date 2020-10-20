@@ -9,7 +9,7 @@
 
 #include "base/StackRelease.h"
 
-#include "../../smartcontract_vm/VmTestUtils.h"
+#include "smartcontract_vm/VmTestUtils.h"
 #include "engine/sc/SmartContract.h"
 
 #include "engine/sc/CompilationUnit.h"
@@ -36,7 +36,7 @@ TEST_GROUP(TestScanConditionCastErrorGroup) {
 
 TEST(TestScanConditionCastErrorGroup, case01){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_db/select_condition/resources/cast_err/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_db/select/select_condition/resources/cast_err/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -67,7 +67,7 @@ TEST(TestScanConditionCastErrorGroup, case01){
 
 TEST(TestScanConditionCastErrorGroup, case02){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_db/select_condition/resources/cast_err/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_db/select/select_condition/resources/cast_err/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");
@@ -98,7 +98,7 @@ TEST(TestScanConditionCastErrorGroup, case02){
 
 TEST(TestScanConditionCastErrorGroup, case03){
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_db/select_condition/resources/cast_err/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_db/select/select_condition/resources/cast_err/", projectFolder);
 
 	util.loadAllFiles();
 	util.setMain(L"test.fw", L"SmartContract", L"main");

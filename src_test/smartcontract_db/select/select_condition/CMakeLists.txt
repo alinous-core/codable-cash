@@ -7,4 +7,4 @@ set(testsrc
 	test_select_contition02.cpp
 	test_select_logic_contition.cpp
 )
-handle_sub(testall "${testsrc}" test smartcontract_db/select_condition)
+handle_sub(testall "${testsrc}" test smartcontract_db/select/select_condition)

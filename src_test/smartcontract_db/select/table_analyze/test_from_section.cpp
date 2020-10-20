@@ -36,7 +36,7 @@ TEST(TestFromSectionGroup, list01){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_analyze/resources/from/from01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/table_analyze/resources/from/from01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -75,7 +75,7 @@ TEST(TestFromSectionGroup, join01){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_analyze/resources/from/join01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/table_analyze/resources/from/join01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -114,7 +114,7 @@ TEST(TestFromSectionGroup, join02){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_analyze/resources/from/join02.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/table_analyze/resources/from/join02.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -153,7 +153,7 @@ TEST(TestFromSectionGroup, join03){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_analyze/resources/from/join03.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/table_analyze/resources/from/join03.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -193,7 +193,7 @@ TEST(TestFromSectionGroup, join04){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_analyze/resources/from/join04.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/table_analyze/resources/from/join04.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -232,7 +232,7 @@ TEST(TestFromSectionGroup, join05){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_analyze/resources/from/join05.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/table_analyze/resources/from/join05.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();

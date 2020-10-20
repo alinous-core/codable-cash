@@ -1,5 +1,5 @@
 /*
- * test_select_logic_contition.cpp
+ * test_select_arithmetic_contition.cpp
  *
  *  Created on: 2020/07/31
  *      Author: iizuka
@@ -29,18 +29,19 @@
 
 using namespace alinous;
 
-TEST_GROUP(TestSelectLogicConditionGroup) {
+TEST_GROUP(TestSelectArithmeticConditionGroup) {
 	TEST_SETUP(){
 	}
 	TEST_TEARDOWN(){
 	}
 };
 
-TEST(TestSelectLogicConditionGroup, and01){
+
+TEST(TestSelectArithmeticConditionGroup, add01){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select_condition/resources/conditions/logic/where01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/select_condition/resources/conditions/arithmetic/where01.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -66,20 +67,20 @@ TEST(TestSelectLogicConditionGroup, and01){
 		RootScanCondition* root = holder->getRoot();
 		const UnicodeString* str = root->toStringCode();
 
-		UnicodeString sql(L"id = 'test' AND id2 = 100");
+		UnicodeString sql(L"id = 1 + 2 - 3");
 		CHECK(sql.equals(str));
 
-		AbstractScanCondition* copy = root->cloneCondition();__STP(copy);
+		AbstractScanCondition* copy = root->cloneCondition(); __STP(copy);
 		str = copy->toStringCode();
 		CHECK(sql.equals(str));
 	}
 }
 
-TEST(TestSelectLogicConditionGroup, or01){
+TEST(TestSelectArithmeticConditionGroup, add02){
 	VirtualMachine* vm = new VirtualMachine(1024 * 10); __STP(vm);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select_condition/resources/conditions/logic/where02.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/select_condition/resources/conditions/arithmetic/where02.alns"))
 	{
 		SmartContractParser parser(sourceFile);
 		AlinousLang* lang = parser.getDebugAlinousLang();
@@ -105,13 +106,32 @@ TEST(TestSelectLogicConditionGroup, or01){
 		RootScanCondition* root = holder->getRoot();
 		const UnicodeString* str = root->toStringCode();
 
-		UnicodeString sql(L"id = 'test' OR id2 = 100");
+		UnicodeString sql(L"public.test_table.id = 10 * 20 / 5 % 10");
 		CHECK(sql.equals(str));
 
-		AbstractScanCondition* copy = root->cloneCondition();__STP(copy);
+		AbstractScanCondition* copy = root->cloneCondition(); __STP(copy);
 		str = copy->toStringCode();
 		CHECK(sql.equals(str));
 	}
 }
+
+TEST(TestSelectArithmeticConditionGroup, SQLAdditiveExpression01){
+	SQLAdditiveExpression exp;
+	AnalyzedType at = exp.getType(nullptr);
+	CHECK(at.getType() == AnalyzedType::TYPE_LONG);
+}
+
+TEST(TestSelectArithmeticConditionGroup, SqlMultiplicativeExpression01){
+	SqlMultiplicativeExpression exp;
+	AnalyzedType at = exp.getType(nullptr);
+	CHECK(at.getType() == AnalyzedType::TYPE_LONG);
+}
+
+TEST(TestSelectArithmeticConditionGroup, SQLColumnIdentifier01){
+	SQLColumnIdentifier exp;
+	AnalyzedType at = exp.getType(nullptr);
+	CHECK(at.getType() == AnalyzedType::TYPE_NONE);
+}
+
 
 
