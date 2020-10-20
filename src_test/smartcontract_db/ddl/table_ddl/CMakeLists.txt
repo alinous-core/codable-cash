@@ -6,4 +6,4 @@ set(testsrc
 	test_create_table.cpp
 	test_drop_table.cpp
 )
-handle_sub(testall "${testsrc}" test smartcontract_db/table_ddl)
+handle_sub(testall "${testsrc}" test smartcontract_db/ddl/table_ddl)

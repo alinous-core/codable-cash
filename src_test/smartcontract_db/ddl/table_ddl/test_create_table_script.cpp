@@ -14,12 +14,14 @@
 
 #include "ext_binary/ExtClassObject.h"
 
-#include "../../smartcontract_vm/VmTestUtils.h"
 #include "vm/vm_trx/VmTransactionHandlerException.h"
 
 #include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "engine/sc_analyze/ValidationError.h"
+
+#include "smartcontract_vm/VmTestUtils.h"
+
 using namespace alinous;
 
 TEST_GROUP(TestCreateTableScriptGroup) {
@@ -34,7 +36,7 @@ TEST_GROUP(TestCreateTableScriptGroup) {
 
 TEST(TestCreateTableScriptGroup, case01) {
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_db/table_ddl/resources/create/case01/", projectFolder, this->env);
+	VmTestUtils util(L"src_test/smartcontract_db/ddl/table_ddl/resources/create/case01/", projectFolder, this->env);
 
 	bool result = util.loadAllFiles();
 	CHECK(result)
@@ -50,7 +52,7 @@ TEST(TestCreateTableScriptGroup, case01) {
 
 TEST(TestCreateTableScriptGroup, case01_2) {
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_db/table_ddl/resources/create/case01_2/", projectFolder, this->env);
+	VmTestUtils util(L"src_test/smartcontract_db/ddl/table_ddl/resources/create/case01_2/", projectFolder, this->env);
 
 	bool result = util.loadAllFiles();
 	CHECK(result)
@@ -66,7 +68,7 @@ TEST(TestCreateTableScriptGroup, case01_2) {
 
 TEST(TestCreateTableScriptGroup, case02_err) {
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_db/table_ddl/resources/create/case02_err/", projectFolder, this->env);
+	VmTestUtils util(L"src_test/smartcontract_db/ddl/table_ddl/resources/create/case02_err/", projectFolder, this->env);
 
 	bool result = util.loadAllFiles();
 	CHECK(result)
@@ -81,7 +83,7 @@ TEST(TestCreateTableScriptGroup, case02_err) {
 
 TEST(TestCreateTableScriptGroup, case03_err) {
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_db/table_ddl/resources/create/case03_err/", projectFolder, this->env);
+	VmTestUtils util(L"src_test/smartcontract_db/ddl/table_ddl/resources/create/case03_err/", projectFolder, this->env);
 
 	bool result = util.loadAllFiles();
 	CHECK(result)
@@ -96,7 +98,7 @@ TEST(TestCreateTableScriptGroup, case03_err) {
 
 TEST(TestCreateTableScriptGroup, case04_err) {
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_db/table_ddl/resources/create/case04_err/", projectFolder, this->env);
+	VmTestUtils util(L"src_test/smartcontract_db/ddl/table_ddl/resources/create/case04_err/", projectFolder, this->env);
 
 	bool result = util.loadAllFiles();
 	CHECK(result)
@@ -111,7 +113,7 @@ TEST(TestCreateTableScriptGroup, case04_err) {
 
 TEST(TestCreateTableScriptGroup, case05_err) {
 	const File* projectFolder = this->env->getProjectRoot();
-	VmTestUtils util(L"src_test/smartcontract_db/table_ddl/resources/create/case01/", projectFolder);
+	VmTestUtils util(L"src_test/smartcontract_db/ddl/table_ddl/resources/create/case01/", projectFolder);
 
 	bool result = util.loadAllFiles();
 	CHECK(result)

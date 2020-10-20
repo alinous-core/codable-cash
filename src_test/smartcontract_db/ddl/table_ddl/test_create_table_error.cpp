@@ -46,7 +46,7 @@ TEST(TestCreateTableErrorGroup, case01){
 	tester.init(1024*10);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_ddl/resources/create_err/case01.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_ddl/resources/create_err/case01.alns"))
 	{
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);
@@ -63,7 +63,7 @@ TEST(TestCreateTableErrorGroup, case02){
 	tester.init(1024*10);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_ddl/resources/create_err/case02.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_ddl/resources/create_err/case02.alns"))
 	{
 		bool result = tester.execDDL(sourceFile);
 		CHECK(result);
@@ -80,7 +80,7 @@ TEST(TestCreateTableErrorGroup, case03){
 	tester.init(1024*10);
 
 	const File* projectFolder = this->env->getProjectRoot();
-	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/table_ddl/resources/create_err/case03.alns"))
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/ddl/table_ddl/resources/create_err/case03.alns"))
 	{
 		bool result = tester.execDDL(sourceFile);
 		CHECK(!result);
