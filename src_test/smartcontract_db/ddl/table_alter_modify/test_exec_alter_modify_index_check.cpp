@@ -9,7 +9,7 @@
 
 #include "base/StackRelease.h"
 
-#include "../toolkit_alter/TestDbSchemaAlterModifyIndexCheck.h"
+#include "smartcontract_db/toolkit_alter//TestDbSchemaAlterModifyIndexCheck.h"
 #include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
 #include "ext_binary/ExtExceptionObject.h"

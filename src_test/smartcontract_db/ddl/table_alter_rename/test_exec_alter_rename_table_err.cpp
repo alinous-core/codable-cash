@@ -14,7 +14,7 @@
 #include "engine/compiler/SmartContractParser.h"
 
 #include "alinous_lang/AlinousLang.h"
-#include "../toolkit/TestDbSchema01.h"
+#include "smartcontract_db/toolkit/TestDbSchema01.h"
 
 #include "engine/sc_analyze/AnalyzeContext.h"
 

@@ -44,7 +44,7 @@
 
 #include "scan_select/scan/RecordScanner.h"
 
-#include "../toolkit/TestDbSchema01.h"
+#include "smartcontract_db/toolkit/TestDbSchema01.h"
 #include "lang_sql/sql_join_parts/TableIdentifier.h"
 
 using namespace codablecash;

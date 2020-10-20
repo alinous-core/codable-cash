@@ -14,10 +14,10 @@
 #include "engine/compiler/SmartContractParser.h"
 
 #include "alinous_lang/AlinousLang.h"
-#include "../toolkit/TestDbSchema01.h"
-#include "../toolkit_alter/TestDbSchemaAlter01.h"
-#include "../toolkit_alter/TestDbSchemaAlter02.h"
-#include "../toolkit_alter/TestDbSchemaAlter03.h"
+#include "smartcontract_db/toolkit/TestDbSchema01.h"
+#include "smartcontract_db/toolkit_alter//TestDbSchemaAlter01.h"
+#include "smartcontract_db/toolkit_alter//TestDbSchemaAlter02.h"
+#include "smartcontract_db/toolkit_alter//TestDbSchemaAlter03.h"
 
 #include "engine/sc_analyze/AnalyzeContext.h"
 
@@ -29,7 +29,7 @@
 #include "schema_table/table/CdbTableColumn.h"
 #include "schema_table/table/CdbTableIndex.h"
 
-#include "../toolkit_alter/TestDbSchemaAlterTextUnique01.h"
+#include "smartcontract_db/toolkit_alter//TestDbSchemaAlterTextUnique01.h"
 #include "ext_binary/ExtExceptionObject.h"
 
 #include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"

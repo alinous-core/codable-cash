@@ -8,7 +8,7 @@
 #ifndef SMARTCONTRACT_DB_TOOLKIT_ALTER_TESTDBSCHEMAALTERMODIFYINDEXCHECK_H_
 #define SMARTCONTRACT_DB_TOOLKIT_ALTER_TESTDBSCHEMAALTERMODIFYINDEXCHECK_H_
 
-#include "../toolkit/TestDbSchemaBase.h"
+#include "smartcontract_db/toolkit/TestDbSchemaBase.h"
 
 namespace codablecash {
 

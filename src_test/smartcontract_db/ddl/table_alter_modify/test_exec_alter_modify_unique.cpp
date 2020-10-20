@@ -14,10 +14,10 @@
 #include "engine/compiler/SmartContractParser.h"
 
 #include "alinous_lang/AlinousLang.h"
-#include "../toolkit/TestDbSchema01.h"
-#include "../toolkit_alter/TestDbSchemaAlter01.h"
-#include "../toolkit_alter/TestDbSchemaAlter02.h"
-#include "../toolkit_alter/TestDbSchemaAlter03.h"
+#include "smartcontract_db/toolkit/TestDbSchema01.h"
+#include "smartcontract_db/toolkit_alter//TestDbSchemaAlter01.h"
+#include "smartcontract_db/toolkit_alter//TestDbSchemaAlter02.h"
+#include "smartcontract_db/toolkit_alter//TestDbSchemaAlter03.h"
 
 #include "engine/sc_analyze/AnalyzeContext.h"
 
@@ -33,7 +33,7 @@
 
 #include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
-#include "../toolkit_alter/TestDbSchemaAlterText01.h"
+#include "smartcontract_db/toolkit_alter//TestDbSchemaAlterText01.h"
 using namespace alinous;
 using namespace codablecash;
 

@@ -11,7 +11,7 @@
 
 #include "base_io/File.h"
 
-#include "../toolkit/TestDbSchema01.h"
+#include "smartcontract_db/toolkit/TestDbSchema01.h"
 
 #include "vm/VirtualMachine.h"
 
@@ -26,7 +26,7 @@
 
 #include "trx/transaction_exception/DatabaseExceptionClassDeclare.h"
 
-#include "../toolkit/TestDbSchemaBase.h"
+#include "smartcontract_db/toolkit/TestDbSchemaBase.h"
 #include "engine/sc_analyze/ValidationError.h"
 
 using namespace codablecash;

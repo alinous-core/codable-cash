@@ -12,7 +12,7 @@
 
 #include "base_io/File.h"
 
-#include "../toolkit/TestDbSchema01.h"
+#include "smartcontract_db/toolkit/TestDbSchema01.h"
 
 #include "vm/VirtualMachine.h"
 
