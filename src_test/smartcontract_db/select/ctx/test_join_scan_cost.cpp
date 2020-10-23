@@ -152,3 +152,40 @@ TEST(TestJoinScanCostGroup, case03){
 	}
 }
 
+TEST(TestJoinScanCostGroup, case04){
+	TestDbSchema01 tester(this->env);
+	tester.init(1024 * 10);
+
+	VirtualMachine* vm = tester.getVm();
+
+	{
+		SelectScanPlanner* planner = new SelectScanPlanner(); __STP(planner);
+		VmSelectPlannerSetter setter(vm, planner);
+
+		TableScanTarget target_test_table(L"public", L"test_table");
+		target_test_table.resolveTable(vm, planner);
+
+		TableScanTarget target_emails(L"public", L"emails");
+		UnicodeString alias("em");
+		target_emails.setAlias(&alias);
+		target_emails.resolveTable(vm, planner);
+
+		SQLColumnIdentifier id(L"public", L"test_table", L"id");
+		SQLColumnIdentifier em_email_id(nullptr, L"em", L"email_id");
+		SQLColumnIdentifier em_email(nullptr, L"em", L"email");
+
+		ColumnIdentifierScanParam pid(&id);
+		ColumnIdentifierScanParam pem_email_id(&em_email_id);
+		ColumnIdentifierScanParam pem_email(&em_email);
+
+		pid.analyzeConditions(vm, planner);
+		pem_email_id.analyzeConditions(vm, planner);
+		pem_email.analyzeConditions(vm, planner);
+
+		JoinCandidate candidate1(JoinCandidate::INNER, &pid, &pem_email_id);
+		JoinCandidate candidate2(JoinCandidate::INNER, &pid, &pem_email);
+
+
+	}
+}
+

@@ -146,7 +146,7 @@ bool ColumnIdentifierScanParam::resolveAlias(const UnicodeString* tableAlias, Sc
 }
 
 bool ColumnIdentifierScanParam::hasIndex() const noexcept {
-	ScanTableColumnParam* p = this->target->findTableColumns(sqlColId->getColumnName());
+	ScanTableColumnParam* p = this->target->findTableColumns(sqlColId->getColumnName()); __STP(p);
 
 	if(p->table == nullptr){
 		return false;
