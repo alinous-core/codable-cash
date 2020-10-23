@@ -41,6 +41,16 @@ TableScanTarget::TableScanTarget() {
 	this->table = nullptr;
 }
 
+codablecash::TableScanTarget::TableScanTarget(const wchar_t* schema, const wchar_t* table) {
+	this->schema = new UnicodeString(schema);
+	this->tableName = new UnicodeString(table);
+	this->alias = nullptr;
+
+	this->str = nullptr;
+
+	this->table = nullptr;
+}
+
 TableScanTarget::~TableScanTarget() {
 	delete this->schema;
 	delete this->tableName;

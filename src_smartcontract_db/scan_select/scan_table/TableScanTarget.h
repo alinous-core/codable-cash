@@ -22,6 +22,7 @@ class CdbTable;
 class TableScanTarget : public AbstractScanTableTarget {
 public:
 	TableScanTarget();
+	TableScanTarget(const wchar_t* schema, const wchar_t* table);
 	virtual ~TableScanTarget();
 
 	void setSchema(const UnicodeString* schema) noexcept;

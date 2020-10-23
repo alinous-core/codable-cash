@@ -27,7 +27,7 @@ SelectScanPlanner::SelectScanPlanner() {
 	this->conditions = new ConditionsHolder();
 	this->tablesHolder = new TablesHolder();
 	this->columnHolder = new ScanColumnHolder();
-	this->plan = nullptr;
+	this->plan = new AnalyzedScanPlan();
 }
 
 SelectScanPlanner::~SelectScanPlanner() {
