@@ -26,6 +26,7 @@
 #include "scan_select/scan_planner/analyze/ScanTargetNameResolver.h"
 #include "scan_select/scan_planner/analyze/AnalyzedScanPlan.h"
 
+#include "scan_select/scan_planner/scanner/join/JoinCandidateStack.h"
 using namespace codablecash;
 
 TEST_GROUP(TestJoinScanCostGroup) {
@@ -185,6 +186,54 @@ TEST(TestJoinScanCostGroup, case04){
 		JoinCandidate candidate1(JoinCandidate::INNER, &pid, &pem_email_id);
 		JoinCandidate candidate2(JoinCandidate::INNER, &pid, &pem_email);
 
+		JoinOrCandidate orCandidate(JoinCandidate::INNER);
+		orCandidate.add(&candidate1);
+		orCandidate.add(&candidate2);
+
+		int cost = orCandidate.getOverHeadScore(&target_test_table, &target_emails);
+		CHECK(cost == 1001);
+	}
+}
+
+TEST(TestJoinScanCostGroup, case05){
+	TestDbSchema01 tester(this->env);
+	tester.init(1024 * 10);
+
+	VirtualMachine* vm = tester.getVm();
+
+	{
+		JoinCandidateStack stack;
+		stack.mark();
+
+		SelectScanPlanner* planner = new SelectScanPlanner(); __STP(planner);
+		VmSelectPlannerSetter setter(vm, planner);
+
+		TableScanTarget target_test_table(L"public", L"test_table");
+		target_test_table.resolveTable(vm, planner);
+
+		TableScanTarget target_emails(L"public", L"emails");
+		UnicodeString alias("em");
+		target_emails.setAlias(&alias);
+		target_emails.resolveTable(vm, planner);
+
+		SQLColumnIdentifier id(L"public", L"test_table", L"id");
+		SQLColumnIdentifier em_email_id(nullptr, L"em", L"email_id");
+
+		ColumnIdentifierScanParam pid(&id);
+		ColumnIdentifierScanParam pem_email_id(&em_email_id);
+
+		pid.analyzeConditions(vm, planner);
+		pem_email_id.analyzeConditions(vm, planner);
+
+		JoinCandidate candidate1(JoinCandidate::INNER, &pid, &pem_email_id);
+
+		stack.push(&candidate1);
+
+		if(!stack.isEmpty()){
+			JoinCandidate* jc = dynamic_cast<JoinCandidate*>(stack.pop());
+
+			CHECK(jc == &candidate1);
+		}
 
 	}
 }
