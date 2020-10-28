@@ -16,6 +16,7 @@ class IndexCandidate;
 
 class AbstractIndexCandidateCollection: public AbstractIndexCandidate {
 public:
+	AbstractIndexCandidateCollection(const AbstractIndexCandidateCollection& inst) = default;
 	AbstractIndexCandidateCollection();
 	virtual ~AbstractIndexCandidateCollection();
 

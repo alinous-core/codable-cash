@@ -12,6 +12,9 @@
 
 namespace codablecash {
 
+class ColumnIdentifierScanParam;
+class IValueProvider;
+
 class IndexCandidate: public AbstractIndexCandidateCollection {
 public:
 	IndexCandidate(const IndexCandidate& inst);
@@ -24,6 +27,10 @@ public:
 
 	virtual int size() const noexcept;
 	virtual const IndexCandidate* get(int i) const noexcept;
+
+private:
+	const ColumnIdentifierScanParam* column;
+	const IValueProvider* value;
 };
 
 } /* namespace codablecash */

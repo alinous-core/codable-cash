@@ -11,6 +11,8 @@
 
 #include "scan_select/scan_condition/base/IValueProvider.h"
 
+#include "scan_select/scan_condition/params/ColumnIdentifierScanParam.h"
+
 #include "engine/CdbException.h"
 
 #include "base/UnicodeString.h"
@@ -19,6 +21,11 @@
 
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionStackMarker.h"
+
+#include "scan_select/scan_planner/scanner/index/IndexCandidate.h"
+#include "scan_select/scan_planner/scanner/index/TableIndexDetector.h"
+
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
 
 using namespace alinous;
 
@@ -101,7 +108,24 @@ void RelationalScanCondition::detectFilterConditions(VirtualMachine* vm,
 
 void RelationalScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner,
 		TableIndexDetector* detector) {
+	ColumnIdentifierScanParam* column = nullptr;
+	IValueProvider* value = nullptr;
 
+	if(this->left->isColumn() && !this->right->isColumn()){
+		column = dynamic_cast<ColumnIdentifierScanParam*>(this->left);
+		value = this->right;
+	}
+	else if(!this->left->isColumn() && this->right->isColumn()){
+		column = dynamic_cast<ColumnIdentifierScanParam*>(this->right);
+		value = this->left;
+	}
+	else {
+		return;
+	}
+
+	IndexCandidate* candidate = new IndexCandidate();
+
+	//detector->push(candidate);
 
 	// FIXME detectIndexCondition
 }

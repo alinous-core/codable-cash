@@ -9,14 +9,26 @@
 #include "scan_select/scan_planner/scanner/index/OrIndexCandidate.h"
 #include "scan_select/scan_planner/scanner/index/MultipleIndexCandidate.h"
 
+#include "base/StackRelease.h"
+
+#include "scan_select/scan_planner/scanner/index/AbstractIndexCandidateCollection.h"
+
+#include "scan_select/scan_condition/params/ColumnIdentifierScanParam.h"
+
+#include "scan_select/scan_condition/base/IValueProvider.h"
+
+using namespace alinous;
+
 namespace codablecash {
 
-IndexCandidate::IndexCandidate(const IndexCandidate& inst) {
-
+IndexCandidate::IndexCandidate(const IndexCandidate& inst) : AbstractIndexCandidateCollection(inst) {
+	this->column = inst.column;
+	this->value = inst.value;
 }
 
-IndexCandidate::IndexCandidate() {
-
+IndexCandidate::IndexCandidate(){
+	this->column = nullptr;
+	this->value = nullptr;
 }
 
 IndexCandidate::~IndexCandidate() {
@@ -37,7 +49,8 @@ AbstractIndexCandidate* IndexCandidate::multiply(const AbstractIndexCandidate* o
 
 	MultipleIndexCandidate* candidate = new MultipleIndexCandidate();
 
-	const AbstractIndexCandidateCollection* col = dynamic_cast<const AbstractIndexCandidateCollection*>(other);
+	AbstractIndexCandidateCollection* col = dynamic_cast<AbstractIndexCandidateCollection*>(other->copy());
+	__STP(col);
 
 	int maxLoop = col->size();
 	for(int i = 0; i != maxLoop; ++i){

@@ -20,6 +20,8 @@ class AbstractScanCondition;
 class TableIndexDetectorStack;
 class AbstractIndexCandidate;
 class TableScanTarget;
+class ColumnIdentifierScanParam;
+class IValueProvider;
 
 class TableIndexDetector {
 public:

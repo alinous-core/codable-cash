@@ -2,6 +2,7 @@
 
 set(__src
 	AbstractIndexCandidate.cpp
+	AbstractIndexCandidateCollection.cpp
 	IndexCandidate.cpp
 	MultipleIndexCandidate.cpp
 	OrIndexCandidate.cpp

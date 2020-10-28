@@ -9,6 +9,13 @@
 #include "scan_select/scan_planner/scanner/index/IndexCandidate.h"
 #include "scan_select/scan_planner/scanner/index/OrIndexCandidate.h"
 
+#include "scan_select/scan_planner/scanner/index/AbstractIndexCandidateCollection.h"
+#include "scan_select/scan_planner/scanner/index/AbstractIndexCandidate.h"
+
+#include "base/StackRelease.h"
+
+using namespace alinous;
+
 namespace codablecash {
 
 MultipleIndexCandidate::MultipleIndexCandidate(const MultipleIndexCandidate& inst) {
@@ -49,7 +56,8 @@ AbstractIndexCandidate* MultipleIndexCandidate::multiply(const AbstractIndexCand
 	}
 
 	// other
-	const AbstractIndexCandidateCollection* col = dynamic_cast<const AbstractIndexCandidateCollection*>(other);
+	AbstractIndexCandidateCollection* col = dynamic_cast<AbstractIndexCandidateCollection*>(other->copy());
+	__STP(col);
 
 	maxLoop = col->size();
 	for(int i = 0; i != maxLoop; ++i){
