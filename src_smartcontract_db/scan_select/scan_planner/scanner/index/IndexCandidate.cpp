@@ -36,7 +36,7 @@ IndexCandidate::~IndexCandidate() {
 }
 
 AbstractIndexCandidate::IndexType IndexCandidate::getCandidateType() const noexcept {
-	return AbstractIndexCandidate::IndexType::EQUALS;
+	return this->indexType;
 }
 
 AbstractIndexCandidate* IndexCandidate::multiply(const AbstractIndexCandidate* other) const noexcept {
