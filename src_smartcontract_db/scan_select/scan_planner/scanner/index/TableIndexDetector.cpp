@@ -42,7 +42,7 @@ AbstractIndexCandidate* TableIndexDetector::pop() noexcept {
 }
 
 bool TableIndexDetector::isEmpty() const noexcept {
-	return this->isEmpty();
+	return this->stack->isEmpty();
 }
 
 } /* namespace codablecash */
