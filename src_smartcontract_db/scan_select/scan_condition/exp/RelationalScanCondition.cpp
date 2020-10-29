@@ -124,6 +124,8 @@ void RelationalScanCondition::detectIndexCondition(VirtualMachine* vm, SelectSca
 	}
 
 	IndexCandidate* candidate = new IndexCandidate(IndexCandidate::IndexType::RANGE);
+	candidate->setColumn(column);
+	candidate->setValue(value);
 
 	detector->push(candidate);
 }

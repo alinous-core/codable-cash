@@ -28,6 +28,14 @@ public:
 	virtual int size() const noexcept;
 	virtual const IndexCandidate* get(int i) const noexcept;
 
+	void setColumn(ColumnIdentifierScanParam* column) {
+		this->column = column;
+	}
+
+	void setValue(IValueProvider* value) {
+		this->value = value;
+	}
+
 private:
 	const ColumnIdentifierScanParam* column;
 	const IValueProvider* value;
