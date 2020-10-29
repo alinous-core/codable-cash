@@ -33,6 +33,8 @@ public:
 	void push(AbstractIndexCandidate* candidate) noexcept;
 	AbstractIndexCandidate* pop() noexcept;
 
+	bool isEmpty() const noexcept;
+
 private:
 	VirtualMachine* vm;
 	SelectScanPlanner* planner;

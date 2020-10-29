@@ -7,15 +7,17 @@
 
 #include "scan_select/scan_planner/scanner/factory/TableScannerFactory.h"
 
+#include "scan_select/scan_planner/scanner/index/AbstractIndexCandidate.h"
+
 namespace codablecash {
 
-TableScannerFactory::TableScannerFactory(const ScanResultMetadata* metadata)
+TableScannerFactory::TableScannerFactory(const ScanResultMetadata* metadata, const AbstractIndexCandidate* indexCandidate)
 				: AbstractScannerFactory(metadata){
-
+	this->indexCandidate = indexCandidate != nullptr ? indexCandidate->copy() : nullptr;
 }
 
 TableScannerFactory::~TableScannerFactory() {
-
+	delete this->indexCandidate;
 }
 
 } /* namespace codablecash */
