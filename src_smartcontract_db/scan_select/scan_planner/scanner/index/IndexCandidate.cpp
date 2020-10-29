@@ -26,7 +26,7 @@ IndexCandidate::IndexCandidate(const IndexCandidate& inst) : AbstractIndexCandid
 	this->value = inst.value;
 }
 
-IndexCandidate::IndexCandidate(){
+IndexCandidate::IndexCandidate(IndexType indexType) : AbstractIndexCandidateCollection(indexType) {
 	this->column = nullptr;
 	this->value = nullptr;
 }

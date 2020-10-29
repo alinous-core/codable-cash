@@ -17,7 +17,7 @@ using namespace alinous;
 
 namespace codablecash {
 
-OrIndexCandidate::OrIndexCandidate(const OrIndexCandidate& inst) {
+OrIndexCandidate::OrIndexCandidate(const OrIndexCandidate& inst) : AbstractIndexCandidate(inst.indexType) {
 	int maxLoop = inst.list.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractIndexCandidateCollection* col = inst.list.get(i);
@@ -25,7 +25,7 @@ OrIndexCandidate::OrIndexCandidate(const OrIndexCandidate& inst) {
 	}
 }
 
-OrIndexCandidate::OrIndexCandidate() {
+OrIndexCandidate::OrIndexCandidate() : AbstractIndexCandidate(AbstractIndexCandidate::IndexType::OR) {
 
 }
 

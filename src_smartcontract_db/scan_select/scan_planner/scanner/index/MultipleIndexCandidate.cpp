@@ -18,7 +18,7 @@ using namespace alinous;
 
 namespace codablecash {
 
-MultipleIndexCandidate::MultipleIndexCandidate(const MultipleIndexCandidate& inst) {
+MultipleIndexCandidate::MultipleIndexCandidate(const MultipleIndexCandidate& inst) : AbstractIndexCandidateCollection(inst.indexType) {
 	int maxLoop = inst.size();
 	for(int i = 0; i != maxLoop; ++i){
 		IndexCandidate* idx = inst.list.get(i);
@@ -26,7 +26,7 @@ MultipleIndexCandidate::MultipleIndexCandidate(const MultipleIndexCandidate& ins
 	}
 }
 
-MultipleIndexCandidate::MultipleIndexCandidate() {
+MultipleIndexCandidate::MultipleIndexCandidate() : AbstractIndexCandidateCollection(IndexType::AND) {
 
 }
 

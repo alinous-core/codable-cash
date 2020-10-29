@@ -123,11 +123,9 @@ void RelationalScanCondition::detectIndexCondition(VirtualMachine* vm, SelectSca
 		return;
 	}
 
-	IndexCandidate* candidate = new IndexCandidate();
+	IndexCandidate* candidate = new IndexCandidate(IndexCandidate::IndexType::RANGE);
 
-	//detector->push(candidate);
-
-	// FIXME detectIndexCondition
+	detector->push(candidate);
 }
 
 void RelationalScanCondition::resetStr() noexcept {

@@ -18,7 +18,7 @@ class IValueProvider;
 class IndexCandidate: public AbstractIndexCandidateCollection {
 public:
 	IndexCandidate(const IndexCandidate& inst);
-	IndexCandidate();
+	IndexCandidate(IndexType indexType);
 	virtual ~IndexCandidate();
 
 	virtual AbstractIndexCandidate::IndexType getCandidateType() const noexcept;

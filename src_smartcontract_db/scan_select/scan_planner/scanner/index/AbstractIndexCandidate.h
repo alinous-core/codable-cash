@@ -12,19 +12,23 @@ namespace codablecash {
 
 class AbstractIndexCandidate {
 public:
-	enum IndexType{
+	typedef enum __IndexType{
 		EQUALS,
 		RANGE,
 		AND,
 		OR
-	};
+	} IndexType;
 
-	AbstractIndexCandidate();
+	AbstractIndexCandidate(IndexType indexType);
 	virtual ~AbstractIndexCandidate();
 
 	virtual AbstractIndexCandidate::IndexType getCandidateType() const noexcept = 0;
 	virtual AbstractIndexCandidate* multiply(const AbstractIndexCandidate* other) const noexcept = 0;
 	virtual AbstractIndexCandidate* copy() const noexcept = 0;
+
+protected:
+	IndexType indexType;
+
 };
 
 } /* namespace codablecash */
