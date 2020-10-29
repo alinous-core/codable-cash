@@ -82,6 +82,8 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 	FilterConditionDitector filterDetector(vm, planner);
 	filterDetector.detect(this);
 
+	AbstractScanCondition* filterCondition = filterDetector.getCondition();
+
 	AbstractJoinScannerFactory* joinFactory = nullptr;
 	if(joinCandidates.isInnerJoin()){
 		joinFactory = new InnerJoinScannerFactory(this->metadata);

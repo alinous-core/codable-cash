@@ -9,14 +9,22 @@
 
 #include "trx/scan/transaction_scan_result/ScanResultMetadata.h"
 
+#include "scan_select/scan_condition/base/AbstractScanCondition.h"
+
 namespace codablecash {
 
 AbstractScannerFactory::AbstractScannerFactory(const ScanResultMetadata* metadata) {
 	this->metadata = new ScanResultMetadata(*metadata);
+	this->filterCondition = nullptr;
 }
 
 AbstractScannerFactory::~AbstractScannerFactory() {
 	delete this->metadata;
+	delete this->filterCondition;
+}
+
+void AbstractScannerFactory::setFilterCondition(const AbstractScanCondition* filterCondition) noexcept {
+	this->filterCondition = filterCondition->cloneCondition();
 }
 
 } /* namespace codablecash */
