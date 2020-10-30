@@ -81,6 +81,8 @@ void SelectScanPlanner::buildScannerFactories(VirtualMachine* vm) {
 
 void SelectScanPlanner::executeQuery(VirtualMachine* vm) {
 	AbstractScannerFactory* scanFactory = this->plan->getScanFactory();
+
+	// TODO exec scan
 }
 
 ConditionsHolderStack* SelectScanPlanner::getConditionsStack() const noexcept {

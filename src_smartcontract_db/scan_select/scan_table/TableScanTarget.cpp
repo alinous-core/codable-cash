@@ -29,6 +29,7 @@
 
 #include "scan_select/scan_planner/scanner/index/TableIndexDetector.h"
 
+#include "scan_select/scan_planner/scanner/factory/TableScannerFactory.h"
 namespace codablecash {
 
 TableScanTarget::TableScanTarget() {
@@ -133,6 +134,8 @@ AbstractScannerFactory* TableScanTarget::getScanFactory(VirtualMachine* vm, Sele
 	FilterConditionDitector filterDetector(vm, planner);
 	filterDetector.detect(this);
 
+	AbstractScanCondition* filterCondition = filterDetector.getCondition();
+
 	TableIndexDetector indexDetextor(vm, planner, this);
 	indexDetextor.detect(filterDetector.getCondition());
 
@@ -141,10 +144,10 @@ AbstractScannerFactory* TableScanTarget::getScanFactory(VirtualMachine* vm, Sele
 		indexCandidate = indexDetextor.pop();
 	}
 
+	TableScannerFactory* factory = new TableScannerFactory(this->metadata, indexCandidate);
+	factory->setFilterCondition(filterCondition);
 
-
-	// FIXME getScanFactory
-	return nullptr;
+	return factory;
 }
 
 bool TableScanTarget::hasTarget(const AbstractScanTableTarget* target) const noexcept {

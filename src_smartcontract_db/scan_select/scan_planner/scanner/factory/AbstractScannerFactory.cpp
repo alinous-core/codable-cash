@@ -24,7 +24,9 @@ AbstractScannerFactory::~AbstractScannerFactory() {
 }
 
 void AbstractScannerFactory::setFilterCondition(const AbstractScanCondition* filterCondition) noexcept {
-	this->filterCondition = filterCondition->cloneCondition();
+	if(filterCondition != nullptr){
+		this->filterCondition = filterCondition->cloneCondition();
+	}
 }
 
 } /* namespace codablecash */

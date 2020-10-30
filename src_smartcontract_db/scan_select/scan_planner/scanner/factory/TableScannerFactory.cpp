@@ -20,4 +20,14 @@ TableScannerFactory::~TableScannerFactory() {
 	delete this->indexCandidate;
 }
 
+IJoinLeftSource* TableScannerFactory::createScannerAsLeftSource(
+		VirtualMachine* vm, SelectScanPlanner* planner) {
+	// TODO left source
+}
+
+IJoinRightSource* TableScannerFactory::createScannerAsRightSource(
+		VirtualMachine* vm, SelectScanPlanner* planner) {
+	// TODO right source
+}
+
 } /* namespace codablecash */
