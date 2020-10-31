@@ -20,7 +20,9 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "scan_select/scan_planner/scanner/factory/AbstractScannerFactory.h"
 
+#include "trx/scan/transaction_scanner_join/IJoinLeftSource.h"
 namespace codablecash {
 
 SelectScanPlanner::SelectScanPlanner() {
@@ -81,6 +83,9 @@ void SelectScanPlanner::buildScannerFactories(VirtualMachine* vm) {
 
 void SelectScanPlanner::executeQuery(VirtualMachine* vm) {
 	AbstractScannerFactory* scanFactory = this->plan->getScanFactory();
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+
+	IJoinLeftSource* left = scanFactory->createScannerAsLeftSource(vm, planner);
 
 	// TODO exec scan
 }

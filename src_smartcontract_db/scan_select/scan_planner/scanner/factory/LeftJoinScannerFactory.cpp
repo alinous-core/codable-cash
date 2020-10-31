@@ -7,6 +7,8 @@
 
 #include "scan_select/scan_planner/scanner/factory/LeftJoinScannerFactory.h"
 
+#include "trx/scan/transaction_scanner_join/OuterJoinExecutor.h"
+
 namespace codablecash {
 
 LeftJoinScannerFactory::LeftJoinScannerFactory(const ScanResultMetadata* metadata)
@@ -20,8 +22,11 @@ LeftJoinScannerFactory::~LeftJoinScannerFactory() {
 
 IJoinLeftSource* LeftJoinScannerFactory::createScannerAsLeftSource(
 		VirtualMachine* vm, SelectScanPlanner* planner) {
-	// FIXME createScannerAsLeftSource
-	return nullptr;
+
+	OuterJoinExecutor* exec = nullptr;
+
+	// TODO createScannerAsLeftSource
+	return exec;
 }
 
 IJoinRightSource* LeftJoinScannerFactory::createScannerAsRightSource(
