@@ -24,7 +24,7 @@ IJoinLeftSource* InnerJoinScannerFactory::createScannerAsLeftSource(
 }
 
 IJoinRightSource* InnerJoinScannerFactory::createScannerAsRightSource(
-		VirtualMachine* vm, SelectScanPlanner* planner) {
+		VirtualMachine* vm, SelectScanPlanner* planner, const ScanJoinContext* joinContext) {
 	return nullptr;
 }
 

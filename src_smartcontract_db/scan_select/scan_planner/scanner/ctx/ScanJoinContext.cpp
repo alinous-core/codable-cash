@@ -11,8 +11,12 @@
 
 namespace codablecash {
 
+ScanJoinContext::ScanJoinContext(const ScanJoinContext& inst) {
+	this->joinCandidate = joinCandidate != nullptr ? inst.joinCandidate->copy() : nullptr;
+}
+
 ScanJoinContext::ScanJoinContext(const AbstractJoinCandidate* joinCandidate) {
-	this->joinCandidate = joinCandidate->copy();
+	this->joinCandidate = joinCandidate != nullptr ? joinCandidate->copy() : nullptr;
 }
 
 ScanJoinContext::~ScanJoinContext() {

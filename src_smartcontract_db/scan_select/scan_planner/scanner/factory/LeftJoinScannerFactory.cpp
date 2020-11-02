@@ -26,19 +26,20 @@ LeftJoinScannerFactory::~LeftJoinScannerFactory() {
 
 IJoinLeftSource* LeftJoinScannerFactory::createScannerAsLeftSource(
 		VirtualMachine* vm, SelectScanPlanner* planner) {
+	ScanJoinContext* joinContext = new ScanJoinContext(this->joinCandidate);
 
 	IJoinLeftSource* leftSource = this->leftFactory->createScannerAsLeftSource(vm, planner);
-	IJoinRightSource* rightSource = this->rightFactory->createScannerAsRightSource(vm, planner);
+	IJoinRightSource* rightSource = this->rightFactory->createScannerAsRightSource(vm, planner, joinContext);
 
 
-	ScanJoinContext* joinContext = new ScanJoinContext(this->joinCandidate);
+
 	OuterJoinExecutor* exec = new OuterJoinExecutor(leftSource, rightSource, this->metadata, joinContext, this->filterCondition);
 
 	return exec;
 }
 
 IJoinRightSource* LeftJoinScannerFactory::createScannerAsRightSource(
-		VirtualMachine* vm, SelectScanPlanner* planner) {
+		VirtualMachine* vm, SelectScanPlanner* planner, const ScanJoinContext* joinContext) {
 	// FIXME left join as right
 	return nullptr;
 }
