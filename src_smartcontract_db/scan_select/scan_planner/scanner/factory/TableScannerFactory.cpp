@@ -23,11 +23,15 @@ TableScannerFactory::~TableScannerFactory() {
 IJoinLeftSource* TableScannerFactory::createScannerAsLeftSource(
 		VirtualMachine* vm, SelectScanPlanner* planner) {
 	// TODO left source
+
+	return nullptr;
 }
 
 IJoinRightSource* TableScannerFactory::createScannerAsRightSource(
 		VirtualMachine* vm, SelectScanPlanner* planner) {
 	// TODO right source
+
+	return nullptr;
 }
 
 } /* namespace codablecash */

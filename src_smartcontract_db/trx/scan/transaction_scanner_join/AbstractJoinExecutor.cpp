@@ -14,13 +14,17 @@
 
 #include "trx/scan/transaction_scan_result/ScanResultMetadata.h"
 
+#include "scan_select/scan_condition/base/AbstractScanCondition.h"
+
 namespace codablecash {
 
-AbstractJoinExecutor::AbstractJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right, ScanResultMetadata* metadata, ScanJoinContext* context) {
+AbstractJoinExecutor::AbstractJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right, ScanResultMetadata* metadata
+		, ScanJoinContext* context, AbstractScanCondition* filterCondition) {
 	this->left = left;
 	this->right = right;
-	this->metadata = metadata;
+	this->metadata = new ScanResultMetadata(*metadata);
 	this->context = context;
+	this->filterCondition = filterCondition != nullptr ? filterCondition->cloneCondition() : nullptr;
 }
 
 AbstractJoinExecutor::~AbstractJoinExecutor() {
@@ -28,6 +32,7 @@ AbstractJoinExecutor::~AbstractJoinExecutor() {
 	delete this->right;
 	delete this->metadata;
 	delete this->context;
+	delete this->filterCondition;
 }
 
 } /* namespace codablecash */

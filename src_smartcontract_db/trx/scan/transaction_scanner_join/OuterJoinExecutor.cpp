@@ -9,8 +9,9 @@
 
 namespace codablecash {
 
-OuterJoinExecutor::OuterJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right, ScanResultMetadata* metadata, ScanJoinContext* context)
-					: AbstractJoinExecutor(left, right, metadata, context){
+OuterJoinExecutor::OuterJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right, ScanResultMetadata* metadata
+		, ScanJoinContext* context, AbstractScanCondition* filterCondition)
+					: AbstractJoinExecutor(left, right, metadata, context, filterCondition){
 
 }
 

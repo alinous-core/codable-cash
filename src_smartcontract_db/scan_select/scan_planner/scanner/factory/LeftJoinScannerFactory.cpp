@@ -32,14 +32,14 @@ IJoinLeftSource* LeftJoinScannerFactory::createScannerAsLeftSource(
 
 
 	ScanJoinContext* joinContext = new ScanJoinContext(this->joinCandidate);
-	OuterJoinExecutor* exec = new OuterJoinExecutor(leftSource, rightSource, this->metadata, joinContext);
+	OuterJoinExecutor* exec = new OuterJoinExecutor(leftSource, rightSource, this->metadata, joinContext, this->filterCondition);
 
-	// TODO createScannerAsLeftSource
 	return exec;
 }
 
 IJoinRightSource* LeftJoinScannerFactory::createScannerAsRightSource(
 		VirtualMachine* vm, SelectScanPlanner* planner) {
+	// FIXME left join as right
 	return nullptr;
 }
 
