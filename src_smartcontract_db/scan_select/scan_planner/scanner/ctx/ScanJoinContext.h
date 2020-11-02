@@ -10,10 +10,15 @@
 
 namespace codablecash {
 
+class AbstractJoinCandidate;
+
 class ScanJoinContext {
 public:
-	ScanJoinContext();
+	explicit ScanJoinContext(const AbstractJoinCandidate* joinCandidate);
 	virtual ~ScanJoinContext();
+
+private:
+	AbstractJoinCandidate* joinCandidate;
 };
 
 } /* namespace codablecash */
