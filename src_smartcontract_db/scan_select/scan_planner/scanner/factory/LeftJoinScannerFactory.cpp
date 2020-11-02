@@ -9,8 +9,10 @@
 
 #include "trx/scan/transaction_scanner_join/OuterJoinExecutor.h"
 #include "trx/scan/transaction_scanner_join/IJoinLeftSource.h"
-
 #include "trx/scan/transaction_scanner_join/IJoinRightSource.h"
+
+#include "scan_select/scan_planner/scanner/ctx/ScanJoinContext.h"
+
 namespace codablecash {
 
 LeftJoinScannerFactory::LeftJoinScannerFactory(const ScanResultMetadata* metadata)
@@ -29,7 +31,8 @@ IJoinLeftSource* LeftJoinScannerFactory::createScannerAsLeftSource(
 	IJoinRightSource* rightSource = this->rightFactory->createScannerAsRightSource(vm, planner);
 
 
-	OuterJoinExecutor* exec = nullptr; //  new OuterJoinExecutor(leftSource, rightSource, this->metadata, );
+	ScanJoinContext* joinContext = new ScanJoinContext(this->joinCandidate);
+	OuterJoinExecutor* exec = new OuterJoinExecutor(leftSource, rightSource, this->metadata, joinContext);
 
 	// TODO createScannerAsLeftSource
 	return exec;

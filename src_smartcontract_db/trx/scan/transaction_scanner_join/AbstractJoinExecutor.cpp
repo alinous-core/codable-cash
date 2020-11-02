@@ -12,12 +12,11 @@
 
 #include "scan_select/scan_planner/scanner/ctx/ScanJoinContext.h"
 
-#include "trx/scan/transaction_scan_result/ScanResultFieldMetadata.h"
-
+#include "trx/scan/transaction_scan_result/ScanResultMetadata.h"
 
 namespace codablecash {
 
-AbstractJoinExecutor::AbstractJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right, ScanResultFieldMetadata* metadata, ScanJoinContext* context) {
+AbstractJoinExecutor::AbstractJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right, ScanResultMetadata* metadata, ScanJoinContext* context) {
 	this->left = left;
 	this->right = right;
 	this->metadata = metadata;

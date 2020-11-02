@@ -14,8 +14,14 @@ namespace codablecash {
 
 class OuterJoinExecutor : public AbstractJoinExecutor {
 public:
-	OuterJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right, ScanResultFieldMetadata* metadata, ScanJoinContext* context);
+	OuterJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right, ScanResultMetadata* metadata, ScanJoinContext* context);
 	virtual ~OuterJoinExecutor();
+
+	virtual void start();
+	virtual bool hasNext();
+	virtual const CdbRecord* next();
+
+	virtual void shutdown();
 };
 
 } /* namespace codablecash */

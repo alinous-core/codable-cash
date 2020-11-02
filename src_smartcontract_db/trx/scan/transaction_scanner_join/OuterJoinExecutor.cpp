@@ -9,13 +9,28 @@
 
 namespace codablecash {
 
-OuterJoinExecutor::OuterJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right, ScanResultFieldMetadata* metadata, ScanJoinContext* context)
+OuterJoinExecutor::OuterJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right, ScanResultMetadata* metadata, ScanJoinContext* context)
 					: AbstractJoinExecutor(left, right, metadata, context){
 
 }
 
 OuterJoinExecutor::~OuterJoinExecutor() {
-
+	shutdown();
 }
+
+void OuterJoinExecutor::start() {
+}
+
+bool OuterJoinExecutor::hasNext() {
+	return false;
+}
+
+const CdbRecord* OuterJoinExecutor::next() {
+	return nullptr;
+}
+
+void OuterJoinExecutor::shutdown() {
+}
+
 
 } /* namespace codablecash */

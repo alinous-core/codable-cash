@@ -14,15 +14,15 @@ namespace codablecash {
 
 class IJoinLeftSource;
 class IJoinRightSource;
-class ScanResultFieldMetadata;
+class ScanResultMetadata;
 class ScanJoinContext;
 
 class AbstractJoinExecutor : public IJoinLeftSource {
 public:
-	AbstractJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right, ScanResultFieldMetadata* metadata, ScanJoinContext* context);
+	AbstractJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right, ScanResultMetadata* metadata, ScanJoinContext* context);
 	virtual ~AbstractJoinExecutor();
 
-	const ScanResultFieldMetadata* getMedadata() const noexcept {
+	const ScanResultMetadata* getMedadata() const noexcept {
 		return metadata;
 	}
 
@@ -30,7 +30,7 @@ protected:
 	IJoinLeftSource* left;
 	IJoinRightSource* right;
 
-	ScanResultFieldMetadata* metadata;
+	ScanResultMetadata* metadata;
 	ScanJoinContext* context;
 };
 
