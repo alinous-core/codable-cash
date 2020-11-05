@@ -123,7 +123,8 @@ void RelationalScanCondition::detectIndexCondition(VirtualMachine* vm, SelectSca
 		return;
 	}
 
-	IndexCandidate* candidate = new IndexCandidate(IndexCandidate::IndexType::RANGE);
+	AbstractIndexCandidate::IndexType indexType = toIndexType(this->op);
+	IndexCandidate* candidate = new IndexCandidate(indexType);
 	candidate->setColumn(column);
 	candidate->setValue(value);
 
@@ -141,5 +142,29 @@ void RelationalScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPl
 	this->left->analyzeConditions(vm, planner);
 	this->right->analyzeConditions(vm, planner);
 }
+
+AbstractIndexCandidate::IndexType RelationalScanCondition::toIndexType(uint8_t op) {
+	AbstractIndexCandidate::IndexType idxType;
+
+	switch(op){
+	case SQLRelationalExpression::GT:
+		idxType = AbstractIndexCandidate::IndexType::RANGE_GT;
+		break;
+	case SQLRelationalExpression::GT_EQ:
+		idxType = AbstractIndexCandidate::IndexType::RANGE_GT_EQ;
+		break;
+	case SQLRelationalExpression::LT:
+		idxType = AbstractIndexCandidate::IndexType::RANGE_LT;
+		break;
+	case SQLRelationalExpression::LT_EQ:
+		idxType = AbstractIndexCandidate::IndexType::RANGE_LT_EQ;
+		break;
+	default:
+		throw new CdbException(L"wrong operation code", __FILE__, __LINE__);
+	}
+
+	return idxType;
+}
+
 
 } /* namespace codablecash */
