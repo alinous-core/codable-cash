@@ -9,6 +9,8 @@
 
 #include "scan_select/scan_planner/scanner/index/AbstractIndexCandidate.h"
 
+#include "trx/scan/transaction_scanner/TableTransactionScanner.h"
+
 namespace codablecash {
 
 TableScannerFactory::TableScannerFactory(const ScanResultMetadata* metadata, const AbstractIndexCandidate* indexCandidate)
@@ -22,6 +24,9 @@ TableScannerFactory::~TableScannerFactory() {
 
 IJoinLeftSource* TableScannerFactory::createScannerAsLeftSource(
 		VirtualMachine* vm, SelectScanPlanner* planner) {
+	TableTransactionScanner* scanner = nullptr;
+
+
 	// TODO left source
 
 	return nullptr;

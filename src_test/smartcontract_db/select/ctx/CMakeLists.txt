@@ -1,5 +1,6 @@
 
 set(testsrc
+	test_index_conditions.cpp
 	test_join_conditions.cpp
 	test_join_scan_cost.cpp
 )
