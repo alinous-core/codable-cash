@@ -22,6 +22,11 @@ StringScanParam::StringScanParam(const UnicodeString* str) {
 	this->str = nullptr;
 }
 
+StringScanParam::StringScanParam(const wchar_t* str) {
+	this->value = new UnicodeString(str);
+	this->str = nullptr;
+}
+
 StringScanParam::~StringScanParam() {
 	delete this->value;
 	delete this->str;

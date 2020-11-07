@@ -20,7 +20,8 @@ namespace codablecash {
 class StringScanParam : public AbstractScanConditionParameter {
 public:
 	StringScanParam(const StringScanParam& inst);
-	StringScanParam(const UnicodeString* str);
+	explicit StringScanParam(const UnicodeString* str);
+	explicit StringScanParam(const wchar_t* str);
 	virtual ~StringScanParam();
 
 	virtual const UnicodeString* toStringCode() noexcept;
