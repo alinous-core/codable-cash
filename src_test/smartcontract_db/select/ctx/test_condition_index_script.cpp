@@ -59,5 +59,10 @@ TEST(TestConditionIndexScriptGroup, case01){
 		cond->preAnalyze(actx);
 		cond->analyzeTypeRef(actx);
 		cond->analyze(actx);
+
+		cond->init(vm);
+
+
+
 	}
 }
