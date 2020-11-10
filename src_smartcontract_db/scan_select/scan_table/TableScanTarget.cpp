@@ -140,7 +140,7 @@ AbstractScannerFactory* TableScanTarget::getScanFactory(VirtualMachine* vm, Sele
 	AbstractScanCondition* filterCondition = filterDetector.getCondition();
 
 	TableIndexDetector indexDetextor(vm, planner, this);
-	indexDetextor.detect(filterDetector.getCondition());
+	indexDetextor.detect(filterCondition);
 
 	AbstractIndexCandidate* indexCandidate = nullptr;
 	if(!indexDetextor.isEmpty()){

@@ -35,6 +35,10 @@
 #include "scan_select/scan_condition/base/AbstractScanCondition.h"
 
 #include "scan_select/scan_condition/base/ScanConditionCast.h"
+
+#include "scan_select/scan_planner/scanner/index/TableIndexDetector.h"
+
+#include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
 //using namespace codablecash;
 
 TEST_GROUP(TestConditionIndexScriptGroup) {
@@ -93,6 +97,14 @@ TEST(TestConditionIndexScriptGroup, case01){
 
 		AbstractScanCondition* cond = ScanConditionCast::toAbstractScanCondition(element, vm, nullptr);
 		root->addCondition(cond);
+
+		FilterConditionDitector filterDetector(vm, planner);
+		filterDetector.detect(target); // FIXME analyze column
+
+		AbstractScanCondition* filterCondition = filterDetector.getCondition();
+
+		TableIndexDetector indexDetextor(vm, planner, target);
+		indexDetextor.detect(filterCondition);
 
 
 	}
