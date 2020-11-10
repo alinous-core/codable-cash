@@ -30,6 +30,9 @@
 #include "scan_select/scan_planner/scanner/index/TableIndexDetector.h"
 
 #include "scan_select/scan_planner/scanner/factory/TableScannerFactory.h"
+
+#include "base/StackRelease.h"
+
 namespace codablecash {
 
 TableScanTarget::TableScanTarget() {
@@ -143,6 +146,7 @@ AbstractScannerFactory* TableScanTarget::getScanFactory(VirtualMachine* vm, Sele
 	if(!indexDetextor.isEmpty()){
 		indexCandidate = indexDetextor.pop();
 	}
+	__STP(indexCandidate);
 
 	TableScannerFactory* factory = new TableScannerFactory(this->metadata, indexCandidate);
 	factory->setFilterCondition(filterCondition);

@@ -86,9 +86,8 @@ void SelectScanPlanner::buildScannerFactories(VirtualMachine* vm) {
 
 void SelectScanPlanner::executeQuery(VirtualMachine* vm) {
 	AbstractScannerFactory* scanFactory = this->plan->getScanFactory();
-	SelectScanPlanner* planner = vm->getSelectPlanner();
 
-	IJoinLeftSource* left = scanFactory->createScannerAsLeftSource(vm, planner); __STP(left);
+	IJoinLeftSource* left = scanFactory->createScannerAsLeftSource(vm, this); __STP(left);
 
 	// TODO exec scan
 }
