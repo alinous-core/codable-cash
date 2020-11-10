@@ -26,6 +26,15 @@
 
 #include "vm/VmSelectPlannerSetter.h"
 
+#include "scan_select/scan_planner/base/ConditionsHolder.h"
+
+#include "scan_select/scan_condition/base/RootScanCondition.h"
+
+#include "scan_select/scan_planner/base/TablesHolder.h"
+
+#include "scan_select/scan_condition/base/AbstractScanCondition.h"
+
+#include "scan_select/scan_condition/base/ScanConditionCast.h"
 //using namespace codablecash;
 
 TEST_GROUP(TestConditionIndexScriptGroup) {
@@ -56,20 +65,35 @@ TEST(TestConditionIndexScriptGroup, case01){
 	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/ctx/resources/conditions/and01.alns"))
 
 	{
-		AbstractSQLExpression* cond = parse(sourceFile); __STP(cond);
+		AbstractSQLExpression* sqlexp = parse(sourceFile); __STP(sqlexp);
 
 		AnalyzeContext* actx = new AnalyzeContext(); __STP(actx);
 		actx->setVm(vm);
 
-		cond->preAnalyze(actx);
-		cond->analyzeTypeRef(actx);
-		cond->analyze(actx);
+		sqlexp->preAnalyze(actx);
+		sqlexp->analyzeTypeRef(actx);
+		sqlexp->analyze(actx);
 
-		cond->init(vm);
+		sqlexp->init(vm);
+
 
 		SelectScanPlanner* planner = new SelectScanPlanner(); __STP(planner);
 		VmSelectPlannerSetter setter(vm, planner);
 
-		TableScanTarget* target = tester.getScanTarget(L"public", L"test_table"); __STP(target);
+		TablesHolder* tableHolder = planner->getTablesHolder();
+		TableScanTarget* target = tester.getScanTarget(L"public", L"test_table");
+		tableHolder->addScanTarget(target);
+
+		sqlexp->interpret(vm);
+
+		ConditionsHolder* cholder = planner->getConditions();
+		RootScanCondition* root = cholder->getRoot();
+
+		AbstractScanConditionElement* element = cholder->pop();
+
+		AbstractScanCondition* cond = ScanConditionCast::toAbstractScanCondition(element, vm, nullptr);
+		root->addCondition(cond);
+
+
 	}
 }
