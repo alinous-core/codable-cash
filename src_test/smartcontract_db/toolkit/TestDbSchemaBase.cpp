@@ -43,6 +43,8 @@
 
 #include "engine/sc_analyze/AnalyzeContext.h"
 
+#include "scan_select/scan_table/TableScanTarget.h"
+
 namespace codablecash {
 
 TestDbSchemaBase::TestDbSchemaBase(TestEnv* env) {
@@ -274,10 +276,13 @@ bool TestDbSchemaBase::execDDL(const File* sourceFile) {
 	return true;
 }
 
-TableScanTarget* TestDbSchemaBase::getScanTarget() const {
+TableScanTarget* TestDbSchemaBase::getScanTarget(const wchar_t* schema, const wchar_t* table) const {
 	SelectScanPlanner* planner = this->vm->getSelectPlanner();
 
+	TableScanTarget* target = new TableScanTarget(schema, table);
+	target->resolveTable(this->vm, planner);
 
+	return target;
 }
 
 } /* namespace codablecash */

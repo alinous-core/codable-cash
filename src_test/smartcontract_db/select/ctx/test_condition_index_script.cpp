@@ -22,6 +22,8 @@
 
 #include "scan_select/scan_planner/base/SelectScanPlanner.h"
 
+#include "scan_select/scan_table/TableScanTarget.h"
+
 #include "vm/VmSelectPlannerSetter.h"
 
 //using namespace codablecash;
@@ -67,5 +69,7 @@ TEST(TestConditionIndexScriptGroup, case01){
 
 		SelectScanPlanner* planner = new SelectScanPlanner(); __STP(planner);
 		VmSelectPlannerSetter setter(vm, planner);
+
+		TableScanTarget* target = tester.getScanTarget(L"public", L"test_table"); __STP(target);
 	}
 }
