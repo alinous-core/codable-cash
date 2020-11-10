@@ -274,4 +274,10 @@ bool TestDbSchemaBase::execDDL(const File* sourceFile) {
 	return true;
 }
 
+TableScanTarget* TestDbSchemaBase::getScanTarget() const {
+	SelectScanPlanner* planner = this->vm->getSelectPlanner();
+
+
+}
+
 } /* namespace codablecash */

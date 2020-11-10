@@ -30,6 +30,7 @@ class IndexStore;
 class CdbRecord;
 class SchemaManager;
 class CdbStorageManager;
+class TableScanTarget;
 
 class TestDbSchemaBase {
 public:
@@ -69,6 +70,8 @@ public:
 	CdbStorageManager* getStorageManager() const noexcept;
 
 	bool execDDL(const File* sourceFile);
+
+	TableScanTarget* getScanTarget() const;
 protected:
 	void initSmartcontract();
 	void setMain(const wchar_t* pkg, const wchar_t* clazz, const wchar_t* method) noexcept;

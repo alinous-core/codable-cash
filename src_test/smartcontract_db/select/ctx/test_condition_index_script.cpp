@@ -20,6 +20,9 @@
 #include "alinous_lang/AlinousLang.h"
 #include "smartcontract_db/toolkit/TestDbSchema01.h"
 
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
+
+#include "vm/VmSelectPlannerSetter.h"
 
 //using namespace codablecash;
 
@@ -62,7 +65,7 @@ TEST(TestConditionIndexScriptGroup, case01){
 
 		cond->init(vm);
 
-
-
+		SelectScanPlanner* planner = new SelectScanPlanner(); __STP(planner);
+		VmSelectPlannerSetter setter(vm, planner);
 	}
 }
