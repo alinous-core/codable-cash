@@ -107,7 +107,7 @@ void AndScanCondition::detectFilterConditions(VirtualMachine* vm,
 }
 
 void AndScanCondition::detectIndexCondition(VirtualMachine* vm,	SelectScanPlanner* planner, TableIndexDetector* detector) {
-	// FIXME detectIndexCondition
+	// TODO detectIndexCondition
 }
 
 void AndScanCondition::resetStr() noexcept {

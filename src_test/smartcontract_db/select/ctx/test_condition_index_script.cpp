@@ -97,6 +97,7 @@ TEST(TestConditionIndexScriptGroup, case01){
 
 		AbstractScanCondition* cond = ScanConditionCast::toAbstractScanCondition(element, vm, nullptr);
 		root->addCondition(cond);
+		root->analyzeConditions(vm, planner);
 
 		FilterConditionDitector filterDetector(vm, planner);
 		filterDetector.detect(target); // FIXME analyze column
