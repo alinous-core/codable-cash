@@ -86,11 +86,20 @@ void MultipleIndexCandidate::mul(const IndexCandidate* candidate) noexcept {
 
 void MultipleIndexCandidate::addCandidate(const IndexCandidate* candidate) {
 	if(candidate->isRange()){
-
+		handleRangeCandidate(candidate);
+		return;
 	}
 
 	this->list.addElement(new IndexCandidate(*candidate));
 }
 
+void MultipleIndexCandidate::handleRangeCandidate(const IndexCandidate* candidate) {
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+
+	}
+
+	// TODO: range
+}
 
 } /* namespace codablecash */

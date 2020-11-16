@@ -10,12 +10,13 @@
 namespace codablecash {
 
 IndexRangeCandidate::IndexRangeCandidate() : IndexCandidate(IndexType::RANGE) {
-	// TODO Auto-generated constructor stub
-
+	this->topValue = nullptr;
+	this->bottomEq = false;
+	this->topEq = false;
 }
 
 IndexRangeCandidate::~IndexRangeCandidate() {
-	// TODO Auto-generated destructor stub
+	this->topValue = nullptr;
 }
 
 } /* namespace codablecash */

@@ -38,7 +38,7 @@ public:
 		this->value = value;
 	}
 
-private:
+protected:
 	const ColumnIdentifierScanParam* column;
 	const IValueProvider* value;
 };

@@ -33,6 +33,7 @@ public:
 
 private:
 	void addCandidate(const IndexCandidate* candidate);
+	void handleRangeCandidate(const IndexCandidate* candidate);
 
 
 private:

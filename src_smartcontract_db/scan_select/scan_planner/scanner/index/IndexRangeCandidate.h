@@ -12,11 +12,19 @@
 
 namespace codablecash {
 
+class IValueProvider;
+
 class IndexRangeCandidate : public IndexCandidate {
 public:
 	IndexRangeCandidate();
 	virtual ~IndexRangeCandidate();
 
+
+private:
+	const IValueProvider* topValue;
+
+	bool topEq;
+	bool bottomEq;
 };
 
 } /* namespace codablecash */

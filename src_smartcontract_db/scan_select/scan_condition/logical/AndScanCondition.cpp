@@ -138,15 +138,13 @@ void AndScanCondition::detectIndexCondition(VirtualMachine* vm,	SelectScanPlanne
 	}
 
 	// and
-	//MultipleIndexCandidate* candidate = new MultipleIndexCandidate();
-
 	AbstractIndexCandidate* candidate = list.get(0);
 
 	maxLoop = list.size();
 	for(int i = 1; i != maxLoop; ++i){
 		const AbstractIndexCandidate* c = list.get(i);
 
-
+		candidate = candidate->multiply(c);
 	}
 
 	detector->push(candidate);
