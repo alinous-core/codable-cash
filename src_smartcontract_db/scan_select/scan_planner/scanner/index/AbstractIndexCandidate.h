@@ -14,6 +14,7 @@ class AbstractIndexCandidate {
 public:
 	typedef enum __IndexType{
 		EQUALS,
+		RANGE,
 		RANGE_GT,
 		RANGE_GT_EQ,
 		RANGE_LT,

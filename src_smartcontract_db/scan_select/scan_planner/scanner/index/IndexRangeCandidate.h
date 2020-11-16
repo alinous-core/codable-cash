@@ -8,12 +8,15 @@
 #ifndef SCAN_SELECT_SCAN_PLANNER_SCANNER_INDEX_INDEXRANGECANDIDATE_H_
 #define SCAN_SELECT_SCAN_PLANNER_SCANNER_INDEX_INDEXRANGECANDIDATE_H_
 
+#include "scan_select/scan_planner/scanner/index/IndexCandidate.h"
+
 namespace codablecash {
 
-class IndexRangeCandidate {
+class IndexRangeCandidate : public IndexCandidate {
 public:
 	IndexRangeCandidate();
 	virtual ~IndexRangeCandidate();
+
 };
 
 } /* namespace codablecash */
