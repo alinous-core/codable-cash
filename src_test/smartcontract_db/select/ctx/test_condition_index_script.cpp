@@ -100,7 +100,7 @@ TEST(TestConditionIndexScriptGroup, case01){
 		root->analyzeConditions(vm, planner);
 
 		FilterConditionDitector filterDetector(vm, planner);
-		filterDetector.detect(target); // FIXME analyze column
+		filterDetector.detect(target);
 
 		AbstractScanCondition* filterCondition = filterDetector.getCondition();
 

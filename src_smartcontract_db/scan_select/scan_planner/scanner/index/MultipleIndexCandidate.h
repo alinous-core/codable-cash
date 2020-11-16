@@ -32,6 +32,10 @@ public:
 	void mul(const IndexCandidate* candidate) noexcept;
 
 private:
+	void addCandidate(const IndexCandidate* candidate);
+
+
+private:
 	ArrayList<IndexCandidate> list;
 };
 

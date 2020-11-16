@@ -81,7 +81,16 @@ const IndexCandidate* MultipleIndexCandidate::get(int i) const noexcept {
 }
 
 void MultipleIndexCandidate::mul(const IndexCandidate* candidate) noexcept {
+	addCandidate(candidate);
+}
+
+void MultipleIndexCandidate::addCandidate(const IndexCandidate* candidate) {
+	if(candidate->isRange()){
+
+	}
+
 	this->list.addElement(new IndexCandidate(*candidate));
 }
+
 
 } /* namespace codablecash */

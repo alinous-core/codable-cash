@@ -61,6 +61,14 @@ AbstractIndexCandidate* IndexCandidate::multiply(const AbstractIndexCandidate* o
 	return candidate;
 }
 
+bool IndexCandidate::isRange() const noexcept {
+	return this->indexType == AbstractIndexCandidate::IndexType::RANGE_GT
+			|| this->indexType == AbstractIndexCandidate::IndexType::RANGE_GT_EQ
+			|| this->indexType == AbstractIndexCandidate::IndexType::RANGE_LT
+			|| this->indexType == AbstractIndexCandidate::IndexType::RANGE_LT_EQ;
+}
+
+
 AbstractIndexCandidate* IndexCandidate::copy() const noexcept {
 	return new IndexCandidate(*this);
 }
