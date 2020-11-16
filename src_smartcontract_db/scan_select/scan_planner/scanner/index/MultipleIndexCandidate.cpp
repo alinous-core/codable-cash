@@ -96,6 +96,12 @@ void MultipleIndexCandidate::addCandidate(const IndexCandidate* candidate) {
 void MultipleIndexCandidate::handleRangeCandidate(const IndexCandidate* candidate) {
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
+		IndexCandidate* idx = this->list.get(i);
+
+		if(idx->isSameColumn(candidate)){
+
+		}
+
 
 	}
 

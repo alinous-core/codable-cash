@@ -38,6 +38,8 @@ public:
 		this->value = value;
 	}
 
+	bool isSameColumn(const IndexCandidate* other);
+
 protected:
 	const ColumnIdentifierScanParam* column;
 	const IValueProvider* value;

@@ -81,4 +81,12 @@ const IndexCandidate* IndexCandidate::get(int i) const noexcept {
 	return this;
 }
 
+bool IndexCandidate::isSameColumn(const IndexCandidate* other) {
+	const CdbTableColumn* cdbColumn = this->column->getCdbColumn();
+	const CdbTableColumn* cdbColumn2 = other->column->getCdbColumn();
+
+
+}
+
+
 } /* namespace codablecash */

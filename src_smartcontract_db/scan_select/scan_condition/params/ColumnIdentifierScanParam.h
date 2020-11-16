@@ -38,6 +38,9 @@ public:
 	const AbstractScanTableTarget* getTarget() const noexcept {
 		return target;
 	}
+	const CdbTableColumn* getCdbColumn() const noexcept {
+		return cdbColumn;
+	}
 
 	bool hasIndex() const noexcept;
 
