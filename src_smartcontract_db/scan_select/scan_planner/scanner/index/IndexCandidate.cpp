@@ -10,12 +10,16 @@
 #include "scan_select/scan_planner/scanner/index/MultipleIndexCandidate.h"
 
 #include "base/StackRelease.h"
+#include "base/UnicodeString.h"
 
 #include "scan_select/scan_planner/scanner/index/AbstractIndexCandidateCollection.h"
 
 #include "scan_select/scan_condition/params/ColumnIdentifierScanParam.h"
 
 #include "scan_select/scan_condition/base/IValueProvider.h"
+
+#include "schema_table/table/CdbTableColumn.h"
+
 
 using namespace alinous;
 
@@ -85,7 +89,10 @@ bool IndexCandidate::isSameColumn(const IndexCandidate* other) {
 	const CdbTableColumn* cdbColumn = this->column->getCdbColumn();
 	const CdbTableColumn* cdbColumn2 = other->column->getCdbColumn();
 
+	const UnicodeString* name = cdbColumn->getName();
+	const UnicodeString* name2 = cdbColumn2->getName();
 
+	return name->equals(name2);
 }
 
 
