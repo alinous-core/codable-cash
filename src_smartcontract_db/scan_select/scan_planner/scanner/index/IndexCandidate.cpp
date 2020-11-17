@@ -13,6 +13,7 @@
 #include "base/UnicodeString.h"
 
 #include "scan_select/scan_planner/scanner/index/AbstractIndexCandidateCollection.h"
+#include "scan_select/scan_planner/scanner/index/IndexRangeCandidate.h"
 
 #include "scan_select/scan_condition/params/ColumnIdentifierScanParam.h"
 
@@ -114,28 +115,38 @@ bool IndexCandidate::isRangeJoinable(const IndexCandidate* other) {
 						|| other->indexType == AbstractIndexCandidate::IndexType::RANGE_GT_EQ));
 }
 
+bool IndexCandidate::hasEq() const noexcept {
+	return this->indexType == AbstractIndexCandidate::IndexType::RANGE_LT_EQ
+			|| this->indexType == AbstractIndexCandidate::IndexType::RANGE_GT_EQ;
+}
+
 IndexRangeCandidate* IndexCandidate::toIndexRangeCandidate(const IndexCandidate* other) {
-	IndexRangeCandidate* newCandidate = nullptr;
+	IndexRangeCandidate* newCandidate = new IndexRangeCandidate();
+	newCandidate->setColumn(this->column);
 
 	if((this->indexType == AbstractIndexCandidate::IndexType::RANGE_GT
 			|| this->indexType == AbstractIndexCandidate::IndexType::RANGE_GT_EQ)
 		&&
 		(other->indexType == AbstractIndexCandidate::IndexType::RANGE_LT
-				|| other->indexType == AbstractIndexCandidate::IndexType::RANGE_LT_EQ)
-	){
+				|| other->indexType == AbstractIndexCandidate::IndexType::RANGE_LT_EQ)){
+		newCandidate->setValue(this->value);
+		newCandidate->setBottomEq(hasEq());
 
-
+		newCandidate->setTopValue(other->value);
+		newCandidate->setTopEq(other->hasEq());
 	}
 	else if((this->indexType == AbstractIndexCandidate::IndexType::RANGE_LT
 			|| this->indexType == AbstractIndexCandidate::IndexType::RANGE_LT_EQ)
 			&&
 			(other->indexType == AbstractIndexCandidate::IndexType::RANGE_GT
-						|| other->indexType == AbstractIndexCandidate::IndexType::RANGE_GT_EQ)
-			){
+						|| other->indexType == AbstractIndexCandidate::IndexType::RANGE_GT_EQ)){
+		newCandidate->setValue(other->value);
+		newCandidate->setBottomEq(other->hasEq());
 
+		newCandidate->setTopValue(this->value);
+		newCandidate->setTopEq(this->hasEq());
 	}
 
-	assert(newCandidate != nullptr);
 
 	return newCandidate;
 }

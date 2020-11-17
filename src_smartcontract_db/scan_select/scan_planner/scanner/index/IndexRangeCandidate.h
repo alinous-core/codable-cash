@@ -19,6 +19,17 @@ public:
 	IndexRangeCandidate();
 	virtual ~IndexRangeCandidate();
 
+	void setBottomEq(bool bottomEq) noexcept {
+		this->bottomEq = bottomEq;
+	}
+
+	void setTopEq(bool topEq) noexcept {
+		this->topEq = topEq;
+	}
+
+	void setTopValue(const IValueProvider* topValue) noexcept {
+		this->topValue = topValue;
+	}
 
 private:
 	const IValueProvider* topValue;

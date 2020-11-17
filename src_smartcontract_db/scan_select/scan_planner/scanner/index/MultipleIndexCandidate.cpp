@@ -101,8 +101,6 @@ void MultipleIndexCandidate::handleRangeCandidate(const IndexCandidate* candidat
 		if(idx->isRangeJoinable(candidate)){
 
 		}
-
-
 	}
 
 	// TODO: range

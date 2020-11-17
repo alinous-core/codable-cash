@@ -31,16 +31,20 @@ public:
 
 	bool isRange() const noexcept;
 
-	void setColumn(ColumnIdentifierScanParam* column) {
+	void setColumn(const ColumnIdentifierScanParam* column) {
 		this->column = column;
 	}
+	const ColumnIdentifierScanParam* getColumn() const noexcept {
+		return column;
+	}
 
-	void setValue(IValueProvider* value) {
+	void setValue(const IValueProvider* value) {
 		this->value = value;
 	}
 
 	bool isSameColumn(const IndexCandidate* other);
 	bool isRangeJoinable(const IndexCandidate* other);
+	bool hasEq() const noexcept;
 	IndexRangeCandidate* toIndexRangeCandidate(const IndexCandidate* other);
 
 protected:
