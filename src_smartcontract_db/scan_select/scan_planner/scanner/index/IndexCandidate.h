@@ -14,6 +14,7 @@ namespace codablecash {
 
 class ColumnIdentifierScanParam;
 class IValueProvider;
+class IndexRangeCandidate;
 
 class IndexCandidate: public AbstractIndexCandidateCollection {
 public:
@@ -39,6 +40,8 @@ public:
 	}
 
 	bool isSameColumn(const IndexCandidate* other);
+	bool isRangeJoinable(const IndexCandidate* other);
+	IndexRangeCandidate* toIndexRangeCandidate(const IndexCandidate* other);
 
 protected:
 	const ColumnIdentifierScanParam* column;

@@ -98,7 +98,7 @@ void MultipleIndexCandidate::handleRangeCandidate(const IndexCandidate* candidat
 	for(int i = 0; i != maxLoop; ++i){
 		IndexCandidate* idx = this->list.get(i);
 
-		if(idx->isSameColumn(candidate)){
+		if(idx->isRangeJoinable(candidate)){
 
 		}
 

@@ -95,5 +95,49 @@ bool IndexCandidate::isSameColumn(const IndexCandidate* other) {
 	return name->equals(name2);
 }
 
+bool IndexCandidate::isRangeJoinable(const IndexCandidate* other) {
+	if(!isSameColumn(other) || this->indexType == AbstractIndexCandidate::IndexType::RANGE){
+		return false;
+	}
+
+	return
+		( (this->indexType == AbstractIndexCandidate::IndexType::RANGE_GT
+			|| this->indexType == AbstractIndexCandidate::IndexType::RANGE_GT_EQ)
+			&&
+			(other->indexType == AbstractIndexCandidate::IndexType::RANGE_LT
+					|| other->indexType == AbstractIndexCandidate::IndexType::RANGE_LT_EQ) )
+		||
+		((this->indexType == AbstractIndexCandidate::IndexType::RANGE_LT
+				|| this->indexType == AbstractIndexCandidate::IndexType::RANGE_LT_EQ)
+			&&
+			(other->indexType == AbstractIndexCandidate::IndexType::RANGE_GT
+						|| other->indexType == AbstractIndexCandidate::IndexType::RANGE_GT_EQ));
+}
+
+IndexRangeCandidate* IndexCandidate::toIndexRangeCandidate(const IndexCandidate* other) {
+	IndexRangeCandidate* newCandidate = nullptr;
+
+	if((this->indexType == AbstractIndexCandidate::IndexType::RANGE_GT
+			|| this->indexType == AbstractIndexCandidate::IndexType::RANGE_GT_EQ)
+		&&
+		(other->indexType == AbstractIndexCandidate::IndexType::RANGE_LT
+				|| other->indexType == AbstractIndexCandidate::IndexType::RANGE_LT_EQ)
+	){
+
+
+	}
+	else if((this->indexType == AbstractIndexCandidate::IndexType::RANGE_LT
+			|| this->indexType == AbstractIndexCandidate::IndexType::RANGE_LT_EQ)
+			&&
+			(other->indexType == AbstractIndexCandidate::IndexType::RANGE_GT
+						|| other->indexType == AbstractIndexCandidate::IndexType::RANGE_GT_EQ)
+			){
+
+	}
+
+	assert(newCandidate != nullptr);
+
+	return newCandidate;
+}
 
 } /* namespace codablecash */
