@@ -14,6 +14,7 @@
 
 #include "base/StackRelease.h"
 
+#include "scan_select/scan_planner/scanner/index/IndexRangeCandidate.h"
 using namespace alinous;
 
 namespace codablecash {
@@ -94,13 +95,22 @@ void MultipleIndexCandidate::addCandidate(const IndexCandidate* candidate) {
 }
 
 void MultipleIndexCandidate::handleRangeCandidate(const IndexCandidate* candidate) {
+	bool used = false;
+
 	int maxLoop = this->list.size();
 	for(int i = 0; i != maxLoop; ++i){
 		IndexCandidate* idx = this->list.get(i);
 
 		if(idx->isRangeJoinable(candidate)){
+			IndexRangeCandidate* newCandidate = idx->toIndexRangeCandidate(candidate);
+			this->list.setElement(newCandidate, i);
 
+			delete idx;
 		}
+	}
+
+	if(!used){
+		this->list.addElement(new IndexCandidate(*candidate));
 	}
 
 	// TODO: range
