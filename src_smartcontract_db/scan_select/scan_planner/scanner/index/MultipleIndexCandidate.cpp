@@ -15,6 +15,8 @@
 #include "base/StackRelease.h"
 
 #include "scan_select/scan_planner/scanner/index/IndexRangeCandidate.h"
+
+#include "base/UnicodeString.h"
 using namespace alinous;
 
 namespace codablecash {
@@ -113,8 +115,26 @@ void MultipleIndexCandidate::handleRangeCandidate(const IndexCandidate* candidat
 	if(!used){
 		this->list.addElement(new IndexCandidate(*candidate));
 	}
+}
 
-	// TODO: range
+const UnicodeString* MultipleIndexCandidate::toCodeString() noexcept {
+	if(this->str == nullptr){
+		this->str = new UnicodeString();
+
+		int maxLoop = this->list.size();
+		for(int i = 0; i != maxLoop; ++i){
+			AbstractIndexCandidateCollection* col = this->list.get(i);
+
+			if(i != 0){
+				this->str->append(L" AND ");
+			}
+
+			const UnicodeString* colstr = col->toCodeString();
+			this->str->append(colstr);
+		}
+	}
+
+	return this->str;
 }
 
 } /* namespace codablecash */
