@@ -53,6 +53,7 @@ AbstractIndexCandidate* IndexCandidate::multiply(const AbstractIndexCandidate* o
 	}
 
 	MultipleIndexCandidate* candidate = new MultipleIndexCandidate();
+	candidate->mul(this);
 
 	AbstractIndexCandidateCollection* col = dynamic_cast<AbstractIndexCandidateCollection*>(other->copy());
 	__STP(col);

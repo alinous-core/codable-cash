@@ -106,6 +106,7 @@ void MultipleIndexCandidate::handleRangeCandidate(const IndexCandidate* candidat
 			this->list.setElement(newCandidate, i);
 
 			delete idx;
+			used = true;
 		}
 	}
 
