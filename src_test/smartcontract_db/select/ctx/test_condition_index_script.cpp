@@ -107,6 +107,11 @@ TEST(TestConditionIndexScriptGroup, case01){
 		TableIndexDetector indexDetextor(vm, planner, target);
 		indexDetextor.detect(filterCondition);
 
+		AbstractIndexCandidate* candidate = nullptr;
+		if(!indexDetextor.isEmpty()){
+			candidate = indexDetextor.pop();
+		}
+
 
 	}
 }

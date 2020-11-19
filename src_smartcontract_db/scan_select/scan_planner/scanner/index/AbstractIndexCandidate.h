@@ -8,6 +8,11 @@
 #ifndef SCAN_PLANNER_SCANNER_CTX_INDEX_ABSTRACTINDEXCANDIDATE_H_
 #define SCAN_PLANNER_SCANNER_CTX_INDEX_ABSTRACTINDEXCANDIDATE_H_
 
+namespace alinous {
+class UnicodeString;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class AbstractIndexCandidate {
@@ -29,10 +34,14 @@ public:
 	virtual AbstractIndexCandidate::IndexType getCandidateType() const noexcept = 0;
 	virtual AbstractIndexCandidate* multiply(const AbstractIndexCandidate* other) const noexcept = 0;
 	virtual AbstractIndexCandidate* copy() const noexcept = 0;
+	virtual const UnicodeString* toCodeString() noexcept = 0;
+
+protected:
+	void resetStr() noexcept;
 
 protected:
 	IndexType indexType;
-
+	UnicodeString* str;
 };
 
 } /* namespace codablecash */

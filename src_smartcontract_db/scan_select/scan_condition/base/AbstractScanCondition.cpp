@@ -9,6 +9,8 @@
 
 #include "engine/CdbException.h"
 
+#include "base/UnicodeString.h"
+
 namespace codablecash {
 
 AbstractScanCondition::AbstractScanCondition(short type) {
