@@ -130,6 +130,27 @@ const UnicodeString* IndexCandidate::toCodeString() noexcept {
 		const UnicodeString* s = param->toStringCode();
 		this->str->append(s);
 
+		if(this->indexType == IndexType::RANGE_GT){
+			this->str->append(L" > ");
+		}
+		else if(this->indexType == IndexType::RANGE_GT_EQ){
+			this->str->append(L" >= ");
+		}
+		else if(this->indexType == IndexType::RANGE_LT){
+			this->str->append(L" < ");
+		}
+		else if(this->indexType == IndexType::RANGE_LT_EQ){
+			this->str->append(L" <= ");
+		}
+		else{
+			this->str->append(L" = ");
+		}
+
+		IValueProvider* vp = const_cast<IValueProvider*>(this->value);
+		s = vp->toStringCode();
+
+		this->str->append(s);
+
 	}
 
 	return this->str;
