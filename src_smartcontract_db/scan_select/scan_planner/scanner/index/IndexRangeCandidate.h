@@ -19,6 +19,8 @@ public:
 	IndexRangeCandidate();
 	virtual ~IndexRangeCandidate();
 
+	virtual const UnicodeString* toCodeString() noexcept;
+
 	void setBottomEq(bool bottomEq) noexcept {
 		this->bottomEq = bottomEq;
 	}
