@@ -29,6 +29,8 @@ public:
 	virtual int size() const noexcept;
 	virtual const IndexCandidate* get(int i) const noexcept;
 
+	virtual const UnicodeString* toCodeString() noexcept;
+
 	bool isRange() const noexcept;
 
 	void setColumn(const ColumnIdentifierScanParam* column) {

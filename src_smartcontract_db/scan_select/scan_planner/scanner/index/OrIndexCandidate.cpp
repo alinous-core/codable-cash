@@ -69,7 +69,7 @@ AbstractIndexCandidate* OrIndexCandidate::multiplyOr(const OrIndexCandidate* oth
 }
 
 const UnicodeString* OrIndexCandidate::toCodeString() noexcept {
-	if(this->str != nullptr){
+	if(this->str == nullptr){
 		this->str = new UnicodeString();
 
 		int maxLoop = this->list.size();

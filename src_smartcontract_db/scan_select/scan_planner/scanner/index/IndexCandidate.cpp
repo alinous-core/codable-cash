@@ -121,6 +121,20 @@ bool IndexCandidate::hasEq() const noexcept {
 			|| this->indexType == AbstractIndexCandidate::IndexType::RANGE_GT_EQ;
 }
 
+const UnicodeString* IndexCandidate::toCodeString() noexcept {
+	if(this->str == nullptr){
+		this->str = new UnicodeString();
+
+		ColumnIdentifierScanParam* param = const_cast<ColumnIdentifierScanParam*>(this->column);
+
+		const UnicodeString* s = param->toStringCode();
+		this->str->append(s);
+
+	}
+
+	return this->str;
+}
+
 IndexRangeCandidate* IndexCandidate::toIndexRangeCandidate(const IndexCandidate* other) {
 	IndexRangeCandidate* newCandidate = new IndexRangeCandidate();
 	newCandidate->setColumn(this->column);
