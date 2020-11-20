@@ -148,8 +148,6 @@ void AndScanCondition::detectIndexCondition(VirtualMachine* vm,	SelectScanPlanne
 	}
 
 	detector->push(candidate);
-
-	// TODO detectIndexCondition
 }
 
 void AndScanCondition::resetStr() noexcept {
