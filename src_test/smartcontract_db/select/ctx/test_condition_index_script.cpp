@@ -39,6 +39,8 @@
 #include "scan_select/scan_planner/scanner/index/TableIndexDetector.h"
 
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
+
+#include "scan_select/scan_planner/scanner/index/AbstractIndexCandidate.h"
 //using namespace codablecash;
 
 TEST_GROUP(TestConditionIndexScriptGroup) {
@@ -112,6 +114,8 @@ TEST(TestConditionIndexScriptGroup, case01){
 			candidate = indexDetextor.pop();
 		}
 
-
+		const UnicodeString* str = candidate->toCodeString();
+		UnicodeString ans(L"0 <= test_table.id <= 100");
+		CHECK(ans.equals(str));
 	}
 }

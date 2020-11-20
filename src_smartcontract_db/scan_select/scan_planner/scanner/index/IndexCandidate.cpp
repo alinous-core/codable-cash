@@ -123,7 +123,7 @@ bool IndexCandidate::hasEq() const noexcept {
 
 const UnicodeString* IndexCandidate::toCodeString() noexcept {
 	if(this->str == nullptr){
-		this->str = new UnicodeString();
+		this->str = new UnicodeString(L"");
 
 		ColumnIdentifierScanParam* param = const_cast<ColumnIdentifierScanParam*>(this->column);
 

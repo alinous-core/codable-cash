@@ -119,7 +119,7 @@ void MultipleIndexCandidate::handleRangeCandidate(const IndexCandidate* candidat
 
 const UnicodeString* MultipleIndexCandidate::toCodeString() noexcept {
 	if(this->str == nullptr){
-		this->str = new UnicodeString();
+		this->str = new UnicodeString(L"");
 
 		int maxLoop = this->list.size();
 		for(int i = 0; i != maxLoop; ++i){

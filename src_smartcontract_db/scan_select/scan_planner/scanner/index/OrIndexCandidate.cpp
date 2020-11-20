@@ -70,7 +70,7 @@ AbstractIndexCandidate* OrIndexCandidate::multiplyOr(const OrIndexCandidate* oth
 
 const UnicodeString* OrIndexCandidate::toCodeString() noexcept {
 	if(this->str == nullptr){
-		this->str = new UnicodeString();
+		this->str = new UnicodeString(L"");
 
 		int maxLoop = this->list.size();
 		for(int i = 0; i != maxLoop; ++i){

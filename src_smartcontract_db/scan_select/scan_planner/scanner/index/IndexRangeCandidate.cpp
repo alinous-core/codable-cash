@@ -25,7 +25,7 @@ IndexRangeCandidate::~IndexRangeCandidate() {
 
 const UnicodeString* IndexRangeCandidate::toCodeString() noexcept {
 	if(this->str == nullptr){
-		this->str = new UnicodeString();
+		this->str = new UnicodeString(L"");
 
 		IValueProvider* vp = const_cast<IValueProvider*>(this->value);
 		const UnicodeString* s = vp->toStringCode();
