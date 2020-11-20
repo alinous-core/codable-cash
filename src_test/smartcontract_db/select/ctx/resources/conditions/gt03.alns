@@ -1,1 +1,1 @@
-100 > test_table.id
+100 < test_table.id

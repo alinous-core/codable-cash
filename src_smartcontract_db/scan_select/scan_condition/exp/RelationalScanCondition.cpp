@@ -111,6 +111,7 @@ void RelationalScanCondition::detectIndexCondition(VirtualMachine* vm, SelectSca
 	ColumnIdentifierScanParam* column = nullptr;
 	IValueProvider* value = nullptr;
 
+	bool reverse = false;
 	if(this->left->isColumn() && !this->right->isColumn()){
 		column = dynamic_cast<ColumnIdentifierScanParam*>(this->left);
 		value = this->right;
@@ -118,12 +119,13 @@ void RelationalScanCondition::detectIndexCondition(VirtualMachine* vm, SelectSca
 	else if(!this->left->isColumn() && this->right->isColumn()){
 		column = dynamic_cast<ColumnIdentifierScanParam*>(this->right);
 		value = this->left;
+		reverse = true;
 	}
 	else {
 		return;
 	}
 
-	AbstractIndexCandidate::IndexType indexType = toIndexType(this->op);
+	AbstractIndexCandidate::IndexType indexType = toIndexType(this->op, reverse);
 	IndexCandidate* candidate = new IndexCandidate(indexType);
 	candidate->setColumn(column);
 	candidate->setValue(value);
@@ -143,21 +145,21 @@ void RelationalScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPl
 	this->right->analyzeConditions(vm, planner);
 }
 
-AbstractIndexCandidate::IndexType RelationalScanCondition::toIndexType(uint8_t op) {
+AbstractIndexCandidate::IndexType RelationalScanCondition::toIndexType(uint8_t op, bool reverse) {
 	AbstractIndexCandidate::IndexType idxType;
 
 	switch(op){
 	case SQLRelationalExpression::GT:
-		idxType = AbstractIndexCandidate::IndexType::RANGE_GT;
+		idxType = !reverse ? AbstractIndexCandidate::IndexType::RANGE_GT : AbstractIndexCandidate::IndexType::RANGE_LT;
 		break;
 	case SQLRelationalExpression::GT_EQ:
-		idxType = AbstractIndexCandidate::IndexType::RANGE_GT_EQ;
+		idxType = !reverse ? AbstractIndexCandidate::IndexType::RANGE_GT_EQ : AbstractIndexCandidate::IndexType::RANGE_LT_EQ;
 		break;
 	case SQLRelationalExpression::LT:
-		idxType = AbstractIndexCandidate::IndexType::RANGE_LT;
+		idxType = !reverse ? AbstractIndexCandidate::IndexType::RANGE_LT : AbstractIndexCandidate::IndexType::RANGE_GT;
 		break;
 	case SQLRelationalExpression::LT_EQ:
-		idxType = AbstractIndexCandidate::IndexType::RANGE_LT_EQ;
+		idxType = !reverse ? AbstractIndexCandidate::IndexType::RANGE_LT_EQ : AbstractIndexCandidate::IndexType::RANGE_GT_EQ;
 		break;
 	default:
 		throw new CdbException(L"wrong operation code", __FILE__, __LINE__);

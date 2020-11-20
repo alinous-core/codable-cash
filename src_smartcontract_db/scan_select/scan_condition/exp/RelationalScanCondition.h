@@ -35,7 +35,7 @@ public:
 
 	virtual AbstractScanCondition* cloneCondition() const noexcept;
 
-	static AbstractIndexCandidate::IndexType toIndexType(uint8_t op);
+	static AbstractIndexCandidate::IndexType toIndexType(uint8_t op, bool reverse);
 
 private:
 	void resetStr() noexcept;
