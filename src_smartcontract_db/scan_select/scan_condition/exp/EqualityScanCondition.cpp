@@ -26,6 +26,10 @@
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionStackMarker.h"
 
 #include "scan_select/scan_table/AbstractScanTableTarget.h"
+
+#include "scan_select/scan_planner/scanner/index/IndexCandidate.h"
+
+#include "scan_select/scan_planner/scanner/index/TableIndexDetector.h"
 using namespace alinous;
 
 namespace codablecash {
@@ -91,7 +95,26 @@ void EqualityScanCondition::detectFilterConditions(VirtualMachine* vm,
 
 void EqualityScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner,
 		TableIndexDetector* detector) {
-	// FIXME detectIndexCondition
+	ColumnIdentifierScanParam* column = nullptr;
+	IValueProvider* value = nullptr;
+
+	if(this->left->isColumn() && !this->right->isColumn()){
+		column = dynamic_cast<ColumnIdentifierScanParam*>(this->left);
+		value = this->right;
+	}
+	else if(!this->left->isColumn() && this->right->isColumn()){
+		column = dynamic_cast<ColumnIdentifierScanParam*>(this->right);
+		value = this->left;
+	}
+	else {
+		return;
+	}
+
+	IndexCandidate* candidate = new IndexCandidate(AbstractIndexCandidate::IndexType::EQUALS);
+	candidate->setColumn(column);
+	candidate->setValue(value);
+
+	detector->push(candidate);
 }
 
 void EqualityScanCondition::resetStr() noexcept {
