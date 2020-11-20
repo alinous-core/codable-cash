@@ -33,10 +33,10 @@ const UnicodeString* IndexRangeCandidate::toCodeString() noexcept {
 		this->str->append(s);
 
 		if(this->bottomEq){
-			this->str->append(L" < ");
+			this->str->append(L" <= ");
 		}
 		else {
-			this->str->append(L" <= ");
+			this->str->append(L" < ");
 		}
 
 		ColumnIdentifierScanParam* param = const_cast<ColumnIdentifierScanParam*>(this->column);
@@ -45,10 +45,10 @@ const UnicodeString* IndexRangeCandidate::toCodeString() noexcept {
 		this->str->append(s);
 
 		if(this->topEq){
-			this->str->append(L" < ");
+			this->str->append(L" <= ");
 		}
 		else {
-			this->str->append(L" <= ");
+			this->str->append(L" < ");
 		}
 
 		// top value
