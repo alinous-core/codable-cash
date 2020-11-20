@@ -70,7 +70,6 @@ TEST(TestIndexConditionGroup, case02){
 		candidate->setValue(&numParam);
 
 
-		// TODO fix test bug
 		IndexCandidate* candidate2 = new IndexCandidate(IndexCandidate::IndexType::EQUALS); __STP(candidate2);
 		candidate2->setColumn(&pname);
 
