@@ -80,5 +80,49 @@ TEST(TestIndexConditionGroup, case02){
 
 		AbstractIndexCandidate* cd2 = cd->copy(); __STP(cd2);
 		CHECK(cd2->getCandidateType() == IndexCandidate::IndexType::AND);
+
+		const UnicodeString* str = cd2->toCodeString();
+		UnicodeString ans(L"public.test_table.id > 10 AND public.test_table.name = 'test'");
+		CHECK(ans.equals(str));
+	}
+}
+
+TEST(TestIndexConditionGroup, case03){
+	TestDbSchema01 tester(this->env);
+	tester.init(1024 * 10);
+
+	{
+		SQLColumnIdentifier id(L"public", L"test_table", L"id");
+		SQLColumnIdentifier name(L"public", L"test_table", L"name");
+		SQLColumnIdentifier email_id(L"public", L"test_table", L"email_id");
+
+		ColumnIdentifierScanParam pid(&id);
+		ColumnIdentifierScanParam pname(&name);
+		ColumnIdentifierScanParam pemail_id(&email_id);
+
+		IndexCandidate* candidate = new IndexCandidate(IndexCandidate::IndexType::RANGE_GT); __STP(candidate);
+		candidate->setColumn(&pid);
+		NumericScanParam numParam(10);
+		candidate->setValue(&numParam);
+
+		IndexCandidate* candidate2 = new IndexCandidate(IndexCandidate::IndexType::EQUALS); __STP(candidate2);
+		candidate2->setColumn(&pname);
+		StringScanParam strParam2(L"test");
+		candidate2->setValue(&strParam2);
+
+		IndexCandidate* candidate3 = new IndexCandidate(IndexCandidate::IndexType::EQUALS); __STP(candidate3);
+		candidate3->setColumn(&pemail_id);
+		NumericScanParam numParam2(10);
+		candidate3->setValue(&numParam2);
+
+
+		AbstractIndexCandidate* cd = candidate->multiply(candidate2); __STP(cd);
+		CHECK(cd->getCandidateType() == IndexCandidate::IndexType::AND);
+
+
+		AbstractIndexCandidate* cd2 = cd->multiply(candidate3); __STP(cd2);
+
+
+
 	}
 }
