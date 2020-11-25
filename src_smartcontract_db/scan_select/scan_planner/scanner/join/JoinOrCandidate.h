@@ -28,7 +28,12 @@ public:
 	virtual AbstractJoinCandidate* multiply(const AbstractJoinCandidate* other) const noexcept;
 	virtual AbstractJoinCandidate* copy() const noexcept;
 
+	virtual int getOverHeadScore(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept;
+
 	void add(const AbstractJoinCandidate* candidate) noexcept;
+
+	int size() const noexcept;
+	const AbstractJoinCandidateCollection* get(int i) const noexcept;
 
 private:
 	AbstractJoinCandidate* multiplyOr(const JoinOrCandidate* other) const noexcept;

@@ -16,7 +16,7 @@ class IndexCandidate;
 
 class AbstractIndexCandidateCollection: public AbstractIndexCandidate {
 public:
-	AbstractIndexCandidateCollection();
+	AbstractIndexCandidateCollection(IndexType indexType);
 	virtual ~AbstractIndexCandidateCollection();
 
 	virtual int size() const noexcept = 0;

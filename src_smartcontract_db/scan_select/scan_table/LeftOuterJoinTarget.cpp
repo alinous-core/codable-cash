@@ -1,3 +1,4 @@
+
 /*
  * LeftOuterJoinTarget.cpp
  *
@@ -81,6 +82,8 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 	FilterConditionDitector filterDetector(vm, planner);
 	filterDetector.detect(this);
 
+	AbstractScanCondition* filterCondition = filterDetector.getCondition();
+
 	AbstractJoinScannerFactory* joinFactory = nullptr;
 	if(joinCandidates.isInnerJoin()){
 		joinFactory = new InnerJoinScannerFactory(this->metadata);
@@ -89,7 +92,8 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 		joinFactory = new LeftJoinScannerFactory(this->metadata);
 	}
 
-	AbstractJoinCandidate* bestCandidate = joinCandidates.getBestCandidate();
+	const AbstractJoinCandidate* bestCandidate = joinCandidates.getBestCandidate(this->left, this->right);
+	joinFactory->setJoinCandidate(bestCandidate);
 
 
 	AbstractScannerFactory* leftFactory = this->left->getScanFactory(vm, planner);
@@ -98,7 +102,6 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 	AbstractScannerFactory* rightFactory = this->right->getScanFactory(vm, planner);
 	joinFactory->setRight(rightFactory);
 
-	// FIXME getScanFactory
 	return joinFactory;
 }
 

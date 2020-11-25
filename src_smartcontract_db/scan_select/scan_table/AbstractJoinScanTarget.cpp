@@ -13,6 +13,9 @@
 
 #include "trx/scan/transaction_scan_result/ScanResultMetadata.h"
 
+#include "engine/CdbException.h"
+
+#include "base/StackRelease.h"
 namespace codablecash {
 
 AbstractJoinScanTarget::AbstractJoinScanTarget() {
@@ -86,6 +89,18 @@ void AbstractJoinScanTarget::collectScanTargets(VirtualMachine* vm, SelectScanPl
 	this->right->collectScanTargets(vm, planner, list);
 }
 
+ScanTableColumnParam* AbstractJoinScanTarget::findTableColumns(const UnicodeString* colName) const {
+	ScanTableColumnParam* pleft = this->left->findTableColumns(colName);
+	ScanTableColumnParam* pright = this->right->findTableColumns(colName);
 
+	StackRelease<ScanTableColumnParam> stpleft(pleft);
+	StackRelease<ScanTableColumnParam> stpright(pright);
+
+	if(pleft != nullptr && pright != nullptr){
+		throw new CdbException(L"The column is ambiguous.", __FILE__, __LINE__);
+	}
+
+	return pleft != nullptr ? stpleft.move() : (pright != nullptr ? stpright.move() : nullptr);
+}
 
 } /* namespace codablecash */

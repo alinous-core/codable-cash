@@ -12,15 +12,22 @@
 #include "base/UnicodeString.h"
 
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
+#include "scan_select/scan_planner/scanner/ctx/FilterConditionStackMarker.h"
 
 #include "scan_select/scan_condition/base/AbstractScanCondition.h"
 
 #include "scan_select/scan_planner/scanner/join/JoinCandidateStackMarker.h"
 #include "scan_select/scan_planner/scanner/join/JoinCandidateHolder.h"
 #include "scan_select/scan_planner/scanner/join/AbstractJoinCandidate.h"
-
 #include "scan_select/scan_planner/scanner/join/JoinMultipleCandidate.h"
-#include "scan_select/scan_planner/scanner/ctx/FilterConditionStackMarker.h"
+
+
+
+#include "scan_select/scan_planner/scanner/index/TableIndexDetector.h"
+#include "scan_select/scan_planner/scanner/index/AbstractIndexCandidate.h"
+#include "scan_select/scan_planner/scanner/index/MultipleIndexCandidate.h"
+#include "scan_select/scan_planner/scanner/index/TableIndexDetectorStackMarker.h"
+#include "scan_select/scan_planner/scanner/index/TableIndexDetectorStack.h"
 
 using namespace alinous;
 
@@ -107,7 +114,45 @@ void AndScanCondition::detectFilterConditions(VirtualMachine* vm,
 }
 
 void AndScanCondition::detectIndexCondition(VirtualMachine* vm,	SelectScanPlanner* planner, TableIndexDetector* detector) {
-	// FIXME detectIndexCondition
+	TableIndexDetectorStack* stack = detector->getStack();
+	TableIndexDetectorStackMarker marker(stack);
+
+	ArrayList<AbstractIndexCandidate> list;
+	list.setDeleteOnExit();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cond = this->list.get(i);
+
+		cond->detectIndexCondition(vm, planner, detector);
+
+		if(!detector->isEmpty()){
+			AbstractIndexCandidate* c = detector->pop();
+			list.addElement(c);
+		}
+	}
+
+	if(list.isEmpty()){
+		return;
+	}
+	else if(list.size() == 1){
+		AbstractIndexCandidate* c = list.get(0);
+		detector->push(c);
+
+		return;
+	}
+
+	// and
+	AbstractIndexCandidate* candidate = list.get(0);
+
+	maxLoop = list.size();
+	for(int i = 1; i != maxLoop; ++i){
+		const AbstractIndexCandidate* c = list.get(i);
+
+		candidate = candidate->multiply(c);
+	}
+
+	detector->push(candidate);
 }
 
 void AndScanCondition::resetStr() noexcept {

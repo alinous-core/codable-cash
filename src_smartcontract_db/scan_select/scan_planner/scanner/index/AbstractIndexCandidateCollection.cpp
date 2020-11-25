@@ -9,7 +9,7 @@
 
 namespace codablecash {
 
-AbstractIndexCandidateCollection::AbstractIndexCandidateCollection() {
+AbstractIndexCandidateCollection::AbstractIndexCandidateCollection(IndexType indexType) : AbstractIndexCandidate(indexType) {
 
 }
 

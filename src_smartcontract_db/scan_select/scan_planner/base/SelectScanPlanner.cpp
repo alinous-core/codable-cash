@@ -20,6 +20,11 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "scan_select/scan_planner/scanner/factory/AbstractScannerFactory.h"
+
+#include "trx/scan/transaction_scanner_join/IJoinLeftSource.h"
+
+#include "base/StackRelease.h"
 
 namespace codablecash {
 
@@ -27,7 +32,7 @@ SelectScanPlanner::SelectScanPlanner() {
 	this->conditions = new ConditionsHolder();
 	this->tablesHolder = new TablesHolder();
 	this->columnHolder = new ScanColumnHolder();
-	this->plan = nullptr;
+	this->plan = new AnalyzedScanPlan();
 }
 
 SelectScanPlanner::~SelectScanPlanner() {
@@ -81,6 +86,10 @@ void SelectScanPlanner::buildScannerFactories(VirtualMachine* vm) {
 
 void SelectScanPlanner::executeQuery(VirtualMachine* vm) {
 	AbstractScannerFactory* scanFactory = this->plan->getScanFactory();
+
+	IJoinLeftSource* left = scanFactory->createScannerAsLeftSource(vm, this); __STP(left);
+
+	// TODO exec scan
 }
 
 ConditionsHolderStack* SelectScanPlanner::getConditionsStack() const noexcept {

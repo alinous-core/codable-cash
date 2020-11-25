@@ -9,9 +9,16 @@
 
 #include "scan_select/scan_planner/scanner/index/AbstractIndexCandidateCollection.h"
 
+#include "base/StackRelease.h"
+
+#include "scan_select/scan_planner/scanner/index/AbstractIndexCandidate.h"
+
+#include "base/UnicodeString.h"
+using namespace alinous;
+
 namespace codablecash {
 
-OrIndexCandidate::OrIndexCandidate(const OrIndexCandidate& inst) {
+OrIndexCandidate::OrIndexCandidate(const OrIndexCandidate& inst) : AbstractIndexCandidate(inst.indexType) {
 	int maxLoop = inst.list.size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractIndexCandidateCollection* col = inst.list.get(i);
@@ -19,7 +26,7 @@ OrIndexCandidate::OrIndexCandidate(const OrIndexCandidate& inst) {
 	}
 }
 
-OrIndexCandidate::OrIndexCandidate() {
+OrIndexCandidate::OrIndexCandidate() : AbstractIndexCandidate(AbstractIndexCandidate::IndexType::OR) {
 
 }
 
@@ -40,7 +47,8 @@ AbstractIndexCandidate* OrIndexCandidate::multiply(const AbstractIndexCandidate*
 	}
 
 	OrIndexCandidate* newCond = new OrIndexCandidate();
-	const AbstractIndexCandidateCollection* col = dynamic_cast<const AbstractIndexCandidateCollection*>(other);
+	AbstractIndexCandidateCollection* col = dynamic_cast<AbstractIndexCandidateCollection*>(other->copy());
+	__STP(col);
 
 	multiply(this, col, newCond);
 
@@ -58,6 +66,26 @@ AbstractIndexCandidate* OrIndexCandidate::multiplyOr(const OrIndexCandidate* oth
 	}
 
 	return newCond;
+}
+
+const UnicodeString* OrIndexCandidate::toCodeString() noexcept {
+	if(this->str == nullptr){
+		this->str = new UnicodeString(L"");
+
+		int maxLoop = this->list.size();
+		for(int i = 0; i != maxLoop; ++i){
+			AbstractIndexCandidateCollection* col = this->list.get(i);
+
+			if(i != 0){
+				this->str->append(L" OR ");
+			}
+
+			const UnicodeString* colstr = col->toCodeString();
+			this->str->append(colstr);
+		}
+	}
+
+	return this->str;
 }
 
 void OrIndexCandidate::multiply(const OrIndexCandidate* other,

@@ -10,6 +10,10 @@
 
 #include "scan_select/scan_condition/base/AbstractScanConditionElement.h"
 
+namespace alinous {
+class UnicodeString;
+}  // namespace alinous
+
 namespace codablecash {
 
 class JoinCandidateHolder;

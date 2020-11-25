@@ -29,11 +29,25 @@
 
 #include "scan_select/scan_planner/scanner/index/TableIndexDetector.h"
 
+#include "scan_select/scan_planner/scanner/factory/TableScannerFactory.h"
+
+#include "base/StackRelease.h"
+
 namespace codablecash {
 
 TableScanTarget::TableScanTarget() {
 	this->schema = nullptr;
 	this->tableName = nullptr;
+	this->alias = nullptr;
+
+	this->str = nullptr;
+
+	this->table = nullptr;
+}
+
+codablecash::TableScanTarget::TableScanTarget(const wchar_t* schema, const wchar_t* table) {
+	this->schema = new UnicodeString(schema);
+	this->tableName = new UnicodeString(table);
 	this->alias = nullptr;
 
 	this->str = nullptr;
@@ -123,15 +137,39 @@ AbstractScannerFactory* TableScanTarget::getScanFactory(VirtualMachine* vm, Sele
 	FilterConditionDitector filterDetector(vm, planner);
 	filterDetector.detect(this);
 
-	TableIndexDetector indexDetextor(vm, planner);
-	indexDetextor.detect(filterDetector.getCondition());
+	AbstractScanCondition* filterCondition = filterDetector.getCondition();
 
-	// FIXME getScanFactory
-	return nullptr;
+	TableIndexDetector indexDetextor(vm, planner, this);
+	indexDetextor.detect(filterCondition);
+
+	AbstractIndexCandidate* indexCandidate = nullptr;
+	if(!indexDetextor.isEmpty()){
+		indexCandidate = indexDetextor.pop();
+	}
+	__STP(indexCandidate);
+
+	TableScannerFactory* factory = new TableScannerFactory(this->metadata, indexCandidate);
+	factory->setFilterCondition(filterCondition);
+
+	return factory;
 }
 
 bool TableScanTarget::hasTarget(const AbstractScanTableTarget* target) const noexcept {
 	return target == this;
+}
+
+ScanTableColumnParam* TableScanTarget::findTableColumns(const UnicodeString* colName) const {
+	CdbTableColumn* column = this->table->getColumn(colName);
+	if(column != nullptr){
+		ScanTableColumnParam* param = new ScanTableColumnParam();
+		param->table = this->table;
+		param->column = column;
+		param->target = this;
+
+		return param;
+	}
+
+	return nullptr;
 }
 
 } /* namespace codablecash */

@@ -9,9 +9,19 @@
 #include "scan_select/scan_planner/scanner/index/IndexCandidate.h"
 #include "scan_select/scan_planner/scanner/index/OrIndexCandidate.h"
 
+#include "scan_select/scan_planner/scanner/index/AbstractIndexCandidateCollection.h"
+#include "scan_select/scan_planner/scanner/index/AbstractIndexCandidate.h"
+
+#include "base/StackRelease.h"
+
+#include "scan_select/scan_planner/scanner/index/IndexRangeCandidate.h"
+
+#include "base/UnicodeString.h"
+using namespace alinous;
+
 namespace codablecash {
 
-MultipleIndexCandidate::MultipleIndexCandidate(const MultipleIndexCandidate& inst) {
+MultipleIndexCandidate::MultipleIndexCandidate(const MultipleIndexCandidate& inst) : AbstractIndexCandidateCollection(inst.indexType) {
 	int maxLoop = inst.size();
 	for(int i = 0; i != maxLoop; ++i){
 		IndexCandidate* idx = inst.list.get(i);
@@ -19,7 +29,7 @@ MultipleIndexCandidate::MultipleIndexCandidate(const MultipleIndexCandidate& ins
 	}
 }
 
-MultipleIndexCandidate::MultipleIndexCandidate() {
+MultipleIndexCandidate::MultipleIndexCandidate() : AbstractIndexCandidateCollection(IndexType::AND) {
 
 }
 
@@ -49,7 +59,8 @@ AbstractIndexCandidate* MultipleIndexCandidate::multiply(const AbstractIndexCand
 	}
 
 	// other
-	const AbstractIndexCandidateCollection* col = dynamic_cast<const AbstractIndexCandidateCollection*>(other);
+	AbstractIndexCandidateCollection* col = dynamic_cast<AbstractIndexCandidateCollection*>(other->copy());
+	__STP(col);
 
 	maxLoop = col->size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -73,7 +84,57 @@ const IndexCandidate* MultipleIndexCandidate::get(int i) const noexcept {
 }
 
 void MultipleIndexCandidate::mul(const IndexCandidate* candidate) noexcept {
+	addCandidate(candidate);
+}
+
+void MultipleIndexCandidate::addCandidate(const IndexCandidate* candidate) {
+	if(candidate->isRange()){
+		handleRangeCandidate(candidate);
+		return;
+	}
+
 	this->list.addElement(new IndexCandidate(*candidate));
+}
+
+void MultipleIndexCandidate::handleRangeCandidate(const IndexCandidate* candidate) {
+	bool used = false;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		IndexCandidate* idx = this->list.get(i);
+
+		if(idx->isRangeJoinable(candidate)){
+			IndexRangeCandidate* newCandidate = idx->toIndexRangeCandidate(candidate);
+			this->list.setElement(newCandidate, i);
+
+			delete idx;
+			used = true;
+		}
+	}
+
+	if(!used){
+		this->list.addElement(new IndexCandidate(*candidate));
+	}
+}
+
+const UnicodeString* MultipleIndexCandidate::toCodeString() noexcept {
+	if(this->str == nullptr){
+		this->str = new UnicodeString(L"");
+
+		int maxLoop = this->list.size();
+		for(int i = 0; i != maxLoop; ++i){
+			AbstractIndexCandidateCollection* col = this->list.get(i);
+
+			if(i != 0){
+				this->str->append(L" AND ");
+			}
+
+			const UnicodeString* colstr = col->toCodeString();
+			this->str->append(colstr);
+		}
+	}
+
+	return this->str;
 }
 
 } /* namespace codablecash */

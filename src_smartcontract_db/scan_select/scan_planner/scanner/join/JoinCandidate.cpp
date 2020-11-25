@@ -44,6 +44,24 @@ JoinCandidate::CandidateType JoinCandidate::getCandidateType() const noexcept {
 	return JoinCandidate::CandidateType::EQUALS;
 }
 
+int JoinCandidate::getOverHeadScore(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept {
+	ColumnIdentifierScanParam* rightParam = getRightParam(right);
+
+	if(rightParam->hasIndex()){
+		return 1;
+	}
+
+	return 1000;
+}
+
+ColumnIdentifierScanParam* JoinCandidate::getRightParam(AbstractScanTableTarget* right) const noexcept {
+	if(this->left->getTarget() == right){
+		return this->left;
+	}
+	return this->right;
+}
+
+
 AbstractJoinCandidate* JoinCandidate::multiply(const AbstractJoinCandidate* other) const noexcept {
 	JoinCandidate::CandidateType candidateType = other->getCandidateType();
 
@@ -53,6 +71,7 @@ AbstractJoinCandidate* JoinCandidate::multiply(const AbstractJoinCandidate* othe
 	}
 
 	JoinMultipleCandidate* candidate = new JoinMultipleCandidate(this->joinType);
+	candidate->mul(this);
 
 	const AbstractJoinCandidateCollection* col = dynamic_cast<const AbstractJoinCandidateCollection*>(other);
 
@@ -76,6 +95,5 @@ const JoinCandidate* JoinCandidate::get(int i) const noexcept {
 AbstractJoinCandidate* JoinCandidate::copy() const noexcept {
 	return new JoinCandidate(*this);
 }
-
 
 } /* namespace codablecash */

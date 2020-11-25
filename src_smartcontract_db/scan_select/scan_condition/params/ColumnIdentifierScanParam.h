@@ -38,6 +38,11 @@ public:
 	const AbstractScanTableTarget* getTarget() const noexcept {
 		return target;
 	}
+	const CdbTableColumn* getCdbColumn() const noexcept {
+		return cdbColumn;
+	}
+
+	bool hasIndex() const noexcept;
 
 private:
 	bool resolveAlias(const UnicodeString* tableAlias, ScanTargetNameResolver* aliasResolver);
@@ -45,8 +50,8 @@ private:
 private:
 	const SQLColumnIdentifier* sqlColId;
 
-	AbstractScanTableTarget* target;
-	CdbTableColumn* cdbColumn;
+	const AbstractScanTableTarget* target;
+	const CdbTableColumn* cdbColumn;
 
 	UnicodeString* str;
 };

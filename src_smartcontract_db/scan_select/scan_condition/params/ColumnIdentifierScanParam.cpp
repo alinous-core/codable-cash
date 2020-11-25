@@ -8,6 +8,7 @@
 #include "scan_select/scan_condition/params/ColumnIdentifierScanParam.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #include "schema_table/table/CdbTable.h"
 #include "schema_table/table/CdbTableColumn.h"
@@ -29,6 +30,8 @@
 #include "scan_select/scan_table/AbstractScanTableTarget.h"
 
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
+
+#include "scan_select/scan_planner/base/TablesHolder.h"
 
 namespace codablecash {
 
@@ -87,7 +90,26 @@ void ColumnIdentifierScanParam::analyzeConditions(VirtualMachine* vm, SelectScan
 	const UnicodeString* tableName = this->sqlColId->getTableName();
 	const UnicodeString* colName = this->sqlColId->getColumnName();
 
+	if(tableName == nullptr){
+		TablesHolder* tablesHolder = planner->getTablesHolder();
+		this->target = tablesHolder->findTable(colName);
+		if(this->target == nullptr){
+			throw new CdbException(L"Can not resolve column name.", __FILE__, __LINE__);
+		}
+
+		ScanTableColumnParam* param = this->target->findTableColumns(colName); __STP(param);
+		this->cdbColumn = param->column;
+
+		return;
+	}
+
 	if(schemaName == nullptr && resolveAlias(tableName, aliasResolver)){
+		ScanTableColumnParam* param = this->target->findTableColumns(colName); __STP(param);
+		if(param == nullptr){
+			throw new CdbException(L"Can not resolve column name.", __FILE__, __LINE__);
+		}
+		this->cdbColumn = param->column;
+		this->target = param->target;
 		return;
 	}
 
@@ -121,6 +143,19 @@ bool ColumnIdentifierScanParam::resolveAlias(const UnicodeString* tableAlias, Sc
 	}
 
 	return false;
+}
+
+bool ColumnIdentifierScanParam::hasIndex() const noexcept {
+	ScanTableColumnParam* p = this->target->findTableColumns(sqlColId->getColumnName()); __STP(p);
+
+	if(p->table == nullptr){
+		return false;
+	}
+
+	const CdbTable* table = p->table;
+	CdbTableIndex* index = table->getIndexByColumnOid(p->column->getOid());
+
+	return index != nullptr;
 }
 
 } /* namespace codablecash */

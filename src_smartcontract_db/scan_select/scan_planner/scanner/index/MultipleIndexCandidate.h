@@ -29,7 +29,14 @@ public:
 	virtual int size() const noexcept;
 	virtual const IndexCandidate* get(int i) const noexcept;
 
+	virtual const UnicodeString* toCodeString() noexcept;
+
 	void mul(const IndexCandidate* candidate) noexcept;
+
+private:
+	void addCandidate(const IndexCandidate* candidate);
+	void handleRangeCandidate(const IndexCandidate* candidate);
+
 
 private:
 	ArrayList<IndexCandidate> list;

@@ -20,6 +20,8 @@ class IJoinLeftSource;
 class IJoinRightSource;
 class SelectScanPlanner;
 class ScanResultMetadata;
+class AbstractScanCondition;
+class ScanJoinContext;
 
 class AbstractScannerFactory {
 public:
@@ -28,11 +30,13 @@ public:
 
 
 	virtual IJoinLeftSource* createScannerAsLeftSource(VirtualMachine* vm, SelectScanPlanner* planner) = 0;
-	virtual IJoinRightSource* createScannerAsRightSource(VirtualMachine* vm, SelectScanPlanner* planner) = 0;
+	virtual IJoinRightSource* createScannerAsRightSource(VirtualMachine* vm, SelectScanPlanner* planner, const ScanJoinContext* joinContext) = 0;
 
+	void setFilterCondition(const AbstractScanCondition* filterCondition) noexcept;
 
 protected:
 	ScanResultMetadata* metadata;
+	AbstractScanCondition* filterCondition;
 };
 
 } /* namespace codablecash */

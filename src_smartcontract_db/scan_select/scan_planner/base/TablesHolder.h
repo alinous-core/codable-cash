@@ -37,6 +37,8 @@ public:
 	void resolveTable(VirtualMachine* vm, SelectScanPlanner* planner);
 	void buildScannerFactories(VirtualMachine* vm, SelectScanPlanner* planner);
 
+	const AbstractScanTableTarget* findTable(const UnicodeString* colName) const;
+
 private:
 	AbstractScannerFactory* buildScanFactory(VirtualMachine* vm, SelectScanPlanner* planner);
 	AbstractScanTableTarget* buildOuterJoinTarget();

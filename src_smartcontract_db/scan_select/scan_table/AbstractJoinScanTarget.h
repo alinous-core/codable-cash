@@ -33,6 +33,8 @@ public:
 	virtual void resolveTable(VirtualMachine* vm, SelectScanPlanner* planner);
 	virtual bool hasTarget(const AbstractScanTableTarget* target) const noexcept;
 
+	virtual ScanTableColumnParam* findTableColumns(const UnicodeString* colName) const;
+
 protected:
 	void resetStr() noexcept;
 	void addConditionString() noexcept;

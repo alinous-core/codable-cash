@@ -11,9 +11,12 @@
 #include "scan_select/scan_condition/base/AbstractScanCondition.h"
 #include <cstdint>
 
+#include "scan_select/scan_planner/scanner/index/AbstractIndexCandidate.h"
+
 namespace codablecash {
 
 class IValueProvider;
+class AbstractIndexCandidate;
 
 class RelationalScanCondition : public AbstractScanCondition {
 public:
@@ -31,6 +34,8 @@ public:
 	virtual void detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner, TableIndexDetector* detector);
 
 	virtual AbstractScanCondition* cloneCondition() const noexcept;
+
+	static AbstractIndexCandidate::IndexType toIndexType(uint8_t op, bool reverse);
 
 private:
 	void resetStr() noexcept;

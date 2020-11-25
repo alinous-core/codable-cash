@@ -13,6 +13,7 @@
 namespace codablecash {
 
 class IValueProvider;
+class AbstractScanTableTarget;
 
 class EqualityScanCondition : public AbstractScanCondition {
 public:
@@ -32,6 +33,8 @@ public:
 	virtual AbstractScanCondition* cloneCondition() const noexcept;
 
 private:
+	bool hasLeftAndRightScanTarget(const AbstractScanTableTarget* left, const AbstractScanTableTarget* right) const noexcept;
+
 	void resetStr() noexcept;
 private:
 	IValueProvider* left;

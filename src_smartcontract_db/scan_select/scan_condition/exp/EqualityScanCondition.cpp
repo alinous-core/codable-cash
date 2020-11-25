@@ -25,6 +25,11 @@
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionStackMarker.h"
 
+#include "scan_select/scan_table/AbstractScanTableTarget.h"
+
+#include "scan_select/scan_planner/scanner/index/IndexCandidate.h"
+
+#include "scan_select/scan_planner/scanner/index/TableIndexDetector.h"
 using namespace alinous;
 
 namespace codablecash {
@@ -90,9 +95,27 @@ void EqualityScanCondition::detectFilterConditions(VirtualMachine* vm,
 
 void EqualityScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner,
 		TableIndexDetector* detector) {
-	// FIXME detectIndexCondition
-}
+	ColumnIdentifierScanParam* column = nullptr;
+	IValueProvider* value = nullptr;
 
+	if(this->left->isColumn() && !this->right->isColumn()){
+		column = dynamic_cast<ColumnIdentifierScanParam*>(this->left);
+		value = this->right;
+	}
+	else if(!this->left->isColumn() && this->right->isColumn()){
+		column = dynamic_cast<ColumnIdentifierScanParam*>(this->right);
+		value = this->left;
+	}
+	else {
+		return;
+	}
+
+	IndexCandidate* candidate = new IndexCandidate(AbstractIndexCandidate::IndexType::EQUALS);
+	candidate->setColumn(column);
+	candidate->setValue(value);
+
+	detector->push(candidate);
+}
 
 void EqualityScanCondition::resetStr() noexcept {
 	if(this->str != nullptr){
@@ -112,6 +135,12 @@ void EqualityScanCondition::collectJoinCandidate(VirtualMachine* vm, SelectScanP
 		return;
 	}
 
+	const AbstractScanTableTarget* left = jholder->getLeft();
+	const AbstractScanTableTarget* right = jholder->getRight();
+	if(!hasLeftAndRightScanTarget(left, right)){
+		return;
+	}
+
 	JoinCandidateStackMarker marker(jholder->getStack());
 
 	JoinCandidate* candidate = new JoinCandidate(joinType, dynamic_cast<ColumnIdentifierScanParam*>(this->left)
@@ -121,6 +150,30 @@ void EqualityScanCondition::collectJoinCandidate(VirtualMachine* vm, SelectScanP
 	if(jholder->isJoinCondition(candidate)){
 		jholder->push(st_candidate.move());
 	}
+}
+
+bool EqualityScanCondition::hasLeftAndRightScanTarget(
+		const AbstractScanTableTarget* left,
+		const AbstractScanTableTarget* right) const noexcept {
+	bool l = false;
+	bool r = false;
+
+	ColumnIdentifierScanParam* lparam = dynamic_cast<ColumnIdentifierScanParam*>(this->left);
+	ColumnIdentifierScanParam* rparam = dynamic_cast<ColumnIdentifierScanParam*>(this->right);
+
+	if(lparam->getTarget()->hasTarget(left)){
+		l = true;
+	}else if(lparam->getTarget()->hasTarget(right)){
+		r = true;
+	}
+
+	if(rparam->getTarget()->hasTarget(left)){
+		l = true;
+	}else if(rparam->getTarget()->hasTarget(right)){
+		r = true;
+	}
+
+	return l && r;
 }
 
 } /* namespace codablecash */

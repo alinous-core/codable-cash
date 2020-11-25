@@ -21,7 +21,7 @@
 #include "trx/scan/transaction_update_cache/TransactionUpdateCache.h"
 #include "trx/scan/transaction_update_cache/DeletedRecordsOidsCursor.h"
 
-#include "../toolkit/TestDbSchema01.h"
+#include "smartcontract_db/toolkit/TestDbSchema01.h"
 
 using namespace alinous;
 using namespace codablecash;

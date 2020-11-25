@@ -12,10 +12,18 @@
 
 namespace codablecash {
 
+class AbstractIndexCandidate;
+
 class TableScannerFactory : public AbstractScannerFactory {
 public:
-	explicit TableScannerFactory(const ScanResultMetadata* metadata);
+	explicit TableScannerFactory(const ScanResultMetadata* metadata, const AbstractIndexCandidate* indexCandidate);
 	virtual ~TableScannerFactory();
+
+	virtual IJoinLeftSource* createScannerAsLeftSource(VirtualMachine* vm, SelectScanPlanner* planner);
+	virtual IJoinRightSource* createScannerAsRightSource(VirtualMachine* vm, SelectScanPlanner* planner, const ScanJoinContext* joinContext);
+
+private:
+	AbstractIndexCandidate* indexCandidate;
 };
 
 } /* namespace codablecash */

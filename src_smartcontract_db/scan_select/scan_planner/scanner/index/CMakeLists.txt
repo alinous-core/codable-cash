@@ -2,7 +2,9 @@
 
 set(__src
 	AbstractIndexCandidate.cpp
+	AbstractIndexCandidateCollection.cpp
 	IndexCandidate.cpp
+	IndexRangeCandidate.cpp
 	MultipleIndexCandidate.cpp
 	OrIndexCandidate.cpp
 	TableIndexDetector.cpp

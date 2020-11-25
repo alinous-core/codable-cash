@@ -10,6 +10,7 @@
 
 namespace alinous {
 class VirtualMachine;
+class UnicodeString;
 }
 using namespace alinous;
 
@@ -28,6 +29,7 @@ public:
 	virtual bool isColumn() const noexcept;
 	virtual bool isFilterable(VirtualMachine* vm, SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept = 0;
 
+	virtual const UnicodeString* toStringCode() noexcept = 0;
 };
 
 } /* namespace codablecash */

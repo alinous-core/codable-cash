@@ -11,10 +11,13 @@
 #include "scan_select/scan_table/CrossJoinScanTarget.h"
 
 #include "base/UnicodeString.h"
+#include "base/StackRelease.h"
 
 #include "scan_select/scan_planner/base/SelectScanPlanner.h"
 
 #include "scan_select/scan_planner/analyze/AnalyzedScanPlan.h"
+
+#include "engine/CdbException.h"
 
 
 namespace codablecash {
@@ -113,5 +116,25 @@ AbstractScanTableTarget* TablesHolder::buildOuterJoinTarget() {
 
 	return target;
 }
+
+const AbstractScanTableTarget* TablesHolder::findTable(const UnicodeString* colName) const {
+	const AbstractScanTableTarget* target = nullptr;
+
+	int maxLoop = this->list.size();
+	for(int i = 1; i != maxLoop; ++i){
+		AbstractScanTableTarget* targetRight = this->list.get(i);
+
+		ScanTableColumnParam* param = targetRight->findTableColumns(colName); __STP(param);
+		if(target == nullptr && param != nullptr){
+			target = param->target;
+		}
+		else if(target != nullptr && param != nullptr){
+			throw new CdbException(L"Column name is ambiguous.", __FILE__, __LINE__);
+		}
+	}
+
+	return target;
+}
+
 
 } /* namespace codablecash */

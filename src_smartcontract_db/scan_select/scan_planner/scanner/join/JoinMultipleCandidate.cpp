@@ -76,5 +76,22 @@ void codablecash::JoinMultipleCandidate::mul(const JoinCandidate* candidate) noe
 	this->list.addElement(new JoinCandidate(*candidate));
 }
 
+int JoinMultipleCandidate::getOverHeadScore(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept {
+	int score = 1000;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		const JoinCandidate* c = this->list.get(i);
+		int s = c->getOverHeadScore(left, right);
+
+		if(score > s){
+			score = s;
+		}
+	}
+
+	return score;
+}
+
+
 
 } /* namespace codablecash */

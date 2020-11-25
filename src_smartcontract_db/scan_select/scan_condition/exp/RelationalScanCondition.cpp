@@ -11,6 +11,8 @@
 
 #include "scan_select/scan_condition/base/IValueProvider.h"
 
+#include "scan_select/scan_condition/params/ColumnIdentifierScanParam.h"
+
 #include "engine/CdbException.h"
 
 #include "base/UnicodeString.h"
@@ -19,6 +21,11 @@
 
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionStackMarker.h"
+
+#include "scan_select/scan_planner/scanner/index/IndexCandidate.h"
+#include "scan_select/scan_planner/scanner/index/TableIndexDetector.h"
+
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
 
 using namespace alinous;
 
@@ -101,7 +108,29 @@ void RelationalScanCondition::detectFilterConditions(VirtualMachine* vm,
 
 void RelationalScanCondition::detectIndexCondition(VirtualMachine* vm, SelectScanPlanner* planner,
 		TableIndexDetector* detector) {
-	// FIXME detectIndexCondition
+	ColumnIdentifierScanParam* column = nullptr;
+	IValueProvider* value = nullptr;
+
+	bool reverse = false;
+	if(this->left->isColumn() && !this->right->isColumn()){
+		column = dynamic_cast<ColumnIdentifierScanParam*>(this->left);
+		value = this->right;
+	}
+	else if(!this->left->isColumn() && this->right->isColumn()){
+		column = dynamic_cast<ColumnIdentifierScanParam*>(this->right);
+		value = this->left;
+		reverse = true;
+	}
+	else {
+		return;
+	}
+
+	AbstractIndexCandidate::IndexType indexType = toIndexType(this->op, reverse);
+	IndexCandidate* candidate = new IndexCandidate(indexType);
+	candidate->setColumn(column);
+	candidate->setValue(value);
+
+	detector->push(candidate);
 }
 
 void RelationalScanCondition::resetStr() noexcept {
@@ -115,5 +144,29 @@ void RelationalScanCondition::analyzeConditions(VirtualMachine* vm, SelectScanPl
 	this->left->analyzeConditions(vm, planner);
 	this->right->analyzeConditions(vm, planner);
 }
+
+AbstractIndexCandidate::IndexType RelationalScanCondition::toIndexType(uint8_t op, bool reverse) {
+	AbstractIndexCandidate::IndexType idxType;
+
+	switch(op){
+	case SQLRelationalExpression::GT:
+		idxType = !reverse ? AbstractIndexCandidate::IndexType::RANGE_GT : AbstractIndexCandidate::IndexType::RANGE_LT;
+		break;
+	case SQLRelationalExpression::GT_EQ:
+		idxType = !reverse ? AbstractIndexCandidate::IndexType::RANGE_GT_EQ : AbstractIndexCandidate::IndexType::RANGE_LT_EQ;
+		break;
+	case SQLRelationalExpression::LT:
+		idxType = !reverse ? AbstractIndexCandidate::IndexType::RANGE_LT : AbstractIndexCandidate::IndexType::RANGE_GT;
+		break;
+	case SQLRelationalExpression::LT_EQ:
+		idxType = !reverse ? AbstractIndexCandidate::IndexType::RANGE_LT_EQ : AbstractIndexCandidate::IndexType::RANGE_GT_EQ;
+		break;
+	default:
+		throw new CdbException(L"wrong operation code", __FILE__, __LINE__);
+	}
+
+	return idxType;
+}
+
 
 } /* namespace codablecash */
