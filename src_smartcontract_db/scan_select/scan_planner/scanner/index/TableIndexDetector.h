@@ -35,6 +35,10 @@ public:
 
 	bool isEmpty() const noexcept;
 
+	TableIndexDetectorStack* getStack() const noexcept {
+		return stack;
+	}
+
 private:
 	VirtualMachine* vm;
 	SelectScanPlanner* planner;

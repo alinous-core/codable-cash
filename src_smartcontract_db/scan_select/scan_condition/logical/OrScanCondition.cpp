@@ -19,6 +19,10 @@
 #include "scan_select/scan_planner/scanner/join/AbstractJoinCandidate.h"
 #include "scan_select/scan_planner/scanner/join/JoinOrCandidate.h"
 
+#include "scan_select/scan_planner/scanner/index/TableIndexDetectorStack.h"
+#include "scan_select/scan_planner/scanner/index/TableIndexDetectorStackMarker.h"
+#include "scan_select/scan_planner/scanner/index/TableIndexDetector.h"
+
 using namespace alinous;
 
 namespace codablecash {
@@ -108,6 +112,9 @@ void OrScanCondition::detectFilterConditions(VirtualMachine* vm,
 
 void OrScanCondition::detectIndexCondition(VirtualMachine* vm,
 		SelectScanPlanner* planner, TableIndexDetector* detector) {
+	TableIndexDetectorStack* stack = detector->getStack();
+	TableIndexDetectorStackMarker marker(stack);
+
 	// FIXME detectIndexCondition
 }
 

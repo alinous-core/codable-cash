@@ -26,6 +26,8 @@
 #include "scan_select/scan_planner/scanner/index/TableIndexDetector.h"
 #include "scan_select/scan_planner/scanner/index/AbstractIndexCandidate.h"
 #include "scan_select/scan_planner/scanner/index/MultipleIndexCandidate.h"
+#include "scan_select/scan_planner/scanner/index/TableIndexDetectorStackMarker.h"
+#include "scan_select/scan_planner/scanner/index/TableIndexDetectorStack.h"
 
 using namespace alinous;
 
@@ -112,6 +114,9 @@ void AndScanCondition::detectFilterConditions(VirtualMachine* vm,
 }
 
 void AndScanCondition::detectIndexCondition(VirtualMachine* vm,	SelectScanPlanner* planner, TableIndexDetector* detector) {
+	TableIndexDetectorStack* stack = detector->getStack();
+	TableIndexDetectorStackMarker marker(stack);
+
 	ArrayList<AbstractIndexCandidate> list;
 	list.setDeleteOnExit();
 
