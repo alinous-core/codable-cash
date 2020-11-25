@@ -251,3 +251,65 @@ TEST(TestIndexConditionGroup, case05){
 		CHECK(str2->equals(str));
 	}
 }
+
+TEST(TestIndexConditionGroup, case06){
+	TestDbSchema01 tester(this->env);
+	tester.init(1024 * 10);
+
+	VirtualMachine* vm = tester.getVm();
+
+	{
+		SQLColumnIdentifier id(L"public", L"test_table", L"id");
+		SQLColumnIdentifier name(L"public", L"test_table", L"name");
+		SQLColumnIdentifier email_id(L"public", L"test_table", L"email_id");
+		SQLColumnIdentifier email(L"public", L"emails", L"email");
+
+		ColumnIdentifierScanParam pid(&id);
+		ColumnIdentifierScanParam pname(&name);
+		ColumnIdentifierScanParam pemail_id(&email_id);
+		ColumnIdentifierScanParam pemail(&email);
+
+
+		SelectScanPlanner* planner = new SelectScanPlanner(); __STP(planner);
+		VmSelectPlannerSetter setter(vm, planner);
+
+		pid.analyzeConditions(vm, planner);
+		pname.analyzeConditions(vm, planner);
+		pemail_id.analyzeConditions(vm, planner);
+		pemail.analyzeConditions(vm, planner);
+
+		IndexCandidate* candidate = new IndexCandidate(IndexCandidate::IndexType::RANGE_GT); __STP(candidate);
+		candidate->setColumn(&pid);
+		NumericScanParam numParam(10);
+		candidate->setValue(&numParam);
+
+		IndexCandidate* candidate2 = new IndexCandidate(IndexCandidate::IndexType::EQUALS); __STP(candidate2);
+		candidate2->setColumn(&pname);
+		StringScanParam strParam2(L"test");
+		candidate2->setValue(&strParam2);
+
+		IndexCandidate* candidate3 = new IndexCandidate(IndexCandidate::IndexType::EQUALS); __STP(candidate3);
+		candidate3->setColumn(&pemail_id);
+		NumericScanParam numParam2(10);
+		candidate3->setValue(&numParam2);
+
+		IndexCandidate* candidate4 = new IndexCandidate(IndexCandidate::IndexType::EQUALS); __STP(candidate4);
+		candidate4->setColumn(&pemail);
+		StringScanParam strParam3(L"test2");
+		candidate4->setValue(&strParam3);
+
+		AbstractIndexCandidate* mul1 = candidate->multiply(candidate2); __STP(mul1);
+
+		OrIndexCandidate orCandidate2;
+		orCandidate2.add(candidate3);
+		orCandidate2.add(candidate4);
+
+		AbstractIndexCandidate* mul2 = mul1->multiply(&orCandidate2); __STP(mul2);
+		const UnicodeString* str = mul2->toCodeString();
+
+	//	printf(str->toCString());
+
+		UnicodeString ans(L"public.test_table.email_id = 10 AND public.test_table.id > 10 AND public.test_table.name = 'test' OR public.emails.email = 'test2' AND public.test_table.id > 10 AND public.test_table.name = 'test'");
+		CHECK(ans.equals(str));
+	}
+}
