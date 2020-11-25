@@ -26,7 +26,7 @@ using namespace alinous;
 
 namespace codablecash {
 
-IndexCandidate::IndexCandidate(const IndexCandidate& inst) : AbstractIndexCandidateCollection(inst) {
+IndexCandidate::IndexCandidate(const IndexCandidate& inst) : AbstractIndexCandidateCollection(inst.indexType) {
 	this->column = inst.column;
 	this->value = inst.value;
 }
