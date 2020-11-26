@@ -10,10 +10,15 @@
 
 namespace codablecash {
 
+class CodableDatabase;
+
 class IndexResolver {
 public:
-	IndexResolver();
+	explicit IndexResolver(CodableDatabase* db);
 	virtual ~IndexResolver();
+
+private:
+	CodableDatabase* db;
 };
 
 } /* namespace codablecash */

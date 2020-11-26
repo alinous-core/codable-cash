@@ -9,12 +9,12 @@
 
 namespace codablecash {
 
-IndexResolver::IndexResolver() {
-
+IndexResolver::IndexResolver(CodableDatabase* db) {
+	this->db = db;
 }
 
 IndexResolver::~IndexResolver() {
-
+	this->db = nullptr;
 }
 
 } /* namespace codablecash */
