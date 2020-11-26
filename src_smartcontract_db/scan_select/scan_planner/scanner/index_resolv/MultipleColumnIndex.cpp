@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include <scan_select/scan_planner/scanner/index_resolv/MultipleColumnIndex.h>
+#include "scan_select/scan_planner/scanner/index_resolv/MultipleColumnIndex.h"
 
 namespace codablecash {
 
