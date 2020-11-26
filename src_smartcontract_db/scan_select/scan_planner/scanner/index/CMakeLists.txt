@@ -5,6 +5,7 @@ set(__src
 	AbstractIndexCandidateCollection.cpp
 	IndexCandidate.cpp
 	IndexRangeCandidate.cpp
+	IndexResolver.cpp
 	MultipleIndexCandidate.cpp
 	OrIndexCandidate.cpp
 	TableIndexDetector.cpp
