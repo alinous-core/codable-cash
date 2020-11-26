@@ -11,11 +11,20 @@
 namespace codablecash {
 
 class CodableDatabase;
+class AbstractIndexCandidate;
+class OrIndexCandidate;
+class MultipleIndexCandidate;
 
 class IndexResolver {
 public:
 	explicit IndexResolver(CodableDatabase* db);
 	virtual ~IndexResolver();
+
+	void analyze(const AbstractIndexCandidate* candidate);
+
+private:
+	void analyzeOr(const OrIndexCandidate* orCandidate);
+	void analyzeAnd(const MultipleIndexCandidate* andCandidate);
 
 private:
 	CodableDatabase* db;

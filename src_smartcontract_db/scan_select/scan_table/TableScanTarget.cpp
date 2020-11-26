@@ -28,6 +28,7 @@
 #include "scan_select/scan_planner/scanner/ctx/FilterConditionDitector.h"
 
 #include "scan_select/scan_planner/scanner/index/TableIndexDetector.h"
+#include "scan_select/scan_planner/scanner/index/AbstractIndexCandidate.h"
 
 #include "scan_select/scan_planner/scanner/factory/TableScannerFactory.h"
 
