@@ -14,6 +14,12 @@ class AbstractColumnsIndexWrapper {
 public:
 	AbstractColumnsIndexWrapper();
 	virtual ~AbstractColumnsIndexWrapper();
+
+	virtual bool isOr() const noexcept {
+		return false;
+	}
+
+	virtual int size() const noexcept = 0;
 };
 
 } /* namespace codablecash */

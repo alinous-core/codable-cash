@@ -8,10 +8,15 @@
 #ifndef SCAN_SELECT_SCAN_PLANNER_SCANNER_INDEX_INDEXRESOLVER_H_
 #define SCAN_SELECT_SCAN_PLANNER_SCANNER_INDEX_INDEXRESOLVER_H_
 
+#include "base/ArrayList.h"
+
+using namespace alinous;
+
 namespace codablecash {
 
 class CodableDatabase;
 class AbstractIndexCandidate;
+class AbstractColumnsIndexWrapper;
 class OrIndexCandidate;
 class MultipleIndexCandidate;
 
@@ -23,11 +28,14 @@ public:
 	void analyze(const AbstractIndexCandidate* candidate);
 
 private:
-	void analyzeOr(const OrIndexCandidate* orCandidate);
-	void analyzeAnd(const MultipleIndexCandidate* andCandidate);
+	void doAnalyze(const AbstractIndexCandidate* candidate, ArrayList<AbstractColumnsIndexWrapper>* list);
+	void analyzeOr(const OrIndexCandidate* orCandidate, ArrayList<AbstractColumnsIndexWrapper>* list);
+	void analyzeAnd(const MultipleIndexCandidate* andCandidate, ArrayList<AbstractColumnsIndexWrapper>* list);
 
 private:
 	CodableDatabase* db;
+	AbstractColumnsIndexWrapper* result;
+
 };
 
 } /* namespace codablecash */

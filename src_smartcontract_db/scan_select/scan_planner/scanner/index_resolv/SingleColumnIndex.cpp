@@ -10,12 +10,15 @@
 namespace codablecash {
 
 SingleColumnIndex::SingleColumnIndex() {
-	// TODO Auto-generated constructor stub
-
+	this->column = nullptr;
 }
 
 SingleColumnIndex::~SingleColumnIndex() {
-	// TODO Auto-generated destructor stub
+	this->column = nullptr;
+}
+
+int SingleColumnIndex::size() const noexcept {
+	return 1;
 }
 
 } /* namespace codablecash */

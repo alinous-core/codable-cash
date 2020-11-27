@@ -12,10 +12,25 @@
 
 namespace codablecash {
 
+class CdbTableColumn;
+
 class SingleColumnIndex : public AbstractColumnsIndexWrapper {
 public:
 	SingleColumnIndex();
 	virtual ~SingleColumnIndex();
+
+	virtual int size() const noexcept;
+
+	const CdbTableColumn* getColumn() const noexcept {
+		return column;
+	}
+
+	void setColumn(const CdbTableColumn* column) noexcept {
+		this->column = column;
+	}
+
+private:
+	const CdbTableColumn* column;
 };
 
 } /* namespace codablecash */

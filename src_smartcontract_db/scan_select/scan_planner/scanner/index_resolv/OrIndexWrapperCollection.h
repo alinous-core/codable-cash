@@ -16,6 +16,10 @@ class OrIndexWrapperCollection : public AbstractColumnsIndexWrapper {
 public:
 	OrIndexWrapperCollection();
 	virtual ~OrIndexWrapperCollection();
+
+	virtual bool isOr() const noexcept {
+		return true;
+	}
 };
 
 } /* namespace codablecash */
