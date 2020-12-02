@@ -10,6 +10,8 @@
 
 namespace codablecash {
 
+class SchemaManager;
+
 class AbstractColumnsIndexWrapper {
 public:
 	AbstractColumnsIndexWrapper();
@@ -23,6 +25,8 @@ public:
 	}
 
 	virtual int size() const noexcept = 0;
+
+	virtual bool hasIndex(SchemaManager* schemaManager) = 0;
 };
 
 } /* namespace codablecash */

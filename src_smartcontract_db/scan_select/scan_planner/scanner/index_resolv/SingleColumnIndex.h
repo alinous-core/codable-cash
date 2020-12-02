@@ -65,6 +65,8 @@ public:
 	virtual bool isRange() const noexcept;
 	void setRange(bool range) noexcept;
 
+	virtual bool hasIndex(SchemaManager* schemaManager);
+
 private:
 	const CdbTableColumn* column;
 

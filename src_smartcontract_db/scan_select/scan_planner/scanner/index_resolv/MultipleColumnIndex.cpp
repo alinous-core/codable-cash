@@ -18,4 +18,9 @@ MultipleColumnIndex::~MultipleColumnIndex() {
 	// TODO Auto-generated destructor stub
 }
 
+bool MultipleColumnIndex::hasIndex(SchemaManager* schemaManager) {
+	// TODO hasIndex
+	return false;
+}
+
 } /* namespace codablecash */

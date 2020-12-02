@@ -20,6 +20,8 @@ public:
 	virtual bool isOr() const noexcept {
 		return true;
 	}
+
+	virtual bool hasIndex(SchemaManager* schemaManager);
 };
 
 } /* namespace codablecash */

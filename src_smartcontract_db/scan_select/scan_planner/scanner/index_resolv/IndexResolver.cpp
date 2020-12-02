@@ -50,8 +50,20 @@ void IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate, ArrayList
 	}
 
 	SchemaManager* schemaManager = this->db->getSchemaManager();
+	SingleColumnIndex* index = handleIndex(candidate);
 
-	if(candidateType == AbstractIndexCandidate::IndexType::RANGE){
+
+
+}
+
+SingleColumnIndex* IndexResolver::handleIndex(const AbstractIndexCandidate* candidate) {
+	AbstractIndexCandidate::IndexType candidateType = candidate->getCandidateType();
+
+	if(candidateType == AbstractIndexCandidate::IndexType::RANGE
+			||candidateType == AbstractIndexCandidate::IndexType::RANGE_GT
+			|| candidateType == AbstractIndexCandidate::IndexType::RANGE_GT_EQ
+			|| candidateType == AbstractIndexCandidate::IndexType::RANGE_LT
+			|| candidateType == AbstractIndexCandidate::IndexType::RANGE_LT_EQ){
 		const IndexRangeCandidate* rangeCandidate = dynamic_cast<const IndexRangeCandidate*>(candidate);
 
 		const ColumnIdentifierScanParam* colp = rangeCandidate->getColumn();
@@ -59,7 +71,6 @@ void IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate, ArrayList
 
 		SingleColumnIndex* index = new SingleColumnIndex();
 		index->setRange(true);
-		list->addElement(index);
 
 		const IValueProvider* vp = rangeCandidate->getValue();
 		index->setValue(vp);
@@ -69,7 +80,7 @@ void IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate, ArrayList
 		index->setTopValue(vp);
 		index->setTopEq(rangeCandidate->isTopEq());
 
-		return;
+		return index;
 	}
 
 	const IndexCandidate* indexCandidate = dynamic_cast<const IndexCandidate*>(candidate);
@@ -78,10 +89,11 @@ void IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate, ArrayList
 	const IValueProvider* vp = indexCandidate->getValue();
 
 	SingleColumnIndex* index = new SingleColumnIndex();
-	list->addElement(index);
 
 	index->setColumn(col);
 	index->setValue(vp);
+
+	return index;
 }
 
 void IndexResolver::analyzeOr(const OrIndexCandidate* orCandidate, ArrayList<AbstractColumnsIndexWrapper>* list) {
@@ -90,9 +102,13 @@ void IndexResolver::analyzeOr(const OrIndexCandidate* orCandidate, ArrayList<Abs
 }
 
 void IndexResolver::analyzeAnd(const MultipleIndexCandidate* andCandidate, ArrayList<AbstractColumnsIndexWrapper>* list) {
+
+
 	int maxLoop = andCandidate->size();
 	for(int i = 0; i != maxLoop; ++i){
 		const IndexCandidate* candidate = andCandidate->get(i);
+
+
 	}
 }
 

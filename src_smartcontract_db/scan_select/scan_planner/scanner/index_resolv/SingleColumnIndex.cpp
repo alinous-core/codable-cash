@@ -38,4 +38,8 @@ void SingleColumnIndex::setRange(bool range) noexcept {
 	this->range = range;
 }
 
+bool SingleColumnIndex::hasIndex(SchemaManager* schemaManager) {
+}
+
+
 } /* namespace codablecash */

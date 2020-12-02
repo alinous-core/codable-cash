@@ -16,6 +16,8 @@ class MultipleColumnIndex : public AbstractColumnsIndexWrapper {
 public:
 	MultipleColumnIndex();
 	virtual ~MultipleColumnIndex();
+
+	virtual bool hasIndex(SchemaManager* schemaManager);
 };
 
 } /* namespace codablecash */

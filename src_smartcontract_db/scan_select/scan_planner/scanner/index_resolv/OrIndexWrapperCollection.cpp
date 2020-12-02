@@ -17,4 +17,8 @@ OrIndexWrapperCollection::~OrIndexWrapperCollection() {
 
 }
 
+bool OrIndexWrapperCollection::hasIndex(SchemaManager* schemaManager) {
+	return false;
+}
+
 } /* namespace codablecash */
