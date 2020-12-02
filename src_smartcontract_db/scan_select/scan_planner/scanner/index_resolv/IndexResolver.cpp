@@ -53,7 +53,21 @@ void IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate, ArrayList
 
 	if(candidateType == AbstractIndexCandidate::IndexType::RANGE){
 		const IndexRangeCandidate* rangeCandidate = dynamic_cast<const IndexRangeCandidate*>(candidate);
+
 		const ColumnIdentifierScanParam* colp = rangeCandidate->getColumn();
+		const CdbTableColumn* col = colp->getCdbColumn();
+
+		SingleColumnIndex* index = new SingleColumnIndex();
+		index->setRange(true);
+		list->addElement(index);
+
+		const IValueProvider* vp = rangeCandidate->getValue();
+		index->setValue(vp);
+		index->setBottomEq(rangeCandidate->isBottomEq());
+
+		vp = rangeCandidate->getTopValue();
+		index->setTopValue(vp);
+		index->setTopEq(rangeCandidate->isTopEq());
 
 		return;
 	}
@@ -64,11 +78,10 @@ void IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate, ArrayList
 	const IValueProvider* vp = indexCandidate->getValue();
 
 	SingleColumnIndex* index = new SingleColumnIndex();
+	list->addElement(index);
+
 	index->setColumn(col);
 	index->setValue(vp);
-
-
-	list->addElement(index);
 }
 
 void IndexResolver::analyzeOr(const OrIndexCandidate* orCandidate, ArrayList<AbstractColumnsIndexWrapper>* list) {

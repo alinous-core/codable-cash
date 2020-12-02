@@ -58,7 +58,7 @@ public:
 		return value;
 	}
 
-	void setValue(const IValueProvider*& value) noexcept {
+	void setValue(const IValueProvider* value) noexcept {
 		this->value = value;
 	}
 
