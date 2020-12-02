@@ -18,6 +18,9 @@ public:
 	virtual bool isOr() const noexcept {
 		return false;
 	}
+	virtual bool isRange() const noexcept {
+		return false;
+	}
 
 	virtual int size() const noexcept = 0;
 };

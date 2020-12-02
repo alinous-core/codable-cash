@@ -12,6 +12,7 @@
 
 namespace codablecash {
 
+class IValueProvider;
 class CdbTableColumn;
 
 class SingleColumnIndex : public AbstractColumnsIndexWrapper {
@@ -29,8 +30,51 @@ public:
 		this->column = column;
 	}
 
+	bool isBottomEq() const noexcept {
+		return bottomEq;
+	}
+
+	void setBottomEq(bool bottomEq) noexcept {
+		this->bottomEq = bottomEq;
+	}
+
+	bool isTopEq() const noexcept {
+		return topEq;
+	}
+
+	void setTopEq(bool topEq) noexcept {
+		this->topEq = topEq;
+	}
+
+	const IValueProvider* getTopValue() const noexcept {
+		return topValue;
+	}
+
+	void setTopValue(const IValueProvider* topValue) noexcept {
+		this->topValue = topValue;
+	}
+
+	const IValueProvider* getValue() const noexcept {
+		return value;
+	}
+
+	void setValue(const IValueProvider*& value) noexcept {
+		this->value = value;
+	}
+
+	virtual bool isRange() const noexcept;
+	void setRange(bool range) noexcept;
+
 private:
 	const CdbTableColumn* column;
+
+	const IValueProvider* topValue;
+	bool topEq;
+
+	const IValueProvider* value;
+	bool bottomEq;
+
+	bool range;
 };
 
 } /* namespace codablecash */

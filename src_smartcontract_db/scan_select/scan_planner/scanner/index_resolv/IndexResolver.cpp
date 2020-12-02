@@ -61,9 +61,12 @@ void IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate, ArrayList
 	const IndexCandidate* indexCandidate = dynamic_cast<const IndexCandidate*>(candidate);
 	const ColumnIdentifierScanParam* colp = indexCandidate->getColumn();
 	const CdbTableColumn* col = colp->getCdbColumn();
+	const IValueProvider* vp = indexCandidate->getValue();
 
 	SingleColumnIndex* index = new SingleColumnIndex();
 	index->setColumn(col);
+	index->setValue(vp);
+
 
 	list->addElement(index);
 }

@@ -11,14 +11,31 @@ namespace codablecash {
 
 SingleColumnIndex::SingleColumnIndex() {
 	this->column = nullptr;
+
+	this->topEq = false;
+	this->topValue = nullptr;
+	this->bottomEq = false;
+	this->value = nullptr;
+
+	this->range = false;
 }
 
 SingleColumnIndex::~SingleColumnIndex() {
 	this->column = nullptr;
+	this->topValue = nullptr;
+	this->value = nullptr;
 }
 
 int SingleColumnIndex::size() const noexcept {
 	return 1;
+}
+
+bool SingleColumnIndex::isRange() const noexcept {
+	return this->range;
+}
+
+void SingleColumnIndex::setRange(bool range) noexcept {
+	this->range = range;
 }
 
 } /* namespace codablecash */
