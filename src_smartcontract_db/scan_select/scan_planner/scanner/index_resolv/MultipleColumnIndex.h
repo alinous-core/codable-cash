@@ -10,7 +10,13 @@
 
 #include "scan_select/scan_planner/scanner/index_resolv/AbstractColumnsIndexWrapper.h"
 
+#include "base/ArrayList.h"
+
+using alinous::ArrayList;
+
 namespace codablecash {
+
+class SingleColumnIndex;
 
 class MultipleColumnIndex : public AbstractColumnsIndexWrapper {
 public:
@@ -18,6 +24,11 @@ public:
 	virtual ~MultipleColumnIndex();
 
 	virtual bool hasIndex(SchemaManager* schemaManager);
+
+	virtual int size() const noexcept;
+
+private:
+	ArrayList<SingleColumnIndex> list;
 };
 
 } /* namespace codablecash */

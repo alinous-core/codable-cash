@@ -21,6 +21,7 @@
 
 #include "base/StackRelease.h"
 
+#include "scan_select/scan_planner/scanner/index_resolv/MultipleColumnIndex.h"
 
 namespace codablecash {
 
@@ -54,7 +55,7 @@ void IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate, ArrayList
 	}
 
 	SchemaManager* schemaManager = this->db->getSchemaManager();
-	SingleColumnIndex* index = handleIndex(candidate);
+	SingleColumnIndex* index = handleSingleIndex(candidate);
 	StackRelease<SingleColumnIndex> st_index(index);
 
 	if(index != nullptr && index->hasIndex(schemaManager)){
@@ -63,7 +64,7 @@ void IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate, ArrayList
 
 }
 
-SingleColumnIndex* IndexResolver::handleIndex(const AbstractIndexCandidate* candidate) {
+SingleColumnIndex* IndexResolver::handleSingleIndex(const AbstractIndexCandidate* candidate) {
 	AbstractIndexCandidate::IndexType candidateType = candidate->getCandidateType();
 
 	if(candidateType == AbstractIndexCandidate::IndexType::RANGE
@@ -103,7 +104,7 @@ SingleColumnIndex* IndexResolver::handleIndex(const AbstractIndexCandidate* cand
 	return index;
 }
 
-void IndexResolver::analyzeOr(const OrIndexCandidate* orCandidate, ArrayList<AbstractColumnsIndexWrapper>* list) {
+OrIndexWrapperCollection* IndexResolver::analyzeOr(const OrIndexCandidate* orCandidate, ArrayList<AbstractColumnsIndexWrapper>* list) {
 	OrIndexWrapperCollection* wrapper = new OrIndexWrapperCollection();
 
 	int maxLoop = orCandidate->size();
@@ -111,10 +112,12 @@ void IndexResolver::analyzeOr(const OrIndexCandidate* orCandidate, ArrayList<Abs
 		AbstractIndexCandidateCollection* candidate = orCandidate->get(i);
 	}
 
+
+	return wrapper;
 }
 
 void IndexResolver::analyzeAnd(const MultipleIndexCandidate* andCandidate, ArrayList<AbstractColumnsIndexWrapper>* list) {
-
+	MultipleColumnIndex* wrapper = new MultipleColumnIndex();
 
 	int maxLoop = andCandidate->size();
 	for(int i = 0; i != maxLoop; ++i){

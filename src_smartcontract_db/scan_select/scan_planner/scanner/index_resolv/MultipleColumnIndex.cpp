@@ -7,21 +7,26 @@
 
 #include "scan_select/scan_planner/scanner/index_resolv/MultipleColumnIndex.h"
 
+#include "scan_select/scan_planner/scanner/index_resolv/SingleColumnIndex.h"
+
 namespace codablecash {
 
 MultipleColumnIndex::MultipleColumnIndex() {
-	// TODO Auto-generated constructor stub
 
 }
 
 MultipleColumnIndex::~MultipleColumnIndex() {
-	// TODO Auto-generated destructor stub
+	this->list.deleteElements();
 }
 
 bool MultipleColumnIndex::hasIndex(SchemaManager* schemaManager) {
 
 	// TODO hasIndex
 	return false;
+}
+
+int MultipleColumnIndex::size() const noexcept {
+	return this->list.size();
 }
 
 } /* namespace codablecash */
