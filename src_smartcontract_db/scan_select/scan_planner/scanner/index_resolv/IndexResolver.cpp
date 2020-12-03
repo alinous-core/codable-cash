@@ -7,6 +7,8 @@
 
 #include "scan_select/scan_planner/scanner/index_resolv/IndexResolver.h"
 #include "scan_select/scan_planner/scanner/index_resolv/AbstractColumnsIndexWrapper.h"
+#include "scan_select/scan_planner/scanner/index_resolv/SingleColumnIndex.h"
+#include "scan_select/scan_planner/scanner/index_resolv/OrIndexWrapperCollection.h"
 
 #include "scan_select/scan_planner/scanner/index/AbstractIndexCandidate.h"
 #include "scan_select/scan_planner/scanner/index/OrIndexCandidate.h"
@@ -17,7 +19,9 @@
 
 #include "scan_select/scan_condition/params/ColumnIdentifierScanParam.h"
 
-#include "scan_select/scan_planner/scanner/index_resolv/SingleColumnIndex.h"
+#include "base/StackRelease.h"
+
+
 namespace codablecash {
 
 IndexResolver::IndexResolver(CodableDatabase* db) {
@@ -51,8 +55,11 @@ void IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate, ArrayList
 
 	SchemaManager* schemaManager = this->db->getSchemaManager();
 	SingleColumnIndex* index = handleIndex(candidate);
+	StackRelease<SingleColumnIndex> st_index(index);
 
-
+	if(index != nullptr && index->hasIndex(schemaManager)){
+		list->addElement(st_index.move());
+	}
 
 }
 
@@ -97,7 +104,12 @@ SingleColumnIndex* IndexResolver::handleIndex(const AbstractIndexCandidate* cand
 }
 
 void IndexResolver::analyzeOr(const OrIndexCandidate* orCandidate, ArrayList<AbstractColumnsIndexWrapper>* list) {
+	OrIndexWrapperCollection* wrapper = new OrIndexWrapperCollection();
 
+	int maxLoop = orCandidate->size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractIndexCandidateCollection* candidate = orCandidate->get(i);
+	}
 
 }
 

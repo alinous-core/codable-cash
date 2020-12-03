@@ -109,4 +109,13 @@ AbstractIndexCandidate* OrIndexCandidate::copy() const noexcept {
 void OrIndexCandidate::add(const AbstractIndexCandidateCollection* candidate) noexcept {
 	this->list.addElement(dynamic_cast<AbstractIndexCandidateCollection*>(candidate->copy()));
 }
+
+int OrIndexCandidate::size() const noexcept {
+	return this->list.size();
+}
+
+AbstractIndexCandidateCollection* OrIndexCandidate::get(int i) const noexcept {
+	return this->list.get(i);
+}
+
 } /* namespace codablecash */

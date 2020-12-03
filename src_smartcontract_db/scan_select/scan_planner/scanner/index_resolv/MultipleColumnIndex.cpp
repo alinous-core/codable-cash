@@ -19,6 +19,7 @@ MultipleColumnIndex::~MultipleColumnIndex() {
 }
 
 bool MultipleColumnIndex::hasIndex(SchemaManager* schemaManager) {
+
 	// TODO hasIndex
 	return false;
 }

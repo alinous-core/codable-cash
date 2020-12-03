@@ -14,11 +14,19 @@ OrIndexWrapperCollection::OrIndexWrapperCollection() {
 }
 
 OrIndexWrapperCollection::~OrIndexWrapperCollection() {
-
+	this->list.deleteElements();
 }
 
 bool OrIndexWrapperCollection::hasIndex(SchemaManager* schemaManager) {
 	return false;
+}
+
+int OrIndexWrapperCollection::size() const noexcept {
+	return this->list.size();
+}
+
+void OrIndexWrapperCollection::add(AbstractColumnsIndexWrapper* index) noexcept {
+	this->list.addElement(index);
 }
 
 } /* namespace codablecash */

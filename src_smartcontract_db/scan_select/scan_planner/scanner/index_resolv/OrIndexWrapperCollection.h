@@ -9,6 +9,9 @@
 #define SCAN_SELECT_SCAN_PLANNER_SCANNER_INDEX_RESOLV_ORINDEXWRAPPERCOLLECTION_H_
 
 #include "scan_select/scan_planner/scanner/index_resolv/AbstractColumnsIndexWrapper.h"
+#include "base/ArrayList.h"
+
+using alinous::ArrayList;
 
 namespace codablecash {
 
@@ -20,8 +23,13 @@ public:
 	virtual bool isOr() const noexcept {
 		return true;
 	}
-
+	virtual int size() const noexcept;
 	virtual bool hasIndex(SchemaManager* schemaManager);
+
+	void add(AbstractColumnsIndexWrapper* index) noexcept;
+
+private:
+	ArrayList<AbstractColumnsIndexWrapper> list;
 };
 
 } /* namespace codablecash */
