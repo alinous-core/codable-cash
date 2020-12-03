@@ -41,11 +41,19 @@ void IndexResolver::analyze(const AbstractIndexCandidate* candidate) {
 }
 
 void IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate, ArrayList<AbstractColumnsIndexWrapper>* list) {
+	SchemaManager* schemaManager = this->db->getSchemaManager();
+
 	AbstractIndexCandidate::IndexType candidateType = candidate->getCandidateType();
 
 	if(candidateType == AbstractIndexCandidate::IndexType::OR){
 		const OrIndexCandidate* orCandidate = dynamic_cast<const OrIndexCandidate*>(candidate);
-		analyzeOr(orCandidate, list);
+
+		OrIndexWrapperCollection* orWarpper = analyzeOr(orCandidate, list);
+		StackRelease<OrIndexWrapperCollection> stOrWrapper(orWarpper);
+
+		if(orWarpper != nullptr && orWarpper->hasIndex(schemaManager)){
+			list->addElement(stOrWrapper.move());
+		}
 		return;
 	}
 	else if(candidateType == AbstractIndexCandidate::IndexType::AND){
@@ -54,7 +62,7 @@ void IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate, ArrayList
 		return;
 	}
 
-	SchemaManager* schemaManager = this->db->getSchemaManager();
+
 	SingleColumnIndex* index = handleSingleIndex(candidate);
 	StackRelease<SingleColumnIndex> st_index(index);
 
@@ -79,6 +87,8 @@ SingleColumnIndex* IndexResolver::handleSingleIndex(const AbstractIndexCandidate
 
 		SingleColumnIndex* index = new SingleColumnIndex();
 		index->setRange(true);
+		index->setTarget(colp->getTarget());
+		index->setColumn(col);
 
 		const IValueProvider* vp = rangeCandidate->getValue();
 		index->setValue(vp);
@@ -98,6 +108,7 @@ SingleColumnIndex* IndexResolver::handleSingleIndex(const AbstractIndexCandidate
 
 	SingleColumnIndex* index = new SingleColumnIndex();
 
+	index->setTarget(colp->getTarget());
 	index->setColumn(col);
 	index->setValue(vp);
 
@@ -107,24 +118,41 @@ SingleColumnIndex* IndexResolver::handleSingleIndex(const AbstractIndexCandidate
 OrIndexWrapperCollection* IndexResolver::analyzeOr(const OrIndexCandidate* orCandidate, ArrayList<AbstractColumnsIndexWrapper>* list) {
 	OrIndexWrapperCollection* wrapper = new OrIndexWrapperCollection();
 
+	AbstractIndexCandidateCollection* c = orCandidate->get(0);
+	const IndexCandidate* ic = c->get(0);
+	const ColumnIdentifierScanParam* colp = ic->getColumn();
+
+	wrapper->setTarget(colp->getTarget());
+
 	int maxLoop = orCandidate->size();
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractIndexCandidateCollection* candidate = orCandidate->get(i);
+
+
 	}
 
 
 	return wrapper;
 }
 
-void IndexResolver::analyzeAnd(const MultipleIndexCandidate* andCandidate, ArrayList<AbstractColumnsIndexWrapper>* list) {
+MultipleColumnIndex* IndexResolver::analyzeAnd(const MultipleIndexCandidate* andCandidate, ArrayList<AbstractColumnsIndexWrapper>* list) {
 	MultipleColumnIndex* wrapper = new MultipleColumnIndex();
+
+	const IndexCandidate* c = andCandidate->get(0);
+	const IndexCandidate* ic = c->get(0);
+	const ColumnIdentifierScanParam* colp = ic->getColumn();
+
+	wrapper->setTarget(colp->getTarget());
 
 	int maxLoop = andCandidate->size();
 	for(int i = 0; i != maxLoop; ++i){
 		const IndexCandidate* candidate = andCandidate->get(i);
 
-
+		SingleColumnIndex* singleIndex = handleSingleIndex(candidate);
+		wrapper->add(singleIndex);
 	}
+
+	return wrapper;
 }
 
 } /* namespace codablecash */

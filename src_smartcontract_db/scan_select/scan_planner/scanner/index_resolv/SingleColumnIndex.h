@@ -21,6 +21,13 @@ public:
 	SingleColumnIndex();
 	virtual ~SingleColumnIndex();
 
+	const CdbTableColumn* getColumn() const noexcept {
+		return column;
+	}
+	void setColumn(const CdbTableColumn* column) noexcept {
+		this->column = column;
+	}
+
 	virtual int size() const noexcept;
 
 	bool isBottomEq() const noexcept {
@@ -61,6 +68,8 @@ public:
 	virtual bool hasIndex(SchemaManager* schemaManager);
 
 private:
+	const CdbTableColumn* column;
+
 	const IValueProvider* topValue;
 	bool topEq;
 

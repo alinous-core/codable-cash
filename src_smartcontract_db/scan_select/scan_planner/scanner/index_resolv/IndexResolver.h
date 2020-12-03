@@ -21,6 +21,7 @@ class OrIndexCandidate;
 class MultipleIndexCandidate;
 class SingleColumnIndex;
 class OrIndexWrapperCollection;
+class MultipleColumnIndex;
 
 class IndexResolver {
 public:
@@ -32,7 +33,7 @@ public:
 private:
 	void doAnalyze(const AbstractIndexCandidate* candidate, ArrayList<AbstractColumnsIndexWrapper>* list);
 	OrIndexWrapperCollection* analyzeOr(const OrIndexCandidate* orCandidate, ArrayList<AbstractColumnsIndexWrapper>* list);
-	void analyzeAnd(const MultipleIndexCandidate* andCandidate, ArrayList<AbstractColumnsIndexWrapper>* list);
+	MultipleColumnIndex* analyzeAnd(const MultipleIndexCandidate* andCandidate, ArrayList<AbstractColumnsIndexWrapper>* list);
 
 	SingleColumnIndex* handleSingleIndex(const AbstractIndexCandidate* candidate);
 

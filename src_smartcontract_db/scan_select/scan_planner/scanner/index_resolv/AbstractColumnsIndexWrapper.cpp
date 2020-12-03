@@ -10,13 +10,11 @@
 namespace codablecash {
 
 AbstractColumnsIndexWrapper::AbstractColumnsIndexWrapper() {
-	this->column = nullptr;
 	this->target = nullptr;
 	this->index = nullptr;
 }
 
 AbstractColumnsIndexWrapper::~AbstractColumnsIndexWrapper() {
-	this->column = nullptr;
 	this->target = nullptr;
 	this->index = nullptr;
 }

@@ -29,4 +29,8 @@ int MultipleColumnIndex::size() const noexcept {
 	return this->list.size();
 }
 
+void MultipleColumnIndex::add(SingleColumnIndex* idx) noexcept {
+	this->list.addElement(idx);
+}
+
 } /* namespace codablecash */

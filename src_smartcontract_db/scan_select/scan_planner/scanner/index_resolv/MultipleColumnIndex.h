@@ -27,6 +27,8 @@ public:
 
 	virtual int size() const noexcept;
 
+	void add(SingleColumnIndex* idx) noexcept;
+
 private:
 	ArrayList<SingleColumnIndex> list;
 };

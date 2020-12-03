@@ -17,6 +17,7 @@
 namespace codablecash {
 
 SingleColumnIndex::SingleColumnIndex() {
+	this->column = nullptr;
 	this->topEq = false;
 	this->topValue = nullptr;
 	this->bottomEq = false;
@@ -26,6 +27,7 @@ SingleColumnIndex::SingleColumnIndex() {
 }
 
 SingleColumnIndex::~SingleColumnIndex() {
+	this->column = nullptr;
 	this->topValue = nullptr;
 	this->value = nullptr;
 }

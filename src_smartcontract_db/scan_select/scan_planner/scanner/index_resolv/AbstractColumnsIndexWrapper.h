@@ -39,14 +39,7 @@ public:
 		this->target = target;
 	}
 
-	const CdbTableColumn* getColumn() const noexcept {
-		return column;
-	}
-	void setColumn(const CdbTableColumn* column) noexcept {
-		this->column = column;
-	}
 protected:
-	const CdbTableColumn* column;
 	const AbstractScanTableTarget* target;
 	CdbTableIndex* index;
 };
