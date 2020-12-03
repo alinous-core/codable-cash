@@ -10,12 +10,15 @@
 namespace codablecash {
 
 AbstractColumnsIndexWrapper::AbstractColumnsIndexWrapper() {
-	// TODO Auto-generated constructor stub
-
+	this->column = nullptr;
+	this->target = nullptr;
+	this->index = nullptr;
 }
 
 AbstractColumnsIndexWrapper::~AbstractColumnsIndexWrapper() {
-	// TODO Auto-generated destructor stub
+	this->column = nullptr;
+	this->target = nullptr;
+	this->index = nullptr;
 }
 
 } /* namespace codablecash */

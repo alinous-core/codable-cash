@@ -11,6 +11,9 @@
 namespace codablecash {
 
 class SchemaManager;
+class CdbTableColumn;
+class AbstractScanTableTarget;
+class CdbTableIndex;
 
 class AbstractColumnsIndexWrapper {
 public:
@@ -27,6 +30,25 @@ public:
 	virtual int size() const noexcept = 0;
 
 	virtual bool hasIndex(SchemaManager* schemaManager) = 0;
+
+	const AbstractScanTableTarget* getTarget() const {
+		return target;
+	}
+
+	void setTarget(const AbstractScanTableTarget* target) {
+		this->target = target;
+	}
+
+	const CdbTableColumn* getColumn() const noexcept {
+		return column;
+	}
+	void setColumn(const CdbTableColumn* column) noexcept {
+		this->column = column;
+	}
+protected:
+	const CdbTableColumn* column;
+	const AbstractScanTableTarget* target;
+	CdbTableIndex* index;
 };
 
 } /* namespace codablecash */

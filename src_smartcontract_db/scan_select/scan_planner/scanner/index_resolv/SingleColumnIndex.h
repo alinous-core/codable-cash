@@ -14,6 +14,7 @@ namespace codablecash {
 
 class IValueProvider;
 class CdbTableColumn;
+class AbstractScanTableTarget;
 
 class SingleColumnIndex : public AbstractColumnsIndexWrapper {
 public:
@@ -21,14 +22,6 @@ public:
 	virtual ~SingleColumnIndex();
 
 	virtual int size() const noexcept;
-
-	const CdbTableColumn* getColumn() const noexcept {
-		return column;
-	}
-
-	void setColumn(const CdbTableColumn* column) noexcept {
-		this->column = column;
-	}
 
 	bool isBottomEq() const noexcept {
 		return bottomEq;
@@ -68,8 +61,6 @@ public:
 	virtual bool hasIndex(SchemaManager* schemaManager);
 
 private:
-	const CdbTableColumn* column;
-
 	const IValueProvider* topValue;
 	bool topEq;
 
