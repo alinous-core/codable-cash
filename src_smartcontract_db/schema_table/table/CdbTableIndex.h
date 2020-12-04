@@ -44,6 +44,7 @@ public:
 	}
 
 	bool hasColumnOid(const CdbOid* colOid) const noexcept;
+	int getColumnCoverCount(const ArrayList<const CdbOid>* oidlist) const noexcept;
 
 	void addColumn(const CdbTableColumn* col) noexcept;
 	void renameColumn(const CdbOid* columnOid, const UnicodeString* newName) noexcept;

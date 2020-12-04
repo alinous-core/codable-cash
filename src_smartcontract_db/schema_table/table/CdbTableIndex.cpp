@@ -137,6 +137,23 @@ bool CdbTableIndex::hasColumnOid(const CdbOid* colOid) const noexcept {
 	return this->columnMap->get(colOid) != nullptr;
 }
 
+int CdbTableIndex::getColumnCoverCount(const ArrayList<const CdbOid>* oidlist) const noexcept {
+	int count = 0;
+
+	int maxLoop = oidlist->size();
+	for(int i = 0; i != maxLoop; ++i){
+		const CdbOid* colOid = oidlist->get(i);
+
+		if(!hasColumnOid(colOid)){
+			return -1;
+		}
+
+		count++;
+	}
+
+	return count;
+}
+
 int CdbTableIndex::getColumnLength() const noexcept {
 	return this->columns->size();
 }
