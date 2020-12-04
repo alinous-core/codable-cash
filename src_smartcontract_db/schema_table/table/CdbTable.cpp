@@ -644,13 +644,18 @@ ScanResultMetadata* CdbTable::getMetadata() const noexcept {
 CdbTableIndex* CdbTable::findMostAvailableIndex(const ArrayList<const CdbOid>* oidlist) const noexcept {
 	CdbTableIndex* retIndex = nullptr;
 
+	int lastCount = 0;
+
 	int maxLoop = this->indexes->size();
 	for(int i = 0; i != maxLoop; ++i){
 		CdbTableIndex* index = this->indexes->get(i);
 
+		int count = index->getColumnCoverCount(oidlist);
+		if(lastCount < count){
+			lastCount = count;
+			retIndex = index;
+		}
 	}
-
-	// TODO findMostAvailableIndex
 
 	return retIndex;
 }
