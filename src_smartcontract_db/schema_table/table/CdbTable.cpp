@@ -641,5 +641,19 @@ ScanResultMetadata* CdbTable::getMetadata() const noexcept {
 	return metadata;
 }
 
+CdbTableIndex* CdbTable::findMostAvailableIndex(const ArrayList<const CdbOid>* oidlist) const noexcept {
+	CdbTableIndex* retIndex = nullptr;
+
+	int maxLoop = this->indexes->size();
+	for(int i = 0; i != maxLoop; ++i){
+		CdbTableIndex* index = this->indexes->get(i);
+
+	}
+
+	// TODO findMostAvailableIndex
+
+	return retIndex;
+}
+
 
 } /* namespace codablecash */

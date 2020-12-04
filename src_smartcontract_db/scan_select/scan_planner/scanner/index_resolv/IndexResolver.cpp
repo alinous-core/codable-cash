@@ -132,7 +132,6 @@ OrIndexWrapperCollection* IndexResolver::analyzeOr(const OrIndexCandidate* orCan
 		wrapper->add(w);
 	}
 
-
 	return wrapper;
 }
 
