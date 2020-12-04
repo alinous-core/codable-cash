@@ -48,7 +48,7 @@ void IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate, ArrayList
 	if(candidateType == AbstractIndexCandidate::IndexType::OR){
 		const OrIndexCandidate* orCandidate = dynamic_cast<const OrIndexCandidate*>(candidate);
 
-		OrIndexWrapperCollection* orWarpper = analyzeOr(orCandidate, list);
+		OrIndexWrapperCollection* orWarpper = analyzeOr(orCandidate);
 		StackRelease<OrIndexWrapperCollection> stOrWrapper(orWarpper);
 
 		if(orWarpper != nullptr && orWarpper->hasIndex(schemaManager)){
@@ -58,7 +58,7 @@ void IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate, ArrayList
 	}
 	else if(candidateType == AbstractIndexCandidate::IndexType::AND){
 		const MultipleIndexCandidate* andCandidate = dynamic_cast<const MultipleIndexCandidate*>(candidate);
-		analyzeAnd(andCandidate, list);
+		analyzeAnd(andCandidate);
 		return;
 	}
 
@@ -115,7 +115,7 @@ SingleColumnIndex* IndexResolver::handleSingleIndex(const AbstractIndexCandidate
 	return index;
 }
 
-OrIndexWrapperCollection* IndexResolver::analyzeOr(const OrIndexCandidate* orCandidate, ArrayList<AbstractColumnsIndexWrapper>* list) {
+OrIndexWrapperCollection* IndexResolver::analyzeOr(const OrIndexCandidate* orCandidate) {
 	OrIndexWrapperCollection* wrapper = new OrIndexWrapperCollection();
 
 	AbstractIndexCandidateCollection* c = orCandidate->get(0);
@@ -128,14 +128,27 @@ OrIndexWrapperCollection* IndexResolver::analyzeOr(const OrIndexCandidate* orCan
 	for(int i = 0; i != maxLoop; ++i){
 		AbstractIndexCandidateCollection* candidate = orCandidate->get(i);
 
-
+		AbstractColumnsIndexWrapper* w = handleIndexCollection(candidate);
+		wrapper->add(w);
 	}
 
 
 	return wrapper;
 }
 
-MultipleColumnIndex* IndexResolver::analyzeAnd(const MultipleIndexCandidate* andCandidate, ArrayList<AbstractColumnsIndexWrapper>* list) {
+AbstractColumnsIndexWrapper* IndexResolver::handleIndexCollection(const AbstractIndexCandidateCollection* candidate) {
+	AbstractIndexCandidate::IndexType candidateType = candidate->getCandidateType();
+
+	if(candidateType == AbstractIndexCandidate::IndexType::AND){
+		const MultipleIndexCandidate* andCandidate = dynamic_cast<const MultipleIndexCandidate*>(candidate);
+		return analyzeAnd(andCandidate);
+	}
+
+	return handleSingleIndex(candidate);
+}
+
+
+MultipleColumnIndex* IndexResolver::analyzeAnd(const MultipleIndexCandidate* andCandidate) {
 	MultipleColumnIndex* wrapper = new MultipleColumnIndex();
 
 	const IndexCandidate* c = andCandidate->get(0);

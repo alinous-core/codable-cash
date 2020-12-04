@@ -22,6 +22,7 @@ class MultipleIndexCandidate;
 class SingleColumnIndex;
 class OrIndexWrapperCollection;
 class MultipleColumnIndex;
+class AbstractIndexCandidateCollection;
 
 class IndexResolver {
 public:
@@ -32,10 +33,11 @@ public:
 
 private:
 	void doAnalyze(const AbstractIndexCandidate* candidate, ArrayList<AbstractColumnsIndexWrapper>* list);
-	OrIndexWrapperCollection* analyzeOr(const OrIndexCandidate* orCandidate, ArrayList<AbstractColumnsIndexWrapper>* list);
-	MultipleColumnIndex* analyzeAnd(const MultipleIndexCandidate* andCandidate, ArrayList<AbstractColumnsIndexWrapper>* list);
+	OrIndexWrapperCollection* analyzeOr(const OrIndexCandidate* orCandidate);
+	MultipleColumnIndex* analyzeAnd(const MultipleIndexCandidate* andCandidate);
 
 	SingleColumnIndex* handleSingleIndex(const AbstractIndexCandidate* candidate);
+	AbstractColumnsIndexWrapper* handleIndexCollection(const AbstractIndexCandidateCollection* candidate);
 
 private:
 	CodableDatabase* db;
