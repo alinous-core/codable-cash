@@ -18,7 +18,16 @@ OrIndexWrapperCollection::~OrIndexWrapperCollection() {
 }
 
 bool OrIndexWrapperCollection::hasIndex(SchemaManager* schemaManager) {
-	return false;
+	int maxLoop = size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractColumnsIndexWrapper* index = this->list.get(i);
+
+		if(!index->hasIndex(schemaManager)){
+			return false;
+		}
+	}
+
+	return true;
 }
 
 int OrIndexWrapperCollection::size() const noexcept {
