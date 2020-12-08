@@ -55,6 +55,9 @@ bool SingleColumnIndex::hasIndex(SchemaManager* schemaManager) {
 }
 
 const UnicodeString* SingleColumnIndex::toCodeString() noexcept {
+	if(this->str == nullptr){
+
+	}
 	// TODO: str
 }
 

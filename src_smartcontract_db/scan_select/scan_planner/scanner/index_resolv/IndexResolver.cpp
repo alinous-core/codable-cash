@@ -74,11 +74,7 @@ AbstractColumnsIndexWrapper* IndexResolver::doAnalyze(const AbstractIndexCandida
 SingleColumnIndex* IndexResolver::handleSingleIndex(const AbstractIndexCandidate* candidate) {
 	AbstractIndexCandidate::IndexType candidateType = candidate->getCandidateType();
 
-	if(candidateType == AbstractIndexCandidate::IndexType::RANGE/*
-			||candidateType == AbstractIndexCandidate::IndexType::RANGE_GT
-			|| candidateType == AbstractIndexCandidate::IndexType::RANGE_GT_EQ
-			|| candidateType == AbstractIndexCandidate::IndexType::RANGE_LT
-			|| candidateType == AbstractIndexCandidate::IndexType::RANGE_LT_EQ*/){
+	if(candidateType == AbstractIndexCandidate::IndexType::RANGE){
 		const IndexRangeCandidate* rangeCandidate = dynamic_cast<const IndexRangeCandidate*>(candidate);
 
 		const ColumnIdentifierScanParam* colp = rangeCandidate->getColumn();
@@ -96,6 +92,42 @@ SingleColumnIndex* IndexResolver::handleSingleIndex(const AbstractIndexCandidate
 		vp = rangeCandidate->getTopValue();
 		index->setTopValue(vp);
 		index->setTopEq(rangeCandidate->isTopEq());
+
+		return index;
+	}
+	else if(candidateType == AbstractIndexCandidate::IndexType::RANGE_LT
+			|| candidateType == AbstractIndexCandidate::IndexType::RANGE_LT_EQ){
+		const IndexCandidate* indexCandidate = dynamic_cast<const IndexCandidate*>(candidate);
+		const ColumnIdentifierScanParam* colp = indexCandidate->getColumn();
+		const CdbTableColumn* col = colp->getCdbColumn();
+		const IValueProvider* vp = indexCandidate->getValue();
+
+		SingleColumnIndex* index = new SingleColumnIndex();
+		index->setRange(true);
+
+		index->setTarget(colp->getTarget());
+		index->setColumn(col);
+
+		index->setTopValue(vp);
+		index->setTopEq(indexCandidate->hasEq());
+
+		return index;
+	}
+	else if(candidateType == AbstractIndexCandidate::IndexType::RANGE_GT
+			|| candidateType == AbstractIndexCandidate::IndexType::RANGE_GT_EQ){
+		const IndexCandidate* indexCandidate = dynamic_cast<const IndexCandidate*>(candidate);
+		const ColumnIdentifierScanParam* colp = indexCandidate->getColumn();
+		const CdbTableColumn* col = colp->getCdbColumn();
+		const IValueProvider* vp = indexCandidate->getValue();
+
+		SingleColumnIndex* index = new SingleColumnIndex();
+		index->setRange(true);
+
+		index->setTarget(colp->getTarget());
+		index->setColumn(col);
+
+		index->setValue(vp);
+		index->setBottomEq(indexCandidate->hasEq());
 
 		return index;
 	}
