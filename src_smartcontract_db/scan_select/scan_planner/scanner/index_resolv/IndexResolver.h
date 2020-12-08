@@ -31,8 +31,12 @@ public:
 
 	void analyze(const AbstractIndexCandidate* candidate);
 
+	AbstractColumnsIndexWrapper* getResult() const noexcept {
+		return result;
+	}
+
 private:
-	void doAnalyze(const AbstractIndexCandidate* candidate, ArrayList<AbstractColumnsIndexWrapper>* list);
+	AbstractColumnsIndexWrapper* doAnalyze(const AbstractIndexCandidate* candidate);
 	OrIndexWrapperCollection* analyzeOr(const OrIndexCandidate* orCandidate);
 	MultipleColumnIndex* analyzeAnd(const MultipleIndexCandidate* andCandidate);
 

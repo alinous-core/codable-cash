@@ -36,11 +36,10 @@ IndexResolver::~IndexResolver() {
 }
 
 void IndexResolver::analyze(const AbstractIndexCandidate* candidate) {
-	ArrayList<AbstractColumnsIndexWrapper> list;
-
+	this->result = doAnalyze(candidate);
 }
 
-void IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate, ArrayList<AbstractColumnsIndexWrapper>* list) {
+AbstractColumnsIndexWrapper* IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate) {
 	SchemaManager* schemaManager = this->db->getSchemaManager();
 
 	AbstractIndexCandidate::IndexType candidateType = candidate->getCandidateType();
@@ -52,14 +51,13 @@ void IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate, ArrayList
 		StackRelease<OrIndexWrapperCollection> stOrWrapper(orWarpper);
 
 		if(orWarpper != nullptr && orWarpper->hasIndex(schemaManager)){
-			list->addElement(stOrWrapper.move());
+			return orWarpper;
 		}
-		return;
+		return nullptr;
 	}
 	else if(candidateType == AbstractIndexCandidate::IndexType::AND){
 		const MultipleIndexCandidate* andCandidate = dynamic_cast<const MultipleIndexCandidate*>(candidate);
-		analyzeAnd(andCandidate);
-		return;
+		return analyzeAnd(andCandidate);
 	}
 
 
@@ -67,19 +65,20 @@ void IndexResolver::doAnalyze(const AbstractIndexCandidate* candidate, ArrayList
 	StackRelease<SingleColumnIndex> st_index(index);
 
 	if(index != nullptr && index->hasIndex(schemaManager)){
-		list->addElement(st_index.move());
+		return st_index.move();
 	}
 
+	return nullptr;
 }
 
 SingleColumnIndex* IndexResolver::handleSingleIndex(const AbstractIndexCandidate* candidate) {
 	AbstractIndexCandidate::IndexType candidateType = candidate->getCandidateType();
 
-	if(candidateType == AbstractIndexCandidate::IndexType::RANGE
+	if(candidateType == AbstractIndexCandidate::IndexType::RANGE/*
 			||candidateType == AbstractIndexCandidate::IndexType::RANGE_GT
 			|| candidateType == AbstractIndexCandidate::IndexType::RANGE_GT_EQ
 			|| candidateType == AbstractIndexCandidate::IndexType::RANGE_LT
-			|| candidateType == AbstractIndexCandidate::IndexType::RANGE_LT_EQ){
+			|| candidateType == AbstractIndexCandidate::IndexType::RANGE_LT_EQ*/){
 		const IndexRangeCandidate* rangeCandidate = dynamic_cast<const IndexRangeCandidate*>(candidate);
 
 		const ColumnIdentifierScanParam* colp = rangeCandidate->getColumn();
