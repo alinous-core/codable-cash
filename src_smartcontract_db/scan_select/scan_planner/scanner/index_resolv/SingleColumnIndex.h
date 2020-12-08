@@ -67,6 +67,8 @@ public:
 
 	virtual bool hasIndex(SchemaManager* schemaManager);
 
+	virtual const UnicodeString* toCodeString() noexcept;
+
 private:
 	const CdbTableColumn* column;
 

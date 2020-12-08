@@ -54,5 +54,8 @@ bool SingleColumnIndex::hasIndex(SchemaManager* schemaManager) {
 	return this->index != nullptr;
 }
 
+const UnicodeString* SingleColumnIndex::toCodeString() noexcept {
+	// TODO: str
+}
 
 } /* namespace codablecash */
