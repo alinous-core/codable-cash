@@ -26,6 +26,8 @@ public:
 	virtual int size() const noexcept;
 	virtual bool hasIndex(SchemaManager* schemaManager);
 
+	virtual const UnicodeString* toCodeString() noexcept;
+
 	void add(AbstractColumnsIndexWrapper* index) noexcept;
 
 private:

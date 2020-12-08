@@ -38,4 +38,8 @@ void OrIndexWrapperCollection::add(AbstractColumnsIndexWrapper* index) noexcept 
 	this->list.addElement(index);
 }
 
+const UnicodeString* OrIndexWrapperCollection::toCodeString() noexcept {
+	// TODO: str
+}
+
 } /* namespace codablecash */
