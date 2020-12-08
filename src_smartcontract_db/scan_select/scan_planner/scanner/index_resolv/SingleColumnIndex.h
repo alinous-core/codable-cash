@@ -70,6 +70,10 @@ public:
 	virtual const UnicodeString* toCodeString() noexcept;
 
 private:
+	void makeRangeString() noexcept;
+	void makeString() noexcept;
+
+private:
 	const CdbTableColumn* column;
 
 	const IValueProvider* topValue;

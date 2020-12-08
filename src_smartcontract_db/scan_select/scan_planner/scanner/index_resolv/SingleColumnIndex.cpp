@@ -14,6 +14,8 @@
 
 #include "scan_select/scan_table/TableScanTarget.h"
 
+#include "scan_select/scan_condition/base/IValueProvider.h"
+
 namespace codablecash {
 
 SingleColumnIndex::SingleColumnIndex() {
@@ -56,9 +58,59 @@ bool SingleColumnIndex::hasIndex(SchemaManager* schemaManager) {
 
 const UnicodeString* SingleColumnIndex::toCodeString() noexcept {
 	if(this->str == nullptr){
-
+		if(isRange()){
+			makeRangeString();
+		}
+		else {
+			makeString();
+		}
 	}
-	// TODO: str
+
+	return str;
+}
+
+void SingleColumnIndex::makeRangeString() noexcept {
+	this->str = new UnicodeString(L"");
+
+	if(this->value != nullptr){
+		IValueProvider* vp = const_cast<IValueProvider*>(this->value);
+		const UnicodeString* bottomStr = vp->toStringCode();
+		this->str->append(bottomStr);
+
+		this->str->append(L" <");
+		if(isBottomEq()){
+			this->str->append(L" =");
+		}
+		this->str->append(L" ");
+	}
+
+	const UnicodeString* colStr = this->column->getName();
+	this->str->append(colStr);
+
+	if(this->topValue != nullptr){
+		this->str->append(L" <");
+		if(isTopEq()){
+			this->str->append(L" =");
+		}
+		this->str->append(L" ");
+
+		IValueProvider* vp = const_cast<IValueProvider*>(this->topValue);
+		const UnicodeString* topStr = vp->toStringCode();
+		this->str->append(topStr);
+	}
+}
+
+void SingleColumnIndex::makeString() noexcept {
+	this->str = new UnicodeString(L"");
+
+	const UnicodeString* colStr = this->column->getName();
+	this->str->append(colStr);
+
+	this->str->append(L" = ");
+
+	IValueProvider* vp = const_cast<IValueProvider*>(this->topValue);
+	const UnicodeString* valStr = vp->toStringCode();
+	this->str->append(valStr);
 }
 
 } /* namespace codablecash */
