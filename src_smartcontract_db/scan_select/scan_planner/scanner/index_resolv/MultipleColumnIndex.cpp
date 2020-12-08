@@ -56,4 +56,8 @@ void MultipleColumnIndex::add(SingleColumnIndex* idx) noexcept {
 	this->list.addElement(idx);
 }
 
+const UnicodeString* MultipleColumnIndex::toCodeString() noexcept {
+	// TODO str
+}
+
 } /* namespace codablecash */
