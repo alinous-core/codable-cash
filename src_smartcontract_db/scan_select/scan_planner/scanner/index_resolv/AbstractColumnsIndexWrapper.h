@@ -8,6 +8,11 @@
 #ifndef SCAN_SELECT_SCAN_PLANNER_SCANNER_INDEX_RESOLV_ABSTRACTCOLUMNSINDEXWRAPPER_H_
 #define SCAN_SELECT_SCAN_PLANNER_SCANNER_INDEX_RESOLV_ABSTRACTCOLUMNSINDEXWRAPPER_H_
 
+namespace alinous {
+class UnicodeString;
+}
+using namespace alinous;
+
 namespace codablecash {
 
 class SchemaManager;
@@ -31,6 +36,8 @@ public:
 
 	virtual bool hasIndex(SchemaManager* schemaManager) = 0;
 
+	virtual const UnicodeString* toCodeString() noexcept = 0;
+
 	const AbstractScanTableTarget* getTarget() const {
 		return target;
 	}
@@ -40,8 +47,13 @@ public:
 	}
 
 protected:
+	void resetStr() noexcept;
+
+protected:
 	const AbstractScanTableTarget* target;
 	CdbTableIndex* index;
+
+	UnicodeString* str;
 };
 
 } /* namespace codablecash */

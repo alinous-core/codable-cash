@@ -64,6 +64,6 @@ TEST(TestIndexResolverGroup, case01){
 
 		resolver.analyze(candidate);
 
-
+		AbstractColumnsIndexWrapper* w = resolver.getResult();
 	}
 }
