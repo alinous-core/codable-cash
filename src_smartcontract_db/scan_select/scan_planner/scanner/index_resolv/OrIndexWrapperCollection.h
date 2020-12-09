@@ -31,6 +31,9 @@ public:
 	void add(AbstractColumnsIndexWrapper* index) noexcept;
 
 private:
+	void makeCodeString() noexcept;
+
+private:
 	ArrayList<AbstractColumnsIndexWrapper> list;
 };
 
