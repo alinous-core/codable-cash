@@ -29,6 +29,7 @@
 
 #include "scan_select/scan_table/TableScanTarget.h"
 
+#include "scan_select/scan_planner/scanner/index_resolv/SingleColumnIndex.h"
 using namespace codablecash;
 
 TEST_GROUP(TestIndexResolverGroup) {
@@ -222,5 +223,11 @@ TEST(TestIndexResolverGroup, case05){
 		const UnicodeString* s = w->toCodeString();
 		UnicodeString ans(L"id = 10");
 		CHECK(ans.equals(s));
+
+		CHECK(w->size() == 1);
+
+		SingleColumnIndex* sindex = dynamic_cast<SingleColumnIndex*>(w);
+
+		CHECK(sindex->getColumn() == pid.getCdbColumn());
 	}
 }
