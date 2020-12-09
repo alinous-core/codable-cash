@@ -19,7 +19,7 @@ class IndexRangeCandidate;
 class IndexCandidate: public AbstractIndexCandidateCollection {
 public:
 	IndexCandidate(const IndexCandidate& inst);
-	IndexCandidate(IndexType indexType);
+	explicit IndexCandidate(IndexType indexType);
 	virtual ~IndexCandidate();
 
 	virtual AbstractIndexCandidate::IndexType getCandidateType() const noexcept;

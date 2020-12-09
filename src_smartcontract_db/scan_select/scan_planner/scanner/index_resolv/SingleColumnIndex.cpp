@@ -90,7 +90,7 @@ void SingleColumnIndex::makeRangeString() noexcept {
 	if(this->topValue != nullptr){
 		this->str->append(L" <");
 		if(isTopEq()){
-			this->str->append(L" =");
+			this->str->append(L"=");
 		}
 		this->str->append(L" ");
 
