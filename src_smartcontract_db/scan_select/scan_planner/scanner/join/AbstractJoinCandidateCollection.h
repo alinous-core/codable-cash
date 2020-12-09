@@ -16,7 +16,7 @@ class JoinCandidate;
 
 class AbstractJoinCandidateCollection : public AbstractJoinCandidate {
 public:
-	AbstractJoinCandidateCollection(int joinType);
+	explicit AbstractJoinCandidateCollection(int joinType);
 	virtual ~AbstractJoinCandidateCollection();
 
 	virtual int size() const noexcept = 0;
