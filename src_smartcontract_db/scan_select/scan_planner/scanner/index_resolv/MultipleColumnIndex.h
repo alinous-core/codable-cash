@@ -32,6 +32,9 @@ public:
 	void add(SingleColumnIndex* idx) noexcept;
 
 private:
+	void makeCodeString() noexcept;
+
+private:
 	ArrayList<SingleColumnIndex> list;
 };
 

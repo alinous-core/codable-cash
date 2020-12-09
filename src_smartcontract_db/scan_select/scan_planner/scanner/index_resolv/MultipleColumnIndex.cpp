@@ -14,6 +14,7 @@
 #include "schema_table/table/CdbTableColumn.h"
 
 #include "base/ArrayList.h"
+#include "base/UnicodeString.h"
 
 #include "engine/CdbOid.h"
 
@@ -57,7 +58,27 @@ void MultipleColumnIndex::add(SingleColumnIndex* idx) noexcept {
 }
 
 const UnicodeString* MultipleColumnIndex::toCodeString() noexcept {
-	// TODO str
+	if(this->str == nullptr){
+		makeCodeString();
+	}
+
+	return this->str;
+}
+
+void MultipleColumnIndex::makeCodeString() noexcept {
+	this->str = new UnicodeString(L"");
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SingleColumnIndex* index = this->list.get(i);
+
+		if(i != 0){
+			this->str->append(L" AND ");
+		}
+
+		const UnicodeString* s = index->toCodeString();
+		this->str->append(s);
+	}
 }
 
 } /* namespace codablecash */
