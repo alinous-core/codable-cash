@@ -79,7 +79,7 @@ void SingleColumnIndex::makeRangeString() noexcept {
 
 		this->str->append(L" <");
 		if(isBottomEq()){
-			this->str->append(L" =");
+			this->str->append(L"=");
 		}
 		this->str->append(L" ");
 	}
