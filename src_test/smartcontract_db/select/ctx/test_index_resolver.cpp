@@ -227,7 +227,8 @@ TEST(TestIndexResolverGroup, case05){
 		CHECK(w->size() == 1);
 
 		SingleColumnIndex* sindex = dynamic_cast<SingleColumnIndex*>(w);
-
 		CHECK(sindex->getColumn() == pid.getCdbColumn());
+
+		CHECK(!sindex->isOr());
 	}
 }
