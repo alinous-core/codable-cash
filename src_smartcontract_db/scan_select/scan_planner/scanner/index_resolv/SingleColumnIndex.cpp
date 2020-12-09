@@ -108,7 +108,7 @@ void SingleColumnIndex::makeString() noexcept {
 
 	this->str->append(L" = ");
 
-	IValueProvider* vp = const_cast<IValueProvider*>(this->topValue);
+	IValueProvider* vp = const_cast<IValueProvider*>(this->value);
 	const UnicodeString* valStr = vp->toStringCode();
 	this->str->append(valStr);
 }
