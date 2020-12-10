@@ -30,6 +30,8 @@
 #include "scan_select/scan_table/TableScanTarget.h"
 
 #include "scan_select/scan_planner/scanner/index_resolv/SingleColumnIndex.h"
+
+#include "scan_select/scan_planner/scanner/index_resolv/OrIndexWrapperCollection.h"
 using namespace codablecash;
 
 TEST_GROUP(TestIndexResolverGroup) {
@@ -231,4 +233,11 @@ TEST(TestIndexResolverGroup, case05){
 
 		CHECK(!sindex->isOr());
 	}
+}
+
+TEST(TestIndexResolverGroup, case06){
+	OrIndexWrapperCollection orW;
+
+	CHECK(orW.isOr());
+	CHECK(!orW.isRange());
 }
