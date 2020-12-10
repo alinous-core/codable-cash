@@ -133,3 +133,19 @@ TEST(TestIndexResolverScriptGroup, case01){
 		CHECK(ans.equals(str));
 	}
 }
+
+TEST(TestIndexResolverScriptGroup, case02){
+	TestDbSchema01 tester(this->env);
+	tester.init(1024 * 10);
+
+	VirtualMachine* vm = tester.getVm();
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/ctx/resources/index_resolver/cond02.alns"))
+	{
+		UnicodeString* str = getCandidate(sourceFile, vm, tester); __STP(str);
+
+		UnicodeString ans(L"0 < id AND email_id = 100");
+		CHECK(ans.equals(str));
+	}
+}
