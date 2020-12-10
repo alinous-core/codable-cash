@@ -44,6 +44,8 @@
 
 #include "scan_select/scan_planner/scanner/index/AbstractIndexCandidate.h"
 
+#include "../../toolkit/TestDbSchema01.h"
+
 TEST_GROUP(TestIndexResolverScriptGroup) {
 	TEST_SETUP(){
 		env->setup();
@@ -117,5 +119,17 @@ UnicodeString* getCandidate(const File* sourceFile, VirtualMachine* vm, TestDbSc
 }
 
 TEST(TestIndexResolverScriptGroup, case01){
+	TestDbSchema01 tester(this->env);
+	tester.init(1024 * 10);
 
+	VirtualMachine* vm = tester.getVm();
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/ctx/resources/index_resolver/and01.alns"))
+	{
+		UnicodeString* str = getCandidate(sourceFile, vm, tester); __STP(str);
+
+		UnicodeString ans(L"0 < id < 100");
+		CHECK(ans.equals(str));
+	}
 }
