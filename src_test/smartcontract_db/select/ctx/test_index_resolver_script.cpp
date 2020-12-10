@@ -46,6 +46,7 @@
 
 #include "../../toolkit/TestDbSchema01.h"
 #include "../../toolkit_alter/TestDbSchemaAlter02.h"
+#include "../../toolkit_alter/TestDbSchemaAlter04.h"
 
 TEST_GROUP(TestIndexResolverScriptGroup) {
 	TEST_SETUP(){
@@ -163,6 +164,23 @@ TEST(TestIndexResolverScriptGroup, case03){
 		UnicodeString* str = getCandidate(sourceFile, vm, tester); __STP(str);
 
 		UnicodeString ans(L"0 < id OR email_id = 100");
+		CHECK(ans.equals(str));
+	}
+}
+
+TEST(TestIndexResolverScriptGroup, case04){
+	TestDbSchemaAlter04 tester(this->env);
+	tester.init(1024 * 10);
+
+	VirtualMachine* vm = tester.getVm();
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/ctx/resources/index_resolver/cond04.alns"))
+
+	{
+		UnicodeString* str = getCandidate(sourceFile, vm, tester); __STP(str);
+
+		UnicodeString ans(L"0 < id OR email_id = 100 AND name = 'test'");
 		CHECK(ans.equals(str));
 	}
 }

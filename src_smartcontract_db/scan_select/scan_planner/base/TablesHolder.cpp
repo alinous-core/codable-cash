@@ -121,7 +121,7 @@ const AbstractScanTableTarget* TablesHolder::findTable(const UnicodeString* colN
 	const AbstractScanTableTarget* target = nullptr;
 
 	int maxLoop = this->list.size();
-	for(int i = 1; i != maxLoop; ++i){
+	for(int i = 0; i != maxLoop; ++i){
 		AbstractScanTableTarget* targetRight = this->list.get(i);
 
 		ScanTableColumnParam* param = targetRight->findTableColumns(colName); __STP(param);

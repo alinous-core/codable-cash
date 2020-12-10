@@ -145,7 +145,7 @@ int CdbTableIndex::getColumnCoverCount(const ArrayList<const CdbOid>* oidlist) c
 		const CdbOid* colOid = oidlist->get(i);
 
 		if(!hasColumnOid(colOid)){
-			return -1;
+			continue;
 		}
 
 		count++;

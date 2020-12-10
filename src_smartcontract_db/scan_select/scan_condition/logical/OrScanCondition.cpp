@@ -159,8 +159,6 @@ void OrScanCondition::detectIndexCondition(VirtualMachine* vm,
 	}
 
 	detector->push(candidate);
-
-	// FIXME detectIndexCondition
 }
 
 
