@@ -51,7 +51,7 @@ AbstractColumnsIndexWrapper* IndexResolver::doAnalyze(const AbstractIndexCandida
 		StackRelease<OrIndexWrapperCollection> stOrWrapper(orWarpper);
 
 		if(orWarpper != nullptr && orWarpper->hasIndex(schemaManager)){
-			return orWarpper;
+			return stOrWrapper.move();
 		}
 		return nullptr;
 	}
