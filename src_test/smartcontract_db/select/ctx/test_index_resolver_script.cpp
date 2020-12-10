@@ -114,6 +114,9 @@ UnicodeString* getCandidate(const File* sourceFile, VirtualMachine* vm, TestDbSc
 	resolver.analyze(candidate);
 
 	AbstractColumnsIndexWrapper* w = resolver.getResult();
+	if(w == nullptr){
+		return nullptr;
+	}
 
 	const UnicodeString* s = w->toCodeString();
 
@@ -165,6 +168,20 @@ TEST(TestIndexResolverScriptGroup, case03){
 
 		UnicodeString ans(L"0 < id OR email_id = 100");
 		CHECK(ans.equals(str));
+	}
+}
+
+TEST(TestIndexResolverScriptGroup, case03_2){
+	TestDbSchema01 tester(this->env);
+	tester.init(1024 * 10);
+
+	VirtualMachine* vm = tester.getVm();
+
+	const File* projectFolder = this->env->getProjectRoot();
+	_ST(File, sourceFile, projectFolder->get(L"src_test/smartcontract_db/select/ctx/resources/index_resolver/cond03.alns"))
+	{
+		UnicodeString* str = getCandidate(sourceFile, vm, tester); __STP(str);
+		CHECK(str == nullptr);
 	}
 }
 
