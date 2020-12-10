@@ -236,6 +236,40 @@ TEST(TestIndexResolverGroup, case05){
 }
 
 TEST(TestIndexResolverGroup, case06){
+	TestDbSchema01 tester(this->env);
+	tester.init(1024 * 10);
+
+	VirtualMachine* vm = tester.getVm();
+
+	{
+		IndexResolver resolver(tester.getDatabase());
+
+		SelectScanPlanner* planner = new SelectScanPlanner(); __STP(planner);
+		VmSelectPlannerSetter setter(vm, planner);
+		TablesHolder* tableHolder = planner->getTablesHolder();
+		TableScanTarget* target = tester.getScanTarget(L"public", L"test_table");
+		tableHolder->addScanTarget(target);
+
+		SQLColumnIdentifier id(L"public", L"test_table", L"email_id");
+
+
+		ColumnIdentifierScanParam pid(&id);
+
+		pid.analyzeConditions(vm, planner);
+
+		IndexCandidate* candidate = new IndexCandidate(IndexCandidate::IndexType::RANGE_GT); __STP(candidate);
+		candidate->setColumn(&pid);
+		NumericScanParam numParam(10);
+		candidate->setValue(&numParam);
+
+		resolver.analyze(candidate);
+
+		AbstractColumnsIndexWrapper* w = resolver.getResult();
+		CHECK(w == nullptr)
+	}
+}
+
+TEST(TestIndexResolverGroup, case07){
 	OrIndexWrapperCollection orW;
 
 	CHECK(orW.isOr());
