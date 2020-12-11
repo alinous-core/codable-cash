@@ -14,7 +14,7 @@ namespace codablecash {
 
 class LeftJoinScannerFactory : public AbstractJoinScannerFactory {
 public:
-	LeftJoinScannerFactory(const ScanResultMetadata* metadata);
+	LeftJoinScannerFactory(const ScanResultMetadata* metadata, const AbstractScanCondition* joinCondition);
 	virtual ~LeftJoinScannerFactory();
 
 	virtual IJoinLeftSource* createScannerAsLeftSource(VirtualMachine* vm, SelectScanPlanner* planner);

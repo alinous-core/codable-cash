@@ -62,6 +62,8 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 	ScanJoinContextHolder* contextHolder = new ScanJoinContextHolder(); __STP(contextHolder);
 
 	JoinCandidateHolder joinCandidates(this->left, this->right);
+
+	// ON clause
 	if(this->cond != nullptr){
 		this->cond->collectJoinCandidate(vm, planner, AbstractJoinCandidate::LEFT_OUTER, &joinCandidates);
 		while(!joinCandidates.isEmpty()){
@@ -70,7 +72,7 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 		}
 	}
 
-	RootScanCondition* root = holder->getRoot();
+	RootScanCondition* root = holder->getRoot(); // Where clause
 	if(root != nullptr){
 		root->collectJoinCandidate(vm, planner, AbstractJoinCandidate::INNER, &joinCandidates);
 		while(!joinCandidates.isEmpty()){
@@ -86,10 +88,10 @@ AbstractScannerFactory* LeftOuterJoinTarget::getScanFactory(VirtualMachine* vm, 
 
 	AbstractJoinScannerFactory* joinFactory = nullptr;
 	if(joinCandidates.isInnerJoin()){
-		joinFactory = new InnerJoinScannerFactory(this->metadata);
+		joinFactory = new InnerJoinScannerFactory(this->metadata, this->cond);
 	}
 	else{
-		joinFactory = new LeftJoinScannerFactory(this->metadata);
+		joinFactory = new LeftJoinScannerFactory(this->metadata, this->cond);
 	}
 
 	const AbstractJoinCandidate* bestCandidate = joinCandidates.getBestCandidate(this->left, this->right);

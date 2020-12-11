@@ -9,8 +9,8 @@
 
 namespace codablecash {
 
-CrossJoinScanerFactory::CrossJoinScanerFactory(const ScanResultMetadata* metadata)
-			: AbstractJoinScannerFactory(metadata) {
+CrossJoinScanerFactory::CrossJoinScanerFactory(const ScanResultMetadata* metadata, const AbstractScanCondition* joinCondition)
+			: AbstractJoinScannerFactory(metadata, joinCondition) {
 
 }
 

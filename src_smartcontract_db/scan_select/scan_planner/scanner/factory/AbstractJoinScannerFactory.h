@@ -16,7 +16,7 @@ class AbstractJoinCandidate;
 
 class AbstractJoinScannerFactory : public AbstractScannerFactory {
 public:
-	explicit AbstractJoinScannerFactory(const ScanResultMetadata* metadata);
+	explicit AbstractJoinScannerFactory(const ScanResultMetadata* metadata, const AbstractScanCondition* joinCondition);
 	virtual ~AbstractJoinScannerFactory();
 
 	void setLeft(AbstractScannerFactory* factory) noexcept;
@@ -29,6 +29,7 @@ protected:
 
 	AbstractJoinCandidate* joinCandidate;
 
+	AbstractScanCondition* joinCondition; // Join Condition
 };
 
 } /* namespace codablecash */
