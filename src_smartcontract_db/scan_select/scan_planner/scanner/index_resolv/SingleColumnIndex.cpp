@@ -113,4 +113,9 @@ void SingleColumnIndex::makeString() noexcept {
 	this->str->append(valStr);
 }
 
+AbstractColumnsIndexWrapper* SingleColumnIndex::clone() const noexcept {
+	// TODO: clone
+}
+
+
 } /* namespace codablecash */

@@ -67,4 +67,9 @@ void OrIndexWrapperCollection::makeCodeString() noexcept {
 	}
 }
 
+AbstractColumnsIndexWrapper* OrIndexWrapperCollection::clone() const noexcept {
+	// TODO: clone
+}
+
+
 } /* namespace codablecash */

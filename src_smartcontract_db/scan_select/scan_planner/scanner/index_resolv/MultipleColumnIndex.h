@@ -27,6 +27,8 @@ public:
 
 	virtual int size() const noexcept;
 
+	virtual AbstractColumnsIndexWrapper* clone() const noexcept;
+
 	virtual const UnicodeString* toCodeString() noexcept;
 
 	void add(SingleColumnIndex* idx) noexcept;

@@ -30,6 +30,8 @@ public:
 
 	virtual int size() const noexcept;
 
+	virtual AbstractColumnsIndexWrapper* clone() const noexcept;
+
 	bool isBottomEq() const noexcept {
 		return bottomEq;
 	}

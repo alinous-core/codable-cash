@@ -36,6 +36,8 @@ public:
 
 	virtual bool hasIndex(SchemaManager* schemaManager) = 0;
 
+	virtual AbstractColumnsIndexWrapper* clone() const noexcept = 0;
+
 	virtual const UnicodeString* toCodeString() noexcept = 0;
 
 	const AbstractScanTableTarget* getTarget() const {

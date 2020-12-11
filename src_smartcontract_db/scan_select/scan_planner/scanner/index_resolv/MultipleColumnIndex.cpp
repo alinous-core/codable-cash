@@ -81,4 +81,9 @@ void MultipleColumnIndex::makeCodeString() noexcept {
 	}
 }
 
+AbstractColumnsIndexWrapper* MultipleColumnIndex::clone() const noexcept {
+	// TODO clone
+}
+
+
 } /* namespace codablecash */
