@@ -118,7 +118,9 @@ UnicodeString* getCandidate(const File* sourceFile, VirtualMachine* vm, TestDbSc
 		return nullptr;
 	}
 
-	const UnicodeString* s = w->toCodeString();
+	AbstractColumnsIndexWrapper* w2 = w->clone(); __STP(w2);
+
+	const UnicodeString* s = w2->toCodeString();
 
 	return new UnicodeString(s);
 }
