@@ -26,6 +26,11 @@ IJoinLeftSource* TableScannerFactory::createScannerAsLeftSource(
 		VirtualMachine* vm, SelectScanPlanner* planner) {
 	TableTransactionScanner* scanner = nullptr;
 
+	if(this->indexCandidate == nullptr){
+
+	}
+
+
 
 	// TODO left source
 

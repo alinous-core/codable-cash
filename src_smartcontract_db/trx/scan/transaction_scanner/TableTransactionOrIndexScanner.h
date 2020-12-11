@@ -8,11 +8,18 @@
 #ifndef TRX_SCAN_TRANSACTION_SCANNER_TABLETRANSACTIONORINDEXSCANNER_H_
 #define TRX_SCAN_TRANSACTION_SCANNER_TABLETRANSACTIONORINDEXSCANNER_H_
 
+#include "trx/scan/transaction_scanner_join/IJoinLeftSource.h"
+
+#include "trx/scan/transaction_scanner/AbstractTransactionScanner.h"
+
 namespace codablecash {
 
-class TableTransactionOrIndexScanner {
+class CdbTransaction;
+class TableStore;
+
+class TableTransactionOrIndexScanner : public AbstractTransactionScanner, public IJoinLeftSource {
 public:
-	TableTransactionOrIndexScanner();
+	TableTransactionOrIndexScanner(CdbTransaction* trx, TableStore* tableStore);
 	virtual ~TableTransactionOrIndexScanner();
 };
 
