@@ -24,6 +24,7 @@ public:
 
 private:
 	AbstractIndexCandidate* indexCandidate;
+
 };
 
 } /* namespace codablecash */
