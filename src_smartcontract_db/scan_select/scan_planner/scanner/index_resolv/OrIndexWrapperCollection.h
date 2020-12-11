@@ -17,6 +17,7 @@ namespace codablecash {
 
 class OrIndexWrapperCollection : public AbstractColumnsIndexWrapper {
 public:
+	OrIndexWrapperCollection(const OrIndexWrapperCollection& inst);
 	OrIndexWrapperCollection();
 	virtual ~OrIndexWrapperCollection();
 

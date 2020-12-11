@@ -14,6 +14,15 @@
 
 namespace codablecash {
 
+OrIndexWrapperCollection::OrIndexWrapperCollection(const OrIndexWrapperCollection& inst) : AbstractColumnsIndexWrapper(inst) {
+	int maxLoop = inst.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractColumnsIndexWrapper* index = inst.list.get(i);
+
+		add(index->clone());
+	}
+}
+
 OrIndexWrapperCollection::OrIndexWrapperCollection() {
 
 }
@@ -68,7 +77,7 @@ void OrIndexWrapperCollection::makeCodeString() noexcept {
 }
 
 AbstractColumnsIndexWrapper* OrIndexWrapperCollection::clone() const noexcept {
-	// TODO: clone
+	return new OrIndexWrapperCollection(*this);
 }
 
 
