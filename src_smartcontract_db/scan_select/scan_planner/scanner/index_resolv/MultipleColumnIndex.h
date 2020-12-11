@@ -20,6 +20,7 @@ class SingleColumnIndex;
 
 class MultipleColumnIndex : public AbstractColumnsIndexWrapper {
 public:
+	MultipleColumnIndex(const MultipleColumnIndex& inst);
 	MultipleColumnIndex();
 	virtual ~MultipleColumnIndex();
 

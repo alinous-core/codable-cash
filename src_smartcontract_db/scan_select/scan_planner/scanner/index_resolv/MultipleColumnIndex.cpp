@@ -20,6 +20,18 @@
 
 namespace codablecash {
 
+MultipleColumnIndex::MultipleColumnIndex(const MultipleColumnIndex& inst) : AbstractColumnsIndexWrapper(inst) {
+	int maxLoop = inst.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractColumnsIndexWrapper* index = inst.list.get(i);
+		SingleColumnIndex* idx = dynamic_cast<SingleColumnIndex*>(index->clone());
+
+		assert(idx != nullptr);
+
+		add(idx);
+	}
+}
+
 MultipleColumnIndex::MultipleColumnIndex() {
 
 }
@@ -82,7 +94,7 @@ void MultipleColumnIndex::makeCodeString() noexcept {
 }
 
 AbstractColumnsIndexWrapper* MultipleColumnIndex::clone() const noexcept {
-	// TODO clone
+	return new MultipleColumnIndex(*this);
 }
 
 
