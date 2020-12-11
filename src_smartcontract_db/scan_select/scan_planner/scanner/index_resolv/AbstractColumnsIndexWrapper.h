@@ -22,6 +22,7 @@ class CdbTableIndex;
 
 class AbstractColumnsIndexWrapper {
 public:
+	AbstractColumnsIndexWrapper(const AbstractColumnsIndexWrapper& inst);
 	AbstractColumnsIndexWrapper();
 	virtual ~AbstractColumnsIndexWrapper();
 

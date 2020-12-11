@@ -18,6 +18,7 @@ class AbstractScanTableTarget;
 
 class SingleColumnIndex : public AbstractColumnsIndexWrapper {
 public:
+	SingleColumnIndex(const SingleColumnIndex& inst);
 	SingleColumnIndex();
 	virtual ~SingleColumnIndex();
 

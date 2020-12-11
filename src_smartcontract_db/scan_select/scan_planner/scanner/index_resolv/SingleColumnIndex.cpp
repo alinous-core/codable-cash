@@ -18,6 +18,18 @@
 
 namespace codablecash {
 
+
+
+SingleColumnIndex::SingleColumnIndex(const SingleColumnIndex& inst) : AbstractColumnsIndexWrapper(inst) {
+	this->column = inst.column;
+	this->topEq = inst.topEq;
+	this->topValue = inst.topValue;
+	this->bottomEq = inst.bottomEq;
+	this->value = inst.value;
+
+	this->range = inst.range;
+}
+
 SingleColumnIndex::SingleColumnIndex() {
 	this->column = nullptr;
 	this->topEq = false;
@@ -114,7 +126,7 @@ void SingleColumnIndex::makeString() noexcept {
 }
 
 AbstractColumnsIndexWrapper* SingleColumnIndex::clone() const noexcept {
-	// TODO: clone
+	return new SingleColumnIndex(*this);
 }
 
 
