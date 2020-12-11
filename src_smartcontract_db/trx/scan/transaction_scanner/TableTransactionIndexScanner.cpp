@@ -7,9 +7,12 @@
 
 #include "trx/scan/transaction_scanner/TableTransactionIndexScanner.h"
 
+#include "schema_table/table_store/TableStore.h"
+
 namespace codablecash {
 
-TableTransactionIndexScanner::TableTransactionIndexScanner() {
+TableTransactionIndexScanner::TableTransactionIndexScanner(CdbTransaction* trx, TableStore* tableStore)
+			: AbstractTransactionScanner(trx, tableStore->getTable()){
 	// TODO Auto-generated constructor stub
 
 }
