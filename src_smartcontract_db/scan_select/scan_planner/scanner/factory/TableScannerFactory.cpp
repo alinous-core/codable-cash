@@ -9,13 +9,15 @@
 
 #include "scan_select/scan_planner/scanner/index/AbstractIndexCandidate.h"
 
+#include "scan_select/scan_planner/scanner/index_resolv/AbstractColumnsIndexWrapper.h"
+
 #include "trx/scan/transaction_scanner/TableTransactionScanner.h"
 
 namespace codablecash {
 
-TableScannerFactory::TableScannerFactory(const ScanResultMetadata* metadata, const AbstractIndexCandidate* indexCandidate)
+TableScannerFactory::TableScannerFactory(const ScanResultMetadata* metadata, AbstractColumnsIndexWrapper* indexCandidate)
 				: AbstractScannerFactory(metadata){
-	this->indexCandidate = indexCandidate != nullptr ? indexCandidate->copy() : nullptr;
+	this->indexCandidate = indexCandidate;
 }
 
 TableScannerFactory::~TableScannerFactory() {

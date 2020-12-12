@@ -34,6 +34,9 @@
 
 #include "base/StackRelease.h"
 
+#include "scan_select/scan_planner/scanner/index_resolv/IndexResolver.h"
+#include "scan_select/scan_planner/scanner/index_resolv/AbstractColumnsIndexWrapper.h"
+
 namespace codablecash {
 
 TableScanTarget::TableScanTarget() {
@@ -149,7 +152,19 @@ AbstractScannerFactory* TableScanTarget::getScanFactory(VirtualMachine* vm, Sele
 	}
 	__STP(indexCandidate);
 
-	TableScannerFactory* factory = new TableScannerFactory(this->metadata, indexCandidate);
+
+	AbstractColumnsIndexWrapper* indexWrapper = nullptr;
+	{
+		IndexResolver resolver(vm->getDb());
+		if(indexCandidate != nullptr){
+			resolver.analyze(indexCandidate);
+
+			indexWrapper = resolver.getResult();
+			indexWrapper = indexWrapper != nullptr ? indexWrapper->clone() : nullptr;
+		}
+	}
+
+	TableScannerFactory* factory = new TableScannerFactory(this->metadata, indexWrapper);
 	factory->setFilterCondition(filterCondition);
 
 	return factory;
