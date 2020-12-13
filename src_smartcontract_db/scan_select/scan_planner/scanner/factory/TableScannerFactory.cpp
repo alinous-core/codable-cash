@@ -13,30 +13,51 @@
 
 #include "trx/scan/transaction_scanner/TableTransactionScanner.h"
 
+#include "vm/VirtualMachine.h"
+
+#include "vm/vm_trx/VmTransactionHandler.h"
+
+#include "engine/CodableDatabase.h"
+#include "engine/CdbOid.h"
+
+#include "schema_table/table/CdbTable.h"
+
+#include "schema_table/table_store/CdbStorageManager.h"
+
+#include "trx/transaction/CdbTransaction.h"
 namespace codablecash {
 
-TableScannerFactory::TableScannerFactory(const ScanResultMetadata* metadata, AbstractColumnsIndexWrapper* indexCandidate)
+TableScannerFactory::TableScannerFactory(const CdbTable* table, const ScanResultMetadata* metadata, AbstractColumnsIndexWrapper* indexCandidate)
 				: AbstractScannerFactory(metadata){
 	this->indexCandidate = indexCandidate;
+	this->table = table;
 }
 
 TableScannerFactory::~TableScannerFactory() {
 	delete this->indexCandidate;
+
+	this->table = nullptr;
 }
 
 IJoinLeftSource* TableScannerFactory::createScannerAsLeftSource(
 		VirtualMachine* vm, SelectScanPlanner* planner) {
-	TableTransactionScanner* scanner = nullptr;
+	CodableDatabase* db = vm->getDb();
+	CdbStorageManager* storageManager = db->getStorageManager();
+
+	VmTransactionHandler* trxHandler = vm->getTransactionHandler();
+	CdbTransaction* trx = trxHandler->getTransaction();
+
+	const CdbOid* tableoid = this->table->getOid();
+	TableStore* tableStore = storageManager->getTableStore(tableoid);
+
+	IJoinLeftSource* scanner = nullptr;
 
 	if(this->indexCandidate == nullptr){
-
+		scanner = new TableTransactionScanner(trx, tableStore);
 	}
-
-
-
 	// TODO left source
 
-	return nullptr;
+	return scanner;
 }
 
 IJoinRightSource* TableScannerFactory::createScannerAsRightSource(

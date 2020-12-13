@@ -164,7 +164,7 @@ AbstractScannerFactory* TableScanTarget::getScanFactory(VirtualMachine* vm, Sele
 		}
 	}
 
-	TableScannerFactory* factory = new TableScannerFactory(this->metadata, indexWrapper);
+	TableScannerFactory* factory = new TableScannerFactory(this->table, this->metadata, indexWrapper);
 	factory->setFilterCondition(filterCondition);
 
 	return factory;
