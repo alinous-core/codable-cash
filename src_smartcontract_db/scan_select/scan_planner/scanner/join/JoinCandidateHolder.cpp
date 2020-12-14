@@ -74,7 +74,7 @@ const AbstractJoinCandidate* JoinCandidateHolder::getBestCandidate(AbstractScanT
 	return getBestFromList(&this->leftOuterJoin, left, right);
 }
 
-const AbstractJoinCandidate* codablecash::JoinCandidateHolder::getBestFromList(
+const AbstractJoinCandidate* JoinCandidateHolder::getBestFromList(
 		const ArrayList<AbstractJoinCandidate>* list, AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept {
 	AbstractJoinCandidate* candidate = nullptr;
 	int score = 0;

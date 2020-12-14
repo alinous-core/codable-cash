@@ -29,6 +29,11 @@
 #include "scan_select/scan_planner/scanner/index_resolv/OrIndexWrapperCollection.h"
 
 #include "trx/scan/transaction_scanner/TableTransactionOrIndexScanner.h"
+
+#include "scan_select/scan_planner/scanner/join/AbstractJoinCandidate.h"
+
+#include "scan_select/scan_planner/scanner/ctx/ScanJoinContext.h"
+
 namespace codablecash {
 
 TableScannerFactory::TableScannerFactory(const CdbTable* table, const ScanResultMetadata* metadata, AbstractColumnsIndexWrapper* indexCandidate)
@@ -84,6 +89,14 @@ IJoinLeftSource* TableScannerFactory::createIndexScannerAsLeftSource(VirtualMach
 IJoinRightSource* TableScannerFactory::createScannerAsRightSource(
 		VirtualMachine* vm, SelectScanPlanner* planner, const ScanJoinContext* joinContext) {
 	IJoinRightSource* rightSource = nullptr;
+
+	AbstractJoinCandidate* joinCandidate = joinContext->getJoinCandidate();
+	if(joinCandidate != nullptr){
+
+	}
+	else{
+
+	}
 
 	// TODO right source
 
