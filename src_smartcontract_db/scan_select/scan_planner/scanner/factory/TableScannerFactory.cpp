@@ -83,6 +83,8 @@ IJoinLeftSource* TableScannerFactory::createIndexScannerAsLeftSource(VirtualMach
 
 IJoinRightSource* TableScannerFactory::createScannerAsRightSource(
 		VirtualMachine* vm, SelectScanPlanner* planner, const ScanJoinContext* joinContext) {
+	IJoinRightSource* rightSource = nullptr;
+
 	// TODO right source
 
 	return nullptr;
