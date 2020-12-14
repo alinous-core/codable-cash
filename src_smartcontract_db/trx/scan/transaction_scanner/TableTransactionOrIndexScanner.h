@@ -16,11 +16,21 @@ namespace codablecash {
 
 class CdbTransaction;
 class TableStore;
+class OrIndexWrapperCollection;
 
 class TableTransactionOrIndexScanner : public AbstractTransactionScanner, public IJoinLeftSource {
 public:
-	TableTransactionOrIndexScanner(CdbTransaction* trx, TableStore* tableStore);
+	TableTransactionOrIndexScanner(CdbTransaction* trx, TableStore* tableStore, const OrIndexWrapperCollection* index);
 	virtual ~TableTransactionOrIndexScanner();
+
+	virtual void start();
+	virtual bool hasNext();
+	virtual const CdbRecord* next();
+
+	virtual void shutdown();
+
+private:
+	const OrIndexWrapperCollection* index;
 };
 
 } /* namespace codablecash */

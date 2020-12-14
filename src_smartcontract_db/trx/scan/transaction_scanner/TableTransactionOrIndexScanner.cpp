@@ -11,7 +11,7 @@
 
 namespace codablecash {
 
-TableTransactionOrIndexScanner::TableTransactionOrIndexScanner(CdbTransaction* trx, TableStore* tableStore)
+TableTransactionOrIndexScanner::TableTransactionOrIndexScanner(CdbTransaction* trx, TableStore* tableStore, const OrIndexWrapperCollection* index)
 		: AbstractTransactionScanner(trx, tableStore->getTable()){
 	// TODO Auto-generated constructor stub
 
@@ -20,5 +20,18 @@ TableTransactionOrIndexScanner::TableTransactionOrIndexScanner(CdbTransaction* t
 TableTransactionOrIndexScanner::~TableTransactionOrIndexScanner() {
 	// TODO Auto-generated destructor stub
 }
+
+void TableTransactionOrIndexScanner::start() {
+}
+
+bool TableTransactionOrIndexScanner::hasNext() {
+}
+
+const CdbRecord* TableTransactionOrIndexScanner::next() {
+}
+
+void TableTransactionOrIndexScanner::shutdown() {
+}
+
 
 } /* namespace codablecash */

@@ -13,7 +13,9 @@
 namespace codablecash {
 
 class CdbTable;
+class TableStore;
 class AbstractColumnsIndexWrapper;
+class CdbTransaction;
 
 class TableScannerFactory : public AbstractScannerFactory {
 public:
@@ -22,6 +24,9 @@ public:
 
 	virtual IJoinLeftSource* createScannerAsLeftSource(VirtualMachine* vm, SelectScanPlanner* planner);
 	virtual IJoinRightSource* createScannerAsRightSource(VirtualMachine* vm, SelectScanPlanner* planner, const ScanJoinContext* joinContext);
+
+private:
+	IJoinLeftSource* createIndexScannerAsLeftSource(VirtualMachine* vm, SelectScanPlanner* planner, TableStore* tableStore, CdbTransaction* trx);
 
 private:
 	AbstractColumnsIndexWrapper* indexCandidate;

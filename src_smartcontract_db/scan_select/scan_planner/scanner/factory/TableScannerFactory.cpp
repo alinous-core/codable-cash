@@ -25,6 +25,10 @@
 #include "schema_table/table_store/CdbStorageManager.h"
 
 #include "trx/transaction/CdbTransaction.h"
+
+#include "scan_select/scan_planner/scanner/index_resolv/OrIndexWrapperCollection.h"
+
+#include "trx/scan/transaction_scanner/TableTransactionOrIndexScanner.h"
 namespace codablecash {
 
 TableScannerFactory::TableScannerFactory(const CdbTable* table, const ScanResultMetadata* metadata, AbstractColumnsIndexWrapper* indexCandidate)
@@ -55,7 +59,24 @@ IJoinLeftSource* TableScannerFactory::createScannerAsLeftSource(
 	if(this->indexCandidate == nullptr){
 		scanner = new TableTransactionScanner(trx, tableStore);
 	}
-	// TODO left source
+	else{
+		scanner = createIndexScannerAsLeftSource(vm, planner, tableStore, trx);
+	}
+
+	return scanner;
+}
+
+IJoinLeftSource* TableScannerFactory::createIndexScannerAsLeftSource(VirtualMachine* vm, SelectScanPlanner* planner,
+		TableStore* tableStore, CdbTransaction* trx) {
+	IJoinLeftSource* scanner = nullptr;
+
+	if(this->indexCandidate->isOr()){
+		OrIndexWrapperCollection* orIndex = dynamic_cast<OrIndexWrapperCollection*>(this->indexCandidate);
+		scanner = new TableTransactionOrIndexScanner(trx, tableStore, orIndex);
+	}
+	else if(this->indexCandidate->isRange()){
+
+	}
 
 	return scanner;
 }
