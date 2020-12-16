@@ -94,4 +94,8 @@ int JoinMultipleCandidate::getOverHeadScore(AbstractScanTableTarget* left, Abstr
 
 
 
+CdbTableIndex* codablecash::JoinMultipleCandidate::getIndex() const noexcept {
+	//  TODO getIndex
+}
+
 } /* namespace codablecash */

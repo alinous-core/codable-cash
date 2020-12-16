@@ -54,6 +54,10 @@ int JoinCandidate::getOverHeadScore(AbstractScanTableTarget* left, AbstractScanT
 	return 1000;
 }
 
+CdbTableIndex* JoinCandidate::getIndex() const noexcept {
+	// TODO: getIndex
+}
+
 ColumnIdentifierScanParam* JoinCandidate::getRightParam(AbstractScanTableTarget* right) const noexcept {
 	if(this->left->getTarget() == right){
 		return this->left;
