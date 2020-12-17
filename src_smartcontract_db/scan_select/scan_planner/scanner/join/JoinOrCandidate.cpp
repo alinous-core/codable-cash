@@ -123,7 +123,7 @@ int JoinOrCandidate::getOverHeadScore(AbstractScanTableTarget* left, AbstractSca
 }
 
 CdbTableIndex* JoinOrCandidate::getIndex() const noexcept {
-	// TODO: index
+	return nullptr;
 }
 
 } /* namespace codablecash */
