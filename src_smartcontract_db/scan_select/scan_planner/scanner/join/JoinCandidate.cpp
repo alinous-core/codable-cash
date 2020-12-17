@@ -70,7 +70,7 @@ CdbTableIndex* JoinCandidate::getIndex(const AbstractScanTableTarget* right) con
 	const TableScanTarget* tableTarget = dynamic_cast<const TableScanTarget*>(target);
 	if(tableTarget != nullptr){
 		const CdbTable* table = tableTarget->getTable();
-		const CdbTableColumn* column = this->right->getCdbColumn();
+		const CdbTableColumn* column = rightParam->getCdbColumn();
 		const CdbOid* coloid = column->getOid();
 
 		ArrayList<const CdbOid> oidlist;
@@ -80,7 +80,6 @@ CdbTableIndex* JoinCandidate::getIndex(const AbstractScanTableTarget* right) con
 	}
 
 	return index;
-	// TODO: getIndex
 }
 
 ColumnIdentifierScanParam* JoinCandidate::getRightParam(const AbstractScanTableTarget* right) const noexcept {
