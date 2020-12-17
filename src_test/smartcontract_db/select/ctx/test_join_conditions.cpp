@@ -16,6 +16,8 @@
 #include "scan_select/scan_planner/scanner/join/JoinMultipleCandidate.h"
 
 #include "scan_select/scan_planner/scanner/join/JoinOrCandidate.h"
+
+#include "vm/VirtualMachine.h"
 using namespace codablecash;
 
 TEST_GROUP(TestJoinConditionGroup) {
@@ -30,6 +32,8 @@ TEST_GROUP(TestJoinConditionGroup) {
 TEST(TestJoinConditionGroup, case01){
 	TestDbSchema01 tester(this->env);
 	tester.init(1024 * 10);
+
+	VirtualMachine* vm = tester.getVm();
 
 	{
 		SQLColumnIdentifier id(L"public", L"test_table", L"id");

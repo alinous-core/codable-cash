@@ -26,7 +26,7 @@ public:
 	const AbstractScanTableTarget* getRightTarget() const noexcept;
 
 	virtual int getOverHeadScore(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept;
-	virtual CdbTableIndex* getIndex() const noexcept;
+	virtual CdbTableIndex* getIndex(const AbstractScanTableTarget* right) const noexcept;
 
 	virtual JoinCandidate::CandidateType getCandidateType() const noexcept;
 	virtual AbstractJoinCandidate* multiply(const AbstractJoinCandidate* other) const noexcept;
@@ -35,7 +35,7 @@ public:
 	virtual AbstractJoinCandidate* copy() const noexcept;
 
 private:
-	ColumnIdentifierScanParam* getRightParam(AbstractScanTableTarget* right) const noexcept;
+	ColumnIdentifierScanParam* getRightParam(const AbstractScanTableTarget* right) const noexcept;
 
 private:
 	ColumnIdentifierScanParam* left;

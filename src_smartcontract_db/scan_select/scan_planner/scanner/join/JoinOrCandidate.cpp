@@ -122,7 +122,7 @@ int JoinOrCandidate::getOverHeadScore(AbstractScanTableTarget* left, AbstractSca
 	return score;
 }
 
-CdbTableIndex* JoinOrCandidate::getIndex() const noexcept {
+CdbTableIndex* JoinOrCandidate::getIndex(const AbstractScanTableTarget* right) const noexcept {
 	return nullptr;
 }
 

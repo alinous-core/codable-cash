@@ -8,12 +8,19 @@
 #include "scan_select/scan_planner/scanner/join/JoinCandidate.h"
 
 #include "scan_select/scan_table/AbstractScanTableTarget.h"
+#include "scan_select/scan_table/TableScanTarget.h"
 
 #include "scan_select/scan_condition/params/ColumnIdentifierScanParam.h"
 
 #include "scan_select/scan_planner/scanner/join/JoinOrCandidate.h"
 #include "scan_select/scan_planner/scanner/join/JoinMultipleCandidate.h"
 
+#include "schema_table/table/CdbTable.h"
+#include "schema_table/table/CdbTableColumn.h"
+
+#include "base/ArrayList.h"
+
+#include "engine/CdbOid.h"
 namespace codablecash {
 
 JoinCandidate::JoinCandidate(const JoinCandidate& inst) : AbstractJoinCandidateCollection(inst.joinType) {
@@ -54,11 +61,29 @@ int JoinCandidate::getOverHeadScore(AbstractScanTableTarget* left, AbstractScanT
 	return 1000;
 }
 
-CdbTableIndex* JoinCandidate::getIndex() const noexcept {
+CdbTableIndex* JoinCandidate::getIndex(const AbstractScanTableTarget* right) const noexcept {
+	CdbTableIndex* index = nullptr;
+
+	ColumnIdentifierScanParam* rightParam = getRightParam(right);
+
+	const AbstractScanTableTarget* target = rightParam->getTarget();
+	const TableScanTarget* tableTarget = dynamic_cast<const TableScanTarget*>(target);
+	if(tableTarget != nullptr){
+		const CdbTable* table = tableTarget->getTable();
+		const CdbTableColumn* column = this->right->getCdbColumn();
+		const CdbOid* coloid = column->getOid();
+
+		ArrayList<const CdbOid> oidlist;
+		oidlist.addElement(coloid);
+
+		index = table->findMostAvailableIndex(&oidlist);
+	}
+
+	return index;
 	// TODO: getIndex
 }
 
-ColumnIdentifierScanParam* JoinCandidate::getRightParam(AbstractScanTableTarget* right) const noexcept {
+ColumnIdentifierScanParam* JoinCandidate::getRightParam(const AbstractScanTableTarget* right) const noexcept {
 	if(this->left->getTarget() == right){
 		return this->left;
 	}

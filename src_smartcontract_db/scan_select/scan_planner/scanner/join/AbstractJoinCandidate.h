@@ -37,7 +37,7 @@ public:
 
 	virtual int getOverHeadScore(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept = 0;
 
-	virtual CdbTableIndex* getIndex() const noexcept = 0;
+	virtual CdbTableIndex* getIndex(const AbstractScanTableTarget* right) const noexcept = 0;
 
 protected:
 	int joinType;
