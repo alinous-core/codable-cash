@@ -9,6 +9,15 @@
 #include "scan_select/scan_planner/scanner/join/JoinCandidate.h"
 #include "scan_select/scan_planner/scanner/join/JoinOrCandidate.h"
 
+#include "base/ArrayList.h"
+
+#include "engine/CdbOid.h"
+
+#include "schema_table/table/CdbTableColumn.h"
+
+#include "scan_select/scan_table/TableScanTarget.h"
+
+#include "schema_table/table/CdbTable.h"
 namespace codablecash {
 
 codablecash::JoinMultipleCandidate::JoinMultipleCandidate(const JoinMultipleCandidate& inst) : AbstractJoinCandidateCollection(joinType) {
@@ -93,8 +102,28 @@ int JoinMultipleCandidate::getOverHeadScore(AbstractScanTableTarget* left, Abstr
 }
 
 
-CdbTableIndex* codablecash::JoinMultipleCandidate::getIndex(const AbstractScanTableTarget* right) const noexcept {
-	//  TODO getIndex
+CdbTableIndex* JoinMultipleCandidate::getIndex(const AbstractScanTableTarget* right) const noexcept {
+	CdbTableIndex* index = nullptr;
+	ArrayList<const CdbOid> oidlist;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		const JoinCandidate* c = this->list.get(i);
+
+		const CdbTableColumn* column = c->getRightColumn(right);
+		if(column != nullptr){
+			const CdbOid* columnOid = column->getOid();
+			oidlist.addElement(columnOid);
+		}
+	}
+
+	const TableScanTarget* tableTarget = dynamic_cast<const TableScanTarget*>(right);
+	if(tableTarget != nullptr){
+		const CdbTable* table = tableTarget->getTable();
+		index = !oidlist.isEmpty() ? table->findMostAvailableIndex(&oidlist) : nullptr;
+	}
+
+	return index;
 }
 
 } /* namespace codablecash */

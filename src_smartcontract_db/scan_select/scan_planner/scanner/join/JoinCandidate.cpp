@@ -82,6 +82,21 @@ CdbTableIndex* JoinCandidate::getIndex(const AbstractScanTableTarget* right) con
 	return index;
 }
 
+const CdbTableColumn* JoinCandidate::getRightColumn(const AbstractScanTableTarget* right) const noexcept {
+	const CdbTableColumn* column = nullptr;
+
+	ColumnIdentifierScanParam* rightParam = getRightParam(right);
+
+	const AbstractScanTableTarget* target = rightParam->getTarget();
+	const TableScanTarget* tableTarget = dynamic_cast<const TableScanTarget*>(target);
+	if(tableTarget != nullptr){
+		const CdbTable* table = tableTarget->getTable();
+		column = rightParam->getCdbColumn();
+	}
+
+	return column;
+}
+
 ColumnIdentifierScanParam* JoinCandidate::getRightParam(const AbstractScanTableTarget* right) const noexcept {
 	if(this->left->getTarget() == right){
 		return this->left;
