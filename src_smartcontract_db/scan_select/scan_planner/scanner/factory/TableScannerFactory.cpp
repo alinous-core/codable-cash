@@ -36,8 +36,9 @@
 
 namespace codablecash {
 
-TableScannerFactory::TableScannerFactory(const CdbTable* table, const ScanResultMetadata* metadata, AbstractColumnsIndexWrapper* indexCandidate)
+TableScannerFactory::TableScannerFactory(AbstractScanTableTarget* target, const CdbTable* table, const ScanResultMetadata* metadata, AbstractColumnsIndexWrapper* indexCandidate)
 				: AbstractScannerFactory(metadata){
+	this->target = target;
 	this->indexCandidate = indexCandidate;
 	this->table = table;
 }
@@ -45,6 +46,7 @@ TableScannerFactory::TableScannerFactory(const CdbTable* table, const ScanResult
 TableScannerFactory::~TableScannerFactory() {
 	delete this->indexCandidate;
 
+	this->target = nullptr;
 	this->table = nullptr;
 }
 
@@ -80,7 +82,10 @@ IJoinLeftSource* TableScannerFactory::createIndexScannerAsLeftSource(VirtualMach
 		scanner = new TableTransactionOrIndexScanner(trx, tableStore, orIndex);
 	}
 	else if(this->indexCandidate->isRange()){
-
+		// TODO rangeScan
+	}
+	else{
+		// TODO normal index
 	}
 
 	return scanner;
@@ -92,15 +97,30 @@ IJoinRightSource* TableScannerFactory::createScannerAsRightSource(
 
 	AbstractJoinCandidate* joinCandidate = joinContext->getJoinCandidate();
 	if(joinCandidate != nullptr){
-
+		rightSource = createIndexScannerAsRightSource(vm, planner, joinCandidate);
 	}
 	else{
-
+		// cross join
 	}
 
 	// TODO right source
 
-	return nullptr;
+	return rightSource;
+}
+
+IJoinRightSource* TableScannerFactory::createIndexScannerAsRightSource(
+		VirtualMachine* vm, SelectScanPlanner* planner,
+		AbstractJoinCandidate* joinCandidate) {
+	IJoinRightSource* rightSource = nullptr;
+
+	AbstractJoinCandidate::CandidateType type = joinCandidate->getCandidateType();
+	if(type == AbstractJoinCandidate::CandidateType::OR){
+
+	}else{
+
+	}
+
+	return rightSource;
 }
 
 } /* namespace codablecash */

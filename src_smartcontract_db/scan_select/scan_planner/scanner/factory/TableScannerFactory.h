@@ -16,10 +16,12 @@ class CdbTable;
 class TableStore;
 class AbstractColumnsIndexWrapper;
 class CdbTransaction;
+class AbstractScanTableTarget;
+class AbstractJoinCandidate;
 
 class TableScannerFactory : public AbstractScannerFactory {
 public:
-	explicit TableScannerFactory(const CdbTable* table, const ScanResultMetadata* metadata, AbstractColumnsIndexWrapper* indexCandidate);
+	explicit TableScannerFactory(AbstractScanTableTarget* target, const CdbTable* table, const ScanResultMetadata* metadata, AbstractColumnsIndexWrapper* indexCandidate);
 	virtual ~TableScannerFactory();
 
 	virtual IJoinLeftSource* createScannerAsLeftSource(VirtualMachine* vm, SelectScanPlanner* planner);
@@ -27,10 +29,11 @@ public:
 
 private:
 	IJoinLeftSource* createIndexScannerAsLeftSource(VirtualMachine* vm, SelectScanPlanner* planner, TableStore* tableStore, CdbTransaction* trx);
-
+	IJoinRightSource* createIndexScannerAsRightSource(VirtualMachine* vm, SelectScanPlanner* planner, AbstractJoinCandidate* joinCandidate);
 private:
 	AbstractColumnsIndexWrapper* indexCandidate;
 	const CdbTable* table;
+	AbstractScanTableTarget* target;
 };
 
 } /* namespace codablecash */
