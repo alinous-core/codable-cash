@@ -40,6 +40,7 @@ add_subdirectory(trx/transaction_log_alter_modify)
 add_subdirectory(trx/scan/transaction_scan_result)
 add_subdirectory(trx/scan/transaction_scanner)
 add_subdirectory(trx/scan/transaction_scanner_join)
+add_subdirectory(trx/scan/transaction_scanner_join_right)
 add_subdirectory(trx/scan/transaction_update_cache)
 
 message(STATUS "src_smartcontract_db : ${__dirsrc}")

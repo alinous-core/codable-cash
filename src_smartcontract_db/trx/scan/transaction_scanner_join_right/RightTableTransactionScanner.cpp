@@ -5,17 +5,17 @@
  *      Author: iizuka
  */
 
-#include <trx/scan/transaction_scanner_join_right/RightTableTransactionScanner.h>
+#include "trx/scan/transaction_scanner_join_right/RightTableTransactionScanner.h"
 
 namespace codablecash {
 
-RightTableTransactionScanner::RightTableTransactionScanner() {
-	// TODO Auto-generated constructor stub
+RightTableTransactionScanner::RightTableTransactionScanner(CdbTransaction* trx, const CdbTable* table)
+			: AbstractTransactionScanner(trx, table) {
 
 }
 
 RightTableTransactionScanner::~RightTableTransactionScanner() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace codablecash */
