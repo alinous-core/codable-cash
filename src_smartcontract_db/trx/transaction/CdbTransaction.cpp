@@ -35,6 +35,8 @@
 
 #include "trx/scan/transaction_update_cache/TransactionUpdateCache.h"
 
+#include "trx/scan/transaction_scan_result/ScanResultMetadata.h"
+
 #include "schema_table/table/CdbTableColumn.h"
 
 #include "schema_table/record/table_record_key/CdbRecordKey.h"
@@ -44,6 +46,7 @@
 #include "trx/transaction_log_alter/AbstractAlterCommandLog.h"
 
 #include "trx/transaction_log/DropTableLog.h"
+
 
 namespace codablecash {
 
@@ -113,7 +116,7 @@ TableTransactionScanner* CdbTransaction::getTableTransactionScanner(const CdbTab
 
 	TableStore* tableStore = store->getTableStore(oid);
 
-	ScanResultMetadata* metadata = table->getMetadata();
+	ScanResultMetadata* metadata = table->getMetadata(); __STP(metadata);
 
 	TableTransactionScanner* scanner = new TableTransactionScanner(metadata, this, tableStore);
 
