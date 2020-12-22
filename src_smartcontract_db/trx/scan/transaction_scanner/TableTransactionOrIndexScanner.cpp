@@ -24,9 +24,11 @@ void TableTransactionOrIndexScanner::start() {
 }
 
 bool TableTransactionOrIndexScanner::hasNext() {
+	return false;
 }
 
 const CdbRecord* TableTransactionOrIndexScanner::next() {
+	return nullptr;
 }
 
 void TableTransactionOrIndexScanner::shutdown() {
