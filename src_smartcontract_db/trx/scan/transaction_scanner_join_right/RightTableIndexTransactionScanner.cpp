@@ -9,8 +9,8 @@
 
 namespace codablecash {
 
-RightTableIndexTransactionScanner::RightTableIndexTransactionScanner()
-			: AbstractTransactionScanner(trx, table){
+RightTableIndexTransactionScanner::RightTableIndexTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx, const CdbTable* table)
+			: AbstractTransactionScanner(metadata, trx, table){
 	// TODO Auto-generated constructor stub
 
 }

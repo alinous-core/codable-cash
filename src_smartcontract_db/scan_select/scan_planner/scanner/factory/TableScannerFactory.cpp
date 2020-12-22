@@ -64,7 +64,7 @@ IJoinLeftSource* TableScannerFactory::createScannerAsLeftSource(
 	IJoinLeftSource* scanner = nullptr;
 
 	if(this->indexCandidate == nullptr){
-		scanner = new TableTransactionScanner(trx, tableStore);
+		scanner = new TableTransactionScanner(this->metadata, trx, tableStore);
 	}
 	else{
 		scanner = createIndexScannerAsLeftSource(vm, planner, tableStore, trx);
@@ -79,7 +79,7 @@ IJoinLeftSource* TableScannerFactory::createIndexScannerAsLeftSource(VirtualMach
 
 	if(this->indexCandidate->isOr()){
 		OrIndexWrapperCollection* orIndex = dynamic_cast<OrIndexWrapperCollection*>(this->indexCandidate);
-		scanner = new TableTransactionOrIndexScanner(trx, tableStore, orIndex);
+		scanner = new TableTransactionOrIndexScanner(this->metadata, trx, tableStore, orIndex);
 	}
 	else if(this->indexCandidate->isRange()){
 		// TODO rangeScan
@@ -117,6 +117,7 @@ IJoinRightSource* TableScannerFactory::createIndexScannerAsRightSource(
 	if(type == AbstractJoinCandidate::CandidateType::OR){
 
 	}else{
+		CdbTableIndex* index = joinCandidate->getIndex(this->target);
 
 	}
 

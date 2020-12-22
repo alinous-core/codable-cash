@@ -18,8 +18,8 @@
 
 namespace codablecash {
 
-TableTransactionScanner::TableTransactionScanner(CdbTransaction* trx, TableStore* tableStore)
-	: AbstractTransactionScanner(trx, tableStore->getTable()) {
+TableTransactionScanner::TableTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx, TableStore* tableStore)
+	: AbstractTransactionScanner(metadata, trx, tableStore->getTable()) {
 	this->tableStore = tableStore;
 	this->internalScanner = nullptr;
 	this->nextRecord = nullptr;

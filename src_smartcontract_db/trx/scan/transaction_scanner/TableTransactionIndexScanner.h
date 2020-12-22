@@ -19,7 +19,7 @@ class TableStore;
 
 class TableTransactionIndexScanner : public AbstractTransactionScanner, public IJoinLeftSource {
 public:
-	TableTransactionIndexScanner(CdbTransaction* trx, TableStore* tableStore);
+	TableTransactionIndexScanner(ScanResultMetadata* metadata, CdbTransaction* trx, TableStore* tableStore);
 	virtual ~TableTransactionIndexScanner();
 };
 

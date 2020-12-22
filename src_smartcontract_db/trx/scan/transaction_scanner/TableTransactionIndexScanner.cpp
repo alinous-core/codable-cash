@@ -11,8 +11,8 @@
 
 namespace codablecash {
 
-TableTransactionIndexScanner::TableTransactionIndexScanner(CdbTransaction* trx, TableStore* tableStore)
-			: AbstractTransactionScanner(trx, tableStore->getTable()){
+TableTransactionIndexScanner::TableTransactionIndexScanner(ScanResultMetadata* metadata, CdbTransaction* trx, TableStore* tableStore)
+			: AbstractTransactionScanner(metadata, trx, tableStore->getTable()){
 	// TODO Auto-generated constructor stub
 
 }

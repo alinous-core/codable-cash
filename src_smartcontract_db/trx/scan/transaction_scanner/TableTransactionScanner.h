@@ -20,7 +20,7 @@ class AbstractLockHandle;
 
 class TableTransactionScanner : public AbstractTransactionScanner, public IJoinLeftSource {
 public:
-	TableTransactionScanner(CdbTransaction* trx, TableStore* tableStore);
+	TableTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx, TableStore* tableStore);
 	virtual ~TableTransactionScanner();
 
 	virtual void start();

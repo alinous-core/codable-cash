@@ -30,6 +30,8 @@ public:
 private:
 	IJoinLeftSource* createIndexScannerAsLeftSource(VirtualMachine* vm, SelectScanPlanner* planner, TableStore* tableStore, CdbTransaction* trx);
 	IJoinRightSource* createIndexScannerAsRightSource(VirtualMachine* vm, SelectScanPlanner* planner, AbstractJoinCandidate* joinCandidate);
+
+
 private:
 	AbstractColumnsIndexWrapper* indexCandidate;
 	const CdbTable* table;

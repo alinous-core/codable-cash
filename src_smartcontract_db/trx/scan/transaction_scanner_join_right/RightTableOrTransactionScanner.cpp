@@ -5,11 +5,12 @@
  *      Author: iizuka
  */
 
-#include <trx/scan/transaction_scanner_join_right/RightTableOrTransactionScanner.h>
+#include "trx/scan/transaction_scanner_join_right/RightTableOrTransactionScanner.h"
 
 namespace codablecash {
 
-RightTableOrTransactionScanner::RightTableOrTransactionScanner() {
+RightTableOrTransactionScanner::RightTableOrTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx, const CdbTable* table)
+		: AbstractTransactionScanner(metadata, trx, table){
 	// TODO Auto-generated constructor stub
 
 }
