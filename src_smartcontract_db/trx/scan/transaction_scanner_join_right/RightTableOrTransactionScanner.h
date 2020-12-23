@@ -14,10 +14,23 @@
 
 namespace codablecash {
 
+class JoinOrCandidate;
+
 class RightTableOrTransactionScanner : public IJoinRightSource, public AbstractTransactionScanner {
 public:
-	RightTableOrTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx, const CdbTable* table);
+	RightTableOrTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx, const CdbTable* table, const JoinOrCandidate* orCandidate);
 	virtual ~RightTableOrTransactionScanner();
+
+	virtual void start();
+	virtual void reset(const AbstractCdbKey* key);
+
+	virtual bool hasNext();
+	virtual const CdbRecord* next();
+
+	virtual void shutdown();
+
+private:
+	JoinOrCandidate* orCandidate;
 };
 
 } /* namespace codablecash */

@@ -22,7 +22,6 @@ public:
 	virtual ~RightTableIndexTransactionScanner();
 
 	virtual void start();
-
 	virtual void reset(const AbstractCdbKey* key);
 
 	virtual bool hasNext();

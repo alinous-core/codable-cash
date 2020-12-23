@@ -10,11 +10,9 @@
 #include "scan_select/scan_planner/scanner/index/AbstractIndexCandidate.h"
 
 #include "scan_select/scan_planner/scanner/index_resolv/AbstractColumnsIndexWrapper.h"
-
-#include "trx/scan/transaction_scanner/TableTransactionScanner.h"
+#include "scan_select/scan_planner/scanner/index_resolv/OrIndexWrapperCollection.h"
 
 #include "vm/VirtualMachine.h"
-
 #include "vm/vm_trx/VmTransactionHandler.h"
 
 #include "engine/CodableDatabase.h"
@@ -26,13 +24,14 @@
 
 #include "trx/transaction/CdbTransaction.h"
 
-#include "scan_select/scan_planner/scanner/index_resolv/OrIndexWrapperCollection.h"
-
+#include "trx/scan/transaction_scanner/TableTransactionScanner.h"
 #include "trx/scan/transaction_scanner/TableTransactionOrIndexScanner.h"
 
 #include "scan_select/scan_planner/scanner/join/AbstractJoinCandidate.h"
+#include "scan_select/scan_planner/scanner/join/JoinOrCandidate.h"
 
 #include "trx/scan/transaction_scanner_join_right/RightTableIndexTransactionScanner.h"
+#include "trx/scan/transaction_scanner_join_right/RightTableOrTransactionScanner.h"
 
 #include "scan_select/scan_planner/scanner/ctx/ScanJoinContext.h"
 
@@ -123,10 +122,18 @@ IJoinRightSource* TableScannerFactory::createIndexScannerAsRightSource(
 
 	AbstractJoinCandidate::CandidateType type = joinCandidate->getCandidateType();
 	if(type == AbstractJoinCandidate::CandidateType::OR){
+		JoinOrCandidate* orCandidate = dynamic_cast<JoinOrCandidate*>(joinCandidate);
+		rightSource = new RightTableOrTransactionScanner(this->metadata, trx, this->table, orCandidate);
 
 	}else{
 		CdbTableIndex* index = joinCandidate->getIndex(this->target);
-		rightSource = new RightTableIndexTransactionScanner(this->metadata, trx, this->table, index);
+
+		if(index != nullptr){
+			rightSource = new RightTableIndexTransactionScanner(this->metadata, trx, this->table, index);
+		}
+		else{
+			// TODO: buffered
+		}
 	}
 
 	return rightSource;

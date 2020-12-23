@@ -28,9 +28,11 @@ void RightTableIndexTransactionScanner::reset(const AbstractCdbKey* key) {
 }
 
 bool RightTableIndexTransactionScanner::hasNext() {
+	return false;
 }
 
 const CdbRecord* RightTableIndexTransactionScanner::next() {
+	return nullptr;
 }
 
 void RightTableIndexTransactionScanner::shutdown() {
