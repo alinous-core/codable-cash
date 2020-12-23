@@ -9,14 +9,31 @@
 
 namespace codablecash {
 
-RightTableIndexTransactionScanner::RightTableIndexTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx, const CdbTable* table)
+RightTableIndexTransactionScanner::RightTableIndexTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx, const CdbTable* table, CdbTableIndex* index)
 			: AbstractTransactionScanner(metadata, trx, table){
-	// TODO Auto-generated constructor stub
+	this->index = index;
 
 }
 
 RightTableIndexTransactionScanner::~RightTableIndexTransactionScanner() {
-	// TODO Auto-generated destructor stub
+	this->index = nullptr;
+}
+
+void RightTableIndexTransactionScanner::start() {
+
+}
+
+void RightTableIndexTransactionScanner::reset(const AbstractCdbKey* key) {
+
+}
+
+bool RightTableIndexTransactionScanner::hasNext() {
+}
+
+const CdbRecord* RightTableIndexTransactionScanner::next() {
+}
+
+void RightTableIndexTransactionScanner::shutdown() {
 }
 
 } /* namespace codablecash */

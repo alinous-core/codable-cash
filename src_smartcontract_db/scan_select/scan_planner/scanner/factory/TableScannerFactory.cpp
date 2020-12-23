@@ -32,7 +32,10 @@
 
 #include "scan_select/scan_planner/scanner/join/AbstractJoinCandidate.h"
 
+#include "trx/scan/transaction_scanner_join_right/RightTableIndexTransactionScanner.h"
+
 #include "scan_select/scan_planner/scanner/ctx/ScanJoinContext.h"
+
 
 namespace codablecash {
 
@@ -95,6 +98,8 @@ IJoinRightSource* TableScannerFactory::createScannerAsRightSource(
 		VirtualMachine* vm, SelectScanPlanner* planner, const ScanJoinContext* joinContext) {
 	IJoinRightSource* rightSource = nullptr;
 
+
+
 	AbstractJoinCandidate* joinCandidate = joinContext->getJoinCandidate();
 	if(joinCandidate != nullptr){
 		rightSource = createIndexScannerAsRightSource(vm, planner, joinCandidate);
@@ -113,12 +118,15 @@ IJoinRightSource* TableScannerFactory::createIndexScannerAsRightSource(
 		AbstractJoinCandidate* joinCandidate) {
 	IJoinRightSource* rightSource = nullptr;
 
+	VmTransactionHandler* trxHandler = vm->getTransactionHandler();
+	CdbTransaction* trx = trxHandler->getTransaction();
+
 	AbstractJoinCandidate::CandidateType type = joinCandidate->getCandidateType();
 	if(type == AbstractJoinCandidate::CandidateType::OR){
 
 	}else{
 		CdbTableIndex* index = joinCandidate->getIndex(this->target);
-
+		rightSource = new RightTableIndexTransactionScanner(this->metadata, trx, this->table, index);
 	}
 
 	return rightSource;
