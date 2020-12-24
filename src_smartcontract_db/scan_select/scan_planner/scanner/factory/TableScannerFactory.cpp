@@ -33,10 +33,12 @@
 #include "trx/scan/transaction_scanner_join_right/RightTableIndexTransactionScanner.h"
 #include "trx/scan/transaction_scanner_join_right/RightTableOrTransactionScanner.h"
 #include "trx/scan/transaction_scanner_join_right/RightTableBufferedTransactionScanner.h"
+#include "trx/scan/transaction_scanner_join_right/RightTableBufferedOidTransactionScanner.h"
 
 #include "scan_select/scan_planner/scanner/ctx/ScanJoinContext.h"
 
 #include "scan_select/scan_condition/base/AbstractScanCondition.h"
+
 
 namespace codablecash {
 
@@ -105,7 +107,11 @@ IJoinRightSource* TableScannerFactory::createScannerAsRightSource(
 		rightSource = createIndexScannerAsRightSource(vm, planner, joinCandidate);
 	}
 	else{
+		VmTransactionHandler* trxHandler = vm->getTransactionHandler();
+		CdbTransaction* trx = trxHandler->getTransaction();
+
 		// cross join
+		rightSource = new RightTableBufferedOidTransactionScanner(this->metadata, trx, this->table, this->filterCondition);
 	}
 
 	// TODO right source
