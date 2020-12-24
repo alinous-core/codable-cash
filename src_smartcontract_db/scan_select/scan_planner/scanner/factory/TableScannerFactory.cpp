@@ -32,6 +32,7 @@
 
 #include "trx/scan/transaction_scanner_join_right/RightTableIndexTransactionScanner.h"
 #include "trx/scan/transaction_scanner_join_right/RightTableOrTransactionScanner.h"
+#include "trx/scan/transaction_scanner_join_right/RightTableBufferedTransactionScanner.h"
 
 #include "scan_select/scan_planner/scanner/ctx/ScanJoinContext.h"
 
@@ -97,8 +98,6 @@ IJoinRightSource* TableScannerFactory::createScannerAsRightSource(
 		VirtualMachine* vm, SelectScanPlanner* planner, const ScanJoinContext* joinContext) {
 	IJoinRightSource* rightSource = nullptr;
 
-
-
 	AbstractJoinCandidate* joinCandidate = joinContext->getJoinCandidate();
 	if(joinCandidate != nullptr){
 		rightSource = createIndexScannerAsRightSource(vm, planner, joinCandidate);
@@ -132,7 +131,7 @@ IJoinRightSource* TableScannerFactory::createIndexScannerAsRightSource(
 			rightSource = new RightTableIndexTransactionScanner(this->metadata, trx, this->table, index);
 		}
 		else{
-			// TODO: buffered
+			rightSource = new RightTableBufferedTransactionScanner(this->metadata, trx, this->table, joinCandidate);
 		}
 	}
 
