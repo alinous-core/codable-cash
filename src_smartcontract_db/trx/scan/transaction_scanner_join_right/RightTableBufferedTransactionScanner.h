@@ -18,7 +18,8 @@ class AbstractJoinCandidate;
 
 class RightTableBufferedTransactionScanner : public IJoinRightSource, public AbstractTransactionScanner {
 public:
-	RightTableBufferedTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx, const CdbTable* table, AbstractJoinCandidate* joinCandidate);
+	RightTableBufferedTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx,
+			const CdbTable* table, const AbstractScanCondition* filterCondition, AbstractJoinCandidate* joinCandidate);
 	virtual ~RightTableBufferedTransactionScanner();
 
 	virtual void start();

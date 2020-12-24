@@ -13,7 +13,8 @@ namespace codablecash {
 
 RightTableBufferedTransactionScanner::RightTableBufferedTransactionScanner(
 		ScanResultMetadata* metadata, CdbTransaction* trx,
-		const CdbTable* table, AbstractJoinCandidate* joinCandidate) : AbstractTransactionScanner(metadata, trx, table) {
+		const CdbTable* table, const AbstractScanCondition* filterCondition, AbstractJoinCandidate* joinCandidate)
+	: AbstractTransactionScanner(metadata, trx, table, filterCondition) {
 	this->joinCandidate = joinCandidate->copy();
 }
 
