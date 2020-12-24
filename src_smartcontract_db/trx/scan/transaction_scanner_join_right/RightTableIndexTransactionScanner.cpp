@@ -9,8 +9,9 @@
 
 namespace codablecash {
 
-RightTableIndexTransactionScanner::RightTableIndexTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx, const CdbTable* table, CdbTableIndex* index)
-			: AbstractTransactionScanner(metadata, trx, table){
+RightTableIndexTransactionScanner::RightTableIndexTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx,
+		const CdbTable* table, const AbstractScanCondition* filterCondition, CdbTableIndex* index)
+			: AbstractTransactionScanner(metadata, trx, table, filterCondition){
 	this->index = index;
 
 }

@@ -18,7 +18,8 @@ class CdbTableIndex;
 
 class RightTableIndexTransactionScanner : public IJoinRightSource, public AbstractTransactionScanner {
 public:
-	RightTableIndexTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx, const CdbTable* table, CdbTableIndex* index);
+	RightTableIndexTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx,
+			const CdbTable* table, const AbstractScanCondition* filterCondition, CdbTableIndex* index);
 	virtual ~RightTableIndexTransactionScanner();
 
 	virtual void start();
