@@ -118,7 +118,7 @@ TableTransactionScanner* CdbTransaction::getTableTransactionScanner(const CdbTab
 
 	ScanResultMetadata* metadata = table->getMetadata(); __STP(metadata);
 
-	TableTransactionScanner* scanner = new TableTransactionScanner(metadata, this, tableStore);
+	TableTransactionScanner* scanner = new TableTransactionScanner(metadata, this, tableStore, condition);
 
 	return scanner;
 }
