@@ -20,7 +20,8 @@ class OrIndexWrapperCollection;
 
 class TableTransactionOrIndexScanner : public AbstractTransactionScanner, public IJoinLeftSource {
 public:
-	TableTransactionOrIndexScanner(ScanResultMetadata* metadata, CdbTransaction* trx, TableStore* tableStore, const OrIndexWrapperCollection* index);
+	TableTransactionOrIndexScanner(ScanResultMetadata* metadata, CdbTransaction* trx, TableStore* tableStore
+			, const AbstractScanCondition* filterCondition, const OrIndexWrapperCollection* index);
 	virtual ~TableTransactionOrIndexScanner();
 
 	virtual void start();

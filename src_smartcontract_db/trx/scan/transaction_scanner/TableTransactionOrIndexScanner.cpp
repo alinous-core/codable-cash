@@ -11,8 +11,9 @@
 
 namespace codablecash {
 
-TableTransactionOrIndexScanner::TableTransactionOrIndexScanner(ScanResultMetadata* metadata, CdbTransaction* trx, TableStore* tableStore, const OrIndexWrapperCollection* index)
-		: AbstractTransactionScanner(metadata, trx, tableStore->getTable()){
+TableTransactionOrIndexScanner::TableTransactionOrIndexScanner(ScanResultMetadata* metadata, CdbTransaction* trx,
+		TableStore* tableStore, const AbstractScanCondition* filterCondition, const OrIndexWrapperCollection* index)
+		: AbstractTransactionScanner(metadata, trx, tableStore->getTable(), filterCondition){
 	this->index = index;
 }
 

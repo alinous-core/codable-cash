@@ -36,10 +36,12 @@
 
 #include "scan_select/scan_planner/scanner/ctx/ScanJoinContext.h"
 
+#include "scan_select/scan_condition/base/AbstractScanCondition.h"
 
 namespace codablecash {
 
-TableScannerFactory::TableScannerFactory(AbstractScanTableTarget* target, const CdbTable* table, const ScanResultMetadata* metadata, AbstractColumnsIndexWrapper* indexCandidate)
+TableScannerFactory::TableScannerFactory(AbstractScanTableTarget* target, const CdbTable* table,
+		const ScanResultMetadata* metadata, AbstractColumnsIndexWrapper* indexCandidate)
 				: AbstractScannerFactory(metadata){
 	this->target = target;
 	this->indexCandidate = indexCandidate;

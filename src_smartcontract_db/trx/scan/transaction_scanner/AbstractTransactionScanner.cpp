@@ -16,12 +16,16 @@
 
 #include "schema_table/table/CdbTable.h"
 
+#include "scan_select/scan_condition/base/AbstractScanCondition.h"
+
 namespace codablecash {
 
-AbstractTransactionScanner::AbstractTransactionScanner(const ScanResultMetadata* metadata, CdbTransaction* trx, const CdbTable* table) {
+AbstractTransactionScanner::AbstractTransactionScanner(const ScanResultMetadata* metadata,
+		CdbTransaction* trx, const CdbTable* table, const AbstractScanCondition* filterCondition) {
 	this->metadata = new ScanResultMetadata(*metadata);
 	this->trx = trx;
 	this->table = table;
+	this->filterCondition = filterCondition != nullptr ? filterCondition->cloneCondition() : nullptr;
 
 	TransactionUpdateCache* cache = this->trx->getUpdateCache();
 	this->cacheCursor = cache->newInsertedRecordsCursor(table);
@@ -33,6 +37,7 @@ AbstractTransactionScanner::~AbstractTransactionScanner() {
 	this->trx = nullptr;
 	this->table = nullptr;
 	delete this->cacheCursor;
+	delete this->filterCondition;
 }
 
 bool AbstractTransactionScanner::hasInsertedRecord() const noexcept {

@@ -15,10 +15,11 @@ class CdbRecord;
 class CdbTable;
 class InsertRecordsCacheCursor;
 class ScanResultMetadata;
+class AbstractScanCondition;
 
 class AbstractTransactionScanner {
 public:
-	AbstractTransactionScanner(const ScanResultMetadata* metadata, CdbTransaction* trx, const CdbTable* table);
+	AbstractTransactionScanner(const ScanResultMetadata* metadata, CdbTransaction* trx, const CdbTable* table, const AbstractScanCondition* filterCondition);
 	virtual ~AbstractTransactionScanner();
 
 	virtual void start() = 0;
@@ -35,6 +36,7 @@ protected:
 	ScanResultMetadata* metadata;
 	CdbTransaction* trx;
 	const CdbTable* table;
+	AbstractScanCondition* filterCondition;
 	InsertRecordsCacheCursor* cacheCursor;
 };
 

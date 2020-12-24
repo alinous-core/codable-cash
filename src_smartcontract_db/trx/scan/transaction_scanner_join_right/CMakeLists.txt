@@ -1,6 +1,7 @@
 
 
 set(__src
+	RightTableBufferedOidTransactionScanner.cpp
 	RightTableIndexTransactionScanner.cpp
 	RightTableOrTransactionScanner.cpp
 	RightTableBufferedTransactionScanner.cpp
