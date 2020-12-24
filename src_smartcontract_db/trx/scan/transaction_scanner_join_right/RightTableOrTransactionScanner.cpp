@@ -12,8 +12,9 @@
 
 namespace codablecash {
 
-RightTableOrTransactionScanner::RightTableOrTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx, const CdbTable* table, const JoinOrCandidate* orCandidate)
-		: AbstractTransactionScanner(metadata, trx, table){
+RightTableOrTransactionScanner::RightTableOrTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx,
+		const CdbTable* table, const AbstractScanCondition* filterCondition, const JoinOrCandidate* orCandidate)
+		: AbstractTransactionScanner(metadata, trx, table, filterCondition){
 	this->orCandidate = new JoinOrCandidate(*orCandidate);
 }
 

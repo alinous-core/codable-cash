@@ -18,7 +18,8 @@ class JoinOrCandidate;
 
 class RightTableOrTransactionScanner : public IJoinRightSource, public AbstractTransactionScanner {
 public:
-	RightTableOrTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx, const CdbTable* table, const JoinOrCandidate* orCandidate);
+	RightTableOrTransactionScanner(ScanResultMetadata* metadata, CdbTransaction* trx,
+			const CdbTable* table, const AbstractScanCondition* filterCondition, const JoinOrCandidate* orCandidate);
 	virtual ~RightTableOrTransactionScanner();
 
 	virtual void start();
