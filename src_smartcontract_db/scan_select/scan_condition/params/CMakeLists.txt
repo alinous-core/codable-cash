@@ -4,6 +4,7 @@ set(__src
 	AbstractScanConditionParameter.cpp
 	BooleanScanParam.cpp
 	ColumnIdentifierScanParam.cpp
+	MultipleValueProvidorScanParam.cpp
 	NumericScanParam.cpp
 	PlaceHolderScanCondition.cpp
 	StringScanParam.cpp
