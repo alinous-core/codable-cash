@@ -94,6 +94,19 @@ bool MultipleColumnIndex::isBottomEq() const noexcept {
 }
 
 bool MultipleColumnIndex::isTopEq() const noexcept {
+	bool ret = true;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SingleColumnIndex* index = this->list.get(i);
+
+		if(!index->isTopEq()){
+			ret = false;
+			break;
+		}
+	}
+
+	return ret;
 }
 
 const IValueProvider* MultipleColumnIndex::getTopValue() const noexcept {
