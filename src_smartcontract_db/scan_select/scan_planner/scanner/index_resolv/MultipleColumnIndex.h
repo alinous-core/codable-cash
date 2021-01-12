@@ -29,6 +29,10 @@ public:
 	virtual int size() const noexcept;
 
 	virtual bool isRange() const noexcept;
+	virtual bool isBottomEq() const noexcept;
+	virtual bool isTopEq() const noexcept;
+	virtual const IValueProvider* getTopValue() const noexcept;
+	virtual const IValueProvider* getValue() const noexcept;
 
 	virtual AbstractColumnsIndexWrapper* clone() const noexcept;
 

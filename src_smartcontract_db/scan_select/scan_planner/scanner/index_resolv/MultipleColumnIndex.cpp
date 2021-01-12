@@ -77,6 +77,31 @@ const UnicodeString* MultipleColumnIndex::toCodeString() noexcept {
 	return this->str;
 }
 
+bool MultipleColumnIndex::isBottomEq() const noexcept {
+	bool ret = true;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SingleColumnIndex* index = this->list.get(i);
+
+		if(!index->isBottomEq()){
+			ret = false;
+			break;
+		}
+	}
+
+	return ret;
+}
+
+bool MultipleColumnIndex::isTopEq() const noexcept {
+}
+
+const IValueProvider* MultipleColumnIndex::getTopValue() const noexcept {
+}
+
+const IValueProvider* MultipleColumnIndex::getValue() const noexcept {
+}
+
 void MultipleColumnIndex::makeCodeString() noexcept {
 	this->str = new UnicodeString(L"");
 
