@@ -33,7 +33,7 @@ public:
 
 	virtual AbstractColumnsIndexWrapper* clone() const noexcept;
 
-	bool isBottomEq() const noexcept {
+	virtual bool isBottomEq() const noexcept {
 		return bottomEq;
 	}
 
@@ -41,7 +41,7 @@ public:
 		this->bottomEq = bottomEq;
 	}
 
-	bool isTopEq() const noexcept {
+	virtual bool isTopEq() const noexcept {
 		return topEq;
 	}
 
@@ -49,7 +49,7 @@ public:
 		this->topEq = topEq;
 	}
 
-	const IValueProvider* getTopValue() const noexcept {
+	virtual const IValueProvider* getTopValue() const noexcept {
 		return topValue;
 	}
 
@@ -57,7 +57,7 @@ public:
 		this->topValue = topValue;
 	}
 
-	const IValueProvider* getValue() const noexcept {
+	virtual const IValueProvider* getValue() const noexcept {
 		return value;
 	}
 

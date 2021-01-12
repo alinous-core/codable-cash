@@ -19,6 +19,7 @@ class SchemaManager;
 class CdbTableColumn;
 class AbstractScanTableTarget;
 class CdbTableIndex;
+class IValueProvider;
 
 class AbstractColumnsIndexWrapper {
 public:
@@ -32,6 +33,10 @@ public:
 	virtual bool isRange() const noexcept {
 		return false;
 	}
+	virtual bool isBottomEq() const noexcept{return false;}
+	virtual bool isTopEq() const noexcept{ return false; }
+	virtual const IValueProvider* getTopValue() const noexcept { return nullptr; }
+	virtual const IValueProvider* getValue() const noexcept { return nullptr; }
 
 	virtual int size() const noexcept = 0;
 
