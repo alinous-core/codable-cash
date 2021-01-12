@@ -88,7 +88,9 @@ IJoinLeftSource* TableScannerFactory::createIndexScannerAsLeftSource(VirtualMach
 		OrIndexWrapperCollection* orIndex = dynamic_cast<OrIndexWrapperCollection*>(this->indexCandidate);
 		scanner = new TableTransactionOrIndexScanner(this->metadata, trx, tableStore, this->filterCondition, orIndex);
 	}
+
 	else if(this->indexCandidate->isRange()){
+
 		// TODO rangeScan
 	}
 	else{

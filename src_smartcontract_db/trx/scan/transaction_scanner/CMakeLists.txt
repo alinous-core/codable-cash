@@ -2,6 +2,7 @@
 
 set(__src
 	AbstractTransactionScanner.cpp
+	TableTransactionIndexRangeScanner.cpp
 	TableTransactionIndexScanner.cpp
 	TableTransactionOrIndexScanner.cpp
 	TableTransactionScanner.cpp
