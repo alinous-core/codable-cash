@@ -28,6 +28,8 @@ public:
 
 	virtual int size() const noexcept;
 
+	virtual bool isRange() const noexcept;
+
 	virtual AbstractColumnsIndexWrapper* clone() const noexcept;
 
 	virtual const UnicodeString* toCodeString() noexcept;

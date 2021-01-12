@@ -97,5 +97,20 @@ AbstractColumnsIndexWrapper* MultipleColumnIndex::clone() const noexcept {
 	return new MultipleColumnIndex(*this);
 }
 
+bool MultipleColumnIndex::isRange() const noexcept {
+	bool ret = false;
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		SingleColumnIndex* index = this->list.get(i);
+
+		if(index->isRange()){
+			ret = true;
+			break;
+		}
+	}
+
+	return ret;
+}
 
 } /* namespace codablecash */
