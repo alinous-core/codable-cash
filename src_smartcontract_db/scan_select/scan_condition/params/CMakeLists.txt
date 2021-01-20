@@ -5,6 +5,7 @@ set(__src
 	BooleanScanParam.cpp
 	ColumnIdentifierScanParam.cpp
 	MultipleValueProvidorScanParam.cpp
+	NullScanParam.cpp
 	NumericScanParam.cpp
 	PlaceHolderScanCondition.cpp
 	StringScanParam.cpp
