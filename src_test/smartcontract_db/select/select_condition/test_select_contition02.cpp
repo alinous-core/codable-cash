@@ -375,6 +375,5 @@ TEST(TestSelectConditionGroup02, EqNull01){
 		where->init(vm);
 
 		where->interpret(vm);
-		// TODO: test
 	}
 }
