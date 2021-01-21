@@ -11,14 +11,20 @@
 namespace codablecash {
 
 class IJoinLeftSource;
+class CodableDatabase;
 
 class ScanResultExecutor {
 public:
-	explicit ScanResultExecutor(IJoinLeftSource* source);
+	explicit ScanResultExecutor(IJoinLeftSource* source, CodableDatabase* db);
 	virtual ~ScanResultExecutor();
 
+	void execScan();
+
+private:
+	void doExecScan();
 private:
 	IJoinLeftSource* source;
+	CodableDatabase* db;
 };
 
 } /* namespace codablecash */

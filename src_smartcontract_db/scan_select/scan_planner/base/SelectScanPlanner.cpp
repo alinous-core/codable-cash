@@ -88,12 +88,15 @@ void SelectScanPlanner::buildScannerFactories(VirtualMachine* vm) {
 }
 
 void SelectScanPlanner::executeQuery(VirtualMachine* vm) {
+	CodableDatabase* db = vm->getDb();
+
 	AbstractScannerFactory* scanFactory = this->plan->getScanFactory();
 
-	IJoinLeftSource* left = scanFactory->createScannerAsLeftSource(vm, this); __STP(left);
+	IJoinLeftSource* left = scanFactory->createScannerAsLeftSource(vm, this);
 
+	ScanResultExecutor exec(left, db);
+	exec.execScan();
 
-	ScanResultExecutor exec;
 	// TODO exec scan
 }
 
