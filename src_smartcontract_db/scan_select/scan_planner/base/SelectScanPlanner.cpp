@@ -24,7 +24,10 @@
 
 #include "trx/scan/transaction_scanner_join/IJoinLeftSource.h"
 
+#include "trx/scan/transaction_scan_result/ScanResultExecutor.h"
+
 #include "base/StackRelease.h"
+
 
 namespace codablecash {
 
@@ -89,6 +92,8 @@ void SelectScanPlanner::executeQuery(VirtualMachine* vm) {
 
 	IJoinLeftSource* left = scanFactory->createScannerAsLeftSource(vm, this); __STP(left);
 
+
+	ScanResultExecutor exec;
 	// TODO exec scan
 }
 

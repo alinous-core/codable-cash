@@ -110,6 +110,7 @@ bool MultipleColumnIndex::isTopEq() const noexcept {
 }
 
 const IValueProvider* MultipleColumnIndex::getTopValue() const noexcept {
+
 }
 
 const IValueProvider* MultipleColumnIndex::getValue() const noexcept {

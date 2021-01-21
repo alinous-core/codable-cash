@@ -1,6 +1,7 @@
 
 
 set(__src
+	ScanResultExecutor.cpp
 	ScanResultFieldMetadata.cpp
 	ScanResultMetadata.cpp
 )
