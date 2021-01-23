@@ -15,6 +15,7 @@ namespace codablecash {
 
 JoinCandidateCursor::JoinCandidateCursor(AbstractJoinCandidate* joinCandidat) {
 	this->joinCandidate = joinCandidat;
+	this->pos = 0;
 }
 
 JoinCandidateCursor::~JoinCandidateCursor() {
@@ -38,5 +39,14 @@ void JoinCandidateCursor::init() noexcept {
 		this->list.addElement(col);
 	}
 }
+
+bool JoinCandidateCursor::finished() const noexcept {
+	return this->pos < this->list.size();
+}
+
+void JoinCandidateCursor::inc() noexcept {
+	this->pos++;
+}
+
 
 } /* namespace codablecash */

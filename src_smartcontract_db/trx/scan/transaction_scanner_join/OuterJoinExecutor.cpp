@@ -41,8 +41,15 @@ void OuterJoinExecutor::start() {
 }
 
 bool OuterJoinExecutor::hasNext() {
-	if(!hasNextLeftRecord()){
-		return false;
+	while(!this->joinCursor->finished()){
+		if(!hasNextLeftRecord()){
+			this->joinCursor->inc();
+
+			delete this->leftRecord, this->leftRecord = nullptr;
+			continue;
+		}
+
+		return true;
 	}
 
 	// TODO scan logic

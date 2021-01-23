@@ -23,9 +23,14 @@ public:
 	virtual ~JoinCandidateCursor();
 
 	void init() noexcept;
+	bool finished() const noexcept;
+	void inc() noexcept;
+
 private:
 	AbstractJoinCandidate* joinCandidate;
 	ArrayList<const AbstractJoinCandidateCollection> list;
+
+	int pos;
 };
 
 } /* namespace codablecash */
