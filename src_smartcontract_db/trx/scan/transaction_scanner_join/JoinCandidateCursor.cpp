@@ -5,7 +5,7 @@
  *      Author: iizuka
  */
 
-#include <trx/scan/transaction_scanner_join/JoinCandidateCursor.h>
+#include "trx/scan/transaction_scanner_join/JoinCandidateCursor.h"
 
 namespace codablecash {
 
