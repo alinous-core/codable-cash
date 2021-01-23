@@ -18,6 +18,10 @@ public:
 	explicit ScanJoinContext(const AbstractJoinCandidate* joinCandidate);
 	virtual ~ScanJoinContext();
 
+	AbstractJoinCandidate* getJoinCandidate() const noexcept {
+		return joinCandidate;
+	}
+
 private:
 	AbstractJoinCandidate* joinCandidate;
 };

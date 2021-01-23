@@ -19,7 +19,7 @@ class IndexRangeCandidate;
 class IndexCandidate: public AbstractIndexCandidateCollection {
 public:
 	IndexCandidate(const IndexCandidate& inst);
-	IndexCandidate(IndexType indexType);
+	explicit IndexCandidate(IndexType indexType);
 	virtual ~IndexCandidate();
 
 	virtual AbstractIndexCandidate::IndexType getCandidateType() const noexcept;
@@ -43,11 +43,15 @@ public:
 	void setValue(const IValueProvider* value) {
 		this->value = value;
 	}
+	const IValueProvider* getValue() const noexcept {
+		return value;
+	}
 
 	bool isSameColumn(const IndexCandidate* other);
 	bool isRangeJoinable(const IndexCandidate* other);
 	bool hasEq() const noexcept;
 	IndexRangeCandidate* toIndexRangeCandidate(const IndexCandidate* other);
+
 
 protected:
 	const ColumnIdentifierScanParam* column;

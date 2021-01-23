@@ -33,6 +33,8 @@ public:
 	void mul(const JoinCandidate* candidate) noexcept;
 
 	virtual int getOverHeadScore(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept;
+	virtual CdbTableIndex* getIndex(const AbstractScanTableTarget* right) const noexcept;
+
 private:
 	ArrayList<JoinCandidate> list;
 };

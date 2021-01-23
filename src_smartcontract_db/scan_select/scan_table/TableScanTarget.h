@@ -38,6 +38,10 @@ public:
 
 	virtual ScanTableColumnParam* findTableColumns(const UnicodeString* colName) const;
 
+	const CdbTable* getTable() const noexcept {
+		return table;
+	}
+
 private:
 	UnicodeString* schema;
 	UnicodeString* tableName;

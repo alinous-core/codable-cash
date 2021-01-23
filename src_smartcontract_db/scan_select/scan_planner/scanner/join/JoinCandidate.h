@@ -15,6 +15,7 @@ namespace codablecash {
 class AbstractJoinScanTarget;
 class ColumnIdentifierScanParam;
 class AbstractScanTableTarget;
+class CdbTableColumn;
 
 class JoinCandidate : public AbstractJoinCandidateCollection {
 public:
@@ -26,6 +27,7 @@ public:
 	const AbstractScanTableTarget* getRightTarget() const noexcept;
 
 	virtual int getOverHeadScore(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept;
+	virtual CdbTableIndex* getIndex(const AbstractScanTableTarget* right) const noexcept;
 
 	virtual JoinCandidate::CandidateType getCandidateType() const noexcept;
 	virtual AbstractJoinCandidate* multiply(const AbstractJoinCandidate* other) const noexcept;
@@ -33,8 +35,9 @@ public:
 	virtual const JoinCandidate* get(int i) const noexcept;
 	virtual AbstractJoinCandidate* copy() const noexcept;
 
+	const CdbTableColumn* getRightColumn(const AbstractScanTableTarget* right) const noexcept;
 private:
-	ColumnIdentifierScanParam* getRightParam(AbstractScanTableTarget* right) const noexcept;
+	ColumnIdentifierScanParam* getRightParam(const AbstractScanTableTarget* right) const noexcept;
 
 private:
 	ColumnIdentifierScanParam* left;

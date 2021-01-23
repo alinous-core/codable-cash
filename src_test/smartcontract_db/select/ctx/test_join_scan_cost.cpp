@@ -192,6 +192,8 @@ TEST(TestJoinScanCostGroup, case04){
 
 		int cost = orCandidate.getOverHeadScore(&target_test_table, &target_emails);
 		CHECK(cost == 1001);
+
+		CHECK(orCandidate.getIndex(nullptr) == nullptr);
 	}
 }
 

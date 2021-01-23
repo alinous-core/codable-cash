@@ -1,0 +1,1 @@
+test_table.id > 0 OR test_table.email_id = 100

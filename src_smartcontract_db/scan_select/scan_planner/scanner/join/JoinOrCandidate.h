@@ -29,6 +29,7 @@ public:
 	virtual AbstractJoinCandidate* copy() const noexcept;
 
 	virtual int getOverHeadScore(AbstractScanTableTarget* left, AbstractScanTableTarget* right) const noexcept;
+	virtual CdbTableIndex* getIndex(const AbstractScanTableTarget* right) const noexcept;
 
 	void add(const AbstractJoinCandidate* candidate) noexcept;
 

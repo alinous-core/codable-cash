@@ -23,6 +23,8 @@ void OuterJoinExecutor::start() {
 }
 
 bool OuterJoinExecutor::hasNext() {
+	// TODO scan logic
+
 	return false;
 }
 

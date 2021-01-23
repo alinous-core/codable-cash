@@ -15,8 +15,8 @@
 
 namespace codablecash {
 
-LeftJoinScannerFactory::LeftJoinScannerFactory(const ScanResultMetadata* metadata)
-				: AbstractJoinScannerFactory(metadata){
+LeftJoinScannerFactory::LeftJoinScannerFactory(const ScanResultMetadata* metadata, const AbstractScanCondition* joinCondition)
+				: AbstractJoinScannerFactory(metadata, joinCondition){
 
 }
 
@@ -30,8 +30,6 @@ IJoinLeftSource* LeftJoinScannerFactory::createScannerAsLeftSource(
 
 	IJoinLeftSource* leftSource = this->leftFactory->createScannerAsLeftSource(vm, planner);
 	IJoinRightSource* rightSource = this->rightFactory->createScannerAsRightSource(vm, planner, joinContext);
-
-
 
 	OuterJoinExecutor* exec = new OuterJoinExecutor(leftSource, rightSource, this->metadata, joinContext, this->filterCondition);
 

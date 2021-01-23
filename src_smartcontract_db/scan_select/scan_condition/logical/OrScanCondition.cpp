@@ -23,6 +23,11 @@
 #include "scan_select/scan_planner/scanner/index/TableIndexDetectorStackMarker.h"
 #include "scan_select/scan_planner/scanner/index/TableIndexDetector.h"
 
+#include "scan_select/scan_planner/scanner/index/AbstractIndexCandidate.h"
+
+#include "scan_select/scan_planner/scanner/index/OrIndexCandidate.h"
+
+#include "scan_select/scan_planner/scanner/index/AbstractIndexCandidateCollection.h"
 using namespace alinous;
 
 namespace codablecash {
@@ -108,6 +113,8 @@ void OrScanCondition::detectFilterConditions(VirtualMachine* vm,
 
 		newOr->addCondition(cond);
 	}
+
+	detector->push(newOr);
 }
 
 void OrScanCondition::detectIndexCondition(VirtualMachine* vm,
@@ -115,7 +122,43 @@ void OrScanCondition::detectIndexCondition(VirtualMachine* vm,
 	TableIndexDetectorStack* stack = detector->getStack();
 	TableIndexDetectorStackMarker marker(stack);
 
-	// FIXME detectIndexCondition
+	ArrayList<AbstractIndexCandidate> list;
+	list.setDeleteOnExit();
+
+	int maxLoop = this->list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		AbstractScanCondition* cond = this->list.get(i);
+
+		cond->detectIndexCondition(vm, planner, detector);
+
+		if(!detector->isEmpty()){
+			AbstractIndexCandidate* c = detector->pop();
+			list.addElement(c);
+		}
+	}
+
+	if(list.isEmpty()){
+		return;
+	}
+	else if(list.size() == 1){
+		AbstractIndexCandidate* c = list.get(0);
+		detector->push(c);
+
+		return;
+	}
+
+	// or
+	OrIndexCandidate* candidate = new OrIndexCandidate();
+
+	maxLoop = list.size();
+	for(int i = 0; i != maxLoop; ++i){
+		const AbstractIndexCandidateCollection* c = dynamic_cast<const AbstractIndexCandidateCollection*>(list.get(i));
+		assert(c != nullptr);
+
+		candidate->add(c);
+	}
+
+	detector->push(candidate);
 }
 
 

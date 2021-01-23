@@ -28,7 +28,7 @@ public:
 		OR
 	} IndexType;
 
-	AbstractIndexCandidate(IndexType indexType);
+	explicit AbstractIndexCandidate(IndexType indexType);
 	virtual ~AbstractIndexCandidate();
 
 	virtual AbstractIndexCandidate::IndexType getCandidateType() const noexcept = 0;

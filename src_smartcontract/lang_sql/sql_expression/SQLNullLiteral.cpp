@@ -11,6 +11,13 @@
 
 #include "vm/VirtualMachine.h"
 
+#include "scan_select/scan_planner/base/SelectScanPlanner.h"
+
+#include "scan_select/scan_planner/base/ConditionsHolderStackMarker.h"
+
+#include "scan_select/scan_condition/params/NullScanParam.h"
+
+#include "scan_select/scan_columns/ScanColumnHolder.h"
 namespace alinous {
 
 SQLNullLiteral::SQLNullLiteral() : AbstractSQLExpression(CodeElement::SQL_EXP_NULL_LITERAL){
@@ -59,10 +66,17 @@ AbstractVmInstance* SQLNullLiteral::interpret(VirtualMachine* vm) {
 	return nullptr;
 }
 
-void SQLNullLiteral::onSelectTarget(VirtualMachine* vm) {
+void SQLNullLiteral::interpretOnPlanning(VirtualMachine* vm) {
+	SelectScanPlanner* planner = vm->getSelectPlanner();
+	ConditionsHolderStackMarker marker(planner->getConditionsStack());
+
+	NullScanParam* param = new NullScanParam();
+
+	planner->push(param);
 }
 
-void SQLNullLiteral::interpretOnPlanning(VirtualMachine* vm) {
+void SQLNullLiteral::onSelectTarget(VirtualMachine* vm) {
+
 }
 
 } /* namespace alinous */
