@@ -22,6 +22,13 @@ public:
 	virtual const CdbRecord* next();
 
 	virtual void shutdown();
+
+private:
+	bool hasNextLeftRecord();
+	void onChangeLeft();
+
+private:
+	CdbRecord* leftRecord;
 };
 
 } /* namespace codablecash */
