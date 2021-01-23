@@ -6,10 +6,13 @@
  */
 
 #include "trx/scan/transaction_scanner_join/OuterJoinExecutor.h"
+#include "trx/scan/transaction_scanner_join/IJoinRightSource.h"
 
 #include "schema_table/record/table_record/CdbRecord.h"
 
-#include "trx/scan/transaction_scanner_join/IJoinRightSource.h"
+#include "scan_select/scan_planner/scanner/join/AbstractJoinCandidate.h"
+
+#include "scan_select/scan_planner/scanner/ctx/ScanJoinContext.h"
 
 namespace codablecash {
 
@@ -53,7 +56,10 @@ bool OuterJoinExecutor::hasNextLeftRecord() {
 }
 
 void OuterJoinExecutor::onChangeLeft() {
-	//this->right->reset()
+	AbstractJoinCandidate* joinCandidate = this->context->getJoinCandidate();
+
+
+	this->right->reset(nullptr);
 }
 
 const CdbRecord* OuterJoinExecutor::next() {
