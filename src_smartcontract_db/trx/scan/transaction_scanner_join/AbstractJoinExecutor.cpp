@@ -35,4 +35,15 @@ AbstractJoinExecutor::~AbstractJoinExecutor() {
 	delete this->filterCondition;
 }
 
+void AbstractJoinExecutor::start() {
+	this->left->start();
+	this->right->start();
+}
+
+void AbstractJoinExecutor::shutdown() {
+	this->left->shutdown();
+	this->right->shutdown();
+}
+
+
 } /* namespace codablecash */

@@ -27,6 +27,9 @@ public:
 		return metadata;
 	}
 
+	void start();
+	void shutdown();
+
 protected:
 	IJoinLeftSource* left;
 	IJoinRightSource* right;

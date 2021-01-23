@@ -24,8 +24,7 @@ OuterJoinExecutor::~OuterJoinExecutor() {
 }
 
 void OuterJoinExecutor::start() {
-	this->left->start();
-	this->right->start();
+	AbstractJoinExecutor::start();
 }
 
 bool OuterJoinExecutor::hasNext() {
@@ -62,6 +61,7 @@ const CdbRecord* OuterJoinExecutor::next() {
 }
 
 void OuterJoinExecutor::shutdown() {
+	AbstractJoinExecutor::shutdown();
 }
 
 } /* namespace codablecash */
