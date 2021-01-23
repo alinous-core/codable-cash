@@ -38,13 +38,13 @@ namespace codablecash {
 ColumnIdentifierScanParam::ColumnIdentifierScanParam(const ColumnIdentifierScanParam& inst) : sqlColId(inst.sqlColId) {
 	this->cdbColumn = inst.cdbColumn;
 	this->str = nullptr;
-	this->target = inst.target;
+	this->sourceTarget = inst.sourceTarget;
 }
 
 ColumnIdentifierScanParam::ColumnIdentifierScanParam(SQLColumnIdentifier* sqlColId) : sqlColId(sqlColId){
 	this->cdbColumn = nullptr;
 	this->str = nullptr;
-	this->target = nullptr;
+	this->sourceTarget = nullptr;
 }
 
 ColumnIdentifierScanParam::~ColumnIdentifierScanParam() {
@@ -92,24 +92,24 @@ void ColumnIdentifierScanParam::analyzeConditions(VirtualMachine* vm, SelectScan
 
 	if(tableName == nullptr){
 		TablesHolder* tablesHolder = planner->getTablesHolder();
-		this->target = tablesHolder->findTable(colName);
-		if(this->target == nullptr){
+		this->sourceTarget = tablesHolder->findTable(colName);
+		if(this->sourceTarget == nullptr){
 			throw new CdbException(L"Can not resolve column name.", __FILE__, __LINE__);
 		}
 
-		ScanTableColumnParam* param = this->target->findTableColumns(colName); __STP(param);
+		ScanTableColumnParam* param = this->sourceTarget->findTableColumns(colName); __STP(param);
 		this->cdbColumn = param->column;
 
 		return;
 	}
 
 	if(schemaName == nullptr && resolveAlias(tableName, aliasResolver)){
-		ScanTableColumnParam* param = this->target->findTableColumns(colName); __STP(param);
+		ScanTableColumnParam* param = this->sourceTarget->findTableColumns(colName); __STP(param);
 		if(param == nullptr){
 			throw new CdbException(L"Can not resolve column name.", __FILE__, __LINE__);
 		}
 		this->cdbColumn = param->column;
-		this->target = param->target;
+		this->sourceTarget = param->target;
 		return;
 	}
 
@@ -120,7 +120,7 @@ void ColumnIdentifierScanParam::analyzeConditions(VirtualMachine* vm, SelectScan
 	CdbTable* table = scMgr->getTable(schemaName, tableName);
 	this->cdbColumn = table->getColumn(colName);
 
-	this->target = aliasResolver->get(table->getTableFqn());
+	this->sourceTarget = aliasResolver->get(table->getTableFqn());
 }
 
 IValueProvider* ColumnIdentifierScanParam::clone() const noexcept {
@@ -133,12 +133,12 @@ bool ColumnIdentifierScanParam::isColumn() const noexcept {
 
 bool ColumnIdentifierScanParam::isFilterable(VirtualMachine* vm,
 		SelectScanPlanner* planner, FilterConditionDitector* detector) const noexcept {
-	return detector->hasTarget(this->target);
+	return detector->hasTarget(this->sourceTarget);
 }
 
 bool ColumnIdentifierScanParam::resolveAlias(const UnicodeString* tableAlias, ScanTargetNameResolver* aliasResolver) {
-	this->target = aliasResolver->get(tableAlias);
-	if(this->target != nullptr){
+	this->sourceTarget = aliasResolver->get(tableAlias);
+	if(this->sourceTarget != nullptr){
 		return true;
 	}
 
@@ -146,7 +146,7 @@ bool ColumnIdentifierScanParam::resolveAlias(const UnicodeString* tableAlias, Sc
 }
 
 bool ColumnIdentifierScanParam::hasIndex() const noexcept {
-	ScanTableColumnParam* p = this->target->findTableColumns(sqlColId->getColumnName()); __STP(p);
+	ScanTableColumnParam* p = this->sourceTarget->findTableColumns(sqlColId->getColumnName()); __STP(p);
 
 	if(p->table == nullptr){
 		return false;

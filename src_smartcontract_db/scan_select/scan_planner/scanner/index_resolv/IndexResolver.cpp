@@ -82,7 +82,7 @@ SingleColumnIndex* IndexResolver::handleSingleIndex(const AbstractIndexCandidate
 
 		SingleColumnIndex* index = new SingleColumnIndex();
 		index->setRange(true);
-		index->setTarget(colp->getTarget());
+		index->setTarget(colp->getSourceTarget());
 		index->setColumn(col);
 
 		const IValueProvider* vp = rangeCandidate->getValue();
@@ -105,7 +105,7 @@ SingleColumnIndex* IndexResolver::handleSingleIndex(const AbstractIndexCandidate
 		SingleColumnIndex* index = new SingleColumnIndex();
 		index->setRange(true);
 
-		index->setTarget(colp->getTarget());
+		index->setTarget(colp->getSourceTarget());
 		index->setColumn(col);
 
 		index->setTopValue(vp);
@@ -123,7 +123,7 @@ SingleColumnIndex* IndexResolver::handleSingleIndex(const AbstractIndexCandidate
 		SingleColumnIndex* index = new SingleColumnIndex();
 		index->setRange(true);
 
-		index->setTarget(colp->getTarget());
+		index->setTarget(colp->getSourceTarget());
 		index->setColumn(col);
 
 		index->setValue(vp);
@@ -139,7 +139,7 @@ SingleColumnIndex* IndexResolver::handleSingleIndex(const AbstractIndexCandidate
 
 	SingleColumnIndex* index = new SingleColumnIndex();
 
-	index->setTarget(colp->getTarget());
+	index->setTarget(colp->getSourceTarget());
 	index->setColumn(col);
 	index->setValue(vp);
 
@@ -153,7 +153,7 @@ OrIndexWrapperCollection* IndexResolver::analyzeOr(const OrIndexCandidate* orCan
 	const IndexCandidate* ic = c->get(0);
 	const ColumnIdentifierScanParam* colp = ic->getColumn();
 
-	wrapper->setTarget(colp->getTarget());
+	wrapper->setTarget(colp->getSourceTarget());
 
 	int maxLoop = orCandidate->size();
 	for(int i = 0; i != maxLoop; ++i){
@@ -185,7 +185,7 @@ MultipleColumnIndex* IndexResolver::analyzeAnd(const MultipleIndexCandidate* and
 	const IndexCandidate* ic = c->get(0);
 	const ColumnIdentifierScanParam* colp = ic->getColumn();
 
-	wrapper->setTarget(colp->getTarget());
+	wrapper->setTarget(colp->getSourceTarget());
 
 	int maxLoop = andCandidate->size();
 	for(int i = 0; i != maxLoop; ++i){

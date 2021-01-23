@@ -64,14 +64,14 @@ TEST(TestJoinConditionIndexGroup, case01){
 
 		JoinCandidate candidate(JoinCandidate::INNER, &pid, &pemail_id);
 
-		const AbstractScanTableTarget* starget = pemail_id.getTarget();
+		const AbstractScanTableTarget* starget = pemail_id.getSourceTarget();
 		CdbTableIndex* index = candidate.getIndex(starget);
 
 		const UnicodeString* indexStr = index->getName();
 		UnicodeString ans(L"idx_emails_email_id");
 		CHECK(ans.equals(indexStr));
 
-		starget = pid.getTarget();
+		starget = pid.getSourceTarget();
 		index = candidate.getIndex(starget);
 		CHECK(index == nullptr);
 	}

@@ -16,6 +16,8 @@ class AbstractJoinScanTarget;
 class ColumnIdentifierScanParam;
 class AbstractScanTableTarget;
 class CdbTableColumn;
+class ScanResultMetadata;
+class ScanResultFieldMetadata;
 
 class JoinCandidate : public AbstractJoinCandidateCollection {
 public:
@@ -40,6 +42,8 @@ public:
 	virtual AbstractCdbKey* makeKeyFromRecord(const CdbRecord* leftRecord) const noexcept;
 private:
 	ColumnIdentifierScanParam* getRightParam(const AbstractScanTableTarget* right) const noexcept;
+
+	const ScanResultFieldMetadata* findField(const ScanResultMetadata* meta, const AbstractScanTableTarget* sourceTarget) const;
 
 private:
 	ColumnIdentifierScanParam* left;

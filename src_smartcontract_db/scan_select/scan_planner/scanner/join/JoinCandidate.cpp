@@ -42,11 +42,11 @@ JoinCandidate::~JoinCandidate() {
 }
 
 const AbstractScanTableTarget* JoinCandidate::getLeftTarget() const noexcept {
-	return this->left->getTarget();
+	return this->left->getSourceTarget();
 }
 
 const AbstractScanTableTarget* JoinCandidate::getRightTarget() const noexcept {
-	return this->right->getTarget();
+	return this->right->getSourceTarget();
 }
 
 JoinCandidate::CandidateType JoinCandidate::getCandidateType() const noexcept {
@@ -68,7 +68,7 @@ CdbTableIndex* JoinCandidate::getIndex(const AbstractScanTableTarget* right) con
 
 	ColumnIdentifierScanParam* rightParam = getRightParam(right);
 
-	const AbstractScanTableTarget* target = rightParam->getTarget();
+	const AbstractScanTableTarget* target = rightParam->getSourceTarget();
 	const TableScanTarget* tableTarget = dynamic_cast<const TableScanTarget*>(target);
 	if(tableTarget != nullptr){
 		const CdbTable* table = tableTarget->getTable();
@@ -89,7 +89,7 @@ const CdbTableColumn* JoinCandidate::getRightColumn(const AbstractScanTableTarge
 
 	ColumnIdentifierScanParam* rightParam = getRightParam(right);
 
-	const AbstractScanTableTarget* target = rightParam->getTarget();
+	const AbstractScanTableTarget* target = rightParam->getSourceTarget();
 	const TableScanTarget* tableTarget = dynamic_cast<const TableScanTarget*>(target);
 	if(tableTarget != nullptr){
 		const CdbTable* table = tableTarget->getTable();
@@ -100,19 +100,34 @@ const CdbTableColumn* JoinCandidate::getRightColumn(const AbstractScanTableTarge
 }
 
 AbstractCdbKey* JoinCandidate::makeKeyFromRecord(const CdbRecord* leftRecord) const noexcept {
-	const AbstractScanTableTarget* target = this->left->getTarget();
+	const AbstractScanTableTarget* sourceTarget = this->left->getSourceTarget();
 
-	const ScanResultMetadata* meta = target->getMetadata();
+	const ScanResultMetadata* meta = sourceTarget->getMetadata();
 
-	const ArrayList<ScanResultFieldMetadata>* list = meta->getList();
+
+	const ScanResultFieldMetadata* fieldMeta = findField(meta, sourceTarget);
 
 	// TODO: makerecordkey
 
 	return nullptr;
 }
 
+const ScanResultFieldMetadata* JoinCandidate::findField(const ScanResultMetadata* meta,
+		const AbstractScanTableTarget* sourceTarget) const {
+	const ArrayList<ScanResultFieldMetadata>* list = meta->getList();
+
+	ScanResultFieldMetadata* ret = nullptr;
+
+	int maxLoop = list->size();
+	for(int i = 0; i != maxLoop; ++i){
+
+	}
+
+	return ret;
+}
+
 ColumnIdentifierScanParam* JoinCandidate::getRightParam(const AbstractScanTableTarget* right) const noexcept {
-	if(this->left->getTarget() == right){
+	if(this->left->getSourceTarget() == right){
 		return this->left;
 	}
 	return this->right;

@@ -35,8 +35,8 @@ public:
 	virtual IValueProvider* clone() const noexcept;
 	virtual bool isColumn() const noexcept;
 
-	const AbstractScanTableTarget* getTarget() const noexcept {
-		return target;
+	const AbstractScanTableTarget* getSourceTarget() const noexcept {
+		return sourceTarget;
 	}
 	const CdbTableColumn* getCdbColumn() const noexcept {
 		return cdbColumn;
@@ -50,7 +50,7 @@ private:
 private:
 	const SQLColumnIdentifier* sqlColId;
 
-	const AbstractScanTableTarget* target;
+	const AbstractScanTableTarget* sourceTarget;
 	const CdbTableColumn* cdbColumn;
 
 	UnicodeString* str;

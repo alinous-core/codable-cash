@@ -161,15 +161,15 @@ bool EqualityScanCondition::hasLeftAndRightScanTarget(
 	ColumnIdentifierScanParam* lparam = dynamic_cast<ColumnIdentifierScanParam*>(this->left);
 	ColumnIdentifierScanParam* rparam = dynamic_cast<ColumnIdentifierScanParam*>(this->right);
 
-	if(lparam->getTarget()->hasTarget(left)){
+	if(lparam->getSourceTarget()->hasTarget(left)){
 		l = true;
-	}else if(lparam->getTarget()->hasTarget(right)){
+	}else if(lparam->getSourceTarget()->hasTarget(right)){
 		r = true;
 	}
 
-	if(rparam->getTarget()->hasTarget(left)){
+	if(rparam->getSourceTarget()->hasTarget(left)){
 		l = true;
-	}else if(rparam->getTarget()->hasTarget(right)){
+	}else if(rparam->getSourceTarget()->hasTarget(right)){
 		r = true;
 	}
 
