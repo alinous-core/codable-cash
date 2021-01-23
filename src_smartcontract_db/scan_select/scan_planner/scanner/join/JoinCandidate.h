@@ -36,6 +36,8 @@ public:
 	virtual AbstractJoinCandidate* copy() const noexcept;
 
 	const CdbTableColumn* getRightColumn(const AbstractScanTableTarget* right) const noexcept;
+
+	virtual AbstractCdbKey* makeKeyFromRecord(const CdbRecord* leftRecord) const noexcept;
 private:
 	ColumnIdentifierScanParam* getRightParam(const AbstractScanTableTarget* right) const noexcept;
 

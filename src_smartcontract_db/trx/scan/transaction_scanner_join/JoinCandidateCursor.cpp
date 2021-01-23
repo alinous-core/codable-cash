@@ -48,5 +48,10 @@ void JoinCandidateCursor::inc() noexcept {
 	this->pos++;
 }
 
+AbstractCdbKey* JoinCandidateCursor::makeKey(const CdbRecord* leftRecord) noexcept {
+	const AbstractJoinCandidateCollection* jcc = this->list.get(this->pos);
+
+	return jcc->makeKeyFromRecord(leftRecord);
+}
 
 } /* namespace codablecash */

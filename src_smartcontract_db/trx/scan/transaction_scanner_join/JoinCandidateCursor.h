@@ -16,6 +16,8 @@ namespace codablecash {
 
 class AbstractJoinCandidate;
 class AbstractJoinCandidateCollection;
+class CdbRecord;
+class AbstractCdbKey;
 
 class JoinCandidateCursor {
 public:
@@ -25,6 +27,8 @@ public:
 	void init() noexcept;
 	bool finished() const noexcept;
 	void inc() noexcept;
+
+	AbstractCdbKey* makeKey(const CdbRecord* leftRecord) noexcept;
 
 private:
 	AbstractJoinCandidate* joinCandidate;

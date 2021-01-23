@@ -10,11 +10,13 @@
 #include "trx/scan/transaction_scanner_join/JoinCandidateCursor.h"
 
 #include "schema_table/record/table_record/CdbRecord.h"
+#include "schema_table/record/table_record_key/AbstractCdbKey.h"
 
 #include "scan_select/scan_planner/scanner/join/AbstractJoinCandidate.h"
 
 #include "scan_select/scan_planner/scanner/ctx/ScanJoinContext.h"
 
+#include "base/StackRelease.h"
 
 namespace codablecash {
 
@@ -73,8 +75,9 @@ bool OuterJoinExecutor::hasNextLeftRecord() {
 }
 
 void OuterJoinExecutor::onChangeLeft() {
+	AbstractCdbKey* key = this->joinCursor->makeKey(this->leftRecord); __STP(key);
 
-	this->right->reset(nullptr);
+	this->right->reset(key);
 }
 
 const CdbRecord* OuterJoinExecutor::next() {

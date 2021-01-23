@@ -97,6 +97,12 @@ const CdbTableColumn* JoinCandidate::getRightColumn(const AbstractScanTableTarge
 	return column;
 }
 
+AbstractCdbKey* JoinCandidate::makeKeyFromRecord(const CdbRecord* leftRecord) const noexcept {
+	// TODO: makerecordkey
+
+	return nullptr;
+}
+
 ColumnIdentifierScanParam* JoinCandidate::getRightParam(const AbstractScanTableTarget* right) const noexcept {
 	if(this->left->getTarget() == right){
 		return this->left;

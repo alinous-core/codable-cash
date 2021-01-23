@@ -121,4 +121,9 @@ CdbTableIndex* JoinMultipleCandidate::getIndex(const AbstractScanTableTarget* ri
 	return index;
 }
 
+AbstractCdbKey* JoinMultipleCandidate::makeKeyFromRecord(const CdbRecord* leftRecord) const noexcept {
+	// FIXME makeKeyFromRecord
+	return nullptr;
+}
+
 } /* namespace codablecash */
