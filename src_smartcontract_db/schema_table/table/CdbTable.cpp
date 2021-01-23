@@ -627,14 +627,14 @@ void CdbTable::adjustIndexColumnPosition() noexcept {
 
 }
 
-ScanResultMetadata* CdbTable::getMetadata() const noexcept {
+ScanResultMetadata* CdbTable::getMetadata(const AbstractScanTableTarget* sourceTarget) const noexcept {
 	ScanResultMetadata* metadata = new ScanResultMetadata();
 
 	int maxLoop = this->columns->size();
 	for(int i = 0; i != maxLoop; ++i){
 		CdbTableColumn* col = this->columns->get(i);
 
-		ScanResultFieldMetadata* fld = col->getFieldMetadata(this); __STP(fld);
+		ScanResultFieldMetadata* fld = col->getFieldMetadata(sourceTarget); __STP(fld);
 		metadata->addField(fld);
 	}
 

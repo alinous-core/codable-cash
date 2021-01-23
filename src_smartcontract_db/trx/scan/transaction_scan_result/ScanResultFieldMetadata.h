@@ -15,20 +15,20 @@ using namespace alinous;
 
 namespace codablecash {
 
-class CdbTable;
+class AbstractScanTableTarget;
 class CdbTableColumn;
 
 class ScanResultFieldMetadata {
 public:
 	ScanResultFieldMetadata(const ScanResultFieldMetadata& inst);
 
-	ScanResultFieldMetadata(const CdbTable* table, const CdbTableColumn* column);
+	ScanResultFieldMetadata(const AbstractScanTableTarget* sourceTarget, const CdbTableColumn* column);
 	virtual ~ScanResultFieldMetadata();
 
 	void setPosition(int pos) noexcept;
 private:
-	int position;
-	const CdbTable* table;
+	int position; // position in scanned metadata, not in the table
+	const AbstractScanTableTarget* sourceTarget;
 	const CdbTableColumn* column;
 
 	UnicodeString* asName;

@@ -33,6 +33,7 @@ class IndexRecordScanner;
 class TableStore;
 class IndexStore;
 class AbstractAlterCommandLog;
+class AbstractScanTableTarget;
 
 class CdbTransaction {
 public:
@@ -48,7 +49,7 @@ public:
 
 	void insert(InsertLog* cmd);
 
-	TableTransactionScanner* getTableTransactionScanner(const CdbTableIdentifier* tableId, AbstractScanCondition* condition);
+	TableTransactionScanner* getTableTransactionScanner(const CdbTableIdentifier* tableId, const AbstractScanTableTarget* sourceTarget, AbstractScanCondition* condition);
 
 	IndexScanner* getRawIndexScanner(const CdbTableIdentifier* tableId, const UnicodeString* columnName,
 			CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq);

@@ -41,7 +41,7 @@ void JoinCandidateCursor::init() noexcept {
 }
 
 bool JoinCandidateCursor::finished() const noexcept {
-	return this->pos < this->list.size();
+	return !(this->pos < this->list.size());
 }
 
 void JoinCandidateCursor::inc() noexcept {

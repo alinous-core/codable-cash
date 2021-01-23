@@ -108,7 +108,7 @@ void CdbTransaction::insert(InsertLog* cmd) {
 	this->cmdList.addElement(cmd);
 }
 
-TableTransactionScanner* CdbTransaction::getTableTransactionScanner(const CdbTableIdentifier* tableId, AbstractScanCondition* condition) {
+TableTransactionScanner* CdbTransaction::getTableTransactionScanner(const CdbTableIdentifier* tableId, const AbstractScanTableTarget* sourceTarget, AbstractScanCondition* condition) {
 	CdbTable* table = getTableFromIdentifier(tableId);
 
 	const CdbOid* oid = table->getOid();
@@ -116,7 +116,7 @@ TableTransactionScanner* CdbTransaction::getTableTransactionScanner(const CdbTab
 
 	TableStore* tableStore = store->getTableStore(oid);
 
-	ScanResultMetadata* metadata = table->getMetadata(); __STP(metadata);
+	ScanResultMetadata* metadata = table->getMetadata(sourceTarget); __STP(metadata);
 
 	TableTransactionScanner* scanner = new TableTransactionScanner(metadata, this, tableStore, condition);
 

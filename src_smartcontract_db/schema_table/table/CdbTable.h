@@ -29,6 +29,7 @@ class SchemaObjectIdPublisher;
 class CdbTableIndex;
 class Schema;
 class ScanResultMetadata;
+class AbstractScanTableTarget;
 
 class CdbTable : public CdbBinaryObject {
 public:
@@ -102,7 +103,7 @@ public:
 
 	void adjustIndexColumnPosition() noexcept;
 
-	ScanResultMetadata* getMetadata() const noexcept;
+	ScanResultMetadata* getMetadata(const AbstractScanTableTarget* sourceTarget) const noexcept;
 private:
 	CdbOid* oid;
 

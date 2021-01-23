@@ -21,6 +21,8 @@
 #include "base/ArrayList.h"
 
 #include "engine/CdbOid.h"
+
+#include "trx/scan/transaction_scan_result/ScanResultMetadata.h"
 namespace codablecash {
 
 JoinCandidate::JoinCandidate(const JoinCandidate& inst) : AbstractJoinCandidateCollection(inst.joinType) {
@@ -98,6 +100,12 @@ const CdbTableColumn* JoinCandidate::getRightColumn(const AbstractScanTableTarge
 }
 
 AbstractCdbKey* JoinCandidate::makeKeyFromRecord(const CdbRecord* leftRecord) const noexcept {
+	const AbstractScanTableTarget* target = this->left->getTarget();
+
+	const ScanResultMetadata* meta = target->getMetadata();
+
+	const ArrayList<ScanResultFieldMetadata>* list = meta->getList();
+
 	// TODO: makerecordkey
 
 	return nullptr;

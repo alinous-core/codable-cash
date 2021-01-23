@@ -25,6 +25,7 @@ class SchemaObjectIdPublisher;
 class ScanResultFieldMetadata;
 class CdbTable;
 class ColumnModifyContext;
+class AbstractScanTableTarget;
 
 class CdbTableColumn : public CdbBinaryObject {
 public:
@@ -70,7 +71,7 @@ public:
 		return this->type;
 	}
 
-	ScanResultFieldMetadata* getFieldMetadata(const CdbTable* table) const noexcept;
+	ScanResultFieldMetadata* getFieldMetadata(const AbstractScanTableTarget* sourceTarget) const noexcept;
 
 	ColumnModifyContext* createModifyContextwithChange(const AlterModifyCommand* cmd, const UnicodeString* defaultStr);
 	ColumnModifyContext* createModifyContextwithChange(const AlterModifyCommand* cmd, const UnicodeString* defaultStr, bool update);

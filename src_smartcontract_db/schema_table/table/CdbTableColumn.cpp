@@ -171,8 +171,8 @@ void CdbTableColumn::setPosition(int position) noexcept {
 	this->position = position;
 }
 
-ScanResultFieldMetadata* CdbTableColumn::getFieldMetadata(const CdbTable* table) const noexcept {
-	ScanResultFieldMetadata* fld = new ScanResultFieldMetadata(table, this);
+ScanResultFieldMetadata* CdbTableColumn::getFieldMetadata(const AbstractScanTableTarget* sourceTarget) const noexcept {
+	ScanResultFieldMetadata* fld = new ScanResultFieldMetadata(sourceTarget, this);
 
 	return fld;
 }

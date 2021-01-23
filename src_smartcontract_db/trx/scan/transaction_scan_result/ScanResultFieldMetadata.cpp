@@ -18,16 +18,16 @@ namespace codablecash {
 ScanResultFieldMetadata::ScanResultFieldMetadata(const ScanResultFieldMetadata& inst) {
 	this->position = inst.position;
 
-	this->table = inst.table;
+	this->sourceTarget = inst.sourceTarget;
 	this->column = inst.column;
 	this->asName = inst.asName != nullptr ? new UnicodeString(inst.asName) : nullptr;
 	this->use = inst.use;
 }
 
-ScanResultFieldMetadata::ScanResultFieldMetadata(const CdbTable* table, const CdbTableColumn* column) {
+ScanResultFieldMetadata::ScanResultFieldMetadata(const AbstractScanTableTarget* sourceTarget, const CdbTableColumn* column) {
 	this->position = -1;
 
-	this->table = table;
+	this->sourceTarget = sourceTarget;
 	this->column = column;
 	this->asName = nullptr;
 	this->use = true;

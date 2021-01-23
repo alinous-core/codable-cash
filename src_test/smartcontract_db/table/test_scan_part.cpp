@@ -162,7 +162,7 @@ TEST(TestScanPartGroup, case01){
 		CdbTransaction* trx = db.newTransaction(); __STP(trx);
 
 		CdbTableIdentifier tableId(L"public", L"test_table");
-		TableTransactionScanner* scanner = trx->getTableTransactionScanner(&tableId, nullptr); __STP(scanner);
+		TableTransactionScanner* scanner = trx->getTableTransactionScanner(&tableId, nullptr, nullptr); __STP(scanner);
 		scanner->start();
 
 		while(scanner->hasNext()){
@@ -201,7 +201,7 @@ TEST(TestScanPartGroup, trxcacheScan){
 		insertRecord(trx, 3, L"yamamoto", &list);
 
 		CdbTableIdentifier tableId(L"public", L"test_table");
-		TableTransactionScanner* scanner = trx->getTableTransactionScanner(&tableId, nullptr); __STP(scanner);
+		TableTransactionScanner* scanner = trx->getTableTransactionScanner(&tableId, nullptr, nullptr); __STP(scanner);
 		scanner->start();
 
 		while(scanner->hasNext()){
