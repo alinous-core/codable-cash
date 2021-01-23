@@ -12,6 +12,8 @@
 
 namespace codablecash {
 
+class JoinCandidateCursor;
+
 class OuterJoinExecutor : public AbstractJoinExecutor {
 public:
 	OuterJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right, ScanResultMetadata* metadata, ScanJoinContext* context, AbstractScanCondition* filterCondition);
@@ -29,6 +31,7 @@ private:
 
 private:
 	CdbRecord* leftRecord;
+	JoinCandidateCursor* joinCursor;
 };
 
 } /* namespace codablecash */

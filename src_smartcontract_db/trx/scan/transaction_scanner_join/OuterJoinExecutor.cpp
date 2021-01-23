@@ -7,6 +7,7 @@
 
 #include "trx/scan/transaction_scanner_join/OuterJoinExecutor.h"
 #include "trx/scan/transaction_scanner_join/IJoinRightSource.h"
+#include "trx/scan/transaction_scanner_join/JoinCandidateCursor.h"
 
 #include "schema_table/record/table_record/CdbRecord.h"
 
@@ -14,20 +15,29 @@
 
 #include "scan_select/scan_planner/scanner/ctx/ScanJoinContext.h"
 
+
 namespace codablecash {
 
 OuterJoinExecutor::OuterJoinExecutor(IJoinLeftSource* left, IJoinRightSource* right, ScanResultMetadata* metadata
 		, ScanJoinContext* context, AbstractScanCondition* filterCondition)
 					: AbstractJoinExecutor(left, right, metadata, context, filterCondition){
 	this->leftRecord = nullptr;
+	this->joinCursor = nullptr;
 }
 
 OuterJoinExecutor::~OuterJoinExecutor() {
 	shutdown();
+
+	delete this->leftRecord;
+	delete this->joinCursor;
 }
 
 void OuterJoinExecutor::start() {
 	AbstractJoinExecutor::start();
+
+	AbstractJoinCandidate* joinCandidate = this->context->getJoinCandidate();
+	this->joinCursor = new JoinCandidateCursor(joinCandidate);
+	this->joinCursor->init();
 }
 
 bool OuterJoinExecutor::hasNext() {
@@ -56,8 +66,6 @@ bool OuterJoinExecutor::hasNextLeftRecord() {
 }
 
 void OuterJoinExecutor::onChangeLeft() {
-	AbstractJoinCandidate* joinCandidate = this->context->getJoinCandidate();
-
 
 	this->right->reset(nullptr);
 }
