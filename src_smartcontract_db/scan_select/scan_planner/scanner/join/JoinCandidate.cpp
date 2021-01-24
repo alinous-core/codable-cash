@@ -121,7 +121,6 @@ AbstractCdbKey* JoinCandidate::makeKeyFromRecord(const CdbRecord* leftRecord) co
 	AbstractCdbKey* valueKey = (v != nullptr) ? v->toKey() : nullptr;
 
 	key->addKey(valueKey);
-	// TODO: makerecordkey
 
 	return key;
 }
