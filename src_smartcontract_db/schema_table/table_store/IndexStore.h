@@ -41,7 +41,7 @@ public:
 	void insert(const CdbRecord* rec);
 	void reset();
 
-	IndexScanner* getScanner(CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq);
+	IndexScanner* getScanner(const CdbRecordKey* begin, bool beginEq, const CdbRecordKey* end, bool endEq);
 
 	Btree* getBtree() const noexcept;
 private:

@@ -143,7 +143,7 @@ void IndexStore::insert(const CdbRecord* rec) {
 	this->btree->putData(key, oidList);
 }
 
-IndexScanner* IndexStore::getScanner(CdbRecordKey* begin, bool beginEq, CdbRecordKey* end, bool endEq) {
+IndexScanner* IndexStore::getScanner(const CdbRecordKey* begin, bool beginEq, const CdbRecordKey* end, bool endEq) {
 	return new IndexScanner(begin, beginEq, end, endEq, this);
 }
 
