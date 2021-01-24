@@ -31,7 +31,7 @@ private:
 
 private:
 	CdbRecord* leftRecord;
-	JoinCandidateCursor* joinCursor;
+	JoinCandidateCursor* joinCandidateCursor;
 };
 
 } /* namespace codablecash */

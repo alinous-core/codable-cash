@@ -53,11 +53,12 @@ void RightTableIndexTransactionScanner::reset(const AbstractCdbKey* key) {
 	const CdbRecordKey* rkey = dynamic_cast<const CdbRecordKey*>(key);
 
 	IndexScanner* s = this->indexStore->getScanner(rkey, true, rkey, true);
+	s->start();
 	setScanner(s);
 }
 
 bool RightTableIndexTransactionScanner::hasNext() {
-	return false;
+	return this->scanner->hasNext();
 }
 
 const CdbRecord* RightTableIndexTransactionScanner::next() {

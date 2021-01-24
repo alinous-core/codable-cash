@@ -24,32 +24,39 @@ OuterJoinExecutor::OuterJoinExecutor(IJoinLeftSource* left, IJoinRightSource* ri
 		, ScanJoinContext* context, AbstractScanCondition* filterCondition)
 					: AbstractJoinExecutor(left, right, metadata, context, filterCondition){
 	this->leftRecord = nullptr;
-	this->joinCursor = nullptr;
+	this->joinCandidateCursor = nullptr;
 }
 
 OuterJoinExecutor::~OuterJoinExecutor() {
 	shutdown();
 
 	delete this->leftRecord;
-	delete this->joinCursor;
+	delete this->joinCandidateCursor;
 }
 
 void OuterJoinExecutor::start() {
 	AbstractJoinExecutor::start();
 
 	AbstractJoinCandidate* joinCandidate = this->context->getJoinCandidate();
-	this->joinCursor = new JoinCandidateCursor(joinCandidate);
-	this->joinCursor->init();
+	this->joinCandidateCursor = new JoinCandidateCursor(joinCandidate);
+	this->joinCandidateCursor->init();
 }
 
 bool OuterJoinExecutor::hasNext() {
-	while(!this->joinCursor->finished()){
+	while(!this->joinCandidateCursor->finished()){
 		if(!hasNextLeftRecord()){
-			this->joinCursor->inc();
+			this->joinCandidateCursor->inc();
 
 			delete this->leftRecord, this->leftRecord = nullptr;
 			continue;
 		}
+
+		// right scan for left record
+		if(!this->right->hasNext()){
+			continue;
+		}
+
+		const CdbRecord* rightRecord = this->right->next();
 
 		return true;
 	}
@@ -75,7 +82,7 @@ bool OuterJoinExecutor::hasNextLeftRecord() {
 }
 
 void OuterJoinExecutor::onChangeLeft() {
-	AbstractCdbKey* key = this->joinCursor->makeKey(this->leftRecord); __STP(key);
+	AbstractCdbKey* key = this->joinCandidateCursor->makeKey(this->leftRecord); __STP(key);
 
 	this->right->reset(key);
 }
