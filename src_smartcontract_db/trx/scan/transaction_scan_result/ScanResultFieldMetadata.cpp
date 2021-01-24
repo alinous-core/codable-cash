@@ -7,11 +7,14 @@
 
 #include "trx/scan/transaction_scan_result/ScanResultFieldMetadata.h"
 
+#include "scan_select/scan_condition/params/ColumnIdentifierScanParam.h"
+
 #include "schema_table/table/CdbTable.h"
 #include "schema_table/table/CdbTableColumn.h"
 
 #include "base/UnicodeString.h"
 
+#include "engine/CdbOid.h"
 
 namespace codablecash {
 
@@ -39,6 +42,27 @@ ScanResultFieldMetadata::~ScanResultFieldMetadata() {
 
 void ScanResultFieldMetadata::setPosition(int pos) noexcept {
 	this->position = pos;
+}
+
+bool ScanResultFieldMetadata::match(ColumnIdentifierScanParam* scanColumnId) const noexcept {
+	const AbstractScanTableTarget* sourceTarget = scanColumnId->getSourceTarget();
+
+	if(this->sourceTarget != sourceTarget){
+		return false;
+	}
+
+	// Database table column case
+	const CdbTableColumn* col = scanColumnId->getCdbColumn();
+	if(this->column != nullptr && col != nullptr){
+		const CdbOid* thisOid = this->column->getOid();
+		const CdbOid* colOid = col->getOid();
+
+		return thisOid->equals(colOid);
+	}
+
+	// FIXME virtual column like subquery
+
+	return false;
 }
 
 } /* namespace codablecash */

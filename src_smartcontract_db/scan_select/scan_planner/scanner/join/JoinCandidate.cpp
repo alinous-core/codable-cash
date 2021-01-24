@@ -120,7 +120,11 @@ const ScanResultFieldMetadata* JoinCandidate::findField(const ScanResultMetadata
 
 	int maxLoop = list->size();
 	for(int i = 0; i != maxLoop; ++i){
+		ScanResultFieldMetadata* f = list->get(i);
 
+
+
+		// TODO: match
 	}
 
 	return ret;

@@ -17,6 +17,7 @@ namespace codablecash {
 
 class AbstractScanTableTarget;
 class CdbTableColumn;
+class ColumnIdentifierScanParam;
 
 class ScanResultFieldMetadata {
 public:
@@ -26,6 +27,8 @@ public:
 	virtual ~ScanResultFieldMetadata();
 
 	void setPosition(int pos) noexcept;
+
+	bool match(ColumnIdentifierScanParam* scanColumnId) const noexcept;
 private:
 	int position; // position in scanned metadata, not in the table
 	const AbstractScanTableTarget* sourceTarget;
