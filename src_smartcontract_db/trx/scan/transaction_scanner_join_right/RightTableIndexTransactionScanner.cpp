@@ -19,6 +19,7 @@
 #include "trx/transaction/CdbTransaction.h"
 #include "trx/transaction/CdbTransactionManager.h"
 
+#include "scan_select/scan/IndexScanner.h"
 
 namespace codablecash {
 

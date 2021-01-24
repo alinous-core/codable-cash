@@ -27,8 +27,12 @@ public:
 	virtual ~ScanResultFieldMetadata();
 
 	void setPosition(int pos) noexcept;
+	int getPosition() const noexcept {
+		return position;
+	}
 
 	bool match(ColumnIdentifierScanParam* scanColumnId) const noexcept;
+
 private:
 	int position; // position in scanned metadata, not in the table
 	const AbstractScanTableTarget* sourceTarget;

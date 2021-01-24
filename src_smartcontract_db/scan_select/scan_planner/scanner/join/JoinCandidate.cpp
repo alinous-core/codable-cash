@@ -25,7 +25,14 @@
 #include "trx/scan/transaction_scan_result/ScanResultMetadata.h"
 #include "trx/scan/transaction_scan_result/ScanResultFieldMetadata.h"
 
+#include "schema_table/record/table_record_key/CdbRecordKey.h"
+#include "schema_table/record/table_record/CdbRecord.h"
+
+#include "schema_table/record/table_record_value/AbstractCdbValue.h"
+
+#include "schema_table/record/table_record_key/AbstractCdbKey.h"
 namespace codablecash {
+
 
 JoinCandidate::JoinCandidate(const JoinCandidate& inst) : AbstractJoinCandidateCollection(inst.joinType) {
 	this->left = dynamic_cast<ColumnIdentifierScanParam*>(inst.left->clone());
@@ -103,15 +110,20 @@ const CdbTableColumn* JoinCandidate::getRightColumn(const AbstractScanTableTarge
 
 AbstractCdbKey* JoinCandidate::makeKeyFromRecord(const CdbRecord* leftRecord) const noexcept {
 	const AbstractScanTableTarget* sourceTarget = this->left->getSourceTarget();
-
 	const ScanResultMetadata* meta = sourceTarget->getMetadata();
-
 
 	const ScanResultFieldMetadata* fieldMeta = findField(meta, sourceTarget);
 
+	CdbRecordKey* key = new CdbRecordKey();
+	int pos = fieldMeta->getPosition();
+
+	const AbstractCdbValue* v = leftRecord->get(pos);
+	AbstractCdbKey* valueKey = (v != nullptr) ? v->toKey() : nullptr;
+
+	key->addKey(valueKey);
 	// TODO: makerecordkey
 
-	return nullptr;
+	return key;
 }
 
 const ScanResultFieldMetadata* JoinCandidate::findField(const ScanResultMetadata* meta,
