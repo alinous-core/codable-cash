@@ -27,6 +27,7 @@ RightTableIndexTransactionScanner::RightTableIndexTransactionScanner(ScanResultM
 			: AbstractTransactionScanner(metadata, trx, table, filterCondition){
 	this->index = index;
 	this->indexStore = nullptr;
+	this->scanner = nullptr;
 }
 
 RightTableIndexTransactionScanner::~RightTableIndexTransactionScanner() {
@@ -50,8 +51,8 @@ void RightTableIndexTransactionScanner::start() {
 void RightTableIndexTransactionScanner::reset(const AbstractCdbKey* key) {
 	const CdbRecordKey* rkey = dynamic_cast<const CdbRecordKey*>(key);
 
-	this->indexStore->getScanner(rkey, true, rkey, true);
-
+	IndexScanner* s = this->indexStore->getScanner(rkey, true, rkey, true);
+	setScanner(s);
 }
 
 bool RightTableIndexTransactionScanner::hasNext() {
@@ -63,6 +64,16 @@ const CdbRecord* RightTableIndexTransactionScanner::next() {
 }
 
 void RightTableIndexTransactionScanner::shutdown() {
+	setScanner(nullptr);
+}
+
+void RightTableIndexTransactionScanner::setScanner(IndexScanner* scanner) noexcept {
+	if(this->scanner != nullptr){
+		this->scanner->shutdown();
+		delete this->scanner;
+	}
+
+	this->scanner = scanner;
 }
 
 } /* namespace codablecash */

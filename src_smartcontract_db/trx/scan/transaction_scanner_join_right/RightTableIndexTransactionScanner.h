@@ -16,6 +16,7 @@ namespace codablecash {
 
 class CdbTableIndex;
 class IndexStore;
+class IndexScanner;
 
 class RightTableIndexTransactionScanner : public IJoinRightSource, public AbstractTransactionScanner {
 public:
@@ -32,8 +33,12 @@ public:
 	virtual void shutdown();
 
 private:
+	void setScanner(IndexScanner* scanner) noexcept;
+
+private:
 	CdbTableIndex* index;
 	IndexStore* indexStore;
+	IndexScanner* scanner;
 };
 
 } /* namespace codablecash */
