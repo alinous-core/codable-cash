@@ -14,8 +14,6 @@ NullScanParam::NullScanParam(const NullScanParam& inst) {
 }
 
 NullScanParam::NullScanParam() {
-	// TODO Auto-generated constructor stub
-
 }
 
 NullScanParam::~NullScanParam() {
@@ -23,6 +21,8 @@ NullScanParam::~NullScanParam() {
 }
 
 const UnicodeString* NullScanParam::toStringCode() noexcept {
+	// FIXME NullScanParam::toStringCode()
+	return nullptr;
 }
 
 IValueProvider* NullScanParam::clone() const noexcept {

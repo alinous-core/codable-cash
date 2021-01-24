@@ -110,10 +110,13 @@ bool MultipleColumnIndex::isTopEq() const noexcept {
 }
 
 const IValueProvider* MultipleColumnIndex::getTopValue() const noexcept {
-
+	// FIXME MultipleColumnIndex::getTopValue()
+	return nullptr;
 }
 
 const IValueProvider* MultipleColumnIndex::getValue() const noexcept {
+	// FIXME MultipleColumnIndex::getValue()
+	return nullptr;
 }
 
 void MultipleColumnIndex::makeCodeString() noexcept {
