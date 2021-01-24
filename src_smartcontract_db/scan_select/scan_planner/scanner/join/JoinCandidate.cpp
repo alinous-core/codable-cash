@@ -23,6 +23,8 @@
 #include "engine/CdbOid.h"
 
 #include "trx/scan/transaction_scan_result/ScanResultMetadata.h"
+#include "trx/scan/transaction_scan_result/ScanResultFieldMetadata.h"
+
 namespace codablecash {
 
 JoinCandidate::JoinCandidate(const JoinCandidate& inst) : AbstractJoinCandidateCollection(inst.joinType) {
@@ -122,9 +124,10 @@ const ScanResultFieldMetadata* JoinCandidate::findField(const ScanResultMetadata
 	for(int i = 0; i != maxLoop; ++i){
 		ScanResultFieldMetadata* f = list->get(i);
 
-
-
-		// TODO: match
+		if(f->match(this->left)){
+			ret = f;
+			break;
+		}
 	}
 
 	return ret;
